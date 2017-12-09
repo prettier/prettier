@@ -60,9 +60,7 @@ function normalize(options) {
     normalized.trailingComma = "none";
   }
 
-  // TODO: check if this changes users' options
-
-  if (normalized.parser === "python") {
+  if (normalized.parser === "python" && !normalized.tabWidth) {
     normalized.tabWidth = 4;
   }
 
