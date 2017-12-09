@@ -207,7 +207,6 @@ function attach(comments, ast, text, options) {
           comment
         ) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
-        handleObjectPropertyComments(enclosingNode, comment) ||
         handleForComments(enclosingNode, precedingNode, comment) ||
         handleUnionTypeComments(
           precedingNode,
@@ -749,14 +748,6 @@ function handleLastFunctionArgComments(
 
 function handleImportSpecifierComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "ImportSpecifier") {
-    addLeadingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleObjectPropertyComments(enclosingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "ObjectProperty") {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
