@@ -21,9 +21,9 @@ function printArguments(print, path, argsKey, defaultsKey) {
   // if the next element is a default value we merge it with
   // the current one
 
-  const merge = [...n[argsKey], ...n[defaultsKey]].sort(
-    (a, b) => a.col_offset - b.col_offset
-  );
+  const merge = n[argsKey]
+    .concat(n[defaultsKey])
+    .sort((a, b) => a.col_offset - b.col_offset);
 
   const parts = [];
 
@@ -310,7 +310,7 @@ function genericPrint(path, options, print) {
 
       const pairs = ops.map((op, i) => concat([" ", op, " ", comparators[i]]));
 
-      return concat([path.call(print, "left"), ...pairs]);
+      return concat([path.call(print, "left")].concat(pairs));
     }
 
     case "Lt": {
@@ -384,14 +384,13 @@ function genericPrint(path, options, print) {
 
       if (n.orelse.length > 0) {
         if (n.orelse.length === 1 && n.orelse[0].ast_type !== "If") {
-          parts = [
-            ...parts,
+          parts.push(
             line,
             "else:",
             indent(concat([line, concat(path.map(print, "orelse"))]))
-          ];
+          );
         } else {
-          parts = [...parts, line, concat(path.map(print, "orelse"))];
+          parts.push(line, concat(path.map(print, "orelse")));
         }
       }
 
@@ -446,16 +445,10 @@ function genericPrint(path, options, print) {
     }
 
     case "comprehension": {
-      let parts = [printForIn(path, print)];
+      const parts = [printForIn(path, print)];
 
       if (n.ifs.length > 0) {
-        parts = [
-          ...parts,
-          line,
-          "if",
-          line,
-          join(line, path.map(print, "ifs"))
-        ];
+        parts.push(line, "if", line, join(line, path.map(print, "ifs")));
       }
 
       return concat(parts);
@@ -476,7 +469,7 @@ function genericPrint(path, options, print) {
     }
 
     case "Try": {
-      let parts = [
+      const parts = [
         "try:",
         indent(concat([hardline, printBody(path, print)])),
         hardline,
@@ -484,39 +477,39 @@ function genericPrint(path, options, print) {
       ];
 
       if (n.orelse.length > 0) {
-        parts = [
-          ...parts,
+        parts.push(
           hardline,
           "else:",
           indent(concat([hardline, concat(path.map(print, "orelse"))]))
-        ];
+        );
       }
 
       if (n.finalbody.length > 0) {
-        parts = [
-          ...parts,
+        parts.push(
           hardline,
           "finally:",
           indent(concat([hardline, concat(path.map(print, "finalbody"))]))
-        ];
+        );
       }
 
       return concat(parts);
     }
 
     case "ExceptHandler": {
-      let parts = ["except"];
+      const parts = ["except"];
 
       if (n.type) {
-        parts = [...parts, line, path.call(print, "type")];
+        parts.push(line, path.call(print, "type"));
       }
 
       if (n.name) {
-        parts = [...parts, line, "as", line, n.name];
+        parts.push(line, "as", line, n.name);
       }
 
+      parts.push(":");
+
       return concat([
-        group(concat([...parts, ":"])),
+        group(concat(parts)),
         indent(concat([hardline, printBody(path, print)]))
       ]);
     }
