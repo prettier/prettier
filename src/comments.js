@@ -273,7 +273,6 @@ function attach(comments, ast, text, options) {
         handlePropertyComments(enclosingNode, comment) ||
         handleExportNamedDeclarationComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleClassMethodComments(enclosingNode, comment) ||
         handleTypeAliasComments(enclosingNode, followingNode, comment) ||
         handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
       ) {
@@ -882,14 +881,6 @@ function handleImportDeclarationComments(
 function handleAssignmentPatternComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "AssignmentPattern") {
     addLeadingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleClassMethodComments(enclosingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "ClassMethod") {
-    addTrailingComment(enclosingNode, comment);
     return true;
   }
   return false;
