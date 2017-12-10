@@ -3,10 +3,10 @@
 exports[`call.py 1`] = `
 print(123)
 
-random.print(123)
+random.run(123)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 print(123)
 
-random.print(123)
+random.run(123)
 
 `;

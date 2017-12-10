@@ -1,3 +1,3 @@
 print(123)
 
-random.print(123)
+random.run(123)
