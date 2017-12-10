@@ -975,9 +975,13 @@ function genericPrintNoParens(path, options, print, args) {
       let separatorParts = [];
       const props = propsAndLoc.sort((a, b) => a.loc - b.loc).map(prop => {
         const result = concat(separatorParts.concat(group(prop.printed)));
-        separatorParts = hasNodeIgnoreComment(prop.node)
-          ? [line]
-          : [separator, line];
+        separatorParts = [separator, line];
+        if (
+          hasNodeIgnoreComment(prop.node) &&
+          prop.node.type === "TSPropertySignature"
+        ) {
+          separatorParts.shift();
+        }
         if (util.isNextLineEmpty(options.originalText, prop.node)) {
           separatorParts.push(hardline);
         }

@@ -64,6 +64,12 @@ function a() {
         )
       }
 }
+
+const response = {
+  // prettier-ignore
+  '_text': 'Turn on the lights',
+  intent: 'lights',
+};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function a() {
   // prettier-ignore
@@ -127,5 +133,11 @@ function a() {
     );
   }
 }
+
+const response = {
+  // prettier-ignore
+  '_text': 'Turn on the lights',
+  intent: "lights"
+};
 
 `;
