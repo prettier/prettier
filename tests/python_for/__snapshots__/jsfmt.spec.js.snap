@@ -8,3 +8,12 @@ for x in range(10):
     print(x)
 
 `;
+
+exports[`for.py 2`] = `
+for x in range(10):
+    print(x)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for x in range(10):
+    print(x)
+
+`;

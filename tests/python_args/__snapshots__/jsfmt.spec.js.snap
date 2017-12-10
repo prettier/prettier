@@ -8,3 +8,12 @@ def hello(*args):
     print("hello world", args)
 
 `;
+
+exports[`args.py 2`] = `
+def hello(*args):
+    print("hello world", args)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def hello(*args):
+    print("hello world", args)
+
+`;

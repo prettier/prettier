@@ -12,3 +12,16 @@ else:
     print(x)
 
 `;
+
+exports[`for_else.py 2`] = `
+for x in range(10):
+    print(x)
+else:
+    print(x)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for x in range(10):
+    print(x)
+else:
+    print(x)
+
+`;

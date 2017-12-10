@@ -14,3 +14,18 @@ def example(first):
     return first
 
 `;
+
+exports[`return.py 2`] = `
+def example(first):
+    if False:
+        return
+
+    return first
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def example(first):
+    if False:
+        return
+
+    return first
+
+`;

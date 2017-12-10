@@ -8,3 +8,12 @@ def hello(x, a=123, b=456):
     print("hello world", a)
 
 `;
+
+exports[`default_args.py 2`] = `
+def hello(x, a=123, b = 456):
+    print("hello world", a)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def hello(x, a=123, b=456):
+    print("hello world", a)
+
+`;

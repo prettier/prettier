@@ -10,3 +10,14 @@ class BankAccount(object):
         self.balance = initial_balance
 
 `;
+
+exports[`class.py 2`] = `
+class BankAccount(object):
+    def __init__(self, initial_balance=0):
+        self.balance = initial_balance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class BankAccount(object):
+    def __init__(self, initial_balance=0):
+        self.balance = initial_balance
+
+`;

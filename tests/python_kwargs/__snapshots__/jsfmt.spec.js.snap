@@ -8,3 +8,12 @@ def hello(a, **kwargs):
     print("hello world", a)
 
 `;
+
+exports[`kwargs.py 2`] = `
+def hello(a, **kwargs):
+    print("hello world", a)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def hello(a, **kwargs):
+    print("hello world", a)
+
+`;

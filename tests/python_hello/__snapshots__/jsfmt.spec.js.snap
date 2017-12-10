@@ -8,3 +8,12 @@ def hello(x, y):
     print("hello world", x, y)
 
 `;
+
+exports[`hello.py 2`] = `
+def hello(x, y):
+    print("hello world", x, y)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def hello(x, y):
+    print("hello world", x, y)
+
+`;

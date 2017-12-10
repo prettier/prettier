@@ -26,3 +26,30 @@ from .example import *
 from ..example import *
 
 `;
+
+exports[`import.py 2`] = `
+import sys
+
+from models import X
+
+from .models import X
+
+from .models import B as C
+
+from .example import *
+
+from ..example import *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import sys
+
+from models import X
+
+from .models import X
+
+from .models import B as C
+
+from .example import *
+
+from ..example import *
+
+`;

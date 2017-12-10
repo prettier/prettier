@@ -1,2 +1,2 @@
-def hello(a, *, example=False, **kwargs):
+def hello(a, example=False, **kwargs):
     print("hello world", example)

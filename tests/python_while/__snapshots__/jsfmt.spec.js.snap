@@ -8,3 +8,12 @@ while True:
     print(10)
 
 `;
+
+exports[`while.py 2`] = `
+while True:
+    print(10)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+while True:
+    print(10)
+
+`;
