@@ -519,7 +519,6 @@ function genericPrintNoParens(path, options, print, args) {
         }
       );
       if (dangling) {
-        console.log(dangling);
         parts.push(" ", dangling);
       }
 
