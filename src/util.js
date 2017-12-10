@@ -818,6 +818,7 @@ module.exports = {
   hasSpaces,
   locStart,
   locEnd,
+  makeString,
   setLocStart,
   setLocEnd,
   startsWithNoLookaheadToken,

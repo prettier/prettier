@@ -7,7 +7,7 @@ string"""
 b = '''another multiline
 string'''
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-a = "it is "ok""
+a = 'it is "ok"'
 
 a = """this is a multiline
 string"""
@@ -24,7 +24,7 @@ string"""
 b = '''another multiline
 string'''
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-a = "it is "ok""
+a = 'it is "ok"'
 
 a = """this is a multiline
 string"""
