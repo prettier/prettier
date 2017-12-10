@@ -36,13 +36,13 @@ type Comment = {
 type Props = {
   onChange: (
     | {
-      name: string
-    }
+        name: string
+      }
     | {
-      title: string
-    }
+        title: string
+      }
     | {
-      year: year
-    }
+        year: year
+      }
   ) => void
 };
