@@ -3,12 +3,9 @@
 const spawnSync = require("child_process").spawnSync;
 const path = require("path");
 
-function parse(text /*, parsers, opts*/) {
-  // TODO: return an useful error when https://github.com/fpoli/python-astexport
-  // is not installed or when it fails
-
+function parseText(text, pythonExecutable) {
   const executionResult = spawnSync(
-    "python",
+    pythonExecutable,
     [path.join(__dirname, "../vendor/python/astexport.py")],
     {
       input: text
@@ -19,6 +16,21 @@ function parse(text /*, parsers, opts*/) {
 
   if (error) {
     throw new Error(error);
+  }
+
+  return executionResult;
+}
+
+function parse(text /*, parsers, opts*/) {
+  let executionResult;
+
+  // TODO: I am assuming that python3 and python2 will
+  // always be in the PATH, will this always be the case?
+
+  try {
+    executionResult = parseText(text, "python3");
+  } catch (e) {
+    executionResult = parseText(text, "python2");
   }
 
   const ast = JSON.parse(executionResult.stdout.toString());
