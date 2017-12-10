@@ -506,8 +506,21 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
-      if (hasDanglingComments(n)) {
-        parts.push(" ", comments.printDanglingComments(path, options, true));
+      const dangling = comments.printDanglingComments(
+        path,
+        options,
+        /* sameIndent */ true,
+        comment => {
+          const nextCharacter = util.getNextNonSpaceNonCommentCharacterIndex(
+            options.originalText,
+            comment
+          );
+          return options.originalText.substr(nextCharacter, 2) === "=>";
+        }
+      );
+      if (dangling) {
+        console.log(dangling);
+        parts.push(" ", dangling);
       }
 
       parts.push(" =>");
@@ -3185,7 +3198,16 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     return concat([
       typeParams,
       "(",
-      comments.printDanglingComments(path, options, /* sameIndent */ true),
+      comments.printDanglingComments(
+        path,
+        options,
+        /* sameIndent */ true,
+        comment =>
+          util.getNextNonSpaceNonCommentCharacter(
+            options.originalText,
+            comment
+          ) === ")"
+      ),
       ")"
     ]);
   }

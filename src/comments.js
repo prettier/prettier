@@ -1057,7 +1057,7 @@ function printTrailingComment(commentPath, print, options) {
   return concat([lineSuffix(" " + contents), !isBlock ? breakParent : ""]);
 }
 
-function printDanglingComments(path, options, sameIndent) {
+function printDanglingComments(path, options, sameIndent, filter) {
   const parts = [];
   const node = path.getValue();
 
@@ -1067,7 +1067,12 @@ function printDanglingComments(path, options, sameIndent) {
 
   path.each(commentPath => {
     const comment = commentPath.getValue();
-    if (comment && !comment.leading && !comment.trailing) {
+    if (
+      comment &&
+      !comment.leading &&
+      !comment.trailing &&
+      (!filter || filter(comment))
+    ) {
       parts.push(printComment(commentPath, options));
     }
   }, "comments");
