@@ -54,6 +54,19 @@ Here are a few examples of things that are out of scope for prettier:
 * Adding/removing `{}` and `return` where they are optional.
 * Turning `?:` into `if then else`.
 
+## Can prettier add an option to do X?
+
+A lot of the current options in prettier come from the `recast` options of which prettier is a fork, and some of them were added later due to popular demand. Ideally we would not want options in prettier at all to keep printing things consistently and have less maintenance overhead but the JavaScript community has already chosen a few different coding styles people are used to:
+
+* semicolons/no semicolons
+* single/double quotes
+* spaces between brackets/parens
+* more recently, parens in arrow function arguments
+
+Supporting all of these options are a maintenance burden because it's hard to keep track when they start conflicting with each other; and if you want to have a comprehensive test suite, it would grow exponentially with the number of options you support.
+
+For that reason we decided to only support new options that allowed a large number of people to adopt prettier that wouldn't otherwise. That means we'll have to say no to a lot of options that don't have a large demand for them. For everything else, we believe using ESLint (see [related projects](related-projects.md)) might fix most of the problems people encounter with prettier formatting.
+
 <!--
 ### Semi-colons
 
