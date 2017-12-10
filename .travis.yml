@@ -15,8 +15,9 @@ matrix:
 install:
   - NODE_ENV=development yarn install
 before_install:
+  - sudo add-apt-repository -y ppa:fkrull/deadsnakes
   - sudo apt-get update
-  - sudo apt-get install python3
+  - sudo apt-get install -y python3.5
 before_script:
   - yarn check-deps
   - if [ "${NODE_ENV}" = "production" ]; then yarn build; fi
