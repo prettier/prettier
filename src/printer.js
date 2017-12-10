@@ -445,15 +445,10 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "Identifier": {
-      const parentNode = path.getParentNode();
-      const isFunctionDeclarationIdentifier =
-        parentNode.type === "DeclareFunction" && parentNode.id === n;
-
       return concat([
         n.name,
         printOptionalToken(path),
-        n.typeAnnotation && !isFunctionDeclarationIdentifier ? ": " : "",
-        path.call(print, "typeAnnotation")
+        printTypeAnnotation(path, options, print)
       ]);
     }
     case "SpreadElement":
@@ -468,8 +463,7 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([
         "...",
         path.call(print, "argument"),
-        n.typeAnnotation ? ": " : "",
-        path.call(print, "typeAnnotation")
+        printTypeAnnotation(path, options, print)
       ]);
     case "FunctionDeclaration":
     case "FunctionExpression":
@@ -1027,8 +1021,7 @@ function genericPrintNoParens(path, options, print, args) {
           ),
           concat([options.bracketSpacing ? line : softline, rightBrace]),
           printOptionalToken(path),
-          n.typeAnnotation ? ": " : "",
-          path.call(print, "typeAnnotation")
+          printTypeAnnotation(path, options, print)
         ]);
       }
 
@@ -1158,11 +1151,10 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
-      parts.push(printOptionalToken(path));
-
-      if (n.typeAnnotation) {
-        parts.push(": ", path.call(print, "typeAnnotation"));
-      }
+      parts.push(
+        printOptionalToken(path),
+        printTypeAnnotation(path, options, print)
+      );
 
       return concat(parts);
     case "SequenceExpression": {
@@ -1925,9 +1917,7 @@ function genericPrintNoParens(path, options, print, args) {
       } else {
         parts.push(printPropertyKey(path, options, print));
       }
-      if (n.typeAnnotation) {
-        parts.push(": ", path.call(print, "typeAnnotation"));
-      }
+      parts.push(printTypeAnnotation(path, options, print));
       if (n.value) {
         parts.push(
           " =",
@@ -3155,6 +3145,22 @@ function printArgumentsList(path, options, print) {
     ]),
     { shouldBreak: printedArguments.some(willBreak) || anyArgEmptyLine }
   );
+}
+
+function printTypeAnnotation(path, options, print) {
+  const node = path.getValue();
+  if (!node.typeAnnotation) {
+    return "";
+  }
+
+  const parentNode = path.getParentNode();
+  const isFunctionDeclarationIdentifier =
+    parentNode.type === "DeclareFunction" && parentNode.id === node;
+
+  return concat([
+    isFunctionDeclarationIdentifier ? "" : ": ",
+    path.call(print, "typeAnnotation")
+  ]);
 }
 
 function printFunctionTypeParameters(path, options, print) {
