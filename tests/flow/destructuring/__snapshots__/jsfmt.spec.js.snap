@@ -165,9 +165,9 @@ obj_prop_var({}); // ok
 obj_prop_var({ p: {} }); // ok
 obj_prop_var({ p: { q: null } }); // ok, provides add'l lower bound
 
-function obj_rest({ p: { q, ...o } = { q: 0, r: 0 } } = {
-  p: { q: 0, r: "" }
-}) {
+function obj_rest(
+  { p: { q, ...o } = { q: 0, r: 0 } } = { p: { q: 0, r: "" } }
+) {
   // errors:
   // * number  ~> void, from default on _.p
   // * string  ~> void, from default on _
@@ -179,13 +179,15 @@ obj_rest({}); // ok
 obj_rest({ p: {} }); // ok
 obj_rest({ p: { q: 0, r: null } });
 
-function obj_prop_annot({
-  p = true // error: boolean ~> string
-}: {
-  p: string
-} = {
-  p: 0 // error: number ~> string
-}) {
+function obj_prop_annot(
+  {
+    p = true // error: boolean ~> string
+  }: {
+    p: string
+  } = {
+    p: 0 // error: number ~> string
+  }
+) {
   (p: void); // error: string ~> void
 }
 
