@@ -304,13 +304,8 @@ function attach(comments, ast, text, options) {
         handleCommentInEmptyParens(text, enclosingNode, comment) ||
         handleMethodNameComments(text, enclosingNode, precedingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleFunctionNameComments(
-          text,
-          enclosingNode,
-          precedingNode,
-          comment
-        ) ||
-        handleCommentAfterArrowParams(text, enclosingNode, comment)
+        handleCommentAfterArrowParams(text, enclosingNode, comment) ||
+        handleFunctionNameComments(text, enclosingNode, precedingNode, comment)
       ) {
         // We're good
       } else if (precedingNode && followingNode) {
