@@ -22,7 +22,8 @@ const defaults = {
   requirePragma: false,
   semi: true,
   proseWrap: "preserve",
-  arrowParens: "avoid"
+  arrowParens: "avoid",
+  pythonVersion: ""
 };
 
 const exampleConfig = Object.assign({}, defaults, {

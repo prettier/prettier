@@ -21,17 +21,9 @@ function parseText(text, pythonExecutable) {
   return executionResult;
 }
 
-function parse(text /*, parsers, opts*/) {
-  let executionResult;
-
-  // TODO: I am assuming that python3 and python2 will
-  // always be in the PATH, will this always be the case?
-
-  try {
-    executionResult = parseText(text, "python3");
-  } catch (e) {
-    executionResult = parseText(text, "python2");
-  }
+function parse(text, parsers, opts) {
+  const pythonExectuable = `python${opts.pythonVersion}`;
+  const executionResult = parseText(text, pythonExectuable);
 
   const ast = JSON.parse(executionResult.stdout.toString());
 
