@@ -2296,6 +2296,7 @@ function genericPrintNoParens(path, options, print, args) {
         parent.type !== "TypeParameterInstantiation" &&
         parent.type !== "GenericTypeAnnotation" &&
         parent.type !== "TSTypeReference" &&
+        parent.type !== "FunctionTypeParam" &&
         !(
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator") &&
@@ -2314,7 +2315,7 @@ function genericPrintNoParens(path, options, print, args) {
       // | child2
       const printed = path.map(typePath => {
         let printedType = typePath.call(print);
-        if (!shouldHug && shouldIndent) {
+        if (!shouldHug) {
           printedType = align(2, printedType);
         }
         return comments.printComments(typePath, () => printedType, options);
