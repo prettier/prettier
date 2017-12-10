@@ -130,6 +130,10 @@ function genericPrint(path, options, print) {
       return path.call(print, "value");
     }
 
+    case "Print": {
+      return concat(["print(", join(", ", path.map(print, "values")), ")"]);
+    }
+
     case "Call": {
       return concat([
         path.call(print, "func"),
