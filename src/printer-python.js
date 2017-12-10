@@ -10,6 +10,15 @@ const group = docBuilders.group;
 const indent = docBuilders.indent;
 // const ifBreak = docBuilders.ifBreak;
 
+function printTry(print, path) {
+  return [
+    "try:",
+    indent(concat([hardline, printBody(path, print)])),
+    hardline,
+    join(hardline, path.map(print, "handlers"))
+  ];
+}
+
 function printArguments(print, path, argsKey, defaultsKey) {
   const n = path.getValue();
 
@@ -475,12 +484,7 @@ function genericPrint(path, options, print) {
     }
 
     case "Try": {
-      const parts = [
-        "try:",
-        indent(concat([hardline, printBody(path, print)])),
-        hardline,
-        join(hardline, path.map(print, "handlers"))
-      ];
+      const parts = printTry(print, path);
 
       if (n.orelse.length > 0) {
         parts.push(
@@ -501,6 +505,24 @@ function genericPrint(path, options, print) {
       return concat(parts);
     }
 
+    case "TryFinally": {
+      const parts = [printBody(path, print)];
+
+      if (n.finalbody.length > 0) {
+        parts.push(
+          hardline,
+          "finally:",
+          indent(concat([hardline, concat(path.map(print, "finalbody"))]))
+        );
+      }
+
+      return concat(parts);
+    }
+
+    case "TryExcept": {
+      return concat(printTry(print, path));
+    }
+
     case "ExceptHandler": {
       const parts = ["except"];
 
@@ -509,7 +531,7 @@ function genericPrint(path, options, print) {
       }
 
       if (n.name) {
-        parts.push(line, "as", line, n.name);
+        parts.push(line, "as", line, path.call(print, "name"));
       }
 
       parts.push(":");
@@ -521,7 +543,10 @@ function genericPrint(path, options, print) {
     }
 
     case "Raise": {
-      return group(concat(["raise", line, path.call(print, "exc")]));
+      // on python2 exc is called type
+      const type = n.type ? "type" : "exc";
+
+      return group(concat(["raise", line, path.call(print, type)]));
     }
 
     case "Return": {
