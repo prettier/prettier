@@ -506,6 +506,10 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
+      if (hasDanglingComments(n)) {
+        parts.push(" ", comments.printDanglingComments(path, options, true));
+      }
+
       parts.push(" =>");
 
       const body = path.call(bodyPath => print(bodyPath, args), "body");
@@ -3303,6 +3307,7 @@ function canPrintParamsWithoutParens(node) {
     node.params.length === 1 &&
     !node.rest &&
     !node.typeParameters &&
+    !hasDanglingComments(node) &&
     node.params[0].type === "Identifier" &&
     !node.params[0].typeAnnotation &&
     !node.params[0].comments &&

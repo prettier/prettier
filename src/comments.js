@@ -15,6 +15,8 @@ const locStart = util.locStart;
 const locEnd = util.locEnd;
 const getNextNonSpaceNonCommentCharacter =
   util.getNextNonSpaceNonCommentCharacter;
+const getNextNonSpaceNonCommentCharacterIndex =
+  util.getNextNonSpaceNonCommentCharacterIndex;
 
 function getSortedChildNodes(node, text, resultArray) {
   if (!node) {
@@ -302,7 +304,13 @@ function attach(comments, ast, text, options) {
         handleCommentInEmptyParens(text, enclosingNode, comment) ||
         handleMethodNameComments(text, enclosingNode, precedingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleFunctionNameComments(text, enclosingNode, precedingNode, comment)
+        handleFunctionNameComments(
+          text,
+          enclosingNode,
+          precedingNode,
+          comment
+        ) ||
+        handleCommentAfterArrowParams(text, enclosingNode, comment)
       ) {
         // We're good
       } else if (precedingNode && followingNode) {
@@ -671,6 +679,23 @@ function handleFunctionNameComments(
     return true;
   }
   return false;
+}
+
+function handleCommentAfterArrowParams(text, enclosingNode, comment) {
+  if (!(enclosingNode && enclosingNode.type === "ArrowFunctionExpression")) {
+    return false;
+  }
+
+  const nextCharacterIndex = getNextNonSpaceNonCommentCharacterIndex(
+    text,
+    comment
+  );
+  if (text.substr(nextCharacterIndex, 2) !== "=>") {
+    return false;
+  }
+
+  addDanglingComment(enclosingNode, comment);
+  return true;
 }
 
 function handleCommentInEmptyParens(text, enclosingNode, comment) {
