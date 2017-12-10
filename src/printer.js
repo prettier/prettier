@@ -3157,10 +3157,20 @@ function printTypeAnnotation(path, options, print) {
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
-  return concat([
+  const parts = [
     isFunctionDeclarationIdentifier ? "" : ": ",
     path.call(print, "typeAnnotation")
-  ]);
+  ];
+
+  const text = options.originalText;
+  const start = util.locStart(node.typeAnnotation);
+  const end = util.skipWhitespace(text, util.locEnd(node.typeAnnotation));
+  if (text.substr(start, 2) === "/*" && text.substr(end, 2) === "*/") {
+    parts.unshift(" /*");
+    parts.push("*/");
+  }
+
+  return concat(parts);
 }
 
 function printFunctionTypeParameters(path, options, print) {
