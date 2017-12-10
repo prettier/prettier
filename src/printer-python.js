@@ -17,12 +17,12 @@ function printArguments(print, path, argsKey, defaultsKey) {
   // value in two different lists, so we grab
   // the list of the arguments and the list of
   // default values and we merge them together and sort
-  // them by column. Then we iterated one by one and
+  // them by column. Then we iterate one by one and
   // if the next element is a default value we merge it with
   // the current one
 
   const merge = n[argsKey]
-    .concat(n[defaultsKey])
+    .concat(n[defaultsKey].map(x => Object.assign({}, x, { isDefault: true })))
     .sort((a, b) => a.col_offset - b.col_offset);
 
   const parts = [];
@@ -37,7 +37,7 @@ function printArguments(print, path, argsKey, defaultsKey) {
 
     currentArgument += 1;
 
-    if (next && next.ast_type != "arg") {
+    if (next && next.isDefault) {
       part.push("=", path.call(print, defaultsKey, currentDefault));
 
       i += 1;
