@@ -403,7 +403,8 @@ function genericPrintNoParens(path, options, print, args) {
         i++;
       } while (
         firstNonMemberParent &&
-        firstNonMemberParent.type === "MemberExpression"
+        (firstNonMemberParent.type === "MemberExpression" ||
+          firstNonMemberParent.type === "TSNonNullExpression")
       );
 
       const shouldInline =
@@ -974,9 +975,13 @@ function genericPrintNoParens(path, options, print, args) {
       let separatorParts = [];
       const props = propsAndLoc.sort((a, b) => a.loc - b.loc).map(prop => {
         const result = concat(separatorParts.concat(group(prop.printed)));
-        separatorParts = hasNodeIgnoreComment(prop.node)
-          ? [line]
-          : [separator, line];
+        separatorParts = [separator, line];
+        if (
+          hasNodeIgnoreComment(prop.node) &&
+          prop.node.type === "TSPropertySignature"
+        ) {
+          separatorParts.shift();
+        }
         if (util.isNextLineEmpty(options.originalText, prop.node)) {
           separatorParts.push(hardline);
         }
@@ -2286,11 +2291,13 @@ function genericPrintNoParens(path, options, print, args) {
       // | C
 
       const parent = path.getParentNode();
+
       // If there's a leading comment, the parent is doing the indentation
       const shouldIndent =
         parent.type !== "TypeParameterInstantiation" &&
         parent.type !== "GenericTypeAnnotation" &&
         parent.type !== "TSTypeReference" &&
+        parent.type !== "FunctionTypeParam" &&
         !(
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator") &&
@@ -2309,7 +2316,7 @@ function genericPrintNoParens(path, options, print, args) {
       // | child2
       const printed = path.map(typePath => {
         let printedType = typePath.call(print);
-        if (!shouldHug && shouldIndent) {
+        if (!shouldHug) {
           printedType = align(2, printedType);
         }
         return comments.printComments(typePath, () => printedType, options);
@@ -2323,6 +2330,26 @@ function genericPrintNoParens(path, options, print, args) {
         ifBreak(concat([shouldIndent ? line : "", "| "])),
         join(concat([line, "| "]), printed)
       ]);
+
+      let hasParens;
+
+      if (n.type === "TSUnionType") {
+        const greatGrandParent = path.getParentNode(2);
+        const greatGreatGrandParent = path.getParentNode(3);
+
+        hasParens =
+          greatGrandParent &&
+          greatGrandParent.type === "TSParenthesizedType" &&
+          greatGreatGrandParent &&
+          (greatGreatGrandParent.type === "TSUnionType" ||
+            greatGreatGrandParent.type === "TSIntersectionType");
+      } else {
+        hasParens = path.needsParens(options);
+      }
+
+      if (hasParens) {
+        return group(concat([indent(code), softline]));
+      }
 
       return group(shouldIndent ? indent(code) : code);
     }
