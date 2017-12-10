@@ -5027,7 +5027,8 @@ function shouldHugArguments(fun) {
         (fun.params[0].right.type === "Identifier" ||
           (fun.params[0].right.type === "ObjectExpression" &&
             fun.params[0].right.properties.length === 0) ||
-          (fun.params[0].right.type === "ArrayExpression" && fun.params[0].right.elements.length === 0)))) &&
+          (fun.params[0].right.type === "ArrayExpression" &&
+            fun.params[0].right.elements.length === 0)))) &&
     !fun.rest
   );
 }
