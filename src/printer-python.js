@@ -106,7 +106,7 @@ function genericPrint(path, options, print) {
 
       // add keyword only arguments
 
-      if (n.kwonlyargs.length > 0) {
+      if (n.kwonlyargs && n.kwonlyargs.length > 0) {
         parts.push("*");
         parts = parts.concat(
           printArguments(print, path, "kwonlyargs", "kw_defaults")
