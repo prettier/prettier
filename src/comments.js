@@ -681,16 +681,13 @@ function handleCommentAfterArrowParams(text, enclosingNode, comment) {
     return false;
   }
 
-  const nextCharacterIndex = getNextNonSpaceNonCommentCharacterIndex(
-    text,
-    comment
-  );
-  if (text.substr(nextCharacterIndex, 2) !== "=>") {
-    return false;
+  const index = getNextNonSpaceNonCommentCharacterIndex(text, comment);
+  if (text.substr(index, 2) === "=>") {
+    addDanglingComment(enclosingNode, comment);
+    return true;
   }
 
-  addDanglingComment(enclosingNode, comment);
-  return true;
+  return false;
 }
 
 function handleCommentInEmptyParens(text, enclosingNode, comment) {
