@@ -379,7 +379,6 @@ FastPath.prototype.needsParens = function(options) {
           parent.type === "GenericTypeAnnotation" ||
           parent.type === "TSTypeReference") &&
         (node.typeAnnotation.type === "TypeAnnotation" &&
-          node.typeAnnotation.typeAnnotation.type !== "TSFunctionType" &&
           grandParent.type !== "TSTypeOperator")
       ) {
         return false;
