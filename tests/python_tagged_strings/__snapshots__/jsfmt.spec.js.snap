@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tagged_strings.py 1`] = `
+a = r"it is \\ok"
+a = u"it is ok"
+a = r"""this is a multiline
+string"""
+a = u"""this is a multiline
+string"""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a = r'"it is \\ok'
+
+a = u'"it is ok'
+
+a = r'''"this is a multiline
+string'''
+
+a = u'''"this is a multiline
+string'''
+
+`;
+
+exports[`tagged_strings.py 2`] = `
+a = r"it is \\ok"
+a = u"it is ok"
+a = r"""this is a multiline
+string"""
+a = u"""this is a multiline
+string"""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a = r'"it is \\ok'
+
+a = u'"it is ok'
+
+a = r'''"this is a multiline
+string'''
+
+a = u'''"this is a multiline
+string'''
+
+`;
