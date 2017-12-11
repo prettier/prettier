@@ -7,6 +7,7 @@ cache:
   yarn: true
   directories:
   - node_modules
+  - /home/travis/.pyenv_cache
 env:
   - NODE_ENV=development
   - NODE_ENV=production
@@ -15,8 +16,10 @@ matrix:
 install:
   - NODE_ENV=development yarn install
 before_install:
+  - export PYTHON_BUILD_CACHE_PATH="/home/travis/.pyenv_cache"
   - curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
   - export PATH="/home/travis/.pyenv/bin:$PATH"
+  - ls -la /home/travis/.pyenv/
   - eval "$(pyenv init -)"
   - eval "$(pyenv virtualenv-init -)"
   - pyenv install 2.7.11
