@@ -16,15 +16,17 @@ function printPythonString(raw, options) {
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
 
-  const hasModifier = !raw.startsWith('"') && !raw.startsWith("'");
+  const modifierResult = /^\w+/.exec(raw);
+  const modifier = modifierResult ? modifierResult[0] : "";
 
-  const modifier = hasModifier ? raw[0] : "";
-  let rawContent = hasModifier ? raw.slice(1) : raw;
+  let rawContent = raw.slice(modifier.length);
 
   const hasTripleQuote =
     rawContent.startsWith('"""') || rawContent.startsWith("'''");
 
-  rawContent = hasTripleQuote ? raw.slice(3, -3) : raw.slice(1, -1);
+  rawContent = hasTripleQuote
+    ? rawContent.slice(3, -3)
+    : rawContent.slice(1, -1);
 
   const double = { quote: '"', regex: /"/g };
   const single = { quote: "'", regex: /'/g };
