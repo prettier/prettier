@@ -179,7 +179,7 @@ function massageAST(ast, parent) {
     // (TypeScript) bypass TSParenthesizedType
     if (
       ast.type === "TSParenthesizedType" &&
-      ast.typeAnnotation.type === "TypeAnnotation"
+      ast.typeAnnotation.type === "TSTypeAnnotation"
     ) {
       return newObj.typeAnnotation.typeAnnotation;
     }

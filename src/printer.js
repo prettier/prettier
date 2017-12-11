@@ -2033,6 +2033,7 @@ function genericPrintNoParens(path, options, print, args) {
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.
     case "TypeAnnotation":
+    case "TSTypeAnnotation":
       if (n.typeAnnotation) {
         return path.call(print, "typeAnnotation");
       }
@@ -2160,7 +2161,9 @@ function genericPrintNoParens(path, options, print, args) {
         );
 
       let needsColon =
-        isArrowFunctionTypeAnnotation && parent.type === "TypeAnnotation";
+        isArrowFunctionTypeAnnotation &&
+        (parent.type === "TypeAnnotation" ||
+          parent.type === "TSTypeAnnotation");
 
       // Sadly we can't put it inside of FastPath::needsColon because we are
       // printing ":" as part of the expression and it would put parenthesis
@@ -2168,7 +2171,8 @@ function genericPrintNoParens(path, options, print, args) {
       const needsParens =
         needsColon &&
         isArrowFunctionTypeAnnotation &&
-        parent.type === "TypeAnnotation" &&
+        (parent.type === "TypeAnnotation" ||
+          parent.type === "TSTypeAnnotation") &&
         parentParent.type === "ArrowFunctionExpression";
 
       if (isObjectTypePropertyAFunction(parent)) {
@@ -2295,6 +2299,7 @@ function genericPrintNoParens(path, options, print, args) {
       // If there's a leading comment, the parent is doing the indentation
       const shouldIndent =
         parent.type !== "TypeParameterInstantiation" &&
+        parent.type !== "TSTypeParameterInstantiation" &&
         parent.type !== "GenericTypeAnnotation" &&
         parent.type !== "TSTypeReference" &&
         parent.type !== "FunctionTypeParam" &&
@@ -2452,8 +2457,21 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation":
+    case "TSTypeParameterDeclaration":
+    case "TSTypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
+
+    case "TSTypeParameter":
     case "TypeParameter": {
+      const parent = path.getParentNode();
+      if (parent.type === "TSMappedType") {
+        parts.push(path.call(print, "name"));
+        if (n.constraint) {
+          parts.push(" in ", path.call(print, "constraint"));
+        }
+        return concat(parts);
+      }
+
       const variance = getFlowVariance(n);
 
       if (variance) {
@@ -2683,14 +2701,6 @@ function genericPrintNoParens(path, options, print, args) {
           "}"
         ])
       );
-    case "TSTypeParameter":
-      parts.push(path.call(print, "name"));
-
-      if (n.constraint) {
-        parts.push(" in ", path.call(print, "constraint"));
-      }
-
-      return concat(parts);
     case "TSMethodSignature":
       parts.push(
         n.accessibility ? concat([n.accessibility, " "]) : "",
@@ -4955,7 +4965,7 @@ function sameLocStart(nodeA, nodeB) {
 // var f: (a) => void;
 function isTypeAnnotationAFunction(node) {
   return (
-    node.type === "TypeAnnotation" &&
+    (node.type === "TypeAnnotation" || node.type === "TSTypeAnnotation") &&
     node.typeAnnotation.type === "FunctionTypeAnnotation" &&
     !node.static &&
     !sameLocStart(node, node.typeAnnotation)
@@ -5017,7 +5027,8 @@ function shouldHugArguments(fun) {
       fun.params[0].type === "ArrayPattern" ||
       (fun.params[0].type === "Identifier" &&
         fun.params[0].typeAnnotation &&
-        fun.params[0].typeAnnotation.type === "TypeAnnotation" &&
+        (fun.params[0].typeAnnotation.type === "TypeAnnotation" ||
+          fun.params[0].typeAnnotation.type === "TSTypeAnnotation") &&
         isObjectType(fun.params[0].typeAnnotation.typeAnnotation)) ||
       (fun.params[0].type === "FunctionTypeParam" &&
         isObjectType(fun.params[0].typeAnnotation)) ||
