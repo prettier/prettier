@@ -210,6 +210,12 @@ function genericPrint(path, options, print) {
       return printPythonString(n.source, options);
     }
 
+    case "JoinedStr": {
+      // TODO: there's opportunity for improvements here
+
+      return printPythonString(n.source, options);
+    }
+
     case "Num": {
       return path.call(print, "n");
     }

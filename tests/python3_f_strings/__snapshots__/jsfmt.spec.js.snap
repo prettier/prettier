@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`f_strings.py 1`] = `
+width = 10
+precision = 4
+value = decimal.Decimal("12.34567")
+f"result: {value:{width}.{precision}}"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+width = 10
+
+precision = 4
+
+value = decimal.Decimal("12.34567")
+
+f'"result: {value:{width}.{precision}}'
+
+`;
