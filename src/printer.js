@@ -3153,6 +3153,14 @@ function printTypeAnnotation(path, options, print) {
     return "";
   }
 
+  const text = options.originalText;
+  const start = util.locStart(node.typeAnnotation);
+  const end = util.skipWhitespace(text, util.locEnd(node.typeAnnotation));
+  if (text.substr(start, 2) === "/*" && text.substr(end, 2) === "*/") {
+    path.call(print, "typeAnnotation");
+    return " " + text.slice(start, end + 2);
+  }
+
   const parentNode = path.getParentNode();
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;
@@ -3161,14 +3169,6 @@ function printTypeAnnotation(path, options, print) {
     isFunctionDeclarationIdentifier ? "" : ": ",
     path.call(print, "typeAnnotation")
   ];
-
-  const text = options.originalText;
-  const start = util.locStart(node.typeAnnotation);
-  const end = util.skipWhitespace(text, util.locEnd(node.typeAnnotation));
-  if (text.substr(start, 2) === "/*" && text.substr(end, 2) === "*/") {
-    parts.unshift(" /*");
-    parts.push("*/");
-  }
 
   return concat(parts);
 }

@@ -19,6 +19,15 @@ const beep = (data /*: /* this is an object *-/ Object*/) => {};
 
 `;
 
+exports[`let.js 1`] = `
+let foo /* : Groups<T> */;
+let foo /* : string */ = 'a';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let foo /* : Groups<T> */;
+let foo /* : string */ = "a";
+
+`;
+
 exports[`object_type_annotation.js 1`] = `
 type Props = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
 {
