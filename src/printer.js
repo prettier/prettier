@@ -3411,14 +3411,15 @@ function printReturnType(path, print, options) {
   const n = path.getValue();
   const parts = [path.call(print, "returnType")];
 
-  if (n.returnType){
-  const typeAnnotationComment = getTypeAnnotationComment(
-    options.originalText,
-    n.returnType
-  );
-  if (typeAnnotationComment) {
-    return " " + typeAnnotationComment;
-  }}
+  if (n.returnType) {
+    const typeAnnotationComment = getTypeAnnotationComment(
+      options.originalText,
+      n.returnType
+    );
+    if (typeAnnotationComment) {
+      return " " + typeAnnotationComment;
+    }
+  }
 
   // prepend colon to TypeScript type annotation
   if (n.returnType && n.returnType.typeAnnotation) {
