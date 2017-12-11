@@ -19,6 +19,28 @@ const beep = (data /*: /* this is an object *-/ Object*/) => {};
 
 `;
 
+exports[`class.js 1`] = `
+class A {
+  x /*: string */;
+
+  method(a /* : T */, b /* : T */)  /* : T */ {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class A {
+  x /*: string */;
+
+  method(a /* : T */, b /* : T */) /* : T */ {}
+}
+
+`;
+
+exports[`functions.js 1`] = `
+function foo<T>(bar  /*: T[] */, baz  /* : T*/) /* : S */ {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function foo<T>(bar /*: T[] */, baz /* : T*/) /* : S */ {}
+
+`;
+
 exports[`let.js 1`] = `
 let foo /* : Groups<T> */;
 let foo /* : string */ = 'a';

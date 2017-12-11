@@ -495,7 +495,7 @@ function genericPrintNoParens(path, options, print, args) {
                   (args.expandLastArg || args.expandFirstArg),
                 /* printTypeParams */ true
               ),
-              printReturnType(path, print)
+              printReturnType(path, print, options)
             ])
           )
         );
@@ -752,7 +752,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         !hasContent &&
         !hasDirectives &&
-        !n.comments &&
+        !hasDanglingComments(n) &&
         (parent.type === "ArrowFunctionExpression" ||
           parent.type === "FunctionExpression" ||
           parent.type === "FunctionDeclaration" ||
@@ -2953,7 +2953,7 @@ function printMethod(path, options, print) {
           group(
             concat([
               printFunctionParams(valuePath, print, options),
-              printReturnType(valuePath, print)
+              printReturnType(valuePath, print, options)
             ])
           )
         ],
@@ -3356,7 +3356,7 @@ function printFunctionDeclaration(path, print, options) {
     group(
       concat([
         printFunctionParams(path, print, options),
-        printReturnType(path, print)
+        printReturnType(path, print, options)
       ])
     ),
     n.body ? " " : "",
@@ -3397,7 +3397,7 @@ function printObjectMethod(path, options, print) {
     group(
       concat([
         printFunctionParams(path, print, options),
-        printReturnType(path, print)
+        printReturnType(path, print, options)
       ])
     ),
     " ",
@@ -3407,9 +3407,18 @@ function printObjectMethod(path, options, print) {
   return concat(parts);
 }
 
-function printReturnType(path, print) {
+function printReturnType(path, print, options) {
   const n = path.getValue();
   const parts = [path.call(print, "returnType")];
+
+  if (n.returnType){
+  const typeAnnotationComment = getTypeAnnotationComment(
+    options.originalText,
+    n.returnType
+  );
+  if (typeAnnotationComment) {
+    return " " + typeAnnotationComment;
+  }}
 
   // prepend colon to TypeScript type annotation
   if (n.returnType && n.returnType.typeAnnotation) {
