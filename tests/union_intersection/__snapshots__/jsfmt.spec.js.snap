@@ -35,6 +35,20 @@ type Comment = {
   };
   start: number;
 };
+
+type Props = {
+  onChange: (
+    | {
+        name: string
+      }
+    | {
+        title: string
+      }
+    | {
+        year: year
+      }
+  ) => void
+};
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type T5 =
   | "1"
@@ -89,5 +103,19 @@ type Comment =
       },
       start: number
     };
+
+type Props = {
+  onChange: (
+    | {
+        name: string
+      }
+    | {
+        title: string
+      }
+    | {
+        year: year
+      }
+  ) => void
+};
 
 `;

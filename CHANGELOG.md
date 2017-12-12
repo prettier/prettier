@@ -1,3 +1,18 @@
+# 1.9.2
+
+[link](https://github.com/prettier/prettier/compare/1.9.1...1.9.2)
+
+* Fixed trailing comma not being printed in function calls if the last arg was an arrow (#3428 by duailibe)
+* Ignore whitespace after the `/**` in docblocks (#3430 by duailibe)
+* Fixed a bug where `get` and `set` class properties arrows would print an unnecessary semicolon with `--no-semi` (#3434 by duailibe)
+* Fixed a bug for missing `.editorconfig` files (#3439 by josephfrazier)
+* Fix comments being moved in class methods and object properties with the babylon parser (#3441 by duailibe)
+* Better printing of member chains with a TSNonNullExpression (`!` character) (#3442 by duailibe)
+* Fix missing commas in object properties when a `pretter-ignore` comment is present (#3448 by duailibe)
+* Fix printing union types inside a function param type (#3446 by duailibe)
+* Fix closing parens on multi-line intersection/union type (#3436 by josephfrazier)
+* Don't break single argument destructuring arguments (for arrays and with simple default values) (#3443 by duailibe)
+
 # 1.9.1
 
 [link](https://github.com/prettier/prettier/compare/1.9.0...1.9.1)

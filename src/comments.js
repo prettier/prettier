@@ -15,6 +15,8 @@ const locStart = util.locStart;
 const locEnd = util.locEnd;
 const getNextNonSpaceNonCommentCharacter =
   util.getNextNonSpaceNonCommentCharacter;
+const getNextNonSpaceNonCommentCharacterIndex =
+  util.getNextNonSpaceNonCommentCharacterIndex;
 
 function getSortedChildNodes(node, text, resultArray) {
   if (!node) {
@@ -302,6 +304,7 @@ function attach(comments, ast, text, options) {
         handleCommentInEmptyParens(text, enclosingNode, comment) ||
         handleMethodNameComments(text, enclosingNode, precedingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
+        handleCommentAfterArrowParams(text, enclosingNode, comment) ||
         handleFunctionNameComments(text, enclosingNode, precedingNode, comment)
       ) {
         // We're good
@@ -670,6 +673,20 @@ function handleFunctionNameComments(
     addTrailingComment(precedingNode, comment);
     return true;
   }
+  return false;
+}
+
+function handleCommentAfterArrowParams(text, enclosingNode, comment) {
+  if (!(enclosingNode && enclosingNode.type === "ArrowFunctionExpression")) {
+    return false;
+  }
+
+  const index = getNextNonSpaceNonCommentCharacterIndex(text, comment);
+  if (text.substr(index, 2) === "=>") {
+    addDanglingComment(enclosingNode, comment);
+    return true;
+  }
+
   return false;
 }
 
@@ -1043,7 +1060,7 @@ function printTrailingComment(commentPath, print, options) {
   return concat([lineSuffix(" " + contents), !isBlock ? breakParent : ""]);
 }
 
-function printDanglingComments(path, options, sameIndent) {
+function printDanglingComments(path, options, sameIndent, filter) {
   const parts = [];
   const node = path.getValue();
 
@@ -1053,7 +1070,12 @@ function printDanglingComments(path, options, sameIndent) {
 
   path.each(commentPath => {
     const comment = commentPath.getValue();
-    if (comment && !comment.leading && !comment.trailing) {
+    if (
+      comment &&
+      !comment.leading &&
+      !comment.trailing &&
+      (!filter || filter(comment))
+    ) {
       parts.push(printComment(commentPath, options));
     }
   }, "comments");

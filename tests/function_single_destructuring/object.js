@@ -12,6 +12,36 @@ function StatelessFunctionalComponent({
 }
 
 function StatelessFunctionalComponent({
+  isActive = true,
+  onFiltersUpdated = () => null,
+  onSelect = () => null,
+  onSubmitAndDeselect = () => null,
+  onCancel = () => null,
+  searchFilters = null,
+  title = '',
+  items = [],
+} = {}) {
+  return <div />
+}
+
+function StatelessFunctionalComponent(
+  {
+    isActive,
+    onFiltersUpdated = () => null,
+    onSelect = () => null,
+    onSubmitAndDeselect = () => null,
+    onCancel = () => null,
+    searchFilters = null,
+    title = '',
+    items = [],
+  } = {
+    isActive: true
+  }
+) {
+  return <div />
+}
+
+function StatelessFunctionalComponent({
   isActive,
   onFiltersUpdated,
   onSelect,

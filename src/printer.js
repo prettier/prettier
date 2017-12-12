@@ -501,6 +501,22 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
+      const dangling = comments.printDanglingComments(
+        path,
+        options,
+        /* sameIndent */ true,
+        comment => {
+          const nextCharacter = util.getNextNonSpaceNonCommentCharacterIndex(
+            options.originalText,
+            comment
+          );
+          return options.originalText.substr(nextCharacter, 2) === "=>";
+        }
+      );
+      if (dangling) {
+        parts.push(" ", dangling);
+      }
+
       parts.push(" =>");
 
       const body = path.call(bodyPath => print(bodyPath, args), "body");
@@ -2023,6 +2039,7 @@ function genericPrintNoParens(path, options, print, args) {
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.
     case "TypeAnnotation":
+    case "TSTypeAnnotation":
       if (n.typeAnnotation) {
         return path.call(print, "typeAnnotation");
       }
@@ -2150,7 +2167,9 @@ function genericPrintNoParens(path, options, print, args) {
         );
 
       let needsColon =
-        isArrowFunctionTypeAnnotation && parent.type === "TypeAnnotation";
+        isArrowFunctionTypeAnnotation &&
+        (parent.type === "TypeAnnotation" ||
+          parent.type === "TSTypeAnnotation");
 
       // Sadly we can't put it inside of FastPath::needsColon because we are
       // printing ":" as part of the expression and it would put parenthesis
@@ -2158,7 +2177,8 @@ function genericPrintNoParens(path, options, print, args) {
       const needsParens =
         needsColon &&
         isArrowFunctionTypeAnnotation &&
-        parent.type === "TypeAnnotation" &&
+        (parent.type === "TypeAnnotation" ||
+          parent.type === "TSTypeAnnotation") &&
         parentParent.type === "ArrowFunctionExpression";
 
       if (isObjectTypePropertyAFunction(parent)) {
@@ -2281,11 +2301,14 @@ function genericPrintNoParens(path, options, print, args) {
       // | C
 
       const parent = path.getParentNode();
+
       // If there's a leading comment, the parent is doing the indentation
       const shouldIndent =
         parent.type !== "TypeParameterInstantiation" &&
+        parent.type !== "TSTypeParameterInstantiation" &&
         parent.type !== "GenericTypeAnnotation" &&
         parent.type !== "TSTypeReference" &&
+        parent.type !== "FunctionTypeParam" &&
         !(
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator") &&
@@ -2304,7 +2327,7 @@ function genericPrintNoParens(path, options, print, args) {
       // | child2
       const printed = path.map(typePath => {
         let printedType = typePath.call(print);
-        if (!shouldHug && shouldIndent) {
+        if (!shouldHug) {
           printedType = align(2, printedType);
         }
         return comments.printComments(typePath, () => printedType, options);
@@ -2318,6 +2341,26 @@ function genericPrintNoParens(path, options, print, args) {
         ifBreak(concat([shouldIndent ? line : "", "| "])),
         join(concat([line, "| "]), printed)
       ]);
+
+      let hasParens;
+
+      if (n.type === "TSUnionType") {
+        const greatGrandParent = path.getParentNode(2);
+        const greatGreatGrandParent = path.getParentNode(3);
+
+        hasParens =
+          greatGrandParent &&
+          greatGrandParent.type === "TSParenthesizedType" &&
+          greatGreatGrandParent &&
+          (greatGreatGrandParent.type === "TSUnionType" ||
+            greatGreatGrandParent.type === "TSIntersectionType");
+      } else {
+        hasParens = path.needsParens(options);
+      }
+
+      if (hasParens) {
+        return group(concat([indent(code), softline]));
+      }
 
       return group(shouldIndent ? indent(code) : code);
     }
@@ -2420,8 +2463,21 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation":
+    case "TSTypeParameterDeclaration":
+    case "TSTypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
+
+    case "TSTypeParameter":
     case "TypeParameter": {
+      const parent = path.getParentNode();
+      if (parent.type === "TSMappedType") {
+        parts.push(path.call(print, "name"));
+        if (n.constraint) {
+          parts.push(" in ", path.call(print, "constraint"));
+        }
+        return concat(parts);
+      }
+
       const variance = getFlowVariance(n);
 
       if (variance) {
@@ -2651,14 +2707,6 @@ function genericPrintNoParens(path, options, print, args) {
           "}"
         ])
       );
-    case "TSTypeParameter":
-      parts.push(path.call(print, "name"));
-
-      if (n.constraint) {
-        parts.push(" in ", path.call(print, "constraint"));
-      }
-
-      return concat(parts);
     case "TSMethodSignature":
       parts.push(
         n.accessibility ? concat([n.accessibility, " "]) : "",
@@ -3203,7 +3251,16 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     return concat([
       typeParams,
       "(",
-      comments.printDanglingComments(path, options, /* sameIndent */ true),
+      comments.printDanglingComments(
+        path,
+        options,
+        /* sameIndent */ true,
+        comment =>
+          util.getNextNonSpaceNonCommentCharacter(
+            options.originalText,
+            comment
+          ) === ")"
+      ),
       ")"
     ]);
   }
@@ -3325,6 +3382,7 @@ function canPrintParamsWithoutParens(node) {
     node.params.length === 1 &&
     !node.rest &&
     !node.typeParameters &&
+    !hasDanglingComments(node) &&
     node.params[0].type === "Identifier" &&
     !node.params[0].typeAnnotation &&
     !node.params[0].comments &&
@@ -4969,7 +5027,7 @@ function sameLocStart(nodeA, nodeB) {
 // var f: (a) => void;
 function isTypeAnnotationAFunction(node) {
   return (
-    node.type === "TypeAnnotation" &&
+    (node.type === "TypeAnnotation" || node.type === "TSTypeAnnotation") &&
     node.typeAnnotation.type === "FunctionTypeAnnotation" &&
     !node.static &&
     !sameLocStart(node, node.typeAnnotation)
@@ -5028,12 +5086,22 @@ function shouldHugArguments(fun) {
     fun.params.length === 1 &&
     !fun.params[0].comments &&
     (fun.params[0].type === "ObjectPattern" ||
+      fun.params[0].type === "ArrayPattern" ||
       (fun.params[0].type === "Identifier" &&
         fun.params[0].typeAnnotation &&
-        fun.params[0].typeAnnotation.type === "TypeAnnotation" &&
+        (fun.params[0].typeAnnotation.type === "TypeAnnotation" ||
+          fun.params[0].typeAnnotation.type === "TSTypeAnnotation") &&
         isObjectType(fun.params[0].typeAnnotation.typeAnnotation)) ||
       (fun.params[0].type === "FunctionTypeParam" &&
-        isObjectType(fun.params[0].typeAnnotation))) &&
+        isObjectType(fun.params[0].typeAnnotation)) ||
+      (fun.params[0].type === "AssignmentPattern" &&
+        (fun.params[0].left.type === "ObjectPattern" ||
+          fun.params[0].left.type === "ArrayPattern") &&
+        (fun.params[0].right.type === "Identifier" ||
+          (fun.params[0].right.type === "ObjectExpression" &&
+            fun.params[0].right.properties.length === 0) ||
+          (fun.params[0].right.type === "ArrayExpression" &&
+            fun.params[0].right.elements.length === 0)))) &&
     !fun.rest
   );
 }
