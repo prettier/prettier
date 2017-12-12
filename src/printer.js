@@ -507,6 +507,22 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
+      const dangling = comments.printDanglingComments(
+        path,
+        options,
+        /* sameIndent */ true,
+        comment => {
+          const nextCharacter = util.getNextNonSpaceNonCommentCharacterIndex(
+            options.originalText,
+            comment
+          );
+          return options.originalText.substr(nextCharacter, 2) === "=>";
+        }
+      );
+      if (dangling) {
+        parts.push(" ", dangling);
+      }
+
       parts.push(" =>");
 
       const body = path.call(bodyPath => print(bodyPath, args), "body");
@@ -3218,7 +3234,16 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     return concat([
       typeParams,
       "(",
-      comments.printDanglingComments(path, options, /* sameIndent */ true),
+      comments.printDanglingComments(
+        path,
+        options,
+        /* sameIndent */ true,
+        comment =>
+          util.getNextNonSpaceNonCommentCharacter(
+            options.originalText,
+            comment
+          ) === ")"
+      ),
       ")"
     ]);
   }
@@ -3340,6 +3365,7 @@ function canPrintParamsWithoutParens(node) {
     node.params.length === 1 &&
     !node.rest &&
     !node.typeParameters &&
+    !hasDanglingComments(node) &&
     node.params[0].type === "Identifier" &&
     !node.params[0].typeAnnotation &&
     !node.params[0].comments &&
