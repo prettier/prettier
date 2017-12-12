@@ -3,7 +3,11 @@ id: ignore
 title: Ignoring Code
 ---
 
-Prettier offers an escape hatch to ignore a block of code from being formatted.
+Prettier offers an escape hatch to ignore a block of code or prevent entire files from being formatted.
+
+## Ignoring Files
+
+To exclude files from formatting, add entries to a `.prettierignore` file in the project root or set the `--ignore-path` [CLI](cli.md) option.
 
 ## JavaScript
 
