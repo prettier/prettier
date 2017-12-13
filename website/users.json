@@ -102,7 +102,7 @@
   },
   {
     "caption": "Webflow",
-    "image": "/images/webflow-200x100.png",
+    "image": "/images/users/webflow-200x100.png",
     "infoLink": "https://webflow.com"
   },
   {
@@ -122,7 +122,7 @@
   },
   {
     "caption": "ZIP.ch",
-    "image": "/images/zipch-200x100.png",
+    "image": "/images/users/zipch-200x100.png",
     "infoLink": "https://zip.ch"
   }
 ]
