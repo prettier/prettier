@@ -523,10 +523,14 @@ function getIndentSize(value, tabWidth) {
   );
 }
 
-function printString(raw, options, isDirectiveLiteral) {
+function printString(
+  raw,
+  options,
+  { isDirectiveLiteral = false, hasQuotes = true } = {}
+) {
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
-  const rawContent = raw.slice(1, -1);
+  const rawContent = hasQuotes ? raw.slice(1, -1) : raw;
 
   const double = { quote: '"', regex: /"/g };
   const single = { quote: "'", regex: /'/g };
