@@ -124,5 +124,10 @@
     "caption": "ZIP.ch",
     "image": "/images/zipch-200x100.png",
     "infoLink": "https://zip.ch"
+  },
+  {
+    "caption": "codemix",
+    "image": "/images/codemix-200x100.png",
+    "infoLink": "https://codemix.com"
   }
 ]
