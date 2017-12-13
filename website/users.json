@@ -101,6 +101,11 @@
     "infoLink": "https://www.smooth-code.com"
   },
   {
+    "caption": "Webflow",
+    "image": "/images/webflow-200x100.png",
+    "infoLink": "https://webflow.com"
+  },
+  {
     "caption": "Eye Square",
     "image": "/images/users/eyesquare-200x100.png",
     "infoLink": "http://www.eye-square.com"
@@ -114,5 +119,10 @@
     "caption": "EventsTag",
     "image": "/images/users/eventstag-200x100.png",
     "infoLink": "https://eventstag.com"
+  },
+  {
+    "caption": "ZIP.ch",
+    "image": "/images/zipch-200x100.png",
+    "infoLink": "https://zip.ch"
   }
 ]
