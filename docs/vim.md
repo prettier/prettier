@@ -77,7 +77,7 @@ When installed via vim-plug, a default prettier executable is installed inside v
 
 vim-prettier executable resolution:
 
-1. Tranverse parents and search for Prettier installation inside `node_modules`
+1. Traverse parents and search for Prettier installation inside `node_modules`
 2. Look for a global prettier installation
 3. Use locally installed vim-prettier prettier executable
 
