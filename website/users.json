@@ -114,5 +114,10 @@
     "caption": "EventsTag",
     "image": "/images/eventstag-200x100.png",
     "infoLink": "https://eventstag.com"
+  },
+  {
+    "caption": "codemix",
+    "image": "/images/codemix-200x100.png",
+    "infoLink": "https://codemix.com"
   }
 ]
