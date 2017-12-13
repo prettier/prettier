@@ -94,5 +94,10 @@
     "caption": "Talkable",
     "image": "/images/talkable-200x100.png",
     "infoLink": "https://talkable.com"
+  },
+    {
+    "caption": "Charlie Tango",
+    "image": "/images/charlietango-200x100.png",
+    "infoLink": "https://charlietango.dk"
   }
 ]
