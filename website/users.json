@@ -104,5 +104,10 @@
     "caption": "Eye Square",
     "image": "/images/eyesquare-200px.png",
     "infoLink": "http://www.eye-square.com"
+  },
+  {
+    "caption": "Charlie Tango",
+    "image": "/images/charlietango-200x100.png",
+    "infoLink": "https://charlietango.dk"
   }
 ]
