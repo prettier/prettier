@@ -94,5 +94,10 @@
     "caption": "Talkable",
     "image": "/images/talkable-200x100.png",
     "infoLink": "https://talkable.com"
+  },
+  {
+    "caption": "Smooth Code",
+    "image": "/images/smooth-code-200x100.png",
+    "infoLink": "https://www.smooth-code.com"
   }
 ]
