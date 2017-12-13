@@ -109,5 +109,10 @@
     "caption": "Charlie Tango",
     "image": "/images/charlietango-200x100.png",
     "infoLink": "https://charlietango.dk"
+  },
+  {
+    "caption": "EventsTag",
+    "image": "/images/eventstag-200x100.png",
+    "infoLink": "https://eventstag.com"
   }
 ]
