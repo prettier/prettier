@@ -99,5 +99,10 @@
     "caption": "Smooth Code",
     "image": "/images/smooth-code-200x100.png",
     "infoLink": "https://www.smooth-code.com"
+  },
+  {
+    "caption": "Charlie Tango",
+    "image": "/images/charlietango-200x100.png",
+    "infoLink": "https://charlietango.dk"
   }
 ]
