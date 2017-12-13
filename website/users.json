@@ -119,5 +119,10 @@
     "caption": "EventsTag",
     "image": "/images/eventstag-200x100.png",
     "infoLink": "https://eventstag.com"
+  },
+  {
+    "caption": "ZIP.ch",
+    "image": "/images/zipch-200x100.png",
+    "infoLink": "https://zip.ch"
   }
 ]
