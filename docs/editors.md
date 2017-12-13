@@ -17,7 +17,7 @@ Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoform
 
 ## Visual Studio Code
 
-Can be installed using the extension sidebar. Search for `Prettier - JavaScript formatter`.
+Can be installed using the extension sidebar. Search for `Prettier - Code formatter`.
 
 Can also be installed using `ext install prettier-vscode`.
 
