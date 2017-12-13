@@ -523,15 +523,14 @@ function getIndentSize(value, tabWidth) {
   );
 }
 
-function printString(
-  raw,
-  options,
-  printOptions
-) {
-  const isDirectiveLiteral = printOptions ? printOptions.isDirectiveLiteral : false;
+function printString(raw, options, printOptions) {
+  const isDirectiveLiteral = printOptions
+    ? printOptions.isDirectiveLiteral
+    : false;
   let hasQuotes = true;
   if (printOptions) {
-    hasQuotes = printOptions.hasQuotes == null ? hasQuotes : printOptions.hasQuotes;
+    hasQuotes =
+      printOptions.hasQuotes == null ? hasQuotes : printOptions.hasQuotes;
   }
 
   // `rawContent` is the string exactly like it appeared in the input source
