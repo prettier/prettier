@@ -661,7 +661,6 @@ function isStatement(node) {
     node.type === "TSInterfaceDeclaration" ||
     node.type === "TSModuleDeclaration" ||
     node.type === "TSNamespaceExportDeclaration" ||
-    node.type === "TSNamespaceFunctionDeclaration" ||
     node.type === "TypeAlias" ||
     node.type === "VariableDeclaration" ||
     node.type === "WhileStatement" ||
