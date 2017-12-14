@@ -46,8 +46,48 @@ exports[`title.md 1`] = `
 [hello](#world "title")
 [hello](#world 'title')
 [hello](#world (title))
+
+[a](https://example.com "\\"")
+[a](https://example.com '\\"')
+[a](https://example.com (\\"))
+
+[a](https://example.com "\\'")
+[a](https://example.com '\\'')
+[a](https://example.com (\\'))
+
+[a](https://example.com "\\'")
+[a](https://example.com '\\)')
+[a](https://example.com (\\)))
+
+<!-- mis-parsing, \`\\\` are missing: -->
+
+[a](https://example.com "\\\\\\"")
+[a](https://example.com '\\\\\\'')
+[a](https://example.com (\\\\\\)))
+
+[a](https://example.com "\\\\'")
+[a](https://example.com '\\\\"')
+[a](https://example.com (\\\\"))
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [hello](#world "title") [hello](#world "title") [hello](#world "title")
+
+[a](https://example.com '"') [a](https://example.com '"')
+[a](https://example.com '"')
+
+[a](https://example.com "'") [a](https://example.com "'")
+[a](https://example.com "'")
+
+[a](https://example.com "'") [a](https://example.com ")")
+[a](https://example.com ")")
+
+<!-- mis-parsing, \`\\\` are missing: -->
+
+[a](https://example.com '"') [a](https://example.com "'")
+[a](https://example.com ")")
+
+[a](https://example.com "'") [a](https://example.com '"')
+[a](https://example.com '"')
 
 `;
 
@@ -55,8 +95,48 @@ exports[`title.md 2`] = `
 [hello](#world "title")
 [hello](#world 'title')
 [hello](#world (title))
+
+[a](https://example.com "\\"")
+[a](https://example.com '\\"')
+[a](https://example.com (\\"))
+
+[a](https://example.com "\\'")
+[a](https://example.com '\\'')
+[a](https://example.com (\\'))
+
+[a](https://example.com "\\'")
+[a](https://example.com '\\)')
+[a](https://example.com (\\)))
+
+<!-- mis-parsing, \`\\\` are missing: -->
+
+[a](https://example.com "\\\\\\"")
+[a](https://example.com '\\\\\\'')
+[a](https://example.com (\\\\\\)))
+
+[a](https://example.com "\\\\'")
+[a](https://example.com '\\\\"')
+[a](https://example.com (\\\\"))
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [hello](#world 'title') [hello](#world 'title') [hello](#world 'title')
+
+[a](https://example.com '"') [a](https://example.com '"')
+[a](https://example.com '"')
+
+[a](https://example.com "'") [a](https://example.com "'")
+[a](https://example.com "'")
+
+[a](https://example.com "'") [a](https://example.com ')')
+[a](https://example.com ')')
+
+<!-- mis-parsing, \`\\\` are missing: -->
+
+[a](https://example.com '"') [a](https://example.com "'")
+[a](https://example.com ')')
+
+[a](https://example.com "'") [a](https://example.com '"')
+[a](https://example.com '"')
 
 `;
 
