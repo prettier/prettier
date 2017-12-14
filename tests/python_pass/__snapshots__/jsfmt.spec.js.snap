@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pass.py 1`] = `
+class Client:
+    pass
+
+def x(): pass
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Client:
+    pass
+
+def x():
+    pass
+
+`;
+
+exports[`pass.py 2`] = `
+class Client:
+    pass
+
+def x(): pass
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Client:
+    pass
+
+def x():
+    pass
+
+`;

@@ -632,6 +632,10 @@ function genericPrint(path, options, print) {
       return printWithItem(path, print);
     }
 
+    case "Pass": {
+      return "pass";
+    }
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown python type: " + JSON.stringify(n.ast_type));
