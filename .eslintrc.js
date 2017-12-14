@@ -22,7 +22,7 @@ module.exports = {
     "one-var": ["error", "never"],
     "prefer-arrow-callback": "error",
     "prefer-const": "error",
-    "prettier/prettier": "error",
+    "prettier/prettier": ["error", { trailingComma: "es5" }],
     "react/no-deprecated": "off",
     strict: "error",
     "symbol-description": "error",
