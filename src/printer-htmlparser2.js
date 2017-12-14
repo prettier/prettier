@@ -26,7 +26,7 @@ const voidTags = {
   param: true,
   source: true,
   track: true,
-  wbr: true
+  wbr: true,
 };
 
 function genericPrint(path, options, print) {
@@ -73,7 +73,7 @@ function genericPrint(path, options, print) {
           n.name.toLowerCase() === "html"
             ? concat([hardline, children])
             : indent(children),
-          n.children.length ? concat([softline, "</", n.name, ">"]) : hardline
+          n.children.length ? concat([softline, "</", n.name, ">"]) : hardline,
         ])
       );
     }
@@ -98,7 +98,7 @@ function printAttributes(path, print) {
 
   return concat([
     node.attributes.length ? " " : "",
-    indent(join(line, path.map(print, "attributes")))
+    indent(join(line, path.map(print, "attributes"))),
   ]);
 }
 

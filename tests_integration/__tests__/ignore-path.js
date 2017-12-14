@@ -7,14 +7,14 @@ describe("ignore path", () => {
     "**/*.js",
     "--ignore-path",
     ".gitignore",
-    "-l"
+    "-l",
   ]).test({
-    status: 1
+    status: 1,
   });
 });
 
 describe("support .prettierignore", () => {
   runPrettier("cli/ignore-path", ["**/*.js", "-l"]).test({
-    status: 1
+    status: 1,
   });
 });

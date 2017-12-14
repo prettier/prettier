@@ -28,7 +28,7 @@ const siteConfig = {
     { doc: "index", label: "About" },
     { doc: "install", label: "Usage" },
     { search: true },
-    { href: GITHUB_URL, label: "GitHub" }
+    { href: GITHUB_URL, label: "GitHub" },
   ],
   /* path to images for header/footer */
   headerIcon: "icon.png",
@@ -37,16 +37,16 @@ const siteConfig = {
   /* colors for website */
   colors: {
     primaryColor: "#1A2B34",
-    secondaryColor: "#808080"
+    secondaryColor: "#808080",
   },
   highlight: {
-    theme: "default"
+    theme: "default",
   },
   useEnglishUrl: true,
   scripts: ["https://buttons.github.io/buttons.js"],
   algolia: {
     apiKey: process.env.ALGOLIA_PRETTIER_API_KEY,
-    indexName: "prettier"
+    indexName: "prettier",
   },
   markdownPlugins: [
     // ignore `<!-- prettier-ignore -->` before passing into Docusaurus to avoid mis-parsing (#3322)
@@ -64,8 +64,8 @@ const siteConfig = {
           return false;
         }
       );
-    }
-  ]
+    },
+  ],
 };
 
 module.exports = siteConfig;

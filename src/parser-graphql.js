@@ -11,7 +11,7 @@ function parseComments(ast) {
       Object.assign(next, {
         // The Comment token's column starts _after_ the `#`,
         // but we need to make sure the node captures the `#`
-        column: next.column - 1
+        column: next.column - 1,
       });
       comments.push(next);
     }
@@ -48,8 +48,8 @@ function parse(text /*, parsers, opts*/) {
       throw createError(error.message, {
         start: {
           line: error.locations[0].line,
-          column: error.locations[0].column
-        }
+          column: error.locations[0].column,
+        },
       });
     } else {
       throw error;

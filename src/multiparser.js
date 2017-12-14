@@ -26,7 +26,7 @@ function printSubtree(path, print, options) {
 function parseAndPrint(text, partialNextOptions, parentOptions) {
   const nextOptions = Object.assign({}, parentOptions, partialNextOptions, {
     parentParser: parentOptions.parser,
-    originalText: text
+    originalText: text,
   });
   if (nextOptions.parser === "json") {
     nextOptions.trailingComma = "none";
@@ -196,7 +196,7 @@ function fromBabylonFlowOrTypeScript(path, print, options) {
           "`",
           indent(concat([hardline, join(hardline, parts)])),
           hardline,
-          "`"
+          "`",
         ]);
       }
 
@@ -221,7 +221,7 @@ function fromBabylonFlowOrTypeScript(path, print, options) {
           dedent(parent.quasis[0].value.cooked),
           {
             parser: "markdown",
-            __inJsTemplate: true
+            __inJsTemplate: true,
           },
           options
         );
@@ -229,7 +229,7 @@ function fromBabylonFlowOrTypeScript(path, print, options) {
           indent(
             concat([softline, stripTrailingHardline(escapeBackticks(doc))])
           ),
-          softline
+          softline,
         ]);
       }
 
@@ -350,7 +350,7 @@ function fromHtmlParser2(path, print, options) {
             parser: parseJavaScriptExpression,
             // Use singleQuote since HTML attributes use double-quotes.
             // TODO(azz): We still need to do an entity escape on the attribute.
-            singleQuote: true
+            singleQuote: true,
           },
           options
         );
@@ -360,7 +360,7 @@ function fromHtmlParser2(path, print, options) {
           util.hasNewlineInRange(node.value, 0, node.value.length)
             ? doc
             : docUtils.removeLines(doc),
-          '"'
+          '"',
         ]);
       }
     }
@@ -388,7 +388,7 @@ function transformCssDoc(quasisDoc, path, print) {
     "`",
     indent(concat([hardline, stripTrailingHardline(newDoc)])),
     softline,
-    "`"
+    "`",
   ]);
 }
 
@@ -434,7 +434,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       parts = ["${", expression, "}" + suffix].concat(rest);
     }
     return Object.assign({}, doc, {
-      parts: parts
+      parts: parts,
     });
   });
 
@@ -447,7 +447,7 @@ function parseJavaScriptExpression(text, parsers) {
   // Extract expression from the declaration
   return {
     type: "File",
-    program: ast.program.body[0].expression
+    program: ast.program.body[0].expression,
   };
 }
 
@@ -555,5 +555,5 @@ function isStyledIdentifier(node) {
 }
 
 module.exports = {
-  printSubtree
+  printSubtree,
 };

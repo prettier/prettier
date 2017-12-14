@@ -15,7 +15,7 @@ export default Object.assign(baseConfig, {
     parser === "typescript"
       ? replace({
           "exports.Syntax =": "1,",
-          include: "node_modules/typescript-eslint-parser/parser.js"
+          include: "node_modules/typescript-eslint-parser/parser.js",
         })
       : {},
     // In flow-parser 0.59.0 there's a dynamic require: `require(s8)` which not
@@ -24,7 +24,7 @@ export default Object.assign(baseConfig, {
     parser === "flow"
       ? replace({
           "require(s8)": 'require("fs")',
-          include: "node_modules/flow-parser/flow_parser.js"
+          include: "node_modules/flow-parser/flow_parser.js",
         })
       : {},
     json(),
@@ -37,8 +37,8 @@ export default Object.assign(baseConfig, {
           throw result.error;
         }
         return result;
-      }
-    }
+      },
+    },
   ],
   external: [
     "fs",
@@ -48,7 +48,7 @@ export default Object.assign(baseConfig, {
     "assert",
     "util",
     "os",
-    "crypto"
+    "crypto",
   ],
-  useStrict: parser !== "flow"
+  useStrict: parser !== "flow",
 });

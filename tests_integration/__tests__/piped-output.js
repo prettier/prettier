@@ -8,7 +8,7 @@ describe("output with --list-different + unformatted differs when piped", () => 
     ["--write", "--list-different", "--no-color", "unformatted.js"],
     { stdoutIsTTY: true }
   ).test({
-    status: 1
+    status: 1,
   });
 
   const result1 = runPrettier(
@@ -16,7 +16,7 @@ describe("output with --list-different + unformatted differs when piped", () => 
     ["--write", "--list-different", "--no-color", "unformatted.js"],
     { stdoutIsTTY: false }
   ).test({
-    status: 1
+    status: 1,
   });
 
   expect(result0.stdout.length).toBeGreaterThan(result1.stdout.length);
@@ -29,7 +29,7 @@ describe("no file diffs with --list-different + formatted file", () => {
     ["--write", "--list-different", "--no-color", "formatted.js"],
     { stdoutIsTTY: true }
   ).test({
-    status: 0
+    status: 0,
   });
 
   const result1 = runPrettier(
@@ -37,7 +37,7 @@ describe("no file diffs with --list-different + formatted file", () => {
     ["--write", "--list-different", "--no-color", "formatted.js"],
     { stdoutIsTTY: false }
   ).test({
-    status: 0
+    status: 0,
   });
 
   expect(result0.stdout).not.toEqual(result1.stdout);

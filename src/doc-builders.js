@@ -52,7 +52,7 @@ function group(contents, opts) {
     type: "group",
     contents: contents,
     break: !!opts.shouldBreak,
-    expandedStates: opts.expandedStates
+    expandedStates: opts.expandedStates,
   };
 }
 
@@ -98,7 +98,7 @@ const softline = { type: "line", soft: true };
 const hardline = concat([{ type: "line", hard: true }, breakParent]);
 const literalline = concat([
   { type: "line", hard: true, literal: true },
-  breakParent
+  breakParent,
 ]);
 const cursor = { type: "cursor", placeholder: Symbol("cursor") };
 
@@ -149,5 +149,5 @@ module.exports = {
   ifBreak,
   indent,
   align,
-  addAlignmentToDoc
+  addAlignmentToDoc,
 };

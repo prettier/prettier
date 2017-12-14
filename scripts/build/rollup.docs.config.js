@@ -15,5 +15,5 @@ export default Object.assign(baseConfig, {
   plugins: [json(), resolve({ preferBuiltins: true }), commonjs(), globals()],
   useStrict: false,
   moduleName: basename.replace(/.+-/, ""),
-  external: ["assert", "fs", "module"]
+  external: ["assert", "fs", "module"],
 });

@@ -22,13 +22,13 @@ const defaults = {
   requirePragma: false,
   semi: true,
   proseWrap: "preserve",
-  arrowParens: "avoid"
+  arrowParens: "avoid",
 };
 
 const exampleConfig = Object.assign({}, defaults, {
   filepath: "path/to/Filename",
   printWidth: 80,
-  originalText: "text"
+  originalText: "text",
 });
 
 // Copy options and fill in default values.

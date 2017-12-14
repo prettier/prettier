@@ -13,7 +13,7 @@ const categoryOrder = [
   CATEGORY_FORMAT,
   CATEGORY_CONFIG,
   CATEGORY_EDITOR,
-  CATEGORY_OTHER
+  CATEGORY_OTHER,
 ];
 
 /**
@@ -85,20 +85,20 @@ const detailedOptions = normalizeDetailedOptions({
     choices: [
       {
         value: "avoid",
-        description: "Omit parens when possible. Example: `x => x`"
+        description: "Omit parens when possible. Example: `x => x`",
       },
       {
         value: "always",
-        description: "Always include parens. Example: `(x) => x`"
-      }
-    ]
+        description: "Always include parens. Example: `(x) => x`",
+      },
+    ],
   },
   "bracket-spacing": {
     type: "boolean",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
     description: "Print spaces between brackets.",
-    oppositeDescription: "Do not print spaces between brackets."
+    oppositeDescription: "Do not print spaces between brackets.",
   },
   color: {
     // The supports-color package (a sub sub dependency) looks directly at
@@ -108,14 +108,14 @@ const detailedOptions = normalizeDetailedOptions({
     type: "boolean",
     default: true,
     description: "Colorize error messages.",
-    oppositeDescription: "Do not colorize error messages."
+    oppositeDescription: "Do not colorize error messages.",
   },
   config: {
     type: "path",
     category: CATEGORY_CONFIG,
     description:
       "Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).",
-    oppositeDescription: "Do not look for a configuration file."
+    oppositeDescription: "Do not look for a configuration file.",
   },
   "config-precedence": {
     type: "choice",
@@ -124,22 +124,22 @@ const detailedOptions = normalizeDetailedOptions({
     choices: [
       {
         value: "cli-override",
-        description: "CLI options take precedence over config file"
+        description: "CLI options take precedence over config file",
       },
       {
         value: "file-override",
-        description: "Config file take precedence over CLI options"
+        description: "Config file take precedence over CLI options",
       },
       {
         value: "prefer-file",
         description: dedent(`
           If a config file is found will evaluate it and ignore other CLI options.
           If no config file is found CLI options will evaluate as normal.
-        `)
-      }
+        `),
+      },
     ],
     description:
-      "Define in which order config files and CLI options should be evaluated."
+      "Define in which order config files and CLI options should be evaluated.",
   },
   "cursor-offset": {
     type: "int",
@@ -149,13 +149,13 @@ const detailedOptions = normalizeDetailedOptions({
     description: dedent(`
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end.
-    `)
+    `),
   },
   "debug-check": {
-    type: "boolean"
+    type: "boolean",
   },
   "debug-print-doc": {
-    type: "boolean"
+    type: "boolean",
   },
   editorconfig: {
     type: "boolean",
@@ -163,19 +163,19 @@ const detailedOptions = normalizeDetailedOptions({
     description: "Take .editorconfig into account when parsing configuration.",
     oppositeDescription:
       "Don't take .editorconfig into account when parsing configuration.",
-    default: true
+    default: true,
   },
   "find-config-path": {
     type: "path",
     category: CATEGORY_CONFIG,
     description:
-      "Find and print the path to a configuration file for the given input file."
+      "Find and print the path to a configuration file for the given input file.",
   },
   "flow-parser": {
     // Deprecated in 0.0.10
     type: "boolean",
     category: CATEGORY_FORMAT,
-    deprecated: "Use `--parser flow` instead."
+    deprecated: "Use `--parser flow` instead.",
   },
   help: {
     type: "flag",
@@ -183,39 +183,39 @@ const detailedOptions = normalizeDetailedOptions({
     description: dedent(`
       Show CLI usage, or details about the given flag.
       Example: --help write
-    `)
+    `),
   },
   "ignore-path": {
     type: "path",
     category: CATEGORY_CONFIG,
     default: ".prettierignore",
-    description: "Path to a file with patterns describing files to ignore."
+    description: "Path to a file with patterns describing files to ignore.",
   },
   "insert-pragma": {
     type: "boolean",
     forwardToApi: true,
     description: dedent(`
       Insert @format pragma into file's first docblock comment.
-    `)
+    `),
   },
   "jsx-bracket-same-line": {
     type: "boolean",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description: "Put > on the last line instead of at a new line."
+    description: "Put > on the last line instead of at a new line.",
   },
   "list-different": {
     type: "boolean",
     category: CATEGORY_OUTPUT,
     alias: "l",
     description:
-      "Print the names of files that are different from Prettier's formatting."
+      "Print the names of files that are different from Prettier's formatting.",
   },
   loglevel: {
     type: "choice",
     description: "What level of logs to report.",
     default: "warn",
-    choices: ["silent", "error", "warn", "debug"]
+    choices: ["silent", "error", "warn", "debug"],
   },
   parser: {
     type: "choice",
@@ -232,16 +232,16 @@ const detailedOptions = normalizeDetailedOptions({
       "scss",
       "json",
       "graphql",
-      "markdown"
+      "markdown",
     ],
     description: "Which parser to use.",
-    getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
+    getter: (value, argv) => (argv["flow-parser"] ? "flow" : value),
   },
   "print-width": {
     type: "int",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description: "The line length where Prettier will try wrap."
+    description: "The line length where Prettier will try wrap.",
   },
   "prose-wrap": {
     type: "choice",
@@ -251,12 +251,12 @@ const detailedOptions = normalizeDetailedOptions({
     choices: [
       {
         value: "always",
-        description: "Wrap prose if it exceeds the print width."
+        description: "Wrap prose if it exceeds the print width.",
       },
       { value: "never", description: "Do not wrap prose." },
       { value: "preserve", description: "Wrap prose as-is." },
-      { value: false, deprecated: true, redirect: "never" }
-    ]
+      { value: false, deprecated: true, redirect: "never" },
+    ],
   },
   "range-end": {
     type: "int",
@@ -267,7 +267,7 @@ const detailedOptions = normalizeDetailedOptions({
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
       This option cannot be used with --cursor-offset.
-    `)
+    `),
   },
   "range-start": {
     type: "int",
@@ -277,7 +277,7 @@ const detailedOptions = normalizeDetailedOptions({
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
       This option cannot be used with --cursor-offset.
-    `)
+    `),
   },
   "require-pragma": {
     type: "boolean",
@@ -285,7 +285,7 @@ const detailedOptions = normalizeDetailedOptions({
     description: dedent(`
       Require either '@prettier' or '@format' to be present in the file's first docblock comment
       in order for it to be formatted.
-    `)
+    `),
   },
   semi: {
     type: "boolean",
@@ -293,32 +293,32 @@ const detailedOptions = normalizeDetailedOptions({
     forwardToApi: true,
     description: "Print semicolons.",
     oppositeDescription:
-      "Do not print semicolons, except at the beginning of lines which may need them."
+      "Do not print semicolons, except at the beginning of lines which may need them.",
   },
   "single-quote": {
     type: "boolean",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description: "Use single quotes instead of double quotes."
+    description: "Use single quotes instead of double quotes.",
   },
   stdin: {
     type: "boolean",
-    description: "Force reading input from stdin."
+    description: "Force reading input from stdin.",
   },
   "stdin-filepath": {
     type: "path",
     forwardToApi: "filepath",
-    description: "Path to the file to pretend that stdin comes from."
+    description: "Path to the file to pretend that stdin comes from.",
   },
   "support-info": {
     type: "boolean",
-    description: "Print support information as JSON."
+    description: "Print support information as JSON.",
   },
   "tab-width": {
     type: "int",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description: "Number of spaces per indentation level."
+    description: "Number of spaces per indentation level.",
   },
   "trailing-comma": {
     type: "choice",
@@ -329,38 +329,38 @@ const detailedOptions = normalizeDetailedOptions({
       {
         value: "es5",
         description:
-          "Trailing commas where valid in ES5 (objects, arrays, etc.)"
+          "Trailing commas where valid in ES5 (objects, arrays, etc.)",
       },
       {
         value: "all",
         description:
-          "Trailing commas wherever possible (including function arguments)."
+          "Trailing commas wherever possible (including function arguments).",
       },
-      { value: "", deprecated: true, redirect: "es5" }
+      { value: "", deprecated: true, redirect: "es5" },
     ],
-    description: "Print trailing commas wherever possible when multi-line."
+    description: "Print trailing commas wherever possible when multi-line.",
   },
   "use-tabs": {
     type: "boolean",
     category: CATEGORY_FORMAT,
     forwardToApi: true,
-    description: "Indent with tabs instead of spaces."
+    description: "Indent with tabs instead of spaces.",
   },
   version: {
     type: "boolean",
     alias: "v",
-    description: "Print Prettier version."
+    description: "Print Prettier version.",
   },
   "with-node-modules": {
     type: "boolean",
     category: CATEGORY_CONFIG,
-    description: "Process files inside 'node_modules' directory."
+    description: "Process files inside 'node_modules' directory.",
   },
   write: {
     type: "boolean",
     category: CATEGORY_OUTPUT,
-    description: "Edit files in-place. (Beware!)"
-  }
+    description: "Edit files in-place. (Beware!)",
+  },
 });
 
 const minimistOptions = {
@@ -383,7 +383,7 @@ const minimistOptions = {
       (current, option) =>
         Object.assign({ [option.name]: option.alias }, current),
       {}
-    )
+    ),
 };
 
 const usageSummary = `
@@ -419,7 +419,7 @@ function normalizeDetailedOptions(rawDetailedOptions) {
             typeof choice === "object" ? choice : { value: choice }
           )
         ),
-      getter: option.getter || (value => value)
+      getter: option.getter || (value => value),
     });
   });
 
@@ -436,5 +436,5 @@ module.exports = {
   minimistOptions,
   detailedOptions,
   detailedOptionMap,
-  usageSummary
+  usageSummary,
 };

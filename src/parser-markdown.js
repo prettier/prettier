@@ -50,7 +50,7 @@ function transformInlineCode() {
       }
 
       return Object.assign({}, node, {
-        value: node.value.replace(/\s+/g, " ")
+        value: node.value.replace(/\s+/g, " "),
       });
     });
 }
@@ -70,7 +70,7 @@ function restoreUnescapedCharacter(originalText) {
                     node.position.start.offset,
                     node.position.end.offset
                   )
-                : node.value
+                : node.value,
           });
     });
 }
@@ -89,8 +89,8 @@ function mergeContinuousTexts() {
             value: lastChild.value + child.value,
             position: {
               start: lastChild.position.start,
-              end: child.position.end
-            }
+              end: child.position.end,
+            },
           });
         } else {
           current.push(child);
@@ -122,7 +122,7 @@ function splitText() {
       return {
         type: "sentence",
         position: node.position,
-        children: util.splitText(value)
+        children: util.splitText(value),
       };
     });
 }

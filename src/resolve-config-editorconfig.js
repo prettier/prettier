@@ -43,5 +43,5 @@ function clearCache() {
 
 module.exports = {
   getLoadFunction,
-  clearCache
+  clearCache,
 };

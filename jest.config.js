@@ -12,7 +12,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     "<rootDir>/src/doc-debug.js",
     "<rootDir>/src/clean-ast.js",
-    "<rootDir>/src/deprecated.js"
+    "<rootDir>/src/deprecated.js",
   ],
-  transform: {}
+  transform: {},
 };

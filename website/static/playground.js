@@ -25,7 +25,7 @@ var OPTIONS = [
   "arrowParens",
   "doc",
   "ast",
-  "output2"
+  "output2",
 ];
 
 var IDEMPOTENT_MESSAGE = "✓ Second format is unchanged.";
@@ -55,8 +55,8 @@ const DEFAULT_OPTIONS = {
     "",
     "    </div>;",
     "",
-    "}"
-  ].join("\n")
+    "}",
+  ].join("\n"),
 };
 
 window.onload = function() {
@@ -113,7 +113,7 @@ window.onload = function() {
     matchBrackets: true,
     showCursorWhenSelecting: true,
     tabWidth: 2,
-    mode: "jsx"
+    mode: "jsx",
   };
   inputEditor = CodeMirror.fromTextArea(
     document.getElementById("input-editor"),
@@ -124,19 +124,19 @@ window.onload = function() {
   docEditor = CodeMirror.fromTextArea(document.getElementById("doc-editor"), {
     readOnly: true,
     lineNumbers: false,
-    mode: "jsx"
+    mode: "jsx",
   });
   astEditor = CodeMirror.fromTextArea(document.getElementById("ast-editor"), {
     readOnly: true,
     lineNumbers: false,
-    mode: "jsx"
+    mode: "jsx",
   });
   outputEditor = CodeMirror.fromTextArea(
     document.getElementById("output-editor"),
     {
       readOnly: true,
       lineNumbers: true,
-      mode: "jsx"
+      mode: "jsx",
     }
   );
   output2Editor = CodeMirror.fromTextArea(
@@ -144,7 +144,7 @@ window.onload = function() {
     {
       readOnly: true,
       lineNumbers: true,
-      mode: "jsx"
+      mode: "jsx",
     }
   );
 
@@ -183,7 +183,7 @@ window.onload = function() {
         default:
           return "";
       }
-    }
+    },
   });
   clipboard.on("success", function(e) {
     showTooltip(e.trigger, "Copied!");
@@ -295,7 +295,7 @@ function formatAsync() {
     options: options,
     ast: options.ast,
     doc: options.doc,
-    formatted2: options.output2
+    formatted2: options.output2,
   });
 }
 
@@ -308,12 +308,12 @@ function setEditorStyles() {
   output2Editor.setOption("mode", mode);
 
   inputEditor.setOption("rulers", [
-    { column: options.printWidth, color: "#eeeeee" }
+    { column: options.printWidth, color: "#eeeeee" },
   ]);
 
   [outputEditor, output2Editor].forEach(function(editor) {
     editor.setOption("rulers", [
-      { column: options.printWidth, color: "#444444" }
+      { column: options.printWidth, color: "#444444" },
     ]);
   });
   document.querySelector(".ast").style.display = options.ast ? "" : "none";

@@ -59,9 +59,9 @@ function genericPrint(path, options, print) {
                   )
                 : "",
               hardline,
-              "}"
+              "}",
             ])
-          : ";"
+          : ";",
       ]);
     }
     case "css-decl": {
@@ -95,9 +95,9 @@ function genericPrint(path, options, print) {
                 concat([softline, printNodeSequence(path, options, print)])
               ),
               softline,
-              "}"
+              "}",
             ])
-          : ";"
+          : ";",
       ]);
     }
     case "css-atrule": {
@@ -119,7 +119,7 @@ function genericPrint(path, options, print) {
         hasParams
           ? concat([
               isDetachedRulesetCall ? "" : " ",
-              path.call(print, "params")
+              path.call(print, "params"),
             ])
           : "",
         n.nodes
@@ -128,13 +128,13 @@ function genericPrint(path, options, print) {
               indent(
                 concat([
                   n.nodes.length > 0 ? softline : "",
-                  printNodeSequence(path, options, print)
+                  printNodeSequence(path, options, print),
                 ])
               ),
               softline,
-              "}"
+              "}",
             ])
-          : ";"
+          : ";",
       ]);
     }
     case "css-import": {
@@ -151,9 +151,9 @@ function genericPrint(path, options, print) {
                 concat([softline, printNodeSequence(path, options, print)])
               ),
               softline,
-              "}"
+              "}",
             ])
-          : ";"
+          : ";",
       ]);
     }
     // postcss-media-query-parser
@@ -239,7 +239,7 @@ function genericPrint(path, options, print) {
           ? quoteAttributeValue(adjustStrings(n.value, options), options)
           : "",
         n.insensitive ? " i" : "",
-        "]"
+        "]",
       ]);
     }
     case "selector-combinator": {
@@ -267,7 +267,7 @@ function genericPrint(path, options, print) {
         maybeToLowerCase(n.value),
         n.nodes && n.nodes.length > 0
           ? concat(["(", join(", ", path.map(print, "nodes")), ")"])
-          : ""
+          : "",
       ]);
     }
     case "selector-nesting": {
@@ -345,7 +345,7 @@ function genericPrint(path, options, print) {
         return concat([
           n.open ? path.call(print, "open") : "",
           join(",", path.map(print, "groups")),
-          n.close ? path.call(print, "close") : ""
+          n.close ? path.call(print, "close") : "",
         ]);
       }
 
@@ -377,11 +377,11 @@ function genericPrint(path, options, print) {
               join(
                 concat([",", isMap ? hardline : line]),
                 path.map(print, "groups")
-              )
+              ),
             ])
           ),
           softline,
-          n.close ? path.call(print, "close") : ""
+          n.close ? path.call(print, "close") : "",
         ])
       );
     }

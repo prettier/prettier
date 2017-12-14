@@ -22,13 +22,13 @@ class Button extends React.Component {
 }
 
 Button.defaultProps = {
-  target: "_self"
+  target: "_self",
 };
 
 Button.propTypes = {
   href: React.PropTypes.string,
   target: React.PropTypes.string,
-  children: React.PropTypes.any
+  children: React.PropTypes.any,
 };
 
 class HomeSplash extends React.Component {
@@ -71,7 +71,7 @@ class HomeSplash extends React.Component {
 }
 
 HomeSplash.propTypes = {
-  language: React.PropTypes.string
+  language: React.PropTypes.string,
 };
 
 class Index extends React.Component {
@@ -108,7 +108,7 @@ class Index extends React.Component {
                   title: language.name,
                   image: language.image,
                   imageAlign: "top",
-                  content: language.variants.join("\n\n")
+                  content: language.variants.join("\n\n"),
                 }))}
                 layout="fourColumn"
               />
@@ -132,7 +132,7 @@ class Index extends React.Component {
                   content: editor.content || "",
                   image: editor.image,
                   imageAlign: "bottom",
-                  title: editor.name
+                  title: editor.name,
                 }))}
                 layout="fourColumn"
               />
@@ -188,7 +188,7 @@ class Index extends React.Component {
 }
 
 Index.propTypes = {
-  language: React.PropTypes.string
+  language: React.PropTypes.string,
 };
 
 module.exports = Index;

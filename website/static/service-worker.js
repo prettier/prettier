@@ -37,7 +37,7 @@ toolbox.precache([
   "https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js",
 
   // Images
-  "/prettier.png"
+  "/prettier.png",
 ]);
 
 // Default to hit the cache only if there's a network error

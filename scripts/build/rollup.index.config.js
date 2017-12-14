@@ -17,14 +17,14 @@ export default Object.assign(baseConfig, {
   format: "cjs",
   plugins: [
     replace({
-      "process.env.NODE_ENV": JSON.stringify("production")
+      "process.env.NODE_ENV": JSON.stringify("production"),
     }),
     json(),
     resolve({ preferBuiltins: true }),
-    commonjs()
+    commonjs(),
   ],
   external,
   paths: {
-    [path.resolve("src/third-party.js")]: "./third-party"
-  }
+    [path.resolve("src/third-party.js")]: "./third-party",
+  },
 });

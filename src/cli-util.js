@@ -44,7 +44,7 @@ function dashifyObject(object) {
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
-    context: 2
+    context: 2,
   });
 }
 
@@ -160,7 +160,7 @@ function getOptionsOrDie(argv, filePath) {
     );
     const options = resolver.resolveConfig.sync(filePath, {
       editorconfig: argv.editorconfig,
-      config: argv["config"]
+      config: argv["config"],
     });
 
     logger.debug("loaded options `" + JSON.stringify(options) + "`");
@@ -202,7 +202,7 @@ function parseArgsToOptions(argv, overrideDefaults) {
             {},
             dashifyObject(apiDefaultOptions),
             dashifyObject(overrideDefaults)
-          )
+          ),
         })
       ),
       { warning: false }
@@ -393,9 +393,9 @@ function getOptionsWithOpposites(options) {
       ? Object.assign({}, option, {
           name: `no-${option.name}`,
           type: "boolean",
-          description: option.oppositeDescription
+          description: option.oppositeDescription,
         })
-      : null
+      : null,
   ]);
   return flattenArray(optionsWithOpposites).filter(Boolean);
 }
@@ -487,7 +487,7 @@ function getOptionWithLevenSuggestion(options, optionName) {
   const optionNameContainers = flattenArray(
     options.map((option, index) => [
       { value: option.name, index },
-      option.alias ? { value: option.alias, index } : null
+      option.alias ? { value: option.alias, index } : null,
     ])
   ).filter(Boolean);
 
@@ -716,5 +716,5 @@ module.exports = {
   formatFiles,
   createUsage,
   createDetailedUsage,
-  normalizeConfig
+  normalizeConfig,
 };

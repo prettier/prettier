@@ -82,7 +82,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
     const pragmas = Object.assign({ format: "" }, parsedDocblock.pragmas);
     const newDocblock = docblock.print({
       pragmas,
-      comments: parsedDocblock.comments.replace(/^(\s+?\r?\n)+/, "") // remove leading newlines
+      comments: parsedDocblock.comments.replace(/^(\s+?\r?\n)+/, ""), // remove leading newlines
     });
     const strippedText = docblock.strip(text);
     const separatingNewlines = strippedText.startsWith("\n") ? "\n" : "\n\n";
@@ -126,7 +126,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
   if (cursorOffset !== undefined) {
     return {
       formatted: str,
-      cursorOffset: cursorOffsetResult + cursorOffset
+      cursorOffset: cursorOffsetResult + cursorOffset,
     };
   }
 
@@ -144,7 +144,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
   if (resultStartNode === resultEndNode) {
     return {
       startNode: resultStartNode,
-      endNode: resultEndNode
+      endNode: resultEndNode,
     };
   }
 
@@ -174,7 +174,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
 
   return {
     startNode: resultStartNode,
-    endNode: resultEndNode
+    endNode: resultEndNode,
   };
 }
 
@@ -199,7 +199,7 @@ function findNodeAtOffset(node, offset, predicate, parentNodes) {
     if (predicate(node)) {
       return {
         node: node,
-        parentNodes: parentNodes
+        parentNodes: parentNodes,
       };
     }
   }
@@ -240,7 +240,7 @@ function isSourceElement(opts, node) {
     "InterfaceDeclaration", // Flow, Typescript
     "TypeAliasDeclaration", // Typescript
     "ExportAssignment", // Typescript
-    "ExportDeclaration" // Typescript
+    "ExportDeclaration", // Typescript
   ];
   const jsonSourceElements = [
     "ObjectExpression",
@@ -248,7 +248,7 @@ function isSourceElement(opts, node) {
     "StringLiteral",
     "NumericLiteral",
     "BooleanLiteral",
-    "NullLiteral"
+    "NullLiteral",
   ];
   const graphqlSourceElements = [
     "OperationDefinition",
@@ -266,7 +266,7 @@ function isSourceElement(opts, node) {
     "OperationTypeDefinition",
     "InterfaceTypeDefinition",
     "UnionTypeDefinition",
-    "ScalarTypeDefinition"
+    "ScalarTypeDefinition",
   ];
   switch (opts.parser) {
     case "flow":
@@ -310,7 +310,7 @@ function calculateRange(text, opts, ast) {
   if (!startNodeAndParents || !endNodeAndParents) {
     return {
       rangeStart: 0,
-      rangeEnd: 0
+      rangeEnd: 0,
     };
   }
 
@@ -325,7 +325,7 @@ function calculateRange(text, opts, ast) {
 
   return {
     rangeStart: rangeStart,
-    rangeEnd: rangeEnd
+    rangeEnd: rangeEnd,
   };
 }
 
@@ -355,7 +355,7 @@ function formatRange(text, opts, ast) {
     Object.assign({}, opts, {
       rangeStart: 0,
       rangeEnd: Infinity,
-      printWidth: opts.printWidth - alignmentSize
+      printWidth: opts.printWidth - alignmentSize,
     }),
     alignmentSize
   );
@@ -421,6 +421,6 @@ module.exports = {
       opts = normalizeOptions(opts);
       const str = printDocToString(doc, opts);
       return str;
-    }
-  }
+    },
+  },
 };

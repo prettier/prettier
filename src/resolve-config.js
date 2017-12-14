@@ -17,7 +17,7 @@ const getExplorerMemoized = mem(opts =>
         delete result.config.$schema;
       }
       return result;
-    }
+    },
   })
 );
 
@@ -33,7 +33,7 @@ function _resolveConfig(filePath, opts, sync) {
   const loadOpts = {
     cache: !!opts.useCache,
     sync: !!sync,
-    editorconfig: !!opts.editorconfig
+    editorconfig: !!opts.editorconfig,
   };
   const load = getLoadFunction(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
@@ -125,5 +125,5 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
 module.exports = {
   resolveConfig,
   resolveConfigFile,
-  clearCache
+  clearCache,
 };

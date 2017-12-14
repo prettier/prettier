@@ -44,5 +44,5 @@ module.exports = {
   warn,
   error,
   debug,
-  ENV_LOG_LEVEL
+  ENV_LOG_LEVEL,
 };
