@@ -134,5 +134,10 @@
     "caption": "codemix",
     "image": "/images/codemix-200x100.png",
     "infoLink": "https://codemix.com"
+  },
+  {
+    "caption": "7Span",
+    "image": "/images/sevenspan-200x100.png",
+    "infoLink": "https://7span.com"
   }
 ]
