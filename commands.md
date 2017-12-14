@@ -155,11 +155,10 @@ For an example, here's the implementation of the `ArrayExpression` node type:
 
 <!-- prettier-ignore -->
 ```js
-group(
+group([
   concat([
     "[",
-    indent(
-      options.tabWidth,
+    indent([
       concat([
         line,
         join(
@@ -167,11 +166,48 @@ group(
           path.map(print, "elements")
         )
       ])
-    ),
+    ]),
     line,
     "]"
   ])
-)
+])
 ```
 
 This is a group with opening and closing brackets, and possibly indented contents. Because it's a `group` it will always be broken up if any of the sub-expressions are broken.
+
+---
+
+Here’s a summary of the commands, in Flow format:
+
+
+```ts
+/* @flow */
+
+type Doc<T = string> = string | {
+  type: T
+}
+
+declare function concat(docs: Doc<>[]): Doc<"concat">
+declare function indent(docs: Doc<>[]): Doc<"indent">
+declare function align(n: number, docs: Doc<>[]): Doc<"align">
+declare function group(docs: Doc<>[], opts?: {
+                        shouldBreak?: boolean,
+                        expandedStates?: Doc<>[]
+                      }): Doc<"group">
+declare function conditionalGroup(alternatives: Doc<>[], opts?: {
+                                   shouldBreak?: boolean
+                                 }): Doc<"group">
+declare function fill(docs: Doc<>[]): Doc<"fill">
+declare function ifBreak(ifBreak: Doc<>, noBreak: Doc<>): Doc<"if-break">
+declare function lineSuffix(suffix: Doc<>): Doc<"line-suffix">
+declare function join(sep: Doc<>, docs: Doc<>[]): Doc<"concat">
+declare function addAlignmentToDoc(doc: Doc<>, size: number, tabWidth: number): Doc<"indent" | "align">
+
+declare var lineSuffixBoundary: Doc<"line-suffix-boundary">
+declare var breakParent: Doc<"break-parent">
+declare var line: Doc<"line">
+declare var softline: Doc<"line">
+declare var hardline: Doc<"concat">
+declare var literalline: Doc<"concat">
+declare var cursor: Doc<"cursor">
+```
