@@ -129,5 +129,10 @@
     "caption": "Nrwl",
     "image": "/images/nrwl-200x100.png",
     "infoLink": "https://nrwl.io"
+  },
+  {
+    "caption": "codemix",
+    "image": "/images/codemix-200x100.png",
+    "infoLink": "https://codemix.com"
   }
 ]
