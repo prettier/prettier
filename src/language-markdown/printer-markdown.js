@@ -11,6 +11,8 @@ const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const fill = docBuilders.fill;
 const align = docBuilders.align;
+const indent = docBuilders.indent;
+const group = docBuilders.group;
 const printDocToString = doc.printer.printDocToString;
 const printerOptions = require("./options");
 
@@ -294,13 +296,21 @@ function genericPrint(path, options, print) {
           ]);
       }
     case "definition":
-      return concat([
-        "[",
-        node.identifier,
-        "]: ",
-        printUrl(node.url),
-        printTitle(node.title, options)
-      ]);
+      return group(
+        concat([
+          concat(["[", node.identifier, "]:"]),
+          indent(
+            concat(
+              [
+                line,
+                printUrl(node.url),
+                node.title ? line : null,
+                printTitle(node.title, options)
+              ].filter(x => x)
+            )
+          )
+        ])
+      );
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
     case "footnoteReference":
@@ -632,7 +642,7 @@ function printTitle(title, options) {
     return "";
   }
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
-    return ` (${title})`; // avoid escaped quotes
+    return `(${title})`; // avoid escaped quotes
   }
   // faster than using RegExps: https://jsperf.com/performance-of-match-vs-split
   const singleCount = title.split("'").length - 1;
@@ -642,7 +652,7 @@ function printTitle(title, options) {
       ? '"'
       : doubleCount > singleCount ? "'" : options.singleQuote ? "'" : '"';
   title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
-  return ` ${quote}${title}${quote}`;
+  return `${quote}${title}${quote}`;
 }
 
 function normalizeParts(parts) {
