@@ -632,16 +632,14 @@ function printTitle(title, options) {
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return ` (${title})`; // avoid escaped quotes
   }
-  let quote = options.singleQuote ? "'" : '"';
   // faster than using RegExps: https://jsperf.com/performance-of-match-vs-split
   const singleCount = title.split("'").length - 1;
   const doubleCount = title.split('"').length - 1;
-  if (singleCount > doubleCount) {
-    quote = '"';
-  } else if (doubleCount > singleCount) {
-    quote = "'";
-  }
-  title = title.replace(new RegExp(`${quote}`, "g"), `$1\\${quote}`);
+  const quote =
+    singleCount > doubleCount
+      ? '"'
+      : doubleCount > singleCount ? "'" : options.singleQuote ? "'" : '"';
+  title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
   return ` ${quote}${title}${quote}`;
 }
 
