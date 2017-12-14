@@ -144,5 +144,10 @@
     "caption": "7Span",
     "image": "/images/sevenspan-200x100.png",
     "infoLink": "https://7span.com"
+  },
+  {
+    "caption": "IDEATI",
+    "image": "/images/ideati-200x100.png",
+    "infoLink": "http://www.ideati.net"
   }
 ]
