@@ -105,7 +105,7 @@ prettier.format("lodash ( )", {
     const ast = babylon(text);
     ast.program.body[0].expression.callee.name = "_";
     return ast;
-  }
+  },
 });
 // -> "_();\n"
 ```
