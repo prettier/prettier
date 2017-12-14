@@ -4713,7 +4713,7 @@ function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
   const raw = rawText(node);
   const isDirectiveLiteral =
     isFlowOrTypeScriptDirectiveLiteral || node.type === "DirectiveLiteral";
-  return util.printString(raw, options, { isDirectiveLiteral });
+  return util.printString(raw, options, isDirectiveLiteral);
 }
 
 function printRegex(node) {
