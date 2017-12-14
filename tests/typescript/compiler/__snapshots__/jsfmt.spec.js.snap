@@ -201,8 +201,7 @@ exports[`commentInNamespaceDeclarationWithIdentifierPathName.ts 1`] = `
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ﻿namespace hello.hi.world {
-  function foo() {
-  }
+  function foo() {}
 }
 
 `;

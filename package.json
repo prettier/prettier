@@ -50,7 +50,7 @@
     "semver": "5.4.1",
     "string-width": "2.1.1",
     "typescript": "2.6.2",
-    "typescript-eslint-parser": "10.0.0",
+    "typescript-eslint-parser": "11.0.0",
     "unicode-regex": "1.0.1",
     "unified": "6.1.6"
   },
