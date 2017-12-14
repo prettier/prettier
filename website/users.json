@@ -134,5 +134,10 @@
     "caption": "codemix",
     "image": "/images/codemix-200x100.png",
     "infoLink": "https://codemix.com"
+  },
+  {
+    "caption": "HolidayCheck",
+    "image": "/images/holidaycheck-200x100.png",
+    "infoLink": "https://www.holidaycheck.de"
   }
 ]
