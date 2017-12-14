@@ -632,7 +632,17 @@ function printTitle(title, options) {
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return ` (${title})`; // avoid escaped quotes
   }
-  return " " + util.printString(title, options, { hasQuotes: false });
+  let quote = options.singleQuote ? "'" : '"';
+  // faster than using RegExps: https://jsperf.com/performance-of-match-vs-split
+  const singleCount = title.split("'").length - 1;
+  const doubleCount = title.split('"').length - 1;
+  if (singleCount > doubleCount) {
+    quote = '"';
+  } else if (doubleCount > singleCount) {
+    quote = "'";
+  }
+  title = title.replace(new RegExp(`${quote}`, "g"), `$1\\${quote}`);
+  return ` ${quote}${title}${quote}`;
 }
 
 function normalizeParts(parts) {
