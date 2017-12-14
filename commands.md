@@ -155,10 +155,10 @@ For an example, here's the implementation of the `ArrayExpression` node type:
 
 <!-- prettier-ignore -->
 ```js
-group([
+group(
   concat([
     "[",
-    indent([
+    indent(
       concat([
         line,
         join(
@@ -166,11 +166,11 @@ group([
           path.map(print, "elements")
         )
       ])
-    ]),
+    ),
     line,
     "]"
   ])
-])
+)
 ```
 
 This is a group with opening and closing brackets, and possibly indented contents. Because it's a `group` it will always be broken up if any of the sub-expressions are broken.
@@ -188,9 +188,9 @@ type Doc<T = string> = string | {
 }
 
 declare function concat(docs: Doc<>[]): Doc<"concat">
-declare function indent(docs: Doc<>[]): Doc<"indent">
-declare function align(n: number, docs: Doc<>[]): Doc<"align">
-declare function group(docs: Doc<>[], opts?: {
+declare function indent(doc: Doc<>): Doc<"indent">
+declare function align(n: number, doc: Doc<>): Doc<"align">
+declare function group(doc: Doc<>, opts?: {
                         shouldBreak?: boolean,
                         expandedStates?: Doc<>[]
                       }): Doc<"group">
