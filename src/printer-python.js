@@ -658,8 +658,15 @@ function genericPrint(path, options, print) {
 
     case "BoolOp": {
       return group(
-        join(concat([line, path.call(print, "op"), line]), path.map(print, "values"))
+        join(
+          concat([line, path.call(print, "op"), line]),
+          path.map(print, "values")
+        )
       );
+    }
+
+    case "Await": {
+      return group(concat(["await", " ", path.call(print, "value")]));
     }
 
     default:

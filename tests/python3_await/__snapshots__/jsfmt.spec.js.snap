@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`await.py 1`] = `
+async def example():
+    await channel.put(json.dumps({
+        'text': data.text,
+        'image': image,
+        'username': data.user.screen_name,
+    }))~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+async def example():
+    await channel.put(json.dumps({
+        "text": data.text,
+        "image": image,
+        "username": data.user.screen_name
+    }))
+
+`;
