@@ -423,6 +423,18 @@ function genericPrint(path, options, print) {
       return "!=";
     }
 
+    case "In": {
+      return "in";
+    }
+
+    case "Or": {
+      return "or";
+    }
+
+    case "And": {
+      return "or";
+    }
+
     case "Import": {
       return concat(["import ", join(", ", path.map(print, "names"))]);
     }
@@ -642,6 +654,12 @@ function genericPrint(path, options, print) {
 
     case "Pass": {
       return "pass";
+    }
+
+    case "BoolOp": {
+      return group(
+        join(concat([line, path.call(print, "op"), line]), path.map(print, "values"))
+      );
     }
 
     default:
