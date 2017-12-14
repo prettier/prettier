@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`decorators.py 1`] = `
+@Client.event_stream
+class UserStream(EventStream):
+    def stream_request(self):
+        return self.stream.statuses.filter.post(track="#europython,europython")
+
+    @events.on_connect.handler
+    @events.on_tweet.handler
+    def tweet(self, data):
+        if data.retweeted or 'RT @' in data.text:
+            return
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@Client.event_stream
+class UserStream(EventStream):
+    def stream_request(self):
+        return self.stream.statuses.filter.post()
+
+    @events.on_connect.handler
+    @events.on_tweet.handler
+    def tweet(self, data):
+        if data.retweeted or "RT @" in data.text:
+            return
+
+`;
+
+exports[`decorators.py 2`] = `
+@Client.event_stream
+class UserStream(EventStream):
+    def stream_request(self):
+        return self.stream.statuses.filter.post(track="#europython,europython")
+
+    @events.on_connect.handler
+    @events.on_tweet.handler
+    def tweet(self, data):
+        if data.retweeted or 'RT @' in data.text:
+            return
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@Client.event_stream
+class UserStream(EventStream):
+    def stream_request(self):
+        return self.stream.statuses.filter.post()
+
+    @events.on_connect.handler
+    @events.on_tweet.handler
+    def tweet(self, data):
+        if data.retweeted or "RT @" in data.text:
+            return
+
+`;

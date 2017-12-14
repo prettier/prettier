@@ -163,7 +163,17 @@ function genericPrint(path, options, print) {
 
       def.push("def", line, path.call(print, "name"));
 
-      return concat([
+      const parts = [];
+
+      if (n.decorator_list.length > 0) {
+        const decorators = path
+          .map(print, "decorator_list")
+          .map(x => concat(["@", x]));
+
+        parts.push(join(hardline, decorators), hardline);
+      }
+
+      parts.push(
         group(concat(def)),
         group(
           concat([
@@ -175,7 +185,9 @@ function genericPrint(path, options, print) {
         ),
         ":",
         indent(concat([hardline, printBody(path, print)]))
-      ]);
+      );
+
+      return concat(parts);
     }
 
     case "arguments": {
@@ -324,13 +336,25 @@ function genericPrint(path, options, print) {
         bases = ["(", join(",", path.map(print, "bases")), ")"];
       }
 
-      return concat([
+      const parts = [];
+
+      if (n.decorator_list.length > 0) {
+        const decorators = path
+          .map(print, "decorator_list")
+          .map(x => concat(["@", x]));
+
+        parts.push(join(hardline, decorators), hardline);
+      }
+
+      parts.push(
         "class ",
         n.name,
         concat(bases),
         ":",
         indent(concat([hardline, printBody(path, print)]))
-      ]);
+      );
+
+      return concat(parts);
     }
 
     case "Attribute": {
