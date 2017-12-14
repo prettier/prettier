@@ -128,6 +128,16 @@ function printForIn(path, print) {
   ]);
 }
 
+function printWithItem(path, print) {
+  const parts = [path.call(print, "context_expr")];
+
+  if (path.getValue().optional_vars) {
+    parts.push(line, "as", line, path.call(print, "optional_vars"));
+  }
+
+  return group(concat(parts));
+}
+
 function genericPrint(path, options, print) {
   const n = path.getValue();
   if (!n) {
@@ -604,6 +614,22 @@ function genericPrint(path, options, print) {
 
     case "Return": {
       return group(concat(["return", line, path.call(print, "value")]));
+    }
+
+    case "With": {
+      // python 2 and 3
+      const items = n.items
+        ? path.map(print, "items")
+        : [printWithItem(path, print)];
+
+      return concat([
+        group(concat(["with", line, join(",", items), ":"])),
+        indent(concat([hardline, printBody(path, print)]))
+      ]);
+    }
+
+    case "withitem": {
+      return printWithItem(path, print);
     }
 
     default:
