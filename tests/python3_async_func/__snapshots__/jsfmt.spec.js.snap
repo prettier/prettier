@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`async_func.py 1`] = `
+async def hello(x, a=123, b = 456):
+    print("hello world", a)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+async def hello(x, a=123, b=456):
+    print("hello world", a)
+
+`;

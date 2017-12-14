@@ -153,10 +153,18 @@ function genericPrint(path, options, print) {
       return concat([printBody(path, print), hardline]);
     }
 
+    case "AsyncFunctionDef":
     case "FunctionDef": {
+      const def = [];
+
+      if (n.ast_type === "AsyncFunctionDef") {
+        def.push("async", line);
+      }
+
+      def.push("def", line, path.call(print, "name"));
+
       return concat([
-        "def ",
-        path.call(print, "name"),
+        group(concat(def)),
         group(
           concat([
             "(",
