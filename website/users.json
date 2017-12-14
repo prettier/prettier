@@ -114,5 +114,10 @@
     "caption": "EventsTag",
     "image": "/images/eventstag-200x100.png",
     "infoLink": "https://eventstag.com"
+  },
+  {
+    "caption": "IDEATI",
+    "image": "/images/ideati-200x100.png",
+    "infoLink": "http://www.ideati.net"
   }
 ]
