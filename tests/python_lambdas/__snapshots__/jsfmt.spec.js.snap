@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lambdas.py 1`] = `
+key=lambda variable: variable[0]
+max(lis, key=lambda x:int(x))~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+key = lambda variable: variable[0]
+
+max(lis, key=lambda x: int(x))
+
+`;
+
+exports[`lambdas.py 2`] = `
+key=lambda variable: variable[0]
+max(lis, key=lambda x:int(x))~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+key = lambda variable: variable[0]
+
+max(lis, key=lambda x: int(x))
+
+`;

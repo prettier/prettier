@@ -230,12 +230,12 @@ function genericPrint(path, options, print) {
     }
 
     case "Call": {
-      return concat([
-        path.call(print, "func"),
-        "(",
-        join(", ", path.map(print, "args")),
-        ")"
-      ]);
+      let args = [];
+
+      args = args.concat(path.map(print, "args"));
+      args = args.concat(path.map(print, "keywords"));
+
+      return concat([path.call(print, "func"), "(", join(", ", args), ")"]);
     }
 
     case "Str": {
@@ -699,6 +699,22 @@ function genericPrint(path, options, print) {
 
     case "Await": {
       return group(concat(["await", " ", path.call(print, "value")]));
+    }
+
+    case "Lambda": {
+      return group(
+        concat([
+          "lambda",
+          " ",
+          path.call(print, "args"),
+          ": ",
+          path.call(print, "body")
+        ])
+      );
+    }
+
+    case "keyword": {
+      return group(concat([n.arg, "=", path.call(print, "value")]));
     }
 
     default:
