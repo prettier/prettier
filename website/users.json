@@ -139,5 +139,10 @@
     "caption": "HolidayCheck",
     "image": "/images/holidaycheck-200x100.png",
     "infoLink": "https://www.holidaycheck.de"
+  }, 
+  {
+    "caption": "7Span",
+    "image": "/images/sevenspan-200x100.png",
+    "infoLink": "https://7span.com"
   }
 ]
