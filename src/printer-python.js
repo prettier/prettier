@@ -459,6 +459,14 @@ function genericPrint(path, options, print) {
       return "or";
     }
 
+    case "Not": {
+      return "not";
+    }
+
+    case "Is": {
+      return "is";
+    }
+
     case "Import": {
       return concat(["import ", join(", ", path.map(print, "names"))]);
     }
