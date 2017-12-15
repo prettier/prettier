@@ -135,8 +135,39 @@ function handleNode(node) {
         line,
         handleIfAlternate(node.alternate)
       ]);
+    case "switch":
+      return concat([
+        "switch (",
+        handleNode(node.test),
+        ") {",
+        indent(
+          concat(
+            node.body.children.map(caseChild =>
+              concat([line, handleNode(caseChild)])
+            )
+          )
+        ),
+        line,
+        "}"
+      ]);
+    case "case":
+      return concat([
+        node.test
+          ? concat(["case (", handleNode(node.test), "):"])
+          : "default:",
+        indent(concat([line, handleNode(node.body)]))
+      ]);
+    case "break":
+      return "break;";
     case "block":
-      return concat(node.children.map(child => handleNode(child)));
+      return concat(
+        node.children.map((child, i) => {
+          if (i === 0) {
+            return handleNode(child);
+          }
+          return concat([line, handleNode(child)]);
+        })
+      );
     case "return":
       if (node.expr) {
         concat(["return", handleNode(node.expr), ";"]);

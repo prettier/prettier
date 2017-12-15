@@ -1,10 +1,11 @@
 <?php
-$test = 2
-switch ($test) {
+switch (2) {
   case 1:
-    return 'first';
+    $test = 'first';
+    break;
   case 2:
-    return 'second';
+    $test = 'second';
+    break;
   default:
-    return 'default';
+    $test = 1;
 }
