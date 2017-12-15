@@ -59,6 +59,9 @@ function handleNode(node) {
       ]);
     case "variable":
       return "$" + node.name;
+    case "identifier":
+      // @TODO: do we need to conider node.resolution?
+      return node.name;
 
     // literals
     case "boolean":
@@ -84,7 +87,7 @@ function handleNode(node) {
         handleNode(node.right)
       ]);
     case "parenthesis":
-      return "parenthesis needs to be implemented";
+      return concat(["(", handleNode(node.inner), ")"]);
     case "unary":
       return "unary needs to be implemented";
     case "cast":
@@ -163,9 +166,7 @@ function handleNode(node) {
       ]);
     case "case":
       return concat([
-        node.test
-          ? concat(["case (", handleNode(node.test), "):"])
-          : "default:",
+        node.test ? concat(["case ", handleNode(node.test), ":"]) : "default:",
         indent(concat([line, handleNode(node.body)]))
       ]);
     case "break":
@@ -206,6 +207,13 @@ function handleNode(node) {
         ),
         indent(concat([hardline, handleNode(node.body)])),
         concat([hardline, "}"])
+      ]);
+    case "call":
+      return concat([
+        handleNode(node.what),
+        "(",
+        join(", ", node.arguments.map(argument => handleNode(argument))),
+        ")"
       ]);
     // we haven't implemented this type of node yet
     default:
