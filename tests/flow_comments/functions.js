@@ -1,1 +1,1 @@
-function foo<T>(bar  /*: T[] */, baz  /* : T*/) /* : S */ {}
+function foo<T>(bar  /*: T[] */, baz  /*: T */) /*: S */ {}

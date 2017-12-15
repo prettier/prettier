@@ -1,2 +1,2 @@
-let foo /* : Groups<T> */;
-let foo /* : string */ = 'a';
+let foo /*: Groups<T> */;
+let foo /*: string */ = 'a';

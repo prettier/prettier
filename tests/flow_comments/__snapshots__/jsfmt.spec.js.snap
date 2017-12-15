@@ -2,22 +2,22 @@
 
 exports[`arrow.js 1`] = `
 // Error
-const beep = (data/*: Object*/) => {}
+const beep = (data/*: Object */) => {}
 
 // OK
-const beep = (data/*: Object*/, secondData/*: Object*/) => {}
+const beep = (data/*: Object */, secondData/*: Object */) => {}
 
-const beep = (data/*: /* this is an object *-/ Object*/) => {};
+const beep = (data/*: /* this is an object *-/ Object */) => {};
 
 const run = (cmd /*: string */) /*: Promise<void> */ => {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Error
-const beep = (data /*: Object*/) => {};
+const beep = (data /*: Object */) => {};
 
 // OK
-const beep = (data /*: Object*/, secondData /*: Object*/) => {};
+const beep = (data /*: Object */, secondData /*: Object */) => {};
 
-const beep = (data /*: /* this is an object *-/ Object*/) => {};
+const beep = (data /*: /* this is an object *-/ Object */) => {};
 
 const run = (cmd /*: string */) /*: Promise<void> */ => {};
 
@@ -27,30 +27,30 @@ exports[`class.js 1`] = `
 class A {
   x /*: string */;
 
-  method(a /* : T */, b /* : T */)  /* : T */ {}
+  method(a /*: T */, b /*: T */) /*: T */ {}
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class A {
   x /*: string */;
 
-  method(a /* : T */, b /* : T */) /* : T */ {}
+  method(a /*: T */, b /*: T */) /*: T */ {}
 }
 
 `;
 
 exports[`functions.js 1`] = `
-function foo<T>(bar  /*: T[] */, baz  /* : T*/) /* : S */ {}
+function foo<T>(bar  /*: T[] */, baz  /*: T */) /*: S */ {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function foo<T>(bar /*: T[] */, baz /* : T*/) /* : S */ {}
+function foo<T>(bar /*: T[] */, baz /*: T */) /*: S */ {}
 
 `;
 
 exports[`let.js 1`] = `
-let foo /* : Groups<T> */;
-let foo /* : string */ = 'a';
+let foo /*: Groups<T> */;
+let foo /*: string */ = 'a';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let foo /* : Groups<T> */;
-let foo /* : string */ = "a";
+let foo /*: Groups<T> */;
+let foo /*: string */ = "a";
 
 `;
 

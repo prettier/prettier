@@ -467,6 +467,7 @@ function genericPrintNoParens(path, options, print, args) {
       ]);
     case "FunctionDeclaration":
     case "FunctionExpression":
+    case "TSNamespaceFunctionDeclaration":
       if (isNodeStartingWithDeclare(n, options)) {
         parts.push("declare ");
       }
@@ -3209,13 +3210,8 @@ function printTypeAnnotation(path, options, print) {
     path.call(print, "typeAnnotation")
   ];
 
-  const typeAnnotationComment = getTypeAnnotationComment(
-    options.originalText,
-    node.typeAnnotation
-  );
-  if (typeAnnotationComment) {
-    path.call(print, "typeAnnotation");
-    return " " + typeAnnotationComment;
+  if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
+    return concat([" /*: ", path.call(print, "typeAnnotation"), " */"]);
   }
 
   return concat(parts);
@@ -3468,14 +3464,13 @@ function printReturnType(path, print, options) {
   const n = path.getValue();
   const parts = [path.call(print, "returnType")];
 
-  if (n.returnType) {
-    const typeAnnotationComment = getTypeAnnotationComment(
-      options.originalText,
-      n.returnType
-    );
-    if (typeAnnotationComment) {
-      return " " + typeAnnotationComment;
-    }
+  if (
+    n.returnType &&
+    isFlowAnnotationComment(options.originalText, n.returnType)
+  ) {
+    parts.unshift(" /*: ");
+    parts.push(" */");
+    return concat(parts);
   }
 
   // prepend colon to TypeScript type annotation
@@ -3512,7 +3507,8 @@ function printExportDeclaration(path, options, print) {
       decl.type === "ExportDefaultDeclaration" &&
       (decl.declaration.type !== "ClassDeclaration" &&
         decl.declaration.type !== "FunctionDeclaration" &&
-        decl.declaration.type !== "TSAbstractClassDeclaration")
+        decl.declaration.type !== "TSAbstractClassDeclaration" &&
+        decl.declaration.type !== "TSNamespaceFunctionDeclaration")
     ) {
       parts.push(semi);
     }
@@ -4797,13 +4793,10 @@ function hasNakedLeftSide(node) {
   );
 }
 
-function getTypeAnnotationComment(text, typeAnnotation) {
+function isFlowAnnotationComment(text, typeAnnotation) {
   const start = util.locStart(typeAnnotation);
   const end = util.skipWhitespace(text, util.locEnd(typeAnnotation));
-  if (text.substr(start, 2) === "/*" && text.substr(end, 2) === "*/") {
-    return text.slice(start, end + 2);
-  }
-  return null;
+  return text.substr(start, 2) === "/*" && text.substr(end, 2) === "*/";
 }
 
 function getLeftSide(node) {
