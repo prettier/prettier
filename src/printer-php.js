@@ -205,7 +205,7 @@ function handleNode(node) {
         "function ",
         node.name,
         "(",
-        handleArugments(node.arguments),
+        indent(handleArugments(node.arguments)),
         ") {",
         indent(concat([hardline, handleNode(node.body)])),
         concat([hardline, "}"])
