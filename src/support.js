@@ -145,7 +145,7 @@ const supportTable = [
       "mcmod.info"
     ],
     linguistLanguageId: 174,
-    vscodeLanguageIds: ["json"]
+    vscodeLanguageIds: ["json", "jsonc"]
   },
 
   {

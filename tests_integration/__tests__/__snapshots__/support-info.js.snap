@@ -197,6 +197,7 @@ Object {
       "tmScope": "source.json",
       "vscodeLanguageIds": Array [
         "json",
+        "jsonc",
       ],
     },
     Object {
@@ -526,7 +527,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\"mcmod.info\\"
       ],
       \\"linguistLanguageId\\": 174,
-      \\"vscodeLanguageIds\\": [\\"json\\"]
+      \\"vscodeLanguageIds\\": [\\"json\\", \\"jsonc\\"]
     },
     {
       \\"name\\": \\"Markdown\\",
