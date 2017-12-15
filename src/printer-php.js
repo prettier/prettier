@@ -159,6 +159,16 @@ function handleNode(node) {
       ]);
     case "break":
       return "break;";
+    case "while":
+      console.log(node);
+      return concat([
+        "while (",
+        handleNode(node.test),
+        ") {",
+        indent(concat([line, handleNode(node.body)])),
+        line,
+        "}"
+      ]);
     case "block":
       return concat(
         node.children.map((child, i) => {
