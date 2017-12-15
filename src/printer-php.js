@@ -99,6 +99,19 @@ function handleNode(node) {
         line,
         "}"
       ]);
+    case "foreach":
+      return concat([
+        "foreach (",
+        handleNode(node.source),
+        " as ",
+        node.key
+          ? join(" => ", [handleNode(node.key), handleNode(node.value)])
+          : handleNode(node.value),
+        ") {",
+        indent(concat([line, handleNode(node.body)])),
+        line,
+        "}"
+      ]);
     case "block":
       return concat(node.children.map(child => handleNode(child)));
 

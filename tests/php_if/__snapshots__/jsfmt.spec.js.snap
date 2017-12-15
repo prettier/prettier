@@ -1,13 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`foreach.php 1`] = `
+exports[`if.php 1`] = `
 <?php
-foreach ($test as $i) {
-  $test2 = $i;
+if (true) {
+  return 1;
+} elseif (false) {
+  return 2;
+} else {
+  return;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <?php
-foreach ($test as $i) {
-  $test2 = $i;
-}
+whoops this hasn't been implemented yet
 `;

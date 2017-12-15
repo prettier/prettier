@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`foreach.php 1`] = `
+exports[`while.php 1`] = `
 <?php
-foreach ($test as $i) {
-  $test2 = $i;
+$i = 1;
+while ($i <= 5) {
+  $i++;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <?php
-foreach ($test as $i) {
-  $test2 = $i;
-}
+$i = 1;
+whoops this hasn't been implemented yet
 `;
