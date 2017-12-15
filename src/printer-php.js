@@ -37,16 +37,14 @@ function handleLiteral(node) {
 }
 
 function handleArugments(args) {
-  return group(
-    join(", ",
-        args.map((param) => {
-          return group(concat([
-            line,
-            "$",
-            param.name
-          ]));
-      }))
-  );
+  return join(", ",
+    args.map((param) => {
+      return group(concat([
+        softline,
+        "$",
+        param.name
+      ]));
+  }));
 }
 
 function handleNode(node) {
@@ -205,8 +203,7 @@ function handleNode(node) {
         "function ",
         node.name,
         "(",
-        indent(handleArugments(node.arguments)),
-        ") {",
+        group(concat([handleArugments(node.arguments), concat([softline, ") {"])])),
         indent(concat([hardline, handleNode(node.body)])),
         concat([hardline, "}"])
       ]);
