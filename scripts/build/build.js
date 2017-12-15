@@ -15,7 +15,7 @@ const parsers = [
   "graphql",
   "postcss",
   "parse5",
-  "markdown"
+  "markdown",
 ];
 
 process.env.PATH += path.delimiter + path.join(rootDir, "node_modules", ".bin");
@@ -96,7 +96,7 @@ const pkgWithoutDependencies = Object.assign({}, pkg);
 delete pkgWithoutDependencies.dependencies;
 pkgWithoutDependencies.scripts = {
   prepublishOnly:
-    "node -e \"assert.equal(require('.').version, require('..').version)\""
+    "node -e \"assert.equal(require('.').version, require('..').version)\"",
 };
 pipe(JSON.stringify(pkgWithoutDependencies, null, 2)).to("dist/package.json");
 

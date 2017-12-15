@@ -51,5 +51,5 @@ function validateChoiceOption(type, value, option) {
 module.exports = {
   validateArgv,
   validateIntOption,
-  validateChoiceOption
+  validateChoiceOption,
 };

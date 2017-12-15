@@ -37,11 +37,11 @@ const supportTable = [
       ".sjs",
       ".ssjs",
       ".xsjs",
-      ".xsjslib"
+      ".xsjslib",
     ],
     filenames: ["Jakefile"],
     linguistLanguageId: 183,
-    vscodeLanguageIds: ["javascript"]
+    vscodeLanguageIds: ["javascript"],
   },
   {
     name: "JSX",
@@ -54,7 +54,7 @@ const supportTable = [
     codemirrorMode: "jsx",
     codemirrorMimeType: "text/jsx",
     liguistLanguageId: 178,
-    vscodeLanguageIds: ["javascriptreact"]
+    vscodeLanguageIds: ["javascriptreact"],
   },
   {
     name: "TypeScript",
@@ -68,7 +68,7 @@ const supportTable = [
     codemirrorMode: "javascript",
     codemirrorMimeType: "application/typescript",
     liguistLanguageId: 378,
-    vscodeLanguageIds: ["typescript", "typescriptreact"]
+    vscodeLanguageIds: ["typescript", "typescriptreact"],
   },
   {
     name: "CSS",
@@ -81,7 +81,7 @@ const supportTable = [
     codemirrorMimeType: "text/css",
     extensions: [".css"],
     liguistLanguageId: 50,
-    vscodeLanguageIds: ["css"]
+    vscodeLanguageIds: ["css"],
   },
   {
     name: "Less",
@@ -94,7 +94,7 @@ const supportTable = [
     codemirrorMode: "css",
     codemirrorMimeType: "text/css",
     liguistLanguageId: 198,
-    vscodeLanguageIds: ["less"]
+    vscodeLanguageIds: ["less"],
   },
   {
     name: "SCSS",
@@ -107,7 +107,7 @@ const supportTable = [
     codemirrorMimeType: "text/x-scss",
     extensions: [".scss"],
     liguistLanguageId: 329,
-    vscodeLanguageIds: ["scss"]
+    vscodeLanguageIds: ["scss"],
   },
   {
     name: "GraphQL",
@@ -117,7 +117,7 @@ const supportTable = [
     tmScope: "source.graphql",
     aceMode: "text",
     liguistLanguageId: 139,
-    vscodeLanguageIds: ["graphql"]
+    vscodeLanguageIds: ["graphql"],
   },
   {
     name: "JSON",
@@ -133,7 +133,7 @@ const supportTable = [
       ".json5",
       ".geojson",
       ".JSON-tmLanguage",
-      ".topojson"
+      ".topojson",
     ],
     filenames: [
       ".arcconfig",
@@ -142,10 +142,10 @@ const supportTable = [
       ".eslintrc",
       ".prettierrc",
       "composer.lock",
-      "mcmod.info"
+      "mcmod.info",
     ],
     linguistLanguageId: 174,
-    vscodeLanguageIds: ["json"]
+    vscodeLanguageIds: ["json"],
   },
 
   {
@@ -166,12 +166,12 @@ const supportTable = [
       ".mkdn",
       ".mkdown",
       ".ron",
-      ".workbook"
+      ".workbook",
     ],
     filenames: ["README"],
     tmScope: "source.gfm",
     linguistLanguageId: 222,
-    vscodeLanguageIds: ["markdown"]
+    vscodeLanguageIds: ["markdown"],
   },
   {
     name: "HTML",
@@ -185,8 +185,8 @@ const supportTable = [
     aliases: ["xhtml"],
     extensions: [".html", ".htm", ".html.hl", ".inc", ".st", ".xht", ".xhtml"],
     linguistLanguageId: 146,
-    vscodeLanguageIds: ["html"]
-  }
+    vscodeLanguageIds: ["html"],
+  },
 ];
 
 function getSupportInfo(version) {
@@ -201,7 +201,7 @@ function getSupportInfo(version) {
     .map(language => {
       if (usePostCssParser && language.group === "CSS") {
         return Object.assign({}, language, {
-          parsers: ["postcss"]
+          parsers: ["postcss"],
         });
       }
       return language;
@@ -212,5 +212,5 @@ function getSupportInfo(version) {
 
 module.exports = {
   supportTable,
-  getSupportInfo
+  getSupportInfo,
 };

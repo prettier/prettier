@@ -16,11 +16,11 @@ export default Object.assign(baseConfig, {
       // with rollup the module is turned into a plain function located directly
       // in index.js so `module.parent` does not exist. Defaulting to `module`
       // instead seems to work.
-      "module.parent": "(module.parent || module)"
+      "module.parent": "(module.parent || module)",
     }),
     json(),
     resolve({ preferBuiltins: true }),
-    commonjs()
+    commonjs(),
   ],
-  external: ["assert"]
+  external: ["assert"],
 });

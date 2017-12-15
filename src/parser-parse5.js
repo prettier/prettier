@@ -9,7 +9,7 @@ function parse(text /*, parsers, opts*/) {
     const isFragment = !/^\s*<(!doctype|html|head|body)/i.test(text);
     const ast = (isFragment ? parse5.parseFragment : parse5.parse)(text, {
       treeAdapter: parse5.treeAdapters.htmlparser2,
-      locationInfo: true
+      locationInfo: true,
     });
     return extendAst(ast);
   } catch (error) {
@@ -42,7 +42,7 @@ function convertAttribs(attribs) {
     return {
       type: "attribute",
       key: attributeKey,
-      value: attribs[attributeKey]
+      value: attribs[attributeKey],
     };
   });
 }

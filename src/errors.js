@@ -5,5 +5,5 @@ class DebugError extends Error {}
 
 module.exports = {
   ConfigError,
-  DebugError
+  DebugError,
 };

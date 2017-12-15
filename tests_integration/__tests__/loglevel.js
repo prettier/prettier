@@ -25,7 +25,7 @@ function runPrettierWithLogLevel(logLevel, patterns) {
     "--unknown-option",
     "--parser",
     "unknown-parser",
-    "not-found.js"
+    "not-found.js",
   ]);
 
   expect(result).not.toEqual(0);

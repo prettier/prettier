@@ -5,5 +5,5 @@ const cosmiconfig = require("cosmiconfig");
 
 module.exports = {
   getStream,
-  cosmiconfig
+  cosmiconfig,
 };

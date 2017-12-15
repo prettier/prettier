@@ -16,13 +16,13 @@ function parseValueNodes(nodes) {
     open: null,
     close: null,
     groups: [],
-    type: "paren_group"
+    type: "paren_group",
   };
   const parenGroupStack = [parenGroup];
   const rootParenGroup = parenGroup;
   let commaGroup = {
     groups: [],
-    type: "comma_group"
+    type: "comma_group",
   };
   const commaGroupStack = [commaGroup];
 
@@ -33,13 +33,13 @@ function parseValueNodes(nodes) {
         open: node,
         close: null,
         groups: [],
-        type: "paren_group"
+        type: "paren_group",
       };
       parenGroupStack.push(parenGroup);
 
       commaGroup = {
         groups: [],
-        type: "comma_group"
+        type: "comma_group",
       };
       commaGroupStack.push(commaGroup);
     } else if (node.type === "paren" && node.value === ")") {
@@ -62,7 +62,7 @@ function parseValueNodes(nodes) {
       parenGroup.groups.push(commaGroup);
       commaGroup = {
         groups: [],
-        type: "comma_group"
+        type: "comma_group",
       };
       commaGroupStack[commaGroupStack.length - 1] = commaGroup;
     } else {
@@ -173,7 +173,7 @@ function parseNestedCSS(node) {
         // https://github.com/postcss/postcss-scss/issues/39
         node.selector = {
           type: "selector-root-invalid",
-          value: selector
+          value: selector,
         };
       }
     }

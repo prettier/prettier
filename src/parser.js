@@ -33,7 +33,7 @@ const parsers = {
   },
   get markdown() {
     return eval("require")("./parser-markdown");
-  }
+  },
 };
 
 function resolveParseFunction(opts) {
@@ -66,7 +66,7 @@ function parse(text, opts) {
     if (loc) {
       const codeFrame = require("babel-code-frame");
       error.codeFrame = codeFrame.codeFrameColumns(text, loc, {
-        highlightCode: true
+        highlightCode: true,
       });
       error.message += "\n" + error.codeFrame;
       throw error;

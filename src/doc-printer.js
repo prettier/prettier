@@ -12,14 +12,14 @@ const MODE_FLAT = 2;
 function rootIndent() {
   return {
     length: 0,
-    value: ""
+    value: "",
   };
 }
 
 function makeIndent(ind, options) {
   return {
     length: ind.length + options.tabWidth,
-    value: ind.value + (options.useTabs ? "\t" : " ".repeat(options.tabWidth))
+    value: ind.value + (options.useTabs ? "\t" : " ".repeat(options.tabWidth)),
   };
 }
 
@@ -29,13 +29,13 @@ function makeAlign(ind, n, options) {
     : typeof n === "string"
       ? {
           length: ind.length + n.length,
-          value: ind.value + n
+          value: ind.value + n,
         }
       : options.useTabs && n > 0
         ? makeIndent(ind, options)
         : {
             length: ind.length + n,
-            value: ind.value + " ".repeat(n)
+            value: ind.value + " ".repeat(n),
           };
 }
 
@@ -175,7 +175,7 @@ function printDocToString(doc, options) {
                 cmds.push([
                   ind,
                   doc.break ? MODE_BREAK : MODE_FLAT,
-                  doc.contents
+                  doc.contents,
                 ]);
 
                 break;
@@ -303,7 +303,7 @@ function printDocToString(doc, options) {
           const firstAndSecondContentFlatCmd = [
             ind,
             MODE_FLAT,
-            concat([content, whitespace, secondContent])
+            concat([content, whitespace, secondContent]),
           ];
           const firstAndSecondContentFits = fits(
             firstAndSecondContentFlatCmd,
@@ -423,7 +423,7 @@ function printDocToString(doc, options) {
 
     return {
       formatted: beforeCursor + afterCursor,
-      cursor: beforeCursor.length
+      cursor: beforeCursor.length,
     };
   }
 

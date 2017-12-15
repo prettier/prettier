@@ -45,12 +45,12 @@ function mapDoc(doc, func) {
 
   if (doc.type === "concat" || doc.type === "fill") {
     return Object.assign({}, doc, {
-      parts: doc.parts.map(d => mapDoc(d, func))
+      parts: doc.parts.map(d => mapDoc(d, func)),
     });
   } else if (doc.type === "if-break") {
     return Object.assign({}, doc, {
       breakContents: doc.breakContents && mapDoc(doc.breakContents, func),
-      flatContents: doc.flatContents && mapDoc(doc.flatContents, func)
+      flatContents: doc.flatContents && mapDoc(doc.flatContents, func),
     });
   } else if (doc.contents) {
     return Object.assign({}, doc, { contents: mapDoc(doc.contents, func) });
@@ -179,5 +179,5 @@ module.exports = {
   mapDoc,
   propagateBreaks,
   removeLines,
-  rawText
+  rawText,
 };

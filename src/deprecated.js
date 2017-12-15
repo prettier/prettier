@@ -7,7 +7,7 @@ const deprecated = {
   Prettier now treats your configuration as:
   {
     ${'"parser"'}: ${config.useFlowParser ? '"flow"' : '"babylon"'}
-  }`
+  }`,
 };
 
 module.exports = deprecated;

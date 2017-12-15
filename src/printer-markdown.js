@@ -16,7 +16,7 @@ const SINGLE_LINE_NODE_TYPES = [
   "heading",
   "tableCell",
   "footnoteDefinition",
-  "link"
+  "link",
 ];
 
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
@@ -35,13 +35,13 @@ const INLINE_NODE_TYPES = [
   "sentence",
   "whitespace",
   "word",
-  "break"
+  "break",
 ];
 
 const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
   "tableCell",
   "paragraph",
-  "heading"
+  "heading",
 ]);
 
 function genericPrint(path, options, print) {
@@ -69,11 +69,11 @@ function genericPrint(path, options, print) {
     case "root":
       return concat([
         normalizeDoc(printChildren(path, options, print)),
-        hardline
+        hardline,
       ]);
     case "paragraph":
       return printChildren(path, options, print, {
-        postprocessor: fill
+        postprocessor: fill,
       });
     case "sentence":
       return printChildren(path, options, print);
@@ -84,7 +84,7 @@ function genericPrint(path, options, print) {
           new RegExp(
             [
               `(^|[${util.punctuationCharRange}])(_+)`,
-              `(_+)([${util.punctuationCharRange}]|$)`
+              `(_+)([${util.punctuationCharRange}]|$)`,
             ].join("|"),
             "g"
           ),
@@ -148,7 +148,7 @@ function genericPrint(path, options, print) {
             "](",
             printUrl(node.url, ")"),
             node.title ? ` ${printTitle(node.title)}` : "",
-            ")"
+            ")",
           ]);
         default:
           return options.originalText.slice(
@@ -163,14 +163,14 @@ function genericPrint(path, options, print) {
         "](",
         printUrl(node.url, ")"),
         node.title ? ` ${printTitle(node.title)}` : "",
-        ")"
+        ")",
       ]);
     case "blockquote":
       return concat(["> ", align("> ", printChildren(path, options, print))]);
     case "heading":
       return concat([
         "#".repeat(node.depth) + " ",
-        printChildren(path, options, print)
+        printChildren(path, options, print),
       ]);
     case "code": {
       if (
@@ -201,7 +201,7 @@ function genericPrint(path, options, print) {
         hardline,
         join(hardline, node.value.split("\n")),
         hardline,
-        style
+        style,
       ]);
     }
     case "yaml":
@@ -241,9 +241,9 @@ function genericPrint(path, options, print) {
             : nthSiblingIndex % 2 === 0 ? "* " : "- ";
           return concat([
             prefix,
-            align(" ".repeat(prefix.length), childPath.call(print))
+            align(" ".repeat(prefix.length), childPath.call(print)),
           ]);
-        }
+        },
       });
     }
     case "listItem": {
@@ -255,8 +255,8 @@ function genericPrint(path, options, print) {
           processor: (childPath, index) =>
             index === 0 && childPath.getValue().type !== "list"
               ? align(" ".repeat(prefix.length), childPath.call(print))
-              : childPath.call(print)
-        })
+              : childPath.call(print),
+        }),
       ]);
     }
     case "thematicBreak": {
@@ -277,7 +277,7 @@ function genericPrint(path, options, print) {
         "]",
         node.referenceType === "full"
           ? concat(["[", node.identifier, "]"])
-          : node.referenceType === "collapsed" ? "[]" : ""
+          : node.referenceType === "collapsed" ? "[]" : "",
       ]);
     case "imageReference":
       switch (node.referenceType) {
@@ -288,7 +288,7 @@ function genericPrint(path, options, print) {
             "![",
             node.alt,
             "]",
-            node.referenceType === "collapsed" ? "[]" : ""
+            node.referenceType === "collapsed" ? "[]" : "",
           ]);
       }
     case "definition":
@@ -297,7 +297,7 @@ function genericPrint(path, options, print) {
         node.identifier,
         "]: ",
         printUrl(node.url),
-        node.title === null ? "" : ` ${printTitle(node.title)}`
+        node.title === null ? "" : ` ${printTitle(node.title)}`,
       ]);
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
@@ -308,7 +308,7 @@ function genericPrint(path, options, print) {
         "[^",
         node.identifier,
         "]: ",
-        printChildren(path, options, print)
+        printChildren(path, options, print),
       ]);
     case "table":
       return printTable(path, options, print);
@@ -319,7 +319,7 @@ function genericPrint(path, options, print) {
         /\s/.test(options.originalText[node.position.start.offset])
           ? "  "
           : "\\",
-        hardline
+        hardline,
       ]);
     case "tableRow": // handled in "table"
     default:
@@ -413,7 +413,7 @@ function printTable(path, options, print) {
   return join(hardline, [
     printRow(contents[0]),
     printSeparator(),
-    join(hardline, contents.slice(1).map(printRow))
+    join(hardline, contents.slice(1).map(printRow)),
   ]);
 
   function printSeparator() {
@@ -434,7 +434,7 @@ function printTable(path, options, print) {
           }
         })
       ),
-      " |"
+      " |",
     ]);
   }
 
@@ -454,7 +454,7 @@ function printTable(path, options, print) {
           }
         })
       ),
-      " |"
+      " |",
     ]);
   }
 
@@ -507,7 +507,7 @@ function printChildren(path, options, print, events) {
         index: counter++,
         prevNode: lastChildNode,
         parentNode: node,
-        options
+        options,
       };
 
       if (!shouldNotPrePrintHardline(childNode, data)) {
@@ -582,7 +582,7 @@ function shouldPrePrintTripleHardline(node, data) {
 function shouldRemainTheSameContent(path) {
   const ancestorNode = getAncestorNode(path, [
     "linkReference",
-    "imageReference"
+    "imageReference",
   ]);
 
   return (
@@ -613,7 +613,7 @@ function normalizeDoc(doc) {
     });
 
     return Object.assign({}, currentDoc, {
-      parts: normalizeParts(parts)
+      parts: normalizeParts(parts),
     });
   });
 }

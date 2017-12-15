@@ -42,7 +42,7 @@ function run_spec(dirname, parsers, options) {
       const mergedOptions = Object.assign(mergeDefaultOptions(options || {}), {
         parser: parsers[0],
         rangeStart: rangeStart,
-        rangeEnd: rangeEnd
+        rangeEnd: rangeEnd,
       });
       const output = prettyprint(source, path, mergedOptions);
       test(`${filename} - ${mergedOptions.parser}-verify`, () => {
@@ -55,7 +55,7 @@ function run_spec(dirname, parsers, options) {
         parserName => {
           test(`${filename} - ${parserName}-verify`, () => {
             const verifyOptions = Object.assign(mergedOptions, {
-              parser: parserName
+              parser: parserName,
             });
             const verifyOutput = prettyprint(source, path, verifyOptions);
             expect(output).toEqual(verifyOutput);
@@ -124,7 +124,7 @@ function prettyprint(src, filename, options) {
     src,
     Object.assign(
       {
-        filepath: filename
+        filepath: filename,
       },
       options
     )
@@ -150,7 +150,7 @@ function raw(string) {
 function mergeDefaultOptions(parserConfig) {
   return Object.assign(
     {
-      printWidth: 80
+      printWidth: 80,
     },
     parserConfig
   );

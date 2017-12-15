@@ -40,7 +40,7 @@ function run(args) {
   if (argv["support-info"]) {
     console.log(
       prettier.format(JSON.stringify(prettier.getSupportInfo()), {
-        parser: "json"
+        parser: "json",
       })
     );
     process.exit(0);
@@ -62,5 +62,5 @@ function run(args) {
 }
 
 module.exports = {
-  run
+  run,
 };

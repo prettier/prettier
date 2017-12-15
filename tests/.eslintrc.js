@@ -2,12 +2,12 @@
 
 module.exports = {
   env: {
-    jest: true
+    jest: true,
   },
   rules: {
-    strict: "off"
+    strict: "off",
   },
   globals: {
-    run_spec: false
-  }
+    run_spec: false,
+  },
 };

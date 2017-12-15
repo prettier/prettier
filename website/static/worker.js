@@ -8,7 +8,7 @@ self.path = {};
 self.Buffer = {
   isBuffer: function() {
     return false;
-  }
+  },
 };
 self.constants = {};
 // eslint-disable-next-line
@@ -97,7 +97,7 @@ self.onmessage = function(message) {
     doc: doc,
     ast: ast,
     formatted2: formatted2,
-    version: prettier.version
+    version: prettier.version,
   });
 };
 

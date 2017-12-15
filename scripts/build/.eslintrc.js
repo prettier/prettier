@@ -5,8 +5,8 @@ module.exports = {
     {
       files: "rollup.*.config.js",
       parserOptions: {
-        sourceType: "module"
-      }
-    }
-  ]
+        sourceType: "module",
+      },
+    },
+  ],
 };

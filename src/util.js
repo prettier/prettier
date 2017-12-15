@@ -21,7 +21,7 @@ const punctuationCharRange = `${asciiPunctuationCharRange}${getUnicodeRegex([
   "Pf",
   "Pi",
   "Po",
-  "Ps"
+  "Ps",
 ]).source.slice(1, -1)}`; // remove bracket expression `[` and `]`
 
 const punctuationRegex = new RegExp(`[${punctuationCharRange}]`);
@@ -338,7 +338,7 @@ const PRECEDENCE = {};
   [">>", "<<", ">>>"],
   ["+", "-"],
   ["*", "/", "%"],
-  ["**"]
+  ["**"],
 ].forEach((tier, i) => {
   tier.forEach(op => {
     PRECEDENCE[op] = i;
@@ -353,17 +353,17 @@ const equalityOperators = {
   "==": true,
   "!=": true,
   "===": true,
-  "!==": true
+  "!==": true,
 };
 const multiplicativeOperators = {
   "*": true,
   "/": true,
-  "%": true
+  "%": true,
 };
 const bitshiftOperators = {
   ">>": true,
   ">>>": true,
-  "<<": true
+  "<<": true,
 };
 
 function shouldFlatten(parentOp, nodeOp) {
@@ -689,7 +689,7 @@ function splitText(text) {
       if (index % 2 === 1) {
         nodes.push({
           type: "whitespace",
-          value: /\n/.test(token) ? "\n" : " "
+          value: /\n/.test(token) ? "\n" : " ",
         });
         return;
       }
@@ -720,7 +720,7 @@ function splitText(text) {
                 hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
                 hasTrailingPunctuation: punctuationRegex.test(
                   getLast(innerToken)
-                )
+                ),
               });
             }
             return;
@@ -734,14 +734,14 @@ function splitText(text) {
                   value: innerToken,
                   kind: KIND_CJK_PUNCTUATION,
                   hasLeadingPunctuation: true,
-                  hasTrailingPunctuation: true
+                  hasTrailingPunctuation: true,
                 }
               : {
                   type: "word",
                   value: innerToken,
                   kind: KIND_CJK_CHARACTER,
                   hasLeadingPunctuation: false,
-                  hasTrailingPunctuation: false
+                  hasTrailingPunctuation: false,
                 }
           );
         });
@@ -827,5 +827,5 @@ module.exports = {
   getAlignmentSize,
   getIndentSize,
   printString,
-  printNumber
+  printNumber,
 };

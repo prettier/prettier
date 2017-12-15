@@ -28,7 +28,7 @@
       codeBlock(input, syntax),
       "",
       "**Output:**",
-      codeBlock(output, syntax)
+      codeBlock(output, syntax),
     ]
       .concat(
         isIdempotent

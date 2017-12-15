@@ -54,7 +54,7 @@ function massageAST(ast, parent) {
       "trailingComma",
       "parent",
       "prev",
-      "position"
+      "position",
     ].forEach(name => {
       delete newObj[name];
     });
@@ -163,7 +163,7 @@ function massageAST(ast, parent) {
         type: "Identifier",
         name: ast.parameter.name,
         typeAnnotation: newObj.parameter.typeAnnotation,
-        decorators: newObj.decorators
+        decorators: newObj.decorators,
       };
     }
 

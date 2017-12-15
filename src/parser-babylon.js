@@ -29,8 +29,8 @@ function parse(text, parsers, opts) {
       "optionalChaining",
       "classPrivateProperties",
       "pipelineOperator",
-      "nullishCoalescingOperator"
-    ]
+      "nullishCoalescingOperator",
+    ],
   };
 
   const parseMethod =
@@ -53,8 +53,8 @@ function parse(text, parsers, opts) {
         {
           start: {
             line: originalError.loc.line,
-            column: originalError.loc.column + 1
-          }
+            column: originalError.loc.column + 1,
+          },
         }
       );
     }

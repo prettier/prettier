@@ -3,7 +3,7 @@
 module.exports = {
   env: {
     es6: true,
-    node: true
+    node: true,
   },
   extends: ["eslint:recommended", "plugin:react/recommended"],
   plugins: ["prettier", "react", "import"],
@@ -11,7 +11,7 @@ module.exports = {
     curly: "error",
     "import/no-extraneous-dependencies": [
       "error",
-      { devDependencies: ["tests*/**", "scripts/**"] }
+      { devDependencies: ["tests*/**", "scripts/**"] },
     ],
     "no-console": "off",
     "no-else-return": "error",
@@ -26,11 +26,11 @@ module.exports = {
     "react/no-deprecated": "off",
     strict: "error",
     "symbol-description": "error",
-    yoda: ["error", "never", { exceptRange: true }]
+    yoda: ["error", "never", { exceptRange: true }],
   },
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
-    }
-  }
+      jsx: true,
+    },
+  },
 };

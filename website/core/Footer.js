@@ -17,7 +17,7 @@ const GithubButton = props => (
 );
 
 GithubButton.propTypes = {
-  config: React.PropTypes.object
+  config: React.PropTypes.object,
 };
 
 class Footer extends React.Component {
@@ -79,7 +79,7 @@ class Footer extends React.Component {
 
 Footer.propTypes = {
   language: React.PropTypes.string,
-  config: React.PropTypes.object
+  config: React.PropTypes.object,
 };
 
 module.exports = Footer;

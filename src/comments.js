@@ -69,7 +69,7 @@ function getSortedChildNodes(node, text, resultArray) {
   if (!resultArray) {
     Object.defineProperty(node, childNodesCacheKey, {
       value: (resultArray = []),
-      enumerable: false
+      enumerable: false,
     });
   }
 
@@ -968,7 +968,7 @@ function printJsDocComment(comment) {
           (index < lines.length - 1 ? line.trim() : line.trimLeft())
       )
     ),
-    "*/"
+    "*/",
   ]);
 }
 
@@ -1009,7 +1009,7 @@ function printLeadingComment(commentPath, print, options) {
   if (isBlock) {
     return concat([
       contents,
-      util.hasNewline(options.originalText, locEnd(comment)) ? hardline : " "
+      util.hasNewline(options.originalText, locEnd(comment)) ? hardline : " ",
     ]);
   }
 
@@ -1026,7 +1026,7 @@ function printTrailingComment(commentPath, print, options) {
 
   if (
     util.hasNewline(options.originalText, locStart(comment), {
-      backwards: true
+      backwards: true,
     })
   ) {
     // This allows comments at the end of nested structures:
@@ -1138,5 +1138,5 @@ module.exports = {
   attach,
   printComments,
   printDanglingComments,
-  getSortedChildNodes
+  getSortedChildNodes,
 };
