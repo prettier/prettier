@@ -456,7 +456,7 @@ function genericPrint(path, options, print) {
     }
 
     case "And": {
-      return "or";
+      return "and";
     }
 
     case "Not": {
