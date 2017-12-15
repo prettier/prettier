@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`foreach.php 1`] = `
+<?php
+$test = [];
+foreach ($test as $i) {
+  $test2 = $i;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<?php
+$test = whoops this hasn't been implemented yet;
+whoops this hasn't been implemented yet
+`;

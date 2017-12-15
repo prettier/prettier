@@ -87,6 +87,18 @@ function handleNode(node) {
         line,
         group(concat(["} while (", handleNode(node.test), ");"]))
       ]);
+    case "for":
+      return concat([
+        "for (",
+        concat(node.init.map(init => handleNode(init))),
+        concat(node.test.map(test => handleNode(test))),
+        ";",
+        concat(node.increment.map(increment => handleNode(increment))),
+        ") {",
+        indent(concat([line, handleNode(node.body)])),
+        line,
+        "}"
+      ]);
     case "block":
       return concat(node.children.map(child => handleNode(child)));
 
