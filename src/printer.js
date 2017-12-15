@@ -3204,16 +3204,14 @@ function printTypeAnnotation(path, options, print) {
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
-  const parts = [
-    isFunctionDeclarationIdentifier ? "" : ": ",
-    path.call(print, "typeAnnotation")
-  ];
-
   if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
     return concat([" /*: ", path.call(print, "typeAnnotation"), " */"]);
   }
 
-  return concat(parts);
+  return concat([
+    isFunctionDeclarationIdentifier ? "" : ": ",
+    path.call(print, "typeAnnotation")
+  ]);
 }
 
 function printFunctionTypeParameters(path, options, print) {
