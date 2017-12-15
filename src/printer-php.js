@@ -6,6 +6,8 @@ const join = docBuilders.join;
 const line = docBuilders.line;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
+const hardline = docBuilders.hardline;
+const softline = docBuilders.softline;
 
 function genericPrint(path) {
   const n = path.getValue();
@@ -32,6 +34,19 @@ function handleLiteral(node) {
     default:
       return "Not yet accounted for";
   }
+}
+
+function handleArugments(args) {
+  return group(
+    join(", ",
+        args.map((param) => {
+          return group(concat([
+            line,
+            "$",
+            param.name
+          ]));
+      }))
+  );
 }
 
 function handleNode(node) {
@@ -184,11 +199,24 @@ function handleNode(node) {
         return "return;";
       }
       return concat(["return ", handleNode(node.expr), ";"]);
-
+    // functions
+    case "function":
+      return concat([
+        "function ",
+        node.name,
+        "(",
+        handleArugments(node.arguments),
+        ") {",
+        indent(concat([hardline, handleNode(node.body)])),
+        concat([hardline, "}"])
+      ]);
     // we haven't implemented this type of node yet
     default:
-      return concat(["whoops this hasn't been implemented yet"]);
+      return concat(["whoops " + node.kind + " hasn't been implemented yet"]);
   }
 }
+
+
+
 
 module.exports = genericPrint;
