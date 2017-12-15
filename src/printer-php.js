@@ -4,6 +4,8 @@ const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const line = docBuilders.line;
+const group = docBuilders.group;
+const indent = docBuilders.indent;
 
 function genericPrint(path) {
   const n = path.getValue();
@@ -37,7 +39,6 @@ function handleNode(node) {
     case "program":
       return concat([
         "<?php",
-        line,
         concat(node.children.map(child => concat([line, handleNode(child)])))
       ]);
     case "assign":
@@ -57,6 +58,37 @@ function handleNode(node) {
     case "nowdoc":
     case "encapsed":
       return handleLiteral(node);
+
+    // operation
+    case "pre":
+      return concat([node.type + node.type, handleNode(node.what), ";"]);
+    case "post":
+      return concat([handleNode(node.what), node.type + node.type, ";"]);
+    case "bin":
+      return concat([
+        handleNode(node.left),
+        " ",
+        node.type,
+        " ",
+        handleNode(node.right)
+      ]);
+    case "parenthesis":
+      return "parenthesis needs to be implemented";
+    case "unary":
+      return "unary needs to be implemented";
+    case "cast":
+      return "cast needs to be implemented";
+
+    // statements
+    case "do":
+      return concat([
+        "do {",
+        indent(concat([line, handleNode(node.body)])),
+        line,
+        group(concat(["} while (", handleNode(node.test), ");"]))
+      ]);
+    case "block":
+      return concat(node.children.map(child => handleNode(child)));
 
     // we haven't implemented this type of node yet
     default:

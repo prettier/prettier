@@ -1,9 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`string.php 1`] = `
+exports[`do.php 1`] = `
 <?php
-$test = 'hi';
+$i = 1;
+do {
+  $i++;
+} while ($i <= 5);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <?php
-$test = 'hi';
+$i = 1;
+do {
+  $i++;
+} while ($i <= 5);
 `;
