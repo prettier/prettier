@@ -232,6 +232,16 @@ function genericPrint(path, options, print) {
     case "Call": {
       let args = [];
 
+      // python 2
+
+      if (n.starargs) {
+        args.push(concat(["*", path.call(print, "starargs")]));
+      }
+
+      if (n.kwargs) {
+        args.push(concat(["**", path.call(print, "kwargs")]));
+      }
+
       args = args.concat(path.map(print, "args"));
       args = args.concat(path.map(print, "keywords"));
 
@@ -714,7 +724,21 @@ function genericPrint(path, options, print) {
     }
 
     case "keyword": {
-      return group(concat([n.arg, "=", path.call(print, "value")]));
+      const parts = [];
+
+      if (n.arg) {
+        parts.push(n.arg, "=");
+      } else {
+        parts.push("**");
+      }
+
+      parts.push(path.call(print, "value"));
+
+      return group(concat(parts));
+    }
+
+    case "Starred": {
+      return concat(["*", path.call(print, "value")]);
     }
 
     default:
