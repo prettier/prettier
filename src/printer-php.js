@@ -112,8 +112,38 @@ function handleNode(node) {
         line,
         "}"
       ]);
+    case "if":
+      const handleIfAlternate = alternate => {
+        if (!alternate) {
+          return "}";
+        }
+        if (alternate.kind === "if") {
+          return concat(["} else", handleNode(alternate)]);
+        }
+        return concat([
+          "} else {",
+          indent(concat([line, handleNode(alternate)])),
+          line,
+          "}"
+        ]);
+      };
+      return concat([
+        "if (",
+        handleNode(node.test),
+        ") {",
+        indent(concat([line, handleNode(node.body)])),
+        line,
+        handleIfAlternate(node.alternate)
+      ]);
     case "block":
       return concat(node.children.map(child => handleNode(child)));
+    case "return":
+      if (node.expr) {
+        concat(["return", handleNode(node.expr), ";"]);
+      } else {
+        return "return;";
+      }
+      return concat(["return ", handleNode(node.expr), ";"]);
 
     // we haven't implemented this type of node yet
     default:
