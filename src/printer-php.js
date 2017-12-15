@@ -160,7 +160,6 @@ function handleNode(node) {
     case "break":
       return "break;";
     case "while":
-      console.log(node);
       return concat([
         "while (",
         handleNode(node.test),
