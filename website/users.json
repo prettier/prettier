@@ -164,5 +164,10 @@
     "caption": "N26",
     "image": "/images/n26-200x100.png",
     "infoLink": "https://n26.com"
+  },
+  {
+    "caption": "Yelp",
+    "image": "/images/yelp-200x100.png",
+    "infoLink": "https://www.yelp.com"
   }
 ]
