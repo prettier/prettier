@@ -159,5 +159,10 @@
     "caption": "Wingify",
     "image": "/images/wingify-200x100.png",
     "infoLink": "https://wingify.com"
+  },
+  {
+    "caption": "N26",
+    "image": "/images/n26-200x100.png",
+    "infoLink": "https://n26.com"
   }
 ]
