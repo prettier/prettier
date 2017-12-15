@@ -154,5 +154,10 @@
     "caption": "Mathrioshka",
     "image": "/images/mathrioshka-200x100.png",
     "infoLink": "http://mathrioshka.ru"
+  },
+  {
+    "caption": "Wingify",
+    "image": "/images/wingify-200x100.png",
+    "infoLink": "https://wingify.com"
   }
 ]
