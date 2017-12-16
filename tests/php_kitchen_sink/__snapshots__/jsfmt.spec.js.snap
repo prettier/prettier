@@ -24,7 +24,15 @@ if ($test == 1) {
 
 function really_long_function($test2 = 1, $long_parameter_name, $even_longer_longer_longer_longer_longer_parameter_name) {
   return $test2;
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+
+do {
+  $test = 1;
+  for ($super_long_variable_name = 0; $super_long_variable_name <= 5; $super_long_variable_name++) {
+    really_long_function($test, $test, $test);
+  }
+} while ($really_really_really_really_really_really_really_really_long_array >= 10);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <?php
 function hello($input) {
   return 'hello' + $input;
@@ -50,4 +58,16 @@ function really_long_function(
 ) {
   return $test2;
 }
+do {
+  $test = 1;
+  for (
+    $super_long_variable_name = 0;
+    $super_long_variable_name <= 5;
+    $super_long_variable_name++;
+  ) {
+    really_long_function($test, $test, $test);
+  }
+} while (
+  $really_really_really_really_really_really_really_really_long_array >= 10
+);
 `;
