@@ -133,12 +133,23 @@ function handleNode(node) {
     case "foreach":
       return concat([
         "foreach (",
-        handleNode(node.source),
-        " as ",
-        node.key
-          ? join(" => ", [handleNode(node.key), handleNode(node.value)])
-          : handleNode(node.value),
-        ") {",
+        group(
+          concat([
+            indent(
+              concat([
+                softline,
+                handleNode(node.source),
+                " as",
+                line,
+                node.key
+                  ? join(" => ", [handleNode(node.key), handleNode(node.value)])
+                  : handleNode(node.value)
+              ])
+            ),
+            softline,
+            ") {"
+          ])
+        ),
         indent(concat([line, handleNode(node.body)])),
         line,
         "}"
