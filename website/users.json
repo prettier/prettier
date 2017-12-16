@@ -174,5 +174,10 @@
     "caption": "Hasura",
     "image": "/images/hasura-200x100.png",
     "infoLink": "https://hasura.io"
+  },
+  {
+    "caption": "Troops",
+    "image": "/images/troops-200x100.png",
+    "infoLink": "https://troops.ai"
   }
 ]
