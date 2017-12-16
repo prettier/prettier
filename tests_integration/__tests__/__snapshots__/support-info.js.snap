@@ -578,7 +578,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\"mcmod.info\\"
       ],
       \\"linguistLanguageId\\": 174,
-      \\"vscodeLanguageIds\\": [\\"json\\"]
+      \\"vscodeLanguageIds\\": [\\"json\\", \\"jsonc\\"]
     },
     {
       \\"name\\": \\"Markdown\\",

@@ -61,3 +61,9 @@ function a() {
         )
       }
 }
+
+const response = {
+  // prettier-ignore
+  '_text': 'Turn on the lights',
+  intent: 'lights',
+};

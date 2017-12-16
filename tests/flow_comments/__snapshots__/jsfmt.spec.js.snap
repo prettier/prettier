@@ -2,67 +2,59 @@
 
 exports[`arrow.js 1`] = `
 // Error
-const beep = (data/*: Object*/) => {}
+const beep = (data/*: Object */) => {}
 
 // OK
-const beep = (data/*: Object*/, secondData/*: Object*/) => {}
+const beep = (data/*: Object */, secondData/*: Object */) => {}
+
+const beep = (data/*: /* this is an object *-/ Object */) => {};
+
+const run = (cmd /*: string */) /*: Promise<void> */ => {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Error
-const beep = (data: Object) => {};
+const beep = (data /*: Object */) => {};
 
 // OK
-const beep = (data: Object, secondData: Object) => {};
+const beep = (data /*: Object */, secondData /*: Object */) => {};
+
+const beep = (data /*: /* this is an object *-/ Object */) => {};
+
+const run = (cmd /*: string */) /*: Promise<void> */ => {};
 
 `;
 
-exports[`arrow.js 2`] = `
-// Error
-const beep = (data/*: Object*/) => {}
+exports[`class.js 1`] = `
+class A {
+  x /*: string */;
 
-// OK
-const beep = (data/*: Object*/, secondData/*: Object*/) => {}
+  method(a /*: T */, b /*: T */) /*: T */ {}
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Error
-const beep = (data /*: Object*/) => {};
+class A {
+  x /*: string */;
 
-// OK
-const beep = (data /*: Object*/, secondData /*: Object*/) => {};
+  method(a /*: T */, b /*: T */) /*: T */ {}
+}
+
+`;
+
+exports[`functions.js 1`] = `
+function foo<T>(bar  /*: T[] */, baz  /*: T */) /*: S */ {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function foo<T>(bar /*: T[] */, baz /*: T */) /*: S */ {}
+
+`;
+
+exports[`let.js 1`] = `
+let foo /*: Groups<T> */;
+let foo /*: string */ = 'a';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let foo /*: Groups<T> */;
+let foo /*: string */ = "a";
 
 `;
 
 exports[`object_type_annotation.js 1`] = `
-type Props = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
-{
-  isPlaying: boolean,
-};
-
-type Props = { // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
-  isPlaying: boolean
-};
-
-type Props = {
-  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
-  isPlaying: boolean
-};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
-type Props = {
-  isPlaying: boolean
-};
-
-type Props = {
-  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
-  isPlaying: boolean
-};
-
-type Props = {
-  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
-  isPlaying: boolean
-};
-
-`;
-
-exports[`object_type_annotation.js 2`] = `
 type Props = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
 {
   isPlaying: boolean,

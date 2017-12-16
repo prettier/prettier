@@ -150,7 +150,7 @@ const supportLanguages = [
       "mcmod.info"
     ],
     linguistLanguageId: 174,
-    vscodeLanguageIds: ["json"]
+    vscodeLanguageIds: ["json", "jsonc"]
   },
   {
     name: "Markdown",

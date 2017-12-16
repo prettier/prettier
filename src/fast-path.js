@@ -373,12 +373,13 @@ FastPath.prototype.needsParens = function(options) {
     case "TSParenthesizedType": {
       const grandParent = this.getParentNode(1);
       if (
-        (parent.type === "TypeParameter" ||
+        (parent.type === "TSTypeParameter" ||
+          parent.type === "TypeParameter" ||
           parent.type === "VariableDeclarator" ||
-          parent.type === "TypeAnnotation" ||
+          parent.type === "TSTypeAnnotation" ||
           parent.type === "GenericTypeAnnotation" ||
           parent.type === "TSTypeReference") &&
-        (node.typeAnnotation.type === "TypeAnnotation" &&
+        (node.typeAnnotation.type === "TSTypeAnnotation" &&
           node.typeAnnotation.typeAnnotation.type !== "TSFunctionType" &&
           grandParent.type !== "TSTypeOperator")
       ) {
@@ -660,7 +661,6 @@ function isStatement(node) {
     node.type === "TSInterfaceDeclaration" ||
     node.type === "TSModuleDeclaration" ||
     node.type === "TSNamespaceExportDeclaration" ||
-    node.type === "TSNamespaceFunctionDeclaration" ||
     node.type === "TypeAlias" ||
     node.type === "VariableDeclaration" ||
     node.type === "WhileStatement" ||

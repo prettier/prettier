@@ -137,7 +137,7 @@ Both the `babylon` and `flow` parsers support the same set of JavaScript feature
 
 Built-in parsers:
 
-* [`babylon`](https://github.com/babel/babylon/)
+* [`babylon`](https://github.com/babel/babel/tree/master/packages/babylon)
 * [`flow`](https://github.com/facebook/flow/tree/master/src/parser)
 * [`typescript`](https://github.com/eslint/typescript-eslint-parser) _Since v1.4.0_
 * [`postcss`](https://github.com/postcss/postcss) _Since v1.4.0_

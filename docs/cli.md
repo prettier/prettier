@@ -44,7 +44,7 @@ You can also use `--config` if your configuration file lives somewhere where pre
 
 If you don't have a configuration file, or want to ignore it if it does exist, you can pass `--no-config` instead.
 
-### `--ignore-path`
+## `--ignore-path`
 
 Path to a file containing patterns that describe files to ignore. By default, prettier looks for `./.prettierignore`.
 

@@ -15,6 +15,8 @@ const locStart = util.locStart;
 const locEnd = util.locEnd;
 const getNextNonSpaceNonCommentCharacter =
   util.getNextNonSpaceNonCommentCharacter;
+const getNextNonSpaceNonCommentCharacterIndex =
+  util.getNextNonSpaceNonCommentCharacterIndex;
 
 function getSortedChildNodes(node, text, resultArray) {
   if (!node) {
@@ -207,7 +209,6 @@ function attach(comments, ast, text, options) {
           comment
         ) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
-        handleObjectPropertyComments(enclosingNode, comment) ||
         handleForComments(enclosingNode, precedingNode, comment) ||
         handleUnionTypeComments(
           precedingNode,
@@ -273,7 +274,6 @@ function attach(comments, ast, text, options) {
         handlePropertyComments(enclosingNode, comment) ||
         handleExportNamedDeclarationComments(enclosingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleClassMethodComments(enclosingNode, comment) ||
         handleTypeAliasComments(enclosingNode, followingNode, comment) ||
         handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
       ) {
@@ -304,6 +304,7 @@ function attach(comments, ast, text, options) {
         handleCommentInEmptyParens(text, enclosingNode, comment) ||
         handleMethodNameComments(text, enclosingNode, precedingNode, comment) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
+        handleCommentAfterArrowParams(text, enclosingNode, comment) ||
         handleFunctionNameComments(text, enclosingNode, precedingNode, comment)
       ) {
         // We're good
@@ -675,6 +676,20 @@ function handleFunctionNameComments(
   return false;
 }
 
+function handleCommentAfterArrowParams(text, enclosingNode, comment) {
+  if (!(enclosingNode && enclosingNode.type === "ArrowFunctionExpression")) {
+    return false;
+  }
+
+  const index = getNextNonSpaceNonCommentCharacterIndex(text, comment);
+  if (text.substr(index, 2) === "=>") {
+    addDanglingComment(enclosingNode, comment);
+    return true;
+  }
+
+  return false;
+}
+
 function handleCommentInEmptyParens(text, enclosingNode, comment) {
   if (getNextNonSpaceNonCommentCharacter(text, comment) !== ")") {
     return false;
@@ -750,14 +765,6 @@ function handleLastFunctionArgComments(
 
 function handleImportSpecifierComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "ImportSpecifier") {
-    addLeadingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleObjectPropertyComments(enclosingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "ObjectProperty") {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
@@ -887,14 +894,6 @@ function handleAssignmentPatternComments(enclosingNode, comment) {
   return false;
 }
 
-function handleClassMethodComments(enclosingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "ClassMethod") {
-    addTrailingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
 function handleTypeAliasComments(enclosingNode, followingNode, comment) {
   if (enclosingNode && enclosingNode.type === "TypeAlias") {
     addLeadingComment(enclosingNode, comment);
@@ -934,7 +933,10 @@ function printComment(commentPath, options) {
         return printJsDocComment(comment);
       }
 
-      return "/*" + comment.value + "*/";
+      const isInsideFlowComment =
+        options.originalText.substr(util.locEnd(comment) - 3, 3) === "*-/";
+
+      return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
     }
     case "CommentLine":
     case "Line":
@@ -1058,7 +1060,7 @@ function printTrailingComment(commentPath, print, options) {
   return concat([lineSuffix(" " + contents), !isBlock ? breakParent : ""]);
 }
 
-function printDanglingComments(path, options, sameIndent) {
+function printDanglingComments(path, options, sameIndent, filter) {
   const parts = [];
   const node = path.getValue();
 
@@ -1068,7 +1070,12 @@ function printDanglingComments(path, options, sameIndent) {
 
   path.each(commentPath => {
     const comment = commentPath.getValue();
-    if (comment && !comment.leading && !comment.trailing) {
+    if (
+      comment &&
+      !comment.leading &&
+      !comment.trailing &&
+      (!filter || filter(comment))
+    ) {
       parts.push(printComment(commentPath, options));
     }
   }, "comments");
