@@ -90,16 +90,42 @@ function handleNode(node) {
         'do {',
         indent(concat([line, handleNode(node.body)])),
         line,
-        group(concat(['} while (', handleNode(node.test), ');']))
+        group(
+          concat([
+            '} while (',
+            group(
+              concat([
+                indent(concat([softline, handleNode(node.test)])),
+                softline
+              ])
+            ),
+            ');'
+          ])
+        )
       ])
     case 'for':
       return concat([
         'for (',
-        concat(node.init.map(init => handleNode(init))),
-        concat(node.test.map(test => handleNode(test))),
-        ';',
-        concat(node.increment.map(increment => handleNode(increment))),
-        ') {',
+        group(
+          concat([
+            indent(
+              concat([
+                softline,
+                group(concat(node.init.map(init => handleNode(init)))),
+                softline,
+                group(
+                  concat([concat(node.test.map(test => handleNode(test))), ';'])
+                ),
+                softline,
+                group(
+                  concat(node.increment.map(increment => handleNode(increment)))
+                )
+              ])
+            ),
+            softline,
+            ') {'
+          ])
+        ),
         indent(concat([line, handleNode(node.body)])),
         line,
         '}'
