@@ -15,10 +15,10 @@ switch (2) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <?php
 switch (2) {
-  case (1):
+  case 1:
     $test = 'first';
     break;
-  case (2):
+  case 2:
     $test = 'second';
     break;
   default:
