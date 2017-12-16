@@ -169,5 +169,10 @@
     "caption": "Yelp",
     "image": "/images/yelp-200x100.png",
     "infoLink": "https://www.yelp.com"
+  },
+  {
+    "caption": "Hasura",
+    "image": "/images/hasura-200x100.png",
+    "infoLink": "https://hasura.io"
   }
 ]
