@@ -7,8 +7,28 @@ function hello(){
     return "hello";
 }
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<?php
+function return_x($x){
+    return $x;
+}
 
-function hello() {whoops this hasn't been implemented yet}
+function two_args($x, $y) {
+    return $x;
+}
+
+function reeeeeeeeeeaaaaaaaallllllllyyyyyy_llloooooooonnnnnnggggg($soooooooooooo_looooooooonnnng, $eeeeeeeeevvveeeeeeeennnn_loooooonnngggeeeerrrr) {
+    return $soooooooooooo_looooooooonnnng;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<?php
+function hello() {
+  return 'hello';
+}
+function return_x($x) {
+  return $x;
+}
+function two_args($x, $y) {
+  return $x;
+}
+function reeeeeeeeeeaaaaaaaallllllllyyyyyy_llloooooooonnnnnnggggg($soooooooooooo_looooooooonnnng, $eeeeeeeeevvveeeeeeeennnn_loooooonnngggeeeerrrr) {
+  return $soooooooooooo_looooooooonnnng;
+}
 `;

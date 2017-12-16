@@ -18,3 +18,7 @@ if ($test == 1) {
     hello($i);
   }
 }
+
+function really_long_function($test2 = 1, $long_parameter_name, $even_longer_longer_longer_longer_longer_parameter_name) {
+  return $test2;
+}

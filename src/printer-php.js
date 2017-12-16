@@ -36,15 +36,6 @@ function handleLiteral(node) {
   }
 }
 
-function handleArugments(args) {
-  return join(
-    ", ",
-    args.map(param => {
-      return group(concat([softline, "$", param.name]));
-    })
-  );
-}
-
 function handleNode(node) {
   switch (node.kind) {
     case "program":
@@ -199,21 +190,25 @@ function handleNode(node) {
     // functions
     case "function":
       return concat([
-        "function ",
-        node.name,
-        "(",
-        group(
-          concat([handleArugments(node.arguments), concat([softline, ") {"])])
-        ),
+        group(concat(["function ", node.name, "("])),
+        group(join(", ", node.arguments.map(argument => handleNode(argument)))),
+        ") {",
         indent(concat([hardline, handleNode(node.body)])),
         concat([hardline, "}"])
       ]);
+    case "parameter":
+      if (node.value) {
+        return group(
+          join(" = ", [concat(["$", node.name]), handleNode(node.value)])
+        );
+      }
+      return concat(["$", node.name]);
     case "call":
       return concat([
         handleNode(node.what),
         "(",
         join(", ", node.arguments.map(argument => handleNode(argument))),
-        ")"
+        ");"
       ]);
     // we haven't implemented this type of node yet
     default:
