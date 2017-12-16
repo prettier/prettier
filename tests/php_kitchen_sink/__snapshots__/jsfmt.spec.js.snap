@@ -20,6 +20,10 @@ if ($test == 1) {
   for ($i = 1; $i <= $test; $i++) {
     hello($i);
   }
+}
+
+function really_long_function($test2 = 1, $long_parameter_name, $even_longer_longer_longer_longer_longer_parameter_name) {
+  return $test2;
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <?php
 function hello($input) {
@@ -36,7 +40,10 @@ if ($test == 1) {
       $i = 1;
   }
   for ($i = 1;$i <= $test;$i++;) {
-    hello($i)
+    hello($i);
   }
+}
+function really_long_function($test2 = 1, $long_parameter_name, $even_longer_longer_longer_longer_longer_parameter_name) {
+  return $test2;
 }
 `;
