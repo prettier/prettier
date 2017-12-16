@@ -124,5 +124,55 @@
     "caption": "ZIP.ch",
     "image": "/images/users/zipch-200x100.png",
     "infoLink": "https://zip.ch"
+  },
+  {
+    "caption": "Nrwl",
+    "image": "/images/nrwl-200x100.png",
+    "infoLink": "https://nrwl.io"
+  },
+  {
+    "caption": "codemix",
+    "image": "/images/codemix-200x100.png",
+    "infoLink": "https://codemix.com"
+  },
+  {
+    "caption": "HolidayCheck",
+    "image": "/images/holidaycheck-200x100.png",
+    "infoLink": "https://www.holidaycheck.de"
+  },
+  {
+    "caption": "7Span",
+    "image": "/images/sevenspan-200x100.png",
+    "infoLink": "https://7span.com"
+  },
+  {
+    "caption": "IDEATI",
+    "image": "/images/ideati-200x100.png",
+    "infoLink": "http://www.ideati.net"
+  },
+  {
+    "caption": "Mathrioshka",
+    "image": "/images/mathrioshka-200x100.png",
+    "infoLink": "https://mathrioshka.ru"
+  },
+  {
+    "caption": "Wingify",
+    "image": "/images/wingify-200x100.png",
+    "infoLink": "https://wingify.com"
+  },
+  {
+    "caption": "N26",
+    "image": "/images/n26-200x100.png",
+    "infoLink": "https://n26.com"
+  },
+  {
+    "caption": "Yelp",
+    "image": "/images/yelp-200x100.png",
+    "infoLink": "https://www.yelp.com"
+  },
+  {
+    "caption": "Hasura",
+    "image": "/images/hasura-200x100.png",
+    "infoLink": "https://hasura.io"
   }
 ]

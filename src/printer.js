@@ -445,15 +445,10 @@ function genericPrintNoParens(path, options, print, args) {
 
       return concat(parts);
     case "Identifier": {
-      const parentNode = path.getParentNode();
-      const isFunctionDeclarationIdentifier =
-        parentNode.type === "DeclareFunction" && parentNode.id === n;
-
       return concat([
         n.name,
         printOptionalToken(path),
-        n.typeAnnotation && !isFunctionDeclarationIdentifier ? ": " : "",
-        path.call(print, "typeAnnotation")
+        printTypeAnnotation(path, options, print)
       ]);
     }
     case "SpreadElement":
@@ -468,12 +463,10 @@ function genericPrintNoParens(path, options, print, args) {
       return concat([
         "...",
         path.call(print, "argument"),
-        n.typeAnnotation ? ": " : "",
-        path.call(print, "typeAnnotation")
+        printTypeAnnotation(path, options, print)
       ]);
     case "FunctionDeclaration":
     case "FunctionExpression":
-    case "TSNamespaceFunctionDeclaration":
       if (isNodeStartingWithDeclare(n, options)) {
         parts.push("declare ");
       }
@@ -501,7 +494,7 @@ function genericPrintNoParens(path, options, print, args) {
                   (args.expandLastArg || args.expandFirstArg),
                 /* printTypeParams */ true
               ),
-              printReturnType(path, print)
+              printReturnType(path, print, options)
             ])
           )
         );
@@ -774,7 +767,7 @@ function genericPrintNoParens(path, options, print, args) {
       if (
         !hasContent &&
         !hasDirectives &&
-        !n.comments &&
+        !hasDanglingComments(n) &&
         (parent.type === "ArrowFunctionExpression" ||
           parent.type === "FunctionExpression" ||
           parent.type === "FunctionDeclaration" ||
@@ -1043,8 +1036,7 @@ function genericPrintNoParens(path, options, print, args) {
           ),
           concat([options.bracketSpacing ? line : softline, rightBrace]),
           printOptionalToken(path),
-          n.typeAnnotation ? ": " : "",
-          path.call(print, "typeAnnotation")
+          printTypeAnnotation(path, options, print)
         ]);
       }
 
@@ -1174,11 +1166,10 @@ function genericPrintNoParens(path, options, print, args) {
         );
       }
 
-      parts.push(printOptionalToken(path));
-
-      if (n.typeAnnotation) {
-        parts.push(": ", path.call(print, "typeAnnotation"));
-      }
+      parts.push(
+        printOptionalToken(path),
+        printTypeAnnotation(path, options, print)
+      );
 
       return concat(parts);
     case "SequenceExpression": {
@@ -1941,9 +1932,7 @@ function genericPrintNoParens(path, options, print, args) {
       } else {
         parts.push(printPropertyKey(path, options, print));
       }
-      if (n.typeAnnotation) {
-        parts.push(": ", path.call(print, "typeAnnotation"));
-      }
+      parts.push(printTypeAnnotation(path, options, print));
       if (n.value) {
         parts.push(
           " =",
@@ -3011,7 +3000,7 @@ function printMethod(path, options, print) {
           group(
             concat([
               printFunctionParams(valuePath, print, options),
-              printReturnType(valuePath, print)
+              printReturnType(valuePath, print, options)
             ])
           )
         ],
@@ -3203,6 +3192,26 @@ function printArgumentsList(path, options, print) {
     ]),
     { shouldBreak: printedArguments.some(willBreak) || anyArgEmptyLine }
   );
+}
+
+function printTypeAnnotation(path, options, print) {
+  const node = path.getValue();
+  if (!node.typeAnnotation) {
+    return "";
+  }
+
+  const parentNode = path.getParentNode();
+  const isFunctionDeclarationIdentifier =
+    parentNode.type === "DeclareFunction" && parentNode.id === node;
+
+  if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
+    return concat([" /*: ", path.call(print, "typeAnnotation"), " */"]);
+  }
+
+  return concat([
+    isFunctionDeclarationIdentifier ? "" : ": ",
+    path.call(print, "typeAnnotation")
+  ]);
 }
 
 function printFunctionTypeParameters(path, options, print) {
@@ -3397,7 +3406,7 @@ function printFunctionDeclaration(path, print, options) {
     group(
       concat([
         printFunctionParams(path, print, options),
-        printReturnType(path, print)
+        printReturnType(path, print, options)
       ])
     ),
     n.body ? " " : "",
@@ -3438,7 +3447,7 @@ function printObjectMethod(path, options, print) {
     group(
       concat([
         printFunctionParams(path, print, options),
-        printReturnType(path, print)
+        printReturnType(path, print, options)
       ])
     ),
     " ",
@@ -3448,9 +3457,18 @@ function printObjectMethod(path, options, print) {
   return concat(parts);
 }
 
-function printReturnType(path, print) {
+function printReturnType(path, print, options) {
   const n = path.getValue();
-  const parts = [path.call(print, "returnType")];
+  const returnType = path.call(print, "returnType");
+
+  if (
+    n.returnType &&
+    isFlowAnnotationComment(options.originalText, n.returnType)
+  ) {
+    return concat([" /*: ", returnType, " */"]);
+  }
+
+  const parts = [returnType];
 
   // prepend colon to TypeScript type annotation
   if (n.returnType && n.returnType.typeAnnotation) {
@@ -3486,8 +3504,7 @@ function printExportDeclaration(path, options, print) {
       decl.type === "ExportDefaultDeclaration" &&
       (decl.declaration.type !== "ClassDeclaration" &&
         decl.declaration.type !== "FunctionDeclaration" &&
-        decl.declaration.type !== "TSAbstractClassDeclaration" &&
-        decl.declaration.type !== "TSNamespaceFunctionDeclaration")
+        decl.declaration.type !== "TSAbstractClassDeclaration")
     ) {
       parts.push(semi);
     }
@@ -4770,6 +4787,12 @@ function hasNakedLeftSide(node) {
     (node.type === "BindExpression" && !node.object) ||
     (node.type === "UpdateExpression" && !node.prefix)
   );
+}
+
+function isFlowAnnotationComment(text, typeAnnotation) {
+  const start = util.locStart(typeAnnotation);
+  const end = util.skipWhitespace(text, util.locEnd(typeAnnotation));
+  return text.substr(start, 2) === "/*" && text.substr(end, 2) === "*/";
 }
 
 function getLeftSide(node) {

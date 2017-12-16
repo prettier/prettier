@@ -933,7 +933,10 @@ function printComment(commentPath, options) {
         return printJsDocComment(comment);
       }
 
-      return "/*" + comment.value + "*/";
+      const isInsideFlowComment =
+        options.originalText.substr(util.locEnd(comment) - 3, 3) === "*-/";
+
+      return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
     }
     case "CommentLine":
     case "Line":

@@ -3,7 +3,17 @@ id: webstorm
 title: Webstorm Setup
 ---
 
-## Configure External Tool
+## SetUp
+
+### With ESLint Integration
+
+If you are using the ESLint integration for prettier via [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) all you need to do is simply add a hotkey for `eslint --fix`. To do this go to _File | Settings | Keymap_ for Windows and Linux _WebStorm | Preferences | Keymap_, type `Fix ESLint Problems` in search box and add a keyboard shortcut.
+
+See [this documentation](https://www.jetbrains.com/help/webstorm/configuring-keyboard-shortcuts.html) about configuring keyboard shortcuts.
+
+### Standalone
+
+#### Configure External Tool
 
 https://blog.jetbrains.com/webstorm/2016/08/using-external-tools/
 
@@ -18,17 +28,17 @@ Go to _File | Settings | Tools | External Tools_ for Windows and Linux or _WebSt
 
 ![Example](/docs/assets/webstorm/with-prettier.png)
 
-### Process directories
+##### Process directories
 
 * Clone the External tool created above and name it `Prettier Directories`
 * **Parameters** set `--write [other opts] $FileDirRelativeToProjectRoot$/**/{*.js,*.jsx}`
 
-## Usage
+#### Usage
 
 * Cmd-Shift-A on OS X or Ctrl+Shift+A on Windows and Linux
 * Type: 'prettier' and hit enter
 
-### Configure Keymap
+#### Configure Keymap
 
 Now when you setup **External Tool** I guess you want to add hotkey for it. Go to _File | Settings | Keymap_ for Windows and Linux _WebStorm | Preferences | Keymap_ and type external tool name in search box.
 
