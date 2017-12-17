@@ -21,7 +21,7 @@ yarn add --dev prettier eslint-plugin-prettier
 
 ```json
 {
-  "plugins": ["prettier"],
+  "extends": ["plugin:prettier/recommended"],
   "rules": {
     "prettier/prettier": "error"
   }
@@ -47,3 +47,13 @@ yarn add --dev eslint-config-prettier
 ```
 
 There are a few rules that this disables that you may want to turn back on as long as you don't use them with particular options which conflict with Prettier. See [the docs](https://github.com/prettier/eslint-config-prettier#special-rules) for details.
+
+## Why not both?
+
+`eslint-plugin-prettier` exposes a `"recommended"` configuration that turns on both `eslint-plugin-prettier` and `eslint-config-prettier`, all you need in your `.eslintrc.json` is:
+
+```json
+{
+  "extends": ["plugin:prettier/recommended"]
+}
+```
