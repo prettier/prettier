@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`hug-args.ts 1`] = `
+exports[`hug-args.ts - typescript-verify: hug-args.ts 1`] = `
 postMessage(
   <IActionMessage>{
     context: item.context,
@@ -43,7 +43,7 @@ postMessages(<IActionMessage[]>[
 
 `;
 
-exports[`parenthesis.ts 1`] = `
+exports[`parenthesis.ts - typescript-verify: parenthesis.ts 1`] = `
 <DocumentHighlightKind>(a ? b : c);
 <any>(() => {});
 

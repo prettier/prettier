@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`insensitive.css 1`] = `
+exports[`insensitive.css - css-verify: insensitive.css 1`] = `
 input[type="radio" i] {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ input[type="radio" i] {
 
 `;
 
-exports[`insensitive.css 2`] = `
+exports[`insensitive.css - css-verify: insensitive.css 2`] = `
 input[type="radio" i] {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -18,7 +18,7 @@ input[type='radio' i] {
 
 `;
 
-exports[`quotes.css 1`] = `
+exports[`quotes.css - css-verify: quotes.css 1`] = `
 a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}
@@ -35,7 +35,7 @@ a[id=func("foo")] {
 
 `;
 
-exports[`quotes.css 2`] = `
+exports[`quotes.css - css-verify: quotes.css 2`] = `
 a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}

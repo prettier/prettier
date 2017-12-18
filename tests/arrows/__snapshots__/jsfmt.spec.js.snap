@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow_function_expression.js 1`] = `
+exports[`arrow_function_expression.js - babylon-verify: arrow_function_expression.js 1`] = `
 (a => {}).length
 typeof (() => {});
 export default (() => {})();
@@ -76,7 +76,7 @@ a = b => {
 
 `;
 
-exports[`arrow_function_expression.js 2`] = `
+exports[`arrow_function_expression.js - babylon-verify: arrow_function_expression.js 2`] = `
 (a => {}).length
 typeof (() => {});
 export default (() => {})();
@@ -152,21 +152,21 @@ a = (b) => {
 
 `;
 
-exports[`block_like.js 1`] = `
+exports[`block_like.js - babylon-verify: block_like.js 1`] = `
 a = () => ({} = this);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a = () => ({} = this);
 
 `;
 
-exports[`block_like.js 2`] = `
+exports[`block_like.js - babylon-verify: block_like.js 2`] = `
 a = () => ({} = this);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a = () => ({} = this);
 
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js - babylon-verify: call.js 1`] = `
 Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(
@@ -339,7 +339,7 @@ fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
 
 `;
 
-exports[`call.js 2`] = `
+exports[`call.js - babylon-verify: call.js 2`] = `
 Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(
@@ -512,7 +512,7 @@ fooooooooooooooooooooooooooooooooooooooooooooooooooo((action) => (next) =>
 
 `;
 
-exports[`comment.js 1`] = `
+exports[`comment.js - babylon-verify: comment.js 1`] = `
 /**
  * Curried function that ends with a BEM CSS Selector
  *
@@ -577,7 +577,7 @@ export const bem = block =>
 
 `;
 
-exports[`comment.js 2`] = `
+exports[`comment.js - babylon-verify: comment.js 2`] = `
 /**
  * Curried function that ends with a BEM CSS Selector
  *
@@ -642,7 +642,7 @@ export const bem = (block) =>
 
 `;
 
-exports[`currying.js 1`] = `
+exports[`currying.js - babylon-verify: currying.js 1`] = `
 const fn = b => c => d => {
   return 3;
 };
@@ -681,7 +681,7 @@ const middleware = options => (req, res, next) => {
 
 `;
 
-exports[`currying.js 2`] = `
+exports[`currying.js - babylon-verify: currying.js 2`] = `
 const fn = b => c => d => {
   return 3;
 };
@@ -720,7 +720,7 @@ const middleware = (options) => (req, res, next) => {
 
 `;
 
-exports[`long-call-no-args.js 1`] = `
+exports[`long-call-no-args.js - babylon-verify: long-call-no-args.js 1`] = `
 veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 veryLongCall(
@@ -730,7 +730,7 @@ veryLongCall(
 
 `;
 
-exports[`long-call-no-args.js 2`] = `
+exports[`long-call-no-args.js - babylon-verify: long-call-no-args.js 2`] = `
 veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 veryLongCall(
@@ -740,7 +740,7 @@ veryLongCall(
 
 `;
 
-exports[`long-contents.js 1`] = `
+exports[`long-contents.js - babylon-verify: long-contents.js 1`] = `
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
 };
@@ -756,7 +756,7 @@ const foo = () => {
 
 `;
 
-exports[`long-contents.js 2`] = `
+exports[`long-contents.js - babylon-verify: long-contents.js 2`] = `
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
 };
@@ -772,7 +772,7 @@ const foo = () => {
 
 `;
 
-exports[`parens.js 1`] = `
+exports[`parens.js - babylon-verify: parens.js 1`] = `
 promise.then(
   (result) => result,
   (err) => err
@@ -812,7 +812,7 @@ foo(a => b, d);
 
 `;
 
-exports[`parens.js 2`] = `
+exports[`parens.js - babylon-verify: parens.js 2`] = `
 promise.then(
   (result) => result,
   (err) => err
@@ -852,7 +852,7 @@ foo((a) => b, d);
 
 `;
 
-exports[`short_body.js 1`] = `
+exports[`short_body.js - babylon-verify: short_body.js 1`] = `
 const initializeSnapshotState = (
   testFile: Path,
   update: boolean,
@@ -869,7 +869,7 @@ const initializeSnapshotState = (
 
 `;
 
-exports[`short_body.js 2`] = `
+exports[`short_body.js - babylon-verify: short_body.js 2`] = `
 const initializeSnapshotState = (
   testFile: Path,
   update: boolean,
@@ -886,14 +886,14 @@ const initializeSnapshotState = (
 
 `;
 
-exports[`type_params.js 1`] = `
+exports[`type_params.js - babylon-verify: type_params.js 1`] = `
 <T>(a) => { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <T>(a) => {};
 
 `;
 
-exports[`type_params.js 2`] = `
+exports[`type_params.js - babylon-verify: type_params.js 2`] = `
 <T>(a) => { }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <T>(a) => {};

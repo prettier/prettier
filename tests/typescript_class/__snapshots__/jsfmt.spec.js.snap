@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructor.ts 1`] = `
+exports[`constructor.ts - typescript-verify: constructor.ts 1`] = `
 class foo {
   constructor(static a: number) {}
 }
@@ -19,7 +19,7 @@ class foo {
 
 `;
 
-exports[`dunder.ts 1`] = `
+exports[`dunder.ts - typescript-verify: dunder.ts 1`] = `
 // eslint/typescript-eslint-parser#296
 class F<__T> {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,7 +28,7 @@ class F<__T> {}
 
 `;
 
-exports[`generics.ts 1`] = `
+exports[`generics.ts - typescript-verify: generics.ts 1`] = `
 class<T> implements Map<T> {}
 
 interface AudioBufferList {
@@ -43,7 +43,7 @@ interface AudioBufferList {
 
 `;
 
-exports[`methods.ts 1`] = `
+exports[`methods.ts - typescript-verify: methods.ts 1`] = `
 class X {
     optionalMethod?() {}
 }
@@ -70,7 +70,7 @@ export class Check {
 
 `;
 
-exports[`optional.ts 1`] = `
+exports[`optional.ts - typescript-verify: optional.ts 1`] = `
 class X {
   private foo? = undefined;
 }

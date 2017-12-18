@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`codeblock.js 1`] = `
+exports[`codeblock.js - babylon-verify: codeblock.js 1`] = `
 md\`
 \\\`\\\`\\\`js
 markdown\\\`
@@ -23,7 +23,7 @@ md\`
 
 `;
 
-exports[`markdown.js 1`] = `
+exports[`markdown.js - babylon-verify: markdown.js 1`] = `
 export default function ReadMe() {
     return md\`
         ## Why Prettier?
@@ -76,7 +76,7 @@ export default function ReadMe() {
 
 `;
 
-exports[`single-line.js 1`] = `
+exports[`single-line.js - babylon-verify: single-line.js 1`] = `
 markdown\`# hello\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 markdown\`

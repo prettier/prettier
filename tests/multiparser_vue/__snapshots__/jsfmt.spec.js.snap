@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`template-bind.vue 1`] = `
+exports[`template-bind.vue - parse5-verify: template-bind.vue 1`] = `
 <template>
     <div v-bind:id=" 'list-'   +  id "></div>
     <div v-bind:id="  rawId | formatId "></div>
@@ -24,7 +24,7 @@ exports[`template-bind.vue 1`] = `
 </template>
 `;
 
-exports[`template-class.vue 1`] = `
+exports[`template-class.vue - parse5-verify: template-class.vue 1`] = `
 <template>
   <h2
     class="title"
@@ -50,7 +50,7 @@ exports[`template-class.vue 1`] = `
 </template>
 `;
 
-exports[`vue-component.vue 1`] = `
+exports[`vue-component.vue - parse5-verify: vue-component.vue 1`] = `
 <template >
   <h1 >{{greeting}}     world</h1  >
 </template >

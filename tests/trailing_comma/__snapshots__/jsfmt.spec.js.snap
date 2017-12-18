@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`es5.js 1`] = `
+exports[`es5.js - flow-verify: es5.js 1`] = `
 function send_single_email(
   app,
   email_id,
@@ -39,7 +39,7 @@ function send_single_email(
 
 `;
 
-exports[`es5.js 2`] = `
+exports[`es5.js - flow-verify: es5.js 2`] = `
 function send_single_email(
   app,
   email_id,
@@ -78,7 +78,7 @@ function send_single_email(
 
 `;
 
-exports[`es5.js 3`] = `
+exports[`es5.js - flow-verify: es5.js 3`] = `
 function send_single_email(
   app,
   email_id,
@@ -117,7 +117,7 @@ function send_single_email(
 
 `;
 
-exports[`function-calls.js 1`] = `
+exports[`function-calls.js - flow-verify: function-calls.js 1`] = `
 const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -162,7 +162,7 @@ a.b().c(
 
 `;
 
-exports[`function-calls.js 2`] = `
+exports[`function-calls.js - flow-verify: function-calls.js 2`] = `
 const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -207,7 +207,7 @@ a.b().c(
 
 `;
 
-exports[`function-calls.js 3`] = `
+exports[`function-calls.js - flow-verify: function-calls.js 3`] = `
 const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -252,7 +252,7 @@ a.b().c(
 
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js - flow-verify: jsx.js 1`] = `
 <div
   onClick={() =>
     doSomething({
@@ -271,26 +271,7 @@ exports[`jsx.js 1`] = `
 
 `;
 
-exports[`jsx.js 2`] = `
-<div
-  onClick={() =>
-    doSomething({
-      foo: bar
-    })
-  }
-/>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div
-  onClick={() =>
-    doSomething({
-      foo: bar,
-    })
-  }
-/>;
-
-`;
-
-exports[`jsx.js 3`] = `
+exports[`jsx.js - flow-verify: jsx.js 2`] = `
 <div
   onClick={() =>
     doSomething({
@@ -309,7 +290,26 @@ exports[`jsx.js 3`] = `
 
 `;
 
-exports[`object.js 1`] = `
+exports[`jsx.js - flow-verify: jsx.js 3`] = `
+<div
+  onClick={() =>
+    doSomething({
+      foo: bar
+    })
+  }
+/>;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div
+  onClick={() =>
+    doSomething({
+      foo: bar,
+    })
+  }
+/>;
+
+`;
+
+exports[`object.js - flow-verify: object.js 1`] = `
 const a = {
   b: true,
   c: {
@@ -356,7 +356,7 @@ const aLong = {
 
 `;
 
-exports[`object.js 2`] = `
+exports[`object.js - flow-verify: object.js 2`] = `
 const a = {
   b: true,
   c: {
@@ -403,7 +403,7 @@ const aLong = {
 
 `;
 
-exports[`object.js 3`] = `
+exports[`object.js - flow-verify: object.js 3`] = `
 const a = {
   b: true,
   c: {
@@ -450,7 +450,7 @@ const aLong = {
 
 `;
 
-exports[`trailing_whitespace.js 1`] = `
+exports[`trailing_whitespace.js - flow-verify: trailing_whitespace.js 1`] = `
 let example = [
   'FOO',
   'BAR',
@@ -541,7 +541,7 @@ this.getAttribute(function(s) /*string*/ {
 
 `;
 
-exports[`trailing_whitespace.js 2`] = `
+exports[`trailing_whitespace.js - flow-verify: trailing_whitespace.js 2`] = `
 let example = [
   'FOO',
   'BAR',
@@ -632,7 +632,7 @@ this.getAttribute(function(s) /*string*/ {
 
 `;
 
-exports[`trailing_whitespace.js 3`] = `
+exports[`trailing_whitespace.js - flow-verify: trailing_whitespace.js 3`] = `
 let example = [
   'FOO',
   'BAR',

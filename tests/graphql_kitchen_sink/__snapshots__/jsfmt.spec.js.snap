@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`kitchen_sink.graphql 1`] = `
+exports[`kitchen_sink.graphql - graphql-verify: kitchen_sink.graphql 1`] = `
 query queryName($foo: ComplexType, $site: Site = MOBILE) {
   whoever123is: node(id: [123, 456]) {
     id ,

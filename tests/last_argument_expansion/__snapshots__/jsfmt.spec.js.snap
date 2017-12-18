@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
+exports[`arrow.js - flow-verify: arrow.js 1`] = `
 export default function searchUsers(action$) {
   return action$.ofType(ActionTypes.SEARCHED_USERS)
     .map(action => action.payload.query)
@@ -39,7 +39,7 @@ export default function searchUsers(action$) {
 
 `;
 
-exports[`break.js 1`] = `
+exports[`break.js - flow-verify: break.js 1`] = `
 export default class AddAssetHtmlPlugin {
   apply(compiler: WebpackCompilerType) {
     compiler.plugin('compilation', (compilation: WebpackCompilationType) => {
@@ -70,7 +70,7 @@ export default class AddAssetHtmlPlugin {
 
 `;
 
-exports[`break-parent.js 1`] = `
+exports[`break-parent.js - flow-verify: break-parent.js 1`] = `
 ({
   processors: [
     require("autoprefixer", {
@@ -127,7 +127,7 @@ true ? (
 
 `;
 
-exports[`edge_case.js 1`] = `
+exports[`edge_case.js - flow-verify: edge_case.js 1`] = `
 var listener = DOM.listen(
   introCard,
   'click',
@@ -277,7 +277,7 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
 
 `;
 
-exports[`empty-object.js 1`] = `
+exports[`empty-object.js - flow-verify: empty-object.js 1`] = `
 func(first, second, third, fourth, fifth, aReallyLongArgumentsListToForceItToBreak, {
   // comment
 })
@@ -332,7 +332,7 @@ func(
 
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js - flow-verify: jsx.js 1`] = `
 const els = items.map(item => (
   <div className="whatever">
     <span>{children}</span>
@@ -347,7 +347,7 @@ const els = items.map(item => (
 
 `;
 
-exports[`object.js 1`] = `
+exports[`object.js - flow-verify: object.js 1`] = `
 const formatData = pipe(
   zip,
   map(([ ref, data ]) => ({
@@ -390,7 +390,7 @@ export const log = y => {
 
 `;
 
-exports[`overflow.js 1`] = `
+exports[`overflow.js - flow-verify: overflow.js 1`] = `
 SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLongCall((err, result) => {
   // comment
 });

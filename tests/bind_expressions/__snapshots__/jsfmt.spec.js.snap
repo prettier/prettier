@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bind_parens.js 1`] = `
+exports[`bind_parens.js - babylon-verify: bind_parens.js 1`] = `
 (a || b)::c;
 a || (b::c);
 ::obj.prop;
@@ -11,7 +11,7 @@ a || b::c;
 
 `;
 
-exports[`bind_parens.js 2`] = `
+exports[`bind_parens.js - babylon-verify: bind_parens.js 2`] = `
 (a || b)::c;
 a || (b::c);
 ::obj.prop;
@@ -22,7 +22,7 @@ a || b::c
 
 `;
 
-exports[`method_chain.js 1`] = `
+exports[`method_chain.js - babylon-verify: method_chain.js 1`] = `
 import {interval} from 'rxjs/observable/interval';
 import {filter} from 'rxjs/operator/filter';
 import {take} from 'rxjs/operator/take';
@@ -61,7 +61,7 @@ function test(observable) {
 
 `;
 
-exports[`method_chain.js 2`] = `
+exports[`method_chain.js - babylon-verify: method_chain.js 2`] = `
 import {interval} from 'rxjs/observable/interval';
 import {filter} from 'rxjs/operator/filter';
 import {take} from 'rxjs/operator/take';

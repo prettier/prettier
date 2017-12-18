@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`checkbox.md 1`] = `
+exports[`checkbox.md - markdown-verify: checkbox.md 1`] = `
 - [ ] this is a long long long long long long long long long long long long long long paragraph.
 - [x] this is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -11,7 +11,7 @@ exports[`checkbox.md 1`] = `
 
 `;
 
-exports[`git-diff-friendly.md 1`] = `
+exports[`git-diff-friendly.md - markdown-verify: git-diff-friendly.md 1`] = `
 5. abc
 1. def
 999. ghi
@@ -22,7 +22,7 @@ exports[`git-diff-friendly.md 1`] = `
 
 `;
 
-exports[`long-paragraph.md 1`] = `
+exports[`long-paragraph.md - markdown-verify: long-paragraph.md 1`] = `
 - This is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * This is a long long long long long long long long long long long long long
@@ -30,7 +30,7 @@ exports[`long-paragraph.md 1`] = `
 
 `;
 
-exports[`loose.md 1`] = `
+exports[`loose.md - markdown-verify: loose.md 1`] = `
 - 123
 
   - abc
@@ -57,7 +57,7 @@ exports[`loose.md 1`] = `
 
 `;
 
-exports[`multiline.md 1`] = `
+exports[`multiline.md - markdown-verify: multiline.md 1`] = `
 - 123
   456
   789
@@ -66,7 +66,7 @@ exports[`multiline.md 1`] = `
 
 `;
 
-exports[`nested.md 1`] = `
+exports[`nested.md - markdown-verify: nested.md 1`] = `
 - Level 1
   - Level 2
     - Level 3
@@ -77,7 +77,7 @@ exports[`nested.md 1`] = `
 
 `;
 
-exports[`nested-checkbox.md 1`] = `
+exports[`nested-checkbox.md - markdown-verify: nested-checkbox.md 1`] = `
 * parent list item parent list item parent list item parent list item parent list item parent list item
 
      * child list item child list item child list item child list item child list item child list item
@@ -110,7 +110,7 @@ exports[`nested-checkbox.md 1`] = `
 
 `;
 
-exports[`ordered.md 1`] = `
+exports[`ordered.md - markdown-verify: ordered.md 1`] = `
 1. 123
 1. 456
 1. 789
@@ -121,7 +121,7 @@ exports[`ordered.md 1`] = `
 
 `;
 
-exports[`separate.md 1`] = `
+exports[`separate.md - markdown-verify: separate.md 1`] = `
 - 123
 - 123
 - 123
@@ -140,7 +140,7 @@ exports[`separate.md 1`] = `
 
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md - markdown-verify: simple.md 1`] = `
 - 123
 - 456
 - 789
@@ -151,7 +151,7 @@ exports[`simple.md 1`] = `
 
 `;
 
-exports[`start.md 1`] = `
+exports[`start.md - markdown-verify: start.md 1`] = `
 5. abc
 6. def
 7. ghi
