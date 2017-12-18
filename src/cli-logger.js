@@ -7,12 +7,15 @@ const chalk = require("chalk");
 const warn = createLogger("warn", "yellow");
 const error = createLogger("error", "red");
 const debug = createLogger("debug", "blue");
+const log = createLogger("log");
 
 function createLogger(loggerName, color) {
-  const prefix = `[${chalk[color](loggerName)}] `;
-  return function(message) {
+  const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
+  return function(message, opts) {
+    opts = Object.assign({ newline: true }, opts);
     if (shouldLog(loggerName)) {
-      console.error(message.replace(/^/gm, prefix).replace(/[\t ]+$/gm, ""));
+      const stream = process[loggerName === "log" ? "stdout" : "stderr"];
+      stream.write(message.replace(/^/gm, prefix) + (opts.newline ? "\n" : ""));
     }
   };
 }
@@ -30,6 +33,11 @@ function shouldLog(loggerName) {
         return true;
       }
     // fall through
+    case "log":
+      if (loggerName === "log") {
+        return true;
+      }
+    // fall through
     case "warn":
       if (loggerName === "warn") {
         return true;
@@ -44,5 +52,6 @@ module.exports = {
   warn,
   error,
   debug,
+  log,
   ENV_LOG_LEVEL
 };

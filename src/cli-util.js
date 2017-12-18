@@ -77,7 +77,7 @@ function handleError(filename, error) {
 function logResolvedConfigPathOrDie(filePath) {
   const configFile = resolver.resolveConfigFile.sync(filePath);
   if (configFile) {
-    console.log(path.relative(process.cwd(), configFile));
+    logger.log(path.relative(process.cwd(), configFile));
   } else {
     process.exit(1);
   }
@@ -101,7 +101,7 @@ function listDifferent(argv, input, options, filename) {
 
   if (!prettier.check(input, options)) {
     if (!argv["write"]) {
-      console.log(filename);
+      logger.log(filename);
     }
     process.exitCode = 1;
   }
@@ -307,7 +307,7 @@ function formatFiles(argv) {
   eachFilename(argv, argv.__filePatterns, (filename, options) => {
     if (argv["write"] && process.stdout.isTTY) {
       // Don't use `console.log` here since we need to replace this line.
-      process.stdout.write(filename);
+      logger.log(filename, { newline: false });
     }
 
     let input;
@@ -315,7 +315,7 @@ function formatFiles(argv) {
       input = fs.readFileSync(filename, "utf8");
     } catch (error) {
       // Add newline to split errors from filename line.
-      process.stdout.write("\n");
+      logger.log("");
 
       logger.error(`Unable to read file: ${filename}\n${error.message}`);
       // Don't exit the process if one file failed
@@ -356,13 +356,13 @@ function formatFiles(argv) {
       // mtime based caches.
       if (output === input) {
         if (!argv["list-different"]) {
-          console.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
+          logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
         }
       } else {
         if (argv["list-different"]) {
-          console.log(filename);
+          logger.log(filename);
         } else {
-          console.log(`${filename} ${Date.now() - start}ms`);
+          logger.log(`${filename} ${Date.now() - start}ms`);
         }
 
         try {
@@ -375,7 +375,7 @@ function formatFiles(argv) {
       }
     } else if (argv["debug-check"]) {
       if (output) {
-        console.log(output);
+        logger.log(output);
       } else {
         process.exitCode = 2;
       }
