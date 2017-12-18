@@ -12,7 +12,6 @@ rules:
   import/no-extraneous-dependencies:
   - error
   - devDependencies: ["tests*/**", "scripts/**"]
-  no-console: off
   no-else-return: error
   no-inner-declarations: error
   no-unneeded-ternary: error
