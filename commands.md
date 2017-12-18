@@ -183,31 +183,31 @@ Here’s a summary of the commands, in Flow format:
 ```ts
 /* @flow */
 
-type Doc<T = string> = string | {
-  type: T
+type Doc = string | {
+  type: string
 }
 
-declare function concat(docs: Doc<>[]): Doc<"concat">
-declare function indent(doc: Doc<>): Doc<"indent">
-declare function align(n: number, doc: Doc<>): Doc<"align">
-declare function group(doc: Doc<>, opts?: {
+declare function concat(docs: Doc[]): Doc
+declare function indent(doc: Doc): Doc
+declare function align(n: number, doc: Doc): Doc
+declare function group(doc: Doc, opts?: {
                         shouldBreak?: boolean,
-                        expandedStates?: Doc<>[]
-                      }): Doc<"group">
-declare function conditionalGroup(alternatives: Doc<>[], opts?: {
+                        expandedStates?: Doc[]
+                      }): Doc
+declare function conditionalGroup(alternatives: Doc[], opts?: {
                                    shouldBreak?: boolean
-                                 }): Doc<"group">
-declare function fill(docs: Doc<>[]): Doc<"fill">
-declare function ifBreak(ifBreak: Doc<>, noBreak: Doc<>): Doc<"if-break">
-declare function lineSuffix(suffix: Doc<>): Doc<"line-suffix">
-declare function join(sep: Doc<>, docs: Doc<>[]): Doc<"concat">
-declare function addAlignmentToDoc(doc: Doc<>, size: number, tabWidth: number): Doc<"indent" | "align">
+                                 }): Doc
+declare function fill(docs: Doc[]): Doc
+declare function ifBreak(ifBreak: Doc, noBreak: Doc): Doc
+declare function lineSuffix(suffix: Doc): Doc
+declare function join(sep: Doc, docs: Doc[]): Doc
+declare function addAlignmentToDoc(doc: Doc, size: number, tabWidth: number): Doc
 
-declare var lineSuffixBoundary: Doc<"line-suffix-boundary">
-declare var breakParent: Doc<"break-parent">
-declare var line: Doc<"line">
-declare var softline: Doc<"line">
-declare var hardline: Doc<"concat">
-declare var literalline: Doc<"concat">
-declare var cursor: Doc<"cursor">
+declare var lineSuffixBoundary: Doc
+declare var breakParent: Doc
+declare var line: Doc
+declare var softline: Doc
+declare var hardline: Doc
+declare var literalline: Doc
+declare var cursor: Doc
 ```
