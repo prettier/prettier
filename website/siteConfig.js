@@ -2,12 +2,20 @@
 
 // Docs: https://docusaurus.io/docs/en/site-config.html
 
+const parseYaml = require("js-yaml").safeLoad;
+const path = require("path");
+const fs = require("fs");
+
 const PACKAGE = require("../package");
 const GITHUB_URL = `https://github.com/${PACKAGE.repository}`;
 
-const users = require("./users");
-const editors = require("./editors");
-const supportedLanguages = require("./languages");
+function loadYaml(fsPath) {
+  return parseYaml(fs.readFileSync(path.join(__dirname, fsPath), "utf8"));
+}
+
+const users = loadYaml("./users.yml");
+const editors = loadYaml("./editors.yml");
+const supportedLanguages = loadYaml("./languages.yml");
 
 const siteConfig = {
   title: "Prettier",
