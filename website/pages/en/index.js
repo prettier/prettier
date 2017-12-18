@@ -140,7 +140,9 @@ class Index extends React.Component {
 
             <p>Developed an integration?</p>
             <a
-              href={`${siteConfig.githubUrl}/edit/master/website/editors.json`}
+              href={`${
+                siteConfig.githubUrl
+              }/edit/master/website/data/editors.yml`}
               className="button"
             >
               Add it here
