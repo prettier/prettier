@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`annot.js 1`] = `
+exports[`annot.js - flow-verify: annot.js 1`] = `
 function foo(str:string, i:number):string {
   return str;
 }
@@ -134,7 +134,7 @@ function barfoo(n: number | null | void): ?number {
 
 `;
 
-exports[`forward_ref.js 1`] = `
+exports[`forward_ref.js - flow-verify: forward_ref.js 1`] = `
 let myClassInstance: MyClass = null; // forward ref ok, null ~> class error
 
 function bar(): MyClass {
@@ -169,7 +169,7 @@ function foo() {
 
 `;
 
-exports[`issue-530.js 1`] = `
+exports[`issue-530.js - flow-verify: issue-530.js 1`] = `
 function foo(...args: any) { }
 
 module.exports = foo;
@@ -180,7 +180,7 @@ module.exports = foo;
 
 `;
 
-exports[`leak.js 1`] = `
+exports[`leak.js - flow-verify: leak.js 1`] = `
 /** @flow */
 
 /* This test documents an example we ran into of a type annotation leaking.
@@ -229,7 +229,7 @@ function bar(y: MyObj): string {
 
 `;
 
-exports[`other.js 1`] = `
+exports[`other.js - flow-verify: other.js 1`] = `
 class C { }
 module.exports = (C: any);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -238,7 +238,7 @@ module.exports = (C: any);
 
 `;
 
-exports[`scope.js 1`] = `
+exports[`scope.js - flow-verify: scope.js 1`] = `
 type Merge<T> = (a: T, b: T) => T;
 
 // hypothetical immutable map
@@ -295,7 +295,7 @@ class Foo<A> {
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify: test.js 1`] = `
 var C = require('./other');
 ((0: C): string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

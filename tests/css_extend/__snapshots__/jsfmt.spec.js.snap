@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`extend.css 1`] = `
+exports[`extend.css - css-verify: extend.css 1`] = `
 .foobar {
   &:extend(.foo);
 }

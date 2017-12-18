@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
+exports[`arrow.js - flow-verify: arrow.js 1`] = `
 () => a\`
 	a
 \`;
@@ -19,7 +19,7 @@ exports[`arrow.js 1`] = `
 
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js - flow-verify: call.js 1`] = `
 insertRule(\`*, *:before, *:after {
   box-sizing: inherit;
 }\`);
@@ -48,7 +48,7 @@ new Error(formatErrorMessage\`
 
 `;
 
-exports[`comment.js 1`] = `
+exports[`comment.js - flow-verify: comment.js 1`] = `
 \`
 (?:\${escapeChar}[\\\\S\\\\s]|(?:(?!\${// Using \`XRegExp.union\` safely rewrites backreferences in \`left\` and \`right\`.
 // Intentionally not passing \`basicFlags\` to \`XRegExp.union\` since any syntax
@@ -80,7 +80,7 @@ g
 
 `;
 
-exports[`faulty-locations.js 1`] = `
+exports[`faulty-locations.js - flow-verify: faulty-locations.js 1`] = `
 var o = {
   [\`key\`]: () => {
     // Comment
@@ -113,7 +113,7 @@ var x = {
 
 `;
 
-exports[`graphql.js 1`] = `
+exports[`graphql.js - flow-verify: graphql.js 1`] = `
 module.exports = Relay.createContainer(
   // ...
   {
@@ -152,7 +152,7 @@ module.exports = Relay.createContainer(
 
 `;
 
-exports[`inline.js 1`] = `
+exports[`inline.js - flow-verify: inline.js 1`] = `
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
 this._pipe.write(
   \`\\n\\n Pattern matches \${total} \${pluralizeTest}\`
@@ -263,7 +263,7 @@ this._pipe.write(\`
 
 `;
 
-exports[`parenthesis.js 1`] = `
+exports[`parenthesis.js - flow-verify: parenthesis.js 1`] = `
 // "ArrowFunctionExpression"
 (() => {})\`\`;
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parens.js 1`] = `
+exports[`parens.js - css-verify: parens.js 1`] = `
 a {
   box-shadow: inset 0 $size $size (-$size) black;
   width: calc(100% - (#{var(--g-spacing)} - #{$iframe-x-padding}) * 2);

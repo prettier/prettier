@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`hello-world.html 1`] = `
+exports[`hello-world.html - parse5-verify: hello-world.html 1`] = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +42,7 @@ exports[`hello-world.html 1`] = `
 </html>
 `;
 
-exports[`html-fragment.html 1`] = `
+exports[`html-fragment.html - parse5-verify: html-fragment.html 1`] = `
 <a href="#">Link</a>
 
 <textarea>

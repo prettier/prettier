@@ -1,34 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`block-comment.json 1`] = `
+exports[`block-comment.json - json-verify: block-comment.json 1`] = `
 {/*comment*/"K":"V"}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { /*comment*/ "K": "V" }
 
 `;
 
-exports[`block-comment.json 2`] = `
+exports[`block-comment.json - json-verify: block-comment.json 2`] = `
 {/*comment*/"K":"V"}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { /*comment*/ "K": "V" }
 
 `;
 
-exports[`boolean.json 1`] = `
+exports[`boolean.json - json-verify: boolean.json 1`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
 
 `;
 
-exports[`boolean.json 2`] = `
+exports[`boolean.json - json-verify: boolean.json 2`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
 
 `;
 
-exports[`line-comment.json 1`] = `
+exports[`line-comment.json - json-verify: line-comment.json 1`] = `
 {
   //comment
   "K":"V"
@@ -41,7 +41,7 @@ exports[`line-comment.json 1`] = `
 
 `;
 
-exports[`line-comment.json 2`] = `
+exports[`line-comment.json - json-verify: line-comment.json 2`] = `
 {
   //comment
   "K":"V"
@@ -54,7 +54,7 @@ exports[`line-comment.json 2`] = `
 
 `;
 
-exports[`multi-line.json 1`] = `
+exports[`multi-line.json - json-verify: multi-line.json 1`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -67,7 +67,7 @@ exports[`multi-line.json 1`] = `
 
 `;
 
-exports[`multi-line.json 2`] = `
+exports[`multi-line.json - json-verify: multi-line.json 2`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,35 +80,35 @@ exports[`multi-line.json 2`] = `
 
 `;
 
-exports[`null.json 1`] = `
+exports[`null.json - json-verify: null.json 1`] = `
 null
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 null
 
 `;
 
-exports[`null.json 2`] = `
+exports[`null.json - json-verify: null.json 2`] = `
 null
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 null
 
 `;
 
-exports[`number.json 1`] = `
+exports[`number.json - json-verify: number.json 1`] = `
 0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 0
 
 `;
 
-exports[`number.json 2`] = `
+exports[`number.json - json-verify: number.json 2`] = `
 0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 0
 
 `;
 
-exports[`pass1.json 1`] = `
+exports[`pass1.json - json-verify: pass1.json 1`] = `
 [
     "JSON Test Pattern pass1",
     {"object with 1 member":["array with 1 element"]},
@@ -226,7 +226,7 @@ exports[`pass1.json 1`] = `
 
 `;
 
-exports[`pass1.json 2`] = `
+exports[`pass1.json - json-verify: pass1.json 2`] = `
 [
     "JSON Test Pattern pass1",
     {"object with 1 member":["array with 1 element"]},
@@ -344,35 +344,35 @@ exports[`pass1.json 2`] = `
 
 `;
 
-exports[`single-line.json 1`] = `
+exports[`single-line.json - json-verify: single-line.json 1`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { "key1": [true, false, null], "key2": { "key3": [1, 2, "3", 1e10, 1e-3] } }
 
 `;
 
-exports[`single-line.json 2`] = `
+exports[`single-line.json - json-verify: single-line.json 2`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { "key1": [true, false, null], "key2": { "key3": [1, 2, "3", 1e10, 1e-3] } }
 
 `;
 
-exports[`string.json 1`] = `
+exports[`string.json - json-verify: string.json 1`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
 
 `;
 
-exports[`string.json 2`] = `
+exports[`string.json - json-verify: string.json 2`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
 
 `;
 
-exports[`top-block-comment.json 1`] = `
+exports[`top-block-comment.json - json-verify: top-block-comment.json 1`] = `
 /* comment */{
   "foo": "bar"
 }
@@ -383,7 +383,7 @@ exports[`top-block-comment.json 1`] = `
 
 `;
 
-exports[`top-block-comment.json 2`] = `
+exports[`top-block-comment.json - json-verify: top-block-comment.json 2`] = `
 /* comment */{
   "foo": "bar"
 }
@@ -394,7 +394,7 @@ exports[`top-block-comment.json 2`] = `
 
 `;
 
-exports[`top-line-comment.json 1`] = `
+exports[`top-line-comment.json - json-verify: top-line-comment.json 1`] = `
 // comment 1
 // comment 2
 {
@@ -409,7 +409,7 @@ exports[`top-line-comment.json 1`] = `
 
 `;
 
-exports[`top-line-comment.json 2`] = `
+exports[`top-line-comment.json - json-verify: top-line-comment.json 2`] = `
 // comment 1
 // comment 2
 {
@@ -424,7 +424,7 @@ exports[`top-line-comment.json 2`] = `
 
 `;
 
-exports[`trailingComma.notjson 1`] = `
+exports[`trailingComma.notjson - json-verify: trailingComma.notjson 1`] = `
 {
   "k1": "v1",
   "k2": "v2",
@@ -439,7 +439,7 @@ exports[`trailingComma.notjson 1`] = `
 
 `;
 
-exports[`trailingComma.notjson 2`] = `
+exports[`trailingComma.notjson - json-verify: trailingComma.notjson 2`] = `
 {
   "k1": "v1",
   "k2": "v2",

@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long.md 1`] = `
+exports[`long.md - markdown-verify: long.md 1`] = `
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md - markdown-verify: simple.md 1`] = `
 [^hello]: world
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [^hello]: world

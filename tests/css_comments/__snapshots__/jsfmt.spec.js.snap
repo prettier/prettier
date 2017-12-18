@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`block.css 1`] = `
+exports[`block.css - css-verify: block.css 1`] = `
 // Animation definitions cannot cross the shadow boundary,
 // and thus need to be loaded directly into the atom-text-editor scope.
 /* Kikoo */
@@ -17,7 +17,7 @@ exports[`block.css 1`] = `
 
 `;
 
-exports[`bug.css 1`] = `
+exports[`bug.css - css-verify: bug.css 1`] = `
 @font-face  {
   src: url(if(
     $bootstrap-sass-asset-helper,
@@ -46,7 +46,7 @@ exports[`bug.css 1`] = `
 
 `;
 
-exports[`places.css 1`] = `
+exports[`places.css - css-verify: places.css 1`] = `
 div {
   // a
 
@@ -68,7 +68,7 @@ div {
 
 `;
 
-exports[`prettier-ignore.css 1`] = `
+exports[`prettier-ignore.css - css-verify: prettier-ignore.css 1`] = `
 // prettier-ignore
 @blue:  blue;
 @black: darkgray;
@@ -91,7 +91,7 @@ foo {
 
 `;
 
-exports[`selector.css 1`] = `
+exports[`selector.css - css-verify: selector.css 1`] = `
 .powerPathNavigator .helm button.pressedButton, /* pressed buttons */
 .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
@@ -119,7 +119,7 @@ exports[`selector.css 1`] = `
 
 `;
 
-exports[`trailing_star_slash.css 1`] = `
+exports[`trailing_star_slash.css - css-verify: trailing_star_slash.css 1`] = `
 @media (max-width: 1) {}
 a {
   // element.style */

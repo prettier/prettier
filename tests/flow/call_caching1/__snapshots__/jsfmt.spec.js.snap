@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify: test.js 1`] = `
 // @flow
 
 const Immutable = require('immutable');
@@ -25,7 +25,7 @@ for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
 
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js - flow-verify: test2.js 1`] = `
 /* @flow */
 
 declare class Bar<K> {
@@ -63,7 +63,7 @@ foo(items, acc => acc.update(updater));
 
 `;
 
-exports[`test3.js 1`] = `
+exports[`test3.js - flow-verify: test3.js 1`] = `
 // @flow
 
 declare class ImmBox<T> {

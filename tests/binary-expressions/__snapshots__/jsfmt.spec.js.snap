@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
+exports[`arrow.js - flow-verify: arrow.js 1`] = `
 function f() {
   const appEntitys = getAppEntitys(loadObject).filter(
     entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled()
@@ -39,7 +39,7 @@ function f() {
 
 `;
 
-exports[`bitwise-flags.js 1`] = `
+exports[`bitwise-flags.js - flow-verify: bitwise-flags.js 1`] = `
 const FLAG_A = 1 << 0;
 const FLAG_B = 1 << 1;
 const FLAG_C = 1 << 2;
@@ -54,7 +54,7 @@ const all = FLAG_A | FLAG_B | FLAG_C;
 
 `;
 
-exports[`comment.js 1`] = `
+exports[`comment.js - flow-verify: comment.js 1`] = `
 a = (
   // Commment 1
   (Math.random() * (yRange * (1 - minVerticalFraction)))
@@ -69,7 +69,7 @@ a =
 
 `;
 
-exports[`equality.js 1`] = `
+exports[`equality.js - flow-verify: equality.js 1`] = `
 x == y == z;
 x != y == z;
 x == y != z;
@@ -92,7 +92,7 @@ x !== y !== z;
 
 `;
 
-exports[`exp.js 1`] = `
+exports[`exp.js - flow-verify: exp.js 1`] = `
 a ** b ** c;
 (a ** b) ** c;
 a.b ** c;
@@ -113,7 +113,7 @@ a ** (b * c);
 
 `;
 
-exports[`if.js 1`] = `
+exports[`if.js - flow-verify: if.js 1`] = `
 if (this.hasPlugin("dynamicImports") && this.lookahead().type) {}
 
 if (this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft) {}
@@ -145,7 +145,7 @@ if (
 
 `;
 
-exports[`inline-jsx.js 1`] = `
+exports[`inline-jsx.js - flow-verify: inline-jsx.js 1`] = `
 const user = renderedUser || <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
 
 const user = renderedUser || shouldRenderUser && <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
@@ -176,7 +176,7 @@ const avatar = (hasAvatar || showPlaceholder) && (
 
 `;
 
-exports[`inline-object-array.js 1`] = `
+exports[`inline-object-array.js - flow-verify: inline-object-array.js 1`] = `
 prevState = prevState || {
   catalogs: [],
   loadState: LOADED,
@@ -363,7 +363,7 @@ const obj = {
 
 `;
 
-exports[`jsx_parent.js 1`] = `
+exports[`jsx_parent.js - flow-verify: jsx_parent.js 1`] = `
 <div
   src={
     !isJellyfishEnabled &&
@@ -441,7 +441,7 @@ exports[`jsx_parent.js 1`] = `
 
 `;
 
-exports[`math.js 1`] = `
+exports[`math.js - flow-verify: math.js 1`] = `
 x + y / z;
 x / y + z;
 
@@ -490,7 +490,7 @@ x & (y >> z);
 
 `;
 
-exports[`return.js 1`] = `
+exports[`return.js - flow-verify: return.js 1`] = `
 function foo() {
   return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
 }
@@ -530,7 +530,7 @@ function foo() {
 
 `;
 
-exports[`short-right.js 1`] = `
+exports[`short-right.js - flow-verify: short-right.js 1`] = `
 this._cumulativeHeights &&
  Math.abs(
    this._cachedItemHeight(this._firstVisibleIndex + i) -
@@ -570,7 +570,7 @@ defaultContent.filter(defaultLocale => {
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify: test.js 1`] = `
 // It should always break the highest precedence operators first, and
 // break them all at the same time.
 
@@ -652,7 +652,7 @@ foo(
 
 `;
 
-exports[`unary.js 1`] = `
+exports[`unary.js - flow-verify: unary.js 1`] = `
 const anyTestFailures = !(
   aggregatedResults.numFailedTests === 0 &&
   aggregatedResults.numRuntimeErrorTestSuites === 0

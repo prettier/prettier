@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment-in-if.css 1`] = `
+exports[`comment-in-if.css - css-verify: comment-in-if.css 1`] = `
 @function _normalize-include($section) {
 // Check if $section is in the $include list.
     @if index($_normalize-include, $section) {

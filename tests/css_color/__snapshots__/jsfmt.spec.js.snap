@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`hexcolor.css 1`] = `
+exports[`hexcolor.css - css-verify: hexcolor.css 1`] = `
 .foo {
     color: #AAA;
     -o-color: #fabcd3;

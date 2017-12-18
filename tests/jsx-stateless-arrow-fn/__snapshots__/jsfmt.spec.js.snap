@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify: test.js 1`] = `
 const render1 = ({ styles }) => (
   <div style={styles} key="something">
     Keep the wrapping parens. Put each key on its own line.

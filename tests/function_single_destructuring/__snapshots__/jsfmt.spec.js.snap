@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js 1`] = `
+exports[`array.js - flow-verify: array.js 1`] = `
 function excludeFirstFiveResults([first, second, third, fourth, fifth, ...rest]) {
   return rest;
 }
@@ -116,7 +116,7 @@ promise.then(
 
 `;
 
-exports[`object.js 1`] = `
+exports[`object.js - flow-verify: object.js 1`] = `
 function StatelessFunctionalComponent({
   isActive,
   onFiltersUpdated,

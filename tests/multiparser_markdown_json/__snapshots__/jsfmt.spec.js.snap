@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`trailing_comma.md 1`] = `
+exports[`trailing_comma.md - markdown-verify: trailing_comma.md 1`] = `
 \`\`\`json
 {
   "foo": "bar"

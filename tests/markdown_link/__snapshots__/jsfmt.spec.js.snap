@@ -1,34 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`autolink.md 1`] = `
+exports[`autolink.md - markdown-verify: autolink.md 1`] = `
 <https://www.example.com>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <https://www.example.com>
 
 `;
 
-exports[`long.md 1`] = `
+exports[`long.md - markdown-verify: long.md 1`] = `
 [podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
 
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md - markdown-verify: simple.md 1`] = `
 [hello](#world)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [hello](#world)
 
 `;
 
-exports[`title.md 1`] = `
+exports[`title.md - markdown-verify: title.md 1`] = `
 [hello](#world "title")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [hello](#world "title")
 
 `;
 
-exports[`url.md 1`] = `
+exports[`url.md - markdown-verify: url.md 1`] = `
 https://www.example.com/
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 https://www.example.com/
