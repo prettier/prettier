@@ -36,7 +36,7 @@ However, if any of the items inside the array have a hard break, the array will 
 [
   1,
   function() {
-    return 2
+    return 2;
   },
   3
 ];
@@ -97,14 +97,7 @@ declare var breakParent: Doc;
 Include this anywhere to force all parent groups to break. See `group` for more info. Example:
 
 ```js
-group(
-  concat([
-    " ",
-    expr,
-    " ",
-    breakParent,
-  ])
-);
+group(concat([" ", expr, " ", breakParent]));
 ```
 
 ### join
@@ -179,6 +172,7 @@ concat(["{", lineSuffix(" // comment"), lineSuffixBoundary, "}", hardline]);
 
 will output
 
+<!-- prettier-ignore -->
 ```js
 { // comment
 }
@@ -186,6 +180,7 @@ will output
 
 and **not**
 
+<!-- prettier-ignore -->
 ```js
 {} // comment
 ```
@@ -218,6 +213,7 @@ This is a placeholder value where the cursor is in the original input in order t
 
 For an example, here's the implementation of the `ArrayExpression` node type:
 
+<!-- prettier-ignore -->
 ```js
 group(
   concat([
