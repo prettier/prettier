@@ -154,7 +154,7 @@ function handleNode(node) {
         line,
         "}"
       ]);
-    case "if":
+    case "if": {
       const handleIfAlternate = alternate => {
         if (!alternate) {
           return "}";
@@ -177,6 +177,7 @@ function handleNode(node) {
         line,
         handleIfAlternate(node.alternate)
       ]);
+    }
     case "switch":
       return concat([
         "switch (",

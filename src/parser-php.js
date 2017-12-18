@@ -1,7 +1,7 @@
 "use strict";
-const engine = require('php-parser');
+const engine = require("php-parser");
 
-function parse(text, parsers, opts) {
+function parse(text) {
   // initialize a new parser instance
   const parser = new engine({
     // some options :
