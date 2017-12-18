@@ -111,7 +111,7 @@ This rewrites all processed files in place. This is comparable to the `eslint --
 Change the level of logging for the CLI. Valid options are:
 
 * `error`
-* `log`
-* `warn` (default)
+* `warn`
+* `log` (default)
 * `debug`
 * `silent`
