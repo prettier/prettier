@@ -8,8 +8,21 @@ const parsers = require("./parsers");
 
 const rootDir = path.join(__dirname, "..", "..");
 const docs = path.join(rootDir, "website/static/lib");
+<<<<<<< HEAD
 
 const stripLanguageDirectory = parserPath => parserPath.replace(/.*\//, "");
+=======
+const parsers = [
+  "babylon",
+  "flow",
+  "typescript",
+  "glimmer",
+  "graphql",
+  "postcss",
+  "parse5",
+  "markdown"
+];
+>>>>>>> Prettier Support For Glimmer VM/Handlebars
 
 function pipe(string) {
   return new shell.ShellString(string);

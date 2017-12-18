@@ -1,10 +1,34 @@
 "use strict";
 
 const createError = require("./parser-create-error");
+function removeEmptyNodes(node) {
+  return (
+    node.type !== "TextNode" ||
+    (node.type === "TextNode" &&
+      node.chars.replace(/^\s+/, "").replace(/\s+$/, "") !== "")
+  );
+}
+function removeWhiteSpace() {
+  return {
+    visitor: {
+      Program(node) {
+        node.body = node.body.filter(removeEmptyNodes);
+      },
+      ElementNode(node) {
+        node.children = node.children.filter(removeEmptyNodes);
+      }
+    }
+  };
+}
 
 function parse(text) {
   try {
-    return require("@glimmer/syntax").preprocess(text);
+    const glimmer = require("@glimmer/syntax").preprocess;
+    return glimmer(text, {
+      plugins: {
+        ast: [removeWhiteSpace]
+      }
+    });
   } catch (error) {
     const matches = error.message.match(/on line (\d+)/);
     if (matches) {

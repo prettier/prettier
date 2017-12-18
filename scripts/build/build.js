@@ -9,6 +9,19 @@ const parsers = require("./parsers");
 const shell = require("shelljs");
 
 const rootDir = path.join(__dirname, "..", "..");
+<<<<<<< HEAD
+=======
+const parsers = [
+  "babylon",
+  "flow",
+  "typescript",
+  "glimmer",
+  "graphql",
+  "postcss",
+  "parse5",
+  "markdown"
+];
+>>>>>>> Prettier Support For Glimmer VM/Handlebars
 
 process.env.PATH += path.delimiter + path.join(rootDir, "node_modules", ".bin");
 
@@ -37,6 +50,11 @@ for (const parser of parsers) {
   shell.exec(
     `rollup -c scripts/build/rollup.parser.config.js --environment parser:${parser}`
   );
+  if (parser === "glimmer") {
+    shell.exec(
+      `node_modules/babel-cli/bin/babel.js dist/parser-glimmer.js --out-file dist/parser-glimmer.js --presets=es2015`
+    );
+  }
 }
 
 shell.echo("\nsrc/language-css/parser-postcss.js → dist/parser-postcss.js");

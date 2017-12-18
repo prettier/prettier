@@ -1,14 +1,14 @@
 "use strict";
 
-// const util = require("./util");
 const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const join = docBuilders.join;
-// const line = docBuilders.line;
 const softline = docBuilders.softline;
-const hardline = docBuilders.softline;
-// const group = docBuilders.group;
+const hardline = docBuilders.hardline;
+const line = docBuilders.line;
+const group = docBuilders.group;
 const indent = docBuilders.indent;
+const ifBreak = docBuilders.ifBreak;
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [
@@ -44,28 +44,120 @@ function genericPrint(path, options, print) {
 
   switch (n.type) {
     case "Program": {
-      return join(softline, path.map(print, "body"));
+      return group(
+        join(softline, path.map(print, "body").filter(text => text !== ""))
+      );
     }
     case "ElementNode": {
-      const selfClose = voidTags.indexOf(n.tag) > -1 ? ">" : " />";
+      const isVoid = voidTags.indexOf(n.tag) !== -1;
+      const closeTag = isVoid ? concat([" />", softline]) : ">";
+      const hasChildren = n.children.length > 0;
+      const getParams = (path, print) =>
+        indent(
+          concat([
+            n.attributes.length ? line : "",
+            join(line, path.map(print, "attributes")),
 
+            n.modifiers.length ? line : "",
+            join(line, path.map(print, "modifiers")),
+
+            n.comments.length ? line : "",
+            join(line, path.map(print, "comments"))
+          ])
+        );
+
+      // The problem here is that I want to not break at all if the children
+      // would not break but I need to force an indent, so I use a hardline.
+      /**
+       * What happens now:
+       * <div>
+       *   Hello
+       * </div>
+       * ==>
+       * <div>Hello</div>
+       * This is due to me using hasChildren to decide to put the hardline in.
+       * I would rather use a {DOES THE WHOLE THING NEED TO BREAK}
+       */
       return concat([
-        "<",
-        n.tag,
-        n.attributes.length ? " " : "",
-        join(" ", path.map(print, "attributes")),
-
-        n.modifiers.length ? " " : "",
-        join(" ", path.map(print, "modifiers")),
-
-        n.comments.length ? " " : "",
-        join(" ", path.map(print, "comments")),
-
-        n.children.length ? ">" : selfClose,
-
-        indent(concat([softline, join(softline, path.map(print, "children"))])),
-        n.children.length ? concat([softline, "</", n.tag, ">"]) : ""
+        group(
+          concat([
+            "<",
+            n.tag,
+            getParams(path, print),
+            ifBreak(softline, ""),
+            closeTag
+          ])
+        ),
+        group(
+          concat([
+            indent(join(softline, [""].concat(path.map(print, "children")))),
+            ifBreak(hasChildren ? hardline : "", ""),
+            !isVoid ? concat(["</", n.tag, ">"]) : ""
+          ])
+        )
       ]);
+    }
+    case "BlockStatement": {
+      const pp = path.getParentNode(1);
+      const isElseIf = pp && pp.inverse && pp.inverse.body[0] === n;
+      const hasElseIf =
+        n.inverse &&
+        n.inverse.body[0] &&
+        n.inverse.body[0].type === "BlockStatement";
+      const indentElse = hasElseIf ? a => a : indent;
+      if (n.inverse) {
+        return concat([
+          isElseIf
+            ? concat(["{{else ", printPathParams(path, print), "}}"])
+            : printOpenBlock(path, print),
+          indent(concat([hardline, path.call(print, "program")])),
+          n.inverse && !hasElseIf ? concat([hardline, "{{else}}"]) : "",
+          n.inverse
+            ? indentElse(concat([hardline, path.call(print, "inverse")]))
+            : "",
+          isElseIf ? "" : concat([hardline, printCloseBlock(path, print)])
+        ]);
+      }
+      /**
+       * I want this boolean to be: if params are going to cause a break,
+       * not that it has params.
+       */
+      const hasParams = n.params.length > 0 || n.hash.pairs.length > 0;
+      const hasChildren = n.program.body.length > 0;
+      return concat([
+        printOpenBlock(path, print),
+        group(
+          concat([
+            indent(concat([softline, path.call(print, "program")])),
+            hasParams && hasChildren ? hardline : "",
+            printCloseBlock(path, print)
+          ])
+        )
+      ]);
+    }
+    case "ElementModifierStatement":
+    case "MustacheStatement": {
+      const pp = path.getParentNode(1);
+      const isConcat = pp && pp.type === "ConcatStatement";
+      return group(
+        concat([
+          /*n.escaped ? "{{{" : */ "{{",
+          printPathParams(path, print),
+          isConcat ? "" : softline,
+          /*.escaped ? "}}}" :*/ "}}"
+        ])
+      );
+    }
+    case "SubExpression": {
+      return group(
+        concat([
+          "(",
+          printPath(path, print),
+          indent(concat([line, group(join(line, getParams(path, print)))])),
+          softline,
+          ")"
+        ])
+      );
     }
     case "AttrNode": {
       const quote = n.value.type === "TextNode" ? '"' : "";
@@ -77,28 +169,33 @@ function genericPrint(path, options, print) {
     case "ConcatStatement": {
       return concat([
         '"',
-        concat(
-          path.map(partPath => {
-            const part = partPath.getValue();
-            if (part.type === "StringLiteral") {
-              return part.original;
-            }
-            return print(partPath);
-          }, "parts")
+        group(
+          indent(
+            join(
+              softline,
+              path
+                .map(partPath => {
+                  const part = partPath.getValue();
+                  if (part.type === "StringLiteral") {
+                    return part.original;
+                  }
+                  return print(partPath);
+                }, "parts")
+                .filter(a => a !== "")
+            )
+          )
         ),
         '"'
       ]);
     }
+    case "Hash": {
+      return concat([join(line, path.map(print, "pairs"))]);
+    }
+    case "HashPair": {
+      return concat([n.key, "=", path.call(print, "value")]);
+    }
     case "TextNode": {
       return n.chars.replace(/^\s+/, "").replace(/\s+$/, "");
-    }
-    case "ElementModifierStatement":
-    case "MustacheStatement": {
-      return concat([
-        n.escaped ? "{{" : "{{{",
-        printPathParams(path, print),
-        n.escaped ? "}}" : "}}}"
-      ]);
     }
     case "MustacheCommentStatement": {
       const dashes = n.value.indexOf("}}") > -1 ? "--" : "";
@@ -107,32 +204,8 @@ function genericPrint(path, options, print) {
     case "PathExpression": {
       return n.original;
     }
-    case "SubExpression": {
-      return concat(["(", printPathParams(path, print), ")"]);
-    }
     case "BooleanLiteral": {
       return String(n.value);
-    }
-    case "BlockStatement": {
-      const pp = path.getParentNode(1);
-      const isElseIf = pp && pp.inverse && pp.inverse.body[0] === n;
-      const hasElseIf =
-        n.inverse &&
-        n.inverse.body[0] &&
-        n.inverse.body[0].type === "BlockStatement";
-      const indentElse = hasElseIf ? a => a : indent;
-      return concat([
-        isElseIf
-          ? concat([hardline, "{{else ", printPathParams(path, print), "}}"])
-          : printOpenBlock(path, print),
-        indent(concat([hardline, path.call(print, "program")])),
-        n.inverse && !hasElseIf ? concat([hardline, "{{else}}"]) : "",
-        n.inverse
-          ? indentElse(concat([hardline, path.call(print, "inverse")]))
-          : "",
-        hardline,
-        isElseIf ? "" : printCloseBlock(path, print)
-      ]);
     }
     case "PartialStatement": {
       return concat(["{{>", printPathParams(path, print), "}}"]);
@@ -152,15 +225,6 @@ function genericPrint(path, options, print) {
     case "NullLiteral": {
       return "null";
     }
-    case "Hash": {
-      return concat([
-        n.pairs.length ? " " : "",
-        join(" ", path.map(print, "pairs"))
-      ]);
-    }
-    case "HashPair": {
-      return concat([n.key, "=", path.call(print, "value")]);
-    }
 
     default:
       throw new Error("unknown glimmer type: " + JSON.stringify(n.type));
@@ -171,9 +235,8 @@ function isLiteral(node) {
   return node.type.endsWith("Literal");
 }
 
-function printPathParams(path, print) {
+function printPath(path, print) {
   const node = path.getValue();
-  const parts = [];
 
   switch (node.type) {
     case "MustacheStatement":
@@ -183,21 +246,35 @@ function printPathParams(path, print) {
       if (isLiteral(node.path)) {
         return String(node.path.value);
       }
-      parts.push(path.call(print, "path"));
-      break;
+      return path.call(print, "path");
     case "PartialStatement":
-      parts.push(path.call(print, "name"));
-      break;
+      return path.call(print, "name");
     default:
       return "";
   }
+}
 
-  parts.push(
-    node.params.length ? " " : "",
-    concat(path.map(print, "params")),
-    path.call(print, "hash")
-  );
-  return concat(parts);
+function getParams(path, print) {
+  const node = path.getValue();
+  let parts = [];
+
+  if (node.params.length > 0) {
+    parts = parts.concat(path.map(print, "params"));
+  }
+
+  if (node.hash && node.hash.pairs.length > 0) {
+    parts.push(path.call(print, "hash"));
+  }
+  return parts;
+}
+
+function printPathParams(path, print) {
+  let parts = [];
+
+  parts.push(printPath(path, print));
+  parts = parts.concat(getParams(path, print));
+
+  return indent(group(join(line, parts)));
 }
 
 function printBlockParams(path) {
@@ -209,12 +286,15 @@ function printBlockParams(path) {
 }
 
 function printOpenBlock(path, print) {
-  return concat([
-    "{{#",
-    printPathParams(path, print),
-    printBlockParams(path, print),
-    "}}"
-  ]);
+  return group(
+    concat([
+      "{{#",
+      printPathParams(path, print),
+      printBlockParams(path, print),
+      softline,
+      "}}"
+    ])
+  );
 }
 
 function printCloseBlock(path, print) {

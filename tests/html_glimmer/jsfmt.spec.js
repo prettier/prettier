@@ -1,1 +1,1 @@
-run_spec(__dirname, { parser: "glimmer" });
+run_spec(__dirname, ["glimmer"]);

@@ -94,6 +94,14 @@ function massageAST(ast, parent) {
     newObj.value = newObj.value.replace(/ /g, "");
   }
 
+  // (Glimmer/HTML) ignore TextNode whitespace
+  if (ast.type === "TextNode") {
+    if (ast.chars.replace(/\s+/, "") === "") {
+      return undefined;
+    }
+    newObj.chars = ast.chars.replace(/^\s+/, "").replace(/\s+$/, "");
+  }
+
   if (
     (ast.type === "value-word" && ast.isColor && ast.isHex) ||
     ast.type === "media-feature" ||

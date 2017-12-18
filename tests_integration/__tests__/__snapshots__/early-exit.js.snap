@@ -265,7 +265,11 @@ exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
+<<<<<<< HEAD
 "--parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>
+=======
+"--parser <flow|babylon|typescript|css|less|scss|json|glimmer|graphql|markdown>
+>>>>>>> Prettier Support For Glimmer VM/Handlebars
 
   Which parser to use.
 
@@ -278,6 +282,7 @@ Valid options:
   less         
   scss         
   json         
+  glimmer      
   graphql      
   markdown     
   vue          
@@ -533,7 +538,11 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
+<<<<<<< HEAD
   --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>
+=======
+  --parser <flow|babylon|typescript|css|less|scss|json|glimmer|graphql|markdown>
+>>>>>>> Prettier Support For Glimmer VM/Handlebars
                            Which parser to use.
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
@@ -628,7 +637,11 @@ exports[`show warning with --help not-found (typo) (stderr) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
+<<<<<<< HEAD
 "--parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>
+=======
+"--parser <flow|babylon|typescript|css|less|scss|json|glimmer|graphql|markdown>
+>>>>>>> Prettier Support For Glimmer VM/Handlebars
 
   Which parser to use.
 
@@ -641,6 +654,7 @@ Valid options:
   less         
   scss         
   json         
+  glimmer      
   graphql      
   markdown     
   vue          
@@ -674,7 +688,11 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
+<<<<<<< HEAD
   --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>
+=======
+  --parser <flow|babylon|typescript|css|less|scss|json|glimmer|graphql|markdown>
+>>>>>>> Prettier Support For Glimmer VM/Handlebars
                            Which parser to use.
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
