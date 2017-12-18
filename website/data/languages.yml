@@ -9,10 +9,10 @@
 - name: CSS
   image: "/images/css-128px.png"
   variants:
-  - CSS3+
+  - "CSS3+"
   - "[Less](http://lesscss.org/)"
   - "[SCSS](http://sass-lang.com)"
-  - "[styled-components](http://styled-components.com) \U0001F485"
+  - "[styled-components](http://styled-components.com) 💅"
   - "[styled-jsx](http://npmjs.com/styled-jsx)"
 - name: GraphQL
   image: "/images/graphql-128px.png"
