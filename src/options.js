@@ -66,6 +66,7 @@ function normalize(options) {
     // for a few versions. This code can be removed later.
     normalized.trailingComma = "es5";
 
+    // eslint-disable-next-line no-console
     console.warn(
       "Warning: `trailingComma` without any argument is deprecated. " +
         'Specify "none", "es5", or "all".'
@@ -76,6 +77,7 @@ function normalize(options) {
   if (typeof normalized.proseWrap === "boolean") {
     normalized.proseWrap = normalized.proseWrap ? "always" : "never";
 
+    // eslint-disable-next-line no-console
     console.warn(
       "Warning: `proseWrap` with boolean value is deprecated. " +
         'Use "always", "never", or "preserve" instead.'
@@ -86,6 +88,7 @@ function normalize(options) {
   if (normalized.parser === "postcss") {
     normalized.parser = "css";
 
+    // eslint-disable-next-line no-console
     console.warn(
       'Warning: `parser` with value "postcss" is deprecated. ' +
         'Use "css", "less" or "scss" instead.'

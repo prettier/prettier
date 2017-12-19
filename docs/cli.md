@@ -105,3 +105,13 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt-out f
 ## `--write`
 
 This rewrites all processed files in place. This is comparable to the `eslint --fix` workflow.
+
+## `--loglevel`
+
+Change the level of logging for the CLI. Valid options are:
+
+* `error`
+* `warn`
+* `log` (default)
+* `debug`
+* `silent`

@@ -6,10 +6,10 @@ exports[`doesn't crash when --debug-check is passed (write) 1`] = `Array []`;
 
 exports[`show diff for 2+ error files with --debug-check (stderr) 1`] = `
 "[error] a.js: ast(input) !== ast(prettier(input))
-[error] Index:
+[error] Index: 
 [error] ===================================================================
-[error] ---
-[error] +++
+[error] --- 	
+[error] +++ 	
 [error] @@ -17,6 +17,6 @@
 [error]                    \\"method\\": false,
 [error]                    \\"key\\": {
@@ -19,22 +19,22 @@ exports[`show diff for 2+ error files with --debug-check (stderr) 1`] = `
 [error] +                    \\"name\\": \\"a\\"
 [error]                    },
 [error]                    \\"computed\\": false,
-[error]
-[error] Index:
+[error] 
+[error] Index: 
 [error] ===================================================================
-[error] ---
-[error] +++
+[error] --- 	
+[error] +++ 	
 [error] @@ -1,3 +1,3 @@
 [error]  const a = {
 [error] -    'a': 1
 [error] +  a: 1
 [error]  };
-[error]
+[error] 
 [error] b.js: ast(input) !== ast(prettier(input))
-[error] Index:
+[error] Index: 
 [error] ===================================================================
-[error] ---
-[error] +++
+[error] --- 	
+[error] +++ 	
 [error] @@ -17,6 +17,6 @@
 [error]                    \\"method\\": false,
 [error]                    \\"key\\": {
@@ -44,17 +44,17 @@ exports[`show diff for 2+ error files with --debug-check (stderr) 1`] = `
 [error] +                    \\"name\\": \\"b\\"
 [error]                    },
 [error]                    \\"computed\\": false,
-[error]
-[error] Index:
+[error] 
+[error] Index: 
 [error] ===================================================================
-[error] ---
-[error] +++
+[error] --- 	
+[error] +++ 	
 [error] @@ -1,3 +1,3 @@
 [error]  const b = {
 [error] -    'b': 2
 [error] +  b: 2
 [error]  };
-[error]
+[error] 
 "
 `;
 

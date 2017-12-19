@@ -24,12 +24,12 @@ function run(args) {
   validator.validateArgv(argv);
 
   if (argv["version"]) {
-    console.log(prettier.version);
+    logger.log(prettier.version);
     process.exit(0);
   }
 
   if (argv["help"] !== undefined) {
-    console.log(
+    logger.log(
       typeof argv["help"] === "string" && argv["help"] !== ""
         ? util.createDetailedUsage(argv["help"])
         : util.createUsage()
@@ -38,7 +38,7 @@ function run(args) {
   }
 
   if (argv["support-info"]) {
-    console.log(
+    logger.log(
       prettier.format(JSON.stringify(prettier.getSupportInfo()), {
         parser: "json"
       })
@@ -56,7 +56,7 @@ function run(args) {
   } else if (hasFilePatterns) {
     util.formatFiles(argv);
   } else {
-    console.log(util.createUsage());
+    logger.log(util.createUsage());
     process.exit(1);
   }
 }
