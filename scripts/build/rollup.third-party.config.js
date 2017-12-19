@@ -5,7 +5,7 @@ import json from "rollup-plugin-json";
 import replace from "rollup-plugin-replace";
 
 export default Object.assign(baseConfig, {
-  entry: "src/third-party.js",
+  entry: "src/common/third-party.js",
   dest: "dist/third-party.js",
   format: "cjs",
   plugins: [

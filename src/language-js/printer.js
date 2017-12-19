@@ -1,13 +1,14 @@
 "use strict";
 
 const assert = require("assert");
-const comments = require("./comments");
-const FastPath = require("./fast-path");
-const multiparser = require("./multiparser");
-const util = require("./util");
+// TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
+const comments = require("../main/comments");
+const FastPath = require("../builder/fast-path");
+const multiparser = require("../main/multiparser");
+const util = require("../builder/util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 
-const docBuilders = require("./doc-builders");
+const docBuilders = require("../builder/doc-builders");
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const line = docBuilders.line;
@@ -24,7 +25,7 @@ const breakParent = docBuilders.breakParent;
 const lineSuffixBoundary = docBuilders.lineSuffixBoundary;
 const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
 
-const docUtils = require("./doc-utils");
+const docUtils = require("../builder/doc-utils");
 const willBreak = docUtils.willBreak;
 const isLineNext = docUtils.isLineNext;
 const isEmpty = docUtils.isEmpty;
@@ -53,17 +54,17 @@ function shouldPrintComma(options, level) {
 function getPrintFunction(options) {
   switch (options.parser) {
     case "graphql":
-      return require("./printer-graphql");
+      return require("../language-graphql/printer-graphql");
     case "parse5":
-      return require("./printer-htmlparser2");
+      return require("../language-html/printer-htmlparser2");
     case "vue":
-      return require("./printer-vue");
+      return require("../language-vue/printer-vue");
     case "css":
     case "less":
     case "scss":
-      return require("./printer-postcss");
+      return require("../language-css/printer-postcss");
     case "markdown":
-      return require("./printer-markdown");
+      return require("../language-markdown/printer-markdown");
     default:
       return genericPrintNoParens;
   }

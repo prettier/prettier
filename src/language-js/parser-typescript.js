@@ -1,7 +1,7 @@
 "use strict";
 
-const createError = require("./parser-create-error");
-const includeShebang = require("./parser-include-shebang");
+const createError = require("../common/parser-create-error");
+const includeShebang = require("../common/parser-include-shebang");
 
 function parse(text /*, parsers, opts*/) {
   const jsx = isProbablyJsx(text);

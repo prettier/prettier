@@ -11,15 +11,15 @@ const chalk = require("chalk");
 const readline = require("readline");
 const leven = require("leven");
 
-const prettier = eval("require")("../index");
-const cleanAST = require("./clean-ast").cleanAST;
-const resolver = require("./resolve-config");
-const constant = require("./cli-constant");
-const validator = require("./cli-validator");
-const apiDefaultOptions = require("./options").defaults;
-const errors = require("./errors");
-const logger = require("./cli-logger");
-const thirdParty = require("./third-party");
+const prettier = eval("require")("../../index");
+const cleanAST = require("../debug/clean-ast").cleanAST;
+const resolver = require("../config/resolve-config");
+const constant = require("./constant");
+const validator = require("./validator");
+const apiDefaultOptions = require("../common/options").defaults;
+const errors = require("../common/errors");
+const logger = require("./logger");
+const thirdParty = require("../common/third-party");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;

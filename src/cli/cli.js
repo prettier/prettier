@@ -2,11 +2,11 @@
 
 const minimist = require("minimist");
 
-const prettier = eval("require")("../index");
-const constant = require("./cli-constant");
-const util = require("./cli-util");
-const validator = require("./cli-validator");
-const logger = require("./cli-logger");
+const prettier = eval("require")("../../index");
+const constant = require("./constant");
+const util = require("./util");
+const validator = require("./validator");
+const logger = require("./logger");
 
 function run(args) {
   const rawArgv = minimist(args, constant.minimistOptions);

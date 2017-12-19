@@ -1,7 +1,7 @@
 "use strict";
 
 const camelCase = require("camelcase");
-const logger = require("./cli-logger");
+const logger = require("./logger");
 
 function validateArgv(argv) {
   if (argv["write"] && argv["debug-check"]) {

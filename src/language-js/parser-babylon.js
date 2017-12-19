@@ -1,6 +1,6 @@
 "use strict";
 
-const createError = require("./parser-create-error");
+const createError = require("../common/parser-create-error");
 
 function parse(text, parsers, opts) {
   // Inline the require to avoid loading all the JS if we don't use it

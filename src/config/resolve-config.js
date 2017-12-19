@@ -1,6 +1,6 @@
 "use strict";
 
-const thirdParty = require("./third-party");
+const thirdParty = require("../common/third-party");
 const minimatch = require("minimatch");
 const path = require("path");
 const mem = require("mem");

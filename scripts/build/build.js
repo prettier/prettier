@@ -7,6 +7,8 @@ const pkg = require("../../package.json");
 const formatMarkdown = require("../../website/static/markdown");
 const shell = require("shelljs");
 
+// TODO(azz): This file will need rework
+
 const rootDir = path.join(__dirname, "..", "..");
 const parsers = [
   "babylon",

@@ -1,7 +1,7 @@
 "use strict";
 
 const assert = require("assert");
-const docBuilders = require("./doc-builders");
+const docBuilders = require("../builder/doc-builders");
 const concat = docBuilders.concat;
 const hardline = docBuilders.hardline;
 const breakParent = docBuilders.breakParent;
@@ -9,7 +9,7 @@ const indent = docBuilders.indent;
 const lineSuffix = docBuilders.lineSuffix;
 const join = docBuilders.join;
 const cursor = docBuilders.cursor;
-const util = require("./util");
+const util = require("../builder/util");
 const childNodesCacheKey = Symbol("child-nodes");
 const locStart = util.locStart;
 const locEnd = util.locEnd;

@@ -1,8 +1,8 @@
 "use strict";
 
-const util = require("./util");
-const docUtils = require("./doc-utils");
-const docBuilders = require("./doc-builders");
+const util = require("../builder/util");
+const docUtils = require("../builder/doc-utils");
+const docBuilders = require("../builder/doc-builders");
 const comments = require("./comments");
 const indent = docBuilders.indent;
 const join = docBuilders.join;
@@ -37,7 +37,7 @@ function parseAndPrint(text, partialNextOptions, parentOptions) {
   const astComments = ast.comments;
   delete ast.comments;
   comments.attach(astComments, ast, text, nextOptions);
-  return require("./printer").printAstToDoc(ast, nextOptions);
+  return require("../language-js/printer").printAstToDoc(ast, nextOptions);
 }
 
 function fromVue(path, print, options) {

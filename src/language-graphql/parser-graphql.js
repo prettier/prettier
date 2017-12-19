@@ -1,6 +1,6 @@
 "use strict";
 
-const createError = require("./parser-create-error");
+const createError = require("../common/parser-create-error");
 
 function parseComments(ast) {
   const comments = [];

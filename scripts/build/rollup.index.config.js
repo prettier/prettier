@@ -25,6 +25,6 @@ export default Object.assign(baseConfig, {
   ],
   external,
   paths: {
-    [path.resolve("src/third-party.js")]: "./third-party"
+    [path.resolve("src/common/third-party.js")]: "./third-party"
   }
 });

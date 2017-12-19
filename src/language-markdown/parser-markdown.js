@@ -3,7 +3,7 @@
 const remarkFrontmatter = require("remark-frontmatter");
 const remarkParse = require("remark-parse");
 const unified = require("unified");
-const util = require("./util");
+const util = require("../builder/util");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:

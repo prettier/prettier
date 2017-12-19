@@ -1,6 +1,6 @@
 "use strict";
 
-const docBuilders = require("./doc-builders");
+const docBuilders = require("../builder/doc-builders");
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const hardline = docBuilders.hardline;
@@ -10,7 +10,7 @@ const group = docBuilders.group;
 const indent = docBuilders.indent;
 const ifBreak = docBuilders.ifBreak;
 
-const util = require("./util");
+const util = require("../builder/util");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();

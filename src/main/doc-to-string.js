@@ -1,7 +1,7 @@
 "use strict";
 
-const util = require("./util");
-const docBuilders = require("./doc-builders");
+const util = require("../builder/util");
+const docBuilders = require("../builder/doc-builders");
 const concat = docBuilders.concat;
 const fill = docBuilders.fill;
 const cursor = docBuilders.cursor;

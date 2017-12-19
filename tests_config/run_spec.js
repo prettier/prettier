@@ -3,8 +3,8 @@
 const fs = require("fs");
 const extname = require("path").extname;
 const prettier = require("./require_prettier");
-const parser = require("../src/parser");
-const massageAST = require("../src/clean-ast.js").massageAST;
+const parser = require("../src/main/parser");
+const massageAST = require("../src/debug/clean-ast.js").massageAST;
 
 const AST_COMPARE = process.env["AST_COMPARE"];
 const VERIFY_ALL_PARSERS = process.env["VERIFY_ALL_PARSERS"] || false;
