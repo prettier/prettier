@@ -300,14 +300,13 @@ function genericPrint(path, options, print) {
         concat([
           concat(["[", node.identifier, "]:"]),
           indent(
-            concat(
-              [
-                line,
-                printUrl(node.url),
-                node.title ? line : null,
-                printTitle(node.title, options)
-              ].filter(x => x)
-            )
+            concat([
+              line,
+              printUrl(node.url),
+              node.title === null
+                ? ""
+                : concat([line, printTitle(node.title, options)])
+            ])
           )
         ])
       );
