@@ -303,9 +303,9 @@ function genericPrint(path, options, print) {
             concat([
               line,
               printUrl(node.url),
-              node.title === null
-                ? ""
-                : concat([line, printTitle(node.title, options)])
+              node.title
+                ? concat([line, printTitle(node.title, options)])
+                : ""
             ])
           )
         ])
