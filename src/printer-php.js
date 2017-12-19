@@ -16,10 +16,10 @@ function genericPrint(path) {
   } else if (typeof n === "string") {
     return n;
   }
-  return handleNode(n);
+  return printNode(n);
 }
 
-function handleLiteral(node) {
+function printLiteral(node) {
   switch (node.kind) {
     case "boolean":
       return node.value ? "true" : "false";
@@ -36,16 +36,16 @@ function handleLiteral(node) {
   }
 }
 
-function handleNode(node) {
+function printNode(node) {
   switch (node.kind) {
     case "program":
       return concat([
         "<?php",
-        concat(node.children.map(child => concat([line, handleNode(child)])))
+        concat(node.children.map(child => concat([line, printNode(child)])))
       ]);
     case "assign":
       return concat([
-        join(" = ", [handleNode(node.left), handleNode(node.right)]),
+        join(" = ", [printNode(node.left), printNode(node.right)]),
         ";"
       ]);
     case "variable":
@@ -62,23 +62,23 @@ function handleNode(node) {
     case "magic":
     case "nowdoc":
     case "encapsed":
-      return handleLiteral(node);
+      return printLiteral(node);
 
     // operation
     case "pre":
-      return concat([node.type + node.type, handleNode(node.what), ";"]);
+      return concat([node.type + node.type, printNode(node.what), ";"]);
     case "post":
-      return concat([handleNode(node.what), node.type + node.type, ";"]);
+      return concat([printNode(node.what), node.type + node.type, ";"]);
     case "bin":
       return concat([
-        handleNode(node.left),
+        printNode(node.left),
         " ",
         node.type,
         " ",
-        handleNode(node.right)
+        printNode(node.right)
       ]);
     case "parenthesis":
-      return concat(["(", handleNode(node.inner), ")"]);
+      return concat(["(", printNode(node.inner), ")"]);
     case "unary":
       return "unary needs to be implemented";
     case "cast":
@@ -88,14 +88,14 @@ function handleNode(node) {
     case "do":
       return concat([
         "do {",
-        indent(concat([line, handleNode(node.body)])),
+        indent(concat([line, printNode(node.body)])),
         line,
         group(
           concat([
             "} while (",
             group(
               concat([
-                indent(concat([softline, handleNode(node.test)])),
+                indent(concat([softline, printNode(node.test)])),
                 softline
               ])
             ),
@@ -111,14 +111,14 @@ function handleNode(node) {
             indent(
               concat([
                 softline,
-                group(concat(node.init.map(init => handleNode(init)))),
+                group(concat(node.init.map(init => printNode(init)))),
                 softline,
                 group(
-                  concat([concat(node.test.map(test => handleNode(test))), ";"])
+                  concat([concat(node.test.map(test => printNode(test))), ";"])
                 ),
                 softline,
                 group(
-                  concat(node.increment.map(increment => handleNode(increment)))
+                  concat(node.increment.map(increment => printNode(increment)))
                 )
               ])
             ),
@@ -126,7 +126,7 @@ function handleNode(node) {
             ") {"
           ])
         ),
-        indent(concat([line, handleNode(node.body)])),
+        indent(concat([line, printNode(node.body)])),
         line,
         "}"
       ]);
@@ -138,19 +138,19 @@ function handleNode(node) {
             indent(
               concat([
                 softline,
-                handleNode(node.source),
+                printNode(node.source),
                 " as",
                 line,
                 node.key
-                  ? join(" => ", [handleNode(node.key), handleNode(node.value)])
-                  : handleNode(node.value)
+                  ? join(" => ", [printNode(node.key), printNode(node.value)])
+                  : printNode(node.value)
               ])
             ),
             softline,
             ") {"
           ])
         ),
-        indent(concat([line, handleNode(node.body)])),
+        indent(concat([line, printNode(node.body)])),
         line,
         "}"
       ]);
@@ -160,20 +160,20 @@ function handleNode(node) {
           return "}";
         }
         if (alternate.kind === "if") {
-          return concat(["} else", handleNode(alternate)]);
+          return concat(["} else", printNode(alternate)]);
         }
         return concat([
           "} else {",
-          indent(concat([line, handleNode(alternate)])),
+          indent(concat([line, printNode(alternate)])),
           line,
           "}"
         ]);
       };
       return concat([
         "if (",
-        handleNode(node.test),
+        printNode(node.test),
         ") {",
-        indent(concat([line, handleNode(node.body)])),
+        indent(concat([line, printNode(node.body)])),
         line,
         handleIfAlternate(node.alternate)
       ]);
@@ -181,12 +181,12 @@ function handleNode(node) {
     case "switch":
       return concat([
         "switch (",
-        handleNode(node.test),
+        printNode(node.test),
         ") {",
         indent(
           concat(
             node.body.children.map(caseChild =>
-              concat([line, handleNode(caseChild)])
+              concat([line, printNode(caseChild)])
             )
           )
         ),
@@ -195,17 +195,17 @@ function handleNode(node) {
       ]);
     case "case":
       return concat([
-        node.test ? concat(["case ", handleNode(node.test), ":"]) : "default:",
-        indent(concat([line, handleNode(node.body)]))
+        node.test ? concat(["case ", printNode(node.test), ":"]) : "default:",
+        indent(concat([line, printNode(node.body)]))
       ]);
     case "break":
       return "break;";
     case "while":
       return concat([
         "while (",
-        handleNode(node.test),
+        printNode(node.test),
         ") {",
-        indent(concat([line, handleNode(node.body)])),
+        indent(concat([line, printNode(node.body)])),
         line,
         "}"
       ]);
@@ -213,18 +213,18 @@ function handleNode(node) {
       return concat(
         node.children.map((child, i) => {
           if (i === 0) {
-            return handleNode(child);
+            return printNode(child);
           }
-          return concat([line, handleNode(child)]);
+          return concat([line, printNode(child)]);
         })
       );
     case "return":
       if (node.expr) {
-        concat(["return", handleNode(node.expr), ";"]);
+        concat(["return", printNode(node.expr), ";"]);
       } else {
         return "return;";
       }
-      return concat(["return ", handleNode(node.expr), ";"]);
+      return concat(["return ", printNode(node.expr), ";"]);
     // functions
     case "function":
       return concat([
@@ -235,7 +235,7 @@ function handleNode(node) {
               join(
                 ", ",
                 node.arguments.map(argument =>
-                  concat([softline, handleNode(argument)])
+                  concat([softline, printNode(argument)])
                 )
               )
             ),
@@ -243,23 +243,77 @@ function handleNode(node) {
           ])
         ),
         group(") {"),
-        indent(concat([hardline, handleNode(node.body)])),
+        indent(concat([hardline, printNode(node.body)])),
         concat([hardline, "}"])
       ]);
     case "parameter":
       if (node.value) {
         return group(
-          join(" = ", [concat(["$", node.name]), handleNode(node.value)])
+          join(" = ", [concat(["$", node.name]), printNode(node.value)])
         );
       }
       return concat(["$", node.name]);
     case "call":
       return concat([
-        handleNode(node.what),
+        printNode(node.what),
         "(",
-        join(", ", node.arguments.map(argument => handleNode(argument))),
+        join(", ", node.arguments.map(argument => printNode(argument))),
         ");"
       ]);
+    case "class":
+      return concat([
+        group(concat(["class ", node.name, " {"])),
+        hardline,
+        indent(
+          concat(node.body.map(child => concat([hardline, printNode(child)])))
+        ),
+        hardline,
+        "}"
+      ]);
+    case "doc":
+      return node.isDoc
+        ? concat([
+            "/**",
+            concat(
+              node.lines.map(comment => concat([hardline, " * ", comment]))
+            ),
+            hardline,
+            " */"
+          ])
+        : concat(node.lines.map(comment => concat(["// ", comment])));
+    case "property":
+      return concat([
+        node.visibility,
+        " $",
+        node.name,
+        node.value ? concat([" = ", printNode(node.value)]) : "",
+        ";"
+      ]);
+    case "method":
+      return concat([
+        group(concat([node.visibility, " function ", node.name, "("])),
+        group(
+          concat([
+            indent(
+              join(
+                ", ",
+                node.arguments.map(argument =>
+                  concat([softline, printNode(argument)])
+                )
+              )
+            ),
+            softline
+          ])
+        ),
+        group(") {"),
+        indent(concat([hardline, printNode(node.body)])),
+        hardline,
+        "}"
+      ]);
+    case "propertylookup":
+      return concat([printNode(node.what), "->", printNode(node.offset)]);
+    case "constref":
+      return node.name;
     // we haven't implemented this type of node yet
     default:
       return concat(["whoops " + node.kind + " hasn't been implemented yet"]);
