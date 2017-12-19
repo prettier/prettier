@@ -79,9 +79,9 @@ const supportTable = [
     aceMode: "css",
     codemirrorMode: "css",
     codemirrorMimeType: "text/css",
-    extensions: [".css"],
+    extensions: [".css", ".pcss", ".postcss"],
     liguistLanguageId: 50,
-    vscodeLanguageIds: ["css"]
+    vscodeLanguageIds: ["css", "postcss"]
   },
   {
     name: "Less",

@@ -214,8 +214,8 @@ const detailedOptions = normalizeDetailedOptions({
   loglevel: {
     type: "choice",
     description: "What level of logs to report.",
-    default: "warn",
-    choices: ["silent", "error", "warn", "debug"]
+    default: "log",
+    choices: ["silent", "error", "warn", "log", "debug"]
   },
   parser: {
     type: "choice",

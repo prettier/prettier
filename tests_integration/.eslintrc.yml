@@ -1,0 +1,2 @@
+env:
+  jest: true
