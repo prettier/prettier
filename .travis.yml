@@ -21,8 +21,8 @@ before_install:
   - export PATH="/home/travis/.pyenv/bin:$PATH"
   - eval "$(pyenv init -)"
   - eval "$(pyenv virtualenv-init -)"
-  - pyenv install 2.7.11
-  - pyenv install 3.6.3
+  - pyenv install -s 2.7.11
+  - pyenv install -s 3.6.3
   - pyenv global 2.7.11 3.6.3
 before_script:
   - yarn check-deps
