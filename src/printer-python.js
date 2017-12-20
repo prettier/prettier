@@ -137,6 +137,40 @@ function printWithItem(path, print) {
   return group(concat(parts));
 }
 
+function printIf(path, print, isElse) {
+  const n = path.getValue();
+
+  let ifType = "if ";
+
+  if (isElse) {
+    ifType = "elif ";
+  }
+
+  const parts = [
+    ifType,
+    path.call(print, "test"),
+    ":",
+    indent(concat([hardline, printBody(path, print)]))
+  ];
+
+  if (n.orelse.length > 0) {
+    if (n.orelse.length === 1 && n.orelse[0].ast_type !== "If") {
+      parts.push(
+        line,
+        "else:",
+        indent(concat([line, concat(path.map(print, "orelse"))]))
+      );
+    } else {
+      parts.push(
+        line,
+        concat(path.map(p => printIf(p, print, true), "orelse"))
+      );
+    }
+  }
+
+  return concat(parts);
+}
+
 function genericPrint(path, options, print) {
   const n = path.getValue();
   if (!n) {
@@ -508,32 +542,7 @@ function genericPrint(path, options, print) {
     }
 
     case "If": {
-      let ifType = "if ";
-
-      if (path.getParentNode().ast_type === "If") {
-        ifType = "elif ";
-      }
-
-      const parts = [
-        ifType,
-        path.call(print, "test"),
-        ":",
-        indent(concat([hardline, printBody(path, print)]))
-      ];
-
-      if (n.orelse.length > 0) {
-        if (n.orelse.length === 1 && n.orelse[0].ast_type !== "If") {
-          parts.push(
-            line,
-            "else:",
-            indent(concat([line, concat(path.map(print, "orelse"))]))
-          );
-        } else {
-          parts.push(line, concat(path.map(print, "orelse")));
-        }
-      }
-
-      return concat(parts);
+      return printIf(path, print);
     }
 
     case "Subscript": {
