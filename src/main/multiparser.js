@@ -33,6 +33,7 @@ function parseAndPrint(text, partialNextOptions, parentOptions) {
   if (nextOptions.parser === "json") {
     nextOptions.trailingComma = "none";
   }
+
   const ast = require("./parser").parse(text, nextOptions);
   const astComments = ast.comments;
   delete ast.comments;
@@ -506,15 +507,13 @@ function stripTrailingHardline(doc) {
   // HACK remove ending hardline, original PR: #1984
   if (
     doc.type === "concat" &&
-    doc.parts[0].type === "concat" &&
-    doc.parts[0].parts.length === 2 &&
-    // doc.parts[0].parts[1] === hardline :
-    doc.parts[0].parts[1].type === "concat" &&
-    doc.parts[0].parts[1].parts.length === 2 &&
-    doc.parts[0].parts[1].parts[0].hard &&
-    doc.parts[0].parts[1].parts[1].type === "break-parent"
+    doc.parts.length === 2 &&
+    doc.parts[1].type === "concat" &&
+    doc.parts[1].parts.length === 2 &&
+    doc.parts[1].parts[0].hard &&
+    doc.parts[1].parts[1].type === "break-parent"
   ) {
-    return doc.parts[0].parts[0];
+    return doc.parts[0];
   }
   return doc;
 }
