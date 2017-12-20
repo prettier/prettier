@@ -539,4 +539,7 @@ function printSequence(sequencePath, options, print) {
   });
 }
 
-module.exports = genericPrint;
+module.exports = {
+  print: genericPrint,
+  hasPrettierIgnore: util.hasIgnoreComment
+};

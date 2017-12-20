@@ -657,4 +657,7 @@ function normalizeParts(parts) {
   }, []);
 }
 
-module.exports = genericPrint;
+module.exports = {
+  print: genericPrint,
+  hasPrettierIgnore: util.hasIgnoreComment
+};

@@ -114,4 +114,7 @@ function printChildren(path, print) {
   return concat(children);
 }
 
-module.exports = genericPrint;
+module.exports = {
+  print: genericPrint,
+  hasPrettierIgnore: util.hasIgnoreComment
+};

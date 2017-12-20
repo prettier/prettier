@@ -49,7 +49,7 @@ function shouldPrintComma(options, level) {
   }
 }
 
-function printWithParens(path, options, printPath, args) {
+function genericPrint(path, options, printPath, args) {
   const node = path.getValue();
   let needsParens = false;
 
@@ -5167,7 +5167,7 @@ function willPrintOwnComments(path) {
 }
 
 module.exports = {
-  print: printWithParens,
+  print: genericPrint,
   hasPrettierIgnore,
   willPrintOwnComments
 };

@@ -533,4 +533,7 @@ function maybeToLowerCase(value) {
     : value.toLowerCase();
 }
 
-module.exports = genericPrint;
+module.exports = {
+  print: genericPrint,
+  hasPrettierIgnore: util.hasIgnoreComment
+};

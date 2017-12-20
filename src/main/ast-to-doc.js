@@ -89,7 +89,7 @@ function genericPrint(path, options, printer, printPath, args) {
   const node = path.getValue();
 
   // Escape hatch
-  if (util.hasIgnoreComment(path)) {
+  if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
     return options.originalText.slice(util.locStart(node), util.locEnd(node));
   }
 
