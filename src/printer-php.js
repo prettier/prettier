@@ -52,7 +52,9 @@ function printExpression(node) {
       case "propertylookup":
         return concat([printNode(node.what), "->", printNode(node.offset)]);
       case "staticlookup":
+        return concat([printNode(node.what), "::", printNode(node.offset)]);
       case "offsetlookup":
+        return concat([printNode(node.what), "[", printNode(node.offset), "]"]);
       default:
         return "Have not implemented lookup kind " + node.kind + " yet.";
     }
@@ -122,8 +124,21 @@ function printExpression(node) {
       return "$" + node.name;
     case "constref":
       return node.name;
-    case "variadic":
     case "array":
+      return group(
+        concat([
+          node.shortForm ? "[" : "array(",
+          indent(
+            join(
+              ", ",
+              node.items.map(item => concat([softline, printNode(item)]))
+            )
+          ),
+          softline,
+          node.shortForm ? "]" : ")"
+        ])
+      );
+    case "variadic":
     case "yield":
     case "yieldfrom":
     case "lookup":
@@ -270,7 +285,15 @@ function printStatement(node) {
         ]);
       case "method":
         return concat([
-          group(concat([node.visibility, " function ", node.name, "("])),
+          group(
+            concat([
+              node.visibility,
+              node.isStatic ? " static" : "",
+              " function ",
+              node.name,
+              "("
+            ])
+          ),
           group(
             concat([
               indent(
@@ -505,11 +528,15 @@ function printNode(node) {
             " */"
           ])
         : concat(node.lines.map(comment => concat(["// ", comment])));
+    case "entry":
+      return concat([
+        node.key ? concat([printNode(node.key), " => "]) : "",
+        printNode(node.value)
+      ]);
     case "label":
     case "traituse":
     case "traitalias":
     case "traitprecedence":
-    case "entry":
     case "error":
     default:
       return "Have not implemented kind " + node.kind + " yet.";
