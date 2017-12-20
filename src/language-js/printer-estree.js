@@ -3,8 +3,6 @@
 const assert = require("assert");
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
-const FastPath = require("../builder/fast-path");
-const multiparser = require("../main/multiparser");
 const util = require("../builder/util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 
@@ -51,106 +49,9 @@ function shouldPrintComma(options, level) {
   }
 }
 
-function getPrintFunction(options) {
-  switch (options.parser) {
-    case "graphql":
-      return require("../language-graphql/printer-graphql");
-    case "parse5":
-      return require("../language-html/printer-htmlparser2");
-    case "vue":
-      return require("../language-vue/printer-vue");
-    case "css":
-    case "less":
-    case "scss":
-      return require("../language-css/printer-postcss");
-    case "markdown":
-      return require("../language-markdown/printer-markdown");
-    default:
-      return genericPrintNoParens;
-  }
-}
-
-function hasIgnoreComment(path) {
+function printWithParens(path, options, printPath, args) {
   const node = path.getValue();
-  return hasNodeIgnoreComment(node) || hasJsxIgnoreComment(path);
-}
-
-function hasNodeIgnoreComment(node) {
-  return (
-    node &&
-    node.comments &&
-    node.comments.length > 0 &&
-    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
-  );
-}
-
-function hasJsxIgnoreComment(path) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
-  if (!parent || !node || !isJSXNode(node) || !isJSXNode(parent)) {
-    return false;
-  }
-
-  // Lookup the previous sibling, ignoring any empty JSXText elements
-  const index = parent.children.indexOf(node);
-  let prevSibling = null;
-  for (let i = index; i > 0; i--) {
-    const candidate = parent.children[i - 1];
-    if (candidate.type === "JSXText" && !isMeaningfulJSXText(candidate)) {
-      continue;
-    }
-    prevSibling = candidate;
-    break;
-  }
-
-  return (
-    prevSibling &&
-    prevSibling.type === "JSXExpressionContainer" &&
-    prevSibling.expression.type === "JSXEmptyExpression" &&
-    prevSibling.expression.comments &&
-    prevSibling.expression.comments.find(
-      comment => comment.value.trim() === "prettier-ignore"
-    )
-  );
-}
-
-function genericPrint(path, options, printPath, args) {
-  assert.ok(path instanceof FastPath);
-
-  const node = path.getValue();
-
-  // Escape hatch
-  if (hasIgnoreComment(path)) {
-    return options.originalText.slice(util.locStart(node), util.locEnd(node));
-  }
-
-  if (node) {
-    try {
-      // Potentially switch to a different parser
-      const sub = multiparser.printSubtree(path, printPath, options);
-      if (sub) {
-        return sub;
-      }
-    } catch (error) {
-      /* istanbul ignore if */
-      if (process.env.PRETTIER_DEBUG) {
-        throw error;
-      }
-      // Continue with current parser
-    }
-  }
-
   let needsParens = false;
-  const linesWithoutParens = getPrintFunction(options)(
-    path,
-    options,
-    printPath,
-    args
-  );
-
-  if (!node || isEmpty(linesWithoutParens)) {
-    return linesWithoutParens;
-  }
 
   const decorators = [];
   if (
@@ -210,6 +111,12 @@ function genericPrint(path, options, printPath, args) {
     needsParens = path.needsParens(options);
   }
 
+  const linesWithoutParens = printPathNoParens(path, options, printPath, args);
+
+  if (!node || isEmpty(linesWithoutParens)) {
+    return linesWithoutParens;
+  }
+
   const parts = [];
   if (needsParens) {
     parts.unshift("(");
@@ -227,7 +134,41 @@ function genericPrint(path, options, printPath, args) {
   return concat(parts);
 }
 
-function genericPrintNoParens(path, options, print, args) {
+function hasPrettierIgnore(path) {
+  return util.hasIgnoreComment(path) || hasJsxIgnoreComment(path);
+}
+
+function hasJsxIgnoreComment(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+  if (!parent || !node || !isJSXNode(node) || !isJSXNode(parent)) {
+    return false;
+  }
+
+  // Lookup the previous sibling, ignoring any empty JSXText elements
+  const index = parent.children.indexOf(node);
+  let prevSibling = null;
+  for (let i = index; i > 0; i--) {
+    const candidate = parent.children[i - 1];
+    if (candidate.type === "JSXText" && !isMeaningfulJSXText(candidate)) {
+      continue;
+    }
+    prevSibling = candidate;
+    break;
+  }
+
+  return (
+    prevSibling &&
+    prevSibling.type === "JSXExpressionContainer" &&
+    prevSibling.expression.type === "JSXEmptyExpression" &&
+    prevSibling.expression.comments &&
+    prevSibling.expression.comments.find(
+      comment => comment.value.trim() === "prettier-ignore"
+    )
+  );
+}
+
+function printPathNoParens(path, options, print, args) {
   const n = path.getValue();
   const semi = options.semi ? ";" : "";
 
@@ -989,7 +930,7 @@ function genericPrintNoParens(path, options, print, args) {
         const result = concat(separatorParts.concat(group(prop.printed)));
         separatorParts = [separator, line];
         if (
-          hasNodeIgnoreComment(prop.node) &&
+          util.hasNodeIgnoreComment(prop.node) &&
           prop.node.type === "TSPropertySignature"
         ) {
           separatorParts.shift();
@@ -1007,7 +948,7 @@ function genericPrintNoParens(path, options, print, args) {
         (lastElem.type === "RestProperty" ||
           lastElem.type === "RestElement" ||
           lastElem.type === "ExperimentalRestProperty" ||
-          hasNodeIgnoreComment(lastElem))
+          util.hasNodeIgnoreComment(lastElem))
       );
 
       let content;
@@ -4766,7 +4707,7 @@ function hasTrailingComment(node) {
 
 function hasLeadingOwnLineComment(text, node) {
   if (isJSXNode(node)) {
-    return hasNodeIgnoreComment(node);
+    return util.hasNodeIgnoreComment(node);
   }
 
   const res =
@@ -5191,71 +5132,6 @@ function isTestCall(n) {
   );
 }
 
-function printAstToDoc(ast, options, addAlignmentSize) {
-  addAlignmentSize = addAlignmentSize || 0;
-
-  const cache = new Map();
-
-  function printGenerically(path, args) {
-    const node = path.getValue();
-
-    const shouldCache = node && typeof node === "object" && args === undefined;
-    if (shouldCache && cache.has(node)) {
-      return cache.get(node);
-    }
-
-    const parent = path.getParentNode(0);
-    // We let JSXElement print its comments itself because it adds () around
-    // UnionTypeAnnotation has to align the child without the comments
-    let res;
-    if (
-      ((node && isJSXNode(node)) ||
-        (parent &&
-          (parent.type === "JSXSpreadAttribute" ||
-            parent.type === "JSXSpreadChild" ||
-            parent.type === "UnionTypeAnnotation" ||
-            parent.type === "TSUnionType" ||
-            ((parent.type === "ClassDeclaration" ||
-              parent.type === "ClassExpression") &&
-              parent.superClass === node)))) &&
-      !hasIgnoreComment(path)
-    ) {
-      res = genericPrint(path, options, printGenerically, args);
-    } else {
-      res = comments.printComments(
-        path,
-        p => genericPrint(p, options, printGenerically, args),
-        options,
-        args && args.needsSemi
-      );
-    }
-
-    if (shouldCache) {
-      cache.set(node, res);
-    }
-
-    return res;
-  }
-
-  let doc = printGenerically(new FastPath(ast));
-  if (addAlignmentSize > 0) {
-    // Add a hardline to make the indents take effect
-    // It should be removed in index.js format()
-    doc = addAlignmentToDoc(
-      docUtils.removeLines(concat([hardline, doc])),
-      addAlignmentSize,
-      options.tabWidth
-    );
-  }
-  docUtils.propagateBreaks(doc);
-
-  if (options.parser === "json") {
-    doc = concat([doc, hardline]);
-  }
-
-  return doc;
-}
-
 function isTheOnlyJSXElementInMarkdown(options, path) {
   if (options.parentParser !== "markdown") {
     return false;
@@ -5272,4 +5148,26 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
   return parent.type === "Program" && parent.body.length == 1;
 }
 
-module.exports = { printAstToDoc };
+function willPrintOwnComments(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+
+  return (
+    ((node && isJSXNode(node)) ||
+      (parent &&
+        (parent.type === "JSXSpreadAttribute" ||
+          parent.type === "JSXSpreadChild" ||
+          parent.type === "UnionTypeAnnotation" ||
+          parent.type === "TSUnionType" ||
+          ((parent.type === "ClassDeclaration" ||
+            parent.type === "ClassExpression") &&
+            parent.superClass === node)))) &&
+    !util.hasIgnoreComment(path)
+  );
+}
+
+module.exports = {
+  print: printWithParens,
+  hasPrettierIgnore,
+  willPrintOwnComments
+};

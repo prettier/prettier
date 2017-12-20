@@ -791,6 +791,20 @@ function getStringWidth(text) {
   return stringWidth(text.replace(emojiRegex, "  "));
 }
 
+function hasIgnoreComment(path) {
+  const node = path.getValue();
+  return hasNodeIgnoreComment(node);
+}
+
+function hasNodeIgnoreComment(node) {
+  return (
+    node &&
+    node.comments &&
+    node.comments.length > 0 &&
+    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
+  );
+}
+
 module.exports = {
   punctuationRegex,
   punctuationCharRange,
@@ -827,5 +841,6 @@ module.exports = {
   getAlignmentSize,
   getIndentSize,
   printString,
-  printNumber
+  printNumber,
+  hasIgnoreComment
 };
