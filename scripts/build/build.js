@@ -11,11 +11,11 @@ const rootDir = path.join(__dirname, "..", "..");
 const parsers = [
   "babylon",
   "flow",
-  "typescript"
+  "typescript",
   "graphql",
   "postcss",
   "parse5",
-  "markdown",
+  "markdown"
 ];
 
 process.env.PATH += path.delimiter + path.join(rootDir, "node_modules", ".bin");
