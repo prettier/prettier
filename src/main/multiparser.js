@@ -37,7 +37,7 @@ function parseAndPrint(text, partialNextOptions, parentOptions) {
   const astComments = ast.comments;
   delete ast.comments;
   comments.attach(astComments, ast, text, nextOptions);
-  return require("../language-js/printer").printAstToDoc(ast, nextOptions);
+  return require("./ast-to-doc").printAstToDoc(ast, nextOptions);
 }
 
 function fromVue(path, print, options) {

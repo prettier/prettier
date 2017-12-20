@@ -11,23 +11,7 @@ const concat = docBuilders.concat;
 const hardline = docBuilders.hardline;
 const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
 const docUtils = require("../builder/doc-utils");
-
-function getPrinter(options) {
-  switch (options.parser) {
-    case "graphql":
-      return require("../language-graphql/printer-graphql");
-    case "parse5":
-      return require("../language-html/printer-htmlparser2");
-    case "css":
-    case "less":
-    case "scss":
-      return require("../language-css/printer-postcss");
-    case "markdown":
-      return require("../language-markdown/printer-markdown");
-    default:
-      return require("../language-js/printer-estree");
-  }
-}
+const getPrinter = require("./get-printer");
 
 function printAstToDoc(ast, options, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;

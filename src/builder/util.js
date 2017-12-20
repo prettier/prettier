@@ -842,5 +842,6 @@ module.exports = {
   getIndentSize,
   printString,
   printNumber,
-  hasIgnoreComment
+  hasIgnoreComment,
+  hasNodeIgnoreComment
 };

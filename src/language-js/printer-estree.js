@@ -52,6 +52,11 @@ function shouldPrintComma(options, level) {
 function genericPrint(path, options, printPath, args) {
   const node = path.getValue();
   let needsParens = false;
+  const linesWithoutParens = printPathNoParens(path, options, printPath, args);
+
+  if (!node || isEmpty(linesWithoutParens)) {
+    return linesWithoutParens;
+  }
 
   const decorators = [];
   if (
@@ -109,12 +114,6 @@ function genericPrint(path, options, printPath, args) {
     // Nodes with decorators can't have parentheses, so we can avoid
     // computing path.needsParens() except in this case.
     needsParens = path.needsParens(options);
-  }
-
-  const linesWithoutParens = printPathNoParens(path, options, printPath, args);
-
-  if (!node || isEmpty(linesWithoutParens)) {
-    return linesWithoutParens;
   }
 
   const parts = [];
@@ -930,8 +929,8 @@ function printPathNoParens(path, options, print, args) {
         const result = concat(separatorParts.concat(group(prop.printed)));
         separatorParts = [separator, line];
         if (
-          util.hasNodeIgnoreComment(prop.node) &&
-          prop.node.type === "TSPropertySignature"
+          prop.node.type === "TSPropertySignature" &&
+          util.hasNodeIgnoreComment(prop.node)
         ) {
           separatorParts.shift();
         }
