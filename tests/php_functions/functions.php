@@ -15,3 +15,9 @@ function two_args($x, $y) {
 function reeeeeeeeeeaaaaaaaallllllllyyyyyy_llloooooooonnnnnnggggg($soooooooooooo_looooooooonnnng, $eeeeeeeeevvveeeeeeeennnn_loooooonnngggeeeerrrr) {
     return $soooooooooooo_looooooooonnnng;
 }
+
+function variadicTest($one, ...$others) {
+  // test
+  $hi = 2;
+  return count($others);
+}

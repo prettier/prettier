@@ -19,10 +19,14 @@ function genericPrint(path) {
   return printNode(n);
 }
 
+function lineShouldEndWithSemicolon(node) {
+  const semiColonWhitelist = ["assign", "return", "break", "call"];
+  return semiColonWhitelist.includes(node.kind);
+}
+
 const expressionKinds = [
   "array",
   "variable",
-  "variadic",
   "constref",
   "yield",
   "yieldfrom",
@@ -138,7 +142,6 @@ function printExpression(node) {
           node.shortForm ? "]" : ")"
         ])
       );
-    case "variadic":
     case "yield":
     case "yieldfrom":
     case "lookup":
@@ -203,15 +206,32 @@ function printStatement(node) {
         return concat(
           node.children.map((child, i) => {
             if (i === 0) {
-              return printNode(child);
+              return concat([
+                printNode(child),
+                lineShouldEndWithSemicolon(child) ? ";" : ""
+              ]);
             }
-            return concat([line, printNode(child)]);
+            return concat([
+              line,
+              concat([
+                printNode(child),
+                lineShouldEndWithSemicolon(child) ? ";" : ""
+              ])
+            ]);
           })
         );
       case "program":
         return concat([
           "<?php",
-          concat(node.children.map(child => concat([line, printNode(child)])))
+          concat(
+            node.children.map(child =>
+              concat([
+                line,
+                printNode(child),
+                lineShouldEndWithSemicolon(child) ? ";" : ""
+              ])
+            )
+          )
         ]);
       case "namespace":
       default:
@@ -318,7 +338,7 @@ function printStatement(node) {
             join(" = ", [concat(["$", node.name]), printNode(node.value)])
           );
         }
-        return concat(["$", node.name]);
+        return concat([node.variadic ? "..." : "", "$", node.name]);
       case "property":
         return concat([
           node.visibility,
@@ -341,10 +361,7 @@ function printStatement(node) {
 
   switch (node.kind) {
     case "assign":
-      return concat([
-        join(" = ", [printNode(node.left), printNode(node.right)]),
-        ";"
-      ]);
+      return join(" = ", [printNode(node.left), printNode(node.right)]);
     case "if": {
       const handleIfAlternate = alternate => {
         if (!alternate) {
@@ -404,7 +421,9 @@ function printStatement(node) {
             indent(
               concat([
                 softline,
-                group(concat(node.init.map(init => printNode(init)))),
+                group(
+                  concat([concat(node.init.map(init => printNode(init))), ";"])
+                ),
                 softline,
                 group(
                   concat([concat(node.test.map(test => printNode(test))), ";"])
@@ -467,7 +486,7 @@ function printStatement(node) {
         printNode(node.what),
         "(",
         join(", ", node.arguments.map(argument => printNode(argument))),
-        ");"
+        ")"
       ]);
     case "retif":
     case "eval":
@@ -509,14 +528,12 @@ function printNode(node) {
         indent(concat([line, printNode(node.body)]))
       ]);
     case "break":
-      return "break;";
+      return "break";
     case "return":
       if (node.expr) {
-        concat(["return", printNode(node.expr), ";"]);
-      } else {
-        return "return;";
+        return concat(["return ", printNode(node.expr)]);
       }
-      return concat(["return ", printNode(node.expr), ";"]);
+      return "return";
     case "doc":
       return node.isDoc
         ? concat([
