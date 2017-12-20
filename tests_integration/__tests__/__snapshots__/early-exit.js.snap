@@ -271,15 +271,15 @@ exports[`show detailed usage with --help parser (stdout) 1`] = `
 
 Valid options:
 
-  flow
   babylon
-  typescript
   css
-  less
-  scss
-  json
+  flow
   graphql
+  json
+  less
   markdown
+  scss
+  typescript
 
 Default: babylon
 "
@@ -521,7 +521,7 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <babylon|css|flow|graphql|json|less|markdown|scss|typescript>
+  --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown>
                            Which parser to use.
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
@@ -615,7 +615,7 @@ exports[`show warning with --help not-found (typo) (stderr) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <babylon|css|flow|graphql|json|less|markdown|scss|typescript>
+"--parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown>
 
   Which parser to use.
 
@@ -660,7 +660,7 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <babylon|css|flow|graphql|json|less|markdown|scss|typescript>
+  --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown>
                            Which parser to use.
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
