@@ -31,7 +31,9 @@ and add this config to your `package.json`:
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
 ## Option 2. [pre-commit](https://github.com/observing/pre-commit) (JS version)
+
 Install the package:
+
 ```bash
 yarn add pre-commit --dev
 ```
@@ -42,9 +44,9 @@ and add this config to your `package.json`:
 {
   "scripts": {
     "prettier": "prettier */**/*.js --ignore-path ./.prettierignore --write && git add . && git status"
-   },
-   "pre-commit": [
-    "prettier",
+  },
+  "pre-commit": [
+    "prettier"
   ]
 }
 ```
