@@ -47,6 +47,7 @@ and add this config to your `package.json`:
     "prettier",
   ]
 }
+```
 
 Find more info from [here](https://github.com/observing/pre-commit).
 
