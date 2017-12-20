@@ -30,7 +30,31 @@ and add this config to your `package.json`:
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
-## Option 2. [pre-commit](https://github.com/pre-commit/pre-commit)
+## Option 2. [pre-commit](https://github.com/observing/pre-commit) (JS version)
+
+Install the package:
+
+```bash
+yarn add pre-commit --dev
+```
+
+and add this config to your `package.json`:
+
+<!-- prettier-ignore -->
+```json
+{
+  "scripts": {
+    "prettier": "prettier */**/*.js --ignore-path ./.prettierignore --write && git add . && git status"
+  },
+  "pre-commit": [
+    "prettier"
+  ]
+}
+```
+
+Find more info from [here](https://github.com/observing/pre-commit).
+
+## Option 3. [pre-commit](https://github.com/pre-commit/pre-commit) (Python version)
 
 Copy the following config into your `.pre-commit-config.yaml` file:
 
@@ -43,7 +67,7 @@ Copy the following config into your `.pre-commit-config.yaml` file:
 
 Find more info from [here](http://pre-commit.com).
 
-## Option 3. bash script
+## Option 4. bash script
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 
