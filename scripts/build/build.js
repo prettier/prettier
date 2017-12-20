@@ -11,14 +11,14 @@ const shell = require("shelljs");
 
 const rootDir = path.join(__dirname, "..", "..");
 const parsers = [
-  "babylon",
-  "flow",
-  "typescript",
-  "graphql",
-  "postcss",
-  "parse5",
-  "markdown",
-  "vue"
+  "language-js/parser-babylon",
+  "language-js/parser-flow",
+  "language-js/parser-typescript",
+  "language-graphql/parser-graphql",
+  "language-css/parser-postcss",
+  "language-html/parser-parse5",
+  "language-markdown/parser-markdown",
+  "language-vue/parser-vue"
 ];
 
 process.env.PATH += path.delimiter + path.join(rootDir, "node_modules", ".bin");
@@ -45,7 +45,7 @@ shell.echo("Bundling lib third-party...");
 shell.exec("rollup -c scripts/build/rollup.third-party.config.js");
 
 for (const parser of parsers) {
-  if (parser === "postcss") {
+  if (parser.endsWith("postcss")) {
     continue;
   }
   shell.echo(`Bundling lib ${parser}...`);
@@ -57,7 +57,7 @@ for (const parser of parsers) {
 shell.echo("Bundling lib postcss...");
 // PostCSS has dependency cycles and won't work correctly with rollup :(
 shell.exec(
-  "webpack --hide-modules src/parser-postcss.js dist/parser-postcss.js"
+  "webpack --hide-modules src/language-css/parser-postcss.js dist/parser-postcss.js"
 );
 // Prepend module.exports =
 const content = shell.cat("dist/parser-postcss.js").stdout;
