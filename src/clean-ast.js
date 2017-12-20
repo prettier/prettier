@@ -38,27 +38,27 @@ function massageAST(ast, parent) {
   }
 
   [
+    "after",
+    "before",
+    "comments",
+    "end",
+    "extra",
+    "flags",
+    "id",
+    "leadingComments",
     "loc",
+    "parent",
+    "position",
+    "prev",
     "range",
     "raw",
-    "comments",
-    "leadingComments",
-    "trailingComments",
-    "extra",
-    "start",
-    "end",
-    "tokens",
-    "flags",
     "raws",
-    "sourceIndex",
-    "id",
     "source",
-    "before",
-    "after",
+    "sourceIndex",
+    "start",
+    "tokens",
     "trailingComma",
-    "parent",
-    "prev",
-    "position"
+    "trailingComments"
   ].forEach(name => {
     delete newObj[name];
   });

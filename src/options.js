@@ -7,22 +7,22 @@ const deprecatedConfig = require("./deprecated");
 const supportTable = require("./support").supportTable;
 
 const defaults = {
-  cursorOffset: -1,
-  rangeStart: 0,
-  rangeEnd: Infinity,
-  useTabs: false,
-  tabWidth: 2,
-  printWidth: 80,
-  singleQuote: false,
-  trailingComma: "none",
+  arrowParens: "avoid",
   bracketSpacing: true,
+  cursorOffset: -1,
+  insertPragma: false,
   jsxBracketSameLine: false,
   parser: "babylon",
-  insertPragma: false,
+  printWidth: 80,
+  proseWrap: "preserve",
+  rangeEnd: Infinity,
+  rangeStart: 0,
   requirePragma: false,
   semi: true,
-  proseWrap: "preserve",
-  arrowParens: "avoid"
+  singleQuote: false,
+  tabWidth: 2,
+  trailingComma: "none",
+  useTabs: false
 };
 
 const exampleConfig = Object.assign({}, defaults, {

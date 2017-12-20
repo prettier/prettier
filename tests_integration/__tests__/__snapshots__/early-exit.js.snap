@@ -195,11 +195,11 @@ exports[`show detailed usage with --help loglevel (stdout) 1`] = `
 
 Valid options:
 
-  silent   
-  error    
-  warn     
-  log      
-  debug    
+  silent
+  error
+  warn
+  log
+  debug
 
 Default: log
 "
@@ -271,15 +271,15 @@ exports[`show detailed usage with --help parser (stdout) 1`] = `
 
 Valid options:
 
-  flow         
-  babylon      
-  typescript   
-  css          
-  less         
-  scss         
-  json         
-  graphql      
-  markdown     
+  babylon
+  css
+  flow
+  graphql
+  json
+  less
+  markdown
+  scss
+  typescript
 
 Default: babylon
 "
@@ -621,15 +621,15 @@ exports[`show warning with --help not-found (typo) (stdout) 1`] = `
 
 Valid options:
 
-  flow         
-  babylon      
-  typescript   
-  css          
-  less         
-  scss         
-  json         
-  graphql      
-  markdown     
+  babylon
+  css
+  flow
+  graphql
+  json
+  less
+  markdown
+  scss
+  typescript
 
 Default: babylon
 "
