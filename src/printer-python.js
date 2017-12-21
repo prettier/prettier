@@ -603,13 +603,15 @@ function genericPrint(path, options, print) {
     }
 
     case "BinOp": {
-      return concat([
-        path.call(print, "left"),
-        line,
-        path.call(print, "op"),
-        line,
-        path.call(print, "right")
-      ]);
+      return group(
+        concat([
+          path.call(print, "left"),
+          line,
+          path.call(print, "op"),
+          line,
+          path.call(print, "right")
+        ])
+      );
     }
 
     case "NotIn": {
@@ -747,6 +749,16 @@ function genericPrint(path, options, print) {
 
     case "Starred": {
       return concat(["*", path.call(print, "value")]);
+    }
+
+    case "Assert": {
+      const parts = ["assert", line, path.call(print, "test")];
+
+      if (n.msg) {
+        parts.push(",", line, path.call(print, "msg"));
+      }
+
+      return group(concat(parts));
     }
 
     default:
