@@ -71,11 +71,41 @@ const languages = [
     codemirrorMimeType: "application/typescript",
     liguistLanguageId: 378,
     vscodeLanguageIds: ["typescript", "typescriptreact"]
+  },
+  {
+    name: "JSON",
+    since: "1.5.0",
+    parsers: ["json"],
+    astFormat: "estree",
+    group: "JavaScript",
+    tmScope: "source.json",
+    aceMode: "json",
+    codemirrorMode: "javascript",
+    codemirrorMimeType: "application/json",
+    extensions: [
+      ".json",
+      ".json5",
+      ".geojson",
+      ".JSON-tmLanguage",
+      ".topojson"
+    ],
+    filenames: [
+      ".arcconfig",
+      ".jshintrc",
+      ".babelrc",
+      ".eslintrc",
+      ".prettierrc",
+      "composer.lock",
+      "mcmod.info"
+    ],
+    linguistLanguageId: 174,
+    vscodeLanguageIds: ["json", "jsonc"]
   }
 ];
 
 const parsers = {
   babylon: babylonParser,
+  json: babylonParser,
   flow: flowParser,
   "typescript-eslint": tsEslintParser
 };
