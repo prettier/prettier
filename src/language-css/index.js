@@ -11,7 +11,6 @@ const languages = [
     name: "CSS",
     since: "1.4.0",
     parsers: ["css"],
-    astFormat: "postcss",
     group: "CSS",
     tmScope: "source.css",
     aceMode: "css",
@@ -25,7 +24,6 @@ const languages = [
     name: "Less",
     since: "1.4.0",
     parsers: ["less"],
-    astFormat: "postcss",
     group: "CSS",
     extensions: [".less"],
     tmScope: "source.css.less",
@@ -39,7 +37,6 @@ const languages = [
     name: "SCSS",
     since: "1.4.0",
     parsers: ["scss"],
-    astFormat: "postcss",
     group: "CSS",
     tmScope: "source.scss",
     aceMode: "scss",
@@ -52,7 +49,10 @@ const languages = [
 ];
 
 const parsers = {
-  postcss: parse
+  postcss: {
+    parse,
+    astFormat: "postcss"
+  }
 };
 
 const printers = {

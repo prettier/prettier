@@ -9,7 +9,6 @@ Object {
         "js",
         "node",
       ],
-      "astFormat": "estree",
       "codemirrorMimeType": "text/javascript",
       "codemirrorMode": "javascript",
       "extensions": Array [
@@ -52,7 +51,6 @@ Object {
     },
     Object {
       "aceMode": "javascript",
-      "astFormat": "estree",
       "codemirrorMimeType": "text/jsx",
       "codemirrorMode": "jsx",
       "extensions": Array [
@@ -76,7 +74,6 @@ Object {
       "aliases": Array [
         "ts",
       ],
-      "astFormat": "estree",
       "codemirrorMimeType": "application/typescript",
       "codemirrorMode": "javascript",
       "extensions": Array [
@@ -98,7 +95,6 @@ Object {
     },
     Object {
       "aceMode": "json",
-      "astFormat": "estree",
       "codemirrorMimeType": "application/json",
       "codemirrorMode": "javascript",
       "extensions": Array [
@@ -132,7 +128,6 @@ Object {
     },
     Object {
       "aceMode": "css",
-      "astFormat": "postcss",
       "codemirrorMimeType": "text/css",
       "codemirrorMode": "css",
       "extensions": Array [
@@ -155,7 +150,6 @@ Object {
     },
     Object {
       "aceMode": "less",
-      "astFormat": "postcss",
       "codemirrorMimeType": "text/css",
       "codemirrorMode": "css",
       "extensions": Array [
@@ -175,7 +169,6 @@ Object {
     },
     Object {
       "aceMode": "scss",
-      "astFormat": "postcss",
       "codemirrorMimeType": "text/x-scss",
       "codemirrorMode": "css",
       "extensions": Array [
@@ -195,7 +188,6 @@ Object {
     },
     Object {
       "aceMode": "text",
-      "astFormat": "graphql",
       "extensions": Array [
         ".graphql",
         ".gql",
@@ -216,7 +208,6 @@ Object {
       "aliases": Array [
         "pandoc",
       ],
-      "astFormat": "remark",
       "codemirrorMimeType": "text/x-gfm",
       "codemirrorMode": "gfm",
       "extensions": Array [
@@ -405,7 +396,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"JavaScript\\",
       \\"since\\": \\"0.0.0\\",
       \\"parsers\\": [\\"babylon\\", \\"flow\\"],
-      \\"astFormat\\": \\"estree\\",
       \\"group\\": \\"JavaScript\\",
       \\"tmScope\\": \\"source.js\\",
       \\"aceMode\\": \\"javascript\\",
@@ -442,7 +432,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"JSX\\",
       \\"since\\": \\"0.0.0\\",
       \\"parsers\\": [\\"babylon\\", \\"flow\\"],
-      \\"astFormat\\": \\"estree\\",
       \\"group\\": \\"JavaScript\\",
       \\"extensions\\": [\\".jsx\\"],
       \\"tmScope\\": \\"source.js.jsx\\",
@@ -456,7 +445,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"TypeScript\\",
       \\"since\\": \\"1.4.0\\",
       \\"parsers\\": [\\"typescript\\"],
-      \\"astFormat\\": \\"estree\\",
       \\"group\\": \\"JavaScript\\",
       \\"aliases\\": [\\"ts\\"],
       \\"extensions\\": [\\".ts\\", \\".tsx\\"],
@@ -471,7 +459,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"JSON\\",
       \\"since\\": \\"1.5.0\\",
       \\"parsers\\": [\\"json\\"],
-      \\"astFormat\\": \\"estree\\",
       \\"group\\": \\"JavaScript\\",
       \\"tmScope\\": \\"source.json\\",
       \\"aceMode\\": \\"json\\",
@@ -500,7 +487,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"CSS\\",
       \\"since\\": \\"1.4.0\\",
       \\"parsers\\": [\\"css\\"],
-      \\"astFormat\\": \\"postcss\\",
       \\"group\\": \\"CSS\\",
       \\"tmScope\\": \\"source.css\\",
       \\"aceMode\\": \\"css\\",
@@ -514,7 +500,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"Less\\",
       \\"since\\": \\"1.4.0\\",
       \\"parsers\\": [\\"less\\"],
-      \\"astFormat\\": \\"postcss\\",
       \\"group\\": \\"CSS\\",
       \\"extensions\\": [\\".less\\"],
       \\"tmScope\\": \\"source.css.less\\",
@@ -528,7 +513,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"SCSS\\",
       \\"since\\": \\"1.4.0\\",
       \\"parsers\\": [\\"scss\\"],
-      \\"astFormat\\": \\"postcss\\",
       \\"group\\": \\"CSS\\",
       \\"tmScope\\": \\"source.scss\\",
       \\"aceMode\\": \\"scss\\",
@@ -542,7 +526,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"GraphQL\\",
       \\"since\\": \\"1.5.0\\",
       \\"parsers\\": [\\"graphql\\"],
-      \\"astFormat\\": \\"graphql\\",
       \\"extensions\\": [\\".graphql\\", \\".gql\\"],
       \\"tmScope\\": \\"source.graphql\\",
       \\"aceMode\\": \\"text\\",
@@ -553,7 +536,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"Markdown\\",
       \\"since\\": \\"1.8.0\\",
       \\"parsers\\": [\\"markdown\\"],
-      \\"astFormat\\": \\"remark\\",
       \\"aliases\\": [\\"pandoc\\"],
       \\"aceMode\\": \\"markdown\\",
       \\"codemirrorMode\\": \\"gfm\\",

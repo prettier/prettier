@@ -11,7 +11,6 @@ const languages = [
     name: "GraphQL",
     since: "1.5.0",
     parsers: ["graphql"],
-    astFormat: "graphql",
     extensions: [".graphql", ".gql"],
     tmScope: "source.graphql",
     aceMode: "text",
@@ -21,7 +20,10 @@ const languages = [
 ];
 
 const parsers = {
-  graphql: parse
+  graphql: {
+    parse,
+    astFormat: "graphql"
+  }
 };
 
 const printers = {

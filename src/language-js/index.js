@@ -13,7 +13,6 @@ const languages = [
     name: "JavaScript",
     since: "0.0.0",
     parsers: ["babylon", "flow"],
-    astFormat: "estree",
     group: "JavaScript",
     tmScope: "source.js",
     aceMode: "javascript",
@@ -50,7 +49,6 @@ const languages = [
     name: "JSX",
     since: "0.0.0",
     parsers: ["babylon", "flow"],
-    astFormat: "estree",
     group: "JavaScript",
     extensions: [".jsx"],
     tmScope: "source.js.jsx",
@@ -64,7 +62,6 @@ const languages = [
     name: "TypeScript",
     since: "1.4.0",
     parsers: ["typescript-eslint"],
-    astFormat: "estree",
     group: "JavaScript",
     aliases: ["ts"],
     extensions: [".ts", ".tsx"],
@@ -79,7 +76,6 @@ const languages = [
     name: "JSON",
     since: "1.5.0",
     parsers: ["json"],
-    astFormat: "estree",
     group: "JavaScript",
     tmScope: "source.json",
     aceMode: "json",
@@ -107,10 +103,22 @@ const languages = [
 ];
 
 const parsers = {
-  babylon: babylonParser,
-  json: babylonParser,
-  flow: flowParser,
-  "typescript-eslint": tsEslintParser
+  babylon: {
+    parse: babylonParser,
+    astFormat: "estree"
+  },
+  json: {
+    parse: babylonParser,
+    astFormat: "estree"
+  },
+  flow: {
+    parse: flowParser,
+    astFormat: "estree"
+  },
+  "typescript-eslint": {
+    parse: tsEslintParser,
+    astFormat: "estree"
+  }
 };
 
 const printers = {

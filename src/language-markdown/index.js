@@ -11,7 +11,6 @@ const languages = [
     name: "Markdown",
     since: "1.8.0",
     parsers: ["remark"],
-    astFormat: "remark",
     aliases: ["pandoc"],
     aceMode: "markdown",
     codemirrorMode: "gfm",
@@ -36,7 +35,10 @@ const languages = [
 ];
 
 const parsers = {
-  remark: parse
+  remark: {
+    parse,
+    astFormat: "remark"
+  }
 };
 
 const printers = {

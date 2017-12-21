@@ -11,7 +11,6 @@ const languages = [
     name: "HTML",
     since: undefined, // unreleased
     parsers: ["parse5"],
-    astFormat: "htmlparser2",
     group: "HTML",
     tmScope: "text.html.basic",
     aceMode: "html",
@@ -25,7 +24,10 @@ const languages = [
 ];
 
 const parsers = {
-  parse5: parse
+  parse5: {
+    parse,
+    astFormat: "htmlparser2"
+  }
 };
 
 const printers = {
