@@ -1,7 +1,7 @@
 "use strict";
 
 const assert = require("assert");
-const util = require("./util");
+const util = require("../common/util");
 const startsWithNoLookaheadToken = util.startsWithNoLookaheadToken;
 
 function FastPath(value) {

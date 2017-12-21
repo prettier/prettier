@@ -4,7 +4,7 @@ const assert = require("assert");
 const comments = require("../main/comments");
 const FastPath = require("../builder/fast-path");
 const multiparser = require("../main/multiparser");
-const util = require("../builder/util");
+const util = require("../common/util");
 
 const docBuilders = require("../builder/doc-builders");
 const concat = docBuilders.concat;

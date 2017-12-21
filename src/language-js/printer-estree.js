@@ -3,7 +3,7 @@
 const assert = require("assert");
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
-const util = require("../builder/util");
+const util = require("../common/util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 
 const docBuilders = require("../builder/doc-builders");

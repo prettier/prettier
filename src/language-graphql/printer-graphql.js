@@ -10,7 +10,7 @@ const group = docBuilders.group;
 const indent = docBuilders.indent;
 const ifBreak = docBuilders.ifBreak;
 
-const util = require("../builder/util");
+const util = require("../common/util");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();

@@ -1,6 +1,6 @@
 "use strict";
 
-const util = require("../builder/util");
+const util = require("../common/util");
 const docUtils = require("../builder/doc-utils");
 const docBuilders = require("../builder/doc-builders");
 const comments = require("./comments");
