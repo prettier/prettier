@@ -47,16 +47,6 @@ const supportTable = [
     vscodeLanguageIds: ["scss"]
   },
   {
-    name: "GraphQL",
-    since: "1.5.0",
-    parsers: ["graphql"],
-    extensions: [".graphql", ".gql"],
-    tmScope: "source.graphql",
-    aceMode: "text",
-    liguistLanguageId: 139,
-    vscodeLanguageIds: ["graphql"]
-  },
-  {
     name: "JSON",
     since: "1.5.0",
     parsers: ["json"],
