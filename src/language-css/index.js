@@ -3,6 +3,9 @@
 const parse = require("./parser-postcss");
 const printer = require("./printer-postcss");
 
+// Based on:
+// https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+
 const languages = [
   {
     name: "CSS",

@@ -3,6 +3,9 @@
 const parse = require("./parser-graphql");
 const printer = require("./printer-graphql");
 
+// Based on:
+// https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+
 const languages = [
   {
     name: "GraphQL",

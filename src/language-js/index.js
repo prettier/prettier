@@ -5,6 +5,9 @@ const flowParser = require("./parser-flow");
 const tsEslintParser = require("./parser-typescript");
 const printer = require("./printer-estree");
 
+// Based on:
+// https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+
 const languages = [
   {
     name: "JavaScript",
@@ -60,7 +63,7 @@ const languages = [
   {
     name: "TypeScript",
     since: "1.4.0",
-    parsers: ["typescript"],
+    parsers: ["typescript-eslint"],
     astFormat: "estree",
     group: "JavaScript",
     aliases: ["ts"],

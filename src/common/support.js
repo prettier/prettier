@@ -2,11 +2,7 @@
 
 const semver = require("semver");
 const currentVersion = require("../../package.json").version;
-
-// Based on:
-// https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
-
-const supportTable = [];
+const loadPlugins = require("./load-plugins");
 
 function getSupportInfo(version) {
   if (!version) {
@@ -15,9 +11,22 @@ function getSupportInfo(version) {
 
   const usePostCssParser = semver.lt(version, "1.7.1");
 
-  const languages = supportTable
+  const languages = loadPlugins()
+    .reduce((all, plugin) => all.concat(plugin.languages), [])
     .filter(language => language.since && semver.gte(version, language.since))
     .map(language => {
+      // Prevent breaking changes
+      if (language.name === "Markdown") {
+        return Object.assign({}, language, {
+          parsers: ["markdown"]
+        });
+      }
+      if (language.name === "TypeScript") {
+        return Object.assign({}, language, {
+          parsers: ["typescript"]
+        });
+      }
+
       if (usePostCssParser && language.group === "CSS") {
         return Object.assign({}, language, {
           parsers: ["postcss"]
@@ -30,6 +39,5 @@ function getSupportInfo(version) {
 }
 
 module.exports = {
-  supportTable,
   getSupportInfo
 };

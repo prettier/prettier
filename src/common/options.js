@@ -4,7 +4,7 @@ const path = require("path");
 
 const validate = require("jest-validate").validate;
 const deprecatedConfig = require("./deprecated");
-const supportTable = require("./support").supportTable;
+const getSupportInfo = require("./support").getSupportInfo;
 
 const defaults = {
   cursorOffset: -1,
@@ -43,7 +43,7 @@ function normalize(options) {
     const extension = path.extname(filepath);
     const filename = path.basename(filepath).toLowerCase();
 
-    const language = supportTable.find(
+    const language = getSupportInfo().languages.find(
       language =>
         typeof language.since === "string" &&
         (language.extensions.indexOf(extension) > -1 ||

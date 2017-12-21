@@ -9,6 +9,7 @@ Object {
         "js",
         "node",
       ],
+      "astFormat": "estree",
       "codemirrorMimeType": "text/javascript",
       "codemirrorMode": "javascript",
       "extensions": Array [
@@ -51,6 +52,7 @@ Object {
     },
     Object {
       "aceMode": "javascript",
+      "astFormat": "estree",
       "codemirrorMimeType": "text/jsx",
       "codemirrorMode": "jsx",
       "extensions": Array [
@@ -74,6 +76,7 @@ Object {
       "aliases": Array [
         "ts",
       ],
+      "astFormat": "estree",
       "codemirrorMimeType": "application/typescript",
       "codemirrorMode": "javascript",
       "extensions": Array [
@@ -94,84 +97,8 @@ Object {
       ],
     },
     Object {
-      "aceMode": "css",
-      "codemirrorMimeType": "text/css",
-      "codemirrorMode": "css",
-      "extensions": Array [
-        ".css",
-        ".pcss",
-        ".postcss",
-      ],
-      "group": "CSS",
-      "liguistLanguageId": 50,
-      "name": "CSS",
-      "parsers": Array [
-        "css",
-      ],
-      "since": "1.4.0",
-      "tmScope": "source.css",
-      "vscodeLanguageIds": Array [
-        "css",
-        "postcss",
-      ],
-    },
-    Object {
-      "aceMode": "less",
-      "codemirrorMimeType": "text/css",
-      "codemirrorMode": "css",
-      "extensions": Array [
-        ".less",
-      ],
-      "group": "CSS",
-      "liguistLanguageId": 198,
-      "name": "Less",
-      "parsers": Array [
-        "less",
-      ],
-      "since": "1.4.0",
-      "tmScope": "source.css.less",
-      "vscodeLanguageIds": Array [
-        "less",
-      ],
-    },
-    Object {
-      "aceMode": "scss",
-      "codemirrorMimeType": "text/x-scss",
-      "codemirrorMode": "css",
-      "extensions": Array [
-        ".scss",
-      ],
-      "group": "CSS",
-      "liguistLanguageId": 329,
-      "name": "SCSS",
-      "parsers": Array [
-        "scss",
-      ],
-      "since": "1.4.0",
-      "tmScope": "source.scss",
-      "vscodeLanguageIds": Array [
-        "scss",
-      ],
-    },
-    Object {
-      "aceMode": "text",
-      "extensions": Array [
-        ".graphql",
-        ".gql",
-      ],
-      "liguistLanguageId": 139,
-      "name": "GraphQL",
-      "parsers": Array [
-        "graphql",
-      ],
-      "since": "1.5.0",
-      "tmScope": "source.graphql",
-      "vscodeLanguageIds": Array [
-        "graphql",
-      ],
-    },
-    Object {
       "aceMode": "json",
+      "astFormat": "estree",
       "codemirrorMimeType": "application/json",
       "codemirrorMode": "javascript",
       "extensions": Array [
@@ -204,10 +131,92 @@ Object {
       ],
     },
     Object {
+      "aceMode": "css",
+      "astFormat": "postcss",
+      "codemirrorMimeType": "text/css",
+      "codemirrorMode": "css",
+      "extensions": Array [
+        ".css",
+        ".pcss",
+        ".postcss",
+      ],
+      "group": "CSS",
+      "liguistLanguageId": 50,
+      "name": "CSS",
+      "parsers": Array [
+        "css",
+      ],
+      "since": "1.4.0",
+      "tmScope": "source.css",
+      "vscodeLanguageIds": Array [
+        "css",
+        "postcss",
+      ],
+    },
+    Object {
+      "aceMode": "less",
+      "astFormat": "postcss",
+      "codemirrorMimeType": "text/css",
+      "codemirrorMode": "css",
+      "extensions": Array [
+        ".less",
+      ],
+      "group": "CSS",
+      "liguistLanguageId": 198,
+      "name": "Less",
+      "parsers": Array [
+        "less",
+      ],
+      "since": "1.4.0",
+      "tmScope": "source.css.less",
+      "vscodeLanguageIds": Array [
+        "less",
+      ],
+    },
+    Object {
+      "aceMode": "scss",
+      "astFormat": "postcss",
+      "codemirrorMimeType": "text/x-scss",
+      "codemirrorMode": "css",
+      "extensions": Array [
+        ".scss",
+      ],
+      "group": "CSS",
+      "liguistLanguageId": 329,
+      "name": "SCSS",
+      "parsers": Array [
+        "scss",
+      ],
+      "since": "1.4.0",
+      "tmScope": "source.scss",
+      "vscodeLanguageIds": Array [
+        "scss",
+      ],
+    },
+    Object {
+      "aceMode": "text",
+      "astFormat": "graphql",
+      "extensions": Array [
+        ".graphql",
+        ".gql",
+      ],
+      "liguistLanguageId": 139,
+      "name": "GraphQL",
+      "parsers": Array [
+        "graphql",
+      ],
+      "since": "1.5.0",
+      "tmScope": "source.graphql",
+      "vscodeLanguageIds": Array [
+        "graphql",
+      ],
+    },
+    Object {
       "aceMode": "markdown",
       "aliases": Array [
         "pandoc",
       ],
+      "astFormat": "remark",
       "codemirrorMimeType": "text/x-gfm",
       "codemirrorMode": "gfm",
       "extensions": Array [
@@ -396,6 +405,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"JavaScript\\",
       \\"since\\": \\"0.0.0\\",
       \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"astFormat\\": \\"estree\\",
       \\"group\\": \\"JavaScript\\",
       \\"tmScope\\": \\"source.js\\",
       \\"aceMode\\": \\"javascript\\",
@@ -432,6 +442,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"JSX\\",
       \\"since\\": \\"0.0.0\\",
       \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"astFormat\\": \\"estree\\",
       \\"group\\": \\"JavaScript\\",
       \\"extensions\\": [\\".jsx\\"],
       \\"tmScope\\": \\"source.js.jsx\\",
@@ -445,6 +456,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"TypeScript\\",
       \\"since\\": \\"1.4.0\\",
       \\"parsers\\": [\\"typescript\\"],
+      \\"astFormat\\": \\"estree\\",
       \\"group\\": \\"JavaScript\\",
       \\"aliases\\": [\\"ts\\"],
       \\"extensions\\": [\\".ts\\", \\".tsx\\"],
@@ -456,58 +468,10 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"vscodeLanguageIds\\": [\\"typescript\\", \\"typescriptreact\\"]
     },
     {
-      \\"name\\": \\"CSS\\",
-      \\"since\\": \\"1.4.0\\",
-      \\"parsers\\": [\\"css\\"],
-      \\"group\\": \\"CSS\\",
-      \\"tmScope\\": \\"source.css\\",
-      \\"aceMode\\": \\"css\\",
-      \\"codemirrorMode\\": \\"css\\",
-      \\"codemirrorMimeType\\": \\"text/css\\",
-      \\"extensions\\": [\\".css\\", \\".pcss\\", \\".postcss\\"],
-      \\"liguistLanguageId\\": 50,
-      \\"vscodeLanguageIds\\": [\\"css\\", \\"postcss\\"]
-    },
-    {
-      \\"name\\": \\"Less\\",
-      \\"since\\": \\"1.4.0\\",
-      \\"parsers\\": [\\"less\\"],
-      \\"group\\": \\"CSS\\",
-      \\"extensions\\": [\\".less\\"],
-      \\"tmScope\\": \\"source.css.less\\",
-      \\"aceMode\\": \\"less\\",
-      \\"codemirrorMode\\": \\"css\\",
-      \\"codemirrorMimeType\\": \\"text/css\\",
-      \\"liguistLanguageId\\": 198,
-      \\"vscodeLanguageIds\\": [\\"less\\"]
-    },
-    {
-      \\"name\\": \\"SCSS\\",
-      \\"since\\": \\"1.4.0\\",
-      \\"parsers\\": [\\"scss\\"],
-      \\"group\\": \\"CSS\\",
-      \\"tmScope\\": \\"source.scss\\",
-      \\"aceMode\\": \\"scss\\",
-      \\"codemirrorMode\\": \\"css\\",
-      \\"codemirrorMimeType\\": \\"text/x-scss\\",
-      \\"extensions\\": [\\".scss\\"],
-      \\"liguistLanguageId\\": 329,
-      \\"vscodeLanguageIds\\": [\\"scss\\"]
-    },
-    {
-      \\"name\\": \\"GraphQL\\",
-      \\"since\\": \\"1.5.0\\",
-      \\"parsers\\": [\\"graphql\\"],
-      \\"extensions\\": [\\".graphql\\", \\".gql\\"],
-      \\"tmScope\\": \\"source.graphql\\",
-      \\"aceMode\\": \\"text\\",
-      \\"liguistLanguageId\\": 139,
-      \\"vscodeLanguageIds\\": [\\"graphql\\"]
-    },
-    {
       \\"name\\": \\"JSON\\",
       \\"since\\": \\"1.5.0\\",
       \\"parsers\\": [\\"json\\"],
+      \\"astFormat\\": \\"estree\\",
       \\"group\\": \\"JavaScript\\",
       \\"tmScope\\": \\"source.json\\",
       \\"aceMode\\": \\"json\\",
@@ -533,9 +497,63 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"vscodeLanguageIds\\": [\\"json\\", \\"jsonc\\"]
     },
     {
+      \\"name\\": \\"CSS\\",
+      \\"since\\": \\"1.4.0\\",
+      \\"parsers\\": [\\"css\\"],
+      \\"astFormat\\": \\"postcss\\",
+      \\"group\\": \\"CSS\\",
+      \\"tmScope\\": \\"source.css\\",
+      \\"aceMode\\": \\"css\\",
+      \\"codemirrorMode\\": \\"css\\",
+      \\"codemirrorMimeType\\": \\"text/css\\",
+      \\"extensions\\": [\\".css\\", \\".pcss\\", \\".postcss\\"],
+      \\"liguistLanguageId\\": 50,
+      \\"vscodeLanguageIds\\": [\\"css\\", \\"postcss\\"]
+    },
+    {
+      \\"name\\": \\"Less\\",
+      \\"since\\": \\"1.4.0\\",
+      \\"parsers\\": [\\"less\\"],
+      \\"astFormat\\": \\"postcss\\",
+      \\"group\\": \\"CSS\\",
+      \\"extensions\\": [\\".less\\"],
+      \\"tmScope\\": \\"source.css.less\\",
+      \\"aceMode\\": \\"less\\",
+      \\"codemirrorMode\\": \\"css\\",
+      \\"codemirrorMimeType\\": \\"text/css\\",
+      \\"liguistLanguageId\\": 198,
+      \\"vscodeLanguageIds\\": [\\"less\\"]
+    },
+    {
+      \\"name\\": \\"SCSS\\",
+      \\"since\\": \\"1.4.0\\",
+      \\"parsers\\": [\\"scss\\"],
+      \\"astFormat\\": \\"postcss\\",
+      \\"group\\": \\"CSS\\",
+      \\"tmScope\\": \\"source.scss\\",
+      \\"aceMode\\": \\"scss\\",
+      \\"codemirrorMode\\": \\"css\\",
+      \\"codemirrorMimeType\\": \\"text/x-scss\\",
+      \\"extensions\\": [\\".scss\\"],
+      \\"liguistLanguageId\\": 329,
+      \\"vscodeLanguageIds\\": [\\"scss\\"]
+    },
+    {
+      \\"name\\": \\"GraphQL\\",
+      \\"since\\": \\"1.5.0\\",
+      \\"parsers\\": [\\"graphql\\"],
+      \\"astFormat\\": \\"graphql\\",
+      \\"extensions\\": [\\".graphql\\", \\".gql\\"],
+      \\"tmScope\\": \\"source.graphql\\",
+      \\"aceMode\\": \\"text\\",
+      \\"liguistLanguageId\\": 139,
+      \\"vscodeLanguageIds\\": [\\"graphql\\"]
+    },
+    {
       \\"name\\": \\"Markdown\\",
       \\"since\\": \\"1.8.0\\",
       \\"parsers\\": [\\"markdown\\"],
+      \\"astFormat\\": \\"remark\\",
       \\"aliases\\": [\\"pandoc\\"],
       \\"aceMode\\": \\"markdown\\",
       \\"codemirrorMode\\": \\"gfm\\",

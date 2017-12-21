@@ -3,6 +3,9 @@
 const parse = require("./parser-parse5");
 const printer = require("./printer-htmlparser2");
 
+// Based on:
+// https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+
 const languages = [
   {
     name: "HTML",

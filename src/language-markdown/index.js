@@ -3,6 +3,9 @@
 const parse = require("./parser-markdown");
 const printer = require("./printer-markdown");
 
+// Based on:
+// https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+
 const languages = [
   {
     name: "Markdown",
