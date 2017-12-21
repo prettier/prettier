@@ -11,12 +11,7 @@ const softline = docBuilders.softline;
 
 // polyfill for node 4
 function includes(array, val) {
-  for (let i = 0, len = array.length; i < len; i++) {
-    if (array[i] === val) {
-      return true;
-    }
-  }
-  return false;
+  return array.indexOf(val) !== -1;
 }
 
 function genericPrint(path) {
