@@ -9,6 +9,16 @@ const indent = docBuilders.indent;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 
+// polyfill for node 4
+function includes(array, val) {
+  for (let i = 0, len = array.length; i < len; i++) {
+    if (array[i] === val) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function genericPrint(path) {
   const n = path.getValue();
   if (!n) {
@@ -28,7 +38,7 @@ function lineShouldEndWithSemicolon(node) {
     "pre",
     "post"
   ];
-  return semiColonWhitelist.includes(node.kind);
+  return includes(semiColonWhitelist, node.kind);
 }
 
 const expressionKinds = [
@@ -75,7 +85,7 @@ function printExpression(node) {
         return "Have not implemented lookup kind " + node.kind + " yet.";
     }
   }
-  if (lookupKinds.includes(node.kind)) {
+  if (includes(lookupKinds, node.kind)) {
     return printLookup(node);
   }
 
@@ -102,7 +112,7 @@ function printExpression(node) {
         return "Have not implemented operation kind " + node.kind + " yet.";
     }
   }
-  if (operationKinds.includes(node.kind)) {
+  if (includes(operationKinds, node.kind)) {
     return printOperation(node);
   }
 
@@ -135,7 +145,7 @@ function printExpression(node) {
         return "Have not implemented literal kind " + node.kind + " yet.";
     }
   }
-  if (literalKinds.includes(node.kind)) {
+  if (includes(literalKinds, node.kind)) {
     return printLiteral(node);
   }
 
@@ -267,7 +277,7 @@ function printStatement(node) {
         return "Have not implemented block kind " + node.kind + " yet.";
     }
   }
-  if (blockKinds.includes(node.kind)) {
+  if (includes(blockKinds, node.kind)) {
     return printBlock(node);
   }
 
@@ -285,7 +295,7 @@ function printStatement(node) {
         return "Have not implemented sys kind " + node.kind + " yet.";
     }
   }
-  if (sysKinds.includes(node.kind)) {
+  if (includes(sysKinds, node.kind)) {
     return printSys(node);
   }
 
@@ -385,7 +395,7 @@ function printStatement(node) {
         return "Have not implmented declaration kind " + node.kind + " yet.";
     }
   }
-  if (declarationKinds.includes(node.kind)) {
+  if (includes(declarationKinds, node.kind)) {
     return printDeclaration(node);
   }
 
@@ -547,10 +557,10 @@ function printStatement(node) {
 }
 
 function printNode(node) {
-  if (expressionKinds.includes(node.kind)) {
+  if (includes(expressionKinds, node.kind)) {
     return printExpression(node);
   }
-  if (statementKinds.includes(node.kind)) {
+  if (includes(statementKinds, node.kind)) {
     return printStatement(node);
   }
   switch (node.kind) {
