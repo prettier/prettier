@@ -35,7 +35,7 @@ do {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <?php
 function hello($input) {
-  return 'hello' + $input;
+  return "hello" + $input;
 }
 $i = 0;
 if ($test == 1) {
@@ -47,7 +47,7 @@ if ($test == 1) {
     default:
       $i = 1;
   }
-  for ($i = 1;$i <= $test;$i++;) {
+  for ($i = 1;$i <= $test;$i++) {
     hello($i);
   }
 }
@@ -63,7 +63,7 @@ do {
   for (
     $super_long_variable_name = 0;
     $super_long_variable_name <= 5;
-    $super_long_variable_name++;
+    $super_long_variable_name++
   ) {
     really_long_function($test, $test, $test);
   }

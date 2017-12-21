@@ -20,7 +20,14 @@ function genericPrint(path) {
 }
 
 function lineShouldEndWithSemicolon(node) {
-  const semiColonWhitelist = ["assign", "return", "break", "call"];
+  const semiColonWhitelist = [
+    "assign",
+    "return",
+    "break",
+    "call",
+    "pre",
+    "post"
+  ];
   return semiColonWhitelist.includes(node.kind);
 }
 
@@ -58,7 +65,12 @@ function printExpression(node) {
       case "staticlookup":
         return concat([printNode(node.what), "::", printNode(node.offset)]);
       case "offsetlookup":
-        return concat([printNode(node.what), "[", printNode(node.offset), "]"]);
+        return concat([
+          printNode(node.what),
+          "[",
+          node.offset ? printNode(node.offset) : "",
+          "]"
+        ]);
       default:
         return "Have not implemented lookup kind " + node.kind + " yet.";
     }
@@ -71,9 +83,9 @@ function printExpression(node) {
   function printOperation(node) {
     switch (node.kind) {
       case "pre":
-        return concat([node.type + node.type, printNode(node.what), ";"]);
+        return concat([node.type + node.type, printNode(node.what)]);
       case "post":
-        return concat([printNode(node.what), node.type + node.type, ";"]);
+        return concat([printNode(node.what), node.type + node.type]);
       case "bin":
         return concat([
           printNode(node.left),
@@ -107,8 +119,12 @@ function printExpression(node) {
     switch (node.kind) {
       case "boolean":
         return node.value ? "true" : "false";
-      case "string":
-        return "'" + node.value + "'";
+      case "string": {
+        // @TODO: for now just reusing double/single quote preference from doc. could eventually
+        // use setting from options. need to figure out how this works w/ complex strings and interpolation
+        const quote = node.isDoubleQuote ? '"' : "'";
+        return quote + node.value + quote;
+      }
       case "number":
         return node.value;
       case "inline":
@@ -127,6 +143,9 @@ function printExpression(node) {
     case "variable":
       return "$" + node.name;
     case "constref":
+      if (typeof node.name === "object") {
+        return printNode(node.name);
+      }
       return node.name;
     case "array":
       return group(
@@ -234,6 +253,16 @@ function printStatement(node) {
           )
         ]);
       case "namespace":
+        return concat([
+          "namespace ",
+          node.name,
+          ";",
+          concat(
+            node.children.map(usegroup =>
+              concat([hardline, printNode(usegroup), ";"])
+            )
+          )
+        ]);
       default:
         return "Have not implemented block kind " + node.kind + " yet.";
     }
@@ -342,6 +371,7 @@ function printStatement(node) {
       case "property":
         return concat([
           node.visibility,
+          node.isStatic ? " static " : "",
           " $",
           node.name,
           node.value ? concat([" = ", printNode(node.value)]) : "",
@@ -488,6 +518,13 @@ function printStatement(node) {
         join(", ", node.arguments.map(argument => printNode(argument))),
         ")"
       ]);
+    case "usegroup":
+      return concat([
+        "use ",
+        join(", ", node.items.map(item => concat([printNode(item)])))
+      ]);
+    case "useitem":
+      return node.name;
     case "retif":
     case "eval":
     case "exit":
@@ -504,8 +541,6 @@ function printStatement(node) {
     case "throw":
     case "closure":
     case "new":
-    case "usegroup":
-    case "useitem":
     default:
       return "Have not implemented statement kind " + node.kind + " yet.";
   }

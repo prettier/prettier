@@ -31,7 +31,7 @@ class Foo {
   // variable doc
   public $test;
   public $other = 1;
-  public $staticTest = ['hi'];
+  public static  $staticTest = ['hi'];
   /**
    *
    * This is a function

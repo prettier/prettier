@@ -26,7 +26,7 @@ function variadicTest($one, ...$others) {
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <?php
 function hello() {
-  return 'hello';
+  return "hello";
 }
 function return_x($x) {
   return $x;
