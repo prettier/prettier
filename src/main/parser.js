@@ -2,42 +2,12 @@
 
 const path = require("path");
 const ConfigError = require("../common/errors").ConfigError;
+const loadPlugins = require("../common/load-plugins");
 
-const parsers = {
-  get flow() {
-    return eval("require")("../language-js/parser-flow");
-  },
-  get graphql() {
-    return eval("require")("../language-graphql/parser-graphql");
-  },
-  get parse5() {
-    return eval("require")("../language-html/parser-parse5");
-  },
-  get babylon() {
-    return eval("require")("../language-js/parser-babylon");
-  },
-  get typescript() {
-    return eval("require")("../language-js/parser-typescript");
-  },
-  get css() {
-    return eval("require")("../language-css/parser-postcss");
-  },
-  get less() {
-    return eval("require")("../language-css/parser-postcss");
-  },
-  get scss() {
-    return eval("require")("../language-css/parser-postcss");
-  },
-  get json() {
-    return eval("require")("../language-js/parser-babylon");
-  },
-  get markdown() {
-    return eval("require")("../language-markdown/parser-markdown");
-  },
-  get vue() {
-    return eval("require")("../language-vue/parser-vue");
-  }
-};
+const parsers = loadPlugins().reduce(
+  (parsers, plugin) => Object.assign({}, parsers, plugin.parsers),
+  {}
+);
 
 function resolveParseFunction(opts) {
   if (typeof opts.parser === "function") {
@@ -45,7 +15,7 @@ function resolveParseFunction(opts) {
   }
   if (typeof opts.parser === "string") {
     if (parsers.hasOwnProperty(opts.parser)) {
-      return parsers[opts.parser];
+      return parsers[opts.parser].parse;
     }
     try {
       return eval("require")(path.resolve(process.cwd(), opts.parser));

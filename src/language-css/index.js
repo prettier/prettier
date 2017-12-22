@@ -1,6 +1,5 @@
 "use strict";
 
-const parse = require("./parser-postcss");
 const printer = require("./printer-postcss");
 
 // Based on:
@@ -48,11 +47,18 @@ const languages = [
   }
 ];
 
+const postcss = {
+  get parse() {
+    return eval("require")("./parser-postcss");
+  },
+  astFormat: "postcss"
+};
+
+// TODO: switch these to just `postcss` and use `language` instead.
 const parsers = {
-  postcss: {
-    parse,
-    astFormat: "postcss"
-  }
+  css: postcss,
+  less: postcss,
+  scss: postcss
 };
 
 const printers = {

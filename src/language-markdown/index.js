@@ -1,6 +1,5 @@
 "use strict";
 
-const parse = require("./parser-markdown");
 const printer = require("./printer-markdown");
 
 // Based on:
@@ -34,11 +33,17 @@ const languages = [
   }
 ];
 
+const remark = {
+  get parse() {
+    return eval("require")("./parser-markdown");
+  },
+  astFormat: "remark"
+};
+
 const parsers = {
-  remark: {
-    parse,
-    astFormat: "remark"
-  }
+  remark,
+  // TODO: Delete this in 2.0
+  markdown: remark
 };
 
 const printers = {

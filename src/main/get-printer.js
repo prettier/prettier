@@ -1,20 +1,25 @@
 "use strict";
 
+const loadPlugins = require("../common/load-plugins");
+
 function getPrinter(options) {
-  switch (options.parser) {
-    case "graphql":
-      return require("../language-graphql/printer-graphql");
-    case "parse5":
-      return require("../language-html/printer-htmlparser2");
-    case "css":
-    case "less":
-    case "scss":
-      return require("../language-css/printer-postcss");
-    case "markdown":
-      return require("../language-markdown/printer-markdown");
-    default:
-      return require("../language-js/printer-estree");
+  const plugins = loadPlugins();
+  const parserPlugin = plugins.find(plugin => plugin.parsers[options.parser]);
+  if (!parserPlugin) {
+    throw new Error(
+      `Couldn't find parser plugin for parser "${options.parser}"`
+    );
   }
+
+  const astFormat = parserPlugin.parsers[options.parser].astFormat;
+  const printerPlugin = plugins.find(plugin => plugin.printers[astFormat]);
+  if (!printerPlugin) {
+    throw new Error(
+      `Couldn't find printer plugin for AST format "${astFormat}"`
+    );
+  }
+
+  return printerPlugin.printers[astFormat];
 }
 
 module.exports = getPrinter;

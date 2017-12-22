@@ -1,6 +1,5 @@
 "use strict";
 
-const parse = require("./parser-parse5");
 const printer = require("./printer-htmlparser2");
 
 // Based on:
@@ -25,7 +24,9 @@ const languages = [
 
 const parsers = {
   parse5: {
-    parse,
+    get parse() {
+      return eval("require")("./parser-parse5");
+    },
     astFormat: "htmlparser2"
   }
 };

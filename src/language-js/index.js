@@ -1,8 +1,5 @@
 "use strict";
 
-const babylonParser = require("./parser-babylon");
-const flowParser = require("./parser-flow");
-const tsEslintParser = require("./parser-typescript");
 const printer = require("./printer-estree");
 
 // Based on:
@@ -102,23 +99,32 @@ const languages = [
   }
 ];
 
+const typescript = {
+  get parse() {
+    return eval("require")("./parser-typescript");
+  },
+  astFormat: "estree"
+};
+
+const babylon = {
+  get parse() {
+    return eval("require")("./parser-babylon");
+  },
+  astFormat: "estree"
+};
+
 const parsers = {
-  babylon: {
-    parse: babylonParser,
-    astFormat: "estree"
-  },
-  json: {
-    parse: babylonParser,
-    astFormat: "estree"
-  },
+  babylon,
+  json: babylon,
   flow: {
-    parse: flowParser,
+    get parse() {
+      return eval("require")("./parser-flow");
+    },
     astFormat: "estree"
   },
-  "typescript-eslint": {
-    parse: tsEslintParser,
-    astFormat: "estree"
-  }
+  "typescript-eslint": typescript,
+  // TODO: Delete this in 2.0
+  typescript
 };
 
 const printers = {

@@ -1,6 +1,5 @@
 "use strict";
 
-const parse = require("./parser-graphql");
 const printer = require("./printer-graphql");
 
 // Based on:
@@ -21,7 +20,9 @@ const languages = [
 
 const parsers = {
   graphql: {
-    parse,
+    get parse() {
+      return eval("require")("./parser-graphql");
+    },
     astFormat: "graphql"
   }
 };
