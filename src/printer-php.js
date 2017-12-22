@@ -402,10 +402,15 @@ function printStatement(node) {
               softline
             ])
           ),
-          group(") {"),
-          indent(concat([hardline, printNode(node.body)])),
-          hardline,
-          "}"
+          ")",
+          node.body
+            ? concat([
+                " {",
+                indent(concat([hardline, printNode(node.body)])),
+                hardline,
+                "}"
+              ])
+            : ""
         ]);
       case "parameter":
         if (node.value) {
@@ -431,6 +436,32 @@ function printStatement(node) {
           ])
         );
       case "interface":
+        return concat([
+          group(
+            concat([
+              concat(["interface ", node.name]),
+              node.extends
+                ? indent(
+                    concat([
+                      line,
+                      "extends ",
+                      join(", ", node.extends.map(printNode))
+                    ])
+                  )
+                : "",
+              " {"
+            ])
+          ),
+          indent(
+            concat(
+              node.body.map(element =>
+                concat([hardline, printNode(element), ";"])
+              )
+            )
+          ),
+          hardline,
+          "}"
+        ]);
       case "trait":
       case "constant":
       case "classconstant":
