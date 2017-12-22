@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`if.php 1`] = `
+<?php
+if (true) {
+  return 1;
+} elseif (false) {
+  return 2;
+} else {
+  return;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<?php
+if (true) {
+  return 1;
+} elseif (false) {
+  return 2;
+} else {
+  return;
+}
+`;

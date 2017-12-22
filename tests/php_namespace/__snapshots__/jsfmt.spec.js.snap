@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`namespace.php 1`] = `
+<?php
+namespace Base\\Test\\To\\Extend;
+
+use Other\\Test\\Import;
+use One\\More\\Test;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<?php
+namespace Base\\Test\\To\\Extend;
+use Other\\Test\\Import;
+use One\\More\\Test;
+`;
