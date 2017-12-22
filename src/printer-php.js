@@ -66,16 +66,26 @@ function printExpression(node) {
   function printLookup(node) {
     switch (node.kind) {
       case "propertylookup":
-        return concat([printNode(node.what), "->", printNode(node.offset)]);
+        return group(
+          concat([
+            printNode(node.what),
+            "->",
+            indent(concat([softline, printNode(node.offset)]))
+          ])
+        );
       case "staticlookup":
         return concat([printNode(node.what), "::", printNode(node.offset)]);
       case "offsetlookup":
-        return concat([
-          printNode(node.what),
-          "[",
-          node.offset ? printNode(node.offset) : "",
-          "]"
-        ]);
+        return group(
+          concat([
+            printNode(node.what),
+            "[",
+            softline,
+            node.offset ? printNode(node.offset) : "",
+            softline,
+            "]"
+          ])
+        );
       default:
         return "Have not implemented lookup kind " + node.kind + " yet.";
     }
@@ -100,7 +110,9 @@ function printExpression(node) {
           printNode(node.right)
         ]);
       case "parenthesis":
-        return concat(["(", printNode(node.inner), ")"]);
+        return group(
+          concat(["(", softline, printNode(node.inner), softline, ")"])
+        );
       case "unary":
       case "cast":
       default:
@@ -127,6 +139,7 @@ function printExpression(node) {
       case "string": {
         // @TODO: for now just reusing double/single quote preference from doc. could eventually
         // use setting from options. need to figure out how this works w/ complex strings and interpolation
+        // also need to figure out splitting long strings
         const quote = node.isDoubleQuote ? '"' : "'";
         return quote + node.value + quote;
       }
@@ -157,10 +170,10 @@ function printExpression(node) {
         concat([
           node.shortForm ? "[" : "array(",
           indent(
-            join(
-              ", ",
-              node.items.map(item => concat([softline, printNode(item)]))
-            )
+            concat([
+              softline,
+              join(concat([",", line]), node.items.map(item => printNode(item)))
+            ])
           ),
           softline,
           node.shortForm ? "]" : ")"
@@ -236,7 +249,7 @@ function printStatement(node) {
               ]);
             }
             return concat([
-              line,
+              hardline,
               concat([
                 printNode(child),
                 lineShouldEndWithSemicolon(child) ? ";" : ""
@@ -250,7 +263,7 @@ function printStatement(node) {
           concat(
             node.children.map(child =>
               concat([
-                line,
+                hardline,
                 printNode(child),
                 lineShouldEndWithSemicolon(child) ? ";" : ""
               ])
@@ -391,19 +404,26 @@ function printStatement(node) {
       case "parameter":
         if (node.value) {
           return group(
-            join(" = ", [concat(["$", node.name]), printNode(node.value)])
+            concat([
+              concat(["$", node.name]),
+              indent(concat([line, "= ", printNode(node.value)]))
+            ])
           );
         }
         return concat([node.variadic ? "..." : "", "$", node.name]);
       case "property":
-        return concat([
-          node.visibility,
-          node.isStatic ? " static " : "",
-          " $",
-          node.name,
-          node.value ? concat([" = ", printNode(node.value)]) : "",
-          ";"
-        ]);
+        return group(
+          concat([
+            node.visibility,
+            node.isStatic ? " static " : "",
+            " $",
+            node.name,
+            node.value
+              ? indent(concat([line, "= ", printNode(node.value)]))
+              : "",
+            ";"
+          ])
+        );
       case "interface":
       case "trait":
       case "constant":
@@ -435,9 +455,9 @@ function printStatement(node) {
         ]);
       };
       return concat([
-        "if (",
-        printNode(node.test),
-        ") {",
+        group(
+          concat(["if (", softline, printNode(node.test), softline, ") {"])
+        ),
         indent(concat([line, printNode(node.body)])),
         line,
         handleIfAlternate(node.alternate)
@@ -463,9 +483,9 @@ function printStatement(node) {
       ]);
     case "while":
       return concat([
-        "while (",
-        printNode(node.test),
-        ") {",
+        group(
+          concat(["while (", softline, printNode(node.test), softline, ") {"])
+        ),
         indent(concat([line, printNode(node.body)])),
         line,
         "}"
@@ -525,9 +545,9 @@ function printStatement(node) {
       ]);
     case "switch":
       return concat([
-        "switch (",
-        printNode(node.test),
-        ") {",
+        group(
+          concat(["switch (", softline, printNode(node.test), softline, ") {"])
+        ),
         indent(
           concat(
             node.body.children.map(caseChild =>

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.php - php-verify: class.php 1`] = `
+exports[`class.php 1`] = `
 <?php
 
 class Foo extends Bar implements Baz, Buzz {
@@ -39,7 +39,7 @@ class Foo extends Bar implements Baz, Buzz {
 
   public $test;
   public function test() {
-    return 'test';
+    return "test";
   }
 }
 abstract class ReallyReallyReallyLongClassName
