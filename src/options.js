@@ -22,7 +22,8 @@ const defaults = {
   requirePragma: false,
   semi: true,
   proseWrap: "preserve",
-  arrowParens: "avoid"
+  arrowParens: "avoid",
+  pythonVersion: ""
 };
 
 const exampleConfig = Object.assign({}, defaults, {
@@ -58,6 +59,10 @@ function normalize(options) {
 
   if (normalized.parser === "json") {
     normalized.trailingComma = "none";
+  }
+
+  if (normalized.parser === "python" && !normalized.tabWidth) {
+    normalized.tabWidth = 4;
   }
 
   /* istanbul ignore if */

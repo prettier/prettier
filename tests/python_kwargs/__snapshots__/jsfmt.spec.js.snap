@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`kwargs.py 1`] = `
+def hello(a, **kwargs):
+    print("hello world", a)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def hello(a, **kwargs):
+    print("hello world", a)
+
+`;
+
+exports[`kwargs.py 2`] = `
+def hello(a, **kwargs):
+    print("hello world", a)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def hello(a, **kwargs):
+    print("hello world", a)
+
+`;

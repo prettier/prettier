@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`args_mixed.py 1`] = `
+def hello(a, *, example=False, **kwargs):
+    print("hello world", example)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def hello(a, *, example=False, **kwargs):
+    print("hello world", example)
+
+`;

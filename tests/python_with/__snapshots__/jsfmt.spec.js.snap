@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with.py 1`] = `
+with open('tmp/index.html') as f:
+    index = f.read()
+
+with open('tmp/index.html'):
+    print('great')
+
+with A() as X, B() as Y, C() as Z:
+    do_something()~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+with open("tmp/index.html") as f:
+    index = f.read()
+
+with open("tmp/index.html"):
+    print("great")
+
+with A() as X:
+    with B() as Y:
+        with C() as Z:
+            do_something()
+
+`;
+
+exports[`with.py 2`] = `
+with open('tmp/index.html') as f:
+    index = f.read()
+
+with open('tmp/index.html'):
+    print('great')
+
+with A() as X, B() as Y, C() as Z:
+    do_something()~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+with open("tmp/index.html") as f:
+    index = f.read()
+
+with open("tmp/index.html"):
+    print("great")
+
+with A() as X,B() as Y,C() as Z:
+    do_something()
+
+`;

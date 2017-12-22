@@ -58,7 +58,9 @@ function massageAST(ast, parent) {
     "trailingComma",
     "parent",
     "prev",
-    "position"
+    "position",
+    "lineno",
+    "col_offset"
   ].forEach(name => {
     delete newObj[name];
   });

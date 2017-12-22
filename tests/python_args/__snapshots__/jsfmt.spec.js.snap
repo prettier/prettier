@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`args.py 1`] = `
+def hello(*args):
+    print("hello world", args)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def hello(*args):
+    print("hello world", args)
+
+`;
+
+exports[`args.py 2`] = `
+def hello(*args):
+    print("hello world", args)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def hello(*args):
+    print("hello world", args)
+
+`;

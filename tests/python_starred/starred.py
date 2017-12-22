@@ -1,0 +1,1 @@
+func(*args, **kwargs)

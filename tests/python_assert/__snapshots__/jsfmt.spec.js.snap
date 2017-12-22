@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`assert.py 1`] = `
+assert 3 + 3
+assert False, 'message'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+assert 3 + 3
+
+assert False, "message"
+
+`;
+
+exports[`assert.py 2`] = `
+assert 3 + 3
+assert False, 'message'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+assert 3 + 3
+
+assert False, "message"
+
+`;

@@ -62,6 +62,8 @@ function getPrintFunction(options) {
       return require("./printer-postcss");
     case "markdown":
       return require("./printer-markdown");
+    case "python":
+      return require("./printer-python");
     default:
       return genericPrintNoParens;
   }
