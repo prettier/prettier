@@ -309,7 +309,29 @@ function printStatement(node) {
     switch (node.kind) {
       case "class":
         return concat([
-          group(concat(["class ", node.name, " {"])),
+          group(
+            concat([
+              node.isAbstract ? "abstract " : "",
+              node.isFinal ? "final " : "",
+              "class ",
+              node.name,
+              indent(
+                concat([
+                  node.extends
+                    ? concat([line, "extends ", printNode(node.extends)])
+                    : "",
+                  node.implements
+                    ? concat([
+                        line,
+                        "implements ",
+                        join(", ", node.implements.map(printNode))
+                      ])
+                    : ""
+                ])
+              ),
+              " {"
+            ])
+          ),
           hardline,
           indent(
             concat(node.body.map(child => concat([hardline, printNode(child)])))

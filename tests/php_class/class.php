@@ -1,5 +1,14 @@
 <?php
-class Foo {
+
+class Foo extends Bar implements Baz, Buzz {
+  public $test;
+
+  function test() {
+    return "test";
+  }
+}
+
+abstract class ReallyReallyReallyLongClassName extends AbstractModelFactoryResourceController implements TooMuchObjectOrientation, ThisIsMadness {
   // variable doc
   public $test;
   public $other = 1;
