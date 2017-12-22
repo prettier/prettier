@@ -31,7 +31,9 @@ function lineShouldEndWithSemicolon(node) {
     "break",
     "call",
     "pre",
-    "post"
+    "post",
+    "bin",
+    "unary"
   ];
   return includes(semiColonWhitelist, node.kind);
 }
@@ -114,6 +116,7 @@ function printExpression(node) {
           concat(["(", softline, printNode(node.inner), softline, ")"])
         );
       case "unary":
+        return concat([node.type, printNode(node.what)]);
       case "cast":
       default:
         return "Have not implemented operation kind " + node.kind + " yet.";
@@ -145,10 +148,13 @@ function printExpression(node) {
       }
       case "number":
         return node.value;
+      case "encapsed":
+        // might need to figure out better way to do this. don't want to send through printNode()
+        // because value is a string and we don't want the quotes
+        return concat(["`", concat(node.value.map(value => value.value)), "`"]);
       case "inline":
       case "magic":
       case "nowdoc":
-      case "encapsed":
       default:
         return "Have not implemented literal kind " + node.kind + " yet.";
     }
@@ -438,7 +444,10 @@ function printStatement(node) {
 
   switch (node.kind) {
     case "assign":
-      return join(" = ", [printNode(node.left), printNode(node.right)]);
+      return join(concat([" ", node.operator, " "]), [
+        printNode(node.left),
+        printNode(node.right)
+      ]);
     case "if": {
       const handleIfAlternate = alternate => {
         if (!alternate) {
