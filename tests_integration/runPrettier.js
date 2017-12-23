@@ -8,7 +8,7 @@ const ENV_LOG_LEVEL = require("../src/cli/logger").ENV_LOG_LEVEL;
 const isProduction = process.env.NODE_ENV === "production";
 const prettierCli = isProduction ? "../dist/bin/prettier" : "../bin/prettier";
 const thirdParty = isProduction
-  ? "../dist/common/third-party"
+  ? "../dist/third-party"
   : "../src/common/third-party";
 
 function runPrettier(dir, args, options) {
