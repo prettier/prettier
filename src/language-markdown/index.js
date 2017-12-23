@@ -37,7 +37,7 @@ const remark = {
   get parse() {
     return eval("require")("./parser-markdown");
   },
-  astFormat: "remark"
+  astFormat: "mdast"
 };
 
 const parsers = {
@@ -47,7 +47,7 @@ const parsers = {
 };
 
 const printers = {
-  remark: printer
+  mdast: printer
 };
 
 module.exports = {
