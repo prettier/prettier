@@ -12,7 +12,7 @@ const readline = require("readline");
 const leven = require("leven");
 
 const prettier = eval("require")("../../index");
-const cleanAST = require("../debug/clean-ast").cleanAST;
+const cleanAST = require("../common/clean-ast").cleanAST;
 const resolver = require("../config/resolve-config");
 const constant = require("./constant");
 const validator = require("./validator");
