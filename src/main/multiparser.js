@@ -456,31 +456,39 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       return doc;
     }
     let parts = doc.parts;
+    const atIndex = parts.indexOf("@");
+    const placeholderIndex = atIndex + 1;
     if (
-      parts.length > 1 &&
-      parts[0] === "@" &&
-      typeof parts[1] === "string" &&
-      parts[1].startsWith("prettier-placeholder")
+      atIndex > -1 &&
+      typeof parts[placeholderIndex] === "string" &&
+      parts[placeholderIndex].startsWith("prettier-placeholder")
     ) {
       // If placeholder is split, join it
-      const at = parts[0];
-      const placeholder = parts[1];
-      const rest = parts.slice(2);
-      parts = [at + placeholder].concat(rest);
+      const at = parts[atIndex];
+      const placeholder = parts[placeholderIndex];
+      const rest = parts.slice(placeholderIndex + 1);
+      parts = parts
+        .slice(0, atIndex)
+        .concat([at + placeholder])
+        .concat(rest);
     }
-    if (
-      typeof parts[0] === "string" &&
-      parts[0].startsWith("@prettier-placeholder")
-    ) {
-      const placeholder = parts[0];
-      const rest = parts.slice(1);
+    const atPlaceholderIndex = parts.findIndex(
+      part =>
+        typeof part === "string" && part.startsWith("@prettier-placeholder")
+    );
+    if (atPlaceholderIndex > -1) {
+      const placeholder = parts[atPlaceholderIndex];
+      const rest = parts.slice(atPlaceholderIndex + 1);
 
       // When the expression has a suffix appended, like:
       // animation: linear ${time}s ease-out;
       const suffix = placeholder.slice("@prettier-placeholder".length);
 
       const expression = expressions.shift();
-      parts = ["${", expression, "}" + suffix].concat(rest);
+      parts = parts
+        .slice(0, atPlaceholderIndex)
+        .concat(["${", expression, "}" + suffix])
+        .concat(rest);
     }
     return Object.assign({}, doc, {
       parts: parts
