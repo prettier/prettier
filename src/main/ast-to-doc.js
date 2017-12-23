@@ -81,7 +81,7 @@ function genericPrint(path, options, printer, printPath, args) {
   if (node) {
     try {
       // Potentially switch to a different parser
-      const sub = multiparser.printSubtree(path, printPath, options);
+      const sub = multiparser.printSubtree(printer, path, printPath, options);
       if (sub) {
         return sub;
       }

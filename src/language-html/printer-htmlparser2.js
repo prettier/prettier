@@ -1,5 +1,6 @@
 "use strict";
 
+const embed = require("./embed");
 const util = require("../common/util");
 const docBuilders = require("../doc").builders;
 const concat = docBuilders.concat;
@@ -116,5 +117,6 @@ function printChildren(path, print) {
 
 module.exports = {
   print: genericPrint,
+  embed,
   hasPrettierIgnore: util.hasIgnoreComment
 };

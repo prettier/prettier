@@ -5,6 +5,7 @@ const assert = require("assert");
 const comments = require("../main/comments");
 const util = require("../common/util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
+const embed = require("./embed");
 
 const doc = require("../doc");
 const docBuilders = doc.builders;
@@ -5168,6 +5169,7 @@ function willPrintOwnComments(path) {
 
 module.exports = {
   print: genericPrint,
+  embed,
   hasPrettierIgnore,
   willPrintOwnComments
 };

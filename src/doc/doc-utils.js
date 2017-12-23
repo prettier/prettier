@@ -167,6 +167,21 @@ function removeLines(doc) {
   });
 }
 
+function stripTrailingHardline(doc) {
+  // HACK remove ending hardline, original PR: #1984
+  if (
+    doc.type === "concat" &&
+    doc.parts.length === 2 &&
+    doc.parts[1].type === "concat" &&
+    doc.parts[1].parts.length === 2 &&
+    doc.parts[1].parts[0].hard &&
+    doc.parts[1].parts[1].type === "break-parent"
+  ) {
+    return doc.parts[0];
+  }
+  return doc;
+}
+
 function rawText(node) {
   return node.extra ? node.extra.raw : node.raw;
 }
@@ -179,5 +194,6 @@ module.exports = {
   mapDoc,
   propagateBreaks,
   removeLines,
+  stripTrailingHardline,
   rawText
 };

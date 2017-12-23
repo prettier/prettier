@@ -1,6 +1,7 @@
 "use strict";
 
 const util = require("../common/util");
+const embed = require("./embed");
 const doc = require("../doc");
 const docBuilders = doc.builders;
 const concat = docBuilders.concat;
@@ -659,5 +660,6 @@ function normalizeParts(parts) {
 
 module.exports = {
   print: genericPrint,
+  embed,
   hasPrettierIgnore: util.hasIgnoreComment
 };
