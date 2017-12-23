@@ -6,7 +6,7 @@ const docBuilders = doc.builders;
 const hardline = docBuilders.hardline;
 const concat = docBuilders.concat;
 
-function embed(path, print, format, options) {
+function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   if (node.type === "code") {
@@ -16,7 +16,7 @@ function embed(path, print, format, options) {
       const style = styleUnit.repeat(
         Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
       );
-      const doc = format(node.value, { parser }, options);
+      const doc = textToDoc(node.value, { parser });
       return concat([style, node.lang, hardline, doc, style]);
     }
   }

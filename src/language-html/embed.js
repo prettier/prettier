@@ -7,7 +7,7 @@ const docBuilders = doc.builders;
 const hardline = docBuilders.hardline;
 const concat = docBuilders.concat;
 
-function embed(path, print, format, options) {
+function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   switch (node.type) {
@@ -21,7 +21,7 @@ function embed(path, print, format, options) {
           parent.attribs.type === "application/javascript")
       ) {
         const parser = options.parser === "flow" ? "flow" : "babylon";
-        const doc = format(getText(options, node), { parser }, options);
+        const doc = textToDoc(getText(options, node), { parser });
         return concat([hardline, doc]);
       }
 
@@ -31,7 +31,7 @@ function embed(path, print, format, options) {
         (parent.attribs.type === "application/x-typescript" ||
           parent.attribs.lang === "ts")
       ) {
-        const doc = format(
+        const doc = textToDoc(
           getText(options, node),
           { parser: "typescript" },
           options
@@ -41,7 +41,7 @@ function embed(path, print, format, options) {
 
       // Inline Styles
       if (parent.type === "style") {
-        const doc = format(getText(options, node), { parser: "css" }, options);
+        const doc = textToDoc(getText(options, node), { parser: "css" });
         return concat([hardline, docUtils.stripTrailingHardline(doc)]);
       }
 
@@ -57,16 +57,12 @@ function embed(path, print, format, options) {
        * @click="someFunction()"
        */
       if (/(^@)|(^v-)|:/.test(node.key) && !/^\w+$/.test(node.value)) {
-        const doc = format(
-          node.value,
-          {
-            parser: parseJavaScriptExpression,
-            // Use singleQuote since HTML attributes use double-quotes.
-            // TODO(azz): We still need to do an entity escape on the attribute.
-            singleQuote: true
-          },
-          options
-        );
+        const doc = textToDoc(node.value, {
+          parser: parseJavaScriptExpression,
+          // Use singleQuote since HTML attributes use double-quotes.
+          // TODO(azz): We still need to do an entity escape on the attribute.
+          singleQuote: true
+        });
         return concat([
           node.key,
           '="',

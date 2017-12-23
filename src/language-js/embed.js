@@ -10,7 +10,7 @@ const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const concat = docBuilders.concat;
 
-function embed(path, print, format, options) {
+function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
@@ -25,7 +25,7 @@ function embed(path, print, format, options) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
         const text = rawQuasis.join("@prettier-placeholder");
-        const doc = format(text, { parser: "css" }, options);
+        const doc = textToDoc(text, { parser: "css" });
         return transformCssDoc(doc, path, print);
       }
 
@@ -91,7 +91,7 @@ function embed(path, print, format, options) {
           } else {
             try {
               doc = docUtils.stripTrailingHardline(
-                format(text, { parser: "graphql" }, options)
+                textToDoc(text, { parser: "graphql" })
               );
             } catch (_error) {
               // Bail if any part fails to parse.
@@ -140,14 +140,13 @@ function embed(path, print, format, options) {
             (parentParent.tag.name === "md" ||
               parentParent.tag.name === "markdown")))
       ) {
-        const doc = format(
+        const doc = textToDoc(
           // leading whitespaces matter in markdown
           dedent(parent.quasis[0].value.cooked),
           {
             parser: "markdown",
             __inJsTemplate: true
-          },
-          options
+          }
         );
         return concat([
           indent(
