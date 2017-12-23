@@ -38,10 +38,6 @@ function genericPrint(path, options, print) {
     return "";
   }
 
-  if (typeof n === "string") {
-    return n;
-  }
-
   switch (n.type) {
     case "Program": {
       return group(
@@ -161,9 +157,6 @@ function genericPrint(path, options, print) {
     }
     case "AttrNode": {
       const quote = n.value.type === "TextNode" ? '"' : "";
-      if (n.value.chars === "") {
-        return n.name;
-      }
       return concat([n.name, "=", quote, path.call(print, "value"), quote]);
     }
     case "ConcatStatement": {
@@ -174,13 +167,7 @@ function genericPrint(path, options, print) {
             join(
               softline,
               path
-                .map(partPath => {
-                  const part = partPath.getValue();
-                  if (part.type === "StringLiteral") {
-                    return part.original;
-                  }
-                  return print(partPath);
-                }, "parts")
+                .map(partPath => print(partPath), "parts")
                 .filter(a => a !== "")
             )
           )
@@ -207,9 +194,6 @@ function genericPrint(path, options, print) {
     case "BooleanLiteral": {
       return String(n.value);
     }
-    case "PartialStatement": {
-      return concat(["{{>", printPathParams(path, print), "}}"]);
-    }
     case "CommentStatement": {
       return concat(["<!--", n.value, "-->"]);
     }
@@ -231,27 +215,8 @@ function genericPrint(path, options, print) {
   }
 }
 
-function isLiteral(node) {
-  return node.type.endsWith("Literal");
-}
-
 function printPath(path, print) {
-  const node = path.getValue();
-
-  switch (node.type) {
-    case "MustacheStatement":
-    case "SubExpression":
-    case "ElementModifierStatement":
-    case "BlockStatement":
-      if (isLiteral(node.path)) {
-        return String(node.path.value);
-      }
-      return path.call(print, "path");
-    case "PartialStatement":
-      return path.call(print, "name");
-    default:
-      return "";
-  }
+  return path.call(print, "path");
 }
 
 function getParams(path, print) {
