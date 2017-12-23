@@ -2,11 +2,10 @@
 
 const editorconfig = require("editorconfig");
 const mem = require("mem");
-const pathRoot = require("path-root");
 const editorConfigToPrettier = require("editorconfig-to-prettier");
 
 const maybeParse = (filePath, config, parse) => {
-  const root = filePath && pathRoot(filePath);
+  const root = process.env.PWD; // We could also use process.cwd(), but it really slows down the test suite.
   return filePath && !config && parse(filePath, { root });
 };
 
