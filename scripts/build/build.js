@@ -5,21 +5,12 @@
 const path = require("path");
 const pkg = require("../../package.json");
 const formatMarkdown = require("../../website/static/markdown");
+const parsers = require("./parsers");
 const shell = require("shelljs");
 
 // TODO(azz): This file will need rework
 
 const rootDir = path.join(__dirname, "..", "..");
-const parsers = [
-  "language-js/parser-babylon",
-  "language-js/parser-flow",
-  "language-js/parser-typescript",
-  "language-graphql/parser-graphql",
-  "language-css/parser-postcss",
-  "language-html/parser-parse5",
-  "language-markdown/parser-markdown",
-  "language-vue/parser-vue"
-];
 
 process.env.PATH += path.delimiter + path.join(rootDir, "node_modules", ".bin");
 
