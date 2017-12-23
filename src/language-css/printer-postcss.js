@@ -1,7 +1,8 @@
 "use strict";
 
 const util = require("../common/util");
-const docBuilders = require("../builder/doc-builders");
+const doc = require("../doc");
+const docBuilders = doc.builders;
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const line = docBuilders.line;
@@ -11,8 +12,7 @@ const group = docBuilders.group;
 const fill = docBuilders.fill;
 const indent = docBuilders.indent;
 
-const docUtils = require("../builder/doc-utils");
-const removeLines = docUtils.removeLines;
+const removeLines = doc.utils.removeLines;
 
 function genericPrint(path, options, print) {
   const n = path.getValue();

@@ -2,9 +2,9 @@
 
 const comments = require("./src/main/comments");
 const version = require("./package.json").version;
-const printAstToDoc = require("./src/main/ast-to-doc").printAstToDoc;
+const printAstToDoc = require("./src/main/ast-to-doc");
 const util = require("./src/common/util");
-const printDocToString = require("./src/main/doc-to-string").printDocToString;
+const printDocToString = require("./src/doc").printer.printDocToString;
 const normalizeOptions = require("./src/common/options").normalize;
 const parser = require("./src/main/parser");
 const printDocToDebug = require("./src/debug/doc-debug").printDocToDebug;

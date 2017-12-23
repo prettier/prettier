@@ -1,7 +1,7 @@
 "use strict";
 
 const assert = require("assert");
-const docBuilders = require("../builder/doc-builders");
+const docBuilders = require("../doc").builders;
 const concat = docBuilders.concat;
 const hardline = docBuilders.hardline;
 const breakParent = docBuilders.breakParent;

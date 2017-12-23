@@ -1,17 +1,12 @@
 "use strict";
 
 const loadPlugins = require("../common/load-plugins");
+const resolveParser = require("./parser").resolveParser;
 
 function getPrinter(options) {
   const plugins = loadPlugins();
-  const parserPlugin = plugins.find(plugin => plugin.parsers[options.parser]);
-  if (!parserPlugin) {
-    throw new Error(
-      `Couldn't find parser plugin for parser "${options.parser}"`
-    );
-  }
 
-  const astFormat = parserPlugin.parsers[options.parser].astFormat;
+  const astFormat = resolveParser(options).astFormat;
   const printerPlugin = plugins.find(plugin => plugin.printers[astFormat]);
   if (!printerPlugin) {
     throw new Error(

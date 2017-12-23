@@ -1,7 +1,8 @@
 "use strict";
 
 const util = require("../common/util");
-const docBuilders = require("../builder/doc-builders");
+const doc = require("../doc");
+const docBuilders = doc.builders;
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const line = docBuilders.line;
@@ -9,8 +10,7 @@ const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const fill = docBuilders.fill;
 const align = docBuilders.align;
-const docPrinter = require("../main/doc-to-string");
-const printDocToString = docPrinter.printDocToString;
+const printDocToString = doc.printer.printDocToString;
 
 const SINGLE_LINE_NODE_TYPES = [
   "heading",

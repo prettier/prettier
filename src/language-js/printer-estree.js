@@ -6,7 +6,8 @@ const comments = require("../main/comments");
 const util = require("../common/util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 
-const docBuilders = require("../builder/doc-builders");
+const doc = require("../doc");
+const docBuilders = doc.builders;
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const line = docBuilders.line;
@@ -23,7 +24,7 @@ const breakParent = docBuilders.breakParent;
 const lineSuffixBoundary = docBuilders.lineSuffixBoundary;
 const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
 
-const docUtils = require("../builder/doc-utils");
+const docUtils = doc.utils;
 const willBreak = docUtils.willBreak;
 const isLineNext = docUtils.isLineNext;
 const isEmpty = docUtils.isEmpty;

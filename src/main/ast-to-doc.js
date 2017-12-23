@@ -1,16 +1,17 @@
 "use strict";
 
 const assert = require("assert");
-const comments = require("../main/comments");
-const FastPath = require("../builder/fast-path");
-const multiparser = require("../main/multiparser");
+const comments = require("./comments");
+const FastPath = require("../common/fast-path");
+const multiparser = require("./multiparser");
 const util = require("../common/util");
 
-const docBuilders = require("../builder/doc-builders");
+const doc = require("../doc");
+const docBuilders = doc.builders;
 const concat = docBuilders.concat;
 const hardline = docBuilders.hardline;
 const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
-const docUtils = require("../builder/doc-utils");
+const docUtils = doc.utils;
 const getPrinter = require("./get-printer");
 
 function printAstToDoc(ast, options, addAlignmentSize) {
@@ -96,4 +97,4 @@ function genericPrint(path, options, printer, printPath, args) {
   return printer.print(path, options, printPath, args);
 }
 
-module.exports = { printAstToDoc };
+module.exports = printAstToDoc;
