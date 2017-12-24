@@ -1,6 +1,7 @@
 "use strict";
 
 const util = require("../common/util");
+const support = require("../common/support");
 const doc = require("../doc");
 const docBuilders = doc.builders;
 const hardline = docBuilders.hardline;
@@ -24,33 +25,18 @@ function embed(path, print, textToDoc, options) {
   return null;
 
   function getParserName(lang) {
-    switch (lang) {
-      case "js":
-      case "jsx":
-      case "javascript":
-        return "babylon";
-      case "ts":
-      case "tsx":
-      case "typescript":
-        return "typescript";
-      case "gql":
-      case "graphql":
-        return "graphql";
-      case "css":
-        return "css";
-      case "less":
-        return "less";
-      case "scss":
-        return "scss";
-      case "json":
-      case "json5":
-        return "json";
-      case "md":
-      case "markdown":
-        return "markdown";
-      default:
-        return null;
+    const supportInfo = support.getSupportInfo(undefined, options);
+    const language = supportInfo.languages.find(
+      language =>
+        language.name.toLowerCase() === lang ||
+        (language.extensions &&
+          language.extensions.find(ext => ext.substring(1) === lang))
+    );
+    if (language) {
+      return language.parsers[0];
     }
+
+    return null;
   }
 }
 
