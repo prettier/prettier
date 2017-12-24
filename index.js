@@ -386,6 +386,8 @@ module.exports = {
     }
   },
 
+  doc,
+
   resolveConfig: config.resolveConfig,
   clearConfigCache: config.clearCache,
 
