@@ -15,7 +15,8 @@ const parsers = [
   "graphql",
   "postcss",
   "parse5",
-  "markdown"
+  "markdown",
+  "vue"
 ];
 
 process.env.PATH += path.delimiter + path.join(rootDir, "node_modules", ".bin");

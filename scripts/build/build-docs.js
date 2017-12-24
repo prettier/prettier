@@ -14,7 +14,8 @@ const parsers = [
   "graphql",
   "postcss",
   "parse5",
-  "markdown"
+  "markdown",
+  "vue"
 ];
 
 function pipe(string) {

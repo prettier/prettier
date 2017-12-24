@@ -10,6 +10,7 @@
   · CSS
   · SCSS
   · Less
+  · Vue
   · GraphQL
   · JSON
   · Markdown

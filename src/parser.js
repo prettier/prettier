@@ -33,6 +33,9 @@ const parsers = {
   },
   get markdown() {
     return eval("require")("./parser-markdown");
+  },
+  get vue() {
+    return eval("require")("./parser-vue");
   }
 };
 
