@@ -147,7 +147,7 @@ function genericPrint(path, options, print) {
             printChildren(path, options, print),
             "](",
             printUrl(node.url, ")"),
-            node.title ? ` ${printTitle(node.title)}` : "",
+            printTitle(node.title, options),
             ")"
           ]);
         default:
@@ -162,7 +162,7 @@ function genericPrint(path, options, print) {
         node.alt || "",
         "](",
         printUrl(node.url, ")"),
-        node.title ? ` ${printTitle(node.title)}` : "",
+        printTitle(node.title, options),
         ")"
       ]);
     case "blockquote":
@@ -297,7 +297,7 @@ function genericPrint(path, options, print) {
         node.identifier,
         "]: ",
         printUrl(node.url),
-        node.title === null ? "" : ` ${printTitle(node.title)}`
+        printTitle(node.title, options)
       ]);
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
@@ -625,10 +625,22 @@ function printUrl(url, dangerousCharOrChars) {
     : url;
 }
 
-function printTitle(title) {
-  return title.includes('"') && !title.includes("'")
-    ? `'${title}'`
-    : `"${title.replace(/"/g, '\\"')}"`;
+function printTitle(title, options) {
+  if (!title) {
+    return "";
+  }
+  if (title.includes('"') && title.includes("'") && !title.includes(")")) {
+    return ` (${title})`; // avoid escaped quotes
+  }
+  // faster than using RegExps: https://jsperf.com/performance-of-match-vs-split
+  const singleCount = title.split("'").length - 1;
+  const doubleCount = title.split('"').length - 1;
+  const quote =
+    singleCount > doubleCount
+      ? '"'
+      : doubleCount > singleCount ? "'" : options.singleQuote ? "'" : '"';
+  title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
+  return ` ${quote}${title}${quote}`;
 }
 
 function normalizeParts(parts) {
