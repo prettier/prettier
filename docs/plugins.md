@@ -12,6 +12,7 @@ Plugins are ways of adding new languages to Prettier. Prettier's own implementat
 ## Using Plugins
 
 There are three ways to add plugins to Prettier:
+
 * Via the CLI.
 * Via the API.
 * With a configuration file.
@@ -22,9 +23,7 @@ In your [configuration file](./configuration.md), add the `plugins` property:
 
 ```json
 {
-  "plugins": [
-    "prettier-python"
-  ]
+  "plugins": ["prettier-python"]
 }
 ```
 
@@ -57,11 +56,11 @@ It **must** include `name` and `parsers`.
 export const languages = [
   {
     // The language name
-    name: 'InterpretedDanceScript',
+    name: "InterpretedDanceScript",
     // Parsers that can parse this language.
     // This can be built-in parsers, or parsers you have contributed via this plugin.
-    parsers: ['dance-parse'],
-  },
+    parsers: ["dance-parse"]
+  }
 ];
 ```
 
@@ -73,10 +72,10 @@ The key must match the name in the `parsers` array from `languages`. The value c
 
 ```js
 export const parsers = {
-  'dance-parse': {
+  "dance-parse": {
     parse,
     // The name of the AST that
-    astFormat: 'dance-ast',
+    astFormat: "dance-ast"
   }
 };
 ```
@@ -97,8 +96,8 @@ The key must match the `astFormat` that the parser produces. The value contains 
 export const printers = {
   estree: {
     print,
-    embed,
-  },
+    embed
+  }
 };
 ```
 
