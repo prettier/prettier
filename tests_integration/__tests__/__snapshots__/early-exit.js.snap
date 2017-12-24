@@ -288,6 +288,17 @@ Default: babylon
 
 exports[`show detailed usage with --help parser (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help plugin (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help plugin (stdout) 1`] = `
+"--plugin <path>
+
+  Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
+"
+`;
+
+exports[`show detailed usage with --help plugin (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help print-width (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help print-width (stdout) 1`] = `
@@ -553,6 +564,7 @@ Config options:
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Defaults to .prettierignore.
+  --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
@@ -693,6 +705,7 @@ Config options:
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Defaults to .prettierignore.
+  --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:

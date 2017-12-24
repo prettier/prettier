@@ -47,6 +47,9 @@ const categoryOrder = [
  *     // string: use this value as the API option name.
  *     forwardToApi?: boolean | string;
  *
+ *     // Indicate that a CLI flag should be an array when forwarded to the API.
+ *     array?: boolean;
+ *
  *     // Specify available choices for validation. They will also be displayed
  *     // in --help as <a|b|c>.
  *     // Use an object instead of a string if a choice is deprecated and should
@@ -237,6 +240,14 @@ const detailedOptions = normalizeDetailedOptions({
     ],
     description: "Which parser to use.",
     getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
+  },
+  plugin: {
+    type: "path",
+    category: CATEGORY_CONFIG,
+    description:
+      "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.",
+    forwardToApi: "plugins",
+    array: true
   },
   "print-width": {
     type: "int",

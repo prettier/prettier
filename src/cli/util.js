@@ -26,13 +26,15 @@ const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 function getOptions(argv) {
-  return constant.detailedOptions
-    .filter(option => option.forwardToApi)
-    .reduce(
-      (current, option) =>
-        Object.assign(current, { [option.forwardToApi]: argv[option.name] }),
-      {}
-    );
+  return constant.detailedOptions.filter(option => option.forwardToApi).reduce(
+    (current, option) =>
+      Object.assign(current, {
+        [option.forwardToApi]: option.array
+          ? [].concat(argv[option.name] || [])
+          : argv[option.name]
+      }),
+    {}
+  );
 }
 
 function dashifyObject(object) {
