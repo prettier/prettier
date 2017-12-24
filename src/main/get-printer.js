@@ -1,12 +1,12 @@
 "use strict";
 
 const loadPlugins = require("../common/load-plugins");
-const resolveParser = require("./parser").resolveParser;
+const parser = require("./parser");
 
 function getPrinter(options) {
   const plugins = loadPlugins(options);
-
-  const astFormat = resolveParser(options).astFormat;
+  const parsers = parser.getParsers(plugins, options);
+  const astFormat = parser.resolveParser(parsers, options).astFormat;
   const printerPlugin = plugins.find(plugin => plugin.printers[astFormat]);
   if (!printerPlugin) {
     throw new Error(
