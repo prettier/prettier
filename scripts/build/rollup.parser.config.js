@@ -4,12 +4,13 @@ import commonjs from "rollup-plugin-commonjs";
 import json from "rollup-plugin-json";
 import replace from "rollup-plugin-replace";
 import uglify from "uglify-es";
+import path from "path";
 
 const parser = process.env.parser;
 
 export default Object.assign(baseConfig, {
   entry: "src/" + parser + ".js",
-  dest: "dist/" + parser + ".js",
+  dest: "dist/" + path.basename(parser) + ".js",
   format: "cjs",
   plugins: [
     parser.endsWith("typescript")
