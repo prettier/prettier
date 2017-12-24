@@ -8,8 +8,6 @@ const formatMarkdown = require("../../website/static/markdown");
 const parsers = require("./parsers");
 const shell = require("shelljs");
 
-// TODO(azz): This file will need rework
-
 const rootDir = path.join(__dirname, "..", "..");
 
 process.env.PATH += path.delimiter + path.join(rootDir, "node_modules", ".bin");
