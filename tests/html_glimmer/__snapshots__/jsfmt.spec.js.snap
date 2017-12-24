@@ -28,7 +28,8 @@ exports[`block-statement.hbs 1`] = `
   {{#block}}
    hello
   {{/block}}
-{{/block}}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{{/block}}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {{#block param hashKey=hashValue as |blockParam|}}
   Hello
 {{/block}}
@@ -116,7 +117,8 @@ exports[`concat-statement.hbs 1`] = `
   Hello
 </div>
 
-<a href="/{{url}}/{{url}}"></a>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<a href="/{{url}}/{{url}}"></a>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div class="hello{{if goodbye true}}">
   Hello
 </div>
@@ -148,7 +150,8 @@ exports[`element-modifier-statement.hbs 1`] = `
 
 <div {{hello param param param param hashPair=value hashPair=value hashPair=value hashPair=value hashPair=value}}>
   Hello
-</div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div {{hello param hash=key}} {{goodbye param}}>
   Hello
 </div>
@@ -234,7 +237,8 @@ exports[`element-node.hbs 1`] = `
 </div>
 
 <div></div>
-<img />~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<img />
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div class="attribute" {{modifier}} {{! comment}}>
   Hello
 </div>
@@ -316,7 +320,8 @@ exports[`else-if.hbs 1`] = `
       e
     {{/if}}
   </div>
-</div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {{#if a}}
   b
 {{else if c}}
@@ -375,7 +380,8 @@ exports[`literals.hbs 1`] = `
 {{mustache null}}
 <!-- hello world -->
 {{! Mustache Comment}}
-{{!-- Mustache Comment }} --}}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{{!-- Mustache Comment }} --}}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {{mustache true}}
 {{mustache 5}}
 {{mustache undefined}}
@@ -431,7 +437,8 @@ exports[`sub-expressions.hbs 1`] = `
       (concat "stringLiteral" (get blockParam "stringLiteral") hash=hash hash=hash)
       foo=(simple-helper (hash hashKey=blockParam.foo assignParam=blockParam.bar))
     )
-}}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
   {{mustache
     (concat

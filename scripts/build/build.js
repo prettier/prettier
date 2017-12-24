@@ -9,19 +9,6 @@ const parsers = require("./parsers");
 const shell = require("shelljs");
 
 const rootDir = path.join(__dirname, "..", "..");
-<<<<<<< HEAD
-=======
-const parsers = [
-  "babylon",
-  "flow",
-  "typescript",
-  "glimmer",
-  "graphql",
-  "postcss",
-  "parse5",
-  "markdown"
-];
->>>>>>> Prettier Support For Glimmer VM/Handlebars
 
 process.env.PATH += path.delimiter + path.join(rootDir, "node_modules", ".bin");
 

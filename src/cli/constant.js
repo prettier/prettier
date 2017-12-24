@@ -234,7 +234,7 @@ const detailedOptions = normalizeDetailedOptions({
       "less",
       "scss",
       "json",
-      "glimmer",
+      // "glimmer",
       "graphql",
       "markdown",
       "vue"
