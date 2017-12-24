@@ -45,7 +45,9 @@
     html {
       background-color: #fafafa;
       color: #6a6a6a;
-      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+        "Helvetica Neue", Arial, sans-serif;
       font-size: 12px;
       line-height: 1.25;
     }
@@ -63,7 +65,7 @@
       justify-content: space-between;
       align-items: center;
       height: 30px;
-      padding: 10px 27px;
+      padding: 11px 27px;
       background-color: #1a2b34;
       color: #e0e0e0;
       position: relative;
@@ -96,9 +98,23 @@
     }
 
     header h1 {
+      font-size: 20px;
+      display: block;
+      font-family: inherit;
+      font-weight: 400;
+      line-height: 18px;
+      position: relative;
+      z-index: 9999;
       margin: 0;
-      font-size: 18px;
-      font-weight: normal;
+    }
+
+    #version {
+      font-size: 0.5em;
+      line-height: 0;
+      opacity: 0.5;
+    }
+    #version::before {
+      content: 'v'
     }
 
     .links {
