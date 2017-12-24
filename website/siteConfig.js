@@ -73,7 +73,8 @@ const siteConfig = {
         }
       );
     }
-  ]
+  ],
+  gaTrackingId: "UA-111350464-1"
 };
 
 module.exports = siteConfig;
