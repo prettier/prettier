@@ -96,7 +96,7 @@ window.onload = function() {
             prettierVersion;
         } else {
           link.href =
-            "https://github.com/j-f1/forked-prettier/blob/master/CHANGELOG.md#" +
+            "https://github.com/prettier/prettier/blob/master/CHANGELOG.md#" +
             prettierVersion;
         }
         link.textContent = "v" + prettierVersion;
