@@ -4,25 +4,25 @@ const path = require("path");
 const ConfigError = require("../common/errors").ConfigError;
 const loadPlugins = require("../common/load-plugins");
 
-const parsers = loadPlugins().reduce(
-  (parsers, plugin) => Object.assign({}, parsers, plugin.parsers),
-  {}
-);
-
-// Copy the "parse" function from parser to a new object whose values are
-// functions. Use defineProperty()/getOwnPropertyDescriptor() such that we
-// don't invoke the parser.parse getters.
-const parsersForCustomParserApi = Object.keys(parsers).reduce(
-  (object, parserName) =>
-    Object.defineProperty(
-      object,
-      parserName,
-      Object.getOwnPropertyDescriptor(parsers[parserName], "parse")
-    ),
-  {}
-);
-
 function resolveParser(opts) {
+  const parsers = loadPlugins(opts).reduce(
+    (parsers, plugin) => Object.assign({}, parsers, plugin.parsers),
+    {}
+  );
+
+  // Copy the "parse" function from parser to a new object whose values are
+  // functions. Use defineProperty()/getOwnPropertyDescriptor() such that we
+  // don't invoke the parser.parse getters.
+  const parsersForCustomParserApi = Object.keys(parsers).reduce(
+    (object, parserName) =>
+      Object.defineProperty(
+        object,
+        parserName,
+        Object.getOwnPropertyDescriptor(parsers[parserName], "parse")
+      ),
+    {}
+  );
+
   if (typeof opts.parser === "function") {
     // Custom parser API always works with JavaScript.
     return {

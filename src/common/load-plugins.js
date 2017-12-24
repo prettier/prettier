@@ -3,6 +3,8 @@
 const resolve = require("resolve");
 
 function loadPlugins(options) {
+  options = Object.assign({ plugins: [] }, options);
+
   const internalPlugins = [
     require("../language-js"),
     require("../language-css"),

@@ -4,7 +4,7 @@ const loadPlugins = require("../common/load-plugins");
 const resolveParser = require("./parser").resolveParser;
 
 function getPrinter(options) {
-  const plugins = loadPlugins();
+  const plugins = loadPlugins(options);
 
   const astFormat = resolveParser(options).astFormat;
   const printerPlugin = plugins.find(plugin => plugin.printers[astFormat]);

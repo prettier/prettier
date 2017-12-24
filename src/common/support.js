@@ -4,14 +4,14 @@ const semver = require("semver");
 const currentVersion = require("../../package.json").version;
 const loadPlugins = require("./load-plugins");
 
-function getSupportInfo(version) {
+function getSupportInfo(version, options) {
   if (!version) {
     version = currentVersion;
   }
 
   const usePostCssParser = semver.lt(version, "1.7.1");
 
-  const languages = loadPlugins()
+  const languages = loadPlugins(options)
     .reduce((all, plugin) => all.concat(plugin.languages), [])
     .filter(language => language.since && semver.gte(version, language.since))
     .map(language => {
