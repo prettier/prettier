@@ -1,11 +1,14 @@
 "use strict";
 
+const path = require("path");
+
 const editorconfig = require("editorconfig");
 const mem = require("mem");
 const editorConfigToPrettier = require("editorconfig-to-prettier");
+const findProjectRoot = require("find-project-root");
 
 const maybeParse = (filePath, config, parse) => {
-  const root = process.env.PWD; // We could also use process.cwd(), but it really slows down the test suite.
+  const root = findProjectRoot(path.dirname(path.resolve(filePath)));
   return filePath && !config && parse(filePath, { root });
 };
 
