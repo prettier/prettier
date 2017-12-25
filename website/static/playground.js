@@ -97,7 +97,7 @@ window.onload = function() {
         } else {
           link.href =
             "https://github.com/prettier/prettier/blob/master/CHANGELOG.md#" +
-            prettierVersion.replace(/\./g, '');
+            prettierVersion.replace(/\./g, "");
         }
         link.textContent = "v" + prettierVersion;
       }
