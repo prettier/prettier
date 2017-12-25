@@ -94,7 +94,7 @@ The key must match the `astFormat` that the parser produces. The value contains 
 
 ```js
 export const printers = {
-  estree: {
+  "dance-ast": {
     print,
     embed
   }
