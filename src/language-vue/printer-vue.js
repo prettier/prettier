@@ -1,5 +1,6 @@
 "use strict";
 
+const embed = require("./embed");
 const docBuilders = require("../doc").builders;
 const concat = docBuilders.concat;
 
@@ -20,5 +21,6 @@ function genericPrint(path, options, print) {
 }
 
 module.exports = {
-  print: genericPrint
+  print: genericPrint,
+  embed
 };

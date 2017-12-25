@@ -21,8 +21,6 @@ function embed(path, print, textToDoc, options) {
       parser = "scss";
     } else if (langAttr.value === "less") {
       parser = "less";
-    } else {
-      return null;
     }
   }
 
@@ -32,19 +30,19 @@ function embed(path, print, textToDoc, options) {
       parser = "babylon";
     } else if (langAttr.value === "ts") {
       parser = "typescript";
-    } else {
-      return null;
     }
+  }
+
+  if (!parser) {
+    return null;
   }
 
   return concat([
     options.originalText.slice(node.start, node.contentStart),
     hardline,
-    textToDoc(
-      options.originalText.slice(node.contentStart, node.contentEnd),
-      parser,
-      options
-    ),
+    textToDoc(options.originalText.slice(node.contentStart, node.contentEnd), {
+      parser
+    }),
     options.originalText.slice(node.contentEnd, node.end)
   ]);
 }
