@@ -10,7 +10,8 @@ function loadPlugins(options) {
     require("../language-css"),
     require("../language-graphql"),
     require("../language-markdown"),
-    require("../language-html")
+    require("../language-html"),
+    require("../language-vue")
   ];
 
   const externalPlugins = options.plugins.map(plugin => {

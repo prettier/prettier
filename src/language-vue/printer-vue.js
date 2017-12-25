@@ -1,6 +1,6 @@
 "use strict";
 
-const docBuilders = require("./doc-builders");
+const docBuilders = require("../doc").builders;
 const concat = docBuilders.concat;
 
 function genericPrint(path, options, print) {
@@ -19,4 +19,6 @@ function genericPrint(path, options, print) {
   return concat(res);
 }
 
-module.exports = genericPrint;
+module.exports = {
+  print: genericPrint
+};

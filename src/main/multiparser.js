@@ -30,51 +30,6 @@ function textToDoc(text, partialNextOptions, parentOptions) {
   return require("./ast-to-doc")(ast, nextOptions);
 }
 
-function fromVue(path, print, options) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
-  if (!parent || parent.tag !== "root") {
-    return null;
-  }
-
-  let parser;
-
-  if (node.tag === "style") {
-    const langAttr = node.attrs.find(attr => attr.name === "lang");
-    if (!langAttr) {
-      parser = "css";
-    } else if (langAttr.value === "scss") {
-      parser = "scss";
-    } else if (langAttr.value === "less") {
-      parser = "less";
-    } else {
-      return null;
-    }
-  }
-
-  if (node.tag === "script") {
-    const langAttr = node.attrs.find(attr => attr.name === "lang");
-    if (!langAttr) {
-      parser = "babylon";
-    } else if (langAttr.value === "ts") {
-      parser = "typescript";
-    } else {
-      return null;
-    }
-  }
-
-  return concat([
-    options.originalText.slice(node.start, node.contentStart),
-    hardline,
-    parseAndPrint(
-      options.originalText.slice(node.contentStart, node.contentEnd),
-      parser,
-      options
-    ),
-    options.originalText.slice(node.contentEnd, node.end)
-  ]);
-}
-
 module.exports = {
   printSubtree
 };

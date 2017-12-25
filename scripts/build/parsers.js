@@ -7,5 +7,6 @@ module.exports = [
   "language-graphql/parser-graphql",
   "language-css/parser-postcss",
   "language-html/parser-parse5",
-  "language-markdown/parser-markdown"
+  "language-markdown/parser-markdown",
+  "language-vue/parser-vue"
 ];
