@@ -18,7 +18,6 @@ The options to the configuration file are the same as the [API options](options.
 JSON:
 
 ```json
-// .prettierrc
 {
   "printWidth": 100,
   "parser": "flow"
