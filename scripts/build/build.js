@@ -39,7 +39,7 @@ for (const parser of parsers) {
   );
 }
 
-shell.echo("Bundling lib postcss...");
+shell.echo("\nsrc/language-css/parser-postcss.js → dist/parser-postcss.js");
 // PostCSS has dependency cycles and won't work correctly with rollup :(
 shell.exec(
   "webpack --hide-modules src/language-css/parser-postcss.js dist/parser-postcss.js"
