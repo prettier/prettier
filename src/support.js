@@ -174,6 +174,19 @@ const supportTable = [
     vscodeLanguageIds: ["markdown"]
   },
   {
+    name: "Vue",
+    since: "1.10.0",
+    parsers: ["vue"],
+    group: "HTML",
+    tmScope: "text.html.vue",
+    aceMode: "html",
+    codemirrorMode: "htmlmixed",
+    codemirrorMimeType: "text/html",
+    extensions: [".vue"],
+    linguistLanguageId: 146,
+    vscodeLanguageIds: ["vue"]
+  },
+  {
     name: "HTML",
     since: undefined, // unreleased
     parsers: ["parse5"],
