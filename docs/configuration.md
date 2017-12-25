@@ -15,6 +15,16 @@ The options to the configuration file are the same as the [API options](options.
 
 ## Basic Configuration
 
+JS:
+
+```js
+// .prettierrc.js
+module.exports = {
+  "printWidth": 100,
+  "parser": "flow"
+}
+```
+
 JSON:
 
 ```json
