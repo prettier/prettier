@@ -44,7 +44,7 @@ and add this config to your `package.json`:
 ```json
 {
   "scripts": {
-    "prettier": "prettier */**/*.js --ignore-path ./.prettierignore --write && git add . && git status"
+    "prettier": "prettier \"*/**/*.js\" --ignore-path ./.prettierignore --write && git add . && git status"
   },
   "pre-commit": [
     "prettier"
