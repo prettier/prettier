@@ -42,6 +42,8 @@ function massageAST(ast, parent) {
     "range",
     "raw",
     "comments",
+    "contentStart",
+    "contentEnd",
     "leadingComments",
     "trailingComments",
     "extra",
