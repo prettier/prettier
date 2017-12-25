@@ -23,21 +23,17 @@ shell.rm("-Rf", "dist/");
 
 // --- Lib ---
 
-shell.echo("Bundling lib index...");
 shell.exec("rollup -c scripts/build/rollup.index.config.js");
 
-shell.echo("Bundling lib bin...");
 shell.exec("rollup -c scripts/build/rollup.bin.config.js");
 shell.chmod("+x", "./dist/bin/prettier.js");
 
-shell.echo("Bundling lib third-party...");
 shell.exec("rollup -c scripts/build/rollup.third-party.config.js");
 
 for (const parser of parsers) {
   if (parser.endsWith("postcss")) {
     continue;
   }
-  shell.echo(`Bundling lib ${parser}...`);
   shell.exec(
     `rollup -c scripts/build/rollup.parser.config.js --environment parser:${parser}`
   );
