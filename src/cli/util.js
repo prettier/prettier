@@ -129,8 +129,10 @@ function format(argv, input, opt) {
     } else {
       const plugins = loadPlugins(opt);
       const parser = parsers.resolveParser(parsers.getParsers(plugins), opt);
-      const ast = cleanAST(parsers.parse(input, opt, plugins), parser);
-      const past = cleanAST(parsers.parse(pp, opt, plugins), parser);
+      // These sould be parsers.parse(input, opt, plugins) but it breaks the
+      // production build.
+      const ast = cleanAST(prettier.__debug.parse(input, opt), parser);
+      const past = cleanAST(prettier.__debug.parse(pp, opt), parser);
 
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
