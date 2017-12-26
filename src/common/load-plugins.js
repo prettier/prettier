@@ -8,6 +8,7 @@ function loadPlugins(options) {
   const internalPlugins = [
     require("../language-js"),
     require("../language-css"),
+    require("../language-handlebars"),
     require("../language-graphql"),
     require("../language-markdown"),
     require("../language-html"),

@@ -1,6 +1,6 @@
 "use strict";
 
-const docBuilders = require("./doc-builders");
+const docBuilders = require("../doc/doc-builders");
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const softline = docBuilders.softline;
@@ -31,7 +31,7 @@ const voidTags = [
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
-function genericPrint(path, options, print) {
+function print(path, options, print) {
   const n = path.getValue();
 
   if (!n) {
@@ -266,4 +266,4 @@ function printCloseBlock(path, print) {
   return concat(["{{/", path.call(print, "path"), "}}"]);
 }
 
-module.exports = genericPrint;
+module.exports = { print };

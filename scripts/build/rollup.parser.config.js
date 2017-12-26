@@ -31,7 +31,7 @@ export default Object.assign(baseConfig, {
     json(),
     resolve({ preferBuiltins: true }),
     commonjs(
-      parser === "glimmer"
+      parser.endsWith("glimmer")
         ? {
             namedExports: {
               "node_modules/handlebars/lib/index.js": ["parse"],
