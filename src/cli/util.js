@@ -13,6 +13,8 @@ const leven = require("leven");
 
 const prettier = eval("require")("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
+const loadPlugins = require("../common/load-plugins");
+const parsers = require("../main/parser");
 const resolver = require("../config/resolve-config");
 const constant = require("./constant");
 const validator = require("./validator");
@@ -125,8 +127,10 @@ function format(argv, input, opt) {
         "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
       );
     } else {
-      const ast = cleanAST(prettier.__debug.parse(input, opt));
-      const past = cleanAST(prettier.__debug.parse(pp, opt));
+      const plugins = loadPlugins(opt);
+      const parser = parsers.resolveParser(parsers.getParsers(plugins), opt);
+      const ast = cleanAST(parsers.parse(input, opt, plugins), parser);
+      const past = cleanAST(parsers.parse(pp, opt, plugins), parser);
 
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB

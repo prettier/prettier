@@ -1,6 +1,7 @@
 "use strict";
 
 const printer = require("./printer-estree");
+const clean = require("./clean");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -103,14 +104,16 @@ const typescript = {
   get parse() {
     return eval("require")("./parser-typescript");
   },
-  astFormat: "estree"
+  astFormat: "estree",
+  massageAstNode: clean
 };
 
 const babylon = {
   get parse() {
     return eval("require")("./parser-babylon");
   },
-  astFormat: "estree"
+  astFormat: "estree",
+  massageAstNode: clean
 };
 
 const parsers = {
@@ -120,7 +123,8 @@ const parsers = {
     get parse() {
       return eval("require")("./parser-flow");
     },
-    astFormat: "estree"
+    astFormat: "estree",
+    massageAstNode: clean
   },
   "typescript-eslint": typescript,
   // TODO: Delete this in 2.0

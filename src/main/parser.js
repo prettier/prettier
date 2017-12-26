@@ -2,7 +2,6 @@
 
 const path = require("path");
 const ConfigError = require("../common/errors").ConfigError;
-const loadPlugins = require("../common/load-plugins");
 
 function getParsers(plugins) {
   return plugins.reduce(
@@ -38,8 +37,8 @@ function resolveParser(parsers, opts) {
   return parsers.babylon;
 }
 
-function parse(text, opts) {
-  const parsers = getParsers(loadPlugins(opts), opts);
+function parse(text, opts, plugins) {
+  const parsers = getParsers(plugins, opts);
 
   // Copy the "parse" function from parser to a new object whose values are
   // functions. Use defineProperty()/getOwnPropertyDescriptor() such that we
