@@ -3,7 +3,6 @@
 const fs = require("fs");
 const extname = require("path").extname;
 const prettier = require("./require_prettier");
-const parser = require("../src/main/parser");
 const massageAST = require("../src/common/clean-ast.js").massageAST;
 
 const AST_COMPARE = process.env["AST_COMPARE"];
@@ -116,7 +115,7 @@ function stripLocation(ast) {
 }
 
 function parse(string, opts) {
-  return stripLocation(parser.parse(string, opts));
+  return stripLocation(prettier.__debug.parse(string, opts));
 }
 
 function prettyprint(src, filename, options) {
