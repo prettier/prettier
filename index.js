@@ -192,7 +192,7 @@ function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
   if (start <= offset && offset <= end) {
     for (const childNode of comments.getSortedChildNodes(
       node,
-      undefined,
+      undefined /* text */,
       options
     )) {
       const childResult = findNodeAtOffset(
