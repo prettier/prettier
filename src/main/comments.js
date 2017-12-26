@@ -27,8 +27,8 @@ function getSortedChildNodes(node, text, options, resultArray) {
   if (resultArray) {
     if (
       node &&
-      printer.whatShouldICallThis &&
-      printer.whatShouldICallThis(node)
+      printer.canAttachComment &&
+      printer.canAttachComment(node)
     ) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the

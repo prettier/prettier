@@ -5167,7 +5167,7 @@ function willPrintOwnComments(path) {
   );
 }
 
-function whatShouldICallThis(node) {
+function canAttachComment(node) {
   return (
     node.type &&
     node.type !== "CommentBlock" &&
@@ -5238,6 +5238,6 @@ module.exports = {
   embed,
   hasPrettierIgnore,
   willPrintOwnComments,
-  whatShouldICallThis,
+  canAttachComment,
   printComment
 };

@@ -539,7 +539,7 @@ function printSequence(sequencePath, options, print) {
   });
 }
 
-function whatShouldICallThis(node) {
+function canAttachComment(node) {
   return node.kind && node.kind !== "Comment";
 }
 
@@ -558,5 +558,5 @@ module.exports = {
   print: genericPrint,
   hasPrettierIgnore: util.hasIgnoreComment,
   printComment,
-  whatShouldICallThis
+  canAttachComment
 };
