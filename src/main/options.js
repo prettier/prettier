@@ -46,6 +46,7 @@ function normalize(options) {
 
   if (
     filepath &&
+    !normalized.parentParser &&
     (!normalized.parser || normalized.parser === defaults.parser)
   ) {
     const extension = path.extname(filepath);
