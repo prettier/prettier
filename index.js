@@ -1,15 +1,16 @@
 "use strict";
 
-const comments = require("./src/comments");
+const comments = require("./src/main/comments");
 const version = require("./package.json").version;
-const printAstToDoc = require("./src/printer").printAstToDoc;
-const util = require("./src/util");
-const printDocToString = require("./src/doc-printer").printDocToString;
-const normalizeOptions = require("./src/options").normalize;
-const parser = require("./src/parser");
-const printDocToDebug = require("./src/doc-debug").printDocToDebug;
-const config = require("./src/resolve-config");
-const getSupportInfo = require("./src/support").getSupportInfo;
+const printAstToDoc = require("./src/main/ast-to-doc");
+const util = require("./src/common/util");
+const doc = require("./src/doc");
+const printDocToString = doc.printer.printDocToString;
+const printDocToDebug = doc.debug.printDocToDebug;
+const normalizeOptions = require("./src/common/options").normalize;
+const parser = require("./src/main/parser");
+const config = require("./src/config/resolve-config");
+const getSupportInfo = require("./src/common/support").getSupportInfo;
 const docblock = require("jest-docblock");
 
 function guessLineEnding(text) {
@@ -384,6 +385,8 @@ module.exports = {
       return false;
     }
   },
+
+  doc,
 
   resolveConfig: config.resolveConfig,
   clearConfigCache: config.clearCache,

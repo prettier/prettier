@@ -2,7 +2,7 @@
 
 const prettier = require("../../tests_config/require_prettier");
 const runPrettier = require("../runPrettier");
-const constant = require("../../src/cli-constant");
+const constant = require("../../src/cli/constant");
 
 describe("show version with --version", () => {
   runPrettier("cli/with-shebang", ["--version"]).test({
