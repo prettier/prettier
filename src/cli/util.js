@@ -37,9 +37,12 @@ function getOptions(argv) {
   );
 }
 
-function dashifyObject(object) {
+function cliifyOptions(object) {
   return Object.keys(object || {}).reduce((output, key) => {
-    output[dashify(key)] = object[key];
+    const apiOption = constant.apiDetailedOptionMap[key];
+    const cliKey = apiOption ? apiOption.name : key;
+
+    output[dashify(cliKey)] = object[key];
     return output;
   }, {});
 }
@@ -202,8 +205,8 @@ function parseArgsToOptions(argv, overrideDefaults) {
           boolean: constant.minimistOptions.boolean,
           default: Object.assign(
             {},
-            dashifyObject(apiDefaultOptions),
-            dashifyObject(overrideDefaults)
+            cliifyOptions(apiDefaultOptions),
+            cliifyOptions(overrideDefaults)
           )
         })
       ),
