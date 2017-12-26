@@ -619,7 +619,10 @@ function normalizeConfig(type, rawConfig, options) {
       return;
     }
 
-    const option = constant.detailedOptionMap[key];
+    let option = constant.detailedOptionMap[key];
+    if (type === "api" && option === undefined) {
+      option = constant.apiDetailedOptionMap[key];
+    }
 
     // unknown option
     if (option === undefined) {
