@@ -1,12 +1,14 @@
 "use strict";
 
+const path = require("path");
+
 const editorconfig = require("editorconfig");
 const mem = require("mem");
-const pathRoot = require("path-root");
 const editorConfigToPrettier = require("editorconfig-to-prettier");
+const findProjectRoot = require("find-project-root");
 
 const maybeParse = (filePath, config, parse) => {
-  const root = filePath && pathRoot(filePath);
+  const root = findProjectRoot(path.dirname(path.resolve(filePath)));
   return filePath && !config && parse(filePath, { root });
 };
 
