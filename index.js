@@ -1,18 +1,22 @@
 "use strict";
 
-const comments = require("./src/main/comments");
+const docblock = require("jest-docblock");
+
 const version = require("./package.json").version;
-const getPrinter = require("./src/main/get-printer");
-const printAstToDoc = require("./src/main/ast-to-doc");
+
 const util = require("./src/common/util");
+const getSupportInfo = require("./src/common/support").getSupportInfo;
+
+const comments = require("./src/main/comments");
+const printAstToDoc = require("./src/main/ast-to-doc");
+const normalizeOptions = require("./src/main/options").normalize;
+const parser = require("./src/main/parser");
+
+const config = require("./src/config/resolve-config");
+
 const doc = require("./src/doc");
 const printDocToString = doc.printer.printDocToString;
 const printDocToDebug = doc.debug.printDocToDebug;
-const normalizeOptions = require("./src/common/options").normalize;
-const parser = require("./src/main/parser");
-const config = require("./src/config/resolve-config");
-const getSupportInfo = require("./src/common/support").getSupportInfo;
-const docblock = require("jest-docblock");
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -68,7 +72,6 @@ function formatWithCursor(text, opts, addAlignmentSize) {
     return { formatted: text };
   }
 
-  const printer = getPrinter(opts);
   const UTF8BOM = 0xfeff;
   const hasUnicodeBOM = text.charCodeAt(0) === UTF8BOM;
   if (hasUnicodeBOM) {
@@ -96,18 +99,14 @@ function formatWithCursor(text, opts, addAlignmentSize) {
 
   const ast = parser.parse(text, opts);
 
-  const formattedRangeOnly = formatRange(text, opts, ast, printer);
+  const formattedRangeOnly = formatRange(text, opts, ast);
   if (formattedRangeOnly) {
     return { formatted: formattedRangeOnly };
   }
 
   let cursorOffset;
   if (opts.cursorOffset >= 0) {
-    const cursorNodeAndParents = findNodeAtOffset(
-      ast,
-      opts.cursorOffset,
-      printer
-    );
+    const cursorNodeAndParents = findNodeAtOffset(ast, opts.cursorOffset, opts);
     const cursorNode = cursorNodeAndParents.node;
     if (cursorNode) {
       cursorOffset = opts.cursorOffset - util.locStart(cursorNode);
@@ -185,7 +184,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
   };
 }
 
-function findNodeAtOffset(node, offset, printer, predicate, parentNodes) {
+function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
   predicate = predicate || (() => true);
   parentNodes = parentNodes || [];
   const start = util.locStart(node);
@@ -194,12 +193,12 @@ function findNodeAtOffset(node, offset, printer, predicate, parentNodes) {
     for (const childNode of comments.getSortedChildNodes(
       node,
       undefined,
-      printer
+      options
     )) {
       const childResult = findNodeAtOffset(
         childNode,
         offset,
-        printer,
+        options,
         predicate,
         [node].concat(parentNodes)
       );
@@ -293,7 +292,7 @@ function isSourceElement(opts, node) {
   return false;
 }
 
-function calculateRange(text, opts, ast, printer) {
+function calculateRange(text, opts, ast) {
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
   const rangeStringOrig = text.slice(opts.rangeStart, opts.rangeEnd);
@@ -315,13 +314,13 @@ function calculateRange(text, opts, ast, printer) {
   const startNodeAndParents = findNodeAtOffset(
     ast,
     startNonWhitespace,
-    printer,
+    opts,
     node => isSourceElement(opts, node)
   );
   const endNodeAndParents = findNodeAtOffset(
     ast,
     endNonWhitespace,
-    printer,
+    opts,
     node => isSourceElement(opts, node)
   );
 
@@ -347,12 +346,12 @@ function calculateRange(text, opts, ast, printer) {
   };
 }
 
-function formatRange(text, opts, ast, printer) {
+function formatRange(text, opts, ast) {
   if (opts.rangeStart <= 0 && text.length <= opts.rangeEnd) {
     return;
   }
 
-  const range = calculateRange(text, opts, ast, printer);
+  const range = calculateRange(text, opts, ast);
   const rangeStart = range.rangeStart;
   const rangeEnd = range.rangeEnd;
   const rangeString = text.slice(rangeStart, rangeEnd);
@@ -415,6 +414,7 @@ module.exports = {
   /* istanbul ignore next */
   __debug: {
     parse: function(text, opts) {
+      opts = normalizeOptions(opts);
       return parser.parse(text, opts);
     },
     formatAST: function(ast, opts) {

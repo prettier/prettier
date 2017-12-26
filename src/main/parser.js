@@ -2,16 +2,17 @@
 
 const path = require("path");
 const ConfigError = require("../common/errors").ConfigError;
-const loadPlugins = require("../common/load-plugins");
 
-function getParsers(plugins) {
-  return plugins.reduce(
+function getParsers(options) {
+  return options.plugins.reduce(
     (parsers, plugin) => Object.assign({}, parsers, plugin.parsers),
     {}
   );
 }
 
-function resolveParser(parsers, opts) {
+function resolveParser(opts, parsers) {
+  parsers = parsers || getParsers(opts);
+
   if (typeof opts.parser === "function") {
     // Custom parser API always works with JavaScript.
     return {
@@ -39,7 +40,7 @@ function resolveParser(parsers, opts) {
 }
 
 function parse(text, opts) {
-  const parsers = getParsers(loadPlugins(opts), opts);
+  const parsers = getParsers(opts);
 
   // Copy the "parse" function from parser to a new object whose values are
   // functions. Use defineProperty()/getOwnPropertyDescriptor() such that we
@@ -54,7 +55,7 @@ function parse(text, opts) {
     {}
   );
 
-  const parser = resolveParser(parsers, opts);
+  const parser = resolveParser(opts, parsers);
 
   try {
     return parser.parse(text, parsersForCustomParserApi, opts);
@@ -75,4 +76,4 @@ function parse(text, opts) {
   }
 }
 
-module.exports = { getParsers, parse, resolveParser };
+module.exports = { parse, resolveParser };

@@ -15,6 +15,10 @@ function loadPlugins(options) {
   ];
 
   const externalPlugins = options.plugins.map(plugin => {
+    if (typeof plugin !== "string") {
+      return plugin;
+    }
+
     const pluginPath = resolve.sync(plugin, { basedir: process.cwd() });
     return eval("require")(pluginPath);
   });
