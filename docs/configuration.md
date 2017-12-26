@@ -24,6 +24,16 @@ JSON:
 }
 ```
 
+JS:
+
+```js
+// .prettierrc.js
+module.exports = {
+  printWidth: 100,
+  parser: "flow"
+};
+```
+
 YAML:
 
 ```yaml
