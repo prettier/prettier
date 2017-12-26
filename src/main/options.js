@@ -44,6 +44,8 @@ function normalize(options) {
   const normalized = Object.assign({}, options || {});
   const filepath = normalized.filepath;
 
+  normalized.plugins = loadPlugins(normalized);
+
   if (
     filepath &&
     !normalized.parentParser &&
@@ -52,7 +54,7 @@ function normalize(options) {
     const extension = path.extname(filepath);
     const filename = path.basename(filepath).toLowerCase();
 
-    const language = getSupportInfo().languages.find(
+    const language = getSupportInfo(null, normalized).languages.find(
       language =>
         typeof language.since === "string" &&
         (language.extensions.indexOf(extension) > -1 ||
@@ -122,7 +124,6 @@ function normalize(options) {
     delete normalized.useFlowParser;
   }
 
-  normalized.plugins = loadPlugins(normalized);
   normalized.astFormat = resolveParser(normalized).astFormat;
   normalized.printer = getPrinter(normalized);
 
