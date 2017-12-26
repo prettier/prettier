@@ -21,12 +21,18 @@ const languages = [
   }
 ];
 
+const massageAstNode = (ast, newObj) => {
+  delete newObj.contentStart;
+  delete newObj.contentEnd;
+};
+
 const parsers = {
   vue: {
     get parse() {
       return eval("require")("./parser-vue");
     },
-    astFormat: "vue"
+    astFormat: "vue",
+    massageAstNode
   }
 };
 

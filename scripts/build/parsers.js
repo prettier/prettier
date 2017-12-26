@@ -1,12 +1,8 @@
 "use strict";
 
-module.exports = [
-  "language-js/parser-babylon",
-  "language-js/parser-flow",
-  "language-js/parser-typescript",
-  "language-graphql/parser-graphql",
-  "language-css/parser-postcss",
-  "language-html/parser-parse5",
-  "language-markdown/parser-markdown",
-  "language-vue/parser-vue"
-];
+const globby = require("globby");
+const path = require("path");
+
+module.exports = globby.sync("language-*/parser-*", {
+  cwd: path.join(__dirname, "../../src")
+});

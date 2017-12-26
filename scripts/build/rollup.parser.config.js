@@ -9,11 +9,11 @@ import path from "path";
 const parser = process.env.parser;
 
 export default Object.assign(baseConfig, {
-  entry: "src/" + parser + ".js",
-  dest: "dist/" + path.basename(parser) + ".js",
+  entry: "src/" + parser,
+  dest: "dist/" + path.basename(parser),
   format: "cjs",
   plugins: [
-    parser.endsWith("typescript")
+    parser.endsWith("typescript.js")
       ? replace({
           "exports.Syntax =": "1,",
           include: "node_modules/typescript-eslint-parser/parser.js"
@@ -22,7 +22,7 @@ export default Object.assign(baseConfig, {
     // In flow-parser 0.59.0 there's a dynamic require: `require(s8)` which not
     // supported by rollup-plugin-commonjs, so we have to replace the variable
     // by its value before bundling.
-    parser.endsWith("flow")
+    parser.endsWith("flow.js")
       ? replace({
           "require(s8)": 'require("fs")',
           include: "node_modules/flow-parser/flow_parser.js"

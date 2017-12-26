@@ -33,11 +33,23 @@ const languages = [
   }
 ];
 
+function clean(ast, newObj) {
+  // for markdown codeblock
+  if (ast.type === "code") {
+    delete newObj.value;
+  }
+  // for markdown whitespace: "\n" and " " are considered the same
+  if (ast.type === "whitespace" && ast.value === "\n") {
+    newObj.value = " ";
+  }
+}
+
 const remark = {
   get parse() {
     return eval("require")("./parser-markdown");
   },
-  astFormat: "mdast"
+  astFormat: "mdast",
+  massageAstNode: clean
 };
 
 const parsers = {

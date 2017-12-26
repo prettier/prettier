@@ -4,6 +4,7 @@ const comments = require("./src/main/comments");
 const version = require("./package.json").version;
 const printAstToDoc = require("./src/main/ast-to-doc");
 const util = require("./src/common/util");
+const loadPlugins = require("./src/common/load-plugins");
 const doc = require("./src/doc");
 const printDocToString = doc.printer.printDocToString;
 const printDocToDebug = doc.debug.printDocToDebug;
@@ -92,7 +93,8 @@ function formatWithCursor(text, opts, addAlignmentSize) {
 
   addAlignmentSize = addAlignmentSize || 0;
 
-  const ast = parser.parse(text, opts);
+  const plugins = loadPlugins(opts);
+  const ast = parser.parse(text, opts, plugins);
 
   const formattedRangeOnly = formatRange(text, opts, ast);
   if (formattedRangeOnly) {
@@ -110,7 +112,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
   }
 
   const astComments = attachComments(text, ast, opts);
-  const doc = printAstToDoc(ast, opts, addAlignmentSize);
+  const doc = printAstToDoc(ast, opts, plugins, addAlignmentSize);
   opts.newLine = guessLineEnding(text);
   const toStringResult = printDocToString(doc, opts);
   let str = toStringResult.formatted;
@@ -398,11 +400,13 @@ module.exports = {
   /* istanbul ignore next */
   __debug: {
     parse: function(text, opts) {
-      return parser.parse(text, opts);
+      const plugins = loadPlugins(opts);
+      return parser.parse(text, opts, plugins);
     },
     formatAST: function(ast, opts) {
       opts = normalizeOptions(opts);
-      const doc = printAstToDoc(ast, opts);
+      const plugins = loadPlugins(opts);
+      const doc = printAstToDoc(ast, opts, plugins);
       const str = printDocToString(doc, opts);
       return str;
     },
@@ -415,9 +419,10 @@ module.exports = {
     },
     printToDoc: function(text, opts) {
       opts = normalizeOptions(opts);
-      const ast = parser.parse(text, opts);
+      const plugins = loadPlugins(opts);
+      const ast = parser.parse(text, opts, plugins);
       attachComments(text, ast, opts);
-      const doc = printAstToDoc(ast, opts);
+      const doc = printAstToDoc(ast, opts, plugins);
       return doc;
     },
     printDocToString: function(doc, opts) {

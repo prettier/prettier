@@ -14,10 +14,10 @@ const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
 const docUtils = doc.utils;
 const getPrinter = require("./get-printer");
 
-function printAstToDoc(ast, options, addAlignmentSize) {
+function printAstToDoc(ast, options, plugins, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
-  const printer = getPrinter(options);
+  const printer = getPrinter(options, plugins);
   const cache = new Map();
 
   function printGenerically(path, args) {
@@ -32,11 +32,18 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     // UnionTypeAnnotation has to align the child without the comments
     let res;
     if (printer.willPrintOwnComments && printer.willPrintOwnComments(path)) {
-      res = genericPrint(path, options, printer, printGenerically, args);
+      res = genericPrint(
+        path,
+        options,
+        plugins,
+        printer,
+        printGenerically,
+        args
+      );
     } else {
       res = comments.printComments(
         path,
-        p => genericPrint(p, options, printer, printGenerically, args),
+        p => genericPrint(p, options, plugins, printer, printGenerically, args),
         options,
         args && args.needsSemi
       );
@@ -68,7 +75,7 @@ function printAstToDoc(ast, options, addAlignmentSize) {
   return doc;
 }
 
-function genericPrint(path, options, printer, printPath, args) {
+function genericPrint(path, options, plugins, printer, printPath, args) {
   assert.ok(path instanceof FastPath);
 
   const node = path.getValue();
@@ -81,7 +88,13 @@ function genericPrint(path, options, printer, printPath, args) {
   if (node) {
     try {
       // Potentially switch to a different parser
-      const sub = multiparser.printSubtree(printer, path, printPath, options);
+      const sub = multiparser.printSubtree(
+        printer,
+        path,
+        printPath,
+        options,
+        plugins
+      );
       if (sub) {
         return sub;
       }

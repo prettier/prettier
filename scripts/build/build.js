@@ -31,7 +31,7 @@ shell.chmod("+x", "./dist/bin/prettier.js");
 shell.exec("rollup -c scripts/build/rollup.third-party.config.js");
 
 for (const parser of parsers) {
-  if (parser.endsWith("postcss")) {
+  if (parser.endsWith("postcss.js")) {
     continue;
   }
   shell.exec(

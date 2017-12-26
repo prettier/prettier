@@ -47,11 +47,11 @@ shell.exec(
 );
 
 for (const parser of parserPaths) {
-  if (parser.endsWith("babylon")) {
+  if (parser.endsWith("babylon.js")) {
     continue;
   }
   shell.exec(
-    `rollup -c scripts/build/rollup.docs.config.js --environment filepath:${parser}.js -i ${prettierPath}/${parser}.js`
+    `rollup -c scripts/build/rollup.docs.config.js --environment filepath:${parser} -i ${prettierPath}/${parser}`
   );
 }
 
