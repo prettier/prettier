@@ -20,13 +20,6 @@ function massageAST(ast, parser, parent) {
     }
   }
 
-  if (parser.massageAstNode) {
-    const result = parser.massageAstNode(ast, newObj, parent);
-    if (result === null) {
-      return undefined;
-    }
-  }
-
   [
     "loc",
     "range",
@@ -52,6 +45,16 @@ function massageAST(ast, parser, parent) {
   ].forEach(name => {
     delete newObj[name];
   });
+
+  if (parser.massageAstNode) {
+    const result = parser.massageAstNode(ast, newObj, parent);
+    if (result === null) {
+      return undefined;
+    }
+    if (result) {
+      return result;
+    }
+  }
 
   return newObj;
 }
