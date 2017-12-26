@@ -2,6 +2,7 @@
 
 const comments = require("./src/main/comments");
 const version = require("./package.json").version;
+const getPrinter = require("./src/main/get-printer");
 const printAstToDoc = require("./src/main/ast-to-doc");
 const util = require("./src/common/util");
 const doc = require("./src/doc");
@@ -67,6 +68,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
     return { formatted: text };
   }
 
+  const printer = getPrinter(opts);
   const UTF8BOM = 0xfeff;
   const hasUnicodeBOM = text.charCodeAt(0) === UTF8BOM;
   if (hasUnicodeBOM) {
@@ -94,14 +96,18 @@ function formatWithCursor(text, opts, addAlignmentSize) {
 
   const ast = parser.parse(text, opts);
 
-  const formattedRangeOnly = formatRange(text, opts, ast);
+  const formattedRangeOnly = formatRange(text, opts, ast, printer);
   if (formattedRangeOnly) {
     return { formatted: formattedRangeOnly };
   }
 
   let cursorOffset;
   if (opts.cursorOffset >= 0) {
-    const cursorNodeAndParents = findNodeAtOffset(ast, opts.cursorOffset);
+    const cursorNodeAndParents = findNodeAtOffset(
+      ast,
+      opts.cursorOffset,
+      printer
+    );
     const cursorNode = cursorNodeAndParents.node;
     if (cursorNode) {
       cursorOffset = opts.cursorOffset - util.locStart(cursorNode);
@@ -179,16 +185,21 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
   };
 }
 
-function findNodeAtOffset(node, offset, predicate, parentNodes) {
+function findNodeAtOffset(node, offset, printer, predicate, parentNodes) {
   predicate = predicate || (() => true);
   parentNodes = parentNodes || [];
   const start = util.locStart(node);
   const end = util.locEnd(node);
   if (start <= offset && offset <= end) {
-    for (const childNode of comments.getSortedChildNodes(node)) {
+    for (const childNode of comments.getSortedChildNodes(
+      node,
+      undefined,
+      printer
+    )) {
       const childResult = findNodeAtOffset(
         childNode,
         offset,
+        printer,
         predicate,
         [node].concat(parentNodes)
       );
@@ -282,7 +293,7 @@ function isSourceElement(opts, node) {
   return false;
 }
 
-function calculateRange(text, opts, ast) {
+function calculateRange(text, opts, ast, printer) {
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
   const rangeStringOrig = text.slice(opts.rangeStart, opts.rangeEnd);
@@ -301,11 +312,17 @@ function calculateRange(text, opts, ast) {
     }
   }
 
-  const startNodeAndParents = findNodeAtOffset(ast, startNonWhitespace, node =>
-    isSourceElement(opts, node)
+  const startNodeAndParents = findNodeAtOffset(
+    ast,
+    startNonWhitespace,
+    printer,
+    node => isSourceElement(opts, node)
   );
-  const endNodeAndParents = findNodeAtOffset(ast, endNonWhitespace, node =>
-    isSourceElement(opts, node)
+  const endNodeAndParents = findNodeAtOffset(
+    ast,
+    endNonWhitespace,
+    printer,
+    node => isSourceElement(opts, node)
   );
 
   if (!startNodeAndParents || !endNodeAndParents) {
@@ -330,12 +347,12 @@ function calculateRange(text, opts, ast) {
   };
 }
 
-function formatRange(text, opts, ast) {
+function formatRange(text, opts, ast, printer) {
   if (opts.rangeStart <= 0 && text.length <= opts.rangeEnd) {
     return;
   }
 
-  const range = calculateRange(text, opts, ast);
+  const range = calculateRange(text, opts, ast, printer);
   const rangeStart = range.rangeStart;
   const rangeEnd = range.rangeEnd;
   const rangeString = text.slice(rangeStart, rangeEnd);

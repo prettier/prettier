@@ -3,7 +3,12 @@
 const loadPlugins = require("../common/load-plugins");
 const parser = require("./parser");
 
+const printerCache = new WeakMap();
+
 function getPrinter(options) {
+  if (printerCache.has(options)) {
+    return printerCache.get(options);
+  }
   const plugins = loadPlugins(options);
   const parsers = parser.getParsers(plugins, options);
   const astFormat = parser.resolveParser(parsers, options).astFormat;
@@ -14,7 +19,9 @@ function getPrinter(options) {
     );
   }
 
-  return printerPlugin.printers[astFormat];
+  const printer = printerPlugin.printers[astFormat];
+  printerCache.set(options, printer);
+  return printer;
 }
 
 module.exports = getPrinter;

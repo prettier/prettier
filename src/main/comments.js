@@ -1,6 +1,7 @@
 "use strict";
 
 const assert = require("assert");
+const getPrinter = require("./get-printer");
 const docBuilders = require("../doc").builders;
 const concat = docBuilders.concat;
 const hardline = docBuilders.hardline;
@@ -18,7 +19,7 @@ const getNextNonSpaceNonCommentCharacter =
 const getNextNonSpaceNonCommentCharacterIndex =
   util.getNextNonSpaceNonCommentCharacterIndex;
 
-function getSortedChildNodes(node, text, resultArray) {
+function getSortedChildNodes(node, text, printer, resultArray) {
   if (!node) {
     return;
   }
@@ -26,16 +27,8 @@ function getSortedChildNodes(node, text, resultArray) {
   if (resultArray) {
     if (
       node &&
-      ((node.type &&
-        node.type !== "CommentBlock" &&
-        node.type !== "CommentLine" &&
-        node.type !== "Line" &&
-        node.type !== "Block" &&
-        node.type !== "EmptyStatement" &&
-        node.type !== "TemplateElement" &&
-        node.type !== "Import" &&
-        !(node.callee && node.callee.type === "Import")) ||
-        (node.kind && node.kind !== "Comment"))
+      printer.whatShouldICallThis &&
+      printer.whatShouldICallThis(node)
     ) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
@@ -74,7 +67,7 @@ function getSortedChildNodes(node, text, resultArray) {
   }
 
   for (let i = 0, nameCount = names.length; i < nameCount; ++i) {
-    getSortedChildNodes(node[names[i]], text, resultArray);
+    getSortedChildNodes(node[names[i]], text, printer, resultArray);
   }
 
   return resultArray;
@@ -83,8 +76,8 @@ function getSortedChildNodes(node, text, resultArray) {
 // As efficiently as possible, decorate the comment object with
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
-function decorateComment(node, comment, text) {
-  const childNodes = getSortedChildNodes(node, text);
+function decorateComment(node, comment, text, printer) {
+  const childNodes = getSortedChildNodes(node, text, printer);
   let precedingNode;
   let followingNode;
   // Time to dust off the old binary search robes and wizard hat.
@@ -101,7 +94,7 @@ function decorateComment(node, comment, text) {
       // The comment is completely contained by this child node.
       comment.enclosingNode = child;
 
-      decorateComment(child, comment, text);
+      decorateComment(child, comment, text, printer);
       return; // Abandon the binary search at this level.
     }
 
@@ -167,6 +160,7 @@ function attach(comments, ast, text, options) {
   }
 
   const tiesToBreak = [];
+  const printer = getPrinter(options);
 
   comments.forEach((comment, i) => {
     if (options.parser === "json" && locStart(comment) - locStart(ast) <= 0) {
@@ -174,7 +168,7 @@ function attach(comments, ast, text, options) {
       return;
     }
 
-    decorateComment(ast, comment, text);
+    decorateComment(ast, comment, text, printer);
 
     const precedingNode = comment.precedingNode;
     const enclosingNode = comment.enclosingNode;
@@ -920,59 +914,10 @@ function handleVariableDeclaratorComments(
   return false;
 }
 
-function printComment(commentPath, options) {
+function printComment(printer, commentPath, options) {
   const comment = commentPath.getValue();
   comment.printed = true;
-
-  switch (comment.type || comment.kind) {
-    case "Comment":
-      return "#" + comment.value.trimRight();
-    case "CommentBlock":
-    case "Block": {
-      if (isJsDocComment(comment)) {
-        return printJsDocComment(comment);
-      }
-
-      const isInsideFlowComment =
-        options.originalText.substr(util.locEnd(comment) - 3, 3) === "*-/";
-
-      return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
-    }
-    case "CommentLine":
-    case "Line":
-      // Print shebangs with the proper comment characters
-      if (options.originalText.slice(util.locStart(comment)).startsWith("#!")) {
-        return "#!" + comment.value.trimRight();
-      }
-      return "//" + comment.value.trimRight();
-    default:
-      throw new Error("Not a comment: " + JSON.stringify(comment));
-  }
-}
-
-function isJsDocComment(comment) {
-  const lines = comment.value.split("\n");
-  return (
-    lines.length > 1 &&
-    lines.slice(0, lines.length - 1).every(line => line.trim()[0] === "*")
-  );
-}
-
-function printJsDocComment(comment) {
-  const lines = comment.value.split("\n");
-
-  return concat([
-    "/*",
-    join(
-      hardline,
-      lines.map(
-        (line, index) =>
-          (index > 0 ? " " : "") +
-          (index < lines.length - 1 ? line.trim() : line.trimLeft())
-      )
-    ),
-    "*/"
-  ]);
+  return printer.printComment(commentPath, options);
 }
 
 function findExpressionIndexForComment(quasis, comment) {
@@ -999,9 +944,9 @@ function getQuasiRange(expr) {
   return { start: expr.range[0], end: expr.range[1] };
 }
 
-function printLeadingComment(commentPath, print, options) {
+function printLeadingComment(printer, commentPath, print, options) {
   const comment = commentPath.getValue();
-  const contents = printComment(commentPath, options);
+  const contents = printComment(printer, commentPath, options);
   if (!contents) {
     return "";
   }
@@ -1019,9 +964,9 @@ function printLeadingComment(commentPath, print, options) {
   return concat([contents, hardline]);
 }
 
-function printTrailingComment(commentPath, print, options) {
+function printTrailingComment(printer, commentPath, print, options) {
   const comment = commentPath.getValue();
-  const contents = printComment(commentPath, options);
+  const contents = printComment(printer, commentPath, options);
   if (!contents) {
     return "";
   }
@@ -1061,6 +1006,7 @@ function printTrailingComment(commentPath, print, options) {
 }
 
 function printDanglingComments(path, options, sameIndent, filter) {
+  const printer = getPrinter(options);
   const parts = [];
   const node = path.getValue();
 
@@ -1076,7 +1022,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
       !comment.trailing &&
       (!filter || filter(comment))
     ) {
-      parts.push(printComment(commentPath, options));
+      parts.push(printComment(printer, commentPath, options));
     }
   }, "comments");
 
@@ -1098,6 +1044,7 @@ function prependCursorPlaceholder(path, options, printed) {
 }
 
 function printComments(path, print, options, needsSemi) {
+  const printer = getPrinter(options);
   const value = path.getValue();
   const printed = print(path);
   const comments = value && value.comments;
@@ -1115,7 +1062,12 @@ function printComments(path, print, options, needsSemi) {
     const trailing = comment.trailing;
 
     if (leading) {
-      const contents = printLeadingComment(commentPath, print, options);
+      const contents = printLeadingComment(
+        printer,
+        commentPath,
+        print,
+        options
+      );
       if (!contents) {
         return;
       }
@@ -1126,7 +1078,9 @@ function printComments(path, print, options, needsSemi) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {
-      trailingParts.push(printTrailingComment(commentPath, print, options));
+      trailingParts.push(
+        printTrailingComment(printer, commentPath, print, options)
+      );
     }
   }, "comments");
 

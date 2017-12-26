@@ -5167,9 +5167,77 @@ function willPrintOwnComments(path) {
   );
 }
 
+function whatShouldICallThis(node) {
+  return (
+    node.type &&
+    node.type !== "CommentBlock" &&
+    node.type !== "CommentLine" &&
+    node.type !== "Line" &&
+    node.type !== "Block" &&
+    node.type !== "EmptyStatement" &&
+    node.type !== "TemplateElement" &&
+    node.type !== "Import" &&
+    !(node.callee && node.callee.type === "Import")
+  );
+}
+
+function printComment(commentPath, options) {
+  const comment = commentPath.getValue();
+
+  switch (comment.type) {
+    case "CommentBlock":
+    case "Block": {
+      if (isJsDocComment(comment)) {
+        return printJsDocComment(comment);
+      }
+
+      const isInsideFlowComment =
+        options.originalText.substr(util.locEnd(comment) - 3, 3) === "*-/";
+
+      return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
+    }
+    case "CommentLine":
+    case "Line":
+      // Print shebangs with the proper comment characters
+      if (options.originalText.slice(util.locStart(comment)).startsWith("#!")) {
+        return "#!" + comment.value.trimRight();
+      }
+      return "//" + comment.value.trimRight();
+    default:
+      throw new Error("Not a comment: " + JSON.stringify(comment));
+  }
+}
+
+function isJsDocComment(comment) {
+  const lines = comment.value.split("\n");
+  return (
+    lines.length > 1 &&
+    lines.slice(0, lines.length - 1).every(line => line.trim()[0] === "*")
+  );
+}
+
+function printJsDocComment(comment) {
+  const lines = comment.value.split("\n");
+
+  return concat([
+    "/*",
+    join(
+      hardline,
+      lines.map(
+        (line, index) =>
+          (index > 0 ? " " : "") +
+          (index < lines.length - 1 ? line.trim() : line.trimLeft())
+      )
+    ),
+    "*/"
+  ]);
+}
+
 module.exports = {
   print: genericPrint,
   embed,
   hasPrettierIgnore,
-  willPrintOwnComments
+  willPrintOwnComments,
+  whatShouldICallThis,
+  printComment
 };
