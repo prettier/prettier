@@ -25,11 +25,7 @@ function getSortedChildNodes(node, text, options, resultArray) {
   const printer = options.printer;
 
   if (resultArray) {
-    if (
-      node &&
-      printer.canAttachComment &&
-      printer.canAttachComment(node)
-    ) {
+    if (node && printer.canAttachComment && printer.canAttachComment(node)) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
