@@ -83,7 +83,25 @@ window.onload = function() {
   worker.onmessage = function(message) {
     if (prettierVersion === "?") {
       prettierVersion = message.data.version;
-      document.getElementById("version").textContent = prettierVersion;
+
+      var link = document.createElement("a");
+      var match = prettierVersion.match(/^pr-(\d+)$/);
+      if (match) {
+        link.href = "https://github.com/prettier/prettier/pull/" + match[1];
+        link.textContent = "PR #" + match[1];
+      } else {
+        if (prettierVersion.match(/\.0$/)) {
+          link.href =
+            "https://github.com/prettier/prettier/releases/tag/" +
+            prettierVersion;
+        } else {
+          link.href =
+            "https://github.com/prettier/prettier/blob/master/CHANGELOG.md#" +
+            prettierVersion.replace(/\./g, "");
+        }
+        link.textContent = "v" + prettierVersion;
+      }
+      document.getElementById("version").appendChild(link);
     }
     if (outputEditor && docEditor && astEditor) {
       outputEditor.setValue(message.data.formatted);

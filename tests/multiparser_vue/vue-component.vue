@@ -1,5 +1,6 @@
 <template >
-  <h1 >{{greeting}}     world</h1  >
+  <h1 >{{greeting}}     world</h1 >
+  <script>kikoo ( ) </script>
 </template >
 
 <script>
