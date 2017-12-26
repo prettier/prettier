@@ -1,17 +1,22 @@
 "use strict";
 
-const comments = require("./src/main/comments");
+const docblock = require("jest-docblock");
+
 const version = require("./package.json").version;
-const printAstToDoc = require("./src/main/ast-to-doc");
+
 const util = require("./src/common/util");
+const getSupportInfo = require("./src/common/support").getSupportInfo;
+
+const comments = require("./src/main/comments");
+const printAstToDoc = require("./src/main/ast-to-doc");
+const normalizeOptions = require("./src/main/options").normalize;
+const parser = require("./src/main/parser");
+
+const config = require("./src/config/resolve-config");
+
 const doc = require("./src/doc");
 const printDocToString = doc.printer.printDocToString;
 const printDocToDebug = doc.debug.printDocToDebug;
-const normalizeOptions = require("./src/common/options").normalize;
-const parser = require("./src/main/parser");
-const config = require("./src/config/resolve-config");
-const getSupportInfo = require("./src/common/support").getSupportInfo;
-const docblock = require("jest-docblock");
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -101,7 +106,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
 
   let cursorOffset;
   if (opts.cursorOffset >= 0) {
-    const cursorNodeAndParents = findNodeAtOffset(ast, opts.cursorOffset);
+    const cursorNodeAndParents = findNodeAtOffset(ast, opts.cursorOffset, opts);
     const cursorNode = cursorNodeAndParents.node;
     if (cursorNode) {
       cursorOffset = opts.cursorOffset - util.locStart(cursorNode);
@@ -179,16 +184,21 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
   };
 }
 
-function findNodeAtOffset(node, offset, predicate, parentNodes) {
+function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
   predicate = predicate || (() => true);
   parentNodes = parentNodes || [];
   const start = util.locStart(node);
   const end = util.locEnd(node);
   if (start <= offset && offset <= end) {
-    for (const childNode of comments.getSortedChildNodes(node)) {
+    for (const childNode of comments.getSortedChildNodes(
+      node,
+      undefined /* text */,
+      options
+    )) {
       const childResult = findNodeAtOffset(
         childNode,
         offset,
+        options,
         predicate,
         [node].concat(parentNodes)
       );
@@ -301,11 +311,17 @@ function calculateRange(text, opts, ast) {
     }
   }
 
-  const startNodeAndParents = findNodeAtOffset(ast, startNonWhitespace, node =>
-    isSourceElement(opts, node)
+  const startNodeAndParents = findNodeAtOffset(
+    ast,
+    startNonWhitespace,
+    opts,
+    node => isSourceElement(opts, node)
   );
-  const endNodeAndParents = findNodeAtOffset(ast, endNonWhitespace, node =>
-    isSourceElement(opts, node)
+  const endNodeAndParents = findNodeAtOffset(
+    ast,
+    endNonWhitespace,
+    opts,
+    node => isSourceElement(opts, node)
   );
 
   if (!startNodeAndParents || !endNodeAndParents) {
@@ -398,6 +414,7 @@ module.exports = {
   /* istanbul ignore next */
   __debug: {
     parse: function(text, opts) {
+      opts = normalizeOptions(opts);
       return parser.parse(text, opts);
     },
     formatAST: function(ast, opts) {

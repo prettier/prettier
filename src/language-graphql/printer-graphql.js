@@ -539,7 +539,24 @@ function printSequence(sequencePath, options, print) {
   });
 }
 
+function canAttachComment(node) {
+  return node.kind && node.kind !== "Comment";
+}
+
+function printComment(commentPath) {
+  const comment = commentPath.getValue();
+
+  switch (comment.kind) {
+    case "Comment":
+      return "#" + comment.value.trimRight();
+    default:
+      throw new Error("Not a comment: " + JSON.stringify(comment));
+  }
+}
+
 module.exports = {
   print: genericPrint,
-  hasPrettierIgnore: util.hasIgnoreComment
+  hasPrettierIgnore: util.hasIgnoreComment,
+  printComment,
+  canAttachComment
 };
