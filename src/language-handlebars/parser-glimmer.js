@@ -29,6 +29,7 @@ function parse(text) {
         ast: [removeWhiteSpace]
       }
     });
+    /* istanbul ignore next */
   } catch (error) {
     const matches = error.message.match(/on line (\d+)/);
     if (matches) {

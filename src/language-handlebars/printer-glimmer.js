@@ -34,6 +34,7 @@ const voidTags = [
 function print(path, options, print) {
   const n = path.getValue();
 
+  /* istanbul ignore if*/
   if (!n) {
     return "";
   }
@@ -210,6 +211,7 @@ function print(path, options, print) {
       return "null";
     }
 
+    /* istanbul ignore next */
     default:
       throw new Error("unknown glimmer type: " + JSON.stringify(n.type));
   }
