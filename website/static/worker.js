@@ -43,7 +43,7 @@ self.require = function require(path) {
 var prettier;
 importScripts("lib/index.js");
 if (typeof prettier === "undefined") {
-  prettier = index; // eslint-disable-line
+  prettier = module.exports; // eslint-disable-line
 }
 
 var parsersLoaded = {};
