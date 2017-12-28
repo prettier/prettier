@@ -5,7 +5,7 @@ const foo = {
   bar: props.bar ? props.bar : noop,
   baz: props.baz
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const foo = {
   bar: props.bar
     ? props.bar
