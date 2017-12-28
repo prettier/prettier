@@ -45,6 +45,9 @@ importScripts("lib/index.js");
 if (typeof prettier === "undefined") {
   prettier = module.exports; // eslint-disable-line
 }
+if (typeof prettier === "undefined") {
+  prettier = index; // eslint-disable-line
+}
 
 var parsersLoaded = {};
 
