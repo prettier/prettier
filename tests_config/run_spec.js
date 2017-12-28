@@ -6,10 +6,6 @@ const prettier = require("./require_prettier");
 const massageAST = require("../src/common/clean-ast.js").massageAST;
 
 const AST_COMPARE = process.env["AST_COMPARE"];
-const VERIFY_ALL_PARSERS = process.env["VERIFY_ALL_PARSERS"] || false;
-const ALL_PARSERS = process.env["ALL_PARSERS"]
-  ? JSON.parse(process.env["ALL_PARSERS"])
-  : ["flow", "graphql", "babylon", "typescript"];
 
 function run_spec(dirname, parsers, options) {
   /* instabul ignore if */
@@ -45,22 +41,20 @@ function run_spec(dirname, parsers, options) {
       });
       const output = prettyprint(source, path, mergedOptions);
       test(`${filename} - ${mergedOptions.parser}-verify`, () => {
-        expect(raw(source + "~".repeat(80) + "\n" + output)).toMatchSnapshot(
-          filename
-        );
+        expect(
+          raw(source + "~".repeat(mergedOptions.printWidth) + "\n" + output)
+        ).toMatchSnapshot(filename);
       });
 
-      getParsersToVerify(mergedOptions.parser, parsers.slice(1)).forEach(
-        parserName => {
-          test(`${filename} - ${parserName}-verify`, () => {
-            const verifyOptions = Object.assign(mergedOptions, {
-              parser: parserName
-            });
-            const verifyOutput = prettyprint(source, path, verifyOptions);
-            expect(output).toEqual(verifyOutput);
+      parsers.slice(1).forEach(parserName => {
+        test(`${filename} - ${parserName}-verify`, () => {
+          const verifyOptions = Object.assign(mergedOptions, {
+            parser: parserName
           });
-        }
-      );
+          const verifyOutput = prettyprint(source, path, verifyOptions);
+          expect(output).toEqual(verifyOutput);
+        });
+      });
 
       if (AST_COMPARE) {
         const ast = parse(source, mergedOptions);
@@ -88,6 +82,7 @@ function run_spec(dirname, parsers, options) {
     }
   });
 }
+
 global.run_spec = run_spec;
 
 function stripLocation(ast) {
@@ -153,11 +148,4 @@ function mergeDefaultOptions(parserConfig) {
     },
     parserConfig
   );
-}
-
-function getParsersToVerify(parser, additionalParsers) {
-  if (VERIFY_ALL_PARSERS) {
-    return ALL_PARSERS.splice(ALL_PARSERS.indexOf(parser), 1);
-  }
-  return additionalParsers;
 }
