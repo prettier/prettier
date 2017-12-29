@@ -18,25 +18,14 @@ const getNextNonSpaceNonCommentCharacter =
 const getNextNonSpaceNonCommentCharacterIndex =
   util.getNextNonSpaceNonCommentCharacterIndex;
 
-function getSortedChildNodes(node, text, resultArray) {
+function getSortedChildNodes(node, text, options, resultArray) {
   if (!node) {
     return;
   }
+  const printer = options.printer;
 
   if (resultArray) {
-    if (
-      node &&
-      ((node.type &&
-        node.type !== "CommentBlock" &&
-        node.type !== "CommentLine" &&
-        node.type !== "Line" &&
-        node.type !== "Block" &&
-        node.type !== "EmptyStatement" &&
-        node.type !== "TemplateElement" &&
-        node.type !== "Import" &&
-        !(node.callee && node.callee.type === "Import")) ||
-        (node.kind && node.kind !== "Comment"))
-    ) {
+    if (node && printer.canAttachComment && printer.canAttachComment(node)) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
@@ -74,7 +63,7 @@ function getSortedChildNodes(node, text, resultArray) {
   }
 
   for (let i = 0, nameCount = names.length; i < nameCount; ++i) {
-    getSortedChildNodes(node[names[i]], text, resultArray);
+    getSortedChildNodes(node[names[i]], text, options, resultArray);
   }
 
   return resultArray;
@@ -83,8 +72,8 @@ function getSortedChildNodes(node, text, resultArray) {
 // As efficiently as possible, decorate the comment object with
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
-function decorateComment(node, comment, text) {
-  const childNodes = getSortedChildNodes(node, text);
+function decorateComment(node, comment, text, options) {
+  const childNodes = getSortedChildNodes(node, text, options);
   let precedingNode;
   let followingNode;
   // Time to dust off the old binary search robes and wizard hat.
@@ -101,7 +90,7 @@ function decorateComment(node, comment, text) {
       // The comment is completely contained by this child node.
       comment.enclosingNode = child;
 
-      decorateComment(child, comment, text);
+      decorateComment(child, comment, text, options);
       return; // Abandon the binary search at this level.
     }
 
@@ -174,7 +163,7 @@ function attach(comments, ast, text, options) {
       return;
     }
 
-    decorateComment(ast, comment, text);
+    decorateComment(ast, comment, text, options);
 
     const precedingNode = comment.precedingNode;
     const enclosingNode = comment.enclosingNode;
@@ -923,56 +912,7 @@ function handleVariableDeclaratorComments(
 function printComment(commentPath, options) {
   const comment = commentPath.getValue();
   comment.printed = true;
-
-  switch (comment.type || comment.kind) {
-    case "Comment":
-      return "#" + comment.value.trimRight();
-    case "CommentBlock":
-    case "Block": {
-      if (isJsDocComment(comment)) {
-        return printJsDocComment(comment);
-      }
-
-      const isInsideFlowComment =
-        options.originalText.substr(util.locEnd(comment) - 3, 3) === "*-/";
-
-      return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
-    }
-    case "CommentLine":
-    case "Line":
-      // Print shebangs with the proper comment characters
-      if (options.originalText.slice(util.locStart(comment)).startsWith("#!")) {
-        return "#!" + comment.value.trimRight();
-      }
-      return "//" + comment.value.trimRight();
-    default:
-      throw new Error("Not a comment: " + JSON.stringify(comment));
-  }
-}
-
-function isJsDocComment(comment) {
-  const lines = comment.value.split("\n");
-  return (
-    lines.length > 1 &&
-    lines.slice(0, lines.length - 1).every(line => line.trim()[0] === "*")
-  );
-}
-
-function printJsDocComment(comment) {
-  const lines = comment.value.split("\n");
-
-  return concat([
-    "/*",
-    join(
-      hardline,
-      lines.map(
-        (line, index) =>
-          (index > 0 ? " " : "") +
-          (index < lines.length - 1 ? line.trim() : line.trimLeft())
-      )
-    ),
-    "*/"
-  ]);
+  return options.printer.printComment(commentPath, options);
 }
 
 function findExpressionIndexForComment(quasis, comment) {

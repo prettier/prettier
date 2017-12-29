@@ -95,6 +95,11 @@ function f() {
                 \\"should have space width 8\\"
         )
 }
+function f() {
+  console.log(
+    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+  )
+}
 console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
@@ -166,6 +171,11 @@ function f() {
         console.log(
                 \\"should have space width 8\\"
         )
+}
+function f() {
+  console.log(
+    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+  )
 }
 console.log(
   \\"jest/__best-tests__/file.js should have semi\\"

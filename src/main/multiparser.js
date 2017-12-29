@@ -1,10 +1,11 @@
 "use strict";
 
+const normalize = require("./options").normalize;
 const comments = require("./comments");
 
-function printSubtree(printer, path, print, options) {
-  if (printer.embed) {
-    return printer.embed(
+function printSubtree(path, print, options) {
+  if (options.printer.embed) {
+    return options.printer.embed(
       path,
       print,
       (text, partialNextOptions) =>
@@ -15,13 +16,12 @@ function printSubtree(printer, path, print, options) {
 }
 
 function textToDoc(text, partialNextOptions, parentOptions) {
-  const nextOptions = Object.assign({}, parentOptions, partialNextOptions, {
-    parentParser: parentOptions.parser,
-    originalText: text
-  });
-  if (nextOptions.parser === "json") {
-    nextOptions.trailingComma = "none";
-  }
+  const nextOptions = normalize(
+    Object.assign({}, parentOptions, partialNextOptions, {
+      parentParser: parentOptions.parser,
+      originalText: text
+    })
+  );
 
   const ast = require("./parser").parse(text, nextOptions);
   const astComments = ast.comments;
