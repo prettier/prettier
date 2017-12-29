@@ -1,5 +1,8 @@
-.post a {
+.post p a {
   text-decoration: underline !important;
+}
+.post a {
+  font-weight: 600;
 }
 
 @media screen and (max-width: 735px) {
@@ -23,15 +26,14 @@
 
 .mainContainer .wrapper .post h2 {
   font-size: 2em;
-  font-weight: 500;
 }
 
 .mainContainer .wrapper .post h3 {
   font-size: 1.5em;
-  font-weight: 500
+  font-weight: 400;
 }
 
 .mainContainer .wrapper .post h4 {
   font-size: 1.25em;
-  font-weight: 500;
+  font-weight: 400;
 }
