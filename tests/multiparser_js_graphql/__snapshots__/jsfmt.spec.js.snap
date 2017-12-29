@@ -394,6 +394,7 @@ gql\`
 
 exports[`react-relay.js 1`] = `
 const { graphql } = require("react-relay");
+const Relay = require("react-relay/classic");
 
 graphql\`
  mutation     MarkReadNotificationMutation(
@@ -410,8 +411,17 @@ graphql.experimental\`
   )
 { markReadNotification(data: $input ) { notification {seenState} } }
 \`;
+
+Relay.QL\`
+ mutation     MarkReadNotificationMutation(
+    $input
+    : MarkReadNotificationData!
+  )
+{ markReadNotification(data: $input ) { notification {seenState} } }
+\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const { graphql } = require("react-relay");
+const Relay = require("react-relay/classic");
 
 graphql\`
   mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
@@ -424,6 +434,16 @@ graphql\`
 \`;
 
 graphql.experimental\`
+  mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
+    markReadNotification(data: $input) {
+      notification {
+        seenState
+      }
+    }
+  }
+\`;
+
+Relay.QL\`
   mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
     markReadNotification(data: $input) {
       notification {

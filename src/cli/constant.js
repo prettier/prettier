@@ -444,10 +444,19 @@ const detailedOptionMap = detailedOptions.reduce(
   {}
 );
 
+const apiDetailedOptionMap = detailedOptions.reduce(
+  (current, option) =>
+    option.forwardToApi && option.forwardToApi !== option.name
+      ? Object.assign(current, { [option.forwardToApi]: option })
+      : current,
+  {}
+);
+
 module.exports = {
   categoryOrder,
   minimistOptions,
   detailedOptions,
   detailedOptionMap,
+  apiDetailedOptionMap,
   usageSummary
 };
