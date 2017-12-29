@@ -35,6 +35,7 @@ const siteConfig = {
     { href: "/playground/", label: "Playground" },
     { doc: "index", label: "About" },
     { doc: "install", label: "Usage" },
+    { blog: true, label: "Blog" },
     { search: true },
     { href: GITHUB_URL, label: "GitHub" }
   ],
