@@ -41,262 +41,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
 
-  <style type="text/css">
-    html {
-      background-color: #fafafa;
-      color: #6a6a6a;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      font-size: 12px;
-      line-height: 1.25;
-    }
+  <link rel="stylesheet" href="/playground.css">
 
-    body {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      margin: 0;
-    }
-
-    header {
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
-      height: 30px;
-      padding: 10px 27px;
-      background-color: #1a2b34;
-      color: #e0e0e0;
-      position: relative;
-      z-index: 20;
-    }
-
-    @media (max-width: 400px) {
-      header {
-        padding: 10px;
-      }
-    }
-
-    header a,
-    header a:visited,
-    header a:focus,
-    header a:active,
-    header a:hover {
-      color: white;
-      text-decoration: none;
-    }
-
-    .logo-wrapper {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo {
-      height: 34px;
-      margin-right: 10px;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 18px;
-      font-weight: normal;
-    }
-
-    .links {
-      display: flex;
-      font-size: 16px;
-    }
-    .links > * + * {
-      margin-left: 15px;
-    }
-
-    .editors-container {
-      display: flex;
-      flex: 1;
-    }
-
-    .editors {
-      display: flex;
-      flex-flow: row wrap;
-      flex: 1;
-    }
-
-    .editor {
-      box-sizing: border-box;
-      display: flex;
-      flex: 1 1 100%;
-      position: relative;
-      border-bottom: 1px solid #ddd;
-    }
-
-    /* display as 2x2 grid */
-    @media (min-width: 800px) {
-      .editor {
-        flex-basis: 50%;
-        border-left: 1px solid #ddd;
-        margin-left: -1px;
-      }
-    }
-
-    /* display as four columns */
-    @media (min-width: 1200px) {
-      .editor {
-        flex-basis: 25%;
-      }
-    }
-
-    .editor.loading {
-      opacity: 0;
-    }
-
-    .CodeMirror {
-      height: auto;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      line-height: 1.6;
-    }
-
-    .bottom-bar {
-      position: relative;
-    }
-
-    .bottom-bar-buttons {
-      position: absolute;
-      z-index: 10;
-      top: 0;
-      left: 0;
-      padding: 8px;
-      display: flex;
-    }
-
-    .bottom-bar-buttons-right {
-      left: auto;
-      right: 0;
-    }
-
-    .bottom-bar-buttons > * + * {
-      margin-left: 9px;
-    }
-
-    @media (max-width: 799px) {
-      .bottom-bar-buttons {
-        top: auto;
-        bottom: 100%;
-        padding: 2px;
-      }
-
-      .bottom-bar-buttons > * + * {
-        margin-left: 2px;
-      }
-    }
-
-    .options-details {
-      padding: 8px 0;
-    }
-
-    .options-summary {
-      font-size: 1.4em;
-      text-align: center;
-    }
-
-    .options-container {
-      display: flex;
-      flex-flow: row wrap;
-      justify-content: space-around;
-    }
-
-    .options {
-      flex-flow: column wrap;
-      flex: 1;
-      display: flex;
-      justify-content: space-around;
-      padding: 0 10px;
-      margin: 5px;
-      margin-bottom: 0;
-      min-width: 150px;
-    }
-
-    label {
-      font-family: "Consolas", "Courier New", Courier, monospace;
-      margin: 0 10px;
-    }
-
-    @media (max-width: 408px) {
-      label {
-        padding: 8px;
-      }
-      .options-container {
-        flex-direction: column-reverse;
-      }
-      .options.last {
-        flex-direction: column-reverse;
-      }
-    }
-
-    input[type="number"] {
-      max-width: 40px;
-    }
-
-    /* Copied from the GitHub button styling. */
-    .btn {
-      box-sizing: content-box;
-      display: inline-block;
-      height: 18px;
-      padding: 0 5px;
-      border: 1px solid #d1d2d3;
-      border-radius: 0.25em;
-      background-image: linear-gradient(to bottom, #fafbfc, #e4ebf0);
-      font-size: 11px;
-      line-height: 18px;
-      font-weight: 600;
-      font-family: inherit;
-      color: #24292e;
-      text-decoration: none;
-      cursor: pointer;
-      outline: none;
-      position: relative;
-    }
-    .btn:focus {
-      border-color: #c8e1ff;
-    }
-    .btn:hover {
-      background-color:#e6ebf1;
-      background-image: linear-gradient(to bottom, #f0f3f6, #dce3ec);
-      border-color:#afb1b2;
-    }
-    .btn:active {
-      background-color: #e9ecef;
-      background-image: none;
-      border-color: #afb1b2;
-      box-shadow: inset 0 0.15em 0.3em rgba(27, 31, 35, 0.15);
-    }
-
-    .tooltip {
-      position: absolute;
-      z-index: 1;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      margin-top: 4px;
-      padding: 0.4em 0.8em;
-      background-color: black;
-      color: white;
-      border-radius: 0.4em;
-      pointer-events: none;
-    }
-    .tooltip::before {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 6px solid transparent;
-      border-bottom: none;
-      border-top-color: black;
-    }
-  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111350464-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-111350464-1');
+  </script>
 </head>
 
 <body>
@@ -318,6 +72,76 @@
   </header>
 
   <div class="editors-container">
+    <div id="options-details" class="options-container">
+      <div class="options">
+        <details class="sub-options" open>
+          <summary>Global</summary>
+
+          <label>--parser
+            <select id="parser">
+              <option value="babylon">babylon</option>
+              <option value="flow">flow</option>
+              <option value="typescript">typescript</option>
+              <option value="css">css</option>
+              <option value="less">less</option>
+              <option value="scss">scss</option>
+              <option value="json">json</option>
+              <option value="graphql">graphql</option>
+              <option value="markdown">markdown</option>
+            </select>
+          </label>
+          <label>--print-width <input type="number" value="80" min="0" id="printWidth"></label>
+          <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></label>
+          <label><input type="checkbox" id="useTabs"> --use-tabs</label>
+        </details>
+        <details class="sub-options" open>
+          <summary>JavaScript</summary>
+
+          <label><input type="checkbox" data-inverted id="semi"> --no-semi</label>
+          <label><input type="checkbox" id="singleQuote"> --single-quote</label>
+          <label><input type="checkbox" data-inverted id="bracketSpacing"> --no-bracket-spacing</label>
+          <label><input type="checkbox" id="jsxBracketSameLine"> --jsx-bracket-same-line</label>
+          <label>--arrow-parens
+            <select id="arrowParens">
+              <option value="avoid">avoid</option>
+              <option value="always">always</option>
+            </select>
+          </label>
+          <label>--trailing-comma
+            <select id="trailingComma">
+              <option value="none">none</option>
+              <option value="es5">es5</option>
+              <option value="all">all</option>
+            </select>
+          </label>
+        </details>
+        <details class="sub-options">
+          <summary>Markdown</summary>
+
+          <label>--prose-wrap
+            <select id="proseWrap">
+              <option value="preserve">preserve</option>
+              <option value="always">always</option>
+              <option value="never">never</option>
+            </select>
+          </label>
+        </details>
+        <details class="sub-options">
+          <summary>Special</summary>
+
+          <label><input type="checkbox" id="insertPragma"> --insert-pragma</label>
+          <label><input type="checkbox" id="requirePragma"> --require-pragma</label>
+        </details>
+        <details class="sub-options">
+          <summary>Debug</summary>
+
+          <label><input type="checkbox" id="ast"> show AST</label>
+          <label><input type="checkbox" id="doc"> show doc</label>
+          <label><input type="checkbox" id="output2"> show second format</label>
+        </details>
+      </div>
+    </div>
+
     <div class="editors">
       <div class="editor loading input">
         <textarea id="input-editor"></textarea>
@@ -339,57 +163,13 @@
 
   <div class="bottom-bar">
     <div class="bottom-bar-buttons">
+      <button type="button" class="btn" id="button-options">
+        Show options
+      </button>
       <button type="button" class="btn" id="button-clear">
         Clear
       </button>
     </div>
-
-    <details class="options-details">
-      <summary class="options-summary">Options</summary>
-
-      <div class="options-container">
-        <div class="options">
-          <label>--print-width <input type="number" value="80" min="0" id="printWidth"></label>
-          <label>--tab-width <input type="number" min="0" value="2" id="tabWidth"></label>
-          <label><input type="checkbox" data-inverted id="proseWrap"> --no-prose-wrap</label>
-          <label><input type="checkbox" id="insertPragma"> --insert-pragma</label>
-          <label><input type="checkbox" id="requirePragma"> --require-pragma</label>
-        </div>
-        <div class="options">
-          <label><input type="checkbox" id="useTabs"> --use-tabs</label>
-          <label><input type="checkbox" data-inverted id="semi"> --no-semi</label>
-          <label><input type="checkbox" id="singleQuote"> --single-quote</label>
-          <label><input type="checkbox" data-inverted id="bracketSpacing"> --no-bracket-spacing</label>
-          <label><input type="checkbox" id="jsxBracketSameLine"> --jsx-bracket-same-line</label>
-        </div>
-        <div class="options last">
-          <label>--trailing-comma
-            <select id="trailingComma">
-              <option value="none">none</option>
-              <option value="es5">es5</option>
-              <option value="all">all</option>
-            </select>
-          </label>
-          <label>--parser
-            <select id="parser">
-              <option value="babylon">babylon</option>
-              <option value="flow">flow</option>
-              <option value="typescript">typescript</option>
-              <option value="css">css</option>
-              <option value="less">less</option>
-              <option value="scss">scss</option>
-              <option value="json">json</option>
-              <option value="graphql">graphql</option>
-              <option value="markdown">markdown</option>
-            </select>
-          </label>
-          <span style="flex: 0.3"></span>
-          <label><input type="checkbox" id="ast"> show AST (debug)</label>
-          <label><input type="checkbox" id="doc"> show doc (debug)</label>
-          <label><input type="checkbox" id="output2"> show second format (debug)</label>
-        </div>
-      </div>
-    </details>
 
     <div class="bottom-bar-buttons bottom-bar-buttons-right">
       <button type="button" class="btn" id="button-copy-link">

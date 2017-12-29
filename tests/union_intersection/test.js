@@ -32,3 +32,17 @@ type Comment = {
   };
   start: number;
 };
+
+type Props = {
+  onChange: (
+    | {
+        name: string
+      }
+    | {
+        title: string
+      }
+    | {
+        year: year
+      }
+  ) => void
+};

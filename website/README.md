@@ -54,7 +54,7 @@ Files placed in `static/` will be accessible in the following way: `static/img/i
 
 To run your website locally run the script:
 
-```
+```bash
 yarn start
 ```
 
@@ -64,7 +64,7 @@ This will start a server hosting your website locally at `localhost:3000`. This 
 
 To create a static build of your website, run the script:
 
-```
+```bash
 yarn build
 ```
 

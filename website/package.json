@@ -5,6 +5,7 @@
     "publish-gh-pages": "docusaurus-publish"
   },
   "devDependencies": {
-    "docusaurus": "^1.0.0-beta.10"
+    "docusaurus": "^1.0.0-beta.10",
+    "js-yaml": "^3.10.0"
   }
 }

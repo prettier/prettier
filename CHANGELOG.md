@@ -1,3 +1,34 @@
+# 1.9.2
+
+[link](https://github.com/prettier/prettier/compare/1.9.1...1.9.2)
+
+* Fixed trailing comma not being printed in function calls if the last arg was an arrow (#3428 by duailibe)
+* Ignore whitespace after the `/**` in docblocks (#3430 by duailibe)
+* Fixed a bug where `get` and `set` class properties arrows would print an unnecessary semicolon with `--no-semi` (#3434 by duailibe)
+* Fixed a bug for missing `.editorconfig` files (#3439 by josephfrazier)
+* Fix comments being moved in class methods and object properties with the babylon parser (#3441 by duailibe)
+* Better printing of member chains with a TSNonNullExpression (`!` character) (#3442 by duailibe)
+* Fix missing commas in object properties when a `pretter-ignore` comment is present (#3448 by duailibe)
+* Fix printing union types inside a function param type (#3446 by duailibe)
+* Fix closing parens on multi-line intersection/union type (#3436 by josephfrazier)
+* Don't break single argument destructuring arguments (for arrays and with simple default values) (#3443 by duailibe)
+
+# 1.9.1
+
+[link](https://github.com/prettier/prettier/compare/1.9.0...1.9.1)
+
+* Fixed a bug of comments with JSX fragments being duplicated in output (#3398 by duailibe)
+* Fixed a bug that Prettier would fail when using tabs (#3401 by ikatyang)
+* Fixed a regression that removed trailing commas when printing JS code blocks in Markdown (#3405 by azz)
+* Fixed a bug when using glob `**/*` which would try to format directories (#3411 by duailibe)
+* Fixed a bug when `.editorconfig` had `max_line_length = "off"` (#3412 by duailibe)
+
+# 1.9.0
+
+[link](https://github.com/prettier/prettier/compare/1.8.2...1.9.0)
+
+* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.9.0)
+
 # 1.8.2
 
 [link](https://github.com/prettier/prettier/compare/1.8.1...1.8.2)
@@ -309,7 +340,7 @@ Lots of small fixes, mainly for TypeScript.
 * [JSX] Break if opening element breaks (#942)
 * Parenthesize function expressions in expression position (#941)
 * update the README to add a pre-commit hook (#944)
-* Fix #951: properly parenthesize \** expressions (#952)
+* Fix #951: properly parenthesize \*\* expressions (#952)
 * [WIP] TypeScript Parser (#915)
 * Do not break long `describe` calls (#953)
 * Recursively find leading comments inside ReturnStatements (#955)

@@ -129,6 +129,13 @@ a(
 );
 
 a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
+
+a.b().c(
+  {
+    d,
+  },
+  () => {}
+);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
@@ -146,6 +153,13 @@ a(
   a("long-nested-value", "long-nested-value2", "long-nested-value3")
 );
 
+a.b().c(
+  {
+    d
+  },
+  () => {}
+);
+
 `;
 
 exports[`function-calls.js 2`] = `
@@ -160,6 +174,13 @@ a(
 );
 
 a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
+
+a.b().c(
+  {
+    d,
+  },
+  () => {}
+);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
@@ -177,6 +198,13 @@ a(
   a("long-nested-value", "long-nested-value2", "long-nested-value3"),
 );
 
+a.b().c(
+  {
+    d,
+  },
+  () => {},
+);
+
 `;
 
 exports[`function-calls.js 3`] = `
@@ -191,6 +219,13 @@ a(
 );
 
 a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
+
+a.b().c(
+  {
+    d,
+  },
+  () => {}
+);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const a = (param1, param2, param3) => {};
 
@@ -206,6 +241,13 @@ a(
   "value",
   "value2",
   a("long-nested-value", "long-nested-value2", "long-nested-value3")
+);
+
+a.b().c(
+  {
+    d,
+  },
+  () => {}
 );
 
 `;

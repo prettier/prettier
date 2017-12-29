@@ -44,7 +44,7 @@ You can also use `--config` if your configuration file lives somewhere where pre
 
 If you don't have a configuration file, or want to ignore it if it does exist, you can pass `--no-config` instead.
 
-### `--ignore-path`
+## `--ignore-path`
 
 Path to a file containing patterns that describe files to ignore. By default, prettier looks for `./.prettierignore`.
 
@@ -94,6 +94,10 @@ If a config file is found will evaluate it and ignore other CLI options. If no c
 
 This option adds support to editor integrations where users define their default configuration but want to respect project specific configuration.
 
+## `--no-editorconfig`
+
+Don't take .editorconfig into account when parsing configuration. See the [`prettier.resolveConfig` docs](./api.md) for details.
+
 ## `--with-node-modules`
 
 Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
@@ -101,3 +105,13 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt-out f
 ## `--write`
 
 This rewrites all processed files in place. This is comparable to the `eslint --fix` workflow.
+
+## `--loglevel`
+
+Change the level of logging for the CLI. Valid options are:
+
+* `error`
+* `warn`
+* `log` (default)
+* `debug`
+* `silent`

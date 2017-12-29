@@ -7,6 +7,6 @@ Prettier attempts to support all JavaScript language features, including non-sta
 
 All of JSX and Flow syntax is supported. In fact, the test suite in `tests/flow` _is_ the entire Flow test suite and they all pass.
 
-Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [Less](http://lesscss.org/), [SCSS](http://sass-lang.com), [JSON](http://json.org/), [GraphQL](http://graphql.org/), and [Markdown](http://commonmark.org).
+Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [Less](http://lesscss.org/), [SCSS](http://sass-lang.com), [Vue](https://vuejs.org/), [JSON](http://json.org/), [GraphQL](http://graphql.org/), and [Markdown](http://commonmark.org).
 
 The minimum version of TypeScript supported is 2.1.3 as it introduces the ability to have leading `|` for type definitions which prettier outputs.

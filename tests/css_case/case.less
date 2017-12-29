@@ -1,6 +1,7 @@
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
-// - The case should always be preserved for function names and property keywords.
+// - The case should always be preserved for element names and attribute names
+//   in selectors, as well as function names and property keywords.
 // - Other things should mostly be lowercase.
 // - The `/*:*/` comments are just to bust the `isLikelySCSS` check.
 
@@ -8,6 +9,7 @@
 
 HTML#KeepId.KeepClass,
 a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
+svg[viewBox] linearGradient,
 :Not(:NTH-child(2N+1)) {
     COLOR: #AAbbCC;
     BACKGROUND-image: URL("KeepString");
@@ -46,7 +48,7 @@ a[HREF=KeepAttrValue]:HOVER::FIRST-letter,
 @KeepTopLevelVar: val;
 $KeepScssVar: val;
 
-.Keep(@Keep: 12e03PX) WHEN (@Keep=Case) /*:*/ {
+.Keep(@Keep: 12e03PX) when (@Keep=Case) /*:*/ {
     @KeepVar: KeepName; /*:*/
     @{KeepInterpolationVar}: val;
     $KeepScssVar: val;
@@ -56,7 +58,7 @@ $KeepScssVar: val;
       prop: val;
     }
 
-    &Keep & NoKeep {
+    &Keep & Element {
       prop: val;
     }
 
@@ -68,14 +70,14 @@ $KeepScssVar: val;
     .Keep;
     .Keep();
     .Keep(4PX)!IMPORTANT;
-    .Keep() WHEN (@Keep=Keep);
-    .Keep() WHEN (@Keep=12PX);
-    .Keep() WHEN (@Keep=Keep12PX);
+    .Keep() when (@Keep=Keep);
+    .Keep() when (@Keep=12PX);
+    .Keep() when (@Keep=Keep12PX);
 }
 
-.Keep (@Keep) WHEN (lightness(@Keep) >= 12PX) AND (@Keep > 0) {}
-.Keep (@Keep) WHEN (lightness(@Keep) != '12PX') AND (@Keep != "12PX") {}
-.Keep (@Keep) WHEN (lightness(@Keep) >= Keep12PX) AND (@Keep > @Keep12E5) {}
+.Keep (@Keep) when (lightness(@Keep) >= 12PX) and (@Keep > 0) {}
+.Keep (@Keep) when (lightness(@Keep) != '12PX') and (@Keep != "12PX") {}
+.Keep (@Keep) when (lightness(@Keep) >= Keep12PX) and (@Keep > @Keep12E5) {}
 
 .Keep(@Keep: 12PX; @Keep: @Keep12PX; ...) /*:*/ {}
 .Keep(@Keep: '12PX'; @Keep: "12PX"; ...) /*:*/ {}

@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`decorator-type-assertion.ts 1`] = `
+@(bind as ClassDecorator)
+class Decorated {
+
+}
+
+@(<ClassDecorator>bind)
+class Decorated {
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@(bind as ClassDecorator)
+class Decorated {}
+
+@(<ClassDecorator>bind)
+class Decorated {}
+
+`;
+
 exports[`decorators.js 1`] = `
 export class TestTextFileService {
 	constructor(
@@ -61,6 +80,23 @@ class Foo4 {
     async *method() {}
 }
 
+class Something {
+    @foo()
+    // comment
+    readonly property: Array<string>
+}
+
+class Something {
+    @foo()
+    // comment
+    abstract property: Array<string>
+}
+
+class Something {
+    @foo()
+    // comment
+    abstract method(): Array<string>
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Foo1 {
   @foo
@@ -84,6 +120,24 @@ class Foo4 {
   @foo
   // comment
   async *method() {}
+}
+
+class Something {
+  @foo()
+  // comment
+  readonly property: Array<string>;
+}
+
+class Something {
+  @foo()
+  // comment
+  abstract property: Array<string>;
+}
+
+class Something {
+  @foo()
+  // comment
+  abstract method(): Array<string>;
 }
 
 `;

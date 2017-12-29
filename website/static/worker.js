@@ -10,8 +10,10 @@ self.Buffer = {
     return false;
   }
 };
+self.constants = {};
 // eslint-disable-next-line
-fs = module$1 = module = path = os = crypto = {};
+module$1 = module = path = os = crypto = {};
+self.fs = { readFile: function() {} };
 // eslint-disable-next-line no-undef
 os.homedir = function() {
   return "/home/prettier";
@@ -22,11 +24,30 @@ self.require = function require(path) {
   if (path === "stream") {
     return { PassThrough() {} };
   }
-  return self[path.replace(/.+-/, "")];
+  if (path === "./third-party") {
+    return {};
+  }
+
+  if (~path.indexOf("parser-")) {
+    var parser = path.replace(/.+-/, "");
+    if (!parsersLoaded[parser]) {
+      importScripts("lib/parser-" + parser + ".js");
+      parsersLoaded[parser] = true;
+    }
+    return self[parser];
+  }
+
+  return self[path];
 };
 
+var prettier;
 importScripts("lib/index.js");
-var prettier = index; // eslint-disable-line
+if (typeof prettier === "undefined") {
+  prettier = module.exports; // eslint-disable-line
+}
+if (typeof prettier === "undefined") {
+  prettier = index; // eslint-disable-line
+}
 
 var parsersLoaded = {};
 
@@ -63,7 +84,6 @@ self.onmessage = function(message) {
   }
 
   if (message.data.doc) {
-    lazyLoadParser("babylon");
     try {
       doc = prettier.__debug.formatDoc(
         prettier.__debug.printToDoc(message.data.text, options),
@@ -88,33 +108,9 @@ self.onmessage = function(message) {
 };
 
 function formatCode(text, options) {
-  lazyLoadParser(options.parser);
   try {
     return prettier.format(text, options);
   } catch (e) {
-    // Multiparser may throw if we haven't loaded the right parser
-    // Load it lazily and retry!
-    if (e.parser && !lazyLoadParser(e.parser)) {
-      return formatCode(text, options);
-    }
     return String(e);
   }
-}
-
-function lazyLoadParser(parser) {
-  var actualParser =
-    parser === "json"
-      ? "babylon"
-      : parser === "css" || parser === "less" || parser === "scss"
-        ? "postcss"
-        : parser;
-  var script = "parser-" + actualParser + ".js";
-
-  if (parsersLoaded[actualParser]) {
-    return true;
-  }
-
-  importScripts("lib/" + script);
-  parsersLoaded[actualParser] = true;
-  return false;
 }

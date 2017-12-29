@@ -8,6 +8,14 @@ it("does something really long and complicated so I have to write a very long na
   console.log("hello!");
 });
 
+it("does something really long and complicated so I have to write a very long name for the test", function(done) {
+  console.log("hello!");
+});
+
+it("does something really long and complicated so I have to write a very long name for the test", function myAssertions(done) {
+  console.log("hello!");
+});
+
 it(`does something really long and complicated so I have to write a very long name for the test`, function() {
   console.log("hello!");
 });
@@ -28,6 +36,10 @@ test("does something really long and complicated so I have to write a very long 
 });
 
 test(`does something really long and complicated so I have to write a very long name for the test`, (done) => {
+  console.log("hello!");
+});
+
+test("does something really long and complicated so I have to write a very long name for the test", <T>(done) => {
   console.log("hello!");
 });
 

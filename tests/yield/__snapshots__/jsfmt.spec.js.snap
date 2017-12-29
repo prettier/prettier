@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arrow.js 1`] = `
+function *f() {
+  (yield a => a);
+  (yield async a => a);
+  (yield async (a) => a);
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function* f() {
+  yield a => a;
+  yield async a => a;
+  yield async a => a;
+}
+
+`;
+
 exports[`conditional.js 1`] = `
 function* f() {
   a = (yield) ? 1 : 1;

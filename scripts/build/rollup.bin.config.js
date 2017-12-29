@@ -24,9 +24,9 @@ export default Object.assign(baseConfig, {
     "assert",
     "util",
     "events",
-    path.resolve("src/third-party.js")
+    path.resolve("src/common/third-party.js")
   ],
   paths: {
-    [path.resolve("src/third-party.js")]: "../third-party"
+    [path.resolve("src/common/third-party.js")]: "../third-party"
   }
 });
