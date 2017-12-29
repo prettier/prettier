@@ -75,6 +75,19 @@ Default: cli-override
 
 exports[`show detailed usage with --help config-precedence (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help css-hierarchy-indent (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help css-hierarchy-indent (stdout) 1`] = `
+"--css-hierarchy-indent
+
+  Indent adjacent CSS Rules based on CSS selector hierarchy.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help css-hierarchy-indent (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help cursor-offset (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help cursor-offset (stdout) 1`] = `
@@ -531,6 +544,8 @@ Format options:
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
   --no-bracket-spacing     Do not print spaces between brackets.
+  --css-hierarchy-indent   Indent adjacent CSS Rules based on CSS selector hierarchy.
+                           Defaults to false.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
   --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>
@@ -672,6 +687,8 @@ Format options:
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
   --no-bracket-spacing     Do not print spaces between brackets.
+  --css-hierarchy-indent   Indent adjacent CSS Rules based on CSS selector hierarchy.
+                           Defaults to false.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
   --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>

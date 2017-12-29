@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`css_hierarchy_indent.scss 1`] = `
+.container,
+table {
+  background: papayawhip;
+}
+
+.container-cell {
+  // ".container, table" is a parent
+  background: bisque;
+}
+
+.container-cell--highlight {
+  // ".container-cell" is a parent
+  background: lime;
+}
+
+.container-bluff {
+  // ".container, table" is a parent
+  background: firebrick;
+}
+
+table tr {
+  // ".container, table" is a parent
+  color: red;
+}
+
+div {
+  background: papayawhip;
+}
+
+div s {
+  // "div" is a parent
+  background: palegreen;
+}
+
+div s.ghost {
+  // "div s" is a parent
+  background: palegoldenrod;
+
+  .coast {
+    background-color: gray;
+  }
+
+  .coast-south {
+    // ".coast" is NOT a parent because it's in a nested style
+    color: islandbay;
+  }
+}
+
+div s.dancer {
+  // "div s" is a parent
+  background: palevioletred;
+}
+
+div section {
+  // "div" is a parent and "div s" is NOT a parent because elements are atomic
+  background: papayawhip;
+}
+
+a {
+  text-decoration: none;
+}
+
+// this comment should be indented with the following "a:hover"
+a:hover {
+  text-decoration: underline overline;
+}
+
+// this comment should be indented with the following "a::after"
+a::after {
+  content: "--";
+}
+
+div {
+  div.foo {
+  }
+}
+
+div.foo.bar {
+  // "div" is a parent but not "div.foo" due to nesting
+}
+
+$value: custom;
+
+.interpol-#{$value} {
+}
+
+.interpol-#{$value}-song-evil {
+  // ".interpol-#{$value}" is a parent
+}
+
+police-#{$value} {
+}
+
+police-#{$value}-song {
+  // "police-#{$value}" is NOT a parent because elements are atomic
+}
+
+police-#{$value}-song.deeper {
+  // "police-#{$value}-song" is a parent because ".deeper" is more specific
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.container,
+table {
+  background: papayawhip;
+}
+
+  .container-cell {
+    // ".container, table" is a parent
+    background: bisque;
+  }
+
+    .container-cell--highlight {
+      // ".container-cell" is a parent
+      background: lime;
+    }
+
+  .container-bluff {
+    // ".container, table" is a parent
+    background: firebrick;
+  }
+
+  table tr {
+    // ".container, table" is a parent
+    color: red;
+  }
+
+div {
+  background: papayawhip;
+}
+
+  div s {
+    // "div" is a parent
+    background: palegreen;
+  }
+
+    div s.ghost {
+      // "div s" is a parent
+      background: palegoldenrod;
+
+      .coast {
+        background-color: gray;
+      }
+
+      .coast-south {
+        // ".coast" is NOT a parent because it's in a nested style
+        color: islandbay;
+      }
+    }
+
+    div s.dancer {
+      // "div s" is a parent
+      background: palevioletred;
+    }
+
+  div section {
+    // "div" is a parent and "div s" is NOT a parent because elements are atomic
+    background: papayawhip;
+  }
+
+a {
+  text-decoration: none;
+}
+
+  // this comment should be indented with the following "a:hover"
+  a:hover {
+    text-decoration: underline overline;
+  }
+
+  // this comment should be indented with the following "a::after"
+  a::after {
+    content: "--";
+  }
+
+div {
+  div.foo {
+  }
+}
+
+  div.foo.bar {
+    // "div" is a parent but not "div.foo" due to nesting
+  }
+
+$value: custom;
+
+.interpol-#{$value} {
+}
+
+  .interpol-#{$value}-song-evil {
+    // ".interpol-#{$value}" is a parent
+  }
+
+police-#{$value} {
+}
+
+police-#{$value}-song {
+  // "police-#{$value}" is NOT a parent because elements are atomic
+}
+
+  police-#{$value}-song.deeper {
+    // "police-#{$value}-song" is a parent because ".deeper" is more specific
+  }
+
+`;

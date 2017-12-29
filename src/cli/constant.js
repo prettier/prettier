@@ -144,6 +144,12 @@ const detailedOptions = normalizeDetailedOptions({
     description:
       "Define in which order config files and CLI options should be evaluated."
   },
+  "css-hierarchy-indent": {
+    type: "boolean",
+    category: CATEGORY_FORMAT,
+    forwardToApi: true,
+    description: "Indent adjacent CSS Rules based on CSS selector hierarchy."
+  },
   "cursor-offset": {
     type: "int",
     category: CATEGORY_EDITOR,

@@ -216,3 +216,28 @@ Valid options:
 | Default      | CLI Override                                                | API Override                                                |
 | ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
 | `"preserve"` | <code>--prose-wrap <always&#124;never&#124;preserve></code> | <code>proseWrap: "<always&#124;never&#124;preserve>"</code> |
+
+## CSS Hierarchy Indent
+
+_available in v1.9.3+_
+
+This indents adjacent CSS Rules based on their selector's hierarchy. This works well with popular CSS naming conventions such as [BEM](http://getbem.com/) or any convention that uses suffixes to indicate deeper hierarchy.
+
+For example, a file with the following CSS will be indented as:
+
+<!-- prettier-ignore -->
+```css 
+.container {
+  background: palegoldenrod;
+}
+
+  .container-row {
+    background: papayawhip;
+  }
+```
+
+Advocates of CSS Hierarchy Indenting say it soon becomes easier to read because left-most selectors are like section headings, which can help developers organise CSS and identify hierarchy bugs.
+
+| Default | CLI Override             | API Override                 |
+| ------- | ------------------------ | ---------------------------- |
+| `false` | `--css-hierarchy-indent` | `cssHierarchyIndent: <bool>` |

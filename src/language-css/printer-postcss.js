@@ -34,35 +34,55 @@ function genericPrint(path, options, print) {
       if (n.raws.content) {
         return n.raws.content;
       }
+
+      const maybeIndentStyle = options.cssHierarchyIndent
+        ? getHierarchyIndent(path, options, print)
+        : doNotHierarchyIndent;
+
       const text = options.originalText.slice(util.locStart(n), util.locEnd(n));
       const rawText = n.raws.text || n.text;
       // Workaround a bug where the location is off.
       // https://github.com/postcss/postcss-scss/issues/63
       if (text.indexOf(rawText) === -1) {
         if (n.raws.inline) {
-          return concat(["// ", rawText]);
+          return maybeIndentStyle(
+            concat([path.indentStyleAsWhitespace || "", "// ", rawText])
+          );
         }
-        return concat(["/* ", rawText, " */"]);
+        maybeIndentStyle(
+          concat([path.indentStyleAsWhitespace || "", "/* ", rawText, " */"])
+        );
       }
-      return text;
+      return maybeIndentStyle(
+        concat([path.indentStyleAsWhitespace || "", text])
+      );
     }
     case "css-rule": {
-      return concat([
-        path.call(print, "selector"),
-        n.important ? " !important" : "",
-        n.nodes
-          ? concat([
-              " {",
-              n.nodes.length > 0
-                ? indent(
-                    concat([hardline, printNodeSequence(path, options, print)])
-                  )
-                : "",
-              hardline,
-              "}"
-            ])
-          : ";"
-      ]);
+      const maybeIndentStyle = options.cssHierarchyIndent
+        ? getHierarchyIndent(path, options, print)
+        : doNotHierarchyIndent;
+      return maybeIndentStyle(
+        concat([
+          path.indentStyleAsWhitespace || "",
+          path.call(print, "selector"),
+          n.important ? " !important" : "",
+          n.nodes
+            ? concat([
+                " {",
+                n.nodes.length > 0
+                  ? indent(
+                      concat([
+                        hardline,
+                        printNodeSequence(path, options, print)
+                      ])
+                    )
+                  : "",
+                hardline,
+                "}"
+              ])
+            : ";"
+        ])
+      );
     }
     case "css-decl": {
       // When the following less construct &:extend(.foo); is parsed with scss,
@@ -532,6 +552,190 @@ function maybeToLowerCase(value) {
     ? value
     : value.toLowerCase();
 }
+
+function getHierarchyIndent(path, options, print) {
+  const n = path.getValue();
+  const parent = path.getParentNode();
+  const index = parent.nodes.indexOf(n);
+  const previous =
+    index > 0
+      ? findNodeByType(parent.nodes, "css-rule", index - 1, "previous")
+      : null;
+
+  switch (n.type) {
+    case "css-rule": {
+      const isNested = !!parent.selector;
+      if (isNested) {
+        // Don't indent any nested style
+        path.indentStyleAsWhitespace = "";
+        return doNotHierarchyIndent;
+      }
+      path.hierarchyIndentTree = getHierarchyIndentTree(
+        path,
+        options,
+        print,
+        n,
+        previous
+      );
+      path.indentStyleAsWhitespace = "  ".repeat(
+        path.hierarchyIndentTree.length
+      );
+      break;
+    }
+    case "css-comment": {
+      // When comments are between indented styles, indent the first line of the comment
+      // to align with the following selector
+      const next = findNodeByType(parent.nodes, "css-rule", index, "next");
+      if (next) {
+        const nextHierarchyIndentTree = getHierarchyIndentTree(
+          path,
+          options,
+          print,
+          next,
+          previous
+        );
+        path.indentStyleAsWhitespace = "  ".repeat(
+          nextHierarchyIndentTree.length
+        );
+      } else {
+        // Reset indentation
+        path.indentStyleAsWhitespace = "";
+      }
+      break;
+    }
+  }
+
+  return path.hierarchyIndentTree.length
+    ? doHierarchyIndent(path.hierarchyIndentTree.length)
+    : doNotHierarchyIndent;
+}
+
+function getHierarchyIndentSelectorPattern(path, options, print, selector) {
+  // Stringifies selectors for comparing pattern
+
+  const SEPARATOR = "\0"; // NUL invalid in CSS so it's a safe separator
+  const parent = path.getParentNode();
+
+  // rebind because path might change
+  path.pushCall = pushCall.bind(path);
+
+  const flatten = (part, nodeType) => {
+    switch (part.type || nodeType) {
+      case "concat":
+        return part.parts.map(flatten).join("");
+      case "selector-tag":
+        // Element "section" preceded by element "s" shouldn't be indented,
+        // so add a character to make Element comparisons atomic.
+        return `${part}${SEPARATOR}`;
+      case "selector-combinator":
+      case "line":
+        return "";
+      default:
+        return part.formatted ? part.formatted : part;
+    }
+  };
+
+  return selector.nodes
+    .map(node =>
+      path.pushCall(
+        childPath =>
+          flatten(
+            genericPrint(childPath, options, print),
+            path.getValue().type
+          ),
+        0,
+        parent,
+        1,
+        node
+      )
+    )
+    .join("");
+}
+
+function getHierarchyIndentTree(path, options, print, n, previous) {
+  const tree = path.hierarchyIndentTree || [];
+  const treeNodes = tree.slice();
+  if (previous && tree.indexOf(previous) === -1) {
+    treeNodes.push(previous);
+  }
+  let i = treeNodes.length - 1;
+  const selectorStrings = n.selector.nodes.map(
+    getHierarchyIndentSelectorPattern.bind(null, path, options, print)
+  );
+  while (i >= 0) {
+    const leaf = treeNodes[i];
+    if (
+      leaf &&
+      leaf.type === "css-rule" &&
+      leaf.selector.nodes.some(leafSelector => {
+        const leafSelectorString = getHierarchyIndentSelectorPattern(
+          path,
+          options,
+          print,
+          leafSelector
+        );
+        return selectorStrings.some(
+          selectorString =>
+            // To be indented following selectors must be longer...
+            selectorString.length > leafSelectorString.length &&
+            // ...and match a substring of leafSelectorString
+            leafSelectorString ===
+              selectorString.substr(0, leafSelectorString.length)
+        );
+      })
+    ) {
+      // Found a parent
+      const newTree = tree.slice(0, i);
+      newTree.push(leaf);
+      return newTree;
+    }
+    // This Leaf wasn't a parent.
+    // Try again at a deeper point in the tree
+    i--;
+  }
+  // Found nothing. Reset tree
+  return [];
+}
+
+function findNodeByType(nodes, type, startAt, direction) {
+  let i = startAt;
+  while (nodes[i]) {
+    if (nodes[i] && nodes[i].type === type) {
+      return nodes[i];
+    } else if (nodes[i] && nodes[i].type !== "css-comment") {
+      // Only search past comments, not other node types
+      return;
+    }
+    i = i + (direction === "previous" ? -1 : +1);
+  }
+}
+
+// Similar to FastPath.prototype.call, except that values are pushed onto
+// the stack rather than keyed values
+// This function is here rather than in fast-path.js (as a prototype) so
+// as not to disrupt normal codepaths.
+function pushCall(callback /*, value1, value2, ... */) {
+  const s = this.stack;
+  const origLen = s.length;
+  const argc = arguments.length;
+  for (let i = 1; i < argc; ++i) {
+    const value = arguments[i];
+    s.push(value);
+  }
+  const result = callback(this);
+  s.length = origLen;
+  return result;
+}
+
+// Pass through for when CSS is not indented
+const doNotHierarchyIndent = arg => arg;
+
+const doHierarchyIndent = times => {
+  // Returns a function that indents a certain number of times
+  const repeat = (arg, times) =>
+    times ? repeat(concat([indent(arg)]), times - 1) : arg;
+  return arg => repeat(arg, times);
+};
 
 module.exports = {
   print: genericPrint,
