@@ -27,7 +27,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.8.2...1.9.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.9.0)
+* [Release Notes](https://prettier.io/blog/2017/12/05/1.9.0.html
 
 # 1.8.2
 
@@ -53,7 +53,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.7.4...1.8.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.8.0)
+* [Release Notes](https://prettier.io/blog/2017/11/07/1.8.0.html
 
 # 1.7.4
 
@@ -110,7 +110,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.6.1...1.7.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.7.0)
+* [Release Notes](https://prettier.io/blog/2017/09/15/1.7.0.html
 
 # 1.6.1
 
@@ -125,7 +125,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.5.3...1.6.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.6.0)
+* [Release Notes](https://prettier.io/blog/2017/08/29/1.6.0.html
 
 # 1.5.3
 
@@ -151,7 +151,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.4.4...1.5.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.5.0)
+* [Release Notes](https://prettier.io/blog/2017/06/28/1.5.0.html
 
 # 1.4.4
 
@@ -189,7 +189,7 @@ Lots of small fixes, mainly for TypeScript.
 
 [link](https://github.com/prettier/prettier/compare/1.3.1...1.4.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.4.0)
+* [Release Notes](https://prettier.io/blog/2017/06/03/1.4.0.html
 
 # 1.3.1
 
@@ -198,6 +198,8 @@ Lots of small fixes, mainly for TypeScript.
 # 1.3.0
 
 [link](https://github.com/prettier/prettier/compare/1.2.2...1.3.0)
+
+* [Release Notes](https://prettier.io/blog/2017/05/03/1.3.0.html
 
 * add printer branches for some TypeScript nodes (#1331)
 * Skip trailing commas with FlowShorthandWithOneArg (#1364)
@@ -262,6 +264,8 @@ Lots of small fixes, mainly for TypeScript.
 # 1.2.0
 
 [link](https://github.com/prettier/prettier/compare/1.1.0...1.2.0)
+
+* [Release Notes](https://prettier.io/blog/2017/04/20/1.2.0.html
 
 * match jsx files in pre-commit hook (#1276)
 * Fix isPreviousLineEmpty on Windows (#1263)
