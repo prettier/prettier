@@ -20,3 +20,18 @@
     margin: 0;
   }
 }
+
+.mainContainer .wrapper .post h2 {
+  font-size: 2em;
+  font-weight: 500;
+}
+
+.mainContainer .wrapper .post h3 {
+  font-size: 1.5em;
+  font-weight: 500
+}
+
+.mainContainer .wrapper .post h4 {
+  font-size: 1.25em;
+  font-weight: 500;
+}

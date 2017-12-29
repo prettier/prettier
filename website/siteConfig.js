@@ -75,7 +75,7 @@ const siteConfig = {
       );
     }
   ],
-  separateCss: "/playground.css",
+  separateCss: ["static/separate-css"],
   gaTrackingId: "UA-111350464-1"
 };
 
