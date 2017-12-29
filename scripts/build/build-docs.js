@@ -4,18 +4,12 @@
 
 const path = require("path");
 const shell = require("shelljs");
+const parsers = require("./parsers");
 
 const rootDir = path.join(__dirname, "..", "..");
 const docs = path.join(rootDir, "website/static/lib");
-const parsers = [
-  "babylon",
-  "flow",
-  "typescript",
-  "graphql",
-  "postcss",
-  "parse5",
-  "markdown"
-];
+
+const stripLanguageDirectory = parserPath => parserPath.replace(/.*\//, "");
 
 function pipe(string) {
   return new shell.ShellString(string);
@@ -23,6 +17,8 @@ function pipe(string) {
 
 const isPullRequest = process.env.PULL_REQUEST === "true";
 const prettierPath = isPullRequest ? "dist" : "node_modules/prettier/";
+
+const parserPaths = parsers.map(stripLanguageDirectory);
 
 // --- Build prettier for PR ---
 
@@ -43,7 +39,6 @@ shell.exec(
   `node_modules/babel-cli/bin/babel.js ${docs}/index.js --out-file ${docs}/index.js --presets=es2015`
 );
 
-shell.echo("Bundling docs babylon...");
 shell.exec(
   `rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-babylon.js -i ${prettierPath}/parser-babylon.js`
 );
@@ -51,13 +46,12 @@ shell.exec(
   `node_modules/babel-cli/bin/babel.js ${docs}/parser-babylon.js --out-file ${docs}/parser-babylon.js --presets=es2015`
 );
 
-for (const parser of parsers) {
-  if (parser === "babylon") {
+for (const parser of parserPaths) {
+  if (parser.endsWith("babylon")) {
     continue;
   }
-  shell.echo(`Bundling docs ${parser}...`);
   shell.exec(
-    `rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-${parser}.js -i ${prettierPath}/parser-${parser}.js`
+    `rollup -c scripts/build/rollup.docs.config.js --environment filepath:${parser}.js -i ${prettierPath}/${parser}.js`
   );
 }
 

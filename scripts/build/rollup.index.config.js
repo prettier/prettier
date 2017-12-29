@@ -8,7 +8,7 @@ import * as path from "path";
 const external = ["assert"];
 
 if (process.env.BUILD_TARGET !== "website") {
-  external.push(path.resolve("src/third-party.js"));
+  external.push(path.resolve("src/common/third-party.js"));
 }
 
 export default Object.assign(baseConfig, {
@@ -25,6 +25,6 @@ export default Object.assign(baseConfig, {
   ],
   external,
   paths: {
-    [path.resolve("src/third-party.js")]: "./third-party"
+    [path.resolve("src/common/third-party.js")]: "./third-party"
   }
 });

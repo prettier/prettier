@@ -1,1 +1,1 @@
-run_spec(__dirname, ["parse5"]);
+run_spec(__dirname, ["vue"]);
