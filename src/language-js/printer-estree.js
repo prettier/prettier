@@ -1691,6 +1691,7 @@ function printPathNoParens(path, options, print, args) {
           n.expression.type === "JSXEmptyExpression" ||
           n.expression.type === "TemplateLiteral" ||
           n.expression.type === "TaggedTemplateExpression" ||
+          n.expression.type === "DoExpression" ||
           (isJSXNode(parent) &&
             (n.expression.type === "ConditionalExpression" ||
               isBinaryish(n.expression))));
