@@ -4,7 +4,10 @@ const path = require("path");
 
 const validate = require("jest-validate").validate;
 const deprecatedConfig = require("./deprecated");
-const getSupportInfo = require("./support").getSupportInfo;
+const getSupportInfo = require("../common/support").getSupportInfo;
+const loadPlugins = require("../common/load-plugins");
+const resolveParser = require("./parser").resolveParser;
+const getPrinter = require("./get-printer");
 
 const defaults = {
   cursorOffset: -1,
@@ -18,12 +21,16 @@ const defaults = {
   bracketSpacing: true,
   jsxBracketSameLine: false,
   parser: "babylon",
+  parentParser: "",
   insertPragma: false,
   requirePragma: false,
   semi: true,
   proseWrap: "preserve",
   arrowParens: "avoid",
-  plugins: []
+  plugins: [],
+  astFormat: "estree",
+  printer: {},
+  __inJsTemplate: false
 };
 
 const exampleConfig = Object.assign({}, defaults, {
@@ -37,14 +44,17 @@ function normalize(options) {
   const normalized = Object.assign({}, options || {});
   const filepath = normalized.filepath;
 
+  normalized.plugins = loadPlugins(normalized);
+
   if (
     filepath &&
+    !normalized.parentParser &&
     (!normalized.parser || normalized.parser === defaults.parser)
   ) {
     const extension = path.extname(filepath);
     const filename = path.basename(filepath).toLowerCase();
 
-    const language = getSupportInfo().languages.find(
+    const language = getSupportInfo(null, normalized).languages.find(
       language =>
         typeof language.since === "string" &&
         (language.extensions.indexOf(extension) > -1 ||
@@ -113,6 +123,9 @@ function normalize(options) {
     normalized.parser = normalized.useFlowParser ? "flow" : "babylon";
     delete normalized.useFlowParser;
   }
+
+  normalized.astFormat = resolveParser(normalized).astFormat;
+  normalized.printer = getPrinter(normalized);
 
   Object.keys(defaults).forEach(k => {
     if (normalized[k] == null) {

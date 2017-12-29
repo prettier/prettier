@@ -39,8 +39,10 @@ function embed(path, print, textToDoc /*, options */) {
         parent &&
         ((parent.type === "TaggedTemplateExpression" &&
           ((parent.tag.type === "MemberExpression" &&
-            parent.tag.object.name === "graphql" &&
-            parent.tag.property.name === "experimental") ||
+            ((parent.tag.object.name === "graphql" &&
+              parent.tag.property.name === "experimental") ||
+              (parent.tag.object.name === "Relay" &&
+                parent.tag.property.name === "QL"))) ||
             (parent.tag.type === "Identifier" &&
               (parent.tag.name === "gql" || parent.tag.name === "graphql")))) ||
           (parent.type === "CallExpression" &&
