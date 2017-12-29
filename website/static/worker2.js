@@ -40,8 +40,14 @@ self.require = function require(path) {
   return self[path];
 };
 
+var prettier;
 importScripts("lib/index.js");
-var prettier = index; // eslint-disable-line
+if (typeof prettier === "undefined") {
+  prettier = module.exports; // eslint-disable-line
+}
+if (typeof prettier === "undefined") {
+  prettier = index; // eslint-disable-line
+}
 
 var parsersLoaded = {};
 
