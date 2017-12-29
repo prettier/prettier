@@ -33,7 +33,7 @@
     "flow-parser": "0.59.0",
     "get-stream": "3.0.0",
     "globby": "6.1.0",
-    "graphql": "0.10.5",
+    "graphql": "0.12.3",
     "ignore": "3.3.7",
     "jest-docblock": "21.3.0-beta.11",
     "jest-validate": "21.1.0",
