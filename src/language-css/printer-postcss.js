@@ -41,20 +41,20 @@ function genericPrint(path, options, print) {
 
       const text = options.originalText.slice(util.locStart(n), util.locEnd(n));
       const rawText = n.raws.text || n.text;
+      let concatComment;
       // Workaround a bug where the location is off.
       // https://github.com/postcss/postcss-scss/issues/63
       if (text.indexOf(rawText) === -1) {
         if (n.raws.inline) {
-          return maybeIndentStyle(
-            concat([path.indentStyleAsWhitespace || "", "// ", rawText])
-          );
+          concatComment = ["// ", rawText];
+        } else {
+          concatComment = ["/* ", rawText, " */"];
         }
-        maybeIndentStyle(
-          concat([path.indentStyleAsWhitespace || "", "/* ", rawText, " */"])
-        );
+      } else {
+        concatComment = [text];
       }
       return maybeIndentStyle(
-        concat([path.indentStyleAsWhitespace || "", text])
+        concat([path.indentStyleAsWhitespace || "", ...concatComment])
       );
     }
     case "css-rule": {
