@@ -21,18 +21,12 @@ const languages = [
   }
 ];
 
-const clean = (ast, newObj) => {
-  delete newObj.contentStart;
-  delete newObj.contentEnd;
-};
-
 const parsers = {
   vue: {
     get parse() {
       return eval("require")("./parser-vue");
     },
-    astFormat: "vue",
-    massageAstNode: clean
+    astFormat: "vue"
   }
 };
 

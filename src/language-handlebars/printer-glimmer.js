@@ -268,4 +268,17 @@ function printCloseBlock(path, print) {
   return concat(["{{/", path.call(print, "path"), "}}"]);
 }
 
-module.exports = { print };
+function clean(ast, newObj) {
+  // (Glimmer/HTML) ignore TextNode whitespace
+  if (ast.type === "TextNode") {
+    if (ast.chars.replace(/\s+/, "") === "") {
+      return null;
+    }
+    newObj.chars = ast.chars.replace(/^\s+/, "").replace(/\s+$/, "");
+  }
+}
+
+module.exports = {
+  print,
+  massageAstNode: clean
+};
