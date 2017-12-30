@@ -37,7 +37,7 @@ const remark = {
   get parse() {
     return eval("require")("./parser-markdown");
   },
-  astFormat: "mdast",
+  astFormat: "mdast"
 };
 
 const parsers = {

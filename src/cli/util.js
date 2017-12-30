@@ -20,7 +20,6 @@ const validator = require("./validator");
 const options = require("../main/options");
 const apiDefaultOptions = options.defaults;
 const normalizeOptions = options.normalize;
-const parsers = require("../main/parser");
 const logger = require("./logger");
 const thirdParty = require("../common/third-party");
 
