@@ -18,7 +18,13 @@ function embed(path, print, textToDoc, options) {
         Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
       );
       const doc = textToDoc(node.value, { parser });
-      return concat([style, node.lang, hardline, doc, style]);
+      return concat([
+        style,
+        node.lang,
+        hardline,
+        replaceNewlinesWithHardlines(doc),
+        style
+      ]);
     }
   }
 
@@ -37,6 +43,20 @@ function embed(path, print, textToDoc, options) {
     }
 
     return null;
+  }
+
+  function replaceNewlinesWithHardlines(doc) {
+    return util.mapDoc(
+      doc,
+      currentDoc =>
+        typeof currentDoc === "string" && currentDoc.includes("\n")
+          ? concat(
+              currentDoc
+                .split(/(\n)/g)
+                .map((v, i) => (i % 2 === 0 ? v : hardline))
+            )
+          : currentDoc
+    );
   }
 }
 
