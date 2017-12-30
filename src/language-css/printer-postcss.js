@@ -1,5 +1,6 @@
 "use strict";
 
+const clean = require("./clean");
 const util = require("../common/util");
 const doc = require("../doc");
 const docBuilders = doc.builders;
@@ -537,5 +538,6 @@ function maybeToLowerCase(value) {
 module.exports = {
   options: printerOptions,
   print: genericPrint,
-  hasPrettierIgnore: util.hasIgnoreComment
+  hasPrettierIgnore: util.hasIgnoreComment,
+  massageAstNode: clean
 };

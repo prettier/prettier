@@ -20,7 +20,13 @@ function genericPrint(path, options, print) {
   return concat(res);
 }
 
+const clean = (ast, newObj) => {
+  delete newObj.contentStart;
+  delete newObj.contentEnd;
+};
+
 module.exports = {
   print: genericPrint,
-  embed
+  embed,
+  massageAstNode: clean
 };
