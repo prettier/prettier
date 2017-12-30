@@ -291,29 +291,29 @@ function getSupportInfo(version, opts) {
   }
 
   const options = supportOptions
-      .filter(filterSince)
-      .filter(filterDeprecated)
-      .map(mapDeprecated)
-      .map(option => {
-        const newOption = Object.assign({}, option);
+    .filter(filterSince)
+    .filter(filterDeprecated)
+    .map(mapDeprecated)
+    .map(option => {
+      const newOption = Object.assign({}, option);
 
-        if (Array.isArray(newOption.default)) {
-          newOption.default = newOption.default
-            .filter(filterSince)
-            .sort((info1, info2) =>
-              semver.compare(info2.since, info1.since)
-            )[0].value;
-        }
+      if (Array.isArray(newOption.default)) {
+        newOption.default = newOption.default
+          .filter(filterSince)
+          .sort((info1, info2) =>
+            semver.compare(info2.since, info1.since)
+          )[0].value;
+      }
 
-        if (Array.isArray(newOption.choices)) {
-          newOption.choices = newOption.choices
-            .filter(filterSince)
-            .filter(filterDeprecated)
-            .map(mapDeprecated);
-        }
+      if (Array.isArray(newOption.choices)) {
+        newOption.choices = newOption.choices
+          .filter(filterSince)
+          .filter(filterDeprecated)
+          .map(mapDeprecated);
+      }
 
-        return newOption;
-      });
+      return newOption;
+    });
 
   const usePostCssParser = semver.lt(version, "1.7.1");
 
