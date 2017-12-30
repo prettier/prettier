@@ -4,6 +4,7 @@ const fs = require("fs");
 const extname = require("path").extname;
 const prettier = require("./require_prettier");
 const massageAST = require("../src/common/clean-ast.js").massageAST;
+const normalizeOptions = require("../src/main/options").normalize;
 
 const AST_COMPARE = process.env["AST_COMPARE"];
 
@@ -57,8 +58,9 @@ function run_spec(dirname, parsers, options) {
       });
 
       if (AST_COMPARE) {
+        const normalizedOptions = normalizeOptions(mergedOptions);
         const ast = parse(source, mergedOptions);
-        const astMassaged = massageAST(ast);
+        const astMassaged = massageAST(ast, normalizedOptions);
         let ppastMassaged;
         let pperr = null;
         try {
@@ -66,7 +68,7 @@ function run_spec(dirname, parsers, options) {
             prettyprint(source, path, mergedOptions),
             mergedOptions
           );
-          ppastMassaged = massageAST(ppast);
+          ppastMassaged = massageAST(ppast, normalizedOptions);
         } catch (e) {
           pperr = e.stack;
         }
