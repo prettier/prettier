@@ -24,7 +24,7 @@ const parserPaths = parsers.map(stripLanguageDirectory);
 
 if (isPullRequest) {
   const pkg = require("../../package.json");
-  pkg.version = `pr-${process.env.REVIEW_ID}`;
+  pkg.prVersion = `pr-${process.env.REVIEW_ID}`;
   pipe(JSON.stringify(pkg, null, 2)).to("package.json");
   shell.exec("node scripts/build/build.js");
 }
