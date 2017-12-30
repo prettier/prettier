@@ -41,7 +41,7 @@ function genericPrint(path, options, print) {
 
       const text = options.originalText.slice(util.locStart(n), util.locEnd(n));
       const rawText = n.raws.text || n.text;
-      let concatComment;
+      var concatComment;
       // Workaround a bug where the location is off.
       // https://github.com/postcss/postcss-scss/issues/63
       if (text.indexOf(rawText) === -1) {
@@ -53,9 +53,8 @@ function genericPrint(path, options, print) {
       } else {
         concatComment = [text];
       }
-      return maybeIndentStyle(
-        concat([path.indentStyleAsWhitespace || "", ...concatComment])
-      );
+      concatComment.unshift(path.indentStyleAsWhitespace || "");
+      return maybeIndentStyle(concat(concatComment));
     }
     case "css-rule": {
       const maybeIndentStyle = options.cssHierarchyIndent
