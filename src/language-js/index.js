@@ -1,6 +1,7 @@
 "use strict";
 
 const printer = require("./printer-estree");
+const options = require("./options");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -132,6 +133,7 @@ const printers = {
 };
 
 module.exports = {
+  options,
   languages,
   parsers,
   printers

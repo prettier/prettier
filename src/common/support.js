@@ -1,18 +1,16 @@
 "use strict";
 
+const util = require("./util");
 const dedent = require("dedent");
 const semver = require("semver");
 const currentVersion = require("../../package.json").version;
 const loadPlugins = require("./load-plugins");
 
 const CATEGORY_GLOBAL = "Global";
-const CATEGORY_JAVASCRIPT = "JavaScript";
-const CATEGORY_MARKDOWN = "Markdown";
 const CATEGORY_SPECIAL = "Special";
 
 /**
  * @typedef {Object} OptionInfo
- * @property {string} name
  * @property {string} since - available since version
  * @property {string} category
  * @property {'int' | 'boolean' | 'choice' | 'path'} type
@@ -43,37 +41,9 @@ const CATEGORY_SPECIAL = "Special";
  * @property {string?} deprecated - deprecated since version
  * @property {OptionValueInfo?} redirect - redirect deprecated value
  */
-/** @type {OptionInfo[]} */
-const supportOptions = [
-  {
-    name: "arrowParens",
-    since: "1.9.0",
-    category: CATEGORY_JAVASCRIPT,
-    type: "choice",
-    default: "avoid",
-    description: "Include parentheses around a sole arrow function parameter.",
-    choices: [
-      {
-        value: "avoid",
-        description: "Omit parens when possible. Example: `x => x`"
-      },
-      {
-        value: "always",
-        description: "Always include parens. Example: `(x) => x`"
-      }
-    ]
-  },
-  {
-    name: "bracketSpacing",
-    since: "0.0.0",
-    category: CATEGORY_JAVASCRIPT,
-    type: "boolean",
-    default: true,
-    description: "Print spaces between brackets.",
-    oppositeDescription: "Do not print spaces between brackets."
-  },
-  {
-    name: "cursorOffset",
+/** @type {{ [name: string]: OptionInfo } */
+const supportOptions = {
+  cursorOffset: {
     since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "int",
@@ -84,8 +54,7 @@ const supportOptions = [
       This option cannot be used with --range-start and --range-end.
     `
   },
-  {
-    name: "filepath",
+  filepath: {
     since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "path",
@@ -93,24 +62,14 @@ const supportOptions = [
     description:
       "Specify the input filepath. This will be used to do parser inference."
   },
-  {
-    name: "insertPragma",
+  insertPragma: {
     since: "1.8.0",
     category: CATEGORY_SPECIAL,
     type: "boolean",
     default: false,
     description: "Insert @format pragma into file's first docblock comment."
   },
-  {
-    name: "jsxBracketSameLine",
-    since: "0.17.0",
-    category: CATEGORY_JAVASCRIPT,
-    type: "boolean",
-    default: false,
-    description: "Put > on the last line instead of at a new line."
-  },
-  {
-    name: "parser",
+  parser: {
     since: "0.0.10",
     category: CATEGORY_GLOBAL,
     type: "choice",
@@ -135,8 +94,7 @@ const supportOptions = [
       { value: "markdown", since: "1.8.0", description: "Markdown" }
     ]
   },
-  {
-    name: "printWidth",
+  printWidth: {
     since: "0.0.0",
     category: CATEGORY_GLOBAL,
     type: "int",
@@ -144,38 +102,7 @@ const supportOptions = [
     description: "The line length where Prettier will try wrap.",
     range: { start: 0, end: Infinity, step: 1 }
   },
-  {
-    name: "proseWrap",
-    since: "1.8.2",
-    category: CATEGORY_MARKDOWN,
-    type: "choice",
-    default: [
-      { since: "1.8.2", value: true },
-      { since: "1.9.0", value: "preserve" }
-    ],
-    description: "How to wrap prose. (markdown)",
-    choices: [
-      {
-        since: "1.9.0",
-        value: "always",
-        description: "Wrap prose if it exceeds the print width."
-      },
-      {
-        since: "1.9.0",
-        value: "never",
-        description: "Do not wrap prose."
-      },
-      {
-        since: "1.9.0",
-        value: "preserve",
-        description: "Wrap prose as-is."
-      },
-      { value: false, deprecated: "1.9.0", redirect: "never" },
-      { value: true, deprecated: "1.9.0", redirect: "always" }
-    ]
-  },
-  {
-    name: "rangeEnd",
+  rangeEnd: {
     since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "int",
@@ -187,8 +114,7 @@ const supportOptions = [
       This option cannot be used with --cursor-offset.
     `
   },
-  {
-    name: "rangeStart",
+  rangeStart: {
     since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "int",
@@ -200,8 +126,7 @@ const supportOptions = [
       This option cannot be used with --cursor-offset.
     `
   },
-  {
-    name: "requirePragma",
+  requirePragma: {
     since: "1.7.0",
     category: CATEGORY_SPECIAL,
     type: "boolean",
@@ -211,60 +136,14 @@ const supportOptions = [
       in order for it to be formatted.
     `
   },
-  {
-    name: "semi",
-    since: "1.0.0",
-    category: CATEGORY_JAVASCRIPT,
-    type: "boolean",
-    default: true,
-    description: "Print semicolons.",
-    oppositeDescription:
-      "Do not print semicolons, except at the beginning of lines which may need them."
-  },
-  {
-    name: "singleQuote",
-    since: "0.0.0",
-    category: CATEGORY_JAVASCRIPT,
-    type: "boolean",
-    default: false,
-    description: "Use single quotes instead of double quotes."
-  },
-  {
-    name: "tabWidth",
+  tabWidth: {
     type: "int",
     category: CATEGORY_GLOBAL,
     default: 2,
     description: "Number of spaces per indentation level.",
     range: { start: 0, end: Infinity, step: 1 }
   },
-  {
-    name: "trailingComma",
-    since: "0.0.0",
-    category: CATEGORY_JAVASCRIPT,
-    type: "choice",
-    default: [
-      { since: "0.0.0", value: false },
-      { since: "0.19.0", value: "none" }
-    ],
-    description: "Print trailing commas wherever possible when multi-line.",
-    choices: [
-      { value: "none", description: "No trailing commas." },
-      {
-        value: "es5",
-        description:
-          "Trailing commas where valid in ES5 (objects, arrays, etc.)"
-      },
-      {
-        value: "all",
-        description:
-          "Trailing commas wherever possible (including function arguments)."
-      },
-      { value: true, deprecated: "0.19.0", redirect: "es5" },
-      { value: false, deprecated: "0.19.0", redirect: "none" }
-    ]
-  },
-  {
-    name: "useFlowParser",
+  useFlowParser: {
     since: "0.0.0",
     category: CATEGORY_GLOBAL,
     type: "boolean",
@@ -273,15 +152,14 @@ const supportOptions = [
     description: "Use flow parser.",
     redirect: { option: "parser", value: "flow" }
   },
-  {
-    name: "useTabs",
+  useTabs: {
     since: "1.0.0",
     category: CATEGORY_GLOBAL,
     type: "boolean",
     default: false,
     description: "Indent with tabs instead of spaces."
   }
-];
+};
 
 function getSupportInfo(version, opts) {
   opts = opts || {};
@@ -290,7 +168,21 @@ function getSupportInfo(version, opts) {
     version = currentVersion;
   }
 
-  const options = supportOptions
+  const plugins = loadPlugins();
+
+  const options = util
+    .arrayify(
+      Object.assign(
+        plugins.reduce(
+          (currentOptions, plugin) =>
+            Object.assign(currentOptions, plugin.options),
+          {}
+        ),
+        supportOptions
+      ),
+      "name"
+    )
+    .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
     .filter(filterSince)
     .filter(filterDeprecated)
     .map(mapDeprecated)
@@ -317,7 +209,7 @@ function getSupportInfo(version, opts) {
 
   const usePostCssParser = semver.lt(version, "1.7.1");
 
-  const languages = loadPlugins()
+  const languages = plugins
     .reduce((all, plugin) => all.concat(plugin.languages), [])
     .filter(language => language.since && semver.gte(version, language.since))
     .map(language => {

@@ -805,7 +805,16 @@ function hasNodeIgnoreComment(node) {
   );
 }
 
+function arrayify(object, keyName) {
+  return Object.keys(object).reduce(
+    (array, key) =>
+      array.concat(Object.assign({ [keyName]: key }, object[key])),
+    []
+  );
+}
+
 module.exports = {
+  arrayify,
   punctuationRegex,
   punctuationCharRange,
   getStringWidth,
