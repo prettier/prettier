@@ -6,6 +6,7 @@ const comments = require("../main/comments");
 const util = require("../common/util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 const embed = require("./embed");
+const clean = require("./clean");
 
 const doc = require("../doc");
 const docBuilders = doc.builders;
@@ -5237,6 +5238,7 @@ function printJsDocComment(comment) {
 module.exports = {
   print: genericPrint,
   embed,
+  massageAstNode: clean,
   hasPrettierIgnore,
   willPrintOwnComments,
   canAttachComment,
