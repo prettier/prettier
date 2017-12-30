@@ -41,7 +41,7 @@ function genericPrint(path, options, print) {
 
       const text = options.originalText.slice(util.locStart(n), util.locEnd(n));
       const rawText = n.raws.text || n.text;
-      var concatComment;
+      let concatComment;
       // Workaround a bug where the location is off.
       // https://github.com/postcss/postcss-scss/issues/63
       if (text.indexOf(rawText) === -1) {
