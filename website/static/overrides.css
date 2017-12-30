@@ -37,3 +37,7 @@
   font-size: 1.25em;
   font-weight: 400;
 }
+
+pre {
+  overflow-x: scroll;
+}
