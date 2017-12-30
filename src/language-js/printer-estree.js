@@ -6,6 +6,7 @@ const comments = require("../main/comments");
 const util = require("../common/util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 const embed = require("./embed");
+const printerOptions = require("./options");
 
 const doc = require("../doc");
 const docBuilders = doc.builders;
@@ -5235,6 +5236,7 @@ function printJsDocComment(comment) {
 }
 
 module.exports = {
+  options: printerOptions,
   print: genericPrint,
   embed,
   hasPrettierIgnore,

@@ -12,6 +12,7 @@ const softline = docBuilders.softline;
 const fill = docBuilders.fill;
 const align = docBuilders.align;
 const printDocToString = doc.printer.printDocToString;
+const printerOptions = require("./options");
 
 const SINGLE_LINE_NODE_TYPES = [
   "heading",
@@ -659,6 +660,7 @@ function normalizeParts(parts) {
 }
 
 module.exports = {
+  options: printerOptions,
   print: genericPrint,
   embed,
   hasPrettierIgnore: util.hasIgnoreComment
