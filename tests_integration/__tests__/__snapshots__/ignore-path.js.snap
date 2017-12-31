@@ -13,7 +13,6 @@ exports[`outputs files as-is if no --write (stderr) 1`] = `""`;
 
 exports[`outputs files as-is if no --write (stdout) 1`] = `
 "'use strict';
-
 "
 `;
 

@@ -336,7 +336,7 @@ function formatFiles(argv) {
     }
 
     if (fileIgnored) {
-      logger.log(input);
+      writeOutput({ formatted: input }, options);
       return;
     }
 
