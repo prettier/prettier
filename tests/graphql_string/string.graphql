@@ -1,1 +1,13 @@
 query X($a: Int) @relay(meta: "{\"lowPri\": true}") { a }
+
+"""abc"""
+type T {
+  a: Int
+}
+
+"""
+abc
+"""
+type T {
+  a: Int
+}
