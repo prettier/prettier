@@ -280,10 +280,6 @@ function createIgnorer(argv) {
 
 function eachFilename(argv, patterns, callback) {
   const ignoreNodeModules = argv["with-node-modules"] === false;
-  // The ignorer will be used to filter file paths after the glob is checked,
-  // before any files are actually read
-  const ignorer = createIgnorer(argv);
-
   if (ignoreNodeModules) {
     patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
   }
@@ -298,11 +294,9 @@ function eachFilename(argv, patterns, callback) {
       process.exitCode = 2;
       return;
     }
-    ignorer
-      .filter(filePaths)
-      .forEach(filePath =>
-        callback(filePath, getOptionsForFile(argv, filePath))
-      );
+    filePaths.forEach(filePath =>
+      callback(filePath, getOptionsForFile(argv, filePath))
+    );
   } catch (error) {
     logger.error(
       `Unable to expand glob patterns: ${patterns.join(" ")}\n${error.message}`
@@ -313,8 +307,14 @@ function eachFilename(argv, patterns, callback) {
 }
 
 function formatFiles(argv) {
+  // The ignorer will be used to filter file paths after the glob is checked,
+  // before any files are actually written
+  const ignorer = createIgnorer(argv);
+
   eachFilename(argv, argv.__filePatterns, (filename, options) => {
-    if (argv["write"] && process.stdout.isTTY) {
+    const fileIgnored = ignorer.filter([filename]).length === 0;
+
+    if (argv["write"] && process.stdout.isTTY && !fileIgnored) {
       // Don't use `console.log` here since we need to replace this line.
       logger.log(filename, { newline: false });
     }
@@ -329,6 +329,13 @@ function formatFiles(argv) {
       logger.error(`Unable to read file: ${filename}\n${error.message}`);
       // Don't exit the process if one file failed
       process.exitCode = 2;
+      return;
+    }
+
+    if (fileIgnored) {
+      if (!argv["write"] && !argv["list-different"]) {
+        logger.log(input);
+      }
       return;
     }
 

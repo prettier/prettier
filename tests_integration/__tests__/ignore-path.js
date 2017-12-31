@@ -18,3 +18,9 @@ describe("support .prettierignore", () => {
     status: 1
   });
 });
+
+describe("outputs files as-is if no --write", () => {
+  runPrettier("cli/ignore-path", ["regular-module.js"]).test({
+    status: 0
+  });
+});
