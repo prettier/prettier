@@ -3285,6 +3285,9 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     !fun.rest;
 
   if (isFlowShorthandWithOneArg) {
+    if (options.arrowParens === "always") {
+      return concat(["(", concat(printed), ")"]);
+    }
     return concat(printed);
   }
 
