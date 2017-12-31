@@ -242,11 +242,12 @@ function formatStdin(argv) {
   const ignorer = createIgnorer(argv);
   const relativeFilepath = path.relative(process.cwd(), filepath);
 
-  if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
-    return;
-  }
-
   thirdParty.getStream(process.stdin).then(input => {
+    if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
+      writeOutput({ formatted: input }, {});
+      return;
+    }
+
     const options = getOptionsForFile(argv, filepath);
 
     if (listDifferent(argv, input, options, "(stdin)")) {
