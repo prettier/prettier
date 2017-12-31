@@ -13,11 +13,13 @@ const leven = require("leven");
 
 const prettier = eval("require")("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
+const errors = require("../common/errors");
 const resolver = require("../config/resolve-config");
 const constant = require("./constant");
 const validator = require("./validator");
-const apiDefaultOptions = require("../main/options").defaults;
-const errors = require("../common/errors");
+const options = require("../main/options");
+const apiDefaultOptions = options.defaults;
+const normalizeOptions = options.normalize;
 const logger = require("./logger");
 const thirdParty = require("../common/third-party");
 
@@ -128,8 +130,9 @@ function format(argv, input, opt) {
         "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
       );
     } else {
-      const ast = cleanAST(prettier.__debug.parse(input, opt));
-      const past = cleanAST(prettier.__debug.parse(pp, opt));
+      const normalizedOpts = normalizeOptions(opt);
+      const ast = cleanAST(prettier.__debug.parse(input, opt), normalizedOpts);
+      const past = cleanAST(prettier.__debug.parse(pp, opt), normalizedOpts);
 
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB

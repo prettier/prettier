@@ -6,6 +6,8 @@ const comments = require("../main/comments");
 const util = require("../common/util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 const embed = require("./embed");
+const printerOptions = require("./options");
+const clean = require("./clean");
 
 const doc = require("../doc");
 const docBuilders = doc.builders;
@@ -1691,6 +1693,7 @@ function printPathNoParens(path, options, print, args) {
           n.expression.type === "JSXEmptyExpression" ||
           n.expression.type === "TemplateLiteral" ||
           n.expression.type === "TaggedTemplateExpression" ||
+          n.expression.type === "DoExpression" ||
           (isJSXNode(parent) &&
             (n.expression.type === "ConditionalExpression" ||
               isBinaryish(n.expression))));
@@ -5234,8 +5237,10 @@ function printJsDocComment(comment) {
 }
 
 module.exports = {
+  options: printerOptions,
   print: genericPrint,
   embed,
+  massageAstNode: clean,
   hasPrettierIgnore,
   willPrintOwnComments,
   canAttachComment,

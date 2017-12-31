@@ -1,5 +1,6 @@
 "use strict";
 
+const clean = require("./clean");
 const util = require("../common/util");
 const doc = require("../doc");
 const docBuilders = doc.builders;
@@ -11,6 +12,7 @@ const softline = docBuilders.softline;
 const group = docBuilders.group;
 const fill = docBuilders.fill;
 const indent = docBuilders.indent;
+const printerOptions = require("./options");
 
 const removeLines = doc.utils.removeLines;
 
@@ -534,6 +536,8 @@ function maybeToLowerCase(value) {
 }
 
 module.exports = {
+  options: printerOptions,
   print: genericPrint,
-  hasPrettierIgnore: util.hasIgnoreComment
+  hasPrettierIgnore: util.hasIgnoreComment,
+  massageAstNode: clean
 };

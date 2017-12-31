@@ -30,7 +30,24 @@ export default Object.assign(baseConfig, {
       : {},
     json(),
     resolve({ preferBuiltins: true }),
-    commonjs(),
+    commonjs(
+      parser.endsWith("glimmer")
+        ? {
+            namedExports: {
+              "node_modules/handlebars/lib/index.js": ["parse"],
+              "node_modules/simple-html-tokenizer/dist/simple-html-tokenizer.js": [
+                "EntityParser",
+                "HTML5NamedCharRefs",
+                "EventedTokenizer"
+              ],
+              "node_modules/@glimmer/syntax/dist/modules/index.js": "default",
+              "node_modules/@glimmer/syntax/dist/modules/es2017/index.js":
+                "default"
+            },
+            ignore: ["source-map"]
+          }
+        : {}
+    ),
     {
       transformBundle(code) {
         const result = uglify.minify(code, {});

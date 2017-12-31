@@ -35,6 +35,7 @@ const siteConfig = {
     { href: "/playground/", label: "Playground" },
     { doc: "index", label: "About" },
     { doc: "install", label: "Usage" },
+    { blog: true, label: "Blog" },
     { search: true },
     { href: GITHUB_URL, label: "GitHub" }
   ],
@@ -74,7 +75,7 @@ const siteConfig = {
       );
     }
   ],
-  separateCss: "/playground.css",
+  separateCss: ["static/separate-css"],
   gaTrackingId: "UA-111350464-1"
 };
 

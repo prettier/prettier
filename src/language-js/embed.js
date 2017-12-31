@@ -34,15 +34,16 @@ function embed(path, print, textToDoc /*, options */) {
        * graphql`...`
        * graphql.experimental`...`
        * gql`...`
+       *
+       * This intentionally excludes Relay Classic tags, as Prettier does not
+       * support Relay Classic formatting.
        */
       if (
         parent &&
         ((parent.type === "TaggedTemplateExpression" &&
           ((parent.tag.type === "MemberExpression" &&
-            ((parent.tag.object.name === "graphql" &&
-              parent.tag.property.name === "experimental") ||
-              (parent.tag.object.name === "Relay" &&
-                parent.tag.property.name === "QL"))) ||
+            parent.tag.object.name === "graphql" &&
+            parent.tag.property.name === "experimental") ||
             (parent.tag.type === "Identifier" &&
               (parent.tag.name === "gql" || parent.tag.name === "graphql")))) ||
           (parent.type === "CallExpression" &&

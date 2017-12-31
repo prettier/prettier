@@ -37,6 +37,11 @@ for (const parser of parsers) {
   shell.exec(
     `rollup -c scripts/build/rollup.parser.config.js --environment parser:${parser}`
   );
+  if (parser.endsWith("glimmer")) {
+    shell.exec(
+      `node_modules/babel-cli/bin/babel.js dist/parser-glimmer.js --out-file dist/parser-glimmer.js --presets=es2015`
+    );
+  }
 }
 
 shell.echo("\nsrc/language-css/parser-postcss.js → dist/parser-postcss.js");
