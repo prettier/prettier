@@ -1,6 +1,7 @@
 "use strict";
 
 const camelCase = require("camelcase");
+const dedent = require("dedent");
 
 const CATEGORY_CONFIG = "Config";
 const CATEGORY_EDITOR = "Editor";
@@ -135,10 +136,10 @@ const detailedOptions = normalizeDetailedOptions({
       },
       {
         value: "prefer-file",
-        description: dedent(`
+        description: dedent`
           If a config file is found will evaluate it and ignore other CLI options.
           If no config file is found CLI options will evaluate as normal.
-        `)
+        `
       }
     ],
     description:
@@ -149,10 +150,10 @@ const detailedOptions = normalizeDetailedOptions({
     category: CATEGORY_EDITOR,
     exception: -1,
     forwardToApi: true,
-    description: dedent(`
+    description: dedent`
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end.
-    `)
+    `
   },
   "debug-check": {
     type: "boolean"
@@ -183,10 +184,10 @@ const detailedOptions = normalizeDetailedOptions({
   help: {
     type: "flag",
     alias: "h",
-    description: dedent(`
+    description: dedent`
       Show CLI usage, or details about the given flag.
       Example: --help write
-    `)
+    `
   },
   "ignore-path": {
     type: "path",
@@ -197,9 +198,9 @@ const detailedOptions = normalizeDetailedOptions({
   "insert-pragma": {
     type: "boolean",
     forwardToApi: true,
-    description: dedent(`
+    description: dedent`
       Insert @format pragma into file's first docblock comment.
-    `)
+    `
   },
   "jsx-bracket-same-line": {
     type: "boolean",
@@ -276,29 +277,29 @@ const detailedOptions = normalizeDetailedOptions({
     category: CATEGORY_EDITOR,
     forwardToApi: true,
     exception: Infinity,
-    description: dedent(`
+    description: dedent`
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
       This option cannot be used with --cursor-offset.
-    `)
+    `
   },
   "range-start": {
     type: "int",
     category: CATEGORY_EDITOR,
     forwardToApi: true,
-    description: dedent(`
+    description: dedent`
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
       This option cannot be used with --cursor-offset.
-    `)
+    `
   },
   "require-pragma": {
     type: "boolean",
     forwardToApi: true,
-    description: dedent(`
+    description: dedent`
       Require either '@prettier' or '@format' to be present in the file's first docblock comment
       in order for it to be formatted.
-    `)
+    `
   },
   semi: {
     type: "boolean",
@@ -399,17 +400,12 @@ const minimistOptions = {
     )
 };
 
-const usageSummary = `
-Usage: prettier [options] [file/glob ...]
+const usageSummary = dedent`
+  Usage: prettier [options] [file/glob ...]
 
-By default, output is written to stdout.
-Stdin is read if it is piped to Prettier and no files are given.
-`.trim();
-
-function dedent(str) {
-  const spaces = str.match(/\n^( +)/m)[1].length;
-  return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
-}
+  By default, output is written to stdout.
+  Stdin is read if it is piped to Prettier and no files are given.
+`;
 
 function normalizeDetailedOptions(rawDetailedOptions) {
   const names = Object.keys(rawDetailedOptions).sort();
