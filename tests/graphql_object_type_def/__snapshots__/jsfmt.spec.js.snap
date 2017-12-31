@@ -35,9 +35,11 @@ extend type Feedback {
 
 exports[`implements.graphql 1`] = `
 type VRMConversation implements Node, Entity @foo {
+  a: Int
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type VRMConversation implements Node, Entity @foo {
+  a: Int
 }
 
 `;
