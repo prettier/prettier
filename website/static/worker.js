@@ -103,7 +103,7 @@ self.onmessage = function(message) {
     doc: doc,
     ast: ast,
     formatted2: formatted2,
-    version: prettier.prVersion || prettier.version
+    version: prettier.version
   });
 };
 

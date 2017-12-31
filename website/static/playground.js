@@ -85,10 +85,11 @@ window.onload = function() {
       prettierVersion = message.data.version;
 
       var link = document.createElement("a");
-      var match = prettierVersion.match(/^pr-(\d+)$/);
+      var match = prettierVersion.match(/^\d+\.\d+\.\d+-pr.(\d+)$/);
       if (match) {
         link.href = "https://github.com/prettier/prettier/pull/" + match[1];
         link.textContent = "PR #" + match[1];
+        prettierVersion = "pr-" + match[1];
       } else {
         if (prettierVersion.match(/\.0$/)) {
           link.href =
