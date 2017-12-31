@@ -313,8 +313,11 @@ function formatFiles(argv) {
 
   eachFilename(argv, argv.__filePatterns, (filename, options) => {
     const fileIgnored = ignorer.filter([filename]).length === 0;
+    if (fileIgnored && (argv["write"] || argv["list-different"])) {
+      return;
+    }
 
-    if (argv["write"] && process.stdout.isTTY && !fileIgnored) {
+    if (argv["write"] && process.stdout.isTTY) {
       // Don't use `console.log` here since we need to replace this line.
       logger.log(filename, { newline: false });
     }
@@ -333,9 +336,7 @@ function formatFiles(argv) {
     }
 
     if (fileIgnored) {
-      if (!argv["write"] && !argv["list-different"]) {
-        logger.log(input);
-      }
+      logger.log(input);
       return;
     }
 
