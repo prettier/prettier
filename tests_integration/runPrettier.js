@@ -3,11 +3,13 @@
 const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
-const ENV_LOG_LEVEL = require("../src/cli-logger").ENV_LOG_LEVEL;
+const ENV_LOG_LEVEL = require("../src/cli/logger").ENV_LOG_LEVEL;
 
 const isProduction = process.env.NODE_ENV === "production";
 const prettierCli = isProduction ? "../dist/bin/prettier" : "../bin/prettier";
-const thirdParty = isProduction ? "../dist/third-party" : "../src/third-party";
+const thirdParty = isProduction
+  ? "../dist/third-party"
+  : "../src/common/third-party";
 
 function runPrettier(dir, args, options) {
   args = args || [];

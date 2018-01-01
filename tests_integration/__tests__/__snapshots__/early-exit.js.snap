@@ -189,7 +189,7 @@ exports[`show detailed usage with --help list-different (write) 1`] = `Array []`
 exports[`show detailed usage with --help loglevel (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help loglevel (stdout) 1`] = `
-"--loglevel <silent|error|warn|debug>
+"--loglevel <silent|error|warn|log|debug>
 
   What level of logs to report.
 
@@ -198,9 +198,10 @@ Valid options:
   silent   
   error    
   warn     
+  log      
   debug    
 
-Default: warn
+Default: log
 "
 `;
 
@@ -264,7 +265,7 @@ exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown>
+"--parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>
 
   Which parser to use.
 
@@ -279,12 +280,26 @@ Valid options:
   json         JSON
   graphql      GraphQL
   markdown     Markdown
+  vue          Vue
 
 Default: babylon
 "
 `;
 
 exports[`show detailed usage with --help parser (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help plugin (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help plugin (stdout) 1`] = `
+"--plugin <path>
+
+  Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
+
+Default: []
+"
+`;
+
+exports[`show detailed usage with --help plugin (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help print-width (stderr) 1`] = `""`;
 
@@ -520,7 +535,7 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown>
+  --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>
                            Which parser to use.
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
@@ -551,6 +566,8 @@ Config options:
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Defaults to .prettierignore.
+  --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
+                           Defaults to [].
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
@@ -574,9 +591,9 @@ Other options:
                            Example: --help write
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
-  --loglevel <silent|error|warn|debug>
+  --loglevel <silent|error|warn|log|debug>
                            What level of logs to report.
-                           Defaults to warn.
+                           Defaults to log.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
@@ -614,7 +631,7 @@ exports[`show warning with --help not-found (typo) (stderr) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown>
+"--parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>
 
   Which parser to use.
 
@@ -629,6 +646,7 @@ Valid options:
   json         JSON
   graphql      GraphQL
   markdown     Markdown
+  vue          Vue
 
 Default: babylon
 "
@@ -659,7 +677,7 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown>
+  --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>
                            Which parser to use.
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
@@ -690,6 +708,8 @@ Config options:
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Defaults to .prettierignore.
+  --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
+                           Defaults to [].
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
@@ -713,9 +733,9 @@ Other options:
                            Example: --help write
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
-  --loglevel <silent|error|warn|debug>
+  --loglevel <silent|error|warn|log|debug>
                            What level of logs to report.
-                           Defaults to warn.
+                           Defaults to log.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.

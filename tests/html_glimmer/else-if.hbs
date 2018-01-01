@@ -1,0 +1,53 @@
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  e
+{{/if}}
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  hello
+  {{#if f}}
+    g
+  {{/if}}
+  e
+{{/if}}
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else if e}}
+  f
+{{else if g}}
+  h
+{{else}}
+  j
+{{/if}}
+
+<div>
+  {{#if a}}
+    b
+  {{else if c}}
+    d
+  {{else}}
+    e
+  {{/if}}
+</div>
+
+<div>
+  <div>
+    {{#if a}}
+      b
+    {{else if c}}
+      d
+    {{else}}
+      e
+    {{/if}}
+  </div>
+</div>

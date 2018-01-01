@@ -2,12 +2,20 @@
 
 // Docs: https://docusaurus.io/docs/en/site-config.html
 
+const parseYaml = require("js-yaml").safeLoad;
+const path = require("path");
+const fs = require("fs");
+
 const PACKAGE = require("../package");
 const GITHUB_URL = `https://github.com/${PACKAGE.repository}`;
 
-const users = require("./users");
-const editors = require("./editors");
-const supportedLanguages = require("./languages");
+function loadYaml(fsPath) {
+  return parseYaml(fs.readFileSync(path.join(__dirname, fsPath), "utf8"));
+}
+
+const users = loadYaml("./data/users.yml");
+const editors = loadYaml("./data/editors.yml");
+const supportedLanguages = loadYaml("./data/languages.yml");
 
 const siteConfig = {
   title: "Prettier",
@@ -27,6 +35,7 @@ const siteConfig = {
     { href: "/playground/", label: "Playground" },
     { doc: "index", label: "About" },
     { doc: "install", label: "Usage" },
+    { blog: true, label: "Blog" },
     { search: true },
     { href: GITHUB_URL, label: "GitHub" }
   ],
@@ -65,7 +74,9 @@ const siteConfig = {
         }
       );
     }
-  ]
+  ],
+  separateCss: ["static/separate-css"],
+  gaTrackingId: "UA-111350464-1"
 };
 
 module.exports = siteConfig;

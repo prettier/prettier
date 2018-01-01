@@ -5,18 +5,10 @@
 const path = require("path");
 const pkg = require("../../package.json");
 const formatMarkdown = require("../../website/static/markdown");
+const parsers = require("./parsers");
 const shell = require("shelljs");
 
 const rootDir = path.join(__dirname, "..", "..");
-const parsers = [
-  "babylon",
-  "flow",
-  "typescript",
-  "graphql",
-  "postcss",
-  "parse5",
-  "markdown"
-];
 
 process.env.PATH += path.delimiter + path.join(rootDir, "node_modules", ".bin");
 
@@ -31,30 +23,31 @@ shell.rm("-Rf", "dist/");
 
 // --- Lib ---
 
-shell.echo("Bundling lib index...");
 shell.exec("rollup -c scripts/build/rollup.index.config.js");
 
-shell.echo("Bundling lib bin...");
 shell.exec("rollup -c scripts/build/rollup.bin.config.js");
 shell.chmod("+x", "./dist/bin/prettier.js");
 
-shell.echo("Bundling lib third-party...");
 shell.exec("rollup -c scripts/build/rollup.third-party.config.js");
 
 for (const parser of parsers) {
-  if (parser === "postcss") {
+  if (parser.endsWith("postcss")) {
     continue;
   }
-  shell.echo(`Bundling lib ${parser}...`);
   shell.exec(
     `rollup -c scripts/build/rollup.parser.config.js --environment parser:${parser}`
   );
+  if (parser.endsWith("glimmer")) {
+    shell.exec(
+      `node_modules/babel-cli/bin/babel.js dist/parser-glimmer.js --out-file dist/parser-glimmer.js --presets=es2015`
+    );
+  }
 }
 
-shell.echo("Bundling lib postcss...");
+shell.echo("\nsrc/language-css/parser-postcss.js → dist/parser-postcss.js");
 // PostCSS has dependency cycles and won't work correctly with rollup :(
 shell.exec(
-  "webpack --hide-modules src/parser-postcss.js dist/parser-postcss.js"
+  "webpack --hide-modules src/language-css/parser-postcss.js dist/parser-postcss.js"
 );
 // Prepend module.exports =
 const content = shell.cat("dist/parser-postcss.js").stdout;

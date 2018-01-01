@@ -28,14 +28,23 @@ class X {} [1, 2, 3].forEach(fn)
 //   static; // The semicolon *is* necessary
 //   x(){}
 // }
-// class C {
-//   get; // The semicolon *is* necessary
-//   x(){}
-// }
-// class C {
-//   set; // The semicolon *is* necessary
-//   x(){}
-// }
+
+class C {
+  get; // The semicolon *is* necessary
+  x(){}
+}
+class C {
+  get = () => {}; // The semicolon is *not* necessary
+  x(){}
+}
+class C {
+  set; // The semicolon *is* necessary
+  x(){}
+}
+class C {
+  set = () => {}; // The semicolon is *not* necessary
+  x(){}
+}
 
 
 // don't semicolon if it doesn't start statement

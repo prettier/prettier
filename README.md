@@ -1,4 +1,4 @@
-![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-dark.png)
+![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)
 
 <h2 align="center">Opinionated Code Formatter</h2>
 
@@ -10,6 +10,8 @@
   · CSS
   · SCSS
   · Less
+  · JSX
+  · Vue
   · GraphQL
   · JSON
   · Markdown
@@ -30,7 +32,7 @@
     <img alt="npm version" src="https://img.shields.io/npm/v/prettier.svg?style=flat-square">
   </a>
   <a href="https://www.npmjs.com/package/prettier">
-    <img alt="npm version" src="https://img.shields.io/npm/dm/prettier.svg?style=flat-square">
+    <img alt="monthly downloads" src="https://img.shields.io/npm/dm/prettier.svg?style=flat-square">
   </a>
   <a href="#badge">
     <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square">
@@ -62,7 +64,7 @@ foo(
 );
 ```
 
-Prettier can be ran [in your editor](http://prettier.io/docs/en/editors.html) on-save, in a [pre-commit hook](https://prettier.io/docs/en/precommit.html), or in [CI environments](https://prettier.io/docs/en/cli.html#list-different) to ensure your codebase has a consistent style without devs ever having to post a nit comment on a code review ever again!
+Prettier can be run [in your editor](http://prettier.io/docs/en/editors.html) on-save, in a [pre-commit hook](https://prettier.io/docs/en/precommit.html), or in [CI environments](https://prettier.io/docs/en/cli.html#list-different) to ensure your codebase has a consistent style without devs ever having to post a nit-picky comment on a code review ever again!
 
 ---
 

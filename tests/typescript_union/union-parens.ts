@@ -30,3 +30,11 @@ interface Interface {
     i: (X | Y) & Z;
     j: Partial<(X | Y)>;
 }
+
+type State = {
+  sharedProperty: any;
+} & (
+  | { discriminant: "FOO"; foo: any }
+  | { discriminant: "BAR"; bar: any }
+  | { discriminant: "BAZ"; baz: any } 
+);

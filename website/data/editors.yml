@@ -1,0 +1,35 @@
+- image: "/images/editors/atom-128px.png"
+  name: Atom
+  content: >
+    [`prettier-atom`](https://github.com/prettier/prettier-atom),
+    [`mprettier`](https://github.com/t9md/atom-mprettier)
+- image: "/images/editors/emacs-128px.png"
+  name: Emacs
+  content: >
+    [`prettier-emacs`](https://github.com/prettier/prettier-emacs)
+- image: "/images/editors/espresso-128px.png"
+  name: Espresso
+  content: >
+    [`espresso-prettier`](https://github.com/eablokker/espresso-prettier)
+- image: "/images/editors/sublimetext-128px.png"
+  name: Sublime Text
+  content: >
+    [`JsPrettier`](https://packagecontrol.io/packages/JsPrettier)
+- image: "/images/editors/vim-128px.png"
+  name: Vim
+  content: >
+    [`neoformat`](https://github.com/sbdchd/neoformat),
+    [`ale`](https://github.com/w0rp/ale),
+    [`vim-prettier`](https://github.com/prettier/vim-prettier)
+- image: "/images/editors/visualstudio-128px.png"
+  name: Visual Studio
+  content: >
+    [`JavaScriptPrettier`](https://github.com/madskristensen/JavaScriptPrettier)
+- image: "/images/editors/vscode-128px.png"
+  name: Visual Studio Code
+  content: >
+    [`prettier-vscode`](https://github.com/prettier/prettier-vscode)
+- image: "/images/editors/webstorm-128px.png"
+  name: WebStorm
+  content: >
+    [External Tool](https://prettier.io/docs/en/webstorm.html)

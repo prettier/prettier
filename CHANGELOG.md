@@ -1,3 +1,18 @@
+# 1.9.2
+
+[link](https://github.com/prettier/prettier/compare/1.9.1...1.9.2)
+
+* Fixed trailing comma not being printed in function calls if the last arg was an arrow (#3428 by duailibe)
+* Ignore whitespace after the `/**` in docblocks (#3430 by duailibe)
+* Fixed a bug where `get` and `set` class properties arrows would print an unnecessary semicolon with `--no-semi` (#3434 by duailibe)
+* Fixed a bug for missing `.editorconfig` files (#3439 by josephfrazier)
+* Fix comments being moved in class methods and object properties with the babylon parser (#3441 by duailibe)
+* Better printing of member chains with a TSNonNullExpression (`!` character) (#3442 by duailibe)
+* Fix missing commas in object properties when a `pretter-ignore` comment is present (#3448 by duailibe)
+* Fix printing union types inside a function param type (#3446 by duailibe)
+* Fix closing parens on multi-line intersection/union type (#3436 by josephfrazier)
+* Don't break single argument destructuring arguments (for arrays and with simple default values) (#3443 by duailibe)
+
 # 1.9.1
 
 [link](https://github.com/prettier/prettier/compare/1.9.0...1.9.1)
@@ -12,7 +27,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.8.2...1.9.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.9.0)
+* [Release Notes](https://prettier.io/blog/2017/12/05/1.9.0.html)
 
 # 1.8.2
 
@@ -38,7 +53,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.7.4...1.8.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.8.0)
+* [Release Notes](https://prettier.io/blog/2017/11/07/1.8.0.html)
 
 # 1.7.4
 
@@ -95,7 +110,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.6.1...1.7.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.7.0)
+* [Release Notes](https://prettier.io/blog/2017/09/15/1.7.0.html)
 
 # 1.6.1
 
@@ -110,7 +125,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.5.3...1.6.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.6.0)
+* [Release Notes](https://prettier.io/blog/2017/08/29/1.6.0.html)
 
 # 1.5.3
 
@@ -136,7 +151,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.4.4...1.5.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.5.0)
+* [Release Notes](https://prettier.io/blog/2017/06/28/1.5.0.html)
 
 # 1.4.4
 
@@ -174,7 +189,7 @@ Lots of small fixes, mainly for TypeScript.
 
 [link](https://github.com/prettier/prettier/compare/1.3.1...1.4.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.4.0)
+* [Release Notes](https://prettier.io/blog/2017/06/03/1.4.0.html)
 
 # 1.3.1
 
@@ -183,6 +198,8 @@ Lots of small fixes, mainly for TypeScript.
 # 1.3.0
 
 [link](https://github.com/prettier/prettier/compare/1.2.2...1.3.0)
+
+* [Release Notes](https://prettier.io/blog/2017/05/03/1.3.0.html)
 
 * add printer branches for some TypeScript nodes (#1331)
 * Skip trailing commas with FlowShorthandWithOneArg (#1364)
@@ -247,6 +264,8 @@ Lots of small fixes, mainly for TypeScript.
 # 1.2.0
 
 [link](https://github.com/prettier/prettier/compare/1.1.0...1.2.0)
+
+* [Release Notes](https://prettier.io/blog/2017/04/20/1.2.0.html)
 
 * match jsx files in pre-commit hook (#1276)
 * Fix isPreviousLineEmpty on Windows (#1263)

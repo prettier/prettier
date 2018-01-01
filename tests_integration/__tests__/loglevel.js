@@ -18,6 +18,16 @@ test("show all logs with --loglevel debug", () => {
   runPrettierWithLogLevel("debug", ["[error]", "[warn]", "[debug]"]);
 });
 
+describe("--write with --loglevel=silent doesn't log filenames", () => {
+  runPrettier("cli/write", [
+    "--write",
+    "unformatted.js",
+    "--loglevel=silent"
+  ]).test({
+    status: 0
+  });
+});
+
 function runPrettierWithLogLevel(logLevel, patterns) {
   const result = runPrettier("cli/loglevel", [
     "--loglevel",

@@ -1,6 +1,122 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`array.js 1`] = `
+function excludeFirstFiveResults([first, second, third, fourth, fifth, ...rest]) {
+  return rest;
+}
+
+function excludeFirstFiveResults([first, second, third, fourth, fifth, ...rest] = DEFAULT_FIVE_RESULTS) {
+  return rest;
+}
+
+function excludeFirstFiveResults([firstResult, secondResult, thirdResult, fourthResult, fifthResult, ...rest] = [1, 2, 3, 4, 5]) {
+  return rest;
+}
+
+function excludeFirstFiveResults([first, second, third, fourth, fifth, ...rest]: Result[]) {
+  return rest;
+}
+
+const excludeFirstFiveResults = ([first, second, third, fourth, fifth, ...rest]) => {
+  return rest;
+}
+
+class A {
+  excludeFirstFiveResults([first, second, third, fourth, fifth, ...restOfResults]) {
+    return restOfResults;
+  }
+}
+
+promise.then(([firstResult, secondResult, thirdResult, fourthResult, fifthResult, ...rest]) => {
+  return rest;
+});
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function excludeFirstFiveResults([
+  first,
+  second,
+  third,
+  fourth,
+  fifth,
+  ...rest
+]) {
+  return rest;
+}
+
+function excludeFirstFiveResults([
+  first,
+  second,
+  third,
+  fourth,
+  fifth,
+  ...rest
+] = DEFAULT_FIVE_RESULTS) {
+  return rest;
+}
+
+function excludeFirstFiveResults(
+  [
+    firstResult,
+    secondResult,
+    thirdResult,
+    fourthResult,
+    fifthResult,
+    ...rest
+  ] = [1, 2, 3, 4, 5]
+) {
+  return rest;
+}
+
+function excludeFirstFiveResults([
+  first,
+  second,
+  third,
+  fourth,
+  fifth,
+  ...rest
+]: Result[]) {
+  return rest;
+}
+
+const excludeFirstFiveResults = ([
+  first,
+  second,
+  third,
+  fourth,
+  fifth,
+  ...rest
+]) => {
+  return rest;
+};
+
+class A {
+  excludeFirstFiveResults([
+    first,
+    second,
+    third,
+    fourth,
+    fifth,
+    ...restOfResults
+  ]) {
+    return restOfResults;
+  }
+}
+
+promise.then(
+  ([
+    firstResult,
+    secondResult,
+    thirdResult,
+    fourthResult,
+    fifthResult,
+    ...rest
+  ]) => {
+    return rest;
+  }
+);
+
+`;
+
+exports[`object.js 1`] = `
 function StatelessFunctionalComponent({
   isActive,
   onFiltersUpdated,
@@ -11,6 +127,36 @@ function StatelessFunctionalComponent({
   title,
   items,
 }) {
+  return <div />
+}
+
+function StatelessFunctionalComponent({
+  isActive = true,
+  onFiltersUpdated = () => null,
+  onSelect = () => null,
+  onSubmitAndDeselect = () => null,
+  onCancel = () => null,
+  searchFilters = null,
+  title = '',
+  items = [],
+} = {}) {
+  return <div />
+}
+
+function StatelessFunctionalComponent(
+  {
+    isActive,
+    onFiltersUpdated = () => null,
+    onSelect = () => null,
+    onSubmitAndDeselect = () => null,
+    onCancel = () => null,
+    searchFilters = null,
+    title = '',
+    items = [],
+  } = {
+    isActive: true
+  }
+) {
   return <div />
 }
 
@@ -90,6 +236,36 @@ function StatelessFunctionalComponent({
   title,
   items
 }) {
+  return <div />;
+}
+
+function StatelessFunctionalComponent({
+  isActive = true,
+  onFiltersUpdated = () => null,
+  onSelect = () => null,
+  onSubmitAndDeselect = () => null,
+  onCancel = () => null,
+  searchFilters = null,
+  title = "",
+  items = []
+} = {}) {
+  return <div />;
+}
+
+function StatelessFunctionalComponent(
+  {
+    isActive,
+    onFiltersUpdated = () => null,
+    onSelect = () => null,
+    onSubmitAndDeselect = () => null,
+    onCancel = () => null,
+    searchFilters = null,
+    title = "",
+    items = []
+  } = {
+    isActive: true
+  }
+) {
   return <div />;
 }
 

@@ -504,6 +504,34 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"vscodeLanguageIds\\": [\\"typescript\\", \\"typescriptreact\\"]
     },
     {
+      \\"name\\": \\"JSON\\",
+      \\"since\\": \\"1.5.0\\",
+      \\"parsers\\": [\\"json\\"],
+      \\"group\\": \\"JavaScript\\",
+      \\"tmScope\\": \\"source.json\\",
+      \\"aceMode\\": \\"json\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"codemirrorMimeType\\": \\"application/json\\",
+      \\"extensions\\": [
+        \\".json\\",
+        \\".json5\\",
+        \\".geojson\\",
+        \\".JSON-tmLanguage\\",
+        \\".topojson\\"
+      ],
+      \\"filenames\\": [
+        \\".arcconfig\\",
+        \\".jshintrc\\",
+        \\".babelrc\\",
+        \\".eslintrc\\",
+        \\".prettierrc\\",
+        \\"composer.lock\\",
+        \\"mcmod.info\\"
+      ],
+      \\"linguistLanguageId\\": 174,
+      \\"vscodeLanguageIds\\": [\\"json\\", \\"jsonc\\"]
+    },
+    {
       \\"name\\": \\"CSS\\",
       \\"since\\": \\"1.4.0\\",
       \\"parsers\\": [\\"css\\"],
@@ -512,9 +540,9 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"aceMode\\": \\"css\\",
       \\"codemirrorMode\\": \\"css\\",
       \\"codemirrorMimeType\\": \\"text/css\\",
-      \\"extensions\\": [\\".css\\"],
+      \\"extensions\\": [\\".css\\", \\".pcss\\", \\".postcss\\"],
       \\"liguistLanguageId\\": 50,
-      \\"vscodeLanguageIds\\": [\\"css\\"]
+      \\"vscodeLanguageIds\\": [\\"css\\", \\"postcss\\"]
     },
     {
       \\"name\\": \\"Less\\",
@@ -551,34 +579,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"aceMode\\": \\"text\\",
       \\"liguistLanguageId\\": 139,
       \\"vscodeLanguageIds\\": [\\"graphql\\"]
-    },
-    {
-      \\"name\\": \\"JSON\\",
-      \\"since\\": \\"1.5.0\\",
-      \\"parsers\\": [\\"json\\"],
-      \\"group\\": \\"JavaScript\\",
-      \\"tmScope\\": \\"source.json\\",
-      \\"aceMode\\": \\"json\\",
-      \\"codemirrorMode\\": \\"javascript\\",
-      \\"codemirrorMimeType\\": \\"application/json\\",
-      \\"extensions\\": [
-        \\".json\\",
-        \\".json5\\",
-        \\".geojson\\",
-        \\".JSON-tmLanguage\\",
-        \\".topojson\\"
-      ],
-      \\"filenames\\": [
-        \\".arcconfig\\",
-        \\".jshintrc\\",
-        \\".babelrc\\",
-        \\".eslintrc\\",
-        \\".prettierrc\\",
-        \\"composer.lock\\",
-        \\"mcmod.info\\"
-      ],
-      \\"linguistLanguageId\\": 174,
-      \\"vscodeLanguageIds\\": [\\"json\\"]
     },
     {
       \\"name\\": \\"Markdown\\",
