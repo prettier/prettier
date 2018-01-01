@@ -2589,10 +2589,6 @@ jest-get-type@21.3.0-beta.15:
   version "21.3.0-beta.15"
   resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-21.3.0-beta.15.tgz#d5a510c32683124576eaba69b66a1ba3c25ed67c"
 
-jest-get-type@^21.0.2:
-  version "21.0.2"
-  resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-21.0.2.tgz#304e6b816dd33cd1f47aba0597bcad258a509fc6"
-
 jest-get-type@^21.2.0:
   version "21.2.0"
   resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-21.2.0.tgz#f6376ab9db4b60d81e39f30749c6c466f40d4a23"
@@ -2737,15 +2733,6 @@ jest-util@^21.2.1:
     jest-mock "^21.2.0"
     jest-validate "^21.2.1"
     mkdirp "^0.5.1"
-
-jest-validate@21.1.0:
-  version "21.1.0"
-  resolved "https://registry.yarnpkg.com/jest-validate/-/jest-validate-21.1.0.tgz#39d01115544a758bce49f221a5fcbb24ebdecc65"
-  dependencies:
-    chalk "^2.0.1"
-    jest-get-type "^21.0.2"
-    leven "^2.1.0"
-    pretty-format "^21.1.0"
 
 jest-validate@^21.2.1:
   version "21.2.1"
@@ -3570,13 +3557,6 @@ pretty-format@^20.0.3:
   dependencies:
     ansi-regex "^2.1.1"
     ansi-styles "^3.0.0"
-
-pretty-format@^21.1.0:
-  version "21.1.0"
-  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-21.1.0.tgz#557428254323832ee8b7c971cb613442bea67f61"
-  dependencies:
-    ansi-regex "^3.0.0"
-    ansi-styles "^3.2.0"
 
 pretty-format@^21.2.1:
   version "21.2.1"

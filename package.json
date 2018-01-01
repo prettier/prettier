@@ -36,7 +36,6 @@
     "graphql": "0.10.5",
     "ignore": "3.3.7",
     "jest-docblock": "21.3.0-beta.11",
-    "jest-validate": "21.1.0",
     "leven": "2.1.0",
     "mem": "1.1.0",
     "minimatch": "3.0.4",
