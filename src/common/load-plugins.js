@@ -1,6 +1,7 @@
 "use strict";
 
 const resolve = require("resolve");
+const readPkgUp = require("read-pkg-up");
 
 function loadPlugins(options) {
   options = Object.assign({ plugins: [] }, options);
@@ -13,20 +14,41 @@ function loadPlugins(options) {
     require("../language-markdown"),
     require("../language-html"),
     require("../language-vue")
-  ].filter(plugin => {
-    return options.plugins.indexOf(plugin) < 0;
-  });
+  ];
 
-  const externalPlugins = options.plugins.map(plugin => {
-    if (typeof plugin !== "string") {
-      return plugin;
+  const externalPlugins = options.plugins
+    .concat(getPluginsFromPackage(readPkgUp.sync().pkg))
+    .map(plugin => {
+      if (typeof plugin !== "string") {
+        return plugin;
+      }
+
+      const pluginPath = resolve.sync(plugin, { basedir: process.cwd() });
+      return eval("require")(pluginPath);
+    });
+
+  return deduplicate(internalPlugins.concat(externalPlugins));
+}
+
+function getPluginsFromPackage(pkg) {
+  if (!pkg) {
+    return [];
+  }
+  const deps = Object.assign({}, pkg.dependencies, pkg.devDependencies);
+  return Object.keys(deps).filter(
+    dep =>
+      dep.startsWith("prettier-plugin-") || dep.startsWith("@prettier/plugin-")
+  );
+}
+
+function deduplicate(items) {
+  const uniqItems = [];
+  for (const item of items) {
+    if (uniqItems.indexOf(item) < 0) {
+      uniqItems.push(item);
     }
-
-    const pluginPath = resolve.sync(plugin, { basedir: process.cwd() });
-    return eval("require")(pluginPath);
-  });
-
-  return internalPlugins.concat(externalPlugins);
+  }
+  return uniqItems;
 }
 
 module.exports = loadPlugins;

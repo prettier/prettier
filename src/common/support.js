@@ -168,7 +168,7 @@ function getSupportInfo(version, opts) {
     version = currentVersion;
   }
 
-  const plugins = loadPlugins();
+  const plugins = loadPlugins(opts);
 
   const options = util
     .arrayify(
