@@ -30,7 +30,7 @@ What usually happens once people are using Prettier is that they realize that th
 
 * “I want to write code. Not spend cycles on formatting.”
 * “It removed 5% that sucks in our daily life - aka formatting”
-* “We're in 2018 and it's still painful to break a call into multiple lines when you happen to add an argument that makes it go over the 80 columns limit :(“
+* “We're in 2017 and it's still painful to break a call into multiple lines when you happen to add an argument that makes it go over the 80 columns limit :(“
 
 ## Easy to adopt
 
