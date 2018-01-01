@@ -26,15 +26,19 @@ const defaults = supportInfo.options.reduce(
 
 // Copy options and fill in default values.
 function normalize(options, opts) {
+  opts = opts || {};
+
   const rawOptions = Object.assign({}, options);
 
-  if (
-    rawOptions.filepath &&
-    (!rawOptions.parser || rawOptions.parser === defaults.parser)
-  ) {
-    const inferredParser = inferParser(rawOptions.filepath);
-    if (inferredParser) {
-      rawOptions.parser = inferredParser;
+  if (opts.inferParser !== false) {
+    if (
+      rawOptions.filepath &&
+      (!rawOptions.parser || rawOptions.parser === defaults.parser)
+    ) {
+      const inferredParser = inferParser(rawOptions.filepath);
+      if (inferredParser) {
+        rawOptions.parser = inferredParser;
+      }
     }
   }
 

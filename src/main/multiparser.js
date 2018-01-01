@@ -21,7 +21,7 @@ function textToDoc(text, partialNextOptions, parentOptions) {
       parentParser: parentOptions.parser,
       originalText: text
     }),
-    { passThrough: true }
+    { passThrough: true, inferParser: false }
   );
 
   const ast = require("./parser").parse(text, nextOptions);
