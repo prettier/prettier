@@ -85,14 +85,14 @@ a {
 }
 
 .blogContainer .posts .post {
-  border-bottom: 1px solid #1A2B34;
+  border-bottom: 1px solid #1b2b35;
   border-radius: 0;
 }
 
 .mainContainer .wrapper .post h2,
 .mainContainer .wrapper .post h3 {
   padding-bottom: 0.3em;
-  border-bottom: 1px solid #1A2B34;
+  border-bottom: 1px solid #1b2b35;
   margin-top: 14px;
   margin-bottom: 16px;
   font-weight: 600;
@@ -113,12 +113,11 @@ a {
   font-size: 13.6px;
   line-height: 1.45;
   border-radius: 3px;
-  background: #1b2b35;
   border-left-color: #eb5d5d;
 }
 
 .hljs, .hljs-subst {
-  color: #c1c4c5;
+  color: #1b2b35;
 }
 
 .hljs-type, .hljs-string, .hljs-number, .hljs-selector-id, .hljs-selector-class, .hljs-quote, .hljs-template-tag, .hljs-deletion,
@@ -138,5 +137,5 @@ a {
 
 .hljs-regexp, .hljs-symbol, .hljs-variable, .hljs-template-variable, .hljs-link, .hljs-selector-attr, .hljs-selector-pseudo,
 .hljs-comment {
-  color: #c692c6;
+  color: #cda144;
 }
