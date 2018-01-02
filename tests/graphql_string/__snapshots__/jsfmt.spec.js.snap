@@ -21,6 +21,14 @@ type T {
       c
          """
 type T { a: Int }
+
+type Foo {
+"""
+This is a description
+of the \`one\` field.
+"""
+  one: Type
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") {
   a
@@ -47,6 +55,14 @@ a
 """
 type T {
   a: Int
+}
+
+type Foo {
+  """
+  This is a description
+  of the \`one\` field.
+  """
+  one: Type
 }
 
 `;

@@ -18,3 +18,11 @@ type T {
       c
          """
 type T { a: Int }
+
+type Foo {
+"""
+This is a description
+of the `one` field.
+"""
+  one: Type
+}

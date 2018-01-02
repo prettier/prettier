@@ -129,7 +129,7 @@ function genericPrint(path, options, print) {
         return concat([
           '"""',
           hardline,
-          n.value.replace(/"""/g, "\\$&"),
+          join(hardline, n.value.replace(/"""/g, "\\$&").split("\n")),
           hardline,
           '"""'
         ]);
@@ -278,6 +278,8 @@ function genericPrint(path, options, print) {
 
     case "FieldDefinition": {
       return concat([
+        path.call(print, "description"),
+        n.description ? hardline : "",
         path.call(print, "name"),
         n.arguments.length > 0
           ? group(
