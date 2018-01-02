@@ -1627,6 +1627,12 @@ function printPathNoParens(path, options, print, args) {
           const value = rawText(n.value);
           res = '"' + value.slice(1, -1).replace(/"/g, "&quot;") + '"';
         } else {
+          if (n.value.type !== "JSXExpressionContainer") {
+            n.value = {
+              type: "JSXExpressionContainer",
+              expression: n.value
+            };
+          }
           res = path.call(print, "value");
         }
         parts.push("=", res);
