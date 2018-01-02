@@ -14,18 +14,36 @@ abc
 type T {
   a: Int
 }
+
+"""
+  a
+    b
+      c
+         """
+type T { a: Int }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") {
   a
 }
 
-"""abc"""
+"""
+abc
+"""
 type T {
   a: Int
 }
 
 """
 abc
+"""
+type T {
+  a: Int
+}
+
+"""
+a
+  b
+    c
 """
 type T {
   a: Int
