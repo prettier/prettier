@@ -29,6 +29,26 @@ of the \`one\` field.
 """
   one: Type
 }
+
+type Foo {
+q("docs" field: String): Type
+q("A long string of description of the field parameter to make this break" field: String): Type
+q("""docs""" field: String): Type
+}
+
+enum Enum {
+"""
+Description of \`one\`
+"""
+one
+}
+
+input Input {
+"""
+Description of \`one\`
+"""
+one: string
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") {
   a
@@ -63,6 +83,34 @@ type Foo {
   of the \`one\` field.
   """
   one: Type
+}
+
+type Foo {
+  q("docs" field: String): Type
+  q(
+    "A long string of description of the field parameter to make this break"
+    field: String
+  ): Type
+  q(
+    """
+    docs
+    """
+    field: String
+  ): Type
+}
+
+enum Enum {
+  """
+  Description of \`one\`
+  """
+  one
+}
+
+input Input {
+  """
+  Description of \`one\`
+  """
+  one: string
 }
 
 `;

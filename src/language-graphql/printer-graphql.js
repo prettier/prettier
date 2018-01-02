@@ -374,6 +374,8 @@ function genericPrint(path, options, print) {
 
     case "EnumValueDefinition": {
       return concat([
+        path.call(print, "description"),
+        n.description ? hardline : "",
         path.call(print, "name"),
         printDirectives(path, print, n)
       ]);
@@ -381,6 +383,8 @@ function genericPrint(path, options, print) {
 
     case "InputValueDefinition": {
       return concat([
+        path.call(print, "description"),
+        n.description && n.description.block ? hardline : line,
         path.call(print, "name"),
         ": ",
         path.call(print, "type"),
