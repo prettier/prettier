@@ -11,3 +11,18 @@ abc
 type T {
   a: Int
 }
+
+"""
+  a
+    b
+      c
+         """
+type T { a: Int }
+
+type Foo {
+"""
+This is a description
+of the `one` field.
+"""
+  one: Type
+}

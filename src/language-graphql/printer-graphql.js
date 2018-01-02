@@ -126,9 +126,13 @@ function genericPrint(path, options, print) {
     }
     case "StringValue": {
       if (n.block) {
-        // It is not possible to distinguish between """\nabc\n""" and """abc"""
-        // https://github.com/graphql/graphql-js/issues/1188
-        return options.originalText.slice(util.locStart(n), util.locEnd(n));
+        return concat([
+          '"""',
+          hardline,
+          join(hardline, n.value.replace(/"""/g, "\\$&").split("\n")),
+          hardline,
+          '"""'
+        ]);
       }
       return concat(['"', n.value.replace(/["\\]/g, "\\$&"), '"']);
     }
@@ -274,6 +278,8 @@ function genericPrint(path, options, print) {
 
     case "FieldDefinition": {
       return concat([
+        path.call(print, "description"),
+        n.description ? hardline : "",
         path.call(print, "name"),
         n.arguments.length > 0
           ? group(
