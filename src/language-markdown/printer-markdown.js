@@ -305,10 +305,7 @@ function genericPrint(path, options, print) {
               printUrl(node.url),
               node.title === null
                 ? ""
-                : concat([
-                  line,
-                  printTitle(node.title, options, false)
-                ])
+                : concat([line, printTitle(node.title, options, false)])
             ])
           )
         ])
@@ -641,7 +638,7 @@ function printUrl(url, dangerousCharOrChars) {
 
 function printTitle(title, options, printSpace) {
   if (printSpace == null) {
-    printSpace = true
+    printSpace = true;
   }
 
   if (!title) {
