@@ -47,8 +47,8 @@ function getSortedChildNodes(node, text, options, resultArray) {
 
   let childNodes;
 
-  if (printer.getChildNodes) {
-    childNodes = printer.getChildNodes(node);
+  if (printer.getCommentChildNodes) {
+    childNodes = printer.getCommentChildNodes(node);
   } else if (node && typeof node === "object") {
     childNodes = Object.keys(node)
       .filter(
