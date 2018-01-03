@@ -9,6 +9,13 @@
     // comment
     arg => fn(arg)
   }
+  propArrowWithBreak={
+    // comment
+    arg =>
+      fn({
+        makeItBreak
+      })
+  }
   propArray={
     // comment
     [el1, el2]
