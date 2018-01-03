@@ -641,7 +641,7 @@ function printUrl(url, dangerousCharOrChars) {
 
 function printTitle(title, options, printSpace) {
   if (printSpace == null) {
-    printSpace = truel
+    printSpace = true
   }
 
   if (!title) {
