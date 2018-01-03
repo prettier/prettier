@@ -499,8 +499,9 @@ function printPathNoParens(path, options, print, args) {
       // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
       // we should align the expression's closing } with the line with the opening {.
       const shouldAddSoftLine =
-        (args && args.expandLastArg) ||
-        path.getParentNode().type === "JSXExpressionContainer";
+        ((args && args.expandLastArg) ||
+          path.getParentNode().type === "JSXExpressionContainer") &&
+        !(n.comments && n.comments.length);
 
       const printTrailingComma =
         args && args.expandLastArg && shouldPrintComma(options, "all");
