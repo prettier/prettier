@@ -45,13 +45,22 @@ function getSortedChildNodes(node, text, options, resultArray) {
     return node[childNodesCacheKey];
   }
 
-  let names;
-  if (node && typeof node === "object") {
-    names = Object.keys(node).filter(
-      n =>
-        n !== "enclosingNode" && n !== "precedingNode" && n !== "followingNode"
-    );
-  } else {
+  let childNodes;
+
+  if (printer.getChildNodes) {
+    childNodes = printer.getChildNodes(node);
+  } else if (node && typeof node === "object") {
+    childNodes = Object.keys(node)
+      .filter(
+        n =>
+          n !== "enclosingNode" &&
+          n !== "precedingNode" &&
+          n !== "followingNode"
+      )
+      .map(n => node[n]);
+  }
+
+  if (!childNodes) {
     return;
   }
 
@@ -62,9 +71,9 @@ function getSortedChildNodes(node, text, options, resultArray) {
     });
   }
 
-  for (let i = 0, nameCount = names.length; i < nameCount; ++i) {
-    getSortedChildNodes(node[names[i]], text, options, resultArray);
-  }
+  childNodes.forEach(childNode => {
+    getSortedChildNodes(childNode, text, options, resultArray);
+  });
 
   return resultArray;
 }
