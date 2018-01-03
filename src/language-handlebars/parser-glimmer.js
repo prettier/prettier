@@ -1,21 +1,15 @@
 "use strict";
-
+const util = require("../common/util");
 const createError = require("../common/parser-create-error");
-function removeEmptyNodes(node) {
-  return (
-    node.type !== "TextNode" ||
-    (node.type === "TextNode" &&
-      node.chars.replace(/^\s+/, "").replace(/\s+$/, "") !== "")
-  );
-}
-function removeWhiteSpace() {
+
+const lineColumnToIndex = util.lineColumnToIndex;
+
+function setLocStartAndEnd(text) {
   return {
     visitor: {
-      Program(node) {
-        node.body = node.body.filter(removeEmptyNodes);
-      },
-      ElementNode(node) {
-        node.children = node.children.filter(removeEmptyNodes);
+      All(node) {
+        node.start = lineColumnToIndex(node.loc.start, text);
+        node.end = lineColumnToIndex(node.loc.end, text);
       }
     }
   };
@@ -26,7 +20,7 @@ function parse(text) {
     const glimmer = require("@glimmer/syntax").preprocess;
     return glimmer(text, {
       plugins: {
-        ast: [removeWhiteSpace]
+        ast: [() => setLocStartAndEnd(text)]
       }
     });
     /* istanbul ignore next */

@@ -1,6 +1,10 @@
 "use strict";
 
 const docBuilders = require("../doc/doc-builders");
+const util = require("../common/util");
+
+const isNextLineEmpty = util.isNextLineEmpty;
+const hasNewLineInRange = util.hasNewlineInRange;
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const softline = docBuilders.softline;
@@ -9,6 +13,7 @@ const line = docBuilders.line;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
 const ifBreak = docBuilders.ifBreak;
+const fill = docBuilders.fill;
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [
@@ -41,9 +46,31 @@ function print(path, options, print) {
 
   switch (n.type) {
     case "Program": {
-      return group(
-        join(softline, path.map(print, "body").filter(text => text !== ""))
+      const parts = [];
+      parts.push(
+        path.call(bodyPath => {
+          const printed = [];
+
+          bodyPath.map(stmtPath => {
+            const stmt = stmtPath.getValue();
+
+            const text = options.originalText;
+            const parts = [];
+            const isEmpty = isNextLineEmpty(text, stmt);
+            if (isNextLineEmpty(text, stmt)) {
+              parts.push(hardline);
+            } else {
+              parts.push(print(stmtPath, options, print));
+            }
+
+            printed.push(concat(parts));
+          });
+
+          return concat(printed);
+        }, "body")
       );
+
+      return group(concat(parts));
     }
     case "ElementNode": {
       const isVoid = voidTags.indexOf(n.tag) !== -1;
@@ -183,7 +210,23 @@ function print(path, options, print) {
       return concat([n.key, "=", path.call(print, "value")]);
     }
     case "TextNode": {
-      return n.chars.replace(/^\s+/, "").replace(/\s+$/, "");
+      if (n.chars.replace(/\s+/g, "") === "") {
+        const text = options.originalText;
+        if (!hasNewLineInRange(text, n.start, n.end)) {
+          return "";
+        }
+        return concat(
+          n.chars
+            .match(RegExp("\n", "g"))
+            .slice(1)
+            .map(() => hardline)
+        );
+      }
+      return fill(
+        n.chars
+          .split(/\s+/)
+          .map((elem, idx, arr) => elem + (arr.length > 1 ? " " : ""))
+      );
     }
     case "MustacheCommentStatement": {
       const dashes = n.value.indexOf("}}") > -1 ? "--" : "";
@@ -269,16 +312,27 @@ function printCloseBlock(path, print) {
 }
 
 function clean(ast, newObj) {
-  // (Glimmer/HTML) ignore TextNode whitespace
   if (ast.type === "TextNode") {
     if (ast.chars.replace(/\s+/, "") === "") {
       return null;
     }
-    newObj.chars = ast.chars.replace(/^\s+/, "").replace(/\s+$/, "");
+    newObj.chars = ast.chars.replace(/^ +/, "").replace(/ +$/, "");
   }
+}
+
+function isLastStatement(path) {
+  const parent = path.getParentNode();
+  if (!parent) {
+    return true;
+  }
+  const node = path.getValue();
+  const body = (parent.body || parent.consequent).filter(
+    stmt => stmt.type !== "EmptyStatement"
+  );
+  return body && body[body.length - 1] === node;
 }
 
 module.exports = {
   print,
-  massageAstNode: clean
+  massageAstNode: () => {}
 };

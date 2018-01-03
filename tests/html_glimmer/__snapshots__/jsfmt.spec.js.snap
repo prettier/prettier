@@ -227,6 +227,12 @@ exports[`element-node.hbs 1`] = `
 </div>
 
 <div>
+  A line break with its own new lines
+  inside of it forming something of 
+  a paragraph. 
+</div>
+
+<div>
   {{#block}}
     {{hello}}
   {{/block}}
@@ -258,10 +264,18 @@ exports[`element-node.hbs 1`] = `
   A long enough string to trigger a line break that would prevent wrapping more and more.
 </div>
 <div>
+  A line break with its own new lines
+  inside of it forming something of 
+  a paragraph.
+</div>
+<div>
+
   {{#block}}{{hello}}{{/block}}
 </div>
 <div>
+
   {{hello}}
+
 </div>
 <div></div>
 <img />
@@ -329,6 +343,7 @@ exports[`else-if.hbs 1`] = `
 {{else}}
   e
 {{/if}}
+
 {{#if a}}
   b
 {{else if c}}
@@ -340,6 +355,7 @@ exports[`else-if.hbs 1`] = `
   {{/if}}
   e
 {{/if}}
+
 {{#if a}}
   b
 {{else if c}}
@@ -351,6 +367,7 @@ exports[`else-if.hbs 1`] = `
 {{else}}
   j
 {{/if}}
+
 <div>
   {{#if a}}
     b
@@ -360,6 +377,7 @@ exports[`else-if.hbs 1`] = `
     e
   {{/if}}
 </div>
+
 <div>
   <div>
     {{#if a}}
@@ -399,6 +417,7 @@ exports[`loop.hbs 1`] = `
 </ul>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <ul>
+
   {{#each speakers key="@index" as |speaker|}}
     <li>
       {{speaker}}
@@ -480,7 +499,9 @@ exports[`sub-expressions.hbs 1`] = `
     )
     hashPair=(does not need a line break due to being under 80 chars long)
   )
-}}{{/block}}
+}}
+
+{{/block}}
 {{foobar-sub-component/foobar-foo
   hook="stringLiteral"
   foo=(t
