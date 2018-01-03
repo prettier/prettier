@@ -20,7 +20,10 @@ export default Object.assign(baseConfig, {
       "process.env.NODE_ENV": JSON.stringify("production")
     }),
     json(),
-    resolve({ preferBuiltins: true }),
+    resolve({
+      preferBuiltins: true,
+      extensions: [".js", ".json"]
+    }),
     commonjs()
   ],
   external,

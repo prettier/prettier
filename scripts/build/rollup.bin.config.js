@@ -13,7 +13,10 @@ export default Object.assign(baseConfig, {
   plugins: [
     replace({ "#!/usr/bin/env node": "" }),
     json(),
-    resolve({ preferBuiltins: true }),
+    resolve({
+      preferBuiltins: true,
+      extensions: [".js", ".json"]
+    }),
     commonjs()
   ],
   external: [
