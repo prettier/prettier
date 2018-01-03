@@ -50,7 +50,6 @@ exports[`attr-comments.js 1`] = `
       fn({
         makeItBreak
       })
-
   }
   propArray={
     // comment
