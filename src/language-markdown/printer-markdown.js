@@ -284,7 +284,7 @@ function genericPrint(path, options, print) {
     case "imageReference":
       switch (node.referenceType) {
         case "full":
-          return concat(["![", node.alt, "][", node.identifier, "]"]);
+          return concat(["![", node.alt || "", "][", node.identifier, "]"]);
         default:
           return concat([
             "![",
