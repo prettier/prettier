@@ -305,7 +305,10 @@ function genericPrint(path, options, print) {
               printUrl(node.url),
               node.title === null
                 ? ""
-                : concat([line, printTitle(node.title, options, { printSpace: false })])
+                : concat([
+                  line,
+                  printTitle(node.title, options, false)
+                ])
             ])
           )
         ])
@@ -637,12 +640,15 @@ function printUrl(url, dangerousCharOrChars) {
 }
 
 function printTitle(title, options, printSpace) {
-  if (printSpace == null) printSpace = true
+  if (printSpace == null) {
+    printSpace = truel
+  }
+
   if (!title) {
     return "";
   }
   if (printSpace) {
-    return " " + printTitle(title, options, false)
+    return " " + printTitle(title, options, false);
   }
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
