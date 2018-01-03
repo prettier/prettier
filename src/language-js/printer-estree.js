@@ -4477,6 +4477,7 @@ function maybeWrapJSXElementInParens(path, elem) {
 
   const NO_WRAP_PARENTS = {
     ArrayExpression: true,
+    JSXAttribute: true,
     JSXElement: true,
     JSXExpressionContainer: true,
     JSXFragment: true,
