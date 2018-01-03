@@ -85,7 +85,7 @@ echo "$jsfiles" | xargs git add
 exit 0
 ```
 
-In case you experience a problem causing your prettified files to appear modified according to git. You may also need a post-commit script in `.git/hooks/pre-commit` as described in [this issue](https://github.com/prettier/prettier/issues/2978#issuecomment-334408427).
+In case you experience a problem causing your prettified files to appear modified according to git. You may also need a post-commit script in `.git/hooks/post-commit` as described in [this issue](https://github.com/prettier/prettier/issues/2978#issuecomment-334408427).
 Here is the code of the post-commit hook:
 ```bash
 #!/bin/sh
