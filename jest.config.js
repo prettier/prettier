@@ -14,5 +14,8 @@ module.exports = {
     "<rootDir>/src/clean-ast.js",
     "<rootDir>/src/deprecated.js"
   ],
+  moduleNameMapper: {
+    "graceful-fs": "<rootDir>/tests_config/fs.js"
+  },
   transform: {}
 };
