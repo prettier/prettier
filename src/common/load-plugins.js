@@ -17,7 +17,13 @@ function loadPlugins(plugins) {
   ];
 
   const externalPlugins = plugins
-    .concat(getPluginsFromPackage(readPkgUp.sync().pkg))
+    .concat(
+      getPluginsFromPackage(
+        readPkgUp.sync({
+          normalize: false
+        }).pkg
+      )
+    )
     .map(plugin => {
       if (typeof plugin !== "string") {
         return plugin;
