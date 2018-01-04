@@ -15,6 +15,9 @@ module.exports = {
     "<rootDir>/src/deprecated.js"
   ],
   moduleNameMapper: {
+    // Jest wires `fs` to `graceful-fs`, which causes a memory leak when
+    // `graceful-fs` does `require('fs')`.
+    // Ref: https://github.com/facebook/jest/issues/2179#issuecomment-355231418
     "graceful-fs": "<rootDir>/tests_config/fs.js"
   },
   transform: {}
