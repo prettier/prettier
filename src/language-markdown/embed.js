@@ -31,7 +31,10 @@ function embed(path, print, textToDoc, options) {
   return null;
 
   function getParserName(lang) {
-    const supportInfo = support.getSupportInfo(undefined, options);
+    const supportInfo = support.getSupportInfo(undefined, {
+      plugins: options.plugins,
+      pluginsLoaded: true
+    });
     const language = supportInfo.languages.find(
       language =>
         language.name.toLowerCase() === lang ||

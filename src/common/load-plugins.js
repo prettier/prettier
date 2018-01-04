@@ -3,8 +3,8 @@
 const resolve = require("resolve");
 const readPkgUp = require("read-pkg-up");
 
-function loadPlugins(options) {
-  options = Object.assign({ plugins: [] }, options);
+function loadPlugins(plugins) {
+  plugins = plugins || [];
 
   const internalPlugins = [
     require("../language-js"),
@@ -16,7 +16,7 @@ function loadPlugins(options) {
     require("../language-vue")
   ];
 
-  const externalPlugins = options.plugins
+  const externalPlugins = plugins
     .concat(getPluginsFromPackage(readPkgUp.sync().pkg))
     .map(plugin => {
       if (typeof plugin !== "string") {

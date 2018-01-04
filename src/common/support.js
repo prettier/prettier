@@ -162,13 +162,21 @@ const supportOptions = {
 };
 
 function getSupportInfo(version, opts) {
-  opts = opts || {};
+  opts = Object.assign(
+    {
+      plugins: [],
+      pluginsLoaded: false,
+      showUnreleased: false,
+      showDeprecated: false
+    },
+    opts
+  );
 
   if (!version) {
     version = currentVersion;
   }
 
-  const plugins = loadPlugins(opts);
+  const plugins = opts.pluginsLoaded ? opts.plugins : loadPlugins(opts.plugins);
 
   const options = util
     .arrayify(
