@@ -118,11 +118,11 @@ function formatCode(text, options) {
   try {
     return prettier.format(text, options);
   } catch (e) {
-    if (e.constructor && e.constructor.name === 'SyntaxError') {
+    if (e.constructor && e.constructor.name === "SyntaxError") {
       // Likely something wrong with the user's code
       return String(e);
     }
-    // Likely a bug in Prettier 
+    // Likely a bug in Prettier
     // Provide the whole stack for debugging
     return e.stack || String(e);
   }
