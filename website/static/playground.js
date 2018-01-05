@@ -381,7 +381,7 @@ function getExample(parser) {
       ].join("\n");
     case "typescript":
       return [
-        "interface MyInterface {"
+        "interface MyInterface {",
         "  foo(): string,",
         "  bar: Array<number>,",
         "}",
