@@ -22,7 +22,7 @@ self.process = {
   argv: [],
   env: { PRETTIER_DEBUG: true },
   version: "v8.5.0",
-  binding: () => {}
+  binding: function() {}
 };
 self.assert = { ok: function() {}, strictEqual: function() {} };
 self.require = function require(path) {
