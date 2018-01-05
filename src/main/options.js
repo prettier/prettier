@@ -44,7 +44,7 @@ function normalize(options) {
   const normalized = Object.assign({}, options || {});
   const filepath = normalized.filepath;
 
-  normalized.plugins = loadPlugins(normalized);
+  normalized.plugins = loadPlugins(normalized.plugins);
 
   if (
     filepath &&
@@ -54,7 +54,10 @@ function normalize(options) {
     const extension = path.extname(filepath);
     const filename = path.basename(filepath).toLowerCase();
 
-    const language = getSupportInfo(null, normalized).languages.find(
+    const language = getSupportInfo(null, {
+      plugins: normalized.plugins,
+      pluginsLoaded: true
+    }).languages.find(
       language =>
         typeof language.since === "string" &&
         (language.extensions.indexOf(extension) > -1 ||

@@ -11,9 +11,16 @@ export default Object.assign(baseConfig, {
   format: "cjs",
   banner: "#!/usr/bin/env node",
   plugins: [
-    replace({ "#!/usr/bin/env node": "" }),
+    replace({
+      "#!/usr/bin/env node": "",
+      // See comment in jest.config.js
+      "require('graceful-fs')": "require('fs')"
+    }),
     json(),
-    resolve({ preferBuiltins: true }),
+    resolve({
+      preferBuiltins: true,
+      extensions: [".js", ".json"]
+    }),
     commonjs()
   ],
   external: [

@@ -17,10 +17,15 @@ export default Object.assign(baseConfig, {
   format: "cjs",
   plugins: [
     replace({
-      "process.env.NODE_ENV": JSON.stringify("production")
+      "process.env.NODE_ENV": JSON.stringify("production"),
+      // See comment in jest.config.js
+      "require('graceful-fs')": "require('fs')"
     }),
     json(),
-    resolve({ preferBuiltins: true }),
+    resolve({
+      preferBuiltins: true,
+      extensions: [".js", ".json"]
+    }),
     commonjs()
   ],
   external,
