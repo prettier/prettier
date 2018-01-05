@@ -18,7 +18,12 @@ self.fs = { readFile: function() {} };
 os.homedir = function() {
   return "/home/prettier";
 };
-self.process = { argv: [], env: { PRETTIER_DEBUG: true }, version: "v8.5.0" };
+self.process = {
+  argv: [],
+  env: { PRETTIER_DEBUG: true },
+  version: "v8.5.0",
+  binding: () => {}
+};
 self.assert = { ok: function() {}, strictEqual: function() {} };
 self.require = function require(path) {
   if (path === "stream") {
