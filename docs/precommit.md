@@ -84,8 +84,9 @@ echo "$jsfiles" | xargs git add
 
 exit 0
 ```
+If git is reporting that your prettified files are still modified after committing, you may need to add a post-commit script to update git's index as described in [this issue](https://github.com/prettier/prettier/issues/2978#issuecomment-334408427).
 
-In case you experience a problem causing your prettified files to appear modified according to git. You may also need a post-commit script in `.git/hooks/post-commit` as described in [this issue](https://github.com/prettier/prettier/issues/2978#issuecomment-334408427). Here is the code of the post-commit hook:
+Add something like the following to .git/hooks/post-commit:
 
 ```bash
 #!/bin/sh
