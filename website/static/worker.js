@@ -5,8 +5,11 @@
 self.global = self;
 self.util = {};
 self.path = {};
-self.path.resolve = self.path.parse = self.path.join = self.path.dirname = function() {
+self.path.resolve = self.path.join = self.path.dirname = function() {
   return "";
+};
+self.path.parse = function() {
+  return { root: "" };
 };
 self.Buffer = {
   isBuffer: function() {
