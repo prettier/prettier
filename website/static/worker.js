@@ -4,7 +4,11 @@
 // "Polyfills" in order for all the code to run
 self.global = self;
 self.util = {};
-self.path = {};
+self.path = {
+  resolve: function() {
+    return "";
+  }
+};
 self.Buffer = {
   isBuffer: function() {
     return false;
