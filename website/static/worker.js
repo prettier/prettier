@@ -4,10 +4,9 @@
 // "Polyfills" in order for all the code to run
 self.global = self;
 self.util = {};
-self.path = {
-  resolve: function() {
-    return "";
-  }
+self.path = {};
+self.path.resolve = function() {
+  return "";
 };
 self.Buffer = {
   isBuffer: function() {
@@ -16,7 +15,7 @@ self.Buffer = {
 };
 self.constants = {};
 // eslint-disable-next-line
-module$1 = module = path = os = crypto = {};
+module$1 = module = os = crypto = {};
 self.fs = { readFile: function() {} };
 // eslint-disable-next-line no-undef
 os.homedir = function() {
