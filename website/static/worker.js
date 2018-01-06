@@ -5,7 +5,7 @@
 self.global = self;
 self.util = {};
 self.path = {};
-self.path.resolve = function() {
+self.path.resolve = self.path.parse = self.path.join = self.path.dirname = function() {
   return "";
 };
 self.Buffer = {
