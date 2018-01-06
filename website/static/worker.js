@@ -27,6 +27,9 @@ self.process = {
   version: "v8.5.0",
   binding: function() {
     return {};
+  },
+  cwd: function() {
+    return "";
   }
 };
 self.assert = { ok: function() {}, strictEqual: function() {} };
