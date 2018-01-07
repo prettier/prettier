@@ -62,7 +62,10 @@ function parse(text, opts) {
       text = parser.preprocess(text, opts);
     }
 
-    return parser.parse(text, parsersForCustomParserApi, opts);
+    return {
+      text,
+      ast: parser.parse(text, parsersForCustomParserApi, opts)
+    };
   } catch (error) {
     const loc = error.loc;
 

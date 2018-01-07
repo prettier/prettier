@@ -68,7 +68,7 @@ self.onmessage = function(message) {
     var actualAst;
     var errored = false;
     try {
-      actualAst = prettier.__debug.parse(message.data.text, options);
+      actualAst = prettier.__debug.parse(message.data.text, options).ast;
       ast = JSON.stringify(actualAst);
     } catch (e) {
       errored = true;
