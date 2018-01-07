@@ -23,7 +23,7 @@
     <img alt="Gitter" src="https://img.shields.io/gitter/room/jlongster/prettier.svg?style=flat-square">
   </a>
   <a href="https://travis-ci.org/prettier/prettier">
-    <img alt="Travis" src="https://img.shields.io/travis/prettier/prettier.svg?style=flat-square">
+    <img alt="Travis" src="https://img.shields.io/travis/prettier/prettier/master.svg?style=flat-square">
   </a>
   <a href="https://codecov.io/gh/prettier/prettier">
     <img alt="Codecov" src="https://img.shields.io/codecov/c/github/prettier/prettier.svg?style=flat-square">
