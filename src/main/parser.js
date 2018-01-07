@@ -58,6 +58,10 @@ function parse(text, opts) {
   const parser = resolveParser(opts, parsers);
 
   try {
+    if (parser.preprocess) {
+      text = parser.preprocess(text, opts);
+    }
+
     return parser.parse(text, parsersForCustomParserApi, opts);
   } catch (error) {
     const loc = error.loc;
