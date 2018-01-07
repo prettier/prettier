@@ -38,6 +38,12 @@ shell.cp(`${prettierPath}/index.js`, `${docs}/index.js`);
 shell.exec(
   `node_modules/babel-cli/bin/babel.js ${docs}/index.js --out-file ${docs}/index.js --presets=es2015`
 );
+shell.sed(
+  "-i",
+  /(var crypto=true;)/,
+  "try{$1}catch(e){}",
+  `${docs}/index.js`
+);
 
 shell.exec(
   `rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-babylon.js -i ${prettierPath}/parser-babylon.js`
