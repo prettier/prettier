@@ -25,7 +25,7 @@ function textToDoc(text, partialNextOptions, parentOptions) {
 
   const result = require("./parser").parse(text, nextOptions);
   const ast = result.ast;
-  text = typeof result.text !== "undefined" ? result.text : text;
+  text = result.text;
 
   const astComments = ast.comments;
   delete ast.comments;

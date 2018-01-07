@@ -99,7 +99,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
 
   const result = parser.parse(text, opts);
   const ast = result.ast;
-  text = typeof result.text !== "undefined" ? result.text : text;
+  text = result.text;
 
   const formattedRangeOnly = formatRange(text, opts, ast);
   if (formattedRangeOnly) {
@@ -436,7 +436,7 @@ module.exports = {
       opts = normalizeOptions(opts);
       const result = parser.parse(text, opts);
       const ast = result.ast;
-      text = typeof result.text !== "undefined" ? result.text : text;
+      text = result.text;
       attachComments(text, ast, opts);
       const doc = printAstToDoc(ast, opts);
       return doc;
