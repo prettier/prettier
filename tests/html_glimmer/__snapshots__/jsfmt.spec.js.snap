@@ -33,11 +33,13 @@ exports[`block-statement.hbs 1`] = `
 {{#block param hashKey=hashValue as |blockParam|}}
   Hello
 {{/block}}
+
 {{#block
   almost80CharacterLongPositionalParamThatIsFirstAlmost80Chars
   helloWorldParam
   key=here
 }}{{/block}}
+
 {{#block
   param
   param
@@ -50,6 +52,7 @@ exports[`block-statement.hbs 1`] = `
 }}
   Hello
 {{/block}}
+
 {{#block
   param
   param
@@ -63,6 +66,7 @@ exports[`block-statement.hbs 1`] = `
 }}
   Hello
 {{/block}}
+
 {{#block
   param
   param
@@ -80,6 +84,7 @@ exports[`block-statement.hbs 1`] = `
 }}
   Hello
 {{/block}}
+
 {{#block
   hashKey=HashValue
   hashKey=hashValue
@@ -89,7 +94,8 @@ exports[`block-statement.hbs 1`] = `
 }}
   Hello
 {{/block}}
-{{#block}}{{#block}}hello{{/block}}{{/block}}
+
+{{#block}}{{#block}}hello  {{/block}}{{/block}}
 `;
 
 exports[`component.hbs 1`] = `
@@ -119,9 +125,10 @@ exports[`concat-statement.hbs 1`] = `
 
 <a href="/{{url}}/{{url}}"></a>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div class="hello{{if goodbye true}}">
+<div class="hello {{if goodbye true}}">
   Hello
 </div>
+
 <div
   class="hello
     {{if goodbye true}}
@@ -132,6 +139,7 @@ exports[`concat-statement.hbs 1`] = `
 >
   Hello
 </div>
+
 <a href="/{{url}}/{{url}}"></a>
 `;
 
@@ -155,6 +163,7 @@ exports[`element-modifier-statement.hbs 1`] = `
 <div {{hello param hash=key}} {{goodbye param}}>
   Hello
 </div>
+
 <div
   {{hello
     param
@@ -173,6 +182,7 @@ exports[`element-modifier-statement.hbs 1`] = `
 >
   Hello
 </div>
+
 <div
   {{hello
     hashPair=value
@@ -184,6 +194,7 @@ exports[`element-modifier-statement.hbs 1`] = `
 >
   Hello
 </div>
+
 <div
   {{hello
     param
@@ -248,40 +259,52 @@ exports[`element-node.hbs 1`] = `
 <div class="attribute" {{modifier}} {{! comment}}>
   Hello
 </div>
+
 <div>
   Hello
 </div>
+
 <div>
   hi
 </div>
+
 <div>
   A long enough string to trigger a line break that would prevent wrapping.
 </div>
+
 <div>
   A long enough string to trigger a line break that would prevent wrapping more.
 </div>
+
 <div>
   A long enough string to trigger a line break that would prevent wrapping more and more.
 </div>
+
 <div>
-  A line break with its own new lines
-  inside of it forming something of 
-  a paragraph.
+  A line break with its own new lines inside of it forming something of a paragraph.
 </div>
+
 <div>
 
   {{#block}}{{hello}}{{/block}}
 </div>
+
 <div>
-
   {{hello}}
-
 </div>
+
 <div></div>
 <img />
 `;
 
 exports[`else-if.hbs 1`] = `
+<div>
+  <div>
+    hello
+  </div>
+</div>
+
+
 {{#if a}}
   b
 {{else if c}}
@@ -336,6 +359,13 @@ exports[`else-if.hbs 1`] = `
   </div>
 </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  <div>
+    hello
+  </div>
+</div>
+
+
 {{#if a}}
   b
 {{else if c}}
@@ -480,6 +510,7 @@ exports[`sub-expressions.hbs 1`] = `
     )
   }}
 ></div>
+
 {{#block
   (concat
     (helper param hashPair=Value)

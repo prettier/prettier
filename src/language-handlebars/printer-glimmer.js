@@ -46,31 +46,27 @@ function print(path, options, print) {
 
   switch (n.type) {
     case "Program": {
-      const parts = [];
-      parts.push(
-        path.call(bodyPath => {
-          const printed = [];
+      return group(concat(path.map(print, "body")));
+      // const parts = [];
+      // parts.push(
+      //   path.call(bodyPath => {
+      //     const printed = [];
 
-          bodyPath.map(stmtPath => {
-            const stmt = stmtPath.getValue();
+      //     bodyPath.map(stmtPath => {
+      //       const stmt = stmtPath.getValue();
 
-            const text = options.originalText;
-            const parts = [];
-            const isEmpty = isNextLineEmpty(text, stmt);
-            if (isNextLineEmpty(text, stmt)) {
-              parts.push(hardline);
-            } else {
-              parts.push(print(stmtPath, options, print));
-            }
+      //       const text = options.originalText;
+      //       const parts = [];
+      //       parts.push(print(stmtPath, options, print));
 
-            printed.push(concat(parts));
-          });
+      //       printed.push(concat(parts));
+      //     });
 
-          return concat(printed);
-        }, "body")
-      );
+      //     return concat(printed);
+      //   }, "body")
+      // );
 
-      return group(concat(parts));
+      // return group(concat(parts));
     }
     case "ElementNode": {
       const isVoid = voidTags.indexOf(n.tag) !== -1;
@@ -114,7 +110,7 @@ function print(path, options, print) {
         ),
         group(
           concat([
-            indent(join(softline, [""].concat(path.map(print, "children")))),
+            indent(join(softline, path.map(print, "children"))),
             ifBreak(hasChildren ? hardline : "", ""),
             !isVoid ? concat(["</", n.tag, ">"]) : ""
           ])
@@ -215,17 +211,25 @@ function print(path, options, print) {
         if (!hasNewLineInRange(text, n.start, n.end)) {
           return "";
         }
-        return concat(
-          n.chars
-            .match(RegExp("\n", "g"))
-            .slice(1)
-            .map(() => hardline)
-        );
+        const newLines = n.chars.match(RegExp("\n", "g"));
+        if (newLines.length >= 1) {
+          return concat(newLines.map(() => hardline));
+        }
+        return "";
       }
       return fill(
         n.chars
           .split(/\s+/)
-          .map((elem, idx, arr) => elem + (arr.length > 1 ? " " : ""))
+          .map((elem, idx, arr) =>
+            concat([
+              elem,
+              idx === 0 ||
+              idx === arr.length - 1 ||
+              elem.replace(/\s+/g, "") === ""
+                ? ""
+                : line
+            ])
+          )
       );
     }
     case "MustacheCommentStatement": {
