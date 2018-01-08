@@ -2,6 +2,7 @@
 
 "use strict";
 
+const fs = require("fs");
 const path = require("path");
 const shell = require("shelljs");
 const parsers = require("./parsers");
@@ -38,12 +39,13 @@ shell.cp(`${prettierPath}/index.js`, `${docs}/index.js`);
 shell.exec(
   `node_modules/babel-cli/bin/babel.js ${docs}/index.js --out-file ${docs}/index.js --presets=es2015`
 );
-shell.sed(
-  "-i",
-  /(var crypto=true;)/,
-  "try{$1}catch(e){}",
-  `${docs}/index.js`
-);
+
+// wrap content with IIFE to avoid `assign to readonly` error on Safari
+(function(filename) {
+  const content = fs.readFileSync(filename, "utf8");
+  const wrapped = `"use strict";(function(){${content}}());`;
+  fs.writeFileSync(filename, wrapped);
+})(`${docs}/index.js`);
 
 shell.exec(
   `rollup -c scripts/build/rollup.docs.config.js --environment filepath:parser-babylon.js -i ${prettierPath}/parser-babylon.js`
