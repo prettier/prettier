@@ -193,7 +193,6 @@ declare function indent(doc: Doc): Doc;
 
 Increase the level of indentation.
 
-
 ### resetIndent
 
 ```ts
@@ -201,7 +200,6 @@ declare function resetIndent(doc: Doc): Doc;
 ```
 
 Resets the level of indentation.
-
 
 ### align
 
