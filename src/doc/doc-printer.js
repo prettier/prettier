@@ -381,7 +381,6 @@ function printDocToString(doc, options) {
 
               if (doc.literal) {
                 out.push(newLine);
-                pos = 0;
               } else {
                 if (out.length > 0) {
                   // Trim whitespace at the end of line
@@ -406,8 +405,8 @@ function printDocToString(doc, options) {
                 }
 
                 out.push(newLine + ind.value);
-                pos = ind.length;
               }
+              pos = ind.length;
               break;
           }
           break;
