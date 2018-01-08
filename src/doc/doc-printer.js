@@ -70,7 +70,11 @@ function fits(next, restCommands, width, options, mustBeFlat) {
 
           break;
         case "indent":
-          cmds.push([doc.reset ? rootIndent() : makeIndent(ind, options), mode, doc.contents]);
+          cmds.push([
+            doc.reset ? rootIndent() : makeIndent(ind, options),
+            mode,
+            doc.contents
+          ]);
 
           break;
         case "align":
@@ -161,7 +165,11 @@ function printDocToString(doc, options) {
 
           break;
         case "indent":
-          cmds.push([doc.reset ? rootIndent() : makeIndent(ind, options), mode, doc.contents]);
+          cmds.push([
+            doc.reset ? rootIndent() : makeIndent(ind, options),
+            mode,
+            doc.contents
+          ]);
 
           break;
         case "align":
