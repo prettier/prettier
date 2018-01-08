@@ -1,6 +1,6 @@
 - caption: React
   image: "/images/users/react-200x100.png"
-  infoLink: https://facebook.github.io/react/
+  infoLink: https://reactjs.org
   pinned: true
 - caption: Jest
   image: "/images/users/jest-200x100.png"
@@ -16,7 +16,7 @@
   pinned: true
 - caption: ZEIT
   image: "/images/users/zeit-200x100.png"
-  infoLink: https://zeit.co/
+  infoLink: https://zeit.co
   pinned: true
 - caption: Webpack CLI
   image: "/images/users/webpack-200x100.png"
@@ -24,28 +24,28 @@
   pinned: true
 - caption: PayPal
   image: "/images/users/paypal-200x100.png"
-  infoLink: https://github.com/paypal
+  infoLink: https://github.com/paypal/
 - caption: Hudl
   image: "/images/users/hudl-200x100.png"
-  infoLink: http://hudl.github.io/
+  infoLink: http://hudl.github.io
 - caption: Transloadit
   image: "/images/users/transloadit-200x100.png"
-  infoLink: https://transloadit.com/
+  infoLink: https://transloadit.com
 - caption: Tradeshift
   image: "/images/users/tradeshift-200x100.png"
-  infoLink: https://tradeshift.com/
+  infoLink: https://tradeshift.com
 - caption: Algolia
   image: "/images/users/algolia-200x100.png"
-  infoLink: https://algolia.com
+  infoLink: https://www.algolia.com
 - caption: IRESS
   image: "/images/users/iress-200x100.png"
-  infoLink: https://iress.com
+  infoLink: https://www.iress.com
 - caption: Outreach
   image: "/images/users/outreach-200x100.png"
-  infoLink: https://www.outreach.io/
+  infoLink: https://www.outreach.io
 - caption: Material-UI
   image: "/images/users/materialui-200x100.png"
-  infoLink: http://www.material-ui.com/
+  infoLink: http://www.material-ui.com/#/
 - caption: Wire
   image: "/images/users/wire-200x100.png"
   infoLink: https://wire.com
@@ -57,7 +57,7 @@
   infoLink: https://monei.net
 - caption: Talkable
   image: "/images/users/talkable-200x100.png"
-  infoLink: https://talkable.com
+  infoLink: https://www.talkable.com
 - caption: Smooth Code
   image: "/images/users/smooth-code-200x100.png"
   infoLink: https://www.smooth-code.com
@@ -90,7 +90,7 @@
   infoLink: https://7span.com
 - caption: IDEATI
   image: "/images/users/ideati-200x100.png"
-  infoLink: http://www.ideati.net
+  infoLink: https://www.ideati.net
 - caption: Mathrioshka
   image: "/images/users/mathrioshka-200x100.png"
   infoLink: https://mathrioshka.ru
