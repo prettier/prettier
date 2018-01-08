@@ -138,7 +138,7 @@ Specify a line break that is **always** included in the output, no matter if the
 declare var literalline: Doc;
 ```
 
-Specify a line break that is **always** included in the output, and don't indent the next line. This is used for template literals.
+Specify a line break that is **always** included in the output, and doesn't trim whitespaces in the end of lines. This is used for template literals.
 
 ### lineSuffix
 
@@ -192,6 +192,16 @@ declare function indent(doc: Doc): Doc;
 ```
 
 Increase the level of indentation.
+
+
+### resetIndent
+
+```ts
+declare function resetIndent(doc: Doc): Doc;
+```
+
+Resets the level of indentation.
+
 
 ### align
 
