@@ -138,7 +138,7 @@ Specify a line break that is **always** included in the output, no matter if the
 declare var literalline: Doc;
 ```
 
-Specify a line break that is **always** included in the output, and doesn't trim whitespaces in the end of lines. This is used for template literals.
+Specify a line break that is **always** included in the output, and doesn't trim whitespaces at the end of lines. This is used for template literals.
 
 ### lineSuffix
 
