@@ -30,29 +30,25 @@ and add this config to your `package.json`:
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
-## Option 2. [pre-commit](https://github.com/observing/pre-commit) (JS version)
+## Option 2. [pretty-quick](https://github.com/azz/pretty-quick)
 
-Install the package:
+Install it along with [husky](https://github.com/typicode/husky):
 
 ```bash
-yarn add pre-commit --dev
+yarn add pretty-quick husky --dev
 ```
 
 and add this config to your `package.json`:
 
-<!-- prettier-ignore -->
 ```json
 {
   "scripts": {
-    "prettier": "prettier \"*/**/*.js\" --ignore-path ./.prettierignore --write && git add . && git status"
-  },
-  "pre-commit": [
-    "prettier"
-  ]
+    "precommit": "pretty-quick --staged"
+  }
 }
 ```
 
-Find more info from [here](https://github.com/observing/pre-commit).
+Find more info from [here](https://github.com/azz/pretty-quick).
 
 ## Option 3. [pre-commit](https://github.com/pre-commit/pre-commit) (Python version)
 
