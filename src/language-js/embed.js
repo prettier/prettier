@@ -8,6 +8,7 @@ const indent = docBuilders.indent;
 const join = docBuilders.join;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
+const literalline = docBuilders.literalline;
 const concat = docBuilders.concat;
 
 function embed(path, print, textToDoc /*, options */) {
@@ -149,7 +150,7 @@ function embed(path, print, textToDoc /*, options */) {
         return concat([
           (hasIndent ? indent : identity)(
             concat([
-              softline,
+              hasIndent ? softline : literalline,
               printMarkdown(
                 !hasIndent
                   ? text
