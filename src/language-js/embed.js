@@ -143,19 +143,18 @@ function embed(path, print, textToDoc /*, options */) {
             (parentParent.tag.name === "md" ||
               parentParent.tag.name === "markdown")))
       ) {
-        const doc = textToDoc(
-          // leading whitespaces matter in markdown
-          dedent(parent.quasis[0].value.cooked),
-          {
-            parser: "markdown",
-            __inJsTemplate: true
-          }
-        );
+        const text = parent.quasis[0].value.cooked;
+        const indentation = getIndentation(text);
+        const hasIndent = indentation !== "";
         return concat([
-          indent(
+          (hasIndent ? indent : identity)(
             concat([
               softline,
-              docUtils.stripTrailingHardline(escapeBackticks(doc))
+              printMarkdown(
+                !hasIndent
+                  ? text
+                  : text.replace(new RegExp(`^${indentation}`, "gm"), "")
+              )
             ])
           ),
           softline
@@ -165,12 +164,20 @@ function embed(path, print, textToDoc /*, options */) {
       break;
     }
   }
+
+  function printMarkdown(text) {
+    const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
+    return docUtils.stripTrailingHardline(escapeBackticks(doc));
+  }
 }
 
-function dedent(str) {
-  const firstMatchedIndent = str.match(/\n^( *)/m);
-  const spaces = firstMatchedIndent === null ? 0 : firstMatchedIndent[1].length;
-  return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
+function identity(x) {
+  return x;
+}
+
+function getIndentation(str) {
+  const firstMatchedIndent = str.match(/^([^\S\n]*)\S/m);
+  return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 
 function escapeBackticks(doc) {
