@@ -56,6 +56,12 @@ function f() {
   return /* a */;
 }
 
+function x() {
+  return func2
+      //comment
+      .bar();
+}
+
 function f() {
   return (
     foo
@@ -74,6 +80,14 @@ fn(function f() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f() {
   return /* a */;
+}
+
+function x() {
+  return (
+    func2
+      //comment
+      .bar()
+  );
 }
 
 function f() {
