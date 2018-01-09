@@ -24,7 +24,10 @@ function textToDoc(text, partialNextOptions, parentOptions) {
     { passThrough: true, inferParser: false }
   );
 
-  const ast = require("./parser").parse(text, nextOptions);
+  const result = require("./parser").parse(text, nextOptions);
+  const ast = result.ast;
+  text = result.text;
+
   const astComments = ast.comments;
   delete ast.comments;
   comments.attach(astComments, ast, text, nextOptions);
