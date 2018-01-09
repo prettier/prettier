@@ -131,8 +131,14 @@ function format(argv, input, opt) {
       );
     } else {
       const normalizedOpts = normalizeOptions(opt);
-      const ast = cleanAST(prettier.__debug.parse(input, opt), normalizedOpts);
-      const past = cleanAST(prettier.__debug.parse(pp, opt), normalizedOpts);
+      const ast = cleanAST(
+        prettier.__debug.parse(input, opt).ast,
+        normalizedOpts
+      );
+      const past = cleanAST(
+        prettier.__debug.parse(pp, opt).ast,
+        normalizedOpts
+      );
 
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
