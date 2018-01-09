@@ -435,6 +435,7 @@ FastPath.prototype.needsParens = function(options) {
         case "LogicalExpression":
         case "SpreadElement":
         case "SpreadProperty":
+        case "ExperimentalSpreadProperty":
         case "TSAsExpression":
         case "TSNonNullExpression":
           return true;
