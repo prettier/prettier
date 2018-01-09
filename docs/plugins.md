@@ -11,36 +11,32 @@ Plugins are ways of adding new languages to Prettier. Prettier's own implementat
 
 ## Using Plugins
 
-There are three ways to add plugins to Prettier:
+Plugins are automatically loaded if you have them installed in your `package.json`. Prettier plugin package names must start with `@prettier/plugin-` or `prettier-plugin-` to be registered.
 
-* Via the CLI.
-* Via the API.
-* With a configuration file.
+If the plugin is unable to be found automatically, you can load them with:
 
-### Configuration File (Recommended)
+* The [CLI](./cli.md), via the `--plugin` flag:
 
-In your [configuration file](./configuration.md), add the `plugins` property:
+  ```bash
+  prettier --write main.foo --plugin=./foo-plugin
+  ```
 
-```json
-{
-  "plugins": ["prettier-python"]
-}
-```
+  > Tip: You can pass multiple `--plugin` flags.
 
-### CLI
+* Or the [API](./api.md), via the `plugins` field:
 
-With the [CLI](./cli.md), pass the `--plugin` flag:
-
-```bash
-prettier --write main.py --plugin prettier-python
-```
-
-> Tip: You can pass multiple `--plugin` flags.
+  ```js
+  prettier.format("code", {
+    parser: "foo",
+    plugins: ["./foo-plugin"]
+  });
+  ```
 
 ## Official Plugins
 
-* [`prettier-python`](https://github.com/prettier/prettier-python)
-* [`prettier-php`](https://github.com/prettier/prettier-php)
+* [`@prettier/plugin-python`](https://github.com/prettier/prettier-python)
+* [`@prettier/plugin-php`](https://github.com/prettier/prettier-php)
+* [`@prettier/plugin-swift`](https://github.com/prettier/prettier-swift)
 
 ## Developing Plugins
 

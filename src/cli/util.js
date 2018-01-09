@@ -244,11 +244,12 @@ function formatStdin(argv) {
   const ignorer = createIgnorer(argv);
   const relativeFilepath = path.relative(process.cwd(), filepath);
 
-  if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
-    return;
-  }
-
   thirdParty.getStream(process.stdin).then(input => {
+    if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
+      writeOutput({ formatted: input }, {});
+      return;
+    }
+
     const options = getOptionsForFile(argv, filepath);
 
     if (listDifferent(argv, input, options, "(stdin)")) {
@@ -281,10 +282,6 @@ function createIgnorer(argv) {
 
 function eachFilename(argv, patterns, callback) {
   const ignoreNodeModules = argv["with-node-modules"] === false;
-  // The ignorer will be used to filter file paths after the glob is checked,
-  // before any files are actually read
-  const ignorer = createIgnorer(argv);
-
   if (ignoreNodeModules) {
     patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
   }
@@ -299,11 +296,9 @@ function eachFilename(argv, patterns, callback) {
       process.exitCode = 2;
       return;
     }
-    ignorer
-      .filter(filePaths)
-      .forEach(filePath =>
-        callback(filePath, getOptionsForFile(argv, filePath))
-      );
+    filePaths.forEach(filePath =>
+      callback(filePath, getOptionsForFile(argv, filePath))
+    );
   } catch (error) {
     logger.error(
       `Unable to expand glob patterns: ${patterns.join(" ")}\n${error.message}`
@@ -314,7 +309,16 @@ function eachFilename(argv, patterns, callback) {
 }
 
 function formatFiles(argv) {
+  // The ignorer will be used to filter file paths after the glob is checked,
+  // before any files are actually written
+  const ignorer = createIgnorer(argv);
+
   eachFilename(argv, argv.__filePatterns, (filename, options) => {
+    const fileIgnored = ignorer.filter([filename]).length === 0;
+    if (fileIgnored && (argv["write"] || argv["list-different"])) {
+      return;
+    }
+
     if (argv["write"] && process.stdout.isTTY) {
       // Don't use `console.log` here since we need to replace this line.
       logger.log(filename, { newline: false });
@@ -330,6 +334,11 @@ function formatFiles(argv) {
       logger.error(`Unable to read file: ${filename}\n${error.message}`);
       // Don't exit the process if one file failed
       process.exitCode = 2;
+      return;
+    }
+
+    if (fileIgnored) {
+      writeOutput({ formatted: input }, options);
       return;
     }
 

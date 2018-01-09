@@ -3,6 +3,16 @@
 const createError = require("../common/parser-create-error");
 
 function parseSelector(selector) {
+  // If there's a comment inside of a selector, the parser tries to parse
+  // the content of the comment as selectors which turns it into complete
+  // garbage. Better to print the whole selector as-is and not try to parse
+  // and reformat it.
+  if (selector.match(/\/\/|\/\*/)) {
+    return {
+      type: "selector-comment",
+      value: selector
+    };
+  }
   const selectorParser = require("postcss-selector-parser");
   let result;
   selectorParser(result_ => {

@@ -499,8 +499,9 @@ function printPathNoParens(path, options, print, args) {
       // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
       // we should align the expression's closing } with the line with the opening {.
       const shouldAddSoftLine =
-        (args && args.expandLastArg) ||
-        path.getParentNode().type === "JSXExpressionContainer";
+        ((args && args.expandLastArg) ||
+          path.getParentNode().type === "JSXExpressionContainer") &&
+        !(n.comments && n.comments.length);
 
       const printTrailingComma =
         args && args.expandLastArg && shouldPrintComma(options, "all");
@@ -3285,6 +3286,9 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     !fun.rest;
 
   if (isFlowShorthandWithOneArg) {
+    if (options.arrowParens === "always") {
+      return concat(["(", concat(printed), ")"]);
+    }
     return concat(printed);
   }
 
@@ -4474,6 +4478,7 @@ function maybeWrapJSXElementInParens(path, elem) {
 
   const NO_WRAP_PARENTS = {
     ArrayExpression: true,
+    JSXAttribute: true,
     JSXElement: true,
     JSXExpressionContainer: true,
     JSXFragment: true,

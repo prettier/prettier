@@ -1,10 +1,8 @@
 "use strict";
 
 const path = require("path");
-const supportInfo = require("../common/support").getSupportInfo(null, {
-  showDeprecated: true,
-  showUnreleased: true
-});
+const getSupportInfo = require("../common/support").getSupportInfo;
+const supportInfo = getSupportInfo(null, { showUnreleased: true });
 const normalizer = require("./options-normalizer");
 const loadPlugins = require("../common/load-plugins");
 const resolveParser = require("./parser").resolveParser;
@@ -17,10 +15,7 @@ const hiddenDefaults = {
 
 const defaults = supportInfo.options.reduce(
   (reduced, optionInfo) =>
-    Object.assign(
-      reduced,
-      !optionInfo.deprecated && { [optionInfo.name]: optionInfo.default }
-    ),
+    Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
   Object.assign({}, hiddenDefaults)
 );
 
@@ -29,20 +24,23 @@ function normalize(options, opts) {
   opts = opts || {};
 
   const rawOptions = Object.assign({}, options);
+  rawOptions.plugins = loadPlugins(rawOptions.plugins);
 
   if (opts.inferParser !== false) {
     if (
       rawOptions.filepath &&
       (!rawOptions.parser || rawOptions.parser === defaults.parser)
     ) {
-      const inferredParser = inferParser(rawOptions.filepath);
+      const inferredParser = inferParser(
+        rawOptions.filepath,
+        rawOptions.plugins
+      );
       if (inferredParser) {
         rawOptions.parser = inferredParser;
       }
     }
   }
 
-  rawOptions.plugins = loadPlugins(rawOptions);
   rawOptions.astFormat = resolveParser(rawOptions).astFormat;
   rawOptions.printer = getPrinter(rawOptions);
 
@@ -63,11 +61,14 @@ function normalize(options, opts) {
   );
 }
 
-function inferParser(filepath) {
+function inferParser(filepath, plugins) {
   const extension = path.extname(filepath);
   const filename = path.basename(filepath).toLowerCase();
 
-  const language = supportInfo.languages.find(
+  const language = getSupportInfo(null, {
+    plugins,
+    pluginsLoaded: true
+  }).languages.find(
     language =>
       typeof language.since === "string" &&
       (language.extensions.indexOf(extension) > -1 ||

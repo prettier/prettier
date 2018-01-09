@@ -103,11 +103,8 @@ exports[`selector.css 1`] = `
 .powerPathNavigator .helm button:active:not(.disabledButton) {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.powerPathNavigator .helm button.pressedButton,
-/* pressed buttons */
-  .powerPathNavigator
-  .helm
-  button:active:not(.disabledButton),
+.powerPathNavigator .helm button.pressedButton, /* pressed buttons */
+.powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
 .powerPathNavigator table.powerPathInfo th:active + th:last-child {
 }
@@ -115,6 +112,21 @@ exports[`selector.css 1`] = `
 /* pressed buttons */
 .powerPathNavigator .helm button.pressedButton,
 .powerPathNavigator .helm button:active:not(.disabledButton) {
+}
+
+`;
+
+exports[`selectors.scss 1`] = `
+.foo,
+// Comment.
+.bar {
+  display: block;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo,
+// Comment.
+.bar {
+  display: block;
 }
 
 `;

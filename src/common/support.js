@@ -177,15 +177,21 @@ const supportOptions = {
 };
 
 function getSupportInfo(version, opts) {
-  opts = opts || {};
-  const showDeprecated = opts.showDeprecated === true;
-  const showUnreleased = opts.showUnreleased === true;
+  opts = Object.assign(
+    {
+      plugins: [],
+      pluginsLoaded: false,
+      showUnreleased: false,
+      showDeprecated: false
+    },
+    opts
+  );
 
   if (!version) {
     version = currentVersion;
   }
 
-  const plugins = loadPlugins();
+  const plugins = opts.pluginsLoaded ? opts.plugins : loadPlugins(opts.plugins);
 
   const options = util
     .arrayify(
@@ -267,20 +273,20 @@ function getSupportInfo(version, opts) {
 
   function filterSince(object) {
     return (
-      showUnreleased ||
+      opts.showUnreleased ||
       !("since" in object) ||
       (object.since && semver.gte(version, object.since))
     );
   }
   function filterDeprecated(object) {
     return (
-      showDeprecated ||
+      opts.showDeprecated ||
       !("deprecated" in object) ||
       (object.deprecated && semver.lt(version, object.deprecated))
     );
   }
   function mapDeprecated(object) {
-    if (!object.deprecated || showDeprecated) {
+    if (!object.deprecated || opts.showDeprecated) {
       return object;
     }
     const newObject = Object.assign({}, object);

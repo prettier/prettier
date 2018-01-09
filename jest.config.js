@@ -14,5 +14,12 @@ module.exports = {
     "<rootDir>/src/clean-ast.js",
     "<rootDir>/src/deprecated.js"
   ],
+  moduleNameMapper: {
+    // Jest wires `fs` to `graceful-fs`, which causes a memory leak when
+    // `graceful-fs` does `require('fs')`.
+    // Ref: https://github.com/facebook/jest/issues/2179#issuecomment-355231418
+    // If this is removed, see also rollup.bin.config.js and rollup.index.config.js.
+    "graceful-fs": "<rootDir>/tests_config/fs.js"
+  },
   transform: {}
 };
