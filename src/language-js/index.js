@@ -112,14 +112,17 @@ const babylon = {
   get parse() {
     return eval("require")("./parser-babylon");
   },
+  hasPragma,
   astFormat: "estree"
 };
 
 const parsers = {
-  babylon: Object.assign({}, babylon, {
-    hasPragma
+  babylon,
+  json: Object.assign({}, babylon, {
+    hasPragma() {
+      return false;
+    }
   }),
-  json: babylon,
   flow: {
     get parse() {
       return eval("require")("./parser-flow");
