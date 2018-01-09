@@ -2,6 +2,8 @@
 
 const printer = require("./printer-graphql");
 
+const pragmaRe = /^\s*# *@(?:format|prettier)/;
+
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 
@@ -22,6 +24,9 @@ const parsers = {
   graphql: {
     get parse() {
       return eval("require")("./parser-graphql");
+    },
+    hasPragma(text) {
+      return pragmaRe.test(text);
     },
     astFormat: "graphql"
   }

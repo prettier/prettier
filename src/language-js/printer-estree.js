@@ -8,6 +8,7 @@ const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 const embed = require("./embed");
 const printerOptions = require("./options");
 const clean = require("./clean");
+const insertPragma = require("./pragma").insertPragma;
 
 const doc = require("../doc");
 const docBuilders = doc.builders;
@@ -5245,6 +5246,7 @@ module.exports = {
   options: printerOptions,
   print: genericPrint,
   embed,
+  insertPragma,
   massageAstNode: clean,
   hasPrettierIgnore,
   willPrintOwnComments,

@@ -1,6 +1,7 @@
 "use strict";
 
 const printer = require("./printer-estree");
+const hasPragma = require("./pragma").hasPragma;
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -103,6 +104,7 @@ const typescript = {
   get parse() {
     return eval("require")("./parser-typescript");
   },
+  hasPragma,
   astFormat: "estree"
 };
 
@@ -114,12 +116,15 @@ const babylon = {
 };
 
 const parsers = {
-  babylon,
+  babylon: Object.assign({}, babylon, {
+    hasPragma
+  }),
   json: babylon,
   flow: {
     get parse() {
       return eval("require")("./parser-flow");
     },
+    hasPragma,
     astFormat: "estree"
   },
   "typescript-eslint": typescript,

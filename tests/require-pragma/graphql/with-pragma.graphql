@@ -1,0 +1,6 @@
+# @format
+
+type    Foo
+    {
+          one:    Type
+      }
