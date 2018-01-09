@@ -1,7 +1,5 @@
 "use strict";
 
-const concat = require("../../../src/doc").builders.concat;
-
 module.exports = {
   languages: [
     {
