@@ -344,8 +344,7 @@ class A {
   }
 }
 
-class B
-  extends A {
+class B extends A {
   constructor(x: number) {
     super(x);
     // Fails, x is readonly
@@ -353,8 +352,7 @@ class B
   }
 }
 
-class C
-  extends A {
+class C extends A {
   // This is the usual behavior of readonly properties:
   // if one is redeclared in a base class, then it can be assigned to.
   constructor(readonly x: number) {
@@ -370,8 +368,7 @@ class D {
 }
 
 // Fails, can't redeclare readonly property
-class E
-  extends D {
+class E extends D {
   constructor(readonly x: number) {
     super(x);
     this.x = 1;

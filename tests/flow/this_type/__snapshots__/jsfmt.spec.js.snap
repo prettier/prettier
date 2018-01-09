@@ -84,8 +84,7 @@ class C {
   // covariant positions
 }
 
-class D
-  extends C {}
+class D extends C {}
 
 var d = new D();
 (d: C).next = new C();
@@ -95,8 +94,7 @@ class A {
   foo<X: this>(that: X) {} // error: can't hide contravariance using a bound
 }
 
-class B
-  extends A {
+class B extends A {
   foo<Y: this>(that: Y) {} // error (see above, catches hidden override)
 }
 
@@ -179,8 +177,7 @@ export class A2<X> {
   }
 }
 
-export class A3<X>
-  extends A2<X> {}
+export class A3<X> extends A2<X> {}
 
 `;
 
@@ -204,8 +201,7 @@ class Implicit<X> {
   arg: X;
   val: X;
 }
-class ImplicitNumber
-  extends Implicit {
+class ImplicitNumber extends Implicit {
   arg: number;
 }
 
@@ -243,8 +239,7 @@ import { A1 } from "./export";
 import type { A2 } from "./export";
 import { A3 } from "./export";
 
-class B1
-  extends A1 {
+class B1 extends A1 {
   foo(): B1 {
     return new B1();
   } // error
@@ -252,8 +247,7 @@ class B1
 
 (new B1().bar(): B1); // OK
 
-class B3<X>
-  extends A3<X> {
+class B3<X> extends A3<X> {
   foo(): B3<X> {
     return new B3();
   } // error
@@ -374,8 +368,7 @@ class A {
     // the class, instead of instances of the class
   }
 }
-class B
-  extends A {} // inherits statics method too, with \`this\` bound to the class
+class B extends A {} // inherits statics method too, with \`this\` bound to the class
 
 (A.make(): A); // OK
 (B.make(): B); // OK
@@ -474,11 +467,9 @@ class Base {
   }
 }
 
-class Inherit
-  extends Base {}
+class Inherit extends Base {}
 
-class Override
-  extends Base {
+class Override extends Base {
   foo() {
     return this;
   } // OK
@@ -491,8 +482,7 @@ class Override
   } // OK (cf. error below)
 }
 
-class InheritOverride
-  extends Override {}
+class InheritOverride extends Override {}
 
 (new Inherit().foo(): Base);
 (new Inherit().foo(): Inherit); // error (cf. OK below)
@@ -525,11 +515,9 @@ class Base2 {
   grault(that: Base2) {}
 }
 
-class Inherit2
-  extends Base2 {}
+class Inherit2 extends Base2 {}
 
-class Override2
-  extends Base2 {
+class Override2 extends Base2 {
   foo(): this {
     return this;
   } // OK
@@ -547,8 +535,7 @@ class Override2
   grault(that: this) {} // error, too
 }
 
-class InheritOverride2
-  extends Override2 {}
+class InheritOverride2 extends Override2 {}
 
 (new Inherit2().foo(): Base2);
 (new Inherit2().foo(): Inherit2); // OK (cf. error above)

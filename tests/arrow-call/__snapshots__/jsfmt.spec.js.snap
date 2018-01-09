@@ -89,8 +89,7 @@ func(
 );
 
 const composition = (ViewComponent, ContainerComponent) =>
-  class
-    extends React.Component {
+  class extends React.Component {
     static propTypes = {};
   };
 
@@ -185,8 +184,7 @@ func(
 );
 
 const composition = (ViewComponent, ContainerComponent) =>
-  class
-    extends React.Component {
+  class extends React.Component {
     static propTypes = {};
   };
 
@@ -281,8 +279,7 @@ func(
 );
 
 const composition = (ViewComponent, ContainerComponent) =>
-  class
-    extends React.Component {
+  class extends React.Component {
     static propTypes = {};
   };
 

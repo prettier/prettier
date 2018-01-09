@@ -92,8 +92,7 @@ class C {
   foo(x: number, y: number, ...z: string[]) {}
 }
 
-class D
-  extends C {
+class D extends C {
   constructor() {
     super(1, 2);
     super(1, 2, ...a);

@@ -353,8 +353,7 @@ class Base {
   baseprop2: number;
 }
 
-class Child
-  extends Base {
+class Child extends Base {
   childprop1: number;
   childprop2: number;
 }
@@ -518,10 +517,8 @@ function _([argArray]: Array<Value>) {
 }
 
 class Value {}
-class NullValue
-  extends Value {}
-class UndefinedValue
-  extends Value {}
+class NullValue extends Value {}
+class UndefinedValue extends Value {}
 
 `;
 

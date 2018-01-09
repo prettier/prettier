@@ -27,8 +27,7 @@ var y: I.B = new C();
 /* @flow */
 var I = require("./test.js");
 
-class C
-  extends I.A {}
+class C extends I.A {}
 
 var x: I.A = new C();
 var y: I.B = new C();
@@ -44,10 +43,8 @@ var c: C<number, string, Array<bool>> = new C; // none of the type args matter
 var a: A<string, number, Array<bool>> = c; // the third type arg is incorrect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class A<X, Y, Z> {}
-class B
-  extends A<string, number, boolean> {}
-class C<X, Y, Z>
-  extends B {}
+class B extends A<string, number, boolean> {}
+class C<X, Y, Z> extends B {}
 
 var c: C<number, string, Array<boolean>> = new C(); // none of the type args matter
 var a: A<string, number, Array<boolean>> = c; // the third type arg is incorrect
@@ -79,8 +76,7 @@ type O = { f: number };
 
 foo((new C(): C<O>), { f_: 0 });
 
-class D
-  extends C<O> {
+class D extends C<O> {
   bar() {
     this.x;
   }

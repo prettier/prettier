@@ -127,12 +127,10 @@ class Base {
 class AnotherClass {
   private y;
 }
-class Derived1
-  extends Base {
+class Derived1 extends Base {
   private m;
 }
-class Derived2
-  extends Base {
+class Derived2 extends Base {
   private n;
 }
 function f8() {
@@ -403,8 +401,7 @@ var n = (function() {
 class Base {
   private m;
 }
-class Derived
-  extends Base {
+class Derived extends Base {
   private q;
 }
 var b: Base;
@@ -458,8 +455,7 @@ function f6(): number {
   return;
 }
 
-class Derived2
-  extends Base {
+class Derived2 extends Base {
   private r: string;
 }
 class AnotherClass {

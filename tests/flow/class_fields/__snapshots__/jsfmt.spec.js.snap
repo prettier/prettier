@@ -306,8 +306,7 @@ class Base {
   static inherited_initializer = 42;
 }
 
-class Child
-  extends Base {
+class Child extends Base {
   child_unannotatedField;
   child_annotatedField: number;
   child_initializedField = 42;

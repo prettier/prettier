@@ -29,20 +29,47 @@ class F<__T> {}
 `;
 
 exports[`extends_implements.ts 1`] = `
+class Class extends AbstractClass implements Interface1, Interface2, Interface3, Interface4 {}
+
+class ExtendsAbstractClassAndImplementsInterfaces extends AbstractClass
+  implements Interface1, Interface2, Interface3, Interface4 {}
+
 class ExtendsAbstractClassAndImplementsInterfaces
-  extends AbstractClass
+  extends AAAAAAAAAAAAAAbstractClass
+  implements Interface1, Interface2, Interface3, Interface4 {}
+
+class ExtendsAbstractClassAndImplementsInterfaces
+  extends AAAAAAAAAAAAAAbstractClass
   implements
     Interface1,
     Interface2,
     Interface3,
-    Interface4 {}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Interface4,
+    Interface5,
+    Interface6,
+    Interface7,
+    Interface8 {}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Class extends AbstractClass
+  implements Interface1, Interface2, Interface3, Interface4 {}
+
+class ExtendsAbstractClassAndImplementsInterfaces extends AbstractClass
+  implements Interface1, Interface2, Interface3, Interface4 {}
+
 class ExtendsAbstractClassAndImplementsInterfaces
-  extends AbstractClass
+  extends AAAAAAAAAAAAAAbstractClass
+  implements Interface1, Interface2, Interface3, Interface4 {}
+
+class ExtendsAbstractClassAndImplementsInterfaces
+  extends AAAAAAAAAAAAAAbstractClass
   implements
     Interface1,
     Interface2,
     Interface3,
-    Interface4 {}
+    Interface4,
+    Interface5,
+    Interface6,
+    Interface7,
+    Interface8 {}
 
 `;
 
@@ -53,9 +80,7 @@ interface AudioBufferList {
 	mBuffers: interop.Reference<any /*AudioBuffer*/>;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class<T>
-  implements
-    Map<T> {}
+class<T> implements Map<T> {}
 
 interface AudioBufferList {
   mBuffers: interop.Reference<any /*AudioBuffer*/>;

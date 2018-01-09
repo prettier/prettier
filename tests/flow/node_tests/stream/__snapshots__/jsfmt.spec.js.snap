@@ -62,14 +62,10 @@ ls.stdin.end(data, "utf-8", () => {});
 var ws = fs.createWriteStream("/dev/null");
 ls.stdout.pipe(ws).end();
 
-class MyReadStream
-  extends stream.Readable {}
-class MyWriteStream
-  extends stream.Writable {}
-class MyDuplex
-  extends stream.Duplex {}
-class MyTransform
-  extends stream.Duplex {}
+class MyReadStream extends stream.Readable {}
+class MyWriteStream extends stream.Writable {}
+class MyDuplex extends stream.Duplex {}
+class MyTransform extends stream.Duplex {}
 
 new MyReadStream()
   .pipe(new MyDuplex())

@@ -15,8 +15,7 @@ function bar(): A<*> { // error, * can't be {} and {x: string} at the same time
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class A<X> {}
 new A(); // OK, implicitly inferred type args
-class B
-  extends A {} // OK, same as above
+class B extends A {} // OK, same as above
 
 function foo(b): A<any> {
   // ok but unsafe, caller may assume any type arg
@@ -55,10 +54,8 @@ a.meth(new Base()); // Error: Base ~> Middle
 // @flow
 
 class Base {}
-class Middle
-  extends Base {}
-class Child
-  extends Middle {}
+class Middle extends Base {}
+class Child extends Middle {}
 
 class C<T: Middle> {
   meth(a: T): T {
@@ -191,8 +188,7 @@ class C {
     return x;
   }
 }
-class D
-  extends C {
+class D extends C {
   foo(x: number): number {
     return x;
   } // error (specialization, see below)

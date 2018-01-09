@@ -119,8 +119,7 @@ class A<T> {
   }
 }
 
-class B<T>
-  extends A<T> {
+class B<T> extends A<T> {
   m<T>(x: T): B<T> {
     return new B(x);
   }

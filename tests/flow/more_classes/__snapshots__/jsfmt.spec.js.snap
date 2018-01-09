@@ -77,8 +77,7 @@ module.exports = Foo;
 var Bar = require("Bar");
 var Qux = require("Qux");
 
-class Foo
-  extends Qux {
+class Foo extends Qux {
   x: string;
   constructor(x: string) {
     this.x = x;

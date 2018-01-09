@@ -3644,7 +3644,7 @@ function printClass(path, options, print) {
     partsGroup.push(
       group(
         concat([
-          hardline,
+          line,
           path.call(
             superClass =>
               comments.printComments(superClass, () => printed, options),
@@ -3664,8 +3664,8 @@ function printClass(path, options, print) {
       group(
         indent(
           concat([
-            hardline,
-            join(concat([",", hardline]), path.map(print, "implements"))
+            line,
+            join(concat([",", line]), path.map(print, "implements"))
           ])
         )
       )

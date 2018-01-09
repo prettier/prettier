@@ -453,8 +453,7 @@ var z1: string | typeof BC;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ﻿// A | B is equivalent to A if B is a subtype of A
 class C {}
-class D
-  extends C {
+class D extends C {
   foo() {}
 }
 var x: C;
@@ -520,12 +519,10 @@ class C {
 class D {
   foo2() {}
 }
-class E
-  extends C {
+class E extends C {
   foo3() {}
 }
-class F
-  extends C {
+class F extends C {
   foo4() {}
 }
 var c: C, d: D, e: E, f: F;

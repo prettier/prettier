@@ -144,8 +144,7 @@ var P: Promise<Class<C>> = new Promise(function(resolve, reject) {
 });
 
 async function foo() {
-  class Bar
-    extends (await P) {}
+  class Bar extends (await P) {}
   return Bar;
 }
 

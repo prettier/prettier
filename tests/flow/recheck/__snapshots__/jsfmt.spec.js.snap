@@ -93,10 +93,8 @@ function bar() {
   return E;
 }
 let X = foo();
-class F
-  extends X {}
-class D
-  extends F {}
+class F extends X {}
+class D extends F {}
 module.exports = { C, D };
 
 `;
@@ -307,8 +305,7 @@ module.exports = { D };
 
 import { C } from "./g1";
 
-class D
-  extends C {}
+class D extends C {}
 
 module.exports = { D };
 

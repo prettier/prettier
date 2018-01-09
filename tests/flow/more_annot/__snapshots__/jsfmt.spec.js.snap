@@ -62,8 +62,7 @@ var d: { +m: () => void } = new D();
 class C {
   m() {}
 }
-class D
-  extends C {}
+class D extends C {}
 
 var d: { +m: () => void } = new D();
 

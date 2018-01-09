@@ -167,11 +167,9 @@ class B {
   }
 }
 
-class C
-  extends A {}
+class C extends A {}
 
-class D
-  extends A {
+class D extends A {
   y: number;
   constructor() {
     this.y; // error (no super call)
@@ -179,8 +177,7 @@ class D
   }
 }
 
-class E
-  extends A {
+class E extends A {
   y: number;
   constructor() {
     super();
@@ -193,8 +190,7 @@ function leak(f) {
   f.y; // error
   f.x; // error
 }
-class F
-  extends A {
+class F extends A {
   y: number;
   constructor() {
     leak(this); // error (no super call yet)
@@ -204,15 +200,13 @@ class F
   }
 }
 
-class G
-  extends A {
+class G extends A {
   constructor(b) {
     super.x; // error (no super call)
   }
 }
 
-class H
-  extends A {
+class H extends A {
   y: number;
   constructor() {
     if (Math.random() < 0.5) super();
@@ -228,24 +222,21 @@ class I_ {
   }
   foo() {}
 }
-class I
-  extends I_ {
+class I extends I_ {
   constructor() {
     super(this); // error (no super call yet)
   }
 }
 
 class J__ {}
-class J_
-  extends J__ {
+class J_ extends J__ {
   constructor(closure_leaking_this) {
     closure_leaking_this();
     super();
   }
   foo() {}
 }
-class J
-  extends J_ {
+class J extends J_ {
   constructor() {
     super(() => this.foo()); // error (no super call yet)
     // The reason for this error is that super constructor could call the
@@ -263,8 +254,7 @@ class K_ {
   }
   foo() {}
 }
-class K
-  extends K_ {
+class K extends K_ {
   constructor() {
     super(() => {
       if (_this) _this.foo();
@@ -283,8 +273,7 @@ class L_ {
     return false;
   }
 }
-class L
-  extends L_ {
+class L extends L_ {
   constructor() {
     let x: boolean = super();
     return x;
@@ -300,8 +289,7 @@ class M_ {
     return { foo: "foo" };
   }
 }
-class M
-  extends M_ {
+class M extends M_ {
   constructor() {
     return super();
   }
@@ -317,8 +305,7 @@ class N_ {
     return x;
   }
 }
-class N
-  extends N_ {
+class N extends N_ {
   constructor() {
     return super();
   }
@@ -375,8 +362,7 @@ class A {
   f(x: string) {}
 }
 
-class B
-  extends A {
+class B extends A {
   constructor(x: string, y: number) {
     super(x);
   }
@@ -403,8 +389,7 @@ class C extends D {
 module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var D = require("./import");
-class C
-  extends D {
+class C extends D {
   constructor() {
     return super();
   }

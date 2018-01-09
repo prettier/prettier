@@ -24,8 +24,7 @@ var c = new B.a.C();
 
 namespace B {
   export import a = A;
-  export class D
-    extends a.C {
+  export class D extends a.C {
     id: number;
   }
 }

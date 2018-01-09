@@ -6,9 +6,7 @@ class LocalStorage implements Storage {
   [key: string]: any;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class LocalStorage
-  implements
-    Storage {
+class LocalStorage implements Storage {
   [index: number]: string;
   [key: string]: any;
 }

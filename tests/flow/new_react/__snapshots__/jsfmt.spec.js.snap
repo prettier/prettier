@@ -181,38 +181,32 @@ type T1 = {};
 type T2 = { x: number };
 type T3 = { x: number, y: number };
 
-class C1
-  extends React.Component<T1, T2, any> {
+class C1 extends React.Component<T1, T2, any> {
   // error
 }
 
-class C2
-  extends React.Component<void, T2, any> {
+class C2 extends React.Component<void, T2, any> {
   // OK
 }
 
 // no need to add type arguments to React.Component
-class C3
-  extends React.Component {
+class C3 extends React.Component {
   // OK
   static defaultProps: T1;
   props: T2;
 }
 
-class C4
-  extends React.Component {
+class C4 extends React.Component {
   // OK, recommended
   // no need to declare defaultProps unless necessary
   props: T2;
 }
 
-class C5
-  extends React.Component<T2, T3, any> {
+class C5 extends React.Component<T2, T3, any> {
   // error
 }
 
-class C6
-  extends React.Component {
+class C6 extends React.Component {
   // OK, recommended
   static defaultProps: T2;
   props: T3;
@@ -311,8 +305,7 @@ type DefaultProps = {};
 type Props = { x: number };
 type State = { y: number };
 
-class Foo
-  extends React.Component {
+class Foo extends React.Component {
   props: Props;
   state: State;
   static defaultProps: DefaultProps;
@@ -421,8 +414,7 @@ import React from "react";
 //var React = require("react");
 //var React = require("React");
 
-class HelloMessage
-  extends React.Component {
+class HelloMessage extends React.Component {
   props: { name: string };
 }
 
@@ -787,8 +779,7 @@ React.render(
 
 import React from "React";
 
-class JDiv
-  extends React.Component {
+class JDiv extends React.Component {
   // static defaultProps: { };
   props: {
     id: string
@@ -798,8 +789,7 @@ class JDiv
 // Should be a type error ('id' takes a string, not a number..)
 <JDiv id={42} />;
 
-class Example
-  extends React.Component {
+class Example extends React.Component {
   props: { bar: string };
 
   render() {
@@ -1000,8 +990,7 @@ class C extends React.Component {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var React = require("React");
 
-class C
-  extends React.Component {
+class C extends React.Component {
   foo(): number {
     return this.state.x; // error: need to declare type of state
   }

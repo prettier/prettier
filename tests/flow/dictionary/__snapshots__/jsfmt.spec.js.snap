@@ -392,10 +392,8 @@ function subtype_optional_c_to_dict(
 
 // Some logic is variance-sensitive.
 class A {}
-class B
-  extends A {}
-class C
-  extends B {}
+class B extends A {}
+class C extends B {}
 
 // Just a couple of short type names. Compare to string/number.
 class X {}

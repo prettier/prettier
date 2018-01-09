@@ -198,15 +198,11 @@ declare function Mix<T, U>(c1: T, c2: U): T & U;
 
 // Can't derive from type with inaccessible properties
 
-class C1
-  extends Mix(Private, Private2) {}
-class C2
-  extends Mix(Private, Protected) {}
-class C3
-  extends Mix(Private, Public) {}
+class C1 extends Mix(Private, Private2) {}
+class C2 extends Mix(Private, Protected) {}
+class C3 extends Mix(Private, Public) {}
 
-class C4
-  extends Mix(Protected, Protected2) {
+class C4 extends Mix(Protected, Protected2) {
   f(c4: C4, c5: C5, c6: C6) {
     c4.p;
     c5.p;
@@ -219,8 +215,7 @@ class C4
   }
 }
 
-class C5
-  extends Mix(Protected, Public) {
+class C5 extends Mix(Protected, Public) {
   f(c4: C4, c5: C5, c6: C6) {
     c4.p; // Error, not in class deriving from Protected2
     c5.p;
@@ -233,8 +228,7 @@ class C5
   }
 }
 
-class C6
-  extends Mix(Public, Public2) {
+class C6 extends Mix(Public, Public2) {
   f(c4: C4, c5: C5, c6: C6) {
     c4.p; // Error, not in class deriving from Protected2
     c5.p;
@@ -319,8 +313,7 @@ class Base {
   constructor(public x: number, public y: number) {}
 }
 
-class Derived
-  extends Base {
+class Derived extends Base {
   constructor(x: number, y: number, public z: number) {
     super(x, y);
   }
@@ -329,8 +322,7 @@ class Derived
 const Printable = <T extends Constructor<Base>>(
   superClass: T
 ): Constructor<Printable> & { message: string } & T =>
-  class
-    extends superClass {
+  class extends superClass {
     static message = "hello";
     print() {
       const output = this.x + "," + this.y;
@@ -340,8 +332,7 @@ const Printable = <T extends Constructor<Base>>(
 function Tagged<T extends Constructor<{}>>(
   superClass: T
 ): Constructor<Tagged> & T {
-  class C
-    extends superClass {
+  class C extends superClass {
     _tag: string;
     constructor(...args: any[]) {
       super(...args);
@@ -368,8 +359,7 @@ function f2() {
   thing.print();
 }
 
-class Thing3
-  extends Thing2 {
+class Thing3 extends Thing2 {
   constructor(tag: string) {
     super(10, 20, 30);
     this._tag = tag;
@@ -453,16 +443,14 @@ class Base {
   constructor(public x: number, public y: number) {}
 }
 
-class Derived
-  extends Base {
+class Derived extends Base {
   constructor(x: number, y: number, public z: number) {
     super(x, y);
   }
 }
 
 const Printable = <T extends Constructor<Base>>(superClass: T) =>
-  class
-    extends superClass {
+  class extends superClass {
     static message = "hello";
     print() {
       const output = this.x + "," + this.y;
@@ -470,8 +458,7 @@ const Printable = <T extends Constructor<Base>>(superClass: T) =>
   };
 
 function Tagged<T extends Constructor<{}>>(superClass: T) {
-  class C
-    extends superClass {
+  class C extends superClass {
     _tag: string;
     constructor(...args: any[]) {
       super(...args);
@@ -498,8 +485,7 @@ function f2() {
   thing.print();
 }
 
-class Thing3
-  extends Thing2 {
+class Thing3 extends Thing2 {
   constructor(tag: string) {
     super(10, 20, 30);
     this._tag = tag;
@@ -512,8 +498,7 @@ class Thing3
 // Repro from #13805
 
 const Timestamped = <CT extends Constructor<object>>(Base: CT) => {
-  return class
-    extends Base {
+  return class extends Base {
     timestamp = new Date();
   };
 };
@@ -701,8 +686,7 @@ function f6() {
   Mixed5.f();
 }
 
-class C2
-  extends Mixed1 {
+class C2 extends Mixed1 {
   constructor() {
     super("hello");
     this.a;
@@ -711,8 +695,7 @@ class C2
   }
 }
 
-class C3
-  extends Mixed3 {
+class C3 extends Mixed3 {
   constructor() {
     super(42);
     this.a;
