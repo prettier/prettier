@@ -85,7 +85,8 @@ class C {
   override() {}
 }
 
-class D extends C {
+class D
+  extends C {
   foo() {
     this.override();
   }
@@ -112,7 +113,8 @@ let msg = "hello";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var React = require("react");
 
-class C extends React.Component {
+class C
+  extends React.Component {
   props: { x: string };
 }
 

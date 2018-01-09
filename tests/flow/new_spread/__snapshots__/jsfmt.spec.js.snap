@@ -369,7 +369,8 @@ declare var o2: O2;
 class A {
   +p: string | number;
 }
-class B extends A {
+class B
+  extends A {
   p: number;
 }
 

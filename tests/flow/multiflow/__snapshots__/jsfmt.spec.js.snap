@@ -121,7 +121,8 @@ class A {
   f(...args: any[]) {}
 }
 
-class B extends A {
+class B
+  extends A {
   f(...args) {
     this.f(...args);
   }

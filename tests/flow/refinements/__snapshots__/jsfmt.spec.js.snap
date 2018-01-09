@@ -2140,7 +2140,8 @@ class B {
   }
 }
 
-class C extends A {
+class C
+  extends A {
   test(): string {
     if (super.prop) {
       return super.prop; // OK

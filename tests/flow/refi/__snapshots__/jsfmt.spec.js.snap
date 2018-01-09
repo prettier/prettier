@@ -1153,7 +1153,8 @@ class C {
 }
 
 // super.p op null
-class D extends C {
+class D
+  extends C {
   ensure100(): string {
     if (super.p != null) return super.p;
     else return "";

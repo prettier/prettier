@@ -133,7 +133,8 @@ interface MySubinterface extends MyInterface {
 
 // *no* arity error in extends of polymorphic class
 
-class MySubclass extends MyClass {
+class MySubclass
+  extends MyClass {
   // ok, type arg inferred
   y: number;
   constructor(y: number) {

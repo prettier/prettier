@@ -54,7 +54,8 @@ class A {
 }
 A._sProperty = 48;
 
-class B extends A {
+class B
+  extends A {
   _property1: string;
   static _sProperty: string;
 

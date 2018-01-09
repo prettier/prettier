@@ -59,7 +59,8 @@ class C {
   static other() {}
 }
 
-class D extends C {
+class D
+  extends C {
   bar: string;
 }
 
@@ -75,7 +76,8 @@ class C2<T> {
   static other<T>(x: T) {}
 }
 
-class D2<T> extends C2<T> {
+class D2<T>
+  extends C2<T> {
   bar: string;
 }
 
@@ -99,27 +101,33 @@ class C2<T> extends E2<T> { foo: T; } // error
 class D2<T> extends C2<T> { bar: T; }
 
 class E2<T> extends D2<T> { baz: T; }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class C extends E {
+class C
+  extends E {
   foo: string;
 } // error
 
-class D extends C {
+class D
+  extends C {
   bar: string;
 }
 
-class E extends D {
+class E
+  extends D {
   baz: number;
 }
 
-class C2<T> extends E2<T> {
+class C2<T>
+  extends E2<T> {
   foo: T;
 } // error
 
-class D2<T> extends C2<T> {
+class D2<T>
+  extends C2<T> {
   bar: T;
 }
 
-class E2<T> extends D2<T> {
+class E2<T>
+  extends D2<T> {
   baz: T;
 }
 
@@ -138,7 +146,8 @@ class Base<T> {
   foo: T;
 }
 
-class Derived extends Base<string> {
+class Derived
+  extends Base<string> {
   foo: any;
 }
 

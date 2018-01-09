@@ -23,7 +23,8 @@ var d: React.Element<{id: number}> = <div id="asdf" />; // Error: Props<{id:stri
 
 var React = require("react");
 
-class CustomComponent extends React.Component {
+class CustomComponent
+  extends React.Component {
   props: {
     prop: string
   };

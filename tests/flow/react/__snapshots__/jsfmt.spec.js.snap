@@ -698,9 +698,11 @@ class Foo extends React.Component {
 // @flow
 import React from "react";
 
-class Bar extends React.Component {}
+class Bar
+  extends React.Component {}
 
-class Foo extends React.Component {
+class Foo
+  extends React.Component {
   render() {
     const Cmp = Math.random() < 0.5 ? "div" : Bar;
     return <Cmp />;
@@ -736,7 +738,8 @@ class Foo extends React.Component {
 // @flow
 import React from "react";
 
-class Bar extends React.Component {
+class Bar
+  extends React.Component {
   props: {
     test: number
   };
@@ -745,7 +748,8 @@ class Bar extends React.Component {
   }
 }
 
-class Foo extends React.Component {
+class Foo
+  extends React.Component {
   render() {
     const Cmp = Math.random() < 0.5 ? "div" : Bar;
     return <Cmp />;
@@ -1083,8 +1087,10 @@ var PolyDefaultExample = React.createClass({
 /* @flow */
 
 class A {}
-class B extends A {}
-class C extends B {}
+class B
+  extends A {}
+class C
+  extends B {}
 
 var React = require("react");
 var Example = React.createClass({

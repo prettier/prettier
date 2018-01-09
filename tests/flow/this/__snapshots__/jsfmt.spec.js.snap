@@ -175,7 +175,8 @@ var f = c.foo();
 var i = f(); // OK
 (i: C); // OK
 
-class D extends C {}
+class D
+  extends C {}
 var d = new D();
 var g = d.foo();
 var j = g(); // OK
@@ -184,7 +185,8 @@ var j = g(); // OK
 class E {
   foo(x: number) {}
 }
-class F extends E {
+class F
+  extends E {
   foo() {
     // OK to override with generalization
     (() => {

@@ -3636,22 +3636,21 @@ function printClass(path, options, print) {
 
   const partsGroup = [];
   if (n.superClass) {
-    if (hasLeadingOwnLineComment(options.originalText, n.superClass)) {
-      parts.push(hardline);
-    } else {
-      parts.push(" ");
-    }
-
     const printed = concat([
       "extends ",
       path.call(print, "superClass"),
       path.call(print, "superTypeParameters")
     ]);
-    parts.push(
-      path.call(
-        superClass =>
-          comments.printComments(superClass, () => printed, options),
-        "superClass"
+    partsGroup.push(
+      group(
+        concat([
+          hardline,
+          path.call(
+            superClass =>
+              comments.printComments(superClass, () => printed, options),
+            "superClass"
+          )
+        ])
       )
     );
   } else if (n.extends && n.extends.length > 0) {
@@ -3661,8 +3660,15 @@ function printClass(path, options, print) {
   if (n["implements"] && n["implements"].length > 0) {
     partsGroup.push(
       line,
-      "implements ",
-      group(indent(join(concat([",", line]), path.map(print, "implements"))))
+      "implements",
+      group(
+        indent(
+          concat([
+            hardline,
+            join(concat([",", hardline]), path.map(print, "implements"))
+          ])
+        )
+      )
     );
   }
 

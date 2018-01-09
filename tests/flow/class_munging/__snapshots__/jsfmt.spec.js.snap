@@ -27,7 +27,8 @@ class Foo {
   }
 }
 
-class Bar extends Foo {
+class Bar
+  extends Foo {
   test() {
     (this._method(): string); // error
   }
@@ -64,7 +65,8 @@ class Foo {
   }
 }
 
-class Bar extends Foo {
+class Bar
+  extends Foo {
   test() {
     (this._method(): string); // ok
   }

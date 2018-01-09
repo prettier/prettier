@@ -132,7 +132,8 @@ let tests = [
 // @flow
 
 class Foo {}
-class Bar extends Foo {}
+class Bar
+  extends Foo {}
 
 let tests = [
   function() {
@@ -203,7 +204,8 @@ class Foo {
 // constructor and foo not enumerable
 (Object.keys(new Foo()): Array<"error">); // error: prop ~> error
 
-class Bar extends Foo {
+class Bar
+  extends Foo {
   bar_prop: string;
   bar() {}
 }

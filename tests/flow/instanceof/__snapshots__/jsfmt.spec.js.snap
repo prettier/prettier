@@ -168,7 +168,8 @@ class C {
   }
 }
 
-class D extends C {
+class D
+  extends C {
   s: string;
   constructor() {
     super();

@@ -963,13 +963,15 @@ const BreakingFunction = function() {
   );
 };
 
-class NonBreakingClass extends React.component {
+class NonBreakingClass
+  extends React.component {
   render() {
     return <div />;
   }
 }
 
-class BreakingClass extends React.component {
+class BreakingClass
+  extends React.component {
   render() {
     return (
       <div>

@@ -50,7 +50,8 @@ class Base {
   static baseProp: number;
 }
 
-class Test extends Base {
+class Test
+  extends Base {
   static childProp: number;
 
   static staticNumber1(): number {

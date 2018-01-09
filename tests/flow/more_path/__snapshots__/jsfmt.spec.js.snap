@@ -202,11 +202,13 @@ class A {
   a() {}
 }
 
-class B extends A {
+class B
+  extends A {
   b() {}
 }
 
-class C extends B {
+class C
+  extends B {
   c() {}
 }
 
@@ -265,7 +267,8 @@ class BaseClass {
   baseProp: string;
 }
 
-class ChildClass extends BaseClass {
+class ChildClass
+  extends BaseClass {
   childProp: string;
 }
 

@@ -27,7 +27,8 @@ module.exports = B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var A = require("./A");
 
-class B extends A {}
+class B
+  extends A {}
 
 let b = new B();
 (b.foo: number); // error, number !~> function
@@ -50,7 +51,8 @@ module.exports = C;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var B = require("./B");
 
-class C extends B {
+class C
+  extends B {
   foo(x: string): void {}
 }
 
@@ -138,7 +140,8 @@ class Test2Superclass {
   a: number; // conflicts with cast to Foo
   c: ?number; // conflicts with cast to Foo
 }
-class Test2Class extends Test2Superclass {
+class Test2Class
+  extends Test2Superclass {
   b: number; // conflicts with cast to Foo
 }
 
@@ -221,8 +224,10 @@ class Derived2 extends Derived1 {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const Base: any = class {};
-class Derived1 extends Base {}
-class Derived2 extends Derived1 {
+class Derived1
+  extends Base {}
+class Derived2
+  extends Derived1 {
   m() {}
 }
 

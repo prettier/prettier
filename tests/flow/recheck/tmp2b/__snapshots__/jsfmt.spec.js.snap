@@ -13,7 +13,8 @@ module.exports = { C, E };
 class C {
   x: C;
 }
-class E extends C {
+class E
+  extends C {
   x: C;
 }
 

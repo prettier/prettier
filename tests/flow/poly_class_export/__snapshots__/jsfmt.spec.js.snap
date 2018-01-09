@@ -36,7 +36,8 @@ module.exports = new B();
 
 let A = require("./A");
 
-class B extends A<string> {
+class B
+  extends A<string> {
   constructor() {
     super();
   }
