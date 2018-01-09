@@ -546,6 +546,7 @@ FastPath.prototype.needsParens = function(options) {
         case "UnaryExpression":
         case "SpreadElement":
         case "SpreadProperty":
+        case "ExperimentalSpreadProperty":
         case "BinaryExpression":
         case "LogicalExpression":
         case "ExportDefaultDeclaration":
