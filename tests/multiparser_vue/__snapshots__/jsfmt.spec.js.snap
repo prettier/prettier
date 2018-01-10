@@ -15,6 +15,7 @@ exports[`template-bind.vue 1`] = `
     <div v-bind:id=" ok ? 'YES' : 'NO' "></div>
     <button @click=" foo ( arg, 'string' ) "></button>
 </template>
+
 `;
 
 exports[`template-class.vue 1`] = `
@@ -37,6 +38,7 @@ exports[`template-class.vue 1`] = `
   >
   </h2>
 </template>
+
 `;
 
 exports[`vue-component.vue 1`] = `
@@ -79,4 +81,5 @@ p {
   text-align: center;
 }
 </style >
+
 `;
