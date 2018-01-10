@@ -17,6 +17,9 @@ function genericPrint(path, options, print) {
     index = child.end;
   }, "children");
 
+  // If there are no children, we just print the node from start to end.
+  // Otherwise, index should point to the end of the last child, and we
+  // need to print the closing tag.
   res.push(options.originalText.slice(index, n.end));
 
   // Only force a trailing newline if there were any contents.
