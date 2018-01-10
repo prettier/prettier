@@ -409,12 +409,12 @@ function getExample(parser) {
         "  .bd-examples {margin-right: -.75rem;margin-left: -.75rem",
         "  }",
         "  ",
-        " .bd-examples>[class^=\"col-\"]  {",
+        ' .bd-examples>[class^="col-"]  {',
         "    padding-right: .75rem;",
         "    padding-left: .75rem;",
         "  ",
         "  }",
-        "}",
+        "}"
       ].join("\n");
     case "scss":
       // Excerpted from the Bootstrap source, which is licensed under the MIT license:
@@ -437,7 +437,7 @@ function getExample(parser) {
         "    color: color-yiq($value);",
         "    background-color: #{$value};",
         "  }",
-        "}",
+        "}"
       ].join("\n");
     default:
       return "";
