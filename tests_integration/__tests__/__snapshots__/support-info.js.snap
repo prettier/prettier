@@ -395,10 +395,15 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 - First value
 + Second value
 
-@@ -29,10 +29,18 @@
+@@ -27,12 +27,23 @@
+        \\"scss\\",
+      ],
       \\"TypeScript\\": Array [
         \\"typescript\\",
       ],
++     \\"Vue\\": Array [
++       \\"vue\\",
++     ],
     },
     \\"options\\": Object {
 +     \\"arrowParens\\": Object {
@@ -414,7 +419,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -80,14 +88,15 @@
+@@ -80,14 +91,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -604,6 +609,19 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"tmScope\\": \\"source.gfm\\",
       \\"linguistLanguageId\\": 222,
       \\"vscodeLanguageIds\\": [\\"markdown\\"]
+    },
+    {
+      \\"name\\": \\"Vue\\",
+      \\"since\\": \\"1.10.0\\",
+      \\"parsers\\": [\\"vue\\"],
+      \\"group\\": \\"HTML\\",
+      \\"tmScope\\": \\"text.html.vue\\",
+      \\"aceMode\\": \\"html\\",
+      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"codemirrorMimeType\\": \\"text/html\\",
+      \\"extensions\\": [\\".vue\\"],
+      \\"linguistLanguageId\\": 146,
+      \\"vscodeLanguageIds\\": [\\"vue\\"]
     }
   ],
   \\"options\\": [
