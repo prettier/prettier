@@ -1,7 +1,7 @@
 Checklist for making a new release
 
 - [ ] [GitHub milestone](https://github.com/prettier/prettier/milestones)
-- [ ] [GitHub releases](https://github.com/prettier/prettier/releases)
+- [ ] [GitHub release](https://github.com/prettier/prettier/releases)
 - [ ] [CHANGELOG.md](https://github.com/prettier/prettier/blob/master/CHANGELOG.md)
 - [ ] [NPM](https://www.npmjs.com/package/prettier)
 - [ ] [Blog](https://prettier.io/blog/)
