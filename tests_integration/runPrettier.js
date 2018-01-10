@@ -6,7 +6,7 @@ const stripAnsi = require("strip-ansi");
 const ENV_LOG_LEVEL = require("../src/cli/logger").ENV_LOG_LEVEL;
 
 const isProduction = process.env.NODE_ENV === "production";
-const prettierCli = isProduction ? "../dist/bin/prettier" : "../bin/prettier";
+const prettierCli = isProduction ? "../dist/bin-prettier" : "../bin/prettier";
 const thirdParty = isProduction
   ? "../dist/third-party"
   : "../src/common/third-party";
