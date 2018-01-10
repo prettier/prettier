@@ -402,6 +402,8 @@ function getExample(parser) {
         "type RequestType = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'OPTIONS' | 'CONNECT' | 'DELETE' | 'TRACE'"
       ].join("\n");
     case "css":
+      // Excerpted from the Bootstrap source, which is licensed under the MIT license:
+      // https://github.com/twbs/bootstrap/blob/v4.0.0-beta.3/LICENSE
       return [
         "@media (max-width: 480px) {",
         "  .bd-examples {margin-right: -.75rem;margin-left: -.75rem",
@@ -415,6 +417,8 @@ function getExample(parser) {
         "}",
       ].join("\n");
     case "scss":
+      // Excerpted from the Bootstrap source, which is licensed under the MIT license:
+      // https://github.com/twbs/bootstrap/blob/v4.0.0-beta.3/LICENSE
       return [
         "@function color-yiq($color) {",
         "  $r: red($color);$g: green($color);$b: blue($color);",
