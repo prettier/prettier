@@ -302,6 +302,44 @@ export default {
 
 `;
 
+exports[`self_closing.vue 1`] = `
+<template>
+  <div />
+</template>
+
+<script>
+foo( )
+</script>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template>
+  <div />
+</template>
+
+<script>
+foo();
+</script>
+
+`;
+
+exports[`self_closing.vue 2`] = `
+<template>
+  <div />
+</template>
+
+<script>
+foo( )
+</script>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template>
+  <div />
+</template>
+
+<script>
+foo();
+</script>
+
+`;
+
 exports[`test.vue 1`] = `
 <script>
 </script>
