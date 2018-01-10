@@ -64,7 +64,12 @@ function printDoc(doc) {
   }
 
   if (doc.type === "indent") {
-    return "indent(" + printDoc(doc.contents) + ")";
+    return (
+      (doc.reset ? "indent" : "resetIndent") +
+      "(" +
+      printDoc(doc.contents) +
+      ")"
+    );
   }
 
   if (doc.type === "align") {

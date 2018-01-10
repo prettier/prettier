@@ -70,7 +70,11 @@ function fits(next, restCommands, width, options, mustBeFlat) {
 
           break;
         case "indent":
-          cmds.push([makeIndent(ind, options), mode, doc.contents]);
+          cmds.push([
+            doc.reset ? rootIndent() : makeIndent(ind, options),
+            mode,
+            doc.contents
+          ]);
 
           break;
         case "align":
@@ -161,7 +165,11 @@ function printDocToString(doc, options) {
 
           break;
         case "indent":
-          cmds.push([makeIndent(ind, options), mode, doc.contents]);
+          cmds.push([
+            doc.reset ? rootIndent() : makeIndent(ind, options),
+            mode,
+            doc.contents
+          ]);
 
           break;
         case "align":
@@ -381,7 +389,6 @@ function printDocToString(doc, options) {
 
               if (doc.literal) {
                 out.push(newLine);
-                pos = 0;
               } else {
                 if (out.length > 0) {
                   // Trim whitespace at the end of line
@@ -406,8 +413,8 @@ function printDocToString(doc, options) {
                 }
 
                 out.push(newLine + ind.value);
-                pos = ind.length;
               }
+              pos = ind.length;
               break;
           }
           break;

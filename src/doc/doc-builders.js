@@ -33,6 +33,14 @@ function indent(contents) {
   return { type: "indent", contents };
 }
 
+function resetIndent(contents) {
+  if (process.env.NODE_ENV !== "production") {
+    assertDoc(contents);
+  }
+
+  return { type: "indent", contents, reset: true };
+}
+
 function align(n, contents) {
   if (process.env.NODE_ENV !== "production") {
     assertDoc(contents);
@@ -148,6 +156,7 @@ module.exports = {
   breakParent,
   ifBreak,
   indent,
+  resetIndent,
   align,
   addAlignmentToDoc
 };

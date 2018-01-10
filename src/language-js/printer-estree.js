@@ -19,6 +19,7 @@ const softline = docBuilders.softline;
 const literalline = docBuilders.literalline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
+const resetIndent = docBuilders.resetIndent;
 const align = docBuilders.align;
 const conditionalGroup = docBuilders.conditionalGroup;
 const fill = docBuilders.fill;
@@ -1915,7 +1916,7 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
     case "TemplateElement":
-      return join(literalline, n.value.raw.split(/\r?\n/g));
+      return resetIndent(join(literalline, n.value.raw.split(/\r?\n/g)));
     case "TemplateLiteral": {
       const expressions = path.map(print, "expressions");
 
