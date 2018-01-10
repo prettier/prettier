@@ -9,22 +9,18 @@ function genericPrint(path, options, print) {
   const n = path.getValue();
   const res = [];
   let index = n.start;
-  let printParent = typeof n.end === "number";
 
   path.each(childPath => {
     const child = childPath.getValue();
     res.push(options.originalText.slice(index, child.start));
     res.push(childPath.call(print));
-    if (typeof child.end === "number") {
-      index = child.end;
-    } else {
-      printParent = false;
-    }
+    index = child.end;
   }, "children");
 
-  if (printParent) {
-    res.push(options.originalText.slice(index, n.end));
-  }
+  // If there are no children, we just print the node from start to end.
+  // Otherwise, index should point to the end of the last child, and we
+  // need to print the closing tag.
+  res.push(options.originalText.slice(index, n.end));
 
   // Only force a trailing newline if there were any contents.
   if (n.tag === "root" && n.children.length) {
