@@ -976,9 +976,16 @@ function printTrailingComment(commentPath, print, options) {
   }
   const isBlock = util.isBlockComment(comment);
 
-  // Workaround for comments that are in the superClass definition ( extends ...)
-  // We don't want the line to break by default when its a comment 
-  const isParentSuperClass = commentPath.stack[commentPath.stack.length-6] === "superClass";
+  // We don't want the line to break
+  // when the parentParentNode is a ClassDeclaration/-Expression
+  // And the parentNode is in the superClass property
+  const parentNode = commentPath.getNode(1);
+  const parentParentNode = commentPath.getNode(2);
+  const isParentSuperClass =
+    parentParentNode &&
+    (parentParentNode.type === "ClassDeclaration" ||
+      parentParentNode.type === "ClassExpression") &&
+    parentParentNode.superClass === parentNode;
 
   if (
     util.hasNewline(options.originalText, locStart(comment), {
