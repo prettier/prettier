@@ -11,7 +11,7 @@ const chalk = require("chalk");
 const readline = require("readline");
 const leven = require("leven");
 
-const prettier = eval("require")("../../index");
+const prettier = require("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
 const errors = require("../common/errors");
 const resolver = require("../config/resolve-config");

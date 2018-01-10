@@ -1,3 +1,10 @@
+# 1.10.1
+
+[link](https://github.com/prettier/prettier/compare/1.10.0...1.10.1)
+
+* Fixed an issue where the CLI fails to resolve a file.
+
+
 # 1.10.0
 
 [link](https://github.com/prettier/prettier/compare/1.9.2...1.10.0)
