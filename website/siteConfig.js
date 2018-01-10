@@ -76,7 +76,8 @@ const siteConfig = {
     }
   ],
   separateCss: ["static/separate-css"],
-  gaTrackingId: "UA-111350464-1"
+  gaTrackingId: "UA-111350464-1",
+  twitter: true
 };
 
 module.exports = siteConfig;
