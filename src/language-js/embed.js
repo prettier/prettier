@@ -6,6 +6,7 @@ const docUtils = doc.utils;
 const docBuilders = doc.builders;
 const indent = docBuilders.indent;
 const join = docBuilders.join;
+const align = docBuilders.align;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const literalline = docBuilders.literalline;
@@ -151,10 +152,12 @@ function embed(path, print, textToDoc /*, options */) {
           (hasIndent ? indent : identity)(
             concat([
               hasIndent ? softline : literalline,
-              printMarkdown(
-                !hasIndent
-                  ? text
-                  : text.replace(new RegExp(`^${indentation}`, "gm"), "")
+              (hasIndent ? identity : literalify)(
+                printMarkdown(
+                  !hasIndent
+                    ? text
+                    : text.replace(new RegExp(`^${indentation}`, "gm"), "")
+                )
               )
             ])
           ),
@@ -170,6 +173,10 @@ function embed(path, print, textToDoc /*, options */) {
     const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
     return docUtils.stripTrailingHardline(escapeBackticks(doc));
   }
+}
+
+function literalify(doc) {
+  return align(-Infinity, doc);
 }
 
 function identity(x) {
