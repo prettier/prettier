@@ -149,18 +149,16 @@ function embed(path, print, textToDoc /*, options */) {
         const indentation = getIndentation(text);
         const hasIndent = indentation !== "";
         return concat([
-          (hasIndent ? indent : identity)(
-            concat([
-              hasIndent ? softline : literalline,
-              (hasIndent ? identity : literalify)(
-                printMarkdown(
-                  !hasIndent
-                    ? text
-                    : text.replace(new RegExp(`^${indentation}`, "gm"), "")
-                )
+          hasIndent
+            ? indent(
+                concat([
+                  softline,
+                  printMarkdown(
+                    text.replace(new RegExp(`^${indentation}`, "gm"), "")
+                  )
+                ])
               )
-            ])
-          ),
+            : concat([literalline, align(-Infinity, printMarkdown(text))]),
           softline
         ]);
       }
@@ -173,14 +171,6 @@ function embed(path, print, textToDoc /*, options */) {
     const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
     return docUtils.stripTrailingHardline(escapeBackticks(doc));
   }
-}
-
-function literalify(doc) {
-  return align(-Infinity, doc);
-}
-
-function identity(x) {
-  return x;
 }
 
 function getIndentation(str) {
