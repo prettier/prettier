@@ -976,6 +976,10 @@ function printTrailingComment(commentPath, print, options) {
   }
   const isBlock = util.isBlockComment(comment);
 
+  // Workaround for comments that are in the superClass definition ( extends ...)
+  // We don't want the line to break by default when its a comment 
+  const isParentSuperClass = commentPath.stack[commentPath.stack.length-6] === "superClass";
+
   if (
     util.hasNewline(options.originalText, locStart(comment), {
       backwards: true
@@ -1001,11 +1005,13 @@ function printTrailingComment(commentPath, print, options) {
     return lineSuffix(
       concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
     );
-  } else if (isBlock) {
+  } else if (isBlock || isParentSuperClass) {
     // Trailing block comments never need a newline
+    // console.log("trailing block comment");
     return concat([" ", contents]);
   }
 
+  // console.log("trailing comment");
   return concat([lineSuffix(" " + contents), !isBlock ? breakParent : ""]);
 }
 
