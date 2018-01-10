@@ -407,7 +407,7 @@ function getExample(parser) {
         "  .bd-examples {margin-right: -.75rem;margin-left: -.75rem",
         "  }",
         "  ",
-        " .bd-examples>[class^="col-"]  {",
+        " .bd-examples>[class^=\"col-\"]  {",
         "    padding-right: .75rem;",
         "    padding-left: .75rem;",
         "  ",
