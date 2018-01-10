@@ -10,20 +10,14 @@ function genericPrint(path, options, print) {
   const res = [];
   let index = n.start;
 
-  if (n.unary) {
-    res.push(options.originalText.slice(n.start, n.end));
-  } else {
-    path.each(childPath => {
-      const child = childPath.getValue();
-      res.push(options.originalText.slice(index, child.start));
-      res.push(childPath.call(print));
-      index = child.end;
-    }, "children");
+  path.each(childPath => {
+    const child = childPath.getValue();
+    res.push(options.originalText.slice(index, child.start));
+    res.push(childPath.call(print));
+    index = child.end;
+  }, "children");
 
-    if (index < n.end) {
-      res.push(options.originalText.slice(index, n.end));
-    }
-  }
+  res.push(options.originalText.slice(index, n.end));
 
   // Only force a trailing newline if there were any contents.
   if (n.tag === "root" && n.children.length) {
