@@ -27,7 +27,9 @@ const plugins = [
     preferBuiltins: true,
     extensions: [".js", ".json"]
   }),
-  commonjs(),
+  commonjs({
+    ignore: externals.map(external => external.name)
+  }),
   uglify({}, minify)
 ];
 
