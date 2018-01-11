@@ -26,8 +26,6 @@ shell.exec("rollup -c scripts/build/rollup.externals.config.js");
 shell.echo("Building internals...");
 shell.exec("rollup -c scripts/build/rollup.internals.config.js");
 
-// shell.exec("webpack --config scripts/build/webpack.config.js");
-
 shell.echo("Update ISSUE_TEMPLATE.md");
 const issueTemplate = shell.cat(".github/ISSUE_TEMPLATE.md").stdout;
 const newIssueTemplate = issueTemplate.replace(

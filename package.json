@@ -87,9 +87,7 @@
     "snapshot-diff": "0.2.2",
     "strip-ansi": "4.0.0",
     "sw-toolbox": "3.6.0",
-    "uglify-es": "3.0.28",
-    "webpack": "4.0.0-alpha.4",
-    "webpack-cli": "2.0.2"
+    "uglify-es": "3.0.28"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
