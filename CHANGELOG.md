@@ -1,3 +1,9 @@
+# 1.10.2
+
+[link](https://github.com/prettier/prettier/compare/1.10.1...1.10.2)
+
+* Fixed an issue printing .vue files with self-closing tags. (#3705 by duailibe)
+
 # 1.10.1
 
 [link](https://github.com/prettier/prettier/compare/1.10.0...1.10.1)
