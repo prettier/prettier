@@ -71,7 +71,7 @@ HomeSplash.propTypes = {
   language: React.PropTypes.string
 };
 
-const TldrSection = () => (
+const TldrSection = ({ language }) => (
   <div className="tldrSection productShowcaseSection lightBackground paddingTop paddingBottom">
     <Container>
       <div style={{ display: "flex", flexFlow: "row wrap" }}>
@@ -83,19 +83,27 @@ const TldrSection = () => (
             <li>Integrates with the most editors</li>
             <li>Has few options</li>
           </ul>
+          <Button href={"/docs/" + language + "/index.html"}>What Else?</Button>
         </div>
         <div style={{ flex: "1 1 auto" }}>
           <h2>Why?</h2>
           <ul>
             <li>You press save and code is formatted</li>
             <li>No need to discuss style in code review</li>
-            <li>Save you time and energy</li>
+            <li>Saves you time and energy</li>
           </ul>
+          <Button href={"/docs/" + language + "/why-prettier.html"}>
+            Why Else?
+          </Button>
         </div>
       </div>
     </Container>
   </div>
 );
+
+TldrSection.propTypes = {
+  language: React.PropTypes.string
+};
 
 const LanguagesSection = () => (
   <div
@@ -271,7 +279,7 @@ class Index extends React.Component {
         <script src="landing.js" />
         <HomeSplash language={language} />
         <div className="mainContainer">
-          <TldrSection />
+          <TldrSection language={language} />
           <LanguagesSection />
           <EditorSupportSection />
           <GetStartedSection />
