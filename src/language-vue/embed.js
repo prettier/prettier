@@ -21,6 +21,8 @@ function embed(path, print, textToDoc, options) {
       parser = "scss";
     } else if (langAttr.value === "less") {
       parser = "less";
+    } else if (langAttr.value === "postcss") {
+      parser = "css";
     }
   }
 
