@@ -5,7 +5,6 @@
 const path = require("path");
 const pkg = require("../../package.json");
 const formatMarkdown = require("../../website/static/markdown");
-const parsers = require("./parsers");
 const shell = require("shelljs");
 
 const rootDir = path.join(__dirname, "..", "..");
@@ -21,50 +20,13 @@ shell.cd(rootDir);
 
 shell.rm("-Rf", "dist/");
 
-// --- Lib ---
+shell.echo("Building externals...");
+shell.exec("rollup -c scripts/build/rollup.externals.config.js");
 
-shell.exec("rollup -c scripts/build/rollup.index.config.js");
+shell.echo("Building internals...");
+shell.exec("rollup -c scripts/build/rollup.internals.config.js");
 
-shell.exec("rollup -c scripts/build/rollup.bin.config.js");
-shell.chmod("+x", "./dist/bin-prettier.js");
-
-shell.exec("rollup -c scripts/build/rollup.third-party.config.js");
-
-for (const parser of parsers) {
-  if (parser.endsWith("postcss")) {
-    continue;
-  }
-  shell.exec(
-    `rollup -c scripts/build/rollup.parser.config.js --environment parser:${parser}`
-  );
-  if (parser.endsWith("glimmer")) {
-    shell.exec(
-      `node_modules/babel-cli/bin/babel.js dist/parser-glimmer.js --out-file dist/parser-glimmer.js --presets=es2015`
-    );
-  }
-}
-
-shell.echo("\nsrc/language-css/parser-postcss.js → dist/parser-postcss.js");
-// PostCSS has dependency cycles and won't work correctly with rollup :(
-shell.exec(
-  "webpack --hide-modules src/language-css/parser-postcss.js dist/parser-postcss.js"
-);
-// Prepend module.exports =
-const content = shell.cat("dist/parser-postcss.js").stdout;
-pipe(`module.exports = ${content}`).to("dist/parser-postcss.js");
-
-shell.echo();
-
-// --- Misc ---
-
-shell.echo("Remove eval");
-shell.sed(
-  "-i",
-  /eval\("require"\)/,
-  "require",
-  "dist/index.js",
-  "dist/bin-prettier.js"
-);
+// shell.exec("webpack --config scripts/build/webpack.config.js");
 
 shell.echo("Update ISSUE_TEMPLATE.md");
 const issueTemplate = shell.cat(".github/ISSUE_TEMPLATE.md").stdout;
@@ -86,7 +48,6 @@ pipe(newIssueTemplate).to(".github/ISSUE_TEMPLATE.md");
 
 shell.echo("Copy package.json");
 const pkgWithoutDependencies = Object.assign({}, pkg);
-pkgWithoutDependencies.bin = "./bin-prettier.js";
 delete pkgWithoutDependencies.dependencies;
 pkgWithoutDependencies.scripts = {
   prepublishOnly:

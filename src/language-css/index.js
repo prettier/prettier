@@ -1,6 +1,7 @@
 "use strict";
 
 const printer = require("./printer-postcss");
+const parse = require("./parser-postcss");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -48,9 +49,7 @@ const languages = [
 ];
 
 const postcss = {
-  get parse() {
-    return eval("require")("./parser-postcss");
-  },
+  parse,
   astFormat: "postcss"
 };
 

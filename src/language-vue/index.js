@@ -1,6 +1,7 @@
 "use strict";
 
 const printer = require("./printer-vue");
+const parse = require("./parser-vue");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -23,9 +24,7 @@ const languages = [
 
 const parsers = {
   vue: {
-    get parse() {
-      return eval("require")("./parser-vue");
-    },
+    parse,
     astFormat: "vue"
   }
 };

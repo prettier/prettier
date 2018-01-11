@@ -1,6 +1,7 @@
 "use strict";
 
 const printer = require("./printer-glimmer");
+const parse = require("./parser-glimmer");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -19,9 +20,7 @@ const languages = [
 
 const parsers = {
   glimmer: {
-    get parse() {
-      return eval("require")("./parser-glimmer");
-    },
+    parse,
     astFormat: "glimmer"
   }
 };

@@ -1,6 +1,7 @@
 "use strict";
 
 const printer = require("./printer-markdown");
+const parse = require("./parser-markdown");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -34,9 +35,7 @@ const languages = [
 ];
 
 const remark = {
-  get parse() {
-    return eval("require")("./parser-markdown");
-  },
+  parse,
   astFormat: "mdast"
 };
 

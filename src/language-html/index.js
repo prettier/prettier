@@ -1,6 +1,7 @@
 "use strict";
 
 const printer = require("./printer-htmlparser2");
+const parse = require("./parser-parse5");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -24,9 +25,7 @@ const languages = [
 
 const parsers = {
   parse5: {
-    get parse() {
-      return eval("require")("./parser-parse5");
-    },
+    parse,
     astFormat: "htmlparser2"
   }
 };
