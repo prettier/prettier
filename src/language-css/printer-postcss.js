@@ -90,6 +90,7 @@ function genericPrint(path, options, print) {
           ? removeLines(path.call(print, "value"))
           : path.call(print, "value"),
         n.important ? " !important" : "",
+        n.default ? " !default" : "",
         n.nodes
           ? concat([
               " {",
