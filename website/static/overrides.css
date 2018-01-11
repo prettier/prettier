@@ -1,3 +1,7 @@
+body {
+  font-family: Apple SD Gothic Neo, AppleSDGothicNeo, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+}
+
 .post p a {
   text-decoration: underline !important;
 }
