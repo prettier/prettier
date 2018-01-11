@@ -30,7 +30,13 @@ function genericPrint(path, options, print) {
 
   switch (n.type) {
     case "css-root": {
-      return concat([printNodeSequence(path, options, print), hardline]);
+      const nodes = printNodeSequence(path, options, print);
+
+      if (nodes.parts.length) {
+        return concat([nodes, hardline]);
+      }
+
+      return nodes;
     }
     case "css-comment": {
       if (n.raws.content) {
