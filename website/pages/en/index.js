@@ -75,9 +75,9 @@ const TldrSection = ({ language }) => (
   <div className="tldrSection productShowcaseSection lightBackground paddingTop paddingBottom">
     <Container>
       <div style={{ display: "flex", flexFlow: "row wrap" }}>
-        <div style={{ flex: "1 1 auto" }}>
+        <div style={{ flex: "1 1 auto", display: "flex", flexDirection: "column" }}>
           <h2>What is Prettier?</h2>
-          <ul>
+          <ul style={{ flex: "1" }}>
             <li>An opinionated code formatter</li>
             <li>Supports many languages</li>
             <li>Integrates with the most editors</li>
@@ -85,9 +85,9 @@ const TldrSection = ({ language }) => (
           </ul>
           <Button href={"/docs/" + language + "/index.html"}>What Else?</Button>
         </div>
-        <div style={{ flex: "1 1 auto" }}>
+        <div style={{ flex: "1 1 auto", display: "flex", flexDirection: "column" }}>
           <h2>Why?</h2>
-          <ul>
+          <ul style={{ flex: "1" }}>
             <li>You press save and code is formatted</li>
             <li>No need to discuss style in code review</li>
             <li>Saves you time and energy</li>
