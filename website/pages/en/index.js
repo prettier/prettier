@@ -123,7 +123,7 @@ const Editor = ({ content = "", image, name }) => (
     <img src={image} style={{ width: "100px", height: "100px" }} />
     <div style={{ flexGrow: 1, paddingLeft: "8px" }}>
       <h3 style={{ marginBottom: "-16px" }}>{name}</h3>
-      <MarkdownBlock>{content}</MarkdownBlock>
+      <MarkdownBlock>{content.replace(/\n/g, "\n\n")}</MarkdownBlock>
     </div>
   </div>
 );
