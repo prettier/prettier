@@ -26,7 +26,7 @@
   content: >
     [`JavaScriptPrettier`](https://github.com/madskristensen/JavaScriptPrettier)
 - image: "/images/editors/vscode-128px.png"
-  name: Visual Studio Code
+  name: VS Code
   content: >
     [`prettier-vscode`](https://github.com/prettier/prettier-vscode)
 - image: "/images/editors/webstorm-128px.png"

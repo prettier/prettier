@@ -3,9 +3,10 @@
 const React = require("react");
 
 const CompLibrary = require("../../core/CompLibrary.js");
-// const Marked = CompLibrary.Marked; /* Used to read markdown */
+const MarkdownBlock = CompLibrary.MarkdownBlock;
 const Container = CompLibrary.Container;
 const GridBlock = CompLibrary.GridBlock;
+const AnimatedLogo = require(process.cwd() + "/components/AnimatedLogo");
 
 const siteConfig = require(process.cwd() + "/siteConfig.js");
 
@@ -37,14 +38,10 @@ class HomeSplash extends React.Component {
       <div className="homeContainer">
         <div className="homeSplashFade">
           <div className="wrapper homeWrapper">
-            <div className="projectLogo">
-              <img src="/icon.png" />
+            <div className="animatedLogoWrapper">
+              <AnimatedLogo />
             </div>
             <div className="inner">
-              <h2 className="projectTitle">
-                {siteConfig.title}
-                <small>{siteConfig.tagline}</small>
-              </h2>
               <div className="section promoSection">
                 <div className="promoRow">
                   <div className="pluginRowBlock">
@@ -74,115 +71,211 @@ HomeSplash.propTypes = {
   language: React.PropTypes.string
 };
 
+const TldrSection = () => (
+  <div className="tldrSection productShowcaseSection lightBackground paddingTop paddingBottom">
+    <Container>
+      <div style={{ display: "flex", flexFlow: "row wrap" }}>
+        <div style={{ flex: "1 1 auto" }}>
+          <h2>What is Prettier?</h2>
+          <ul>
+            <li>An opinionated code formatter</li>
+            <li>Supports many languages</li>
+            <li>Integrates with the most editors</li>
+            <li>Has few options</li>
+          </ul>
+        </div>
+        <div style={{ flex: "1 1 auto" }}>
+          <h2>Why?</h2>
+          <ul>
+            <li>You press save and code is formatted</li>
+            <li>No need to discuss style in code review</li>
+            <li>Save you time and energy</li>
+          </ul>
+        </div>
+      </div>
+    </Container>
+  </div>
+);
+
+const LanguagesSection = () => (
+  <div
+    className="languagesSection productShowcaseSection paddingTop paddingBottom"
+    style={{ textAlign: "center" }}
+  >
+    <Container>
+      <h2 style={{ margin: 0 }}>Language Support</h2>
+      <GridBlock
+        align="center"
+        contents={siteConfig.supportedLanguages.map(language => ({
+          title: language.name,
+          image: language.image,
+          imageAlign: "top",
+          content: language.variants.join("\n\n")
+        }))}
+        layout="fourColumn"
+      />
+    </Container>
+  </div>
+);
+
+const Editor = ({ content = "", image, name }) => (
+  <div style={{ display: "flex", width: "235px", padding: "20px" }}>
+    <img src={image} style={{ width: "100px", height: "100px" }} />
+    <div style={{ flexGrow: 1, paddingLeft: "8px" }}>
+      <h3 style={{ marginBottom: "-16px" }}>{name}</h3>
+      <MarkdownBlock>{content}</MarkdownBlock>
+    </div>
+  </div>
+);
+
+Editor.propTypes = {
+  content: React.PropTypes.string,
+  image: React.PropTypes.string.isRequired,
+  name: React.PropTypes.string.isRequired
+};
+
+const EditorSupportSection = () => (
+  <div className="editorSupportSection productShowcaseSection lightBackground paddingTop paddingBottom">
+    <Container>
+      <h2>Editor Support</h2>
+      <div
+        style={{
+          display: "flex",
+          flexFlow: "row wrap",
+          justifyContent: "space-around"
+        }}
+      >
+        {siteConfig.editors.map(editor => (
+          <Editor key={editor.name} {...editor} />
+        ))}
+      </div>
+    </Container>
+
+    <div style={{ float: "right" }}>
+      <span>Got more? </span>
+      <a
+        href={`${siteConfig.githubUrl}/edit/master/website/data/editors.yml`}
+        className="button"
+      >
+        Send a PR
+      </a>
+    </div>
+  </div>
+);
+
+const bash = string => `~~~bash\n${string}\n~~~`;
+
+const json = object => `~~~json\n${JSON.stringify(object, null, 2)}\n~~~`;
+
+class GetStartedSection extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      npmClient: "yarn"
+    };
+  }
+
+  render() {
+    return (
+      <div className="getStartedSection productShowcaseSection paddingTop paddingBottom">
+        <Container>
+          <h2>Get Started</h2>
+          <div>
+            <ol>
+              <li>
+                Add prettier to your project:
+                <MarkdownBlock>
+                  {bash(`yarn add prettier --dev --exact`)}
+                </MarkdownBlock>
+              </li>
+              <li>
+                Verify by running against a file:
+                <MarkdownBlock>
+                  {bash(`yarn prettier --write src/index.js`)}
+                </MarkdownBlock>
+              </li>
+              <li>
+                Run prettier when commiting files:
+                <MarkdownBlock>
+                  {bash(`yarn add pretty-quick husky --dev`)}
+                </MarkdownBlock>
+                Then edit <code>package.json</code>:
+                <MarkdownBlock>
+                  {json({
+                    scripts: {
+                      precommit: "pretty-quick --staged"
+                    }
+                  })}
+                </MarkdownBlock>
+              </li>
+            </ol>
+          </div>
+        </Container>
+      </div>
+    );
+  }
+}
+
+const UsersSection = ({ language }) => {
+  const showcase = siteConfig.users
+    .filter(user => {
+      return user.pinned;
+    })
+    .map((user, i) => {
+      return (
+        <a key={i} href={user.infoLink}>
+          <img
+            src={user.image}
+            title={user.caption}
+            style={{ height: "100px", width: "200px" }}
+          />
+        </a>
+      );
+    });
+
+  return (
+    <div className="usersSection productShowcaseSection lightBackground paddingTop paddingBottom">
+      <Container>
+        <h2>Used By People You Rely On</h2>
+        <div className="logos">{showcase}</div>
+        <div className="more-users">
+          <a
+            className="button"
+            href={siteConfig.baseUrl + language + "/users/"}
+            target="_self"
+          >
+            See All Others
+          </a>
+          <a
+            className="button"
+            href={`${siteConfig.githubUrl}/edit/master/website/data/users.yml`}
+          >
+            Add Your Project
+          </a>
+        </div>
+      </Container>
+    </div>
+  );
+};
+
+UsersSection.propTypes = {
+  language: React.PropTypes.string
+};
+
 class Index extends React.Component {
   render() {
     const language = this.props.language || "en";
-    const showcase = siteConfig.users
-      .filter(user => {
-        return user.pinned;
-      })
-      .map((user, i) => {
-        return (
-          <a key={i} href={user.infoLink}>
-            <img src={user.image} title={user.caption} />
-            <br />
-            {user.caption}
-          </a>
-        );
-      });
 
     return (
       <div>
-        <script src="redirect.js" />
+        <script src="landing.js" />
         <HomeSplash language={language} />
         <div className="mainContainer">
-          <div
-            className="productShowcaseSection lightBackground paddingTop paddingBottom"
-            style={{ textAlign: "center" }}
-          >
-            <h2 style={{ margin: 0 }}>Language Support</h2>
-            <Container>
-              <GridBlock
-                align="center"
-                contents={siteConfig.supportedLanguages.map(language => ({
-                  title: language.name,
-                  image: language.image,
-                  imageAlign: "top",
-                  content: language.variants.join("\n\n")
-                }))}
-                layout="fourColumn"
-              />
-            </Container>
-          </div>
-
-          {/*<div
-            className="productShowcaseSection paddingBottom"
-            style={{ textAlign: "center" }}
-          >
-            <h2>Feature Callout</h2>
-            <Marked>These are features of this project</Marked>
-          </div>*/}
-
-          <div className="productShowcaseSection paddingBottom">
-            <h2>Editor Integration</h2>
-            <Container>
-              <GridBlock
-                align="center"
-                contents={siteConfig.editors.map(editor => ({
-                  content: editor.content || "",
-                  image: editor.image,
-                  imageAlign: "bottom",
-                  title: editor.name
-                }))}
-                layout="fourColumn"
-              />
-            </Container>
-
-            <p>Developed an integration?</p>
-            <a
-              href={`${
-                siteConfig.githubUrl
-              }/edit/master/website/data/editors.yml`}
-              className="button"
-            >
-              Add it here
-            </a>
-          </div>
-
-          {/*<Container padding={["bottom", "top"]} background="dark">
-            <GridBlock
-              contents={[
-                {
-                  content:
-                    "This is another description of how this project is useful",
-                  image: "/prettier.png",
-                  imageAlign: "left",
-                  title: "Description"
-                }
-              ]}
-            />
-          </Container>*/}
-
-          <div className="productShowcaseSection paddingTop paddingBottom lightBackground">
-            <h2>Who{"'"}s Using Prettier?</h2>
-            <p>
-              A few of the{" "}
-              <a href="https://www.npmjs.com/browse/depended/prettier">
-                many projects
-              </a>{" "}
-              using Prettier
-            </p>
-            <div className="logos">{showcase}</div>
-            <div className="more-users">
-              <a
-                className="button"
-                href={siteConfig.baseUrl + language + "/users/"}
-                target="_self"
-              >
-                More Prettier Users
-              </a>
-            </div>
-          </div>
+          <TldrSection />
+          <LanguagesSection />
+          <EditorSupportSection />
+          <GetStartedSection />
+          <UsersSection language={language} />
         </div>
       </div>
     );
