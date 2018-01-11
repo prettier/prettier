@@ -18,7 +18,8 @@
 - image: "/images/editors/vim-128px.png"
   name: Vim
   content: |
-    [`neoformat`](https://github.com/sbdchd/neoformat), [`ale`](https://github.com/w0rp/ale)
+    [`neoformat`](https://github.com/sbdchd/neoformat)
+    [`ale`](https://github.com/w0rp/ale)
     [`vim-prettier`](https://github.com/prettier/vim-prettier)
 - image: "/images/editors/visualstudio-128px.png"
   name: Visual Studio
