@@ -163,7 +163,7 @@ const EditorSupportSection = () => (
   </div>
 );
 
-const bash = string => `~~~bash\n${string}\n~~~`;
+const bash = (...args) => `~~~bash\n${String.raw(...args)}\n~~~`;
 
 const json = object => `~~~json\n${JSON.stringify(object, null, 2)}\n~~~`;
 
@@ -185,19 +185,19 @@ class GetStartedSection extends React.Component {
               <li>
                 Add prettier to your project:
                 <MarkdownBlock>
-                  {bash(`yarn add prettier --dev --exact`)}
+                  {bash`yarn add prettier --dev --exact`}
                 </MarkdownBlock>
               </li>
               <li>
                 Verify by running against a file:
                 <MarkdownBlock>
-                  {bash(`yarn prettier --write src/index.js`)}
+                  {bash`yarn prettier --write src/index.js`}
                 </MarkdownBlock>
               </li>
               <li>
                 Run prettier when commiting files:
                 <MarkdownBlock>
-                  {bash(`yarn add pretty-quick husky --dev`)}
+                  {bash`yarn add pretty-quick husky --dev`}
                 </MarkdownBlock>
                 Then edit <code>package.json</code>:
                 <MarkdownBlock>
