@@ -1,6 +1,6 @@
 "use strict";
 
-/* eslint-env browser */
+/* eslint-disable */
 
 if (location.hash.substring(1).startsWith(encodeURIComponent("{"))) {
   location.pathname = "/playground/";
@@ -8,5 +8,11 @@ if (location.hash.substring(1).startsWith(encodeURIComponent("{"))) {
 
 // eslint-disable-next-line
 window.addEventListener("load", function() {
-  document.querySelector(".animatedLogo").classList.remove("initial");
+  var logo = document.querySelector(".animatedLogo");
+
+  logo.classList.remove("initial");
+
+  logo.addEventListener("click", function() {
+    logo.classList.toggle("initial");
+  });
 });
