@@ -1,5 +1,5 @@
-body {
-  font-family: Apple SD Gothic Neo, AppleSDGothicNeo, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+body, a, p, span, h1, h2, h3, h4, h5, li {
+  font-family: "Apple SD Gothic Neo", "AppleSDGothicNeo",  -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 }
 
 .post p a {
