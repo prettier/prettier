@@ -121,3 +121,6 @@
 - caption: National Hockey League (NHL)
   image: "/images/users/nhl-200x100.png"
   infoLink: https://www.nhl.com
+- caption: MongoDB
+  image: "/images/users/mongodb-200x100.png"
+  infoLink: https://www.mongodb.com/
