@@ -40,9 +40,6 @@ self.require = function require(path) {
   if (path === "stream") {
     return { PassThrough() {} };
   }
-  if (path === "./third-party") {
-    return {};
-  }
 
   if (~path.indexOf("parser-")) {
     var parser = path.replace(/.+-/, "");

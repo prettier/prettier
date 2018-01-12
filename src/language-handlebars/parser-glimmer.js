@@ -1,6 +1,7 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+
 function removeEmptyNodes(node) {
   return (
     node.type !== "TextNode" ||
@@ -8,6 +9,7 @@ function removeEmptyNodes(node) {
       node.chars.replace(/^\s+/, "").replace(/\s+$/, "") !== "")
   );
 }
+
 function removeWhiteSpace() {
   return {
     visitor: {

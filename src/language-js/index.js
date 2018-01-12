@@ -1,6 +1,9 @@
 "use strict";
 
 const printer = require("./printer-estree");
+const parseTypeScript = require("./parser-typescript");
+const parseBabylon = require("./parser-babylon");
+const parseFlow = require("./parser-flow");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -100,16 +103,12 @@ const languages = [
 ];
 
 const typescript = {
-  get parse() {
-    return eval("require")("./parser-typescript");
-  },
+  parse: parseTypeScript,
   astFormat: "estree"
 };
 
 const babylon = {
-  get parse() {
-    return eval("require")("./parser-babylon");
-  },
+  parse: parseBabylon,
   astFormat: "estree"
 };
 
@@ -117,9 +116,7 @@ const parsers = {
   babylon,
   json: babylon,
   flow: {
-    get parse() {
-      return eval("require")("./parser-flow");
-    },
+    parse: parseFlow,
     astFormat: "estree"
   },
   "typescript-eslint": typescript,

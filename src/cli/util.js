@@ -10,6 +10,7 @@ const ignore = require("ignore");
 const chalk = require("chalk");
 const readline = require("readline");
 const leven = require("leven");
+const getStream = require("get-stream");
 
 const prettier = require("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
@@ -21,7 +22,6 @@ const options = require("../main/options");
 const apiDefaultOptions = options.defaults;
 const normalizeOptions = options.normalize;
 const logger = require("./logger");
-const thirdParty = require("../common/third-party");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -248,7 +248,7 @@ function formatStdin(argv) {
   const ignorer = createIgnorer(argv);
   const relativeFilepath = path.relative(process.cwd(), filepath);
 
-  thirdParty.getStream(process.stdin).then(input => {
+  getStream(process.stdin).then(input => {
     if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
       writeOutput({ formatted: input }, {});
       return;

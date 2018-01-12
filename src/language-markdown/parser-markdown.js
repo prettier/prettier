@@ -1,8 +1,5 @@
 "use strict";
 
-const remarkFrontmatter = require("remark-frontmatter");
-const remarkParse = require("remark-parse");
-const unified = require("unified");
 const util = require("../common/util");
 
 /**
@@ -20,6 +17,10 @@ const util = require("../common/util");
  * interface InlineCode { children: Array<Sentence> }
  */
 function parse(text /*, parsers, opts*/) {
+  const remarkParse = require("remark-parse");
+  const remarkFrontmatter = require("remark-frontmatter");
+  const unified = require("unified");
+
   const processor = unified()
     .use(remarkParse, { footnotes: true, commonmark: true })
     .use(remarkFrontmatter, ["yaml", "toml"])

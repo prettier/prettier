@@ -1,6 +1,7 @@
 "use strict";
 
 const printer = require("./printer-graphql");
+const parse = require("./parser-graphql");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -20,9 +21,7 @@ const languages = [
 
 const parsers = {
   graphql: {
-    get parse() {
-      return eval("require")("./parser-graphql");
-    },
+    parse,
     astFormat: "graphql"
   }
 };

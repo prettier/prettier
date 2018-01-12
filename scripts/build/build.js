@@ -3,10 +3,10 @@
 "use strict";
 
 const path = require("path");
+const shell = require("shelljs");
 const pkg = require("../../package.json");
 const formatMarkdown = require("../../website/static/markdown");
-const parsers = require("./parsers");
-const shell = require("shelljs");
+const externals = require("./externals");
 
 const rootDir = path.join(__dirname, "..", "..");
 
@@ -21,50 +21,14 @@ shell.cd(rootDir);
 
 shell.rm("-Rf", "dist/");
 
-// --- Lib ---
+shell.echo("Bundling externals...");
+shell.exec("rollup -c scripts/build/rollup.externals.config.js");
 
-shell.exec("rollup -c scripts/build/rollup.index.config.js");
-
-shell.exec("rollup -c scripts/build/rollup.bin.config.js");
-shell.chmod("+x", "./dist/bin-prettier.js");
-
-shell.exec("rollup -c scripts/build/rollup.third-party.config.js");
-
-for (const parser of parsers) {
-  if (parser.endsWith("postcss")) {
-    continue;
-  }
-  shell.exec(
-    `rollup -c scripts/build/rollup.parser.config.js --environment parser:${parser}`
-  );
-  if (parser.endsWith("glimmer")) {
-    shell.exec(
-      `node_modules/babel-cli/bin/babel.js dist/parser-glimmer.js --out-file dist/parser-glimmer.js --presets=es2015`
-    );
-  }
-}
-
-shell.echo("\nsrc/language-css/parser-postcss.js → dist/parser-postcss.js");
-// PostCSS has dependency cycles and won't work correctly with rollup :(
-shell.exec(
-  "webpack --hide-modules src/language-css/parser-postcss.js dist/parser-postcss.js"
-);
-// Prepend module.exports =
-const content = shell.cat("dist/parser-postcss.js").stdout;
-pipe(`module.exports = ${content}`).to("dist/parser-postcss.js");
-
-shell.echo();
-
-// --- Misc ---
-
-shell.echo("Remove eval");
-shell.sed(
-  "-i",
-  /eval\("require"\)/,
-  "require",
-  "dist/index.js",
-  "dist/bin-prettier.js"
-);
+shell.echo("Building internals...");
+pipe(JSON.stringify(require("./babelrc"), null, 2)).to(".babelrc");
+shell.exec("babel --copy-files src -d dist/src");
+shell.exec("babel --copy-files bin -d dist/bin");
+shell.exec("babel --copy-files index.js -d dist");
 
 shell.echo("Update ISSUE_TEMPLATE.md");
 const issueTemplate = shell.cat(".github/ISSUE_TEMPLATE.md").stdout;
@@ -85,14 +49,19 @@ const newIssueTemplate = issueTemplate.replace(
 pipe(newIssueTemplate).to(".github/ISSUE_TEMPLATE.md");
 
 shell.echo("Copy package.json");
-const pkgWithoutDependencies = Object.assign({}, pkg);
-pkgWithoutDependencies.bin = "./bin-prettier.js";
-delete pkgWithoutDependencies.dependencies;
-pkgWithoutDependencies.scripts = {
+
+pkg.bundledDependencies = externals.map(
+  external => external.pkg || external.name
+);
+for (const external of externals) {
+  delete pkg.dependencies[external.pkg || external.name];
+}
+
+pkg.scripts = {
   prepublishOnly:
     "node -e \"assert.equal(require('.').version, require('..').version)\""
 };
-pipe(JSON.stringify(pkgWithoutDependencies, null, 2)).to("dist/package.json");
+pipe(JSON.stringify(pkg, null, 2)).to("dist/package.json");
 
 shell.echo("Copy README.md");
 shell.cp("README.md", "dist/README.md");
