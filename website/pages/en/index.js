@@ -236,7 +236,7 @@ class GetStartedSection extends React.Component {
                 </div>
                 <div className="npmOnly">
                   <MarkdownBlock>
-                    {bash`./node_modules/.bin/prettier --write src/index.js`}
+                    {bash`npx prettier --write src/index.js`}
                   </MarkdownBlock>
                 </div>
               </li>
