@@ -49,15 +49,6 @@ shell.exec(
   `node_modules/babel-cli/bin/babel.js ${docs}/parser-babylon.js --out-file ${docs}/parser-babylon.js --presets=es2015`
 );
 
-// for (const parser of parserPaths) {
-//   if (parser.endsWith("babylon")) {
-//     continue;
-//   }
-//   shell.exec(
-//     `rollup -c scripts/build/rollup.docs.config.js --environment filepath:${parser}.js -i ${prettierPath}/${parser}.js`
-//   );
-// }
-
 shell.echo("Copy sw-toolbox.js to docs");
 shell.cp("node_modules/sw-toolbox/sw-toolbox.js", `${docs}/sw-toolbox.js`);
 

@@ -20,11 +20,14 @@ shell.cd(rootDir);
 
 shell.rm("-Rf", "dist/");
 
-shell.echo("Building externals...");
+shell.echo("Bundling externals...");
 shell.exec("rollup -c scripts/build/rollup.externals.config.js");
 
 shell.echo("Building internals...");
-shell.exec("rollup -c scripts/build/rollup.internals.config.js");
+pipe(JSON.stringify(require("./babelrc"), null, 2)).to(".babelrc");
+shell.exec("babel --copy-files src -d dist/src");
+shell.exec("babel --copy-files bin -d dist/bin");
+shell.exec("babel --copy-files index.js -d dist");
 
 shell.echo("Update ISSUE_TEMPLATE.md");
 const issueTemplate = shell.cat(".github/ISSUE_TEMPLATE.md").stdout;

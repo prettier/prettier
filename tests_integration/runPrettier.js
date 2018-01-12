@@ -6,10 +6,8 @@ const stripAnsi = require("strip-ansi");
 const ENV_LOG_LEVEL = require("../src/cli/logger").ENV_LOG_LEVEL;
 
 const isProduction = process.env.NODE_ENV === "production";
-const prettierCli = isProduction ? "../dist/bin-prettier" : "../bin/prettier";
-const thirdParty = isProduction
-  ? "../dist/third-party"
-  : "../src/common/third-party";
+const prettierBaseDir = isProduction ? "../dist" : ".";
+const prettierCli = path.join(prettierBaseDir, "bin/prettier");
 
 function runPrettier(dir, args, options) {
   args = args || [];
@@ -67,20 +65,24 @@ function runPrettier(dir, args, options) {
 
   jest.resetModules();
 
-  // We cannot use `jest.setMock("get-stream", impl)` here, because in the
-  // production build everything is bundled into one file so there is no
-  // "get-stream" module to mock.
-  jest.spyOn(require(thirdParty), "getStream").mockImplementation(() => ({
-    then: handler => handler(options.input || "")
-  }));
-  jest
-    .spyOn(require(thirdParty), "cosmiconfig")
-    .mockImplementation((moduleName, options) =>
+  jest.setMock(
+    isProduction
+      ? path.join(prettierBaseDir, "externals/get-stream")
+      : "get-stream",
+    () => ({
+      then: handler => handler(options.input || "")
+    })
+  );
+  jest.setMock(
+    isProduction
+      ? path.join(prettierBaseDir, "externals/cosmiconfig")
+      : "cosmiconfig",
+    (moduleName, options) =>
       require("cosmiconfig")(
         moduleName,
         Object.assign({}, options, { stopDir: __dirname })
       )
-    );
+  );
 
   try {
     require(prettierCli);
