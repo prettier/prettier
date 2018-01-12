@@ -1,5 +1,5 @@
-body {
-  font-family: "Apple SD Gothic Neo", "AppleSDGothicNeo",  -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif !important;
+html body {
+  font-family: "Apple SD Gothic Neo", "AppleSDGothicNeo",  -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 }
 
 .post p a {
@@ -30,6 +30,17 @@ body {
   footer .sitemap > div h5 {
     margin: 0;
   }
+}
+
+.buttonGroup .button:not(:first-of-type) {
+  margin-left: -4px;
+}
+.buttonGroup .button:not(:last-of-type) {
+  margin-right: 0;
+}
+
+.pluginRowBlock .button {
+  border-radius: 8px;
 }
 
 .pluginRowBlock .buttonWrapper:nth-of-type(1) .button {
@@ -108,6 +119,24 @@ body {
 
 .getStartedSection {
   text-align: left;
+}
+
+.getStartedSection--npm .yarnOnly {
+  display: none;
+}
+.getStartedSection:not(.getStartedSection--npm) .npmOnly {
+  display: none;
+}
+
+.getStartedSection .button {
+  border: 1px solid #e85f61;
+  color: #e85f61 !important;
+  line-height: 1.0em;
+}
+
+.getStartedSection .button.active {
+  background: #e85f61;
+  color: #1a2b34 !important;
 }
 
 .getStartedSection ol {

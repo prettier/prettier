@@ -10,6 +10,14 @@ const AnimatedLogo = require(process.cwd() + "/components/AnimatedLogo");
 
 const siteConfig = require(process.cwd() + "/siteConfig.js");
 
+const ButtonGroup = props => (
+  <div className="buttonGroup buttonWrapper">{props.children}</div>
+);
+
+ButtonGroup.propTypes = {
+  children: React.PropTypes.node
+};
+
 class Button extends React.Component {
   render() {
     return (
@@ -194,25 +202,56 @@ class GetStartedSection extends React.Component {
       <div className="getStartedSection productShowcaseSection paddingTop paddingBottom">
         <Container>
           <h2>Get Started</h2>
+          <div style={{ float: "right" }}>
+            <ButtonGroup>
+              <a className="button active showYarnButton" href="#">
+                yarn
+              </a>
+              <a className="button showNpmButton" href="#">
+                npm
+              </a>
+            </ButtonGroup>
+          </div>
           <div>
             <ol>
               <li>
                 Add prettier to your project:
-                <MarkdownBlock>
-                  {bash`yarn add prettier --dev --exact`}
-                </MarkdownBlock>
+                <div className="yarnOnly">
+                  <MarkdownBlock>
+                    {bash`yarn add prettier --dev --exact`}
+                  </MarkdownBlock>
+                </div>
+                <div className="npmOnly">
+                  <MarkdownBlock>
+                    {bash`npm install prettier --save-dev --save-exact`}
+                  </MarkdownBlock>
+                </div>
               </li>
               <li>
                 Verify by running against a file:
-                <MarkdownBlock>
-                  {bash`yarn prettier --write src/index.js`}
-                </MarkdownBlock>
+                <div className="yarnOnly">
+                  <MarkdownBlock>
+                    {bash`yarn prettier --write src/index.js`}
+                  </MarkdownBlock>
+                </div>
+                <div className="npmOnly">
+                  <MarkdownBlock>
+                    {bash`./node_modules/.bin/prettier --write src/index.js`}
+                  </MarkdownBlock>
+                </div>
               </li>
               <li>
                 Run prettier when commiting files:
-                <MarkdownBlock>
-                  {bash`yarn add pretty-quick husky --dev`}
-                </MarkdownBlock>
+                <div className="yarnOnly">
+                  <MarkdownBlock>
+                    {bash`yarn add pretty-quick husky --dev`}
+                  </MarkdownBlock>
+                </div>
+                <div className="npmOnly">
+                  <MarkdownBlock>
+                    {bash`npm install pretty-quick husky --save-dev`}
+                  </MarkdownBlock>
+                </div>
                 Then edit <code>package.json</code>:
                 <MarkdownBlock>
                   {json({
