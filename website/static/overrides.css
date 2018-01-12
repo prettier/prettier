@@ -1,5 +1,5 @@
-body, a, p, span, h1, h2, h3, h4, h5, li {
-  font-family: "Apple SD Gothic Neo", "AppleSDGothicNeo",  -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+body {
+  font-family: "Apple SD Gothic Neo", "AppleSDGothicNeo",  -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif !important;
 }
 
 .post p a {
@@ -77,6 +77,21 @@ body, a, p, span, h1, h2, h3, h4, h5, li {
 .tldrSection h2,
 .tldrSection ul {
   color: #f8bc45 !important;
+  padding: 0 !important;
+}
+
+.tldrSection h2::before {
+  content: "# ";
+}
+
+.tldrSection li {
+  list-style: none;
+  list-style-position: inside;
+}
+
+.tldrSection li::before {
+  content: "* ";
+  vertical-align: sub;
 }
 
 .languagesSection h2 {
