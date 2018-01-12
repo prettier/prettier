@@ -59,6 +59,11 @@ module  .  exports  =
 p { font-size : 2em ; text-align : center ; }
 
   </style >
+
+<style   lang="postcss" >
+p { font-size : 2em ; text-align : center ; }
+
+  </style >
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template >
   <h1 >{{greeting}}     world</h1 >
@@ -76,6 +81,13 @@ module.exports = {
 </script>
 
 <style   scoped >
+p {
+  font-size: 2em;
+  text-align: center;
+}
+</style >
+
+<style   lang="postcss" >
 p {
   font-size: 2em;
   text-align: center;

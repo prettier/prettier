@@ -15,7 +15,7 @@ function embed(path, print, textToDoc, options) {
 
   if (node.tag === "style") {
     const langAttr = node.attrs.find(attr => attr.name === "lang");
-    if (!langAttr) {
+    if (!langAttr || langAttr.value === "postcss") {
       parser = "css";
     } else if (langAttr.value === "scss") {
       parser = "scss";
