@@ -402,7 +402,10 @@ function genericPrint(path, options, print) {
     }
     case "value-paren": {
       if (n.raws.before !== "") {
-        return concat([line, n.value]);
+        const parent = path.getParentNode(2);
+        const isFunction = parent.type === "value-func";
+
+        return concat([isFunction ? "" : line, n.value]);
       }
       return n.value;
     }

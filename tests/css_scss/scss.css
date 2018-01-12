@@ -23,3 +23,14 @@ $default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !d
 $default: "very-long-long-long-long-long-long-long-long-long-long-long-value"   !default;
 $default: "very-long-long-long-long-long-long-long-long-long-long-long-value"
 !default;
+$map: map-merge($map,  ($key: $value));
+$map: map-merge(
+$map,
+    ($key: $value)
+);
+a {
+    clip: rect(0,  ($card-score-size / 2), 0, 0);
+}
+.foo {
+    clip: rect(0,  round($card-score-size / 2), 0, 0)
+}
