@@ -237,7 +237,7 @@ const UsersSection = ({ language }) => {
     })
     .map((user, i) => {
       return (
-        <a key={i} href={user.infoLink}>
+        <a key={i} className="landingUser" href={user.infoLink}>
           <img
             src={user.greyImage}
             title={user.caption}

@@ -163,6 +163,14 @@ body {
   color: #1a2b34 !important;
 }
 
+.landingUser {
+  transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.landingUser:hover {
+  transform: scale(1.25);
+}
+
 .footerSection {
   background: #1a2b34 !important;
 }
