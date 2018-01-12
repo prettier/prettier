@@ -3,9 +3,10 @@
 "use strict";
 
 const path = require("path");
+const shell = require("shelljs");
 const pkg = require("../../package.json");
 const formatMarkdown = require("../../website/static/markdown");
-const shell = require("shelljs");
+const externals = require("./externals");
 
 const rootDir = path.join(__dirname, "..", "..");
 
@@ -48,13 +49,14 @@ const newIssueTemplate = issueTemplate.replace(
 pipe(newIssueTemplate).to(".github/ISSUE_TEMPLATE.md");
 
 shell.echo("Copy package.json");
-const pkgWithoutDependencies = Object.assign({}, pkg);
-delete pkgWithoutDependencies.dependencies;
-pkgWithoutDependencies.scripts = {
+pkg.bundledDependencies = externals.map(
+  external => external.pkg || external.name
+);
+pkg.scripts = {
   prepublishOnly:
     "node -e \"assert.equal(require('.').version, require('..').version)\""
 };
-pipe(JSON.stringify(pkgWithoutDependencies, null, 2)).to("dist/package.json");
+pipe(JSON.stringify(pkg, null, 2)).to("dist/package.json");
 
 shell.echo("Copy README.md");
 shell.cp("README.md", "dist/README.md");

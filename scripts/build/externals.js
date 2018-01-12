@@ -2,7 +2,7 @@
 
 const replace = require("rollup-plugin-replace");
 
-module.exports = [
+const custom = [
   {
     name: "typescript-eslint-parser",
     extraPlugins: [
@@ -26,7 +26,7 @@ module.exports = [
     noMinify: true,
     loose: true
   },
-  { name: "graphql/language", outName: "graphql-language" },
+  { name: "graphql/language", outName: "graphql-language", pkg: "graphql" },
   { name: "@glimmer/syntax", outName: "glimmer-syntax" },
   { name: "babylon" },
   { name: "remark-parse" },
@@ -51,5 +51,8 @@ module.exports = [
       })
     ]
   },
-  { name: "get-stream", browser: false }
+  { name: "get-stream" },
+  { name: "read-pkg-up" }
 ];
+
+module.exports = custom;

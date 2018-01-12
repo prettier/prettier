@@ -1,9 +1,9 @@
 "use strict";
 
 const printer = require("./printer-estree");
-const parseTypeScript = ("./parser-typescript");
-const parseBabylon = ("./parser-babylon");
-const parseFlow = ("./parser-flow");
+const parseTypeScript = require("./parser-typescript");
+const parseBabylon = require("./parser-babylon");
+const parseFlow = require("./parser-flow");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml

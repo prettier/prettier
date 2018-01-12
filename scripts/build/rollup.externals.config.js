@@ -1,6 +1,6 @@
 import resolve from "rollup-plugin-node-resolve";
-import globals from "rollup-plugin-node-globals";
-import builtins from "rollup-plugin-node-builtins";
+// import globals from "rollup-plugin-node-globals";
+// import builtins from "rollup-plugin-node-builtins";
 import commonjs from "rollup-plugin-commonjs";
 import json from "rollup-plugin-json";
 import replace from "rollup-plugin-replace";
@@ -17,19 +17,22 @@ const builtinNames = [
   "assert",
   "util",
   "os",
-  "crypto"
+  "crypto",
+  "url",
+  "stream",
+  "events"
 ];
 
 export default externals.map(external => ({
   input: require.resolve(external.name),
   output: {
     file: `dist/externals/${external.outName || external.name}.js`,
-    format: external.browser === false ? "cjs" : "umd",
+    format: "cjs",
     name: external.name,
-    exports: "named",
+    exports: external.exports || "auto",
     strict: !external.loose
   },
-  external: external.browser === false ? builtinNames : [],
+  external: builtinNames,
   plugins: [
     ...(externals.extraPlugins || []),
     replace({
@@ -41,7 +44,12 @@ export default externals.map(external => ({
       extensions: [".js", ".json"]
     }),
     commonjs(),
-    ...(external.browser === false ? [] : [builtins(), globals()]),
     external.noMinify || uglify({}, minify)
-  ]
+  ],
+  onwarn: warning => {
+    if (warning.code === "MIXED_EXPORTS" || warning.code === "EVAL") {
+      return;
+    }
+    console.log(`[WARN] ${warning.code}: ${warning.message}`);
+  }
 }));

@@ -6,7 +6,7 @@ const stripAnsi = require("strip-ansi");
 const ENV_LOG_LEVEL = require("../src/cli/logger").ENV_LOG_LEVEL;
 
 const isProduction = process.env.NODE_ENV === "production";
-const prettierBaseDir = isProduction ? "../dist" : ".";
+const prettierBaseDir = isProduction ? process.env.PRETTIER_DIR : ".";
 const prettierCli = path.join(prettierBaseDir, "bin/prettier");
 
 function runPrettier(dir, args, options) {
