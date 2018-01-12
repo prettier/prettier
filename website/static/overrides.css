@@ -148,6 +148,10 @@ body, a, p, span, h1, h2, h3, h4, h5, li {
   color: #1a2b34 !important;
 }
 
+.footerSection {
+  background: #1a2b34 !important;
+}
+
 .mainContainer .wrapper .post h2 {
   font-size: 2em;
 }
