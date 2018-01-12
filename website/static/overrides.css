@@ -13,6 +13,10 @@ html body {
   margin-left: 20px;
 }
 
+.animatedLogo {
+  max-width: calc(100vw - 30px);
+}
+
 @media screen and (max-width: 735px) {
   footer .sitemap {
     display: block;
@@ -170,6 +174,18 @@ html body {
 }
 .getStartedSection ol li:nth-of-type(3)::before {
   content: "3.";
+}
+
+@media only screen and (max-width: 736px) {
+  .getStartedSection ol {
+    margin: 0 0 0 -12px !important;
+    padding: 0 !important;
+  }
+
+  .getStartedSection ol li::before {
+    font-size: 36px;
+    top: -22px;
+  }
 }
 
 .getStartedSection code {
