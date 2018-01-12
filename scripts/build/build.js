@@ -49,9 +49,14 @@ const newIssueTemplate = issueTemplate.replace(
 pipe(newIssueTemplate).to(".github/ISSUE_TEMPLATE.md");
 
 shell.echo("Copy package.json");
+
 pkg.bundledDependencies = externals.map(
   external => external.pkg || external.name
 );
+for (const external of externals) {
+  delete pkg.dependencies[external.pkg || external.name];
+}
+
 pkg.scripts = {
   prepublishOnly:
     "node -e \"assert.equal(require('.').version, require('..').version)\""

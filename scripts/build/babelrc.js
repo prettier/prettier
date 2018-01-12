@@ -11,6 +11,6 @@ const alias = externals.reduce(
 );
 
 module.exports = {
-  presets: [["env", { targets: { node: "4" } }], "minify"],
+  presets: [["env", { targets: { node: "4" } }]],
   plugins: [["module-resolver", { root: ["dist"], alias }]]
 };

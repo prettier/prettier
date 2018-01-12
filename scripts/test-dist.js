@@ -2,7 +2,7 @@
 
 "use strict";
 
-const fs = require("fs");
+// const fs = require("fs");
 const path = require("path");
 const shell = require("shelljs");
 const tempy = require("tempy");
