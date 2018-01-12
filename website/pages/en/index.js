@@ -237,7 +237,7 @@ const UsersSection = ({ language }) => {
       return (
         <a key={i} href={user.infoLink}>
           <img
-            src={user.image}
+            src={user.greyImage}
             title={user.caption}
             style={{ height: "100px", width: "200px" }}
           />

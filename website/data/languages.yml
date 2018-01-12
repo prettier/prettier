@@ -1,5 +1,5 @@
 - name: JavaScript
-  image: "/images/languages/js-128px.png"
+  image: "/images/languages/js_small_grey.svg"
   variants:
   - "[ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)"
   - "[JSX](https://facebook.github.io/jsx/)"
@@ -8,7 +8,7 @@
   - "[Vue](https://vuejs.org/)"
   - "[JSON](http://json.org/)"
 - name: CSS
-  image: "/images/languages/css-128px.png"
+  image: "/images/languages/css_small_grey.svg"
   variants:
   - "CSS3+"
   - "[Less](http://lesscss.org/)"
@@ -16,12 +16,12 @@
   - "[styled-components](http://styled-components.com) 💅"
   - "[styled-jsx](http://npmjs.com/styled-jsx)"
 - name: GraphQL
-  image: "/images/languages/graphql-128px.png"
+  image: "/images/languages/graphql_small_grey.svg"
   variants:
   - "[GraphQL](http://graphql.org/)"
   - "[GraphQL Schemas](http://graphql.org/learn/schema/)"
 - name: Markdown
-  image: "/images/languages/markdown-128px.png"
+  image: "/images/languages/markdown_small_grey.svg"
   variants:
   - "[CommonMark](http://commonmark.org/)"
   - "[GitHub Flavored Markdown](https://github.github.com/gfm/)"
