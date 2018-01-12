@@ -10,6 +10,8 @@ cache:
 env:
   - NODE_ENV=development
   - NODE_ENV=production
+matrix:
+  fast_finish: true
 install:
   - NODE_ENV=development yarn install
 before_script:
