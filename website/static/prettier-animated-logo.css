@@ -1,3 +1,11 @@
+@media (prefers-reduced-motion) {
+  .dash {
+    transition: none !important;
+  }
+}
+
+/* GENERATED CONTENT FOLLOWS */
+
 .c1 {
   stroke: #56b3b4;
 }

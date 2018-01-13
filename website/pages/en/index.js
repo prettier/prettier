@@ -40,40 +40,34 @@ Button.propTypes = {
   children: React.PropTypes.any
 };
 
-class HomeSplash extends React.Component {
-  render() {
-    return (
-      <div className="homeContainer">
-        <div className="homeSplashFade">
-          <div className="wrapper homeWrapper">
-            <div className="animatedLogoWrapper">
-              <AnimatedLogo />
-            </div>
-            <div className="inner">
-              <div className="section promoSection">
-                <div className="promoRow">
-                  <div className="pluginRowBlock">
-                    <Button href="/playground/">Try It Out</Button>
-                    <Button
-                      href={"/docs/" + this.props.language + "/install.html"}
-                    >
-                      Get Started
-                    </Button>
-                    <Button
-                      href={"/docs/" + this.props.language + "/options.html"}
-                    >
-                      Options
-                    </Button>
-                  </div>
+const HomeSplash = props => {
+  return (
+    <div className="homeContainer">
+      <div className="homeSplashFade">
+        <div className="wrapper homeWrapper">
+          <div className="animatedLogoWrapper">
+            <AnimatedLogo />
+          </div>
+          <div className="inner">
+            <div className="section promoSection">
+              <div className="promoRow">
+                <div className="pluginRowBlock">
+                  <Button href="/playground/">Try It Out</Button>
+                  <Button href={"/docs/" + props.language + "/install.html"}>
+                    Get Started
+                  </Button>
+                  <Button href={"/docs/" + props.language + "/options.html"}>
+                    Options
+                  </Button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 HomeSplash.propTypes = {
   language: React.PropTypes.string
@@ -201,67 +195,86 @@ class GetStartedSection extends React.Component {
     return (
       <div className="getStartedSection productShowcaseSection paddingTop paddingBottom">
         <Container>
-          <h2>Get Started</h2>
-          <div style={{ float: "right" }}>
-            <ButtonGroup>
-              <a className="button active showYarnButton" href="#">
-                yarn
-              </a>
-              <a className="button showNpmButton" href="#">
-                npm
-              </a>
-            </ButtonGroup>
-          </div>
-          <div>
-            <ol>
-              <li>
-                Add prettier to your project:
-                <div className="yarnOnly">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row-reverse",
+              alignItems: "baseline",
+              justifyContent: "space-between"
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end"
+              }}
+            >
+              <ButtonGroup>
+                <a className="button active showYarnButton" href="#">
+                  yarn
+                </a>
+                <a className="button showNpmButton" href="#">
+                  npm
+                </a>
+              </ButtonGroup>
+              <img
+                style={{ marginTop: "32px" }}
+                src="/images/get_started_rects.svg"
+              />
+            </div>
+            <div>
+              <h2>Get Started</h2>
+              <ol>
+                <li>
+                  Add prettier to your project:
+                  <div className="yarnOnly">
+                    <MarkdownBlock>
+                      {bash`yarn add prettier --dev --exact`}
+                    </MarkdownBlock>
+                  </div>
+                  <div className="npmOnly">
+                    <MarkdownBlock>
+                      {bash`npm install prettier --save-dev --save-exact`}
+                    </MarkdownBlock>
+                  </div>
+                </li>
+                <li>
+                  Verify by running against a file:
+                  <div className="yarnOnly">
+                    <MarkdownBlock>
+                      {bash`yarn prettier --write src/index.js`}
+                    </MarkdownBlock>
+                  </div>
+                  <div className="npmOnly">
+                    <MarkdownBlock>
+                      {bash`npx prettier --write src/index.js`}
+                    </MarkdownBlock>
+                  </div>
+                </li>
+                <li>
+                  Run prettier when commiting files:
+                  <div className="yarnOnly">
+                    <MarkdownBlock>
+                      {bash`yarn add pretty-quick husky --dev`}
+                    </MarkdownBlock>
+                  </div>
+                  <div className="npmOnly">
+                    <MarkdownBlock>
+                      {bash`npm install pretty-quick husky --save-dev`}
+                    </MarkdownBlock>
+                  </div>
+                  Then edit <code>package.json</code>:
                   <MarkdownBlock>
-                    {bash`yarn add prettier --dev --exact`}
+                    {json({
+                      scripts: {
+                        precommit: "pretty-quick --staged"
+                      }
+                    })}
                   </MarkdownBlock>
-                </div>
-                <div className="npmOnly">
-                  <MarkdownBlock>
-                    {bash`npm install prettier --save-dev --save-exact`}
-                  </MarkdownBlock>
-                </div>
-              </li>
-              <li>
-                Verify by running against a file:
-                <div className="yarnOnly">
-                  <MarkdownBlock>
-                    {bash`yarn prettier --write src/index.js`}
-                  </MarkdownBlock>
-                </div>
-                <div className="npmOnly">
-                  <MarkdownBlock>
-                    {bash`npx prettier --write src/index.js`}
-                  </MarkdownBlock>
-                </div>
-              </li>
-              <li>
-                Run prettier when commiting files:
-                <div className="yarnOnly">
-                  <MarkdownBlock>
-                    {bash`yarn add pretty-quick husky --dev`}
-                  </MarkdownBlock>
-                </div>
-                <div className="npmOnly">
-                  <MarkdownBlock>
-                    {bash`npm install pretty-quick husky --save-dev`}
-                  </MarkdownBlock>
-                </div>
-                Then edit <code>package.json</code>:
-                <MarkdownBlock>
-                  {json({
-                    scripts: {
-                      precommit: "pretty-quick --staged"
-                    }
-                  })}
-                </MarkdownBlock>
-              </li>
-            </ol>
+                </li>
+              </ol>
+            </div>
           </div>
         </Container>
       </div>

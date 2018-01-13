@@ -38,14 +38,28 @@ html body {
 }
 
 .buttonGroup .button:not(:first-of-type) {
-  margin-left: -4px;
+  margin-left: -2px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 .buttonGroup .button:not(:last-of-type) {
   margin-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.button {
+  font-weight: 600;
+  font-size: 18px;
+  padding-top: 9px;
+  padding-bottom: 8px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-radius: 8px;
 }
 
 .pluginRowBlock .button {
-  border-radius: 8px;
+  border-radius: 16px;
 }
 
 .pluginRowBlock .buttonWrapper:nth-of-type(1) .button {
