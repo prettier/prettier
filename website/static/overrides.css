@@ -1,5 +1,6 @@
 html body {
-  font-family: "Apple SD Gothic Neo", "AppleSDGothicNeo",  -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  font-family: "Apple SD Gothic Neo", "AppleSDGothicNeo", -apple-system,
+    BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 }
 
 .post p a {
@@ -135,7 +136,7 @@ html body {
 .getStartedSection .button {
   border: 1px solid #e85f61;
   color: #e85f61 !important;
-  line-height: 1.0em;
+  line-height: 1em;
 }
 
 .getStartedSection .button.active {
@@ -198,8 +199,19 @@ html body {
   font-size: 130%;
 }
 
-.usersSection h2 {
+.usersSection h2, .usersSection h3 {
   color: #6f7b81 !important;
+}
+.usersSection a {
+  color: #f9f9f9 !important;
+}
+.usersSection a:hover {
+  color: white !important;
+}
+
+.usersSection p {
+  font-size: 1em;
+  margin: 4px;
 }
 
 .usersSection .button {
@@ -208,12 +220,12 @@ html body {
   color: #1a2b34 !important;
 }
 
-.landingUser {
+.growOnHover {
   transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.landingUser:hover {
-  transform: scale(1.25);
+.growOnHover:hover {
+  transform: scale(1.2);
 }
 
 .footerSection {

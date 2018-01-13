@@ -276,7 +276,7 @@ const UsersSection = ({ language }) => {
     })
     .map((user, i) => {
       return (
-        <a key={i} className="landingUser" href={user.infoLink}>
+        <a key={i} className="growOnHover" href={user.infoLink}>
           <img
             src={user.greyImage}
             title={user.caption}
@@ -290,6 +290,7 @@ const UsersSection = ({ language }) => {
     <div className="usersSection productShowcaseSection lightBackground paddingTop paddingBottom">
       <Container>
         <h2>Used By People You Rely On</h2>
+        <div style={{ textAlign: "right" }} />
         <div className="logos">{showcase}</div>
         <div className="more-users">
           <a
@@ -305,6 +306,44 @@ const UsersSection = ({ language }) => {
           >
             Add Your Project
           </a>
+        </div>
+
+        <h2>Established Ecosystem</h2>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            flexFlow: "row wrap"
+          }}
+        >
+          <div style={{ display: "flex", marginTop: "12px" }}>
+            <a
+              href="https://npmjs.com/package/prettier"
+              className="growOnHover"
+            >
+              <img src="/images/npm_grey.svg" style={{ height: "100px" }} />
+            </a>
+            <div style={{ marginLeft: ".7em", width: "300px" }}>
+              <p>More than 500 tools and integrations on npm</p>
+              <Button href="https://www.npmjs.com/browse/depended/prettier">
+                Install them!
+              </Button>
+            </div>
+          </div>
+          <div style={{ display: "flex", marginTop: "12px" }}>
+            <a
+              href="https://github.com/prettier/prettier"
+              className="growOnHover"
+            >
+              <img src="/images/github_grey.svg" style={{ height: "100px" }} />
+            </a>
+            <div style={{ marginLeft: ".7em", width: "300px" }}>
+              <p>More than 50k dependant repositories on GitHub</p>
+              <Button href="https://github.com/prettier/prettier/network/dependents">
+                Check them out!
+              </Button>
+            </div>
+          </div>
         </div>
       </Container>
     </div>
