@@ -201,6 +201,22 @@ declare function align(n: number, doc: Doc): Doc;
 
 This is similar to indent but it increases the level of indentation by a fixed number. When using tabs, it's going to print spaces. You should prefer using `indent` whenever possible.
 
+### markAsRoot
+
+```ts
+declare function markAsRoot(doc: Doc): Doc;
+```
+
+This marks the current indentation as root for `dedentToRoot` and `literalline`s.
+
+#### dedentToRoot
+
+```ts
+declare function dedentToRoot(doc: Doc): Doc;
+```
+
+This will dedent the current indentation to the root marked by `markAsRoot`.
+
 ### cursor
 
 ```ts
