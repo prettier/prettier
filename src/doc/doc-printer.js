@@ -19,24 +19,33 @@ function rootIndent() {
 function makeIndent(ind, options) {
   return {
     length: ind.length + options.tabWidth,
-    value: ind.value + (options.useTabs ? "\t" : " ".repeat(options.tabWidth))
+    value: ind.value + (options.useTabs ? "\t" : " ".repeat(options.tabWidth)),
+    root: ind.root
   };
 }
 
 function makeAlign(ind, n, options) {
   return n === -Infinity
-    ? rootIndent()
-    : typeof n === "string"
+    ? ind.root ? ind.root : rootIndent()
+    : n === Infinity
       ? {
-          length: ind.length + n.length,
-          value: ind.value + n
+          length: ind.length,
+          value: ind.value,
+          root: ind
         }
-      : options.useTabs && n > 0
-        ? makeIndent(ind, options)
-        : {
-            length: ind.length + n,
-            value: ind.value + " ".repeat(n)
-          };
+      : typeof n === "string"
+        ? {
+            length: ind.length + n.length,
+            value: ind.value + n,
+            root: ind.root
+          }
+        : options.useTabs && n > 0
+          ? makeIndent(ind, options)
+          : {
+              length: ind.length + n,
+              value: ind.value + " ".repeat(n),
+              root: ind.root
+            };
 }
 
 function fits(next, restCommands, width, options, mustBeFlat) {
@@ -380,8 +389,13 @@ function printDocToString(doc, options) {
               }
 
               if (doc.literal) {
-                out.push(newLine);
-                pos = 0;
+                if (ind.root) {
+                  out.push(newLine, ind.value);
+                  pos = ind.length;
+                } else {
+                  out.push(newLine);
+                  pos = 0;
+                }
               } else {
                 if (out.length > 0) {
                   // Trim whitespace at the end of line

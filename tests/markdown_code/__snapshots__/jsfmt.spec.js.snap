@@ -7,15 +7,42 @@ exports[`0-indent-js.md 1`] = `
       \`\`\`js
       md\`
       # this is the root indent
+
+      # this is the root indent
+
+      # this is the root indent
+      \`
+
+      something\`
+      asd
+
+      asd
+
+      asd
       \`
       \`\`\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * 1
+
   * 2
+
     * 3
+
       \`\`\`js
       md\`
-# this is the root indent
+      # this is the root indent
+
+      # this is the root indent
+
+      # this is the root indent
+      \`;
+
+      something\`
+      asd
+      
+      asd
+      
+      asd
       \`;
       \`\`\`
 

@@ -6,11 +6,11 @@ const docUtils = doc.utils;
 const docBuilders = doc.builders;
 const indent = docBuilders.indent;
 const join = docBuilders.join;
-const align = docBuilders.align;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const literalline = docBuilders.literalline;
 const concat = docBuilders.concat;
+const dedentToRoot = docBuilders.dedentToRoot;
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
@@ -158,7 +158,7 @@ function embed(path, print, textToDoc /*, options */) {
                   )
                 ])
               )
-            : concat([literalline, align(-Infinity, printMarkdown(text))]),
+            : concat([literalline, dedentToRoot(printMarkdown(text))]),
           softline
         ]);
       }

@@ -6,6 +6,7 @@ const doc = require("../doc");
 const docBuilders = doc.builders;
 const hardline = docBuilders.hardline;
 const concat = docBuilders.concat;
+const markAsRoot = docBuilders.markAsRoot;
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -18,13 +19,15 @@ function embed(path, print, textToDoc, options) {
         Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
       );
       const doc = textToDoc(node.value, { parser });
-      return concat([
-        style,
-        node.lang,
-        hardline,
-        replaceNewlinesWithHardlines(doc),
-        style
-      ]);
+      return markAsRoot(
+        concat([
+          style,
+          node.lang,
+          hardline,
+          replaceNewlinesWithHardlines(doc),
+          style
+        ])
+      );
     }
   }
 
