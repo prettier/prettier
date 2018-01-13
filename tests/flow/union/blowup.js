@@ -26,18 +26,18 @@ export class PlusOp extends BinaryExpression<ArithmeticExpression, ArithmeticExp
 
 }
 
-export class MinusOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {
+export class MinusOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression, ArithmeticExpression, ArithmeticExpression> {
 
 }
 
-export class MulOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {
+export class MulOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression, ArithmeticExpression, ArithmeticExpression> {
 
 }
 
-export class DivOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {
+export class DivOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression, ArithmeticExpression, ArithmeticExpression> {
 
 }
 
-export class ModOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {
+export class ModOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression, ArithmeticExpression, ArithmeticExpression> {
 
 }

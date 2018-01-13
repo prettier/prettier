@@ -3636,24 +3636,41 @@ function printClass(path, options, print) {
 
   const partsGroup = [];
   if (n.superClass) {
-    if (hasLeadingOwnLineComment(options.originalText, n.superClass)) {
-      parts.push(hardline);
-    } else {
-      parts.push(" ");
-    }
-
     const printed = concat([
       "extends ",
       path.call(print, "superClass"),
       path.call(print, "superTypeParameters")
     ]);
-    parts.push(
-      path.call(
-        superClass =>
-          comments.printComments(superClass, () => printed, options),
-        "superClass"
-      )
-    );
+    // Keep old behaviour of extends in same line
+    // If there is only on extends and there are not comments
+    if (
+      (!n.implements || n.implements.length === 0) &&
+      (!n.superClass.comments || n.superClass.comments.length === 0)
+    ) {
+      parts.push(
+        concat([
+          " ",
+          path.call(
+            superClass =>
+              comments.printComments(superClass, () => printed, options),
+            "superClass"
+          )
+        ])
+      );
+    } else {
+      partsGroup.push(
+        group(
+          concat([
+            line,
+            path.call(
+              superClass =>
+                comments.printComments(superClass, () => printed, options),
+              "superClass"
+            )
+          ])
+        )
+      );
+    }
   } else if (n.extends && n.extends.length > 0) {
     parts.push(" extends ", join(", ", path.map(print, "extends")));
   }
@@ -3661,8 +3678,15 @@ function printClass(path, options, print) {
   if (n["implements"] && n["implements"].length > 0) {
     partsGroup.push(
       line,
-      "implements ",
-      group(indent(join(concat([",", line]), path.map(print, "implements"))))
+      "implements",
+      group(
+        indent(
+          concat([
+            line,
+            join(concat([",", line]), path.map(print, "implements"))
+          ])
+        )
+      )
     );
   }
 
