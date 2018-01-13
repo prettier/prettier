@@ -1014,11 +1014,9 @@ function printTrailingComment(commentPath, print, options) {
     );
   } else if (isBlock || isParentSuperClass) {
     // Trailing block comments never need a newline
-    // console.log("trailing block comment");
     return concat([" ", contents]);
   }
 
-  // console.log("trailing comment");
   return concat([lineSuffix(" " + contents), !isBlock ? breakParent : ""]);
 }
 
