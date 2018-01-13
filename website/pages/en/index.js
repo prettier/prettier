@@ -338,7 +338,7 @@ const UsersSection = ({ language }) => {
               <img src="/images/github_grey.svg" style={{ height: "100px" }} />
             </a>
             <div style={{ marginLeft: ".7em", width: "300px" }}>
-              <p>More than 50k dependant repositories on GitHub</p>
+              <p>More than 50,000 dependant repositories on GitHub</p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
                 Check them out!
               </Button>
