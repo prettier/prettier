@@ -26,3 +26,9 @@ exports[`support .prettierignore (stdout) 1`] = `
 `;
 
 exports[`support .prettierignore (write) 1`] = `Array []`;
+
+exports[`support multiple ignore-path (stderr) 1`] = `""`;
+
+exports[`support multiple ignore-path (stdout) 1`] = `""`;
+
+exports[`support multiple ignore-path (write) 1`] = `Array []`;
