@@ -198,31 +198,11 @@ class GetStartedSection extends React.Component {
           <div
             style={{
               display: "flex",
-              flexDirection: "row-reverse",
+              flexFlow: "row wrap-reverse",
               alignItems: "baseline",
               justifyContent: "space-between"
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-end"
-              }}
-            >
-              <ButtonGroup>
-                <a className="button active showYarnButton" href="#">
-                  yarn
-                </a>
-                <a className="button showNpmButton" href="#">
-                  npm
-                </a>
-              </ButtonGroup>
-              <img
-                style={{ marginTop: "32px" }}
-                src="/images/get_started_rects.svg"
-              />
-            </div>
             <div>
               <h2>Get Started</h2>
               <ol>
@@ -274,6 +254,28 @@ class GetStartedSection extends React.Component {
                   </MarkdownBlock>
                 </li>
               </ol>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+                flexGrow: 1
+              }}
+            >
+              <ButtonGroup>
+                <a className="button active showYarnButton" href="#">
+                  yarn
+                </a>
+                <a className="button showNpmButton" href="#">
+                  npm
+                </a>
+              </ButtonGroup>
+              <img
+                className="decorativeRects"
+                style={{ marginTop: "32px" }}
+                src="/images/get_started_rects.svg"
+              />
             </div>
           </div>
         </Container>

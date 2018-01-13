@@ -203,6 +203,12 @@ html body {
   }
 }
 
+@media only screen and (max-width: 950px) {
+  .decorativeRects {
+    display: none;
+  }
+}
+
 .getStartedSection code {
   font-weight: 500;
   font-size: 100%;
