@@ -135,8 +135,8 @@ const LanguagesSection = () => (
 );
 
 const Editor = ({ content = "", image, name }) => (
-  <div style={{ display: "flex", width: "235px", padding: "20px" }}>
-    <img src={image} style={{ width: "100px", height: "100px" }} />
+  <div className="editor" style={{ display: "flex", width: "235px" }}>
+    <img className="editorImage" src={image} />
     <div style={{ flexGrow: 1, paddingLeft: "12px" }}>
       <h3 style={{ marginBottom: "-16px" }}>{name}</h3>
       <MarkdownBlock>{content.replace(/\n/g, "  \n")}</MarkdownBlock>
@@ -196,9 +196,10 @@ class GetStartedSection extends React.Component {
       <div className="getStartedSection productShowcaseSection paddingTop paddingBottom">
         <Container>
           <div
+            className="getStartedFlexContainer"
             style={{
               display: "flex",
-              flexFlow: "row wrap-reverse",
+              flexFlow: "row",
               alignItems: "baseline",
               justifyContent: "space-between"
             }}
@@ -273,7 +274,7 @@ class GetStartedSection extends React.Component {
               </ButtonGroup>
               <img
                 className="decorativeRects"
-                style={{ marginTop: "32px" }}
+                style={{ marginTop: "32px", maxWidth: "400px", width: "100%" }}
                 src="/images/get_started_rects.svg"
               />
             </div>
@@ -292,11 +293,7 @@ const UsersSection = ({ language }) => {
     .map((user, i) => {
       return (
         <a key={i} className="growOnHover" href={user.infoLink}>
-          <img
-            src={user.greyImage}
-            title={user.caption}
-            style={{ height: "100px", width: "200px" }}
-          />
+          <img className="user" src={user.greyImage} title={user.caption} />
         </a>
       );
     });

@@ -132,6 +132,26 @@ html body {
   color: #5ab3b3 !important;
 }
 
+.editor {
+  padding: 20px;
+}
+
+.editorImage {
+  width: 100px;
+  height: 100px;
+}
+
+@media only screen and (max-width: 736px) {
+  .editor {
+    padding: 20px 0;
+  }
+
+  .editorImage {
+    width: 50px;
+    height: 50px;
+  }
+}
+
 .getStartedSection h2 {
   color: #e85f61 !important;
 }
@@ -201,11 +221,13 @@ html body {
     font-size: 36px;
     top: -22px;
   }
-}
 
-@media only screen and (max-width: 950px) {
   .decorativeRects {
     display: none;
+  }
+
+  .getStartedFlexContainer {
+    flex-wrap: wrap-reverse !important;
   }
 }
 
@@ -219,7 +241,8 @@ html body {
   font-size: 130%;
 }
 
-.usersSection h2, .usersSection h3 {
+.usersSection h2,
+.usersSection h3 {
   color: #6f7b81 !important;
 }
 .usersSection a {
@@ -238,6 +261,18 @@ html body {
   background: #6f7b81;
   font-weight: 500;
   color: #1a2b34 !important;
+}
+
+.usersSection .user {
+  height: 100px;
+  width: 200px;
+}
+
+@media only screen and (max-width: 736px) {
+  .usersSection .user {
+    height: 50px !important;
+    width: 100px !important;
+  }
 }
 
 .growOnHover {
