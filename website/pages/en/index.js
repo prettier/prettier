@@ -137,7 +137,7 @@ const LanguagesSection = () => (
 const Editor = ({ content = "", image, name }) => (
   <div style={{ display: "flex", width: "235px", padding: "20px" }}>
     <img src={image} style={{ width: "100px", height: "100px" }} />
-    <div style={{ flexGrow: 1, paddingLeft: "8px" }}>
+    <div style={{ flexGrow: 1, paddingLeft: "12px" }}>
       <h3 style={{ marginBottom: "-16px" }}>{name}</h3>
       <MarkdownBlock>{content.replace(/\n/g, "  \n")}</MarkdownBlock>
     </div>
