@@ -258,7 +258,8 @@ function genericPrint(path, options, print) {
           parent.type === "selector-selector" && parent.nodes[0] === n
             ? ""
             : line;
-        return concat([leading, n.value, " "]);
+        const isLastNode = parent.nodes.length - 1 === parent.nodes.indexOf(n);
+        return concat([leading, n.value, isLastNode ? "" : " "]);
       }
       const leading = n.value.trim().startsWith("(") ? line : "";
       const value =
