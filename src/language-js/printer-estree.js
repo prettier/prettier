@@ -5121,7 +5121,7 @@ function isObjectType(n) {
 
 // eg; `describe("some string", (done) => {})`
 function isTestCall(n) {
-  const unitTestRe = /^(f|x)?(it|describe|test|skip)$/;
+  const unitTestRe = /^(skip|(f|x)?(it|describe|test))$/;
   return (
     ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
       (n.callee.type === "MemberExpression" &&

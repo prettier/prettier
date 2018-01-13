@@ -87,6 +87,8 @@ xtest("does something really long and complicated so I have to write a very long
 
 skip(`does something really long and complicated so I have to write a very long name for the test`, () => {});
 
+skip("does something really long and complicated so I have to write a very long name for the test", () => {});
+
 // Should break
 
 it.only("does something really long and complicated so I have to write a very long name for the test", 10, () => {
@@ -100,3 +102,5 @@ it.only.only("does something really long and complicated so I have to write a ve
 it.only.only("does something really long and complicated so I have to write a very long name for the test", (a, b, c) => {
   console.log("hello!");
 });
+
+xskip("does something really long and complicated so I have to write a very long name for the test", () => {});
