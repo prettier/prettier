@@ -116,7 +116,11 @@ TldrSection.propTypes = {
 const Language = ({ name, showName, image, variants }) => (
   <div
     className="languageCategory"
-    style={{ display: "flex", alignItems: "flex-start", paddingBottom: "1em" }}
+    style={{
+      display: "flex",
+      alignItems: "flex-start",
+      paddingBottom: "1em"
+    }}
   >
     <img src={image} style={{ padding: "0 8px" }} />
     <div>
@@ -137,27 +141,54 @@ Language.propTypes = {
   variants: React.PropTypes.array
 };
 
-const LanguagesSection = () => (
-  <div
-    className="languagesSection productShowcaseSection paddingTop paddingBottom"
-    style={{ textAlign: "center" }}
-  >
-    <Container>
-      <h2>Works with the Tools You Use</h2>
-      <div
-        style={{
-          display: "flex",
-          flexFlow: "row wrap",
-          justifyContent: "space-around"
-        }}
-      >
-        {siteConfig.supportedLanguages.map(language => (
-          <Language key={language.name} {...language} />
-        ))}
-      </div>
-    </Container>
-  </div>
-);
+const LanguagesSection = () => {
+  const languageChunks = siteConfig.supportedLanguages.reduce(
+    (acc, language) => {
+      if (
+        acc[acc.length - 1] &&
+        acc[acc.length - 1].length < 2 &&
+        acc[acc.length - 1].reduce(
+          (sum, lang) => sum + lang.variants.length,
+          0
+        ) +
+          language.variants.length <
+          5
+      ) {
+        acc[acc.length - 1].push(language);
+      } else {
+        acc.push([language]);
+      }
+      return acc;
+    },
+    []
+  );
+
+  return (
+    <div
+      className="languagesSection productShowcaseSection paddingTop paddingBottom"
+      style={{ textAlign: "center" }}
+    >
+      <Container>
+        <h2>Works with the Tools You Use</h2>
+        <div
+          style={{
+            display: "flex",
+            flexFlow: "row wrap",
+            justifyContent: "space-around"
+          }}
+        >
+          {languageChunks.map((languageChunk, index) => (
+            <div key={index} style={{ flex: "1 1 1" }}>
+              {languageChunk.map(language => (
+                <Language key={language.name} {...language} />
+              ))}
+            </div>
+          ))}
+        </div>
+      </Container>
+    </div>
+  );
+};
 
 const Editor = ({ content = "", image, name }) => (
   <div className="editor" style={{ display: "flex", flexBasis: "0" }}>
