@@ -12,8 +12,9 @@ window.addEventListener("load", function() {
 
   logo.classList.remove("initial");
 
-  logo.addEventListener("click", function() {
+  logo.addEventListener("click", function(event) {
     logo.classList.toggle("initial");
+    event.preventDefault();
   });
 
   var yarnButton = document.querySelector(".showYarnButton");
