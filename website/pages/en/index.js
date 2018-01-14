@@ -113,23 +113,48 @@ TldrSection.propTypes = {
   language: React.PropTypes.string
 };
 
+const Language = ({ name, showName, image, variants }) => (
+  <div
+    className="languageCategory"
+    style={{ display: "flex", alignItems: "flex-start", paddingBottom: "1em" }}
+  >
+    <img src={image} style={{ padding: "0 8px" }} />
+    <div>
+      {showName && <p className="accented">{name}</p>}
+      {variants.map(variant => (
+        <code key={variant}>
+          <MarkdownBlock>{variant}</MarkdownBlock>
+        </code>
+      ))}
+    </div>
+  </div>
+);
+
+Language.propTypes = {
+  name: React.PropTypes.string,
+  showName: React.PropTypes.boolean,
+  image: React.PropTypes.image,
+  variants: React.PropTypes.array
+};
+
 const LanguagesSection = () => (
   <div
     className="languagesSection productShowcaseSection paddingTop paddingBottom"
     style={{ textAlign: "center" }}
   >
     <Container>
-      <h2 style={{ margin: 0 }}>Language Support</h2>
-      <GridBlock
-        align="center"
-        contents={siteConfig.supportedLanguages.map(language => ({
-          title: language.name,
-          image: language.image,
-          imageAlign: "top",
-          content: language.variants.join("\n\n")
-        }))}
-        layout="fourColumn"
-      />
+      <h2>Works with the Tools You Use</h2>
+      <div
+        style={{
+          display: "flex",
+          flexFlow: "row wrap",
+          justifyContent: "space-around"
+        }}
+      >
+        {siteConfig.supportedLanguages.map(language => (
+          <Language key={language.name} {...language} />
+        ))}
+      </div>
     </Container>
   </div>
 );
