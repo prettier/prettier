@@ -360,7 +360,15 @@ const UsersSection = ({ language }) => {
       <Container>
         <h2>Used By People You Rely On</h2>
         <div style={{ textAlign: "right" }} />
-        <div className="logos">{showcase}</div>
+        <div
+          style={{
+            display: "flex",
+            flexFlow: "row wrap",
+            justifyContent: "space-evenly"
+          }}
+        >
+          {showcase}
+        </div>
         <div className="more-users">
           <a
             className="button"

@@ -290,6 +290,8 @@ html body {
 .usersSection .user {
   height: 100px;
   width: 200px;
+  flex-grow: 1;
+  padding: 1em;
 }
 
 @media only screen and (max-width: 736px) {
