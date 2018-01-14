@@ -144,17 +144,15 @@ Language.propTypes = {
 const LanguagesSection = () => {
   const languageChunks = siteConfig.supportedLanguages.reduce(
     (acc, language) => {
+      const last = acc[acc.length - 1];
       if (
-        acc[acc.length - 1] &&
-        acc[acc.length - 1].length < 2 &&
-        acc[acc.length - 1].reduce(
-          (sum, lang) => sum + lang.variants.length,
-          0
-        ) +
+        last &&
+        last.length < 2 &&
+        last.reduce((sum, lang) => sum + lang.variants.length, 0) +
           language.variants.length <
           5
       ) {
-        acc[acc.length - 1].push(language);
+        last.push(language);
       } else {
         acc.push([language]);
       }
