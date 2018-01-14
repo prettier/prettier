@@ -364,7 +364,7 @@ const UsersSection = ({ language }) => {
           style={{
             display: "flex",
             flexFlow: "row wrap",
-            justifyContent: "space-evenly"
+            justifyContent: "space-around"
           }}
         >
           {showcase}
@@ -390,7 +390,7 @@ const UsersSection = ({ language }) => {
           className="ecosystemSubSection"
           style={{
             display: "flex",
-            justifyContent: "space-evenly",
+            justifyContent: "space-around",
             flexFlow: "row wrap"
           }}
         >
