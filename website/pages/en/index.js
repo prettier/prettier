@@ -122,7 +122,7 @@ const Language = ({ name, showName, image, variants }) => (
       paddingBottom: "1em"
     }}
   >
-    <img src={image} style={{ padding: "0 8px" }} />
+    <img src={image} style={{ width: "50px", padding: "0 8px" }} />
     <div>
       {showName && <p className="accented">{name}</p>}
       {variants.map(variant => (
