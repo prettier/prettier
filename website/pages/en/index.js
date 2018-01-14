@@ -135,7 +135,7 @@ const LanguagesSection = () => (
 );
 
 const Editor = ({ content = "", image, name }) => (
-  <div className="editor" style={{ display: "flex", width: "235px" }}>
+  <div className="editor" style={{ display: "flex", width: "205px" }}>
     <img className="editorImage" src={image} />
     <div style={{ flexGrow: 1, paddingLeft: "12px" }}>
       <h3 style={{ marginBottom: "-16px" }}>{name}</h3>
@@ -261,7 +261,8 @@ class GetStartedSection extends React.Component {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-end",
-                flexGrow: 1
+                flexGrow: 1,
+                marginLeft: "-75px"
               }}
             >
               <ButtonGroup>
@@ -274,7 +275,9 @@ class GetStartedSection extends React.Component {
               </ButtonGroup>
               <img
                 className="decorativeRects"
-                style={{ marginTop: "32px", maxWidth: "400px", width: "100%" }}
+                style={{
+                  marginTop: "32px"
+                }}
                 src="/images/get_started_rects.svg"
               />
             </div>
@@ -322,6 +325,7 @@ const UsersSection = ({ language }) => {
 
         <h2>Established Ecosystem</h2>
         <div
+          className="ecosystemSubSection"
           style={{
             display: "flex",
             justifyContent: "space-evenly",
@@ -335,10 +339,10 @@ const UsersSection = ({ language }) => {
             >
               <img src="/images/npm_grey.svg" style={{ height: "100px" }} />
             </a>
-            <div style={{ marginLeft: ".7em", width: "300px" }}>
+            <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>More than 500 tools and integrations on npm</p>
               <Button href="https://www.npmjs.com/browse/depended/prettier">
-                Install them!
+                Install Them
               </Button>
             </div>
           </div>
@@ -349,10 +353,10 @@ const UsersSection = ({ language }) => {
             >
               <img src="/images/github_grey.svg" style={{ height: "100px" }} />
             </a>
-            <div style={{ marginLeft: ".7em", width: "300px" }}>
+            <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>More than 50,000 dependents repositories on GitHub</p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
-                Check them out!
+                Check Them Out
               </Button>
             </div>
           </div>

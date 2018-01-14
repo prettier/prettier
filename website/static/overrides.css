@@ -136,6 +136,10 @@ html body {
   padding: 20px;
 }
 
+.editor code {
+  white-space: nowrap;
+}
+
 .editorImage {
   width: 100px;
   height: 100px;
@@ -211,6 +215,23 @@ html body {
   content: "3.";
 }
 
+.decorativeRects {
+  min-width: 400px;
+  width: 400px;
+}
+
+@media screen and (max-width: 960px) {
+  .decorativeRects {
+    min-width: 300px;
+    width: 300px;
+  }
+}
+@media screen and (max-width: 875px) {
+  .decorativeRects {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 736px) {
   .getStartedSection ol {
     margin: 0 0 0 -12px !important;
@@ -220,10 +241,6 @@ html body {
   .getStartedSection ol li::before {
     font-size: 36px;
     top: -22px;
-  }
-
-  .decorativeRects {
-    display: none;
   }
 
   .getStartedFlexContainer {
@@ -259,7 +276,6 @@ html body {
 
 .usersSection .button {
   background: #6f7b81;
-  font-weight: 500;
   color: #1a2b34 !important;
 }
 
@@ -273,6 +289,13 @@ html body {
     height: 50px !important;
     width: 100px !important;
   }
+}
+
+.ecosystemSubSection p {
+  padding-top: 4px !important;
+  font-size: 0.9em;
+  color: rgb(176, 196, 206) !important;
+  line-height: 1.2em !important;
 }
 
 .growOnHover {
