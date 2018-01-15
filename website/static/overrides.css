@@ -18,6 +18,7 @@ html body {
 
 .animatedLogo {
   max-width: calc(100vw - 30px);
+  cursor: ew-resize;
 }
 
 @media screen and (max-width: 735px) {
