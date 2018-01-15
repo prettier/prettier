@@ -136,7 +136,7 @@ const Language = ({ name, showName, image, variants }) => (
 Language.propTypes = {
   name: React.PropTypes.string,
   showName: React.PropTypes.boolean,
-  image: React.PropTypes.image,
+  image: React.PropTypes.string,
   variants: React.PropTypes.array
 };
 
@@ -188,9 +188,9 @@ const LanguagesSection = () => {
 };
 
 const Editor = ({ content = "", image, name }) => (
-  <div className="editor" style={{ display: "flex", flexBasis: "0" }}>
+  <div className="editor">
     <img className="editorImage" src={image} />
-    <div style={{ flexGrow: 1, paddingLeft: "12px", minWidth: "195px" }}>
+    <div className="editorInfo">
       <h3 style={{ marginBottom: "-16px" }}>{name}</h3>
       <MarkdownBlock>{content.replace(/\n/g, "  \n")}</MarkdownBlock>
     </div>
@@ -257,7 +257,7 @@ class GetStartedSection extends React.Component {
               justifyContent: "space-between"
             }}
           >
-            <div>
+            <div className="getStartedSteps">
               <h2>Get Started</h2>
               <ol>
                 <li>
@@ -384,7 +384,7 @@ const UsersSection = ({ language }) => {
           </a>
         </div>
 
-        <h2>Established Ecosystem</h2>
+        <h2 className="ecosystemSubHeader">Established Ecosystem</h2>
         <div
           className="ecosystemSubSection"
           style={{
@@ -393,7 +393,7 @@ const UsersSection = ({ language }) => {
             flexFlow: "row wrap"
           }}
         >
-          <div style={{ display: "flex", marginTop: "12px" }}>
+          <div style={{ display: "flex", marginTop: "22px" }}>
             <a
               href="https://npmjs.com/package/prettier"
               className="growOnHover"
@@ -407,7 +407,7 @@ const UsersSection = ({ language }) => {
               </Button>
             </div>
           </div>
-          <div style={{ display: "flex", marginTop: "12px" }}>
+          <div style={{ display: "flex", marginTop: "22px" }}>
             <a
               href="https://github.com/prettier/prettier"
               className="growOnHover"

@@ -136,12 +136,21 @@ html body {
   padding: 0;
 }
 
+@media screen and (min-width: 500px) {
+  .languagesSection .wrapper > div {
+    justify-content: space-around;
+  }
+}
+
 .editorSupportSection h2 {
   color: #5ab3b3 !important;
 }
 
 .editor {
-  padding: 20px;
+  padding: 0 20px 20px 0;
+  display: flex;
+  min-width: 215px;
+  flex-basis: 22%;
 }
 
 .editor code {
@@ -153,14 +162,31 @@ html body {
   height: 100px;
 }
 
-@media only screen and (max-width: 736px) {
+.editorInfo {
+  padding-left: 12px;
+}
+
+@media only screen and (max-width: 555px) {
   .editor {
-    padding: 20px 0;
+    flex-direction: column;
+    min-width: 140px;
+  }
+
+  .editorInfo {
+    padding-left: 0px !important;
   }
 
   .editorImage {
+    margin: 0;
     width: 50px;
     height: 50px;
+  }
+}
+
+@media only screen and (max-width: 736px) {
+  .editorImage {
+    width: 75px;
+    height: 75px;
   }
 }
 
@@ -198,6 +224,7 @@ html body {
 }
 
 .getStartedSection ol li {
+  margin: 0 0 22px 0 !important;
   min-height: 110px;
   padding-left: 46;
   position: relative;
@@ -208,7 +235,7 @@ html body {
   font-size: 58px;
   position: absolute;
   left: -24px;
-  top: -48px;
+  top: -44px;
   width: 58px;
   text-align: right;
 }
@@ -256,6 +283,10 @@ html body {
   }
 }
 
+.getStartedFlexContainer pre {
+  overflow: hidden;
+}
+
 .getStartedSection code {
   font-weight: 500;
   font-size: 100%;
@@ -264,6 +295,10 @@ html body {
 .getStartedSection .hljs {
   background: transparent !important;
   font-size: 130%;
+}
+
+.getStartedSteps {
+  overflow: auto;
 }
 
 .usersSection h2,
@@ -294,11 +329,20 @@ html body {
   padding: 1em;
 }
 
+.usersSection .more-users {
+  margin-top: 20px;
+}
+
 @media only screen and (max-width: 736px) {
   .usersSection .user {
     height: 50px !important;
     width: 100px !important;
   }
+}
+
+.ecosystemSubHeader {
+  margin-top: 40px !important;
+  margin-bottom: 20px !important;
 }
 
 .ecosystemSubSection p {
