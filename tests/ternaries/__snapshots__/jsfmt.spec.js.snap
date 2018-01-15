@@ -107,6 +107,30 @@ room = room.map((row, rowIndex) =>
 
 exports[`indent.js 1`] = `
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
+
+a
+    ? {
+        a: 0
+      }
+    : {
+        a: {
+             a: 0
+           }
+            ? {
+                a: 0
+              }
+            : {
+                y: {
+                    a: 0
+                }
+                    ? {
+                        a: 0
+                    }
+                    : {
+                        a: 0
+                    }
+            }
+      }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 aaaaaaaaaaaaaaa
   ? bbbbbbbbbbbbbbbbbb
@@ -114,10 +138,58 @@ aaaaaaaaaaaaaaa
     ? ddddddddddddddd
     : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg;
 
+a
+  ? {
+      a: 0
+    }
+  : {
+      a: {
+        a: 0
+      }
+        ? {
+            a: 0
+          }
+        : {
+            y: {
+              a: 0
+            }
+              ? {
+                  a: 0
+                }
+              : {
+                  a: 0
+                }
+          }
+    };
+
 `;
 
 exports[`indent.js 2`] = `
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
+
+a
+    ? {
+        a: 0
+      }
+    : {
+        a: {
+             a: 0
+           }
+            ? {
+                a: 0
+              }
+            : {
+                y: {
+                    a: 0
+                }
+                    ? {
+                        a: 0
+                    }
+                    : {
+                        a: 0
+                    }
+            }
+      }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 aaaaaaaaaaaaaaa
     ? bbbbbbbbbbbbbbbbbb
@@ -125,16 +197,88 @@ aaaaaaaaaaaaaaa
       ? ddddddddddddddd
       : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg;
 
+a
+    ? {
+          a: 0
+      }
+    : {
+          a: {
+              a: 0
+          }
+              ? {
+                    a: 0
+                }
+              : {
+                    y: {
+                        a: 0
+                    }
+                        ? {
+                              a: 0
+                          }
+                        : {
+                              a: 0
+                          }
+                }
+      };
+
 `;
 
 exports[`indent.js 3`] = `
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
+
+a
+    ? {
+        a: 0
+      }
+    : {
+        a: {
+             a: 0
+           }
+            ? {
+                a: 0
+              }
+            : {
+                y: {
+                    a: 0
+                }
+                    ? {
+                        a: 0
+                    }
+                    : {
+                        a: 0
+                    }
+            }
+      }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 aaaaaaaaaaaaaaa
 	? bbbbbbbbbbbbbbbbbb
 	: ccccccccccccccc
 		? ddddddddddddddd
 		: eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg;
+
+a
+	? {
+			a: 0
+		}
+	: {
+			a: {
+				a: 0
+			}
+				? {
+						a: 0
+					}
+				: {
+						y: {
+							a: 0
+						}
+							? {
+									a: 0
+								}
+							: {
+									a: 0
+								}
+					}
+		};
 
 `;
 
