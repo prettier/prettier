@@ -1,6 +1,8 @@
 html body {
   font-family: "Apple SD Gothic Neo", "AppleSDGothicNeo", -apple-system,
     BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+
+  overflow-x: hidden;
 }
 
 .post p a {
@@ -290,6 +292,7 @@ html body {
 .getStartedSection code {
   font-weight: 500;
   font-size: 100%;
+  overflow-x: auto;
 }
 
 .getStartedSection .hljs {
