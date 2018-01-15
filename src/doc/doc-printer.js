@@ -10,33 +10,91 @@ const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
 function rootIndent() {
-  return {
-    length: 0,
-    value: ""
-  };
+  return { value: "", length: 0, queue: [] };
 }
 
 function makeIndent(ind, options) {
-  return {
-    length: ind.length + options.tabWidth,
-    value: ind.value + (options.useTabs ? "\t" : " ".repeat(options.tabWidth))
-  };
+  return generateInd(ind, { type: "indent" }, options);
 }
 
 function makeAlign(ind, n, options) {
   return n === -Infinity
     ? rootIndent()
-    : typeof n === "string"
-      ? {
-          length: ind.length + n.length,
-          value: ind.value + n
+    : !n
+      ? ind
+      : typeof n === "string"
+        ? generateInd(ind, { type: "stringAlign", n }, options)
+        : generateInd(ind, { type: "numberAlign", n }, options);
+}
+
+function generateInd(ind, newPart, options) {
+  let value = "";
+  let length = 0;
+  let lastSpaces = 0;
+
+  const queue = ind.queue.concat(newPart);
+  for (const part of queue) {
+    switch (part.type) {
+      case "indent":
+        if (options.useTabs) {
+          do {
+            addTab();
+          } while ((lastSpaces -= options.tabWidth) >= 0);
+          lastSpaces = 0;
+        } else {
+          flushSpaces();
+          addSpaces(options.tabWidth);
         }
-      : options.useTabs && n > 0
-        ? makeIndent(ind, options)
-        : {
-            length: ind.length + n,
-            value: ind.value + " ".repeat(n)
-          };
+        break;
+      case "stringAlign":
+        flush();
+        value += part.n;
+        length += part.n.length;
+        break;
+      case "numberAlign":
+        lastSpaces += part.n;
+        break;
+      default:
+        throw new Error(`Unexpected type '${part.type}'`);
+    }
+  }
+
+  flushSpaces();
+
+  return { value, length, queue };
+
+  function addTab() {
+    value += "\t";
+    length += options.tabWidth;
+  }
+
+  function addSpaces(count) {
+    value += " ".repeat(count);
+    length += count;
+  }
+
+  function flush() {
+    if (options.useTabs) {
+      flushTabs();
+    } else {
+      flushSpaces();
+    }
+  }
+
+  function flushTabs() {
+    while (lastSpaces > 0) {
+      addTab();
+      lastSpaces -= options.tabWidth;
+    }
+    lastSpaces = 0;
+  }
+
+  function flushSpaces() {
+    if (lastSpaces > 0) {
+      addSpaces(lastSpaces);
+    }
+    lastSpaces = 0;
+  }
 }
 
 function fits(next, restCommands, width, options, mustBeFlat) {
