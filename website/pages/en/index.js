@@ -175,7 +175,7 @@ const LanguagesSection = () => {
           }}
         >
           {languageChunks.map((languageChunk, index) => (
-            <div key={index} style={{ flex: "1 1 1" }}>
+            <div key={index} style={{ flex: "1 1 auto" }}>
               {languageChunk.map(language => (
                 <Language key={language.name} {...language} />
               ))}

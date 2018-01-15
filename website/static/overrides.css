@@ -138,12 +138,6 @@ html body {
   padding: 0;
 }
 
-@media screen and (min-width: 500px) {
-  .languagesSection .wrapper > div {
-    justify-content: space-around;
-  }
-}
-
 .editorSupportSection h2 {
   color: #5ab3b3 !important;
 }
