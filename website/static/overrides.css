@@ -26,7 +26,6 @@ html body {
     display: block;
     margin-left: 20px;
   }
-
   footer .sitemap .nav-home {
     margin: 0 auto;
   }
@@ -81,6 +80,8 @@ html body {
 
 .productShowcaseSection {
   background: #1a2b34;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .productShowcaseSection.lightBackground {
@@ -90,7 +91,7 @@ html body {
 .productShowcaseSection h2 {
   text-align: left;
   font-weight: 500;
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
   font-size: 34px !important;
 }
 
@@ -104,7 +105,7 @@ html body {
 .productShowcaseSection a,
 .productShowcaseSection code {
   color: #f9f9f9 !important;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .tldrSection h2,
@@ -117,9 +118,14 @@ html body {
   content: "# ";
 }
 
-.tldrSection li {
+.mainContainer .tldrSection ul li {
   list-style: none;
   list-style-position: inside;
+  line-height: 1.0;
+}
+
+.mainContainer .tldrSection ul li a {
+  font-size: 18px;
 }
 
 .tldrSection li::before {
@@ -144,7 +150,7 @@ html body {
 }
 
 .editor {
-  padding: 0 20px 20px 0;
+  padding: 0 20px 60px 0;
   display: flex;
   min-width: 215px;
   flex-basis: 22%;

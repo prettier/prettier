@@ -73,7 +73,7 @@ HomeSplash.propTypes = {
 };
 
 const TldrSection = ({ language }) => (
-  <div className="tldrSection productShowcaseSection lightBackground paddingTop paddingBottom">
+  <div className="tldrSection productShowcaseSection lightBackground">
     <Container>
       <div
         style={{
@@ -90,7 +90,6 @@ const TldrSection = ({ language }) => (
             <li>Integrates with the most editors</li>
             <li>Has few options</li>
           </ul>
-          <Button href={"/docs/" + language + "/index.html"}>What Else?</Button>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <h2>Why?</h2>
@@ -98,10 +97,10 @@ const TldrSection = ({ language }) => (
             <li>You press save and code is formatted</li>
             <li>No need to discuss style in code review</li>
             <li>Saves you time and energy</li>
+            <li>
+              <a href={"/docs/" + language + "/why-prettier.html"}>And more</a>
+            </li>
           </ul>
-          <Button href={"/docs/" + language + "/why-prettier.html"}>
-            Why Else?
-          </Button>
         </div>
       </div>
     </Container>
@@ -121,7 +120,7 @@ const Language = ({ name, showName, image, variants }) => (
       paddingBottom: "1em"
     }}
   >
-    <img src={image} style={{ width: "50px", padding: "0 8px" }} />
+    <img src={image} style={{ width: "50px", padding: "0 20px" }} />
     <div>
       {showName && <p className="accented">{name}</p>}
       {variants.map(variant => (
@@ -162,7 +161,7 @@ const LanguagesSection = () => {
 
   return (
     <div
-      className="languagesSection productShowcaseSection paddingTop paddingBottom"
+      className="languagesSection productShowcaseSection"
       style={{ textAlign: "center" }}
     >
       <Container>
@@ -204,7 +203,7 @@ Editor.propTypes = {
 };
 
 const EditorSupportSection = () => (
-  <div className="editorSupportSection productShowcaseSection lightBackground paddingTop paddingBottom">
+  <div className="editorSupportSection productShowcaseSection lightBackground">
     <Container>
       <h2>Editor Support</h2>
       <div
@@ -246,7 +245,7 @@ class GetStartedSection extends React.Component {
 
   render() {
     return (
-      <div className="getStartedSection productShowcaseSection paddingTop paddingBottom">
+      <div className="getStartedSection productShowcaseSection">
         <Container>
           <div
             className="getStartedFlexContainer"
@@ -355,7 +354,7 @@ const UsersSection = ({ language }) => {
     });
 
   return (
-    <div className="usersSection productShowcaseSection lightBackground paddingTop paddingBottom">
+    <div className="usersSection productShowcaseSection lightBackground">
       <Container>
         <h2>Used By People You Rely On</h2>
         <div style={{ textAlign: "right" }} />
@@ -384,7 +383,7 @@ const UsersSection = ({ language }) => {
           </a>
         </div>
 
-        <h2 className="ecosystemSubHeader">Established Ecosystem</h2>
+        <h2 className="ecosystemSubHeader">Established in the Ecosystem</h2>
         <div
           className="ecosystemSubSection"
           style={{
