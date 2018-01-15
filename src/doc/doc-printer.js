@@ -54,6 +54,7 @@ function generateInd(ind, newPart, options) {
       case "numberAlign":
         lastSpaces += part.n;
         break;
+      /* istanbul ignore next */
       default:
         throw new Error(`Unexpected type '${part.type}'`);
     }
