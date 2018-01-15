@@ -44,7 +44,7 @@ const HomeSplash = props => {
     <div className="homeContainer">
       <div className="homeSplashFade">
         <div className="wrapper homeWrapper">
-          <div className="animatedLogoWrapper">
+          <div draggable="true" className="animatedLogoWrapper">
             <AnimatedLogo />
           </div>
           <div className="inner">

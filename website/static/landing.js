@@ -12,7 +12,7 @@ window.addEventListener("load", function() {
 
   logo.classList.remove("initial");
 
-  logo.addEventListener("click", function(event) {
+  logo.parentElement.addEventListener("dragstart", function(event) {
     logo.classList.toggle("initial");
     event.preventDefault();
   });
