@@ -3,6 +3,7 @@
 const embed = require("./embed");
 const docBuilders = require("../doc").builders;
 const concat = docBuilders.concat;
+const hardline = docBuilders.hardline;
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -15,7 +16,16 @@ function genericPrint(path, options, print) {
     res.push(childPath.call(print));
     index = child.end;
   }, "children");
+
+  // If there are no children, we just print the node from start to end.
+  // Otherwise, index should point to the end of the last child, and we
+  // need to print the closing tag.
   res.push(options.originalText.slice(index, n.end));
+
+  // Only force a trailing newline if there were any contents.
+  if (n.tag === "root" && n.children.length) {
+    res.push(hardline);
+  }
 
   return concat(res);
 }

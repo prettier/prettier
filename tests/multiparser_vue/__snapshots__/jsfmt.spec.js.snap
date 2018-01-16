@@ -15,6 +15,7 @@ exports[`template-bind.vue 1`] = `
     <div v-bind:id=" ok ? 'YES' : 'NO' "></div>
     <button @click=" foo ( arg, 'string' ) "></button>
 </template>
+
 `;
 
 exports[`template-class.vue 1`] = `
@@ -37,6 +38,7 @@ exports[`template-class.vue 1`] = `
   >
   </h2>
 </template>
+
 `;
 
 exports[`vue-component.vue 1`] = `
@@ -54,6 +56,11 @@ module  .  exports  =
 </script>
 
 <style   scoped >
+p { font-size : 2em ; text-align : center ; }
+
+  </style >
+
+<style   lang="postcss" >
 p { font-size : 2em ; text-align : center ; }
 
   </style >
@@ -79,4 +86,12 @@ p {
   text-align: center;
 }
 </style >
+
+<style   lang="postcss" >
+p {
+  font-size: 2em;
+  text-align: center;
+}
+</style >
+
 `;

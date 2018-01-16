@@ -2,7 +2,7 @@
 
 const minimist = require("minimist");
 
-const prettier = eval("require")("../../index");
+const prettier = require("../../index");
 const constant = require("./constant");
 const util = require("./util");
 const validator = require("./validator");

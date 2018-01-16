@@ -30,7 +30,13 @@ function genericPrint(path, options, print) {
 
   switch (n.type) {
     case "css-root": {
-      return concat([printNodeSequence(path, options, print), hardline]);
+      const nodes = printNodeSequence(path, options, print);
+
+      if (nodes.parts.length) {
+        return concat([nodes, hardline]);
+      }
+
+      return nodes;
     }
     case "css-comment": {
       if (n.raws.content) {
@@ -90,6 +96,7 @@ function genericPrint(path, options, print) {
           ? removeLines(path.call(print, "value"))
           : path.call(print, "value"),
         n.important ? " !important" : "",
+        n.default ? " !default" : "",
         n.nodes
           ? concat([
               " {",
@@ -251,7 +258,8 @@ function genericPrint(path, options, print) {
           parent.type === "selector-selector" && parent.nodes[0] === n
             ? ""
             : line;
-        return concat([leading, n.value, " "]);
+        const isLastNode = parent.nodes.length - 1 === parent.nodes.indexOf(n);
+        return concat([leading, n.value, isLastNode ? "" : " "]);
       }
       const leading = n.value.trim().startsWith("(") ? line : "";
       const value =

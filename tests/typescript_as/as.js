@@ -4,7 +4,7 @@ this.isTabActionBar((e.target || e.srcElement) as HTMLElement);
 'current' in (props.pagination as Object)
 start + (yearSelectTotal as number)
 scrollTop > (visibilityHeight as number)
-export default class Column<T> extends (RcTable.Column as React.ComponentClass<ColumnProps<T>>) {}
+export default class Column<T> extends (RcTable.Column as React.ComponentClass<ColumnProps<T>,ColumnProps<T>,ColumnProps<T>,ColumnProps<T>>) {}
 export abstract class MobxTypedForm extends (Form as { new (): any }) {}
 ({}) as {};
 function*g() {

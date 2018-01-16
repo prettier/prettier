@@ -50,11 +50,9 @@ export class VisTimelineComponent2
 	implements AfterViewInit, OnChanges, OnDestroy, AndSomethingReallyReallyLong {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class MyContractSelectionWidget extends React.Component<
-  void,
-  MyContractSelectionWidgetPropsType,
-  void
-> implements SomethingLarge {
+class MyContractSelectionWidget
+  extends React.Component<void, MyContractSelectionWidgetPropsType, void>
+  implements SomethingLarge {
   method() {}
 }
 
@@ -65,7 +63,8 @@ class DisplayObject extends utils.EventEmitter
   implements interaction_InteractiveTarget {}
 
 class DisplayObject extends utils.EventEmitter
-  implements interaction_InteractiveTarget,
+  implements
+    interaction_InteractiveTarget,
     somethingElse_SomeOtherThing,
     somethingElseAgain_RunningOutOfNames {}
 
@@ -84,7 +83,8 @@ class Foo extends Immutable.Record({
 export class VisTimelineComponent
   implements AfterViewInit, OnChanges, OnDestroy {}
 export class VisTimelineComponent2
-  implements AfterViewInit,
+  implements
+    AfterViewInit,
     OnChanges,
     OnDestroy,
     AndSomethingReallyReallyLong {}

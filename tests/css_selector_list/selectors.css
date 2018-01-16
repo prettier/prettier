@@ -7,3 +7,67 @@
 
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {}
+
+.parent.child {}
+.parent .child {}
+.parent  .child {}
+.parent {
+  .child-one {}
+  .child-two {}
+}
+.parent{
+.child-one  {}
+.child-two  {}
+}
+.parent  {
+  .child-one  {}
+  .child-two  {}
+}
+
+.parent>.child {}
+.parent > .child {}
+.parent  >  .child {}
+.parent>{
+  .child-one {}
+  .child-two {}
+}
+.parent > {
+  .child-one {}
+  .child-two {}
+}
+.parent  >  {
+  .child-one {}
+  .child-two {}
+}
+
+.parent+.child {}
+.parent + .child {}
+.parent  +  .child {}
+.parent+{
+  .child-one {}
+  .child-two {}
+}
+.parent + {
+  .child-one {}
+  .child-two {}
+}
+.parent  +  {
+  .child-one {}
+  .child-two {}
+}
+
+.parent~.child {}
+.parent ~ .child {}
+.parent  ~  .child {}
+.parent~{
+  .child-one {}
+  .child-two {}
+}
+.parent ~ {
+  .child-one {}
+  .child-two {}
+}
+.parent  ~  {
+  .child-one {}
+  .child-two {}
+}

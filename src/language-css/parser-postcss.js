@@ -161,6 +161,8 @@ function parseMediaQuery(value) {
   return addTypePrefix(result, "media-");
 }
 
+const DEFAULT_SCSS_DIRECTIVE = "!default";
+
 function parseNestedCSS(node) {
   if (node && typeof node === "object") {
     delete node.parent;
@@ -189,6 +191,11 @@ function parseNestedCSS(node) {
     }
     if (node.type && typeof node.value === "string") {
       try {
+        if (node.value.endsWith(DEFAULT_SCSS_DIRECTIVE)) {
+          node.default = true;
+          node.value = node.value.slice(0, -DEFAULT_SCSS_DIRECTIVE.length);
+        }
+
         node.value = parseValue(node.value);
       } catch (e) {
         throw createError(

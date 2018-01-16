@@ -401,6 +401,44 @@ function getExample(parser) {
         "",
         "type RequestType = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'OPTIONS' | 'CONNECT' | 'DELETE' | 'TRACE'"
       ].join("\n");
+    case "css":
+      // Excerpted from the Bootstrap source, which is licensed under the MIT license:
+      // https://github.com/twbs/bootstrap/blob/v4.0.0-beta.3/LICENSE
+      return [
+        "@media (max-width: 480px) {",
+        "  .bd-examples {margin-right: -.75rem;margin-left: -.75rem",
+        "  }",
+        "  ",
+        ' .bd-examples>[class^="col-"]  {',
+        "    padding-right: .75rem;",
+        "    padding-left: .75rem;",
+        "  ",
+        "  }",
+        "}"
+      ].join("\n");
+    case "scss":
+      // Excerpted from the Bootstrap source, which is licensed under the MIT license:
+      // https://github.com/twbs/bootstrap/blob/v4.0.0-beta.3/LICENSE
+      return [
+        "@function color-yiq($color) {",
+        "  $r: red($color);$g: green($color);$b: blue($color);",
+        "",
+        "  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;",
+        "",
+        "  @if ($yiq >= $yiq-contrasted-threshold) {",
+        "    @return $yiq-text-dark;",
+        "} @else {",
+        "    @return $yiq-text-light;",
+        "  }",
+        "}",
+        "",
+        "@each $color, $value in $colors {",
+        "  .swatch-#{$color} {",
+        "    color: color-yiq($value);",
+        "    background-color: #{$value};",
+        "  }",
+        "}"
+      ].join("\n");
     default:
       return "";
   }
