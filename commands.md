@@ -196,10 +196,22 @@ Increase the level of indentation.
 ### align
 
 ```ts
-declare function align(n: number, doc: Doc): Doc;
+declare function align(n: number | string, doc: Doc): Doc;
 ```
 
-This is similar to indent but it increases the level of indentation by a fixed number. When using tabs, it's going to print spaces. You should prefer using `indent` whenever possible.
+This is similar to indent but it increases the level of indentation by a fixed number or a string.
+Trailing alignments in indentation are still spaces, but middle ones are transformed into tabs every `tabWidth` spaces when `useTabs` enabled.
+If it's using in a whitespace-sensitive language, e.g. markdown, you should use `n` with string value to force print it.
+
+For example:
+
+* `useTabs`
+  * `tabWidth: 2`
+    * `<indent><align 2><indent><align 2>` -> `<tab><tab><tab><2 space>`
+    * `<indent><align 4><indent><align 2>` -> `<tab><tab><tab><tab><2 space>`
+  * `tabWidth: 4`
+    * `<indent><align 2><indent><align 2>` -> `<tab><tab><2 space>`
+    * `<indent><align 4><indent><align 2>` -> `<tab><tab><tab><2 space>`
 
 ### cursor
 
