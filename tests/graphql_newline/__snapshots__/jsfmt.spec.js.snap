@@ -10,7 +10,7 @@ directive @dir(
   arg2: String
   arg3: String
 
-) on Field
+) on QUERY
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 directive @dir(
   # comment
@@ -19,7 +19,7 @@ directive @dir(
   # comment
   arg2: String
   arg3: String
-) on Field
+) on QUERY
 
 `;
 

@@ -9,6 +9,15 @@ exports[`ignore path (stdout) 1`] = `
 
 exports[`ignore path (write) 1`] = `Array []`;
 
+exports[`outputs files as-is if no --write (stderr) 1`] = `""`;
+
+exports[`outputs files as-is if no --write (stdout) 1`] = `
+"'use strict';
+"
+`;
+
+exports[`outputs files as-is if no --write (write) 1`] = `Array []`;
+
 exports[`support .prettierignore (stderr) 1`] = `""`;
 
 exports[`support .prettierignore (stdout) 1`] = `

@@ -1,0 +1,493 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`block-statement.hbs 1`] = `
+{{#block param hashKey=hashValue as |blockParam|}}
+  Hello
+{{/block}}
+
+{{#block almost80CharacterLongPositionalParamThatIsFirstAlmost80Chars helloWorldParam key=here}}
+{{/block}}
+
+{{#block param param param param param param param hashKey=hashValue as |blockParam|}}
+  Hello
+{{/block}}
+
+{{#block param param param param param param param hashKey=HashValue hashKey=hashValue}}
+  Hello
+{{/block}}
+
+{{#block param param param param param param param param param param param param param}}
+  Hello
+{{/block}}
+
+{{#block hashKey=HashValue hashKey=hashValue hashKey=HashValue hashKey=hashValue hashKey=HashValue}}
+  Hello
+{{/block}}
+
+{{#block}}
+  {{#block}}
+   hello
+  {{/block}}
+{{/block}}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{{#block param hashKey=hashValue as |blockParam|}}
+  Hello
+{{/block}}
+{{#block
+  almost80CharacterLongPositionalParamThatIsFirstAlmost80Chars
+  helloWorldParam
+  key=here
+}}{{/block}}
+{{#block
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  hashKey=hashValue as |blockParam|
+}}
+  Hello
+{{/block}}
+{{#block
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  hashKey=HashValue
+  hashKey=hashValue
+}}
+  Hello
+{{/block}}
+{{#block
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+}}
+  Hello
+{{/block}}
+{{#block
+  hashKey=HashValue
+  hashKey=hashValue
+  hashKey=HashValue
+  hashKey=hashValue
+  hashKey=HashValue
+}}
+  Hello
+{{/block}}
+{{#block}}{{#block}}hello{{/block}}{{/block}}
+`;
+
+exports[`component.hbs 1`] = `
+<user-greeting @name="Ricardo" @greeting="Olá" />
+{{@greeting}}, {{@name}}!
+
+<button onclick={{action next}}>Next</button>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<user-greeting @name="Ricardo" @greeting="Olá"></user-greeting>
+{{@greeting}}
+,
+{{@name}}
+!
+<button onclick={{action next}}>
+  Next
+</button>
+`;
+
+exports[`concat-statement.hbs 1`] = `
+<div class="hello {{if goodbye true}}">
+  Hello
+</div>
+
+<div class="hello {{if goodbye true}} {{if goodbye false}} {{if goodbye true}} {{if goodbye false}} {{if goodbye true}}">
+  Hello
+</div>
+
+<a href="/{{url}}/{{url}}"></a>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div class="hello{{if goodbye true}}">
+  Hello
+</div>
+<div
+  class="hello
+    {{if goodbye true}}
+    {{if goodbye false}}
+    {{if goodbye true}}
+    {{if goodbye false}}
+    {{if goodbye true}}"
+>
+  Hello
+</div>
+<a href="/{{url}}/{{url}}"></a>
+`;
+
+exports[`element-modifier-statement.hbs 1`] = `
+<div {{hello param hash=key}} {{goodbye param}}>
+  Hello
+</div>
+
+<div {{hello param param param param param param param param param param param param}}>
+  Hello
+</div>
+
+<div {{hello hashPair=value hashPair=value hashPair=value hashPair=value hashPair=value}}>
+  Hello
+</div>
+
+<div {{hello param param param param hashPair=value hashPair=value hashPair=value hashPair=value hashPair=value}}>
+  Hello
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div {{hello param hash=key}} {{goodbye param}}>
+  Hello
+</div>
+<div
+  {{hello
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+  }}
+>
+  Hello
+</div>
+<div
+  {{hello
+    hashPair=value
+    hashPair=value
+    hashPair=value
+    hashPair=value
+    hashPair=value
+  }}
+>
+  Hello
+</div>
+<div
+  {{hello
+    param
+    param
+    param
+    param
+    hashPair=value
+    hashPair=value
+    hashPair=value
+    hashPair=value
+    hashPair=value
+  }}
+>
+  Hello
+</div>
+`;
+
+exports[`element-node.hbs 1`] = `
+<div class="attribute" {{modifier}} {{! comment}}>
+  Hello
+</div>
+
+<div>
+  Hello
+</div>
+
+<div>
+  hi
+</div>
+
+<div>
+  A long enough string to trigger a line break that would prevent wrapping.
+</div>
+
+<div>
+  A long enough string to trigger a line break that would prevent wrapping more.
+</div>
+
+<div>
+  A long enough string to trigger a line break that would prevent wrapping more and more.
+</div>
+
+<div>
+  {{#block}}
+    {{hello}}
+  {{/block}}
+</div>
+
+<div>
+  {{hello}}
+</div>
+
+<div></div>
+<img />
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div class="attribute" {{modifier}} {{! comment}}>
+  Hello
+</div>
+<div>
+  Hello
+</div>
+<div>
+  hi
+</div>
+<div>
+  A long enough string to trigger a line break that would prevent wrapping.
+</div>
+<div>
+  A long enough string to trigger a line break that would prevent wrapping more.
+</div>
+<div>
+  A long enough string to trigger a line break that would prevent wrapping more and more.
+</div>
+<div>
+  {{#block}}{{hello}}{{/block}}
+</div>
+<div>
+  {{hello}}
+</div>
+<div></div>
+<img />
+`;
+
+exports[`else-if.hbs 1`] = `
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  e
+{{/if}}
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  hello
+  {{#if f}}
+    g
+  {{/if}}
+  e
+{{/if}}
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else if e}}
+  f
+{{else if g}}
+  h
+{{else}}
+  j
+{{/if}}
+
+<div>
+  {{#if a}}
+    b
+  {{else if c}}
+    d
+  {{else}}
+    e
+  {{/if}}
+</div>
+
+<div>
+  <div>
+    {{#if a}}
+      b
+    {{else if c}}
+      d
+    {{else}}
+      e
+    {{/if}}
+  </div>
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  e
+{{/if}}
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  hello
+  {{#if f}}
+    g
+  {{/if}}
+  e
+{{/if}}
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else if e}}
+  f
+{{else if g}}
+  h
+{{else}}
+  j
+{{/if}}
+<div>
+  {{#if a}}
+    b
+  {{else if c}}
+    d
+  {{else}}
+    e
+  {{/if}}
+</div>
+<div>
+  <div>
+    {{#if a}}
+      b
+    {{else if c}}
+      d
+    {{else}}
+      e
+    {{/if}}
+  </div>
+</div>
+`;
+
+exports[`literals.hbs 1`] = `
+{{mustache true}}
+{{mustache 5}}
+{{mustache undefined}}
+{{mustache null}}
+<!-- hello world -->
+{{! Mustache Comment}}
+{{!-- Mustache Comment }} --}}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{{mustache true}}
+{{mustache 5}}
+{{mustache undefined}}
+{{mustache null}}
+<!-- hello world -->
+{{! Mustache Comment}}
+{{!-- Mustache Comment }} --}}
+`;
+
+exports[`loop.hbs 1`] = `
+<ul>
+  {{#each speakers key="@index" as |speaker|}}
+    <li>{{speaker}}</li>
+  {{/each}}
+</ul>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<ul>
+  {{#each speakers key="@index" as |speaker|}}
+    <li>
+      {{speaker}}
+    </li>
+  {{/each}}
+</ul>
+`;
+
+exports[`sub-expressions.hbs 1`] = `
+<div
+  {{mustache
+    (concat
+      (helper param hashPair=Value)
+      (largeNameHelper param param param param hashPair=value hashPair=value hashPair=Value)
+      hashPair=(helper param param param param param param hashPair=value hashPair=value hashPair=value)
+      hashPair=(does not need a line break due to being under 80 chars long)
+    )
+  }}
+></div>
+
+{{#block
+  (concat
+    (helper param hashPair=Value)
+    (largeNameHelper param param param param hashPair=value hashPair=value hashPair=Value)
+    hashPair=(helper param param param param param param hashPair=value hashPair=value hashPair=value)
+    hashPair=(does not need a line break due to being under 80 chars long)
+  )
+}}
+
+{{/block}}
+
+{{foobar-sub-component/foobar-foo 
+  hook="stringLiteral"
+  foo=
+    (t
+      (concat "stringLiteral" (get blockParam "stringLiteral") hash=hash hash=hash)
+      foo=(simple-helper (hash hashKey=blockParam.foo assignParam=blockParam.bar))
+    )
+}}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div
+  {{mustache
+    (concat
+      (helper param hashPair=Value)
+      (largeNameHelper
+        param param param param hashPair=value hashPair=value hashPair=Value
+      )
+      hashPair=(helper
+        param
+        param
+        param
+        param
+        param
+        param
+        hashPair=value
+        hashPair=value
+        hashPair=value
+      )
+      hashPair=(does not need a line break due to being under 80 chars long)
+    )
+  }}
+></div>
+{{#block
+  (concat
+    (helper param hashPair=Value)
+    (largeNameHelper
+      param param param param hashPair=value hashPair=value hashPair=Value
+    )
+    hashPair=(helper
+      param
+      param
+      param
+      param
+      param
+      param
+      hashPair=value
+      hashPair=value
+      hashPair=value
+    )
+    hashPair=(does not need a line break due to being under 80 chars long)
+  )
+}}{{/block}}
+{{foobar-sub-component/foobar-foo
+  hook="stringLiteral"
+  foo=(t
+    (concat
+      "stringLiteral" (get blockParam "stringLiteral") hash=hash hash=hash
+    )
+    foo=(simple-helper (hash hashKey=blockParam.foo assignParam=blockParam.bar))
+  )
+}}
+`;

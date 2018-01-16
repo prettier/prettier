@@ -52,3 +52,55 @@ exports[`html-fragment.html 1`] = `
 <textarea />
 
 `;
+
+exports[`more-html.html 1`] = `
+<html>
+<body>
+    <a href="#">Anchor</a>
+    <div hidden class="foo" id=bar></div>
+</body>
+</html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+<html>
+
+<head />
+
+
+<body>
+  <a href="#">Anchor</a>
+  <div hidden
+    class="foo"
+    id="bar" />
+
+</body>
+</html>
+`;
+
+exports[`void-elements.html 1`] = `
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="code-guide.css">
+</head>
+<body></body>
+</html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+<html>
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet"
+    href="code-guide.css">
+
+</head>
+
+<body>
+</body>
+</html>
+`;

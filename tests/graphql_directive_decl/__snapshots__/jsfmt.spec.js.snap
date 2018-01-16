@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`directive_decl.graphql 1`] = `
-directive @a on FIELD1
-directive @a(as: String) on FIELD1
-directive @a(as: String = 1) on FIELD1
-directive @a(as: String, b: Int!) on FIELD1
-directive @a(as: String! = 1 @deprecated) on FIELD1
-directive @a(as: String! = 1 @deprecated) on FIELD1 | FIELD2
+directive @a on QUERY
+directive @a(as: String) on QUERY
+directive @a(as: String = 1) on QUERY
+directive @a(as: String, b: Int!) on QUERY
+directive @a(as: String! = 1 @deprecated) on QUERY
+directive @a(as: String! = 1 @deprecated) on QUERY | MUTATION
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-directive @a on FIELD1
+directive @a on QUERY
 
-directive @a(as: String) on FIELD1
+directive @a(as: String) on QUERY
 
-directive @a(as: String = 1) on FIELD1
+directive @a(as: String = 1) on QUERY
 
-directive @a(as: String, b: Int!) on FIELD1
+directive @a(as: String, b: Int!) on QUERY
 
-directive @a(as: String! = 1 @deprecated) on FIELD1
+directive @a(as: String! = 1 @deprecated) on QUERY
 
-directive @a(as: String! = 1 @deprecated) on FIELD1 | FIELD2
+directive @a(as: String! = 1 @deprecated) on QUERY | MUTATION
 
 `;

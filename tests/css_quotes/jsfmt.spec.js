@@ -1,2 +1,2 @@
-run_spec(__dirname, { parser: "css" });
-run_spec(__dirname, { parser: "css", singleQuote: true });
+run_spec(__dirname, ["css"]);
+run_spec(__dirname, ["css"], { singleQuote: true });

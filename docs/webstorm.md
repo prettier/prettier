@@ -3,11 +3,21 @@ id: webstorm
 title: Webstorm Setup
 ---
 
-## Configure External Tool
+## SetUp
+
+### With ESLint Integration
+
+If you are using the ESLint integration for prettier via [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) all you need to do is simply add a hotkey for `eslint --fix`. To do this go to _File | Settings | Keymap_ for Windows and Linux _WebStorm | Preferences | Keymap_, type `Fix ESLint Problems` in search box and add a keyboard shortcut.
+
+See [this documentation](https://www.jetbrains.com/help/webstorm/configuring-keyboard-shortcuts.html) about configuring keyboard shortcuts.
+
+### Standalone
+
+#### Configure External Tool
 
 https://blog.jetbrains.com/webstorm/2016/08/using-external-tools/
 
-Go to *File | Settings | Tools | External Tools* for Windows and Linux or *WebStorm | Preferences | Tools | External Tools* for OS X and click **+** to add a new tool. Let’s name it **Prettier**.
+Go to _File | Settings | Tools | External Tools_ for Windows and Linux or _WebStorm | Preferences | Tools | External Tools_ for OS X and click **+** to add a new tool. Let’s name it **Prettier**.
 
 * **Program** set `prettier`
 
@@ -18,19 +28,19 @@ Go to *File | Settings | Tools | External Tools* for Windows and Linux or *WebSt
 
 ![Example](/docs/assets/webstorm/with-prettier.png)
 
-### Process directories
+##### Process directories
 
 * Clone the External tool created above and name it `Prettier Directories`
 * **Parameters** set `--write [other opts] $FileDirRelativeToProjectRoot$/**/{*.js,*.jsx}`
 
-## Usage
+#### Usage
 
 * Cmd-Shift-A on OS X or Ctrl+Shift+A on Windows and Linux
 * Type: 'prettier' and hit enter
 
-### Configure Keymap
+#### Configure Keymap
 
-Now when you setup **External Tool** I guess you want to add hotkey for it. Go to *File | Settings | Keymap* for Windows and Linux *WebStorm | Preferences | Keymap* and type external tool name in search box.
+Now when you setup **External Tool** I guess you want to add hotkey for it. Go to _File | Settings | Keymap_ for Windows and Linux _WebStorm | Preferences | Keymap_ and type external tool name in search box.
 
 See [this documentation](https://www.jetbrains.com/help/webstorm/configuring-keyboard-shortcuts.html) about configuring keyboard shortcuts.
 
@@ -38,11 +48,11 @@ See [this documentation](https://www.jetbrains.com/help/webstorm/configuring-key
 
 To automatically format using `prettier` on save, you can use a file watcher.
 
-Go to *File | Settings | Tools | File Watchers* for Windows and Linux or *WebStorm | Preferences | Tools | File Watchers* for OS X and click **+** to add a new tool. Let’s name it **Prettier**.
+Go to _File | Settings | Tools | File Watchers_ for Windows and Linux or _WebStorm | Preferences | Tools | File Watchers_ for OS X and click **+** to add a new tool. Let’s name it **Prettier**.
 
 * **File Type**: JavaScript
 * **Scope**: Current File
-* **Program** set the full path to a `prettier` executable, such as `/Users/developer/repo/jest/node_modules/.bin/prettier` (on OS X and Linux) or `C:/\Users\developer\repo\jest\node_modules\.bin\prettier.cmd` (on Windows).
+* **Program** set `prettier` (if you have `prettier` installed locally, see ["Configure External Tool"](#configure-external-tool) above)
 * **Arguments** set `--write [other opts] $FilePath$`
 * **Working directory** set `$ProjectFileDir$`
 * **Immediate file synchronization**: Uncheck to reformat on Save only (otherwise code will jump around while you type).

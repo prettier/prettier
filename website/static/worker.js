@@ -5,28 +5,65 @@
 self.global = self;
 self.util = {};
 self.path = {};
+self.path.resolve = self.path.join = self.path.dirname = function() {
+  return "";
+};
+self.path.parse = function() {
+  return { root: "" };
+};
 self.Buffer = {
   isBuffer: function() {
     return false;
   }
 };
+self.constants = {};
 // eslint-disable-next-line
-fs = module$1 = module = path = os = crypto = {};
+module$1 = module = os = crypto = {};
+self.fs = { readFile: function() {} };
 // eslint-disable-next-line no-undef
 os.homedir = function() {
   return "/home/prettier";
 };
-self.process = { argv: [], env: { PRETTIER_DEBUG: true }, version: "v8.5.0" };
+self.process = {
+  argv: [],
+  env: { PRETTIER_DEBUG: true },
+  version: "v8.5.0",
+  binding: function() {
+    return {};
+  },
+  cwd: function() {
+    return "";
+  }
+};
 self.assert = { ok: function() {}, strictEqual: function() {} };
 self.require = function require(path) {
   if (path === "stream") {
     return { PassThrough() {} };
   }
-  return self[path.replace(/.+-/, "")];
+  if (path === "./third-party") {
+    return {};
+  }
+
+  if (~path.indexOf("parser-")) {
+    var parser = path.replace(/.+-/, "");
+    if (!parsersLoaded[parser]) {
+      importScripts("lib/parser-" + parser + ".js");
+      parsersLoaded[parser] = true;
+    }
+    return self[parser];
+  }
+
+  return self[path];
 };
 
+var prettier;
 importScripts("lib/index.js");
-var prettier = index; // eslint-disable-line
+if (typeof prettier === "undefined") {
+  prettier = module.exports; // eslint-disable-line
+}
+if (typeof prettier === "undefined") {
+  prettier = index; // eslint-disable-line
+}
 
 var parsersLoaded = {};
 
@@ -47,7 +84,7 @@ self.onmessage = function(message) {
     var actualAst;
     var errored = false;
     try {
-      actualAst = prettier.__debug.parse(message.data.text, options);
+      actualAst = prettier.__debug.parse(message.data.text, options).ast;
       ast = JSON.stringify(actualAst);
     } catch (e) {
       errored = true;
@@ -63,7 +100,6 @@ self.onmessage = function(message) {
   }
 
   if (message.data.doc) {
-    lazyLoadParser("babylon");
     try {
       doc = prettier.__debug.formatDoc(
         prettier.__debug.printToDoc(message.data.text, options),
@@ -88,31 +124,15 @@ self.onmessage = function(message) {
 };
 
 function formatCode(text, options) {
-  lazyLoadParser(options.parser);
   try {
     return prettier.format(text, options);
   } catch (e) {
-    // Multiparser may throw if we haven't loaded the right parser
-    // Load it lazily and retry!
-    if (e.parser && !parsersLoaded[e.parser]) {
-      lazyLoadParser(e.parser);
-      return formatCode(text, options);
+    if (e.constructor && e.constructor.name === "SyntaxError") {
+      // Likely something wrong with the user's code
+      return String(e);
     }
-    return String(e);
-  }
-}
-
-function lazyLoadParser(parser) {
-  var actualParser =
-    parser === "json"
-      ? "babylon"
-      : parser === "css" || parser === "less" || parser === "scss"
-        ? "postcss"
-        : parser;
-  var script = "parser-" + actualParser + ".js";
-
-  if (!parsersLoaded[actualParser]) {
-    importScripts("lib/" + script);
-    parsersLoaded[actualParser] = true;
+    // Likely a bug in Prettier
+    // Provide the whole stack for debugging
+    return e.stack || String(e);
   }
 }

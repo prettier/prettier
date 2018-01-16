@@ -21,3 +21,12 @@ describe("throw error if stdin content incompatible with stdin-filepath", () => 
     status: "non-zero"
   });
 });
+
+describe("output file as-is if stdin-filepath matched patterns in ignore-path", () => {
+  runPrettier("cli/stdin-ignore", ["--stdin-filepath", "ignore/example.js"], {
+    input: "hello_world( );"
+  }).test({
+    stdout: "hello_world( );",
+    status: 0
+  });
+});

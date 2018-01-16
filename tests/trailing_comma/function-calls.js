@@ -9,3 +9,10 @@ a(
 );
 
 a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
+
+a.b().c(
+  {
+    d,
+  },
+  () => {}
+);

@@ -21,34 +21,49 @@ and add this config to your `package.json`:
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,json,css}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.{js,json,css,md}": ["prettier --write", "git add"]
   }
 }
 ```
-There is a limitation where if you stage specific lines this approach will stage the whole file after regardless. See this [issue](https://github.com/okonet/lint-staged/issues/62) for more info.
+
+**Warning:** Currently there is a limitation where if you stage specific lines this approach will stage the whole file after formatting. See this [issue](https://github.com/okonet/lint-staged/issues/62) for more info.
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
+## Option 2. [pretty-quick](https://github.com/azz/pretty-quick)
 
-## Option 2. [pre-commit](https://github.com/pre-commit/pre-commit)
+Install it along with [husky](https://github.com/typicode/husky):
+
+```bash
+yarn add pretty-quick husky --dev
+```
+
+and add this config to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "precommit": "pretty-quick --staged"
+  }
+}
+```
+
+Find more info from [here](https://github.com/azz/pretty-quick).
+
+## Option 3. [pre-commit](https://github.com/pre-commit/pre-commit) (Python version)
 
 Copy the following config into your `.pre-commit-config.yaml` file:
 
 ```yaml
-
     -   repo: https://github.com/prettier/prettier
         sha: ''  # Use the sha or tag you want to point at
         hooks:
         -   id: prettier
-
 ```
 
 Find more info from [here](http://pre-commit.com).
 
-## Option 3. bash script
+## Option 4. bash script
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 

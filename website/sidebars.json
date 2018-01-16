@@ -10,6 +10,7 @@
     "Usage": [
       "install",
       "cli",
+      "plugins",
       "precommit",
       "watching-files",
       "eslint",

@@ -9,19 +9,13 @@ exports[`template-bind.vue 1`] = `
 </template>
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
 <template>
-
-  <div v-bind:id="'list-' + id" />
-
-  <div v-bind:id="rawId | formatId" />
-
-  <div v-bind:id="ok ? 'YES' : 'NO'" />
-
-  <button @click="foo(arg, 'string')" />
-
+    <div v-bind:id=" 'list-'   +  id "></div>
+    <div v-bind:id="  rawId | formatId "></div>
+    <div v-bind:id=" ok ? 'YES' : 'NO' "></div>
+    <button @click=" foo ( arg, 'string' ) "></button>
 </template>
+
 `;
 
 exports[`template-class.vue 1`] = `
@@ -35,24 +29,22 @@ exports[`template-class.vue 1`] = `
   </h2>
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
 <template>
-
-
-  <h2 class="title"
-    :class="{
-      'issue-realtime-pre-pulse': preAnimation,
-      'issue-realtime-trigger-pulse': pulseAnimation
-    }"
-    v-html="titleHtml">
+  <h2
+    class="title"
+    :class="{ 'issue-realtime-pre-pulse': preAnimation,
+ 'issue-realtime-trigger-pulse': pulseAnimation}"
+    v-html="titleHtml"
+  >
   </h2>
 </template>
+
 `;
 
 exports[`vue-component.vue 1`] = `
 <template >
-  <h1 >{{greeting}}     world</h1  >
+  <h1 >{{greeting}}     world</h1 >
+  <script>kikoo ( ) </script>
 </template >
 
 <script>
@@ -67,29 +59,39 @@ module  .  exports  =
 p { font-size : 2em ; text-align : center ; }
 
   </style >
+
+<style   lang="postcss" >
+p { font-size : 2em ; text-align : center ; }
+
+  </style >
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-<template>
-
-  <h1>{{greeting}} world</h1>
-</template>
+<template >
+  <h1 >{{greeting}}     world</h1 >
+  <script>kikoo ( ) </script>
+</template >
 
 <script>
-  module.exports = {
-    data: function() {
-      return {
-        greeting: "Hello"
-      };
-    }
-  };
-
+module.exports = {
+  data: function() {
+    return {
+      greeting: "Hello"
+    };
+  }
+};
 </script>
 
-<style scoped>
-  p {
-    font-size: 2em;
-    text-align: center;
-  }
-</style>
+<style   scoped >
+p {
+  font-size: 2em;
+  text-align: center;
+}
+</style >
+
+<style   lang="postcss" >
+p {
+  font-size: 2em;
+  text-align: center;
+}
+</style >
+
 `;

@@ -1,2 +1,2 @@
-run_spec(__dirname, { parser: "graphql" });
-run_spec(__dirname, { parser: "graphql", bracketSpacing: false });
+run_spec(__dirname, ["graphql"]);
+run_spec(__dirname, ["graphql"], { bracketSpacing: false });

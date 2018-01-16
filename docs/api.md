@@ -18,13 +18,11 @@ prettier.format("foo ( );", { semi: false });
 
 ## `prettier.check(source [, options])`
 
-`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`.
-This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
+`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`. This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
 
 ## `prettier.formatWithCursor(source [, options])`
 
-`formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code.
-This is useful for editor integrations, to prevent the cursor from moving when code is formatted.
+`formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code. This is useful for editor integrations, to prevent the cursor from moving when code is formatted.
 
 The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
 
@@ -35,11 +33,8 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 
 ## `prettier.resolveConfig(filePath [, options])`
 
-`resolveConfig` can be used to resolve configuration for a given source file, passing its path as the first argument.
-The config search will start at the file path and continue to search up the directory (you can use `process.cwd()` to start
-searching from the current directory).
-Or you can pass directly the path of the config file as `options.config` if you don't wish to search for it.
-A promise is returned which will resolve to:
+`resolveConfig` can be used to resolve configuration for a given source file, passing its path as the first argument. The config search will start at the file path and continue to search up the directory (you can use `process.cwd()` to start searching from the current directory). Or you can pass directly the path of the config file as `options.config` if you don't wish to search for it. A promise is returned which will resolve to:
+
 * An options object, providing a [config file](configuration.md) was found.
 * `null`, if no file was found.
 
@@ -51,24 +46,26 @@ If `options.useCache` is `false`, all caching will be bypassed.
 const text = fs.readFileSync(filePath, "utf8");
 prettier.resolveConfig(filePath).then(options => {
   const formatted = prettier.format(text, options);
-})
+});
 ```
+
+If `options.editorconfig` is `true` and an [`.editorconfig` file](http://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
+
+* `indent_style`
+* `indent_size`/`tab_width`
+* `max_line_length`
 
 Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use sync version.
 
 ## `prettier.clearConfigCache()`
 
-As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
-This function will clear the cache. Generally this is only needed for editor integrations that
-know that the file system has changed since the last format took place.
+As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
 
 ## `prettier.getSupportInfo([version])`
 
-Returns an object representing the parsers, languages and file types Prettier
-supports.
+Returns an object representing the parsers, languages and file types Prettier supports.
 
-If `version` is provided (e.g. `"1.5.0"`), information for that version will be
-returned, otherwise information for the current version will be returned.
+If `version` is provided (e.g. `"1.5.0"`), information for that version will be returned, otherwise information for the current version will be returned.
 
 The support information looks like this:
 
@@ -95,6 +92,7 @@ The support information looks like this:
 ## Custom Parser API
 
 If you need to make modifications to the AST (such as codemods), or you want to provide an alternate parser, you can do so by setting the `parser` option to a function. The function signature of the parser function is:
+
 ```js
 (text: string, parsers: object, options: object) => AST;
 ```

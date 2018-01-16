@@ -1,3 +1,141 @@
-.post a {
+.post p a {
   text-decoration: underline !important;
+}
+.post a {
+  font-weight: 600;
+}
+
+@media screen and (max-width: 735px) {
+  footer .sitemap {
+    display: block;
+    margin-left: 20px;
+  }
+
+  footer .sitemap .nav-home {
+    margin: 0 auto;
+  }
+
+  footer .sitemap > div {
+    margin-bottom: 20px;
+  }
+
+  footer .sitemap > div h5 {
+    margin: 0;
+  }
+}
+
+.mainContainer .wrapper .post h2 {
+  font-size: 2em;
+}
+
+.mainContainer .wrapper .post h3 {
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+.mainContainer .wrapper .post h4 {
+  font-size: 1.25em;
+  font-weight: 400;
+}
+
+pre {
+  overflow-x: scroll;
+}
+
+@media only screen and (min-width: 736px) {
+  .mainContainer .wrapper .post .postHeader h1 {
+    font-size: 32px;
+  }
+}
+
+h1 a {
+  color: #24292e;
+}
+
+a {
+  color: #56b3b4;
+}
+
+.post p a {
+  text-decoration: inherit !important;
+}
+.post p a:hover {
+  text-decoration: underline !important;
+}
+.post a {
+  font-weight: inherit;
+}
+
+.post, .post-content {
+  font-size: 16px;
+}
+
+.post-meta {
+  float: left;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.blogContainer .postHeader {
+  margin-bottom: 0;
+}
+
+.read-more {
+  margin-top: 10px;
+}
+
+.blogContainer .posts .post {
+  border-bottom: 1px solid #1b2b35;
+  border-radius: 0;
+}
+
+.mainContainer .wrapper .post h2,
+.mainContainer .wrapper .post h3 {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #1b2b35;
+  margin-top: 14px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.mainContainer .wrapper .post h4 {
+  font-size: 1.25em;
+  line-height: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.hljs {
+  padding: 16px;
+  overflow: auto;
+  font-size: 13.6px;
+  line-height: 1.45;
+  border-radius: 3px;
+  border-left-color: #eb5d5d;
+}
+
+.hljs, .hljs-subst {
+  color: #1b2b35;
+}
+
+.hljs-type, .hljs-string, .hljs-number, .hljs-selector-id, .hljs-selector-class, .hljs-quote, .hljs-template-tag, .hljs-deletion,
+.hljs-title, .hljs-section {
+  color: #eb5d5d;
+}
+
+.hljs-built_in, .hljs-bullet, .hljs-code, .hljs-addition,
+.hljs-literal {
+  color: #56b3b4;
+}
+
+.hljs-keyword, .hljs-attribute, .hljs-selector-tag, .hljs-meta-keyword, .hljs-doctag, .hljs-name,
+.hljs-title, .hljs-section {
+  font-weight: normal;
+}
+
+.hljs-regexp, .hljs-symbol, .hljs-variable, .hljs-template-variable, .hljs-link, .hljs-selector-attr, .hljs-selector-pseudo,
+.hljs-comment {
+  color: #cda144;
 }

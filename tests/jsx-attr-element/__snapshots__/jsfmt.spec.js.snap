@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`attr-element.js 1`] = `
+<Foo prop=<Bar><Baz /></Bar> />;
+<Foo prop=<><Bar><Baz /></Bar></> />;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<Foo
+  prop=<Bar>
+    <Baz />
+  </Bar>
+/>;
+<Foo
+  prop=<>
+    <Bar>
+      <Baz />
+    </Bar>
+  </>
+/>;
+
+`;

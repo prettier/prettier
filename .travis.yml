@@ -3,11 +3,10 @@ language: node_js
 node_js:
   - 4
   - stable
-dist: precise
 cache:
   yarn: true
   directories:
-  - node_modules
+    - node_modules
 env:
   - NODE_ENV=development
   - NODE_ENV=production
@@ -20,12 +19,10 @@ before_script:
   - if [ "${NODE_ENV}" = "production" ]; then yarn build; fi
 script:
   - yarn lint
-  - AST_COMPARE=1 yarn test -- --runInBand
+  - yarn lint-docs
+  - if [ "${NODE_ENV}" = "production" ]; then yarn test:dist; fi
+  - if [ "${NODE_ENV}" = "development" ]; then AST_COMPARE=1 yarn test -- --runInBand; fi
   - if [ "${NODE_ENV}" = "development" ]; then yarn codecov; fi
-deploy:
-  provider: script
-  script: website/deploy.sh
-  skip_cleanup: true
-  on:
-    branch: master
-    node: stable
+branches:
+  only:
+    - master

@@ -1,3 +1,52 @@
+# 1.10.2
+
+[link](https://github.com/prettier/prettier/compare/1.10.1...1.10.2)
+
+* Fixed an issue printing .vue files with self-closing tags. (#3705 by duailibe)
+
+# 1.10.1
+
+[link](https://github.com/prettier/prettier/compare/1.10.0...1.10.1)
+
+* Fixed an issue where the CLI fails to resolve a file.
+
+# 1.10.0
+
+[link](https://github.com/prettier/prettier/compare/1.9.2...1.10.0)
+
+* [Release Notes](https://prettier.io/blog/2018/01/10/1.10.0.html)
+
+# 1.9.2
+
+[link](https://github.com/prettier/prettier/compare/1.9.1...1.9.2)
+
+* Fixed trailing comma not being printed in function calls if the last arg was an arrow (#3428 by duailibe)
+* Ignore whitespace after the `/**` in docblocks (#3430 by duailibe)
+* Fixed a bug where `get` and `set` class properties arrows would print an unnecessary semicolon with `--no-semi` (#3434 by duailibe)
+* Fixed a bug for missing `.editorconfig` files (#3439 by josephfrazier)
+* Fix comments being moved in class methods and object properties with the babylon parser (#3441 by duailibe)
+* Better printing of member chains with a TSNonNullExpression (`!` character) (#3442 by duailibe)
+* Fix missing commas in object properties when a `pretter-ignore` comment is present (#3448 by duailibe)
+* Fix printing union types inside a function param type (#3446 by duailibe)
+* Fix closing parens on multi-line intersection/union type (#3436 by josephfrazier)
+* Don't break single argument destructuring arguments (for arrays and with simple default values) (#3443 by duailibe)
+
+# 1.9.1
+
+[link](https://github.com/prettier/prettier/compare/1.9.0...1.9.1)
+
+* Fixed a bug of comments with JSX fragments being duplicated in output (#3398 by duailibe)
+* Fixed a bug that Prettier would fail when using tabs (#3401 by ikatyang)
+* Fixed a regression that removed trailing commas when printing JS code blocks in Markdown (#3405 by azz)
+* Fixed a bug when using glob `**/*` which would try to format directories (#3411 by duailibe)
+* Fixed a bug when `.editorconfig` had `max_line_length = "off"` (#3412 by duailibe)
+
+# 1.9.0
+
+[link](https://github.com/prettier/prettier/compare/1.8.2...1.9.0)
+
+* [Release Notes](https://prettier.io/blog/2017/12/05/1.9.0.html)
+
 # 1.8.2
 
 [link](https://github.com/prettier/prettier/compare/1.8.1...1.8.2)
@@ -22,7 +71,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.7.4...1.8.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.8.0)
+* [Release Notes](https://prettier.io/blog/2017/11/07/1.8.0.html)
 
 # 1.7.4
 
@@ -79,7 +128,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.6.1...1.7.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.7.0)
+* [Release Notes](https://prettier.io/blog/2017/09/15/1.7.0.html)
 
 # 1.6.1
 
@@ -94,7 +143,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.5.3...1.6.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.6.0)
+* [Release Notes](https://prettier.io/blog/2017/08/29/1.6.0.html)
 
 # 1.5.3
 
@@ -120,7 +169,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.4.4...1.5.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.5.0)
+* [Release Notes](https://prettier.io/blog/2017/06/28/1.5.0.html)
 
 # 1.4.4
 
@@ -134,6 +183,7 @@
 * Fix website on iOS Safari (#1970)
 
 Formatting change:
+
 * Position JSX whitespace (`{" "}`) at the end of lines (#1964)
 
 Lots of small fixes, mainly for TypeScript.
@@ -157,7 +207,7 @@ Lots of small fixes, mainly for TypeScript.
 
 [link](https://github.com/prettier/prettier/compare/1.3.1...1.4.0)
 
-* [Release Notes](https://github.com/prettier/prettier/releases/tag/1.4.0)
+* [Release Notes](https://prettier.io/blog/2017/06/03/1.4.0.html)
 
 # 1.3.1
 
@@ -166,6 +216,8 @@ Lots of small fixes, mainly for TypeScript.
 # 1.3.0
 
 [link](https://github.com/prettier/prettier/compare/1.2.2...1.3.0)
+
+* [Release Notes](https://prettier.io/blog/2017/05/03/1.3.0.html)
 
 * add printer branches for some TypeScript nodes (#1331)
 * Skip trailing commas with FlowShorthandWithOneArg (#1364)
@@ -209,7 +261,7 @@ Lots of small fixes, mainly for TypeScript.
 * Add space around `=` for flow generics default arguments (#1476)
 * Don't break for unparenthesised single argument flow function (#1452)
 * Don't break on empty arrays and objects (#1440)
-* Do not break on [0] (#1441)
+* Do not break on `[0]` (#1441)
 * Reorder flow object props (#1451)
 * Break inline object first in function arguments (#1453)
 * Break inline object first in function arguments (#1453) (#1173)
@@ -230,6 +282,8 @@ Lots of small fixes, mainly for TypeScript.
 # 1.2.0
 
 [link](https://github.com/prettier/prettier/compare/1.1.0...1.2.0)
+
+* [Release Notes](https://prettier.io/blog/2017/04/20/1.2.0.html)
 
 * match jsx files in pre-commit hook (#1276)
 * Fix isPreviousLineEmpty on Windows (#1263)
@@ -308,7 +362,7 @@ Lots of small fixes, mainly for TypeScript.
 * [JSX] Break if opening element breaks (#942)
 * Parenthesize function expressions in expression position (#941)
 * update the README to add a pre-commit hook (#944)
-* Fix #951: properly parenthesize ** expressions (#952)
+* Fix #951: properly parenthesize \*\* expressions (#952)
 * [WIP] TypeScript Parser (#915)
 * Do not break long `describe` calls (#953)
 * Recursively find leading comments inside ReturnStatements (#955)
@@ -578,50 +632,50 @@ Lots of small fixes, mainly for TypeScript.
 
 Now using minor versions instead of patch versions for the releases.
 
- * Swap quotes (#355)
- * Drop jsesc (#357)
- * Use a Symbol instead of the private dep (#359)
- * Add parens for default export FunctionExpressions (#345)
- * Fix export extension output (#361)
- * Exit with an error if an unknown CLI option is passed (#365)
- * Warn if using deprecated CLI options (#364)
- * s/jscodefmt/prettier/ (#370)
- * Fix CLI options (#369)
- * Fix some parens cases for UpdateExpressions (#381)
- * Output strings with the minimum amount of escaped quotes (#390)
- * Ignore EmptyStatement inside of switch case (#391)
- * Support multiple standalones in import (#389)
- * Fix missing semi-colon in for loop and var body (#388)
- * Fix empty labels (#383)
- * Fix forced trailing comma (#382)
- * Empty switch should not have an empty line (#384)
- * add formatAST() for formatting ASTs directly (#393)
- * Fix class extends parenthesis (#396)
- * Fix class inside of binary expression missing parenthesis (#397)
- * Fix parenthesis in object as left-hand-side of template (#398)
- * Remove unneeded parens for FunctionExpression inside LogicalExpression (#399)
- * Remove trailing comma for array destructuring with rest (#400)
- * Fix +++x (#401)
- * Also do the class extend parenthesis for class expressions (#403)
- * Fix various parenthesis issues on the left side of template (#404)
- * Fix in inside of the first group of a for (#406)
- * Add parenthesis for arrow function inside of ternary (#408)
- * Add parenthesis around class expression when left side of call expression (#409)
- * Ensure computed method names don't lose quotes (#419)
- * Add parenthesis for yield inside of a conditional (#418)
- * Add parenthesis around assignment for arrow function body (#422)
- * Add parenthesis around export default assignments (#423)
- * Add parenthesis for class expression on left of member expression (#421)
- * Fix missing parens around object in MemberExpression (#424)
- * Re-run snapshot tests
- * Workaround flow bug around trailing comma (#427)
- * Add parenthesis when class expressions are left of a ternary (#428)
- * Revert "Workaround flow bug around trailing comma" (#429)
- * Update commands.md (#430)
- * Improve vim integration section (#416)
- * Add glob support to the CLI (#363)
- * Use babel-code-frame for syntax errors (#367)
- * Update yarn.lock
+* Swap quotes (#355)
+* Drop jsesc (#357)
+* Use a Symbol instead of the private dep (#359)
+* Add parens for default export FunctionExpressions (#345)
+* Fix export extension output (#361)
+* Exit with an error if an unknown CLI option is passed (#365)
+* Warn if using deprecated CLI options (#364)
+* s/jscodefmt/prettier/ (#370)
+* Fix CLI options (#369)
+* Fix some parens cases for UpdateExpressions (#381)
+* Output strings with the minimum amount of escaped quotes (#390)
+* Ignore EmptyStatement inside of switch case (#391)
+* Support multiple standalones in import (#389)
+* Fix missing semi-colon in for loop and var body (#388)
+* Fix empty labels (#383)
+* Fix forced trailing comma (#382)
+* Empty switch should not have an empty line (#384)
+* add formatAST() for formatting ASTs directly (#393)
+* Fix class extends parenthesis (#396)
+* Fix class inside of binary expression missing parenthesis (#397)
+* Fix parenthesis in object as left-hand-side of template (#398)
+* Remove unneeded parens for FunctionExpression inside LogicalExpression (#399)
+* Remove trailing comma for array destructuring with rest (#400)
+* Fix +++x (#401)
+* Also do the class extend parenthesis for class expressions (#403)
+* Fix various parenthesis issues on the left side of template (#404)
+* Fix in inside of the first group of a for (#406)
+* Add parenthesis for arrow function inside of ternary (#408)
+* Add parenthesis around class expression when left side of call expression (#409)
+* Ensure computed method names don't lose quotes (#419)
+* Add parenthesis for yield inside of a conditional (#418)
+* Add parenthesis around assignment for arrow function body (#422)
+* Add parenthesis around export default assignments (#423)
+* Add parenthesis for class expression on left of member expression (#421)
+* Fix missing parens around object in MemberExpression (#424)
+* Re-run snapshot tests
+* Workaround flow bug around trailing comma (#427)
+* Add parenthesis when class expressions are left of a ternary (#428)
+* Revert "Workaround flow bug around trailing comma" (#429)
+* Update commands.md (#430)
+* Improve vim integration section (#416)
+* Add glob support to the CLI (#363)
+* Use babel-code-frame for syntax errors (#367)
+* Update yarn.lock
 
 # 0.0.10
 
@@ -744,7 +798,7 @@ Now using minor versions instead of patch versions for the releases.
 * remove unused recast ref
 * Fix typo in README.
 * Support type annotation for rest argument on babylon parser
-* Use `setq' instead of `infc' and `decf'
+* Use `setq` instead of `infc` and `decf`
 * Add title and encoding to the REPL
 * Fix old name reference in tests_config
 * Minimize string escapes

@@ -9,6 +9,15 @@ abstract interface I {}
 
 `;
 
+exports[`abstract.ts 2`] = `
+abstract interface I {
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+abstract interface I {}
+
+`;
+
 exports[`comments.js 1`] = `
 interface ScreenObject {
 	// I make things weird.
@@ -22,17 +31,32 @@ interface ScreenObject {
 
 `;
 
+exports[`comments.js 2`] = `
+interface ScreenObject {
+	// I make things weird.
+	at(point: Point): Screen | undefined;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface ScreenObject {
+  // I make things weird.
+  at(point: Point): Screen | undefined
+}
+
+`;
+
 exports[`ignore.js 1`] = `
 interface Interface {
   // prettier-ignore
   prop: type
   // prettier-ignore
   prop: type;
+  prop: type;
 }
 
 // Last element
 interface Interface {
   // prettier-ignore
+  prop: type
   prop: type
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -41,11 +65,46 @@ interface Interface {
   prop: type
   // prettier-ignore
   prop: type;
+  prop: type;
 }
 
 // Last element
 interface Interface {
   // prettier-ignore
+  prop: type
+  prop: type;
+}
+
+`;
+
+exports[`ignore.js 2`] = `
+interface Interface {
+  // prettier-ignore
+  prop: type
+  // prettier-ignore
+  prop: type;
+  prop: type;
+}
+
+// Last element
+interface Interface {
+  // prettier-ignore
+  prop: type
+  prop: type
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+interface Interface {
+  // prettier-ignore
+  prop: type
+  // prettier-ignore
+  prop: type;
+  prop: type
+}
+
+// Last element
+interface Interface {
+  // prettier-ignore
+  prop: type
   prop: type
 }
 
@@ -102,6 +161,57 @@ export interface ThirdVeryLongAndBoringInterfaceName
 
 `;
 
+exports[`long-extends.ts 2`] = `
+export interface I extends A, B, C {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends AVeryLongAndBoringInterfaceName, AnotherVeryLongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends A_AVeryLongAndBoringInterfaceName, B_AVeryLongAndBoringInterfaceName, C_AVeryLongAndBoringInterfaceName  {
+  c: string;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export interface I extends A, B, C {
+  c: string
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends ALongAndBoringInterfaceName {
+  c: string
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends ALongAndBoringInterfaceName,
+    AnotherLongAndBoringInterfaceName {
+  c: string
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends AVeryLongAndBoringInterfaceName,
+    AnotherVeryLongAndBoringInterfaceName {
+  c: string
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends A_AVeryLongAndBoringInterfaceName,
+    B_AVeryLongAndBoringInterfaceName,
+    C_AVeryLongAndBoringInterfaceName {
+  c: string
+}
+
+`;
+
 exports[`separator.ts 1`] = `
 declare module 'selenium-webdriver' {
   export const until: {
@@ -136,6 +246,44 @@ export interface Edge {
 interface Test {
   one: string;
   two: any[];
+}
+
+`;
+
+exports[`separator.ts 2`] = `
+declare module 'selenium-webdriver' {
+  export const until: {
+    ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>;
+    alertIsPresent(): Condition<Alert>;
+  };
+}
+
+export interface Edge {
+  cursor: {};
+  node: {
+    id: {};
+  };
+}
+
+interface Test { one: string, two: any[] }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare module "selenium-webdriver" {
+  export const until: {
+    ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>
+    alertIsPresent(): Condition<Alert>
+  }
+}
+
+export interface Edge {
+  cursor: {}
+  node: {
+    id: {}
+  }
+}
+
+interface Test {
+  one: string
+  two: any[]
 }
 
 `;
