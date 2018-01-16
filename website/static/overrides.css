@@ -152,7 +152,9 @@ html body {
 .editor {
   padding: 0 20px 60px 0;
   display: flex;
-  min-width: 215px;
+  min-width: 235px;
+  flex: 1;
+  flex-grow: 0;
   flex-basis: 22%;
 }
 
@@ -167,12 +169,18 @@ html body {
 
 .editorInfo {
   padding-left: 12px;
+  flex-shrink: 0;
 }
 
-@media only screen and (max-width: 555px) {
+.editorInfo code {
+  white-space: normal;
+}
+
+@media only screen and (min-width: 360px) and (max-width: 590px) {
   .editor {
     flex-direction: column;
     min-width: 140px;
+    padding-right: 0;
   }
 
   .editorInfo {
@@ -187,6 +195,10 @@ html body {
 }
 
 @media only screen and (max-width: 736px) {
+  .editor {
+    padding-bottom: 30px;
+  }
+
   .editorImage {
     width: 75px;
     height: 75px;
