@@ -1270,8 +1270,7 @@ function printPathNoParens(path, options, print, args) {
           align(2, path.call(print, "alternate"))
         ]);
         parts.push(
-          // TODO: remove `!options.useTabs` condition if #3745 merged
-          parent.type === "ConditionalExpression" && !options.useTabs
+          parent.type === "ConditionalExpression"
             ? align(Math.max(0, options.tabWidth - 2), part)
             : part
         );
