@@ -1259,7 +1259,7 @@ function printPathNoParens(path, options, print, args) {
         );
       } else {
         // normal mode
-        parts.push(
+        const part = concat([
           line,
           "? ",
           n.consequent.type === "ConditionalExpression" ? ifBreak("", "(") : "",
@@ -1268,6 +1268,12 @@ function printPathNoParens(path, options, print, args) {
           line,
           ": ",
           align(2, path.call(print, "alternate"))
+        ]);
+        parts.push(
+          // TODO: remove `!options.useTabs` condition if #3745 merged
+          parent.type === "ConditionalExpression" && !options.useTabs
+            ? align(Math.max(0, options.tabWidth - 2), part)
+            : part
         );
       }
 
