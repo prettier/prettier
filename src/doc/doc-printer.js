@@ -390,8 +390,8 @@ function printDocToString(doc, options) {
 
               if (doc.literal) {
                 if (ind.root) {
-                  out.push(newLine, ind.value);
-                  pos = ind.length;
+                  out.push(newLine, ind.root.value);
+                  pos = ind.root.length;
                 } else {
                   out.push(newLine);
                   pos = 0;
