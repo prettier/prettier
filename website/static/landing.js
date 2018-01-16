@@ -6,16 +6,20 @@ if (location.hash.substring(1).startsWith(encodeURIComponent("{"))) {
   location.pathname = "/playground/";
 }
 
-// eslint-disable-next-line
 window.addEventListener("load", function() {
   var logo = document.querySelector(".animatedLogo");
+  var logoWrapper = document.querySelector(".animatedLogoWrapper");
 
   logo.classList.remove("initial");
 
-  logo.parentElement.addEventListener("dragstart", function(event) {
+  function handleLogoDrag(event) {
     logo.classList.toggle("initial");
     event.preventDefault();
-  });
+  }
+
+  logoWrapper.setAttribute("draggable", "true");
+  logoWrapper.addEventListener("touchstart", handleLogoDrag);
+  logoWrapper.addEventListener("dragstart", handleLogoDrag);
 
   var yarnButton = document.querySelector(".showYarnButton");
   var npmButton = document.querySelector(".showNpmButton");
