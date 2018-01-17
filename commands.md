@@ -213,6 +213,22 @@ For example:
     * `<indent><align 2><indent><align 2>` -> `<tab><tab><2 space>`
     * `<indent><align 4><indent><align 2>` -> `<tab><tab><tab><2 space>`
 
+### markAsRoot
+
+```ts
+declare function markAsRoot(doc: Doc): Doc;
+```
+
+This marks the current indentation as root for `dedentToRoot` and `literalline`s.
+
+#### dedentToRoot
+
+```ts
+declare function dedentToRoot(doc: Doc): Doc;
+```
+
+This will dedent the current indentation to the root marked by `markAsRoot`.
+
 ### cursor
 
 ```ts

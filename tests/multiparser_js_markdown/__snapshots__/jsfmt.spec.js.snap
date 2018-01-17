@@ -1,5 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`0-indent.js 1`] = `
+md\`
+This line shouldn't be indented at all in the resulting output.
+\`
+
+if (true) {
+  md\`
+text1
+- 123
+  - 456
+
+text2
+- 123
+  - 456
+
+text3
+- 123
+  - 456
+\`;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+md\`
+This line shouldn't be indented at all in the resulting output.
+\`;
+
+if (true) {
+  md\`
+text1
+
+* 123
+  * 456
+
+text2
+
+* 123
+  * 456
+
+text3
+
+* 123
+  * 456
+  \`;
+}
+
+`;
+
 exports[`codeblock.js 1`] = `
 md\`
 \\\`\\\`\\\`js
@@ -12,13 +58,13 @@ markdown\\\`
 \`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 md\`
+~~~js
+markdown\\\`
   ~~~js
-  markdown\\\`
-    ~~~js
-    console.log("hi");
-    ~~~
-  \\\`;
+  console.log("hi");
   ~~~
+\\\`;
+~~~
 \`;
 
 `;
@@ -80,7 +126,7 @@ exports[`single-line.js 1`] = `
 markdown\`# hello\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 markdown\`
-  # hello
+# hello
 \`;
 
 `;

@@ -19,12 +19,14 @@ function makeIndent(ind, options) {
 
 function makeAlign(ind, n, options) {
   return n === -Infinity
-    ? rootIndent()
+    ? ind.root || rootIndent()
     : !n
       ? ind
-      : typeof n === "string"
-        ? generateInd(ind, { type: "stringAlign", n }, options)
-        : generateInd(ind, { type: "numberAlign", n }, options);
+      : n === Infinity
+        ? Object.assign({}, ind, { root: ind })
+        : typeof n === "string"
+          ? generateInd(ind, { type: "stringAlign", n }, options)
+          : generateInd(ind, { type: "numberAlign", n }, options);
 }
 
 function generateInd(ind, newPart, options) {
@@ -439,8 +441,13 @@ function printDocToString(doc, options) {
               }
 
               if (doc.literal) {
-                out.push(newLine);
-                pos = 0;
+                if (ind.root) {
+                  out.push(newLine, ind.root.value);
+                  pos = ind.root.length;
+                } else {
+                  out.push(newLine);
+                  pos = 0;
+                }
               } else {
                 if (out.length > 0) {
                   // Trim whitespace at the end of line
