@@ -20,22 +20,28 @@ function makeIndent(ind, options) {
 function makeAlign(ind, n, options) {
   return n === -Infinity
     ? ind.root || rootIndent()
-    : !n
-      ? ind
-      : n.type === "root"
-        ? Object.assign({}, ind, { root: ind })
-        : typeof n === "string"
-          ? generateInd(ind, { type: "stringAlign", n }, options)
-          : generateInd(ind, { type: "numberAlign", n }, options);
+    : n < 0
+      ? generateInd(ind, { type: "dedent" }, options)
+      : !n
+        ? ind
+        : n.type === "root"
+          ? Object.assign({}, ind, { root: ind })
+          : typeof n === "string"
+            ? generateInd(ind, { type: "stringAlign", n }, options)
+            : generateInd(ind, { type: "numberAlign", n }, options);
 }
 
 function generateInd(ind, newPart, options) {
+  const queue =
+    newPart.type === "dedent"
+      ? ind.queue.slice(0, -1)
+      : ind.queue.concat(newPart);
+
   let value = "";
   let length = 0;
   let lastTabs = 0;
   let lastSpaces = 0;
 
-  const queue = ind.queue.concat(newPart);
   for (const part of queue) {
     switch (part.type) {
       case "indent":

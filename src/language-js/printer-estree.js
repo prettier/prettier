@@ -26,6 +26,7 @@ const ifBreak = docBuilders.ifBreak;
 const breakParent = docBuilders.breakParent;
 const lineSuffixBoundary = docBuilders.lineSuffixBoundary;
 const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
+const dedent = docBuilders.dedent;
 
 const docUtils = doc.utils;
 const willBreak = docUtils.willBreak;
@@ -1271,7 +1272,9 @@ function printPathNoParens(path, options, print, args) {
         ]);
         parts.push(
           parent.type === "ConditionalExpression"
-            ? align(Math.max(0, options.tabWidth - 2), part)
+            ? options.useTabs
+              ? dedent(indent(part))
+              : align(Math.max(0, options.tabWidth - 2), part)
             : part
         );
       }
