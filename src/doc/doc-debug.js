@@ -70,7 +70,7 @@ function printDoc(doc) {
   if (doc.type === "align") {
     return doc.n === -Infinity
       ? "dedentToRoot(" + printDoc(doc.contents) + ")"
-      : doc.n === Infinity
+      : doc.n.type === "root"
         ? "markAsRoot(" + printDoc(doc.contents) + ")"
         : "align(" +
           JSON.stringify(doc.n) +

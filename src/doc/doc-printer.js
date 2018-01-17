@@ -22,7 +22,7 @@ function makeAlign(ind, n, options) {
     ? ind.root || rootIndent()
     : !n
       ? ind
-      : n === Infinity
+      : n.type === "root"
         ? Object.assign({}, ind, { root: ind })
         : typeof n === "string"
           ? generateInd(ind, { type: "stringAlign", n }, options)
