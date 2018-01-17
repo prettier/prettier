@@ -32,19 +32,17 @@ function makeAlign(ind, n, options) {
 function generateInd(ind, newPart, options) {
   let value = "";
   let length = 0;
+  let lastTabs = 0;
   let lastSpaces = 0;
 
   const queue = ind.queue.concat(newPart);
   for (const part of queue) {
     switch (part.type) {
       case "indent":
+        flush();
         if (options.useTabs) {
-          do {
-            addTab();
-          } while ((lastSpaces -= options.tabWidth) >= 0);
-          lastSpaces = 0;
+          addTabs(1);
         } else {
-          flushSpaces();
           addSpaces(options.tabWidth);
         }
         break;
@@ -54,6 +52,7 @@ function generateInd(ind, newPart, options) {
         length += part.n.length;
         break;
       case "numberAlign":
+        lastTabs += 1;
         lastSpaces += part.n;
         break;
       /* istanbul ignore next */
@@ -64,11 +63,11 @@ function generateInd(ind, newPart, options) {
 
   flushSpaces();
 
-  return { value, length, queue };
+  return Object.assign({}, ind, { value, length, queue });
 
-  function addTab() {
-    value += "\t";
-    length += options.tabWidth;
+  function addTabs(count) {
+    value += "\t".repeat(count);
+    length += options.tabWidth * count;
   }
 
   function addSpaces(count) {
@@ -85,17 +84,21 @@ function generateInd(ind, newPart, options) {
   }
 
   function flushTabs() {
-    while (lastSpaces > 0) {
-      addTab();
-      lastSpaces -= options.tabWidth;
+    if (lastTabs > 0) {
+      addTabs(lastTabs);
     }
-    lastSpaces = 0;
+    resetLast();
   }
 
   function flushSpaces() {
     if (lastSpaces > 0) {
       addSpaces(lastSpaces);
     }
+    resetLast();
+  }
+
+  function resetLast() {
+    lastTabs = 0;
     lastSpaces = 0;
   }
 }

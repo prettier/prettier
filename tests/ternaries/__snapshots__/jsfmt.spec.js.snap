@@ -440,26 +440,26 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 a
 	? {
-		a: 0
+			a: 0
 	  }
 	: {
-		a: {
-			a: 0
-		}
-			? {
+			a: {
 				a: 0
-			  }
-			: {
-				y: {
-					a: 0
-				}
-					? {
+			}
+				? {
 						a: 0
-					  }
-					: {
-						a: 0
-					  }
-			  }
+				  }
+				: {
+						y: {
+							a: 0
+						}
+							? {
+									a: 0
+							  }
+							: {
+									a: 0
+							  }
+				  }
 	  };
 
 `;
@@ -609,10 +609,10 @@ debug
 a =>
 	a
 		? () => {
-			a;
+				a;
 		  }
 		: () => {
-			a;
+				a;
 		  };
 a => (a ? a : a);
 a =>
@@ -801,29 +801,29 @@ const obj2 = conditionIsTruthy
 
 const obj3 = conditionIsTruthy
 	? {
-		some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-		object: "with",
-		lots: "of",
-		stuff
+			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+			object: "with",
+			lots: "of",
+			stuff
 	  }
 	: shortThing;
 
 const obj4 = conditionIsTruthy
 	? shortThing
 	: {
-		some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-		object: "with",
-		lots: "of",
-		stuff
+			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+			object: "with",
+			lots: "of",
+			stuff
 	  };
 
 const obj5 = conditionIsTruthy
 	? { some: "long", object: "with", lots: "of", stuff }
 	: {
-		some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-		object: "with",
-		lots: "of",
-		stuff
+			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+			object: "with",
+			lots: "of",
+			stuff
 	  };
 
 `;
