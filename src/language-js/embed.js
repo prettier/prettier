@@ -8,7 +8,9 @@ const indent = docBuilders.indent;
 const join = docBuilders.join;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
+const literalline = docBuilders.literalline;
 const concat = docBuilders.concat;
+const dedentToRoot = docBuilders.dedentToRoot;
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
@@ -143,21 +145,20 @@ function embed(path, print, textToDoc /*, options */) {
             (parentParent.tag.name === "md" ||
               parentParent.tag.name === "markdown")))
       ) {
-        const doc = textToDoc(
-          // leading whitespaces matter in markdown
-          dedent(parent.quasis[0].value.cooked),
-          {
-            parser: "markdown",
-            __inJsTemplate: true
-          }
-        );
+        const text = parent.quasis[0].value.cooked;
+        const indentation = getIndentation(text);
+        const hasIndent = indentation !== "";
         return concat([
-          indent(
-            concat([
-              softline,
-              docUtils.stripTrailingHardline(escapeBackticks(doc))
-            ])
-          ),
+          hasIndent
+            ? indent(
+                concat([
+                  softline,
+                  printMarkdown(
+                    text.replace(new RegExp(`^${indentation}`, "gm"), "")
+                  )
+                ])
+              )
+            : concat([literalline, dedentToRoot(printMarkdown(text))]),
           softline
         ]);
       }
@@ -165,12 +166,16 @@ function embed(path, print, textToDoc /*, options */) {
       break;
     }
   }
+
+  function printMarkdown(text) {
+    const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
+    return docUtils.stripTrailingHardline(escapeBackticks(doc));
+  }
 }
 
-function dedent(str) {
-  const firstMatchedIndent = str.match(/\n^( *)/m);
-  const spaces = firstMatchedIndent === null ? 0 : firstMatchedIndent[1].length;
-  return str.replace(new RegExp(`^ {${spaces}}`, "gm"), "").trim();
+function getIndentation(str) {
+  const firstMatchedIndent = str.match(/^([^\S\n]*)\S/m);
+  return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 
 function escapeBackticks(doc) {
