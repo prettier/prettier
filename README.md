@@ -80,6 +80,15 @@ Prettier can be run [in your editor](http://prettier.io/docs/en/editors.html) on
 
 ---
 
+## Plugins (under construction)
+
+* [prettier/prettier-python](https://github.com/prettier/prettier-python)
+* [prettier/prettier-php](https://github.com/prettier/prettier-php)
+* [prettier/prettier-swift](https://github.com/prettier/prettier-swift)
+* [thorbenvh8/prettier-java](https://github.com/thorbenvh8/prettier-java)
+* [iamsolankiamit/prettier-ruby](https://github.com/iamsolankiamit/prettier-ruby)
+* [benjie/prettier-plugin-pg-sql](https://github.com/benjie/prettier-plugin-pg-sql)
+
 ## Badge
 
 Show the world you're using _Prettier_ → [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
