@@ -87,7 +87,7 @@ Prettier can be run [in your editor](http://prettier.io/docs/en/editors.html) on
 * [prettier/prettier-**Swift**](https://github.com/prettier/prettier-swift)
 * [thorbenvh8/prettier-**Java**](https://github.com/thorbenvh8/prettier-java)
 * [iamsolankiamit/prettier-**Ruby**](https://github.com/iamsolankiamit/prettier-ruby)
-* [benjie/prettier-**PostgreSQL**](https://github.com/benjie/prettier-plugin-pg-sql)
+* [benjie/prettier-**PostgreSQL**](https://github.com/benjie/prettier-plugin-pg)
 
 ## Badge
 
