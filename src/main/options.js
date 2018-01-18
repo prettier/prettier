@@ -30,6 +30,7 @@ const defaults = {
   plugins: [],
   astFormat: "estree",
   printer: {},
+  cssHierarchyIndent: false,
   __inJsTemplate: false
 };
 
