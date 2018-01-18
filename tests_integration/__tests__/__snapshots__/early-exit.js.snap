@@ -130,7 +130,8 @@ exports[`show detailed usage with --help ignore-path (stderr) 1`] = `""`;
 exports[`show detailed usage with --help ignore-path (stdout) 1`] = `
 "--ignore-path <path>
 
-  Path to a file with patterns describing files to ignore.
+  Path to a file with patterns describing files to ignore. Multiple paths can
+  be passed as separate \`--ignore-path\`s.
 
 Default: .prettierignore
 "
@@ -562,7 +563,8 @@ Config options:
   --no-editorconfig        Don't take .editorconfig into account when parsing configuration.
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
-  --ignore-path <path>     Path to a file with patterns describing files to ignore.
+  --ignore-path <path>     Path to a file with patterns describing files to ignore. Multiple paths can
+                           be passed as separate \`--ignore-path\`s.
                            Defaults to .prettierignore.
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
   --with-node-modules      Process files inside 'node_modules' directory.
@@ -703,7 +705,8 @@ Config options:
   --no-editorconfig        Don't take .editorconfig into account when parsing configuration.
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
-  --ignore-path <path>     Path to a file with patterns describing files to ignore.
+  --ignore-path <path>     Path to a file with patterns describing files to ignore. Multiple paths can
+                           be passed as separate \`--ignore-path\`s.
                            Defaults to .prettierignore.
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
   --with-node-modules      Process files inside 'node_modules' directory.

@@ -13,6 +13,19 @@ describe("ignore path", () => {
   });
 });
 
+describe("support multiple ignore-path", () => {
+  runPrettier("cli/ignore-path", [
+    "**/*.js",
+    "--ignore-path",
+    ".gitignore",
+    "--ignore-path",
+    ".prettierignore",
+    "-l"
+  ]).test({
+    status: 0
+  });
+});
+
 describe("support .prettierignore", () => {
   runPrettier("cli/ignore-path", ["**/*.js", "-l"]).test({
     status: 1

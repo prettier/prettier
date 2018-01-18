@@ -269,11 +269,25 @@ function formatStdin(argv) {
 }
 
 function createIgnorer(argv) {
-  const ignoreFilePath = path.resolve(argv["ignore-path"]);
-  let ignoreText = "";
+  let ignorePaths = argv["ignore-path"];
+  if (!Array.isArray(ignorePaths)) {
+    ignorePaths = [ignorePaths];
+  }
+
+  return ignorePaths
+    .map(readIgnoreFile)
+    .reduce(
+      (ignorer, ignoreFileContent) => ignorer.add(ignoreFileContent),
+      ignore()
+    );
+}
+
+function readIgnoreFile(ignorePath) {
+  const ignoreFilePath = path.resolve(ignorePath);
+  let ignoreFileContent = "";
 
   try {
-    ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
+    ignoreFileContent = fs.readFileSync(ignoreFilePath, "utf8");
   } catch (readError) {
     if (readError.code !== "ENOENT") {
       logger.error(`Unable to read ${ignoreFilePath}: ` + readError.message);
@@ -281,7 +295,7 @@ function createIgnorer(argv) {
     }
   }
 
-  return ignore().add(ignoreText);
+  return ignoreFileContent;
 }
 
 function eachFilename(argv, patterns, callback) {
