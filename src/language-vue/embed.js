@@ -28,7 +28,7 @@ function embed(path, print, textToDoc, options) {
     const langAttr = node.attrs.find(attr => attr.name === "lang");
     if (!langAttr) {
       parser = "babylon";
-    } else if (langAttr.value === "ts") {
+    } else if (langAttr.value === "ts" || langAttr.value === "tsx") {
       parser = "typescript";
     }
   }
