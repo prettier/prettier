@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`show warning with kebab-case option key (stderr) 1`] = `
+"[warn] Ignored unknown option \`{ \\"print-width\\": 3 }\`. Did you mean \\"printWidth\\"?
+"
+`;
+
+exports[`show warning with kebab-case option key (stdout) 1`] = `""`;
+
+exports[`show warning with kebab-case option key (write) 1`] = `Array []`;
+
 exports[`show warning with unknown option (stderr) 1`] = `
 "[warn] Ignored unknown option \`{ \\"hello\\": \\"world\\" }\`.
 "
