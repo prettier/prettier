@@ -52,7 +52,9 @@ class Context {
       .filter(option => option.forwardToApi)
       .reduce(
         (current, option) =>
-          Object.assign(current, { [option.forwardToApi]: argv[option.name] }),
+          Object.assign(current, {
+            [option.forwardToApi]: argv[option.name]
+          }),
         {}
       );
   }
@@ -117,15 +119,15 @@ class Context {
     }
   }
 
-  listDifferent(argv, input, options, filename) {
-    if (!argv["list-different"]) {
+  listDifferent(input, options, filename) {
+    if (!this.argv["list-different"]) {
       return;
     }
 
     options = Object.assign({}, options, { filepath: filename });
 
     if (!prettier.check(input, options)) {
-      if (!argv["write"]) {
+      if (!this.argv["write"]) {
         logger.log(filename);
       }
       process.exitCode = 1;
@@ -134,13 +136,13 @@ class Context {
     return true;
   }
 
-  format(argv, input, opt) {
-    if (argv["debug-print-doc"]) {
+  format(input, opt) {
+    if (this.argv["debug-print-doc"]) {
       const doc = prettier.__debug.printToDoc(input, opt);
       return { formatted: prettier.__debug.formatDoc(doc) };
     }
 
-    if (argv["debug-check"]) {
+    if (this.argv["debug-check"]) {
       const pp = prettier.format(input, opt);
       const pppp = prettier.format(pp, opt);
       if (pp !== pppp) {
@@ -179,21 +181,21 @@ class Context {
     return prettier.formatWithCursor(input, opt);
   }
 
-  getOptionsOrDie(argv, filePath) {
+  getOptionsOrDie(filePath) {
     try {
-      if (argv["config"] === false) {
+      if (this.argv["config"] === false) {
         logger.debug("'--no-config' option found, skip loading config file.");
         return null;
       }
 
       logger.debug(
-        argv["config"]
-          ? `load config file from '${argv["config"]}'`
+        this.argv["config"]
+          ? `load config file from '${this.argv["config"]}'`
           : `resolve config from '${filePath}'`
       );
       const options = resolver.resolveConfig.sync(filePath, {
-        editorconfig: argv.editorconfig,
-        config: argv["config"]
+        editorconfig: this.argv.editorconfig,
+        config: this.argv["config"]
       });
 
       logger.debug("loaded options `" + JSON.stringify(options) + "`");
@@ -204,13 +206,12 @@ class Context {
     }
   }
 
-  getOptionsForFile(argv, filepath) {
-    const options = this.getOptionsOrDie(argv, filepath);
+  getOptionsForFile(filepath) {
+    const options = this.getOptionsOrDie(filepath);
 
     const appliedOptions = Object.assign(
       { filepath },
       this.applyConfigPrecedence(
-        argv,
         options &&
           optionsNormalizer.normalizeApiOptions(options, optionInfos, {
             logger
@@ -219,17 +220,17 @@ class Context {
     );
 
     logger.debug(
-      `applied config-precedence (${argv["config-precedence"]}): ` +
+      `applied config-precedence (${this.argv["config-precedence"]}): ` +
         `${JSON.stringify(appliedOptions)}`
     );
     return appliedOptions;
   }
 
-  parseArgsToOptions(argv, overrideDefaults) {
+  parseArgsToOptions(overrideDefaults) {
     return this.getOptions(
       optionsNormalizer.normalizeCliOptions(
         minimist(
-          argv.__args,
+          this.argv.__args,
           Object.assign({
             string: constant.minimistOptions.string,
             boolean: constant.minimistOptions.boolean,
@@ -246,15 +247,15 @@ class Context {
     );
   }
 
-  applyConfigPrecedence(argv, options) {
+  applyConfigPrecedence(options) {
     try {
-      switch (argv["config-precedence"]) {
+      switch (this.argv["config-precedence"]) {
         case "cli-override":
-          return this.parseArgsToOptions(argv, options);
+          return this.parseArgsToOptions(options);
         case "file-override":
-          return Object.assign({}, this.parseArgsToOptions(argv), options);
+          return Object.assign({}, this.parseArgsToOptions(), options);
         case "prefer-file":
-          return options || this.parseArgsToOptions(argv);
+          return options || this.parseArgsToOptions();
       }
     } catch (error) {
       logger.error(error.toString());
@@ -262,12 +263,12 @@ class Context {
     }
   }
 
-  formatStdin(argv) {
-    const filepath = argv["stdin-filepath"]
-      ? path.resolve(process.cwd(), argv["stdin-filepath"])
+  formatStdin() {
+    const filepath = this.argv["stdin-filepath"]
+      ? path.resolve(process.cwd(), this.argv["stdin-filepath"])
       : process.cwd();
 
-    const ignorer = this.createIgnorer(argv);
+    const ignorer = this.createIgnorer();
     const relativeFilepath = path.relative(process.cwd(), filepath);
 
     thirdParty.getStream(process.stdin).then(input => {
@@ -276,22 +277,22 @@ class Context {
         return;
       }
 
-      const options = this.getOptionsForFile(argv, filepath);
+      const options = this.getOptionsForFile(filepath);
 
-      if (this.listDifferent(argv, input, options, "(stdin)")) {
+      if (this.listDifferent(input, options, "(stdin)")) {
         return;
       }
 
       try {
-        this.writeOutput(this.format(argv, input, options), options);
+        this.writeOutput(this.format(input, options), options);
       } catch (error) {
         this.handleError("stdin", error);
       }
     });
   }
 
-  createIgnorer(argv) {
-    const ignoreFilePath = path.resolve(argv["ignore-path"]);
+  createIgnorer() {
+    const ignoreFilePath = path.resolve(this.argv["ignore-path"]);
     let ignoreText = "";
 
     try {
@@ -306,8 +307,8 @@ class Context {
     return ignore().add(ignoreText);
   }
 
-  eachFilename(argv, patterns, callback) {
-    const ignoreNodeModules = argv["with-node-modules"] === false;
+  eachFilename(patterns, callback) {
+    const ignoreNodeModules = this.argv["with-node-modules"] === false;
     if (ignoreNodeModules) {
       patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
     }
@@ -325,7 +326,7 @@ class Context {
         return;
       }
       filePaths.forEach(filePath =>
-        callback(filePath, this.getOptionsForFile(argv, filePath))
+        callback(filePath, this.getOptionsForFile(filePath))
       );
     } catch (error) {
       logger.error(
@@ -338,18 +339,18 @@ class Context {
     }
   }
 
-  formatFiles(argv) {
+  formatFiles() {
     // The ignorer will be used to filter file paths after the glob is checked,
     // before any files are actually written
-    const ignorer = this.createIgnorer(argv);
+    const ignorer = this.createIgnorer();
 
-    this.eachFilename(argv, argv.__filePatterns, (filename, options) => {
+    this.eachFilename(this.argv.__filePatterns, (filename, options) => {
       const fileIgnored = ignorer.filter([filename]).length === 0;
-      if (fileIgnored && (argv["write"] || argv["list-different"])) {
+      if (fileIgnored && (this.argv["write"] || this.argv["list-different"])) {
         return;
       }
 
-      if (argv["write"] && process.stdout.isTTY) {
+      if (this.argv["write"] && process.stdout.isTTY) {
         // Don't use `console.log` here since we need to replace this line.
         logger.log(filename, { newline: false });
       }
@@ -372,7 +373,7 @@ class Context {
         return;
       }
 
-      this.listDifferent(argv, input, options, filename);
+      this.listDifferent(input, options, filename);
 
       const start = Date.now();
 
@@ -381,7 +382,6 @@ class Context {
 
       try {
         result = this.format(
-          argv,
           input,
           Object.assign({}, options, { filepath: filename })
         );
@@ -394,7 +394,7 @@ class Context {
         return;
       }
 
-      if (argv["write"]) {
+      if (this.argv["write"]) {
         if (process.stdout.isTTY) {
           // Remove previously printed filename to log it with duration.
           readline.clearLine(process.stdout, 0);
@@ -404,11 +404,11 @@ class Context {
         // Don't write the file if it won't change in order not to invalidate
         // mtime based caches.
         if (output === input) {
-          if (!argv["list-different"]) {
+          if (!this.argv["list-different"]) {
             logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
           }
         } else {
-          if (argv["list-different"]) {
+          if (this.argv["list-different"]) {
             logger.log(filename);
           } else {
             logger.log(`${filename} ${Date.now() - start}ms`);
@@ -422,13 +422,13 @@ class Context {
             process.exitCode = 2;
           }
         }
-      } else if (argv["debug-check"]) {
+      } else if (this.argv["debug-check"]) {
         if (output) {
           logger.log(output);
         } else {
           process.exitCode = 2;
         }
-      } else if (!argv["list-different"]) {
+      } else if (!this.argv["list-different"]) {
         this.writeOutput(result, options);
       }
     });

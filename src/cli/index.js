@@ -56,9 +56,9 @@ function run(args) {
     if (context.argv["find-config-path"]) {
       context.logResolvedConfigPathOrDie(context.argv["find-config-path"]);
     } else if (useStdin) {
-      context.formatStdin(context.argv);
+      context.formatStdin();
     } else if (hasFilePatterns) {
-      context.formatFiles(context.argv);
+      context.formatFiles();
     } else {
       logger.log(context.createUsage());
       process.exit(1);
