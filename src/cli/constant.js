@@ -24,46 +24,15 @@ const detailedOptions = util.normalizeDetailedOptions(
   Object.assign(
     getSupportInfo(null, {
       showDeprecated: true,
-      showUnreleased: true
+      showUnreleased: true,
+      showInternal: true
     }).options.reduce((reduced, option) => {
       const newOption = Object.assign({}, option, {
-        name: dashify(option.name),
+        name: option.cliName || dashify(option.name),
+        description: option.cliDescription || option.description,
+        category: option.cliCategory || CATEGORY_FORMAT,
         forwardToApi: option.name
       });
-
-      switch (option.name) {
-        case "filepath":
-          Object.assign(newOption, {
-            name: "stdin-filepath",
-            description: "Path to the file to pretend that stdin comes from."
-          });
-          break;
-        case "useFlowParser":
-          newOption.name = "flow-parser";
-          break;
-        case "plugins":
-          newOption.name = "plugin";
-          break;
-      }
-
-      switch (newOption.name) {
-        case "cursor-offset":
-        case "range-start":
-        case "range-end":
-          newOption.category = CATEGORY_EDITOR;
-          break;
-        case "stdin-filepath":
-        case "insert-pragma":
-        case "require-pragma":
-          newOption.category = CATEGORY_OTHER;
-          break;
-        case "plugin":
-          newOption.category = CATEGORY_CONFIG;
-          break;
-        default:
-          newOption.category = CATEGORY_FORMAT;
-          break;
-      }
 
       if (option.deprecated) {
         delete newOption.forwardToApi;

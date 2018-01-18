@@ -9,6 +9,10 @@ const loadPlugins = require("./load-plugins");
 const CATEGORY_GLOBAL = "Global";
 const CATEGORY_SPECIAL = "Special";
 
+const CATEGORY_CONFIG = "Config";
+const CATEGORY_EDITOR = "Editor";
+const CATEGORY_OTHER = "Other";
+
 /**
  * @typedef {Object} OptionInfo
  * @property {string} since - available since version
@@ -42,6 +46,10 @@ const CATEGORY_SPECIAL = "Special";
  * @property {string?} since - undefined if available since the first version of the option
  * @property {string?} deprecated - deprecated since version
  * @property {OptionValueInfo?} redirect - redirect deprecated value
+ *
+ * @property {string?} cliName
+ * @property {string?} cliCategory
+ * @property {string?} cliDescription
  */
 /** @type {{ [name: string]: OptionInfo } */
 const supportOptions = {
@@ -54,7 +62,8 @@ const supportOptions = {
     description: dedent`
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end.
-    `
+    `,
+    cliCategory: CATEGORY_EDITOR
   },
   filepath: {
     since: "1.4.0",
@@ -62,14 +71,18 @@ const supportOptions = {
     type: "path",
     default: undefined,
     description:
-      "Specify the input filepath. This will be used to do parser inference."
+      "Specify the input filepath. This will be used to do parser inference.",
+    cliName: "stdin-filepath",
+    cliCategory: CATEGORY_OTHER,
+    cliDescription: "Path to the file to pretend that stdin comes from."
   },
   insertPragma: {
     since: "1.8.0",
     category: CATEGORY_SPECIAL,
     type: "boolean",
     default: false,
-    description: "Insert @format pragma into file's first docblock comment."
+    description: "Insert @format pragma into file's first docblock comment.",
+    cliCategory: CATEGORY_OTHER
   },
   parser: {
     since: "0.0.10",
@@ -107,7 +120,9 @@ const supportOptions = {
     category: CATEGORY_GLOBAL,
     description:
       "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.",
-    exception: value => typeof value === "string" || typeof value === "object"
+    exception: value => typeof value === "string" || typeof value === "object",
+    cliName: "plugin",
+    cliCategory: CATEGORY_CONFIG
   },
   printWidth: {
     since: "0.0.0",
@@ -127,7 +142,8 @@ const supportOptions = {
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
       This option cannot be used with --cursor-offset.
-    `
+    `,
+    cliCategory: CATEGORY_EDITOR
   },
   rangeStart: {
     since: "1.4.0",
@@ -139,7 +155,8 @@ const supportOptions = {
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
       This option cannot be used with --cursor-offset.
-    `
+    `,
+    cliCategory: CATEGORY_EDITOR
   },
   requirePragma: {
     since: "1.7.0",
@@ -149,7 +166,8 @@ const supportOptions = {
     description: dedent`
       Require either '@prettier' or '@format' to be present in the file's first docblock comment
       in order for it to be formatted.
-    `
+    `,
+    cliCategory: CATEGORY_OTHER
   },
   tabWidth: {
     type: "int",
@@ -165,7 +183,8 @@ const supportOptions = {
     default: false,
     deprecated: "0.0.10",
     description: "Use flow parser.",
-    redirect: { option: "parser", value: "flow" }
+    redirect: { option: "parser", value: "flow" },
+    cliName: "flow-parser"
   },
   useTabs: {
     since: "1.0.0",
@@ -182,7 +201,8 @@ function getSupportInfo(version, opts) {
       plugins: [],
       pluginsLoaded: false,
       showUnreleased: false,
-      showDeprecated: false
+      showDeprecated: false,
+      showInternal: false
     },
     opts
   );
@@ -219,6 +239,7 @@ function getSupportInfo(version, opts) {
     .filter(filterSince)
     .filter(filterDeprecated)
     .map(mapDeprecated)
+    .map(mapInternal)
     .map(option => {
       const newOption = Object.assign({}, option);
 
@@ -292,6 +313,16 @@ function getSupportInfo(version, opts) {
     const newObject = Object.assign({}, object);
     delete newObject.deprecated;
     delete newObject.redirect;
+    return newObject;
+  }
+  function mapInternal(object) {
+    if (opts.showInternal) {
+      return object;
+    }
+    const newObject = Object.assign({}, object);
+    delete newObject.cliName;
+    delete newObject.cliCategory;
+    delete newObject.cliDescription;
     return newObject;
   }
 }
