@@ -1,12 +1,28 @@
 "use strict";
 
+const chalk = require("chalk");
+
 const prettier = require("../../index");
 const Context = require("./context");
-const logger = require("./logger");
+const constant = require("./constant");
+const minimist = require("minimist");
+const normalizer = require("../main/options-normalizer");
 
 function run(args) {
+  const rawArgv = minimist(args, constant.minimistOptions);
+
+  const logger = createLogger(
+    rawArgv["loglevel"] || constant.detailedOptionMap["loglevel"].default
+  );
+
   try {
-    const context = new Context(args);
+    const argv = normalizer.normalizeCliOptions(
+      rawArgv,
+      constant.detailedOptions,
+      { logger }
+    );
+
+    const context = new Context(argv, logger);
 
     logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
@@ -66,6 +82,54 @@ function run(args) {
   } catch (error) {
     logger.error(error.message);
     process.exit(1);
+  }
+}
+
+function createLogger(logLevel) {
+  return {
+    warn: createLogFunc("warn", "yellow"),
+    error: createLogFunc("error", "red"),
+    debug: createLogFunc("debug", "blue"),
+    log: createLogFunc("log")
+  };
+
+  function createLogFunc(loggerName, color) {
+    if (!shouldLog(loggerName)) {
+      return () => {};
+    }
+
+    const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
+    return function(message, opts) {
+      opts = Object.assign({ newline: true }, opts);
+      const stream = process[loggerName === "log" ? "stdout" : "stderr"];
+      stream.write(message.replace(/^/gm, prefix) + (opts.newline ? "\n" : ""));
+    };
+  }
+
+  function shouldLog(loggerName) {
+    switch (logLevel) {
+      case "silent":
+        return false;
+      default:
+        return true;
+      case "debug":
+        if (loggerName === "debug") {
+          return true;
+        }
+      // fall through
+      case "log":
+        if (loggerName === "log") {
+          return true;
+        }
+      // fall through
+      case "warn":
+        if (loggerName === "warn") {
+          return true;
+        }
+      // fall through
+      case "error":
+        return loggerName === "error";
+    }
   }
 }
 

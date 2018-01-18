@@ -11,7 +11,6 @@ const chalk = require("chalk");
 const readline = require("readline");
 const leven = require("leven");
 
-const normalizer = require("../main/options-normalizer");
 const prettier = require("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
 const errors = require("../common/errors");
@@ -20,7 +19,6 @@ const constant = require("./constant");
 const optionsModule = require("../main/options");
 const apiDefaultOptions = optionsModule.defaults;
 const optionsNormalizer = require("../main/options-normalizer");
-const logger = require("./logger");
 const thirdParty = require("../common/third-party");
 const optionInfos = require("../common/support").getSupportInfo(null, {
   showDeprecated: true,
@@ -32,19 +30,9 @@ const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 class Context {
-  constructor(args) {
-    const rawArgv = minimist(args, constant.minimistOptions);
-
-    process.env[logger.ENV_LOG_LEVEL] =
-      rawArgv["loglevel"] || constant.detailedOptionMap["loglevel"].default;
-
-    const argv = normalizer.normalizeCliOptions(
-      rawArgv,
-      constant.detailedOptions,
-      { logger }
-    );
-
+  constructor(argv, logger) {
     this.argv = argv;
+    this.logger = logger;
   }
 
   getOptions(argv) {
@@ -86,15 +74,15 @@ class Context {
     // `util.inspect` of throws things that aren't `Error` objects. (The Flow
     // parser has mistakenly thrown arrays sometimes.)
     if (isParseError) {
-      logger.error(`${filename}: ${String(error)}`);
+      this.logger.error(`${filename}: ${String(error)}`);
     } else if (isValidationError || error instanceof errors.ConfigError) {
-      logger.error(String(error));
+      this.logger.error(String(error));
       // If validation fails for one file, it will fail for all of them.
       process.exit(1);
     } else if (error instanceof errors.DebugError) {
-      logger.error(`${filename}: ${error.message}`);
+      this.logger.error(`${filename}: ${error.message}`);
     } else {
-      logger.error(filename + ": " + (error.stack || error));
+      this.logger.error(filename + ": " + (error.stack || error));
     }
 
     // Don't exit the process if one file failed
@@ -104,7 +92,7 @@ class Context {
   logResolvedConfigPathOrDie(filePath) {
     const configFile = resolver.resolveConfigFile.sync(filePath);
     if (configFile) {
-      logger.log(path.relative(process.cwd(), configFile));
+      this.logger.log(path.relative(process.cwd(), configFile));
     } else {
       process.exit(1);
     }
@@ -128,7 +116,7 @@ class Context {
 
     if (!prettier.check(input, options)) {
       if (!this.argv["write"]) {
-        logger.log(filename);
+        this.logger.log(filename);
       }
       process.exitCode = 1;
     }
@@ -184,11 +172,13 @@ class Context {
   getOptionsOrDie(filePath) {
     try {
       if (this.argv["config"] === false) {
-        logger.debug("'--no-config' option found, skip loading config file.");
+        this.logger.debug(
+          "'--no-config' option found, skip loading config file."
+        );
         return null;
       }
 
-      logger.debug(
+      this.logger.debug(
         this.argv["config"]
           ? `load config file from '${this.argv["config"]}'`
           : `resolve config from '${filePath}'`
@@ -198,10 +188,10 @@ class Context {
         config: this.argv["config"]
       });
 
-      logger.debug("loaded options `" + JSON.stringify(options) + "`");
+      this.logger.debug("loaded options `" + JSON.stringify(options) + "`");
       return options;
     } catch (error) {
-      logger.error("Invalid configuration file: " + error.message);
+      this.logger.error("Invalid configuration file: " + error.message);
       process.exit(2);
     }
   }
@@ -214,12 +204,12 @@ class Context {
       this.applyConfigPrecedence(
         options &&
           optionsNormalizer.normalizeApiOptions(options, optionInfos, {
-            logger
+            logger: this.logger
           })
       )
     );
 
-    logger.debug(
+    this.logger.debug(
       `applied config-precedence (${this.argv["config-precedence"]}): ` +
         `${JSON.stringify(appliedOptions)}`
     );
@@ -258,7 +248,7 @@ class Context {
           return options || this.parseArgsToOptions();
       }
     } catch (error) {
-      logger.error(error.toString());
+      this.logger.error(error.toString());
       process.exit(2);
     }
   }
@@ -299,7 +289,9 @@ class Context {
       ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
     } catch (readError) {
       if (readError.code !== "ENOENT") {
-        logger.error(`Unable to read ${ignoreFilePath}: ` + readError.message);
+        this.logger.error(
+          `Unable to read ${ignoreFilePath}: ` + readError.message
+        );
         process.exit(2);
       }
     }
@@ -319,7 +311,7 @@ class Context {
         .map(filePath => path.relative(process.cwd(), filePath));
 
       if (filePaths.length === 0) {
-        logger.error(
+        this.logger.error(
           `No matching files. Patterns tried: ${patterns.join(" ")}`
         );
         process.exitCode = 2;
@@ -329,7 +321,7 @@ class Context {
         callback(filePath, this.getOptionsForFile(filePath))
       );
     } catch (error) {
-      logger.error(
+      this.logger.error(
         `Unable to expand glob patterns: ${patterns.join(" ")}\n${
           error.message
         }`
@@ -352,7 +344,7 @@ class Context {
 
       if (this.argv["write"] && process.stdout.isTTY) {
         // Don't use `console.log` here since we need to replace this line.
-        logger.log(filename, { newline: false });
+        this.logger.log(filename, { newline: false });
       }
 
       let input;
@@ -360,9 +352,9 @@ class Context {
         input = fs.readFileSync(filename, "utf8");
       } catch (error) {
         // Add newline to split errors from filename line.
-        logger.log("");
+        this.logger.log("");
 
-        logger.error(`Unable to read file: ${filename}\n${error.message}`);
+        this.logger.error(`Unable to read file: ${filename}\n${error.message}`);
         // Don't exit the process if one file failed
         process.exitCode = 2;
         return;
@@ -405,26 +397,28 @@ class Context {
         // mtime based caches.
         if (output === input) {
           if (!this.argv["list-different"]) {
-            logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
+            this.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
           }
         } else {
           if (this.argv["list-different"]) {
-            logger.log(filename);
+            this.logger.log(filename);
           } else {
-            logger.log(`${filename} ${Date.now() - start}ms`);
+            this.logger.log(`${filename} ${Date.now() - start}ms`);
           }
 
           try {
             fs.writeFileSync(filename, output, "utf8");
           } catch (error) {
-            logger.error(`Unable to write file: ${filename}\n${error.message}`);
+            this.logger.error(
+              `Unable to write file: ${filename}\n${error.message}`
+            );
             // Don't exit the process if one file failed
             process.exitCode = 2;
           }
         }
       } else if (this.argv["debug-check"]) {
         if (output) {
-          logger.log(output);
+          this.logger.log(output);
         } else {
           process.exitCode = 2;
         }
@@ -567,14 +561,14 @@ class Context {
 
     if (suggestedOptionNameContainer !== undefined) {
       const suggestedOptionName = suggestedOptionNameContainer.value;
-      logger.warn(
+      this.logger.warn(
         `Unknown option name "${optionName}", did you mean "${suggestedOptionName}"?`
       );
 
       return options[suggestedOptionNameContainer.index];
     }
 
-    logger.warn(`Unknown option name "${optionName}"`);
+    this.logger.warn(`Unknown option name "${optionName}"`);
     return options.find(option => option.name === "help");
   }
 
