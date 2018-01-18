@@ -11,6 +11,7 @@ const chalk = require("chalk");
 const readline = require("readline");
 const leven = require("leven");
 
+const util = require("./util");
 const normalizer = require("../main/options-normalizer");
 const prettier = require("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
@@ -34,7 +35,7 @@ class Context {
   constructor(args) {
     const rawArgv = minimist(args, constant.minimistOptions);
 
-    const logger = createLogger(
+    const logger = util.createLogger(
       rawArgv["loglevel"] || constant.detailedOptionMap["loglevel"].default
     );
 
@@ -471,7 +472,7 @@ class Context {
         )
     );
 
-    const groupedOptions = groupBy(options, option => option.category);
+    const groupedOptions = util.groupBy(options, option => option.category);
 
     const firstCategories = constant.categoryOrder.slice(0, -1);
     const lastCategories = constant.categoryOrder.slice(-1);
@@ -489,7 +490,7 @@ class Context {
       const categoryOptions = groupedOptions[category]
         .map(option => this.createOptionUsage(option, OPTION_USAGE_THRESHOLD))
         .join("\n");
-      return `${category} options:\n\n${indent(categoryOptions, 2)}`;
+      return `${category} options:\n\n${util.indent(categoryOptions, 2)}`;
     });
 
     return [constant.usageSummary].concat(optionsUsage, [""]).join("\n\n");
@@ -594,7 +595,7 @@ class Context {
         .map(choice => choice.value.length)
         .reduce((current, length) => Math.max(current, length), 0) + margin;
     return activeChoices.map(choice =>
-      indent(
+      util.indent(
         this.createOptionUsageRow(choice.value, choice.description, threshold),
         indentation
       )
@@ -608,7 +609,7 @@ class Context {
     );
 
     const header = this.createOptionUsageHeader(option);
-    const description = `\n\n${indent(option.description, 2)}`;
+    const description = `\n\n${util.indent(option.description, 2)}`;
 
     const choices =
       option.type !== "choice"
@@ -646,66 +647,6 @@ class Context {
     }
 
     return undefined;
-  }
-}
-
-function indent(str, spaces) {
-  return str.replace(/^/gm, " ".repeat(spaces));
-}
-
-function groupBy(array, getKey) {
-  return array.reduce((obj, item) => {
-    const key = getKey(item);
-    const previousItems = key in obj ? obj[key] : [];
-    return Object.assign({}, obj, { [key]: previousItems.concat(item) });
-  }, Object.create(null));
-}
-
-function createLogger(logLevel) {
-  return {
-    warn: createLogFunc("warn", "yellow"),
-    error: createLogFunc("error", "red"),
-    debug: createLogFunc("debug", "blue"),
-    log: createLogFunc("log")
-  };
-
-  function createLogFunc(loggerName, color) {
-    if (!shouldLog(loggerName)) {
-      return () => {};
-    }
-
-    const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
-    return function(message, opts) {
-      opts = Object.assign({ newline: true }, opts);
-      const stream = process[loggerName === "log" ? "stdout" : "stderr"];
-      stream.write(message.replace(/^/gm, prefix) + (opts.newline ? "\n" : ""));
-    };
-  }
-
-  function shouldLog(loggerName) {
-    switch (logLevel) {
-      case "silent":
-        return false;
-      default:
-        return true;
-      case "debug":
-        if (loggerName === "debug") {
-          return true;
-        }
-      // fall through
-      case "log":
-        if (loggerName === "log") {
-          return true;
-        }
-      // fall through
-      case "warn":
-        if (loggerName === "warn") {
-          return true;
-        }
-      // fall through
-      case "error":
-        return loggerName === "error";
-    }
   }
 }
 
