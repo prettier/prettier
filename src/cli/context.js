@@ -11,6 +11,7 @@ const chalk = require("chalk");
 const readline = require("readline");
 const leven = require("leven");
 
+const normalizer = require("../main/options-normalizer");
 const prettier = require("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
 const errors = require("../common/errors");
@@ -30,9 +31,23 @@ const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 class Context {
-  constructor(argv, logger) {
-    this.argv = argv;
+  constructor(args) {
+    const rawArgv = minimist(args, constant.minimistOptions);
+
+    const logger = createLogger(
+      rawArgv["loglevel"] || constant.detailedOptionMap["loglevel"].default
+    );
+
+    this.rawArgv = rawArgv;
     this.logger = logger;
+  }
+
+  init() {
+    this.argv = normalizer.normalizeCliOptions(
+      this.rawArgv,
+      constant.detailedOptions,
+      { logger: this.logger }
+    );
   }
 
   getOptions(argv) {
@@ -644,6 +659,54 @@ function groupBy(array, getKey) {
     const previousItems = key in obj ? obj[key] : [];
     return Object.assign({}, obj, { [key]: previousItems.concat(item) });
   }, Object.create(null));
+}
+
+function createLogger(logLevel) {
+  return {
+    warn: createLogFunc("warn", "yellow"),
+    error: createLogFunc("error", "red"),
+    debug: createLogFunc("debug", "blue"),
+    log: createLogFunc("log")
+  };
+
+  function createLogFunc(loggerName, color) {
+    if (!shouldLog(loggerName)) {
+      return () => {};
+    }
+
+    const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
+    return function(message, opts) {
+      opts = Object.assign({ newline: true }, opts);
+      const stream = process[loggerName === "log" ? "stdout" : "stderr"];
+      stream.write(message.replace(/^/gm, prefix) + (opts.newline ? "\n" : ""));
+    };
+  }
+
+  function shouldLog(loggerName) {
+    switch (logLevel) {
+      case "silent":
+        return false;
+      default:
+        return true;
+      case "debug":
+        if (loggerName === "debug") {
+          return true;
+        }
+      // fall through
+      case "log":
+        if (loggerName === "log") {
+          return true;
+        }
+      // fall through
+      case "warn":
+        if (loggerName === "warn") {
+          return true;
+        }
+      // fall through
+      case "error":
+        return loggerName === "error";
+    }
+  }
 }
 
 module.exports = Context;
