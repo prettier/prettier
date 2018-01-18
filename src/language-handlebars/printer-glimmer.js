@@ -9,6 +9,7 @@ const concat = docBuilders.concat;
 const join = docBuilders.join;
 const softline = docBuilders.softline;
 const hardline = docBuilders.hardline;
+const literalline = docBuilders.literalline;
 const line = docBuilders.line;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
@@ -46,27 +47,9 @@ function print(path, options, print) {
 
   switch (n.type) {
     case "Program": {
-      return group(concat(path.map(print, "body")));
-      // const parts = [];
-      // parts.push(
-      //   path.call(bodyPath => {
-      //     const printed = [];
-
-      //     bodyPath.map(stmtPath => {
-      //       const stmt = stmtPath.getValue();
-
-      //       const text = options.originalText;
-      //       const parts = [];
-      //       parts.push(print(stmtPath, options, print));
-
-      //       printed.push(concat(parts));
-      //     });
-
-      //     return concat(printed);
-      //   }, "body")
-      // );
-
-      // return group(concat(parts));
+      return fill(
+        whiteSpaceJoin(softline, path.map(print, "body").filter(a => a))
+      );
     }
     case "ElementNode": {
       const isVoid = voidTags.indexOf(n.tag) !== -1;
@@ -86,6 +69,13 @@ function print(path, options, print) {
           ])
         );
 
+      let children;
+      if (hasChildren) {
+        children = fill(
+          whiteSpaceJoin(softline, path.map(print, "children").filter(a => a))
+        );
+      }
+
       // The problem here is that I want to not break at all if the children
       // would not break but I need to force an indent, so I use a hardline.
       /**
@@ -104,14 +94,14 @@ function print(path, options, print) {
             "<",
             n.tag,
             getParams(path, print),
-            ifBreak(softline, ""),
+            // ifBreak(softline, ""),
             closeTag
           ])
         ),
         group(
           concat([
-            indent(join(softline, path.map(print, "children"))),
-            ifBreak(hasChildren ? hardline : "", ""),
+            hasChildren ? indent(children) : "",
+            softline,
             !isVoid ? concat(["</", n.tag, ">"]) : ""
           ])
         )
@@ -148,8 +138,8 @@ function print(path, options, print) {
         printOpenBlock(path, print),
         group(
           concat([
-            indent(concat([softline, path.call(print, "program")])),
-            hasParams && hasChildren ? hardline : "",
+            indent(concat([path.call(print, "program")])),
+            // hasParams && hasChildren ? softline : "",
             printCloseBlock(path, print)
           ])
         )
@@ -207,30 +197,60 @@ function print(path, options, print) {
     }
     case "TextNode": {
       if (n.chars.replace(/\s+/g, "") === "") {
-        const text = options.originalText;
-        if (!hasNewLineInRange(text, n.start, n.end)) {
-          return "";
+        const numNewLines = (n.chars.match(/\n/g) || []).length;
+        if (numNewLines > 2) {
+          return concat(
+            Array.from({ length: numNewLines - 2 }, () => hardline)
+          );
         }
-        const newLines = n.chars.match(RegExp("\n", "g"));
-        if (newLines.length >= 1) {
-          return concat(newLines.map(() => hardline));
+        if (numNewLines > 0) {
+          return hardline;
         }
         return "";
       }
-      return fill(
-        n.chars
-          .split(/\s+/)
-          .map((elem, idx, arr) =>
-            concat([
-              elem,
-              idx === 0 ||
-              idx === arr.length - 1 ||
-              elem.replace(/\s+/g, "") === ""
-                ? ""
-                : line
-            ])
-          )
+      let parts = [];
+      const prevWhiteSpace = (n.chars.match(/^\s+/) || [])[0] || "";
+      const numPreviousNewLines = (prevWhiteSpace.match(/\n/g) || []).length;
+      if (numPreviousNewLines > 1) {
+        parts = parts.concat(
+          Array.from({ length: numPreviousNewLines - 1 }, () => hardline)
+        );
+      }
+      if (numPreviousNewLines === 2) {
+        parts.push(hardline);
+      }
+
+      parts.push(
+        fill(
+          n.chars
+            .replace(/^\s+/, "")
+            .replace(/\s+$/, "")
+            .split(/(\s+)/)
+            .map(
+              chars =>
+                /[^\s]+/.test(chars)
+                  ? chars
+                  : concat(
+                      chars
+                        .split("")
+                        .map(char => (char === "\n" ? literalline : line))
+                    )
+            )
+        )
       );
+
+      const trailingWhiteSpace = (n.chars.match(/\s+$/) || [])[0] || "";
+      const numTrailingNewLines = (trailingWhiteSpace.match(/\n/g) || [])
+        .length;
+      if (numTrailingNewLines > 1) {
+        parts = parts.concat(
+          Array.from({ length: numTrailingNewLines - 1 }, () => hardline)
+        );
+      }
+      if (numTrailingNewLines === 2) {
+        parts.push(hardline);
+      }
+      return concat(parts);
     }
     case "MustacheCommentStatement": {
       const dashes = n.value.indexOf("}}") > -1 ? "--" : "";
@@ -305,7 +325,6 @@ function printOpenBlock(path, print) {
       "{{#",
       printPathParams(path, print),
       printBlockParams(path, print),
-      softline,
       "}}"
     ])
   );
@@ -334,6 +353,42 @@ function isLastStatement(path) {
     stmt => stmt.type !== "EmptyStatement"
   );
   return body && body[body.length - 1] === node;
+}
+
+function checkForLine(node) {
+  if (!node || !node.type) {
+    if (typeof node === "string") {
+      return node.replace(/\s/g, "") === "";
+    }
+    return false;
+  }
+  switch (node.type) {
+    case "line":
+      return true;
+    case "concat":
+    case "fill":
+      return checkForLine(node.parts[0]);
+    case "group":
+      return checkForLine(node.contents);
+  }
+  throw new Error(JSON.stringify(node));
+}
+
+function whiteSpaceJoin(delimeter, arr) {
+  if (arr.every(node => checkForLine(node))) {
+    return arr;
+  }
+  return arr
+    .map((node, idx) => {
+      if (!node) {
+        return null;
+      }
+      if (idx === 0 || checkForLine(node)) {
+        return node;
+      }
+      return concat([delimeter, node]);
+    })
+    .filter(a => a);
 }
 
 module.exports = {

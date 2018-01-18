@@ -30,15 +30,12 @@ exports[`block-statement.hbs 1`] = `
   {{/block}}
 {{/block}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{{#block param hashKey=hashValue as |blockParam|}}
-  Hello
-{{/block}}
+{{#block param hashKey=hashValue as |blockParam|}}Hello{{/block}}
 
 {{#block
   almost80CharacterLongPositionalParamThatIsFirstAlmost80Chars
   helloWorldParam
-  key=here
-}}{{/block}}
+  key=here}}{{/block}}
 
 {{#block
   param
@@ -48,10 +45,7 @@ exports[`block-statement.hbs 1`] = `
   param
   param
   param
-  hashKey=hashValue as |blockParam|
-}}
-  Hello
-{{/block}}
+  hashKey=hashValue as |blockParam|}}Hello{{/block}}
 
 {{#block
   param
@@ -62,10 +56,7 @@ exports[`block-statement.hbs 1`] = `
   param
   param
   hashKey=HashValue
-  hashKey=hashValue
-}}
-  Hello
-{{/block}}
+  hashKey=hashValue}}Hello{{/block}}
 
 {{#block
   param
@@ -80,22 +71,15 @@ exports[`block-statement.hbs 1`] = `
   param
   param
   param
-  param
-}}
-  Hello
-{{/block}}
+  param}}Hello{{/block}}
 
 {{#block
   hashKey=HashValue
   hashKey=hashValue
   hashKey=HashValue
   hashKey=hashValue
-  hashKey=HashValue
-}}
-  Hello
-{{/block}}
-
-{{#block}}{{#block}}hello  {{/block}}{{/block}}
+  hashKey=HashValue}}Hello{{/block}}
+{{#block}}{{#block}}hello{{/block}}{{/block}}
 `;
 
 exports[`component.hbs 1`] = `
@@ -103,15 +87,16 @@ exports[`component.hbs 1`] = `
 {{@greeting}}, {{@name}}!
 
 <button onclick={{action next}}>Next</button>
+
+->{{hello}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <user-greeting @name="Ricardo" @greeting="Olá"></user-greeting>
-{{@greeting}}
-,
-{{@name}}
-!
-<button onclick={{action next}}>
-  Next
-</button>
+{{@greeting}},{{@name}}!
+
+<button onclick={{action next}}>Next</button>
+
+->{{hello}}
+
 `;
 
 exports[`concat-statement.hbs 1`] = `
@@ -125,9 +110,7 @@ exports[`concat-statement.hbs 1`] = `
 
 <a href="/{{url}}/{{url}}"></a>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div class="hello {{if goodbye true}}">
-  Hello
-</div>
+<div class="hello{{if goodbye true}}">Hello</div>
 
 <div
   class="hello
@@ -135,12 +118,9 @@ exports[`concat-statement.hbs 1`] = `
     {{if goodbye false}}
     {{if goodbye true}}
     {{if goodbye false}}
-    {{if goodbye true}}"
->
-  Hello
-</div>
-
+    {{if goodbye true}}">Hello</div>
 <a href="/{{url}}/{{url}}"></a>
+
 `;
 
 exports[`element-modifier-statement.hbs 1`] = `
@@ -160,9 +140,7 @@ exports[`element-modifier-statement.hbs 1`] = `
   Hello
 </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div {{hello param hash=key}} {{goodbye param}}>
-  Hello
-</div>
+<div {{hello param hash=key}} {{goodbye param}}>Hello</div>
 
 <div
   {{hello
@@ -178,10 +156,7 @@ exports[`element-modifier-statement.hbs 1`] = `
     param
     param
     param
-  }}
->
-  Hello
-</div>
+  }}>Hello</div>
 
 <div
   {{hello
@@ -190,10 +165,7 @@ exports[`element-modifier-statement.hbs 1`] = `
     hashPair=value
     hashPair=value
     hashPair=value
-  }}
->
-  Hello
-</div>
+  }}>Hello</div>
 
 <div
   {{hello
@@ -206,10 +178,8 @@ exports[`element-modifier-statement.hbs 1`] = `
     hashPair=value
     hashPair=value
     hashPair=value
-  }}
->
-  Hello
-</div>
+  }}>Hello</div>
+
 `;
 
 exports[`element-node.hbs 1`] = `
@@ -226,21 +196,18 @@ exports[`element-node.hbs 1`] = `
 </div>
 
 <div>
-  A long enough string to trigger a line break that would prevent wrapping.
+  A string that is long enough so that it can't be contained with its tags.
 </div>
 
 <div>
-  A long enough string to trigger a line break that would prevent wrapping more.
-</div>
-
-<div>
-  A long enough string to trigger a line break that would prevent wrapping more and more.
+  A long enough string to trigger a line break that would require some form of filling
 </div>
 
 <div>
   A line break with its own new lines
   inside of it forming something of 
-  a paragraph. 
+  a paragraph. The breaks should be
+  preserved by the pretty printer.
 </div>
 
 <div>
@@ -256,36 +223,27 @@ exports[`element-node.hbs 1`] = `
 <div></div>
 <img />
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div class="attribute" {{modifier}} {{! comment}}>
-  Hello
+<div class="attribute" {{modifier}} {{! comment}}>Hello</div>
+<div>Hello</div>
+<div>hi</div>
+
+<div>
+  A string that is long enough so that it can't be contained with its tags.
 </div>
 
 <div>
-  Hello
+  A long enough string to trigger a line break that would require some form of
+  filling
 </div>
 
 <div>
-  hi
+  A line break with its own new lines
+  inside of it forming something of 
+  a paragraph. The breaks should be
+  preserved by the pretty printer.
 </div>
 
 <div>
-  A long enough string to trigger a line break that would prevent wrapping.
-</div>
-
-<div>
-  A long enough string to trigger a line break that would prevent wrapping more.
-</div>
-
-<div>
-  A long enough string to trigger a line break that would prevent wrapping more and more.
-</div>
-
-<div>
-  A line break with its own new lines inside of it forming something of a paragraph.
-</div>
-
-<div>
-
   {{#block}}{{hello}}{{/block}}
 </div>
 
@@ -295,6 +253,7 @@ exports[`element-node.hbs 1`] = `
 
 <div></div>
 <img />
+
 `;
 
 exports[`else-if.hbs 1`] = `
@@ -360,12 +319,10 @@ exports[`else-if.hbs 1`] = `
 </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
-  <div>
-    hello
-  </div>
+
+  <div>hello</div>
+
 </div>
-
-
 {{#if a}}
   b
 {{else if c}}
@@ -373,19 +330,13 @@ exports[`else-if.hbs 1`] = `
 {{else}}
   e
 {{/if}}
-
 {{#if a}}
   b
 {{else if c}}
   d
 {{else}}
-  hello
-  {{#if f}}
-    g
-  {{/if}}
-  e
+  hello{{#if f}}g{{/if}}e
 {{/if}}
-
 {{#if a}}
   b
 {{else if c}}
@@ -399,6 +350,7 @@ exports[`else-if.hbs 1`] = `
 {{/if}}
 
 <div>
+
   {{#if a}}
     b
   {{else if c}}
@@ -409,7 +361,9 @@ exports[`else-if.hbs 1`] = `
 </div>
 
 <div>
+
   <div>
+
     {{#if a}}
       b
     {{else if c}}
@@ -418,7 +372,9 @@ exports[`else-if.hbs 1`] = `
       e
     {{/if}}
   </div>
+
 </div>
+
 `;
 
 exports[`literals.hbs 1`] = `
@@ -435,8 +391,7 @@ exports[`literals.hbs 1`] = `
 {{mustache undefined}}
 {{mustache null}}
 <!-- hello world -->
-{{! Mustache Comment}}
-{{!-- Mustache Comment }} --}}
+{{! Mustache Comment}}{{!-- Mustache Comment }} --}}
 `;
 
 exports[`loop.hbs 1`] = `
@@ -448,12 +403,10 @@ exports[`loop.hbs 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <ul>
 
-  {{#each speakers key="@index" as |speaker|}}
-    <li>
-      {{speaker}}
-    </li>
-  {{/each}}
+  {{#each speakers key="@index" as |speaker|}}<li>{{speaker}}</li>
+    {{/each}}
 </ul>
+
 `;
 
 exports[`sub-expressions.hbs 1`] = `
@@ -508,8 +461,7 @@ exports[`sub-expressions.hbs 1`] = `
       )
       hashPair=(does not need a line break due to being under 80 chars long)
     )
-  }}
-></div>
+  }}></div>
 
 {{#block
   (concat
@@ -529,10 +481,9 @@ exports[`sub-expressions.hbs 1`] = `
       hashPair=value
     )
     hashPair=(does not need a line break due to being under 80 chars long)
-  )
-}}
+  )}}
+  {{/block}}
 
-{{/block}}
 {{foobar-sub-component/foobar-foo
   hook="stringLiteral"
   foo=(t
@@ -542,4 +493,61 @@ exports[`sub-expressions.hbs 1`] = `
     foo=(simple-helper (hash hashKey=blockParam.foo assignParam=blockParam.bar))
   )
 }}
+
+`;
+
+exports[`white-space.hbs 1`] = `
+<div>hello</div>
+
+<div>
+  hello
+
+  world
+
+
+</div>
+
+
+
+<div>
+
+
+
+
+  world
+
+
+
+  hello
+
+
+
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>hello</div>
+
+<div>
+  hello
+
+  world
+
+
+</div>
+
+
+<div>
+
+
+
+
+  world
+
+
+
+  hello
+
+
+
+</div>
+
 `;

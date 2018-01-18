@@ -15,12 +15,24 @@ function setLocStartAndEnd(text) {
   };
 }
 
+function createWhiteSpaceNodes() {
+  return {
+    visitor: {
+      TextNode(node) {
+        const whiteSpace = node.chars.match(/\s+/g);
+        if (whiteSpace.length > 0) {
+        }
+      }
+    }
+  };
+}
+
 function parse(text) {
   try {
     const glimmer = require("@glimmer/syntax").preprocess;
     return glimmer(text, {
       plugins: {
-        ast: [() => setLocStartAndEnd(text)]
+        ast: [() => setLocStartAndEnd(text)] // createWhiteSpaceNodes]
       }
     });
     /* istanbul ignore next */

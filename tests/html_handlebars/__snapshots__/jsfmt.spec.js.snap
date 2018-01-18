@@ -14,10 +14,7 @@ exports[`basic-handlebars.hbs 1`] = `
 
   <div class="entry">
 
-    <h1>
-      {{title}}
-    </h1>
-
+    <h1>{{title}}</h1>
     <div class="body">
 
       {{body}}
@@ -27,6 +24,7 @@ exports[`basic-handlebars.hbs 1`] = `
   </div>
 
 </script>
+
 `;
 
 exports[`comments.hbs 1`] = `
@@ -38,12 +36,10 @@ exports[`comments.hbs 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div class="entry">
 
-  {{! This comment will not be in the output }}
-  {{!-- This comment as }} and will not be in the output --}}
-
-  <!-- This comment will be in the output -->
+  {{! This comment will not be in the output }}{{!-- This comment as }} and will not be in the output --}}<!-- This comment will be in the output -->
 
 </div>
+
 `;
 
 exports[`each.hbs 1`] = `
@@ -56,19 +52,11 @@ exports[`each.hbs 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div id="comments">
 
-  {{#each comments}}
-    <h2>
-      <a href="/posts/{{permalink}}#{{id}}">
-        {{title}}
-      </a>
-    </h2>
-
-    <div>
-      {{body}}
-    </div>
-
-  {{/each}}
+  {{#each comments}}<h2><a href="/posts/{{permalink}}#{{id}}">{{title}}</a></h2>
+    <div>{{body}}</div>
+    {{/each}}
 </div>
+
 `;
 
 exports[`if.hbs 1`] = `
@@ -76,9 +64,8 @@ exports[`if.hbs 1`] = `
   {{permalink}}
 {{/if}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{{#if title}}
-  {{permalink}}
-{{/if}}
+{{#if title}}{{permalink}}
+  {{/if}}
 `;
 
 exports[`if-else.hbs 1`] = `
@@ -112,7 +99,6 @@ exports[`if-else.hbs 1`] = `
   {{/if}}
 </h1>
 
-
 <h2>
 
   {{#if a}}
@@ -121,6 +107,7 @@ exports[`if-else.hbs 1`] = `
     B
   {{/if}}
 </h2>
+
 `;
 
 exports[`nested-path.hbs 1`] = `
@@ -135,16 +122,8 @@ exports[`nested-path.hbs 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div class="entry">
 
-  <h1>
-    {{title}}
-  </h1>
-
-  <h2>
-    By
-    {{author.name}}
-  </h2>
-
-
+  <h1>{{title}}</h1>
+  <h2>By{{author.name}}</h2>
   <div class="body">
 
     {{body}}
@@ -152,4 +131,5 @@ exports[`nested-path.hbs 1`] = `
   </div>
 
 </div>
+
 `;
