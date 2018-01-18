@@ -2,6 +2,8 @@
 
 const chalk = require("chalk");
 
+const CATEGORY_OTHER = "Other";
+
 function indent(str, spaces) {
   return str.replace(/^/gm, " ".repeat(spaces));
 }
@@ -62,8 +64,34 @@ function createLogger(logLevel) {
   }
 }
 
+function normalizeDetailedOptions(rawDetailedOptions) {
+  const names = Object.keys(rawDetailedOptions).sort();
+
+  const normalized = names.map(name => {
+    const option = rawDetailedOptions[name];
+    return Object.assign({ category: CATEGORY_OTHER }, option, {
+      name,
+      choices:
+        option.choices &&
+        option.choices.map(choice => {
+          const newChoice = Object.assign(
+            { description: "", deprecated: false },
+            typeof choice === "object" ? choice : { value: choice }
+          );
+          if (newChoice.value === true) {
+            newChoice.value = ""; // backward compability for original boolean option
+          }
+          return newChoice;
+        })
+    });
+  });
+
+  return normalized;
+}
+
 module.exports = {
   indent,
   groupBy,
-  createLogger
+  createLogger,
+  normalizeDetailedOptions
 };

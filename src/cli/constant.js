@@ -4,6 +4,7 @@ const dedent = require("dedent");
 const dashify = require("dashify");
 const getSupportInfo = require("../common/support").getSupportInfo;
 const options = require("./options");
+const util = require("./util");
 
 const CATEGORY_CONFIG = "Config";
 const CATEGORY_EDITOR = "Editor";
@@ -19,7 +20,7 @@ const categoryOrder = [
   CATEGORY_OTHER
 ];
 
-const detailedOptions = normalizeDetailedOptions(
+const detailedOptions = util.normalizeDetailedOptions(
   Object.assign(
     getSupportInfo(null, {
       showDeprecated: true,
@@ -107,32 +108,6 @@ const usageSummary = dedent`
   By default, output is written to stdout.
   Stdin is read if it is piped to Prettier and no files are given.
 `;
-
-function normalizeDetailedOptions(rawDetailedOptions) {
-  const names = Object.keys(rawDetailedOptions).sort();
-
-  const normalized = names.map(name => {
-    const option = rawDetailedOptions[name];
-    return Object.assign({}, option, {
-      name,
-      category: option.category || CATEGORY_OTHER,
-      choices:
-        option.choices &&
-        option.choices.map(choice => {
-          const newChoice = Object.assign(
-            { description: "", deprecated: false },
-            typeof choice === "object" ? choice : { value: choice }
-          );
-          if (newChoice.value === true) {
-            newChoice.value = ""; // backward compability for original boolean option
-          }
-          return newChoice;
-        })
-    });
-  });
-
-  return normalized;
-}
 
 const detailedOptionMap = detailedOptions.reduce(
   (current, option) => Object.assign(current, { [option.name]: option }),
