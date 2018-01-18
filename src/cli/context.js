@@ -11,6 +11,7 @@ const chalk = require("chalk");
 const readline = require("readline");
 const leven = require("leven");
 
+const normalizer = require("../main/options-normalizer");
 const prettier = require("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
 const errors = require("../common/errors");
@@ -31,6 +32,21 @@ const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 class Context {
+  constructor(args) {
+    const rawArgv = minimist(args, constant.minimistOptions);
+
+    process.env[logger.ENV_LOG_LEVEL] =
+      rawArgv["loglevel"] || constant.detailedOptionMap["loglevel"].default;
+
+    const argv = normalizer.normalizeCliOptions(
+      rawArgv,
+      constant.detailedOptions,
+      { logger }
+    );
+
+    this.argv = argv;
+  }
+
   getOptions(argv) {
     return constant.detailedOptions
       .filter(option => option.forwardToApi)

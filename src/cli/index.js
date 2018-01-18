@@ -1,57 +1,46 @@
 "use strict";
 
-const minimist = require("minimist");
-
 const prettier = require("../../index");
-const constant = require("./constant");
 const Context = require("./context");
-const normalizer = require("../main/options-normalizer");
 const logger = require("./logger");
 
 function run(args) {
-  const context = new Context();
   try {
-    const rawArgv = minimist(args, constant.minimistOptions);
+    const context = new Context(args);
 
-    process.env[logger.ENV_LOG_LEVEL] =
-      rawArgv["loglevel"] || constant.detailedOptionMap["loglevel"].default;
+    logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
-    const argv = normalizer.normalizeCliOptions(
-      rawArgv,
-      constant.detailedOptions,
-      { logger }
-    );
+    context.argv.__args = args;
+    context.argv.__filePatterns = context.argv["_"];
 
-    logger.debug(`normalized argv: ${JSON.stringify(argv)}`);
-
-    argv.__args = args;
-    argv.__filePatterns = argv["_"];
-
-    if (argv["write"] && argv["debug-check"]) {
+    if (context.argv["write"] && context.argv["debug-check"]) {
       logger.error("Cannot use --write and --debug-check together.");
       process.exit(1);
     }
 
-    if (argv["find-config-path"] && argv.__filePatterns.length) {
+    if (
+      context.argv["find-config-path"] &&
+      context.argv.__filePatterns.length
+    ) {
       logger.error("Cannot use --find-config-path with multiple files");
       process.exit(1);
     }
 
-    if (argv["version"]) {
+    if (context.argv["version"]) {
       logger.log(prettier.version);
       process.exit(0);
     }
 
-    if (argv["help"] !== undefined) {
+    if (context.argv["help"] !== undefined) {
       logger.log(
-        typeof argv["help"] === "string" && argv["help"] !== ""
-          ? context.createDetailedUsage(argv["help"])
+        typeof context.argv["help"] === "string" && context.argv["help"] !== ""
+          ? context.createDetailedUsage(context.argv["help"])
           : context.createUsage()
       );
       process.exit(0);
     }
 
-    if (argv["support-info"]) {
+    if (context.argv["support-info"]) {
       logger.log(
         prettier.format(JSON.stringify(prettier.getSupportInfo()), {
           parser: "json"
@@ -60,16 +49,16 @@ function run(args) {
       process.exit(0);
     }
 
-    const hasFilePatterns = argv.__filePatterns.length !== 0;
+    const hasFilePatterns = context.argv.__filePatterns.length !== 0;
     const useStdin =
-      argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
+      context.argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
 
-    if (argv["find-config-path"]) {
-      context.logResolvedConfigPathOrDie(argv["find-config-path"]);
+    if (context.argv["find-config-path"]) {
+      context.logResolvedConfigPathOrDie(context.argv["find-config-path"]);
     } else if (useStdin) {
-      context.formatStdin(argv);
+      context.formatStdin(context.argv);
     } else if (hasFilePatterns) {
-      context.formatFiles(argv);
+      context.formatFiles(context.argv);
     } else {
       logger.log(context.createUsage());
       process.exit(1);
