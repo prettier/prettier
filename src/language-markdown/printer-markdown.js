@@ -243,23 +243,13 @@ function genericPrint(path, options, print) {
             : nthSiblingIndex % 2 === 0 ? "* " : "- ";
           return concat([
             prefix,
-            align(" ".repeat(prefix.length), childPath.call(print))
+            align(
+              " ".repeat(prefix.length),
+              printListItem(childPath, options, print, prefix)
+            )
           ]);
         }
       });
-    }
-    case "listItem": {
-      const prefix =
-        node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
-      return concat([
-        prefix,
-        printChildren(path, options, print, {
-          processor: (childPath, index) =>
-            index === 0 && childPath.getValue().type !== "list"
-              ? align(" ".repeat(prefix.length), childPath.call(print))
-              : childPath.call(print)
-        })
-      ]);
     }
     case "thematicBreak": {
       const counter = getAncestorCounter(path, "list");
@@ -324,9 +314,30 @@ function genericPrint(path, options, print) {
         hardline
       ]);
     case "tableRow": // handled in "table"
+    case "listItem": // handled in "list"
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
+}
+
+function printListItem(path, options, print, listPrefix) {
+  const node = path.getValue();
+  const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
+  return concat([
+    prefix,
+    printChildren(path, options, print, {
+      processor: (childPath, index) => {
+        if (index === 0 && childPath.getValue().type !== "list") {
+          return align(" ".repeat(prefix.length), childPath.call(print));
+        }
+
+        const alignment = " ".repeat(
+          clamp(options.tabWidth - listPrefix.length, 0, 3) // 4 will cause indented codeblock
+        );
+        return concat([alignment, align(alignment, childPath.call(print))]);
+      }
+    })
+  ]);
 }
 
 function getNthListSiblingIndex(node, parentNode) {
@@ -657,6 +668,10 @@ function normalizeParts(parts) {
 
     return current;
   }, []);
+}
+
+function clamp(value, min, max) {
+  return value < min ? min : value > max ? max : value;
 }
 
 function clean(ast, newObj) {
