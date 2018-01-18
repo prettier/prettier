@@ -89,9 +89,36 @@ function normalizeDetailedOptions(rawDetailedOptions) {
   return normalized;
 }
 
+function createMinimistOptions(detailedOptions) {
+  return {
+    boolean: detailedOptions
+      .filter(option => option.type === "boolean")
+      .map(option => option.name),
+    string: detailedOptions
+      .filter(option => option.type !== "boolean")
+      .map(option => option.name),
+    default: detailedOptions
+      .filter(option => !option.deprecated)
+      .filter(option => option.default !== undefined)
+      .reduce(
+        (current, option) =>
+          Object.assign({ [option.name]: option.default }, current),
+        {}
+      ),
+    alias: detailedOptions
+      .filter(option => option.alias !== undefined)
+      .reduce(
+        (current, option) =>
+          Object.assign({ [option.name]: option.alias }, current),
+        {}
+      )
+  };
+}
+
 module.exports = {
   indent,
   groupBy,
   createLogger,
-  normalizeDetailedOptions
+  normalizeDetailedOptions,
+  createMinimistOptions
 };
