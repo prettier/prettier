@@ -462,7 +462,7 @@ class Context {
         )
     );
 
-    const groupedOptions = this.groupBy(options, option => option.category);
+    const groupedOptions = groupBy(options, option => option.category);
 
     const firstCategories = constant.categoryOrder.slice(0, -1);
     const lastCategories = constant.categoryOrder.slice(-1);
@@ -480,7 +480,7 @@ class Context {
       const categoryOptions = groupedOptions[category]
         .map(option => this.createOptionUsage(option, OPTION_USAGE_THRESHOLD))
         .join("\n");
-      return `${category} options:\n\n${this.indent(categoryOptions, 2)}`;
+      return `${category} options:\n\n${indent(categoryOptions, 2)}`;
     });
 
     return [constant.usageSummary].concat(optionsUsage, [""]).join("\n\n");
@@ -585,7 +585,7 @@ class Context {
         .map(choice => choice.value.length)
         .reduce((current, length) => Math.max(current, length), 0) + margin;
     return activeChoices.map(choice =>
-      this.indent(
+      indent(
         this.createOptionUsageRow(choice.value, choice.description, threshold),
         indentation
       )
@@ -599,7 +599,7 @@ class Context {
     );
 
     const header = this.createOptionUsageHeader(option);
-    const description = `\n\n${this.indent(option.description, 2)}`;
+    const description = `\n\n${indent(option.description, 2)}`;
 
     const choices =
       option.type !== "choice"
@@ -638,18 +638,18 @@ class Context {
 
     return undefined;
   }
+}
 
-  indent(str, spaces) {
-    return str.replace(/^/gm, " ".repeat(spaces));
-  }
+function indent(str, spaces) {
+  return str.replace(/^/gm, " ".repeat(spaces));
+}
 
-  groupBy(array, getKey) {
-    return array.reduce((obj, item) => {
-      const key = getKey(item);
-      const previousItems = key in obj ? obj[key] : [];
-      return Object.assign({}, obj, { [key]: previousItems.concat(item) });
-    }, Object.create(null));
-  }
+function groupBy(array, getKey) {
+  return array.reduce((obj, item) => {
+    const key = getKey(item);
+    const previousItems = key in obj ? obj[key] : [];
+    return Object.assign({}, obj, { [key]: previousItems.concat(item) });
+  }, Object.create(null));
 }
 
 module.exports = Context;
