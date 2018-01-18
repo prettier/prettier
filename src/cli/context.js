@@ -636,4 +636,4 @@ class Context {
   }
 }
 
-module.exports = new Context();
+module.exports = Context;

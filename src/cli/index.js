@@ -4,11 +4,12 @@ const minimist = require("minimist");
 
 const prettier = require("../../index");
 const constant = require("./constant");
-const util = require("./util");
+const Context = require("./context");
 const normalizer = require("../main/options-normalizer");
 const logger = require("./logger");
 
 function run(args) {
+  const context = new Context();
   try {
     const rawArgv = minimist(args, constant.minimistOptions);
 
@@ -44,8 +45,8 @@ function run(args) {
     if (argv["help"] !== undefined) {
       logger.log(
         typeof argv["help"] === "string" && argv["help"] !== ""
-          ? util.createDetailedUsage(argv["help"])
-          : util.createUsage()
+          ? context.createDetailedUsage(argv["help"])
+          : context.createUsage()
       );
       process.exit(0);
     }
@@ -64,13 +65,13 @@ function run(args) {
       argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
 
     if (argv["find-config-path"]) {
-      util.logResolvedConfigPathOrDie(argv["find-config-path"]);
+      context.logResolvedConfigPathOrDie(argv["find-config-path"]);
     } else if (useStdin) {
-      util.formatStdin(argv);
+      context.formatStdin(argv);
     } else if (hasFilePatterns) {
-      util.formatFiles(argv);
+      context.formatFiles(argv);
     } else {
-      logger.log(util.createUsage());
+      logger.log(context.createUsage());
       process.exit(1);
     }
   } catch (error) {
