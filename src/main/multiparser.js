@@ -20,7 +20,8 @@ function textToDoc(text, partialNextOptions, parentOptions) {
     Object.assign({}, parentOptions, partialNextOptions, {
       parentParser: parentOptions.parser,
       originalText: text
-    })
+    }),
+    { passThrough: true, inferParser: false }
   );
 
   const result = require("./parser").parse(text, nextOptions);

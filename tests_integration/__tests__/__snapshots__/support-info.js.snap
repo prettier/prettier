@@ -17,8 +17,8 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
 +     },
 +     \\"parser\\": Object {
 +       \\"choices\\": Array [
-+         \\"babylon\\",
 +         \\"flow\\",
++         \\"babylon\\",
 +       ],
 +       \\"default\\": \\"babylon\\",
 +       \\"type\\": \\"choice\\",
@@ -174,8 +174,8 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
       },
       \\"parser\\": Object {
         \\"choices\\": Array [
-          \\"babylon\\",
           \\"flow\\",
+          \\"babylon\\",
 +         \\"typescript\\",
 +         \\"postcss\\",
         ],
@@ -238,8 +238,8 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
       \\"JavaScript\\": Array [
 @@ -47,10 +53,12 @@
         \\"choices\\": Array [
-          \\"babylon\\",
           \\"flow\\",
+          \\"babylon\\",
           \\"typescript\\",
           \\"postcss\\",
 +         \\"json\\",
@@ -287,8 +287,8 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
 @@ -52,11 +52,13 @@
       \\"parser\\": Object {
         \\"choices\\": Array [
-          \\"babylon\\",
           \\"flow\\",
+          \\"babylon\\",
           \\"typescript\\",
 -         \\"postcss\\",
 +         \\"css\\",
@@ -419,7 +419,27 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -80,14 +91,15 @@
+@@ -65,14 +76,19 @@
+          \\"less\\",
+          \\"scss\\",
+          \\"json\\",
+          \\"graphql\\",
+          \\"markdown\\",
++         \\"vue\\",
+        ],
+        \\"default\\": \\"babylon\\",
+        \\"type\\": \\"choice\\",
+      },
++     \\"plugins\\": Object {
++       \\"default\\": Array [],
++       \\"type\\": \\"path\\",
++     },
+      \\"printWidth\\": Object {
+        \\"default\\": 80,
+        \\"range\\": Object {
+          \\"end\\": Infinity,
+          \\"start\\": 0,
+@@ -80,14 +96,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -695,8 +715,8 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": \\"babylon\\",
       \\"description\\": \\"Which parser to use.\\",
       \\"choices\\": [
-        { \\"value\\": \\"babylon\\", \\"description\\": \\"JavaScript\\" },
         { \\"value\\": \\"flow\\", \\"description\\": \\"Flow\\" },
+        { \\"value\\": \\"babylon\\", \\"description\\": \\"JavaScript\\" },
         {
           \\"value\\": \\"typescript\\",
           \\"since\\": \\"1.4.0\\",
@@ -707,8 +727,19 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"value\\": \\"scss\\", \\"since\\": \\"1.7.1\\", \\"description\\": \\"SCSS\\" },
         { \\"value\\": \\"json\\", \\"since\\": \\"1.5.0\\", \\"description\\": \\"JSON\\" },
         { \\"value\\": \\"graphql\\", \\"since\\": \\"1.5.0\\", \\"description\\": \\"GraphQL\\" },
-        { \\"value\\": \\"markdown\\", \\"since\\": \\"1.8.0\\", \\"description\\": \\"Markdown\\" }
+        { \\"value\\": \\"markdown\\", \\"since\\": \\"1.8.0\\", \\"description\\": \\"Markdown\\" },
+        { \\"value\\": \\"vue\\", \\"since\\": \\"1.10.0\\", \\"description\\": \\"Vue\\" }
       ]
+    },
+    {
+      \\"name\\": \\"plugins\\",
+      \\"since\\": \\"1.10.0\\",
+      \\"type\\": \\"path\\",
+      \\"array\\": true,
+      \\"default\\": [],
+      \\"category\\": \\"Global\\",
+      \\"description\\":
+        \\"Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.\\"
     },
     {
       \\"name\\": \\"printWidth\\",

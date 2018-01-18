@@ -16,27 +16,28 @@ const cleanAST = require("../common/clean-ast").cleanAST;
 const errors = require("../common/errors");
 const resolver = require("../config/resolve-config");
 const constant = require("./constant");
-const validator = require("./validator");
-const options = require("../main/options");
-const apiDefaultOptions = options.defaults;
-const normalizeOptions = options.normalize;
+const optionsModule = require("../main/options");
+const apiDefaultOptions = optionsModule.defaults;
+const optionsNormalizer = require("../main/options-normalizer");
 const logger = require("./logger");
 const thirdParty = require("../common/third-party");
+const optionInfos = require("../common/support").getSupportInfo(null, {
+  showDeprecated: true,
+  showUnreleased: true
+}).options;
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 function getOptions(argv) {
-  return constant.detailedOptions.filter(option => option.forwardToApi).reduce(
-    (current, option) =>
-      Object.assign(current, {
-        [option.forwardToApi]: option.array
-          ? [].concat(argv[option.name] || [])
-          : argv[option.name]
-      }),
-    {}
-  );
+  return constant.detailedOptions
+    .filter(option => option.forwardToApi)
+    .reduce(
+      (current, option) =>
+        Object.assign(current, { [option.forwardToApi]: argv[option.name] }),
+      {}
+    );
 }
 
 function cliifyOptions(object) {
@@ -130,7 +131,7 @@ function format(argv, input, opt) {
         "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
       );
     } else {
-      const normalizedOpts = normalizeOptions(opt);
+      const normalizedOpts = optionsModule.normalize(opt);
       const ast = cleanAST(
         prettier.__debug.parse(input, opt).ast,
         normalizedOpts
@@ -192,7 +193,8 @@ function getOptionsForFile(argv, filepath) {
     { filepath },
     applyConfigPrecedence(
       argv,
-      options && normalizeConfig("api", options, constant.detailedOptionMap)
+      options &&
+        optionsNormalizer.normalizeApiOptions(options, optionInfos, { logger })
     )
   );
 
@@ -205,8 +207,7 @@ function getOptionsForFile(argv, filepath) {
 
 function parseArgsToOptions(argv, overrideDefaults) {
   return getOptions(
-    normalizeConfig(
-      "cli",
+    optionsNormalizer.normalizeCliOptions(
       minimist(
         argv.__args,
         Object.assign({
@@ -219,7 +220,8 @@ function parseArgsToOptions(argv, overrideDefaults) {
           )
         })
       ),
-      { warning: false }
+      constant.detailedOptions,
+      { logger: false }
     )
   );
 }
@@ -463,10 +465,16 @@ function createOptionUsage(option, threshold) {
     `${option.description}${
       optionDefaultValue === undefined
         ? ""
-        : `\nDefaults to ${optionDefaultValue}.`
+        : `\nDefaults to ${createDefaultValueDisplay(optionDefaultValue)}.`
     }`,
     threshold
   );
+}
+
+function createDefaultValueDisplay(value) {
+  return Array.isArray(value)
+    ? `[${value.map(createDefaultValueDisplay).join(", ")}]`
+    : value;
 }
 
 function createOptionUsageHeader(option) {
@@ -574,7 +582,7 @@ function createDetailedUsage(optionName) {
   const optionDefaultValue = getOptionDefaultValue(option.name);
   const defaults =
     optionDefaultValue !== undefined
-      ? `\n\nDefault: ${optionDefaultValue}`
+      ? `\n\nDefault: ${createDefaultValueDisplay(optionDefaultValue)}`
       : "";
 
   return `${header}${description}${choices}${defaults}`;
@@ -612,135 +620,11 @@ function groupBy(array, getKey) {
   }, Object.create(null));
 }
 
-/** @param {'api' | 'cli'} type */
-function normalizeConfig(type, rawConfig, options) {
-  if (type === "api" && rawConfig === null) {
-    return null;
-  }
-
-  options = options || {};
-
-  const consoleWarn =
-    options.warning === false ? () => {} : logger.warn.bind(logger);
-
-  const normalized = {};
-
-  Object.keys(rawConfig).forEach(rawKey => {
-    const rawValue = rawConfig[rawKey];
-
-    const key = type === "cli" ? rawKey : dashify(rawKey);
-
-    if (type === "cli" && key === "_") {
-      normalized[rawKey] = rawValue;
-      return;
-    }
-
-    if (type === "cli" && key.length === 1) {
-      // do nothing with alias
-      return;
-    }
-
-    let option = constant.detailedOptionMap[key];
-    if (type === "api" && option === undefined) {
-      option = constant.apiDetailedOptionMap[key];
-    }
-
-    // unknown option
-    if (option === undefined) {
-      if (type === "api") {
-        consoleWarn(`Ignored unknown option: ${rawKey}`);
-      } else {
-        const optionName = rawValue === false ? `no-${rawKey}` : rawKey;
-        consoleWarn(`Ignored unknown option: --${optionName}`);
-      }
-      return;
-    }
-
-    const value = getValue(rawValue, option);
-
-    if (option.exception !== undefined) {
-      if (typeof option.exception === "function") {
-        if (option.exception(value)) {
-          normalized[rawKey] = value;
-          return;
-        }
-      } else {
-        if (value === option.exception) {
-          normalized[rawKey] = value;
-          return;
-        }
-      }
-    }
-
-    try {
-      switch (option.type) {
-        case "int":
-          validator.validateIntOption(type, value, option);
-          normalized[rawKey] = Number(value);
-          break;
-        case "choice":
-          validator.validateChoiceOption(type, value, option);
-          normalized[rawKey] = value;
-          break;
-        default:
-          normalized[rawKey] = value;
-          break;
-      }
-    } catch (error) {
-      logger.error(error.message);
-      process.exit(2);
-    }
-  });
-
-  return normalized;
-
-  function getOptionName(option) {
-    return type === "cli" ? `--${option.name}` : camelCase(option.name);
-  }
-
-  function getRedirectName(option, choice) {
-    return type === "cli"
-      ? `--${option.name}=${choice.redirect}`
-      : `{ ${camelCase(option.name)}: ${JSON.stringify(choice.redirect)} }`;
-  }
-
-  function getValue(rawValue, option) {
-    const optionName = getOptionName(option);
-    if (rawValue && option.deprecated) {
-      let warning = `\`${optionName}\` is deprecated.`;
-      if (typeof option.deprecated === "string") {
-        warning += ` ${option.deprecated}`;
-      }
-      consoleWarn(warning);
-    }
-
-    const value = option.getter(rawValue, rawConfig);
-
-    if (option.type === "choice") {
-      const choice = option.choices.find(choice => choice.value === rawValue);
-      if (choice !== undefined && choice.deprecated) {
-        const warningDescription =
-          rawValue === ""
-            ? "without an argument"
-            : `with value \`${rawValue}\``;
-        const redirectName = getRedirectName(option, choice);
-        consoleWarn(
-          `\`${optionName}\` ${warningDescription} is deprecated. Prettier now treats it as: \`${redirectName}\`.`
-        );
-        return choice.redirect;
-      }
-    }
-
-    return value;
-  }
-}
-
 module.exports = {
   logResolvedConfigPathOrDie,
   format,
   formatStdin,
   formatFiles,
   createUsage,
-  createDetailedUsage,
-  normalizeConfig
+  createDetailedUsage
 };

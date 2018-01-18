@@ -271,16 +271,16 @@ exports[`show detailed usage with --help parser (stdout) 1`] = `
 
 Valid options:
 
-  flow         
-  babylon      
-  typescript   
-  css          
-  less         
-  scss         
-  json         
-  graphql      
-  markdown     
-  vue          
+  flow         Flow
+  babylon      JavaScript
+  typescript   TypeScript
+  css          CSS
+  less         Less
+  scss         SCSS
+  json         JSON
+  graphql      GraphQL
+  markdown     Markdown
+  vue          Vue
 
 Default: babylon
 "
@@ -294,6 +294,8 @@ exports[`show detailed usage with --help plugin (stdout) 1`] = `
 "--plugin <path>
 
   Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
+
+Default: []
 "
 `;
 
@@ -565,6 +567,7 @@ Config options:
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Defaults to .prettierignore.
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
+                           Defaults to [].
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
@@ -634,16 +637,16 @@ exports[`show warning with --help not-found (typo) (stdout) 1`] = `
 
 Valid options:
 
-  flow         
-  babylon      
-  typescript   
-  css          
-  less         
-  scss         
-  json         
-  graphql      
-  markdown     
-  vue          
+  flow         Flow
+  babylon      JavaScript
+  typescript   TypeScript
+  css          CSS
+  less         Less
+  scss         SCSS
+  json         JSON
+  graphql      GraphQL
+  markdown     Markdown
+  vue          Vue
 
 Default: babylon
 "
@@ -706,6 +709,7 @@ Config options:
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Defaults to .prettierignore.
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
+                           Defaults to [].
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:

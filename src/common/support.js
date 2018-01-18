@@ -14,6 +14,7 @@ const CATEGORY_SPECIAL = "Special";
  * @property {string} since - available since version
  * @property {string} category
  * @property {'int' | 'boolean' | 'choice' | 'path'} type
+ * @property {boolean} array - indicate it's an array of the specified type
  * @property {boolean?} deprecated - deprecated since version
  * @property {OptionRedirectInfo?} redirect - redirect deprecated option
  * @property {string} description
@@ -21,9 +22,10 @@ const CATEGORY_SPECIAL = "Special";
  * @property {OptionValueInfo} default
  * @property {OptionRangeInfo?} range - for type int
  * @property {OptionChoiceInfo?} choices - for type choice
+ * @property {(value: any) => boolean} exception
  *
  * @typedef {number | boolean | string} OptionValue
- * @typedef {OptionValue | Array<{ since: string, value: OptionValue}>} OptionValueInfo
+ * @typedef {OptionValue | [{ value: OptionValue[] }] | Array<{ since: string, value: OptionValue}>} OptionValueInfo
  *
  * @typedef {Object} OptionRedirectInfo
  * @property {string} option
@@ -75,9 +77,11 @@ const supportOptions = {
     type: "choice",
     default: "babylon",
     description: "Which parser to use.",
+    exception: value =>
+      typeof value === "string" || typeof value === "function",
     choices: [
-      { value: "babylon", description: "JavaScript" },
       { value: "flow", description: "Flow" },
+      { value: "babylon", description: "JavaScript" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
       { value: "css", since: "1.7.1", description: "CSS" },
       {
@@ -91,8 +95,19 @@ const supportOptions = {
       { value: "scss", since: "1.7.1", description: "SCSS" },
       { value: "json", since: "1.5.0", description: "JSON" },
       { value: "graphql", since: "1.5.0", description: "GraphQL" },
-      { value: "markdown", since: "1.8.0", description: "Markdown" }
+      { value: "markdown", since: "1.8.0", description: "Markdown" },
+      { value: "vue", since: "1.10.0", description: "Vue" }
     ]
+  },
+  plugins: {
+    since: "1.10.0",
+    type: "path",
+    array: true,
+    default: [{ value: [] }],
+    category: CATEGORY_GLOBAL,
+    description:
+      "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.",
+    exception: value => typeof value === "string" || typeof value === "object"
   },
   printWidth: {
     since: "0.0.0",
@@ -208,11 +223,14 @@ function getSupportInfo(version, opts) {
       const newOption = Object.assign({}, option);
 
       if (Array.isArray(newOption.default)) {
-        newOption.default = newOption.default
-          .filter(filterSince)
-          .sort((info1, info2) =>
-            semver.compare(info2.since, info1.since)
-          )[0].value;
+        newOption.default =
+          newOption.default.length === 1
+            ? newOption.default[0].value
+            : newOption.default
+                .filter(filterSince)
+                .sort((info1, info2) =>
+                  semver.compare(info2.since, info1.since)
+                )[0].value;
       }
 
       if (Array.isArray(newOption.choices)) {
