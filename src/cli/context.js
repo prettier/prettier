@@ -277,21 +277,12 @@ class Context {
   }
 
   createIgnorer() {
-    const ignoreFilePath = path.resolve(this.argv["ignore-path"]);
-    let ignoreText = "";
-
     try {
-      ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
-    } catch (readError) {
-      if (readError.code !== "ENOENT") {
-        this.logger.error(
-          `Unable to read ${ignoreFilePath}: ` + readError.message
-        );
-        process.exit(2);
-      }
+      return util.createIgnorer(this.argv["ignore-path"]);
+    } catch (error) {
+      this.logger.error(error.message);
+      process.exit(2);
     }
-
-    return ignore().add(ignoreText);
   }
 
   eachFilename(patterns, callback) {

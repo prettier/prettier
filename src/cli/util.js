@@ -6,6 +6,9 @@ const dashify = require("dashify");
 const diff = require("diff");
 const leven = require("leven");
 const util = require("../common/util");
+const fs = require("fs");
+const path = require("path");
+const ignore = require("ignore");
 
 const CATEGORY_FORMAT = "Format";
 const CATEGORY_OTHER = "Other";
@@ -410,6 +413,21 @@ function cliifyOptions(object, apiDetailedOptionMap) {
   }, {});
 }
 
+function createIgnorer(ignorePath) {
+  const ignoreFilePath = path.resolve(ignorePath);
+  let ignoreText = "";
+
+  try {
+    ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
+  } catch (readError) {
+    if (readError.code !== "ENOENT") {
+      throw new Error(`Unable to read ${ignoreFilePath}: ` + readError.message);
+    }
+  }
+
+  return ignore().add(ignoreText);
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -431,5 +449,6 @@ module.exports = {
   getOptionWithLevenSuggestion,
   createDetailedUsage,
   getOptions,
-  cliifyOptions
+  cliifyOptions,
+  createIgnorer
 };
