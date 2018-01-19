@@ -440,47 +440,13 @@ class Context {
   }
 
   createUsage() {
-    const options = util
-      .getOptionsWithOpposites(constant.detailedOptions)
-      .filter(
-        // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
-        option =>
-          !(
-            option.type === "boolean" &&
-            option.oppositeDescription &&
-            !option.name.startsWith("no-")
-          )
-      );
-
-    const groupedOptions = util.groupBy(options, option => option.category);
-
-    const firstCategories = constant.categoryOrder.slice(0, -1);
-    const lastCategories = constant.categoryOrder.slice(-1);
-    const restCategories = Object.keys(groupedOptions).filter(
-      category =>
-        firstCategories.indexOf(category) === -1 &&
-        lastCategories.indexOf(category) === -1
+    return util.createUsage(
+      constant.usageSummary,
+      OPTION_USAGE_THRESHOLD,
+      constant.categoryOrder,
+      constant.detailedOptionMap,
+      apiDefaultOptions
     );
-    const allCategories = firstCategories.concat(
-      restCategories,
-      lastCategories
-    );
-
-    const optionsUsage = allCategories.map(category => {
-      const categoryOptions = groupedOptions[category]
-        .map(option =>
-          util.createOptionUsage(
-            option,
-            OPTION_USAGE_THRESHOLD,
-            constant.detailedOptionMap,
-            apiDefaultOptions
-          )
-        )
-        .join("\n");
-      return `${category} options:\n\n${util.indent(categoryOptions, 2)}`;
-    });
-
-    return [constant.usageSummary].concat(optionsUsage, [""]).join("\n\n");
   }
 
   getOptionWithLevenSuggestion(options, optionName) {

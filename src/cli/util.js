@@ -4,6 +4,7 @@ const camelCase = require("camelcase");
 const chalk = require("chalk");
 const dashify = require("dashify");
 const diff = require("diff");
+const util = require("../common/util");
 
 const CATEGORY_FORMAT = "Format";
 const CATEGORY_OTHER = "Other";
@@ -276,6 +277,52 @@ function getOptionsWithOpposites(options) {
   return flattenArray(optionsWithOpposites).filter(Boolean);
 }
 
+function createUsage(
+  usageSummary,
+  threshold,
+  categoryOrder,
+  detailedOptionMap,
+  apiDefaultOptions
+) {
+  const detailedOptions = util.arrayify(detailedOptionMap, "name");
+  const options = getOptionsWithOpposites(detailedOptions).filter(
+    // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
+    option =>
+      !(
+        option.type === "boolean" &&
+        option.oppositeDescription &&
+        !option.name.startsWith("no-")
+      )
+  );
+
+  const groupedOptions = groupBy(options, option => option.category);
+
+  const firstCategories = categoryOrder.slice(0, -1);
+  const lastCategories = categoryOrder.slice(-1);
+  const restCategories = Object.keys(groupedOptions).filter(
+    category =>
+      firstCategories.indexOf(category) === -1 &&
+      lastCategories.indexOf(category) === -1
+  );
+  const allCategories = firstCategories.concat(restCategories, lastCategories);
+
+  const optionsUsage = allCategories.map(category => {
+    const categoryOptions = groupedOptions[category]
+      .map(option =>
+        createOptionUsage(
+          option,
+          threshold,
+          detailedOptionMap,
+          apiDefaultOptions
+        )
+      )
+      .join("\n");
+    return `${category} options:\n\n${indent(categoryOptions, 2)}`;
+  });
+
+  return [usageSummary].concat(optionsUsage, [""]).join("\n\n");
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -292,5 +339,6 @@ module.exports = {
   createOptionUsageRow,
   createChoiceUsages,
   createOptionUsage,
-  getOptionsWithOpposites
+  getOptionsWithOpposites,
+  createUsage
 };
