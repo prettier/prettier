@@ -1,5 +1,6 @@
 "use strict";
 
+const resolver = require("../config/resolve-config");
 const camelCase = require("camelcase");
 const chalk = require("chalk");
 const dashify = require("dashify");
@@ -496,6 +497,27 @@ function writeOutput(result, options) {
   }
 }
 
+function resolveOptions(filePath, configValue, editorconfigValue, logger) {
+  if (configValue === false) {
+    logger.debug("'--no-config' option found, skip loading config file.");
+    return null;
+  }
+
+  logger.debug(
+    configValue
+      ? `load config file from '${configValue}'`
+      : `resolve config from '${filePath}'`
+  );
+
+  const options = resolver.resolveConfig.sync(filePath, {
+    editorconfig: editorconfigValue,
+    config: configValue
+  });
+
+  logger.debug("loaded options `" + JSON.stringify(options) + "`");
+  return options;
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -521,5 +543,6 @@ module.exports = {
   createIgnorer,
   parseArgsToOptions,
   applyConfigPrecedence,
-  writeOutput
+  writeOutput,
+  resolveOptions
 };

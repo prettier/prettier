@@ -150,25 +150,12 @@ class Context {
 
   getOptionsOrDie(filePath) {
     try {
-      if (this.argv["config"] === false) {
-        this.logger.debug(
-          "'--no-config' option found, skip loading config file."
-        );
-        return null;
-      }
-
-      this.logger.debug(
-        this.argv["config"]
-          ? `load config file from '${this.argv["config"]}'`
-          : `resolve config from '${filePath}'`
+      return util.resolveOptions(
+        filePath,
+        this.argv["config"],
+        this.argv["editorconfig"],
+        this.logger
       );
-      const options = resolver.resolveConfig.sync(filePath, {
-        editorconfig: this.argv.editorconfig,
-        config: this.argv["config"]
-      });
-
-      this.logger.debug("loaded options `" + JSON.stringify(options) + "`");
-      return options;
     } catch (error) {
       this.logger.error("Invalid configuration file: " + error.message);
       process.exit(2);
