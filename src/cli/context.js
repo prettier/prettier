@@ -75,12 +75,6 @@ class Context {
     }, {});
   }
 
-  diff(a, b) {
-    return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
-      context: 2
-    });
-  }
-
   handleError(filename, error) {
     const isParseError = Boolean(error && error.loc);
     const isValidationError = /Validation Error/.test(error && error.message);
@@ -154,7 +148,7 @@ class Context {
       if (pp !== pppp) {
         throw new errors.DebugError(
           "prettier(input) !== prettier(prettier(input))\n" +
-            this.diff(pp, pppp)
+            util.createDiff(pp, pppp)
         );
       } else {
         const normalizedOpts = optionsModule.normalize(opt);
@@ -172,12 +166,12 @@ class Context {
           const astDiff =
             ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
               ? "AST diff too large to render"
-              : this.diff(ast, past);
+              : util.createDiff(ast, past);
           throw new errors.DebugError(
             "ast(input) !== ast(prettier(input))\n" +
               astDiff +
               "\n" +
-              this.diff(input, pp)
+              util.createDiff(input, pp)
           );
         }
       }

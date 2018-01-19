@@ -2,6 +2,7 @@
 
 const chalk = require("chalk");
 const dashify = require("dashify");
+const diff = require("diff");
 
 const CATEGORY_FORMAT = "Format";
 const CATEGORY_OTHER = "Other";
@@ -154,6 +155,12 @@ function flattenArray(array) {
   return [].concat.apply([], array);
 }
 
+function createDiff(a, b) {
+  return diff.createTwoFilesPatch("", "", a, b, "", "", {
+    context: 2
+  });
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -162,5 +169,6 @@ module.exports = {
   createMinimistOptions,
   createDetailedOptionMap,
   createApiDetailedOptionMap,
-  flattenArray
+  flattenArray,
+  createDiff
 };
