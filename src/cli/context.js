@@ -39,6 +39,7 @@ class Context {
       rawArgv["loglevel"] || constant.detailedOptionMap["loglevel"].default
     );
 
+    this.args = args;
     this.rawArgv = rawArgv;
     this.logger = logger;
   }
@@ -49,6 +50,7 @@ class Context {
       constant.detailedOptions,
       { logger: this.logger }
     );
+    this.filePatterns = this.argv["_"];
   }
 
   getOptions(argv) {
@@ -236,7 +238,7 @@ class Context {
     return this.getOptions(
       optionsNormalizer.normalizeCliOptions(
         minimist(
-          this.argv.__args,
+          this.args,
           Object.assign({
             string: constant.minimistOptions.string,
             boolean: constant.minimistOptions.boolean,
@@ -352,7 +354,7 @@ class Context {
     // before any files are actually written
     const ignorer = this.createIgnorer();
 
-    this.eachFilename(this.argv.__filePatterns, (filename, options) => {
+    this.eachFilename(this.filePatterns, (filename, options) => {
       const fileIgnored = ignorer.filter([filename]).length === 0;
       if (fileIgnored && (this.argv["write"] || this.argv["list-different"])) {
         return;

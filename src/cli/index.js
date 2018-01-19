@@ -11,18 +11,12 @@ function run(args) {
 
     context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
-    context.argv.__args = args;
-    context.argv.__filePatterns = context.argv["_"];
-
     if (context.argv["write"] && context.argv["debug-check"]) {
       context.logger.error("Cannot use --write and --debug-check together.");
       process.exit(1);
     }
 
-    if (
-      context.argv["find-config-path"] &&
-      context.argv.__filePatterns.length
-    ) {
+    if (context.argv["find-config-path"] && context.filePatterns.length) {
       context.logger.error("Cannot use --find-config-path with multiple files");
       process.exit(1);
     }
@@ -50,7 +44,7 @@ function run(args) {
       process.exit(0);
     }
 
-    const hasFilePatterns = context.argv.__filePatterns.length !== 0;
+    const hasFilePatterns = context.filePatterns.length !== 0;
     const useStdin =
       context.argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
 
