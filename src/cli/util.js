@@ -186,6 +186,96 @@ function getOptionDefaultValue(
   return undefined;
 }
 
+function createOptionUsageType(option) {
+  switch (option.type) {
+    case "boolean":
+      return null;
+    case "choice":
+      return `<${option.choices
+        .filter(choice => !choice.deprecated)
+        .map(choice => choice.value)
+        .join("|")}>`;
+    default:
+      return `<${option.type}>`;
+  }
+}
+
+function createDefaultValueDisplay(value) {
+  return Array.isArray(value)
+    ? `[${value.map(createDefaultValueDisplay).join(", ")}]`
+    : value;
+}
+
+function createOptionUsageHeader(option) {
+  const name = `--${option.name}`;
+  const alias = option.alias ? `-${option.alias},` : null;
+  const type = createOptionUsageType(option);
+  return [alias, name, type].filter(Boolean).join(" ");
+}
+
+function createOptionUsageRow(header, content, threshold) {
+  const separator =
+    header.length >= threshold
+      ? `\n${" ".repeat(threshold)}`
+      : " ".repeat(threshold - header.length);
+
+  const description = content.replace(/\n/g, `\n${" ".repeat(threshold)}`);
+
+  return `${header}${separator}${description}`;
+}
+
+function createChoiceUsages(choices, margin, indentation) {
+  const activeChoices = choices.filter(choice => !choice.deprecated);
+  const threshold =
+    activeChoices
+      .map(choice => choice.value.length)
+      .reduce((current, length) => Math.max(current, length), 0) + margin;
+  return activeChoices.map(choice =>
+    indent(
+      createOptionUsageRow(choice.value, choice.description, threshold),
+      indentation
+    )
+  );
+}
+
+function createOptionUsage(
+  option,
+  threshold,
+  detailedOptionMap,
+  apiDefaultOptions
+) {
+  const header = createOptionUsageHeader(option);
+  const optionDefaultValue = getOptionDefaultValue(
+    option.name,
+    detailedOptionMap,
+    apiDefaultOptions
+  );
+  return createOptionUsageRow(
+    header,
+    `${option.description}${
+      optionDefaultValue === undefined
+        ? ""
+        : `\nDefaults to ${createDefaultValueDisplay(optionDefaultValue)}.`
+    }`,
+    threshold
+  );
+}
+
+function getOptionsWithOpposites(options) {
+  // Add --no-foo after --foo.
+  const optionsWithOpposites = options.map(option => [
+    option.description ? option : null,
+    option.oppositeDescription
+      ? Object.assign({}, option, {
+          name: `no-${option.name}`,
+          type: "boolean",
+          description: option.oppositeDescription
+        })
+      : null
+  ]);
+  return flattenArray(optionsWithOpposites).filter(Boolean);
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -196,5 +286,11 @@ module.exports = {
   createApiDetailedOptionMap,
   flattenArray,
   createDiff,
-  getOptionDefaultValue
+  getOptionDefaultValue,
+  createOptionUsageHeader,
+  createDefaultValueDisplay,
+  createOptionUsageRow,
+  createChoiceUsages,
+  createOptionUsage,
+  getOptionsWithOpposites
 };

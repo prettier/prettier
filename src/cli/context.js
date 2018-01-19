@@ -439,33 +439,18 @@ class Context {
     });
   }
 
-  getOptionsWithOpposites(options) {
-    // Add --no-foo after --foo.
-    const optionsWithOpposites = options.map(option => [
-      option.description ? option : null,
-      option.oppositeDescription
-        ? Object.assign({}, option, {
-            name: `no-${option.name}`,
-            type: "boolean",
-            description: option.oppositeDescription
-          })
-        : null
-    ]);
-    return util.flattenArray(optionsWithOpposites).filter(Boolean);
-  }
-
   createUsage() {
-    const options = this.getOptionsWithOpposites(
-      constant.detailedOptions
-    ).filter(
-      // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
-      option =>
-        !(
-          option.type === "boolean" &&
-          option.oppositeDescription &&
-          !option.name.startsWith("no-")
-        )
-    );
+    const options = util
+      .getOptionsWithOpposites(constant.detailedOptions)
+      .filter(
+        // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
+        option =>
+          !(
+            option.type === "boolean" &&
+            option.oppositeDescription &&
+            !option.name.startsWith("no-")
+          )
+      );
 
     const groupedOptions = util.groupBy(options, option => option.category);
 
@@ -483,70 +468,19 @@ class Context {
 
     const optionsUsage = allCategories.map(category => {
       const categoryOptions = groupedOptions[category]
-        .map(option => this.createOptionUsage(option, OPTION_USAGE_THRESHOLD))
+        .map(option =>
+          util.createOptionUsage(
+            option,
+            OPTION_USAGE_THRESHOLD,
+            constant.detailedOptionMap,
+            apiDefaultOptions
+          )
+        )
         .join("\n");
       return `${category} options:\n\n${util.indent(categoryOptions, 2)}`;
     });
 
     return [constant.usageSummary].concat(optionsUsage, [""]).join("\n\n");
-  }
-
-  createOptionUsage(option, threshold) {
-    const header = this.createOptionUsageHeader(option);
-    const optionDefaultValue = util.getOptionDefaultValue(
-      option.name,
-      constant.detailedOptionMap,
-      apiDefaultOptions
-    );
-    return this.createOptionUsageRow(
-      header,
-      `${option.description}${
-        optionDefaultValue === undefined
-          ? ""
-          : `\nDefaults to ${this.createDefaultValueDisplay(
-              optionDefaultValue
-            )}.`
-      }`,
-      threshold
-    );
-  }
-
-  createDefaultValueDisplay(value) {
-    return Array.isArray(value)
-      ? `[${value.map(this.createDefaultValueDisplay).join(", ")}]`
-      : value;
-  }
-
-  createOptionUsageHeader(option) {
-    const name = `--${option.name}`;
-    const alias = option.alias ? `-${option.alias},` : null;
-    const type = this.createOptionUsageType(option);
-    return [alias, name, type].filter(Boolean).join(" ");
-  }
-
-  createOptionUsageRow(header, content, threshold) {
-    const separator =
-      header.length >= threshold
-        ? `\n${" ".repeat(threshold)}`
-        : " ".repeat(threshold - header.length);
-
-    const description = content.replace(/\n/g, `\n${" ".repeat(threshold)}`);
-
-    return `${header}${separator}${description}`;
-  }
-
-  createOptionUsageType(option) {
-    switch (option.type) {
-      case "boolean":
-        return null;
-      case "choice":
-        return `<${option.choices
-          .filter(choice => !choice.deprecated)
-          .map(choice => choice.value)
-          .join("|")}>`;
-      default:
-        return `<${option.type}>`;
-    }
   }
 
   getOptionWithLevenSuggestion(options, optionName) {
@@ -585,37 +519,25 @@ class Context {
     return options.find(option => option.name === "help");
   }
 
-  createChoiceUsages(choices, margin, indentation) {
-    const activeChoices = choices.filter(choice => !choice.deprecated);
-    const threshold =
-      activeChoices
-        .map(choice => choice.value.length)
-        .reduce((current, length) => Math.max(current, length), 0) + margin;
-    return activeChoices.map(choice =>
-      util.indent(
-        this.createOptionUsageRow(choice.value, choice.description, threshold),
-        indentation
-      )
-    );
-  }
-
   createDetailedUsage(optionName) {
     const option = this.getOptionWithLevenSuggestion(
-      this.getOptionsWithOpposites(constant.detailedOptions),
+      util.getOptionsWithOpposites(constant.detailedOptions),
       optionName
     );
 
-    const header = this.createOptionUsageHeader(option);
+    const header = util.createOptionUsageHeader(option);
     const description = `\n\n${util.indent(option.description, 2)}`;
 
     const choices =
       option.type !== "choice"
         ? ""
-        : `\n\nValid options:\n\n${this.createChoiceUsages(
-            option.choices,
-            CHOICE_USAGE_MARGIN,
-            CHOICE_USAGE_INDENTATION
-          ).join("\n")}`;
+        : `\n\nValid options:\n\n${util
+            .createChoiceUsages(
+              option.choices,
+              CHOICE_USAGE_MARGIN,
+              CHOICE_USAGE_INDENTATION
+            )
+            .join("\n")}`;
 
     const optionDefaultValue = util.getOptionDefaultValue(
       option.name,
@@ -624,7 +546,7 @@ class Context {
     );
     const defaults =
       optionDefaultValue !== undefined
-        ? `\n\nDefault: ${this.createDefaultValueDisplay(optionDefaultValue)}`
+        ? `\n\nDefault: ${util.createDefaultValueDisplay(optionDefaultValue)}`
         : "";
 
     return `${header}${description}${choices}${defaults}`;
