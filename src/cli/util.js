@@ -400,6 +400,16 @@ function getOptions(argv, detailedOptions) {
   );
 }
 
+function cliifyOptions(object, apiDetailedOptionMap) {
+  return Object.keys(object || {}).reduce((output, key) => {
+    const apiOption = apiDetailedOptionMap[key];
+    const cliKey = apiOption ? apiOption.name : key;
+
+    output[dashify(cliKey)] = object[key];
+    return output;
+  }, {});
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -420,5 +430,6 @@ module.exports = {
   createUsage,
   getOptionWithLevenSuggestion,
   createDetailedUsage,
-  getOptions
+  getOptions,
+  cliifyOptions
 };

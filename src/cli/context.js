@@ -51,16 +51,6 @@ class Context {
     this.filePatterns = this.argv["_"];
   }
 
-  cliifyOptions(object) {
-    return Object.keys(object || {}).reduce((output, key) => {
-      const apiOption = constant.apiDetailedOptionMap[key];
-      const cliKey = apiOption ? apiOption.name : key;
-
-      output[dashify(cliKey)] = object[key];
-      return output;
-    }, {});
-  }
-
   handleError(filename, error) {
     const isParseError = Boolean(error && error.loc);
     const isValidationError = /Validation Error/.test(error && error.message);
@@ -224,8 +214,14 @@ class Context {
             boolean: constant.minimistOptions.boolean,
             default: Object.assign(
               {},
-              this.cliifyOptions(apiDefaultOptions),
-              this.cliifyOptions(overrideDefaults)
+              util.cliifyOptions(
+                apiDefaultOptions,
+                constant.apiDetailedOptionMap
+              ),
+              util.cliifyOptions(
+                overrideDefaults,
+                constant.apiDetailedOptionMap
+              )
             )
           })
         ),
