@@ -39,8 +39,24 @@ exports[`nodes.css 1`] = `
 exports[`url.css 1`] = `
 @import url('foo');
 $dir: 'fonts';
+
+@import url("style.css");
+@import url( "style.css");
+@import url("style.css" );
+@import url( "style.css" );
+@import url(  "style.css"  );
+@import url(
+  "style.css"
+);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @import url("foo");
 $dir: "fonts";
+
+@import url("style.css");
+@import url("style.css");
+@import url("style.css");
+@import url("style.css");
+@import url("style.css");
+@import url("style.css");
 
 `;
