@@ -1,11 +1,9 @@
 "use strict";
 
 const path = require("path");
-const dashify = require("dashify");
 const minimist = require("minimist");
 const fs = require("fs");
 const globby = require("globby");
-const ignore = require("ignore");
 const chalk = require("chalk");
 const readline = require("readline");
 
@@ -51,31 +49,7 @@ class Context {
     this.filePatterns = this.argv["_"];
   }
 
-  handleError(filename, error) {
-    const isParseError = Boolean(error && error.loc);
-    const isValidationError = /Validation Error/.test(error && error.message);
-
-    // For parse errors and validation errors, we only want to show the error
-    // message formatted in a nice way. `String(error)` takes care of that. Other
-    // (unexpected) errors are passed as-is as a separate argument to
-    // `console.error`. That includes the stack trace (if any), and shows a nice
-    // `util.inspect` of throws things that aren't `Error` objects. (The Flow
-    // parser has mistakenly thrown arrays sometimes.)
-    if (isParseError) {
-      this.logger.error(`${filename}: ${String(error)}`);
-    } else if (isValidationError || error instanceof errors.ConfigError) {
-      this.logger.error(String(error));
-      // If validation fails for one file, it will fail for all of them.
-      process.exit(1);
-    } else if (error instanceof errors.DebugError) {
-      this.logger.error(`${filename}: ${error.message}`);
-    } else {
-      this.logger.error(filename + ": " + (error.stack || error));
-    }
-
-    // Don't exit the process if one file failed
-    process.exitCode = 2;
-  }
+  // action
 
   logResolvedConfigPathOrDie(filePath) {
     const configFile = resolver.resolveConfigFile.sync(filePath);
@@ -83,117 +57,6 @@ class Context {
       this.logger.log(path.relative(process.cwd(), configFile));
     } else {
       process.exit(1);
-    }
-  }
-
-  listDifferent(input, options, filename) {
-    if (!this.argv["list-different"]) {
-      return;
-    }
-
-    options = Object.assign({}, options, { filepath: filename });
-
-    if (!prettier.check(input, options)) {
-      if (!this.argv["write"]) {
-        this.logger.log(filename);
-      }
-      process.exitCode = 1;
-    }
-
-    return true;
-  }
-
-  format(input, opt) {
-    if (this.argv["debug-print-doc"]) {
-      const doc = prettier.__debug.printToDoc(input, opt);
-      return { formatted: prettier.__debug.formatDoc(doc) };
-    }
-
-    if (this.argv["debug-check"]) {
-      const pp = prettier.format(input, opt);
-      const pppp = prettier.format(pp, opt);
-      if (pp !== pppp) {
-        throw new errors.DebugError(
-          "prettier(input) !== prettier(prettier(input))\n" +
-            util.createDiff(pp, pppp)
-        );
-      } else {
-        const normalizedOpts = optionsModule.normalize(opt);
-        const ast = cleanAST(
-          prettier.__debug.parse(input, opt).ast,
-          normalizedOpts
-        );
-        const past = cleanAST(
-          prettier.__debug.parse(pp, opt).ast,
-          normalizedOpts
-        );
-
-        if (ast !== past) {
-          const MAX_AST_SIZE = 2097152; // 2MB
-          const astDiff =
-            ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
-              ? "AST diff too large to render"
-              : util.createDiff(ast, past);
-          throw new errors.DebugError(
-            "ast(input) !== ast(prettier(input))\n" +
-              astDiff +
-              "\n" +
-              util.createDiff(input, pp)
-          );
-        }
-      }
-      return { formatted: opt.filepath || "(stdin)\n" };
-    }
-
-    return prettier.formatWithCursor(input, opt);
-  }
-
-  getOptionsOrDie(filePath) {
-    try {
-      return util.resolveOptions(
-        filePath,
-        this.argv["config"],
-        this.argv["editorconfig"],
-        this.logger
-      );
-    } catch (error) {
-      this.logger.error("Invalid configuration file: " + error.message);
-      process.exit(2);
-    }
-  }
-
-  getOptionsForFile(filepath) {
-    const options = this.getOptionsOrDie(filepath);
-
-    const appliedOptions = Object.assign(
-      { filepath },
-      this.applyConfigPrecedence(
-        options &&
-          optionsNormalizer.normalizeApiOptions(options, optionInfos, {
-            logger: this.logger
-          })
-      )
-    );
-
-    this.logger.debug(
-      `applied config-precedence (${this.argv["config-precedence"]}): ` +
-        `${JSON.stringify(appliedOptions)}`
-    );
-    return appliedOptions;
-  }
-
-  applyConfigPrecedence(options) {
-    try {
-      return util.applyConfigPrecedence(
-        this.argv["config-precedence"],
-        this.args,
-        constant.detailedOptions,
-        apiDefaultOptions,
-        options
-      );
-    } catch (error) {
-      this.logger.error(error.toString());
-      process.exit(2);
     }
   }
 
@@ -223,47 +86,6 @@ class Context {
         this.handleError("stdin", error);
       }
     });
-  }
-
-  createIgnorer() {
-    try {
-      return util.createIgnorer(this.argv["ignore-path"]);
-    } catch (error) {
-      this.logger.error(error.message);
-      process.exit(2);
-    }
-  }
-
-  eachFilename(patterns, callback) {
-    const ignoreNodeModules = this.argv["with-node-modules"] === false;
-    if (ignoreNodeModules) {
-      patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
-    }
-
-    try {
-      const filePaths = globby
-        .sync(patterns, { dot: true, nodir: true })
-        .map(filePath => path.relative(process.cwd(), filePath));
-
-      if (filePaths.length === 0) {
-        this.logger.error(
-          `No matching files. Patterns tried: ${patterns.join(" ")}`
-        );
-        process.exitCode = 2;
-        return;
-      }
-      filePaths.forEach(filePath =>
-        callback(filePath, this.getOptionsForFile(filePath))
-      );
-    } catch (error) {
-      this.logger.error(
-        `Unable to expand glob patterns: ${patterns.join(" ")}\n${
-          error.message
-        }`
-      );
-      // Don't exit the process if one pattern failed
-      process.exitCode = 2;
-    }
   }
 
   formatFiles() {
@@ -361,6 +183,189 @@ class Context {
         util.writeOutput(result, options);
       }
     });
+  }
+
+  // util
+
+  handleError(filename, error) {
+    const isParseError = Boolean(error && error.loc);
+    const isValidationError = /Validation Error/.test(error && error.message);
+
+    // For parse errors and validation errors, we only want to show the error
+    // message formatted in a nice way. `String(error)` takes care of that. Other
+    // (unexpected) errors are passed as-is as a separate argument to
+    // `console.error`. That includes the stack trace (if any), and shows a nice
+    // `util.inspect` of throws things that aren't `Error` objects. (The Flow
+    // parser has mistakenly thrown arrays sometimes.)
+    if (isParseError) {
+      this.logger.error(`${filename}: ${String(error)}`);
+    } else if (isValidationError || error instanceof errors.ConfigError) {
+      this.logger.error(String(error));
+      // If validation fails for one file, it will fail for all of them.
+      process.exit(1);
+    } else if (error instanceof errors.DebugError) {
+      this.logger.error(`${filename}: ${error.message}`);
+    } else {
+      this.logger.error(filename + ": " + (error.stack || error));
+    }
+
+    // Don't exit the process if one file failed
+    process.exitCode = 2;
+  }
+
+  listDifferent(input, options, filename) {
+    if (!this.argv["list-different"]) {
+      return;
+    }
+
+    options = Object.assign({}, options, { filepath: filename });
+
+    if (!prettier.check(input, options)) {
+      if (!this.argv["write"]) {
+        this.logger.log(filename);
+      }
+      process.exitCode = 1;
+    }
+
+    return true;
+  }
+
+  format(input, opt) {
+    if (this.argv["debug-print-doc"]) {
+      const doc = prettier.__debug.printToDoc(input, opt);
+      return { formatted: prettier.__debug.formatDoc(doc) };
+    }
+
+    if (this.argv["debug-check"]) {
+      const pp = prettier.format(input, opt);
+      const pppp = prettier.format(pp, opt);
+      if (pp !== pppp) {
+        throw new errors.DebugError(
+          "prettier(input) !== prettier(prettier(input))\n" +
+            util.createDiff(pp, pppp)
+        );
+      } else {
+        const normalizedOpts = optionsModule.normalize(opt);
+        const ast = cleanAST(
+          prettier.__debug.parse(input, opt).ast,
+          normalizedOpts
+        );
+        const past = cleanAST(
+          prettier.__debug.parse(pp, opt).ast,
+          normalizedOpts
+        );
+
+        if (ast !== past) {
+          const MAX_AST_SIZE = 2097152; // 2MB
+          const astDiff =
+            ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
+              ? "AST diff too large to render"
+              : util.createDiff(ast, past);
+          throw new errors.DebugError(
+            "ast(input) !== ast(prettier(input))\n" +
+              astDiff +
+              "\n" +
+              util.createDiff(input, pp)
+          );
+        }
+      }
+      return { formatted: opt.filepath || "(stdin)\n" };
+    }
+
+    return prettier.formatWithCursor(input, opt);
+  }
+
+  eachFilename(patterns, callback) {
+    const ignoreNodeModules = this.argv["with-node-modules"] === false;
+    if (ignoreNodeModules) {
+      patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
+    }
+
+    try {
+      const filePaths = globby
+        .sync(patterns, { dot: true, nodir: true })
+        .map(filePath => path.relative(process.cwd(), filePath));
+
+      if (filePaths.length === 0) {
+        this.logger.error(
+          `No matching files. Patterns tried: ${patterns.join(" ")}`
+        );
+        process.exitCode = 2;
+        return;
+      }
+      filePaths.forEach(filePath =>
+        callback(filePath, this.getOptionsForFile(filePath))
+      );
+    } catch (error) {
+      this.logger.error(
+        `Unable to expand glob patterns: ${patterns.join(" ")}\n${
+          error.message
+        }`
+      );
+      // Don't exit the process if one pattern failed
+      process.exitCode = 2;
+    }
+  }
+
+  getOptionsForFile(filepath) {
+    const options = this.getOptionsOrDie(filepath);
+
+    const appliedOptions = Object.assign(
+      { filepath },
+      this.applyConfigPrecedence(
+        options &&
+          optionsNormalizer.normalizeApiOptions(options, optionInfos, {
+            logger: this.logger
+          })
+      )
+    );
+
+    this.logger.debug(
+      `applied config-precedence (${this.argv["config-precedence"]}): ` +
+        `${JSON.stringify(appliedOptions)}`
+    );
+
+    return appliedOptions;
+  }
+
+  // convenient
+
+  getOptionsOrDie(filePath) {
+    try {
+      return util.resolveOptions(
+        filePath,
+        this.argv["config"],
+        this.argv["editorconfig"],
+        this.logger
+      );
+    } catch (error) {
+      this.logger.error("Invalid configuration file: " + error.message);
+      process.exit(2);
+    }
+  }
+
+  applyConfigPrecedence(options) {
+    try {
+      return util.applyConfigPrecedence(
+        this.argv["config-precedence"],
+        this.args,
+        constant.detailedOptions,
+        apiDefaultOptions,
+        options
+      );
+    } catch (error) {
+      this.logger.error(error.toString());
+      process.exit(2);
+    }
+  }
+
+  createIgnorer() {
+    try {
+      return util.createIgnorer(this.argv["ignore-path"]);
+    } catch (error) {
+      this.logger.error(error.message);
+      process.exit(2);
+    }
   }
 
   createUsage() {
