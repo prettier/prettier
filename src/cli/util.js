@@ -4,6 +4,7 @@ const camelCase = require("camelcase");
 const chalk = require("chalk");
 const dashify = require("dashify");
 const diff = require("diff");
+const leven = require("leven");
 const util = require("../common/util");
 
 const CATEGORY_FORMAT = "Format";
@@ -323,6 +324,40 @@ function createUsage(
   return [usageSummary].concat(optionsUsage, [""]).join("\n\n");
 }
 
+function getOptionWithLevenSuggestion(options, optionName, logger) {
+  // support aliases
+  const optionNameContainers = flattenArray(
+    options.map((option, index) => [
+      { value: option.name, index },
+      option.alias ? { value: option.alias, index } : null
+    ])
+  ).filter(Boolean);
+
+  const optionNameContainer = optionNameContainers.find(
+    optionNameContainer => optionNameContainer.value === optionName
+  );
+
+  if (optionNameContainer !== undefined) {
+    return options[optionNameContainer.index];
+  }
+
+  const suggestedOptionNameContainer = optionNameContainers.find(
+    optionNameContainer => leven(optionNameContainer.value, optionName) < 3
+  );
+
+  if (suggestedOptionNameContainer !== undefined) {
+    const suggestedOptionName = suggestedOptionNameContainer.value;
+    logger.warn(
+      `Unknown option name "${optionName}", did you mean "${suggestedOptionName}"?`
+    );
+
+    return options[suggestedOptionNameContainer.index];
+  }
+
+  logger.warn(`Unknown option name "${optionName}"`);
+  return options.find(option => option.name === "help");
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -340,5 +375,6 @@ module.exports = {
   createChoiceUsages,
   createOptionUsage,
   getOptionsWithOpposites,
-  createUsage
+  createUsage,
+  getOptionWithLevenSuggestion
 };

@@ -8,7 +8,6 @@ const globby = require("globby");
 const ignore = require("ignore");
 const chalk = require("chalk");
 const readline = require("readline");
-const leven = require("leven");
 
 const util = require("./util");
 const normalizer = require("../main/options-normalizer");
@@ -449,46 +448,11 @@ class Context {
     );
   }
 
-  getOptionWithLevenSuggestion(options, optionName) {
-    // support aliases
-    const optionNameContainers = util
-      .flattenArray(
-        options.map((option, index) => [
-          { value: option.name, index },
-          option.alias ? { value: option.alias, index } : null
-        ])
-      )
-      .filter(Boolean);
-
-    const optionNameContainer = optionNameContainers.find(
-      optionNameContainer => optionNameContainer.value === optionName
-    );
-
-    if (optionNameContainer !== undefined) {
-      return options[optionNameContainer.index];
-    }
-
-    const suggestedOptionNameContainer = optionNameContainers.find(
-      optionNameContainer => leven(optionNameContainer.value, optionName) < 3
-    );
-
-    if (suggestedOptionNameContainer !== undefined) {
-      const suggestedOptionName = suggestedOptionNameContainer.value;
-      this.logger.warn(
-        `Unknown option name "${optionName}", did you mean "${suggestedOptionName}"?`
-      );
-
-      return options[suggestedOptionNameContainer.index];
-    }
-
-    this.logger.warn(`Unknown option name "${optionName}"`);
-    return options.find(option => option.name === "help");
-  }
-
   createDetailedUsage(optionName) {
-    const option = this.getOptionWithLevenSuggestion(
+    const option = util.getOptionWithLevenSuggestion(
       util.getOptionsWithOpposites(constant.detailedOptions),
-      optionName
+      optionName,
+      this.logger
     );
 
     const header = util.createOptionUsageHeader(option);
