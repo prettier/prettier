@@ -1,7 +1,6 @@
 "use strict";
 
 const dedent = require("dedent");
-const dashify = require("dashify");
 const getSupportInfo = require("../common/support").getSupportInfo;
 const options = require("./options");
 const commonUtil = require("../common/util");
@@ -23,27 +22,14 @@ const categoryOrder = [
 
 const detailedOptionMap = util.normalizeDetailedOptionMap(
   Object.assign(
-    getSupportInfo(null, {
-      showDeprecated: true,
-      showUnreleased: true,
-      showInternal: true
-    }).options.reduce((reduced, option) => {
-      const newOption = Object.assign({}, option, {
-        name: option.cliName || dashify(option.name),
-        description: option.cliDescription || option.description,
-        category: option.cliCategory || CATEGORY_FORMAT,
-        forwardToApi: option.name
-      });
-
-      if (option.deprecated) {
-        delete newOption.forwardToApi;
-        delete newOption.description;
-        delete newOption.oppositeDescription;
-        newOption.deprecated = true;
-      }
-
-      return Object.assign(reduced, { [newOption.name]: newOption });
-    }, {}),
+    {},
+    util.createDetailedOptionMap(
+      getSupportInfo(null, {
+        showDeprecated: true,
+        showUnreleased: true,
+        showInternal: true
+      }).options
+    ),
     options
   )
 );

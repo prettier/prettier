@@ -1,7 +1,9 @@
 "use strict";
 
 const chalk = require("chalk");
+const dashify = require("dashify");
 
+const CATEGORY_FORMAT = "Format";
 const CATEGORY_OTHER = "Other";
 
 function indent(str, spaces) {
@@ -128,11 +130,32 @@ function createApiDetailedOptionMap(detailedOptions) {
   );
 }
 
+function createDetailedOptionMap(supportOptions) {
+  return supportOptions.reduce((reduced, option) => {
+    const newOption = Object.assign({}, option, {
+      name: option.cliName || dashify(option.name),
+      description: option.cliDescription || option.description,
+      category: option.cliCategory || CATEGORY_FORMAT,
+      forwardToApi: option.name
+    });
+
+    if (option.deprecated) {
+      delete newOption.forwardToApi;
+      delete newOption.description;
+      delete newOption.oppositeDescription;
+      newOption.deprecated = true;
+    }
+
+    return Object.assign(reduced, { [newOption.name]: newOption });
+  }, {});
+}
+
 module.exports = {
   indent,
   groupBy,
   createLogger,
   normalizeDetailedOptionMap,
   createMinimistOptions,
+  createDetailedOptionMap,
   createApiDetailedOptionMap
 };
