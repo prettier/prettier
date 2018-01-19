@@ -358,6 +358,38 @@ function getOptionWithLevenSuggestion(options, optionName, logger) {
   return options.find(option => option.name === "help");
 }
 
+function createDetailedUsage(
+  option,
+  choiceUsageMargin,
+  choiceUsageIndentation,
+  detailedOptionMap,
+  apiDefaultOptions
+) {
+  const header = createOptionUsageHeader(option);
+  const description = `\n\n${indent(option.description, 2)}`;
+
+  const choices =
+    option.type !== "choice"
+      ? ""
+      : `\n\nValid options:\n\n${createChoiceUsages(
+          option.choices,
+          choiceUsageMargin,
+          choiceUsageIndentation
+        ).join("\n")}`;
+
+  const optionDefaultValue = getOptionDefaultValue(
+    option.name,
+    detailedOptionMap,
+    apiDefaultOptions
+  );
+  const defaults =
+    optionDefaultValue !== undefined
+      ? `\n\nDefault: ${createDefaultValueDisplay(optionDefaultValue)}`
+      : "";
+
+  return `${header}${description}${choices}${defaults}`;
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -376,5 +408,6 @@ module.exports = {
   createOptionUsage,
   getOptionsWithOpposites,
   createUsage,
-  getOptionWithLevenSuggestion
+  getOptionWithLevenSuggestion,
+  createDetailedUsage
 };

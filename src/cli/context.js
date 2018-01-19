@@ -454,32 +454,13 @@ class Context {
       optionName,
       this.logger
     );
-
-    const header = util.createOptionUsageHeader(option);
-    const description = `\n\n${util.indent(option.description, 2)}`;
-
-    const choices =
-      option.type !== "choice"
-        ? ""
-        : `\n\nValid options:\n\n${util
-            .createChoiceUsages(
-              option.choices,
-              CHOICE_USAGE_MARGIN,
-              CHOICE_USAGE_INDENTATION
-            )
-            .join("\n")}`;
-
-    const optionDefaultValue = util.getOptionDefaultValue(
-      option.name,
+    return util.createDetailedUsage(
+      option,
+      CHOICE_USAGE_MARGIN,
+      CHOICE_USAGE_INDENTATION,
       constant.detailedOptionMap,
       apiDefaultOptions
     );
-    const defaults =
-      optionDefaultValue !== undefined
-        ? `\n\nDefault: ${util.createDefaultValueDisplay(optionDefaultValue)}`
-        : "";
-
-    return `${header}${description}${choices}${defaults}`;
   }
 }
 
