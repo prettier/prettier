@@ -487,6 +487,15 @@ function applyConfigPrecedence(
   }
 }
 
+function writeOutput(result, options) {
+  // Don't use `console.log` here since it adds an extra newline at the end.
+  process.stdout.write(result.formatted);
+
+  if (options.cursorOffset >= 0) {
+    process.stderr.write(result.cursorOffset + "\n");
+  }
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -511,5 +520,6 @@ module.exports = {
   cliifyOptions,
   createIgnorer,
   parseArgsToOptions,
-  applyConfigPrecedence
+  applyConfigPrecedence,
+  writeOutput
 };

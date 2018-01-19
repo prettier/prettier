@@ -86,15 +86,6 @@ class Context {
     }
   }
 
-  writeOutput(result, options) {
-    // Don't use `console.log` here since it adds an extra newline at the end.
-    process.stdout.write(result.formatted);
-
-    if (options.cursorOffset >= 0) {
-      process.stderr.write(result.cursorOffset + "\n");
-    }
-  }
-
   listDifferent(input, options, filename) {
     if (!this.argv["list-different"]) {
       return;
@@ -229,7 +220,7 @@ class Context {
 
     thirdParty.getStream(process.stdin).then(input => {
       if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
-        this.writeOutput({ formatted: input }, {});
+        util.writeOutput({ formatted: input }, {});
         return;
       }
 
@@ -240,7 +231,7 @@ class Context {
       }
 
       try {
-        this.writeOutput(this.format(input, options), options);
+        util.writeOutput(this.format(input, options), options);
       } catch (error) {
         this.handleError("stdin", error);
       }
@@ -318,7 +309,7 @@ class Context {
       }
 
       if (fileIgnored) {
-        this.writeOutput({ formatted: input }, options);
+        util.writeOutput({ formatted: input }, options);
         return;
       }
 
@@ -380,7 +371,7 @@ class Context {
           process.exitCode = 2;
         }
       } else if (!this.argv["list-different"]) {
-        this.writeOutput(result, options);
+        util.writeOutput(result, options);
       }
     });
   }
