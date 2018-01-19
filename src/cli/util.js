@@ -118,10 +118,21 @@ function createMinimistOptions(detailedOptions) {
   };
 }
 
+function createApiDetailedOptionMap(detailedOptions) {
+  return detailedOptions.reduce(
+    (current, option) =>
+      option.forwardToApi && option.forwardToApi !== option.name
+        ? Object.assign(current, { [option.forwardToApi]: option })
+        : current,
+    {}
+  );
+}
+
 module.exports = {
   indent,
   groupBy,
   createLogger,
   normalizeDetailedOptionMap,
-  createMinimistOptions
+  createMinimistOptions,
+  createApiDetailedOptionMap
 };

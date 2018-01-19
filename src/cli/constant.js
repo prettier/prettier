@@ -58,13 +58,7 @@ const usageSummary = dedent`
   Stdin is read if it is piped to Prettier and no files are given.
 `;
 
-const apiDetailedOptionMap = detailedOptions.reduce(
-  (current, option) =>
-    option.forwardToApi && option.forwardToApi !== option.name
-      ? Object.assign(current, { [option.forwardToApi]: option })
-      : current,
-  {}
-);
+const apiDetailedOptionMap = util.createApiDetailedOptionMap(detailedOptions);
 
 module.exports = {
   categoryOrder,
