@@ -175,10 +175,17 @@ function genericPrint(path, options, print) {
         }
         parts.push(childPath.call(print));
       }, "nodes");
-      return group(indent(join(concat([",", line]), parts)));
+
+      return group(indent(join(line, parts)));
     }
     case "media-query": {
-      return join(" ", path.map(print, "nodes"));
+      const parent = path.getParentNode();
+      const isLastNode = parent.nodes.indexOf(n) === parent.nodes.length - 1;
+
+      return concat([
+        join(" ", path.map(print, "nodes")),
+        isLastNode ? "" : ","
+      ]);
     }
     case "media-type": {
       const parent = path.getParentNode(2);
