@@ -36,6 +36,7 @@ const detailedOptionMap = util.normalizeDetailedOptionMap(
 
 const detailedOptions = commonUtil.arrayify(detailedOptionMap, "name");
 const minimistOptions = util.createMinimistOptions(detailedOptions);
+const apiDetailedOptionMap = util.createApiDetailedOptionMap(detailedOptions);
 
 const usageSummary = dedent`
   Usage: prettier [options] [file/glob ...]
@@ -44,13 +45,11 @@ const usageSummary = dedent`
   Stdin is read if it is piped to Prettier and no files are given.
 `;
 
-const apiDetailedOptionMap = util.createApiDetailedOptionMap(detailedOptions);
-
 module.exports = {
-  categoryOrder,
-  minimistOptions,
-  detailedOptions,
-  detailedOptionMap,
   apiDetailedOptionMap,
+  categoryOrder,
+  detailedOptionMap,
+  detailedOptions,
+  minimistOptions,
   usageSummary
 };
