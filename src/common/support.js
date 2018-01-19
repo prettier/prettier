@@ -5,13 +5,10 @@ const dedent = require("dedent");
 const semver = require("semver");
 const currentVersion = require("../../package.json").version;
 const loadPlugins = require("./load-plugins");
+const cliConstant = require("../cli/constant");
 
 const CATEGORY_GLOBAL = "Global";
 const CATEGORY_SPECIAL = "Special";
-
-const CATEGORY_CONFIG = "Config";
-const CATEGORY_EDITOR = "Editor";
-const CATEGORY_OTHER = "Other";
 
 /**
  * @typedef {Object} OptionInfo
@@ -63,7 +60,7 @@ const supportOptions = {
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end.
     `,
-    cliCategory: CATEGORY_EDITOR
+    cliCategory: cliConstant.CATEGORY_EDITOR
   },
   filepath: {
     since: "1.4.0",
@@ -73,7 +70,7 @@ const supportOptions = {
     description:
       "Specify the input filepath. This will be used to do parser inference.",
     cliName: "stdin-filepath",
-    cliCategory: CATEGORY_OTHER,
+    cliCategory: cliConstant.CATEGORY_OTHER,
     cliDescription: "Path to the file to pretend that stdin comes from."
   },
   insertPragma: {
@@ -82,7 +79,7 @@ const supportOptions = {
     type: "boolean",
     default: false,
     description: "Insert @format pragma into file's first docblock comment.",
-    cliCategory: CATEGORY_OTHER
+    cliCategory: cliConstant.CATEGORY_OTHER
   },
   parser: {
     since: "0.0.10",
@@ -122,7 +119,7 @@ const supportOptions = {
       "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.",
     exception: value => typeof value === "string" || typeof value === "object",
     cliName: "plugin",
-    cliCategory: CATEGORY_CONFIG
+    cliCategory: cliConstant.CATEGORY_CONFIG
   },
   printWidth: {
     since: "0.0.0",
@@ -143,7 +140,7 @@ const supportOptions = {
       The range will extend forwards to the end of the selected statement.
       This option cannot be used with --cursor-offset.
     `,
-    cliCategory: CATEGORY_EDITOR
+    cliCategory: cliConstant.CATEGORY_EDITOR
   },
   rangeStart: {
     since: "1.4.0",
@@ -156,7 +153,7 @@ const supportOptions = {
       The range will extend backwards to the start of the first line containing the selected statement.
       This option cannot be used with --cursor-offset.
     `,
-    cliCategory: CATEGORY_EDITOR
+    cliCategory: cliConstant.CATEGORY_EDITOR
   },
   requirePragma: {
     since: "1.7.0",
@@ -167,7 +164,7 @@ const supportOptions = {
       Require either '@prettier' or '@format' to be present in the file's first docblock comment
       in order for it to be formatted.
     `,
-    cliCategory: CATEGORY_OTHER
+    cliCategory: cliConstant.CATEGORY_OTHER
   },
   tabWidth: {
     type: "int",

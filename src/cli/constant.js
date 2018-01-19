@@ -108,9 +108,9 @@ const options = {
       {
         value: "prefer-file",
         description: dedent`
-              If a config file is found will evaluate it and ignore other CLI options.
-              If no config file is found CLI options will evaluate as normal.
-            `
+          If a config file is found will evaluate it and ignore other CLI options.
+          If no config file is found CLI options will evaluate as normal.
+        `
       }
     ],
     description:
@@ -140,9 +140,9 @@ const options = {
     type: "flag",
     alias: "h",
     description: dedent`
-          Show CLI usage, or details about the given flag.
-          Example: --help write
-        `
+      Show CLI usage, or details about the given flag.
+      Example: --help write
+    `
   },
   "ignore-path": {
     type: "path",
@@ -196,8 +196,11 @@ const usageSummary = dedent`
 `;
 
 module.exports = {
+  CATEGORY_CONFIG,
+  CATEGORY_EDITOR,
   CATEGORY_FORMAT,
   CATEGORY_OTHER,
+  CATEGORY_OUTPUT,
   categoryOrder,
   options,
   usageSummary
