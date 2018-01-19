@@ -9,6 +9,8 @@ const util = require("../common/util");
 const fs = require("fs");
 const path = require("path");
 const ignore = require("ignore");
+const optionsNormalizer = require("../main/options-normalizer");
+const minimist = require("minimist");
 
 const CATEGORY_FORMAT = "Format";
 const CATEGORY_OTHER = "Other";
@@ -428,6 +430,63 @@ function createIgnorer(ignorePath) {
   return ignore().add(ignoreText);
 }
 
+function parseArgsToOptions(
+  args,
+  detailedOptions,
+  apiDefaultOptions,
+  overrideDefaults
+) {
+  const minimistOptions = createMinimistOptions(detailedOptions);
+  const apiDetailedOptionMap = createApiDetailedOptionMap(detailedOptions);
+  return getOptions(
+    optionsNormalizer.normalizeCliOptions(
+      minimist(
+        args,
+        Object.assign({
+          string: minimistOptions.string,
+          boolean: minimistOptions.boolean,
+          default: Object.assign(
+            {},
+            cliifyOptions(apiDefaultOptions, apiDetailedOptionMap),
+            cliifyOptions(overrideDefaults, apiDetailedOptionMap)
+          )
+        })
+      ),
+      detailedOptions,
+      { logger: false }
+    ),
+    detailedOptions
+  );
+}
+
+function applyConfigPrecedence(
+  configPrecedence,
+  args,
+  detailedOptions,
+  apiDefaultOptions,
+  options
+) {
+  switch (configPrecedence) {
+    case "cli-override":
+      return parseArgsToOptions(
+        args,
+        detailedOptions,
+        apiDefaultOptions,
+        options
+      );
+    case "file-override":
+      return Object.assign(
+        {},
+        parseArgsToOptions(args, detailedOptions, apiDefaultOptions),
+        options
+      );
+    case "prefer-file":
+      return (
+        options || parseArgsToOptions(args, detailedOptions, apiDefaultOptions)
+      );
+  }
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -450,5 +509,7 @@ module.exports = {
   createDetailedUsage,
   getOptions,
   cliifyOptions,
-  createIgnorer
+  createIgnorer,
+  parseArgsToOptions,
+  applyConfigPrecedence
 };

@@ -204,44 +204,15 @@ class Context {
     return appliedOptions;
   }
 
-  parseArgsToOptions(overrideDefaults) {
-    return util.getOptions(
-      optionsNormalizer.normalizeCliOptions(
-        minimist(
-          this.args,
-          Object.assign({
-            string: constant.minimistOptions.string,
-            boolean: constant.minimistOptions.boolean,
-            default: Object.assign(
-              {},
-              util.cliifyOptions(
-                apiDefaultOptions,
-                constant.apiDetailedOptionMap
-              ),
-              util.cliifyOptions(
-                overrideDefaults,
-                constant.apiDetailedOptionMap
-              )
-            )
-          })
-        ),
-        constant.detailedOptions,
-        { logger: false }
-      ),
-      constant.detailedOptions
-    );
-  }
-
   applyConfigPrecedence(options) {
     try {
-      switch (this.argv["config-precedence"]) {
-        case "cli-override":
-          return this.parseArgsToOptions(options);
-        case "file-override":
-          return Object.assign({}, this.parseArgsToOptions(), options);
-        case "prefer-file":
-          return options || this.parseArgsToOptions();
-      }
+      return util.applyConfigPrecedence(
+        this.argv["config-precedence"],
+        this.args,
+        constant.detailedOptions,
+        apiDefaultOptions,
+        options
+      );
     } catch (error) {
       this.logger.error(error.toString());
       process.exit(2);
