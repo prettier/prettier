@@ -4,6 +4,7 @@ const dedent = require("dedent");
 const dashify = require("dashify");
 const getSupportInfo = require("../common/support").getSupportInfo;
 const options = require("./options");
+const commonUtil = require("../common/util");
 const util = require("./util");
 
 const CATEGORY_CONFIG = "Config";
@@ -20,7 +21,7 @@ const categoryOrder = [
   CATEGORY_OTHER
 ];
 
-const detailedOptions = util.normalizeDetailedOptions(
+const detailedOptionMap = util.normalizeDetailedOptionMap(
   Object.assign(
     getSupportInfo(null, {
       showDeprecated: true,
@@ -47,6 +48,7 @@ const detailedOptions = util.normalizeDetailedOptions(
   )
 );
 
+const detailedOptions = commonUtil.arrayify(detailedOptionMap, "name");
 const minimistOptions = util.createMinimistOptions(detailedOptions);
 
 const usageSummary = dedent`
@@ -55,11 +57,6 @@ const usageSummary = dedent`
   By default, output is written to stdout.
   Stdin is read if it is piped to Prettier and no files are given.
 `;
-
-const detailedOptionMap = detailedOptions.reduce(
-  (current, option) => Object.assign(current, { [option.name]: option }),
-  {}
-);
 
 const apiDetailedOptionMap = detailedOptions.reduce(
   (current, option) =>

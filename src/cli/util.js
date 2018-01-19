@@ -64,29 +64,32 @@ function createLogger(logLevel) {
   }
 }
 
-function normalizeDetailedOptions(rawDetailedOptions) {
-  const names = Object.keys(rawDetailedOptions).sort();
-
-  const normalized = names.map(name => {
-    const option = rawDetailedOptions[name];
-    return Object.assign({ category: CATEGORY_OTHER }, option, {
-      name,
-      choices:
-        option.choices &&
-        option.choices.map(choice => {
-          const newChoice = Object.assign(
-            { description: "", deprecated: false },
-            typeof choice === "object" ? choice : { value: choice }
-          );
-          if (newChoice.value === true) {
-            newChoice.value = ""; // backward compability for original boolean option
-          }
-          return newChoice;
-        })
-    });
+function normalizeDetailedOption(name, option) {
+  return Object.assign({ category: CATEGORY_OTHER }, option, {
+    choices:
+      option.choices &&
+      option.choices.map(choice => {
+        const newChoice = Object.assign(
+          { description: "", deprecated: false },
+          typeof choice === "object" ? choice : { value: choice }
+        );
+        if (newChoice.value === true) {
+          newChoice.value = ""; // backward compability for original boolean option
+        }
+        return newChoice;
+      })
   });
+}
 
-  return normalized;
+function normalizeDetailedOptionMap(detailedOptionMap) {
+  return Object.keys(detailedOptionMap)
+    .sort()
+    .reduce((normalized, name) => {
+      const option = detailedOptionMap[name];
+      return Object.assign(normalized, {
+        [name]: normalizeDetailedOption(name, option)
+      });
+    }, {});
 }
 
 function createMinimistOptions(detailedOptions) {
@@ -119,6 +122,6 @@ module.exports = {
   indent,
   groupBy,
   createLogger,
-  normalizeDetailedOptions,
+  normalizeDetailedOptionMap,
   createMinimistOptions
 };
