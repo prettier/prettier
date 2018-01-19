@@ -211,7 +211,7 @@ function genericPrint(path, options, print) {
       return adjustStrings(n.value, options);
     }
     case "media-url": {
-      return adjustStrings(n.value, options);
+      return adjustStrings(stripWhitespace(n.value), options);
     }
     case "media-unknown": {
       return adjustStrings(n.value, options);
@@ -542,6 +542,10 @@ function maybeToLowerCase(value) {
     (value.includes("(") && value.includes(")"))
     ? value
     : value.toLowerCase();
+}
+
+function stripWhitespace(value) {
+  return value.replace(/\s/g, "");
 }
 
 module.exports = {

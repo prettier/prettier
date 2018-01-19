@@ -1,2 +1,11 @@
 @import url('foo');
 $dir: 'fonts';
+
+@import url("style.css");
+@import url( "style.css");
+@import url("style.css" );
+@import url( "style.css" );
+@import url(  "style.css"  );
+@import url(
+  "style.css"
+);
