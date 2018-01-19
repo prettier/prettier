@@ -205,7 +205,14 @@ function parseNestedCSS(node) {
       }
     }
     if (node.type === "css-atrule" && typeof node.params === "string") {
-      node.params = parseMediaQuery(node.params);
+      if (node.name === "warn" || node.name === "error") {
+        node.params = {
+          type: "media-unknown",
+          value: node.params
+        };
+      } else {
+        node.params = parseMediaQuery(node.params);
+      }
     }
   }
   return node;
