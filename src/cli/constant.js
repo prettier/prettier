@@ -196,6 +196,8 @@ const usageSummary = dedent`
 `;
 
 module.exports = {
+  CATEGORY_FORMAT,
+  CATEGORY_OTHER,
   categoryOrder,
   options,
   usageSummary

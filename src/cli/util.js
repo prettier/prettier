@@ -12,9 +12,7 @@ const path = require("path");
 const ignore = require("ignore");
 const optionsNormalizer = require("../main/options-normalizer");
 const minimist = require("minimist");
-
-const CATEGORY_FORMAT = "Format";
-const CATEGORY_OTHER = "Other";
+const constant = require("./constant");
 
 function indent(str, spaces) {
   return str.replace(/^/gm, " ".repeat(spaces));
@@ -77,7 +75,7 @@ function createLogger(logLevel) {
 }
 
 function normalizeDetailedOption(name, option) {
-  return Object.assign({ category: CATEGORY_OTHER }, option, {
+  return Object.assign({ category: constant.CATEGORY_OTHER }, option, {
     choices:
       option.choices &&
       option.choices.map(choice => {
@@ -145,7 +143,7 @@ function createDetailedOptionMap(supportOptions) {
     const newOption = Object.assign({}, option, {
       name: option.cliName || dashify(option.name),
       description: option.cliDescription || option.description,
-      category: option.cliCategory || CATEGORY_FORMAT,
+      category: option.cliCategory || constant.CATEGORY_FORMAT,
       forwardToApi: option.name
     });
 
