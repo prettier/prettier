@@ -47,9 +47,6 @@ class Context {
 
     const detailedOptions = commonUtil.arrayify(detailedOptionMap, "name");
     const minimistOptions = util.createMinimistOptions(detailedOptions);
-    const apiDetailedOptionMap = util.createApiDetailedOptionMap(
-      detailedOptions
-    );
 
     const rawArgv = minimist(args, minimistOptions);
 
@@ -62,8 +59,6 @@ class Context {
     this.logger = logger;
     this.detailedOptionMap = detailedOptionMap;
     this.detailedOptions = detailedOptions;
-    this.minimistOptions = minimistOptions;
-    this.apiDetailedOptionMap = apiDetailedOptionMap;
   }
 
   init() {
