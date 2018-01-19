@@ -458,7 +458,7 @@ class Context {
           })
         : null
     ]);
-    return this.flattenArray(optionsWithOpposites).filter(Boolean);
+    return util.flattenArray(optionsWithOpposites).filter(Boolean);
   }
 
   createUsage() {
@@ -552,18 +552,16 @@ class Context {
     }
   }
 
-  flattenArray(array) {
-    return [].concat.apply([], array);
-  }
-
   getOptionWithLevenSuggestion(options, optionName) {
     // support aliases
-    const optionNameContainers = this.flattenArray(
-      options.map((option, index) => [
-        { value: option.name, index },
-        option.alias ? { value: option.alias, index } : null
-      ])
-    ).filter(Boolean);
+    const optionNameContainers = util
+      .flattenArray(
+        options.map((option, index) => [
+          { value: option.name, index },
+          option.alias ? { value: option.alias, index } : null
+        ])
+      )
+      .filter(Boolean);
 
     const optionNameContainer = optionNameContainers.find(
       optionNameContainer => optionNameContainer.value === optionName

@@ -150,6 +150,10 @@ function createDetailedOptionMap(supportOptions) {
   }, {});
 }
 
+function flattenArray(array) {
+  return [].concat.apply([], array);
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -157,5 +161,6 @@ module.exports = {
   normalizeDetailedOptionMap,
   createMinimistOptions,
   createDetailedOptionMap,
-  createApiDetailedOptionMap
+  createApiDetailedOptionMap,
+  flattenArray
 };
