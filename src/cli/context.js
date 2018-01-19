@@ -51,18 +51,6 @@ class Context {
     this.filePatterns = this.argv["_"];
   }
 
-  getOptions(argv) {
-    return constant.detailedOptions
-      .filter(option => option.forwardToApi)
-      .reduce(
-        (current, option) =>
-          Object.assign(current, {
-            [option.forwardToApi]: argv[option.name]
-          }),
-        {}
-      );
-  }
-
   cliifyOptions(object) {
     return Object.keys(object || {}).reduce((output, key) => {
       const apiOption = constant.apiDetailedOptionMap[key];
@@ -227,7 +215,7 @@ class Context {
   }
 
   parseArgsToOptions(overrideDefaults) {
-    return this.getOptions(
+    return util.getOptions(
       optionsNormalizer.normalizeCliOptions(
         minimist(
           this.args,
@@ -243,7 +231,8 @@ class Context {
         ),
         constant.detailedOptions,
         { logger: false }
-      )
+      ),
+      constant.detailedOptions
     );
   }
 

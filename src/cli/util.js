@@ -390,6 +390,16 @@ function createDetailedUsage(
   return `${header}${description}${choices}${defaults}`;
 }
 
+function getOptions(argv, detailedOptions) {
+  return detailedOptions.filter(option => option.forwardToApi).reduce(
+    (current, option) =>
+      Object.assign(current, {
+        [option.forwardToApi]: argv[option.name]
+      }),
+    {}
+  );
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -409,5 +419,6 @@ module.exports = {
   getOptionsWithOpposites,
   createUsage,
   getOptionWithLevenSuggestion,
-  createDetailedUsage
+  createDetailedUsage,
+  getOptions
 };
