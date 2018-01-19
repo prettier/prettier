@@ -1,5 +1,6 @@
 "use strict";
 
+const camelCase = require("camelcase");
 const chalk = require("chalk");
 const dashify = require("dashify");
 const diff = require("diff");
@@ -161,6 +162,30 @@ function createDiff(a, b) {
   });
 }
 
+function getOptionDefaultValue(
+  optionName,
+  detailedOptionMap,
+  apiDefaultOptions
+) {
+  // --no-option
+  if (!(optionName in detailedOptionMap)) {
+    return undefined;
+  }
+
+  const option = detailedOptionMap[optionName];
+
+  if (option.default !== undefined) {
+    return option.default;
+  }
+
+  const optionCamelName = camelCase(optionName);
+  if (optionCamelName in apiDefaultOptions) {
+    return apiDefaultOptions[optionCamelName];
+  }
+
+  return undefined;
+}
+
 module.exports = {
   indent,
   groupBy,
@@ -170,5 +195,6 @@ module.exports = {
   createDetailedOptionMap,
   createApiDetailedOptionMap,
   flattenArray,
-  createDiff
+  createDiff,
+  getOptionDefaultValue
 };

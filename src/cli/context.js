@@ -1,7 +1,6 @@
 "use strict";
 
 const path = require("path");
-const camelCase = require("camelcase");
 const dashify = require("dashify");
 const minimist = require("minimist");
 const fs = require("fs");
@@ -494,7 +493,11 @@ class Context {
 
   createOptionUsage(option, threshold) {
     const header = this.createOptionUsageHeader(option);
-    const optionDefaultValue = this.getOptionDefaultValue(option.name);
+    const optionDefaultValue = util.getOptionDefaultValue(
+      option.name,
+      constant.detailedOptionMap,
+      apiDefaultOptions
+    );
     return this.createOptionUsageRow(
       header,
       `${option.description}${
@@ -614,33 +617,17 @@ class Context {
             CHOICE_USAGE_INDENTATION
           ).join("\n")}`;
 
-    const optionDefaultValue = this.getOptionDefaultValue(option.name);
+    const optionDefaultValue = util.getOptionDefaultValue(
+      option.name,
+      constant.detailedOptionMap,
+      apiDefaultOptions
+    );
     const defaults =
       optionDefaultValue !== undefined
         ? `\n\nDefault: ${this.createDefaultValueDisplay(optionDefaultValue)}`
         : "";
 
     return `${header}${description}${choices}${defaults}`;
-  }
-
-  getOptionDefaultValue(optionName) {
-    // --no-option
-    if (!(optionName in constant.detailedOptionMap)) {
-      return undefined;
-    }
-
-    const option = constant.detailedOptionMap[optionName];
-
-    if (option.default !== undefined) {
-      return option.default;
-    }
-
-    const optionCamelName = camelCase(optionName);
-    if (optionCamelName in apiDefaultOptions) {
-      return apiDefaultOptions[optionCamelName];
-    }
-
-    return undefined;
   }
 }
 
