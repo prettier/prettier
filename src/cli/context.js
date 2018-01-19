@@ -22,6 +22,8 @@ const optionInfos = require("../common/support").getSupportInfo(null, {
   showDeprecated: true,
   showUnreleased: true
 }).options;
+const getSupportInfo = require("../common/support").getSupportInfo;
+const commonUtil = require("../common/util");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -29,21 +31,45 @@ const CHOICE_USAGE_INDENTATION = 2;
 
 class Context {
   constructor(args) {
-    const rawArgv = minimist(args, constant.minimistOptions);
+    const detailedOptionMap = util.normalizeDetailedOptionMap(
+      Object.assign(
+        {},
+        util.createDetailedOptionMap(
+          getSupportInfo(null, {
+            showDeprecated: true,
+            showUnreleased: true,
+            showInternal: true
+          }).options
+        ),
+        constant.options
+      )
+    );
+
+    const detailedOptions = commonUtil.arrayify(detailedOptionMap, "name");
+    const minimistOptions = util.createMinimistOptions(detailedOptions);
+    const apiDetailedOptionMap = util.createApiDetailedOptionMap(
+      detailedOptions
+    );
+
+    const rawArgv = minimist(args, minimistOptions);
 
     const logger = util.createLogger(
-      rawArgv["loglevel"] || constant.detailedOptionMap["loglevel"].default
+      rawArgv["loglevel"] || detailedOptionMap["loglevel"].default
     );
 
     this.args = args;
     this.rawArgv = rawArgv;
     this.logger = logger;
+    this.detailedOptionMap = detailedOptionMap;
+    this.detailedOptions = detailedOptions;
+    this.minimistOptions = minimistOptions;
+    this.apiDetailedOptionMap = apiDetailedOptionMap;
   }
 
   init() {
     this.argv = normalizer.normalizeCliOptions(
       this.rawArgv,
-      constant.detailedOptions,
+      this.detailedOptions,
       { logger: this.logger }
     );
     this.filePatterns = this.argv["_"];
@@ -349,7 +375,7 @@ class Context {
       return util.applyConfigPrecedence(
         this.argv["config-precedence"],
         this.args,
-        constant.detailedOptions,
+        this.detailedOptions,
         apiDefaultOptions,
         options
       );
@@ -373,14 +399,14 @@ class Context {
       constant.usageSummary,
       OPTION_USAGE_THRESHOLD,
       constant.categoryOrder,
-      constant.detailedOptionMap,
+      this.detailedOptionMap,
       apiDefaultOptions
     );
   }
 
   createDetailedUsage(optionName) {
     const option = util.getOptionWithLevenSuggestion(
-      util.getOptionsWithOpposites(constant.detailedOptions),
+      util.getOptionsWithOpposites(this.detailedOptions),
       optionName,
       this.logger
     );
@@ -388,7 +414,7 @@ class Context {
       option,
       CHOICE_USAGE_MARGIN,
       CHOICE_USAGE_INDENTATION,
-      constant.detailedOptionMap,
+      this.detailedOptionMap,
       apiDefaultOptions
     );
   }
