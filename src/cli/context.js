@@ -36,6 +36,11 @@ class Context {
     this.parseArgv(this.argv["plugin"]);
   }
 
+  init() {
+    // split into 2 step so that we could wrap this in a `try..catch` in cli/index.js
+    this.normalizeArgv();
+  }
+
   parseArgv(plugins) {
     this.pushPlugins(plugins);
 
@@ -101,10 +106,6 @@ class Context {
     this.argv = normalizer.normalizeCliOptions(argv, detailedOptions, {
       logger: this.logger
     });
-  }
-
-  init() {
-    this.normalizeArgv();
   }
 
   logResolvedConfigPathOrDie(filePath) {
