@@ -83,6 +83,19 @@ function updateContextArgv(context, plugins) {
   context.filePatterns = argv["_"];
 }
 
+function normalizeContextArgv(context, keys) {
+  const detailedOptions = !keys
+    ? context.detailedOptions
+    : context.detailedOptions.filter(
+        option => keys.indexOf(option.name) !== -1
+      );
+  const argv = !keys ? context.argv : util.pick(context.argv, keys);
+
+  context.argv = normalizer.normalizeCliOptions(argv, detailedOptions, {
+    logger: context.logger
+  });
+}
+
 //
 
 /**
@@ -96,7 +109,7 @@ class Context {
     this.args = args;
 
     updateContextArgv(this);
-    this.normalizeArgv(["loglevel", "plugin"]);
+    normalizeContextArgv(this, ["loglevel", "plugin"]);
 
     this.logger = util.createLogger(this.argv["loglevel"]);
 
@@ -105,18 +118,7 @@ class Context {
 
   init() {
     // split into 2 step so that we could wrap this in a `try..catch` in cli/index.js
-    this.normalizeArgv();
-  }
-
-  normalizeArgv(keys) {
-    const detailedOptions = !keys
-      ? this.detailedOptions
-      : this.detailedOptions.filter(option => keys.indexOf(option.name) !== -1);
-    const argv = !keys ? this.argv : util.pick(this.argv, keys);
-
-    this.argv = normalizer.normalizeCliOptions(argv, detailedOptions, {
-      logger: this.logger
-    });
+    normalizeContextArgv(this);
   }
 
   logResolvedConfigPathOrDie(filePath) {
