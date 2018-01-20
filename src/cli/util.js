@@ -516,6 +516,15 @@ function resolveOptions(filePath, configValue, editorconfigValue, logger) {
   return options;
 }
 
+function pick(object, keys) {
+  return !keys
+    ? object
+    : keys.reduce(
+        (reduced, key) => Object.assign(reduced, { [key]: object[key] }),
+        {}
+      );
+}
+
 module.exports = {
   applyConfigPrecedence,
   createApiDetailedOptionMap,
@@ -530,5 +539,6 @@ module.exports = {
   getOptionsWithOpposites,
   normalizeDetailedOptionMap,
   resolveOptions,
-  writeOutput
+  writeOutput,
+  pick
 };

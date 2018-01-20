@@ -15,13 +15,8 @@ const errors = require("../common/errors");
 const resolver = require("../config/resolve-config");
 const constant = require("./constant");
 const optionsModule = require("../main/options");
-const apiDefaultOptions = optionsModule.defaults;
 const optionsNormalizer = require("../main/options-normalizer");
 const thirdParty = require("../common/third-party");
-const optionInfos = require("../common/support").getSupportInfo(null, {
-  showDeprecated: true,
-  showUnreleased: true
-}).options;
 const getSupportInfo = require("../common/support").getSupportInfo;
 const commonUtil = require("../common/util");
 
@@ -31,43 +26,72 @@ const CHOICE_USAGE_INDENTATION = 2;
 
 class Context {
   constructor(args) {
+    this.args = args;
+
+    const firstParsingKeys = ["loglevel", "plugin"];
+    this.parseArgv(firstParsingKeys);
+    this.normalizeArgv(firstParsingKeys);
+
+    this.logger = util.createLogger(this.argv["loglevel"]);
+
+    this.parseArgv(null, this.argv["plugin"]);
+  }
+
+  parseArgv(keys, plugins) {
+    const supportOptions = getSupportInfo(null, {
+      showDeprecated: true,
+      showUnreleased: true,
+      showInternal: true,
+      plugins
+    }).options;
+
     const detailedOptionMap = util.normalizeDetailedOptionMap(
-      Object.assign(
-        {},
-        util.createDetailedOptionMap(
-          getSupportInfo(null, {
-            showDeprecated: true,
-            showUnreleased: true,
-            showInternal: true
-          }).options
+      util.pick(
+        Object.assign(
+          {},
+          util.createDetailedOptionMap(supportOptions),
+          constant.options
         ),
-        constant.options
+        keys
       )
     );
-
     const detailedOptions = commonUtil.arrayify(detailedOptionMap, "name");
+
     const minimistOptions = util.createMinimistOptions(detailedOptions);
+    const argv = minimist(this.args, minimistOptions);
 
-    const rawArgv = minimist(args, minimistOptions);
-
-    const logger = util.createLogger(
-      rawArgv["loglevel"] || detailedOptionMap["loglevel"].default
-    );
-
-    this.args = args;
-    this.rawArgv = rawArgv;
-    this.logger = logger;
-    this.detailedOptionMap = detailedOptionMap;
+    this.argv = argv;
+    this.filePatterns = argv["_"];
+    this.supportOptions = supportOptions;
     this.detailedOptions = detailedOptions;
+    this.detailedOptionMap = detailedOptionMap;
+  }
+
+  normalizeArgv(keys) {
+    const detailedOptions = !keys
+      ? this.detailedOptions
+      : this.detailedOptions.filter(option => keys.indexOf(option.name) !== -1);
+    const argv = !keys
+      ? this.argv
+      : util.pick(this.argv, detailedOptions.map(option => option.name));
+
+    this.argv = normalizer.normalizeCliOptions(argv, detailedOptions, {
+      logger: this.logger
+    });
   }
 
   init() {
-    this.argv = normalizer.normalizeCliOptions(
-      this.rawArgv,
-      this.detailedOptions,
-      { logger: this.logger }
-    );
-    this.filePatterns = this.argv["_"];
+    this.normalizeArgv();
+
+    const apiDefaultOptions = this.supportOptions
+      .filter(optionInfo => !optionInfo.deprecated)
+      .reduce(
+        (reduced, optionInfo) =>
+          Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
+        Object.assign({}, optionsModule.hiddenDefaults)
+      );
+
+    this.apiDefaultOptions = apiDefaultOptions;
   }
 
   // action
@@ -335,9 +359,15 @@ class Context {
       { filepath },
       this.applyConfigPrecedence(
         options &&
-          optionsNormalizer.normalizeApiOptions(options, optionInfos, {
-            logger: this.logger
-          })
+          optionsNormalizer.normalizeApiOptions(
+            options,
+            getSupportInfo(null, {
+              showDeprecated: true,
+              showUnreleased: true,
+              plugins: options.plugins
+            }).options,
+            { logger: this.logger }
+          )
       )
     );
 
@@ -371,7 +401,7 @@ class Context {
         this.argv["config-precedence"],
         this.args,
         this.detailedOptions,
-        apiDefaultOptions,
+        this.apiDefaultOptions,
         options
       );
     } catch (error) {
@@ -395,7 +425,7 @@ class Context {
       OPTION_USAGE_THRESHOLD,
       constant.categoryOrder,
       this.detailedOptionMap,
-      apiDefaultOptions
+      this.apiDefaultOptions
     );
   }
 
@@ -410,7 +440,7 @@ class Context {
       CHOICE_USAGE_MARGIN,
       CHOICE_USAGE_INDENTATION,
       this.detailedOptionMap,
-      apiDefaultOptions
+      this.apiDefaultOptions
     );
   }
 }
