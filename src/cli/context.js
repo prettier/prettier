@@ -24,6 +24,8 @@ const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
+// context
+
 function updateContextOptions(context, plugins) {
   const supportOptions = getSupportInfo(null, {
     showDeprecated: true,
@@ -71,6 +73,18 @@ function popContextPlugins(context) {
   context.apiDefaultOptions = context._apiDefaultOptions;
 }
 
+function updateContextArgv(context, plugins) {
+  pushContextPlugins(context, plugins);
+
+  const minimistOptions = util.createMinimistOptions(context.detailedOptions);
+  const argv = minimist(context.args, minimistOptions);
+
+  context.argv = argv;
+  context.filePatterns = argv["_"];
+}
+
+//
+
 /**
  * @property supportOptions
  * @property detailedOptions
@@ -81,27 +95,17 @@ class Context {
   constructor(args) {
     this.args = args;
 
-    this.parseArgv();
+    updateContextArgv(this);
     this.normalizeArgv(["loglevel", "plugin"]);
 
     this.logger = util.createLogger(this.argv["loglevel"]);
 
-    this.parseArgv(this.argv["plugin"]);
+    updateContextArgv(this, this.argv["plugin"]);
   }
 
   init() {
     // split into 2 step so that we could wrap this in a `try..catch` in cli/index.js
     this.normalizeArgv();
-  }
-
-  parseArgv(plugins) {
-    pushContextPlugins(this, plugins);
-
-    const minimistOptions = util.createMinimistOptions(this.detailedOptions);
-    const argv = minimist(this.args, minimistOptions);
-
-    this.argv = argv;
-    this.filePatterns = argv["_"];
   }
 
   normalizeArgv(keys) {
