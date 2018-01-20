@@ -96,6 +96,8 @@ function normalizeContextArgv(context, keys) {
   });
 }
 
+//
+
 function listDifferent(context, input, options, filename) {
   if (!context.argv["list-different"]) {
     return;
@@ -113,7 +115,31 @@ function listDifferent(context, input, options, filename) {
   return true;
 }
 
-//
+function handleError(context, filename, error) {
+  const isParseError = Boolean(error && error.loc);
+  const isValidationError = /Validation Error/.test(error && error.message);
+
+  // For parse errors and validation errors, we only want to show the error
+  // message formatted in a nice way. `String(error)` takes care of that. Other
+  // (unexpected) errors are passed as-is as a separate argument to
+  // `console.error`. That includes the stack trace (if any), and shows a nice
+  // `util.inspect` of throws things that aren't `Error` objects. (The Flow
+  // parser has mistakenly thrown arrays sometimes.)
+  if (isParseError) {
+    context.logger.error(`${filename}: ${String(error)}`);
+  } else if (isValidationError || error instanceof errors.ConfigError) {
+    context.logger.error(String(error));
+    // If validation fails for one file, it will fail for all of them.
+    process.exit(1);
+  } else if (error instanceof errors.DebugError) {
+    context.logger.error(`${filename}: ${error.message}`);
+  } else {
+    context.logger.error(filename + ": " + (error.stack || error));
+  }
+
+  // Don't exit the process if one file failed
+  process.exitCode = 2;
+}
 
 /**
  * @property supportOptions
@@ -161,7 +187,7 @@ class Context {
       try {
         util.writeOutput(this.format(input, options), options);
       } catch (error) {
-        this.handleError("stdin", error);
+        handleError(this, "stdin", error);
       }
     });
   }
@@ -217,7 +243,7 @@ class Context {
         // Add newline to split errors from filename line.
         process.stdout.write("\n");
 
-        this.handleError(filename, error);
+        handleError(this, filename, error);
         return;
       }
 
@@ -261,32 +287,6 @@ class Context {
         util.writeOutput(result, options);
       }
     });
-  }
-
-  handleError(filename, error) {
-    const isParseError = Boolean(error && error.loc);
-    const isValidationError = /Validation Error/.test(error && error.message);
-
-    // For parse errors and validation errors, we only want to show the error
-    // message formatted in a nice way. `String(error)` takes care of that. Other
-    // (unexpected) errors are passed as-is as a separate argument to
-    // `console.error`. That includes the stack trace (if any), and shows a nice
-    // `util.inspect` of throws things that aren't `Error` objects. (The Flow
-    // parser has mistakenly thrown arrays sometimes.)
-    if (isParseError) {
-      this.logger.error(`${filename}: ${String(error)}`);
-    } else if (isValidationError || error instanceof errors.ConfigError) {
-      this.logger.error(String(error));
-      // If validation fails for one file, it will fail for all of them.
-      process.exit(1);
-    } else if (error instanceof errors.DebugError) {
-      this.logger.error(`${filename}: ${error.message}`);
-    } else {
-      this.logger.error(filename + ": " + (error.stack || error));
-    }
-
-    // Don't exit the process if one file failed
-    process.exitCode = 2;
   }
 
   format(input, opt) {
