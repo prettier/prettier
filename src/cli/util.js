@@ -495,25 +495,32 @@ function writeOutput(result, options) {
   }
 }
 
-function resolveOptions(filePath, configValue, editorconfigValue, logger) {
-  if (configValue === false) {
-    logger.debug("'--no-config' option found, skip loading config file.");
-    return null;
+function getOptionsOrDie(context, filePath, configValue, editorconfigValue) {
+  try {
+    if (configValue === false) {
+      context.logger.debug(
+        "'--no-config' option found, skip loading config file."
+      );
+      return null;
+    }
+
+    context.logger.debug(
+      configValue
+        ? `load config file from '${configValue}'`
+        : `resolve config from '${filePath}'`
+    );
+
+    const options = resolver.resolveConfig.sync(filePath, {
+      editorconfig: editorconfigValue,
+      config: configValue
+    });
+
+    context.logger.debug("loaded options `" + JSON.stringify(options) + "`");
+    return options;
+  } catch (error) {
+    context.logger.error("Invalid configuration file: " + error.message);
+    process.exit(2);
   }
-
-  logger.debug(
-    configValue
-      ? `load config file from '${configValue}'`
-      : `resolve config from '${filePath}'`
-  );
-
-  const options = resolver.resolveConfig.sync(filePath, {
-    editorconfig: editorconfigValue,
-    config: configValue
-  });
-
-  logger.debug("loaded options `" + JSON.stringify(options) + "`");
-  return options;
 }
 
 function pick(object, keys) {
@@ -547,7 +554,7 @@ module.exports = {
   getOptionWithLevenSuggestion,
   getOptionsWithOpposites,
   normalizeDetailedOptionMap,
-  resolveOptions,
+  getOptionsOrDie,
   writeOutput,
   pick,
   logResolvedConfigPathOrDie

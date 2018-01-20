@@ -367,7 +367,12 @@ class Context {
   }
 
   getOptionsForFile(filepath) {
-    const options = this.getOptionsOrDie(filepath);
+    const options = util.getOptionsOrDie(
+      this,
+      filepath,
+      this.argv["config"],
+      this.argv["editorconfig"]
+    );
 
     const hasPlugins = options && options.plugins;
     if (hasPlugins) {
@@ -394,20 +399,6 @@ class Context {
     }
 
     return appliedOptions;
-  }
-
-  getOptionsOrDie(filePath) {
-    try {
-      return util.resolveOptions(
-        filePath,
-        this.argv["config"],
-        this.argv["editorconfig"],
-        this.logger
-      );
-    } catch (error) {
-      this.logger.error("Invalid configuration file: " + error.message);
-      process.exit(2);
-    }
   }
 
   applyConfigPrecedence(options) {
