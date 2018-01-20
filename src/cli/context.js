@@ -64,6 +64,13 @@ function pushContextPlugins(context, plugins) {
   updateContextOptions(context, plugins);
 }
 
+function popContextPlugins(context) {
+  context.supportOptions = context._supportOptions;
+  context.detailedOptions = context._detailedOptions;
+  context.detailedOptionMap = context._detailedOptionMap;
+  context.apiDefaultOptions = context._apiDefaultOptions;
+}
+
 /**
  * @property supportOptions
  * @property detailedOptions
@@ -95,13 +102,6 @@ class Context {
 
     this.argv = argv;
     this.filePatterns = argv["_"];
-  }
-
-  popPlugins() {
-    this.supportOptions = this._supportOptions;
-    this.detailedOptions = this._detailedOptions;
-    this.detailedOptionMap = this._detailedOptionMap;
-    this.apiDefaultOptions = this._apiDefaultOptions;
   }
 
   normalizeArgv(keys) {
@@ -393,7 +393,7 @@ class Context {
     );
 
     if (hasPlugins) {
-      this.popPlugins();
+      popContextPlugins(this);
     }
 
     return appliedOptions;
