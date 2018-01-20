@@ -1,0 +1,4 @@
+{
+    "plugins": ["./plugin"],
+    "fooOption": "baz"
+}

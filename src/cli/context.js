@@ -367,21 +367,20 @@ class Context {
   getOptionsForFile(filepath) {
     const options = this.getOptionsOrDie(filepath);
 
+    const hasPlugins = options && options.plugins;
+    if (hasPlugins) {
+      this.pushPlugins(options.plugins);
+    }
+
     const appliedOptions = Object.assign(
       { filepath },
       this.applyConfigPrecedence(
         this.detailedOptions,
         this.apiDefaultOptions,
         options &&
-          optionsNormalizer.normalizeApiOptions(
-            options,
-            getSupportInfo(null, {
-              showDeprecated: true,
-              showUnreleased: true,
-              plugins: options.plugins
-            }).options,
-            { logger: this.logger }
-          )
+          optionsNormalizer.normalizeApiOptions(options, this.supportOptions, {
+            logger: this.logger
+          })
       )
     );
 
@@ -389,6 +388,10 @@ class Context {
       `applied config-precedence (${this.argv["config-precedence"]}): ` +
         `${JSON.stringify(appliedOptions)}`
     );
+
+    if (hasPlugins) {
+      this.popPlugins();
+    }
 
     return appliedOptions;
   }

@@ -40,3 +40,16 @@ describe("external options from CLI should work", () => {
     write: []
   });
 });
+
+describe("external options from config file should work", () => {
+  runPrettier(
+    "plugins/options",
+    ["--config=./config.json", "--stdin-filepath", "example.foo"],
+    { input: "hello-world" }
+  ).test({
+    stdout: "foo:baz",
+    stderr: "",
+    status: 0,
+    write: []
+  });
+});
