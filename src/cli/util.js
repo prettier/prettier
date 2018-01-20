@@ -846,6 +846,24 @@ function formatStdin(context) {
 
 //------------------------------------------------------------------------------
 
+function createContext(args) {
+  const context = { args };
+
+  updateContextArgv(context);
+  normalizeContextArgv(context, ["loglevel", "plugin"]);
+
+  context.logger = createLogger(context.argv["loglevel"]);
+
+  updateContextArgv(context, context.argv["plugin"]);
+
+  return context;
+}
+
+function initContext(context) {
+  // split into 2 step so that we could wrap this in a `try..catch` in cli/index.js
+  normalizeContextArgv(context);
+}
+
 function updateContextOptions(context, plugins) {
   const supportOptions = getSupportInfo(null, {
     showDeprecated: true,
@@ -915,6 +933,8 @@ function normalizeContextArgv(context, keys) {
 //------------------------------------------------------------------------------
 
 module.exports = {
+  createContext,
+  initContext,
   applyConfigPrecedence,
   createApiDetailedOptionMap,
   createDetailedOptionMap,

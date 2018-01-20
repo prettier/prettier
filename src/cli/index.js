@@ -1,15 +1,14 @@
 "use strict";
 
 const prettier = require("../../index");
-const Context = require("./context");
 const stringify = require("json-stable-stringify");
 const util = require("./util");
 
 function run(args) {
-  const context = new Context(args);
+  const context = util.createContext(args);
 
   try {
-    context.init();
+    util.initContext(context);
 
     context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
