@@ -4,7 +4,8 @@ const docblock = require("jest-docblock");
 
 const version = require("./package.json").version;
 
-const util = require("./src/common/util");
+const sharedUtil = require("./src/common/util-shared");
+const privateUtil = require("./src/common/util");
 const getSupportInfo = require("./src/common/support").getSupportInfo;
 
 const comments = require("./src/main/comments");
@@ -72,6 +73,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
     return { formatted: text };
   }
 
+  const util = sharedUtil(opts);
   const UTF8BOM = 0xfeff;
   const hasUnicodeBOM = text.charCodeAt(0) === UTF8BOM;
   if (hasUnicodeBOM) {
@@ -145,7 +147,7 @@ function format(text, opts, addAlignmentSize) {
   return formatWithCursor(text, opts, addAlignmentSize).formatted;
 }
 
-function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
+function findSiblingAncestors(startNodeAndParents, endNodeAndParents, util) {
   let resultStartNode = startNodeAndParents.node;
   let resultEndNode = endNodeAndParents.node;
 
@@ -187,6 +189,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
 }
 
 function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
+  const util = sharedUtil(options);
   predicate = predicate || (() => true);
   parentNodes = parentNodes || [];
   const start = util.locStart(node);
@@ -297,6 +300,7 @@ function isSourceElement(opts, node) {
 function calculateRange(text, opts, ast) {
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
+  const util = sharedUtil(opts);
   const rangeStringOrig = text.slice(opts.rangeStart, opts.rangeEnd);
   const startNonWhitespace = Math.max(
     opts.rangeStart + rangeStringOrig.search(/\S/),
@@ -335,7 +339,8 @@ function calculateRange(text, opts, ast) {
 
   const siblingAncestors = findSiblingAncestors(
     startNodeAndParents,
-    endNodeAndParents
+    endNodeAndParents,
+    util
   );
   const startNode = siblingAncestors.startNode;
   const endNode = siblingAncestors.endNode;
@@ -367,7 +372,10 @@ function formatRange(text, opts, ast) {
   );
   const indentString = text.slice(rangeStart2, rangeStart);
 
-  const alignmentSize = util.getAlignmentSize(indentString, opts.tabWidth);
+  const alignmentSize = privateUtil.getAlignmentSize(
+    indentString,
+    opts.tabWidth
+  );
 
   const rangeFormatted = format(
     rangeString,

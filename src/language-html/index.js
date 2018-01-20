@@ -27,7 +27,19 @@ const parsers = {
     get parse() {
       return eval("require")("./parser-parse5");
     },
-    astFormat: "htmlparser2"
+    astFormat: "htmlparser2",
+    locEnd: function(node) {
+      if (!node.__location) {
+        return null;
+      }
+      return node.__location.endOffset;
+    },
+    locStart: function(node) {
+      if (!node.__location) {
+        return null;
+      }
+      return node.__location.startOffset;
+    }
   }
 };
 

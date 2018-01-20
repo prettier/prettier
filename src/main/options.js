@@ -9,7 +9,9 @@ const getPrinter = require("./get-printer");
 
 const hiddenDefaults = {
   astFormat: "estree",
-  printer: {}
+  printer: {},
+  locStart: null,
+  locEnd: null
 };
 
 // Copy options and fill in default values.
@@ -48,6 +50,8 @@ function normalize(options, opts) {
   }
 
   rawOptions.astFormat = resolveParser(rawOptions).astFormat;
+  rawOptions.locEnd = resolveParser(rawOptions).locEnd;
+  rawOptions.locStart = resolveParser(rawOptions).locStart;
   rawOptions.printer = getPrinter(rawOptions);
 
   Object.keys(defaults).forEach(k => {
