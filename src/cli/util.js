@@ -10,7 +10,6 @@ const ignore = require("ignore");
 const chalk = require("chalk");
 const readline = require("readline");
 const leven = require("leven");
-const diff = require("diff");
 
 const prettier = require("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
@@ -47,8 +46,8 @@ function cliifyOptions(object, apiDetailedOptionMap) {
   }, {});
 }
 
-function createDiff(a, b) {
-  return diff.createTwoFilesPatch("", "", a, b, "", "", {
+function diff(a, b) {
+  return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
     context: 2
   });
 }
@@ -125,7 +124,7 @@ function format(context, input, opt) {
     const pppp = prettier.format(pp, opt);
     if (pp !== pppp) {
       throw new errors.DebugError(
-        "prettier(input) !== prettier(prettier(input))\n" + createDiff(pp, pppp)
+        "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
       );
     } else {
       const normalizedOpts = optionsModule.normalize(opt);
@@ -143,12 +142,12 @@ function format(context, input, opt) {
         const astDiff =
           ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
             ? "AST diff too large to render"
-            : createDiff(ast, past);
+            : diff(ast, past);
         throw new errors.DebugError(
           "ast(input) !== ast(prettier(input))\n" +
             astDiff +
             "\n" +
-            createDiff(input, pp)
+            diff(input, pp)
         );
       }
     }
@@ -947,7 +946,7 @@ module.exports = {
   createApiDetailedOptionMap,
   createDetailedOptionMap,
   createDetailedUsage,
-  createDiff,
+  diff,
   createIgnorer,
   createLogger,
   createMinimistOptions,
