@@ -24,6 +24,38 @@ const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
+function updateContextOptions(context, plugins) {
+  const supportOptions = getSupportInfo(null, {
+    showDeprecated: true,
+    showUnreleased: true,
+    showInternal: true,
+    plugins
+  }).options;
+
+  const detailedOptionMap = util.normalizeDetailedOptionMap(
+    Object.assign(
+      {},
+      util.createDetailedOptionMap(supportOptions),
+      constant.options
+    )
+  );
+
+  const detailedOptions = commonUtil.arrayify(detailedOptionMap, "name");
+
+  const apiDefaultOptions = supportOptions
+    .filter(optionInfo => !optionInfo.deprecated)
+    .reduce(
+      (reduced, optionInfo) =>
+        Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
+      Object.assign({}, optionsModule.hiddenDefaults)
+    );
+
+  context.supportOptions = supportOptions;
+  context.detailedOptions = detailedOptions;
+  context.detailedOptionMap = detailedOptionMap;
+  context.apiDefaultOptions = apiDefaultOptions;
+}
+
 class Context {
   constructor(args) {
     this.args = args;
@@ -51,44 +83,12 @@ class Context {
     this.filePatterns = argv["_"];
   }
 
-  updateOptions(plugins) {
-    const supportOptions = getSupportInfo(null, {
-      showDeprecated: true,
-      showUnreleased: true,
-      showInternal: true,
-      plugins
-    }).options;
-
-    const detailedOptionMap = util.normalizeDetailedOptionMap(
-      Object.assign(
-        {},
-        util.createDetailedOptionMap(supportOptions),
-        constant.options
-      )
-    );
-
-    const detailedOptions = commonUtil.arrayify(detailedOptionMap, "name");
-
-    const apiDefaultOptions = supportOptions
-      .filter(optionInfo => !optionInfo.deprecated)
-      .reduce(
-        (reduced, optionInfo) =>
-          Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
-        Object.assign({}, optionsModule.hiddenDefaults)
-      );
-
-    this.supportOptions = supportOptions;
-    this.detailedOptions = detailedOptions;
-    this.detailedOptionMap = detailedOptionMap;
-    this.apiDefaultOptions = apiDefaultOptions;
-  }
-
   pushPlugins(plugins) {
     this._supportOptions = this.supportOptions;
     this._detailedOptions = this.detailedOptions;
     this._detailedOptionMap = this.detailedOptionMap;
     this._apiDefaultOptions = this.apiDefaultOptions;
-    this.updateOptions(plugins);
+    updateContextOptions(this, plugins);
   }
 
   popPlugins() {
