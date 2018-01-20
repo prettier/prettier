@@ -1,5 +1,6 @@
 "use strict";
 
+const thirdParty = require("../common/third-party");
 const readline = require("readline");
 const cleanAST = require("../common/clean-ast").cleanAST;
 const globby = require("globby");
@@ -881,6 +882,34 @@ function formatFiles(context) {
   });
 }
 
+function formatStdin(context) {
+  const filepath = context.argv["stdin-filepath"]
+    ? path.resolve(process.cwd(), context.argv["stdin-filepath"])
+    : process.cwd();
+
+  const ignorer = createIgnorer(this, context.argv["ignore-path"]);
+  const relativeFilepath = path.relative(process.cwd(), filepath);
+
+  thirdParty.getStream(process.stdin).then(input => {
+    if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
+      writeOutput({ formatted: input }, {});
+      return;
+    }
+
+    const options = getOptionsForFile(context, filepath);
+
+    if (listDifferent(context, input, options, "(stdin)")) {
+      return;
+    }
+
+    try {
+      writeOutput(format(context, input, options), options);
+    } catch (error) {
+      handleError(context, "stdin", error);
+    }
+  });
+}
+
 module.exports = {
   applyConfigPrecedence,
   createApiDetailedOptionMap,
@@ -907,5 +936,6 @@ module.exports = {
   getOptionsForFile,
   eachFilename,
   format,
-  formatFiles
+  formatFiles,
+  formatStdin
 };

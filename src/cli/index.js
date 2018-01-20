@@ -56,7 +56,7 @@ function run(args) {
         context.argv["find-config-path"]
       );
     } else if (useStdin) {
-      context.formatStdin();
+      util.formatStdin(context);
     } else if (hasFilePatterns) {
       util.formatFiles(context);
     } else {
