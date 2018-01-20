@@ -2,6 +2,7 @@
 
 const prettier = require("../../index");
 const Context = require("./context");
+const stringify = require("json-stable-stringify");
 
 function run(args) {
   const context = new Context(args);
@@ -37,7 +38,7 @@ function run(args) {
 
     if (context.argv["support-info"]) {
       context.logger.log(
-        prettier.format(JSON.stringify(prettier.getSupportInfo()), {
+        prettier.format(stringify(prettier.getSupportInfo()), {
           parser: "json"
         })
       );
