@@ -50,6 +50,7 @@ class Context {
     this._supportOptions = this.supportOptions;
     this._detailedOptions = this.detailedOptions;
     this._detailedOptionMap = this.detailedOptionMap;
+    this._apiDefaultOptions = this.apiDefaultOptions;
 
     const supportOptions = getSupportInfo(null, {
       showDeprecated: true,
@@ -68,15 +69,25 @@ class Context {
 
     const detailedOptions = commonUtil.arrayify(detailedOptionMap, "name");
 
+    const apiDefaultOptions = supportOptions
+      .filter(optionInfo => !optionInfo.deprecated)
+      .reduce(
+        (reduced, optionInfo) =>
+          Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
+        Object.assign({}, optionsModule.hiddenDefaults)
+      );
+
     this.supportOptions = supportOptions;
     this.detailedOptions = detailedOptions;
     this.detailedOptionMap = detailedOptionMap;
+    this.apiDefaultOptions = apiDefaultOptions;
   }
 
   popPlugins() {
     this.supportOptions = this._supportOptions;
     this.detailedOptions = this._detailedOptions;
     this.detailedOptionMap = this._detailedOptionMap;
+    this.apiDefaultOptions = this._apiDefaultOptions;
   }
 
   normalizeArgv(keys) {
@@ -94,16 +105,6 @@ class Context {
 
   init() {
     this.normalizeArgv();
-
-    const apiDefaultOptions = this.supportOptions
-      .filter(optionInfo => !optionInfo.deprecated)
-      .reduce(
-        (reduced, optionInfo) =>
-          Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
-        Object.assign({}, optionsModule.hiddenDefaults)
-      );
-
-    this.apiDefaultOptions = apiDefaultOptions;
   }
 
   logResolvedConfigPathOrDie(filePath) {
