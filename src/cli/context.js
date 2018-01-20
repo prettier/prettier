@@ -106,8 +106,6 @@ class Context {
     this.apiDefaultOptions = apiDefaultOptions;
   }
 
-  // action
-
   logResolvedConfigPathOrDie(filePath) {
     const configFile = resolver.resolveConfigFile.sync(filePath);
     if (configFile) {
@@ -242,8 +240,6 @@ class Context {
     });
   }
 
-  // util
-
   handleError(filename, error) {
     const isParseError = Boolean(error && error.loc);
     const isValidationError = /Validation Error/.test(error && error.message);
@@ -375,8 +371,6 @@ class Context {
     const appliedOptions = Object.assign(
       { filepath },
       this.applyConfigPrecedence(
-        this.detailedOptions,
-        this.apiDefaultOptions,
         options &&
           optionsNormalizer.normalizeApiOptions(options, this.supportOptions, {
             logger: this.logger
@@ -396,8 +390,6 @@ class Context {
     return appliedOptions;
   }
 
-  // convenient
-
   getOptionsOrDie(filePath) {
     try {
       return util.resolveOptions(
@@ -412,13 +404,13 @@ class Context {
     }
   }
 
-  applyConfigPrecedence(detailedOptions, apiDefaultOptions, options) {
+  applyConfigPrecedence(options) {
     try {
       return util.applyConfigPrecedence(
         this.argv["config-precedence"],
         this.args,
-        detailedOptions,
-        apiDefaultOptions,
+        this.detailedOptions,
+        this.apiDefaultOptions,
         options
       );
     } catch (error) {
