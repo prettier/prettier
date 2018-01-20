@@ -6,10 +6,6 @@ const chalk = require("chalk");
 const readline = require("readline");
 
 const util = require("./util");
-const prettier = require("../../index");
-const cleanAST = require("../common/clean-ast").cleanAST;
-const errors = require("../common/errors");
-const optionsModule = require("../main/options");
 const thirdParty = require("../common/third-party");
 
 /**
@@ -56,7 +52,7 @@ class Context {
       }
 
       try {
-        util.writeOutput(this.format(input, options), options);
+        util.writeOutput(util.format(this, input, options), options);
       } catch (error) {
         util.handleError(this, "stdin", error);
       }
@@ -105,7 +101,8 @@ class Context {
       let output;
 
       try {
-        result = this.format(
+        result = util.format(
+          this,
           input,
           Object.assign({}, options, { filepath: filename })
         );
@@ -158,51 +155,6 @@ class Context {
         util.writeOutput(result, options);
       }
     });
-  }
-
-  format(input, opt) {
-    if (this.argv["debug-print-doc"]) {
-      const doc = prettier.__debug.printToDoc(input, opt);
-      return { formatted: prettier.__debug.formatDoc(doc) };
-    }
-
-    if (this.argv["debug-check"]) {
-      const pp = prettier.format(input, opt);
-      const pppp = prettier.format(pp, opt);
-      if (pp !== pppp) {
-        throw new errors.DebugError(
-          "prettier(input) !== prettier(prettier(input))\n" +
-            util.createDiff(pp, pppp)
-        );
-      } else {
-        const normalizedOpts = optionsModule.normalize(opt);
-        const ast = cleanAST(
-          prettier.__debug.parse(input, opt).ast,
-          normalizedOpts
-        );
-        const past = cleanAST(
-          prettier.__debug.parse(pp, opt).ast,
-          normalizedOpts
-        );
-
-        if (ast !== past) {
-          const MAX_AST_SIZE = 2097152; // 2MB
-          const astDiff =
-            ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
-              ? "AST diff too large to render"
-              : util.createDiff(ast, past);
-          throw new errors.DebugError(
-            "ast(input) !== ast(prettier(input))\n" +
-              astDiff +
-              "\n" +
-              util.createDiff(input, pp)
-          );
-        }
-      }
-      return { formatted: opt.filepath || "(stdin)\n" };
-    }
-
-    return prettier.formatWithCursor(input, opt);
   }
 }
 

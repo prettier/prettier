@@ -1,5 +1,6 @@
 "use strict";
 
+const cleanAST = require("../common/clean-ast").cleanAST;
 const globby = require("globby");
 const resolver = require("../config/resolve-config");
 const camelCase = require("camelcase");
@@ -732,6 +733,50 @@ function eachFilename(context, patterns, callback) {
   }
 }
 
+function format(context, input, opt) {
+  if (context.argv["debug-print-doc"]) {
+    const doc = prettier.__debug.printToDoc(input, opt);
+    return { formatted: prettier.__debug.formatDoc(doc) };
+  }
+
+  if (context.argv["debug-check"]) {
+    const pp = prettier.format(input, opt);
+    const pppp = prettier.format(pp, opt);
+    if (pp !== pppp) {
+      throw new errors.DebugError(
+        "prettier(input) !== prettier(prettier(input))\n" + createDiff(pp, pppp)
+      );
+    } else {
+      const normalizedOpts = optionsModule.normalize(opt);
+      const ast = cleanAST(
+        prettier.__debug.parse(input, opt).ast,
+        normalizedOpts
+      );
+      const past = cleanAST(
+        prettier.__debug.parse(pp, opt).ast,
+        normalizedOpts
+      );
+
+      if (ast !== past) {
+        const MAX_AST_SIZE = 2097152; // 2MB
+        const astDiff =
+          ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
+            ? "AST diff too large to render"
+            : createDiff(ast, past);
+        throw new errors.DebugError(
+          "ast(input) !== ast(prettier(input))\n" +
+            astDiff +
+            "\n" +
+            createDiff(input, pp)
+        );
+      }
+    }
+    return { formatted: opt.filepath || "(stdin)\n" };
+  }
+
+  return prettier.formatWithCursor(input, opt);
+}
+
 module.exports = {
   applyConfigPrecedence,
   createApiDetailedOptionMap,
@@ -756,5 +801,6 @@ module.exports = {
   listDifferent,
   handleError,
   getOptionsForFile,
-  eachFilename
+  eachFilename,
+  format
 };
