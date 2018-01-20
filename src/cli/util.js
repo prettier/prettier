@@ -412,19 +412,26 @@ function cliifyOptions(object, apiDetailedOptionMap) {
   }, {});
 }
 
-function createIgnorer(ignorePath) {
-  const ignoreFilePath = path.resolve(ignorePath);
-  let ignoreText = "";
-
+function createIgnorer(context, ignorePath) {
   try {
-    ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
-  } catch (readError) {
-    if (readError.code !== "ENOENT") {
-      throw new Error(`Unable to read ${ignoreFilePath}: ` + readError.message);
-    }
-  }
+    const ignoreFilePath = path.resolve(ignorePath);
+    let ignoreText = "";
 
-  return ignore().add(ignoreText);
+    try {
+      ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
+    } catch (readError) {
+      if (readError.code !== "ENOENT") {
+        throw new Error(
+          `Unable to read ${ignoreFilePath}: ` + readError.message
+        );
+      }
+    }
+
+    return ignore().add(ignoreText);
+  } catch (error) {
+    context.logger.error(error.message);
+    process.exit(2);
+  }
 }
 
 function parseArgsToOptions(

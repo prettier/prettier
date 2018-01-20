@@ -164,7 +164,7 @@ class Context {
       ? path.resolve(process.cwd(), this.argv["stdin-filepath"])
       : process.cwd();
 
-    const ignorer = this.createIgnorer();
+    const ignorer = util.createIgnorer(this, this.argv["ignore-path"]);
     const relativeFilepath = path.relative(process.cwd(), filepath);
 
     thirdParty.getStream(process.stdin).then(input => {
@@ -190,7 +190,7 @@ class Context {
   formatFiles() {
     // The ignorer will be used to filter file paths after the glob is checked,
     // before any files are actually written
-    const ignorer = this.createIgnorer();
+    const ignorer = util.createIgnorer(this, this.argv["ignore-path"]);
 
     this.eachFilename(this.filePatterns, (filename, options) => {
       const fileIgnored = ignorer.filter([filename]).length === 0;
@@ -407,15 +407,6 @@ class Context {
       );
     } catch (error) {
       this.logger.error(error.toString());
-      process.exit(2);
-    }
-  }
-
-  createIgnorer() {
-    try {
-      return util.createIgnorer(this.argv["ignore-path"]);
-    } catch (error) {
-      this.logger.error(error.message);
       process.exit(2);
     }
   }
