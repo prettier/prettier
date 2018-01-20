@@ -13,6 +13,12 @@ const ignore = require("ignore");
 const optionsNormalizer = require("../main/options-normalizer");
 const minimist = require("minimist");
 const constant = require("./constant");
+const normalizer = require("../main/options-normalizer");
+const getSupportInfo = require("../common/support").getSupportInfo;
+const commonUtil = require("../common/util");
+const optionsModule = require("../main/options");
+const prettier = require("../../index");
+const errors = require("../common/errors");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -554,6 +560,115 @@ function logResolvedConfigPathOrDie(context, filePath) {
   }
 }
 
+function updateContextOptions(context, plugins) {
+  const supportOptions = getSupportInfo(null, {
+    showDeprecated: true,
+    showUnreleased: true,
+    showInternal: true,
+    plugins
+  }).options;
+
+  const detailedOptionMap = normalizeDetailedOptionMap(
+    Object.assign({}, createDetailedOptionMap(supportOptions), constant.options)
+  );
+
+  const detailedOptions = commonUtil.arrayify(detailedOptionMap, "name");
+
+  const apiDefaultOptions = supportOptions
+    .filter(optionInfo => !optionInfo.deprecated)
+    .reduce(
+      (reduced, optionInfo) =>
+        Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
+      Object.assign({}, optionsModule.hiddenDefaults)
+    );
+
+  context.supportOptions = supportOptions;
+  context.detailedOptions = detailedOptions;
+  context.detailedOptionMap = detailedOptionMap;
+  context.apiDefaultOptions = apiDefaultOptions;
+}
+
+function pushContextPlugins(context, plugins) {
+  context._supportOptions = context.supportOptions;
+  context._detailedOptions = context.detailedOptions;
+  context._detailedOptionMap = context.detailedOptionMap;
+  context._apiDefaultOptions = context.apiDefaultOptions;
+  updateContextOptions(context, plugins);
+}
+
+function popContextPlugins(context) {
+  context.supportOptions = context._supportOptions;
+  context.detailedOptions = context._detailedOptions;
+  context.detailedOptionMap = context._detailedOptionMap;
+  context.apiDefaultOptions = context._apiDefaultOptions;
+}
+
+function updateContextArgv(context, plugins) {
+  pushContextPlugins(context, plugins);
+
+  const minimistOptions = createMinimistOptions(context.detailedOptions);
+  const argv = minimist(context.args, minimistOptions);
+
+  context.argv = argv;
+  context.filePatterns = argv["_"];
+}
+
+function normalizeContextArgv(context, keys) {
+  const detailedOptions = !keys
+    ? context.detailedOptions
+    : context.detailedOptions.filter(
+        option => keys.indexOf(option.name) !== -1
+      );
+  const argv = !keys ? context.argv : pick(context.argv, keys);
+
+  context.argv = normalizer.normalizeCliOptions(argv, detailedOptions, {
+    logger: context.logger
+  });
+}
+
+function listDifferent(context, input, options, filename) {
+  if (!context.argv["list-different"]) {
+    return;
+  }
+
+  options = Object.assign({}, options, { filepath: filename });
+
+  if (!prettier.check(input, options)) {
+    if (!context.argv["write"]) {
+      context.logger.log(filename);
+    }
+    process.exitCode = 1;
+  }
+
+  return true;
+}
+
+function handleError(context, filename, error) {
+  const isParseError = Boolean(error && error.loc);
+  const isValidationError = /Validation Error/.test(error && error.message);
+
+  // For parse errors and validation errors, we only want to show the error
+  // message formatted in a nice way. `String(error)` takes care of that. Other
+  // (unexpected) errors are passed as-is as a separate argument to
+  // `console.error`. That includes the stack trace (if any), and shows a nice
+  // `util.inspect` of throws things that aren't `Error` objects. (The Flow
+  // parser has mistakenly thrown arrays sometimes.)
+  if (isParseError) {
+    context.logger.error(`${filename}: ${String(error)}`);
+  } else if (isValidationError || error instanceof errors.ConfigError) {
+    context.logger.error(String(error));
+    // If validation fails for one file, it will fail for all of them.
+    process.exit(1);
+  } else if (error instanceof errors.DebugError) {
+    context.logger.error(`${filename}: ${error.message}`);
+  } else {
+    context.logger.error(filename + ": " + (error.stack || error));
+  }
+
+  // Don't exit the process if one file failed
+  process.exitCode = 2;
+}
+
 module.exports = {
   applyConfigPrecedence,
   createApiDetailedOptionMap,
@@ -570,5 +685,11 @@ module.exports = {
   getOptionsOrDie,
   writeOutput,
   pick,
-  logResolvedConfigPathOrDie
+  logResolvedConfigPathOrDie,
+  pushContextPlugins,
+  popContextPlugins,
+  updateContextArgv,
+  normalizeContextArgv,
+  listDifferent,
+  handleError
 };
