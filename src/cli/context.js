@@ -28,16 +28,29 @@ class Context {
   constructor(args) {
     this.args = args;
 
-    const firstParsingKeys = ["loglevel", "plugin"];
-    this.parseArgv(firstParsingKeys);
-    this.normalizeArgv(firstParsingKeys);
+    this.parseArgv();
+    this.normalizeArgv(["loglevel", "plugin"]);
 
     this.logger = util.createLogger(this.argv["loglevel"]);
 
-    this.parseArgv(null, this.argv["plugin"]);
+    this.parseArgv(this.argv["plugin"]);
   }
 
-  parseArgv(keys, plugins) {
+  parseArgv(plugins) {
+    this.pushPlugins(plugins);
+
+    const minimistOptions = util.createMinimistOptions(this.detailedOptions);
+    const argv = minimist(this.args, minimistOptions);
+
+    this.argv = argv;
+    this.filePatterns = argv["_"];
+  }
+
+  pushPlugins(plugins) {
+    this._supportOptions = this.supportOptions;
+    this._detailedOptions = this.detailedOptions;
+    this._detailedOptionMap = this.detailedOptionMap;
+
     const supportOptions = getSupportInfo(null, {
       showDeprecated: true,
       showUnreleased: true,
@@ -46,25 +59,24 @@ class Context {
     }).options;
 
     const detailedOptionMap = util.normalizeDetailedOptionMap(
-      util.pick(
-        Object.assign(
-          {},
-          util.createDetailedOptionMap(supportOptions),
-          constant.options
-        ),
-        keys
+      Object.assign(
+        {},
+        util.createDetailedOptionMap(supportOptions),
+        constant.options
       )
     );
+
     const detailedOptions = commonUtil.arrayify(detailedOptionMap, "name");
 
-    const minimistOptions = util.createMinimistOptions(detailedOptions);
-    const argv = minimist(this.args, minimistOptions);
-
-    this.argv = argv;
-    this.filePatterns = argv["_"];
     this.supportOptions = supportOptions;
     this.detailedOptions = detailedOptions;
     this.detailedOptionMap = detailedOptionMap;
+  }
+
+  popPlugins() {
+    this.supportOptions = this._supportOptions;
+    this.detailedOptions = this._detailedOptions;
+    this.detailedOptionMap = this._detailedOptionMap;
   }
 
   normalizeArgv(keys) {
@@ -358,6 +370,8 @@ class Context {
     const appliedOptions = Object.assign(
       { filepath },
       this.applyConfigPrecedence(
+        this.detailedOptions,
+        this.apiDefaultOptions,
         options &&
           optionsNormalizer.normalizeApiOptions(
             options,
@@ -395,13 +409,13 @@ class Context {
     }
   }
 
-  applyConfigPrecedence(options) {
+  applyConfigPrecedence(detailedOptions, apiDefaultOptions, options) {
     try {
       return util.applyConfigPrecedence(
         this.argv["config-precedence"],
         this.args,
-        this.detailedOptions,
-        this.apiDefaultOptions,
+        detailedOptions,
+        apiDefaultOptions,
         options
       );
     } catch (error) {
