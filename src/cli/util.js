@@ -1,5 +1,6 @@
 "use strict";
 
+const globby = require("globby");
 const resolver = require("../config/resolve-config");
 const camelCase = require("camelcase");
 const chalk = require("chalk");
@@ -701,6 +702,36 @@ function getOptionsForFile(context, filepath) {
   return appliedOptions;
 }
 
+function eachFilename(context, patterns, callback) {
+  const ignoreNodeModules = context.argv["with-node-modules"] === false;
+  if (ignoreNodeModules) {
+    patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
+  }
+
+  try {
+    const filePaths = globby
+      .sync(patterns, { dot: true, nodir: true })
+      .map(filePath => path.relative(process.cwd(), filePath));
+
+    if (filePaths.length === 0) {
+      context.logger.error(
+        `No matching files. Patterns tried: ${patterns.join(" ")}`
+      );
+      process.exitCode = 2;
+      return;
+    }
+    filePaths.forEach(filePath =>
+      callback(filePath, getOptionsForFile(context, filePath))
+    );
+  } catch (error) {
+    context.logger.error(
+      `Unable to expand glob patterns: ${patterns.join(" ")}\n${error.message}`
+    );
+    // Don't exit the process if one pattern failed
+    process.exitCode = 2;
+  }
+}
+
 module.exports = {
   applyConfigPrecedence,
   createApiDetailedOptionMap,
@@ -724,5 +755,6 @@ module.exports = {
   normalizeContextArgv,
   listDifferent,
   handleError,
-  getOptionsForFile
+  getOptionsForFile,
+  eachFilename
 };

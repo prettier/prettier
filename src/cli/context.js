@@ -2,7 +2,6 @@
 
 const path = require("path");
 const fs = require("fs");
-const globby = require("globby");
 const chalk = require("chalk");
 const readline = require("readline");
 
@@ -69,7 +68,7 @@ class Context {
     // before any files are actually written
     const ignorer = util.createIgnorer(this, this.argv["ignore-path"]);
 
-    this.eachFilename(this.filePatterns, (filename, options) => {
+    util.eachFilename(this, this.filePatterns, (filename, options) => {
       const fileIgnored = ignorer.filter([filename]).length === 0;
       if (fileIgnored && (this.argv["write"] || this.argv["list-different"])) {
         return;
@@ -204,38 +203,6 @@ class Context {
     }
 
     return prettier.formatWithCursor(input, opt);
-  }
-
-  eachFilename(patterns, callback) {
-    const ignoreNodeModules = this.argv["with-node-modules"] === false;
-    if (ignoreNodeModules) {
-      patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
-    }
-
-    try {
-      const filePaths = globby
-        .sync(patterns, { dot: true, nodir: true })
-        .map(filePath => path.relative(process.cwd(), filePath));
-
-      if (filePaths.length === 0) {
-        this.logger.error(
-          `No matching files. Patterns tried: ${patterns.join(" ")}`
-        );
-        process.exitCode = 2;
-        return;
-      }
-      filePaths.forEach(filePath =>
-        callback(filePath, util.getOptionsForFile(this, filePath))
-      );
-    } catch (error) {
-      this.logger.error(
-        `Unable to expand glob patterns: ${patterns.join(" ")}\n${
-          error.message
-        }`
-      );
-      // Don't exit the process if one pattern failed
-      process.exitCode = 2;
-    }
   }
 }
 
