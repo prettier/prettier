@@ -197,7 +197,6 @@ function getOptionsForFile(context, filepath) {
     { filepath },
     applyConfigPrecedence(
       context,
-      context.argv["config-precedence"],
       options &&
         optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
           logger: context.logger
@@ -217,64 +216,41 @@ function getOptionsForFile(context, filepath) {
   return appliedOptions;
 }
 
-function parseArgsToOptions(
-  args,
-  detailedOptions,
-  apiDefaultOptions,
-  overrideDefaults
-) {
-  const minimistOptions = createMinimistOptions(detailedOptions);
-  const apiDetailedOptionMap = createApiDetailedOptionMap(detailedOptions);
+function parseArgsToOptions(context, overrideDefaults) {
+  const minimistOptions = createMinimistOptions(context.detailedOptions);
+  const apiDetailedOptionMap = createApiDetailedOptionMap(
+    context.detailedOptions
+  );
   return getOptions(
     optionsNormalizer.normalizeCliOptions(
       minimist(
-        args,
+        context.args,
         Object.assign({
           string: minimistOptions.string,
           boolean: minimistOptions.boolean,
           default: Object.assign(
             {},
-            cliifyOptions(apiDefaultOptions, apiDetailedOptionMap),
+            cliifyOptions(context.apiDefaultOptions, apiDetailedOptionMap),
             cliifyOptions(overrideDefaults, apiDetailedOptionMap)
           )
         })
       ),
-      detailedOptions,
+      context.detailedOptions,
       { logger: false }
     ),
-    detailedOptions
+    context.detailedOptions
   );
 }
 
-function applyConfigPrecedence(context, configPrecedence, options) {
+function applyConfigPrecedence(context, options) {
   try {
-    switch (configPrecedence) {
+    switch (context.argv["config-precedence"]) {
       case "cli-override":
-        return parseArgsToOptions(
-          context.args,
-          context.detailedOptions,
-          context.apiDefaultOptions,
-          options
-        );
+        return parseArgsToOptions(context, options);
       case "file-override":
-        return Object.assign(
-          {},
-          parseArgsToOptions(
-            context.args,
-            context.detailedOptions,
-            context.apiDefaultOptions
-          ),
-          options
-        );
+        return Object.assign({}, parseArgsToOptions(context), options);
       case "prefer-file":
-        return (
-          options ||
-          parseArgsToOptions(
-            context.args,
-            context.detailedOptions,
-            context.apiDefaultOptions
-          )
-        );
+        return options || parseArgsToOptions(context);
     }
   } catch (error) {
     context.logger.error(error.toString());
@@ -287,7 +263,7 @@ function formatStdin(context) {
     ? path.resolve(process.cwd(), context.argv["stdin-filepath"])
     : process.cwd();
 
-  const ignorer = createIgnorer(this, context.argv["ignore-path"]);
+  const ignorer = createIgnorer(context);
   const relativeFilepath = path.relative(process.cwd(), filepath);
 
   thirdParty.getStream(process.stdin).then(input => {
@@ -310,26 +286,22 @@ function formatStdin(context) {
   });
 }
 
-function createIgnorer(context, ignorePath) {
+function createIgnorer(context) {
+  const ignoreFilePath = path.resolve(context.argv["ignore-path"]);
+  let ignoreText = "";
+
   try {
-    const ignoreFilePath = path.resolve(ignorePath);
-    let ignoreText = "";
-
-    try {
-      ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
-    } catch (readError) {
-      if (readError.code !== "ENOENT") {
-        throw new Error(
-          `Unable to read ${ignoreFilePath}: ` + readError.message
-        );
-      }
+    ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
+  } catch (readError) {
+    if (readError.code !== "ENOENT") {
+      context.logger.error(
+        `Unable to read ${ignoreFilePath}: ` + readError.message
+      );
+      process.exit(2);
     }
-
-    return ignore().add(ignoreText);
-  } catch (error) {
-    context.logger.error(error.message);
-    process.exit(2);
   }
+
+  return ignore().add(ignoreText);
 }
 
 function eachFilename(context, patterns, callback) {
@@ -365,7 +337,7 @@ function eachFilename(context, patterns, callback) {
 function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
-  const ignorer = createIgnorer(context, context.argv["ignore-path"]);
+  const ignorer = createIgnorer(context);
 
   eachFilename(context, context.filePatterns, (filename, options) => {
     const fileIgnored = ignorer.filter([filename]).length === 0;
@@ -481,8 +453,7 @@ function getOptionsWithOpposites(options) {
 }
 
 function createUsage(context) {
-  const detailedOptions = util.arrayify(context.detailedOptionMap, "name");
-  const options = getOptionsWithOpposites(detailedOptions).filter(
+  const options = getOptionsWithOpposites(context.detailedOptions).filter(
     // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
     option =>
       !(
@@ -505,14 +476,7 @@ function createUsage(context) {
 
   const optionsUsage = allCategories.map(category => {
     const categoryOptions = groupedOptions[category]
-      .map(option =>
-        createOptionUsage(
-          option,
-          OPTION_USAGE_THRESHOLD,
-          context.detailedOptionMap,
-          context.apiDefaultOptions
-        )
-      )
+      .map(option => createOptionUsage(context, option, OPTION_USAGE_THRESHOLD))
       .join("\n");
     return `${category} options:\n\n${indent(categoryOptions, 2)}`;
   });
@@ -520,18 +484,9 @@ function createUsage(context) {
   return [constant.usageSummary].concat(optionsUsage, [""]).join("\n\n");
 }
 
-function createOptionUsage(
-  option,
-  threshold,
-  detailedOptionMap,
-  apiDefaultOptions
-) {
+function createOptionUsage(context, option, threshold) {
   const header = createOptionUsageHeader(option);
-  const optionDefaultValue = getOptionDefaultValue(
-    option.name,
-    detailedOptionMap,
-    apiDefaultOptions
-  );
+  const optionDefaultValue = getOptionDefaultValue(context, option.name);
   return createOptionUsageRow(
     header,
     `${option.description}${
@@ -585,7 +540,7 @@ function flattenArray(array) {
   return [].concat.apply([], array);
 }
 
-function getOptionWithLevenSuggestion(options, optionName, logger) {
+function getOptionWithLevenSuggestion(context, options, optionName) {
   // support aliases
   const optionNameContainers = flattenArray(
     options.map((option, index) => [
@@ -608,14 +563,14 @@ function getOptionWithLevenSuggestion(options, optionName, logger) {
 
   if (suggestedOptionNameContainer !== undefined) {
     const suggestedOptionName = suggestedOptionNameContainer.value;
-    logger.warn(
+    context.logger.warn(
       `Unknown option name "${optionName}", did you mean "${suggestedOptionName}"?`
     );
 
     return options[suggestedOptionNameContainer.index];
   }
 
-  logger.warn(`Unknown option name "${optionName}"`);
+  context.logger.warn(`Unknown option name "${optionName}"`);
   return options.find(option => option.name === "help");
 }
 
@@ -635,9 +590,9 @@ function createChoiceUsages(choices, margin, indentation) {
 
 function createDetailedUsage(context, optionName) {
   const option = getOptionWithLevenSuggestion(
+    context,
     getOptionsWithOpposites(context.detailedOptions),
-    optionName,
-    context.logger
+    optionName
   );
 
   const header = createOptionUsageHeader(option);
@@ -652,11 +607,7 @@ function createDetailedUsage(context, optionName) {
           CHOICE_USAGE_INDENTATION
         ).join("\n")}`;
 
-  const optionDefaultValue = getOptionDefaultValue(
-    option.name,
-    context.detailedOptionMap,
-    context.apiDefaultOptions
-  );
+  const optionDefaultValue = getOptionDefaultValue(context, option.name);
   const defaults =
     optionDefaultValue !== undefined
       ? `\n\nDefault: ${createDefaultValueDisplay(optionDefaultValue)}`
@@ -665,25 +616,21 @@ function createDetailedUsage(context, optionName) {
   return `${header}${description}${choices}${defaults}`;
 }
 
-function getOptionDefaultValue(
-  optionName,
-  detailedOptionMap,
-  apiDefaultOptions
-) {
+function getOptionDefaultValue(context, optionName) {
   // --no-option
-  if (!(optionName in detailedOptionMap)) {
+  if (!(optionName in context.detailedOptionMap)) {
     return undefined;
   }
 
-  const option = detailedOptionMap[optionName];
+  const option = context.detailedOptionMap[optionName];
 
   if (option.default !== undefined) {
     return option.default;
   }
 
   const optionCamelName = camelCase(optionName);
-  if (optionCamelName in apiDefaultOptions) {
-    return apiDefaultOptions[optionCamelName];
+  if (optionCamelName in context.apiDefaultOptions) {
+    return context.apiDefaultOptions[optionCamelName];
   }
 
   return undefined;
@@ -941,32 +888,13 @@ function normalizeContextArgv(context, keys) {
 
 module.exports = {
   createContext,
-  initContext,
-  applyConfigPrecedence,
-  createApiDetailedOptionMap,
   createDetailedOptionMap,
   createDetailedUsage,
-  diff,
-  createIgnorer,
-  createLogger,
-  createMinimistOptions,
   createUsage,
-  getOptionWithLevenSuggestion,
-  getOptionsWithOpposites,
-  normalizeDetailedOptionMap,
-  getOptionsOrDie,
-  writeOutput,
-  pick,
-  logResolvedConfigPathOrDie,
-  pushContextPlugins,
-  popContextPlugins,
-  updateContextArgv,
-  normalizeContextArgv,
-  listDifferent,
-  handleError,
-  getOptionsForFile,
-  eachFilename,
   format,
   formatFiles,
-  formatStdin
+  formatStdin,
+  initContext,
+  logResolvedConfigPathOrDie,
+  normalizeDetailedOptionMap
 };
