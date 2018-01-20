@@ -51,12 +51,7 @@ class Context {
     this.filePatterns = argv["_"];
   }
 
-  pushPlugins(plugins) {
-    this._supportOptions = this.supportOptions;
-    this._detailedOptions = this.detailedOptions;
-    this._detailedOptionMap = this.detailedOptionMap;
-    this._apiDefaultOptions = this.apiDefaultOptions;
-
+  updateOptions(plugins) {
     const supportOptions = getSupportInfo(null, {
       showDeprecated: true,
       showUnreleased: true,
@@ -86,6 +81,14 @@ class Context {
     this.detailedOptions = detailedOptions;
     this.detailedOptionMap = detailedOptionMap;
     this.apiDefaultOptions = apiDefaultOptions;
+  }
+
+  pushPlugins(plugins) {
+    this._supportOptions = this.supportOptions;
+    this._detailedOptions = this.detailedOptions;
+    this._detailedOptionMap = this.detailedOptionMap;
+    this._apiDefaultOptions = this.apiDefaultOptions;
+    this.updateOptions(plugins);
   }
 
   popPlugins() {
