@@ -1,5 +1,6 @@
 "use strict";
 
+const readline = require("readline");
 const cleanAST = require("../common/clean-ast").cleanAST;
 const globby = require("globby");
 const resolver = require("../config/resolve-config");
@@ -777,6 +778,109 @@ function format(context, input, opt) {
   return prettier.formatWithCursor(input, opt);
 }
 
+function formatFiles(context) {
+  // The ignorer will be used to filter file paths after the glob is checked,
+  // before any files are actually written
+  const ignorer = createIgnorer(context, context.argv["ignore-path"]);
+
+  eachFilename(context, context.filePatterns, (filename, options) => {
+    const fileIgnored = ignorer.filter([filename]).length === 0;
+    if (
+      fileIgnored &&
+      (context.argv["write"] || context.argv["list-different"])
+    ) {
+      return;
+    }
+
+    if (context.argv["write"] && process.stdout.isTTY) {
+      // Don't use `console.log` here since we need to replace this line.
+      context.logger.log(filename, { newline: false });
+    }
+
+    let input;
+    try {
+      input = fs.readFileSync(filename, "utf8");
+    } catch (error) {
+      // Add newline to split errors from filename line.
+      context.logger.log("");
+
+      context.logger.error(
+        `Unable to read file: ${filename}\n${error.message}`
+      );
+      // Don't exit the process if one file failed
+      process.exitCode = 2;
+      return;
+    }
+
+    if (fileIgnored) {
+      writeOutput({ formatted: input }, options);
+      return;
+    }
+
+    listDifferent(context, input, options, filename);
+
+    const start = Date.now();
+
+    let result;
+    let output;
+
+    try {
+      result = format(
+        context,
+        input,
+        Object.assign({}, options, { filepath: filename })
+      );
+      output = result.formatted;
+    } catch (error) {
+      // Add newline to split errors from filename line.
+      process.stdout.write("\n");
+
+      handleError(context, filename, error);
+      return;
+    }
+
+    if (context.argv["write"]) {
+      if (process.stdout.isTTY) {
+        // Remove previously printed filename to log it with duration.
+        readline.clearLine(process.stdout, 0);
+        readline.cursorTo(process.stdout, 0, null);
+      }
+
+      // Don't write the file if it won't change in order not to invalidate
+      // mtime based caches.
+      if (output === input) {
+        if (!context.argv["list-different"]) {
+          context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
+        }
+      } else {
+        if (context.argv["list-different"]) {
+          context.logger.log(filename);
+        } else {
+          context.logger.log(`${filename} ${Date.now() - start}ms`);
+        }
+
+        try {
+          fs.writeFileSync(filename, output, "utf8");
+        } catch (error) {
+          context.logger.error(
+            `Unable to write file: ${filename}\n${error.message}`
+          );
+          // Don't exit the process if one file failed
+          process.exitCode = 2;
+        }
+      }
+    } else if (context.argv["debug-check"]) {
+      if (output) {
+        context.logger.log(output);
+      } else {
+        process.exitCode = 2;
+      }
+    } else if (!context.argv["list-different"]) {
+      writeOutput(result, options);
+    }
+  });
+}
+
 module.exports = {
   applyConfigPrecedence,
   createApiDetailedOptionMap,
@@ -802,5 +906,6 @@ module.exports = {
   handleError,
   getOptionsForFile,
   eachFilename,
-  format
+  format,
+  formatFiles
 };

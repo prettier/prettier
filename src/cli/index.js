@@ -58,7 +58,7 @@ function run(args) {
     } else if (useStdin) {
       context.formatStdin();
     } else if (hasFilePatterns) {
-      context.formatFiles();
+      util.formatFiles(context);
     } else {
       context.logger.log(util.createUsage(context));
       process.exit(1);
