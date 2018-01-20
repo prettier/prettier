@@ -3,6 +3,7 @@
 const prettier = require("../../index");
 const Context = require("./context");
 const stringify = require("json-stable-stringify");
+const util = require("./util");
 
 function run(args) {
   const context = new Context(args);
@@ -50,7 +51,10 @@ function run(args) {
       context.argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
 
     if (context.argv["find-config-path"]) {
-      context.logResolvedConfigPathOrDie(context.argv["find-config-path"]);
+      util.logResolvedConfigPathOrDie(
+        context,
+        context.argv["find-config-path"]
+      );
     } else if (useStdin) {
       context.formatStdin();
     } else if (hasFilePatterns) {

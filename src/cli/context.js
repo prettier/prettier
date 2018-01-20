@@ -121,15 +121,6 @@ class Context {
     normalizeContextArgv(this);
   }
 
-  logResolvedConfigPathOrDie(filePath) {
-    const configFile = resolver.resolveConfigFile.sync(filePath);
-    if (configFile) {
-      this.logger.log(path.relative(process.cwd(), configFile));
-    } else {
-      process.exit(1);
-    }
-  }
-
   formatStdin() {
     const filepath = this.argv["stdin-filepath"]
       ? path.resolve(process.cwd(), this.argv["stdin-filepath"])

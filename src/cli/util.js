@@ -525,6 +525,15 @@ function pick(object, keys) {
       );
 }
 
+function logResolvedConfigPathOrDie(context, filePath) {
+  const configFile = resolver.resolveConfigFile.sync(filePath);
+  if (configFile) {
+    context.logger.log(path.relative(process.cwd(), configFile));
+  } else {
+    process.exit(1);
+  }
+}
+
 module.exports = {
   applyConfigPrecedence,
   createApiDetailedOptionMap,
@@ -540,5 +549,6 @@ module.exports = {
   normalizeDetailedOptionMap,
   resolveOptions,
   writeOutput,
-  pick
+  pick,
+  logResolvedConfigPathOrDie
 };
