@@ -14,6 +14,8 @@ const optionsNormalizer = require("../main/options-normalizer");
 const minimist = require("minimist");
 const constant = require("./constant");
 
+const OPTION_USAGE_THRESHOLD = 25;
+
 function indent(str, spaces) {
   return str.replace(/^/gm, " ".repeat(spaces));
 }
@@ -282,14 +284,8 @@ function getOptionsWithOpposites(options) {
   return flattenArray(optionsWithOpposites).filter(Boolean);
 }
 
-function createUsage(
-  usageSummary,
-  threshold,
-  categoryOrder,
-  detailedOptionMap,
-  apiDefaultOptions
-) {
-  const detailedOptions = util.arrayify(detailedOptionMap, "name");
+function createUsage(context) {
+  const detailedOptions = util.arrayify(context.detailedOptionMap, "name");
   const options = getOptionsWithOpposites(detailedOptions).filter(
     // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
     option =>
@@ -302,8 +298,8 @@ function createUsage(
 
   const groupedOptions = groupBy(options, option => option.category);
 
-  const firstCategories = categoryOrder.slice(0, -1);
-  const lastCategories = categoryOrder.slice(-1);
+  const firstCategories = constant.categoryOrder.slice(0, -1);
+  const lastCategories = constant.categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
     category =>
       firstCategories.indexOf(category) === -1 &&
@@ -316,16 +312,16 @@ function createUsage(
       .map(option =>
         createOptionUsage(
           option,
-          threshold,
-          detailedOptionMap,
-          apiDefaultOptions
+          OPTION_USAGE_THRESHOLD,
+          context.detailedOptionMap,
+          context.apiDefaultOptions
         )
       )
       .join("\n");
     return `${category} options:\n\n${indent(categoryOptions, 2)}`;
   });
 
-  return [usageSummary].concat(optionsUsage, [""]).join("\n\n");
+  return [constant.usageSummary].concat(optionsUsage, [""]).join("\n\n");
 }
 
 function getOptionWithLevenSuggestion(options, optionName, logger) {

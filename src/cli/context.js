@@ -12,7 +12,6 @@ const normalizer = require("../main/options-normalizer");
 const prettier = require("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
 const errors = require("../common/errors");
-const resolver = require("../config/resolve-config");
 const constant = require("./constant");
 const optionsModule = require("../main/options");
 const optionsNormalizer = require("../main/options-normalizer");
@@ -20,7 +19,6 @@ const thirdParty = require("../common/third-party");
 const getSupportInfo = require("../common/support").getSupportInfo;
 const commonUtil = require("../common/util");
 
-const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
@@ -423,16 +421,6 @@ class Context {
       this.logger.error(error.message);
       process.exit(2);
     }
-  }
-
-  createUsage() {
-    return util.createUsage(
-      constant.usageSummary,
-      OPTION_USAGE_THRESHOLD,
-      constant.categoryOrder,
-      this.detailedOptionMap,
-      this.apiDefaultOptions
-    );
   }
 
   createDetailedUsage(optionName) {

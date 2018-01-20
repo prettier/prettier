@@ -32,7 +32,7 @@ function run(args) {
       context.logger.log(
         typeof context.argv["help"] === "string" && context.argv["help"] !== ""
           ? context.createDetailedUsage(context.argv["help"])
-          : context.createUsage()
+          : util.createUsage(context)
       );
       process.exit(0);
     }
@@ -60,7 +60,7 @@ function run(args) {
     } else if (hasFilePatterns) {
       context.formatFiles();
     } else {
-      context.logger.log(context.createUsage());
+      context.logger.log(util.createUsage(context));
       process.exit(1);
     }
   } catch (error) {
