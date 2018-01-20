@@ -99,9 +99,7 @@ class Context {
     const detailedOptions = !keys
       ? this.detailedOptions
       : this.detailedOptions.filter(option => keys.indexOf(option.name) !== -1);
-    const argv = !keys
-      ? this.argv
-      : util.pick(this.argv, detailedOptions.map(option => option.name));
+    const argv = !keys ? this.argv : util.pick(this.argv, keys);
 
     this.argv = normalizer.normalizeCliOptions(argv, detailedOptions, {
       logger: this.logger
