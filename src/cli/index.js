@@ -31,7 +31,7 @@ function run(args) {
     if (context.argv["help"] !== undefined) {
       context.logger.log(
         typeof context.argv["help"] === "string" && context.argv["help"] !== ""
-          ? context.createDetailedUsage(context.argv["help"])
+          ? util.createDetailedUsage(context, context.argv["help"])
           : util.createUsage(context)
       );
       process.exit(0);

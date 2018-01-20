@@ -19,9 +19,6 @@ const thirdParty = require("../common/third-party");
 const getSupportInfo = require("../common/support").getSupportInfo;
 const commonUtil = require("../common/util");
 
-const CHOICE_USAGE_MARGIN = 3;
-const CHOICE_USAGE_INDENTATION = 2;
-
 // context
 
 function updateContextOptions(context, plugins) {
@@ -421,21 +418,6 @@ class Context {
       this.logger.error(error.message);
       process.exit(2);
     }
-  }
-
-  createDetailedUsage(optionName) {
-    const option = util.getOptionWithLevenSuggestion(
-      util.getOptionsWithOpposites(this.detailedOptions),
-      optionName,
-      this.logger
-    );
-    return util.createDetailedUsage(
-      option,
-      CHOICE_USAGE_MARGIN,
-      CHOICE_USAGE_INDENTATION,
-      this.detailedOptionMap,
-      this.apiDefaultOptions
-    );
   }
 }
 

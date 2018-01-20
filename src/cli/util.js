@@ -15,6 +15,8 @@ const minimist = require("minimist");
 const constant = require("./constant");
 
 const OPTION_USAGE_THRESHOLD = 25;
+const CHOICE_USAGE_MARGIN = 3;
+const CHOICE_USAGE_INDENTATION = 2;
 
 function indent(str, spaces) {
   return str.replace(/^/gm, " ".repeat(spaces));
@@ -358,13 +360,13 @@ function getOptionWithLevenSuggestion(options, optionName, logger) {
   return options.find(option => option.name === "help");
 }
 
-function createDetailedUsage(
-  option,
-  choiceUsageMargin,
-  choiceUsageIndentation,
-  detailedOptionMap,
-  apiDefaultOptions
-) {
+function createDetailedUsage(context, optionName) {
+  const option = getOptionWithLevenSuggestion(
+    getOptionsWithOpposites(context.detailedOptions),
+    optionName,
+    context.logger
+  );
+
   const header = createOptionUsageHeader(option);
   const description = `\n\n${indent(option.description, 2)}`;
 
@@ -373,14 +375,14 @@ function createDetailedUsage(
       ? ""
       : `\n\nValid options:\n\n${createChoiceUsages(
           option.choices,
-          choiceUsageMargin,
-          choiceUsageIndentation
+          CHOICE_USAGE_MARGIN,
+          CHOICE_USAGE_INDENTATION
         ).join("\n")}`;
 
   const optionDefaultValue = getOptionDefaultValue(
     option.name,
-    detailedOptionMap,
-    apiDefaultOptions
+    context.detailedOptionMap,
+    context.apiDefaultOptions
   );
   const defaults =
     optionDefaultValue !== undefined
