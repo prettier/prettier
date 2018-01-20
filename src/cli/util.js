@@ -514,9 +514,9 @@ function writeOutput(result, options) {
   }
 }
 
-function getOptionsOrDie(context, filePath, configValue, editorconfigValue) {
+function getOptionsOrDie(context, filePath) {
   try {
-    if (configValue === false) {
+    if (context.argv["config"] === false) {
       context.logger.debug(
         "'--no-config' option found, skip loading config file."
       );
@@ -524,14 +524,14 @@ function getOptionsOrDie(context, filePath, configValue, editorconfigValue) {
     }
 
     context.logger.debug(
-      configValue
-        ? `load config file from '${configValue}'`
+      context.argv["config"]
+        ? `load config file from '${context.argv["config"]}'`
         : `resolve config from '${filePath}'`
     );
 
     const options = resolver.resolveConfig.sync(filePath, {
-      editorconfig: editorconfigValue,
-      config: configValue
+      editorconfig: context.argv["editorconfig"],
+      config: context.argv["config"]
     });
 
     context.logger.debug("loaded options `" + JSON.stringify(options) + "`");
@@ -669,6 +669,38 @@ function handleError(context, filename, error) {
   process.exitCode = 2;
 }
 
+function getOptionsForFile(context, filepath) {
+  const options = getOptionsOrDie(context, filepath);
+
+  const hasPlugins = options && options.plugins;
+  if (hasPlugins) {
+    pushContextPlugins(context, options.plugins);
+  }
+
+  const appliedOptions = Object.assign(
+    { filepath },
+    applyConfigPrecedence(
+      context,
+      context.argv["config-precedence"],
+      options &&
+        optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
+          logger: context.logger
+        })
+    )
+  );
+
+  context.logger.debug(
+    `applied config-precedence (${context.argv["config-precedence"]}): ` +
+      `${JSON.stringify(appliedOptions)}`
+  );
+
+  if (hasPlugins) {
+    popContextPlugins(context);
+  }
+
+  return appliedOptions;
+}
+
 module.exports = {
   applyConfigPrecedence,
   createApiDetailedOptionMap,
@@ -691,5 +723,6 @@ module.exports = {
   updateContextArgv,
   normalizeContextArgv,
   listDifferent,
-  handleError
+  handleError,
+  getOptionsForFile
 };

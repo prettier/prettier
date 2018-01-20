@@ -11,7 +11,6 @@ const prettier = require("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
 const errors = require("../common/errors");
 const optionsModule = require("../main/options");
-const optionsNormalizer = require("../main/options-normalizer");
 const thirdParty = require("../common/third-party");
 
 /**
@@ -51,7 +50,7 @@ class Context {
         return;
       }
 
-      const options = this.getOptionsForFile(filepath);
+      const options = util.getOptionsForFile(this, filepath);
 
       if (util.listDifferent(this, input, options, "(stdin)")) {
         return;
@@ -226,7 +225,7 @@ class Context {
         return;
       }
       filePaths.forEach(filePath =>
-        callback(filePath, this.getOptionsForFile(filePath))
+        callback(filePath, util.getOptionsForFile(this, filePath))
       );
     } catch (error) {
       this.logger.error(
@@ -237,43 +236,6 @@ class Context {
       // Don't exit the process if one pattern failed
       process.exitCode = 2;
     }
-  }
-
-  getOptionsForFile(filepath) {
-    const options = util.getOptionsOrDie(
-      this,
-      filepath,
-      this.argv["config"],
-      this.argv["editorconfig"]
-    );
-
-    const hasPlugins = options && options.plugins;
-    if (hasPlugins) {
-      util.pushContextPlugins(this, options.plugins);
-    }
-
-    const appliedOptions = Object.assign(
-      { filepath },
-      util.applyConfigPrecedence(
-        this,
-        this.argv["config-precedence"],
-        options &&
-          optionsNormalizer.normalizeApiOptions(options, this.supportOptions, {
-            logger: this.logger
-          })
-      )
-    );
-
-    this.logger.debug(
-      `applied config-precedence (${this.argv["config-precedence"]}): ` +
-        `${JSON.stringify(appliedOptions)}`
-    );
-
-    if (hasPlugins) {
-      util.popContextPlugins(this);
-    }
-
-    return appliedOptions;
   }
 }
 
