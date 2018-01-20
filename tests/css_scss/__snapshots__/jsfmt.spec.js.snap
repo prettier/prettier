@@ -33,6 +33,42 @@ $default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !d
 $default: "very-long-long-long-long-long-long-long-long-long-long-long-value"   !default;
 $default: "very-long-long-long-long-long-long-long-long-long-long-long-value"
 !default;
+
+.card-column-simple {
+  @include breakpoint( getBp( md ) ) {
+    padding: $spacing_content-sm $spacing_content-md;
+  }
+
+  @include breakpoint (getBp(md)) {
+    &:nth-child(2n + 3) {
+      clear: both;
+    }
+  }
+
+  @include breakpoint (getBp(xl)) {
+    &:nth-child(2n + 3) {
+      clear: none;
+    }
+    &:nth-child(3n + 4) {
+      clear: both;
+    }
+  }
+}
+
+@warn "Warn (#{$message}).";
+@warn  "Warn (#{$message}).";
+@warn   "Warn (#{$message}).";
+@warn #{$message};
+@warn "Very long long long long long long long long long long long long long line (#{$message}).";
+@warn
+  "Very long long long long long long long long long long long long long line (#{$message}).";
+@error "Error (#{$message}).";
+@error  "Error (#{$message}).";
+@error   "Error (#{$message}).";
+@error #{$message};
+@error "Very long long long long long long long long long long long long long line Error (#{$message}).";
+@error
+  "Very long long long long long long long long long long long long long line Error (#{$message}).";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @media #{$g-breakpoint-tiny} {
 }
@@ -69,5 +105,39 @@ $default: #111111 !default;
 $default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
 $default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
 $default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+
+.card-column-simple {
+  @include breakpoint( getBp( md ) ) {
+    padding: $spacing_content-sm $spacing_content-md;
+  }
+
+  @include breakpoint (getBp(md)) {
+    &:nth-child(2n + 3) {
+      clear: both;
+    }
+  }
+
+  @include breakpoint (getBp(xl)) {
+    &:nth-child(2n + 3) {
+      clear: none;
+    }
+    &:nth-child(3n + 4) {
+      clear: both;
+    }
+  }
+}
+
+@warn "Warn (#{$message}).";
+@warn "Warn (#{$message}).";
+@warn "Warn (#{$message}).";
+@warn #{$message};
+@warn "Very long long long long long long long long long long long long long line (#{$message}).";
+@warn "Very long long long long long long long long long long long long long line (#{$message}).";
+@error "Error (#{$message}).";
+@error "Error (#{$message}).";
+@error "Error (#{$message}).";
+@error #{$message};
+@error "Very long long long long long long long long long long long long long line Error (#{$message}).";
+@error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 
 `;
