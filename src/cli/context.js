@@ -376,7 +376,9 @@ class Context {
 
     const appliedOptions = Object.assign(
       { filepath },
-      this.applyConfigPrecedence(
+      util.applyConfigPrecedence(
+        this,
+        this.argv["config-precedence"],
         options &&
           optionsNormalizer.normalizeApiOptions(options, this.supportOptions, {
             logger: this.logger
@@ -394,21 +396,6 @@ class Context {
     }
 
     return appliedOptions;
-  }
-
-  applyConfigPrecedence(options) {
-    try {
-      return util.applyConfigPrecedence(
-        this.argv["config-precedence"],
-        this.args,
-        this.detailedOptions,
-        this.apiDefaultOptions,
-        options
-      );
-    } catch (error) {
-      this.logger.error(error.toString());
-      process.exit(2);
-    }
   }
 }
 

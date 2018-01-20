@@ -463,31 +463,39 @@ function parseArgsToOptions(
   );
 }
 
-function applyConfigPrecedence(
-  configPrecedence,
-  args,
-  detailedOptions,
-  apiDefaultOptions,
-  options
-) {
-  switch (configPrecedence) {
-    case "cli-override":
-      return parseArgsToOptions(
-        args,
-        detailedOptions,
-        apiDefaultOptions,
-        options
-      );
-    case "file-override":
-      return Object.assign(
-        {},
-        parseArgsToOptions(args, detailedOptions, apiDefaultOptions),
-        options
-      );
-    case "prefer-file":
-      return (
-        options || parseArgsToOptions(args, detailedOptions, apiDefaultOptions)
-      );
+function applyConfigPrecedence(context, configPrecedence, options) {
+  try {
+    switch (configPrecedence) {
+      case "cli-override":
+        return parseArgsToOptions(
+          context.args,
+          context.detailedOptions,
+          context.apiDefaultOptions,
+          options
+        );
+      case "file-override":
+        return Object.assign(
+          {},
+          parseArgsToOptions(
+            context.args,
+            context.detailedOptions,
+            context.apiDefaultOptions
+          ),
+          options
+        );
+      case "prefer-file":
+        return (
+          options ||
+          parseArgsToOptions(
+            context.args,
+            context.detailedOptions,
+            context.apiDefaultOptions
+          )
+        );
+    }
+  } catch (error) {
+    context.logger.error(error.toString());
+    process.exit(2);
   }
 }
 
