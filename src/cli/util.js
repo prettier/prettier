@@ -844,8 +844,18 @@ function formatStdin(context) {
   });
 }
 
-//------------------------------------------------------------------------------
-
+//-----------------------------context-util-start-------------------------------
+/**
+ * @typedef {Object} Context
+ * @property logger
+ * @property args
+ * @property argv
+ * @property filePatterns
+ * @property supportOptions
+ * @property detailedOptions
+ * @property detailedOptionMap
+ * @property apiDefaultOptions
+ */
 function createContext(args) {
   const context = { args };
 
@@ -929,8 +939,7 @@ function normalizeContextArgv(context, keys) {
     logger: context.logger
   });
 }
-
-//------------------------------------------------------------------------------
+//------------------------------context-util-end--------------------------------
 
 module.exports = {
   createContext,
