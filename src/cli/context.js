@@ -96,6 +96,23 @@ function normalizeContextArgv(context, keys) {
   });
 }
 
+function listDifferent(context, input, options, filename) {
+  if (!context.argv["list-different"]) {
+    return;
+  }
+
+  options = Object.assign({}, options, { filepath: filename });
+
+  if (!prettier.check(input, options)) {
+    if (!context.argv["write"]) {
+      context.logger.log(filename);
+    }
+    process.exitCode = 1;
+  }
+
+  return true;
+}
+
 //
 
 /**
@@ -137,7 +154,7 @@ class Context {
 
       const options = this.getOptionsForFile(filepath);
 
-      if (this.listDifferent(input, options, "(stdin)")) {
+      if (listDifferent(this, input, options, "(stdin)")) {
         return;
       }
 
@@ -183,7 +200,7 @@ class Context {
         return;
       }
 
-      this.listDifferent(input, options, filename);
+      listDifferent(this, input, options, filename);
 
       const start = Date.now();
 
@@ -270,23 +287,6 @@ class Context {
 
     // Don't exit the process if one file failed
     process.exitCode = 2;
-  }
-
-  listDifferent(input, options, filename) {
-    if (!this.argv["list-different"]) {
-      return;
-    }
-
-    options = Object.assign({}, options, { filepath: filename });
-
-    if (!prettier.check(input, options)) {
-      if (!this.argv["write"]) {
-        this.logger.log(filename);
-      }
-      process.exitCode = 1;
-    }
-
-    return true;
   }
 
   format(input, opt) {
