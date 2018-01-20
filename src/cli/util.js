@@ -1,28 +1,27 @@
 "use strict";
 
-const thirdParty = require("../common/third-party");
-const readline = require("readline");
-const cleanAST = require("../common/clean-ast").cleanAST;
-const globby = require("globby");
-const resolver = require("../config/resolve-config");
-const camelCase = require("camelcase");
-const chalk = require("chalk");
-const dashify = require("dashify");
-const diff = require("diff");
-const leven = require("leven");
-const util = require("../common/util");
-const fs = require("fs");
 const path = require("path");
-const ignore = require("ignore");
-const optionsNormalizer = require("../main/options-normalizer");
+const camelCase = require("camelcase");
+const dashify = require("dashify");
 const minimist = require("minimist");
-const constant = require("./constant");
-const normalizer = require("../main/options-normalizer");
-const getSupportInfo = require("../common/support").getSupportInfo;
-const commonUtil = require("../common/util");
-const optionsModule = require("../main/options");
+const fs = require("fs");
+const globby = require("globby");
+const ignore = require("ignore");
+const chalk = require("chalk");
+const readline = require("readline");
+const leven = require("leven");
+const diff = require("diff");
+
 const prettier = require("../../index");
+const cleanAST = require("../common/clean-ast").cleanAST;
 const errors = require("../common/errors");
+const resolver = require("../config/resolve-config");
+const constant = require("./constant");
+const optionsModule = require("../main/options");
+const optionsNormalizer = require("../main/options-normalizer");
+const thirdParty = require("../common/third-party");
+const getSupportInfo = require("../common/support").getSupportInfo;
+const util = require("../common/util");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -886,7 +885,7 @@ function updateContextOptions(context, plugins) {
     Object.assign({}, createDetailedOptionMap(supportOptions), constant.options)
   );
 
-  const detailedOptions = commonUtil.arrayify(detailedOptionMap, "name");
+  const detailedOptions = util.arrayify(detailedOptionMap, "name");
 
   const apiDefaultOptions = supportOptions
     .filter(optionInfo => !optionInfo.deprecated)
@@ -935,7 +934,7 @@ function normalizeContextArgv(context, keys) {
       );
   const argv = !keys ? context.argv : pick(context.argv, keys);
 
-  context.argv = normalizer.normalizeCliOptions(argv, detailedOptions, {
+  context.argv = optionsNormalizer.normalizeCliOptions(argv, detailedOptions, {
     logger: context.logger
   });
 }
