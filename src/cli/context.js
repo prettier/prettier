@@ -56,6 +56,20 @@ function updateContextOptions(context, plugins) {
   context.apiDefaultOptions = apiDefaultOptions;
 }
 
+function pushContextPlugins(context, plugins) {
+  context._supportOptions = context.supportOptions;
+  context._detailedOptions = context.detailedOptions;
+  context._detailedOptionMap = context.detailedOptionMap;
+  context._apiDefaultOptions = context.apiDefaultOptions;
+  updateContextOptions(context, plugins);
+}
+
+/**
+ * @property supportOptions
+ * @property detailedOptions
+ * @property detailedOptionMap
+ * @property apiDefaultOptions
+ */
 class Context {
   constructor(args) {
     this.args = args;
@@ -74,21 +88,13 @@ class Context {
   }
 
   parseArgv(plugins) {
-    this.pushPlugins(plugins);
+    pushContextPlugins(this, plugins);
 
     const minimistOptions = util.createMinimistOptions(this.detailedOptions);
     const argv = minimist(this.args, minimistOptions);
 
     this.argv = argv;
     this.filePatterns = argv["_"];
-  }
-
-  pushPlugins(plugins) {
-    this._supportOptions = this.supportOptions;
-    this._detailedOptions = this.detailedOptions;
-    this._detailedOptionMap = this.detailedOptionMap;
-    this._apiDefaultOptions = this.apiDefaultOptions;
-    updateContextOptions(this, plugins);
   }
 
   popPlugins() {
@@ -368,7 +374,7 @@ class Context {
 
     const hasPlugins = options && options.plugins;
     if (hasPlugins) {
-      this.pushPlugins(options.plugins);
+      pushContextPlugins(this, options.plugins);
     }
 
     const appliedOptions = Object.assign(
