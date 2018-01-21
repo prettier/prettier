@@ -14,6 +14,20 @@ exports[`autolink.md 2`] = `
 
 `;
 
+exports[`entity.md 1`] = `
+[Test](http://localhost:8080/test?language=DE&currency=EUR)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[Test](http://localhost:8080/test?language=DE&currency=EUR)
+
+`;
+
+exports[`entity.md 2`] = `
+[Test](http://localhost:8080/test?language=DE&currency=EUR)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[Test](http://localhost:8080/test?language=DE&currency=EUR)
+
+`;
+
 exports[`long.md 1`] = `
 [podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
