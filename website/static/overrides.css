@@ -5,6 +5,8 @@ html body {
   overflow-x: hidden;
 }
 
+/* Note: CSS on body bg-color for index page is set inside landing.js, not here */
+
 .post p a {
   text-decoration: underline !important;
 }

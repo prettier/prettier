@@ -5,7 +5,7 @@ const React = require("react");
 const CompLibrary = require("../../core/CompLibrary.js");
 const MarkdownBlock = CompLibrary.MarkdownBlock;
 const Container = CompLibrary.Container;
-const AnimatedLogo = require(process.cwd() + "/components/AnimatedLogo");
+// const AnimatedLogo = require(process.cwd() + "/components/AnimatedLogo");
 
 const siteConfig = require(process.cwd() + "/siteConfig.js");
 
@@ -45,7 +45,11 @@ const HomeSplash = props => {
       <div className="homeSplashFade">
         <div className="wrapper homeWrapper">
           <div className="animatedLogoWrapper">
-            <AnimatedLogo />
+            {/* <AnimatedLogo /> */}
+            <img
+              src="/prettier-centered-logo-static.svg"
+              style={{ marginBottom: "40px" }}
+            />
           </div>
           <div className="inner">
             <div className="section promoSection">

@@ -6,20 +6,26 @@ if (location.hash.substring(1).startsWith(encodeURIComponent("{"))) {
   location.pathname = "/playground/";
 }
 
+
+
 window.addEventListener("load", function() {
-  var logo = document.querySelector(".animatedLogo");
-  var logoWrapper = document.querySelector(".animatedLogoWrapper");
+  // We don't have access to a unique body css attribute for just the homepage
+  // so instead it is set on load. It's only really visible on a vertical overscroll 
+  document.body.style.backgroundColor = "rgb(24, 32, 37)"
 
-  logo.classList.remove("initial");
+  // var logo = document.querySelector(".animatedLogo");
+  // var logoWrapper = document.querySelector(".animatedLogoWrapper");
 
-  function handleLogoDrag(event) {
-    logo.classList.toggle("initial");
-    event.preventDefault();
-  }
+  // logo.classList.remove("initial");
 
-  logoWrapper.setAttribute("draggable", "true");
-  logoWrapper.addEventListener("touchstart", handleLogoDrag);
-  logoWrapper.addEventListener("dragstart", handleLogoDrag);
+  // function handleLogoDrag(event) {
+  //   logo.classList.toggle("initial");
+  //   event.preventDefault();
+  // }
+
+  // logoWrapper.setAttribute("draggable", "true");
+  // logoWrapper.addEventListener("touchstart", handleLogoDrag);
+  // logoWrapper.addEventListener("dragstart", handleLogoDrag);
 
   var yarnButton = document.querySelector(".showYarnButton");
   var npmButton = document.querySelector(".showNpmButton");
