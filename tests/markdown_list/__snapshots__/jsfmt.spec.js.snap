@@ -960,6 +960,46 @@ exports[`indent.md 4`] = `
 
 `;
 
+exports[`interrupt.md 1`] = `
+* Something
+### Some heading
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Something
+
+### Some heading
+
+`;
+
+exports[`interrupt.md 2`] = `
+* Something
+### Some heading
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Something
+
+### Some heading
+
+`;
+
+exports[`interrupt.md 3`] = `
+* Something
+### Some heading
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Something
+
+### Some heading
+
+`;
+
+exports[`interrupt.md 4`] = `
+* Something
+### Some heading
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Something
+
+### Some heading
+
+`;
+
 exports[`long-paragraph.md 1`] = `
 - This is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
