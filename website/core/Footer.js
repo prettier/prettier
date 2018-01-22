@@ -7,9 +7,7 @@ const GithubButton = props => (
     className="github-button"
     href={props.config.githubUrl}
     data-icon="octicon-star"
-    data-count-href={`/${props.config.repo}/stargazers`}
-    data-count-api={`/repos/${props.config.repo}#stargazers_count`}
-    data-count-aria-label="# stargazers on GitHub"
+    data-show-count="true"
     aria-label="Star this project on GitHub"
   >
     Star
