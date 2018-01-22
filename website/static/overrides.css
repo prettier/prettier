@@ -243,7 +243,7 @@ html body {
 .getStartedSection ol li {
   margin: 0 0 22px 0 !important;
   min-height: 110px;
-  padding-left: 46;
+  padding-left: 46px;
   position: relative;
 }
 
