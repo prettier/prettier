@@ -249,10 +249,10 @@ function genericPrint(path, options, print) {
     case "selector-attribute": {
       return concat([
         "[",
-        n.attribute,
+        n.attribute.trim(),
         n.operator ? n.operator : "",
         n.value
-          ? quoteAttributeValue(adjustStrings(n.value, options), options)
+          ? quoteAttributeValue(adjustStrings(n.value.trim(), options), options)
           : "",
         n.insensitive ? " i" : "",
         "]"

@@ -3,8 +3,12 @@
 exports[`insensitive.css 1`] = `
 input[type="radio" i] {
 }
+img[alt~="person" i][src*="lorem" i] {
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 input[type="radio" i] {
+}
+img[alt~="person" i][src*="lorem" i] {
 }
 
 `;
@@ -12,8 +16,12 @@ input[type="radio" i] {
 exports[`insensitive.css 2`] = `
 input[type="radio" i] {
 }
+img[alt~="person" i][src*="lorem" i] {
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 input[type='radio' i] {
+}
+img[alt~='person' i][src*='lorem' i] {
 }
 
 `;
@@ -23,6 +31,7 @@ a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}
 a[id=func("foo")] {}
+a[class="(╯°□°）╯︵ ┻━┻"]{}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a[id="test"] {
 }
@@ -32,6 +41,8 @@ a[id="test"] {
 }
 a[id=func("foo")] {
 }
+a[class="(╯°□°）╯︵ ┻━┻"] {
+}
 
 `;
 
@@ -40,6 +51,7 @@ a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}
 a[id=func("foo")] {}
+a[class="(╯°□°）╯︵ ┻━┻"]{}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a[id='test'] {
 }
@@ -48,6 +60,204 @@ a[id='test'] {
 a[id='test'] {
 }
 a[id=func('foo')] {
+}
+a[class='(╯°□°）╯︵ ┻━┻'] {
+}
+
+`;
+
+exports[`spaces.css 1`] = `
+[lang] {}
+[ lang] {}
+[lang ] {}
+[ lang ] {}
+[  lang  ] {}
+span[lang] {}
+span[ lang] {}
+span[lang ] {}
+span[ lang ] {}
+span[  lang  ] {}
+span[lang='pt'] {}
+span[lang ='pt'] {}
+span[lang= 'pt'] {}
+span[lang = 'pt'] {}
+span[lang  =  'pt'] {}
+span[lang='pt' ] {}
+span[lang='pt'  ] {}
+span[ lang ~= 'en-us' ] {}
+span[  lang  ~=  'en-us'  ] {}
+span[ lang |='zh' ] {}
+a[ href ^= '#' ] {}
+a[ href $= '.cn' ] {}
+a[ href *= 'example' ] {}
+input[ type = 'radio' i ] {}
+input[  type  =  'radio'  i  ] {}
+input[ type ~= 'radio' i ] {}
+input[  type  ~=  'radio'  i  ] {}
+img[ alt = 'person' ][ src = 'lorem' ] {}
+img[ alt  =  'person' ][ src  =  'lorem' ] {}
+img[ alt ~= 'person' ][ src *= 'lorem' ] {}
+img[  alt  ~=  'person'  ][  src  *=  'lorem'  ] {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[lang] {
+}
+[lang] {
+}
+[lang] {
+}
+[lang] {
+}
+[lang] {
+}
+span[lang] {
+}
+span[lang] {
+}
+span[lang] {
+}
+span[lang] {
+}
+span[lang] {
+}
+span[lang="pt"] {
+}
+span[lang="pt"] {
+}
+span[lang="pt"] {
+}
+span[lang="pt"] {
+}
+span[lang="pt"] {
+}
+span[lang="pt"] {
+}
+span[lang="pt"] {
+}
+span[lang~="en-us"] {
+}
+span[lang~="en-us"] {
+}
+span[lang|="zh"] {
+}
+a[href^="#"] {
+}
+a[href$=".cn"] {
+}
+a[href*="example"] {
+}
+input[type="radio" i] {
+}
+input[type="radio" i] {
+}
+input[type~="radio" i] {
+}
+input[type~="radio" i] {
+}
+img[alt="person"][src="lorem"] {
+}
+img[alt="person"][src="lorem"] {
+}
+img[alt~="person"][src*="lorem"] {
+}
+img[alt~="person"][src*="lorem"] {
+}
+
+`;
+
+exports[`spaces.css 2`] = `
+[lang] {}
+[ lang] {}
+[lang ] {}
+[ lang ] {}
+[  lang  ] {}
+span[lang] {}
+span[ lang] {}
+span[lang ] {}
+span[ lang ] {}
+span[  lang  ] {}
+span[lang='pt'] {}
+span[lang ='pt'] {}
+span[lang= 'pt'] {}
+span[lang = 'pt'] {}
+span[lang  =  'pt'] {}
+span[lang='pt' ] {}
+span[lang='pt'  ] {}
+span[ lang ~= 'en-us' ] {}
+span[  lang  ~=  'en-us'  ] {}
+span[ lang |='zh' ] {}
+a[ href ^= '#' ] {}
+a[ href $= '.cn' ] {}
+a[ href *= 'example' ] {}
+input[ type = 'radio' i ] {}
+input[  type  =  'radio'  i  ] {}
+input[ type ~= 'radio' i ] {}
+input[  type  ~=  'radio'  i  ] {}
+img[ alt = 'person' ][ src = 'lorem' ] {}
+img[ alt  =  'person' ][ src  =  'lorem' ] {}
+img[ alt ~= 'person' ][ src *= 'lorem' ] {}
+img[  alt  ~=  'person'  ][  src  *=  'lorem'  ] {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[lang] {
+}
+[lang] {
+}
+[lang] {
+}
+[lang] {
+}
+[lang] {
+}
+span[lang] {
+}
+span[lang] {
+}
+span[lang] {
+}
+span[lang] {
+}
+span[lang] {
+}
+span[lang='pt'] {
+}
+span[lang='pt'] {
+}
+span[lang='pt'] {
+}
+span[lang='pt'] {
+}
+span[lang='pt'] {
+}
+span[lang='pt'] {
+}
+span[lang='pt'] {
+}
+span[lang~='en-us'] {
+}
+span[lang~='en-us'] {
+}
+span[lang|='zh'] {
+}
+a[href^='#'] {
+}
+a[href$='.cn'] {
+}
+a[href*='example'] {
+}
+input[type='radio' i] {
+}
+input[type='radio' i] {
+}
+input[type~='radio' i] {
+}
+input[type~='radio' i] {
+}
+img[alt='person'][src='lorem'] {
+}
+img[alt='person'][src='lorem'] {
+}
+img[alt~='person'][src*='lorem'] {
+}
+img[alt~='person'][src*='lorem'] {
 }
 
 `;
