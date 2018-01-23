@@ -66,7 +66,7 @@ function clean(ast, newObj) {
   }
 
   if (ast.type === "selector-attribute") {
-    newObj.attribute = newObj.attribute.replace(/ /g, "");
+    newObj.attribute = newObj.attribute.replace(/\s/g, "");
 
     if (newObj.value) {
       newObj.value = newObj.value.trim().replace(/^['"]|['"]$/g, "");
