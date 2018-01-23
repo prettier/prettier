@@ -11,6 +11,16 @@ exports[`selectors.css 1`] = `
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {}
 
+.parent,.another-parent{}
+.parent ,.another-parent{}
+.parent, .another-parent{}
+.parent , .another-parent {}
+.parent  ,  .another-parent  {}
+.parent
+,
+.another-parent
+{}
+
 .parent.child {}
 .parent .child {}
 .parent  .child {}
@@ -97,6 +107,25 @@ exports[`selectors.css 1`] = `
   .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
   .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {
+}
+
+.parent,
+.another-parent {
+}
+.parent,
+.another-parent {
+}
+.parent,
+.another-parent {
+}
+.parent,
+.another-parent {
+}
+.parent,
+.another-parent {
+}
+.parent,
+.another-parent {
 }
 
 .parent.child {

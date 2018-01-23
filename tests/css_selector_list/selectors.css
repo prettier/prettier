@@ -8,6 +8,16 @@
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {}
 
+.parent,.another-parent{}
+.parent ,.another-parent{}
+.parent, .another-parent{}
+.parent , .another-parent {}
+.parent  ,  .another-parent  {}
+.parent
+,
+.another-parent
+{}
+
 .parent.child {}
 .parent .child {}
 .parent  .child {}
