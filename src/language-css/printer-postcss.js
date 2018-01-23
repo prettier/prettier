@@ -421,7 +421,7 @@ function genericPrint(path, options, print) {
       return n.value;
     }
     case "value-word": {
-      if (n.isColor && n.isHex) {
+      if ((n.isColor && n.isHex) || isWideKeywords(n.value)) {
         return n.value.toLowerCase();
       }
       return n.value;
@@ -549,6 +549,14 @@ function maybeToLowerCase(value) {
     (value.includes("(") && value.includes(")"))
     ? value
     : value.toLowerCase();
+}
+
+function isWideKeywords(value) {
+  return (
+    ["initial", "inherit", "unset", "revert"].indexOf(
+      value.replace().toLowerCase()
+    ) !== -1
+  );
 }
 
 module.exports = {

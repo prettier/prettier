@@ -22,7 +22,11 @@ function clean(ast, newObj) {
   }
 
   if (
-    (ast.type === "value-word" && ast.isColor && ast.isHex) ||
+    (ast.type === "value-word" &&
+      ((ast.isColor && ast.isHex) ||
+        ["initial", "inherit", "unset", "revert"].indexOf(
+          newObj.value.replace().toLowerCase()
+        ) !== -1)) ||
     ast.type === "media-feature" ||
     ast.type === "selector-root-invalid" ||
     ast.type === "selector-pseudo"
