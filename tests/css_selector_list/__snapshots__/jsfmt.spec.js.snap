@@ -36,6 +36,23 @@ exports[`selectors.css 1`] = `
   .child-one  {}
   .child-two  {}
 }
+.parent
+{
+  .child-one
+  {}
+  .child-two
+  {}
+}
+.parent
+
+{
+  .child-one
+
+  {}
+  .child-two
+
+  {}
+}
 
 .parent>.child {}
 .parent > .child {}
@@ -51,6 +68,26 @@ exports[`selectors.css 1`] = `
 .parent  >  {
   .child-one {}
   .child-two {}
+}
+.parent
+>
+{
+  .child-one
+  {}
+  .child-two
+  {}
+}
+.parent
+
+>
+
+{
+  .child-one
+
+  {}
+  .child-two
+
+  {}
 }
 
 .parent+.child {}
@@ -68,6 +105,26 @@ exports[`selectors.css 1`] = `
   .child-one {}
   .child-two {}
 }
+.parent
++
+{
+  .child-one
+  {}
+  .child-two
+  {}
+}
+.parent
+
++
+
+{
+  .child-one
+
+  {}
+  .child-two
+
+  {}
+}
 
 .parent~.child {}
 .parent ~ .child {}
@@ -83,6 +140,26 @@ exports[`selectors.css 1`] = `
 .parent  ~  {
   .child-one {}
   .child-two {}
+}
+.parent
+~
+{
+  .child-one
+  {}
+  .child-two
+  {}
+}
+.parent
+
+~
+
+{
+  .child-one
+
+  {}
+  .child-two
+
+  {}
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .a,
@@ -152,12 +229,36 @@ exports[`selectors.css 1`] = `
   .child-two {
   }
 }
+.parent {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent {
+  .child-one {
+  }
+  .child-two {
+  }
+}
 
 .parent > .child {
 }
 .parent > .child {
 }
 .parent > .child {
+}
+.parent > {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent > {
+  .child-one {
+  }
+  .child-two {
+  }
 }
 .parent > {
   .child-one {
@@ -202,12 +303,36 @@ exports[`selectors.css 1`] = `
   .child-two {
   }
 }
+.parent + {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent + {
+  .child-one {
+  }
+  .child-two {
+  }
+}
 
 .parent ~ .child {
 }
 .parent ~ .child {
 }
 .parent ~ .child {
+}
+.parent ~ {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent ~ {
+  .child-one {
+  }
+  .child-two {
+  }
 }
 .parent ~ {
   .child-one {
