@@ -29,6 +29,8 @@ function genericPrint(path, options, print) {
   }
 
   switch (n.type) {
+    case "css-comment-yaml":
+      return n.value;
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
 
