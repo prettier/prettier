@@ -61,9 +61,13 @@ function clean(ast, newObj) {
     newObj.importPath = cleanCSSStrings(newObj.importPath);
   }
 
-  if (ast.type === "selector-attribute" && newObj.value) {
-    newObj.value = newObj.value.replace(/^['"]|['"]$/g, "");
-    delete newObj.quoted;
+  if (ast.type === "selector-attribute") {
+    newObj.attribute = newObj.attribute.replace(/ /g, "");
+
+    if (newObj.value) {
+      newObj.value = newObj.value.trim().replace(/^['"]|['"]$/g, "");
+      delete newObj.quoted;
+    }
   }
 
   if (

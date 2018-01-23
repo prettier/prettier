@@ -1,2 +1,4 @@
 input[type="radio" i] {
 }
+img[alt~="person" i][src*="lorem" i] {
+}

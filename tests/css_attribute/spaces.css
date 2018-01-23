@@ -1,0 +1,31 @@
+[lang] {}
+[ lang] {}
+[lang ] {}
+[ lang ] {}
+[  lang  ] {}
+span[lang] {}
+span[ lang] {}
+span[lang ] {}
+span[ lang ] {}
+span[  lang  ] {}
+span[lang='pt'] {}
+span[lang ='pt'] {}
+span[lang= 'pt'] {}
+span[lang = 'pt'] {}
+span[lang  =  'pt'] {}
+span[lang='pt' ] {}
+span[lang='pt'  ] {}
+span[ lang ~= 'en-us' ] {}
+span[  lang  ~=  'en-us'  ] {}
+span[ lang |='zh' ] {}
+a[ href ^= '#' ] {}
+a[ href $= '.cn' ] {}
+a[ href *= 'example' ] {}
+input[ type = 'radio' i ] {}
+input[  type  =  'radio'  i  ] {}
+input[ type ~= 'radio' i ] {}
+input[  type  ~=  'radio'  i  ] {}
+img[ alt = 'person' ][ src = 'lorem' ] {}
+img[ alt  =  'person' ][ src  =  'lorem' ] {}
+img[ alt ~= 'person' ][ src *= 'lorem' ] {}
+img[  alt  ~=  'person'  ][  src  *=  'lorem'  ] {}
