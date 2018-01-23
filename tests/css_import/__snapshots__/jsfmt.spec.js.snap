@@ -63,6 +63,16 @@ $dir: 'fonts';
 @import 'rounded-corners', 'text-shadow';
 $family: unquote("Droid+Sans");
 @import url("http://fonts.googleapis.com/css?family=#{$family}");
+@import url( "foo.css");
+@import url("foo.css" );
+@import url( "foo.css" );
+@import url(  "foo.css"  );
+@import url("foo bar baz.css");
+@import url(  "foo bar baz.css"  );
+@import url("foo  bar  baz.css");
+@import url(
+"foo.css"
+);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @import url("foo");
 $dir: "fonts";
@@ -89,5 +99,13 @@ $dir: "fonts";
 @import "rounded-corners", "text-shadow";
 $family: unquote("Droid+Sans");
 @import url("http://fonts.googleapis.com/css?family=#{$family}");
+@import url("foo.css");
+@import url("foo.css");
+@import url("foo.css");
+@import url("foo.css");
+@import url("foo bar baz.css");
+@import url("foo bar baz.css");
+@import url("foo  bar  baz.css");
+@import url("foo.css");
 
 `;

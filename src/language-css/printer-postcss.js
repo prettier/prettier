@@ -218,7 +218,10 @@ function genericPrint(path, options, print) {
       return adjustStrings(n.value, options);
     }
     case "media-url": {
-      return adjustStrings(n.value, options);
+      return adjustStrings(
+        n.value.replace(/^url\(\s+/gi, "url(").replace(/\s+\)$/gi, ")"),
+        options
+      );
     }
     case "media-unknown": {
       return adjustStrings(n.value, options);
