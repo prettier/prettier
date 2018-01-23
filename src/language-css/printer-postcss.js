@@ -259,7 +259,12 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "selector-combinator": {
-      if (n.value === "+" || n.value === ">" || n.value === "~") {
+      if (
+        n.value === "+" ||
+        n.value === ">" ||
+        n.value === "~" ||
+        n.value === ">>>"
+      ) {
         const parent = path.getParentNode();
         const leading =
           parent.type === "selector-selector" && parent.nodes[0] === n
