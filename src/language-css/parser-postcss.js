@@ -211,6 +211,14 @@ function parseNestedCSS(node) {
           value: node.params
         };
       } else {
+        if (node.params.includes("#{")) {
+          // Workaround for media at rule with scss interpolation
+          return {
+            type: "media-unknown",
+            value: node.params
+          };
+        }
+
         node.params = parseMediaQuery(node.params);
       }
     }
