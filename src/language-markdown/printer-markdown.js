@@ -12,7 +12,6 @@ const softline = docBuilders.softline;
 const fill = docBuilders.fill;
 const align = docBuilders.align;
 const group = docBuilders.group;
-const ifBreak = docBuilders.ifBreak;
 const printDocToString = doc.printer.printDocToString;
 const printerOptions = require("./options");
 
