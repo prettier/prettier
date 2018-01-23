@@ -305,18 +305,11 @@ function genericPrint(path, options, print) {
               printChildren(path, options, print, {
                 processor: (childPath, index) =>
                   index === 0
-                    ? group(
-                        concat([
-                          ifBreak(concat([line, line]), ""),
-                          childPath.call(print)
-                        ])
-                      )
+                    ? group(concat([softline, softline, childPath.call(print)]))
                     : childPath.call(print)
               })
             ),
-            nextNode && nextNode.type === "footnoteDefinition"
-              ? ifBreak(line, "")
-              : ""
+            nextNode && nextNode.type === "footnoteDefinition" ? softline : ""
           ])
         )
       ]);
