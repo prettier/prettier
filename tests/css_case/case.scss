@@ -17,6 +17,10 @@ svg[viewBox] linearGradient,
     background: Var(--Keep-custom-Prop);
     animation-name: KeepAnimationName;
     important: something !IMPORTANT;
+    font-family: INITIAL;
+    padding: UNSET;
+    border: INHERIT;
+    all: REVERT;
 }
 
 @keyframes KeepAnimationName {

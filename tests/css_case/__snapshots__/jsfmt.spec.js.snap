@@ -21,6 +21,10 @@ svg[viewBox] linearGradient,
     background: Var(--Keep-custom-Prop);
     animation-name: KeepAnimationName;
     important: something !IMPORTANT;
+    font-family: INITIAL;
+    padding: UNSET;
+    border: INHERIT;
+    all: REVERT;
 }
 
 @keyframes KeepAnimationName {
@@ -109,6 +113,10 @@ svg[viewBox] linearGradient,
   background: Var(--Keep-custom-Prop);
   animation-name: KeepAnimationName;
   important: something !IMPORTANT;
+  font-family: initial;
+  padding: unset;
+  border: inherit;
+  all: revert;
 }
 
 @keyframes KeepAnimationName {
@@ -207,6 +215,10 @@ svg[viewBox] linearGradient,
     background: Var(--Keep-custom-Prop);
     animation-name: KeepAnimationName;
     important: something !IMPORTANT;
+    font-family: INITIAL;
+    padding: UNSET;
+    border: INHERIT;
+    all: REVERT;
 }
 
 @keyframes KeepAnimationName {
@@ -297,6 +309,10 @@ svg[viewBox] linearGradient,
   background: Var(--Keep-custom-Prop);
   animation-name: KeepAnimationName;
   important: something !important;
+  font-family: initial;
+  padding: unset;
+  border: inherit;
+  all: revert;
 }
 
 @keyframes KeepAnimationName {
