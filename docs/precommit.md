@@ -7,6 +7,8 @@ You can use Prettier with a pre-commit tool. This can re-format your files that 
 
 ## Option 1. [lint-staged](https://github.com/okonet/lint-staged)
 
+**Use Case:** Useful for when you need to use other tools on top of Prettier (e.g. ESLint)
+
 Install it along with [husky](https://github.com/typicode/husky):
 
 ```bash
@@ -32,6 +34,8 @@ See https://github.com/okonet/lint-staged#configuration for more details about h
 
 ## Option 2. [pretty-quick](https://github.com/azz/pretty-quick)
 
+**Use Case:** Great for when you want an entire file formatting on your changed/staged files.
+
 Install it along with [husky](https://github.com/typicode/husky):
 
 ```bash
@@ -52,6 +56,8 @@ Find more info from [here](https://github.com/azz/pretty-quick).
 
 ## Option 3. [pre-commit](https://github.com/pre-commit/pre-commit) (Python version)
 
+**Use Case:** Great when working with multi-language projects.
+
 Copy the following config into your `.pre-commit-config.yaml` file:
 
 ```yaml
@@ -64,6 +70,8 @@ Copy the following config into your `.pre-commit-config.yaml` file:
 Find more info from [here](http://pre-commit.com).
 
 ## Option 4. [precise-commits](https://github.com/JamesHenry/precise-commits)
+
+**Use Case:** Great for when you want an partial file formatting on your changed/staged files.
 
 Install it along with [husky](https://github.com/typicode/husky):
 
