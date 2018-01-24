@@ -18,13 +18,7 @@ div {
   }
 }
 a { margin: 0 { left: 10px; } }
-$map: (color: #111111, text-shadow: 1px 1px 0 salmon);
-$theme-checkbox-colors: (
-    default: $theme-color-border,
-    checked: $theme-color-checked,
-    disabled: $theme-color-disabled,
-    disabled-font: $theme-color-font-secondary,
-) !default;
+
 $default: #111111 !default;
 $default: #111111   !default;
 $default: #111111
@@ -33,6 +27,127 @@ $default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !d
 $default: "very-long-long-long-long-long-long-long-long-long-long-long-value"   !default;
 $default: "very-long-long-long-long-long-long-long-long-long-long-long-value"
 !default;
+
+$map: (key: value, other-key: other-value);
+$map: (key: value, other-key: other-value) !default;
+$map: (key: value, other-key: other-value)  !default;
+$map: (key: value, other-key: other-value)
+!default;
+$map:
+(key: value, other-key: other-value)
+!default;
+$map: ( key : value , other-key : other-value);
+$map: (  key  :  value  ,  other-key  :  other-value  );
+$map: (
+  key: value,
+  other-key: other-value
+);
+$map: (
+key: value,
+other-key: other-value
+);
+$map: (
+key
+:
+value,
+other-key
+:
+other-value
+);
+$map: (
+key
+:
+value
+,
+other-key
+:
+other-value
+);
+$map: (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value, very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value);
+$map: ( very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key : very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value , very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key : very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value );
+$map: (  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key  :  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value  ,  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value  );
+$map: (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+);
+$map: (
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+);
+$map:
+(
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key
+:
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value
+,
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key
+:
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff)
+);
+$map: (
+key: (#d82d2d, #666),
+other-key: (#52bf4a, #fff),
+other-other-key: (#c23435, #fff)
+);
+$map: (
+  key : ( #d82d2d , #666 ),
+  other-key : ( #52bf4a , #fff ),
+  other-other-key : ( #c23435 , #fff )
+);
+$map: (
+  key  : (  #d82d2d  ,  #666  )  ,
+  other-key  :  (  #52bf4a  ,  #fff  ),
+  other-other-key  :  (  #c23435  ,  #fff  )
+);
+$map: (
+key
+:
+(
+#d82d2d,
+#666
+)
+,
+other-key
+:
+(
+#52bf4a,
+#fff
+)
+,
+other-other-key
+:
+(
+#c23435
+,
+#fff
+)
+);
+$map: map-merge($map, ($key: $value));
+$map: map-merge( $map , ( $key : $value ) );
+$map: map-merge(  $map  ,  (  $key  :  $value  )  );
+$map: map-merge(
+  $map,
+  ($key:  $value)
+);
+$map: map-merge(
+$map,
+($key:  $value)
+);
+$map:
+map-merge(
+$map
+,
+(
+$key
+:
+$value
+)
+);
 
 .card-column-simple {
   @include breakpoint( getBp( md ) ) {
@@ -344,22 +459,125 @@ a {
     left: 10px;
   }
 }
+
+$default: #111111 !default;
+$default: #111111 !default;
+$default: #111111 !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+
 $map: (
-  color: #111111,
-  text-shadow: 1px 1px 0 salmon
+  key: value,
+  other-key: other-value
 );
-$theme-checkbox-colors: (
-  default: $theme-color-border,
-  checked: $theme-color-checked,
-  disabled: $theme-color-disabled,
-  disabled-font: $theme-color-font-secondary
+$map: (
+  key: value,
+  other-key: other-value
 ) !default;
-$default: #111111 !default;
-$default: #111111 !default;
-$default: #111111 !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+$map: (
+  key: value,
+  other-key: other-value
+) !default;
+$map: (
+  key: value,
+  other-key: other-value
+) !default;
+$map: (
+  key: value,
+  other-key: other-value
+) !default;
+$map: (
+  key: value,
+  other-key: other-value
+);
+$map: (
+  key: value,
+  other-key: other-value
+);
+$map: (
+  key: value,
+  other-key: other-value
+);
+$map: (
+  key: value,
+  other-key: other-value
+);
+$map: (
+  key: value,
+  other-key: other-value
+);
+$map: (
+  key: value,
+  other-key: other-value
+);
+$map: (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+);
+$map: (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+);
+$map: (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+);
+$map: (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+);
+$map: (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+);
+$map: (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff)
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff)
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff)
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff)
+);
+$map: (
+  key: (#d82d2d, #666),
+  other-key: (#52bf4a, #fff),
+  other-other-key: (#c23435, #fff)
+);
+$map: map-merge($map, ($key: $value));
+$map: map-merge($map, ($key: $value));
+$map: map-merge($map, ($key: $value));
+$map: map-merge($map, ($key: $value));
+$map: map-merge($map, ($key: $value));
+$map: map-merge($map, ($key: $value));
 
 .card-column-simple {
   @include breakpoint( getBp( md ) ) {
