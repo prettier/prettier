@@ -341,7 +341,7 @@ function genericPrint(path, options, print) {
             ["+", "-", "/", "*", "%"].indexOf(n.groups[i + 1].value) !== -1
           ) {
             parts.push(" ");
-          } else {
+          } else if (n.groups[i + 1].value !== ":") {
             parts.push(line);
           }
         }
@@ -418,7 +418,10 @@ function genericPrint(path, options, print) {
     }
     case "value-paren": {
       if (n.raws.before !== "") {
-        return concat([line, n.value]);
+        const parent = path.getParentNode(2);
+        const isFunction = parent && parent.type === "value-func";
+
+        return concat([isFunction ? "" : line, n.value]);
       }
       return n.value;
     }
