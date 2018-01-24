@@ -414,7 +414,10 @@ function genericPrint(path, options, print) {
       return path.call(print, "group");
     }
     case "value-func": {
-      return concat([n.value, path.call(print, "group")]);
+      return concat([
+        maybeToLowerCaseFunction(n.value),
+        path.call(print, "group")
+      ]);
     }
     case "value-paren": {
       if (n.raws.before !== "") {
@@ -568,6 +571,121 @@ function isWideKeywords(value) {
       value.replace().toLowerCase()
     ) !== -1
   );
+}
+
+function maybeToLowerCaseFunction(value) {
+  const lowerCasedValue = value.toLowerCase();
+  const functions = [
+    // URL
+    "url",
+    "local",
+    // Font format
+    "format",
+    // Color
+    "rgb",
+    "rgba",
+    "hsl",
+    "hsla",
+    "hwb",
+    "gray",
+    // Attribute
+    "attr",
+    // Min/max
+    "min",
+    "max",
+    // Toggle
+    "toggle",
+    // Calc
+    "calc",
+    // Animation
+    "cubic-bezier",
+    // Gradient
+    "linear-gradient",
+    "radial-gradient",
+    "repeating-linear-gradient",
+    "repeating-radial-gradient",
+    // Filter
+    "blur",
+    "brightness",
+    "contrast",
+    "drop-shadow",
+    "grayscale",
+    "hue-rotate",
+    "opacity",
+    "saturate",
+    "sepia",
+    // Shape
+    "circle",
+    "ellipse",
+    "inset",
+    "invert",
+    "polygon",
+    // Counter
+    "counter",
+    "counters",
+    // Transition
+    "cubic-bezier",
+    "steps",
+    "frames",
+    // Transform
+    "matrix",
+    "matrix3d",
+    "perspective",
+    "rotate",
+    "rotate3d",
+    "scale",
+    "scale3d",
+    "skew",
+    "translate",
+    "translate3d",
+    // Image
+    "image",
+    // Font variant
+    "stylistic",
+    "styleset",
+    "character-variant",
+    "swash",
+    "ornaments",
+    "annotation",
+    // Clip
+    "rect",
+    // Grid,
+    "minmax",
+    "repeat",
+    "fit-content",
+    // Variables
+    "var"
+  ];
+
+  if (functions.indexOf(lowerCasedValue) !== -1) {
+    return lowerCasedValue;
+  }
+
+  const camelCaseFunctions = [
+    // Transform
+    "rotateX",
+    "rotateY",
+    "rotateZ",
+    "scaleX",
+    "scaleY",
+    "scaleZ",
+    "skewX",
+    "skewY",
+    "translateX",
+    "translateY",
+    "translateZ"
+  ].map(i => ({ [i.toLowerCase()]: i }));
+
+  let index = -1;
+  if (
+    (index = camelCaseFunctions.findIndex(
+      element => element[lowerCasedValue]
+    )) !== -1
+  ) {
+    return camelCaseFunctions[index][lowerCasedValue];
+  }
+
+  return value;
 }
 
 module.exports = {

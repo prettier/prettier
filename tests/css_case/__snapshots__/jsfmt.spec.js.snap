@@ -18,13 +18,14 @@ svg[viewBox] linearGradient,
     BACKGROUND-image: URL("KeepString");
     Margin: 5PX .2E10Em;
     --Keep-custom-Prop: red;
-    background: Var(--Keep-custom-Prop);
+    background: VAR(--Keep-custom-Prop);
     animation-name: KeepAnimationName;
     important: something !IMPORTANT;
     font-family: INITIAL;
     padding: UNSET;
     border: INHERIT;
     all: REVERT;
+    transform: TRANSLATEX(60px);
 }
 
 @keyframes KeepAnimationName {
@@ -107,16 +108,17 @@ a[HREF="KeepAttrValue"]:hover::first-letter,
 svg[viewBox] linearGradient,
 :not(:nth-child(2n + 1)) {
   color: #aabbcc;
-  background-image: URL("KeepString");
+  background-image: url("KeepString");
   margin: 5px 0.2e10em;
   --Keep-custom-Prop: red;
-  background: Var(--Keep-custom-Prop);
+  background: var(--Keep-custom-Prop);
   animation-name: KeepAnimationName;
   important: something !IMPORTANT;
   font-family: initial;
   padding: unset;
   border: inherit;
   all: revert;
+  transform: translateX(60px);
 }
 
 @keyframes KeepAnimationName {
@@ -212,13 +214,14 @@ svg[viewBox] linearGradient,
     BACKGROUND-image: URL("KeepString");
     Margin: 5PX .2E10Em;
     --Keep-custom-Prop: red;
-    background: Var(--Keep-custom-Prop);
+    background: VAR(--Keep-custom-Prop);
     animation-name: KeepAnimationName;
     important: something !IMPORTANT;
     font-family: INITIAL;
     padding: UNSET;
     border: INHERIT;
     all: REVERT;
+    transform: TRANSLATEX(60px);
 }
 
 @keyframes KeepAnimationName {
@@ -303,16 +306,17 @@ a[HREF="KeepAttrValue"]:hover::first-letter,
 svg[viewBox] linearGradient,
 :not(:nth-child(2n + 1)) {
   color: #aabbcc;
-  background-image: URL("KeepString");
+  background-image: url("KeepString");
   margin: 5px 0.2e10em;
   --Keep-custom-Prop: red;
-  background: Var(--Keep-custom-Prop);
+  background: var(--Keep-custom-Prop);
   animation-name: KeepAnimationName;
   important: something !important;
   font-family: initial;
   padding: unset;
   border: inherit;
   all: revert;
+  transform: translateX(60px);
 }
 
 @keyframes KeepAnimationName {
