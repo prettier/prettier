@@ -66,7 +66,17 @@ function clean(ast, newObj) {
   }
 
   if (ast.type === "selector-attribute") {
-    newObj.attribute = newObj.attribute.replace(/\s/g, "");
+    newObj.attribute = newObj.attribute.trim();
+
+    if (newObj.namespace) {
+      if (typeof newObj.namespace === "string") {
+        newObj.namespace = newObj.namespace.trim();
+
+        if (newObj.namespace.length === 0) {
+          newObj.namespace = true;
+        }
+      }
+    }
 
     if (newObj.value) {
       newObj.value = newObj.value.trim().replace(/^['"]|['"]$/g, "");
