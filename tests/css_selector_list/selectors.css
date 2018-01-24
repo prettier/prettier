@@ -7,6 +7,20 @@
 
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {}
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+{}
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+
+{}
 
 .parent,.another-parent{}
 .parent ,.another-parent{}
@@ -32,6 +46,10 @@
 .parent  {
   .child-one  {}
   .child-two  {}
+}
+.parent   {
+   .child-one  {}
+   .child-two  {}
 }
 .parent
 {
@@ -86,6 +104,26 @@
 
   {}
 }
+.parent {
+>.child-one {}
+>.child-two {}
+}
+.parent {
+ > .child-one {}
+ > .child-two {}
+}
+.parent {
+  > .child-one {}
+  > .child-two {}
+}
+.parent {
+  >  .child-one {}
+  >  .child-two {}
+}
+.parent {
+   >   .child-one {}
+   >   .child-two {}
+}
 
 .parent+.child {}
 .parent + .child {}
@@ -122,6 +160,26 @@
 
   {}
 }
+.parent {
++.child-one {}
++.child-two {}
+}
+.parent {
+ + .child-one {}
+ + .child-two {}
+}
+.parent {
+  + .child-one {}
+  + .child-two {}
+}
+.parent {
+  +  .child-one {}
+  +  .child-two {}
+}
+.parent {
+   +   .child-one {}
+   +   .child-two {}
+}
 
 .parent~.child {}
 .parent ~ .child {}
@@ -157,4 +215,80 @@
   .child-two
 
   {}
+}
+.parent {
+~.child-one {}
+~.child-two {}
+}
+.parent {
+ ~ .child-one {}
+ ~ .child-two {}
+}
+.parent {
+  ~ .child-one {}
+  ~ .child-two {}
+}
+.parent {
+  ~  .child-one {}
+  ~  .child-two {}
+}
+.parent {
+   ~   .child-one {}
+   ~   .child-two {}
+}
+
+.parent>>>.child {}
+.parent >>> .child {}
+.parent  >>>  .child {}
+.parent>>>{
+  .child-one {}
+  .child-two {}
+}
+.parent >>> {
+  .child-one {}
+  .child-two {}
+}
+.parent  >>>  {
+  .child-one {}
+  .child-two {}
+}
+.parent
+>>>
+{
+  .child-one
+  {}
+  .child-two
+  {}
+}
+.parent
+
+>>>
+
+{
+  .child-one
+
+  {}
+  .child-two
+
+  {}
+}
+.parent {
+>>>.child-one {}
+>>>.child-two {}
+}
+.parent {
+ >>> .child-one {}
+ >>> .child-two {}
+}
+.parent {
+  >>> .child-one {}
+  >>> .child-two {}
+}
+.parent {
+  >>>  .child-one {}
+  >>>  .child-two {}
+}
+.parent {
+   >>>   .child-one {}
+   >>>   .child-two {}
 }
