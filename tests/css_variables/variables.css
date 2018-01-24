@@ -4,3 +4,9 @@
     prop2: var(--my-var, --my-background, pink);
     prop3: calc(var(--prop) * 1px);
 }
+
+@supports (--foo: green) {
+    body {
+        color: var(--varName);
+    }
+}
