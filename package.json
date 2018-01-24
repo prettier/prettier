@@ -34,6 +34,7 @@
     "get-stream": "3.0.0",
     "globby": "6.1.0",
     "graphql": "0.12.3",
+    "gray-matter": "3.1.1",
     "ignore": "3.3.7",
     "jest-docblock": "21.3.0-beta.11",
     "leven": "2.1.0",
