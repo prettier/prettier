@@ -63,7 +63,29 @@ Copy the following config into your `.pre-commit-config.yaml` file:
 
 Find more info from [here](http://pre-commit.com).
 
-## Option 4. bash script
+## Option 4. [precise-commits](https://github.com/JamesHenry/precise-commits)
+
+Install it along with [husky](https://github.com/typicode/husky):
+
+```bash
+yarn add precise-commits husky --dev
+```
+
+and add this config to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "precommit": "precise-commits"
+  }
+}
+```
+
+**Note:** This is currently the only tool that will format only staged lines rather than the entire file. See more information [here](https://github.com/JamesHenry/precise-commits#why-precise-commits)
+
+Read more about this tool [here](https://github.com/JamesHenry/precise-commits#2-precommit-hook).
+
+## Option 5. bash script
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 
