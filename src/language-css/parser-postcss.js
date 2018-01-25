@@ -209,7 +209,11 @@ function parseNestedCSS(node) {
         );
       }
     }
-    if (node.type === "css-atrule" && typeof node.params === "string") {
+    if (
+      node.type === "css-atrule" &&
+      typeof node.params === "string" &&
+      !node.name.toLowerCase().endsWith("keyframes")
+    ) {
       if (node.name === "warn" || node.name === "error") {
         node.params = {
           type: "media-unknown",

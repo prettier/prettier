@@ -243,7 +243,7 @@ function genericPrint(path, options, print) {
       return adjustStrings(n.value, options);
     }
     case "selector-tag": {
-      return adjustNumbers(n.value);
+      return adjustNumbers(maybeToLowerCaseSelectorTag(path, n));
     }
     case "selector-id": {
       return concat(["#", n.value]);
@@ -562,6 +562,21 @@ function maybeToLowerCase(value) {
     (value.includes("(") && value.includes(")"))
     ? value
     : value.toLowerCase();
+}
+
+function maybeToLowerCaseSelectorTag(path, node) {
+  const atRule = path.getParentNode(3);
+
+  if (
+    atRule.type === "css-atrule" &&
+    atRule.name.endsWith("keyframes") === "keyframes" &&
+    node.type === "selector-tag" &&
+    ["to", "from"].indexOf(node.value.toLowerCase() !== -1)
+  ) {
+    return node.value.toLowerCase();
+  }
+
+  return node.value;
 }
 
 function isWideKeywords(value) {

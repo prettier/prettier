@@ -92,6 +92,30 @@ $KeepScssVar: val;
 @MEDIA (MIN-WIDTH: 700PX) /*:*/ {}
 
 @MEDIA (@{Keep}: @{Keep}) {}
+
+@KEYFRAMES identifier {
+  FROM {
+    margin-top: 50px;
+  }
+  50%  {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
+@-WEBKIT-KEYFRAMES float-up {
+  FROM {
+    margin-top: 50px;
+  }
+  50%  {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -193,6 +217,30 @@ $KeepScssVar: val;
 @media (@{Keep}: @{Keep}) {
 }
 
+@keyframes identifier {
+  FROM {
+    margin-top: 50px;
+  }
+  50% {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
+@-webkit-keyframes float-up {
+  FROM {
+    margin-top: 50px;
+  }
+  50% {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
 `;
 
 exports[`case.scss 1`] = `
@@ -289,6 +337,31 @@ $KeepTopLevelVar: val;
 }
 
 @MEDIA (#{$Keep}: #{$Keep}) {}
+
+@KEYFRAMES identifier {
+  FROM {
+    margin-top: 50px;
+  }
+  50%  {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
+@-WEBKIT-KEYFRAMES float-up {
+  FROM {
+    margin-top: 50px;
+  }
+  50%  {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -385,6 +458,30 @@ $KeepTopLevelVar: val;
 }
 
 @media (#{$Keep}: #{$Keep}) {
+}
+
+@keyframes identifier {
+  FROM {
+    margin-top: 50px;
+  }
+  50% {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
+@-webkit-keyframes float-up {
+  FROM {
+    margin-top: 50px;
+  }
+  50% {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
 }
 
 `;
