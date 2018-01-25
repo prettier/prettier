@@ -25,6 +25,10 @@ svg[viewBox] linearGradient,
     padding: UNSET;
     border: INHERIT;
     all: REVERT;
+    -WEBKIT-USER-SELECT: none;
+    -MOZ-USER-SELECT: none;
+    -MS-USER-SELECT: none;
+    USER-SELECT: none;
 }
 
 @keyframes KeepAnimationName {
@@ -117,6 +121,10 @@ svg[viewBox] linearGradient,
   padding: unset;
   border: inherit;
   all: revert;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @keyframes KeepAnimationName {
@@ -219,6 +227,10 @@ svg[viewBox] linearGradient,
     padding: UNSET;
     border: INHERIT;
     all: REVERT;
+    -WEBKIT-USER-SELECT: none;
+    -MOZ-USER-SELECT: none;
+    -MS-USER-SELECT: none;
+    USER-SELECT: none;
 }
 
 @keyframes KeepAnimationName {
@@ -313,6 +325,10 @@ svg[viewBox] linearGradient,
   padding: unset;
   border: inherit;
   all: revert;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @keyframes KeepAnimationName {
