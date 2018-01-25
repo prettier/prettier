@@ -303,3 +303,69 @@ run-in
 }
 
 `;
+
+exports[`viewport.css 1`] = `
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+min-width: 640px;
+max-width: 800px;
+}
+
+@viewport{
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport  {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport
+{
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport
+
+{
+  min-width: 640px;
+  max-width: 800px;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+`;
