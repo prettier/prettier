@@ -11,15 +11,11 @@ const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const fill = docBuilders.fill;
 const align = docBuilders.align;
+const group = docBuilders.group;
 const printDocToString = doc.printer.printDocToString;
 const printerOptions = require("./options");
 
-const SINGLE_LINE_NODE_TYPES = [
-  "heading",
-  "tableCell",
-  "footnoteDefinition",
-  "link"
-];
+const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
 
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
 
@@ -295,13 +291,28 @@ function genericPrint(path, options, print) {
       return concat(["[^", printChildren(path, options, print), "]"]);
     case "footnoteReference":
       return concat(["[^", node.identifier, "]"]);
-    case "footnoteDefinition":
+    case "footnoteDefinition": {
+      const nextNode = path.getParentNode().children[path.getName() + 1];
       return concat([
         "[^",
         node.identifier,
         "]: ",
-        printChildren(path, options, print)
+        group(
+          concat([
+            align(
+              " ".repeat(options.tabWidth),
+              printChildren(path, options, print, {
+                processor: (childPath, index) =>
+                  index === 0
+                    ? group(concat([softline, softline, childPath.call(print)]))
+                    : childPath.call(print)
+              })
+            ),
+            nextNode && nextNode.type === "footnoteDefinition" ? softline : ""
+          ])
+        )
       ]);
+    }
     case "table":
       return printTable(path, options, print);
     case "tableCell":
