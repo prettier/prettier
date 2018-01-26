@@ -254,6 +254,9 @@ function genericPrint(path, options, print) {
     case "selector-attribute": {
       return concat([
         "[",
+        n.namespace
+          ? concat([n.namespace === true ? "" : n.namespace.trim(), "|"])
+          : "",
         n.attribute.trim(),
         n.operator ? n.operator : "",
         n.value
