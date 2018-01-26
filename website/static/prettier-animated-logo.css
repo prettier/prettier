@@ -4,578 +4,4291 @@
   }
 }
 
-/* GENERATED CONTENT FOLLOWS */
-
-.c1 {
-  stroke: #56b3b4;
-}
-.c2 {
-  stroke: #ea5e5e;
-}
-.c3 {
-  stroke: #f7ba3e;
-}
-.c4 {
-  stroke: #bf85bf;
-}
-.c1,
-.c2,
-.c3,
-.c4 {
-  opacity: 1;
-}
-g > path,
-.initial g > path {
+/* from node_modules/@sandhose/prettier-animated-logo/dist/wide.css */
+.prettier-logo-wide .c0 {
   opacity: 0.5;
   stroke: #4d616e;
 }
-.dash {
+.prettier-logo-wide .c1 {
+  stroke: #56b3b4;
+}
+.prettier-logo-wide .c2 {
+  stroke: #ea5e5e;
+}
+.prettier-logo-wide .c3 {
+  stroke: #f7ba3e;
+}
+.prettier-logo-wide .c4 {
+  stroke: #bf85bf;
+}
+.prettier-logo-wide .dash {
   stroke-linecap: round;
   stroke-width: 10;
-  transition-timing-function: cubic-bezier(0.43, 0.12, 0.44, 1);
-  transition-property: stroke-dashoffset, stroke, opacity;
-  transition-duration: 900ms;
+  animation-timing-function: cubic-bezier(0.43, 0.12, 0.44, 1), ease-in-out;
+  animation-duration: 2s, 1.4s;
+  animation-fill-mode: both, none;
+  animation-iteration-count: 1;
 }
-.l0 > path {
-  transition-delay: 0ms, 500ms, -200ms;
+.prettier-logo-wide .l0 > path {
+  animation-delay: 0ms;
 }
-.l0 .p0 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: 0;
+.prettier-logo-wide .l0 .p0 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -565;
+  animation-name: wide-l0p0-initial, none;
 }
-.initial .l0 .p0 {
-  stroke-dashoffset: -130;
+.prettier-logo-wide.rolling .l0 .p0 {
+  animation-name: wide-l0p0-initial, wide-l0p0-roll;
 }
-.l0 .p1 {
-  stroke-dasharray: 140, 380;
-  stroke-dashoffset: -60;
+@-moz-keyframes wide-l0p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -695;
+  }
 }
-.initial .l0 .p1 {
-  stroke-dashoffset: -190;
+@-webkit-keyframes wide-l0p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -695;
+  }
 }
-.l0 .p2 {
-  stroke-dasharray: 100, 420;
-  stroke-dashoffset: -220;
+@-o-keyframes wide-l0p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -695;
+  }
 }
-.initial .l0 .p2 {
-  stroke-dashoffset: -350;
+@keyframes wide-l0p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -695;
+  }
 }
-.l1 > path {
-  transition-delay: 70ms, 570ms, -130ms;
+@-moz-keyframes wide-l0p0-roll {
+  100% {
+    stroke-dashoffset: 125;
+  }
 }
-.l1 .p0 {
-  stroke-dasharray: 60, 460;
-  stroke-dashoffset: -20;
+@-webkit-keyframes wide-l0p0-roll {
+  100% {
+    stroke-dashoffset: 125;
+  }
 }
-.initial .l1 .p0 {
-  stroke-dashoffset: 80;
+@-o-keyframes wide-l0p0-roll {
+  100% {
+    stroke-dashoffset: 125;
+  }
 }
-.l1 .p1 {
-  stroke-dasharray: 120, 400;
-  stroke-dashoffset: -100;
+@keyframes wide-l0p0-roll {
+  100% {
+    stroke-dashoffset: 125;
+  }
 }
-.initial .l1 .p1 {
-  stroke-dashoffset: 0;
+.prettier-logo-wide .l0 .p1 {
+  stroke-dasharray: 130, 560;
+  stroke-dashoffset: -415;
+  animation-name: wide-l0p1-initial, none;
 }
-.l1 .p2 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: -240;
+.prettier-logo-wide.rolling .l0 .p1 {
+  animation-name: wide-l0p1-initial, wide-l0p1-roll;
 }
-.initial .l1 .p2 {
-  stroke-dashoffset: -140;
+@-moz-keyframes wide-l0p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -545;
+  }
 }
-.l1 .p3 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: -300;
+@-webkit-keyframes wide-l0p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -545;
+  }
 }
-.initial .l1 .p3 {
-  stroke-dashoffset: -200;
+@-o-keyframes wide-l0p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -545;
+  }
 }
-.l2 > path {
-  transition-delay: 140ms, 640ms, -60ms;
+@keyframes wide-l0p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -545;
+  }
 }
-.l2 .p0 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: -40;
+@-moz-keyframes wide-l0p1-roll {
+  100% {
+    stroke-dashoffset: 275;
+  }
 }
-.initial .l2 .p0 {
-  stroke-dashoffset: -160;
+@-webkit-keyframes wide-l0p1-roll {
+  100% {
+    stroke-dashoffset: 275;
+  }
 }
-.l2 .p1 {
-  stroke-dasharray: 30, 490;
-  stroke-dashoffset: -100;
+@-o-keyframes wide-l0p1-roll {
+  100% {
+    stroke-dashoffset: 275;
+  }
 }
-.initial .l2 .p1 {
-  stroke-dashoffset: -220;
+@keyframes wide-l0p1-roll {
+  100% {
+    stroke-dashoffset: 275;
+  }
 }
-.l2 .p2 {
-  stroke-dasharray: 100, 420;
-  stroke-dashoffset: -150;
+.prettier-logo-wide .l0 .p2 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -355;
+  animation-name: wide-l0p2-initial, none;
 }
-.initial .l2 .p2 {
-  stroke-dashoffset: -270;
+.prettier-logo-wide.rolling .l0 .p2 {
+  animation-name: wide-l0p2-initial, wide-l0p2-roll;
 }
-.l2 .p3 {
-  stroke-dasharray: 130, 390;
-  stroke-dashoffset: -270;
+@-moz-keyframes wide-l0p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
 }
-.initial .l2 .p3 {
-  stroke-dashoffset: -390;
+@-webkit-keyframes wide-l0p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
 }
-.l2 .p4 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: -420;
+@-o-keyframes wide-l0p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
 }
-.initial .l2 .p4 {
-  stroke-dashoffset: -540;
+@keyframes wide-l0p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
 }
-.l3 > path {
-  transition-delay: 210ms, 710ms, 10ms;
+@-moz-keyframes wide-l0p2-roll {
+  100% {
+    stroke-dashoffset: 335;
+  }
 }
-.l3 .p0 {
-  stroke-dasharray: 80, 440;
-  stroke-dashoffset: 0;
+@-webkit-keyframes wide-l0p2-roll {
+  100% {
+    stroke-dashoffset: 335;
+  }
 }
-.initial .l3 .p0 {
-  stroke-dashoffset: -40;
+@-o-keyframes wide-l0p2-roll {
+  100% {
+    stroke-dashoffset: 335;
+  }
 }
-.l3 .p1 {
-  stroke-dasharray: 70, 450;
-  stroke-dashoffset: -100;
+@keyframes wide-l0p2-roll {
+  100% {
+    stroke-dashoffset: 335;
+  }
 }
-.initial .l3 .p1 {
-  stroke-dashoffset: -140;
+.prettier-logo-wide .l0 .p3 {
+  stroke-dasharray: 130, 560;
+  stroke-dashoffset: -205;
+  animation-name: wide-l0p3-initial, none;
 }
-.l3 .p2 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: -190;
+.prettier-logo-wide.rolling .l0 .p3 {
+  animation-name: wide-l0p3-initial, wide-l0p3-roll;
 }
-.initial .l3 .p2 {
-  stroke-dashoffset: -230;
+@-moz-keyframes wide-l0p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -335;
+  }
 }
-.l3 .p3 {
-  stroke-dasharray: 10, 510;
-  stroke-dashoffset: -250;
+@-webkit-keyframes wide-l0p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -335;
+  }
 }
-.initial .l3 .p3 {
-  stroke-dashoffset: -290;
+@-o-keyframes wide-l0p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -335;
+  }
 }
-.l3 .p4 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: -280;
+@keyframes wide-l0p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -335;
+  }
 }
-.initial .l3 .p4 {
-  stroke-dashoffset: -320;
+@-moz-keyframes wide-l0p3-roll {
+  100% {
+    stroke-dashoffset: 485;
+  }
 }
-.l3 .p5 {
-  stroke-dasharray: 100, 420;
-  stroke-dashoffset: -320;
+@-webkit-keyframes wide-l0p3-roll {
+  100% {
+    stroke-dashoffset: 485;
+  }
 }
-.initial .l3 .p5 {
-  stroke-dashoffset: -360;
+@-o-keyframes wide-l0p3-roll {
+  100% {
+    stroke-dashoffset: 485;
+  }
 }
-.l4 > path {
-  transition-delay: 280ms, 780ms, 80ms;
+@keyframes wide-l0p3-roll {
+  100% {
+    stroke-dashoffset: 485;
+  }
 }
-.l4 .p0 {
-  stroke-dasharray: 10, 510;
+.prettier-logo-wide .l0 .p4 {
+  stroke-dasharray: 10, 680;
+  stroke-dashoffset: -175;
+  animation-name: wide-l0p4-initial, none;
+}
+.prettier-logo-wide.rolling .l0 .p4 {
+  animation-name: wide-l0p4-initial, wide-l0p4-roll;
+}
+@-moz-keyframes wide-l0p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@-webkit-keyframes wide-l0p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@-o-keyframes wide-l0p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@keyframes wide-l0p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@-moz-keyframes wide-l0p4-roll {
+  100% {
+    stroke-dashoffset: 515;
+  }
+}
+@-webkit-keyframes wide-l0p4-roll {
+  100% {
+    stroke-dashoffset: 515;
+  }
+}
+@-o-keyframes wide-l0p4-roll {
+  100% {
+    stroke-dashoffset: 515;
+  }
+}
+@keyframes wide-l0p4-roll {
+  100% {
+    stroke-dashoffset: 515;
+  }
+}
+.prettier-logo-wide .l0 .p5 {
+  stroke-dasharray: 45, 645;
+  stroke-dashoffset: -110;
+  animation-name: wide-l0p5-initial, none;
+}
+.prettier-logo-wide.rolling .l0 .p5 {
+  animation-name: wide-l0p5-initial, wide-l0p5-roll;
+}
+@-moz-keyframes wide-l0p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -240;
+  }
+}
+@-webkit-keyframes wide-l0p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -240;
+  }
+}
+@-o-keyframes wide-l0p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -240;
+  }
+}
+@keyframes wide-l0p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -240;
+  }
+}
+@-moz-keyframes wide-l0p5-roll {
+  100% {
+    stroke-dashoffset: 580;
+  }
+}
+@-webkit-keyframes wide-l0p5-roll {
+  100% {
+    stroke-dashoffset: 580;
+  }
+}
+@-o-keyframes wide-l0p5-roll {
+  100% {
+    stroke-dashoffset: 580;
+  }
+}
+@keyframes wide-l0p5-roll {
+  100% {
+    stroke-dashoffset: 580;
+  }
+}
+.prettier-logo-wide .l1 > path {
+  animation-delay: 70ms;
+}
+.prettier-logo-wide .l1 .p0 {
+  stroke-dasharray: 120, 570;
+  stroke-dashoffset: -525;
+  animation-name: wide-l1p0-initial, none;
+}
+.prettier-logo-wide.rolling .l1 .p0 {
+  animation-name: wide-l1p0-initial, wide-l1p0-roll;
+}
+@-moz-keyframes wide-l1p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -425;
+  }
+}
+@-webkit-keyframes wide-l1p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -425;
+  }
+}
+@-o-keyframes wide-l1p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -425;
+  }
+}
+@keyframes wide-l1p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -425;
+  }
+}
+@-moz-keyframes wide-l1p0-roll {
+  100% {
+    stroke-dashoffset: -1215;
+  }
+}
+@-webkit-keyframes wide-l1p0-roll {
+  100% {
+    stroke-dashoffset: -1215;
+  }
+}
+@-o-keyframes wide-l1p0-roll {
+  100% {
+    stroke-dashoffset: -1215;
+  }
+}
+@keyframes wide-l1p0-roll {
+  100% {
+    stroke-dashoffset: -1215;
+  }
+}
+.prettier-logo-wide .l1 .p1 {
+  stroke-dasharray: 20, 670;
+  stroke-dashoffset: -485;
+  animation-name: wide-l1p1-initial, none;
+}
+.prettier-logo-wide.rolling .l1 .p1 {
+  animation-name: wide-l1p1-initial, wide-l1p1-roll;
+}
+@-moz-keyframes wide-l1p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -385;
+  }
+}
+@-webkit-keyframes wide-l1p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -385;
+  }
+}
+@-o-keyframes wide-l1p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -385;
+  }
+}
+@keyframes wide-l1p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -385;
+  }
+}
+@-moz-keyframes wide-l1p1-roll {
+  100% {
+    stroke-dashoffset: -1175;
+  }
+}
+@-webkit-keyframes wide-l1p1-roll {
+  100% {
+    stroke-dashoffset: -1175;
+  }
+}
+@-o-keyframes wide-l1p1-roll {
+  100% {
+    stroke-dashoffset: -1175;
+  }
+}
+@keyframes wide-l1p1-roll {
+  100% {
+    stroke-dashoffset: -1175;
+  }
+}
+.prettier-logo-wide .l1 .p2 {
+  stroke-dasharray: 60, 630;
+  stroke-dashoffset: -405;
+  animation-name: wide-l1p2-initial, none;
+}
+.prettier-logo-wide.rolling .l1 .p2 {
+  animation-name: wide-l1p2-initial, wide-l1p2-roll;
+}
+@-moz-keyframes wide-l1p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@-webkit-keyframes wide-l1p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@-o-keyframes wide-l1p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@keyframes wide-l1p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@-moz-keyframes wide-l1p2-roll {
+  100% {
+    stroke-dashoffset: -1095;
+  }
+}
+@-webkit-keyframes wide-l1p2-roll {
+  100% {
+    stroke-dashoffset: -1095;
+  }
+}
+@-o-keyframes wide-l1p2-roll {
+  100% {
+    stroke-dashoffset: -1095;
+  }
+}
+@keyframes wide-l1p2-roll {
+  100% {
+    stroke-dashoffset: -1095;
+  }
+}
+.prettier-logo-wide .l1 .p3 {
+  stroke-dasharray: 120, 570;
+  stroke-dashoffset: -265;
+  animation-name: wide-l1p3-initial, none;
+}
+.prettier-logo-wide.rolling .l1 .p3 {
+  animation-name: wide-l1p3-initial, wide-l1p3-roll;
+}
+@-moz-keyframes wide-l1p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -165;
+  }
+}
+@-webkit-keyframes wide-l1p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -165;
+  }
+}
+@-o-keyframes wide-l1p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -165;
+  }
+}
+@keyframes wide-l1p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -165;
+  }
+}
+@-moz-keyframes wide-l1p3-roll {
+  100% {
+    stroke-dashoffset: -955;
+  }
+}
+@-webkit-keyframes wide-l1p3-roll {
+  100% {
+    stroke-dashoffset: -955;
+  }
+}
+@-o-keyframes wide-l1p3-roll {
+  100% {
+    stroke-dashoffset: -955;
+  }
+}
+@keyframes wide-l1p3-roll {
+  100% {
+    stroke-dashoffset: -955;
+  }
+}
+.prettier-logo-wide .l1 .p4 {
+  stroke-dasharray: 60, 630;
+  stroke-dashoffset: -185;
+  animation-name: wide-l1p4-initial, none;
+}
+.prettier-logo-wide.rolling .l1 .p4 {
+  animation-name: wide-l1p4-initial, wide-l1p4-roll;
+}
+@-moz-keyframes wide-l1p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -85;
+  }
+}
+@-webkit-keyframes wide-l1p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -85;
+  }
+}
+@-o-keyframes wide-l1p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -85;
+  }
+}
+@keyframes wide-l1p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -85;
+  }
+}
+@-moz-keyframes wide-l1p4-roll {
+  100% {
+    stroke-dashoffset: -875;
+  }
+}
+@-webkit-keyframes wide-l1p4-roll {
+  100% {
+    stroke-dashoffset: -875;
+  }
+}
+@-o-keyframes wide-l1p4-roll {
+  100% {
+    stroke-dashoffset: -875;
+  }
+}
+@keyframes wide-l1p4-roll {
+  100% {
+    stroke-dashoffset: -875;
+  }
+}
+.prettier-logo-wide .l1 .p5 {
+  stroke-dasharray: 60, 630;
+  stroke-dashoffset: -105;
+  animation-name: wide-l1p5-initial, none;
+}
+.prettier-logo-wide.rolling .l1 .p5 {
+  animation-name: wide-l1p5-initial, wide-l1p5-roll;
+}
+@-moz-keyframes wide-l1p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -5;
+  }
+}
+@-webkit-keyframes wide-l1p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -5;
+  }
+}
+@-o-keyframes wide-l1p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -5;
+  }
+}
+@keyframes wide-l1p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -5;
+  }
+}
+@-moz-keyframes wide-l1p5-roll {
+  100% {
+    stroke-dashoffset: -795;
+  }
+}
+@-webkit-keyframes wide-l1p5-roll {
+  100% {
+    stroke-dashoffset: -795;
+  }
+}
+@-o-keyframes wide-l1p5-roll {
+  100% {
+    stroke-dashoffset: -795;
+  }
+}
+@keyframes wide-l1p5-roll {
+  100% {
+    stroke-dashoffset: -795;
+  }
+}
+.prettier-logo-wide .l1 .p6 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -46;
+  animation-name: wide-l1p6-initial, none;
+}
+.prettier-logo-wide.rolling .l1 .p6 {
+  animation-name: wide-l1p6-initial, wide-l1p6-roll;
+}
+@-moz-keyframes wide-l1p6-initial {
+  0%, 50% {
+    stroke-dashoffset: 54;
+  }
+}
+@-webkit-keyframes wide-l1p6-initial {
+  0%, 50% {
+    stroke-dashoffset: 54;
+  }
+}
+@-o-keyframes wide-l1p6-initial {
+  0%, 50% {
+    stroke-dashoffset: 54;
+  }
+}
+@keyframes wide-l1p6-initial {
+  0%, 50% {
+    stroke-dashoffset: 54;
+  }
+}
+@-moz-keyframes wide-l1p6-roll {
+  100% {
+    stroke-dashoffset: -736;
+  }
+}
+@-webkit-keyframes wide-l1p6-roll {
+  100% {
+    stroke-dashoffset: -736;
+  }
+}
+@-o-keyframes wide-l1p6-roll {
+  100% {
+    stroke-dashoffset: -736;
+  }
+}
+@keyframes wide-l1p6-roll {
+  100% {
+    stroke-dashoffset: -736;
+  }
+}
+.prettier-logo-wide .l2 > path {
+  animation-delay: 140ms;
+}
+.prettier-logo-wide .l2 .p0 {
+  stroke-dasharray: 100, 590;
+  stroke-dashoffset: -505;
+  animation-name: wide-l2p0-initial, none;
+}
+.prettier-logo-wide.rolling .l2 .p0 {
+  animation-name: wide-l2p0-initial, wide-l2p0-roll;
+}
+@-moz-keyframes wide-l2p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -625;
+  }
+}
+@-webkit-keyframes wide-l2p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -625;
+  }
+}
+@-o-keyframes wide-l2p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -625;
+  }
+}
+@keyframes wide-l2p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -625;
+  }
+}
+@-moz-keyframes wide-l2p0-roll {
+  100% {
+    stroke-dashoffset: 185;
+  }
+}
+@-webkit-keyframes wide-l2p0-roll {
+  100% {
+    stroke-dashoffset: 185;
+  }
+}
+@-o-keyframes wide-l2p0-roll {
+  100% {
+    stroke-dashoffset: 185;
+  }
+}
+@keyframes wide-l2p0-roll {
+  100% {
+    stroke-dashoffset: 185;
+  }
+}
+.prettier-logo-wide .l2 .p1 {
+  stroke-dasharray: 50, 640;
+  stroke-dashoffset: -435;
+  animation-name: wide-l2p1-initial, none;
+}
+.prettier-logo-wide.rolling .l2 .p1 {
+  animation-name: wide-l2p1-initial, wide-l2p1-roll;
+}
+@-moz-keyframes wide-l2p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -555;
+  }
+}
+@-webkit-keyframes wide-l2p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -555;
+  }
+}
+@-o-keyframes wide-l2p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -555;
+  }
+}
+@keyframes wide-l2p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -555;
+  }
+}
+@-moz-keyframes wide-l2p1-roll {
+  100% {
+    stroke-dashoffset: 255;
+  }
+}
+@-webkit-keyframes wide-l2p1-roll {
+  100% {
+    stroke-dashoffset: 255;
+  }
+}
+@-o-keyframes wide-l2p1-roll {
+  100% {
+    stroke-dashoffset: 255;
+  }
+}
+@keyframes wide-l2p1-roll {
+  100% {
+    stroke-dashoffset: 255;
+  }
+}
+.prettier-logo-wide .l2 .p2 {
+  stroke-dasharray: 100, 590;
+  stroke-dashoffset: -315;
+  animation-name: wide-l2p2-initial, none;
+}
+.prettier-logo-wide.rolling .l2 .p2 {
+  animation-name: wide-l2p2-initial, wide-l2p2-roll;
+}
+@-moz-keyframes wide-l2p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -435;
+  }
+}
+@-webkit-keyframes wide-l2p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -435;
+  }
+}
+@-o-keyframes wide-l2p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -435;
+  }
+}
+@keyframes wide-l2p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -435;
+  }
+}
+@-moz-keyframes wide-l2p2-roll {
+  100% {
+    stroke-dashoffset: 375;
+  }
+}
+@-webkit-keyframes wide-l2p2-roll {
+  100% {
+    stroke-dashoffset: 375;
+  }
+}
+@-o-keyframes wide-l2p2-roll {
+  100% {
+    stroke-dashoffset: 375;
+  }
+}
+@keyframes wide-l2p2-roll {
+  100% {
+    stroke-dashoffset: 375;
+  }
+}
+.prettier-logo-wide .l2 .p3 {
+  stroke-dasharray: 30, 660;
+  stroke-dashoffset: -265;
+  animation-name: wide-l2p3-initial, none;
+}
+.prettier-logo-wide.rolling .l2 .p3 {
+  animation-name: wide-l2p3-initial, wide-l2p3-roll;
+}
+@-moz-keyframes wide-l2p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -385;
+  }
+}
+@-webkit-keyframes wide-l2p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -385;
+  }
+}
+@-o-keyframes wide-l2p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -385;
+  }
+}
+@keyframes wide-l2p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -385;
+  }
+}
+@-moz-keyframes wide-l2p3-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@-webkit-keyframes wide-l2p3-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@-o-keyframes wide-l2p3-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@keyframes wide-l2p3-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+.prettier-logo-wide .l2 .p4 {
+  stroke-dasharray: 30, 660;
+  stroke-dashoffset: -215;
+  animation-name: wide-l2p4-initial, none;
+}
+.prettier-logo-wide.rolling .l2 .p4 {
+  animation-name: wide-l2p4-initial, wide-l2p4-roll;
+}
+@-moz-keyframes wide-l2p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -335;
+  }
+}
+@-webkit-keyframes wide-l2p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -335;
+  }
+}
+@-o-keyframes wide-l2p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -335;
+  }
+}
+@keyframes wide-l2p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -335;
+  }
+}
+@-moz-keyframes wide-l2p4-roll {
+  100% {
+    stroke-dashoffset: 475;
+  }
+}
+@-webkit-keyframes wide-l2p4-roll {
+  100% {
+    stroke-dashoffset: 475;
+  }
+}
+@-o-keyframes wide-l2p4-roll {
+  100% {
+    stroke-dashoffset: 475;
+  }
+}
+@keyframes wide-l2p4-roll {
+  100% {
+    stroke-dashoffset: 475;
+  }
+}
+.prettier-logo-wide .l2 .p5 {
+  stroke-dasharray: 50, 640;
+  stroke-dashoffset: -145;
+  animation-name: wide-l2p5-initial, none;
+}
+.prettier-logo-wide.rolling .l2 .p5 {
+  animation-name: wide-l2p5-initial, wide-l2p5-roll;
+}
+@-moz-keyframes wide-l2p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -265;
+  }
+}
+@-webkit-keyframes wide-l2p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -265;
+  }
+}
+@-o-keyframes wide-l2p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -265;
+  }
+}
+@keyframes wide-l2p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -265;
+  }
+}
+@-moz-keyframes wide-l2p5-roll {
+  100% {
+    stroke-dashoffset: 545;
+  }
+}
+@-webkit-keyframes wide-l2p5-roll {
+  100% {
+    stroke-dashoffset: 545;
+  }
+}
+@-o-keyframes wide-l2p5-roll {
+  100% {
+    stroke-dashoffset: 545;
+  }
+}
+@keyframes wide-l2p5-roll {
+  100% {
+    stroke-dashoffset: 545;
+  }
+}
+.prettier-logo-wide .l2 .p6 {
+  stroke-dasharray: 50, 640;
+  stroke-dashoffset: -75;
+  animation-name: wide-l2p6-initial, none;
+}
+.prettier-logo-wide.rolling .l2 .p6 {
+  animation-name: wide-l2p6-initial, wide-l2p6-roll;
+}
+@-moz-keyframes wide-l2p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -195;
+  }
+}
+@-webkit-keyframes wide-l2p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -195;
+  }
+}
+@-o-keyframes wide-l2p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -195;
+  }
+}
+@keyframes wide-l2p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -195;
+  }
+}
+@-moz-keyframes wide-l2p6-roll {
+  100% {
+    stroke-dashoffset: 615;
+  }
+}
+@-webkit-keyframes wide-l2p6-roll {
+  100% {
+    stroke-dashoffset: 615;
+  }
+}
+@-o-keyframes wide-l2p6-roll {
+  100% {
+    stroke-dashoffset: 615;
+  }
+}
+@keyframes wide-l2p6-roll {
+  100% {
+    stroke-dashoffset: 615;
+  }
+}
+.prettier-logo-wide .l3 > path {
+  animation-delay: 210ms;
+}
+.prettier-logo-wide .l3 .p0 {
+  stroke-dasharray: 80, 610;
+  stroke-dashoffset: -545;
+  animation-name: wide-l3p0-initial, none;
+}
+.prettier-logo-wide.rolling .l3 .p0 {
+  animation-name: wide-l3p0-initial, wide-l3p0-roll;
+}
+@-moz-keyframes wide-l3p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -585;
+  }
+}
+@-webkit-keyframes wide-l3p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -585;
+  }
+}
+@-o-keyframes wide-l3p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -585;
+  }
+}
+@keyframes wide-l3p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -585;
+  }
+}
+@-moz-keyframes wide-l3p0-roll {
+  100% {
+    stroke-dashoffset: 145;
+  }
+}
+@-webkit-keyframes wide-l3p0-roll {
+  100% {
+    stroke-dashoffset: 145;
+  }
+}
+@-o-keyframes wide-l3p0-roll {
+  100% {
+    stroke-dashoffset: 145;
+  }
+}
+@keyframes wide-l3p0-roll {
+  100% {
+    stroke-dashoffset: 145;
+  }
+}
+.prettier-logo-wide .l3 .p1 {
+  stroke-dasharray: 80, 610;
+  stroke-dashoffset: -445;
+  animation-name: wide-l3p1-initial, none;
+}
+.prettier-logo-wide.rolling .l3 .p1 {
+  animation-name: wide-l3p1-initial, wide-l3p1-roll;
+}
+@-moz-keyframes wide-l3p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@-webkit-keyframes wide-l3p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@-o-keyframes wide-l3p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@keyframes wide-l3p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@-moz-keyframes wide-l3p1-roll {
+  100% {
+    stroke-dashoffset: 245;
+  }
+}
+@-webkit-keyframes wide-l3p1-roll {
+  100% {
+    stroke-dashoffset: 245;
+  }
+}
+@-o-keyframes wide-l3p1-roll {
+  100% {
+    stroke-dashoffset: 245;
+  }
+}
+@keyframes wide-l3p1-roll {
+  100% {
+    stroke-dashoffset: 245;
+  }
+}
+.prettier-logo-wide .l3 .p2 {
+  stroke-dasharray: 10, 680;
+  stroke-dashoffset: -415;
+  animation-name: wide-l3p2-initial, none;
+}
+.prettier-logo-wide.rolling .l3 .p2 {
+  animation-name: wide-l3p2-initial, wide-l3p2-roll;
+}
+@-moz-keyframes wide-l3p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -455;
+  }
+}
+@-webkit-keyframes wide-l3p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -455;
+  }
+}
+@-o-keyframes wide-l3p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -455;
+  }
+}
+@keyframes wide-l3p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -455;
+  }
+}
+@-moz-keyframes wide-l3p2-roll {
+  100% {
+    stroke-dashoffset: 275;
+  }
+}
+@-webkit-keyframes wide-l3p2-roll {
+  100% {
+    stroke-dashoffset: 275;
+  }
+}
+@-o-keyframes wide-l3p2-roll {
+  100% {
+    stroke-dashoffset: 275;
+  }
+}
+@keyframes wide-l3p2-roll {
+  100% {
+    stroke-dashoffset: 275;
+  }
+}
+.prettier-logo-wide .l3 .p3 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -355;
+  animation-name: wide-l3p3-initial, none;
+}
+.prettier-logo-wide.rolling .l3 .p3 {
+  animation-name: wide-l3p3-initial, wide-l3p3-roll;
+}
+@-moz-keyframes wide-l3p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -395;
+  }
+}
+@-webkit-keyframes wide-l3p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -395;
+  }
+}
+@-o-keyframes wide-l3p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -395;
+  }
+}
+@keyframes wide-l3p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -395;
+  }
+}
+@-moz-keyframes wide-l3p3-roll {
+  100% {
+    stroke-dashoffset: 335;
+  }
+}
+@-webkit-keyframes wide-l3p3-roll {
+  100% {
+    stroke-dashoffset: 335;
+  }
+}
+@-o-keyframes wide-l3p3-roll {
+  100% {
+    stroke-dashoffset: 335;
+  }
+}
+@keyframes wide-l3p3-roll {
+  100% {
+    stroke-dashoffset: 335;
+  }
+}
+.prettier-logo-wide .l3 .p4 {
+  stroke-dasharray: 70, 620;
+  stroke-dashoffset: -265;
+  animation-name: wide-l3p4-initial, none;
+}
+.prettier-logo-wide.rolling .l3 .p4 {
+  animation-name: wide-l3p4-initial, wide-l3p4-roll;
+}
+@-moz-keyframes wide-l3p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@-webkit-keyframes wide-l3p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@-o-keyframes wide-l3p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@keyframes wide-l3p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@-moz-keyframes wide-l3p4-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@-webkit-keyframes wide-l3p4-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@-o-keyframes wide-l3p4-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@keyframes wide-l3p4-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+.prettier-logo-wide .l3 .p5 {
+  stroke-dasharray: 60, 630;
+  stroke-dashoffset: -185;
+  animation-name: wide-l3p5-initial, none;
+}
+.prettier-logo-wide.rolling .l3 .p5 {
+  animation-name: wide-l3p5-initial, wide-l3p5-roll;
+}
+@-moz-keyframes wide-l3p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -225;
+  }
+}
+@-webkit-keyframes wide-l3p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -225;
+  }
+}
+@-o-keyframes wide-l3p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -225;
+  }
+}
+@keyframes wide-l3p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -225;
+  }
+}
+@-moz-keyframes wide-l3p5-roll {
+  100% {
+    stroke-dashoffset: 505;
+  }
+}
+@-webkit-keyframes wide-l3p5-roll {
+  100% {
+    stroke-dashoffset: 505;
+  }
+}
+@-o-keyframes wide-l3p5-roll {
+  100% {
+    stroke-dashoffset: 505;
+  }
+}
+@keyframes wide-l3p5-roll {
+  100% {
+    stroke-dashoffset: 505;
+  }
+}
+.prettier-logo-wide .l3 .p6 {
+  stroke-dasharray: 90, 600;
+  stroke-dashoffset: -75;
+  animation-name: wide-l3p6-initial, none;
+}
+.prettier-logo-wide.rolling .l3 .p6 {
+  animation-name: wide-l3p6-initial, wide-l3p6-roll;
+}
+@-moz-keyframes wide-l3p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -115;
+  }
+}
+@-webkit-keyframes wide-l3p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -115;
+  }
+}
+@-o-keyframes wide-l3p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -115;
+  }
+}
+@keyframes wide-l3p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -115;
+  }
+}
+@-moz-keyframes wide-l3p6-roll {
+  100% {
+    stroke-dashoffset: 615;
+  }
+}
+@-webkit-keyframes wide-l3p6-roll {
+  100% {
+    stroke-dashoffset: 615;
+  }
+}
+@-o-keyframes wide-l3p6-roll {
+  100% {
+    stroke-dashoffset: 615;
+  }
+}
+@keyframes wide-l3p6-roll {
+  100% {
+    stroke-dashoffset: 615;
+  }
+}
+.prettier-logo-wide .l3 .p7 {
+  stroke-dasharray: 20, 670;
+  stroke-dashoffset: -35;
+  animation-name: wide-l3p7-initial, none;
+}
+.prettier-logo-wide.rolling .l3 .p7 {
+  animation-name: wide-l3p7-initial, wide-l3p7-roll;
+}
+@-moz-keyframes wide-l3p7-initial {
+  0%, 50% {
+    stroke-dashoffset: -75;
+  }
+}
+@-webkit-keyframes wide-l3p7-initial {
+  0%, 50% {
+    stroke-dashoffset: -75;
+  }
+}
+@-o-keyframes wide-l3p7-initial {
+  0%, 50% {
+    stroke-dashoffset: -75;
+  }
+}
+@keyframes wide-l3p7-initial {
+  0%, 50% {
+    stroke-dashoffset: -75;
+  }
+}
+@-moz-keyframes wide-l3p7-roll {
+  100% {
+    stroke-dashoffset: 655;
+  }
+}
+@-webkit-keyframes wide-l3p7-roll {
+  100% {
+    stroke-dashoffset: 655;
+  }
+}
+@-o-keyframes wide-l3p7-roll {
+  100% {
+    stroke-dashoffset: 655;
+  }
+}
+@keyframes wide-l3p7-roll {
+  100% {
+    stroke-dashoffset: 655;
+  }
+}
+.prettier-logo-wide .l4 > path {
+  animation-delay: 280ms;
+}
+.prettier-logo-wide .l4 .p0 {
+  stroke-dasharray: 190, 500;
+  stroke-dashoffset: -485;
+  animation-name: wide-l4p0-initial, none;
+}
+.prettier-logo-wide.rolling .l4 .p0 {
+  animation-name: wide-l4p0-initial, wide-l4p0-roll;
+}
+@-moz-keyframes wide-l4p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -335;
+  }
+}
+@-webkit-keyframes wide-l4p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -335;
+  }
+}
+@-o-keyframes wide-l4p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -335;
+  }
+}
+@keyframes wide-l4p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -335;
+  }
+}
+@-moz-keyframes wide-l4p0-roll {
+  100% {
+    stroke-dashoffset: -1175;
+  }
+}
+@-webkit-keyframes wide-l4p0-roll {
+  100% {
+    stroke-dashoffset: -1175;
+  }
+}
+@-o-keyframes wide-l4p0-roll {
+  100% {
+    stroke-dashoffset: -1175;
+  }
+}
+@keyframes wide-l4p0-roll {
+  100% {
+    stroke-dashoffset: -1175;
+  }
+}
+.prettier-logo-wide .l4 .p1 {
+  stroke-dasharray: 10, 680;
+  stroke-dashoffset: -455;
+  animation-name: wide-l4p1-initial, none;
+}
+.prettier-logo-wide.rolling .l4 .p1 {
+  animation-name: wide-l4p1-initial, wide-l4p1-roll;
+}
+@-moz-keyframes wide-l4p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@-webkit-keyframes wide-l4p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@-o-keyframes wide-l4p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@keyframes wide-l4p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -305;
+  }
+}
+@-moz-keyframes wide-l4p1-roll {
+  100% {
+    stroke-dashoffset: -1145;
+  }
+}
+@-webkit-keyframes wide-l4p1-roll {
+  100% {
+    stroke-dashoffset: -1145;
+  }
+}
+@-o-keyframes wide-l4p1-roll {
+  100% {
+    stroke-dashoffset: -1145;
+  }
+}
+@keyframes wide-l4p1-roll {
+  100% {
+    stroke-dashoffset: -1145;
+  }
+}
+.prettier-logo-wide .l4 .p2 {
+  stroke-dasharray: 50, 640;
+  stroke-dashoffset: -385;
+  animation-name: wide-l4p2-initial, none;
+}
+.prettier-logo-wide.rolling .l4 .p2 {
+  animation-name: wide-l4p2-initial, wide-l4p2-roll;
+}
+@-moz-keyframes wide-l4p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -235;
+  }
+}
+@-webkit-keyframes wide-l4p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -235;
+  }
+}
+@-o-keyframes wide-l4p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -235;
+  }
+}
+@keyframes wide-l4p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -235;
+  }
+}
+@-moz-keyframes wide-l4p2-roll {
+  100% {
+    stroke-dashoffset: -1075;
+  }
+}
+@-webkit-keyframes wide-l4p2-roll {
+  100% {
+    stroke-dashoffset: -1075;
+  }
+}
+@-o-keyframes wide-l4p2-roll {
+  100% {
+    stroke-dashoffset: -1075;
+  }
+}
+@keyframes wide-l4p2-roll {
+  100% {
+    stroke-dashoffset: -1075;
+  }
+}
+.prettier-logo-wide .l4 .p3 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -325;
+  animation-name: wide-l4p3-initial, none;
+}
+.prettier-logo-wide.rolling .l4 .p3 {
+  animation-name: wide-l4p3-initial, wide-l4p3-roll;
+}
+@-moz-keyframes wide-l4p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -175;
+  }
+}
+@-webkit-keyframes wide-l4p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -175;
+  }
+}
+@-o-keyframes wide-l4p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -175;
+  }
+}
+@keyframes wide-l4p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -175;
+  }
+}
+@-moz-keyframes wide-l4p3-roll {
+  100% {
+    stroke-dashoffset: -1015;
+  }
+}
+@-webkit-keyframes wide-l4p3-roll {
+  100% {
+    stroke-dashoffset: -1015;
+  }
+}
+@-o-keyframes wide-l4p3-roll {
+  100% {
+    stroke-dashoffset: -1015;
+  }
+}
+@keyframes wide-l4p3-roll {
+  100% {
+    stroke-dashoffset: -1015;
+  }
+}
+.prettier-logo-wide .l4 .p4 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -265;
+  animation-name: wide-l4p4-initial, none;
+}
+.prettier-logo-wide.rolling .l4 .p4 {
+  animation-name: wide-l4p4-initial, wide-l4p4-roll;
+}
+@-moz-keyframes wide-l4p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -115;
+  }
+}
+@-webkit-keyframes wide-l4p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -115;
+  }
+}
+@-o-keyframes wide-l4p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -115;
+  }
+}
+@keyframes wide-l4p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -115;
+  }
+}
+@-moz-keyframes wide-l4p4-roll {
+  100% {
+    stroke-dashoffset: -955;
+  }
+}
+@-webkit-keyframes wide-l4p4-roll {
+  100% {
+    stroke-dashoffset: -955;
+  }
+}
+@-o-keyframes wide-l4p4-roll {
+  100% {
+    stroke-dashoffset: -955;
+  }
+}
+@keyframes wide-l4p4-roll {
+  100% {
+    stroke-dashoffset: -955;
+  }
+}
+.prettier-logo-wide .l4 .p5 {
+  stroke-dasharray: 10, 680;
+  stroke-dashoffset: -235;
+  animation-name: wide-l4p5-initial, none;
+}
+.prettier-logo-wide.rolling .l4 .p5 {
+  animation-name: wide-l4p5-initial, wide-l4p5-roll;
+}
+@-moz-keyframes wide-l4p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -85;
+  }
+}
+@-webkit-keyframes wide-l4p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -85;
+  }
+}
+@-o-keyframes wide-l4p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -85;
+  }
+}
+@keyframes wide-l4p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -85;
+  }
+}
+@-moz-keyframes wide-l4p5-roll {
+  100% {
+    stroke-dashoffset: -925;
+  }
+}
+@-webkit-keyframes wide-l4p5-roll {
+  100% {
+    stroke-dashoffset: -925;
+  }
+}
+@-o-keyframes wide-l4p5-roll {
+  100% {
+    stroke-dashoffset: -925;
+  }
+}
+@keyframes wide-l4p5-roll {
+  100% {
+    stroke-dashoffset: -925;
+  }
+}
+.prettier-logo-wide .l4 .p6 {
+  stroke-dasharray: 50, 640;
+  stroke-dashoffset: -165;
+  animation-name: wide-l4p6-initial, none;
+}
+.prettier-logo-wide.rolling .l4 .p6 {
+  animation-name: wide-l4p6-initial, wide-l4p6-roll;
+}
+@-moz-keyframes wide-l4p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -15;
+  }
+}
+@-webkit-keyframes wide-l4p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -15;
+  }
+}
+@-o-keyframes wide-l4p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -15;
+  }
+}
+@keyframes wide-l4p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -15;
+  }
+}
+@-moz-keyframes wide-l4p6-roll {
+  100% {
+    stroke-dashoffset: -855;
+  }
+}
+@-webkit-keyframes wide-l4p6-roll {
+  100% {
+    stroke-dashoffset: -855;
+  }
+}
+@-o-keyframes wide-l4p6-roll {
+  100% {
+    stroke-dashoffset: -855;
+  }
+}
+@keyframes wide-l4p6-roll {
+  100% {
+    stroke-dashoffset: -855;
+  }
+}
+.prettier-logo-wide .l4 .p7 {
+  stroke-dasharray: 30, 660;
+  stroke-dashoffset: -115;
+  animation-name: wide-l4p7-initial, none;
+}
+.prettier-logo-wide.rolling .l4 .p7 {
+  animation-name: wide-l4p7-initial, wide-l4p7-roll;
+}
+@-moz-keyframes wide-l4p7-initial {
+  0%, 50% {
+    stroke-dashoffset: 35;
+  }
+}
+@-webkit-keyframes wide-l4p7-initial {
+  0%, 50% {
+    stroke-dashoffset: 35;
+  }
+}
+@-o-keyframes wide-l4p7-initial {
+  0%, 50% {
+    stroke-dashoffset: 35;
+  }
+}
+@keyframes wide-l4p7-initial {
+  0%, 50% {
+    stroke-dashoffset: 35;
+  }
+}
+@-moz-keyframes wide-l4p7-roll {
+  100% {
+    stroke-dashoffset: -805;
+  }
+}
+@-webkit-keyframes wide-l4p7-roll {
+  100% {
+    stroke-dashoffset: -805;
+  }
+}
+@-o-keyframes wide-l4p7-roll {
+  100% {
+    stroke-dashoffset: -805;
+  }
+}
+@keyframes wide-l4p7-roll {
+  100% {
+    stroke-dashoffset: -805;
+  }
+}
+.prettier-logo-wide .l4 .p8 {
+  stroke-dasharray: 80, 610;
+  stroke-dashoffset: -15;
+  animation-name: wide-l4p8-initial, none;
+}
+.prettier-logo-wide.rolling .l4 .p8 {
+  animation-name: wide-l4p8-initial, wide-l4p8-roll;
+}
+@-moz-keyframes wide-l4p8-initial {
+  0%, 50% {
+    stroke-dashoffset: 135;
+  }
+}
+@-webkit-keyframes wide-l4p8-initial {
+  0%, 50% {
+    stroke-dashoffset: 135;
+  }
+}
+@-o-keyframes wide-l4p8-initial {
+  0%, 50% {
+    stroke-dashoffset: 135;
+  }
+}
+@keyframes wide-l4p8-initial {
+  0%, 50% {
+    stroke-dashoffset: 135;
+  }
+}
+@-moz-keyframes wide-l4p8-roll {
+  100% {
+    stroke-dashoffset: -705;
+  }
+}
+@-webkit-keyframes wide-l4p8-roll {
+  100% {
+    stroke-dashoffset: -705;
+  }
+}
+@-o-keyframes wide-l4p8-roll {
+  100% {
+    stroke-dashoffset: -705;
+  }
+}
+@keyframes wide-l4p8-roll {
+  100% {
+    stroke-dashoffset: -705;
+  }
+}
+.prettier-logo-wide .l5 > path {
+  animation-delay: 350ms;
+}
+.prettier-logo-wide .l5 .p0 {
+  stroke-dasharray: 140, 550;
+  stroke-dashoffset: -455;
+  animation-name: wide-l5p0-initial, none;
+}
+.prettier-logo-wide.rolling .l5 .p0 {
+  animation-name: wide-l5p0-initial, wide-l5p0-roll;
+}
+@-moz-keyframes wide-l5p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -555;
+  }
+}
+@-webkit-keyframes wide-l5p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -555;
+  }
+}
+@-o-keyframes wide-l5p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -555;
+  }
+}
+@keyframes wide-l5p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -555;
+  }
+}
+@-moz-keyframes wide-l5p0-roll {
+  100% {
+    stroke-dashoffset: 235;
+  }
+}
+@-webkit-keyframes wide-l5p0-roll {
+  100% {
+    stroke-dashoffset: 235;
+  }
+}
+@-o-keyframes wide-l5p0-roll {
+  100% {
+    stroke-dashoffset: 235;
+  }
+}
+@keyframes wide-l5p0-roll {
+  100% {
+    stroke-dashoffset: 235;
+  }
+}
+.prettier-logo-wide .l5 .p1 {
+  stroke-dasharray: 50, 640;
+  stroke-dashoffset: -385;
+  animation-name: wide-l5p1-initial, none;
+}
+.prettier-logo-wide.rolling .l5 .p1 {
+  animation-name: wide-l5p1-initial, wide-l5p1-roll;
+}
+@-moz-keyframes wide-l5p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@-webkit-keyframes wide-l5p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@-o-keyframes wide-l5p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@keyframes wide-l5p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@-moz-keyframes wide-l5p1-roll {
+  100% {
+    stroke-dashoffset: 305;
+  }
+}
+@-webkit-keyframes wide-l5p1-roll {
+  100% {
+    stroke-dashoffset: 305;
+  }
+}
+@-o-keyframes wide-l5p1-roll {
+  100% {
+    stroke-dashoffset: 305;
+  }
+}
+@keyframes wide-l5p1-roll {
+  100% {
+    stroke-dashoffset: 305;
+  }
+}
+.prettier-logo-wide .l5 .p2 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -325;
+  animation-name: wide-l5p2-initial, none;
+}
+.prettier-logo-wide.rolling .l5 .p2 {
+  animation-name: wide-l5p2-initial, wide-l5p2-roll;
+}
+@-moz-keyframes wide-l5p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -425;
+  }
+}
+@-webkit-keyframes wide-l5p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -425;
+  }
+}
+@-o-keyframes wide-l5p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -425;
+  }
+}
+@keyframes wide-l5p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -425;
+  }
+}
+@-moz-keyframes wide-l5p2-roll {
+  100% {
+    stroke-dashoffset: 365;
+  }
+}
+@-webkit-keyframes wide-l5p2-roll {
+  100% {
+    stroke-dashoffset: 365;
+  }
+}
+@-o-keyframes wide-l5p2-roll {
+  100% {
+    stroke-dashoffset: 365;
+  }
+}
+@keyframes wide-l5p2-roll {
+  100% {
+    stroke-dashoffset: 365;
+  }
+}
+.prettier-logo-wide .l5 .p3 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -265;
+  animation-name: wide-l5p3-initial, none;
+}
+.prettier-logo-wide.rolling .l5 .p3 {
+  animation-name: wide-l5p3-initial, wide-l5p3-roll;
+}
+@-moz-keyframes wide-l5p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -365;
+  }
+}
+@-webkit-keyframes wide-l5p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -365;
+  }
+}
+@-o-keyframes wide-l5p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -365;
+  }
+}
+@keyframes wide-l5p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -365;
+  }
+}
+@-moz-keyframes wide-l5p3-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@-webkit-keyframes wide-l5p3-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@-o-keyframes wide-l5p3-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@keyframes wide-l5p3-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+.prettier-logo-wide .l5 .p4 {
+  stroke-dasharray: 100, 590;
+  stroke-dashoffset: -145;
+  animation-name: wide-l5p4-initial, none;
+}
+.prettier-logo-wide.rolling .l5 .p4 {
+  animation-name: wide-l5p4-initial, wide-l5p4-roll;
+}
+@-moz-keyframes wide-l5p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -245;
+  }
+}
+@-webkit-keyframes wide-l5p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -245;
+  }
+}
+@-o-keyframes wide-l5p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -245;
+  }
+}
+@keyframes wide-l5p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -245;
+  }
+}
+@-moz-keyframes wide-l5p4-roll {
+  100% {
+    stroke-dashoffset: 545;
+  }
+}
+@-webkit-keyframes wide-l5p4-roll {
+  100% {
+    stroke-dashoffset: 545;
+  }
+}
+@-o-keyframes wide-l5p4-roll {
+  100% {
+    stroke-dashoffset: 545;
+  }
+}
+@keyframes wide-l5p4-roll {
+  100% {
+    stroke-dashoffset: 545;
+  }
+}
+.prettier-logo-wide .l5 .p5 {
+  stroke-dasharray: 120, 570;
+  stroke-dashoffset: -5;
+  animation-name: wide-l5p5-initial, none;
+}
+.prettier-logo-wide.rolling .l5 .p5 {
+  animation-name: wide-l5p5-initial, wide-l5p5-roll;
+}
+@-moz-keyframes wide-l5p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -105;
+  }
+}
+@-webkit-keyframes wide-l5p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -105;
+  }
+}
+@-o-keyframes wide-l5p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -105;
+  }
+}
+@keyframes wide-l5p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -105;
+  }
+}
+@-moz-keyframes wide-l5p5-roll {
+  100% {
+    stroke-dashoffset: 685;
+  }
+}
+@-webkit-keyframes wide-l5p5-roll {
+  100% {
+    stroke-dashoffset: 685;
+  }
+}
+@-o-keyframes wide-l5p5-roll {
+  100% {
+    stroke-dashoffset: 685;
+  }
+}
+@keyframes wide-l5p5-roll {
+  100% {
+    stroke-dashoffset: 685;
+  }
+}
+.prettier-logo-wide .l6 > path {
+  animation-delay: 420ms;
+}
+.prettier-logo-wide .l6 .p0 {
+  stroke-dasharray: 60, 630;
+  stroke-dashoffset: -595;
+  animation-name: wide-l6p0-initial, none;
+}
+.prettier-logo-wide.rolling .l6 .p0 {
+  animation-name: wide-l6p0-initial, wide-l6p0-roll;
+}
+@-moz-keyframes wide-l6p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -785;
+  }
+}
+@-webkit-keyframes wide-l6p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -785;
+  }
+}
+@-o-keyframes wide-l6p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -785;
+  }
+}
+@keyframes wide-l6p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -785;
+  }
+}
+@-moz-keyframes wide-l6p0-roll {
+  100% {
+    stroke-dashoffset: 785;
+  }
+}
+@-webkit-keyframes wide-l6p0-roll {
+  100% {
+    stroke-dashoffset: 785;
+  }
+}
+@-o-keyframes wide-l6p0-roll {
+  100% {
+    stroke-dashoffset: 785;
+  }
+}
+@keyframes wide-l6p0-roll {
+  100% {
+    stroke-dashoffset: 785;
+  }
+}
+.prettier-logo-wide .l6 .p1 {
+  stroke-dasharray: 10, 680;
+  stroke-dashoffset: -565;
+  animation-name: wide-l6p1-initial, none;
+}
+.prettier-logo-wide.rolling .l6 .p1 {
+  animation-name: wide-l6p1-initial, wide-l6p1-roll;
+}
+@-moz-keyframes wide-l6p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -755;
+  }
+}
+@-webkit-keyframes wide-l6p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -755;
+  }
+}
+@-o-keyframes wide-l6p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -755;
+  }
+}
+@keyframes wide-l6p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -755;
+  }
+}
+@-moz-keyframes wide-l6p1-roll {
+  100% {
+    stroke-dashoffset: 815;
+  }
+}
+@-webkit-keyframes wide-l6p1-roll {
+  100% {
+    stroke-dashoffset: 815;
+  }
+}
+@-o-keyframes wide-l6p1-roll {
+  100% {
+    stroke-dashoffset: 815;
+  }
+}
+@keyframes wide-l6p1-roll {
+  100% {
+    stroke-dashoffset: 815;
+  }
+}
+.prettier-logo-wide .l6 .p2 {
+  stroke-dasharray: 100, 590;
+  stroke-dashoffset: -445;
+  animation-name: wide-l6p2-initial, none;
+}
+.prettier-logo-wide.rolling .l6 .p2 {
+  animation-name: wide-l6p2-initial, wide-l6p2-roll;
+}
+@-moz-keyframes wide-l6p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -635;
+  }
+}
+@-webkit-keyframes wide-l6p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -635;
+  }
+}
+@-o-keyframes wide-l6p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -635;
+  }
+}
+@keyframes wide-l6p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -635;
+  }
+}
+@-moz-keyframes wide-l6p2-roll {
+  100% {
+    stroke-dashoffset: 935;
+  }
+}
+@-webkit-keyframes wide-l6p2-roll {
+  100% {
+    stroke-dashoffset: 935;
+  }
+}
+@-o-keyframes wide-l6p2-roll {
+  100% {
+    stroke-dashoffset: 935;
+  }
+}
+@keyframes wide-l6p2-roll {
+  100% {
+    stroke-dashoffset: 935;
+  }
+}
+.prettier-logo-wide .l6 .p3 {
+  stroke-dasharray: 80, 610;
+  stroke-dashoffset: -345;
+  animation-name: wide-l6p3-initial, none;
+}
+.prettier-logo-wide.rolling .l6 .p3 {
+  animation-name: wide-l6p3-initial, wide-l6p3-roll;
+}
+@-moz-keyframes wide-l6p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -535;
+  }
+}
+@-webkit-keyframes wide-l6p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -535;
+  }
+}
+@-o-keyframes wide-l6p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -535;
+  }
+}
+@keyframes wide-l6p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -535;
+  }
+}
+@-moz-keyframes wide-l6p3-roll {
+  100% {
+    stroke-dashoffset: 1035;
+  }
+}
+@-webkit-keyframes wide-l6p3-roll {
+  100% {
+    stroke-dashoffset: 1035;
+  }
+}
+@-o-keyframes wide-l6p3-roll {
+  100% {
+    stroke-dashoffset: 1035;
+  }
+}
+@keyframes wide-l6p3-roll {
+  100% {
+    stroke-dashoffset: 1035;
+  }
+}
+.prettier-logo-wide .l6 .p4 {
+  stroke-dasharray: 30, 660;
+  stroke-dashoffset: -295;
+  animation-name: wide-l6p4-initial, none;
+}
+.prettier-logo-wide.rolling .l6 .p4 {
+  animation-name: wide-l6p4-initial, wide-l6p4-roll;
+}
+@-moz-keyframes wide-l6p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@-webkit-keyframes wide-l6p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@-o-keyframes wide-l6p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@keyframes wide-l6p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@-moz-keyframes wide-l6p4-roll {
+  100% {
+    stroke-dashoffset: 1085;
+  }
+}
+@-webkit-keyframes wide-l6p4-roll {
+  100% {
+    stroke-dashoffset: 1085;
+  }
+}
+@-o-keyframes wide-l6p4-roll {
+  100% {
+    stroke-dashoffset: 1085;
+  }
+}
+@keyframes wide-l6p4-roll {
+  100% {
+    stroke-dashoffset: 1085;
+  }
+}
+.prettier-logo-wide .l6 .p5 {
+  stroke-dasharray: 10, 680;
+  stroke-dashoffset: -265;
+  animation-name: wide-l6p5-initial, none;
+}
+.prettier-logo-wide.rolling .l6 .p5 {
+  animation-name: wide-l6p5-initial, wide-l6p5-roll;
+}
+@-moz-keyframes wide-l6p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -455;
+  }
+}
+@-webkit-keyframes wide-l6p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -455;
+  }
+}
+@-o-keyframes wide-l6p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -455;
+  }
+}
+@keyframes wide-l6p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -455;
+  }
+}
+@-moz-keyframes wide-l6p5-roll {
+  100% {
+    stroke-dashoffset: 1115;
+  }
+}
+@-webkit-keyframes wide-l6p5-roll {
+  100% {
+    stroke-dashoffset: 1115;
+  }
+}
+@-o-keyframes wide-l6p5-roll {
+  100% {
+    stroke-dashoffset: 1115;
+  }
+}
+@keyframes wide-l6p5-roll {
+  100% {
+    stroke-dashoffset: 1115;
+  }
+}
+.prettier-logo-wide .l6 .p6 {
+  stroke-dasharray: 20, 670;
+  stroke-dashoffset: -225;
+  animation-name: wide-l6p6-initial, none;
+}
+.prettier-logo-wide.rolling .l6 .p6 {
+  animation-name: wide-l6p6-initial, wide-l6p6-roll;
+}
+@-moz-keyframes wide-l6p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -415;
+  }
+}
+@-webkit-keyframes wide-l6p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -415;
+  }
+}
+@-o-keyframes wide-l6p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -415;
+  }
+}
+@keyframes wide-l6p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -415;
+  }
+}
+@-moz-keyframes wide-l6p6-roll {
+  100% {
+    stroke-dashoffset: 1155;
+  }
+}
+@-webkit-keyframes wide-l6p6-roll {
+  100% {
+    stroke-dashoffset: 1155;
+  }
+}
+@-o-keyframes wide-l6p6-roll {
+  100% {
+    stroke-dashoffset: 1155;
+  }
+}
+@keyframes wide-l6p6-roll {
+  100% {
+    stroke-dashoffset: 1155;
+  }
+}
+.prettier-logo-wide .l6 .p7 {
+  stroke-dasharray: 80, 610;
+  stroke-dashoffset: -125;
+  animation-name: wide-l6p7-initial, none;
+}
+.prettier-logo-wide.rolling .l6 .p7 {
+  animation-name: wide-l6p7-initial, wide-l6p7-roll;
+}
+@-moz-keyframes wide-l6p7-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@-webkit-keyframes wide-l6p7-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@-o-keyframes wide-l6p7-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@keyframes wide-l6p7-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@-moz-keyframes wide-l6p7-roll {
+  100% {
+    stroke-dashoffset: 1255;
+  }
+}
+@-webkit-keyframes wide-l6p7-roll {
+  100% {
+    stroke-dashoffset: 1255;
+  }
+}
+@-o-keyframes wide-l6p7-roll {
+  100% {
+    stroke-dashoffset: 1255;
+  }
+}
+@keyframes wide-l6p7-roll {
+  100% {
+    stroke-dashoffset: 1255;
+  }
+}
+.prettier-logo-wide .l6 .p8 {
+  stroke-dasharray: 80, 610;
+  stroke-dashoffset: -25;
+  animation-name: wide-l6p8-initial, none;
+}
+.prettier-logo-wide.rolling .l6 .p8 {
+  animation-name: wide-l6p8-initial, wide-l6p8-roll;
+}
+@-moz-keyframes wide-l6p8-initial {
+  0%, 50% {
+    stroke-dashoffset: -215;
+  }
+}
+@-webkit-keyframes wide-l6p8-initial {
+  0%, 50% {
+    stroke-dashoffset: -215;
+  }
+}
+@-o-keyframes wide-l6p8-initial {
+  0%, 50% {
+    stroke-dashoffset: -215;
+  }
+}
+@keyframes wide-l6p8-initial {
+  0%, 50% {
+    stroke-dashoffset: -215;
+  }
+}
+@-moz-keyframes wide-l6p8-roll {
+  100% {
+    stroke-dashoffset: 1355;
+  }
+}
+@-webkit-keyframes wide-l6p8-roll {
+  100% {
+    stroke-dashoffset: 1355;
+  }
+}
+@-o-keyframes wide-l6p8-roll {
+  100% {
+    stroke-dashoffset: 1355;
+  }
+}
+@keyframes wide-l6p8-roll {
+  100% {
+    stroke-dashoffset: 1355;
+  }
+}
+.prettier-logo-wide .l7 > path {
+  animation-delay: 490ms;
+}
+.prettier-logo-wide .l7 .p0 {
+  stroke-dasharray: 120, 570;
+  stroke-dashoffset: -515;
+  animation-name: wide-l7p0-initial, none;
+}
+.prettier-logo-wide.rolling .l7 .p0 {
+  animation-name: wide-l7p0-initial, wide-l7p0-roll;
+}
+@-moz-keyframes wide-l7p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@-webkit-keyframes wide-l7p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@-o-keyframes wide-l7p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@keyframes wide-l7p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -485;
+  }
+}
+@-moz-keyframes wide-l7p0-roll {
+  100% {
+    stroke-dashoffset: -1205;
+  }
+}
+@-webkit-keyframes wide-l7p0-roll {
+  100% {
+    stroke-dashoffset: -1205;
+  }
+}
+@-o-keyframes wide-l7p0-roll {
+  100% {
+    stroke-dashoffset: -1205;
+  }
+}
+@keyframes wide-l7p0-roll {
+  100% {
+    stroke-dashoffset: -1205;
+  }
+}
+.prettier-logo-wide .l7 .p1 {
+  stroke-dasharray: 60, 630;
+  stroke-dashoffset: -435;
+  animation-name: wide-l7p1-initial, none;
+}
+.prettier-logo-wide.rolling .l7 .p1 {
+  animation-name: wide-l7p1-initial, wide-l7p1-roll;
+}
+@-moz-keyframes wide-l7p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -405;
+  }
+}
+@-webkit-keyframes wide-l7p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -405;
+  }
+}
+@-o-keyframes wide-l7p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -405;
+  }
+}
+@keyframes wide-l7p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -405;
+  }
+}
+@-moz-keyframes wide-l7p1-roll {
+  100% {
+    stroke-dashoffset: -1125;
+  }
+}
+@-webkit-keyframes wide-l7p1-roll {
+  100% {
+    stroke-dashoffset: -1125;
+  }
+}
+@-o-keyframes wide-l7p1-roll {
+  100% {
+    stroke-dashoffset: -1125;
+  }
+}
+@keyframes wide-l7p1-roll {
+  100% {
+    stroke-dashoffset: -1125;
+  }
+}
+.prettier-logo-wide .l7 .p2 {
+  stroke-dasharray: 30, 660;
+  stroke-dashoffset: -385;
+  animation-name: wide-l7p2-initial, none;
+}
+.prettier-logo-wide.rolling .l7 .p2 {
+  animation-name: wide-l7p2-initial, wide-l7p2-roll;
+}
+@-moz-keyframes wide-l7p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -355;
+  }
+}
+@-webkit-keyframes wide-l7p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -355;
+  }
+}
+@-o-keyframes wide-l7p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -355;
+  }
+}
+@keyframes wide-l7p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -355;
+  }
+}
+@-moz-keyframes wide-l7p2-roll {
+  100% {
+    stroke-dashoffset: -1075;
+  }
+}
+@-webkit-keyframes wide-l7p2-roll {
+  100% {
+    stroke-dashoffset: -1075;
+  }
+}
+@-o-keyframes wide-l7p2-roll {
+  100% {
+    stroke-dashoffset: -1075;
+  }
+}
+@keyframes wide-l7p2-roll {
+  100% {
+    stroke-dashoffset: -1075;
+  }
+}
+.prettier-logo-wide .l7 .p3 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -325;
+  animation-name: wide-l7p3-initial, none;
+}
+.prettier-logo-wide.rolling .l7 .p3 {
+  animation-name: wide-l7p3-initial, wide-l7p3-roll;
+}
+@-moz-keyframes wide-l7p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -295;
+  }
+}
+@-webkit-keyframes wide-l7p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -295;
+  }
+}
+@-o-keyframes wide-l7p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -295;
+  }
+}
+@keyframes wide-l7p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -295;
+  }
+}
+@-moz-keyframes wide-l7p3-roll {
+  100% {
+    stroke-dashoffset: -1015;
+  }
+}
+@-webkit-keyframes wide-l7p3-roll {
+  100% {
+    stroke-dashoffset: -1015;
+  }
+}
+@-o-keyframes wide-l7p3-roll {
+  100% {
+    stroke-dashoffset: -1015;
+  }
+}
+@keyframes wide-l7p3-roll {
+  100% {
+    stroke-dashoffset: -1015;
+  }
+}
+.prettier-logo-wide .l7 .p4 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -265;
+  animation-name: wide-l7p4-initial, none;
+}
+.prettier-logo-wide.rolling .l7 .p4 {
+  animation-name: wide-l7p4-initial, wide-l7p4-roll;
+}
+@-moz-keyframes wide-l7p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -235;
+  }
+}
+@-webkit-keyframes wide-l7p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -235;
+  }
+}
+@-o-keyframes wide-l7p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -235;
+  }
+}
+@keyframes wide-l7p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -235;
+  }
+}
+@-moz-keyframes wide-l7p4-roll {
+  100% {
+    stroke-dashoffset: -955;
+  }
+}
+@-webkit-keyframes wide-l7p4-roll {
+  100% {
+    stroke-dashoffset: -955;
+  }
+}
+@-o-keyframes wide-l7p4-roll {
+  100% {
+    stroke-dashoffset: -955;
+  }
+}
+@keyframes wide-l7p4-roll {
+  100% {
+    stroke-dashoffset: -955;
+  }
+}
+.prettier-logo-wide .l7 .p5 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -205;
+  animation-name: wide-l7p5-initial, none;
+}
+.prettier-logo-wide.rolling .l7 .p5 {
+  animation-name: wide-l7p5-initial, wide-l7p5-roll;
+}
+@-moz-keyframes wide-l7p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -175;
+  }
+}
+@-webkit-keyframes wide-l7p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -175;
+  }
+}
+@-o-keyframes wide-l7p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -175;
+  }
+}
+@keyframes wide-l7p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -175;
+  }
+}
+@-moz-keyframes wide-l7p5-roll {
+  100% {
+    stroke-dashoffset: -895;
+  }
+}
+@-webkit-keyframes wide-l7p5-roll {
+  100% {
+    stroke-dashoffset: -895;
+  }
+}
+@-o-keyframes wide-l7p5-roll {
+  100% {
+    stroke-dashoffset: -895;
+  }
+}
+@keyframes wide-l7p5-roll {
+  100% {
+    stroke-dashoffset: -895;
+  }
+}
+.prettier-logo-wide .l7 .p6 {
+  stroke-dasharray: 80, 610;
+  stroke-dashoffset: -105;
+  animation-name: wide-l7p6-initial, none;
+}
+.prettier-logo-wide.rolling .l7 .p6 {
+  animation-name: wide-l7p6-initial, wide-l7p6-roll;
+}
+@-moz-keyframes wide-l7p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -75;
+  }
+}
+@-webkit-keyframes wide-l7p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -75;
+  }
+}
+@-o-keyframes wide-l7p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -75;
+  }
+}
+@keyframes wide-l7p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -75;
+  }
+}
+@-moz-keyframes wide-l7p6-roll {
+  100% {
+    stroke-dashoffset: -795;
+  }
+}
+@-webkit-keyframes wide-l7p6-roll {
+  100% {
+    stroke-dashoffset: -795;
+  }
+}
+@-o-keyframes wide-l7p6-roll {
+  100% {
+    stroke-dashoffset: -795;
+  }
+}
+@keyframes wide-l7p6-roll {
+  100% {
+    stroke-dashoffset: -795;
+  }
+}
+.prettier-logo-wide .l7 .p7 {
+  stroke-dasharray: 50, 640;
+  stroke-dashoffset: -35;
+  animation-name: wide-l7p7-initial, none;
+}
+.prettier-logo-wide.rolling .l7 .p7 {
+  animation-name: wide-l7p7-initial, wide-l7p7-roll;
+}
+@-moz-keyframes wide-l7p7-initial {
+  0%, 50% {
+    stroke-dashoffset: -5;
+  }
+}
+@-webkit-keyframes wide-l7p7-initial {
+  0%, 50% {
+    stroke-dashoffset: -5;
+  }
+}
+@-o-keyframes wide-l7p7-initial {
+  0%, 50% {
+    stroke-dashoffset: -5;
+  }
+}
+@keyframes wide-l7p7-initial {
+  0%, 50% {
+    stroke-dashoffset: -5;
+  }
+}
+@-moz-keyframes wide-l7p7-roll {
+  100% {
+    stroke-dashoffset: -725;
+  }
+}
+@-webkit-keyframes wide-l7p7-roll {
+  100% {
+    stroke-dashoffset: -725;
+  }
+}
+@-o-keyframes wide-l7p7-roll {
+  100% {
+    stroke-dashoffset: -725;
+  }
+}
+@keyframes wide-l7p7-roll {
+  100% {
+    stroke-dashoffset: -725;
+  }
+}
+.prettier-logo-wide .l8 > path {
+  animation-delay: 560ms;
+}
+.prettier-logo-wide .l8 .p0 {
+  stroke-dasharray: 30, 660;
+  stroke-dashoffset: -585;
+  animation-name: wide-l8p0-initial, none;
+}
+.prettier-logo-wide.rolling .l8 .p0 {
+  animation-name: wide-l8p0-initial, wide-l8p0-roll;
+}
+@-moz-keyframes wide-l8p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -635;
+  }
+}
+@-webkit-keyframes wide-l8p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -635;
+  }
+}
+@-o-keyframes wide-l8p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -635;
+  }
+}
+@keyframes wide-l8p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -635;
+  }
+}
+@-moz-keyframes wide-l8p0-roll {
+  100% {
+    stroke-dashoffset: 105;
+  }
+}
+@-webkit-keyframes wide-l8p0-roll {
+  100% {
+    stroke-dashoffset: 105;
+  }
+}
+@-o-keyframes wide-l8p0-roll {
+  100% {
+    stroke-dashoffset: 105;
+  }
+}
+@keyframes wide-l8p0-roll {
+  100% {
+    stroke-dashoffset: 105;
+  }
+}
+.prettier-logo-wide .l8 .p1 {
+  stroke-dasharray: 80, 610;
+  stroke-dashoffset: -485;
+  animation-name: wide-l8p1-initial, none;
+}
+.prettier-logo-wide.rolling .l8 .p1 {
+  animation-name: wide-l8p1-initial, wide-l8p1-roll;
+}
+@-moz-keyframes wide-l8p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -535;
+  }
+}
+@-webkit-keyframes wide-l8p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -535;
+  }
+}
+@-o-keyframes wide-l8p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -535;
+  }
+}
+@keyframes wide-l8p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -535;
+  }
+}
+@-moz-keyframes wide-l8p1-roll {
+  100% {
+    stroke-dashoffset: 205;
+  }
+}
+@-webkit-keyframes wide-l8p1-roll {
+  100% {
+    stroke-dashoffset: 205;
+  }
+}
+@-o-keyframes wide-l8p1-roll {
+  100% {
+    stroke-dashoffset: 205;
+  }
+}
+@keyframes wide-l8p1-roll {
+  100% {
+    stroke-dashoffset: 205;
+  }
+}
+.prettier-logo-wide .l8 .p2 {
+  stroke-dasharray: 60, 630;
+  stroke-dashoffset: -405;
+  animation-name: wide-l8p2-initial, none;
+}
+.prettier-logo-wide.rolling .l8 .p2 {
+  animation-name: wide-l8p2-initial, wide-l8p2-roll;
+}
+@-moz-keyframes wide-l8p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -455;
+  }
+}
+@-webkit-keyframes wide-l8p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -455;
+  }
+}
+@-o-keyframes wide-l8p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -455;
+  }
+}
+@keyframes wide-l8p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -455;
+  }
+}
+@-moz-keyframes wide-l8p2-roll {
+  100% {
+    stroke-dashoffset: 285;
+  }
+}
+@-webkit-keyframes wide-l8p2-roll {
+  100% {
+    stroke-dashoffset: 285;
+  }
+}
+@-o-keyframes wide-l8p2-roll {
+  100% {
+    stroke-dashoffset: 285;
+  }
+}
+@keyframes wide-l8p2-roll {
+  100% {
+    stroke-dashoffset: 285;
+  }
+}
+.prettier-logo-wide .l8 .p3 {
+  stroke-dasharray: 90, 600;
+  stroke-dashoffset: -295;
+  animation-name: wide-l8p3-initial, none;
+}
+.prettier-logo-wide.rolling .l8 .p3 {
+  animation-name: wide-l8p3-initial, wide-l8p3-roll;
+}
+@-moz-keyframes wide-l8p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -345;
+  }
+}
+@-webkit-keyframes wide-l8p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -345;
+  }
+}
+@-o-keyframes wide-l8p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -345;
+  }
+}
+@keyframes wide-l8p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -345;
+  }
+}
+@-moz-keyframes wide-l8p3-roll {
+  100% {
+    stroke-dashoffset: 395;
+  }
+}
+@-webkit-keyframes wide-l8p3-roll {
+  100% {
+    stroke-dashoffset: 395;
+  }
+}
+@-o-keyframes wide-l8p3-roll {
+  100% {
+    stroke-dashoffset: 395;
+  }
+}
+@keyframes wide-l8p3-roll {
+  100% {
+    stroke-dashoffset: 395;
+  }
+}
+.prettier-logo-wide .l8 .p4 {
+  stroke-dasharray: 10, 680;
+  stroke-dashoffset: -265;
+  animation-name: wide-l8p4-initial, none;
+}
+.prettier-logo-wide.rolling .l8 .p4 {
+  animation-name: wide-l8p4-initial, wide-l8p4-roll;
+}
+@-moz-keyframes wide-l8p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@-webkit-keyframes wide-l8p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@-o-keyframes wide-l8p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@keyframes wide-l8p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@-moz-keyframes wide-l8p4-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@-webkit-keyframes wide-l8p4-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@-o-keyframes wide-l8p4-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@keyframes wide-l8p4-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+.prettier-logo-wide .l8 .p5 {
+  stroke-dasharray: 100, 590;
+  stroke-dashoffset: -145;
+  animation-name: wide-l8p5-initial, none;
+}
+.prettier-logo-wide.rolling .l8 .p5 {
+  animation-name: wide-l8p5-initial, wide-l8p5-roll;
+}
+@-moz-keyframes wide-l8p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -195;
+  }
+}
+@-webkit-keyframes wide-l8p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -195;
+  }
+}
+@-o-keyframes wide-l8p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -195;
+  }
+}
+@keyframes wide-l8p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -195;
+  }
+}
+@-moz-keyframes wide-l8p5-roll {
+  100% {
+    stroke-dashoffset: 545;
+  }
+}
+@-webkit-keyframes wide-l8p5-roll {
+  100% {
+    stroke-dashoffset: 545;
+  }
+}
+@-o-keyframes wide-l8p5-roll {
+  100% {
+    stroke-dashoffset: 545;
+  }
+}
+@keyframes wide-l8p5-roll {
+  100% {
+    stroke-dashoffset: 545;
+  }
+}
+.prettier-logo-wide .l8 .p6 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -85;
+  animation-name: wide-l8p6-initial, none;
+}
+.prettier-logo-wide.rolling .l8 .p6 {
+  animation-name: wide-l8p6-initial, wide-l8p6-roll;
+}
+@-moz-keyframes wide-l8p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -135;
+  }
+}
+@-webkit-keyframes wide-l8p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -135;
+  }
+}
+@-o-keyframes wide-l8p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -135;
+  }
+}
+@keyframes wide-l8p6-initial {
+  0%, 50% {
+    stroke-dashoffset: -135;
+  }
+}
+@-moz-keyframes wide-l8p6-roll {
+  100% {
+    stroke-dashoffset: 605;
+  }
+}
+@-webkit-keyframes wide-l8p6-roll {
+  100% {
+    stroke-dashoffset: 605;
+  }
+}
+@-o-keyframes wide-l8p6-roll {
+  100% {
+    stroke-dashoffset: 605;
+  }
+}
+@keyframes wide-l8p6-roll {
+  100% {
+    stroke-dashoffset: 605;
+  }
+}
+.prettier-logo-wide .l9 > path {
+  animation-delay: 630ms;
+}
+.prettier-logo-wide .l9 .p0 {
+  stroke-dasharray: 140, 550;
+  stroke-dashoffset: -445;
+  animation-name: wide-l9p0-initial, none;
+}
+.prettier-logo-wide.rolling .l9 .p0 {
+  animation-name: wide-l9p0-initial, wide-l9p0-roll;
+}
+@-moz-keyframes wide-l9p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -595;
+  }
+}
+@-webkit-keyframes wide-l9p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -595;
+  }
+}
+@-o-keyframes wide-l9p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -595;
+  }
+}
+@keyframes wide-l9p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -595;
+  }
+}
+@-moz-keyframes wide-l9p0-roll {
+  100% {
+    stroke-dashoffset: -1825;
+  }
+}
+@-webkit-keyframes wide-l9p0-roll {
+  100% {
+    stroke-dashoffset: -1825;
+  }
+}
+@-o-keyframes wide-l9p0-roll {
+  100% {
+    stroke-dashoffset: -1825;
+  }
+}
+@keyframes wide-l9p0-roll {
+  100% {
+    stroke-dashoffset: -1825;
+  }
+}
+.prettier-logo-wide .l9 .p1 {
+  stroke-dasharray: 80, 610;
+  stroke-dashoffset: -345;
+  animation-name: wide-l9p1-initial, none;
+}
+.prettier-logo-wide.rolling .l9 .p1 {
+  animation-name: wide-l9p1-initial, wide-l9p1-roll;
+}
+@-moz-keyframes wide-l9p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -495;
+  }
+}
+@-webkit-keyframes wide-l9p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -495;
+  }
+}
+@-o-keyframes wide-l9p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -495;
+  }
+}
+@keyframes wide-l9p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -495;
+  }
+}
+@-moz-keyframes wide-l9p1-roll {
+  100% {
+    stroke-dashoffset: -1725;
+  }
+}
+@-webkit-keyframes wide-l9p1-roll {
+  100% {
+    stroke-dashoffset: -1725;
+  }
+}
+@-o-keyframes wide-l9p1-roll {
+  100% {
+    stroke-dashoffset: -1725;
+  }
+}
+@keyframes wide-l9p1-roll {
+  100% {
+    stroke-dashoffset: -1725;
+  }
+}
+.prettier-logo-wide .l9 .p2 {
+  stroke-dasharray: 50, 640;
+  stroke-dashoffset: -195;
+  animation-name: wide-l9p2-initial, none;
+}
+.prettier-logo-wide.rolling .l9 .p2 {
+  animation-name: wide-l9p2-initial, wide-l9p2-roll;
+}
+@-moz-keyframes wide-l9p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -345;
+  }
+}
+@-webkit-keyframes wide-l9p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -345;
+  }
+}
+@-o-keyframes wide-l9p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -345;
+  }
+}
+@keyframes wide-l9p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -345;
+  }
+}
+@-moz-keyframes wide-l9p2-roll {
+  100% {
+    stroke-dashoffset: -1575;
+  }
+}
+@-webkit-keyframes wide-l9p2-roll {
+  100% {
+    stroke-dashoffset: -1575;
+  }
+}
+@-o-keyframes wide-l9p2-roll {
+  100% {
+    stroke-dashoffset: -1575;
+  }
+}
+@keyframes wide-l9p2-roll {
+  100% {
+    stroke-dashoffset: -1575;
+  }
+}
+.prettier-logo-wide .l9 .p3 {
+  stroke-dasharray: 60, 630;
+  stroke-dashoffset: -265;
+  animation-name: wide-l9p3-initial, none;
+}
+.prettier-logo-wide.rolling .l9 .p3 {
+  animation-name: wide-l9p3-initial, wide-l9p3-roll;
+}
+@-moz-keyframes wide-l9p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -415;
+  }
+}
+@-webkit-keyframes wide-l9p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -415;
+  }
+}
+@-o-keyframes wide-l9p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -415;
+  }
+}
+@keyframes wide-l9p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -415;
+  }
+}
+@-moz-keyframes wide-l9p3-roll {
+  100% {
+    stroke-dashoffset: -1645;
+  }
+}
+@-webkit-keyframes wide-l9p3-roll {
+  100% {
+    stroke-dashoffset: -1645;
+  }
+}
+@-o-keyframes wide-l9p3-roll {
+  100% {
+    stroke-dashoffset: -1645;
+  }
+}
+@keyframes wide-l9p3-roll {
+  100% {
+    stroke-dashoffset: -1645;
+  }
+}
+.prettier-logo-wide .l9 .p4 {
+  stroke-dasharray: 10, 680;
+  stroke-dashoffset: -165;
+  animation-name: wide-l9p4-initial, none;
+}
+.prettier-logo-wide.rolling .l9 .p4 {
+  animation-name: wide-l9p4-initial, wide-l9p4-roll;
+}
+@-moz-keyframes wide-l9p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@-webkit-keyframes wide-l9p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@-o-keyframes wide-l9p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@keyframes wide-l9p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@-moz-keyframes wide-l9p4-roll {
+  100% {
+    stroke-dashoffset: -1545;
+  }
+}
+@-webkit-keyframes wide-l9p4-roll {
+  100% {
+    stroke-dashoffset: -1545;
+  }
+}
+@-o-keyframes wide-l9p4-roll {
+  100% {
+    stroke-dashoffset: -1545;
+  }
+}
+@keyframes wide-l9p4-roll {
+  100% {
+    stroke-dashoffset: -1545;
+  }
+}
+.prettier-logo-wide .l9 .p5 {
+  stroke-dasharray: 75, 615;
   stroke-dashoffset: -70;
-}
-.initial .l4 .p0 {
-  stroke-dashoffset: 80;
-}
-.l4 .p1 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: -100;
-}
-.initial .l4 .p1 {
-  stroke-dashoffset: 50;
-}
-.l4 .p2 {
-  stroke-dasharray: 10, 510;
-  stroke-dashoffset: -140;
-}
-.initial .l4 .p2 {
-  stroke-dashoffset: 10;
-}
-.l4 .p3 {
-  stroke-dasharray: 30, 490;
-  stroke-dashoffset: -170;
-}
-.initial .l4 .p3 {
-  stroke-dashoffset: -20;
-}
-.l4 .p4 {
-  stroke-dasharray: 50, 470;
-  stroke-dashoffset: -220;
-}
-.initial .l4 .p4 {
-  stroke-dashoffset: -70;
-}
-.l4 .p5 {
-  stroke-dasharray: 90, 430;
-  stroke-dashoffset: -290;
-}
-.initial .l4 .p5 {
-  stroke-dashoffset: -140;
-}
-.l5 > path {
-  transition-delay: 350ms, 850ms, 150ms;
-}
-.l5 .p0 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: 0;
-}
-.initial .l5 .p0 {
-  stroke-dashoffset: -100;
-}
-.l5 .p1 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: -40;
-}
-.initial .l5 .p1 {
-  stroke-dashoffset: -140;
-}
-.l5 .p2 {
-  stroke-dasharray: 50, 470;
-  stroke-dashoffset: -100;
-}
-.initial .l5 .p2 {
-  stroke-dashoffset: -200;
-}
-.l5 .p3 {
-  stroke-dasharray: 30, 490;
-  stroke-dashoffset: -170;
-}
-.initial .l5 .p3 {
-  stroke-dashoffset: -270;
-}
-.l5 .p4 {
-  stroke-dasharray: 50, 470;
-  stroke-dashoffset: -220;
-}
-.initial .l5 .p4 {
-  stroke-dashoffset: -320;
-}
-.l5 .p5 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: -290;
-}
-.initial .l5 .p5 {
-  stroke-dashoffset: -390;
-}
-.l5 .p6 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: -350;
-}
-.initial .l5 .p6 {
-  stroke-dashoffset: -450;
-}
-.l6 > path {
-  transition-delay: 420ms, 920ms, 220ms;
-}
-.l6 .p0 {
-  stroke-dasharray: 60, 460;
-  stroke-dashoffset: -20;
-}
-.initial .l6 .p0 {
-  stroke-dashoffset: -210;
-}
-.l6 .p1 {
-  stroke-dasharray: 10, 510;
-  stroke-dashoffset: -100;
-}
-.initial .l6 .p1 {
-  stroke-dashoffset: -290;
-}
-.l6 .p2 {
-  stroke-dasharray: 30, 490;
-  stroke-dashoffset: -130;
-}
-.initial .l6 .p2 {
-  stroke-dashoffset: -320;
-}
-.l6 .p3 {
-  stroke-dasharray: 80, 440;
-  stroke-dashoffset: -180;
-}
-.initial .l6 .p3 {
-  stroke-dashoffset: -370;
-}
-.l6 .p4 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: -280;
-}
-.initial .l6 .p4 {
-  stroke-dashoffset: -470;
-}
-.l6 .p5 {
-  stroke-dasharray: 100, 420;
-  stroke-dashoffset: -320;
-}
-.initial .l6 .p5 {
-  stroke-dashoffset: -510;
-}
-.l6 .p6 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: -440;
-}
-.initial .l6 .p6 {
-  stroke-dashoffset: -630;
-}
-.l7 > path {
-  transition-delay: 490ms, 990ms, 290ms;
-}
-.l7 .p0 {
-  stroke-dasharray: 30, 490;
-  stroke-dashoffset: -50;
-}
-.initial .l7 .p0 {
-  stroke-dashoffset: -20;
-}
-.l7 .p1 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: -100;
-}
-.initial .l7 .p1 {
-  stroke-dashoffset: -70;
-}
-.l7 .p2 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: -160;
-}
-.initial .l7 .p2 {
-  stroke-dashoffset: -130;
-}
-.l7 .p3 {
-  stroke-dasharray: 30, 490;
-  stroke-dashoffset: -220;
-}
-.initial .l7 .p3 {
-  stroke-dashoffset: -190;
-}
-.l7 .p4 {
-  stroke-dasharray: 60, 460;
-  stroke-dashoffset: -270;
-}
-.initial .l7 .p4 {
-  stroke-dashoffset: -240;
-}
-.l7 .p5 {
-  stroke-dasharray: 60, 460;
-  stroke-dashoffset: -350;
-}
-.initial .l7 .p5 {
-  stroke-dashoffset: -320;
-}
-.l8 > path {
-  transition-delay: 560ms, 1060ms, 360ms;
-}
-.l8 .p0 {
-  stroke-dasharray: 30, 490;
-  stroke-dashoffset: -20;
-}
-.initial .l8 .p0 {
-  stroke-dashoffset: -70;
-}
-.l8 .p1 {
-  stroke-dasharray: 10, 510;
-  stroke-dashoffset: -70;
-}
-.initial .l8 .p1 {
-  stroke-dashoffset: -120;
-}
-.l8 .p2 {
-  stroke-dasharray: 10, 510;
-  stroke-dashoffset: -100;
-}
-.initial .l8 .p2 {
-  stroke-dashoffset: -150;
-}
-.l8 .p3 {
-  stroke-dasharray: 90, 430;
-  stroke-dashoffset: -130;
-}
-.initial .l8 .p3 {
-  stroke-dashoffset: -180;
-}
-.l8 .p4 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: -240;
-}
-.initial .l8 .p4 {
-  stroke-dashoffset: -290;
-}
-.l8 .p5 {
-  stroke-dasharray: 80, 440;
-  stroke-dashoffset: -280;
-}
-.initial .l8 .p5 {
-  stroke-dashoffset: -330;
-}
-.l8 .p6 {
-  stroke-dasharray: 100, 420;
-  stroke-dashoffset: -380;
-}
-.initial .l8 .p6 {
-  stroke-dashoffset: -430;
-}
-.l9 > path {
-  transition-delay: 630ms, 1130ms, 430ms;
-}
-.l9 .p0 {
-  stroke-dasharray: 70, 450;
-  stroke-dashoffset: -10;
-}
-.initial .l9 .p0 {
-  stroke-dashoffset: -160;
-}
-.l9 .p1 {
-  stroke-dasharray: 50, 470;
-  stroke-dashoffset: -100;
-}
-.initial .l9 .p1 {
-  stroke-dashoffset: -250;
-}
-.l9 .p2 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: -170;
-}
-.initial .l9 .p2 {
-  stroke-dashoffset: -320;
-}
-.l9 .p3 {
-  stroke-dasharray: 90, 430;
-  stroke-dashoffset: -210;
-}
-.initial .l9 .p3 {
-  stroke-dashoffset: -360;
-}
-.l9 .p4 {
-  stroke-dasharray: 90, 430;
-  stroke-dashoffset: -320;
-}
-.initial .l9 .p4 {
-  stroke-dashoffset: -470;
-}
-.l10 > path {
-  transition-delay: 700ms, 1200ms, 500ms;
-}
-.l10 .p0 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: -40;
-}
-.initial .l10 .p0 {
-  stroke-dashoffset: 60;
-}
-.l10 .p1 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: -100;
-}
-.initial .l10 .p1 {
-  stroke-dashoffset: 0;
-}
-.l10 .p2 {
-  stroke-dasharray: 10, 510;
-  stroke-dashoffset: -140;
-}
-.initial .l10 .p2 {
-  stroke-dashoffset: -40;
-}
-.l10 .p3 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: -170;
-}
-.initial .l10 .p3 {
-  stroke-dashoffset: -70;
-}
-.l10 .p4 {
-  stroke-dasharray: 10, 510;
-  stroke-dashoffset: -230;
-}
-.initial .l10 .p4 {
-  stroke-dashoffset: -130;
-}
-.l10 .p5 {
-  stroke-dasharray: 80, 440;
-  stroke-dashoffset: -260;
-}
-.initial .l10 .p5 {
-  stroke-dashoffset: -160;
-}
-.l10 .p6 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: -360;
-}
-.initial .l10 .p6 {
-  stroke-dashoffset: -260;
-}
-.l11 > path {
-  transition-delay: 770ms, 1270ms, 570ms;
-}
-.l11 .p0 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: -60;
-}
-.initial .l11 .p0 {
-  stroke-dashoffset: -10;
-}
-.l11 .p1 {
-  stroke-dasharray: 50, 470;
-  stroke-dashoffset: -100;
-}
-.initial .l11 .p1 {
-  stroke-dashoffset: -50;
-}
-.l11 .p2 {
-  stroke-dasharray: 60, 460;
-  stroke-dashoffset: -170;
-}
-.initial .l11 .p2 {
-  stroke-dashoffset: -120;
-}
-.l11 .p3 {
-  stroke-dasharray: 40, 480;
-  stroke-dashoffset: -250;
-}
-.initial .l11 .p3 {
-  stroke-dashoffset: -200;
-}
-.l11 .p4 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: -310;
-}
-.initial .l11 .p4 {
-  stroke-dashoffset: -260;
-}
-.l12 > path {
-  transition-delay: 840ms, 1340ms, 640ms;
-}
-.l12 .p0 {
-  stroke-dasharray: 60, 460;
-  stroke-dashoffset: -40;
-}
-.initial .l12 .p0 {
-  stroke-dashoffset: 110;
-}
-.l12 .p1 {
-  stroke-dasharray: 60, 460;
-  stroke-dashoffset: -120;
-}
-.initial .l12 .p1 {
-  stroke-dashoffset: 30;
-}
-.l12 .p2 {
-  stroke-dasharray: 100, 420;
-  stroke-dashoffset: -200;
-}
-.initial .l12 .p2 {
-  stroke-dashoffset: -50;
-}
-.l12 .p3 {
-  stroke-dasharray: 20, 500;
-  stroke-dashoffset: -320;
-}
-.initial .l12 .p3 {
-  stroke-dashoffset: -170;
+  animation-name: wide-l9p5-initial, none;
+}
+.prettier-logo-wide.rolling .l9 .p5 {
+  animation-name: wide-l9p5-initial, wide-l9p5-roll;
+}
+@-moz-keyframes wide-l9p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -220;
+  }
+}
+@-webkit-keyframes wide-l9p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -220;
+  }
+}
+@-o-keyframes wide-l9p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -220;
+  }
+}
+@keyframes wide-l9p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -220;
+  }
+}
+@-moz-keyframes wide-l9p5-roll {
+  100% {
+    stroke-dashoffset: -1450;
+  }
+}
+@-webkit-keyframes wide-l9p5-roll {
+  100% {
+    stroke-dashoffset: -1450;
+  }
+}
+@-o-keyframes wide-l9p5-roll {
+  100% {
+    stroke-dashoffset: -1450;
+  }
+}
+@keyframes wide-l9p5-roll {
+  100% {
+    stroke-dashoffset: -1450;
+  }
+}
+.prettier-logo-wide .l10 > path {
+  animation-delay: 700ms;
+}
+.prettier-logo-wide .l10 .p0 {
+  stroke-dasharray: 110, 580;
+  stroke-dashoffset: -415;
+  animation-name: wide-l10p0-initial, none;
+}
+.prettier-logo-wide.rolling .l10 .p0 {
+  animation-name: wide-l10p0-initial, wide-l10p0-roll;
+}
+@-moz-keyframes wide-l10p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@-webkit-keyframes wide-l10p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@-o-keyframes wide-l10p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@keyframes wide-l10p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -315;
+  }
+}
+@-moz-keyframes wide-l10p0-roll {
+  100% {
+    stroke-dashoffset: 275;
+  }
+}
+@-webkit-keyframes wide-l10p0-roll {
+  100% {
+    stroke-dashoffset: 275;
+  }
+}
+@-o-keyframes wide-l10p0-roll {
+  100% {
+    stroke-dashoffset: 275;
+  }
+}
+@keyframes wide-l10p0-roll {
+  100% {
+    stroke-dashoffset: 275;
+  }
+}
+.prettier-logo-wide .l10 .p1 {
+  stroke-dasharray: 50, 640;
+  stroke-dashoffset: -345;
+  animation-name: wide-l10p1-initial, none;
+}
+.prettier-logo-wide.rolling .l10 .p1 {
+  animation-name: wide-l10p1-initial, wide-l10p1-roll;
+}
+@-moz-keyframes wide-l10p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -245;
+  }
+}
+@-webkit-keyframes wide-l10p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -245;
+  }
+}
+@-o-keyframes wide-l10p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -245;
+  }
+}
+@keyframes wide-l10p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -245;
+  }
+}
+@-moz-keyframes wide-l10p1-roll {
+  100% {
+    stroke-dashoffset: 345;
+  }
+}
+@-webkit-keyframes wide-l10p1-roll {
+  100% {
+    stroke-dashoffset: 345;
+  }
+}
+@-o-keyframes wide-l10p1-roll {
+  100% {
+    stroke-dashoffset: 345;
+  }
+}
+@keyframes wide-l10p1-roll {
+  100% {
+    stroke-dashoffset: 345;
+  }
+}
+.prettier-logo-wide .l10 .p2 {
+  stroke-dasharray: 20, 670;
+  stroke-dashoffset: -305;
+  animation-name: wide-l10p2-initial, none;
+}
+.prettier-logo-wide.rolling .l10 .p2 {
+  animation-name: wide-l10p2-initial, wide-l10p2-roll;
+}
+@-moz-keyframes wide-l10p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -205;
+  }
+}
+@-webkit-keyframes wide-l10p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -205;
+  }
+}
+@-o-keyframes wide-l10p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -205;
+  }
+}
+@keyframes wide-l10p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -205;
+  }
+}
+@-moz-keyframes wide-l10p2-roll {
+  100% {
+    stroke-dashoffset: 385;
+  }
+}
+@-webkit-keyframes wide-l10p2-roll {
+  100% {
+    stroke-dashoffset: 385;
+  }
+}
+@-o-keyframes wide-l10p2-roll {
+  100% {
+    stroke-dashoffset: 385;
+  }
+}
+@keyframes wide-l10p2-roll {
+  100% {
+    stroke-dashoffset: 385;
+  }
+}
+.prettier-logo-wide .l10 .p3 {
+  stroke-dasharray: 20, 670;
+  stroke-dashoffset: -265;
+  animation-name: wide-l10p3-initial, none;
+}
+.prettier-logo-wide.rolling .l10 .p3 {
+  animation-name: wide-l10p3-initial, wide-l10p3-roll;
+}
+@-moz-keyframes wide-l10p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -165;
+  }
+}
+@-webkit-keyframes wide-l10p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -165;
+  }
+}
+@-o-keyframes wide-l10p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -165;
+  }
+}
+@keyframes wide-l10p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -165;
+  }
+}
+@-moz-keyframes wide-l10p3-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@-webkit-keyframes wide-l10p3-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@-o-keyframes wide-l10p3-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+@keyframes wide-l10p3-roll {
+  100% {
+    stroke-dashoffset: 425;
+  }
+}
+.prettier-logo-wide .l10 .p4 {
+  stroke-dasharray: 130, 560;
+  stroke-dashoffset: -115;
+  animation-name: wide-l10p4-initial, none;
+}
+.prettier-logo-wide.rolling .l10 .p4 {
+  animation-name: wide-l10p4-initial, wide-l10p4-roll;
+}
+@-moz-keyframes wide-l10p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -15;
+  }
+}
+@-webkit-keyframes wide-l10p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -15;
+  }
+}
+@-o-keyframes wide-l10p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -15;
+  }
+}
+@keyframes wide-l10p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -15;
+  }
+}
+@-moz-keyframes wide-l10p4-roll {
+  100% {
+    stroke-dashoffset: 575;
+  }
+}
+@-webkit-keyframes wide-l10p4-roll {
+  100% {
+    stroke-dashoffset: 575;
+  }
+}
+@-o-keyframes wide-l10p4-roll {
+  100% {
+    stroke-dashoffset: 575;
+  }
+}
+@keyframes wide-l10p4-roll {
+  100% {
+    stroke-dashoffset: 575;
+  }
+}
+.prettier-logo-wide .l11 > path {
+  animation-delay: 770ms;
+}
+.prettier-logo-wide .l11 .p0 {
+  stroke-dasharray: 30, 660;
+  stroke-dashoffset: -485;
+  animation-name: wide-l11p0-initial, none;
+}
+.prettier-logo-wide.rolling .l11 .p0 {
+  animation-name: wide-l11p0-initial, wide-l11p0-roll;
+}
+@-moz-keyframes wide-l11p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -435;
+  }
+}
+@-webkit-keyframes wide-l11p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -435;
+  }
+}
+@-o-keyframes wide-l11p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -435;
+  }
+}
+@keyframes wide-l11p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -435;
+  }
+}
+@-moz-keyframes wide-l11p0-roll {
+  100% {
+    stroke-dashoffset: 895;
+  }
+}
+@-webkit-keyframes wide-l11p0-roll {
+  100% {
+    stroke-dashoffset: 895;
+  }
+}
+@-o-keyframes wide-l11p0-roll {
+  100% {
+    stroke-dashoffset: 895;
+  }
+}
+@keyframes wide-l11p0-roll {
+  100% {
+    stroke-dashoffset: 895;
+  }
+}
+.prettier-logo-wide .l11 .p1 {
+  stroke-dasharray: 120, 570;
+  stroke-dashoffset: -345;
+  animation-name: wide-l11p1-initial, none;
+}
+.prettier-logo-wide.rolling .l11 .p1 {
+  animation-name: wide-l11p1-initial, wide-l11p1-roll;
+}
+@-moz-keyframes wide-l11p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -295;
+  }
+}
+@-webkit-keyframes wide-l11p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -295;
+  }
+}
+@-o-keyframes wide-l11p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -295;
+  }
+}
+@keyframes wide-l11p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -295;
+  }
+}
+@-moz-keyframes wide-l11p1-roll {
+  100% {
+    stroke-dashoffset: 1035;
+  }
+}
+@-webkit-keyframes wide-l11p1-roll {
+  100% {
+    stroke-dashoffset: 1035;
+  }
+}
+@-o-keyframes wide-l11p1-roll {
+  100% {
+    stroke-dashoffset: 1035;
+  }
+}
+@keyframes wide-l11p1-roll {
+  100% {
+    stroke-dashoffset: 1035;
+  }
+}
+.prettier-logo-wide .l11 .p2 {
+  stroke-dasharray: 60, 630;
+  stroke-dashoffset: -265;
+  animation-name: wide-l11p2-initial, none;
+}
+.prettier-logo-wide.rolling .l11 .p2 {
+  animation-name: wide-l11p2-initial, wide-l11p2-roll;
+}
+@-moz-keyframes wide-l11p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -215;
+  }
+}
+@-webkit-keyframes wide-l11p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -215;
+  }
+}
+@-o-keyframes wide-l11p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -215;
+  }
+}
+@keyframes wide-l11p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -215;
+  }
+}
+@-moz-keyframes wide-l11p2-roll {
+  100% {
+    stroke-dashoffset: 1115;
+  }
+}
+@-webkit-keyframes wide-l11p2-roll {
+  100% {
+    stroke-dashoffset: 1115;
+  }
+}
+@-o-keyframes wide-l11p2-roll {
+  100% {
+    stroke-dashoffset: 1115;
+  }
+}
+@keyframes wide-l11p2-roll {
+  100% {
+    stroke-dashoffset: 1115;
+  }
+}
+.prettier-logo-wide .l11 .p3 {
+  stroke-dasharray: 20, 670;
+  stroke-dashoffset: -225;
+  animation-name: wide-l11p3-initial, none;
+}
+.prettier-logo-wide.rolling .l11 .p3 {
+  animation-name: wide-l11p3-initial, wide-l11p3-roll;
+}
+@-moz-keyframes wide-l11p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -175;
+  }
+}
+@-webkit-keyframes wide-l11p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -175;
+  }
+}
+@-o-keyframes wide-l11p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -175;
+  }
+}
+@keyframes wide-l11p3-initial {
+  0%, 50% {
+    stroke-dashoffset: -175;
+  }
+}
+@-moz-keyframes wide-l11p3-roll {
+  100% {
+    stroke-dashoffset: 1155;
+  }
+}
+@-webkit-keyframes wide-l11p3-roll {
+  100% {
+    stroke-dashoffset: 1155;
+  }
+}
+@-o-keyframes wide-l11p3-roll {
+  100% {
+    stroke-dashoffset: 1155;
+  }
+}
+@keyframes wide-l11p3-roll {
+  100% {
+    stroke-dashoffset: 1155;
+  }
+}
+.prettier-logo-wide .l11 .p4 {
+  stroke-dasharray: 40, 650;
+  stroke-dashoffset: -165;
+  animation-name: wide-l11p4-initial, none;
+}
+.prettier-logo-wide.rolling .l11 .p4 {
+  animation-name: wide-l11p4-initial, wide-l11p4-roll;
+}
+@-moz-keyframes wide-l11p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -115;
+  }
+}
+@-webkit-keyframes wide-l11p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -115;
+  }
+}
+@-o-keyframes wide-l11p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -115;
+  }
+}
+@keyframes wide-l11p4-initial {
+  0%, 50% {
+    stroke-dashoffset: -115;
+  }
+}
+@-moz-keyframes wide-l11p4-roll {
+  100% {
+    stroke-dashoffset: 1215;
+  }
+}
+@-webkit-keyframes wide-l11p4-roll {
+  100% {
+    stroke-dashoffset: 1215;
+  }
+}
+@-o-keyframes wide-l11p4-roll {
+  100% {
+    stroke-dashoffset: 1215;
+  }
+}
+@keyframes wide-l11p4-roll {
+  100% {
+    stroke-dashoffset: 1215;
+  }
+}
+.prettier-logo-wide .l11 .p5 {
+  stroke-dasharray: 80, 610;
+  stroke-dashoffset: -65;
+  animation-name: wide-l11p5-initial, none;
+}
+.prettier-logo-wide.rolling .l11 .p5 {
+  animation-name: wide-l11p5-initial, wide-l11p5-roll;
+}
+@-moz-keyframes wide-l11p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -15;
+  }
+}
+@-webkit-keyframes wide-l11p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -15;
+  }
+}
+@-o-keyframes wide-l11p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -15;
+  }
+}
+@keyframes wide-l11p5-initial {
+  0%, 50% {
+    stroke-dashoffset: -15;
+  }
+}
+@-moz-keyframes wide-l11p5-roll {
+  100% {
+    stroke-dashoffset: 1315;
+  }
+}
+@-webkit-keyframes wide-l11p5-roll {
+  100% {
+    stroke-dashoffset: 1315;
+  }
+}
+@-o-keyframes wide-l11p5-roll {
+  100% {
+    stroke-dashoffset: 1315;
+  }
+}
+@keyframes wide-l11p5-roll {
+  100% {
+    stroke-dashoffset: 1315;
+  }
+}
+.prettier-logo-wide .l12 > path {
+  animation-delay: 840ms;
+}
+.prettier-logo-wide .l12 .p0 {
+  stroke-dasharray: 50, 640;
+  stroke-dashoffset: -405;
+  animation-name: wide-l12p0-initial, none;
+}
+.prettier-logo-wide.rolling .l12 .p0 {
+  animation-name: wide-l12p0-initial, wide-l12p0-roll;
+}
+@-moz-keyframes wide-l12p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -255;
+  }
+}
+@-webkit-keyframes wide-l12p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -255;
+  }
+}
+@-o-keyframes wide-l12p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -255;
+  }
+}
+@keyframes wide-l12p0-initial {
+  0%, 50% {
+    stroke-dashoffset: -255;
+  }
+}
+@-moz-keyframes wide-l12p0-roll {
+  100% {
+    stroke-dashoffset: -1095;
+  }
+}
+@-webkit-keyframes wide-l12p0-roll {
+  100% {
+    stroke-dashoffset: -1095;
+  }
+}
+@-o-keyframes wide-l12p0-roll {
+  100% {
+    stroke-dashoffset: -1095;
+  }
+}
+@keyframes wide-l12p0-roll {
+  100% {
+    stroke-dashoffset: -1095;
+  }
+}
+.prettier-logo-wide .l12 .p1 {
+  stroke-dasharray: 80, 610;
+  stroke-dashoffset: -305;
+  animation-name: wide-l12p1-initial, none;
+}
+.prettier-logo-wide.rolling .l12 .p1 {
+  animation-name: wide-l12p1-initial, wide-l12p1-roll;
+}
+@-moz-keyframes wide-l12p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -155;
+  }
+}
+@-webkit-keyframes wide-l12p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -155;
+  }
+}
+@-o-keyframes wide-l12p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -155;
+  }
+}
+@keyframes wide-l12p1-initial {
+  0%, 50% {
+    stroke-dashoffset: -155;
+  }
+}
+@-moz-keyframes wide-l12p1-roll {
+  100% {
+    stroke-dashoffset: -995;
+  }
+}
+@-webkit-keyframes wide-l12p1-roll {
+  100% {
+    stroke-dashoffset: -995;
+  }
+}
+@-o-keyframes wide-l12p1-roll {
+  100% {
+    stroke-dashoffset: -995;
+  }
+}
+@keyframes wide-l12p1-roll {
+  100% {
+    stroke-dashoffset: -995;
+  }
+}
+.prettier-logo-wide .l12 .p2 {
+  stroke-dasharray: 110, 580;
+  stroke-dashoffset: -175;
+  animation-name: wide-l12p2-initial, none;
+}
+.prettier-logo-wide.rolling .l12 .p2 {
+  animation-name: wide-l12p2-initial, wide-l12p2-roll;
+}
+@-moz-keyframes wide-l12p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -25;
+  }
+}
+@-webkit-keyframes wide-l12p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -25;
+  }
+}
+@-o-keyframes wide-l12p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -25;
+  }
+}
+@keyframes wide-l12p2-initial {
+  0%, 50% {
+    stroke-dashoffset: -25;
+  }
+}
+@-moz-keyframes wide-l12p2-roll {
+  100% {
+    stroke-dashoffset: -865;
+  }
+}
+@-webkit-keyframes wide-l12p2-roll {
+  100% {
+    stroke-dashoffset: -865;
+  }
+}
+@-o-keyframes wide-l12p2-roll {
+  100% {
+    stroke-dashoffset: -865;
+  }
+}
+@keyframes wide-l12p2-roll {
+  100% {
+    stroke-dashoffset: -865;
+  }
+}
+.prettier-logo-wide .l12 .p3 {
+  stroke-dasharray: 60, 630;
+  stroke-dashoffset: -95;
+  animation-name: wide-l12p3-initial, none;
+}
+.prettier-logo-wide.rolling .l12 .p3 {
+  animation-name: wide-l12p3-initial, wide-l12p3-roll;
+}
+@-moz-keyframes wide-l12p3-initial {
+  0%, 50% {
+    stroke-dashoffset: 55;
+  }
+}
+@-webkit-keyframes wide-l12p3-initial {
+  0%, 50% {
+    stroke-dashoffset: 55;
+  }
+}
+@-o-keyframes wide-l12p3-initial {
+  0%, 50% {
+    stroke-dashoffset: 55;
+  }
+}
+@keyframes wide-l12p3-initial {
+  0%, 50% {
+    stroke-dashoffset: 55;
+  }
+}
+@-moz-keyframes wide-l12p3-roll {
+  100% {
+    stroke-dashoffset: -785;
+  }
+}
+@-webkit-keyframes wide-l12p3-roll {
+  100% {
+    stroke-dashoffset: -785;
+  }
+}
+@-o-keyframes wide-l12p3-roll {
+  100% {
+    stroke-dashoffset: -785;
+  }
+}
+@keyframes wide-l12p3-roll {
+  100% {
+    stroke-dashoffset: -785;
+  }
 }
