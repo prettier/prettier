@@ -10,42 +10,103 @@ const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
 function rootIndent() {
-  return {
-    length: 0,
-    value: ""
-  };
+  return { value: "", length: 0, queue: [] };
 }
 
 function makeIndent(ind, options) {
-  return {
-    length: ind.length + options.tabWidth,
-    value: ind.value + (options.useTabs ? "\t" : " ".repeat(options.tabWidth)),
-    root: ind.root
-  };
+  return generateInd(ind, { type: "indent" }, options);
 }
 
 function makeAlign(ind, n, options) {
   return n === -Infinity
-    ? ind.root ? ind.root : rootIndent()
-    : n === Infinity
-      ? {
-          length: ind.length,
-          value: ind.value,
-          root: ind
+    ? ind.root || rootIndent()
+    : n < 0
+      ? generateInd(ind, { type: "dedent" }, options)
+      : !n
+        ? ind
+        : n.type === "root"
+          ? Object.assign({}, ind, { root: ind })
+          : typeof n === "string"
+            ? generateInd(ind, { type: "stringAlign", n }, options)
+            : generateInd(ind, { type: "numberAlign", n }, options);
+}
+
+function generateInd(ind, newPart, options) {
+  const queue =
+    newPart.type === "dedent"
+      ? ind.queue.slice(0, -1)
+      : ind.queue.concat(newPart);
+
+  let value = "";
+  let length = 0;
+  let lastTabs = 0;
+  let lastSpaces = 0;
+
+  for (const part of queue) {
+    switch (part.type) {
+      case "indent":
+        flush();
+        if (options.useTabs) {
+          addTabs(1);
+        } else {
+          addSpaces(options.tabWidth);
         }
-      : typeof n === "string"
-        ? {
-            length: ind.length + n.length,
-            value: ind.value + n,
-            root: ind.root
-          }
-        : options.useTabs && n > 0
-          ? makeIndent(ind, options)
-          : {
-              length: ind.length + n,
-              value: ind.value + " ".repeat(n),
-              root: ind.root
-            };
+        break;
+      case "stringAlign":
+        flush();
+        value += part.n;
+        length += part.n.length;
+        break;
+      case "numberAlign":
+        lastTabs += 1;
+        lastSpaces += part.n;
+        break;
+      /* istanbul ignore next */
+      default:
+        throw new Error(`Unexpected type '${part.type}'`);
+    }
+  }
+
+  flushSpaces();
+
+  return Object.assign({}, ind, { value, length, queue });
+
+  function addTabs(count) {
+    value += "\t".repeat(count);
+    length += options.tabWidth * count;
+  }
+
+  function addSpaces(count) {
+    value += " ".repeat(count);
+    length += count;
+  }
+
+  function flush() {
+    if (options.useTabs) {
+      flushTabs();
+    } else {
+      flushSpaces();
+    }
+  }
+
+  function flushTabs() {
+    if (lastTabs > 0) {
+      addTabs(lastTabs);
+    }
+    resetLast();
+  }
+
+  function flushSpaces() {
+    if (lastSpaces > 0) {
+      addSpaces(lastSpaces);
+    }
+    resetLast();
+  }
+
+  function resetLast() {
+    lastTabs = 0;
+    lastSpaces = 0;
+  }
 }
 
 function fits(next, restCommands, width, options, mustBeFlat) {

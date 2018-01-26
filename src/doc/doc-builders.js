@@ -61,7 +61,11 @@ function dedentToRoot(contents) {
 }
 
 function markAsRoot(contents) {
-  return align(Infinity, contents);
+  return align({ type: "root" }, contents);
+}
+
+function dedent(contents) {
+  return align(-1, contents);
 }
 
 function conditionalGroup(states, opts) {
@@ -159,5 +163,6 @@ module.exports = {
   align,
   addAlignmentToDoc,
   markAsRoot,
-  dedentToRoot
+  dedentToRoot,
+  dedent
 };
