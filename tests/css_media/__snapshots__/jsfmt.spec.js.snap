@@ -79,6 +79,223 @@ exports[`media.css 1`] = `
 
 `;
 
+exports[`nested.css 1`] = `
+.screen-color {
+    @media screen {
+        color: green;
+
+        @media (min-width: 768px) {
+            color: red;
+        }
+    }
+    @media tv {
+        color: black;
+    }
+}
+.screen-color {
+@media screen {
+color: green;
+
+@media (min-width: 768px) {
+color: red;
+}
+}
+@media tv {
+color: black;
+}
+}
+.screen-color{
+    @media screen{
+        color: green;
+
+        @media (min-width: 768px){
+            color: red;
+        }
+    }
+    @media tv{
+        color: black;
+    }
+}
+.screen-color  {
+    @media screen  {
+        color: green;
+
+        @media (min-width: 768px)  {
+            color: red;
+        }
+    }
+    @media tv  {
+        color: black;
+    }
+}
+.screen-color
+{
+@media
+screen
+{
+color
+:
+green
+;
+@media
+(
+min-width
+:
+768px
+)
+{
+color
+:
+red
+;
+}
+}
+@media
+tv
+{
+color
+:
+black
+;
+}
+}
+.screen-color
+
+{
+
+@media
+
+screen
+
+{
+
+color
+
+:
+
+green
+
+;
+
+@media
+
+(
+
+min-width
+
+:
+
+768px
+
+)
+
+{
+
+color
+
+:
+
+red
+
+;
+
+}
+
+}
+
+@media
+
+tv
+
+{
+
+color
+
+:
+
+black
+
+;
+
+}
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+
+  @media tv {
+    color: black;
+  }
+}
+
+`;
+
 exports[`overflow.css 1`] = `
 @media all and (-webkit-min-device-pixel-ratio: 1.5), all and (-o-min-device-pixel-ratio: 3/2), all and (min--moz-device-pixel-ratio: 1.5), all and (min-device-pixel-ratio: 1.5) {
 }

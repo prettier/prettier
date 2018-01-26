@@ -19,7 +19,10 @@ exports[`comment-in-if.css 1`] = `
     @return true;
   }
   // If $include is set to (all), make sure $section is not in $exclude.
-  @else if not index($_normalize-exclude, $section) and index($_normalize-include, all) {
+  @else if not
+    index($_normalize-exclude, $section) and
+    index($_normalize-include, all)
+  {
     @return true;
   }
   @return false;

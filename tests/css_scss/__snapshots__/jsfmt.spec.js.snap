@@ -580,17 +580,17 @@ $map: map-merge($map, ($key: $value));
 $map: map-merge($map, ($key: $value));
 
 .card-column-simple {
-  @include breakpoint( getBp( md ) ) {
+  @include breakpoint(getBp(md)) {
     padding: $spacing_content-sm $spacing_content-md;
   }
 
-  @include breakpoint (getBp(md)) {
+  @include breakpoint(getBp(md)) {
     &:nth-child(2n + 3) {
       clear: both;
     }
   }
 
-  @include breakpoint (getBp(xl)) {
+  @include breakpoint(getBp(xl)) {
     &:nth-child(2n + 3) {
       clear: none;
     }
@@ -744,14 +744,9 @@ p {
   }
 }
 
-@each $animal in puma,
-  sea-slug,
-  cheerfulDog,
-  BigSalamander,
-  "string",
-  "another-string",
-  "camelCaseString",
-  "PascalCaseString" {
+@each $animal in puma, sea-slug, cheerfulDog, BigSalamander, "string",
+  "another-string", "camelCaseString", "PascalCaseString"
+{
   .#{$animal}-icon {
     background-image: url("/images/#{$animal}.png");
   }
@@ -856,7 +851,11 @@ p {
 @function myCalculationFunction($some-number, $anotherNumber, $BigNumber) {
   @return $some-number + $anotherNumber + $BigNumber;
 }
-@function AnotherMyCalculationFunction($some-number, $anotherNumber, $BigNumber: 100px) {
+@function AnotherMyCalculationFunction(
+  $some-number,
+  $anotherNumber,
+  $BigNumber: 100px
+) {
   @return $some-number + $anotherNumber + $BigNumber;
 }
 @function border($borders...) {

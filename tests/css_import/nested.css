@@ -1,0 +1,30 @@
+#main {
+    @import "example";
+}
+#main {
+@import "example";
+}
+#main {
+    @import "example" ;
+}
+#main {
+    @import  "example"  ;
+}
+#main {
+    @import
+        "example";
+}
+#main
+{
+@import
+"example";
+}
+#main
+
+{
+
+@import
+
+"example";
+
+}

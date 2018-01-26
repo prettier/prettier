@@ -81,7 +81,7 @@
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-replace": "1.2.1",
-    "shelljs": "0.7.8",
+    "shelljs": "0.8.1",
     "snapshot-diff": "0.2.2",
     "strip-ansi": "4.0.0",
     "sw-toolbox": "3.6.0",
