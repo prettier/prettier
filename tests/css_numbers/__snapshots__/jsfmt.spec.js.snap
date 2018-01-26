@@ -68,6 +68,7 @@ exports[`numbers.css 1`] = `
     a: 10;
     a: 9700;
     a: 10e100;
+    height: attr(data-size em, .01);
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -138,6 +139,7 @@ exports[`numbers.css 1`] = `
     a: 10;
     a: 9700;
     a: 10e100;
+    height: attr(data-size em, 0.01);
   }
 }
 

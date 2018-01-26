@@ -125,3 +125,75 @@ a {
       );
   padding-top: var(  --paddingC  );
 }
+
+.bar {
+    prop1: attr(data-foo);
+    prop2: attr( data-foo );
+    prop3: attr(  data-foo  );
+    prop4: attr(
+        data-foo
+    );
+    prop5: attr(
+        data-foo
+    );
+    prop6:
+        attr(data-foo);
+    prop7:
+        attr(
+            data-foo
+        );
+    prop8:
+    attr(
+    data-foo
+    )
+    ;
+    prop9:"("attr(title)")";
+    prop10: "(" attr( title ) ")";
+    prop11:  "("  attr(  title  )  ")";
+    prop12: "("
+        attr(title)
+    ")";
+    prop13:
+        "("
+        attr(title)
+        ")";
+    prop14:
+        "("
+        attr(
+            title
+        )
+        ")";
+    prop15:
+    "("
+    attr(
+    title
+    )
+    ")"
+    ;
+    prop16: attr(length em);
+    prop17: attr(length  em);
+    prop18: attr(length   em);
+    prop19: attr(
+        length
+        em
+    );
+    prop20:attr(data-size em,20);
+    prop21: attr( data-size em , 20 );
+    prop22:  attr(  data-size  em  ,  20  );
+    prop23: attr(
+        data-size em,
+        20
+    );
+    prop24:
+        attr(
+            data-size em,
+            20
+        );
+    prop25:
+    attr(
+    data-size
+    em,
+    20
+    )
+    ;
+}
