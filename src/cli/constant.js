@@ -1,8 +1,6 @@
 "use strict";
 
 const dedent = require("dedent");
-const dashify = require("dashify");
-const getSupportInfo = require("../common/support").getSupportInfo;
 
 const CATEGORY_CONFIG = "Config";
 const CATEGORY_EDITOR = "Editor";
@@ -76,199 +74,118 @@ const categoryOrder = [
  *
  * Note: The options below are sorted alphabetically.
  */
-const detailedOptions = normalizeDetailedOptions(
-  Object.assign(
-    getSupportInfo(null, {
-      showDeprecated: true,
-      showUnreleased: true
-    }).options.reduce((reduced, option) => {
-      const newOption = Object.assign({}, option, {
-        name: dashify(option.name),
-        forwardToApi: option.name
-      });
-
-      switch (option.name) {
-        case "filepath":
-          Object.assign(newOption, {
-            name: "stdin-filepath",
-            description: "Path to the file to pretend that stdin comes from."
-          });
-          break;
-        case "useFlowParser":
-          newOption.name = "flow-parser";
-          break;
-        case "plugins":
-          newOption.name = "plugin";
-          break;
-      }
-
-      switch (newOption.name) {
-        case "cursor-offset":
-        case "range-start":
-        case "range-end":
-          newOption.category = CATEGORY_EDITOR;
-          break;
-        case "stdin-filepath":
-        case "insert-pragma":
-        case "require-pragma":
-          newOption.category = CATEGORY_OTHER;
-          break;
-        case "plugin":
-          newOption.category = CATEGORY_CONFIG;
-          break;
-        default:
-          newOption.category = CATEGORY_FORMAT;
-          break;
-      }
-
-      if (option.deprecated) {
-        delete newOption.forwardToApi;
-        delete newOption.description;
-        delete newOption.oppositeDescription;
-        newOption.deprecated = true;
-      }
-
-      return Object.assign(reduced, { [newOption.name]: newOption });
-    }, {}),
-    {
-      color: {
-        // The supports-color package (a sub sub dependency) looks directly at
-        // `process.argv` for `--no-color` and such-like options. The reason it is
-        // listed here is to avoid "Ignored unknown option: --no-color" warnings.
-        // See https://github.com/chalk/supports-color/#info for more information.
-        type: "boolean",
-        default: true,
-        description: "Colorize error messages.",
-        oppositeDescription: "Do not colorize error messages."
+const options = {
+  color: {
+    // The supports-color package (a sub sub dependency) looks directly at
+    // `process.argv` for `--no-color` and such-like options. The reason it is
+    // listed here is to avoid "Ignored unknown option: --no-color" warnings.
+    // See https://github.com/chalk/supports-color/#info for more information.
+    type: "boolean",
+    default: true,
+    description: "Colorize error messages.",
+    oppositeDescription: "Do not colorize error messages."
+  },
+  config: {
+    type: "path",
+    category: CATEGORY_CONFIG,
+    description:
+      "Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).",
+    oppositeDescription: "Do not look for a configuration file."
+  },
+  "config-precedence": {
+    type: "choice",
+    category: CATEGORY_CONFIG,
+    default: "cli-override",
+    choices: [
+      {
+        value: "cli-override",
+        description: "CLI options take precedence over config file"
       },
-      config: {
-        type: "path",
-        category: CATEGORY_CONFIG,
-        description:
-          "Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).",
-        oppositeDescription: "Do not look for a configuration file."
+      {
+        value: "file-override",
+        description: "Config file take precedence over CLI options"
       },
-      "config-precedence": {
-        type: "choice",
-        category: CATEGORY_CONFIG,
-        default: "cli-override",
-        choices: [
-          {
-            value: "cli-override",
-            description: "CLI options take precedence over config file"
-          },
-          {
-            value: "file-override",
-            description: "Config file take precedence over CLI options"
-          },
-          {
-            value: "prefer-file",
-            description: dedent`
-              If a config file is found will evaluate it and ignore other CLI options.
-              If no config file is found CLI options will evaluate as normal.
-            `
-          }
-        ],
-        description:
-          "Define in which order config files and CLI options should be evaluated."
-      },
-      "debug-check": {
-        type: "boolean"
-      },
-      "debug-print-doc": {
-        type: "boolean"
-      },
-      editorconfig: {
-        type: "boolean",
-        category: CATEGORY_CONFIG,
-        description:
-          "Take .editorconfig into account when parsing configuration.",
-        oppositeDescription:
-          "Don't take .editorconfig into account when parsing configuration.",
-        default: true
-      },
-      "find-config-path": {
-        type: "path",
-        category: CATEGORY_CONFIG,
-        description:
-          "Find and print the path to a configuration file for the given input file."
-      },
-      help: {
-        type: "flag",
-        alias: "h",
+      {
+        value: "prefer-file",
         description: dedent`
-          Show CLI usage, or details about the given flag.
-          Example: --help write
+          If a config file is found will evaluate it and ignore other CLI options.
+          If no config file is found CLI options will evaluate as normal.
         `
-      },
-      "ignore-path": {
-        type: "path",
-        category: CATEGORY_CONFIG,
-        default: ".prettierignore",
-        description: "Path to a file with patterns describing files to ignore."
-      },
-      "list-different": {
-        type: "boolean",
-        category: CATEGORY_OUTPUT,
-        alias: "l",
-        description:
-          "Print the names of files that are different from Prettier's formatting."
-      },
-      loglevel: {
-        type: "choice",
-        description: "What level of logs to report.",
-        default: "log",
-        choices: ["silent", "error", "warn", "log", "debug"]
-      },
-      stdin: {
-        type: "boolean",
-        description: "Force reading input from stdin."
-      },
-      "support-info": {
-        type: "boolean",
-        description: "Print support information as JSON."
-      },
-      version: {
-        type: "boolean",
-        alias: "v",
-        description: "Print Prettier version."
-      },
-      "with-node-modules": {
-        type: "boolean",
-        category: CATEGORY_CONFIG,
-        description: "Process files inside 'node_modules' directory."
-      },
-      write: {
-        type: "boolean",
-        category: CATEGORY_OUTPUT,
-        description: "Edit files in-place. (Beware!)"
       }
-    }
-  )
-);
-
-const minimistOptions = {
-  boolean: detailedOptions
-    .filter(option => option.type === "boolean")
-    .map(option => option.name),
-  string: detailedOptions
-    .filter(option => option.type !== "boolean")
-    .map(option => option.name),
-  default: detailedOptions
-    .filter(option => !option.deprecated)
-    .filter(option => option.default !== undefined)
-    .reduce(
-      (current, option) =>
-        Object.assign({ [option.name]: option.default }, current),
-      {}
-    ),
-  alias: detailedOptions
-    .filter(option => option.alias !== undefined)
-    .reduce(
-      (current, option) =>
-        Object.assign({ [option.name]: option.alias }, current),
-      {}
-    )
+    ],
+    description:
+      "Define in which order config files and CLI options should be evaluated."
+  },
+  "debug-check": {
+    type: "boolean"
+  },
+  "debug-print-doc": {
+    type: "boolean"
+  },
+  editorconfig: {
+    type: "boolean",
+    category: CATEGORY_CONFIG,
+    description: "Take .editorconfig into account when parsing configuration.",
+    oppositeDescription:
+      "Don't take .editorconfig into account when parsing configuration.",
+    default: true
+  },
+  "find-config-path": {
+    type: "path",
+    category: CATEGORY_CONFIG,
+    description:
+      "Find and print the path to a configuration file for the given input file."
+  },
+  help: {
+    type: "flag",
+    alias: "h",
+    description: dedent`
+      Show CLI usage, or details about the given flag.
+      Example: --help write
+    `
+  },
+  "ignore-path": {
+    type: "path",
+    category: CATEGORY_CONFIG,
+    default: ".prettierignore",
+    description: "Path to a file with patterns describing files to ignore."
+  },
+  "list-different": {
+    type: "boolean",
+    category: CATEGORY_OUTPUT,
+    alias: "l",
+    description:
+      "Print the names of files that are different from Prettier's formatting."
+  },
+  loglevel: {
+    type: "choice",
+    description: "What level of logs to report.",
+    default: "log",
+    choices: ["silent", "error", "warn", "log", "debug"]
+  },
+  stdin: {
+    type: "boolean",
+    description: "Force reading input from stdin."
+  },
+  "support-info": {
+    type: "boolean",
+    description: "Print support information as JSON."
+  },
+  version: {
+    type: "boolean",
+    alias: "v",
+    description: "Print Prettier version."
+  },
+  "with-node-modules": {
+    type: "boolean",
+    category: CATEGORY_CONFIG,
+    description: "Process files inside 'node_modules' directory."
+  },
+  write: {
+    type: "boolean",
+    category: CATEGORY_OUTPUT,
+    description: "Edit files in-place. (Beware!)"
+  }
 };
 
 const usageSummary = dedent`
@@ -278,50 +195,13 @@ const usageSummary = dedent`
   Stdin is read if it is piped to Prettier and no files are given.
 `;
 
-function normalizeDetailedOptions(rawDetailedOptions) {
-  const names = Object.keys(rawDetailedOptions).sort();
-
-  const normalized = names.map(name => {
-    const option = rawDetailedOptions[name];
-    return Object.assign({}, option, {
-      name,
-      category: option.category || CATEGORY_OTHER,
-      choices:
-        option.choices &&
-        option.choices.map(choice => {
-          const newChoice = Object.assign(
-            { description: "", deprecated: false },
-            typeof choice === "object" ? choice : { value: choice }
-          );
-          if (newChoice.value === true) {
-            newChoice.value = ""; // backward compability for original boolean option
-          }
-          return newChoice;
-        })
-    });
-  });
-
-  return normalized;
-}
-
-const detailedOptionMap = detailedOptions.reduce(
-  (current, option) => Object.assign(current, { [option.name]: option }),
-  {}
-);
-
-const apiDetailedOptionMap = detailedOptions.reduce(
-  (current, option) =>
-    option.forwardToApi && option.forwardToApi !== option.name
-      ? Object.assign(current, { [option.forwardToApi]: option })
-      : current,
-  {}
-);
-
 module.exports = {
+  CATEGORY_CONFIG,
+  CATEGORY_EDITOR,
+  CATEGORY_FORMAT,
+  CATEGORY_OTHER,
+  CATEGORY_OUTPUT,
   categoryOrder,
-  minimistOptions,
-  detailedOptions,
-  detailedOptionMap,
-  apiDetailedOptionMap,
+  options,
   usageSummary
 };
