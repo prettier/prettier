@@ -802,16 +802,12 @@ function printPathNoParens(path, options, print, args) {
 
       const optional = printOptionalToken(path);
       if (
-        // We want to keep CommonJS require calls as a unit
-        (!isNew &&
-          n.callee.type === "Identifier" &&
-          n.callee.name === "require") ||
-        // As well as AMD-style require and define calls.
-        // Note that the previuos case covers AMD-style require calls as well.
+        // We want to keep CommonJS- and AMD-style require calls, and AMD-style
+        // define calls, as a unit.
         // e.g. `define(["some/lib", (lib) => {`
         (!isNew &&
           n.callee.type === "Identifier" &&
-          n.callee.name === "define") ||
+          (n.callee.name === "require" || n.callee.name === "define")) ||
         n.callee.type === "Import" ||
         // Template literals as single arguments
         (n.arguments.length === 1 &&
