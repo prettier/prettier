@@ -1246,9 +1246,6 @@ selector {
 }
 
 
-ERROR 1:32 The variable "@one" was not declared.
-
-
 #space {
   .importer-1() {
     @detached: { scope-detached: @variable; }; // define detached ruleset
@@ -1270,6 +1267,7 @@ ERROR 1:32 The variable "@one" was not declared.
   scope-detached: value;
 }
 
+@my-ruleset:{.my-selector{@media tv{background-color:black;}}};
 
 .foo {
   background: #900;
@@ -2669,7 +2667,7 @@ div {
 // declare detached ruleset
 @detached-ruleset: {
   background: red;
-}
+};
 
 // use detached ruleset
 .top {
@@ -2713,7 +2711,7 @@ html.lt-ie9 header {
   .my-selector {
     background-color: black;
   }
-}
+};
 
 @my-ruleset: {
   .my-selector {
@@ -2721,7 +2719,7 @@ html.lt-ie9 header {
       background-color: black;
     }
   }
-}
+};
 @media (orientation: portrait) {
   @my-ruleset();
 }
@@ -2737,7 +2735,7 @@ html.lt-ie9 header {
   .mixin() {
     color: blue;
   }
-}
+};
 // call detached ruleset
 .caller {
   @detached-ruleset();
@@ -2750,7 +2748,7 @@ html.lt-ie9 header {
 
 @detached-ruleset: {
   @color: blue; // this variable is private
-}
+};
 .caller {
   color: @color; // syntax error
 }
@@ -2758,7 +2756,7 @@ html.lt-ie9 header {
 @detached-ruleset: {
   caller-variable: @caller-variable; // variable is undefined here
   .caller-mixin(); // mixin is undefined here
-}
+};
 
 selector {
   // use detached ruleset
@@ -2781,7 +2779,7 @@ selector {
   // will use global variable, because it is accessible
   // from detached-ruleset definition
   variable: @variable;
-}
+};
 
 selector {
   @detached-ruleset();
@@ -2794,7 +2792,7 @@ selector {
 
 @detached-1: {
   scope-detached: @one @two;
-}
+};
 .one {
   @one: visible;
   .two {
@@ -2808,11 +2806,11 @@ selector {
   @detached-2();
 }
 
-ERROR 1:32 The variable "@one" was not declared. #space {
+#space {
   .importer-1() {
     @detached: {
       scope-detached: @variable;
-    } // define detached ruleset
+    }; // define detached ruleset
   }
 }
 
@@ -2829,6 +2827,14 @@ ERROR 1:32 The variable "@one" was not declared. #space {
 .use-place {
   scope-detached: value;
 }
+
+@my-ruleset: {
+  .my-selector {
+    @media tv {
+      background-color: black;
+    }
+  }
+};
 
 .foo {
   background: #900;

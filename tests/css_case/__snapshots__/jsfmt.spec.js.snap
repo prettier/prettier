@@ -147,7 +147,7 @@ svg[viewBox] linearGradient,
 
 @KeepDetachedRuleset: {
   background: RED;
-}
+};
 
 %KeepScssPlaceholderSelector {
   prop: val;
