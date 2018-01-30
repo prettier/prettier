@@ -18,6 +18,15 @@ $default: "very-long-long-long-long-long-long-long-long-long-long-long-value"   
 $default: "very-long-long-long-long-long-long-long-long-long-long-long-value"
 !default;
 
+$global: #111111 !global;
+$global: #111111   !global;
+$global: #111111
+!global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value"   !global;
+$global: "very-long-long-long-long-long-long-long-long-long-long-long-value"
+!global;
+
 $map: (key: value, other-key: other-value);
 $map: (key: value, other-key: other-value) !default;
 $map: (key: value, other-key: other-value)  !default;

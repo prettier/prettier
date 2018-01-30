@@ -163,6 +163,7 @@ function parseMediaQuery(value) {
 }
 
 const DEFAULT_SCSS_DIRECTIVE = "!default";
+const GLOBAL_SCSS_DIRECTIVE = "!global";
 
 function parseNestedCSS(node) {
   if (node && typeof node === "object") {
@@ -199,6 +200,11 @@ function parseNestedCSS(node) {
         if (node.value.endsWith(DEFAULT_SCSS_DIRECTIVE)) {
           node.default = true;
           node.value = node.value.slice(0, -DEFAULT_SCSS_DIRECTIVE.length);
+        }
+
+        if (node.value.endsWith(GLOBAL_SCSS_DIRECTIVE)) {
+          node.global = true;
+          node.value = node.value.slice(0, -GLOBAL_SCSS_DIRECTIVE.length);
         }
 
         node.value = parseValue(node.value);
