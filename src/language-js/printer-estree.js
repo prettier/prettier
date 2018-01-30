@@ -1635,13 +1635,15 @@ function printPathNoParens(path, options, print, args) {
         let res;
         if (isStringLiteral(n.value)) {
           let regex = /"/g;
+          let quote = '"';
           let escapedChar = "&quot;";
           if (options.jsxSingleQuote) {
             regex = /'/g;
             escapedChar = "&apos;";
+            quote = "'";
           }
           const value = rawText(n.value);
-          res = '"' + value.slice(1, -1).replace(regex, escapedChar) + '"';
+          res = quote + value.slice(1, -1).replace(regex, escapedChar) + quote;
         } else {
           res = path.call(print, "value");
         }
