@@ -65,8 +65,10 @@ Notes:
 
 ## JSX Quotes
 
-| Default | CLI Override     | API Override          |
-| ------- | ---------------- | --------------------- |
+Use single quotes instead of double quotes.
+
+| Default | CLI Override         | API Override             |
+| ------- | -------------------- | ------------------------ |
 | `false` | `--jsx-single-quote` | `jsxSingleQuote: <bool>` |
 
 ## Trailing Commas
