@@ -108,6 +108,7 @@ function genericPrint(path, options, print) {
           : path.call(print, "value"),
         n.important ? " !important" : "",
         n.default ? " !default" : "",
+        n.global ? " !global" : "",
         n.nodes
           ? concat([
               " {",
