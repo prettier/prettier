@@ -56,12 +56,18 @@ Use single quotes instead of double quotes.
 
 Notes:
 
-* Quotes in JSX will always be double and ignore this setting.
+* Quotes in JSX will ignore this setting. See: jsx-single-quote to specify for JSX.
 * If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
 
 | Default | CLI Override     | API Override          |
 | ------- | ---------------- | --------------------- |
 | `false` | `--single-quote` | `singleQuote: <bool>` |
+
+## JSX Quotes
+
+| Default | CLI Override     | API Override          |
+| ------- | ---------------- | --------------------- |
+| `false` | `--jsx-single-quote` | `jsxSingleQuote: <bool>` |
 
 ## Trailing Commas
 

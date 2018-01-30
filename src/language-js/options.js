@@ -52,6 +52,13 @@ module.exports = {
     default: false,
     description: "Use single quotes instead of double quotes."
   },
+  jsxSingleQuote: {
+    since: "1.10.3",
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description: "Use single quotes instead of double quotes."
+  },
   trailingComma: {
     since: "0.0.0",
     category: CATEGORY_JAVASCRIPT,

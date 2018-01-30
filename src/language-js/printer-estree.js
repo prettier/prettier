@@ -1631,12 +1631,17 @@ function printPathNoParens(path, options, print, args) {
       return concat(["debugger", semi]);
     case "JSXAttribute":
       parts.push(path.call(print, "name"));
-
       if (n.value) {
         let res;
         if (isStringLiteral(n.value)) {
+          let regex = /"/g;
+          let escapedChar = "&quot;";
+          if (options.jsxSingleQuote) {
+            regex = /'/g;
+            escapedChar = "&apos;";
+          }
           const value = rawText(n.value);
-          res = '"' + value.slice(1, -1).replace(/"/g, "&quot;") + '"';
+          res = '"' + value.slice(1, -1).replace(regex, escapedChar) + '"';
         } else {
           res = path.call(print, "value");
         }

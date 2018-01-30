@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
+<SimpleComponent
+  str0="abc"
+  str1='abc'
+  str2="a'b'c"
+  str3='a"b"c'
+/>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<SimpleComponent str0="abc" str1="abc" str2="a&apos;b&apos;c" str3="a"b"c" />;
+
+`;
+
+exports[`test.js 2`] = `
+<SimpleComponent
+  str0="abc"
+  str1='abc'
+  str2="a'b'c"
+  str3='a"b"c'
+/>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<SimpleComponent str0="abc" str1="abc" str2="a'b'c" str3="a&quot;b&quot;c" />;
+
+`;
