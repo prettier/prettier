@@ -57,6 +57,14 @@ function genericPrint(path, options, print) {
       return text;
     }
     case "css-rule": {
+      // If a Less file ends up being parsed with the SCSS parser, Less
+      // variable declarations will be parsed as atrules with names ending
+      // with a colon, so keep the original case then.
+      const isDetachedRulesetDeclaration =
+        n.selector &&
+        typeof n.selector === "string" &&
+        n.selector.startsWith("@") &&
+        n.selector.endsWith(":");
       return concat([
         path.call(print, "selector"),
         n.important ? " !important" : "",
@@ -69,7 +77,8 @@ function genericPrint(path, options, print) {
                   )
                 : "",
               hardline,
-              "}"
+              "}",
+              isDetachedRulesetDeclaration ? ";" : ""
             ])
           : ";"
       ]);

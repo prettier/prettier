@@ -1243,9 +1243,6 @@ selector {
 }
 
 
-ERROR 1:32 The variable "@one" was not declared.
-
-
 #space {
   .importer-1() {
     @detached: { scope-detached: @variable; }; // define detached ruleset
@@ -1267,6 +1264,7 @@ ERROR 1:32 The variable "@one" was not declared.
   scope-detached: value;
 }
 
+@my-ruleset:{.my-selector{@media tv{background-color:black;}}};
 
 .foo {
   background: #900;

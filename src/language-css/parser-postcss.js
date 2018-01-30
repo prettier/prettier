@@ -175,6 +175,10 @@ function parseNestedCSS(node) {
         ? node.raws.selector.raw
         : node.selector;
 
+      if (selector.startsWith("@") && selector.endsWith(":")) {
+        return node;
+      }
+
       try {
         node.selector = parseSelector(selector);
       } catch (e) {
