@@ -5,19 +5,19 @@ title: Rationale
 
 Prettier is an opinionated code formatter. This document gives a rationale behind those opinions.
 
-## What prettier is concerned about
+## What Prettier is concerned about
 
 ### Consistency
 
-Prettier exists for one purpose: to enforce consistency across your entire project. Not only do we output code with consistent whitespace, prettier will lay out code according to a wrapping algorithm based on a maximum line width. That means that long expressions will be broken up across lines, removing the need for manual layout from the programmer which inevitably leads to inconsistency.
+Prettier exists for one purpose: to enforce consistency across your entire project. Not only do we output code with consistent whitespace, Prettier will lay out code according to a wrapping algorithm based on a maximum line width. That means that long expressions will be broken up across lines, removing the need for manual layout from the programmer which inevitably leads to inconsistency.
 
 ### Correctness
 
-The first requirement of prettier is to output valid JavaScript and code that has the exact same behavior as before formatting. Please report any JavaScript code where prettier fails to follow these correctness rules — that's a bug which needs to be fixed!
+The first requirement of Prettier is to output valid JavaScript and code that has the exact same behavior as before formatting. Please report any JavaScript code where Prettier fails to follow these correctness rules — that's a bug which needs to be fixed!
 
 ### Whitespace: indentation and line breaks
 
-This is the core of prettier. The formatting rules are going to be explained in a later section.
+This is the core of Prettier. The formatting rules are going to be explained in a later section.
 
 ### Strings
 
@@ -34,11 +34,11 @@ Prettier outputs the minimum number of parentheses required to ensure that the b
 
 ### Empty lines
 
-It turns out that empty lines are very hard to automatically generate. The approach that prettier takes is to preserve empty lines the way they were in the original source code. The only constraint is that prettier disallows several empty lines in a row. They are collapsed to a single one.
+It turns out that empty lines are very hard to automatically generate. The approach that Prettier takes is to preserve empty lines the way they were in the original source code. The only constraint is that Prettier disallows several empty lines in a row. They are collapsed to a single one.
 
 ### Multi-line objects
 
-It is tempting to collapse an object to a single line if it fits, but there are times when it is better for sibling/cousin keys to stay vertically aligned—see [object lists], [nested configs], [stylesheets], and [keyed methods]. To avoid unfavorable collapsing, prettier simply formats any object as multi-line if it appears as such in the original source code. This is the same strategy used by [elm-format] for multi-line records.
+It is tempting to collapse an object to a single line if it fits, but there are times when it is better for sibling/cousin keys to stay vertically aligned—see [object lists], [nested configs], [stylesheets], and [keyed methods]. To avoid unfavorable collapsing, Prettier simply formats any object as multi-line if it appears as such in the original source code. This is the same strategy used by [elm-format] for multi-line records.
 
 [object lists]: https://github.com/prettier/prettier/issues/74#issue-199965534
 [nested configs]: https://github.com/prettier/prettier/issues/88#issuecomment-275448346
@@ -46,35 +46,10 @@ It is tempting to collapse an object to a single line if it fits, but there are 
 [keyed methods]: https://github.com/prettier/prettier/pull/495#issuecomment-275745434
 [elm-format]: https://github.com/prettier/prettier/issues/74#issuecomment-275621526
 
-## What prettier is _not_ concerned about
+## What Prettier is _not_ concerned about
 
-Here are a few examples of things that are out of scope for prettier:
+Here are a few examples of things that are out of scope for Prettier:
 
 * Turning single/double quotes into template literals or vice versa.
 * Adding/removing `{}` and `return` where they are optional.
 * Turning `?:` into `if then else`.
-
-<!--
-### Semi-colons
-
-...TBD...
-
-## Formatting rules
-
-... TBD ...
-
-
-### Function calls
-
-
-### Method calls
-
-
-### JSX
-
-
-### Boolean expressions
-
-
-### String concatenation
--->
