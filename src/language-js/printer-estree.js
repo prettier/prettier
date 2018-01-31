@@ -761,8 +761,8 @@ function printPathNoParens(path, options, print, args) {
           parts.push(
             concat([
               " (",
-              indent(concat([softline, path.call(print, "argument")])),
-              line,
+              indent(concat([hardline, path.call(print, "argument")])),
+              hardline,
               ")"
             ])
           );
