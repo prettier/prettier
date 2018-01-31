@@ -127,3 +127,6 @@
 - caption: Discord
   image: "/images/users/discord-200x100.png"
   infoLink: https://discordapp.com
+- caption: Shelf
+  image: "/images/users/shelf-200x100.png"
+  infoLink: https://shelf.io
