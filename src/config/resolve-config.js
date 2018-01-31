@@ -28,7 +28,17 @@ function getLoadFunction(opts) {
   return getExplorerMemoized(opts).load;
 }
 
-function _resolveConfig(filePath, opts, sync) {
+/**
+ * @param {String} filePath - file path to begin searching for configuration
+ * @param {Object} [opts] - Prettier options + resolution options
+ * @param {String} [opts.config=null] - file path for configuration file to use
+ * @param {Boolean} [opts.useCache=true] - flag to set cache usage when
+ * fetching configuration
+ *
+ * @param {Boolean} [opts.editorconfig=false] - flag to combine .editorconfig
+ * with and found Prettier configuration
+ */
+function _resolveConfig(filePath, opts, sync, includeFilePath) {
   opts = Object.assign({ useCache: true }, opts);
   const loadOpts = {
     cache: !!opts.useCache,
@@ -50,6 +60,13 @@ function _resolveConfig(filePath, opts, sync) {
 
     if (!result && !editorConfigured) {
       return null;
+    }
+
+    if (includeFilePath) {
+      return {
+        config: merged,
+        filePath: result.filepath
+      };
     }
 
     return merged;
@@ -83,6 +100,12 @@ resolveConfigFile.sync = filePath => {
   const result = load(filePath);
   return result ? result.filepath : null;
 };
+
+const resolveConfigWithFilePath = (filePath, opts) =>
+  _resolveConfig(filePath, opts, false, true);
+
+resolveConfigWithFilePath.sync = (filePath, opts) =>
+  _resolveConfig(filePath, opts, true, true);
 
 function mergeOverrides(configResult, filePath) {
   const options = Object.assign({}, configResult.config);
@@ -125,5 +148,6 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
 module.exports = {
   resolveConfig,
   resolveConfigFile,
+  resolveConfigWithFilePath,
   clearCache
 };

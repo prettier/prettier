@@ -407,6 +407,7 @@ module.exports = {
   doc,
 
   resolveConfig: config.resolveConfig,
+  resolveConfigWithFilePath: config.resolveConfigWithFilePath,
   clearConfigCache: config.clearCache,
 
   getSupportInfo,

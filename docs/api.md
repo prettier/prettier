@@ -16,10 +16,6 @@ prettier.format("foo ( );", { semi: false });
 // -> "foo()"
 ```
 
-## `prettier.check(source [, options])`
-
-`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`. This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
-
 ## `prettier.formatWithCursor(source [, options])`
 
 `formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code. This is useful for editor integrations, to prevent the cursor from moving when code is formatted.
@@ -30,6 +26,10 @@ The `cursorOffset` option should be provided, to specify where the cursor is. Th
 prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
+
+## `prettier.check(source [, options])`
+
+`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`. This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
 
 ## `prettier.resolveConfig(filePath [, options])`
 
@@ -56,6 +56,18 @@ If `options.editorconfig` is `true` and an [`.editorconfig` file](http://editorc
 * `max_line_length`
 
 Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use sync version.
+
+## `prettier.resolveConfigWithFilePath(filePath [, options])`
+
+`resolveConfigWithFilePath` works that same as `resolveConfig` with one difference. The response will include both the configuration that was resolved, along with the file path to the configuration that was used to generate the configuration. However, it will not include the path to the located `.editorconfig` file when used as the core Prettier configuration acts as an override. This is useful for editor integrations, to subscribe to the resolved configuration and reload with any changes.
+
+```js
+prettier.resolveConfigWithFilePath(filePath).then(result => {
+  // result -> { config: {}, filePath: '/path/to/resolved/prettier/config' }
+});
+```
+
+Use `prettier.resolveConfigWithFilePath.sync(filePath [, options])` if you'd like to use sync version.
 
 ## `prettier.clearConfigCache()`
 
