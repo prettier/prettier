@@ -65,7 +65,7 @@ Notes:
 
 ## JSX Quotes
 
-Use single quotes instead of double quotes.
+Use single quotes instead of double quotes for JSX.
 
 | Default | CLI Override         | API Override             |
 | ------- | -------------------- | ------------------------ |
