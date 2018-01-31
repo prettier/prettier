@@ -250,10 +250,10 @@ function isSourceElement(opts, node) {
     "ExportNamedDeclaration", // Module
     "ExportAllDeclaration", // Module
     "TypeAlias", // Flow
-    "InterfaceDeclaration", // Flow, Typescript
-    "TypeAliasDeclaration", // Typescript
-    "ExportAssignment", // Typescript
-    "ExportDeclaration" // Typescript
+    "InterfaceDeclaration", // Flow, TypeScript
+    "TypeAliasDeclaration", // TypeScript
+    "ExportAssignment", // TypeScript
+    "ExportDeclaration" // TypeScript
   ];
   const jsonSourceElements = [
     "ObjectExpression",
