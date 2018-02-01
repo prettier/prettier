@@ -1,3 +1,7 @@
+- caption: Facebook
+  image: "/images/users/facebook-200x100.png"
+  infoLink: https://reactjs.org
+  pinned: true
 - caption: React
   image: "/images/users/react-200x100.png"
   infoLink: https://reactjs.org
@@ -14,14 +18,13 @@
   image: "/images/users/babel-200x100.png"
   infoLink: https://babeljs.io
   pinned: true
-- caption: ZEIT
-  image: "/images/users/zeit-200x100.png"
-  infoLink: https://zeit.co
-  pinned: true
 - caption: Webpack CLI
   image: "/images/users/webpack-200x100.png"
   infoLink: https://webpack.js.org/api/cli/
   pinned: true
+- caption: ZEIT
+  image: "/images/users/zeit-200x100.png"
+  infoLink: https://zeit.co
 - caption: PayPal
   image: "/images/users/paypal-200x100.png"
   infoLink: https://github.com/paypal/
