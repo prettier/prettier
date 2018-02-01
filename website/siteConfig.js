@@ -13,6 +13,7 @@ function loadYaml(fsPath) {
   return parseYaml(fs.readFileSync(path.join(__dirname, fsPath), "utf8"));
 }
 
+// https://stackoverflow.com/a/12646864
 function shuffleArray(array) {
   const copy = array.slice();
   for (let index = copy.length - 1; index > 0; index--) {
