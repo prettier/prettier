@@ -23,6 +23,6 @@ Then there's a bunch of interesting cases.
 * `--jsx-bracket-same-line` was needed for a big company with a huge code base (Facebook), which backed the project when it got started, to be able to [adopt Prettier at all](https://github.com/prettier/prettier/pull/661#issuecomment-295770645).
 
 Finally, perhaps the most interesting of them all is `--bracket-spacing`.
-The truth is that not even [Prettier's creator remembers exactly why it exists](https://github.com/prettier/prettier/issues/715#issuecomment-281096495). It was added super early on without much thought. It now serves as an example of the types of options we should avoid.
+The truth is that not even [Prettier's creator knows exactly why it exists](https://github.com/prettier/prettier/issues/715#issuecomment-281096495). It was added super early on without much thought. It now serves as an example of the types of options we should avoid.
 
 Remember, it is easy to _add_ features to a program, but hard to remove them.
