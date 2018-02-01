@@ -14,7 +14,7 @@ function loadYaml(fsPath) {
 }
 
 function shuffleArray(array) {
-  const copy = array.concat();
+  const copy = array.slice();
   for (let index = copy.length - 1; index > 0; index--) {
     const rnd = Math.floor(Math.random() * (index + 1));
     [copy[index], copy[rnd]] = [copy[rnd], copy[index]];
