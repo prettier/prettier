@@ -13,7 +13,15 @@ function loadYaml(fsPath) {
   return parseYaml(fs.readFileSync(path.join(__dirname, fsPath), "utf8"));
 }
 
-const users = loadYaml("./data/users.yml").sort(() => Math.random() - 0.5);
+function shuffleArray(array) {
+  for (let index = array.length - 1; index > 0; index--) {
+    const rnd = Math.floor(Math.random() * (index + 1));
+    [array[index], array[rnd]] = [array[rnd], array[index]];
+  }
+}
+
+const users = loadYaml("./data/users.yml");
+shuffleArray(users);
 const editors = loadYaml("./data/editors.yml");
 const supportedLanguages = loadYaml("./data/languages.yml");
 
