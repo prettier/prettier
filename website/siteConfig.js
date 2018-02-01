@@ -14,14 +14,15 @@ function loadYaml(fsPath) {
 }
 
 function shuffleArray(array) {
-  for (let index = array.length - 1; index > 0; index--) {
+  const copy = array.concat();
+  for (let index = copy.length - 1; index > 0; index--) {
     const rnd = Math.floor(Math.random() * (index + 1));
-    [array[index], array[rnd]] = [array[rnd], array[index]];
+    [copy[index], copy[rnd]] = [copy[rnd], copy[index]];
   }
+  return copy;
 }
 
-const users = loadYaml("./data/users.yml");
-shuffleArray(users);
+const users = shuffleArray(loadYaml("./data/users.yml"));
 const editors = loadYaml("./data/editors.yml");
 const supportedLanguages = loadYaml("./data/languages.yml");
 
