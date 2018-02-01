@@ -13,7 +13,7 @@ function loadYaml(fsPath) {
   return parseYaml(fs.readFileSync(path.join(__dirname, fsPath), "utf8"));
 }
 
-const users = loadYaml("./data/users.yml");
+const users = loadYaml("./data/users.yml").sort(() => Math.random() - 0.5);
 const editors = loadYaml("./data/editors.yml");
 const supportedLanguages = loadYaml("./data/languages.yml");
 
