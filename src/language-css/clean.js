@@ -108,6 +108,10 @@ function clean(ast, newObj) {
       .replace(/^url\(\s+/gi, "url(")
       .replace(/\s+\)$/gi, ")");
   }
+
+  if (ast.type === "css-atrule" && ast.name.toLowerCase().endsWith("keyframes")) {
+    newObj.params = ast.params;
+  }
 }
 
 function cleanCSSStrings(value) {
