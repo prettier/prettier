@@ -86,50 +86,13 @@ module.exports = function(options) {
     return idx;
   }
 
-  function getNextNonSpaceNonCommentCharacter(text, node) {
-    return text.charAt(getNextNonSpaceNonCommentCharacterIndex(text, node));
-  }
-
-  // Note: this function doesn't ignore leading comments unlike isNextLineEmpty
-  function isPreviousLineEmpty(text, node) {
-    let idx = locStart(node) - 1;
-    idx = util.skipSpaces(text, idx, { backwards: true });
-    idx = util.skipNewline(text, idx, { backwards: true });
-    idx = util.skipSpaces(text, idx, { backwards: true });
-    const idx2 = util.skipNewline(text, idx, { backwards: true });
-    return idx !== idx2;
-  }
-
-  function hasClosureCompilerTypeCastComment(text, node) {
-    // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
-    // Syntax example: var x = /** @type {string} */ (fruit);
-    return (
-      node.comments &&
-      node.comments.some(
-        comment =>
-          comment.leading &&
-          util.isBlockComment(comment) &&
-          comment.value.match(/^\*\s*@type\s*{[^}]+}\s*$/) &&
-          getNextNonSpaceNonCommentCharacter(text, comment) === "("
-      )
-    );
-  }
-
   return {
     locStart,
     locEnd,
     isNextLineEmpty,
+    isNextLineEmptyAfterIndex: util.isNextLineEmptyAfterIndex,
     getNextNonSpaceNonCommentCharacterIndex,
-    getNextNonSpaceNonCommentCharacter,
-    isPreviousLineEmpty,
-    hasClosureCompilerTypeCastComment,
-    hasIgnoreComment: util.hasIgnoreComment,
-    punctuationCharRange: util.punctuationCharRange,
-    getLast: util.getLast,
-    getMaxContinuousCount: util.getMaxContinuousCount,
-    splitText: util.splitText,
-    getStringWidth: util.getStringWidth,
     mapDoc: util.mapDoc,
-    hasNewlineInRange: util.hasNewlineInRange
+    makeString: util.makeString
   };
 };
