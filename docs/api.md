@@ -59,7 +59,7 @@ Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use syn
 
 ## `prettier.resolveConfigWithFilePath(filePath [, options])`
 
-`resolveConfigWithFilePath` works that same as `resolveConfig` with one difference. The response will include both the configuration that was resolved, along with the file path to the configuration that was used to generate the configuration. However, it will not include the path to the located `.editorconfig` file when used as the core Prettier configuration acts as an override. This is useful for editor integrations, to subscribe to the resolved configuration and reload with any changes.
+`resolveConfigWithFilePath` works that same as `resolveConfig` with one difference. The response will include both the configuration that was resolved, along with the path to the file that was used to generate the configuration. However, it will not include the path any `.editorconfig` file when used, as the configuration file acts as an override. This is useful for editor integrations, to subscribe to the resolved configuration and reload with any changes.
 
 ```js
 prettier.resolveConfigWithFilePath(filePath).then(result => {
