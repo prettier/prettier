@@ -96,6 +96,30 @@ $KeepScssVar: val;
 @MEDIA (MIN-WIDTH: 700PX) /*:*/ {}
 
 @MEDIA (@{Keep}: @{Keep}) {}
+
+@KEYFRAMES identifier {
+  FROM {
+    margin-top: 50px;
+  }
+  50%  {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
+@-WEBKIT-KEYFRAMES float-up {
+  FROM {
+    margin-top: 50px;
+  }
+  50%  {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -201,6 +225,30 @@ $KeepScssVar: val;
 @media (@{Keep}: @{Keep}) {
 }
 
+@keyframes identifier {
+  FROM {
+    margin-top: 50px;
+  }
+  50% {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
+@-webkit-keyframes float-up {
+  FROM {
+    margin-top: 50px;
+  }
+  50% {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
 `;
 
 exports[`case.scss 1`] = `
@@ -252,8 +300,8 @@ svg[viewBox] linearGradient,
 @custom-media --KeepCustomMedia screen and (width >= 768px);
 @media (--KeepCustomMedia) {}
 
-@FUNCTION KeepFuncName() {
-    @RETURN 12;
+@function KeepFuncName() {
+    @return 12;
 }
 
 %KeepPlaceholderSelector {
@@ -263,7 +311,7 @@ svg[viewBox] linearGradient,
 $KeepTopLevelVar: val;
 @KeepLessVar: val;
 
-@MIXIN KeepMixinName($Keep: 15IN, $Keep: $Keep15IN, $Keep: Keep-1E-2Em) {
+@mixin KeepMixinName($Keep: 15IN, $Keep: $Keep15IN, $Keep: Keep-1E-2Em) {
     $KeepVar: KeepFuncName();
     #{$KeepInterpolationVar}: val;
     #{$Keep + 15PX}: val;
@@ -292,7 +340,7 @@ $KeepTopLevelVar: val;
     }
 }
 
-@Mixin Keep($Keep: $Keep15IN, $Keep: Keepå1E1) {}
+@mixin Keep($Keep: $Keep15IN, $Keep: Keepå1E1) {}
 
 @MEDIA (MIN-WIDTH: 700PX) {
     @include Keep;
@@ -301,6 +349,30 @@ $KeepTopLevelVar: val;
 }
 
 @MEDIA (#{$Keep}: #{$Keep}) {}
+
+@KEYFRAMES identifier {
+  FROM {
+    margin-top: 50px;
+  }
+  50%  {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
+@-WEBKIT-KEYFRAMES float-up {
+  FROM {
+    margin-top: 50px;
+  }
+  50%  {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -401,6 +473,30 @@ $KeepTopLevelVar: val;
 }
 
 @media (#{$Keep}: #{$Keep}) {
+}
+
+@keyframes identifier {
+  FROM {
+    margin-top: 50px;
+  }
+  50% {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
+@-webkit-keyframes float-up {
+  FROM {
+    margin-top: 50px;
+  }
+  50% {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
 }
 
 `;
