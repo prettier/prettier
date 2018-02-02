@@ -152,6 +152,30 @@ function parseNestedValue(node) {
 function parseValue(value) {
   const valueParser = require("postcss-values-parser");
   const result = valueParser(value, { loose: true }).parse();
+
+  result.walk(node => {
+    if (node.type !== "func") {
+      return;
+    }
+
+    if (node.nodes && node.nodes[1] && node.nodes[1].value !== "data") {
+      return;
+    }
+
+    let value = "";
+
+    for (let i = 1; i <= node.nodes.length - 2; i++) {
+      const nestedNode = node.nodes[i];
+      const nestedValue = nestedNode ? nestedNode.value : "" + nestedNode.unit;
+      const nestedUnit = nestedNode.unit ? nestedNode.unit : "";
+
+      value += nestedValue + nestedUnit;
+      delete node.nodes[i];
+    }
+
+    node.nodes = ["(", value, ")"];
+  });
+
   const parsedResult = parseNestedValue(result);
   return addTypePrefix(parsedResult, "value-");
 }
