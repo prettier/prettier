@@ -466,7 +466,7 @@ function genericPrint(path, options, print) {
             n.groups[0].type === "value-comma_group" &&
             n.groups[0].groups.length > 0 &&
             n.groups[0].groups[0].type === "value-word" &&
-            n.groups[0].groups[0].value === "data"))
+            n.groups[0].groups[0].value.startsWith("data:")))
       ) {
         return concat([
           n.open ? path.call(print, "open") : "",
