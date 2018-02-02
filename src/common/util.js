@@ -187,8 +187,8 @@ function hasNewlineInRange(text, start, end) {
 }
 
 // Note: this function doesn't ignore leading comments unlike isNextLineEmpty
-function isPreviousLineEmpty(text, node) {
-  let idx = locStart(node) - 1;
+function isPreviousLineEmpty(text, node, locStartFromPlugin) {
+  let idx = locStart(node, locStartFromPlugin) - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
   idx = skipSpaces(text, idx, { backwards: true });
@@ -211,13 +211,13 @@ function isNextLineEmptyAfterIndex(text, index) {
   return hasNewline(text, idx);
 }
 
-function isNextLineEmpty(text, node) {
-  return isNextLineEmptyAfterIndex(text, locEnd(node));
+function isNextLineEmpty(text, node, locEndFromPlugin) {
+  return isNextLineEmptyAfterIndex(text, locEnd(node, locEndFromPlugin));
 }
 
-function getNextNonSpaceNonCommentCharacterIndex(text, node) {
+function getNextNonSpaceNonCommentCharacterIndex(text, node, locEndFromPlugin) {
   let oldIdx = null;
-  let idx = locEnd(node);
+  let idx = locEnd(node, locEndFromPlugin);
   while (idx !== oldIdx) {
     oldIdx = idx;
     idx = skipSpaces(text, idx);
@@ -228,8 +228,10 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node) {
   return idx;
 }
 
-function getNextNonSpaceNonCommentCharacter(text, node) {
-  return text.charAt(getNextNonSpaceNonCommentCharacterIndex(text, node));
+function getNextNonSpaceNonCommentCharacter(text, node, locEndFromPlugin) {
+  return text.charAt(
+    getNextNonSpaceNonCommentCharacterIndex(text, node, locEndFromPlugin)
+  );
 }
 
 function hasSpaces(text, index, opts) {
@@ -238,7 +240,13 @@ function hasSpaces(text, index, opts) {
   return idx !== index;
 }
 
-function locStart(node) {
+function locStart(node, locStartFromPlugin) {
+  if (locStartFromPlugin) {
+    const result = locStartFromPlugin(node);
+    if (result !== null) {
+      return result;
+    }
+  }
   // Handle nodes with decorators. They should start at the first decorator
   if (
     node.declaration &&
@@ -268,7 +276,13 @@ function locStart(node) {
   }
 }
 
-function locEnd(node) {
+function locEnd(node, locEndFromPlugin) {
+  if (locEndFromPlugin) {
+    const result = locEndFromPlugin(node);
+    if (result !== null) {
+      return result;
+    }
+  }
   const endNode = node.nodes && getLast(node.nodes);
   if (endNode && node.source && !node.source.end) {
     node = endNode;
@@ -476,7 +490,7 @@ function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
 
-function hasClosureCompilerTypeCastComment(text, node) {
+function hasClosureCompilerTypeCastComment(text, node, locEnd) {
   // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
   // Syntax example: var x = /** @type {string} */ (fruit);
   return (
@@ -486,7 +500,7 @@ function hasClosureCompilerTypeCastComment(text, node) {
         comment.leading &&
         isBlockComment(comment) &&
         comment.value.match(/^\*\s*@type\s*{[^}]+}\s*$/) &&
-        getNextNonSpaceNonCommentCharacter(text, comment) === "("
+        getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "("
     )
   );
 }
@@ -852,8 +866,5 @@ module.exports = {
   printString,
   printNumber,
   hasIgnoreComment,
-  hasNodeIgnoreComment,
-  lineColumnToIndex,
-  skipInlineComment,
-  skipTrailingComment
+  hasNodeIgnoreComment
 };

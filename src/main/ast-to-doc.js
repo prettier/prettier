@@ -4,6 +4,7 @@ const assert = require("assert");
 const comments = require("./comments");
 const FastPath = require("../common/fast-path");
 const multiparser = require("./multiparser");
+const util = require("../common/util");
 const sharedUtil = require("../common/util-shared");
 
 const doc = require("../doc");
@@ -73,11 +74,12 @@ function genericPrint(path, options, printPath, args) {
   const node = path.getValue();
   const printer = options.printer;
 
-  const util = sharedUtil(options);
-
   // Escape hatch
-  if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path, util)) {
-    return options.originalText.slice(util.locStart(node), util.locEnd(node));
+  if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
+    return options.originalText.slice(
+      util.locStart(node, options.locStart),
+      util.locEnd(node, options.locEnd)
+    );
   }
 
   if (node) {
@@ -96,7 +98,7 @@ function genericPrint(path, options, printPath, args) {
     }
   }
 
-  return printer.print(path, options, printPath, args, util);
+  return printer.print(path, options, printPath, args, sharedUtil(options));
 }
 
 module.exports = printAstToDoc;

@@ -1,6 +1,7 @@
 "use strict";
 
 const embed = require("./embed");
+const util = require("../common/util");
 const docBuilders = require("../doc").builders;
 const concat = docBuilders.concat;
 const join = docBuilders.join;
@@ -28,7 +29,7 @@ const voidTags = {
   wbr: true
 };
 
-function genericPrint(path, options, print, args, util) {
+function genericPrint(path, options, print) {
   const n = path.getValue();
   if (!n) {
     return "";
@@ -116,5 +117,5 @@ function printChildren(path, print) {
 module.exports = {
   print: genericPrint,
   embed,
-  hasPrettierIgnore: (path, util) => util.hasIgnoreComment(path)
+  hasPrettierIgnore: util.hasIgnoreComment
 };

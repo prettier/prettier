@@ -1,9 +1,8 @@
 "use strict";
 
 const assert = require("assert");
-const privateUtil = require("../common/util");
-const getSharedUtil = require("../common/util-shared");
-const startsWithNoLookaheadToken = privateUtil.startsWithNoLookaheadToken;
+const util = require("../common/util");
+const startsWithNoLookaheadToken = util.startsWithNoLookaheadToken;
 
 function FastPath(value) {
   assert.ok(this instanceof FastPath);
@@ -134,7 +133,6 @@ FastPath.prototype.map = function map(callback /*, name1, name2, ... */) {
 
 FastPath.prototype.needsParens = function(options) {
   const parent = this.getParentNode();
-  const sharedUtil = getSharedUtil(options);
   if (!parent) {
     return false;
   }
@@ -157,7 +155,11 @@ FastPath.prototype.needsParens = function(options) {
   // Closure compiler requires that type casted expressions to be surrounded by
   // parentheses.
   if (
-    sharedUtil.hasClosureCompilerTypeCastComment(options.originalText, node)
+    util.hasClosureCompilerTypeCastComment(
+      options.originalText,
+      node,
+      options.locEnd
+    )
   ) {
     return true;
   }
@@ -340,9 +342,9 @@ FastPath.prototype.needsParens = function(options) {
           }
 
           const po = parent.operator;
-          const pp = privateUtil.getPrecedence(po);
+          const pp = util.getPrecedence(po);
           const no = node.operator;
-          const np = privateUtil.getPrecedence(no);
+          const np = util.getPrecedence(no);
 
           if (pp > np) {
             return true;
@@ -357,13 +359,13 @@ FastPath.prototype.needsParens = function(options) {
             return true;
           }
 
-          if (pp === np && !privateUtil.shouldFlatten(po, no)) {
+          if (pp === np && !util.shouldFlatten(po, no)) {
             return true;
           }
 
           // Add parenthesis when working with binary operators
           // It's not stricly needed but helps with code understanding
-          if (privateUtil.isBitwiseOperator(po)) {
+          if (util.isBitwiseOperator(po)) {
             return true;
           }
 
@@ -490,8 +492,10 @@ FastPath.prototype.needsParens = function(options) {
         // See corresponding workaround in printer.js case: "Literal"
         ((options.parser !== "typescript" && !parent.directive) ||
           (options.parser === "typescript" &&
-            options.originalText.substr(sharedUtil.locStart(node) - 1, 1) ===
-              "("))
+            options.originalText.substr(
+              util.locStart(node, options.locStart) - 1,
+              1
+            ) === "("))
       ) {
         // To avoid becoming a directive
         const grandParent = this.getParentNode(1);
