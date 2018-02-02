@@ -39,6 +39,25 @@ function parseValueNodes(nodes) {
 
   for (let i = 0; i < nodes.length; ++i) {
     const node = nodes[i];
+    const isUnquotedDataURLCall =
+      node.type === "func" &&
+      node.value === "url" &&
+      node.group &&
+      node.group.groups &&
+      node.group.groups[0] &&
+      node.group.groups[0].groups &&
+      node.group.groups[0].groups.length > 2 &&
+      node.group.groups[0].groups[0].type === "word" &&
+      node.group.groups[0].groups[0].value === "data" &&
+      node.group.groups[0].groups[1].type === "colon" &&
+      node.group.groups[0].groups[1].value === ":";
+
+    if (isUnquotedDataURLCall) {
+      node.group.groups = [stringifyGroup(node)];
+
+      return node;
+    }
+
     if (node.type === "paren" && node.value === "(") {
       parenGroup = {
         open: node,
@@ -84,6 +103,31 @@ function parseValueNodes(nodes) {
     parenGroup.groups.push(commaGroup);
   }
   return rootParenGroup;
+}
+
+function stringifyGroup(node) {
+  if (node.group) {
+    return stringifyGroup(node.group);
+  }
+
+  if (node.groups) {
+    return node.groups.reduce((previousValue, currentValue, index) => {
+      return (
+        previousValue +
+        stringifyGroup(currentValue) +
+        (currentValue.type === "comma_group" && index !== node.groups.length - 1
+          ? ","
+          : "")
+      );
+    }, "");
+  }
+
+  const before = node.raws && node.raws.before ? node.raws.before : "";
+  const value = node.value ? node.value : "";
+  const unit = node.unit ? node.unit : "";
+  const after = node.raws && node.raws.after ? node.raws.after : "";
+
+  return before + value + unit + after;
 }
 
 function flattenGroups(node) {
