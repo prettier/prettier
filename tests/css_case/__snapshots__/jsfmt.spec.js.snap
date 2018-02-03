@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`case.css 1`] = `
+@custom-media --KeepName (MIN-WIDTH: 500PX);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@custom-media --KeepName (min-width: 500px);
+
+`;
+
 exports[`case.less 1`] = `
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
