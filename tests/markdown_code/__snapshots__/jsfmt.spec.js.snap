@@ -1,5 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`0-indent-js.md 1`] = `
+- 1
+  - 2
+    - 3
+      \`\`\`js
+      md\`
+      # this is the root indent
+
+      # this is the root indent
+
+      # this is the root indent
+      \`
+
+      something\`
+      asd
+
+      asd
+
+      asd
+      \`
+      \`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 1
+
+  * 2
+
+    * 3
+
+      \`\`\`js
+      md\`
+      # this is the root indent
+
+      # this is the root indent
+
+      # this is the root indent
+      \`;
+
+      something\`
+      asd
+      
+      asd
+      
+      asd
+      \`;
+      \`\`\`
+
+`;
+
 exports[`additional-space.md 1`] = `
 1. Fork the repo and create your branch from \`master\`.
 

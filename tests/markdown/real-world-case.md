@@ -11,7 +11,7 @@ Prettier is an opinionated code formatter with support for:
 * [JSX](https://facebook.github.io/jsx/)
 * [Flow](https://flow.org/)
 * [TypeScript](https://www.typescriptlang.org/)
-* CSS, [LESS](http://lesscss.org/), and [SCSS](http://sass-lang.com)
+* CSS, [Less](http://lesscss.org/), and [SCSS](http://sass-lang.com)
 * [JSON](http://json.org/)
 * [GraphQL](http://graphql.org/)
 
@@ -833,7 +833,7 @@ features enabled, but you can also use the
 All of JSX and Flow syntax is supported. In fact, the test suite in
 `tests/flow` *is* the entire Flow test suite and they all pass.
 
-Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [LESS](http://lesscss.org/), [SCSS](http://sass-lang.com), [JSON](http://json.org/), and [GraphQL](http://graphql.org/).
+Prettier also supports [TypeScript](https://www.typescriptlang.org/), CSS, [Less](http://lesscss.org/), [SCSS](http://sass-lang.com), [JSON](http://json.org/), and [GraphQL](http://graphql.org/).
 
 The minimum version of TypeScript supported is 2.1.3 as it introduces the ability to have leading `|` for type definitions which prettier outputs.
 

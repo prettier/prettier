@@ -1,5 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`lang-ts.vue 1`] = `
+<template>
+  <div>{{foo}}</div>
+</template>
+
+<script lang="ts">
+export default {
+  computed: {  foo( ): string {  return "foo";  },  },
+}
+</script>
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template>
+  <div>{{foo}}</div>
+</template>
+
+<script lang="ts">
+export default {
+  computed: {
+    foo(): string {
+      return "foo";
+    }
+  }
+};
+</script>
+
+`;
+
+exports[`lang-tsx.vue 1`] = `
+<script lang="tsx">
+import {VNode} from "vue"
+export default {
+  computed: {  foo( ):string { return "foo" }, },
+  render(h):VNode {  return <div>{ this.foo }</div> },
+}
+</script>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<script lang="tsx">
+import { VNode } from "vue";
+export default {
+  computed: {
+    foo(): string {
+      return "foo";
+    }
+  },
+  render(h): VNode {
+    return <div>{this.foo}</div>;
+  }
+};
+</script>
+
+`;
+
 exports[`template-bind.vue 1`] = `
 <template>
     <div v-bind:id=" 'list-'   +  id "></div>
@@ -59,6 +112,11 @@ module  .  exports  =
 p { font-size : 2em ; text-align : center ; }
 
   </style >
+
+<style   lang="postcss" >
+p { font-size : 2em ; text-align : center ; }
+
+  </style >
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template >
   <h1 >{{greeting}}     world</h1 >
@@ -76,6 +134,13 @@ module.exports = {
 </script>
 
 <style   scoped >
+p {
+  font-size: 2em;
+  text-align: center;
+}
+</style >
+
+<style   lang="postcss" >
 p {
   font-size: 2em;
   text-align: center;

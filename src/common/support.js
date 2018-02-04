@@ -5,6 +5,7 @@ const dedent = require("dedent");
 const semver = require("semver");
 const currentVersion = require("../../package.json").version;
 const loadPlugins = require("./load-plugins");
+const cliConstant = require("../cli/constant");
 
 const CATEGORY_GLOBAL = "Global";
 const CATEGORY_SPECIAL = "Special";
@@ -14,6 +15,7 @@ const CATEGORY_SPECIAL = "Special";
  * @property {string} since - available since version
  * @property {string} category
  * @property {'int' | 'boolean' | 'choice' | 'path'} type
+ * @property {boolean} array - indicate it's an array of the specified type
  * @property {boolean?} deprecated - deprecated since version
  * @property {OptionRedirectInfo?} redirect - redirect deprecated option
  * @property {string} description
@@ -21,9 +23,10 @@ const CATEGORY_SPECIAL = "Special";
  * @property {OptionValueInfo} default
  * @property {OptionRangeInfo?} range - for type int
  * @property {OptionChoiceInfo?} choices - for type choice
+ * @property {(value: any) => boolean} exception
  *
  * @typedef {number | boolean | string} OptionValue
- * @typedef {OptionValue | Array<{ since: string, value: OptionValue}>} OptionValueInfo
+ * @typedef {OptionValue | [{ value: OptionValue[] }] | Array<{ since: string, value: OptionValue}>} OptionValueInfo
  *
  * @typedef {Object} OptionRedirectInfo
  * @property {string} option
@@ -40,6 +43,10 @@ const CATEGORY_SPECIAL = "Special";
  * @property {string?} since - undefined if available since the first version of the option
  * @property {string?} deprecated - deprecated since version
  * @property {OptionValueInfo?} redirect - redirect deprecated value
+ *
+ * @property {string?} cliName
+ * @property {string?} cliCategory
+ * @property {string?} cliDescription
  */
 /** @type {{ [name: string]: OptionInfo } */
 const supportOptions = {
@@ -52,7 +59,8 @@ const supportOptions = {
     description: dedent`
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end.
-    `
+    `,
+    cliCategory: cliConstant.CATEGORY_EDITOR
   },
   filepath: {
     since: "1.4.0",
@@ -60,14 +68,18 @@ const supportOptions = {
     type: "path",
     default: undefined,
     description:
-      "Specify the input filepath. This will be used to do parser inference."
+      "Specify the input filepath. This will be used to do parser inference.",
+    cliName: "stdin-filepath",
+    cliCategory: cliConstant.CATEGORY_OTHER,
+    cliDescription: "Path to the file to pretend that stdin comes from."
   },
   insertPragma: {
     since: "1.8.0",
     category: CATEGORY_SPECIAL,
     type: "boolean",
     default: false,
-    description: "Insert @format pragma into file's first docblock comment."
+    description: "Insert @format pragma into file's first docblock comment.",
+    cliCategory: cliConstant.CATEGORY_OTHER
   },
   parser: {
     since: "0.0.10",
@@ -75,9 +87,11 @@ const supportOptions = {
     type: "choice",
     default: "babylon",
     description: "Which parser to use.",
+    exception: value =>
+      typeof value === "string" || typeof value === "function",
     choices: [
-      { value: "babylon", description: "JavaScript" },
       { value: "flow", description: "Flow" },
+      { value: "babylon", description: "JavaScript" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
       { value: "css", since: "1.7.1", description: "CSS" },
       {
@@ -91,8 +105,21 @@ const supportOptions = {
       { value: "scss", since: "1.7.1", description: "SCSS" },
       { value: "json", since: "1.5.0", description: "JSON" },
       { value: "graphql", since: "1.5.0", description: "GraphQL" },
-      { value: "markdown", since: "1.8.0", description: "Markdown" }
+      { value: "markdown", since: "1.8.0", description: "Markdown" },
+      { value: "vue", since: "1.10.0", description: "Vue" }
     ]
+  },
+  plugins: {
+    since: "1.10.0",
+    type: "path",
+    array: true,
+    default: [{ value: [] }],
+    category: CATEGORY_GLOBAL,
+    description:
+      "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.",
+    exception: value => typeof value === "string" || typeof value === "object",
+    cliName: "plugin",
+    cliCategory: cliConstant.CATEGORY_CONFIG
   },
   printWidth: {
     since: "0.0.0",
@@ -112,7 +139,8 @@ const supportOptions = {
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
       This option cannot be used with --cursor-offset.
-    `
+    `,
+    cliCategory: cliConstant.CATEGORY_EDITOR
   },
   rangeStart: {
     since: "1.4.0",
@@ -124,7 +152,8 @@ const supportOptions = {
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
       This option cannot be used with --cursor-offset.
-    `
+    `,
+    cliCategory: cliConstant.CATEGORY_EDITOR
   },
   requirePragma: {
     since: "1.7.0",
@@ -134,7 +163,8 @@ const supportOptions = {
     description: dedent`
       Require either '@prettier' or '@format' to be present in the file's first docblock comment
       in order for it to be formatted.
-    `
+    `,
+    cliCategory: cliConstant.CATEGORY_OTHER
   },
   tabWidth: {
     type: "int",
@@ -150,7 +180,8 @@ const supportOptions = {
     default: false,
     deprecated: "0.0.10",
     description: "Use flow parser.",
-    redirect: { option: "parser", value: "flow" }
+    redirect: { option: "parser", value: "flow" },
+    cliName: "flow-parser"
   },
   useTabs: {
     since: "1.0.0",
@@ -167,7 +198,8 @@ function getSupportInfo(version, opts) {
       plugins: [],
       pluginsLoaded: false,
       showUnreleased: false,
-      showDeprecated: false
+      showDeprecated: false,
+      showInternal: false
     },
     opts
   );
@@ -204,15 +236,19 @@ function getSupportInfo(version, opts) {
     .filter(filterSince)
     .filter(filterDeprecated)
     .map(mapDeprecated)
+    .map(mapInternal)
     .map(option => {
       const newOption = Object.assign({}, option);
 
       if (Array.isArray(newOption.default)) {
-        newOption.default = newOption.default
-          .filter(filterSince)
-          .sort((info1, info2) =>
-            semver.compare(info2.since, info1.since)
-          )[0].value;
+        newOption.default =
+          newOption.default.length === 1
+            ? newOption.default[0].value
+            : newOption.default
+                .filter(filterSince)
+                .sort((info1, info2) =>
+                  semver.compare(info2.since, info1.since)
+                )[0].value;
       }
 
       if (Array.isArray(newOption.choices)) {
@@ -274,6 +310,16 @@ function getSupportInfo(version, opts) {
     const newObject = Object.assign({}, object);
     delete newObject.deprecated;
     delete newObject.redirect;
+    return newObject;
+  }
+  function mapInternal(object) {
+    if (opts.showInternal) {
+      return object;
+    }
+    const newObject = Object.assign({}, object);
+    delete newObject.cliName;
+    delete newObject.cliCategory;
+    delete newObject.cliDescription;
     return newObject;
   }
 }

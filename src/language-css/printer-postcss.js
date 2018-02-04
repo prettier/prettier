@@ -29,8 +29,16 @@ function genericPrint(path, options, print) {
   }
 
   switch (n.type) {
+    case "css-comment-yaml":
+      return n.value;
     case "css-root": {
-      return concat([printNodeSequence(path, options, print), hardline]);
+      const nodes = printNodeSequence(path, options, print);
+
+      if (nodes.parts.length) {
+        return concat([nodes, hardline]);
+      }
+
+      return nodes;
     }
     case "css-comment": {
       if (n.raws.content) {
@@ -49,6 +57,14 @@ function genericPrint(path, options, print) {
       return text;
     }
     case "css-rule": {
+      // If a Less file ends up being parsed with the SCSS parser, Less
+      // variable declarations will be parsed as atrules with names ending
+      // with a colon, so keep the original case then.
+      const isDetachedRulesetDeclaration =
+        n.selector &&
+        typeof n.selector === "string" &&
+        n.selector.startsWith("@") &&
+        n.selector.endsWith(":");
       return concat([
         path.call(print, "selector"),
         n.important ? " !important" : "",
@@ -61,7 +77,8 @@ function genericPrint(path, options, print) {
                   )
                 : "",
               hardline,
-              "}"
+              "}",
+              isDetachedRulesetDeclaration ? ";" : ""
             ])
           : ";"
       ]);
@@ -90,6 +107,8 @@ function genericPrint(path, options, print) {
           ? removeLines(path.call(print, "value"))
           : path.call(print, "value"),
         n.important ? " !important" : "",
+        n.default ? " !default" : "",
+        n.global ? " !global" : "",
         n.nodes
           ? concat([
               " {",
@@ -110,6 +129,19 @@ function genericPrint(path, options, print) {
         hasParams &&
         n.params.type === "media-query-list" &&
         /^\(\s*\)$/.test(n.params.value);
+      const isControlDirective =
+        n.name === "if" ||
+        n.name === "else" ||
+        n.name === "for" ||
+        n.name === "each" ||
+        n.name === "while";
+      const hasParensAround =
+        n.value &&
+        n.value.group.group.type === "value-paren_group" &&
+        n.value.group.group.open !== null &&
+        n.value.group.group.close !== null;
+      const isElse = n.name === "else";
+
       return concat([
         "@",
         // If a Less file ends up being parsed with the SCSS parser, Less
@@ -124,9 +156,20 @@ function genericPrint(path, options, print) {
               path.call(print, "params")
             ])
           : "",
+        n.selector ? indent(concat([" ", path.call(print, "selector")])) : "",
+        n.value
+          ? group(
+              concat([
+                " ",
+                path.call(print, "value"),
+                isControlDirective ? (hasParensAround ? " " : line) : ""
+              ])
+            )
+          : isElse ? " " : "",
         n.nodes
           ? concat([
-              " {",
+              isControlDirective ? "" : " ",
+              "{",
               indent(
                 concat([
                   n.nodes.length > 0 ? softline : "",
@@ -168,10 +211,17 @@ function genericPrint(path, options, print) {
         }
         parts.push(childPath.call(print));
       }, "nodes");
-      return group(indent(join(concat([",", line]), parts)));
+
+      return group(indent(join(line, parts)));
     }
     case "media-query": {
-      return join(" ", path.map(print, "nodes"));
+      const parent = path.getParentNode();
+      const isLastNode = parent.nodes.indexOf(n) === parent.nodes.length - 1;
+
+      return concat([
+        join(" ", path.map(print, "nodes")),
+        isLastNode ? "" : ","
+      ]);
     }
     case "media-type": {
       const parent = path.getParentNode(2);
@@ -204,7 +254,10 @@ function genericPrint(path, options, print) {
       return adjustStrings(n.value, options);
     }
     case "media-url": {
-      return adjustStrings(n.value, options);
+      return adjustStrings(
+        n.value.replace(/^url\(\s+/gi, "url(").replace(/\s+\)$/gi, ")"),
+        options
+      );
     }
     case "media-unknown": {
       return adjustStrings(n.value, options);
@@ -215,7 +268,25 @@ function genericPrint(path, options, print) {
       return adjustNumbers(adjustStrings(maybeToLowerCase(n.value), options));
     }
     case "selector-root": {
-      return group(join(concat([",", hardline]), path.map(print, "nodes")));
+      const parentAtRule = getAncestorNode(path, "css-atrule");
+      const insideInExtend = parentAtRule && parentAtRule.name === "extend";
+      const insideInCustomSelector =
+        parentAtRule && parentAtRule.name === "custom-selector";
+
+      return group(
+        concat([
+          insideInCustomSelector
+            ? concat([parentAtRule.customSelector, line])
+            : "",
+          join(
+            concat([
+              ",",
+              insideInExtend || insideInCustomSelector ? line : hardline
+            ]),
+            path.map(print, "nodes")
+          )
+        ])
+      );
     }
     case "selector-comment": {
       return n.value;
@@ -235,23 +306,32 @@ function genericPrint(path, options, print) {
     case "selector-attribute": {
       return concat([
         "[",
-        n.attribute,
+        n.namespace
+          ? concat([n.namespace === true ? "" : n.namespace.trim(), "|"])
+          : "",
+        n.attribute.trim(),
         n.operator ? n.operator : "",
         n.value
-          ? quoteAttributeValue(adjustStrings(n.value, options), options)
+          ? quoteAttributeValue(adjustStrings(n.value.trim(), options), options)
           : "",
         n.insensitive ? " i" : "",
         "]"
       ]);
     }
     case "selector-combinator": {
-      if (n.value === "+" || n.value === ">" || n.value === "~") {
+      if (
+        n.value === "+" ||
+        n.value === ">" ||
+        n.value === "~" ||
+        n.value === ">>>"
+      ) {
         const parent = path.getParentNode();
         const leading =
           parent.type === "selector-selector" && parent.nodes[0] === n
             ? ""
             : line;
-        return concat([leading, n.value, " "]);
+        const isLastNode = parent.nodes.length - 1 === parent.nodes.indexOf(n);
+        return concat([leading, n.value, isLastNode ? "" : " "]);
       }
       const leading = n.value.trim().startsWith("(") ? line : "";
       const value =
@@ -287,11 +367,21 @@ function genericPrint(path, options, print) {
         declParent = path.getParentNode(i++);
       } while (declParent && declParent.type !== "css-decl");
 
-      const declParentProp = declParent.prop.toLowerCase();
+      const declParentProp =
+        declParent && declParent.prop && declParent.prop.toLowerCase();
       const isGridValue =
+        declParentProp &&
         parent.type === "value-value" &&
         (declParentProp === "grid" ||
           declParentProp.startsWith("grid-template"));
+      const atRule = getAncestorNode(path, "css-atrule");
+      const isControlDirective =
+        atRule &&
+        (atRule.name === "if" ||
+          atRule.name === "else" ||
+          atRule.name === "for" ||
+          atRule.name === "each" ||
+          atRule.name === "while");
 
       const printed = path.map(print, "groups");
       const parts = [];
@@ -303,6 +393,33 @@ function genericPrint(path, options, print) {
           n.groups[i + 1].raws &&
           n.groups[i + 1].raws.before !== ""
         ) {
+          const isNextValueOperator = n.groups[i + 1].type === "value-operator";
+          const isNextMathOperator =
+            isNextValueOperator &&
+            ["+", "-", "/", "*", "%"].indexOf(n.groups[i + 1].value) !== -1;
+          const isNextValueWord = n.groups[i + 1].type === "value-word";
+          const isNextEqualityOperator =
+            isControlDirective &&
+            isNextValueWord &&
+            ["==", "!="].indexOf(n.groups[i + 1].value) !== -1;
+          const isNextRelationalOperator =
+            isControlDirective &&
+            isNextValueWord &&
+            ["<", ">", "<=", ">="].indexOf(n.groups[i + 1].value) !== -1;
+          const isNextIfElseKeyword =
+            isControlDirective &&
+            ["and", "or", "not"].indexOf(n.groups[i + 1].value) !== -1;
+          const isNextEachKeyword =
+            isControlDirective && ["in"].indexOf(n.groups[i + 1].value) !== -1;
+          const isForKeyword =
+            atRule &&
+            atRule.name === "for" &&
+            ["from", "through", "end"].indexOf(n.groups[i].value) !== -1;
+          const isNextForKeyword =
+            isControlDirective &&
+            ["from", "through", "end"].indexOf(n.groups[i + 1].value) !== -1;
+          const IsNextColon = n.groups[i + 1].value === ":";
+
           if (isGridValue) {
             if (
               n.groups[i].source.start.line !==
@@ -314,11 +431,14 @@ function genericPrint(path, options, print) {
               parts.push(" ");
             }
           } else if (
-            n.groups[i + 1].type === "value-operator" &&
-            ["+", "-", "/", "*", "%"].indexOf(n.groups[i + 1].value) !== -1
+            isNextMathOperator ||
+            isNextEqualityOperator ||
+            isNextRelationalOperator ||
+            isNextIfElseKeyword ||
+            isForKeyword
           ) {
             parts.push(" ");
-          } else {
+          } else if (!IsNextColon || isNextForKeyword || isNextEachKeyword) {
             parts.push(line);
           }
         }
@@ -326,6 +446,10 @@ function genericPrint(path, options, print) {
 
       if (didBreak) {
         parts.unshift(hardline);
+      }
+
+      if (isControlDirective) {
+        return group(indent(concat(parts)));
       }
 
       return group(indent(fill(parts)));
@@ -342,7 +466,7 @@ function genericPrint(path, options, print) {
             n.groups[0].type === "value-comma_group" &&
             n.groups[0].groups.length > 0 &&
             n.groups[0].groups[0].type === "value-word" &&
-            n.groups[0].groups[0].value === "data"))
+            n.groups[0].groups[0].value.startsWith("data:")))
       ) {
         return concat([
           n.open ? path.call(print, "open") : "",
@@ -395,7 +519,10 @@ function genericPrint(path, options, print) {
     }
     case "value-paren": {
       if (n.raws.before !== "") {
-        return concat([line, n.value]);
+        const parent = path.getParentNode(2);
+        const isFunction = parent && parent.type === "value-func";
+
+        return concat([isFunction ? "" : line, n.value]);
       }
       return n.value;
     }
@@ -406,7 +533,7 @@ function genericPrint(path, options, print) {
       return n.value;
     }
     case "value-word": {
-      if (n.isColor && n.isHex) {
+      if ((n.isColor && n.isHex) || isWideKeywords(n.value)) {
         return n.value.toLowerCase();
       }
       return n.value;
@@ -428,6 +555,26 @@ function genericPrint(path, options, print) {
       /* istanbul ignore next */
       throw new Error("unknown postcss type: " + JSON.stringify(n.type));
   }
+}
+
+function getAncestorCounter(path, typeOrTypes) {
+  const types = [].concat(typeOrTypes);
+
+  let counter = -1;
+  let ancestorNode;
+
+  while ((ancestorNode = path.getParentNode(++counter))) {
+    if (types.indexOf(ancestorNode.type) !== -1) {
+      return counter;
+    }
+  }
+
+  return -1;
+}
+
+function getAncestorNode(path, typeOrTypes) {
+  const counter = getAncestorCounter(path, typeOrTypes);
+  return counter === -1 ? null : path.getParentNode(counter);
 }
 
 function printNodeSequence(path, options, print) {
@@ -530,9 +677,18 @@ function maybeToLowerCase(value) {
     value.includes("@") ||
     value.includes("#") ||
     value.startsWith("%") ||
-    value.startsWith("--")
+    value.startsWith("--") ||
+    (value.includes("(") && value.includes(")"))
     ? value
     : value.toLowerCase();
+}
+
+function isWideKeywords(value) {
+  return (
+    ["initial", "inherit", "unset", "revert"].indexOf(
+      value.replace().toLowerCase()
+    ) !== -1
+  );
 }
 
 module.exports = {

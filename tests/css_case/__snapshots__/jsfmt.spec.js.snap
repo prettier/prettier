@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`case.css 1`] = `
+@custom-media --KeepName (MIN-WIDTH: 500PX);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@custom-media --KeepName (min-width: 500px);
+
+`;
+
 exports[`case.less 1`] = `
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -21,6 +28,14 @@ svg[viewBox] linearGradient,
     background: Var(--Keep-custom-Prop);
     animation-name: KeepAnimationName;
     important: something !IMPORTANT;
+    font-family: INITIAL;
+    padding: UNSET;
+    border: INHERIT;
+    all: REVERT;
+    -WEBKIT-USER-SELECT: none;
+    -MOZ-USER-SELECT: none;
+    -MS-USER-SELECT: none;
+    USER-SELECT: none;
 }
 
 @keyframes KeepAnimationName {
@@ -88,6 +103,30 @@ $KeepScssVar: val;
 @MEDIA (MIN-WIDTH: 700PX) /*:*/ {}
 
 @MEDIA (@{Keep}: @{Keep}) {}
+
+@KEYFRAMES identifier {
+  FROM {
+    margin-top: 50px;
+  }
+  50%  {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
+@-WEBKIT-KEYFRAMES float-up {
+  FROM {
+    margin-top: 50px;
+  }
+  50%  {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -109,6 +148,14 @@ svg[viewBox] linearGradient,
   background: Var(--Keep-custom-Prop);
   animation-name: KeepAnimationName;
   important: something !IMPORTANT;
+  font-family: initial;
+  padding: unset;
+  border: inherit;
+  all: revert;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @keyframes KeepAnimationName {
@@ -131,7 +178,7 @@ svg[viewBox] linearGradient,
 
 @KeepDetachedRuleset: {
   background: RED;
-}
+};
 
 %KeepScssPlaceholderSelector {
   prop: val;
@@ -185,6 +232,30 @@ $KeepScssVar: val;
 @media (@{Keep}: @{Keep}) {
 }
 
+@keyframes identifier {
+  FROM {
+    margin-top: 50px;
+  }
+  50% {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
+@-webkit-keyframes float-up {
+  FROM {
+    margin-top: 50px;
+  }
+  50% {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
 `;
 
 exports[`case.scss 1`] = `
@@ -207,6 +278,14 @@ svg[viewBox] linearGradient,
     background: Var(--Keep-custom-Prop);
     animation-name: KeepAnimationName;
     important: something !IMPORTANT;
+    font-family: INITIAL;
+    padding: UNSET;
+    border: INHERIT;
+    all: REVERT;
+    -WEBKIT-USER-SELECT: none;
+    -MOZ-USER-SELECT: none;
+    -MS-USER-SELECT: none;
+    USER-SELECT: none;
 }
 
 @keyframes KeepAnimationName {
@@ -228,8 +307,8 @@ svg[viewBox] linearGradient,
 @custom-media --KeepCustomMedia screen and (width >= 768px);
 @media (--KeepCustomMedia) {}
 
-@FUNCTION KeepFuncName() {
-    @RETURN 12;
+@function KeepFuncName() {
+    @return 12;
 }
 
 %KeepPlaceholderSelector {
@@ -239,7 +318,7 @@ svg[viewBox] linearGradient,
 $KeepTopLevelVar: val;
 @KeepLessVar: val;
 
-@MIXIN KeepMixinName($Keep: 15IN, $Keep: $Keep15IN, $Keep: Keep-1E-2Em) {
+@mixin KeepMixinName($Keep: 15IN, $Keep: $Keep15IN, $Keep: Keep-1E-2Em) {
     $KeepVar: KeepFuncName();
     #{$KeepInterpolationVar}: val;
     #{$Keep + 15PX}: val;
@@ -268,7 +347,7 @@ $KeepTopLevelVar: val;
     }
 }
 
-@Mixin Keep($Keep: $Keep15IN, $Keep: Keepå1E1) {}
+@mixin Keep($Keep: $Keep15IN, $Keep: Keepå1E1) {}
 
 @MEDIA (MIN-WIDTH: 700PX) {
     @include Keep;
@@ -277,6 +356,30 @@ $KeepTopLevelVar: val;
 }
 
 @MEDIA (#{$Keep}: #{$Keep}) {}
+
+@KEYFRAMES identifier {
+  FROM {
+    margin-top: 50px;
+  }
+  50%  {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
+@-WEBKIT-KEYFRAMES float-up {
+  FROM {
+    margin-top: 50px;
+  }
+  50%  {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -297,6 +400,14 @@ svg[viewBox] linearGradient,
   background: Var(--Keep-custom-Prop);
   animation-name: KeepAnimationName;
   important: something !important;
+  font-family: initial;
+  padding: unset;
+  border: inherit;
+  all: revert;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @keyframes KeepAnimationName {
@@ -369,6 +480,30 @@ $KeepTopLevelVar: val;
 }
 
 @media (#{$Keep}: #{$Keep}) {
+}
+
+@keyframes identifier {
+  FROM {
+    margin-top: 50px;
+  }
+  50% {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
+}
+
+@-webkit-keyframes float-up {
+  FROM {
+    margin-top: 50px;
+  }
+  50% {
+    margin-top: 150px;
+  }
+  TO {
+    margin-top: 100px;
+  }
 }
 
 `;

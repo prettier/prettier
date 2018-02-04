@@ -1,5 +1,1768 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`at-root.css 1`] = `
+.parent {
+    @at-root {
+        .child1 {
+            width: 100px;
+        }
+        .child2 {
+            width: 200px;
+        }
+    }
+}
+.parent {
+@at-root {
+.child1 {
+width: 100px;
+}
+.child2 {
+width: 200px;
+}
+}
+}
+.parent {
+    @at-root  {
+        .child1 {
+            width: 100px;
+        }
+        .child2 {
+            width: 200px;
+        }
+    }
+}
+.parent  {
+    @at-root  {
+        .child1  {
+            width: 100px;
+        }
+        .child2  {
+            width: 200px;
+        }
+    }
+}
+.parent
+{
+@at-root
+{
+.child1
+{
+width
+:
+100px
+;
+}
+.child2
+{
+width
+:
+200px
+;
+}
+}
+}
+.parent
+
+{
+
+@at-root
+
+{
+
+.child1
+
+{
+
+width
+
+:
+
+100px
+
+;
+
+}
+.child2
+
+{
+
+width
+
+:
+
+200px
+
+;
+
+}
+
+}
+
+}
+.parent {
+    @at-root .child {
+        width: 100px;
+    }
+}
+.parent {
+@at-root .child {
+width: 100px;
+}
+}
+.parent{
+    @at-root .child{
+        width: 100px;
+    }
+}
+.parent  {
+    @at-root  .child  {
+        width: 100px;
+    }
+}
+.parent
+{
+@at-root
+.child
+{
+width
+:
+100px
+;
+}
+}
+.parent
+
+{
+
+@at-root
+
+.child
+
+{
+
+width
+
+:
+
+100px
+
+;
+
+}
+
+}
+.parent {
+@at-root
+input[
+type
+=
+'radio'
+]
+{
+color
+:
+red
+;
+}
+}
+@media print {
+    .page {
+        width: 8in;
+
+        @at-root (with: media) {
+            color: red;
+        }
+    }
+}
+@media print {
+.page {
+width: 8in;
+
+@at-root (with: media) {
+color: red;
+}
+}
+}
+@media print{
+    .page{
+        width: 8in;
+
+        @at-root (with:media){
+            color: red;
+        }
+    }
+}
+@media print {
+    .page {
+        width: 8in;
+
+        @at-root ( with : media ) {
+            color: red;
+        }
+    }
+}
+@media print  {
+    .page  {
+        width: 8in;
+
+        @at-root  (  with  :  media  ) {
+            color: red;
+        }
+    }
+}
+@media print  {
+    .page  {
+        width: 8in;
+
+    @at-root
+        (with: media) {
+            color: red;
+        }
+    }
+}
+@media print
+{
+.page
+{
+width
+:
+8in
+;
+@at-root
+(
+with
+:
+media
+)
+{
+color
+:
+red
+;
+}
+}
+}
+@media print
+
+{
+
+.page
+
+{
+
+width
+
+:
+
+8in
+
+;
+
+@at-root
+
+(
+
+with
+
+:
+
+media
+
+)
+
+{
+
+color
+:
+
+red
+
+;
+
+}
+
+}
+
+}
+@media print {
+    .page {
+        width: 8in;
+
+        @at-root (without: media) {
+            color: red;
+        }
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.parent {
+  @at-root {
+    .child1 {
+      width: 100px;
+    }
+    .child2 {
+      width: 200px;
+    }
+  }
+}
+.parent {
+  @at-root {
+    .child1 {
+      width: 100px;
+    }
+    .child2 {
+      width: 200px;
+    }
+  }
+}
+.parent {
+  @at-root {
+    .child1 {
+      width: 100px;
+    }
+    .child2 {
+      width: 200px;
+    }
+  }
+}
+.parent {
+  @at-root {
+    .child1 {
+      width: 100px;
+    }
+    .child2 {
+      width: 200px;
+    }
+  }
+}
+.parent {
+  @at-root {
+    .child1 {
+      width: 100px;
+    }
+    .child2 {
+      width: 200px;
+    }
+  }
+}
+.parent {
+  @at-root {
+    .child1 {
+      width: 100px;
+    }
+    .child2 {
+      width: 200px;
+    }
+  }
+}
+.parent {
+  @at-root .child {
+    width: 100px;
+  }
+}
+.parent {
+  @at-root .child {
+    width: 100px;
+  }
+}
+.parent {
+  @at-root .child {
+    width: 100px;
+  }
+}
+.parent {
+  @at-root .child {
+    width: 100px;
+  }
+}
+.parent {
+  @at-root .child {
+    width: 100px;
+  }
+}
+.parent {
+  @at-root .child {
+    width: 100px;
+  }
+}
+.parent {
+  @at-root input[type="radio"] {
+    color: red;
+  }
+}
+@media print {
+  .page {
+    width: 8in;
+
+    @at-root (with: media) {
+      color: red;
+    }
+  }
+}
+@media print {
+  .page {
+    width: 8in;
+
+    @at-root (with: media) {
+      color: red;
+    }
+  }
+}
+@media print {
+  .page {
+    width: 8in;
+
+    @at-root (with: media) {
+      color: red;
+    }
+  }
+}
+@media print {
+  .page {
+    width: 8in;
+
+    @at-root (with: media) {
+      color: red;
+    }
+  }
+}
+@media print {
+  .page {
+    width: 8in;
+
+    @at-root (with: media) {
+      color: red;
+    }
+  }
+}
+@media print {
+  .page {
+    width: 8in;
+
+    @at-root (with: media) {
+      color: red;
+    }
+  }
+}
+@media print {
+  .page {
+    width: 8in;
+    @at-root (with: media) {
+      color: red;
+    }
+  }
+}
+@media print {
+  .page {
+    width: 8in;
+
+    @at-root (with: media) {
+      color: red;
+    }
+  }
+}
+@media print {
+  .page {
+    width: 8in;
+
+    @at-root (without: media) {
+      color: red;
+    }
+  }
+}
+
+`;
+
+exports[`charset.css 1`] = `
+@charset "UTF-8";
+@charset "iso-8859-15";
+@charset 'iso-8859-15'; /* Invalid, wrong quoting style used */
+@charset  "UTF-8"; /* Invalid, more than one space */
+@charset "UTF-8"; /* Invalid, there is a character (a space) before the at-rule */
+@charset UTF-8; /* Invalid, without ' or ", the charset is not a CSS <string> */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@charset "UTF-8";
+@charset "iso-8859-15";
+@charset 'iso-8859-15'; /* Invalid, wrong quoting style used */
+@charset "UTF-8"; /* Invalid, more than one space */
+@charset "UTF-8"; /* Invalid, there is a character (a space) before the at-rule */
+@charset UTF-8; /* Invalid, without ' or ", the charset is not a CSS <string> */
+
+`;
+
+exports[`counter-style.css 1`] = `
+@counter-style identifier {
+    system: cyclic;
+    symbols: "\\1F44D";
+    suffix: " ";
+}
+@counter-style identifier {
+system: cyclic;
+symbols: "\\1F44D";
+suffix: " ";
+}
+@counter-style identifier{
+    system: cyclic;
+    symbols: "\\1F44D";
+    suffix: " ";
+}
+@counter-style  identifier  {
+    system: cyclic;
+    symbols: "\\1F44D";
+    suffix: " ";
+}
+@counter-style
+identifier
+{
+system
+:
+cyclic
+;
+symbols
+:
+"\\1F44D"
+;
+suffix
+:
+" "
+;
+}
+
+@counter-style
+
+identifier
+
+{
+
+system
+
+:
+
+cyclic
+
+;
+
+symbols
+
+
+:
+
+"\\1F44D"
+
+;
+
+suffix
+
+:
+
+" "
+
+;
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@counter-style identifier {
+  system: cyclic;
+  symbols: "\\1F44D";
+  suffix: " ";
+}
+@counter-style identifier {
+  system: cyclic;
+  symbols: "\\1F44D";
+  suffix: " ";
+}
+@counter-style identifier {
+  system: cyclic;
+  symbols: "\\1F44D";
+  suffix: " ";
+}
+@counter-style identifier {
+  system: cyclic;
+  symbols: "\\1F44D";
+  suffix: " ";
+}
+@counter-style identifier {
+  system: cyclic;
+  symbols: "\\1F44D";
+  suffix: " ";
+}
+
+@counter-style identifier {
+  system: cyclic;
+
+  symbols: "\\1F44D";
+
+  suffix: " ";
+}
+
+`;
+
+exports[`custom-media.css 1`] = `
+@custom-media --small-viewport (max-width: 30em);
+@custom-media --small-viewport (max-width:30em);
+@custom-media  --small-viewport  (  max-width  :  30em  )  ;
+@custom-media --small-viewport
+    (max-width: 30em);
+@custom-media
+    --small-viewport
+    (
+        max-width: 30em
+    );
+@custom-media
+--small-viewport
+(
+max-width
+:
+30em
+)
+;
+@custom-media
+
+--small-viewport
+
+(
+
+max-width
+
+:
+
+30em
+
+)
+
+;
+@custom-media --none not all;
+@custom-media  --none  not  all  ;
+@custom-media  --none
+    not all;
+@custom-media  --none
+    not
+    all;
+@custom-media
+--none
+not
+all
+;
+@custom-media
+
+--none
+
+not
+
+all
+
+;
+@custom-media --tablet (min-width: 768px) and (max-width: 1279px);
+@custom-media --tablet (min-width:768px) and (max-width:1279px);
+@custom-media  --tablet  (  min-width  :  768px  )  and  (  max-width  :  1279px  )  ;
+@custom-media --tablet
+    (min-width: 768px) and (max-width: 1279px);
+@custom-media
+    --tablet
+    (min-width: 768px) and
+    (max-width: 1279px);
+@custom-media
+--tablet
+(
+min-width
+:
+768px
+)
+and
+(
+max-width
+:
+1279px
+)
+;
+@custom-media
+
+--tablet
+
+(
+
+min-width
+
+:
+
+768px
+
+)
+
+and
+
+(
+
+max-width
+
+:
+
+1279px
+
+)
+
+;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@custom-media --small-viewport (max-width: 30em);
+@custom-media --small-viewport (max-width: 30em);
+@custom-media --small-viewport (max-width: 30em);
+@custom-media --small-viewport (max-width: 30em);
+@custom-media --small-viewport (max-width: 30em);
+@custom-media --small-viewport (max-width: 30em);
+@custom-media --small-viewport (max-width: 30em);
+@custom-media --none not all;
+@custom-media --none not all;
+@custom-media --none not all;
+@custom-media --none not all;
+@custom-media --none not all;
+@custom-media --none not all;
+@custom-media --tablet (min-width: 768px) and (max-width: 1279px);
+@custom-media --tablet (min-width: 768px) and (max-width: 1279px);
+@custom-media --tablet (min-width: 768px) and (max-width: 1279px);
+@custom-media --tablet (min-width: 768px) and (max-width: 1279px);
+@custom-media --tablet (min-width: 768px) and (max-width: 1279px);
+@custom-media --tablet (min-width: 768px) and (max-width: 1279px);
+@custom-media --tablet (min-width: 768px) and (max-width: 1279px);
+
+`;
+
+exports[`custom-selector.css 1`] = `
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+@custom-selector :--heading h1,h2,h3,h4,h5,h6;
+@custom-selector  :--heading  h1  ,  h2  ,  h3  ,  h4  ,  h5  ,  h6  ;
+@custom-selector :--heading
+    h1, h2, h3, h4, h5, h6;
+@custom-selector
+    :--heading
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6;
+@custom-selector
+:--heading
+h1
+,
+h2
+,
+h3
+,
+h4
+,
+h5
+,
+h6
+;
+@custom-selector
+
+:--heading
+
+h1
+
+,
+
+h2
+
+,
+
+h3
+
+,
+
+h4
+
+,
+
+h5
+
+,
+
+h6
+
+;
+@custom-selector :--very-very-very-very-very-very-very-very-very-long-selector-name h1, h2, h3, h4, h5, h6;
+@custom-selector :--very-very-very-very-very-very-very-very-very-long-selector-name h1 + h1, h2, h3, h4, h5, h6;
+@custom-selector :--very-very-very-very-very-very-very-very-very-long-selector-name .very-very-very-very-very-very-very-very-very-long-selector-name + very-very-very-very-very-very-very-very-very-long-selector-name-other, h2, h3, h4, h5, h6;
+@custom-selector :--very-very-very-very-very-very-very-very-very-long-selector-name h1 h1, h2, h3, h4, h5, h6;
+@custom-selector :--heading .very-very-very-very-very-very-very-very-very-very-long-class-name, .very-very-very-very-very-very-very-very-very-very-long-class-name-other;
+@custom-selector :--enter :hover, :focus;
+@custom-selector :--visible :global.visible;
+@custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
+@custom-selector :--placeholder :placehoder-shown, ::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder;
+@custom-selector :--enter :matches(:hover, :focus, :active);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+@custom-selector :--very-very-very-very-very-very-very-very-very-long-selector-name
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6;
+@custom-selector :--very-very-very-very-very-very-very-very-very-long-selector-name
+  h1 + h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6;
+@custom-selector :--very-very-very-very-very-very-very-very-very-long-selector-name
+  .very-very-very-very-very-very-very-very-very-long-selector-name
+    + very-very-very-very-very-very-very-very-very-long-selector-name-other,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6;
+@custom-selector :--very-very-very-very-very-very-very-very-very-long-selector-name
+  h1 h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6;
+@custom-selector :--heading
+  .very-very-very-very-very-very-very-very-very-very-long-class-name,
+  .very-very-very-very-very-very-very-very-very-very-long-class-name-other;
+@custom-selector :--enter :hover, :focus;
+@custom-selector :--visible :global.visible;
+@custom-selector :--icon i[class^="icon-"], i[class*=" icon-"];
+@custom-selector :--placeholder
+  :placehoder-shown,
+  ::-webkit-input-placeholder,
+  ::-moz-placeholder,
+  :-ms-input-placeholder;
+@custom-selector :--enter :matches(:hover, :focus, :active);
+
+`;
+
+exports[`debug.css 1`] = `
+@debug 10em + 12em;
+@debug 10em+12em;
+@debug  10em  +  12em  ;
+@debug 10em
+    +
+    12em
+    ;
+@debug
+10em
++
+12em
+;
+@debug
+
+10em
+
++
+
+12em
+
+;
+@debug $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var + $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@debug 10em + 12em;
+@debug 10em+12em;
+@debug 10em + 12em;
+@debug 10em + 12em;
+@debug 10em + 12em;
+@debug 10em + 12em;
+@debug $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var +
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var;
+
+`;
+
+exports[`each.css 1`] = `
+@each $animal in puma, sea-slug, egret, salamander {}
+@each $animal in puma,sea-slug,egret,salamander{}
+@each  $animal  in  puma  ,  sea-slug  ,  egret  ,  salamander  {}
+@each $animal in
+    puma, sea-slug, egret, salamander {}
+@each
+    $animal
+    in
+    puma
+    ,
+    sea-slug
+    ,
+    egret
+    ,
+    salamander
+    {
+    }
+@each
+$animal
+in
+puma
+,
+sea-slug
+,
+egret
+,
+salamander
+{
+}
+@each
+
+$animal
+
+in
+
+puma
+
+,
+
+sea-slug
+
+,
+
+egret
+
+,
+
+salamander
+
+{
+
+}
+@each $animal in ((puma), (sea-slug), (egret), (salamander)) {}
+@each $animal in((puma),(sea-slug),(egret),(salamander)){}
+@each  $animal  in  (  (  puma  )  ,  (  sea-slug  )  ,  (  egret  )  ,  (  salamander  )  )  {}
+@each $animal
+    in ((puma), (sea-slug), (egret), (salamander)) {}
+@each
+    $animal
+    in (
+        (puma),
+        (sea-slug),
+        (egret),
+        (salamander)
+    ) {  }
+@each
+    $animal
+    in
+    (
+    (
+    puma
+    )
+    ,
+    (
+    sea-slug
+    )
+    ,
+    (
+    egret
+    )
+    ,
+    (
+    salamander
+    )
+    )
+    {
+    }
+@each
+
+    $animal
+
+    in
+
+    (
+
+    (
+
+    puma
+
+    )
+
+    ,
+
+    (
+
+    sea-slug
+
+    )
+
+    ,
+
+    (
+
+    egret
+
+    )
+
+    ,
+
+    (
+
+    salamander
+
+    )
+
+    )
+
+    {
+
+    }
+@each $animal, $color, $cursor in (puma, black, default), (sea-slug, blue, pointer), (egret, white, move) {}
+@each $animal,$color,$cursor in (puma,black,default),(sea-slug,blue,pointer),(egret,white,move){}
+@each $animal, $color, $cursor in
+    (puma, black, default),
+    (sea-slug, blue, pointer),
+    (egret, white, move) {}
+@each $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var in puma, sea-slug, egret, salamander {}
+@each $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 in (puma, black, default), (sea-slug, blue, pointer), (egret, white, move) {}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@each $animal in puma, sea-slug, egret, salamander {
+}
+@each $animal in puma, sea-slug, egret, salamander {
+}
+@each $animal in puma, sea-slug, egret, salamander {
+}
+@each $animal in puma, sea-slug, egret, salamander {
+}
+@each $animal in puma, sea-slug, egret, salamander {
+}
+@each $animal in puma, sea-slug, egret, salamander {
+}
+@each $animal in puma, sea-slug, egret, salamander {
+}
+@each $animal in ((puma),  (sea-slug),  (egret),  (salamander)) {
+}
+@each $animal in((puma), (sea-slug), (egret), (salamander)) {
+}
+@each $animal in ( (puma),  (sea-slug),  (egret),  (salamander)) {
+}
+@each $animal in ((puma),  (sea-slug),  (egret),  (salamander)) {
+}
+@each $animal in ( (puma),  (sea-slug),  (egret),  (salamander)) {
+}
+@each $animal in ( (puma),  (sea-slug),  (egret),  (salamander)) {
+}
+@each $animal in ( (puma),  (sea-slug),  (egret),  (salamander)) {
+}
+@each $animal, $color, $cursor in (puma, black, default),
+   (sea-slug, blue, pointer),  (egret, white, move)
+{
+}
+@each $animal, $color, $cursor in (puma, black, default),
+  (sea-slug, blue, pointer), (egret, white, move)
+{
+}
+@each $animal, $color, $cursor in (puma, black, default),
+   (sea-slug, blue, pointer),  (egret, white, move)
+{
+}
+@each $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
+    in
+    puma,
+  sea-slug, egret, salamander
+{
+}
+@each $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var,
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1,
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2
+    in (puma, black, default),
+   (sea-slug, blue, pointer),  (egret, white, move)
+{
+}
+
+`;
+
+exports[`extend.css 1`] = `
+.master {
+    color:  black;
+    font-size: 12px;
+}
+.emphasis {
+    @extend .master;
+    font-weight: bold;
+}
+.emphasis {
+@extend .master;
+font-weight: bold;
+}
+.emphasis {
+    @extend  .master ;
+    font-weight: bold;
+}
+.emphasis {
+    @extend   .master  ;
+    font-weight: bold;
+}
+.emphasis
+{
+@extend
+.master
+;
+font-weight
+:
+bold
+;
+}
+.emphasis
+
+{
+
+@extend
+
+.master
+
+;
+
+font-weight
+
+:
+
+bold
+
+;
+
+}
+%message-shared {
+    border: 1px solid #ccc;
+    padding: 10px;
+    color: #333;
+}
+.message {
+    @extend %message-shared;
+}
+.message {
+@extend %message-shared;
+}
+.message {
+    @extend  %message-shared ;
+}
+.message {
+    @extend   %message-shared  ;
+}
+.message {
+@extend
+%message-shared;
+}
+.message {
+
+@extend
+
+%message-shared;
+
+}
+a.important {
+    @extend .notice !optional;
+}
+a.important {
+@extend .notice !optional;
+}
+a.important {
+    @extend  .notice !optional ;
+}
+a.important {
+    @extend  .notice  !optional  ;
+}
+a.important
+{
+@extend
+.notice
+!optional
+;
+}
+a.important
+
+{
+
+@extend
+
+.notice
+
+!optional
+
+;
+
+}
+.message-error {
+    @extend .message, .important;
+}
+.message-error {
+    @extend .message , .important ;
+}
+.message-error {
+    @extend   .message  ,  .important  ;
+}
+.message-error {
+    @extend .message,
+        .important;
+}
+.message-error {
+    @extend
+        .message,
+        .important;
+}
+.message-error
+{
+@extend
+.message
+,
+.important
+;
+}
+.message-error
+
+{
+
+@extend
+
+.message
+
+,
+
+.important;
+
+}
+.message-error {
+    @extend .very-very-very-very-very-very-very-very-very-very-very-very-very-long-selector, .very-very-very-very-very-very-very-very-very-very-very-very-very-long-selector;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.master {
+  color: black;
+  font-size: 12px;
+}
+.emphasis {
+  @extend .master;
+  font-weight: bold;
+}
+.emphasis {
+  @extend .master;
+  font-weight: bold;
+}
+.emphasis {
+  @extend .master;
+  font-weight: bold;
+}
+.emphasis {
+  @extend .master;
+  font-weight: bold;
+}
+.emphasis {
+  @extend .master;
+  font-weight: bold;
+}
+.emphasis {
+  @extend .master;
+
+  font-weight: bold;
+}
+%message-shared {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+.message {
+  @extend %message-shared;
+}
+.message {
+  @extend %message-shared;
+}
+.message {
+  @extend %message-shared;
+}
+.message {
+  @extend %message-shared;
+}
+.message {
+  @extend %message-shared;
+}
+.message {
+  @extend %message-shared;
+}
+a.important {
+  @extend .notice !optional;
+}
+a.important {
+  @extend .notice !optional;
+}
+a.important {
+  @extend .notice !optional;
+}
+a.important {
+  @extend .notice !optional;
+}
+a.important {
+  @extend .notice !optional;
+}
+a.important {
+  @extend .notice !optional;
+}
+.message-error {
+  @extend .message, .important;
+}
+.message-error {
+  @extend .message, .important;
+}
+.message-error {
+  @extend .message, .important;
+}
+.message-error {
+  @extend .message, .important;
+}
+.message-error {
+  @extend .message, .important;
+}
+.message-error {
+  @extend .message, .important;
+}
+.message-error {
+  @extend .message, .important;
+}
+.message-error {
+  @extend .very-very-very-very-very-very-very-very-very-very-very-very-very-long-selector,
+    .very-very-very-very-very-very-very-very-very-very-very-very-very-long-selector;
+}
+
+`;
+
+exports[`font-face.css 1`] = `
+@font-face {
+    font-family: "Open Sans";
+    src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+        url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+}
+@font-face {
+font-family: "Open Sans";
+src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+}
+@font-face{
+    font-family: "Open Sans";
+    src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+        url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+}
+@font-face  {
+    font-family: "Open Sans";
+    src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+        url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+}
+@font-face
+{
+font-family
+:
+"Open Sans"
+;
+src
+:
+url(
+"/fonts/OpenSans-Regular-webfont.woff2"
+)
+format(
+"woff2"
+)
+,
+url(
+"/fonts/OpenSans-Regular-webfont.woff"
+)
+format(
+"woff"
+)
+;
+}
+@font-face
+
+{
+
+font-family
+
+:
+
+"Open Sans"
+
+;
+
+src
+
+:
+
+url(
+
+"/fonts/OpenSans-Regular-webfont.woff2"
+
+)
+
+format(
+
+"woff2"
+
+)
+
+,
+
+url(
+
+"/fonts/OpenSans-Regular-webfont.woff"
+
+)
+
+format(
+
+
+"woff"
+
+)
+
+;
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Open Sans";
+
+  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+}
+
+`;
+
+exports[`font-feature-values.css 1`] = `
+@font-feature-values Font One {
+    @styleset {
+        nice-style: 12;
+    }
+}
+@font-feature-values Font One {
+@styleset {
+nice-style: 12;
+}
+}
+@font-feature-values Font One{
+    @styleset{
+        nice-style: 12;
+    }
+}
+@font-feature-values  Font One  {
+    @styleset  {
+        nice-style: 12;
+    }
+}
+@font-feature-values
+Font One
+{
+@styleset
+{
+nice-style
+:
+12
+;
+}
+}
+
+@font-feature-values
+
+Font One
+
+{
+
+@styleset
+{
+
+nice-style
+
+:
+
+12
+
+;
+
+}
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@font-feature-values Font One {
+  @styleset {
+    nice-style: 12;
+  }
+}
+@font-feature-values Font One {
+  @styleset {
+    nice-style: 12;
+  }
+}
+@font-feature-values Font One {
+  @styleset {
+    nice-style: 12;
+  }
+}
+@font-feature-values Font One {
+  @styleset {
+    nice-style: 12;
+  }
+}
+@font-feature-values Font One {
+  @styleset {
+    nice-style: 12;
+  }
+}
+
+@font-feature-values Font One {
+  @styleset {
+    nice-style: 12;
+  }
+}
+
+`;
+
+exports[`for.css 1`] = `
+@for $i from 1 through 8 {}
+@for $i from 1 through 8{}
+@for  $i  from  1  through  8  {}
+@for  $i
+from
+1
+through
+8
+{}
+@for
+$i
+from
+1
+through
+8
+{}
+@for
+$i
+from
+1
+through
+8
+{}
+@for
+
+$i
+
+from
+
+1
+
+through
+
+8
+
+{}
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var from 1 through 5 {}
+@for $i from $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 through 5 {}
+@for $i from 1 through $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 {}
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var from $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 through $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 {}
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var from $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 end $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 {}
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var from ($very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 + $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1) through ($very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 + $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@for $i from 1 through 8 {
+}
+@for $i from 1 through 8 {
+}
+@for $i from 1 through 8 {
+}
+@for $i from 1 through 8 {
+}
+@for $i from 1 through 8 {
+}
+@for $i from 1 through 8 {
+}
+@for $i from 1 through 8 {
+}
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
+  from 1
+  through 5
+{
+}
+@for $i
+  from $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1
+  through 5
+{
+}
+@for $i
+  from 1
+  through $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2
+{
+}
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
+  from $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1
+  through $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2
+{
+}
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
+  from $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1
+  end $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2
+{
+}
+@for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
+  from
+  (
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 +
+      $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1
+  )
+  through
+  (
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 +
+      $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2
+  )
+{
+}
+
+`;
+
+exports[`function.css 1`] = `
+@function func($arg, $arg1, $arg2: 10, $args...) {
+    @return "Func";
+}
+@function func($arg,$arg1,$arg2:10,$args...){
+    @return "Func";
+}
+@function func ( $arg , $arg1 , $arg2 : 10 , $args ... ) {
+    @return "Func";
+}
+@function  func  (  $arg  ,  $arg1  ,  $arg2  :  10  ,  $args  ...  )  {
+    @return "Func";
+}
+@function func(
+    $arg,
+    $arg1,
+    $arg2: 10,
+    $args...
+)  {
+    @return "Func";
+}
+@function
+    func(
+        $arg,
+        $arg1,
+        $arg2: 10,
+        $args...
+    )  {
+    @return "Func";
+}
+@function
+func
+(
+$arg
+,
+$arg1
+,
+$arg2
+:
+10
+,
+$args
+...
+)
+{
+@return
+"Func"
+;
+}
+@function
+
+func
+
+(
+
+$arg
+
+,
+
+$arg1
+
+,
+
+$arg2
+
+:
+
+10
+
+,
+
+$args
+
+...
+
+)
+
+{
+
+@return
+
+"Func"
+
+;
+
+}
+@function func($very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2: 10, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-args...) {
+    @return "Func";
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@function func($arg, $arg1, $arg2: 10, $args...) {
+  @return "Func";
+}
+@function func($arg, $arg1, $arg2:10, $args...) {
+  @return "Func";
+}
+@function func($arg, $arg1, $arg2: 10, $args...) {
+  @return "Func";
+}
+@function func($arg, $arg1, $arg2: 10, $args...) {
+  @return "Func";
+}
+@function func($arg, $arg1, $arg2: 10, $args...) {
+  @return "Func";
+}
+@function func($arg, $arg1, $arg2: 10, $args...) {
+  @return "Func";
+}
+@function func($arg, $arg1, $arg2: 10, $args...) {
+  @return "Func";
+}
+@function func($arg, $arg1, $arg2: 10, $args...) {
+  @return "Func";
+}
+@function func(
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg,
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1,
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2:
+    10,
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-args...
+) {
+  @return "Func";
+}
+
+`;
+
 exports[`if-else.css 1`] = `
 @if $media == phonePortrait {
     $k: .15625;
@@ -8,6 +1771,143 @@ exports[`if-else.css 1`] = `
 } @else if $media == tabletPortrait {
     $k: .065106;
 }
+p {
+    @if $type == ocean {}
+    @if $type==ocean{}
+    @if  $type  ==  ocean  {}
+    @if $type
+        == ocean {}
+    @if
+    $type
+    ==
+    ocean
+    {
+    }
+    @if
+
+    $type
+
+    ==
+
+    ocean
+
+    {
+
+    }
+    @if (($type) == (ocean)) {}
+    @if (($type)==(ocean)){}
+    @if  (  (  $type  )  ==  (  ocean  )  )  {}
+    @if (($type)
+        == (ocean)) {}
+    @if
+    (
+    (
+    $type
+    )
+    ==
+    (
+    ocean
+    )
+    )
+    {
+    }
+    @if
+
+    (
+
+    (
+
+    $type
+
+    )
+
+    ==
+
+    (
+
+    ocean
+
+    )
+
+    )
+
+    {
+
+    }
+    @if $type == ocean {
+        color: blue;
+    } @else if $type == matador {
+        color: red;
+    } @else if $type == monster {
+        color: green;
+    } @else {
+        color: black;
+    }
+    @if $type == ocean {
+    } @else if $type == matador {
+    }
+    @if $type==ocean{}@else if $type==matador{}
+    @if  $type  ==  ocean  {  }  @else  if  $type  ==  matador  {  }
+    @if $type == ocean {}
+    @else if $type == matador {}
+    @if
+        $type == ocean {}
+    @else if
+        $type == matador {}
+    @if
+        $type
+        ==
+        ocean
+        {
+        }
+    @else
+        if
+        $type
+        ==
+        matador
+        {
+        }
+    @if
+
+        $type
+
+        ==
+
+        ocean
+
+        {
+
+        }
+
+    @else
+
+        if
+
+        $type
+
+        ==
+
+        matador
+
+        {
+
+        }
+    @if $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables == $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables {
+        color: blue;
+    } @else if $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables == $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables {
+        color: red;
+    } @else if $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables == $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables {
+        color: green;
+    } @else {
+        color: black;
+    }
+    @if $very-very-very-long-var == 0 and $very-very-very-long-var == 0 {}
+    @if $very-very-very-very-very-very-long-var == 0 and $very-very-very-long-var == 0 {}
+    @if $very-very-very-very-very-very-very-very-very-very-very-long-var == 0 and $very-very-very-very-very-very-very-very-very-very-very-long-var == 0 {}
+    @if $base-font-size != 16px or $base-line-height != 24px or $base-unit != 'em' or $h1-font-size != 2 * $base-font-size or $h2-font-size != 1.5 * $base-font-size or $h3-font-size != 1.17 * $base-font-size or $h4-font-size != 1 * $base-font-size or $h5-font-size != 0.83 * $base-font-size or $h6-font-size != 0.67 * $base-font-size or $indent-amount != 40px {}
+    @if (str-slice($item, 0, 1) == ":") {}
+    @if (str-slice($item, 0, 3) == " : ") {}
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @if $media == phonePortrait {
   $k: 0.15625;
@@ -15,6 +1915,1781 @@ exports[`if-else.css 1`] = `
   $k: 0.08803;
 } @else if $media == tabletPortrait {
   $k: 0.065106;
+}
+p {
+  @if $type == ocean {
+  }
+  @if $type==ocean {
+  }
+  @if $type == ocean {
+  }
+  @if $type == ocean {
+  }
+  @if $type == ocean {
+  }
+  @if $type == ocean {
+  }
+  @if (($type) == (ocean)) {
+  }
+  @if (($type)==(ocean)) {
+  }
+  @if (($type) == (ocean)) {
+  }
+  @if (($type) == (ocean)) {
+  }
+  @if (($type) == (ocean)) {
+  }
+  @if (($type) == (ocean)) {
+  }
+  @if $type == ocean {
+    color: blue;
+  } @else if $type == matador {
+    color: red;
+  } @else if $type == monster {
+    color: green;
+  } @else {
+    color: black;
+  }
+  @if $type == ocean {
+  } @else if $type == matador {
+  }
+  @if $type==ocean {
+  } @else if $type==matador {
+  }
+  @if $type == ocean {
+  } @else if $type == matador {
+  }
+  @if $type == ocean {
+  } @else if $type == matador {
+  }
+  @if $type == ocean {
+  } @else if $type == matador {
+  }
+  @if $type == ocean {
+  } @else if $type == matador {
+  }
+  @if $type == ocean {
+  } @else if $type == matador {
+  }
+  @if $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables ==
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables
+  {
+    color: blue;
+  } @else if
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables ==
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables
+  {
+    color: red;
+  } @else if
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables ==
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables
+  {
+    color: green;
+  } @else {
+    color: black;
+  }
+  @if $very-very-very-long-var == 0 and $very-very-very-long-var == 0 {
+  }
+  @if $very-very-very-very-very-very-long-var ==
+    0 and
+    $very-very-very-long-var ==
+    0
+  {
+  }
+  @if $very-very-very-very-very-very-very-very-very-very-very-long-var ==
+    0 and
+    $very-very-very-very-very-very-very-very-very-very-very-long-var ==
+    0
+  {
+  }
+  @if $base-font-size !=
+    16px or
+    $base-line-height !=
+    24px or
+    $base-unit !=
+    "em" or
+    $h1-font-size !=
+    2 *
+    $base-font-size or
+    $h2-font-size !=
+    1.5 *
+    $base-font-size or
+    $h3-font-size !=
+    1.17 *
+    $base-font-size or
+    $h4-font-size !=
+    1 *
+    $base-font-size or
+    $h5-font-size !=
+    0.83 *
+    $base-font-size or
+    $h6-font-size !=
+    0.67 *
+    $base-font-size or
+    $indent-amount !=
+    40px
+  {
+  }
+  @if (str-slice($item, 0, 1) ==":") {
+  }
+  @if (str-slice($item, 0, 3) == " : ") {
+  }
+}
+
+`;
+
+exports[`include.css 1`] = `
+@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
+@include mix(1px,2px,$arg2:10,2px 4px 6px);
+@include mix ( 1px , 2px , $arg2 : 10 , 2px 4px 6px );
+@include mix  (  1px  ,  2px  , $arg2  :  10  ,  2px  4px  6px  );
+@include mix(
+    1px,
+    2px,
+    $arg2: 10,
+    2px  4px  6px
+);
+@include
+mix(
+    1px,
+    2px,
+    $arg2: 10,
+    2px  4px  6px
+);
+@include
+mix
+(
+1px
+,
+2px
+,
+$arg2
+:
+10
+,
+2px
+4px
+6px
+)
+;
+@include
+
+mix
+
+(
+
+1px
+
+,
+
+2px
+
+,
+
+$arg2
+
+:
+
+10
+
+,
+
+2px
+
+4px
+
+6px
+
+)
+
+;
+@include mix($very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg: 1px, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1: 2px, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2: 10, 2px 4px 6px);
+a {
+    @include global-variable-overriding;
+    @include mix($very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg: 1px, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1: 2px, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2: 10, 2px 4px 6px);
+    @include apply-to-ie6-only {}
+    @include apply-to-ie6-only{}
+    @include apply-to-ie6-only
+        {}
+    @include
+        apply-to-ie6-only
+        {
+        }
+    @include
+
+        apply-to-ie6-only
+
+        {
+
+        }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
+@include mix(1px, 2px, $arg2:10, 2px 4px 6px);
+@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
+@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
+@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
+@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
+@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
+@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
+@include mix(
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg:
+    1px,
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1:
+    2px,
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2:
+    10,
+  2px 4px 6px
+);
+a {
+  @include global-variable-overriding;
+  @include mix(
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg:
+      1px,
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1:
+      2px,
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2:
+      10,
+    2px 4px 6px
+  );
+  @include apply-to-ie6-only {
+  }
+  @include apply-to-ie6-only {
+  }
+  @include apply-to-ie6-only {
+  }
+  @include apply-to-ie6-only {
+  }
+  @include apply-to-ie6-only {
+  }
+}
+
+`;
+
+exports[`keyframes.css 1`] = `
+@keyframes identifier {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  30% {
+    top: 50px;
+  }
+  68%,
+  72% {
+    left: 50px;
+  }
+  100% {
+    top: 100px;
+    left: 100%;
+  }
+}
+@keyframes identifier {
+0%{top:0;left:0;}
+30%{top: 50px;}
+68%,72%{left: 50px;}
+100%{top: 100px; left: 100%;}
+}
+@keyframes identifier{
+    0% {
+        top:0;
+        left:0;
+    }
+    30% {
+        top: 50px;
+    }
+    68%, 72% {
+        left: 50px;
+    }
+    100% {
+        top: 100px;
+        left: 100%;
+    }
+}
+@keyframes  identifier  {
+    0% {
+        top:0;
+        left:0;
+    }
+    30% {
+        top: 50px;
+    }
+    68%, 72% {
+        left: 50px;
+    }
+    100% {
+        top: 100px;
+        left: 100%;
+    }
+}
+@keyframes
+identifier
+{
+0%
+{
+top
+:
+0;
+left
+:
+0
+;
+}
+30%
+{
+top
+:
+50px
+;
+}
+68%
+,
+72%
+{
+left
+:
+50px
+;
+}
+100%
+{
+top
+:
+100px
+;
+left
+:
+100%
+;
+}
+}
+@keyframes
+
+identifier
+
+{
+
+0%
+
+{
+
+top
+
+:
+
+0
+
+;
+
+left
+
+:
+
+0
+
+;
+
+}
+
+30%
+
+{
+
+top
+
+:
+
+50px
+
+;
+
+}
+
+68%
+
+,
+
+72%
+
+{
+
+left
+
+:
+
+50px
+
+;
+
+}
+
+100%
+
+{
+
+top
+
+:
+
+100px
+
+;
+
+left
+
+:
+
+100%
+
+;
+
+}
+
+}
+@keyframes identifier {
+  from {
+    margin-top: 50px;
+  }
+  to {
+    margin-top: 100px;
+  }
+}
+@keyframes
+identifier
+{
+from
+{
+margin-top: 50px;
+}
+to
+{
+margin-top: 100px;
+}
+}
+@keyframes
+
+identifier
+
+{
+
+from
+
+{
+
+margin-top: 50px;
+
+}
+
+to
+
+{
+
+margin-top: 100px;
+
+}
+
+}
+@-webkit-keyframes identifier {
+  0%   { opacity: 0; top: 4rem; }
+  100% { opacity: 1; top: 0; }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@keyframes identifier {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  30% {
+    top: 50px;
+  }
+  68%,
+  72% {
+    left: 50px;
+  }
+  100% {
+    top: 100px;
+    left: 100%;
+  }
+}
+@keyframes identifier {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  30% {
+    top: 50px;
+  }
+  68%,
+  72% {
+    left: 50px;
+  }
+  100% {
+    top: 100px;
+    left: 100%;
+  }
+}
+@keyframes identifier {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  30% {
+    top: 50px;
+  }
+  68%,
+  72% {
+    left: 50px;
+  }
+  100% {
+    top: 100px;
+    left: 100%;
+  }
+}
+@keyframes identifier {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  30% {
+    top: 50px;
+  }
+  68%,
+  72% {
+    left: 50px;
+  }
+  100% {
+    top: 100px;
+    left: 100%;
+  }
+}
+@keyframes identifier {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  30% {
+    top: 50px;
+  }
+  68%,
+  72% {
+    left: 50px;
+  }
+  100% {
+    top: 100px;
+    left: 100%;
+  }
+}
+@keyframes identifier {
+  0% {
+    top: 0;
+
+    left: 0;
+  }
+
+  30% {
+    top: 50px;
+  }
+
+  68%,
+  72% {
+    left: 50px;
+  }
+
+  100% {
+    top: 100px;
+
+    left: 100%;
+  }
+}
+@keyframes identifier {
+  from {
+    margin-top: 50px;
+  }
+  to {
+    margin-top: 100px;
+  }
+}
+@keyframes identifier {
+  from {
+    margin-top: 50px;
+  }
+  to {
+    margin-top: 100px;
+  }
+}
+@keyframes identifier {
+  from {
+    margin-top: 50px;
+  }
+
+  to {
+    margin-top: 100px;
+  }
+}
+@-webkit-keyframes identifier {
+  0% {
+    opacity: 0;
+    top: 4rem;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+`;
+
+exports[`mixin.css 1`] = `
+@mixin clearfix {}
+@mixin clearfix{}
+@mixin  clearfix  {}
+@mixin clearfix
+  {}
+@mixin
+  clearfix
+  {}
+@mixin
+clearfix
+{
+}
+@mixin
+
+clearfix
+
+{
+
+}
+
+@mixin mix($arg, $arg1, $arg2: 10, $args...) {}
+@mixin mix($arg,$arg1,$arg2:10,$args...){}
+@mixin mix ( $arg , $arg1 , $arg2 : 10 , $args ... ) {}
+@mixin  mix  (  $arg  ,  $arg1  ,  $arg2  :  10  ,  $args  ...  )  {}
+@mixin mix(
+    $arg,
+    $arg1,
+    $arg2: 10,
+    $args...
+) {}
+@mixin
+mix(
+    $arg,
+    $arg1,
+    $arg2: 10,
+    $args...
+    ) {}
+@mixin
+mix
+(
+$arg
+,
+$arg1
+,
+$arg2
+:
+10
+,
+$args
+...
+)
+{
+}
+@mixin
+
+mix
+
+(
+
+$arg
+
+,
+
+$arg1
+
+,
+
+$arg2
+
+:
+
+10
+
+,
+
+$args
+
+...
+
+)
+
+{
+}
+@mixin mix($very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2: 10, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-args...) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@mixin clearfix {
+}
+@mixin clearfix {
+}
+@mixin clearfix {
+}
+@mixin clearfix {
+}
+@mixin clearfix {
+}
+@mixin clearfix {
+}
+@mixin clearfix {
+}
+
+@mixin mix($arg, $arg1, $arg2: 10, $args...) {
+}
+@mixin mix($arg, $arg1, $arg2:10, $args...) {
+}
+@mixin mix($arg, $arg1, $arg2: 10, $args...) {
+}
+@mixin mix($arg, $arg1, $arg2: 10, $args...) {
+}
+@mixin mix($arg, $arg1, $arg2: 10, $args...) {
+}
+@mixin mix($arg, $arg1, $arg2: 10, $args...) {
+}
+@mixin mix($arg, $arg1, $arg2: 10, $args...) {
+}
+@mixin mix($arg, $arg1, $arg2: 10, $args...) {
+}
+@mixin mix(
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg,
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1,
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2:
+    10,
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-args...
+) {
+}
+
+`;
+
+exports[`namespaces.css 1`] = `
+@namespace toto "http://toto.example.org";
+@namespace toto url("http://toto.example.org");
+@namespace toto "http://toto.example.org" ;
+@namespace  toto  "http://toto.example.org"  ;
+@namespace
+toto
+"http://toto.example.org"
+;
+@namespace
+
+toto
+
+"http://toto.example.org"
+
+;
+@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace "http://toto.example.org";
+@namespace
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace
+"http://toto.example.org"
+;
+@namespace
+
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace
+
+"http://toto.example.org"
+
+;
+@namespace "http://example.com/foo";
+@namespace url("http://example.com/foo");
+@namespace url("http://example.com/foo") ;
+@namespace  url("http://example.com/foo")  ;
+@namespace
+url("http://example.com/foo");
+@namespace
+
+url("http://example.com/foo");
+@namespace url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
+@namespace
+url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
+@namespace
+
+url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@namespace toto "http://toto.example.org";
+@namespace toto url("http://toto.example.org");
+@namespace toto "http://toto.example.org";
+@namespace toto "http://toto.example.org";
+@namespace toto "http://toto.example.org";
+@namespace toto "http://toto.example.org";
+@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace "http://toto.example.org";
+@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace "http://toto.example.org";
+@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace "http://toto.example.org";
+@namespace "http://example.com/foo";
+@namespace url("http://example.com/foo");
+@namespace url("http://example.com/foo");
+@namespace url("http://example.com/foo");
+@namespace url("http://example.com/foo");
+@namespace url("http://example.com/foo");
+@namespace url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
+@namespace url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
+@namespace url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
+
+`;
+
+exports[`page.css 1`] = `
+@page {
+    margin: 1cm;
+}
+@page {
+margin: 1cm;
+}
+@page{
+margin: 1cm;
+}
+@page  {
+    margin: 1cm;
+}
+@page
+{
+margin
+:
+1cm
+;
+}
+@page
+
+{
+
+margin
+:
+
+1cm
+
+;
+
+}
+@page :first {
+    margin: 2cm;
+}
+@page :first {
+margin: 2cm;
+}
+@page :first{
+    margin: 2cm;
+}
+@page  :first  {
+    margin: 2cm;
+}
+@page
+:first
+{
+margin
+:
+2cm
+;
+}
+@page
+
+:first
+
+{
+
+margin
+
+:
+
+2cm
+
+;
+
+}
+@page vertical {
+    size: A4 portrait;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@page {
+  margin: 1cm;
+}
+@page {
+  margin: 1cm;
+}
+@page {
+  margin: 1cm;
+}
+@page {
+  margin: 1cm;
+}
+@page {
+  margin: 1cm;
+}
+@page {
+  margin: 1cm;
+}
+@page :first {
+  margin: 2cm;
+}
+@page :first {
+  margin: 2cm;
+}
+@page :first {
+  margin: 2cm;
+}
+@page :first {
+  margin: 2cm;
+}
+@page :first {
+  margin: 2cm;
+}
+@page :first {
+  margin: 2cm;
+}
+@page vertical {
+  size: A4 portrait;
+}
+
+`;
+
+exports[`return.css 1`] = `
+@function grid-width($n) {
+    @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+@function grid-width($n) {
+@return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+@function grid-width($n) {
+@return $n*$grid-width+($n-1)*$gutter-width;
+}
+@function grid-width($n) {
+    @return $n * $grid-width + ( $n - 1 ) * $gutter-width ;
+}
+@function grid-width($n) {
+    @return  $n   *  $grid-width  +  (  $n  -  1  )  *  $gutter-width  ;
+}
+@function grid-width($n) {
+    @return $n
+        *
+        $grid-width
+        + (
+            $n
+            -
+            1
+        )
+        *
+        $gutter-width;
+}
+@function grid-width($n) {
+    @return
+        $n
+        *
+        $grid-width
+        + (
+            $n
+            -
+            1
+        )
+        *
+        $gutter-width;
+}
+@function
+grid-width(
+$n
+)
+{
+@return
+$n
+*
+$grid-width
++
+(
+$n
+-
+1
+)
+*
+$gutter-width
+;
+}
+@function
+
+grid-width(
+
+$n
+
+)
+
+{
+
+@return
+
+$n
+
+*
+
+$grid-width
+
++
+
+(
+
+$n
+
+-
+
+1
+
+)
+
+*
+
+$gutter-width
+
+;
+
+}
+@function grid-width($n) {
+    @return $very-very-very-very-very-very-vey-long-var * $very-very-very-very-very-very-vey-long-var + ($very-very-very-very-very-very-vey-long-var - 1) * $very-very-very-very-very-very-vey-long-var;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+@function grid-width($n) {
+  @return $n*$grid-width+($n-1)*$gutter-width;
+}
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+@function grid-width($n) {
+  @return $very-very-very-very-very-very-vey-long-var *
+    $very-very-very-very-very-very-vey-long-var +
+    (
+      $very-very-very-very-very-very-vey-long-var - 1
+    ) * $very-very-very-very-very-very-vey-long-var;
+}
+
+`;
+
+exports[`supports.css 1`] = `
+@supports (transform-origin: 5% 5%) {}
+@supports (transform-origin:5% 5%) {}
+@supports ( transform-origin : 5% 5% ) {}
+@supports (  transform-origin  :  5%  5%  ) {}
+@supports
+    (transform-origin: 5% 5%) {}
+@supports
+(transform-origin: 5% 5%) {}
+@supports
+(
+transform-origin
+:
+5%
+5%
+) {}
+@supports
+
+(
+
+transform-origin
+
+:
+
+5%
+
+5%
+
+)
+
+{}
+@supports (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {}
+@supports
+  (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {}
+@supports
+(
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop
+:
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+) {}
+@supports
+
+(
+
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop
+
+:
+
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+
+)
+
+{}
+@supports not(transform-origin: 10em 10em 10em) {}
+@supports not (transform-origin: 10em 10em 10em) {}
+@supports  not  ( transform-origin : 10em 10em 10em ) {}
+@supports   not   (  transform-origin  :  10em  10em  10em  ) {}
+@supports not
+  (transform-origin: 10em 10em 10em) {}
+@supports
+    not (transform-origin: 10em 10em 10em) {}
+@supports
+  not
+  (transform-origin: 10em 10em 10em) {}
+@supports
+not
+(
+transform-origin
+:
+10em
+10em
+10em
+) {}
+@supports
+
+not
+
+(
+
+transform-origin
+
+:
+
+10em
+
+10em
+
+10em
+
+)
+
+{}
+@supports not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {}
+@supports
+  not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {}
+@supports not
+  (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {}
+@supports
+not
+(
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop
+:
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+) {}
+@supports
+
+not
+
+(
+
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop
+
+:
+
+very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+
+)
+
+{}
+@supports not (not (transform-origin: 2px)) {}
+@supports not(not(transform-origin:2px)) {}
+@supports not ( not ( transform-origin : 2px ) ) {}
+@supports  not  (  not  (  transform-origin  :  2px  )  ) {}
+@supports not
+  (not (transform-origin: 2px)) {}
+@supports not
+  (
+    not (transform-origin: 2px)
+  ) {}
+@supports
+not
+(
+not
+(
+transform-origin
+:
+2px
+)
+) {}
+@supports
+
+not
+
+(
+
+not
+
+(
+
+transform-origin
+
+:
+
+2px
+
+)
+
+)
+
+{}
+@supports (display: flexbox) and (not (display: inline-grid)) {}
+@supports (display: table-cell) and (display: list-item) {}
+@supports ( display : table-cell ) and ( display : list-item ) {}
+@supports  (  display  :  table-cell  )  and  (  display  :  list-item  ) {}
+@supports
+  (display: table-cell) and (display: list-item) {}
+@supports (display: table-cell) and
+  (display: list-item) {}
+@supports (display: table-cell)
+  and (display: list-item) {}
+@supports
+(
+display
+:
+table-cell
+)
+and
+(
+display
+:
+list-item
+) {}
+@supports
+
+(
+
+display
+
+:
+
+table-cell
+
+)
+
+and
+
+(
+
+display
+
+:
+
+list-item
+
+)
+
+{}
+@supports (display: table-cell) and (display: list-item) and (display: run-in) {}
+@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {}
+@supports
+  (display: table-cell) and ((display: list-item) and (display: run-in)) {}
+@supports (display: table-cell)
+  and ((display: list-item)
+  and (display: run-in)) {}
+@supports (display: table-cell) and
+  ((display: list-item) and
+  (display: run-in)) {}
+@supports
+(
+display
+:
+table-cell
+)
+and
+(
+(
+display
+:
+list-item
+)
+and
+(
+display
+:
+run-in
+)
+) {}
+@supports
+
+(
+
+display
+
+:
+
+table-cell
+
+)
+
+and
+
+(
+
+(
+
+display
+
+:
+
+list-item
+
+)
+
+and
+
+(
+
+display
+
+:
+
+run-in
+
+)
+
+)
+
+{}
+@supports (transform-style: preserve) or (-moz-transform-style: preserve) {}
+@supports (transform-style: preserve) or (-moz-transform-style: preserve) or (-o-transform-style: preserve) or (-webkit-transform-style: preserve) {}
+@supports (transform-style: preserve-3d) or ((-moz-transform-style: preserve-3d) or ((-o-transform-style: preserve-3d) or (-webkit-transform-style: preserve-3d))) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@supports (transform-origin: 5% 5%) {
+}
+@supports (transform-origin: 5% 5%) {
+}
+@supports (transform-origin: 5% 5%) {
+}
+@supports (transform-origin: 5%  5%) {
+}
+@supports (transform-origin: 5% 5%) {
+}
+@supports (transform-origin: 5% 5%) {
+}
+@supports (transform-origin: 5%
+5%) {
+}
+@supports (transform-origin: 5%
+
+5%) {
+}
+@supports (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports not(transform-origin: 10em 10em 10em) {
+}
+@supports not (transform-origin: 10em 10em 10em) {
+}
+@supports not (transform-origin: 10em 10em 10em) {
+}
+@supports not (transform-origin: 10em  10em  10em) {
+}
+@supports not (transform-origin: 10em 10em 10em) {
+}
+@supports not (transform-origin: 10em 10em 10em) {
+}
+@supports not (transform-origin: 10em 10em 10em) {
+}
+@supports not (transform-origin: 10em
+10em
+10em) {
+}
+@supports not (transform-origin: 10em
+
+10em
+
+10em) {
+}
+@supports not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+}
+@supports not (not (transform-origin: 2px)) {
+}
+@supports not(not(transform-origin:2px)) {
+}
+@supports not (not ( transform-origin: 2px )) {
+}
+@supports not (not ( transform-origin: 2px  )) {
+}
+@supports not (not (transform-origin: 2px)) {
+}
+@supports not (not (transform-origin: 2px)) {
+}
+@supports not (not
+(
+transform-origin: 2px
+)) {
+}
+@supports not (not
+
+(
+
+transform-origin: 2px
+
+)) {
+}
+@supports (display: flexbox) and (not (display: inline-grid)) {
+}
+@supports (display: table-cell) and (display: list-item) {
+}
+@supports (display: table-cell) and (display: list-item) {
+}
+@supports (display: table-cell) and (display: list-item) {
+}
+@supports (display: table-cell) and (display: list-item) {
+}
+@supports (display: table-cell) and (display: list-item) {
+}
+@supports (display: table-cell) and (display: list-item) {
+}
+@supports (display: table-cell) and (display: list-item) {
+}
+@supports (display: table-cell) and (display: list-item) {
+}
+@supports (display: table-cell) and (display: list-item) and (display: run-in) {
+}
+@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
+}
+@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
+}
+@supports (display: table-cell) and ((display: list-item)
+  and (display: run-in)) {
+}
+@supports (display: table-cell) and ((display: list-item) and
+  (display: run-in)) {
+}
+@supports (display: table-cell) and ((
+display: list-item
+)
+and
+(
+display
+:
+run-in
+)) {
+}
+@supports (display: table-cell) and ((
+
+display: list-item
+
+)
+
+and
+
+(
+
+display
+
+:
+
+run-in
+
+)) {
+}
+@supports (transform-style: preserve) or (-moz-transform-style: preserve) {
+}
+@supports (transform-style: preserve) or (-moz-transform-style: preserve) or (-o-transform-style: preserve) or (-webkit-transform-style: preserve) {
+}
+@supports (transform-style: preserve-3d) or ((-moz-transform-style: preserve-3d) or ((-o-transform-style: preserve-3d) or (-webkit-transform-style: preserve-3d))) {
+}
+
+`;
+
+exports[`viewport.css 1`] = `
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+min-width: 640px;
+max-width: 800px;
+}
+
+@viewport{
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport  {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport
+{
+min-width
+:
+640px
+;
+max-width
+:
+800px
+;
+}
+
+@viewport
+
+{
+
+min-width
+
+:
+
+640px
+
+;
+
+max-width
+
+:
+
+800px
+
+;
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+  min-width: 640px;
+
+  max-width: 800px;
+}
+
+`;
+
+exports[`while.css 1`] = `
+@while $i > 0 {}
+@while $i>0{}
+@while  $i  >  0  {}
+@while $i
+    >
+    0
+    {}
+@while
+    $i
+    >
+    0
+    {}
+@while
+$i
+>
+0
+{
+}
+@while
+
+$i
+
+>
+
+0
+
+{
+
+}
+@while ($i > 0) {}
+@while ($i>0){}
+@while ( $i > 0 ) {}
+@while  (  $i  >  0  )  {}
+@while (
+    $i > 0
+) {}
+@while
+    ($i > 0) {}
+@while
+(
+$i
+>
+0
+)
+{
+}
+@while
+
+(
+
+$i
+
+>
+
+0
+
+)
+
+{
+
+}
+@while $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var > 1 {}
+@while 1 > $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var {}
+@while $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var > $other-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var {}
+@while (($i) > (0)) {}
+@while (($i)>(0)){}
+@while  (  (  $i  )  >  (  0  )  )  {}
+@while (($i)
+    >
+    (0)
+) {}
+@while
+(
+(
+$i
+)
+>
+(
+0
+)
+)
+{
+}
+@while
+
+(
+
+(
+
+$i
+
+)
+
+>
+
+(
+
+0
+
+)
+
+)
+
+{
+
+}
+@while ($very-very-very-very-very-very-very-very-very-very-very-very-long-var > 1) {}
+@while (1 > $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var) {}
+@while ($very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var > 1) {}
+@while ($very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var > $other-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@while $i > 0 {
+}
+@while $i>0 {
+}
+@while $i > 0 {
+}
+@while $i > 0 {
+}
+@while $i > 0 {
+}
+@while $i > 0 {
+}
+@while $i > 0 {
+}
+@while ($i > 0) {
+}
+@while ($i>0) {
+}
+@while ($i > 0) {
+}
+@while ($i > 0) {
+}
+@while ($i > 0) {
+}
+@while ($i > 0) {
+}
+@while ($i > 0) {
+}
+@while ($i > 0) {
+}
+@while $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var >
+  1
+{
+}
+@while 1 >
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
+{
+}
+@while $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var >
+  $other-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
+{
+}
+@while (($i) > (0)) {
+}
+@while (($i)>(0)) {
+}
+@while (($i) > (0)) {
+}
+@while (($i) > (0)) {
+}
+@while (($i) > (0)) {
+}
+@while (($i) > (0)) {
+}
+@while (
+  $very-very-very-very-very-very-very-very-very-very-very-very-long-var > 1
+) {
+}
+@while (
+  1 >
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
+) {
+}
+@while (
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var >
+    1
+) {
+}
+@while (
+  $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var >
+    $other-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
+) {
 }
 
 `;

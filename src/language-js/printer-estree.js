@@ -26,6 +26,7 @@ const ifBreak = docBuilders.ifBreak;
 const breakParent = docBuilders.breakParent;
 const lineSuffixBoundary = docBuilders.lineSuffixBoundary;
 const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
+const dedent = docBuilders.dedent;
 
 const docUtils = doc.utils;
 const willBreak = docUtils.willBreak;
@@ -760,8 +761,8 @@ function printPathNoParens(path, options, print, args) {
           parts.push(
             concat([
               " (",
-              indent(concat([softline, path.call(print, "argument")])),
-              line,
+              indent(concat([hardline, path.call(print, "argument")])),
+              hardline,
               ")"
             ])
           );
@@ -801,10 +802,12 @@ function printPathNoParens(path, options, print, args) {
 
       const optional = printOptionalToken(path);
       if (
-        // We want to keep require calls as a unit
+        // We want to keep CommonJS- and AMD-style require calls, and AMD-style
+        // define calls, as a unit.
+        // e.g. `define(["some/lib", (lib) => {`
         (!isNew &&
           n.callee.type === "Identifier" &&
-          n.callee.name === "require") ||
+          (n.callee.name === "require" || n.callee.name === "define")) ||
         n.callee.type === "Import" ||
         // Template literals as single arguments
         (n.arguments.length === 1 &&
@@ -1259,7 +1262,7 @@ function printPathNoParens(path, options, print, args) {
         );
       } else {
         // normal mode
-        parts.push(
+        const part = concat([
           line,
           "? ",
           n.consequent.type === "ConditionalExpression" ? ifBreak("", "(") : "",
@@ -1268,6 +1271,13 @@ function printPathNoParens(path, options, print, args) {
           line,
           ": ",
           align(2, path.call(print, "alternate"))
+        ]);
+        parts.push(
+          parent.type === "ConditionalExpression"
+            ? options.useTabs
+              ? dedent(indent(part))
+              : align(Math.max(0, options.tabWidth - 2), part)
+            : part
         );
       }
 
@@ -3636,24 +3646,41 @@ function printClass(path, options, print) {
 
   const partsGroup = [];
   if (n.superClass) {
-    if (hasLeadingOwnLineComment(options.originalText, n.superClass)) {
-      parts.push(hardline);
-    } else {
-      parts.push(" ");
-    }
-
     const printed = concat([
       "extends ",
       path.call(print, "superClass"),
       path.call(print, "superTypeParameters")
     ]);
-    parts.push(
-      path.call(
-        superClass =>
-          comments.printComments(superClass, () => printed, options),
-        "superClass"
-      )
-    );
+    // Keep old behaviour of extends in same line
+    // If there is only on extends and there are not comments
+    if (
+      (!n.implements || n.implements.length === 0) &&
+      (!n.superClass.comments || n.superClass.comments.length === 0)
+    ) {
+      parts.push(
+        concat([
+          " ",
+          path.call(
+            superClass =>
+              comments.printComments(superClass, () => printed, options),
+            "superClass"
+          )
+        ])
+      );
+    } else {
+      partsGroup.push(
+        group(
+          concat([
+            line,
+            path.call(
+              superClass =>
+                comments.printComments(superClass, () => printed, options),
+              "superClass"
+            )
+          ])
+        )
+      );
+    }
   } else if (n.extends && n.extends.length > 0) {
     parts.push(" extends ", join(", ", path.map(print, "extends")));
   }
@@ -3661,8 +3688,15 @@ function printClass(path, options, print) {
   if (n["implements"] && n["implements"].length > 0) {
     partsGroup.push(
       line,
-      "implements ",
-      group(indent(join(concat([",", line]), path.map(print, "implements"))))
+      "implements",
+      group(
+        indent(
+          concat([
+            line,
+            join(concat([",", line]), path.map(print, "implements"))
+          ])
+        )
+      )
     );
   }
 
@@ -5121,7 +5155,7 @@ function isObjectType(n) {
 
 // eg; `describe("some string", (done) => {})`
 function isTestCall(n) {
-  const unitTestRe = /^(f|x)?(it|describe|test)$/;
+  const unitTestRe = /^(skip|(f|x)?(it|describe|test))$/;
   return (
     ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
       (n.callee.type === "MemberExpression" &&

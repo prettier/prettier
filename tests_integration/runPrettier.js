@@ -3,13 +3,15 @@
 const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
-const ENV_LOG_LEVEL = require("../src/cli/logger").ENV_LOG_LEVEL;
 
 const isProduction = process.env.NODE_ENV === "production";
-const prettierCli = isProduction ? "../dist/bin-prettier" : "../bin/prettier";
+const prettierRootDir = isProduction ? process.env.PRETTIER_DIR : "../";
+const prettierPkg = require(path.join(prettierRootDir, "package.json"));
+const prettierCli = path.join(prettierRootDir, prettierPkg.bin.prettier);
+
 const thirdParty = isProduction
-  ? "../dist/third-party"
-  : "../src/common/third-party";
+  ? path.join(prettierRootDir, "./third-party")
+  : path.join(prettierRootDir, "./src/common/third-party");
 
 function runPrettier(dir, args, options) {
   args = args || [];
@@ -58,7 +60,6 @@ function runPrettier(dir, args, options) {
   const originalExitCode = process.exitCode;
   const originalStdinIsTTY = process.stdin.isTTY;
   const originalStdoutIsTTY = process.stdout.isTTY;
-  const originalEnvLogLevel = process.env[ENV_LOG_LEVEL];
 
   process.chdir(normalizeDir(dir));
   process.stdin.isTTY = !!options.isTTY;
@@ -94,7 +95,6 @@ function runPrettier(dir, args, options) {
     process.exitCode = originalExitCode;
     process.stdin.isTTY = originalStdinIsTTY;
     process.stdout.isTTY = originalStdoutIsTTY;
-    process.env[ENV_LOG_LEVEL] = originalEnvLogLevel;
     jest.restoreAllMocks();
   }
 

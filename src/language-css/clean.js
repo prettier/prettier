@@ -22,7 +22,11 @@ function clean(ast, newObj) {
   }
 
   if (
-    (ast.type === "value-word" && ast.isColor && ast.isHex) ||
+    (ast.type === "value-word" &&
+      ((ast.isColor && ast.isHex) ||
+        ["initial", "inherit", "unset", "revert"].indexOf(
+          newObj.value.replace().toLowerCase()
+        ) !== -1)) ||
     ast.type === "media-feature" ||
     ast.type === "selector-root-invalid" ||
     ast.type === "selector-pseudo"
@@ -61,9 +65,23 @@ function clean(ast, newObj) {
     newObj.importPath = cleanCSSStrings(newObj.importPath);
   }
 
-  if (ast.type === "selector-attribute" && newObj.value) {
-    newObj.value = newObj.value.replace(/^['"]|['"]$/g, "");
-    delete newObj.quoted;
+  if (ast.type === "selector-attribute") {
+    newObj.attribute = newObj.attribute.trim();
+
+    if (newObj.namespace) {
+      if (typeof newObj.namespace === "string") {
+        newObj.namespace = newObj.namespace.trim();
+
+        if (newObj.namespace.length === 0) {
+          newObj.namespace = true;
+        }
+      }
+    }
+
+    if (newObj.value) {
+      newObj.value = newObj.value.trim().replace(/^['"]|['"]$/g, "");
+      delete newObj.quoted;
+    }
   }
 
   if (
@@ -83,6 +101,12 @@ function clean(ast, newObj) {
         return isNaN(num) ? match : num + unit.toLowerCase();
       }
     );
+  }
+
+  if (ast.type === "media-url") {
+    newObj.value = newObj.value
+      .replace(/^url\(\s+/gi, "url(")
+      .replace(/\s+\)$/gi, ")");
   }
 }
 

@@ -1,0 +1,46 @@
+@media screen and (min-width: 480px) {}
+@media  screen and (min-width: 480px) {}
+@MEDIA screen and (min-width: 480px) {}
+@MEDIA screen  and (min-width: 480px) {}
+@media screen and  (min-width: 480px) {}
+@media screen and (min-width: 480px) {}
+@media screen and (min-width :480px) {}
+@media screen and (min-width : 480px) {}
+@media screen and (min-width  :  480px) {}
+@media
+  screen
+  and
+  (min-width
+  :
+  480px) {}
+@media screen and ( min-width: 480px) {}
+@media screen and (min-width: 480px ) {}
+@media screen and ( min-width: 480px ) {}
+@media screen and (  min-width:  480px  ) {}
+@media not screen and (color), print and (color) { }
+@media not screen and (color) , print and (color) { }
+@media not screen and (color),print and (color) { }
+@media not screen and (color) , print and (color) { }
+@media not screen and (color)  ,  print and (color) { }
+@media not screen and ( color), print and (color) { }
+@media not screen and (color ), print and (color) { }
+@media not screen and ( color ), print and (color) { }
+@media not screen and (  color  ), print and (color) { }
+@media (--small-viewport) {}
+@media
+(
+--small-viewport
+)
+{
+}
+@media
+
+(
+
+--small-viewport
+
+)
+
+{
+
+}

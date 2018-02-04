@@ -976,6 +976,17 @@ function printTrailingComment(commentPath, print, options) {
   }
   const isBlock = util.isBlockComment(comment);
 
+  // We don't want the line to break
+  // when the parentParentNode is a ClassDeclaration/-Expression
+  // And the parentNode is in the superClass property
+  const parentNode = commentPath.getNode(1);
+  const parentParentNode = commentPath.getNode(2);
+  const isParentSuperClass =
+    parentParentNode &&
+    (parentParentNode.type === "ClassDeclaration" ||
+      parentParentNode.type === "ClassExpression") &&
+    parentParentNode.superClass === parentNode;
+
   if (
     util.hasNewline(options.originalText, locStart(comment), {
       backwards: true
@@ -1001,7 +1012,7 @@ function printTrailingComment(commentPath, print, options) {
     return lineSuffix(
       concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
     );
-  } else if (isBlock) {
+  } else if (isBlock || isParentSuperClass) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);
   }

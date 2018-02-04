@@ -9,7 +9,293 @@ exports[`selectors.css 1`] = `
 }
 
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
-.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {}
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+{}
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+
+{}
+
+.parent,.another-parent{}
+.parent ,.another-parent{}
+.parent, .another-parent{}
+.parent , .another-parent {}
+.parent  ,  .another-parent  {}
+.parent
+,
+.another-parent
+{}
+
+.parent.child {}
+.parent .child {}
+.parent  .child {}
+.parent {
+  .child-one {}
+  .child-two {}
+}
+.parent{
+.child-one  {}
+.child-two  {}
+}
+.parent  {
+  .child-one  {}
+  .child-two  {}
+}
+.parent   {
+   .child-one  {}
+   .child-two  {}
+}
+.parent
+{
+  .child-one
+  {}
+  .child-two
+  {}
+}
+.parent
+
+{
+  .child-one
+
+  {}
+  .child-two
+
+  {}
+}
+
+.parent>.child {}
+.parent > .child {}
+.parent  >  .child {}
+.parent>{
+  .child-one {}
+  .child-two {}
+}
+.parent > {
+  .child-one {}
+  .child-two {}
+}
+.parent  >  {
+  .child-one {}
+  .child-two {}
+}
+.parent
+>
+{
+  .child-one
+  {}
+  .child-two
+  {}
+}
+.parent
+
+>
+
+{
+  .child-one
+
+  {}
+  .child-two
+
+  {}
+}
+.parent {
+>.child-one {}
+>.child-two {}
+}
+.parent {
+ > .child-one {}
+ > .child-two {}
+}
+.parent {
+  > .child-one {}
+  > .child-two {}
+}
+.parent {
+  >  .child-one {}
+  >  .child-two {}
+}
+.parent {
+   >   .child-one {}
+   >   .child-two {}
+}
+
+.parent+.child {}
+.parent + .child {}
+.parent  +  .child {}
+.parent+{
+  .child-one {}
+  .child-two {}
+}
+.parent + {
+  .child-one {}
+  .child-two {}
+}
+.parent  +  {
+  .child-one {}
+  .child-two {}
+}
+.parent
++
+{
+  .child-one
+  {}
+  .child-two
+  {}
+}
+.parent
+
++
+
+{
+  .child-one
+
+  {}
+  .child-two
+
+  {}
+}
+.parent {
++.child-one {}
++.child-two {}
+}
+.parent {
+ + .child-one {}
+ + .child-two {}
+}
+.parent {
+  + .child-one {}
+  + .child-two {}
+}
+.parent {
+  +  .child-one {}
+  +  .child-two {}
+}
+.parent {
+   +   .child-one {}
+   +   .child-two {}
+}
+
+.parent~.child {}
+.parent ~ .child {}
+.parent  ~  .child {}
+.parent~{
+  .child-one {}
+  .child-two {}
+}
+.parent ~ {
+  .child-one {}
+  .child-two {}
+}
+.parent  ~  {
+  .child-one {}
+  .child-two {}
+}
+.parent
+~
+{
+  .child-one
+  {}
+  .child-two
+  {}
+}
+.parent
+
+~
+
+{
+  .child-one
+
+  {}
+  .child-two
+
+  {}
+}
+.parent {
+~.child-one {}
+~.child-two {}
+}
+.parent {
+ ~ .child-one {}
+ ~ .child-two {}
+}
+.parent {
+  ~ .child-one {}
+  ~ .child-two {}
+}
+.parent {
+  ~  .child-one {}
+  ~  .child-two {}
+}
+.parent {
+   ~   .child-one {}
+   ~   .child-two {}
+}
+
+.parent>>>.child {}
+.parent >>> .child {}
+.parent  >>>  .child {}
+.parent>>>{
+  .child-one {}
+  .child-two {}
+}
+.parent >>> {
+  .child-one {}
+  .child-two {}
+}
+.parent  >>>  {
+  .child-one {}
+  .child-two {}
+}
+.parent
+>>>
+{
+  .child-one
+  {}
+  .child-two
+  {}
+}
+.parent
+
+>>>
+
+{
+  .child-one
+
+  {}
+  .child-two
+
+  {}
+}
+.parent {
+>>>.child-one {}
+>>>.child-two {}
+}
+.parent {
+ >>> .child-one {}
+ >>> .child-two {}
+}
+.parent {
+  >>> .child-one {}
+  >>> .child-two {}
+}
+.parent {
+  >>>  .child-one {}
+  >>>  .child-two {}
+}
+.parent {
+   >>>   .child-one {}
+   >>>   .child-two {}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .a,
 .b,
 .c {
@@ -32,6 +318,346 @@ exports[`selectors.css 1`] = `
   .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
   .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {
+}
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+  .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+  .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {
+}
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+  .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
+  .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {
+}
+
+.parent,
+.another-parent {
+}
+.parent,
+.another-parent {
+}
+.parent,
+.another-parent {
+}
+.parent,
+.another-parent {
+}
+.parent,
+.another-parent {
+}
+.parent,
+.another-parent {
+}
+
+.parent.child {
+}
+.parent .child {
+}
+.parent .child {
+}
+.parent {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+
+.parent > .child {
+}
+.parent > .child {
+}
+.parent > .child {
+}
+.parent > {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent > {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent > {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent > {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent > {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent {
+  > .child-one {
+  }
+  > .child-two {
+  }
+}
+.parent {
+  > .child-one {
+  }
+  > .child-two {
+  }
+}
+.parent {
+  > .child-one {
+  }
+  > .child-two {
+  }
+}
+.parent {
+  > .child-one {
+  }
+  > .child-two {
+  }
+}
+.parent {
+  > .child-one {
+  }
+  > .child-two {
+  }
+}
+
+.parent + .child {
+}
+.parent + .child {
+}
+.parent + .child {
+}
+.parent + {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent + {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent + {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent + {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent + {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent {
+  + .child-one {
+  }
+  + .child-two {
+  }
+}
+.parent {
+  + .child-one {
+  }
+  + .child-two {
+  }
+}
+.parent {
+  + .child-one {
+  }
+  + .child-two {
+  }
+}
+.parent {
+  + .child-one {
+  }
+  + .child-two {
+  }
+}
+.parent {
+  + .child-one {
+  }
+  + .child-two {
+  }
+}
+
+.parent ~ .child {
+}
+.parent ~ .child {
+}
+.parent ~ .child {
+}
+.parent ~ {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent ~ {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent ~ {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent ~ {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent ~ {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent {
+  ~ .child-one {
+  }
+  ~ .child-two {
+  }
+}
+.parent {
+  ~ .child-one {
+  }
+  ~ .child-two {
+  }
+}
+.parent {
+  ~ .child-one {
+  }
+  ~ .child-two {
+  }
+}
+.parent {
+  ~ .child-one {
+  }
+  ~ .child-two {
+  }
+}
+.parent {
+  ~ .child-one {
+  }
+  ~ .child-two {
+  }
+}
+
+.parent >>> .child {
+}
+.parent >>> .child {
+}
+.parent >>> .child {
+}
+.parent >>> {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent >>> {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent >>> {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent >>> {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent >>> {
+  .child-one {
+  }
+  .child-two {
+  }
+}
+.parent {
+  >>> .child-one {
+  }
+  >>> .child-two {
+  }
+}
+.parent {
+  >>> .child-one {
+  }
+  >>> .child-two {
+  }
+}
+.parent {
+  >>> .child-one {
+  }
+  >>> .child-two {
+  }
+}
+.parent {
+  >>> .child-one {
+  }
+  >>> .child-two {
+  }
+}
+.parent {
+  >>> .child-one {
+  }
+  >>> .child-two {
+  }
 }
 
 `;

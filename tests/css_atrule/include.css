@@ -1,0 +1,84 @@
+@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
+@include mix(1px,2px,$arg2:10,2px 4px 6px);
+@include mix ( 1px , 2px , $arg2 : 10 , 2px 4px 6px );
+@include mix  (  1px  ,  2px  , $arg2  :  10  ,  2px  4px  6px  );
+@include mix(
+    1px,
+    2px,
+    $arg2: 10,
+    2px  4px  6px
+);
+@include
+mix(
+    1px,
+    2px,
+    $arg2: 10,
+    2px  4px  6px
+);
+@include
+mix
+(
+1px
+,
+2px
+,
+$arg2
+:
+10
+,
+2px
+4px
+6px
+)
+;
+@include
+
+mix
+
+(
+
+1px
+
+,
+
+2px
+
+,
+
+$arg2
+
+:
+
+10
+
+,
+
+2px
+
+4px
+
+6px
+
+)
+
+;
+@include mix($very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg: 1px, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1: 2px, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2: 10, 2px 4px 6px);
+a {
+    @include global-variable-overriding;
+    @include mix($very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg: 1px, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1: 2px, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2: 10, 2px 4px 6px);
+    @include apply-to-ie6-only {}
+    @include apply-to-ie6-only{}
+    @include apply-to-ie6-only
+        {}
+    @include
+        apply-to-ie6-only
+        {
+        }
+    @include
+
+        apply-to-ie6-only
+
+        {
+
+        }
+}

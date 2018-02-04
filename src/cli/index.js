@@ -1,62 +1,69 @@
 "use strict";
 
-const minimist = require("minimist");
-
 const prettier = require("../../index");
-const constant = require("./constant");
+const stringify = require("json-stable-stringify");
 const util = require("./util");
-const validator = require("./validator");
-const logger = require("./logger");
 
 function run(args) {
-  const rawArgv = minimist(args, constant.minimistOptions);
+  const context = util.createContext(args);
 
-  process.env[logger.ENV_LOG_LEVEL] =
-    rawArgv["loglevel"] || constant.detailedOptionMap["loglevel"].default;
+  try {
+    util.initContext(context);
 
-  const argv = util.normalizeConfig("cli", rawArgv);
+    context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
-  logger.debug(`normalized argv: ${JSON.stringify(argv)}`);
+    if (context.argv["write"] && context.argv["debug-check"]) {
+      context.logger.error("Cannot use --write and --debug-check together.");
+      process.exit(1);
+    }
 
-  argv.__args = args;
-  argv.__filePatterns = argv["_"];
+    if (context.argv["find-config-path"] && context.filePatterns.length) {
+      context.logger.error("Cannot use --find-config-path with multiple files");
+      process.exit(1);
+    }
 
-  validator.validateArgv(argv);
+    if (context.argv["version"]) {
+      context.logger.log(prettier.version);
+      process.exit(0);
+    }
 
-  if (argv["version"]) {
-    logger.log(prettier.version);
-    process.exit(0);
-  }
+    if (context.argv["help"] !== undefined) {
+      context.logger.log(
+        typeof context.argv["help"] === "string" && context.argv["help"] !== ""
+          ? util.createDetailedUsage(context, context.argv["help"])
+          : util.createUsage(context)
+      );
+      process.exit(0);
+    }
 
-  if (argv["help"] !== undefined) {
-    logger.log(
-      typeof argv["help"] === "string" && argv["help"] !== ""
-        ? util.createDetailedUsage(argv["help"])
-        : util.createUsage()
-    );
-    process.exit(0);
-  }
+    if (context.argv["support-info"]) {
+      context.logger.log(
+        prettier.format(stringify(prettier.getSupportInfo()), {
+          parser: "json"
+        })
+      );
+      process.exit(0);
+    }
 
-  if (argv["support-info"]) {
-    logger.log(
-      prettier.format(JSON.stringify(prettier.getSupportInfo()), {
-        parser: "json"
-      })
-    );
-    process.exit(0);
-  }
+    const hasFilePatterns = context.filePatterns.length !== 0;
+    const useStdin =
+      context.argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
 
-  const hasFilePatterns = argv.__filePatterns.length !== 0;
-  const useStdin = argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
-
-  if (argv["find-config-path"]) {
-    util.logResolvedConfigPathOrDie(argv["find-config-path"]);
-  } else if (useStdin) {
-    util.formatStdin(argv);
-  } else if (hasFilePatterns) {
-    util.formatFiles(argv);
-  } else {
-    logger.log(util.createUsage());
+    if (context.argv["find-config-path"]) {
+      util.logResolvedConfigPathOrDie(
+        context,
+        context.argv["find-config-path"]
+      );
+    } else if (useStdin) {
+      util.formatStdin(context);
+    } else if (hasFilePatterns) {
+      util.formatFiles(context);
+    } else {
+      context.logger.log(util.createUsage(context));
+      process.exit(1);
+    }
+  } catch (error) {
+    context.logger.error(error.message);
     process.exit(1);
   }
 }

@@ -1,2 +1,36 @@
 @import url('foo');
 $dir: 'fonts';
+
+@import url("foo.css");
+@import url('foo.css');
+@import  url("foo.css");
+@import   url("foo.css");
+@import url("fineprint.css")print;
+@import url("fineprint.css") print;
+@import url("fineprint.css")  print;
+@import url("fineprint.css")
+  print;
+@import url("bluish.css") projection,tv;
+@import url("bluish.css") projection, tv;
+@import url("bluish.css") projection ,tv;
+@import url("bluish.css") projection , tv;
+@import url("bluish.css") projection  ,  tv;
+@import url("bluish.css")
+  projection,
+  tv;
+@import url("very-very-very-very-very-very-very-very-very-very-long-name.css") projection,tv;
+@import url('landscape.css') screen and (orientation:landscape);
+@import "rounded-corners", "text-shadow";
+@import 'rounded-corners', 'text-shadow';
+$family: unquote("Droid+Sans");
+@import url("http://fonts.googleapis.com/css?family=#{$family}");
+@import url( "foo.css");
+@import url("foo.css" );
+@import url( "foo.css" );
+@import url(  "foo.css"  );
+@import url("foo bar baz.css");
+@import url(  "foo bar baz.css"  );
+@import url("foo  bar  baz.css");
+@import url(
+"foo.css"
+);

@@ -15,6 +15,9 @@
   · GraphQL
   · JSON
   · Markdown
+  · <a href="https://prettier.io/docs/en/plugins.html">
+      Your favorite language?
+    </a>
   </em>
 </p>
 

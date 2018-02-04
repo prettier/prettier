@@ -159,8 +159,8 @@ background-color: #112244 + #111; // result is #223355
       background-color: white
     }
   }
-  .tab { ... }
-  .citation { ... }
+  .tab { /* ... */ }
+  .citation { /* ... */ }
 }
 
 
@@ -663,9 +663,6 @@ link:hover:visited {
 }
 
 
-<a class="animal bear">Bear</a>
-
-
 .animal {
   background-color: black;
   color: white;
@@ -673,10 +670,6 @@ link:hover:visited {
 .bear {
   background-color: brown;
 }
-
-
-<a class="bear">Bear</a>
-
 
 .animal {
   background-color: black;
@@ -981,11 +974,11 @@ pre {
 }
 
 
-.mixin(...) {}        // matches 0-N arguments
+.mixin(/* ... */) {}        // matches 0-N arguments
 .mixin() {}           // matches exactly 0 arguments
 .mixin(@a: 1) {}      // matches 0-1 arguments
-.mixin(@a: 1; ...) {} // matches 0-N arguments
-.mixin(@a; ...) {}    // matches 1-N arguments
+.mixin(@a: 1; /* ... */) {} // matches 0-N arguments
+.mixin(@a; /* ... */) {}    // matches 1-N arguments
 
 
 .mixin(@a; @rest...) {
@@ -994,7 +987,7 @@ pre {
 }
 
 
-.mixin(@s; @color) { ... }
+.mixin(@s; @color) { /* ... */ }
 
 .class {
   .mixin(@switch; #888);
@@ -1250,9 +1243,6 @@ selector {
 }
 
 
-ERROR 1:32 The variable "@one" was not declared.
-
-
 #space {
   .importer-1() {
     @detached: { scope-detached: @variable; }; // define detached ruleset
@@ -1274,6 +1264,7 @@ ERROR 1:32 The variable "@one" was not declared.
   scope-detached: value;
 }
 
+@my-ruleset:{.my-selector{@media tv{background-color:black;}}};
 
 .foo {
   background: #900;
@@ -1345,8 +1336,8 @@ ERROR 1:32 The variable "@one" was not declared.
 }
 
 
-.truth (@a) when (@a) { ... }
-.truth (@a) when (@a = true) { ... }
+.truth (@a) when (@a) { /* ... */ }
+.truth (@a) when (@a = true) { /* ... */ }
 
 
 .class {
@@ -1356,28 +1347,28 @@ ERROR 1:32 The variable "@one" was not declared.
 
 @media: mobile;
 
-.mixin (@a) when (@media = mobile) { ... }
-.mixin (@a) when (@media = desktop) { ... }
+.mixin (@a) when (@media = mobile) { /* ... */ }
+.mixin (@a) when (@media = desktop) { /* ... */ }
 
 .max (@a; @b) when (@a > @b) { width: @a }
 .max (@a; @b) when (@a < @b) { width: @b }
 
 
-.mixin (@a) when (isnumber(@a)) and (@a > 0) { ... }
+.mixin (@a) when (isnumber(@a)) and (@a > 0) { /* ... */ }
 
 
-.mixin (@a) when (@a > 10), (@a < -10) { ... }
+.mixin (@a) when (@a > 10), (@a < -10) { /* ... */ }
 
 
-.mixin (@b) when not (@b > 0) { ... }
+.mixin (@b) when not (@b > 0) { /* ... */ }
 
 
-.mixin (@a; @b: 0) when (isnumber(@b)) { ... }
-.mixin (@a; @b: black) when (iscolor(@b)) { ... }
+.mixin (@a; @b: 0) when (isnumber(@b)) { /* ... */ }
+.mixin (@a; @b: black) when (iscolor(@b)) { /* ... */ }
 
 
-.mixin (@a) when (@a > 0) { ...  }
-.mixin (@a) when (default()) { ... } // matches only if first mixin does not, i.e. when @a <= 0
+.mixin (@a) when (@a > 0) { /* ... */  }
+.mixin (@a) when (default()) { /* ... */ } // matches only if first mixin does not, i.e. when @a <= 0
 
 
 .my-optional-style() when (@my-option = true) {
