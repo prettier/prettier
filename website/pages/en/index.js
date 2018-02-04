@@ -77,15 +77,19 @@ HomeSplash.propTypes = {
 class Index extends React.Component {
   render() {
     const language = this.props.language || "en";
-    const showcase = siteConfig.users.slice(0, 6).map((user, i) => {
-      return (
-        <a key={i} href={user.infoLink}>
-          <img src={user.image} title={user.caption} />
-          <br />
-          {user.caption}
-        </a>
-      );
-    });
+    const showcase = siteConfig.users
+      .filter(user => {
+        return user.pinned;
+      })
+      .map((user, i) => {
+        return (
+          <a key={i} href={user.infoLink}>
+            <img src={user.image} title={user.caption} />
+            <br />
+            {user.caption}
+          </a>
+        );
+      });
 
     return (
       <div>
