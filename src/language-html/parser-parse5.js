@@ -1,7 +1,5 @@
 "use strict";
 
-// const createError = require("./parser-create-error");
-
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
   const parse5 = require("parse5");
@@ -13,14 +11,7 @@ function parse(text /*, parsers, opts*/) {
     });
     return extendAst(ast);
   } catch (error) {
-    //   throw createError(error.message, {
-    //     start: {
-    //       line: error.locations[0].line,
-    //       column: error.locations[0].column
-    //     }
-    // } else {
     throw error;
-    // }
   }
 }
 
