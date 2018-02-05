@@ -41,7 +41,7 @@ const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
   "heading"
 ]);
 
-function genericPrint(path, options, print, args, util) {
+function genericPrint(path, options, print) {
   const node = path.getValue();
 
   if (shouldRemainTheSameContent(path)) {
