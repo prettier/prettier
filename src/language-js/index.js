@@ -121,7 +121,19 @@ const parsers = {
     get parse() {
       return eval("require")("./parser-flow");
     },
-    astFormat: "estree"
+    astFormat: "estree",
+    locStart: function(node) {
+      if (!node.loc) {
+        return null;
+      }
+      return node.loc.start;
+    },
+    locEnd: function(node) {
+      if (!node.loc) {
+        return null;
+      }
+      return node.loc.end;
+    }
   },
   "typescript-eslint": typescript,
   // TODO: Delete this in 2.0

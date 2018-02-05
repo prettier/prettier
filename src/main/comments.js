@@ -993,7 +993,7 @@ function getQuasiRange(expr) {
 
 function printLeadingComment(commentPath, print, options, util) {
   const comment = commentPath.getValue();
-  const contents = printComment(commentPath, options);
+  const contents = printComment(commentPath, options, util);
   if (!contents) {
     return "";
   }
