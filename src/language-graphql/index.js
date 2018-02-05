@@ -25,17 +25,17 @@ const parsers = {
       return eval("require")("./parser-graphql");
     },
     astFormat: "graphql",
-    locEnd: function(node) {
-      if (!node.loc) {
-        return null;
-      }
-      return node.loc.end;
-    },
     locStart: function(node) {
       if (!node.loc) {
         return null;
       }
       return node.loc.start;
+    },
+    locEnd: function(node) {
+      if (!node.loc) {
+        return null;
+      }
+      return node.loc.end;
     }
   }
 };
