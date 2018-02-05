@@ -18,9 +18,8 @@ function getSortedChildNodes(node, text, options, resultArray) {
     return;
   }
   const printer = options.printer;
-  const util = sharedUtil(options);
-  const locStart = util.locStart;
-  const locEnd = util.locEnd;
+  const locStart = options.locStart;
+  const locEnd = options.locEnd;
 
   if (resultArray) {
     if (node && printer.canAttachComment && printer.canAttachComment(node)) {
@@ -79,9 +78,9 @@ function getSortedChildNodes(node, text, options, resultArray) {
 // As efficiently as possible, decorate the comment object with
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
-function decorateComment(node, comment, text, options, util) {
-  const locStart = util.locStart;
-  const locEnd = util.locEnd;
+function decorateComment(node, comment, text, options) {
+  const locStart = options.locStart;
+  const locEnd = options.locEnd;
   const childNodes = getSortedChildNodes(node, text, options);
   let precedingNode;
   let followingNode;
@@ -99,7 +98,7 @@ function decorateComment(node, comment, text, options, util) {
       // The comment is completely contained by this child node.
       comment.enclosingNode = child;
 
-      decorateComment(child, comment, text, options, util);
+      decorateComment(child, comment, text, options);
       return; // Abandon the binary search at this level.
     }
 
@@ -134,18 +133,22 @@ function decorateComment(node, comment, text, options, util) {
     comment.enclosingNode.type === "TemplateLiteral"
   ) {
     const quasis = comment.enclosingNode.quasis;
-    const commentIndex = findExpressionIndexForComment(quasis, comment, util);
+    const commentIndex = findExpressionIndexForComment(
+      quasis,
+      comment,
+      options
+    );
 
     if (
       precedingNode &&
-      findExpressionIndexForComment(quasis, precedingNode, util) !==
+      findExpressionIndexForComment(quasis, precedingNode, options) !==
         commentIndex
     ) {
       precedingNode = null;
     }
     if (
       followingNode &&
-      findExpressionIndexForComment(quasis, followingNode, util) !==
+      findExpressionIndexForComment(quasis, followingNode, options) !==
         commentIndex
     ) {
       followingNode = null;
@@ -168,8 +171,8 @@ function attach(comments, ast, text, options) {
 
   const tiesToBreak = [];
   const util = sharedUtil(options);
-  const locStart = util.locStart;
-  const locEnd = util.locEnd;
+  const locStart = options.locStart;
+  const locEnd = options.locEnd;
 
   comments.forEach((comment, i) => {
     if (options.parser === "json" && locStart(comment) - locStart(ast) <= 0) {
@@ -177,7 +180,7 @@ function attach(comments, ast, text, options) {
       return;
     }
 
-    decorateComment(ast, comment, text, options, util);
+    decorateComment(ast, comment, text, options);
 
     const precedingNode = comment.precedingNode;
     const enclosingNode = comment.enclosingNode;
@@ -195,7 +198,7 @@ function attach(comments, ast, text, options) {
           enclosingNode,
           followingNode,
           comment,
-          util
+          options
         ) ||
         handleMemberExpressionComments(enclosingNode, followingNode, comment) ||
         handleIfStatementComments(
@@ -258,7 +261,7 @@ function attach(comments, ast, text, options) {
           enclosingNode,
           followingNode,
           comment,
-          util
+          options
         ) ||
         handleConditionalExpressionComments(
           enclosingNode,
@@ -266,7 +269,7 @@ function attach(comments, ast, text, options) {
           followingNode,
           comment,
           text,
-          util
+          options
         ) ||
         handleImportSpecifierComments(enclosingNode, comment) ||
         handleIfStatementComments(
@@ -345,7 +348,7 @@ function attach(comments, ast, text, options) {
         if (tieCount > 0) {
           const lastTie = tiesToBreak[tieCount - 1];
           if (lastTie.followingNode !== comment.followingNode) {
-            breakTies(tiesToBreak, text, util);
+            breakTies(tiesToBreak, text, options);
           }
         }
         tiesToBreak.push(comment);
@@ -363,7 +366,7 @@ function attach(comments, ast, text, options) {
     }
   });
 
-  breakTies(tiesToBreak, text, util);
+  breakTies(tiesToBreak, text, options);
 
   comments.forEach(comment => {
     // These node references were useful for breaking ties, but we
@@ -375,7 +378,7 @@ function attach(comments, ast, text, options) {
   });
 }
 
-function breakTies(tiesToBreak, text, util) {
+function breakTies(tiesToBreak, text, options) {
   const tieCount = tiesToBreak.length;
   if (tieCount === 0) {
     return;
@@ -383,7 +386,7 @@ function breakTies(tiesToBreak, text, util) {
 
   const precedingNode = tiesToBreak[0].precedingNode;
   const followingNode = tiesToBreak[0].followingNode;
-  let gapEndPos = util.locStart(followingNode);
+  let gapEndPos = options.locStart(followingNode);
 
   // Iterate backwards through tiesToBreak, examining the gaps
   // between the tied comments. In order to qualify as leading, a
@@ -400,9 +403,9 @@ function breakTies(tiesToBreak, text, util) {
     assert.strictEqual(comment.precedingNode, precedingNode);
     assert.strictEqual(comment.followingNode, followingNode);
 
-    const gap = text.slice(util.locEnd(comment), gapEndPos).trim();
+    const gap = text.slice(options.locEnd(comment), gapEndPos).trim();
     if (gap === "" || /^\(+$/.test(gap)) {
-      gapEndPos = util.locStart(comment);
+      gapEndPos = options.locStart(comment);
     } else {
       // The gap string contained something other than whitespace or open
       // parentheses.
@@ -583,14 +586,14 @@ function handleConditionalExpressionComments(
   followingNode,
   comment,
   text,
-  util
+  options
 ) {
   const isSameLineAsPrecedingNode =
     precedingNode &&
     !privateUtil.hasNewlineInRange(
       text,
-      util.locEnd(precedingNode),
-      util.locStart(comment)
+      options.locEnd(precedingNode),
+      options.locStart(comment)
     );
 
   if (
@@ -770,7 +773,7 @@ function handleLastFunctionArgComments(
   enclosingNode,
   followingNode,
   comment,
-  util
+  options
 ) {
   // Type definitions functions
   if (
@@ -799,7 +802,7 @@ function handleLastFunctionArgComments(
     privateUtil.getNextNonSpaceNonCommentCharacter(
       text,
       comment,
-      util.locEnd
+      options.locEnd
     ) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
@@ -971,8 +974,8 @@ function printComment(commentPath, options, util) {
   return options.printer.printComment(commentPath, options, util);
 }
 
-function findExpressionIndexForComment(quasis, comment, util) {
-  const startPos = util.locStart(comment) - 1;
+function findExpressionIndexForComment(quasis, comment, options) {
+  const startPos = options.locStart(comment) - 1;
 
   for (let i = 1; i < quasis.length; ++i) {
     if (startPos < getQuasiRange(quasis[i]).start) {
@@ -1008,7 +1011,7 @@ function printLeadingComment(commentPath, print, options, util) {
   if (isBlock) {
     return concat([
       contents,
-      privateUtil.hasNewline(options.originalText, util.locEnd(comment))
+      privateUtil.hasNewline(options.originalText, options.locEnd(comment))
         ? hardline
         : " "
     ]);
@@ -1037,7 +1040,7 @@ function printTrailingComment(commentPath, print, options, util) {
     parentParentNode.superClass === parentNode;
 
   if (
-    privateUtil.hasNewline(options.originalText, util.locStart(comment), {
+    privateUtil.hasNewline(options.originalText, options.locStart(comment), {
       backwards: true
     })
   ) {
@@ -1136,7 +1139,7 @@ function printComments(path, print, options, needsSemi) {
       if (
         privateUtil.hasNewline(
           text,
-          privateUtil.skipNewline(text, util.locEnd(comment))
+          privateUtil.skipNewline(text, options.locEnd(comment))
         )
       ) {
         leadingParts.push(hardline);

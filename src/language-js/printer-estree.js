@@ -479,12 +479,12 @@ function printPathNoParens(path, options, print, args, util) {
       // We want to always keep these types of nodes on the same line
       // as the arrow.
       if (
-        !hasLeadingOwnLineComment(options.originalText, n.body, util) &&
+        !hasLeadingOwnLineComment(options.originalText, n.body, options) &&
         (n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
           isJSXNode(n.body) ||
-          isTemplateOnItsOwnLine(n.body, options.originalText, util) ||
+          isTemplateOnItsOwnLine(n.body, options.originalText, options) ||
           n.body.type === "ArrowFunctionExpression")
       ) {
         return group(concat([concat(parts), " ", body]));
@@ -698,7 +698,10 @@ function printPathNoParens(path, options, print, args, util) {
         (n.importKind && n.importKind === "type") ||
         // import {} from 'x'
         /{\s*}/.test(
-          options.originalText.slice(util.locStart(n), util.locStart(n.source))
+          options.originalText.slice(
+            options.locStart(n),
+            options.locStart(n.source)
+          )
         )
       ) {
         parts.push("{} from ");
@@ -819,7 +822,11 @@ function printPathNoParens(path, options, print, args, util) {
         n.callee.type === "Import" ||
         // Template literals as single arguments
         (n.arguments.length === 1 &&
-          isTemplateOnItsOwnLine(n.arguments[0], options.originalText, util)) ||
+          isTemplateOnItsOwnLine(
+            n.arguments[0],
+            options.originalText,
+            options
+          )) ||
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
         (!isNew && isTestCall(n))
@@ -890,8 +897,8 @@ function printPathNoParens(path, options, print, args, util) {
         (n.type !== "ObjectPattern" &&
           privateUtil.hasNewlineInRange(
             options.originalText,
-            util.locStart(n),
-            util.locEnd(n)
+            options.locStart(n),
+            options.locEnd(n)
           ));
       const parent = path.getParentNode(0);
       const isFlowInterfaceLikeBody =
@@ -935,7 +942,7 @@ function printPathNoParens(path, options, print, args, util) {
           propsAndLoc.push({
             node: node,
             printed: print(childPath),
-            loc: util.locStart(node)
+            loc: options.locStart(node)
           });
         }, field);
       });
@@ -2131,7 +2138,7 @@ function printPathNoParens(path, options, print, args, util) {
           (parent.type === "ObjectTypeProperty" &&
             !getFlowVariance(parent) &&
             !parent.optional &&
-            util.locStart(parent) === util.locStart(n)) ||
+            options.locStart(parent) === options.locStart(n)) ||
           parent.type === "ObjectTypeCallProperty" ||
           (parentParentParent && parentParentParent.type === "DeclareFunction")
         );
@@ -2151,7 +2158,7 @@ function printPathNoParens(path, options, print, args, util) {
           parent.type === "TSTypeAnnotation") &&
         parentParent.type === "ArrowFunctionExpression";
 
-      if (isObjectTypePropertyAFunction(parent, util)) {
+      if (isObjectTypePropertyAFunction(parent, options)) {
         isArrowFunctionTypeAnnotation = true;
         needsColon = true;
       }
@@ -2283,7 +2290,7 @@ function printPathNoParens(path, options, print, args, util) {
         !(
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator") &&
-          hasLeadingOwnLineComment(options.originalText, n, util)
+          hasLeadingOwnLineComment(options.originalText, n, options)
         );
 
       // {
@@ -2373,7 +2380,7 @@ function printPathNoParens(path, options, print, args, util) {
         variance || "",
         printPropertyKey(path, options, print),
         printOptionalToken(path),
-        isFunctionNotation(n, util) ? "" : ": ",
+        isFunctionNotation(n, options) ? "" : ": ",
         path.call(print, "value")
       ]);
     }
@@ -2804,7 +2811,10 @@ function printPathNoParens(path, options, print, args, util) {
           n.id.type === "Identifier" &&
           n.id.name === "global" &&
           !/namespace|module/.test(
-            options.originalText.slice(util.locStart(n), util.locStart(n.id))
+            options.originalText.slice(
+              options.locStart(n),
+              options.locStart(n.id)
+            )
           );
 
         if (!isGlobalDeclaration) {
@@ -3169,7 +3179,7 @@ function printArgumentsList(path, options, print, util) {
   );
 }
 
-function printTypeAnnotation(path, options, print, util) {
+function printTypeAnnotation(path, options, print) {
   const node = path.getValue();
   if (!node.typeAnnotation) {
     return "";
@@ -3180,7 +3190,7 @@ function printTypeAnnotation(path, options, print, util) {
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
   if (
-    isFlowAnnotationComment(options.originalText, node.typeAnnotation, util)
+    isFlowAnnotationComment(options.originalText, node.typeAnnotation, options)
   ) {
     return concat([" /*: ", path.call(print, "typeAnnotation"), " */"]);
   }
@@ -3300,8 +3310,8 @@ function printFunctionParams(
   ];
 
   const isFlowShorthandWithOneArg =
-    (isObjectTypePropertyAFunction(parent, util) ||
-      isTypeAnnotationAFunction(parent, util) ||
+    (isObjectTypePropertyAFunction(parent, options) ||
+      isTypeAnnotationAFunction(parent, options) ||
       parent.type === "TypeAlias" ||
       parent.type === "UnionTypeAnnotation" ||
       parent.type === "TSUnionType" ||
@@ -3653,7 +3663,7 @@ function printTypeParameters(path, options, print, paramsKey) {
   );
 }
 
-function printClass(path, options, print, util) {
+function printClass(path, options, print) {
   const n = path.getValue();
   const parts = [];
 
@@ -3740,7 +3750,7 @@ function printClass(path, options, print, util) {
   if (
     n.body &&
     n.body.comments &&
-    hasLeadingOwnLineComment(options.originalText, n.body, util)
+    hasLeadingOwnLineComment(options.originalText, n.body, options)
   ) {
     parts.push(hardline);
   } else {
@@ -4683,14 +4693,8 @@ function printBinaryishExpressions(
   return parts;
 }
 
-function printAssignmentRight(
-  rightNode,
-  printedRight,
-  canBreak,
-  options,
-  util
-) {
-  if (hasLeadingOwnLineComment(options.originalText, rightNode, util)) {
+function printAssignmentRight(rightNode, printedRight, canBreak, options) {
+  if (hasLeadingOwnLineComment(options.originalText, rightNode, options)) {
     return indent(concat([hardline, printedRight]));
   }
 
@@ -4782,7 +4786,7 @@ function hasTrailingComment(node) {
   return node.comments && node.comments.some(comment => comment.trailing);
 }
 
-function hasLeadingOwnLineComment(text, node, util) {
+function hasLeadingOwnLineComment(text, node, options) {
   if (isJSXNode(node)) {
     return privateUtil.hasNodeIgnoreComment(node);
   }
@@ -4791,7 +4795,7 @@ function hasLeadingOwnLineComment(text, node, util) {
     node.comments &&
     node.comments.some(
       comment =>
-        comment.leading && privateUtil.hasNewline(text, util.locEnd(comment))
+        comment.leading && privateUtil.hasNewline(text, options.locEnd(comment))
     );
   return res;
 }
@@ -4811,9 +4815,9 @@ function hasNakedLeftSide(node) {
   );
 }
 
-function isFlowAnnotationComment(text, typeAnnotation, util) {
-  const start = util.locStart(typeAnnotation);
-  const end = privateUtil.skipWhitespace(text, util.locEnd(typeAnnotation));
+function isFlowAnnotationComment(text, typeAnnotation, options) {
+  const start = options.locStart(typeAnnotation);
+  const end = privateUtil.skipWhitespace(text, options.locEnd(typeAnnotation));
   return text.substr(start, 2) === "/*" && text.substr(end, 2) === "*/";
 }
 
@@ -4975,8 +4979,8 @@ function classChildNeedsASIProtection(node) {
 // This recurses the return argument, looking for the first token
 // (the leftmost leaf node) and, if it (or its parents) has any
 // leadingComments, returns true (so it can be wrapped in parens).
-function returnArgumentHasLeadingComment(options, argument, util) {
-  if (hasLeadingOwnLineComment(options.originalText, argument, util)) {
+function returnArgumentHasLeadingComment(options, argument) {
+  if (hasLeadingOwnLineComment(options.originalText, argument, options)) {
     return true;
   }
 
@@ -4986,7 +4990,7 @@ function returnArgumentHasLeadingComment(options, argument, util) {
     while ((newLeftMost = getLeftSide(leftMost))) {
       leftMost = newLeftMost;
 
-      if (hasLeadingOwnLineComment(options.originalText, leftMost, util)) {
+      if (hasLeadingOwnLineComment(options.originalText, leftMost, options)) {
         return true;
       }
     }
@@ -5008,48 +5012,48 @@ function isMemberExpressionChain(node) {
 // Hack to differentiate between the following two which have the same ast
 // type T = { method: () => void };
 // type T = { method(): void };
-function isObjectTypePropertyAFunction(node, util) {
+function isObjectTypePropertyAFunction(node, options) {
   return (
     node.type === "ObjectTypeProperty" &&
     node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !isFunctionNotation(node, util)
+    !isFunctionNotation(node, options)
   );
 }
 
 // TODO: This is a bad hack and we need a better way to distinguish between
 // arrow functions and otherwise
-function isFunctionNotation(node, util) {
-  return isGetterOrSetter(node) || sameLocStart(node, node.value, util);
+function isFunctionNotation(node, options) {
+  return isGetterOrSetter(node) || sameLocStart(node, node.value, options);
 }
 
 function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
 }
 
-function sameLocStart(nodeA, nodeB, util) {
-  return util.locStart(nodeA) === util.locStart(nodeB);
+function sameLocStart(nodeA, nodeB, options) {
+  return options.locStart(nodeA) === options.locStart(nodeB);
 }
 
 // Hack to differentiate between the following two which have the same ast
 // declare function f(a): void;
 // var f: (a) => void;
-function isTypeAnnotationAFunction(node, util) {
+function isTypeAnnotationAFunction(node, options) {
   return (
     (node.type === "TypeAnnotation" || node.type === "TSTypeAnnotation") &&
     node.typeAnnotation.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !sameLocStart(node, node.typeAnnotation, util)
+    !sameLocStart(node, node.typeAnnotation, options)
   );
 }
 
-function isNodeStartingWithDeclare(node, options, util) {
+function isNodeStartingWithDeclare(node, options) {
   if (!(options.parser === "flow" || options.parser === "typescript")) {
     return false;
   }
   return (
     options.originalText
-      .slice(0, util.locStart(node))
+      .slice(0, options.locStart(node))
       .match(/declare[ \t]*$/) ||
     options.originalText
       .slice(node.range[0], node.range[1])
@@ -5119,12 +5123,12 @@ function templateLiteralHasNewLines(template) {
   return template.quasis.some(quasi => quasi.value.raw.includes("\n"));
 }
 
-function isTemplateOnItsOwnLine(n, text, util) {
+function isTemplateOnItsOwnLine(n, text, options) {
   return (
     ((n.type === "TemplateLiteral" && templateLiteralHasNewLines(n)) ||
       (n.type === "TaggedTemplateExpression" &&
         templateLiteralHasNewLines(n.quasi))) &&
-    !privateUtil.hasNewline(text, util.locStart(n), { backwards: true })
+    !privateUtil.hasNewline(text, options.locStart(n), { backwards: true })
   );
 }
 
@@ -5258,7 +5262,7 @@ function canAttachComment(node) {
   );
 }
 
-function printComment(commentPath, options, util) {
+function printComment(commentPath, options) {
   const comment = commentPath.getValue();
 
   switch (comment.type) {
@@ -5269,14 +5273,16 @@ function printComment(commentPath, options, util) {
       }
 
       const isInsideFlowComment =
-        options.originalText.substr(util.locEnd(comment) - 3, 3) === "*-/";
+        options.originalText.substr(options.locEnd(comment) - 3, 3) === "*-/";
 
       return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
     }
     case "CommentLine":
     case "Line":
       // Print shebangs with the proper comment characters
-      if (options.originalText.slice(util.locStart(comment)).startsWith("#!")) {
+      if (
+        options.originalText.slice(options.locStart(comment)).startsWith("#!")
+      ) {
         return "#!" + comment.value.trimRight();
       }
       return "//" + comment.value.trimRight();

@@ -3,14 +3,6 @@
 const util = require("./util");
 
 module.exports = function(options) {
-  function locStart(node) {
-    return options.locStart(node);
-  }
-
-  function locEnd(node) {
-    return options.locEnd(node);
-  }
-
   function isNextLineEmpty(text, node) {
     return util.isNextLineEmpty(text, node, options.locEnd);
   }
@@ -24,8 +16,6 @@ module.exports = function(options) {
   }
 
   return {
-    locStart,
-    locEnd,
     isNextLineEmpty,
     isNextLineEmptyAfterIndex: util.isNextLineEmptyAfterIndex,
     getNextNonSpaceNonCommentCharacterIndex,

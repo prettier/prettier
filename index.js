@@ -149,7 +149,6 @@ function format(text, opts, addAlignmentSize) {
 }
 
 function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
-  const util = sharedUtil(opts);
   let resultStartNode = startNodeAndParents.node;
   let resultEndNode = endNodeAndParents.node;
 
@@ -164,8 +163,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
     if (
       endParent.type !== "Program" &&
       endParent.type !== "File" &&
-      util.locStart(endParent, opts.locStart) >=
-        util.locStart(startNodeAndParents.node, opts.locStart)
+      opts.locStart(endParent) >= opts.locStart(startNodeAndParents.node)
     ) {
       resultEndNode = endParent;
     } else {
@@ -177,8 +175,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
     if (
       startParent.type !== "Program" &&
       startParent.type !== "File" &&
-      util.locEnd(startParent, opts.locEnd) <=
-        util.locEnd(endNodeAndParents.node, opts.locEnd)
+      opts.locEnd(startParent) <= opts.locEnd(endNodeAndParents.node)
     ) {
       resultStartNode = startParent;
     } else {
