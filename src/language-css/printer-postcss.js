@@ -104,14 +104,20 @@ function genericPrint(path, options, print) {
       return concat([
         node.raws.before.replace(/[\s;]/g, ""),
         maybeToLowerCase(node.prop),
-        ":",
+        node.raws.between.trim() === ":" ? ":" : node.raws.between.trim(),
         isValueExtend ? "" : " ",
         isComposed
           ? removeLines(path.call(print, "value"))
           : path.call(print, "value"),
-        node.important ? " !important" : "",
-        node.default ? " !default" : "",
-        node.global ? " !global" : "",
+        node.raws.important
+          ? node.raws.important.replace(/\s*!\s*important/i, " !important")
+          : node.important ? " !important" : "",
+        node.raws.scssDefault
+          ? node.raws.scssDefault.replace(/\s*!default/i, " !default")
+          : node.scssDefault ? " !default" : "",
+        node.raws.scssGlobal
+          ? node.raws.scssGlobal.replace(/\s*!global/i, " !global")
+          : node.scssGlobal ? " !global" : "",
         node.nodes
           ? concat([
               " {",
@@ -369,6 +375,9 @@ function genericPrint(path, options, print) {
     // postcss-values-parser
     case "value-root": {
       return path.call(print, "group");
+    }
+    case "value-comment": {
+      return concat(["/*", node.value, "*/"]);
     }
     case "value-comma_group": {
       const parentNode = path.getParentNode();

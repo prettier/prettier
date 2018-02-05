@@ -1,0 +1,8 @@
+a {
+    /* comment 1 */
+    /* comment 2 */ padding /* comment 3 */ : /* comment 4 */ 10px /* comment 5 */ 10px /* comment 6 */; /* comment 7 */
+    /* comment 8 */
+    transform: translate(/* comment 9 */ 10px /* comment 10 */);
+    color: /* comment 11 */ red /* comment 12 */ !important /* comment 13 */ ; /* comment 14 */
+    /* comment 15 */
+}

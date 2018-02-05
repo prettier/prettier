@@ -206,8 +206,8 @@ function parseMediaQuery(value) {
   return addTypePrefix(result, "media-");
 }
 
-const DEFAULT_SCSS_DIRECTIVE = "!default";
-const GLOBAL_SCSS_DIRECTIVE = "!global";
+const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
 
 function parseNestedCSS(node) {
   if (node && typeof node === "object") {
@@ -251,17 +251,31 @@ function parseNestedCSS(node) {
       node.value.trim().length > 0
     ) {
       try {
-        if (node.value.endsWith(DEFAULT_SCSS_DIRECTIVE)) {
-          node.default = true;
-          node.value = node.value.slice(0, -DEFAULT_SCSS_DIRECTIVE.length);
+        let value = node.raws.value ? node.raws.value.raw : node.value;
+
+        const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
+
+        if (defaultSCSSDirectiveIndex) {
+          value = value.substring(0, defaultSCSSDirectiveIndex.index);
+          node.scssDefault = true;
+
+          if (defaultSCSSDirectiveIndex[0].trim() !== "!default") {
+            node.raws.scssDefault = defaultSCSSDirectiveIndex[0];
+          }
         }
 
-        if (node.value.endsWith(GLOBAL_SCSS_DIRECTIVE)) {
-          node.global = true;
-          node.value = node.value.slice(0, -GLOBAL_SCSS_DIRECTIVE.length);
+        const globalSCSSDirectiveIndex = value.match(GLOBAL_SCSS_DIRECTIVE);
+
+        if (globalSCSSDirectiveIndex) {
+          value = value.substring(0, globalSCSSDirectiveIndex.index);
+          node.scssGlobal = true;
+
+          if (globalSCSSDirectiveIndex[0].trim() !== "!global") {
+            node.raws.scssGlobal = globalSCSSDirectiveIndex[0];
+          }
         }
 
-        node.value = parseValue(node.value);
+        node.value = parseValue(value);
       } catch (e) {
         throw createError(
           "(postcss-values-parser) " + e.toString(),

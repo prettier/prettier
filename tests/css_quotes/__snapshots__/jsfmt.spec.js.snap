@@ -161,8 +161,8 @@ one 'two' three {}
     content: 'var backslash = "\\\\", doubleQuote = \\'"\\';';
 
     /* Leave all "escapes" alone. */
-    content: "\\Abc4 foo \\n" "\\end";
-    content: "\\Abc4 foo \\n" "\\end";
+    content: "\\Abc4 foo \\n" /* "comment" */ "\\end";
+    content: "\\Abc4 foo \\n" /* 'comment' */ "\\end";
   }
 }
 
@@ -350,8 +350,8 @@ one 'two' three {}
     content: 'var backslash = "\\\\", doubleQuote = \\'"\\';';
 
     /* Leave all "escapes" alone. */
-    content: '\\Abc4 foo \\n' '\\end';
-    content: '\\Abc4 foo \\n' '\\end';
+    content: '\\Abc4 foo \\n' /* "comment" */ '\\end';
+    content: '\\Abc4 foo \\n' /* 'comment' */ '\\end';
   }
 }
 
