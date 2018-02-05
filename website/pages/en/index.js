@@ -3,7 +3,6 @@
 const React = require("react");
 
 const CompLibrary = require("../../core/CompLibrary.js");
-// const Marked = CompLibrary.Marked; /* Used to read markdown */
 const Container = CompLibrary.Container;
 const GridBlock = CompLibrary.GridBlock;
 
@@ -115,14 +114,6 @@ class Index extends React.Component {
             </Container>
           </div>
 
-          {/*<div
-            className="productShowcaseSection paddingBottom"
-            style={{ textAlign: "center" }}
-          >
-            <h2>Feature Callout</h2>
-            <Marked>These are features of this project</Marked>
-          </div>*/}
-
           <div className="productShowcaseSection paddingBottom">
             <h2>Editor Integration</h2>
             <Container>
@@ -148,20 +139,6 @@ class Index extends React.Component {
               Add it here
             </a>
           </div>
-
-          {/*<Container padding={["bottom", "top"]} background="dark">
-            <GridBlock
-              contents={[
-                {
-                  content:
-                    "This is another description of how this project is useful",
-                  image: "/prettier.png",
-                  imageAlign: "left",
-                  title: "Description"
-                }
-              ]}
-            />
-          </Container>*/}
 
           <div className="productShowcaseSection paddingTop paddingBottom lightBackground">
             <h2>Who{"'"}s Using Prettier?</h2>
