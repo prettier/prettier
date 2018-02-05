@@ -26,3 +26,21 @@
 @media not screen and (color ), print and (color) { }
 @media not screen and ( color ), print and (color) { }
 @media not screen and (  color  ), print and (color) { }
+@media (--small-viewport) {}
+@media
+(
+--small-viewport
+)
+{
+}
+@media
+
+(
+
+--small-viewport
+
+)
+
+{
+
+}

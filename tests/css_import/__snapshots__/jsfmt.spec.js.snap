@@ -18,6 +18,62 @@ exports[`multiple.css 1`] = `
 
 `;
 
+exports[`nested.css 1`] = `
+#main {
+    @import "example";
+}
+#main {
+@import "example";
+}
+#main {
+    @import "example" ;
+}
+#main {
+    @import  "example"  ;
+}
+#main {
+    @import
+        "example";
+}
+#main
+{
+@import
+"example";
+}
+#main
+
+{
+
+@import
+
+"example";
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#main {
+  @import "example";
+}
+#main {
+  @import "example";
+}
+#main {
+  @import "example";
+}
+#main {
+  @import "example";
+}
+#main {
+  @import "example";
+}
+#main {
+  @import "example";
+}
+#main {
+  @import "example";
+}
+
+`;
+
 exports[`nodes.css 1`] = `
 @import "test.less" {}
 

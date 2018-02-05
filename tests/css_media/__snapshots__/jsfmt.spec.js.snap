@@ -29,6 +29,24 @@ exports[`media.css 1`] = `
 @media not screen and (color ), print and (color) { }
 @media not screen and ( color ), print and (color) { }
 @media not screen and (  color  ), print and (color) { }
+@media (--small-viewport) {}
+@media
+(
+--small-viewport
+)
+{
+}
+@media
+
+(
+
+--small-viewport
+
+)
+
+{
+
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @media screen and (min-width: 480px) {
 }
@@ -75,6 +93,229 @@ exports[`media.css 1`] = `
 @media not screen and (color), print and (color) {
 }
 @media not screen and (color), print and (color) {
+}
+@media (--small-viewport) {
+}
+@media (--small-viewport) {
+}
+@media (--small-viewport) {
+}
+
+`;
+
+exports[`nested.css 1`] = `
+.screen-color {
+    @media screen {
+        color: green;
+
+        @media (min-width: 768px) {
+            color: red;
+        }
+    }
+    @media tv {
+        color: black;
+    }
+}
+.screen-color {
+@media screen {
+color: green;
+
+@media (min-width: 768px) {
+color: red;
+}
+}
+@media tv {
+color: black;
+}
+}
+.screen-color{
+    @media screen{
+        color: green;
+
+        @media (min-width: 768px){
+            color: red;
+        }
+    }
+    @media tv{
+        color: black;
+    }
+}
+.screen-color  {
+    @media screen  {
+        color: green;
+
+        @media (min-width: 768px)  {
+            color: red;
+        }
+    }
+    @media tv  {
+        color: black;
+    }
+}
+.screen-color
+{
+@media
+screen
+{
+color
+:
+green
+;
+@media
+(
+min-width
+:
+768px
+)
+{
+color
+:
+red
+;
+}
+}
+@media
+tv
+{
+color
+:
+black
+;
+}
+}
+.screen-color
+
+{
+
+@media
+
+screen
+
+{
+
+color
+
+:
+
+green
+
+;
+
+@media
+
+(
+
+min-width
+
+:
+
+768px
+
+)
+
+{
+
+color
+
+:
+
+red
+
+;
+
+}
+
+}
+
+@media
+
+tv
+
+{
+
+color
+
+:
+
+black
+
+;
+
+}
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+
+  @media tv {
+    color: black;
+  }
 }
 
 `;
