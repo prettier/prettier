@@ -16,7 +16,11 @@ module.exports = function(options) {
   }
 
   function getNextNonSpaceNonCommentCharacterIndex(text, node) {
-    return util.getNextNonSpaceNonCharacterIndex(text, node, options.locEnd);
+    return util.getNextNonSpaceNonCommentCharacterIndex(
+      text,
+      node,
+      options.locEnd
+    );
   }
 
   return {

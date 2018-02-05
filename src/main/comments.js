@@ -796,7 +796,11 @@ function handleLastFunctionArgComments(
       enclosingNode.type === "FunctionDeclaration" ||
       enclosingNode.type === "ObjectMethod" ||
       enclosingNode.type === "ClassMethod") &&
-    util.getNextNonSpaceNonCommentCharacter(text, comment) === ")"
+    privateUtil.getNextNonSpaceNonCommentCharacter(
+      text,
+      comment,
+      util.locEnd
+    ) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -961,10 +965,10 @@ function handleVariableDeclaratorComments(
   return false;
 }
 
-function printComment(commentPath, options) {
+function printComment(commentPath, options, util) {
   const comment = commentPath.getValue();
   comment.printed = true;
-  return options.printer.printComment(commentPath, options);
+  return options.printer.printComment(commentPath, options, util);
 }
 
 function findExpressionIndexForComment(quasis, comment, util) {
@@ -1015,7 +1019,7 @@ function printLeadingComment(commentPath, print, options, util) {
 
 function printTrailingComment(commentPath, print, options, util) {
   const comment = commentPath.getValue();
-  const contents = printComment(commentPath, options);
+  const contents = printComment(commentPath, options, util);
   if (!contents) {
     return "";
   }
@@ -1068,6 +1072,7 @@ function printTrailingComment(commentPath, print, options, util) {
 function printDanglingComments(path, options, sameIndent, filter) {
   const parts = [];
   const node = path.getValue();
+  const util = sharedUtil(options);
 
   if (!node || !node.comments) {
     return "";
@@ -1081,7 +1086,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
       !comment.trailing &&
       (!filter || filter(comment))
     ) {
-      parts.push(printComment(commentPath, options));
+      parts.push(printComment(commentPath, options, util));
     }
   }, "comments");
 

@@ -104,14 +104,38 @@ const typescript = {
   get parse() {
     return eval("require")("./parser-typescript");
   },
-  astFormat: "estree"
+  astFormat: "estree",
+  locStart: function(node) {
+    if (!node.range) {
+      return null;
+    }
+    return node.range[0];
+  },
+  locEnd: function(node) {
+    if (!node.range) {
+      return null;
+    }
+    return node.range[1];
+  }
 };
 
 const babylon = {
   get parse() {
     return eval("require")("./parser-babylon");
   },
-  astFormat: "estree"
+  astFormat: "estree",
+  locStart: function(node) {
+    if (typeof node.start === "number") {
+      return node.start;
+    }
+    return null;
+  },
+  locEnd: function(node) {
+    if (typeof node.end === "number") {
+      return node.end;
+    }
+    return null;
+  }
 };
 
 const parsers = {
