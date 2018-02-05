@@ -22,7 +22,19 @@ const parsers = {
     get parse() {
       return eval("require")("./parser-glimmer");
     },
-    astFormat: "glimmer"
+    astFormat: "glimmer",
+    locEnd: function(node) {
+      if (!node.loc) {
+        return null;
+      }
+      return node.loc.end;
+    },
+    locStart: function(node) {
+      if (!node.loc) {
+        return null;
+      }
+      return node.loc.start;
+    }
   }
 };
 

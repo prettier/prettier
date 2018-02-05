@@ -4,7 +4,8 @@ const docblock = require("jest-docblock");
 
 const version = require("./package.json").version;
 
-const util = require("./src/common/util");
+const sharedUtil = require("./src/common/util-shared");
+const privateUtil = require("./src/common/util");
 const getSupportInfo = require("./src/common/support").getSupportInfo;
 
 const comments = require("./src/main/comments");
@@ -72,6 +73,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
     return { formatted: text };
   }
 
+  const util = sharedUtil(opts);
   const UTF8BOM = 0xfeff;
   const hasUnicodeBOM = text.charCodeAt(0) === UTF8BOM;
   if (hasUnicodeBOM) {
@@ -147,6 +149,7 @@ function format(text, opts, addAlignmentSize) {
 }
 
 function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
+  const util = sharedUtil(opts);
   let resultStartNode = startNodeAndParents.node;
   let resultEndNode = endNodeAndParents.node;
 
@@ -190,6 +193,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
 }
 
 function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
+  const util = sharedUtil(options);
   predicate = predicate || (() => true);
   parentNodes = parentNodes || [];
   const start = util.locStart(node, options.locStart);
@@ -305,6 +309,7 @@ function calculateRange(text, opts, ast) {
     opts.rangeStart + rangeStringOrig.search(/\S/),
     opts.rangeStart
   );
+  const util = sharedUtil(opts);
   let endNonWhitespace;
   for (
     endNonWhitespace = opts.rangeEnd;
@@ -377,7 +382,10 @@ function formatRange(text, opts, ast) {
   );
   const indentString = text.slice(rangeStart2, rangeStart);
 
-  const alignmentSize = util.getAlignmentSize(indentString, opts.tabWidth);
+  const alignmentSize = privateUtil.getAlignmentSize(
+    indentString,
+    opts.tabWidth
+  );
 
   const rangeFormatted = format(
     rangeString,

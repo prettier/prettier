@@ -4,11 +4,11 @@ const util = require("./util");
 
 module.exports = function(options) {
   function locStart(node) {
-    return util.locEnd(node, options.locStart);
+    return options.locStart(node);
   }
 
   function locEnd(node) {
-    return util.locEnd(node, options.locEnd);
+    return options.locEnd(node);
   }
 
   function isNextLineEmpty(text, node) {

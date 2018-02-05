@@ -2,6 +2,7 @@
 
 const printer = require("./printer-postcss");
 const options = require("./options");
+const { lineColumnToIndex, getLast } = require("../common/util");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -52,7 +53,23 @@ const postcss = {
   get parse() {
     return eval("require")("./parser-postcss");
   },
-  astFormat: "postcss"
+  astFormat: "postcss",
+  locEnd: function(node) {
+    const endNode = node.nodes && getLast(node.nodes);
+    if (endNode && node.source && !node.source.end) {
+      node = endNode;
+    }
+    if (node.source) {
+      return lineColumnToIndex(node.source.end, node.source.input.css);
+    }
+    return null;
+  },
+  locStart: function(node) {
+    if (node.source) {
+      return lineColumnToIndex(node.source.start, node.source.input.css) - 1;
+    }
+    return null;
+  }
 };
 
 // TODO: switch these to just `postcss` and use `language` instead.

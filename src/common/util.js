@@ -187,8 +187,8 @@ function hasNewlineInRange(text, start, end) {
 }
 
 // Note: this function doesn't ignore leading comments unlike isNextLineEmpty
-function isPreviousLineEmpty(text, node, locStartFromPlugin) {
-  let idx = locStart(node, locStartFromPlugin) - 1;
+function isPreviousLineEmpty(text, node, locStart) {
+  let idx = locStart(node) - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
   idx = skipSpaces(text, idx, { backwards: true });
@@ -211,13 +211,13 @@ function isNextLineEmptyAfterIndex(text, index) {
   return hasNewline(text, idx);
 }
 
-function isNextLineEmpty(text, node, locEndFromPlugin) {
-  return isNextLineEmptyAfterIndex(text, locEnd(node, locEndFromPlugin));
+function isNextLineEmpty(text, node, locEnd) {
+  return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
-function getNextNonSpaceNonCommentCharacterIndex(text, node, locEndFromPlugin) {
+function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   let oldIdx = null;
-  let idx = locEnd(node, locEndFromPlugin);
+  let idx = locEnd(node);
   while (idx !== oldIdx) {
     oldIdx = idx;
     idx = skipSpaces(text, idx);
@@ -228,9 +228,9 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, locEndFromPlugin) {
   return idx;
 }
 
-function getNextNonSpaceNonCommentCharacter(text, node, locEndFromPlugin) {
+function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   return text.charAt(
-    getNextNonSpaceNonCommentCharacterIndex(text, node, locEndFromPlugin)
+    getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
   );
 }
 
@@ -238,77 +238,6 @@ function hasSpaces(text, index, opts) {
   opts = opts || {};
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   return idx !== index;
-}
-
-function locStart(node, locStartFromPlugin) {
-  if (locStartFromPlugin) {
-    const result = locStartFromPlugin(node);
-    if (result !== null) {
-      return result;
-    }
-  }
-  // Handle nodes with decorators. They should start at the first decorator
-  if (
-    node.declaration &&
-    node.declaration.decorators &&
-    node.declaration.decorators.length > 0
-  ) {
-    return locStart(node.declaration.decorators[0]);
-  }
-  if (node.decorators && node.decorators.length > 0) {
-    return locStart(node.decorators[0]);
-  }
-
-  if (node.__location) {
-    return node.__location.startOffset;
-  }
-  if (node.range) {
-    return node.range[0];
-  }
-  if (typeof node.start === "number") {
-    return node.start;
-  }
-  if (node.source) {
-    return lineColumnToIndex(node.source.start, node.source.input.css) - 1;
-  }
-  if (node.loc) {
-    return node.loc.start;
-  }
-}
-
-function locEnd(node, locEndFromPlugin) {
-  if (locEndFromPlugin) {
-    const result = locEndFromPlugin(node);
-    if (result !== null) {
-      return result;
-    }
-  }
-  const endNode = node.nodes && getLast(node.nodes);
-  if (endNode && node.source && !node.source.end) {
-    node = endNode;
-  }
-
-  let loc;
-  if (node.range) {
-    loc = node.range[1];
-  } else if (typeof node.end === "number") {
-    loc = node.end;
-  } else if (node.source) {
-    loc = lineColumnToIndex(node.source.end, node.source.input.css);
-  }
-
-  if (node.__location) {
-    return node.__location.endOffset;
-  }
-  if (node.typeAnnotation) {
-    return Math.max(loc, locEnd(node.typeAnnotation));
-  }
-
-  if (node.loc && !loc) {
-    return node.loc.end;
-  }
-
-  return loc;
 }
 
 // Super inefficient, needs to be cached.
@@ -853,8 +782,6 @@ module.exports = {
   hasNewline,
   hasNewlineInRange,
   hasSpaces,
-  locStart,
-  locEnd,
   setLocStart,
   setLocEnd,
   startsWithNoLookaheadToken,
@@ -866,5 +793,6 @@ module.exports = {
   printString,
   printNumber,
   hasIgnoreComment,
-  hasNodeIgnoreComment
+  hasNodeIgnoreComment,
+  lineColumnToIndex
 };

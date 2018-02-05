@@ -49,9 +49,10 @@ function normalize(options, opts) {
     }
   }
 
-  rawOptions.astFormat = resolveParser(rawOptions).astFormat;
-  rawOptions.locEnd = resolveParser(rawOptions).locEnd;
-  rawOptions.locStart = resolveParser(rawOptions).locStart;
+  const parser = resolveParser(rawOptions);
+  rawOptions.astFormat = parser.astFormat;
+  rawOptions.locEnd = parser.locEnd;
+  rawOptions.locStart = parser.locStart;
   rawOptions.printer = getPrinter(rawOptions);
 
   Object.keys(defaults).forEach(k => {

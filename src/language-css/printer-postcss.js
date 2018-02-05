@@ -1,7 +1,7 @@
 "use strict";
 
 const clean = require("./clean");
-const util = require("../common/util");
+const privateUtil = require("../common/util");
 const doc = require("../doc");
 const docBuilders = doc.builders;
 const concat = docBuilders.concat;
@@ -15,7 +15,7 @@ const indent = docBuilders.indent;
 
 const removeLines = doc.utils.removeLines;
 
-function genericPrint(path, options, print) {
+function genericPrint(path, options, print, args, util) {
   const node = path.getValue();
 
   /* istanbul ignore if */
@@ -31,7 +31,7 @@ function genericPrint(path, options, print) {
     case "css-comment-yaml":
       return node.value;
     case "css-root": {
-      const nodes = printNodeSequence(path, options, print);
+      const nodes = printNodeSequence(path, options, print, util);
 
       if (nodes.parts.length) {
         return concat([nodes, hardline]);
@@ -77,7 +77,10 @@ function genericPrint(path, options, print) {
               " {",
               node.nodes.length > 0
                 ? indent(
-                    concat([hardline, printNodeSequence(path, options, print)])
+                    concat([
+                      hardline,
+                      printNodeSequence(path, options, print, util)
+                    ])
                   )
                 : "",
               hardline,
@@ -123,7 +126,10 @@ function genericPrint(path, options, print) {
           ? concat([
               " {",
               indent(
-                concat([softline, printNodeSequence(path, options, print)])
+                concat([
+                  softline,
+                  printNodeSequence(path, options, print, util)
+                ])
               ),
               softline,
               "}"
@@ -180,7 +186,7 @@ function genericPrint(path, options, print) {
               indent(
                 concat([
                   node.nodes.length > 0 ? softline : "",
-                  printNodeSequence(path, options, print)
+                  printNodeSequence(path, options, print, util)
                 ])
               ),
               softline,
@@ -200,7 +206,10 @@ function genericPrint(path, options, print) {
           ? concat([
               " {",
               indent(
-                concat([softline, printNodeSequence(path, options, print)])
+                concat([
+                  softline,
+                  printNodeSequence(path, options, print, util)
+                ])
               ),
               softline,
               "}"
@@ -575,7 +584,7 @@ function genericPrint(path, options, print) {
       return concat([node.value, " "]);
     }
     case "value-string": {
-      return util.printString(
+      return privateUtil.printString(
         node.raws.quote + node.value + node.raws.quote,
         options
       );
@@ -677,7 +686,7 @@ function getAncestorNode(path, typeOrTypes) {
   return counter === -1 ? null : path.getParentNode(counter);
 }
 
-function printNodeSequence(path, options, print) {
+function printNodeSequence(path, options, print, util) {
   const node = path.getValue();
   const parts = [];
   let i = 0;
@@ -702,7 +711,7 @@ function printNodeSequence(path, options, print) {
     if (i !== node.nodes.length - 1) {
       if (
         (node.nodes[i + 1].type === "css-comment" &&
-          !util.hasNewline(
+          !privateUtil.hasNewline(
             options.originalText,
             util.locStart(node.nodes[i + 1]),
             { backwards: true }
@@ -739,7 +748,9 @@ const ADJUST_NUMBERS_REGEX = RegExp(
 );
 
 function adjustStrings(value, options) {
-  return value.replace(STRING_REGEX, match => util.printString(match, options));
+  return value.replace(STRING_REGEX, match =>
+    privateUtil.printString(match, options)
+  );
 }
 
 function quoteAttributeValue(value, options) {
@@ -761,7 +772,7 @@ function adjustNumbers(value) {
 
 function printNumber(rawNumber) {
   return (
-    util
+    privateUtil
       .printNumber(rawNumber)
       // Remove trailing `.0`.
       .replace(/\.0(?=$|e)/, "")
@@ -789,6 +800,6 @@ function isWideKeywords(value) {
 
 module.exports = {
   print: genericPrint,
-  hasPrettierIgnore: util.hasIgnoreComment,
+  hasPrettierIgnore: privateUtil.hasIgnoreComment,
   massageAstNode: clean
 };
