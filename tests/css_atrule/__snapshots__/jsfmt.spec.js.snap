@@ -1151,7 +1151,7 @@ h3
 }
 @each $element, $size in (h1: 20px, h2: 16px, h3: 14px) {
 }
-@each $element, $size in(h1:20px, h2:16px, h3:14px) {
+@each $element, $size in(h1: 20px, h2: 16px, h3: 14px) {
 }
 @each $element, $size in (h1: 20px, h2: 16px, h3: 14px) {
 }
@@ -1828,7 +1828,7 @@ $args
 @function func($arg, $arg1, $arg2: 10, $args...) {
   @return "Func";
 }
-@function func($arg, $arg1, $arg2:10, $args...) {
+@function func($arg, $arg1, $arg2: 10, $args...) {
   @return "Func";
 }
 @function func($arg, $arg1, $arg2: 10, $args...) {
@@ -2223,7 +2223,7 @@ a {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
-@include mix(1px, 2px, $arg2:10, 2px 4px 6px);
+@include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
@@ -2740,7 +2740,7 @@ $args
 
 @mixin mix($arg, $arg1, $arg2: 10, $args...) {
 }
-@mixin mix($arg, $arg1, $arg2:10, $args...) {
+@mixin mix($arg, $arg1, $arg2: 10, $args...) {
 }
 @mixin mix($arg, $arg1, $arg2: 10, $args...) {
 }

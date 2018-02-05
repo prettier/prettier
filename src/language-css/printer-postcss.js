@@ -394,7 +394,8 @@ function genericPrint(path, options, print) {
         if (
           i !== node.groups.length - 1 &&
           node.groups[i + 1].raws &&
-          node.groups[i + 1].raws.before !== ""
+          node.groups[i + 1].raws.before !== "" &&
+          node.groups[i].value !== ":"
         ) {
           const isNextMathOperator = isMathOperatorNode(node.groups[i + 1]);
           const isNextEqualityOperator =
@@ -519,8 +520,13 @@ function genericPrint(path, options, print) {
         const isFunction =
           parentParentParentNode &&
           parentParentParentNode.type === "value-func";
+        const declAncestorNode = getAncestorNode(path, "css-decl");
+        const isMap = declAncestorNode && declAncestorNode.prop.startsWith("$");
 
-        return concat([isFunction || insideInParens ? "" : line, node.value]);
+        return concat([
+          isFunction || insideInParens || isMap ? "" : line,
+          node.value
+        ]);
       }
 
       return node.value;
@@ -538,7 +544,22 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-colon": {
-      return node.value;
+      const parent = path.getParentNode();
+      const index =
+        parent &&
+        parent.groups &&
+        parent.groups.length > 0 &&
+        parent.groups.indexOf(node);
+      const prevProgidProperty =
+        index && parent.groups[index - 1].value === "progid";
+      const valueFuncAncestorNode = getAncestorNode(path, "value-func");
+      const insideInURLFunc =
+        valueFuncAncestorNode && valueFuncAncestorNode.value === "url";
+
+      return concat([
+        node.value,
+        prevProgidProperty || insideInURLFunc ? "" : line
+      ]);
     }
     case "value-comma": {
       return concat([node.value, " "]);
