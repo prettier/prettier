@@ -1,6 +1,6 @@
 # Configuration for probot-no-response - https://github.com/probot/no-response
 
-daysUntilClose: 21
+daysUntilClose: 14
 responseRequiredLabel: "status:awaiting response"
 closeComment: >
   This issue has been automatically closed because there has been no response
