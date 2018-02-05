@@ -2038,6 +2038,172 @@ p {
 
 `;
 
+exports[`import.css 1`] = `
+@import url("fineprint.css") print;
+@import url("bluish.css") projection, tv;
+@import 'custom.css';
+@import url("chrome://communicator/skin/");
+@import "common.css" screen, projection;
+@import url('landscape.css') screen and (orientation:landscape);
+
+@import (multiple) "foo.less";
+
+/* This isn't valid CSS, SCSS or Less, but we should be lenient and make sure
+/* that nothing is lost when printing. */
+@import "one" two "three";
+
+#main {
+    @import "example";
+}
+#main {
+@import "example";
+}
+#main {
+    @import "example" ;
+}
+#main {
+    @import  "example"  ;
+}
+#main {
+    @import
+        "example";
+}
+#main
+{
+@import
+"example";
+}
+#main
+
+{
+
+@import
+
+"example";
+
+}
+
+@import "test.less" {}
+@import "test.less" {
+    a: b;
+    c: d;
+}
+
+@import url('foo');
+$dir: 'fonts';
+
+@import url("foo.css");
+@import url('foo.css');
+@import  url("foo.css");
+@import   url("foo.css");
+@import url("fineprint.css")print;
+@import url("fineprint.css") print;
+@import url("fineprint.css")  print;
+@import url("fineprint.css")
+  print;
+@import url("bluish.css") projection,tv;
+@import url("bluish.css") projection, tv;
+@import url("bluish.css") projection ,tv;
+@import url("bluish.css") projection , tv;
+@import url("bluish.css") projection  ,  tv;
+@import url("bluish.css")
+  projection,
+  tv;
+@import url("very-very-very-very-very-very-very-very-very-very-long-name.css") projection,tv;
+@import url('landscape.css') screen and (orientation:landscape);
+@import "rounded-corners", "text-shadow";
+@import 'rounded-corners', 'text-shadow';
+$family: unquote("Droid+Sans");
+@import url("http://fonts.googleapis.com/css?family=#{$family}");
+@import url( "foo.css");
+@import url("foo.css" );
+@import url( "foo.css" );
+@import url(  "foo.css"  );
+@import url("foo bar baz.css");
+@import url(  "foo bar baz.css"  );
+@import url("foo  bar  baz.css");
+@import url(
+"foo.css"
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@import url("fineprint.css") print;
+@import url("bluish.css") projection, tv;
+@import "custom.css";
+@import url("chrome://communicator/skin/");
+@import "common.css" screen, projection;
+@import url("landscape.css") screen and (orientation: landscape);
+
+@import (multiple) "foo.less";
+
+/* This isn't valid CSS, SCSS or Less, but we should be lenient and make sure
+/* that nothing is lost when printing. */
+@import "one" two "three";
+
+#main {
+  @import "example";
+}
+#main {
+  @import "example";
+}
+#main {
+  @import "example";
+}
+#main {
+  @import "example";
+}
+#main {
+  @import "example";
+}
+#main {
+  @import "example";
+}
+#main {
+  @import "example";
+}
+
+@import "test.less" {
+}
+@import "test.less" {
+  a: b;
+  c: d;
+}
+
+@import url("foo");
+$dir: "fonts";
+
+@import url("foo.css");
+@import url("foo.css");
+@import url("foo.css");
+@import url("foo.css");
+@import url("fineprint.css") print;
+@import url("fineprint.css") print;
+@import url("fineprint.css") print;
+@import url("fineprint.css") print;
+@import url("bluish.css") projection, tv;
+@import url("bluish.css") projection, tv;
+@import url("bluish.css") projection, tv;
+@import url("bluish.css") projection, tv;
+@import url("bluish.css") projection, tv;
+@import url("bluish.css") projection, tv;
+@import url("very-very-very-very-very-very-very-very-very-very-long-name.css")
+  projection,
+  tv;
+@import url("landscape.css") screen and (orientation: landscape);
+@import "rounded-corners", "text-shadow";
+@import "rounded-corners", "text-shadow";
+$family: unquote("Droid+Sans");
+@import url("http://fonts.googleapis.com/css?family=#{$family}");
+@import url("foo.css");
+@import url("foo.css");
+@import url("foo.css");
+@import url("foo.css");
+@import url("foo bar baz.css");
+@import url("foo bar baz.css");
+@import url("foo  bar  baz.css");
+@import url("foo.css");
+
+`;
+
 exports[`include.css 1`] = `
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(1px,2px,$arg2:10,2px 4px 6px);
@@ -2535,6 +2701,331 @@ margin-top: 100px;
     opacity: 1;
     top: 0;
   }
+}
+
+`;
+
+exports[`media.css 1`] = `
+@media screen and (min-width: 480px) {}
+@media  screen and (min-width: 480px) {}
+@MEDIA screen and (min-width: 480px) {}
+@MEDIA screen  and (min-width: 480px) {}
+@media screen and  (min-width: 480px) {}
+@media screen and (min-width: 480px) {}
+@media screen and (min-width :480px) {}
+@media screen and (min-width : 480px) {}
+@media screen and (min-width  :  480px) {}
+@media
+  screen
+  and
+  (min-width
+  :
+  480px) {}
+@media screen and ( min-width: 480px) {}
+@media screen and (min-width: 480px ) {}
+@media screen and ( min-width: 480px ) {}
+@media screen and (  min-width:  480px  ) {}
+@media not screen and (color), print and (color) { }
+@media not screen and (color) , print and (color) { }
+@media not screen and (color),print and (color) { }
+@media not screen and (color) , print and (color) { }
+@media not screen and (color)  ,  print and (color) { }
+@media not screen and ( color), print and (color) { }
+@media not screen and (color ), print and (color) { }
+@media not screen and ( color ), print and (color) { }
+@media not screen and (  color  ), print and (color) { }
+@media (--small-viewport) {}
+@media
+(
+--small-viewport
+)
+{
+}
+@media
+
+(
+
+--small-viewport
+
+)
+
+{
+
+}
+
+.screen-color {
+    @media screen {
+        color: green;
+
+        @media (min-width: 768px) {
+            color: red;
+        }
+    }
+    @media tv {
+        color: black;
+    }
+}
+.screen-color {
+@media screen {
+color: green;
+
+@media (min-width: 768px) {
+color: red;
+}
+}
+@media tv {
+color: black;
+}
+}
+.screen-color{
+    @media screen{
+        color: green;
+
+        @media (min-width: 768px){
+            color: red;
+        }
+    }
+    @media tv{
+        color: black;
+    }
+}
+.screen-color  {
+    @media screen  {
+        color: green;
+
+        @media (min-width: 768px)  {
+            color: red;
+        }
+    }
+    @media tv  {
+        color: black;
+    }
+}
+.screen-color
+{
+@media
+screen
+{
+color
+:
+green
+;
+@media
+(
+min-width
+:
+768px
+)
+{
+color
+:
+red
+;
+}
+}
+@media
+tv
+{
+color
+:
+black
+;
+}
+}
+.screen-color
+
+{
+
+@media
+
+screen
+
+{
+
+color
+
+:
+
+green
+
+;
+
+@media
+
+(
+
+min-width
+
+:
+
+768px
+
+)
+
+{
+
+color
+
+:
+
+red
+
+;
+
+}
+
+}
+
+@media
+
+tv
+
+{
+
+color
+
+:
+
+black
+
+;
+
+}
+
+}
+
+@media all and (-webkit-min-device-pixel-ratio: 1.5), all and (-o-min-device-pixel-ratio: 3/2), all and (min--moz-device-pixel-ratio: 1.5), all and (min-device-pixel-ratio: 1.5) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media not screen and (color), print and (color) {
+}
+@media not screen and (color), print and (color) {
+}
+@media not screen and (color), print and (color) {
+}
+@media not screen and (color), print and (color) {
+}
+@media not screen and (color), print and (color) {
+}
+@media not screen and (color), print and (color) {
+}
+@media not screen and (color), print and (color) {
+}
+@media not screen and (color), print and (color) {
+}
+@media not screen and (color), print and (color) {
+}
+@media (--small-viewport) {
+}
+@media (--small-viewport) {
+}
+@media (--small-viewport) {
+}
+
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+  @media tv {
+    color: black;
+  }
+}
+.screen-color {
+  @media screen {
+    color: green;
+
+    @media (min-width: 768px) {
+      color: red;
+    }
+  }
+
+  @media tv {
+    color: black;
+  }
+}
+
+@media all and (-webkit-min-device-pixel-ratio: 1.5),
+  all and (-o-min-device-pixel-ratio: 3/2),
+  all and (min--moz-device-pixel-ratio: 1.5),
+  all and (min-device-pixel-ratio: 1.5) {
 }
 
 `;
