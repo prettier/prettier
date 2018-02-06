@@ -170,7 +170,6 @@ function attach(comments, ast, text, options) {
   }
 
   const tiesToBreak = [];
-  const util = sharedUtil(options);
   const locStart = options.locStart;
   const locEnd = options.locEnd;
 
@@ -207,7 +206,7 @@ function attach(comments, ast, text, options) {
           enclosingNode,
           followingNode,
           comment,
-          util
+          options
         ) ||
         handleTryStatementComments(enclosingNode, followingNode, comment) ||
         handleClassComments(
@@ -229,7 +228,8 @@ function attach(comments, ast, text, options) {
           text,
           enclosingNode,
           precedingNode,
-          comment
+          comment,
+          options
         ) ||
         handleAssignmentPatternComments(enclosingNode, comment) ||
         handleMethodNameComments(
@@ -237,7 +237,7 @@ function attach(comments, ast, text, options) {
           enclosingNode,
           precedingNode,
           comment,
-          util
+          options
         )
       ) {
         // We're good
@@ -278,7 +278,7 @@ function attach(comments, ast, text, options) {
           enclosingNode,
           followingNode,
           comment,
-          util
+          options
         ) ||
         handleClassComments(
           enclosingNode,
@@ -316,25 +316,25 @@ function attach(comments, ast, text, options) {
           enclosingNode,
           followingNode,
           comment,
-          util
+          options
         ) ||
         handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
-        handleCommentInEmptyParens(text, enclosingNode, comment, util) ||
+        handleCommentInEmptyParens(text, enclosingNode, comment, options) ||
         handleMethodNameComments(
           text,
           enclosingNode,
           precedingNode,
           comment,
-          util
+          options
         ) ||
         handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
-        handleCommentAfterArrowParams(text, enclosingNode, comment, util) ||
+        handleCommentAfterArrowParams(text, enclosingNode, comment, options) ||
         handleFunctionNameComments(
           text,
           enclosingNode,
           precedingNode,
           comment,
-          util
+          options
         )
       ) {
         // We're good
@@ -494,7 +494,7 @@ function handleIfStatementComments(
   enclosingNode,
   followingNode,
   comment,
-  util
+  options
 ) {
   if (
     !enclosingNode ||
@@ -509,7 +509,11 @@ function handleIfStatementComments(
   //   if (a /* comment */) {}
   // The only workaround I found is to look at the next character to see if
   // it is a ).
-  const nextCharacter = util.getNextNonSpaceNonCommentCharacter(text, comment);
+  const nextCharacter = privateUtil.getNextNonSpaceNonCommentCharacter(
+    text,
+    comment,
+    options.locEnd
+  );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -654,7 +658,7 @@ function handleMethodNameComments(
   enclosingNode,
   precedingNode,
   comment,
-  util
+  options
 ) {
   // This is only needed for estree parsers (flow, typescript) to attach
   // after a method name:
@@ -668,7 +672,11 @@ function handleMethodNameComments(
     enclosingNode.key === precedingNode &&
     // special Property case: { key: /*comment*/(value) };
     // comment should be attached to value instead of key
-    util.getNextNonSpaceNonCommentCharacter(text, precedingNode) !== ":"
+    privateUtil.getNextNonSpaceNonCommentCharacter(
+      text,
+      precedingNode,
+      options.locEnd
+    ) !== ":"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -698,9 +706,15 @@ function handleFunctionNameComments(
   enclosingNode,
   precedingNode,
   comment,
-  util
+  options
 ) {
-  if (util.getNextNonSpaceNonCommentCharacter(text, comment) !== "(") {
+  if (
+    privateUtil.getNextNonSpaceNonCommentCharacter(
+      text,
+      comment,
+      options.locEnd
+    ) !== "("
+  ) {
     return false;
   }
 
@@ -719,12 +733,16 @@ function handleFunctionNameComments(
   return false;
 }
 
-function handleCommentAfterArrowParams(text, enclosingNode, comment, util) {
+function handleCommentAfterArrowParams(text, enclosingNode, comment, options) {
   if (!(enclosingNode && enclosingNode.type === "ArrowFunctionExpression")) {
     return false;
   }
 
-  const index = util.getNextNonSpaceNonCommentCharacterIndex(text, comment);
+  const index = sharedUtil.getNextNonSpaceNonCommentCharacterIndex(
+    text,
+    comment,
+    options
+  );
   if (text.substr(index, 2) === "=>") {
     addDanglingComment(enclosingNode, comment);
     return true;
@@ -733,8 +751,14 @@ function handleCommentAfterArrowParams(text, enclosingNode, comment, util) {
   return false;
 }
 
-function handleCommentInEmptyParens(text, enclosingNode, comment, util) {
-  if (util.getNextNonSpaceNonCommentCharacter(text, comment) !== ")") {
+function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
+  if (
+    privateUtil.getNextNonSpaceNonCommentCharacter(
+      text,
+      comment,
+      options.locEnd
+    ) !== ")"
+  ) {
     return false;
   }
 
@@ -920,13 +944,14 @@ function handleImportDeclarationComments(
   text,
   enclosingNode,
   precedingNode,
-  comment
+  comment,
+  options
 ) {
   if (
     precedingNode &&
     enclosingNode &&
     enclosingNode.type === "ImportDeclaration" &&
-    privateUtil.hasNewline(text, privateUtil.locEnd(comment))
+    privateUtil.hasNewline(text, options.locEnd(comment))
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -968,10 +993,10 @@ function handleVariableDeclaratorComments(
   return false;
 }
 
-function printComment(commentPath, options, util) {
+function printComment(commentPath, options) {
   const comment = commentPath.getValue();
   comment.printed = true;
-  return options.printer.printComment(commentPath, options, util);
+  return options.printer.printComment(commentPath, options);
 }
 
 function findExpressionIndexForComment(quasis, comment, options) {
@@ -998,9 +1023,9 @@ function getQuasiRange(expr) {
   return { start: expr.range[0], end: expr.range[1] };
 }
 
-function printLeadingComment(commentPath, print, options, util) {
+function printLeadingComment(commentPath, print, options) {
   const comment = commentPath.getValue();
-  const contents = printComment(commentPath, options, util);
+  const contents = printComment(commentPath, options);
   if (!contents) {
     return "";
   }
@@ -1020,9 +1045,9 @@ function printLeadingComment(commentPath, print, options, util) {
   return concat([contents, hardline]);
 }
 
-function printTrailingComment(commentPath, print, options, util) {
+function printTrailingComment(commentPath, print, options) {
   const comment = commentPath.getValue();
-  const contents = printComment(commentPath, options, util);
+  const contents = printComment(commentPath, options);
   if (!contents) {
     return "";
   }
@@ -1058,7 +1083,8 @@ function printTrailingComment(commentPath, print, options, util) {
 
     const isLineBeforeEmpty = privateUtil.isPreviousLineEmpty(
       options.originalText,
-      comment
+      comment,
+      options.locStart
     );
 
     return lineSuffix(
@@ -1075,7 +1101,6 @@ function printTrailingComment(commentPath, print, options, util) {
 function printDanglingComments(path, options, sameIndent, filter) {
   const parts = [];
   const node = path.getValue();
-  const util = sharedUtil(options);
 
   if (!node || !node.comments) {
     return "";
@@ -1089,7 +1114,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
       !comment.trailing &&
       (!filter || filter(comment))
     ) {
-      parts.push(printComment(commentPath, options, util));
+      parts.push(printComment(commentPath, options));
     }
   }, "comments");
 
@@ -1114,7 +1139,6 @@ function printComments(path, print, options, needsSemi) {
   const value = path.getValue();
   const printed = print(path);
   const comments = value && value.comments;
-  const util = sharedUtil(options);
 
   if (!comments || comments.length === 0) {
     return prependCursorPlaceholder(path, options, printed);
@@ -1129,7 +1153,7 @@ function printComments(path, print, options, needsSemi) {
     const trailing = comment.trailing;
 
     if (leading) {
-      const contents = printLeadingComment(commentPath, print, options, util);
+      const contents = printLeadingComment(commentPath, print, options);
       if (!contents) {
         return;
       }
@@ -1145,9 +1169,7 @@ function printComments(path, print, options, needsSemi) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {
-      trailingParts.push(
-        printTrailingComment(commentPath, print, options, util)
-      );
+      trailingParts.push(printTrailingComment(commentPath, print, options));
     }
   }, "comments");
 

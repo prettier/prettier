@@ -29,7 +29,7 @@ const voidTags = {
   wbr: true
 };
 
-function genericPrint(path, options, print, args, util) {
+function genericPrint(path, options, print) {
   const n = path.getValue();
   if (!n) {
     return "";
@@ -57,8 +57,8 @@ function genericPrint(path, options, print, args, util) {
 
       const hasNewline = privateUtil.hasNewlineInRange(
         options.originalText,
-        util.locStart(n),
-        util.locEnd(n)
+        options.locStart(n),
+        options.locEnd(n)
       );
 
       return group(

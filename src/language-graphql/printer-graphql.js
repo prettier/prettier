@@ -9,10 +9,11 @@ const softline = docBuilders.softline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
 const ifBreak = docBuilders.ifBreak;
-
+const printerOptions = require("./options");
 const privateUtil = require("../common/util");
+const sharedUtil = require("../common/util-shared");
 
-function genericPrint(path, options, print, args, util) {
+function genericPrint(path, options, print) {
   const n = path.getValue();
   if (!n) {
     return "";
@@ -30,7 +31,7 @@ function genericPrint(path, options, print, args, util) {
       ]);
     }
     case "OperationDefinition": {
-      const hasOperation = options.originalText[util.locStart(n)] !== "{";
+      const hasOperation = options.originalText[options.locStart(n)] !== "{";
       const hasName = !!n.name;
       return concat([
         hasOperation ? n.operation : "",
@@ -78,8 +79,7 @@ function genericPrint(path, options, print, args, util) {
             join(
               hardline,
               path.call(
-                selectionsPath =>
-                  printSequence(selectionsPath, options, print, util),
+                selectionsPath => printSequence(selectionsPath, options, print),
                 "selections"
               )
             )
@@ -104,8 +104,7 @@ function genericPrint(path, options, print, args, util) {
                       join(
                         concat([ifBreak("", ", "), softline]),
                         path.call(
-                          argsPath =>
-                            printSequence(argsPath, options, print, util),
+                          argsPath => printSequence(argsPath, options, print),
                           "arguments"
                         )
                       )
@@ -212,8 +211,7 @@ function genericPrint(path, options, print, args, util) {
                     join(
                       concat([ifBreak("", ", "), softline]),
                       path.call(
-                        argsPath =>
-                          printSequence(argsPath, options, print, util),
+                        argsPath => printSequence(argsPath, options, print),
                         "arguments"
                       )
                     )
@@ -293,8 +291,7 @@ function genericPrint(path, options, print, args, util) {
                     join(
                       concat([ifBreak("", ", "), softline]),
                       path.call(
-                        argsPath =>
-                          printSequence(argsPath, options, print, util),
+                        argsPath => printSequence(argsPath, options, print),
                         "arguments"
                       )
                     )
@@ -328,8 +325,7 @@ function genericPrint(path, options, print, args, util) {
                     join(
                       concat([ifBreak("", ", "), softline]),
                       path.call(
-                        argsPath =>
-                          printSequence(argsPath, options, print, util),
+                        argsPath => printSequence(argsPath, options, print),
                         "arguments"
                       )
                     )
@@ -363,8 +359,7 @@ function genericPrint(path, options, print, args, util) {
                   join(
                     hardline,
                     path.call(
-                      valuesPath =>
-                        printSequence(valuesPath, options, print, util),
+                      valuesPath => printSequence(valuesPath, options, print),
                       "values"
                     )
                   )
@@ -416,8 +411,7 @@ function genericPrint(path, options, print, args, util) {
                   join(
                     hardline,
                     path.call(
-                      fieldsPath =>
-                        printSequence(fieldsPath, options, print, util),
+                      fieldsPath => printSequence(fieldsPath, options, print),
                       "fields"
                     )
                   )
@@ -442,7 +436,7 @@ function genericPrint(path, options, print, args, util) {
                 join(
                   hardline,
                   path.call(
-                    opsPath => printSequence(opsPath, options, print, util),
+                    opsPath => printSequence(opsPath, options, print),
                     "operationTypes"
                   )
                 )
@@ -481,8 +475,7 @@ function genericPrint(path, options, print, args, util) {
                   join(
                     hardline,
                     path.call(
-                      fieldsPath =>
-                        printSequence(fieldsPath, options, print, util),
+                      fieldsPath => printSequence(fieldsPath, options, print),
                       "fields"
                     )
                   )
@@ -592,14 +585,18 @@ function printDirectives(path, print, n) {
   ]);
 }
 
-function printSequence(sequencePath, options, print, util) {
+function printSequence(sequencePath, options, print) {
   const count = sequencePath.getValue().length;
 
   return sequencePath.map((path, i) => {
     const printed = print(path);
 
     if (
-      util.isNextLineEmpty(options.originalText, path.getValue()) &&
+      sharedUtil.isNextLineEmpty(
+        options.originalText,
+        path.getValue(),
+        options
+      ) &&
       i < count - 1
     ) {
       return concat([printed, hardline]);

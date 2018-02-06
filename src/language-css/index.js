@@ -2,7 +2,10 @@
 
 const printer = require("./printer-postcss");
 const options = require("./options");
-const { lineColumnToIndex, getLast } = require("../common/util");
+const privateUtil = require("../common/util");
+
+const lineColumnToIndex = privateUtil.lineColumnToIndex;
+const getLast = privateUtil.getLast;
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml

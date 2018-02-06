@@ -492,10 +492,7 @@ FastPath.prototype.needsParens = function(options) {
         // See corresponding workaround in printer.js case: "Literal"
         ((options.parser !== "typescript" && !parent.directive) ||
           (options.parser === "typescript" &&
-            options.originalText.substr(
-              util.locStart(node, options.locStart) - 1,
-              1
-            ) === "("))
+            options.originalText.substr(options.locStart(node) - 1, 1) === "("))
       ) {
         // To avoid becoming a directive
         const grandParent = this.getParentNode(1);

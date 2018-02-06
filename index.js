@@ -4,7 +4,6 @@ const docblock = require("jest-docblock");
 
 const version = require("./package.json").version;
 
-const sharedUtil = require("./src/common/util-shared");
 const privateUtil = require("./src/common/util");
 const getSupportInfo = require("./src/common/support").getSupportInfo;
 
@@ -73,7 +72,6 @@ function formatWithCursor(text, opts, addAlignmentSize) {
     return { formatted: text };
   }
 
-  const util = sharedUtil(opts);
   const UTF8BOM = 0xfeff;
   const hasUnicodeBOM = text.charCodeAt(0) === UTF8BOM;
   if (hasUnicodeBOM) {
@@ -113,8 +111,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
     const cursorNodeAndParents = findNodeAtOffset(ast, opts.cursorOffset, opts);
     const cursorNode = cursorNodeAndParents.node;
     if (cursorNode) {
-      cursorOffset =
-        opts.cursorOffset - util.locStart(cursorNode, opts.locStart);
+      cursorOffset = opts.cursorOffset - opts.locStart(cursorNode);
       opts.cursorNode = cursorNode;
     }
   }
@@ -190,11 +187,10 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
 }
 
 function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
-  const util = sharedUtil(options);
   predicate = predicate || (() => true);
   parentNodes = parentNodes || [];
-  const start = util.locStart(node, options.locStart);
-  const end = util.locEnd(node, options.locEnd);
+  const start = options.locStart(node, options.locStart);
+  const end = options.locEnd(node, options.locEnd);
   if (start <= offset && offset <= end) {
     for (const childNode of comments.getSortedChildNodes(
       node,
@@ -306,7 +302,6 @@ function calculateRange(text, opts, ast) {
     opts.rangeStart + rangeStringOrig.search(/\S/),
     opts.rangeStart
   );
-  const util = sharedUtil(opts);
   let endNonWhitespace;
   for (
     endNonWhitespace = opts.rangeEnd;
@@ -346,12 +341,12 @@ function calculateRange(text, opts, ast) {
   const startNode = siblingAncestors.startNode;
   const endNode = siblingAncestors.endNode;
   const rangeStart = Math.min(
-    util.locStart(startNode, opts.locStart),
-    util.locStart(endNode, opts.locStart)
+    opts.locStart(startNode, opts.locStart),
+    opts.locStart(endNode, opts.locStart)
   );
   const rangeEnd = Math.max(
-    util.locEnd(startNode, opts.locEnd),
-    util.locEnd(endNode, opts.locEnd)
+    opts.locEnd(startNode, opts.locEnd),
+    opts.locEnd(endNode, opts.locEnd)
   );
 
   return {

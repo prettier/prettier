@@ -2,6 +2,7 @@
 
 const clean = require("./clean");
 const privateUtil = require("../common/util");
+const sharedUtil = require("../common/util-shared");
 const doc = require("../doc");
 const docBuilders = doc.builders;
 const concat = docBuilders.concat;
@@ -15,7 +16,7 @@ const indent = docBuilders.indent;
 
 const removeLines = doc.utils.removeLines;
 
-function genericPrint(path, options, print, args, util) {
+function genericPrint(path, options, print) {
   const node = path.getValue();
 
   /* istanbul ignore if */
@@ -31,7 +32,7 @@ function genericPrint(path, options, print, args, util) {
     case "css-comment-yaml":
       return node.value;
     case "css-root": {
-      const nodes = printNodeSequence(path, options, print, util);
+      const nodes = printNodeSequence(path, options, print);
 
       if (nodes.parts.length) {
         return concat([nodes, hardline]);
@@ -44,8 +45,8 @@ function genericPrint(path, options, print, args, util) {
         return node.raws.content;
       }
       const text = options.originalText.slice(
-        util.locStart(node),
-        util.locEnd(node)
+        options.locStart(node),
+        options.locEnd(node)
       );
       const rawText = node.raws.text || node.text;
       // Workaround a bug where the location is off.
@@ -77,10 +78,7 @@ function genericPrint(path, options, print, args, util) {
               " {",
               node.nodes.length > 0
                 ? indent(
-                    concat([
-                      hardline,
-                      printNodeSequence(path, options, print, util)
-                    ])
+                    concat([hardline, printNodeSequence(path, options, print)])
                   )
                 : "",
               hardline,
@@ -126,10 +124,7 @@ function genericPrint(path, options, print, args, util) {
           ? concat([
               " {",
               indent(
-                concat([
-                  softline,
-                  printNodeSequence(path, options, print, util)
-                ])
+                concat([softline, printNodeSequence(path, options, print)])
               ),
               softline,
               "}"
@@ -186,7 +181,7 @@ function genericPrint(path, options, print, args, util) {
               indent(
                 concat([
                   node.nodes.length > 0 ? softline : "",
-                  printNodeSequence(path, options, print, util)
+                  printNodeSequence(path, options, print)
                 ])
               ),
               softline,
@@ -206,10 +201,7 @@ function genericPrint(path, options, print, args, util) {
           ? concat([
               " {",
               indent(
-                concat([
-                  softline,
-                  printNodeSequence(path, options, print, util)
-                ])
+                concat([softline, printNodeSequence(path, options, print)])
               ),
               softline,
               "}"
@@ -686,7 +678,7 @@ function getAncestorNode(path, typeOrTypes) {
   return counter === -1 ? null : path.getParentNode(counter);
 }
 
-function printNodeSequence(path, options, print, util) {
+function printNodeSequence(path, options, print) {
   const node = path.getValue();
   const parts = [];
   let i = 0;
@@ -700,8 +692,8 @@ function printNodeSequence(path, options, print, util) {
       const childNode = pathChild.getValue();
       parts.push(
         options.originalText.slice(
-          util.locStart(childNode),
-          util.locEnd(childNode)
+          options.locStart(childNode),
+          options.locEnd(childNode)
         )
       );
     } else {
@@ -713,7 +705,7 @@ function printNodeSequence(path, options, print, util) {
         (node.nodes[i + 1].type === "css-comment" &&
           !privateUtil.hasNewline(
             options.originalText,
-            util.locStart(node.nodes[i + 1]),
+            options.locStart(node.nodes[i + 1]),
             { backwards: true }
           )) ||
         (node.nodes[i + 1].type === "css-atrule" &&
@@ -723,7 +715,13 @@ function printNodeSequence(path, options, print, util) {
         parts.push(" ");
       } else {
         parts.push(hardline);
-        if (util.isNextLineEmpty(options.originalText, pathChild.getValue())) {
+        if (
+          sharedUtil.isNextLineEmpty(
+            options.originalText,
+            pathChild.getValue(),
+            options
+          )
+        ) {
           parts.push(hardline);
         }
       }

@@ -26,12 +26,18 @@ const parsers = {
     },
     astFormat: "graphql",
     locStart: function(node) {
+      if (typeof node.start === "number") {
+        return node.start;
+      }
       if (!node.loc) {
         return null;
       }
       return node.loc.start;
     },
     locEnd: function(node) {
+      if (typeof node.end === "number") {
+        return node.end;
+      }
       if (!node.loc) {
         return null;
       }
