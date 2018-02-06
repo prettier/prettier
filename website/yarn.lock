@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@sandhose/prettier-animated-logo@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@sandhose/prettier-animated-logo/-/prettier-animated-logo-1.0.2.tgz#74db0501b388542d3a41644e07f45bbc31c55474"
+"@sandhose/prettier-animated-logo@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@sandhose/prettier-animated-logo/-/prettier-animated-logo-1.0.3.tgz#45f34ca71bbf49826042c165236e6b7cb24f8c3f"
   dependencies:
     react "^16.2.0"
     react-dom "^16.2.0"
