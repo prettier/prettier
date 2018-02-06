@@ -24,7 +24,7 @@ export default Object.assign(baseConfig, {
     // by its value before bundling.
     parser.endsWith("flow")
       ? replace({
-          "require(s8)": 'require("fs")',
+          "require(tf)": 'require("fs")',
           include: "node_modules/flow-parser/flow_parser.js"
         })
       : {},
