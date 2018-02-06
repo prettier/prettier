@@ -82,6 +82,36 @@ a {
 
 `;
 
+exports[`if-eslit-at-rule-decloration.scss 1`] = `
+@function _normalize-include($section) {
+// Check if $section is in the $include list.
+  @if index($_normalize-include, $section) {
+    @return true;
+  }
+// If $include is set to (all), make sure $section is not in $exclude.
+  @else if not index($_normalize-exclude, $section) and index($_normalize-include, all) {
+    @return true;
+  }
+  @return false;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@function _normalize-include($section) {
+  // Check if $section is in the $include list.
+  @if index($_normalize-include, $section) {
+    @return true;
+  }
+  // If $include is set to (all), make sure $section is not in $exclude.
+  @else if not
+    index($_normalize-exclude, $section) and
+    index($_normalize-include, all)
+  {
+    @return true;
+  }
+  @return false;
+}
+
+`;
+
 exports[`places.css 1`] = `
 div {
   // a
@@ -127,43 +157,165 @@ foo {
 
 `;
 
-exports[`selector.css 1`] = `
-.powerPathNavigator .helm button.pressedButton, /* pressed buttons */
+exports[`selectors.css 1`] = `
+.powerPathNavigator .helm button.pressedButton, /* comment 1 */
 .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
 .powerPathNavigator table.powerPathInfo th:active + th:last-child {
 }
 
-/* pressed buttons */
+/* comment 2 */
 .powerPathNavigator .helm button.pressedButton,
 .powerPathNavigator .helm button:active:not(.disabledButton) {
 }
+
+.foo,
+/* comment 3 */
+.bar {
+   display: block;
+}
+
+/* comment 4 */
+/* comment 5 */ .field /* comment 6 */
+/* comment 7 */
+/* comment 8 */ { /* comment 9 */
+    /* comment 10 */
+    background: green;
+    /* comment 11 */
+/* comment 12 */ } /* comment 13 */
+/* comment 14 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.powerPathNavigator .helm button.pressedButton, /* pressed buttons */
+.powerPathNavigator .helm button.pressedButton, /* comment 1 */
 .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
 .powerPathNavigator table.powerPathInfo th:active + th:last-child {
 }
 
-/* pressed buttons */
+/* comment 2 */
 .powerPathNavigator .helm button.pressedButton,
 .powerPathNavigator .helm button:active:not(.disabledButton) {
 }
+
+.foo,
+/* comment 3 */
+.bar {
+  display: block;
+}
+
+/* comment 4 */
+/* comment 5 */
+.field /* comment 6 */
+/* comment 7 */
+/* comment 8 */ {
+  /* comment 9 */
+  /* comment 10 */
+  background: green;
+  /* comment 11 */
+  /* comment 12 */
+} /* comment 13 */
+/* comment 14 */
 
 `;
 
 exports[`selectors.scss 1`] = `
+.powerPathNavigator .helm button.pressedButton, // comment 1
+.powerPathNavigator .helm button:active:not(.disabledButton),
+.powerPathNavigator table.powerPathInfo th:active,
+.powerPathNavigator table.powerPathInfo th:active + th:last-child {
+}
+
+// comment 2
+.powerPathNavigator .helm button.pressedButton,
+.powerPathNavigator .helm button:active:not(.disabledButton) {
+}
+
 .foo,
-// Comment.
+// comment 3
 .bar {
   display: block;
 }
+
+.field
+  {
+  &[data-field-id="1"], // comment 4
+  &[data-field-id="2"], // comment 5
+  &[data-field-id="3"], // comment 6
+  {
+    background: green;
+  }
+}
+
+// comment 7
+.field
+// comment 8
+{ // comment 9
+  // comment 10
+  &[data-field-id="1"], // comment 11
+  // comment 12
+  &[data-field-id="2"] // comment 13
+  // comment 14
+  , // comment 15
+  // comment 16
+  &[data-field-id="3"], // comment 17
+  // comment 18
+  { // comment 19
+    // comment 20
+    background: green;
+    // comment 21
+  } // comment 22
+  // comment 23
+}
+// comment 24
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.powerPathNavigator .helm button.pressedButton, // comment 1
+.powerPathNavigator .helm button:active:not(.disabledButton),
+.powerPathNavigator table.powerPathInfo th:active,
+.powerPathNavigator table.powerPathInfo th:active + th:last-child {
+}
+
+// comment 2
+.powerPathNavigator .helm button.pressedButton,
+.powerPathNavigator .helm button:active:not(.disabledButton) {
+}
+
 .foo,
-// Comment.
+// comment 3
 .bar {
   display: block;
 }
+
+.field {
+  &[data-field-id="1"], // comment 4
+  &[data-field-id="2"], // comment 5
+  &[data-field-id="3"], // comment 6
+ {
+    background: green;
+  }
+}
+
+// comment 7
+.field
+// comment 8
+ {
+  // comment 9
+  // comment 10
+  &[data-field-id="1"], // comment 11
+  // comment 12
+  &[data-field-id="2"] // comment 13
+  // comment 14
+  , // comment 15
+  // comment 16
+  &[data-field-id="3"], // comment 17
+  // comment 18
+ {
+    // comment 19
+    // comment 20
+    background: green;
+    // comment 21
+  } // comment 22
+  // comment 23
+}
+// comment 24
 
 `;
 
