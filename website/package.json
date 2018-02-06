@@ -1,11 +1,13 @@
 {
   "scripts": {
-    "start": "docusaurus-start",
     "build": "docusaurus-build",
-    "publish-gh-pages": "docusaurus-publish"
+    "publish-gh-pages": "docusaurus-publish",
+    "start": "docusaurus-start",
+    "svgo": "find static | grep '\\.svg$' | xargs -Iz -n 1 svgo --pretty --indent=2 --config=svgo.yml z"
   },
   "devDependencies": {
     "docusaurus": "^1.0.0-beta.10",
-    "js-yaml": "^3.10.0"
+    "js-yaml": "^3.10.0",
+    "svgo": "1.0.3"
   }
 }
