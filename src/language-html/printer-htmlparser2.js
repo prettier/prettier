@@ -10,7 +10,6 @@ const line = docBuilders.line;
 const softline = docBuilders.softline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
-// const ifBreak = docBuilders.ifBreak;
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = {

@@ -1,6 +1,0 @@
-@import "test.less" {}
-
-@import "test.less" {
-  a: b;
-  c: d;
-}

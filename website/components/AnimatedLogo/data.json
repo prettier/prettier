@@ -1,0 +1,381 @@
+{
+  "total": 500,
+  "lines": [
+    {
+      "initialOffset": 130,
+      "dashes": [
+        {
+          "start": 0,
+          "length": 40
+        },
+        {
+          "start": 60,
+          "length": 140
+        },
+        {
+          "start": 220,
+          "length": 100
+        }
+      ]
+    },
+    {
+      "initialOffset": -100,
+      "dashes": [
+        {
+          "start": 20,
+          "length": 60
+        },
+        {
+          "start": 100,
+          "length": 120,
+          "color": 1
+        },
+        {
+          "start": 240,
+          "length": 40
+        },
+        {
+          "start": 300,
+          "length": 40
+        }
+      ]
+    },
+    {
+      "initialOffset": 120,
+      "dashes": [
+        {
+          "start": 40,
+          "length": 40
+        },
+        {
+          "start": 100,
+          "length": 30,
+          "color": 2
+        },
+        {
+          "start": 150,
+          "length": 100,
+          "color": 3
+        },
+        {
+          "start": 270,
+          "length": 130
+        },
+        {
+          "start": 420,
+          "length": 20
+        }
+      ]
+    },
+    {
+      "initialOffset": 40,
+      "dashes": [
+        {
+          "start": 0,
+          "length": 80
+        },
+        {
+          "start": 100,
+          "length": 70,
+          "color": 1
+        },
+        {
+          "start": 190,
+          "length": 40,
+          "color": 4
+        },
+        {
+          "start": 250,
+          "length": 10,
+          "color": 1
+        },
+        {
+          "start": 280,
+          "length": 20
+        },
+        {
+          "start": 320,
+          "length": 100
+        }
+      ]
+    },
+    {
+      "initialOffset": -150,
+      "dashes": [
+        {
+          "start": 70,
+          "length": 10
+        },
+        {
+          "start": 100,
+          "length": 20,
+          "color": 3
+        },
+        {
+          "start": 140,
+          "length": 10,
+          "color": 1
+        },
+        {
+          "start": 170,
+          "length": 30
+        },
+        {
+          "start": 220,
+          "length": 50,
+          "color": 2
+        },
+        {
+          "start": 290,
+          "length": 90
+        }
+      ]
+    },
+    {
+      "initialOffset": 100,
+      "dashes": [
+        {
+          "start": 0,
+          "length": 20
+        },
+        {
+          "start": 40,
+          "length": 40
+        },
+        {
+          "start": 100,
+          "length": 50,
+          "color": 4
+        },
+        {
+          "start": 170,
+          "length": 30
+        },
+        {
+          "start": 220,
+          "length": 50,
+          "color": 3
+        },
+        {
+          "start": 290,
+          "length": 40
+        },
+        {
+          "start": 350,
+          "length": 40
+        }
+      ]
+    },
+    {
+      "initialOffset": 190,
+      "dashes": [
+        {
+          "start": 20,
+          "length": 60
+        },
+        {
+          "start": 100,
+          "length": 10,
+          "color": 1
+        },
+        {
+          "start": 130,
+          "length": 30,
+          "color": 3
+        },
+        {
+          "start": 180,
+          "length": 80,
+          "color": 2
+        },
+        {
+          "start": 280,
+          "length": 20
+        },
+        {
+          "start": 320,
+          "length": 100
+        },
+        {
+          "start": 440,
+          "length": 20
+        }
+      ]
+    },
+    {
+      "initialOffset": -30,
+      "dashes": [
+        {
+          "start": 50,
+          "length": 30
+        },
+        {
+          "start": 100,
+          "length": 40,
+          "color": 1
+        },
+        {
+          "start": 160,
+          "length": 40,
+          "color": 2
+        },
+        {
+          "start": 220,
+          "length": 30,
+          "color": 4
+        },
+        {
+          "start": 270,
+          "length": 60
+        },
+        {
+          "start": 350,
+          "length": 60
+        }
+      ]
+    },
+    {
+      "initialOffset": 50,
+      "dashes": [
+        {
+          "start": 20,
+          "length": 30
+        },
+        {
+          "start": 70,
+          "length": 10
+        },
+        {
+          "start": 100,
+          "length": 10,
+          "color": 3
+        },
+        {
+          "start": 130,
+          "length": 90,
+          "color": 4
+        },
+        {
+          "start": 240,
+          "length": 20
+        },
+        {
+          "start": 280,
+          "length": 80
+        },
+        {
+          "start": 380,
+          "length": 100
+        }
+      ]
+    },
+    {
+      "initialOffset": 150,
+      "dashes": [
+        {
+          "start": 10,
+          "length": 70
+        },
+        {
+          "start": 100,
+          "length": 50,
+          "color": 4
+        },
+        {
+          "start": 170,
+          "length": 20
+        },
+        {
+          "start": 210,
+          "length": 90
+        },
+        {
+          "start": 320,
+          "length": 90
+        }
+      ]
+    },
+    {
+      "initialOffset": -100,
+      "dashes": [
+        {
+          "start": 40,
+          "length": 40
+        },
+        {
+          "start": 100,
+          "length": 20,
+          "color": 1
+        },
+        {
+          "start": 140,
+          "length": 10,
+          "color": 3
+        },
+        {
+          "start": 170,
+          "length": 40
+        },
+        {
+          "start": 230,
+          "length": 10
+        },
+        {
+          "start": 260,
+          "length": 80
+        },
+        {
+          "start": 360,
+          "length": 20
+        }
+      ]
+    },
+    {
+      "initialOffset": -50,
+      "dashes": [
+        {
+          "start": 60,
+          "length": 20
+        },
+        {
+          "start": 100,
+          "length": 50,
+          "color": 2
+        },
+        {
+          "start": 170,
+          "length": 60
+        },
+        {
+          "start": 250,
+          "length": 40
+        },
+        {
+          "start": 310,
+          "length": 20
+        }
+      ]
+    },
+    {
+      "initialOffset": -150,
+      "dashes": [
+        {
+          "start": 40,
+          "length": 60
+        },
+        {
+          "start": 120,
+          "length": 60
+        },
+        {
+          "start": 200,
+          "length": 100
+        },
+        {
+          "start": 320,
+          "length": 20
+        }
+      ]
+    }
+  ]
+}
