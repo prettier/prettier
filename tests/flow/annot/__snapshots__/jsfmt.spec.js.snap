@@ -73,7 +73,7 @@ function foo(str: string, i: number): string {
 }
 var bar: (str: number, i: number) => string = foo;
 
-var qux = function(str: string, i: number): number {
+var qux = function (str: string, i: number): number {
   return foo(str, i);
 };
 
@@ -334,7 +334,7 @@ function insertMany<K, V>(
 
 class Foo<A> {
   bar<B>() {
-    return function<C>(a: A, b: B, c: C): void {
+    return function <C>(a: A, b: B, c: C): void {
       ([a, b, c]: [A, B, C]);
     };
   }

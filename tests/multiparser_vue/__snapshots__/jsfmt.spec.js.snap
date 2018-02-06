@@ -203,7 +203,7 @@ p { font-size : 2em ; text-align : center ; }
 
 <script>
 module.exports = {
-  data: function() {
+  data: function () {
     return {
       greeting: "Hello",
     };

@@ -38,11 +38,11 @@ let [x, y] = [1, 2];
  * returns EmptyT.
  */
 export const X = {
-  returnsATuple: function(): [number, number] {
+  returnsATuple: function (): [number, number] {
     return [1, 2];
   },
 
-  test: function() {
+  test: function () {
     let [a, b] = this.returnsATuple();
   },
 };
@@ -92,7 +92,7 @@ const a = {
 };
 
 const b = {
-  bar: function(): void {},
+  bar: function (): void {},
 };
 
 const c = {
@@ -102,7 +102,7 @@ const c = {
 };
 
 const d = {
-  m: function<T>(x: T): T {
+  m: function <T>(x: T): T {
     return x;
   },
 };
@@ -217,7 +217,7 @@ let tests = [
 /* @flow */
 
 let tests = [
-  function() {
+  function () {
     let x = {};
     Object.defineProperty(x, "foo", { value: "" });
   },

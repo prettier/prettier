@@ -356,7 +356,7 @@ singleQuote: false
 <Component
   propFn={
     // comment
-    function(arg) {
+    function (arg) {
       fn(arg);
     }
   }
@@ -432,7 +432,7 @@ singleQuote: false
 <Component
   propFn={
     // comment
-    function(arg) {
+    function (arg) {
       fn(arg);
     }
   }
@@ -508,7 +508,7 @@ singleQuote: true
 <Component
   propFn={
     // comment
-    function(arg) {
+    function (arg) {
       fn(arg);
     }
   }
@@ -584,7 +584,7 @@ singleQuote: true
 <Component
   propFn={
     // comment
-    function(arg) {
+    function (arg) {
       fn(arg);
     }
   }
@@ -1946,7 +1946,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  {function() {
+  {function () {
     return (
       <SomethingElse>
         <span />
@@ -2234,7 +2234,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  {function() {
+  {function () {
     return (
       <SomethingElse>
         <span />
@@ -2522,7 +2522,7 @@ singleQuote: true
 </Something>;
 
 <Something>
-  {function() {
+  {function () {
     return (
       <SomethingElse>
         <span />
@@ -2810,7 +2810,7 @@ singleQuote: true
 </Something>;
 
 <Something>
-  {function() {
+  {function () {
     return (
       <SomethingElse>
         <span />
@@ -4723,11 +4723,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
@@ -4837,11 +4837,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
@@ -4951,11 +4951,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
@@ -5065,11 +5065,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
