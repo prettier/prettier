@@ -55,6 +55,12 @@ a {
     color: /* comment 11 */ red /* comment 12 */ !important /* comment 13 */ ; /* comment 14 */
     /* comment 15 */
 }
+
+@font-face {
+    font-family: "Prettier";
+    src: /* comment 16 */ local(/* comment 17 */ "Prettier" /* comment 18 */), /* comment 19 */
+        /* comment 20 */ url("http://prettier.com/font.woff") /* comment 21 */ ; /* comment 22 */
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a {
   /* comment 1 */
@@ -65,6 +71,13 @@ a {
   transform: translate(/* comment 9 */ 10px /* comment 10 */);
   color: /* comment 11 */ red /* comment 12 */ !important /* comment 13 */ ; /* comment 14 */
   /* comment 15 */
+}
+
+@font-face {
+  font-family: "Prettier";
+  src: /* comment 16 */ local(/* comment 17 */ "Prettier" /* comment 18 */),
+    /* comment 19 */ /* comment 20 */ url("http://prettier.com/font.woff")
+      /* comment 21 */; /* comment 22 */
 }
 
 `;
