@@ -55,6 +55,6 @@ Go to _File | Settings | Tools | File Watchers_ for Windows and Linux or _WebSto
 * **Program** set `prettier` (if you have `prettier` installed locally, see ["Configure External Tool"](#configure-external-tool) above)
 * **Arguments** set `--write [other opts] $FilePath$`
 * **Working directory** set `$ProjectFileDir$`
-* **Immediate file synchronization**: Uncheck to reformat on Save only (otherwise code will jump around while you type).
+* **Auto-save edited files to trigger the watcher**: Uncheck to reformat on Save only (otherwise code will jump around while you type).
 
 ![Example](/docs/assets/webstorm/prettier-file-watcher.png)
