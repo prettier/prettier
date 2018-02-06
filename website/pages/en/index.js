@@ -5,7 +5,6 @@ const React = require("react");
 const CompLibrary = require("../../core/CompLibrary.js");
 const MarkdownBlock = CompLibrary.MarkdownBlock;
 const Container = CompLibrary.Container;
-// const AnimatedLogo = require(process.cwd() + "/components/AnimatedLogo");
 
 const siteConfig = require(process.cwd() + "/siteConfig.js");
 
@@ -410,6 +409,7 @@ const UsersSection = ({ language }) => {
               </Button>
             </div>
           </div>
+
           <div style={{ display: "flex", marginTop: "22px" }}>
             <a
               href="https://github.com/prettier/prettier"
