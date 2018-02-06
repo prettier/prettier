@@ -46,6 +46,29 @@ exports[`bug.css 1`] = `
 
 `;
 
+exports[`declaration.css 1`] = `
+a {
+    /* comment 1 */
+    /* comment 2 */ padding /* comment 3 */ : /* comment 4 */ 10px /* comment 5 */ 10px /* comment 6 */; /* comment 7 */
+    /* comment 8 */
+    transform: translate(/* comment 9 */ 10px /* comment 10 */);
+    color: /* comment 11 */ red /* comment 12 */ !important /* comment 13 */ ; /* comment 14 */
+    /* comment 15 */
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a {
+  /* comment 1 */
+  /* comment 2 */
+  padding/* comment 3 */ : /* comment 4 */ 10px /* comment 5 */ 10px
+    /* comment 6 */; /* comment 7 */
+  /* comment 8 */
+  transform: translate(/* comment 9 */ 10px /* comment 10 */);
+  color: /* comment 11 */ red /* comment 12 */ !important /* comment 13 */ ; /* comment 14 */
+  /* comment 15 */
+}
+
+`;
+
 exports[`places.css 1`] = `
 div {
   // a
@@ -141,6 +164,41 @@ a {
 }
 a {
   // element.style */
+}
+
+`;
+
+exports[`variable-declaration.scss 1`] = `
+$var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 4 */
+
+@mixin text-color {
+  /* comment 5 */
+  /* comment 6 */ $text-color /* comment 7 */ : /* comment 8 */ red /* comment 9 */ !default /* comment 10 */ ; /* comment 11 */
+  /* comment 12 */
+  color: $text-color;
+}
+
+.error {
+  /* comment 13 */
+  /* comment 14 */ $text-color /* comment 15 */ : /* comment 16 */ green /* comment 17 */ !global /* comment 18 */ ; /* comment 19 */
+  /* comment 20 */
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 4 */
+
+@mixin text-color {
+  /* comment 5 */
+  /* comment 6 */
+  $text-color/* comment 7 */ : /* comment 8 */ red /* comment 9 */ !default /* comment 10 */ ; /* comment 11 */
+  /* comment 12 */
+  color: $text-color;
+}
+
+.error {
+  /* comment 13 */
+  /* comment 14 */
+  $text-color/* comment 15 */ : /* comment 16 */ green /* comment 17 */ !global /* comment 18 */ ; /* comment 19 */
+  /* comment 20 */
 }
 
 `;
