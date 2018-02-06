@@ -14,13 +14,11 @@ html body {
   font-weight: 600;
 }
 
-.animatedLogoWrapper {
-  margin-left: 20px;
-}
-
-.animatedLogo {
+.animatedLogoWrapper > svg {
   max-width: calc(100vw - 30px);
+  height: auto;
   cursor: ew-resize;
+  margin-bottom: 30px;
 }
 
 @media screen and (max-width: 735px) {
