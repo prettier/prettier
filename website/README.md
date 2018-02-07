@@ -48,7 +48,7 @@ All images and other static assets you wish to include should be placed inside t
 
 Files placed in `static/` will be accessible in the following way: `static/img/image.png` will be accessible at `img/image.png`.
 
-For new SVG images execute the `yarn svgo path/to/image.svg` (or `yarn svgo-all` if you want to normalize them all) before adding them to the repo.
+Please run `yarn svgo path/to/image.svg` before committing a new SVG to the repository.
 
 ## Using Docusaurus
 
