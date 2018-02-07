@@ -70,6 +70,16 @@ shell.cp("node_modules/sw-toolbox/sw-toolbox.js", `${docs}/sw-toolbox.js`);
 shell.cd("website");
 shell.echo("Building website...");
 shell.exec("yarn install");
+
+shell.echo("Copy prettier-animated-logo CSS file to docs");
+shell.cp(
+  path.join(
+    rootDir,
+    "website/node_modules/@sandhose/prettier-animated-logo/dist/wide.css"
+  ),
+  `${docs}/prettier-animated-logo.css`
+);
+
 shell.exec("yarn build");
 
 shell.echo();

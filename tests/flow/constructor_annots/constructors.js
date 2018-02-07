@@ -16,7 +16,6 @@ interface IFooPrototype {
 interface IFoo extends IFooPrototype {
   x: boolean; // error, should have declared x: number instead
   static (): void;
-  static y: boolean; // error, should have declared static y: number instead
   constructor(): void;
 }
 exports.Foo2 = (Foo: Class<IFoo>);
