@@ -794,5 +794,6 @@ module.exports = {
   printNumber,
   hasIgnoreComment,
   hasNodeIgnoreComment,
-  lineColumnToIndex
+  lineColumnToIndex,
+  makeString
 };
