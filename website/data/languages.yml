@@ -1,5 +1,6 @@
 - name: JavaScript
-  image: /images/languages/js-128px.png
+  showName: false
+  image: "/images/languages/tools_js.svg"
   variants:
   - "[ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)"
   - "[JSX](https://facebook.github.io/jsx/)"
@@ -8,7 +9,8 @@
   - "[Vue](https://vuejs.org/)"
   - "[JSON](http://json.org/)"
 - name: CSS
-  image: /images/languages/css-128px.png
+  showName: false
+  image: "/images/languages/tools_css.svg"
   variants:
   - "CSS3+"
   - "[Less](http://lesscss.org/)"
@@ -16,12 +18,23 @@
   - "[styled-components](http://styled-components.com) 💅"
   - "[styled-jsx](http://npmjs.com/styled-jsx)"
 - name: GraphQL
-  image: /images/languages/graphql-128px.png
+  showName: false
+  image: "/images/languages/tools_gql.svg"
   variants:
   - "[GraphQL](http://graphql.org/)"
   - "[GraphQL Schemas](http://graphql.org/learn/schema/)"
 - name: Markdown
-  image: /images/languages/markdown-128px.png
+  showName: false
+  image: "/images/languages/tools_md.svg"
   variants:
   - "[CommonMark](http://commonmark.org/)"
   - "[GitHub Flavored Markdown](https://github.github.com/gfm/)"
+- name: Work in Progress
+  showName: true
+  image: "/images/languages/tools_wip.svg"
+  variants:
+  - "[Python](https://github.com/prettier/prettier-python)"
+  - "[PHP](https://github.com/prettier/prettier-php)"
+  - "[Swift](https://github.com/prettier/prettier-swift)"
+  - "[Java](https://github.com/thorbenvh8/prettier-java)"
+  - "[PostgreSQL](https://github.com/benjie/prettier-plugin-pg-sql/)"

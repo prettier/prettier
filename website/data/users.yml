@@ -1,26 +1,42 @@
 - caption: React
-  image: /images/users/react-200x100.png
+  image: "/images/users/react-200x100.png"
+  greyImage: "/images/users/used_by_react.svg"
   infoLink: https://reactjs.org
   pinned: true
 - caption: Jest
-  image: /images/users/jest-200x100.png
+  image: "/images/users/jest-200x100.png"
+  greyImage: "/images/users/used_by_jest.svg"
   infoLink: https://facebook.github.io/jest/
   pinned: true
 - caption: Yarn
-  image: /images/users/yarn-200x100.png
+  image: "/images/users/yarn-200x100.png"
+  greyImage: "/images/users/used_by_yarn.svg"
   infoLink: https://yarnpkg.com
   pinned: true
 - caption: Babel
-  image: /images/users/babel-200x100.png
+  image: "/images/users/babel-200x100.png"
+  greyImage: "/images/users/used_by_babel.svg"
   infoLink: https://babeljs.io
   pinned: true
 - caption: ZEIT
-  image: /images/users/zeit-200x100.png
+  image: "/images/users/zeit-200x100.png"
+  greyImage: "/images/users/used_by_zeit.svg"
   infoLink: https://zeit.co
   pinned: true
 - caption: Webpack CLI
-  image: /images/users/webpack-200x100.png
+  image: "/images/users/webpack-200x100.png"
+  greyImage: "/images/users/used_by_webpack.svg"
   infoLink: https://webpack.js.org/api/cli/
+  pinned: true
+- caption: Danger
+  image: "/images/users/danger-200x100.png"
+  greyImage: "/images/users/used_by_danger.svg"
+  infoLink: http://danger.systems/js/
+  pinned: true
+- caption: Storybook
+  image: "/images/users/storybook-200x100.png"
+  greyImage: "/images/users/used_by_storybook.svg"
+  infoLink: https://storybook.js.org/
   pinned: true
 - caption: PayPal
   image: /images/users/paypal-200x100.png

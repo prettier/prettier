@@ -1,3 +1,0 @@
-/* This isn't valid CSS, SCSS or Less, but we should be lenient and make sure
-/* that nothing is lost when printing. */
-@import "one" two "three";
