@@ -405,35 +405,24 @@ function genericPrint(path, options, print) {
         if (
           i !== node.groups.length - 1 &&
           node.groups[i + 1].raws &&
-          node.groups[i + 1].raws.before !== ""
+          node.groups[i + 1].raws.before !== "" &&
+          node.groups[i].value !== ":"
         ) {
-          const isNextValueOperator =
-            node.groups[i + 1].type === "value-operator";
-          const isNextMathOperator =
-            isNextValueOperator &&
-            ["+", "-", "/", "*", "%"].indexOf(node.groups[i + 1].value) !== -1;
-          const isNextValueWord = node.groups[i + 1].type === "value-word";
+          const isNextMathOperator = isMathOperatorNode(node.groups[i + 1]);
           const isNextEqualityOperator =
-            isControlDirective &&
-            isNextValueWord &&
-            ["==", "!="].indexOf(node.groups[i + 1].value) !== -1;
+            isControlDirective && isEqualityOperatorNode(node.groups[i + 1]);
           const isNextRelationalOperator =
-            isControlDirective &&
-            isNextValueWord &&
-            ["<", ">", "<=", ">="].indexOf(node.groups[i + 1].value) !== -1;
+            isControlDirective && isRelationalOperatorNode(node.groups[i + 1]);
           const isNextIfElseKeyword =
-            isControlDirective &&
-            ["and", "or", "not"].indexOf(node.groups[i + 1].value) !== -1;
+            isControlDirective && isIfElseKeywordNode(node.groups[i + 1]);
           const isNextEachKeyword =
-            isControlDirective &&
-            ["in"].indexOf(node.groups[i + 1].value) !== -1;
+            isControlDirective && isEachKeywordNode(node.groups[i + 1]);
           const isForKeyword =
             atRuleAncestorNode &&
             atRuleAncestorNode.name === "for" &&
-            ["from", "through", "end"].indexOf(node.groups[i].value) !== -1;
+            isForKeywordNode(node.groups[i]);
           const isNextForKeyword =
-            isControlDirective &&
-            ["from", "through", "end"].indexOf(node.groups[i + 1].value) !== -1;
+            isControlDirective && isForKeywordNode(node.groups[i + 1]);
           const IsNextColon = node.groups[i + 1].value === ":";
 
           if (isGridValue) {
@@ -535,12 +524,22 @@ function genericPrint(path, options, print) {
     }
     case "value-paren": {
       if (node.raws.before !== "") {
-        const parentParentNode = path.getParentNode(2);
+        const parentParentNode = path.getParentNode(1);
+        const insideInParens =
+          parentParentNode && parentParentNode.type === "value-paren_group";
+        const parentParentParentNode = path.getParentNode(2);
         const isFunction =
-          parentParentNode && parentParentNode.type === "value-func";
+          parentParentParentNode &&
+          parentParentParentNode.type === "value-func";
+        const declAncestorNode = getAncestorNode(path, "css-decl");
+        const isMap = declAncestorNode && declAncestorNode.prop.startsWith("$");
 
-        return concat([isFunction ? "" : line, node.value]);
+        return concat([
+          isFunction || insideInParens || isMap ? "" : line,
+          node.value
+        ]);
       }
+
       return node.value;
     }
     case "value-number": {
@@ -556,7 +555,22 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-colon": {
-      return node.value;
+      const parent = path.getParentNode();
+      const index =
+        parent &&
+        parent.groups &&
+        parent.groups.length > 0 &&
+        parent.groups.indexOf(node);
+      const prevProgidProperty =
+        index && parent.groups[index - 1].value === "progid";
+      const valueFuncAncestorNode = getAncestorNode(path, "value-func");
+      const insideInURLFunc =
+        valueFuncAncestorNode && valueFuncAncestorNode.value === "url";
+
+      return concat([
+        node.value,
+        prevProgidProperty || insideInURLFunc ? "" : line
+      ]);
     }
     case "value-comma": {
       return concat([node.value, " "]);
@@ -575,6 +589,60 @@ function genericPrint(path, options, print) {
       /* istanbul ignore next */
       throw new Error("unknown postcss type: " + JSON.stringify(node.type));
   }
+}
+
+function isForKeywordNode(node) {
+  return (
+    node.type &&
+    node.type === "value-word" &&
+    node.value &&
+    ["from", "through", "end"].indexOf(node.value) !== -1
+  );
+}
+
+function isIfElseKeywordNode(node) {
+  return (
+    node.type &&
+    node.type === "value-word" &&
+    node.value &&
+    ["and", "or", "not"].indexOf(node.value) !== -1
+  );
+}
+
+function isEachKeywordNode(node) {
+  return (
+    node.type &&
+    node.type === "value-word" &&
+    node.value &&
+    ["in"].indexOf(node.value) !== -1
+  );
+}
+
+function isMathOperatorNode(node) {
+  return (
+    node.type &&
+    node.type === "value-operator" &&
+    node.value &&
+    ["+", "-", "/", "*", "%"].indexOf(node.value) !== -1
+  );
+}
+
+function isEqualityOperatorNode(node) {
+  return (
+    node.type &&
+    node.type === "value-word" &&
+    node.value &&
+    ["==", "!="].indexOf(node.value) !== -1
+  );
+}
+
+function isRelationalOperatorNode(node) {
+  return (
+    node.type &&
+    node.type === "value-word" &&
+    node.value &&
+    ["<", ">", "<=", ">="].indexOf(node.value) !== -1
+  );
 }
 
 function isNodeControlDirective(node) {
