@@ -1,3 +1,8 @@
+- caption: Facebook
+  image: /images/users/facebook-200x100.png
+  greyImage: "/images/users/used_by_facebook.svg"
+  infoLink: https://facebook.com
+  pinned: true
 - caption: React
   image: "/images/users/react-200x100.png"
   greyImage: "/images/users/used_by_react.svg"
@@ -18,11 +23,6 @@
   greyImage: "/images/users/used_by_babel.svg"
   infoLink: https://babeljs.io
   pinned: true
-- caption: ZEIT
-  image: "/images/users/zeit-200x100.png"
-  greyImage: "/images/users/used_by_zeit.svg"
-  infoLink: https://zeit.co
-  pinned: true
 - caption: Webpack CLI
   image: "/images/users/webpack-200x100.png"
   greyImage: "/images/users/used_by_webpack.svg"
@@ -38,6 +38,10 @@
   greyImage: "/images/users/used_by_storybook.svg"
   infoLink: https://storybook.js.org/
   pinned: true
+- caption: ZEIT
+  image: /images/users/zeit-200x100.png
+  greyImage: "/images/users/used_by_zeit.svg"
+  infoLink: https://zeit.co
 - caption: PayPal
   image: /images/users/paypal-200x100.png
   infoLink: https://github.com/paypal/
