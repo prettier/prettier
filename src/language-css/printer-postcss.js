@@ -65,9 +65,11 @@ function genericPrint(path, options, print) {
       // with a colon, so keep the original case then.
       const isDetachedRulesetDeclaration =
         node.selector &&
-        typeof node.selector === "string" &&
-        node.selector.startsWith("@") &&
-        node.selector.endsWith(":");
+        node.selector.type !== "selector-root-invalid" &&
+        ((typeof node.selector === "string" &&
+          /^@.+:.*$/.test(node.selector)) ||
+          (node.selector.value && /^@.+:.*$/.test(node.selector.value)));
+
       return concat([
         path.call(print, "selector"),
         node.important ? " !important" : "",

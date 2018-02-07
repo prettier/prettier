@@ -1,0 +1,26 @@
+.powerPathNavigator .helm button.pressedButton, /* comment 1 */
+.powerPathNavigator .helm button:active:not(.disabledButton),
+.powerPathNavigator table.powerPathInfo th:active,
+.powerPathNavigator table.powerPathInfo th:active + th:last-child {
+}
+
+/* comment 2 */
+.powerPathNavigator .helm button.pressedButton,
+.powerPathNavigator .helm button:active:not(.disabledButton) {
+}
+
+.foo,
+/* comment 3 */
+.bar {
+   display: block;
+}
+
+/* comment 4 */
+/* comment 5 */ .field /* comment 6 */
+/* comment 7 */
+/* comment 8 */ { /* comment 9 */
+    /* comment 10 */
+    background: green;
+    /* comment 11 */
+/* comment 12 */ } /* comment 13 */
+/* comment 14 */

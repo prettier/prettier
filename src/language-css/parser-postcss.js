@@ -11,7 +11,7 @@ function parseSelector(selector) {
   if (selector.match(/\/\/|\/\*/)) {
     return {
       type: "selector-comment",
-      value: selector
+      value: selector.replace(/^ +/, "").replace(/ +$/, "")
     };
   }
   const selectorParser = require("postcss-selector-parser");
@@ -218,9 +218,13 @@ function parseNestedCSS(node) {
     }
 
     if (typeof node.selector === "string" && node.selector.trim().length > 0) {
-      const selector = node.raws.selector
+      let selector = node.raws.selector
         ? node.raws.selector.raw
         : node.selector;
+
+      if (node.raws.between && node.raws.between.trim()) {
+        selector += node.raws.between;
+      }
 
       if (selector.startsWith("@") && selector.endsWith(":")) {
         return node;
