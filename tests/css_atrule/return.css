@@ -97,3 +97,21 @@ $gutter-width
 @function grid-width($n) {
     @return $very-very-very-very-very-very-vey-long-var * $very-very-very-very-very-very-vey-long-var + ($very-very-very-very-very-very-vey-long-var - 1) * $very-very-very-very-very-very-vey-long-var;
 }
+@function extend($obj, $ext-obj) {
+    @return map-merge($obj, $ext-obj);
+}
+@function extend($obj, $ext-obj) {
+    @return map-merge( $obj , $ext-obj ) ;
+}
+@function extend($obj, $ext-obj) {
+    @return map-merge($obj,$ext-obj);
+}
+@function extend($obj, $ext-obj) {
+    @return
+    map-merge(
+    $obj
+    ,
+    $ext-obj
+    )
+    ;
+}

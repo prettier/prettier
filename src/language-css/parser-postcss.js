@@ -345,7 +345,7 @@ function parseNestedCSS(node) {
         node.name === "return"
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
-        node.params = node.params.replace(/\s+\.\.\./, "...");
+        node.params = node.params.replace(/(\$\S+?)\s+?\.\.\./, "$1...");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
         node.params = node.params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
 

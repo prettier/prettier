@@ -140,10 +140,11 @@ a {
 
 .foo {
   /* comment 23 */
-  color/* comment 24 */:/* comment 25 */ blue/* comment 26 */; /* comment 27 */
+  color/* comment 24 */:/* comment 25 */ blue /* comment 26 */; /* comment 27 */
   transform/* comment 28 */:/* comment 29 */ translate(
-      /* comment 30 */10px/* comment 31 */
-    )/* comment 32 */; /* comment 33 */
+      /* comment 30 */ 10px /* comment 31 */
+    )
+    /* comment 32 */; /* comment 33 */
 }
 .foo {
   /* comment 34 */
