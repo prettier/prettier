@@ -9,6 +9,23 @@ module.exports = {
       since: "1.0.0"
     }
   ],
+  options: {
+    fooOption: {
+      type: "choice",
+      default: "bar",
+      description: "foo description",
+      choices: [
+        {
+          value: "bar",
+          description: "bar description"
+        },
+        {
+          value: "baz",
+          description: "baz description"
+        }
+      ]
+    }
+  },
   parsers: {
     "foo-parser": {
       parse: text => ({ text }),
@@ -18,24 +35,7 @@ module.exports = {
   printers: {
     "foo-ast": {
       print: (path, options) =>
-        options.fooOption ? `foo:${options.fooOption}` : path.getValue().text,
-      options: {
-        fooOption: {
-          type: "choice",
-          default: "bar",
-          description: "foo description",
-          choices: [
-            {
-              value: "bar",
-              description: "bar description"
-            },
-            {
-              value: "baz",
-              description: "baz description"
-            }
-          ]
-        }
-      }
+        options.fooOption ? `foo:${options.fooOption}` : path.getValue().text
     }
   }
 };

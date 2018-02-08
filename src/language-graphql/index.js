@@ -1,6 +1,7 @@
 "use strict";
 
 const printer = require("./printer-graphql");
+const options = require("./options");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -33,6 +34,7 @@ const printers = {
 
 module.exports = {
   languages,
+  options,
   parsers,
   printers
 };

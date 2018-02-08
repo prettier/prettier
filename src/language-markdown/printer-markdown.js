@@ -13,7 +13,6 @@ const fill = docBuilders.fill;
 const align = docBuilders.align;
 const group = docBuilders.group;
 const printDocToString = doc.printer.printDocToString;
-const printerOptions = require("./options");
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
 
@@ -697,7 +696,6 @@ function clean(ast, newObj) {
 }
 
 module.exports = {
-  options: printerOptions,
   print: genericPrint,
   embed,
   massageAstNode: clean,
