@@ -213,21 +213,11 @@ function getSupportInfo(version, opts) {
   const options = util
     .arrayify(
       Object.assign(
-        plugins
-          .reduce(
-            (currentPrinters, plugin) =>
-              currentPrinters.concat(
-                Object.keys(plugin.printers).map(
-                  printerName => plugin.printers[printerName]
-                )
-              ),
-            []
-          )
-          .reduce(
-            (currentOptions, printer) =>
-              Object.assign(currentOptions, printer.options),
-            {}
-          ),
+        plugins.reduce(
+          (currentOptions, plugin) =>
+            Object.assign(currentOptions, plugin.options),
+          {}
+        ),
         supportOptions
       ),
       "name"

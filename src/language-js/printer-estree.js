@@ -6,7 +6,6 @@ const comments = require("../main/comments");
 const util = require("../common/util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 const embed = require("./embed");
-const printerOptions = require("./options");
 const clean = require("./clean");
 
 const doc = require("../doc");
@@ -5276,7 +5275,6 @@ function printJsDocComment(comment) {
 }
 
 module.exports = {
-  options: printerOptions,
   print: genericPrint,
   embed,
   massageAstNode: clean,

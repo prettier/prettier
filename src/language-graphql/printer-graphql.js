@@ -9,7 +9,6 @@ const softline = docBuilders.softline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
 const ifBreak = docBuilders.ifBreak;
-const printerOptions = require("./options");
 
 const util = require("../common/util");
 
@@ -618,7 +617,6 @@ function printComment(commentPath) {
 }
 
 module.exports = {
-  options: printerOptions,
   print: genericPrint,
   hasPrettierIgnore: util.hasIgnoreComment,
   printComment,
