@@ -24,16 +24,10 @@ const parsers = {
     },
     astFormat: "glimmer",
     locEnd: function(node) {
-      if (!node.loc) {
-        return null;
-      }
-      return node.loc.end;
+      return node.loc && node.loc.end;
     },
     locStart: function(node) {
-      if (!node.loc) {
-        return null;
-      }
-      return node.loc.start;
+      return node.loc && node.loc.start;
     }
   }
 };

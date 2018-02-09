@@ -29,19 +29,13 @@ const parsers = {
       if (typeof node.start === "number") {
         return node.start;
       }
-      if (!node.loc) {
-        return null;
-      }
-      return node.loc.start;
+      return node.loc && node.loc.start;
     },
     locEnd: function(node) {
       if (typeof node.end === "number") {
         return node.end;
       }
-      if (!node.loc) {
-        return null;
-      }
-      return node.loc.end;
+      return node.loc && node.loc.end;
     }
   }
 };

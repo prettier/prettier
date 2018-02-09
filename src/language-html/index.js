@@ -29,16 +29,10 @@ const parsers = {
     },
     astFormat: "htmlparser2",
     locEnd: function(node) {
-      if (!node.__location) {
-        return null;
-      }
-      return node.__location.endOffset;
+      return node.__location && node.__location.endOffset;
     },
     locStart: function(node) {
-      if (!node.__location) {
-        return null;
-      }
-      return node.__location.startOffset;
+      return node.__location && node.__location.startOffset;
     }
   }
 };

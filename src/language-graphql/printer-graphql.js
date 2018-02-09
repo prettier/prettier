@@ -9,7 +9,6 @@ const softline = docBuilders.softline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
 const ifBreak = docBuilders.ifBreak;
-const printerOptions = require("./options");
 const privateUtil = require("../common/util");
 const sharedUtil = require("../common/util-shared");
 
