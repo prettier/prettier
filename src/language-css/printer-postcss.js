@@ -1,7 +1,8 @@
 "use strict";
 
 const clean = require("./clean");
-const util = require("../common/util");
+const privateUtil = require("../common/util");
+const sharedUtil = require("../common/util-shared");
 const doc = require("../doc");
 const docBuilders = doc.builders;
 const concat = docBuilders.concat;
@@ -44,8 +45,8 @@ function genericPrint(path, options, print) {
         return node.raws.content;
       }
       const text = options.originalText.slice(
-        util.locStart(node),
-        util.locEnd(node)
+        options.locStart(node),
+        options.locEnd(node)
       );
       const rawText = node.raws.text || node.text;
       // Workaround a bug where the location is off.
@@ -575,7 +576,7 @@ function genericPrint(path, options, print) {
       return concat([node.value, " "]);
     }
     case "value-string": {
-      return util.printString(
+      return privateUtil.printString(
         node.raws.quote + node.value + node.raws.quote,
         options
       );
@@ -691,8 +692,8 @@ function printNodeSequence(path, options, print) {
       const childNode = pathChild.getValue();
       parts.push(
         options.originalText.slice(
-          util.locStart(childNode),
-          util.locEnd(childNode)
+          options.locStart(childNode),
+          options.locEnd(childNode)
         )
       );
     } else {
@@ -702,9 +703,9 @@ function printNodeSequence(path, options, print) {
     if (i !== node.nodes.length - 1) {
       if (
         (node.nodes[i + 1].type === "css-comment" &&
-          !util.hasNewline(
+          !privateUtil.hasNewline(
             options.originalText,
-            util.locStart(node.nodes[i + 1]),
+            options.locStart(node.nodes[i + 1]),
             { backwards: true }
           )) ||
         (node.nodes[i + 1].type === "css-atrule" &&
@@ -714,7 +715,13 @@ function printNodeSequence(path, options, print) {
         parts.push(" ");
       } else {
         parts.push(hardline);
-        if (util.isNextLineEmpty(options.originalText, pathChild.getValue())) {
+        if (
+          sharedUtil.isNextLineEmpty(
+            options.originalText,
+            pathChild.getValue(),
+            options
+          )
+        ) {
           parts.push(hardline);
         }
       }
@@ -739,7 +746,9 @@ const ADJUST_NUMBERS_REGEX = RegExp(
 );
 
 function adjustStrings(value, options) {
-  return value.replace(STRING_REGEX, match => util.printString(match, options));
+  return value.replace(STRING_REGEX, match =>
+    privateUtil.printString(match, options)
+  );
 }
 
 function quoteAttributeValue(value, options) {
@@ -761,7 +770,7 @@ function adjustNumbers(value) {
 
 function printNumber(rawNumber) {
   return (
-    util
+    privateUtil
       .printNumber(rawNumber)
       // Remove trailing `.0`.
       .replace(/\.0(?=$|e)/, "")
@@ -789,6 +798,6 @@ function isWideKeywords(value) {
 
 module.exports = {
   print: genericPrint,
-  hasPrettierIgnore: util.hasIgnoreComment,
+  hasPrettierIgnore: privateUtil.hasIgnoreComment,
   massageAstNode: clean
 };

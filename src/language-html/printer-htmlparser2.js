@@ -1,7 +1,7 @@
 "use strict";
 
 const embed = require("./embed");
-const util = require("../common/util");
+const privateUtil = require("../common/util");
 const docBuilders = require("../doc").builders;
 const concat = docBuilders.concat;
 const join = docBuilders.join;
@@ -55,10 +55,10 @@ function genericPrint(path, options, print) {
       const selfClose = voidTags[n.name] ? ">" : " />";
       const children = printChildren(path, print);
 
-      const hasNewline = util.hasNewlineInRange(
+      const hasNewline = privateUtil.hasNewlineInRange(
         options.originalText,
-        util.locStart(n),
-        util.locEnd(n)
+        options.locStart(n),
+        options.locEnd(n)
       );
 
       return group(
@@ -117,5 +117,5 @@ function printChildren(path, print) {
 module.exports = {
   print: genericPrint,
   embed,
-  hasPrettierIgnore: util.hasIgnoreComment
+  hasPrettierIgnore: privateUtil.hasIgnoreComment
 };
