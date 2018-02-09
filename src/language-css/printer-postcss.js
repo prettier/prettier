@@ -445,7 +445,13 @@ function genericPrint(path, options, print) {
         if (
           node.groups[i].value === "#" ||
           node.groups[i].value === "{" ||
-          node.groups[i + 1].value === "}"
+          node.groups[i + 1].value === "}" ||
+          (node.groups[i + 1].value === "{" &&
+            node.groups[i + 1].raws &&
+            node.groups[i + 1].raws.before === "") ||
+          (node.groups[i].value === "}" &&
+            node.groups[i + 1].raws &&
+            node.groups[i + 1].raws.before === "")
         ) {
           continue;
         }
