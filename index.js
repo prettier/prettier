@@ -5,6 +5,7 @@ const docblock = require("jest-docblock");
 const version = require("./package.json").version;
 
 const privateUtil = require("./src/common/util");
+const sharedUtil = require("./src/common/util-shared");
 const getSupportInfo = require("./src/common/support").getSupportInfo;
 
 const comments = require("./src/main/comments");
@@ -422,6 +423,8 @@ module.exports = {
   getSupportInfo,
 
   version,
+
+  util: sharedUtil,
 
   /* istanbul ignore next */
   __debug: {
