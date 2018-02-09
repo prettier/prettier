@@ -21,5 +21,6 @@ module.exports = {
     // If this is removed, see also rollup.bin.config.js and rollup.index.config.js.
     "graceful-fs": "<rootDir>/tests_config/fs.js"
   },
+  testResultsProcessor: "jest-junit",
   transform: {}
 };

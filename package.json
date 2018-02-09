@@ -13,6 +13,11 @@
   "engines": {
     "node": ">=4"
   },
+  "jest-junit": {
+    "classNameTemplate": "{classname}",
+    "titleTemplate": "{title}",
+    "suiteNameTemplate": "{filepath}"
+  },
   "dependencies": {
     "@babel/code-frame": "7.0.0-beta.35",
     "@glimmer/syntax": "0.30.3",
@@ -71,6 +76,7 @@
     "eslint-plugin-prettier": "2.4.0",
     "eslint-plugin-react": "7.1.0",
     "jest": "21.1.0",
+    "jest-junit": "3.4.1",
     "mkdirp": "0.5.1",
     "prettier": "1.10.2",
     "prettylint": "1.0.0",
