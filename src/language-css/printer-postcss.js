@@ -402,50 +402,103 @@ function genericPrint(path, options, print) {
       let didBreak = false;
       for (let i = 0; i < node.groups.length; ++i) {
         parts.push(printed[i]);
-        if (
-          i !== node.groups.length - 1 &&
-          node.groups[i + 1].raws &&
-          node.groups[i + 1].raws.before !== "" &&
-          node.groups[i].value !== ":"
-        ) {
-          const isNextMathOperator = isMathOperatorNode(node.groups[i + 1]);
-          const isNextEqualityOperator =
-            isControlDirective && isEqualityOperatorNode(node.groups[i + 1]);
-          const isNextRelationalOperator =
-            isControlDirective && isRelationalOperatorNode(node.groups[i + 1]);
-          const isNextIfElseKeyword =
-            isControlDirective && isIfElseKeywordNode(node.groups[i + 1]);
-          const isNextEachKeyword =
-            isControlDirective && isEachKeywordNode(node.groups[i + 1]);
-          const isForKeyword =
-            atRuleAncestorNode &&
-            atRuleAncestorNode.name === "for" &&
-            isForKeywordNode(node.groups[i]);
-          const isNextForKeyword =
-            isControlDirective && isForKeywordNode(node.groups[i + 1]);
-          const IsNextColon = node.groups[i + 1].value === ":";
 
-          if (isGridValue) {
-            if (
-              node.groups[i].source.start.line !==
-              node.groups[i + 1].source.start.line
-            ) {
-              parts.push(hardline);
-              didBreak = true;
-            } else {
-              parts.push(" ");
-            }
-          } else if (
-            isNextMathOperator ||
-            isNextEqualityOperator ||
-            isNextRelationalOperator ||
-            isNextIfElseKeyword ||
-            isForKeyword
+        // Ignore after latest node (i.e. before semicolon)
+        if (!node.groups[i + 1]) {
+          continue;
+        }
+
+        // Ignore colon
+        if (node.groups[i].value === ":") {
+          continue;
+        }
+
+        const isMathOperator = isMathOperatorNode(node.groups[i]);
+        const isNextMathOperator = isMathOperatorNode(node.groups[i + 1]);
+
+        // Ignore math operators
+        if (
+          (isMathOperator &&
+            node.groups[i + 1].raws &&
+            node.groups[i + 1].raws.before === "") ||
+          (isNextMathOperator &&
+            node.groups[i + 1].raws &&
+            node.groups[i + 1].raws.before === "")
+        ) {
+          continue;
+        }
+
+        // Ignore `@` in Less (i.e. `@@var;`)
+        if (
+          node.groups[i].type === "value-atword" &&
+          node.groups[i].value === ""
+        ) {
+          continue;
+        }
+
+        // Ignore `~` in Less (i.e. `content: ~"^//* some horrible but needed css hack";`)
+        if (node.groups[i].value === "~") {
+          continue;
+        }
+
+        // Ignore interpolation in SCSS (i.e. ``#{variable}``)
+        if (
+          node.groups[i].value === "#" ||
+          node.groups[i].value === "{" ||
+          node.groups[i + 1].value === "}"
+        ) {
+          continue;
+        }
+
+        const isEqualityOperator =
+          isControlDirective && isEqualityOperatorNode(node.groups[i]);
+        const isRelationalOperator =
+          isControlDirective && isRelationalOperatorNode(node.groups[i]);
+        const isNextEqualityOperator =
+          isControlDirective && isEqualityOperatorNode(node.groups[i + 1]);
+        const isNextRelationalOperator =
+          isControlDirective && isRelationalOperatorNode(node.groups[i + 1]);
+        const isNextIfElseKeyword =
+          isControlDirective && isIfElseKeywordNode(node.groups[i + 1]);
+        const isEachKeyword =
+          isControlDirective && isEachKeywordNode(node.groups[i]);
+        const isNextEachKeyword =
+          isControlDirective && isEachKeywordNode(node.groups[i + 1]);
+        const isForKeyword =
+          atRuleAncestorNode &&
+          atRuleAncestorNode.name === "for" &&
+          isForKeywordNode(node.groups[i]);
+        const isNextForKeyword =
+          isControlDirective && isForKeywordNode(node.groups[i + 1]);
+        const IsNextColon = node.groups[i + 1].value === ":";
+
+        if (isGridValue) {
+          if (
+            node.groups[i].source.start.line !==
+            node.groups[i + 1].source.start.line
           ) {
+            parts.push(hardline);
+            didBreak = true;
+          } else {
             parts.push(" ");
-          } else if (!IsNextColon || isNextForKeyword || isNextEachKeyword) {
-            parts.push(line);
           }
+        } else if (
+          isNextMathOperator ||
+          isNextEqualityOperator ||
+          isNextRelationalOperator ||
+          isNextIfElseKeyword ||
+          isForKeyword ||
+          isEachKeyword
+        ) {
+          parts.push(" ");
+        } else if (
+          !IsNextColon ||
+          isEqualityOperator ||
+          isRelationalOperator ||
+          isNextForKeyword ||
+          isNextEachKeyword
+        ) {
+          parts.push(line);
         }
       }
 
@@ -523,23 +576,6 @@ function genericPrint(path, options, print) {
       return concat([node.value, path.call(print, "group")]);
     }
     case "value-paren": {
-      if (node.raws.before !== "") {
-        const parentParentNode = path.getParentNode(1);
-        const insideInParens =
-          parentParentNode && parentParentNode.type === "value-paren_group";
-        const parentParentParentNode = path.getParentNode(2);
-        const isFunction =
-          parentParentParentNode &&
-          parentParentParentNode.type === "value-func";
-        const declAncestorNode = getAncestorNode(path, "css-decl");
-        const isMap = declAncestorNode && declAncestorNode.prop.startsWith("$");
-
-        return concat([
-          isFunction || insideInParens || isMap ? "" : line,
-          node.value
-        ]);
-      }
-
       return node.value;
     }
     case "value-number": {

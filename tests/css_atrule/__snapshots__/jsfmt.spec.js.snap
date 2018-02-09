@@ -1137,8 +1137,7 @@ h3
 {
 }
 @each $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
-    in
-    puma,
+    in puma,
   sea-slug, egret, salamander
 {
 }
@@ -1720,13 +1719,11 @@ through
 {
 }
 @for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var
-  from
-  (
+  from (
     $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 +
       $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1
   )
-  through
-  (
+  through (
     $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 +
       $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2
   )
@@ -2030,7 +2027,7 @@ p {
   }
   @if (($type) == (ocean)) {
   }
-  @if (($type)==(ocean)) {
+  @if (($type) ==(ocean)) {
   }
   @if (($type) == (ocean)) {
   }
@@ -2129,7 +2126,7 @@ p {
     40px
   {
   }
-  @if (str-slice($item, 0, 1) ==":") {
+  @if (str-slice($item, 0, 1) == ":") {
   }
   @if (str-slice($item, 0, 3) == " : ") {
   }
@@ -3218,6 +3215,29 @@ $args
 {
 }
 @mixin mix($very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2: 10, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-args...) {}
+@mixin component($conf: ()) {}
+@mixin component($conf: ( )) {}
+@mixin button-variant($hover-background: darken($background, 7.5%)) {}
+@mixin button-variant( $hover-background : darken( $background , 7.5% ) ) {}
+@mixin button-variant($hover-background:darken($background,7.5%)) {}
+@mixin button-variant(
+    $hover-background: darken($background, 7.5%)
+) {}
+@mixin
+button-variant(
+$hover-background
+:
+darken(
+$background
+,
+7.5%
+)
+)
+{}
+@mixin button-variant($foo: "...") {}
+@mixin button-variant($foo: " ... ") {}
+@mixin button-variant($foo: "  ...  ") {}
+@mixin sexy-border($color, $width, $foo: (color: red)) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @mixin clearfix {
 }
@@ -3257,6 +3277,28 @@ $args
     10,
   $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-args...
 ) {
+}
+@mixin component($conf: ()) {
+}
+@mixin component($conf: ()) {
+}
+@mixin button-variant($hover-background: darken($background, 7.5%)) {
+}
+@mixin button-variant($hover-background: darken($background, 7.5%)) {
+}
+@mixin button-variant($hover-background: darken($background, 7.5%)) {
+}
+@mixin button-variant($hover-background: darken($background, 7.5%)) {
+}
+@mixin button-variant($hover-background: darken($background, 7.5%)) {
+}
+@mixin button-variant($foo: "...") {
+}
+@mixin button-variant($foo: " ... ") {
+}
+@mixin button-variant($foo: "  ...  ") {
+}
+@mixin sexy-border($color, $width, $foo: (color: red)) {
 }
 
 `;
@@ -3539,6 +3581,24 @@ $gutter-width
 @function grid-width($n) {
     @return $very-very-very-very-very-very-vey-long-var * $very-very-very-very-very-very-vey-long-var + ($very-very-very-very-very-very-vey-long-var - 1) * $very-very-very-very-very-very-vey-long-var;
 }
+@function extend($obj, $ext-obj) {
+    @return map-merge($obj, $ext-obj);
+}
+@function extend($obj, $ext-obj) {
+    @return map-merge( $obj , $ext-obj ) ;
+}
+@function extend($obj, $ext-obj) {
+    @return map-merge($obj,$ext-obj);
+}
+@function extend($obj, $ext-obj) {
+    @return
+    map-merge(
+    $obj
+    ,
+    $ext-obj
+    )
+    ;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @function grid-width($n) {
   @return $n * $grid-width + ($n - 1) * $gutter-width;
@@ -3547,7 +3607,7 @@ $gutter-width
   @return $n * $grid-width + ($n - 1) * $gutter-width;
 }
 @function grid-width($n) {
-  @return $n*$grid-width+($n-1)*$gutter-width;
+  @return $n*$grid-width+ ($n-1)*$gutter-width;
 }
 @function grid-width($n) {
   @return $n * $grid-width + ($n - 1) * $gutter-width;
@@ -3570,9 +3630,20 @@ $gutter-width
 @function grid-width($n) {
   @return $very-very-very-very-very-very-vey-long-var *
     $very-very-very-very-very-very-vey-long-var +
-    (
-      $very-very-very-very-very-very-vey-long-var - 1
-    ) * $very-very-very-very-very-very-vey-long-var;
+    ($very-very-very-very-very-very-vey-long-var - 1) *
+    $very-very-very-very-very-very-vey-long-var;
+}
+@function extend($obj, $ext-obj) {
+  @return map-merge($obj, $ext-obj);
+}
+@function extend($obj, $ext-obj) {
+  @return map-merge($obj, $ext-obj);
+}
+@function extend($obj, $ext-obj) {
+  @return map-merge($obj, $ext-obj);
+}
+@function extend($obj, $ext-obj) {
+  @return map-merge($obj, $ext-obj);
 }
 
 `;
@@ -4256,7 +4327,7 @@ $i
 }
 @while (($i) > (0)) {
 }
-@while (($i)>(0)) {
+@while (($i) >(0)) {
 }
 @while (($i) > (0)) {
 }
