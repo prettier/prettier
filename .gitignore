@@ -12,5 +12,6 @@
 /website/static/lib
 .DS_Store
 coverage
+junit.xml
 .idea
 package-lock.json

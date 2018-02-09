@@ -12,6 +12,10 @@ env:
   - NODE_ENV=production
 matrix:
   fast_finish: true
+before_install:
+  - mkdir -p $HOME/bin
+  - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux.tgz | tar -zxvf- -C $HOME/bin
+  - testspace config url $TS_ORG.testspace.com
 install:
   - NODE_ENV=development yarn install
 before_script:
@@ -23,6 +27,9 @@ script:
   - if [ "${NODE_ENV}" = "production" ]; then yarn test:dist; fi
   - if [ "${NODE_ENV}" = "development" ]; then AST_COMPARE=1 yarn test -- --runInBand; fi
   - if [ "${NODE_ENV}" = "development" ]; then yarn codecov; fi
+after_script:
+  - testspace [node-${TRAVIS_NODE_VERSION}/${NODE_ENV}]junit.xml{.}
 branches:
   only:
     - master
+    - add-test-reporting
