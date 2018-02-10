@@ -399,6 +399,15 @@ function genericPrint(path, options, print) {
 
       const printed = path.map(print, "groups");
       const parts = [];
+      const isProgid =
+        declAncestorNode &&
+        declAncestorNode.value.group &&
+        declAncestorNode.value.group.group &&
+        declAncestorNode.value.group.group.groups &&
+        declAncestorNode.value.group.group.groups[0] &&
+        declAncestorNode.value.group.group.groups[0].type === "value-word" &&
+        declAncestorNode.value.group.group.groups[0].value === "progid";
+
       let didBreak = false;
       for (let i = 0; i < node.groups.length; ++i) {
         parts.push(printed[i]);
@@ -413,6 +422,14 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        if (
+          isProgid &&
+          node.groups[i].type === "value-word" &&
+          node.groups[i].value.endsWith("=")
+        ) {
+          continue;
+        }
+
         const isMathOperator = isMathOperatorNode(node.groups[i]);
         const isNextMathOperator = isMathOperatorNode(node.groups[i + 1]);
 
@@ -423,7 +440,14 @@ function genericPrint(path, options, print) {
             node.groups[i + 1].raws.before === "") ||
           (isNextMathOperator &&
             node.groups[i + 1].raws &&
-            node.groups[i + 1].raws.before === "")
+            node.groups[i + 1].raws.before === "") ||
+          (isMathOperator &&
+            (node.groups[i + 1].type === "value-paren_group" ||
+              node.groups[i + 1].type === "value-word" ||
+              node.groups[i + 1].type === "value-number" ||
+              isMathOperatorNode(node.groups[i + 1])) &&
+            (!node.groups[i - 1] ||
+              (node.groups[i - 1] && isMathOperatorNode(node.groups[i - 1]))))
         ) {
           continue;
         }
@@ -443,13 +467,18 @@ function genericPrint(path, options, print) {
 
         // Ignore interpolation in SCSS (i.e. ``#{variable}``)
         if (
-          node.groups[i].value === "#" ||
-          node.groups[i].value === "{" ||
-          node.groups[i + 1].value === "}" ||
+          (node.groups[i].value === "#" &&
+            node.groups[i].type === "value-word") ||
+          (node.groups[i].value === "{" &&
+            node.groups[i].type === "value-word") ||
+          (node.groups[i + 1].value === "}" &&
+            node.groups[i + 1].type === "value-word") ||
           (node.groups[i + 1].value === "{" &&
+            node.groups[i + 1].type === "value-word" &&
             node.groups[i + 1].raws &&
             node.groups[i + 1].raws.before === "") ||
           (node.groups[i].value === "}" &&
+            node.groups[i].type === "value-word" &&
             node.groups[i + 1].raws &&
             node.groups[i + 1].raws.before === "")
         ) {
@@ -516,7 +545,7 @@ function genericPrint(path, options, print) {
         return group(indent(concat(parts)));
       }
 
-      return group(indent(fill(parts)));
+      return group(isProgid ? fill(parts) : indent(fill(parts)));
     }
     case "value-paren_group": {
       const parentNode = path.getParentNode();
