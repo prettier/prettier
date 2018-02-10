@@ -64,14 +64,16 @@ export const languages = [
 
 Parsers convert code as a string into an [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
 
-The key must match the name in the `parsers` array from `languages`. The value contains a parse function and an AST format name.
+The key must match the name in the `parsers` array from `languages`. The value contains a parse function, an AST format name, and two location extraction functions (`locStart` and `locEnd`).
 
 ```js
 export const parsers = {
   "dance-parse": {
     parse,
     // The name of the AST that
-    astFormat: "dance-ast"
+    astFormat: "dance-ast",
+    locStart,
+    locEnd
   }
 };
 ```
@@ -80,6 +82,12 @@ The signature of the `parse` function is:
 
 ```ts
 function parse(text: string, parsers: object, options: object): AST;
+```
+
+The location extraction functions (`locStart` and `locEnd`) return the beginning and the end location of a given AST node:
+
+```ts
+function locStart(node: object): number;
 ```
 
 ### `printers`
@@ -134,6 +142,18 @@ function embed(
 ```
 
 If you don't want to switch to a different parser, simply return `null` or `undefined`.
+
+### Utility functions
+
+A `util` module from prettier core is considered a private API and is not meant to be consumed by plugins. Instead, the `util-shared` module provides the following limited set of utility functions for plugins:
+
+```ts
+makeString(rawContent: string, enclosingQuote: string, unescapeUnnecessarEscapes: boolean): string;
+getNextNonSpaceNonCommentCharacterIndex(text: string, node: object, options: object): number;
+isNextLineEmptyAfterIndex(text: string, index: number): boolean;
+isNextLineEmpty(text: string, node: object, options: object): boolean;
+mapDoc(doc: object, callback: function): void;
+```
 
 ## Testing Plugins
 
