@@ -24,6 +24,20 @@ const fruit = "tomatoes";
 
 `;
 
+exports[`module-with-multiple-same-pragma.js 1`] = `
+/**
+ * @x 1
+ * @x 2
+ */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @format
+ * @x 1
+ * @x 2
+ */
+
+`;
+
 exports[`module-with-pragma.js 1`] = `
 /**
  * Here lie words above pragmas
