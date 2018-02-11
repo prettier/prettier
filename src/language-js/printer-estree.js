@@ -1022,6 +1022,7 @@ function printPathNoParens(path, options, print, args) {
         (shouldHugType(n) &&
           parentParentParent &&
           shouldHugArguments(parentParentParent) &&
+          parentParentParent.params[0].typeAnnotation &&
           parentParentParent.params[0].typeAnnotation.typeAnnotation === n)
       ) {
         return content;
