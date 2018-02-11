@@ -36,7 +36,7 @@
     "graphql": "0.12.3",
     "gray-matter": "3.1.1",
     "ignore": "3.3.7",
-    "jest-docblock": "21.3.0-beta.11",
+    "jest-docblock": "22.2.2",
     "json-stable-stringify": "1.0.1",
     "leven": "2.1.0",
     "mem": "1.1.0",
