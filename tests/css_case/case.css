@@ -1,1 +1,5 @@
 @custom-media --KeepName (MIN-WIDTH: 500PX);
+
+.foo {
+    color: hsl(0.75TURN, 60%, 70%);
+}

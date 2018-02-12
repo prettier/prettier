@@ -2,8 +2,16 @@
 
 exports[`case.css 1`] = `
 @custom-media --KeepName (MIN-WIDTH: 500PX);
+
+.foo {
+    color: hsl(0.75TURN, 60%, 70%);
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @custom-media --KeepName (min-width: 500px);
+
+.foo {
+  color: hsl(0.75turn, 60%, 70%);
+}
 
 `;
 
@@ -126,6 +134,10 @@ $KeepScssVar: val;
   TO {
     margin-top: 100px;
   }
+}
+
+.foo {
+  color: hsl(0.75TURN, 60%, 70%);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
@@ -256,6 +268,10 @@ $KeepScssVar: val;
   }
 }
 
+.foo {
+  color: hsl(0.75turn, 60%, 70%);
+}
+
 `;
 
 exports[`case.scss 1`] = `
@@ -379,6 +395,10 @@ $KeepTopLevelVar: val;
   TO {
     margin-top: 100px;
   }
+}
+
+.foo {
+  color: hsl(0.75TURN, 60%, 70%);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
@@ -504,6 +524,10 @@ $KeepTopLevelVar: val;
   TO {
     margin-top: 100px;
   }
+}
+
+.foo {
+  color: hsl(0.75turn, 60%, 70%);
 }
 
 `;
