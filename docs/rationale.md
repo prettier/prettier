@@ -37,7 +37,7 @@ By default, Prettier’s printing algorithm prints expressions on a single line 
 
 ## What Prettier is _not_ concerned about
 
-Prettier is only _prints_ code. It does not transform it. This is to limit the scope of Prettier. Let's focus on the printing and do it really well!
+Prettier only _prints_ code. It does not transform it. This is to limit the scope of Prettier. Let's focus on the printing and do it really well!
 
 Here are a few examples of things that are out of scope for Prettier:
 
