@@ -309,7 +309,12 @@ function genericPrint(path, options, print) {
       return adjustStrings(node.value, options);
     }
     case "selector-tag": {
-      return adjustNumbers(node.value);
+      return concat([
+        node.namespace
+          ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
+          : "",
+        adjustNumbers(node.value)
+      ]);
     }
     case "selector-id": {
       return concat(["#", node.value]);
@@ -358,7 +363,12 @@ function genericPrint(path, options, print) {
       return concat([leading, value]);
     }
     case "selector-universal": {
-      return node.value;
+      return concat([
+        node.namespace
+          ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
+          : "",
+        adjustNumbers(node.value)
+      ]);
     }
     case "selector-selector": {
       return group(indent(concat(path.map(print, "nodes"))));
