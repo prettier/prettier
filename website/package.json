@@ -8,8 +8,8 @@
   },
   "devDependencies": {
     "@sandhose/prettier-animated-logo": "1.0.3",
-    "docusaurus": "^1.0.0-beta.10",
-    "js-yaml": "^3.10.0",
+    "docusaurus": "1.0.5",
+    "js-yaml": "3.10.0",
     "svgo": "1.0.3"
   }
 }
