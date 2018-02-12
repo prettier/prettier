@@ -123,3 +123,21 @@ $KeepTopLevelVar: val;
 .foo {
   color: hsl(0.75TURN, 60%, 70%);
 }
+
+p:FIRST-CHILD {
+  color: lime;
+  background-color: black;
+  padding: 5px;
+}
+
+a::AFTER {
+  content: "→";
+}
+
+a:AFTER {
+  content: "→";
+}
+
+::-WEBKIT-PROGRESS-BAR {
+  background-color: orange;
+}

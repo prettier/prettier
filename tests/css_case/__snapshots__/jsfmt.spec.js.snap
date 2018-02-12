@@ -6,11 +6,47 @@ exports[`case.css 1`] = `
 .foo {
     color: hsl(0.75TURN, 60%, 70%);
 }
+
+p:FIRST-CHILD {
+    color: lime;
+    background-color: black;
+    padding: 5px;
+}
+
+a::AFTER {
+    content: "→";
+}
+
+a:AFTER {
+    content: "→";
+}
+
+::-WEBKIT-PROGRESS-BAR {
+    background-color: orange;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @custom-media --KeepName (min-width: 500px);
 
 .foo {
   color: hsl(0.75turn, 60%, 70%);
+}
+
+p:first-child {
+  color: lime;
+  background-color: black;
+  padding: 5px;
+}
+
+a::after {
+  content: "→";
+}
+
+a:after {
+  content: "→";
+}
+
+::-webkit-progress-bar {
+  background-color: orange;
 }
 
 `;
@@ -138,6 +174,24 @@ $KeepScssVar: val;
 
 .foo {
   color: hsl(0.75TURN, 60%, 70%);
+}
+
+p:FIRST-CHILD {
+  color: lime;
+  background-color: black;
+  padding: 5px;
+}
+
+a::AFTER {
+  content: "→";
+}
+
+a:AFTER {
+  content: "→";
+}
+
+::-WEBKIT-PROGRESS-BAR {
+  background-color: orange;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
@@ -272,6 +326,24 @@ $KeepScssVar: val;
   color: hsl(0.75turn, 60%, 70%);
 }
 
+p:first-child {
+  color: lime;
+  background-color: black;
+  padding: 5px;
+}
+
+a::after {
+  content: "→";
+}
+
+a:after {
+  content: "→";
+}
+
+::-webkit-progress-bar {
+  background-color: orange;
+}
+
 `;
 
 exports[`case.scss 1`] = `
@@ -399,6 +471,24 @@ $KeepTopLevelVar: val;
 
 .foo {
   color: hsl(0.75TURN, 60%, 70%);
+}
+
+p:FIRST-CHILD {
+  color: lime;
+  background-color: black;
+  padding: 5px;
+}
+
+a::AFTER {
+  content: "→";
+}
+
+a:AFTER {
+  content: "→";
+}
+
+::-WEBKIT-PROGRESS-BAR {
+  background-color: orange;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
@@ -528,6 +618,24 @@ $KeepTopLevelVar: val;
 
 .foo {
   color: hsl(0.75turn, 60%, 70%);
+}
+
+p:first-child {
+  color: lime;
+  background-color: black;
+  padding: 5px;
+}
+
+a::after {
+  content: "→";
+}
+
+a:after {
+  content: "→";
+}
+
+::-webkit-progress-bar {
+  background-color: orange;
 }
 
 `;
