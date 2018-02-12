@@ -22,10 +22,10 @@ const getExplorerMemoized = mem(opts =>
 );
 
 /** @param {{ cache: boolean, sync: boolean }} opts */
-function getLoadFunction(opts) {
+function getExplorer(opts) {
   // Normalize opts before passing to a memoized function
   opts = Object.assign({ sync: false, cache: false }, opts);
-  return getExplorerMemoized(opts).load;
+  return getExplorerMemoized(opts);
 }
 
 function _resolveConfig(filePath, opts, sync) {
@@ -35,9 +35,13 @@ function _resolveConfig(filePath, opts, sync) {
     sync: !!sync,
     editorconfig: !!opts.editorconfig
   };
-  const load = getLoadFunction(loadOpts);
+  const explorer = getExplorer(loadOpts);
+  const prettierConfig = opts.config
+    ? explorer.load(opts.config)
+    : explorer.search(filePath);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
-  const arr = [load, loadEditorConfig].map(l => l(filePath, opts.config));
+  const editorConfig = loadEditorConfig(filePath, opts.config);
+  const arr = [prettierConfig, editorConfig];
 
   const unwrapAndMerge = arr => {
     const result = arr[0];
@@ -72,15 +76,15 @@ function clearCache() {
 }
 
 function resolveConfigFile(filePath) {
-  const load = getLoadFunction({ sync: false });
-  return load(filePath).then(result => {
+  const { search } = getExplorer({ sync: false });
+  return search(filePath).then(result => {
     return result ? result.filepath : null;
   });
 }
 
 resolveConfigFile.sync = filePath => {
-  const load = getLoadFunction({ sync: true });
-  const result = load(filePath);
+  const { search } = getExplorer({ sync: true });
+  const result = search(filePath);
   return result ? result.filepath : null;
 };
 
