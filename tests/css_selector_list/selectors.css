@@ -292,3 +292,20 @@
    >>>   .child-one {}
    >>>   .child-two {}
 }
+
+/* This matches all XHTML <a> elements, as XHTML is the default unprefixed namespace */
+a {}
+
+/* This matches all SVG <a> elements */
+svg|a {}
+
+/* This matches both XHTML and SVG <a> elements */
+*|a {}
+
+|B {}
+
+ns|* {}
+
+*|* {}
+
+|* {}
