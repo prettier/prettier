@@ -342,7 +342,9 @@ function parseNestedCSS(node) {
         node.name === "mixin" ||
         node.name === "include" ||
         node.name === "function" ||
-        node.name === "return"
+        node.name === "return" ||
+        node.name === "define-mixin" ||
+        node.name === "add-mixin"
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
         node.params = node.params.replace(/(\$\S+?)\s+?\.\.\./, "$1...");
