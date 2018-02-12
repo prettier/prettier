@@ -786,6 +786,21 @@ exports[`selectors.scss 1`] = `
 
 `;
 
+exports[`source-map.css 1`] = `
+.foo {
+    color: red;
+}
+
+/*# sourceMappingURL=file.css.map */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  color: red;
+}
+
+/*# sourceMappingURL=file.css.map */
+
+`;
+
 exports[`trailing_star_slash.css 1`] = `
 @media (max-width: 1) {}
 a {
