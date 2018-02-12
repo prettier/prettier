@@ -49,7 +49,7 @@ exports[`hexcolor.css 1`] = `
   -webkit-color: #873;
   -moz-color: #6bcdef;
   -ms-color: #aabbcc;
-  color: #F09F;
+  color: #f09f;
   color: #ff0099ff;
 }
 
