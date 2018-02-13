@@ -54,6 +54,7 @@
     "resolve": "1.5.0",
     "semver": "5.4.1",
     "string-width": "2.1.1",
+    "html-tag-names": "1.1.1",
     "typescript": "2.7.0-insiders.20171214",
     "typescript-eslint-parser": "11.0.0",
     "unicode-regex": "1.0.1",

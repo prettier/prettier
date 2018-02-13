@@ -1,5 +1,7 @@
 "use strict";
 
+const htmlTagNames = require("html-tag-names");
+
 function clean(ast, newObj) {
   if (
     ast.type === "media-query" ||
@@ -107,6 +109,18 @@ function clean(ast, newObj) {
     newObj.value = newObj.value
       .replace(/^url\(\s+/gi, "url(")
       .replace(/\s+\)$/gi, ")");
+  }
+
+  if (ast.type === "selector-tag") {
+    const lowercasedValue = ast.value.toLowerCase();
+
+    if (htmlTagNames.indexOf(lowercasedValue) !== -1) {
+      newObj.value = lowercasedValue;
+    }
+
+    if (["from", "to"].indexOf(lowercasedValue) !== -1) {
+      newObj.value = lowercasedValue;
+    }
   }
 }
 
