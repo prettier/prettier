@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unique-symbol.ts 1`] = `
+type A = unique symbol;
+type B = keyof something;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type A = unique symbol;
+type B = keyof something;
+
+`;

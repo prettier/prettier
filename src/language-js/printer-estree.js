@@ -2665,7 +2665,7 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
     }
     case "TSTypeOperator":
-      return concat(["keyof ", path.call(print, "typeAnnotation")]);
+      return concat([n.operator, " ", path.call(print, "typeAnnotation")]);
     case "TSMappedType":
       return group(
         concat([
