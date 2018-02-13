@@ -11,8 +11,8 @@ To exclude files from formatting, add entries to a `.prettierignore` file in the
 
 For example: 
 
-<!-- .prettierignore -->
-```
+```sh
+# .prettierignore
 # ignores files with an .html extension
 *.html 
 ```
