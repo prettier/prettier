@@ -13,7 +13,17 @@ function loadYaml(fsPath) {
   return parseYaml(fs.readFileSync(path.join(__dirname, fsPath), "utf8"));
 }
 
-const users = loadYaml("./data/users.yml");
+// https://stackoverflow.com/a/12646864
+function shuffleArray(array) {
+  const copy = array.slice();
+  for (let index = copy.length - 1; index > 0; index--) {
+    const rnd = Math.floor(Math.random() * (index + 1));
+    [copy[index], copy[rnd]] = [copy[rnd], copy[index]];
+  }
+  return copy;
+}
+
+const users = shuffleArray(loadYaml("./data/users.yml"));
 const editors = loadYaml("./data/editors.yml");
 const supportedLanguages = loadYaml("./data/languages.yml");
 
