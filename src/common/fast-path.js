@@ -560,6 +560,7 @@ FastPath.prototype.needsParens = function(options) {
         case "AwaitExpression":
         case "JSXSpreadAttribute":
         case "TSTypeAssertionExpression":
+        case "TypeCastExpression":
         case "TSAsExpression":
         case "TSNonNullExpression":
           return true;
