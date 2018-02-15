@@ -314,7 +314,7 @@ function parseNestedCSS(node) {
         return node;
       }
 
-      if (node.name === "extend") {
+      if (node.name === "extend" || node.name === "nest") {
         node.selector = parseSelector(node.params);
         delete node.params;
 
