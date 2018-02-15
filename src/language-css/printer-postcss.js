@@ -440,106 +440,173 @@ function genericPrint(path, options, print) {
       for (let i = 0; i < node.groups.length; ++i) {
         parts.push(printed[i]);
 
+        // Ignore value inside `url()`
+        const functionAncestorNode = getAncestorNode(path, "value-func");
+        const insideInFunction =
+          functionAncestorNode && functionAncestorNode.value;
+        const insideURLFunction =
+          insideInFunction &&
+          functionAncestorNode.value.toLowerCase() === "url";
+
+        if (insideURLFunction) {
+          continue;
+        }
+
+        const iPrevNode = node.groups[i - 1];
+        const iNode = node.groups[i];
+        const iNextNode = node.groups[i + 1];
+        const iNextNextNode = node.groups[i + 2];
+
         // Ignore after latest node (i.e. before semicolon)
-        if (!node.groups[i + 1]) {
+        if (!iNextNode) {
           continue;
         }
 
         // Ignore colon
-        if (node.groups[i].value === ":") {
+        if (iNode.value === ":") {
           continue;
         }
 
+        // Ignore `filter: progid:DXImageTransform.Microsoft.Gradient(params);`
         if (
           isProgid &&
-          node.groups[i].type === "value-word" &&
-          node.groups[i].value.endsWith("=")
-        ) {
-          continue;
-        }
-
-        const isMathOperator = isMathOperatorNode(node.groups[i]);
-        const isNextMathOperator = isMathOperatorNode(node.groups[i + 1]);
-
-        // Ignore math operators
-        if (
-          (isMathOperator &&
-            node.groups[i + 1].raws &&
-            node.groups[i + 1].raws.before === "") ||
-          (isNextMathOperator &&
-            node.groups[i + 1].raws &&
-            node.groups[i + 1].raws.before === "") ||
-          (isMathOperator &&
-            (node.groups[i + 1].type === "value-paren_group" ||
-              node.groups[i + 1].type === "value-word" ||
-              node.groups[i + 1].type === "value-number" ||
-              isMathOperatorNode(node.groups[i + 1])) &&
-            (!node.groups[i - 1] ||
-              (node.groups[i - 1] && isMathOperatorNode(node.groups[i - 1]))))
+          iNode.type === "value-word" &&
+          iNode.value.endsWith("=")
         ) {
           continue;
         }
 
         // Ignore `@` in Less (i.e. `@@var;`)
-        if (
-          node.groups[i].type === "value-atword" &&
-          node.groups[i].value === ""
-        ) {
+        if (iNode.type === "value-atword" && iNode.value === "") {
           continue;
         }
 
         // Ignore `~` in Less (i.e. `content: ~"^//* some horrible but needed css hack";`)
-        if (node.groups[i].value === "~") {
+        if (iNode.value === "~") {
           continue;
         }
 
+        const isHash = iNode.type === "value-word" && iNode.value === "#";
+        const isLeftCurlyBrace =
+          iNode.type === "value-word" && iNode.value === "{";
+        const isNextLeftCurlyBrace =
+          iNextNode.type === "value-word" && iNextNode.value === "{";
+        const isRightCurlyBrace =
+          iNode.type === "value-word" && iNode.value === "}";
+        const isNextRightCurlyBrace =
+          iNextNode.type === "value-word" && iNextNode.value === "}";
+
         // Ignore interpolation in SCSS (i.e. ``#{variable}``)
         if (
-          (node.groups[i].value === "#" &&
-            node.groups[i].type === "value-word") ||
-          (node.groups[i].value === "{" &&
-            node.groups[i].type === "value-word") ||
-          (node.groups[i + 1].value === "}" &&
-            node.groups[i + 1].type === "value-word") ||
-          (node.groups[i + 1].value === "{" &&
-            node.groups[i + 1].type === "value-word" &&
-            node.groups[i + 1].raws &&
-            node.groups[i + 1].raws.before === "") ||
-          (node.groups[i].value === "}" &&
-            node.groups[i].type === "value-word" &&
-            node.groups[i + 1].raws &&
-            node.groups[i + 1].raws.before === "")
+          isHash ||
+          isLeftCurlyBrace ||
+          isNextRightCurlyBrace ||
+          (isNextLeftCurlyBrace &&
+            iNextNode.raws &&
+            iNextNode.raws.before === "") ||
+          (isRightCurlyBrace && iNextNode.raws && iNextNode.raws.before === "")
         ) {
           continue;
         }
 
+        const isNextHash =
+          iNextNode.type === "value-word" && iNextNode.value === "#";
+
+        const isMathOperator = isMathOperatorNode(iNode);
+        const isNextMathOperator = isMathOperatorNode(iNextNode);
+
+        const isMultiplication =
+          !isNextHash && isMathOperator && iNode.value === "*";
+        const isNextMultiplication =
+          !isRightCurlyBrace && isNextMathOperator && iNextNode.value === "*";
+
+        const isDivision = !isNextHash && isMathOperator && iNode.value === "/";
+        const isNextDivision =
+          !isRightCurlyBrace && isNextMathOperator && iNextNode.value === "/";
+
+        const isAddition = !isNextHash && isMathOperator && iNode.value === "+";
+        const isNextAddition =
+          !isRightCurlyBrace && isNextMathOperator && iNextNode.value === "+";
+
+        const isPrevFunction = iPrevNode && iPrevNode.type === "value-func";
+        const isFunction = iNode.type === "value-func";
+        const isNextFunction = iNextNode.type === "value-func";
+        const isNextNextFunction =
+          iNextNextNode && iNextNextNode.type === "value-func";
+
+        const isPrevWord =
+          iPrevNode &&
+          ["value-word", "value-atword"].indexOf(iPrevNode.type) !== -1;
+        const isWord =
+          ["value-word", "value-atword"].indexOf(iNode.type) !== -1;
+        const isNextWord =
+          ["value-word", "value-atword"].indexOf(iNextNode.type) !== -1;
+        const isNextNextWord =
+          iNextNextNode &&
+          ["value-word", "value-atword"].indexOf(iNextNextNode.type) !== -1;
+
+        // Math operators
+        const insideCalcFunction =
+          insideInFunction &&
+          functionAncestorNode.value.toLowerCase() === "calc";
+
+        const hasSpaceBeforeOperator =
+          isNextNextFunction || isNextNextWord || isFunction || isWord;
+
+        const hasSpaceAfterOperator =
+          isNextFunction || isNextWord || isPrevFunction || isPrevWord;
+
+        if (
+          (isMathOperator || isNextMathOperator) &&
+          // Multiplication
+          !isMultiplication &&
+          !isNextMultiplication &&
+          // Division
+          !(isNextDivision && (hasSpaceBeforeOperator || insideCalcFunction)) &&
+          !(isDivision && (hasSpaceAfterOperator || insideCalcFunction)) &&
+          // Addition
+          !(isNextAddition && hasSpaceBeforeOperator) &&
+          !(isAddition && hasSpaceAfterOperator)
+        ) {
+          const isNextParenGroup = isParenGroupNode(iNextNode);
+          const isNextValueNumber = iNextNode.type === "value-number";
+
+          if (
+            (iNextNode.raws && iNextNode.raws.before === "") ||
+            (isMathOperator &&
+              (isNextParenGroup ||
+                isNextWord ||
+                isNextValueNumber ||
+                isMathOperatorNode(iNextNode)) &&
+              (!iPrevNode || (iPrevNode && isMathOperatorNode(iPrevNode))))
+          ) {
+            continue;
+          }
+        }
+
         const isEqualityOperator =
-          isControlDirective && isEqualityOperatorNode(node.groups[i]);
+          isControlDirective && isEqualityOperatorNode(iNode);
         const isRelationalOperator =
-          isControlDirective && isRelationalOperatorNode(node.groups[i]);
+          isControlDirective && isRelationalOperatorNode(iNode);
         const isNextEqualityOperator =
-          isControlDirective && isEqualityOperatorNode(node.groups[i + 1]);
+          isControlDirective && isEqualityOperatorNode(iNextNode);
         const isNextRelationalOperator =
-          isControlDirective && isRelationalOperatorNode(node.groups[i + 1]);
+          isControlDirective && isRelationalOperatorNode(iNextNode);
         const isNextIfElseKeyword =
-          isControlDirective && isIfElseKeywordNode(node.groups[i + 1]);
-        const isEachKeyword =
-          isControlDirective && isEachKeywordNode(node.groups[i]);
+          isControlDirective && isIfElseKeywordNode(iNextNode);
+        const isEachKeyword = isControlDirective && isEachKeywordNode(iNode);
         const isNextEachKeyword =
-          isControlDirective && isEachKeywordNode(node.groups[i + 1]);
+          isControlDirective && isEachKeywordNode(iNextNode);
         const isForKeyword =
           atRuleAncestorNode &&
           atRuleAncestorNode.name === "for" &&
-          isForKeywordNode(node.groups[i]);
+          isForKeywordNode(iNode);
         const isNextForKeyword =
-          isControlDirective && isForKeywordNode(node.groups[i + 1]);
-        const IsNextColon = node.groups[i + 1].value === ":";
+          isControlDirective && isForKeywordNode(iNextNode);
+        const IsNextColon = iNextNode.value === ":";
 
         if (isGridValue) {
-          if (
-            node.groups[i].source.start.line !==
-            node.groups[i + 1].source.start.line
-          ) {
+          if (iNode.source.start.line !== iNextNode.source.start.line) {
             parts.push(hardline);
             didBreak = true;
           } else {
@@ -688,6 +755,10 @@ function genericPrint(path, options, print) {
       /* istanbul ignore next */
       throw new Error("unknown postcss type: " + JSON.stringify(node.type));
   }
+}
+
+function isParenGroupNode(node) {
+  return node.type && node.type === "value-paren_group";
 }
 
 function isForKeywordNode(node) {

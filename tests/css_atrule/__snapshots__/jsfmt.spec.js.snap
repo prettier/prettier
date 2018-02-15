@@ -3483,19 +3483,19 @@ margin
 
 exports[`return.css 1`] = `
 @function grid-width($n) {
-    @return $n * $grid-width + ($n - 1) * $gutter-width;
+    @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
 @function grid-width($n) {
-@return $n * $grid-width + ($n - 1) * $gutter-width;
+@return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
 @function grid-width($n) {
-@return $n*$grid-width+($n-1)*$gutter-width;
+@return $n*$grid-width+($n-1)*$gutter-width/10;
 }
 @function grid-width($n) {
-    @return $n * $grid-width + ( $n - 1 ) * $gutter-width ;
+    @return $n * $grid-width + ( $n - 1 ) * $gutter-width / 10 ;
 }
 @function grid-width($n) {
-    @return  $n   *  $grid-width  +  (  $n  -  1  )  *  $gutter-width  ;
+    @return  $n   *  $grid-width  +  (  $n  -  1  )  *  $gutter-width  /  10  ;
 }
 @function grid-width($n) {
     @return $n
@@ -3507,7 +3507,10 @@ exports[`return.css 1`] = `
             1
         )
         *
-        $gutter-width;
+        $gutter-width
+        /
+        10
+        ;
 }
 @function grid-width($n) {
     @return
@@ -3520,7 +3523,10 @@ exports[`return.css 1`] = `
             1
         )
         *
-        $gutter-width;
+        $gutter-width
+        /
+        10
+        ;
 }
 @function
 grid-width(
@@ -3539,6 +3545,8 @@ $n
 )
 *
 $gutter-width
+/
+10
 ;
 }
 @function
@@ -3574,6 +3582,10 @@ $n
 *
 
 $gutter-width
+
+/
+
+10
 
 ;
 
@@ -3601,31 +3613,31 @@ $gutter-width
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width;
+  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width;
+  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
 @function grid-width($n) {
-  @return $n*$grid-width+ ($n-1)*$gutter-width;
+  @return $n * $grid-width + ($n-1) * $gutter-width/10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width;
+  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width;
+  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width;
+  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width;
+  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width;
+  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
 @function grid-width($n) {
-  @return $n * $grid-width + ($n - 1) * $gutter-width;
+  @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
 @function grid-width($n) {
   @return $very-very-very-very-very-very-vey-long-var *
