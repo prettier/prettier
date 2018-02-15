@@ -326,6 +326,15 @@ a {
     }
   }
 }
+a {
+  order: 1;
+  @nest very-very-very-very-very-very-very-very-very-long-selector &, very-very-very-very-very-very-very-very-very-long-selector & {
+    order: 2;
+  }
+  @nest very-very-very-very-very-very-very-very-very-long-selector + very-very-very-very-very-very-very-very-very-long-selector  &, very-very-very-very-very-very-very-very-very-long-selector very-very-very-very-very-very-very-very-very-long-selector & {
+    order: 2;
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a {
   order: 1;
@@ -395,11 +404,9 @@ b {
 a,
 b {
   order: 1;
-  @nest & c,
-    & d {
+  @nest & c, & d {
     order: 2;
-    @nest & e,
-      & f {
+    @nest & e, & f {
       order: 3;
     }
     order: 4;
@@ -468,8 +475,7 @@ f {
 a,
 b {
   order: 1;
-  @nest c,
-    d {
+  @nest c, d {
     order: 2;
   }
 }
@@ -527,6 +533,21 @@ a {
         order: 6;
       }
     }
+  }
+}
+a {
+  order: 1;
+  @nest very-very-very-very-very-very-very-very-very-long-selector &,
+    very-very-very-very-very-very-very-very-very-long-selector & {
+    order: 2;
+  }
+  @nest very-very-very-very-very-very-very-very-very-long-selector
+      + very-very-very-very-very-very-very-very-very-long-selector
+      &,
+    very-very-very-very-very-very-very-very-very-long-selector
+      very-very-very-very-very-very-very-very-very-long-selector
+      & {
+    order: 2;
   }
 }
 

@@ -285,18 +285,24 @@ function genericPrint(path, options, print) {
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
       const insideInExtend =
         atRuleAncestorNode && atRuleAncestorNode.name === "extend";
-      const insideInCustomSelector =
+      const insideInCustomSelectorAtRule =
         atRuleAncestorNode && atRuleAncestorNode.name === "custom-selector";
+      const insideInNestAtRule =
+        atRuleAncestorNode && atRuleAncestorNode.name === "nest";
 
       return group(
         concat([
-          insideInCustomSelector
+          insideInCustomSelectorAtRule
             ? concat([atRuleAncestorNode.customSelector, line])
             : "",
           join(
             concat([
               ",",
-              insideInExtend || insideInCustomSelector ? line : hardline
+              insideInExtend ||
+              insideInCustomSelectorAtRule ||
+              insideInNestAtRule
+                ? line
+                : hardline
             ]),
             path.map(print, "nodes")
           )

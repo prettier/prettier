@@ -190,3 +190,12 @@ a {
     }
   }
 }
+a {
+  order: 1;
+  @nest very-very-very-very-very-very-very-very-very-long-selector &, very-very-very-very-very-very-very-very-very-long-selector & {
+    order: 2;
+  }
+  @nest very-very-very-very-very-very-very-very-very-long-selector + very-very-very-very-very-very-very-very-very-long-selector  &, very-very-very-very-very-very-very-very-very-long-selector very-very-very-very-very-very-very-very-very-long-selector & {
+    order: 2;
+  }
+}
