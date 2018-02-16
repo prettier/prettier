@@ -1406,7 +1406,7 @@ $lg-and-up: "(min-width: 1200px)";
   line-height: #{strip-unit($line-height)}em;
   height: 1#{$var};
   width: calc(100% - #{$sidebar-width});
-  max-width: calc(#{$m*100}vw #{$sign} #{$b});
+  max-width: calc(#{$m * 100}vw #{$sign} #{$b});
   font: #{$font-size}/#{$line-height};
   content: "I have #{8 + 2} books on SASS!";
   border: #{$var} #{$var} #{$var};
