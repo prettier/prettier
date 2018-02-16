@@ -63,9 +63,11 @@ type UploadState<E, EM, D> =
   // Uploading to aws3 and CreatePostMutation succeeded
   | D;
 
-type window = Window & {
-  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
-};
+type window =
+  & Window
+  & {
+      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
+    };
 
 `;
 
@@ -141,12 +143,14 @@ interface Interface {
   j: Partial<X | Y>;
 }
 
-type State = {
-  sharedProperty: any;
-} & (
-  | { discriminant: "FOO"; foo: any }
-  | { discriminant: "BAR"; bar: any }
-  | { discriminant: "BAZ"; baz: any });
+type State =
+  & {
+      sharedProperty: any;
+    }
+  & (
+      | { discriminant: "FOO"; foo: any }
+      | { discriminant: "BAR"; bar: any }
+      | { discriminant: "BAZ"; baz: any });
 
 `;
 
