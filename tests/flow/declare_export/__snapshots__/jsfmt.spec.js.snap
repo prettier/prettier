@@ -142,7 +142,7 @@ declare export default () => number;
  * @flow
  */
 
-declare export default () => number
+declare export default () => number;
 
 `;
 
@@ -159,7 +159,7 @@ declare export default () =>number;
  * @flow
  */
 
-declare export default () => number
+declare export default () => number;
 
 `;
 
@@ -251,7 +251,7 @@ declare export var str: string;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @flow */
 
-declare export default number
+declare export default number;
 declare export var str: string;
 
 `;
