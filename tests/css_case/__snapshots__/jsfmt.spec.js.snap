@@ -63,6 +63,10 @@ x-panel {
 :host(:hover) {
     transform: scale(1.1);
 }
+
+SVG LINE {}
+SVG lInE {}
+sVg LiNeArGrAdIeNt {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @custom-media --KeepName (min-width: 500px);
 
@@ -126,6 +130,13 @@ x-panel {
 }
 :host(:hover) {
   transform: scale(1.1);
+}
+
+svg line {
+}
+svg line {
+}
+svg linearGradient {
 }
 
 `;
@@ -274,6 +285,10 @@ a:AFTER {
 }
 
 TABLE {}
+
+SVG LINE {}
+SVG lInE {}
+sVg LiNeArGrAdIeNt {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -428,6 +443,13 @@ a:after {
 table {
 }
 
+svg line {
+}
+svg line {
+}
+svg linearGradient {
+}
+
 `;
 
 exports[`case.scss 1`] = `
@@ -576,6 +598,10 @@ a:AFTER {
 }
 
 TABLE {}
+
+SVG LINE {}
+SVG lInE {}
+sVg LiNeArGrAdIeNt {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -725,6 +751,13 @@ a:after {
 }
 
 table {
+}
+
+svg line {
+}
+svg line {
+}
+svg linearGradient {
 }
 
 `;

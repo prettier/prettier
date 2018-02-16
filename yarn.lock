@@ -4409,6 +4409,10 @@ supports-color@^4.4.0:
   dependencies:
     has-flag "^2.0.0"
 
+svg-tag-names@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/svg-tag-names/-/svg-tag-names-1.1.1.tgz#9641b29ef71025ee094c7043f7cdde7d99fbd50a"
+
 sw-toolbox@3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/sw-toolbox/-/sw-toolbox-3.6.0.tgz#26df1d1c70348658e4dea2884319149b7b3183b5"
