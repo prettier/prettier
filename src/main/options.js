@@ -55,6 +55,10 @@ function normalize(options, opts) {
   rawOptions.locStart = parser.locStart;
   rawOptions.printer = getPrinter(rawOptions);
 
+  if (rawOptions.printer.defaultOptions) {
+    Object.assign(defaults, rawOptions.printer.defaultOptions);
+  }
+
   Object.keys(defaults).forEach(k => {
     if (rawOptions[k] == null) {
       rawOptions[k] = defaults[k];
