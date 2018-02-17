@@ -265,6 +265,9 @@ FastPath.prototype.needsParens = function(options) {
         case "BinaryExpression":
           return parent.operator === "**" && name === "left";
 
+        case "TSNonNullExpression":
+          return true;
+
         default:
           return false;
       }
