@@ -9,7 +9,7 @@ const findProjectRoot = require("find-project-root");
 
 const maybeParse = (filePath, config, parse) => {
   const root = findProjectRoot(path.dirname(path.resolve(filePath)));
-  return filePath && !config && parse(filePath, { root });
+  return filePath && parse(filePath, { root });
 };
 
 const editorconfigAsyncNoCache = (filePath, config) => {
