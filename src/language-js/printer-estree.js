@@ -3485,7 +3485,9 @@ function printExportDeclaration(path, options, print) {
   const semi = options.semi ? ";" : "";
   const parts = ["export "];
 
-  if (decl["default"] || decl.type === "ExportDefaultDeclaration") {
+  const isDefault = decl["default"] || decl.type === "ExportDefaultDeclaration";
+
+  if (isDefault) {
     parts.push("default ");
   }
 
@@ -3497,10 +3499,12 @@ function printExportDeclaration(path, options, print) {
     parts.push(path.call(print, "declaration"));
 
     if (
-      decl.type === "ExportDefaultDeclaration" &&
+      isDefault &&
       (decl.declaration.type !== "ClassDeclaration" &&
         decl.declaration.type !== "FunctionDeclaration" &&
-        decl.declaration.type !== "TSAbstractClassDeclaration")
+        decl.declaration.type !== "TSAbstractClassDeclaration" &&
+        decl.declaration.type !== "DeclareClass" &&
+        decl.declaration.type !== "DeclareFunction")
     ) {
       parts.push(semi);
     }
