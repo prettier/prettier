@@ -16,8 +16,8 @@ const parser = require("./src/main/parser");
 const config = require("./src/config/resolve-config");
 
 const doc = require("./src/doc");
-const printJSXToDebug = doc.printer.printJSXToDebug;
 const printDocToString = doc.printer.printDocToString;
+const printJSXToDebug = doc.debug.printJSXToDebug;
 const printDocToDebug = doc.debug.printDocToDebug;
 
 function guessLineEnding(text) {
