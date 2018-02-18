@@ -144,7 +144,13 @@ function printTag(tagName, props, contents) {
 
 function printDocToJSX(doc, inJSX) {
   if (typeof doc === "string") {
-    return inJSX ? doc : JSON.stringify(doc);
+    if (!inJSX) {
+      return JSON.stringify(doc);
+    }
+    if (/[{}<>]/.test(doc)) {
+      return '{"' + doc + '"}';
+    }
+    return doc;
   }
   if (typeof doc === "number") {
     return String(doc);
