@@ -124,13 +124,15 @@ function printDoc(doc) {
 }
 
 function printTag(tagName, props, contents) {
-  if (Array.isArray(contents)) {
-    contents = contents
-      .map(function(doc) {
-        return printDocToJSX(doc, true);
-      })
-      .join("\n");
+  if (!Array.isArray(contents)) {
+    contents = [contents];
   }
+
+  contents = contents
+    .map(function(doc) {
+      return printDocToJSX(doc, true);
+    })
+    .join("\n");
 
   return (
     "<" +
