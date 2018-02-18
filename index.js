@@ -16,6 +16,7 @@ const parser = require("./src/main/parser");
 const config = require("./src/config/resolve-config");
 
 const doc = require("./src/doc");
+const printJSXToDebug = doc.printer.printJSXToDebug;
 const printDocToString = doc.printer.printDocToString;
 const printDocToDebug = doc.debug.printDocToDebug;
 
@@ -441,7 +442,7 @@ module.exports = {
     // Doesn't handle shebang for now
     formatDoc: function(doc, opts) {
       opts = normalizeOptions(opts);
-      const debug = printDocToDebug(doc);
+      const debug = printJSXToDebug(doc);
       const str = format(debug, opts);
       return str;
     },
@@ -456,7 +457,7 @@ module.exports = {
     },
     printDocToString: function(doc, opts) {
       opts = normalizeOptions(opts);
-      const str = printDocToString(doc, opts);
+      const str = printJSXToDebug(doc, opts);
       return str;
     }
   }
