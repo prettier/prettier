@@ -8,11 +8,11 @@ exports[`attr-selector.css 1`] = `
 [ class*="test" ]{
   color: silver}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[  data-sizes~="m:0" ] {
+[data-sizes~="m:0"] {
   color: pink;
 }
 
-[ class*="test" ] {
+[class*="test"] {
   color: silver;
 }
 

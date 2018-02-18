@@ -7,11 +7,7 @@ Install with `yarn`:
 
 ```bash
 yarn add prettier --dev --exact
-```
-
-You can install it globally if you like:
-
-```bash
+# or globally
 yarn global add prettier
 ```
 

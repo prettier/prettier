@@ -1,8 +1,19 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const grayMatter = require("gray-matter");
 
 function parseSelector(selector) {
+  // If there's a comment inside of a selector, the parser tries to parse
+  // the content of the comment as selectors which turns it into complete
+  // garbage. Better to print the whole selector as-is and not try to parse
+  // and reformat it.
+  if (selector.match(/\/\/|\/\*/)) {
+    return {
+      type: "selector-comment",
+      value: selector.replace(/^ +/, "").replace(/ +$/, "")
+    };
+  }
   const selectorParser = require("postcss-selector-parser");
   let result;
   selectorParser(result_ => {
@@ -28,6 +39,25 @@ function parseValueNodes(nodes) {
 
   for (let i = 0; i < nodes.length; ++i) {
     const node = nodes[i];
+    const isUnquotedDataURLCall =
+      node.type === "func" &&
+      node.value === "url" &&
+      node.group &&
+      node.group.groups &&
+      node.group.groups[0] &&
+      node.group.groups[0].groups &&
+      node.group.groups[0].groups.length > 2 &&
+      node.group.groups[0].groups[0].type === "word" &&
+      node.group.groups[0].groups[0].value === "data" &&
+      node.group.groups[0].groups[1].type === "colon" &&
+      node.group.groups[0].groups[1].value === ":";
+
+    if (isUnquotedDataURLCall) {
+      node.group.groups = [stringifyGroup(node)];
+
+      return node;
+    }
+
     if (node.type === "paren" && node.value === "(") {
       parenGroup = {
         open: node,
@@ -73,6 +103,31 @@ function parseValueNodes(nodes) {
     parenGroup.groups.push(commaGroup);
   }
   return rootParenGroup;
+}
+
+function stringifyGroup(node) {
+  if (node.group) {
+    return stringifyGroup(node.group);
+  }
+
+  if (node.groups) {
+    return node.groups.reduce((previousValue, currentValue, index) => {
+      return (
+        previousValue +
+        stringifyGroup(currentValue) +
+        (currentValue.type === "comma_group" && index !== node.groups.length - 1
+          ? ","
+          : "")
+      );
+    }, "");
+  }
+
+  const before = node.raws && node.raws.before ? node.raws.before : "";
+  const value = node.value ? node.value : "";
+  const unit = node.unit ? node.unit : "";
+  const after = node.raws && node.raws.after ? node.raws.after : "";
+
+  return before + value + unit + after;
 }
 
 function flattenGroups(node) {
@@ -151,16 +206,29 @@ function parseMediaQuery(value) {
   return addTypePrefix(result, "media-");
 }
 
+const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
+
 function parseNestedCSS(node) {
   if (node && typeof node === "object") {
     delete node.parent;
+
     for (const key in node) {
       parseNestedCSS(node[key]);
     }
-    if (typeof node.selector === "string") {
-      const selector = node.raws.selector
+
+    if (typeof node.selector === "string" && node.selector.trim().length > 0) {
+      let selector = node.raws.selector
         ? node.raws.selector.raw
         : node.selector;
+
+      if (node.raws.between && node.raws.between.trim()) {
+        selector += node.raws.between;
+      }
+
+      if (selector.startsWith("@") && selector.endsWith(":")) {
+        return node;
+      }
 
       try {
         node.selector = parseSelector(selector);
@@ -176,25 +244,149 @@ function parseNestedCSS(node) {
           value: selector
         };
       }
+
+      return node;
     }
-    if (node.type && typeof node.value === "string") {
+
+    if (
+      node.type &&
+      node.type !== "css-comment-yaml" &&
+      typeof node.value === "string" &&
+      node.value.trim().length > 0
+    ) {
       try {
-        node.value = parseValue(node.value);
+        let value = node.raws.value ? node.raws.value.raw : node.value;
+
+        const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
+
+        if (defaultSCSSDirectiveIndex) {
+          value = value.substring(0, defaultSCSSDirectiveIndex.index);
+          node.scssDefault = true;
+
+          if (defaultSCSSDirectiveIndex[0].trim() !== "!default") {
+            node.raws.scssDefault = defaultSCSSDirectiveIndex[0];
+          }
+        }
+
+        const globalSCSSDirectiveIndex = value.match(GLOBAL_SCSS_DIRECTIVE);
+
+        if (globalSCSSDirectiveIndex) {
+          value = value.substring(0, globalSCSSDirectiveIndex.index);
+          node.scssGlobal = true;
+
+          if (globalSCSSDirectiveIndex[0].trim() !== "!global") {
+            node.raws.scssGlobal = globalSCSSDirectiveIndex[0];
+          }
+        }
+
+        node.value = parseValue(value);
       } catch (e) {
         throw createError(
           "(postcss-values-parser) " + e.toString(),
           node.source
         );
       }
+
+      return node;
     }
-    if (node.type === "css-atrule" && typeof node.params === "string") {
+
+    if (
+      node.type === "css-atrule" &&
+      typeof node.params === "string" &&
+      node.params.trim().length > 0
+    ) {
+      if (
+        node.name === "charset" ||
+        node.name.toLowerCase() === "counter-style" ||
+        node.name.toLowerCase().endsWith("keyframes") ||
+        node.name.toLowerCase() === "page" ||
+        node.name.toLowerCase() === "font-feature-values"
+      ) {
+        return node;
+      }
+
+      if (node.name === "warn" || node.name === "error") {
+        node.params = {
+          type: "media-unknown",
+          value: node.params
+        };
+
+        return node;
+      }
+
+      if (node.name === "extend" || node.name === "nest") {
+        node.selector = parseSelector(node.params);
+        delete node.params;
+
+        return node;
+      }
+
+      if (node.name === "at-root") {
+        if (/^\(\s*(without|with)\s*:[\s\S]+\)$/.test(node.params)) {
+          node.params = parseMediaQuery(node.params);
+        } else {
+          node.selector = parseSelector(node.params);
+          delete node.params;
+        }
+
+        return node;
+      }
+
+      if (
+        node.name === "if" ||
+        node.name === "else" ||
+        node.name === "for" ||
+        node.name === "each" ||
+        node.name === "while" ||
+        node.name === "debug" ||
+        node.name === "mixin" ||
+        node.name === "include" ||
+        node.name === "function" ||
+        node.name === "return" ||
+        node.name === "define-mixin" ||
+        node.name === "add-mixin"
+      ) {
+        // Remove unnecessary spaces in SCSS variable arguments
+        node.params = node.params.replace(/(\$\S+?)\s+?\.\.\./, "$1...");
+        // Remove unnecessary spaces before SCSS control, mixin and function directives
+        node.params = node.params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
+
+        node.value = parseValue(node.params);
+        delete node.params;
+
+        return node;
+      }
+
+      if (node.params.includes("#{")) {
+        // Workaround for media at rule with scss interpolation
+        return {
+          type: "media-unknown",
+          value: node.params
+        };
+      }
+
+      if (/^custom-selector$/i.test(node.name)) {
+        const customSelector = node.params.match(/:--\S+?\s+/)[0].trim();
+
+        node.customSelector = customSelector;
+        node.selector = parseSelector(
+          node.params.substring(customSelector.length)
+        );
+        delete node.params;
+
+        return node;
+      }
+
       node.params = parseMediaQuery(node.params);
+
+      return node;
     }
   }
+
   return node;
 }
 
-function parseWithParser(parser, text) {
+function parseWithParser(parser, text, frontMatter) {
   let result;
   try {
     result = parser.parse(text);
@@ -204,6 +396,14 @@ function parseWithParser(parser, text) {
     }
     throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
+
+  if (Object.keys(frontMatter.data).length > 0) {
+    result.nodes.unshift({
+      type: "comment-yaml",
+      value: grayMatter.stringify("", frontMatter.data).replace(/\s$/, "")
+    });
+  }
+
   const prefixedResult = addTypePrefix(result, "css-");
   const parsedResult = parseNestedCSS(prefixedResult);
   return parsedResult;
@@ -237,15 +437,22 @@ function parse(text, parsers, opts) {
     ? opts.parser === "scss"
     : IS_POSSIBLY_SCSS.test(text);
 
+  const frontMatter = grayMatter(text);
+  const normalizedText = frontMatter.content;
+
   try {
-    return parseWithParser(requireParser(isSCSS), text);
+    return parseWithParser(requireParser(isSCSS), normalizedText, frontMatter);
   } catch (originalError) {
     if (hasExplicitParserChoice) {
       throw originalError;
     }
 
     try {
-      return parseWithParser(requireParser(!isSCSS), text);
+      return parseWithParser(
+        requireParser(!isSCSS),
+        normalizedText,
+        frontMatter
+      );
     } catch (_secondError) {
       throw originalError;
     }

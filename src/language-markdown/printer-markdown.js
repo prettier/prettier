@@ -1,6 +1,6 @@
 "use strict";
 
-const util = require("../common/util");
+const privateUtil = require("../common/util");
 const embed = require("./embed");
 const doc = require("../doc");
 const docBuilders = doc.builders;
@@ -14,14 +14,8 @@ const align = docBuilders.align;
 const indent = docBuilders.indent;
 const group = docBuilders.group;
 const printDocToString = doc.printer.printDocToString;
-const printerOptions = require("./options");
 
-const SINGLE_LINE_NODE_TYPES = [
-  "heading",
-  "tableCell",
-  "footnoteDefinition",
-  "link"
-];
+const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
 
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
 
@@ -53,7 +47,7 @@ function genericPrint(path, options, print) {
 
   if (shouldRemainTheSameContent(path)) {
     return concat(
-      util
+      privateUtil
         .splitText(
           options.originalText.slice(
             node.position.start.offset,
@@ -87,8 +81,8 @@ function genericPrint(path, options, print) {
         .replace(
           new RegExp(
             [
-              `(^|[${util.punctuationCharRange}])(_+)`,
-              `(_+)([${util.punctuationCharRange}]|$)`
+              `(^|[${privateUtil.punctuationCharRange}])(_+)`,
+              `(_+)([${privateUtil.punctuationCharRange}]|$)`
             ].join("|"),
             "g"
           ),
@@ -120,8 +114,8 @@ function genericPrint(path, options, print) {
         (prevNode &&
           prevNode.type === "sentence" &&
           prevNode.children.length > 0 &&
-          util.getLast(prevNode.children).type === "word" &&
-          !util.getLast(prevNode.children).hasTrailingPunctuation) ||
+          privateUtil.getLast(prevNode.children).type === "word" &&
+          !privateUtil.getLast(prevNode.children).hasTrailingPunctuation) ||
         (nextNode &&
           nextNode.type === "sentence" &&
           nextNode.children.length > 0 &&
@@ -136,7 +130,7 @@ function genericPrint(path, options, print) {
     case "delete":
       return concat(["~~", printChildren(path, options, print), "~~"]);
     case "inlineCode": {
-      const backtickCount = util.getMaxContinuousCount(node.value, "`");
+      const backtickCount = privateUtil.getMaxContinuousCount(node.value, "`");
       const style = backtickCount === 1 ? "``" : "`";
       const gap = backtickCount ? " " : "";
       return concat([style, gap, node.value, gap, style]);
@@ -197,7 +191,10 @@ function genericPrint(path, options, print) {
       // fenced code block
       const styleUnit = options.__inJsTemplate ? "~" : "`";
       const style = styleUnit.repeat(
-        Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
+        Math.max(
+          3,
+          privateUtil.getMaxContinuousCount(node.value, styleUnit) + 1
+        )
       );
       return concat([
         style,
@@ -215,7 +212,7 @@ function genericPrint(path, options, print) {
     case "html": {
       const parentNode = path.getParentNode();
       return parentNode.type === "root" &&
-        util.getLast(parentNode.children) === node
+        privateUtil.getLast(parentNode.children) === node
         ? node.value.trimRight()
         : node.value;
     }
@@ -245,23 +242,13 @@ function genericPrint(path, options, print) {
             : nthSiblingIndex % 2 === 0 ? "* " : "- ";
           return concat([
             prefix,
-            align(" ".repeat(prefix.length), childPath.call(print))
+            align(
+              " ".repeat(prefix.length),
+              printListItem(childPath, options, print, prefix)
+            )
           ]);
         }
       });
-    }
-    case "listItem": {
-      const prefix =
-        node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
-      return concat([
-        prefix,
-        printChildren(path, options, print, {
-          processor: (childPath, index) =>
-            index === 0 && childPath.getValue().type !== "list"
-              ? align(" ".repeat(prefix.length), childPath.call(print))
-              : childPath.call(print)
-        })
-      ]);
     }
     case "thematicBreak": {
       const counter = getAncestorCounter(path, "list");
@@ -286,7 +273,7 @@ function genericPrint(path, options, print) {
     case "imageReference":
       switch (node.referenceType) {
         case "full":
-          return concat(["![", node.alt, "][", node.identifier, "]"]);
+          return concat(["![", node.alt || "", "][", node.identifier, "]"]);
         default:
           return concat([
             "![",
@@ -314,13 +301,28 @@ function genericPrint(path, options, print) {
       return concat(["[^", printChildren(path, options, print), "]"]);
     case "footnoteReference":
       return concat(["[^", node.identifier, "]"]);
-    case "footnoteDefinition":
+    case "footnoteDefinition": {
+      const nextNode = path.getParentNode().children[path.getName() + 1];
       return concat([
         "[^",
         node.identifier,
         "]: ",
-        printChildren(path, options, print)
+        group(
+          concat([
+            align(
+              " ".repeat(options.tabWidth),
+              printChildren(path, options, print, {
+                processor: (childPath, index) =>
+                  index === 0
+                    ? group(concat([softline, softline, childPath.call(print)]))
+                    : childPath.call(print)
+              })
+            ),
+            nextNode && nextNode.type === "footnoteDefinition" ? softline : ""
+          ])
+        )
       ]);
+    }
     case "table":
       return printTable(path, options, print);
     case "tableCell":
@@ -333,9 +335,30 @@ function genericPrint(path, options, print) {
         hardline
       ]);
     case "tableRow": // handled in "table"
+    case "listItem": // handled in "list"
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
+}
+
+function printListItem(path, options, print, listPrefix) {
+  const node = path.getValue();
+  const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
+  return concat([
+    prefix,
+    printChildren(path, options, print, {
+      processor: (childPath, index) => {
+        if (index === 0 && childPath.getValue().type !== "list") {
+          return align(" ".repeat(prefix.length), childPath.call(print));
+        }
+
+        const alignment = " ".repeat(
+          clamp(options.tabWidth - listPrefix.length, 0, 3) // 4 will cause indented codeblock
+        );
+        return concat([alignment, align(alignment, childPath.call(print))]);
+      }
+    })
+  ]);
 }
 
 function getNthListSiblingIndex(node, parentNode) {
@@ -416,7 +439,7 @@ function printTable(path, options, print) {
   const columnMaxWidths = contents.reduce(
     (currentWidths, rowContents) =>
       currentWidths.map((width, columnIndex) =>
-        Math.max(width, util.getStringWidth(rowContents[columnIndex]))
+        Math.max(width, privateUtil.getStringWidth(rowContents[columnIndex]))
       ),
     contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
@@ -470,15 +493,15 @@ function printTable(path, options, print) {
   }
 
   function alignLeft(text, width) {
-    return concat([text, " ".repeat(width - util.getStringWidth(text))]);
+    return concat([text, " ".repeat(width - privateUtil.getStringWidth(text))]);
   }
 
   function alignRight(text, width) {
-    return concat([" ".repeat(width - util.getStringWidth(text)), text]);
+    return concat([" ".repeat(width - privateUtil.getStringWidth(text)), text]);
   }
 
   function alignCenter(text, width) {
-    const spaces = width - util.getStringWidth(text);
+    const spaces = width - privateUtil.getStringWidth(text);
     const left = Math.floor(spaces / 2);
     const right = spaces - left;
     return concat([" ".repeat(left), text, " ".repeat(right)]);
@@ -604,7 +627,7 @@ function shouldRemainTheSameContent(path) {
 }
 
 function normalizeDoc(doc) {
-  return util.mapDoc(doc, currentDoc => {
+  return privateUtil.mapDoc(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
@@ -663,7 +686,7 @@ function printTitle(title, options, printSpace) {
 
 function normalizeParts(parts) {
   return parts.reduce((current, part) => {
-    const lastPart = util.getLast(current);
+    const lastPart = privateUtil.getLast(current);
 
     if (typeof lastPart === "string" && typeof part === "string") {
       current.splice(-1, 1, lastPart + part);
@@ -673,6 +696,10 @@ function normalizeParts(parts) {
 
     return current;
   }, []);
+}
+
+function clamp(value, min, max) {
+  return value < min ? min : value > max ? max : value;
 }
 
 function clean(ast, newObj) {
@@ -687,9 +714,8 @@ function clean(ast, newObj) {
 }
 
 module.exports = {
-  options: printerOptions,
   print: genericPrint,
   embed,
   massageAstNode: clean,
-  hasPrettierIgnore: util.hasIgnoreComment
+  hasPrettierIgnore: privateUtil.hasIgnoreComment
 };

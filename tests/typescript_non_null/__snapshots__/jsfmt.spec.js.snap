@@ -20,6 +20,7 @@ const {
 exports[`parens.ts 1`] = `
 (a ? b : c) ![tokenKey];
 (a || b) ![tokenKey];
+(void 0)!;
 
 async function f() {
     return (await foo())!;
@@ -31,6 +32,7 @@ function* g() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (a ? b : c)![tokenKey];
 (a || b)![tokenKey];
+(void 0)!;
 
 async function f() {
   return (await foo())!;

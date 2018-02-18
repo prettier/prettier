@@ -34,29 +34,7 @@ var worker = new Worker("/worker.js");
 
 const DEFAULT_OPTIONS = {
   options: undefined,
-  content: [
-    'function HelloWorld({greeting = "hello", greeted = \'"World"\', silent = false, onMouseOver,}) {',
-    "",
-    "  if(!greeting){return null};",
-    "",
-    "     // TODO: Don't use random in render",
-    '  let num = Math.floor (Math.random() * 1E+7).toString().replace(/\\.\\d+/ig, "")',
-    "",
-    "  return <div className='HelloWorld' title={`You are visitor number ${ num }`} onMouseOver={onMouseOver}>",
-    "",
-    "    <strong>{ greeting.slice( 0, 1 ).toUpperCase() + greeting.slice(1).toLowerCase() }</strong>",
-    '    {greeting.endsWith(",") ? " " : <span style={{color: \'\\grey\'}}>", "</span> }',
-    "    <em>",
-    "\t{ greeted }",
-    "\t</em>",
-    "    { (silent)",
-    '      ? "."',
-    '      : "!"}',
-    "",
-    "    </div>;",
-    "",
-    "}"
-  ].join("\n")
+  content: ""
 };
 
 window.onload = function() {
@@ -138,8 +116,6 @@ window.onload = function() {
     document.getElementById("input-editor"),
     editorOptions
   );
-  inputEditor.on("change", formatAsync);
-
   docEditor = CodeMirror.fromTextArea(document.getElementById("doc-editor"), {
     readOnly: true,
     lineNumbers: false,
@@ -173,7 +149,11 @@ window.onload = function() {
   }
 
   setEditorStyles();
+
   inputEditor.setValue(state.content);
+  inputEditor.on("change", formatAsync);
+  formatAsync();
+
   document.querySelector(".options-container").onchange = formatAsync;
 
   document.getElementById("button-clear").onclick = function() {
@@ -310,7 +290,7 @@ function formatAsync() {
   );
   replaceHash(value);
   worker.postMessage({
-    text: inputEditor.getValue(),
+    text: inputEditor.getValue() || getExample(options.parser),
     options: options,
     ast: options.ast,
     doc: options.doc,
@@ -320,6 +300,8 @@ function formatAsync() {
 
 function setEditorStyles() {
   var options = getOptions();
+
+  inputEditor.setOption("placeholder", getExample(options.parser));
 
   var mode = getCodemirrorMode(options);
   inputEditor.setOption("mode", mode);
@@ -343,10 +325,10 @@ function setEditorStyles() {
 }
 
 function createMarkdown(full) {
-  var input = inputEditor.getValue();
   var output = outputEditor.getValue();
   var output2 = output2Editor.getValue();
   var options = getOptions();
+  var input = inputEditor.getValue() || getExample(options.parser);
   var cliOptions = getCLIOptions();
   var markdown = formatMarkdown(
     input,
@@ -369,4 +351,95 @@ function showTooltip(elem, text) {
   window.setTimeout(function() {
     elem.removeChild(tooltip);
   }, 2000);
+}
+
+function getExample(parser) {
+  switch (parser) {
+    case "babylon":
+      return [
+        'function HelloWorld({greeting = "hello", greeted = \'"World"\', silent = false, onMouseOver,}) {',
+        "",
+        "  if(!greeting){return null};",
+        "",
+        "     // TODO: Don't use random in render",
+        '  let num = Math.floor (Math.random() * 1E+7).toString().replace(/\\.\\d+/ig, "")',
+        "",
+        "  return <div className='HelloWorld' title={`You are visitor number ${ num }`} onMouseOver={onMouseOver}>",
+        "",
+        "    <strong>{ greeting.slice( 0, 1 ).toUpperCase() + greeting.slice(1).toLowerCase() }</strong>",
+        '    {greeting.endsWith(",") ? " " : <span style={{color: \'\\grey\'}}>", "</span> }',
+        "    <em>",
+        "\t{ greeted }",
+        "\t</em>",
+        "    { (silent)",
+        '      ? "."',
+        '      : "!"}',
+        "",
+        "    </div>;",
+        "",
+        "}"
+      ].join("\n");
+    case "typescript":
+      return [
+        "interface MyInterface {",
+        "  foo(): string,",
+        "  bar: Array<number>,",
+        "}",
+        "",
+        "export abstract class Foo implements MyInterface {",
+        "  foo() {",
+        "            // TODO: return an actual value here",
+        "        return 'hello'",
+        "      }",
+        "  get bar() {",
+        "    return [  1,",
+        "",
+        "      2, 3,",
+        "    ]",
+        "  }",
+        "}",
+        "",
+        "type RequestType = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'OPTIONS' | 'CONNECT' | 'DELETE' | 'TRACE'"
+      ].join("\n");
+    case "css":
+      // Excerpted from the Bootstrap source, which is licensed under the MIT license:
+      // https://github.com/twbs/bootstrap/blob/v4.0.0-beta.3/LICENSE
+      return [
+        "@media (max-width: 480px) {",
+        "  .bd-examples {margin-right: -.75rem;margin-left: -.75rem",
+        "  }",
+        "  ",
+        ' .bd-examples>[class^="col-"]  {',
+        "    padding-right: .75rem;",
+        "    padding-left: .75rem;",
+        "  ",
+        "  }",
+        "}"
+      ].join("\n");
+    case "scss":
+      // Excerpted from the Bootstrap source, which is licensed under the MIT license:
+      // https://github.com/twbs/bootstrap/blob/v4.0.0-beta.3/LICENSE
+      return [
+        "@function color-yiq($color) {",
+        "  $r: red($color);$g: green($color);$b: blue($color);",
+        "",
+        "  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;",
+        "",
+        "  @if ($yiq >= $yiq-contrasted-threshold) {",
+        "    @return $yiq-text-dark;",
+        "} @else {",
+        "    @return $yiq-text-light;",
+        "  }",
+        "}",
+        "",
+        "@each $color, $value in $colors {",
+        "  .swatch-#{$color} {",
+        "    color: color-yiq($value);",
+        "    background-color: #{$value};",
+        "  }",
+        "}"
+      ].join("\n");
+    default:
+      return "";
+  }
 }

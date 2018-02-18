@@ -1,0 +1,5 @@
+.title {
+  @nest :global(h1)& {
+    background: red;
+  }
+}

@@ -112,7 +112,7 @@ function stripLocation(ast) {
 }
 
 function parse(string, opts) {
-  return stripLocation(prettier.__debug.parse(string, opts));
+  return stripLocation(prettier.__debug.parse(string, opts).ast);
 }
 
 function prettyprint(src, filename, options) {

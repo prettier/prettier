@@ -9,9 +9,8 @@ const softline = docBuilders.softline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
 const ifBreak = docBuilders.ifBreak;
-const printerOptions = require("./options");
-
-const util = require("../common/util");
+const privateUtil = require("../common/util");
+const sharedUtil = require("../common/util-shared");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -31,7 +30,7 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "OperationDefinition": {
-      const hasOperation = options.originalText[util.locStart(n)] !== "{";
+      const hasOperation = options.originalText[options.locStart(n)] !== "{";
       const hasName = !!n.name;
       return concat([
         hasOperation ? n.operation : "",
@@ -126,9 +125,13 @@ function genericPrint(path, options, print) {
     }
     case "StringValue": {
       if (n.block) {
-        // It is not possible to distinguish between """\nabc\n""" and """abc"""
-        // https://github.com/graphql/graphql-js/issues/1188
-        return options.originalText.slice(util.locStart(n), util.locEnd(n));
+        return concat([
+          '"""',
+          hardline,
+          join(hardline, n.value.replace(/"""/g, "\\$&").split("\n")),
+          hardline,
+          '"""'
+        ]);
       }
       return concat(['"', n.value.replace(/["\\]/g, "\\$&"), '"']);
     }
@@ -274,6 +277,8 @@ function genericPrint(path, options, print) {
 
     case "FieldDefinition": {
       return concat([
+        path.call(print, "description"),
+        n.description ? hardline : "",
         path.call(print, "name"),
         n.arguments.length > 0
           ? group(
@@ -368,6 +373,8 @@ function genericPrint(path, options, print) {
 
     case "EnumValueDefinition": {
       return concat([
+        path.call(print, "description"),
+        n.description ? hardline : "",
         path.call(print, "name"),
         printDirectives(path, print, n)
       ]);
@@ -375,6 +382,8 @@ function genericPrint(path, options, print) {
 
     case "InputValueDefinition": {
       return concat([
+        path.call(print, "description"),
+        n.description ? (n.description.block ? hardline : line) : "",
         path.call(print, "name"),
         ": ",
         path.call(print, "type"),
@@ -582,7 +591,11 @@ function printSequence(sequencePath, options, print) {
     const printed = print(path);
 
     if (
-      util.isNextLineEmpty(options.originalText, path.getValue()) &&
+      sharedUtil.isNextLineEmpty(
+        options.originalText,
+        path.getValue(),
+        options
+      ) &&
       i < count - 1
     ) {
       return concat([printed, hardline]);
@@ -608,9 +621,8 @@ function printComment(commentPath) {
 }
 
 module.exports = {
-  options: printerOptions,
   print: genericPrint,
-  hasPrettierIgnore: util.hasIgnoreComment,
+  hasPrettierIgnore: privateUtil.hasIgnoreComment,
   printComment,
   canAttachComment
 };

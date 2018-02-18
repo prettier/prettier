@@ -22,7 +22,7 @@ declare function group(doc: Doc, opts?: GroupOpts): Doc;
 
 Mark a group of items which the printer should try to fit on one line. This is the basic command to tell the printer when to break. Groups are usually nested, and the printer will try to fit everything on one line, but if it doesn't fit it will break the outermost group first and try again. It will continue breaking groups until everything fits (or there are no more groups to break).
 
-A document can force parent groups to break by including `breakParent` (see below). A hard and literal line automatically include this so they always break parent groups. Breaks are propagated to all parent groups, so if a deeply nested expression has a hard break, everything with break. This only matters for "hard" breaks, i.e. newlines that are printed no matter what and can be statically analyzed.
+A document can force parent groups to break by including `breakParent` (see below). A hard and literal line automatically include this so they always break parent groups. Breaks are propagated to all parent groups, so if a deeply nested expression has a hard break, everything will break. This only matters for "hard" breaks, i.e. newlines that are printed no matter what and can be statically analyzed.
 
 For example, an array will try to fit on one line:
 
@@ -193,13 +193,49 @@ declare function indent(doc: Doc): Doc;
 
 Increase the level of indentation.
 
+### dedent
+
+```ts
+declare function dedent(doc: Doc): Doc;
+```
+
+Decrease the level of indentation. (Each `align` is considered one level of indentation.)
+
 ### align
 
 ```ts
-declare function align(n: number, doc: Doc): Doc;
+declare function align(n: number | string, doc: Doc): Doc;
 ```
 
-This is similar to indent but it increases the level of indentation by a fixed number. When using tabs, it's going to print spaces. You should prefer using `indent` whenever possible.
+This is similar to indent but it increases the level of indentation by a fixed number or a string.
+Trailing alignments in indentation are still spaces, but middle ones are transformed into one tab per `align` when `useTabs` enabled.
+If it's using in a whitespace-sensitive language, e.g. markdown, you should use `n` with string value to force print it.
+
+For example:
+
+* `useTabs`
+  * `tabWidth: 2`
+    * `<indent><align 2><indent><align 2>` -> `<tab><tab><tab><2 space>`
+    * `<indent><align 4><indent><align 2>` -> `<tab><tab><tab><2 space>`
+  * `tabWidth: 4`
+    * `<indent><align 2><indent><align 2>` -> `<tab><tab><tab><2 space>`
+    * `<indent><align 4><indent><align 2>` -> `<tab><tab><tab><2 space>`
+
+### markAsRoot
+
+```ts
+declare function markAsRoot(doc: Doc): Doc;
+```
+
+This marks the current indentation as root for `dedentToRoot` and `literalline`s.
+
+#### dedentToRoot
+
+```ts
+declare function dedentToRoot(doc: Doc): Doc;
+```
+
+This will dedent the current indentation to the root marked by `markAsRoot`.
 
 ### cursor
 

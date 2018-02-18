@@ -7,7 +7,7 @@ Prettier offers an escape hatch to ignore a block of code or prevent entire file
 
 ## Ignoring Files
 
-To exclude files from formatting, add entries to a `.prettierignore` file in the project root or set the `--ignore-path` [CLI](cli.md) option.
+To exclude files from formatting, add entries to a `.prettierignore` file in the project root or set the [`--ignore-path` CLI option](cli.md#ignore-path).
 
 ## JavaScript
 

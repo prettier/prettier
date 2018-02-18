@@ -1,6 +1,6 @@
 "use strict";
 
-const util = require("../common/util");
+const privateUtil = require("../common/util");
 const doc = require("../doc");
 const docUtils = doc.utils;
 const docBuilders = doc.builders;
@@ -66,7 +66,7 @@ function embed(path, print, textToDoc, options) {
         return concat([
           node.key,
           '="',
-          util.hasNewlineInRange(node.value, 0, node.value.length)
+          privateUtil.hasNewlineInRange(node.value, 0, node.value.length)
             ? doc
             : docUtils.removeLines(doc),
           '"'
@@ -87,7 +87,10 @@ function parseJavaScriptExpression(text, parsers) {
 }
 
 function getText(options, node) {
-  return options.originalText.slice(util.locStart(node), util.locEnd(node));
+  return options.originalText.slice(
+    options.locStart(node),
+    options.locEnd(node)
+  );
 }
 
 module.exports = embed;

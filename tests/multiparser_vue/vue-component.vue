@@ -15,3 +15,8 @@ module  .  exports  =
 p { font-size : 2em ; text-align : center ; }
 
   </style >
+
+<style   lang="postcss" >
+p { font-size : 2em ; text-align : center ; }
+
+  </style >

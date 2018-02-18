@@ -1,46 +1,42 @@
 ---
 id: plugins
-title: Plugins
+title: Plugins (Beta)
 ---
 
-# IN DEVELOPMENT
+## IN BETA
 
-> The plugin API is unreleased and the API may change!
+> The plugin API is in a **beta** state as of Prettier 1.10 and the API may change in the next release!
 
 Plugins are ways of adding new languages to Prettier. Prettier's own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focussed languages built in. For additional languages you'll need to install a plugin.
 
 ## Using Plugins
 
-There are three ways to add plugins to Prettier:
+Plugins are automatically loaded if you have them installed in your `package.json`. Prettier plugin package names must start with `@prettier/plugin-` or `prettier-plugin-` to be registered.
 
-* Via the CLI.
-* Via the API.
-* With a configuration file.
+If the plugin is unable to be found automatically, you can load them with:
 
-### Configuration File (Recommended)
+* The [CLI](./cli.md), via the `--plugin` flag:
 
-In your [configuration file](./configuration.md), add the `plugins` property:
+  ```bash
+  prettier --write main.foo --plugin=./foo-plugin
+  ```
 
-```json
-{
-  "plugins": ["prettier-python"]
-}
-```
+  > Tip: You can pass multiple `--plugin` flags.
 
-### CLI
+* Or the [API](./api.md), via the `plugins` field:
 
-With the [CLI](./cli.md), pass the `--plugin` flag:
-
-```bash
-prettier --write main.py --plugin prettier-python
-```
-
-> Tip: You can pass multiple `--plugin` flags.
+  ```js
+  prettier.format("code", {
+    parser: "foo",
+    plugins: ["./foo-plugin"]
+  });
+  ```
 
 ## Official Plugins
 
-* [`prettier-python`](https://github.com/prettier/prettier-python)
-* [`prettier-php`](https://github.com/prettier/prettier-php)
+* [`@prettier/plugin-python`](https://github.com/prettier/prettier-python)
+* [`@prettier/plugin-php`](https://github.com/prettier/prettier-php)
+* [`@prettier/plugin-swift`](https://github.com/prettier/prettier-swift)
 
 ## Developing Plugins
 
@@ -68,14 +64,16 @@ export const languages = [
 
 Parsers convert code as a string into an [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
 
-The key must match the name in the `parsers` array from `languages`. The value contains a parse function and an AST format name.
+The key must match the name in the `parsers` array from `languages`. The value contains a parse function, an AST format name, and two location extraction functions (`locStart` and `locEnd`).
 
 ```js
 export const parsers = {
   "dance-parse": {
     parse,
     // The name of the AST that
-    astFormat: "dance-ast"
+    astFormat: "dance-ast",
+    locStart,
+    locEnd
   }
 };
 ```
@@ -84,6 +82,12 @@ The signature of the `parse` function is:
 
 ```ts
 function parse(text: string, parsers: object, options: object): AST;
+```
+
+The location extraction functions (`locStart` and `locEnd`) return the beginning and the end location of a given AST node:
+
+```ts
+function locStart(node: object): number;
 ```
 
 ### `printers`
@@ -138,6 +142,18 @@ function embed(
 ```
 
 If you don't want to switch to a different parser, simply return `null` or `undefined`.
+
+### Utility functions
+
+A `util` module from prettier core is considered a private API and is not meant to be consumed by plugins. Instead, the `util-shared` module provides the following limited set of utility functions for plugins:
+
+```ts
+makeString(rawContent: string, enclosingQuote: string, unescapeUnnecessarEscapes: boolean): string;
+getNextNonSpaceNonCommentCharacterIndex(text: string, node: object, options: object): number;
+isNextLineEmptyAfterIndex(text: string, index: number): boolean;
+isNextLineEmpty(text: string, node: object, options: object): boolean;
+mapDoc(doc: object, callback: function): void;
+```
 
 ## Testing Plugins
 

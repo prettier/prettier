@@ -1,7 +1,6 @@
 @charset "UTF-8";
 /* @charset must always have double quotes: https://www.w3.org/TR/css-syntax-3/#determine-the-fallback-encoding */
 /* Also, it has to be the very first thing in the file, but here are some more tests anyway: */
-@CHARSET "UTF-8"; /* Case insensitive for "consistency". */
 @charset 'UTF-8'; /* Single quotes are invalid here. Keep them since we don't know what the user is doing. */
 
 @supports (content: one "two" three 'four') {

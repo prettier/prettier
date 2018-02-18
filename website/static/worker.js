@@ -2,23 +2,39 @@
 /* eslint no-var: off, strict: off */
 
 // "Polyfills" in order for all the code to run
+/* eslint-disable */
 self.global = self;
 self.util = {};
 self.path = {};
+self.path.resolve = self.path.join = self.path.dirname = function() {
+  return "";
+};
+self.path.parse = function() {
+  return { root: "" };
+};
 self.Buffer = {
   isBuffer: function() {
     return false;
   }
 };
 self.constants = {};
-// eslint-disable-next-line
-module$1 = module = path = os = crypto = {};
+module$1 = module = os = crypto = {};
 self.fs = { readFile: function() {} };
-// eslint-disable-next-line no-undef
 os.homedir = function() {
   return "/home/prettier";
 };
-self.process = { argv: [], env: { PRETTIER_DEBUG: true }, version: "v8.5.0" };
+os.EOL = '\n';
+self.process = {
+  argv: [],
+  env: { PRETTIER_DEBUG: true },
+  version: "v8.5.0",
+  binding: function() {
+    return {};
+  },
+  cwd: function() {
+    return "";
+  }
+};
 self.assert = { ok: function() {}, strictEqual: function() {} };
 self.require = function require(path) {
   if (path === "stream") {
@@ -39,6 +55,8 @@ self.require = function require(path) {
 
   return self[path];
 };
+
+/* eslint-enable */
 
 var prettier;
 importScripts("lib/index.js");
@@ -68,7 +86,7 @@ self.onmessage = function(message) {
     var actualAst;
     var errored = false;
     try {
-      actualAst = prettier.__debug.parse(message.data.text, options);
+      actualAst = prettier.__debug.parse(message.data.text, options).ast;
       ast = JSON.stringify(actualAst);
     } catch (e) {
       errored = true;
@@ -111,6 +129,12 @@ function formatCode(text, options) {
   try {
     return prettier.format(text, options);
   } catch (e) {
-    return String(e);
+    if (e.constructor && e.constructor.name === "SyntaxError") {
+      // Likely something wrong with the user's code
+      return String(e);
+    }
+    // Likely a bug in Prettier
+    // Provide the whole stack for debugging
+    return e.stack || String(e);
   }
 }

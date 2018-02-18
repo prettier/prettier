@@ -1,5 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`current-color.css 1`] = `
+.foo {
+    border: 1px dashed currentColor;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  border: 1px dashed currentColor;
+}
+
+`;
+
+exports[`functional-syntax.css 1`] = `
+.foo {
+    color: rgb(255, 0, 153);
+    color: rgb(100%, 0%, 60%);
+    color: rgba(51, 170, 51, 0.1);
+    color: hsl(.75turn, 60%, 70%);
+    color: hsl(270 60% 50% / .15);
+    color: hsla(240, 100%, 50%, .05)
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  color: rgb(255, 0, 153);
+  color: rgb(100%, 0%, 60%);
+  color: rgba(51, 170, 51, 0.1);
+  color: hsl(0.75turn, 60%, 70%);
+  color: hsl(270 60% 50% / 0.15);
+  color: hsla(240, 100%, 50%, 0.05);
+}
+
+`;
+
 exports[`hexcolor.css 1`] = `
 .foo {
     color: #AAA;
@@ -7,6 +39,8 @@ exports[`hexcolor.css 1`] = `
     -webkit-color: #873;
     -moz-color: #6bcdef;
     -ms-color: #AAbbCC;
+    color: #F09F;
+    color: #FF0099FF;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .foo {
@@ -15,6 +49,27 @@ exports[`hexcolor.css 1`] = `
   -webkit-color: #873;
   -moz-color: #6bcdef;
   -ms-color: #aabbcc;
+  color: #f09f;
+  color: #ff0099ff;
+}
+
+`;
+
+exports[`whitespace-syntax.css 1`] = `
+.foo {
+    color: rgba(51 170 51 / 0.4);
+    color: rgba(51 170 51 / 40%);
+    color: hsl(270 60% 50% / .15);
+    color: hsla(240 100% 50% / .05);
+    color: hsla(240 100% 50% / 5%);
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  color: rgba(51 170 51 / 0.4);
+  color: rgba(51 170 51 / 40%);
+  color: hsl(270 60% 50% / 0.15);
+  color: hsla(240 100% 50% / 0.05);
+  color: hsla(240 100% 50% / 5%);
 }
 
 `;

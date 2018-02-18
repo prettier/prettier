@@ -6,7 +6,7 @@ node_js:
 cache:
   yarn: true
   directories:
-  - node_modules
+    - node_modules
 env:
   - NODE_ENV=development
   - NODE_ENV=production
@@ -20,5 +20,9 @@ before_script:
 script:
   - yarn lint
   - yarn lint-docs
-  - AST_COMPARE=1 yarn test -- --runInBand
+  - if [ "${NODE_ENV}" = "production" ]; then yarn test:dist; fi
+  - if [ "${NODE_ENV}" = "development" ]; then AST_COMPARE=1 yarn test -- --runInBand; fi
   - if [ "${NODE_ENV}" = "development" ]; then yarn codecov; fi
+branches:
+  only:
+    - master
