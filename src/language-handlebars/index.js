@@ -40,5 +40,8 @@ const printers = {
 module.exports = {
   languages,
   parsers,
-  printers
+  printers,
+  defaultOptions: {
+    tabWidth: 4
+  }
 };

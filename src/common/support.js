@@ -251,6 +251,18 @@ function getSupportInfo(version, opts) {
       return newOption;
     });
 
+  options.forEach(option => {
+    plugins.forEach(plugin => {
+      if (plugin.defaultOptions && plugin.defaultOptions[option.name]) {
+        if (!option.defaultOptions) {
+          option.pluginDefaults = {};
+        }
+        const printerName = Object.keys(plugin.printers)[0];
+        option.pluginDefaults[printerName] = plugin.defaultOptions[option.name];
+      }
+    });
+  });
+
   const usePostCssParser = semver.lt(version, "1.7.1");
 
   const languages = plugins
