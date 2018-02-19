@@ -442,7 +442,6 @@ function getExample(parser) {
     case "json":
       // Excerpted & adapted from Wikipedia, under the Creative Commons Attribution-ShareAlike License
       // https://en.wikipedia.org/wiki/JSON#Example
-      // https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License
       return [
         '{"allOn": "Single", "Line": "example",',
         '"noSpace":true,',
