@@ -439,6 +439,24 @@ function getExample(parser) {
         "  }",
         "}"
       ].join("\n");
+    case "json":
+      // Excerpted & adapted from Wikipedia, under the Creative Commons Attribution-ShareAlike License
+      // https://en.wikipedia.org/wiki/JSON#Example
+      return [
+        '{"allOn": "Single", "Line": "example",',
+        '"noSpace":true,',
+        '  "quote": {',
+        "    'singleQuote': 'example',",
+        '                  "indented": true,',
+        "  },",
+        '  "phoneNumbers": [',
+        '    {"type": "home",',
+        '      "number": "212 555-1234"},',
+        '    {"type": "office",',
+        '      "trailing": "commas by accident"},',
+        "  ],",
+        "}"
+      ].join("\n");
     default:
       return "";
   }
