@@ -1,6 +1,11 @@
 "use strict";
 
 const htmlTagNames = require("html-tag-names");
+const svgTagNames = require("svg-tag-names");
+
+const lowercasedSvgTagNames = svgTagNames.map(svgTagName => {
+  return svgTagName.toLowerCase();
+});
 
 function clean(ast, newObj) {
   if (
@@ -113,6 +118,13 @@ function clean(ast, newObj) {
 
   if (ast.type === "selector-tag") {
     const lowercasedValue = ast.value.toLowerCase();
+    const SVGTagIndex = lowercasedSvgTagNames.indexOf(lowercasedValue);
+
+    if (htmlTagNames.indexOf(lowercasedValue) !== -1) {
+      newObj.value = lowercasedValue;
+    } else if (SVGTagIndex !== -1) {
+      newObj.value = svgTagNames[SVGTagIndex];
+    }
 
     if (htmlTagNames.indexOf(lowercasedValue) !== -1) {
       newObj.value = lowercasedValue;

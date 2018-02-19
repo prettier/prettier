@@ -1,6 +1,7 @@
 "use strict";
 
 const htmlTagNames = require("html-tag-names");
+const svgTagNames = require("svg-tag-names");
 const clean = require("./clean");
 const privateUtil = require("../common/util");
 const sharedUtil = require("../common/util-shared");
@@ -16,6 +17,10 @@ const fill = docBuilders.fill;
 const indent = docBuilders.indent;
 
 const removeLines = doc.utils.removeLines;
+
+const lowercasedSvgTagNames = svgTagNames.map(svgTagName => {
+  return svgTagName.toLowerCase();
+});
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -324,14 +329,21 @@ function genericPrint(path, options, print) {
         atRuleAncestorNode.name.toLowerCase().endsWith("keyframes") &&
         ["from", "to"].indexOf(lowercasedValue) !== -1;
       const isHTMLTag = htmlTagNames.indexOf(lowercasedValue) !== -1;
+      const SVGTagIndex = lowercasedSvgTagNames.indexOf(lowercasedValue);
+
+      let value = node.value;
+
+      if (isHTMLTag || isKeyframeKeywords) {
+        value = lowercasedValue;
+      } else if (SVGTagIndex !== -1) {
+        value = svgTagNames[SVGTagIndex];
+      }
 
       return concat([
         node.namespace
           ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
           : "",
-        adjustNumbers(
-          isHTMLTag || isKeyframeKeywords ? lowercasedValue : node.value
-        )
+        adjustNumbers(value)
       ]);
     }
     case "selector-id": {
