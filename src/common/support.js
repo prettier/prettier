@@ -249,19 +249,18 @@ function getSupportInfo(version, opts) {
       }
 
       return newOption;
-    });
-
-  options.forEach(option => {
-    plugins.forEach(plugin => {
-      if (plugin.defaultOptions && plugin.defaultOptions[option.name]) {
-        if (!option.defaultOptions) {
-          option.pluginDefaults = {};
-        }
+    })
+    .map(option => {
+      const filteredPlugins = plugins.filter(
+        plugin => plugin.defaultOptions && plugin.defaultOptions[option.name]
+      );
+      const pluginDefaults = filteredPlugins.reduce((reduced, plugin) => {
         const printerName = Object.keys(plugin.printers)[0];
-        option.pluginDefaults[printerName] = plugin.defaultOptions[option.name];
-      }
+        reduced[printerName] = plugin.defaultOptions[option.name];
+        return reduced;
+      }, {});
+      return Object.assign(option, { pluginDefaults });
     });
-  });
 
   const usePostCssParser = semver.lt(version, "1.7.1");
 

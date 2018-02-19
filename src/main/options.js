@@ -55,16 +55,18 @@ function normalize(options, opts) {
   rawOptions.locStart = parser.locStart;
   rawOptions.printer = getPrinter(rawOptions);
 
-  const pluginDefaults = supportOptions.reduce((reduced, optionInfo) => {
-    const val =
-      optionInfo.pluginDefaults && optionInfo.pluginDefaults[options.parser];
-    if (val) {
-      return Object.assign(reduced, {
-        [optionInfo.name]: val
-      });
-    }
-    return reduced;
-  }, {});
+  const pluginDefaults = supportOptions
+    .filter(
+      optionInfo =>
+        optionInfo.pluginDefaults && optionInfo.pluginDefaults[options.parser]
+    )
+    .reduce(
+      (reduced, optionInfo) =>
+        Object.assign(reduced, {
+          [optionInfo.name]: optionInfo.pluginDefaults[options.parser]
+        }),
+      {}
+    );
 
   Object.assign(defaults, pluginDefaults);
 
