@@ -20,7 +20,13 @@ GithubButton.propTypes = {
 
 class Footer extends React.Component {
   url(path) {
-    return this.props.config.baseUrl + "docs/" + this.props.language + path;
+    const language = this.props.language || "en";
+    return `${this.props.config.baseUrl}docs/${language}${path}`;
+  }
+
+  usersUrl() {
+    const language = this.props.language || "en";
+    return `${this.props.config.baseUrl}${language}/users`;
   }
 
   render() {
@@ -40,11 +46,7 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>Community</h5>
-            <a
-              href={this.props.config.baseUrl + this.props.language + "/users/"}
-            >
-              User Showcase
-            </a>
+            <a href={this.usersUrl()}>User Showcase</a>
             <a
               href="http://stackoverflow.com/questions/tagged/prettier"
               target="_blank"
