@@ -57,3 +57,9 @@ There are a few rules that this disables that you may want to turn back on as lo
   "extends": ["plugin:prettier/recommended"]
 }
 ```
+
+Remember to install both `eslint-plugin-prettier` and `eslint-config-prettier`:
+
+```bash
+yarn add --dev eslint-plugin-prettier eslint-config-prettier
+```

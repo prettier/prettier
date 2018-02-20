@@ -1,13 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`trailing.css 1`] = `
+exports[`declaration.css 1`] = `
+a {
+    margin: $bar,;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a {
+  margin: $bar;
+}
+
+`;
+
+exports[`list.css 1`] = `
+$colors: hotpink deepskyblue firebrick,;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$colors: hotpink deepskyblue firebrick;
+
+`;
+
+exports[`map.css 1`] = `
+$map: (a,);
+$map: ('Helvetica', 'Arial', sans-serif,);
+$map: (
+    small: 767px,
+    medium: 992px,
+    large: 1200px,
+);
+$map: (
+    'medium': (min-width: 800px),
+    'large': (min-width: 1000px),
+    'huge': (min-width: 1200px),
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$map: (a);
+$map: (
+  "Helvetica",
+  "Arial",
+  sans-serif
+);
+$map: (
+  small: 767px,
+  medium: 992px,
+  large: 1200px
+);
+$map: (
+  "medium": (min-width: 800px),
+  "large": (min-width: 1000px),
+  "huge": (min-width: 1200px)
+);
+
+`;
+
+exports[`selector_list.css 1`] = `
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm,
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm, {
 
+}
+
+.some-class, {
+&.another-class, {
+     color: red;
+ }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm,
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm {
 }
+
+.some-class {
+  &.another-class {
+    color: red;
+  }
+}
+
+`;
+
+exports[`variable.css 1`] = `
+$test: 1,;
+$margin: 0, 2em, 0, 1.5em,;
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$test: 1;
+$margin: 0, 2em, 0, 1.5em;
 
 `;

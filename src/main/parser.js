@@ -2,6 +2,10 @@
 
 const path = require("path");
 const ConfigError = require("../common/errors").ConfigError;
+const js = require("../language-js/index.js");
+
+const locStart = js.locStart;
+const locEnd = js.locEnd;
 
 function getParsers(options) {
   return options.plugins.reduce(
@@ -17,7 +21,9 @@ function resolveParser(opts, parsers) {
     // Custom parser API always works with JavaScript.
     return {
       parse: opts.parser,
-      astFormat: "estree"
+      astFormat: "estree",
+      locStart,
+      locEnd
     };
   }
 
@@ -28,7 +34,9 @@ function resolveParser(opts, parsers) {
     try {
       return {
         parse: eval("require")(path.resolve(process.cwd(), opts.parser)),
-        astFormat: "estree"
+        astFormat: "estree",
+        locStart,
+        locEnd
       };
     } catch (err) {
       /* istanbul ignore next */

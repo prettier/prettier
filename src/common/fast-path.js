@@ -154,7 +154,13 @@ FastPath.prototype.needsParens = function(options) {
 
   // Closure compiler requires that type casted expressions to be surrounded by
   // parentheses.
-  if (util.hasClosureCompilerTypeCastComment(options.originalText, node)) {
+  if (
+    util.hasClosureCompilerTypeCastComment(
+      options.originalText,
+      node,
+      options.locEnd
+    )
+  ) {
     return true;
   }
 
@@ -258,6 +264,9 @@ FastPath.prototype.needsParens = function(options) {
 
         case "BinaryExpression":
           return parent.operator === "**" && name === "left";
+
+        case "TSNonNullExpression":
+          return true;
 
         default:
           return false;
@@ -486,7 +495,7 @@ FastPath.prototype.needsParens = function(options) {
         // See corresponding workaround in printer.js case: "Literal"
         ((options.parser !== "typescript" && !parent.directive) ||
           (options.parser === "typescript" &&
-            options.originalText.substr(util.locStart(node) - 1, 1) === "("))
+            options.originalText.substr(options.locStart(node) - 1, 1) === "("))
       ) {
         // To avoid becoming a directive
         const grandParent = this.getParentNode(1);
@@ -554,6 +563,7 @@ FastPath.prototype.needsParens = function(options) {
         case "AwaitExpression":
         case "JSXSpreadAttribute":
         case "TSTypeAssertionExpression":
+        case "TypeCastExpression":
         case "TSAsExpression":
         case "TSNonNullExpression":
           return true;

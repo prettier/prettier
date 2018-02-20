@@ -2,6 +2,7 @@
 /* eslint no-var: off, strict: off */
 
 // "Polyfills" in order for all the code to run
+/* eslint-disable */
 self.global = self;
 self.util = {};
 self.path = {};
@@ -17,13 +18,12 @@ self.Buffer = {
   }
 };
 self.constants = {};
-// eslint-disable-next-line
 module$1 = module = os = crypto = {};
 self.fs = { readFile: function() {} };
-// eslint-disable-next-line no-undef
 os.homedir = function() {
   return "/home/prettier";
 };
+os.EOL = '\n';
 self.process = {
   argv: [],
   env: { PRETTIER_DEBUG: true },
@@ -55,6 +55,8 @@ self.require = function require(path) {
 
   return self[path];
 };
+
+/* eslint-enable */
 
 var prettier;
 importScripts("lib/index.js");

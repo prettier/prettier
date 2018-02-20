@@ -68,7 +68,17 @@ function printDoc(doc) {
   }
 
   if (doc.type === "align") {
-    return "align(" + doc.n + ", " + printDoc(doc.contents) + ")";
+    return doc.n === -Infinity
+      ? "dedentToRoot(" + printDoc(doc.contents) + ")"
+      : doc.n < 0
+        ? "dedent(" + printDoc(doc.contents) + ")"
+        : doc.n.type === "root"
+          ? "markAsRoot(" + printDoc(doc.contents) + ")"
+          : "align(" +
+            JSON.stringify(doc.n) +
+            ", " +
+            printDoc(doc.contents) +
+            ")";
   }
 
   if (doc.type === "if-break") {

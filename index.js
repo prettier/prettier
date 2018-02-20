@@ -2,7 +2,8 @@
 
 const version = require("./package.json").version;
 
-const util = require("./src/common/util");
+const privateUtil = require("./src/common/util");
+const sharedUtil = require("./src/common/util-shared");
 const getSupportInfo = require("./src/common/support").getSupportInfo;
 
 const comments = require("./src/main/comments");
@@ -99,7 +100,7 @@ function formatWithCursor(text, opts, addAlignmentSize) {
     const cursorNodeAndParents = findNodeAtOffset(ast, opts.cursorOffset, opts);
     const cursorNode = cursorNodeAndParents.node;
     if (cursorNode) {
-      cursorOffset = opts.cursorOffset - util.locStart(cursorNode);
+      cursorOffset = opts.cursorOffset - opts.locStart(cursorNode);
       opts.cursorNode = cursorNode;
     }
   }
@@ -133,7 +134,7 @@ function format(text, opts, addAlignmentSize) {
   return formatWithCursor(text, opts, addAlignmentSize).formatted;
 }
 
-function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
+function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
   let resultStartNode = startNodeAndParents.node;
   let resultEndNode = endNodeAndParents.node;
 
@@ -148,7 +149,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
     if (
       endParent.type !== "Program" &&
       endParent.type !== "File" &&
-      util.locStart(endParent) >= util.locStart(startNodeAndParents.node)
+      opts.locStart(endParent) >= opts.locStart(startNodeAndParents.node)
     ) {
       resultEndNode = endParent;
     } else {
@@ -160,7 +161,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
     if (
       startParent.type !== "Program" &&
       startParent.type !== "File" &&
-      util.locEnd(startParent) <= util.locEnd(endNodeAndParents.node)
+      opts.locEnd(startParent) <= opts.locEnd(endNodeAndParents.node)
     ) {
       resultStartNode = startParent;
     } else {
@@ -177,8 +178,8 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents) {
 function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
   predicate = predicate || (() => true);
   parentNodes = parentNodes || [];
-  const start = util.locStart(node);
-  const end = util.locEnd(node);
+  const start = options.locStart(node, options.locStart);
+  const end = options.locEnd(node, options.locEnd);
   if (start <= offset && offset <= end) {
     for (const childNode of comments.getSortedChildNodes(
       node,
@@ -238,10 +239,10 @@ function isSourceElement(opts, node) {
     "ExportNamedDeclaration", // Module
     "ExportAllDeclaration", // Module
     "TypeAlias", // Flow
-    "InterfaceDeclaration", // Flow, Typescript
-    "TypeAliasDeclaration", // Typescript
-    "ExportAssignment", // Typescript
-    "ExportDeclaration" // Typescript
+    "InterfaceDeclaration", // Flow, TypeScript
+    "TypeAliasDeclaration", // TypeScript
+    "ExportAssignment", // TypeScript
+    "ExportDeclaration" // TypeScript
   ];
   const jsonSourceElements = [
     "ObjectExpression",
@@ -323,12 +324,19 @@ function calculateRange(text, opts, ast) {
 
   const siblingAncestors = findSiblingAncestors(
     startNodeAndParents,
-    endNodeAndParents
+    endNodeAndParents,
+    opts
   );
   const startNode = siblingAncestors.startNode;
   const endNode = siblingAncestors.endNode;
-  const rangeStart = Math.min(util.locStart(startNode), util.locStart(endNode));
-  const rangeEnd = Math.max(util.locEnd(startNode), util.locEnd(endNode));
+  const rangeStart = Math.min(
+    opts.locStart(startNode, opts.locStart),
+    opts.locStart(endNode, opts.locStart)
+  );
+  const rangeEnd = Math.max(
+    opts.locEnd(startNode, opts.locEnd),
+    opts.locEnd(endNode, opts.locEnd)
+  );
 
   return {
     rangeStart: rangeStart,
@@ -355,7 +363,10 @@ function formatRange(text, opts, ast) {
   );
   const indentString = text.slice(rangeStart2, rangeStart);
 
-  const alignmentSize = util.getAlignmentSize(indentString, opts.tabWidth);
+  const alignmentSize = privateUtil.getAlignmentSize(
+    indentString,
+    opts.tabWidth
+  );
 
   const rangeFormatted = format(
     rangeString,
@@ -400,6 +411,8 @@ module.exports = {
   getSupportInfo,
 
   version,
+
+  util: sharedUtil,
 
   /* istanbul ignore next */
   __debug: {

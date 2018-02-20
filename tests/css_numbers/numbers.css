@@ -65,5 +65,9 @@
     a: 10;
     a: 9700;
     a: 10e100;
+    height: attr(data-size em, .01);
   }
 }
+
+@media only screen and (-webkit-min-device-pixel-ratio : .5), only screen and (min-device-pixel-ratio : .5) { }
+@include single-transition(transform, .5s ease);

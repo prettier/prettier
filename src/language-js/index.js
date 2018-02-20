@@ -2,9 +2,66 @@
 
 const printer = require("./printer-estree");
 const hasPragma = require("./pragma").hasPragma;
+const options = require("./options");
+const privateUtil = require("../common/util");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+
+const locStart = function(node) {
+  // Handle nodes with decorators. They should start at the first decorator
+  if (
+    node.declaration &&
+    node.declaration.decorators &&
+    node.declaration.decorators.length > 0
+  ) {
+    return locStart(node.declaration.decorators[0]);
+  }
+  if (node.decorators && node.decorators.length > 0) {
+    return locStart(node.decorators[0]);
+  }
+
+  if (node.__location) {
+    return node.__location.startOffset;
+  }
+  if (node.range) {
+    return node.range[0];
+  }
+  if (typeof node.start === "number") {
+    return node.start;
+  }
+  if (node.loc) {
+    return node.loc.start;
+  }
+  return null;
+};
+
+const locEnd = function(node) {
+  const endNode = node.nodes && privateUtil.getLast(node.nodes);
+  if (endNode && node.source && !node.source.end) {
+    node = endNode;
+  }
+
+  let loc;
+  if (node.range) {
+    loc = node.range[1];
+  } else if (typeof node.end === "number") {
+    loc = node.end;
+  }
+
+  if (node.__location) {
+    return node.__location.endOffset;
+  }
+  if (node.typeAnnotation) {
+    return Math.max(loc, locEnd(node.typeAnnotation));
+  }
+
+  if (node.loc && !loc) {
+    return node.loc.end;
+  }
+
+  return loc;
+};
 
 const languages = [
   {
@@ -104,16 +161,20 @@ const typescript = {
   get parse() {
     return eval("require")("./parser-typescript");
   },
+  astFormat: "estree",
   hasPragma,
-  astFormat: "estree"
+  locStart,
+  locEnd
 };
 
 const babylon = {
   get parse() {
     return eval("require")("./parser-babylon");
   },
+  astFormat: "estree",
   hasPragma,
-  astFormat: "estree"
+  locStart,
+  locEnd
 };
 
 const parsers = {
@@ -127,8 +188,10 @@ const parsers = {
     get parse() {
       return eval("require")("./parser-flow");
     },
+    astFormat: "estree",
     hasPragma,
-    astFormat: "estree"
+    locStart,
+    locEnd
   },
   "typescript-eslint": typescript,
   // TODO: Delete this in 2.0
@@ -141,6 +204,9 @@ const printers = {
 
 module.exports = {
   languages,
+  options,
   parsers,
-  printers
+  printers,
+  locStart,
+  locEnd
 };

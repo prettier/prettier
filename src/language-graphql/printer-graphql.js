@@ -9,9 +9,8 @@ const softline = docBuilders.softline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
 const ifBreak = docBuilders.ifBreak;
-const printerOptions = require("./options");
-
-const util = require("../common/util");
+const privateUtil = require("../common/util");
+const sharedUtil = require("../common/util-shared");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -31,7 +30,7 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "OperationDefinition": {
-      const hasOperation = options.originalText[util.locStart(n)] !== "{";
+      const hasOperation = options.originalText[options.locStart(n)] !== "{";
       const hasName = !!n.name;
       return concat([
         hasOperation ? n.operation : "",
@@ -592,7 +591,11 @@ function printSequence(sequencePath, options, print) {
     const printed = print(path);
 
     if (
-      util.isNextLineEmpty(options.originalText, path.getValue()) &&
+      sharedUtil.isNextLineEmpty(
+        options.originalText,
+        path.getValue(),
+        options
+      ) &&
       i < count - 1
     ) {
       return concat([printed, hardline]);
@@ -618,9 +621,8 @@ function printComment(commentPath) {
 }
 
 module.exports = {
-  options: printerOptions,
   print: genericPrint,
-  hasPrettierIgnore: util.hasIgnoreComment,
+  hasPrettierIgnore: privateUtil.hasIgnoreComment,
   printComment,
   canAttachComment
 };

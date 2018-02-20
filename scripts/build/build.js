@@ -26,7 +26,7 @@ shell.rm("-Rf", "dist/");
 shell.exec("rollup -c scripts/build/rollup.index.config.js");
 
 shell.exec("rollup -c scripts/build/rollup.bin.config.js");
-shell.chmod("+x", "./dist/bin/prettier.js");
+shell.chmod("+x", "./dist/bin-prettier.js");
 
 shell.exec("rollup -c scripts/build/rollup.third-party.config.js");
 
@@ -63,7 +63,7 @@ shell.sed(
   /eval\("require"\)/,
   "require",
   "dist/index.js",
-  "dist/bin/prettier.js"
+  "dist/bin-prettier.js"
 );
 
 shell.echo("Update ISSUE_TEMPLATE.md");
@@ -86,6 +86,7 @@ pipe(newIssueTemplate).to(".github/ISSUE_TEMPLATE.md");
 
 shell.echo("Copy package.json");
 const pkgWithoutDependencies = Object.assign({}, pkg);
+pkgWithoutDependencies.bin = "./bin-prettier.js";
 delete pkgWithoutDependencies.dependencies;
 pkgWithoutDependencies.scripts = {
   prepublishOnly:
