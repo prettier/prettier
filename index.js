@@ -18,7 +18,6 @@ const config = require("./src/config/resolve-config");
 const doc = require("./src/doc");
 const printDocToString = doc.printer.printDocToString;
 const printJSXToDebug = doc.debug.printJSXToDebug;
-const printDocToDebug = doc.debug.printDocToDebug;
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
