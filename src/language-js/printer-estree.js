@@ -3889,7 +3889,7 @@ function printMemberChain(path, options, print) {
         node: node,
         printed: comments.printComments(
           path,
-          () => printNonNullExpression(path, options),
+          () => printNonNullExpression(),
           options
         )
       });
