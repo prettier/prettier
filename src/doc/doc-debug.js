@@ -155,6 +155,9 @@ function printDocToJSX(doc, inJSX) {
   if (typeof doc === "number") {
     return String(doc);
   }
+  if (doc == null) {
+    return "";
+  }
 
   if (doc.type === "line") {
     let props = "";
