@@ -377,7 +377,14 @@ function parseNestedCSS(node) {
         return node;
       }
 
-      node.params = parseMediaQuery(node.params);
+      node.params = parseMediaQuery(
+        node.params
+          .replace(/\r?\n|\r/g, " ")
+          .replace(/\s+:\s+/g, ": ")
+          .replace(/\(\s+/g, "(")
+          .replace(/\s+\)/g, ")")
+          .replace(/\s+(and|or|not)\s+/g, " $1 ")
+      );
 
       return node;
     }

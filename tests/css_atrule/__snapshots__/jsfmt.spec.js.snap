@@ -3954,12 +3954,9 @@ run-in
 }
 @supports (transform-origin: 5% 5%) {
 }
-@supports (transform-origin: 5%
-5%) {
+@supports (transform-origin: 5% 5%) {
 }
-@supports (transform-origin: 5%
-
-5%) {
+@supports (transform-origin: 5%  5%) {
 }
 @supports (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
 }
@@ -3983,15 +3980,9 @@ run-in
 }
 @supports not (transform-origin: 10em 10em 10em) {
 }
-@supports not (transform-origin: 10em
-10em
-10em) {
+@supports not (transform-origin: 10em 10em 10em) {
 }
-@supports not (transform-origin: 10em
-
-10em
-
-10em) {
+@supports not (transform-origin: 10em  10em  10em) {
 }
 @supports not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
 }
@@ -4007,26 +3998,17 @@ run-in
 }
 @supports not(not(transform-origin:2px)) {
 }
-@supports not (not ( transform-origin: 2px )) {
+@supports not (not (transform-origin: 2px)) {
 }
-@supports not (not ( transform-origin: 2px  )) {
+@supports not (not (transform-origin: 2px)) {
 }
 @supports not (not (transform-origin: 2px)) {
 }
 @supports not (not (transform-origin: 2px)) {
 }
-@supports not (not
-(
-transform-origin: 2px
-)) {
+@supports not (not (transform-origin: 2px)) {
 }
-@supports not (not
-
-(
-
-transform-origin: 2px
-
-)) {
+@supports not (not (transform-origin: 2px)) {
 }
 @supports (display: flexbox) and (not (display: inline-grid)) {
 }
@@ -4052,39 +4034,13 @@ transform-origin: 2px
 }
 @supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
 }
-@supports (display: table-cell) and ((display: list-item)
-  and (display: run-in)) {
+@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
 }
-@supports (display: table-cell) and ((display: list-item) and
-  (display: run-in)) {
+@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
 }
-@supports (display: table-cell) and ((
-display: list-item
-)
-and
-(
-display
-:
-run-in
-)) {
+@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
 }
-@supports (display: table-cell) and ((
-
-display: list-item
-
-)
-
-and
-
-(
-
-display
-
-:
-
-run-in
-
-)) {
+@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
 }
 @supports (transform-style: preserve) or (-moz-transform-style: preserve) {
 }
