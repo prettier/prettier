@@ -38,6 +38,12 @@ If the plugin is unable to be found automatically, you can load them with:
 * [`@prettier/plugin-php`](https://github.com/prettier/prettier-php)
 * [`@prettier/plugin-swift`](https://github.com/prettier/prettier-swift)
 
+## Community Plugins
+
+* [prettier-plugin-java](https://github.com/thorbenvh8/prettier-java)
+* [iamsolankiamit/prettier-ruby](https://github.com/iamsolankiamit/prettier-ruby)
+* [benjie/prettier-plugin-pg](https://github.com/benjie/prettier-plugin-pg)
+
 ## Developing Plugins
 
 Prettier plugins are regular JavaScript modules with three exports, `languages`, `parsers` and `printers`.
