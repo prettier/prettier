@@ -3884,11 +3884,7 @@ function printMemberChain(path, options, print) {
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node: node,
-        printed: comments.printComments(
-          path,
-          () => "!",
-          options
-        )
+        printed: comments.printComments(path, () => "!", options)
       });
       path.call(expression => rec(expression), "expression");
     } else {
