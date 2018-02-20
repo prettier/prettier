@@ -4586,9 +4586,9 @@ typescript-eslint-parser@13.0.0:
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-typescript@2.7.0-insiders.20171214:
-  version "2.7.0-insiders.20171214"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.7.0-insiders.20171214.tgz#841344ddae5f498a97c0435fcd12860480050e71"
+typescript@2.8.0-dev.20180220:
+  version "2.8.0-dev.20180220"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.8.0-dev.20180220.tgz#5ac7b8f82c6adb4ba000bcdcebe99db0bf71f950"
 
 uglify-es@3.0.28:
   version "3.0.28"

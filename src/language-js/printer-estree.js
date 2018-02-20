@@ -2859,6 +2859,38 @@ function printPathNoParens(path, options, print, args) {
     case "PrivateName":
       return concat(["#", path.call(print, "id")]);
 
+    case "TSConditionalType": {
+      const parent = path.getParentNode();
+      const forceNoIndent = parent.type === "TSConditionalType";
+      const part = concat([
+        line,
+        "? ",
+        n.trueType.type === "TSConditionalType" ? ifBreak("", "(") : "",
+        align(2, path.call(print, "trueType")),
+        n.trueType.type === "TSConditionalType" ? ifBreak("", ")") : "",
+        line,
+        ": ",
+        align(2, path.call(print, "falseType"))
+      ]);
+      parts.push(
+        parent.type === "TSConditionalType"
+          ? options.useTabs
+            ? dedent(indent(part))
+            : align(Math.max(0, options.tabWidth - 2), part)
+          : part
+      );
+      return group(
+        concat([
+          path.call(print, "checkType"),
+          " ",
+          "extends",
+          " ",
+          path.call(print, "extendsType"),
+          forceNoIndent ? concat(parts) : indent(concat(parts))
+        ])
+      );
+    }
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));
