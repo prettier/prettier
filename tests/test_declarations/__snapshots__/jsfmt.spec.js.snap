@@ -1,5 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`angular_async.js 1`] = `
+beforeEach(async(() => {
+  // code
+}));
+
+it('should create the app', async(() => {
+  // code
+}));
+
+it(\`should have as title 'app'\`, async(() => {
+  // code
+}));
+
+it("should render title in a h1 tag", async(() => {
+  // code
+}));
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+beforeEach(async(() => {
+  // code
+}));
+
+it("should create the app", async(() => {
+  // code
+}));
+
+it(\`should have as title 'app'\`, async(() => {
+  // code
+}));
+
+it("should render title in a h1 tag", async(() => {
+  // code
+}));
+
+`;
+
+exports[`angular_async.js 2`] = `
+beforeEach(async(() => {
+  // code
+}));
+
+it('should create the app', async(() => {
+  // code
+}));
+
+it(\`should have as title 'app'\`, async(() => {
+  // code
+}));
+
+it("should render title in a h1 tag", async(() => {
+  // code
+}));
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+beforeEach(async(() => {
+  // code
+}));
+
+it("should create the app", async(() => {
+  // code
+}));
+
+it(\`should have as title 'app'\`, async(() => {
+  // code
+}));
+
+it("should render title in a h1 tag", async(() => {
+  // code
+}));
+
+`;
+
 exports[`test_declarations.js 1`] = `
 // Shouldn't break
 
