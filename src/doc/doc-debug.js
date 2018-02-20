@@ -214,11 +214,11 @@ function printDocToJSX(doc, inJSX) {
     if (doc.expandedStates) {
       return printTag(
         "conditional-group",
-        "states=[" +
+        "states={[" +
           doc.expandedStates
             .map(doc => printDocToJSX(doc))
             .join(",\n  ") +
-          "]"
+          "]}"
       );
     }
 
