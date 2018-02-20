@@ -2627,7 +2627,7 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "typeAnnotation")
       ]);
     case "TSNonNullExpression":
-      return concat([path.call(print, "expression"), printNonNullExpression()]);
+      return concat([path.call(print, "expression"), "!"]);
     case "TSThisType":
       return "this";
     case "TSLastTypeNode":
@@ -3800,9 +3800,6 @@ function printBindExpressionCallee(path, options, print) {
   return concat(["::", path.call(print, "callee")]);
 }
 
-function printNonNullExpression() {
-  return "!";
-}
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:
 //
@@ -3889,7 +3886,7 @@ function printMemberChain(path, options, print) {
         node: node,
         printed: comments.printComments(
           path,
-          () => printNonNullExpression(),
+          () => "!",
           options
         )
       });
