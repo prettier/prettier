@@ -225,7 +225,7 @@ type Artist implements Node, Entity {
 
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Artist implements Node, Entity {
+type Artist implements Node & Entity {
   # The ID of an object
   id: ID!
 

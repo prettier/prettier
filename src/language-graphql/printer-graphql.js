@@ -250,7 +250,7 @@ function genericPrint(path, options, print) {
         "type ",
         path.call(print, "name"),
         n.interfaces.length > 0
-          ? concat([" implements ", join(", ", path.map(print, "interfaces"))])
+          ? concat([" implements ", join(" & ", path.map(print, "interfaces"))])
           : "",
         printDirectives(path, print, n),
         n.fields.length > 0
