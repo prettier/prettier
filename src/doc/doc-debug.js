@@ -129,9 +129,7 @@ function printTag(tagName, props, contents) {
   }
 
   contents = contents
-    .map(function(doc) {
-      return printDocToJSX(doc, true);
-    })
+    .map(doc => printDocToJSX(doc, true))
     .join("\n");
 
   return (
@@ -215,9 +213,7 @@ function printDocToJSX(doc, inJSX) {
         "conditional-group",
         "states=[" +
           doc.expandedStates
-            .map(function(doc) {
-              return printDocToJSX(doc);
-            })
+            .map(doc => printDocToJSX(doc))
             .join(",\n  ") +
           "]"
       );
