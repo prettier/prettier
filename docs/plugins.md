@@ -38,7 +38,7 @@ If the plugin is unable to be found automatically, you can load them with:
 * [`@prettier/plugin-php`](https://github.com/prettier/prettier-php)
 * [`@prettier/plugin-swift`](https://github.com/prettier/prettier-swift)
 
-## Unofficial Plugins
+## Community Plugins
 
 * [prettier-plugin-java](https://github.com/thorbenvh8/prettier-java)
 * [iamsolankiamit/prettier-ruby](https://github.com/iamsolankiamit/prettier-ruby)
