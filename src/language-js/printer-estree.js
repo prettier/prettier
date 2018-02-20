@@ -1816,6 +1816,17 @@ function printPathNoParens(path, options, print, args) {
         (!nameHasComments || n.attributes.length) &&
         !lastAttrHasTrailingComments;
 
+      // We should print the opening element expanded if any prop value is a
+      // string literal with newlines
+      const shouldBreak =
+        n.attributes &&
+        n.attributes.some(
+          attr =>
+            attr.value &&
+            isStringLiteral(attr.value) &&
+            attr.value.value.includes("\n")
+        );
+
       return group(
         concat([
           "<",
@@ -1829,7 +1840,8 @@ function printPathNoParens(path, options, print, args) {
             n.selfClosing ? line : bracketSameLine ? ">" : softline
           ]),
           n.selfClosing ? "/>" : bracketSameLine ? "" : ">"
-        ])
+        ]),
+        { shouldBreak }
       );
     }
     case "JSXClosingElement":
