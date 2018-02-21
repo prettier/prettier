@@ -172,6 +172,9 @@ function hasJsxIgnoreComment(path) {
   );
 }
 
+// The following is the shared logic for
+// ternary operators, namely ConditionalExpression
+// and TSConditionalType
 function formatTernaryOperator(
   path,
   n,
@@ -179,11 +182,12 @@ function formatTernaryOperator(
   print,
   beforeParts,
   afterParts,
-  shouldCheckJsx,
-  operatorName,
-  consequentProp,
-  alternateProp,
-  testProp
+  // Optional Params
+  shouldCheckJsx, // = true
+  operatorName, // = "ConditionalExpression"
+  consequentProp, // = "consequent"
+  alternateProp, // = "alternate"
+  testProp // = "test"
 ) {
   // Default Values
   const checkJsx = shouldCheckJsx === undefined ? true : shouldCheckJsx;
