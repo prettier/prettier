@@ -290,25 +290,49 @@ function parseNestedCSS(node) {
       return node;
     }
 
-    if (
-      node.type === "css-atrule" &&
-      typeof node.params === "string" &&
-      node.params.trim().length > 0
-    ) {
+    if (node.type === "css-atrule" && typeof node.params === "string") {
+      let params =
+        node.raws.params && node.raws.params.raw
+          ? node.raws.params.raw
+          : node.params;
+
+      if (node.raws.afterName.trim()) {
+        params = node.raws.afterName + params;
+      }
+
+      if (node.raws.between.trim()) {
+        params = params + node.raws.between;
+      }
+
+      params = params.trim();
+
+      if (params.length === 0) {
+        return node;
+      }
+
       if (
         node.name === "charset" ||
         node.name.toLowerCase() === "counter-style" ||
         node.name.toLowerCase().endsWith("keyframes") ||
         node.name.toLowerCase() === "page" ||
-        node.name.toLowerCase() === "font-feature-values"
+        node.name.toLowerCase() === "font-feature-values" ||
+        node.name.toLowerCase() === "stylistic" ||
+        node.name.toLowerCase() === "historical-forms" ||
+        node.name.toLowerCase() === "styleset" ||
+        node.name.toLowerCase() === "character-variant" ||
+        node.name.toLowerCase() === "swash" ||
+        node.name.toLowerCase() === "ornaments" ||
+        node.name.toLowerCase() === "annotation"
       ) {
+        node.params = params;
+
         return node;
       }
 
       if (node.name === "warn" || node.name === "error") {
         node.params = {
           type: "media-unknown",
-          value: node.params
+          value: params
         };
 
         return node;
@@ -322,10 +346,10 @@ function parseNestedCSS(node) {
       }
 
       if (node.name === "at-root") {
-        if (/^\(\s*(without|with)\s*:[\s\S]+\)$/.test(node.params)) {
-          node.params = parseMediaQuery(node.params);
+        if (/^\(\s*(without|with)\s*:[\s\S]+\)$/.test(params)) {
+          node.params = parseMediaQuery(params);
         } else {
-          node.selector = parseSelector(node.params);
+          node.selector = parseSelector(params);
           delete node.params;
         }
 
@@ -347,37 +371,35 @@ function parseNestedCSS(node) {
         node.name === "add-mixin"
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
-        node.params = node.params.replace(/(\$\S+?)\s+?\.\.\./, "$1...");
+        params = params.replace(/(\$\S+?)\s+?\.\.\./, "$1...");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
-        node.params = node.params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
+        params = params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
 
-        node.value = parseValue(node.params);
+        node.value = parseValue(params);
         delete node.params;
 
         return node;
       }
 
-      if (node.params.includes("#{")) {
+      if (params.includes("#{")) {
         // Workaround for media at rule with scss interpolation
         return {
           type: "media-unknown",
-          value: node.params
+          value: params
         };
       }
 
       if (/^custom-selector$/i.test(node.name)) {
-        const customSelector = node.params.match(/:--\S+?\s+/)[0].trim();
+        const customSelector = params.match(/:--\S+?\s+/)[0].trim();
 
         node.customSelector = customSelector;
-        node.selector = parseSelector(
-          node.params.substring(customSelector.length)
-        );
+        node.selector = parseSelector(params.substring(customSelector.length));
         delete node.params;
 
         return node;
       }
 
-      node.params = parseMediaQuery(node.params);
+      node.params = parseMediaQuery(params);
 
       return node;
     }
