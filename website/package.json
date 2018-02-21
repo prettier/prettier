@@ -1,7 +1,11 @@
 {
   "license": "MIT",
+  "lint-staged": {
+    "*.svg": ["yarn svgo", "git add"]
+  },
   "scripts": {
     "build": "docusaurus-build",
+    "precommit": "lint-staged",
     "publish-gh-pages": "docusaurus-publish",
     "start": "docusaurus-start",
     "svgo": "svgo --pretty --indent=2 --config=svgo.yml",
@@ -10,7 +14,9 @@
   "devDependencies": {
     "@sandhose/prettier-animated-logo": "1.0.3",
     "docusaurus": "1.0.5",
+    "husky": "0.14.3",
     "js-yaml": "3.10.0",
+    "lint-staged": "6.1.1",
     "svgo": "1.0.3"
   }
 }
