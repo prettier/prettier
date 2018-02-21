@@ -179,12 +179,18 @@ function formatConditionalExpression(
   print,
   beforeParts,
   afterParts,
-  checkJsx = true,
-  type = "ConditionalExpression",
-  consequentNode = "consequent",
-  alternateNode = "alternate",
-  testNode = "test"
+  shouldCheckJsx,
+  nodeType,
+  consequentProp,
+  alternateProp,
+  testProp
 ) {
+  // Default Values
+  const checkJsx = shouldCheckJsx === undefined ? true : shouldCheckJsx;
+  const type = nodeType || "ConditionalExpression";
+  const consequentNode = consequentProp || "consequent";
+  const alternateNode = alternateProp || "alternate";
+  const testNode = testProp || "test";
   const parts = [];
   // We print a ConditionalExpression in either "JSX mode" or "normal mode".
   // See tests/jsx/conditional-expression.js for more info.
@@ -281,11 +287,13 @@ function formatConditionalExpression(
     !jsxMode && parent.type === "MemberExpression" && !parent.computed;
 
   return maybeGroup(
-    concat([
-      ...beforeParts(),
-      forceNoIndent ? concat(parts) : indent(concat(parts)),
-      ...afterParts(breakClosingParen)
-    ])
+    concat(
+      [].concat(
+        beforeParts(),
+        forceNoIndent ? concat(parts) : indent(concat(parts)),
+        afterParts(breakClosingParen)
+      )
+    )
   );
 }
 
