@@ -3214,7 +3214,7 @@ function printTypeAnnotation(path, options, print) {
   }
 
   return concat([
-    isFunctionDeclarationIdentifier ? "" : ": ",
+    isFunctionDeclarationIdentifier ? "" : node.definite ? "!: " : ": ",
     path.call(print, "typeAnnotation")
   ]);
 }
