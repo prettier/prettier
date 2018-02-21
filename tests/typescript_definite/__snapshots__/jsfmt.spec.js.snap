@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`definite.ts 1`] = `
+class MyComponent {
+ngModel!: ng.INgModelController;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class MyComponent {
+  ngModel!: ng.INgModelController;
+}
+
+`;
