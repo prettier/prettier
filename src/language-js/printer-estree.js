@@ -2915,6 +2915,8 @@ function printPathNoParens(path, options, print, args) {
         "checkType"
       );
 
+    case "TSInferType":
+      return concat(["infer", " ", path.call(print, "typeParameter")]);
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));

@@ -26,3 +26,14 @@ type DeepReadonlyObject<T> = {
 };
 
 `;
+
+exports[`infer-type.ts 1`] = `
+type TestReturnType<T extends (...args: any[]) => any> = T extends (...args: any[]) => infer R ? R : any;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type TestReturnType<T extends (...args: any[]) => any> = T extends (
+  ...args: any[]
+) => infer R
+  ? R
+  : any;
+
+`;
