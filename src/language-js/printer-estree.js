@@ -172,7 +172,7 @@ function hasJsxIgnoreComment(path) {
   );
 }
 
-function formatConditionalExpression(
+function formatTernaryOperator(
   path,
   n,
   options,
@@ -180,14 +180,14 @@ function formatConditionalExpression(
   beforeParts,
   afterParts,
   shouldCheckJsx,
-  nodeType,
+  operatorName,
   consequentProp,
   alternateProp,
   testProp
 ) {
   // Default Values
   const checkJsx = shouldCheckJsx === undefined ? true : shouldCheckJsx;
-  const type = nodeType || "ConditionalExpression";
+  const type = operatorName || "ConditionalExpression";
   const consequentNode = consequentProp || "consequent";
   const alternateNode = alternateProp || "alternate";
   const testNode = testProp || "test";
@@ -1348,7 +1348,7 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
     case "ConditionalExpression":
-      return formatConditionalExpression(
+      return formatTernaryOperator(
         path,
         n,
         options,
@@ -2891,7 +2891,7 @@ function printPathNoParens(path, options, print, args) {
       return concat(["#", path.call(print, "id")]);
 
     case "TSConditionalType":
-      return formatConditionalExpression(
+      return formatTernaryOperator(
         path,
         n,
         options,
