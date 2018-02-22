@@ -3204,6 +3204,12 @@ function printTypeAnnotation(path, options, print) {
   }
 
   const parentNode = path.getParentNode();
+  const isDefinite =
+    node.definite ||
+    (parentNode &&
+      parentNode.type === "VariableDeclarator" &&
+      parentNode.definite);
+
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
@@ -3214,7 +3220,7 @@ function printTypeAnnotation(path, options, print) {
   }
 
   return concat([
-    isFunctionDeclarationIdentifier ? "" : node.definite ? "!: " : ": ",
+    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
     path.call(print, "typeAnnotation")
   ]);
 }
