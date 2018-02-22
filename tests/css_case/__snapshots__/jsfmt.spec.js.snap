@@ -204,7 +204,6 @@ $KeepScssVar: val;
     }
 
     @KeepDetachedRuleset();
-    @KeepDetachedRuleset ( /* comment */  );
 
     &:EXTEND(.Keep ALL);
 
@@ -349,7 +348,6 @@ $KeepScssVar: val;
   }
 
   @KeepDetachedRuleset();
-  @KeepDetachedRuleset();
 
   &: EXTEND(.Keep ALL);
 
@@ -373,7 +371,7 @@ $KeepScssVar: val;
 .Keep(@Keep: '12PX'; @Keep: "12PX"; ...) /*:*/ {
 }
 
-@media (min-width: 700px) {
+@media (min-width: 700px) /*:*/ {
 }
 
 @media (@{Keep}: @{Keep}) {

@@ -176,11 +176,11 @@ one 'two' three {}
 @import "foo.css" screen and (orientation: landscape);
 
 @foo "one";
-@foo "one";
-@foo "one" two "three";
+@foo 'one';
+@foo "one" two 'three';
 @foo ("one");
-@foo ("one");
-@foo ("one" two "three");
+@foo ('one');
+@foo ("one" two 'three');
 
 one "two" three {
 }
@@ -364,12 +364,12 @@ one 'two' three {}
 @import 'foo.css' screen and (orientation: landscape);
 @import 'foo.css' screen and (orientation: landscape);
 
+@foo "one";
 @foo 'one';
-@foo 'one';
-@foo 'one' two 'three';
+@foo "one" two 'three';
+@foo ("one");
 @foo ('one');
-@foo ('one');
-@foo ('one' two 'three');
+@foo ("one" two 'three');
 
 one 'two' three {
 }
