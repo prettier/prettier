@@ -3,6 +3,9 @@ id: webstorm
 title: Webstorm Setup
 ---
 
+## Version 2018.1 and above
+Webstorm now comes with prettier integration by default. For older versions checkout the details below.
+
 ## SetUp
 
 ### With ESLint Integration
