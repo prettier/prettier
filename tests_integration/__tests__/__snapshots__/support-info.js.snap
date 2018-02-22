@@ -661,6 +661,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\":
         \\"Include parentheses around a sole arrow function parameter.\\",
       \\"name\\": \\"arrowParens\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"1.9.0\\",
       \\"type\\": \\"choice\\"
     },
@@ -670,6 +671,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\": \\"Print spaces between brackets.\\",
       \\"name\\": \\"bracketSpacing\\",
       \\"oppositeDescription\\": \\"Do not print spaces between brackets.\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"boolean\\"
     },
@@ -679,6 +681,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\":
         \\"Print (to stderr) where a cursor at the given position would move to after formatting.\\\\nThis option cannot be used with --range-start and --range-end.\\",
       \\"name\\": \\"cursorOffset\\",
+      \\"pluginDefaults\\": {},
       \\"range\\": { \\"end\\": null, \\"start\\": -1, \\"step\\": 1 },
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"int\\"
@@ -688,6 +691,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\":
         \\"Specify the input filepath. This will be used to do parser inference.\\",
       \\"name\\": \\"filepath\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"path\\"
     },
@@ -697,6 +701,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\":
         \\"Insert @format pragma into file's first docblock comment.\\",
       \\"name\\": \\"insertPragma\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"1.8.0\\",
       \\"type\\": \\"boolean\\"
     },
@@ -705,6 +710,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": false,
       \\"description\\": \\"Put > on the last line instead of at a new line.\\",
       \\"name\\": \\"jsxBracketSameLine\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"0.17.0\\",
       \\"type\\": \\"boolean\\"
     },
@@ -729,6 +735,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": \\"babylon\\",
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.10\\",
       \\"type\\": \\"choice\\"
     },
@@ -739,6 +746,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\":
         \\"Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.\\",
       \\"name\\": \\"plugins\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"1.10.0\\",
       \\"type\\": \\"path\\"
     },
@@ -747,6 +755,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": 80,
       \\"description\\": \\"The line length where Prettier will try wrap.\\",
       \\"name\\": \\"printWidth\\",
+      \\"pluginDefaults\\": {},
       \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
       \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"int\\"
@@ -773,6 +782,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": \\"preserve\\",
       \\"description\\": \\"How to wrap prose. (markdown)\\",
       \\"name\\": \\"proseWrap\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"1.8.2\\",
       \\"type\\": \\"choice\\"
     },
@@ -782,6 +792,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\":
         \\"Format code ending at a given character offset (exclusive).\\\\nThe range will extend forwards to the end of the selected statement.\\\\nThis option cannot be used with --cursor-offset.\\",
       \\"name\\": \\"rangeEnd\\",
+      \\"pluginDefaults\\": {},
       \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"int\\"
@@ -792,6 +803,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\":
         \\"Format code starting at a given character offset.\\\\nThe range will extend backwards to the start of the first line containing the selected statement.\\\\nThis option cannot be used with --cursor-offset.\\",
       \\"name\\": \\"rangeStart\\",
+      \\"pluginDefaults\\": {},
       \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"int\\"
@@ -802,6 +814,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\":
         \\"Require either '@prettier' or '@format' to be present in the file's first docblock comment\\\\nin order for it to be formatted.\\",
       \\"name\\": \\"requirePragma\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"1.7.0\\",
       \\"type\\": \\"boolean\\"
     },
@@ -812,6 +825,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"semi\\",
       \\"oppositeDescription\\":
         \\"Do not print semicolons, except at the beginning of lines which may need them.\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"1.0.0\\",
       \\"type\\": \\"boolean\\"
     },
@@ -820,6 +834,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": false,
       \\"description\\": \\"Use single quotes instead of double quotes.\\",
       \\"name\\": \\"singleQuote\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"boolean\\"
     },
@@ -828,6 +843,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": 2,
       \\"description\\": \\"Number of spaces per indentation level.\\",
       \\"name\\": \\"tabWidth\\",
+      \\"pluginDefaults\\": {},
       \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
       \\"type\\": \\"int\\"
     },
@@ -849,6 +865,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": \\"none\\",
       \\"description\\": \\"Print trailing commas wherever possible when multi-line.\\",
       \\"name\\": \\"trailingComma\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"choice\\"
     },
@@ -857,6 +874,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": false,
       \\"description\\": \\"Indent with tabs instead of spaces.\\",
       \\"name\\": \\"useTabs\\",
+      \\"pluginDefaults\\": {},
       \\"since\\": \\"1.0.0\\",
       \\"type\\": \\"boolean\\"
     }

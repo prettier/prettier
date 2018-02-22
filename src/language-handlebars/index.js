@@ -40,9 +40,5 @@ const printers = {
 module.exports = {
   languages,
   parsers,
-  printers,
-  defaultOptions: {
-    tabWidth: 4
-  },
-  name: "handlebars"
+  printers
 };
