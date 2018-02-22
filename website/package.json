@@ -1,4 +1,5 @@
 {
+  "license": "MIT",
   "scripts": {
     "build": "docusaurus-build",
     "publish-gh-pages": "docusaurus-publish",

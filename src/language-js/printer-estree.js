@@ -1811,6 +1811,7 @@ function printPathNoParens(path, options, print, args) {
         n.attributes.length === 1 &&
         n.attributes[0].value &&
         isStringLiteral(n.attributes[0].value) &&
+        !n.attributes[0].value.value.includes("\n") &&
         // We should break for the following cases:
         // <div
         //   // comment
@@ -1850,6 +1851,17 @@ function printPathNoParens(path, options, print, args) {
         (!nameHasComments || n.attributes.length) &&
         !lastAttrHasTrailingComments;
 
+      // We should print the opening element expanded if any prop value is a
+      // string literal with newlines
+      const shouldBreak =
+        n.attributes &&
+        n.attributes.some(
+          attr =>
+            attr.value &&
+            isStringLiteral(attr.value) &&
+            attr.value.value.includes("\n")
+        );
+
       return group(
         concat([
           "<",
@@ -1863,7 +1875,8 @@ function printPathNoParens(path, options, print, args) {
             n.selfClosing ? line : bracketSameLine ? ">" : softline
           ]),
           n.selfClosing ? "/>" : bracketSameLine ? "" : ">"
-        ])
+        ]),
+        { shouldBreak }
       );
     }
     case "JSXClosingElement":
@@ -3250,6 +3263,12 @@ function printTypeAnnotation(path, options, print) {
   }
 
   const parentNode = path.getParentNode();
+  const isDefinite =
+    node.definite ||
+    (parentNode &&
+      parentNode.type === "VariableDeclarator" &&
+      parentNode.definite);
+
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
@@ -3260,7 +3279,7 @@ function printTypeAnnotation(path, options, print) {
   }
 
   return concat([
-    isFunctionDeclarationIdentifier ? "" : ": ",
+    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
     path.call(print, "typeAnnotation")
   ]);
 }
@@ -3940,6 +3959,12 @@ function printMemberChain(path, options, print) {
         )
       });
       path.call(object => rec(object), "object");
+    } else if (node.type === "TSNonNullExpression") {
+      printedNodes.unshift({
+        node: node,
+        printed: comments.printComments(path, () => "!", options)
+      });
+      path.call(expression => rec(expression), "expression");
     } else {
       printedNodes.unshift({
         node: node,

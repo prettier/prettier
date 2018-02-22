@@ -35,6 +35,7 @@
     "globby": "6.1.0",
     "graphql": "0.12.3",
     "gray-matter": "3.1.1",
+    "html-tag-names": "1.1.1",
     "ignore": "3.3.7",
     "jest-docblock": "22.2.2",
     "json-stable-stringify": "1.0.1",
@@ -54,9 +55,8 @@
     "resolve": "1.5.0",
     "semver": "5.4.1",
     "string-width": "2.1.1",
-    "html-tag-names": "1.1.1",
     "typescript": "2.8.0-dev.20180220",
-    "typescript-eslint-parser": "13.0.0",
+    "typescript-eslint-parser": "14.0.0",
     "unicode-regex": "1.0.1",
     "unified": "6.1.6"
   },
