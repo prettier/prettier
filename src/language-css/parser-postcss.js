@@ -310,26 +310,10 @@ function parseNestedCSS(node) {
         return node;
       }
 
-      if (
-        node.name === "charset" ||
-        node.name.toLowerCase() === "counter-style" ||
-        node.name.toLowerCase().endsWith("keyframes") ||
-        node.name.toLowerCase() === "page" ||
-        node.name.toLowerCase() === "font-feature-values" ||
-        node.name.toLowerCase() === "stylistic" ||
-        node.name.toLowerCase() === "historical-forms" ||
-        node.name.toLowerCase() === "styleset" ||
-        node.name.toLowerCase() === "character-variant" ||
-        node.name.toLowerCase() === "swash" ||
-        node.name.toLowerCase() === "ornaments" ||
-        node.name.toLowerCase() === "annotation"
-      ) {
-        node.params = params;
+      const name = node.name;
+      const lowercasedName = node.name.toLowerCase();
 
-        return node;
-      }
-
-      if (node.name === "warn" || node.name === "error") {
+      if (name === "warn" || name === "error") {
         node.params = {
           type: "media-unknown",
           value: params
@@ -338,14 +322,14 @@ function parseNestedCSS(node) {
         return node;
       }
 
-      if (node.name === "extend" || node.name === "nest") {
-        node.selector = parseSelector(node.params);
+      if (name === "extend" || name === "nest") {
+        node.selector = parseSelector(params);
         delete node.params;
 
         return node;
       }
 
-      if (node.name === "at-root") {
+      if (name === "at-root") {
         if (/^\(\s*(without|with)\s*:[\s\S]+\)$/.test(params)) {
           node.params = parseMediaQuery(params);
         } else {
@@ -357,18 +341,20 @@ function parseNestedCSS(node) {
       }
 
       if (
-        node.name === "if" ||
-        node.name === "else" ||
-        node.name === "for" ||
-        node.name === "each" ||
-        node.name === "while" ||
-        node.name === "debug" ||
-        node.name === "mixin" ||
-        node.name === "include" ||
-        node.name === "function" ||
-        node.name === "return" ||
-        node.name === "define-mixin" ||
-        node.name === "add-mixin"
+        [
+          "if",
+          "else",
+          "for",
+          "each",
+          "while",
+          "debug",
+          "mixin",
+          "include",
+          "function",
+          "return",
+          "define-mixin",
+          "add-mixin"
+        ].indexOf(name) !== -1
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
         params = params.replace(/(\$\S+?)\s+?\.\.\./, "$1...");
@@ -381,15 +367,7 @@ function parseNestedCSS(node) {
         return node;
       }
 
-      if (params.includes("#{")) {
-        // Workaround for media at rule with scss interpolation
-        return {
-          type: "media-unknown",
-          value: params
-        };
-      }
-
-      if (/^custom-selector$/i.test(node.name)) {
+      if (name === "custom-selector") {
         const customSelector = params.match(/:--\S+?\s+/)[0].trim();
 
         node.customSelector = customSelector;
@@ -399,7 +377,25 @@ function parseNestedCSS(node) {
         return node;
       }
 
-      node.params = parseMediaQuery(params);
+      if (
+        ["namespace", "import", "media", "supports", "custom-media"].indexOf(
+          lowercasedName
+        ) !== -1
+      ) {
+        if (params.includes("#{")) {
+          // Workaround for media at rule with scss interpolation
+          return {
+            type: "media-unknown",
+            value: params
+          };
+        }
+
+        node.params = parseMediaQuery(params);
+
+        return node;
+      }
+
+      node.params = params;
 
       return node;
     }

@@ -127,10 +127,7 @@ function genericPrint(path, options, print) {
       const hasParams =
         node.params &&
         !(node.params.type === "media-query-list" && node.params.value === "");
-      const isDetachedRulesetCall =
-        hasParams &&
-        node.params.type === "media-query-list" &&
-        /^\(\s*\)$/.test(node.params.value);
+      const isDetachedRulesetCall = hasParams && /^\(\s*\)$/.test(node.params);
       const hasParensAround =
         node.value &&
         node.value.group.group.type === "value-paren_group" &&
