@@ -391,14 +391,6 @@ function genericPrint(path, options, print) {
 
       const printed = path.map(print, "groups");
       const parts = [];
-      const hasProgidPrefix =
-        declAncestorNode &&
-        declAncestorNode.value.group &&
-        declAncestorNode.value.group.group &&
-        declAncestorNode.value.group.group.groups &&
-        declAncestorNode.value.group.group.groups[0] &&
-        declAncestorNode.value.group.group.groups[0].type === "value-word" &&
-        declAncestorNode.value.group.group.groups[0].value === "progid";
       const functionAncestorNode = getAncestorNode(path, "value-func");
       const insideInFunction =
         functionAncestorNode && functionAncestorNode.value;
@@ -426,15 +418,6 @@ function genericPrint(path, options, print) {
 
         // Ignore colon
         if (iNode.value === ":") {
-          continue;
-        }
-
-        // Ignore `filter: progid:DXImageTransform.Microsoft.Gradient(params);`
-        if (
-          hasProgidPrefix &&
-          iNode.type === "value-word" &&
-          iNode.value.endsWith("=")
-        ) {
           continue;
         }
 
@@ -602,7 +585,7 @@ function genericPrint(path, options, print) {
         return group(indent(concat(parts)));
       }
 
-      return group(hasProgidPrefix ? fill(parts) : indent(fill(parts)));
+      return group(indent(fill(parts)));
     }
     case "value-paren_group": {
       const parentNode = path.getParentNode();
@@ -685,15 +668,7 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-colon": {
-      const parent = path.getParentNode();
-      const index = getNodeIndex(path, node);
-      const hasProgidPrefix =
-        parent.groups[index - 1] && parent.groups[index - 1].value === "progid";
-
-      return concat([
-        node.value,
-        hasProgidPrefix || insideURLFunctionNode(path) ? "" : line
-      ]);
+      return concat([node.value, insideURLFunctionNode(path) ? "" : line]);
     }
     case "value-comma": {
       return concat([node.value, " "]);
@@ -754,16 +729,6 @@ function insideURLFunctionNode(path) {
     funcAncestorNode &&
     funcAncestorNode.value &&
     funcAncestorNode.value === "url"
-  );
-}
-
-function getNodeIndex(path, node) {
-  const parent = path.getParentNode();
-  return (
-    parent &&
-    parent.groups &&
-    parent.groups.length > 0 &&
-    parent.groups.indexOf(node)
   );
 }
 
