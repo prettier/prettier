@@ -30,7 +30,9 @@ function loadPlugins(plugins) {
       }
 
       const pluginPath = resolve.sync(plugin, { basedir: process.cwd() });
-      return eval("require")(pluginPath);
+      const resolved = eval("require")(pluginPath);
+      resolved.name = plugin;
+      return resolved;
     });
 
   return deduplicate(internalPlugins.concat(externalPlugins));

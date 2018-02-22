@@ -255,8 +255,7 @@ function getSupportInfo(version, opts) {
         plugin => plugin.defaultOptions && plugin.defaultOptions[option.name]
       );
       const pluginDefaults = filteredPlugins.reduce((reduced, plugin) => {
-        const printerName = Object.keys(plugin.printers)[0];
-        reduced[printerName] = plugin.defaultOptions[option.name];
+        reduced[plugin.name] = plugin.defaultOptions[option.name];
         return reduced;
       }, {});
       return Object.assign(option, { pluginDefaults });

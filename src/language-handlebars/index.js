@@ -43,5 +43,6 @@ module.exports = {
   printers,
   defaultOptions: {
     tabWidth: 4
-  }
+  },
+  name: "handlebars"
 };
