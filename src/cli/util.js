@@ -609,7 +609,13 @@ function createDetailedUsage(context, optionName) {
       ? `\n\nDefault: ${createDefaultValueDisplay(optionDefaultValue)}`
       : "";
 
-  return `${header}${description}${choices}${defaults}`;
+  const pluginDefaults =
+    option.pluginDefaults && Object.keys(option.pluginDefaults).length
+      ? `\nPlugin defaults:${Object.keys(option.pluginDefaults).map(
+          key => `\n* ${key}: ${option.pluginDefaults[key]}`
+        )}`
+      : "";
+  return `${header}${description}${choices}${defaults}${pluginDefaults}`;
 }
 
 function getOptionDefaultValue(context, optionName) {
