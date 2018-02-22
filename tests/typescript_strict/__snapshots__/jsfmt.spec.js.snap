@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class-initialization.ts 1`] = `
+class Foo {
+    private bar!: string;
+    private foo: string;
+  }
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Foo {
+  private bar!: string;
+  private foo: string;
+}
+
+`;

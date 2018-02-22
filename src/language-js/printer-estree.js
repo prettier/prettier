@@ -1929,6 +1929,9 @@ function printPathNoParens(path, options, print, args) {
       } else {
         parts.push(printPropertyKey(path, options, print));
       }
+      if (n.definite) {
+        parts.push("!");
+      }
       parts.push(printTypeAnnotation(path, options, print));
       if (n.value) {
         parts.push(
