@@ -26,6 +26,26 @@ describe(`show detailed usage with --help l (alias)`, () => {
   });
 });
 
+describe(`show detailed usage with plugin options`, () => {
+  runPrettier("cli", [
+    "--help",
+    "tab-width",
+    "--plugin=../plugins/automatic/node_modules/prettier-plugin-bar",
+    "--parser=bar"
+  ]).test({
+    status: 0,
+    stdout: `--tab-width <int>
+
+  Number of spaces per indentation level.
+
+Default: 2
+Plugin defaults:
+* ../plugins/automatic/node_modules/prettier-plugin-bar: 4
+`,
+    stderr: ""
+  });
+});
+
 commonUtil
   .arrayify(
     Object.assign(

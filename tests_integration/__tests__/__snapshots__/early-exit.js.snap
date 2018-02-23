@@ -514,6 +514,8 @@ exports[`show detailed usage with --help write (stdout) 1`] = `
 
 exports[`show detailed usage with --help write (write) 1`] = `Array []`;
 
+exports[`show detailed usage with plugin options (write) 1`] = `Array []`;
+
 exports[`show usage with --help (stderr) 1`] = `""`;
 
 exports[`show usage with --help (stdout) 1`] = `
