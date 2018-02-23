@@ -514,6 +514,19 @@ exports[`show detailed usage with --help write (stdout) 1`] = `
 
 exports[`show detailed usage with --help write (write) 1`] = `Array []`;
 
+exports[`show detailed usage with plugin options (stderr) 1`] = `""`;
+
+exports[`show detailed usage with plugin options (stdout) 1`] = `
+"--tab-width <int>
+
+  Number of spaces per indentation level.
+
+Default: 2
+Plugin defaults:
+* ../plugins/automatic/node_modules/prettier-plugin-bar: 4
+"
+`;
+
 exports[`show detailed usage with plugin options (write) 1`] = `Array []`;
 
 exports[`show usage with --help (stderr) 1`] = `""`;

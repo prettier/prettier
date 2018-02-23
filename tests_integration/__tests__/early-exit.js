@@ -33,16 +33,7 @@ describe(`show detailed usage with plugin options`, () => {
     "--plugin=../plugins/automatic/node_modules/prettier-plugin-bar",
     "--parser=bar"
   ]).test({
-    status: 0,
-    stdout: `--tab-width <int>
-
-  Number of spaces per indentation level.
-
-Default: 2
-Plugin defaults:
-* ../plugins/automatic/node_modules/prettier-plugin-bar: 4
-`,
-    stderr: ""
+    status: 0
   });
 });
 
