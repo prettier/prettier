@@ -69,7 +69,7 @@ function normalize(options, opts) {
       {}
     );
 
-  Object.assign(defaults, pluginDefaults);
+  Object.assign({}, defaults, pluginDefaults);
 
   Object.keys(defaults).forEach(k => {
     if (rawOptions[k] == null) {

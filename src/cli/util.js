@@ -612,7 +612,10 @@ function createDetailedUsage(context, optionName) {
   const pluginDefaults =
     option.pluginDefaults && Object.keys(option.pluginDefaults).length
       ? `\nPlugin defaults:${Object.keys(option.pluginDefaults).map(
-          key => `\n* ${key}: ${option.pluginDefaults[key]}`
+          key =>
+            `\n* ${key}: ${createDefaultValueDisplay(
+              option.pluginDefaults[key]
+            )}`
         )}`
       : "";
   return `${header}${description}${choices}${defaults}${pluginDefaults}`;
