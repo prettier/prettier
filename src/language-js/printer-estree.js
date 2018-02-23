@@ -175,32 +175,27 @@ function hasJsxIgnoreComment(path) {
 // The following is the shared logic for
 // ternary operators, namely ConditionalExpression
 // and TSConditionalType
-function formatTernaryOperator(
-  path,
-  n,
-  options,
-  print,
-  beforeParts,
-  afterParts,
-  // Optional Params
-  shouldCheckJsx, // = true
-  operatorName, // = "ConditionalExpression"
-  consequentProp, // = "consequent"
-  alternateProp, // = "alternate"
-  testProp // = "test"
-) {
-  // Default Values
-  const checkJsx = shouldCheckJsx === undefined ? true : shouldCheckJsx;
-  const type = operatorName || "ConditionalExpression";
-  const consequentNode = consequentProp || "consequent";
-  const alternateNode = alternateProp || "alternate";
-  const testNode = testProp || "test";
+function formatTernaryOperator(path, options, print, operatorOptions) {
+  const n = path.getValue();
   const parts = [];
+  const operatorOpts = Object.assign(
+    {
+      beforeParts: () => [""],
+      afterParts: () => [""],
+      shouldCheckJsx: true,
+      operatorName: "ConditionalExpression",
+      consequentNode: "consequent",
+      alternateNode: "alternate",
+      testNode: "test"
+    },
+    operatorOptions || {}
+  );
+
   // We print a ConditionalExpression in either "JSX mode" or "normal mode".
   // See tests/jsx/conditional-expression.js for more info.
   let jsxMode = false;
   const parent = path.getParentNode();
-  let forceNoIndent = parent.type === type;
+  let forceNoIndent = parent.type === operatorOpts.operatorName;
 
   // Find the outermost non-ConditionalExpression parent, and the outermost
   // ConditionalExpression parent. We'll use these to determine if we should
@@ -212,14 +207,14 @@ function formatTernaryOperator(
     previousParent = currentParent || n;
     currentParent = path.getParentNode(i);
     i++;
-  } while (currentParent && currentParent.type === type);
+  } while (currentParent && currentParent.type === operatorOpts.operatorName);
   const firstNonConditionalParent = currentParent || parent;
   const lastConditionalParent = previousParent;
 
   if (
-    (checkJsx && isJSXNode(n[testNode])) ||
-    isJSXNode(n[consequentNode]) ||
-    isJSXNode(n[alternateNode]) ||
+    (operatorOpts.shouldCheckJsx && isJSXNode(n[operatorOpts.testNode])) ||
+    isJSXNode(n[operatorOpts.consequentNode]) ||
+    isJSXNode(n[operatorOpts.alternateNode]) ||
     conditionalExpressionChainContainsJSX(lastConditionalParent)
   ) {
     jsxMode = true;
@@ -245,28 +240,33 @@ function formatTernaryOperator(
 
     parts.push(
       " ? ",
-      isNull(n[consequentNode])
-        ? path.call(print, consequentNode)
-        : wrap(path.call(print, consequentNode)),
+      isNull(n[operatorOpts.consequentNode])
+        ? path.call(print, operatorOpts.consequentNode)
+        : wrap(path.call(print, operatorOpts.consequentNode)),
       " : ",
-      n[alternateNode].type === type || isNull(n[alternateNode])
-        ? path.call(print, alternateNode)
-        : wrap(path.call(print, alternateNode))
+      n[operatorOpts.alternateNode].type === operatorOpts.operatorName ||
+      isNull(n[operatorOpts.alternateNode])
+        ? path.call(print, operatorOpts.alternateNode)
+        : wrap(path.call(print, operatorOpts.alternateNode))
     );
   } else {
     // normal mode
     const part = concat([
       line,
       "? ",
-      n[consequentNode].type === type ? ifBreak("", "(") : "",
-      align(2, path.call(print, consequentNode)),
-      n[consequentNode].type === type ? ifBreak("", ")") : "",
+      n[operatorOpts.consequentNode].type === operatorOpts.operatorName
+        ? ifBreak("", "(")
+        : "",
+      align(2, path.call(print, operatorOpts.consequentNode)),
+      n[operatorOpts.consequentNode].type === operatorOpts.operatorName
+        ? ifBreak("", ")")
+        : "",
       line,
       ": ",
-      align(2, path.call(print, alternateNode))
+      align(2, path.call(print, operatorOpts.alternateNode))
     ]);
     parts.push(
-      parent.type === type
+      parent.type === operatorOpts.operatorName
         ? options.useTabs
           ? dedent(indent(part))
           : align(Math.max(0, options.tabWidth - 2), part)
@@ -293,9 +293,9 @@ function formatTernaryOperator(
   return maybeGroup(
     concat(
       [].concat(
-        beforeParts(),
+        operatorOpts.beforeParts(),
         forceNoIndent ? concat(parts) : indent(concat(parts)),
-        afterParts(breakClosingParen)
+        operatorOpts.afterParts(breakClosingParen)
       )
     )
   );
@@ -1352,14 +1352,10 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
     case "ConditionalExpression":
-      return formatTernaryOperator(
-        path,
-        n,
-        options,
-        print,
-        () => [path.call(print, "test")],
-        breakClosingParen => [breakClosingParen ? softline : ""]
-      );
+      return formatTernaryOperator(path, options, print, {
+        beforeParts: () => [path.call(print, "test")],
+        afterParts: breakClosingParen => [breakClosingParen ? softline : ""]
+      });
     case "VariableDeclaration": {
       const printed = path.map(childPath => {
         return print(childPath);
@@ -2908,25 +2904,20 @@ function printPathNoParens(path, options, print, args) {
       return concat(["#", path.call(print, "id")]);
 
     case "TSConditionalType":
-      return formatTernaryOperator(
-        path,
-        n,
-        options,
-        print,
-        () => [
+      return formatTernaryOperator(path, options, print, {
+        beforeParts: () => [
           path.call(print, "checkType"),
           " ",
           "extends",
           " ",
           path.call(print, "extendsType")
         ],
-        () => [""],
-        false,
-        "TSConditionalType",
-        "trueType",
-        "falseType",
-        "checkType"
-      );
+        shouldCheckJsx: false,
+        operatorName: "TSConditionalType",
+        consequentNode: "trueType",
+        alternateNode: "falseType",
+        testNode: "checkType"
+      });
 
     case "TSInferType":
       return concat(["infer", " ", path.call(print, "typeParameter")]);
