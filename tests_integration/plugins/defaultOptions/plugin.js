@@ -5,8 +5,7 @@ module.exports = {
     {
       name: "foo",
       parsers: ["foo-parser"],
-      extensions: [".foo"],
-      since: "1.0.0"
+      extensions: [".foo"]
     }
   ],
   defaultOptions: {
