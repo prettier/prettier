@@ -28,7 +28,7 @@ function normalize(options, opts) {
     pluginsLoaded: true,
     showUnreleased: true
   }).options;
-  let defaults = supportOptions.reduce(
+  const defaults = supportOptions.reduce(
     (reduced, optionInfo) =>
       Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
     Object.assign({}, hiddenDefaults)
@@ -69,9 +69,9 @@ function normalize(options, opts) {
       {}
     );
 
-  defaults = Object.assign({}, defaults, pluginDefaults);
+  const mixedDefaults = Object.assign({}, defaults, pluginDefaults);
 
-  Object.keys(defaults).forEach(k => {
+  Object.keys(mixedDefaults).forEach(k => {
     if (rawOptions[k] == null) {
       rawOptions[k] = defaults[k];
     }
