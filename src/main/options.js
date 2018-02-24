@@ -69,13 +69,13 @@ function normalize(options, opts) {
       {}
     );
 
-  const mixedDefaults = Object.assign({}, defaults, pluginDefaults);
-
-  Object.keys(mixedDefaults).forEach(k => {
+  Object.keys(defaults).forEach(k => {
     if (rawOptions[k] == null) {
       rawOptions[k] = defaults[k];
     }
   });
+
+  Object.assign(rawOptions, pluginDefaults);
 
   if (rawOptions.parser === "json") {
     rawOptions.trailingComma = "none";
