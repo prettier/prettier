@@ -81,7 +81,7 @@ function inferParser(filepath, plugins) {
     pluginsLoaded: true
   }).languages.find(
     language =>
-      typeof language.since === "string" &&
+      language.since !== null &&
       (language.extensions.indexOf(extension) > -1 ||
         (language.filenames &&
           language.filenames.find(name => name.toLowerCase() === filename)))
