@@ -8,7 +8,7 @@ const printer = require("./printer-htmlparser2");
 const languages = [
   {
     name: "HTML",
-    since: undefined, // unreleased
+    since: null, // unreleased
     parsers: ["parse5"],
     group: "HTML",
     tmScope: "text.html.basic",

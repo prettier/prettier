@@ -13,7 +13,8 @@ const languages = [
     extensions: [".handlebars", ".hbs"],
     tm_scope: "text.html.handlebars",
     ace_mode: "handlebars",
-    language_id: 155
+    language_id: 155,
+    since: null // unreleased
   }
 ];
 
