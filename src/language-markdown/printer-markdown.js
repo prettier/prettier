@@ -233,12 +233,15 @@ function genericPrint(path, options, print) {
 
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
-          const prefix = node.ordered
-            ? (index === 0
-                ? node.start
-                : isGitDiffFriendlyOrderedList ? 1 : node.start + index) +
-              (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-            : nthSiblingIndex % 2 === 0 ? "* " : "- ";
+          const prefix = alignListPrefix(
+            node.ordered
+              ? (index === 0
+                  ? node.start
+                  : isGitDiffFriendlyOrderedList ? 1 : node.start + index) +
+                (nthSiblingIndex % 2 === 0 ? ". " : ") ")
+              : nthSiblingIndex % 2 === 0 ? "* " : "- ",
+            options
+          );
           return concat([
             prefix,
             align(
@@ -351,6 +354,22 @@ function printListItem(path, options, print, listPrefix) {
       }
     })
   ]);
+}
+
+function alignListPrefix(prefix, options) {
+  const prefixTrailingSpaces = prefix.match(/ *$/)[0].length;
+  const additionalSpaces = getAdditionalSpaces();
+  return (
+    prefix +
+    " ".repeat(
+      prefixTrailingSpaces + additionalSpaces >= 4 ? 0 : additionalSpaces // 4+ will cause indented code block
+    )
+  );
+
+  function getAdditionalSpaces() {
+    const restSpaces = prefix.length % options.tabWidth;
+    return restSpaces === 0 ? 0 : options.tabWidth - restSpaces;
+  }
 }
 
 function getNthListSiblingIndex(node, parentNode) {
