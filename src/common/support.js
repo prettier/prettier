@@ -255,15 +255,12 @@ function getSupportInfo(version, opts) {
 
   const languages = plugins
     .reduce((all, plugin) => all.concat(plugin.languages), [])
-    .filter(language => {
-      if (language.since === null) {
-        return false;
-      }
-      if (language.since) {
-        return semver.gte(version, language.since);
-      }
-      return true;
-    })
+    .filter(
+      language =>
+        language.since
+          ? semver.gte(version, language.since)
+          : language.since !== null
+    )
     .map(language => {
       // Prevent breaking changes
       if (language.name === "Markdown") {
