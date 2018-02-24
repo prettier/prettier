@@ -32,4 +32,4 @@
 - image: /images/editors/editor_webstorm.svg
   name: WebStorm
   content: |
-    [External Tool](https://prettier.io/docs/en/webstorm.html)
+    [Built-in support](https://plugins.jetbrains.com/plugin/10456-prettier)
