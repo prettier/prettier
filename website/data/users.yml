@@ -23,7 +23,7 @@
   greyImage: /images/users/used_by_babel.svg
   infoLink: https://babeljs.io
   pinned: true
-- caption: Webpack
+- caption: webpack
   image: /images/users/webpack-200x100.png
   greyImage: /images/users/used_by_webpack.svg
   infoLink: https://webpack.js.org/
