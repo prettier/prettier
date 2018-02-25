@@ -841,11 +841,13 @@ function updateContextOptions(context, plugins) {
 
   const apiDefaultOptions = supportOptions
     .filter(optionInfo => !optionInfo.deprecated)
-    .reduce(
-      (reduced, optionInfo) =>
-        Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
-      Object.assign({}, optionsModule.hiddenDefaults)
-    );
+    .reduce((reduced, optionInfo) => {
+      // default are applied in main/options.js when pluginDefaults are present
+      if (Object.keys(optionInfo.pluginDefaults).length) {
+        return reduced;
+      }
+      return Object.assign(reduced, { [optionInfo.name]: optionInfo.default });
+    }, Object.assign({}, optionsModule.hiddenDefaults));
 
   context.supportOptions = supportOptions;
   context.detailedOptions = detailedOptions;
