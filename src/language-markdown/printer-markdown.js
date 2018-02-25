@@ -233,7 +233,11 @@ function genericPrint(path, options, print) {
 
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
-          const prefix = alignListPrefix(
+          const listItem = childPath.getValue();
+          const alignFunc = listItem.children.length
+            ? alignListPrefix
+            : identity; // do not print trailing spaces for empty list item since it might be treated as `break` node by [doc-printer](https://github.com/prettier/prettier/blob/master/src/doc/doc-printer.js#L470-L480), we don't want to preserve unnecessary trailing spaces.
+          const prefix = alignFunc(
             node.ordered
               ? (index === 0
                   ? node.start
@@ -334,6 +338,10 @@ function genericPrint(path, options, print) {
     default:
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
+}
+
+function identity(x) {
+  return x;
 }
 
 function printListItem(path, options, print, listPrefix) {
