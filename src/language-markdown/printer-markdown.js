@@ -357,7 +357,7 @@ function printListItem(path, options, print, listPrefix) {
         }
 
         const alignment = " ".repeat(
-          clamp(options.tabWidth - listPrefix.length, 0, 3) // 4 will cause indented codeblock
+          clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
         return concat([alignment, align(alignment, childPath.call(print))]);
       }
@@ -366,12 +366,11 @@ function printListItem(path, options, print, listPrefix) {
 }
 
 function alignListPrefix(prefix, options) {
-  const prefixTrailingSpaces = prefix.match(/ *$/)[0].length;
   const additionalSpaces = getAdditionalSpaces();
   return (
     prefix +
     " ".repeat(
-      prefixTrailingSpaces + additionalSpaces >= 4 ? 0 : additionalSpaces // 4+ will cause indented code block
+      additionalSpaces >= 4 ? 0 : additionalSpaces // 4+ will cause indented code block
     )
   );
 
