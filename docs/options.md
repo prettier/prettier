@@ -52,6 +52,10 @@ Valid options:
 
 ## Quotes
 
+> **The default for this option may change to "true" in a future major release.**
+>
+> To minimize future changes, it's a good idea to explicitly set this option to your prefered style for now.
+
 Use single quotes instead of double quotes.
 
 Notes:
@@ -64,6 +68,10 @@ Notes:
 | `false` | `--single-quote` | `singleQuote: <bool>` |
 
 ## Trailing Commas
+
+> **The default for this option may change to "es5" in a future major release.**
+>
+> To minimize future changes, it's a good idea to explicitly set this option to your prefered style for now.
 
 Print trailing commas wherever possible when multi-line. (A single-line array, for example, never gets trailing commas.)
 
