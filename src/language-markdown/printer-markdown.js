@@ -233,15 +233,7 @@ function genericPrint(path, options, print) {
 
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
-          const prefix = alignListPrefix(
-            node.ordered
-              ? (index === 0
-                  ? node.start
-                  : isGitDiffFriendlyOrderedList ? 1 : node.start + index) +
-                (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-              : nthSiblingIndex % 2 === 0 ? "* " : "- ",
-            options
-          );
+          const prefix = getPrefix();
           return concat([
             prefix,
             align(
@@ -249,6 +241,23 @@ function genericPrint(path, options, print) {
               printListItem(childPath, options, print, prefix)
             )
           ]);
+
+          function getPrefix() {
+            const rawPrefix = node.ordered
+              ? (index === 0
+                  ? node.start
+                  : isGitDiffFriendlyOrderedList ? 1 : node.start + index) +
+                (nthSiblingIndex % 2 === 0 ? ". " : ") ")
+              : nthSiblingIndex % 2 === 0 ? "* " : "- ";
+
+            // do not print trailing spaces for empty list item since it might be treated as `break` node
+            // by [doc-printer](https://github.com/prettier/prettier/blob/1.10.2/src/doc/doc-printer.js#L395-L405),
+            // we don't want to preserve unnecessary trailing spaces.
+            const listItem = childPath.getValue();
+            return listItem.children.length
+              ? alignListPrefix(rawPrefix, options)
+              : rawPrefix;
+          }
         }
       });
     }
