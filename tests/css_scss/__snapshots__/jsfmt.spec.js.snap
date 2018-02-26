@@ -1478,11 +1478,7 @@ $icons: wifi "\\600", wifi-hotspot "\\601", weather "\\602";
   prop10: #010203 + #040506;
   prop11: #010203 * 2;
   prop12: rgba(255, 0, 0, 0.75) + rgba(0, 255, 0, 0.75);
-  prop13: progid:DXImageTransform.Microsoft.gradient(
-    enabled="false",
-    startColorstr="#{ie-hex-str($green)}",
-    endColorstr="#{ie-hex-str($translucent-red)}"
-  );
+  prop13: progid:DXImageTransform.Microsoft.gradient(enabled='false', startColorstr='#{ie-hex-str($green)}', endColorstr='#{ie-hex-str($translucent-red)}');
   prop14: e + -resize;
   prop15: sans- + "serif";
   prop16: 1em + (2em * 3);

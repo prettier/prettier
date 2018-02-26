@@ -279,6 +279,10 @@ function parseNestedCSS(node) {
           }
         }
 
+        if (value.startsWith("progid:")) {
+          return node;
+        }
+
         node.value = parseValue(value);
       } catch (e) {
         throw createError(
