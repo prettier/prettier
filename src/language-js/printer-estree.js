@@ -4006,6 +4006,7 @@ function printMemberChain(path, options, print) {
   let i = 1;
   for (; i < printedNodes.length; ++i) {
     if (
+      printedNodes[i].node.type === "TSNonNullExpression" ||
       printedNodes[i].node.type === "CallExpression" ||
       (printedNodes[i].node.type === "MemberExpression" &&
         printedNodes[i].node.computed &&
