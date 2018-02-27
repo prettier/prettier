@@ -35,6 +35,49 @@ By default, Prettier’s printing algorithm prints expressions on a single line 
 [stylesheets]: https://github.com/prettier/prettier/issues/74#issuecomment-275262094
 [keyed methods]: https://github.com/prettier/prettier/pull/495#issuecomment-275745434
 
+### Semicolons
+
+This is about using the `--no-semi` option.
+
+Consider this piece of code:
+
+```js
+if (shouldAddLines) {
+  [-1, 1].forEach(delta => addLine(delta * 20))
+}
+```
+
+While the above code works just fine without semicolons, Prettier actually turns it into:
+
+```js
+if (shouldAddLines) {
+  ;[-1, 1].forEach(delta => addLine(delta * 20))
+}
+```
+
+This is to help you avoid mistakes. Imagine adding this line:
+
+```diff
+ if (shouldAddLines) {
++  console.log('Do we even get here??')
+   [-1, 1].forEach(delta => addLine(delta * 20))
+ }
+```
+
+Oops! The above actually means:
+
+```js
+if (shouldAddLines) {
+  console.log('Do we even get here??')[-1, 1].forEach(delta => addLine(delta * 20))
+}
+```
+
+With a semicolon in front of that `[` such issues never happen. It makes the line independent of other lines so you can move and add lines without having to think about ASI rules.
+
+This practice is also common in [standard] which uses a semicolon-free style.
+
+[standard]: https://standardjs.com/rules.html#semicolons
+
 ## What Prettier is _not_ concerned about
 
 Prettier only _prints_ code. It does not transform it. This is to limit the scope of Prettier. Let's focus on the printing and do it really well!
