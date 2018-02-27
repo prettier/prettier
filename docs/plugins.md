@@ -46,7 +46,13 @@ If the plugin is unable to be found automatically, you can load them with:
 
 ## Developing Plugins
 
-Prettier plugins are regular JavaScript modules with three exports, `languages`, `parsers` and `printers`.
+Prettier plugins are regular JavaScript modules with five exports:
+
+* `languages`
+* `parsers`
+* `printers`
+* `options`
+* `defaultOptions`
 
 ### `languages`
 
@@ -148,6 +154,33 @@ function embed(
 ```
 
 If you don't want to switch to a different parser, simply return `null` or `undefined`.
+
+### `options`
+
+`options` is an object containing the custom options your plugin supports.
+
+Example:
+
+```js
+options: {
+  openingBraceNewLine: {
+    type: "boolean",
+    category: "Global",
+    default: true,
+    description: "Move open brace for code blocks onto new line."
+  }
+}
+```
+
+### `defaultOptions`
+
+If your plugin requires different default values for some of prettier's core options, you can specify them in `defaultOptions`:
+
+```
+defaultOptions: {
+  tabWidth: 4
+}
+```
 
 ### Utility functions
 
