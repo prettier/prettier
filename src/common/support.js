@@ -249,6 +249,16 @@ function getSupportInfo(version, opts) {
       }
 
       return newOption;
+    })
+    .map(option => {
+      const filteredPlugins = plugins.filter(
+        plugin => plugin.defaultOptions && plugin.defaultOptions[option.name]
+      );
+      const pluginDefaults = filteredPlugins.reduce((reduced, plugin) => {
+        reduced[plugin.name] = plugin.defaultOptions[option.name];
+        return reduced;
+      }, {});
+      return Object.assign(option, { pluginDefaults });
     });
 
   const usePostCssParser = semver.lt(version, "1.7.1");

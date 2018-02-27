@@ -26,6 +26,27 @@ describe(`show detailed usage with --help l (alias)`, () => {
   });
 });
 
+describe(`show detailed usage with plugin options (automatic resolution)`, () => {
+  runPrettier("plugins/automatic", [
+    "--help",
+    "tab-width",
+    "--parser=bar"
+  ]).test({
+    status: 0
+  });
+});
+
+describe(`show detailed usage with plugin options (manual resolution)`, () => {
+  runPrettier("cli", [
+    "--help",
+    "tab-width",
+    "--plugin=../plugins/automatic/node_modules/prettier-plugin-bar",
+    "--parser=bar"
+  ]).test({
+    status: 0
+  });
+});
+
 commonUtil
   .arrayify(
     Object.assign(
