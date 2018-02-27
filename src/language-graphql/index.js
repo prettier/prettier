@@ -3,8 +3,6 @@
 const printer = require("./printer-graphql");
 const options = require("./options");
 
-const pragmaRe = /^\s*# *@(?:format|prettier)/;
-
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 
@@ -27,9 +25,6 @@ const parsers = {
       return eval("require")("./parser-graphql");
     },
     astFormat: "graphql",
-    hasPragma(text) {
-      return pragmaRe.test(text);
-    },
     locStart: function(node) {
       if (typeof node.start === "number") {
         return node.start;
