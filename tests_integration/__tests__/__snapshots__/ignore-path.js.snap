@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ignore file when using --debug-check (stderr) 1`] = `""`;
+
+exports[`ignore file when using --debug-check (stdout) 1`] = `
+"other-regular-modules.js
+"
+`;
+
+exports[`ignore file when using --debug-check (write) 1`] = `Array []`;
+
 exports[`ignore path (stderr) 1`] = `""`;
 
 exports[`ignore path (stdout) 1`] = `
