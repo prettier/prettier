@@ -1,5 +1,161 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`align.md 1`] = `
+1. 123
+
+---
+
+11. 123
+
+---
+
+111. 123
+
+---
+
+1111. 123
+
+---
+
+11111. 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1.  123
+
+---
+
+11. 123
+
+---
+
+111.  123
+
+---
+
+1111. 123
+
+---
+
+11111.  123
+
+`;
+
+exports[`align.md 2`] = `
+1. 123
+
+---
+
+11. 123
+
+---
+
+111. 123
+
+---
+
+1111. 123
+
+---
+
+11111. 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1.  123
+
+---
+
+11. 123
+
+---
+
+111.    123
+
+---
+
+1111.   123
+
+---
+
+11111.  123
+
+`;
+
+exports[`align.md 3`] = `
+1. 123
+
+---
+
+11. 123
+
+---
+
+111. 123
+
+---
+
+1111. 123
+
+---
+
+11111. 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. 123
+
+---
+
+11. 123
+
+---
+
+111. 123
+
+---
+
+1111. 123
+
+---
+
+11111. 123
+
+`;
+
+exports[`align.md 4`] = `
+1. 123
+
+---
+
+11. 123
+
+---
+
+111. 123
+
+---
+
+1111. 123
+
+---
+
+11111. 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. 123
+
+---
+
+11. 123
+
+---
+
+111. 123
+
+---
+
+1111. 123
+
+---
+
+11111. 123
+
+`;
+
 exports[`checkbox.md 1`] = `
 - [ ] this is a long long long long long long long long long long long long long long paragraph.
 - [x] this is a long long long long long long long long long long long long long long paragraph.
@@ -15,10 +171,10 @@ exports[`checkbox.md 2`] = `
 - [ ] this is a long long long long long long long long long long long long long long paragraph.
 - [x] this is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* [ ] this is a long long long long long long long long long long long long long
-      long paragraph.
-* [x] this is a long long long long long long long long long long long long long
-      long paragraph.
+*   [ ] this is a long long long long long long long long long long long long
+        long long paragraph.
+*   [x] this is a long long long long long long long long long long long long
+        long long paragraph.
 
 `;
 
@@ -49,9 +205,9 @@ exports[`git-diff-friendly.md 1`] = `
 1. def
 999. ghi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-5. abc
-1. def
-1. ghi
+5.  abc
+1.  def
+1.  ghi
 
 `;
 
@@ -60,9 +216,9 @@ exports[`git-diff-friendly.md 2`] = `
 1. def
 999. ghi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-5. abc
-1. def
-1. ghi
+5.  abc
+1.  def
+1.  ghi
 
 `;
 
@@ -190,17 +346,17 @@ exports[`indent.md 1`] = `
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
     b b b b b b b b b b b b b b
 
-  1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-     a a a a a a a a a a a a a a
+  1.  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      a a a a a a a a a a a a a a a
 
-     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-     b b b b b b b b b b b b b b
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+      b b b b b b b b b b b b b b b
 
-  1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-         a a a a a a a a a a a a a a
+  1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+          a a a a a a a a a a a a a a a
 
-     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-     b b b b b b b b b b b b b b
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+      b b b b b b b b b b b b b b b
 
   12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a
@@ -217,47 +373,47 @@ exports[`indent.md 1`] = `
   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
   a a a a a a a a a a a a a a
 
-1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-       a a a a a a a a a a a a a a a
+1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a a a
 
-   * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-     a a a a a a a a a a a a a a
-
-     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-     b b b b b b b b b b b b b b
-
-   * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-         a a a a a a a a a a a a a a
-
-     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-     b b b b b b b b b b b b b b
-
-   1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
       b b b b b b b b b b b b b b b
 
-   1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
 
       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
       b b b b b b b b b b b b b b b
 
-   12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-             a a a a a a a a a a a a a a
+    1.  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a a a
 
-             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-             b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
 
-   12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                 a a a a a a a a a a a a a a
+    1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a a a
 
-             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-             b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
 
-   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-   a a a a a a a a a a a a a a
+    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+              a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b
+
+    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                  a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b
+
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    a a a a a a a a a a a a a a a
 
 12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
@@ -277,17 +433,17 @@ exports[`indent.md 1`] = `
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b
 
-          1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-             a a a a a a a a a a a a a a a
+          1.  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+              a a a a a a a a a a a a a a a a
 
-             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-             b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b b
 
-          1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                 a a a a a a a a a a a a a a a
+          1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                  a a a a a a a a a a a a a a a a
 
-             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-             b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b b
 
           12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a
@@ -393,134 +549,134 @@ exports[`indent.md 2`] = `
 
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-      a a a a a a a a a a a a a a a
+*   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a a a
 
-    * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-      a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-          a a a a a a a a a a a a a a a
+    *   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
 
-    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-       a a a a a a a a a a a a a a a
+    *   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
 
-    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-           a a a a a a a a a a a a a a a
+    1.  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
 
-    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-              a a a a a a a a a a a a a a a
+    1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a a a
 
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
 
-    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                  a a a a a a a a a a a a a a a
+    12345678)   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                a a a a a a a a a a a a a a a a
 
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b
+
+    12345678.   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                    a a a a a a a a a a a a a a a a
+
+                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b
 
     a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a a
 
-1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-       a a a a a a a a a a a a a a a
+1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a a a
 
-    * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-      a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-          a a a a a a a a a a a a a a a
+    *   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
 
-    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-       a a a a a a a a a a a a a a a
+    *   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
 
-    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-           a a a a a a a a a a a a a a a
+    1.  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
 
-    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-              a a a a a a a a a a a a a a a
+    1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a a a
 
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
 
-    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                  a a a a a a a a a a a a a a a
+    12345678)   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                a a a a a a a a a a a a a a a a
 
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b
+
+    12345678.   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                    a a a a a a a a a a a a a a a a
+
+                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b
 
     a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a a
 
-12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-              a a a a a a a a a a a a a a a
+12345678)   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                a a a a a a a a a a a a a a a a
 
-          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-          b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
 
-          * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a
+            *   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                a a a a a a a a a a a a a a a a a
 
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b b
 
-          * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                a a a a a a a a a a a a a a a
+            *   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                    a a a a a a a a a a a a a a a a a
 
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b b
 
-          1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-             a a a a a a a a a a a a a a a
+            1.  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                a a a a a a a a a a a a a a a a a
 
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b b
 
-          1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                 a a a a a a a a a a a a a a a
+            1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                    a a a a a a a a a a a a a a a a a
 
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                b b b b b b b b b b b b b b b b b
 
-          12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                    a a a a a a a a a a a a a a a
+            12345678)   a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                        a a a a a a a a a a a a a a a a a
 
-                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                    b b b b b b b b b b b b b b b b
+                        b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                        b b b b b b b b b b b b b b b b b b
 
-          12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                        a a a a a a a a a a a a a a a
+            12345678.   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a
+                            a a a a a a a a a a a a a a a a a
 
-                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                    b b b b b b b b b b b b b b b b
+                        b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                        b b b b b b b b b b b b b b b b b b
 
-          a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-          a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a a a
 
 `;
 
@@ -974,7 +1130,7 @@ exports[`interrupt.md 2`] = `
 * Something
 ### Some heading
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Something
+*   Something
 
 ### Some heading
 
@@ -1011,8 +1167,8 @@ exports[`long-paragraph.md 1`] = `
 exports[`long-paragraph.md 2`] = `
 - This is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* This is a long long long long long long long long long long long long long
-  long paragraph.
+*   This is a long long long long long long long long long long long long long
+    long paragraph.
 
 `;
 
@@ -1072,17 +1228,17 @@ exports[`loose.md 2`] = `
 
   - ghi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
+*   123
 
-    * abc
+    *   abc
 
-* 456
+*   456
 
-    * def
+    *   def
 
-* 789
+*   789
 
-    * ghi
+    *   ghi
 
 `;
 
@@ -1154,7 +1310,7 @@ exports[`multiline.md 2`] = `
   456
   789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123 456 789
+*   123 456 789
 
 `;
 
@@ -1192,9 +1348,9 @@ exports[`nested.md 2`] = `
   - Level 2
     - Level 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Level 1
-    * Level 2
-        * Level 3
+*   Level 1
+    *   Level 2
+        *   Level 3
 
 `;
 
@@ -1266,20 +1422,20 @@ exports[`nested-checkbox.md 2`] = `
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* parent list item parent list item parent list item parent list item parent
-  list item parent list item
+*   parent list item parent list item parent list item parent list item parent
+    list item parent list item
 
-    * child list item child list item child list item child list item child list
-      item child list item
+    *   child list item child list item child list item child list item child
+        list item child list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
 
-* [x] parent task list item parent task list item parent task list item parent
-      task list item
+*   [x] parent task list item parent task list item parent task list item parent
+        task list item
 
-    * [x] child task list item child task list item child task list item child
-          task list item
+    *   [x] child task list item child task list item child task list item child
+            task list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
@@ -1357,9 +1513,9 @@ exports[`ordered.md 1`] = `
 1. 456
 1. 789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. 123
-1. 456
-1. 789
+1.  123
+1.  456
+1.  789
 
 `;
 
@@ -1368,9 +1524,9 @@ exports[`ordered.md 2`] = `
 1. 456
 1. 789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. 123
-1. 456
-1. 789
+1.  123
+1.  456
+1.  789
 
 `;
 
@@ -1424,13 +1580,13 @@ exports[`separate.md 2`] = `
 * 123
 * 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
-* 123
-* 123
+*   123
+*   123
+*   123
 
-- 123
-- 123
-- 123
+-   123
+-   123
+-   123
 
 `;
 
@@ -1488,9 +1644,9 @@ exports[`simple.md 2`] = `
 - 456
 - 789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
-* 456
-* 789
+*   123
+*   456
+*   789
 
 `;
 
@@ -1521,9 +1677,9 @@ exports[`start.md 1`] = `
 6. def
 7. ghi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-5. abc
-6. def
-7. ghi
+5.  abc
+6.  def
+7.  ghi
 
 `;
 
@@ -1532,9 +1688,9 @@ exports[`start.md 2`] = `
 6. def
 7. ghi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-5. abc
-6. def
-7. ghi
+5.  abc
+6.  def
+7.  ghi
 
 `;
 

@@ -794,9 +794,9 @@ exports[`example-77.md 1`] = `
 
     - bar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. foo
+1.  foo
 
-   * bar
+    * bar
 
 `;
 
@@ -2420,11 +2420,11 @@ exports[`example-214.md 1`] = `
 
     > A block quote.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. A paragraph with two lines.
+1.  A paragraph with two lines.
 
-       indented code
+        indented code
 
-   > A block quote.
+    > A block quote.
 
 `;
 
@@ -2477,9 +2477,9 @@ exports[`example-219.md 1`] = `
 >>
 >>     two
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > 1. one
+> > 1.  one
 > >
-> >    two
+> >     two
 
 `;
 
@@ -2569,15 +2569,15 @@ exports[`example-223.md 1`] = `
 
     > bam
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. foo
+1.  foo
 
-   \`\`\`
-   bar
-   \`\`\`
+    \`\`\`
+    bar
+    \`\`\`
 
-   baz
+    baz
 
-   > bam
+    > bam
 
 `;
 
@@ -2616,7 +2616,7 @@ exports[`example-225.md 1`] = `
 exports[`example-226.md 1`] = `
 123456789. ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-123456789. ok
+123456789.  ok
 
 `;
 
@@ -2630,14 +2630,14 @@ exports[`example-227.md 1`] = `
 exports[`example-228.md 1`] = `
 0. ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-0. ok
+0.  ok
 
 `;
 
 exports[`example-229.md 1`] = `
 003. ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-3. ok
+3.  ok
 
 `;
 
@@ -2692,11 +2692,11 @@ exports[`example-234.md 1`] = `
 
        more code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1.     indented code
+1.      indented code
 
-   paragraph
+    paragraph
 
-       more code
+        more code
 
 `;
 
@@ -2707,11 +2707,11 @@ exports[`example-235.md 1`] = `
 
        more code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1.      indented code
+1.       indented code
 
-   paragraph
+    paragraph
 
-       more code
+        more code
 
 `;
 
@@ -2786,9 +2786,9 @@ exports[`example-243.md 1`] = `
 2.
 3. bar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. foo
+1.  foo
 2.
-3. bar
+3.  bar
 
 `;
 
@@ -2807,11 +2807,11 @@ exports[`example-245.md 1`] = `
 
      > A block quote.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. A paragraph with two lines.
+1.  A paragraph with two lines.
 
-       indented code
+        indented code
 
-   > A block quote.
+    > A block quote.
 
 `;
 
@@ -2823,11 +2823,11 @@ exports[`example-246.md 1`] = `
 
       > A block quote.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. A paragraph with two lines.
+1.  A paragraph with two lines.
 
-       indented code
+        indented code
 
-   > A block quote.
+    > A block quote.
 
 `;
 
@@ -2839,11 +2839,11 @@ exports[`example-247.md 1`] = `
 
        > A block quote.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. A paragraph with two lines.
+1.  A paragraph with two lines.
 
-       indented code
+        indented code
 
-   > A block quote.
+    > A block quote.
 
 `;
 
@@ -2872,11 +2872,11 @@ with two lines.
 
       > A block quote.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. A paragraph with two lines.
+1.  A paragraph with two lines.
 
-             indented code
+              indented code
 
-         > A block quote.
+          > A block quote.
 
 `;
 
@@ -2884,7 +2884,7 @@ exports[`example-250.md 1`] = `
   1.  A paragraph
     with two lines.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. A paragraph with two lines.
+1.  A paragraph with two lines.
 
 `;
 
@@ -2892,7 +2892,7 @@ exports[`example-251.md 1`] = `
 > 1. > Blockquote
 continued here.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 1. > Blockquote continued here.
+> 1.  > Blockquote continued here.
 
 `;
 
@@ -2900,7 +2900,7 @@ exports[`example-252.md 1`] = `
 > 1. > Blockquote
 > continued here.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 1. > Blockquote continued here.
+> 1.  > Blockquote continued here.
 
 `;
 
@@ -2955,7 +2955,7 @@ exports[`example-257.md 1`] = `
 exports[`example-258.md 1`] = `
 1. - 2. foo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. * 2. foo
+1.  * 2.  foo
 
 `;
 
@@ -2988,10 +2988,10 @@ exports[`example-261.md 1`] = `
 2. bar
 3) baz
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. foo
-2. bar
+1.  foo
+2.  bar
 
-3) baz
+3)  baz
 
 `;
 
@@ -3252,11 +3252,11 @@ exports[`example-281.md 1`] = `
 
    bar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. \`\`\`
-   foo
-   \`\`\`
+1.  \`\`\`
+    foo
+    \`\`\`
 
-   bar
+    bar
 
 `;
 

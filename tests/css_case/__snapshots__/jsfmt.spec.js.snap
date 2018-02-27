@@ -204,7 +204,6 @@ $KeepScssVar: val;
     }
 
     @KeepDetachedRuleset();
-    @KeepDetachedRuleset ( /* comment */  );
 
     &:EXTEND(.Keep ALL);
 
@@ -274,6 +273,8 @@ a:AFTER {
 }
 
 TABLE {}
+
+.foo { &-KeepSelector {} &-KeepSelector & .KeepClassSelector {} &-100\\.200 {} }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -349,7 +350,6 @@ $KeepScssVar: val;
   }
 
   @KeepDetachedRuleset();
-  @KeepDetachedRuleset();
 
   &: EXTEND(.Keep ALL);
 
@@ -373,7 +373,7 @@ $KeepScssVar: val;
 .Keep(@Keep: '12PX'; @Keep: "12PX"; ...) /*:*/ {
 }
 
-@media (min-width: 700px) {
+@media (min-width: 700px) /*:*/ {
 }
 
 @media (@{Keep}: @{Keep}) {
@@ -426,6 +426,15 @@ a:after {
 }
 
 table {
+}
+
+.foo {
+  &-KeepSelector {
+  }
+  &-KeepSelector & .KeepClassSelector {
+  }
+  &-100\\.200 {
+  }
 }
 
 `;
@@ -576,6 +585,8 @@ a:AFTER {
 }
 
 TABLE {}
+
+.foo { &-KeepSelector {} &-KeepSelector & .KeepClassSelector {} &-100\\.200 {} }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -725,6 +736,15 @@ a:after {
 }
 
 table {
+}
+
+.foo {
+  &-KeepSelector {
+  }
+  &-KeepSelector & .KeepClassSelector {
+  }
+  &-100\\.200 {
+  }
 }
 
 `;

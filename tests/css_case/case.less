@@ -71,7 +71,6 @@ $KeepScssVar: val;
     }
 
     @KeepDetachedRuleset();
-    @KeepDetachedRuleset ( /* comment */  );
 
     &:EXTEND(.Keep ALL);
 
@@ -141,3 +140,5 @@ a:AFTER {
 }
 
 TABLE {}
+
+.foo { &-KeepSelector {} &-KeepSelector & .KeepClassSelector {} &-100\.200 {} }

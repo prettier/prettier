@@ -3,7 +3,6 @@
 const path = require("path");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
-const minimist = require("minimist");
 const fs = require("fs");
 const globby = require("globby");
 const ignore = require("ignore");
@@ -11,6 +10,7 @@ const chalk = require("chalk");
 const readline = require("readline");
 const leven = require("leven");
 
+const minimist = require("./minimist");
 const prettier = require("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
 const errors = require("../common/errors");
@@ -228,11 +228,7 @@ function parseArgsToOptions(context, overrideDefaults) {
         Object.assign({
           string: minimistOptions.string,
           boolean: minimistOptions.boolean,
-          default: Object.assign(
-            {},
-            cliifyOptions(context.apiDefaultOptions, apiDetailedOptionMap),
-            cliifyOptions(overrideDefaults, apiDetailedOptionMap)
-          )
+          default: cliifyOptions(overrideDefaults, apiDetailedOptionMap)
         })
       ),
       context.detailedOptions,
@@ -305,7 +301,7 @@ function createIgnorer(context) {
 }
 
 function eachFilename(context, patterns, callback) {
-  const ignoreNodeModules = context.argv["with-node-modules"] === false;
+  const ignoreNodeModules = context.argv["with-node-modules"] !== true;
   if (ignoreNodeModules) {
     patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
   }
@@ -613,7 +609,16 @@ function createDetailedUsage(context, optionName) {
       ? `\n\nDefault: ${createDefaultValueDisplay(optionDefaultValue)}`
       : "";
 
-  return `${header}${description}${choices}${defaults}`;
+  const pluginDefaults =
+    option.pluginDefaults && Object.keys(option.pluginDefaults).length
+      ? `\nPlugin defaults:${Object.keys(option.pluginDefaults).map(
+          key =>
+            `\n* ${key}: ${createDefaultValueDisplay(
+              option.pluginDefaults[key]
+            )}`
+        )}`
+      : "";
+  return `${header}${description}${choices}${defaults}${pluginDefaults}`;
 }
 
 function getOptionDefaultValue(context, optionName) {
@@ -743,6 +748,7 @@ function createMinimistOptions(detailedOptions) {
       .map(option => option.name),
     default: detailedOptions
       .filter(option => !option.deprecated)
+      .filter(option => !option.forwardToApi || option.name === "plugin")
       .filter(option => option.default !== undefined)
       .reduce(
         (current, option) =>

@@ -23,10 +23,10 @@
   greyImage: /images/users/used_by_babel.svg
   infoLink: https://babeljs.io
   pinned: true
-- caption: Webpack CLI
+- caption: webpack
   image: /images/users/webpack-200x100.png
   greyImage: /images/users/used_by_webpack.svg
-  infoLink: https://webpack.js.org/api/cli/
+  infoLink: https://webpack.js.org/
   pinned: true
 - caption: Danger
   image: /images/users/danger-200x100.png
@@ -180,3 +180,6 @@
 - caption: Leesa Sleep
   image: /images/users/leesa.svg
   infoLink: https://leesa.com/
+- caption: ComputerBase
+  image: /images/users/computerbase.svg
+  infoLink: https://www.computerbase.de/

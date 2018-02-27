@@ -173,6 +173,135 @@ function hasJsxIgnoreComment(path) {
   );
 }
 
+// The following is the shared logic for
+// ternary operators, namely ConditionalExpression
+// and TSConditionalType
+function formatTernaryOperator(path, options, print, operatorOptions) {
+  const n = path.getValue();
+  const parts = [];
+  const operatorOpts = Object.assign(
+    {
+      beforeParts: () => [""],
+      afterParts: () => [""],
+      shouldCheckJsx: true,
+      operatorName: "ConditionalExpression",
+      consequentNode: "consequent",
+      alternateNode: "alternate",
+      testNode: "test"
+    },
+    operatorOptions || {}
+  );
+
+  // We print a ConditionalExpression in either "JSX mode" or "normal mode".
+  // See tests/jsx/conditional-expression.js for more info.
+  let jsxMode = false;
+  const parent = path.getParentNode();
+  let forceNoIndent = parent.type === operatorOpts.operatorName;
+
+  // Find the outermost non-ConditionalExpression parent, and the outermost
+  // ConditionalExpression parent. We'll use these to determine if we should
+  // print in JSX mode.
+  let currentParent;
+  let previousParent;
+  let i = 0;
+  do {
+    previousParent = currentParent || n;
+    currentParent = path.getParentNode(i);
+    i++;
+  } while (currentParent && currentParent.type === operatorOpts.operatorName);
+  const firstNonConditionalParent = currentParent || parent;
+  const lastConditionalParent = previousParent;
+
+  if (
+    (operatorOpts.shouldCheckJsx && isJSXNode(n[operatorOpts.testNode])) ||
+    isJSXNode(n[operatorOpts.consequentNode]) ||
+    isJSXNode(n[operatorOpts.alternateNode]) ||
+    conditionalExpressionChainContainsJSX(lastConditionalParent)
+  ) {
+    jsxMode = true;
+    forceNoIndent = true;
+
+    // Even though they don't need parens, we wrap (almost) everything in
+    // parens when using ?: within JSX, because the parens are analogous to
+    // curly braces in an if statement.
+    const wrap = doc =>
+      concat([
+        ifBreak("(", ""),
+        indent(concat([softline, doc])),
+        softline,
+        ifBreak(")", "")
+      ]);
+
+    // The only things we don't wrap are:
+    // * Nested conditional expressions in alternates
+    // * null
+    const isNull = node =>
+      node.type === "NullLiteral" ||
+      (node.type === "Literal" && node.value === null);
+
+    parts.push(
+      " ? ",
+      isNull(n[operatorOpts.consequentNode])
+        ? path.call(print, operatorOpts.consequentNode)
+        : wrap(path.call(print, operatorOpts.consequentNode)),
+      " : ",
+      n[operatorOpts.alternateNode].type === operatorOpts.operatorName ||
+      isNull(n[operatorOpts.alternateNode])
+        ? path.call(print, operatorOpts.alternateNode)
+        : wrap(path.call(print, operatorOpts.alternateNode))
+    );
+  } else {
+    // normal mode
+    const part = concat([
+      line,
+      "? ",
+      n[operatorOpts.consequentNode].type === operatorOpts.operatorName
+        ? ifBreak("", "(")
+        : "",
+      align(2, path.call(print, operatorOpts.consequentNode)),
+      n[operatorOpts.consequentNode].type === operatorOpts.operatorName
+        ? ifBreak("", ")")
+        : "",
+      line,
+      ": ",
+      align(2, path.call(print, operatorOpts.alternateNode))
+    ]);
+    parts.push(
+      parent.type === operatorOpts.operatorName
+        ? options.useTabs
+          ? dedent(indent(part))
+          : align(Math.max(0, options.tabWidth - 2), part)
+        : part
+    );
+  }
+
+  // In JSX mode, we want a whole chain of ConditionalExpressions to all
+  // break if any of them break. That means we should only group around the
+  // outer-most ConditionalExpression.
+  const maybeGroup = doc =>
+    jsxMode
+      ? parent === firstNonConditionalParent ? group(doc) : doc
+      : group(doc); // Always group in normal mode.
+
+  // Break the closing paren to keep the chain right after it:
+  // (a
+  //   ? b
+  //   : c
+  // ).call()
+  const breakClosingParen =
+    !jsxMode && parent.type === "MemberExpression" && !parent.computed;
+
+  return maybeGroup(
+    concat(
+      [].concat(
+        operatorOpts.beforeParts(),
+        forceNoIndent ? concat(parts) : indent(concat(parts)),
+        operatorOpts.afterParts(breakClosingParen)
+      )
+    )
+  );
+}
+
 function printPathNoParens(path, options, print, args) {
   const n = path.getValue();
   const semi = options.semi ? ";" : "";
@@ -1223,109 +1352,11 @@ function printPathNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-    case "ConditionalExpression": {
-      // We print a ConditionalExpression in either "JSX mode" or "normal mode".
-      // See tests/jsx/conditional-expression.js for more info.
-      let jsxMode = false;
-      const parent = path.getParentNode();
-      let forceNoIndent = parent.type === "ConditionalExpression";
-
-      // Find the outermost non-ConditionalExpression parent, and the outermost
-      // ConditionalExpression parent. We'll use these to determine if we should
-      // print in JSX mode.
-      let currentParent;
-      let previousParent;
-      let i = 0;
-      do {
-        previousParent = currentParent || n;
-        currentParent = path.getParentNode(i);
-        i++;
-      } while (currentParent && currentParent.type === "ConditionalExpression");
-      const firstNonConditionalParent = currentParent || parent;
-      const lastConditionalParent = previousParent;
-
-      if (
-        isJSXNode(n.test) ||
-        isJSXNode(n.consequent) ||
-        isJSXNode(n.alternate) ||
-        conditionalExpressionChainContainsJSX(lastConditionalParent)
-      ) {
-        jsxMode = true;
-        forceNoIndent = true;
-
-        // Even though they don't need parens, we wrap (almost) everything in
-        // parens when using ?: within JSX, because the parens are analogous to
-        // curly braces in an if statement.
-        const wrap = doc =>
-          concat([
-            ifBreak("(", ""),
-            indent(concat([softline, doc])),
-            softline,
-            ifBreak(")", "")
-          ]);
-
-        // The only things we don't wrap are:
-        // * Nested conditional expressions in alternates
-        // * null
-        const isNull = node =>
-          node.type === "NullLiteral" ||
-          (node.type === "Literal" && node.value === null);
-
-        parts.push(
-          " ? ",
-          isNull(n.consequent)
-            ? path.call(print, "consequent")
-            : wrap(path.call(print, "consequent")),
-          " : ",
-          n.alternate.type === "ConditionalExpression" || isNull(n.alternate)
-            ? path.call(print, "alternate")
-            : wrap(path.call(print, "alternate"))
-        );
-      } else {
-        // normal mode
-        const part = concat([
-          line,
-          "? ",
-          n.consequent.type === "ConditionalExpression" ? ifBreak("", "(") : "",
-          align(2, path.call(print, "consequent")),
-          n.consequent.type === "ConditionalExpression" ? ifBreak("", ")") : "",
-          line,
-          ": ",
-          align(2, path.call(print, "alternate"))
-        ]);
-        parts.push(
-          parent.type === "ConditionalExpression"
-            ? options.useTabs
-              ? dedent(indent(part))
-              : align(Math.max(0, options.tabWidth - 2), part)
-            : part
-        );
-      }
-
-      // In JSX mode, we want a whole chain of ConditionalExpressions to all
-      // break if any of them break. That means we should only group around the
-      // outer-most ConditionalExpression.
-      const maybeGroup = doc =>
-        jsxMode
-          ? parent === firstNonConditionalParent ? group(doc) : doc
-          : group(doc); // Always group in normal mode.
-
-      // Break the closing paren to keep the chain right after it:
-      // (a
-      //   ? b
-      //   : c
-      // ).call()
-      const breakClosingParen =
-        !jsxMode && parent.type === "MemberExpression" && !parent.computed;
-
-      return maybeGroup(
-        concat([
-          path.call(print, "test"),
-          forceNoIndent ? concat(parts) : indent(concat(parts)),
-          breakClosingParen ? softline : ""
-        ])
-      );
-    }
+    case "ConditionalExpression":
+      return formatTernaryOperator(path, options, print, {
+        beforeParts: () => [path.call(print, "test")],
+        afterParts: breakClosingParen => [breakClosingParen ? softline : ""]
+      });
     case "VariableDeclaration": {
       const printed = path.map(childPath => {
         return print(childPath);
@@ -1777,6 +1808,7 @@ function printPathNoParens(path, options, print, args) {
         n.attributes.length === 1 &&
         n.attributes[0].value &&
         isStringLiteral(n.attributes[0].value) &&
+        !n.attributes[0].value.value.includes("\n") &&
         // We should break for the following cases:
         // <div
         //   // comment
@@ -1816,6 +1848,17 @@ function printPathNoParens(path, options, print, args) {
         (!nameHasComments || n.attributes.length) &&
         !lastAttrHasTrailingComments;
 
+      // We should print the opening element expanded if any prop value is a
+      // string literal with newlines
+      const shouldBreak =
+        n.attributes &&
+        n.attributes.some(
+          attr =>
+            attr.value &&
+            isStringLiteral(attr.value) &&
+            attr.value.value.includes("\n")
+        );
+
       return group(
         concat([
           "<",
@@ -1829,7 +1872,8 @@ function printPathNoParens(path, options, print, args) {
             n.selfClosing ? line : bracketSameLine ? ">" : softline
           ]),
           n.selfClosing ? "/>" : bracketSameLine ? "" : ">"
-        ])
+        ]),
+        { shouldBreak }
       );
     }
     case "JSXClosingElement":
@@ -2860,6 +2904,25 @@ function printPathNoParens(path, options, print, args) {
     case "PrivateName":
       return concat(["#", path.call(print, "id")]);
 
+    case "TSConditionalType":
+      return formatTernaryOperator(path, options, print, {
+        beforeParts: () => [
+          path.call(print, "checkType"),
+          " ",
+          "extends",
+          " ",
+          path.call(print, "extendsType")
+        ],
+        shouldCheckJsx: false,
+        operatorName: "TSConditionalType",
+        consequentNode: "trueType",
+        alternateNode: "falseType",
+        testNode: "checkType"
+      });
+
+    case "TSInferType":
+      return concat(["infer", " ", path.call(print, "typeParameter")]);
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));
@@ -3192,6 +3255,12 @@ function printTypeAnnotation(path, options, print) {
   }
 
   const parentNode = path.getParentNode();
+  const isDefinite =
+    node.definite ||
+    (parentNode &&
+      parentNode.type === "VariableDeclarator" &&
+      parentNode.definite);
+
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
@@ -3202,7 +3271,7 @@ function printTypeAnnotation(path, options, print) {
   }
 
   return concat([
-    isFunctionDeclarationIdentifier ? "" : ": ",
+    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
     path.call(print, "typeAnnotation")
   ]);
 }
@@ -3882,6 +3951,12 @@ function printMemberChain(path, options, print) {
         )
       });
       path.call(object => rec(object), "object");
+    } else if (node.type === "TSNonNullExpression") {
+      printedNodes.unshift({
+        node: node,
+        printed: comments.printComments(path, () => "!", options)
+      });
+      path.call(expression => rec(expression), "expression");
     } else {
       printedNodes.unshift({
         node: node,
@@ -3932,6 +4007,7 @@ function printMemberChain(path, options, print) {
   let i = 1;
   for (; i < printedNodes.length; ++i) {
     if (
+      printedNodes[i].node.type === "TSNonNullExpression" ||
       printedNodes[i].node.type === "CallExpression" ||
       (printedNodes[i].node.type === "MemberExpression" &&
         printedNodes[i].node.computed &&

@@ -249,13 +249,28 @@ function getSupportInfo(version, opts) {
       }
 
       return newOption;
+    })
+    .map(option => {
+      const filteredPlugins = plugins.filter(
+        plugin => plugin.defaultOptions && plugin.defaultOptions[option.name]
+      );
+      const pluginDefaults = filteredPlugins.reduce((reduced, plugin) => {
+        reduced[plugin.name] = plugin.defaultOptions[option.name];
+        return reduced;
+      }, {});
+      return Object.assign(option, { pluginDefaults });
     });
 
   const usePostCssParser = semver.lt(version, "1.7.1");
 
   const languages = plugins
     .reduce((all, plugin) => all.concat(plugin.languages), [])
-    .filter(language => language.since && semver.gte(version, language.since))
+    .filter(
+      language =>
+        language.since
+          ? semver.gte(version, language.since)
+          : language.since !== null
+    )
     .map(language => {
       // Prevent breaking changes
       if (language.name === "Markdown") {
