@@ -273,6 +273,8 @@ a:AFTER {
 }
 
 TABLE {}
+
+.foo { &-KeepSelector {} &-KeepSelector & .KeepClassSelector {} &-100\\.200 {} }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -426,6 +428,15 @@ a:after {
 table {
 }
 
+.foo {
+  &-KeepSelector {
+  }
+  &-KeepSelector & .KeepClassSelector {
+  }
+  &-100\\.200 {
+  }
+}
+
 `;
 
 exports[`case.scss 1`] = `
@@ -574,6 +585,8 @@ a:AFTER {
 }
 
 TABLE {}
+
+.foo { &-KeepSelector {} &-KeepSelector & .KeepClassSelector {} &-100\\.200 {} }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -723,6 +736,15 @@ a:after {
 }
 
 table {
+}
+
+.foo {
+  &-KeepSelector {
+  }
+  &-KeepSelector & .KeepClassSelector {
+  }
+  &-100\\.200 {
+  }
 }
 
 `;

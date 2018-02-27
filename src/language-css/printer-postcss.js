@@ -289,15 +289,22 @@ function genericPrint(path, options, print) {
       return adjustStrings(node.value, options);
     }
     case "selector-tag": {
+      const parentNode = path.getParentNode();
+      const index = parentNode && parentNode.nodes.indexOf(node);
+      const prevNode = index && parentNode.nodes[index - 1];
+
       return concat([
         node.namespace
           ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
           : "",
-        adjustNumbers(
-          isHTMLTag(node.value) || isKeyframeAtRuleKeywords(path, node.value)
-            ? node.value.toLowerCase()
-            : node.value
-        )
+        prevNode.type === "selector-nesting"
+          ? node.value
+          : adjustNumbers(
+              isHTMLTag(node.value) ||
+              isKeyframeAtRuleKeywords(path, node.value)
+                ? node.value.toLowerCase()
+                : node.value
+            )
       ]);
     }
     case "selector-id": {

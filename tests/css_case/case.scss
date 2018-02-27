@@ -143,3 +143,5 @@ a:AFTER {
 }
 
 TABLE {}
+
+.foo { &-KeepSelector {} &-KeepSelector & .KeepClassSelector {} &-100\.200 {} }
