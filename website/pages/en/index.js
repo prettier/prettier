@@ -87,7 +87,7 @@ const TldrSection = ({ language }) => (
           <ul style={{ flex: "1" }}>
             <li>An opinionated code formatter</li>
             <li>Supports many languages</li>
-            <li>Integrates with the most editors</li>
+            <li>Integrates with most editors</li>
             <li>Has few options</li>
           </ul>
         </div>
