@@ -26,7 +26,8 @@ function normalize(options, opts) {
   const supportOptions = getSupportInfo(null, {
     plugins,
     pluginsLoaded: true,
-    showUnreleased: true
+    showUnreleased: true,
+    showDeprecated: true
   }).options;
   const defaults = supportOptions.reduce(
     (reduced, optionInfo) =>
@@ -49,10 +50,20 @@ function normalize(options, opts) {
     }
   }
 
-  const parser = resolveParser(rawOptions);
+  const parser = resolveParser(
+    !rawOptions.parser
+      ? rawOptions
+      : // handle deprecated parsers
+        normalizer.normalizeApiOptions(
+          rawOptions,
+          [supportOptions.find(x => x.name === "parser")],
+          { passThrough: true, logger: false }
+        )
+  );
   rawOptions.astFormat = parser.astFormat;
   rawOptions.locEnd = parser.locEnd;
   rawOptions.locStart = parser.locStart;
+
   const plugin = getPlugin(rawOptions);
   rawOptions.printer = plugin.printers[rawOptions.astFormat];
 
