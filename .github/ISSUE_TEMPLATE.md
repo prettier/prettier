@@ -1,4 +1,4 @@
-<!-- BUGGY OR UGLY? Please use this template.
+<!-- For ugly or incorrect code issues: Please use this template.
 
 Tip! Don't write this stuff manually.
 
