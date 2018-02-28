@@ -1,3 +1,9 @@
+# 1.11.1
+
+[link](https://github.com/prettier/prettier/compare/1.11.0...1.11.1)
+
+* 1.11.0 was incorrectly shipped with the wrong version of the TypeScript parser, which broke conditional types. This release fixes it.
+
 # 1.11.0
 
 * [Release Notes](https://prettier.io/blog/2018/02/26/1.11.0.html)
