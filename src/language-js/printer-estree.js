@@ -5281,22 +5281,36 @@ function isObjectType(n) {
 // eg; `describe("some string", (done) => {})`
 function isTestCall(n) {
   const unitTestRe = /^(skip|(f|x)?(it|describe|test))$/;
+  const testSetupRe = /^(before|after)(Each|All)$/;
   return (
-    ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
+    (((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
       (n.callee.type === "MemberExpression" &&
         n.callee.object.type === "Identifier" &&
         n.callee.property.type === "Identifier" &&
         unitTestRe.test(n.callee.object.name) &&
         (n.callee.property.name === "only" ||
           n.callee.property.name === "skip"))) &&
-    n.arguments.length === 2 &&
-    (n.arguments[0].type === "StringLiteral" ||
-      n.arguments[0].type === "TemplateLiteral" ||
-      (n.arguments[0].type === "Literal" &&
-        typeof n.arguments[0].value === "string")) &&
-    (n.arguments[1].type === "FunctionExpression" ||
-      n.arguments[1].type === "ArrowFunctionExpression") &&
-    n.arguments[1].params.length <= 1
+      n.arguments.length === 2 &&
+      (n.arguments[0].type === "StringLiteral" ||
+        n.arguments[0].type === "TemplateLiteral" ||
+        (n.arguments[0].type === "Literal" &&
+          typeof n.arguments[0].value === "string")) &&
+      (((n.arguments[1].type === "FunctionExpression" ||
+        n.arguments[1].type === "ArrowFunctionExpression") &&
+        n.arguments[1].params.length <= 1) ||
+        (n.arguments[1].type === "CallExpression" &&
+          n.arguments[1].callee.type === "Identifier" &&
+          n.arguments[1].callee.name === "async" &&
+          n.arguments[1].arguments.length === 1))) ||
+    (n.callee.type === "Identifier" &&
+      testSetupRe.test(n.callee.name) &&
+      n.arguments.length === 1 &&
+      (((n.arguments[0].type === "FunctionExpression" ||
+        n.arguments[0].type === "ArrowFunctionExpression") &&
+        n.arguments[0].params.length === 0) ||
+        (n.arguments[0].type === "CallExpression" &&
+          n.arguments[0].callee.type === "Identifier" &&
+          n.arguments[0].callee.name === "async")))
   );
 }
 
