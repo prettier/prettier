@@ -1,5 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`jsx-comment.md 1`] = `
+\`\`\`jsx
+const Foo = () => {
+  return (
+    <div>
+      {/*
+        This links to a page that does not yet exist.
+      */}    
+      <hr />
+    </div>
+  );
+};
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`\`\`jsx
+const Foo = () => {
+  return (
+    <div>
+      {/*
+        This links to a page that does not yet exist.
+      */}
+      <hr />
+    </div>
+  );
+};
+\`\`\`
+
+`;
+
 exports[`trailing-comma.md 1`] = `
 ### Some heading
 

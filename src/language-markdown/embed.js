@@ -5,6 +5,7 @@ const support = require("../common/support");
 const doc = require("../doc");
 const docBuilders = doc.builders;
 const hardline = docBuilders.hardline;
+const literalline = docBuilders.literalline;
 const concat = docBuilders.concat;
 const markAsRoot = docBuilders.markAsRoot;
 
@@ -24,7 +25,7 @@ function embed(path, print, textToDoc, options) {
           style,
           node.lang,
           hardline,
-          replaceNewlinesWithHardlines(doc),
+          replaceNewlinesWithLiterallines(doc),
           style
         ])
       );
@@ -51,7 +52,7 @@ function embed(path, print, textToDoc, options) {
     return null;
   }
 
-  function replaceNewlinesWithHardlines(doc) {
+  function replaceNewlinesWithLiterallines(doc) {
     return util.mapDoc(
       doc,
       currentDoc =>
@@ -59,7 +60,7 @@ function embed(path, print, textToDoc, options) {
           ? concat(
               currentDoc
                 .split(/(\n)/g)
-                .map((v, i) => (i % 2 === 0 ? v : hardline))
+                .map((v, i) => (i % 2 === 0 ? v : literalline))
             )
           : currentDoc
     );
