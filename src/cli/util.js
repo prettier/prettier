@@ -339,7 +339,9 @@ function formatFiles(context) {
     const fileIgnored = ignorer.filter([filename]).length === 0;
     if (
       fileIgnored &&
-      (context.argv["write"] || context.argv["list-different"])
+      (context.argv["debug-check"] ||
+        context.argv["write"] ||
+        context.argv["list-different"])
     ) {
       return;
     }
