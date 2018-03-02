@@ -67,7 +67,7 @@ Copy the following config into your `.pre-commit-config.yaml` file:
         -   id: prettier
 ```
 
-Find more info from [here](http://pre-commit.com).
+Find more info from [here](https://pre-commit.com).
 
 ## Option 4. [precise-commits](https://github.com/JamesHenry/precise-commits)
 

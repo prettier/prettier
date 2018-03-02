@@ -411,7 +411,7 @@ Copy the following config into your `.pre-commit-config.yaml` file:
 
 ```
 
-Find more info from [here](http://pre-commit.com).
+Find more info from [here](https://pre-commit.com).
 
 ##### Option 3. bash script
 
