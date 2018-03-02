@@ -436,6 +436,9 @@ function printPathNoParens(path, options, print, args) {
       const shouldIndentIfInlining =
         parent.type === "AssignmentExpression" ||
         parent.type === "VariableDeclarator" ||
+        parent.type === "ClassProperty" ||
+        parent.type === "TSAbstractClassProperty" ||
+        parent.type === "ClassPrivateProperty" ||
         parent.type === "ObjectProperty" ||
         parent.type === "Property";
 
