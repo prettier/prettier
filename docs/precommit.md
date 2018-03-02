@@ -54,7 +54,7 @@ and add this config to your `package.json`:
 
 Find more info from [here](https://github.com/azz/pretty-quick).
 
-## Option 3. [pre-commit](https://github.com/pre-commit/pre-commit) (Python version)
+## Option 3. [pre-commit](https://github.com/pre-commit/pre-commit)
 
 **Use Case:** Great when working with multi-language projects.
 
