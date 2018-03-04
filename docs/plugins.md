@@ -34,9 +34,9 @@ If the plugin is unable to be found automatically, you can load them with:
 
 ## Official Plugins
 
-* [`@prettier/plugin-python`](https://github.com/prettier/prettier-python)
-* [`@prettier/plugin-php`](https://github.com/prettier/prettier-php)
-* [`@prettier/plugin-swift`](https://github.com/prettier/prettier-swift)
+* [`@prettier/plugin-python`](https://github.com/prettier/plugin-python)
+* [`@prettier/plugin-php`](https://github.com/prettier/plugin-php)
+* [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
 
 ## Community Plugins
 
