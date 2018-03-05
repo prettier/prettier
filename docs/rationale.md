@@ -78,6 +78,25 @@ This practice is also common in [standard] which uses a semicolon-free style.
 
 [standard]: https://standardjs.com/rules.html#semicolons
 
+### Imports
+
+Prettier can break long `import` statements across several lines:
+
+```js
+import {
+  CollectionDashboard,
+  DashboardPlaceholder
+} from "../components/collections/collection-dashboard/main";
+```
+
+The following example doesn't fit within the print width, but Prettier prints it in a single line anyway:
+
+```js
+import { CollectionDashboard } from "../components/collections/collection-dashboard/main";
+```
+
+This might be unexpected by some, but we do it this way since it was a common request to keep `import`s with single elements in a single line. The same applies for `require` calls.
+
 ## What Prettier is _not_ concerned about
 
 Prettier only _prints_ code. It does not transform it. This is to limit the scope of Prettier. Let's focus on the printing and do it really well!
@@ -87,3 +106,4 @@ Here are a few examples of things that are out of scope for Prettier:
 * Turning single- or double-quoted strings into template literals or vice versa.
 * Adding/removing `{}` and `return` where they are optional.
 * Turning `?:` into `if`-`else` statements.
+* Sorting and hoisting `import`s. (Sorting is unsafe because of side effects, which would violate the [correctness](#correctness) goal.)
