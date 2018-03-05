@@ -41,6 +41,7 @@ This is about using the `--no-semi` option.
 
 Consider this piece of code:
 
+<!-- prettier-ignore -->
 ```js
 if (shouldAddLines) {
   [-1, 1].forEach(delta => addLine(delta * 20))
@@ -49,6 +50,7 @@ if (shouldAddLines) {
 
 While the above code works just fine without semicolons, Prettier actually turns it into:
 
+<!-- prettier-ignore -->
 ```js
 if (shouldAddLines) {
   ;[-1, 1].forEach(delta => addLine(delta * 20))
@@ -66,6 +68,7 @@ This is to help you avoid mistakes. Imagine adding this line:
 
 Oops! The above actually means:
 
+<!-- prettier-ignore -->
 ```js
 if (shouldAddLines) {
   console.log('Do we even get here??')[-1, 1].forEach(delta => addLine(delta * 20))
