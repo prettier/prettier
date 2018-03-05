@@ -97,6 +97,42 @@ import { CollectionDashboard } from "../components/collections/collection-dashbo
 
 This might be unexpected by some, but we do it this way since it was a common request to keep `import`s with single elements in a single line. The same applies for `require` calls.
 
+### JSX
+
+Prettier prints things a little differently compared to other JS when JSX is involved:
+
+```jsx
+function greet(user) {
+  return user
+    ? `Welcome back, ${user.name}!`
+    : "Greetings, traveler! Sign up today!";
+}
+
+function Greet({ user }) {
+  return (
+    <div>
+      {user ? (
+        <p>Welcome back, {user.name}!</p>
+      ) : (
+        <p>Greetings, traveler! Sign up today!</p>
+      )}
+    </div>
+  );
+}
+```
+
+There are two reasons.
+
+First off, lots of people already wrapped their JSX in parentheses, especially in `return` statements. Prettier follows this common style.
+
+Secondly, [the alternate formatting makes it easier to edit the JSX](https://github.com/prettier/prettier/issues/2208). It is easy to leave a semicolon behind. As opposed to normal JS, a leftover semicolon in JSX can end up as plain text showing on your page.
+
+```jsx
+<div>
+  <p>Greetings, traveler! Sign up today!</p>; {/* <-- Oops! */}
+</div>
+```
+
 ## What Prettier is _not_ concerned about
 
 Prettier only _prints_ code. It does not transform it. This is to limit the scope of Prettier. Let's focus on the printing and do it really well!
