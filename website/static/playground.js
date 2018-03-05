@@ -457,6 +457,18 @@ function getExample(parser) {
         "  ],",
         "}"
       ].join("\n");
+    case "graphql":
+      return [
+        "query Browse($offset: Int, $limit: Int, $categories: [String!], $search: String) {",
+        "  browse(limit: $limit, offset: $offset, categories: $categories, search: $search) {",
+        "    total,",
+        "    results {",
+        "        title",
+        "        price",
+        "    }",
+        "  }",
+        "}"
+      ].join("\n");
     default:
       return "";
   }
