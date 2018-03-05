@@ -469,6 +469,21 @@ function getExample(parser) {
         "  }",
         "}"
       ].join("\n");
+    case "markdown":
+      return [
+        "_Look,_ code blocks are formatted *too!*",
+        "",
+        "``` js",
+        "function identity(x) { return x }",
+        "```",
+        "",
+        "+ List",
+        " + with a [link] (/to/somewhere)",
+        "+ and [another one]",
+        "",
+        "",
+        "  [another one]:  http://example.com 'Example title'"
+      ].join("\n");
     default:
       return "";
   }
