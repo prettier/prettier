@@ -340,6 +340,36 @@ foo();
 
 `;
 
+exports[`self_closing_style.vue 1`] = `
+<template>
+  <span :class="$style.root"><slot /></span>
+</template>
+
+<style src="./style.css" module />
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template>
+  <span :class="$style.root"><slot /></span>
+</template>
+
+<style src="./style.css" module />
+
+`;
+
+exports[`self_closing_style.vue 2`] = `
+<template>
+  <span :class="$style.root"><slot /></span>
+</template>
+
+<style src="./style.css" module />
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template>
+  <span :class="$style.root"><slot /></span>
+</template>
+
+<style src="./style.css" module />
+
+`;
+
 exports[`test.vue 1`] = `
 <script>
 </script>

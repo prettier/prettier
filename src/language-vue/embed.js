@@ -7,7 +7,7 @@ const hardline = docBuilders.hardline;
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
-  if (!parent || parent.tag !== "root") {
+  if (!parent || parent.tag !== "root" || node.unary) {
     return null;
   }
 
