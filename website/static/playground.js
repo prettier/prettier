@@ -450,6 +450,20 @@ function getExample(parser) {
         "  }",
         "}"
       ].join("\n");
+    case "less":
+      // Copied from http://lesscss.org/features/#detached-rulesets-feature
+      return [
+        "@my-ruleset: {",
+        "    .my-selector {",
+        "      @media tv {",
+        "        background-color: black;",
+        "      }",
+        "    }",
+        "  };",
+        "@media (orientation:portrait) {",
+        "    @my-ruleset();",
+        "}"
+      ].join("\n");
     case "json":
       // Excerpted & adapted from Wikipedia, under the Creative Commons Attribution-ShareAlike License
       // https://en.wikipedia.org/wiki/JSON#Example
