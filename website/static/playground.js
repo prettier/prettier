@@ -509,6 +509,21 @@ function getExample(parser) {
         "",
         "  [another one]:  http://example.com 'Example title'"
       ].join("\n");
+    case "vue":
+      return [
+        "<template>",
+        "  <p>Templates are not formatted yet ...",
+        "    </p>",
+        "</template>",
+        "",
+        "<script>",
+        "let Prettier = format => { your.js('though') }",
+        "</script>",
+        "",
+        "<style>",
+        ".and { css: too! important }",
+        "</style>"
+      ].join("\n");
     default:
       return "";
   }
