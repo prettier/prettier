@@ -379,6 +379,17 @@ function getExample(parser) {
         "",
         "}"
       ].join("\n");
+    case "flow":
+      return [
+        "declare export function graphql<Props, Variables, Component: React$ComponentType<Props>>",
+        "  (query: GQLDocument, config?: Config<Props, QueryConfigOptions<Variables>>):",
+        "  (Component: Component) => React$ComponentType<$Diff<React$ElementConfig<Component>, {",
+        "    data: Object|void,",
+        "    mutate: Function|void",
+        "  }>>",
+        "",
+        'declare type FetchPolicy = "cache-first" | "cache-and-network" | "network-only" | "cache-only"'
+      ].join("\n");
     case "typescript":
       return [
         "interface MyInterface {",
@@ -439,6 +450,20 @@ function getExample(parser) {
         "  }",
         "}"
       ].join("\n");
+    case "less":
+      // Copied from http://lesscss.org/features/#detached-rulesets-feature
+      return [
+        "@my-ruleset: {",
+        "    .my-selector {",
+        "      @media tv {",
+        "        background-color: black;",
+        "      }",
+        "    }",
+        "  };",
+        "@media (orientation:portrait) {",
+        "    @my-ruleset();",
+        "}"
+      ].join("\n");
     case "json":
       // Excerpted & adapted from Wikipedia, under the Creative Commons Attribution-ShareAlike License
       // https://en.wikipedia.org/wiki/JSON#Example
@@ -456,6 +481,48 @@ function getExample(parser) {
         '      "trailing": "commas by accident"},',
         "  ],",
         "}"
+      ].join("\n");
+    case "graphql":
+      return [
+        "query Browse($offset: Int, $limit: Int, $categories: [String!], $search: String) {",
+        "  browse(limit: $limit, offset: $offset, categories: $categories, search: $search) {",
+        "    total,",
+        "    results {",
+        "        title",
+        "        price",
+        "    }",
+        "  }",
+        "}"
+      ].join("\n");
+    case "markdown":
+      return [
+        "_Look,_ code blocks are formatted *too!*",
+        "",
+        "``` js",
+        "function identity(x) { return x }",
+        "```",
+        "",
+        "+ List",
+        " + with a [link] (/to/somewhere)",
+        "+ and [another one]",
+        "",
+        "",
+        "  [another one]:  http://example.com 'Example title'"
+      ].join("\n");
+    case "vue":
+      return [
+        "<template>",
+        "  <p>Templates are not formatted yet ...",
+        "    </p>",
+        "</template>",
+        "",
+        "<script>",
+        "let Prettier = format => { your.js('though') }",
+        "</script>",
+        "",
+        "<style>",
+        ".and { css: too! important }",
+        "</style>"
       ].join("\n");
     default:
       return "";
