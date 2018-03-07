@@ -293,6 +293,16 @@ a {
     filter: progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=45, Strength=6) progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=135, Strength=6);
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#fad59f, endColorstr=#fa9907)";
 }
+
+.unicode-ranges
+{
+    /* <unicode-range> values */
+    unicode-range: U+26;               /* single codepoint */
+    unicode-range: U+0-7F;
+    unicode-range: U+0025-00FF;        /* codepoint range */
+    unicode-range: U+4??;              /* wildcard range */
+    unicode-range: U+0025-00FF, U+4??; /* multiple values */
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a {
   prop1: func(1px, 1px, 1px, func(1px, 1px, 1px, func(1px, 1px, 1px)));
@@ -495,6 +505,15 @@ a {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled='false',startColorstr='#fff',endColorstr='#000');
   filter: progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=45, Strength=6) progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=135, Strength=6);
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#fad59f, endColorstr=#fa9907)";
+}
+
+.unicode-ranges {
+  /* <unicode-range> values */
+  unicode-range: U+26; /* single codepoint */
+  unicode-range: U+0-7F;
+  unicode-range: U+0025-00FF; /* codepoint range */
+  unicode-range: U+4??; /* wildcard range */
+  unicode-range: U+0025-00FF, U+4??; /* multiple values */
 }
 
 `;

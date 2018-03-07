@@ -689,6 +689,9 @@ function genericPrint(path, options, print) {
     case "value-atword": {
       return concat(["@", node.value]);
     }
+    case "value-unicode-range": {
+      return node.value;
+    }
     default:
       /* istanbul ignore next */
       throw new Error(`Unknown postcss type ${JSON.stringify(node.type)}`);
