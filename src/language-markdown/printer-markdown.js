@@ -210,10 +210,12 @@ function genericPrint(path, options, print) {
       return concat(["+++", hardline, node.value, hardline, "+++"]);
     case "html": {
       const parentNode = path.getParentNode();
-      return parentNode.type === "root" &&
+      return replaceNewlinesWithHardlines(
+        parentNode.type === "root" &&
         privateUtil.getLast(parentNode.children) === node
-        ? node.value.trimRight()
-        : node.value;
+          ? node.value.trimRight()
+          : node.value
+      );
     }
     case "list": {
       const nthSiblingIndex = getNthListSiblingIndex(
@@ -386,6 +388,10 @@ function getNthListSiblingIndex(node, parentNode) {
     parentNode,
     siblingNode => siblingNode.ordered === node.ordered
   );
+}
+
+function replaceNewlinesWithHardlines(str) {
+  return join(hardline, str.split("\n"));
 }
 
 function getNthSiblingIndex(node, parentNode, condition) {
