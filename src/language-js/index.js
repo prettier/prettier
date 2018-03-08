@@ -1,6 +1,7 @@
 "use strict";
 
 const printer = require("./printer-estree");
+const hasPragma = require("./pragma").hasPragma;
 const options = require("./options");
 const privateUtil = require("../common/util");
 
@@ -161,6 +162,7 @@ const typescript = {
     return eval("require")("./parser-typescript");
   },
   astFormat: "estree",
+  hasPragma,
   locStart,
   locEnd
 };
@@ -170,18 +172,24 @@ const babylon = {
     return eval("require")("./parser-babylon");
   },
   astFormat: "estree",
+  hasPragma,
   locStart,
   locEnd
 };
 
 const parsers = {
   babylon,
-  json: babylon,
+  json: Object.assign({}, babylon, {
+    hasPragma() {
+      return false;
+    }
+  }),
   flow: {
     get parse() {
       return eval("require")("./parser-flow");
     },
     astFormat: "estree",
+    hasPragma,
     locStart,
     locEnd
   },

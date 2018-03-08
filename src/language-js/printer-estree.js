@@ -8,6 +8,7 @@ const sharedUtil = require("../common/util-shared");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 const embed = require("./embed");
 const clean = require("./clean");
+const insertPragma = require("./pragma").insertPragma;
 
 const doc = require("../doc");
 const docBuilders = doc.builders;
@@ -5408,6 +5409,7 @@ function printJsDocComment(comment) {
 module.exports = {
   print: genericPrint,
   embed,
+  insertPragma,
   massageAstNode: clean,
   hasPrettierIgnore,
   willPrintOwnComments,

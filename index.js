@@ -1,7 +1,5 @@
 "use strict";
 
-const docblock = require("jest-docblock");
-
 const version = require("./package.json").version;
 
 const privateUtil = require("./src/common/util");
@@ -38,11 +36,6 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
-function hasPragma(text) {
-  const pragmas = Object.keys(docblock.parse(docblock.extract(text)));
-  return pragmas.indexOf("prettier") !== -1 || pragmas.indexOf("format") !== -1;
-}
-
 function ensureAllCommentsPrinted(astComments) {
   if (!astComments) {
     return;
@@ -69,7 +62,9 @@ function ensureAllCommentsPrinted(astComments) {
 }
 
 function formatWithCursor(text, opts, addAlignmentSize) {
-  if (opts.requirePragma && !hasPragma(text)) {
+  const selectedParser = parser.resolveParser(opts);
+  const hasPragma = !selectedParser.hasPragma || selectedParser.hasPragma(text);
+  if (opts.requirePragma && !hasPragma) {
     return { formatted: text };
   }
 
@@ -81,19 +76,12 @@ function formatWithCursor(text, opts, addAlignmentSize) {
 
   if (
     opts.insertPragma &&
-    !hasPragma(text) &&
+    opts.printer.insertPragma &&
+    !hasPragma &&
     opts.rangeStart === 0 &&
     opts.rangeEnd === Infinity
   ) {
-    const parsedDocblock = docblock.parseWithComments(docblock.extract(text));
-    const pragmas = Object.assign({ format: "" }, parsedDocblock.pragmas);
-    const newDocblock = docblock.print({
-      pragmas,
-      comments: parsedDocblock.comments.replace(/^(\s+?\r?\n)+/, "") // remove leading newlines
-    });
-    const strippedText = docblock.strip(text);
-    const separatingNewlines = strippedText.startsWith("\n") ? "\n" : "\n\n";
-    text = newDocblock + separatingNewlines + strippedText;
+    text = opts.printer.insertPragma(text);
   }
 
   addAlignmentSize = addAlignmentSize || 0;
