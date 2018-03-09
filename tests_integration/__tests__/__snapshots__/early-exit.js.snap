@@ -164,6 +164,19 @@ Default: false
 
 exports[`show detailed usage with --help jsx-bracket-same-line (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help jsx-single-quote (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help jsx-single-quote (stdout) 1`] = `
+"--jsx-single-quote
+
+  Use single quotes instead of double quotes in JSX.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help jsx-single-quote (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help l (alias) (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help l (alias) (stdout) 1`] = `
@@ -565,6 +578,8 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
+  --jsx-single-quote       Use single quotes instead of double quotes in JSX.
+                           Defaults to false.
   --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>
                            Which parser to use.
                            Defaults to babylon.
@@ -706,6 +721,8 @@ Format options:
                            Defaults to avoid.
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
+                           Defaults to false.
+  --jsx-single-quote       Use single quotes instead of double quotes in JSX.
                            Defaults to false.
   --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>
                            Which parser to use.

@@ -1690,12 +1690,17 @@ function printPathNoParens(path, options, print, args) {
       return concat(["debugger", semi]);
     case "JSXAttribute":
       parts.push(path.call(print, "name"));
-
       if (n.value) {
         let res;
         if (isStringLiteral(n.value)) {
-          const value = rawText(n.value);
-          res = '"' + value.slice(1, -1).replace(/"/g, "&quot;") + '"';
+          const value = rawText(n.value).slice(1, -1);
+          if (options.jsxSingleQuote) {
+            res =
+              "'" + value.replace(/'/g, "&apos;").replace(/&quot;/g, '"') + "'";
+          } else {
+            res =
+              '"' + value.replace(/"/g, "&quot;").replace(/&apos;/g, "'") + '"';
+          }
         } else {
           res = path.call(print, "value");
         }
