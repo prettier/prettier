@@ -84,6 +84,7 @@ export const parsers = {
     parse,
     // The name of the AST that
     astFormat: "dance-ast",
+    hasPragma,
     locStart,
     locEnd
   }
@@ -102,6 +103,12 @@ The location extraction functions (`locStart` and `locEnd`) return the starting 
 function locStart(node: object): number;
 ```
 
+The pragma detection function (`hasPragma`) should return if the text contains the pragma comment.
+
+```ts
+function hasPragma(text: string): boolean;
+```
+
 ### `printers`
 
 Printers convert ASTs into a Prettier intermediate representation, also known as a Doc.
@@ -112,7 +119,8 @@ The key must match the `astFormat` that the parser produces. The value contains 
 export const printers = {
   "dance-ast": {
     print,
-    embed
+    embed,
+    insertPragma
   }
 };
 ```
@@ -154,6 +162,12 @@ function embed(
 ```
 
 If you don't want to switch to a different parser, simply return `null` or `undefined`.
+
+A plugin can implement how a pragma comment is inserted in the resulting code when the `--insert-pragma` option is used, in the `insertPragma` function. Its signature is:
+
+```ts
+function insertPragma(text: string): string;
+```
 
 ### `options`
 
