@@ -1,5 +1,188 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CRLF.css 1`] = `
+/*
+ * Comment 1
+ */
+#header {
+    /*
+     * Comment 2
+     */
+    color: red;
+}
+
+@media only screen and (max-width: 600px) {
+    /*
+     * Comment 3
+     */
+    body {
+        background-color: lightblue; /* Comment 4 */
+        color: red; /* Comment 5 */
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+ * Comment 1
+ */
+#header {
+  /*
+     * Comment 2
+     */
+  color: red;
+}
+
+@media only screen and (max-width: 600px) {
+  /*
+     * Comment 3
+     */
+  body {
+    background-color: lightblue; /* Comment 4 */
+    color: red; /* Comment 5 */
+  }
+}
+
+`;
+
+exports[`CRLF.less 1`] = `
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
+
+// Comment 1
+/*
+ * Comment 2
+ */
+#header {
+  // Comment 3
+  /*
+   * Comment 4
+   */
+  color: @light-blue;
+}
+
+@media only screen and (max-width: 600px) {
+  // Comment 1
+  /*
+   * Comment 5
+   */
+  body {
+    background-color: lightblue; // Comment 6
+    color: red; /* Comment 7 */
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
+
+// Comment 1
+/*
+ * Comment 2
+ */
+#header {
+  // Comment 3
+  /*
+   * Comment 4
+   */
+  color: @light-blue;
+}
+
+@media only screen and (max-width: 600px) {
+  // Comment 1
+  /*
+   * Comment 5
+   */
+  body {
+    background-color: lightblue; // Comment 6
+    color: red; /* Comment 7 */
+  }
+}
+
+`;
+
+exports[`CRLF.scss 1`] = `
+$nice-blue: #5B83AD;
+$light-blue: $nice-blue + #111;
+
+// Comment 1
+/*
+ * Comment 2
+ */
+#header {
+    // Comment 3
+    /*
+     * Comment 4
+     */
+    color: @light-blue;
+}
+
+@media only screen and (max-width: 600px) {
+    // Comment 1
+    /*
+     * Comment 5
+     */
+    body {
+        background-color: lightblue; // Comment 6
+        color: red; /* Comment 7 */
+    }
+}
+
+@mixin create-rules($padding) {
+    //
+    // Comment 8
+    //
+    .abc {
+        padding: $padding;
+    }
+    /**
+     * Comment 9
+     */
+    .def {
+        padding: $padding;
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$nice-blue: #5b83ad;
+$light-blue: $nice-blue + #111;
+
+// Comment 1
+/*
+ * Comment 2
+ */
+#header {
+  // Comment 3
+  /*
+     * Comment 4
+     */
+  color: @light-blue;
+}
+
+@media only screen and (max-width: 600px) {
+  // Comment 1
+  /*
+     * Comment 5
+     */
+  body {
+    background-color: lightblue; // Comment 6
+    color: red; /* Comment 7 */
+  }
+}
+
+@mixin create-rules($padding) {
+  //
+  // Comment 8
+  //
+  .abc {
+    padding: $padding;
+  }
+  /**
+     * Comment 9
+     */
+  .def {
+    padding: $padding;
+  }
+}
+
+`;
+
 exports[`at-rules.css 1`] = `
 @charset "utf-8"; /* comment 1 */
 
