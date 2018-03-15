@@ -232,6 +232,7 @@ function parseNestedCSS(node) {
 
       try {
         node.selector = parseSelector(selector);
+        node.raws.selector = selector;
       } catch (e) {
         // Fail silently. It's better to print it as is than to try and parse it
         // Note: A common failure is for SCSS nested properties. `background:
