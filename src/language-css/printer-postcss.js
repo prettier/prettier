@@ -93,10 +93,16 @@ function genericPrint(path, options, print) {
         node.value.type === "value-root" &&
         node.value.group.type === "value-value" &&
         node.prop === "composes";
+      const ruleAncestorNode = getAncestorNode(path, "css-rule");
+      const isiCSS =
+        ruleAncestorNode &&
+        ruleAncestorNode.raws.selector &&
+        (ruleAncestorNode.raws.selector.startsWith(":import") ||
+          ruleAncestorNode.raws.selector.startsWith(":export"));
 
       return concat([
         node.raws.before.replace(/[\s;]/g, ""),
-        maybeToLowerCase(node.prop),
+        isiCSS ? node.prop : maybeToLowerCase(node.prop),
         node.raws.between.trim() === ":" ? ":" : node.raws.between.trim(),
         isValueExtend ? "" : " ",
         isComposed
