@@ -181,7 +181,9 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
-          : ";"
+          : node.name === "prettier-placeholder" && options.__isStyledComponents
+            ? ""
+            : ";"
       ]);
     }
     case "css-import": {
