@@ -14,7 +14,7 @@ function embed(path, print, textToDoc, options) {
 
   if (node.type === "code") {
     // only look for the first string so as to support [markdown-preview-enhanced](https://shd101wyy.github.io/markdown-preview-enhanced/#/code-chunk)
-    const lang = node.lang.split(/\s/)[0];
+    const lang = node.lang.split(/\s/, 1)[0];
     const parser = getParserName(lang);
     if (parser) {
       const styleUnit = options.__inJsTemplate ? "~" : "`";
