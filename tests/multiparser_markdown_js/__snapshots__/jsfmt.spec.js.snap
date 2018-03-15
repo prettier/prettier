@@ -29,6 +29,33 @@ const Foo = () => {
 
 `;
 
+exports[`markdown-preview-enhanced.md 1`] = `
+## plain js block
+
+\`\`\`js   
+console.log(     "hello world"   );
+\`\`\`
+
+## js block with arguments
+
+\`\`\`js {cmd=node .line-numbers}
+console.log(     "hello world"   );
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## plain js block
+
+\`\`\`js
+console.log("hello world");
+\`\`\`
+
+## js block with arguments
+
+\`\`\`js {cmd=node .line-numbers}
+console.log(     "hello world"   );
+\`\`\`
+
+`;
+
 exports[`trailing-comma.md 1`] = `
 ### Some heading
 
