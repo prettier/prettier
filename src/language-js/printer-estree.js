@@ -302,6 +302,16 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
   );
 }
 
+function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
+  if (tokenNode.type === "TSPlusToken") {
+    return "+" + keyword;
+  } else if (tokenNode.type === "TSMinusToken") {
+    return "-" + keyword;
+  } else {
+    return keyword;
+  }
+}
+
 function printPathNoParens(path, options, print, args) {
   const n = path.getValue();
   const semi = options.semi ? ";" : "";
@@ -2723,9 +2733,10 @@ function printPathNoParens(path, options, print, args) {
               options.bracketSpacing ? line : softline,
               n.readonlyToken
                 ? concat([
-                    n.readonlyToken.type === "TSMinusToken"
-                      ? "-readonly"
-                      : "readonly",
+                    getTypeScriptMappedTypeModifier(
+                      n.readonlyToken,
+                      "readonly"
+                    ),
                     " "
                   ])
                 : "",
@@ -2734,7 +2745,7 @@ function printPathNoParens(path, options, print, args) {
               path.call(print, "typeParameter"),
               "]",
               n.questionToken
-                ? n.questionToken.type === "TSMinusToken" ? "-?" : "?"
+                ? getTypeScriptMappedTypeModifier(n.questionToken, "?")
                 : "",
               ": ",
               path.call(print, "typeAnnotation")
