@@ -223,3 +223,71 @@ switch (1) {
 }
 
 `;
+
+exports[`switch.js 1`] = `
+switch (a) {
+  case 3:
+    alert( '3' );
+    break;
+  case 4:
+    alert( '4' );
+    break;
+  case 5:
+    alert( '5' );
+    break;
+  default:
+    alert( 'default' );
+}
+
+switch (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong) {
+  case 3:
+    alert( '3' );
+    break;
+  default:
+    alert( 'default' );
+}
+
+switch (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong > veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong) {
+  case 3:
+    alert( '3' );
+    break;
+  default:
+    alert( 'default' );
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+switch (a) {
+  case 3:
+    alert("3");
+    break;
+  case 4:
+    alert("4");
+    break;
+  case 5:
+    alert("5");
+    break;
+  default:
+    alert("default");
+}
+
+switch (
+  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+) {
+  case 3:
+    alert("3");
+    break;
+  default:
+    alert("default");
+}
+
+switch (
+  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong >
+    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+) {
+  case 3:
+    alert("3");
+    break;
+  default:
+    alert("default");
+}
+
+`;
