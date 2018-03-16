@@ -43,6 +43,7 @@ If the plugin is unable to be found automatically, you can load them with:
 * [`prettier-plugin-java`](https://github.com/thorbenvh8/prettier-java)
 * [`iamsolankiamit/prettier-ruby`](https://github.com/iamsolankiamit/prettier-ruby)
 * [`benjie/prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg)
+* [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm)
 
 ## Developing Plugins
 
