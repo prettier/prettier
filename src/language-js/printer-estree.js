@@ -307,9 +307,8 @@ function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
     return "+" + keyword;
   } else if (tokenNode.type === "TSMinusToken") {
     return "-" + keyword;
-  } else {
-    return keyword;
   }
+  return keyword;
 }
 
 function printPathNoParens(path, options, print, args) {
