@@ -1,6 +1,8 @@
 /* eslint-env worker */
 /* eslint no-var: off, strict: off */
 
+var parsersLoaded = {};
+
 // "Polyfills" in order for all the code to run
 /* eslint-disable */
 self.global = self;
@@ -66,8 +68,6 @@ if (typeof prettier === "undefined") {
 if (typeof prettier === "undefined") {
   prettier = index; // eslint-disable-line
 }
-
-var parsersLoaded = {};
 
 self.onmessage = function(message) {
   var options = message.data.options || {};
