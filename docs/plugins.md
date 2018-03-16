@@ -40,10 +40,10 @@ If the plugin is unable to be found automatically, you can load them with:
 
 ## Community Plugins
 
-* [`prettier-plugin-java`](https://github.com/thorbenvh8/prettier-java)
-* [`iamsolankiamit/prettier-ruby`](https://github.com/iamsolankiamit/prettier-ruby)
-* [`benjie/prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg)
-* [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm)
+* [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
+* [`prettier-plugin-java`](https://github.com/thorbenvh8/prettier-java) by [**@thorbenvh8**](https://github.com/thorbenvh8)
+* [`prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg) by [**@benjie**](https://github.com/benjie)
+* [`prettier-plugin-ruby`](https://github.com/iamsolankiamit/prettier-ruby) by [**@iamsolankiamit**](https://github.com/iamsolankiamit)
 
 ## Developing Plugins
 
