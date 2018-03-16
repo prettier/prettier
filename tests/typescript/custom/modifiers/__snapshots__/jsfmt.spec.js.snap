@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`minustoken.ts 1`] = `
+type MutableAndRequired<T> = {
+    -readonly [P in keyof T]-?: T[P]
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type MutableAndRequired<T> = { -readonly [P in keyof T]-?: T[P] };
+
+`;
+
 exports[`question.ts 1`] = `
 var x: {
     [A in keyof B]?: any;

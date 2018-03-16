@@ -2722,13 +2722,20 @@ function printPathNoParens(path, options, print, args) {
             concat([
               options.bracketSpacing ? line : softline,
               n.readonlyToken
-                ? concat([path.call(print, "readonlyToken"), " "])
+                ? concat([
+                    n.readonlyToken.type === "TSMinusToken"
+                      ? "-readonly"
+                      : "readonly",
+                    " "
+                  ])
                 : "",
               printTypeScriptModifiers(path, options, print),
               "[",
               path.call(print, "typeParameter"),
               "]",
-              n.questionToken ? "?" : "",
+              n.questionToken
+                ? n.questionToken.type === "TSMinusToken" ? "-?" : "?"
+                : "",
               ": ",
               path.call(print, "typeAnnotation")
             ])
