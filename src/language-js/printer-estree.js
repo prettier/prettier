@@ -1630,9 +1630,15 @@ function printPathNoParens(path, options, print, args) {
     // Note: ignoring n.lexical because it has no printing consequences.
     case "SwitchStatement":
       return concat([
-        "switch (",
-        path.call(print, "discriminant"),
-        ") {",
+        group(
+          concat([
+            "switch (",
+            indent(concat([softline, path.call(print, "discriminant")])),
+            softline,
+            ")"
+          ])
+        ),
+        " {",
         n.cases.length > 0
           ? indent(
               concat([
