@@ -514,6 +514,10 @@ function getExample(parser) {
         "",
         "+ List",
         " + with a [link] (/to/somewhere)",
+        "+ and [another one]",
+        "",
+        "",
+        "  [another one]:  http://example.com 'Example title'",
         "",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "Curabitur consectetur maximus risus, sed maximus tellus tincidunt et."
