@@ -9,7 +9,7 @@ Use the `Reformat with Prettier` action (`Alt-Shift-Cmd-P` on macOS or `Alt-Shif
 
 Don't forget to install `prettier` first.
 
-To use Prettier in IntelliJ IDEA, PhpStorm, PyCharm, and other JetBrains IDEs, please install this [plugin](https://plugins.jetbrains.com/plugin/10456-prettier). 
+To use Prettier in IntelliJ IDEA, PhpStorm, PyCharm, and other JetBrains IDEs, please install this [plugin](https://plugins.jetbrains.com/plugin/10456-prettier).
 
 For older IDE versions, please follow the instructions below.
 
@@ -23,13 +23,13 @@ Go to _Preferences | Tools | File Watchers_ and click **+** to add a new watcher
 * **Scope**: _Project Files_
 * **Program**: full path to `.bin/prettier` or `.bin\prettier.cmd` in the project's `node_module` folder
 * **Arguments**: `--write [other options] $FilePathRelativeToProjectRoot$`
-* **Output paths to refresh**: `$FilePathRelativeToProjectRoot$` 
+* **Output paths to refresh**: `$FilePathRelativeToProjectRoot$`
 * **Working directory**: `$ProjectFileDir$`
 * **Auto-save edited files to trigger the watcher**: Uncheck to reformat on Save only.
 
 ![Example](/docs/assets/webstorm/file-watcher-prettier.png)
 
-## WebStorm 2017.3 or earlier 
+## WebStorm 2017.3 or earlier
 
 ### Using Prettier with ESLint
 
