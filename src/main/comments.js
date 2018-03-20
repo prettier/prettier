@@ -13,6 +13,10 @@ const privateUtil = require("../common/util");
 const sharedUtil = require("../common/util-shared");
 const childNodesCacheKey = Symbol("child-nodes");
 
+const addLeadingComment = sharedUtil.addLeadingComment;
+const addTrailingComment = sharedUtil.addTrailingComment;
+const addDanglingComment = sharedUtil.addDanglingComment;
+
 function getSortedChildNodes(node, text, options, resultArray) {
   if (!node) {
     return;
@@ -184,6 +188,13 @@ function attach(comments, ast, text, options) {
     const precedingNode = comment.precedingNode;
     const enclosingNode = comment.enclosingNode;
     const followingNode = comment.followingNode;
+
+    const pluginHandleComment = options.printer.handleComment
+      ? options.printer.handleComment
+      : () => false;
+    if (pluginHandleComment(comment, text, options)) {
+      return;
+    }
 
     const isLastComment = comments.length - 1 === i;
 
@@ -422,37 +433,6 @@ function breakTies(tiesToBreak, text, options) {
   });
 
   tiesToBreak.length = 0;
-}
-
-function addCommentHelper(node, comment) {
-  const comments = node.comments || (node.comments = []);
-  comments.push(comment);
-  comment.printed = false;
-
-  // For some reason, TypeScript parses `// x` inside of JSXText as a comment
-  // We already "print" it via the raw text, we don't need to re-print it as a
-  // comment
-  if (node.type === "JSXText") {
-    comment.printed = true;
-  }
-}
-
-function addLeadingComment(node, comment) {
-  comment.leading = true;
-  comment.trailing = false;
-  addCommentHelper(node, comment);
-}
-
-function addDanglingComment(node, comment) {
-  comment.leading = false;
-  comment.trailing = false;
-  addCommentHelper(node, comment);
-}
-
-function addTrailingComment(node, comment) {
-  comment.leading = false;
-  comment.trailing = true;
-  addCommentHelper(node, comment);
 }
 
 function addBlockStatementFirstComment(node, comment) {
