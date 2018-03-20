@@ -1,16 +1,11 @@
 "use strict";
 
 const htmlTagNames = require("html-tag-names");
+const util = require("./util");
+
+const maybeToLowerCase = util.maybeToLowerCase;
 
 function clean(ast, newObj) {
-  if (
-    ast.type === "media-query" ||
-    ast.type === "media-query-list" ||
-    ast.type === "media-feature-expression"
-  ) {
-    delete newObj.value;
-  }
-
   if (ast.type === "css-rule") {
     delete newObj.params;
   }
@@ -19,17 +14,12 @@ function clean(ast, newObj) {
     newObj.value = newObj.value.replace(/\s+/g, " ");
   }
 
-  if (ast.type === "media-feature") {
-    newObj.value = newObj.value.replace(/ /g, "");
-  }
-
   if (
     (ast.type === "value-word" &&
       ((ast.isColor && ast.isHex) ||
         ["initial", "inherit", "unset", "revert"].indexOf(
           newObj.value.replace().toLowerCase()
         ) !== -1)) ||
-    ast.type === "media-feature" ||
     ast.type === "selector-root-invalid" ||
     ast.type === "selector-pseudo"
   ) {
@@ -46,13 +36,7 @@ function clean(ast, newObj) {
   }
 
   if (
-    (ast.type === "media-feature" ||
-      ast.type === "media-keyword" ||
-      ast.type === "media-type" ||
-      ast.type === "media-unknown" ||
-      ast.type === "media-url" ||
-      ast.type === "media-value" ||
-      ast.type === "selector-root-invalid" ||
+    (ast.type === "selector-root-invalid" ||
       ast.type === "selector-attribute" ||
       ast.type === "selector-string" ||
       ast.type === "selector-class" ||
@@ -87,9 +71,7 @@ function clean(ast, newObj) {
   }
 
   if (
-    (ast.type === "media-value" ||
-      ast.type === "media-type" ||
-      ast.type === "value-number" ||
+    (ast.type === "value-number" ||
       ast.type === "selector-root-invalid" ||
       ast.type === "selector-class" ||
       ast.type === "selector-combinator" ||
@@ -105,12 +87,6 @@ function clean(ast, newObj) {
     );
   }
 
-  if (ast.type === "media-url") {
-    newObj.value = newObj.value
-      .replace(/^url\(\s+/gi, "url(")
-      .replace(/\s+\)$/gi, ")");
-  }
-
   if (ast.type === "selector-tag") {
     const lowercasedValue = ast.value.toLowerCase();
 
@@ -121,6 +97,10 @@ function clean(ast, newObj) {
     if (["from", "to"].indexOf(lowercasedValue) !== -1) {
       newObj.value = lowercasedValue;
     }
+  }
+
+  if (ast.type === "value-word" && !ast.isColor && !ast.isHex) {
+    newObj.value = maybeToLowerCase(ast.value);
   }
 }
 
