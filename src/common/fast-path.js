@@ -320,6 +320,7 @@ FastPath.prototype.needsParens = function(options) {
         case "AwaitExpression":
         case "TSAsExpression":
         case "TSNonNullExpression":
+        case "UpdateExpression":
           return true;
 
         case "MemberExpression":
