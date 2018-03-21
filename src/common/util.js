@@ -756,6 +756,37 @@ function arrayify(object, keyName) {
   );
 }
 
+function addCommentHelper(node, comment) {
+  const comments = node.comments || (node.comments = []);
+  comments.push(comment);
+  comment.printed = false;
+
+  // For some reason, TypeScript parses `// x` inside of JSXText as a comment
+  // We already "print" it via the raw text, we don't need to re-print it as a
+  // comment
+  if (node.type === "JSXText") {
+    comment.printed = true;
+  }
+}
+
+function addLeadingComment(node, comment) {
+  comment.leading = true;
+  comment.trailing = false;
+  addCommentHelper(node, comment);
+}
+
+function addDanglingComment(node, comment) {
+  comment.leading = false;
+  comment.trailing = false;
+  addCommentHelper(node, comment);
+}
+
+function addTrailingComment(node, comment) {
+  comment.leading = false;
+  comment.trailing = true;
+  addCommentHelper(node, comment);
+}
+
 module.exports = {
   arrayify,
   punctuationRegex,
@@ -795,5 +826,8 @@ module.exports = {
   hasIgnoreComment,
   hasNodeIgnoreComment,
   lineColumnToIndex,
-  makeString
+  makeString,
+  addLeadingComment,
+  addDanglingComment,
+  addTrailingComment
 };

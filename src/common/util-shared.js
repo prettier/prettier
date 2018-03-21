@@ -19,5 +19,8 @@ module.exports = {
   isNextLineEmptyAfterIndex: util.isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   mapDoc: util.mapDoc,
-  makeString: util.makeString
+  makeString: util.makeString,
+  addLeadingComment: util.addLeadingComment,
+  addDanglingComment: util.addDanglingComment,
+  addTrailingComment: util.addTrailingComment
 };
