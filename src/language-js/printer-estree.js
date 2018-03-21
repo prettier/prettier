@@ -303,6 +303,15 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
   );
 }
 
+function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
+  if (tokenNode.type === "TSPlusToken") {
+    return "+" + keyword;
+  } else if (tokenNode.type === "TSMinusToken") {
+    return "-" + keyword;
+  }
+  return keyword;
+}
+
 function printPathNoParens(path, options, print, args) {
   const n = path.getValue();
   const semi = options.semi ? ";" : "";
@@ -2729,13 +2738,21 @@ function printPathNoParens(path, options, print, args) {
             concat([
               options.bracketSpacing ? line : softline,
               n.readonlyToken
-                ? concat([path.call(print, "readonlyToken"), " "])
+                ? concat([
+                    getTypeScriptMappedTypeModifier(
+                      n.readonlyToken,
+                      "readonly"
+                    ),
+                    " "
+                  ])
                 : "",
               printTypeScriptModifiers(path, options, print),
               "[",
               path.call(print, "typeParameter"),
               "]",
-              n.questionToken ? "?" : "",
+              n.questionToken
+                ? getTypeScriptMappedTypeModifier(n.questionToken, "?")
+                : "",
               ": ",
               path.call(print, "typeAnnotation")
             ])

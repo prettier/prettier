@@ -55,7 +55,7 @@
     "resolve": "1.5.0",
     "semver": "5.4.1",
     "string-width": "2.1.1",
-    "typescript": "2.8.0-dev.20180222",
+    "typescript": "2.8.0-rc",
     "typescript-eslint-parser": "14.0.0",
     "unicode-regex": "1.0.1",
     "unified": "6.1.6"
