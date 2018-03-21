@@ -9,6 +9,7 @@ const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 const embed = require("./embed");
 const clean = require("./clean");
 const insertPragma = require("./pragma").insertPragma;
+const handleComments = require("./comments");
 
 const doc = require("../doc");
 const docBuilders = doc.builders;
@@ -5420,5 +5421,10 @@ module.exports = {
   hasPrettierIgnore,
   willPrintOwnComments,
   canAttachComment,
-  printComment
+  printComment,
+  handleComments: {
+    ownLine: handleComments.handleOwnLineComment,
+    endOfLine: handleComments.handleEndOfLineComment,
+    remaining: handleComments.handleRemainingComment
+  }
 };
