@@ -445,28 +445,41 @@ function printLine(path, value, options) {
     : isBreakable ? softline : "";
 }
 
+function containsHtml(node) {
+  return node.children
+    ? node.children.some(containsHtml)
+    : node.type === "html";
+}
+
 function printTable(path, options, print) {
   const node = path.getValue();
-  const contents = []; // { [rowIndex: number]: { [columnIndex: number]: string } }
+
+  /** @type {{ [rowIndex: number]: { hasHtml: boolean, contents: { [columnIndex: number]: string }}} */
+  const contents = [];
 
   path.map(rowPath => {
+    let hasHtml = false;
     const rowContents = [];
 
     rowPath.map(cellPath => {
       rowContents.push(
         printDocToString(cellPath.call(print), options).formatted
       );
+      if (containsHtml(cellPath.getValue())) {
+        hasHtml = true;
+      }
     }, "children");
 
-    contents.push(rowContents);
+    contents.push({ hasHtml, contents: rowContents });
   }, "children");
 
-  const columnMaxWidths = contents.reduce(
-    (currentWidths, rowContents) =>
+  const nonHtmlRows = contents.filter(row => !row.hasHtml);
+  const columnMaxWidths = nonHtmlRows.reduce(
+    (currentWidths, row) =>
       currentWidths.map((width, columnIndex) =>
-        Math.max(width, privateUtil.getStringWidth(rowContents[columnIndex]))
+        Math.max(width, privateUtil.getStringWidth(row.contents[columnIndex]))
       ),
-    contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
+    contents[0].contents.map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
 
   return join(hardline, [
@@ -497,21 +510,23 @@ function printTable(path, options, print) {
     ]);
   }
 
-  function printRow(rowContents) {
+  function printRow(row) {
     return concat([
       "| ",
       join(
         " | ",
-        rowContents.map((rowContent, columnIndex) => {
-          switch (node.align[columnIndex]) {
-            case "right":
-              return alignRight(rowContent, columnMaxWidths[columnIndex]);
-            case "center":
-              return alignCenter(rowContent, columnMaxWidths[columnIndex]);
-            default:
-              return alignLeft(rowContent, columnMaxWidths[columnIndex]);
-          }
-        })
+        row.hasHtml
+          ? row.contents
+          : row.contents.map((rowContent, columnIndex) => {
+              switch (node.align[columnIndex]) {
+                case "right":
+                  return alignRight(rowContent, columnMaxWidths[columnIndex]);
+                case "center":
+                  return alignCenter(rowContent, columnMaxWidths[columnIndex]);
+                default:
+                  return alignLeft(rowContent, columnMaxWidths[columnIndex]);
+              }
+            })
       ),
       " |"
     ]);
