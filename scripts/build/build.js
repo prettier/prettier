@@ -92,6 +92,7 @@ pkgWithoutDependencies.scripts = {
   prepublishOnly:
     "node -e \"assert.equal(require('.').version, require('..').version)\""
 };
+pkgWithoutDependencies.files = ["*.js"];
 pipe(JSON.stringify(pkgWithoutDependencies, null, 2)).to("dist/package.json");
 
 shell.echo("Copy README.md");
