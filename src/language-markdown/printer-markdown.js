@@ -445,41 +445,51 @@ function printLine(path, value, options) {
     : isBreakable ? softline : "";
 }
 
-function containsHtml(node) {
-  return node.children
-    ? node.children.some(containsHtml)
-    : node.type === "html";
-}
-
 function printTable(path, options, print) {
   const node = path.getValue();
 
-  /** @type {{ [rowIndex: number]: { hasHtml: boolean, contents: { [columnIndex: number]: string }}} */
+  /**
+   * @typedef {{ [rowIndex: number]: Row }} TableContents
+   * @typedef {{ [columnIndex: number]: Column, isTooLong: boolean }} Row
+   * @typedef {{ value: string, width: number }} Column
+   */
+  /** @type {TableContents} */
   const contents = [];
 
   path.map(rowPath => {
-    let hasHtml = false;
-    const rowContents = [];
+    const columns = [];
 
     rowPath.map(cellPath => {
-      rowContents.push(
-        printDocToString(cellPath.call(print), options).formatted
-      );
-      if (containsHtml(cellPath.getValue())) {
-        hasHtml = true;
-      }
+      const value = printDocToString(cellPath.call(print), options).formatted;
+      const width = privateUtil.getStringWidth(value);
+      columns.push({ value, width });
     }, "children");
 
-    contents.push({ hasHtml, contents: rowContents });
+    contents.push({ columns, isTooLong: false });
   }, "children");
 
-  const nonHtmlRows = contents.filter(row => !row.hasHtml);
-  const columnMaxWidths = nonHtmlRows.reduce(
-    (currentWidths, row) =>
-      currentWidths.map((width, columnIndex) =>
-        Math.max(width, privateUtil.getStringWidth(row.contents[columnIndex]))
-      ),
-    contents[0].contents.map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
+  const columnMaxWidths = contents.reduce(
+    (currentWidths, row) => {
+      const newWidths = currentWidths.map((width, columnIndex) =>
+        Math.max(
+          width,
+          row.columns[columnIndex] === undefined // empty cell
+            ? 0
+            : row.columns[columnIndex].width
+        )
+      );
+
+      row.isTooLong =
+        newWidths.reduce(
+          (a, b) => a + b,
+          // | --- | --- |
+          // ^^   ^^^   ^^
+          2 + 3 * (newWidths.length - 1) + 2
+        ) > options.printWidth;
+
+      return row.isTooLong ? currentWidths : newWidths;
+    },
+    contents[0].columns.map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
 
   return join(hardline, [
@@ -515,18 +525,19 @@ function printTable(path, options, print) {
       "| ",
       join(
         " | ",
-        row.hasHtml
-          ? row.contents
-          : row.contents.map((rowContent, columnIndex) => {
-              switch (node.align[columnIndex]) {
-                case "right":
-                  return alignRight(rowContent, columnMaxWidths[columnIndex]);
-                case "center":
-                  return alignCenter(rowContent, columnMaxWidths[columnIndex]);
-                default:
-                  return alignLeft(rowContent, columnMaxWidths[columnIndex]);
-              }
-            })
+        row.columns.map((column, columnIndex) => {
+          if (row.isTooLong) {
+            return column.value;
+          }
+          switch (node.align[columnIndex]) {
+            case "right":
+              return alignRight(column.value, columnMaxWidths[columnIndex]);
+            case "center":
+              return alignCenter(column.value, columnMaxWidths[columnIndex]);
+            default:
+              return alignLeft(column.value, columnMaxWidths[columnIndex]);
+          }
+        })
       ),
       " |"
     ]);
