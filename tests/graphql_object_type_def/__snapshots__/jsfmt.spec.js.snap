@@ -38,7 +38,7 @@ type VRMConversation implements Node, Entity @foo {
   a: Int
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type VRMConversation implements Node & Entity @foo {
+type VRMConversation implements Node, Entity @foo {
   a: Int
 }
 
