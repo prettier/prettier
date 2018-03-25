@@ -447,26 +447,49 @@ function printLine(path, value, options) {
 
 function printTable(path, options, print) {
   const node = path.getValue();
-  const contents = []; // { [rowIndex: number]: { [columnIndex: number]: string } }
+
+  /**
+   * @typedef {{ [rowIndex: number]: Row }} TableContents
+   * @typedef {{ [columnIndex: number]: Column, isTooLong: boolean }} Row
+   * @typedef {{ value: string, width: number }} Column
+   */
+  /** @type {TableContents} */
+  const contents = [];
 
   path.map(rowPath => {
-    const rowContents = [];
+    const columns = [];
 
     rowPath.map(cellPath => {
-      rowContents.push(
-        printDocToString(cellPath.call(print), options).formatted
-      );
+      const value = printDocToString(cellPath.call(print), options).formatted;
+      const width = privateUtil.getStringWidth(value);
+      columns.push({ value, width });
     }, "children");
 
-    contents.push(rowContents);
+    contents.push({ columns, isTooLong: false });
   }, "children");
 
   const columnMaxWidths = contents.reduce(
-    (currentWidths, rowContents) =>
-      currentWidths.map((width, columnIndex) =>
-        Math.max(width, privateUtil.getStringWidth(rowContents[columnIndex]))
-      ),
-    contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
+    (currentWidths, row) => {
+      const newWidths = currentWidths.map((width, columnIndex) =>
+        Math.max(
+          width,
+          row.columns[columnIndex] === undefined // empty cell
+            ? 0
+            : row.columns[columnIndex].width
+        )
+      );
+
+      row.isTooLong =
+        newWidths.reduce(
+          (a, b) => a + b,
+          // | --- | --- |
+          // ^^   ^^^   ^^
+          2 + 3 * (newWidths.length - 1) + 2
+        ) > options.printWidth;
+
+      return row.isTooLong ? currentWidths : newWidths;
+    },
+    contents[0].columns.map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
 
   return join(hardline, [
@@ -497,19 +520,22 @@ function printTable(path, options, print) {
     ]);
   }
 
-  function printRow(rowContents) {
+  function printRow(row) {
     return concat([
       "| ",
       join(
         " | ",
-        rowContents.map((rowContent, columnIndex) => {
+        row.columns.map((column, columnIndex) => {
+          if (row.isTooLong) {
+            return column.value;
+          }
           switch (node.align[columnIndex]) {
             case "right":
-              return alignRight(rowContent, columnMaxWidths[columnIndex]);
+              return alignRight(column.value, columnMaxWidths[columnIndex]);
             case "center":
-              return alignCenter(rowContent, columnMaxWidths[columnIndex]);
+              return alignCenter(column.value, columnMaxWidths[columnIndex]);
             default:
-              return alignLeft(rowContent, columnMaxWidths[columnIndex]);
+              return alignLeft(column.value, columnMaxWidths[columnIndex]);
           }
         })
       ),
