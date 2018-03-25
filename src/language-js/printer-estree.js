@@ -10,6 +10,7 @@ const embed = require("./embed");
 const clean = require("./clean");
 const insertPragma = require("./pragma").insertPragma;
 const handleComments = require("./comments");
+const pathNeedsParens = require("./needs-parens");
 
 const doc = require("../doc");
 const docBuilders = doc.builders;
@@ -119,8 +120,8 @@ function genericPrint(path, options, printPath, args) {
     );
   } else {
     // Nodes with decorators can't have parentheses, so we can avoid
-    // computing path.needsParens() except in this case.
-    needsParens = path.needsParens(options);
+    // computing pathNeedsParens() except in this case.
+    needsParens = pathNeedsParens(path, options);
   }
 
   const parts = [];
@@ -1332,7 +1333,7 @@ function printPathNoParens(path, options, print, args) {
         return "" + n.value;
       }
       // TypeScript workaround for eslint/typescript-eslint-parser#267
-      // See corresponding workaround in fast-path.js needsParens()
+      // See corresponding workaround in needs-parens.js
       const grandParent = path.getParentNode(1);
       const isTypeScriptDirective =
         options.parser === "typescript" &&
@@ -2402,7 +2403,7 @@ function printPathNoParens(path, options, print, args) {
           (greatGreatGrandParent.type === "TSUnionType" ||
             greatGreatGrandParent.type === "TSIntersectionType");
       } else {
-        hasParens = path.needsParens(options);
+        hasParens = pathNeedsParens(path, options);
       }
 
       if (hasParens) {
@@ -4975,7 +4976,7 @@ function exprNeedsASIProtection(path, options) {
   const node = path.getValue();
 
   const maybeASIProblem =
-    path.needsParens(options) ||
+    pathNeedsParens(path, options) ||
     node.type === "ParenthesizedExpression" ||
     node.type === "TypeCastExpression" ||
     (node.type === "ArrowFunctionExpression" &&
