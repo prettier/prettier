@@ -2690,9 +2690,7 @@ div {
 header {
   background-color: blue;
 
-  .desktop-and-old-ie({
-    background-color: red;
-  });
+  .desktop-and-old-ie({background-color: red;});
 }
 
 header {

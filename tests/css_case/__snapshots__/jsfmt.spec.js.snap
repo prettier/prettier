@@ -357,7 +357,7 @@ $KeepScssVar: val;
   .Keep();
   .Keep(4px) !important;
   .Keep() when (@Keep=Keep);
-  .Keep() when (@Keep=12px);
+  .Keep() when (@Keep=12PX);
   .Keep() when (@Keep=Keep12PX);
 }
 
