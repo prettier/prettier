@@ -64,10 +64,7 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "root":
-      return concat([
-        normalizeDoc(printChildren(path, options, print)),
-        hardline
-      ]);
+      return concat([normalizeDoc(printRoot(path, options, print)), hardline]);
     case "paragraph":
       return printChildren(path, options, print, {
         postprocessor: fill
@@ -533,6 +530,68 @@ function printTable(path, options, print) {
   }
 }
 
+function printRoot(path, options, print) {
+  /** @typedef {{ index: number, offset: number }} IgnorePosition */
+  /** @type {Array<{start: IgnorePosition, end: IgnorePosition}>} */
+  const ignoreRanges = [];
+
+  /** @type {IgnorePosition | null} */
+  let ignoreStart = null;
+
+  const children = path.getValue().children;
+  children.forEach((childNode, index) => {
+    switch (isPrettierIgnore(childNode)) {
+      case "start":
+        if (ignoreStart === null) {
+          ignoreStart = { index, offset: childNode.position.end.offset };
+        }
+        break;
+      case "end":
+        if (ignoreStart !== null) {
+          ignoreRanges.push({
+            start: ignoreStart,
+            end: { index, offset: childNode.position.start.offset }
+          });
+          ignoreStart = null;
+        }
+        break;
+      default:
+        // do nothing
+        break;
+    }
+  });
+
+  return printChildren(path, options, print, {
+    processor: (childPath, index) => {
+      if (ignoreRanges.length !== 0) {
+        const ignoreRange = ignoreRanges[0];
+
+        if (index === ignoreRange.start.index) {
+          return concat([
+            children[ignoreRange.start.index].value,
+            options.originalText.slice(
+              ignoreRange.start.offset,
+              ignoreRange.end.offset
+            ),
+            children[ignoreRange.end.index].value
+          ]);
+        }
+
+        if (ignoreRange.start.index < index && index < ignoreRange.end.index) {
+          return false;
+        }
+
+        if (index === ignoreRange.end.index) {
+          ignoreRanges.shift();
+          return false;
+        }
+      }
+
+      return childPath.call(print);
+    }
+  });
+}
+
 function printChildren(path, options, print, events) {
   events = events || {};
 
@@ -559,7 +618,7 @@ function printChildren(path, options, print, events) {
     prettierIgnore = false;
 
     if (result !== false) {
-      prettierIgnore = isPrettierIgnore(childNode);
+      prettierIgnore = isPrettierIgnore(childNode) === "next";
 
       const data = {
         parts,
@@ -593,10 +652,15 @@ function printChildren(path, options, print, events) {
   return postprocessor(parts);
 }
 
+/** @return {false | 'next' | 'start' | 'end'} */
 function isPrettierIgnore(node) {
-  return (
-    node.type === "html" && /^<!--\s*prettier-ignore\s*-->$/.test(node.value)
+  if (node.type !== "html") {
+    return false;
+  }
+  const match = node.value.match(
+    /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/
   );
+  return match === null ? false : match[1] ? match[1] : "next";
 }
 
 function shouldNotPrePrintHardline(node, data) {
@@ -621,7 +685,7 @@ function shouldPrePrintDoubleHardline(node, data) {
   const isPrevNodeLooseListItem =
     data.prevNode && data.prevNode.type === "listItem" && data.prevNode.loose;
 
-  const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode);
+  const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode) === "next";
 
   return (
     isPrevNodeLooseListItem ||
