@@ -33,9 +33,10 @@
   showName: true
   image: /images/languages/tools_wip.svg
   variants:
-  - "[Python](https://github.com/prettier/prettier-python)"
-  - "[PHP](https://github.com/prettier/prettier-php)"
-  - "[Swift](https://github.com/prettier/prettier-swift)"
+  - "[Elm](https://github.com/gicentre/prettier-plugin-elm) (via [`elm-format`](https://github.com/avh4/elm-format))"
   - "[Java](https://github.com/thorbenvh8/prettier-java)"
-  - "[Ruby](https://github.com/iamsolankiamit/prettier-ruby)"
+  - "[PHP](https://github.com/prettier/prettier-php)"
   - "[PostgreSQL](https://github.com/benjie/prettier-plugin-pg-sql/)"
+  - "[Python](https://github.com/prettier/prettier-python)"
+  - "[Ruby](https://github.com/iamsolankiamit/prettier-ruby)"
+  - "[Swift](https://github.com/prettier/prettier-swift)"
