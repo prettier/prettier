@@ -588,6 +588,32 @@ exports[`if-eslit-at-rule-decloration.scss 1`] = `
 
 `;
 
+exports[`lists.scss 1`] = `
+$my-list:
+  'foo', // Foo
+  'bar'; // Bar
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$my-list: "foo",
+  // Foo
+    "bar"; // Bar
+
+`;
+
+exports[`maps.scss 1`] = `
+$my-map: (
+  'foo': 1, // Foo
+  'bar': 2, // Bar
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$my-map: (
+  "foo": 1,
+  // Foo
+    "bar": 2,
+  // Bar
+);
+
+`;
+
 exports[`places.css 1`] = `
 div {
   // a

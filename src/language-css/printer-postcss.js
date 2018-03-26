@@ -384,7 +384,11 @@ function genericPrint(path, options, print) {
       return path.call(print, "group");
     }
     case "value-comment": {
-      return concat(["/*", node.value, "*/"]);
+      return concat([
+        node.inline ? "//" : "/*",
+        node.value,
+        node.inline ? "" : "*/"
+      ]);
     }
     case "value-comma_group": {
       const parentNode = path.getParentNode();
@@ -441,6 +445,15 @@ function genericPrint(path, options, print) {
 
         // Ignore `~` in Less (i.e. `content: ~"^//* some horrible but needed css hack";`)
         if (iNode.value === "~") {
+          continue;
+        }
+
+        if (
+          (iPrevNode &&
+            iPrevNode.type === "value-comment" &&
+            iPrevNode.inline) ||
+          (iNextNode.type === "value-comment" && iNextNode.inline)
+        ) {
           continue;
         }
 
@@ -570,6 +583,8 @@ function genericPrint(path, options, print) {
           } else {
             parts.push(" ");
           }
+        } else if (iNode.type === "value-comment" && iNode.inline) {
+          parts.push(hardline);
         } else if (
           isNextMathOperator ||
           isNextEqualityOperator ||
