@@ -250,7 +250,18 @@ function genericPrint(path, options, print) {
         "type ",
         path.call(print, "name"),
         n.interfaces.length > 0
-          ? concat([" implements ", join(", ", path.map(print, "interfaces"))])
+          ? concat([
+              " implements ",
+              join(
+                determineInterfaceSeparator(
+                  options.originalText.substr(
+                    options.locStart(n),
+                    options.locEnd(n)
+                  )
+                ),
+                path.map(print, "interfaces")
+              )
+            ])
           : "",
         printDirectives(path, print, n),
         n.fields.length > 0
@@ -618,6 +629,18 @@ function printComment(commentPath) {
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }
+}
+
+function determineInterfaceSeparator(originalSource) {
+  const start = originalSource.indexOf("implements");
+  if (start === -1) {
+    throw new Error("Must implement interfaces: " + originalSource);
+  }
+  let end = originalSource.indexOf("{");
+  if (end === -1) {
+    end = originalSource.length;
+  }
+  return originalSource.substr(start, end).includes("&") ? " & " : ", ";
 }
 
 module.exports = {

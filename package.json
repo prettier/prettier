@@ -33,7 +33,7 @@
     "flow-parser": "0.64.0",
     "get-stream": "3.0.0",
     "globby": "6.1.0",
-    "graphql": "0.12.3",
+    "graphql": "0.13.2",
     "gray-matter": "3.1.1",
     "html-tag-names": "1.1.1",
     "ignore": "3.3.7",
