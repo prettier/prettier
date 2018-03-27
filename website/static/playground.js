@@ -23,6 +23,8 @@ var OPTIONS = [
   "requirePragma",
   "proseWrap",
   "arrowParens",
+  "rangeStart",
+  "rangeEnd",
   "doc",
   "ast",
   "output2"
@@ -36,6 +38,91 @@ const DEFAULT_OPTIONS = {
   options: undefined,
   content: ""
 };
+
+function createRangeOverlay(rangeStartLocation, rangeEndLocation) {
+  var rangeStartLine = rangeStartLocation.line;
+  var rangeEndLine = rangeEndLocation.line;
+  var rangeStartPos = rangeStartLocation.pos;
+  var rangeEndPos = rangeEndLocation.pos;
+  var isEndOnSameLineAsStart = rangeStartLine === rangeEndLine;
+  var highlightedToken = "searching";
+
+  return {
+    token: function(stream) {
+      var currentLine = stream.lineOracle.line;
+
+      // we are on the line containing rangeStart
+      if (currentLine === rangeStartLine) {
+        // on the same line as, but not reached rangeStart yet,
+        // jump straight to it
+        if (rangeStartPos > stream.pos) {
+          stream.pos = rangeStartPos;
+          return;
+        }
+        // the rangeEnd is on the same line as the rangeStart
+        if (isEndOnSameLineAsStart) {
+          // we are still within the range,
+          // keep iterating along the string stream,
+          // marking it as highlighted
+          if (stream.pos < rangeEndPos) {
+            stream.pos += 1;
+            return highlightedToken;
+          }
+          // we've moved outside of the range
+          // just skip to the end
+          return stream.skipToEnd();
+        }
+        // keep iterating along the string stream,
+        // marking it as highlighted
+        stream.pos += 1;
+        return highlightedToken;
+      }
+
+      // we are on the line containing rangeEnd
+      if (currentLine === rangeEndLine) {
+        // keep iterating along the string stream,
+        // marking it as highlighted
+        if (rangeEndPos > stream.pos) {
+          stream.pos += 1;
+          return highlightedToken;
+        }
+        // we've moved outside of the range
+        // just skip to the end
+        return stream.skipToEnd();
+      }
+
+      // we are on a line which is completely included
+      // within the range, mark it all as highlighted
+      if (currentLine > rangeStartLine && currentLine < rangeEndLine) {
+        stream.skipToEnd();
+        return highlightedToken;
+      }
+
+      // no action can be required on the current line
+      // as it must fall outside of the range,
+      // so just skip to the end
+      return stream.skipToEnd();
+    }
+  };
+}
+
+function indexToEditorLocation(editorContent, index) {
+  var line = 0;
+  var count = 0;
+  var startIndex = 0;
+  for (var c, i = 0; count < index && i < editorContent.length; i++) {
+    count++;
+    c = editorContent[i];
+    if (c === "\n") {
+      line++;
+      startIndex = count;
+    }
+  }
+  return {
+    line: line,
+    pos: count - startIndex
+  };
+}
 
 window.onload = function() {
   var state = (function loadState(hash) {
@@ -279,6 +366,8 @@ function getCodemirrorMode(options) {
   }
 }
 
+var inputEditorOverlay;
+
 function formatAsync() {
   var options = getOptions();
   setEditorStyles();
@@ -289,6 +378,27 @@ function formatAsync() {
     )
   );
   replaceHash(value);
+
+  if (
+    typeof options.rangeStart === "number" &&
+    typeof options.rangeEnd === "number"
+  ) {
+    var rangeStartLocation = indexToEditorLocation(
+      inputEditor.getValue(),
+      options.rangeStart
+    );
+    var rangeEndLocation = indexToEditorLocation(
+      inputEditor.getValue(),
+      options.rangeEnd
+    );
+    inputEditor.removeOverlay(inputEditorOverlay);
+    inputEditorOverlay = createRangeOverlay(
+      rangeStartLocation,
+      rangeEndLocation
+    );
+    inputEditor.addOverlay(inputEditorOverlay);
+  }
+
   worker.postMessage({
     text: inputEditor.getValue() || getExample(options.parser),
     options: options,
