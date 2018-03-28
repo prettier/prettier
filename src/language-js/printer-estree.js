@@ -493,11 +493,18 @@ function printPathNoParens(path, options, print, args) {
         n.expression.type === "ObjectExpression"
       );
 
+      const typeAnnotationGroup = group(
+        concat([
+          indent(concat([softline, path.call(print, "typeAnnotation")])),
+          softline
+        ])
+      );
+
       if (shouldBreakAfterCast) {
         return group(
           concat([
             "<",
-            path.call(print, "typeAnnotation"),
+            typeAnnotationGroup,
             ">",
             ifBreak("("),
             indent(concat([softline, path.call(print, "expression")])),
@@ -506,12 +513,9 @@ function printPathNoParens(path, options, print, args) {
           ])
         );
       }
-      return concat([
-        "<",
-        path.call(print, "typeAnnotation"),
-        ">",
-        path.call(print, "expression")
-      ]);
+      return group(
+        concat(["<", typeAnnotationGroup, ">", path.call(print, "expression")])
+      );
     }
     case "MemberExpression": {
       const parent = path.getParentNode();
@@ -2525,6 +2529,7 @@ function printPathNoParens(path, options, print, args) {
       // | C
 
       const parent = path.getParentNode();
+      const parentParent = path.getParentNode(1);
 
       // If there's a leading comment, the parent is doing the indentation
       const shouldIndent =
@@ -2533,6 +2538,8 @@ function printPathNoParens(path, options, print, args) {
         parent.type !== "GenericTypeAnnotation" &&
         parent.type !== "TSTypeReference" &&
         !(parent.type === "FunctionTypeParam" && !parent.name) &&
+        parentParent.type !== "TSTypeAssertionExpression" &&
+
         !(
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator") &&

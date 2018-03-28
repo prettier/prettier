@@ -58,17 +58,19 @@ function y() {
     someExistingConfigMap.mergeDeep(fallbackOpts)
   );
 
-  const stillTooLong = <Immutable.Map<
-    string,
-    boolean,
-    number,
-    object,
-    null,
-    undefined,
-    any,
-    void,
-    never
-  >>(
+  const stillTooLong = <
+    Immutable.Map<
+      string,
+      boolean,
+      number,
+      object,
+      null,
+      undefined,
+      any,
+      void,
+      never
+    >
+  >(
     someExistingConfigMap.mergeDeep(fallbackOptions)
   );
 
@@ -84,7 +86,8 @@ function y() {
         void,
         never
       >
-    | undefined>(
+    | undefined
+  >(
     someExistingConfigMap.mergeDeep(fallbackOptions)
   );
 
@@ -92,17 +95,19 @@ function y() {
     property1: "myPropertyVal"
   };
 
-  const testObjLiteral2 = <Immutable.Map<
-    string,
-    any,
-    number,
-    boolean,
-    object,
-    null,
-    undefined,
-    never,
-    "extra long"
-  >>{ property1: "myPropertyVal" };
+  const testObjLiteral2 = <
+    Immutable.Map<
+      string,
+      any,
+      number,
+      boolean,
+      object,
+      null,
+      undefined,
+      never,
+      "extra long"
+    >
+  >{ property1: "myPropertyVal" };
 
   const testArrayLiteral = <Immutable.Map<string, any>>[
     "first",
@@ -110,17 +115,19 @@ function y() {
     "third"
   ];
 
-  const testArrayLiteral2 = <Immutable.Map<
-    string,
-    any,
-    number,
-    boolean,
-    object,
-    null,
-    undefined,
-    never,
-    "extra long"
-  >>["first", "second", "third"];
+  const testArrayLiteral2 = <
+    Immutable.Map<
+      string,
+      any,
+      number,
+      boolean,
+      object,
+      null,
+      undefined,
+      never,
+      "extra long"
+    >
+  >["first", "second", "third"];
 
   const insideFuncCall = myFunc(
     param1,
@@ -140,11 +147,8 @@ function x() {
   );
 
   const stillTooLong = <
-    | PermissionsChecker<object>
-    | undefined
-    | number
-    | string
-    | boolean>(
+    PermissionsChecker<object> | undefined | number | string | boolean
+  >(
     (<any>permissions)[receiverType]
   );
 
@@ -155,7 +159,8 @@ function x() {
     | string
     | boolean
     | null
-    | never>(
+    | never
+  >(
     (<any>permissions)[receiverType]
   );
 
@@ -171,7 +176,8 @@ function x() {
     | boolean
     | null
     | never
-    | object>{ prop1: "myPropVal" };
+    | object
+  >{ prop1: "myPropVal" };
 
   const testArrayLiteral = <PermissionsChecker<any> | undefined>[
     "first",
@@ -187,7 +193,8 @@ function x() {
     | boolean
     | null
     | never
-    | object>["first", "second", "third"];
+    | object
+  >["first", "second", "third"];
 
   const insideFuncCall = myFunc(
     param1,
