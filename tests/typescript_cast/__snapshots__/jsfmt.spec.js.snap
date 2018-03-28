@@ -49,10 +49,9 @@ function y() {
   const fitsObjLiteral = <Immutable.Map<string, any>>{ a: "test" };
   const fitsArrayLiteral = <Immutable.Map<string, any>>["test", "test2"];
 
-  const breakAfterCast = <Immutable.Map<
-    string,
-    any
-  >>someExistingConfigMap.mergeDeep(fallbackOpts);
+  const breakAfterCast = <Immutable.Map<string, any>>(
+    someExistingConfigMap.mergeDeep(fallbackOpts)
+  );
 
   const stillTooLong = <Immutable.Map<
     string,
@@ -64,7 +63,9 @@ function y() {
     any,
     void,
     never
-  >>someExistingConfigMap.mergeDeep(fallbackOptions);
+  >>(
+    someExistingConfigMap.mergeDeep(fallbackOptions)
+  );
 
   const testObjLiteral = <Immutable.Map<string, any>>{
     property1: "myPropertyVal"
@@ -107,16 +108,18 @@ function x() {
   const fitsObjLiteral = <PermissionsChecker<any> | undefined>{ a: "test" };
   const fitsArrayLiteral = <PermissionsChecker<any> | undefined>["t1", "t2"];
 
-  const breakAfterCast = <
-    | PermissionsChecker<any>
-    | undefined>(<any>permissions)[receiverType];
+  const breakAfterCast = <PermissionsChecker<any> | undefined>(
+    (<any>permissions)[receiverType]
+  );
 
   const stillTooLong = <
     | PermissionsChecker<object>
     | undefined
     | number
     | string
-    | boolean>(<any>permissions)[receiverType];
+    | boolean>(
+    (<any>permissions)[receiverType]
+  );
 
   const testObjLiteral = <PermissionsChecker<any> | undefined>{
     prop1: "myPropVal"

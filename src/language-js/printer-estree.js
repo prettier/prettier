@@ -487,13 +487,32 @@ function printPathNoParens(path, options, print, args) {
         " = ",
         path.call(print, "right")
       ]);
-    case "TSTypeAssertionExpression":
+    case "TSTypeAssertionExpression": {
+      const shouldBreakAfterCast = !(
+        n.expression.type === "ArrayExpression" ||
+        n.expression.type === "ObjectExpression"
+      );
+
+      if (shouldBreakAfterCast) {
+        return group(
+          concat([
+            "<",
+            path.call(print, "typeAnnotation"),
+            ">",
+            ifBreak("("),
+            indent(concat([softline, path.call(print, "expression")])),
+            softline,
+            ifBreak(")")
+          ])
+        );
+      }
       return concat([
         "<",
         path.call(print, "typeAnnotation"),
         ">",
         path.call(print, "expression")
       ]);
+    }
     case "MemberExpression": {
       const parent = path.getParentNode();
       let firstNonMemberParent;
