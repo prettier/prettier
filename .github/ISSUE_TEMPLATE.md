@@ -5,7 +5,8 @@ BEFORE SUBMITTING AN ISSUE:
 1. Search for your issue on GitHub: https://github.com/prettier/prettier/issues
    A large number of opened issues are duplicates of existing issues.
    If someone has already opened an issue for what you are experiencing,
-   you do not need to open a new issue.
+   you do not need to open a new issue- please instead add a 👍 rating to the
+   existing issue.
    
 2. If you are requesting a new option, your request will almost certainly be denied.
    Please read why here: https://prettier.io/docs/en/option-philosophy.html
