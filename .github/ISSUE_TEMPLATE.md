@@ -14,9 +14,7 @@ BEFORE SUBMITTING AN ISSUE:
 3. If your issue is with a prettier editor extension or add-on, please open the
    issue in the repo for that extension or add-on, instead of this repo.
 
--->
-
-<!-- For ugly or incorrect code issues: Please use the below template.
+For ugly or incorrect code issues: Please use the below template.
 
 Tip! Don't write this stuff manually.
 
