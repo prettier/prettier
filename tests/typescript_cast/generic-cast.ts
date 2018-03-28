@@ -9,13 +9,15 @@ function y() {
 
   const stillTooLong = <Immutable.Map<string, boolean, number, object, null, undefined, any, void, never>>someExistingConfigMap.mergeDeep(fallbackOptions);
 
+  const stillTooLong2 = <Immutable.Map<string, boolean, number, object, null, undefined, any, void, never> | undefined>someExistingConfigMap.mergeDeep(fallbackOptions);
+
   const testObjLiteral = <Immutable.Map<string, any>>{ property1: "myPropertyVal" };
 
-  const testObjLiteral2 = <Immutable.Map<string, any, number, boolean, object, null>>{ property1: "myPropertyVal" };
+  const testObjLiteral2 = <Immutable.Map<string, any, number, boolean, object, null, undefined, never, "extra long">>{ property1: "myPropertyVal" };
 
   const testArrayLiteral = <Immutable.Map<string, any>>["first", "second", "third"];
 
-  const testArrayLiteral2 = <Immutable.Map<string, any, number, boolean, object, null>>["first", "second", "third"];
+  const testArrayLiteral2 = <Immutable.Map<string, any, number, boolean, object, null, undefined, never, "extra long">>["first", "second", "third"];
 
   const insideFuncCall = myFunc(param1, <Immutable.Map<string, any>>param2, param3)
 }
@@ -30,13 +32,15 @@ function x() {
 
   const stillTooLong = <PermissionsChecker<object> | undefined | number | string | boolean>(<any>permissions)[receiverType];
 
+  const stillTooLong2 = <PermissionsChecker<object> | undefined | number | string | boolean | null | never>(<any>permissions)[receiverType];
+
   const testObjLiteral =  <PermissionsChecker<any> | undefined>{ prop1: "myPropVal" };
 
-  const testObjLiteral2 = <PermissionsChecker<object> | undefined | number | string | boolean>{ prop1: "myPropVal" };
+  const testObjLiteral2 = <PermissionsChecker<object> | undefined | number | string | boolean | null | never | object>{ prop1: "myPropVal" };
 
   const testArrayLiteral = <PermissionsChecker<any> | undefined>["first", "second", "third"];
 
-  const testArrayLiteral2 = <PermissionsChecker<object> | undefined | number | string | boolean>["first", "second", "third"];
+  const testArrayLiteral2 = <PermissionsChecker<object> | undefined | number | string | boolean | null | never | object>["first", "second", "third"];
 
   const insideFuncCall = myFunc(param1, <PermissionsChecker<any> | undefined>param2, param3)
 }
