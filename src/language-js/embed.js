@@ -27,7 +27,10 @@ function embed(path, print, textToDoc /*, options */) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
         const text = rawQuasis.join("@prettier-placeholder");
-        const doc = textToDoc(text, { parser: "css" });
+        const doc = textToDoc(text, {
+          parser: "css",
+          __isStyledComponents: isStyledComponents(path)
+        });
         return transformCssDoc(doc, path, print);
       }
 
