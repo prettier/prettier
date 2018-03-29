@@ -493,29 +493,30 @@ function printPathNoParens(path, options, print, args) {
         n.expression.type === "ObjectExpression"
       );
 
-      const typeAnnotationGroup = group(
+      const castGroup = group(
         concat([
+          "<",
           indent(concat([softline, path.call(print, "typeAnnotation")])),
-          softline
+          softline,
+          ">"
         ])
       );
 
+      const exprContents = concat([
+        ifBreak("("),
+        indent(concat([softline, path.call(print, "expression")])),
+        softline,
+        ifBreak(")")
+      ]);
+
       if (shouldBreakAfterCast) {
-        return group(
-          concat([
-            "<",
-            typeAnnotationGroup,
-            ">",
-            ifBreak("("),
-            indent(concat([softline, path.call(print, "expression")])),
-            softline,
-            ifBreak(")")
-          ])
-        );
+        return conditionalGroup([
+          concat([castGroup, path.call(print, "expression")]),
+          concat([castGroup, group(exprContents, { shouldBreak: true })]),
+          concat([castGroup, path.call(print, "expression")])
+        ]);
       }
-      return group(
-        concat(["<", typeAnnotationGroup, ">", path.call(print, "expression")])
-      );
+      return group(concat([castGroup, path.call(print, "expression")]));
     }
     case "MemberExpression": {
       const parent = path.getParentNode();
