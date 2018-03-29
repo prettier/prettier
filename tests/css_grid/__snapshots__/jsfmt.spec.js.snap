@@ -129,7 +129,7 @@ div {
   grid-template-columns:
     [full-start] minmax(1.5em, 1fr)
     [main-start] minmax(0.4ch, 75ch)
-    [main-end] minmax(1em, 1fr)
+    [main-end] minmax(1em, 1.0fr)
     [full-end];
 }
 
