@@ -11,6 +11,10 @@ function y() {
 
   const stillTooLong2 = <Immutable.Map<string, boolean, number, object, null, undefined, any, void, never> | undefined>someExistingConfigMap.mergeDeep(fallbackOptions);
 
+  const stillTooLong3 = <Immutable.Map<string>>someExistingConfigMap.mergeDeep(fallbackOptions.someMethodWithLongName(param1, param2));
+
+  const stillTooLong4 = <Immutable.Map<string, boolean, number, object, null, undefined, any, void, never> | undefined>someExistingConfigMap.mergeDeep(fallbackOptions.someMethodWithLongName(param1, param2));
+  
   const testObjLiteral = <Immutable.Map<string, any>>{ property1: "myPropertyVal" };
 
   const testObjLiteral2 = <Immutable.Map<string, any, number, boolean, object, null, undefined, never, "extra long">>{ property1: "myPropertyVal" };
@@ -33,6 +37,10 @@ function x() {
   const stillTooLong = <PermissionsChecker<object> | undefined | number | string | boolean>(<any>permissions)[receiverType];
 
   const stillTooLong2 = <PermissionsChecker<object> | undefined | number | string | boolean | null | never>(<any>permissions)[receiverType];
+
+  const stillTooLong3 = <PermissionsChecker<object> | undefined>(<any>permissions.someMethodWithLongName(parameter1, parameter2))[receiverTypeLongName];
+
+  const stillTooLong4 = <PermissionsChecker<object> | undefined | number | string | boolean | null | never>(<any>permissions.someMethodWithLongName(parameter1, parameter2))[receiverTypeLongName];
 
   const testObjLiteral =  <PermissionsChecker<any> | undefined>{ prop1: "myPropVal" };
 
