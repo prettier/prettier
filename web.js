@@ -8,10 +8,8 @@ const getSupportInfo = require("./src/common/support").getSupportInfo;
 
 const comments = require("./src/main/comments");
 const printAstToDoc = require("./src/main/ast-to-doc");
-const normalizeOptions = require("./src/main/node_options").normalize;
+const normalizeOptions = require("./src/main/options").normalize;
 const parser = require("./src/main/parser");
-
-const config = require("./src/config/resolve-config");
 
 const doc = require("./src/doc");
 const printDocToString = doc.printer.printDocToString;
@@ -404,9 +402,6 @@ module.exports = {
   },
 
   doc,
-
-  resolveConfig: config.resolveConfig,
-  clearConfigCache: config.clearCache,
 
   getSupportInfo,
 
