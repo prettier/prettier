@@ -26,7 +26,16 @@ function embed(path, print, textToDoc /*, options */) {
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
-        const text = rawQuasis.join("@prettier-placeholder");
+        let placeholderID = 0;
+        const text = rawQuasis.reduce((prevVal, currVal, idx) => {
+          return idx == 0
+            ? currVal
+            : prevVal +
+                "@prettier-placeholder-" +
+                placeholderID++ +
+                "-id" +
+                currVal;
+        }, "");
         const doc = textToDoc(text, { parser: "css" });
         return transformCssDoc(doc, path, print);
       }
@@ -233,6 +242,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   }
 
   const expressions = expressionDocs.slice();
+  let replaceCounter = 0;
   const newDoc = docUtils.mapDoc(quasisDoc, doc => {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
@@ -261,12 +271,16 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     if (atPlaceholderIndex > -1) {
       const placeholder = parts[atPlaceholderIndex];
       const rest = parts.slice(atPlaceholderIndex + 1);
-
+      const placeholderMatch = placeholder.match(
+        /@prettier-placeholder-(.+)-id(.*)/
+      );
+      const placeholderID = placeholderMatch[1];
       // When the expression has a suffix appended, like:
       // animation: linear ${time}s ease-out;
-      const suffix = placeholder.slice("@prettier-placeholder".length);
+      const suffix = placeholderMatch[2];
+      const expression = expressions[placeholderID];
 
-      const expression = expressions.shift();
+      replaceCounter++;
       parts = parts
         .slice(0, atPlaceholderIndex)
         .concat(["${", expression, "}" + suffix])
@@ -277,7 +291,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     });
   });
 
-  return expressions.length === 0 ? newDoc : null;
+  return expressions.length === replaceCounter ? newDoc : null;
 }
 
 function printGraphqlComments(lines) {
