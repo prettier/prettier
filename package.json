@@ -48,7 +48,7 @@
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "1.0.4",
     "postcss-selector-parser": "2.2.3",
-    "postcss-values-parser": "1.4.0",
+    "postcss-values-parser": "1.5.0",
     "read-pkg-up": "3.0.0",
     "remark-frontmatter": "1.1.0",
     "remark-parse": "5.0.0",
