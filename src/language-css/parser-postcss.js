@@ -200,12 +200,6 @@ function parseValue(value) {
   return addTypePrefix(parsedResult, "value-");
 }
 
-function parseMediaQuery(value) {
-  const mediaParser = require("postcss-media-query-parser").default;
-  const result = addMissingType(mediaParser(value));
-  return addTypePrefix(result, "media-");
-}
-
 const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
 
@@ -315,15 +309,13 @@ function parseNestedCSS(node) {
         return node;
       }
 
+      node.raws.params = params;
+
       const name = node.name;
       const lowercasedName = node.name.toLowerCase();
 
       if (name === "warn" || name === "error") {
-        node.params = {
-          type: "media-unknown",
-          value: params
-        };
-
+        node.params = params;
         return node;
       }
 
@@ -336,7 +328,7 @@ function parseNestedCSS(node) {
 
       if (name === "at-root") {
         if (/^\(\s*(without|with)\s*:[\s\S]+\)$/.test(params)) {
-          node.params = parseMediaQuery(params);
+          node.params = parseValue(params);
         } else {
           node.selector = parseSelector(params);
           delete node.params;
@@ -387,15 +379,8 @@ function parseNestedCSS(node) {
           lowercasedName
         ) !== -1
       ) {
-        if (params.includes("#{")) {
-          // Workaround for media at rule with scss interpolation
-          return {
-            type: "media-unknown",
-            value: params
-          };
-        }
-
-        node.params = parseMediaQuery(params);
+        node.valueInParams = true;
+        node.params = parseValue(params);
 
         return node;
       }

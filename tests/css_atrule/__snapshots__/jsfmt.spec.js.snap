@@ -2286,7 +2286,7 @@ $dir: "fonts";
 @import url("bluish.css") projection, tv;
 @import url("bluish.css") projection, tv;
 @import url("very-very-very-very-very-very-very-very-very-very-long-name.css")
-  projection,
+    projection,
   tv;
 @import url("landscape.css") screen and (orientation: landscape);
 @import "rounded-corners", "text-shadow";
@@ -3948,26 +3948,35 @@ run-in
 }
 @supports (transform-origin: 5% 5%) {
 }
-@supports (transform-origin: 5%  5%) {
+@supports (transform-origin: 5% 5%) {
+}
+@supports (transform-origin: 5% 5%) {
 }
 @supports (transform-origin: 5% 5%) {
 }
 @supports (transform-origin: 5% 5%) {
 }
-@supports (transform-origin: 5%
-5%) {
+@supports (transform-origin: 5% 5%) {
 }
-@supports (transform-origin: 5%
-
-5%) {
+@supports (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+) {
 }
-@supports (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+@supports (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+) {
 }
-@supports (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+@supports (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+) {
 }
-@supports (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
-}
-@supports (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+@supports (
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+) {
 }
 @supports not(transform-origin: 10em 10em 10em) {
 }
@@ -3975,7 +3984,11 @@ run-in
 }
 @supports not (transform-origin: 10em 10em 10em) {
 }
-@supports not (transform-origin: 10em  10em  10em) {
+@supports not (transform-origin: 10em 10em 10em) {
+}
+@supports not (transform-origin: 10em 10em 10em) {
+}
+@supports not (transform-origin: 10em 10em 10em) {
 }
 @supports not (transform-origin: 10em 10em 10em) {
 }
@@ -3983,50 +3996,51 @@ run-in
 }
 @supports not (transform-origin: 10em 10em 10em) {
 }
-@supports not (transform-origin: 10em
-10em
-10em) {
+@supports not
+  (
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
+      very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+  ) {
 }
-@supports not (transform-origin: 10em
-
-10em
-
-10em) {
+@supports not
+  (
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
+      very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+  ) {
 }
-@supports not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+@supports not
+  (
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
+      very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+  ) {
 }
-@supports not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+@supports not
+  (
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
+      very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+  ) {
 }
-@supports not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
-}
-@supports not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
-}
-@supports not (very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop: very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value) {
+@supports not
+  (
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-prop:
+      very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+  ) {
 }
 @supports not (not (transform-origin: 2px)) {
 }
-@supports not(not(transform-origin:2px)) {
-}
-@supports not (not ( transform-origin: 2px )) {
-}
-@supports not (not ( transform-origin: 2px  )) {
+@supports not(not(transform-origin: 2px)) {
 }
 @supports not (not (transform-origin: 2px)) {
 }
 @supports not (not (transform-origin: 2px)) {
 }
-@supports not (not
-(
-transform-origin: 2px
-)) {
+@supports not (not (transform-origin: 2px)) {
 }
-@supports not (not
-
-(
-
-transform-origin: 2px
-
-)) {
+@supports not (not (transform-origin: 2px)) {
+}
+@supports not (not (transform-origin: 2px)) {
+}
+@supports not (not (transform-origin: 2px)) {
 }
 @supports (display: flexbox) and (not (display: inline-grid)) {
 }
@@ -4052,45 +4066,27 @@ transform-origin: 2px
 }
 @supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
 }
-@supports (display: table-cell) and ((display: list-item)
-  and (display: run-in)) {
+@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
 }
-@supports (display: table-cell) and ((display: list-item) and
-  (display: run-in)) {
+@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
 }
-@supports (display: table-cell) and ((
-display: list-item
-)
-and
-(
-display
-:
-run-in
-)) {
+@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
 }
-@supports (display: table-cell) and ((
-
-display: list-item
-
-)
-
-and
-
-(
-
-display
-
-:
-
-run-in
-
-)) {
+@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
 }
 @supports (transform-style: preserve) or (-moz-transform-style: preserve) {
 }
-@supports (transform-style: preserve) or (-moz-transform-style: preserve) or (-o-transform-style: preserve) or (-webkit-transform-style: preserve) {
+@supports (transform-style: preserve) or (-moz-transform-style: preserve) or
+  (-o-transform-style: preserve) or (-webkit-transform-style: preserve) {
 }
-@supports (transform-style: preserve-3d) or ((-moz-transform-style: preserve-3d) or ((-o-transform-style: preserve-3d) or (-webkit-transform-style: preserve-3d))) {
+@supports (transform-style: preserve-3d) or
+  (
+    (-moz-transform-style: preserve-3d) or
+      (
+        (-o-transform-style: preserve-3d) or
+          (-webkit-transform-style: preserve-3d)
+      )
+  ) {
 }
 
 `;
