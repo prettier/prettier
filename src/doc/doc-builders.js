@@ -108,6 +108,16 @@ const breakParent = { type: "break-parent" };
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
 const hardline = concat([{ type: "line", hard: true }, breakParent]);
+
+function optionalLine(lineType, contents) {
+  if (process.env.NODE_ENV !== "production") {
+    assertDoc(lineType);
+    assertDoc(contents);
+  }
+
+  return { type: "optionalLine", contents, lineType };
+}
+
 const literalline = concat([
   { type: "line", hard: true, literal: true },
   breakParent
@@ -150,6 +160,7 @@ module.exports = {
   line,
   softline,
   hardline,
+  optionalLine,
   literalline,
   group,
   conditionalGroup,
