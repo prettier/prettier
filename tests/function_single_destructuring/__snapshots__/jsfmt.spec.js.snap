@@ -77,16 +77,11 @@ function excludeFirstFiveResults([
   return rest;
 }
 
-const excludeFirstFiveResults = ([
-  first,
-  second,
-  third,
-  fourth,
-  fifth,
-  ...rest
-]) => {
-  return rest;
-};
+const excludeFirstFiveResults = (
+  ([first, second, third, fourth, fifth, ...rest]) => {
+    return rest;
+  }
+);
 
 class A {
   excludeFirstFiveResults([

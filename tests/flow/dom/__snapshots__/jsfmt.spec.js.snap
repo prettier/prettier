@@ -733,9 +733,8 @@ let tests = [
   },
   function() {
     const _root = document.createDocumentFragment();
-    const i = document.createNodeIterator(
-      _root,
-      NodeFilter.SHOW_DOCUMENT_FRAGMENT
+    const i = (
+      document.createNodeIterator(_root, NodeFilter.SHOW_DOCUMENT_FRAGMENT)
     );
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | DocumentFragment = i.referenceNode;
@@ -817,9 +816,8 @@ let tests = [
   },
   function() {
     const _root = document.createDocumentFragment();
-    const w = document.createTreeWalker(
-      _root,
-      NodeFilter.SHOW_DOCUMENT_FRAGMENT
+    const w = (
+      document.createTreeWalker(_root, NodeFilter.SHOW_DOCUMENT_FRAGMENT)
     );
     const root: typeof _root = w.root;
     const currentNode: typeof _root | DocumentFragment = w.currentNode;

@@ -120,9 +120,9 @@ const long = \`long long long long long long long long long long long \${
   a.b.c.d.e
 } long long long long long long long long long long long long long\`;
 
-const description = \`The value of the \${cssName} css of the \${
-  this._name
-} element\`;
+const description = (
+  \`The value of the \${cssName} css of the \${this._name} element\`
+);
 
 const foo = \`such a long template string \${
   foo.bar.baz

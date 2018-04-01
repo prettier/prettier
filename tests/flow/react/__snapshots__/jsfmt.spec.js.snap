@@ -1681,10 +1681,9 @@ var DynamicArrayExample = React.createClass({
 
 var DynamicElemExample = React.createClass({
   propTypes: {
-    dyn: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      (() => {}: Function)
-    ])
+    dyn: (
+      React.PropTypes.oneOfType([React.PropTypes.string, (() => {}: Function)])
+    )
   }
 });
 

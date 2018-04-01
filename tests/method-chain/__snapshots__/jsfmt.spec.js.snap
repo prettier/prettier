@@ -14,10 +14,9 @@ function a() {
 function a() {
   function b() {
     queryThenMutateDOM(() => {
-      title = SomeThing.call(
-        root,
-        "someLongStringThatPushesThisTextReallyFar"
-      )[0];
+      title = (
+        SomeThing.call(root, "someLongStringThatPushesThisTextReallyFar")[0]
+      );
     });
   }
 }
@@ -597,8 +596,10 @@ const someLongVariableName = (idx(
   TicketRecord.createFromSomeLongString()).filter(obj => !!obj);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const someLongVariableName = (
-  idx(this.props, props => props.someLongPropertyName) || []
-).map(edge => edge.node);
+  (idx(this.props, props => props.someLongPropertyName) || []).map(
+    edge => edge.node
+  )
+);
 
 (veryLongVeryLongVeryLong || e).map(tickets =>
   TicketRecord.createFromSomeLongString()

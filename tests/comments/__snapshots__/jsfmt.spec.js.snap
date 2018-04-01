@@ -126,9 +126,8 @@ function returnValue() {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // test to make sure comments are attached correctly
-let inlineComment = /* some comment */ someReallyLongFunctionCall(
-  withLots,
-  ofArguments
+let inlineComment = (
+  /* some comment */ someReallyLongFunctionCall(withLots, ofArguments)
 );
 
 let object = {
