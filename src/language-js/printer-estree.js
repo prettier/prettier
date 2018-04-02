@@ -19,7 +19,7 @@ const join = docBuilders.join;
 const line = docBuilders.line;
 const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
-const optionalLine = docBuilders.optionalLine;
+const moreCompact = docBuilders.moreCompact;
 const literalline = docBuilders.literalline;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
@@ -4813,7 +4813,15 @@ function printAssignmentRight(rightNode, printedRight, canBreak, options) {
     return indent(concat([line, printedRight]));
   }
 
-  return optionalLine(line, printedRight);
+  const noBreakGroup = concat([" ", printedRight]);
+  const breakGroup = concat([
+    " ",
+    "(",
+    indent(concat([softline, printedRight])),
+    softline,
+    ")"
+  ]);
+  return moreCompact(noBreakGroup, breakGroup, 2, 2);
 }
 
 function printAssignment(

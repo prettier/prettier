@@ -21,6 +21,13 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
         if (doc.flatContents) {
           traverseDocRec(doc.flatContents);
         }
+      } else if (doc.type === "more-compact") {
+        if (doc.primaryGroup) {
+          traverseDocRec(doc.primaryGroup);
+        }
+        if (shouldTraverseConditionalGroups && doc.alternateGroup) {
+          traverseDocRec(doc.alternateGroup);
+        }
       } else if (doc.type === "group" && doc.expandedStates) {
         if (shouldTraverseConditionalGroups) {
           doc.expandedStates.forEach(traverseDocRec);
@@ -51,6 +58,11 @@ function mapDoc(doc, func) {
     return Object.assign({}, doc, {
       breakContents: doc.breakContents && mapDoc(doc.breakContents, func),
       flatContents: doc.flatContents && mapDoc(doc.flatContents, func)
+    });
+  } else if (doc.type === "more-compact") {
+    return Object.assign({}, doc, {
+      breakContents: doc.primaryGroup && mapDoc(doc.primaryGroup, func),
+      flatContents: doc.alternateGroup && mapDoc(doc.alternateGroup, func)
     });
   } else if (doc.contents) {
     return Object.assign({}, doc, { contents: mapDoc(doc.contents, func) });

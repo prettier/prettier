@@ -5,8 +5,6 @@ const docBuilders = require("./doc-builders");
 const concat = docBuilders.concat;
 const fill = docBuilders.fill;
 const cursor = docBuilders.cursor;
-const indent = docBuilders.indent;
-const softline = docBuilders.softline;
 
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
@@ -192,12 +190,8 @@ function fits(next, restCommands, width, options, mustBeFlat) {
               return true;
           }
           break;
-        case "optionalLine":
-          cmds.push([ind, mode, doc.contents]);
-          if (!doc.soft) {
-            width -= 1;
-          }
-
+        case "more-compact":
+          cmds.push([ind, mode, doc.primaryGroup]);
           break;
       }
     }
@@ -494,34 +488,34 @@ function printDocToString(doc, options) {
               break;
           }
           break;
-        case "optionalLine":
+        case "more-compact":
           if (mode === MODE_FLAT) {
-            cmds.push([ind, mode, concat([doc.lineType, doc.contents])]);
+            cmds.push([ind, mode, doc.primaryGroup]);
           }
           if (mode === MODE_BREAK) {
-            const noBreakCommand = noOptionalBreakCmd(ind, mode, doc);
-            const breakCommand = optionalBreakCmd(ind, mode, doc);
+            const priCmd = [ind, mode, doc.primaryGroup];
+            const altCmd = [ind, mode, doc.alternateGroup];
 
-            const amountWithoutBreak = amountPrintedBeforeNumBreaks(
-              noBreakCommand,
+            const priAmount = amountPrintedBeforeNumBreaks(
+              priCmd,
               cmds,
               width,
               pos,
               options,
-              2
+              doc.linesToCheck
             );
-            const amountWithBreak = amountPrintedBeforeNumBreaks(
-              breakCommand,
+            const altAmount = amountPrintedBeforeNumBreaks(
+              altCmd,
               cmds,
               width,
-              ind.length,
+              pos,
               options,
-              2
+              doc.linesToCheck
             );
-            if (amountWithBreak - 2 > amountWithoutBreak) {
-              cmds.push(breakCommand);
+            if (priAmount >= altAmount - doc.altPenalty) {
+              cmds.push(priCmd);
             } else {
-              cmds.push(noBreakCommand);
+              cmds.push(altCmd);
             }
           }
           break;
@@ -815,34 +809,34 @@ function amountPrintedBeforeNumBreaks(
           }
           break;
 
-        case "optionalLine":
+        case "more-compact":
           if (mode === MODE_FLAT) {
-            cmds.push([ind, mode, concat([doc.lineType, doc.contents])]);
+            cmds.push([ind, mode, doc.primaryGroup]);
           }
           if (mode === MODE_BREAK) {
-            const noBreakCommand = noOptionalBreakCmd(ind, mode, doc);
-            const breakCommand = optionalBreakCmd(ind, mode, doc);
+            const priCmd = [ind, mode, doc.primaryGroup];
+            const altCmd = [ind, mode, doc.alternateGroup];
 
-            const amountWithoutBreak = amountPrintedBeforeNumBreaks(
-              noBreakCommand,
+            const priAmount = amountPrintedBeforeNumBreaks(
+              priCmd,
               cmds,
               width,
               pos,
               options,
-              2
+              doc.linesToCheck
             );
-            const amountWithBreak = amountPrintedBeforeNumBreaks(
-              breakCommand,
+            const altAmount = amountPrintedBeforeNumBreaks(
+              altCmd,
               cmds,
               width,
-              ind.length,
+              pos,
               options,
-              2
+              doc.linesToCheck
             );
-            if (amountWithBreak - 2 > amountWithoutBreak) {
-              cmds.push(breakCommand);
+            if (priAmount >= altAmount - doc.altPenalty) {
+              cmds.push(priCmd);
             } else {
-              cmds.push(noBreakCommand);
+              cmds.push(altCmd);
             }
           }
           break;
@@ -851,24 +845,6 @@ function amountPrintedBeforeNumBreaks(
     }
   }
   return amountPrinted;
-}
-
-function optionalBreakCmd(ind, mode, doc) {
-  return [
-    ind,
-    mode,
-    concat([
-      doc.soft ? "" : " ",
-      "(",
-      indent(concat([softline, doc.contents])),
-      softline,
-      ")"
-    ])
-  ];
-}
-
-function noOptionalBreakCmd(ind, mode, doc) {
-  return [ind, mode, concat([doc.soft ? "" : " ", doc.contents])];
 }
 
 module.exports = { printDocToString };
