@@ -54,8 +54,6 @@ function parseValueNodes(nodes) {
 
     if (isUnquotedDataURLCall) {
       node.group.groups = [stringifyGroup(node)];
-
-      return node;
     }
 
     if (node.type === "paren" && node.value === "(") {
