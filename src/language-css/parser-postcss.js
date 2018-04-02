@@ -1,7 +1,7 @@
 "use strict";
 
-const createError = require("../common/parser-create-error");
 const grayMatter = require("gray-matter");
+const createError = require("../common/parser-create-error");
 
 function parseSelector(selector) {
   // If there's a comment inside of a selector, the parser tries to parse
@@ -407,10 +407,19 @@ function parseNestedCSS(node) {
   return node;
 }
 
-function parseWithParser(parser, text, frontMatter) {
+function parseWithParser(parser, text) {
   let result;
+  let parsedText = text;
+  const hasGrayMatter = grayMatter.test(text);
+  let frontMatter = null;
+
+  if (hasGrayMatter) {
+    frontMatter = grayMatter(text);
+    parsedText = frontMatter.content;
+  }
+
   try {
-    result = parser.parse(text);
+    result = parser.parse(parsedText);
   } catch (e) {
     if (typeof e.line !== "number") {
       throw e;
@@ -418,10 +427,12 @@ function parseWithParser(parser, text, frontMatter) {
     throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
 
-  if (Object.keys(frontMatter.data).length > 0) {
+  if (hasGrayMatter) {
     result.nodes.unshift({
       type: "comment-yaml",
-      value: grayMatter.stringify("", frontMatter.data).replace(/\s$/, "")
+      value: frontMatter.isEmpty
+        ? "---\n---\n"
+        : grayMatter.stringify("", frontMatter.data).replace(/\s$/, "")
     });
   }
 
@@ -458,22 +469,15 @@ function parse(text, parsers, opts) {
     ? opts.parser === "scss"
     : IS_POSSIBLY_SCSS.test(text);
 
-  const frontMatter = grayMatter(text);
-  const normalizedText = frontMatter.content;
-
   try {
-    return parseWithParser(requireParser(isSCSS), normalizedText, frontMatter);
+    return parseWithParser(requireParser(isSCSS), text);
   } catch (originalError) {
     if (hasExplicitParserChoice) {
       throw originalError;
     }
 
     try {
-      return parseWithParser(
-        requireParser(!isSCSS),
-        normalizedText,
-        frontMatter
-      );
+      return parseWithParser(requireParser(!isSCSS), text);
     } catch (_secondError) {
       throw originalError;
     }
