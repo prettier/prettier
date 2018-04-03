@@ -9,7 +9,7 @@ BEFORE SUBMITTING AN ISSUE:
    existing issue instead.
    
 2. We get a lot of requests for adding options, but Prettier is 
-   built on the priciples of being opinionated about code formatting.
+   built on the principle of being opinionated about code formatting.
    This means we have a very high bar for adding new options.
    Find out more: https://prettier.io/docs/en/option-philosophy.html
 
