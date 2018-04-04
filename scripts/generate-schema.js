@@ -88,7 +88,7 @@ function optionTypeToSchemaType(optionType) {
       return optionType;
     case "choice":
       throw new Error(
-        "Please use `oneOf` instead of `enum` for better descroption support."
+        "Please use `oneOf` instead of `enum` for better description support."
       );
     default:
       return "string";
