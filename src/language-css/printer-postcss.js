@@ -98,6 +98,7 @@ function genericPrint(path, options, print) {
         ruleAncestorNode &&
         ruleAncestorNode.raws.selector &&
         (ruleAncestorNode.raws.selector.startsWith(":import") ||
+          ruleAncestorNode.raws.selector.startsWith("@custom-selector") ||
           ruleAncestorNode.raws.selector.startsWith(":export"));
 
       return concat([

@@ -3,20 +3,28 @@
 exports[`custom-selectors.css 1`] = `
 @custom-selector  :--button     button,.button;
 @custom-selector       :--enter     :hover,:focus      ;
+@custom-selector :--camelCase .my-css-selector;
 
 :--button {display: inline-block;
 }:--button:--enter{
   text-decoration:underline;
 }
+:--camelCase {
+  color: red;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @custom-selector :--button button, .button;
 @custom-selector :--enter :hover, :focus;
+@custom-selector :--camelCase .my-css-selector;
 
 :--button {
   display: inline-block;
 }
 :--button:--enter {
   text-decoration: underline;
+}
+:--camelcase {
+  color: red;
 }
 
 `;

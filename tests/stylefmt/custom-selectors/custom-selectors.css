@@ -1,7 +1,11 @@
 @custom-selector  :--button     button,.button;
 @custom-selector       :--enter     :hover,:focus      ;
+@custom-selector :--camelCase .my-css-selector;
 
 :--button {display: inline-block;
 }:--button:--enter{
   text-decoration:underline;
+}
+:--camelCase {
+  color: red;
 }
