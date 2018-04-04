@@ -91,4 +91,4 @@ For more information on how to use the CLI to locate a file, see the [CLI](cli.m
 
 ## Configuration Schema
 
-If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc. And also there's [a script to generate the schema](https://github.com/prettier/prettier/blob/master/scripts/generate-schema.js).
+If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
