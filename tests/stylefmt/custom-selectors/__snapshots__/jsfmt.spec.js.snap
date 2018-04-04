@@ -23,7 +23,7 @@ exports[`custom-selectors.css 1`] = `
 :--button:--enter {
   text-decoration: underline;
 }
-:--camelcase {
+:--camelCase {
   color: red;
 }
 

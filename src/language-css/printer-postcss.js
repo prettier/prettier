@@ -98,7 +98,6 @@ function genericPrint(path, options, print) {
         ruleAncestorNode &&
         ruleAncestorNode.raws.selector &&
         (ruleAncestorNode.raws.selector.startsWith(":import") ||
-          ruleAncestorNode.raws.selector.startsWith("@custom-selector") ||
           ruleAncestorNode.raws.selector.startsWith(":export"));
 
       return concat([
@@ -960,6 +959,7 @@ function maybeToLowerCase(value) {
     value.includes("#") ||
     value.startsWith("%") ||
     value.startsWith("--") ||
+    value.startsWith(":--") ||
     (value.includes("(") && value.includes(")"))
     ? value
     : value.toLowerCase();
