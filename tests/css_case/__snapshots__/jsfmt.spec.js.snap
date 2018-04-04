@@ -748,3 +748,18 @@ table {
 }
 
 `;
+
+exports[`custom-selectors.css 1`] = `
+@custom-selector :--camelCase .my-css-selector;
+
+:--camelCase {
+  content: red;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@custom-selector :--camelCase .my-css-selector;
+
+:--camelCase {
+  content: red;
+}
+
+`;

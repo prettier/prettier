@@ -959,6 +959,7 @@ function maybeToLowerCase(value) {
     value.includes("#") ||
     value.startsWith("%") ||
     value.startsWith("--") ||
+    value.startsWith(":--") ||
     (value.includes("(") && value.includes(")"))
     ? value
     : value.toLowerCase();
