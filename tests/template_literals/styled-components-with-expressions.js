@@ -9,6 +9,16 @@ styled.div`
 	margin: 10px ${props=>props.border}px ;
 `;
 
+styled.span`
+ ${props => props.right && css`
+	padding: 10px 134px 10px 20px;
+    &:after {
+		left: initial;
+      right: 30px      ;
+    }
+  `}
+`
+
 const EqualDivider = styled.div`
 margin: 0.5rem;
 		padding: 1rem;
