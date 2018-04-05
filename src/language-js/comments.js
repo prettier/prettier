@@ -211,7 +211,11 @@ function handleIfStatementComments(
     precedingNode === enclosingNode.consequent &&
     followingNode === enclosingNode.alternate
   ) {
-    addDanglingComment(enclosingNode, comment);
+    if (precedingNode.type === "BlockStatement") {
+      addTrailingComment(precedingNode, comment);
+    } else {
+      addDanglingComment(enclosingNode, comment);
+    }
     return true;
   }
 

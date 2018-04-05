@@ -1456,13 +1456,18 @@ function printPathNoParens(path, options, print, args) {
 
       if (n.alternate) {
         const commentOnOwnLine =
-          hasDanglingComments(n) &&
-          n.comments.some(
-            comment =>
-              !comment.leading &&
-              !comment.trailing &&
-              !privateUtil.isBlockComment(comment)
-          );
+          (hasTrailingComment(n.consequent) &&
+            n.consequent.comments.some(
+              comment =>
+                comment.trailing && !privateUtil.isBlockComment(comment)
+            )) ||
+          (hasDanglingComments(n) &&
+            n.comments.some(
+              comment =>
+                !comment.leading &&
+                !comment.trailing &&
+                !privateUtil.isBlockComment(comment)
+            ));
         const elseOnSameLine =
           n.consequent.type === "BlockStatement" && !commentOnOwnLine;
         parts.push(elseOnSameLine ? " " : hardline);
