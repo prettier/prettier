@@ -77,7 +77,7 @@ function embed(path, print, textToDoc /*, options */) {
           const templateElement = node.quasis[i];
           const isFirst = i === 0;
           const isLast = i === numQuasis - 1;
-          const text = templateElement.value.raw;
+          const text = templateElement.value.cooked;
           const lines = text.split("\n");
           const numLines = lines.length;
           const expressionDoc = expressionDocs[i];
@@ -107,13 +107,17 @@ function embed(path, print, textToDoc /*, options */) {
               doc = docUtils.stripTrailingHardline(
                 textToDoc(text, { parser: "graphql" })
               );
-            } catch (_error) {
+            } catch (error) {
+              if (process.env.PRETTIER_DEBUG) {
+                throw error;
+              }
               // Bail if any part fails to parse.
               return null;
             }
           }
 
           if (doc) {
+            doc = escapeBackticks(doc);
             if (!isFirst && startsWithBlankLine) {
               parts.push("");
             }
