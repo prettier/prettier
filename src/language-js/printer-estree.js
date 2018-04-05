@@ -189,7 +189,8 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
       operatorName: "ConditionalExpression",
       consequentNode: "consequent",
       alternateNode: "alternate",
-      testNode: "test"
+      testNode: "test",
+      breakNested: true
     },
     operatorOptions || {}
   );
@@ -277,11 +278,11 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
     );
   }
 
-  // In JSX mode, we want a whole chain of ConditionalExpressions to all
+  // We want a whole chain of ConditionalExpressions to all
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
   const maybeGroup = doc =>
-    jsxMode
+    operatorOpts.breakNested
       ? parent === firstNonConditionalParent ? group(doc) : doc
       : group(doc); // Always group in normal mode.
 
@@ -2945,7 +2946,8 @@ function printPathNoParens(path, options, print, args) {
         operatorName: "TSConditionalType",
         consequentNode: "trueType",
         alternateNode: "falseType",
-        testNode: "checkType"
+        testNode: "checkType",
+        breakNested: false
       });
 
     case "TSInferType":
