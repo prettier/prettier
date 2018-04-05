@@ -206,7 +206,9 @@ function handleIfStatementComments(
     return true;
   }
 
-  // Treat comments before `else` as dangling comments
+  // Comments before `else`:
+  // - treat as trailing comments of the consequent, if it's a BlockStatement
+  // - treat as a dangling comment otherwise
   if (
     precedingNode === enclosingNode.consequent &&
     followingNode === enclosingNode.alternate
