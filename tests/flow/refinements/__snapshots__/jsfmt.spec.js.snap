@@ -2571,7 +2571,8 @@ type Breakfast = Apple | Orange | Broccoli | Carrot;
 function bar(x: Breakfast) {
   if (x.kind === "Fruit") {
     (x.taste: "Good");
-  } else (x.raw: "No"); // error, Apple.taste = Bad // error, Carrot.raw = Maybe
+  } // error, Apple.taste = Bad
+  else (x.raw: "No"); // error, Carrot.raw = Maybe
 }
 
 function qux(x: Breakfast) {

@@ -206,6 +206,21 @@ function handleIfStatementComments(
     return true;
   }
 
+  // Comments before `else`:
+  // - treat as trailing comments of the consequent, if it's a BlockStatement
+  // - treat as a dangling comment otherwise
+  if (
+    precedingNode === enclosingNode.consequent &&
+    followingNode === enclosingNode.alternate
+  ) {
+    if (precedingNode.type === "BlockStatement") {
+      addTrailingComment(precedingNode, comment);
+    } else {
+      addDanglingComment(enclosingNode, comment);
+    }
+    return true;
+  }
+
   if (followingNode.type === "BlockStatement") {
     addBlockStatementFirstComment(followingNode, comment);
     return true;

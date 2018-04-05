@@ -439,20 +439,21 @@ true
 if (1) {
   // comment
   false;
-} else if (2)
-  // comment
-  true;
+}
+// comment
+else if (2) true;
+// multi
+// ple
+// lines
 else if (3)
-  // multi
-  // ple
-  // lines
   // existing comment
   true;
+// okay?
 else if (4) {
-  // okay?
   // empty with existing comment
-} else {
-  // comment
+}
+// comment
+else {
 }
 
 if (5)
@@ -465,8 +466,8 @@ if (6) {
 } else if (7)
   // comment
   true;
+// comment
 else {
-  // comment
   true;
 }
 
@@ -478,9 +479,9 @@ if (8) {
   // comment
   // comment
   true;
+// comment
+// comment
 else {
-  // comment
-  // comment
   true;
 }
 
@@ -496,8 +497,7 @@ else if (12)
 else if (13)
   /* comment */ /* comment */ // comment
   true;
-else {
-  /* comment */
+/* comment */ else {
   true;
 }
 
@@ -722,8 +722,9 @@ if (1) {
 
 // Comments trigger invalid JavaScript in-between else if
 if (1) {
-} else {
-  // Comment
+}
+// Comment
+else {
 }
 
 // The comment makes the line break in a weird way
