@@ -1455,13 +1455,27 @@ function printPathNoParens(path, options, print, args) {
       parts.push(opening);
 
       if (n.alternate) {
-        if (n.consequent.type === "BlockStatement") {
-          parts.push(" else");
-        } else {
-          parts.push(hardline, "else");
+        const commentOnOwnLine =
+          hasDanglingComments(n) &&
+          n.comments.some(
+            comment =>
+              !comment.leading &&
+              !comment.trailing &&
+              !privateUtil.isBlockComment(comment)
+          );
+        const elseOnSameLine =
+          n.consequent.type === "BlockStatement" && !commentOnOwnLine;
+        parts.push(elseOnSameLine ? " " : hardline);
+
+        if (hasDanglingComments(n)) {
+          parts.push(
+            comments.printDanglingComments(path, options, true),
+            commentOnOwnLine ? hardline : " "
+          );
         }
 
         parts.push(
+          "else",
           group(
             adjustClause(
               n.alternate,

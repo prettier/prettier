@@ -206,6 +206,15 @@ function handleIfStatementComments(
     return true;
   }
 
+  // Treat comments before `else` as dangling comments
+  if (
+    precedingNode === enclosingNode.consequent &&
+    followingNode === enclosingNode.alternate
+  ) {
+    addDanglingComment(enclosingNode, comment);
+    return true;
+  }
+
   if (followingNode.type === "BlockStatement") {
     addBlockStatementFirstComment(followingNode, comment);
     return true;
