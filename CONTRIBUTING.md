@@ -10,7 +10,7 @@ yarn test
 
 Here's what you need to know about the tests:
 
-* The tests uses [Jest](https://facebook.github.io/jest/) snapshots.
+* The tests use [Jest snapshots](https://facebook.github.io/jest/docs/en/snapshot-testing.html).
 * You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
 * You can run `AST_COMPARE=1 jest` for a more robust test run. That formats each file, re-parses it, and compares the new AST with the original one and makes sure they are semantically equivalent.
 * Each test folder has a `jsfmt.spec.js` that runs the tests. For JavaScript files, generally you can just put `run_spec(__dirname, ["babylon", "flow", "typescript"]);` there. This will verify that the output using each parser is the same. You can also pass options as the third argument, like this: `run_spec(__dirname, ["babylon"], { trailingComma: "es5" });`
