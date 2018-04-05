@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`backticks.js 1`] = `
+gql\`
+  "\\\`foo\\\` mutation payload."
+  type      FooPayload       {
+    	bar: String
+  }
+\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gql\`
+  "\\\`foo\\\` mutation payload."
+  type FooPayload {
+    bar: String
+  }
+\`;
+
+`;
+
 exports[`expressions.js 1`] = `
 graphql(schema, \`
 query allPartsByManufacturerName($name: String!) {
