@@ -1039,15 +1039,26 @@ function printPathNoParens(path, options, print, args) {
     case "TSInterfaceBody":
     case "TSTypeLiteral": {
       const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
+      const parent = path.getParentNode(0);
       const shouldBreak =
         n.type === "TSInterfaceBody" ||
+        (n.type === "ObjectPattern" &&
+          parent.type !== "FunctionDeclaration" &&
+          parent.type !== "FunctionExpression" &&
+          parent.type !== "ArrowFunctionExpression" &&
+          parent.type !== "AssignmentPattern" &&
+          n.properties.some(
+            property =>
+              property.value &&
+              (property.value.type === "ObjectPattern" ||
+                property.value.type === "ArrayPattern")
+          )) ||
         (n.type !== "ObjectPattern" &&
           privateUtil.hasNewlineInRange(
             options.originalText,
             options.locStart(n),
             options.locEnd(n)
           ));
-      const parent = path.getParentNode(0);
       const isFlowInterfaceLikeBody =
         isTypeAnnotation &&
         parent &&

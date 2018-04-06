@@ -40,7 +40,9 @@ const remark = {
     return eval("require")("./parser-markdown");
   },
   astFormat: "mdast",
-  hasPragma: pragma.hasPragma
+  hasPragma: pragma.hasPragma,
+  locStart: node => node.position.start.offset,
+  locEnd: node => node.position.end.offset
 };
 
 const parsers = {

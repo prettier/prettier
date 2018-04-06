@@ -300,7 +300,9 @@ function getOptions() {
     if (elem.tagName === "SELECT") {
       options[option] = elem.value;
     } else if (elem.type === "number") {
-      options[option] = Number(elem.value);
+      if (elem.value !== "") {
+        options[option] = Number(elem.value);
+      }
     } else {
       var isInverted = elem.hasAttribute("data-inverted");
       options[option] = isInverted ? !elem.checked : elem.checked;
