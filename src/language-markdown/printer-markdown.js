@@ -601,28 +601,15 @@ function printChildren(path, options, print, events) {
   const node = path.getValue();
   const parts = [];
 
-  let counter = 0;
   let lastChildNode;
-  let prettierIgnore = false;
 
   path.map((childPath, index) => {
     const childNode = childPath.getValue();
 
-    const result = prettierIgnore
-      ? options.originalText.slice(
-          childNode.position.start.offset,
-          childNode.position.end.offset
-        )
-      : processor(childPath, index);
-
-    prettierIgnore = false;
-
+    const result = processor(childPath, index);
     if (result !== false) {
-      prettierIgnore = isPrettierIgnore(childNode) === "next";
-
       const data = {
         parts,
-        index: counter++,
         prevNode: lastChildNode,
         parentNode: node,
         options
@@ -795,9 +782,20 @@ function clean(ast, newObj) {
   }
 }
 
+function hasPrettierIgnore(path) {
+  const index = +path.getName();
+
+  if (index === 0) {
+    return false;
+  }
+
+  const prevNode = path.getParentNode().children[index - 1];
+  return isPrettierIgnore(prevNode) === "next";
+}
+
 module.exports = {
   print: genericPrint,
   embed,
   massageAstNode: clean,
-  hasPrettierIgnore: privateUtil.hasIgnoreComment
+  hasPrettierIgnore
 };
