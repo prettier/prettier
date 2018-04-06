@@ -146,6 +146,27 @@ function returnValue() {
 
 `;
 
+exports[`continue-statement.js 1`] = `
+for (;;) {
+  continue /* comment */;
+}
+
+loop: for (;;) {
+  continue /* comment */ loop;
+  continue loop /* comment */;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for (;;) {
+  continue; /* comment */
+}
+
+loop: for (;;) {
+  continue /* comment */ loop;
+  continue loop /* comment */;
+}
+
+`;
+
 exports[`dangling.js 1`] = `
 var x = {/* dangling */};
 var x = {
