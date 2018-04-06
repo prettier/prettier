@@ -4783,16 +4783,16 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript-eslint-parser@14.0.0:
+typescript-eslint-parser@ikatyang/typescript-eslint-parser#feat/support-generic-jsx-element:
   version "14.0.0"
-  resolved "https://registry.yarnpkg.com/typescript-eslint-parser/-/typescript-eslint-parser-14.0.0.tgz#c90a8f541c1d96e5c55e2807c61d154e788520f9"
+  resolved "https://codeload.github.com/ikatyang/typescript-eslint-parser/tar.gz/36979fc9137408d3279aa2352310075975a723d9"
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-typescript@2.8.0-rc:
-  version "2.8.0-rc"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.8.0-rc.tgz#a0256b7d1d39fb7493ba0403f55e95d31e8bc374"
+typescript@2.9.0-dev.20180405:
+  version "2.9.0-dev.20180405"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.0-dev.20180405.tgz#c204f6d1a8e5263dd3e7f153e25a4cdf0d2693ac"
 
 ua-parser-js@^0.7.9:
   version "0.7.17"
