@@ -38,7 +38,9 @@ const remark = {
   get parse() {
     return eval("require")("./parser-markdown");
   },
-  astFormat: "mdast"
+  astFormat: "mdast",
+  locStart: node => node.position.start.offset,
+  locEnd: node => node.position.end.offset
 };
 
 const parsers = {
