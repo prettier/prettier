@@ -1,14 +1,20 @@
 "use strict";
 
 const docBuilders = require("../doc/doc-builders");
+const util = require("../common/util");
+
+const isNextLineEmpty = util.isNextLineEmpty;
+const hasNewLineInRange = util.hasNewlineInRange;
 const concat = docBuilders.concat;
 const join = docBuilders.join;
 const softline = docBuilders.softline;
 const hardline = docBuilders.hardline;
+const literalline = docBuilders.literalline;
 const line = docBuilders.line;
 const group = docBuilders.group;
 const indent = docBuilders.indent;
 const ifBreak = docBuilders.ifBreak;
+const fill = docBuilders.fill;
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [
@@ -41,8 +47,8 @@ function print(path, options, print) {
 
   switch (n.type) {
     case "Program": {
-      return group(
-        join(softline, path.map(print, "body").filter(text => text !== ""))
+      return fill(
+        whiteSpaceJoin(softline, path.map(print, "body").filter(a => a))
       );
     }
     case "ElementNode": {
@@ -63,6 +69,13 @@ function print(path, options, print) {
           ])
         );
 
+      let children;
+      if (hasChildren) {
+        children = fill(
+          whiteSpaceJoin(softline, path.map(print, "children").filter(a => a))
+        );
+      }
+
       // The problem here is that I want to not break at all if the children
       // would not break but I need to force an indent, so I use a hardline.
       /**
@@ -81,14 +94,14 @@ function print(path, options, print) {
             "<",
             n.tag,
             getParams(path, print),
-            ifBreak(softline, ""),
+            // ifBreak(softline, ""),
             closeTag
           ])
         ),
         group(
           concat([
-            indent(join(softline, [""].concat(path.map(print, "children")))),
-            ifBreak(hasChildren ? hardline : "", ""),
+            hasChildren ? indent(children) : "",
+            softline,
             !isVoid ? concat(["</", n.tag, ">"]) : ""
           ])
         )
@@ -125,8 +138,8 @@ function print(path, options, print) {
         printOpenBlock(path, print),
         group(
           concat([
-            indent(concat([softline, path.call(print, "program")])),
-            hasParams && hasChildren ? hardline : "",
+            indent(concat([path.call(print, "program")])),
+            // hasParams && hasChildren ? softline : "",
             printCloseBlock(path, print)
           ])
         )
@@ -183,7 +196,61 @@ function print(path, options, print) {
       return concat([n.key, "=", path.call(print, "value")]);
     }
     case "TextNode": {
-      return n.chars.replace(/^\s+/, "").replace(/\s+$/, "");
+      if (n.chars.replace(/\s+/g, "") === "") {
+        const numNewLines = (n.chars.match(/\n/g) || []).length;
+        if (numNewLines > 2) {
+          return concat(
+            Array.from({ length: numNewLines - 2 }, () => hardline)
+          );
+        }
+        if (numNewLines > 0) {
+          return hardline;
+        }
+        return "";
+      }
+      let parts = [];
+      const prevWhiteSpace = (n.chars.match(/^\s+/) || [])[0] || "";
+      const numPreviousNewLines = (prevWhiteSpace.match(/\n/g) || []).length;
+      if (numPreviousNewLines > 1) {
+        parts = parts.concat(
+          Array.from({ length: numPreviousNewLines - 1 }, () => hardline)
+        );
+      }
+      if (numPreviousNewLines === 2) {
+        parts.push(hardline);
+      }
+
+      parts.push(
+        fill(
+          n.chars
+            .replace(/^\s+/, "")
+            .replace(/\s+$/, "")
+            .split(/(\s+)/)
+            .map(
+              chars =>
+                /[^\s]+/.test(chars)
+                  ? chars
+                  : concat(
+                      chars
+                        .split("")
+                        .map(char => (char === "\n" ? literalline : line))
+                    )
+            )
+        )
+      );
+
+      const trailingWhiteSpace = (n.chars.match(/\s+$/) || [])[0] || "";
+      const numTrailingNewLines = (trailingWhiteSpace.match(/\n/g) || [])
+        .length;
+      if (numTrailingNewLines > 1) {
+        parts = parts.concat(
+          Array.from({ length: numTrailingNewLines - 1 }, () => hardline)
+        );
+      }
+      if (numTrailingNewLines === 2) {
+        parts.push(hardline);
+      }
+      return concat(parts);
     }
     case "MustacheCommentStatement": {
       const dashes = n.value.indexOf("}}") > -1 ? "--" : "";
@@ -258,7 +325,6 @@ function printOpenBlock(path, print) {
       "{{#",
       printPathParams(path, print),
       printBlockParams(path, print),
-      softline,
       "}}"
     ])
   );
@@ -269,16 +335,63 @@ function printCloseBlock(path, print) {
 }
 
 function clean(ast, newObj) {
-  // (Glimmer/HTML) ignore TextNode whitespace
   if (ast.type === "TextNode") {
     if (ast.chars.replace(/\s+/, "") === "") {
       return null;
     }
-    newObj.chars = ast.chars.replace(/^\s+/, "").replace(/\s+$/, "");
+    newObj.chars = ast.chars.replace(/^ +/, "").replace(/ +$/, "");
   }
+}
+
+function isLastStatement(path) {
+  const parent = path.getParentNode();
+  if (!parent) {
+    return true;
+  }
+  const node = path.getValue();
+  const body = (parent.body || parent.consequent).filter(
+    stmt => stmt.type !== "EmptyStatement"
+  );
+  return body && body[body.length - 1] === node;
+}
+
+function checkForLine(node) {
+  if (!node || !node.type) {
+    if (typeof node === "string") {
+      return node.replace(/\s/g, "") === "";
+    }
+    return false;
+  }
+  switch (node.type) {
+    case "line":
+      return true;
+    case "concat":
+    case "fill":
+      return checkForLine(node.parts[0]);
+    case "group":
+      return checkForLine(node.contents);
+  }
+  throw new Error(JSON.stringify(node));
+}
+
+function whiteSpaceJoin(delimeter, arr) {
+  if (arr.every(node => checkForLine(node))) {
+    return arr;
+  }
+  return arr
+    .map((node, idx) => {
+      if (!node) {
+        return null;
+      }
+      if (idx === 0 || checkForLine(node)) {
+        return node;
+      }
+      return concat([delimeter, node]);
+    })
+    .filter(a => a);
 }
 
 module.exports = {
   print,
-  massageAstNode: clean
+  massageAstNode: () => {}
 };

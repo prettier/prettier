@@ -46,17 +46,11 @@ function massageAST(ast, options, parent) {
     delete newObj[name];
   });
 
-  if (options.printer.massageAstNode) {
-    const result = options.printer.massageAstNode(ast, newObj, parent);
-    if (result === null) {
-      return undefined;
-    }
-    if (result) {
-      return result;
-    }
+  const result = options.printer.massageAstNode(ast, newObj, parent);
+  if (result === null) {
+    return undefined;
   }
-
-  return newObj;
+  if (result) {
+    return result;
+  }
 }
-
-module.exports = { cleanAST, massageAST };

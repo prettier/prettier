@@ -11,15 +11,20 @@ exports[`basic-handlebars.hbs 1`] = `
 </script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script id="entry-template" type="text/x-handlebars-template">
+
   <div class="entry">
-    <h1>
-      {{title}}
-    </h1>
+
+    <h1>{{title}}</h1>
     <div class="body">
+
       {{body}}
+
     </div>
+
   </div>
+
 </script>
+
 `;
 
 exports[`comments.hbs 1`] = `
@@ -30,10 +35,11 @@ exports[`comments.hbs 1`] = `
 </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div class="entry">
-  {{! This comment will not be in the output }}
-  {{!-- This comment as }} and will not be in the output --}}
-  <!-- This comment will be in the output -->
+
+  {{! This comment will not be in the output }}{{!-- This comment as }} and will not be in the output --}}<!-- This comment will be in the output -->
+
 </div>
+
 `;
 
 exports[`each.hbs 1`] = `
@@ -45,17 +51,12 @@ exports[`each.hbs 1`] = `
 </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div id="comments">
-  {{#each comments}}
-    <h2>
-      <a href="/posts/{{permalink}}#{{id}}">
-        {{title}}
-      </a>
-    </h2>
-    <div>
-      {{body}}
-    </div>
-  {{/each}}
+
+  {{#each comments}}<h2><a href="/posts/{{permalink}}#{{id}}">{{title}}</a></h2>
+    <div>{{body}}</div>
+    {{/each}}
 </div>
+
 `;
 
 exports[`if.hbs 1`] = `
@@ -63,9 +64,8 @@ exports[`if.hbs 1`] = `
   {{permalink}}
 {{/if}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{{#if title}}
-  {{permalink}}
-{{/if}}
+{{#if title}}{{permalink}}
+  {{/if}}
 `;
 
 exports[`if-else.hbs 1`] = `
@@ -89,6 +89,7 @@ exports[`if-else.hbs 1`] = `
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <h1>
+
   {{#if isAtWork}}
     Ship that code!
   {{else if isReading}}
@@ -97,13 +98,16 @@ exports[`if-else.hbs 1`] = `
     Go to bed!
   {{/if}}
 </h1>
+
 <h2>
+
   {{#if a}}
     A
   {{else}}
     B
   {{/if}}
 </h2>
+
 `;
 
 exports[`nested-path.hbs 1`] = `
@@ -117,15 +121,15 @@ exports[`nested-path.hbs 1`] = `
 </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div class="entry">
-  <h1>
-    {{title}}
-  </h1>
-  <h2>
-    By
-    {{author.name}}
-  </h2>
+
+  <h1>{{title}}</h1>
+  <h2>By{{author.name}}</h2>
   <div class="body">
+
     {{body}}
+
   </div>
+
 </div>
+
 `;
