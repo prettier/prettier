@@ -19,6 +19,13 @@ styled.span`
   `}
 `
 
+styled.span`
+  ${props => props.standalone && props.justifyContent && props.alignItems && css`
+    display: ${display};
+    ${flexAlignment};
+  `}
+`
+
 const EqualDivider = styled.div`
 margin: 0.5rem;
 		padding: 1rem;
