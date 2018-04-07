@@ -790,7 +790,7 @@ function clean(ast, newObj, parent) {
         parent.children[0].type === "toml") &&
         parent.children[1] === ast)) &&
     ast.type === "html" &&
-    pragma.startWithPragmaRegex.test(ast.value)
+    pragma.startWithPragma(ast.value)
   ) {
     return null;
   }

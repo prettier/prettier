@@ -76,6 +76,29 @@ I should be formatted !!
 
 `;
 
+exports[`with-pragma-in-multiline.md 1`] = `
+<!--
+  MIT LICENSE 
+  
+  bla bla bla
+
+  @format
+-->
+
+I     should      be      formatted       !!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!--
+  MIT LICENSE
+
+  bla bla bla
+
+  @format
+-->
+
+I should be formatted !!
+
+`;
+
 exports[`without-pragma.md 1`] = `
 I     should      stay      as-is   !!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

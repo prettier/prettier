@@ -1,9 +1,19 @@
 "use strict";
 
 const pragmas = ["format", "prettier"];
-const startWithPragmaRegex = new RegExp(
-  `^<!--\\s*@(${pragmas.join("|")})\\s*-->`
-);
+
+function startWithPragma(text) {
+  const pragma = `@(${pragmas.join("|")})`;
+  const regex = new RegExp(
+    [
+      `<!--\\s*${pragma}\\s*-->`,
+      `<!--.*\n[\\s\\S]*(^|\n)[^\\S\n]*${pragma}[^\\S\n]*($|\n)[\\s\\S]*\n.*-->`
+    ].join("|"),
+    "m"
+  );
+  const matched = text.match(regex);
+  return matched && matched.index === 0;
+}
 
 function extract(text) {
   // yaml (---) and toml (+++)
@@ -16,9 +26,8 @@ function extract(text) {
 }
 
 module.exports = {
-  startWithPragmaRegex,
-  hasPragma: text =>
-    startWithPragmaRegex.test(extract(text).mainContent.trimLeft()),
+  startWithPragma,
+  hasPragma: text => startWithPragma(extract(text).mainContent.trimLeft()),
   insertPragma: text => {
     const extracted = extract(text);
     const pragma = `<!-- @${pragmas[0]} -->`;
