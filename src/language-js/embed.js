@@ -78,6 +78,13 @@ function embed(path, print, textToDoc /*, options */) {
           const isFirst = i === 0;
           const isLast = i === numQuasis - 1;
           const text = templateElement.value.cooked;
+
+          // Bail out if any of the quasis have an invalid escape sequence
+          // (which would make the `cooked` value be `null` or `undefined`)
+          if (typeof text !== "string") {
+            return null;
+          }
+
           const lines = text.split("\n");
           const numLines = lines.length;
           const expressionDoc = expressionDocs[i];

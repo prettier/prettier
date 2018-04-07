@@ -409,6 +409,55 @@ gql\`
 
 `;
 
+exports[`invalid.js 1`] = `
+// none of the embedded GraphQL should be formatted
+// for they have an invalid escape sequence
+
+gql\`
+  "\\x"
+  type   Foo    {
+      a: string
+  }
+\`;
+
+gql\`
+  type   Foo {
+      a:   string
+  }
+
+  \${stuff}
+
+  "\\x"
+  type  Bar   {
+       b :   string
+  }
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// none of the embedded GraphQL should be formatted
+// for they have an invalid escape sequence
+
+gql\`
+  "\\x"
+  type   Foo    {
+      a: string
+  }
+\`;
+
+gql\`
+  type   Foo {
+      a:   string
+  }
+
+  \${stuff}
+
+  "\\x"
+  type  Bar   {
+       b :   string
+  }
+\`;
+
+`;
+
 exports[`react-relay.js 1`] = `
 const { graphql } = require("react-relay");
 
