@@ -136,7 +136,7 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
       comment,
       options
     ) ||
-    handleContinueStatementComments(enclosingNode, comment)
+    handleBreakAndContinueStatementComments(enclosingNode, comment)
   ) {
     return true;
   }
@@ -554,10 +554,11 @@ function handleLabeledStatementComments(enclosingNode, comment) {
   return false;
 }
 
-function handleContinueStatementComments(enclosingNode, comment) {
+function handleBreakAndContinueStatementComments(enclosingNode, comment) {
   if (
     enclosingNode &&
-    enclosingNode.type === "ContinueStatement" &&
+    (enclosingNode.type === "ContinueStatement" ||
+      enclosingNode.type === "BreakStatement") &&
     !enclosingNode.label
   ) {
     addTrailingComment(enclosingNode, comment);
