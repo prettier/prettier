@@ -135,7 +135,8 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
       precedingNode,
       comment,
       options
-    )
+    ) ||
+    handleBreakAndContinueStatementComments(enclosingNode, comment)
   ) {
     return true;
   }
@@ -548,6 +549,19 @@ function handleImportSpecifierComments(enclosingNode, comment) {
 function handleLabeledStatementComments(enclosingNode, comment) {
   if (enclosingNode && enclosingNode.type === "LabeledStatement") {
     addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
+function handleBreakAndContinueStatementComments(enclosingNode, comment) {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "ContinueStatement" ||
+      enclosingNode.type === "BreakStatement") &&
+    !enclosingNode.label
+  ) {
+    addTrailingComment(enclosingNode, comment);
     return true;
   }
   return false;

@@ -82,6 +82,33 @@ exports[`blank.js 1`] = `
 
 `;
 
+exports[`break-continue-statements.js 1`] = `
+for (;;) {
+  break /* comment */;
+  continue /* comment */;
+}
+
+loop: for (;;) {
+  break /* comment */ loop;
+  break loop /* comment */;
+  continue /* comment */ loop;
+  continue loop /* comment */;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for (;;) {
+  break; /* comment */
+  continue; /* comment */
+}
+
+loop: for (;;) {
+  break /* comment */ loop;
+  break loop /* comment */;
+  continue /* comment */ loop;
+  continue loop /* comment */;
+}
+
+`;
+
 exports[`call_comment.js 1`] = `
 render( // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
