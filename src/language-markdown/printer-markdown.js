@@ -202,9 +202,12 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "yaml":
-      return concat(["---", hardline, node.value, hardline, "---"]);
-    case "toml":
-      return concat(["+++", hardline, node.value, hardline, "+++"]);
+    case "toml": {
+      const style = node.type === "yaml" ? "---" : "+++";
+      return node.value
+        ? concat([style, hardline, node.value, hardline, style])
+        : concat([style, hardline, style]);
+    }
     case "html": {
       const parentNode = path.getParentNode();
       return replaceNewlinesWithHardlines(
