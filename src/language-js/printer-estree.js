@@ -976,7 +976,7 @@ function printPathNoParens(path, options, print, args) {
           )) ||
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
-        (!isNew && isTestCall(n))
+        (!isNew && isTestCall(n, path.getParentNode()))
       ) {
         return concat([
           isNew ? "new " : "",
@@ -5337,24 +5337,73 @@ function isObjectType(n) {
 }
 
 // eg; `describe("some string", (done) => {})`
-function isTestCall(n) {
+function isTestCall(n, parent = null) {
+  const unitTestRe = /^(skip|(f|x)?(it|describe|test))$/;
+
+  if (n.arguments.length === 1) {
+    if (
+      n.callee.type === "Identifier" &&
+      n.callee.name === "async" &&
+      isTestCall(parent)
+    ) {
+      return isFunctionOrArrowExpression(n.arguments[0].type);
+    }
+
+    if (isUnitTestSetUp(n)) {
+      return (
+        isFunctionOrArrowExpression(n.arguments[0].type) ||
+        isIdentiferAsync(n.arguments[0])
+      );
+    }
+  } else if (n.arguments.length === 2) {
+    if (
+      (n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
+      (isSkipOrOnlyBlock(n) &&
+        (isTemplateLiteral(n.arguments[0]) || isStringLiteral(n.arguments[0])))
+    ) {
+      return (
+        (isFunctionOrArrowExpression(n.arguments[1].type) &&
+          n.arguments[1].params.length <= 1) ||
+        isIdentiferAsync(n.arguments[1])
+      );
+    }
+  }
+  return false;
+}
+function isSkipOrOnlyBlock(node) {
   const unitTestRe = /^(skip|(f|x)?(it|describe|test))$/;
   return (
-    ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
-      (n.callee.type === "MemberExpression" &&
-        n.callee.object.type === "Identifier" &&
-        n.callee.property.type === "Identifier" &&
-        unitTestRe.test(n.callee.object.name) &&
-        (n.callee.property.name === "only" ||
-          n.callee.property.name === "skip"))) &&
-    n.arguments.length === 2 &&
-    (n.arguments[0].type === "StringLiteral" ||
-      n.arguments[0].type === "TemplateLiteral" ||
-      (n.arguments[0].type === "Literal" &&
-        typeof n.arguments[0].value === "string")) &&
-    (n.arguments[1].type === "FunctionExpression" ||
-      n.arguments[1].type === "ArrowFunctionExpression") &&
-    n.arguments[1].params.length <= 1
+    node.callee.type === "MemberExpression" &&
+    node.callee.object.type === "Identifier" &&
+    node.callee.property.type === "Identifier" &&
+    unitTestRe.test(node.callee.object.name) &&
+    (node.callee.property.name === "only" ||
+      node.callee.property.name === "skip")
+  );
+}
+
+function isTemplateLiteral(node) {
+  return node.type === "TemplateLiteral";
+}
+
+function isIdentiferAsync(node) {
+  return (
+    node.type === "CallExpression" &&
+    node.callee.type === "Identifier" &&
+    node.callee.name === "async"
+  );
+}
+
+function isFunctionOrArrowExpression(type) {
+  return type === "FunctionExpression" || type === "ArrowFunctionExpression";
+}
+
+function isUnitTestSetUp(n) {
+  const unitTestSetUpRe = /^(before|after)(Each|All)$/;
+  return (
+    n.callee.type === "Identifier" &&
+    unitTestSetUpRe.test(n.callee.name) &&
+    n.arguments.length === 1
   );
 }
 

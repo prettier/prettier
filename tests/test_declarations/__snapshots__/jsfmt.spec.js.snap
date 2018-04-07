@@ -1,5 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`angular_async.js 1`] = `
+beforeEach(async(() => {
+  // code
+}));
+
+afterAll(async(() => {
+  console.log('Hello');
+}));
+
+it('should create the app', async(() => {
+  //code
+}));
+
+it("does something really long and complicated so I have to write a very long name for the test", async(() => {
+  // code
+}));
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+beforeEach(async(() => {
+  // code
+}));
+
+afterAll(async(() => {
+  console.log("Hello");
+}));
+
+it("should create the app", async(() => {
+  //code
+}));
+
+it("does something really long and complicated so I have to write a very long name for the test", async(() => {
+  // code
+}));
+
+`;
+
+exports[`angular_async.js 2`] = `
+beforeEach(async(() => {
+  // code
+}));
+
+afterAll(async(() => {
+  console.log('Hello');
+}));
+
+it('should create the app', async(() => {
+  //code
+}));
+
+it("does something really long and complicated so I have to write a very long name for the test", async(() => {
+  // code
+}));
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+beforeEach(async(() => {
+  // code
+}));
+
+afterAll(async(() => {
+  console.log("Hello");
+}));
+
+it("should create the app", async(() => {
+  //code
+}));
+
+it("does something really long and complicated so I have to write a very long name for the test", async(() => {
+  // code
+}));
+
+`;
+
 exports[`test_declarations.js 1`] = `
 // Shouldn't break
 
