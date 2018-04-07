@@ -785,7 +785,10 @@ function clean(ast, newObj, parent) {
   if (
     parent &&
     parent.type === "root" &&
-    parent.children[0] === ast &&
+    (parent.children[0] === ast ||
+      ((parent.children[0].type === "yaml" ||
+        parent.children[0].type === "toml") &&
+        parent.children[1] === ast)) &&
     ast.type === "html" &&
     pragma.startWithPragmaRegex.test(ast.value)
   ) {
