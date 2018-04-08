@@ -96,11 +96,16 @@ function print(path, options, print) {
     }
     case "BlockStatement": {
       const pp = path.getParentNode(1);
-      const isElseIf = pp && pp.inverse && pp.inverse.body[0] === n;
+      const isElseIf =
+        pp &&
+        pp.inverse &&
+        pp.inverse.body[0] === n &&
+        pp.inverse.body[0].path.parts[0] === "if";
       const hasElseIf =
         n.inverse &&
         n.inverse.body[0] &&
-        n.inverse.body[0].type === "BlockStatement";
+        n.inverse.body[0].type === "BlockStatement" &&
+        n.inverse.body[0].path.parts[0] === "if";
       const indentElse = hasElseIf ? a => a : indent;
       if (n.inverse) {
         return concat([
@@ -113,6 +118,11 @@ function print(path, options, print) {
             ? indentElse(concat([hardline, path.call(print, "inverse")]))
             : "",
           isElseIf ? "" : concat([hardline, printCloseBlock(path, print)])
+        ]);
+      } else if (isElseIf) {
+        return concat([
+          concat(["{{else ", printPathParams(path, print), "}}"]),
+          indent(concat([hardline, path.call(print, "program")]))
         ]);
       }
       /**
