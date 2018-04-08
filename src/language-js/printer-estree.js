@@ -5357,9 +5357,9 @@ function isTestCall(n, parent = null) {
     }
   } else if (n.arguments.length === 2) {
     if (
-      (n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
-      (isSkipOrOnlyBlock(n) &&
-        (isTemplateLiteral(n.arguments[0]) || isStringLiteral(n.arguments[0])))
+      ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
+        isSkipOrOnlyBlock(n)) &&
+      (isTemplateLiteral(n.arguments[0]) || isStringLiteral(n.arguments[0]))
     ) {
       return (
         (isFunctionOrArrowExpression(n.arguments[1].type) &&
