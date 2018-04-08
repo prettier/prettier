@@ -2,6 +2,7 @@
 
 const privateUtil = require("../common/util");
 const embed = require("./embed");
+const pragma = require("./pragma");
 const doc = require("../doc");
 const docBuilders = doc.builders;
 const concat = docBuilders.concat;
@@ -774,14 +775,27 @@ function clamp(value, min, max) {
   return value < min ? min : value > max ? max : value;
 }
 
-function clean(ast, newObj) {
-  // for markdown codeblock
+function clean(ast, newObj, parent) {
+  // for codeblock
   if (ast.type === "code") {
     delete newObj.value;
   }
-  // for markdown whitespace: "\n" and " " are considered the same
+  // for whitespace: "\n" and " " are considered the same
   if (ast.type === "whitespace" && ast.value === "\n") {
     newObj.value = " ";
+  }
+  // for insert pragma
+  if (
+    parent &&
+    parent.type === "root" &&
+    (parent.children[0] === ast ||
+      ((parent.children[0].type === "yaml" ||
+        parent.children[0].type === "toml") &&
+        parent.children[1] === ast)) &&
+    ast.type === "html" &&
+    pragma.startWithPragma(ast.value)
+  ) {
+    return null;
   }
 }
 
@@ -800,5 +814,6 @@ module.exports = {
   print: genericPrint,
   embed,
   massageAstNode: clean,
-  hasPrettierIgnore
+  hasPrettierIgnore,
+  insertPragma: pragma.insertPragma
 };
