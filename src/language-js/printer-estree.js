@@ -4111,7 +4111,7 @@ function printMemberChain(path, options, print) {
   // letter, just a sequence of _$ or this. The rationale is that they are
   // likely to be factories.
   function isFactory(name) {
-    return name.match(/(^[A-Z])|^[_$]+$/);
+    return name.match(/(^[A-Z])|^[_$]+$/) || name.length <= options.tabWidth;
   }
   const shouldMerge =
     groups.length >= 2 &&

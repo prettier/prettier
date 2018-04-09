@@ -1409,9 +1409,8 @@ function memberOutside() {
 
 function memberInAndOutWithCalls() {
   return (
-    a
-      .b// Reason for a
-      ()
+    a.b// Reason for a
+    ()
       .c.d()
   );
 }
