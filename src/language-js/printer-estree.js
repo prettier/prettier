@@ -5337,7 +5337,7 @@ function isObjectType(n) {
 }
 
 // eg; `describe("some string", (done) => {})`
-function isTestCall(n, parent = null) {
+function isTestCall(n, parent) {
   const unitTestRe = /^(skip|(f|x)?(it|describe|test))$/;
 
   if (n.arguments.length === 1) {
