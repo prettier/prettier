@@ -13,3 +13,5 @@ it('should create the app', async(() => {
 it("does something really long and complicated so I have to write a very long name for the test", async(() => {
   // code
 }));
+
+function x() { async(() => {}) }

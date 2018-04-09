@@ -5344,6 +5344,8 @@ function isTestCall(n, parent) {
     if (
       n.callee.type === "Identifier" &&
       n.callee.name === "async" &&
+      parent &&
+      parent.type === "CallExpression" &&
       isTestCall(parent)
     ) {
       return isFunctionOrArrowExpression(n.arguments[0].type);
@@ -5370,6 +5372,7 @@ function isTestCall(n, parent) {
   }
   return false;
 }
+
 function isSkipOrOnlyBlock(node) {
   const unitTestRe = /^(skip|(f|x)?(it|describe|test))$/;
   return (
