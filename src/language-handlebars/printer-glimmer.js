@@ -193,8 +193,8 @@ function print(path, options, print) {
       return concat([n.key, "=", path.call(print, "value")]);
     }
     case "TextNode": {
-      let leadingSpace = "",
-        trailingSpace = "";
+      let leadingSpace = "";
+      let trailingSpace = "";
 
       // preserve a space inside of an attribute node where whitespace present, when next to mustache statement.
       const inAttrNode = path.stack.includes("attributes");
