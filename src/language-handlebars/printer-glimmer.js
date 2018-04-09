@@ -200,19 +200,20 @@ function print(path, options, print) {
       const inAttrNode = path.stack.includes("attributes");
 
       if (inAttrNode) {
-        const { type, parts } = path.getParentNode(0);
-        const isConcat = type === "ConcatStatement";
+        const parentNode = path.getParentNode(0);
+        const isConcat = parentNode.type === "ConcatStatement";
         if (isConcat) {
+          const parts = parentNode.parts;
           const partIndex = parts.indexOf(n);
           if (partIndex > 0) {
-            const { type: partType } = parts[partIndex - 1];
+            const partType = parts[partIndex - 1].type;
             const isMustache = partType === "MustacheStatement";
             if (isMustache) {
               leadingSpace = " ";
             }
           }
           if (partIndex < parts.length - 1) {
-            const { type: partType } = parts[partIndex + 1];
+            const partType = parts[partIndex + 1].type;
             const isMustache = partType === "MustacheStatement";
             if (isMustache) {
               trailingSpace = " ";
