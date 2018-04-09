@@ -193,34 +193,36 @@ function print(path, options, print) {
       return concat([n.key, "=", path.call(print, "value")]);
     }
     case "TextNode": {
-
-      let leadingSpace = '', trailingSpace = '';
+      let leadingSpace = "",
+        trailingSpace = "";
 
       // preserve a space inside of an attribute node where whitespace present, when next to mustache statement.
-      const inAttrNode = path.stack.includes('attributes');
+      const inAttrNode = path.stack.includes("attributes");
 
-      if (inAttrNode) {        
+      if (inAttrNode) {
         const { type, parts } = path.getParentNode(0);
-        const isConcat = (type === 'ConcatStatement');
+        const isConcat = type === "ConcatStatement";
         if (isConcat) {
           const partIndex = parts.indexOf(n);
           if (partIndex > 0) {
             const { type: partType } = parts[partIndex - 1];
-            const isMustache = (partType === 'MustacheStatement');
+            const isMustache = partType === "MustacheStatement";
             if (isMustache) {
-              leadingSpace = ' ';
+              leadingSpace = " ";
             }
           }
           if (partIndex < parts.length - 1) {
             const { type: partType } = parts[partIndex + 1];
-            const isMustache = (partType === 'MustacheStatement');
+            const isMustache = partType === "MustacheStatement";
             if (isMustache) {
-              trailingSpace = ' ';
-            }            
+              trailingSpace = " ";
+            }
           }
         }
       }
-      return n.chars.replace(/^\s+/, leadingSpace).replace(/\s+$/, trailingSpace);
+      return n.chars
+        .replace(/^\s+/, leadingSpace)
+        .replace(/\s+$/, trailingSpace);
     }
     case "MustacheCommentStatement": {
       const dashes = n.value.indexOf("}}") > -1 ? "--" : "";
