@@ -4108,7 +4108,7 @@ function printMemberChain(path, options, print) {
   //
   // In order to detect those cases, we use an heuristic: if the first
   // node is an identifier with the name starting with a capital letter,
-  // containing only _ and $, or shorter than tabWidth. The rationale 
+  // containing only _ and $, or shorter than tabWidth. The rationale
   // is that they are likely to be factories.
   function isFactory(name) {
     return name.match(/(^[A-Z])|^[_$]+$/) || name.length <= options.tabWidth;
