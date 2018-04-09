@@ -14,4 +14,9 @@ it("does something really long and complicated so I have to write a very long na
   // code
 }));
 
+/*
+* isTestCall(parent) should only be called when parent exists
+* and parent.type is CallExpression. isTestCall(parent) will
+* not be called for the below test
+*/
 function x() { async(() => {}) }
