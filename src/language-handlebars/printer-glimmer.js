@@ -197,7 +197,7 @@ function print(path, options, print) {
       let trailingSpace = "";
 
       // preserve a space inside of an attribute node where whitespace present, when next to mustache statement.
-      const inAttrNode = path.stack.includes("attributes");
+      const inAttrNode = path.stack.indexOf("attributes") >= 0;
 
       if (inAttrNode) {
         const parentNode = path.getParentNode(0);
