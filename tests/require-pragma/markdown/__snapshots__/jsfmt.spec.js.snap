@@ -9,7 +9,6 @@ exports[`empty-front-matter-with-pragma.md 1`] = `
 I     should      be      formatted       !!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---
-
 ---
 
 <!-- @prettier -->
