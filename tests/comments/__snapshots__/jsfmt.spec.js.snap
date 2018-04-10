@@ -255,9 +255,41 @@ import("something" /* Hello */ + "else");
 exports[`export.js 1`] = `
 export //comment
 {}
+
+export /* comment */ {};
+
+export {
+  foo // comment
+}
+
+export {
+  // comment
+  bar
+}
+
+export {
+  fooo, // comment
+  barr, // comment
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//comment
-export {};
+export //comment
+{};
+
+export /* comment */{};
+
+export {
+  foo // comment
+};
+
+export {
+  // comment
+  bar
+};
+
+export {
+  fooo, // comment
+  barr // comment
+};
 
 `;
 

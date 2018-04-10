@@ -1472,13 +1472,7 @@ function printPathNoParens(path, options, print, args) {
               comment =>
                 comment.trailing && !privateUtil.isBlockComment(comment)
             )) ||
-          (hasDanglingComments(n) &&
-            n.comments.some(
-              comment =>
-                !comment.leading &&
-                !comment.trailing &&
-                !privateUtil.isBlockComment(comment)
-            ));
+          needsHardlineAfterDanglingComment(n);
         const elseOnSameLine =
           n.consequent.type === "BlockStatement" && !commentOnOwnLine;
         parts.push(elseOnSameLine ? " " : hardline);
@@ -3622,6 +3616,10 @@ function printExportDeclaration(path, options, print) {
     comments.printDanglingComments(path, options, /* sameIndent */ true)
   );
 
+  if (needsHardlineAfterDanglingComment(decl)) {
+    parts.push(hardline);
+  }
+
   if (decl.declaration) {
     parts.push(path.call(print, "declaration"));
 
@@ -5300,6 +5298,18 @@ function hasDanglingComments(node) {
   return (
     node.comments &&
     node.comments.some(comment => !comment.leading && !comment.trailing)
+  );
+}
+
+function needsHardlineAfterDanglingComment(node) {
+  if (!node.comments) {
+    return false;
+  }
+  const lastDanglingComment = privateUtil.getLast(
+    node.comments.filter(comment => !comment.leading && !comment.trailing)
+  );
+  return (
+    lastDanglingComment && !privateUtil.isBlockComment(lastDanglingComment)
   );
 }
 
