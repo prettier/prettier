@@ -95,7 +95,6 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
     handleLabeledStatementComments(enclosingNode, comment) ||
     handleCallExpressionComments(precedingNode, enclosingNode, comment) ||
     handlePropertyComments(enclosingNode, comment) ||
-    handleExportNamedDeclarationComments(enclosingNode, comment) ||
     handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
     handleTypeAliasComments(enclosingNode, followingNode, comment) ||
     handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
@@ -604,14 +603,6 @@ function handlePropertyComments(enclosingNode, comment) {
     (enclosingNode.type === "Property" ||
       enclosingNode.type === "ObjectProperty")
   ) {
-    addLeadingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
-function handleExportNamedDeclarationComments(enclosingNode, comment) {
-  if (enclosingNode && enclosingNode.type === "ExportNamedDeclaration") {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
