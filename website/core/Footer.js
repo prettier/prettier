@@ -1,6 +1,7 @@
 "use strict";
 
 const React = require("react");
+const PropTypes = require("prop-types");
 
 const GithubButton = props => (
   <a
@@ -13,6 +14,10 @@ const GithubButton = props => (
     Star
   </a>
 );
+
+GithubButton.propTypes = {
+  config: PropTypes.object
+};
 
 class Footer extends React.Component {
   url(path) {
@@ -78,5 +83,10 @@ class Footer extends React.Component {
     );
   }
 }
+
+Footer.propTypes = {
+  language: PropTypes.string,
+  config: PropTypes.object
+};
 
 module.exports = Footer;
