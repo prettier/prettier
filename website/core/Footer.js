@@ -14,10 +14,6 @@ const GithubButton = props => (
   </a>
 );
 
-GithubButton.propTypes = {
-  config: React.PropTypes.object
-};
-
 class Footer extends React.Component {
   url(path) {
     const language = this.props.language || "en";
@@ -82,10 +78,5 @@ class Footer extends React.Component {
     );
   }
 }
-
-Footer.propTypes = {
-  language: React.PropTypes.string,
-  config: React.PropTypes.object
-};
 
 module.exports = Footer;
