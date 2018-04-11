@@ -42,6 +42,33 @@ exports[`hello-world.html 1`] = `
 </html>
 `;
 
+exports[`html-comments.html 1`] = `
+<!-- htmlhint attr-lowercase: false -->
+<html>
+  <body>
+    <a href="#">Anchor</a>
+    <div hidden class="foo" id=bar></div>
+  </body>
+</html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<!-- htmlhint attr-lowercase: false -->
+
+<html>
+
+<head />
+
+
+<body>
+  <a href="#">Anchor</a>
+  <div hidden
+    class="foo"
+    id="bar" />
+
+</body>
+</html>
+`;
+
 exports[`html-fragment.html 1`] = `
 <a href="#">Link</a>
 

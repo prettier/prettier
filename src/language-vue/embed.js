@@ -7,7 +7,7 @@ const hardline = docBuilders.hardline;
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
-  if (!parent || parent.tag !== "root") {
+  if (!parent || parent.tag !== "root" || node.unary) {
     return null;
   }
 
@@ -15,7 +15,7 @@ function embed(path, print, textToDoc, options) {
 
   if (node.tag === "style") {
     const langAttr = node.attrs.find(attr => attr.name === "lang");
-    if (!langAttr) {
+    if (!langAttr || langAttr.value === "postcss") {
       parser = "css";
     } else if (langAttr.value === "scss") {
       parser = "scss";
@@ -28,7 +28,7 @@ function embed(path, print, textToDoc, options) {
     const langAttr = node.attrs.find(attr => attr.name === "lang");
     if (!langAttr) {
       parser = "babylon";
-    } else if (langAttr.value === "ts") {
+    } else if (langAttr.value === "ts" || langAttr.value === "tsx") {
       parser = "typescript";
     }
   }

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -12,10 +12,12 @@
+  
+    --arrow-parens <avoid|always>
+                             Include parentheses around a sole arrow function parameter.
+                             Defaults to avoid.
+    --no-bracket-spacing     Do not print spaces between brackets.
++   --foo-option <bar|baz>   foo description
++                            Defaults to bar.
+    --jsx-bracket-same-line  Put > on the last line instead of at a new line.
+                             Defaults to false.
+    --parser <flow|babylon|typescript|css|less|scss|json|graphql|markdown|vue>
+                             Which parser to use.
+                             Defaults to babylon."
+`;
+
+exports[`show detailed external option with \`--help foo-option\` (stderr) 1`] = `""`;
+
+exports[`show detailed external option with \`--help foo-option\` (stdout) 1`] = `
+"--foo-option <bar|baz>
+
+  foo description
+
+Valid options:
+
+  bar   bar description
+  baz   baz description
+
+Default: bar
+"
+`;
+
+exports[`show detailed external option with \`--help foo-option\` (write) 1`] = `Array []`;

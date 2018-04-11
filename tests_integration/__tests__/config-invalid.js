@@ -45,3 +45,9 @@ describe("show warning with unknown option", () => {
     status: 0
   });
 });
+
+describe("show warning with kebab-case option key", () => {
+  runPrettier("cli/config/invalid", ["--config", "option/kebab-case"]).test({
+    status: 0
+  });
+});

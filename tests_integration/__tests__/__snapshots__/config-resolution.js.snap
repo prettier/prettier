@@ -34,7 +34,7 @@ console.log(
 );
 function js() {
         console.log(
-                \\"js/file.js should have tab width 8\\"
+                \\"js/file.js should have tab width 8 (1 if CLI)\\"
         );
 }
 \\"use strict\\";
@@ -81,7 +81,7 @@ exports[`accepts configuration from --config (stderr) 1`] = `""`;
 
 exports[`accepts configuration from --config (stdout) 1`] = `
 "function js() {
-  console.log(\\"js/file.js should have tab width 8\\")
+ console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\")
 }
 "
 `;
@@ -122,7 +122,7 @@ console.log(\\"jest/__best-tests__/file.js should have semi\\");
 console.log(\\"jest/Component.js should not have semi\\")
 console.log(\\"jest/Component.test.js should have semi\\");
 function js() {
-        console.log(\\"js/file.js should have tab width 8\\");
+        console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
 }
 \\"use strict\\";
 

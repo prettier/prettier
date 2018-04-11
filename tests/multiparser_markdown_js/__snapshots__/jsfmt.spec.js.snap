@@ -1,5 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`jsx-comment.md 1`] = `
+\`\`\`jsx
+const Foo = () => {
+  return (
+    <div>
+      {/*
+        This links to a page that does not yet exist.
+      */}    
+      <hr />
+    </div>
+  );
+};
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`\`\`jsx
+const Foo = () => {
+  return (
+    <div>
+      {/*
+        This links to a page that does not yet exist.
+      */}
+      <hr />
+    </div>
+  );
+};
+\`\`\`
+
+`;
+
+exports[`markdown-preview-enhanced.md 1`] = `
+## plain js block
+
+\`\`\`js   
+console.log(     "hello world"   );
+\`\`\`
+
+## js block with arguments
+
+\`\`\`js {cmd=node .line-numbers}
+console.log(     "hello world"   );
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## plain js block
+
+\`\`\`js
+console.log("hello world");
+\`\`\`
+
+## js block with arguments
+
+\`\`\`js {cmd=node .line-numbers}
+console.log("hello world");
+\`\`\`
+
+`;
+
 exports[`trailing-comma.md 1`] = `
 ### Some heading
 

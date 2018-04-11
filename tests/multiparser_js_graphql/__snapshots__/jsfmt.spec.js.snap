@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`backticks.js 1`] = `
+gql\`
+  "\\\`foo\\\` mutation payload."
+  type      FooPayload       {
+    	bar: String
+  }
+\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gql\`
+  "\\\`foo\\\` mutation payload."
+  type FooPayload {
+    bar: String
+  }
+\`;
+
+`;
+
 exports[`expressions.js 1`] = `
 graphql(schema, \`
 query allPartsByManufacturerName($name: String!) {
@@ -388,6 +405,55 @@ gql\`
     name
   }
   \${fragment}
+\`;
+
+`;
+
+exports[`invalid.js 1`] = `
+// none of the embedded GraphQL should be formatted
+// for they have an invalid escape sequence
+
+gql\`
+  "\\x"
+  type   Foo    {
+      a: string
+  }
+\`;
+
+gql\`
+  type   Foo {
+      a:   string
+  }
+
+  \${stuff}
+
+  "\\x"
+  type  Bar   {
+       b :   string
+  }
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// none of the embedded GraphQL should be formatted
+// for they have an invalid escape sequence
+
+gql\`
+  "\\x"
+  type   Foo    {
+      a: string
+  }
+\`;
+
+gql\`
+  type   Foo {
+      a:   string
+  }
+
+  \${stuff}
+
+  "\\x"
+  type  Bar   {
+       b :   string
+  }
 \`;
 
 `;

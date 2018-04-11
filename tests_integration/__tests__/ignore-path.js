@@ -18,3 +18,15 @@ describe("support .prettierignore", () => {
     status: 1
   });
 });
+
+describe("ignore file when using --debug-check", () => {
+  runPrettier("cli/ignore-path", ["**/*.js", "--debug-check"]).test({
+    status: 0
+  });
+});
+
+describe("outputs files as-is if no --write", () => {
+  runPrettier("cli/ignore-path", ["regular-module.js"]).test({
+    status: 0
+  });
+});

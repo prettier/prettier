@@ -7,13 +7,20 @@ import * as path from "path";
 
 export default Object.assign(baseConfig, {
   entry: "bin/prettier.js",
-  dest: "dist/bin/prettier.js",
+  dest: "dist/bin-prettier.js",
   format: "cjs",
   banner: "#!/usr/bin/env node",
   plugins: [
-    replace({ "#!/usr/bin/env node": "" }),
+    replace({
+      "#!/usr/bin/env node": "",
+      // See comment in jest.config.js
+      "require('graceful-fs')": "require('fs')"
+    }),
     json(),
-    resolve({ preferBuiltins: true }),
+    resolve({
+      preferBuiltins: true,
+      extensions: [".js", ".json"]
+    }),
     commonjs()
   ],
   external: [
@@ -27,6 +34,6 @@ export default Object.assign(baseConfig, {
     path.resolve("src/common/third-party.js")
   ],
   paths: {
-    [path.resolve("src/common/third-party.js")]: "../third-party"
+    [path.resolve("src/common/third-party.js")]: "./third-party"
   }
 });

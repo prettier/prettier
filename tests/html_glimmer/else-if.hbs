@@ -51,3 +51,19 @@
     {{/if}}
   </div>
 </div>
+
+{{#if a}}
+  b
+{{else}}
+  {{#each c as |d|}}
+    e
+  {{/each}}
+{{/if}}
+
+{{#if a}}
+  {{#if b}}
+    ab
+  {{else if c}}
+    ac
+  {{/if}}
+{{/if}}

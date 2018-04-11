@@ -11,9 +11,9 @@ exports[`format correctly if stdin content compatible with stdin-filepath (stdou
 
 exports[`format correctly if stdin content compatible with stdin-filepath (write) 1`] = `Array []`;
 
-exports[`output nothing if stdin-filepath matched patterns in ignore-path (stderr) 1`] = `""`;
+exports[`output file as-is if stdin-filepath matched patterns in ignore-path (stderr) 1`] = `""`;
 
-exports[`output nothing if stdin-filepath matched patterns in ignore-path (write) 1`] = `Array []`;
+exports[`output file as-is if stdin-filepath matched patterns in ignore-path (write) 1`] = `Array []`;
 
 exports[`throw error if stdin content incompatible with stdin-filepath (stderr) 1`] = `
 "[error] stdin: SyntaxError: Unexpected token (1:1)

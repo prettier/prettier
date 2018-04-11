@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`front-matter.md 1`] = `
+---
+something
+---
+
+# hello world
+
+some content some content some content some content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+something
+---
+
+<!-- @format -->
+
+# hello world
+
+some content some content some content some content
+
+`;
+
+exports[`simple.md 1`] = `
+# hello world
+
+some content some content some content some content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- @format -->
+
+# hello world
+
+some content some content some content some content
+
+`;
+
+exports[`start-with-comment.md 1`] = `
+<!-- something -->
+
+# hello world
+
+some content some content some content some content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- @format -->
+
+<!-- something -->
+
+# hello world
+
+some content some content some content some content
+
+`;

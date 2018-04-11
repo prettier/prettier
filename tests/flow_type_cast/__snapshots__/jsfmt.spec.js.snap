@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expression.js 1`] = `
+let x: string = (foo: string);
+
+// https://github.com/prettier/prettier/issues/3936
+const foo = ((1?2:3): number);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let x: string = (foo: string);
+
+// https://github.com/prettier/prettier/issues/3936
+const foo = ((1 ? 2 : 3): number);
+
+`;
+
+exports[`statement.js 1`] = `
+foo: string;
+bar: number;
+(foo.bar: SomeType);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+foo: string;
+bar: number;
+(foo.bar: SomeType);
+
+`;

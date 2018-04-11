@@ -187,7 +187,7 @@ function hasNewlineInRange(text, start, end) {
 }
 
 // Note: this function doesn't ignore leading comments unlike isNextLineEmpty
-function isPreviousLineEmpty(text, node) {
+function isPreviousLineEmpty(text, node, locStart) {
   let idx = locStart(node) - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
@@ -211,11 +211,11 @@ function isNextLineEmptyAfterIndex(text, index) {
   return hasNewline(text, idx);
 }
 
-function isNextLineEmpty(text, node) {
+function isNextLineEmpty(text, node, locEnd) {
   return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
-function getNextNonSpaceNonCommentCharacterIndex(text, node) {
+function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   let oldIdx = null;
   let idx = locEnd(node);
   while (idx !== oldIdx) {
@@ -228,73 +228,16 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node) {
   return idx;
 }
 
-function getNextNonSpaceNonCommentCharacter(text, node) {
-  return text.charAt(getNextNonSpaceNonCommentCharacterIndex(text, node));
+function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
+  return text.charAt(
+    getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
+  );
 }
 
 function hasSpaces(text, index, opts) {
   opts = opts || {};
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   return idx !== index;
-}
-
-function locStart(node) {
-  // Handle nodes with decorators. They should start at the first decorator
-  if (
-    node.declaration &&
-    node.declaration.decorators &&
-    node.declaration.decorators.length > 0
-  ) {
-    return locStart(node.declaration.decorators[0]);
-  }
-  if (node.decorators && node.decorators.length > 0) {
-    return locStart(node.decorators[0]);
-  }
-
-  if (node.__location) {
-    return node.__location.startOffset;
-  }
-  if (node.range) {
-    return node.range[0];
-  }
-  if (typeof node.start === "number") {
-    return node.start;
-  }
-  if (node.source) {
-    return lineColumnToIndex(node.source.start, node.source.input.css) - 1;
-  }
-  if (node.loc) {
-    return node.loc.start;
-  }
-}
-
-function locEnd(node) {
-  const endNode = node.nodes && getLast(node.nodes);
-  if (endNode && node.source && !node.source.end) {
-    node = endNode;
-  }
-
-  let loc;
-  if (node.range) {
-    loc = node.range[1];
-  } else if (typeof node.end === "number") {
-    loc = node.end;
-  } else if (node.source) {
-    loc = lineColumnToIndex(node.source.end, node.source.input.css);
-  }
-
-  if (node.__location) {
-    return node.__location.endOffset;
-  }
-  if (node.typeAnnotation) {
-    return Math.max(loc, locEnd(node.typeAnnotation));
-  }
-
-  if (node.loc && !loc) {
-    return node.loc.end;
-  }
-
-  return loc;
 }
 
 // Super inefficient, needs to be cached.
@@ -476,7 +419,7 @@ function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
 
-function hasClosureCompilerTypeCastComment(text, node) {
+function hasClosureCompilerTypeCastComment(text, node, locEnd) {
   // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
   // Syntax example: var x = /** @type {string} */ (fruit);
   return (
@@ -486,7 +429,7 @@ function hasClosureCompilerTypeCastComment(text, node) {
         comment.leading &&
         isBlockComment(comment) &&
         comment.value.match(/^\*\s*@type\s*{[^}]+}\s*$/) &&
-        getNextNonSpaceNonCommentCharacter(text, comment) === "("
+        getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "("
     )
   );
 }
@@ -813,6 +756,37 @@ function arrayify(object, keyName) {
   );
 }
 
+function addCommentHelper(node, comment) {
+  const comments = node.comments || (node.comments = []);
+  comments.push(comment);
+  comment.printed = false;
+
+  // For some reason, TypeScript parses `// x` inside of JSXText as a comment
+  // We already "print" it via the raw text, we don't need to re-print it as a
+  // comment
+  if (node.type === "JSXText") {
+    comment.printed = true;
+  }
+}
+
+function addLeadingComment(node, comment) {
+  comment.leading = true;
+  comment.trailing = false;
+  addCommentHelper(node, comment);
+}
+
+function addDanglingComment(node, comment) {
+  comment.leading = false;
+  comment.trailing = false;
+  addCommentHelper(node, comment);
+}
+
+function addTrailingComment(node, comment) {
+  comment.leading = false;
+  comment.trailing = true;
+  addCommentHelper(node, comment);
+}
+
 module.exports = {
   arrayify,
   punctuationRegex,
@@ -839,8 +813,6 @@ module.exports = {
   hasNewline,
   hasNewlineInRange,
   hasSpaces,
-  locStart,
-  locEnd,
   setLocStart,
   setLocEnd,
   startsWithNoLookaheadToken,
@@ -852,5 +824,10 @@ module.exports = {
   printString,
   printNumber,
   hasIgnoreComment,
-  hasNodeIgnoreComment
+  hasNodeIgnoreComment,
+  lineColumnToIndex,
+  makeString,
+  addLeadingComment,
+  addDanglingComment,
+  addTrailingComment
 };

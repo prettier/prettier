@@ -173,3 +173,41 @@ class Point {
 }
 
 `;
+
+exports[`with_comments.js 1`] = `
+class A {
+  #foobar =
+    // comment to break
+    1 +
+    // comment to break again
+    2;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class A {
+  #foobar =
+    // comment to break
+    1 +
+    // comment to break again
+    2;
+}
+
+`;
+
+exports[`with_comments.js 2`] = `
+class A {
+  #foobar =
+    // comment to break
+    1 +
+    // comment to break again
+    2;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class A {
+  #foobar =
+    // comment to break
+    1 +
+    // comment to break again
+    2
+}
+
+`;

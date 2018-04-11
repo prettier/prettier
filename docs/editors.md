@@ -17,11 +17,9 @@ Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoform
 
 ## Visual Studio Code
 
-Can be installed using the extension sidebar. Search for `Prettier - Code formatter`.
+`prettier-vscode` can be installed using the extension sidebar. Search for `Prettier - Code formatter`. It can also be installed using `ext install prettier-vscode` in the command palette. [Check its repository for configuration and shortcuts](https://github.com/prettier/prettier-vscode).
 
-Can also be installed using `ext install prettier-vscode`.
-
-[Check its repository for configuration and shortcuts](https://github.com/prettier/prettier-vscode)
+If you'd like to toggle the formatter on and off, install [`vscode-status-bar-format-toggle`](https://marketplace.visualstudio.com/items?itemName=tombonnike.vscode-status-bar-format-toggle).
 
 ## Visual Studio
 

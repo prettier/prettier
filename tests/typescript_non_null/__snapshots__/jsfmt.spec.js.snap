@@ -4,6 +4,10 @@ exports[`member-chain.js 1`] = `
 const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } = this.props.imReallySureAboutThis!;
 
 const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } = this.props.imReallySureAboutThis!.anotherObject;
+
+this.foo.get("bar")!.doThings().more();
+
+foo!.bar().baz().what();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const {
   somePropThatHasAReallyLongName,
@@ -15,11 +19,22 @@ const {
   anotherPropThatHasALongName
 } = this.props.imReallySureAboutThis!.anotherObject;
 
+this.foo
+  .get("bar")!
+  .doThings()
+  .more();
+
+foo!
+  .bar()
+  .baz()
+  .what();
+
 `;
 
 exports[`parens.ts 1`] = `
 (a ? b : c) ![tokenKey];
 (a || b) ![tokenKey];
+(void 0)!;
 
 async function f() {
     return (await foo())!;
@@ -31,6 +46,7 @@ function* g() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (a ? b : c)![tokenKey];
 (a || b)![tokenKey];
+(void 0)!;
 
 async function f() {
   return (await foo())!;

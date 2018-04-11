@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`minustoken.ts 1`] = `
+type MutableRequired<T> = { 
+-readonly [P in keyof T]-?:T[P] 
+};  // Remove readonly and ?
+
+type ReadonlyPartial<T> = {
++readonly [P in keyof T]+?:T[P] 
+};  // Add readonly and ?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type MutableRequired<T> = { -readonly [P in keyof T]-?: T[P] }; // Remove readonly and ?
+
+type ReadonlyPartial<T> = { +readonly [P in keyof T]+?: T[P] }; // Add readonly and ?
+
+`;
+
 exports[`question.ts 1`] = `
 var x: {
     [A in keyof B]?: any;

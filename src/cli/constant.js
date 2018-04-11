@@ -1,6 +1,5 @@
 "use strict";
 
-const camelCase = require("camelcase");
 const dedent = require("dedent");
 
 const CATEGORY_CONFIG = "Config";
@@ -64,46 +63,18 @@ const categoryOrder = [
  *     // If the option has a value that is an exception to the regular value
  *     // constraints, indicate that value here (or use a function for more
  *     // flexibility).
- *     exception?: any | ((value: any) => boolean);
+ *     exception?: ((value: any) => boolean);
  *
  *     // Indicate that the option is deprecated. Use a string to add an extra
  *     // message to --help for the option, for example to suggest a replacement
  *     // option.
  *     deprecated?: true | string;
- *
- *     // Custom function to get the value for the option. Useful for handling
- *     // deprecated options.
- *     // --parser example: (value, argv) => argv["flow-parser"] ? "flow" : value
- *     getter?: (value: any, argv: any) => any;
  *   }
  * }
  *
  * Note: The options below are sorted alphabetically.
  */
-const detailedOptions = normalizeDetailedOptions({
-  "arrow-parens": {
-    type: "choice",
-    category: CATEGORY_FORMAT,
-    forwardToApi: true,
-    description: "Include parentheses around a sole arrow function parameter.",
-    choices: [
-      {
-        value: "avoid",
-        description: "Omit parens when possible. Example: `x => x`"
-      },
-      {
-        value: "always",
-        description: "Always include parens. Example: `(x) => x`"
-      }
-    ]
-  },
-  "bracket-spacing": {
-    type: "boolean",
-    category: CATEGORY_FORMAT,
-    forwardToApi: true,
-    description: "Print spaces between brackets.",
-    oppositeDescription: "Do not print spaces between brackets."
-  },
+const options = {
   color: {
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
@@ -145,16 +116,6 @@ const detailedOptions = normalizeDetailedOptions({
     description:
       "Define in which order config files and CLI options should be evaluated."
   },
-  "cursor-offset": {
-    type: "int",
-    category: CATEGORY_EDITOR,
-    exception: -1,
-    forwardToApi: true,
-    description: dedent`
-      Print (to stderr) where a cursor at the given position would move to after formatting.
-      This option cannot be used with --range-start and --range-end.
-    `
-  },
   "debug-check": {
     type: "boolean"
   },
@@ -175,12 +136,6 @@ const detailedOptions = normalizeDetailedOptions({
     description:
       "Find and print the path to a configuration file for the given input file."
   },
-  "flow-parser": {
-    // Deprecated in 0.0.10
-    type: "boolean",
-    category: CATEGORY_FORMAT,
-    deprecated: "Use `--parser flow` instead."
-  },
   help: {
     type: "flag",
     alias: "h",
@@ -195,19 +150,6 @@ const detailedOptions = normalizeDetailedOptions({
     default: ".prettierignore",
     description: "Path to a file with patterns describing files to ignore."
   },
-  "insert-pragma": {
-    type: "boolean",
-    forwardToApi: true,
-    description: dedent`
-      Insert @format pragma into file's first docblock comment.
-    `
-  },
-  "jsx-bracket-same-line": {
-    type: "boolean",
-    category: CATEGORY_FORMAT,
-    forwardToApi: true,
-    description: "Put > on the last line instead of at a new line."
-  },
   "list-different": {
     type: "boolean",
     category: CATEGORY_OUTPUT,
@@ -221,144 +163,13 @@ const detailedOptions = normalizeDetailedOptions({
     default: "log",
     choices: ["silent", "error", "warn", "log", "debug"]
   },
-  parser: {
-    type: "choice",
-    category: CATEGORY_FORMAT,
-    forwardToApi: true,
-    exception: value => typeof value === "string", // Allow path to a parser module.
-    choices: [
-      "flow",
-      "babylon",
-      "typescript",
-      "css",
-      { value: "postcss", deprecated: true, redirect: "css" },
-      "less",
-      "scss",
-      "json",
-      // "glimmer",
-      "graphql",
-      "markdown",
-      "vue"
-    ],
-    description: "Which parser to use.",
-    getter: (value, argv) => (argv["flow-parser"] ? "flow" : value)
-  },
-  plugin: {
-    type: "path",
-    category: CATEGORY_CONFIG,
-    description:
-      "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.",
-    forwardToApi: "plugins",
-    array: true
-  },
-  "print-width": {
-    type: "int",
-    category: CATEGORY_FORMAT,
-    forwardToApi: true,
-    description: "The line length where Prettier will try wrap."
-  },
-  "prose-wrap": {
-    type: "choice",
-    category: CATEGORY_FORMAT,
-    forwardToApi: true,
-    description: "How to wrap prose. (markdown)",
-    choices: [
-      {
-        value: "always",
-        description: "Wrap prose if it exceeds the print width."
-      },
-      { value: "never", description: "Do not wrap prose." },
-      { value: "preserve", description: "Wrap prose as-is." },
-      { value: false, deprecated: true, redirect: "never" }
-    ]
-  },
-  "range-end": {
-    type: "int",
-    category: CATEGORY_EDITOR,
-    forwardToApi: true,
-    exception: Infinity,
-    description: dedent`
-      Format code ending at a given character offset (exclusive).
-      The range will extend forwards to the end of the selected statement.
-      This option cannot be used with --cursor-offset.
-    `
-  },
-  "range-start": {
-    type: "int",
-    category: CATEGORY_EDITOR,
-    forwardToApi: true,
-    description: dedent`
-      Format code starting at a given character offset.
-      The range will extend backwards to the start of the first line containing the selected statement.
-      This option cannot be used with --cursor-offset.
-    `
-  },
-  "require-pragma": {
-    type: "boolean",
-    forwardToApi: true,
-    description: dedent`
-      Require either '@prettier' or '@format' to be present in the file's first docblock comment
-      in order for it to be formatted.
-    `
-  },
-  semi: {
-    type: "boolean",
-    category: CATEGORY_FORMAT,
-    forwardToApi: true,
-    description: "Print semicolons.",
-    oppositeDescription:
-      "Do not print semicolons, except at the beginning of lines which may need them."
-  },
-  "single-quote": {
-    type: "boolean",
-    category: CATEGORY_FORMAT,
-    forwardToApi: true,
-    description: "Use single quotes instead of double quotes."
-  },
   stdin: {
     type: "boolean",
     description: "Force reading input from stdin."
   },
-  "stdin-filepath": {
-    type: "path",
-    forwardToApi: "filepath",
-    description: "Path to the file to pretend that stdin comes from."
-  },
   "support-info": {
     type: "boolean",
     description: "Print support information as JSON."
-  },
-  "tab-width": {
-    type: "int",
-    category: CATEGORY_FORMAT,
-    forwardToApi: true,
-    description: "Number of spaces per indentation level."
-  },
-  "trailing-comma": {
-    type: "choice",
-    category: CATEGORY_FORMAT,
-    forwardToApi: true,
-    choices: [
-      { value: "none", description: "No trailing commas." },
-      {
-        value: "es5",
-        description:
-          "Trailing commas where valid in ES5 (objects, arrays, etc.)"
-      },
-      {
-        value: "all",
-        description:
-          "Trailing commas wherever possible (including function arguments)."
-      },
-      { value: "", deprecated: true, redirect: "es5" }
-    ],
-    description: "Print trailing commas wherever possible when multi-line."
-  },
-  "use-tabs": {
-    type: "boolean",
-    category: CATEGORY_FORMAT,
-    forwardToApi: true,
-    description: "Indent with tabs instead of spaces."
   },
   version: {
     type: "boolean",
@@ -375,29 +186,6 @@ const detailedOptions = normalizeDetailedOptions({
     category: CATEGORY_OUTPUT,
     description: "Edit files in-place. (Beware!)"
   }
-});
-
-const minimistOptions = {
-  boolean: detailedOptions
-    .filter(option => option.type === "boolean")
-    .map(option => option.name),
-  string: detailedOptions
-    .filter(option => option.type !== "boolean")
-    .map(option => option.name),
-  default: detailedOptions
-    .filter(option => option.default !== undefined)
-    .reduce(
-      (current, option) =>
-        Object.assign({ [option.name]: option.default }, current),
-      {}
-    ),
-  alias: detailedOptions
-    .filter(option => option.alias !== undefined)
-    .reduce(
-      (current, option) =>
-        Object.assign({ [option.name]: option.alias }, current),
-      {}
-    )
 };
 
 const usageSummary = dedent`
@@ -407,52 +195,13 @@ const usageSummary = dedent`
   Stdin is read if it is piped to Prettier and no files are given.
 `;
 
-function normalizeDetailedOptions(rawDetailedOptions) {
-  const names = Object.keys(rawDetailedOptions).sort();
-
-  const normalized = names.map(name => {
-    const option = rawDetailedOptions[name];
-    return Object.assign({}, option, {
-      name,
-      category: option.category || CATEGORY_OTHER,
-      forwardToApi:
-        option.forwardToApi &&
-        (typeof option.forwardToApi === "string"
-          ? option.forwardToApi
-          : camelCase(name)),
-      choices:
-        option.choices &&
-        option.choices.map(choice =>
-          Object.assign(
-            { description: "", deprecated: false },
-            typeof choice === "object" ? choice : { value: choice }
-          )
-        ),
-      getter: option.getter || (value => value)
-    });
-  });
-
-  return normalized;
-}
-
-const detailedOptionMap = detailedOptions.reduce(
-  (current, option) => Object.assign(current, { [option.name]: option }),
-  {}
-);
-
-const apiDetailedOptionMap = detailedOptions.reduce(
-  (current, option) =>
-    option.forwardToApi && option.forwardToApi !== option.name
-      ? Object.assign(current, { [option.forwardToApi]: option })
-      : current,
-  {}
-);
-
 module.exports = {
+  CATEGORY_CONFIG,
+  CATEGORY_EDITOR,
+  CATEGORY_FORMAT,
+  CATEGORY_OTHER,
+  CATEGORY_OUTPUT,
   categoryOrder,
-  minimistOptions,
-  detailedOptions,
-  detailedOptionMap,
-  apiDetailedOptionMap,
+  options,
   usageSummary
 };

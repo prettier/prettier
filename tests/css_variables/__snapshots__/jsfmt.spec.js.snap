@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`variables.css 1`] = `
+.foo {
+    --prop: 10px;
+    prop1: var(--prop);
+    prop2: var(--my-var, --my-background, pink);
+    prop3: calc(var(--prop) * 1px);
+}
+
+@supports (--foo: green) {
+    body {
+        color: var(--varName);
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  --prop: 10px;
+  prop1: var(--prop);
+  prop2: var(--my-var, --my-background, pink);
+  prop3: calc(var(--prop) * 1px);
+}
+
+@supports (--foo: green) {
+  body {
+    color: var(--varName);
+  }
+}
+
+`;

@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`empty-front-matter-with-pragma.md 1`] = `
+---
+---
+
+<!-- @prettier -->
+
+I     should      be      formatted       !!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+---
+
+<!-- @prettier -->
+
+I should be formatted !!
+
+`;
+
+exports[`empty-front-matter-without-pragma.md 1`] = `
+---
+---
+
+I     should      stay      as-is   !!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+---
+
+I     should      stay      as-is   !!
+
+`;
+
+exports[`front-matter-with-pragma.md 1`] = `
+---
+something
+---
+
+<!-- @prettier -->
+
+I     should      be      formatted       !!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+something
+---
+
+<!-- @prettier -->
+
+I should be formatted !!
+
+`;
+
+exports[`front-matter-without-pragma.md 1`] = `
+---
+something
+---
+
+I     should      stay      as-is   !!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+something
+---
+
+I     should      stay      as-is   !!
+
+`;
+
+exports[`with-pragma.md 1`] = `
+<!-- @prettier -->
+
+I     should      be      formatted       !!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- @prettier -->
+
+I should be formatted !!
+
+`;
+
+exports[`with-pragma-in-multiline.md 1`] = `
+<!--
+  MIT LICENSE 
+  
+  bla bla bla
+
+  @format
+-->
+
+I     should      be      formatted       !!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!--
+  MIT LICENSE
+
+  bla bla bla
+
+  @format
+-->
+
+I should be formatted !!
+
+`;
+
+exports[`without-pragma.md 1`] = `
+I     should      stay      as-is   !!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+I     should      stay      as-is   !!
+
+`;

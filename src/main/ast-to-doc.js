@@ -4,7 +4,6 @@ const assert = require("assert");
 const comments = require("./comments");
 const FastPath = require("../common/fast-path");
 const multiparser = require("./multiparser");
-const util = require("../common/util");
 
 const doc = require("../doc");
 const docBuilders = doc.builders;
@@ -75,7 +74,10 @@ function genericPrint(path, options, printPath, args) {
 
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
-    return options.originalText.slice(util.locStart(node), util.locEnd(node));
+    return options.originalText.slice(
+      options.locStart(node),
+      options.locEnd(node)
+    );
   }
 
   if (node) {

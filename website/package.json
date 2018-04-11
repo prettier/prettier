@@ -1,11 +1,16 @@
 {
+  "license": "MIT",
   "scripts": {
-    "start": "docusaurus-start",
     "build": "docusaurus-build",
-    "publish-gh-pages": "docusaurus-publish"
+    "publish-gh-pages": "docusaurus-publish",
+    "start": "docusaurus-start",
+    "svgo": "svgo --pretty --indent=2 --config=svgo.yml",
+    "svgo-all": "find static | grep '\\.svg$' | xargs -Iz -n 1 yarn svgo z"
   },
   "devDependencies": {
-    "docusaurus": "^1.0.0-beta.10",
-    "js-yaml": "^3.10.0"
+    "@sandhose/prettier-animated-logo": "1.0.3",
+    "docusaurus": "1.0.5",
+    "js-yaml": "3.10.0",
+    "svgo": "1.0.4"
   }
 }

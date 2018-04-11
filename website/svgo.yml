@@ -1,0 +1,11 @@
+plugins:
+  - cleanupIDs: true
+  - collapseGroups: true
+  - removeDesc: true
+  - removeDimensions: true
+  - removeScriptElement: true
+  - removeStyleElement: true
+  - removeTitle: true
+  - removeUselessDefs: true
+  - removeViewBox: false
+  - sortAttrs: true

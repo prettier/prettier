@@ -271,16 +271,16 @@ exports[`show detailed usage with --help parser (stdout) 1`] = `
 
 Valid options:
 
-  flow         
-  babylon      
-  typescript   
-  css          
-  less         
-  scss         
-  json         
-  graphql      
-  markdown     
-  vue          
+  flow         Flow
+  babylon      JavaScript
+  typescript   TypeScript
+  css          CSS
+  less         Less
+  scss         SCSS
+  json         JSON
+  graphql      GraphQL
+  markdown     Markdown
+  vue          Vue
 
 Default: babylon
 "
@@ -294,6 +294,8 @@ exports[`show detailed usage with --help plugin (stdout) 1`] = `
 "--plugin <path>
 
   Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
+
+Default: []
 "
 `;
 
@@ -512,6 +514,36 @@ exports[`show detailed usage with --help write (stdout) 1`] = `
 
 exports[`show detailed usage with --help write (write) 1`] = `Array []`;
 
+exports[`show detailed usage with plugin options (automatic resolution) (stderr) 1`] = `""`;
+
+exports[`show detailed usage with plugin options (automatic resolution) (stdout) 1`] = `
+"--tab-width <int>
+
+  Number of spaces per indentation level.
+
+Default: 2
+Plugin defaults:
+* prettier-plugin-bar: 4
+"
+`;
+
+exports[`show detailed usage with plugin options (automatic resolution) (write) 1`] = `Array []`;
+
+exports[`show detailed usage with plugin options (manual resolution) (stderr) 1`] = `""`;
+
+exports[`show detailed usage with plugin options (manual resolution) (stdout) 1`] = `
+"--tab-width <int>
+
+  Number of spaces per indentation level.
+
+Default: 2
+Plugin defaults:
+* ../plugins/automatic/node_modules/prettier-plugin-bar: 4
+"
+`;
+
+exports[`show detailed usage with plugin options (manual resolution) (write) 1`] = `Array []`;
+
 exports[`show usage with --help (stderr) 1`] = `""`;
 
 exports[`show usage with --help (stdout) 1`] = `
@@ -565,6 +597,7 @@ Config options:
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Defaults to .prettierignore.
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
+                           Defaults to [].
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
@@ -634,16 +667,16 @@ exports[`show warning with --help not-found (typo) (stdout) 1`] = `
 
 Valid options:
 
-  flow         
-  babylon      
-  typescript   
-  css          
-  less         
-  scss         
-  json         
-  graphql      
-  markdown     
-  vue          
+  flow         Flow
+  babylon      JavaScript
+  typescript   TypeScript
+  css          CSS
+  less         Less
+  scss         SCSS
+  json         JSON
+  graphql      GraphQL
+  markdown     Markdown
+  vue          Vue
 
 Default: babylon
 "
@@ -706,6 +739,7 @@ Config options:
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Defaults to .prettierignore.
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
+                           Defaults to [].
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:

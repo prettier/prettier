@@ -388,12 +388,16 @@ function parse(text /*, parsers, opts*/) {
         attrs,
         unary,
         start,
-        contentStart: end,
         children: []
       };
       obj.children.push(newObj);
-      objStack.push(newObj);
-      obj = newObj;
+      if (unary) {
+        newObj.end = end;
+      } else {
+        newObj.contentStart = end;
+        objStack.push(newObj);
+        obj = newObj;
+      }
     },
     end: function(tag, start, end) {
       objStack.pop();

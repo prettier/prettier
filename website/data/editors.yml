@@ -1,35 +1,35 @@
-- image: "/images/editors/atom-128px.png"
+- image: /images/editors/editor_atom.svg
   name: Atom
-  content: >
-    [`prettier-atom`](https://github.com/prettier/prettier-atom),
+  content: |
+    [`prettier-atom`](https://github.com/prettier/prettier-atom)
     [`mprettier`](https://github.com/t9md/atom-mprettier)
-- image: "/images/editors/emacs-128px.png"
+- image: "/images/editors/editor_emacs.svg"
   name: Emacs
-  content: >
+  content: |
     [`prettier-emacs`](https://github.com/prettier/prettier-emacs)
-- image: "/images/editors/espresso-128px.png"
+- image: /images/editors/editor_espresso.svg
   name: Espresso
-  content: >
+  content: |
     [`espresso-prettier`](https://github.com/eablokker/espresso-prettier)
-- image: "/images/editors/sublimetext-128px.png"
+- image: /images/editors/editor_sublime.svg
   name: Sublime Text
-  content: >
+  content: |
     [`JsPrettier`](https://packagecontrol.io/packages/JsPrettier)
-- image: "/images/editors/vim-128px.png"
+- image: /images/editors/editor_vim.svg
   name: Vim
-  content: >
-    [`neoformat`](https://github.com/sbdchd/neoformat),
-    [`ale`](https://github.com/w0rp/ale),
+  content: |
+    [`neoformat`](https://github.com/sbdchd/neoformat)
+    [`ale`](https://github.com/w0rp/ale)
     [`vim-prettier`](https://github.com/prettier/vim-prettier)
-- image: "/images/editors/visualstudio-128px.png"
+- image: /images/editors/editor_vs.svg
   name: Visual Studio
-  content: >
+  content: |
     [`JavaScriptPrettier`](https://github.com/madskristensen/JavaScriptPrettier)
-- image: "/images/editors/vscode-128px.png"
-  name: Visual Studio Code
-  content: >
+- image: /images/editors/editor_vscode.svg
+  name: VS Code
+  content: |
     [`prettier-vscode`](https://github.com/prettier/prettier-vscode)
-- image: "/images/editors/webstorm-128px.png"
+- image: /images/editors/editor_webstorm.svg
   name: WebStorm
-  content: >
-    [External Tool](https://prettier.io/docs/en/webstorm.html)
+  content: |
+    [Built-in support](https://plugins.jetbrains.com/plugin/10456-prettier)

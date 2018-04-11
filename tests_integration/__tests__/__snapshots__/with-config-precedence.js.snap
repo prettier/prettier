@@ -49,7 +49,7 @@ exports[`CLI overrides gets ignored when config exists with --config-precedence 
 
 exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file (stdout) 1`] = `
 "function js() {
-        console.log(\\"js/file.js should have tab width 8\\");
+        console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
 }
 \\"use strict\\";
 
@@ -65,7 +65,7 @@ exports[`CLI overrides take lower precedence with --config-precedence file-overr
 
 exports[`CLI overrides take lower precedence with --config-precedence file-override (stdout) 1`] = `
 "function js() {
-        console.log(\\"js/file.js should have tab width 8\\");
+        console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
 }
 \\"use strict\\";
 
@@ -111,7 +111,7 @@ console.log(
 );
 function js() {
         console.log(
-                \\"js/file.js should have tab width 8\\"
+                \\"js/file.js should have tab width 8 (1 if CLI)\\"
         );
 }
 \\"use strict\\";
@@ -188,7 +188,7 @@ console.log(
 );
 function js() {
         console.log(
-                \\"js/file.js should have tab width 8\\"
+                \\"js/file.js should have tab width 8 (1 if CLI)\\"
         );
 }
 \\"use strict\\";
@@ -232,8 +232,7 @@ function rcYaml() {
 exports[`CLI overrides take precedence without --config-precedence (write) 1`] = `Array []`;
 
 exports[`CLI validate options with --config-precedence cli-override (stderr) 1`] = `
-"[error] Invalid printWidth value.
-[error] Expected an integer, but received: 0.5
+"[error] Invalid \`\\"printWidth\\"\` value. Expected an integer, but received \`0.5\`.
 "
 `;
 
@@ -242,8 +241,7 @@ exports[`CLI validate options with --config-precedence cli-override (stdout) 1`]
 exports[`CLI validate options with --config-precedence cli-override (write) 1`] = `Array []`;
 
 exports[`CLI validate options with --config-precedence file-override (stderr) 1`] = `
-"[error] Invalid printWidth value.
-[error] Expected an integer, but received: 0.5
+"[error] Invalid \`\\"printWidth\\"\` value. Expected an integer, but received \`0.5\`.
 "
 `;
 
@@ -252,8 +250,7 @@ exports[`CLI validate options with --config-precedence file-override (stdout) 1`
 exports[`CLI validate options with --config-precedence file-override (write) 1`] = `Array []`;
 
 exports[`CLI validate options with --config-precedence prefer-file (stderr) 1`] = `
-"[error] Invalid printWidth value.
-[error] Expected an integer, but received: 0.5
+"[error] Invalid \`\\"printWidth\\"\` value. Expected an integer, but received \`0.5\`.
 "
 `;
 

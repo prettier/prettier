@@ -1,3 +1,32 @@
+# 1.11.1
+
+[link](https://github.com/prettier/prettier/compare/1.11.0...1.11.1)
+
+* 1.11.0 was incorrectly shipped with the wrong version of the TypeScript parser, which broke conditional types. This release fixes it.
+* Fixed an issue relating to deprecated parsers ([#4072](https://github.com/prettier/prettier/pull/4072))
+
+# 1.11.0
+
+* [Release Notes](https://prettier.io/blog/2018/02/26/1.11.0.html)
+
+# 1.10.2
+
+[link](https://github.com/prettier/prettier/compare/1.10.1...1.10.2)
+
+* Fixed an issue printing .vue files with self-closing tags. (#3705 by duailibe)
+
+# 1.10.1
+
+[link](https://github.com/prettier/prettier/compare/1.10.0...1.10.1)
+
+* Fixed an issue where the CLI fails to resolve a file.
+
+# 1.10.0
+
+[link](https://github.com/prettier/prettier/compare/1.9.2...1.10.0)
+
+* [Release Notes](https://prettier.io/blog/2018/01/10/1.10.0.html)
+
 # 1.9.2
 
 [link](https://github.com/prettier/prettier/compare/1.9.1...1.9.2)

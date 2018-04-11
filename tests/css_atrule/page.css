@@ -1,0 +1,69 @@
+@page {
+    margin: 1cm;
+}
+@page {
+margin: 1cm;
+}
+@page{
+margin: 1cm;
+}
+@page  {
+    margin: 1cm;
+}
+@page
+{
+margin
+:
+1cm
+;
+}
+@page
+
+{
+
+margin
+:
+
+1cm
+
+;
+
+}
+@page :first {
+    margin: 2cm;
+}
+@page :first {
+margin: 2cm;
+}
+@page :first{
+    margin: 2cm;
+}
+@page  :first  {
+    margin: 2cm;
+}
+@page
+:first
+{
+margin
+:
+2cm
+;
+}
+@page
+
+:first
+
+{
+
+margin
+
+:
+
+2cm
+
+;
+
+}
+@page vertical {
+    size: A4 portrait;
+}

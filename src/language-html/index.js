@@ -8,7 +8,7 @@ const printer = require("./printer-htmlparser2");
 const languages = [
   {
     name: "HTML",
-    since: undefined, // unreleased
+    since: null, // unreleased
     parsers: ["parse5"],
     group: "HTML",
     tmScope: "text.html.basic",
@@ -27,7 +27,13 @@ const parsers = {
     get parse() {
       return eval("require")("./parser-parse5");
     },
-    astFormat: "htmlparser2"
+    astFormat: "htmlparser2",
+    locEnd: function(node) {
+      return node.__location && node.__location.endOffset;
+    },
+    locStart: function(node) {
+      return node.__location && node.__location.startOffset;
+    }
   }
 };
 

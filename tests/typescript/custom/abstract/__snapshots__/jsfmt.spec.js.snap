@@ -61,3 +61,22 @@ abstract class Foo {
 }
 
 `;
+
+exports[`abstractPropertiesWithBreaks.ts 1`] = `
+abstract class Foo {
+    abstract private foobar =
+      // comment to break
+      1 +
+      // another comment to break
+      2;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+abstract class Foo {
+  private abstract foobar =
+    // comment to break
+    1 +
+    // another comment to break
+    2;
+}
+
+`;

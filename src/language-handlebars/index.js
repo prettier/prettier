@@ -13,7 +13,8 @@ const languages = [
     extensions: [".handlebars", ".hbs"],
     tm_scope: "text.html.handlebars",
     ace_mode: "handlebars",
-    language_id: 155
+    language_id: 155,
+    since: null // unreleased
   }
 ];
 
@@ -22,7 +23,13 @@ const parsers = {
     get parse() {
       return eval("require")("./parser-glimmer");
     },
-    astFormat: "glimmer"
+    astFormat: "glimmer",
+    locEnd: function(node) {
+      return node.loc && node.loc.end;
+    },
+    locStart: function(node) {
+      return node.loc && node.loc.start;
+    }
   }
 };
 

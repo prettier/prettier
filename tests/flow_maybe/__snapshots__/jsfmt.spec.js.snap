@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`maybe_return.js 1`] = `
+function getScaledData({x}): ?{foo: number} {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function getScaledData({ x }): ?{ foo: number } {}
+
+`;

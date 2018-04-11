@@ -1,5 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comment_before_else.js 1`] = `
+if (cond) {
+  stuff;
+} /* comment */ else if (cond) {
+  stuff;
+}
+// comment
+else {
+  stuff;
+}
+
+if (cond) stuff;
+// comment
+else stuff;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (cond) {
+  stuff;
+} /* comment */ else if (cond) {
+  stuff;
+}
+// comment
+else {
+  stuff;
+}
+
+if (cond) stuff;
+// comment
+else stuff;
+
+`;
+
 exports[`else.js 1`] = `
 // Both functions below should be formatted exactly the same
 

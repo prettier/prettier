@@ -34,11 +34,19 @@ function removeTokens(node) {
   return node;
 }
 
+function fallbackParser(parse, source) {
+  try {
+    return parse(source, { allowLegacySDLImplementsInterfaces: false });
+  } catch (_) {
+    return parse(source, { allowLegacySDLImplementsInterfaces: true });
+  }
+}
+
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
   const parser = require("graphql/language");
   try {
-    const ast = parser.parse(text);
+    const ast = fallbackParser(parser.parse, text);
     ast.comments = parseComments(ast);
     removeTokens(ast);
     return ast;

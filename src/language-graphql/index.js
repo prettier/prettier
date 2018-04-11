@@ -1,6 +1,7 @@
 "use strict";
 
 const printer = require("./printer-graphql");
+const options = require("./options");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -23,7 +24,19 @@ const parsers = {
     get parse() {
       return eval("require")("./parser-graphql");
     },
-    astFormat: "graphql"
+    astFormat: "graphql",
+    locStart: function(node) {
+      if (typeof node.start === "number") {
+        return node.start;
+      }
+      return node.loc && node.loc.start;
+    },
+    locEnd: function(node) {
+      if (typeof node.end === "number") {
+        return node.end;
+      }
+      return node.loc && node.loc.end;
+    }
   }
 };
 
@@ -33,6 +46,7 @@ const printers = {
 
 module.exports = {
   languages,
+  options,
   parsers,
   printers
 };
