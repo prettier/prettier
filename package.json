@@ -86,7 +86,6 @@
     "shelljs": "0.8.1",
     "snapshot-diff": "0.2.2",
     "strip-ansi": "4.0.0",
-    "sw-toolbox": "3.6.0",
     "tempy": "0.2.1",
     "uglify-es": "3.3.9",
     "webpack": "2.6.1"
