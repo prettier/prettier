@@ -4,7 +4,6 @@
 var parsersLoaded = {};
 
 // "Polyfills" in order for all the code to run
-/* eslint-disable */
 self.global = self;
 self.util = {};
 self.path = {};
@@ -25,7 +24,7 @@ self.fs = { readFile: function() {} };
 os.homedir = function() {
   return "/home/prettier";
 };
-os.EOL = '\n';
+os.EOL = "\n";
 self.process = {
   argv: [],
   env: { PRETTIER_DEBUG: true },
@@ -58,8 +57,6 @@ self.require = function require(path) {
   return self[path];
 };
 
-/* eslint-enable */
-
 var prettier;
 importScripts("lib/index.js");
 if (typeof prettier === "undefined") {
@@ -69,60 +66,36 @@ if (typeof prettier === "undefined") {
   prettier = index; // eslint-disable-line
 }
 
-self.onmessage = function(message) {
-  var options = message.data.options || {};
-  options.parser = options.parser || "babylon";
+self.onmessage = function(event) {
+  var uid = event.data.uid;
+  var message = event.data.message;
+  switch (message.type) {
+    case "meta":
+      self.postMessage({
+        uid: uid,
+        message: {
+          type: "meta",
+          supportInfo: JSON.parse(JSON.stringify(prettier.getSupportInfo())),
+          version: prettier.version
+        }
+      });
+      break;
 
-  delete options.ast;
-  delete options.doc;
-  delete options.output2;
+    case "format":
+      var options = message.options || {};
 
-  var formatted = formatCode(message.data.text, options);
-  var doc;
-  var ast;
-  var formatted2;
+      delete options.ast;
+      delete options.doc;
+      delete options.output2;
 
-  if (message.data.ast) {
-    var actualAst;
-    var errored = false;
-    try {
-      actualAst = prettier.__debug.parse(message.data.text, options).ast;
-      ast = JSON.stringify(actualAst);
-    } catch (e) {
-      errored = true;
-      ast = String(e);
-    }
-    if (!errored) {
-      try {
-        ast = formatCode(ast, { parser: "json" });
-      } catch (e) {
-        ast = JSON.stringify(actualAst, null, 2);
-      }
-    }
+      self.postMessage({
+        uid: uid,
+        message: {
+          formatted: formatCode(message.code, options)
+        }
+      });
+      break;
   }
-
-  if (message.data.doc) {
-    try {
-      doc = prettier.__debug.formatDoc(
-        prettier.__debug.printToDoc(message.data.text, options),
-        { parser: "babylon" }
-      );
-    } catch (e) {
-      doc = String(e);
-    }
-  }
-
-  if (message.data.formatted2) {
-    formatted2 = formatCode(formatted, options);
-  }
-
-  self.postMessage({
-    formatted: formatted,
-    doc: doc,
-    ast: ast,
-    formatted2: formatted2,
-    version: prettier.version
-  });
 };
 
 function formatCode(text, options) {
