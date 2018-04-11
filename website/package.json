@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "scripts": {
-    "build": "docusaurus-build",
+    "build": "webpack -p && docusaurus-build",
     "publish-gh-pages": "docusaurus-publish",
     "start": "docusaurus-start",
     "svgo": "svgo --pretty --indent=2 --config=svgo.yml",
@@ -9,9 +9,13 @@
   },
   "devDependencies": {
     "@sandhose/prettier-animated-logo": "1.0.3",
+    "babel-loader": "7.1.4",
+    "babel-preset-env": "1.6.1",
     "docusaurus": "1.0.5",
     "js-yaml": "3.10.0",
     "svgo": "1.0.4",
-    "sw-toolbox": "3.6.0"
+    "sw-toolbox": "3.6.0",
+    "webpack": "4.5.0",
+    "webpack-cli": "2.0.14"
   }
 }
