@@ -10,9 +10,10 @@ class CodeMirrorPanel extends React.Component {
   }
 
   componentDidMount() {
+    const { mode, rulerColumn: column, rulerColor: color } = this.props;
     this._codeMirror = CodeMirror.fromTextArea(
       this._textareaRef.current,
-      this.props.options
+      Object.assign({ mode, rulers: [{ column, color }] }, this.props.options)
     );
     this._codeMirror.on("change", this.handleChange);
     this._codeMirror.setValue(this.props.value || "");
@@ -22,9 +23,16 @@ class CodeMirrorPanel extends React.Component {
     this._codeMirror && this._codeMirror.toTextArea();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.props.value !== this._codeMirror.getValue()) {
       this._codeMirror.setValue(this.props.value);
+    }
+    if (this.props.mode !== prevProps.mode) {
+      this._codeMirror.setOption("mode", this.props.mode);
+    }
+    if (this.props.rulerColumn !== prevProps.rulerColumn) {
+      const { rulerColumn: column, rulerColor: color } = this.props;
+      this._codeMirror.setOption("rulers", [{ column, color }]);
     }
   }
 
@@ -43,7 +51,7 @@ class CodeMirrorPanel extends React.Component {
   }
 }
 
-export function InputPanel({ mode, value, onChange }) {
+export function InputPanel({ mode, rulerColumn, value, onChange }) {
   return (
     <CodeMirrorPanel
       options={{
@@ -52,23 +60,27 @@ export function InputPanel({ mode, value, onChange }) {
         autoCloseBrackets: true,
         matchBrackets: true,
         showCursorWhenSelecting: true,
-        tabWidth: 2,
-        mode
+        tabWidth: 2
       }}
+      mode={mode}
+      rulerColumn={rulerColumn}
+      rulerColor="#eeeeee"
       value={value}
       onChange={onChange}
     />
   );
 }
 
-export function OutputPanel({ mode, value }) {
+export function OutputPanel({ mode, rulerColumn, value }) {
   return (
     <CodeMirrorPanel
       options={{
         readOnly: true,
-        lineNumbers: true,
-        mode
+        lineNumbers: true
       }}
+      mode={mode}
+      rulerColumn={rulerColumn}
+      rulerColor="#444444"
       value={value}
     />
   );

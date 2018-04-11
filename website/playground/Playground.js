@@ -113,16 +113,17 @@ class Playground extends React.Component {
               <div className="editors">
                 <InputPanel
                   mode="jsx"
+                  rulerColumn={options.printWidth}
                   value={content}
                   onChange={this.setContent}
                 />
-                {editorState.showAst ? (
-                  <DebugPanel value={"ast here"} />
-                ) : null}
-                {editorState.showDoc ? (
-                  <DebugPanel value={"doc here"} />
-                ) : null}
-                <OutputPanel mode="jsx" value={formatted} />
+                {editorState.showAst ? <DebugPanel value={"ast here"} /> : null}
+                {editorState.showDoc ? <DebugPanel value={"doc here"} /> : null}
+                <OutputPanel
+                  mode="jsx"
+                  value={formatted}
+                  rulerColumn={options.printWidth}
+                />
               </div>
             </div>
             <div className="bottom-bar">
