@@ -8,15 +8,12 @@ export default class extends React.Component {
     super();
     this.state = Object.assign(
       {
-        sidebarExpanded: false,
-        astPanelVisible: false,
-        docPanelVisible: false,
-        toggleAstPanelVisible: () =>
-          this.setState(stateToggler("astPanelVisible")),
-        toggleDocPanelVisible: () =>
-          this.setState(stateToggler("docPanelVisible")),
-        toggleSidebarExpanded: () =>
-          this.setState(stateToggler("sidebarExpanded"))
+        showSidebar: false,
+        showAst: false,
+        showDoc: false,
+        toggleSidebar: () => this.setState(stateToggler("showSidebar")),
+        toggleAst: () => this.setState(stateToggler("showAst")),
+        toggleDoc: () => this.setState(stateToggler("showDoc"))
       },
       storage.get("editor_state")
     );

@@ -1,18 +1,17 @@
 import React from "react";
 
+import { Checkbox } from "./inputs";
+
 export function BooleanOption({ option, value, onChange }) {
   function maybeInvert(value) {
     return option.inverted ? !value : value;
   }
   return (
-    <label>
-      <input
-        type="checkbox"
-        checked={maybeInvert(value)}
-        onChange={ev => onChange(option, maybeInvert(ev.target.checked))}
-      />{" "}
-      {option.cliName}
-    </label>
+    <Checkbox
+      label={option.cliName}
+      checked={maybeInvert(value)}
+      onChange={checked => onChange(option, maybeInvert(checked))}
+    />
   );
 }
 

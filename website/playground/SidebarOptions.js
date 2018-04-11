@@ -6,7 +6,7 @@ const CATEGORIES_ORDER = ["Global", "JavaScript", "Markdown", "Special"];
 
 export default function({
   availableOptions,
-  currentOptions,
+  prettierOptions,
   onOptionValueChange
 }) {
   const optionsByCategory = availableOptions.reduce((acc, option) => {
@@ -16,18 +16,22 @@ export default function({
     return acc;
   }, {});
 
-  return CATEGORIES_ORDER.map(category => (
-    <details key={category} className="sub-options" open="true">
-      <summary>{category}</summary>
+  return (
+    <div className="options">
+      {CATEGORIES_ORDER.map(category => (
+        <details key={category} className="sub-options" open="true">
+          <summary>{category}</summary>
 
-      {(optionsByCategory[category] || []).map(option => (
-        <Option
-          key={option.name}
-          option={option}
-          value={currentOptions[option.name]}
-          onChange={onOptionValueChange}
-        />
+          {(optionsByCategory[category] || []).map(option => (
+            <Option
+              key={option.name}
+              option={option}
+              value={prettierOptions[option.name]}
+              onChange={onOptionValueChange}
+            />
+          ))}
+        </details>
       ))}
-    </details>
-  ));
+    </div>
+  );
 }

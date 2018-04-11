@@ -87,7 +87,7 @@ class Playground extends React.Component {
       formatted,
       loaded,
       options,
-      sidebarExpanded
+      showSidebar
     } = this.state;
 
     if (!loaded) return "Loading...";
@@ -99,13 +99,13 @@ class Playground extends React.Component {
             <div className="editors-container">
               <div
                 className={`options-container ${
-                  editorState.sidebarExpanded ? "open" : ""
+                  editorState.showSidebar ? "open" : ""
                 }`}
               >
                 <div className="options">
                   <SidebarOptions
                     availableOptions={availableOptions}
-                    currentOptions={options}
+                    prettierOptions={options}
                     onOptionValueChange={this.handleOptionValueChange}
                   />
                 </div>
@@ -116,10 +116,10 @@ class Playground extends React.Component {
                   value={content}
                   onChange={this.setContent}
                 />
-                {editorState.astPanelVisible ? (
+                {editorState.showAst ? (
                   <DebugPanel value={"ast here"} />
                 ) : null}
-                {editorState.docPanelVisible ? (
+                {editorState.showDoc ? (
                   <DebugPanel value={"doc here"} />
                 ) : null}
                 <OutputPanel mode="jsx" value={formatted} />
@@ -127,8 +127,8 @@ class Playground extends React.Component {
             </div>
             <div className="bottom-bar">
               <div className="bottom-bar-buttons">
-                <Button onClick={editorState.toggleSidebarExpanded}>
-                  {editorState.sidebarExpanded ? "Hide" : "Show"} options
+                <Button onClick={editorState.toggleSidebar}>
+                  {editorState.showSidebar ? "Hide" : "Show"} options
                 </Button>
                 <Button onClick={this.clearContent}>Clear</Button>
               </div>
