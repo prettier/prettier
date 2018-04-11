@@ -9,6 +9,17 @@ a;
 
 `;
 
+exports[`default.js 1`] = `
+export default interface Foo {
+  readonly bar?: string;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export default interface Foo {
+  readonly bar?: string;
+}
+
+`;
+
 exports[`export.ts 1`] = `
 declare module "hello" {
     export default Hello;

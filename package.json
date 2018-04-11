@@ -30,7 +30,7 @@
     "escape-string-regexp": "1.0.5",
     "esutils": "2.0.2",
     "find-project-root": "1.1.1",
-    "flow-parser": "0.64.0",
+    "flow-parser": "0.69",
     "get-stream": "3.0.0",
     "globby": "6.1.0",
     "graphql": "0.13.2",
@@ -86,7 +86,6 @@
     "shelljs": "0.8.1",
     "snapshot-diff": "0.2.2",
     "strip-ansi": "4.0.0",
-    "sw-toolbox": "3.6.0",
     "tempy": "0.2.1",
     "uglify-es": "3.3.9",
     "webpack": "2.6.1"
