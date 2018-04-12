@@ -1,3 +1,5 @@
+import "codemirror-graphql/mode";
+
 import React from "react";
 import ReactDOM from "react-dom";
 

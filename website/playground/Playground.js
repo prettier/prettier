@@ -112,7 +112,7 @@ class Playground extends React.Component {
               </div>
               <div className="editors">
                 <InputPanel
-                  mode="jsx"
+                  mode={getCodemirrorMode(options.parser)}
                   rulerColumn={options.printWidth}
                   value={content}
                   onChange={this.setContent}
@@ -120,7 +120,7 @@ class Playground extends React.Component {
                 {editorState.showAst ? <DebugPanel value={"ast here"} /> : null}
                 {editorState.showDoc ? <DebugPanel value={"doc here"} /> : null}
                 <OutputPanel
-                  mode="jsx"
+                  mode={getCodemirrorMode(options.parser)}
                   value={formatted}
                   rulerColumn={options.printWidth}
                 />
@@ -143,6 +143,21 @@ class Playground extends React.Component {
         )}
       </EditorState>
     );
+  }
+}
+
+function getCodemirrorMode(parser) {
+  switch (parser) {
+    case "css":
+    case "less":
+    case "scss":
+      return "css";
+    case "graphql":
+      return "graphql";
+    case "markdown":
+      return "markdown";
+    default:
+      return "jsx";
   }
 }
 

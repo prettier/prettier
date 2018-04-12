@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "codemirror": "5.36.0",
+    "codemirror-graphql": "0.6.12",
     "lz-string": "1.4.4",
     "prop-types": "15.6.1",
     "react": "16.3.1",
