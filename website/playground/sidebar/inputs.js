@@ -17,9 +17,9 @@ export function Select({ label: _label, values, selected, onChange }) {
   return (
     <label>
       {_label}{" "}
-      <select onChange={ev => onChange(ev.target.value)}>
+      <select value={selected} onChange={ev => onChange(ev.target.value)}>
         {values.map(val => (
-          <option value={val} selected={val === selected}>
+          <option key={val} value={val}>
             {val}
           </option>
         ))}

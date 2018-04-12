@@ -38,6 +38,7 @@ export class ClipboardButton extends React.Component {
   render() {
     const rest = Object.assign({}, this.props);
     delete rest.children;
+    delete rest.clipboardValue;
 
     return (
       <Button ref={this.ref} {...rest}>

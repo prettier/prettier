@@ -10,6 +10,7 @@ import * as urlHash from "./urlHash";
 import formatMarkdown from "./markdown";
 
 import { Sidebar, SidebarCategory } from "./sidebar/components";
+import SidebarOptions from "./sidebar/SidebarOptions";
 import Option from "./sidebar/options";
 import { Checkbox } from "./sidebar/inputs";
 
@@ -97,24 +98,15 @@ class Playground extends React.Component {
         <VersionLink version={this.state.version} />
         <EditorState>
           {editorState => (
-            <div className="playground-container">
+            <React.Fragment>
               <div className="editors-container">
                 <Sidebar visible={editorState.showSidebar}>
-                  {categorizeOptions(
-                    availableOptions,
-                    (category, categoryOptions) => (
-                      <SidebarCategory key={category} title={category}>
-                        {categoryOptions.map(option => (
-                          <Option
-                            key={option.name}
-                            option={option}
-                            value={options[option.name]}
-                            onChange={this.handleOptionValueChange}
-                          />
-                        ))}
-                      </SidebarCategory>
-                    )
-                  )}
+                  <SidebarOptions
+                    categories={CATEGORIES_ORDER}
+                    availableOptions={availableOptions}
+                    optionValues={options}
+                    onOptionValueChange={this.handleOptionValueChange}
+                  />
                   <SidebarCategory title="Debug">
                     <Checkbox
                       label="show AST"
@@ -180,7 +172,7 @@ class Playground extends React.Component {
                   </LinkButton>
                 </div>
               </div>
-            </div>
+            </React.Fragment>
           )}
         </EditorState>
       </React.Fragment>
