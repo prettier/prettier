@@ -2,11 +2,16 @@ import React from "react";
 
 import Button from "./Button";
 import EditorState from "./EditorState";
-import { Checkbox } from "./inputs";
 import { DebugPanel, InputPanel, OutputPanel } from "./panels";
 import PrettierFormat from "./PrettierFormat";
-import SidebarOptions from "./SidebarOptions";
+
+import { Sidebar, SidebarCategory } from "./sidebar/components";
+import Option from "./sidebar/options";
+import { Checkbox } from "./sidebar/inputs";
+
 import WorkerApi from "./WorkerApi";
+
+const CATEGORIES_ORDER = ["Global", "JavaScript", "Markdown", "Special"];
 
 const ENABLED_OPTIONS = [
   "parser",
@@ -23,23 +28,6 @@ const ENABLED_OPTIONS = [
   "insertPragma",
   "requirePragma"
 ].map(option => (typeof option === "string" ? { name: option } : option));
-
-function Sidebar({ visible, children }) {
-  return (
-    <div className={`options-container ${visible ? "open" : ""}`}>
-      <div className="options">{children}</div>
-    </div>
-  );
-}
-
-function SidebarCategory({ title, children }) {
-  return (
-    <details className="sub-options" open="true">
-      <summary>{title}</summary>
-      {children}
-    </details>
-  );
-}
 
 class Playground extends React.Component {
   constructor() {
@@ -98,11 +86,21 @@ class Playground extends React.Component {
           <div className="playground-container">
             <div className="editors-container">
               <Sidebar visible={editorState.showSidebar}>
-                <SidebarOptions
-                  availableOptions={availableOptions}
-                  prettierOptions={options}
-                  onOptionValueChange={this.handleOptionValueChange}
-                />
+                {categorizeOptions(
+                  availableOptions,
+                  (category, categoryOptions) => (
+                    <SidebarCategory key={category} title={category}>
+                      {categoryOptions.map(option => (
+                        <Option
+                          key={option.name}
+                          option={option}
+                          value={options[option.name]}
+                          onChange={this.handleOptionValueChange}
+                        />
+                      ))}
+                    </SidebarCategory>
+                  )
+                )}
                 <SidebarCategory title="Debug">
                   <Checkbox
                     label="show AST"
@@ -167,6 +165,19 @@ class Playground extends React.Component {
       </EditorState>
     );
   }
+}
+
+function categorizeOptions(availableOptions, render) {
+  const optionsByCategory = availableOptions.reduce((acc, option) => {
+    let options;
+    acc[option.category] = options = acc[option.category] || [];
+    options.push(option);
+    return acc;
+  }, {});
+
+  return CATEGORIES_ORDER.filter(c => optionsByCategory[c]).map(category =>
+    render(category, optionsByCategory[category])
+  );
 }
 
 function getDefaultOptions(availableOptions) {
