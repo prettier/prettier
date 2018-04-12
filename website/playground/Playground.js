@@ -52,7 +52,11 @@ class Playground extends React.Component {
     this.handleOptionValueChange = this.handleOptionValueChange.bind(this);
 
     this.setContent = content => this.setState({ content });
-    this.clearContent = () => this.setState({ content: "" });
+    this.clearContent = this.setContent.bind(this, "");
+    this.resetOptions = () =>
+      this.setState(state => ({
+        options: getDefaultOptions(state.availableOptions)
+      }));
   }
 
   componentDidMount() {
@@ -62,12 +66,10 @@ class Playground extends React.Component {
       .postMessage({ type: "meta" })
       .then(({ supportInfo, version }) => {
         const availableOptions = parsePrettierOptions(supportInfo);
-        const options =
-          this.state.options ||
-          availableOptions.reduce((acc, option) => {
-            acc[option.name] = option.default;
-            return acc;
-          }, {});
+        const options = Object.assign(
+          getDefaultOptions(availableOptions),
+          this.state.options
+        );
 
         this.setState({ loaded: true, availableOptions, options, version });
       });
@@ -107,15 +109,24 @@ class Playground extends React.Component {
                     checked={editorState.showAst}
                     onChange={editorState.toggleAst}
                   />
+                  <Checkbox
+                    label="show doc"
+                    checked={editorState.showDoc}
+                    onChange={editorState.toggleDoc}
+                  />
                 </SidebarCategory>
+                <div className="sub-options">
+                  <Button onClick={this.resetOptions}>Reset to defaults</Button>
+                </div>
               </Sidebar>
               <PrettierFormat
                 worker={this._worker}
                 code={content}
                 options={options}
-                ast={editorState.showAst}
+                debugAst={editorState.showAst}
+                debugDoc={editorState.showDoc}
               >
-                {({ ast: codeAst, formatted }) => (
+                {({ formatted, debugAst, debugDoc }) => (
                   <div className="editors">
                     <InputPanel
                       mode={getCodemirrorMode(options.parser)}
@@ -124,10 +135,10 @@ class Playground extends React.Component {
                       onChange={this.setContent}
                     />
                     {editorState.showAst ? (
-                      <DebugPanel value={codeAst} />
+                      <DebugPanel value={debugAst} />
                     ) : null}
                     {editorState.showDoc ? (
-                      <DebugPanel value={"doc here"} />
+                      <DebugPanel value={debugDoc} />
                     ) : null}
                     <OutputPanel
                       mode={getCodemirrorMode(options.parser)}
@@ -156,6 +167,13 @@ class Playground extends React.Component {
       </EditorState>
     );
   }
+}
+
+function getDefaultOptions(availableOptions) {
+  return availableOptions.reduce((acc, option) => {
+    acc[option.name] = option.default;
+    return acc;
+  }, {});
 }
 
 function getCodemirrorMode(parser) {

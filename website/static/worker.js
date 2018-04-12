@@ -90,16 +90,17 @@ self.onmessage = function(event) {
 
       const response = {
         formatted: formatCode(message.code, options),
-        ast: null,
-        doc: null
+        debugAst: null,
+        debugDoc: null
       };
 
-      if (message.ast) {
-        var actualAst;
+      if (message.debugAst) {
+        var ast;
         var errored = false;
         try {
-          actualAst = prettier.__debug.parse(message.code, options).ast;
-          ast = JSON.stringify(actualAst);
+          ast = JSON.stringify(
+            prettier.__debug.parse(message.code, options).ast
+          );
         } catch (e) {
           errored = true;
           ast = String(e);
@@ -112,7 +113,18 @@ self.onmessage = function(event) {
             ast = JSON.stringify(actualAst, null, 2);
           }
         }
-        response.ast = ast;
+        response.debugAst = ast;
+      }
+
+      if (message.debugDoc) {
+        try {
+          response.debugDoc = prettier.__debug.formatDoc(
+            prettier.__debug.printToDoc(message.code, options),
+            { parser: "babylon" }
+          );
+        } catch (e) {
+          response.debugDoc = String(e);
+        }
       }
 
       self.postMessage({
