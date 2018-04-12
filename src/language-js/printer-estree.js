@@ -283,7 +283,9 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
   // outer-most ConditionalExpression.
   const maybeGroup = doc =>
     operatorOpts.breakNested
-      ? parent === firstNonConditionalParent ? group(doc) : doc
+      ? parent === firstNonConditionalParent
+        ? group(doc)
+        : doc
       : group(doc); // Always group in normal mode.
 
   // Break the closing paren to keep the chain right after it:
@@ -1938,7 +1940,9 @@ function printPathNoParens(path, options, print, args) {
           concat([
             hasOwnLineComment
               ? hardline
-              : hasComment && !isOpeningFragment ? " " : "",
+              : hasComment && !isOpeningFragment
+                ? " "
+                : "",
             comments.printDanglingComments(path, options, true)
           ])
         ),

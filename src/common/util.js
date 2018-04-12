@@ -500,7 +500,9 @@ function printString(raw, options, isDirectiveLiteral) {
   const enclosingQuote =
     options.parser === "json"
       ? double.quote
-      : shouldUseAlternateQuote ? alternate.quote : preferred.quote;
+      : shouldUseAlternateQuote
+        ? alternate.quote
+        : preferred.quote;
 
   // Directives are exact code unit sequences, which means that you can't
   // change the escape sequences they use.
