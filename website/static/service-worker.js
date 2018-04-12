@@ -15,7 +15,6 @@ toolbox.precache([
   "lib/parser-glimmer.js",
   "lib/parser-graphql.js",
   "lib/parser-markdown.js",
-  "markdown.js",
   "playground.js",
   "lib/sw-toolbox.js",
 

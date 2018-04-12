@@ -1,9 +1,12 @@
 import React from "react";
 
-import Button from "./Button";
+import { Button, LinkButton } from "./buttons";
 import EditorState from "./EditorState";
 import { DebugPanel, InputPanel, OutputPanel } from "./panels";
 import PrettierFormat from "./PrettierFormat";
+import { shallowEqual } from "./helpers";
+import * as urlHash from "./urlHash";
+import formatMarkdown from "./markdown";
 
 import { Sidebar, SidebarCategory } from "./sidebar/components";
 import Option from "./sidebar/options";
@@ -32,11 +35,15 @@ const ENABLED_OPTIONS = [
 class Playground extends React.Component {
   constructor() {
     super();
-    this.state = {
-      content: "",
-      loaded: false,
-      options: null
-    };
+
+    this.state = Object.assign(
+      {
+        content: "",
+        loaded: false,
+        options: null
+      },
+      urlHash.read()
+    );
     this.handleOptionValueChange = this.handleOptionValueChange.bind(this);
 
     this.setContent = content => this.setState({ content });
@@ -63,6 +70,16 @@ class Playground extends React.Component {
       });
   }
 
+  componentDidUpdate(_, prevState) {
+    const { content, options } = this.state;
+    if (
+      !shallowEqual(prevState.options, this.state.options) ||
+      prevState.content !== content
+    ) {
+      urlHash.replace({ content, options });
+    }
+  }
+
   handleOptionValueChange(option, value) {
     this.setState(state => ({
       options: Object.assign({}, state.options, { [option.name]: value })
@@ -70,13 +87,7 @@ class Playground extends React.Component {
   }
 
   render() {
-    const {
-      availableOptions,
-      content,
-      loaded,
-      options,
-      showSidebar
-    } = this.state;
+    const { availableOptions, content, loaded, options } = this.state;
 
     if (!loaded) return "Loading...";
 
@@ -157,7 +168,9 @@ class Playground extends React.Component {
               <div className="bottom-bar-buttons bottom-bar-buttons-right">
                 <Button>Copy link</Button>
                 <Button>Copy markdown</Button>
-                <Button>Report issue</Button>
+                <LinkButton href="#" target="_blank" rel="noopener">
+                  Report issue
+                </LinkButton>
               </div>
             </div>
           </div>
