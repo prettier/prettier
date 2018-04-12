@@ -272,7 +272,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       const placeholder = parts[atPlaceholderIndex];
       const rest = parts.slice(atPlaceholderIndex + 1);
       const placeholderMatch = placeholder.match(
-        /@prettier-placeholder-(.+)-id(.*)/
+        /@prettier-placeholder-(.+)-id([\s\S]*)/
       );
       const placeholderID = placeholderMatch[1];
       // When the expression has a suffix appended, like:
