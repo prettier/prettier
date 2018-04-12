@@ -1,9 +1,10 @@
 import React from "react";
 
-import { Button, LinkButton } from "./buttons";
+import { Button, ClipboardButton, LinkButton } from "./buttons";
 import EditorState from "./EditorState";
 import { DebugPanel, InputPanel, OutputPanel } from "./panels";
 import PrettierFormat from "./PrettierFormat";
+import VersionLink from "./VersionLink";
 import { shallowEqual } from "./helpers";
 import * as urlHash from "./urlHash";
 import formatMarkdown from "./markdown";
@@ -92,92 +93,119 @@ class Playground extends React.Component {
     if (!loaded) return "Loading...";
 
     return (
-      <EditorState>
-        {editorState => (
-          <div className="playground-container">
-            <div className="editors-container">
-              <Sidebar visible={editorState.showSidebar}>
-                {categorizeOptions(
-                  availableOptions,
-                  (category, categoryOptions) => (
-                    <SidebarCategory key={category} title={category}>
-                      {categoryOptions.map(option => (
-                        <Option
-                          key={option.name}
-                          option={option}
-                          value={options[option.name]}
-                          onChange={this.handleOptionValueChange}
-                        />
-                      ))}
-                    </SidebarCategory>
-                  )
-                )}
-                <SidebarCategory title="Debug">
-                  <Checkbox
-                    label="show AST"
-                    checked={editorState.showAst}
-                    onChange={editorState.toggleAst}
-                  />
-                  <Checkbox
-                    label="show doc"
-                    checked={editorState.showDoc}
-                    onChange={editorState.toggleDoc}
-                  />
-                </SidebarCategory>
-                <div className="sub-options">
-                  <Button onClick={this.resetOptions}>Reset to defaults</Button>
-                </div>
-              </Sidebar>
-              <PrettierFormat
-                worker={this._worker}
-                code={content}
-                options={options}
-                debugAst={editorState.showAst}
-                debugDoc={editorState.showDoc}
-              >
-                {({ formatted, debugAst, debugDoc }) => (
-                  <div className="editors">
-                    <InputPanel
-                      mode={getCodemirrorMode(options.parser)}
-                      rulerColumn={options.printWidth}
-                      value={content}
-                      onChange={this.setContent}
+      <React.Fragment>
+        <VersionLink version={this.state.version} />
+        <EditorState>
+          {editorState => (
+            <div className="playground-container">
+              <div className="editors-container">
+                <Sidebar visible={editorState.showSidebar}>
+                  {categorizeOptions(
+                    availableOptions,
+                    (category, categoryOptions) => (
+                      <SidebarCategory key={category} title={category}>
+                        {categoryOptions.map(option => (
+                          <Option
+                            key={option.name}
+                            option={option}
+                            value={options[option.name]}
+                            onChange={this.handleOptionValueChange}
+                          />
+                        ))}
+                      </SidebarCategory>
+                    )
+                  )}
+                  <SidebarCategory title="Debug">
+                    <Checkbox
+                      label="show AST"
+                      checked={editorState.showAst}
+                      onChange={editorState.toggleAst}
                     />
-                    {editorState.showAst ? (
-                      <DebugPanel value={debugAst} />
-                    ) : null}
-                    {editorState.showDoc ? (
-                      <DebugPanel value={debugDoc} />
-                    ) : null}
-                    <OutputPanel
-                      mode={getCodemirrorMode(options.parser)}
-                      value={formatted}
-                      rulerColumn={options.printWidth}
+                    <Checkbox
+                      label="show doc"
+                      checked={editorState.showDoc}
+                      onChange={editorState.toggleDoc}
                     />
+                  </SidebarCategory>
+                  <div className="sub-options">
+                    <Button onClick={this.resetOptions}>
+                      Reset to defaults
+                    </Button>
                   </div>
-                )}
-              </PrettierFormat>
-            </div>
-            <div className="bottom-bar">
-              <div className="bottom-bar-buttons">
-                <Button onClick={editorState.toggleSidebar}>
-                  {editorState.showSidebar ? "Hide" : "Show"} options
-                </Button>
-                <Button onClick={this.clearContent}>Clear</Button>
+                </Sidebar>
+                <PrettierFormat
+                  worker={this._worker}
+                  code={content}
+                  options={options}
+                  debugAst={editorState.showAst}
+                  debugDoc={editorState.showDoc}
+                >
+                  {({ formatted, debugAst, debugDoc }) => (
+                    <div className="editors">
+                      <InputPanel
+                        mode={getCodemirrorMode(options.parser)}
+                        rulerColumn={options.printWidth}
+                        value={content}
+                        onChange={this.setContent}
+                      />
+                      {editorState.showAst ? (
+                        <DebugPanel value={debugAst} />
+                      ) : null}
+                      {editorState.showDoc ? (
+                        <DebugPanel value={debugDoc} />
+                      ) : null}
+                      <OutputPanel
+                        mode={getCodemirrorMode(options.parser)}
+                        value={formatted}
+                        rulerColumn={options.printWidth}
+                      />
+                    </div>
+                  )}
+                </PrettierFormat>
               </div>
-              <div className="bottom-bar-buttons bottom-bar-buttons-right">
-                <Button>Copy link</Button>
-                <Button>Copy markdown</Button>
-                <LinkButton href="#" target="_blank" rel="noopener">
-                  Report issue
-                </LinkButton>
+              <div className="bottom-bar">
+                <div className="bottom-bar-buttons">
+                  <Button onClick={editorState.toggleSidebar}>
+                    {editorState.showSidebar ? "Hide" : "Show"} options
+                  </Button>
+                  <Button onClick={this.clearContent}>Clear</Button>
+                </div>
+                <div className="bottom-bar-buttons bottom-bar-buttons-right">
+                  <ClipboardButton clipboardValue={window.location.href}>
+                    Copy link
+                  </ClipboardButton>
+                  <Button>Copy markdown</Button>
+                  <LinkButton href="#" target="_blank" rel="noopener">
+                    Report issue
+                  </LinkButton>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </EditorState>
+          )}
+        </EditorState>
+      </React.Fragment>
     );
   }
+}
+
+function createVersionLink(version) {
+  const link = document.createElement("a");
+  const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/);
+  if (match) {
+    link.href = "https://github.com/prettier/prettier/pull/" + match[1];
+    link.textContent = `PR #${match[1]}`;
+  } else {
+    if (version.match(/\.0$/)) {
+      link.href =
+        "https://github.com/prettier/prettier/releases/tag/" + version;
+    } else {
+      link.href =
+        "https://github.com/prettier/prettier/blob/master/CHANGELOG.md#" +
+        version.replace(/\./g, "");
+    }
+    link.textContent = `v${version}`;
+  }
+  return link;
 }
 
 function categorizeOptions(availableOptions, render) {
