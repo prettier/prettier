@@ -88,11 +88,36 @@ self.onmessage = function(event) {
       delete options.doc;
       delete options.output2;
 
+      const response = {
+        formatted: formatCode(message.code, options),
+        ast: null,
+        doc: null
+      };
+
+      if (message.ast) {
+        var actualAst;
+        var errored = false;
+        try {
+          actualAst = prettier.__debug.parse(message.code, options).ast;
+          ast = JSON.stringify(actualAst);
+        } catch (e) {
+          errored = true;
+          ast = String(e);
+        }
+
+        if (!errored) {
+          try {
+            ast = formatCode(ast, { parser: "json" });
+          } catch (e) {
+            ast = JSON.stringify(actualAst, null, 2);
+          }
+        }
+        response.ast = ast;
+      }
+
       self.postMessage({
         uid: uid,
-        message: {
-          formatted: formatCode(message.code, options)
-        }
+        message: response
       });
       break;
   }

@@ -2,7 +2,9 @@ import React from "react";
 
 import Button from "./Button";
 import EditorState from "./EditorState";
+import { Checkbox } from "./inputs";
 import { DebugPanel, InputPanel, OutputPanel } from "./panels";
+import PrettierFormat from "./PrettierFormat";
 import SidebarOptions from "./SidebarOptions";
 import WorkerApi from "./WorkerApi";
 
@@ -21,6 +23,23 @@ const ENABLED_OPTIONS = [
   "insertPragma",
   "requirePragma"
 ].map(option => (typeof option === "string" ? { name: option } : option));
+
+function Sidebar({ visible, children }) {
+  return (
+    <div className={`options-container ${visible ? "open" : ""}`}>
+      <div className="options">{children}</div>
+    </div>
+  );
+}
+
+function SidebarCategory({ title, children }) {
+  return (
+    <details className="sub-options" open="true">
+      <summary>{title}</summary>
+      {children}
+    </details>
+  );
+}
 
 class Playground extends React.Component {
   constructor() {
@@ -60,31 +79,10 @@ class Playground extends React.Component {
     }));
   }
 
-  componentDidUpdate(_, prevState) {
-    if (
-      prevState.content !== this.state.content ||
-      prevState.options !== this.state.options
-    ) {
-      this._format();
-    }
-  }
-
-  _format() {
-    const { content, options } = this.state;
-    this._worker
-      .postMessage({
-        type: "format",
-        code: content,
-        options
-      })
-      .then(({ formatted }) => this.setState({ formatted }));
-  }
-
   render() {
     const {
       availableOptions,
       content,
-      formatted,
       loaded,
       options,
       showSidebar
@@ -97,34 +95,48 @@ class Playground extends React.Component {
         {editorState => (
           <div className="playground-container">
             <div className="editors-container">
-              <div
-                className={`options-container ${
-                  editorState.showSidebar ? "open" : ""
-                }`}
-              >
-                <div className="options">
-                  <SidebarOptions
-                    availableOptions={availableOptions}
-                    prettierOptions={options}
-                    onOptionValueChange={this.handleOptionValueChange}
+              <Sidebar visible={editorState.showSidebar}>
+                <SidebarOptions
+                  availableOptions={availableOptions}
+                  prettierOptions={options}
+                  onOptionValueChange={this.handleOptionValueChange}
+                />
+                <SidebarCategory title="Debug">
+                  <Checkbox
+                    label="show AST"
+                    checked={editorState.showAst}
+                    onChange={editorState.toggleAst}
                   />
-                </div>
-              </div>
-              <div className="editors">
-                <InputPanel
-                  mode={getCodemirrorMode(options.parser)}
-                  rulerColumn={options.printWidth}
-                  value={content}
-                  onChange={this.setContent}
-                />
-                {editorState.showAst ? <DebugPanel value={"ast here"} /> : null}
-                {editorState.showDoc ? <DebugPanel value={"doc here"} /> : null}
-                <OutputPanel
-                  mode={getCodemirrorMode(options.parser)}
-                  value={formatted}
-                  rulerColumn={options.printWidth}
-                />
-              </div>
+                </SidebarCategory>
+              </Sidebar>
+              <PrettierFormat
+                worker={this._worker}
+                code={content}
+                options={options}
+                ast={editorState.showAst}
+              >
+                {({ ast: codeAst, formatted }) => (
+                  <div className="editors">
+                    <InputPanel
+                      mode={getCodemirrorMode(options.parser)}
+                      rulerColumn={options.printWidth}
+                      value={content}
+                      onChange={this.setContent}
+                    />
+                    {editorState.showAst ? (
+                      <DebugPanel value={codeAst} />
+                    ) : null}
+                    {editorState.showDoc ? (
+                      <DebugPanel value={"doc here"} />
+                    ) : null}
+                    <OutputPanel
+                      mode={getCodemirrorMode(options.parser)}
+                      value={formatted}
+                      rulerColumn={options.printWidth}
+                    />
+                  </div>
+                )}
+              </PrettierFormat>
             </div>
             <div className="bottom-bar">
               <div className="bottom-bar-buttons">

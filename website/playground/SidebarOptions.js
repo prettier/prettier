@@ -16,22 +16,18 @@ export default function({
     return acc;
   }, {});
 
-  return (
-    <div className="options">
-      {CATEGORIES_ORDER.map(category => (
-        <details key={category} className="sub-options" open="true">
-          <summary>{category}</summary>
+  return CATEGORIES_ORDER.map(category => (
+    <details key={category} className="sub-options" open="true">
+      <summary>{category}</summary>
 
-          {(optionsByCategory[category] || []).map(option => (
-            <Option
-              key={option.name}
-              option={option}
-              value={prettierOptions[option.name]}
-              onChange={onOptionValueChange}
-            />
-          ))}
-        </details>
+      {(optionsByCategory[category] || []).map(option => (
+        <Option
+          key={option.name}
+          option={option}
+          value={prettierOptions[option.name]}
+          onChange={onOptionValueChange}
+        />
       ))}
-    </div>
-  );
+    </details>
+  ));
 }

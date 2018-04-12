@@ -25,7 +25,7 @@ self.fs = { readFile: function() {} };
 os.homedir = function() {
   return "/home/prettier";
 };
-os.EOL = '\n';
+os.EOL = "\n";
 self.process = {
   argv: [],
   env: { PRETTIER_DEBUG: true },
