@@ -9,7 +9,9 @@ function normalizeOptions(options, optionInfos, opts) {
   const logger =
     opts.logger === false
       ? { warn() {} }
-      : opts.logger !== undefined ? opts.logger : console;
+      : opts.logger !== undefined
+        ? opts.logger
+        : console;
   const descriptor = opts.descriptor || descriptors.apiDescriptor;
   const passThrough = opts.passThrough || [];
 

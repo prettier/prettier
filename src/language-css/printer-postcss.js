@@ -110,13 +110,19 @@ function genericPrint(path, options, print) {
           : path.call(print, "value"),
         node.raws.important
           ? node.raws.important.replace(/\s*!\s*important/i, " !important")
-          : node.important ? " !important" : "",
+          : node.important
+            ? " !important"
+            : "",
         node.raws.scssDefault
           ? node.raws.scssDefault.replace(/\s*!default/i, " !default")
-          : node.scssDefault ? " !default" : "",
+          : node.scssDefault
+            ? " !default"
+            : "",
         node.raws.scssGlobal
           ? node.raws.scssGlobal.replace(/\s*!global/i, " !global")
-          : node.scssGlobal ? " !global" : "",
+          : node.scssGlobal
+            ? " !global"
+            : "",
         node.nodes
           ? concat([
               " {",
@@ -163,11 +169,15 @@ function genericPrint(path, options, print) {
                 " ",
                 path.call(print, "value"),
                 isControlDirectiveNode(node)
-                  ? hasParensAround ? " " : line
+                  ? hasParensAround
+                    ? " "
+                    : line
                   : ""
               ])
             )
-          : node.name === "else" ? " " : "",
+          : node.name === "else"
+            ? " "
+            : "",
         node.nodes
           ? concat([
               isControlDirectiveNode(node) ? "" : " ",
