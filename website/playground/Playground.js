@@ -180,39 +180,6 @@ class Playground extends React.Component {
   }
 }
 
-function createVersionLink(version) {
-  const link = document.createElement("a");
-  const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/);
-  if (match) {
-    link.href = "https://github.com/prettier/prettier/pull/" + match[1];
-    link.textContent = `PR #${match[1]}`;
-  } else {
-    if (version.match(/\.0$/)) {
-      link.href =
-        "https://github.com/prettier/prettier/releases/tag/" + version;
-    } else {
-      link.href =
-        "https://github.com/prettier/prettier/blob/master/CHANGELOG.md#" +
-        version.replace(/\./g, "");
-    }
-    link.textContent = `v${version}`;
-  }
-  return link;
-}
-
-function categorizeOptions(availableOptions, render) {
-  const optionsByCategory = availableOptions.reduce((acc, option) => {
-    let options;
-    acc[option.category] = options = acc[option.category] || [];
-    options.push(option);
-    return acc;
-  }, {});
-
-  return CATEGORIES_ORDER.filter(c => optionsByCategory[c]).map(category =>
-    render(category, optionsByCategory[category])
-  );
-}
-
 function getDefaultOptions(availableOptions) {
   return availableOptions.reduce((acc, option) => {
     acc[option.name] = option.default;
