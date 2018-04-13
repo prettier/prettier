@@ -1,5 +1,6 @@
 "use strict";
 
+const docUtils = require("../doc/doc-utils");
 const privateUtil = require("../common/util");
 const embed = require("./embed");
 const pragma = require("./pragma");
@@ -719,7 +720,7 @@ function shouldRemainTheSameContent(path) {
 }
 
 function normalizeDoc(doc) {
-  return privateUtil.mapDoc(doc, currentDoc => {
+  return docUtils.mapDoc(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
     }

@@ -1,5 +1,6 @@
 "use strict";
 
+const docUtils = require("../doc/doc-utils");
 const util = require("../common/util");
 const support = require("../common/support");
 const doc = require("../doc");
@@ -55,7 +56,7 @@ function embed(path, print, textToDoc, options) {
   }
 
   function replaceNewlinesWithLiterallines(doc) {
-    return util.mapDoc(
+    return docUtils.mapDoc(
       doc,
       currentDoc =>
         typeof currentDoc === "string" && currentDoc.includes("\n")

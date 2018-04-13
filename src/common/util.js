@@ -600,20 +600,6 @@ function getMaxContinuousCount(str, target) {
   );
 }
 
-function mapDoc(doc, callback) {
-  if (doc.parts) {
-    const parts = doc.parts.map(part => mapDoc(part, callback));
-    return callback(Object.assign({}, doc, { parts }));
-  }
-
-  if (doc.contents) {
-    const contents = mapDoc(doc.contents, callback);
-    return callback(Object.assign({}, doc, { contents }));
-  }
-
-  return callback(doc);
-}
-
 /**
  * split text into whitespaces and words
  * @param {string} text
@@ -795,7 +781,6 @@ module.exports = {
   punctuationCharRange,
   getStringWidth,
   splitText,
-  mapDoc,
   getMaxContinuousCount,
   getPrecedence,
   shouldFlatten,

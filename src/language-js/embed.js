@@ -1,6 +1,5 @@
 "use strict";
 
-const util = require("../common/util");
 const doc = require("../doc");
 const docUtils = doc.utils;
 const docBuilders = doc.builders;
@@ -199,7 +198,7 @@ function getIndentation(str) {
 }
 
 function escapeBackticks(doc) {
-  return util.mapDoc(doc, currentDoc => {
+  return docUtils.mapDoc(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
