@@ -78,25 +78,36 @@ function optionToSchema(option) {
       description: option.description,
       default: option.default
     },
-    option.type === "choice"
-      ? { oneOf: option.choices.map(choiceToSchema) }
-      : { type: optionTypeToSchemaType(option.type) }
+    (option.array ? wrapWithArraySchema : identity)(
+      option.type === "choice"
+        ? { oneOf: option.choices.map(choiceToSchema) }
+        : { type: optionTypeToSchemaType(option.type) }
+    )
   );
+}
+
+function identity(x) {
+  return x;
+}
+
+function wrapWithArraySchema(items) {
+  return { type: "array", items };
 }
 
 function optionTypeToSchemaType(optionType) {
   switch (optionType) {
     case "int":
       return "integer";
-    case "array":
     case "boolean":
       return optionType;
     case "choice":
       throw new Error(
         "Please use `oneOf` instead of `enum` for better description support."
       );
-    default:
+    case "path":
       return "string";
+    default:
+      throw new Error(`Unexpected optionType '${optionType}'`);
   }
 }
 

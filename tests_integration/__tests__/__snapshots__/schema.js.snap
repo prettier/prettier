@@ -127,7 +127,10 @@ This option cannot be used with --range-start and --range-end.",
         "plugins": Object {
           "default": Array [],
           "description": "Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.",
-          "type": "string",
+          "items": Object {
+            "type": "string",
+          },
+          "type": "array",
         },
         "printWidth": Object {
           "default": 80,
