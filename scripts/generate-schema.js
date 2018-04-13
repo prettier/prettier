@@ -2,14 +2,17 @@
 
 "use strict";
 
-const prettier = require("..");
-
-console.log(
-  prettier.format(
-    JSON.stringify(generateSchema(prettier.getSupportInfo().options)),
-    { parser: "json" }
-  )
-);
+if (process.env.NODE_ENV === "test") {
+  module.exports = generateSchema;
+} else {
+  const prettier = require("..");
+  console.log(
+    prettier.format(
+      JSON.stringify(generateSchema(prettier.getSupportInfo().options)),
+      { parser: "json" }
+    )
+  );
+}
 
 function generateSchema(options) {
   return {
