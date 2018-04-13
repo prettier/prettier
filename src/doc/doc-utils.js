@@ -182,10 +182,6 @@ function stripTrailingHardline(doc) {
   return doc;
 }
 
-function rawText(node) {
-  return node.extra ? node.extra.raw : node.raw;
-}
-
 module.exports = {
   isEmpty,
   willBreak,
@@ -194,6 +190,5 @@ module.exports = {
   mapDoc,
   propagateBreaks,
   removeLines,
-  stripTrailingHardline,
-  rawText
+  stripTrailingHardline
 };
