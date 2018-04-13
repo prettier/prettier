@@ -2,7 +2,7 @@
 
 "use strict";
 
-if (process.env.NODE_ENV === "test") {
+if (process.env.NODE_ENV === "test" || process.env.CI) {
   module.exports = generateSchema;
 } else {
   const prettier = require("..");
