@@ -679,7 +679,7 @@ function genericPrint(path, options, print) {
               )
             ])
           ),
-          shouldPrintTrailingComma(options.trailingComma, node) ? "," : "",
+          node.groups.length > 1 && options.trailingComma === "es5" ? "," : "",
           softline,
           node.close ? path.call(print, "close") : ""
         ])
@@ -982,16 +982,6 @@ function isWideKeywords(value) {
       value.replace().toLowerCase()
     ) !== -1
   );
-}
-
-function shouldPrintTrailingComma(choice, node) {
-  if (node.groups.length === 1) {
-    return false;
-  }
-  if (choice === "all") {
-    return true;
-  }
-  return false;
 }
 
 module.exports = {
