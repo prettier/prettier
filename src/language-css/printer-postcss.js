@@ -679,7 +679,7 @@ function genericPrint(path, options, print) {
               )
             ])
           ),
-          node.groups.length > 1 && options.trailingComma === "es5" ? "," : "",
+          node.groups.length > 1 && options.trailingComma !== "none" ? "," : "",
           softline,
           node.close ? path.call(print, "close") : ""
         ])
