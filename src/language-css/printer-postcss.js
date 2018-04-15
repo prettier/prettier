@@ -666,6 +666,7 @@ function genericPrint(path, options, print) {
         declNode &&
         declNode.type === "css-decl" &&
         declNode.prop.startsWith("$");
+
       return group(
         concat([
           node.open ? path.call(print, "open") : "",
