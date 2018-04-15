@@ -984,7 +984,7 @@ function isWideKeywords(value) {
 }
 
 function shouldPrintTrailingComma(choice, node) {
-  if (node.groups.length == 1) {
+  if (node.groups.length === 1) {
     return false;
   }
   if (choice === 'all') {
