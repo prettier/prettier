@@ -988,12 +988,11 @@ function shouldPrintTrailingComma(choice, node) {
   if (node.groups.length === 1) {
     return false;
   }
-  if (choice === 'all') {
+  if (choice === "all") {
     return true;
   }
   return false;
 }
-
 
 module.exports = {
   print: genericPrint,
