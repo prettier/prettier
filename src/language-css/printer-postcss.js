@@ -666,7 +666,6 @@ function genericPrint(path, options, print) {
         declNode &&
         declNode.type === "css-decl" &&
         declNode.prop.startsWith("$");
-
       return group(
         concat([
           node.open ? path.call(print, "open") : "",
@@ -679,6 +678,7 @@ function genericPrint(path, options, print) {
               )
             ])
           ),
+          shouldPrintTrailingComma(options.trailingComma, node) ? "," : "",
           softline,
           node.close ? path.call(print, "close") : ""
         ])
@@ -982,6 +982,17 @@ function isWideKeywords(value) {
     ) !== -1
   );
 }
+
+function shouldPrintTrailingComma(choice, node) {
+  if (node.groups.length == 1) {
+    return false;
+  }
+  if (choice === 'all') {
+    return true;
+  }
+  return false;
+}
+
 
 module.exports = {
   print: genericPrint,
