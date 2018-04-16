@@ -9,5 +9,5 @@ function isSCSS(parser, text) {
 }
 
 module.exports = {
-  isSCSS,
+  isSCSS
 };
