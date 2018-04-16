@@ -24,7 +24,7 @@ const languages = [
 const parsers = {
   vue: {
     get parse() {
-      return eval("require")("./parser-vue");
+      return require("./parser-vue");
     },
     astFormat: "vue"
   }

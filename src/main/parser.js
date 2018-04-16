@@ -33,7 +33,7 @@ function resolveParser(opts, parsers) {
     }
     try {
       return {
-        parse: eval("require")(path.resolve(process.cwd(), opts.parser)),
+        parse: require(path.resolve(process.cwd(), opts.parser)),
         astFormat: "estree",
         locStart,
         locEnd

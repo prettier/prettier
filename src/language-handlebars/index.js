@@ -21,7 +21,7 @@ const languages = [
 const parsers = {
   glimmer: {
     get parse() {
-      return eval("require")("./parser-glimmer");
+      return require("./parser-glimmer");
     },
     astFormat: "glimmer",
     locEnd: function(node) {

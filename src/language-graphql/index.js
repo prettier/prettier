@@ -22,7 +22,7 @@ const languages = [
 const parsers = {
   graphql: {
     get parse() {
-      return eval("require")("./parser-graphql");
+      return require("./parser-graphql");
     },
     astFormat: "graphql",
     locStart: function(node) {
