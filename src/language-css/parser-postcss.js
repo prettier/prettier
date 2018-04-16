@@ -3,6 +3,9 @@
 const createError = require("../common/parser-create-error");
 const grayMatter = require("gray-matter");
 
+// utils
+const utils = require("./utils");
+
 function parseSelector(selector) {
   // If there's a comment inside of a selector, the parser tries to parse
   // the content of the comment as selectors which turns it into complete
@@ -478,15 +481,10 @@ function requireParser(isSCSS) {
   return require("postcss-less");
 }
 
-const IS_POSSIBLY_SCSS = /(\w\s*: [^}:]+|#){|@import[^\n]+(url|,)/;
-
 function parse(text, parsers, opts) {
   const hasExplicitParserChoice =
     opts.parser === "less" || opts.parser === "scss";
-
-  const isSCSS = hasExplicitParserChoice
-    ? opts.parser === "scss"
-    : IS_POSSIBLY_SCSS.test(text);
+  const isSCSS = utils.isSCSS(opts.parser, text);
 
   const frontMatter = grayMatter(text);
   const normalizedText = frontMatter.content;

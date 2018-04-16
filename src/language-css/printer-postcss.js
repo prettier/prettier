@@ -15,7 +15,9 @@ const group = docBuilders.group;
 const fill = docBuilders.fill;
 const indent = docBuilders.indent;
 
+// utils
 const removeLines = doc.utils.removeLines;
+const utils = require("./utils");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -679,7 +681,7 @@ function genericPrint(path, options, print) {
               )
             ])
           ),
-          isSCSS(options) &&
+          utils.isSCSS(options.parser, options.originalText) &&
           node.groups.length > 1 &&
           options.trailingComma !== "none"
             ? ","
@@ -985,13 +987,6 @@ function isWideKeywords(value) {
     ["initial", "inherit", "unset", "revert"].indexOf(
       value.replace().toLowerCase()
     ) !== -1
-  );
-}
-
-function isSCSS(options) {
-  const IS_POSSIBLY_SCSS = /(\w\s*: [^}:]+|#){|@import[^\n]+(url|,)/;
-  return (
-    options.parser === "scss" || IS_POSSIBLY_SCSS.test(options.originalText)
   );
 }
 
