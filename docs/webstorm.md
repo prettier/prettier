@@ -21,7 +21,7 @@ Go to _Preferences | Tools | File Watchers_ and click **+** to add a new watcher
 
 * **File Type**: _JavaScript_ (or _Any_ if you want to run `prettier` on all files)
 * **Scope**: _Project Files_
-* **Program**: full path to `.bin/prettier` or `.bin\prettier.cmd` in the project's `node_module` folder
+* **Program**: full path to `.bin/prettier` or `.bin\prettier.cmd` in the project's `node_module` folder. Or, if Prettier is installed globally, select `prettier` on macOS and Linux or `C:\Users\user_name\AppData\Roaming\npm\prettier.cmd` on Windows (or whatever `npm prefix -g` returns).
 * **Arguments**: `--write [other options] $FilePathRelativeToProjectRoot$`
 * **Output paths to refresh**: `$FilePathRelativeToProjectRoot$`
 * **Working directory**: `$ProjectFileDir$`
@@ -41,11 +41,11 @@ Make sure that the ESLint integration is enabled in _Preferences | Languages & F
 
 Go to _Preferences | Tools | External Tools_ and click **+** to add a new tool. Let’s name it **Prettier**.
 
-* **Program**: `prettier` (if it's installed globally)
+* **Program**: `prettier` on macOS and Linux or `C:\Users\user_name\AppData\Roaming\npm\prettier.cmd` on Windows (or whatever `npm prefix -g` returns), if Prettier is installed globally
 * **Parameters**: `--write [other options] $FilePathRelativeToProjectRoot$`
 * **Working directory**: `$ProjectFileDir$`
 
-> If Prettier is installed locally in your project, replace the **Program** with `$ProjectFileDir$/node_modules/.bin/prettier` (on macOS and Linux) or `$ProjectFileDir$\node_modules\.bin\prettier.cmd` (on Windows).
+> If Prettier is installed locally in your project, replace the path in **Program** with `$ProjectFileDir$/node_modules/.bin/prettier` on macOS and Linux or `$ProjectFileDir$\node_modules\.bin\prettier.cmd` on Windows.
 
 ![Example](/docs/assets/webstorm/external-tool-prettier.png)
 
