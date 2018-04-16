@@ -679,7 +679,11 @@ function genericPrint(path, options, print) {
               )
             ])
           ),
-          isSCSS(options) && node.groups.length > 1 && options.trailingComma !== "none" ? "," : "",
+          isSCSS(options) &&
+          node.groups.length > 1 &&
+          options.trailingComma !== "none"
+            ? ","
+            : "",
           softline,
           node.close ? path.call(print, "close") : ""
         ])
@@ -986,7 +990,9 @@ function isWideKeywords(value) {
 
 function isSCSS(options) {
   const IS_POSSIBLY_SCSS = /(\w\s*: [^}:]+|#){|@import[^\n]+(url|,)/;
-  return options.parser === 'scss' || IS_POSSIBLY_SCSS.test(options.originalText);
+  return (
+    options.parser === "scss" || IS_POSSIBLY_SCSS.test(options.originalText)
+  );
 }
 
 module.exports = {
