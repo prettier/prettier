@@ -43,6 +43,7 @@ function resolveParser(opts, parsers) {
       throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
     }
   }
+
   /* istanbul ignore next */
   return parsers.babylon;
 }
