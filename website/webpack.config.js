@@ -21,7 +21,7 @@ module.exports = {
     ]
   },
   externals: {
-    clipboard: 'ClipboardJS',
+    clipboard: "ClipboardJS",
     codemirror: "CodeMirror",
     react: "React",
     "react-dom": "ReactDOM"
