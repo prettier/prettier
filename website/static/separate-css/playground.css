@@ -15,7 +15,6 @@ body {
   margin: 0;
 }
 
-#root,
 .playground-container {
   height: 100%;
   display: flex;
