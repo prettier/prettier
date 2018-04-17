@@ -11,21 +11,36 @@ export default class extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { code, options, debugAst, debugDoc } = this.props;
+    const { code, options, debugAst, debugDoc, secondFormat } = this.props;
     if (
       prevProps.code !== code ||
       prevProps.options !== options ||
       prevProps.debugAst !== debugAst ||
-      prevProps.debugDoc !== debugDoc
+      prevProps.debugDoc !== debugDoc ||
+      prevProps.secondFormat !== secondFormat
     ) {
       this.format();
     }
   }
 
   format() {
-    const { code, options, worker, debugAst, debugDoc } = this.props;
+    const {
+      code,
+      options,
+      worker,
+      debugAst,
+      debugDoc,
+      secondFormat
+    } = this.props;
     worker
-      .postMessage({ type: "format", code, options, debugAst, debugDoc })
+      .postMessage({
+        type: "format",
+        code,
+        options,
+        debugAst,
+        debugDoc,
+        secondFormat
+      })
       .then(result => this.setState(result));
   }
 

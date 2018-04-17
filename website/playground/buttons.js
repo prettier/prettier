@@ -19,7 +19,10 @@ export class ClipboardButton extends React.Component {
 
   componentDidMount() {
     this.clipboard = new ClipboardJS(this.ref.current, {
-      text: () => this.props.clipboardValue
+      text: () => {
+        const { copy } = this.props;
+        return typeof copy === "function" ? copy() : copy;
+      }
     });
     this.clipboard.on("success", () => this.showTooltip("Copied!"));
     this.clipboard.on("error", () => this.showTooltip("Press ctrl+c to copy"));

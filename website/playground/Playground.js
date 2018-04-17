@@ -54,6 +54,7 @@ class Playground extends React.Component {
       this.setState(state => ({
         options: getDefaultOptions(state.availableOptions)
       }));
+    this.getCurrentUrl = () => window.location.href;
   }
 
   componentDidMount() {
@@ -88,6 +89,20 @@ class Playground extends React.Component {
     }));
   }
 
+  getMarkdown(formatted, reformatted, full) {
+    const { availableOptions, content, options, version } = this.state;
+    return formatMarkdown(
+      content,
+      formatted,
+      reformatted || "",
+      version,
+      window.location.href,
+      options,
+      getCliOptions(availableOptions, options),
+      full
+    );
+  }
+
   render() {
     const { availableOptions, content, loaded, options } = this.state;
 
@@ -104,8 +119,9 @@ class Playground extends React.Component {
               options={options}
               debugAst={editorState.showAst}
               debugDoc={editorState.showDoc}
+              secondFormat={editorState.showSecondFormat}
             >
-              {({ formatted, debugAst, debugDoc }) => (
+              {({ formatted, debugAst, debugDoc, reformatted }) => (
                 <React.Fragment>
                   <div className="editors-container">
                     <Sidebar visible={editorState.showSidebar}>
@@ -125,6 +141,11 @@ class Playground extends React.Component {
                           label="show doc"
                           checked={editorState.showDoc}
                           onChange={editorState.toggleDoc}
+                        />
+                        <Checkbox
+                          label="show second format"
+                          checked={editorState.showSecondFormat}
+                          onChange={editorState.toggleSecondFormat}
                         />
                       </SidebarCategory>
                       <div className="sub-options">
@@ -151,6 +172,13 @@ class Playground extends React.Component {
                         value={formatted}
                         rulerColumn={options.printWidth}
                       />
+                      {editorState.showSecondFormat ? (
+                        <OutputPanel
+                          mode={getCodemirrorMode(options.parser)}
+                          value={getSecondFormat(formatted, reformatted)}
+                          rulerColumn={options.printWidth}
+                        />
+                      ) : null}
                     </div>
                   </div>
                   <div className="bottom-bar">
@@ -161,11 +189,17 @@ class Playground extends React.Component {
                       <Button onClick={this.clearContent}>Clear</Button>
                     </div>
                     <div className="bottom-bar-buttons bottom-bar-buttons-right">
-                      <ClipboardButton clipboardValue={window.location.href}>
+                      <ClipboardButton copy={this.getCurrentUrl}>
                         Copy link
                       </ClipboardButton>
-                      <Button>Copy markdown</Button>
-                      <LinkButton href="#" target="_blank" rel="noopener">
+                      <ClipboardButton copy={() => this.getMarkdown(formatted, reformatted)}>
+                        Copy markdown
+                      </ClipboardButton>
+                      <LinkButton
+                        href={getReportLink(this.getMarkdown(formatted, reformatted, true))}
+                        target="_blank"
+                        rel="noopener"
+                      >
                         Report issue
                       </LinkButton>
                     </div>
@@ -178,6 +212,37 @@ class Playground extends React.Component {
       </React.Fragment>
     );
   }
+}
+
+function getReportLink(reportBody) {
+  return `https://github.com/prettier/prettier/issues/new?body=${encodeURIComponent(
+    reportBody
+  )}`;
+}
+
+function getCliOptions(availableOptions, options) {
+  const cliOptions = [];
+  for (let i = 0; i < availableOptions.length; i++) {
+    const option = availableOptions[i];
+    let value = options[option.name];
+
+    if (option.type === "boolean") {
+      if ((value && !option.inverted) || (!value && option.inverted)) {
+        cliOptions.push([option.cliName, true]);
+      }
+    } else if (value !== option.default) {
+      cliOptions.push([option.cliName, value]);
+    }
+  }
+  return cliOptions;
+}
+
+function getSecondFormat(formatted, reformatted) {
+  return formatted === ""
+    ? ""
+    : formatted === reformatted
+      ? "✓ Second format is unchanged."
+      : reformatted;
 }
 
 function getDefaultOptions(availableOptions) {

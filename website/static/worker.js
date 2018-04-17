@@ -91,7 +91,8 @@ self.onmessage = function(event) {
       const response = {
         formatted: formatCode(message.code, options),
         debugAst: null,
-        debugDoc: null
+        debugDoc: null,
+        reformatted: null
       };
 
       if (message.debugAst) {
@@ -125,6 +126,10 @@ self.onmessage = function(event) {
         } catch (e) {
           response.debugDoc = String(e);
         }
+      }
+
+      if (message.secondFormat) {
+        response.reformatted = formatCode(response.formatted, options)
       }
 
       self.postMessage({
