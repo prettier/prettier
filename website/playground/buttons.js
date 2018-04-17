@@ -30,7 +30,9 @@ export class ClipboardButton extends React.Component {
 
   showTooltip(text) {
     this.setState({ showTooltip: true, tooltipText: text }, () => {
-      if (this.timer) clearTimeout(this.timer);
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
       this.timer = setTimeout(() => {
         this.timer = null;
         this.setState({ showTooltip: false });

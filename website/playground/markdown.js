@@ -55,13 +55,13 @@ function formatCLIOptions(cliOptions) {
 }
 
 function codeBlock(content, syntax) {
-  var backtickSequences = content.match(/`+/g) || [];
-  var longestBacktickSequenceLength = Math.max.apply(
+  const backtickSequences = content.match(/`+/g) || [];
+  const longestBacktickSequenceLength = Math.max.apply(
     null,
     backtickSequences.map(backticks => backticks.length)
   );
-  var fenceLength = Math.max(3, longestBacktickSequenceLength + 1);
-  var fence = Array(fenceLength + 1).join("`");
+  const fenceLength = Math.max(3, longestBacktickSequenceLength + 1);
+  const fence = Array(fenceLength + 1).join("`");
   return [fence + (syntax || ""), content, fence].join("\n");
 }
 

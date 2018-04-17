@@ -24,9 +24,18 @@ rules:
   prefer-arrow-callback: error
   prefer-const: error
   react/no-deprecated: off
+  react/prop-types: off
   strict: error
   symbol-description: error
   yoda:
   - error
   - never
   - exceptRange: true
+overrides:
+  - files:
+    - website/playground/**
+    env:
+      es6: true
+      browser: true
+    parserOptions:
+      sourceType: module

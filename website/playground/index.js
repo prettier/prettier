@@ -45,7 +45,9 @@ class App extends React.Component {
   render() {
     const { loaded, availableOptions, version } = this.state;
 
-    if (!loaded) return "Loading...";
+    if (!loaded) {
+      return "Loading...";
+    }
 
     return (
       <React.Fragment>
@@ -69,7 +71,9 @@ function parsePrettierOptions(supportInfo) {
   }, {});
 
   return ENABLED_OPTIONS.reduce((optionsList, optionConfig) => {
-    if (!supportedOptions[optionConfig.name]) return optionsList;
+    if (!supportedOptions[optionConfig.name]) {
+      return optionsList;
+    }
 
     const option = Object.assign(
       {},

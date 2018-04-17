@@ -7,7 +7,7 @@ function getFormatProps(props) {
   return { code, options, debugAst, debugDoc, secondFormat };
 }
 
-export default class extends React.Component {
+export default class PrettierFormat extends React.Component {
   constructor() {
     super();
     this.state = { formatted: "" };

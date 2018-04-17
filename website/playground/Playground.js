@@ -10,7 +10,6 @@ import formatMarkdown from "./markdown";
 
 import { Sidebar, SidebarCategory } from "./sidebar/components";
 import SidebarOptions from "./sidebar/SidebarOptions";
-import Option from "./sidebar/options";
 import { Checkbox } from "./sidebar/inputs";
 
 const CATEGORIES_ORDER = ["Global", "JavaScript", "Markdown", "Special"];
@@ -68,14 +67,14 @@ class Playground extends React.Component {
   }
 
   render() {
-    const { availableOptions } = this.props;
+    const { availableOptions, worker } = this.props;
     const { content, options } = this.state;
 
     return (
       <EditorState>
         {editorState => (
           <PrettierFormat
-            worker={this.props.worker}
+            worker={worker}
             code={content}
             options={options}
             debugAst={editorState.showAst}
@@ -150,7 +149,7 @@ class Playground extends React.Component {
                     <Button onClick={this.clearContent}>Clear</Button>
                   </div>
                   <div className="bottom-bar-buttons bottom-bar-buttons-right">
-                    <ClipboardButton copy={() => window.location.href}>
+                    <ClipboardButton copy={window.location.href}>
                       Copy link
                     </ClipboardButton>
                     <ClipboardButton
@@ -188,7 +187,7 @@ function getCliOptions(availableOptions, options) {
   const cliOptions = [];
   for (let i = 0; i < availableOptions.length; i++) {
     const option = availableOptions[i];
-    let value = options[option.name];
+    const value = options[option.name];
 
     if (option.type === "boolean") {
       if ((value && !option.inverted) || (!value && option.inverted)) {
