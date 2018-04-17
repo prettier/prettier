@@ -34,8 +34,10 @@ toolbox.precache([
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.36.0/addon/comment/comment.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.36.0/addon/wrap/hardwrap.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.36.0/keymap/sublime.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js",
   "https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/react/16.3.1/umd/react.production.min.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.3.1/umd/react-dom.production.min.js",
 
   // Images
   "/prettier.png"
