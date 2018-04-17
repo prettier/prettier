@@ -4,5 +4,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import Playground from "./Playground";
+import WorkerApi from "./WorkerApi";
 
-ReactDOM.render(<Playground />, document.getElementById("root"));
+ReactDOM.render(
+  <Playground worker={new WorkerApi("/worker.js")} />,
+  document.getElementById("root")
+);

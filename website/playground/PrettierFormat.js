@@ -1,5 +1,12 @@
 import React from "react";
 
+import { shallowEqual } from "./helpers";
+
+function getFormatProps(props) {
+  const { code, options, debugAst, debugDoc, secondFormat } = props;
+  return { code, options, debugAst, debugDoc, secondFormat };
+}
+
 export default class extends React.Component {
   constructor() {
     super();
@@ -11,36 +18,18 @@ export default class extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { code, options, debugAst, debugDoc, secondFormat } = this.props;
-    if (
-      prevProps.code !== code ||
-      prevProps.options !== options ||
-      prevProps.debugAst !== debugAst ||
-      prevProps.debugDoc !== debugDoc ||
-      prevProps.secondFormat !== secondFormat
-    ) {
+    if (!shallowEqual(getFormatProps(prevProps), getFormatProps(this.props))) {
       this.format();
     }
   }
 
   format() {
-    const {
-      code,
-      options,
-      worker,
-      debugAst,
-      debugDoc,
-      secondFormat
-    } = this.props;
+    const { worker } = this.props;
+
     worker
-      .postMessage({
-        type: "format",
-        code,
-        options,
-        debugAst,
-        debugDoc,
-        secondFormat
-      })
+      .postMessage(
+        Object.assign({ type: "format" }, getFormatProps(this.props))
+      )
       .then(result => this.setState(result));
   }
 

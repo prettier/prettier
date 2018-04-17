@@ -14,8 +14,6 @@ import SidebarOptions from "./sidebar/SidebarOptions";
 import Option from "./sidebar/options";
 import { Checkbox } from "./sidebar/inputs";
 
-import WorkerApi from "./WorkerApi";
-
 const CATEGORIES_ORDER = ["Global", "JavaScript", "Markdown", "Special"];
 
 const ENABLED_OPTIONS = [
@@ -58,9 +56,7 @@ class Playground extends React.Component {
   }
 
   componentDidMount() {
-    this._worker = new WorkerApi("/worker.js");
-
-    this._worker
+    this.props.worker
       .postMessage({ type: "meta" })
       .then(({ supportInfo, version }) => {
         const availableOptions = parsePrettierOptions(supportInfo);
@@ -119,7 +115,7 @@ class Playground extends React.Component {
         <EditorState>
           {editorState => (
             <PrettierFormat
-              worker={this._worker}
+              worker={this.props.worker}
               code={content}
               options={options}
               debugAst={editorState.showAst}
@@ -167,10 +163,10 @@ class Playground extends React.Component {
                         onChange={this.setContent}
                       />
                       {editorState.showAst ? (
-                        <DebugPanel value={debugAst} />
+                        <DebugPanel value={debugAst || ""} />
                       ) : null}
                       {editorState.showDoc ? (
-                        <DebugPanel value={debugDoc} />
+                        <DebugPanel value={debugDoc || ""} />
                       ) : null}
                       <OutputPanel
                         mode={getCodemirrorMode(options.parser)}
