@@ -98,41 +98,41 @@ class Playground extends React.Component {
         <VersionLink version={this.state.version} />
         <EditorState>
           {editorState => (
-            <React.Fragment>
-              <div className="editors-container">
-                <Sidebar visible={editorState.showSidebar}>
-                  <SidebarOptions
-                    categories={CATEGORIES_ORDER}
-                    availableOptions={availableOptions}
-                    optionValues={options}
-                    onOptionValueChange={this.handleOptionValueChange}
-                  />
-                  <SidebarCategory title="Debug">
-                    <Checkbox
-                      label="show AST"
-                      checked={editorState.showAst}
-                      onChange={editorState.toggleAst}
-                    />
-                    <Checkbox
-                      label="show doc"
-                      checked={editorState.showDoc}
-                      onChange={editorState.toggleDoc}
-                    />
-                  </SidebarCategory>
-                  <div className="sub-options">
-                    <Button onClick={this.resetOptions}>
-                      Reset to defaults
-                    </Button>
-                  </div>
-                </Sidebar>
-                <PrettierFormat
-                  worker={this._worker}
-                  code={content}
-                  options={options}
-                  debugAst={editorState.showAst}
-                  debugDoc={editorState.showDoc}
-                >
-                  {({ formatted, debugAst, debugDoc }) => (
+            <PrettierFormat
+              worker={this._worker}
+              code={content}
+              options={options}
+              debugAst={editorState.showAst}
+              debugDoc={editorState.showDoc}
+            >
+              {({ formatted, debugAst, debugDoc }) => (
+                <React.Fragment>
+                  <div className="editors-container">
+                    <Sidebar visible={editorState.showSidebar}>
+                      <SidebarOptions
+                        categories={CATEGORIES_ORDER}
+                        availableOptions={availableOptions}
+                        optionValues={options}
+                        onOptionValueChange={this.handleOptionValueChange}
+                      />
+                      <SidebarCategory title="Debug">
+                        <Checkbox
+                          label="show AST"
+                          checked={editorState.showAst}
+                          onChange={editorState.toggleAst}
+                        />
+                        <Checkbox
+                          label="show doc"
+                          checked={editorState.showDoc}
+                          onChange={editorState.toggleDoc}
+                        />
+                      </SidebarCategory>
+                      <div className="sub-options">
+                        <Button onClick={this.resetOptions}>
+                          Reset to defaults
+                        </Button>
+                      </div>
+                    </Sidebar>
                     <div className="editors">
                       <InputPanel
                         mode={getCodemirrorMode(options.parser)}
@@ -152,27 +152,27 @@ class Playground extends React.Component {
                         rulerColumn={options.printWidth}
                       />
                     </div>
-                  )}
-                </PrettierFormat>
-              </div>
-              <div className="bottom-bar">
-                <div className="bottom-bar-buttons">
-                  <Button onClick={editorState.toggleSidebar}>
-                    {editorState.showSidebar ? "Hide" : "Show"} options
-                  </Button>
-                  <Button onClick={this.clearContent}>Clear</Button>
-                </div>
-                <div className="bottom-bar-buttons bottom-bar-buttons-right">
-                  <ClipboardButton clipboardValue={window.location.href}>
-                    Copy link
-                  </ClipboardButton>
-                  <Button>Copy markdown</Button>
-                  <LinkButton href="#" target="_blank" rel="noopener">
-                    Report issue
-                  </LinkButton>
-                </div>
-              </div>
-            </React.Fragment>
+                  </div>
+                  <div className="bottom-bar">
+                    <div className="bottom-bar-buttons">
+                      <Button onClick={editorState.toggleSidebar}>
+                        {editorState.showSidebar ? "Hide" : "Show"} options
+                      </Button>
+                      <Button onClick={this.clearContent}>Clear</Button>
+                    </div>
+                    <div className="bottom-bar-buttons bottom-bar-buttons-right">
+                      <ClipboardButton clipboardValue={window.location.href}>
+                        Copy link
+                      </ClipboardButton>
+                      <Button>Copy markdown</Button>
+                      <LinkButton href="#" target="_blank" rel="noopener">
+                        Report issue
+                      </LinkButton>
+                    </div>
+                  </div>
+                </React.Fragment>
+              )}
+            </PrettierFormat>
           )}
         </EditorState>
       </React.Fragment>
