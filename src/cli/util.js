@@ -746,7 +746,12 @@ function createMinimistOptions(detailedOptions) {
       .map(option => option.name),
     default: detailedOptions
       .filter(option => !option.deprecated)
-      .filter(option => !option.forwardToApi || option.name === "plugin")
+      .filter(
+        option =>
+          !option.forwardToApi ||
+          option.name === "plugin" ||
+          option.name === "plugin-search-dir"
+      )
       .filter(option => option.default !== undefined)
       .reduce(
         (current, option) =>
@@ -809,11 +814,15 @@ function createContext(args) {
   const context = { args };
 
   updateContextArgv(context);
-  normalizeContextArgv(context, ["loglevel", "plugin"]);
+  normalizeContextArgv(context, ["loglevel", "plugin", "plugin-search-dir"]);
 
   context.logger = createLogger(context.argv["loglevel"]);
 
-  updateContextArgv(context, context.argv["plugin"]);
+  updateContextArgv(
+    context,
+    context.argv["plugin"],
+    context.argv["plugin-search-dir"]
+  );
 
   return context;
 }
@@ -823,12 +832,13 @@ function initContext(context) {
   normalizeContextArgv(context);
 }
 
-function updateContextOptions(context, plugins) {
+function updateContextOptions(context, plugins, pluginSearchDirs) {
   const supportOptions = prettier.getSupportInfo(null, {
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
-    plugins
+    plugins,
+    pluginSearchDirs
   }).options;
 
   const detailedOptionMap = normalizeDetailedOptionMap(
@@ -851,12 +861,12 @@ function updateContextOptions(context, plugins) {
   context.apiDefaultOptions = apiDefaultOptions;
 }
 
-function pushContextPlugins(context, plugins) {
+function pushContextPlugins(context, plugins, pluginSearchDirs) {
   context._supportOptions = context.supportOptions;
   context._detailedOptions = context.detailedOptions;
   context._detailedOptionMap = context.detailedOptionMap;
   context._apiDefaultOptions = context.apiDefaultOptions;
-  updateContextOptions(context, plugins);
+  updateContextOptions(context, plugins, pluginSearchDirs);
 }
 
 function popContextPlugins(context) {
@@ -866,8 +876,8 @@ function popContextPlugins(context) {
   context.apiDefaultOptions = context._apiDefaultOptions;
 }
 
-function updateContextArgv(context, plugins) {
-  pushContextPlugins(context, plugins);
+function updateContextArgv(context, plugins, pluginSearchDirs) {
+  pushContextPlugins(context, plugins, pluginSearchDirs);
 
   const minimistOptions = createMinimistOptions(context.detailedOptions);
   const argv = minimist(context.args, minimistOptions);
