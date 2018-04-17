@@ -19,15 +19,6 @@ export default Object.assign(baseConfig, {
           include: "node_modules/typescript-eslint-parser/parser.js"
         })
       : {},
-    // In flow-parser 0.59.0 there's a dynamic require: `require(s8)` which not
-    // supported by rollup-plugin-commonjs, so we have to replace the variable
-    // by its value before bundling.
-    parser.endsWith("flow")
-      ? replace({
-          "require(tf)": 'require("fs")',
-          include: "node_modules/flow-parser/flow_parser.js"
-        })
-      : {},
     json(),
     resolve({ preferBuiltins: true }),
     commonjs(
