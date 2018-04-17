@@ -69,7 +69,12 @@ class Playground extends React.Component {
           this.state.options
         );
 
-        this.setState({ loaded: true, availableOptions, options, version });
+        this.setState({
+          loaded: true,
+          availableOptions,
+          options,
+          version: fixPrettierVersion(version)
+        });
       });
   }
 
@@ -192,11 +197,15 @@ class Playground extends React.Component {
                       <ClipboardButton copy={this.getCurrentUrl}>
                         Copy link
                       </ClipboardButton>
-                      <ClipboardButton copy={() => this.getMarkdown(formatted, reformatted)}>
+                      <ClipboardButton
+                        copy={() => this.getMarkdown(formatted, reformatted)}
+                      >
                         Copy markdown
                       </ClipboardButton>
                       <LinkButton
-                        href={getReportLink(this.getMarkdown(formatted, reformatted, true))}
+                        href={getReportLink(
+                          this.getMarkdown(formatted, reformatted, true)
+                        )}
                         target="_blank"
                         rel="noopener"
                       >
@@ -243,6 +252,14 @@ function getSecondFormat(formatted, reformatted) {
     : formatted === reformatted
       ? "✓ Second format is unchanged."
       : reformatted;
+}
+
+function fixPrettierVersion(version) {
+  const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/);
+  if (match) {
+    return `pr-${match[1]}`;
+  }
+  return version;
 }
 
 function getDefaultOptions(availableOptions) {

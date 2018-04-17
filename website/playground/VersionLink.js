@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 const root = document.getElementById("version");
 
 export default function({ version }) {
-  const match = version.match(/^\d+\.\d+\.\d+-.(\d+)$/);
+  const match = version.match(/^pr-(\d+)$/);
   let href;
   if (match) {
     href = `pull/${match[1]}`;
