@@ -35,7 +35,6 @@ const docUtils = doc.utils;
 const willBreak = docUtils.willBreak;
 const isLineNext = docUtils.isLineNext;
 const isEmpty = docUtils.isEmpty;
-const rawText = docUtils.rawText;
 
 function shouldPrintComma(options, level) {
   level = level || "es5";
@@ -2385,7 +2384,7 @@ function printPathNoParens(path, options, print, args) {
         parent.type !== "TSTypeParameterInstantiation" &&
         parent.type !== "GenericTypeAnnotation" &&
         parent.type !== "TSTypeReference" &&
-        parent.type !== "FunctionTypeParam" &&
+        !(parent.type === "FunctionTypeParam" && !parent.name) &&
         !(
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator") &&
@@ -5525,6 +5524,10 @@ function printJsDocComment(comment) {
     ),
     "*/"
   ]);
+}
+
+function rawText(node) {
+  return node.extra ? node.extra.raw : node.raw;
 }
 
 module.exports = {

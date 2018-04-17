@@ -63,3 +63,10 @@ styled.div`
   ${props => props.red ? 'color: red;' : ''};
   /* prettier-ignore */
 `
+
+styled.div`
+ ${sanitize} ${fonts}
+  html {
+    margin: 0;
+  }
+`

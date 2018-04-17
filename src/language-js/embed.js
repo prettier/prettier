@@ -1,6 +1,5 @@
 "use strict";
 
-const util = require("../common/util");
 const doc = require("../doc");
 const docUtils = doc.utils;
 const docBuilders = doc.builders;
@@ -199,7 +198,7 @@ function getIndentation(str) {
 }
 
 function escapeBackticks(doc) {
-  return util.mapDoc(doc, currentDoc => {
+  return docUtils.mapDoc(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
@@ -283,7 +282,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       const placeholder = parts[atPlaceholderIndex];
       const rest = parts.slice(atPlaceholderIndex + 1);
       const placeholderMatch = placeholder.match(
-        /@prettier-placeholder-(.+)-id(.*)/
+        /@prettier-placeholder-(.+)-id([\s\S]*)/
       );
       const placeholderID = placeholderMatch[1];
       // When the expression has a suffix appended, like:

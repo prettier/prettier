@@ -215,22 +215,78 @@ function parseNestedCSS(node) {
       parseNestedCSS(node[key]);
     }
 
-    if (typeof node.selector === "string" && node.selector.trim().length > 0) {
-      let selector = node.raws.selector
-        ? node.raws.selector.raw
-        : node.selector;
+    if (!node.type) {
+      return node;
+    }
 
-      if (node.raws.between && node.raws.between.trim()) {
+    if (!node.raws) {
+      node.raws = {};
+    }
+
+    let selector = "";
+
+    if (typeof node.selector === "string") {
+      selector =
+        node.raws.selector && node.raws.selector.raw
+          ? node.raws.selector.raw
+          : node.selector;
+
+      if (node.raws.between && node.raws.between.trim().length > 0) {
         selector += node.raws.between;
       }
 
+      node.raws.selector = selector;
+    }
+
+    let value = "";
+
+    if (typeof node.value === "string") {
+      value =
+        node.raws.value && node.raws.value.raw
+          ? node.raws.value.raw
+          : node.value;
+
+      value = value.trim();
+
+      node.raws.value = selector;
+    }
+
+    let params = "";
+
+    if (typeof node.params === "string") {
+      params =
+        node.raws.params && node.raws.params.raw
+          ? node.raws.params.raw
+          : node.params;
+
+      if (node.raws.afterName && node.raws.afterName.trim().length > 0) {
+        params = node.raws.afterName + params;
+      }
+
+      if (node.raws.between && node.raws.between.trim().length > 0) {
+        params = params + node.raws.between;
+      }
+
+      params = params.trim();
+
+      node.raws.params = params;
+    }
+
+    // Ignore LESS mixin declaration
+    if (selector.trim().length > 0) {
       if (selector.startsWith("@") && selector.endsWith(":")) {
+        return node;
+      }
+
+      // Ignore LESS mixins
+      if (node.mixin) {
+        node.selector = parseValue(selector);
+
         return node;
       }
 
       try {
         node.selector = parseSelector(selector);
-        node.raws.selector = selector;
       } catch (e) {
         // Fail silently. It's better to print it as is than to try and parse it
         // Note: A common failure is for SCSS nested properties. `background:
@@ -247,15 +303,8 @@ function parseNestedCSS(node) {
       return node;
     }
 
-    if (
-      node.type &&
-      node.type !== "css-comment-yaml" &&
-      typeof node.value === "string" &&
-      node.value.trim().length > 0
-    ) {
+    if (node.type !== "css-comment-yaml" && value.length > 0) {
       try {
-        let value = node.raws.value ? node.raws.value.raw : node.value;
-
         const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
 
         if (defaultSCSSDirectiveIndex) {
@@ -293,26 +342,7 @@ function parseNestedCSS(node) {
       return node;
     }
 
-    if (node.type === "css-atrule" && typeof node.params === "string") {
-      let params =
-        node.raws.params && node.raws.params.raw
-          ? node.raws.params.raw
-          : node.params;
-
-      if (node.raws.afterName.trim()) {
-        params = node.raws.afterName + params;
-      }
-
-      if (node.raws.between.trim()) {
-        params = params + node.raws.between;
-      }
-
-      params = params.trim();
-
-      if (params.length === 0) {
-        return node;
-      }
-
+    if (node.type === "css-atrule" && params.length > 0) {
       const name = node.name;
       const lowercasedName = node.name.toLowerCase();
 

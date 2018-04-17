@@ -1,4 +1,14 @@
+# 1.12.1
+
+[link](https://github.com/prettier/prettier/compare/1.12.0...1.12.1)
+
+* Fix for tag being removed from CSS with embedded expressions ([#4302](https://github.com/prettier/prettier/pull/4302))
+* Wrap awaits in unary expressions with parens ([#4315](https://github.com/prettier/prettier/pull/4315))
+* Fix style regression on flow union types ([#4325](https://github.com/prettier/prettier/pull/4325))
+
 # 1.12.0
+
+[link](https://github.com/prettier/prettier/compare/1.11.1...1.12.0)
 
 * [Release Notes](https://prettier.io/blog/2018/04/11/1.12.0.html)
 
@@ -10,6 +20,8 @@
 * Fixed an issue relating to deprecated parsers ([#4072](https://github.com/prettier/prettier/pull/4072))
 
 # 1.11.0
+
+[link](https://github.com/prettier/prettier/compare/1.10.2...1.11.0)
 
 * [Release Notes](https://prettier.io/blog/2018/02/26/1.11.0.html)
 

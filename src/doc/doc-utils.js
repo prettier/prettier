@@ -40,22 +40,19 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
   traverseDocRec(doc);
 }
 
-function mapDoc(doc, func) {
-  doc = func(doc);
-
+function mapDoc(doc, cb) {
   if (doc.type === "concat" || doc.type === "fill") {
-    return Object.assign({}, doc, {
-      parts: doc.parts.map(d => mapDoc(d, func))
-    });
+    const parts = doc.parts.map(part => mapDoc(part, cb));
+    return cb(Object.assign({}, doc, { parts }));
   } else if (doc.type === "if-break") {
-    return Object.assign({}, doc, {
-      breakContents: doc.breakContents && mapDoc(doc.breakContents, func),
-      flatContents: doc.flatContents && mapDoc(doc.flatContents, func)
-    });
+    const breakContents = doc.breakContents && mapDoc(doc.breakContents, cb);
+    const flatContents = doc.flatContents && mapDoc(doc.flatContents, cb);
+    return cb(Object.assign({}, doc, { breakContents, flatContents }));
   } else if (doc.contents) {
-    return Object.assign({}, doc, { contents: mapDoc(doc.contents, func) });
+    const contents = mapDoc(doc.contents, cb);
+    return cb(Object.assign({}, doc, { contents }));
   }
-  return doc;
+  return cb(doc);
 }
 
 function findInDoc(doc, fn, defaultValue) {
@@ -182,10 +179,6 @@ function stripTrailingHardline(doc) {
   return doc;
 }
 
-function rawText(node) {
-  return node.extra ? node.extra.raw : node.raw;
-}
-
 module.exports = {
   isEmpty,
   willBreak,
@@ -194,6 +187,5 @@ module.exports = {
   mapDoc,
   propagateBreaks,
   removeLines,
-  stripTrailingHardline,
-  rawText
+  stripTrailingHardline
 };

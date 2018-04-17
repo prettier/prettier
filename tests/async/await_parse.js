@@ -8,7 +8,7 @@ function *f(){
   !(yield a);
 }
 async function f() {
-  a = !(await f());
+  a = !await f();
 }
 async () => {
   new A(await x);

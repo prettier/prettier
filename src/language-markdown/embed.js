@@ -1,5 +1,6 @@
 "use strict";
 
+const docUtils = require("../doc/doc-utils");
 const util = require("../common/util");
 const support = require("../common/support");
 const doc = require("../doc");
@@ -12,7 +13,7 @@ const markAsRoot = docBuilders.markAsRoot;
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
-  if (node.type === "code") {
+  if (node.type === "code" && node.lang !== null) {
     // only look for the first string so as to support [markdown-preview-enhanced](https://shd101wyy.github.io/markdown-preview-enhanced/#/code-chunk)
     const lang = node.lang.split(/\s/, 1)[0];
     const parser = getParserName(lang);
@@ -55,7 +56,7 @@ function embed(path, print, textToDoc, options) {
   }
 
   function replaceNewlinesWithLiterallines(doc) {
-    return util.mapDoc(
+    return docUtils.mapDoc(
       doc,
       currentDoc =>
         typeof currentDoc === "string" && currentDoc.includes("\n")
