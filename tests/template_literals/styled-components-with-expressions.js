@@ -26,6 +26,12 @@ styled.span`
   `}
 `
 
+styled.div`
+  top: ${ps =>
+    (ps.count * -REGION_HEIGHT) / 100 + (100 - REGION_HEIGHT / 100)}%;
+  bottom: 0;
+`
+
 const EqualDivider = styled.div`
 margin: 0.5rem;
 		padding: 1rem;
