@@ -4,6 +4,7 @@
 var parsersLoaded = {};
 
 // "Polyfills" in order for all the code to run
+/* eslint-disable no-undef, no-global-assign */
 self.global = self;
 self.util = {};
 self.path = {};
@@ -56,6 +57,7 @@ self.require = function require(path) {
 
   return self[path];
 };
+/* eslint-enable */
 
 var prettier;
 importScripts("lib/index.js");
@@ -67,78 +69,73 @@ if (typeof prettier === "undefined") {
 }
 
 self.onmessage = function(event) {
-  var uid = event.data.uid;
-  var message = event.data.message;
-  switch (message.type) {
-    case "meta":
-      self.postMessage({
-        uid: uid,
-        message: {
-          type: "meta",
-          supportInfo: JSON.parse(JSON.stringify(prettier.getSupportInfo())),
-          version: prettier.version
-        }
-      });
-      break;
-
-    case "format":
-      var options = message.options || {};
-
-      delete options.ast;
-      delete options.doc;
-      delete options.output2;
-
-      const response = {
-        formatted: formatCode(message.code, options),
-        debugAst: null,
-        debugDoc: null,
-        reformatted: null
-      };
-
-      if (message.debugAst) {
-        var ast;
-        var errored = false;
-        try {
-          ast = JSON.stringify(
-            prettier.__debug.parse(message.code, options).ast
-          );
-        } catch (e) {
-          errored = true;
-          ast = String(e);
-        }
-
-        if (!errored) {
-          try {
-            ast = formatCode(ast, { parser: "json" });
-          } catch (e) {
-            ast = JSON.stringify(actualAst, null, 2);
-          }
-        }
-        response.debugAst = ast;
-      }
-
-      if (message.debugDoc) {
-        try {
-          response.debugDoc = prettier.__debug.formatDoc(
-            prettier.__debug.printToDoc(message.code, options),
-            { parser: "babylon" }
-          );
-        } catch (e) {
-          response.debugDoc = String(e);
-        }
-      }
-
-      if (message.secondFormat) {
-        response.reformatted = formatCode(response.formatted, options)
-      }
-
-      self.postMessage({
-        uid: uid,
-        message: response
-      });
-      break;
-  }
+  self.postMessage({
+    uid: event.data.uid,
+    message: handleMessage(event.data.message)
+  });
 };
+
+function handleMessage(message) {
+  if (message.type === "meta") {
+    return {
+      type: "meta",
+      supportInfo: JSON.parse(JSON.stringify(prettier.getSupportInfo())),
+      version: prettier.version
+    };
+  }
+
+  if (message.type === "format") {
+    var options = message.options || {};
+
+    delete options.ast;
+    delete options.doc;
+    delete options.output2;
+
+    var response = {
+      formatted: formatCode(message.code, options),
+      debugAst: null,
+      debugDoc: null,
+      reformatted: null
+    };
+
+    if (message.debugAst) {
+      var ast;
+      var errored = false;
+      try {
+        ast = JSON.stringify(prettier.__debug.parse(message.code, options).ast);
+      } catch (e) {
+        errored = true;
+        ast = String(e);
+      }
+
+      if (!errored) {
+        try {
+          ast = formatCode(ast, { parser: "json" });
+        } catch (e) {
+          ast = JSON.stringify(ast, null, 2);
+        }
+      }
+      response.debugAst = ast;
+    }
+
+    if (message.debugDoc) {
+      try {
+        response.debugDoc = prettier.__debug.formatDoc(
+          prettier.__debug.printToDoc(message.code, options),
+          { parser: "babylon" }
+        );
+      } catch (e) {
+        response.debugDoc = String(e);
+      }
+    }
+
+    if (message.secondFormat) {
+      response.reformatted = formatCode(response.formatted, options);
+    }
+
+    return response;
+  }
+}
 
 function formatCode(text, options) {
   try {
