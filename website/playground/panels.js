@@ -6,17 +6,19 @@ class CodeMirrorPanel extends React.Component {
     super();
     this._textareaRef = React.createRef();
     this._codeMirror = null;
+    this._cached = "";
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    const { mode, rulerColumn: column, rulerColor: color } = this.props;
+    const { mode, rulerColumn: column, rulerColor: color, value } = this.props;
     this._codeMirror = CodeMirror.fromTextArea(
       this._textareaRef.current,
       Object.assign({ mode, rulers: [{ column, color }] }, this.props.options)
     );
     this._codeMirror.on("change", this.handleChange);
-    this._codeMirror.setValue(this.props.value || "");
+
+    this.updateValue(value || "");
   }
 
   componentWillUnmount() {
@@ -24,8 +26,8 @@ class CodeMirrorPanel extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.value !== this._codeMirror.getValue()) {
-      this._codeMirror.setValue(this.props.value);
+    if (this.props.options.readOnly && this.props.value !== this._cached) {
+      this.updateValue(this.props.value);
     }
     if (this.props.mode !== prevProps.mode) {
       this._codeMirror.setOption("mode", this.props.mode);
@@ -36,9 +38,15 @@ class CodeMirrorPanel extends React.Component {
     }
   }
 
+  updateValue(value) {
+    this._cached = value;
+    this._codeMirror.setValue(value);
+  }
+
   handleChange(doc, change) {
     if (change.origin !== "setValue") {
-      this.props.onChange(doc.getValue());
+      this._cached = doc.getValue();
+      this.props.onChange(this._cached);
     }
   }
 
