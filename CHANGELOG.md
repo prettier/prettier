@@ -1,3 +1,9 @@
+# 1.12.1
+
+* Fix for tag being removed from CSS with embedded expressions: https://github.com/prettier/prettier/pull/4302
+* Wrap awaits in unary expressions with parens: https://github.com/prettier/prettier/pull/4315
+* Fix style regression on flow union types: https://github.com/prettier/prettier/pull/4325
+
 # 1.12.0
 
 * [Release Notes](https://prettier.io/blog/2018/04/11/1.12.0.html)
