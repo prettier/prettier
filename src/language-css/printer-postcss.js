@@ -15,7 +15,9 @@ const group = docBuilders.group;
 const fill = docBuilders.fill;
 const indent = docBuilders.indent;
 
+// utils
 const removeLines = doc.utils.removeLines;
+const utils = require("./utils");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -679,6 +681,11 @@ function genericPrint(path, options, print) {
               )
             ])
           ),
+          utils.isSCSS(options.parser, options.originalText) &&
+          node.groups.length > 1 &&
+          options.trailingComma !== "none"
+            ? ","
+            : "",
           softline,
           node.close ? path.call(print, "close") : ""
         ])
