@@ -4,7 +4,7 @@ const fs = require("fs");
 const extname = require("path").extname;
 const prettier = require("./require_prettier");
 const massageAST = require("../src/common/clean-ast.js").massageAST;
-const normalizeOptions = require("../src/main/node_options").normalize;
+const normalizeOptions = require("../src/main/options").normalize;
 
 const AST_COMPARE = process.env["AST_COMPARE"];
 

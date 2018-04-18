@@ -52,6 +52,7 @@ function embed(path, print, textToDoc, options) {
       return language.parsers[0];
     }
     return null;
+
   }
 
   function replaceNewlinesWithLiterallines(doc) {

@@ -1,8 +1,9 @@
 "use strict";
 
-const inferParser = require("./infer-parser");
+const path = require("path");
 const getSupportInfo = require("../common/support").getSupportInfo;
 const normalizer = require("./options-normalizer");
+const loadPlugins = require("../common/load-plugins");
 const resolveParser = require("./parser").resolveParser;
 const getPlugin = require("./get-plugin");
 
@@ -18,7 +19,9 @@ function normalize(options, opts) {
   opts = opts || {};
 
   const rawOptions = Object.assign({}, options);
-  const plugins = (rawOptions.plugins = rawOptions.plugins || []);
+
+  const plugins = loadPlugins(rawOptions.plugins);
+  rawOptions.plugins = plugins;
 
   const supportOptions = getSupportInfo(null, {
     plugins,
@@ -94,6 +97,24 @@ function normalize(options, opts) {
     supportOptions,
     Object.assign({ passThrough: Object.keys(hiddenDefaults) }, opts)
   );
+}
+
+function inferParser(filepath, plugins) {
+  const extension = path.extname(filepath);
+  const filename = path.basename(filepath).toLowerCase();
+
+  const language = getSupportInfo(null, {
+    plugins,
+    pluginsLoaded: true
+  }).languages.find(
+    language =>
+      language.since !== null &&
+      (language.extensions.indexOf(extension) > -1 ||
+        (language.filenames &&
+          language.filenames.find(name => name.toLowerCase() === filename)))
+  );
+
+  return language && language.parsers[0];
 }
 
 module.exports = { normalize, hiddenDefaults };
