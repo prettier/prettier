@@ -3852,6 +3852,14 @@ function printClass(path, options, print) {
     parts.push(" extends ", join(", ", path.map(print, "extends")));
   }
 
+  if (n["mixins"] && n["mixins"].length > 0) {
+    partsGroup.push(
+      line,
+      "mixins ",
+      group(indent(join(concat([",", line]), path.map(print, "mixins"))))
+    );
+  }
+
   if (n["implements"] && n["implements"].length > 0) {
     partsGroup.push(
       line,
@@ -3864,14 +3872,6 @@ function printClass(path, options, print) {
           ])
         )
       )
-    );
-  }
-
-  if (n["mixins"] && n["mixins"].length > 0) {
-    partsGroup.push(
-      line,
-      "mixins ",
-      group(indent(join(concat([",", line]), path.map(print, "mixins"))))
     );
   }
 

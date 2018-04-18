@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`implements.js 1`] = `
+class A implements B {}
+class A implements B, C {}
+declare class A implements B {}
+declare class A mixins B implements C {}
+declare class A implements B, C {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class A implements B {}
+class A implements B, C {}
+declare class A implements B {}
+declare class A mixins B implements C {}
+declare class A implements B, C {}
+
+`;
