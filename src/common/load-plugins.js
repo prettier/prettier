@@ -4,7 +4,6 @@ const resolve = require("resolve");
 const readPkgUp = require("read-pkg-up");
 
 function loadPlugins(plugins) {
-  "FLAG";
   plugins = plugins || [];
 
   const internalPlugins = [

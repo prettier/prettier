@@ -7,21 +7,22 @@ import json from "rollup-plugin-json";
 import alias from "rollup-plugin-alias";
 
 export default Object.assign(baseConfig, {
-  entry: "index.js",
-  dest: "prettier.js",
-  format: "umd",
+  input: "index.js",
+  output: {
+    file: "prettier.js",
+    format: "umd",
+    name: "prettier"
+  },
   plugins: [
+    resolve({ preferBuiltins: true, extensions: [".js", ".json"] }),
     alias({
       [path.resolve("src/common/load-plugins.js")]: path.resolve(
         "src/common/load-plugins-browser.js"
       )
     }),
     json(),
-    resolve({ preferBuiltins: true, extensions: [".js", ".json"] }),
     commonjs(),
     globals()
   ],
-  useStrict: false,
-  moduleName: "prettier",
   external: ["assert", "fs", "module"]
 });
