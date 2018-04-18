@@ -4111,7 +4111,7 @@ function printMemberChain(path, options, print) {
   // containing only _ and $, or shorter than tabWidth. The rationale
   // is that they are likely to be factories.
   function isFactory(name) {
-    return name.match(/(^[A-Z])|^[_$]+$/) || name.length <= options.tabWidth;
+    return name.match(/(^[A-Z])/) || name.length <= options.tabWidth;
   }
   const shouldMerge =
     groups.length >= 2 &&
