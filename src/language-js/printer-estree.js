@@ -5472,6 +5472,10 @@ function canAttachComment(node) {
   );
 }
 
+function isBlockComment(comment) {
+  return comment.type === "Block" || comment.type === "CommentBlock";
+}
+
 function printComment(commentPath, options) {
   const comment = commentPath.getValue();
 
@@ -5539,6 +5543,7 @@ module.exports = {
   willPrintOwnComments,
   canAttachComment,
   printComment,
+  isBlockComment,
   handleComments: {
     ownLine: handleComments.handleOwnLineComment,
     endOfLine: handleComments.handleEndOfLineComment,

@@ -415,6 +415,8 @@ function hasBlockComments(node) {
   return node.comments && node.comments.some(isBlockComment);
 }
 
+// @TODO: this is replaced by the printer-defined isBlockComment. leaving
+// for now because of other dependencies in this file
 function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
