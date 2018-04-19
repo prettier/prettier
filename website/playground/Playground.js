@@ -121,7 +121,7 @@ class Playground extends React.Component {
                   <div className="editors">
                     <InputPanel
                       mode={util.getCodemirrorMode(options.parser)}
-                      rulerColumn={options.printWidth}
+                      ruler={options.printWidth}
                       value={content}
                       placeholder={getCodeSample(options.parser)}
                       onChange={this.setContent}
@@ -135,13 +135,13 @@ class Playground extends React.Component {
                     <OutputPanel
                       mode={util.getCodemirrorMode(options.parser)}
                       value={formatted}
-                      rulerColumn={options.printWidth}
+                      ruler={options.printWidth}
                     />
                     {editorState.showSecondFormat ? (
                       <OutputPanel
                         mode={util.getCodemirrorMode(options.parser)}
                         value={getSecondFormat(formatted, debug.reformatted)}
-                        rulerColumn={options.printWidth}
+                        ruler={options.printWidth}
                       />
                     ) : null}
                   </div>
