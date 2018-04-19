@@ -411,12 +411,6 @@ function getLeftMost(node) {
   return node;
 }
 
-// @TODO: this is replaced by the printer-defined isBlockComment. leaving
-// for now because of other dependencies in this file
-function isBlockComment(comment) {
-  return comment.type === "Block" || comment.type === "CommentBlock";
-}
-
 function getAlignmentSize(value, tabWidth, startIndex) {
   startIndex = startIndex || 0;
 
@@ -786,7 +780,6 @@ module.exports = {
   setLocStart,
   setLocEnd,
   startsWithNoLookaheadToken,
-  isBlockComment,
   getAlignmentSize,
   getIndentSize,
   printString,
