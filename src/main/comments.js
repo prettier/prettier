@@ -472,21 +472,21 @@ function printDanglingComments(path, options, sameIndent, filter) {
   return indent(concat([hardline, join(hardline, parts)]));
 }
 
-function prependCursorPlaceholder(path, options, printed) {
-  if (path.getNode() === options.cursorNode && path.getValue()) {
-    return concat([cursor, printed]);
-  }
-  return printed;
-}
-
 function printComments(path, print, options, needsSemi) {
   const value = path.getValue();
   const printed = print(path);
   const comments = value && value.comments;
 
+  const cursorIsAtThisNode = path.getNode() === options.cursorNode && value;
+
   if (!comments || comments.length === 0) {
-    return prependCursorPlaceholder(path, options, printed);
+    if (cursorIsAtThisNode) {
+      return concat([cursor, printed]);
+    }
+    return printed;
   }
+
+  let cursorWasInjected = false;
 
   const leadingParts = [];
   const trailingParts = [needsSemi ? ";" : "", printed];
@@ -496,10 +496,20 @@ function printComments(path, print, options, needsSemi) {
     const leading = comment.leading;
     const trailing = comment.trailing;
 
+    const cursorIsAtThisComment =
+      !cursorWasInjected &&
+      comment.range &&
+      comment.range[0] <= options.cursorOffset &&
+      comment.range[1] > options.cursorOffset;
+
     if (leading) {
       const contents = printLeadingComment(commentPath, print, options);
       if (!contents) {
         return;
+      }
+      if (cursorIsAtThisComment) {
+        leadingParts.push(cursor);
+        cursorWasInjected = true;
       }
       leadingParts.push(contents);
 
@@ -513,15 +523,19 @@ function printComments(path, print, options, needsSemi) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {
+      if (cursorIsAtThisComment) {
+        trailingParts.push(cursor);
+        cursorWasInjected = true;
+      }
       trailingParts.push(printTrailingComment(commentPath, print, options));
     }
   }, "comments");
 
-  return prependCursorPlaceholder(
-    path,
-    options,
-    concat(leadingParts.concat(trailingParts))
-  );
+  if (cursorIsAtThisNode && !cursorWasInjected) {
+    leadingParts.push(cursor);
+  }
+
+  return concat(leadingParts.concat(trailingParts));
 }
 
 module.exports = {
