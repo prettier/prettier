@@ -3,6 +3,22 @@
 const assert = require("assert");
 
 const util = require("../common/util");
+const comments = require("./comments");
+
+function hasClosureCompilerTypeCastComment(text, node, locEnd) {
+  // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
+  // Syntax example: var x = /** @type {string} */ (fruit);
+  return (
+    node.comments &&
+    node.comments.some(
+      comment =>
+        comment.leading &&
+        comments.isBlockComment(comment) &&
+        comment.value.match(/^\*\s*@type\s*{[^}]+}\s*$/) &&
+        util.getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "("
+    )
+  );
+}
 
 function needsParens(path, options) {
   const parent = path.getParentNode();
@@ -28,7 +44,7 @@ function needsParens(path, options) {
   // Closure compiler requires that type casted expressions to be surrounded by
   // parentheses.
   if (
-    util.hasClosureCompilerTypeCastComment(
+    hasClosureCompilerTypeCastComment(
       options.originalText,
       node,
       options.locEnd
