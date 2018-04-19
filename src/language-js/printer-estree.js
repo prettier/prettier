@@ -4108,7 +4108,7 @@ function printMemberChain(path, options, print) {
   //
   // In order to detect those cases, we use an heuristic: if the first
   // node is an identifier with the name starting with a capital letter,
-  // or shorter than tabWidth. The rationale is that they are likely 
+  // or shorter than tabWidth. The rationale is that they are likely
   // to be factories.
   function isNoWrap(name) {
     return name.match(/(^[A-Z])/) || name.length <= options.tabWidth;
