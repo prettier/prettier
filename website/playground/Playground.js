@@ -7,6 +7,8 @@ import PrettierFormat from "./PrettierFormat";
 import { shallowEqual } from "./helpers";
 import * as urlHash from "./urlHash";
 import formatMarkdown from "./markdown";
+import * as util from "./util";
+import getCodeSample from "./codeSamples";
 
 import { Sidebar, SidebarCategory } from "./sidebar/components";
 import SidebarOptions from "./sidebar/SidebarOptions";
@@ -20,7 +22,7 @@ class Playground extends React.Component {
 
     const { content, options } = urlHash.read();
 
-    const defaultOptions = getDefaultOptions(props.availableOptions);
+    const defaultOptions = util.getDefaults(props.availableOptions);
 
     this.state = {
       content: content || "",
@@ -61,7 +63,7 @@ class Playground extends React.Component {
       version,
       window.location.href,
       options,
-      getCliOptions(availableOptions, options),
+      util.buildCliArgs(availableOptions, options),
       full
     );
   }
@@ -75,7 +77,7 @@ class Playground extends React.Component {
         {editorState => (
           <PrettierFormat
             worker={worker}
-            code={content}
+            code={content || getCodeSample(options.parser)}
             options={options}
             debugAst={editorState.showAst}
             debugDoc={editorState.showDoc}
@@ -116,9 +118,10 @@ class Playground extends React.Component {
                   </Sidebar>
                   <div className="editors">
                     <InputPanel
-                      mode={getCodemirrorMode(options.parser)}
+                      mode={util.getCodemirrorMode(options.parser)}
                       rulerColumn={options.printWidth}
                       value={content}
+                      placeholder={getCodeSample(options.parser)}
                       onChange={this.setContent}
                     />
                     {editorState.showAst ? (
@@ -128,13 +131,13 @@ class Playground extends React.Component {
                       <DebugPanel value={debugDoc || ""} />
                     ) : null}
                     <OutputPanel
-                      mode={getCodemirrorMode(options.parser)}
+                      mode={util.getCodemirrorMode(options.parser)}
                       value={formatted}
                       rulerColumn={options.printWidth}
                     />
                     {editorState.showSecondFormat ? (
                       <OutputPanel
-                        mode={getCodemirrorMode(options.parser)}
+                        mode={util.getCodemirrorMode(options.parser)}
                         value={getSecondFormat(formatted, reformatted)}
                         rulerColumn={options.printWidth}
                       />
@@ -183,51 +186,12 @@ function getReportLink(reportBody) {
   )}`;
 }
 
-function getCliOptions(availableOptions, options) {
-  const cliOptions = [];
-  for (let i = 0; i < availableOptions.length; i++) {
-    const option = availableOptions[i];
-    const value = options[option.name];
-
-    if (option.type === "boolean") {
-      if ((value && !option.inverted) || (!value && option.inverted)) {
-        cliOptions.push([option.cliName, true]);
-      }
-    } else if (value !== option.default) {
-      cliOptions.push([option.cliName, value]);
-    }
-  }
-  return cliOptions;
-}
-
 function getSecondFormat(formatted, reformatted) {
   return formatted === ""
     ? ""
     : formatted === reformatted
       ? "✓ Second format is unchanged."
       : reformatted;
-}
-
-function getDefaultOptions(availableOptions) {
-  return availableOptions.reduce((acc, option) => {
-    acc[option.name] = option.default;
-    return acc;
-  }, {});
-}
-
-function getCodemirrorMode(parser) {
-  switch (parser) {
-    case "css":
-    case "less":
-    case "scss":
-      return "css";
-    case "graphql":
-      return "graphql";
-    case "markdown":
-      return "markdown";
-    default:
-      return "jsx";
-  }
 }
 
 export default Playground;

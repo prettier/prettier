@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import Playground from "./Playground";
 import VersionLink from "./VersionLink";
 import WorkerApi from "./WorkerApi";
+import { getAvailableOptions, fixPrettierVersion } from "./util";
 
 const ENABLED_OPTIONS = [
   "parser",
@@ -36,7 +37,7 @@ class App extends React.Component {
       .then(({ supportInfo, version }) => {
         this.setState({
           loaded: true,
-          availableOptions: parsePrettierOptions(supportInfo),
+          availableOptions: getAvailableOptions(supportInfo, ENABLED_OPTIONS),
           version: fixPrettierVersion(version)
         });
       });
@@ -63,37 +64,3 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
-
-function parsePrettierOptions(supportInfo) {
-  const supportedOptions = supportInfo.options.reduce((acc, option) => {
-    acc[option.name] = option;
-    return acc;
-  }, {});
-
-  return ENABLED_OPTIONS.reduce((optionsList, optionConfig) => {
-    if (!supportedOptions[optionConfig.name]) {
-      return optionsList;
-    }
-
-    const option = Object.assign(
-      {},
-      optionConfig,
-      supportedOptions[optionConfig.name]
-    );
-    option.cliName =
-      "--" +
-      (option.inverted ? "no-" : "") +
-      option.name.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
-
-    optionsList.push(option);
-    return optionsList;
-  }, []);
-}
-
-function fixPrettierVersion(version) {
-  const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/);
-  if (match) {
-    return `pr-${match[1]}`;
-  }
-  return version;
-}

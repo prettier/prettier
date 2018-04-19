@@ -11,10 +11,19 @@ class CodeMirrorPanel extends React.Component {
   }
 
   componentDidMount() {
-    const { mode, rulerColumn: column, rulerColor: color, value } = this.props;
+    const {
+      mode,
+      rulerColumn: column,
+      rulerColor: color,
+      placeholder,
+      value
+    } = this.props;
     this._codeMirror = CodeMirror.fromTextArea(
       this._textareaRef.current,
-      Object.assign({ mode, rulers: [{ column, color }] }, this.props.options)
+      Object.assign(
+        { mode, rulers: [{ column, color }], placeholder },
+        this.props.options
+      )
     );
     this._codeMirror.on("change", this.handleChange);
 
@@ -31,6 +40,9 @@ class CodeMirrorPanel extends React.Component {
     }
     if (this.props.mode !== prevProps.mode) {
       this._codeMirror.setOption("mode", this.props.mode);
+    }
+    if (this.props.placeholder !== prevProps.placeholder) {
+      this._codeMirror.setOption("placeholder", this.props.placeholder);
     }
     if (this.props.rulerColumn !== prevProps.rulerColumn) {
       const { rulerColumn: column, rulerColor: color } = this.props;
@@ -59,7 +71,13 @@ class CodeMirrorPanel extends React.Component {
   }
 }
 
-export function InputPanel({ mode, rulerColumn, value, onChange }) {
+export function InputPanel({
+  mode,
+  rulerColumn,
+  value,
+  placeholder,
+  onChange
+}) {
   return (
     <CodeMirrorPanel
       options={{
@@ -74,6 +92,7 @@ export function InputPanel({ mode, rulerColumn, value, onChange }) {
       rulerColumn={rulerColumn}
       rulerColor="#eeeeee"
       value={value}
+      placeholder={placeholder}
       onChange={onChange}
     />
   );

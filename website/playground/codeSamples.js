@@ -1,4 +1,4 @@
-export default function getCodeExample(parser) {
+export default function(parser) {
   switch (parser) {
     case "babylon":
       return [
