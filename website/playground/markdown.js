@@ -48,7 +48,8 @@ function getMarkdownSyntax(options) {
 function formatCLIOptions(cliOptions) {
   return cliOptions
     .map(option => {
-      const [name, value] = option;
+      const name = option[0];
+      const value = option[1];
       return value === true ? name : `${name} ${value}`;
     })
     .join("\n");
