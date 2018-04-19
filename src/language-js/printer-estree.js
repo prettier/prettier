@@ -4108,9 +4108,9 @@ function printMemberChain(path, options, print) {
   //
   // In order to detect those cases, we use an heuristic: if the first
   // node is an identifier with the name starting with a capital letter,
-  // containing only _ and $, or shorter than tabWidth. The rationale
-  // is that they are likely to be factories.
-  function isFactory(name) {
+  // or shorter than tabWidth. The rationale is that they are likely 
+  // to be factories.
+  function isFactoryOrShort(name) {
     return name.match(/(^[A-Z])/) || name.length <= options.tabWidth;
   }
   const shouldMerge =
@@ -4119,12 +4119,12 @@ function printMemberChain(path, options, print) {
     ((groups[0].length === 1 &&
       (groups[0][0].node.type === "ThisExpression" ||
         (groups[0][0].node.type === "Identifier" &&
-          (isFactory(groups[0][0].node.name) ||
+          (isFactoryOrShort(groups[0][0].node.name) ||
             (groups[1].length && groups[1][0].node.computed))))) ||
       (groups[0].length > 1 &&
         groups[0][groups[0].length - 1].node.type === "MemberExpression" &&
         groups[0][groups[0].length - 1].node.property.type === "Identifier" &&
-        (isFactory(groups[0][groups[0].length - 1].node.property.name) ||
+        (isFactoryOrShort(groups[0][groups[0].length - 1].node.property.name) ||
           (groups[1].length && groups[1][0].node.computed))));
 
   function printGroup(printedGroup) {
