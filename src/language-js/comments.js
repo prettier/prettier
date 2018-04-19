@@ -700,8 +700,13 @@ function handleVariableDeclaratorComments(
   return false;
 }
 
+function isBlockComment(comment) {
+  return comment.type === "Block" || comment.type === "CommentBlock";
+}
+
 module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
-  handleRemainingComment
+  handleRemainingComment,
+  isBlockComment
 };

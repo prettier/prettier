@@ -411,29 +411,10 @@ function getLeftMost(node) {
   return node;
 }
 
-function hasBlockComments(node) {
-  return node.comments && node.comments.some(isBlockComment);
-}
-
 // @TODO: this is replaced by the printer-defined isBlockComment. leaving
 // for now because of other dependencies in this file
 function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
-}
-
-function hasClosureCompilerTypeCastComment(text, node, locEnd) {
-  // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
-  // Syntax example: var x = /** @type {string} */ (fruit);
-  return (
-    node.comments &&
-    node.comments.some(
-      comment =>
-        comment.leading &&
-        isBlockComment(comment) &&
-        comment.value.match(/^\*\s*@type\s*{[^}]+}\s*$/) &&
-        getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "("
-    )
-  );
 }
 
 function getAlignmentSize(value, tabWidth, startIndex) {
@@ -805,9 +786,7 @@ module.exports = {
   setLocStart,
   setLocEnd,
   startsWithNoLookaheadToken,
-  hasBlockComments,
   isBlockComment,
-  hasClosureCompilerTypeCastComment,
   getAlignmentSize,
   getIndentSize,
   printString,

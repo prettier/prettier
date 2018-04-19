@@ -368,10 +368,8 @@ function printLeadingComment(commentPath, print, options) {
   if (!contents) {
     return "";
   }
-  const isBlockComment = options.printer.isBlockComment
-    ? options.printer.isBlockComment
-    : () => false;
-  const isBlock = isBlockComment(comment);
+  const isBlock =
+    options.printer.isBlockComment && options.printer.isBlockComment(comment);
 
   // Leading block comments should see if they need to stay on the
   // same line or not.
@@ -393,10 +391,8 @@ function printTrailingComment(commentPath, print, options) {
   if (!contents) {
     return "";
   }
-  const isBlockComment = options.printer.isBlockComment
-    ? options.printer.isBlockComment
-    : () => false;
-  const isBlock = isBlockComment(comment);
+  const isBlock =
+    options.printer.isBlockComment && options.printer.isBlockComment(comment);
 
   // We don't want the line to break
   // when the parentParentNode is a ClassDeclaration/-Expression

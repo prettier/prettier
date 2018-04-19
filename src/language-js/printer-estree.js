@@ -1471,7 +1471,7 @@ function printPathNoParens(path, options, print, args) {
           (hasTrailingComment(n.consequent) &&
             n.consequent.comments.some(
               comment =>
-                comment.trailing && !privateUtil.isBlockComment(comment)
+                comment.trailing && !handleComments.isBlockComment(comment)
             )) ||
           needsHardlineAfterDanglingComment(n);
         const elseOnSameLine =
@@ -1930,7 +1930,7 @@ function printPathNoParens(path, options, print, args) {
     case "TSJsxClosingFragment": {
       const hasComment = n.comments && n.comments.length;
       const hasOwnLineComment =
-        hasComment && !n.comments.every(privateUtil.isBlockComment);
+        hasComment && !n.comments.every(handleComments.isBlockComment);
       const isOpeningFragment =
         n.type === "JSXOpeningFragment" || n.type === "TSJsxOpeningFragment";
       return concat([
@@ -1954,7 +1954,7 @@ function printPathNoParens(path, options, print, args) {
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression": {
       const requiresHardline =
-        n.comments && !n.comments.every(privateUtil.isBlockComment);
+        n.comments && !n.comments.every(handleComments.isBlockComment);
 
       return concat([
         comments.printDanglingComments(
@@ -5313,7 +5313,7 @@ function needsHardlineAfterDanglingComment(node) {
     node.comments.filter(comment => !comment.leading && !comment.trailing)
   );
   return (
-    lastDanglingComment && !privateUtil.isBlockComment(lastDanglingComment)
+    lastDanglingComment && !handleComments.isBlockComment(lastDanglingComment)
   );
 }
 
@@ -5472,10 +5472,6 @@ function canAttachComment(node) {
   );
 }
 
-function isBlockComment(comment) {
-  return comment.type === "Block" || comment.type === "CommentBlock";
-}
-
 function printComment(commentPath, options) {
   const comment = commentPath.getValue();
 
@@ -5543,7 +5539,7 @@ module.exports = {
   willPrintOwnComments,
   canAttachComment,
   printComment,
-  isBlockComment,
+  isBlockComment: handleComments.isBlockComment,
   handleComments: {
     ownLine: handleComments.handleOwnLineComment,
     endOfLine: handleComments.handleEndOfLineComment,
