@@ -20,13 +20,21 @@ export default function(source) {
     }
   });
 
+  function postMessage(message) {
+    const uid = ++counter;
+    return new Promise((resolve, reject) => {
+      handlers[uid] = [resolve, reject];
+      worker.postMessage({ uid, message });
+    });
+  }
+
   return {
-    postMessage(message) {
-      const uid = ++counter;
-      return new Promise((resolve, reject) => {
-        handlers[uid] = [resolve, reject];
-        worker.postMessage({ uid, message });
-      });
-    }
+    getMetadata() {
+      return postMessage({ type: "meta" });
+    },
+    format(code, options, debug) {
+      return postMessage({ type: "format", code, options, debug });
+    },
+    postMessage
   };
 }

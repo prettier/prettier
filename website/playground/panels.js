@@ -11,23 +11,21 @@ class CodeMirrorPanel extends React.Component {
   }
 
   componentDidMount() {
-    const {
-      mode,
-      rulerColumn: column,
-      rulerColor: color,
-      placeholder,
-      value
-    } = this.props;
+    const options = Object.assign({}, this.props);
+    delete options.rulerColumn;
+    delete options.rulerColor;
+    delete options.value;
+    delete options.onChange;
+
+    options.rulers = [makeRuler(this.props)];
+
     this._codeMirror = CodeMirror.fromTextArea(
       this._textareaRef.current,
-      Object.assign(
-        { mode, rulers: [{ column, color }], placeholder },
-        this.props.options
-      )
+      options
     );
     this._codeMirror.on("change", this.handleChange);
 
-    this.updateValue(value || "");
+    this.updateValue(this.props.value || "");
   }
 
   componentWillUnmount() {
@@ -35,7 +33,7 @@ class CodeMirrorPanel extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.options.readOnly && this.props.value !== this._cached) {
+    if (this.props.readOnly && this.props.value !== this._cached) {
       this.updateValue(this.props.value);
     }
     if (this.props.mode !== prevProps.mode) {
@@ -45,8 +43,7 @@ class CodeMirrorPanel extends React.Component {
       this._codeMirror.setOption("placeholder", this.props.placeholder);
     }
     if (this.props.rulerColumn !== prevProps.rulerColumn) {
-      const { rulerColumn: column, rulerColor: color } = this.props;
-      this._codeMirror.setOption("rulers", [{ column, color }]);
+      this._codeMirror.setOption("rulers", [makeRuler(this.props)]);
     }
   }
 
@@ -71,44 +68,32 @@ class CodeMirrorPanel extends React.Component {
   }
 }
 
-export function InputPanel({
-  mode,
-  rulerColumn,
-  value,
-  placeholder,
-  onChange
-}) {
+function makeRuler(props) {
+  return { column: props.rulerColumn, color: props.rulerColor };
+}
+
+export function InputPanel(props) {
   return (
     <CodeMirrorPanel
-      options={{
-        lineNumbers: true,
-        keyMap: "sublime",
-        autoCloseBrackets: true,
-        matchBrackets: true,
-        showCursorWhenSelecting: true,
-        tabWidth: 2
-      }}
-      mode={mode}
-      rulerColumn={rulerColumn}
+      lineNumbers={true}
+      keyMap="sublime"
+      autoCloseBrackets={true}
+      matchBrackets={true}
+      showCursorWhenSelecting={true}
+      tabWidth={2}
       rulerColor="#eeeeee"
-      value={value}
-      placeholder={placeholder}
-      onChange={onChange}
+      {...props}
     />
   );
 }
 
-export function OutputPanel({ mode, rulerColumn, value }) {
+export function OutputPanel(props) {
   return (
     <CodeMirrorPanel
-      options={{
-        readOnly: true,
-        lineNumbers: true
-      }}
-      mode={mode}
-      rulerColumn={rulerColumn}
+      readOnly={true}
+      lineNumbers={true}
       rulerColor="#444444"
-      value={value}
+      {...props}
     />
   );
 }
@@ -116,7 +101,9 @@ export function OutputPanel({ mode, rulerColumn, value }) {
 export function DebugPanel({ value }) {
   return (
     <CodeMirrorPanel
-      options={{ readOnly: true, lineNumbers: false, mode: "jsx" }}
+      readOnly={true}
+      lineNumbers={false}
+      mode="jsx"
       value={value}
     />
   );

@@ -47,9 +47,11 @@ class Playground extends React.Component {
   }
 
   handleOptionValueChange(option, value) {
-    this.setState(state => ({
-      options: Object.assign({}, state.options, { [option.name]: value })
-    }));
+    this.setState(state => {
+      let options = Object.assign({}, state.options);
+      options[option.name] = value;
+      return { options };
+    });
   }
 
   getMarkdown(formatted, reformatted, full) {
@@ -83,7 +85,7 @@ class Playground extends React.Component {
             debugDoc={editorState.showDoc}
             secondFormat={editorState.showSecondFormat}
           >
-            {({ formatted, debugAst, debugDoc, reformatted }) => (
+            {({ formatted, debug }) => (
               <React.Fragment>
                 <div className="editors-container">
                   <Sidebar visible={editorState.showSidebar}>
@@ -125,10 +127,10 @@ class Playground extends React.Component {
                       onChange={this.setContent}
                     />
                     {editorState.showAst ? (
-                      <DebugPanel value={debugAst || ""} />
+                      <DebugPanel value={debug.ast || ""} />
                     ) : null}
                     {editorState.showDoc ? (
-                      <DebugPanel value={debugDoc || ""} />
+                      <DebugPanel value={debug.doc || ""} />
                     ) : null}
                     <OutputPanel
                       mode={util.getCodemirrorMode(options.parser)}
@@ -138,7 +140,7 @@ class Playground extends React.Component {
                     {editorState.showSecondFormat ? (
                       <OutputPanel
                         mode={util.getCodemirrorMode(options.parser)}
-                        value={getSecondFormat(formatted, reformatted)}
+                        value={getSecondFormat(formatted, debug.reformatted)}
                         rulerColumn={options.printWidth}
                       />
                     ) : null}
@@ -156,13 +158,15 @@ class Playground extends React.Component {
                       Copy link
                     </ClipboardButton>
                     <ClipboardButton
-                      copy={() => this.getMarkdown(formatted, reformatted)}
+                      copy={() =>
+                        this.getMarkdown(formatted, debug.reformatted)
+                      }
                     >
                       Copy markdown
                     </ClipboardButton>
                     <LinkButton
                       href={getReportLink(
-                        this.getMarkdown(formatted, reformatted, true)
+                        this.getMarkdown(formatted, debug.reformatted, true)
                       )}
                       target="_blank"
                       rel="noopener"

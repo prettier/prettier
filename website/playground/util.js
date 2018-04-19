@@ -41,8 +41,7 @@ export function getDefaults(availableOptions) {
 
 export function buildCliArgs(availableOptions, options) {
   const args = [];
-  for (let i = 0; i < availableOptions.length; i++) {
-    const option = availableOptions[i];
+  for (const option of availableOptions) {
     const value = options[option.name];
 
     if (option.type === "boolean") {

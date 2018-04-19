@@ -2,15 +2,10 @@ import React from "react";
 
 import { shallowEqual } from "./helpers";
 
-function getFormatProps(props) {
-  const { code, options, debugAst, debugDoc, secondFormat } = props;
-  return { code, options, debugAst, debugDoc, secondFormat };
-}
-
 export default class PrettierFormat extends React.Component {
   constructor() {
     super();
-    this.state = { formatted: "" };
+    this.state = { formatted: "", debug: {} };
   }
 
   componentDidMount() {
@@ -18,18 +13,32 @@ export default class PrettierFormat extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!shallowEqual(getFormatProps(prevProps), getFormatProps(this.props))) {
-      this.format();
+    for (const key of [
+      "code",
+      "options",
+      "debugAst",
+      "debugDoc",
+      "secondFormat"
+    ]) {
+      if (prevProps[key] !== this.props[key]) {
+        this.format();
+        break;
+      }
     }
   }
 
   format() {
-    const { worker } = this.props;
+    const {
+      worker,
+      code,
+      options,
+      debugAst: ast,
+      debugDoc: doc,
+      secondFormat: reformat
+    } = this.props;
 
     worker
-      .postMessage(
-        Object.assign({ type: "format" }, getFormatProps(this.props))
-      )
+      .format(code, options, { ast, doc, reformat })
       .then(result => this.setState(result));
   }
 

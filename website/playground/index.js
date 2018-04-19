@@ -32,15 +32,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.worker
-      .postMessage({ type: "meta" })
-      .then(({ supportInfo, version }) => {
-        this.setState({
-          loaded: true,
-          availableOptions: getAvailableOptions(supportInfo, ENABLED_OPTIONS),
-          version: fixPrettierVersion(version)
-        });
+    this.worker.getMetadata().then(({ supportInfo, version }) => {
+      this.setState({
+        loaded: true,
+        availableOptions: getAvailableOptions(supportInfo, ENABLED_OPTIONS),
+        version: fixPrettierVersion(version)
       });
+    });
   }
 
   render() {

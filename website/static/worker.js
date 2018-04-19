@@ -93,12 +93,14 @@ function handleMessage(message) {
 
     var response = {
       formatted: formatCode(message.code, options),
-      debugAst: null,
-      debugDoc: null,
-      reformatted: null
+      debug: {
+        ast: null,
+        doc: null,
+        reformatted: null
+      }
     };
 
-    if (message.debugAst) {
+    if (message.debug.ast) {
       var ast;
       var errored = false;
       try {
@@ -115,22 +117,22 @@ function handleMessage(message) {
           ast = JSON.stringify(ast, null, 2);
         }
       }
-      response.debugAst = ast;
+      response.debug.ast = ast;
     }
 
-    if (message.debugDoc) {
+    if (message.debug.doc) {
       try {
         response.debugDoc = prettier.__debug.formatDoc(
           prettier.__debug.printToDoc(message.code, options),
           { parser: "babylon" }
         );
       } catch (e) {
-        response.debugDoc = String(e);
+        response.debug.doc = String(e);
       }
     }
 
-    if (message.secondFormat) {
-      response.reformatted = formatCode(response.formatted, options);
+    if (message.debug.reformat) {
+      response.debug.reformatted = formatCode(response.formatted, options);
     }
 
     return response;
