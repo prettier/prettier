@@ -1,7 +1,5 @@
 import React from "react";
 
-import { shallowEqual } from "./helpers";
-
 export default class PrettierFormat extends React.Component {
   constructor() {
     super();
@@ -13,13 +11,7 @@ export default class PrettierFormat extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    for (const key of [
-      "code",
-      "options",
-      "debugAst",
-      "debugDoc",
-      "reformat"
-    ]) {
+    for (const key of ["code", "options", "debugAst", "debugDoc", "reformat"]) {
       if (prevProps[key] !== this.props[key]) {
         this.format();
         break;

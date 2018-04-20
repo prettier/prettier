@@ -1,29 +1,3 @@
-export function getAvailableOptions(supportInfo, enabledOptions) {
-  const supportedOptions = supportInfo.options.reduce((acc, option) => {
-    acc[option.name] = option;
-    return acc;
-  }, {});
-
-  return enabledOptions.reduce((optionsList, optionConfig) => {
-    if (!supportedOptions[optionConfig.name]) {
-      return optionsList;
-    }
-
-    const option = Object.assign(
-      {},
-      optionConfig,
-      supportedOptions[optionConfig.name]
-    );
-    option.cliName =
-      "--" +
-      (option.inverted ? "no-" : "") +
-      option.name.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
-
-    optionsList.push(option);
-    return optionsList;
-  }, []);
-}
-
 export function fixPrettierVersion(version) {
   const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/);
   if (match) {
@@ -32,9 +6,11 @@ export function fixPrettierVersion(version) {
   return version;
 }
 
-export function getDefaults(availableOptions) {
+export function getDefaults(availableOptions, enabledOptions) {
   return availableOptions.reduce((acc, option) => {
-    acc[option.name] = option.default;
+    if (enabledOptions.includes(option.name)) {
+      acc[option.name] = option.default;
+    }
     return acc;
   }, {});
 }
@@ -44,11 +20,15 @@ export function buildCliArgs(availableOptions, options) {
   for (const option of availableOptions) {
     const value = options[option.name];
 
+    if (typeof value === "undefined") {
+      continue;
+    }
+
     if (option.type === "boolean") {
       if ((value && !option.inverted) || (!value && option.inverted)) {
         args.push([option.cliName, true]);
       }
-    } else if (value !== option.default) {
+    } else if (value !== option.default || option.name === "rangeStart") {
       args.push([option.cliName, value]);
     }
   }

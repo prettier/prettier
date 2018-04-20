@@ -2,7 +2,9 @@ import LZString from "lz-string";
 
 export function read() {
   const hash = document.location.hash.slice(1);
-  if (!hash) return {};
+  if (!hash) {
+    return {};
+  }
 
   // backwards support for old json encoded URIComponent
   const decode =

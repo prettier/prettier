@@ -6,23 +6,7 @@ import ReactDOM from "react-dom";
 import Playground from "./Playground";
 import VersionLink from "./VersionLink";
 import WorkerApi from "./WorkerApi";
-import { getAvailableOptions, fixPrettierVersion } from "./util";
-
-const ENABLED_OPTIONS = [
-  "parser",
-  "printWidth",
-  "tabWidth",
-  "useTabs",
-  { name: "semi", inverted: true },
-  "singleQuote",
-  { name: "bracketSpacing", inverted: true },
-  "jsxBracketSameLine",
-  "arrowParens",
-  "trailingComma",
-  "proseWrap",
-  "insertPragma",
-  "requirePragma"
-].map(option => (typeof option === "string" ? { name: option } : option));
+import { fixPrettierVersion } from "./util";
 
 class App extends React.Component {
   constructor() {
@@ -35,7 +19,7 @@ class App extends React.Component {
     this.worker.getMetadata().then(({ supportInfo, version }) => {
       this.setState({
         loaded: true,
-        availableOptions: getAvailableOptions(supportInfo, ENABLED_OPTIONS),
+        availableOptions: supportInfo.options.map(augmentOption),
         version: fixPrettierVersion(version)
       });
     });
@@ -59,6 +43,19 @@ class App extends React.Component {
       </React.Fragment>
     );
   }
+}
+
+function augmentOption(option) {
+  option.cliName =
+    "--" +
+    (option.inverted ? "no-" : "") +
+    option.name.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+
+  if (option.type === "boolean" && option.default === true) {
+    option.inverted = true;
+  }
+
+  return option;
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));

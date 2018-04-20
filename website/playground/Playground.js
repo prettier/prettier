@@ -12,9 +12,25 @@ import getCodeSample from "./codeSamples";
 
 import { Sidebar, SidebarCategory } from "./sidebar/components";
 import SidebarOptions from "./sidebar/SidebarOptions";
+import Option from "./sidebar/options";
 import { Checkbox } from "./sidebar/inputs";
 
 const CATEGORIES_ORDER = ["Global", "JavaScript", "Markdown", "Special"];
+const ENABLED_OPTIONS = [
+  "parser",
+  "printWidth",
+  "tabWidth",
+  "useTabs",
+  "semi",
+  "singleQuote",
+  "bracketSpacing",
+  "jsxBracketSameLine",
+  "arrowParens",
+  "trailingComma",
+  "proseWrap",
+  "insertPragma",
+  "requirePragma"
+];
 
 class Playground extends React.Component {
   constructor(props) {
@@ -22,7 +38,10 @@ class Playground extends React.Component {
 
     const { content, options } = urlHash.read();
 
-    const defaultOptions = util.getDefaults(props.availableOptions);
+    const defaultOptions = util.getDefaults(
+      props.availableOptions,
+      ENABLED_OPTIONS
+    );
 
     this.state = {
       content: content || "",
@@ -34,6 +53,13 @@ class Playground extends React.Component {
     this.setContent = content => this.setState({ content });
     this.clearContent = this.setContent.bind(this, "");
     this.resetOptions = () => this.setState({ options: defaultOptions });
+
+    this.rangeStartOption = props.availableOptions.find(
+      opt => opt.name === "rangeStart"
+    );
+    this.rangeEndOption = props.availableOptions.find(
+      opt => opt.name === "rangeEnd"
+    );
   }
 
   componentDidUpdate(_, prevState) {
@@ -48,8 +74,12 @@ class Playground extends React.Component {
 
   handleOptionValueChange(option, value) {
     this.setState(state => {
-      let options = Object.assign({}, state.options);
-      options[option.name] = value;
+      const options = Object.assign({}, state.options);
+      if (option.type === "int" && isNaN(value)) {
+        delete options[option.name];
+      } else {
+        options[option.name] = value;
+      }
       return { options };
     });
   }
@@ -92,9 +122,27 @@ class Playground extends React.Component {
                     <SidebarOptions
                       categories={CATEGORIES_ORDER}
                       availableOptions={availableOptions}
+                      enabledOptions={ENABLED_OPTIONS}
                       optionValues={options}
                       onOptionValueChange={this.handleOptionValueChange}
                     />
+                    <SidebarCategory title="Range">
+                      <label>
+                        The selected range will be highlighted in yellow in the
+                        input editor
+                      </label>
+                      <Option
+                        option={this.rangeStartOption}
+                        value={options.rangeStart}
+                        onChange={this.handleOptionValueChange}
+                      />
+                      <Option
+                        option={this.rangeEndOption}
+                        value={options.rangeEnd}
+                        overrideMax={content.length}
+                        onChange={this.handleOptionValueChange}
+                      />
+                    </SidebarCategory>
                     <SidebarCategory title="Debug">
                       <Checkbox
                         label="show AST"
@@ -124,6 +172,8 @@ class Playground extends React.Component {
                       ruler={options.printWidth}
                       value={content}
                       placeholder={getCodeSample(options.parser)}
+                      overlayStart={options.rangeStart}
+                      overlayEnd={options.rangeEnd}
                       onChange={this.setContent}
                     />
                     {editorState.showAst ? (
