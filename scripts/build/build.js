@@ -4,7 +4,7 @@
 
 const path = require("path");
 const pkg = require("../../package.json");
-const formatMarkdown = require("../../website/static/markdown");
+const formatMarkdown = require("../../website/playground/markdown");
 const parsers = require("./parsers");
 const shell = require("shelljs");
 

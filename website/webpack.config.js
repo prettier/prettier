@@ -15,9 +15,15 @@ module.exports = {
         exclude: /node_modules/,
         loader: "babel-loader",
         options: {
-          presets: ["env"]
+          presets: ["env", "react"]
         }
       }
     ]
+  },
+  externals: {
+    clipboard: "ClipboardJS",
+    codemirror: "CodeMirror",
+    react: "React",
+    "react-dom": "ReactDOM"
   }
 };
