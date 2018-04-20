@@ -6,13 +6,14 @@ export function fixPrettierVersion(version) {
   return version;
 }
 
-export function getDefaults(availableOptions, enabledOptions) {
-  return availableOptions.reduce((acc, option) => {
-    if (enabledOptions.includes(option.name)) {
-      acc[option.name] = option.default;
+export function getDefaults(availableOptions, optionNames) {
+  const defaults = {};
+  for (const option of availableOptions) {
+    if (optionNames.includes(option.name)) {
+      defaults[option.name] = option.default;
     }
-    return acc;
-  }, {});
+  }
+  return defaults;
 }
 
 export function buildCliArgs(availableOptions, options) {

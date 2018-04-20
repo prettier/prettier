@@ -54,6 +54,7 @@ class Playground extends React.Component {
     this.clearContent = this.setContent.bind(this, "");
     this.resetOptions = () => this.setState({ options: defaultOptions });
 
+    this.enabledOptions = orderOptions(props.availableOptions, ENABLED_OPTIONS);
     this.rangeStartOption = props.availableOptions.find(
       opt => opt.name === "rangeStart"
     );
@@ -101,7 +102,7 @@ class Playground extends React.Component {
   }
 
   render() {
-    const { availableOptions, worker } = this.props;
+    const { worker } = this.props;
     const { content, options } = this.state;
 
     return (
@@ -121,8 +122,7 @@ class Playground extends React.Component {
                   <Sidebar visible={editorState.showSidebar}>
                     <SidebarOptions
                       categories={CATEGORIES_ORDER}
-                      availableOptions={availableOptions}
-                      enabledOptions={ENABLED_OPTIONS}
+                      availableOptions={this.enabledOptions}
                       optionValues={options}
                       onOptionValueChange={this.handleOptionValueChange}
                     />
@@ -232,6 +232,15 @@ class Playground extends React.Component {
       </EditorState>
     );
   }
+}
+
+function orderOptions(availableOptions, order) {
+  const optionsByName = {};
+  for (const option of availableOptions) {
+    optionsByName[option.name] = option;
+  }
+
+  return order.map(name => optionsByName[name]);
 }
 
 function getReportLink(reportBody) {

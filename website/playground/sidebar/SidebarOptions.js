@@ -7,7 +7,6 @@ import Option from "./options";
 export default function({
   categories,
   availableOptions,
-  enabledOptions,
   optionValues,
   onOptionValueChange
 }) {
@@ -16,17 +15,14 @@ export default function({
     category =>
       options[category] ? (
         <SidebarCategory key={category} title={category}>
-          {options[category].map(
-            option =>
-              enabledOptions.includes(option.name) ? (
-                <Option
-                  key={option.name}
-                  option={option}
-                  value={optionValues[option.name]}
-                  onChange={onOptionValueChange}
-                />
-              ) : null
-          )}
+          {options[category].map(option => (
+            <Option
+              key={option.name}
+              option={option}
+              value={optionValues[option.name]}
+              onChange={onOptionValueChange}
+            />
+          ))}
         </SidebarCategory>
       ) : null
   );

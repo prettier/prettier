@@ -46,14 +46,14 @@ class App extends React.Component {
 }
 
 function augmentOption(option) {
+  if (option.type === "boolean" && option.default === true) {
+    option.inverted = true;
+  }
+
   option.cliName =
     "--" +
     (option.inverted ? "no-" : "") +
     option.name.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
-
-  if (option.type === "boolean" && option.default === true) {
-    option.inverted = true;
-  }
 
   return option;
 }
