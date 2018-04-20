@@ -18,7 +18,7 @@ export default class PrettierFormat extends React.Component {
       "options",
       "debugAst",
       "debugDoc",
-      "secondFormat"
+      "reformat"
     ]) {
       if (prevProps[key] !== this.props[key]) {
         this.format();
@@ -34,7 +34,7 @@ export default class PrettierFormat extends React.Component {
       options,
       debugAst: ast,
       debugDoc: doc,
-      secondFormat: reformat
+      reformat
     } = this.props;
 
     worker

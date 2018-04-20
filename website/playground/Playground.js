@@ -83,7 +83,7 @@ class Playground extends React.Component {
             options={options}
             debugAst={editorState.showAst}
             debugDoc={editorState.showDoc}
-            secondFormat={editorState.showSecondFormat}
+            reformat={editorState.showSecondFormat}
           >
             {({ formatted, debug }) => (
               <React.Fragment>
