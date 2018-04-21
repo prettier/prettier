@@ -18,9 +18,12 @@ function embed(path, print, textToDoc /*, options */) {
 
   switch (node.type) {
     case "TemplateLiteral": {
-      const isCss = [isStyledJsx, isStyledComponents, isCssProp].some(isIt =>
-        isIt(path)
-      );
+      const isCss = [
+        isStyledJsx,
+        isStyledComponents,
+        isCssProp,
+        isAngularComponentStyles
+      ].some(isIt => isIt(path));
 
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
@@ -37,6 +40,35 @@ function embed(path, print, textToDoc /*, options */) {
         }, "");
         const doc = textToDoc(text, { parser: "css" });
         return transformCssDoc(doc, path, print);
+      }
+
+      const isWithinArrayValueFromProperty = !!(
+        parent &&
+        (parent.type === "ArrayExpression" && parentParent.type === "Property")
+      );
+      /**
+       * CSS Styles
+       */
+      if (
+        isWithinArrayValueFromProperty &&
+        isPropertyWithinAngularComponentDecorator(path, 4)
+      ) {
+        if (parentParent.key && parentParent.key.name === "styles") {
+          // Get full template literal with expressions replaced by placeholders
+          const rawQuasis = node.quasis.map(q => q.value.raw);
+          let placeholderID = 0;
+          const text = rawQuasis.reduce((prevVal, currVal, idx) => {
+            return idx == 0
+              ? currVal
+              : prevVal +
+                  "@prettier-placeholder-" +
+                  placeholderID++ +
+                  "-id" +
+                  currVal;
+          }, "");
+          const doc = textToDoc(text, { parser: "css" });
+          return transformCssDoc(doc, path, print);
+        }
       }
 
       /*
@@ -174,6 +206,18 @@ function embed(path, print, textToDoc /*, options */) {
     const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
     return docUtils.stripTrailingHardline(escapeBackticks(doc));
   }
+}
+
+function isPropertyWithinAngularComponentDecorator(path, parentIndexToCheck) {
+  const parent = path.getParentNode(parentIndexToCheck);
+  return !!(
+    parent &&
+    parent.type === "Decorator" &&
+    parent.expression &&
+    parent.expression.type === "CallExpression" &&
+    parent.expression.callee &&
+    parent.expression.callee.name === "Component"
+  );
 }
 
 function getIndentation(str) {
@@ -332,6 +376,41 @@ function isStyledJsx(path) {
       attribute => attribute.name.name === "jsx"
     )
   );
+}
+
+/**
+ * Angular Components can have:
+ * - Inline HTML template
+ * - Inline CSS styles
+ *
+ * ...which are both within template literals somewhere
+ * inside of the Component decorator factory.
+ *
+ * TODO: Format HTML template once prettier's HTML
+ * formatting is "ready"
+ *
+ * E.g.
+ * @Component({
+ *  template: `<div>...</div>`,
+ *  styles: [`h1 { color: blue; }`]
+ * })
+ */
+function isAngularComponentStyles(path) {
+  const parent = path.getParentNode();
+  const parentParent = path.getParentNode(1);
+  const isWithinArrayValueFromProperty = !!(
+    parent &&
+    (parent.type === "ArrayExpression" && parentParent.type === "Property")
+  );
+  if (
+    isWithinArrayValueFromProperty &&
+    isPropertyWithinAngularComponentDecorator(path, 4)
+  ) {
+    if (parentParent.key && parentParent.key.name === "styles") {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**

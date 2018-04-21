@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.component.ts 1`] = `
+@Component({
+       selector: 'app-test',
+  template: \`<ul>   <li>test</li>
+  </ul>
+  \`,
+  styles: [   \`
+  
+ :host {
+   color: red;
+ } 
+ div { background: blue
+ }
+\`
+
+]
+})
+class     TestComponent {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@Component({
+  selector: "app-test",
+  template: \`<ul>   <li>test</li>
+  </ul>
+  \`,
+  styles: [
+    \`
+      :host {
+        color: red;
+      }
+      div {
+        background: blue;
+      }
+    \`
+  ]
+})
+class TestComponent {}
+
+`;
+
+exports[`test.component.ts 2`] = `
+@Component({
+       selector: 'app-test',
+  template: \`<ul>   <li>test</li>
+  </ul>
+  \`,
+  styles: [   \`
+  
+ :host {
+   color: red;
+ } 
+ div { background: blue
+ }
+\`
+
+]
+})
+class     TestComponent {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@Component({
+  selector: "app-test",
+  template: \`<ul>   <li>test</li>
+  </ul>
+  \`,
+  styles: [
+    \`
+      :host {
+        color: red;
+      }
+      div {
+        background: blue;
+      }
+    \`,
+  ],
+})
+class TestComponent {}
+
+`;
