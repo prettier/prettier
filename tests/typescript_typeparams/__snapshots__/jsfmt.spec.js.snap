@@ -41,12 +41,9 @@ export const RedBox = styled.div<{foo: string}>\`
   \${props => props.foo}
 \`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export const RedBox =
-  styled.div <
-  { foo: string } >
-  \`
+export const RedBox = styled.div<{ foo: string }>\`
   background: red;
-  \${props => props.foo}
+  \${props => props.foo};
 \`;
 
 `;

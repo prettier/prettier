@@ -2095,7 +2095,11 @@ function printPathNoParens(path, options, print, args) {
     // These types are unprintable because they serve as abstract
     // supertypes for other (printable) types.
     case "TaggedTemplateExpression":
-      return concat([path.call(print, "tag"), path.call(print, "quasi")]);
+      return concat([
+        path.call(print, "tag"),
+        path.call(print, "typeParameters"),
+        path.call(print, "quasi")
+      ]);
     case "Node":
     case "Printable":
     case "SourceLocation":
@@ -2723,7 +2727,7 @@ function printPathNoParens(path, options, print, args) {
       return concat([path.call(print, "expression"), "!"]);
     case "TSThisType":
       return "this";
-    case "TSLastTypeNode":
+    case "TSLiteralType":
       return path.call(print, "literal");
     case "TSIndexedAccessType":
       return concat([
