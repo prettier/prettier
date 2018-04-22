@@ -2,6 +2,7 @@
 
 const version = require("./package.json").version;
 
+const createIgnorer = require("./src/common/ignore").createIgnorer;
 const privateUtil = require("./src/common/util");
 const sharedUtil = require("./src/common/util-shared");
 const getSupportInfo = require("./src/common/support").getSupportInfo;
@@ -386,6 +387,14 @@ function formatRange(text, opts, ast) {
 }
 
 module.exports = {
+  createIgnorer: function(ignorePath) {
+    const ignorer = createIgnorer(ignorePath, error => {
+      throw error;
+    });
+
+    return filePath => ignorer.ignores(filePath);
+  },
+
   formatWithCursor: function(text, opts) {
     return formatWithCursor(text, normalizeOptions(opts));
   },

@@ -5,7 +5,6 @@ const camelCase = require("camelcase");
 const dashify = require("dashify");
 const fs = require("fs");
 const globby = require("globby");
-const ignore = require("ignore");
 const chalk = require("chalk");
 const readline = require("readline");
 const leven = require("leven");
@@ -14,6 +13,7 @@ const minimist = require("./minimist");
 const prettier = require("../../index");
 const cleanAST = require("../common/clean-ast").cleanAST;
 const errors = require("../common/errors");
+const createIgnorer = require("../common/ignore").createIgnorer;
 const resolver = require("../config/resolve-config");
 const constant = require("./constant");
 const optionsModule = require("../main/options");
@@ -259,7 +259,7 @@ function formatStdin(context) {
     ? path.resolve(process.cwd(), context.argv["stdin-filepath"])
     : process.cwd();
 
-  const ignorer = createIgnorer(context);
+  const ignorer = createIgnorerFromContext(context);
   const relativeFilepath = path.relative(process.cwd(), filepath);
 
   thirdParty.getStream(process.stdin).then(input => {
@@ -282,22 +282,11 @@ function formatStdin(context) {
   });
 }
 
-function createIgnorer(context) {
-  const ignoreFilePath = path.resolve(context.argv["ignore-path"]);
-  let ignoreText = "";
-
-  try {
-    ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
-  } catch (readError) {
-    if (readError.code !== "ENOENT") {
-      context.logger.error(
-        `Unable to read ${ignoreFilePath}: ` + readError.message
-      );
-      process.exit(2);
-    }
-  }
-
-  return ignore().add(ignoreText);
+function createIgnorerFromContext(context) {
+  return createIgnorer(context.argv["ignore-path"], (error, ignoreFilePath) => {
+    context.logger.error(`Unable to read ${ignoreFilePath}: ${error.message}`);
+    process.exit(2);
+  });
 }
 
 function eachFilename(context, patterns, callback) {
@@ -333,7 +322,7 @@ function eachFilename(context, patterns, callback) {
 function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
-  const ignorer = createIgnorer(context);
+  const ignorer = createIgnorerFromContext(context);
 
   eachFilename(context, context.filePatterns, (filename, options) => {
     const fileIgnored = ignorer.filter([filename]).length === 0;
