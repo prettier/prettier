@@ -189,3 +189,7 @@
 - caption: Jane
   image: /images/users/jane-200x100.png
   infoLink: https://jane.com/
+- caption: Metric.ai
+  image: /images/users/metric-ai-white.svg
+  infoLink: https://www.metric.ai/
+
