@@ -123,8 +123,128 @@ function printDoc(doc) {
   throw new Error("Unknown doc type " + doc.type);
 }
 
+function printTag(tagName, props, contents) {
+  if (!Array.isArray(contents)) {
+    contents = [contents];
+  }
+
+  contents = contents
+    .map(doc => printDocToJSX(doc, true))
+    .join("\n");
+
+  return (
+    "<" +
+    tagName +
+    (props && props.length ? " " + props.replace(/\n/g, "\n  ") : "") +
+    (contents && contents.length
+      ? ">\n  " + contents.replace(/\n/g, "\n  ") + "\n</" + tagName + ">"
+      : " />")
+  );
+}
+
+function printDocToJSX(doc, inJSX) {
+  if (typeof doc === "string") {
+    if (!inJSX) {
+      return JSON.stringify(doc);
+    }
+    if (/[{}<>]/.test(doc)) {
+      return '{"' + doc + '"}';
+    }
+    return doc;
+  }
+  if (typeof doc === "number") {
+    return String(doc);
+  }
+  if (doc == null) {
+    return "";
+  }
+
+  if (doc.type === "line") {
+    let props = "";
+    if (doc.literalline) {
+      props = "literal";
+    }
+    if (doc.hard) {
+      props = "hard";
+    }
+    if (doc.soft) {
+      props = "soft";
+    }
+    return printTag("line", props);
+  }
+
+  if (doc.type === "break-parent") {
+    return printTag("break-parent");
+  }
+
+  if (doc.type === "concat") {
+    return printTag("concat", "", doc.parts);
+  }
+
+  if (doc.type === "indent") {
+    return printTag("indent", "", doc.contents);
+  }
+
+  if (doc.type === "align") {
+    let tag = "align";
+    let props = "";
+    if (doc.n === -Infinity) {
+      tag = "dedent";
+      props = "root";
+    } else if (doc.n < 0) {
+      tag = "dedent";
+      props = "width={" + printDocToJSX(doc.n) + "}";
+    } else if (doc.n.type === "root") {
+      tag = "mark-as-root";
+    } else {
+      props = "width={" + printDocToJSX(doc.n) + "}";
+    }
+    return printTag(tag, props, doc.contents);
+  }
+
+  if (doc.type === "if-break") {
+    return printTag(
+      "if-break",
+      doc.flatContents && "flat={" + printDocToJSX(doc.flatContents) + "}",
+      doc.breakContents
+    );
+  }
+
+  if (doc.type === "group") {
+    if (doc.expandedStates) {
+      return printTag(
+        "conditional-group",
+        "states={[" +
+          doc.expandedStates
+            .map(doc => printDocToJSX(doc))
+            .join(",\n  ") +
+          "]}"
+      );
+    }
+
+    return printTag("group", doc.break && "wrapped", doc.contents);
+  }
+
+  if (doc.type === "fill") {
+    return printTag("fill", "", doc.parts);
+  }
+
+  if (doc.type === "line-suffix") {
+    return printTag("line-suffix", "", doc.contents);
+  }
+
+  if (doc.type === "line-suffix-boundary") {
+    return printTag("line-suffix-boundary");
+  }
+
+  throw new Error("Unknown doc type " + doc.type);
+}
+
 module.exports = {
   printDocToDebug: function(doc) {
     return printDoc(flattenDoc(doc));
+  },
+  printJSXToDebug: function(doc) {
+    return printDocToJSX(flattenDoc(doc));
   }
 };
