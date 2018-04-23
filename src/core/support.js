@@ -3,7 +3,7 @@
 const semver = require("semver");
 const arrayify = require("../utils/arrayify");
 const currentVersion = require("../../package.json").version;
-const optionsModule = require("./options");
+const coreOptions = require("./options").options;
 
 function getSupportInfo(version, opts) {
   opts = Object.assign(
@@ -29,7 +29,7 @@ function getSupportInfo(version, opts) {
           Object.assign(currentOptions, plugin.options),
         {}
       ),
-      optionsModule.options
+      coreOptions
     ),
     "name"
   )
