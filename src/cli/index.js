@@ -3,6 +3,7 @@
 const prettier = require("../../index");
 const stringify = require("json-stable-stringify");
 const util = require("./util");
+const loadPlugins = require("../common/load-plugins");
 
 function run(args) {
   const context = util.createContext(args);
@@ -38,9 +39,12 @@ function run(args) {
 
     if (context.argv["support-info"]) {
       context.logger.log(
-        prettier.format(stringify(prettier.getSupportInfo()), {
-          parser: "json"
-        })
+        prettier.format(
+          stringify(prettier.getSupportInfo(null, { plugins: loadPlugins() })),
+          {
+            parser: "json"
+          }
+        )
       );
       process.exit(0);
     }

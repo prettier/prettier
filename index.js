@@ -4,7 +4,8 @@ const version = require("./package.json").version;
 
 const privateUtil = require("./src/common/util");
 const sharedUtil = require("./src/common/util-shared");
-const getSupportInfo = require("./src/common/support").getSupportInfo;
+const getSupportInfo = require("./src/core/support").getSupportInfo;
+const loadPlugins = require("./src/common/load-plugins");
 
 const comments = require("./src/main/comments");
 const printAstToDoc = require("./src/main/ast-to-doc");
@@ -408,7 +409,11 @@ module.exports = {
   resolveConfig: config.resolveConfig,
   clearConfigCache: config.clearCache,
 
-  getSupportInfo,
+  getSupportInfo(version, opts) {
+    opts = Object.assign({}, opts);
+    opts.plugins = loadPlugins(opts.plugins);
+    return getSupportInfo(version, opts);
+  },
 
   version,
 

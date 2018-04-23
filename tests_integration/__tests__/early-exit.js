@@ -5,7 +5,6 @@ const runPrettier = require("../runPrettier");
 const constant = require("../../src/cli/constant");
 const util = require("../../src/cli/util");
 const commonUtil = require("../../src/common/util");
-const getSupportInfo = require("../../src/common/support").getSupportInfo;
 
 describe("show version with --version", () => {
   runPrettier("cli/with-shebang", ["--version"]).test({
@@ -52,7 +51,7 @@ commonUtil
     Object.assign(
       {},
       util.createDetailedOptionMap(
-        getSupportInfo(null, {
+        prettier.getSupportInfo(null, {
           showDeprecated: true,
           showUnreleased: true,
           showInternal: true

@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const getSupportInfo = require("../common/support").getSupportInfo;
+const getSupportInfo = require("../core/support").getSupportInfo;
 const normalizer = require("./options-normalizer");
 const loadPlugins = require("../common/load-plugins");
 const resolveParser = require("./parser").resolveParser;
@@ -25,7 +25,6 @@ function normalize(options, opts) {
 
   const supportOptions = getSupportInfo(null, {
     plugins,
-    pluginsLoaded: true,
     showUnreleased: true,
     showDeprecated: true
   }).options;
@@ -104,8 +103,7 @@ function inferParser(filepath, plugins) {
   const filename = path.basename(filepath).toLowerCase();
 
   const language = getSupportInfo(null, {
-    plugins,
-    pluginsLoaded: true
+    plugins
   }).languages.find(
     language =>
       language.since !== null &&

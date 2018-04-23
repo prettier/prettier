@@ -16,10 +16,12 @@ const cleanAST = require("../common/clean-ast").cleanAST;
 const errors = require("../common/errors");
 const resolver = require("../config/resolve-config");
 const constant = require("./constant");
+const coreOptions = require("../core/options");
 const optionsModule = require("../main/options");
 const optionsNormalizer = require("../main/options-normalizer");
 const thirdParty = require("../common/third-party");
-const getSupportInfo = require("../common/support").getSupportInfo;
+const loadPlugins = require("../common/load-plugins");
+const getSupportInfo = require("../core/support").getSupportInfo;
 const util = require("../common/util");
 
 const OPTION_USAGE_THRESHOLD = 25;
@@ -713,7 +715,7 @@ function createLogger(logLevel) {
 }
 
 function normalizeDetailedOption(name, option) {
-  return Object.assign({ category: constant.CATEGORY_OTHER }, option, {
+  return Object.assign({ category: coreOptions.CATEGORY_OTHER }, option, {
     choices:
       option.choices &&
       option.choices.map(choice => {
@@ -782,7 +784,7 @@ function createDetailedOptionMap(supportOptions) {
     const newOption = Object.assign({}, option, {
       name: option.cliName || dashify(option.name),
       description: option.cliDescription || option.description,
-      category: option.cliCategory || constant.CATEGORY_FORMAT,
+      category: option.cliCategory || coreOptions.CATEGORY_FORMAT,
       forwardToApi: option.name
     });
 
@@ -832,7 +834,7 @@ function updateContextOptions(context, plugins) {
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
-    plugins
+    plugins: loadPlugins(plugins)
   }).options;
 
   const detailedOptionMap = normalizeDetailedOptionMap(

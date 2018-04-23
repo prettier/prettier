@@ -1,12 +1,12 @@
 "use strict";
 
-const util = require("./util");
 const dedent = require("dedent");
-const semver = require("semver");
-const currentVersion = require("../../package.json").version;
-const loadPlugins = require("./load-plugins");
-const cliConstant = require("../cli/constant");
 
+const CATEGORY_CONFIG = "Config";
+const CATEGORY_EDITOR = "Editor";
+const CATEGORY_FORMAT = "Format";
+const CATEGORY_OTHER = "Other";
+const CATEGORY_OUTPUT = "Output";
 const CATEGORY_GLOBAL = "Global";
 const CATEGORY_SPECIAL = "Special";
 
@@ -49,7 +49,7 @@ const CATEGORY_SPECIAL = "Special";
  * @property {string?} cliDescription
  */
 /** @type {{ [name: string]: OptionInfo } */
-const supportOptions = {
+const options = {
   cursorOffset: {
     since: "1.4.0",
     category: CATEGORY_SPECIAL,
@@ -60,7 +60,7 @@ const supportOptions = {
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end.
     `,
-    cliCategory: cliConstant.CATEGORY_EDITOR
+    cliCategory: CATEGORY_EDITOR
   },
   filepath: {
     since: "1.4.0",
@@ -70,7 +70,7 @@ const supportOptions = {
     description:
       "Specify the input filepath. This will be used to do parser inference.",
     cliName: "stdin-filepath",
-    cliCategory: cliConstant.CATEGORY_OTHER,
+    cliCategory: CATEGORY_OTHER,
     cliDescription: "Path to the file to pretend that stdin comes from."
   },
   insertPragma: {
@@ -79,7 +79,7 @@ const supportOptions = {
     type: "boolean",
     default: false,
     description: "Insert @format pragma into file's first docblock comment.",
-    cliCategory: cliConstant.CATEGORY_OTHER
+    cliCategory: CATEGORY_OTHER
   },
   parser: {
     since: "0.0.10",
@@ -119,7 +119,7 @@ const supportOptions = {
       "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.",
     exception: value => typeof value === "string" || typeof value === "object",
     cliName: "plugin",
-    cliCategory: cliConstant.CATEGORY_CONFIG
+    cliCategory: CATEGORY_CONFIG
   },
   printWidth: {
     since: "0.0.0",
@@ -140,7 +140,7 @@ const supportOptions = {
       The range will extend forwards to the end of the selected statement.
       This option cannot be used with --cursor-offset.
     `,
-    cliCategory: cliConstant.CATEGORY_EDITOR
+    cliCategory: CATEGORY_EDITOR
   },
   rangeStart: {
     since: "1.4.0",
@@ -153,7 +153,7 @@ const supportOptions = {
       The range will extend backwards to the start of the first line containing the selected statement.
       This option cannot be used with --cursor-offset.
     `,
-    cliCategory: cliConstant.CATEGORY_EDITOR
+    cliCategory: CATEGORY_EDITOR
   },
   requirePragma: {
     since: "1.7.0",
@@ -164,7 +164,7 @@ const supportOptions = {
       Require either '@prettier' or '@format' to be present in the file's first docblock comment
       in order for it to be formatted.
     `,
-    cliCategory: cliConstant.CATEGORY_OTHER
+    cliCategory: CATEGORY_OTHER
   },
   tabWidth: {
     type: "int",
@@ -192,143 +192,13 @@ const supportOptions = {
   }
 };
 
-function getSupportInfo(version, opts) {
-  opts = Object.assign(
-    {
-      plugins: [],
-      pluginsLoaded: false,
-      showUnreleased: false,
-      showDeprecated: false,
-      showInternal: false
-    },
-    opts
-  );
-
-  if (!version) {
-    version = currentVersion;
-  }
-
-  const plugins = opts.pluginsLoaded ? opts.plugins : loadPlugins(opts.plugins);
-
-  const options = util
-    .arrayify(
-      Object.assign(
-        plugins.reduce(
-          (currentOptions, plugin) =>
-            Object.assign(currentOptions, plugin.options),
-          {}
-        ),
-        supportOptions
-      ),
-      "name"
-    )
-    .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
-    .filter(filterSince)
-    .filter(filterDeprecated)
-    .map(mapDeprecated)
-    .map(mapInternal)
-    .map(option => {
-      const newOption = Object.assign({}, option);
-
-      if (Array.isArray(newOption.default)) {
-        newOption.default =
-          newOption.default.length === 1
-            ? newOption.default[0].value
-            : newOption.default
-                .filter(filterSince)
-                .sort((info1, info2) =>
-                  semver.compare(info2.since, info1.since)
-                )[0].value;
-      }
-
-      if (Array.isArray(newOption.choices)) {
-        newOption.choices = newOption.choices
-          .filter(filterSince)
-          .filter(filterDeprecated)
-          .map(mapDeprecated);
-      }
-
-      return newOption;
-    })
-    .map(option => {
-      const filteredPlugins = plugins.filter(
-        plugin => plugin.defaultOptions && plugin.defaultOptions[option.name]
-      );
-      const pluginDefaults = filteredPlugins.reduce((reduced, plugin) => {
-        reduced[plugin.name] = plugin.defaultOptions[option.name];
-        return reduced;
-      }, {});
-      return Object.assign(option, { pluginDefaults });
-    });
-
-  const usePostCssParser = semver.lt(version, "1.7.1");
-
-  const languages = plugins
-    .reduce((all, plugin) => all.concat(plugin.languages), [])
-    .filter(
-      language =>
-        language.since
-          ? semver.gte(version, language.since)
-          : language.since !== null
-    )
-    .map(language => {
-      // Prevent breaking changes
-      if (language.name === "Markdown") {
-        return Object.assign({}, language, {
-          parsers: ["markdown"]
-        });
-      }
-      if (language.name === "TypeScript") {
-        return Object.assign({}, language, {
-          parsers: ["typescript"]
-        });
-      }
-
-      if (usePostCssParser && language.group === "CSS") {
-        return Object.assign({}, language, {
-          parsers: ["postcss"]
-        });
-      }
-      return language;
-    });
-
-  return { languages, options };
-
-  function filterSince(object) {
-    return (
-      opts.showUnreleased ||
-      !("since" in object) ||
-      (object.since && semver.gte(version, object.since))
-    );
-  }
-  function filterDeprecated(object) {
-    return (
-      opts.showDeprecated ||
-      !("deprecated" in object) ||
-      (object.deprecated && semver.lt(version, object.deprecated))
-    );
-  }
-  function mapDeprecated(object) {
-    if (!object.deprecated || opts.showDeprecated) {
-      return object;
-    }
-    const newObject = Object.assign({}, object);
-    delete newObject.deprecated;
-    delete newObject.redirect;
-    return newObject;
-  }
-  function mapInternal(object) {
-    if (opts.showInternal) {
-      return object;
-    }
-    const newObject = Object.assign({}, object);
-    delete newObject.cliName;
-    delete newObject.cliCategory;
-    delete newObject.cliDescription;
-    return newObject;
-  }
-}
-
 module.exports = {
-  getSupportInfo
+  CATEGORY_CONFIG,
+  CATEGORY_EDITOR,
+  CATEGORY_FORMAT,
+  CATEGORY_OTHER,
+  CATEGORY_OUTPUT,
+  CATEGORY_GLOBAL,
+  CATEGORY_SPECIAL,
+  options
 };
