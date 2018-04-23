@@ -1,7 +1,7 @@
 "use strict";
 
-const util = require("../common/util");
 const semver = require("semver");
+const arrayify = require("../utils/arrayify");
 const currentVersion = require("../../package.json").version;
 const optionsModule = require("./options");
 
@@ -22,18 +22,17 @@ function getSupportInfo(version, opts) {
 
   const plugins = opts.plugins;
 
-  const options = util
-    .arrayify(
-      Object.assign(
-        plugins.reduce(
-          (currentOptions, plugin) =>
-            Object.assign(currentOptions, plugin.options),
-          {}
-        ),
-        optionsModule.options
+  const options = arrayify(
+    Object.assign(
+      plugins.reduce(
+        (currentOptions, plugin) =>
+          Object.assign(currentOptions, plugin.options),
+        {}
       ),
-      "name"
-    )
+      optionsModule.options
+    ),
+    "name"
+  )
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
     .filter(filterSince)
     .filter(filterDeprecated)

@@ -22,7 +22,7 @@ const optionsNormalizer = require("../main/options-normalizer");
 const thirdParty = require("../common/third-party");
 const loadPlugins = require("../common/load-plugins");
 const getSupportInfo = require("../core/support").getSupportInfo;
-const util = require("../common/util");
+const arrayify = require("../utils/arrayify");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -841,7 +841,7 @@ function updateContextOptions(context, plugins) {
     Object.assign({}, createDetailedOptionMap(supportOptions), constant.options)
   );
 
-  const detailedOptions = util.arrayify(detailedOptionMap, "name");
+  const detailedOptions = arrayify(detailedOptionMap, "name");
 
   const apiDefaultOptions = supportOptions
     .filter(optionInfo => !optionInfo.deprecated)
