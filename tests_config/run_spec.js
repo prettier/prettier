@@ -3,8 +3,6 @@
 const fs = require("fs");
 const extname = require("path").extname;
 const prettier = require("./require_prettier");
-const massageAST = require("../src/common/clean-ast.js").massageAST;
-const normalizeOptions = require("../src/main/options").normalize;
 
 const AST_COMPARE = process.env["AST_COMPARE"];
 
@@ -58,17 +56,14 @@ function run_spec(dirname, parsers, options) {
       });
 
       if (AST_COMPARE) {
-        const normalizedOptions = normalizeOptions(mergedOptions);
-        const ast = parse(source, mergedOptions);
-        const astMassaged = massageAST(ast, normalizedOptions);
+        const astMassaged = parse(source, mergedOptions);
         let ppastMassaged;
         let pperr = null;
         try {
-          const ppast = parse(
+          ppastMassaged = parse(
             prettyprint(source, path, mergedOptions),
             mergedOptions
           );
-          ppastMassaged = massageAST(ppast, normalizedOptions);
         } catch (e) {
           pperr = e.stack;
         }
@@ -76,7 +71,7 @@ function run_spec(dirname, parsers, options) {
         test(path + " parse", () => {
           expect(pperr).toBe(null);
           expect(ppastMassaged).toBeDefined();
-          if (!ast.errors || ast.errors.length === 0) {
+          if (!astMassaged.errors || astMassaged.errors.length === 0) {
             expect(astMassaged).toEqual(ppastMassaged);
           }
         });
@@ -112,7 +107,9 @@ function stripLocation(ast) {
 }
 
 function parse(string, opts) {
-  return stripLocation(prettier.__debug.parse(string, opts).ast);
+  return stripLocation(
+    prettier.__debug.parse(string, opts, /* massage */ true).ast
+  );
 }
 
 function prettyprint(src, filename, options) {

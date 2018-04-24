@@ -126,8 +126,13 @@ function format(context, input, opt) {
         "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
       );
     } else {
-      const ast = prettier.__debug.parse(input, opt, /* clean */ true).ast;
-      const past = prettier.__debug.parse(pp, opt, /* clean */ true).ast;
+      const stringify = obj => JSON.stringify(obj, null, 2);
+      const ast = stringify(
+        prettier.__debug.parse(input, opt, /* massage */ true).ast
+      );
+      const past = stringify(
+        prettier.__debug.parse(pp, opt, /* massage */ true).ast
+      );
 
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB

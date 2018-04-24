@@ -6,7 +6,7 @@ const privateUtil = require("./src/common/util");
 const sharedUtil = require("./src/common/util-shared");
 const getSupportInfo = require("./src/main/support").getSupportInfo;
 const loadPlugins = require("./src/common/load-plugins");
-const cleanAST = require("./src/common/clean-ast").cleanAST;
+const massageAST = require("./src/common/clean-ast").massageAST;
 
 const comments = require("./src/main/comments");
 const printAstToDoc = require("./src/main/ast-to-doc");
@@ -429,11 +429,11 @@ module.exports = {
 
   /* istanbul ignore next */
   __debug: {
-    parse: function(text, opts, clean) {
+    parse: function(text, opts, massage) {
       opts = normalizeOptions(opts);
       const parsed = parser.parse(text, opts);
-      if (clean) {
-        parsed.ast = cleanAST(parsed.ast, opts);
+      if (massage) {
+        parsed.ast = massageAST(parsed.ast, opts);
       }
       return parsed;
     },
