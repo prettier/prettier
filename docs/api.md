@@ -73,7 +73,7 @@ The support information looks like this:
 {
   languages: Array<{
     name: string,
-    since: string,
+    since?: string,
     parsers: string[],
     group?: string,
     tmScope: string,

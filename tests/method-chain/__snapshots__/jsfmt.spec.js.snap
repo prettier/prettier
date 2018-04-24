@@ -485,6 +485,28 @@ object[
 
 `;
 
+exports[`d3.js 1`] = `
+d3.select('body')
+  .append('circle')
+  .at({ width: 30, fill: '#f0f' })
+  .st({ fontWeight: 600 })
+
+d3.scaleLinear()
+  .domain([1950, 1980])
+  .range([0, width])
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+d3.select("body")
+  .append("circle")
+  .at({ width: 30, fill: "#f0f" })
+  .st({ fontWeight: 600 });
+
+d3.scaleLinear()
+  .domain([1950, 1980])
+  .range([0, width]);
+
+`;
+
 exports[`first_long.js 1`] = `
 export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action => Observable

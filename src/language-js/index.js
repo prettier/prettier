@@ -181,7 +181,7 @@ const parsers = {
   babylon,
   json: Object.assign({}, babylon, {
     hasPragma() {
-      return false;
+      return true;
     }
   }),
   flow: {
