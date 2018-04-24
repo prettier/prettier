@@ -140,6 +140,90 @@ room = room.map((row, rowIndex) =>
 
 `;
 
+exports[`func-call.js 1`] = `
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol 
+      ? annularCooeedSplicesWalksWayWay 
+      : kochabCooieGameOnOboleUnweave 
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol
+    ? annularCooeedSplicesWalksWayWay
+    : kochabCooieGameOnOboleUnweave
+);
+
+`;
+
+exports[`func-call.js 2`] = `
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol 
+      ? annularCooeedSplicesWalksWayWay 
+      : kochabCooieGameOnOboleUnweave 
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fn(
+    bifornCringerMoshedPerplexSawder,
+    askTrovenaBeenaDependsRowans,
+    glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+        anodyneCondosMalateOverateRetinol
+        ? annularCooeedSplicesWalksWayWay
+        : kochabCooieGameOnOboleUnweave
+);
+
+`;
+
+exports[`func-call.js 3`] = `
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol 
+      ? annularCooeedSplicesWalksWayWay 
+      : kochabCooieGameOnOboleUnweave 
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fn(
+	bifornCringerMoshedPerplexSawder,
+	askTrovenaBeenaDependsRowans,
+	glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+		anodyneCondosMalateOverateRetinol
+		? annularCooeedSplicesWalksWayWay
+		: kochabCooieGameOnOboleUnweave
+);
+
+`;
+
+exports[`func-call.js 4`] = `
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol 
+      ? annularCooeedSplicesWalksWayWay 
+      : kochabCooieGameOnOboleUnweave 
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fn(
+	bifornCringerMoshedPerplexSawder,
+	askTrovenaBeenaDependsRowans,
+	glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+		anodyneCondosMalateOverateRetinol
+		? annularCooeedSplicesWalksWayWay
+		: kochabCooieGameOnOboleUnweave
+);
+
+`;
+
 exports[`indent.js 1`] = `
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
