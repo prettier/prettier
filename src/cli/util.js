@@ -13,7 +13,6 @@ const leven = require("leven");
 const minimist = require("./minimist");
 const prettier = require("../../index");
 const errors = require("../common/errors");
-const resolver = require("../config/resolve-config");
 const constant = require("./constant");
 const coreOptions = require("../core/core-options");
 const optionsModule = require("../main/options");
@@ -78,7 +77,7 @@ function handleError(context, filename, error) {
 }
 
 function logResolvedConfigPathOrDie(context, filePath) {
-  const configFile = resolver.resolveConfigFile.sync(filePath);
+  const configFile = prettier.resolveConfigFile.sync(filePath);
   if (configFile) {
     context.logger.log(path.relative(process.cwd(), configFile));
   } else {
@@ -169,7 +168,7 @@ function getOptionsOrDie(context, filePath) {
         : `resolve config from '${filePath}'`
     );
 
-    const options = resolver.resolveConfig.sync(filePath, {
+    const options = prettier.resolveConfig.sync(filePath, {
       editorconfig: context.argv["editorconfig"],
       config: context.argv["config"]
     });

@@ -418,6 +418,7 @@ module.exports = {
   doc,
 
   resolveConfig: config.resolveConfig,
+  resolveConfigFile: config.resolveConfigFile,
   clearConfigCache: config.clearCache,
 
   getSupportInfo(version, opts) {
