@@ -87,7 +87,8 @@ export const parsers = {
     astFormat: "dance-ast",
     hasPragma,
     locStart,
-    locEnd
+    locEnd,
+    preprocess,
   }
 };
 ```
@@ -104,10 +105,16 @@ The location extraction functions (`locStart` and `locEnd`) return the starting 
 function locStart(node: object): number;
 ```
 
-The pragma detection function (`hasPragma`) should return if the text contains the pragma comment.
+_(Optional)_ The pragma detection function (`hasPragma`) should return if the text contains the pragma comment.
 
 ```ts
 function hasPragma(text: string): boolean;
+```
+
+_(Optional)_ The preprocess function can process the input text before passing into `parse` function.
+
+```ts
+function preprocess(text: string, options: object): string;
 ```
 
 ### `printers`
