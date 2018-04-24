@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`generic-component.tsx 1`] = `
+const c1 = <MyComponent<number> data={12} />
+
+const c2 = <MyComponent<number> />
+
+const c3 = <MyComponent<number> attr="value" />
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const c1 = <MyComponent<number> data={12} />;
+
+const c2 = <MyComponent<number> />;
+
+const c3 = <MyComponent<number> attr="value" />;
+
+`;
+
 exports[`keyword.tsx 1`] = `
 <try />;
 <object />

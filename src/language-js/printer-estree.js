@@ -1845,7 +1845,12 @@ function printPathNoParens(path, options, print, args) {
 
       // Don't break self-closing elements with no attributes and no comments
       if (n.selfClosing && !n.attributes.length && !nameHasComments) {
-        return concat(["<", path.call(print, "name"), " />"]);
+        return concat([
+          "<",
+          path.call(print, "name"),
+          path.call(print, "typeParameters"),
+          " />"
+        ]);
       }
 
       // don't break up opening elements with a single long text attribute
@@ -1871,6 +1876,7 @@ function printPathNoParens(path, options, print, args) {
           concat([
             "<",
             path.call(print, "name"),
+            path.call(print, "typeParameters"),
             " ",
             concat(path.map(print, "attributes")),
             n.selfClosing ? " />" : ">"
@@ -1909,6 +1915,7 @@ function printPathNoParens(path, options, print, args) {
         concat([
           "<",
           path.call(print, "name"),
+          path.call(print, "typeParameters"),
           concat([
             indent(
               concat(
