@@ -10,7 +10,7 @@ function massageAST(ast, options, parent) {
   }
 
   const newObj = {};
-  for (const key in ast) {
+  for (const key of Object.keys(ast)) {
     if (typeof ast[key] !== "function") {
       newObj[key] = massageAST(ast[key], options, ast);
     }
