@@ -20,8 +20,6 @@ const coreOptions = require("../core/options");
 const optionsModule = require("../main/options");
 const optionsNormalizer = require("../main/options-normalizer");
 const thirdParty = require("../common/third-party");
-const loadPlugins = require("../common/load-plugins");
-const getSupportInfo = require("../core/support").getSupportInfo;
 const arrayify = require("../utils/arrayify");
 
 const OPTION_USAGE_THRESHOLD = 25;
@@ -830,11 +828,11 @@ function initContext(context) {
 }
 
 function updateContextOptions(context, plugins) {
-  const supportOptions = getSupportInfo(null, {
+  const supportOptions = prettier.getSupportInfo(null, {
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
-    plugins: loadPlugins(plugins)
+    plugins
   }).options;
 
   const detailedOptionMap = normalizeDetailedOptionMap(
