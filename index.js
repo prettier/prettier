@@ -6,7 +6,7 @@ const privateUtil = require("./src/common/util");
 const sharedUtil = require("./src/common/util-shared");
 const getSupportInfo = require("./src/main/support").getSupportInfo;
 const loadPlugins = require("./src/common/load-plugins");
-const massageAST = require("./src/common/clean-ast").massageAST;
+const massageAST = require("./src/main/massage-ast");
 
 const comments = require("./src/main/comments");
 const printAstToDoc = require("./src/main/ast-to-doc");
