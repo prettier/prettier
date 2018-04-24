@@ -1,7 +1,7 @@
 "use strict";
 
 const dedent = require("dedent");
-const coreOptions = require("../core/options");
+const coreOptions = require("../core/core-options");
 
 const categoryOrder = [
   coreOptions.CATEGORY_OUTPUT,
