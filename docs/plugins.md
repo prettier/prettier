@@ -88,7 +88,7 @@ export const parsers = {
     hasPragma,
     locStart,
     locEnd,
-    preprocess,
+    preprocess
   }
 };
 ```
