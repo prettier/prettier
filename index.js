@@ -20,8 +20,9 @@ const printDocToString = doc.printer.printDocToString;
 const printDocToDebug = doc.debug.printDocToDebug;
 
 function withPlugins(opts) {
-  opts = Object.assign({}, opts);
-  return Object.assign({}, opts, { plugins: loadPlugins(opts.plugins) });
+  return Object.assign({}, opts, {
+    plugins: loadPlugins(opts && opts.plugins)
+  });
 }
 
 function normalizeOptions(opts) {
