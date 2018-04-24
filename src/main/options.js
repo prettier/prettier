@@ -4,7 +4,6 @@ const path = require("path");
 const getSupportInfo = require("../core/support").getSupportInfo;
 const normalizer = require("./options-normalizer");
 const resolveParser = require("./parser").resolveParser;
-const getPlugin = require("./get-plugin");
 
 const hiddenDefaults = {
   astFormat: "estree",
@@ -92,6 +91,22 @@ function normalize(options, opts) {
     supportOptions,
     Object.assign({ passThrough: Object.keys(hiddenDefaults) }, opts)
   );
+}
+
+function getPlugin(options) {
+  const astFormat = options.astFormat;
+
+  if (!astFormat) {
+    throw new Error("getPlugin() requires astFormat to be set");
+  }
+  const printerPlugin = options.plugins.find(
+    plugin => plugin.printers[astFormat]
+  );
+  if (!printerPlugin) {
+    throw new Error(`Couldn't find plugin for AST format "${astFormat}"`);
+  }
+
+  return printerPlugin;
 }
 
 function inferParser(filepath, plugins) {
