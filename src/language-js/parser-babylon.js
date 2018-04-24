@@ -34,7 +34,9 @@ function parse(text, parsers, opts) {
   };
 
   const parseMethod =
-    opts && opts.parser === "json" ? "parseExpression" : "parse";
+    opts && (opts.parser === "json" || opts.parser === "json5")
+      ? "parseExpression"
+      : "parse";
 
   let ast;
   try {
