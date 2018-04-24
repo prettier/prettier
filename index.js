@@ -4,7 +4,7 @@ const version = require("./package.json").version;
 
 const privateUtil = require("./src/common/util");
 const sharedUtil = require("./src/common/util-shared");
-const getSupportInfo = require("./src/core/support").getSupportInfo;
+const getSupportInfo = require("./src/main/support").getSupportInfo;
 const loadPlugins = require("./src/common/load-plugins");
 const cleanAST = require("./src/common/clean-ast").cleanAST;
 

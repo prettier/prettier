@@ -2,7 +2,7 @@
 
 const docUtils = require("../doc/doc-utils");
 const util = require("../common/util");
-const support = require("../core/support");
+const support = require("../main/support");
 const doc = require("../doc");
 const docBuilders = doc.builders;
 const hardline = docBuilders.hardline;

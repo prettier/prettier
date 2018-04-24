@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const getSupportInfo = require("../core/support").getSupportInfo;
+const getSupportInfo = require("../main/support").getSupportInfo;
 const normalizer = require("./options-normalizer");
 const resolveParser = require("./parser").resolveParser;
 
