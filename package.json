@@ -55,8 +55,8 @@
     "resolve": "1.5.0",
     "semver": "5.4.1",
     "string-width": "2.1.1",
-    "typescript": "2.9.0-dev.20180405",
-    "typescript-eslint-parser": "ikatyang/typescript-eslint-parser#feat/support-generic-jsx-element",
+    "typescript": "2.9.0-dev.20180421",
+    "typescript-eslint-parser": "eslint/typescript-eslint-parser#2960b002746c01fb9cb15bb5f4c1e7e925c6519a",
     "unicode-regex": "1.0.1",
     "unified": "6.1.6"
   },
