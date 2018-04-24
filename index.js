@@ -6,10 +6,11 @@ const privateUtil = require("./src/common/util");
 const sharedUtil = require("./src/common/util-shared");
 const getSupportInfo = require("./src/core/support").getSupportInfo;
 const loadPlugins = require("./src/common/load-plugins");
+const cleanAST = require("./src/common/clean-ast").cleanAST;
 
 const comments = require("./src/main/comments");
 const printAstToDoc = require("./src/main/ast-to-doc");
-const normalizeOptions = require("./src/main/options").normalize;
+const rawNormalizeOptions = require("./src/main/options").normalize;
 const parser = require("./src/main/parser");
 
 const config = require("./src/config/resolve-config");
@@ -17,6 +18,15 @@ const config = require("./src/config/resolve-config");
 const doc = require("./src/doc");
 const printDocToString = doc.printer.printDocToString;
 const printDocToDebug = doc.debug.printDocToDebug;
+
+function withPlugins(opts) {
+  opts = Object.assign({}, opts);
+  return Object.assign({}, opts, { plugins: loadPlugins(opts.plugins) });
+}
+
+function normalizeOptions(opts) {
+  return rawNormalizeOptions(withPlugins(opts));
+}
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -410,9 +420,7 @@ module.exports = {
   clearConfigCache: config.clearCache,
 
   getSupportInfo(version, opts) {
-    opts = Object.assign({}, opts);
-    opts.plugins = loadPlugins(opts.plugins);
-    return getSupportInfo(version, opts);
+    return getSupportInfo(version, withPlugins(opts));
   },
 
   version,
@@ -421,9 +429,13 @@ module.exports = {
 
   /* istanbul ignore next */
   __debug: {
-    parse: function(text, opts) {
+    parse: function(text, opts, clean) {
       opts = normalizeOptions(opts);
-      return parser.parse(text, opts);
+      const parsed = parser.parse(text, opts);
+      if (clean) {
+        parsed.ast = cleanAST(parsed.ast, opts);
+      }
+      return parsed;
     },
     formatAST: function(ast, opts) {
       opts = normalizeOptions(opts);

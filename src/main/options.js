@@ -3,7 +3,6 @@
 const path = require("path");
 const getSupportInfo = require("../core/support").getSupportInfo;
 const normalizer = require("./options-normalizer");
-const loadPlugins = require("../common/load-plugins");
 const resolveParser = require("./parser").resolveParser;
 const getPlugin = require("./get-plugin");
 
@@ -20,11 +19,8 @@ function normalize(options, opts) {
 
   const rawOptions = Object.assign({}, options);
 
-  const plugins = loadPlugins(rawOptions.plugins);
-  rawOptions.plugins = plugins;
-
   const supportOptions = getSupportInfo(null, {
-    plugins,
+    plugins: options.plugins,
     showUnreleased: true,
     showDeprecated: true
   }).options;
