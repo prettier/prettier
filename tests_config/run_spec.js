@@ -90,7 +90,15 @@ function stripLocation(ast) {
     const newObj = {};
     for (const key in ast) {
       if (
-        ["loc", "range", "raw", "comments", "prev", "__location"].includes(key)
+        [
+          "loc",
+          "range",
+          "raw",
+          "comments",
+          "parent",
+          "prev",
+          "__location"
+        ].indexOf(key) !== -1
       ) {
         continue;
       }
