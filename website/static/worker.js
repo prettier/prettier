@@ -20,7 +20,7 @@ self.Buffer = {
   }
 };
 self.constants = {};
-module$1 = module = os = crypto = {};
+module$1 = module = os = crypto = buffer = {};
 self.fs = { readFile: function() {} };
 os.homedir = function() {
   return "/home/prettier";
