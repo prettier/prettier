@@ -3,7 +3,7 @@
 const semver = require("semver");
 const arrayify = require("../utils/arrayify");
 const currentVersion = require("../../package.json").version;
-const coreOptions = require("../core/core-options").options;
+const coreOptions = require("./core-options").options;
 
 function getSupportInfo(version, opts) {
   opts = Object.assign(

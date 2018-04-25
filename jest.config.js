@@ -11,8 +11,7 @@ module.exports = {
   collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
   coveragePathIgnorePatterns: [
     "<rootDir>/src/doc/doc-debug.js",
-    "<rootDir>/src/main/massage-ast.js",
-    "<rootDir>/src/main/deprecated.js"
+    "<rootDir>/src/main/massage-ast.js"
   ],
   moduleNameMapper: {
     // Jest wires `fs` to `graceful-fs`, which causes a memory leak when
