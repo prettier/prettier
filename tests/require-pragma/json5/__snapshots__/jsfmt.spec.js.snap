@@ -8,6 +8,7 @@ exports[`with-pragma.json5 1`] = `
 /** @format */
 
 { hello: "world" }
+
 `;
 
 exports[`without-pragma.json5 1`] = `

@@ -59,7 +59,7 @@ function printAstToDoc(ast, options, addAlignmentSize) {
   }
   docUtils.propagateBreaks(doc);
 
-  if (options.parser === "json") {
+  if (options.parser === "json" || options.parser === "json5") {
     doc = concat([doc, hardline]);
   }
 

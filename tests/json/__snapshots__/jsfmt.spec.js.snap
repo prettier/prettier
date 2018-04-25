@@ -18,12 +18,14 @@ exports[`block-comment.json 3`] = `
 {/*comment*/"K":"V"}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { /*comment*/ K: "V" }
+
 `;
 
 exports[`block-comment.json 4`] = `
 {/*comment*/"K":"V"}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { /*comment*/ K: "V" }
+
 `;
 
 exports[`boolean.json 1`] = `
@@ -44,12 +46,14 @@ exports[`boolean.json 3`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
+
 `;
 
 exports[`boolean.json 4`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
+
 `;
 
 exports[`line-comment.json 1`] = `
@@ -88,6 +92,7 @@ exports[`line-comment.json 3`] = `
   //comment
   K: "V"
 }
+
 `;
 
 exports[`line-comment.json 4`] = `
@@ -100,6 +105,7 @@ exports[`line-comment.json 4`] = `
   //comment
   K: "V",
 }
+
 `;
 
 exports[`multi-line.json 1`] = `
@@ -138,6 +144,7 @@ exports[`multi-line.json 3`] = `
     key3: [1, 2, "3", 1e10, 1e-3]
   }
 }
+
 `;
 
 exports[`multi-line.json 4`] = `
@@ -150,6 +157,7 @@ exports[`multi-line.json 4`] = `
     key3: [1, 2, "3", 1e10, 1e-3],
   },
 }
+
 `;
 
 exports[`null.json 1`] = `
@@ -170,12 +178,14 @@ exports[`null.json 3`] = `
 null
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 null
+
 `;
 
 exports[`null.json 4`] = `
 null
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 null
+
 `;
 
 exports[`number.json 1`] = `
@@ -196,12 +206,14 @@ exports[`number.json 3`] = `
 0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 0
+
 `;
 
 exports[`number.json 4`] = `
 0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 0
+
 `;
 
 exports[`pass1.json 1`] = `
@@ -558,6 +570,7 @@ exports[`pass1.json 3`] = `
   2,
   "rosebud"
 ]
+
 `;
 
 exports[`pass1.json 4`] = `
@@ -676,6 +689,7 @@ exports[`pass1.json 4`] = `
   2,
   "rosebud",
 ]
+
 `;
 
 exports[`single-line.json 1`] = `
@@ -696,12 +710,14 @@ exports[`single-line.json 3`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { key1: [true, false, null], key2: { key3: [1, 2, "3", 1e10, 1e-3] } }
+
 `;
 
 exports[`single-line.json 4`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { key1: [true, false, null], key2: { key3: [1, 2, "3", 1e10, 1e-3] } }
+
 `;
 
 exports[`string.json 1`] = `
@@ -722,12 +738,14 @@ exports[`string.json 3`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
+
 `;
 
 exports[`string.json 4`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
+
 `;
 
 exports[`top-block-comment.json 1`] = `
@@ -760,6 +778,7 @@ exports[`top-block-comment.json 3`] = `
 /* comment */ {
   foo: "bar"
 }
+
 `;
 
 exports[`top-block-comment.json 4`] = `
@@ -770,6 +789,7 @@ exports[`top-block-comment.json 4`] = `
 /* comment */ {
   foo: "bar",
 }
+
 `;
 
 exports[`top-line-comment.json 1`] = `
@@ -814,6 +834,7 @@ exports[`top-line-comment.json 3`] = `
 {
   foo: "bar"
 }
+
 `;
 
 exports[`top-line-comment.json 4`] = `
@@ -828,6 +849,7 @@ exports[`top-line-comment.json 4`] = `
 {
   foo: "bar",
 }
+
 `;
 
 exports[`trailingComma.notjson 1`] = `
@@ -872,6 +894,7 @@ exports[`trailingComma.notjson 3`] = `
   k2: "v2",
   k3: "v3"
 }
+
 `;
 
 exports[`trailingComma.notjson 4`] = `
@@ -886,4 +909,5 @@ exports[`trailingComma.notjson 4`] = `
   k2: "v2",
   k3: "v3",
 }
+
 `;
