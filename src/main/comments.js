@@ -178,7 +178,10 @@ function attach(comments, ast, text, options) {
   const locEnd = options.locEnd;
 
   comments.forEach((comment, i) => {
-    if (options.parser === "json" && locStart(comment) - locStart(ast) <= 0) {
+    if (
+      (options.parser === "json" || options.parser === "json5") &&
+      locStart(comment) - locStart(ast) <= 0
+    ) {
       addLeadingComment(ast, comment);
       return;
     }

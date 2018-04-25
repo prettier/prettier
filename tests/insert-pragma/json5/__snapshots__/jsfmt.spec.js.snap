@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with-pragma.json5 1`] = `
+/** @format */
+
+{hello:       "world"}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/** @format */
+
+{ hello: "world" }
+
+`;
+
+exports[`without-pragma.json5 1`] = `
+{hello:       "world"}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/** @format */
+
+{ hello: "world" }
+
+`;

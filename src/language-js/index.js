@@ -136,24 +136,31 @@ const languages = [
     aceMode: "json",
     codemirrorMode: "javascript",
     codemirrorMimeType: "application/json",
-    extensions: [
-      ".json",
-      ".json5",
-      ".geojson",
-      ".JSON-tmLanguage",
-      ".topojson"
-    ],
+    extensions: [".json", ".geojson", ".JSON-tmLanguage", ".topojson"],
     filenames: [
       ".arcconfig",
       ".jshintrc",
-      ".babelrc",
       ".eslintrc",
       ".prettierrc",
       "composer.lock",
       "mcmod.info"
     ],
     linguistLanguageId: 174,
-    vscodeLanguageIds: ["json", "jsonc"]
+    vscodeLanguageIds: ["json"]
+  },
+  {
+    name: "JSON5",
+    since: "1.13.0",
+    parsers: ["json5"],
+    group: "JavaScript",
+    tmScope: "source.json",
+    aceMode: "json",
+    codemirrorMode: "javascript",
+    codemirrorMimeType: "application/json",
+    extensions: [".json5"],
+    filenames: [".babelrc"],
+    linguistLanguageId: 175,
+    vscodeLanguageIds: ["jsonc"]
   }
 ];
 
@@ -184,6 +191,7 @@ const parsers = {
       return true;
     }
   }),
+  json5: babylon,
   flow: {
     get parse() {
       return eval("require")("./parser-flow");

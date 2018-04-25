@@ -61,13 +61,16 @@ function clean(ast, newObj, parent) {
   // We change {'key': value} into {key: value}
   if (
     (ast.type === "Property" ||
+      ast.type === "ObjectProperty" ||
       ast.type === "MethodDefinition" ||
       ast.type === "ClassProperty" ||
       ast.type === "TSPropertySignature" ||
       ast.type === "ObjectTypeProperty") &&
     typeof ast.key === "object" &&
     ast.key &&
-    (ast.key.type === "Literal" || ast.key.type === "Identifier")
+    (ast.key.type === "Literal" ||
+      ast.key.type === "StringLiteral" ||
+      ast.key.type === "Identifier")
   ) {
     delete newObj.key;
   }
