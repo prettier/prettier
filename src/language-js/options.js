@@ -2,7 +2,7 @@
 
 const CATEGORY_JAVASCRIPT = "JavaScript";
 
-// format based on https://github.com/prettier/prettier/blob/master/src/common/support.js
+// format based on https://github.com/prettier/prettier/blob/master/src/main/core-options.js
 module.exports = {
   arrowParens: {
     since: "1.9.0",

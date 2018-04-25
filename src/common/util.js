@@ -713,14 +713,6 @@ function hasNodeIgnoreComment(node) {
   );
 }
 
-function arrayify(object, keyName) {
-  return Object.keys(object).reduce(
-    (array, key) =>
-      array.concat(Object.assign({ [keyName]: key }, object[key])),
-    []
-  );
-}
-
 function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
@@ -753,7 +745,6 @@ function addTrailingComment(node, comment) {
 }
 
 module.exports = {
-  arrayify,
   punctuationRegex,
   punctuationCharRange,
   getStringWidth,

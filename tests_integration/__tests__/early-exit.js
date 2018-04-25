@@ -4,8 +4,7 @@ const prettier = require("../../tests_config/require_prettier");
 const runPrettier = require("../runPrettier");
 const constant = require("../../src/cli/constant");
 const util = require("../../src/cli/util");
-const commonUtil = require("../../src/common/util");
-const getSupportInfo = require("../../src/common/support").getSupportInfo;
+const arrayify = require("../../src/utils/arrayify");
 
 describe("show version with --version", () => {
   runPrettier("cli/with-shebang", ["--version"]).test({
@@ -47,35 +46,33 @@ describe(`show detailed usage with plugin options (manual resolution)`, () => {
   });
 });
 
-commonUtil
-  .arrayify(
-    Object.assign(
-      {},
-      util.createDetailedOptionMap(
-        getSupportInfo(null, {
-          showDeprecated: true,
-          showUnreleased: true,
-          showInternal: true
-        }).options
-      ),
-      util.normalizeDetailedOptionMap(constant.options)
+arrayify(
+  Object.assign(
+    {},
+    util.createDetailedOptionMap(
+      prettier.getSupportInfo(null, {
+        showDeprecated: true,
+        showUnreleased: true,
+        showInternal: true
+      }).options
     ),
-    "name"
-  )
-  .forEach(option => {
-    const optionNames = [
-      option.description ? option.name : null,
-      option.oppositeDescription ? `no-${option.name}` : null
-    ].filter(Boolean);
+    util.normalizeDetailedOptionMap(constant.options)
+  ),
+  "name"
+).forEach(option => {
+  const optionNames = [
+    option.description ? option.name : null,
+    option.oppositeDescription ? `no-${option.name}` : null
+  ].filter(Boolean);
 
-    optionNames.forEach(optionName => {
-      describe(`show detailed usage with --help ${optionName}`, () => {
-        runPrettier("cli", ["--help", optionName]).test({
-          status: 0
-        });
+  optionNames.forEach(optionName => {
+    describe(`show detailed usage with --help ${optionName}`, () => {
+      runPrettier("cli", ["--help", optionName]).test({
+        status: 0
       });
     });
   });
+});
 
 describe("show warning with --help not-found", () => {
   runPrettier("cli", ["--help", "not-found"]).test({

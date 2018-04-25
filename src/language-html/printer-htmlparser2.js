@@ -1,6 +1,7 @@
 "use strict";
 
 const embed = require("./embed");
+const clean = require("./clean");
 const privateUtil = require("../common/util");
 const docBuilders = require("../doc").builders;
 const concat = docBuilders.concat;
@@ -116,6 +117,7 @@ function printChildren(path, print) {
 
 module.exports = {
   print: genericPrint,
+  massageAstNode: clean,
   embed,
   hasPrettierIgnore: privateUtil.hasIgnoreComment
 };

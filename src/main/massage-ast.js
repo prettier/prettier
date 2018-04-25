@@ -1,9 +1,5 @@
 "use strict";
 
-function cleanAST(ast, options) {
-  return JSON.stringify(massageAST(ast, options), null, 2);
-}
-
 function massageAST(ast, options, parent) {
   if (Array.isArray(ast)) {
     return ast.map(e => massageAST(e, options, parent)).filter(e => e);
@@ -14,7 +10,7 @@ function massageAST(ast, options, parent) {
   }
 
   const newObj = {};
-  for (const key in ast) {
+  for (const key of Object.keys(ast)) {
     if (typeof ast[key] !== "function") {
       newObj[key] = massageAST(ast[key], options, ast);
     }
@@ -59,4 +55,4 @@ function massageAST(ast, options, parent) {
   return newObj;
 }
 
-module.exports = { cleanAST, massageAST };
+module.exports = massageAST;

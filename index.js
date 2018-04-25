@@ -4,11 +4,13 @@ const version = require("./package.json").version;
 
 const privateUtil = require("./src/common/util");
 const sharedUtil = require("./src/common/util-shared");
-const getSupportInfo = require("./src/common/support").getSupportInfo;
+const getSupportInfo = require("./src/main/support").getSupportInfo;
+const loadPlugins = require("./src/common/load-plugins");
+const massageAST = require("./src/main/massage-ast");
 
 const comments = require("./src/main/comments");
 const printAstToDoc = require("./src/main/ast-to-doc");
-const normalizeOptions = require("./src/main/options").normalize;
+const rawNormalizeOptions = require("./src/main/options").normalize;
 const parser = require("./src/main/parser");
 
 const config = require("./src/config/resolve-config");
@@ -16,6 +18,16 @@ const config = require("./src/config/resolve-config");
 const doc = require("./src/doc");
 const printDocToString = doc.printer.printDocToString;
 const printDocToDebug = doc.debug.printDocToDebug;
+
+function withPlugins(opts) {
+  return Object.assign({}, opts, {
+    plugins: loadPlugins(opts && opts.plugins)
+  });
+}
+
+function normalizeOptions(opts) {
+  return rawNormalizeOptions(withPlugins(opts));
+}
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -406,9 +418,12 @@ module.exports = {
   doc,
 
   resolveConfig: config.resolveConfig,
+  resolveConfigFile: config.resolveConfigFile,
   clearConfigCache: config.clearCache,
 
-  getSupportInfo,
+  getSupportInfo(version, opts) {
+    return getSupportInfo(version, withPlugins(opts));
+  },
 
   version,
 
@@ -416,9 +431,13 @@ module.exports = {
 
   /* istanbul ignore next */
   __debug: {
-    parse: function(text, opts) {
+    parse: function(text, opts, massage) {
       opts = normalizeOptions(opts);
-      return parser.parse(text, opts);
+      const parsed = parser.parse(text, opts);
+      if (massage) {
+        parsed.ast = massageAST(parsed.ast, opts);
+      }
+      return parsed;
     },
     formatAST: function(ast, opts) {
       opts = normalizeOptions(opts);

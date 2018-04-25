@@ -1,11 +1,9 @@
 "use strict";
 
 const path = require("path");
-const getSupportInfo = require("../common/support").getSupportInfo;
+const getSupportInfo = require("../main/support").getSupportInfo;
 const normalizer = require("./options-normalizer");
-const loadPlugins = require("../common/load-plugins");
 const resolveParser = require("./parser").resolveParser;
-const getPlugin = require("./get-plugin");
 
 const hiddenDefaults = {
   astFormat: "estree",
@@ -20,12 +18,8 @@ function normalize(options, opts) {
 
   const rawOptions = Object.assign({}, options);
 
-  const plugins = loadPlugins(rawOptions.plugins);
-  rawOptions.plugins = plugins;
-
   const supportOptions = getSupportInfo(null, {
-    plugins,
-    pluginsLoaded: true,
+    plugins: options.plugins,
     showUnreleased: true,
     showDeprecated: true
   }).options;
@@ -99,13 +93,28 @@ function normalize(options, opts) {
   );
 }
 
+function getPlugin(options) {
+  const astFormat = options.astFormat;
+
+  if (!astFormat) {
+    throw new Error("getPlugin() requires astFormat to be set");
+  }
+  const printerPlugin = options.plugins.find(
+    plugin => plugin.printers[astFormat]
+  );
+  if (!printerPlugin) {
+    throw new Error(`Couldn't find plugin for AST format "${astFormat}"`);
+  }
+
+  return printerPlugin;
+}
+
 function inferParser(filepath, plugins) {
   const extension = path.extname(filepath);
   const filename = path.basename(filepath).toLowerCase();
 
   const language = getSupportInfo(null, {
-    plugins,
-    pluginsLoaded: true
+    plugins
   }).languages.find(
     language =>
       language.since !== null &&

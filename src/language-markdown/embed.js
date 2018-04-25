@@ -2,7 +2,7 @@
 
 const docUtils = require("../doc/doc-utils");
 const util = require("../common/util");
-const support = require("../common/support");
+const support = require("../main/support");
 const doc = require("../doc");
 const docBuilders = doc.builders;
 const hardline = docBuilders.hardline;
@@ -39,8 +39,7 @@ function embed(path, print, textToDoc, options) {
 
   function getParserName(lang) {
     const supportInfo = support.getSupportInfo(null, {
-      plugins: options.plugins,
-      pluginsLoaded: true
+      plugins: options.plugins
     });
     const language = supportInfo.languages.find(
       language =>

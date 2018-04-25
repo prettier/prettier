@@ -4,7 +4,7 @@ const jsOptions = require("../language-js/options");
 
 const CATEGORY_MARKDOWN = "Markdown";
 
-// format based on https://github.com/prettier/prettier/blob/master/src/common/support.js
+// format based on https://github.com/prettier/prettier/blob/master/src/main/core-options.js
 module.exports = {
   proseWrap: {
     since: "1.8.2",
