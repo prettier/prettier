@@ -57,6 +57,17 @@ If `options.editorconfig` is `true` and an [`.editorconfig` file](http://editorc
 
 Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use sync version.
 
+## `prettier.resolveConfigFile(filePath [, options])`
+
+`resolveConfigFile` can be used to find the path of the Prettier's configuration file will be used when resolving the config (i.e. when calling `resolveConfig`). A promise is returned which will resolve to:
+
+* The path of the configuration file.
+* `null`, if no file was found.
+
+The promise will be rejected if there was an error parsing the configuration file.
+
+If `options.useCache` is `false`, all caching will be bypassed.
+
 ## `prettier.clearConfigCache()`
 
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
