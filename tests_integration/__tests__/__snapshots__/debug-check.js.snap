@@ -5,55 +5,27 @@ exports[`checks stdin with --debug-check (write) 1`] = `Array []`;
 exports[`doesn't crash when --debug-check is passed (write) 1`] = `Array []`;
 
 exports[`show diff for 2+ error files with --debug-check (stderr) 1`] = `
-"[error] a.js: ast(input) !== ast(prettier(input))
+"[error] a.debug-check: prettier(input) !== prettier(prettier(input))
 [error] Index: 
 [error] ===================================================================
 [error] --- 	
 [error] +++ 	
-[error] @@ -17,6 +17,6 @@
-[error]                    \\"method\\": false,
-[error]                    \\"key\\": {
-[error] -                    \\"type\\": \\"StringLiteral\\",
-[error] -                    \\"value\\": \\"a\\"
-[error] +                    \\"type\\": \\"Identifier\\",
-[error] +                    \\"name\\": \\"a\\"
-[error]                    },
-[error]                    \\"computed\\": false,
+[error] @@ -1,2 +1,4 @@
+[error]  hello
+[error]  hello
+[error] +hello
+[error] +hello
 [error] 
+[error] b.debug-check: prettier(input) !== prettier(prettier(input))
 [error] Index: 
 [error] ===================================================================
 [error] --- 	
 [error] +++ 	
-[error] @@ -1,3 +1,3 @@
-[error]  const a = {
-[error] -    'a': 1
-[error] +  a: 1
-[error]  };
-[error] 
-[error] b.js: ast(input) !== ast(prettier(input))
-[error] Index: 
-[error] ===================================================================
-[error] --- 	
-[error] +++ 	
-[error] @@ -17,6 +17,6 @@
-[error]                    \\"method\\": false,
-[error]                    \\"key\\": {
-[error] -                    \\"type\\": \\"StringLiteral\\",
-[error] -                    \\"value\\": \\"b\\"
-[error] +                    \\"type\\": \\"Identifier\\",
-[error] +                    \\"name\\": \\"b\\"
-[error]                    },
-[error]                    \\"computed\\": false,
-[error] 
-[error] Index: 
-[error] ===================================================================
-[error] --- 	
-[error] +++ 	
-[error] @@ -1,3 +1,3 @@
-[error]  const b = {
-[error] -    'b': 2
-[error] +  b: 2
-[error]  };
+[error] @@ -1,2 +1,4 @@
+[error]  world
+[error]  world
+[error] +world
+[error] +world
 [error] 
 "
 `;
