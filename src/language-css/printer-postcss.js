@@ -603,7 +603,8 @@ function genericPrint(path, options, print) {
           isNextRelationalOperator ||
           isNextIfElseKeyword ||
           isForKeyword ||
-          isEachKeyword
+          isEachKeyword ||
+          (atRuleAncestorNode && atRuleAncestorNode.name === "namespace")
         ) {
           parts.push(" ");
         } else if (
