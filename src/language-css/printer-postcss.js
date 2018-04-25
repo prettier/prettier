@@ -695,7 +695,18 @@ function genericPrint(path, options, print) {
       return path.call(print, "group");
     }
     case "value-func": {
-      return concat([node.value, path.call(print, "group")]);
+      const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
+      const isSupportsAtRule =
+        atRuleAncestorNode &&
+        atRuleAncestorNode.name.toLowerCase() === "supports";
+      const isKeyword =
+        ["not", "and", "or"].indexOf(node.value.toLowerCase()) !== -1;
+
+      return concat([
+        node.value,
+        isSupportsAtRule && isKeyword ? " " : "",
+        path.call(print, "group")
+      ]);
     }
     case "value-paren": {
       return node.value;
