@@ -199,7 +199,7 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
   let jsxMode = false;
   const parent = path.getParentNode();
   let forceNoIndent = parent.type === operatorOpts.operatorName;
-    
+
   // Find the outermost non-ConditionalExpression parent, and the outermost
   // ConditionalExpression parent. We'll use these to determine if we should
   // print in JSX mode.
@@ -446,7 +446,7 @@ function printPathNoParens(path, options, print, args) {
         (n !== parent.body && parent.type === "ForStatement") ||
         (parent.type === "ConditionalExpression" &&
           (parentParent.type !== "ReturnStatement" &&
-          (parentParent.type !== "CallExpression")));
+            parentParent.type !== "CallExpression"));
 
       const shouldIndentIfInlining =
         parent.type === "AssignmentExpression" ||
@@ -1380,7 +1380,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-  case "ConditionalExpression":
+    case "ConditionalExpression":
       return formatTernaryOperator(path, options, print, {
         beforeParts: () => [path.call(print, "test")],
         afterParts: breakClosingParen => [breakClosingParen ? softline : ""]
