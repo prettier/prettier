@@ -3069,6 +3069,23 @@ function printPropertyKey(path, options, print) {
   const key = node.key;
 
   if (
+    key.type === "Identifier" &&
+    !node.computed &&
+    options.parser === "json"
+  ) {
+    // a -> "a"
+    return path.call(
+      keyPath =>
+        comments.printComments(
+          keyPath,
+          () => JSON.stringify(key.name),
+          options
+        ),
+      "key"
+    );
+  }
+
+  if (
     isStringLiteral(key) &&
     isIdentifierName(key.value) &&
     !node.computed &&
