@@ -327,17 +327,52 @@ exports[`at-rules.css 1`] = `
     /* comment 156 */) /* comment 157 */ /* comment 158 */ {
 } /* comment 159 */
 
-@supports /* comment 160 */ (/* comment 161 */ display /* comment 162 */: /* comment 163 */ flex /* comment 164 */) /* comment 165 */ {
+@supports /* comment 160 */
+  (
+    /* comment 161 */ display /* comment 162 */: /* comment 163 */ flex
+      /* comment 164 */
+  )
+  /* comment 165 */ {
 }
-@supports /* comment 166 */ not /* comment 167 */ (/* comment 168 */ display /* comment 169 */: /* comment 170 */ flex /* comment 171 */) /* comment 172 */ {
+@supports /* comment 166 */ not /* comment 167 */
+  (
+    /* comment 168 */ display /* comment 169 */: /* comment 170 */ flex
+      /* comment 171 */
+  )
+  /* comment 172 */ {
 }
-@supports /* comment 173 */ (/* comment 174 */ display /* comment 175 */: /* comment 176 */ table-cell /* comment 177 */) /* comment 178 */ and /* comment 179 */ (/* comment 180 */ display /* comment 181 */: /* comment 182 */ list-item /* comment 183 */) /* comment 184 */ and /* comment 185 */ (/* comment 186 */display /* comment 187 */: /* comment 188 */ run-in /* comment 189 */) /* comment 190 */ {
+@supports /* comment 173 */
+  (
+    /* comment 174 */ display /* comment 175 */: /* comment 176 */ table-cell
+      /* comment 177 */
+  )
+  /* comment 178 */ and /* comment 179 */
+  (
+    /* comment 180 */ display /* comment 181 */: /* comment 182 */ list-item
+      /* comment 183 */
+  )
+  /* comment 184 */ and /* comment 185 */
+  (
+    /* comment 186 */ display /* comment 187 */: /* comment 188 */ run-in
+      /* comment 189 */
+  )
+  /* comment 190 */ {
 }
-@supports /* comment 191 */ (/* comment 192 */ --foo /* comment 193 */: /* comment 194 */ green /* comment 195 */) /* comment 196 */ {
+@supports /* comment 191 */
+  (
+    /* comment 192 */ --foo /* comment 193 */: /* comment 194 */ green
+      /* comment 195 */
+  )
+  /* comment 196 */ {
 }
 
 /* comment 197 */
-@supports /* comment 198 */ (/* comment 199 */ display /* comment 200 */: /* comment 201 */ flex /* comment 202 */) /* comment 203 */ {
+@supports /* comment 198 */
+  (
+    /* comment 199 */ display /* comment 200 */: /* comment 201 */ flex
+      /* comment 202 */
+  )
+  /* comment 203 */ {
   /* comment 204 */
   @media /* comment 205 */ screen /* comment 206 */ and /* comment 207 */ (/* comment 208 */ min-width /* comment 209 */: /* comment 210 */ 900px /* comment 211 */) /* comment 212 */ {
     /* comment 213 */

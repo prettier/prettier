@@ -122,6 +122,11 @@ function clean(ast, newObj) {
       newObj.value = lowercasedValue;
     }
   }
+
+  // Workaround when `postcss-values-parser` parse `not`, `and` or `or` keywords as `value-func`
+  if (ast.type === "css-atrule" && ast.name.toLowerCase() === "supports") {
+    delete newObj.value;
+  }
 }
 
 function cleanCSSStrings(value) {

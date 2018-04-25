@@ -389,7 +389,8 @@ function parseNestedCSS(node) {
           "function",
           "return",
           "define-mixin",
-          "add-mixin"
+          "add-mixin",
+          "supports"
         ].indexOf(name) !== -1
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
@@ -414,7 +415,7 @@ function parseNestedCSS(node) {
       }
 
       if (
-        ["namespace", "import", "media", "supports", "custom-media"].indexOf(
+        ["namespace", "import", "media", "custom-media"].indexOf(
           lowercasedName
         ) !== -1
       ) {
