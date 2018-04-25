@@ -196,25 +196,6 @@ function genericPrint(path, options, print) {
           : ";"
       ]);
     }
-    case "css-import": {
-      return concat([
-        "@",
-        maybeToLowerCase(node.name),
-        " ",
-        node.directives ? concat([node.directives, " "]) : "",
-        adjustStrings(node.importPath, options),
-        node.nodes.length > 0
-          ? concat([
-              " {",
-              indent(
-                concat([softline, printNodeSequence(path, options, print)])
-              ),
-              softline,
-              "}"
-            ])
-          : ";"
-      ]);
-    }
     // postcss-media-query-parser
     case "media-query-list": {
       const parts = [];
