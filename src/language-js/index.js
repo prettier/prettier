@@ -146,7 +146,7 @@ const languages = [
       "mcmod.info"
     ],
     linguistLanguageId: 174,
-    vscodeLanguageIds: ["json"]
+    vscodeLanguageIds: ["json", "jsonc"]
   },
   {
     name: "JSON5",
@@ -160,7 +160,7 @@ const languages = [
     extensions: [".json5"],
     filenames: [".babelrc"],
     linguistLanguageId: 175,
-    vscodeLanguageIds: ["jsonc"]
+    vscodeLanguageIds: []
   }
 ];
 
