@@ -21,7 +21,12 @@ describe("checks stdin with --debug-check", () => {
 });
 
 describe("show diff for 2+ error files with --debug-check", () => {
-  runPrettier("cli/debug-check", ["*.js", "--debug-check"]).test({
+  runPrettier("cli/debug-check", [
+    "*.debug-check",
+    "--debug-check",
+    "--plugin",
+    "./plugin-for-testing-debug-check"
+  ]).test({
     status: "non-zero"
   });
 });
