@@ -90,7 +90,7 @@ class Playground extends React.Component {
     const { availableOptions, version } = this.props;
 
     return formatMarkdown(
-      content,
+      content || getCodeSample(options.parser),
       formatted,
       reformatted || "",
       version,
