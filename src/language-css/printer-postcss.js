@@ -1,9 +1,9 @@
 "use strict";
 
-const htmlTagNames = require("html-tag-names");
 const clean = require("./clean");
 const privateUtil = require("../common/util");
 const sharedUtil = require("../common/util-shared");
+
 const doc = require("../doc");
 const docBuilders = doc.builders;
 const concat = docBuilders.concat;
@@ -15,9 +15,35 @@ const group = docBuilders.group;
 const fill = docBuilders.fill;
 const indent = docBuilders.indent;
 
-// utils
-const removeLines = doc.utils.removeLines;
+const docUtils = doc.utils;
+const removeLines = docUtils.removeLines;
+
 const utils = require("./utils");
+const getAncestorNode = utils.getAncestorNode;
+const getPropOfDeclNode = utils.getPropOfDeclNode;
+const insideValueFunctionNode = utils.insideValueFunctionNode;
+const insideICSSRuleNode = utils.insideICSSRuleNode;
+const insideAtRuleNode = utils.insideAtRuleNode;
+const isSCSSControlDirectiveNode = utils.isSCSSControlDirectiveNode;
+const isForKeywordNode = utils.isForKeywordNode;
+const isEachKeywordNode = utils.isEachKeywordNode;
+const isEqualityOperatorNode = utils.isEqualityOperatorNode;
+const isDetachedRulesetDeclaration = utils.isDetachedRulesetDeclaration;
+const isSCSS = utils.isSCSS;
+const isSCSSMap = utils.isSCSSMap;
+const isIfElseKeywordNode = utils.isIfElseKeywordNode;
+const isHTMLTag = utils.isHTMLTag;
+const isURLFunction = utils.isURLFunction;
+const isMathOperatorNode = utils.isMathOperatorNode;
+const isLastNode = utils.isLastNode;
+const isParenGroupNode = utils.isParenGroupNode;
+const isRelationalOperatorNode = utils.isRelationalOperatorNode;
+const isKeyframeAtRuleKeywords = utils.isKeyframeAtRuleKeywords;
+const isWideKeywords = utils.isWideKeywords;
+const hasComposesValueNode = utils.hasComposesValueNode;
+const hasLessExtendValueNode = utils.hasLessExtendValueNode;
+const hasParensAroundValueNode = utils.hasParensAroundValueNode;
+const maybeToLowerCase = utils.maybeToLowerCase;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -82,32 +108,16 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "css-decl": {
-      // When the following less construct &:extend(.foo); is parsed with scss,
-      // it will put a space after `:` and break it. Ideally we should parse
-      // less files with less, but we can hardcode this to work with scss as
-      // well.
-      const isValueExtend =
-        node.value.type === "value-root" &&
-        node.value.group.type === "value-value" &&
-        node.value.group.group.type === "value-func" &&
-        node.value.group.group.value === "extend";
-      const isComposed =
-        node.value.type === "value-root" &&
-        node.value.group.type === "value-value" &&
-        node.prop === "composes";
-      const ruleAncestorNode = getAncestorNode(path, "css-rule");
-      const isiCSS =
-        ruleAncestorNode &&
-        ruleAncestorNode.raws.selector &&
-        (ruleAncestorNode.raws.selector.startsWith(":import") ||
-          ruleAncestorNode.raws.selector.startsWith(":export"));
-
       return concat([
         node.raws.before.replace(/[\s;]/g, ""),
-        isiCSS ? node.prop : maybeToLowerCase(node.prop),
+        insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
         node.raws.between.trim() === ":" ? ":" : node.raws.between.trim(),
-        isValueExtend ? "" : " ",
-        isComposed
+        // When the following less construct &:extend(.foo); is parsed with scss,
+        // it will put a space after `:` and break it. Ideally we should parse
+        // less files with less, but we can hardcode this to work with scss as
+        // well.
+        hasLessExtendValueNode(node) ? "" : " ",
+        hasComposesValueNode(node)
           ? removeLines(path.call(print, "value"))
           : path.call(print, "value"),
         node.raws.important
@@ -138,25 +148,18 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "css-atrule": {
-      const hasParams =
-        node.params &&
-        !(node.params.type === "media-query-list" && node.params.value === "");
-      const isDetachedRulesetCall = hasParams && /^\(\s*\)$/.test(node.params);
-      const hasParensAround =
-        node.value &&
-        node.value.group.group.type === "value-paren_group" &&
-        node.value.group.group.open !== null &&
-        node.value.group.group.close !== null;
+      const isDetachedRulesetCall =
+        node.params && /^\(\s*\)$/.test(node.params);
 
       return concat([
         "@",
         // If a Less file ends up being parsed with the SCSS parser, Less
-        // variable declarations will be parsed as atrules with names ending
+        // variable declarations will be parsed as at-rules with names ending
         // with a colon, so keep the original case then.
         isDetachedRulesetCall || node.name.endsWith(":")
           ? node.name
           : maybeToLowerCase(node.name),
-        hasParams
+        node.params
           ? concat([
               isDetachedRulesetCall ? "" : " ",
               path.call(print, "params")
@@ -170,8 +173,8 @@ function genericPrint(path, options, print) {
               concat([
                 " ",
                 path.call(print, "value"),
-                isControlDirectiveNode(node)
-                  ? hasParensAround
+                isSCSSControlDirectiveNode(node)
+                  ? hasParensAroundValueNode(node)
                     ? " "
                     : line
                   : ""
@@ -182,7 +185,7 @@ function genericPrint(path, options, print) {
             : "",
         node.nodes
           ? concat([
-              isControlDirectiveNode(node) ? "" : " ",
+              isSCSSControlDirectiveNode(node) ? "" : " ",
               "{",
               indent(
                 concat([
@@ -216,13 +219,6 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "media-type": {
-      const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
-      if (
-        atRuleAncestorNode &&
-        atRuleAncestorNode.name.toLowerCase() === "charset"
-      ) {
-        return node.value;
-      }
       return adjustNumbers(adjustStrings(node.value, options));
     }
     case "media-feature-expression": {
@@ -385,11 +381,7 @@ function genericPrint(path, options, print) {
     }
     case "value-comma_group": {
       const parentNode = path.getParentNode();
-      const declAncestorNode = getAncestorNode(path, "css-decl");
-      const declAncestorProp =
-        declAncestorNode &&
-        declAncestorNode.prop &&
-        declAncestorNode.prop.toLowerCase();
+      const declAncestorProp = getPropOfDeclNode(path);
       const isGridValue =
         declAncestorProp &&
         parentNode.type === "value-value" &&
@@ -397,15 +389,11 @@ function genericPrint(path, options, print) {
           declAncestorProp.startsWith("grid-template"));
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
       const isControlDirective =
-        atRuleAncestorNode && isControlDirectiveNode(atRuleAncestorNode);
+        atRuleAncestorNode && isSCSSControlDirectiveNode(atRuleAncestorNode);
 
       const printed = path.map(print, "groups");
       const parts = [];
-      const functionAncestorNode = getAncestorNode(path, "value-func");
-      const insideInFunction =
-        functionAncestorNode && functionAncestorNode.value;
-      const insideURLFunction =
-        insideInFunction && functionAncestorNode.value.toLowerCase() === "url";
+      const insideURLFunction = insideValueFunctionNode(path, "url");
 
       let didBreak = false;
       for (let i = 0; i < node.groups.length; ++i) {
@@ -510,9 +498,7 @@ function genericPrint(path, options, print) {
           ["value-word", "value-atword"].indexOf(iNextNextNode.type) !== -1;
 
         // Math operators
-        const insideCalcFunction =
-          insideInFunction &&
-          functionAncestorNode.value.toLowerCase() === "calc";
+        const insideCalcFunction = insideValueFunctionNode(path, "calc");
 
         const hasSpaceBeforeOperator =
           isNextNextFunction || isNextNextWord || isFunction || isWord;
@@ -585,7 +571,8 @@ function genericPrint(path, options, print) {
           isNextIfElseKeyword ||
           isForKeyword ||
           isEachKeyword ||
-          (atRuleAncestorNode && atRuleAncestorNode.name === "namespace")
+          (atRuleAncestorNode &&
+            atRuleAncestorNode.name.toLowerCase() === "namespace")
         ) {
           parts.push(" ");
         } else if (
@@ -611,13 +598,10 @@ function genericPrint(path, options, print) {
     }
     case "value-paren_group": {
       const parentNode = path.getParentNode();
-      const isURLCall =
-        parentNode &&
-        parentNode.type === "value-func" &&
-        parentNode.value === "url";
 
       if (
-        isURLCall &&
+        parentNode &&
+        isURLFunction(parentNode) &&
         (node.groups.length === 1 ||
           (node.groups.length > 0 &&
             node.groups[0].type === "value-comma_group" &&
@@ -646,10 +630,6 @@ function genericPrint(path, options, print) {
       }
 
       const declNode = path.getParentNode(2);
-      const isMap =
-        declNode &&
-        declNode.type === "css-decl" &&
-        declNode.prop.startsWith("$");
 
       return group(
         concat([
@@ -658,12 +638,15 @@ function genericPrint(path, options, print) {
             concat([
               softline,
               join(
-                concat([",", isMap ? hardline : line]),
+                concat([
+                  ",",
+                  declNode && isSCSSMap(declNode) ? hardline : line
+                ]),
                 path.map(print, "groups")
               )
             ])
           ),
-          utils.isSCSS(options.parser, options.originalText) &&
+          isSCSS(options.parser, options.originalText) &&
           node.groups.length > 1 &&
           options.trailingComma !== "none"
             ? ","
@@ -677,16 +660,13 @@ function genericPrint(path, options, print) {
       return path.call(print, "group");
     }
     case "value-func": {
-      const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
-      const isSupportsAtRule =
-        atRuleAncestorNode &&
-        atRuleAncestorNode.name.toLowerCase() === "supports";
+      const insideAtRuleSupportsNode = insideAtRuleNode(path, "supports");
       const isKeyword =
         ["not", "and", "or"].indexOf(node.value.toLowerCase()) !== -1;
 
       return concat([
         node.value,
-        isSupportsAtRule && isKeyword ? " " : "",
+        insideAtRuleSupportsNode && isKeyword ? " " : "",
         path.call(print, "group")
       ]);
     }
@@ -706,7 +686,10 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-colon": {
-      return concat([node.value, insideURLFunctionNode(path) ? "" : line]);
+      return concat([
+        node.value,
+        insideValueFunctionNode(path, "url") ? "" : line
+      ]);
     }
     case "value-comma": {
       return concat([node.value, " "]);
@@ -727,141 +710,6 @@ function genericPrint(path, options, print) {
       /* istanbul ignore next */
       throw new Error(`Unknown postcss type ${JSON.stringify(node.type)}`);
   }
-}
-
-function isLastNode(path, node) {
-  const parentNode = path.getParentNode();
-  if (!parentNode) {
-    return false;
-  }
-  const nodes = parentNode.nodes;
-  return nodes && nodes.indexOf(node) === nodes.length - 1;
-}
-
-function isDetachedRulesetDeclaration(node) {
-  // If a Less file ends up being parsed with the SCSS parser, Less
-  // variable declarations will be parsed as atrules with names ending
-  // with a colon, so keep the original case then.
-  return (
-    node.selector &&
-    node.selector.type !== "selector-root-invalid" &&
-    ((typeof node.selector === "string" && /^@.+:.*$/.test(node.selector)) ||
-      (node.selector.value && /^@.+:.*$/.test(node.selector.value)))
-  );
-}
-
-function isKeyframeAtRuleKeywords(path, value) {
-  const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
-  return (
-    atRuleAncestorNode &&
-    atRuleAncestorNode.name &&
-    atRuleAncestorNode.name.toLowerCase().endsWith("keyframes") &&
-    ["from", "to"].indexOf(value.toLowerCase()) !== -1
-  );
-}
-
-function isHTMLTag(value) {
-  return htmlTagNames.indexOf(value.toLowerCase()) !== -1;
-}
-
-function insideURLFunctionNode(path) {
-  const funcAncestorNode = getAncestorNode(path, "value-func");
-  return (
-    funcAncestorNode &&
-    funcAncestorNode.value &&
-    funcAncestorNode.value === "url"
-  );
-}
-
-function isParenGroupNode(node) {
-  return node.type && node.type === "value-paren_group";
-}
-
-function isForKeywordNode(node) {
-  return (
-    node.type &&
-    node.type === "value-word" &&
-    node.value &&
-    ["from", "through", "end"].indexOf(node.value) !== -1
-  );
-}
-
-function isIfElseKeywordNode(node) {
-  return (
-    node.type &&
-    node.type === "value-word" &&
-    node.value &&
-    ["and", "or", "not"].indexOf(node.value) !== -1
-  );
-}
-
-function isEachKeywordNode(node) {
-  return (
-    node.type &&
-    node.type === "value-word" &&
-    node.value &&
-    ["in"].indexOf(node.value) !== -1
-  );
-}
-
-function isMathOperatorNode(node) {
-  return (
-    node.type &&
-    node.type === "value-operator" &&
-    node.value &&
-    ["+", "-", "/", "*", "%"].indexOf(node.value) !== -1
-  );
-}
-
-function isEqualityOperatorNode(node) {
-  return (
-    node.type &&
-    node.type === "value-word" &&
-    node.value &&
-    ["==", "!="].indexOf(node.value) !== -1
-  );
-}
-
-function isRelationalOperatorNode(node) {
-  return (
-    node.type &&
-    node.type === "value-word" &&
-    node.value &&
-    ["<", ">", "<=", ">="].indexOf(node.value) !== -1
-  );
-}
-
-function isControlDirectiveNode(node) {
-  return (
-    node.type &&
-    node.type === "css-atrule" &&
-    node.name &&
-    (node.name === "if" ||
-      node.name === "else" ||
-      node.name === "for" ||
-      node.name === "each" ||
-      node.name === "while")
-  );
-}
-
-function getAncestorCounter(path, typeOrTypes) {
-  const types = [].concat(typeOrTypes);
-
-  let counter = -1;
-  let ancestorNode;
-
-  while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.indexOf(ancestorNode.type) !== -1) {
-      return counter;
-    }
-  }
-
-  return -1;
-}
-
-function getAncestorNode(path, typeOrTypes) {
-  const counter = getAncestorCounter(path, typeOrTypes);
-  return counter === -1 ? null : path.getParentNode(counter);
 }
 
 function printNodeSequence(path, options, print) {
@@ -960,26 +808,6 @@ function printNumber(rawNumber) {
       .printNumber(rawNumber)
       // Remove trailing `.0`.
       .replace(/\.0(?=$|e)/, "")
-  );
-}
-
-function maybeToLowerCase(value) {
-  return value.includes("$") ||
-    value.includes("@") ||
-    value.includes("#") ||
-    value.startsWith("%") ||
-    value.startsWith("--") ||
-    value.startsWith(":--") ||
-    (value.includes("(") && value.includes(")"))
-    ? value
-    : value.toLowerCase();
-}
-
-function isWideKeywords(value) {
-  return (
-    ["initial", "inherit", "unset", "revert"].indexOf(
-      value.replace().toLowerCase()
-    ) !== -1
   );
 }
 
