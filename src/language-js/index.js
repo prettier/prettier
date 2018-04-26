@@ -160,7 +160,7 @@ const languages = [
     extensions: [".json5"],
     filenames: [".babelrc"],
     linguistLanguageId: 175,
-    vscodeLanguageIds: []
+    vscodeLanguageIds: ["json5"]
   }
 ];
 
