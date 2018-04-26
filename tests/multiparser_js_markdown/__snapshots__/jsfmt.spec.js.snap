@@ -69,6 +69,34 @@ markdown\\\`
 
 `;
 
+exports[`escape.js 1`] = `
+markdown\`
+  const cssString = css\\\`
+    background-color: \\$\\{color('base')\\}
+  \\\`;
+\`
+
+markdown\`
+  - \\\`
+  - \\\\\\\`
+  - \\\\\\\\
+  - \\$
+  - \\u1234
+\`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+markdown\`
+  const cssString = css\\\`background-color: \${color('base')}\\\`;
+\`;
+
+markdown\`
+  * \\\`
+  * \\\\\`
+  * \\\\
+  * $
+  * ሴ
+\`;
+
+`;
+
 exports[`markdown.js 1`] = `
 export default function ReadMe() {
     return md\`
