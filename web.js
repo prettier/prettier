@@ -16,21 +16,23 @@ const internalPlugins = [
 ];
 const externalPlugins = {};
 
+// Luckily `opts` is always the 2nd argument
 function withPlugins(fn) {
   return function() {
     const args = Array.from(arguments);
     const opts = args[1] || {};
     args[1] = Object.assign({}, opts, {
-      plugins: loadPlugins(opts.plugins)
+      plugins: internalPlugins.concat(
+        (opts.plugins || [])
+          .map(
+          plugin =>
+              typeof plugin === "string" ? externalPlugins[plugin] : plugin
+          )
+          .filter(Boolean)
+      )
     });
     return fn.apply(null, args);
   };
-}
-
-function loadPlugins(pluginNames) {
-  return internalPlugins.concat(
-    (pluginNames || []).map(name => externalPlugins[name]).filter(Boolean)
-  );
 }
 
 module.exports = {
