@@ -18,12 +18,12 @@ function withPlugins(fn) {
     const opts = args[1] || {};
     args[1] = Object.assign({}, opts, {
       plugins: loadPlugins(opts.plugins)
-    })
-    return fn.apply(null, args)
-  }
+    });
+    return fn.apply(null, args);
+  };
 }
 
-const formatWithCursor = withPlugins(core.formatWithCursor)
+const formatWithCursor = withPlugins(core.formatWithCursor);
 
 module.exports = {
   formatWithCursor,
@@ -59,6 +59,6 @@ module.exports = {
     formatAST: withPlugins(core.formatAST),
     formatDoc: withPlugins(core.formatDoc),
     printToDoc: withPlugins(core.printToDoc),
-    printDocToString: withPlugins(core.printDocToString),
+    printDocToString: withPlugins(core.printDocToString)
   }
 };

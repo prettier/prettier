@@ -10,6 +10,7 @@ module.exports = {
   collectCoverage: ENABLE_COVERAGE,
   collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
   coveragePathIgnorePatterns: [
+    "<rootDir>/web.js",
     "<rootDir>/src/doc/doc-debug.js",
     "<rootDir>/src/main/massage-ast.js"
   ],
