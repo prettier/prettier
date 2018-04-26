@@ -1962,13 +1962,11 @@ Show the world you're using _Prettier_ →
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 \`\`\`md
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-\`\`\`
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)\`\`\`
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
-
 `;
 
 exports[`real-world-case.md 2`] = `
@@ -3933,13 +3931,11 @@ Show the world you're using _Prettier_ →
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 \`\`\`md
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-\`\`\`
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)\`\`\`
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
-
 `;
 
 exports[`test-case.md 1`] = `
@@ -4245,8 +4241,7 @@ This is a paragraph.
 
 * Red
 * Green
-* Blue
-\`\`\`
+* Blue\`\`\`
 
 1.  Buy flour and salt
 1.  Mix together with water
@@ -4255,8 +4250,7 @@ This is a paragraph.
 \`\`\`markdown
 1.  Buy flour and salt
 1.  Mix together with water
-1.  Bake
-\`\`\`
+1.  Bake\`\`\`
 
 Paragraph:
 
@@ -4327,7 +4321,6 @@ This paragraph has some \`code\` in it.
 ![Alt Text](http://placehold.it/200x50 "Image Title")
 
     ![Alt Text](http://placehold.it/200x50 "Image Title")
-
 `;
 
 exports[`test-case.md 2`] = `
@@ -4633,8 +4626,7 @@ This is a paragraph.
 
 * Red
 * Green
-* Blue
-\`\`\`
+* Blue\`\`\`
 
 1.  Buy flour and salt
 1.  Mix together with water
@@ -4643,8 +4635,7 @@ This is a paragraph.
 \`\`\`markdown
 1.  Buy flour and salt
 1.  Mix together with water
-1.  Bake
-\`\`\`
+1.  Bake\`\`\`
 
 Paragraph:
 
@@ -4715,5 +4706,4 @@ This paragraph has some \`code\` in it.
 ![Alt Text](http://placehold.it/200x50 'Image Title')
 
     ![Alt Text](http://placehold.it/200x50 "Image Title")
-
 `;

@@ -8,7 +8,6 @@ exports[`align.md 1`] = `
 | a   |  b  |   c |
 | :-- | :-: | --: |
 | d   |  e  |   f |
-
 `;
 
 exports[`cjk.md 1`] = `
@@ -19,7 +18,6 @@ exports[`cjk.md 1`] = `
 | abc    | def    | ghi    |
 | ------ | ------ | ------ |
 | 第一欄 | 第二欄 | 第三欄 |
-
 `;
 
 exports[`emoji.md 1`] = `
@@ -30,7 +28,6 @@ exports[`emoji.md 1`] = `
 | abc    | def    | ghi    |
 | ------ | ------ | ------ |
 | 👍👍👍 | 👍👍👍 | 👍👍👍 |
-
 `;
 
 exports[`empty.md 1`] = `
@@ -43,7 +40,6 @@ Y   |
 | --- | --- |
 | X   |
 | Y   |
-
 `;
 
 exports[`escape.md 1`] = `
@@ -54,7 +50,6 @@ exports[`escape.md 1`] = `
 | a   |  b  |   c |
 | :-- | :-: | --: |
 | \\|  | \\|  |  \\| |
-
 `;
 
 exports[`html.md 1`] = `
@@ -65,7 +60,6 @@ Default | CLI Override | API Override
 | Default  | CLI Override                                           | API Override                                           |
 | -------- | ------------------------------------------------------ | ------------------------------------------------------ |
 | \`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
-
 `;
 
 exports[`simple.md 1`] = `
@@ -76,5 +70,4 @@ exports[`simple.md 1`] = `
 | Title A   | Title B   | Title C   |
 | --------- | --------- | --------- |
 | content A | content B | content C |
-
 `;

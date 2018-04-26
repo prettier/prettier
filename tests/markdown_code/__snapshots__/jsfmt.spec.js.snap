@@ -45,7 +45,6 @@ exports[`0-indent-js.md 1`] = `
       asd
       \`;
       \`\`\`
-
 `;
 
 exports[`additional-space.md 1`] = `
@@ -96,7 +95,6 @@ exports[`additional-space.md 1`] = `
     \`\`\`sh
     yarn --version
     \`\`\`
-
 `;
 
 exports[`backtick.md 1`] = `
@@ -113,7 +111,6 @@ console.log("hello world!");
 console.log("hello world!");
 \`\`\`
 \`\`\`\`
-
 `;
 
 exports[`format.md 1`] = `
@@ -130,7 +127,6 @@ const foo = "bar";
 
 console.log(213);
 \`\`\`
-
 `;
 
 exports[`indent.md 1`] = `
@@ -181,7 +177,6 @@ exports[`indent.md 1`] = `
 2.  List the contents:
 
         ls -l
-
 `;
 
 exports[`lang.md 1`] = `
@@ -192,7 +187,6 @@ console.log("hello world");
 \`\`\`js
 console.log("hello world");
 \`\`\`
-
 `;
 
 exports[`simple.md 1`] = `
@@ -203,5 +197,4 @@ hello world
 \`\`\`
 hello world
 \`\`\`
-
 `;

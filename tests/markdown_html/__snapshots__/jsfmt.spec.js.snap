@@ -48,12 +48,10 @@ exports[`multiline.md 1`] = `
         </tr>
     </tbody>
     </table>
-
 `;
 
 exports[`simple.md 1`] = `
 <!-- hello world -->
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!-- hello world -->
-
 `;

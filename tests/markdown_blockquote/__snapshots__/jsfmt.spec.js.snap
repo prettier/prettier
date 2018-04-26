@@ -32,7 +32,6 @@ exports[`code.md 1`] = `
 >   }
 > }
 > \`\`\`
-
 `;
 
 exports[`ignore-code.md 1`] = `
@@ -93,41 +92,34 @@ exports[`ignore-code.md 1`] = `
 > <!-- prettier-ignore -->
 > \`\`\`js
 > ugly   ( code ) ;
-> \`\`\`
-> \`\`\`\`
+> \`\`\`\`\`\`\`
 
 > \`\`\`md
 > <!-- prettier-ignore -->
 > - This is a long long
 >   long long long long
->   long long paragraph.
-> \`\`\`
+>   long long paragraph.\`\`\`
 
 > * test
 >   \`\`\`md
 >   <!-- prettier-ignore -->
 >   - This is a long long
 >     long long long long
->     long long paragraph.
->   \`\`\`
+>     long long paragraph.\`\`\`
 
 \`\`\`\`md
 > \`\`\`md
 > <!-- prettier-ignore -->
 > - This is a long long
 >   long long long long
->   long long paragraph.
-> \`\`\`
-\`\`\`\`
+>   long long paragraph.\`\`\`\`\`\`\`
 
 > \`\`\`\`md
 > > \`\`\`md
 > > <!-- prettier-ignore -->
 > > - This is a long long
 > >   long long long long
-> >   long long paragraph.
-> > \`\`\`
-> \`\`\`\`
+> >   long long paragraph.\`\`\`\`\`\`\`
 
 > <!-- prettier-ignore -->
 > - This is a long long
@@ -139,14 +131,12 @@ exports[`ignore-code.md 1`] = `
 > const x = 1,
 > b = 2
 > \`\`\`
-
 `;
 
 exports[`nested.md 1`] = `
 >>> 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > > > 123
-
 `;
 
 exports[`paragraph.md 1`] = `
@@ -156,12 +146,10 @@ exports[`paragraph.md 1`] = `
 > This is a long long long long long long long long long long long long long
 > long long paragraph. This is a long long long long long long long long long
 > long long long long long long paragraph.
-
 `;
 
 exports[`simple.md 1`] = `
 > 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 123
-
 `;

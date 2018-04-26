@@ -18,7 +18,6 @@ const a = 1;
 const a = 1;
 <div>foo</div>;
 \`\`\`
-
 `;
 
 exports[`semi.md 2`] = `
@@ -39,5 +38,4 @@ const a = 1;
 const a = 1
 ;<div>foo</div>
 \`\`\`
-
 `;

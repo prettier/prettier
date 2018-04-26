@@ -68,7 +68,7 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "root":
-      return concat([normalizeDoc(printRoot(path, options, print)), hardline]);
+      return concat([normalizeDoc(printRoot(path, options, print))]);
     case "paragraph":
       return printChildren(path, options, print, {
         postprocessor: fill

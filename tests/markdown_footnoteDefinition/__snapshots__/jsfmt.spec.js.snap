@@ -7,7 +7,6 @@ exports[`long.md 1`] = `
 
   this is a long long long long long long long long long long long long long
   paragraph.
-
 `;
 
 exports[`multiline.md 1`] = `
@@ -61,7 +60,6 @@ exports[`multiline.md 1`] = `
       println!("this is some Rust!");
   }
   \`\`\`
-
 `;
 
 exports[`sibling.md 1`] = `
@@ -118,12 +116,10 @@ exports[`sibling.md 1`] = `
 [^a]: a
 [^a]: a
 [^a]: a
-
 `;
 
 exports[`simple.md 1`] = `
 [^hello]: world
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [^hello]: world
-
 `;

@@ -18,7 +18,6 @@ something
 # hello world
 
 some content some content some content some content
-
 `;
 
 exports[`simple.md 1`] = `
@@ -31,7 +30,6 @@ some content some content some content some content
 # hello world
 
 some content some content some content some content
-
 `;
 
 exports[`start-with-comment.md 1`] = `
@@ -48,5 +46,4 @@ some content some content some content some content
 # hello world
 
 some content some content some content some content
-
 `;
