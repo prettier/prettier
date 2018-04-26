@@ -135,7 +135,7 @@ function formatRange(text, opts) {
       printWidth: opts.printWidth - alignmentSize
     }),
     alignmentSize
-  );
+  ).formatted;
 
   // Since the range contracts to avoid trailing whitespace,
   // we need to remove the newline that was inserted by the `format` call.
