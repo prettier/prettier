@@ -25,7 +25,7 @@ function withPlugins(fn) {
       plugins: internalPlugins.concat(
         (opts.plugins || [])
           .map(
-          plugin =>
+            plugin =>
               typeof plugin === "string" ? externalPlugins[plugin] : plugin
           )
           .filter(Boolean)
