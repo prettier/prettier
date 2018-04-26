@@ -164,7 +164,10 @@ function embed(path, print, textToDoc /*, options */) {
             (parentParent.tag.name === "md" ||
               parentParent.tag.name === "markdown")))
       ) {
-        const text = parent.quasis[0].value.cooked;
+        const text = parent.quasis[0].value.raw.replace(
+          /((?:\\\\)*)\\`/g,
+          (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
+        );
         const indentation = getIndentation(text);
         const hasIndent = indentation !== "";
         return concat([
@@ -207,7 +210,7 @@ function escapeBackticks(doc) {
 
     currentDoc.parts.forEach(part => {
       if (typeof part === "string") {
-        parts.push(part.replace(/`/g, "\\`"));
+        parts.push(part.replace(/(\\*)`/g, "$1$1\\`"));
       } else {
         parts.push(part);
       }

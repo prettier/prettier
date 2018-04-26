@@ -84,15 +84,15 @@ markdown\`
   - \\u1234
 \`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 markdown\`
-  const cssString = css\\\`background-color: \${color('base')}\\\`;
+  const cssString = css\\\`background-color: \\$\\{color('base')\\}\\\`;
 \`;
 
 markdown\`
   * \\\`
-  * \\\\\`
-  * \\\\
-  * $
-  * ሴ
+  * \\\\\\\`
+  * \\\\\\\\
+  * \\$
+  * \\u1234
 \`;
 
 `;
