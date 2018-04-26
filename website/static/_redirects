@@ -1,0 +1,3 @@
+# Redirect removed doc links
+/docs/:lang/usage.html          /docs/:lang/install.html
+/docs/:lang/usage-options.html  /docs/:lang/options.html
