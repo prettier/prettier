@@ -415,11 +415,7 @@ function parseNestedCSS(node) {
         return node;
       }
 
-      if (
-        ["import", "media", "custom-media"].indexOf(
-          lowercasedName
-        ) !== -1
-      ) {
+      if (["import", "media", "custom-media"].indexOf(lowercasedName) !== -1) {
         if (params.includes("#{")) {
           // Workaround for media at rule with scss interpolation
           return {
