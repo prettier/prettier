@@ -16,7 +16,6 @@ exports[`indented.md 1`] = `
   - This is a long long
     long long long long
     long long paragraph.
-
 `;
 
 exports[`simple.md 1`] = `
@@ -25,7 +24,6 @@ This is a long long long long long long long long long long long long long long 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!-- prettier-ignore -->
 This is a long long long long long long long long long long long long long long long paragraph.
-
 `;
 
 exports[`top-level-range.md 1`] = `
@@ -74,5 +72,4 @@ exports[`top-level-range.md 1`] = `
 > <!-- some tool end -->
 >
 > <!-- prettier-ignore-end -->
-
 `;

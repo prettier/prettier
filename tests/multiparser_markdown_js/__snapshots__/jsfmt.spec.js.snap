@@ -26,7 +26,6 @@ const Foo = () => {
   );
 };
 \`\`\`
-
 `;
 
 exports[`markdown-preview-enhanced.md 1`] = `
@@ -53,7 +52,6 @@ console.log("hello world");
 \`\`\`js {cmd=node .line-numbers}
 console.log("hello world");
 \`\`\`
-
 `;
 
 exports[`trailing-comma.md 1`] = `
@@ -82,5 +80,4 @@ someFunctionCall(
   breakNow,
 );
 \`\`\`
-
 `;

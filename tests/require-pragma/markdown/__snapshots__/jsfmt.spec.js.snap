@@ -14,7 +14,6 @@ I     should      be      formatted       !!
 <!-- @prettier -->
 
 I should be formatted !!
-
 `;
 
 exports[`empty-front-matter-without-pragma.md 1`] = `
@@ -46,7 +45,6 @@ something
 <!-- @prettier -->
 
 I should be formatted !!
-
 `;
 
 exports[`front-matter-without-pragma.md 1`] = `
@@ -72,7 +70,6 @@ I     should      be      formatted       !!
 <!-- @prettier -->
 
 I should be formatted !!
-
 `;
 
 exports[`with-pragma-in-multiline.md 1`] = `
@@ -95,7 +92,6 @@ I     should      be      formatted       !!
 -->
 
 I should be formatted !!
-
 `;
 
 exports[`without-pragma.md 1`] = `

@@ -12,5 +12,4 @@ exports[`trailing_comma.md 1`] = `
   "foo": "bar"
 }
 \`\`\`
-
 `;

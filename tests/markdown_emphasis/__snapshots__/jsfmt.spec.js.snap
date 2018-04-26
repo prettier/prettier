@@ -4,7 +4,6 @@ exports[`asterisk.md 1`] = `
 *123*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 _123_
-
 `;
 
 exports[`complex.md 1`] = `
@@ -15,7 +14,6 @@ exports[`complex.md 1`] = `
 **Do you want to request a _feature_ or report a _bug_?**
 
 _bug_?
-
 `;
 
 exports[`special.md 1`] = `
@@ -82,12 +80,10 @@ exports[`special.md 1`] = `
 0*1*！ <!-- remark-misparsing, should be formatted as \`0_1\\_！\` -->
 
 ！_1_！
-
 `;
 
 exports[`underscore.md 1`] = `
 _123_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 _123_
-
 `;
