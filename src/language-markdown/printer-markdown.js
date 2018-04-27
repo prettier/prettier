@@ -808,6 +808,7 @@ function clean(ast, newObj, parent) {
   if (
     parent &&
     parent.type === "root" &&
+    parent.children.length > 0 &&
     (parent.children[0] === ast ||
       ((parent.children[0].type === "yaml" ||
         parent.children[0].type === "toml") &&
