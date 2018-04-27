@@ -39,6 +39,20 @@ a {
 
 `;
 
+exports[`malformed.css 1`] = `
+---b
+aaa
+---
+
+a {
+    color: red;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---b aaa --- a {
+  color: red;
+}
+
+`;
+
 exports[`only_comments.css 1`] = `
 ---
 # comment 1

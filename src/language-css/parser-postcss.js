@@ -439,7 +439,7 @@ function parseNestedCSS(node) {
 
 function parseWithParser(parser, text) {
   let result;
-  const frontMatterMatches = text.match(/^---\n([\s\S]*)---/);
+  const frontMatterMatches = text.match(/^---(\n[\s\S]*)?\n---/);
   const frontMatter = frontMatterMatches && frontMatterMatches[0];
   const normalizedText = frontMatter ? text.substr(frontMatter.length) : text;
 
@@ -453,7 +453,7 @@ function parseWithParser(parser, text) {
   }
 
   if (frontMatterMatches) {
-    const frontMatterContent = frontMatterMatches[1].trim();
+    const frontMatterContent = (frontMatterMatches[1] || "").trim();
     const rightPad = frontMatterContent.length > 0 ? "\n" : "";
     result.nodes.unshift({
       type: "comment-yaml",
