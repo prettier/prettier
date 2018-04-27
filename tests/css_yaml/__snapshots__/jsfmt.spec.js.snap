@@ -41,9 +41,9 @@ a {
 
 exports[`only_comments.css 1`] = `
 ---
-title: Title
-description: Description
-# This is a comment
+# comment 1
+# comment 2
+# comment 3
 ---
 
 a {
@@ -51,9 +51,9 @@ a {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---
-title: Title
-description: Description
-# This is a comment
+# comment 1
+# comment 2
+# comment 3
 ---
 
 a {
@@ -64,19 +64,18 @@ a {
 
 exports[`with_comments.css 1`] = `
 ---
-# comment 1
-# comment 2
-# comment 3
+title: Title
+description: Description
+# This is a comment
 ---
 
 a {
     color: red;
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---
-# comment 1
-# comment 2
-# comment 3
+title: Title
+description: Description
+# This is a comment
 ---
 
 a {
