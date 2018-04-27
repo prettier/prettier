@@ -1,5 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`empty.css 1`] = `
+---
+---
+
+a {
+    color: red;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+---
+
+a {
+  color: red;
+}
+
+`;
+
+exports[`empty_newlines.css 1`] = `
+---
+
+
+
+---
+
+
+
+a {
+    color: red;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+---
+
+a {
+  color: red;
+}
+
+`;
+
+exports[`only_comments.css 1`] = `
+---
+title: Title
+description: Description
+# This is a comment
+---
+
+a {
+    color: red;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+title: Title
+description: Description
+# This is a comment
+---
+
+a {
+  color: red;
+}
+
+`;
+
+exports[`with_comments.css 1`] = `
+---
+# comment 1
+# comment 2
+# comment 3
+---
+
+a {
+    color: red;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+# comment 1
+# comment 2
+# comment 3
+---
+
+a {
+  color: red;
+}
+
+`;
+
 exports[`yaml.css 1`] = `
 ---
 title: Title
