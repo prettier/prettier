@@ -1,5 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`empty.css 1`] = `
+---
+---
+
+body{
+    border: 1px solid red;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+---
+
+body {
+  border: 1px solid red;
+}
+
+`;
+
+exports[`multilines.css 1`] = `
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`;
+
+exports[`newlines.css 1`] = `
+---
+
+
+
+---
+
+
+
+body{
+    border: 1px solid red;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+---
+
+body {
+  border: 1px solid red;
+}
+
+`;
+
+exports[`without.css 1`] = `
+body{
+    border: 1px solid red;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+body {
+  border: 1px solid red;
+}
+
+`;
+
 exports[`yaml.css 1`] = `
 ---
 title: Title
