@@ -68,6 +68,9 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "root":
+      if (node.children.length === 0) {
+        return "";
+      }
       return concat([normalizeDoc(printRoot(path, options, print)), hardline]);
     case "paragraph":
       return printChildren(path, options, print, {
@@ -805,6 +808,7 @@ function clean(ast, newObj, parent) {
   if (
     parent &&
     parent.type === "root" &&
+    parent.children.length > 0 &&
     (parent.children[0] === ast ||
       ((parent.children[0].type === "yaml" ||
         parent.children[0].type === "toml") &&
