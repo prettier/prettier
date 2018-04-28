@@ -48,18 +48,7 @@ function embed(path, print, textToDoc /*, options */) {
        * This intentionally excludes Relay Classic tags, as Prettier does not
        * support Relay Classic formatting.
        */
-      if (
-        parent &&
-        ((parent.type === "TaggedTemplateExpression" &&
-          ((parent.tag.type === "MemberExpression" &&
-            parent.tag.object.name === "graphql" &&
-            parent.tag.property.name === "experimental") ||
-            (parent.tag.type === "Identifier" &&
-              (parent.tag.name === "gql" || parent.tag.name === "graphql")))) ||
-          (parent.type === "CallExpression" &&
-            parent.callee.type === "Identifier" &&
-            parent.callee.name === "graphql"))
-      ) {
+      if (isGraphQL(path)) {
         const expressionDocs = node.expressions
           ? path.map(print, "expressions")
           : [];
@@ -413,6 +402,42 @@ function isCssProp(path) {
 
 function isStyledIdentifier(node) {
   return node.type === "Identifier" && node.name === "styled";
+}
+
+/*
+ * react-relay and graphql-tag
+ * graphql`...`
+ * graphql.experimental`...`
+ * gql`...`
+ * GraphQL comment block
+ *
+ * This intentionally excludes Relay Classic tags, as Prettier does not
+ * support Relay Classic formatting.
+ */
+function isGraphQL(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+
+  const hasGraphQLComment =
+    node.leadingComments &&
+    node.leadingComments.some(
+      comment =>
+        comment.type === "CommentBlock" && comment.value === " GraphQL "
+    );
+
+  return (
+    hasGraphQLComment ||
+    (parent &&
+      ((parent.type === "TaggedTemplateExpression" &&
+        ((parent.tag.type === "MemberExpression" &&
+          parent.tag.object.name === "graphql" &&
+          parent.tag.property.name === "experimental") ||
+          (parent.tag.type === "Identifier" &&
+            (parent.tag.name === "gql" || parent.tag.name === "graphql")))) ||
+        (parent.type === "CallExpression" &&
+          parent.callee.type === "Identifier" &&
+          parent.callee.name === "graphql")))
+  );
 }
 
 module.exports = embed;
