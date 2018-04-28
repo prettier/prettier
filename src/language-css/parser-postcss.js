@@ -1,7 +1,6 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const grayMatter = require("gray-matter");
 
 // utils
 const utils = require("./utils");
@@ -438,10 +437,14 @@ function parseNestedCSS(node) {
   return node;
 }
 
-function parseWithParser(parser, text, frontMatter) {
+function parseWithParser(parser, text) {
   let result;
+  const frontMatterMatches = text.match(/^---(\n[\s\S]*)?\n---/);
+  const frontMatter = frontMatterMatches && frontMatterMatches[0];
+  const normalizedText = frontMatter ? text.substr(frontMatter.length) : text;
+
   try {
-    result = parser.parse(text);
+    result = parser.parse(normalizedText);
   } catch (e) {
     if (typeof e.line !== "number") {
       throw e;
@@ -449,10 +452,12 @@ function parseWithParser(parser, text, frontMatter) {
     throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
 
-  if (Object.keys(frontMatter.data).length > 0) {
+  if (frontMatterMatches) {
+    const frontMatterContent = (frontMatterMatches[1] || "").trim();
+    const rightPad = frontMatterContent.length > 0 ? "\n" : "";
     result.nodes.unshift({
       type: "comment-yaml",
-      value: grayMatter.stringify("", frontMatter.data).replace(/\s$/, "")
+      value: `---\n${frontMatterContent}${rightPad}---\n`
     });
   }
 
@@ -484,22 +489,15 @@ function parse(text, parsers, opts) {
     opts.parser === "less" || opts.parser === "scss";
   const isSCSS = utils.isSCSS(opts.parser, text);
 
-  const frontMatter = grayMatter(text);
-  const normalizedText = frontMatter.content;
-
   try {
-    return parseWithParser(requireParser(isSCSS), normalizedText, frontMatter);
+    return parseWithParser(requireParser(isSCSS), text);
   } catch (originalError) {
     if (hasExplicitParserChoice) {
       throw originalError;
     }
 
     try {
-      return parseWithParser(
-        requireParser(!isSCSS),
-        normalizedText,
-        frontMatter
-      );
+      return parseWithParser(requireParser(!isSCSS), text);
     } catch (_secondError) {
       throw originalError;
     }
