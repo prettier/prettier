@@ -21,6 +21,7 @@ body {
   display: flex;
   flex: 1;
   flex-direction: column;
+  overflow: hidden;
 }
 
 header {
@@ -198,7 +199,6 @@ pre.CodeMirror-placeholder {
 
 .sub-options {
   flex: 1;
-  display: flex;
   padding: 15px 0 10px;
   border-bottom: 1px solid #ddd;
 }
