@@ -1,5 +1,7 @@
 "use strict";
 
+const diff = require("diff");
+
 const normalizeOptions = require("./options").normalize;
 const massageAST = require("./massage-ast");
 const comments = require("./comments");
@@ -66,16 +68,10 @@ function coreFormat(text, opts, addAlignmentSize) {
   const ast = parsed.ast;
   text = parsed.text;
 
-  let cursorOffset;
   if (opts.cursorOffset >= 0) {
-    const cursorNodeAndParents = rangeUtil.findNodeAtOffset(
-      ast,
-      opts.cursorOffset,
-      opts
-    );
-    const cursorNode = cursorNodeAndParents.node;
+    const cursorNode = rangeUtil.findNodeAtOffset(ast, opts.cursorOffset, opts)
+      .node;
     if (cursorNode) {
-      cursorOffset = opts.cursorOffset - opts.locStart(cursorNode);
       opts.cursorNode = cursorNode;
     }
   }
@@ -86,17 +82,84 @@ function coreFormat(text, opts, addAlignmentSize) {
 
   const result = printDocToString(doc, opts);
   const formatted = result.formatted;
-  const cursorOffsetResult = result.cursor;
+
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
     return { formatted: formatted.trim() + opts.newLine };
   }
 
-  if (cursorOffset !== undefined) {
+  if (opts.cursorOffset >= 0) {
+    let oldCursorNodeStart;
+    let oldCursorNodeText;
+
+    let cursorOffsetRelativeToOldCursorNode;
+
+    let newCursorNodeStart;
+    let newCursorNodeText;
+
+    if (opts.cursorNode && result.cursorNodeText) {
+      oldCursorNodeStart = opts.locStart(opts.cursorNode);
+      oldCursorNodeText = text.slice(
+        oldCursorNodeStart,
+        opts.locEnd(opts.cursorNode)
+      );
+
+      cursorOffsetRelativeToOldCursorNode =
+        opts.cursorOffset - oldCursorNodeStart;
+
+      newCursorNodeStart = result.cursorNodeStart;
+      newCursorNodeText = result.cursorNodeText;
+    } else {
+      oldCursorNodeStart = 0;
+      oldCursorNodeText = text;
+
+      cursorOffsetRelativeToOldCursorNode = opts.cursorOffset;
+
+      newCursorNodeStart = 0;
+      newCursorNodeText = result.formatted;
+    }
+
+    if (oldCursorNodeText === newCursorNodeText) {
+      return {
+        formatted,
+        cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode
+      };
+    }
+
+    // diff old and new cursor node texts, with a special cursor
+    // symbol inserted to find out where it moves to
+
+    const CURSOR = Symbol("cursor");
+
+    const oldCursorNodeCharArray = oldCursorNodeText.split("");
+    oldCursorNodeCharArray.splice(
+      cursorOffsetRelativeToOldCursorNode,
+      0,
+      CURSOR
+    );
+
+    const newCursorNodeCharArray = newCursorNodeText.split("");
+
+    const cursorNodeDiff = diff.diffArrays(
+      oldCursorNodeCharArray,
+      newCursorNodeCharArray
+    );
+
+    let i = 0;
+    for (const { count, value, removed } of cursorNodeDiff) {
+      if (removed) {
+        if (value.includes(CURSOR)) {
+          break;
+        }
+      } else {
+        i += count;
+      }
+    }
+
     return {
       formatted,
-      cursorOffset: cursorOffsetResult + cursorOffset
+      cursorOffset: newCursorNodeStart + i
     };
   }
 

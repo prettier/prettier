@@ -481,7 +481,7 @@ function printComments(path, print, options, needsSemi) {
 
   if (!comments || comments.length === 0) {
     if (cursorIsAtThisNode) {
-      return concat([cursor, printed]);
+      return concat([cursor, printed, cursor]);
     }
     return printed;
   }
@@ -489,7 +489,7 @@ function printComments(path, print, options, needsSemi) {
   let cursorWasInjected = false;
 
   const leadingParts = [];
-  const trailingParts = [needsSemi ? ";" : "", printed];
+  const trailingParts = [];
 
   path.each(commentPath => {
     const comment = commentPath.getValue();
@@ -497,6 +497,7 @@ function printComments(path, print, options, needsSemi) {
     const trailing = comment.trailing;
 
     const cursorIsAtThisComment =
+      cursorIsAtThisNode &&
       !cursorWasInjected &&
       comment.range &&
       comment.range[0] <= options.cursorOffset &&
@@ -508,10 +509,11 @@ function printComments(path, print, options, needsSemi) {
         return;
       }
       if (cursorIsAtThisComment) {
-        leadingParts.push(cursor);
+        leadingParts.push(cursor, contents, cursor);
         cursorWasInjected = true;
+      } else {
+        leadingParts.push(contents);
       }
-      leadingParts.push(contents);
 
       const text = options.originalText;
       if (
@@ -523,16 +525,24 @@ function printComments(path, print, options, needsSemi) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {
+      const contents = printTrailingComment(commentPath, print, options);
       if (cursorIsAtThisComment) {
-        trailingParts.push(cursor);
+        trailingParts.push(cursor, contents, cursor);
         cursorWasInjected = true;
+      } else {
+        trailingParts.push(contents);
       }
-      trailingParts.push(printTrailingComment(commentPath, print, options));
     }
   }, "comments");
 
+  if (needsSemi) {
+    leadingParts.push(";");
+  }
+
   if (cursorIsAtThisNode && !cursorWasInjected) {
-    leadingParts.push(cursor);
+    leadingParts.push(cursor, printed, cursor);
+  } else {
+    leadingParts.push(printed);
   }
 
   return concat(leadingParts.concat(trailingParts));
