@@ -80,13 +80,20 @@ function coreFormat(text, opts, addAlignmentSize) {
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
   opts.newLine = guessLineEnding(text);
 
-  const result = printDocToString(doc, opts);
-  const formatted = result.formatted;
+  let result = printDocToString(doc, opts);
 
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
-    return { formatted: formatted.trim() + opts.newLine };
+    const trimmed = result.formatted.trim();
+    const cursorNodeStart =
+      result.cursorNodeStart === undefined
+        ? undefined
+        : result.cursorNodeStart - result.formatted.indexOf(trimmed);
+    result = Object.assign({}, result, {
+      formatted: trimmed + opts.newLine,
+      cursorNodeStart
+    });
   }
 
   if (opts.cursorOffset >= 0) {
@@ -122,7 +129,7 @@ function coreFormat(text, opts, addAlignmentSize) {
 
     if (oldCursorNodeText === newCursorNodeText) {
       return {
-        formatted,
+        formatted: result.formatted,
         cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode
       };
     }
@@ -158,12 +165,12 @@ function coreFormat(text, opts, addAlignmentSize) {
     }
 
     return {
-      formatted,
+      formatted: result.formatted,
       cursorOffset: newCursorNodeStart + i
     };
   }
 
-  return { formatted };
+  return { formatted: result.formatted };
 }
 
 function formatRange(text, opts) {
@@ -190,26 +197,50 @@ function formatRange(text, opts) {
     opts.tabWidth
   );
 
-  const rangeFormatted = coreFormat(
+  const {
+    formatted: rangeFormatted,
+    cursorOffset: relativeCursorOffset
+  } = coreFormat(
     rangeString,
     Object.assign({}, opts, {
       rangeStart: 0,
       rangeEnd: Infinity,
-      printWidth: opts.printWidth - alignmentSize
+      printWidth: opts.printWidth - alignmentSize,
+      // track the cursor offset only if it's within our range
+      cursorOffset:
+        opts.cursorOffset >= rangeStart && opts.cursorOffset < rangeEnd
+          ? opts.cursorOffset - rangeStart
+          : -1
     }),
     alignmentSize
-  ).formatted;
+  );
 
   // Since the range contracts to avoid trailing whitespace,
   // we need to remove the newline that was inserted by the `format` call.
   const rangeTrimmed = rangeFormatted.trimRight();
+  const formatted =
+    text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
 
-  return text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
+  let cursorOffset = opts.cursorOffset;
+  if (opts.cursorOffset >= rangeEnd) {
+    // handle the case where the cursor was past the end of the range
+    cursorOffset =
+      opts.cursorOffset - rangeEnd + (rangeStart + rangeTrimmed.length);
+  } else if (relativeCursorOffset !== undefined) {
+    // handle the case where the cursor was in the range
+    cursorOffset = relativeCursorOffset + rangeStart;
+  }
+  // keep the cursor as it was if it was before the start of the range
+
+  return {
+    formatted,
+    cursorOffset
+  };
 }
 
 function format(text, opts) {
   if (opts.rangeStart > 0 || opts.rangeEnd < text.length) {
-    return { formatted: formatRange(text, opts) };
+    return formatRange(text, opts);
   }
 
   const selectedParser = parser.resolveParser(opts);
