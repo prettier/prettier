@@ -154,13 +154,13 @@ function coreFormat(text, opts, addAlignmentSize) {
     );
 
     let i = 0;
-    for (const { count, value, removed } of cursorNodeDiff) {
-      if (removed) {
-        if (value.includes(CURSOR)) {
+    for (const entry of cursorNodeDiff) {
+      if (entry.removed) {
+        if (entry.value.includes(CURSOR)) {
           break;
         }
       } else {
-        i += count;
+        i += entry.count;
       }
     }
 
@@ -197,10 +197,7 @@ function formatRange(text, opts) {
     opts.tabWidth
   );
 
-  const {
-    formatted: rangeFormatted,
-    cursorOffset: relativeCursorOffset
-  } = coreFormat(
+  const rangeResult = coreFormat(
     rangeString,
     Object.assign({}, opts, {
       rangeStart: 0,
@@ -217,7 +214,7 @@ function formatRange(text, opts) {
 
   // Since the range contracts to avoid trailing whitespace,
   // we need to remove the newline that was inserted by the `format` call.
-  const rangeTrimmed = rangeFormatted.trimRight();
+  const rangeTrimmed = rangeResult.formatted.trimRight();
   const formatted =
     text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
 
@@ -226,15 +223,15 @@ function formatRange(text, opts) {
     // handle the case where the cursor was past the end of the range
     cursorOffset =
       opts.cursorOffset - rangeEnd + (rangeStart + rangeTrimmed.length);
-  } else if (relativeCursorOffset !== undefined) {
+  } else if (rangeResult.cursorOffset !== undefined) {
     // handle the case where the cursor was in the range
-    cursorOffset = relativeCursorOffset + rangeStart;
+    cursorOffset = rangeResult.cursorOffset + rangeStart;
   }
   // keep the cursor as it was if it was before the start of the range
 
   return {
-    formatted,
-    cursorOffset
+    formatted: formatted,
+    cursorOffset: cursorOffset
   };
 }
 

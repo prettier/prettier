@@ -1,8 +1,10 @@
 const prettier = require("../../tests_config/require_prettier");
 
-function insertCursor({ formatted, cursorOffset }) {
+function insertCursor(result) {
   return (
-    formatted.slice(0, cursorOffset) + "<|>" + formatted.slice(cursorOffset)
+    result.formatted.slice(0, result.cursorOffset) +
+    "<|>" +
+    result.formatted.slice(result.cursorOffset)
   );
 }
 
@@ -15,13 +17,13 @@ function extractCursor(code) {
 }
 
 function runPrettierWithInlineCursor(_code, _opts) {
-  const { original, code, cursorOffset } = extractCursor(_code);
+  const result = extractCursor(_code);
   return {
-    original,
+    original: result.original,
     formatted: insertCursor(
       prettier.formatWithCursor(
-        code,
-        Object.assign({}, _opts, { cursorOffset })
+        result.code,
+        Object.assign({}, _opts, { cursorOffset: result.cursorOffset })
       )
     )
   };
