@@ -34,7 +34,6 @@ Object {
 
   <|>
 
-
   const y = 5
 ",
 }
@@ -50,11 +49,7 @@ Object {
 
   const y = 5
 
-
-
   <|>
-
-
 
   const z = 9
 ",
@@ -69,8 +64,6 @@ const z = 9;
 ",
   "original": "const y = 5
 <|>
-
-
 
 const z = 9
 ",
@@ -90,6 +83,20 @@ Object {
   "formatted": "thisWillBeFormatted<|>(2, 3);
 ",
   "original": "     thisWillBeFormatted  <|>  (2  ,3,   )",
+}
+`;
+
+exports[`puts the cursor in sensible places 9`] = `
+Object {
+  "formatted": "const y = 5;
+<|>",
+  "original": "const y = 5
+
+
+
+
+<|>
+  ",
 }
 `;
 
@@ -113,6 +120,22 @@ haha()<|>;
   "original": "
     // hi lol
     haha()<|>
+",
+}
+`;
+
+exports[`works with css 1`] = `
+Object {
+  "formatted": ".blah {
+  /* hloow <|> */
+  background-color: white;
+}
+",
+  "original": "
+      .blah {
+      /* hloow <|> */
+  background-color: white;
+}
 ",
 }
 `;
@@ -199,5 +222,66 @@ Object {
 
     thisWontBeFormatted  (2, 9<|>0  ,)
     ",
+}
+`;
+
+exports[`works with typescript and comments 1`] = `
+Object {
+  "formatted": "// hi l<|>ol
+function ehllooo() {
+  const hi = \\"hi\\";
+}
+",
+  "original": "
+      // hi l<|>ol
+    function ehllooo () {
+      const hi = \\"hi\\"
+    }
+",
+}
+`;
+
+exports[`works with typescript and comments 2`] = `
+Object {
+  "formatted": "<|>// howdy
+// hi lol
+const y = 5;
+",
+  "original": "
+     <|>
+      // howdy
+      // hi lol
+      const y = 5
+",
+}
+`;
+
+exports[`works with typescript and comments 3`] = `
+Object {
+  "formatted": "/<|>/ howdy
+// hi lol
+const y = 5;
+",
+  "original": "
+      /<|>/ howdy
+      // hi lol
+      const y = 5
+",
+}
+`;
+
+exports[`works with typescript and comments 4`] = `
+Object {
+  "formatted": "// howdy
+// hi lol
+const y = 5;
+//  traling!<|>
+",
+  "original": "
+      // howdy
+      // hi lol
+      const y = 5
+      //  traling! <|>
+",
 }
 `;

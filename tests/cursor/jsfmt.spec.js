@@ -82,6 +82,69 @@ test("works when the file starts with a comment", () => {
   ).toMatchSnapshot();
 });
 
+test("works with typescript and comments", () => {
+  expect(
+    runPrettierWithInlineCursor(
+      `
+      // hi l<|>ol
+    function ehllooo () {
+      const hi = "hi"
+    }
+`,
+      { parser: "typescript" }
+    )
+  ).toMatchSnapshot();
+
+  expect(
+    runPrettierWithInlineCursor(
+      `
+     <|>
+      // howdy
+      // hi lol
+      const y = 5
+`,
+      { parser: "typescript" }
+    )
+  ).toMatchSnapshot();
+
+  expect(
+    runPrettierWithInlineCursor(
+      `
+      /<|>/ howdy
+      // hi lol
+      const y = 5
+`,
+      { parser: "typescript" }
+    )
+  ).toMatchSnapshot();
+
+  expect(
+    runPrettierWithInlineCursor(
+      `
+      // howdy
+      // hi lol
+      const y = 5
+      //  traling! <|>
+`,
+      { parser: "typescript" }
+    )
+  ).toMatchSnapshot();
+});
+
+test("works with css", () => {
+  expect(
+    runPrettierWithInlineCursor(
+      `
+      .blah {
+      /* hloow <|> */
+  background-color: white;
+}
+`,
+      { parser: "css" }
+    )
+  ).toMatchSnapshot();
+});
+
 test("puts the cursor in sensible places", () => {
   expect(runPrettierWithInlineCursor(`return        <|> 15`)).toMatchSnapshot();
   expect(runPrettierWithInlineCursor(`return        <|>15`)).toMatchSnapshot();
@@ -96,7 +159,6 @@ foo  <|>  (bar);
 
   <|>
 
-
   const y = 5
 `)
   ).toMatchSnapshot();
@@ -106,11 +168,7 @@ foo  <|>  (bar);
 
   const y = 5
 
-
-
   <|>
-
-
 
   const z = 9
 `)
@@ -119,8 +177,6 @@ foo  <|>  (bar);
   expect(
     runPrettierWithInlineCursor(`const y = 5
 <|>
-
-
 
 const z = 9
 `)
@@ -132,6 +188,16 @@ const z = 9
 
   expect(
     runPrettierWithInlineCursor(`     thisWillBeFormatted  <|>  (2  ,3,   )`)
+  ).toMatchSnapshot();
+
+  expect(
+    runPrettierWithInlineCursor(`const y = 5
+
+
+
+
+<|>
+  `)
   ).toMatchSnapshot();
 });
 
