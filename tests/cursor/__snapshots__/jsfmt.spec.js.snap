@@ -63,13 +63,29 @@ Object {
 
 exports[`puts the cursor in sensible places 6`] = `
 Object {
+  "formatted": "const y = 5;
+<|>
+const z = 9;
+",
+  "original": "const y = 5
+<|>
+
+
+
+const z = 9
+",
+}
+`;
+
+exports[`puts the cursor in sensible places 7`] = `
+Object {
   "formatted": "func<|>tion banana() {}
 ",
   "original": "  func<|>tion banana(){}",
 }
 `;
 
-exports[`puts the cursor in sensible places 7`] = `
+exports[`puts the cursor in sensible places 8`] = `
 Object {
   "formatted": "thisWillBeFormatted<|>(2, 3);
 ",

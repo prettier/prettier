@@ -117,6 +117,16 @@ foo  <|>  (bar);
   ).toMatchSnapshot();
 
   expect(
+    runPrettierWithInlineCursor(`const y = 5
+<|>
+
+
+
+const z = 9
+`)
+  ).toMatchSnapshot();
+
+  expect(
     runPrettierWithInlineCursor(`  func<|>tion banana(){}`)
   ).toMatchSnapshot();
 
