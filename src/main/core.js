@@ -69,10 +69,9 @@ function coreFormat(text, opts, addAlignmentSize) {
   text = parsed.text;
 
   if (opts.cursorOffset >= 0) {
-    const cursorNode = rangeUtil.findNodeAtOffset(ast, opts.cursorOffset, opts)
-      .node;
-    if (cursorNode) {
-      opts.cursorNode = cursorNode;
+    const nodeResult = rangeUtil.findNodeAtOffset(ast, opts.cursorOffset, opts);
+    if (nodeResult && nodeResult.node) {
+      opts.cursorNode = nodeResult.node;
     }
   }
 
