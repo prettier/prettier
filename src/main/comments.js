@@ -486,8 +486,6 @@ function printComments(path, print, options, needsSemi) {
     return printed;
   }
 
-  let cursorWasInjected = false;
-
   const leadingParts = [];
   const trailingParts = [];
 
@@ -496,24 +494,12 @@ function printComments(path, print, options, needsSemi) {
     const leading = comment.leading;
     const trailing = comment.trailing;
 
-    const cursorIsAtThisComment =
-      cursorIsAtThisNode &&
-      !cursorWasInjected &&
-      comment.range &&
-      comment.range[0] <= options.cursorOffset &&
-      comment.range[1] > options.cursorOffset;
-
     if (leading) {
       const contents = printLeadingComment(commentPath, print, options);
       if (!contents) {
         return;
       }
-      if (cursorIsAtThisComment) {
-        leadingParts.push(cursor, contents, cursor);
-        cursorWasInjected = true;
-      } else {
-        leadingParts.push(contents);
-      }
+      leadingParts.push(contents);
 
       const text = options.originalText;
       if (
@@ -526,12 +512,7 @@ function printComments(path, print, options, needsSemi) {
       }
     } else if (trailing) {
       const contents = printTrailingComment(commentPath, print, options);
-      if (cursorIsAtThisComment) {
-        trailingParts.push(cursor, contents, cursor);
-        cursorWasInjected = true;
-      } else {
-        trailingParts.push(contents);
-      }
+      trailingParts.push(contents);
     }
   }, "comments");
 
@@ -539,11 +520,7 @@ function printComments(path, print, options, needsSemi) {
     leadingParts.push(";");
   }
 
-  if (cursorIsAtThisNode && !cursorWasInjected) {
-    leadingParts.push(cursor, printed, cursor);
-  } else {
-    leadingParts.push(printed);
-  }
+  leadingParts.push(printed);
 
   return concat(leadingParts.concat(trailingParts));
 }
