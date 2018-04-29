@@ -68,14 +68,14 @@ foo('bar', cb => {
 
 test("works when the file starts with a comment", () => {
   expect(
-    runPrettierWithInlineCursor(` 
+    runPrettierWithInlineCursor(`
     // hi<|> lol
-    haha() 
+    haha()
 `)
   ).toMatchSnapshot();
 
   expect(
-    runPrettierWithInlineCursor(` 
+    runPrettierWithInlineCursor(`
     // hi lol
     haha()<|>
 `)
@@ -87,29 +87,29 @@ test("puts the cursor in sensible places", () => {
   expect(runPrettierWithInlineCursor(`return        <|>15`)).toMatchSnapshot();
   expect(
     runPrettierWithInlineCursor(`
-foo  <|>  (bar);  
+foo  <|>  (bar);
 `)
   ).toMatchSnapshot();
 
   expect(
-    runPrettierWithInlineCursor(` 
+    runPrettierWithInlineCursor(`
 
-  <|>  
-    
+  <|>
+
 
   const y = 5
 `)
   ).toMatchSnapshot();
 
   expect(
-    runPrettierWithInlineCursor(` 
+    runPrettierWithInlineCursor(`
 
   const y = 5
 
-     
-  
-  <|>  
-    
+
+
+  <|>
+
 
 
   const z = 9
@@ -139,24 +139,24 @@ test("works with ranges", () => {
   expect(
     runPrettierWithInlineCursor(
       `thisWontBeFormatted  ( 1  ,3)
-    
+
     thisWillBeFormatted  <|>  (2  ,3,   )
-    
+
     thisWontBeFormatted  (2, 90  ,)
     `,
-      { rangeStart: 31, rangeEnd: 83 }
+      { rangeStart: 31, rangeEnd: 75 }
     )
   ).toMatchSnapshot();
 
   expect(
     runPrettierWithInlineCursor(
       `thisWontBeFormatted  ( 1  ,3)
-    
+
     thisWillBeFormatted    (2  ,3<|>,   )
-    
+
     thisWontBeFormatted  (2, 90  ,)
     `,
-      { rangeStart: 31, rangeEnd: 83 }
+      { rangeStart: 31, rangeEnd: 75 }
     )
   ).toMatchSnapshot();
 
@@ -165,34 +165,34 @@ test("works with ranges", () => {
       `thisWontBeFormatted  ( 1  ,3)
 
     thisWillBeFormatted    (2  ,3,  <|> )
-    
+
     thisWontBeFormatted  (2, 90  ,)
     `,
-      { rangeStart: 31, rangeEnd: 83 }
+      { rangeStart: 31, rangeEnd: 75 }
     )
   ).toMatchSnapshot();
 
   expect(
     runPrettierWithInlineCursor(
       `thisWontBeFormatted <|> ( 1  ,3)
-    
+
     thisWillBeFormatted    (2  ,3,   )
-    
+
     thisWontBeFormatted  (2, 90  ,)
     `,
-      { rangeStart: 31, rangeEnd: 83 }
+      { rangeStart: 31, rangeEnd: 75 }
     )
   ).toMatchSnapshot();
 
   expect(
     runPrettierWithInlineCursor(
       `thisWontBeFormatted  ( 1  ,3)
-    
+
     thisWillBeFormatted    (2  ,3,   )
-    
+
     thisWontBeFormatted  (2, 9<|>0  ,)
     `,
-      { rangeStart: 31, rangeEnd: 83 }
+      { rangeStart: 31, rangeEnd: 75 }
     )
   ).toMatchSnapshot();
 });

@@ -21,7 +21,7 @@ Object {
   "formatted": "foo<|>(bar);
 ",
   "original": "
-foo  <|>  (bar);  
+foo  <|>  (bar);
 ",
 }
 `;
@@ -30,10 +30,10 @@ exports[`puts the cursor in sensible places 4`] = `
 Object {
   "formatted": "<|>const y = 5;
 ",
-  "original": " 
+  "original": "
 
-  <|>  
-    
+  <|>
+
 
   const y = 5
 ",
@@ -46,14 +46,14 @@ Object {
 
 <|>const z = 9;
 ",
-  "original": " 
+  "original": "
 
   const y = 5
 
-     
-  
-  <|>  
-    
+
+
+  <|>
+
 
 
   const z = 9
@@ -98,9 +98,9 @@ Object {
   "formatted": "// hi<|> lol
 haha();
 ",
-  "original": " 
+  "original": "
     // hi<|> lol
-    haha() 
+    haha()
 ",
 }
 `;
@@ -110,7 +110,7 @@ Object {
   "formatted": "// hi lol
 haha()<|>;
 ",
-  "original": " 
+  "original": "
     // hi lol
     haha()<|>
 ",
@@ -120,15 +120,15 @@ haha()<|>;
 exports[`works with ranges 1`] = `
 Object {
   "formatted": "thisWontBeFormatted  ( 1  ,3)
-    
+
     thisWillBeFormatted<|>(2, 3);
-    
+
     thisWontBeFormatted  (2, 90  ,)
     ",
   "original": "thisWontBeFormatted  ( 1  ,3)
-    
+
     thisWillBeFormatted  <|>  (2  ,3,   )
-    
+
     thisWontBeFormatted  (2, 90  ,)
     ",
 }
@@ -137,15 +137,15 @@ Object {
 exports[`works with ranges 2`] = `
 Object {
   "formatted": "thisWontBeFormatted  ( 1  ,3)
-    
+
     thisWillBeFormatted(2, 3<|>);
-    
+
     thisWontBeFormatted  (2, 90  ,)
     ",
   "original": "thisWontBeFormatted  ( 1  ,3)
-    
+
     thisWillBeFormatted    (2  ,3<|>,   )
-    
+
     thisWontBeFormatted  (2, 90  ,)
     ",
 }
@@ -157,12 +157,12 @@ Object {
 
     thisWillBeFormatted(2, 3<|>);
 
-    thisWontBeFormatted(2, 90);
+    thisWontBeFormatted  (2, 90  ,)
     ",
   "original": "thisWontBeFormatted  ( 1  ,3)
 
     thisWillBeFormatted    (2  ,3,  <|> )
-    
+
     thisWontBeFormatted  (2, 90  ,)
     ",
 }
@@ -171,15 +171,15 @@ Object {
 exports[`works with ranges 4`] = `
 Object {
   "formatted": "thisWontBeFormatted <|> ( 1  ,3)
-    
+
     thisWillBeFormatted(2, 3);
-    
+
     thisWontBeFormatted  (2, 90  ,)
     ",
   "original": "thisWontBeFormatted <|> ( 1  ,3)
-    
+
     thisWillBeFormatted    (2  ,3,   )
-    
+
     thisWontBeFormatted  (2, 90  ,)
     ",
 }
@@ -188,15 +188,15 @@ Object {
 exports[`works with ranges 5`] = `
 Object {
   "formatted": "thisWontBeFormatted  ( 1  ,3)
-    
+
     thisWillBeFormatted(2, 3);
-    
+
     thisWontBeFormatted  (2, 9<|>0  ,)
     ",
   "original": "thisWontBeFormatted  ( 1  ,3)
-    
+
     thisWillBeFormatted    (2  ,3,   )
-    
+
     thisWontBeFormatted  (2, 9<|>0  ,)
     ",
 }
