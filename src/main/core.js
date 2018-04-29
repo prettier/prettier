@@ -155,7 +155,7 @@ function coreFormat(text, opts, addAlignmentSize) {
     let i = 0;
     for (const entry of cursorNodeDiff) {
       if (entry.removed) {
-        if (entry.value.includes(CURSOR)) {
+        if (entry.value.indexOf(CURSOR) > -1) {
           break;
         }
       } else {
