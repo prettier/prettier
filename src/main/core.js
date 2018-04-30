@@ -150,21 +150,18 @@ function coreFormat(text, opts, addAlignmentSize) {
       newCursorNodeCharArray
     );
 
-    let i = 0;
+    let cursorOffset = newCursorNodeStart;
     for (const entry of cursorNodeDiff) {
       if (entry.removed) {
         if (entry.value.indexOf(CURSOR) > -1) {
           break;
         }
       } else {
-        i += entry.count;
+        cursorOffset += entry.count;
       }
     }
 
-    return {
-      formatted: result.formatted,
-      cursorOffset: newCursorNodeStart + i
-    };
+    return { formatted: result.formatted, cursorOffset };
   }
 
   return { formatted: result.formatted };
