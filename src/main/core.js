@@ -81,20 +81,18 @@ function coreFormat(text, opts, addAlignmentSize) {
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
   opts.newLine = guessLineEnding(text);
 
-  let result = printDocToString(doc, opts);
+  const result = printDocToString(doc, opts);
 
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
     const trimmed = result.formatted.trim();
-    const cursorNodeStart =
-      result.cursorNodeStart === undefined
-        ? undefined
-        : result.cursorNodeStart - result.formatted.indexOf(trimmed);
-    result = Object.assign({}, result, {
-      formatted: trimmed + opts.newLine,
-      cursorNodeStart
-    });
+
+    if (result.cursorNodeStart !== undefined) {
+      result.cursorNodeStart -= result.formatted.indexOf(trimmed);
+    }
+
+    result.formatted = trimmed + opts.newLine;
   }
 
   if (opts.cursorOffset >= 0) {
