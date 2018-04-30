@@ -472,22 +472,24 @@ function printDanglingComments(path, options, sameIndent, filter) {
   return indent(concat([hardline, join(hardline, parts)]));
 }
 
+function prependCursorPlaceholder(path, options, printed) {
+  if (path.getNode() === options.cursorNode && path.getValue()) {
+    return concat([cursor, printed, cursor]);
+  }
+  return printed;
+}
+
 function printComments(path, print, options, needsSemi) {
   const value = path.getValue();
   const printed = print(path);
   const comments = value && value.comments;
 
-  const cursorIsAtThisNode = path.getNode() === options.cursorNode && value;
-
   if (!comments || comments.length === 0) {
-    if (cursorIsAtThisNode) {
-      return concat([cursor, printed, cursor]);
-    }
-    return printed;
+    return prependCursorPlaceholder(path, options, printed);
   }
 
   const leadingParts = [];
-  const trailingParts = [];
+  const trailingParts = [needsSemi ? ";" : "", printed];
 
   path.each(commentPath => {
     const comment = commentPath.getValue();
@@ -511,18 +513,15 @@ function printComments(path, print, options, needsSemi) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {
-      const contents = printTrailingComment(commentPath, print, options);
-      trailingParts.push(contents);
+      trailingParts.push(printTrailingComment(commentPath, print, options));
     }
   }, "comments");
 
-  if (needsSemi) {
-    leadingParts.push(";");
-  }
-
-  leadingParts.push(printed);
-
-  return concat(leadingParts.concat(trailingParts));
+  return prependCursorPlaceholder(
+    path,
+    options,
+    concat(leadingParts.concat(trailingParts))
+  );
 }
 
 module.exports = {
