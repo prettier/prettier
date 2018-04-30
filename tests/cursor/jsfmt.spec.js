@@ -175,6 +175,19 @@ foo  <|>  (bar);
   ).toMatchSnapshot();
 
   expect(
+    runPrettierWithInlineCursor(`const    /* h<|>i */    y = 5
+`)
+  ).toMatchSnapshot();
+
+  expect(
+    runPrettierWithInlineCursor(
+      `const      y    /* h<|>i */   = 5
+`,
+      { parser: "typescript" }
+    )
+  ).toMatchSnapshot();
+
+  expect(
     runPrettierWithInlineCursor(`const y = 5
 <|>
 

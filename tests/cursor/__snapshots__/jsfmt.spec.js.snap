@@ -58,6 +58,24 @@ Object {
 
 exports[`puts the cursor in sensible places 6`] = `
 Object {
+  "formatted": "const /* h<|>i */ y = 5;
+",
+  "original": "const    /* h<|>i */    y = 5
+",
+}
+`;
+
+exports[`puts the cursor in sensible places 7`] = `
+Object {
+  "formatted": "const y /* h<|>i */ = 5;
+",
+  "original": "const      y    /* h<|>i */   = 5
+",
+}
+`;
+
+exports[`puts the cursor in sensible places 8`] = `
+Object {
   "formatted": "const y = 5;
 <|>
 const z = 9;
@@ -70,7 +88,7 @@ const z = 9
 }
 `;
 
-exports[`puts the cursor in sensible places 7`] = `
+exports[`puts the cursor in sensible places 9`] = `
 Object {
   "formatted": "func<|>tion banana() {}
 ",
@@ -78,7 +96,7 @@ Object {
 }
 `;
 
-exports[`puts the cursor in sensible places 8`] = `
+exports[`puts the cursor in sensible places 10`] = `
 Object {
   "formatted": "thisWillBeFormatted<|>(2, 3);
 ",
@@ -86,7 +104,7 @@ Object {
 }
 `;
 
-exports[`puts the cursor in sensible places 9`] = `
+exports[`puts the cursor in sensible places 11`] = `
 Object {
   "formatted": "const y = 5;
 <|>",
