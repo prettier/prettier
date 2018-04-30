@@ -403,6 +403,19 @@ exports[`show detailed usage with --help no-semi (stdout) 1`] = `
 
 exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help paren-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help paren-spacing (stdout) 1`] = `
+"--paren-spacing
+
+  Print spaces between parens, WordPress style.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help paren-spacing (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `

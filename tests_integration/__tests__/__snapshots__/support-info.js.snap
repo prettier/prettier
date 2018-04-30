@@ -148,6 +148,10 @@ Object {
       "default": false,
       "type": "boolean",
     },
+    "parenSpacing": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "parser": Object {
       "choices": Array [
         "flow",
@@ -852,6 +856,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"jsxSingleQuote\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Common\\",
+      \\"default\\": false,
+      \\"description\\": \\"Print spaces between parens, WordPress style.\\",
+      \\"name\\": \\"parenSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"boolean\\"
     },
     {

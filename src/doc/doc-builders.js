@@ -53,6 +53,7 @@ function group(contents, opts) {
     id: opts.id,
     contents: contents,
     break: !!opts.shouldBreak,
+    addedLine: !!opts.addedLine,
     expandedStates: opts.expandedStates
   };
 }
