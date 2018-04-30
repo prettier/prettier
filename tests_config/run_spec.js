@@ -52,24 +52,24 @@ function run_spec(dirname, parsers, options) {
         ).toMatchSnapshot(filename);
       });
 
-      parsers.slice(1).forEach(parserName => {
-        test(`${filename} - ${parserName}-verify`, () => {
-          const verifyOptions = Object.assign(mergedOptions, {
-            parser: parserName
-          });
+      parsers.slice(1).forEach(parser => {
+        const verifyOptions = Object.assign({}, mergedOptions, { parser });
+        test(`${filename} - ${parser}-verify`, () => {
           const verifyOutput = prettyprint(input, path, verifyOptions);
           expect(output).toEqual(verifyOutput);
         });
       });
 
       if (AST_COMPARE) {
-        const astMassaged = parse(input, mergedOptions);
+        const compareOptions = Object.assign({}, mergedOptions);
+        delete compareOptions.cursorOffset;
+        const astMassaged = parse(input, compareOptions);
         let ppastMassaged;
         let pperr = null;
         try {
           ppastMassaged = parse(
-            prettyprint(input, path, mergedOptions),
-            mergedOptions
+            prettyprint(input, path, compareOptions),
+            compareOptions
           );
         } catch (e) {
           pperr = e.stack;
