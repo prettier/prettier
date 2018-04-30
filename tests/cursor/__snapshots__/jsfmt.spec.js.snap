@@ -49,6 +49,108 @@ const y = 5;
 
 `;
 
+exports[`cursor-0.js 1`] = `
+(function() {return        <|> 15})()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(function() {
+  return <|>15;
+})();
+
+`;
+
+exports[`cursor-1.js 1`] = `
+(function(){return        <|>15})()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(function() {
+  return <|>15;
+})();
+
+`;
+
+exports[`cursor-2.js 1`] = `
+
+foo  <|>  (bar);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+foo<|>(bar);
+
+`;
+
+exports[`cursor-3.js 1`] = `
+
+
+  <|>
+
+  const y = 5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<|>const y = 5;
+
+`;
+
+exports[`cursor-4.js 1`] = `
+
+
+  const y = 5
+
+  <|>
+
+  const z = 9
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const y = 5;
+
+<|>const z = 9;
+
+`;
+
+exports[`cursor-5.js 1`] = `
+const    /* h<|>i */    y = 5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const /* h<|>i */ y = 5;
+
+`;
+
+exports[`cursor-6.js 1`] = `
+const      y    /* h<|>i */   = 5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const y /* h<|>i */ = 5;
+
+`;
+
+exports[`cursor-7.js 1`] = `
+const y = 5
+<|>
+
+const z = 9
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const y = 5;
+<|>
+const z = 9;
+
+`;
+
+exports[`cursor-8.js 1`] = `
+  func<|>tion banana(){}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+func<|>tion banana() {}
+
+`;
+
+exports[`cursor-9.js 1`] = `
+     thisWillBeFormatted  <|>  (2  ,3,   )~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+thisWillBeFormatted<|>(2, 3);
+
+`;
+
+exports[`cursor-10.js 1`] = `
+const y = 5
+
+
+
+
+<|>
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const y = 5;
+<|>
+`;
+
 exports[`file-start-with-comment-1.js 1`] = `
 // hi<|> lol
 haha()
@@ -67,205 +169,77 @@ haha()<|>;
 
 `;
 
-exports[`puts the cursor in sensible places 1`] = `
-Object {
-  "formatted": "return <|>15;
-",
-  "original": "return        <|> 15",
-}
-`;
-
-exports[`puts the cursor in sensible places 2`] = `
-Object {
-  "formatted": "return <|>15;
-",
-  "original": "return        <|>15",
-}
-`;
-
-exports[`puts the cursor in sensible places 3`] = `
-Object {
-  "formatted": "foo<|>(bar);
-",
-  "original": "
-foo  <|>  (bar);
-",
-}
-`;
-
-exports[`puts the cursor in sensible places 4`] = `
-Object {
-  "formatted": "<|>const y = 5;
-",
-  "original": "
-
-  <|>
-
-  const y = 5
-",
-}
-`;
-
-exports[`puts the cursor in sensible places 5`] = `
-Object {
-  "formatted": "const y = 5;
-
-<|>const z = 9;
-",
-  "original": "
-
-  const y = 5
-
-  <|>
-
-  const z = 9
-",
-}
-`;
-
-exports[`puts the cursor in sensible places 6`] = `
-Object {
-  "formatted": "const /* h<|>i */ y = 5;
-",
-  "original": "const    /* h<|>i */    y = 5
-",
-}
-`;
-
-exports[`puts the cursor in sensible places 7`] = `
-Object {
-  "formatted": "const y /* h<|>i */ = 5;
-",
-  "original": "const      y    /* h<|>i */   = 5
-",
-}
-`;
-
-exports[`puts the cursor in sensible places 8`] = `
-Object {
-  "formatted": "const y = 5;
-<|>
-const z = 9;
-",
-  "original": "const y = 5
-<|>
-
-const z = 9
-",
-}
-`;
-
-exports[`puts the cursor in sensible places 9`] = `
-Object {
-  "formatted": "func<|>tion banana() {}
-",
-  "original": "  func<|>tion banana(){}",
-}
-`;
-
-exports[`puts the cursor in sensible places 10`] = `
-Object {
-  "formatted": "thisWillBeFormatted<|>(2, 3);
-",
-  "original": "     thisWillBeFormatted  <|>  (2  ,3,   )",
-}
-`;
-
-exports[`puts the cursor in sensible places 11`] = `
-Object {
-  "formatted": "const y = 5;
-<|>",
-  "original": "const y = 5
-
-
-
-
-<|>
-  ",
-}
-`;
-
-exports[`works with ranges 1`] = `
-Object {
-  "formatted": "thisWontBeFormatted  ( 1  ,3)
-
-    thisWillBeFormatted<|>(2, 3);
-
-    thisWontBeFormatted  (2, 90  ,)
-    ",
-  "original": "thisWontBeFormatted  ( 1  ,3)
+exports[`range-0.js 1`] = `
+thisWontBeFormatted  ( 1  ,3)
 
     thisWillBeFormatted  <|>  (2  ,3,   )
 
     thisWontBeFormatted  (2, 90  ,)
-    ",
-}
-`;
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+thisWontBeFormatted  ( 1  ,3)
 
-exports[`works with ranges 2`] = `
-Object {
-  "formatted": "thisWontBeFormatted  ( 1  ,3)
-
-    thisWillBeFormatted(2, 3<|>);
+    thisWillBeFormatted<|>(2, 3);
 
     thisWontBeFormatted  (2, 90  ,)
-    ",
-  "original": "thisWontBeFormatted  ( 1  ,3)
+    
+`;
+
+exports[`range-1.js 1`] = `
+thisWontBeFormatted  ( 1  ,3)
 
     thisWillBeFormatted    (2  ,3<|>,   )
 
     thisWontBeFormatted  (2, 90  ,)
-    ",
-}
-`;
-
-exports[`works with ranges 3`] = `
-Object {
-  "formatted": "thisWontBeFormatted  ( 1  ,3)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+thisWontBeFormatted  ( 1  ,3)
 
     thisWillBeFormatted(2, 3<|>);
 
     thisWontBeFormatted  (2, 90  ,)
-    ",
-  "original": "thisWontBeFormatted  ( 1  ,3)
+    
+`;
+
+exports[`range-2.js 1`] = `
+thisWontBeFormatted  ( 1  ,3)
 
     thisWillBeFormatted    (2  ,3,  <|> )
 
     thisWontBeFormatted  (2, 90  ,)
-    ",
-}
-`;
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+thisWontBeFormatted  ( 1  ,3)
 
-exports[`works with ranges 4`] = `
-Object {
-  "formatted": "thisWontBeFormatted <|> ( 1  ,3)
-
-    thisWillBeFormatted(2, 3);
+    thisWillBeFormatted(2, 3<|>);
 
     thisWontBeFormatted  (2, 90  ,)
-    ",
-  "original": "thisWontBeFormatted <|> ( 1  ,3)
+    
+`;
+
+exports[`range-3.js 1`] = `
+thisWontBeFormatted <|> ( 1  ,3)
 
     thisWillBeFormatted    (2  ,3,   )
 
     thisWontBeFormatted  (2, 90  ,)
-    ",
-}
-`;
-
-exports[`works with ranges 5`] = `
-Object {
-  "formatted": "thisWontBeFormatted  ( 1  ,3)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+thisWontBeFormatted <|> ( 1  ,3)
 
     thisWillBeFormatted(2, 3);
 
-    thisWontBeFormatted  (2, 9<|>0  ,)
-    ",
-  "original": "thisWontBeFormatted  ( 1  ,3)
+    thisWontBeFormatted  (2, 90  ,)
+    
+`;
+
+exports[`range-4.js 1`] = `
+thisWontBeFormatted  ( 1  ,3)
 
     thisWillBeFormatted    (2  ,3,   )
 
     thisWontBeFormatted  (2, 9<|>0  ,)
-    ",
-}
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+thisWontBeFormatted  ( 1  ,3)
+
+    thisWillBeFormatted(2, 3);
+
+    thisWontBeFormatted  (2, 9<|>0  ,)
+    
 `;
