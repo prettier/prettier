@@ -22,6 +22,7 @@ function run_spec(dirname, parsers, options) {
     ) {
       let rangeStart = 0;
       let rangeEnd = Infinity;
+      let cursorOffset;
       const source = read(path)
         .replace(/\r\n/g, "\n")
         .replace("<<<PRETTIER_RANGE_START>>>", (match, offset) => {
@@ -33,12 +34,18 @@ function run_spec(dirname, parsers, options) {
           return "";
         });
 
+      const input = source.replace("<|>", (match, offset) => {
+        cursorOffset = offset;
+        return "";
+      });
+
       const mergedOptions = Object.assign(mergeDefaultOptions(options || {}), {
         parser: parsers[0],
-        rangeStart: rangeStart,
-        rangeEnd: rangeEnd
+        rangeStart,
+        rangeEnd,
+        cursorOffset
       });
-      const output = prettyprint(source, path, mergedOptions);
+      const output = prettyprint(input, path, mergedOptions);
       test(`${filename} - ${mergedOptions.parser}-verify`, () => {
         expect(
           raw(source + "~".repeat(mergedOptions.printWidth) + "\n" + output)
@@ -50,18 +57,18 @@ function run_spec(dirname, parsers, options) {
           const verifyOptions = Object.assign(mergedOptions, {
             parser: parserName
           });
-          const verifyOutput = prettyprint(source, path, verifyOptions);
+          const verifyOutput = prettyprint(input, path, verifyOptions);
           expect(output).toEqual(verifyOutput);
         });
       });
 
       if (AST_COMPARE) {
-        const astMassaged = parse(source, mergedOptions);
+        const astMassaged = parse(input, mergedOptions);
         let ppastMassaged;
         let pperr = null;
         try {
           ppastMassaged = parse(
-            prettyprint(source, path, mergedOptions),
+            prettyprint(input, path, mergedOptions),
             mergedOptions
           );
         } catch (e) {
@@ -116,7 +123,7 @@ function parse(string, opts) {
 }
 
 function prettyprint(src, filename, options) {
-  return prettier.format(
+  const result = prettier.formatWithCursor(
     src,
     Object.assign(
       {
@@ -125,6 +132,13 @@ function prettyprint(src, filename, options) {
       options
     )
   );
+  if (options.cursorOffset >= 0) {
+    result.formatted =
+      result.formatted.slice(0, result.cursorOffset) +
+      "<|>" +
+      result.formatted.slice(result.cursorOffset);
+  }
+  return result.formatted;
 }
 
 function read(filename) {

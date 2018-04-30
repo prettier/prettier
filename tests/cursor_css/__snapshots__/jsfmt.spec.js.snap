@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.css 1`] = `
+.blah {
+  /* hloow <|> */
+  background-color: white;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.blah {
+  /* hloow <|> */
+  background-color: white;
+}
+
+`;

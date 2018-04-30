@@ -1,3 +1,5 @@
+run_spec(__dirname, ["babylon", "typescript", "flow"]);
+
 const prettier = require("../../tests_config/require_prettier");
 
 function insertCursor(result) {
@@ -64,85 +66,6 @@ foo('bar', cb => {
 `,
     cursorOffset: 23
   });
-});
-
-test("works when the file starts with a comment", () => {
-  expect(
-    runPrettierWithInlineCursor(`
-    // hi<|> lol
-    haha()
-`)
-  ).toMatchSnapshot();
-
-  expect(
-    runPrettierWithInlineCursor(`
-    // hi lol
-    haha()<|>
-`)
-  ).toMatchSnapshot();
-});
-
-test("works with typescript and comments", () => {
-  expect(
-    runPrettierWithInlineCursor(
-      `
-      // hi l<|>ol
-    function ehllooo () {
-      const hi = "hi"
-    }
-`,
-      { parser: "typescript" }
-    )
-  ).toMatchSnapshot();
-
-  expect(
-    runPrettierWithInlineCursor(
-      `
-     <|>
-      // howdy
-      // hi lol
-      const y = 5
-`,
-      { parser: "typescript" }
-    )
-  ).toMatchSnapshot();
-
-  expect(
-    runPrettierWithInlineCursor(
-      `
-      /<|>/ howdy
-      // hi lol
-      const y = 5
-`,
-      { parser: "typescript" }
-    )
-  ).toMatchSnapshot();
-
-  expect(
-    runPrettierWithInlineCursor(
-      `
-      // howdy
-      // hi lol
-      const y = 5
-      //  traling! <|>
-`,
-      { parser: "typescript" }
-    )
-  ).toMatchSnapshot();
-});
-
-test("works with css", () => {
-  expect(
-    runPrettierWithInlineCursor(
-      `
-      .blah {
-      /* hloow <|> */
-  background-color: white;
-}
-`,
-      { parser: "css" }
-    )
-  ).toMatchSnapshot();
 });
 
 test("puts the cursor in sensible places", () => {
