@@ -17,6 +17,8 @@ const printDocToDebug = doc.debug.printDocToDebug;
 
 const UTF8BOM = 0xfeff;
 
+const CURSOR = Symbol("cursor");
+
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
   if (index >= 0 && text.charAt(index - 1) === "\r") {
@@ -135,8 +137,6 @@ function coreFormat(text, opts, addAlignmentSize) {
 
     // diff old and new cursor node texts, with a special cursor
     // symbol inserted to find out where it moves to
-
-    const CURSOR = Symbol("cursor");
 
     const oldCursorNodeCharArray = oldCursorNodeText.split("");
     oldCursorNodeCharArray.splice(
