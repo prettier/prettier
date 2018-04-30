@@ -226,10 +226,7 @@ function formatRange(text, opts) {
   }
   // keep the cursor as it was if it was before the start of the range
 
-  return {
-    formatted: formatted,
-    cursorOffset: cursorOffset
-  };
+  return { formatted, cursorOffset };
 }
 
 function format(text, opts) {
