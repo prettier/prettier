@@ -325,6 +325,12 @@ function shouldFlatten(parentOp, nodeOp) {
     return false;
   }
 
+  // x * y / z --> (x * y) / z
+  // x / y * z --> (x / y) * z
+  if (nodeOp !== parentOp && multiplicativeOperators[nodeOp] && multiplicativeOperators[parentOp]) {
+    return false;
+  }
+
   // x * y % z --> (x * y) % z
   if (
     (nodeOp === "%" && multiplicativeOperators[parentOp]) ||
