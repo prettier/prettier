@@ -145,6 +145,10 @@ pre.CodeMirror-placeholder {
   color: #888888;
 }
 
+.editors .CodeMirror-scroll {
+  position: static;
+}
+
 .bottom-bar {
   position: relative;
 }
@@ -180,7 +184,7 @@ pre.CodeMirror-placeholder {
   display: none;
   box-sizing: border-box;
   width: 225px;
-  height: 100%;
+  overflow-y: auto;
   border-bottom: 1px solid #ddd;
   border-right: 1px solid #ddd;
   flex: 0 1 auto;
