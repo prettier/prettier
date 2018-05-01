@@ -1,3 +1,5 @@
+run_spec(__dirname, ["babylon", "typescript", "flow"]);
+
 const prettier = require("../../tests_config/require_prettier");
 
 test("translates cursor correctly in basic case", () => {
@@ -19,7 +21,7 @@ test("keeps cursor inside formatted node", () => {
   const code = "return         15";
   expect(prettier.formatWithCursor(code, { cursorOffset: 14 })).toEqual({
     formatted: "return 15;\n",
-    cursorOffset: 14 // TODO fix this
+    cursorOffset: 7
   });
 });
 

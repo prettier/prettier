@@ -474,7 +474,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
 
 function prependCursorPlaceholder(path, options, printed) {
   if (path.getNode() === options.cursorNode && path.getValue()) {
-    return concat([cursor, printed]);
+    return concat([cursor, printed, cursor]);
   }
   return printed;
 }

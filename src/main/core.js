@@ -1,5 +1,7 @@
 "use strict";
 
+const diff = require("diff");
+
 const normalizeOptions = require("./options").normalize;
 const massageAST = require("./massage-ast");
 const comments = require("./comments");
@@ -14,6 +16,8 @@ const printDocToString = doc.printer.printDocToString;
 const printDocToDebug = doc.debug.printDocToDebug;
 
 const UTF8BOM = 0xfeff;
+
+const CURSOR = Symbol("cursor");
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -66,17 +70,10 @@ function coreFormat(text, opts, addAlignmentSize) {
   const ast = parsed.ast;
   text = parsed.text;
 
-  let cursorOffset;
   if (opts.cursorOffset >= 0) {
-    const cursorNodeAndParents = rangeUtil.findNodeAtOffset(
-      ast,
-      opts.cursorOffset,
-      opts
-    );
-    const cursorNode = cursorNodeAndParents.node;
-    if (cursorNode) {
-      cursorOffset = opts.cursorOffset - opts.locStart(cursorNode);
-      opts.cursorNode = cursorNode;
+    const nodeResult = rangeUtil.findNodeAtOffset(ast, opts.cursorOffset, opts);
+    if (nodeResult && nodeResult.node) {
+      opts.cursorNode = nodeResult.node;
     }
   }
 
@@ -85,22 +82,89 @@ function coreFormat(text, opts, addAlignmentSize) {
   opts.newLine = guessLineEnding(text);
 
   const result = printDocToString(doc, opts);
-  const formatted = result.formatted;
-  const cursorOffsetResult = result.cursor;
+
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
-    return { formatted: formatted.trim() + opts.newLine };
+    const trimmed = result.formatted.trim();
+
+    if (result.cursorNodeStart !== undefined) {
+      result.cursorNodeStart -= result.formatted.indexOf(trimmed);
+    }
+
+    result.formatted = trimmed + opts.newLine;
   }
 
-  if (cursorOffset !== undefined) {
-    return {
-      formatted,
-      cursorOffset: cursorOffsetResult + cursorOffset
-    };
+  if (opts.cursorOffset >= 0) {
+    let oldCursorNodeStart;
+    let oldCursorNodeText;
+
+    let cursorOffsetRelativeToOldCursorNode;
+
+    let newCursorNodeStart;
+    let newCursorNodeText;
+
+    if (opts.cursorNode && result.cursorNodeText) {
+      oldCursorNodeStart = opts.locStart(opts.cursorNode);
+      oldCursorNodeText = text.slice(
+        oldCursorNodeStart,
+        opts.locEnd(opts.cursorNode)
+      );
+
+      cursorOffsetRelativeToOldCursorNode =
+        opts.cursorOffset - oldCursorNodeStart;
+
+      newCursorNodeStart = result.cursorNodeStart;
+      newCursorNodeText = result.cursorNodeText;
+    } else {
+      oldCursorNodeStart = 0;
+      oldCursorNodeText = text;
+
+      cursorOffsetRelativeToOldCursorNode = opts.cursorOffset;
+
+      newCursorNodeStart = 0;
+      newCursorNodeText = result.formatted;
+    }
+
+    if (oldCursorNodeText === newCursorNodeText) {
+      return {
+        formatted: result.formatted,
+        cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode
+      };
+    }
+
+    // diff old and new cursor node texts, with a special cursor
+    // symbol inserted to find out where it moves to
+
+    const oldCursorNodeCharArray = oldCursorNodeText.split("");
+    oldCursorNodeCharArray.splice(
+      cursorOffsetRelativeToOldCursorNode,
+      0,
+      CURSOR
+    );
+
+    const newCursorNodeCharArray = newCursorNodeText.split("");
+
+    const cursorNodeDiff = diff.diffArrays(
+      oldCursorNodeCharArray,
+      newCursorNodeCharArray
+    );
+
+    let cursorOffset = newCursorNodeStart;
+    for (const entry of cursorNodeDiff) {
+      if (entry.removed) {
+        if (entry.value.indexOf(CURSOR) > -1) {
+          break;
+        }
+      } else {
+        cursorOffset += entry.count;
+      }
+    }
+
+    return { formatted: result.formatted, cursorOffset };
   }
 
-  return { formatted };
+  return { formatted: result.formatted };
 }
 
 function formatRange(text, opts) {
@@ -127,26 +191,44 @@ function formatRange(text, opts) {
     opts.tabWidth
   );
 
-  const rangeFormatted = coreFormat(
+  const rangeResult = coreFormat(
     rangeString,
     Object.assign({}, opts, {
       rangeStart: 0,
       rangeEnd: Infinity,
-      printWidth: opts.printWidth - alignmentSize
+      printWidth: opts.printWidth - alignmentSize,
+      // track the cursor offset only if it's within our range
+      cursorOffset:
+        opts.cursorOffset >= rangeStart && opts.cursorOffset < rangeEnd
+          ? opts.cursorOffset - rangeStart
+          : -1
     }),
     alignmentSize
-  ).formatted;
+  );
 
   // Since the range contracts to avoid trailing whitespace,
   // we need to remove the newline that was inserted by the `format` call.
-  const rangeTrimmed = rangeFormatted.trimRight();
+  const rangeTrimmed = rangeResult.formatted.trimRight();
+  const formatted =
+    text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
 
-  return text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
+  let cursorOffset = opts.cursorOffset;
+  if (opts.cursorOffset >= rangeEnd) {
+    // handle the case where the cursor was past the end of the range
+    cursorOffset =
+      opts.cursorOffset - rangeEnd + (rangeStart + rangeTrimmed.length);
+  } else if (rangeResult.cursorOffset !== undefined) {
+    // handle the case where the cursor was in the range
+    cursorOffset = rangeResult.cursorOffset + rangeStart;
+  }
+  // keep the cursor as it was if it was before the start of the range
+
+  return { formatted, cursorOffset };
 }
 
 function format(text, opts) {
   if (opts.rangeStart > 0 || opts.rangeEnd < text.length) {
-    return { formatted: formatRange(text, opts) };
+    return formatRange(text, opts);
   }
 
   const selectedParser = parser.resolveParser(opts);
