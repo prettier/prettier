@@ -180,7 +180,6 @@ pre.CodeMirror-placeholder {
   display: none;
   box-sizing: border-box;
   width: 225px;
-  height: 100%;
   border-bottom: 1px solid #ddd;
   border-right: 1px solid #ddd;
   flex: 0 1 auto;
