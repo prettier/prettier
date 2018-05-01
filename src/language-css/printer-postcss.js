@@ -409,6 +409,14 @@ function genericPrint(path, options, print) {
         const iNextNode = node.groups[i + 1];
         const iNextNextNode = node.groups[i + 2];
 
+        if (
+          iNode.type === "value-func" &&
+          iNextNode &&
+          iNextNode.type === "value-word" &&
+          !iNextNode.raws.before
+        ) {
+          continue;
+        }
         // Ignore after latest node (i.e. before semicolon)
         if (!iNextNode) {
           continue;

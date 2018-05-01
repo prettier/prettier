@@ -552,3 +552,12 @@ a {
 }
 
 `;
+
+exports[`postcss-simple-vars.css 1`] = `
+background-color: $$(style)Color;
+background-color: $$(style)Color Color122;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+background-color: $$(style)Color;
+background-color: $$(style)Color Color122;
+
+`;
