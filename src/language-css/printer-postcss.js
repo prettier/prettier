@@ -44,6 +44,7 @@ const hasComposesValueNode = utils.hasComposesValueNode;
 const hasLessExtendValueNode = utils.hasLessExtendValueNode;
 const hasParensAroundValueNode = utils.hasParensAroundValueNode;
 const maybeToLowerCase = utils.maybeToLowerCase;
+const hasNoSpaceBeforeValueNode = utils.hasNoSpaceBeforeValueNode;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -411,9 +412,7 @@ function genericPrint(path, options, print) {
 
         if (
           iNode.type === "value-func" &&
-          iNextNode &&
-          iNextNode.type === "value-word" &&
-          !iNextNode.raws.before
+          hasNoSpaceBeforeValueNode(iNextNode)
         ) {
           continue;
         }

@@ -211,6 +211,9 @@ function hasParensAroundValueNode(node) {
   );
 }
 
+function hasNoSpaceBeforeValueNode(node) {
+  return node && node.type === "value-word" && !node.raws.before;
+}
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -237,5 +240,6 @@ module.exports = {
   maybeToLowerCase,
   hasLessExtendValueNode,
   hasComposesValueNode,
-  hasParensAroundValueNode
+  hasParensAroundValueNode,
+  hasNoSpaceBeforeValueNode
 };
