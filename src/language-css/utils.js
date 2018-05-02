@@ -211,8 +211,13 @@ function hasParensAroundValueNode(node) {
   );
 }
 
-function hasNoSpaceBeforeValueNode(node) {
-  return node && node.type === "value-word" && !node.raws.before;
+function isPostcssSimpleVar(currentNode, nextNode) {
+  return (
+    currentNode.type === "value-func" &&
+    nextNode &&
+    nextNode.type === "value-word" &&
+    !nextNode.raws.before
+  );
 }
 module.exports = {
   getAncestorCounter,
@@ -241,5 +246,5 @@ module.exports = {
   hasLessExtendValueNode,
   hasComposesValueNode,
   hasParensAroundValueNode,
-  hasNoSpaceBeforeValueNode
+  isPostcssSimpleVar
 };
