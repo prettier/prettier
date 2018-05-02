@@ -5,7 +5,12 @@ title: Editor Integration
 
 ## Atom
 
-Atom users can simply install the [prettier-atom](https://github.com/prettier/prettier-atom) package and use `Ctrl+Alt+F` to format a file (or format on save if enabled).
+Atom users can simply install the [prettier-atom] package and use `Ctrl+Alt+F` to format a file (or format on save if enabled).
+
+Alternatively, you can use one the packages below, which behave similarly to [prettier-atom] but have a focus on minimalism.
+
+* [mprettier](https://github.com/t9md/atom-mprettier)
+* [miniprettier](https://github.com/duailibe/atom-miniprettier)
 
 ## Emacs
 
@@ -32,3 +37,5 @@ Sublime Text support is available through Package Control and the [JsPrettier](h
 ## JetBrains WebStorm, PHPStorm, PyCharm...
 
 See the [WebStorm setup guide](webstorm.md).
+
+[prettier-atom]: https://github.com/prettier/prettier-atom
