@@ -298,6 +298,10 @@ const equalityOperators = {
   "===": true,
   "!==": true
 };
+const additiveOperators = {
+  "+": true,
+  "-": true
+};
 const multiplicativeOperators = {
   "*": true,
   "/": true,
@@ -311,6 +315,11 @@ const bitshiftOperators = {
 
 function shouldFlatten(parentOp, nodeOp) {
   if (getPrecedence(nodeOp) !== getPrecedence(parentOp)) {
+    // x + y % z --> (x + y) % z
+    if (nodeOp === "%" && !additiveOperators[parentOp]) {
+      return true;
+    }
+
     return false;
   }
 
