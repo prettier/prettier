@@ -5508,7 +5508,21 @@ function printComment(commentPath, options) {
     case "CommentBlock":
     case "Block": {
       if (isJsDocComment(comment)) {
-        return printJsDocComment(comment);
+        const printed = printJsDocComment(comment);
+        // We need to prevent an edge case of a previous trailing comment
+        // printed as a `lineSuffix` which causes the comments to be
+        // interleaved. See https://github.com/prettier/prettier/issues/4412
+        if (
+          comment.trailing &&
+          !privateUtil.hasNewline(
+            options.originalText,
+            options.locStart(comment),
+            { backwards: true }
+          )
+        ) {
+          return concat([hardline, printed]);
+        }
+        return printed;
       }
 
       const isInsideFlowComment =
