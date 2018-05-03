@@ -11,3 +11,8 @@ mantissa = ((b[2] & 0x7f) << 16) | (b[1] << 8) | b[0];
 2 / 3 * 10 / 2 + 2;
 const rotateX = ((RANGE / rect.height) * refY - RANGE / 2) * getXMultiplication(rect.width);
 const rotateY = ((RANGE / rect.width) * refX - RANGE / 2) * getYMultiplication(rect.width);
+
+a % 10 - 5;
+a * b % 10;
+a % 10 > 5;
+a % 10 == 0;

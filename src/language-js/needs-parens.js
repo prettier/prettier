@@ -259,6 +259,10 @@ function needsParens(path, options) {
             return true;
           }
 
+          if (pp < np && no === "%") {
+            return !util.shouldFlatten(po, no);
+          }
+
           // Add parenthesis when working with binary operators
           // It's not stricly needed but helps with code understanding
           if (util.isBitwiseOperator(po)) {
