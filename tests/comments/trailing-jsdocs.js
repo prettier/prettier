@@ -4,8 +4,7 @@ const CONNECTION_STATUS = exports.CONNECTION_STATUS = {
   CONNECTING: Object.freeze({ kind: 'CONNECTING' }),
   NOT_CONNECTED: Object.freeze({ kind: 'NOT_CONNECTED' }) };
 
-/* A comment */
-/**
+/* A comment */ /**
 * A type that can be written to a buffer.
 */ /**
 * Describes the connection status of a ReactiveSocket/DuplexConnection.
