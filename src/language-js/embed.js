@@ -422,6 +422,7 @@ function isGraphQL(path) {
   // In order to be in line with other implementations of this comment tag
   // we will not trim the comment value and we will expect exactly one space on
   // either side of the GraphQL string
+  // Also see ./clean.js
   const hasGraphQLComment =
     node.leadingComments &&
     node.leadingComments.some(

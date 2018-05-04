@@ -122,12 +122,24 @@ function clean(ast, newObj, parent) {
   ) {
     newObj.quasi.quasis.forEach(quasi => delete quasi.value);
   }
-  if (
-    ast.type === "TemplateLiteral" &&
-    parent.type === "CallExpression" &&
-    parent.callee.name === "graphql"
-  ) {
-    newObj.quasis.forEach(quasi => delete quasi.value);
+  if (ast.type === "TemplateLiteral") {
+    // This checks for a leading comment that is exactly `/* GraphQL */`
+    // In order to be in line with other implementations of this comment tag
+    // we will not trim the comment value and we will expect exactly one space on
+    // either side of the GraphQL string
+    // Also see ./embed.js
+    const hasGraphQLComment =
+      ast.leadingComments &&
+      ast.leadingComments.some(
+        comment =>
+          comment.type === "CommentBlock" && comment.value === " GraphQL "
+      );
+    if (
+      hasGraphQLComment ||
+      (parent.type === "CallExpression" && parent.callee.name === "graphql")
+    ) {
+      newObj.quasis.forEach(quasi => delete quasi.value);
+    }
   }
 }
 
