@@ -2120,7 +2120,7 @@ function printPathNoParens(path, options, print, args) {
             () => 0
           );
           const allContents = [headerColumnNames].concat(
-            columnContents.slice(0, -1) // remove trailing `[]`
+            columnContents.filter(rowContents => rowContents.length !== 0)
           );
           allContents.forEach(rowContents => {
             rowContents.forEach((cellContent, index) => {

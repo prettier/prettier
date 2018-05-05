@@ -30,3 +30,8 @@ ${11   } | ${  1  }|${222}|${'unknown column 1'}|${'unknown column 2'}
 ${1-1}|${2+2}|${ 3333}
 ${2+1+2}|${1111}|${3}          |${'unknown column xyz'}
 `
+
+describe.each`a    | b    | expected
+${1} | ${1} | ${2}
+${1} | ${2} | ${3}
+${2} | ${1} | ${3}`
