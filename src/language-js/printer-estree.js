@@ -2067,7 +2067,7 @@ function printPathNoParens(path, options, print, args) {
        *
        * Ref: https://github.com/facebook/jest/pull/6102
        */
-      const jestEachTriggerRegex = /^(x|f)?(describe|it|test)$/;
+      const jestEachTriggerRegex = /^[xf]?(describe|it|test)$/;
       if (
         parentNode.type === "TaggedTemplateExpression" &&
         parentNode.quasi === n &&
