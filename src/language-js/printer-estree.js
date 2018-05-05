@@ -2094,17 +2094,28 @@ function printPathNoParens(path, options, print, args) {
           headerNames.length > 1 ||
           headerNames.some(headerName => headerName.length !== 0)
         ) {
-          const oneLineExpressions = expressions
-            .map(removeLineBreaks)
-            .map(doc => "${" + printDocToString(doc, options).formatted + "}");
+          const stringifiedExpressions = expressions.map(
+            doc =>
+              "${" +
+              printDocToString(
+                doc,
+                Object.assign({}, options, { printWidth: Infinity })
+              ).formatted +
+              "}"
+          );
 
-          const tableBody = [{ cells: [] }];
+          const tableBody = [{ hasLineBreak: false, cells: [] }];
           for (let i = 1; i < n.quasis.length; i++) {
             const row = tableBody[tableBody.length - 1];
-            const correspondingExpression = oneLineExpressions[i - 1];
+            const correspondingExpression = stringifiedExpressions[i - 1];
+
             row.cells.push(correspondingExpression);
+            if (correspondingExpression.indexOf("\n") !== -1) {
+              row.hasLineBreak = true;
+            }
+
             if (n.quasis[i].value.raw.indexOf("\n") !== -1) {
-              tableBody.push({ cells: [] });
+              tableBody.push({ hasLineBreak: false, cells: [] });
             }
           }
 
@@ -2120,7 +2131,7 @@ function printPathNoParens(path, options, print, args) {
           const table = [{ cells: headerNames }].concat(
             tableBody.filter(row => row.cells.length !== 0)
           );
-          table.forEach(row => {
+          table.filter(row => !row.hasLineBreak).forEach(row => {
             row.cells.forEach((cell, index) => {
               maxColumnWidths[index] = Math.max(
                 maxColumnWidths[index],
@@ -2141,11 +2152,13 @@ function printPathNoParens(path, options, print, args) {
                       " | ",
                       row.cells.map(
                         (cell, index) =>
-                          cell +
-                          " ".repeat(
-                            maxColumnWidths[index] -
-                              privateUtil.getStringWidth(cell)
-                          )
+                          row.hasLineBreak
+                            ? cell
+                            : cell +
+                              " ".repeat(
+                                maxColumnWidths[index] -
+                                  privateUtil.getStringWidth(cell)
+                              )
                       )
                     )
                   )
@@ -5675,23 +5688,6 @@ function printJsDocComment(comment) {
 
 function rawText(node) {
   return node.extra ? node.extra.raw : node.raw;
-}
-
-function removeLineBreaks(doc) {
-  return docUtils.mapDoc(doc, currentDoc => {
-    switch (currentDoc) {
-      case line:
-        return " ";
-      case softline:
-      case hardline:
-      case literalline:
-        return "";
-      default:
-        return currentDoc.type === "align" || currentDoc.type === "indent"
-          ? currentDoc.contents
-          : currentDoc;
-    }
-  });
 }
 
 module.exports = {
