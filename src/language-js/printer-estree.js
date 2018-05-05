@@ -2089,45 +2089,42 @@ function printPathNoParens(path, options, print, args) {
          * ${1} | ${2} | ${3}
          * ${2} | ${1} | ${3}
          */
-        const headerColumnNames = n.quasis[0].value.raw
-          .trim()
-          .split(/\s*\|\s*/);
+        const headerNames = n.quasis[0].value.raw.trim().split(/\s*\|\s*/);
         if (
-          headerColumnNames.length > 1 ||
-          headerColumnNames.some(column => column.length !== 0)
+          headerNames.length > 1 ||
+          headerNames.some(headerName => headerName.length !== 0)
         ) {
           const oneLineExpressions = expressions
             .map(removeLineBreaks)
             .map(doc => "${" + printDocToString(doc, options).formatted + "}");
 
-          const columnContents = [[]];
+          const tableBody = [{ cells: [] }];
           for (let i = 1; i < n.quasis.length; i++) {
-            const rowContents = columnContents[columnContents.length - 1];
+            const row = tableBody[tableBody.length - 1];
             const correspondingExpression = oneLineExpressions[i - 1];
-            rowContents.push(correspondingExpression);
+            row.cells.push(correspondingExpression);
             if (n.quasis[i].value.raw.indexOf("\n") !== -1) {
-              columnContents.push([]);
+              tableBody.push({ cells: [] });
             }
           }
 
-          const maxColumnCount = columnContents.reduce(
-            (maxColumnCount, rowContents) =>
-              Math.max(maxColumnCount, rowContents.length),
-            headerColumnNames.length
+          const maxColumnCount = tableBody.reduce(
+            (maxColumnCount, row) => Math.max(maxColumnCount, row.cells.length),
+            headerNames.length
           );
 
           const maxColumnWidths = Array.from(
             new Array(maxColumnCount),
             () => 0
           );
-          const allContents = [headerColumnNames].concat(
-            columnContents.filter(rowContents => rowContents.length !== 0)
+          const table = [{ cells: headerNames }].concat(
+            tableBody.filter(row => row.cells.length !== 0)
           );
-          allContents.forEach(rowContents => {
-            rowContents.forEach((cellContent, index) => {
+          table.forEach(row => {
+            row.cells.forEach((cell, index) => {
               maxColumnWidths[index] = Math.max(
                 maxColumnWidths[index],
-                privateUtil.getStringWidth(cellContent)
+                privateUtil.getStringWidth(cell)
               );
             });
           });
@@ -2139,15 +2136,15 @@ function printPathNoParens(path, options, print, args) {
                 hardline,
                 join(
                   hardline,
-                  allContents.map(rowContents =>
+                  table.map(row =>
                     join(
                       " | ",
-                      rowContents.map(
-                        (cellContent, index) =>
-                          cellContent +
+                      row.cells.map(
+                        (cell, index) =>
+                          cell +
                           " ".repeat(
                             maxColumnWidths[index] -
-                              privateUtil.getStringWidth(cellContent)
+                              privateUtil.getStringWidth(cell)
                           )
                       )
                     )
