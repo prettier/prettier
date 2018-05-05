@@ -85,8 +85,9 @@ const options = {
     since: "0.0.10",
     category: CATEGORY_GLOBAL,
     type: "choice",
-    default: "babylon",
-    description: "Which parser to use.",
+    default: "raw",
+    description:
+      "Override which parser to use. Without this option, the parser is inferred from the filepath.",
     exception: value =>
       typeof value === "string" || typeof value === "function",
     choices: [
@@ -107,7 +108,8 @@ const options = {
       { value: "json5", since: "1.13.0", description: "JSON5" },
       { value: "graphql", since: "1.5.0", description: "GraphQL" },
       { value: "markdown", since: "1.8.0", description: "Markdown" },
-      { value: "vue", since: "1.10.0", description: "Vue" }
+      { value: "vue", since: "1.10.0", description: "Vue" },
+      { value: "raw", since: "1.13.0", description: "Raw (no-op)" }
     ]
   },
   plugins: {

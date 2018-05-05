@@ -44,7 +44,7 @@ function resolveParser(opts, parsers) {
     }
   }
   /* istanbul ignore next */
-  return parsers.babylon;
+  return parsers.raw;
 }
 
 function parse(text, opts) {
