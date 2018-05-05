@@ -149,7 +149,7 @@ function genericPrint(path, options, print) {
     }
     case "css-atrule": {
       const isDetachedRulesetCall =
-        node.params && /^\(\s*\)$/.test(node.params);
+        node.raws.params && /^\(\s*\)$/.test(node.raws.params);
 
       return concat([
         "@",

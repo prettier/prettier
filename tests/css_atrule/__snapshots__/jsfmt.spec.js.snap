@@ -2225,6 +2225,8 @@ $family: unquote("Droid+Sans");
 @import url(
 "foo.css"
 );
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600';
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @import url("fineprint.css") print;
 @import url("bluish.css") projection, tv;
@@ -2286,7 +2288,7 @@ $dir: "fonts";
 @import url("bluish.css") projection, tv;
 @import url("bluish.css") projection, tv;
 @import url("very-very-very-very-very-very-very-very-very-very-long-name.css")
-  projection,
+    projection,
   tv;
 @import url("landscape.css") screen and (orientation: landscape);
 @import "rounded-corners", "text-shadow";
@@ -2301,6 +2303,7 @@ $family: unquote("Droid+Sans");
 @import url("foo bar baz.css");
 @import url("foo  bar  baz.css");
 @import url("foo.css");
+@import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600";
 
 `;
 

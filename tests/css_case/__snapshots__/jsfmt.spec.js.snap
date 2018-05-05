@@ -64,7 +64,7 @@ x-panel {
     transform: scale(1.1);
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@custom-media --KeepName (min-width: 500px);
+@custom-media --KeepName (MIN-WIDTH: 500px);
 
 .foo {
   color: hsl(0.75turn, 60%, 70%);
@@ -373,7 +373,7 @@ $KeepScssVar: val;
 .Keep(@Keep: '12PX'; @Keep: "12PX"; ...) /*:*/ {
 }
 
-@media (min-width: 700px) /*:*/ {
+@media (MIN-WIDTH: 700px)/*:*/ {
 }
 
 @media (@{Keep}: @{Keep}) {
@@ -680,7 +680,7 @@ $KeepTopLevelVar: val;
 @mixin Keep($Keep: $Keep15IN, $Keep: Keepå1E1) {
 }
 
-@media (min-width: 700px) {
+@media (MIN-WIDTH: 700px) {
   @include Keep;
   @include Keep(0.12e1ch);
   @include Keep($Keep12E01cH);

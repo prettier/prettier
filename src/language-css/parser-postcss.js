@@ -366,7 +366,7 @@ function parseNestedCSS(node) {
 
       if (name === "at-root") {
         if (/^\(\s*(without|with)\s*:[\s\S]+\)$/.test(params)) {
-          node.params = parseMediaQuery(params);
+          node.params = parseValue(params);
         } else {
           node.selector = parseSelector(params);
           delete node.params;
@@ -423,7 +423,12 @@ function parseNestedCSS(node) {
           };
         }
 
-        node.params = parseMediaQuery(params);
+        if(lowercasedName === "import") {
+          node.params = parseValue(params);
+        }
+        else {
+          node.params = parseValue(params);
+        }
 
         return node;
       }
