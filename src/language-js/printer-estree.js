@@ -2116,7 +2116,8 @@ function printPathNoParens(path, options, print, args) {
             headerColumnNames.length
           );
 
-          const maxColumnWidths = Array.from(new Array(maxColumnCount)).map(
+          const maxColumnWidths = Array.from(
+            new Array(maxColumnCount),
             () => 0
           );
           const allContents = [headerColumnNames].concat(
