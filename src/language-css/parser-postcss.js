@@ -427,7 +427,7 @@ function parseNestedCSS(node) {
           node.params = parseValue(params);
         }
         else {
-          node.params = parseValue(params);
+          node.params = parseMediaQuery(params);
         }
 
         return node;
