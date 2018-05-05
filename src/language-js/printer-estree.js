@@ -2559,10 +2559,11 @@ function printPathNoParens(path, options, print, args) {
     case "TypeParameter": {
       const parent = path.getParentNode();
       if (parent.type === "TSMappedType") {
-        parts.push(path.call(print, "name"));
+        parts.push("[", path.call(print, "name"));
         if (n.constraint) {
           parts.push(" in ", path.call(print, "constraint"));
         }
+        parts.push("]");
         return concat(parts);
       }
 
@@ -2788,9 +2789,7 @@ function printPathNoParens(path, options, print, args) {
                   ])
                 : "",
               printTypeScriptModifiers(path, options, print),
-              "[",
               path.call(print, "typeParameter"),
-              "]",
               n.questionToken
                 ? getTypeScriptMappedTypeModifier(n.questionToken, "?")
                 : "",
