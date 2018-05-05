@@ -213,6 +213,7 @@ function hasParensAroundValueNode(node) {
 
 function isPostcssSimpleVar(currentNode, nextNode) {
   return (
+    currentNode.value === "$$" &&
     currentNode.type === "value-func" &&
     nextNode &&
     nextNode.type === "value-word" &&
