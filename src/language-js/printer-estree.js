@@ -30,6 +30,7 @@ const breakParent = docBuilders.breakParent;
 const lineSuffixBoundary = docBuilders.lineSuffixBoundary;
 const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
 const dedent = docBuilders.dedent;
+const printDocToString = doc.printer.printDocToString;
 
 const docUtils = doc.utils;
 const willBreak = docUtils.willBreak;
@@ -2054,6 +2055,111 @@ function printPathNoParens(path, options, print, args) {
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral": {
       const expressions = path.map(print, "expressions");
+      const parentNode = path.getParentNode();
+
+      /**
+       * describe.each`table`(name, fn)
+       * describe.only.each`table`(name, fn)
+       * describe.skip.each`table`(name, fn)
+       * test.each`table`(name, fn)
+       * test.only.each`table`(name, fn)
+       * test.skip.each`table`(name, fn)
+       *
+       * Ref: https://github.com/facebook/jest/pull/6102
+       */
+      const jestEachTriggerRegex = /^(x|f)?(describe|it|test)$/;
+      if (
+        parentNode.type === "TaggedTemplateExpression" &&
+        parentNode.quasi === n &&
+        parentNode.tag.type === "MemberExpression" &&
+        parentNode.tag.property.type === "Identifier" &&
+        parentNode.tag.property.name === "each" &&
+        ((parentNode.tag.object.type === "Identifier" &&
+          jestEachTriggerRegex.test(parentNode.tag.object.name)) ||
+          (parentNode.tag.object.type === "MemberExpression" &&
+            parentNode.tag.object.property.type === "Identifier" &&
+            (parentNode.tag.object.property.name === "only" ||
+              parentNode.tag.object.property.name === "skip") &&
+            parentNode.tag.object.object.type === "Identifier" &&
+            jestEachTriggerRegex.test(parentNode.tag.object.object.name)))
+      ) {
+        /**
+         * a    | b    | expected
+         * ${1} | ${1} | ${2}
+         * ${1} | ${2} | ${3}
+         * ${2} | ${1} | ${3}
+         */
+        const headerColumnNames = n.quasis[0].value.raw
+          .trim()
+          .split(/\s*\|\s*/);
+        if (
+          headerColumnNames.length > 1 ||
+          headerColumnNames.some(column => column.length !== 0)
+        ) {
+          const oneLineExpressions = expressions
+            .map(removeLineBreaks)
+            .map(doc => "${" + printDocToString(doc, options).formatted + "}");
+
+          const columnContents = [[]];
+          for (let i = 1; i < n.quasis.length; i++) {
+            const rowContents = columnContents[columnContents.length - 1];
+            const correspondingExpression = oneLineExpressions[i - 1];
+            rowContents.push(correspondingExpression);
+            if (n.quasis[i].value.raw.indexOf("\n") !== -1) {
+              columnContents.push([]);
+            }
+          }
+
+          const maxColumnCount = columnContents.reduce(
+            (maxColumnCount, rowContents) =>
+              Math.max(maxColumnCount, rowContents.length),
+            headerColumnNames.length
+          );
+
+          const maxColumnWidths = Array.from(new Array(maxColumnCount)).map(
+            () => 0
+          );
+          const allContents = [headerColumnNames].concat(
+            columnContents.slice(0, -1) // remove trailing `[]`
+          );
+          allContents.forEach(rowContents => {
+            rowContents.forEach((cellContent, index) => {
+              maxColumnWidths[index] = Math.max(
+                maxColumnWidths[index],
+                privateUtil.getStringWidth(cellContent)
+              );
+            });
+          });
+
+          parts.push(
+            "`",
+            indent(
+              concat([
+                hardline,
+                join(
+                  hardline,
+                  allContents.map(rowContents =>
+                    join(
+                      " | ",
+                      rowContents.map(
+                        (cellContent, index) =>
+                          cellContent +
+                          " ".repeat(
+                            maxColumnWidths[index] -
+                              privateUtil.getStringWidth(cellContent)
+                          )
+                      )
+                    )
+                  )
+                )
+              ])
+            ),
+            hardline,
+            "`"
+          );
+          return concat(parts);
+        }
+      }
 
       parts.push("`");
 
@@ -5571,6 +5677,23 @@ function printJsDocComment(comment) {
 
 function rawText(node) {
   return node.extra ? node.extra.raw : node.raw;
+}
+
+function removeLineBreaks(doc) {
+  return docUtils.mapDoc(doc, currentDoc => {
+    switch (currentDoc) {
+      case line:
+        return " ";
+      case softline:
+      case hardline:
+      case literalline:
+        return "";
+      default:
+        return currentDoc.type === "align" || currentDoc.type === "indent"
+          ? currentDoc.contents
+          : currentDoc;
+    }
+  });
 }
 
 module.exports = {
