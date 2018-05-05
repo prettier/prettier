@@ -15,9 +15,9 @@ exports[` 1`] = `
 +                            Defaults to bar.
     --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                              Defaults to false.
-    --parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
-                             Which parser to use.
-                             Defaults to babylon."
+    --parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue|raw>
+                             Override which parser to use. Without this option, the parser is inferred from the filepath.
+                             Defaults to raw."
 `;
 
 exports[`show detailed external option with \`--help foo-option\` (stderr) 1`] = `""`;

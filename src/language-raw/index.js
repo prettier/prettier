@@ -13,7 +13,13 @@ const parsers = {
     parse(text) {
       return { type: "Raw", text: text };
     },
-    astFormat: "raw"
+    astFormat: "raw",
+    locStart() {
+      return 0;
+    },
+    locEnd(node) {
+      return node.text.length;
+    }
   }
 };
 
