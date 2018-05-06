@@ -322,6 +322,17 @@ const store = createStore(
 
 `;
 
+exports[`redux_connect.js 1`] = `
+const ArtistInput = connect(mapStateToProps, mapDispatchToProps, mergeProps)(Component);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const ArtistInput = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
+)(Component);
+
+`;
+
 exports[`rxjs_pipe.js 1`] = `
 import { range } from 'rxjs/observable/range';
 import { map, filter, scan } from 'rxjs/operators';

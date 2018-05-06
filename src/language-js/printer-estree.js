@@ -3323,15 +3323,16 @@ function shouldGroupFirstArg(args) {
 }
 
 const functionCompositionFunctionNames = {
-  pipe: true,
-  pipeP: true,
-  pipeK: true,
-  compose: true,
-  composeFlipped: true,
-  composeP: true,
-  composeK: true,
-  flow: true,
-  flowRight: true
+  pipe: true, // RxJS, Ramda
+  pipeP: true, // Ramda
+  pipeK: true, // Ramda
+  compose: true, // Ramda, Redux
+  composeFlipped: true, // Not from any library, but common in Haskell, so supported
+  composeP: true, // Ramda
+  composeK: true, // Ramda
+  flow: true, // Lodash
+  flowRight: true, // Lodash
+  connect: true // Redux
 };
 function isFunctionCompositionFunction(node) {
   switch (node.type) {
