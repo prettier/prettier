@@ -3322,8 +3322,35 @@ function shouldGroupFirstArg(args) {
   );
 }
 
+// Support:
+// pipe
+// pipeP
+// pipeK
+// compose
+// composeFlipped
+// composeP
+// composeK
+// flow
+// flowRight
+const compositionFnRegexp = /^((pipe[PK]?)|(compose(Flipped|[PK])?)|flow(Right)?)$/;
+function isFunctionCompositionFunction(node) {
+  switch (node.type) {
+    case "MemberExpression": {
+      return isFunctionCompositionFunction(node.property);
+    }
+    case "Identifier": {
+      return compositionFnRegexp.test(node.name);
+    }
+    case "StringLiteral":
+    case "Literal": {
+      return compositionFnRegexp.test(node.value);
+    }
+  }
+}
+
 function printArgumentsList(path, options, print) {
-  const args = path.getValue().arguments;
+  const node = path.getValue();
+  const args = node.arguments;
 
   if (args.length === 0) {
     return concat([
@@ -3355,6 +3382,32 @@ function printArgumentsList(path, options, print) {
 
     return concat(parts);
   }, "arguments");
+
+  const maybeTrailingComma = shouldPrintComma(options, "all") ? "," : "";
+
+  function allArgsBrokenOut() {
+    return group(
+      concat([
+        "(",
+        indent(concat([line, concat(printedArguments)])),
+        maybeTrailingComma,
+        line,
+        ")"
+      ]),
+      { shouldBreak: true }
+    );
+  }
+
+  // We want to get
+  //    pipe(
+  //      x => x + 1,
+  //      x => x - 1
+  //    )
+  // here, but not
+  //    process.stdout.pipe(socket)
+  if (isFunctionCompositionFunction(node.callee) && args.length > 1) {
+    return allArgsBrokenOut();
+  }
 
   const shouldGroupFirst = shouldGroupFirstArg(args);
   const shouldGroupLast = shouldGroupLastArg(args);
@@ -3388,8 +3441,6 @@ function printArgumentsList(path, options, print) {
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
 
-    const maybeTrailingComma = shouldPrintComma(options, "all") ? "," : "";
-
     return concat([
       somePrintedArgumentsWillBreak ? breakParent : "",
       conditionalGroup(
@@ -3419,16 +3470,7 @@ function printArgumentsList(path, options, print) {
                 }),
                 ")"
               ]),
-          group(
-            concat([
-              "(",
-              indent(concat([line, concat(printedArguments)])),
-              maybeTrailingComma,
-              line,
-              ")"
-            ]),
-            { shouldBreak: true }
-          )
+          allArgsBrokenOut()
         ],
         { shouldBreak }
       )
