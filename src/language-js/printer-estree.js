@@ -3322,28 +3322,28 @@ function shouldGroupFirstArg(args) {
   );
 }
 
-const functionCompositionFunctionNames = [
-  "pipe",
-  "pipeP",
-  "pipeK",
-  "compose",
-  "composeFlipped",
-  "composeP",
-  "composeK",
-  "flow",
-  "flowRight"
-];
+const functionCompositionFunctionNames = {
+  pipe: true,
+  pipeP: true,
+  pipeK: true,
+  compose: true,
+  composeFlipped: true,
+  composeP: true,
+  composeK: true,
+  flow: true,
+  flowRight: true
+};
 function isFunctionCompositionFunction(node) {
   switch (node.type) {
     case "MemberExpression": {
       return isFunctionCompositionFunction(node.property);
     }
     case "Identifier": {
-      return functionCompositionFunctionNames.indexOf(node.name) !== -1;
+      return functionCompositionFunctionNames[node.name];
     }
     case "StringLiteral":
     case "Literal": {
-      return functionCompositionFunctionNames.indexOf(node.value) !== -1;
+      return functionCompositionFunctionNames[node.value];
     }
   }
 }
