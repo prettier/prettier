@@ -593,7 +593,9 @@ function genericPrint(path, options, print) {
       if (isControlDirective) {
         return group(indent(concat(parts)));
       }
-
+      if (atRuleAncestorNode && node.groups[0].value === "url") {
+        return group(fill(parts));
+      }
       return group(indent(fill(parts)));
     }
     case "value-paren_group": {

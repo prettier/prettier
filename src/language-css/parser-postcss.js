@@ -423,10 +423,9 @@ function parseNestedCSS(node) {
           };
         }
 
-        if(lowercasedName === "import") {
+        if (lowercasedName === "import") {
           node.params = parseValue(params);
-        }
-        else {
+        } else {
           node.params = parseMediaQuery(params);
         }
 

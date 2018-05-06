@@ -2288,7 +2288,7 @@ $dir: "fonts";
 @import url("bluish.css") projection, tv;
 @import url("bluish.css") projection, tv;
 @import url("very-very-very-very-very-very-very-very-very-very-long-name.css")
-    projection,
+  projection,
   tv;
 @import url("landscape.css") screen and (orientation: landscape);
 @import "rounded-corners", "text-shadow";
