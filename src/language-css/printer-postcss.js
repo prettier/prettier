@@ -316,9 +316,9 @@ function genericPrint(path, options, print) {
           : "",
         node.attribute.trim(),
         node.operator ? node.operator : "",
-        node.value
+        typeof node.value !== "undefined"
           ? quoteAttributeValue(
-              adjustStrings(node.value.trim(), options),
+              node.quoteMark ? adjustStrings(node.raws.value, options) : node.value,
               options
             )
           : "",

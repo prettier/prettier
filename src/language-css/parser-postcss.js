@@ -17,11 +17,8 @@ function parseSelector(selector) {
     };
   }
   const selectorParser = require("postcss-selector-parser");
-  let result;
-  selectorParser(result_ => {
-    result = result_;
-  }).process(selector);
-  return addTypePrefix(result, "selector-");
+  const ast = selectorParser().astSync(selector);
+  return addTypePrefix(ast, "selector-");
 }
 
 function parseValueNodes(nodes) {
@@ -155,11 +152,12 @@ function addTypePrefix(node, prefix) {
   if (node && typeof node === "object") {
     delete node.parent;
     for (const key in node) {
-      addTypePrefix(node[key], prefix);
       if (key === "type" && typeof node[key] === "string") {
         if (!node[key].startsWith(prefix)) {
           node[key] = prefix + node[key];
         }
+      } else {
+        addTypePrefix(node[key], prefix);
       }
     }
   }
