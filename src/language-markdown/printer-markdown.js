@@ -796,6 +796,8 @@ function clamp(value, min, max) {
 }
 
 function clean(ast, newObj, parent) {
+  delete newObj.position;
+
   // for codeblock
   if (ast.type === "code") {
     delete newObj.value;

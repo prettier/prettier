@@ -3,6 +3,12 @@
 const htmlTagNames = require("html-tag-names");
 
 function clean(ast, newObj) {
+  ["raws", "sourceIndex", "source", "before", "after", "trailingComma"].forEach(
+    name => {
+      delete newObj[name];
+    }
+  );
+
   if (
     ast.type === "media-query" ||
     ast.type === "media-query-list" ||
