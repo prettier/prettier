@@ -3722,9 +3722,9 @@ postcss-scss@1.0.5:
   dependencies:
     postcss "^6.0.21"
 
-postcss-selector-parser@5.0.0-rc.0:
-  version "5.0.0-rc.0"
-  resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-5.0.0-rc.0.tgz#9bcb81c6d0e92480da00c3b30bddc9b80c2da31d"
+postcss-selector-parser@5.0.0-rc.1:
+  version "5.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-5.0.0-rc.1.tgz#da7f8970206b9c2905785a70a316bd7f001eb5f1"
   dependencies:
     cssesc "^1.0.1"
     indexes-of "^1.0.1"
