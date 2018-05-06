@@ -3322,28 +3322,28 @@ function shouldGroupFirstArg(args) {
   );
 }
 
-// Support:
-// pipe
-// pipeP
-// pipeK
-// compose
-// composeFlipped
-// composeP
-// composeK
-// flow
-// flowRight
-const compositionFnRegexp = /^((pipe[PK]?)|(compose(Flipped|[PK])?)|flow(Right)?)$/;
+const functionCompositionFunctionNames = [
+  "pipe",
+  "pipeP",
+  "pipeK",
+  "compose",
+  "composeFlipped",
+  "composeP",
+  "composeK",
+  "flow",
+  "flowRight"
+];
 function isFunctionCompositionFunction(node) {
   switch (node.type) {
     case "MemberExpression": {
       return isFunctionCompositionFunction(node.property);
     }
     case "Identifier": {
-      return compositionFnRegexp.test(node.name);
+      return functionCompositionFunctionNames.indexOf(node.name) !== -1;
     }
     case "StringLiteral":
     case "Literal": {
-      return compositionFnRegexp.test(node.value);
+      return functionCompositionFunctionNames.indexOf(node.value) !== -1;
     }
   }
 }
