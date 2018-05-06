@@ -59,7 +59,7 @@ This option cannot be used with --range-start and --range-end.",
           "type": "boolean",
         },
         "parser": Object {
-          "default": "raw",
+          "default": "babylon",
           "description": "Override which parser to use. Without this option, the parser is inferred from the filepath.",
           "oneOf": Array [
             Object {

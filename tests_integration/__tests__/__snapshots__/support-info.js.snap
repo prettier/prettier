@@ -20,7 +20,7 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
 +         \\"flow\\",
 +         \\"babylon\\",
 +       ],
-+       \\"default\\": \\"raw\\",
++       \\"default\\": \\"babylon\\",
 +       \\"type\\": \\"choice\\",
 +     },
       \\"printWidth\\": Object {
@@ -179,7 +179,7 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 +         \\"typescript\\",
 +         \\"postcss\\",
         ],
-        \\"default\\": \\"raw\\",
+        \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
       },
       \\"printWidth\\": Object {
@@ -245,7 +245,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 +         \\"json\\",
 +         \\"graphql\\",
         ],
-        \\"default\\": \\"raw\\",
+        \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
       },
       \\"printWidth\\": Object {"
@@ -297,7 +297,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
           \\"json\\",
           \\"graphql\\",
         ],
-        \\"default\\": \\"raw\\",
+        \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
 @@ -86,10 +88,14 @@
           \\"start\\": 0,
@@ -358,7 +358,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
           \\"graphql\\",
 +         \\"markdown\\",
         ],
-        \\"default\\": \\"raw\\",
+        \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
       },
       \\"printWidth\\": Object {"
@@ -427,7 +427,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
           \\"markdown\\",
 +         \\"vue\\",
         ],
-        \\"default\\": \\"raw\\",
+        \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
       },
 +     \\"plugins\\": Object {
@@ -725,7 +725,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"Markdown\\", \\"since\\": \\"1.8.0\\", \\"value\\": \\"markdown\\" },
         { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" }
       ],
-      \\"default\\": \\"raw\\",
+      \\"default\\": \\"babylon\\",
       \\"description\\":
         \\"Override which parser to use. Without this option, the parser is inferred from the filepath.\\",
       \\"name\\": \\"parser\\",

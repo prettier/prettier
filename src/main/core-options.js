@@ -85,7 +85,10 @@ const options = {
     since: "0.0.10",
     category: CATEGORY_GLOBAL,
     type: "choice",
-    default: "raw",
+    default: [
+      { since: "0.0.10", value: "babylon" },
+      { since: "1.13.0", value: "raw" }
+    ],
     description:
       "Override which parser to use. Without this option, the parser is inferred from the filepath.",
     exception: value =>
