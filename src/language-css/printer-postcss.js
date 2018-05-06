@@ -582,7 +582,15 @@ function genericPrint(path, options, print) {
           isNextForKeyword ||
           isNextEachKeyword
         ) {
-          parts.push(line);
+          if (
+            atRuleAncestorNode &&
+            atRuleAncestorNode.name === "import" &&
+            iNode.type === "value-comment"
+          ) {
+            parts.push(" ");
+          } else {
+            parts.push(line);
+          }
         }
       }
 
