@@ -46,3 +46,12 @@ foo('bar', cb => {
     cursorOffset: 23
   });
 });
+
+test("leaves cursor position alone when using raw parser", () => {
+  expect(
+    prettier.formatWithCursor(" 1 2 3   ;", { parser: "raw", cursorOffset: 5 })
+  ).toEqual({
+    formatted: " 1 2 3   ;",
+    cursorOffset: 5
+  });
+});

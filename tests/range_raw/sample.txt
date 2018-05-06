@@ -1,0 +1,3 @@
+bla bla bla
+<<<PRETTIER_RANGE_START>>>bl<<<PRETTIER_RANGE_END>>>a bla bla
+foo bar
