@@ -585,7 +585,7 @@ function genericPrint(path, options, print) {
           if (
             atRuleAncestorNode &&
             atRuleAncestorNode.name === "import" &&
-            iNode.type === "value-comment"
+            (iNode.type === "value-comment" || iNode.type === "value-word")
           ) {
             parts.push(" ");
           } else {
