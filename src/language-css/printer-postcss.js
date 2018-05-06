@@ -44,6 +44,7 @@ const hasComposesValueNode = utils.hasComposesValueNode;
 const hasLessExtendValueNode = utils.hasLessExtendValueNode;
 const hasParensAroundValueNode = utils.hasParensAroundValueNode;
 const maybeToLowerCase = utils.maybeToLowerCase;
+const isPostcssSimpleVar = utils.isPostcssSimpleVar;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -409,6 +410,9 @@ function genericPrint(path, options, print) {
         const iNextNode = node.groups[i + 1];
         const iNextNextNode = node.groups[i + 2];
 
+        if (isPostcssSimpleVar(iNode, iNextNode)) {
+          continue;
+        }
         // Ignore after latest node (i.e. before semicolon)
         if (!iNextNode) {
           continue;
