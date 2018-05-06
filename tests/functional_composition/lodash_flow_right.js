@@ -17,5 +17,3 @@ const foo = _.flowRight(
 );
 
 foo(6);
-
-

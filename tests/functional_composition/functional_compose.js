@@ -21,7 +21,3 @@ somelib.composeFlipped(
   flatten, 
   map(x => [x, x*2])
 );
-
-
-
-

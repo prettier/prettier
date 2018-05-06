@@ -17,5 +17,3 @@ const foo = _.flow(
 );
 
 foo(6);
-
-
