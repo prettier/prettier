@@ -601,7 +601,11 @@ function genericPrint(path, options, print) {
       if (isControlDirective) {
         return group(indent(concat(parts)));
       }
-      if (atRuleAncestorNode && node.groups[0].value === "url") {
+      if (
+        atRuleAncestorNode &&
+        atRuleAncestorNode.name === "import" &&
+        node.groups[0].value === "url"
+      ) {
         return group(fill(parts));
       }
       return group(indent(fill(parts)));
