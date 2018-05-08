@@ -610,7 +610,6 @@ function genericPrint(path, options, print) {
         atRuleAncestorNode.name === "import" &&
         node.groups[0].value === "url"
       ) {
-        //console.log(JSON.stringify(node, null, 4))
         return group(fill(parts));
       }
       return group(indent(fill(parts)));
