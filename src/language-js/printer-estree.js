@@ -487,13 +487,37 @@ function printPathNoParens(path, options, print, args) {
         " = ",
         path.call(print, "right")
       ]);
-    case "TSTypeAssertionExpression":
-      return concat([
-        "<",
-        path.call(print, "typeAnnotation"),
-        ">",
-        path.call(print, "expression")
+    case "TSTypeAssertionExpression": {
+      const shouldBreakAfterCast = !(
+        n.expression.type === "ArrayExpression" ||
+        n.expression.type === "ObjectExpression"
+      );
+
+      const castGroup = group(
+        concat([
+          "<",
+          indent(concat([softline, path.call(print, "typeAnnotation")])),
+          softline,
+          ">"
+        ])
+      );
+
+      const exprContents = concat([
+        ifBreak("("),
+        indent(concat([softline, path.call(print, "expression")])),
+        softline,
+        ifBreak(")")
       ]);
+
+      if (shouldBreakAfterCast) {
+        return conditionalGroup([
+          concat([castGroup, path.call(print, "expression")]),
+          concat([castGroup, group(exprContents, { shouldBreak: true })]),
+          concat([castGroup, path.call(print, "expression")])
+        ]);
+      }
+      return group(concat([castGroup, path.call(print, "expression")]));
+    }
     case "MemberExpression": {
       const parent = path.getParentNode();
       let firstNonMemberParent;
@@ -2506,6 +2530,7 @@ function printPathNoParens(path, options, print, args) {
       // | C
 
       const parent = path.getParentNode();
+      const parentParent = path.getParentNode(1);
 
       // If there's a leading comment, the parent is doing the indentation
       const shouldIndent =
@@ -2514,6 +2539,8 @@ function printPathNoParens(path, options, print, args) {
         parent.type !== "GenericTypeAnnotation" &&
         parent.type !== "TSTypeReference" &&
         !(parent.type === "FunctionTypeParam" && !parent.name) &&
+        parentParent.type !== "TSTypeAssertionExpression" &&
+
         !(
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator") &&
