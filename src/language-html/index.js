@@ -25,7 +25,7 @@ const languages = [
 const parsers = {
   parse5: {
     get parse() {
-      return eval("require")("./parser-parse5");
+      return require("./parser-parse5");
     },
     astFormat: "htmlparser2",
     locEnd: function(node) {

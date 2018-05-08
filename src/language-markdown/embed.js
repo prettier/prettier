@@ -50,8 +50,8 @@ function embed(path, print, textToDoc, options) {
     if (language) {
       return language.parsers[0];
     }
-
     return null;
+
   }
 
   function replaceNewlinesWithLiterallines(doc) {

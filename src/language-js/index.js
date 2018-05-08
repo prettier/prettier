@@ -166,7 +166,7 @@ const languages = [
 
 const typescript = {
   get parse() {
-    return eval("require")("./parser-typescript");
+    return require("./parser-typescript");
   },
   astFormat: "estree",
   hasPragma,
@@ -176,7 +176,7 @@ const typescript = {
 
 const babylon = {
   get parse() {
-    return eval("require")("./parser-babylon");
+    return require("./parser-babylon");
   },
   astFormat: "estree",
   hasPragma,
@@ -194,7 +194,7 @@ const parsers = {
   json5: babylon,
   flow: {
     get parse() {
-      return eval("require")("./parser-flow");
+      return require("./parser-flow");
     },
     astFormat: "estree",
     hasPragma,

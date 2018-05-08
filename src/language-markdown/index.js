@@ -37,7 +37,7 @@ const languages = [
 
 const remark = {
   get parse() {
-    return eval("require")("./parser-markdown");
+    return require("./parser-markdown");
   },
   astFormat: "mdast",
   hasPragma: pragma.hasPragma,
