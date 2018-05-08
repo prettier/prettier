@@ -103,7 +103,7 @@ exports[`ignore-code.md 1`] = `
 >   long long paragraph.
 > \`\`\`
 
-> * test
+> - test
 >   \`\`\`md
 >   <!-- prettier-ignore -->
 >   - This is a long long
