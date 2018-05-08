@@ -39,8 +39,7 @@ function embed(path, print, textToDoc, options) {
 
   function getParserName(lang) {
     const supportInfo = support.getSupportInfo(null, {
-      plugins: options.plugins,
-      pluginSearchDirs: options.pluginSearchDirs
+      plugins: options.plugins
     });
     const language = supportInfo.languages.find(
       language =>

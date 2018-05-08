@@ -1,11 +1,11 @@
 "use strict";
 
 const uniqBy = require("lodash.uniqby");
-const findParentDir = require("find-parent-dir").sync;
 const fs = require("fs");
 const globby = require("globby");
 const path = require("path");
 const resolve = require("resolve");
+const thirdParty = require("../common/third-party");
 
 function loadPlugins(plugins, pluginSearchDirs) {
   if (!plugins) {
@@ -17,8 +17,8 @@ function loadPlugins(plugins, pluginSearchDirs) {
   }
   // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
   if (!pluginSearchDirs.length) {
-    const autoLoadDir = findParentDir(
-      findParentDir(__dirname, "prettier"),
+    const autoLoadDir = thirdParty.findParentDir(
+      thirdParty.findParentDir(__dirname, "prettier"),
       "node_modules"
     );
     if (autoLoadDir) {
@@ -36,50 +36,46 @@ function loadPlugins(plugins, pluginSearchDirs) {
     require("../language-vue")
   ];
 
-  const externalPluginInfos = [];
+  const externalManualLoadPluginInfos = plugins.map(pluginName => ({
+    name: pluginName,
+    requirePath: resolve.sync(pluginName, { basedir: process.cwd() })
+  }));
 
-  plugins.map(pluginName => {
-    const requirePath = resolve.sync(pluginName, { basedir: process.cwd() });
-    externalPluginInfos.push({
-      name: pluginName,
-      requirePath
-    });
-  });
-
-  pluginSearchDirs.forEach(pluginSearchDir => {
-    const resolvedPluginSearchDir = path.resolve(
-      process.cwd(),
-      pluginSearchDir
-    );
-
-    if (!isDirectory(pluginSearchDir)) {
-      throw new Error(
-        `${pluginSearchDir} does not exist or is not a directory`
+  const externalAutoLoadPluginInfos = pluginSearchDirs
+    .map(pluginSearchDir => {
+      const resolvedPluginSearchDir = path.resolve(
+        process.cwd(),
+        pluginSearchDir
       );
-    }
 
-    const nodeModulesDir = path.resolve(
-      resolvedPluginSearchDir,
-      "node_modules"
-    );
+      if (!isDirectory(pluginSearchDir)) {
+        throw new Error(
+          `${pluginSearchDir} does not exist or is not a directory`
+        );
+      }
 
-    findPluginsInNodeModules(nodeModulesDir).map(pluginName => {
-      const requirePath = resolve.sync(pluginName, {
-        basedir: resolvedPluginSearchDir
-      });
-      externalPluginInfos.push({
+      const nodeModulesDir = path.resolve(
+        resolvedPluginSearchDir,
+        "node_modules"
+      );
+
+      return findPluginsInNodeModules(nodeModulesDir).map(pluginName => ({
         name: pluginName,
-        requirePath
-      });
-    });
-  });
+        requirePath: resolve.sync(pluginName, {
+          basedir: resolvedPluginSearchDir
+        })
+      }));
+    })
+    .reduce((a, b) => a.concat(b), []);
 
-  const externalPlugins = uniqBy(externalPluginInfos, "requirePath").map(
-    externalPluginInfo =>
-      Object.assign(
-        { name: externalPluginInfo.name },
-        eval("require")(externalPluginInfo.requirePath)
-      )
+  const externalPlugins = uniqBy(
+    externalManualLoadPluginInfos.concat(externalAutoLoadPluginInfos),
+    "requirePath"
+  ).map(externalPluginInfo =>
+    Object.assign(
+      { name: externalPluginInfo.name },
+      eval("require")(externalPluginInfo.requirePath)
+    )
   );
 
   return internalPlugins.concat(externalPlugins);

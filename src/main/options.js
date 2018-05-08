@@ -20,7 +20,6 @@ function normalize(options, opts) {
 
   const supportOptions = getSupportInfo(null, {
     plugins: options.plugins,
-    pluginSearchDirs: options.pluginSearchDirs,
     showUnreleased: true,
     showDeprecated: true
   }).options;
