@@ -15,9 +15,9 @@ export let shim: typeof import("./foo2") = {
 
 export const x: import("./foo") = { x: 0, y: 0 };
 
-export let y: import("./foo2") = { a: "", b: 0 };
+export let y: import("./foo2").Bar.I = { a: "", b: 0 };
 
-export let shim: import("./foo2") = {
+export let shim: typeof import("./foo2") = {
   Bar: Bar2
 };
 
@@ -38,9 +38,9 @@ export let shim: typeof import("./foo2") = {
 
 export const x: import('./foo') = { x: 0, y: 0 };
 
-export let y: import('./foo2') = { a: '', b: 0 };
+export let y: import('./foo2').Bar.I = { a: '', b: 0 };
 
-export let shim: import('./foo2') = {
+export let shim: typeof import('./foo2') = {
   Bar: Bar2
 };
 

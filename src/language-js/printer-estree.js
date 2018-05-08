@@ -2881,7 +2881,13 @@ function printPathNoParens(path, options, print, args) {
     case "TSThisType":
       return "this";
     case "TSLastTypeNode": // TSImportType
-      return concat(["import(", path.call(print, "argument"), ")"]);
+      return concat([
+        !n.isTypeOf ? "" : "typeof ",
+        "import(",
+        path.call(print, "argument"),
+        ")",
+        !n.qualifier ? "" : concat([".", path.call(print, "qualifier")])
+      ]);
     case "TSLiteralType":
       return path.call(print, "literal");
     case "TSIndexedAccessType":
