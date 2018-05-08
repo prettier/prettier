@@ -8,6 +8,7 @@ if (process.env.NODE_ENV !== "production") {
   jest.mock("find-parent-dir", () => ({
     sync: () => path.resolve(__dirname, "../plugins/automatic")
   }));
+
   describe("automatically loads 'prettier-plugin-*'", () => {
     runPrettier("plugins/automatic", ["file.txt", "--parser=foo"]).test({
       stdout: "foo+contents" + EOL,
