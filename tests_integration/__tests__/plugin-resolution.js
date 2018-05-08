@@ -26,7 +26,7 @@ describe("automatically loads '@prettier/plugin-*'", () => {
   });
 });
 
-describe("automatically loads 'prettier-plugin-*' from --plugin-search-dir", () => {
+describe("automatically loads 'prettier-plugin-*' from --plugin-search-dir (same as autoload dir)", () => {
   runPrettier("plugins/automatic", [
     "file.txt",
     "--parser=foo",
@@ -39,11 +39,37 @@ describe("automatically loads 'prettier-plugin-*' from --plugin-search-dir", () 
   });
 });
 
-describe("automatically loads '@prettier/plugin-*' from --plugin-search-dir", () => {
+describe("automatically loads '@prettier/plugin-*' from --plugin-search-dir (same as autoload dir)", () => {
   runPrettier("plugins/automatic", [
     "file.txt",
     "--parser=bar",
     `--plugin-search-dir=.`
+  ]).test({
+    stdout: "bar+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: []
+  });
+});
+
+describe("automatically loads 'prettier-plugin-*' from --plugin-search-dir (different to autoload dir)", () => {
+  runPrettier("plugins", [
+    "automatic/file.txt",
+    "--parser=foo",
+    `--plugin-search-dir=automatic`
+  ]).test({
+    stdout: "foo+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: []
+  });
+});
+
+describe("automatically loads '@prettier/plugin-*' from --plugin-search-dir (different to autoload dir)", () => {
+  runPrettier("plugins", [
+    "automatic/file.txt",
+    "--parser=bar",
+    `--plugin-search-dir=automatic`
   ]).test({
     stdout: "bar+contents" + EOL,
     stderr: "",
