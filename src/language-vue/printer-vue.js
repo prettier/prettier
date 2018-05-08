@@ -31,6 +31,8 @@ function genericPrint(path, options, print) {
 }
 
 const clean = (ast, newObj) => {
+  delete newObj.start;
+  delete newObj.end;
   delete newObj.contentStart;
   delete newObj.contentEnd;
 };

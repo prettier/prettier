@@ -1,6 +1,17 @@
 "use strict";
 
 function clean(ast, newObj, parent) {
+  [
+    "leadingComments",
+    "trailingComments",
+    "extra",
+    "start",
+    "end",
+    "flags"
+  ].forEach(name => {
+    delete newObj[name];
+  });
+
   // We remove extra `;` and add them when needed
   if (ast.type === "EmptyStatement") {
     return null;
