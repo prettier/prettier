@@ -2540,7 +2540,6 @@ function printPathNoParens(path, options, print, args) {
         parent.type !== "TSTypeReference" &&
         !(parent.type === "FunctionTypeParam" && !parent.name) &&
         parentParent.type !== "TSTypeAssertionExpression" &&
-
         !(
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator") &&
