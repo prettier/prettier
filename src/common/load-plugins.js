@@ -22,7 +22,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
       "node_modules"
     );
     if (autoLoadDir) {
-      pluginSearchDirs.push(autoLoadDir);
+      pluginSearchDirs = [autoLoadDir];
     }
   }
 
