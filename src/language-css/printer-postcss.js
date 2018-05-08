@@ -582,12 +582,16 @@ function genericPrint(path, options, print) {
           isNextForKeyword ||
           isNextEachKeyword
         ) {
-          if (
-            atRuleAncestorNode &&
-            atRuleAncestorNode.name === "import" &&
-            (iNode.type === "value-comment" || iNode.type === "value-word")
-          ) {
-            parts.push(" ");
+          if (atRuleAncestorNode && atRuleAncestorNode.name === "import") {
+            if (iNextNode.open) {
+              parts.push(iNextNode.open.raws.before.replace(/\s\s+/g, " "));
+            } else if (iNode.close || (iNode.group && iNode.group.close)) {
+              parts.push(line);
+            } else if (iNextNode && iNextNode.raws) {
+              parts.push(iNextNode.raws.before.replace(/\s\s+/g, " "));
+            } else if (iNode && iNode.raws) {
+              parts.push(iNode.raws.after.replace(/\s\s+/g, " "));
+            }
           } else {
             parts.push(line);
           }
@@ -606,6 +610,7 @@ function genericPrint(path, options, print) {
         atRuleAncestorNode.name === "import" &&
         node.groups[0].value === "url"
       ) {
+        //console.log(JSON.stringify(node, null, 4))
         return group(fill(parts));
       }
       return group(indent(fill(parts)));
