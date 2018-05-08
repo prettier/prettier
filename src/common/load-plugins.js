@@ -1,7 +1,7 @@
 "use strict";
 
 const uniqBy = require("lodash.uniqby");
-const findUpSync = require("find-up").sync;
+const findParentDir = require("find-parent-dir").sync;
 const fs = require("fs");
 const globby = require("globby");
 const path = require("path");
@@ -17,8 +17,8 @@ function loadPlugins(plugins, pluginSearchDirs) {
   }
   // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
   if (!pluginSearchDirs.length) {
-    const autoLoadDir = findUpSync(
-      path.resolve(findUpSync(__dirname, "prettier"), ".."),
+    const autoLoadDir = findParentDir(
+      findParentDir(__dirname, "prettier"),
       "node_modules"
     );
     if (autoLoadDir) {

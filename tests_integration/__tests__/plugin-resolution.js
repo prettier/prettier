@@ -1,7 +1,30 @@
 "use strict";
 
+const path = require("path");
 const runPrettier = require("../runPrettier");
 const EOL = require("os").EOL;
+
+jest.mock("find-parent-dir", () => ({
+  sync: () => path.resolve(__dirname, "../plugins/automatic")
+}));
+
+describe("automatically loads 'prettier-plugin-*'", () => {
+  runPrettier("plugins/automatic", ["file.txt", "--parser=foo"]).test({
+    stdout: "foo+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: []
+  });
+});
+
+describe("automatically loads '@prettier/plugin-*'", () => {
+  runPrettier("plugins/automatic", ["file.txt", "--parser=bar"]).test({
+    stdout: "bar+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: []
+  });
+});
 
 describe("automatically loads 'prettier-plugin-*' from --plugin-search-dir", () => {
   runPrettier("plugins/automatic", [
