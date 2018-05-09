@@ -102,6 +102,19 @@ Default: true
 
 exports[`show detailed usage with --help editorconfig (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help file-info (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help file-info (stdout) 1`] = `
+"--file-info <path>
+
+  Extract the following info (as JSON) for a given file path. Reported fields:
+  * ignored (boolean) - true if file path is filtered by --ignore-path
+  * inferredParser (string | null) - name of parser inferred from file path
+"
+`;
+
+exports[`show detailed usage with --help file-info (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help find-config-path (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help find-config-path (stdout) 1`] = `
@@ -608,6 +621,9 @@ Config options:
                            Define in which order config files and CLI options should be evaluated.
                            Defaults to cli-override.
   --no-editorconfig        Don't take .editorconfig into account when parsing configuration.
+  --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
+                           * ignored (boolean) - true if file path is filtered by --ignore-path
+                           * inferredParser (string | null) - name of parser inferred from file path
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
@@ -756,6 +772,9 @@ Config options:
                            Define in which order config files and CLI options should be evaluated.
                            Defaults to cli-override.
   --no-editorconfig        Don't take .editorconfig into account when parsing configuration.
+  --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
+                           * ignored (boolean) - true if file path is filtered by --ignore-path
+                           * inferredParser (string | null) - name of parser inferred from file path
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
@@ -806,6 +825,15 @@ Other options:
 `;
 
 exports[`throw error and show usage with something unexpected (write) 1`] = `Array []`;
+
+exports[`throw error with --file-info + multiple files (stderr) 1`] = `
+"[error] Cannot use --file-info with multiple files
+"
+`;
+
+exports[`throw error with --file-info + multiple files (stdout) 1`] = `""`;
+
+exports[`throw error with --file-info + multiple files (write) 1`] = `Array []`;
 
 exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `
 "[error] Cannot use --find-config-path with multiple files

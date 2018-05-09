@@ -99,6 +99,12 @@ describe("throw error with --find-config-path + multiple files", () => {
   });
 });
 
+describe("throw error with --file-info + multiple files", () => {
+  runPrettier("cli", ["--file-info", "abc.js", "def.js"]).test({
+    status: 1
+  });
+});
+
 describe("throw error and show usage with something unexpected", () => {
   runPrettier("cli", [], { isTTY: true }).test({
     status: "non-zero"

@@ -4,6 +4,7 @@ const version = require("./package.json").version;
 
 const core = require("./src/main/core");
 const getSupportInfo = require("./src/main/support").getSupportInfo;
+const getFileInfo = require("./src/common/get-file-info");
 const sharedUtil = require("./src/common/util-shared");
 const loadPlugins = require("./src/common/load-plugins");
 
@@ -12,7 +13,7 @@ const config = require("./src/config/resolve-config");
 const doc = require("./src/doc");
 
 // Luckily `opts` is always the 2nd argument
-function withPlugins(fn) {
+function _withPlugins(fn) {
   return function() {
     const args = Array.from(arguments);
     const opts = args[1] || {};
@@ -21,6 +22,13 @@ function withPlugins(fn) {
     });
     return fn.apply(null, args);
   };
+}
+function withPlugins(fn) {
+  const resultingFn = _withPlugins(fn);
+  if (fn.sync) {
+    resultingFn.sync = _withPlugins(fn.sync);
+  }
+  return resultingFn;
 }
 
 const formatWithCursor = withPlugins(core.formatWithCursor);
@@ -47,6 +55,7 @@ module.exports = {
   resolveConfigFile: config.resolveConfigFile,
   clearConfigCache: config.clearCache,
 
+  getFileInfo: withPlugins(getFileInfo),
   getSupportInfo: withPlugins(getSupportInfo),
 
   version,

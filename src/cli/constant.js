@@ -131,6 +131,15 @@ const options = {
     description:
       "Find and print the path to a configuration file for the given input file."
   },
+  "file-info": {
+    type: "path",
+    category: coreOptions.CATEGORY_CONFIG,
+    description: dedent`
+      Extract the following info (as JSON) for a given file path. Reported fields:
+      * ignored (boolean) - true if file path is filtered by --ignore-path
+      * inferredParser (string | null) - name of parser inferred from file path
+    `
+  },
   help: {
     type: "flag",
     alias: "h",
