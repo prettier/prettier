@@ -145,3 +145,47 @@ function test(observable) {
 }
 
 `;
+
+exports[`short_name_method.js 1`] = `
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod;
+  }
+  
+  shortMethod() {
+    return true;
+  }
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod;
+  }
+
+  shortMethod() {
+    return true;
+  }
+}
+
+`;
+
+exports[`short_name_method.js 2`] = `
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod;
+  }
+  
+  shortMethod() {
+    return true;
+  }
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod
+  }
+
+  shortMethod() {
+    return true
+  }
+}
+
+`;
