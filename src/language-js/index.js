@@ -129,15 +129,15 @@ const languages = [
     vscodeLanguageIds: ["typescript", "typescriptreact"]
   },
   {
-    name: "JSON Legacy",
+    name: "JSON.stringify",
     since: "1.13.0",
-    parsers: ["json-legacy"],
+    parsers: ["json-stringify"],
     group: "JavaScript",
     tmScope: "source.json",
     aceMode: "json",
     codemirrorMode: "javascript",
     codemirrorMimeType: "application/json",
-    extensions: [], // .json file defaults to json instead of json-Legacy
+    extensions: [], // .json file defaults to json instead of json-stringify
     filenames: ["package.json", "package-lock.json"],
     linguistLanguageId: 174,
     vscodeLanguageIds: ["json"]
@@ -207,9 +207,9 @@ const parsers = {
     }
   }),
   json5: babylon,
-  "json-legacy": {
+  "json-stringify": {
     get parse() {
-      return eval("require")("./parser-json-legacy");
+      return eval("require")("./parser-json-stringify");
     },
     astFormat: "estree-json",
     locStart,

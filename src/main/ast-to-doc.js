@@ -62,7 +62,7 @@ function printAstToDoc(ast, options, addAlignmentSize) {
   if (
     options.parser === "json" ||
     options.parser === "json5" ||
-    options.parser === "json-legacy"
+    options.parser === "json-stringify"
   ) {
     doc = concat([doc, hardline]);
   }
