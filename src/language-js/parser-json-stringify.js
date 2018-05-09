@@ -16,12 +16,12 @@ function parse(text, parsers, opts) {
   return ast;
 }
 
-function assertJsonNode(node) {
+function assertJsonNode(node, parent) {
   switch (node.type) {
     case "ArrayExpression":
-      return node.elements.forEach(assertJsonNode);
+      return node.elements.forEach(assertJsonChildNode);
     case "ObjectExpression":
-      return node.properties.forEach(assertJsonNode);
+      return node.properties.forEach(assertJsonChildNode);
     case "ObjectProperty":
       // istanbul ignore if
       if (node.computed) {
@@ -31,25 +31,33 @@ function assertJsonNode(node) {
       if (node.shorthand) {
         throw createJsonError("shorthand");
       }
-      return [node.key, node.value].forEach(assertJsonNode);
+      return [node.key, node.value].forEach(assertJsonChildNode);
     case "UnaryExpression":
       switch (node.operator) {
         case "+":
         case "-":
-          return assertJsonNode(node.argument);
+          return assertJsonChildNode(node.argument);
         // istanbul ignore next
         default:
           throw createJsonError("operator");
       }
+    case "Identifier":
+      if (parent && parent.type === "ObjectProperty" && parent.key === node) {
+        return;
+      }
+      throw createJsonError();
     case "NullLiteral":
     case "BooleanLiteral":
     case "NumericLiteral":
     case "StringLiteral":
-    case "Identifier":
       return;
     // istanbul ignore next
     default:
-      throw createJsonError(node.type);
+      throw createJsonError();
+  }
+
+  function assertJsonChildNode(child) {
+    return assertJsonNode(child, node);
   }
 
   // istanbul ignore next
