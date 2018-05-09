@@ -72,6 +72,23 @@ If `options.useCache` is `false`, all caching will be bypassed.
 
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
 
+## `prettier.getFileInfo(filePath [, options])`
+
+`getFileInfo` can be used by editor extensions to decide if a particular file needs to be formatted. This method returns a promise, which resolves to an object with the following properties:
+
+```typescript
+{
+  ignored: boolean,
+  inferredParser: string | null,
+}
+```
+
+Setting `options.ignorePath` (`string`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
+
+Providing [plugin](./plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
+
+Use `prettier.getFileInfo.sync(filePath [, options])` if you'd like to use sync version.
+
 ## `prettier.getSupportInfo([version])`
 
 Returns an object representing the parsers, languages and file types Prettier supports.

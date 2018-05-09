@@ -102,6 +102,19 @@ Default: true
 
 exports[`show detailed usage with --help editorconfig (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help file-info (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help file-info (stdout) 1`] = `
+"--file-info <path>
+
+  Extract the following info (as JSON) for a given file path. Reported fields:
+  * ignored (boolean) - true if file path is filtered by --ignore-path
+  * inferredParser (string | null) - name of parser inferred from file path
+"
+`;
+
+exports[`show detailed usage with --help file-info (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help find-config-path (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help find-config-path (stdout) 1`] = `
@@ -638,6 +651,9 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
+  --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
+                           * ignored (boolean) - true if file path is filtered by --ignore-path
+                           * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
   --insert-pragma          Insert @format pragma into file's first docblock comment.
@@ -786,6 +802,9 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
+  --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
+                           * ignored (boolean) - true if file path is filtered by --ignore-path
+                           * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
   --insert-pragma          Insert @format pragma into file's first docblock comment.
@@ -806,6 +825,15 @@ Other options:
 `;
 
 exports[`throw error and show usage with something unexpected (write) 1`] = `Array []`;
+
+exports[`throw error with --file-info + multiple files (stderr) 1`] = `
+"[error] Cannot use --file-info with multiple files
+"
+`;
+
+exports[`throw error with --file-info + multiple files (stdout) 1`] = `""`;
+
+exports[`throw error with --file-info + multiple files (write) 1`] = `Array []`;
 
 exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `
 "[error] Cannot use --find-config-path with multiple files

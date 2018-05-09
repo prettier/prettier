@@ -5,13 +5,14 @@ const camelCase = require("camelcase");
 const dashify = require("dashify");
 const fs = require("fs");
 const globby = require("globby");
-const ignore = require("ignore");
 const chalk = require("chalk");
 const readline = require("readline");
 const leven = require("leven");
+const stringify = require("json-stable-stringify");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
+const createIgnorer = require("../common/create-ignorer");
 const errors = require("../common/errors");
 const constant = require("./constant");
 const coreOptions = require("../main/core-options");
@@ -76,13 +77,32 @@ function handleError(context, filename, error) {
   process.exitCode = 2;
 }
 
-function logResolvedConfigPathOrDie(context, filePath) {
-  const configFile = prettier.resolveConfigFile.sync(filePath);
+function logResolvedConfigPathOrDie(context) {
+  const configFile = prettier.resolveConfigFile.sync(
+    context.argv["find-config-path"]
+  );
   if (configFile) {
     context.logger.log(path.relative(process.cwd(), configFile));
   } else {
     process.exit(1);
   }
+}
+
+function logFileInfoOrDie(context) {
+  const options = {
+    ignorePath: context.argv["ignore-path"],
+    withNodeModules: context.argv["with-node-modules"],
+    plugins: context.argv["plugin"],
+    pluginSearchDirs: context.argv["plugin-search-dir"]
+  };
+  context.logger.log(
+    prettier.format(
+      stringify(prettier.getFileInfo.sync(context.argv["file-info"], options)),
+      {
+        parser: "json"
+      }
+    )
+  );
 }
 
 function writeOutput(result, options) {
@@ -255,7 +275,7 @@ function formatStdin(context) {
     ? path.resolve(process.cwd(), context.argv["stdin-filepath"])
     : process.cwd();
 
-  const ignorer = createIgnorer(context);
+  const ignorer = createIgnorerFromContextOrDie(context);
   const relativeFilepath = path.relative(process.cwd(), filepath);
 
   thirdParty.getStream(process.stdin).then(input => {
@@ -278,22 +298,16 @@ function formatStdin(context) {
   });
 }
 
-function createIgnorer(context) {
-  const ignoreFilePath = path.resolve(context.argv["ignore-path"]);
-  let ignoreText = "";
-
+function createIgnorerFromContextOrDie(context) {
   try {
-    ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
-  } catch (readError) {
-    if (readError.code !== "ENOENT") {
-      context.logger.error(
-        `Unable to read ${ignoreFilePath}: ` + readError.message
-      );
-      process.exit(2);
-    }
+    return createIgnorer(
+      context.argv["ignore-path"],
+      context.argv["with-node-modules"]
+    );
+  } catch (e) {
+    context.logger.error(e.message);
+    process.exit(2);
   }
-
-  return ignore().add(ignoreText);
 }
 
 function eachFilename(context, patterns, callback) {
@@ -329,7 +343,7 @@ function eachFilename(context, patterns, callback) {
 function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
-  const ignorer = createIgnorer(context);
+  const ignorer = createIgnorerFromContextOrDie(context);
 
   eachFilename(context, context.filePatterns, (filename, options) => {
     const fileIgnored = ignorer.filter([filename]).length === 0;
@@ -910,5 +924,6 @@ module.exports = {
   formatStdin,
   initContext,
   logResolvedConfigPathOrDie,
+  logFileInfoOrDie,
   normalizeDetailedOptionMap
 };
