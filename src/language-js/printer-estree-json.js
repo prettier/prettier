@@ -51,11 +51,10 @@ function genericPrint(path, options, print) {
     case "BooleanLiteral":
       return node.value ? "true" : "false";
     case "StringLiteral":
-      return node.extra.raw;
     case "NumericLiteral":
-      return privateUtil.printNumber(node.extra.raw);
+      return JSON.stringify(JSON.parse(node.extra.raw));
     case "Identifier":
-      return `"${node.name}"`;
+      return JSON.stringify(node.name);
   }
 }
 

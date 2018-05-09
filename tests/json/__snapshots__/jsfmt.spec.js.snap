@@ -102,8 +102,8 @@ exports[`multi-line.json 5`] = `
       1,
       2,
       "3",
-      1e10,
-      1e-3
+      10000000000,
+      0.001
     ]
   }
 }
@@ -732,22 +732,22 @@ exports[`pass1.json 5`] = `
   {
     "integer": 1234567890,
     "real": -9876.54321,
-    "e": 0.123456789e-12,
-    "E": 1.23456789e34,
-    "": 23456789012e66,
+    "e": 1.23456789e-13,
+    "E": 1.23456789e+34,
+    "": 2.3456789012e+76,
     "zero": 0,
     "one": 1,
     "space": " ",
     "quote": "\\"",
     "backslash": "\\\\",
     "controls": "\\b\\f\\n\\r\\t",
-    "slash": "/ & \\/",
+    "slash": "/ & /",
     "alpha": "abcdefghijklmnopqrstuvwyz",
     "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
     "digit": "0123456789",
     "0123456789": "digit",
     "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
-    "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
+    "hex": "ģ䕧覫췯ꯍ",
     "true": true,
     "false": false,
     "null": null,
@@ -776,16 +776,16 @@ exports[`pass1.json 5`] = `
       7
     ],
     "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
-    "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
-    "\\/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?": "A key can be any string"
+    "quotes": "&#34; \\" %22 0x22 034 &#x22;",
+    "/\\\\\\"쫾몾ꮘﳞ볚\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?": "A key can be any string"
   },
   0.5,
   98.6,
   99.44,
   1066,
-  1e1,
-  0.1e1,
-  1e-1,
+  10,
+  1,
+  0.1,
   1,
   2,
   2,
@@ -926,8 +926,8 @@ exports[`single-line.json 5`] = `
       1,
       2,
       "3",
-      1e10,
-      1e-3
+      10000000000,
+      0.001
     ]
   }
 }
