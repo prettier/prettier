@@ -2,10 +2,10 @@
 
 const path = require("path");
 const ConfigError = require("../common/errors").ConfigError;
-const js = require("../language-js/index.js");
+const babylon = require("../language-js/index").parsers.babylon;
 
-const locStart = js.locStart;
-const locEnd = js.locEnd;
+const locStart = babylon.locStart;
+const locEnd = babylon.locEnd;
 
 function getParsers(options) {
   return options.plugins.reduce(

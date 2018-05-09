@@ -214,7 +214,5 @@ module.exports = {
   languages,
   options,
   parsers,
-  printers,
-  locStart,
-  locEnd
+  printers
 };
