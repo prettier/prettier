@@ -23,6 +23,7 @@ function _withPlugins(fn) {
     return fn.apply(null, args);
   };
 }
+
 function withPlugins(fn) {
   const resultingFn = _withPlugins(fn);
   if (fn.sync) {
