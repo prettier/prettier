@@ -34,7 +34,7 @@ function assertJsonNode(node) {
       switch (node.operator) {
         case "+":
         case "-":
-          return;
+          return assertJsonNode(node.argument);
         default:
           throw createJsonError("operator");
       }
