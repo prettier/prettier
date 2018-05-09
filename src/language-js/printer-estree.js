@@ -2047,9 +2047,9 @@ function printPathNoParens(path, options, print, args) {
         parts.push(
           " =",
           printAssignmentRight(
+            n.key,
             n.value,
             path.call(print, "value"),
-            false, // canBreak
             options
           )
         );
@@ -2057,7 +2057,7 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push(semi);
 
-      return concat(parts);
+      return group(concat(parts));
     }
     case "ClassDeclaration":
     case "ClassExpression":
@@ -2664,12 +2664,10 @@ function printPathNoParens(path, options, print, args) {
         parts.push("declare ");
       }
 
-      const canBreak = n.right.type === "StringLiteralTypeAnnotation";
-
       const printed = printAssignmentRight(
+        n.id,
         n.right,
         path.call(print, "right"),
-        canBreak,
         options
       );
 
@@ -5059,10 +5057,21 @@ function printBinaryishExpressions(
   return parts;
 }
 
-function printAssignmentRight(rightNode, printedRight, canBreak, options) {
+function printAssignmentRight(leftNode, rightNode, printedRight, options) {
   if (hasLeadingOwnLineComment(options.originalText, rightNode, options)) {
     return indent(concat([hardline, printedRight]));
   }
+
+  const canBreak =
+    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
+    (rightNode.type === "ConditionalExpression" &&
+      isBinaryish(rightNode.test) &&
+      !shouldInlineLogicalExpression(rightNode.test)) ||
+    rightNode.type === "StringLiteralTypeAnnotation" ||
+    ((leftNode.type === "Identifier" ||
+      isStringLiteral(leftNode) ||
+      leftNode.type === "MemberExpression") &&
+      (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)));
 
   if (canBreak) {
     return indent(concat([line, printedRight]));
@@ -5083,20 +5092,10 @@ function printAssignment(
     return printedLeft;
   }
 
-  const canBreak =
-    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
-    (rightNode.type === "ConditionalExpression" &&
-      isBinaryish(rightNode.test) &&
-      !shouldInlineLogicalExpression(rightNode.test)) ||
-    ((leftNode.type === "Identifier" ||
-      isStringLiteral(leftNode) ||
-      leftNode.type === "MemberExpression") &&
-      (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)));
-
   const printed = printAssignmentRight(
+    leftNode,
     rightNode,
     printedRight,
-    canBreak,
     options
   );
 
