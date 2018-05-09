@@ -43,7 +43,7 @@ self.require = function require(path) {
     return { PassThrough() {} };
   }
   if (path === "./third-party") {
-    return { findParentDir() {}};
+    return { findParentDir() {} };
   }
 
   if (~path.indexOf("parser-")) {
