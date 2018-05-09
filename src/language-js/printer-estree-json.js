@@ -67,6 +67,9 @@ function clean(node, newNode /*, parent*/) {
   if (node.type === "Identifier") {
     return { type: "StringLiteral", value: node.name };
   }
+  if (node.type === "UnaryExpression" && node.operator === "+") {
+    return newNode.argument;
+  }
 }
 
 module.exports = {
