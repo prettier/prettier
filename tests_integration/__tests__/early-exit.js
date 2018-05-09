@@ -29,7 +29,8 @@ describe(`show detailed usage with plugin options (automatic resolution)`, () =>
   runPrettier("plugins/automatic", [
     "--help",
     "tab-width",
-    "--parser=bar"
+    "--parser=bar",
+    `--plugin-search-dir=.`
   ]).test({
     status: 0
   });
