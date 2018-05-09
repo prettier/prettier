@@ -48,7 +48,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
         pluginSearchDir
       );
 
-      if (!isDirectory(pluginSearchDir)) {
+      if (!isDirectory(resolvedPluginSearchDir)) {
         throw new Error(
           `${pluginSearchDir} does not exist or is not a directory`
         );
