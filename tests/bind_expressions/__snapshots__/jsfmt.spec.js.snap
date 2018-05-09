@@ -22,6 +22,52 @@ a || b::c
 
 `;
 
+exports[`long_name_method.js 1`] = `
+class X {
+  constructor() {
+    this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+  }
+  
+  testLongNameMethodAndSomethingElseLallala() {
+    return true;
+  }
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class X {
+  constructor() {
+    this.testLongNameMethodAndSomethingElseLallala =
+      ::this.testLongNameMethodAndSomethingElseLallala;
+  }
+
+  testLongNameMethodAndSomethingElseLallala() {
+    return true;
+  }
+}
+
+`;
+
+exports[`long_name_method.js 2`] = `
+class X {
+  constructor() {
+    this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+  }
+  
+  testLongNameMethodAndSomethingElseLallala() {
+    return true;
+  }
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class X {
+  constructor() {
+    this.testLongNameMethodAndSomethingElseLallala =
+      ::this.testLongNameMethodAndSomethingElseLallala
+  }
+
+  testLongNameMethodAndSomethingElseLallala() {
+    return true
+  }
+}
+
+`;
+
 exports[`method_chain.js 1`] = `
 import {interval} from 'rxjs/observable/interval';
 import {filter} from 'rxjs/operator/filter';
@@ -96,6 +142,50 @@ function test(observable) {
         ::takeUntil(observable::filter(data => someOtherTest))
     )
     ::map(someFunction)
+}
+
+`;
+
+exports[`short_name_method.js 1`] = `
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod;
+  }
+  
+  shortMethod() {
+    return true;
+  }
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod;
+  }
+
+  shortMethod() {
+    return true;
+  }
+}
+
+`;
+
+exports[`short_name_method.js 2`] = `
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod;
+  }
+  
+  shortMethod() {
+    return true;
+  }
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod
+  }
+
+  shortMethod() {
+    return true
+  }
 }
 
 `;
