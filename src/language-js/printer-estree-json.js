@@ -51,7 +51,7 @@ function genericPrint(path, options, print) {
       return node.value ? "true" : "false";
     case "StringLiteral":
     case "NumericLiteral":
-      return JSON.stringify(JSON.parse(node.extra.raw));
+      return JSON.stringify(node.value);
     case "Identifier":
       return JSON.stringify(node.name);
   }
