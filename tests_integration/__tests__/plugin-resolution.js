@@ -151,3 +151,16 @@ describe("loads --plugin by relative path to its directory without leading ./ (a
     write: []
   });
 });
+
+describe("loads --plugin by bespoke plugin name (assuming it is installed in cwd)", () => {
+  runPrettier("plugins/bespoke", [
+    "../automatic/file.txt",
+    "--parser=bespoke",
+    "--plugin=@company/prettier-plugin-bespoke"
+  ]).test({
+    stdout: "bespoke+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: []
+  });
+});
