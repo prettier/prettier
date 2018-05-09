@@ -133,7 +133,6 @@ const options = {
   },
   "file-info": {
     type: "path",
-    category: coreOptions.CATEGORY_CONFIG,
     description: dedent`
       Extract the following info (as JSON) for a given file path. Reported fields:
       * ignored (boolean) - true if file path is filtered by --ignore-path

@@ -621,9 +621,6 @@ Config options:
                            Define in which order config files and CLI options should be evaluated.
                            Defaults to cli-override.
   --no-editorconfig        Don't take .editorconfig into account when parsing configuration.
-  --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
-                           * ignored (boolean) - true if file path is filtered by --ignore-path
-                           * inferredParser (string | null) - name of parser inferred from file path
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
@@ -654,6 +651,9 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
+  --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
+                           * ignored (boolean) - true if file path is filtered by --ignore-path
+                           * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
   --insert-pragma          Insert @format pragma into file's first docblock comment.
@@ -772,9 +772,6 @@ Config options:
                            Define in which order config files and CLI options should be evaluated.
                            Defaults to cli-override.
   --no-editorconfig        Don't take .editorconfig into account when parsing configuration.
-  --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
-                           * ignored (boolean) - true if file path is filtered by --ignore-path
-                           * inferredParser (string | null) - name of parser inferred from file path
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
@@ -805,6 +802,9 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
+  --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
+                           * ignored (boolean) - true if file path is filtered by --ignore-path
+                           * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
   --insert-pragma          Insert @format pragma into file's first docblock comment.

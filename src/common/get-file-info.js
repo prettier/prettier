@@ -1,6 +1,6 @@
 "use strict";
 
-const createIgnorer = require("../common/create-ignorer");
+const createIgnorer = require("./create-ignorer");
 const options = require("../main/options");
 
 /**
