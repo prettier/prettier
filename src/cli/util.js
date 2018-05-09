@@ -92,7 +92,8 @@ function logFileInfoOrDie(context) {
   const options = {
     ignorePath: context.argv["ignore-path"],
     withNodeModules: context.argv["with-node-modules"],
-    plugins: context.argv["plugin"]
+    plugins: context.argv["plugin"],
+    pluginSearchDirs: context.argv["plugin-search-dir"]
   };
   context.logger.log(
     prettier.format(

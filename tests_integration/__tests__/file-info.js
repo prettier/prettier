@@ -74,19 +74,31 @@ describe("extracts file-info with inferredParser=null for file.foo", () => {
     status: 0
   });
 });
+
 describe("extracts file-info with inferredParser=foo when plugins are autoloaded", () => {
+  runPrettier("plugins/automatic/", ["--file-info", "file.foo"]).test({
+    status: 0
+  });
+});
+
+describe("extracts file-info with inferredParser=foo when plugins are loaded with --plugin-search-dir", () => {
+  runPrettier("cli/", [
+    "--file-info",
+    "file.foo",
+    "--plugin-search-dir",
+    "../plugins/automatic"
+  ]).test({
+    status: 0
+  });
+});
+
+describe("extracts file-info with inferredParser=foo when a plugin is hand-picked", () => {
   runPrettier("cli/", [
     "--file-info",
     "file.foo",
     "--plugin",
     "../plugins/automatic/node_modules/@prettier/plugin-foo"
   ]).test({
-    status: 0
-  });
-});
-
-describe("extracts file-info with inferredParser=null when a plugin is hand-picked", () => {
-  runPrettier("plugins/automatic/", ["--file-info", "file.foo"]).test({
     status: 0
   });
 });
@@ -174,6 +186,25 @@ test("API getFileInfo with withNodeModules", () => {
   ).resolves.toMatchObject({
     ignored: false,
     inferredParser: "babylon"
+  });
+});
+
+test("API getFileInfo with plugins loaded using pluginSearchDir", () => {
+  const file = "file.foo";
+  const pluginsPath = path.resolve(
+    path.join(__dirname, "../plugins/automatic")
+  );
+  expect(prettier.getFileInfo(file)).resolves.toMatchObject({
+    ignored: false,
+    inferredParser: null
+  });
+  expect(
+    prettier.getFileInfo(file, {
+      pluginSearchDirs: [pluginsPath]
+    })
+  ).resolves.toMatchObject({
+    ignored: false,
+    inferredParser: "foo"
   });
 });
 
