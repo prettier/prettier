@@ -57,7 +57,7 @@ function assertJsonNode(node) {
     const name = !attribute
       ? node.type
       : `${node.type} with ${attribute}=${JSON.stringify(node[attribute])}`;
-    return createError(`${name} is not allowed in legacy JSON.`, {
+    return createError(`${name} is not allowed in JSON.`, {
       start: {
         line: node.loc.start.line,
         column: node.loc.start.column + 1
