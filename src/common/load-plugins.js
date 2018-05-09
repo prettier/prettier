@@ -38,7 +38,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
 
   const externalManualLoadPluginInfos = plugins.map(pluginName => ({
     name: pluginName,
-    requirePath: resolve.sync(pluginName, { basedir: process.cwd() })
+    requirePath: resolve.sync(path.resolve(process.cwd(), pluginName))
   }));
 
   const externalAutoLoadPluginInfos = pluginSearchDirs

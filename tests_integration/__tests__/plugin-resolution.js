@@ -99,3 +99,55 @@ describe("crashes when one of --plugin-search-dir does not exist", () => {
     write: []
   });
 });
+
+describe("loads --plugin by its relative path", () => {
+  runPrettier("plugins", [
+    "automatic/file.txt",
+    "--parser=bar",
+    "--plugin=./automatic/node_modules/prettier-plugin-bar/index.js"
+  ]).test({
+    stdout: "bar+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: []
+  });
+});
+
+describe("loads --plugin by its relative path without leading ./", () => {
+  runPrettier("plugins", [
+    "automatic/file.txt",
+    "--parser=bar",
+    "--plugin=automatic/node_modules/prettier-plugin-bar/index.js"
+  ]).test({
+    stdout: "bar+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: []
+  });
+});
+
+describe("loads --plugin by relative path to its directory (assuming index.js)", () => {
+  runPrettier("plugins", [
+    "automatic/file.txt",
+    "--parser=bar",
+    "--plugin=./automatic/node_modules/prettier-plugin-bar"
+  ]).test({
+    stdout: "bar+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: []
+  });
+});
+
+describe("loads --plugin by relative path to its directory without leading ./ (assuming index.js)", () => {
+  runPrettier("plugins", [
+    "automatic/file.txt",
+    "--parser=bar",
+    "--plugin=automatic/node_modules/prettier-plugin-bar"
+  ]).test({
+    stdout: "bar+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: []
+  });
+});
