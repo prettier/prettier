@@ -12,6 +12,7 @@ toolbox.precache([
   "lib/parser-typescript.js",
   "lib/parser-postcss.js",
   "lib/parser-flow.js",
+  "lib/parser-json-stringify.js",
   "lib/parser-glimmer.js",
   "lib/parser-graphql.js",
   "lib/parser-markdown.js",
