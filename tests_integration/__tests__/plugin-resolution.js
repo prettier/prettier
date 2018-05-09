@@ -25,7 +25,7 @@ describe("automatically loads 'prettier-plugin-*' from --plugin-search-dir (same
   runPrettier("plugins/automatic", [
     "file.txt",
     "--parser=foo",
-    `--plugin-search-dir=.`
+    "--plugin-search-dir=."
   ]).test({
     stdout: "foo+contents" + EOL,
     stderr: "",
@@ -38,7 +38,7 @@ describe("automatically loads '@prettier/plugin-*' from --plugin-search-dir (sam
   runPrettier("plugins/automatic", [
     "file.txt",
     "--parser=bar",
-    `--plugin-search-dir=.`
+    "--plugin-search-dir=."
   ]).test({
     stdout: "bar+contents" + EOL,
     stderr: "",
@@ -51,7 +51,7 @@ describe("automatically loads 'prettier-plugin-*' from --plugin-search-dir (diff
   runPrettier("plugins", [
     "automatic/file.txt",
     "--parser=foo",
-    `--plugin-search-dir=automatic`
+    "--plugin-search-dir=automatic"
   ]).test({
     stdout: "foo+contents" + EOL,
     stderr: "",
@@ -64,7 +64,7 @@ describe("automatically loads '@prettier/plugin-*' from --plugin-search-dir (dif
   runPrettier("plugins", [
     "automatic/file.txt",
     "--parser=bar",
-    `--plugin-search-dir=automatic`
+    "--plugin-search-dir=automatic"
   ]).test({
     stdout: "bar+contents" + EOL,
     stderr: "",
@@ -77,7 +77,7 @@ describe("does not crash when --plugin-search-dir does not contain node_modules"
   runPrettier("plugins/extensions", [
     "file.foo",
     "--plugin=./plugin",
-    `--plugin-search-dir=.`
+    "--plugin-search-dir=."
   ]).test({
     stdout: "!contents" + EOL,
     stderr: "",
@@ -90,8 +90,8 @@ describe("crashes when one of --plugin-search-dir does not exist", () => {
   runPrettier("plugins/automatic", [
     "file.txt",
     "--parser=foo",
-    `--plugin-search-dir=non-existing-dir`,
-    `--plugin-search-dir=.`
+    "--plugin-search-dir=non-existing-dir",
+    "--plugin-search-dir=."
   ]).test({
     stdout: "",
     stderr: "non-existing-dir does not exist or is not a directory",
