@@ -5,7 +5,7 @@ const fs = require("fs");
 const globby = require("globby");
 const path = require("path");
 const resolve = require("resolve");
-const thirdParty = require("../common/third-party");
+const thirdParty = require("./third-party");
 
 function loadPlugins(plugins, pluginSearchDirs) {
   if (!plugins) {
