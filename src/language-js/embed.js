@@ -48,18 +48,7 @@ function embed(path, print, textToDoc /*, options */) {
        * This intentionally excludes Relay Classic tags, as Prettier does not
        * support Relay Classic formatting.
        */
-      if (
-        parent &&
-        ((parent.type === "TaggedTemplateExpression" &&
-          ((parent.tag.type === "MemberExpression" &&
-            parent.tag.object.name === "graphql" &&
-            parent.tag.property.name === "experimental") ||
-            (parent.tag.type === "Identifier" &&
-              (parent.tag.name === "gql" || parent.tag.name === "graphql")))) ||
-          (parent.type === "CallExpression" &&
-            parent.callee.type === "Identifier" &&
-            parent.callee.name === "graphql"))
-      ) {
+      if (isGraphQL(path)) {
         const expressionDocs = node.expressions
           ? path.map(print, "expressions")
           : [];
@@ -419,6 +408,47 @@ function isStyledIdentifier(node) {
 
 function isStyledExtend(node) {
   return /^[A-Z]/.test(node.object.name) && node.property.name === "extend";
+}
+
+/*
+ * react-relay and graphql-tag
+ * graphql`...`
+ * graphql.experimental`...`
+ * gql`...`
+ * GraphQL comment block
+ *
+ * This intentionally excludes Relay Classic tags, as Prettier does not
+ * support Relay Classic formatting.
+ */
+function isGraphQL(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+
+  // This checks for a leading comment that is exactly `/* GraphQL */`
+  // In order to be in line with other implementations of this comment tag
+  // we will not trim the comment value and we will expect exactly one space on
+  // either side of the GraphQL string
+  // Also see ./clean.js
+  const hasGraphQLComment =
+    node.leadingComments &&
+    node.leadingComments.some(
+      comment =>
+        comment.type === "CommentBlock" && comment.value === " GraphQL "
+    );
+
+  return (
+    hasGraphQLComment ||
+    (parent &&
+      ((parent.type === "TaggedTemplateExpression" &&
+        ((parent.tag.type === "MemberExpression" &&
+          parent.tag.object.name === "graphql" &&
+          parent.tag.property.name === "experimental") ||
+          (parent.tag.type === "Identifier" &&
+            (parent.tag.name === "gql" || parent.tag.name === "graphql")))) ||
+        (parent.type === "CallExpression" &&
+          parent.callee.type === "Identifier" &&
+          parent.callee.name === "graphql")))
+  );
 }
 
 module.exports = embed;
