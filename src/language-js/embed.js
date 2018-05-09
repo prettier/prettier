@@ -360,7 +360,7 @@ function isStyledComponents(path) {
         // styled.foo``
         isStyledIdentifier(tag.object) ||
         // Component.extend``
-        (/^[A-Z]/.test(tag.object.name) && tag.property.name === "extend")
+        isStyledExtend(tag)
       );
 
     case "CallExpression":
@@ -368,9 +368,11 @@ function isStyledComponents(path) {
         // styled(Component)``
         isStyledIdentifier(tag.callee) ||
         (tag.callee.type === "MemberExpression" &&
-          // styled.foo.attr({})``
           ((tag.callee.object.type === "MemberExpression" &&
-            isStyledIdentifier(tag.callee.object.object)) ||
+            // styled.foo.attr({})``
+            (isStyledIdentifier(tag.callee.object.object) ||
+              // Component.extend.attr({)``
+              isStyledExtend(tag.callee.object))) ||
             // styled(Component).attr({})``
             (tag.callee.object.type === "CallExpression" &&
               isStyledIdentifier(tag.callee.object.callee))))
@@ -402,6 +404,10 @@ function isCssProp(path) {
 
 function isStyledIdentifier(node) {
   return node.type === "Identifier" && node.name === "styled";
+}
+
+function isStyledExtend(node) {
+  return /^[A-Z]/.test(node.object.name) && node.property.name === "extend";
 }
 
 /*

@@ -1,0 +1,362 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`functional_compose.js 1`] = `
+compose(
+  sortBy(x => x), 
+  flatten, 
+  map(x => [x, x*2])
+);
+
+somelib.compose(
+  sortBy(x => x), 
+  flatten, 
+  map(x => [x, x*2])
+);
+
+composeFlipped(
+  sortBy(x => x), 
+  flatten, 
+  map(x => [x, x*2])
+);
+
+somelib.composeFlipped(
+  sortBy(x => x), 
+  flatten, 
+  map(x => [x, x*2])
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compose(
+  sortBy(x => x),
+  flatten,
+  map(x => [x, x * 2])
+);
+
+somelib.compose(
+  sortBy(x => x),
+  flatten,
+  map(x => [x, x * 2])
+);
+
+composeFlipped(
+  sortBy(x => x),
+  flatten,
+  map(x => [x, x * 2])
+);
+
+somelib.composeFlipped(
+  sortBy(x => x),
+  flatten,
+  map(x => [x, x * 2])
+);
+
+`;
+
+exports[`lodash_flow.js 1`] = `
+import { flow } from "lodash";
+
+const foo = flow(
+  x => x + 1,
+  x => x * 3,
+  x => x - 6,
+);
+
+foo(6);
+
+import * as _ from "lodash";
+
+const foo = _.flow(
+  x => x + 1,
+  x => x * 3,
+  x => x - 6,
+);
+
+foo(6);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { flow } from "lodash";
+
+const foo = flow(
+  x => x + 1,
+  x => x * 3,
+  x => x - 6
+);
+
+foo(6);
+
+import * as _ from "lodash";
+
+const foo = _.flow(
+  x => x + 1,
+  x => x * 3,
+  x => x - 6
+);
+
+foo(6);
+
+`;
+
+exports[`lodash_flow_right.js 1`] = `
+import { flowRight } from "lodash";
+
+const foo = flowRight(
+  x => x + 1,
+  x => x * 3,
+  x => x - 6,
+);
+
+foo(6);
+
+import * as _ from "lodash";
+
+const foo = _.flowRight(
+  x => x + 1,
+  x => x * 3,
+  x => x - 6,
+);
+
+foo(6);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { flowRight } from "lodash";
+
+const foo = flowRight(
+  x => x + 1,
+  x => x * 3,
+  x => x - 6
+);
+
+foo(6);
+
+import * as _ from "lodash";
+
+const foo = _.flowRight(
+  x => x + 1,
+  x => x * 3,
+  x => x - 6
+);
+
+foo(6);
+
+`;
+
+exports[`ramda_compose.js 1`] = `
+var classyGreeting = (firstName, lastName) =>
+  "The name's " + lastName + ", " + firstName + " " + lastName;
+var yellGreeting = R.compose(R.toUpper, classyGreeting);
+yellGreeting("James", "Bond"); //=> "THE NAME'S BOND, JAMES BOND"
+
+R.compose(Math.abs, R.add(1), R.multiply(2))(-4); //=> 7
+
+//  get :: String -> Object -> Maybe *
+var get = R.curry((propName, obj) => Maybe(obj[propName]));
+
+//  getStateCode :: Maybe String -> Maybe String
+var getStateCode = R.composeK(
+  R.compose(Maybe.of, R.toUpper),
+  get("state"),
+  get("address"),
+  get("user")
+);
+getStateCode({ user: { address: { state: "ny" } } }); //=> Maybe.Just("NY")
+getStateCode({}); //=> Maybe.Nothing()
+
+var db = {
+  users: {
+    JOE: {
+      name: "Joe",
+      followers: ["STEVE", "SUZY"]
+    }
+  }
+};
+
+// We'll pretend to do a db lookup which returns a promise
+var lookupUser = userId => Promise.resolve(db.users[userId]);
+var lookupFollowers = user => Promise.resolve(user.followers);
+lookupUser("JOE").then(lookupFollowers);
+
+//  followersForUser :: String -> Promise [UserId]
+var followersForUser = R.composeP(lookupFollowers, lookupUser);
+followersForUser("JOE").then(followers => console.log("Followers:", followers));
+// Followers: ["STEVE","SUZY"]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var classyGreeting = (firstName, lastName) =>
+  "The name's " + lastName + ", " + firstName + " " + lastName;
+var yellGreeting = R.compose(
+  R.toUpper,
+  classyGreeting
+);
+yellGreeting("James", "Bond"); //=> "THE NAME'S BOND, JAMES BOND"
+
+R.compose(
+  Math.abs,
+  R.add(1),
+  R.multiply(2)
+)(-4); //=> 7
+
+//  get :: String -> Object -> Maybe *
+var get = R.curry((propName, obj) => Maybe(obj[propName]));
+
+//  getStateCode :: Maybe String -> Maybe String
+var getStateCode = R.composeK(
+  R.compose(
+    Maybe.of,
+    R.toUpper
+  ),
+  get("state"),
+  get("address"),
+  get("user")
+);
+getStateCode({ user: { address: { state: "ny" } } }); //=> Maybe.Just("NY")
+getStateCode({}); //=> Maybe.Nothing()
+
+var db = {
+  users: {
+    JOE: {
+      name: "Joe",
+      followers: ["STEVE", "SUZY"]
+    }
+  }
+};
+
+// We'll pretend to do a db lookup which returns a promise
+var lookupUser = userId => Promise.resolve(db.users[userId]);
+var lookupFollowers = user => Promise.resolve(user.followers);
+lookupUser("JOE").then(lookupFollowers);
+
+//  followersForUser :: String -> Promise [UserId]
+var followersForUser = R.composeP(
+  lookupFollowers,
+  lookupUser
+);
+followersForUser("JOE").then(followers => console.log("Followers:", followers));
+// Followers: ["STEVE","SUZY"]
+
+`;
+
+exports[`ramda_pipe.js 1`] = `
+var f = R.pipe(Math.pow, R.negate, R.inc);
+
+f(3, 4); // -(3^4) + 1
+
+//  parseJson :: String -> Maybe *
+//  get :: String -> Object -> Maybe *
+
+//  getStateCode :: Maybe String -> Maybe String
+var getStateCode = R.pipeK(
+  parseJson,
+  get("user"),
+  get("address"),
+  get("state"),
+  R.compose(Maybe.of, R.toUpper)
+);
+
+getStateCode('{"user":{"address":{"state":"ny"}}}');
+//=> Just('NY')
+getStateCode("[Invalid JSON]");
+//=> Nothing()
+
+//  followersForUser :: String -> Promise [User]
+var followersForUser = R.pipeP(db.getUserById, db.getFollowers);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var f = R.pipe(
+  Math.pow,
+  R.negate,
+  R.inc
+);
+
+f(3, 4); // -(3^4) + 1
+
+//  parseJson :: String -> Maybe *
+//  get :: String -> Object -> Maybe *
+
+//  getStateCode :: Maybe String -> Maybe String
+var getStateCode = R.pipeK(
+  parseJson,
+  get("user"),
+  get("address"),
+  get("state"),
+  R.compose(
+    Maybe.of,
+    R.toUpper
+  )
+);
+
+getStateCode('{"user":{"address":{"state":"ny"}}}');
+//=> Just('NY')
+getStateCode("[Invalid JSON]");
+//=> Nothing()
+
+//  followersForUser :: String -> Promise [User]
+var followersForUser = R.pipeP(
+  db.getUserById,
+  db.getFollowers
+);
+
+`;
+
+exports[`redux_compose.js 1`] = `
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import DevTools from './containers/DevTools';
+import reducer from '../reducers';
+
+const store = createStore(
+  reducer,
+  compose(
+    applyMiddleware(thunk),
+    DevTools.instrument()
+  )
+)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import DevTools from "./containers/DevTools";
+import reducer from "../reducers";
+
+const store = createStore(
+  reducer,
+  compose(
+    applyMiddleware(thunk),
+    DevTools.instrument()
+  )
+);
+
+`;
+
+exports[`redux_connect.js 1`] = `
+const ArtistInput = connect(mapStateToProps, mapDispatchToProps, mergeProps)(Component);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const ArtistInput = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
+)(Component);
+
+`;
+
+exports[`rxjs_pipe.js 1`] = `
+import { range } from 'rxjs/observable/range';
+import { map, filter, scan } from 'rxjs/operators';
+
+const source$ = range(0, 10);
+
+source$.pipe(
+  filter(x => x % 2 === 0),
+  map(x => x + x),
+  scan((acc, x) => acc + x, 0)
+)
+.subscribe(x => console.log(x))
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { range } from "rxjs/observable/range";
+import { map, filter, scan } from "rxjs/operators";
+
+const source$ = range(0, 10);
+
+source$
+  .pipe(
+    filter(x => x % 2 === 0),
+    map(x => x + x),
+    scan((acc, x) => acc + x, 0)
+  )
+  .subscribe(x => console.log(x));
+
+`;

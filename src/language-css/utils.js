@@ -211,6 +211,15 @@ function hasParensAroundValueNode(node) {
   );
 }
 
+function isPostcssSimpleVar(currentNode, nextNode) {
+  return (
+    currentNode.value === "$$" &&
+    currentNode.type === "value-func" &&
+    nextNode &&
+    nextNode.type === "value-word" &&
+    !nextNode.raws.before
+  );
+}
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -237,5 +246,6 @@ module.exports = {
   maybeToLowerCase,
   hasLessExtendValueNode,
   hasComposesValueNode,
-  hasParensAroundValueNode
+  hasParensAroundValueNode,
+  isPostcssSimpleVar
 };

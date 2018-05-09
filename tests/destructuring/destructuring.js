@@ -19,3 +19,15 @@ const UserComponent = function({
 };
 
 const { a, b, c, d: { e } } = someObject;
+
+try {
+  // code
+} catch ({ data: { message }}) {
+  // code
+}
+
+try {
+  // code
+} catch ({ data: { message: { errors }}}) {
+  // code
+}
