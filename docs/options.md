@@ -97,6 +97,7 @@ Put the `>` of a multi-line JSX element at the end of the last line instead of b
 Valid options:
 
 * `true` - Example:
+<!-- prettier-ignore -->
 ```
 <button
   className="prettier-class"
@@ -106,6 +107,7 @@ Valid options:
 </button>
 ```
 * `false` - Example:
+<!-- prettier-ignore -->
 ```
 <button
   className="prettier-class"
