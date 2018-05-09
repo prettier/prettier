@@ -1,6 +1,6 @@
 "use strict";
 
-const parserBabylon = require("./parser-babylon");
+const parserBabylon = eval("require")("./parser-babylon");
 const createError = require("../common/parser-create-error");
 
 function parse(text, parsers, opts) {
