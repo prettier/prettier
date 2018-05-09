@@ -43,7 +43,7 @@ self.require = function require(path) {
     return { PassThrough() {} };
   }
   if (path === "./third-party") {
-    return {};
+    return { findParentDir() {}};
   }
 
   if (~path.indexOf("parser-")) {
@@ -56,6 +56,10 @@ self.require = function require(path) {
   }
 
   return self[path];
+};
+self.__dirname = "";
+self.events = {
+  EventEmitter: function() {}
 };
 /* eslint-enable */
 
