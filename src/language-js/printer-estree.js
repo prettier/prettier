@@ -534,6 +534,7 @@ function printPathNoParens(path, options, print, args) {
       const shouldInline =
         (firstNonMemberParent &&
           (firstNonMemberParent.type === "NewExpression" ||
+            firstNonMemberParent.type === "BindExpression" ||
             (firstNonMemberParent.type === "VariableDeclarator" &&
               firstNonMemberParent.id.type !== "Identifier") ||
             (firstNonMemberParent.type === "AssignmentExpression" &&
@@ -565,7 +566,13 @@ function printPathNoParens(path, options, print, args) {
         parts.push(path.call(print, "object"));
       }
 
-      parts.push(printBindExpressionCallee(path, options, print));
+      parts.push(
+        group(
+          indent(
+            concat([softline, printBindExpressionCallee(path, options, print)])
+          )
+        )
+      );
 
       return concat(parts);
     case "Identifier": {
