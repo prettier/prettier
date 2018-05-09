@@ -1,6 +1,5 @@
 "use strict";
 
-const privateUtil = require("../common/util");
 const docBuilders = require("../doc/doc-builders");
 
 const concat = docBuilders.concat;
