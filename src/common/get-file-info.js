@@ -26,13 +26,7 @@ function _getFileInfo(filePath, opts) {
 
 // the method has been implemented as asynchronous to avoid possible breaking changes in future
 function getFileInfo(filePath, opts) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(_getFileInfo(filePath, opts));
-    } catch (e) {
-      reject(e);
-    }
-  });
+  return Promise.resolve().then(() => _getFileInfo(filePath, opts));
 }
 
 getFileInfo.sync = _getFileInfo;
