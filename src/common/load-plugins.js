@@ -36,10 +36,20 @@ function loadPlugins(plugins, pluginSearchDirs) {
     require("../language-vue")
   ];
 
-  const externalManualLoadPluginInfos = plugins.map(pluginName => ({
-    name: pluginName,
-    requirePath: resolve.sync(pluginName, { basedir: process.cwd() })
-  }));
+  const externalManualLoadPluginInfos = plugins.map(pluginName => {
+    let requirePath;
+    try {
+      // try local files
+      requirePath = resolve.sync(path.resolve(process.cwd(), pluginName));
+    } catch (e) {
+      // try node modules
+      requirePath = resolve.sync(pluginName, { basedir: process.cwd() });
+    }
+    return {
+      name: pluginName,
+      requirePath
+    };
+  });
 
   const externalAutoLoadPluginInfos = pluginSearchDirs
     .map(pluginSearchDir => {
@@ -48,7 +58,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
         pluginSearchDir
       );
 
-      if (!isDirectory(pluginSearchDir)) {
+      if (!isDirectory(resolvedPluginSearchDir)) {
         throw new Error(
           `${pluginSearchDir} does not exist or is not a directory`
         );
