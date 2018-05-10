@@ -160,9 +160,9 @@ exports[`checkbox.md 1`] = `
 - [ ] this is a long long long long long long long long long long long long long long paragraph.
 - [x] this is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* [ ] this is a long long long long long long long long long long long long long
+- [ ] this is a long long long long long long long long long long long long long
       long paragraph.
-* [x] this is a long long long long long long long long long long long long long
+- [x] this is a long long long long long long long long long long long long long
       long paragraph.
 
 `;
@@ -171,9 +171,9 @@ exports[`checkbox.md 2`] = `
 - [ ] this is a long long long long long long long long long long long long long long paragraph.
 - [x] this is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*   [ ] this is a long long long long long long long long long long long long
+-   [ ] this is a long long long long long long long long long long long long
         long long paragraph.
-*   [x] this is a long long long long long long long long long long long long
+-   [x] this is a long long long long long long long long long long long long
         long long paragraph.
 
 `;
@@ -182,9 +182,9 @@ exports[`checkbox.md 3`] = `
 - [ ] this is a long long long long long long long long long long long long long long paragraph.
 - [x] this is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* [ ] this is a long long long long long long long long long long long long long
+- [ ] this is a long long long long long long long long long long long long long
       long paragraph.
-* [x] this is a long long long long long long long long long long long long long
+- [x] this is a long long long long long long long long long long long long long
       long paragraph.
 
 `;
@@ -193,9 +193,9 @@ exports[`checkbox.md 4`] = `
 - [ ] this is a long long long long long long long long long long long long long long paragraph.
 - [x] this is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* [ ] this is a long long long long long long long long long long long long long
+- [ ] this is a long long long long long long long long long long long long long
       long paragraph.
-* [x] this is a long long long long long long long long long long long long long
+- [x] this is a long long long long long long long long long long long long long
       long paragraph.
 
 `;
@@ -331,16 +331,16 @@ exports[`indent.md 1`] = `
 
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
-  * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+  - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a
 
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
     b b b b b b b b b b b b b b
 
-  * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+  - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a
 
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
@@ -376,13 +376,13 @@ exports[`indent.md 1`] = `
 1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
 
-    * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
       b b b b b b b b b b b b b b b
 
-    * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
 
       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
@@ -421,13 +421,13 @@ exports[`indent.md 1`] = `
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
 
-          * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+          - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
 
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b
 
-          * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+          - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a
 
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
@@ -549,16 +549,16 @@ exports[`indent.md 2`] = `
 
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+-   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
 
-    *   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    -   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
 
-    *   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
@@ -594,13 +594,13 @@ exports[`indent.md 2`] = `
 1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
 
-    *   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    -   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
 
-    *   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
@@ -639,13 +639,13 @@ exports[`indent.md 2`] = `
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b b
 
-            *   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            -   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a a a
 
                 b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                 b b b b b b b b b b b b b b b b b
 
-            *   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a a a
 
                 b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
@@ -767,16 +767,16 @@ exports[`indent.md 3`] = `
 
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
-     * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+     - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
 
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b b b
 
-     * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+     - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
            a a a a a a a a a a a a a a a
 
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
@@ -812,13 +812,13 @@ exports[`indent.md 3`] = `
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
 
-      * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
 
            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
            b b b b b b b b b b b b b b b b b
 
-      * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a a
 
            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
@@ -857,13 +857,13 @@ exports[`indent.md 3`] = `
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b b
 
-             * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+             - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                a a a a a a a a a a a a a a a a
 
                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                   b b b b b b b b b b b b b b b b b b
 
-             * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+             - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                    a a a a a a a a a a a a a a a a
 
                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
@@ -985,16 +985,16 @@ exports[`indent.md 4`] = `
 
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
-  * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+  - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a
 
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
     b b b b b b b b b b b b b b
 
-  * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+  - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a
 
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
@@ -1030,13 +1030,13 @@ exports[`indent.md 4`] = `
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
 
-   * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+   - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
 
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
 
-   * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+   - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
          a a a a a a a a a a a a a a
 
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
@@ -1075,13 +1075,13 @@ exports[`indent.md 4`] = `
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
 
-          * a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+          - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
 
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b
 
-          * [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+          - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a
 
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
@@ -1120,7 +1120,7 @@ exports[`interrupt.md 1`] = `
 * Something
 ### Some heading
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Something
+- Something
 
 ### Some heading
 
@@ -1130,7 +1130,7 @@ exports[`interrupt.md 2`] = `
 * Something
 ### Some heading
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*   Something
+-   Something
 
 ### Some heading
 
@@ -1140,7 +1140,7 @@ exports[`interrupt.md 3`] = `
 * Something
 ### Some heading
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Something
+- Something
 
 ### Some heading
 
@@ -1150,7 +1150,7 @@ exports[`interrupt.md 4`] = `
 * Something
 ### Some heading
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Something
+- Something
 
 ### Some heading
 
@@ -1159,7 +1159,7 @@ exports[`interrupt.md 4`] = `
 exports[`long-paragraph.md 1`] = `
 - This is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* This is a long long long long long long long long long long long long long
+- This is a long long long long long long long long long long long long long
   long paragraph.
 
 `;
@@ -1167,7 +1167,7 @@ exports[`long-paragraph.md 1`] = `
 exports[`long-paragraph.md 2`] = `
 - This is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*   This is a long long long long long long long long long long long long long
+-   This is a long long long long long long long long long long long long long
     long paragraph.
 
 `;
@@ -1175,7 +1175,7 @@ exports[`long-paragraph.md 2`] = `
 exports[`long-paragraph.md 3`] = `
 - This is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* This is a long long long long long long long long long long long long long
+- This is a long long long long long long long long long long long long long
   long paragraph.
 
 `;
@@ -1183,7 +1183,7 @@ exports[`long-paragraph.md 3`] = `
 exports[`long-paragraph.md 4`] = `
 - This is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* This is a long long long long long long long long long long long long long
+- This is a long long long long long long long long long long long long long
   long paragraph.
 
 `;
@@ -1201,17 +1201,17 @@ exports[`loose.md 1`] = `
 
   - ghi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
+- 123
 
-  * abc
+  - abc
 
-* 456
+- 456
 
-  * def
+  - def
 
-* 789
+- 789
 
-  * ghi
+  - ghi
 
 `;
 
@@ -1228,17 +1228,17 @@ exports[`loose.md 2`] = `
 
   - ghi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*   123
+-   123
 
-    *   abc
+    -   abc
 
-*   456
+-   456
 
-    *   def
+    -   def
 
-*   789
+-   789
 
-    *   ghi
+    -   ghi
 
 `;
 
@@ -1255,17 +1255,17 @@ exports[`loose.md 3`] = `
 
   - ghi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
+- 123
 
-     * abc
+     - abc
 
-* 456
+- 456
 
-     * def
+     - def
 
-* 789
+- 789
 
-     * ghi
+     - ghi
 
 `;
 
@@ -1282,17 +1282,17 @@ exports[`loose.md 4`] = `
 
   - ghi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
+- 123
 
-  * abc
+  - abc
 
-* 456
+- 456
 
-  * def
+  - def
 
-* 789
+- 789
 
-  * ghi
+  - ghi
 
 `;
 
@@ -1301,7 +1301,7 @@ exports[`multiline.md 1`] = `
   456
   789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123 456 789
+- 123 456 789
 
 `;
 
@@ -1310,7 +1310,7 @@ exports[`multiline.md 2`] = `
   456
   789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*   123 456 789
+-   123 456 789
 
 `;
 
@@ -1319,7 +1319,7 @@ exports[`multiline.md 3`] = `
   456
   789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123 456 789
+- 123 456 789
 
 `;
 
@@ -1328,7 +1328,7 @@ exports[`multiline.md 4`] = `
   456
   789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123 456 789
+- 123 456 789
 
 `;
 
@@ -1337,9 +1337,9 @@ exports[`nested.md 1`] = `
   - Level 2
     - Level 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Level 1
-  * Level 2
-    * Level 3
+- Level 1
+  - Level 2
+    - Level 3
 
 `;
 
@@ -1348,9 +1348,9 @@ exports[`nested.md 2`] = `
   - Level 2
     - Level 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*   Level 1
-    *   Level 2
-        *   Level 3
+-   Level 1
+    -   Level 2
+        -   Level 3
 
 `;
 
@@ -1359,9 +1359,9 @@ exports[`nested.md 3`] = `
   - Level 2
     - Level 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Level 1
-     * Level 2
-          * Level 3
+- Level 1
+     - Level 2
+          - Level 3
 
 `;
 
@@ -1370,9 +1370,9 @@ exports[`nested.md 4`] = `
   - Level 2
     - Level 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Level 1
-  * Level 2
-    * Level 3
+- Level 1
+  - Level 2
+    - Level 3
 
 `;
 
@@ -1389,19 +1389,19 @@ exports[`nested-checkbox.md 1`] = `
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* parent list item parent list item parent list item parent list item parent
+- parent list item parent list item parent list item parent list item parent
   list item parent list item
 
-  * child list item child list item child list item child list item child list
+  - child list item child list item child list item child list item child list
     item child list item
 
   paragraph paragraph paragraph paragraph paragraph paragraph paragraph
   paragraph paragraph
 
-* [x] parent task list item parent task list item parent task list item parent
+- [x] parent task list item parent task list item parent task list item parent
       task list item
 
-  * [x] child task list item child task list item child task list item child
+  - [x] child task list item child task list item child task list item child
         task list item
 
   paragraph paragraph paragraph paragraph paragraph paragraph paragraph
@@ -1422,19 +1422,19 @@ exports[`nested-checkbox.md 2`] = `
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*   parent list item parent list item parent list item parent list item parent
+-   parent list item parent list item parent list item parent list item parent
     list item parent list item
 
-    *   child list item child list item child list item child list item child
+    -   child list item child list item child list item child list item child
         list item child list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
 
-*   [x] parent task list item parent task list item parent task list item parent
+-   [x] parent task list item parent task list item parent task list item parent
         task list item
 
-    *   [x] child task list item child task list item child task list item child
+    -   [x] child task list item child task list item child task list item child
             task list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
@@ -1455,19 +1455,19 @@ exports[`nested-checkbox.md 3`] = `
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* parent list item parent list item parent list item parent list item parent
+- parent list item parent list item parent list item parent list item parent
   list item parent list item
 
-     * child list item child list item child list item child list item child
+     - child list item child list item child list item child list item child
        list item child list item
 
      paragraph paragraph paragraph paragraph paragraph paragraph paragraph
      paragraph paragraph
 
-* [x] parent task list item parent task list item parent task list item parent
+- [x] parent task list item parent task list item parent task list item parent
       task list item
 
-     * [x] child task list item child task list item child task list item child
+     - [x] child task list item child task list item child task list item child
            task list item
 
      paragraph paragraph paragraph paragraph paragraph paragraph paragraph
@@ -1488,19 +1488,19 @@ exports[`nested-checkbox.md 4`] = `
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* parent list item parent list item parent list item parent list item parent
+- parent list item parent list item parent list item parent list item parent
   list item parent list item
 
-  * child list item child list item child list item child list item child list
+  - child list item child list item child list item child list item child list
     item child list item
 
   paragraph paragraph paragraph paragraph paragraph paragraph paragraph
   paragraph paragraph
 
-* [x] parent task list item parent task list item parent task list item parent
+- [x] parent task list item parent task list item parent task list item parent
       task list item
 
-  * [x] child task list item child task list item child task list item child
+  - [x] child task list item child task list item child task list item child
         task list item
 
   paragraph paragraph paragraph paragraph paragraph paragraph paragraph
@@ -1561,13 +1561,13 @@ exports[`separate.md 1`] = `
 * 123
 * 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
-* 123
-* 123
+- 123
+- 123
+- 123
 
-- 123
-- 123
-- 123
+* 123
+* 123
+* 123
 
 `;
 
@@ -1580,13 +1580,13 @@ exports[`separate.md 2`] = `
 * 123
 * 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*   123
-*   123
-*   123
+-   123
+-   123
+-   123
 
--   123
--   123
--   123
+*   123
+*   123
+*   123
 
 `;
 
@@ -1599,13 +1599,13 @@ exports[`separate.md 3`] = `
 * 123
 * 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
-* 123
-* 123
+- 123
+- 123
+- 123
 
-- 123
-- 123
-- 123
+* 123
+* 123
+* 123
 
 `;
 
@@ -1618,13 +1618,13 @@ exports[`separate.md 4`] = `
 * 123
 * 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
-* 123
-* 123
+- 123
+- 123
+- 123
 
-- 123
-- 123
-- 123
+* 123
+* 123
+* 123
 
 `;
 
@@ -1633,9 +1633,9 @@ exports[`simple.md 1`] = `
 - 456
 - 789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
-* 456
-* 789
+- 123
+- 456
+- 789
 
 `;
 
@@ -1644,9 +1644,9 @@ exports[`simple.md 2`] = `
 - 456
 - 789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*   123
-*   456
-*   789
+-   123
+-   456
+-   789
 
 `;
 
@@ -1655,9 +1655,9 @@ exports[`simple.md 3`] = `
 - 456
 - 789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
-* 456
-* 789
+- 123
+- 456
+- 789
 
 `;
 
@@ -1666,9 +1666,9 @@ exports[`simple.md 4`] = `
 - 456
 - 789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
-* 456
-* 789
+- 123
+- 456
+- 789
 
 `;
 

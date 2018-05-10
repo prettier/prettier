@@ -9,9 +9,9 @@ exports[`indented.md 1`] = `
     long long long long
     long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 123
-* 456
-* 789
+- 123
+- 456
+- 789
   <!-- prettier-ignore -->
   - This is a long long
     long long long long

@@ -260,8 +260,8 @@ function genericPrint(path, options, print) {
                     : node.start + index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
-                ? "* "
-                : "- ";
+                ? "- "
+                : "* ";
 
             // do not print trailing spaces for empty list item since it might be treated as `break` node
             // by [doc-printer](https://github.com/prettier/prettier/blob/1.10.2/src/doc/doc-printer.js#L395-L405),
@@ -283,7 +283,7 @@ function genericPrint(path, options, print) {
         path.getParentNode(counter),
         path.getParentNode(counter + 1)
       );
-      return nthSiblingIndex % 2 === 0 ? "---" : "***";
+      return nthSiblingIndex % 2 === 0 ? "***" : "---";
     }
     case "linkReference":
       return concat([
