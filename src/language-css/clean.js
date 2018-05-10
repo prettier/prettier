@@ -74,7 +74,7 @@ function clean(ast, newObj) {
   }
 
   if (ast.type === "selector-attribute") {
-    newObj.attribute = newObj.attribute.trim();
+    newObj._attribute = newObj._attribute.trim();
 
     if (newObj.namespace) {
       if (typeof newObj.namespace === "string") {
@@ -86,10 +86,8 @@ function clean(ast, newObj) {
       }
     }
 
-    if (newObj.value) {
-      newObj.value = newObj.value.trim().replace(/^['"]|['"]$/g, "");
-      delete newObj.quoted;
-    }
+    delete newObj._quoteMark;
+    delete newObj.spaces;
   }
 
   if (

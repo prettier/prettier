@@ -274,7 +274,10 @@ function genericPrint(path, options, print) {
           join(
             concat([",", insideAtRuleNode ? line : hardline]),
             path.map(print, "nodes")
-          )
+          ),
+          atRuleAncestorNode && atRuleAncestorNode.scssOptional
+            ? " !optional"
+            : ""
         ])
       );
     }
@@ -310,6 +313,13 @@ function genericPrint(path, options, print) {
       return concat([".", adjustNumbers(adjustStrings(node.value, options))]);
     }
     case "selector-attribute": {
+      const value = node.raws && node.raws.value ? node.raws.value : node.value;
+      const flag = node.insensitive
+        ? "i"
+        : node.raws && node.raws.insensitiveFlag
+          ? node.raws.insensitiveFlag
+          : "";
+
       return concat([
         "[",
         node.namespace
@@ -317,13 +327,10 @@ function genericPrint(path, options, print) {
           : "",
         node.attribute.trim(),
         node.operator ? node.operator : "",
-        node.value
-          ? quoteAttributeValue(
-              adjustStrings(node.value.trim(), options),
-              options
-            )
+        value
+          ? quoteAttributeValue(adjustStrings(value, options), options)
           : "",
-        node.insensitive ? " i" : "",
+        flag ? concat([" ", flag]) : "",
         "]"
       ]);
     }

@@ -371,31 +371,31 @@ exports[`styled-jsx-with-expressions.js 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <style jsx>{\`
   div {
-    display: \${expr};
+  display: \${expr};
     color: \${expr};
     \${expr};
     \${expr};
     background: red;
-    animation: \${expr} 10s ease-out;
+  animation: \${expr} 10s ease-out;
   }
   @media (\${expr}) {
-    div.\${expr} {
-      color: red;
-    }
-    \${expr} {
-      color: red;
-    }
+   div.\${expr} {
+    color: red;
+   }
+  \${expr} {
+    color: red;
+  }
   }
   @media (min-width: \${expr}) {
-    div.\${expr} {
-      color: red;
-    }
-    all\${expr} {
-      color: red;
-    }
+   div.\${expr} {
+    color: red;
+   }
+  all\${expr} {
+    color: red;
+  }
   }
   @font-face {
-    \${expr};
+    \${expr}
   }
 \`}</style>;
 

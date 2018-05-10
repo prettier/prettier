@@ -415,7 +415,7 @@ ns|* {}
 }
 .parent > .child {
 }
-.parent > {
+.parent> {
   .child-one {
   }
   .child-two {
@@ -427,19 +427,22 @@ ns|* {}
   .child-two {
   }
 }
-.parent > {
+.parent  > {
   .child-one {
   }
   .child-two {
   }
 }
-.parent > {
+.parent
+> {
   .child-one {
   }
   .child-two {
   }
 }
-.parent > {
+.parent
+
+> {
   .child-one {
   }
   .child-two {
@@ -482,7 +485,7 @@ ns|* {}
 }
 .parent + .child {
 }
-.parent + {
+.parent+ {
   .child-one {
   }
   .child-two {
@@ -494,19 +497,22 @@ ns|* {}
   .child-two {
   }
 }
-.parent + {
+.parent  + {
   .child-one {
   }
   .child-two {
   }
 }
-.parent + {
+.parent
++ {
   .child-one {
   }
   .child-two {
   }
 }
-.parent + {
+.parent
+
++ {
   .child-one {
   }
   .child-two {
@@ -549,7 +555,7 @@ ns|* {}
 }
 .parent ~ .child {
 }
-.parent ~ {
+.parent~ {
   .child-one {
   }
   .child-two {
@@ -561,19 +567,22 @@ ns|* {}
   .child-two {
   }
 }
-.parent ~ {
+.parent  ~ {
   .child-one {
   }
   .child-two {
   }
 }
-.parent ~ {
+.parent
+~ {
   .child-one {
   }
   .child-two {
   }
 }
-.parent ~ {
+.parent
+
+~ {
   .child-one {
   }
   .child-two {
@@ -616,7 +625,7 @@ ns|* {}
 }
 .parent >>> .child {
 }
-.parent >>> {
+.parent>>> {
   .child-one {
   }
   .child-two {
@@ -628,19 +637,22 @@ ns|* {}
   .child-two {
   }
 }
-.parent >>> {
+.parent  >>> {
   .child-one {
   }
   .child-two {
   }
 }
-.parent >>> {
+.parent
+>>> {
   .child-one {
   }
   .child-two {
   }
 }
-.parent >>> {
+.parent
+
+>>> {
   .child-one {
   }
   .child-two {

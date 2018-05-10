@@ -216,7 +216,7 @@ $KeepScssVar: val;
 }
 
 .Keep (@Keep) when (lightness(@Keep) >= 12PX) and (@Keep > 0) {}
-.Keep (@Keep) when (lightness(@Keep) != '12PX') and (@Keep != "12PX") {}
+// .Keep (@Keep) when (lightness(@Keep) != '12PX') and (@Keep != "12PX") {}
 .Keep (@Keep) when (lightness(@Keep) >= Keep12PX) and (@Keep > @Keep12E5) {}
 
 .Keep(@Keep: 12PX; @Keep: @Keep12PX; ...) /*:*/ {}
@@ -341,7 +341,7 @@ $KeepScssVar: val;
   $KeepScssVar: val;
   @extend %KeepScssPlaceholderSelector;
 
-  @{Keep}[@{Keep}][@{Keep}^=@{Keep-1A}]:@{Keep} {
+  @{Keep}[@{Keep}][@{Keep}^="@{Keep-1A}"]:@{Keep} {
     prop: val;
   }
 
@@ -363,8 +363,7 @@ $KeepScssVar: val;
 
 .Keep (@Keep) when (lightness(@Keep) >= 12px) and (@Keep > 0) {
 }
-.Keep (@Keep) when (lightness(@Keep) != "12PX") and (@Keep != "12PX") {
-}
+// .Keep (@Keep) when (lightness(@Keep) != '12PX') and (@Keep != "12PX") {}
 .Keep (@Keep) when (lightness(@Keep) >= Keep12PX) and (@Keep > @Keep12E5) {
 }
 
@@ -656,7 +655,7 @@ $KeepTopLevelVar: val;
   @KeepLessVar: val;
   @extend %KeepPlaceholderSelector;
 
-  #{$Keep}[#{$Keep}][#{Keep}^="#{Keep-1A}"]:#{$Keep} {
+  #{$Keep}[#{Keep}][#{Keep}^="#{Keep-1A}"]:#{$Keep} {
     prop: val;
   }
 
