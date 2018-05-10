@@ -30,6 +30,12 @@ Object {
                 "always",
               ],
             },
+            Object {
+              "description": "Omit parens when possible, except for block body case. Example: \`(x) => { return x }\`",
+              "enum": Array [
+                "requireForBlockBody",
+              ],
+            },
           ],
         },
         "bracketSpacing": Object {
@@ -195,6 +201,24 @@ in order for it to be formatted.",
           "default": 2,
           "description": "Number of spaces per indentation level.",
           "type": "integer",
+        },
+        "ternary": Object {
+          "default": "newline",
+          "description": "Control ternary expressions.",
+          "oneOf": Array [
+            Object {
+              "description": "place both expressions on new lines",
+              "enum": Array [
+                "newline",
+              ],
+            },
+            Object {
+              "description": "wrap expressions in parentheses",
+              "enum": Array [
+                "parens",
+              ],
+            },
+          ],
         },
         "trailingComma": Object {
           "default": "none",

@@ -3,14 +3,15 @@
 exports[`show detailed usage with --help arrow-parens (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help arrow-parens (stdout) 1`] = `
-"--arrow-parens <avoid|always>
+"--arrow-parens <avoid|always|requireForBlockBody>
 
   Include parentheses around a sole arrow function parameter.
 
 Valid options:
 
-  avoid    Omit parens when possible. Example: \`x => x\`
-  always   Always include parens. Example: \`(x) => x\`
+  avoid                 Omit parens when possible. Example: \`x => x\`
+  always                Always include parens. Example: \`(x) => x\`
+  requireForBlockBody   Omit parens when possible, except for block body case. Example: \`(x) => { return x }\`
 
 Default: avoid
 "
@@ -465,6 +466,24 @@ Default: 2
 
 exports[`show detailed usage with --help tab-width (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help ternary (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help ternary (stdout) 1`] = `
+"--ternary <newline|parens>
+
+  Control ternary expressions.
+
+Valid options:
+
+  newline   place both expressions on new lines
+  parens    wrap expressions in parentheses
+
+Default: newline
+"
+`;
+
+exports[`show detailed usage with --help ternary (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help trailing-comma (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help trailing-comma (stdout) 1`] = `
@@ -575,7 +594,7 @@ Output options:
 
 Format options:
 
-  --arrow-parens <avoid|always>
+  --arrow-parens <avoid|always|requireForBlockBody>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
   --no-bracket-spacing     Do not print spaces between brackets.
@@ -594,6 +613,9 @@ Format options:
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
+  --ternary <newline|parens>
+                           Control ternary expressions.
+                           Defaults to newline.
   --trailing-comma <none|es5|all>
                            Print trailing commas wherever possible when multi-line.
                            Defaults to none.
@@ -723,7 +745,7 @@ Output options:
 
 Format options:
 
-  --arrow-parens <avoid|always>
+  --arrow-parens <avoid|always|requireForBlockBody>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
   --no-bracket-spacing     Do not print spaces between brackets.
@@ -742,6 +764,9 @@ Format options:
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
+  --ternary <newline|parens>
+                           Control ternary expressions.
+                           Defaults to newline.
   --trailing-comma <none|es5|all>
                            Print trailing commas wherever possible when multi-line.
                            Defaults to none.

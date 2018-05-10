@@ -216,6 +216,7 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
   const lastConditionalParent = previousParent;
 
   if (
+    options.ternary === "parens" ||
     (operatorOpts.shouldCheckJsx && isJSXNode(n[operatorOpts.testNode])) ||
     isJSXNode(n[operatorOpts.consequentNode]) ||
     isJSXNode(n[operatorOpts.alternateNode]) ||

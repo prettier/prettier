@@ -27,6 +27,23 @@ module.exports = {
       }
     ]
   },
+  ternary: {
+    since: "1.12.2",
+    category: CATEGORY_JAVASCRIPT,
+    type: "choice",
+    default: "newline",
+    description: "Control ternary expressions.",
+    choices: [
+      {
+        value: "newline",
+        description: "place both expressions on new lines"
+      },
+      {
+        value: "parens",
+        description: "wrap expressions in parentheses"
+      }
+    ]
+  },
   bracketSpacing: {
     since: "0.0.0",
     category: CATEGORY_JAVASCRIPT,

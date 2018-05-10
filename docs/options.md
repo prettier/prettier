@@ -98,6 +98,19 @@ Put the `>` of a multi-line JSX element at the end of the last line instead of b
 | ------- | ------------------------- | ---------------------------- |
 | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
 
+## Ternary
+
+Control ternary expressions.
+
+Valid options:
+
+* `"newline"` - place both expressions on new lines
+* `"parens"` - wrap expressions in parentheses
+
+| Default     | CLI Override                                 | API Override                                  |
+| ----------- | -------------------------------------------- | --------------------------------------------- |
+| `"newline"` | <code>--ternary <newline&#124;parens></code> | <code>ternary: "<newline&#124;parens>"</code> |
+
 ## Arrow Function Parentheses
 
 _available in v1.9.0+_

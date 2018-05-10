@@ -7,7 +7,7 @@ exports[` 1`] = `
 
 @@ -12,10 +12,12 @@
   
-    --arrow-parens <avoid|always>
+    --arrow-parens <avoid|always|requireForBlockBody>
                              Include parentheses around a sole arrow function parameter.
                              Defaults to avoid.
     --no-bracket-spacing     Do not print spaces between brackets.
