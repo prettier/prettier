@@ -125,6 +125,19 @@ Valid options:
 | ------- | ------------------------- | ---------------------------- |
 | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
 
+## Ternary
+
+Control ternary expressions.
+
+Valid options:
+
+* `"newline"` - place both expressions on new lines
+* `"parens"` - wrap expressions in parentheses
+
+| Default     | CLI Override                                 | API Override                                  |
+| ----------- | -------------------------------------------- | --------------------------------------------- |
+| `"newline"` | <code>--ternary <newline&#124;parens></code> | <code>ternary: "<newline&#124;parens>"</code> |
+
 ## Arrow Function Parentheses
 
 _available in v1.9.0+_
@@ -135,6 +148,7 @@ Valid options:
 
 * `"avoid"` - Omit parens when possible. Example: `x => x`
 * `"always"` - Always include parens. Example: `(x) => x`
+* `"requireForBlockBody"` - Omit parens when possible, except for block body case. Example: `(x) => { return x }`
 
 | Default   | CLI Override                                    | API Override                                    |
 | --------- | ----------------------------------------------- | ----------------------------------------------- |

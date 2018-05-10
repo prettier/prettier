@@ -18,6 +18,29 @@ module.exports = {
       {
         value: "always",
         description: "Always include parens. Example: `(x) => x`"
+      },
+      {
+        value: "requireForBlockBody",
+        description:
+          "Omit parens when possible, except for block body case. " +
+          "Example: `(x) => { return x }`"
+      }
+    ]
+  },
+  ternary: {
+    since: "1.12.2",
+    category: CATEGORY_JAVASCRIPT,
+    type: "choice",
+    default: "newline",
+    description: "Control ternary expressions.",
+    choices: [
+      {
+        value: "newline",
+        description: "place both expressions on new lines"
+      },
+      {
+        value: "parens",
+        description: "wrap expressions in parentheses"
       }
     ]
   },

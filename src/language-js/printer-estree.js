@@ -216,6 +216,7 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
   const lastConditionalParent = previousParent;
 
   if (
+    options.ternary === "parens" ||
     (operatorOpts.shouldCheckJsx && isJSXNode(n[operatorOpts.testNode])) ||
     isJSXNode(n[operatorOpts.consequentNode]) ||
     isJSXNode(n[operatorOpts.alternateNode]) ||
@@ -3709,6 +3710,15 @@ function shouldPrintParamsWithoutParens(path, options) {
 
   if (options.arrowParens === "avoid") {
     const node = path.getValue();
+    return canPrintParamsWithoutParens(node);
+  }
+
+  if (options.arrowParens === "requireForBlockBody") {
+    const node = path.getValue();
+    if (node.body && node.body.type === "BlockStatement") {
+      return false;
+    }
+
     return canPrintParamsWithoutParens(node);
   }
 

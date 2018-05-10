@@ -395,7 +395,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 - First value
 + Second value
 
-@@ -27,12 +27,23 @@
+@@ -27,12 +27,24 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -410,6 +410,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +       \\"choices\\": Array [
 +         \\"avoid\\",
 +         \\"always\\",
++         \\"requireForBlockBody\\",
 +       ],
 +       \\"default\\": \\"avoid\\",
 +       \\"type\\": \\"choice\\",
@@ -419,7 +420,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -65,14 +76,19 @@
+@@ -65,14 +77,19 @@
           \\"less\\",
           \\"scss\\",
           \\"json\\",
@@ -439,7 +440,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -80,14 +96,15 @@
+@@ -80,14 +97,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -457,7 +458,26 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       },
       \\"rangeEnd\\": Object {
         \\"default\\": Infinity,
-        \\"range\\": Object {"
+        \\"range\\": Object {
+@@ -125,10 +143,18 @@
+          \\"start\\": 0,
+          \\"step\\": 1,
+        },
+        \\"type\\": \\"int\\",
+      },
++     \\"ternary\\": Object {
++       \\"choices\\": Array [
++         \\"newline\\",
++         \\"parens\\",
++       ],
++       \\"default\\": \\"newline\\",
++       \\"type\\": \\"choice\\",
++     },
+      \\"trailingComma\\": Object {
+        \\"choices\\": Array [
+          \\"none\\",
+          \\"es5\\",
+          \\"all\\","
 `;
 
 exports[`CLI --support-info (stderr) 1`] = `""`;
@@ -648,6 +668,11 @@ exports[`CLI --support-info (stdout) 1`] = `
         {
           \\"description\\": \\"Always include parens. Example: \`(x) => x\`\\",
           \\"value\\": \\"always\\"
+        },
+        {
+          \\"description\\":
+            \\"Omit parens when possible, except for block body case. Example: \`(x) => { return x }\`\\",
+          \\"value\\": \\"requireForBlockBody\\"
         }
       ],
       \\"default\\": \\"avoid\\",
@@ -839,6 +864,22 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
       \\"type\\": \\"int\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"place both expressions on new lines\\",
+          \\"value\\": \\"newline\\"
+        },
+        { \\"description\\": \\"wrap expressions in parentheses\\", \\"value\\": \\"parens\\" }
+      ],
+      \\"default\\": \\"newline\\",
+      \\"description\\": \\"Control ternary expressions.\\",
+      \\"name\\": \\"ternary\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.12.2\\",
+      \\"type\\": \\"choice\\"
     },
     {
       \\"category\\": \\"JavaScript\\",
