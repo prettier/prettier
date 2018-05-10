@@ -439,7 +439,7 @@ function parseNestedCSS(node) {
 
 function parseWithParser(parser, text) {
   let result;
-  const frontMatterMatches = text.match(/^---(\n[\s\S]*?)\n---/);
+  const frontMatterMatches = text.match(/^---(\n[\s\S]*?)?\n---/);
   const frontMatter = frontMatterMatches && frontMatterMatches[0];
   const normalizedText = frontMatter ? text.substr(frontMatter.length) : text;
 
