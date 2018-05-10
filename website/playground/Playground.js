@@ -15,7 +15,13 @@ import SidebarOptions from "./sidebar/SidebarOptions";
 import Option from "./sidebar/options";
 import { Checkbox } from "./sidebar/inputs";
 
-const CATEGORIES_ORDER = ["Global", "JavaScript", "Markdown", "Special"];
+const CATEGORIES_ORDER = [
+  "Global",
+  "Common",
+  "JavaScript",
+  "Markdown",
+  "Special"
+];
 const ENABLED_OPTIONS = [
   "parser",
   "printWidth",
