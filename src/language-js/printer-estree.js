@@ -3705,6 +3705,15 @@ function shouldPrintParamsWithoutParens(path, options) {
     return canPrintParamsWithoutParens(node);
   }
 
+  if (options.arrowParens === "requireForBlockBody") {
+    const node = path.getValue();
+    if (node.body && node.body.type === "BlockStatement") {
+      return false;
+    }
+
+    return canPrintParamsWithoutParens(node);
+  }
+
   // Fallback default; should be unreachable
   return false;
 }

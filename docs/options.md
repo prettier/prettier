@@ -108,6 +108,7 @@ Valid options:
 
 * `"avoid"` - Omit parens when possible. Example: `x => x`
 * `"always"` - Always include parens. Example: `(x) => x`
+* `"requireForBlockBody"` - Omit parens when possible, except for block body case. Example: `(x) => { return x }`
 
 | Default   | CLI Override                                    | API Override                                    |
 | --------- | ----------------------------------------------- | ----------------------------------------------- |

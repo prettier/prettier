@@ -18,6 +18,12 @@ module.exports = {
       {
         value: "always",
         description: "Always include parens. Example: `(x) => x`"
+      },
+      {
+        value: "requireForBlockBody",
+        description:
+          "Omit parens when possible, except for block body case. " +
+          "Example: `(x) => { return x }`"
       }
     ]
   },
