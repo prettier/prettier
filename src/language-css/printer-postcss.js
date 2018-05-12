@@ -452,7 +452,7 @@ function genericPrint(path, options, print) {
         const isNextRightCurlyBrace =
           iNextNode.type === "value-word" && iNextNode.value === "}";
 
-        // Ignore interpolation in SCSS (i.e. ``#{variable}``)
+        // Ignore interpolation in SCSS (i.e. `#{variable}`)
         if (
           isHash ||
           isLeftCurlyBrace ||
@@ -462,6 +462,11 @@ function genericPrint(path, options, print) {
             iNextNode.raws.before === "") ||
           (isRightCurlyBrace && iNextNode.raws && iNextNode.raws.before === "")
         ) {
+          continue;
+        }
+
+        // Ignore css variables and interpolation in SCSS (i.e. `--#{$var}`)
+        if (iNode.value === "--" && iNextNode.value === "#") {
           continue;
         }
 
