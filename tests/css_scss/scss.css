@@ -874,3 +874,10 @@ light: #eaf0c6
 @function color($color, $tone: "base") {
 @return map-get(map-get($colors, $color), $tone);
 }
+
+
+@media only screen and (max-width: 767px) {
+  @include widths(2 3 4, \@small);
+}
+
+$widths-breakpoint-separator: \@small;
