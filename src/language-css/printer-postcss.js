@@ -807,12 +807,7 @@ function adjustNumbers(value) {
 }
 
 function printNumber(rawNumber) {
-  return (
-    privateUtil
-      .printNumber(rawNumber)
-      // Remove trailing `.0`.
-      .replace(/\.0(?=$|e)/, "")
-  );
+  return privateUtil.printNumber(rawNumber);
 }
 
 module.exports = {

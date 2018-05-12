@@ -65,6 +65,9 @@
     a: 10;
     a: 9700;
     a: 10e100;
+    a: 1.0em;
+    a: 1.25em;
+    a: 2.00em;
     height: attr(data-size em, .01);
   }
 }
