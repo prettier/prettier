@@ -381,10 +381,7 @@ function formatFiles(context) {
       return;
     }
 
-    listDifferent(context, input, options, filename);
-
     const start = Date.now();
-
     let result;
     let output;
 
@@ -403,6 +400,13 @@ function formatFiles(context) {
       return;
     }
 
+    const isDifferent = output !== input;
+
+    if (context.argv["list-different"] && isDifferent) {
+      context.logger.log(filename);
+      process.exitCode = 1;
+    }
+
     if (context.argv["write"]) {
       if (process.stdout.isTTY) {
         // Remove previously printed filename to log it with duration.
@@ -412,14 +416,8 @@ function formatFiles(context) {
 
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
-      if (output === input) {
+      if (isDifferent) {
         if (!context.argv["list-different"]) {
-          context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
-        }
-      } else {
-        if (context.argv["list-different"]) {
-          context.logger.log(filename);
-        } else {
           context.logger.log(`${filename} ${Date.now() - start}ms`);
         }
 
@@ -432,6 +430,8 @@ function formatFiles(context) {
           // Don't exit the process if one file failed
           process.exitCode = 2;
         }
+      } else if (!context.argv["list-different"]) {
+        context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
     } else if (context.argv["debug-check"]) {
       if (output) {
