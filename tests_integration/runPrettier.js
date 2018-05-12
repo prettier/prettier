@@ -8,6 +8,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const prettierRootDir = isProduction ? process.env.PRETTIER_DIR : "../";
 const prettierPkg = require(path.join(prettierRootDir, "package.json"));
 const prettierCli = path.join(prettierRootDir, prettierPkg.bin.prettier);
+const prettierIndex = path.join(prettierRootDir, "index.js");
 
 const thirdParty = isProduction
   ? path.join(prettierRootDir, "./third-party")
@@ -50,10 +51,14 @@ function runPrettier(dir, args, options) {
   jest.spyOn(Date, "now").mockImplementation(() => 0);
 
   const write = [];
+  let formatCalls = 0;
 
   jest.spyOn(fs, "writeFileSync").mockImplementation((filename, content) => {
     write.push({ filename, content });
   });
+  jest
+    .spyOn(prettierIndex, "formatWithCursor")
+    .mockImplementation(() => formatCalls++);
 
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
@@ -101,7 +106,7 @@ function runPrettier(dir, args, options) {
     jest.restoreAllMocks();
   }
 
-  const result = { status, stdout, stderr, write };
+  const result = { status, stdout, stderr, write, formatCalls };
 
   const testResult = testOptions => {
     testOptions = testOptions || {};

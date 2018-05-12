@@ -4,7 +4,14 @@ const runPrettier = require("../runPrettier");
 
 describe("write file with --write + unformatted file", () => {
   runPrettier("cli/write", ["--write", "unformatted.js"]).test({
+    write: ['unformatted.js'],
     status: 0
+  });
+});
+
+describe("write only formats file once", () => {
+  runPrettier("cli/write", ["--write", "unformatted.js"]).test({
+    formatCalls: 1
   });
 });
 
