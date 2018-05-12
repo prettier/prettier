@@ -582,19 +582,7 @@ function genericPrint(path, options, print) {
           isNextForKeyword ||
           isNextEachKeyword
         ) {
-          if (atRuleAncestorNode && atRuleAncestorNode.name === "import") {
-            if (iNextNode.open) {
-              parts.push(iNextNode.open.raws.before.replace(/\s\s+/g, " "));
-            } else if (iNode.close || (iNode.group && iNode.group.close)) {
-              parts.push(line);
-            } else if (iNextNode && iNextNode.raws) {
-              parts.push(iNextNode.raws.before.replace(/\s\s+/g, " "));
-            } else if (iNode && iNode.raws) {
-              parts.push(iNode.raws.after.replace(/\s\s+/g, " "));
-            }
-          } else {
-            parts.push(line);
-          }
+          parts.push(line);
         }
       }
 
@@ -605,7 +593,11 @@ function genericPrint(path, options, print) {
       if (isControlDirective) {
         return group(indent(concat(parts)));
       }
-      if (atRuleAncestorNode && atRuleAncestorNode.name === "import") {
+      if (
+        atRuleAncestorNode &&
+        atRuleAncestorNode.name === "import" &&
+        node.groups[0].value === "url"
+      ) {
         return group(fill(parts));
       }
       return group(indent(fill(parts)));
