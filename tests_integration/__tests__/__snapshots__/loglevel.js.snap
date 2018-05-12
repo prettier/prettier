@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`--write with --loglevel=silent doesn't log filenames (formatCalls) 1`] = `1`;
+
 exports[`--write with --loglevel=silent doesn't log filenames (stderr) 1`] = `""`;
 
 exports[`--write with --loglevel=silent doesn't log filenames (stdout) 1`] = `""`;

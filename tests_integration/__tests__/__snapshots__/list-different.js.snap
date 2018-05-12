@@ -1,3 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`--list-different doest not list formatted file and exits with code 0 (formatCalls) 1`] = `1`;
+
+exports[`--list-different doest not list formatted file and exits with code 0 (stderr) 1`] = `""`;
+
+exports[`--list-different doest not list formatted file and exits with code 0 (write) 1`] = `Array []`;
+
+exports[`--list-different exits with 1 if at least 1 file is not formatted (formatCalls) 1`] = `2`;
+
+exports[`--list-different exits with 1 if at least 1 file is not formatted (stderr) 1`] = `""`;
+
+exports[`--list-different exits with 1 if at least 1 file is not formatted (write) 1`] = `Array []`;
+
+exports[`--list-different lists different file and exits with code 1 (formatCalls) 1`] = `1`;
+
+exports[`--list-different lists different file and exits with code 1 (stderr) 1`] = `""`;
+
+exports[`--list-different lists different file and exits with code 1 (write) 1`] = `Array []`;
+
+exports[`--list-different only formats file once (status) 1`] = `1`;
+
+exports[`--list-different only formats file once (stderr) 1`] = `""`;
+
+exports[`--list-different only formats file once (stdout) 1`] = `
+"unformatted.js
+"
+`;
+
+exports[`--list-different only formats file once (write) 1`] = `Array []`;
+
+exports[`checks stdin with --list-different (formatCalls) 1`] = `0`;
+
 exports[`checks stdin with --list-different (write) 1`] = `Array []`;

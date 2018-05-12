@@ -1,8 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`checks stdin with --debug-check (formatCalls) 1`] = `0`;
+
 exports[`checks stdin with --debug-check (write) 1`] = `Array []`;
 
+exports[`doesn't crash when --debug-check is passed (formatCalls) 1`] = `0`;
+
 exports[`doesn't crash when --debug-check is passed (write) 1`] = `Array []`;
+
+exports[`show diff for 2+ error files with --debug-check (formatCalls) 1`] = `0`;
 
 exports[`show diff for 2+ error files with --debug-check (stderr) 1`] = `
 "[error] a.debug-check: prettier(input) !== prettier(prettier(input))

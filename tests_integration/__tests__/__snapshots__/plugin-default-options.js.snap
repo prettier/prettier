@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`overriding plugin default options should work (formatCalls) 1`] = `1`;
+
+exports[`plugin default options should work (formatCalls) 1`] = `1`;

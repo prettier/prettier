@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`uses 'extensions' from languages to determine parser (formatCalls) 1`] = `1`;

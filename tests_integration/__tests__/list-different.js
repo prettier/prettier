@@ -27,7 +27,11 @@ describe("--list-different doest not list formatted file and exits with code 0",
 });
 
 describe("--list-different exits with 1 if at least 1 file is not formatted", () => {
-  runPrettier("cli/write", ["--list-different", "formatted.js", "unformatted.js"]).test({
+  runPrettier("cli/write", [
+    "--list-different",
+    "formatted.js",
+    "unformatted.js"
+  ]).test({
     stdout: "unformatted.js\n",
     status: 1
   });

@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`boolean flags do not swallow the next argument (formatCalls) 1`] = `1`;
+
 exports[`boolean flags do not swallow the next argument (stderr) 1`] = `""`;
 
 exports[`boolean flags do not swallow the next argument (stdout) 1`] = `
@@ -8,6 +10,8 @@ exports[`boolean flags do not swallow the next argument (stdout) 1`] = `
 `;
 
 exports[`boolean flags do not swallow the next argument (write) 1`] = `Array []`;
+
+exports[`deprecated option values are warned (formatCalls) 1`] = `1`;
 
 exports[`deprecated option values are warned (stderr) 1`] = `
 "[warn] \`--trailing-comma\` without an argument is deprecated. Prettier now treats it as \`--trailing-comma=es5\`.
@@ -21,6 +25,8 @@ exports[`deprecated option values are warned (stdout) 1`] = `
 
 exports[`deprecated option values are warned (write) 1`] = `Array []`;
 
+exports[`deprecated options are warned (formatCalls) 1`] = `1`;
+
 exports[`deprecated options are warned (stderr) 1`] = `
 "[warn] \`--flow-parser\` is deprecated. Prettier now treats it as \`--parser=flow\`.
 "
@@ -33,6 +39,8 @@ exports[`deprecated options are warned (stdout) 1`] = `
 
 exports[`deprecated options are warned (write) 1`] = `Array []`;
 
+exports[`negated options work (formatCalls) 1`] = `1`;
+
 exports[`negated options work (stderr) 1`] = `""`;
 
 exports[`negated options work (stdout) 1`] = `
@@ -41,6 +49,8 @@ exports[`negated options work (stdout) 1`] = `
 `;
 
 exports[`negated options work (write) 1`] = `Array []`;
+
+exports[`unknown negated options are warned (formatCalls) 1`] = `1`;
 
 exports[`unknown negated options are warned (stderr) 1`] = `
 "[warn] Ignored unknown option \`--no-unknown\`.
@@ -53,6 +63,8 @@ exports[`unknown negated options are warned (stdout) 1`] = `
 `;
 
 exports[`unknown negated options are warned (write) 1`] = `Array []`;
+
+exports[`unknown options are warned (formatCalls) 1`] = `1`;
 
 exports[`unknown options are warned (stderr) 1`] = `
 "[warn] Ignored unknown option \`--unknown\`.
