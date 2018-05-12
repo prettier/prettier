@@ -431,6 +431,16 @@ exports[`bug.css 1`] = `
 
 `;
 
+exports[`buggy.css 1`] = `
+@import /* comment 29 */ url('landscape.css') /* comment 30 */ screen /* comment 31 */ and /* comment 32 */ (/* comment 33 */orientation/* comment 34 */:/* comment 35 */landscape/* comment 36 */)/* comment 37 */;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@import /* comment 29 */ url("landscape.css") /* comment 30 */ screen /* comment 31 */ and /* comment 32 */ (
+  /* comment 33 */orientation/* comment 34 */: /* comment 35 */landscape/* comment 36 */
+)
+/* comment 37 */;
+
+`;
+
 exports[`declaration.css 1`] = `
 a {
     /* comment 1 */
