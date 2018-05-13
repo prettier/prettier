@@ -282,21 +282,23 @@ function genericPrint(path, options, print) {
             node.referenceType === "collapsed" ? "[]" : ""
           ]);
       }
-    case "definition":
+    case "definition": {
+      const lineOrSpace = options.proseWrap === "always" ? line : " ";
       return group(
         concat([
           concat(["[", node.identifier, "]:"]),
           indent(
             concat([
-              line,
+              lineOrSpace,
               printUrl(node.url),
               node.title === null
                 ? ""
-                : concat([line, printTitle(node.title, options, false)])
+                : concat([lineOrSpace, printTitle(node.title, options, false)])
             ])
           )
         ])
       );
+    }
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
     case "footnoteReference":
