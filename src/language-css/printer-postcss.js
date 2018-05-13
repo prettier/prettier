@@ -596,7 +596,8 @@ function genericPrint(path, options, print) {
       if (
         atRuleAncestorNode &&
         atRuleAncestorNode.name === "import" &&
-        node.groups[0].value === "url"
+        node.groups[0].value === "url" &&
+        node.groups.length === 2
       ) {
         return group(fill(parts));
       }

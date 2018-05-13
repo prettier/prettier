@@ -2296,7 +2296,7 @@ $dir: "fonts";
   projection,
   tv;
 @import url("very-very-very-very-very-very-very-very-very-very-long-name.css")
-projection tv;
+  projection tv;
 @import url("landscape.css") screen and (orientation: landscape);
 @import "rounded-corners", "text-shadow";
 @import "rounded-corners", "text-shadow";
