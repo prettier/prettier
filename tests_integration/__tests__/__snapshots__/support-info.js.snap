@@ -726,7 +726,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" }
       ],
       \\"default\\": \\"babylon\\",
-      \\"description\\": \\"Which parser to use.\\",
+      \\"description\\":
+        \\"Override which parser to use. Without this option, the parser is inferred from the filepath.\\",
       \\"name\\": \\"parser\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.10\\",

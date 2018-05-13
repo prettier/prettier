@@ -278,9 +278,9 @@ exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
+"--parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue|raw>
 
-  Which parser to use.
+  Override which parser to use. Without this option, the parser is inferred from the filepath.
 
 Valid options:
 
@@ -295,8 +295,9 @@ Valid options:
   graphql      GraphQL
   markdown     Markdown
   vue          Vue
+  raw          Raw (no-op)
 
-Default: babylon
+Default: raw
 "
 `;
 
@@ -594,9 +595,9 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
-                           Which parser to use.
-                           Defaults to babylon.
+  --parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue|raw>
+                           Override which parser to use. Without this option, the parser is inferred from the filepath.
+                           Defaults to raw.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
   --prose-wrap <always|never|preserve>
@@ -698,9 +699,9 @@ exports[`show warning with --help not-found (typo) (stderr) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
+"--parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue|raw>
 
-  Which parser to use.
+  Override which parser to use. Without this option, the parser is inferred from the filepath.
 
 Valid options:
 
@@ -715,8 +716,9 @@ Valid options:
   graphql      GraphQL
   markdown     Markdown
   vue          Vue
+  raw          Raw (no-op)
 
-Default: babylon
+Default: raw
 "
 `;
 
@@ -745,9 +747,9 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
-                           Which parser to use.
-                           Defaults to babylon.
+  --parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue|raw>
+                           Override which parser to use. Without this option, the parser is inferred from the filepath.
+                           Defaults to raw.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
   --prose-wrap <always|never|preserve>

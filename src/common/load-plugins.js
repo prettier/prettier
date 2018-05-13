@@ -33,7 +33,8 @@ function loadPlugins(plugins, pluginSearchDirs) {
     require("../language-graphql"),
     require("../language-markdown"),
     require("../language-html"),
-    require("../language-vue")
+    require("../language-vue"),
+    require("../language-raw")
   ];
 
   const externalManualLoadPluginInfos = plugins.map(pluginName => {

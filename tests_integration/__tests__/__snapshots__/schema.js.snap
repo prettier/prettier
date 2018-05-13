@@ -60,7 +60,7 @@ This option cannot be used with --range-start and --range-end.",
         },
         "parser": Object {
           "default": "babylon",
-          "description": "Which parser to use.",
+          "description": "Override which parser to use. Without this option, the parser is inferred from the filepath.",
           "oneOf": Array [
             Object {
               "description": "Flow",
