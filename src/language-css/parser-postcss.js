@@ -376,13 +376,6 @@ function parseNestedCSS(node) {
       }
 
       if (lowercasedName === "import") {
-        if (params.includes("#{")) {
-          // Workaround for media at rule with scss interpolation
-          return {
-            type: "media-unknown",
-            value: params
-          };
-        }
         node.params = parseValue(params);
         return node;
       }
