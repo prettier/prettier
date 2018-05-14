@@ -17,7 +17,7 @@ const addLeadingComment = sharedUtil.addLeadingComment;
 const addTrailingComment = sharedUtil.addTrailingComment;
 const addDanglingComment = sharedUtil.addDanglingComment;
 
-function getSortedChildNodes(node, text, options, resultArray) {
+function getSortedChildNodes(node, options, resultArray) {
   if (!node) {
     return;
   }
@@ -73,7 +73,7 @@ function getSortedChildNodes(node, text, options, resultArray) {
   }
 
   childNodes.forEach(childNode => {
-    getSortedChildNodes(childNode, text, options, resultArray);
+    getSortedChildNodes(childNode, options, resultArray);
   });
 
   return resultArray;
@@ -82,10 +82,10 @@ function getSortedChildNodes(node, text, options, resultArray) {
 // As efficiently as possible, decorate the comment object with
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
-function decorateComment(node, comment, text, options) {
+function decorateComment(node, comment, options) {
   const locStart = options.locStart;
   const locEnd = options.locEnd;
-  const childNodes = getSortedChildNodes(node, text, options);
+  const childNodes = getSortedChildNodes(node, options);
   let precedingNode;
   let followingNode;
   // Time to dust off the old binary search robes and wizard hat.
@@ -102,7 +102,7 @@ function decorateComment(node, comment, text, options) {
       // The comment is completely contained by this child node.
       comment.enclosingNode = child;
 
-      decorateComment(child, comment, text, options);
+      decorateComment(child, comment, options);
       return; // Abandon the binary search at this level.
     }
 
@@ -186,7 +186,7 @@ function attach(comments, ast, text, options) {
       return;
     }
 
-    decorateComment(ast, comment, text, options);
+    decorateComment(ast, comment, options);
 
     const precedingNode = comment.precedingNode;
     const enclosingNode = comment.enclosingNode;
