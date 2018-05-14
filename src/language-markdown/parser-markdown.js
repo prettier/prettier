@@ -2,7 +2,7 @@
 
 const remarkParse = require("remark-parse");
 const unified = require("unified");
-const parseFrontmatter = require("../utils/frontmatter");
+const parseFrontmatter = require("../utils/front-matter");
 const util = require("../common/util");
 
 /**
