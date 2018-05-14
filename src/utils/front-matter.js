@@ -5,9 +5,7 @@ function parse(text) {
 
   if (text.indexOf("---") === 0) {
     delimiter = "---";
-  }
-
-  if (text.indexOf("+++") === 0) {
+  } else if (text.indexOf("+++") === 0) {
     delimiter = "+++";
   }
 
