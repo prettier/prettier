@@ -439,7 +439,11 @@ function parseNestedCSS(node) {
 }
 
 function parseWithParser(parser, text) {
-  const { frontmatter, content } = parseFrontmatter(text);
+  let frontmatter = (function() {
+    const parsed = parseFrontmatter(text);
+    text = parsed.content;
+    return parsed.frontmatter;
+  })();
   let result;
 
   try {
