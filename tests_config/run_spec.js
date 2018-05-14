@@ -89,37 +89,8 @@ function run_spec(dirname, parsers, options) {
 
 global.run_spec = run_spec;
 
-function stripLocation(ast) {
-  if (Array.isArray(ast)) {
-    return ast.map(e => stripLocation(e));
-  }
-  if (typeof ast === "object") {
-    const newObj = {};
-    for (const key in ast) {
-      if (
-        [
-          "loc",
-          "range",
-          "raw",
-          "comments",
-          "parent",
-          "prev",
-          "__location"
-        ].indexOf(key) !== -1
-      ) {
-        continue;
-      }
-      newObj[key] = stripLocation(ast[key]);
-    }
-    return newObj;
-  }
-  return ast;
-}
-
 function parse(string, opts) {
-  return stripLocation(
-    prettier.__debug.parse(string, opts, /* massage */ true).ast
-  );
+  return prettier.__debug.parse(string, opts, /* massage */ true).ast;
 }
 
 function prettyprint(src, filename, options) {

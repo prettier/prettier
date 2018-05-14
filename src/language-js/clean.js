@@ -2,6 +2,9 @@
 
 function clean(ast, newObj, parent) {
   [
+    "range",
+    "raw",
+    "comments",
     "leadingComments",
     "trailingComments",
     "extra",
