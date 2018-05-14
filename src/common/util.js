@@ -380,6 +380,7 @@ function startsWithNoLookaheadToken(node, forbidFunctionAndClass) {
     case "FunctionExpression":
     case "ClassExpression":
       return forbidFunctionAndClass;
+    case "DoExpression":
     case "ObjectExpression":
       return true;
     case "MemberExpression":
