@@ -593,6 +593,13 @@ function genericPrint(path, options, print) {
       if (isControlDirective) {
         return group(indent(concat(parts)));
       }
+
+      /**
+      * Indent is not needed for import url when node has two groups
+      * when type is value-comma_group
+      * example @import url("abc") projection,tv
+      */
+
       if (
         atRuleAncestorNode &&
         atRuleAncestorNode.name === "import" &&
