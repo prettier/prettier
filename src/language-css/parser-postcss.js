@@ -366,12 +366,17 @@ function parseNestedCSS(node) {
 
       if (name === "at-root") {
         if (/^\(\s*(without|with)\s*:[\s\S]+\)$/.test(params)) {
-          node.params = parseMediaQuery(params);
+          node.params = parseValue(params);
         } else {
           node.selector = parseSelector(params);
           delete node.params;
         }
 
+        return node;
+      }
+
+      if (lowercasedName === "import") {
+        node.params = parseValue(params);
         return node;
       }
 
@@ -414,7 +419,7 @@ function parseNestedCSS(node) {
         return node;
       }
 
-      if (["import", "media", "custom-media"].indexOf(lowercasedName) !== -1) {
+      if (["media", "custom-media"].indexOf(lowercasedName) !== -1) {
         if (params.includes("#{")) {
           // Workaround for media at rule with scss interpolation
           return {

@@ -150,7 +150,7 @@ function genericPrint(path, options, print) {
     }
     case "css-atrule": {
       const isDetachedRulesetCall =
-        node.params && /^\(\s*\)$/.test(node.params);
+        node.raws.params && /^\(\s*\)$/.test(node.raws.params);
 
       return concat([
         "@",
@@ -610,6 +610,19 @@ function genericPrint(path, options, print) {
         return group(indent(concat(parts)));
       }
 
+      // Indent is not needed for import url when url is very long
+      // and node has two groups
+      // when type is value-comma_group
+      // example @import url("verylongurl") projection,tv
+
+      if (
+        atRuleAncestorNode &&
+        atRuleAncestorNode.name === "import" &&
+        node.groups[0].value === "url" &&
+        node.groups.length === 2
+      ) {
+        return group(fill(parts));
+      }
       return group(indent(fill(parts)));
     }
     case "value-paren_group": {
