@@ -594,11 +594,11 @@ function genericPrint(path, options, print) {
         return group(indent(concat(parts)));
       }
 
-      /**
-      * Indent is not needed for import url when node has two groups
-      * when type is value-comma_group
-      * example @import url("abc") projection,tv
-      */
+
+      // Indent is not needed for import url when url is very long
+      // and node has two groups
+      // when type is value-comma_group
+      // example @import url("verylongurl") projection,tv
 
       if (
         atRuleAncestorNode &&
