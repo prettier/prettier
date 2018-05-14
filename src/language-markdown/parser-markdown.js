@@ -135,12 +135,12 @@ function frontmatter() {
   function tokenizer(eat, value) {
     const parsed = parseFrontmatter(value);
 
-    if (!parsed.frontmatter) return;
-
-    return eat(parsed.frontmatter)({
-      type: "frontmatter",
-      value: parsed.frontmatter
-    });
+    if (parsed.frontmatter) {
+      return eat(parsed.frontmatter)({
+        type: "frontmatter",
+        value: parsed.frontmatter
+      });
+    }
   }
   tokenizer.onlyAtStart = true;
 }
