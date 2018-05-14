@@ -1,11 +1,15 @@
 "use strict";
 
 function parse(text) {
-  let delimiter = (function() {
-    if (text.indexOf("---") === 0) return "---";
-    if (text.indexOf("+++") === 0) return "+++";
-    return null;
-  })();
+  let delimiter;
+
+  if (text.indexOf("---") === 0) {
+    delimiter = "---";
+  }
+
+  if (text.indexOf("+++") === 0) {
+    delimiter = "+++";
+  }
 
   let end = -1;
 
