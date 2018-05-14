@@ -476,7 +476,7 @@ function parseNestedCSS(node) {
 function parseWithParser(parser, text) {
   const parsed = parseFrontmatter(text);
   const frontmatter = parsed.frontmatter;
-  text = parsed.text;
+  text = parsed.content;
 
   let result;
 
