@@ -6,7 +6,7 @@ const createError = require("../common/parser-create-error");
 const utils = require("./utils");
 
 const isSCSS = utils.isSCSS;
-const isSCSSNestedProperty = utils.isSCSSNestedProperty;
+const isSCSSNestedPropertyNode = utils.isSCSSNestedPropertyNode;
 
 function parseValueNodes(nodes) {
   let parenGroup = {
@@ -332,7 +332,7 @@ function parseNestedCSS(node) {
       }
 
       // Check on SCSS nested property
-      if (isSCSSNestedProperty(node)) {
+      if (isSCSSNestedPropertyNode(node)) {
         node.isSCSSNesterProperty = true;
       }
 
