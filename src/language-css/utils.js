@@ -98,7 +98,7 @@ function insideAtRuleNode(path, atRuleName) {
   );
 }
 
-function isURLFunction(node) {
+function isURLFunctionNode(node) {
   return node.type === "value-func" && node.value.toLowerCase() === "url";
 }
 
@@ -115,7 +115,7 @@ function isHTMLTag(value) {
   return htmlTagNames.indexOf(value.toLowerCase()) !== -1;
 }
 
-function isDetachedRulesetDeclaration(node) {
+function isDetachedRulesetDeclarationNode(node) {
   // If a Less file ends up being parsed with the SCSS parser, Less
   // variable declarations will be parsed as atrules with names ending
   // with a colon, so keep the original case then.
@@ -176,11 +176,11 @@ function isSCSSControlDirectiveNode(node) {
   );
 }
 
-function isSCSSMap(node) {
+function isSCSSMapNode(node) {
   return node.type === "css-decl" && node.prop && node.prop.startsWith("$");
 }
 
-function isSCSSNestedProperty(node) {
+function isSCSSNestedPropertyNode(node) {
   if (!node.selector) {
     return false;
   }
@@ -190,6 +190,10 @@ function isSCSSNestedProperty(node) {
     .replace(/\/\/.*?\n/, "")
     .trim()
     .endsWith(":");
+}
+
+function isDetachedRulesetCallNode(node) {
+  return node.raws && node.raws.params && /^\(\s*\)$/.test(node.raws.params);
 }
 
 function hasLessExtendValueNode(node) {
@@ -225,7 +229,7 @@ function hasParensAroundValueNode(node) {
   );
 }
 
-function isPostcssSimpleVar(currentNode, nextNode) {
+function isPostcssSimpleVarNode(currentNode, nextNode) {
   return (
     currentNode.value === "$$" &&
     currentNode.type === "value-func" &&
@@ -238,29 +242,30 @@ module.exports = {
   getAncestorCounter,
   getAncestorNode,
   getPropOfDeclNode,
+  maybeToLowerCase,
   insideValueFunctionNode,
   insideICSSRuleNode,
   insideAtRuleNode,
-  isLastNode,
-  isSCSSControlDirectiveNode,
-  isDetachedRulesetDeclaration,
   isKeyframeAtRuleKeywords,
   isHTMLTag,
+  isWideKeywords,
+  isSCSS,
+  isLastNode,
+  isSCSSControlDirectiveNode,
+  isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
   isEqualityOperatorNode,
   isMathOperatorNode,
   isEachKeywordNode,
   isParenGroupNode,
   isForKeywordNode,
-  isSCSS,
-  isSCSSMap,
-  isURLFunction,
-  isWideKeywords,
+  isURLFunctionNode,
   isIfElseKeywordNode,
-  maybeToLowerCase,
   hasLessExtendValueNode,
   hasComposesValueNode,
   hasParensAroundValueNode,
-  isPostcssSimpleVar,
-  isSCSSNestedProperty
+  isSCSSMapNode,
+  isSCSSNestedPropertyNode,
+  isDetachedRulesetCallNode,
+  isPostcssSimpleVarNode
 };
