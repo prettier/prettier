@@ -119,11 +119,13 @@ function isDetachedRulesetDeclaration(node) {
   // If a Less file ends up being parsed with the SCSS parser, Less
   // variable declarations will be parsed as atrules with names ending
   // with a colon, so keep the original case then.
+  if (!node.selector) {
+    return false;
+  }
+
   return (
-    node.selector &&
-    node.selector.type !== "selector-root-invalid" &&
-    ((typeof node.selector === "string" && /^@.+:.*$/.test(node.selector)) ||
-      (node.selector.value && /^@.+:.*$/.test(node.selector.value)))
+    (typeof node.selector === "string" && /^@.+:.*$/.test(node.selector)) ||
+    (node.selector.value && /^@.+:.*$/.test(node.selector.value))
   );
 }
 
@@ -176,6 +178,18 @@ function isSCSSControlDirectiveNode(node) {
 
 function isSCSSMap(node) {
   return node.type === "css-decl" && node.prop && node.prop.startsWith("$");
+}
+
+function isSCSSNestedProperty(node) {
+  if (!node.selector) {
+    return false;
+  }
+
+  return node.selector
+    .replace(/\/\*.*?\*\//, "")
+    .replace(/\/\/.*?\n/, "")
+    .trim()
+    .endsWith(":");
 }
 
 function hasLessExtendValueNode(node) {
@@ -247,5 +261,6 @@ module.exports = {
   hasLessExtendValueNode,
   hasComposesValueNode,
   hasParensAroundValueNode,
-  isPostcssSimpleVar
+  isPostcssSimpleVar,
+  isSCSSNestedProperty
 };

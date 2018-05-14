@@ -58,7 +58,6 @@ function clean(ast, newObj) {
       ast.type === "media-unknown" ||
       ast.type === "media-url" ||
       ast.type === "media-value" ||
-      ast.type === "selector-root-invalid" ||
       ast.type === "selector-attribute" ||
       ast.type === "selector-string" ||
       ast.type === "selector-class" ||
@@ -131,6 +130,11 @@ function clean(ast, newObj) {
 
   // Workaround when `postcss-values-parser` parse `not`, `and` or `or` keywords as `value-func`
   if (ast.type === "css-atrule" && ast.name.toLowerCase() === "supports") {
+    delete newObj.value;
+  }
+
+  // Workaround for SCSS nested properties
+  if (ast.type === "selector-unknown") {
     delete newObj.value;
   }
 }
