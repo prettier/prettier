@@ -6,24 +6,8 @@ const parseFrontmatter = require("../utils/front-matter");
 // utils
 const utils = require("./utils");
 
-function parseSelector(selector) {
-  // If there's a comment inside of a selector, the parser tries to parse
-  // the content of the comment as selectors which turns it into complete
-  // garbage. Better to print the whole selector as-is and not try to parse
-  // and reformat it.
-  if (selector.match(/\/\/|\/\*/)) {
-    return {
-      type: "selector-comment",
-      value: selector.replace(/^ +/, "").replace(/ +$/, "")
-    };
-  }
-  const selectorParser = require("postcss-selector-parser");
-  let result;
-  selectorParser(result_ => {
-    result = result_;
-  }).process(selector);
-  return addTypePrefix(result, "selector-");
-}
+const isSCSS = utils.isSCSS;
+const isSCSSNestedPropertyNode = utils.isSCSSNestedPropertyNode;
 
 function parseValueNodes(nodes) {
   let parenGroup = {
@@ -196,15 +180,75 @@ function parseNestedValue(node) {
 
 function parseValue(value) {
   const valueParser = require("postcss-values-parser");
-  const result = valueParser(value, { loose: true }).parse();
+
+  let result = null;
+
+  try {
+    result = valueParser(value, { loose: true }).parse();
+  } catch (e) {
+    return {
+      type: "value-unknown",
+      value: value
+    };
+  }
+
   const parsedResult = parseNestedValue(result);
+
   return addTypePrefix(parsedResult, "value-");
 }
 
-function parseMediaQuery(value) {
+function parseSelector(selector) {
+  // If there's a comment inside of a selector, the parser tries to parse
+  // the content of the comment as selectors which turns it into complete
+  // garbage. Better to print the whole selector as-is and not try to parse
+  // and reformat it.
+  if (selector.match(/\/\/|\/\*/)) {
+    return {
+      type: "selector-unknown",
+      value: selector.replace(/^ +/, "").replace(/ +$/, "")
+    };
+  }
+
+  const selectorParser = require("postcss-selector-parser");
+
+  let result = null;
+
+  try {
+    selectorParser(result_ => {
+      result = result_;
+    }).process(selector);
+  } catch (e) {
+    // Fail silently. It's better to print it as is than to try and parse it
+    // Note: A common failure is for SCSS nested properties. `background:
+    // none { color: red; }` is parsed as a NestedDeclaration by
+    // postcss-scss, while `background: { color: red; }` is parsed as a Rule
+    // with a selector ending with a colon. See:
+    // https://github.com/postcss/postcss-scss/issues/39
+    return {
+      type: "selector-unknown",
+      value: selector
+    };
+  }
+
+  return addTypePrefix(result, "selector-");
+}
+
+function parseMediaQuery(params) {
   const mediaParser = require("postcss-media-query-parser").default;
-  const result = addMissingType(mediaParser(value));
-  return addTypePrefix(result, "media-");
+
+  let result = null;
+
+  try {
+    result = mediaParser(params);
+  } catch (e) {
+    // Ignore bad media queries
+    return {
+      type: "selector-unknown",
+      value: params
+    };
+  }
+
+  return addTypePrefix(addMissingType(result), "media-");
 }
 
 const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
@@ -288,61 +332,47 @@ function parseNestedCSS(node) {
         return node;
       }
 
-      try {
-        node.selector = parseSelector(selector);
-      } catch (e) {
-        // Fail silently. It's better to print it as is than to try and parse it
-        // Note: A common failure is for SCSS nested properties. `background:
-        // none { color: red; }` is parsed as a NestedDeclaration by
-        // postcss-scss, while `background: { color: red; }` is parsed as a Rule
-        // with a selector ending with a colon. See:
-        // https://github.com/postcss/postcss-scss/issues/39
-        node.selector = {
-          type: "selector-root-invalid",
-          value: selector
-        };
+      // Check on SCSS nested property
+      if (isSCSSNestedPropertyNode(node)) {
+        node.isSCSSNesterProperty = true;
       }
+
+      node.selector = parseSelector(selector);
 
       return node;
     }
 
     if (node.type !== "css-comment-yaml" && value.length > 0) {
-      try {
-        const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
+      const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
 
-        if (defaultSCSSDirectiveIndex) {
-          value = value.substring(0, defaultSCSSDirectiveIndex.index);
-          node.scssDefault = true;
+      if (defaultSCSSDirectiveIndex) {
+        value = value.substring(0, defaultSCSSDirectiveIndex.index);
+        node.scssDefault = true;
 
-          if (defaultSCSSDirectiveIndex[0].trim() !== "!default") {
-            node.raws.scssDefault = defaultSCSSDirectiveIndex[0];
-          }
+        if (defaultSCSSDirectiveIndex[0].trim() !== "!default") {
+          node.raws.scssDefault = defaultSCSSDirectiveIndex[0];
         }
-
-        const globalSCSSDirectiveIndex = value.match(GLOBAL_SCSS_DIRECTIVE);
-
-        if (globalSCSSDirectiveIndex) {
-          value = value.substring(0, globalSCSSDirectiveIndex.index);
-          node.scssGlobal = true;
-
-          if (globalSCSSDirectiveIndex[0].trim() !== "!global") {
-            node.raws.scssGlobal = globalSCSSDirectiveIndex[0];
-          }
-        }
-
-        if (value.startsWith("progid:")) {
-          return node;
-        }
-
-        node.value = parseValue(value);
-      } catch (e) {
-        throw createError(
-          "(postcss-values-parser) " + e.toString(),
-          node.source
-        );
       }
 
-      return node;
+      const globalSCSSDirectiveIndex = value.match(GLOBAL_SCSS_DIRECTIVE);
+
+      if (globalSCSSDirectiveIndex) {
+        value = value.substring(0, globalSCSSDirectiveIndex.index);
+        node.scssGlobal = true;
+
+        if (globalSCSSDirectiveIndex[0].trim() !== "!global") {
+          node.raws.scssGlobal = globalSCSSDirectiveIndex[0];
+        }
+      }
+
+      if (value.startsWith("progid:")) {
+        return {
+          type: "value-unknown",
+          value: value
+        };
+      }
+
+      node.value = parseValue(value);
     }
 
     if (node.type === "css-atrule" && params.length > 0) {
@@ -367,12 +397,17 @@ function parseNestedCSS(node) {
 
       if (name === "at-root") {
         if (/^\(\s*(without|with)\s*:[\s\S]+\)$/.test(params)) {
-          node.params = parseMediaQuery(params);
+          node.params = parseValue(params);
         } else {
           node.selector = parseSelector(params);
           delete node.params;
         }
 
+        return node;
+      }
+
+      if (lowercasedName === "import") {
+        node.params = parseValue(params);
         return node;
       }
 
@@ -415,7 +450,7 @@ function parseNestedCSS(node) {
         return node;
       }
 
-      if (["import", "media", "custom-media"].indexOf(lowercasedName) !== -1) {
+      if (["media", "custom-media"].indexOf(lowercasedName) !== -1) {
         if (params.includes("#{")) {
           // Workaround for media at rule with scss interpolation
           return {
@@ -466,8 +501,8 @@ function parseWithParser(parser, text) {
   return result;
 }
 
-function requireParser(isSCSS) {
-  if (isSCSS) {
+function requireParser(isSCSSParser) {
+  if (isSCSSParser) {
     return require("postcss-scss");
   }
 
@@ -487,17 +522,17 @@ function requireParser(isSCSS) {
 function parse(text, parsers, opts) {
   const hasExplicitParserChoice =
     opts.parser === "less" || opts.parser === "scss";
-  const isSCSS = utils.isSCSS(opts.parser, text);
+  const isSCSSParser = isSCSS(opts.parser, text);
 
   try {
-    return parseWithParser(requireParser(isSCSS), text);
+    return parseWithParser(requireParser(isSCSSParser), text);
   } catch (originalError) {
     if (hasExplicitParserChoice) {
       throw originalError;
     }
 
     try {
-      return parseWithParser(requireParser(!isSCSS), text);
+      return parseWithParser(requireParser(!isSCSSParser), text);
     } catch (_secondError) {
       throw originalError;
     }

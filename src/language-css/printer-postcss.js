@@ -19,32 +19,34 @@ const docUtils = doc.utils;
 const removeLines = docUtils.removeLines;
 
 const utils = require("./utils");
+
 const getAncestorNode = utils.getAncestorNode;
 const getPropOfDeclNode = utils.getPropOfDeclNode;
+const maybeToLowerCase = utils.maybeToLowerCase;
 const insideValueFunctionNode = utils.insideValueFunctionNode;
 const insideICSSRuleNode = utils.insideICSSRuleNode;
 const insideAtRuleNode = utils.insideAtRuleNode;
-const isSCSSControlDirectiveNode = utils.isSCSSControlDirectiveNode;
-const isForKeywordNode = utils.isForKeywordNode;
-const isEachKeywordNode = utils.isEachKeywordNode;
-const isEqualityOperatorNode = utils.isEqualityOperatorNode;
-const isDetachedRulesetDeclaration = utils.isDetachedRulesetDeclaration;
-const isSCSS = utils.isSCSS;
-const isSCSSMap = utils.isSCSSMap;
-const isIfElseKeywordNode = utils.isIfElseKeywordNode;
-const isHTMLTag = utils.isHTMLTag;
-const isURLFunction = utils.isURLFunction;
-const isMathOperatorNode = utils.isMathOperatorNode;
-const isLastNode = utils.isLastNode;
-const isParenGroupNode = utils.isParenGroupNode;
-const isRelationalOperatorNode = utils.isRelationalOperatorNode;
 const isKeyframeAtRuleKeywords = utils.isKeyframeAtRuleKeywords;
+const isHTMLTag = utils.isHTMLTag;
 const isWideKeywords = utils.isWideKeywords;
-const hasComposesValueNode = utils.hasComposesValueNode;
+const isSCSS = utils.isSCSS;
+const isLastNode = utils.isLastNode;
+const isSCSSControlDirectiveNode = utils.isSCSSControlDirectiveNode;
+const isDetachedRulesetDeclarationNode = utils.isDetachedRulesetDeclarationNode;
+const isRelationalOperatorNode = utils.isRelationalOperatorNode;
+const isEqualityOperatorNode = utils.isEqualityOperatorNode;
+const isMathOperatorNode = utils.isMathOperatorNode;
+const isEachKeywordNode = utils.isEachKeywordNode;
+const isParenGroupNode = utils.isParenGroupNode;
+const isForKeywordNode = utils.isForKeywordNode;
+const isURLFunctionNode = utils.isURLFunctionNode;
+const isIfElseKeywordNode = utils.isIfElseKeywordNode;
 const hasLessExtendValueNode = utils.hasLessExtendValueNode;
+const hasComposesValueNode = utils.hasComposesValueNode;
 const hasParensAroundValueNode = utils.hasParensAroundValueNode;
-const maybeToLowerCase = utils.maybeToLowerCase;
-const isPostcssSimpleVar = utils.isPostcssSimpleVar;
+const isSCSSMapNode = utils.isSCSSMapNode;
+const isDetachedRulesetCallNode = utils.isDetachedRulesetCallNode;
+const isPostcssSimpleVarNode = utils.isPostcssSimpleVarNode;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -103,7 +105,7 @@ function genericPrint(path, options, print) {
                 : "",
               hardline,
               "}",
-              isDetachedRulesetDeclaration(node) ? ";" : ""
+              isDetachedRulesetDeclarationNode(node) ? ";" : ""
             ])
           : ";"
       ]);
@@ -149,20 +151,17 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "css-atrule": {
-      const isDetachedRulesetCall =
-        node.params && /^\(\s*\)$/.test(node.params);
-
       return concat([
         "@",
         // If a Less file ends up being parsed with the SCSS parser, Less
         // variable declarations will be parsed as at-rules with names ending
         // with a colon, so keep the original case then.
-        isDetachedRulesetCall || node.name.endsWith(":")
+        isDetachedRulesetCallNode(node) || node.name.endsWith(":")
           ? node.name
           : maybeToLowerCase(node.name),
         node.params
           ? concat([
-              isDetachedRulesetCall ? "" : " ",
+              isDetachedRulesetCallNode(node) ? "" : " ",
               path.call(print, "params")
             ])
           : "",
@@ -249,15 +248,9 @@ function genericPrint(path, options, print) {
       );
     }
     case "media-unknown": {
-      return adjustStrings(node.value, options);
+      return node.value;
     }
     // postcss-selector-parser
-    case "selector-root-invalid": {
-      // This is likely a SCSS nested property: `background: { color: red; }`.
-      return adjustNumbers(
-        adjustStrings(maybeToLowerCase(node.value), options)
-      );
-    }
     case "selector-root": {
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
       const insideAtRuleNode =
@@ -369,6 +362,18 @@ function genericPrint(path, options, print) {
     case "selector-nesting": {
       return node.value;
     }
+    case "selector-unknown": {
+      const ruleAncestorNode = getAncestorNode(path, "css-rule");
+
+      // Nested SCSS property
+      if (ruleAncestorNode && ruleAncestorNode.isSCSSNesterProperty) {
+        return adjustNumbers(
+          adjustStrings(maybeToLowerCase(node.value), options)
+        );
+      }
+
+      return node.value;
+    }
     // postcss-values-parser
     case "value-root": {
       return path.call(print, "group");
@@ -436,7 +441,7 @@ function genericPrint(path, options, print) {
         }
 
         // Ignore `$$` (i.e. `background-color: $$(style)Color;`)
-        if (isPostcssSimpleVar(iNode, iNextNode)) {
+        if (isPostcssSimpleVarNode(iNode, iNextNode)) {
           continue;
         }
 
@@ -610,6 +615,19 @@ function genericPrint(path, options, print) {
         return group(indent(concat(parts)));
       }
 
+      // Indent is not needed for import url when url is very long
+      // and node has two groups
+      // when type is value-comma_group
+      // example @import url("verylongurl") projection,tv
+
+      if (
+        atRuleAncestorNode &&
+        atRuleAncestorNode.name === "import" &&
+        node.groups[0].value === "url" &&
+        node.groups.length === 2
+      ) {
+        return group(fill(parts));
+      }
       return group(indent(fill(parts)));
     }
     case "value-paren_group": {
@@ -617,7 +635,7 @@ function genericPrint(path, options, print) {
 
       if (
         parentNode &&
-        isURLFunction(parentNode) &&
+        isURLFunctionNode(parentNode) &&
         (node.groups.length === 1 ||
           (node.groups.length > 0 &&
             node.groups[0].type === "value-comma_group" &&
@@ -656,7 +674,7 @@ function genericPrint(path, options, print) {
               join(
                 concat([
                   ",",
-                  declNode && isSCSSMap(declNode) ? hardline : line
+                  declNode && isSCSSMapNode(declNode) ? hardline : line
                 ]),
                 path.map(print, "groups")
               )
@@ -699,6 +717,7 @@ function genericPrint(path, options, print) {
       if ((node.isColor && node.isHex) || isWideKeywords(node.value)) {
         return node.value.toLowerCase();
       }
+
       return node.value;
     }
     case "value-colon": {
@@ -720,6 +739,9 @@ function genericPrint(path, options, print) {
       return concat(["@", node.value]);
     }
     case "value-unicode-range": {
+      return node.value;
+    }
+    case "value-unknown": {
       return node.value;
     }
     default:

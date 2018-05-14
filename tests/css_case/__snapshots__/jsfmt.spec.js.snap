@@ -343,7 +343,7 @@ $KeepScssVar: val;
 
   @{Keep}[@{Keep}][@{Keep}^=@{Keep-1A}]:@{Keep} {
     prop: val;
-  }
+  };
 
   &Keep & element {
     prop: val;

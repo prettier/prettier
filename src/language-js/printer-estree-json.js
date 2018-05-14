@@ -61,6 +61,8 @@ function clean(node, newNode /*, parent*/) {
   delete newNode.start;
   delete newNode.end;
   delete newNode.extra;
+  delete newNode.loc;
+  delete newNode.comments;
 
   if (node.type === "Identifier") {
     return { type: "StringLiteral", value: node.name };
