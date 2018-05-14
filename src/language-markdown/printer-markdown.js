@@ -107,7 +107,27 @@ function genericPrint(path, options, print) {
           ? "never"
           : options.proseWrap;
 
-      return printLine(path, node.value, { proseWrap });
+      let isLeadingInsideLinkAlt = false;
+      let isTrailingInsideLinkAlt = false;
+
+      const linkNode = getAncestorNode(path, "link");
+
+      if (linkNode) {
+        isLeadingInsideLinkAlt =
+          linkNode.children.indexOf(parentNode) === 0 && index === 0;
+        isTrailingInsideLinkAlt =
+          linkNode.children.indexOf(parentNode) ===
+            linkNode.children.length - 1 &&
+          index === parentNode.children.length - 1;
+      }
+
+      return printLine(
+        path,
+        isLeadingInsideLinkAlt || isTrailingInsideLinkAlt ? "" : node.value,
+        {
+          proseWrap
+        }
+      );
     }
     case "emphasis": {
       const parentNode = path.getParentNode();
@@ -161,7 +181,7 @@ function genericPrint(path, options, print) {
     case "image":
       return concat([
         "![",
-        node.alt || "",
+        node.alt ? node.alt.trim() : "",
         "](",
         printUrl(node.url, ")"),
         printTitle(node.title, options),

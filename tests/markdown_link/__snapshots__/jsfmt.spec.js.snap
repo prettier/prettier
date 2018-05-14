@@ -1,5 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`alt.md 1`] = `
+[hello](#world "title")
+[ hello](#world "title")
+[hello ](#world "title")
+[ hello ](#world "title")
+
+[hello _foo_](#world "title")
+[ hello _foo_](#world "title")
+[hello _foo_ ](#world "title")
+[ hello _foo_ ](#world "title")
+
+![hello](https://example.com)
+![ hello](https://example.com)
+![hello ](https://example.com)
+![ hello ](https://example.com)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[hello](#world "title") [hello](#world "title") [hello](#world "title")
+[hello](#world "title")
+
+[hello _foo_](#world "title") [hello _foo_](#world "title")
+[hello _foo_](#world "title") [hello _foo_](#world "title")
+
+![hello](https://example.com) ![hello](https://example.com)
+![hello](https://example.com) ![hello](https://example.com)
+
+`;
+
+exports[`alt.md 2`] = `
+[hello](#world "title")
+[ hello](#world "title")
+[hello ](#world "title")
+[ hello ](#world "title")
+
+[hello _foo_](#world "title")
+[ hello _foo_](#world "title")
+[hello _foo_ ](#world "title")
+[ hello _foo_ ](#world "title")
+
+![hello](https://example.com)
+![ hello](https://example.com)
+![hello ](https://example.com)
+![ hello ](https://example.com)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[hello](#world 'title') [hello](#world 'title') [hello](#world 'title')
+[hello](#world 'title')
+
+[hello _foo_](#world 'title') [hello _foo_](#world 'title')
+[hello _foo_](#world 'title') [hello _foo_](#world 'title')
+
+![hello](https://example.com) ![hello](https://example.com)
+![hello](https://example.com) ![hello](https://example.com)
+
+`;
+
 exports[`autolink.md 1`] = `
 <https://www.example.com>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
