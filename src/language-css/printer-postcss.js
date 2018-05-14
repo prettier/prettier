@@ -594,7 +594,6 @@ function genericPrint(path, options, print) {
         return group(indent(concat(parts)));
       }
 
-
       // Indent is not needed for import url when url is very long
       // and node has two groups
       // when type is value-comma_group
