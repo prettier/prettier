@@ -209,13 +209,8 @@ function genericPrint(path, options, print) {
         style
       ]);
     }
-    case "yaml":
-    case "toml": {
-      const style = node.type === "yaml" ? "---" : "+++";
-      return node.value
-        ? concat([style, hardline, node.value, hardline, style])
-        : concat([style, hardline, style]);
-    }
+    case "frontmatter":
+      return node.value;
     case "html": {
       const parentNode = path.getParentNode();
       return replaceNewlinesWithHardlines(
@@ -829,8 +824,7 @@ function clean(ast, newObj, parent) {
     parent.type === "root" &&
     parent.children.length > 0 &&
     (parent.children[0] === ast ||
-      ((parent.children[0].type === "yaml" ||
-        parent.children[0].type === "toml") &&
+      (parent.children[0].type === "frontmatter" &&
         parent.children[1] === ast)) &&
     ast.type === "html" &&
     pragma.startWithPragma(ast.value)

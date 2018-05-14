@@ -59,8 +59,8 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
-    case "css-comment-yaml":
-      return node.value;
+    case "frontmatter":
+      return concat([node.value, hardline]);
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
 
