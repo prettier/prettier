@@ -13,7 +13,7 @@ exports[`combinator.css 1`] = `
 .x
     .y {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--Option/root .public/section ~ .public/section:before {
+-option/root .public/section ~ .public/section:before {
 }
 
 .x .y {
