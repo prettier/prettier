@@ -278,23 +278,24 @@ exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
+"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
 
   Which parser to use.
 
 Valid options:
 
-  flow         Flow
-  babylon      JavaScript
-  typescript   TypeScript
-  css          CSS
-  less         Less
-  scss         SCSS
-  json         JSON
-  json5        JSON5
-  graphql      GraphQL
-  markdown     Markdown
-  vue          Vue
+  flow             Flow
+  babylon          JavaScript
+  typescript       TypeScript
+  css              CSS
+  less             Less
+  scss             SCSS
+  json             JSON
+  json5            JSON5
+  json-stringify   JSON.stringify
+  graphql          GraphQL
+  markdown         Markdown
+  vue              Vue
 
 Default: babylon
 "
@@ -594,7 +595,7 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
+  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
                            Which parser to use.
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
@@ -698,23 +699,24 @@ exports[`show warning with --help not-found (typo) (stderr) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
+"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
 
   Which parser to use.
 
 Valid options:
 
-  flow         Flow
-  babylon      JavaScript
-  typescript   TypeScript
-  css          CSS
-  less         Less
-  scss         SCSS
-  json         JSON
-  json5        JSON5
-  graphql      GraphQL
-  markdown     Markdown
-  vue          Vue
+  flow             Flow
+  babylon          JavaScript
+  typescript       TypeScript
+  css              CSS
+  less             Less
+  scss             SCSS
+  json             JSON
+  json5            JSON5
+  json-stringify   JSON.stringify
+  graphql          GraphQL
+  markdown         Markdown
+  vue              Vue
 
 Default: babylon
 "
@@ -745,7 +747,7 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
+  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
                            Which parser to use.
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.

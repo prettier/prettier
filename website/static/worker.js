@@ -47,12 +47,14 @@ self.require = function require(path) {
   }
 
   if (~path.indexOf("parser-")) {
-    var parser = path.replace(/.+-/, "");
+    var parser = path.replace(/^.*parser-/, "");
     if (!parsersLoaded[parser]) {
       importScripts("lib/parser-" + parser + ".js");
       parsersLoaded[parser] = true;
     }
-    return self[parser];
+    return self[
+      parser.replace(/-/g, "_") // `json-stringify` is not a valid identifier
+    ];
   }
 
   return self[path];
