@@ -643,8 +643,14 @@ function determineInterfaceSeparator(originalSource) {
   return originalSource.substr(start, end).includes("&") ? " & " : ", ";
 }
 
+function clean(node, newNode /*, parent*/) {
+  delete newNode.loc;
+  delete newNode.comments;
+}
+
 module.exports = {
   print: genericPrint,
+  massageAstNode: clean,
   hasPrettierIgnore: privateUtil.hasIgnoreComment,
   printComment,
   canAttachComment
