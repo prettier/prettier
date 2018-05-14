@@ -249,15 +249,9 @@ function genericPrint(path, options, print) {
       );
     }
     case "media-unknown": {
-      return adjustStrings(node.value, options);
+      return node.value;
     }
     // postcss-selector-parser
-    case "selector-root-invalid": {
-      // This is likely a SCSS nested property: `background: { color: red; }`.
-      return adjustNumbers(
-        adjustStrings(maybeToLowerCase(node.value), options)
-      );
-    }
     case "selector-root": {
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
       const insideAtRuleNode =
@@ -367,6 +361,18 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "selector-nesting": {
+      return node.value;
+    }
+    case "selector-unknown": {
+      const ruleAncestorNode = getAncestorNode(path, "css-rule");
+
+      // Nested SCSS property
+      if (ruleAncestorNode && ruleAncestorNode.isSCSSNesterProperty) {
+        return adjustNumbers(
+          adjustStrings(maybeToLowerCase(node.value), options)
+        );
+      }
+
       return node.value;
     }
     // postcss-values-parser
@@ -733,6 +739,9 @@ function genericPrint(path, options, print) {
       return concat(["@", node.value]);
     }
     case "value-unicode-range": {
+      return node.value;
+    }
+    case "value-unknown": {
       return node.value;
     }
     default:
