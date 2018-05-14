@@ -7,10 +7,70 @@ exports[`cjk.md 1`] = `
 
 `;
 
+exports[`cjk.md 2`] = `
+[這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
+
+`;
+
 exports[`collapsed.md 1`] = `
 [hello][]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [hello][]
+
+`;
+
+exports[`collapsed.md 2`] = `
+[hello][]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[hello][]
+
+`;
+
+exports[`definition.md 1`] = `
+[just-url]: https://example.com
+[url-with-short-title]: https://example.com "title"
+[url-with-long-title]: https://example.com "a long, long title. It's really really long. Here have words."
+[empty-title]: https://example.com "" 
+
+[long]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx 
+[long-with-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx "look a title!"
+[long-with-empty-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx ""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[just-url]: https://example.com
+[url-with-short-title]: https://example.com "title"
+[url-with-long-title]:
+  https://example.com
+  "a long, long title. It's really really long. Here have words."
+[empty-title]: https://example.com
+[long]:
+  https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx
+[long-with-title]:
+  https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx
+  "look a title!"
+[long-with-empty-title]:
+  https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx
+
+`;
+
+exports[`definition.md 2`] = `
+[just-url]: https://example.com
+[url-with-short-title]: https://example.com "title"
+[url-with-long-title]: https://example.com "a long, long title. It's really really long. Here have words."
+[empty-title]: https://example.com "" 
+
+[long]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx 
+[long-with-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx "look a title!"
+[long-with-empty-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx ""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[just-url]: https://example.com
+[url-with-short-title]: https://example.com "title"
+[url-with-long-title]: https://example.com "a long, long title. It's really really long. Here have words."
+[empty-title]: https://example.com
+[long]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx
+[long-with-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx "look a title!"
+[long-with-empty-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx
 
 `;
 
@@ -21,7 +81,21 @@ exports[`full.md 1`] = `
 
 `;
 
+exports[`full.md 2`] = `
+[hello][world]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[hello][world]
+
+`;
+
 exports[`shortcut.md 1`] = `
+[hello]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[hello]
+
+`;
+
+exports[`shortcut.md 2`] = `
 [hello]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [hello]
@@ -56,7 +130,9 @@ exports[`title.md 1`] = `
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [ref]: https://example.com "bar"
-[other-ref]: https://example.com (Shakespeare's "Romeo and Juliet" is a famous play)
+[other-ref]:
+  https://example.com
+  (Shakespeare's "Romeo and Juliet" is a famous play)
 
 [a]: https://example.com "\\"" [a]: https://example.com '\\"' [a]:
 https://example.com (\\")
@@ -74,6 +150,57 @@ https://example.com (\\")
 
 [a]: https://example.com "\\\\\\"" [a]: https://example.com '\\\\\\'' [a]
 https://example.com (\\\\\\))
+
+[a]: https://example.com "'"
+[a]: https://example.com '"'
+[a]: https://example.com '"'
+
+`;
+
+exports[`title.md 2`] = `
+[ref]: https://example.com (bar)
+[other-ref]: https://example.com (Shakespeare's "Romeo and Juliet" is a famous play)
+
+[a]: https://example.com "\\""
+[a]: https://example.com '\\"'
+[a]: https://example.com (\\")
+
+[a]: https://example.com "\\'"
+[a]: https://example.com '\\''
+[a]: https://example.com (\\')
+
+[a]: https://example.com "\\'"
+[a]: https://example.com '\\)'
+[a]: https://example.com (\\))
+
+<!-- mis-parsing, \`\\\` are missing: -->
+
+[a]: https://example.com "\\\\\\""
+[a]: https://example.com '\\\\\\''
+[a] https://example.com (\\\\\\))
+
+[a]: https://example.com "\\\\'"
+[a]: https://example.com '\\\\"'
+[a]: https://example.com (\\\\")
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ref]: https://example.com "bar"
+[other-ref]: https://example.com (Shakespeare's "Romeo and Juliet" is a famous play)
+
+[a]: https://example.com "\\"" [a]: https://example.com '\\"' [a]: https://example.com (\\")
+
+[a]: https://example.com "'"
+
+[a]: https://example.com '\\'' [a]: https://example.com (\\')
+
+[a]: https://example.com "'"
+[a]: https://example.com ")"
+
+[a]: https://example.com (\\))
+
+<!-- mis-parsing, \`\\\` are missing: -->
+
+[a]: https://example.com "\\\\\\"" [a]: https://example.com '\\\\\\'' [a] https://example.com (\\\\\\))
 
 [a]: https://example.com "'"
 [a]: https://example.com '"'

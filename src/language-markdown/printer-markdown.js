@@ -13,6 +13,7 @@ const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const fill = docBuilders.fill;
 const align = docBuilders.align;
+const indent = docBuilders.indent;
 const group = docBuilders.group;
 const printDocToString = doc.printer.printDocToString;
 
@@ -308,14 +309,23 @@ function genericPrint(path, options, print) {
             node.referenceType === "collapsed" ? "[]" : ""
           ]);
       }
-    case "definition":
-      return concat([
-        "[",
-        node.identifier,
-        "]: ",
-        printUrl(node.url),
-        printTitle(node.title, options)
-      ]);
+    case "definition": {
+      const lineOrSpace = options.proseWrap === "always" ? line : " ";
+      return group(
+        concat([
+          concat(["[", node.identifier, "]:"]),
+          indent(
+            concat([
+              lineOrSpace,
+              printUrl(node.url),
+              node.title === null
+                ? ""
+                : concat([lineOrSpace, printTitle(node.title, options, false)])
+            ])
+          )
+        ])
+      );
+    }
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
     case "footnoteReference":
@@ -755,12 +765,19 @@ function printUrl(url, dangerousCharOrChars) {
     : url;
 }
 
-function printTitle(title, options) {
+function printTitle(title, options, printSpace) {
+  if (printSpace == null) {
+    printSpace = true;
+  }
+
   if (!title) {
     return "";
   }
+  if (printSpace) {
+    return " " + printTitle(title, options, false);
+  }
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
-    return ` (${title})`; // avoid escaped quotes
+    return `(${title})`; // avoid escaped quotes
   }
   // faster than using RegExps: https://jsperf.com/performance-of-match-vs-split
   const singleCount = title.split("'").length - 1;
@@ -774,7 +791,7 @@ function printTitle(title, options) {
           ? "'"
           : '"';
   title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
-  return ` ${quote}${title}${quote}`;
+  return `${quote}${title}${quote}`;
 }
 
 function normalizeParts(parts) {
