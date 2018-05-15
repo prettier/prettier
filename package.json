@@ -92,7 +92,8 @@
   },
   "browser": {
     "./src/common/load-plugins.js": "./src/common/load-plugins-browser.js",
-    "./src/language-js/index.js": "./src/language-js/index-browser.js"
+    "./src/language-js/index.js": "./src/language-js/index-browser.js",
+    "./src/common/third-party.js": "./src/common/third-party-browser.js"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
