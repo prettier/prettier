@@ -913,6 +913,7 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "ForStatement" ||
           parent.type === "WhileStatement" ||
           parent.type === "DoWhileStatement" ||
+          parent.type === "DoExpression" ||
           (parent.type === "CatchClause" && !parentParent.finalizer))
       ) {
         return "{}";
