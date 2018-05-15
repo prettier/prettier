@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`preserves shebang (formatCalls) 1`] = `1`;
-
 exports[`preserves shebang (stderr) 1`] = `""`;
 
 exports[`preserves shebang (stdout) 1`] = `

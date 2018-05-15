@@ -38,7 +38,10 @@ describe("--list-different exits with code 1 if at least 1 file is not formatted
 });
 
 describe("--list-different only formats a file once", () => {
-  runPrettier("cli/write", ["--list-different", "unformatted.js"]).test({
-    formatCalls: 1
-  });
+  const result = runPrettier("cli/write", [
+    "--list-different",
+    "unformatted.js"
+  ]);
+
+  expect(result.formatCalls).toBe(1);
 });

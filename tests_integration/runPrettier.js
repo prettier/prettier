@@ -105,7 +105,7 @@ function runPrettier(dir, args, options) {
   }
 
   const formatCalls = formatSpy.mock.calls.length;
-  const result = { status, stdout, stderr, write, formatCalls };
+  const result = { status, stdout, stderr, write };
 
   const testResult = testOptions => {
     testOptions = testOptions || {};
@@ -131,7 +131,7 @@ function runPrettier(dir, args, options) {
     return result;
   };
 
-  return Object.assign({ test: testResult }, result);
+  return Object.assign({ test: testResult, formatCalls }, result);
 
   function appendStdout(text) {
     if (status === undefined) {

@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`multiple patterns (formatCalls) 1`] = `4`;
-
 exports[`multiple patterns (stderr) 1`] = `""`;
 
 exports[`multiple patterns (stdout) 1`] = `
@@ -13,8 +11,6 @@ other-directory/nested-directory/nested-directory-file.js
 `;
 
 exports[`multiple patterns (write) 1`] = `Array []`;
-
-exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag (formatCalls) 1`] = `5`;
 
 exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag (stderr) 1`] = `""`;
 
@@ -29,8 +25,6 @@ regular-module.js
 
 exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag (write) 1`] = `Array []`;
 
-exports[`multiple patterns by with ignore pattern, ignores node_modules by default (formatCalls) 1`] = `4`;
-
 exports[`multiple patterns by with ignore pattern, ignores node_modules by default (stderr) 1`] = `""`;
 
 exports[`multiple patterns by with ignore pattern, ignores node_modules by default (stdout) 1`] = `
@@ -42,8 +36,6 @@ regular-module.js
 `;
 
 exports[`multiple patterns by with ignore pattern, ignores node_modules by default (write) 1`] = `Array []`;
-
-exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js (formatCalls) 1`] = `4`;
 
 exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js (stderr) 1`] = `""`;
 
@@ -57,8 +49,6 @@ regular-module.js
 
 exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js (write) 1`] = `Array []`;
 
-exports[`multiple patterns with ignore nested directories pattern (formatCalls) 1`] = `4`;
-
 exports[`multiple patterns with ignore nested directories pattern (stderr) 1`] = `""`;
 
 exports[`multiple patterns with ignore nested directories pattern (stdout) 1`] = `
@@ -71,8 +61,6 @@ regular-module.js
 
 exports[`multiple patterns with ignore nested directories pattern (write) 1`] = `Array []`;
 
-exports[`multiple patterns with non exists pattern (formatCalls) 1`] = `2`;
-
 exports[`multiple patterns with non exists pattern (stderr) 1`] = `""`;
 
 exports[`multiple patterns with non exists pattern (stdout) 1`] = `
@@ -83,8 +71,6 @@ directory/nested-directory/nested-directory-file.js
 
 exports[`multiple patterns with non exists pattern (write) 1`] = `Array []`;
 
-exports[`multiple patterns, throw error and exit with non zero code on non existing files (formatCalls) 1`] = `0`;
-
 exports[`multiple patterns, throw error and exit with non zero code on non existing files (stderr) 1`] = `
 "[error] No matching files. Patterns tried: non-existent.js other-non-existent.js !**/node_modules/** !./node_modules/**
 "
@@ -93,8 +79,6 @@ exports[`multiple patterns, throw error and exit with non zero code on non exist
 exports[`multiple patterns, throw error and exit with non zero code on non existing files (stdout) 1`] = `""`;
 
 exports[`multiple patterns, throw error and exit with non zero code on non existing files (write) 1`] = `Array []`;
-
-exports[`no errors on empty patterns (formatCalls) 1`] = `1`;
 
 exports[`no errors on empty patterns (stderr) 1`] = `""`;
 

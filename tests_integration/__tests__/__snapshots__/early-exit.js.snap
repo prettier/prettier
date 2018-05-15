@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`show detailed usage with --help arrow-parens (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help arrow-parens (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help arrow-parens (stdout) 1`] = `
@@ -20,8 +18,6 @@ Default: avoid
 
 exports[`show detailed usage with --help arrow-parens (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help bracket-spacing (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help bracket-spacing (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help bracket-spacing (stdout) 1`] = `
@@ -34,8 +30,6 @@ Default: true
 `;
 
 exports[`show detailed usage with --help bracket-spacing (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help color (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help color (stderr) 1`] = `""`;
 
@@ -50,8 +44,6 @@ Default: true
 
 exports[`show detailed usage with --help color (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help config (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help config (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help config (stdout) 1`] = `
@@ -62,8 +54,6 @@ exports[`show detailed usage with --help config (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help config (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help config-precedence (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help config-precedence (stderr) 1`] = `""`;
 
@@ -85,8 +75,6 @@ Default: cli-override
 
 exports[`show detailed usage with --help config-precedence (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help cursor-offset (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help cursor-offset (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help cursor-offset (stdout) 1`] = `
@@ -101,8 +89,6 @@ Default: -1
 
 exports[`show detailed usage with --help cursor-offset (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help editorconfig (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help editorconfig (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help editorconfig (stdout) 1`] = `
@@ -115,8 +101,6 @@ Default: true
 `;
 
 exports[`show detailed usage with --help editorconfig (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help file-info (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help file-info (stderr) 1`] = `""`;
 
@@ -131,8 +115,6 @@ exports[`show detailed usage with --help file-info (stdout) 1`] = `
 
 exports[`show detailed usage with --help file-info (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help find-config-path (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help find-config-path (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help find-config-path (stdout) 1`] = `
@@ -143,8 +125,6 @@ exports[`show detailed usage with --help find-config-path (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help find-config-path (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help help (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help help (stderr) 1`] = `""`;
 
@@ -157,8 +137,6 @@ exports[`show detailed usage with --help help (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help help (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help ignore-path (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help ignore-path (stderr) 1`] = `""`;
 
@@ -173,8 +151,6 @@ Default: .prettierignore
 
 exports[`show detailed usage with --help ignore-path (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help insert-pragma (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help insert-pragma (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help insert-pragma (stdout) 1`] = `
@@ -187,8 +163,6 @@ Default: false
 `;
 
 exports[`show detailed usage with --help insert-pragma (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help jsx-bracket-same-line (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help jsx-bracket-same-line (stderr) 1`] = `""`;
 
@@ -203,8 +177,6 @@ Default: false
 
 exports[`show detailed usage with --help jsx-bracket-same-line (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help l (alias) (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help l (alias) (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help l (alias) (stdout) 1`] = `
@@ -216,8 +188,6 @@ exports[`show detailed usage with --help l (alias) (stdout) 1`] = `
 
 exports[`show detailed usage with --help l (alias) (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help list-different (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help list-different (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help list-different (stdout) 1`] = `
@@ -228,8 +198,6 @@ exports[`show detailed usage with --help list-different (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help list-different (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help loglevel (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help loglevel (stderr) 1`] = `""`;
 
@@ -252,8 +220,6 @@ Default: log
 
 exports[`show detailed usage with --help loglevel (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help no-bracket-spacing (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help no-bracket-spacing (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-bracket-spacing (stdout) 1`] = `
@@ -264,8 +230,6 @@ exports[`show detailed usage with --help no-bracket-spacing (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help no-bracket-spacing (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help no-color (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help no-color (stderr) 1`] = `""`;
 
@@ -278,8 +242,6 @@ exports[`show detailed usage with --help no-color (stdout) 1`] = `
 
 exports[`show detailed usage with --help no-color (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help no-config (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help no-config (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-config (stdout) 1`] = `
@@ -290,8 +252,6 @@ exports[`show detailed usage with --help no-config (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help no-config (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help no-editorconfig (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help no-editorconfig (stderr) 1`] = `""`;
 
@@ -304,8 +264,6 @@ exports[`show detailed usage with --help no-editorconfig (stdout) 1`] = `
 
 exports[`show detailed usage with --help no-editorconfig (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help no-semi (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help no-semi (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-semi (stdout) 1`] = `
@@ -316,8 +274,6 @@ exports[`show detailed usage with --help no-semi (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help parser (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
@@ -346,8 +302,6 @@ Default: babylon
 
 exports[`show detailed usage with --help parser (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help plugin (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help plugin (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help plugin (stdout) 1`] = `
@@ -360,8 +314,6 @@ Default: []
 `;
 
 exports[`show detailed usage with --help plugin (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help plugin-search-dir (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help plugin-search-dir (stderr) 1`] = `""`;
 
@@ -378,8 +330,6 @@ Default: []
 
 exports[`show detailed usage with --help plugin-search-dir (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help print-width (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help print-width (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help print-width (stdout) 1`] = `
@@ -392,8 +342,6 @@ Default: 80
 `;
 
 exports[`show detailed usage with --help print-width (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help prose-wrap (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help prose-wrap (stderr) 1`] = `""`;
 
@@ -414,8 +362,6 @@ Default: preserve
 
 exports[`show detailed usage with --help prose-wrap (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help range-end (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help range-end (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help range-end (stdout) 1`] = `
@@ -430,8 +376,6 @@ Default: Infinity
 `;
 
 exports[`show detailed usage with --help range-end (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help range-start (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help range-start (stderr) 1`] = `""`;
 
@@ -448,8 +392,6 @@ Default: 0
 
 exports[`show detailed usage with --help range-start (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help require-pragma (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help require-pragma (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help require-pragma (stdout) 1`] = `
@@ -464,8 +406,6 @@ Default: false
 
 exports[`show detailed usage with --help require-pragma (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help semi (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help semi (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help semi (stdout) 1`] = `
@@ -478,8 +418,6 @@ Default: true
 `;
 
 exports[`show detailed usage with --help semi (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help single-quote (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help single-quote (stderr) 1`] = `""`;
 
@@ -494,8 +432,6 @@ Default: false
 
 exports[`show detailed usage with --help single-quote (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help stdin (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help stdin (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help stdin (stdout) 1`] = `
@@ -506,8 +442,6 @@ exports[`show detailed usage with --help stdin (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help stdin (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help stdin-filepath (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help stdin-filepath (stderr) 1`] = `""`;
 
@@ -520,8 +454,6 @@ exports[`show detailed usage with --help stdin-filepath (stdout) 1`] = `
 
 exports[`show detailed usage with --help stdin-filepath (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help support-info (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help support-info (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help support-info (stdout) 1`] = `
@@ -532,8 +464,6 @@ exports[`show detailed usage with --help support-info (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help support-info (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help tab-width (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help tab-width (stderr) 1`] = `""`;
 
@@ -547,8 +477,6 @@ Default: 2
 `;
 
 exports[`show detailed usage with --help tab-width (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help trailing-comma (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help trailing-comma (stderr) 1`] = `""`;
 
@@ -569,8 +497,6 @@ Default: none
 
 exports[`show detailed usage with --help trailing-comma (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help use-tabs (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help use-tabs (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help use-tabs (stdout) 1`] = `
@@ -584,8 +510,6 @@ Default: false
 
 exports[`show detailed usage with --help use-tabs (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help version (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help version (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help version (stdout) 1`] = `
@@ -596,8 +520,6 @@ exports[`show detailed usage with --help version (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help version (write) 1`] = `Array []`;
-
-exports[`show detailed usage with --help with-node-modules (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with --help with-node-modules (stderr) 1`] = `""`;
 
@@ -610,8 +532,6 @@ exports[`show detailed usage with --help with-node-modules (stdout) 1`] = `
 
 exports[`show detailed usage with --help with-node-modules (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help write (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with --help write (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help write (stdout) 1`] = `
@@ -622,8 +542,6 @@ exports[`show detailed usage with --help write (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help write (write) 1`] = `Array []`;
-
-exports[`show detailed usage with plugin options (automatic resolution) (formatCalls) 1`] = `1`;
 
 exports[`show detailed usage with plugin options (automatic resolution) (stderr) 1`] = `""`;
 
@@ -640,8 +558,6 @@ Plugin defaults:
 
 exports[`show detailed usage with plugin options (automatic resolution) (write) 1`] = `Array []`;
 
-exports[`show detailed usage with plugin options (manual resolution) (formatCalls) 1`] = `1`;
-
 exports[`show detailed usage with plugin options (manual resolution) (stderr) 1`] = `""`;
 
 exports[`show detailed usage with plugin options (manual resolution) (stdout) 1`] = `
@@ -656,8 +572,6 @@ Plugin defaults:
 `;
 
 exports[`show detailed usage with plugin options (manual resolution) (write) 1`] = `Array []`;
-
-exports[`show usage with --help (formatCalls) 1`] = `1`;
 
 exports[`show usage with --help (stderr) 1`] = `""`;
 
@@ -761,13 +675,9 @@ Other options:
 
 exports[`show usage with --help (write) 1`] = `Array []`;
 
-exports[`show version with --version (formatCalls) 1`] = `1`;
-
 exports[`show version with --version (stderr) 1`] = `""`;
 
 exports[`show version with --version (write) 1`] = `Array []`;
-
-exports[`show warning with --help not-found (formatCalls) 1`] = `1`;
 
 exports[`show warning with --help not-found (stderr) 1`] = `
 "[warn] Unknown option name \\"not-found\\"
@@ -781,8 +691,6 @@ exports[`show warning with --help not-found (stdout) 1`] = `
   Example: --help write
 "
 `;
-
-exports[`show warning with --help not-found (typo) (formatCalls) 1`] = `1`;
 
 exports[`show warning with --help not-found (typo) (stderr) 1`] = `
 "[warn] Unknown option name \\"parserr\\", did you mean \\"parser\\"?
@@ -815,8 +723,6 @@ Default: babylon
 exports[`show warning with --help not-found (typo) (write) 1`] = `Array []`;
 
 exports[`show warning with --help not-found (write) 1`] = `Array []`;
-
-exports[`throw error and show usage with something unexpected (formatCalls) 1`] = `0`;
 
 exports[`throw error and show usage with something unexpected (stderr) 1`] = `""`;
 
@@ -920,8 +826,6 @@ Other options:
 
 exports[`throw error and show usage with something unexpected (write) 1`] = `Array []`;
 
-exports[`throw error with --file-info + multiple files (formatCalls) 1`] = `0`;
-
 exports[`throw error with --file-info + multiple files (stderr) 1`] = `
 "[error] Cannot use --file-info with multiple files
 "
@@ -931,8 +835,6 @@ exports[`throw error with --file-info + multiple files (stdout) 1`] = `""`;
 
 exports[`throw error with --file-info + multiple files (write) 1`] = `Array []`;
 
-exports[`throw error with --find-config-path + multiple files (formatCalls) 1`] = `0`;
-
 exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `
 "[error] Cannot use --find-config-path with multiple files
 "
@@ -941,8 +843,6 @@ exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `
 exports[`throw error with --find-config-path + multiple files (stdout) 1`] = `""`;
 
 exports[`throw error with --find-config-path + multiple files (write) 1`] = `Array []`;
-
-exports[`throw error with --write + --debug-check (formatCalls) 1`] = `0`;
 
 exports[`throw error with --write + --debug-check (stderr) 1`] = `
 "[error] Cannot use --write and --debug-check together.

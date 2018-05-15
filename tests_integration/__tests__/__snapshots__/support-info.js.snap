@@ -460,8 +460,6 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {"
 `;
 
-exports[`CLI --support-info (formatCalls) 1`] = `1`;
-
 exports[`CLI --support-info (stderr) 1`] = `""`;
 
 exports[`CLI --support-info (stdout) 1`] = `

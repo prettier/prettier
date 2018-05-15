@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ignore file when using --debug-check (formatCalls) 1`] = `0`;
-
 exports[`ignore file when using --debug-check (stderr) 1`] = `""`;
 
 exports[`ignore file when using --debug-check (stdout) 1`] = `
@@ -10,8 +8,6 @@ exports[`ignore file when using --debug-check (stdout) 1`] = `
 `;
 
 exports[`ignore file when using --debug-check (write) 1`] = `Array []`;
-
-exports[`ignore path (formatCalls) 1`] = `1`;
 
 exports[`ignore path (stderr) 1`] = `""`;
 
@@ -22,8 +18,6 @@ exports[`ignore path (stdout) 1`] = `
 
 exports[`ignore path (write) 1`] = `Array []`;
 
-exports[`outputs files as-is if no --write (formatCalls) 1`] = `0`;
-
 exports[`outputs files as-is if no --write (stderr) 1`] = `""`;
 
 exports[`outputs files as-is if no --write (stdout) 1`] = `
@@ -32,8 +26,6 @@ exports[`outputs files as-is if no --write (stdout) 1`] = `
 `;
 
 exports[`outputs files as-is if no --write (write) 1`] = `Array []`;
-
-exports[`support .prettierignore (formatCalls) 1`] = `1`;
 
 exports[`support .prettierignore (stderr) 1`] = `""`;
 

@@ -20,12 +20,6 @@ exports[` 1`] = `
                              Defaults to babylon."
 `;
 
-exports[`external options from CLI should work (formatCalls) 1`] = `1`;
-
-exports[`external options from config file should work (formatCalls) 1`] = `1`;
-
-exports[`show detailed external option with \`--help foo-option\` (formatCalls) 1`] = `1`;
-
 exports[`show detailed external option with \`--help foo-option\` (stderr) 1`] = `""`;
 
 exports[`show detailed external option with \`--help foo-option\` (stdout) 1`] = `

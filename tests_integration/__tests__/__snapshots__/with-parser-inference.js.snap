@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`infers postcss parser (formatCalls) 1`] = `2`;
-
 exports[`infers postcss parser (stderr) 1`] = `""`;
 
 exports[`infers postcss parser (stdout) 1`] = `
@@ -15,8 +13,6 @@ exports[`infers postcss parser (stdout) 1`] = `
 `;
 
 exports[`infers postcss parser (write) 1`] = `Array []`;
-
-exports[`infers postcss parser with --list-different (formatCalls) 1`] = `2`;
 
 exports[`infers postcss parser with --list-different (stderr) 1`] = `""`;
 

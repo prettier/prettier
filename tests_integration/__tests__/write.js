@@ -9,9 +9,8 @@ describe("write file with --write + unformatted file", () => {
 });
 
 describe("write only formats file once", () => {
-  runPrettier("cli/write", ["--write", "unformatted.js"]).test({
-    formatCalls: 1
-  });
+  const result = runPrettier("cli/write", ["--write", "unformatted.js"]);
+  expect(result.formatCalls).toBe(1);
 });
 
 describe("do not write file with --write + formatted file", () => {

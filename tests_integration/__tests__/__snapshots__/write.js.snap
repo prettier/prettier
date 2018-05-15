@@ -1,15 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`do not write file with --write + formatted file (formatCalls) 1`] = `1`;
-
 exports[`do not write file with --write + formatted file (stderr) 1`] = `""`;
 
 exports[`do not write file with --write + formatted file (stdout) 1`] = `
 "formatted.js 0ms
 "
 `;
-
-exports[`do not write file with --write + invalid file (formatCalls) 1`] = `1`;
 
 exports[`do not write file with --write + invalid file (stderr) 1`] = `
 "[error] invalid.js: SyntaxError: Unexpected token, expected \\";\\" (1:6)
@@ -23,8 +19,6 @@ exports[`do not write file with --write + invalid file (stdout) 1`] = `
 "
 `;
 
-exports[`write file with --write + unformatted file (formatCalls) 1`] = `1`;
-
 exports[`write file with --write + unformatted file (stderr) 1`] = `""`;
 
 exports[`write file with --write + unformatted file (stdout) 1`] = `
@@ -33,25 +27,6 @@ exports[`write file with --write + unformatted file (stdout) 1`] = `
 `;
 
 exports[`write file with --write + unformatted file (write) 1`] = `
-Array [
-  Object {
-    "content": "var x = 1;
-",
-    "filename": "unformatted.js",
-  },
-]
-`;
-
-exports[`write only formats file once (status) 1`] = `0`;
-
-exports[`write only formats file once (stderr) 1`] = `""`;
-
-exports[`write only formats file once (stdout) 1`] = `
-"unformatted.js 0ms
-"
-`;
-
-exports[`write only formats file once (write) 1`] = `
 Array [
   Object {
     "content": "var x = 1;

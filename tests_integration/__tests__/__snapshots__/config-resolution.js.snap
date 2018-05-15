@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CLI overrides take precedence (formatCalls) 1`] = `15`;
-
 exports[`CLI overrides take precedence (stderr) 1`] = `""`;
 
 exports[`CLI overrides take precedence (stdout) 1`] = `
@@ -79,8 +77,6 @@ function rcYaml() {
 
 exports[`CLI overrides take precedence (write) 1`] = `Array []`;
 
-exports[`accepts configuration from --config (formatCalls) 1`] = `1`;
-
 exports[`accepts configuration from --config (stderr) 1`] = `""`;
 
 exports[`accepts configuration from --config (stdout) 1`] = `
@@ -92,13 +88,9 @@ exports[`accepts configuration from --config (stdout) 1`] = `
 
 exports[`accepts configuration from --config (write) 1`] = `Array []`;
 
-exports[`prints nothing when no file found with --find-config-path (formatCalls) 1`] = `0`;
-
 exports[`prints nothing when no file found with --find-config-path (stderr) 1`] = `""`;
 
 exports[`prints nothing when no file found with --find-config-path (write) 1`] = `Array []`;
-
-exports[`resolves configuration file with --find-config-path file (formatCalls) 1`] = `0`;
 
 exports[`resolves configuration file with --find-config-path file (stderr) 1`] = `""`;
 
@@ -108,8 +100,6 @@ exports[`resolves configuration file with --find-config-path file (stdout) 1`] =
 `;
 
 exports[`resolves configuration file with --find-config-path file (write) 1`] = `Array []`;
-
-exports[`resolves configuration from external files (formatCalls) 1`] = `15`;
 
 exports[`resolves configuration from external files (stderr) 1`] = `""`;
 
@@ -164,8 +154,6 @@ function rcYaml() {
 
 exports[`resolves configuration from external files (write) 1`] = `Array []`;
 
-exports[`resolves configuration from external files and overrides by extname (formatCalls) 1`] = `2`;
-
 exports[`resolves configuration from external files and overrides by extname (stderr) 1`] = `""`;
 
 exports[`resolves configuration from external files and overrides by extname (stdout) 1`] = `
@@ -184,8 +172,6 @@ function packageTs() {
 
 exports[`resolves configuration from external files and overrides by extname (write) 1`] = `Array []`;
 
-exports[`resolves json configuration file with --find-config-path file (formatCalls) 1`] = `0`;
-
 exports[`resolves json configuration file with --find-config-path file (stderr) 1`] = `""`;
 
 exports[`resolves json configuration file with --find-config-path file (stdout) 1`] = `
@@ -194,8 +180,6 @@ exports[`resolves json configuration file with --find-config-path file (stdout) 
 `;
 
 exports[`resolves json configuration file with --find-config-path file (write) 1`] = `Array []`;
-
-exports[`resolves yaml configuration file with --find-config-path file (formatCalls) 1`] = `0`;
 
 exports[`resolves yaml configuration file with --find-config-path file (stderr) 1`] = `""`;
 
