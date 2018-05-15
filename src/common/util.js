@@ -369,54 +369,65 @@ function isBitwiseOperator(operator) {
   );
 }
 
-// Tests if an expression starts with `{`, or (if forbidFunctionAndClass holds) `function` or `class`.
-// Will be overzealous if there's already necessary grouping parentheses.
-function startsWithNoLookaheadToken(node, forbidFunctionAndClass) {
+// Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
+// holds) `function`, `class`, or `do {}`. Will be overzealous if there's
+// already necessary grouping parentheses.
+function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
   node = getLeftMost(node);
   switch (node.type) {
     // Hack. Remove after https://github.com/eslint/typescript-eslint-parser/issues/331
     case "ObjectPattern":
-      return !forbidFunctionAndClass;
+      return !forbidFunctionClassAndDoExpr;
     case "FunctionExpression":
     case "ClassExpression":
-      return forbidFunctionAndClass;
+    case "DoExpression":
+      return forbidFunctionClassAndDoExpr;
     case "ObjectExpression":
       return true;
     case "MemberExpression":
-      return startsWithNoLookaheadToken(node.object, forbidFunctionAndClass);
+      return startsWithNoLookaheadToken(
+        node.object,
+        forbidFunctionClassAndDoExpr
+      );
     case "TaggedTemplateExpression":
       if (node.tag.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;
       }
-      return startsWithNoLookaheadToken(node.tag, forbidFunctionAndClass);
+      return startsWithNoLookaheadToken(node.tag, forbidFunctionClassAndDoExpr);
     case "CallExpression":
       if (node.callee.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;
       }
-      return startsWithNoLookaheadToken(node.callee, forbidFunctionAndClass);
+      return startsWithNoLookaheadToken(
+        node.callee,
+        forbidFunctionClassAndDoExpr
+      );
     case "ConditionalExpression":
-      return startsWithNoLookaheadToken(node.test, forbidFunctionAndClass);
+      return startsWithNoLookaheadToken(
+        node.test,
+        forbidFunctionClassAndDoExpr
+      );
     case "UpdateExpression":
       return (
         !node.prefix &&
-        startsWithNoLookaheadToken(node.argument, forbidFunctionAndClass)
+        startsWithNoLookaheadToken(node.argument, forbidFunctionClassAndDoExpr)
       );
     case "BindExpression":
       return (
         node.object &&
-        startsWithNoLookaheadToken(node.object, forbidFunctionAndClass)
+        startsWithNoLookaheadToken(node.object, forbidFunctionClassAndDoExpr)
       );
     case "SequenceExpression":
       return startsWithNoLookaheadToken(
         node.expressions[0],
-        forbidFunctionAndClass
+        forbidFunctionClassAndDoExpr
       );
     case "TSAsExpression":
       return startsWithNoLookaheadToken(
         node.expression,
-        forbidFunctionAndClass
+        forbidFunctionClassAndDoExpr
       );
     default:
       return false;

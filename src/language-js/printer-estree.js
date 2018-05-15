@@ -661,7 +661,8 @@ function printPathNoParens(path, options, print, args) {
           n.body.type === "BlockStatement" ||
           isJSXNode(n.body) ||
           isTemplateOnItsOwnLine(n.body, options.originalText, options) ||
-          n.body.type === "ArrowFunctionExpression")
+          n.body.type === "ArrowFunctionExpression" ||
+          n.body.type === "DoExpression")
       ) {
         return group(concat([concat(parts), " ", body]));
       }
@@ -912,6 +913,7 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "ForStatement" ||
           parent.type === "WhileStatement" ||
           parent.type === "DoWhileStatement" ||
+          parent.type === "DoExpression" ||
           (parent.type === "CatchClause" && !parentParent.finalizer))
       ) {
         return "{}";

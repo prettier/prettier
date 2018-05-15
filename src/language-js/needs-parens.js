@@ -91,10 +91,13 @@ function needsParens(path, options) {
     node.type !== "SequenceExpression" && // these have parens added anyway
       util.startsWithNoLookaheadToken(
         node,
-        /* forbidFunctionAndClass */ false
+        /* forbidFunctionClassAndDoExpr */ false
       )) ||
     (parent.type === "ExpressionStatement" &&
-      util.startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ true))
+      util.startsWithNoLookaheadToken(
+        node,
+        /* forbidFunctionClassAndDoExpr */ true
+      ))
   ) {
     return true;
   }
