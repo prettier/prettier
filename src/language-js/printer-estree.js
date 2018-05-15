@@ -661,7 +661,8 @@ function printPathNoParens(path, options, print, args) {
           n.body.type === "BlockStatement" ||
           isJSXNode(n.body) ||
           isTemplateOnItsOwnLine(n.body, options.originalText, options) ||
-          n.body.type === "ArrowFunctionExpression")
+          n.body.type === "ArrowFunctionExpression" ||
+          n.body.type === "DoExpression")
       ) {
         return group(concat([concat(parts), " ", body]));
       }
