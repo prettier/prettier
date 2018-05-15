@@ -13,8 +13,7 @@
   "engines": {
     "node": ">=4"
   },
-  "dependencies": {
-    "@babel/code-frame": "7.0.0-beta.40",
+  "dependencies": { "@babel/code-frame": "7.0.0-beta.40",
     "@glimmer/syntax": "0.30.3",
     "babylon": "7.0.0-beta.34",
     "camelcase": "4.1.0",
@@ -79,7 +78,7 @@
     "rimraf": "2.6.2",
     "rollup": "0.58.0",
     "rollup-plugin-commonjs": "9.1.0",
-    "rollup-plugin-json": "2.3.1",
+    "rollup-plugin-json": "2.3.0",
     "rollup-plugin-node-builtins": "2.1.2",
     "rollup-plugin-node-globals": "1.2.0",
     "rollup-plugin-node-resolve": "3.3.0",
@@ -90,6 +89,10 @@
     "tempy": "0.2.1",
     "uglify-es": "3.3.9",
     "webpack": "2.6.1"
+  },
+  "browser": {
+    "./src/common/load-plugins.js": "./src/common/load-plugins-browser.js",
+    "./src/language-js/index.js": "./src/language-js/index-browser.js"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
