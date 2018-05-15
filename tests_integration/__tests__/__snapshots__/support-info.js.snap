@@ -659,7 +659,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"choice\\"
     },
     {
-      \\"category\\": \\"JavaScript\\",
+      \\"category\\": \\"Common\\",
       \\"default\\": true,
       \\"description\\": \\"Print spaces between brackets.\\",
       \\"name\\": \\"bracketSpacing\\",
@@ -823,7 +823,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"boolean\\"
     },
     {
-      \\"category\\": \\"JavaScript\\",
+      \\"category\\": \\"Common\\",
       \\"default\\": false,
       \\"description\\": \\"Use single quotes instead of double quotes.\\",
       \\"name\\": \\"singleQuote\\",
