@@ -153,7 +153,7 @@ function liquid() {
   proto.inlineTokenizers.liquid = tokenizer;
 
   function tokenizer(eat, value) {
-    const match = /^({%-?[\s\S]*?-?%}|{{-?[\s\S]*?-?}})/.exec(value);
+    const match = value.match(/^({%[\s\S]*?%}|{{[\s\S]*?}})/);
 
     if (match) {
       return eat(match[0])({
