@@ -1,6 +1,7 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const parseFrontmatter = require("../utils/front-matter");
 
 // utils
 const utils = require("./utils");
@@ -473,13 +474,14 @@ function parseNestedCSS(node) {
 }
 
 function parseWithParser(parser, text) {
+  const parsed = parseFrontmatter(text);
+  const frontmatter = parsed.frontmatter;
+  text = parsed.content;
+
   let result;
-  const frontMatterMatches = text.match(/^---(\n[\s\S]*?)?\n---/);
-  const frontMatter = frontMatterMatches && frontMatterMatches[0];
-  const normalizedText = frontMatter ? text.substr(frontMatter.length) : text;
 
   try {
-    result = parser.parse(normalizedText);
+    result = parser.parse(text);
   } catch (e) {
     if (typeof e.line !== "number") {
       throw e;
@@ -487,18 +489,16 @@ function parseWithParser(parser, text) {
     throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
 
-  if (frontMatterMatches) {
-    const frontMatterContent = (frontMatterMatches[1] || "").trim();
-    const rightPad = frontMatterContent.length > 0 ? "\n" : "";
+  result = parseNestedCSS(addTypePrefix(result, "css-"));
+
+  if (frontmatter) {
     result.nodes.unshift({
-      type: "comment-yaml",
-      value: `---\n${frontMatterContent}${rightPad}---\n`
+      type: "frontmatter",
+      value: frontmatter
     });
   }
 
-  const prefixedResult = addTypePrefix(result, "css-");
-  const parsedResult = parseNestedCSS(prefixedResult);
-  return parsedResult;
+  return result;
 }
 
 function requireParser(isSCSSParser) {

@@ -1,8 +1,8 @@
 "use strict";
 
-const remarkFrontmatter = require("remark-frontmatter");
 const remarkParse = require("remark-parse");
 const unified = require("unified");
+const parseFrontmatter = require("../utils/front-matter");
 const util = require("../common/util");
 
 /**
@@ -22,7 +22,7 @@ const util = require("../common/util");
 function parse(text /*, parsers, opts*/) {
   const processor = unified()
     .use(remarkParse, { footnotes: true, commonmark: true })
-    .use(remarkFrontmatter, ["yaml", "toml"])
+    .use(frontmatter)
     .use(restoreUnescapedCharacter(text))
     .use(mergeContinuousTexts)
     .use(transformInlineCode)
@@ -125,6 +125,24 @@ function splitText() {
         children: util.splitText(value)
       };
     });
+}
+
+function frontmatter() {
+  const proto = this.Parser.prototype;
+  proto.blockMethods = ["frontmatter"].concat(proto.blockMethods);
+  proto.blockTokenizers.frontmatter = tokenizer;
+
+  function tokenizer(eat, value) {
+    const parsed = parseFrontmatter(value);
+
+    if (parsed.frontmatter) {
+      return eat(parsed.frontmatter)({
+        type: "frontmatter",
+        value: parsed.frontmatter
+      });
+    }
+  }
+  tokenizer.onlyAtStart = true;
 }
 
 module.exports = parse;
