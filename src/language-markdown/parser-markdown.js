@@ -23,6 +23,7 @@ function parse(text /*, parsers, opts*/) {
   const processor = unified()
     .use(remarkParse, { footnotes: true, commonmark: true })
     .use(frontmatter)
+    .use(liquid)
     .use(restoreUnescapedCharacter(text))
     .use(mergeContinuousTexts)
     .use(transformInlineCode)
@@ -143,6 +144,27 @@ function frontmatter() {
     }
   }
   tokenizer.onlyAtStart = true;
+}
+
+function liquid() {
+  const proto = this.Parser.prototype;
+  const methods = proto.inlineMethods;
+  methods.splice(methods.indexOf("text"), 0, "liquid");
+  proto.inlineTokenizers.liquid = tokenizer;
+
+  function tokenizer(eat, value) {
+    const match = value.match(/^({%[\s\S]*?%}|{{[\s\S]*?}})/);
+
+    if (match) {
+      return eat(match[0])({
+        type: "liquidNode",
+        value: match[0]
+      });
+    }
+  }
+  tokenizer.locator = function(value, fromIndex) {
+    return value.indexOf("{", fromIndex);
+  };
 }
 
 module.exports = parse;
