@@ -22,6 +22,7 @@ const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
 
 const INLINE_NODE_TYPES = [
+  "liquidNode",
   "inlineCode",
   "emphasis",
   "strong",
@@ -358,6 +359,8 @@ function genericPrint(path, options, print) {
           : "\\",
         hardline
       ]);
+    case "liquidNode":
+      return replaceNewlinesWithHardlines(node.value);
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     default:
