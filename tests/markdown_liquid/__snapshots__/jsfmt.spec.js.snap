@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`example-1.md 1`] = `
+{% include_relative _installations/tarball.md %}
+
+{% cloudinary nice_prefix_-_for_the_filename.jpg %}
+
 # Userscripts <span>[{% img github.svg alt:"View on GitHub" title:"View on GitHub" %}](https://github.com/Charcoal-SE/Userscripts) [Build <span>status loading…</span>](//travis-ci.org/Charcoal-SE/userscripts){: .build}</span>
 
 {% css userscripts %}
@@ -10,6 +14,10 @@ exports[`example-1.md 1`] = `
 multiline
 where does it end }}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{% include_relative _installations/tarball.md %}
+
+{% cloudinary nice_prefix_-_for_the_filename.jpg %}
+
 # Userscripts <span>[{% img github.svg alt:"View on GitHub" title:"View on GitHub" %}](https://github.com/Charcoal-SE/Userscripts) [Build <span>status loading…</span>](//travis-ci.org/Charcoal-SE/userscripts){: .build}</span>
 
 {% css userscripts %}
@@ -22,6 +30,10 @@ where does it end }}
 `;
 
 exports[`example-1.md 2`] = `
+{% include_relative _installations/tarball.md %}
+
+{% cloudinary nice_prefix_-_for_the_filename.jpg %}
+
 # Userscripts <span>[{% img github.svg alt:"View on GitHub" title:"View on GitHub" %}](https://github.com/Charcoal-SE/Userscripts) [Build <span>status loading…</span>](//travis-ci.org/Charcoal-SE/userscripts){: .build}</span>
 
 {% css userscripts %}
@@ -31,6 +43,10 @@ exports[`example-1.md 2`] = `
 multiline
 where does it end }}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{% include_relative _installations/tarball.md %}
+
+{% cloudinary nice_prefix_-_for_the_filename.jpg %}
+
 # Userscripts <span>[{% img github.svg alt:"View on GitHub" title:"View on GitHub" %}](https://github.com/Charcoal-SE/Userscripts) [Build <span>status loading…</span>](//travis-ci.org/Charcoal-SE/userscripts){: .build}</span>
 
 {% css userscripts %} {% js userscripts %}
