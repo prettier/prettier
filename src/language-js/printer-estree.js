@@ -1935,16 +1935,19 @@ function printPathNoParens(path, options, print, args) {
         (!nameHasComments || n.attributes.length) &&
         !lastAttrHasTrailingComments;
 
+      const maxPropsPerLine = options.jsxMaxPropsPerLine || Math.Infinity;
+
       // We should print the opening element expanded if any prop value is a
       // string literal with newlines
       const shouldBreak =
-        n.attributes &&
-        n.attributes.some(
-          attr =>
-            attr.value &&
-            isStringLiteral(attr.value) &&
-            attr.value.value.includes("\n")
-        );
+        (n.attributes &&
+          n.attributes.some(
+            attr =>
+              attr.value &&
+              isStringLiteral(attr.value) &&
+              attr.value.value.includes("\n")
+          )) ||
+        n.attributes.length > maxPropsPerLine;
 
       return group(
         concat([

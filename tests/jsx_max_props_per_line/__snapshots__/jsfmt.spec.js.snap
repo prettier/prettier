@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js 1`] = `
+<div attr1="aaaaaaaaaaaaaaaaa" attr2="bbbbbbbbbbb" />;
+<div attr1="aaaaaaaaaaaaaaaaa" attr2="bbbbbbbbbbb" attr3="cccccccccccc" />;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div attr1="aaaaaaaaaaaaaaaaa" attr2="bbbbbbbbbbb" />;
+<div attr1="aaaaaaaaaaaaaaaaa" attr2="bbbbbbbbbbb" attr3="cccccccccccc" />;
+
+`;
+
+exports[`test.js 2`] = `
+<div attr1="aaaaaaaaaaaaaaaaa" attr2="bbbbbbbbbbb" />;
+<div attr1="aaaaaaaaaaaaaaaaa" attr2="bbbbbbbbbbb" attr3="cccccccccccc" />;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div
+  attr1="aaaaaaaaaaaaaaaaa"
+  attr2="bbbbbbbbbbb"
+/>;
+<div
+  attr1="aaaaaaaaaaaaaaaaa"
+  attr2="bbbbbbbbbbb"
+  attr3="cccccccccccc"
+/>;
+
+`;
+
+exports[`test.js 3`] = `
+<div attr1="aaaaaaaaaaaaaaaaa" attr2="bbbbbbbbbbb" />;
+<div attr1="aaaaaaaaaaaaaaaaa" attr2="bbbbbbbbbbb" attr3="cccccccccccc" />;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div attr1="aaaaaaaaaaaaaaaaa" attr2="bbbbbbbbbbb" />;
+<div
+  attr1="aaaaaaaaaaaaaaaaa"
+  attr2="bbbbbbbbbbb"
+  attr3="cccccccccccc"
+/>;
+
+`;
