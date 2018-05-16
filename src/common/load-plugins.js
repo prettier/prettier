@@ -18,7 +18,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
   // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
   if (!pluginSearchDirs.length) {
     const autoLoadDir = thirdParty.findParentDir(
-      thirdParty.findParentDir(__dirname, "prettier"),
+      thirdParty.findParentDir(__dirname, "c-prettier"),
       "node_modules"
     );
     if (autoLoadDir) {
