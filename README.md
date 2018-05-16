@@ -1,96 +1,27 @@
-![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)
+# C-Prettier
 
-<h2 align="center">Opinionated Code Formatter</h2>
+This is [Prettier](https://github.com/prettier/prettier), with an additional option `jsxMaxPropsPerLine` which objective is to allow users to specify the maximum number of props they want on a single line in a JSX element.
 
-<p align="center">
-  <em>
-  JavaScript
-  · Flow
-  · TypeScript
-  · CSS
-  · SCSS
-  · Less
-  · JSX
-  · Vue
-  · GraphQL
-  · JSON
-  · Markdown
-  · <a href="https://prettier.io/docs/en/plugins.html">
-      Your favorite language?
-    </a>
-  </em>
-</p>
-
-<p align="center">
-  <a href="https://gitter.im/jlongster/prettier">
-    <img alt="Gitter" src="https://img.shields.io/gitter/room/jlongster/prettier.svg?style=flat-square">
-  </a>
-  <a href="https://travis-ci.org/prettier/prettier">
-    <img alt="Travis" src="https://img.shields.io/travis/prettier/prettier/master.svg?style=flat-square">
-  </a>
-  <a href="https://codecov.io/gh/prettier/prettier">
-    <img alt="Codecov" src="https://img.shields.io/codecov/c/github/prettier/prettier.svg?style=flat-square">
-  </a>
-  <a href="https://www.npmjs.com/package/prettier">
-    <img alt="npm version" src="https://img.shields.io/npm/v/prettier.svg?style=flat-square">
-  </a>
-  <a href="https://www.npmjs.com/package/prettier">
-    <img alt="monthly downloads" src="https://img.shields.io/npm/dm/prettier.svg?style=flat-square">
-  </a>
-  <a href="#badge">
-    <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square">
-  </a>
-  <a href="https://twitter.com/PrettierCode">
-    <img alt="Follow+Prettier+on+Twitter" src="https://img.shields.io/twitter/follow/prettiercode.svg?label=follow+prettier&style=flat-square">
-  </a>
-</p>
-
-## Intro
-
-Prettier is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary.
-
-### Input
-
-<!-- prettier-ignore -->
-```js
-foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
-```
-
-### Output
+eg.
 
 ```js
-foo(
-  reallyLongArg(),
-  omgSoManyParameters(),
-  IShouldRefactorThis(),
-  isThereSeriouslyAnotherOne()
-);
+<AmazingElement width={100} height={100} />
 ```
 
-Prettier can be run [in your editor](http://prettier.io/docs/en/editors.html) on-save, in a [pre-commit hook](https://prettier.io/docs/en/precommit.html), or in [CI environments](https://prettier.io/docs/en/cli.html#list-different) to ensure your codebase has a consistent style without devs ever having to post a nit-picky comment on a code review ever again!
+with option `jsxMaxPropsPerLine` set to `1`:
 
----
 
-**[Documentation](https://prettier.io/docs/en/)**
-
-<!-- prettier-ignore -->
-[Install](https://prettier.io/docs/en/install.html) ·
-[Options](https://prettier.io/docs/en/options.html) ·
-[CLI](https://prettier.io/docs/en/cli.html) ·
-[API](https://prettier.io/docs/en/api.html)
-
-**[Playground](https://prettier.io/playground/)**
-
----
-
-## Badge
-
-Show the world you're using _Prettier_ → [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-```md
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+```js
+<AmazingElement
+  width={100}
+  height={100}
+/>
 ```
 
-## Contributing
+See [Prettier Issue #3101](https://github.com/prettier/prettier/issues/3101)
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+To use the option, add it to your `.prettierrc` (or equivalent) config file.
+
+This is just a very simple fork aiming to be a drop-in replacmeent, so just replace `prettier` by `c-prettier` in your `package.json`, `npm install`, and you're good to go.
+
+You should not have Prettier and C-Prettier installed together, as something will probably break somewhere, since the `bin` file is still named `prettier` to ensure all integrations (plugins for code editors for example) work.
