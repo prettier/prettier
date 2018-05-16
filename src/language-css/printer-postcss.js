@@ -417,6 +417,7 @@ function genericPrint(path, options, print) {
       const parts = [];
       const insideURLFunction = insideValueFunctionNode(path, "url");
 
+      let insideSCSSInterpolationInString = false;
       let didBreak = false;
       for (let i = 0; i < node.groups.length; ++i) {
         parts.push(printed[i]);
@@ -433,6 +434,27 @@ function genericPrint(path, options, print) {
 
         // Ignore after latest node (i.e. before semicolon)
         if (!iNextNode) {
+          continue;
+        }
+
+        // Ignore spaces before/after string interpolation (i.e. `"#{my-fn("_")}"`)
+        const isStartSCSSinterpolationInString =
+          iNode.type === "value-string" && iNode.value.startsWith("#{");
+        const isEndingSCSSinterpolationInString =
+          insideSCSSInterpolationInString &&
+          iNextNode.type === "value-string" &&
+          iNextNode.value.endsWith("}");
+
+        if (
+          isStartSCSSinterpolationInString ||
+          isEndingSCSSinterpolationInString
+        ) {
+          insideSCSSInterpolationInString = !insideSCSSInterpolationInString;
+
+          continue;
+        }
+
+        if (insideSCSSInterpolationInString) {
           continue;
         }
 
