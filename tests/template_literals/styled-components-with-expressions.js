@@ -9,6 +9,29 @@ styled.div`
 	margin: 10px ${props=>props.border}px ;
 `;
 
+styled.span`
+ ${props => props.right && css`
+	padding: 10px 134px 10px 20px;
+    &:after {
+		left: initial;
+      right: 30px      ;
+    }
+  `}
+`
+
+styled.span`
+  ${props => props.standalone && props.justifyContent && props.alignItems && css`
+    display: ${display};
+    ${flexAlignment};
+  `}
+`
+
+styled.div`
+  top: ${ps =>
+    (ps.count * -REGION_HEIGHT) / 100 + (100 - REGION_HEIGHT / 100)}%;
+  bottom: 0;
+`
+
 const EqualDivider = styled.div`
 margin: 0.5rem;
 		padding: 1rem;

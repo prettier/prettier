@@ -14,6 +14,12 @@ function f() {
     }
   )
 }
+
+function f() {
+  const longEnoughToBreakComparison = () =>
+    this.props.completion >= item.progressPercent &&
+    this.props.redirectTo('/adventure')
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function f() {
   const appEntitys = getAppEntitys(loadObject).filter(
@@ -35,6 +41,12 @@ function f() {
         id: entity.id
       }
   );
+}
+
+function f() {
+  const longEnoughToBreakComparison = () =>
+    this.props.completion >= item.progressPercent &&
+    this.props.redirectTo("/adventure");
 }
 
 `;
@@ -154,11 +166,12 @@ const avatar = hasAvatar && <Gravatar user={author} size={size} />;
 
 const avatar = (hasAvatar || showPlaceholder) && <Gravatar user={author} size={size} />;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const user = renderedUser || (
-  <div>
-    <User name={this.state.user.name} age={this.state.user.age} />
-  </div>
-);
+const user =
+  renderedUser || (
+    <div>
+      <User name={this.state.user.name} age={this.state.user.age} />
+    </div>
+  );
 
 const user =
   renderedUser ||
@@ -170,9 +183,8 @@ const user =
 
 const avatar = hasAvatar && <Gravatar user={author} size={size} />;
 
-const avatar = (hasAvatar || showPlaceholder) && (
-  <Gravatar user={author} size={size} />
-);
+const avatar =
+  (hasAvatar || showPlaceholder) && <Gravatar user={author} size={size} />;
 
 `;
 
@@ -267,22 +279,24 @@ const obj = {
   loaded: true
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-prevState = prevState || {
-  catalogs: [],
-  loadState: LOADED,
-  opened: false,
-  searchQuery: "",
-  selectedCatalog: null
-};
-
-prevState = prevState ||
-  defaultState || {
+prevState =
+  prevState || {
     catalogs: [],
     loadState: LOADED,
     opened: false,
     searchQuery: "",
     selectedCatalog: null
   };
+
+prevState =
+  prevState ||
+    defaultState || {
+      catalogs: [],
+      loadState: LOADED,
+      opened: false,
+      searchQuery: "",
+      selectedCatalog: null
+    };
 
 prevState =
   prevState ||
@@ -294,21 +308,23 @@ prevState =
     selectedCatalog: null
   });
 
-prevState = prevState ||
-  (useDefault && defaultState) || {
-    catalogs: [],
-    loadState: LOADED,
-    opened: false,
-    searchQuery: "",
-    selectedCatalog: null
-  };
+prevState =
+  prevState ||
+    (useDefault && defaultState) || {
+      catalogs: [],
+      loadState: LOADED,
+      opened: false,
+      searchQuery: "",
+      selectedCatalog: null
+    };
 
-this.steps = steps || [
-  {
-    name: "mock-module",
-    path: "/nux/mock-module"
-  }
-];
+this.steps =
+  steps || [
+    {
+      name: "mock-module",
+      path: "/nux/mock-module"
+    }
+  ];
 
 this.steps =
   steps ||
@@ -319,12 +335,13 @@ this.steps =
     }
   ]);
 
-this.steps = (steps && checkStep) || [
-  {
-    name: "mock-module",
-    path: "/nux/mock-module"
-  }
-];
+this.steps =
+  (steps && checkStep) || [
+    {
+      name: "mock-module",
+      path: "/nux/mock-module"
+    }
+  ];
 
 const create = () => {
   const result = doSomething();
@@ -350,14 +367,16 @@ const create = () => {
 };
 
 const obj = {
-  state: shouldHaveState &&
-    stateIsOK && {
-      loadState: LOADED,
-      opened: false
+  state:
+    shouldHaveState &&
+      stateIsOK && {
+        loadState: LOADED,
+        opened: false
+      },
+  loadNext:
+    (stateIsOK && hasNext) || {
+      skipNext: true
     },
-  loadNext: (stateIsOK && hasNext) || {
-    skipNext: true
-  },
   loaded: true
 };
 

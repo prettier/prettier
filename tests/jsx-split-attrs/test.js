@@ -46,3 +46,19 @@ long_string_with_extra_param =
 
 long_obj =
   <div style={{ i: 'dont', use: 'bootstrap', and: 'instead', use: 'massive', objects }}>hello world</div>
+
+long_with_logical_expression_param =
+  <main>
+    <section>
+      <Collection>
+        <CollectTreasureImage
+          amount={this.props.closestTreasure.amount}
+          image={
+            this.props.closestTreasure.gameImage.large ||
+            `${this.props.cdnAssetPath}/bossfight/ruby.jpg`
+          }
+          value={heroSpinType(this.props.closestTreasure.heroSpinType)}
+        />
+      </Collection>
+    </section>
+  </main>

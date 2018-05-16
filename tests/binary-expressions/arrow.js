@@ -11,3 +11,9 @@ function f() {
     }
   )
 }
+
+function f() {
+  const longEnoughToBreakComparison = () =>
+    this.props.completion >= item.progressPercent &&
+    this.props.redirectTo('/adventure')
+}

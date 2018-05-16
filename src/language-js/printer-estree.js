@@ -659,6 +659,11 @@ function printPathNoParens(path, options, print, args) {
         (n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
+          (n.body.type === "TemplateLiteral" && isInsideTemplate(path)) ||
+          n.body.type === "TaggedTemplateExpression" ||
+          (n.body.type === "LogicalExpression" &&
+            isInsideTemplate(path) &&
+            !isLogicalChain(n.body)) ||
           isJSXNode(n.body) ||
           isTemplateOnItsOwnLine(n.body, options.originalText, options) ||
           n.body.type === "ArrowFunctionExpression" ||
@@ -4974,6 +4979,10 @@ function shouldInlineLogicalExpression(node) {
     return true;
   }
 
+  if (node.right.type === "TaggedTemplateExpression") {
+    return true;
+  }
+
   if (isJSXNode(node.right)) {
     return true;
   }
@@ -5072,7 +5081,8 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
   }
 
   const canBreak =
-    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
+    isBinaryish(rightNode) ||
+    isLogicalChain(rightNode) ||
     (rightNode.type === "ConditionalExpression" &&
       isBinaryish(rightNode.test) &&
       !shouldInlineLogicalExpression(rightNode.test)) ||
@@ -5371,6 +5381,19 @@ function returnArgumentHasLeadingComment(options, argument) {
   return false;
 }
 
+function isLogicalChain(node) {
+  if (node.type !== "LogicalExpression") {
+    return false;
+  }
+  if (
+    node.left.type === "LogicalExpression" ||
+    node.right.type === "LogicalExpression"
+  ) {
+    return true;
+  }
+  return isLogicalChain(node.left) || isLogicalChain(node.right);
+}
+
 function isMemberExpressionChain(node) {
   if (node.type !== "MemberExpression") {
     return false;
@@ -5631,6 +5654,23 @@ function isSkipOrOnlyBlock(node) {
 
 function isTemplateLiteral(node) {
   return node.type === "TemplateLiteral";
+}
+
+function isInsideTemplate(path, depth) {
+  const parent = path.getParentNode(depth);
+
+  if (!parent) {
+    return false;
+  }
+
+  if (
+    parent.type === "TemplateLiteral" ||
+    parent.type === "TaggetTemplateExpression"
+  ) {
+    return true;
+  }
+
+  return isInsideTemplate(path, ~~depth + 1);
 }
 
 function isIdentiferAsync(node) {
