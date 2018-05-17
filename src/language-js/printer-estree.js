@@ -3643,7 +3643,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   const parent = path.getParentNode();
 
   // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
-  if (parent.type === "CallExpression" && isTestCall(parent)) {
+  if (isTestCall(parent)) {
     return concat([typeParams, "(", join(", ", printed), ")"]);
   }
 
@@ -3984,10 +3984,7 @@ function printTypeParameters(path, options, print, paramsKey) {
 
   const grandparent = path.getNode(2);
 
-  const isParameterInTestCall =
-    grandparent != null &&
-    grandparent.type === "CallExpression" &&
-    isTestCall(grandparent);
+  const isParameterInTestCall = grandparent != null && isTestCall(grandparent);
 
   const shouldInline =
     isParameterInTestCall ||
@@ -5580,25 +5577,22 @@ function isObjectType(n) {
   return n.type === "ObjectTypeAnnotation" || n.type === "TSTypeLiteral";
 }
 
+const unitTestRe = /^(skip|[fx]?(it|describe|test))$/;
+
 // eg; `describe("some string", (done) => {})`
 function isTestCall(n, parent) {
-  const unitTestRe = /^(skip|(f|x)?(it|describe|test))$/;
-
+  if (n.type !== "CallExpression") {
+    return false;
+  }
   if (n.arguments.length === 1) {
-    if (
-      n.callee.type === "Identifier" &&
-      n.callee.name === "async" &&
-      parent &&
-      parent.type === "CallExpression" &&
-      isTestCall(parent)
-    ) {
+    if (isAngularTestWrapper(n) && parent && isTestCall(parent)) {
       return isFunctionOrArrowExpression(n.arguments[0].type);
     }
 
     if (isUnitTestSetUp(n)) {
       return (
         isFunctionOrArrowExpression(n.arguments[0].type) ||
-        isIdentiferAsync(n.arguments[0])
+        isAngularTestWrapper(n.arguments[0])
       );
     }
   } else if (n.arguments.length === 2) {
@@ -5610,7 +5604,7 @@ function isTestCall(n, parent) {
       return (
         (isFunctionOrArrowExpression(n.arguments[1].type) &&
           n.arguments[1].params.length <= 1) ||
-        isIdentiferAsync(n.arguments[1])
+        isAngularTestWrapper(n.arguments[1])
       );
     }
   }
@@ -5618,7 +5612,6 @@ function isTestCall(n, parent) {
 }
 
 function isSkipOrOnlyBlock(node) {
-  const unitTestRe = /^(skip|(f|x)?(it|describe|test))$/;
   return (
     node.callee.type === "MemberExpression" &&
     node.callee.object.type === "Identifier" &&
@@ -5633,11 +5626,13 @@ function isTemplateLiteral(node) {
   return node.type === "TemplateLiteral";
 }
 
-function isIdentiferAsync(node) {
+// `inject` is used in AngularJS 1.x, `async` in Angular 2+
+// example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
+function isAngularTestWrapper(node) {
   return (
     node.type === "CallExpression" &&
     node.callee.type === "Identifier" &&
-    node.callee.name === "async"
+    (node.callee.name === "async" || node.callee.name === "inject")
   );
 }
 
