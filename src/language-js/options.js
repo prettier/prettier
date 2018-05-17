@@ -31,6 +31,13 @@ module.exports = {
     default: false,
     description: "Put > on the last line instead of at a new line."
   },
+  jsxMaxPropsPerLine: {
+    since: "1.13.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "number",
+    default: 0,
+    description: "Enforces maximum number of props per line (default is 0, disabled)"
+  },
   semi: {
     since: "1.0.0",
     category: CATEGORY_JAVASCRIPT,

@@ -1,12 +1,11 @@
 {
-  "name": "prettier",
+  "name": "c-prettier",
   "version": "1.12.1",
-  "description": "Prettier is an opinionated code formatter",
+  "description": "C-prettier is Prettier, a bit less opinionated.",
   "bin": {
     "prettier": "./bin/prettier.js"
   },
-  "repository": "prettier/prettier",
-  "homepage": "https://prettier.io",
+  "repository": "codeheroics/c-prettier",
   "author": "James Long",
   "license": "MIT",
   "main": "./index.js",
