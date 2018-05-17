@@ -68,10 +68,6 @@ function clean(ast, newObj) {
     newObj.value = cleanCSSStrings(newObj.value);
   }
 
-  if (ast.type === "css-import" && newObj.importPath) {
-    newObj.importPath = cleanCSSStrings(newObj.importPath);
-  }
-
   if (ast.type === "selector-attribute") {
     newObj.attribute = newObj.attribute.trim();
 
@@ -108,12 +104,6 @@ function clean(ast, newObj) {
         return isNaN(num) ? match : num + unit.toLowerCase();
       }
     );
-  }
-
-  if (ast.type === "media-url") {
-    newObj.value = newObj.value
-      .replace(/^url\(\s+/gi, "url(")
-      .replace(/\s+\)$/gi, ")");
   }
 
   if (ast.type === "selector-tag") {

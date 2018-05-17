@@ -98,6 +98,18 @@ function insideAtRuleNode(path, atRuleName) {
   );
 }
 
+function insideURLFunctionInImportAtRuleNode(path) {
+  const node = path.getValue();
+  const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
+
+  return (
+    atRuleAncestorNode &&
+    atRuleAncestorNode.name === "import" &&
+    node.groups[0].value === "url" &&
+    node.groups.length === 2
+  );
+}
+
 function isURLFunctionNode(node) {
   return node.type === "value-func" && node.value.toLowerCase() === "url";
 }
@@ -176,10 +188,6 @@ function isSCSSControlDirectiveNode(node) {
   );
 }
 
-function isSCSSMapNode(node) {
-  return node.type === "css-decl" && node.prop && node.prop.startsWith("$");
-}
-
 function isSCSSNestedPropertyNode(node) {
   if (!node.selector) {
     return false;
@@ -194,6 +202,16 @@ function isSCSSNestedPropertyNode(node) {
 
 function isDetachedRulesetCallNode(node) {
   return node.raws && node.raws.params && /^\(\s*\)$/.test(node.raws.params);
+}
+
+function isPostcssSimpleVarNode(currentNode, nextNode) {
+  return (
+    currentNode.value === "$$" &&
+    currentNode.type === "value-func" &&
+    nextNode &&
+    nextNode.type === "value-word" &&
+    !nextNode.raws.before
+  );
 }
 
 function hasLessExtendValueNode(node) {
@@ -229,15 +247,62 @@ function hasParensAroundValueNode(node) {
   );
 }
 
-function isPostcssSimpleVarNode(currentNode, nextNode) {
+function isKeyValuePairNode(node) {
   return (
-    currentNode.value === "$$" &&
-    currentNode.type === "value-func" &&
-    nextNode &&
-    nextNode.type === "value-word" &&
-    !nextNode.raws.before
+    node.type === "value-comma_group" &&
+    node.groups &&
+    node.groups[1] &&
+    node.groups[1].type === "value-colon"
   );
 }
+
+function isKeyValuePairInParenGroupNode(node) {
+  return (
+    node.type === "value-paren_group" &&
+    node.groups &&
+    node.groups[0] &&
+    isKeyValuePairNode(node.groups[0])
+  );
+}
+
+function isSCSSMapItemNode(path) {
+  const node = path.getValue();
+
+  // Ignore empty item (i.e. `$key: ()`)
+  if (node.groups.length === 0) {
+    return false;
+  }
+
+  const parentParentNode = path.getParentNode(1);
+
+  // Check open parens contain key/value pair (i.e. `(key: value)` and `(key: (value, other-value)`)
+  if (
+    !isKeyValuePairInParenGroupNode(node) &&
+    !(parentParentNode && isKeyValuePairInParenGroupNode(parentParentNode))
+  ) {
+    return false;
+  }
+
+  const declNode = getAncestorNode(path, "css-decl");
+
+  // SCSS map declaration (i.e. `$map: (key: value, other-key: other-value)`)
+  if (declNode && declNode.prop && declNode.prop.startsWith("$")) {
+    return true;
+  }
+
+  // List as value of key inside SCSS map (i.e. `$map: (key: (value other-value other-other-value))`)
+  if (isKeyValuePairInParenGroupNode(parentParentNode)) {
+    return true;
+  }
+
+  // SCSS Map is argument of function (i.e. `func((key: value, other-key: other-value))`)
+  if (parentParentNode.type === "value-func") {
+    return true;
+  }
+
+  return false;
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -246,6 +311,7 @@ module.exports = {
   insideValueFunctionNode,
   insideICSSRuleNode,
   insideAtRuleNode,
+  insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
   isHTMLTag,
   isWideKeywords,
@@ -264,8 +330,10 @@ module.exports = {
   hasLessExtendValueNode,
   hasComposesValueNode,
   hasParensAroundValueNode,
-  isSCSSMapNode,
   isSCSSNestedPropertyNode,
   isDetachedRulesetCallNode,
-  isPostcssSimpleVarNode
+  isPostcssSimpleVarNode,
+  isKeyValuePairNode,
+  isKeyValuePairInParenGroupNode,
+  isSCSSMapItemNode
 };
