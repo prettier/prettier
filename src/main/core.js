@@ -227,14 +227,14 @@ function formatRange(text, opts) {
 }
 
 function format(text, opts) {
-  if (opts.rangeStart > 0 || opts.rangeEnd < text.length) {
-    return formatRange(text, opts);
-  }
-
   const selectedParser = parser.resolveParser(opts);
   const hasPragma = !selectedParser.hasPragma || selectedParser.hasPragma(text);
   if (opts.requirePragma && !hasPragma) {
     return { formatted: text };
+  }
+
+  if (opts.rangeStart > 0 || opts.rangeEnd < text.length) {
+    return formatRange(text, opts);
   }
 
   const hasUnicodeBOM = text.charCodeAt(0) === UTF8BOM;

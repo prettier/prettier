@@ -57,3 +57,23 @@ function      foo(bar)
 }
 
 `;
+
+exports[`range-with-pragma.js 1`] = `
+/**
+ * @prettier
+ */
+var test = true
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @prettier
+ */
+var test = true;
+
+`;
+
+exports[`range-without-pragma.js 1`] = `
+var test = true
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var test = true
+
+`;
