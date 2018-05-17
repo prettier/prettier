@@ -5577,7 +5577,7 @@ function isObjectType(n) {
   return n.type === "ObjectTypeAnnotation" || n.type === "TSTypeLiteral";
 }
 
-const unitTestRe = /^(skip|(f|x)?(it|describe|test))$/;
+const unitTestRe = /^(skip|[fx]?(it|describe|test))$/;
 
 // eg; `describe("some string", (done) => {})`
 function isTestCall(n, parent) {
