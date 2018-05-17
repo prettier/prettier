@@ -90,11 +90,13 @@ function insideICSSRuleNode(path) {
   );
 }
 
-function insideAtRuleNode(path, atRuleName) {
+function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
+  const atRuleNames = [].concat(atRuleNameOrAtRuleNames);
   const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
 
   return (
-    atRuleAncestorNode && atRuleAncestorNode.name.toLowerCase() === atRuleName
+    atRuleAncestorNode &&
+    atRuleNames.indexOf(atRuleAncestorNode.name.toLowerCase()) !== -1
   );
 }
 
@@ -163,10 +165,33 @@ function isEachKeywordNode(node) {
   return node.type === "value-word" && node.value === "in";
 }
 
+function isMultiplicationNode(node) {
+  return node.type === "value-operator" && node.value === "*";
+}
+
+function isDivisionNode(node) {
+  return node.type === "value-operator" && node.value === "/";
+}
+
+function isAdditionNode(node) {
+  return node.type === "value-operator" && node.value === "+";
+}
+
+function isSubtractionNode(node) {
+  return node.type === "value-operator" && node.value === "-";
+}
+
+function isModuloNode(node) {
+  return node.type === "value-operator" && node.value === "%";
+}
+
 function isMathOperatorNode(node) {
   return (
-    node.type === "value-operator" &&
-    ["+", "-", "/", "*", "%"].indexOf(node.value) !== -1
+    isMultiplicationNode(node) ||
+    isDivisionNode(node) ||
+    isAdditionNode(node) ||
+    isSubtractionNode(node) ||
+    isModuloNode(node)
   );
 }
 
@@ -214,7 +239,7 @@ function isPostcssSimpleVarNode(currentNode, nextNode) {
   );
 }
 
-function hasLessExtendValueNode(node) {
+function hasLessExtendNode(node) {
   return (
     node.value &&
     node.value.type === "value-root" &&
@@ -226,7 +251,7 @@ function hasLessExtendValueNode(node) {
   );
 }
 
-function hasComposesValueNode(node) {
+function hasComposesNode(node) {
   return (
     node.value &&
     node.value.type === "value-root" &&
@@ -236,7 +261,7 @@ function hasComposesValueNode(node) {
   );
 }
 
-function hasParensAroundValueNode(node) {
+function hasParensAroundNode(node) {
   return (
     node.value &&
     node.value.group &&
@@ -245,6 +270,10 @@ function hasParensAroundValueNode(node) {
     node.value.group.group.open !== null &&
     node.value.group.group.close !== null
   );
+}
+
+function hasEmptyRawBefore(node) {
+  return node.raws && node.raws.before === "";
 }
 
 function isKeyValuePairNode(node) {
@@ -303,6 +332,36 @@ function isSCSSMapItemNode(path) {
   return false;
 }
 
+function isInlineValueCommentNode(node) {
+  return node.type === "value-comment" && node.inline;
+}
+
+function isHashNode(node) {
+  return node.type === "value-word" && node.value === "#";
+}
+
+function isLeftCurlyBraceNode(node) {
+  return node.type === "value-word" && node.value === "{";
+}
+
+function isRightCurlyBraceNode(node) {
+  return node.type === "value-word" && node.value === "}";
+}
+
+function isWordNode(node) {
+  return ["value-word", "value-atword"].indexOf(node.type) !== -1;
+}
+
+function isColonNode(node) {
+  return node.type === "value-colon";
+}
+
+function isMediaAndSupportsKeywords(node) {
+  return (
+    node.value && ["not", "and", "or"].indexOf(node.value.toLowerCase()) !== -1
+  );
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -321,19 +380,32 @@ module.exports = {
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
   isEqualityOperatorNode,
+  isMultiplicationNode,
+  isDivisionNode,
+  isAdditionNode,
+  isSubtractionNode,
+  isModuloNode,
   isMathOperatorNode,
   isEachKeywordNode,
   isParenGroupNode,
   isForKeywordNode,
   isURLFunctionNode,
   isIfElseKeywordNode,
-  hasLessExtendValueNode,
-  hasComposesValueNode,
-  hasParensAroundValueNode,
+  hasLessExtendNode,
+  hasComposesNode,
+  hasParensAroundNode,
+  hasEmptyRawBefore,
   isSCSSNestedPropertyNode,
   isDetachedRulesetCallNode,
   isPostcssSimpleVarNode,
   isKeyValuePairNode,
   isKeyValuePairInParenGroupNode,
-  isSCSSMapItemNode
+  isSCSSMapItemNode,
+  isInlineValueCommentNode,
+  isHashNode,
+  isLeftCurlyBraceNode,
+  isRightCurlyBraceNode,
+  isWordNode,
+  isColonNode,
+  isMediaAndSupportsKeywords
 };
