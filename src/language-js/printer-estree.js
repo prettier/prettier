@@ -5587,7 +5587,7 @@ function isTestCall(n, parent) {
   if (n.arguments.length === 1) {
     if (
       n.callee.type === "Identifier" &&
-      n.callee.name === "async" &&
+      (n.callee.name === "async" || n.callee.name === "inject") &&
       parent &&
       parent.type === "CallExpression" &&
       isTestCall(parent)
@@ -5598,7 +5598,7 @@ function isTestCall(n, parent) {
     if (isUnitTestSetUp(n)) {
       return (
         isFunctionOrArrowExpression(n.arguments[0].type) ||
-        isIdentiferAsync(n.arguments[0])
+        isIdentiferInjectOrAsync(n.arguments[0])
       );
     }
   } else if (n.arguments.length === 2) {
@@ -5610,7 +5610,7 @@ function isTestCall(n, parent) {
       return (
         (isFunctionOrArrowExpression(n.arguments[1].type) &&
           n.arguments[1].params.length <= 1) ||
-        isIdentiferAsync(n.arguments[1])
+        isIdentiferInjectOrAsync(n.arguments[1])
       );
     }
   }
@@ -5633,11 +5633,13 @@ function isTemplateLiteral(node) {
   return node.type === "TemplateLiteral";
 }
 
-function isIdentiferAsync(node) {
+// `inject` is used in AngularJS 1.x, `async` in Angular 2+
+// example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
+function isIdentiferInjectOrAsync(node) {
   return (
     node.type === "CallExpression" &&
     node.callee.type === "Identifier" &&
-    node.callee.name === "async"
+    (node.callee.name === "async" || node.callee.name === "inject")
   );
 }
 
