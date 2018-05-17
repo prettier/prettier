@@ -86,7 +86,7 @@ pipe(newIssueTemplate).to(".github/ISSUE_TEMPLATE.md");
 
 shell.echo("Copy package.json");
 const pkgWithoutDependencies = Object.assign({}, pkg);
-pkgWithoutDependencies.bin = "./bin-prettier.js";
+pkgWithoutDependencies.bin = { prettier: "./bin-prettier.js" };
 delete pkgWithoutDependencies.dependencies;
 pkgWithoutDependencies.scripts = {
   prepublishOnly:
