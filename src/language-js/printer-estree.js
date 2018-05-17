@@ -5581,30 +5581,31 @@ const unitTestRe = /^(skip|[fx]?(it|describe|test))$/;
 
 // eg; `describe("some string", (done) => {})`
 function isTestCall(n, parent) {
-  if (n.type === "CallExpression") {
-    if (n.arguments.length === 1) {
-      if (isAngularTestWrapper(n) && parent && isTestCall(parent)) {
-        return isFunctionOrArrowExpression(n.arguments[0].type);
-      }
+  if (n.type !== "CallExpression") {
+    return false;
+  }
+  if (n.arguments.length === 1) {
+    if (isAngularTestWrapper(n) && parent && isTestCall(parent)) {
+      return isFunctionOrArrowExpression(n.arguments[0].type);
+    }
 
-      if (isUnitTestSetUp(n)) {
-        return (
-          isFunctionOrArrowExpression(n.arguments[0].type) ||
-          isAngularTestWrapper(n.arguments[0])
-        );
-      }
-    } else if (n.arguments.length === 2) {
-      if (
-        ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
-          isSkipOrOnlyBlock(n)) &&
-        (isTemplateLiteral(n.arguments[0]) || isStringLiteral(n.arguments[0]))
-      ) {
-        return (
-          (isFunctionOrArrowExpression(n.arguments[1].type) &&
-            n.arguments[1].params.length <= 1) ||
-          isAngularTestWrapper(n.arguments[1])
-        );
-      }
+    if (isUnitTestSetUp(n)) {
+      return (
+        isFunctionOrArrowExpression(n.arguments[0].type) ||
+        isAngularTestWrapper(n.arguments[0])
+      );
+    }
+  } else if (n.arguments.length === 2) {
+    if (
+      ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
+        isSkipOrOnlyBlock(n)) &&
+      (isTemplateLiteral(n.arguments[0]) || isStringLiteral(n.arguments[0]))
+    ) {
+      return (
+        (isFunctionOrArrowExpression(n.arguments[1].type) &&
+          n.arguments[1].params.length <= 1) ||
+        isAngularTestWrapper(n.arguments[1])
+      );
     }
   }
   return false;
