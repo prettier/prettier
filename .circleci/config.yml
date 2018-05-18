@@ -59,6 +59,8 @@ jobs:
           root: .
           paths:
             - dist
+      - store_artifacts:
+          path: ~/prettier/dist
 
   # Run tests on the production bundle
   test_prod_node4:
