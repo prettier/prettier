@@ -55,7 +55,8 @@ function genericPrint(path, options, print) {
           options.originalText.slice(
             node.position.start.offset,
             node.position.end.offset
-          )
+          ),
+          options,
         )
         .map(
           node =>
