@@ -90,12 +90,16 @@ function genericPrint(path, options, printPath, args) {
         node.type !== "ClassMethod" &&
         (decorator.type === "Identifier" ||
           decorator.type === "MemberExpression" ||
+          decorator.type === "OptionalMemberExpression" ||
           (decorator.type === "CallExpression" &&
+            decorator.type === "OptionalCallExpression" &&
             (decorator.arguments.length === 0 ||
               (decorator.arguments.length === 1 &&
                 (isStringLiteral(decorator.arguments[0]) ||
                   decorator.arguments[0].type === "Identifier" ||
-                  decorator.arguments[0].type === "MemberExpression")))))
+                  decorator.arguments[0].type === "MemberExpression" ||
+                  decorator.arguments[0].type ===
+                    "OptionalMemberExpression")))))
       ) {
         separator = line;
       }
@@ -294,7 +298,10 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
   //   : c
   // ).call()
   const breakClosingParen =
-    !jsxMode && parent.type === "MemberExpression" && !parent.computed;
+    !jsxMode &&
+    (parent.type === "MemberExpression" ||
+      parent.type === "OptionalMemberExpression") &&
+    !parent.computed;
 
   return maybeGroup(
     concat(
@@ -430,7 +437,9 @@ function printPathNoParens(path, options, print, args) {
       //   ).call()
       if (
         parent.type === "UnaryExpression" ||
-        (parent.type === "MemberExpression" && !parent.computed)
+        ((parent.type === "MemberExpression" ||
+          parent.type === "OptionalMemberExpression") &&
+          !parent.computed)
       ) {
         return group(
           concat([indent(concat([softline, concat(parts)])), softline])
@@ -518,6 +527,7 @@ function printPathNoParens(path, options, print, args) {
       }
       return group(concat([castGroup, path.call(print, "expression")]));
     }
+    case "OptionalMemberExpression":
     case "MemberExpression": {
       const parent = path.getParentNode();
       let firstNonMemberParent;
@@ -528,6 +538,7 @@ function printPathNoParens(path, options, print, args) {
       } while (
         firstNonMemberParent &&
         (firstNonMemberParent.type === "MemberExpression" ||
+          firstNonMemberParent.type === "OptionalMemberExpression" ||
           firstNonMemberParent.type === "TSNonNullExpression")
       );
 
@@ -542,7 +553,8 @@ function printPathNoParens(path, options, print, args) {
         n.computed ||
         (n.object.type === "Identifier" &&
           n.property.type === "Identifier" &&
-          parent.type !== "MemberExpression");
+          parent.type !== "MemberExpression" &&
+          parent.type !== "OptionalMemberExpression");
 
       return concat([
         path.call(print, "object"),
@@ -990,6 +1002,7 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
     case "NewExpression":
+    case "OptionalCallExpression":
     case "CallExpression": {
       const isNew = n.type === "NewExpression";
 
@@ -1837,6 +1850,7 @@ function printPathNoParens(path, options, print, args) {
           n.expression.type === "ObjectExpression" ||
           n.expression.type === "ArrowFunctionExpression" ||
           n.expression.type === "CallExpression" ||
+          n.expression.type === "OptionalCallExpression" ||
           n.expression.type === "FunctionExpression" ||
           n.expression.type === "JSXEmptyExpression" ||
           n.expression.type === "TemplateLiteral" ||
@@ -2235,6 +2249,7 @@ function printPathNoParens(path, options, print, args) {
           if (
             (n.expressions[i].comments && n.expressions[i].comments.length) ||
             n.expressions[i].type === "MemberExpression" ||
+            n.expressions[i].type === "OptionalMemberExpression" ||
             n.expressions[i].type === "ConditionalExpression"
           ) {
             printed = concat([indent(concat([softline, printed])), softline]);
@@ -3330,6 +3345,7 @@ function couldGroupArg(arg) {
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
         arg.body.type === "CallExpression" ||
+        arg.body.type === "OptionalCallExpression" ||
         isJSXNode(arg.body)))
   );
 }
@@ -3377,6 +3393,7 @@ const functionCompositionFunctionNames = {
 };
 function isFunctionCompositionFunction(node) {
   switch (node.type) {
+    case "OptionalMemberExpression":
     case "MemberExpression": {
       return isFunctionCompositionFunction(node.property);
     }
@@ -4125,8 +4142,8 @@ function printOptionalToken(path) {
     return "";
   }
   if (
-    node.type === "CallExpression" ||
-    (node.type === "MemberExpression" && node.computed)
+    node.type === "OptionalCallExpression" ||
+    (node.type === "OptionalMemberExpression" && node.computed)
   ) {
     return "?.";
   }
@@ -4203,8 +4220,11 @@ function printMemberChain(path, options, print) {
   function rec(path) {
     const node = path.getValue();
     if (
-      node.type === "CallExpression" &&
-      (isMemberish(node.callee) || node.callee.type === "CallExpression")
+      (node.type === "CallExpression" ||
+        node.type === "OptionalCallExpression") &&
+      (isMemberish(node.callee) ||
+        node.callee.type === "CallExpression" ||
+        node.callee.type === "OptionalCallExpression")
     ) {
       printedNodes.unshift({
         node: node,
@@ -4229,6 +4249,7 @@ function printMemberChain(path, options, print) {
         printed: comments.printComments(
           path,
           () =>
+            node.type === "OptionalMemberExpression" ||
             node.type === "MemberExpression"
               ? printMemberLookup(path, options, print)
               : printBindExpressionCallee(path, options, print),
@@ -4293,8 +4314,10 @@ function printMemberChain(path, options, print) {
   for (; i < printedNodes.length; ++i) {
     if (
       printedNodes[i].node.type === "TSNonNullExpression" ||
+      printedNodes[i].node.type === "OptionalCallExpression" ||
       printedNodes[i].node.type === "CallExpression" ||
-      (printedNodes[i].node.type === "MemberExpression" &&
+      ((printedNodes[i].node.type === "MemberExpression" ||
+        printedNodes[i].node.type === "OptionalMemberExpression") &&
         printedNodes[i].node.computed &&
         isNumericLiteral(printedNodes[i].node.property))
     ) {
@@ -4303,7 +4326,10 @@ function printMemberChain(path, options, print) {
       break;
     }
   }
-  if (printedNodes[0].node.type !== "CallExpression") {
+  if (
+    printedNodes[0].node.type !== "CallExpression" &&
+    printedNodes[0].node.type !== "OptionalCallExpression"
+  ) {
     for (; i + 1 < printedNodes.length; ++i) {
       if (
         isMemberish(printedNodes[i].node) &&
@@ -4340,7 +4366,10 @@ function printMemberChain(path, options, print) {
       hasSeenCallExpression = false;
     }
 
-    if (printedNodes[i].node.type === "CallExpression") {
+    if (
+      printedNodes[i].node.type === "CallExpression" ||
+      printedNodes[i].node.type === "OptionalCallExpression"
+    ) {
       hasSeenCallExpression = true;
     }
     currentGroup.push(printedNodes[i]);
@@ -4383,6 +4412,8 @@ function printMemberChain(path, options, print) {
             (groups[1].length && groups[1][0].node.computed))))) ||
       (groups[0].length > 1 &&
         groups[0][groups[0].length - 1].node.type === "MemberExpression" &&
+        groups[0][groups[0].length - 1].node.type ===
+          "OptionalMemberExpression" &&
         groups[0][groups[0].length - 1].node.property.type === "Identifier" &&
         (isNoWrap(groups[0][groups[0].length - 1].node.property.name) ||
           (groups[1].length && groups[1][0].node.computed))));
@@ -4426,6 +4457,7 @@ function printMemberChain(path, options, print) {
   ).node;
   const shouldHaveEmptyLineBeforeIndent =
     lastNodeBeforeIndent.type !== "CallExpression" &&
+    lastNodeBeforeIndent.type !== "OptionalCallExpression" &&
     shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
 
   const expanded = concat([
@@ -4436,7 +4468,9 @@ function printMemberChain(path, options, print) {
   ]);
 
   const callExpressionCount = printedNodes.filter(
-    tuple => tuple.node.type === "CallExpression"
+    tuple =>
+      tuple.node.type === "CallExpression" ||
+      tuple.node.type === "OptionalCallExpression"
   ).length;
 
   // We don't want to print in one line if there's:
@@ -4925,6 +4959,7 @@ function maybeWrapJSXElementInParens(path, elem) {
     TSJsxFragment: true,
     ExpressionStatement: true,
     CallExpression: true,
+    OptionalCallExpression: true,
     ConditionalExpression: true
   };
   if (NO_WRAP_PARENTS[parent.type]) {
@@ -4948,6 +4983,7 @@ function isBinaryish(node) {
 function isMemberish(node) {
   return (
     node.type === "MemberExpression" ||
+    node.type === "OptionalMemberExpression" ||
     (node.type === "BindExpression" && node.object)
   );
 }
@@ -5176,7 +5212,9 @@ function hasNakedLeftSide(node) {
     node.type === "LogicalExpression" ||
     node.type === "ConditionalExpression" ||
     node.type === "CallExpression" ||
+    node.type === "OptionalCallExpression" ||
     node.type === "MemberExpression" ||
+    node.type === "OptionalMemberExpression" ||
     node.type === "SequenceExpression" ||
     node.type === "TaggedTemplateExpression" ||
     (node.type === "BindExpression" && !node.object) ||
@@ -5369,7 +5407,10 @@ function returnArgumentHasLeadingComment(options, argument) {
 }
 
 function isMemberExpressionChain(node) {
-  if (node.type !== "MemberExpression") {
+  if (
+    node.type !== "MemberExpression" &&
+    node.type !== "OptionalMemberExpression"
+  ) {
     return false;
   }
   if (node.object.type === "Identifier") {
@@ -5614,6 +5655,7 @@ function isTestCall(n, parent) {
 function isSkipOrOnlyBlock(node) {
   return (
     node.callee.type === "MemberExpression" &&
+    node.callee.type === "OptionalMemberExpression" &&
     node.callee.object.type === "Identifier" &&
     node.callee.property.type === "Identifier" &&
     unitTestRe.test(node.callee.object.name) &&
@@ -5630,7 +5672,8 @@ function isTemplateLiteral(node) {
 // example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
 function isAngularTestWrapper(node) {
   return (
-    node.type === "CallExpression" &&
+    (node.type === "CallExpression" ||
+      node.type === "OptionalCallExpression") &&
     node.callee.type === "Identifier" &&
     (node.callee.name === "async" || node.callee.name === "inject")
   );
