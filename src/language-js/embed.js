@@ -98,17 +98,9 @@ function embed(path, print, textToDoc /*, options */) {
           if (commentsAndWhitespaceOnly) {
             doc = printGraphqlComments(lines);
           } else {
-            try {
-              doc = docUtils.stripTrailingHardline(
-                textToDoc(text, { parser: "graphql" })
-              );
-            } catch (error) {
-              if (process.env.PRETTIER_DEBUG) {
-                throw error;
-              }
-              // Bail if any part fails to parse.
-              return null;
-            }
+            doc = docUtils.stripTrailingHardline(
+              textToDoc(text, { parser: "graphql" })
+            );
           }
 
           if (doc) {
