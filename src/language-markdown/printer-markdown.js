@@ -56,7 +56,7 @@ function genericPrint(path, options, print) {
             node.position.start.offset,
             node.position.end.offset
           ),
-          options,
+          options
         )
         .map(
           node =>
