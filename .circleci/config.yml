@@ -80,9 +80,6 @@ jobs:
 
 workflows:
   version: 2
-  branches:
-    only:
-      - master
   prod:
     jobs:
       - checkout_code
