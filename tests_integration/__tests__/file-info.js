@@ -104,7 +104,12 @@ describe("extracts file-info with inferredParser=foo when a plugin is hand-picke
 });
 
 test("API getFileInfo with no args", () => {
-  expect(prettier.getFileInfo()).rejects.toThrow();
+  // TODO: change this to `rejects.toThrow()` when we upgrade to Jest >= 22
+  // https://github.com/facebook/jest/issues/3601
+  expect.assertions(1);
+  return prettier.getFileInfo().catch(err => {
+    expect(err).toBeDefined();
+  });
 });
 
 test("API getFileInfo.sync with no args", () => {
