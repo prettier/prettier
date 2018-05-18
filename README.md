@@ -26,10 +26,10 @@
     <img alt="Chat on Gitter" src="https://img.shields.io/gitter/room/jlongster/prettier.svg?style=flat-square">
   </a>
   <a href="https://travis-ci.org/prettier/prettier">
-    <img alt="Travis CI Build Status" src="https://img.shields.io/travis/prettier/prettier/master.svg?style=flat-square">
+    <img alt="Travis CI Build Status" src="https://img.shields.io/travis/prettier/prettier/master.svg?style=flat-square&label=Travis+CI">
   </a>
   <a href="https://circleci.com/gh/prettier/prettier">
-    <img alt="CircleCI Build Status" src="https://img.shields.io/circleci/project/github/prettier/prettier/master.svg?style=flat-square">
+    <img alt="CircleCI Build Status" src="https://img.shields.io/circleci/project/github/prettier/prettier/master.svg?style=flat-square&label=CircleCI">
   </a>
   <a href="https://codecov.io/gh/prettier/prettier">
     <img alt="Codecov Coverage Status" src="https://img.shields.io/codecov/c/github/prettier/prettier.svg?style=flat-square">
