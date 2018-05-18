@@ -6,4 +6,3 @@ d3.select('body')
 d3.scaleLinear()
   .domain([1950, 1980])
   .range([0, width])
-

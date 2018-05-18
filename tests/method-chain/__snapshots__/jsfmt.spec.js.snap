@@ -735,6 +735,11 @@ wrapper
 
 `;
 
+exports[`short-names.js 1`] = `
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`;
+
 exports[`square_0.js 1`] = `
 const version = someLongString
   .split('jest version =')
