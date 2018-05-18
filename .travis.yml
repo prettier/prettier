@@ -30,7 +30,7 @@ before_script:
 
 script:
   - if [ "${JOB}" = "lint" ]; then yarn lint && yarn lint-docs; fi
-  - if [ "${JOB}" = "test" ]; then yarn test --maxWorkers=4 --ci; fi
+  - if [ "${JOB}" = "test" ]; then yarn test --runInBand --ci; fi
   - if [ "${JOB}" = "test" ]; then yarn codecov; fi
 
 branches:
