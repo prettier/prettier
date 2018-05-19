@@ -2,6 +2,8 @@
 
 const createError = require("../common/parser-create-error");
 const includeShebang = require("../common/parser-include-shebang");
+const hasPragma = require("./pragma").hasPragma;
+const locFns = require("./loc");
 
 function parse(text /*, parsers, opts*/) {
   // Fixes Node 4 issue (#1986)
@@ -27,4 +29,10 @@ function parse(text /*, parsers, opts*/) {
   includeShebang(text, ast);
   return ast;
 }
-module.exports = parse;
+
+// Export as a plugin so we can reuse the same bundle for UMD loading
+module.exports = {
+  parsers: {
+    flow: Object.assign({ parse, astFormat: "estree", hasPragma }, locFns)
+  }
+};

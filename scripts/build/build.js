@@ -1,108 +1,217 @@
-#!/usr/bin/env node
-
 "use strict";
 
 const path = require("path");
-const pkg = require("../../package.json");
-const formatMarkdown = require("../../website/playground/markdown");
-const parsers = require("./parsers");
-const shell = require("shelljs");
+const { rollup } = require("rollup");
+const webpack = require("webpack");
+const resolve = require("rollup-plugin-node-resolve");
+const commonjs = require("rollup-plugin-commonjs");
+const nodeGlobals = require("rollup-plugin-node-globals");
+const json = require("rollup-plugin-json");
+const replace = require("rollup-plugin-replace");
+const uglify = require("rollup-plugin-uglify");
+const babel = require("./rollup-plugins/babel");
+const nativeShims = require("./rollup-plugins/native-shims");
+const executable = require("./rollup-plugins/executable");
 
-const rootDir = path.join(__dirname, "..", "..");
+const Bundles = require("./bundles");
+const util = require("./util");
 
-process.env.PATH += path.delimiter + path.join(rootDir, "node_modules", ".bin");
+const EXTERNALS = [
+  "assert",
+  "buffer",
+  "constants",
+  "crypto",
+  "events",
+  "fs",
+  "module",
+  "os",
+  "path",
+  "stream",
+  "url",
+  "util",
+  "readline",
 
-function pipe(string) {
-  return new shell.ShellString(string);
-}
+  // See comment in jest.config.js
+  "graceful-fs"
+];
 
-shell.set("-e");
-shell.cd(rootDir);
-
-shell.rm("-Rf", "dist/");
-
-// --- Lib ---
-
-shell.exec("rollup -c scripts/build/rollup.index.config.js");
-
-shell.exec("rollup -c scripts/build/rollup.bin.config.js");
-shell.chmod("+x", "./dist/bin-prettier.js");
-
-shell.exec("rollup -c scripts/build/rollup.third-party.config.js");
-
-for (const parser of parsers) {
-  if (parser.endsWith("postcss")) {
-    continue;
-  }
-  shell.exec(
-    `rollup -c scripts/build/rollup.parser.config.js --environment parser:${parser}`
+function getRollupConfig(bundle) {
+  const paths = (bundle.external || []).reduce(
+    (paths, filepath) =>
+      Object.assign(paths, { [filepath]: util.getRelativePath(filepath) }),
+    { "graceful-fs": "fs" }
   );
-  if (parser.endsWith("glimmer")) {
-    shell.exec(
-      `node_modules/babel-cli/bin/babel.js dist/parser-glimmer.js --out-file dist/parser-glimmer.js --presets=es2015`
-    );
+
+  const config = {
+    entry: bundle.input,
+    paths,
+
+    onwarn(warning) {
+      // We use `eval` to force rollup to code split and
+      // ignore warnings from node_modules
+      if (
+        warning.code === "EVAL" ||
+        (warning.code === "CIRCULAR_DEPENDENCY" &&
+          warning.importer.startsWith("node_modules"))
+      ) {
+        return;
+      }
+
+      // web bundle can't have external requires
+      if (
+        warning.code === "UNRESOLVED_IMPORT" &&
+        bundle.target === "universal"
+      ) {
+        throw new Error(
+          `Unresolved dependency in universal bundle: ${warning.source}`
+        );
+      }
+
+      console.log(warning);
+    }
+  };
+
+  if (bundle.target === "node") {
+    Object.assign(config, {
+      plugins: [
+        replace(
+          Object.assign(
+            { "process.env.NODE_ENV": "'production'" },
+            bundle.replace
+          )
+        ),
+        bundle.executable ? executable() : {},
+        json(),
+
+        resolve({
+          extensions: [".js", ".json"],
+          preferBuiltins: true
+        }),
+
+        commonjs(bundle.commonjs || {}),
+        babel(
+          Object.assign(
+            bundle.transpile
+              ? { presets: [["@babel/preset-es2015", { modules: false }]] }
+              : {},
+            { plugins: [require("./babel-plugins/transform-eval-require")] }
+          )
+        ),
+        bundle.minify ? uglify() : {}
+      ],
+      external: EXTERNALS.concat(bundle.external)
+    });
+  } else if (bundle.target === "universal") {
+    Object.assign(config, {
+      plugins: [
+        replace(
+          Object.assign(
+            {
+              "process.env.NODE_ENV": "'production'",
+              "process.env.PRETTIER_DEBUG": "PRETTIER_DEBUG"
+            },
+            bundle.replace
+          )
+        ),
+        json(),
+        nativeShims(path.resolve(__dirname, "shims")),
+        resolve({
+          extensions: [".js", ".json"],
+          preferBuiltins: false
+        }),
+        commonjs(bundle.commonjs || {}),
+        nodeGlobals()
+        // babel(),
+        // uglify()
+      ]
+    });
+  } else {
+    throw new Error(`Unsupported target: ${bundle.target}`);
+  }
+
+  return config;
+}
+
+function getRollupOutputOptions(bundle) {
+  const options = {
+    dest: `dist/${Bundles.getFileOutput(bundle)}`,
+    useStrict: typeof bundle.strict === "undefined" ? true : bundle.strict
+  };
+  if (bundle.target === "node") {
+    options.format = "cjs";
+  } else if (bundle.target === "universal") {
+    options.format = "umd";
+    options.moduleName = bundle.name;
+  }
+  return options;
+}
+
+function getWebpackConfig(bundle) {
+  if (bundle.target === "node") {
+    throw new Error("Unsupported webpack bundle for node");
+  }
+
+  const root = path.resolve(__dirname, "..", "..");
+  return {
+    entry: path.resolve(root, bundle.input),
+    output: {
+      path: path.resolve(root, "dist"),
+      filename: Bundles.getFileOutput(bundle),
+      library: bundle.name,
+      libraryTarget: "umd"
+    }
+  };
+}
+
+function asyncWebpack(config) {
+  return new Promise((resolve, reject) => {
+    webpack(config, err => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+async function createBundle(bundle) {
+  const output = Bundles.getFileOutput(bundle);
+  console.log(`BUILDING ${output}`);
+
+  if (bundle.bundler === "webpack") {
+    await asyncWebpack(getWebpackConfig(bundle));
+  } else {
+    try {
+      const result = await rollup(getRollupConfig(bundle));
+      await result.write(getRollupOutputOptions(bundle));
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 }
 
-shell.echo("\nsrc/language-css/parser-postcss.js → dist/parser-postcss.js");
-// PostCSS has dependency cycles and won't work correctly with rollup :(
-shell.exec(
-  "webpack --hide-modules src/language-css/parser-postcss.js dist/parser-postcss.js"
-);
-// Prepend module.exports =
-const content = shell.cat("dist/parser-postcss.js").stdout;
-pipe(`module.exports = ${content}`).to("dist/parser-postcss.js");
+async function createPackageJson() {
+  const pkg = await util.readJson("package.json");
+  pkg.bin = "./bin-prettier.js";
+  delete pkg.dependencies;
+  delete pkg.devDependencies;
+  pkg.scripts = {
+    prepublishOnly:
+      'node -e "assert.equal(require(".").version, require("..").version)"'
+  };
+  await util.writeJson("dist/package.json", pkg);
+}
 
-shell.echo();
+async function run() {
+  await util.asyncRimRaf("dist");
 
-// --- Misc ---
+  for (const bundle of Bundles.bundles) {
+    await createBundle(bundle, "node");
+  }
 
-shell.echo("Remove eval");
-shell.sed(
-  "-i",
-  /eval\("require"\)/,
-  "require",
-  "dist/index.js",
-  "dist/bin-prettier.js"
-);
+  await createPackageJson();
+}
 
-shell.echo("Update ISSUE_TEMPLATE.md");
-const issueTemplate = shell.cat(".github/ISSUE_TEMPLATE.md").stdout;
-const newIssueTemplate = issueTemplate.replace(
-  /-->[^]*$/,
-  "-->\n\n" +
-    formatMarkdown(
-      "// code snippet",
-      "// code snippet",
-      "",
-      pkg.version,
-      "https://prettier.io/playground/#.....",
-      { parser: "babylon" },
-      [["# Options (if any):", true], ["--single-quote", true]],
-      true
-    )
-);
-pipe(newIssueTemplate).to(".github/ISSUE_TEMPLATE.md");
-
-shell.echo("Copy package.json");
-const pkgWithoutDependencies = Object.assign({}, pkg);
-pkgWithoutDependencies.bin = "./bin-prettier.js";
-delete pkgWithoutDependencies.dependencies;
-pkgWithoutDependencies.scripts = {
-  prepublishOnly:
-    "node -e \"assert.equal(require('.').version, require('..').version)\""
-};
-pkgWithoutDependencies.files = ["*.js"];
-pipe(JSON.stringify(pkgWithoutDependencies, null, 2)).to("dist/package.json");
-
-shell.echo("Copy README.md");
-shell.cp("README.md", "dist/README.md");
-
-shell.echo("Done!");
-shell.echo();
-shell.echo("How to test against dist:");
-shell.echo("  1) yarn test:dist");
-shell.echo();
-shell.echo("How to publish:");
-shell.echo("  1) IMPORTANT!!! Go to dist/");
-shell.echo("  2) npm publish");
+run();

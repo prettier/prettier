@@ -2,6 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const parseFrontmatter = require("../utils/front-matter");
+const lineColumnToIndex = require("../utils/line-column-to-index");
 
 // utils
 const utils = require("./utils");
@@ -539,4 +540,32 @@ function parse(text, parsers, opts) {
   }
 }
 
-module.exports = parse;
+const parser = {
+  parse,
+  astFormat: "postcss",
+  locStart(node) {
+    if (node.source) {
+      return lineColumnToIndex(node.source.start, node.source.input.css) - 1;
+    }
+    return null;
+  },
+  locEnd(node) {
+    const endNode = node.nodes && node.nodes[node.nodes.length - 1];
+    if (endNode && node.source && !node.source.end) {
+      node = endNode;
+    }
+    if (node.source) {
+      return lineColumnToIndex(node.source.end, node.source.input.css);
+    }
+    return null;
+  }
+};
+
+// Export as a plugin so we can reuse the same bundle for UMD loading
+module.exports = {
+  parsers: {
+    css: parser,
+    less: parser,
+    scss: parser
+  }
+};

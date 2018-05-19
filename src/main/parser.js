@@ -2,16 +2,28 @@
 
 const path = require("path");
 const ConfigError = require("../common/errors").ConfigError;
-const babylon = require("../language-js/index").parsers.babylon;
+const jsLoc = require("../language-js/loc");
 
-const locStart = babylon.locStart;
-const locEnd = babylon.locEnd;
+const locStart = jsLoc.locStart;
+const locEnd = jsLoc.locEnd;
 
+// Use defineProperties()/getOwnPropertyDescriptor() to prevent
+// the parsers getters.
+const ownNames = Object.getOwnPropertyNames;
+const ownDescriptor = Object.getOwnPropertyDescriptor;
 function getParsers(options) {
-  return options.plugins.reduce(
-    (parsers, plugin) => Object.assign({}, parsers, plugin.parsers),
-    {}
-  );
+  const parsers = {};
+  for (const plugin of options.plugins) {
+    if (!plugin.parsers) {
+      continue;
+    }
+
+    for (const name of ownNames(plugin.parsers)) {
+      Object.defineProperty(parsers, name, ownDescriptor(plugin.parsers, name));
+    }
+  }
+
+  return parsers;
 }
 
 function resolveParser(opts, parsers) {
@@ -50,16 +62,16 @@ function resolveParser(opts, parsers) {
 function parse(text, opts) {
   const parsers = getParsers(opts);
 
-  // Copy the "parse" function from parser to a new object whose values are
-  // functions. Use defineProperty()/getOwnPropertyDescriptor() such that we
-  // don't invoke the parser.parse getters.
+  // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
+  // the parsers getters when actually calling the parser `parse` function.
   const parsersForCustomParserApi = Object.keys(parsers).reduce(
     (object, parserName) =>
-      Object.defineProperty(
-        object,
-        parserName,
-        Object.getOwnPropertyDescriptor(parsers[parserName], "parse")
-      ),
+      Object.defineProperty(object, parserName, {
+        enumerable: true,
+        get() {
+          return parsers[parserName].parse;
+        }
+      }),
     {}
   );
 

@@ -8,10 +8,10 @@ const getSupportInfo = require("./src/main/support").getSupportInfo;
 const internalPlugins = [
   require("./src/language-js"),
   require("./src/language-css"),
-  require("./src/language-handlebars"),
+  // require("./src/language-handlebars"),
   require("./src/language-graphql"),
   require("./src/language-markdown"),
-  require("./src/language-html"),
+  // require("./src/language-html"),
   require("./src/language-vue")
 ];
 const externalPlugins = {};

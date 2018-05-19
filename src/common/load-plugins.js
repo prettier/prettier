@@ -6,6 +6,7 @@ const globby = require("globby");
 const path = require("path");
 const resolve = require("resolve");
 const thirdParty = require("./third-party");
+const internalPlugins = require("./internal-plugins");
 
 function loadPlugins(plugins, pluginSearchDirs) {
   if (!plugins) {
@@ -25,16 +26,6 @@ function loadPlugins(plugins, pluginSearchDirs) {
       pluginSearchDirs = [autoLoadDir];
     }
   }
-
-  const internalPlugins = [
-    require("../language-js"),
-    require("../language-css"),
-    require("../language-handlebars"),
-    require("../language-graphql"),
-    require("../language-markdown"),
-    require("../language-html"),
-    require("../language-vue")
-  ];
 
   const externalManualLoadPluginInfos = plugins.map(pluginName => {
     let requirePath;

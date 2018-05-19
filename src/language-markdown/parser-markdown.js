@@ -2,6 +2,7 @@
 
 const remarkParse = require("remark-parse");
 const unified = require("unified");
+const pragma = require("./pragma");
 const parseFrontmatter = require("../utils/front-matter");
 const util = require("../common/util");
 
@@ -167,4 +168,18 @@ function liquid() {
   };
 }
 
-module.exports = parse;
+const parser = {
+  parse,
+  astFormat: "mdast",
+  hasPragma: pragma.hasPragma,
+  locStart: node => node.position.start.offset,
+  locEnd: node => node.position.end.offset
+};
+
+module.exports = {
+  parsers: {
+    remark: parser,
+    // TODO: Delete this in 2.0
+    markdown: parser
+  }
+};

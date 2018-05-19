@@ -2,7 +2,6 @@
 
 const printer = require("./printer-markdown");
 const options = require("./options");
-const pragma = require("./pragma");
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -35,22 +34,6 @@ const languages = [
   }
 ];
 
-const remark = {
-  get parse() {
-    return eval("require")("./parser-markdown");
-  },
-  astFormat: "mdast",
-  hasPragma: pragma.hasPragma,
-  locStart: node => node.position.start.offset,
-  locEnd: node => node.position.end.offset
-};
-
-const parsers = {
-  remark,
-  // TODO: Delete this in 2.0
-  markdown: remark
-};
-
 const printers = {
   mdast: printer
 };
@@ -58,6 +41,5 @@ const printers = {
 module.exports = {
   languages,
   options,
-  parsers,
   printers
 };

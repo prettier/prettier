@@ -100,7 +100,7 @@ function getPlugin(options) {
     throw new Error("getPlugin() requires astFormat to be set");
   }
   const printerPlugin = options.plugins.find(
-    plugin => plugin.printers[astFormat]
+    plugin => plugin.printers && plugin.printers[astFormat]
   );
   if (!printerPlugin) {
     throw new Error(`Couldn't find plugin for AST format "${astFormat}"`);

@@ -2,6 +2,8 @@
 
 const createError = require("../common/parser-create-error");
 const includeShebang = require("../common/parser-include-shebang");
+const hasPragma = require("./pragma").hasPragma;
+const locFns = require("./loc");
 
 function parse(text /*, parsers, opts*/) {
   const jsx = isProbablyJsx(text);
@@ -59,4 +61,12 @@ function isProbablyJsx(text) {
   ).test(text);
 }
 
-module.exports = parse;
+const parser = Object.assign({ parse, astFormat: "estree", hasPragma }, locFns);
+
+// Export as a plugin so we can reuse the same bundle for UMD loading
+module.exports = {
+  parsers: {
+    typescript: parser,
+    "typescript-eslint": parser
+  }
+};

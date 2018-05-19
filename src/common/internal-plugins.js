@@ -1,0 +1,110 @@
+"use strict";
+
+const __r = require;
+
+// We need to list the parsers and getters so we can load them only when necessary.
+module.exports = [
+  // JS
+  require("../language-js"),
+  {
+    parsers: {
+      // JS - Babylon
+      get babylon() {
+        return __r("../language-js/parser-babylon").parsers.babylon;
+      },
+      get json() {
+        return __r("../language-js/parser-babylon").parsers.json;
+      },
+      get json5() {
+        return __r("../language-js/parser-babylon").parsers.json5;
+      },
+      get "json-stringify"() {
+        return __r("../language-js/parser-babylon").parsers["json-stringify"];
+      },
+      // JS - Flow
+      get flow() {
+        return __r("../language-js/parser-flow").parsers.flow;
+      },
+      // JS - TypeScript
+      get typescript() {
+        return __r("../language-js/parser-typescript").parsers.typescript;
+      },
+      get "typescript-eslint"() {
+        return __r("../language-js/parser-typescript").parsers[
+          "typescript-eslint"
+        ];
+      }
+    }
+  },
+
+  // CSS
+  require("../language-css"),
+  {
+    parsers: {
+      // TODO: switch these to just `postcss` and use `language` instead.
+      get css() {
+        return __r("../language-css/parser-postcss").parsers.css;
+      },
+      get less() {
+        return __r("../language-css/parser-postcss").parsers.css;
+      },
+      get scss() {
+        return __r("../language-css/parser-postcss").parsers.css;
+      }
+    }
+  },
+
+  // Handlebars
+  require("../language-handlebars"),
+  {
+    parsers: {
+      get glimmer() {
+        return __r("../language-handlebars/parser-glimmer").parsers.glimmer;
+      }
+    }
+  },
+
+  // GraphQL
+  require("../language-graphql"),
+  {
+    parsers: {
+      get graphql() {
+        return __r("../language-graphql/parser-graphql").parsers.graphql;
+      }
+    }
+  },
+
+  // Markdown
+  require("../language-markdown"),
+  {
+    parsers: {
+      get remark() {
+        return __r("../language-markdown/parser-markdown").parsers.remark;
+      },
+      // TODO: Delete this in 2.0
+      get markdown() {
+        return __r("../language-markdown/parser-markdown").parsers.remark;
+      }
+    }
+  },
+
+  // HTML
+  require("../language-html"),
+  {
+    parsers: {
+      get parse5() {
+        return __r("../language-html/parser-parse5").parsers.parse5;
+      }
+    }
+  },
+
+  // Vue
+  require("../language-vue"),
+  {
+    parsers: {
+      get vue() {
+        return __r("../language-vue/parser-vue").parsers.vue;
+      }
+    }
+  }
+];
