@@ -4367,25 +4367,51 @@ function printMemberChain(path, options, print) {
   //     .map(x => x)
   //
   // In order to detect those cases, we use an heuristic: if the first
-  // node is an identifier with the name starting with a capital letter,
-  // or shorter than tabWidth. The rationale is that they are likely
-  // to be factories.
-  function isNoWrap(name) {
-    return name.match(/(^[A-Z])/) || name.length <= options.tabWidth;
+  // node is an identifier with the name starting with a capital letter.
+  // The rationale is that they are likely to be factories.
+  function isFactory(name) {
+    return /^[A-Z]/.test(name);
   }
+
+  // In case the Identifier is shorter than tab width, we can keep the
+  // first call in a single line, if it's an ExpressionStatement.
+  //
+  //   d3.scaleLinear()
+  //     .domain([0, 100])
+  //     .range([0, width]);
+  //
+  function isShort(name) {
+    return name.length <= options.tabWidth;
+  }
+
+  function shouldNotWrap(groups) {
+    const parent = path.getParentNode();
+    const isExpression = parent && parent.type === "ExpressionStatement";
+    const hasComputed = groups[1].length && groups[1][0].node.computed;
+
+    if (groups[0].length === 1) {
+      const firstNode = groups[0][0].node;
+      return (
+        firstNode.type === "ThisExpression" ||
+        (firstNode.type === "Identifier" &&
+          (isFactory(firstNode.name) ||
+            (isExpression && isShort(firstNode.name)) ||
+            hasComputed))
+      );
+    }
+
+    const lastNode = privateUtil.getLast(groups[0]).node;
+    return (
+      lastNode.type === "MemberExpression" &&
+      lastNode.property.type === "Identifier" &&
+      (isFactory(lastNode.property.name) ||
+        (isExpression && isShort(lastNode.property.name)) ||
+        hasComputed)
+    );
+  }
+
   const shouldMerge =
-    groups.length >= 2 &&
-    !groups[1][0].node.comments &&
-    ((groups[0].length === 1 &&
-      (groups[0][0].node.type === "ThisExpression" ||
-        (groups[0][0].node.type === "Identifier" &&
-          (isNoWrap(groups[0][0].node.name) ||
-            (groups[1].length && groups[1][0].node.computed))))) ||
-      (groups[0].length > 1 &&
-        groups[0][groups[0].length - 1].node.type === "MemberExpression" &&
-        groups[0][groups[0].length - 1].node.property.type === "Identifier" &&
-        (isNoWrap(groups[0][groups[0].length - 1].node.property.name) ||
-          (groups[1].length && groups[1][0].node.computed))));
+    groups.length >= 2 && !groups[1][0].node.comments && shouldNotWrap(groups);
 
   function printGroup(printedGroup) {
     return concat(printedGroup.map(tuple => tuple.printed));

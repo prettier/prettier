@@ -494,7 +494,6 @@ d3.select('body')
 d3.scaleLinear()
   .domain([1950, 1980])
   .range([0, width])
-
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 d3.select("body")
   .append("circle")
@@ -732,6 +731,19 @@ wrapper
   .then(function() {
     doSomething();
   });
+
+`;
+
+exports[`short-names.js 1`] = `
+const svgJsFiles = fs
+  .readdirSync(svgDir)
+  .filter(f => svgJsFileExtRegex.test(f))
+  .map(f => path.join(svgDir, f));
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const svgJsFiles = fs
+  .readdirSync(svgDir)
+  .filter(f => svgJsFileExtRegex.test(f))
+  .map(f => path.join(svgDir, f));
 
 `;
 
