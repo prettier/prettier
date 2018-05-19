@@ -60,6 +60,7 @@
     "unified": "6.1.6"
   },
   "devDependencies": {
+    "@babel/cli": "7.0.0-beta.40",
     "@babel/core": "7.0.0-beta.40",
     "@babel/preset-es2015": "7.0.0-beta.40",
     "builtin-modules": "2.0.0",
@@ -99,7 +100,7 @@
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "lint-docs": "prettylint {.,docs,website,website/blog}/*.md",
     "build": "node ./scripts/build/build.js",
-    "build-docs": "node ./scripts/build/build-docs.js",
+    "build-docs": "node ./scripts/old-build/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js"
   }
 }
