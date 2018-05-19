@@ -265,6 +265,8 @@ gql\`
     }
   }
 
+
+
   \${USER_DETAILS_FRAGMENT}
   \${FRIENDS_FRAGMENT}
 \`;
@@ -385,6 +387,8 @@ gql\`
   query User {
     test
   }
+
+
 
   \${USER_DETAILS_FRAGMENT}
 
