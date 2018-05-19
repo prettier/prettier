@@ -612,15 +612,17 @@ function getMaxContinuousCount(str, target) {
  * @param {string} text
  * @return {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>}
  */
-function splitText(text) {
+function splitText(text, options) {
   const KIND_NON_CJK = "non-cjk";
   const KIND_CJK_CHARACTER = "cjk-character";
   const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
   const nodes = [];
 
-  text
-    .replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
+  (options.proseWrap === "preserve"
+    ? text
+    : text.replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
+  )
     .split(/([ \t\n]+)/)
     .forEach((token, index, tokens) => {
       // whitespace
