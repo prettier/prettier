@@ -62,22 +62,25 @@ const parsers = [
   const name = getFileOutput(parser)
     .replace(/\.js$/, "")
     .split("-")[1];
-  return Object.assign(parser, { name: `prettierPlugins.${name}` });
+  return Object.assign(parser, { type: "plugin", name });
 });
 
 const bundles = [
   {
     input: "index.js",
+    type: "core",
     target: "node",
     external: [path.resolve("src/common/third-party.js")]
   },
   {
     input: "standalone.js",
+    type: "core",
     target: "universal",
     name: "prettier"
   },
   {
     input: "bin/prettier.js",
+    type: "core",
     output: "bin-prettier.js",
     target: "node",
     external: [path.resolve("src/common/third-party.js")],
@@ -85,6 +88,7 @@ const bundles = [
   },
   {
     input: "src/common/third-party.js",
+    type: "core",
     target: "node",
     replace: {
       // The require-from-string module (a dependency of cosmiconfig) assumes

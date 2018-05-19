@@ -141,7 +141,8 @@ function getRollupOutputOptions(bundle) {
     options.format = "cjs";
   } else if (bundle.target === "universal") {
     options.format = "umd";
-    options.moduleName = bundle.name;
+    options.moduleName =
+      bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
   }
   return options;
 }
@@ -157,7 +158,10 @@ function getWebpackConfig(bundle) {
     output: {
       path: path.resolve(root, "dist"),
       filename: Bundles.getFileOutput(bundle),
-      library: bundle.name,
+      library:
+        bundle.type === "plugin"
+          ? ["prettierPlugins", bundle.name]
+          : bundle.name,
       libraryTarget: "umd"
     }
   };
