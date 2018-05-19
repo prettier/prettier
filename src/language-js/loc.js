@@ -2,7 +2,7 @@
 
 const getLast = require("../utils/get-last");
 
-const locStart = function(node) {
+function locStart(node) {
   // Handle nodes with decorators. They should start at the first decorator
   if (
     node.declaration &&
@@ -28,24 +28,24 @@ const locStart = function(node) {
     return node.loc.start;
   }
   return null;
-};
+}
 
-const locEnd = function(node) {
+function locEnd(node) {
   const endNode = node.nodes && getLast(node.nodes);
   if (endNode && node.source && !node.source.end) {
     node = endNode;
   }
 
-  let loc;
-  if (node.range) {
-    loc = node.range[1];
-  } else if (typeof node.end === "number") {
-    loc = node.end;
-  }
-
   if (node.__location) {
     return node.__location.endOffset;
   }
+
+  const loc = node.range
+    ? node.range[1]
+    : typeof node.end === "number"
+      ? node.end
+      : null;
+
   if (node.typeAnnotation) {
     return Math.max(loc, locEnd(node.typeAnnotation));
   }
@@ -55,7 +55,7 @@ const locEnd = function(node) {
   }
 
   return loc;
-};
+}
 
 module.exports = {
   locStart,
