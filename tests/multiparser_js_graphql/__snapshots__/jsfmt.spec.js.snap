@@ -17,7 +17,28 @@ gql\`
 
 `;
 
+exports[`comment-tag.js 1`] = `
+const query = /* GraphQL */\`
+      {
+    user(   id :   5  )  {
+      firstName
 
+      lastName
+    }
+  }
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const query = /* GraphQL */ \`
+  {
+    user(id: 5) {
+      firstName
+
+      lastName
+    }
+  }
+\`;
+
+`;
 
 exports[`expressions.js 1`] = `
 graphql(schema, \`

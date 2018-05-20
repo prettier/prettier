@@ -29,7 +29,8 @@ describe(`show detailed usage with plugin options (automatic resolution)`, () =>
   runPrettier("plugins/automatic", [
     "--help",
     "tab-width",
-    "--parser=bar"
+    "--parser=bar",
+    `--plugin-search-dir=.`
   ]).test({
     status: 0
   });
@@ -94,6 +95,12 @@ describe("throw error with --write + --debug-check", () => {
 
 describe("throw error with --find-config-path + multiple files", () => {
   runPrettier("cli", ["--find-config-path", "abc.js", "def.js"]).test({
+    status: 1
+  });
+});
+
+describe("throw error with --file-info + multiple files", () => {
+  runPrettier("cli", ["--file-info", "abc.js", "def.js"]).test({
     status: 1
   });
 });

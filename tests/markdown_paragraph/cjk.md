@@ -9,3 +9,7 @@ This ia an english paragraph with a CJK quote "中文".
 This ia an english paragraph with a CJK quote “中文“.
 
 扩展运算符（spread）是三个点（`...`）。
+
+::: warning 注意
+该网站在国外无法访问，故以下演示无效
+:::

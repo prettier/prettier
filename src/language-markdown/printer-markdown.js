@@ -13,6 +13,7 @@ const hardline = docBuilders.hardline;
 const softline = docBuilders.softline;
 const fill = docBuilders.fill;
 const align = docBuilders.align;
+const indent = docBuilders.indent;
 const group = docBuilders.group;
 const printDocToString = doc.printer.printDocToString;
 
@@ -21,6 +22,7 @@ const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
 
 const INLINE_NODE_TYPES = [
+  "liquidNode",
   "inlineCode",
   "emphasis",
   "strong",
@@ -53,7 +55,8 @@ function genericPrint(path, options, print) {
           options.originalText.slice(
             node.position.start.offset,
             node.position.end.offset
-          )
+          ),
+          options
         )
         .map(
           node =>
@@ -208,13 +211,8 @@ function genericPrint(path, options, print) {
         style
       ]);
     }
-    case "yaml":
-    case "toml": {
-      const style = node.type === "yaml" ? "---" : "+++";
-      return node.value
-        ? concat([style, hardline, node.value, hardline, style])
-        : concat([style, hardline, style]);
-    }
+    case "frontmatter":
+      return node.value;
     case "html": {
       const parentNode = path.getParentNode();
       return replaceNewlinesWithHardlines(
@@ -260,8 +258,8 @@ function genericPrint(path, options, print) {
                     : node.start + index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
-                ? "* "
-                : "- ";
+                ? "- "
+                : "* ";
 
             // do not print trailing spaces for empty list item since it might be treated as `break` node
             // by [doc-printer](https://github.com/prettier/prettier/blob/1.10.2/src/doc/doc-printer.js#L395-L405),
@@ -283,7 +281,7 @@ function genericPrint(path, options, print) {
         path.getParentNode(counter),
         path.getParentNode(counter + 1)
       );
-      return nthSiblingIndex % 2 === 0 ? "---" : "***";
+      return nthSiblingIndex % 2 === 0 ? "***" : "---";
     }
     case "linkReference":
       return concat([
@@ -308,14 +306,23 @@ function genericPrint(path, options, print) {
             node.referenceType === "collapsed" ? "[]" : ""
           ]);
       }
-    case "definition":
-      return concat([
-        "[",
-        node.identifier,
-        "]: ",
-        printUrl(node.url),
-        printTitle(node.title, options)
-      ]);
+    case "definition": {
+      const lineOrSpace = options.proseWrap === "always" ? line : " ";
+      return group(
+        concat([
+          concat(["[", node.identifier, "]:"]),
+          indent(
+            concat([
+              lineOrSpace,
+              printUrl(node.url),
+              node.title === null
+                ? ""
+                : concat([lineOrSpace, printTitle(node.title, options, false)])
+            ])
+          )
+        ])
+      );
+    }
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
     case "footnoteReference":
@@ -353,6 +360,8 @@ function genericPrint(path, options, print) {
           : "\\",
         hardline
       ]);
+    case "liquidNode":
+      return replaceNewlinesWithHardlines(node.value);
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     default:
@@ -755,12 +764,19 @@ function printUrl(url, dangerousCharOrChars) {
     : url;
 }
 
-function printTitle(title, options) {
+function printTitle(title, options, printSpace) {
+  if (printSpace == null) {
+    printSpace = true;
+  }
+
   if (!title) {
     return "";
   }
+  if (printSpace) {
+    return " " + printTitle(title, options, false);
+  }
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
-    return ` (${title})`; // avoid escaped quotes
+    return `(${title})`; // avoid escaped quotes
   }
   // faster than using RegExps: https://jsperf.com/performance-of-match-vs-split
   const singleCount = title.split("'").length - 1;
@@ -774,7 +790,7 @@ function printTitle(title, options) {
           ? "'"
           : '"';
   title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
-  return ` ${quote}${title}${quote}`;
+  return `${quote}${title}${quote}`;
 }
 
 function normalizeParts(parts) {
@@ -796,6 +812,8 @@ function clamp(value, min, max) {
 }
 
 function clean(ast, newObj, parent) {
+  delete newObj.position;
+
   // for codeblock
   if (ast.type === "code") {
     delete newObj.value;
@@ -810,8 +828,7 @@ function clean(ast, newObj, parent) {
     parent.type === "root" &&
     parent.children.length > 0 &&
     (parent.children[0] === ast ||
-      ((parent.children[0].type === "yaml" ||
-        parent.children[0].type === "toml") &&
+      (parent.children[0].type === "frontmatter" &&
         parent.children[1] === ast)) &&
     ast.type === "html" &&
     pragma.startWithPragma(ast.value)

@@ -135,6 +135,13 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
       comment,
       options
     ) ||
+    handleTSMappedTypeComments(
+      text,
+      enclosingNode,
+      precedingNode,
+      followingNode,
+      comment
+    ) ||
     handleBreakAndContinueStatementComments(enclosingNode, comment)
   ) {
     return true;
@@ -697,6 +704,38 @@ function handleVariableDeclaratorComments(
     addLeadingComment(followingNode, comment);
     return true;
   }
+  return false;
+}
+
+function handleTSMappedTypeComments(
+  text,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  comment
+) {
+  if (!enclosingNode || enclosingNode.type !== "TSMappedType") {
+    return false;
+  }
+
+  if (
+    followingNode &&
+    followingNode.type === "TSTypeParameter" &&
+    followingNode.name
+  ) {
+    addLeadingComment(followingNode.name, comment);
+    return true;
+  }
+
+  if (
+    precedingNode &&
+    precedingNode.type === "TSTypeParameter" &&
+    precedingNode.constraint
+  ) {
+    addTrailingComment(precedingNode.constraint, comment);
+    return true;
+  }
+
   return false;
 }
 

@@ -3,6 +3,7 @@
 module.exports = [
   "language-js/parser-babylon",
   "language-js/parser-flow",
+  "language-js/parser-json-stringify",
   "language-js/parser-typescript",
   "language-graphql/parser-graphql",
   "language-handlebars/parser-glimmer",

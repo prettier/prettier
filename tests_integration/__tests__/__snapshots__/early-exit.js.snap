@@ -102,6 +102,19 @@ Default: true
 
 exports[`show detailed usage with --help editorconfig (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help file-info (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help file-info (stdout) 1`] = `
+"--file-info <path>
+
+  Extract the following info (as JSON) for a given file path. Reported fields:
+  * ignored (boolean) - true if file path is filtered by --ignore-path
+  * inferredParser (string | null) - name of parser inferred from file path
+"
+`;
+
+exports[`show detailed usage with --help file-info (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help find-config-path (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help find-config-path (stdout) 1`] = `
@@ -265,23 +278,24 @@ exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
+"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
 
   Which parser to use.
 
 Valid options:
 
-  flow         Flow
-  babylon      JavaScript
-  typescript   TypeScript
-  css          CSS
-  less         Less
-  scss         SCSS
-  json         JSON
-  json5        JSON5
-  graphql      GraphQL
-  markdown     Markdown
-  vue          Vue
+  flow             Flow
+  babylon          JavaScript
+  typescript       TypeScript
+  css              CSS
+  less             Less
+  scss             SCSS
+  json             JSON
+  json5            JSON5
+  json-stringify   JSON.stringify
+  graphql          GraphQL
+  markdown         Markdown
+  vue              Vue
 
 Default: babylon
 "
@@ -301,6 +315,21 @@ Default: []
 `;
 
 exports[`show detailed usage with --help plugin (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help plugin-search-dir (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help plugin-search-dir (stdout) 1`] = `
+"--plugin-search-dir <path>
+
+  Custom directory that contains prettier plugins in node_modules subdirectory.
+  Overrides default behavior when plugins are searched relatively to the location of Prettier.
+  Multiple values are accepted.
+
+Default: []
+"
+`;
+
+exports[`show detailed usage with --help plugin-search-dir (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help print-width (stderr) 1`] = `""`;
 
@@ -566,7 +595,7 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
+  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
                            Which parser to use.
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
@@ -599,6 +628,11 @@ Config options:
                            Defaults to .prettierignore.
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
                            Defaults to [].
+  --plugin-search-dir <path>
+                           Custom directory that contains prettier plugins in node_modules subdirectory.
+                           Overrides default behavior when plugins are searched relatively to the location of Prettier.
+                           Multiple values are accepted.
+                           Defaults to [].
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
@@ -618,6 +652,9 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
+  --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
+                           * ignored (boolean) - true if file path is filtered by --ignore-path
+                           * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
   --insert-pragma          Insert @format pragma into file's first docblock comment.
@@ -662,23 +699,24 @@ exports[`show warning with --help not-found (typo) (stderr) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
+"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
 
   Which parser to use.
 
 Valid options:
 
-  flow         Flow
-  babylon      JavaScript
-  typescript   TypeScript
-  css          CSS
-  less         Less
-  scss         SCSS
-  json         JSON
-  json5        JSON5
-  graphql      GraphQL
-  markdown     Markdown
-  vue          Vue
+  flow             Flow
+  babylon          JavaScript
+  typescript       TypeScript
+  css              CSS
+  less             Less
+  scss             SCSS
+  json             JSON
+  json5            JSON5
+  json-stringify   JSON.stringify
+  graphql          GraphQL
+  markdown         Markdown
+  vue              Vue
 
 Default: babylon
 "
@@ -709,7 +747,7 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|json5|graphql|markdown|vue>
+  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
                            Which parser to use.
                            Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
@@ -742,6 +780,11 @@ Config options:
                            Defaults to .prettierignore.
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
                            Defaults to [].
+  --plugin-search-dir <path>
+                           Custom directory that contains prettier plugins in node_modules subdirectory.
+                           Overrides default behavior when plugins are searched relatively to the location of Prettier.
+                           Multiple values are accepted.
+                           Defaults to [].
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
@@ -761,6 +804,9 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
+  --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
+                           * ignored (boolean) - true if file path is filtered by --ignore-path
+                           * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
   --insert-pragma          Insert @format pragma into file's first docblock comment.
@@ -781,6 +827,15 @@ Other options:
 `;
 
 exports[`throw error and show usage with something unexpected (write) 1`] = `Array []`;
+
+exports[`throw error with --file-info + multiple files (stderr) 1`] = `
+"[error] Cannot use --file-info with multiple files
+"
+`;
+
+exports[`throw error with --file-info + multiple files (stdout) 1`] = `""`;
+
+exports[`throw error with --file-info + multiple files (write) 1`] = `Array []`;
 
 exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `
 "[error] Cannot use --find-config-path with multiple files

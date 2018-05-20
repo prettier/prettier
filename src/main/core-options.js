@@ -105,6 +105,11 @@ const options = {
       { value: "scss", since: "1.7.1", description: "SCSS" },
       { value: "json", since: "1.5.0", description: "JSON" },
       { value: "json5", since: "1.13.0", description: "JSON5" },
+      {
+        value: "json-stringify",
+        since: "1.13.0",
+        description: "JSON.stringify"
+      },
       { value: "graphql", since: "1.5.0", description: "GraphQL" },
       { value: "markdown", since: "1.8.0", description: "Markdown" },
       { value: "vue", since: "1.10.0", description: "Vue" }
@@ -120,6 +125,21 @@ const options = {
       "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.",
     exception: value => typeof value === "string" || typeof value === "object",
     cliName: "plugin",
+    cliCategory: CATEGORY_CONFIG
+  },
+  pluginSearchDirs: {
+    since: "1.13.0",
+    type: "path",
+    array: true,
+    default: [{ value: [] }],
+    category: CATEGORY_GLOBAL,
+    description: dedent`
+      Custom directory that contains prettier plugins in node_modules subdirectory.
+      Overrides default behavior when plugins are searched relatively to the location of Prettier.
+      Multiple values are accepted.
+    `,
+    exception: value => typeof value === "string" || typeof value === "object",
+    cliName: "plugin-search-dir",
     cliCategory: CATEGORY_CONFIG
   },
   printWidth: {

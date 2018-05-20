@@ -145,10 +145,6 @@ pre.CodeMirror-placeholder {
   color: #888888;
 }
 
-.editors .CodeMirror-scroll {
-  position: static;
-}
-
 .bottom-bar {
   position: relative;
 }

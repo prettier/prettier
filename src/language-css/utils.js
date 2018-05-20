@@ -98,7 +98,19 @@ function insideAtRuleNode(path, atRuleName) {
   );
 }
 
-function isURLFunction(node) {
+function insideURLFunctionInImportAtRuleNode(path) {
+  const node = path.getValue();
+  const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
+
+  return (
+    atRuleAncestorNode &&
+    atRuleAncestorNode.name === "import" &&
+    node.groups[0].value === "url" &&
+    node.groups.length === 2
+  );
+}
+
+function isURLFunctionNode(node) {
   return node.type === "value-func" && node.value.toLowerCase() === "url";
 }
 
@@ -115,15 +127,17 @@ function isHTMLTag(value) {
   return htmlTagNames.indexOf(value.toLowerCase()) !== -1;
 }
 
-function isDetachedRulesetDeclaration(node) {
+function isDetachedRulesetDeclarationNode(node) {
   // If a Less file ends up being parsed with the SCSS parser, Less
   // variable declarations will be parsed as atrules with names ending
   // with a colon, so keep the original case then.
+  if (!node.selector) {
+    return false;
+  }
+
   return (
-    node.selector &&
-    node.selector.type !== "selector-root-invalid" &&
-    ((typeof node.selector === "string" && /^@.+:.*$/.test(node.selector)) ||
-      (node.selector.value && /^@.+:.*$/.test(node.selector.value)))
+    (typeof node.selector === "string" && /^@.+:.*$/.test(node.selector)) ||
+    (node.selector.value && /^@.+:.*$/.test(node.selector.value))
   );
 }
 
@@ -174,8 +188,30 @@ function isSCSSControlDirectiveNode(node) {
   );
 }
 
-function isSCSSMap(node) {
-  return node.type === "css-decl" && node.prop && node.prop.startsWith("$");
+function isSCSSNestedPropertyNode(node) {
+  if (!node.selector) {
+    return false;
+  }
+
+  return node.selector
+    .replace(/\/\*.*?\*\//, "")
+    .replace(/\/\/.*?\n/, "")
+    .trim()
+    .endsWith(":");
+}
+
+function isDetachedRulesetCallNode(node) {
+  return node.raws && node.raws.params && /^\(\s*\)$/.test(node.raws.params);
+}
+
+function isPostcssSimpleVarNode(currentNode, nextNode) {
+  return (
+    currentNode.value === "$$" &&
+    currentNode.type === "value-func" &&
+    nextNode &&
+    nextNode.type === "value-word" &&
+    !nextNode.raws.before
+  );
 }
 
 function hasLessExtendValueNode(node) {
@@ -211,31 +247,93 @@ function hasParensAroundValueNode(node) {
   );
 }
 
+function isKeyValuePairNode(node) {
+  return (
+    node.type === "value-comma_group" &&
+    node.groups &&
+    node.groups[1] &&
+    node.groups[1].type === "value-colon"
+  );
+}
+
+function isKeyValuePairInParenGroupNode(node) {
+  return (
+    node.type === "value-paren_group" &&
+    node.groups &&
+    node.groups[0] &&
+    isKeyValuePairNode(node.groups[0])
+  );
+}
+
+function isSCSSMapItemNode(path) {
+  const node = path.getValue();
+
+  // Ignore empty item (i.e. `$key: ()`)
+  if (node.groups.length === 0) {
+    return false;
+  }
+
+  const parentParentNode = path.getParentNode(1);
+
+  // Check open parens contain key/value pair (i.e. `(key: value)` and `(key: (value, other-value)`)
+  if (
+    !isKeyValuePairInParenGroupNode(node) &&
+    !(parentParentNode && isKeyValuePairInParenGroupNode(parentParentNode))
+  ) {
+    return false;
+  }
+
+  const declNode = getAncestorNode(path, "css-decl");
+
+  // SCSS map declaration (i.e. `$map: (key: value, other-key: other-value)`)
+  if (declNode && declNode.prop && declNode.prop.startsWith("$")) {
+    return true;
+  }
+
+  // List as value of key inside SCSS map (i.e. `$map: (key: (value other-value other-other-value))`)
+  if (isKeyValuePairInParenGroupNode(parentParentNode)) {
+    return true;
+  }
+
+  // SCSS Map is argument of function (i.e. `func((key: value, other-key: other-value))`)
+  if (parentParentNode.type === "value-func") {
+    return true;
+  }
+
+  return false;
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
   getPropOfDeclNode,
+  maybeToLowerCase,
   insideValueFunctionNode,
   insideICSSRuleNode,
   insideAtRuleNode,
-  isLastNode,
-  isSCSSControlDirectiveNode,
-  isDetachedRulesetDeclaration,
+  insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
   isHTMLTag,
+  isWideKeywords,
+  isSCSS,
+  isLastNode,
+  isSCSSControlDirectiveNode,
+  isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
   isEqualityOperatorNode,
   isMathOperatorNode,
   isEachKeywordNode,
   isParenGroupNode,
   isForKeywordNode,
-  isSCSS,
-  isSCSSMap,
-  isURLFunction,
-  isWideKeywords,
+  isURLFunctionNode,
   isIfElseKeywordNode,
-  maybeToLowerCase,
   hasLessExtendValueNode,
   hasComposesValueNode,
-  hasParensAroundValueNode
+  hasParensAroundValueNode,
+  isSCSSNestedPropertyNode,
+  isDetachedRulesetCallNode,
+  isPostcssSimpleVarNode,
+  isKeyValuePairNode,
+  isKeyValuePairInParenGroupNode,
+  isSCSSMapItemNode
 };

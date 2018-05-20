@@ -1,0 +1,96 @@
+aliases:
+  # Cache management
+  - &restore_yarn_cache
+    restore_cache:
+      keys:
+        - v1-yarn-cache
+
+  - &save_yarn_cache
+    save_cache:
+      paths:
+        - ~/.cache/yarn
+      key: v1-yarn-cache
+
+  - &restore_deps_cache
+    restore_cache:
+      keys:
+        - v1-deps-cache-{{ checksum "yarn.lock" }}
+
+  - &save_deps_cache
+    save_cache:
+      paths:
+        - node_modules
+      key: v1-yarn-deps-{{ checksum "yarn.lock" }}
+
+  # Default
+  - &defaults
+    working_directory: ~/prettier
+    docker:
+      - image: circleci/node:9
+
+version: 2
+jobs:
+  # Install dependencies and cache everything
+  checkout_code:
+    <<: *defaults
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *restore_deps_cache
+      - run: yarn install
+      - run: yarn check-deps
+      - *save_deps_cache
+      - *save_yarn_cache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  # Create the production bundle and cache
+  build_prod:
+    <<: *defaults
+    environment:
+      NODE_ENV: production
+    steps:
+      - attach_workspace:
+          at: ~/prettier
+      - run: yarn build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+      - store_artifacts:
+          path: ~/prettier/dist
+
+  # Run tests on the production bundle
+  test_prod_node4:
+    <<: *defaults
+    docker:
+      - image: circleci/node:4
+    steps:
+      - attach_workspace:
+          at: ~/prettier
+      - run: yarn test:dist
+
+  # Run tests on the production bundle
+  test_prod_node9:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/prettier
+      - run: yarn test:dist
+
+workflows:
+  version: 2
+  prod:
+    jobs:
+      - checkout_code
+      - build_prod:
+          requires:
+            - checkout_code
+      - test_prod_node4:
+          requires:
+            - build_prod
+      - test_prod_node9:
+          requires:
+            - build_prod

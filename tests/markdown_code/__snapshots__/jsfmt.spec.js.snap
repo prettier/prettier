@@ -22,11 +22,11 @@ exports[`0-indent-js.md 1`] = `
       \`
       \`\`\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 1
+- 1
 
-  * 2
+  - 2
 
-    * 3
+    - 3
 
       \`\`\`js
       md\`
@@ -164,7 +164,7 @@ exports[`indent.md 1`] = `
     Indented Code Block
     Indented Code Block
 
-* \`\`\`
+- \`\`\`
   Fenced Code Block
   Fenced Code Block
   Fenced Code Block

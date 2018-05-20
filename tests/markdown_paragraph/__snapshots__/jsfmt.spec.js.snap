@@ -12,6 +12,10 @@ This ia an english paragraph with a CJK quote "中文".
 This ia an english paragraph with a CJK quote “中文“.
 
 扩展运算符（spread）是三个点（\`...\`）。
+
+::: warning 注意
+该网站在国外无法访问，故以下演示无效
+:::
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長
 很長的段落
@@ -36,6 +40,8 @@ This ia an english paragraph with a CJK quote “中文“.
 
 扩展运算符（spread）是三个点（\`...\`）。
 
+::: warning 注意该网站在国外无法访问，故以下演示无效 :::
+
 `;
 
 exports[`cjk.md 2`] = `
@@ -50,6 +56,10 @@ This ia an english paragraph with a CJK quote "中文".
 This ia an english paragraph with a CJK quote “中文“.
 
 扩展运算符（spread）是三个点（\`...\`）。
+
+::: warning 注意
+该网站在国外无法访问，故以下演示无效
+:::
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
 
@@ -62,6 +72,8 @@ This ia an english paragraph with a CJK quote "中文".
 This ia an english paragraph with a CJK quote “中文“.
 
 扩展运算符（spread）是三个点（\`...\`）。
+
+::: warning 注意该网站在国外无法访问，故以下演示无效 :::
 
 `;
 
@@ -77,6 +89,10 @@ This ia an english paragraph with a CJK quote "中文".
 This ia an english paragraph with a CJK quote “中文“.
 
 扩展运算符（spread）是三个点（\`...\`）。
+
+::: warning 注意
+该网站在国外无法访问，故以下演示无效
+:::
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
 
@@ -89,6 +105,10 @@ This ia an english paragraph with a CJK quote "中文".
 This ia an english paragraph with a CJK quote “中文“.
 
 扩展运算符（spread）是三个点（\`...\`）。
+
+::: warning 注意
+该网站在国外无法访问，故以下演示无效
+:::
 
 `;
 
@@ -236,24 +256,24 @@ abc - abc abc abc
 
 ## Supported Rules
 
-* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md) -
+- [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md) -
   disallow disabled tests.
-* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md) -
+- [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md) -
   disallow focused tests.
-* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md) -
+- [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md) -
   disallow identical titles.
-* [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
+- [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
   ensure expect is called correctly.
 
 ## Supported Rules
 
-* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md)
-  * disallow disabled tests.
-* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md)
-  * disallow focused tests.
-* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
-  * disallow identical titles.
-* [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
+- [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md)
+  - disallow disabled tests.
+- [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md)
+  - disallow focused tests.
+- [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
+  - disallow identical titles.
+- [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
   ensure expect is called correctly.
 
 She grew up in an isolated village in the 19th century and met her father
@@ -288,20 +308,20 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
 
 ## Supported Rules
 
-* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md) - disallow disabled tests.
-* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md) - disallow focused tests.
-* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md) - disallow identical titles.
-* [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
+- [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md) - disallow disabled tests.
+- [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md) - disallow focused tests.
+- [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md) - disallow identical titles.
+- [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
 
 ## Supported Rules
 
-* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md)
-  * disallow disabled tests.
-* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md)
-  * disallow focused tests.
-* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
-  * disallow identical titles.
-* [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
+- [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md)
+  - disallow disabled tests.
+- [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md)
+  - disallow focused tests.
+- [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
+  - disallow identical titles.
+- [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
 
 She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?
 
@@ -334,20 +354,20 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
 
 ## Supported Rules
 
-* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md) - disallow disabled tests.
-* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md) - disallow focused tests.
-* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md) - disallow identical titles.
-* [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
+- [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md) - disallow disabled tests.
+- [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md) - disallow focused tests.
+- [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md) - disallow identical titles.
+- [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) - ensure expect is called correctly.
 
 ## Supported Rules
 
-* [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md)
-  * disallow disabled tests.
-* [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md)
-  * disallow focused tests.
-* [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
-  * disallow identical titles.
-* [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
+- [no-disabled-tests](/packages/eslint-plugin-jest/docs/rules/no-disabled-tests.md)
+  - disallow disabled tests.
+- [no-focused-tests](/packages/eslint-plugin-jest/docs/rules/no-focused-tests.md)
+  - disallow focused tests.
+- [no-identical-title](/packages/eslint-plugin-jest/docs/rules/no-identical-title.md)
+  - disallow identical titles.
+- [valid-expect](/packages/eslint-plugin-jest/docs/rules/valid-expect.md) -
   ensure expect is called correctly.
 
 She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?

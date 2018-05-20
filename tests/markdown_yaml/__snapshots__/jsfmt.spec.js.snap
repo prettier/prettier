@@ -9,6 +9,19 @@ exports[`empty.md 1`] = `
 
 `;
 
+exports[`empty-2.md 1`] = `
+---
+---
+
+Content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+---
+
+Content
+
+`;
+
 exports[`simple.md 1`] = `
 ---
 hello: world
@@ -17,5 +30,20 @@ hello: world
 ---
 hello: world
 ---
+
+`;
+
+exports[`simple-2.md 1`] = `
+---
+hello: world
+---
+
+Content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+hello: world
+---
+
+Content
 
 `;

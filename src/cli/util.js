@@ -5,13 +5,14 @@ const camelCase = require("camelcase");
 const dashify = require("dashify");
 const fs = require("fs");
 const globby = require("globby");
-const ignore = require("ignore");
 const chalk = require("chalk");
 const readline = require("readline");
 const leven = require("leven");
+const stringify = require("json-stable-stringify");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
+const createIgnorer = require("../common/create-ignorer");
 const errors = require("../common/errors");
 const constant = require("./constant");
 const coreOptions = require("../main/core-options");
@@ -76,13 +77,32 @@ function handleError(context, filename, error) {
   process.exitCode = 2;
 }
 
-function logResolvedConfigPathOrDie(context, filePath) {
-  const configFile = prettier.resolveConfigFile.sync(filePath);
+function logResolvedConfigPathOrDie(context) {
+  const configFile = prettier.resolveConfigFile.sync(
+    context.argv["find-config-path"]
+  );
   if (configFile) {
     context.logger.log(path.relative(process.cwd(), configFile));
   } else {
     process.exit(1);
   }
+}
+
+function logFileInfoOrDie(context) {
+  const options = {
+    ignorePath: context.argv["ignore-path"],
+    withNodeModules: context.argv["with-node-modules"],
+    plugins: context.argv["plugin"],
+    pluginSearchDirs: context.argv["plugin-search-dir"]
+  };
+  context.logger.log(
+    prettier.format(
+      stringify(prettier.getFileInfo.sync(context.argv["file-info"], options)),
+      {
+        parser: "json"
+      }
+    )
+  );
 }
 
 function writeOutput(result, options) {
@@ -255,7 +275,7 @@ function formatStdin(context) {
     ? path.resolve(process.cwd(), context.argv["stdin-filepath"])
     : process.cwd();
 
-  const ignorer = createIgnorer(context);
+  const ignorer = createIgnorerFromContextOrDie(context);
   const relativeFilepath = path.relative(process.cwd(), filepath);
 
   thirdParty.getStream(process.stdin).then(input => {
@@ -278,22 +298,16 @@ function formatStdin(context) {
   });
 }
 
-function createIgnorer(context) {
-  const ignoreFilePath = path.resolve(context.argv["ignore-path"]);
-  let ignoreText = "";
-
+function createIgnorerFromContextOrDie(context) {
   try {
-    ignoreText = fs.readFileSync(ignoreFilePath, "utf8");
-  } catch (readError) {
-    if (readError.code !== "ENOENT") {
-      context.logger.error(
-        `Unable to read ${ignoreFilePath}: ` + readError.message
-      );
-      process.exit(2);
-    }
+    return createIgnorer(
+      context.argv["ignore-path"],
+      context.argv["with-node-modules"]
+    );
+  } catch (e) {
+    context.logger.error(e.message);
+    process.exit(2);
   }
-
-  return ignore().add(ignoreText);
 }
 
 function eachFilename(context, patterns, callback) {
@@ -329,7 +343,7 @@ function eachFilename(context, patterns, callback) {
 function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
-  const ignorer = createIgnorer(context);
+  const ignorer = createIgnorerFromContextOrDie(context);
 
   eachFilename(context, context.filePatterns, (filename, options) => {
     const fileIgnored = ignorer.filter([filename]).length === 0;
@@ -746,7 +760,12 @@ function createMinimistOptions(detailedOptions) {
       .map(option => option.name),
     default: detailedOptions
       .filter(option => !option.deprecated)
-      .filter(option => !option.forwardToApi || option.name === "plugin")
+      .filter(
+        option =>
+          !option.forwardToApi ||
+          option.name === "plugin" ||
+          option.name === "plugin-search-dir"
+      )
       .filter(option => option.default !== undefined)
       .reduce(
         (current, option) =>
@@ -809,11 +828,15 @@ function createContext(args) {
   const context = { args };
 
   updateContextArgv(context);
-  normalizeContextArgv(context, ["loglevel", "plugin"]);
+  normalizeContextArgv(context, ["loglevel", "plugin", "plugin-search-dir"]);
 
   context.logger = createLogger(context.argv["loglevel"]);
 
-  updateContextArgv(context, context.argv["plugin"]);
+  updateContextArgv(
+    context,
+    context.argv["plugin"],
+    context.argv["plugin-search-dir"]
+  );
 
   return context;
 }
@@ -823,12 +846,13 @@ function initContext(context) {
   normalizeContextArgv(context);
 }
 
-function updateContextOptions(context, plugins) {
+function updateContextOptions(context, plugins, pluginSearchDirs) {
   const supportOptions = prettier.getSupportInfo(null, {
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
-    plugins
+    plugins,
+    pluginSearchDirs
   }).options;
 
   const detailedOptionMap = normalizeDetailedOptionMap(
@@ -851,12 +875,12 @@ function updateContextOptions(context, plugins) {
   context.apiDefaultOptions = apiDefaultOptions;
 }
 
-function pushContextPlugins(context, plugins) {
+function pushContextPlugins(context, plugins, pluginSearchDirs) {
   context._supportOptions = context.supportOptions;
   context._detailedOptions = context.detailedOptions;
   context._detailedOptionMap = context.detailedOptionMap;
   context._apiDefaultOptions = context.apiDefaultOptions;
-  updateContextOptions(context, plugins);
+  updateContextOptions(context, plugins, pluginSearchDirs);
 }
 
 function popContextPlugins(context) {
@@ -866,8 +890,8 @@ function popContextPlugins(context) {
   context.apiDefaultOptions = context._apiDefaultOptions;
 }
 
-function updateContextArgv(context, plugins) {
-  pushContextPlugins(context, plugins);
+function updateContextArgv(context, plugins, pluginSearchDirs) {
+  pushContextPlugins(context, plugins, pluginSearchDirs);
 
   const minimistOptions = createMinimistOptions(context.detailedOptions);
   const argv = minimist(context.args, minimistOptions);
@@ -900,5 +924,6 @@ module.exports = {
   formatStdin,
   initContext,
   logResolvedConfigPathOrDie,
+  logFileInfoOrDie,
   normalizeDetailedOptionMap
 };

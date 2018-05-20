@@ -53,6 +53,9 @@ const siteConfig = {
   },
   useEnglishUrl: true,
   scripts: ["https://buttons.github.io/buttons.js"],
+  stylesheets: [
+    "//unpkg.com/@sandhose/prettier-animated-logo@1.0.3/dist/wide.css"
+  ],
   algolia: {
     apiKey: process.env.ALGOLIA_PRETTIER_API_KEY,
     indexName: "prettier"

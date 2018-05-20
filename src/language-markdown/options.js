@@ -1,6 +1,6 @@
 "use strict";
 
-const jsOptions = require("../language-js/options");
+const commonOptions = require("../common/common-options");
 
 const CATEGORY_MARKDOWN = "Markdown";
 
@@ -35,5 +35,5 @@ module.exports = {
       { value: true, deprecated: "1.9.0", redirect: "always" }
     ]
   },
-  singleQuote: jsOptions.singleQuote
+  singleQuote: commonOptions.singleQuote
 };

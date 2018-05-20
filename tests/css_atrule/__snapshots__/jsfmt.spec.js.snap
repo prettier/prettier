@@ -2144,6 +2144,7 @@ exports[`import.css 1`] = `
 @import 'custom.css';
 @import url("chrome://communicator/skin/");
 @import "common.css" screen, projection;
+@import "common.css" screen projection;
 @import url('landscape.css') screen and (orientation:landscape);
 
 @import (multiple) "foo.less";
@@ -2210,6 +2211,7 @@ $dir: 'fonts';
   projection,
   tv;
 @import url("very-very-very-very-very-very-very-very-very-very-long-name.css") projection,tv;
+@import url("very-very-very-very-very-very-very-very-very-very-long-name.css") projection tv;
 @import url('landscape.css') screen and (orientation:landscape);
 @import "rounded-corners", "text-shadow";
 @import 'rounded-corners', 'text-shadow';
@@ -2225,12 +2227,17 @@ $family: unquote("Droid+Sans");
 @import url(
 "foo.css"
 );
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600';
+@import url(
+"foo.css,800"
+);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @import url("fineprint.css") print;
 @import url("bluish.css") projection, tv;
 @import "custom.css";
 @import url("chrome://communicator/skin/");
 @import "common.css" screen, projection;
+@import "common.css" screen projection;
 @import url("landscape.css") screen and (orientation: landscape);
 
 @import (multiple) "foo.less";
@@ -2288,6 +2295,8 @@ $dir: "fonts";
 @import url("very-very-very-very-very-very-very-very-very-very-long-name.css")
   projection,
   tv;
+@import url("very-very-very-very-very-very-very-very-very-very-long-name.css")
+  projection tv;
 @import url("landscape.css") screen and (orientation: landscape);
 @import "rounded-corners", "text-shadow";
 @import "rounded-corners", "text-shadow";
@@ -2301,6 +2310,8 @@ $family: unquote("Droid+Sans");
 @import url("foo bar baz.css");
 @import url("foo  bar  baz.css");
 @import url("foo.css");
+@import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600";
+@import url("foo.css,800");
 
 `;
 
@@ -2389,6 +2400,41 @@ a {
 
         }
 }
+
+a {
+@include section-type-1(
+$header: (margin: 0 0 $margin-base, text-align: left),
+$decoration: (type: base, margin: 0 auto -1px 0, primary-color: $brand-primary, secondary-color: $gray-light),
+$title: (margin: 0 0 $margin-small, color: false, font-size: $font-size-h3, font-weight: false, line-height: $line-height-h3)
+);
+}
+
+a {
+@include item-spotlight-properties-transition(
+"-title",
+(box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15))
+);
+}
+
+a {
+@include item-spotlight-properties-transition(
+"-title",
+(
+box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
+border-color: $brand-primary
+)
+);
+}
+
+a {
+@include item-spotlight-properties-transition(
+"-title",
+(
+box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
+border-color: $very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+)
+);
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
@@ -2428,6 +2474,58 @@ a {
   }
   @include apply-to-ie6-only {
   }
+}
+
+a {
+  @include section-type-1(
+    $header: (
+      margin: 0 0 $margin-base,
+      text-align: left
+    ),
+    $decoration: (
+      type: base,
+      margin: 0 auto -1px 0,
+      primary-color: $brand-primary,
+      secondary-color: $gray-light
+    ),
+    $title: (
+      margin: 0 0 $margin-small,
+      color: false,
+      font-size: $font-size-h3,
+      font-weight: false,
+      line-height: $line-height-h3
+    )
+  );
+}
+
+a {
+  @include item-spotlight-properties-transition(
+    "-title",
+    (
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15)
+    )
+  );
+}
+
+a {
+  @include item-spotlight-properties-transition(
+    "-title",
+    (
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
+      border-color: $brand-primary
+    )
+  );
+}
+
+a {
+  @include item-spotlight-properties-transition(
+    "-title",
+    (
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
+      border-color:
+        $very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+    )
+  );
 }
 
 `;

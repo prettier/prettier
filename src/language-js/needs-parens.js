@@ -91,10 +91,13 @@ function needsParens(path, options) {
     node.type !== "SequenceExpression" && // these have parens added anyway
       util.startsWithNoLookaheadToken(
         node,
-        /* forbidFunctionAndClass */ false
+        /* forbidFunctionClassAndDoExpr */ false
       )) ||
     (parent.type === "ExpressionStatement" &&
-      util.startsWithNoLookaheadToken(node, /* forbidFunctionAndClass */ true))
+      util.startsWithNoLookaheadToken(
+        node,
+        /* forbidFunctionClassAndDoExpr */ true
+      ))
   ) {
     return true;
   }
@@ -259,6 +262,10 @@ function needsParens(path, options) {
             return true;
           }
 
+          if (pp < np && no === "%") {
+            return !util.shouldFlatten(po, no);
+          }
+
           // Add parenthesis when working with binary operators
           // It's not stricly needed but helps with code understanding
           if (util.isBitwiseOperator(po)) {
@@ -372,12 +379,22 @@ function needsParens(path, options) {
     case "NullableTypeAnnotation":
       return parent.type === "ArrayTypeAnnotation";
 
-    case "FunctionTypeAnnotation":
+    case "FunctionTypeAnnotation": {
+      const ancestor =
+        parent.type === "NullableTypeAnnotation"
+          ? path.getParentNode(1)
+          : parent;
+
       return (
-        parent.type === "UnionTypeAnnotation" ||
-        parent.type === "IntersectionTypeAnnotation" ||
-        parent.type === "ArrayTypeAnnotation"
+        ancestor.type === "UnionTypeAnnotation" ||
+        ancestor.type === "IntersectionTypeAnnotation" ||
+        ancestor.type === "ArrayTypeAnnotation" ||
+        // We should check ancestor's parent to know whether the parentheses
+        // are really needed, but since ??T doesn't make sense this check
+        // will almost never be true.
+        ancestor.type === "NullableTypeAnnotation"
       );
+    }
 
     case "StringLiteral":
     case "NumericLiteral":

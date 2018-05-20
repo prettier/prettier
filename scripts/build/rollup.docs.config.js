@@ -14,6 +14,8 @@ export default Object.assign(baseConfig, {
   format: "iife",
   plugins: [json(), resolve({ preferBuiltins: true }), commonjs(), globals()],
   useStrict: false,
-  moduleName: basename.replace(/.+-/, ""),
+  moduleName: basename
+    .replace(/^parser-/, "")
+    .replace(/-/g, "_") /* `json-stringify` is not a valid identifier */,
   external: ["assert", "fs", "module"]
 });

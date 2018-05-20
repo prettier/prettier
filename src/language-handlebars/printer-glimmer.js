@@ -309,6 +309,8 @@ function printCloseBlock(path, print) {
 }
 
 function clean(ast, newObj) {
+  delete newObj.loc;
+
   // (Glimmer/HTML) ignore TextNode whitespace
   if (ast.type === "TextNode") {
     if (ast.chars.replace(/\s+/, "") === "") {

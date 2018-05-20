@@ -22,6 +22,11 @@ function run(args) {
       process.exit(1);
     }
 
+    if (context.argv["file-info"] && context.filePatterns.length) {
+      context.logger.error("Cannot use --file-info with multiple files");
+      process.exit(1);
+    }
+
     if (context.argv["version"]) {
       context.logger.log(prettier.version);
       process.exit(0);
@@ -50,10 +55,9 @@ function run(args) {
       context.argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
 
     if (context.argv["find-config-path"]) {
-      util.logResolvedConfigPathOrDie(
-        context,
-        context.argv["find-config-path"]
-      );
+      util.logResolvedConfigPathOrDie(context);
+    } else if (context.argv["file-info"]) {
+      util.logFileInfoOrDie(context);
     } else if (useStdin) {
       util.formatStdin(context);
     } else if (hasFilePatterns) {

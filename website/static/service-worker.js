@@ -3,7 +3,7 @@
 
 "use strict";
 
-importScripts("lib/sw-toolbox.js");
+importScripts("https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js");
 
 toolbox.precache([
   // Scripts
@@ -12,11 +12,12 @@ toolbox.precache([
   "lib/parser-typescript.js",
   "lib/parser-postcss.js",
   "lib/parser-flow.js",
+  "lib/parser-json-stringify.js",
   "lib/parser-glimmer.js",
   "lib/parser-graphql.js",
   "lib/parser-markdown.js",
   "playground.js",
-  "lib/sw-toolbox.js",
+  "https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js",
 
   // CodeMirror
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.36.0/codemirror.css",

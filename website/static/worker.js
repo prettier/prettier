@@ -43,19 +43,25 @@ self.require = function require(path) {
     return { PassThrough() {} };
   }
   if (path === "./third-party") {
-    return {};
+    return { findParentDir() {} };
   }
 
   if (~path.indexOf("parser-")) {
-    var parser = path.replace(/.+-/, "");
+    var parser = path.replace(/^.*parser-/, "");
     if (!parsersLoaded[parser]) {
       importScripts("lib/parser-" + parser + ".js");
       parsersLoaded[parser] = true;
     }
-    return self[parser];
+    return self[
+      parser.replace(/-/g, "_") // `json-stringify` is not a valid identifier
+    ];
   }
 
   return self[path];
+};
+self.__dirname = "";
+self.events = {
+  EventEmitter: function() {}
 };
 /* eslint-enable */
 
@@ -122,7 +128,7 @@ function handleMessage(message) {
 
     if (message.debug.doc) {
       try {
-        response.debugDoc = prettier.__debug.formatDoc(
+        response.debug.doc = prettier.__debug.formatDoc(
           prettier.__debug.printToDoc(message.code, options),
           { parser: "babylon" }
         );
