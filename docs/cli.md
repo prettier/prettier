@@ -115,3 +115,35 @@ Change the level of logging for the CLI. Valid options are:
 * `log` (default)
 * `debug`
 * `silent`
+
+## `--stdin`
+
+Force the Prettier CLI to read input from stdin. For example:
+
+```bash
+$ prettier --stdin
+function  sampleFunction (var1,
+var2)  {
+  return  var1 *  var2
+}
+function sampleFunction(var1, var2) {
+  return var1 * var2;
+}
+```
+
+## `--stdin-filepath`
+
+A path to the file that the Prettier CLI will treat like stdin. For example:
+
+_abc.css_
+```css
+.name { display: none; }
+```
+
+_shell_
+```bash
+$ prettier --stdin-filepath abc.css
+.name {
+  display: none;
+}
+```
