@@ -25,10 +25,12 @@ function genericPrint(path, options, print) {
   switch (n.kind) {
     case "Document": {
       const parts = [];
+      let i = 0;
       path.map(pathChild => {
         parts.push(concat([pathChild.call(print)]));
         parts.push(hardline);
         if (
+          i !== n.definitions.length - 1 &&
           sharedUtil.isNextLineEmpty(
             options.originalText,
             pathChild.getValue(),
@@ -37,6 +39,7 @@ function genericPrint(path, options, print) {
         ) {
           parts.push(hardline);
         }
+        i++;
       }, "definitions");
       return concat(parts, hardline);
     }

@@ -17,6 +17,8 @@ gql\`
 
 `;
 
+
+
 exports[`expressions.js 1`] = `
 graphql(schema, \`
 query allPartsByManufacturerName($name: String!) {
@@ -265,8 +267,6 @@ gql\`
     }
   }
 
-
-
   \${USER_DETAILS_FRAGMENT}
   \${FRIENDS_FRAGMENT}
 \`;
@@ -387,8 +387,6 @@ gql\`
   query User {
     test
   }
-
-
 
   \${USER_DETAILS_FRAGMENT}
 
