@@ -1,7 +1,7 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const parseFrontmatter = require("../utils/front-matter");
+const parseFrontMatter = require("../utils/front-matter");
 
 // utils
 const utils = require("./utils");
@@ -474,8 +474,8 @@ function parseNestedCSS(node) {
 }
 
 function parseWithParser(parser, text) {
-  const parsed = parseFrontmatter(text);
-  const frontmatter = parsed.frontmatter;
+  const parsed = parseFrontMatter(text);
+  const frontMatter = parsed.frontMatter;
   text = parsed.content;
 
   let result;
@@ -491,10 +491,10 @@ function parseWithParser(parser, text) {
 
   result = parseNestedCSS(addTypePrefix(result, "css-"));
 
-  if (frontmatter) {
+  if (frontMatter) {
     result.nodes.unshift({
-      type: "frontmatter",
-      value: frontmatter
+      type: "front-matter",
+      value: frontMatter
     });
   }
 

@@ -2,7 +2,7 @@
 
 const remarkParse = require("remark-parse");
 const unified = require("unified");
-const parseFrontmatter = require("../utils/front-matter");
+const parseFrontMatter = require("../utils/front-matter");
 const util = require("../common/util");
 
 /**
@@ -22,7 +22,7 @@ const util = require("../common/util");
 function parse(text, parsers, opts) {
   const processor = unified()
     .use(remarkParse, { footnotes: true, commonmark: true })
-    .use(frontmatter)
+    .use(frontMatter)
     .use(liquid)
     .use(restoreUnescapedCharacter(text))
     .use(mergeContinuousTexts)
@@ -128,18 +128,18 @@ function splitText(options) {
     });
 }
 
-function frontmatter() {
+function frontMatter() {
   const proto = this.Parser.prototype;
-  proto.blockMethods = ["frontmatter"].concat(proto.blockMethods);
-  proto.blockTokenizers.frontmatter = tokenizer;
+  proto.blockMethods = ["frontMatter"].concat(proto.blockMethods);
+  proto.blockTokenizers.frontMatter = tokenizer;
 
   function tokenizer(eat, value) {
-    const parsed = parseFrontmatter(value);
+    const parsed = parseFrontMatter(value);
 
-    if (parsed.frontmatter) {
-      return eat(parsed.frontmatter)({
-        type: "frontmatter",
-        value: parsed.frontmatter
+    if (parsed.frontMatter) {
+      return eat(parsed.frontMatter)({
+        type: "front-matter",
+        value: parsed.frontMatter
       });
     }
   }

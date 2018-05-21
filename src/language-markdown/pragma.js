@@ -1,6 +1,6 @@
 "use strict";
 
-const parseFrontmatter = require("../utils/front-matter");
+const parseFrontMatter = require("../utils/front-matter");
 
 const pragmas = ["format", "prettier"];
 
@@ -19,12 +19,12 @@ function startWithPragma(text) {
 
 module.exports = {
   startWithPragma,
-  hasPragma: text => startWithPragma(parseFrontmatter(text).content.trimLeft()),
+  hasPragma: text => startWithPragma(parseFrontMatter(text).content.trimLeft()),
   insertPragma: text => {
-    const extracted = parseFrontmatter(text);
+    const extracted = parseFrontMatter(text);
     const pragma = `<!-- @${pragmas[0]} -->`;
-    return extracted.frontmatter
-      ? `${extracted.frontmatter}\n\n${pragma}\n\n${extracted.content}`
+    return extracted.frontMatter
+      ? `${extracted.frontMatter}\n\n${pragma}\n\n${extracted.content}`
       : `${pragma}\n\n${extracted.content}`;
   }
 };
