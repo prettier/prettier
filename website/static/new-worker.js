@@ -66,6 +66,7 @@ var parsers = {
 };
 
 importScripts("lib/standalone.js");
+var PRETTIER_DEBUG = true;
 
 self.onmessage = function(event) {
   self.postMessage({

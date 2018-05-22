@@ -108,7 +108,7 @@ function getRollupConfig(bundle) {
           Object.assign(
             {
               "process.env.NODE_ENV": "'production'",
-              "process.env.PRETTIER_DEBUG": "PRETTIER_DEBUG"
+              "process.env.PRETTIER_DEBUG": "global.PRETTIER_DEBUG"
             },
             bundle.replace
           )
