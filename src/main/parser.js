@@ -8,7 +8,7 @@ const locStart = jsLoc.locStart;
 const locEnd = jsLoc.locEnd;
 
 // Use defineProperties()/getOwnPropertyDescriptor() to prevent
-// the parsers getters.
+// triggering the parsers getters.
 const ownNames = Object.getOwnPropertyNames;
 const ownDescriptor = Object.getOwnPropertyDescriptor;
 function getParsers(options) {
