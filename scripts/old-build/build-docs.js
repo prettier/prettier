@@ -33,7 +33,7 @@ if (isPullRequest) {
   shell.exec("node scripts/build/build.js");
   shell.exec(`cp dist/standalone.js ${docs}/`);
   shell.exec(`cp dist/parser-*.js ${docs}/`);
-  shell.exec(`mv ${staticDir}/new-worker.js ${staticDir}/worker.js`);
+  shell.exec(`cp ${staticDir}/new-worker.js ${staticDir}/worker.js`);
 }
 
 // --- Docs ---
