@@ -66,7 +66,6 @@ var parsers = {
 };
 
 importScripts("lib/standalone.js");
-prettier.registerPlugin("parsers", { parsers: parsers });
 
 self.onmessage = function(event) {
   self.postMessage({
@@ -90,6 +89,8 @@ function handleMessage(message) {
     delete options.ast;
     delete options.doc;
     delete options.output2;
+
+    options.plugins = [{ parsers: parsers }];
 
     var response = {
       formatted: formatCode(message.code, options),
@@ -141,10 +142,7 @@ function handleMessage(message) {
 
 function formatCode(text, options) {
   try {
-    return prettier.format(
-      text,
-      Object.assign(options, { plugins: ["parsers"] })
-    );
+    return prettier.format(text, options);
   } catch (e) {
     if (e.constructor && e.constructor.name === "SyntaxError") {
       // Likely something wrong with the user's code
