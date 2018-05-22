@@ -66,6 +66,7 @@ var parsers = {
 };
 
 importScripts("lib/standalone.js");
+// eslint-disable-next-line no-unused-vars
 var PRETTIER_DEBUG = true;
 
 self.onmessage = function(event) {
