@@ -55,7 +55,8 @@ function genericPrint(path, options, print) {
           options.originalText.slice(
             node.position.start.offset,
             node.position.end.offset
-          )
+          ),
+          options
         )
         .map(
           node =>
@@ -210,7 +211,7 @@ function genericPrint(path, options, print) {
         style
       ]);
     }
-    case "frontmatter":
+    case "front-matter":
       return node.value;
     case "html": {
       const parentNode = path.getParentNode();
@@ -827,7 +828,7 @@ function clean(ast, newObj, parent) {
     parent.type === "root" &&
     parent.children.length > 0 &&
     (parent.children[0] === ast ||
-      (parent.children[0].type === "frontmatter" &&
+      (parent.children[0].type === "front-matter" &&
         parent.children[1] === ast)) &&
     ast.type === "html" &&
     pragma.startWithPragma(ast.value)

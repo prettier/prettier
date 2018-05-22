@@ -24,10 +24,22 @@ function genericPrint(path, options, print) {
 
   switch (n.kind) {
     case "Document": {
-      return concat([
-        join(concat([hardline, hardline]), path.map(print, "definitions")),
-        hardline
-      ]);
+      const parts = [];
+      path.map((pathChild, index) => {
+        parts.push(concat([pathChild.call(print)]));
+        parts.push(hardline);
+        if (
+          index !== n.definitions.length - 1 &&
+          sharedUtil.isNextLineEmpty(
+            options.originalText,
+            pathChild.getValue(),
+            options
+          )
+        ) {
+          parts.push(hardline);
+        }
+      }, "definitions");
+      return concat(parts, hardline);
     }
     case "OperationDefinition": {
       const hasOperation = options.originalText[options.locStart(n)] !== "{";

@@ -9,6 +9,8 @@ exports[`basic-handlebars.hbs 1`] = `
     </div>
   </div>
 </script>
+
+<div class="{{hello}} {{world}}"></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script id="entry-template" type="text/x-handlebars-template">
   <div class="entry">
@@ -20,6 +22,7 @@ exports[`basic-handlebars.hbs 1`] = `
     </div>
   </div>
 </script>
+<div class="{{hello}} {{world}}"></div>
 `;
 
 exports[`comments.hbs 1`] = `

@@ -3247,7 +3247,8 @@ function printPropertyKey(path, options, print) {
     isStringLiteral(key) &&
     isIdentifierName(key.value) &&
     !node.computed &&
-    options.parser !== "json"
+    options.parser !== "json" &&
+    !(options.parser === "typescript" && node.type === "ClassProperty")
   ) {
     // 'a' -> a
     return path.call(

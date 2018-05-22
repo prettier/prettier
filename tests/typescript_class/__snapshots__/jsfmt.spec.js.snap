@@ -171,3 +171,14 @@ class X {
 }
 
 `;
+
+exports[`quoted-property.ts 1`] = `
+class User {
+    "username": string;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class User {
+  "username": string;
+}
+
+`;

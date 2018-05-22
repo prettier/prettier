@@ -3,7 +3,7 @@
 const remarkParse = require("remark-parse");
 const unified = require("unified");
 const pragma = require("./pragma");
-const parseFrontmatter = require("../utils/front-matter");
+const parseFrontMatter = require("../utils/front-matter");
 const util = require("../common/util");
 
 /**
@@ -20,15 +20,15 @@ const util = require("../common/util");
  * interface Sentence { children: Array<Word | Whitespace> }
  * interface InlineCode { children: Array<Sentence> }
  */
-function parse(text /*, parsers, opts*/) {
+function parse(text, parsers, opts) {
   const processor = unified()
     .use(remarkParse, { footnotes: true, commonmark: true })
-    .use(frontmatter)
+    .use(frontMatter)
     .use(liquid)
     .use(restoreUnescapedCharacter(text))
     .use(mergeContinuousTexts)
     .use(transformInlineCode)
-    .use(splitText);
+    .use(splitText(opts));
   return processor.runSync(processor.parse(text));
 }
 
@@ -103,8 +103,8 @@ function mergeContinuousTexts() {
     });
 }
 
-function splitText() {
-  return ast =>
+function splitText(options) {
+  return () => ast =>
     map(ast, (node, index, parentNode) => {
       if (node.type !== "text") {
         return node;
@@ -124,23 +124,23 @@ function splitText() {
       return {
         type: "sentence",
         position: node.position,
-        children: util.splitText(value)
+        children: util.splitText(value, options)
       };
     });
 }
 
-function frontmatter() {
+function frontMatter() {
   const proto = this.Parser.prototype;
-  proto.blockMethods = ["frontmatter"].concat(proto.blockMethods);
-  proto.blockTokenizers.frontmatter = tokenizer;
+  proto.blockMethods = ["frontMatter"].concat(proto.blockMethods);
+  proto.blockTokenizers.frontMatter = tokenizer;
 
   function tokenizer(eat, value) {
-    const parsed = parseFrontmatter(value);
+    const parsed = parseFrontMatter(value);
 
-    if (parsed.frontmatter) {
-      return eat(parsed.frontmatter)({
-        type: "frontmatter",
-        value: parsed.frontmatter
+    if (parsed.frontMatter) {
+      return eat(parsed.frontMatter)({
+        type: "front-matter",
+        value: parsed.frontMatter
       });
     }
   }
