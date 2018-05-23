@@ -1629,6 +1629,17 @@ li + ul,
 li + li {
   border-top: 0;
 }
+
+.foobar {
+  &:extend(.foo);
+}
+
+.thing {
+  &:hover {
+    background-color: blue;
+    .thing-child {}
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @nice-blue: #5b83ad;
 @light-blue: @nice-blue + #111;
@@ -3188,6 +3199,18 @@ li + a,
 li + ul,
 li + li {
   border-top: 0;
+}
+
+.foobar {
+  &:extend(.foo);
+}
+
+.thing {
+  &:hover {
+    background-color: blue;
+    .thing-child {
+    }
+  }
 }
 
 `;
