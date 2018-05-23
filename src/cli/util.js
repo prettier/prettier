@@ -119,8 +119,6 @@ function listDifferent(context, input, options, filename) {
     return;
   }
 
-  options = Object.assign({}, options, { filepath: filename });
-
   if (!prettier.check(input, options)) {
     if (!context.argv["write"]) {
       context.logger.log(filename);
@@ -329,7 +327,12 @@ function eachFilename(context, patterns, callback) {
       return;
     }
     filePaths.forEach(filePath =>
-      callback(filePath, getOptionsForFile(context, filePath))
+      callback(
+        filePath,
+        Object.assign(getOptionsForFile(context, filePath), {
+          filepath: filePath
+        })
+      )
     );
   } catch (error) {
     context.logger.error(

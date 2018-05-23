@@ -85,7 +85,7 @@ const options = {
     since: "0.0.10",
     category: CATEGORY_GLOBAL,
     type: "choice",
-    default: "babylon",
+    default: undefined,
     description: "Which parser to use.",
     exception: value =>
       typeof value === "string" || typeof value === "function",

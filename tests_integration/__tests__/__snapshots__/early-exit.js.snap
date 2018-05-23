@@ -296,8 +296,6 @@ Valid options:
   graphql          GraphQL
   markdown         Markdown
   vue              Vue
-
-Default: babylon
 "
 `;
 
@@ -597,7 +595,6 @@ Format options:
                            Defaults to false.
   --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
                            Which parser to use.
-                           Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
   --prose-wrap <always|never|preserve>
@@ -717,8 +714,6 @@ Valid options:
   graphql          GraphQL
   markdown         Markdown
   vue              Vue
-
-Default: babylon
 "
 `;
 
@@ -749,7 +744,6 @@ Format options:
                            Defaults to false.
   --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
                            Which parser to use.
-                           Defaults to babylon.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
   --prose-wrap <always|never|preserve>

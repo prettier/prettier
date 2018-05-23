@@ -1,3 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`checks stdin with --list-different (write) 1`] = `Array []`;
+
+exports[`throws an error using --list-different without filepath or parser (stderr) 1`] = `
+"Skipping file with unknown filepath
+"
+`;
+
+exports[`throws an error using --list-different without filepath or parser (write) 1`] = `Array []`;

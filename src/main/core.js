@@ -255,6 +255,11 @@ function format(text, opts) {
 
 module.exports = {
   formatWithCursor(text, opts) {
+    opts = normalizeOptions(opts);
+    if (!opts) {
+      // Something went wrong
+      return { formatted: text };
+    }
     return format(text, normalizeOptions(opts));
   },
 
@@ -275,8 +280,8 @@ module.exports = {
 
   // Doesn't handle shebang for now
   formatDoc(doc, opts) {
-    opts = normalizeOptions(opts);
     const debug = printDocToDebug(doc);
+    opts = normalizeOptions(Object.assign({}, opts, { parser: "babylon" }));
     return format(debug, opts).formatted;
   },
 

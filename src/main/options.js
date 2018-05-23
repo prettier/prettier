@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const ConfigError = require("../common/errors").ConfigError;
 const getSupportInfo = require("../main/support").getSupportInfo;
 const normalizer = require("./options-normalizer");
 const resolveParser = require("./parser").resolveParser;
@@ -29,30 +30,28 @@ function normalize(options, opts) {
     Object.assign({}, hiddenDefaults)
   );
 
-  if (opts.inferParser !== false) {
-    if (
-      rawOptions.filepath &&
-      (!rawOptions.parser || rawOptions.parser === defaults.parser)
-    ) {
-      const inferredParser = inferParser(
-        rawOptions.filepath,
-        rawOptions.plugins
+  if (!rawOptions.parser) {
+    const logger = (opts && opts.logger) || console;
+    if (!rawOptions.filepath) {
+      logger.warn("Skipping file with unknown filepath");
+      return null;
+    }
+
+    rawOptions.parser = inferParser(rawOptions.filepath, rawOptions.plugins);
+    if (!rawOptions.parser) {
+      logger.warn(
+        `Skipping file with unknown extension: ${rawOptions.filepath}`
       );
-      if (inferredParser) {
-        rawOptions.parser = inferredParser;
-      }
+      return null;
     }
   }
 
   const parser = resolveParser(
-    !rawOptions.parser
-      ? rawOptions
-      : // handle deprecated parsers
-        normalizer.normalizeApiOptions(
-          rawOptions,
-          [supportOptions.find(x => x.name === "parser")],
-          { passThrough: true, logger: false }
-        )
+    normalizer.normalizeApiOptions(
+      rawOptions,
+      [supportOptions.find(x => x.name === "parser")],
+      { passThrough: true, logger: false }
+    )
   );
   rawOptions.astFormat = parser.astFormat;
   rawOptions.locEnd = parser.locEnd;

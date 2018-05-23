@@ -11,7 +11,7 @@ describe("doesn't crash when --debug-check is passed", () => {
 });
 
 describe("checks stdin with --debug-check", () => {
-  runPrettier("cli/with-shebang", ["--debug-check"], {
+  runPrettier("cli/with-shebang", ["--debug-check", "--parser", "babylon"], {
     input: "0"
   }).test({
     stdout: "(stdin)\n",
