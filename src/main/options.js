@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const UndefinedParserError = require("../common/errors").UndefinedParserError;
 const getSupportInfo = require("../main/support").getSupportInfo;
 const normalizer = require("./options-normalizer");
 const resolveParser = require("./parser").resolveParser;
@@ -29,30 +30,27 @@ function normalize(options, opts) {
     Object.assign({}, hiddenDefaults)
   );
 
-  if (opts.inferParser !== false) {
-    if (
-      rawOptions.filepath &&
-      (!rawOptions.parser || rawOptions.parser === defaults.parser)
-    ) {
-      const inferredParser = inferParser(
-        rawOptions.filepath,
-        rawOptions.plugins
+  if (!rawOptions.parser) {
+    if (!rawOptions.filepath) {
+      throw new UndefinedParserError(
+        "No parser and no file path given, couldn't infer a parser."
       );
-      if (inferredParser) {
-        rawOptions.parser = inferredParser;
-      }
+    }
+
+    rawOptions.parser = inferParser(rawOptions.filepath, rawOptions.plugins);
+    if (!rawOptions.parser) {
+      throw new UndefinedParserError(
+        `No parser could be inferred for file: ${rawOptions.filepath}`
+      );
     }
   }
 
   const parser = resolveParser(
-    !rawOptions.parser
-      ? rawOptions
-      : // handle deprecated parsers
-        normalizer.normalizeApiOptions(
-          rawOptions,
-          [supportOptions.find(x => x.name === "parser")],
-          { passThrough: true, logger: false }
-        )
+    normalizer.normalizeApiOptions(
+      rawOptions,
+      [supportOptions.find(x => x.name === "parser")],
+      { passThrough: true, logger: false }
+    )
   );
   rawOptions.astFormat = parser.astFormat;
   rawOptions.locEnd = parser.locEnd;

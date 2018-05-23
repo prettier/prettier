@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `"No parser and no file path given, couldn't infer a parser."`;
+
+exports[`--list-different with unknown path and no parser multiple files (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--list-different with unknown path and no parser specific file (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--write and --list-different with unknown path and no parser multiple files (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--write and --list-different with unknown path and no parser multiple files (stdout) 1`] = `
+"foo.js
+"
+`;
+
+exports[`--write and --list-different with unknown path and no parser multiple files (write) 1`] = `
+Array [
+  Object {
+    "content": "foo();
+",
+    "filename": "foo.js",
+  },
+]
+`;
+
+exports[`--write and --list-different with unknown path and no parser specific file (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--write with unknown path and no parser multiple files (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--write with unknown path and no parser multiple files (stdout) 1`] = `
+"foo.js 0ms
+"
+`;
+
+exports[`--write with unknown path and no parser multiple files (write) 1`] = `
+Array [
+  Object {
+    "content": "foo();
+",
+    "filename": "foo.js",
+  },
+]
+`;
+
+exports[`--write with unknown path and no parser specific file (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`stdin no path and no parser --list-different logs error but exits with 0 (stderr) 1`] = `
+"[error] No parser and no file path given, couldn't infer a parser.
+"
+`;
+
+exports[`stdin no path and no parser logs error and exits with 2 (stderr) 1`] = `
+"[error] No parser and no file path given, couldn't infer a parser.
+"
+`;
+
+exports[`stdin with unknown path and no parser --list-different logs error but exits with 0 (stderr) 1`] = `
+"[error] No parser could be inferred for file: foo
+"
+`;
+
+exports[`stdin with unknown path and no parser logs error and exits with 2 (stderr) 1`] = `
+"[error] No parser could be inferred for file: foo
+"
+`;
+
+exports[`unknown path and no parser multiple files (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`unknown path and no parser multiple files (stdout) 1`] = `
+"foo();
+"
+`;
+
+exports[`unknown path and no parser specific file (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
