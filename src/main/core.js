@@ -256,10 +256,6 @@ function format(text, opts) {
 module.exports = {
   formatWithCursor(text, opts) {
     opts = normalizeOptions(opts);
-    if (!opts) {
-      // Something went wrong
-      return { formatted: text };
-    }
     return format(text, normalizeOptions(opts));
   },
 
