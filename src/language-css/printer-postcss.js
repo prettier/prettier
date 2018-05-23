@@ -48,7 +48,6 @@ const isParenGroupNode = utils.isParenGroupNode;
 const isForKeywordNode = utils.isForKeywordNode;
 const isURLFunctionNode = utils.isURLFunctionNode;
 const isIfElseKeywordNode = utils.isIfElseKeywordNode;
-const hasLessExtendNode = utils.hasLessExtendNode;
 const hasComposesNode = utils.hasComposesNode;
 const hasParensAroundNode = utils.hasParensAroundNode;
 const hasEmptyRawBefore = utils.hasEmptyRawBefore;
@@ -142,11 +141,7 @@ function genericPrint(path, options, print) {
         node.raws.before.replace(/[\s;]/g, ""),
         insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
         node.raws.between.trim() === ":" ? ":" : node.raws.between.trim(),
-        // When the following less construct &:extend(.foo); is parsed with scss,
-        // it will put a space after `:` and break it. Ideally we should parse
-        // less files with less, but we can hardcode this to work with scss as
-        // well.
-        hasLessExtendNode(node) ? "" : " ",
+        node.extend ? "" : " ",
         hasComposesNode(node)
           ? removeLines(path.call(print, "value"))
           : path.call(print, "value"),

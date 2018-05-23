@@ -239,18 +239,6 @@ function isPostcssSimpleVarNode(currentNode, nextNode) {
   );
 }
 
-function hasLessExtendNode(node) {
-  return (
-    node.value &&
-    node.value.type === "value-root" &&
-    node.value.group &&
-    node.value.group.type === "value-value" &&
-    node.value.group.group &&
-    node.value.group.group.type === "value-func" &&
-    node.value.group.group.value === "extend"
-  );
-}
-
 function hasComposesNode(node) {
   return (
     node.value &&
@@ -391,7 +379,6 @@ module.exports = {
   isForKeywordNode,
   isURLFunctionNode,
   isIfElseKeywordNode,
-  hasLessExtendNode,
   hasComposesNode,
   hasParensAroundNode,
   hasEmptyRawBefore,
