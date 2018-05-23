@@ -9,7 +9,7 @@ const nodeGlobals = require("rollup-plugin-node-globals");
 const json = require("rollup-plugin-json");
 const replace = require("rollup-plugin-replace");
 const uglify = require("rollup-plugin-uglify");
-const babel = require("./rollup-plugins/babel");
+const babel = require("rollup-plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 
@@ -34,6 +34,18 @@ const EXTERNALS = [
   // See comment in jest.config.js
   "graceful-fs"
 ];
+
+function getBabelConfig(bundle) {
+  const config = {
+    exclude: "/**/node_modules/**",
+    presets: [],
+    plugins: [require("./babel-plugins/transform-eval-require")]
+  };
+  if (bundle.transpile) {
+    config.presets.push(["es2015", { modules: false }]);
+  }
+  return config;
+}
 
 function getRollupConfig(bundle) {
   const paths = (bundle.external || []).reduce(
@@ -89,14 +101,7 @@ function getRollupConfig(bundle) {
         }),
 
         commonjs(bundle.commonjs || {}),
-        babel(
-          Object.assign(
-            bundle.transpile
-              ? { presets: [["@babel/preset-es2015", { modules: false }]] }
-              : {},
-            { plugins: [require("./babel-plugins/transform-eval-require")] }
-          )
-        ),
+        babel(getBabelConfig(bundle)),
         bundle.minify ? uglify() : {}
       ],
       external: EXTERNALS.concat(bundle.external)
