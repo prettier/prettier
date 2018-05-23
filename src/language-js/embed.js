@@ -42,35 +42,6 @@ function embed(path, print, textToDoc /*, options */) {
         return transformCssDoc(doc, path, print);
       }
 
-      const isWithinArrayValueFromProperty = !!(
-        parent &&
-        (parent.type === "ArrayExpression" && parentParent.type === "Property")
-      );
-      /**
-       * CSS Styles
-       */
-      if (
-        isWithinArrayValueFromProperty &&
-        isPropertyWithinAngularComponentDecorator(path, 4)
-      ) {
-        if (parentParent.key && parentParent.key.name === "styles") {
-          // Get full template literal with expressions replaced by placeholders
-          const rawQuasis = node.quasis.map(q => q.value.raw);
-          let placeholderID = 0;
-          const text = rawQuasis.reduce((prevVal, currVal, idx) => {
-            return idx == 0
-              ? currVal
-              : prevVal +
-                  "@prettier-placeholder-" +
-                  placeholderID++ +
-                  "-id" +
-                  currVal;
-          }, "");
-          const doc = textToDoc(text, { parser: "css" });
-          return transformCssDoc(doc, path, print);
-        }
-      }
-
       /*
        * react-relay and graphql-tag
        * graphql`...`
