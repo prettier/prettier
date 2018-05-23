@@ -12,7 +12,7 @@ describe("checks stdin with --list-different", () => {
   });
 });
 
-describe("throws an error using --list-different without filepath or parser", () => {
+describe("logs an error using --list-different without filepath or parser", () => {
   runPrettier("cli/with-shebang", ["--list-different"], {
     input: "0"
   }).test({

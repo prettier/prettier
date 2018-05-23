@@ -2,9 +2,9 @@
 
 exports[`checks stdin with --list-different (write) 1`] = `Array []`;
 
-exports[`throws an error using --list-different without filepath or parser (stderr) 1`] = `
-"Skipping file with unknown filepath
+exports[`logs an error using --list-different without filepath or parser (stderr) 1`] = `
+"[error] No parser and no file path given, couldn't infer a parser.
 "
 `;
 
-exports[`throws an error using --list-different without filepath or parser (write) 1`] = `Array []`;
+exports[`logs an error using --list-different without filepath or parser (write) 1`] = `Array []`;

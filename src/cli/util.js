@@ -52,6 +52,24 @@ function diff(a, b) {
 }
 
 function handleError(context, filename, error) {
+  if (error instanceof errors.UndefinedParserError) {
+    if (context.argv["write"]) {
+      process.exitCode = 2;
+
+      if (process.stdout.isTTY) {
+        readline.clearLine(process.stdout, 0);
+        readline.cursorTo(process.stdout, 0, null);
+      }
+    }
+    context.logger.error(error.message);
+    return;
+  }
+
+  if (context.argv["write"]) {
+    // Add newline to split errors from filename line.
+    process.stdout.write("\n");
+  }
+
   const isParseError = Boolean(error && error.loc);
   const isValidationError = /Validation Error/.test(error && error.message);
 
@@ -284,11 +302,11 @@ function formatStdin(context) {
 
     const options = getOptionsForFile(context, filepath);
 
-    if (listDifferent(context, input, options, "(stdin)")) {
-      return;
-    }
-
     try {
+      if (listDifferent(context, input, options, "(stdin)")) {
+        return;
+      }
+
       writeOutput(format(context, input, options), options);
     } catch (error) {
       handleError(context, "stdin", error);
@@ -384,7 +402,13 @@ function formatFiles(context) {
       return;
     }
 
-    listDifferent(context, input, options, filename);
+    try {
+      listDifferent(context, input, options, filename);
+    } catch (error) {
+      context.logger.error(error.message);
+      process.exitCode = 2;
+      return;
+    }
 
     const start = Date.now();
 
@@ -399,9 +423,6 @@ function formatFiles(context) {
       );
       output = result.formatted;
     } catch (error) {
-      // Add newline to split errors from filename line.
-      process.stdout.write("\n");
-
       handleError(context, filename, error);
       return;
     }

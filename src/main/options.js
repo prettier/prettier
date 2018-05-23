@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const ConfigError = require("../common/errors").ConfigError;
+const UndefinedParserError = require("../common/errors").UndefinedParserError;
 const getSupportInfo = require("../main/support").getSupportInfo;
 const normalizer = require("./options-normalizer");
 const resolveParser = require("./parser").resolveParser;
@@ -31,18 +31,17 @@ function normalize(options, opts) {
   );
 
   if (!rawOptions.parser) {
-    const logger = (opts && opts.logger) || console;
     if (!rawOptions.filepath) {
-      logger.warn("Skipping file with unknown filepath");
-      return null;
+      throw new UndefinedParserError(
+        "No parser and no file path given, couldn't infer a parser."
+      );
     }
 
     rawOptions.parser = inferParser(rawOptions.filepath, rawOptions.plugins);
     if (!rawOptions.parser) {
-      logger.warn(
-        `Skipping file with unknown extension: ${rawOptions.filepath}`
+      throw new UndefinedParserError(
+        `No parser could be inferred for file: ${rawOptions.filepath}`
       );
-      return null;
     }
   }
 
