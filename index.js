@@ -42,12 +42,8 @@ module.exports = {
   },
 
   check: function(text, opts) {
-    try {
-      const formatted = formatWithCursor(text, opts).formatted;
-      return formatted === text;
-    } catch (e) {
-      return false;
-    }
+    const formatted = formatWithCursor(text, opts).formatted;
+    return formatted === text;
   },
 
   doc,
