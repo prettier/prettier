@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[` 1`] = `"No parser and no file path given, couldn't infer a parser."`;
+
 exports[`--list-different with unknown path and no parser multiple files (stderr) 1`] = `
 "[error] No parser could be inferred for file: FOO
 "

@@ -1,6 +1,7 @@
 "use strict";
 
 const runPrettier = require("../runPrettier");
+const prettier = require("../../tests_config/require_prettier");
 
 describe("stdin no path and no parser", () => {
   describe("logs error and exits with 2", () => {
@@ -115,4 +116,8 @@ describe("--write and --list-different with unknown path and no parser", () => {
       { status: 1 }
     );
   });
+});
+
+describe("API with no path and no parser", () => {
+  expect(() => prettier.format("foo")).toThrowErrorMatchingSnapshot();
 });
