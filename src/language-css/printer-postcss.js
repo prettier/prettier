@@ -42,9 +42,9 @@ const isEqualityOperatorNode = utils.isEqualityOperatorNode;
 const isMultiplicationNode = utils.isMultiplicationNode;
 const isDivisionNode = utils.isDivisionNode;
 const isAdditionNode = utils.isAdditionNode;
+const isSubtractionNode = utils.isSubtractionNode;
 const isMathOperatorNode = utils.isMathOperatorNode;
 const isEachKeywordNode = utils.isEachKeywordNode;
-const isParenGroupNode = utils.isParenGroupNode;
 const isForKeywordNode = utils.isForKeywordNode;
 const isURLFunctionNode = utils.isURLFunctionNode;
 const isIfElseKeywordNode = utils.isIfElseKeywordNode;
@@ -507,60 +507,61 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        // Formatting math operations
         const isMathOperator = isMathOperatorNode(iNode);
         const isNextMathOperator = isMathOperatorNode(iNextNode);
 
-        // Formating math operations
-        if (isMathOperator || isNextMathOperator) {
-          const isMultiplication =
-            !isHashNode(iNextNode) && isMultiplicationNode(iNode);
-          const isNextMultiplication =
-            !isRightCurlyBraceNode(iNode) && isMultiplicationNode(iNextNode);
-          const isDivision = !isHashNode(iNextNode) && isDivisionNode(iNode);
-          const isNextDivision =
-            !isRightCurlyBraceNode(iNode) && isDivisionNode(iNextNode);
-          const isAddition = !isHashNode(iNextNode) && isAdditionNode(iNode);
-          const isNextAddition =
-            !isRightCurlyBraceNode(iNode) && isAdditionNode(iNextNode);
+        // Print spaces before and after math operators beside SCSS interpolation as is
+        // (i.e. `#{$var}+5`, `#{$var} +5`, `#{$var}+ 5`, `#{$var} + 5`)
+        // (i.e. `5+#{$var}`, `5 +#{$var}`, `5+ #{$var}`, `5 + #{$var}`)
+        if (
+          ((isMathOperator && isHashNode(iNextNode)) ||
+            (isNextMathOperator && isRightCurlyBraceNode(iNode))) &&
+          hasEmptyRawBefore(iNextNode)
+        ) {
+          continue;
+        }
 
-          const hasSpaceBeforeOperator =
-            (iNextNextNode && iNextNextNode.type === "value-func") ||
-            (iNextNextNode && isWordNode(iNextNextNode)) ||
-            iNode.type === "value-func" ||
-            isWordNode(iNode);
-          const hasSpaceAfterOperator =
-            iNextNode.type === "value-func" ||
-            isWordNode(iNextNode) ||
-            (iPrevNode && iPrevNode.type === "value-func") ||
-            (iPrevNode && isWordNode(iPrevNode));
-          const insideCalcFunction = insideValueFunctionNode(path, "calc");
+        // Print spaces before and after addition and subtraction math operators as is in `calc` function
+        // due to the fact that it is not valid syntax
+        // (i.e. `calc(1px+1px)`, `calc(1px+ 1px)`, `calc(1px +1px)`, `calc(1px + 1px)`)
+        if (
+          insideValueFunctionNode(path, "calc") &&
+          (isAdditionNode(iNode) ||
+            isAdditionNode(iNextNode) ||
+            isSubtractionNode(iNode) ||
+            isSubtractionNode(iNextNode)) &&
+          hasEmptyRawBefore(iNextNode)
+        ) {
+          continue;
+        }
 
-          if (
-            // Multiplication
-            !isMultiplication &&
-            !isNextMultiplication &&
-            // Division
-            !(
-              isNextDivision &&
-              (hasSpaceBeforeOperator || insideCalcFunction)
-            ) &&
-            !(isDivision && (hasSpaceAfterOperator || insideCalcFunction)) &&
-            // Addition
-            !(isNextAddition && hasSpaceBeforeOperator) &&
-            !(isAddition && hasSpaceAfterOperator)
-          ) {
-            if (
-              hasEmptyRawBefore(iNextNode) ||
-              (isMathOperator &&
-                (isParenGroupNode(iNextNode) ||
-                  isWordNode(iNextNode) ||
-                  iNextNode.type === "value-number" ||
-                  isMathOperatorNode(iNextNode)) &&
-                (!iPrevNode || (iPrevNode && isMathOperatorNode(iPrevNode))))
-            ) {
-              continue;
-            }
-          }
+        const requireSpaceBeforeOperator =
+          (iNextNextNode && iNextNextNode.type === "value-func") ||
+          (iNextNextNode && isWordNode(iNextNextNode)) ||
+          iNode.type === "value-func" ||
+          isWordNode(iNode);
+        const requireSpaceAfterOperator =
+          iNextNode.type === "value-func" ||
+          isWordNode(iNextNode) ||
+          (iPrevNode && iPrevNode.type === "value-func") ||
+          (iPrevNode && isWordNode(iPrevNode));
+
+        // Formatting `/`, `+`, `-` sign
+        if (
+          !(isMultiplicationNode(iNextNode) || isMultiplicationNode(iNode)) &&
+          !insideValueFunctionNode(path, "calc") &&
+          ((isDivisionNode(iNextNode) && !requireSpaceBeforeOperator) ||
+            (isDivisionNode(iNode) && !requireSpaceAfterOperator) ||
+            (isAdditionNode(iNextNode) && !requireSpaceBeforeOperator) ||
+            (isAdditionNode(iNode) && !requireSpaceAfterOperator) ||
+            isSubtractionNode(iNextNode) ||
+            isSubtractionNode(iNode)) &&
+          (hasEmptyRawBefore(iNextNode) ||
+            (isMathOperator &&
+              (!iPrevNode || (iPrevNode && isMathOperatorNode(iPrevNode)))))
+        ) {
+          continue;
         }
 
         // Ignore inline comment, they already contain newline at end (i.e. `// Comment`)
