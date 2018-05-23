@@ -96,3 +96,23 @@ describe("--write with unknown path and no parser", () => {
     });
   });
 });
+
+describe("--write and --list-different with unknown path and no parser", () => {
+  describe("specific file", () => {
+    runPrettier("cli/infer-parser/", [
+      "--list-different",
+      "--write",
+      "FOO"
+    ]).test({
+      status: 0,
+      stdout: "",
+      write: []
+    });
+  });
+
+  describe("multiple files", () => {
+    runPrettier("cli/infer-parser/", ["--list-different", "--write", "*"]).test(
+      { status: 1 }
+    );
+  });
+});

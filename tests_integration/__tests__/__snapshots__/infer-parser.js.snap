@@ -10,6 +10,31 @@ exports[`--list-different with unknown path and no parser specific file (stderr)
 "
 `;
 
+exports[`--write and --list-different with unknown path and no parser multiple files (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--write and --list-different with unknown path and no parser multiple files (stdout) 1`] = `
+"foo.js
+"
+`;
+
+exports[`--write and --list-different with unknown path and no parser multiple files (write) 1`] = `
+Array [
+  Object {
+    "content": "foo();
+",
+    "filename": "foo.js",
+  },
+]
+`;
+
+exports[`--write and --list-different with unknown path and no parser specific file (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
 exports[`--write with unknown path and no parser multiple files (stderr) 1`] = `
 "[error] No parser could be inferred for file: FOO
 "
