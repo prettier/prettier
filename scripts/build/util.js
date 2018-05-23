@@ -1,56 +1,24 @@
 "use strict";
 
 const fs = require("fs");
-const path = require("path");
 const rimraf = require("rimraf");
+const promisify = require("util").promisify;
 
-function asyncRimRaf(path) {
-  return new Promise((resolve, reject) => {
-    rimraf(path, error => {
-      if (error) {
-        console.log(error);
-        reject(error);
-      } else {
-        resolve();
-      }
-    });
-  });
-}
+const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
 
-function getRelativePath(filepath) {
-  return `./${path.basename(filepath).replace(/\.js$/, "")}`;
-}
-
-function readJson(file) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(file, (error, data) => {
-      if (error) {
-        console.log(error);
-        reject(error);
-      } else {
-        resolve(JSON.parse(data));
-      }
-    });
-  });
+async function readJson(file) {
+  const data = await readFile(file);
+  return JSON.parse(data);
 }
 
 function writeJson(file, content) {
   content = JSON.stringify(content, null, 2);
-  return new Promise((resolve, reject) => {
-    fs.writeFile(file, content, error => {
-      if (error) {
-        console.log(error);
-        reject(error);
-      } else {
-        resolve();
-      }
-    });
-  });
+  return writeFile(file, content);
 }
 
 module.exports = {
-  asyncRimRaf,
-  getRelativePath,
+  asyncRimRaf: promisify(rimraf),
   readJson,
   writeJson
 };

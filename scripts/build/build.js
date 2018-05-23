@@ -37,10 +37,13 @@ const EXTERNALS = [
 
 function getBabelConfig(bundle) {
   const config = {
-    exclude: "/**/node_modules/**",
+    babelrc: false,
     presets: [],
-    plugins: [require("./babel-plugins/transform-eval-require")]
+    plugins: ["external-helpers"]
   };
+  if (bundle.type === "core") {
+    config.plugins.push(require("./babel-plugins/transform-eval-require"));
+  }
   if (bundle.transpile) {
     config.presets.push(["es2015", { modules: false }]);
   }
@@ -48,9 +51,10 @@ function getBabelConfig(bundle) {
 }
 
 function getRollupConfig(bundle) {
+  const relative = fp => `./${path.basename(fp).replace(/\.js$/, "")}`;
   const paths = (bundle.external || []).reduce(
     (paths, filepath) =>
-      Object.assign(paths, { [filepath]: util.getRelativePath(filepath) }),
+      Object.assign(paths, { [filepath]: relative(filepath) }),
     { "graceful-fs": "fs" }
   );
 
