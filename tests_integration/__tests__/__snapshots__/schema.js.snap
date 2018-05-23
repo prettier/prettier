@@ -59,7 +59,7 @@ This option cannot be used with --range-start and --range-end.",
           "type": "boolean",
         },
         "parser": Object {
-          "default": undefined,
+          "default": "babylon",
           "description": "Which parser to use.",
           "oneOf": Array [
             Object {
