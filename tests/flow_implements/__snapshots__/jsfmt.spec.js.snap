@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`implements.js 1`] = `
+exports[`implements.js - flow-verify 1`] = `
 class A implements B {}
 class A implements B, C {}
 declare class A implements B {}

@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`libk1.js 1`] = `
+exports[`libk1.js - flow-verify 1`] = `
 type LibK = {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type LibK = {};
 
 `;
 
-exports[`libk2.js 1`] = `
+exports[`libk2.js - flow-verify 1`] = `
 type LibK = {
   p: string;
 }

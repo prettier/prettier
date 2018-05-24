@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js 1`] = `
+exports[`break.js - flow-verify 1`] = `
 export interface Environment1 extends GenericEnvironment<
   SomeType,
   AnotherType,
@@ -38,7 +38,7 @@ export class Environment2 extends GenericEnvironment<
 
 `;
 
-exports[`module.js 1`] = `
+exports[`module.js - flow-verify 1`] = `
 declare module X {
   declare interface Y { x: number; }
 }

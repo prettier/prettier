@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`template.js 1`] = `
+exports[`template.js - flow-verify 1`] = `
 /* @flow */
 
 (\`foo\`: string); // ok

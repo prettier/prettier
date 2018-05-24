@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`extends.js 1`] = `
+exports[`extends.js - flow-verify 1`] = `
 // "ArrowFunctionExpression"
 class a extends (() => {}) {}
 

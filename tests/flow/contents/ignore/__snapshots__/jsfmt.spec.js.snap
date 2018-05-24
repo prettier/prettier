@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dummy.js 1`] = `
+exports[`dummy.js - flow-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 require('./dummy');
 var xxx = 0;
 xxx

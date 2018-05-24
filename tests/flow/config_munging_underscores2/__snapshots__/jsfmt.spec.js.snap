@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`chain.js 1`] = `
+exports[`chain.js - flow-verify 1`] = `
 /* @flow */
 
 class A {

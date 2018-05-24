@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nested_test.js 1`] = `
+exports[`nested_test.js - flow-verify 1`] = `
 /* @flow */
 
 var docblock = require('qux/docblock');

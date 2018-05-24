@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty-front-matter-with-pragma.md 1`] = `
+exports[`empty-front-matter-with-pragma.md - markdown-verify 1`] = `
 ---
 ---
 
@@ -17,7 +17,7 @@ I should be formatted !!
 
 `;
 
-exports[`empty-front-matter-without-pragma.md 1`] = `
+exports[`empty-front-matter-without-pragma.md - markdown-verify 1`] = `
 ---
 ---
 
@@ -30,7 +30,7 @@ I     should      stay      as-is   !!
 
 `;
 
-exports[`front-matter-with-pragma.md 1`] = `
+exports[`front-matter-with-pragma.md - markdown-verify 1`] = `
 ---
 something
 ---
@@ -49,7 +49,7 @@ I should be formatted !!
 
 `;
 
-exports[`front-matter-without-pragma.md 1`] = `
+exports[`front-matter-without-pragma.md - markdown-verify 1`] = `
 ---
 something
 ---
@@ -64,7 +64,7 @@ I     should      stay      as-is   !!
 
 `;
 
-exports[`with-pragma.md 1`] = `
+exports[`with-pragma.md - markdown-verify 1`] = `
 <!-- @prettier -->
 
 I     should      be      formatted       !!
@@ -75,7 +75,7 @@ I should be formatted !!
 
 `;
 
-exports[`with-pragma-in-multiline.md 1`] = `
+exports[`with-pragma-in-multiline.md - markdown-verify 1`] = `
 <!--
   MIT LICENSE 
   
@@ -98,7 +98,7 @@ I should be formatted !!
 
 `;
 
-exports[`without-pragma.md 1`] = `
+exports[`without-pragma.md - markdown-verify 1`] = `
 I     should      stay      as-is   !!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 I     should      stay      as-is   !!

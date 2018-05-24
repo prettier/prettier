@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nested.css 1`] = `
+exports[`nested.css - css-verify 1`] = `
      .foo {font-size   :12px      ;
 
 

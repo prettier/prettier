@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Module1.js 1`] = `
+exports[`Module1.js - flow-verify 1`] = `
 /* @flow */
 
 var test = require('test');
@@ -19,7 +19,7 @@ module.exports = test;
 
 `;
 
-exports[`index.js 1`] = `
+exports[`index.js - flow-verify 1`] = `
 /* @flow */
 
 (require('Module1'): boolean);

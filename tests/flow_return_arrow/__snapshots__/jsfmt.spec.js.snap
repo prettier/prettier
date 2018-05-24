@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`issue-1249.js 1`] = `
+exports[`issue-1249.js - flow-verify 1`] = `
 type Bar = ( number | string ) => number;
 type X = (?(number, number) => number) => void;
 type X = ?((number, number) => number) => void;
@@ -47,7 +47,7 @@ type X = (a & b) => void;
 
 `;
 
-exports[`parens.js 1`] = `
+exports[`parens.js - flow-verify 1`] = `
 const f = (): (string => string) => {};
 const f = (): (a | string => string) => {};
 const f = (): (a & string => string) => {};

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bug.js 1`] = `
+exports[`bug.js - flow-verify 1`] = `
 const foo = {
   bar: props.bar ? props.bar : noop,
   baz: props.baz

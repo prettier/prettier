@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`schema.graphql 1`] = `
+exports[`schema.graphql - graphql-verify 1`] = `
 schema {
   query: Root
   mutation: Mutation

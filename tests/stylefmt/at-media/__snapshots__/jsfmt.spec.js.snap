@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`at-media.css 1`] = `
+exports[`at-media.css - css-verify 1`] = `
 @media   (    max-width:600px    )      {}
 @media   (   min-width:700px) and (     orientation:    landscape){}
 @media (min-width: 700px), handheld and (orientation: landscape) {}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`index-signature.ts 1`] = `
+exports[`index-signature.ts - typescript-verify 1`] = `
 class LocalStorage implements Storage {
   [index: number]: string;
   [key: string]: any;
@@ -13,7 +13,7 @@ class LocalStorage implements Storage {
 
 `;
 
-exports[`interface.ts 1`] = `
+exports[`interface.ts - typescript-verify 1`] = `
 interface Inline { x: string }
 
 interface MultiLine {
@@ -39,7 +39,7 @@ interface InlineMultiple {
 
 `;
 
-exports[`type.js 1`] = `
+exports[`type.js - typescript-verify 1`] = `
 type A = {disabled?: boolean, error?: string}
 
 const foo: {aasdf?: string; asdf?: number; foob?: string; zzz?: string; yyy: string}  = {}

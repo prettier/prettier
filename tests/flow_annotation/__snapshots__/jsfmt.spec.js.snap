@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array_of_functions.js 1`] = `
+exports[`array_of_functions.js - flow-verify 1`] = `
 const actionArray: (() => void)[] = [];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const actionArray: (() => void)[] = [];

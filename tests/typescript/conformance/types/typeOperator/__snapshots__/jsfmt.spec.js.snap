@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`typeOperator.ts 1`] = `
+exports[`typeOperator.ts - typescript-verify 1`] = `
 let a: (keyof T)[] = ["a", "b"];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let a: (keyof T)[] = ["a", "b"];

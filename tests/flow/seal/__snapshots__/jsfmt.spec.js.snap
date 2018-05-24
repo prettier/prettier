@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`imp.js 1`] = `
+exports[`imp.js - flow-verify 1`] = `
 /* @flow */
 
 var imp = require('./obj_annot');
@@ -13,7 +13,7 @@ imp({ name: "imp" });
 
 `;
 
-exports[`obj_annot.js 1`] = `
+exports[`obj_annot.js - flow-verify 1`] = `
 /* @flow */
 
 function foo(param: { name: string; }): number {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Arrays.js 1`] = `
+exports[`Arrays.js - flow-verify 1`] = `
 
 /* @providesModule Arrays */
 
@@ -82,7 +82,7 @@ module.exports = "arrays";
 
 `;
 
-exports[`numeric_elem.js 1`] = `
+exports[`numeric_elem.js - flow-verify 1`] = `
 var arr = [];
 var day = new Date;
 

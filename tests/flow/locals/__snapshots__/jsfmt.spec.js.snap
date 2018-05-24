@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lex.js 1`] = `
+exports[`lex.js - flow-verify 1`] = `
 function switch_scope(x: mixed) {
   let a = "";
   let b = "";
@@ -125,7 +125,7 @@ function for_of_scope(xs: number[]) {
 
 `;
 
-exports[`locals.js 1`] = `
+exports[`locals.js - flow-verify 1`] = `
 var x:string = 0;
 var x:number = 1;
 

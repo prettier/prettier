@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lists.graphql 1`] = `
+exports[`lists.graphql - graphql-verify 1`] = `
 {
   shortWithList(list: [1, 2, 3])
   longWithList(list: ["hello world this is a very long string!","hello world this is a very long string!", "hello world this is a very long string!"])

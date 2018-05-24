@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`variable_definitions.graphql 1`] = `
+exports[`variable_definitions.graphql - graphql-verify 1`] = `
 query short($foo:ComplexType, $site   : Site =         MOBILE,     $nonNull: Int!) {
   hello
 }

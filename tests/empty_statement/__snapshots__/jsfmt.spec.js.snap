@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`body.js 1`] = `
+exports[`body.js - flow-verify 1`] = `
 with (a);
 if (1); else if (2); else;
 for (;;);
@@ -22,7 +22,7 @@ while (1);
 
 `;
 
-exports[`no-newline.js 1`] = `
+exports[`no-newline.js - flow-verify 1`] = `
 if (a) {
   b;
 

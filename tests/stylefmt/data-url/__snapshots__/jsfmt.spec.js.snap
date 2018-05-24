@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`data-url.css 1`] = `
+exports[`data-url.css - css-verify 1`] = `
 div {
   background-image: url(data:image/png;base64,iVBORw0KGg);
 }

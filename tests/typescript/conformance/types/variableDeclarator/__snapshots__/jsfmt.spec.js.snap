@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`variableDeclarator.ts 1`] = `
+exports[`variableDeclarator.ts - typescript-verify 1`] = `
 type MyMap<T, P> = Map<T, P>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type MyMap<T, P> = Map<T, P>;

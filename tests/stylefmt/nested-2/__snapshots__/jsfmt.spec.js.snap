@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nested-2.css 1`] = `
+exports[`nested-2.css - css-verify 1`] = `
 .btn {&:hover {
     color: red;
   }&:active {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js - flow-verify 1`] = `
 type Foo = {
   method(
     arg: number, // I belong with baz
@@ -17,7 +17,7 @@ type Foo = {
 
 `;
 
-exports[`method.js 1`] = `
+exports[`method.js - flow-verify 1`] = `
 type T = { method: () => void };
 type T = { method(): void };
 declare class X { method(): void }

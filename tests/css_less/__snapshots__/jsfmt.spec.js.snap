@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`less.css 1`] = `
+exports[`less.css - css-verify 1`] = `
 @nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
 

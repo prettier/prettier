@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import.css 1`] = `
+exports[`import.css - css-verify 1`] = `
         @import         "./settings"    ;
 
 

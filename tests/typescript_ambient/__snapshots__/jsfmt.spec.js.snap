@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ambient.ts 1`] = `
+exports[`ambient.ts - typescript-verify 1`] = `
 declare module "classnames" {
   export default function classnames(...inputs: (string | number | false | object | undefined)[]): string;
   export class x {}

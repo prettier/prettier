@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CRLF.css 1`] = `
+exports[`CRLF.css - css-verify 1`] = `
 /*
  * Comment 1
  */
@@ -43,7 +43,7 @@ exports[`CRLF.css 1`] = `
 
 `;
 
-exports[`CRLF.less 1`] = `
+exports[`CRLF.less - css-verify 1`] = `
 @nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
 
@@ -98,7 +98,7 @@ exports[`CRLF.less 1`] = `
 
 `;
 
-exports[`CRLF.scss 1`] = `
+exports[`CRLF.scss - css-verify 1`] = `
 $nice-blue: #5B83AD;
 $light-blue: $nice-blue + #111;
 
@@ -183,7 +183,7 @@ $light-blue: $nice-blue + #111;
 
 `;
 
-exports[`at-rules.css 1`] = `
+exports[`at-rules.css - css-verify 1`] = `
 @charset "utf-8"; /* comment 1 */
 
 @import /* comment 2 */ url("fineprint.css") /* comment 3 */ print /* comment 4 */; /* comment 5 */
@@ -392,7 +392,7 @@ exports[`at-rules.css 1`] = `
 
 `;
 
-exports[`block.css 1`] = `
+exports[`block.css - css-verify 1`] = `
 // Animation definitions cannot cross the shadow boundary,
 // and thus need to be loaded directly into the atom-text-editor scope.
 /* Kikoo */
@@ -409,7 +409,7 @@ exports[`block.css 1`] = `
 
 `;
 
-exports[`bug.css 1`] = `
+exports[`bug.css - css-verify 1`] = `
 @font-face  {
   src: url(if(
     $bootstrap-sass-asset-helper,
@@ -438,7 +438,7 @@ exports[`bug.css 1`] = `
 
 `;
 
-exports[`declaration.css 1`] = `
+exports[`declaration.css - css-verify 1`] = `
 a {
     /* comment 1 */
     /* comment 2 */ padding /* comment 3 */ : /* comment 4 */ 10px /* comment 5 */ 10px /* comment 6 */; /* comment 7 */
@@ -603,7 +603,7 @@ body {
 
 `;
 
-exports[`if-eslit-at-rule-decloration.scss 1`] = `
+exports[`if-eslit-at-rule-decloration.scss - css-verify 1`] = `
 @function _normalize-include($section) {
 // Check if $section is in the $include list.
   @if index($_normalize-include, $section) {
@@ -633,7 +633,7 @@ exports[`if-eslit-at-rule-decloration.scss 1`] = `
 
 `;
 
-exports[`lists.scss 1`] = `
+exports[`lists.scss - css-verify 1`] = `
 $my-list:
   'foo', // Foo
   'bar'; // Bar
@@ -644,7 +644,7 @@ $my-list: "foo",
 
 `;
 
-exports[`maps.scss 1`] = `
+exports[`maps.scss - css-verify 1`] = `
 $my-map: (
   'foo': 1, // Foo
   'bar': 2, // Bar
@@ -659,7 +659,7 @@ $my-map: (
 
 `;
 
-exports[`places.css 1`] = `
+exports[`places.css - css-verify 1`] = `
 div {
   // a
 
@@ -681,7 +681,7 @@ div {
 
 `;
 
-exports[`prettier-ignore.css 1`] = `
+exports[`prettier-ignore.css - css-verify 1`] = `
 // prettier-ignore
 @blue:  blue;
 @black: darkgray;
@@ -704,7 +704,7 @@ foo {
 
 `;
 
-exports[`selectors.css 1`] = `
+exports[`selectors.css - css-verify 1`] = `
 .powerPathNavigator .helm button.pressedButton, /* comment 1 */
 .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
@@ -1102,7 +1102,7 @@ article /* comment 168 */ :--heading /* comment 169 */ + /* comment 170 */ p /* 
 
 `;
 
-exports[`selectors.scss 1`] = `
+exports[`selectors.scss - css-verify 1`] = `
 .powerPathNavigator .helm button.pressedButton, // comment 1
 .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
@@ -1234,7 +1234,7 @@ exports[`selectors.scss 1`] = `
 
 `;
 
-exports[`source-map.css 1`] = `
+exports[`source-map.css - css-verify 1`] = `
 .foo {
     color: red;
 }
@@ -1249,7 +1249,7 @@ exports[`source-map.css 1`] = `
 
 `;
 
-exports[`trailing_star_slash.css 1`] = `
+exports[`trailing_star_slash.css - css-verify 1`] = `
 @media (max-width: 1) {}
 a {
   // element.style */
@@ -1263,7 +1263,7 @@ a {
 
 `;
 
-exports[`types.css 1`] = `
+exports[`types.css - css-verify 1`] = `
 /* This is a basic comment */
 
 /* ==========================================================================
@@ -1358,7 +1358,7 @@ span {
 
 `;
 
-exports[`variable-declaration.scss 1`] = `
+exports[`variable-declaration.scss - css-verify 1`] = `
 $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 4 */
 
 @mixin text-color {

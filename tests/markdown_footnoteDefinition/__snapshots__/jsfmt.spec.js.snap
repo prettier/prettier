@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long.md 1`] = `
+exports[`long.md - markdown-verify 1`] = `
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [^hello]:
@@ -10,7 +10,7 @@ exports[`long.md 1`] = `
 
 `;
 
-exports[`multiline.md 1`] = `
+exports[`multiline.md - markdown-verify 1`] = `
 [^fn1]:
 
     > \`\`\`rs
@@ -64,7 +64,7 @@ exports[`multiline.md 1`] = `
 
 `;
 
-exports[`sibling.md 1`] = `
+exports[`sibling.md - markdown-verify 1`] = `
 [^a]: a
 [^a]: a
 [^a]: a
@@ -121,7 +121,7 @@ exports[`sibling.md 1`] = `
 
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md - markdown-verify 1`] = `
 [^hello]: world
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [^hello]: world

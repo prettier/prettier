@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js 1`] = `
+exports[`array.js - flow-verify 1`] = `
 const arr1 = [1,2,3,4];
 const arr2 = [1, 2, 3, 4];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ const arr2 = [1, 2, 3, 4];
 
 `;
 
-exports[`array.js 2`] = `
+exports[`array.js - flow-verify 2`] = `
 const arr1 = [1,2,3,4];
 const arr2 = [1, 2, 3, 4];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -18,7 +18,7 @@ const arr2 = [1, 2, 3, 4];
 
 `;
 
-exports[`object.js 1`] = `
+exports[`object.js - flow-verify 1`] = `
 const obj1 = {a:1, b:2, c:3}
 const obj2 = { a:1, b:2, c:3 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -27,7 +27,7 @@ const obj2 = { a: 1, b: 2, c: 3 };
 
 `;
 
-exports[`object.js 2`] = `
+exports[`object.js - flow-verify 2`] = `
 const obj1 = {a:1, b:2, c:3}
 const obj2 = { a:1, b:2, c:3 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

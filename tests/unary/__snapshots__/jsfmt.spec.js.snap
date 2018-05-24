@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`object.js 1`] = `
+exports[`object.js - flow-verify 1`] = `
 state = {
   // students
   hoverColumn: -1
@@ -13,7 +13,7 @@ state = {
 
 `;
 
-exports[`series.js 1`] = `
+exports[`series.js - flow-verify 1`] = `
 1 + ++x;
 1 + x++;
 
