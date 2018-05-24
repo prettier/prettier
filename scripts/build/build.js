@@ -39,12 +39,13 @@ function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
     presets: [],
-    plugins: ["external-helpers"]
+    plugins: []
   };
   if (bundle.type === "core") {
     config.plugins.push(require("./babel-plugins/transform-eval-require"));
   }
   if (bundle.transpile) {
+    config.plugins.push("external-helpers");
     config.presets.push(["es2015", { modules: false }]);
   }
   return config;
@@ -83,59 +84,38 @@ function getRollupConfig(bundle) {
         );
       }
 
-      console.log(warning);
+      console.warn(warning);
     }
   };
 
+  const replaceStrings = {
+    "proces.env.NODE_ENV": JSON.stringify("production")
+  };
+  if (bundle.target === "universal") {
+    // We can't reference `process` in UMD bundles and this is
+    // an undocumented "feature"
+    replaceStrings["process.env.PRETTIER_DEBUG"] = "global.PRETTIER_DEBUG";
+  }
+  Object.assign(replaceStrings, bundle.replace);
+
+  config.plugins = [
+    replace(replaceStrings),
+    executable(),
+    json(),
+    bundle.target === "universal" &&
+      nativeShims(path.resolve(__dirname, "shims")),
+    resolve({
+      extensions: [".js", ".json"],
+      preferBuiltins: bundle.target === "node"
+    }),
+    commonjs(bundle.commonjs || {}),
+    bundle.target === "universal" && nodeGlobals(),
+    babel(getBabelConfig(bundle)),
+    bundle.type === "plugin" && uglify()
+  ].filter(Boolean);
+
   if (bundle.target === "node") {
-    Object.assign(config, {
-      plugins: [
-        replace(
-          Object.assign(
-            { "process.env.NODE_ENV": "'production'" },
-            bundle.replace
-          )
-        ),
-        bundle.executable ? executable() : {},
-        json(),
-
-        resolve({
-          extensions: [".js", ".json"],
-          preferBuiltins: true
-        }),
-
-        commonjs(bundle.commonjs || {}),
-        babel(getBabelConfig(bundle)),
-        bundle.minify ? uglify() : {}
-      ],
-      external: EXTERNALS.concat(bundle.external)
-    });
-  } else if (bundle.target === "universal") {
-    Object.assign(config, {
-      plugins: [
-        replace(
-          Object.assign(
-            {
-              "process.env.NODE_ENV": "'production'",
-              "process.env.PRETTIER_DEBUG": "global.PRETTIER_DEBUG"
-            },
-            bundle.replace
-          )
-        ),
-        json(),
-        nativeShims(path.resolve(__dirname, "shims")),
-        resolve({
-          extensions: [".js", ".json"],
-          preferBuiltins: false
-        }),
-        commonjs(bundle.commonjs || {}),
-        nodeGlobals()
-        // babel(),
-        // uglify()
-      ]
-    });
-  } else {
-    throw new Error(`Unsupported target: ${bundle.target}`);
+    config.external = EXTERNALS.concat(bundle.external);
   }
 
   return config;
