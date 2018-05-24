@@ -17,12 +17,6 @@
   optionalDependencies:
     chokidar "^2.0.3"
 
-"@babel/code-frame@7.0.0-beta.40":
-  version "7.0.0-beta.40"
-  resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.40.tgz#37e2b0cf7c56026b4b21d3927cadf81adec32ac6"
-  dependencies:
-    "@babel/highlight" "7.0.0-beta.40"
-
 "@babel/code-frame@7.0.0-beta.48":
   version "7.0.0-beta.48"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.48.tgz#ff1c11060a7c1206e0b81e95286cfc2ca3ac405f"
@@ -211,14 +205,6 @@
     "@babel/template" "7.0.0-beta.48"
     "@babel/traverse" "7.0.0-beta.48"
     "@babel/types" "7.0.0-beta.48"
-
-"@babel/highlight@7.0.0-beta.40":
-  version "7.0.0-beta.40"
-  resolved "https://registry.yarnpkg.com/@babel/highlight/-/highlight-7.0.0-beta.40.tgz#b43d67d76bf46e1d10d227f68cddcd263786b255"
-  dependencies:
-    chalk "^2.0.0"
-    esutils "^2.0.2"
-    js-tokens "^3.0.0"
 
 "@babel/highlight@7.0.0-beta.48":
   version "7.0.0-beta.48"
@@ -1079,10 +1065,6 @@ babel-types@^6.26.0:
     esutils "^2.0.2"
     lodash "^4.17.4"
     to-fast-properties "^1.0.3"
-
-babylon@7.0.0-beta.47:
-  version "7.0.0-beta.47"
-  resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.47.tgz#6d1fa44f0abec41ab7c780481e62fd9aafbdea80"
 
 babylon@^6.13.0, babylon@^6.17.2:
   version "6.17.3"

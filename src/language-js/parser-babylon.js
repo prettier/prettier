@@ -6,7 +6,7 @@ const locFns = require("./loc");
 
 function parse(text, parsers, opts) {
   // Inline the require to avoid loading all the JS if we don't use it
-  const babylon = require("babylon");
+  const babylon = require("@babel/parser");
 
   const babylonOptions = {
     sourceType: "module",

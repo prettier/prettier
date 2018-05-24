@@ -14,9 +14,9 @@
     "node": ">=6"
   },
   "dependencies": {
-    "@babel/code-frame": "7.0.0-beta.40",
+    "@babel/code-frame": "7.0.0-beta.48",
+    "@babel/parser": "7.0.0-beta.48",
     "@glimmer/syntax": "0.30.3",
-    "babylon": "7.0.0-beta.47",
     "camelcase": "4.1.0",
     "chalk": "2.1.0",
     "cjk-regex": "1.0.2",
