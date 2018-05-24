@@ -2,7 +2,7 @@
 
 //
 // BEFORE:
-//   __r("path/to/file")
+//   $$$r("path/to/file")
 //
 // AFTER:
 //   require("./file")
@@ -15,7 +15,7 @@ module.exports = function(babel) {
       CallExpression: function(path) {
         const node = path.node;
         if (
-          path.get("callee").isIdentifier({ name: "__r" }) &&
+          path.get("callee").isIdentifier({ name: "$$$r" }) &&
           node.arguments.length === 1 &&
           path.get("arguments.0").isStringLiteral()
         ) {

@@ -42,7 +42,7 @@ function getBabelConfig(bundle) {
   };
   if (bundle.type === "core") {
     config.plugins.push(
-      require.resolve("./babel-plugins/transform-eval-require")
+      require.resolve("./babel-plugins/transform-custom-require")
     );
   }
   const targets = { node: 4 };
@@ -69,9 +69,9 @@ function getRollupConfig(bundle) {
     paths,
 
     onwarn(warning) {
-      // We use `eval` to force rollup to code split and
-      // ignore warnings from node_modules
       if (
+        // We use `eval("require")` to enable dynamic requires in the
+        // custom parser API
         warning.code === "EVAL" ||
         (warning.code === "CIRCULAR_DEPENDENCY" &&
           warning.importer.startsWith("node_modules"))
