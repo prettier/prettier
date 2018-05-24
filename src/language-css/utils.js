@@ -143,10 +143,6 @@ function isDetachedRulesetDeclarationNode(node) {
   );
 }
 
-function isParenGroupNode(node) {
-  return node.type === "value-paren_group";
-}
-
 function isForKeywordNode(node) {
   return (
     node.type === "value-word" &&
@@ -375,7 +371,6 @@ module.exports = {
   isModuloNode,
   isMathOperatorNode,
   isEachKeywordNode,
-  isParenGroupNode,
   isForKeywordNode,
   isURLFunctionNode,
   isIfElseKeywordNode,
