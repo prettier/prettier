@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pseudo-element.css 1`] = `
+exports[`pseudo-element.css - css-verify 1`] = `
 a:after  { content:"" }
 a::before  { content:"" }
 

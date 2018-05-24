@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`stream.js 1`] = `
+exports[`stream.js - flow-verify 1`] = `
 /* @flow */
 
 var child_process = require('child_process');

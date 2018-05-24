@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function_expression.js 1`] = `
+exports[`function_expression.js - flow-verify 1`] = `
 //https://github.com/prettier/prettier/issues/3002
 beep.boop().baz("foo",
 {

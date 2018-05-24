@@ -49,7 +49,7 @@ function run_spec(dirname, parsers, options) {
       test(`${filename} - ${mergedOptions.parser}-verify`, () => {
         expect(
           raw(source + "~".repeat(mergedOptions.printWidth) + "\n" + output)
-        ).toMatchSnapshot(filename);
+        ).toMatchSnapshot();
       });
 
       parsers.slice(1).forEach(parser => {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js - typescript-verify 1`] = `
 export class ViewTokensChangedEvent {
   public readonly ranges: {
     /**

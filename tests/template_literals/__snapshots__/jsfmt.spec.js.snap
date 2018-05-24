@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`css-prop.js 1`] = `
+exports[`css-prop.js - flow-verify 1`] = `
 function SomeComponent (props) {
   // Create styles as if you're calling css and the class will be applied to the component
   return (<div css={\`
@@ -64,7 +64,7 @@ const TestComponent = ({ children, ...props }) => (
 
 `;
 
-exports[`expressions.js 1`] = `
+exports[`expressions.js - flow-verify 1`] = `
 const long = \`long \${a//comment
   .b} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
 const long = \`long \${a.b.c.d.e} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long long\`;
@@ -172,7 +172,7 @@ throw new Error(
 
 `;
 
-exports[`styled-components-with-expressions.js 1`] = `
+exports[`styled-components-with-expressions.js - flow-verify 1`] = `
 const Button = styled.a\`
 /* Comment */
 	display: \${props=>props.display};
@@ -266,7 +266,7 @@ const header = css\`
 
 `;
 
-exports[`styled-jsx.js 1`] = `
+exports[`styled-jsx.js - flow-verify 1`] = `
 <style jsx>{\`
 	/* a comment */
 	div :global(.react-select) {
@@ -326,7 +326,7 @@ color: red; display: none
 
 `;
 
-exports[`styled-jsx-with-expressions.js 1`] = `
+exports[`styled-jsx-with-expressions.js - flow-verify 1`] = `
 <style jsx>{\`
   div {
   display: \${expr};

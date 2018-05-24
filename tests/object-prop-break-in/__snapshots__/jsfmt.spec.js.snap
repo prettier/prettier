@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js - flow-verify 1`] = `
 function foo() {
   return {
     // this comment causes the problem
@@ -17,7 +17,7 @@ function foo() {
 
 `;
 
-exports[`long-value.js 1`] = `
+exports[`long-value.js - flow-verify 1`] = `
 const x = {
   "ABC": "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
 };
@@ -29,7 +29,7 @@ const x = {
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 const a = classnames({
   "some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp
 });

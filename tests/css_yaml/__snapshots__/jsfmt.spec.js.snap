@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.css 1`] = `
+exports[`empty.css - css-verify 1`] = `
 ---
 ---
 
@@ -17,7 +17,7 @@ a {
 
 `;
 
-exports[`empty_newlines.css 1`] = `
+exports[`empty_newlines.css - css-verify 1`] = `
 ---
 
 
@@ -42,7 +42,7 @@ a {
 
 `;
 
-exports[`malformed.css 1`] = `
+exports[`malformed.css - css-verify 1`] = `
 ---
 aaa
 b---
@@ -56,7 +56,7 @@ a {
 
 `;
 
-exports[`malformed-2.css 1`] = `
+exports[`malformed-2.css - css-verify 1`] = `
 ---
 foo: bar
 ---
@@ -83,7 +83,7 @@ a {
 
 `;
 
-exports[`only_comments.css 1`] = `
+exports[`only_comments.css - css-verify 1`] = `
 ---
 # comment 1
 # comment 2
@@ -106,7 +106,7 @@ a {
 
 `;
 
-exports[`with_comments.css 1`] = `
+exports[`with_comments.css - css-verify 1`] = `
 ---
 title: Title
 description: Description
@@ -128,7 +128,7 @@ a {
 
 `;
 
-exports[`yaml.css 1`] = `
+exports[`yaml.css - css-verify 1`] = `
 ---
 title: Title
 description: Description
@@ -149,7 +149,7 @@ a {
 
 `;
 
-exports[`yaml.less 1`] = `
+exports[`yaml.less - css-verify 1`] = `
 ---
 title: Title
 description: Description
@@ -170,7 +170,7 @@ a {
 
 `;
 
-exports[`yaml.scss 1`] = `
+exports[`yaml.scss - css-verify 1`] = `
 ---
 title: Title
 description: Description

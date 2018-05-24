@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`webtsc.ts 1`] = `
+exports[`webtsc.ts - typescript-verify 1`] = `
 /// <reference path='..\\..\\src\\compiler\\tsc.ts'/>
 
 namespace TypeScript.WebTsc {

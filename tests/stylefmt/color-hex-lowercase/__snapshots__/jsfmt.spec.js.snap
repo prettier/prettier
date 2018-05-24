@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`color-hex-lowercase.css 1`] = `
+exports[`color-hex-lowercase.css - css-verify 1`] = `
 .foo{color:#ABCDEF}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .foo {

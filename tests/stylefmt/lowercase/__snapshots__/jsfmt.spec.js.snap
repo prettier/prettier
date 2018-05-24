@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lowercase.css 1`] = `
+exports[`lowercase.css - css-verify 1`] = `
 @charset "UTF-8";
 
 $myVar: TRANSLATEX(0);

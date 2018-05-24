@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`P.js 1`] = `
+exports[`P.js - flow-verify 1`] = `
 module.exports = require('M');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 module.exports = require("M");
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 var M = require('M');
 var N = require('N');
 N.x = M(N.x);

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`customfun.js 1`] = `
+exports[`customfun.js - flow-verify 1`] = `
 // @flow
 
 declare var idx: $Facebookism$Idx;
@@ -27,7 +27,7 @@ m;
 
 `;
 
-exports[`unknown.js 1`] = `
+exports[`unknown.js - flow-verify 1`] = `
 // @noflow
 module.exports = { x: { y: "" } };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

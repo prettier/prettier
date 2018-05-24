@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abnormal.js 1`] = `
+exports[`abnormal.js - flow-verify 1`] = `
 /* @flow */
 
 function foo(x: boolean) {
@@ -45,7 +45,7 @@ function bar(x: boolean) {
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 class C {
     m() { return new C; }
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`definite.ts 1`] = `
+exports[`definite.ts - typescript-verify 1`] = `
 class MyComponent {
 ngModel!: ng.INgModelController;
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long-function-arg.ts 1`] = `
+exports[`long-function-arg.ts - typescript-verify 1`] = `
 export const forwardS = R.curry(
   <V,T>(prop: string, reducer: ReducerFunction<V, T>, value: V, state: {[name: string]: T}) =>
   R.assoc(prop, reducer(value, state[prop]), state)
@@ -35,7 +35,7 @@ export const forwardS = R.curry(
 
 `;
 
-exports[`tagged-template-expression.ts 1`] = `
+exports[`tagged-template-expression.ts - typescript-verify 1`] = `
 export const RedBox = styled.div<{foo: string}>\`
   background: red;
   \${props => props.foo}

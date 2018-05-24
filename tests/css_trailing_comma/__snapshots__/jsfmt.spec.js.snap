@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`at-rules.css 1`] = `
+exports[`at-rules.css - css-verify 1`] = `
 a {
 @include section-type-1(
 $header:
@@ -68,7 +68,7 @@ a {
 
 `;
 
-exports[`at-rules.css 2`] = `
+exports[`at-rules.css - scss-verify 1`] = `
 a {
 @include section-type-1(
 $header:
@@ -136,7 +136,7 @@ a {
 
 `;
 
-exports[`declaration.css 1`] = `
+exports[`declaration.css - css-verify 1`] = `
 a {
     margin: $bar,;
 }
@@ -147,7 +147,7 @@ a {
 
 `;
 
-exports[`declaration.css 2`] = `
+exports[`declaration.css - scss-verify 1`] = `
 a {
     margin: $bar,;
 }
@@ -158,7 +158,7 @@ a {
 
 `;
 
-exports[`list.css 1`] = `
+exports[`list.css - css-verify 1`] = `
 $colors: hotpink deepskyblue firebrick,;
 $list: (a,);
 $list: ('Helvetica', 'Arial', sans-serif,);
@@ -256,7 +256,7 @@ $breakpoint-map: (
 
 `;
 
-exports[`list.css 2`] = `
+exports[`list.css - scss-verify 1`] = `
 $colors: hotpink deepskyblue firebrick,;
 $list: (a,);
 $list: ('Helvetica', 'Arial', sans-serif,);
@@ -354,7 +354,7 @@ $breakpoint-map: (
 
 `;
 
-exports[`map.css 1`] = `
+exports[`map.css - css-verify 1`] = `
 $map: (
     small: 767px,
     medium: 992px,
@@ -391,7 +391,7 @@ $map: (
 
 `;
 
-exports[`map.css 2`] = `
+exports[`map.css - scss-verify 1`] = `
 $map: (
     small: 767px,
     medium: 992px,
@@ -428,7 +428,7 @@ $map: (
 
 `;
 
-exports[`selector_list.css 1`] = `
+exports[`selector_list.css - css-verify 1`] = `
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm,
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm, {
 
@@ -452,7 +452,7 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
 
 `;
 
-exports[`selector_list.css 2`] = `
+exports[`selector_list.css - scss-verify 1`] = `
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm,
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm, {
 
@@ -476,7 +476,7 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
 
 `;
 
-exports[`variable.css 1`] = `
+exports[`variable.css - css-verify 1`] = `
 $test: 1,;
 $margin: 0, 2em, 0, 1.5em,;
 
@@ -486,7 +486,7 @@ $margin: 0, 2em, 0, 1.5em;
 
 `;
 
-exports[`variable.css 2`] = `
+exports[`variable.css - scss-verify 1`] = `
 $test: 1,;
 $margin: 0, 2em, 0, 1.5em,;
 

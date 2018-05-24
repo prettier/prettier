@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`indented.md 1`] = `
+exports[`indented.md - markdown-verify 1`] = `
 - 123
 - 456
 - 789
@@ -19,7 +19,7 @@ exports[`indented.md 1`] = `
 
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md - markdown-verify 1`] = `
 <!-- prettier-ignore -->
 This is a long long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,7 +28,7 @@ This is a long long long long long long long long long long long long long long 
 
 `;
 
-exports[`top-level-range.md 1`] = `
+exports[`top-level-range.md - markdown-verify 1`] = `
 <!-- prettier-ignore-start -->
 <!-- some tool start (this should be ignored) -->
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`non_maybe_type.js 1`] = `
+exports[`non_maybe_type.js - flow-verify 1`] = `
 // @flow
 
 function foo(x: ?string): $NonMaybeType<?string> {
@@ -30,7 +30,7 @@ function foo(x: ?string): $NonMaybeType<?string> {
 
 `;
 
-exports[`property_type.js 1`] = `
+exports[`property_type.js - flow-verify 1`] = `
 type Malformed = $PropertyType<any, number>;
 
 type Obj = { x: string };
@@ -57,7 +57,7 @@ function foo(o: Obj): $PropertyType<Obj, "x"> {
 
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js - flow-verify 1`] = `
 var x0: $NonMaybeType<number|string> = 0; // ok, number ~> number|string
 var x1: $NonMaybeType<number|string> = true; // err, boolean ~> number|string
 var x2: $PropertyType<{p:number}|{p:string},'p'> = 0; // ok, number ~> number|string

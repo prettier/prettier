@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`hello.graphql 1`] = `
+exports[`hello.graphql - graphql-verify 1`] = `
 {
   project(name: "GraphQL") {
     tagline

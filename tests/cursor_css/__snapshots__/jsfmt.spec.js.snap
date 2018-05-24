@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.css 1`] = `
+exports[`test.css - css-verify 1`] = `
 .blah {
   /* hloow <|> */
   background-color: white;

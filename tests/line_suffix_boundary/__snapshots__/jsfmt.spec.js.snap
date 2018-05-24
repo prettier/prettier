@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`boundary.js 1`] = `
+exports[`boundary.js - flow-verify 1`] = `
 \`\${
 a +  // a
   a

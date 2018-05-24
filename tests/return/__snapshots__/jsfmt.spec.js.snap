@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binaryish.js 1`] = `
+exports[`binaryish.js - flow-verify 1`] = `
 function f() {
   return (
     property.isIdentifier() &&
@@ -51,7 +51,7 @@ function f() {
 
 `;
 
-exports[`comment.js 1`] = `
+exports[`comment.js - flow-verify 1`] = `
 function f() {
   return /* a */;
 }

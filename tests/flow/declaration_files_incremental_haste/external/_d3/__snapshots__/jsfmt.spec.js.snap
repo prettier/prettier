@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`min.js 1`] = `
+exports[`min.js - flow-verify 1`] = `
 class Implementation {}
 module.exports.fun = (): Implementation => new Implementation;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`moduleBlock.ts 1`] = `
+exports[`moduleBlock.ts - typescript-verify 1`] = `
 module m2 {
     function fn() {
         return 1;

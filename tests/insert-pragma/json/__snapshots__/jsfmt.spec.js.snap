@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`does-nothing.json 1`] = `
+exports[`does-nothing.json - json-verify 1`] = `
 {"allOn": "Single", "Line": "example",
 "noSpace":true,
   "quote": {
