@@ -1,18 +1,27 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 
 module.exports = function() {
   let banner;
+  let entry;
 
   return {
-    transform(code) {
-      const match = /^\s*(#!.*)/.exec(code);
+    options(options) {
+      entry = path.resolve(options.entry);
+      return options;
+    },
+
+    load(id) {
+      if (id !== entry) {
+        return;
+      }
+      const source = fs.readFileSync(id, "utf-8");
+      const match = source.match(/^\s*(#!.*)/);
       if (match) {
         banner = match[1];
-        code =
-          code.slice(0, match.index) + code.slice(match.index + banner.length);
-        return { code };
+        return source.slice(0, match.index) + source.slice(match.index + banner.length);
       }
     },
 
