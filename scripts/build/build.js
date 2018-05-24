@@ -36,6 +36,10 @@ const EXTERNALS = [
 ];
 
 function getBabelConfig(bundle) {
+  if (bundle.type !== "core" && !bundle.transpile) {
+    return;
+  }
+
   const config = {
     babelrc: false,
     plugins: []
@@ -105,6 +109,8 @@ function getRollupConfig(bundle) {
   }
   Object.assign(replaceStrings, bundle.replace);
 
+  const babelConfig = getBabelConfig(bundle);
+
   config.plugins = [
     replace(replaceStrings),
     executable(),
@@ -117,7 +123,7 @@ function getRollupConfig(bundle) {
     }),
     commonjs(bundle.commonjs || {}),
     bundle.target === "universal" && nodeGlobals(),
-    babel(getBabelConfig(bundle)),
+    babelConfig && babel(babelConfig),
     bundle.type === "plugin" && uglify()
   ].filter(Boolean);
 
