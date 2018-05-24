@@ -16,7 +16,7 @@
   "dependencies": {
     "@babel/code-frame": "7.0.0-beta.40",
     "@glimmer/syntax": "0.30.3",
-    "babylon": "7.0.0-beta.34",
+    "babylon": "7.0.0-beta.47",
     "camelcase": "4.1.0",
     "chalk": "2.1.0",
     "cjk-regex": "1.0.2",
@@ -31,7 +31,7 @@
     "esutils": "2.0.2",
     "find-parent-dir": "0.3.0",
     "find-project-root": "1.1.1",
-    "flow-parser": "0.70",
+    "flow-parser": "0.72.0",
     "get-stream": "3.0.0",
     "globby": "6.1.0",
     "graphql": "0.13.2",

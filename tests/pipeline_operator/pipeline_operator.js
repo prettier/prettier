@@ -22,3 +22,6 @@ function createPerson (attrs) {
     |> format('name', /^[a-z]$/i)
     |> Person.insertIntoDatabase;
 }
+
+foo |> (bar ?? baz);
+(foo |> bar) ?? baz;

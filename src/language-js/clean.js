@@ -89,6 +89,11 @@ function clean(ast, newObj, parent) {
     delete newObj.key;
   }
 
+  if (ast.type === "OptionalMemberExpression" && ast.optional === false) {
+    newObj.type = "MemberExpression";
+    delete newObj.optional;
+  }
+
   // Remove raw and cooked values from TemplateElement when it's CSS
   // styled-jsx
   if (
@@ -123,12 +128,13 @@ function clean(ast, newObj, parent) {
   }
 
   // CSS template literals in Angular Component decorator
+  const expression = ast.expression || ast.callee;
   if (
     ast.type === "Decorator" &&
-    ast.expression.type === "CallExpression" &&
-    ast.expression.callee.name === "Component" &&
-    ast.expression.arguments.length === 1 &&
-    ast.expression.arguments[0].properties.some(
+    expression.type === "CallExpression" &&
+    expression.callee.name === "Component" &&
+    expression.arguments.length === 1 &&
+    expression.arguments[0].properties.some(
       prop =>
         prop.key.name === "styles" && prop.value.type === "ArrayExpression"
     )
