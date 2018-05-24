@@ -17,7 +17,7 @@ function parse(text, parsers, opts) {
       "flow",
       "doExpressions",
       "objectRestSpread",
-      "decorators",
+      "decorators-legacy",
       "classProperties",
       "exportDefaultFrom",
       "exportNamespaceFrom",

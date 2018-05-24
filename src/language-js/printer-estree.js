@@ -76,11 +76,11 @@ function genericPrint(path, options, printPath, args) {
   ) {
     let separator = hardline;
     path.each(decoratorPath => {
-      let prefix = "@";
       let decorator = decoratorPath.getValue();
       if (decorator.expression) {
         decorator = decorator.expression;
-        prefix = "";
+      } else {
+        decorator = decorator.callee;
       }
 
       if (
@@ -100,7 +100,7 @@ function genericPrint(path, options, printPath, args) {
         separator = line;
       }
 
-      decorators.push(prefix, printPath(decoratorPath), separator);
+      decorators.push(printPath(decoratorPath), separator);
     }, "decorators");
   } else if (
     privateUtil.isExportDeclaration(node) &&
@@ -331,6 +331,7 @@ function printPathNoParens(path, options, print, args) {
   let parts = [];
   switch (n.type) {
     case "File":
+    // console.log(JSON.stringify(n, null, 2));
       return path.call(print, "program");
     case "Program":
       // Babel 6
@@ -1262,7 +1263,7 @@ function printPathNoParens(path, options, print, args) {
     case "ObjectMethod":
       return printObjectMethod(path, options, print);
     case "Decorator":
-      return concat(["@", path.call(print, "expression")]);
+      return concat(["@", path.call(print, "expression"), path.call(print, "callee")]);
     case "ArrayExpression":
     case "ArrayPattern":
       if (n.elements.length === 0) {
