@@ -21,7 +21,10 @@ module.exports = function() {
       const match = source.match(/^\s*(#!.*)/);
       if (match) {
         banner = match[1];
-        return source.slice(0, match.index) + source.slice(match.index + banner.length);
+        return (
+          source.slice(0, match.index) +
+          source.slice(match.index + banner.length)
+        );
       }
     },
 
