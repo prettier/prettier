@@ -29,6 +29,20 @@ const voidTags = [
   "wbr"
 ];
 
+// Escaping logic based on handlebars.js:
+// https://github.com/wycats/handlebars.js/blob/master/lib/handlebars/utils.js
+const escape = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;"
+};
+
+const badChars = /[&<>]/g;
+
+function escapeChar(chr) {
+  return escape[chr];
+}
+
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
@@ -263,6 +277,7 @@ function print(path, options, print) {
         }
       }
       return n.chars
+        .replace(badChars, escapeChar)
         .replace(/^\s+/, leadingSpace)
         .replace(/\s+$/, trailingSpace);
     }
