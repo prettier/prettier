@@ -122,6 +122,24 @@ function clean(ast, newObj, parent) {
     newObj.value.expression.quasis.forEach(q => delete q.value);
   }
 
+  // CSS template literals in Angular Component decorator
+  if (
+    ast.type === "Decorator" &&
+    ast.expression.type === "CallExpression" &&
+    ast.expression.callee.name === "Component" &&
+    ast.expression.arguments.length === 1 &&
+    ast.expression.arguments[0].properties.some(
+      prop =>
+        prop.key.name === "styles" && prop.value.type === "ArrayExpression"
+    )
+  ) {
+    newObj.expression.arguments[0].properties.forEach(prop => {
+      if (prop.value.type === "ArrayExpression") {
+        prop.value.elements[0].quasis.forEach(q => delete q.value);
+      }
+    });
+  }
+
   // styled-components, graphql, markdown
   if (
     ast.type === "TaggedTemplateExpression" &&
