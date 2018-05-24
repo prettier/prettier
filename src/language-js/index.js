@@ -138,7 +138,7 @@ const languages = [
     codemirrorMode: "javascript",
     codemirrorMimeType: "application/json",
     extensions: [], // .json file defaults to json instead of json-stringify
-    filenames: ["package.json", "package-lock.json"],
+    filenames: ["package.json", "package-lock.json", "composer.json"],
     linguistLanguageId: 174,
     vscodeLanguageIds: ["json"]
   },
