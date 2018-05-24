@@ -338,7 +338,6 @@ function printPathNoParens(path, options, print, args) {
   let parts = [];
   switch (n.type) {
     case "File":
-    // console.log(JSON.stringify(n, null, 2));
       return path.call(print, "program");
     case "Program":
       // Babel 6
@@ -1276,7 +1275,11 @@ function printPathNoParens(path, options, print, args) {
     case "ObjectMethod":
       return printObjectMethod(path, options, print);
     case "Decorator":
-      return concat(["@", path.call(print, "expression"), path.call(print, "callee")]);
+      return concat([
+        "@",
+        path.call(print, "expression"),
+        path.call(print, "callee")
+      ]);
     case "ArrayExpression":
     case "ArrayPattern":
       if (n.elements.length === 0) {
@@ -4433,7 +4436,8 @@ function printMemberChain(path, options, print) {
 
     const lastNode = privateUtil.getLast(groups[0]).node;
     return (
-      (lastNode.type === "MemberExpression" || lastNode.type === "OptionalMemberExpression") &&
+      (lastNode.type === "MemberExpression" ||
+        lastNode.type === "OptionalMemberExpression") &&
       lastNode.property.type === "Identifier" &&
       (isFactory(lastNode.property.name) ||
         (isExpression && isShort(lastNode.property.name)) ||
@@ -5681,7 +5685,7 @@ function isTestCall(n, parent) {
 function isSkipOrOnlyBlock(node) {
   return (
     (node.callee.type === "MemberExpression" ||
-    node.callee.type === "OptionalMemberExpression") &&
+      node.callee.type === "OptionalMemberExpression") &&
     node.callee.object.type === "Identifier" &&
     node.callee.property.type === "Identifier" &&
     unitTestRe.test(node.callee.object.name) &&
