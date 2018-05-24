@@ -75,7 +75,7 @@ function getSupportInfo(version, opts) {
   const usePostCssParser = semver.lt(version, "1.7.1");
 
   const languages = plugins
-    .reduce((all, plugin) => all.concat(plugin.languages), [])
+    .reduce((all, plugin) => all.concat(plugin.languages || []), [])
     .filter(
       language =>
         language.since

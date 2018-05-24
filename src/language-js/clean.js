@@ -89,6 +89,11 @@ function clean(ast, newObj, parent) {
     delete newObj.key;
   }
 
+  if (ast.type === "OptionalMemberExpression" && ast.optional === false) {
+    newObj.type = "MemberExpression";
+    delete newObj.optional;
+  }
+
   // Remove raw and cooked values from TemplateElement when it's CSS
   // styled-jsx
   if (
@@ -120,6 +125,25 @@ function clean(ast, newObj, parent) {
     ast.value.expression.type === "TemplateLiteral"
   ) {
     newObj.value.expression.quasis.forEach(q => delete q.value);
+  }
+
+  // CSS template literals in Angular Component decorator
+  const expression = ast.expression || ast.callee;
+  if (
+    ast.type === "Decorator" &&
+    expression.type === "CallExpression" &&
+    expression.callee.name === "Component" &&
+    expression.arguments.length === 1 &&
+    expression.arguments[0].properties.some(
+      prop =>
+        prop.key.name === "styles" && prop.value.type === "ArrayExpression"
+    )
+  ) {
+    newObj.expression.arguments[0].properties.forEach(prop => {
+      if (prop.value.type === "ArrayExpression") {
+        prop.value.elements[0].quasis.forEach(q => delete q.value);
+      }
+    });
   }
 
   // styled-components, graphql, markdown

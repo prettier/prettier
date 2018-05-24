@@ -10,6 +10,3 @@ foo ?? baz || baz;
 
 (foo && baz) ?? baz;
 foo && (baz ?? baz);
-
-foo |> (bar ?? baz);
-(foo |> bar) ?? baz;

@@ -19,27 +19,6 @@ const languages = [
   }
 ];
 
-const parsers = {
-  graphql: {
-    get parse() {
-      return eval("require")("./parser-graphql");
-    },
-    astFormat: "graphql",
-    locStart: function(node) {
-      if (typeof node.start === "number") {
-        return node.start;
-      }
-      return node.loc && node.loc.start;
-    },
-    locEnd: function(node) {
-      if (typeof node.end === "number") {
-        return node.end;
-      }
-      return node.loc && node.loc.end;
-    }
-  }
-};
-
 const printers = {
   graphql: printer
 };
@@ -47,6 +26,5 @@ const printers = {
 module.exports = {
   languages,
   options,
-  parsers,
   printers
 };

@@ -21,21 +21,11 @@ const languages = [
   }
 ];
 
-const parsers = {
-  vue: {
-    get parse() {
-      return eval("require")("./parser-vue");
-    },
-    astFormat: "vue"
-  }
-};
-
 const printers = {
   vue: printer
 };
 
 module.exports = {
   languages,
-  parsers,
   printers
 };

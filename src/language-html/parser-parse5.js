@@ -58,4 +58,17 @@ function convertAttribs(attribs) {
   });
 }
 
-module.exports = parse;
+module.exports = {
+  parsers: {
+    parse5: {
+      parse,
+      astFormat: "htmlparser2",
+      locStart(node) {
+        return node.__location && node.__location.startOffset;
+      },
+      locEnd(node) {
+        return node.__location && node.__location.endOffset;
+      }
+    }
+  }
+};

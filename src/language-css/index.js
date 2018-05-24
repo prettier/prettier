@@ -2,10 +2,6 @@
 
 const printer = require("./printer-postcss");
 const options = require("./options");
-const privateUtil = require("../common/util");
-
-const lineColumnToIndex = privateUtil.lineColumnToIndex;
-const getLast = privateUtil.getLast;
 
 // Based on:
 // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
@@ -52,36 +48,6 @@ const languages = [
   }
 ];
 
-const postcss = {
-  get parse() {
-    return eval("require")("./parser-postcss");
-  },
-  astFormat: "postcss",
-  locEnd: function(node) {
-    const endNode = node.nodes && getLast(node.nodes);
-    if (endNode && node.source && !node.source.end) {
-      node = endNode;
-    }
-    if (node.source) {
-      return lineColumnToIndex(node.source.end, node.source.input.css);
-    }
-    return null;
-  },
-  locStart: function(node) {
-    if (node.source) {
-      return lineColumnToIndex(node.source.start, node.source.input.css) - 1;
-    }
-    return null;
-  }
-};
-
-// TODO: switch these to just `postcss` and use `language` instead.
-const parsers = {
-  css: postcss,
-  less: postcss,
-  scss: postcss
-};
-
 const printers = {
   postcss: printer
 };
@@ -89,6 +55,5 @@ const printers = {
 module.exports = {
   languages,
   options,
-  parsers,
   printers
 };
