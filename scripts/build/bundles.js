@@ -11,7 +11,6 @@ const path = require("path");
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {'rollup' | 'webpack'} [bundler='rollup'] - define which bundler to use
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
- * @property {boolean} [transpile=false] - wether to transpile the bundle to ES2015
  * @property {string[]} external - array of paths that should not be included in the final bundle
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
 
@@ -62,8 +61,7 @@ const parsers = [
         "node_modules/@glimmer/syntax/dist/modules/es2017/index.js": "default"
       },
       ignore: ["source-map"]
-    },
-    transpile: true
+    }
   },
   {
     input: "src/language-html/parser-parse5.js",

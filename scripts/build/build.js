@@ -38,16 +38,21 @@ const EXTERNALS = [
 function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
-    presets: [],
-    plugins: []
+    plugins: [require.resolve("babel-plugin-external-helpers")]
   };
   if (bundle.type === "core") {
-    config.plugins.push(require("./babel-plugins/transform-eval-require"));
+    config.plugins.push(
+      require.resolve("./babel-plugins/transform-eval-require")
+    );
   }
-  if (bundle.transpile) {
-    config.plugins.push("external-helpers");
-    config.presets.push(["es2015", { modules: false }]);
+  const targets = { node: 4 };
+  if (bundle.target === "universal") {
+    // From https://jamie.build/last-2-versions
+    targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
   }
+  config.presets = [
+    [require.resolve("babel-preset-env"), { targets, modules: false }]
+  ];
   return config;
 }
 
