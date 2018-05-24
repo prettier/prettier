@@ -128,7 +128,7 @@ function clean(ast, newObj, parent) {
   }
 
   // CSS template literals in Angular Component decorator
-  var expression = ast.expression || ast.callee;
+  const expression = ast.expression || ast.callee;
   if (
     ast.type === "Decorator" &&
     expression.type === "CallExpression" &&
