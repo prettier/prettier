@@ -60,10 +60,9 @@
     "unified": "6.1.6"
   },
   "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-core": "6.26.3",
-    "babel-plugin-external-helpers": "6.22.0",
-    "babel-preset-env": "1.7.0",
+    "@babel/cli": "7.0.0-beta.47",
+    "@babel/core": "7.0.0-beta.47",
+    "@babel/preset-env": "7.0.0-beta.47",
     "builtin-modules": "2.0.0",
     "codecov": "2.2.0",
     "cross-env": "5.0.5",
@@ -79,7 +78,7 @@
     "prettylint": "1.0.0",
     "rimraf": "2.6.2",
     "rollup": "0.47.6",
-    "rollup-plugin-babel": "3.0.4",
+    "rollup-plugin-babel": "4.0.0-beta.4",
     "rollup-plugin-commonjs": "8.2.6",
     "rollup-plugin-json": "2.1.1",
     "rollup-plugin-node-builtins": "2.0.0",

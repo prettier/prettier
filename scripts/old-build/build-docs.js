@@ -41,7 +41,7 @@ else {
   shell.echo("Bundling docs index...");
   shell.cp(`${prettierPath}/index.js`, `${docs}/index.js`);
   shell.exec(
-    `node_modules/babel-cli/bin/babel.js ${docs}/index.js --out-file ${docs}/index.js --presets=es2015`
+    `node_modules/@babel/cli/bin/babel.js ${docs}/index.js --out-file ${docs}/index.js --presets=@babel/preset-env`
   );
 
   // wrap content with IIFE to avoid `assign to readonly` error on Safari
@@ -55,7 +55,7 @@ else {
     `rollup -c scripts/old-build/rollup.docs.config.js --environment filepath:parser-babylon.js -i ${prettierPath}/parser-babylon.js`
   );
   shell.exec(
-    `node_modules/babel-cli/bin/babel.js ${docs}/parser-babylon.js --out-file ${docs}/parser-babylon.js --presets=es2015`
+    `node_modules/@babel/cli/bin/babel.js ${docs}/parser-babylon.js --out-file ${docs}/parser-babylon.js --presets=@babel/preset-env`
   );
 
   for (const parser of parserPaths) {

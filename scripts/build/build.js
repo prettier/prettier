@@ -38,7 +38,7 @@ const EXTERNALS = [
 function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
-    plugins: [require.resolve("babel-plugin-external-helpers")]
+    plugins: []
   };
   if (bundle.type === "core") {
     config.plugins.push(
@@ -51,7 +51,7 @@ function getBabelConfig(bundle) {
     targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
   }
   config.presets = [
-    [require.resolve("babel-preset-env"), { targets, modules: false }]
+    [require.resolve("@babel/preset-env"), { targets, modules: false }]
   ];
   return config;
 }
