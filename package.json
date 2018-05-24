@@ -11,7 +11,7 @@
   "license": "MIT",
   "main": "./index.js",
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "dependencies": {
     "@babel/code-frame": "7.0.0-beta.40",
