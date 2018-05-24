@@ -148,10 +148,10 @@ function print(path, options, print) {
       const isConcat = pp && pp.type === "ConcatStatement";
       return group(
         concat([
-          /*n.escaped ? "{{{" : */ "{{",
+          n.escaped === false ? "{{{" : "{{",
           printPathParams(path, print),
           isConcat ? "" : softline,
-          /*.escaped ? "}}}" :*/ "}}"
+          n.escaped === false ? "}}}" : "}}"
         ])
       );
     }
