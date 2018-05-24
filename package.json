@@ -60,9 +60,9 @@
     "unified": "6.1.6"
   },
   "devDependencies": {
-    "@babel/cli": "7.0.0-beta.47",
-    "@babel/core": "7.0.0-beta.47",
-    "@babel/preset-env": "7.0.0-beta.47",
+    "@babel/cli": "7.0.0-beta.40",
+    "@babel/core": "7.0.0-beta.40",
+    "@babel/preset-env": "7.0.0-beta.40",
     "builtin-modules": "2.0.0",
     "codecov": "2.2.0",
     "cross-env": "5.0.5",
