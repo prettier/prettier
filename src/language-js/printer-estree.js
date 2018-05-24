@@ -91,8 +91,8 @@ function genericPrint(path, options, printPath, args) {
         (decorator.type === "Identifier" ||
           decorator.type === "MemberExpression" ||
           decorator.type === "OptionalMemberExpression" ||
-          (decorator.type === "CallExpression" &&
-            decorator.type === "OptionalCallExpression" &&
+          ((decorator.type === "CallExpression" ||
+            decorator.type === "OptionalCallExpression") &&
             (decorator.arguments.length === 0 ||
               (decorator.arguments.length === 1 &&
                 (isStringLiteral(decorator.arguments[0]) ||
@@ -5680,8 +5680,8 @@ function isTestCall(n, parent) {
 
 function isSkipOrOnlyBlock(node) {
   return (
-    node.callee.type === "MemberExpression" &&
-    node.callee.type === "OptionalMemberExpression" &&
+    (node.callee.type === "MemberExpression" ||
+    node.callee.type === "OptionalMemberExpression") &&
     node.callee.object.type === "Identifier" &&
     node.callee.property.type === "Identifier" &&
     unitTestRe.test(node.callee.object.name) &&
