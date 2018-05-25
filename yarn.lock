@@ -962,13 +962,13 @@ babel-types@^6.26.0:
     lodash "^4.17.4"
     to-fast-properties "^1.0.3"
 
-babylon@7.0.0-beta.47:
-  version "7.0.0-beta.47"
-  resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.47.tgz#6d1fa44f0abec41ab7c780481e62fd9aafbdea80"
-
 babylon@7.0.0-beta.40:
   version "7.0.0-beta.40"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.40.tgz#91fc8cd56d5eb98b28e6fde41045f2957779940a"
+
+babylon@7.0.0-beta.47:
+  version "7.0.0-beta.47"
+  resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.47.tgz#6d1fa44f0abec41ab7c780481e62fd9aafbdea80"
 
 babylon@^6.13.0, babylon@^6.17.2:
   version "6.17.3"
@@ -2094,9 +2094,9 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-parser@0.72.0:
-  version "0.72.0"
-  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.72.0.tgz#6c8041e76ac7d0be1a71ce29c00cd1435fb6013c"
+flow-parser@0.73.0:
+  version "0.73.0"
+  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.73.0.tgz#525ac0776f743e16b6dca1a3dd6c602260b15773"
 
 for-in@^1.0.1:
   version "1.0.2"

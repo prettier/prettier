@@ -2485,8 +2485,11 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "id"),
         path.call(print, "typeParameters")
       ]);
+
     case "DeclareInterface":
-    case "InterfaceDeclaration": {
+    case "InterfaceDeclaration":
+    case "InterfaceType":
+    case "InterfaceTypeAnnotation": {
       if (
         n.type === "DeclareInterface" ||
         isNodeStartingWithDeclare(n, options)
@@ -2494,11 +2497,15 @@ function printPathNoParens(path, options, print, args) {
         parts.push("declare ");
       }
 
-      parts.push(
-        "interface ",
-        path.call(print, "id"),
-        path.call(print, "typeParameters")
-      );
+      parts.push("interface");
+
+      if (n.type === "DeclareInterface" || n.type === "InterfaceDeclaration") {
+        parts.push(
+          " ",
+          path.call(print, "id"),
+          path.call(print, "typeParameters")
+        );
+      }
 
       if (n["extends"].length > 0) {
         parts.push(
@@ -2510,8 +2517,7 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      parts.push(" ");
-      parts.push(path.call(print, "body"));
+      parts.push(" ", path.call(print, "body"));
 
       return group(concat(parts));
     }
