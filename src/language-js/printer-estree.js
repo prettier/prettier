@@ -338,7 +338,21 @@ function printPathNoParens(path, options, print, args) {
   let parts = [];
   switch (n.type) {
     case "File":
-      return path.call(print, "program");
+      // Print @babel/parser's InterpreterDirective here so that
+      // leading comments on the `Program` node get printed after the hashbang.
+      if (n.program && n.program.interpreter) {
+        parts.push(
+          path.call(
+            programPath => programPath.call(print, "interpreter"),
+            "program"
+          )
+        );
+      }
+
+      parts.push(path.call(print, "program"));
+
+      return concat(parts);
+
     case "Program":
       // Babel 6
       if (n.directives) {
@@ -3173,6 +3187,15 @@ function printPathNoParens(path, options, print, args) {
 
     case "TSInferType":
       return concat(["infer", " ", path.call(print, "typeParameter")]);
+
+    case "InterpreterDirective":
+      parts.push("#!", n.value, hardline);
+
+      if (sharedUtil.isNextLineEmpty(options.originalText, n, options)) {
+        parts.push(hardline);
+      }
+
+      return concat(parts);
 
     default:
       /* istanbul ignore next */
