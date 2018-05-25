@@ -4251,6 +4251,7 @@ function printMemberChain(path, options, print) {
     } else if (isMemberish(node)) {
       printedNodes.unshift({
         node: node,
+        needsParens: pathNeedsParens(path, options),
         printed: comments.printComments(
           path,
           () =>
@@ -4449,7 +4450,23 @@ function printMemberChain(path, options, print) {
     groups.length >= 2 && !groups[1][0].node.comments && shouldNotWrap(groups);
 
   function printGroup(printedGroup) {
-    return concat(printedGroup.map(tuple => tuple.printed));
+    const result = [];
+    for (let i = 0; i < printedGroup.length; i++) {
+      // Checks if the next node (i.e. the parent node) needs parens
+      // and print accordingl y
+      if (printedGroup[i + 1] && printedGroup[i + 1].needsParens) {
+        result.push(
+          "(",
+          printedGroup[i].printed,
+          printedGroup[i + 1].printed,
+          ")"
+        );
+        i++;
+      } else {
+        result.push(printedGroup[i].printed);
+      }
+    }
+    return concat(result);
   }
 
   function printIndentedGroup(groups) {
