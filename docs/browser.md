@@ -13,7 +13,7 @@ See [Usage](browser.md#usage) below for examples.
 
 ## Usage
 
-### Global:
+### Global
 
 <!-- prettier-ignore -->
 ```html
@@ -24,37 +24,31 @@ prettier.format("query { }", { parser: "graphql", plugins: prettierPlugins });
 </script>
 ```
 
-### AMD:
+### AMD
 
-<!-- prettier-ignore -->
 ```js
-define(
-  [
-    'https://unpkg.me/prettier@1.13.0/standalone.js',
-    'https://unpkg.me/prettier@1.13.0/parser-graphql.js'
-  ],
-  (prettier, ...plugins) => {
-    prettier.format("query { }", { parser: "graphql", plugins });
-  }
-);
+define([
+  "https://unpkg.me/prettier@1.13.0/standalone.js",
+  "https://unpkg.me/prettier@1.13.0/parser-graphql.js"
+], (prettier, ...plugins) => {
+  prettier.format("query { }", { parser: "graphql", plugins });
+});
 ```
 
-### CJS:
+### CJS
 
-This syntax doesn't necessarily works in the browser but this can be used when bundling the code with browserify or Rollup.
-
-<!-- prettier-ignore -->
 ```js
-const prettier = require('prettier/standalone');
-const plugins = [require('prettier/parser-graphql')];
+const prettier = require("prettier/standalone");
+const plugins = [require("prettier/parser-graphql")];
 prettier.format("query { }", { parser: "graphql", plugins });
 ```
 
-### Worker:
+This syntax doesn't necessarily works in the browser but this can be used when bundling the code with browserify or Rollup.
 
-<!-- prettier-ignore -->
+### Worker
+
 ```js
-importScripts('https://unpkg.me/prettier@1.13.0/standalone.js');
-importScripts('https://unpkg.me/prettier@1.13.0/parser-graphql.js');
+importScripts("https://unpkg.me/prettier@1.13.0/standalone.js");
+importScripts("https://unpkg.me/prettier@1.13.0/parser-graphql.js");
 prettier.format("query { }", { parser: "graphql", plugins: prettierPlugins });
 ```
