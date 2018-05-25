@@ -4452,6 +4452,8 @@ function printMemberChain(path, options, print) {
   function printGroup(printedGroup) {
     const result = [];
     for (let i = 0; i < printedGroup.length; i++) {
+      // Checks if the next node (i.e. the parent node) needs parens
+      // and print accordingly
       if (printedGroup[i + 1] && printedGroup[i + 1].needsParens) {
         result.push(
           "(",
