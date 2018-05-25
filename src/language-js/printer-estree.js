@@ -1030,7 +1030,7 @@ function printPathNoParens(path, options, print, args) {
           isNew ? "new " : "",
           path.call(print, "callee"),
           optional,
-          path.call(print, "typeParameters"),
+          printFunctionTypeParameters(path, options, print),
           concat(["(", join(", ", path.map(print, "arguments")), ")"])
         ]);
       }
@@ -3583,6 +3583,9 @@ function printTypeAnnotation(path, options, print) {
 
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.getValue();
+  if (fun.typeArguments) {
+    return path.call(print, "typeArguments");
+  }
   if (fun.typeParameters) {
     return path.call(print, "typeParameters");
   }
