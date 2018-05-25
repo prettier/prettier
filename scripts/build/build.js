@@ -36,10 +36,6 @@ const EXTERNALS = [
 ];
 
 function getBabelConfig(bundle) {
-  if (bundle.type !== "core" && !bundle.transpile) {
-    return;
-  }
-
   const config = {
     babelrc: false,
     plugins: []
@@ -49,16 +45,14 @@ function getBabelConfig(bundle) {
       require.resolve("./babel-plugins/transform-custom-require")
     );
   }
-  if (bundle.transpile) {
-    const targets = { node: 4 };
-    if (bundle.target === "universal") {
-      // From https://jamie.build/last-2-versions
-      targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
-    }
-    config.presets = [
-      [require.resolve("@babel/preset-env"), { targets, modules: false }]
-    ];
+  const targets = { node: 4 };
+  if (bundle.target === "universal") {
+    // From https://jamie.build/last-2-versions
+    targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
   }
+  config.presets = [
+    [require.resolve("@babel/preset-env"), { targets, modules: false }]
+  ];
   return config;
 }
 
