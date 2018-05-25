@@ -43,7 +43,7 @@ const plugins = [require("prettier/parser-graphql")];
 prettier.format("query { }", { parser: "graphql", plugins });
 ```
 
-This syntax doesn't necessarily works in the browser but this can be used when bundling the code with browserify or Rollup.
+This syntax doesn't necessarily work in the browser, but it can be used when bundling the code with browserify or Rollup.
 
 ### Worker
 
