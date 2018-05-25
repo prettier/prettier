@@ -10,7 +10,8 @@ export function getDefaults(availableOptions, optionNames) {
   const defaults = {};
   for (const option of availableOptions) {
     if (optionNames.includes(option.name)) {
-      defaults[option.name] = option.default;
+      defaults[option.name] =
+        option.name === "parser" ? "babylon" : option.default;
     }
   }
   return defaults;

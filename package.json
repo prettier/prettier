@@ -31,7 +31,7 @@
     "esutils": "2.0.2",
     "find-parent-dir": "0.3.0",
     "find-project-root": "1.1.1",
-    "flow-parser": "0.72.0",
+    "flow-parser": "0.73.0",
     "get-stream": "3.0.0",
     "globby": "6.1.0",
     "graphql": "0.13.2",
@@ -60,9 +60,9 @@
     "unified": "6.1.6"
   },
   "devDependencies": {
-    "@babel/cli": "7.0.0-beta.40",
-    "@babel/core": "7.0.0-beta.40",
-    "@babel/preset-env": "7.0.0-beta.40",
+    "@babel/cli": "7.0.0-beta.48",
+    "@babel/core": "7.0.0-beta.48",
+    "@babel/preset-env": "7.0.0-beta.48",
     "builtin-modules": "2.0.0",
     "codecov": "2.2.0",
     "cross-env": "5.0.5",

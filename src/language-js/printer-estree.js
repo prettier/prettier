@@ -1030,7 +1030,7 @@ function printPathNoParens(path, options, print, args) {
           isNew ? "new " : "",
           path.call(print, "callee"),
           optional,
-          path.call(print, "typeParameters"),
+          printFunctionTypeParameters(path, options, print),
           concat(["(", join(", ", path.map(print, "arguments")), ")"])
         ]);
       }
@@ -2485,8 +2485,11 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "id"),
         path.call(print, "typeParameters")
       ]);
+
     case "DeclareInterface":
-    case "InterfaceDeclaration": {
+    case "InterfaceDeclaration":
+    case "InterfaceType":
+    case "InterfaceTypeAnnotation": {
       if (
         n.type === "DeclareInterface" ||
         isNodeStartingWithDeclare(n, options)
@@ -2494,11 +2497,15 @@ function printPathNoParens(path, options, print, args) {
         parts.push("declare ");
       }
 
-      parts.push(
-        "interface ",
-        path.call(print, "id"),
-        path.call(print, "typeParameters")
-      );
+      parts.push("interface");
+
+      if (n.type === "DeclareInterface" || n.type === "InterfaceDeclaration") {
+        parts.push(
+          " ",
+          path.call(print, "id"),
+          path.call(print, "typeParameters")
+        );
+      }
 
       if (n["extends"].length > 0) {
         parts.push(
@@ -2510,8 +2517,7 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      parts.push(" ");
-      parts.push(path.call(print, "body"));
+      parts.push(" ", path.call(print, "body"));
 
       return group(concat(parts));
     }
@@ -3583,6 +3589,9 @@ function printTypeAnnotation(path, options, print) {
 
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.getValue();
+  if (fun.typeArguments) {
+    return path.call(print, "typeArguments");
+  }
   if (fun.typeParameters) {
     return path.call(print, "typeParameters");
   }
@@ -4251,6 +4260,7 @@ function printMemberChain(path, options, print) {
     } else if (isMemberish(node)) {
       printedNodes.unshift({
         node: node,
+        needsParens: pathNeedsParens(path, options),
         printed: comments.printComments(
           path,
           () =>
@@ -4449,7 +4459,23 @@ function printMemberChain(path, options, print) {
     groups.length >= 2 && !groups[1][0].node.comments && shouldNotWrap(groups);
 
   function printGroup(printedGroup) {
-    return concat(printedGroup.map(tuple => tuple.printed));
+    const result = [];
+    for (let i = 0; i < printedGroup.length; i++) {
+      // Checks if the next node (i.e. the parent node) needs parens
+      // and print accordingl y
+      if (printedGroup[i + 1] && printedGroup[i + 1].needsParens) {
+        result.push(
+          "(",
+          printedGroup[i].printed,
+          printedGroup[i + 1].printed,
+          ")"
+        );
+        i++;
+      } else {
+        result.push(printedGroup[i].printed);
+      }
+    }
+    return concat(result);
   }
 
   function printIndentedGroup(groups) {

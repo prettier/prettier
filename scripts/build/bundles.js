@@ -13,7 +13,6 @@ const path = require("path");
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
  * @property {string[]} external - array of paths that should not be included in the final bundle
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
- * @property {boolean} [transpile=false] - wether to transpile the bundle to ES2015
 
  * @typedef {Object} CommonJSConfig
  * @property {Object} namedExports - for cases where rollup can't infer what's exported
@@ -62,8 +61,7 @@ const parsers = [
         "node_modules/@glimmer/syntax/dist/modules/es2017/index.js": "default"
       },
       ignore: ["source-map"]
-    },
-    transpile: true
+    }
   },
   {
     input: "src/language-html/parser-parse5.js",
