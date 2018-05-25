@@ -128,7 +128,7 @@ function handleMessage(message) {
       try {
         response.debug.doc = prettier.__debug.formatDoc(
           prettier.__debug.printToDoc(message.code, options),
-          { parser: "babylon" }
+          { parser: "babylon", plugins: plugins }
         );
       } catch (e) {
         response.debug.doc = String(e);
