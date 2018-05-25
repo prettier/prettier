@@ -41,10 +41,12 @@ define(
 
 ### CJS:
 
+This syntax doesn't necessarily works in the browser but this can be used when bundling the code with browserify or Rollup.
+
 <!-- prettier-ignore -->
 ```js
-const prettier = require('https://unpkg.me/prettier@1.13.0/standalone.js');
-const plugins = [require('https://unpkg.me/prettier@1.13.0/parser-graphql.js')];
+const prettier = require('prettier/standalone');
+const plugins = [require('prettier/parser-graphql')];
 prettier.format("query { }", { parser: "graphql", plugins });
 ```
 
