@@ -535,6 +535,9 @@ function needsParens(path, options) {
 
     case "ClassExpression":
       return parent.type === "ExportDefaultDeclaration";
+
+    case "OptionalMemberExpression":
+      return parent.type === "MemberExpression";
   }
 
   return false;
