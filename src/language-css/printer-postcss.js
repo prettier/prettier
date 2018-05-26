@@ -1,67 +1,71 @@
 "use strict";
 
 const clean = require("./clean");
-const privateUtil = require("../common/util");
-const sharedUtil = require("../common/util-shared");
+const {
+  printNumber,
+  printString,
+  hasIgnoreComment,
+  hasNewline
+} = require("../common/util");
+const { isNextLineEmpty } = require("../common/util-shared");
 
-const doc = require("../doc");
-const docBuilders = doc.builders;
-const concat = docBuilders.concat;
-const join = docBuilders.join;
-const line = docBuilders.line;
-const hardline = docBuilders.hardline;
-const softline = docBuilders.softline;
-const group = docBuilders.group;
-const fill = docBuilders.fill;
-const indent = docBuilders.indent;
-const dedent = docBuilders.dedent;
-const ifBreak = docBuilders.ifBreak;
+const {
+  builders: {
+    concat,
+    join,
+    line,
+    hardline,
+    softline,
+    group,
+    fill,
+    indent,
+    dedent,
+    ifBreak
+  },
+  utils: { removeLines }
+} = require("../doc");
 
-const docUtils = doc.utils;
-const removeLines = docUtils.removeLines;
-
-const utils = require("./utils");
-
-const getAncestorNode = utils.getAncestorNode;
-const getPropOfDeclNode = utils.getPropOfDeclNode;
-const maybeToLowerCase = utils.maybeToLowerCase;
-const insideValueFunctionNode = utils.insideValueFunctionNode;
-const insideICSSRuleNode = utils.insideICSSRuleNode;
-const insideAtRuleNode = utils.insideAtRuleNode;
-const insideURLFunctionInImportAtRuleNode =
-  utils.insideURLFunctionInImportAtRuleNode;
-const isKeyframeAtRuleKeywords = utils.isKeyframeAtRuleKeywords;
-const isHTMLTag = utils.isHTMLTag;
-const isWideKeywords = utils.isWideKeywords;
-const isSCSS = utils.isSCSS;
-const isLastNode = utils.isLastNode;
-const isSCSSControlDirectiveNode = utils.isSCSSControlDirectiveNode;
-const isDetachedRulesetDeclarationNode = utils.isDetachedRulesetDeclarationNode;
-const isRelationalOperatorNode = utils.isRelationalOperatorNode;
-const isEqualityOperatorNode = utils.isEqualityOperatorNode;
-const isMultiplicationNode = utils.isMultiplicationNode;
-const isDivisionNode = utils.isDivisionNode;
-const isAdditionNode = utils.isAdditionNode;
-const isSubtractionNode = utils.isSubtractionNode;
-const isMathOperatorNode = utils.isMathOperatorNode;
-const isEachKeywordNode = utils.isEachKeywordNode;
-const isForKeywordNode = utils.isForKeywordNode;
-const isURLFunctionNode = utils.isURLFunctionNode;
-const isIfElseKeywordNode = utils.isIfElseKeywordNode;
-const hasComposesNode = utils.hasComposesNode;
-const hasParensAroundNode = utils.hasParensAroundNode;
-const hasEmptyRawBefore = utils.hasEmptyRawBefore;
-const isKeyValuePairNode = utils.isKeyValuePairNode;
-const isDetachedRulesetCallNode = utils.isDetachedRulesetCallNode;
-const isPostcssSimpleVarNode = utils.isPostcssSimpleVarNode;
-const isSCSSMapItemNode = utils.isSCSSMapItemNode;
-const isInlineValueCommentNode = utils.isInlineValueCommentNode;
-const isHashNode = utils.isHashNode;
-const isLeftCurlyBraceNode = utils.isLeftCurlyBraceNode;
-const isRightCurlyBraceNode = utils.isRightCurlyBraceNode;
-const isWordNode = utils.isWordNode;
-const isColonNode = utils.isColonNode;
-const isMediaAndSupportsKeywords = utils.isMediaAndSupportsKeywords;
+const {
+  getAncestorNode,
+  getPropOfDeclNode,
+  maybeToLowerCase,
+  insideValueFunctionNode,
+  insideICSSRuleNode,
+  insideAtRuleNode,
+  insideURLFunctionInImportAtRuleNode,
+  isKeyframeAtRuleKeywords,
+  isHTMLTag,
+  isWideKeywords,
+  isSCSS,
+  isLastNode,
+  isSCSSControlDirectiveNode,
+  isDetachedRulesetDeclarationNode,
+  isRelationalOperatorNode,
+  isEqualityOperatorNode,
+  isMultiplicationNode,
+  isDivisionNode,
+  isAdditionNode,
+  isSubtractionNode,
+  isMathOperatorNode,
+  isEachKeywordNode,
+  isForKeywordNode,
+  isURLFunctionNode,
+  isIfElseKeywordNode,
+  hasComposesNode,
+  hasParensAroundNode,
+  hasEmptyRawBefore,
+  isKeyValuePairNode,
+  isDetachedRulesetCallNode,
+  isPostcssSimpleVarNode,
+  isSCSSMapItemNode,
+  isInlineValueCommentNode,
+  isHashNode,
+  isLeftCurlyBraceNode,
+  isRightCurlyBraceNode,
+  isWordNode,
+  isColonNode,
+  isMediaAndSupportsKeywords
+} = require("./utils");
 
 function shouldPrintComma(options) {
   switch (options.trailingComma) {
@@ -744,7 +748,7 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-number": {
-      return concat([printNumber(node.value), maybeToLowerCase(node.unit)]);
+      return concat([printCssNumber(node.value), maybeToLowerCase(node.unit)]);
     }
     case "value-operator": {
       return node.value;
@@ -767,7 +771,7 @@ function genericPrint(path, options, print) {
       return concat([node.value, " "]);
     }
     case "value-string": {
-      return privateUtil.printString(
+      return printString(
         node.raws.quote + node.value + node.raws.quote,
         options
       );
@@ -812,7 +816,7 @@ function printNodeSequence(path, options, print) {
     if (i !== node.nodes.length - 1) {
       if (
         (node.nodes[i + 1].type === "css-comment" &&
-          !privateUtil.hasNewline(
+          !hasNewline(
             options.originalText,
             options.locStart(node.nodes[i + 1]),
             { backwards: true }
@@ -825,11 +829,7 @@ function printNodeSequence(path, options, print) {
       } else {
         parts.push(hardline);
         if (
-          sharedUtil.isNextLineEmpty(
-            options.originalText,
-            pathChild.getValue(),
-            options
-          )
+          isNextLineEmpty(options.originalText, pathChild.getValue(), options)
         ) {
           parts.push(hardline);
         }
@@ -855,9 +855,7 @@ const ADJUST_NUMBERS_REGEX = RegExp(
 );
 
 function adjustStrings(value, options) {
-  return value.replace(STRING_REGEX, match =>
-    privateUtil.printString(match, options)
-  );
+  return value.replace(STRING_REGEX, match => printString(match, options));
 }
 
 function quoteAttributeValue(value, options) {
@@ -872,15 +870,16 @@ function adjustNumbers(value) {
     ADJUST_NUMBERS_REGEX,
     (match, quote, wordPart, number, unit) =>
       !wordPart && number
-        ? (wordPart || "") + printNumber(number) + maybeToLowerCase(unit || "")
+        ? (wordPart || "") +
+          printCssNumber(number) +
+          maybeToLowerCase(unit || "")
         : match
   );
 }
 
-function printNumber(rawNumber) {
+function printCssNumber(rawNumber) {
   return (
-    privateUtil
-      .printNumber(rawNumber)
+    printNumber(rawNumber)
       // Remove trailing `.0`.
       .replace(/\.0(?=$|e)/, "")
   );
@@ -888,6 +887,6 @@ function printNumber(rawNumber) {
 
 module.exports = {
   print: genericPrint,
-  hasPrettierIgnore: privateUtil.hasIgnoreComment,
+  hasPrettierIgnore: hasIgnoreComment,
   massageAstNode: clean
 };

@@ -1,21 +1,26 @@
 "use strict";
 
 const assert = require("assert");
-const docBuilders = require("../doc").builders;
-const concat = docBuilders.concat;
-const hardline = docBuilders.hardline;
-const breakParent = docBuilders.breakParent;
-const indent = docBuilders.indent;
-const lineSuffix = docBuilders.lineSuffix;
-const join = docBuilders.join;
-const cursor = docBuilders.cursor;
-const privateUtil = require("../common/util");
-const sharedUtil = require("../common/util-shared");
+const {
+  concat,
+  hardline,
+  breakParent,
+  indent,
+  lineSuffix,
+  join,
+  cursor
+} = require("../doc").builders;
+const {
+  hasNewline,
+  skipNewline,
+  isPreviousLineEmpty
+} = require("../common/util");
+const {
+  addLeadingComment,
+  addDanglingComment,
+  addTrailingComment
+} = require("../common/util-shared");
 const childNodesCacheKey = Symbol("child-nodes");
-
-const addLeadingComment = sharedUtil.addLeadingComment;
-const addTrailingComment = sharedUtil.addTrailingComment;
-const addDanglingComment = sharedUtil.addDanglingComment;
 
 function getSortedChildNodes(node, options, resultArray) {
   if (!node) {
@@ -207,7 +212,7 @@ function attach(comments, ast, text, options) {
 
     const isLastComment = comments.length - 1 === i;
 
-    if (privateUtil.hasNewline(text, locStart(comment), { backwards: true })) {
+    if (hasNewline(text, locStart(comment), { backwards: true })) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (
@@ -226,7 +231,7 @@ function attach(comments, ast, text, options) {
         /* istanbul ignore next */
         addDanglingComment(ast, comment);
       }
-    } else if (privateUtil.hasNewline(text, locEnd(comment))) {
+    } else if (hasNewline(text, locEnd(comment))) {
       if (
         pluginHandleEndOfLineComment(comment, text, options, ast, isLastComment)
       ) {
@@ -379,9 +384,7 @@ function printLeadingComment(commentPath, print, options) {
   if (isBlock) {
     return concat([
       contents,
-      privateUtil.hasNewline(options.originalText, options.locEnd(comment))
-        ? hardline
-        : " "
+      hasNewline(options.originalText, options.locEnd(comment)) ? hardline : " "
     ]);
   }
 
@@ -409,7 +412,7 @@ function printTrailingComment(commentPath, print, options) {
     parentParentNode.superClass === parentNode;
 
   if (
-    privateUtil.hasNewline(options.originalText, options.locStart(comment), {
+    hasNewline(options.originalText, options.locStart(comment), {
       backwards: true
     })
   ) {
@@ -425,7 +428,7 @@ function printTrailingComment(commentPath, print, options) {
     // if this a comment on its own line; normal trailing comments are
     // always at the end of another expression.
 
-    const isLineBeforeEmpty = privateUtil.isPreviousLineEmpty(
+    const isLineBeforeEmpty = isPreviousLineEmpty(
       options.originalText,
       comment,
       options.locStart
@@ -504,12 +507,7 @@ function printComments(path, print, options, needsSemi) {
       leadingParts.push(contents);
 
       const text = options.originalText;
-      if (
-        privateUtil.hasNewline(
-          text,
-          privateUtil.skipNewline(text, options.locEnd(comment))
-        )
-      ) {
+      if (hasNewline(text, skipNewline(text, options.locEnd(comment)))) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {
