@@ -4,6 +4,7 @@ const version = require("./package.json").version;
 
 const core = require("./src/main/core");
 const getSupportInfo = require("./src/main/support").getSupportInfo;
+const sharedUtil = require("./src/common/util-shared");
 
 const doc = require("./src/doc");
 
@@ -55,6 +56,8 @@ module.exports = {
   getSupportInfo: withPlugins(getSupportInfo),
 
   version,
+
+  util: sharedUtil,
 
   __debug: {
     parse: withPlugins(core.parse),
