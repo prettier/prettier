@@ -174,9 +174,11 @@ Built-in parsers:
 
 [Custom parsers](api.md#custom-parser-api) are also supported. _Since v1.5.0_
 
-| Default   | CLI Override                                    | API Override                                               |
-| --------- | ----------------------------------------------- | ---------------------------------------------------------- |
-| `babylon` | `--parser <string>`<br />`--parser ./my-parser` | `parser: "<string>"`<br />`parser: require("./my-parser")` |
+| Default | CLI Override                                    | API Override                                               |
+| ------- | ----------------------------------------------- | ---------------------------------------------------------- |
+| None    | `--parser <string>`<br />`--parser ./my-parser` | `parser: "<string>"`<br />`parser: require("./my-parser")` |
+
+Note: the default value was `"babylon"` until v1.13.0.
 
 ## FilePath
 
