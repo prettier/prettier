@@ -4,6 +4,9 @@ const version = require("./package.json").version;
 
 const core = require("./src/main/core");
 const getSupportInfo = require("./src/main/support").getSupportInfo;
+const sharedUtil = require("./src/common/util-shared");
+
+const doc = require("./src/doc");
 
 const internalPlugins = [
   require("./src/language-js"),
@@ -34,14 +37,27 @@ function withPlugins(fn) {
   };
 }
 
+const formatWithCursor = withPlugins(core.formatWithCursor);
+
 module.exports = {
+  formatWithCursor: formatWithCursor,
+
   format(text, opts) {
-    return withPlugins(core.formatWithCursor)(text, opts).formatted;
+    return formatWithCursor(text, opts).formatted;
   },
+
+  check(text, opts) {
+    const formatted = formatWithCursor(text, opts).formatted;
+    return formatted === text;
+  },
+
+  doc,
 
   getSupportInfo: withPlugins(getSupportInfo),
 
   version,
+
+  util: sharedUtil,
 
   __debug: {
     parse: withPlugins(core.parse),
