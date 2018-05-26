@@ -2675,8 +2675,16 @@ function printPathNoParens(path, options, print, args) {
     case "ObjectTypeProperty": {
       const variance = getFlowVariance(n);
 
+      let modifier = "";
+
+      if (n.proto) {
+        modifier = "proto ";
+      } else if (n.static) {
+        modifier = "static ";
+      }
+
       return concat([
-        n.static ? "static " : "",
+        modifier,
         isGetterOrSetter(n) ? n.kind + " " : "",
         variance || "",
         printPropertyKey(path, options, print),
