@@ -246,7 +246,7 @@ function format(text, opts) {
     text = opts.printer.insertPragma(text);
   }
 
-  const result = coreFormat(text, opts);
+  const result = text && text.trim().length ? coreFormat(text, opts) : "";
   if (hasUnicodeBOM) {
     result.formatted = String.fromCharCode(UTF8BOM) + result.formatted;
   }

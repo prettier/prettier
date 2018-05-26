@@ -54,6 +54,9 @@ function genericPrint(path, options, print) {
       return JSON.stringify(node.value);
     case "Identifier":
       return JSON.stringify(node.name);
+    default:
+      /* istanbul ignore next */
+      throw new Error("unknown type: " + JSON.stringify(node.type));
   }
 }
 
