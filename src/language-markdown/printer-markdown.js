@@ -747,7 +747,7 @@ function normalizeDoc(doc) {
 
     currentDoc.parts.forEach(part => {
       if (part.type === "concat") {
-        parts.push.apply(parts, part.parts);
+        parts.push(...part.parts);
       } else if (part !== "") {
         parts.push(part);
       }

@@ -24,8 +24,7 @@ const isArray =
 
 // Luckily `opts` is always the 2nd argument
 function withPlugins(fn) {
-  return function() {
-    const args = Array.from(arguments);
+  return function(...args) {
     let plugins = (args[1] && args[1].plugins) || [];
     if (!isArray(plugins)) {
       plugins = Object.values(plugins);
@@ -33,7 +32,7 @@ function withPlugins(fn) {
     args[1] = Object.assign({}, args[1], {
       plugins: internalPlugins.concat(plugins)
     });
-    return fn.apply(null, args);
+    return fn(...args);
   };
 }
 

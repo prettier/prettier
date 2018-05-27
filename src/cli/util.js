@@ -567,7 +567,7 @@ function createOptionUsageType(option) {
 }
 
 function flattenArray(array) {
-  return [].concat.apply([], array);
+  return [].concat(...array);
 }
 
 function getOptionWithLevenSuggestion(context, options, optionName) {

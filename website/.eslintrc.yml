@@ -8,3 +8,4 @@ overrides:
       no-var: off
       object-shorthand: off
       prefer-destructuring: off
+      prefer-spread: off
