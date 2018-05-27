@@ -12,7 +12,7 @@ module.exports = function(babel) {
   const t = babel.types;
   return {
     visitor: {
-      CallExpression: function(path) {
+      CallExpression(path) {
         const { node } = path;
         if (
           path.get("callee").isIdentifier({ name: "$$$r" }) &&

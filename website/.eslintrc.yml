@@ -6,4 +6,5 @@ overrides:
       ecmaVersion: 5
     rules:
       no-var: off
+      object-shorthand: off
       prefer-destructuring: off

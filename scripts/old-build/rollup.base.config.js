@@ -1,5 +1,5 @@
 export default {
-  onwarn: function(warning) {
+  onwarn(warning) {
     if (
       [
         "EVAL",

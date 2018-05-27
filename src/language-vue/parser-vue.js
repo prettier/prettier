@@ -295,7 +295,7 @@ function parseHTML(html, options) {
       stack.push({
         tag: tagName,
         lowerCasedTag: tagName.toLowerCase(),
-        attrs: attrs
+        attrs
       });
       lastTag = tagName;
     }
@@ -379,7 +379,7 @@ function parse(text /*, parsers, opts*/) {
   const objStack = [rootObj];
   let obj = rootObj;
   parseHTML(text, {
-    start: function(tag, attrs, unary, start, end) {
+    start(tag, attrs, unary, start, end) {
       const newObj = {
         tag,
         attrs,
@@ -396,7 +396,7 @@ function parse(text /*, parsers, opts*/) {
         obj = newObj;
       }
     },
-    end: function(tag, start, end) {
+    end(tag, start, end) {
       objStack.pop();
       obj.contentEnd = start;
       obj.end = end;

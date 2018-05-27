@@ -298,9 +298,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat(["${", expression, "}" + suffix])
         .concat(rest);
     }
-    return Object.assign({}, doc, {
-      parts: parts
-    });
+    return Object.assign({}, doc, { parts });
   });
 
   return expressions.length === replaceCounter ? newDoc : null;

@@ -64,8 +64,8 @@ function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
 
     if (predicate(node)) {
       return {
-        node: node,
-        parentNodes: parentNodes
+        node,
+        parentNodes
       };
     }
   }
@@ -202,8 +202,8 @@ function calculateRange(text, opts, ast) {
   );
 
   return {
-    rangeStart: rangeStart,
-    rangeEnd: rangeEnd
+    rangeStart,
+    rangeEnd
   };
 }
 

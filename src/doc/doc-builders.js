@@ -50,7 +50,7 @@ function group(contents, opts) {
 
   return {
     type: "group",
-    contents: contents,
+    contents,
     break: !!opts.shouldBreak,
     expandedStates: opts.expandedStates
   };
