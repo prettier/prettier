@@ -88,3 +88,11 @@ export class Thing21 implements OtherThing {
 export class Thing22 implements OtherThing {
     do: (type: Type) => Provider<Prop> = memoize(function(type: ObjectType): Provider {});
 }
+
+
+// case from https://github.com/prettier/prettier/issues/2581
+
+const appIDs = createSelector(
+    PubXURLParams.APP_IDS,
+   (rawAppIDs): Array<AppID> => deserializeList(rawAppIDs),
+);
