@@ -10,9 +10,7 @@ const {
   utils: { removeLines, propagateBreaks }
 } = require("../doc");
 
-function printAstToDoc(ast, options, addAlignmentSize) {
-  addAlignmentSize = addAlignmentSize || 0;
-
+function printAstToDoc(ast, options, addAlignmentSize = 0) {
   const { printer } = options;
   const cache = new Map();
 

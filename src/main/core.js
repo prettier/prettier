@@ -62,9 +62,7 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
-function coreFormat(text, opts, addAlignmentSize) {
-  addAlignmentSize = addAlignmentSize || 0;
-
+function coreFormat(text, opts, addAlignmentSize = 0) {
   const parsed = parser.parse(text, opts);
   const { ast } = parsed;
   text = parsed.text; // eslint-disable-line prefer-destructuring

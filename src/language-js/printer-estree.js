@@ -56,9 +56,7 @@ const {
   printer: { printDocToString }
 } = require("../doc");
 
-function shouldPrintComma(options, level) {
-  level = level || "es5";
-
+function shouldPrintComma(options, level = "es5") {
   switch (options.trailingComma) {
     case "all":
       if (level === "all") {

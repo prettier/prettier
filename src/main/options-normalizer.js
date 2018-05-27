@@ -4,8 +4,7 @@ const leven = require("leven");
 const validator = require("./options-validator");
 const descriptors = require("./options-descriptor");
 
-function normalizeOptions(options, optionInfos, opts) {
-  opts = opts || {};
+function normalizeOptions(options, optionInfos, opts = {}) {
   const logger =
     opts.logger === false
       ? { warn() {} }

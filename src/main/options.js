@@ -14,9 +14,7 @@ const hiddenDefaults = {
 };
 
 // Copy options and fill in default values.
-function normalize(options, opts) {
-  opts = opts || {};
-
+function normalize(options, opts = {}) {
   const rawOptions = Object.assign({}, options);
 
   const supportOptions = getSupportInfo(null, {

@@ -41,9 +41,7 @@ function align(n, contents) {
   return { type: "align", contents, n };
 }
 
-function group(contents, opts) {
-  opts = opts || {};
-
+function group(contents, opts = {}) {
   if (process.env.NODE_ENV !== "production") {
     assertDoc(contents);
   }
