@@ -1,8 +1,11 @@
-const core = require("../../src/main/core-options");
+const prettier = require("../../tests_config/require_prettier");
+const parsers = prettier
+  .getSupportInfo()
+  .options.find(option => option.name === "parser");
 
 run_spec(
   __dirname,
-  core.options.parser.choices
+  parsers.choices
     .filter(choice => !choice.deprecated)
     .map(choice => choice.value)
     .filter(
