@@ -7,8 +7,8 @@ BEFORE SUBMITTING AN ISSUE:
    If someone has already opened an issue for what you are experiencing,
    you do not need to open a new issue — please add a 👍 reaction to the
    existing issue instead.
-   
-2. We get a lot of requests for adding options, but Prettier is 
+
+2. We get a lot of requests for adding options, but Prettier is
    built on the principle of being opinionated about code formatting.
    This means we have a very high bar for adding new options.
    Find out more: https://prettier.io/docs/en/option-philosophy.html
@@ -26,7 +26,7 @@ Tip! Don't write this stuff manually.
 
 -->
 
-**Prettier 1.12.1**
+**Prettier 1.13.0**
 [Playground link](https://prettier.io/playground/#.....)
 ```sh
 # Options (if any):
