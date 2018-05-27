@@ -1,4 +1,4 @@
-const prettier = require("../../tests_config/require_prettier");
+const prettier = require("prettier/local");
 const parsers = prettier
   .getSupportInfo()
   .options.find(option => option.name === "parser");
