@@ -336,7 +336,7 @@ const printer = {
                   needsSpaceInFrontOfMappingValue(parentNode) ? " " : "",
                   ":"
                 ]),
-                indent(
+                (doc => (node.node.type === "sequence" ? doc : indent(doc)))(
                   concat([
                     node.node.type === "null"
                       ? ""

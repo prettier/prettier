@@ -259,9 +259,9 @@ map:
 omap:
   # Explicitly typed ordered map (dictionary).
   Bestiary: !!omap
-    - aardvark: African pig-like ant eater. Ugly.
-    - anteater: South-American ant eater. Two species.
-    - anaconda: South-American constrictor snake. Scaly.
+  - aardvark: African pig-like ant eater. Ugly.
+  - anteater: South-American ant eater. Two species.
+  - anaconda: South-American constrictor snake. Scaly.
   # Etc.
   # Flow style
   Numbers: !!omap [one: 1, two: 2, three: 3]
@@ -271,10 +271,10 @@ omap:
 pairs:
   # Explicitly typed pairs.
   Block tasks: !!pairs
-    - meeting: with team.
-    - meeting: with boss.
-    - break: lunch.
-    - meeting: with client.
+  - meeting: with team.
+  - meeting: with boss.
+  - break: lunch.
+  - meeting: with client.
   Flow tasks: !!pairs [meeting: with team, meeting: with boss]
 
 # http://yaml.org/type/set.html -----------------------------------------------#
@@ -293,15 +293,15 @@ set:
 seq:
   # Ordered sequence of nodes
   Block style: !!seq
-    - Mercury # Rotates - no light/dark sides.
-    - Venus # Deadliest. Aptly named.
-    - Earth # Mostly dirt.
-    - Mars # Seems empty.
-    - Jupiter # The king.
-    - Saturn # Pretty.
-    - Uranus # Where the sun hardly shines.
-    - Neptune # Boring. No rings.
-    - Pluto # You call this a planet?
+  - Mercury # Rotates - no light/dark sides.
+  - Venus # Deadliest. Aptly named.
+  - Earth # Mostly dirt.
+  - Mars # Seems empty.
+  - Jupiter # The king.
+  - Saturn # Pretty.
+  - Uranus # Where the sun hardly shines.
+  - Neptune # Boring. No rings.
+  - Pluto # You call this a planet?
   Flow style:
     !!seq [
       Mercury,
@@ -321,12 +321,12 @@ seq:
 # http://yaml.org/type/bool.html ----------------------------------------------#
 
 bool:
-  - true
-  - True
-  - TRUE
-  - false
-  - False
-  - FALSE
+- true
+- True
+- TRUE
+- false
+- False
+- FALSE
 
 # http://yaml.org/type/float.html ---------------------------------------------#
 
@@ -351,32 +351,32 @@ int:
 # http://yaml.org/type/merge.html ---------------------------------------------#
 
 merge:
-  - &CENTER { x: 1, y: 2 }
-  - &LEFT { x: 0, y: 2 }
-  - &BIG { r: 10 }
-  - &SMALL { r: 1 }
+- &CENTER { x: 1, y: 2 }
+- &LEFT { x: 0, y: 2 }
+- &BIG { r: 10 }
+- &SMALL { r: 1 }
 
-  # All the following maps are equal:
+# All the following maps are equal:
 
-  - # Explicit keys
-    x: 1
-    y: 2
-    r: 10
-    label: nothing
+- # Explicit keys
+  x: 1
+  y: 2
+  r: 10
+  label: nothing
 
-  - # Merge one map
-    << : *CENTER
-    r: 10
-    label: center
+- # Merge one map
+  << : *CENTER
+  r: 10
+  label: center
 
-  - # Merge multiple maps
-    << : [*CENTER, *BIG]
-    label: center/big
+- # Merge multiple maps
+  << : [*CENTER, *BIG]
+  label: center/big
 
-  - # Override
-    << : [*BIG, *LEFT, *SMALL]
-    x: 1
-    label: big/left/small
+- # Override
+  << : [*BIG, *LEFT, *SMALL]
+  x: 1
+  label: big/left/small
 
 # http://yaml.org/type/null.html ----------------------------------------------#
 
@@ -390,11 +390,11 @@ null:
   # This sequence has five
   # entries, two have values.
   sparse:
-    - ~
-    - 2nd entry
-    -
-    - 4th entry
-    - Null
+  - ~
+  - 2nd entry
+  -
+  - 4th entry
+  - Null
 
 # http://yaml.org/type/str.html -----------------------------------------------#
 
@@ -448,7 +448,7 @@ function: !!js/function >
 # result = jsyaml.load(yourData, { schema: SEXY_SCHEMA });
 
 foobar: !sexy
-  - bunny
-  - chocolate
+- bunny
+- chocolate
 
 `;
