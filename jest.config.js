@@ -2,11 +2,21 @@
 
 const ENABLE_COVERAGE = !!process.env.CI;
 
+const requiresPrettierInternals = [
+  "tests_integration/__tests__/util-shared.js",
+  "tests_integration/__tests__/help-options.js"
+];
+
+const semver = require("semver");
+const isOldNode = semver.parse(process.version).major <= 4;
+
 module.exports = {
   setupFiles: ["<rootDir>/tests_config/run_spec.js"],
   snapshotSerializers: ["<rootDir>/tests_config/raw-serializer.js"],
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
-  testPathIgnorePatterns: ["tests/new_react", "tests/more_react"],
+  testPathIgnorePatterns: ["tests/new_react", "tests/more_react"].concat(
+    isOldNode ? requiresPrettierInternals : []
+  ),
   collectCoverage: ENABLE_COVERAGE,
   collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
   coveragePathIgnorePatterns: [
@@ -19,7 +29,9 @@ module.exports = {
     // `graceful-fs` does `require('fs')`.
     // Ref: https://github.com/facebook/jest/issues/2179#issuecomment-355231418
     // If this is removed, see also scripts/build/build.js.
-    "graceful-fs": "<rootDir>/tests_config/fs.js"
+    "graceful-fs": "<rootDir>/tests_config/fs.js",
+
+    "prettier/local": "<rootDir>/tests_config/require_prettier.js"
   },
   transform: {}
 };
