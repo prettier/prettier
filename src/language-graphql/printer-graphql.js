@@ -1,16 +1,17 @@
 "use strict";
 
-const docBuilders = require("../doc").builders;
-const concat = docBuilders.concat;
-const join = docBuilders.join;
-const hardline = docBuilders.hardline;
-const line = docBuilders.line;
-const softline = docBuilders.softline;
-const group = docBuilders.group;
-const indent = docBuilders.indent;
-const ifBreak = docBuilders.ifBreak;
-const privateUtil = require("../common/util");
-const sharedUtil = require("../common/util-shared");
+const {
+  concat,
+  join,
+  hardline,
+  line,
+  softline,
+  group,
+  indent,
+  ifBreak
+} = require("../doc").builders;
+const { hasIgnoreComment } = require("../common/util");
+const { isNextLineEmpty } = require("../common/util-shared");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -30,11 +31,7 @@ function genericPrint(path, options, print) {
         parts.push(hardline);
         if (
           index !== n.definitions.length - 1 &&
-          sharedUtil.isNextLineEmpty(
-            options.originalText,
-            pathChild.getValue(),
-            options
-          )
+          isNextLineEmpty(options.originalText, pathChild.getValue(), options)
         ) {
           parts.push(hardline);
         }
@@ -614,11 +611,7 @@ function printSequence(sequencePath, options, print) {
     const printed = print(path);
 
     if (
-      sharedUtil.isNextLineEmpty(
-        options.originalText,
-        path.getValue(),
-        options
-      ) &&
+      isNextLineEmpty(options.originalText, path.getValue(), options) &&
       i < count - 1
     ) {
       return concat([printed, hardline]);
@@ -663,7 +656,7 @@ function clean(node, newNode /*, parent*/) {
 module.exports = {
   print: genericPrint,
   massageAstNode: clean,
-  hasPrettierIgnore: privateUtil.hasIgnoreComment,
+  hasPrettierIgnore: hasIgnoreComment,
   printComment,
   canAttachComment
 };

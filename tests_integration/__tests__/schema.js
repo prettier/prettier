@@ -1,6 +1,6 @@
 "use strict";
 
-const prettier = require("../..");
+const prettier = require("prettier/local");
 const generateSchema = require("../../scripts/generate-schema");
 
 test("schema", () => {
