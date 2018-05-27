@@ -26,7 +26,7 @@ function normalizeOptions(options, optionInfos, opts = {}) {
     let optionValue = options[key];
 
     if (!optionInfo) {
-      if (passThrough === true || passThrough.indexOf(optionName) !== -1) {
+      if (passThrough === true || passThrough.includes(optionName)) {
         newOptions[optionName] = optionValue;
       } else {
         logger.warn(

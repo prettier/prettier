@@ -269,7 +269,7 @@ function parseHTML(html, options) {
     for (let i = 0; i < l; i++) {
       const args = match.attrs[i];
       // hackish work around FF bug https://bugzilla.mozilla.org/show_bug.cgi?id=369778
-      if (IS_REGEX_CAPTURING_BROKEN && args[0].indexOf('""') === -1) {
+      if (IS_REGEX_CAPTURING_BROKEN && !args[0].includes('""')) {
         if (args[3] === "") {
           delete args[3];
         }

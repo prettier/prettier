@@ -441,7 +441,7 @@ function getAncestorCounter(path, typeOrTypes) {
   let ancestorNode;
 
   while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.indexOf(ancestorNode.type) !== -1) {
+    if (types.includes(ancestorNode.type)) {
       return counter;
     }
   }
@@ -679,19 +679,18 @@ function isPrettierIgnore(node) {
 
 function shouldNotPrePrintHardline(node, data) {
   const isFirstNode = data.parts.length === 0;
-  const isInlineNode = INLINE_NODE_TYPES.indexOf(node.type) !== -1;
+  const isInlineNode = INLINE_NODE_TYPES.includes(node.type);
 
   const isInlineHTML =
     node.type === "html" &&
-    INLINE_NODE_WRAPPER_TYPES.indexOf(data.parentNode.type) !== -1;
+    INLINE_NODE_WRAPPER_TYPES.includes(data.parentNode.type);
 
   return isFirstNode || isInlineNode || isInlineHTML;
 }
 
 function shouldPrePrintDoubleHardline(node, data) {
   const isSequence = (data.prevNode && data.prevNode.type) === node.type;
-  const isSiblingNode =
-    isSequence && SIBLING_NODE_TYPES.indexOf(node.type) !== -1;
+  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.includes(node.type);
 
   const isInTightListItem =
     data.parentNode.type === "listItem" && !data.parentNode.loose;

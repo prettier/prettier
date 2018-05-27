@@ -113,7 +113,7 @@ function genericPrint(path, options, print) {
       const rawText = node.raws.text || node.text;
       // Workaround a bug where the location is off.
       // https://github.com/postcss/postcss-scss/issues/63
-      if (text.indexOf(rawText) === -1) {
+      if (!text.includes(rawText)) {
         if (node.raws.inline) {
           return concat(["// ", rawText]);
         }

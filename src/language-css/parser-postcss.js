@@ -425,7 +425,7 @@ function parseNestedCSS(node) {
           "return",
           "define-mixin",
           "add-mixin"
-        ].indexOf(name) !== -1
+        ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
         params = params.replace(/(\$\S+?)\s+?\.\.\./, "$1...");
@@ -448,7 +448,7 @@ function parseNestedCSS(node) {
         return node;
       }
 
-      if (["media", "custom-media"].indexOf(lowercasedName) !== -1) {
+      if (["media", "custom-media"].includes(lowercasedName)) {
         if (params.includes("#{")) {
           // Workaround for media at rule with scss interpolation
           return {

@@ -9,7 +9,7 @@ function getAncestorCounter(path, typeOrTypes) {
   let ancestorNode;
 
   while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.indexOf(ancestorNode.type) !== -1) {
+    if (types.includes(ancestorNode.type)) {
       return counter;
     }
   }
@@ -53,7 +53,7 @@ function isKeyframeAtRuleKeywords(path, value) {
     atRuleAncestorNode &&
     atRuleAncestorNode.name &&
     atRuleAncestorNode.name.toLowerCase().endsWith("keyframes") &&
-    ["from", "to"].indexOf(value.toLowerCase()) !== -1
+    ["from", "to"].includes(value.toLowerCase())
   );
 }
 
@@ -96,7 +96,7 @@ function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
 
   return (
     atRuleAncestorNode &&
-    atRuleNames.indexOf(atRuleAncestorNode.name.toLowerCase()) !== -1
+    atRuleNames.includes(atRuleAncestorNode.name.toLowerCase())
   );
 }
 
@@ -126,7 +126,7 @@ function isLastNode(path, node) {
 }
 
 function isHTMLTag(value) {
-  return htmlTagNames.indexOf(value.toLowerCase()) !== -1;
+  return htmlTagNames.includes(value.toLowerCase());
 }
 
 function isDetachedRulesetDeclarationNode(node) {
@@ -146,14 +146,13 @@ function isDetachedRulesetDeclarationNode(node) {
 function isForKeywordNode(node) {
   return (
     node.type === "value-word" &&
-    ["from", "through", "end"].indexOf(node.value) !== -1
+    ["from", "through", "end"].includes(node.value)
   );
 }
 
 function isIfElseKeywordNode(node) {
   return (
-    node.type === "value-word" &&
-    ["and", "or", "not"].indexOf(node.value) !== -1
+    node.type === "value-word" && ["and", "or", "not"].includes(node.value)
   );
 }
 
@@ -192,20 +191,19 @@ function isMathOperatorNode(node) {
 }
 
 function isEqualityOperatorNode(node) {
-  return node.type === "value-word" && ["==", "!="].indexOf(node.value) !== -1;
+  return node.type === "value-word" && ["==", "!="].includes(node.value);
 }
 
 function isRelationalOperatorNode(node) {
   return (
-    node.type === "value-word" &&
-    ["<", ">", "<=", ">="].indexOf(node.value) !== -1
+    node.type === "value-word" && ["<", ">", "<=", ">="].includes(node.value)
   );
 }
 
 function isSCSSControlDirectiveNode(node) {
   return (
     node.type === "css-atrule" &&
-    ["if", "else", "for", "each", "while"].indexOf(node.name) !== -1
+    ["if", "else", "for", "each", "while"].includes(node.name)
   );
 }
 
@@ -333,7 +331,7 @@ function isRightCurlyBraceNode(node) {
 }
 
 function isWordNode(node) {
-  return ["value-word", "value-atword"].indexOf(node.type) !== -1;
+  return ["value-word", "value-atword"].includes(node.type);
 }
 
 function isColonNode(node) {
@@ -341,9 +339,7 @@ function isColonNode(node) {
 }
 
 function isMediaAndSupportsKeywords(node) {
-  return (
-    node.value && ["not", "and", "or"].indexOf(node.value.toLowerCase()) !== -1
-  );
+  return node.value && ["not", "and", "or"].includes(node.value.toLowerCase());
 }
 
 module.exports = {

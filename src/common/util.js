@@ -82,7 +82,7 @@ function skip(chars) {
         if (!chars.test(c)) {
           return cursor;
         }
-      } else if (chars.indexOf(c) === -1) {
+      } else if (chars.includes(c)) {
         return cursor;
       }
 

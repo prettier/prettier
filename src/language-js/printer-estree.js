@@ -2173,11 +2173,11 @@ function printPathNoParens(path, options, print, args) {
             const correspondingExpression = stringifiedExpressions[i - 1];
 
             row.cells.push(correspondingExpression);
-            if (correspondingExpression.indexOf("\n") !== -1) {
+            if (correspondingExpression.includes("\n")) {
               row.hasLineBreak = true;
             }
 
-            if (n.quasis[i].value.raw.indexOf("\n") !== -1) {
+            if (n.quasis[i].value.raw.includes("\n")) {
               tableBody.push({ hasLineBreak: false, cells: [] });
             }
           }
