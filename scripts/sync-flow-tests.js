@@ -19,9 +19,14 @@ function tryParse(file, content) {
   });
 
   if (ast.errors.length > 0) {
-    const line = ast.errors[0].loc.start.line;
-    const column = ast.errors[0].loc.start.column;
-    const message = ast.errors[0].message;
+    const [
+      {
+        loc: {
+          start: { line, column }
+        },
+        message
+      }
+    ] = ast.errors;
     return `${file}:${line}:${column}: ${message}`;
   }
 
@@ -85,7 +90,7 @@ function run(argv) {
     return 1;
   }
 
-  const syncDir = argv[0];
+  const [syncDir] = argv;
   let skipped = [];
 
   try {

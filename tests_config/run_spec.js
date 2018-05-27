@@ -1,10 +1,10 @@
 "use strict";
 
 const fs = require("fs");
-const extname = require("path").extname;
+const { extname } = require("path");
 const prettier = require("prettier/local");
 
-const AST_COMPARE = process.env["AST_COMPARE"];
+const { AST_COMPARE } = process.env;
 
 function run_spec(dirname, parsers, options) {
   /* instabul ignore if */

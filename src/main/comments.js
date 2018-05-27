@@ -26,9 +26,7 @@ function getSortedChildNodes(node, options, resultArray) {
   if (!node) {
     return;
   }
-  const printer = options.printer;
-  const locStart = options.locStart;
-  const locEnd = options.locEnd;
+  const { printer, locStart, locEnd } = options;
 
   if (resultArray) {
     if (node && printer.canAttachComment && printer.canAttachComment(node)) {
@@ -88,8 +86,7 @@ function getSortedChildNodes(node, options, resultArray) {
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
 function decorateComment(node, comment, options) {
-  const locStart = options.locStart;
-  const locEnd = options.locEnd;
+  const { locStart, locEnd } = options;
   const childNodes = getSortedChildNodes(node, options);
   let precedingNode;
   let followingNode;
@@ -141,7 +138,7 @@ function decorateComment(node, comment, options) {
     comment.enclosingNode &&
     comment.enclosingNode.type === "TemplateLiteral"
   ) {
-    const quasis = comment.enclosingNode.quasis;
+    const { quasis } = comment.enclosingNode;
     const commentIndex = findExpressionIndexForComment(
       quasis,
       comment,
@@ -179,8 +176,7 @@ function attach(comments, ast, text, options) {
   }
 
   const tiesToBreak = [];
-  const locStart = options.locStart;
-  const locEnd = options.locEnd;
+  const { locStart, locEnd } = options;
 
   comments.forEach((comment, i) => {
     if (
@@ -193,9 +189,7 @@ function attach(comments, ast, text, options) {
 
     decorateComment(ast, comment, options);
 
-    const precedingNode = comment.precedingNode;
-    const enclosingNode = comment.enclosingNode;
-    const followingNode = comment.followingNode;
+    const { precedingNode, enclosingNode, followingNode } = comment;
 
     const pluginHandleOwnLineComment =
       options.printer.handleComments && options.printer.handleComments.ownLine
@@ -300,8 +294,7 @@ function breakTies(tiesToBreak, text, options) {
     return;
   }
 
-  const precedingNode = tiesToBreak[0].precedingNode;
-  const followingNode = tiesToBreak[0].followingNode;
+  const [{ precedingNode, followingNode }] = tiesToBreak;
   let gapEndPos = options.locStart(followingNode);
 
   // Iterate backwards through tiesToBreak, examining the gaps
@@ -496,8 +489,7 @@ function printComments(path, print, options, needsSemi) {
 
   path.each(commentPath => {
     const comment = commentPath.getValue();
-    const leading = comment.leading;
-    const trailing = comment.trailing;
+    const { leading, trailing } = comment;
 
     if (leading) {
       const contents = printLeadingComment(commentPath, print, options);

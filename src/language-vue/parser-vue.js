@@ -82,9 +82,7 @@ function decodeAttr(value, shouldDecodeNewlines) {
 
 function parseHTML(html, options) {
   const stack = [];
-  const expectHTML = options.expectHTML;
-  const isUnaryTag = options.isUnaryTag || no;
-  const canBeLeftOpenTag = options.canBeLeftOpenTag || no;
+  const { expectHTML, isUnaryTag = no, canBeLeftOpenTag = no } = options;
   let index = 0;
   let last;
   let lastTag;
@@ -244,7 +242,7 @@ function parseHTML(html, options) {
         match.attrs.push(attr);
       }
       if (end) {
-        match.unarySlash = end[1];
+        match.unarySlash = end[1]; // eslint-disable-line prefer-destructuring
         advance(end[0].length);
         match.end = index;
         return match;
@@ -253,8 +251,7 @@ function parseHTML(html, options) {
   }
 
   function handleStartTag(match) {
-    const tagName = match.tagName;
-    const unarySlash = match.unarySlash;
+    const { tagName, unarySlash } = match.tagName;
 
     if (expectHTML) {
       if (lastTag === "p" && isNonPhrasingTag(tagName)) {

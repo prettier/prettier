@@ -20,7 +20,7 @@ module.exports = function() {
       const source = fs.readFileSync(id, "utf-8");
       const match = source.match(/^\s*(#!.*)/);
       if (match) {
-        banner = match[1];
+        [, banner] = match;
         return (
           source.slice(0, match.index) +
           source.slice(match.index + banner.length)

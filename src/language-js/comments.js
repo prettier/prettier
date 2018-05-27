@@ -1,16 +1,19 @@
 "use strict";
 
-const privateUtil = require("../common/util");
-const sharedUtil = require("../common/util-shared");
-
-const addLeadingComment = sharedUtil.addLeadingComment;
-const addTrailingComment = sharedUtil.addTrailingComment;
-const addDanglingComment = sharedUtil.addDanglingComment;
+const {
+  hasNewline,
+  getNextNonSpaceNonCommentCharacter,
+  hasNewlineInRange
+} = require("../common/util");
+const {
+  addLeadingComment,
+  addTrailingComment,
+  addDanglingComment,
+  getNextNonSpaceNonCommentCharacterIndex
+} = require("../common/util-shared");
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
-  const precedingNode = comment.precedingNode;
-  const enclosingNode = comment.enclosingNode;
-  const followingNode = comment.followingNode;
+  const { precedingNode, enclosingNode, followingNode } = comment;
   if (
     handleLastFunctionArgComments(
       text,
@@ -62,9 +65,7 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
 }
 
 function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
-  const precedingNode = comment.precedingNode;
-  const enclosingNode = comment.enclosingNode;
-  const followingNode = comment.followingNode;
+  const { precedingNode, enclosingNode, followingNode } = comment;
   if (
     handleLastFunctionArgComments(
       text,
@@ -105,9 +106,7 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
 }
 
 function handleRemainingComment(comment, text, options, ast, isLastComment) {
-  const precedingNode = comment.precedingNode;
-  const enclosingNode = comment.enclosingNode;
-  const followingNode = comment.followingNode;
+  const { precedingNode, enclosingNode, followingNode } = comment;
   if (
     handleIfStatementComments(
       text,
@@ -203,7 +202,7 @@ function handleIfStatementComments(
   //   if (a /* comment */) {}
   // The only workaround I found is to look at the next character to see if
   // it is a ).
-  const nextCharacter = privateUtil.getNextNonSpaceNonCommentCharacter(
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
     comment,
     options.locEnd
@@ -303,7 +302,7 @@ function handleConditionalExpressionComments(
 ) {
   const isSameLineAsPrecedingNode =
     precedingNode &&
-    !privateUtil.hasNewlineInRange(
+    !hasNewlineInRange(
       text,
       options.locEnd(precedingNode),
       options.locStart(comment)
@@ -381,11 +380,8 @@ function handleMethodNameComments(
     enclosingNode.key === precedingNode &&
     // special Property case: { key: /*comment*/(value) };
     // comment should be attached to value instead of key
-    privateUtil.getNextNonSpaceNonCommentCharacter(
-      text,
-      precedingNode,
-      options.locEnd
-    ) !== ":"
+    getNextNonSpaceNonCommentCharacter(text, precedingNode, options.locEnd) !==
+      ":"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -418,11 +414,7 @@ function handleFunctionNameComments(
   options
 ) {
   if (
-    privateUtil.getNextNonSpaceNonCommentCharacter(
-      text,
-      comment,
-      options.locEnd
-    ) !== "("
+    getNextNonSpaceNonCommentCharacter(text, comment, options.locEnd) !== "("
   ) {
     return false;
   }
@@ -447,11 +439,7 @@ function handleCommentAfterArrowParams(text, enclosingNode, comment, options) {
     return false;
   }
 
-  const index = sharedUtil.getNextNonSpaceNonCommentCharacterIndex(
-    text,
-    comment,
-    options
-  );
+  const index = getNextNonSpaceNonCommentCharacterIndex(text, comment, options);
   if (text.substr(index, 2) === "=>") {
     addDanglingComment(enclosingNode, comment);
     return true;
@@ -462,11 +450,7 @@ function handleCommentAfterArrowParams(text, enclosingNode, comment, options) {
 
 function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
   if (
-    privateUtil.getNextNonSpaceNonCommentCharacter(
-      text,
-      comment,
-      options.locEnd
-    ) !== ")"
+    getNextNonSpaceNonCommentCharacter(text, comment, options.locEnd) !== ")"
   ) {
     return false;
   }
@@ -532,11 +516,7 @@ function handleLastFunctionArgComments(
       enclosingNode.type === "FunctionDeclaration" ||
       enclosingNode.type === "ObjectMethod" ||
       enclosingNode.type === "ClassMethod") &&
-    privateUtil.getNextNonSpaceNonCommentCharacter(
-      text,
-      comment,
-      options.locEnd
-    ) === ")"
+    getNextNonSpaceNonCommentCharacter(text, comment, options.locEnd) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -665,7 +645,7 @@ function handleImportDeclarationComments(
     precedingNode &&
     enclosingNode &&
     enclosingNode.type === "ImportDeclaration" &&
-    privateUtil.hasNewline(text, options.locEnd(comment))
+    hasNewline(text, options.locEnd(comment))
   ) {
     addTrailingComment(precedingNode, comment);
     return true;

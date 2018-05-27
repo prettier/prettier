@@ -1,10 +1,10 @@
 "use strict";
 
 const path = require("path");
-const UndefinedParserError = require("../common/errors").UndefinedParserError;
-const getSupportInfo = require("../main/support").getSupportInfo;
+const { UndefinedParserError } = require("../common/errors");
+const { getSupportInfo } = require("../main/support");
 const normalizer = require("./options-normalizer");
-const resolveParser = require("./parser").resolveParser;
+const { resolveParser } = require("./parser");
 
 const hiddenDefaults = {
   astFormat: "estree",
@@ -91,13 +91,11 @@ function normalize(options, opts) {
   );
 }
 
-function getPlugin(options) {
-  const astFormat = options.astFormat;
-
+function getPlugin({ astFormat, plugins }) {
   if (!astFormat) {
     throw new Error("getPlugin() requires astFormat to be set");
   }
-  const printerPlugin = options.plugins.find(
+  const printerPlugin = plugins.find(
     plugin => plugin.printers && plugin.printers[astFormat]
   );
   if (!printerPlugin) {

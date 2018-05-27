@@ -23,6 +23,7 @@ rules:
   - never
   prefer-arrow-callback: error
   prefer-const: error
+  prefer-destructuring: error
   react/no-deprecated: off
   react/prop-types: off
   strict: error

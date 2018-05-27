@@ -110,7 +110,7 @@ function splitText(options) {
         return node;
       }
 
-      let value = node.value;
+      let { value } = node;
 
       if (parentNode.type === "paragraph") {
         if (index === 0) {

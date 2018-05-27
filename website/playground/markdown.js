@@ -33,23 +33,22 @@ function formatMarkdown(
     .join("\n");
 }
 
-function getMarkdownSyntax(options) {
-  switch (options.parser) {
+function getMarkdownSyntax({ parser }) {
+  switch (parser) {
     case "babylon":
     case "flow":
       return "jsx";
     case "typescript":
       return "tsx";
     default:
-      return options.parser;
+      return parser;
   }
 }
 
 function formatCLIOptions(cliOptions) {
   return cliOptions
     .map(option => {
-      const name = option[0];
-      const value = option[1];
+      const [name, value] = option;
       return value === true ? name : `${name} ${value}`;
     })
     .join("\n");

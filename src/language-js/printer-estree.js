@@ -26,10 +26,10 @@ const {
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex
 } = require("../common/util-shared");
-const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
+const { isIdentifierNameES6: isIdentifierName } = require("esutils").keyword;
 const embed = require("./embed");
 const clean = require("./clean");
-const insertPragma = require("./pragma").insertPragma;
+const { insertPragma } = require("./pragma");
 const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
 
@@ -1474,7 +1474,7 @@ function printPathNoParens(path, options, print, args) {
 
       let firstVariable;
       if (printed.length === 1) {
-        firstVariable = printed[0];
+        firstVariable = printed[0]; // eslint-disable-line prefer-destructuring
       } else if (printed.length > 1) {
         // Indent first var to comply with eslint one-var rule
         firstVariable = indent(printed[0]);
@@ -2255,7 +2255,7 @@ function printPathNoParens(path, options, print, args) {
           // quasi literal), therefore we want to indent the JavaScript
           // expression inside at the beginning of ${ instead of the beginning
           // of the `.
-          const tabWidth = options.tabWidth;
+          const { tabWidth } = options;
           const indentSize = getIndentSize(
             childPath.getValue().value.raw,
             tabWidth
@@ -3276,7 +3276,7 @@ function printStatementSequence(path, options, print) {
 
 function printPropertyKey(path, options, print) {
   const node = path.getNode();
-  const key = node.key;
+  const { key } = node;
 
   if (
     key.type === "Identifier" &&
@@ -3314,7 +3314,7 @@ function printPropertyKey(path, options, print) {
 function printMethod(path, options, print) {
   const node = path.getNode();
   const semi = options.semi ? ";" : "";
-  const kind = node.kind;
+  const { kind } = node;
   const parts = [];
 
   if (node.type === "ObjectMethod" || node.type === "ClassMethod") {
@@ -3406,8 +3406,7 @@ function shouldGroupFirstArg(args) {
     return false;
   }
 
-  const firstArg = args[0];
-  const secondArg = args[1];
+  const [firstArg, secondArg] = args;
   return (
     (!firstArg.comments || !firstArg.comments.length) &&
     (firstArg.type === "FunctionExpression" ||
@@ -4237,7 +4236,7 @@ function printMemberChain(path, options, print) {
   // Here we try to retain one typed empty line after each call expression or
   // the first group whether it is in parentheses or not
   function shouldInsertEmptyLineAfter(node) {
-    const originalText = options.originalText;
+    const { originalText } = options;
     const nextCharIndex = getNextNonSpaceNonCommentCharacterIndex(
       originalText,
       node,
@@ -4596,7 +4595,7 @@ function isEmptyJSXElement(node) {
 
   // if there is one text child and does not contain any meaningful text
   // we can treat the element as empty.
-  const child = node.children[0];
+  const [child] = node.children;
   return isLiteral(child) && !isMeaningfulJSXText(child);
 }
 

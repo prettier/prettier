@@ -1,7 +1,7 @@
 "use strict";
 
 const runPrettier = require("../runPrettier");
-const EOL = require("os").EOL;
+const { EOL } = require("os");
 
 describe("uses 'extensions' from languages to determine parser", () => {
   runPrettier("plugins/extensions", ["*.foo", "--plugin=./plugin"]).test({

@@ -569,7 +569,7 @@ function printRoot(path, options, print) {
   /** @type {IgnorePosition | null} */
   let ignoreStart = null;
 
-  const children = path.getValue().children;
+  const { children } = path.getValue();
   children.forEach((childNode, index) => {
     switch (isPrettierIgnore(childNode)) {
       case "start":
@@ -595,7 +595,7 @@ function printRoot(path, options, print) {
   return printChildren(path, options, print, {
     processor: (childPath, index) => {
       if (ignoreRanges.length !== 0) {
-        const ignoreRange = ignoreRanges[0];
+        const [ignoreRange] = ignoreRanges;
 
         if (index === ignoreRange.start.index) {
           return concat([
