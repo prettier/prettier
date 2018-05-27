@@ -115,12 +115,12 @@ const cursor = { type: "cursor", placeholder: Symbol("cursor") };
 function join(sep, arr) {
   const res = [];
 
-  for (let i = 0; i < arr.length; i++) {
-    if (i !== 0) {
+  for (const el of arr) {
+    if (res.length > 0) {
       res.push(sep);
     }
 
-    res.push(arr[i]);
+    res.push(el);
   }
 
   return concat(res);

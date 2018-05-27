@@ -676,11 +676,11 @@ function genericPrint(path, options, print) {
         const printed = path.map(print, "groups");
         const res = [];
 
-        for (let i = 0; i < printed.length; i++) {
-          if (i !== 0) {
+        for (const group of printed) {
+          if (res.length > 0) {
             res.push(concat([",", line]));
           }
-          res.push(printed[i]);
+          res.push(group);
         }
 
         return group(indent(fill(res)));
