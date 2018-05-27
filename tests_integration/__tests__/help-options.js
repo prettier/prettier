@@ -1,13 +1,6 @@
 "use strict";
 
-const semver = require("semver");
-const isOldNode = semver.parse(process.version).major <= 4;
-if (isOldNode) {
-  test.skip();
-  return;
-}
-
-const prettier = require("../../tests_config/require_prettier");
+const prettier = require("prettier/local");
 const runPrettier = require("../runPrettier");
 const constant = require("../../src/cli/constant");
 const util = require("../../src/cli/util");
