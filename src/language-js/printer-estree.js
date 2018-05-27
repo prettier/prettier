@@ -3,8 +3,29 @@
 const assert = require("assert");
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
-const privateUtil = require("../common/util");
-const sharedUtil = require("../common/util-shared");
+const {
+  getParentExportDeclaration,
+  isExportDeclaration,
+  shouldFlatten,
+  getNextNonSpaceNonCommentCharacter,
+  hasNewline,
+  hasNewlineInRange,
+  getLast,
+  getStringWidth,
+  printString,
+  printNumber,
+  hasIgnoreComment,
+  skipWhitespace,
+  hasNodeIgnoreComment,
+  getPenultimate,
+  startsWithNoLookaheadToken,
+  getIndentSize
+} = require("../common/util");
+const {
+  isNextLineEmpty,
+  isNextLineEmptyAfterIndex,
+  getNextNonSpaceNonCommentCharacterIndex
+} = require("../common/util-shared");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 const embed = require("./embed");
 const clean = require("./clean");
@@ -12,30 +33,28 @@ const insertPragma = require("./pragma").insertPragma;
 const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
 
-const doc = require("../doc");
-const docBuilders = doc.builders;
-const concat = docBuilders.concat;
-const join = docBuilders.join;
-const line = docBuilders.line;
-const hardline = docBuilders.hardline;
-const softline = docBuilders.softline;
-const literalline = docBuilders.literalline;
-const group = docBuilders.group;
-const indent = docBuilders.indent;
-const align = docBuilders.align;
-const conditionalGroup = docBuilders.conditionalGroup;
-const fill = docBuilders.fill;
-const ifBreak = docBuilders.ifBreak;
-const breakParent = docBuilders.breakParent;
-const lineSuffixBoundary = docBuilders.lineSuffixBoundary;
-const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
-const dedent = docBuilders.dedent;
-const printDocToString = doc.printer.printDocToString;
-
-const docUtils = doc.utils;
-const willBreak = docUtils.willBreak;
-const isLineNext = docUtils.isLineNext;
-const isEmpty = docUtils.isEmpty;
+const {
+  builders: {
+    concat,
+    join,
+    line,
+    hardline,
+    softline,
+    literalline,
+    group,
+    indent,
+    align,
+    conditionalGroup,
+    fill,
+    ifBreak,
+    breakParent,
+    lineSuffixBoundary,
+    addAlignmentToDoc,
+    dedent
+  },
+  utils: { willBreak, isLineNext, isEmpty, removeLines },
+  printer: { printDocToString }
+} = require("../doc");
 
 function shouldPrintComma(options, level) {
   level = level || "es5";
@@ -72,7 +91,7 @@ function genericPrint(path, options, printPath, args) {
     node.decorators.length > 0 &&
     // If the parent node is an export declaration, it will be
     // responsible for printing node.decorators.
-    !privateUtil.getParentExportDeclaration(path)
+    !getParentExportDeclaration(path)
   ) {
     let separator = hardline;
     path.each(decoratorPath => {
@@ -107,7 +126,7 @@ function genericPrint(path, options, printPath, args) {
       decorators.push(printPath(decoratorPath), separator);
     }, "decorators");
   } else if (
-    privateUtil.isExportDeclaration(node) &&
+    isExportDeclaration(node) &&
     node.declaration &&
     node.declaration.decorators
   ) {
@@ -146,7 +165,7 @@ function genericPrint(path, options, printPath, args) {
 }
 
 function hasPrettierIgnore(path) {
-  return privateUtil.hasIgnoreComment(path) || hasJsxIgnoreComment(path);
+  return hasIgnoreComment(path) || hasJsxIgnoreComment(path);
 }
 
 function hasJsxIgnoreComment(path) {
@@ -359,11 +378,7 @@ function printPathNoParens(path, options, print, args) {
         path.each(childPath => {
           parts.push(print(childPath), semi, hardline);
           if (
-            sharedUtil.isNextLineEmpty(
-              options.originalText,
-              childPath.getValue(),
-              options
-            )
+            isNextLineEmpty(options.originalText, childPath.getValue(), options)
           ) {
             parts.push(hardline);
           }
@@ -481,8 +496,7 @@ function printPathNoParens(path, options, print, args) {
         parent.type === "Property";
 
       const samePrecedenceSubExpression =
-        isBinaryish(n.left) &&
-        privateUtil.shouldFlatten(n.operator, n.left.operator);
+        isBinaryish(n.left) && shouldFlatten(n.operator, n.left.operator);
 
       if (
         shouldNotIndent ||
@@ -662,7 +676,7 @@ function printPathNoParens(path, options, print, args) {
         options,
         /* sameIndent */ true,
         comment => {
-          const nextCharacter = sharedUtil.getNextNonSpaceNonCommentCharacterIndex(
+          const nextCharacter = getNextNonSpaceNonCommentCharacterIndex(
             options.originalText,
             comment,
             options
@@ -723,10 +737,7 @@ function printPathNoParens(path, options, print, args) {
       // a <= a ? a : a
       const shouldAddParens =
         n.body.type === "ConditionalExpression" &&
-        !privateUtil.startsWithNoLookaheadToken(
-          n.body,
-          /* forbidFunctionAndClass */ false
-        );
+        !startsWithNoLookaheadToken(n.body, /* forbidFunctionAndClass */ false);
 
       return group(
         concat([
@@ -952,11 +963,7 @@ function printPathNoParens(path, options, print, args) {
         path.each(childPath => {
           parts.push(indent(concat([hardline, print(childPath), semi])));
           if (
-            sharedUtil.isNextLineEmpty(
-              options.originalText,
-              childPath.getValue(),
-              options
-            )
+            isNextLineEmpty(options.originalText, childPath.getValue(), options)
           ) {
             parts.push(hardline);
           }
@@ -1117,7 +1124,7 @@ function printPathNoParens(path, options, print, args) {
                 property.value.type === "ArrayPattern")
           )) ||
         (n.type !== "ObjectPattern" &&
-          privateUtil.hasNewlineInRange(
+          hasNewlineInRange(
             options.originalText,
             options.locStart(n),
             options.locEnd(n)
@@ -1174,26 +1181,24 @@ function printPathNoParens(path, options, print, args) {
         separatorParts = [separator, line];
         if (
           prop.node.type === "TSPropertySignature" &&
-          privateUtil.hasNodeIgnoreComment(prop.node)
+          hasNodeIgnoreComment(prop.node)
         ) {
           separatorParts.shift();
         }
-        if (
-          sharedUtil.isNextLineEmpty(options.originalText, prop.node, options)
-        ) {
+        if (isNextLineEmpty(options.originalText, prop.node, options)) {
           separatorParts.push(hardline);
         }
         return result;
       });
 
-      const lastElem = privateUtil.getLast(n[propertiesField]);
+      const lastElem = getLast(n[propertiesField]);
 
       const canHaveTrailingSeparator = !(
         lastElem &&
         (lastElem.type === "RestProperty" ||
           lastElem.type === "RestElement" ||
           lastElem.type === "ExperimentalRestProperty" ||
-          privateUtil.hasNodeIgnoreComment(lastElem))
+          hasNodeIgnoreComment(lastElem))
       );
 
       let content;
@@ -1312,7 +1317,7 @@ function printPathNoParens(path, options, print, args) {
           );
         }
       } else {
-        const lastElem = privateUtil.getLast(n.elements);
+        const lastElem = getLast(n.elements);
         const canHaveTrailingComma = !(
           lastElem && lastElem.type === "RestElement"
         );
@@ -1325,7 +1330,7 @@ function printPathNoParens(path, options, print, args) {
         //   [1,].length === 1
         //   [1,,].length === 2
         //
-        // Note that privateUtil.getLast returns null if the array is empty, but
+        // Note that getLast returns null if the array is empty, but
         // we already check for an empty array just above so we are safe
         const needsForcedTrailingComma =
           canHaveTrailingComma && lastElem === null;
@@ -1398,7 +1403,7 @@ function printPathNoParens(path, options, print, args) {
     case "RegExpLiteral": // Babel 6 Literal split
       return printRegex(n);
     case "NumericLiteral": // Babel 6 Literal split
-      return privateUtil.printNumber(n.extra.raw);
+      return printNumber(n.extra.raw);
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
     case "Literal": {
@@ -1406,7 +1411,7 @@ function printPathNoParens(path, options, print, args) {
         return printRegex(n.regex);
       }
       if (typeof n.value === "number") {
-        return privateUtil.printNumber(n.raw);
+        return printNumber(n.raw);
       }
       if (typeof n.value !== "string") {
         return "" + n.value;
@@ -1753,11 +1758,7 @@ function printPathNoParens(path, options, print, args) {
                     return concat([
                       casePath.call(print),
                       n.cases.indexOf(caseNode) !== n.cases.length - 1 &&
-                      sharedUtil.isNextLineEmpty(
-                        options.originalText,
-                        caseNode,
-                        options
-                      )
+                      isNextLineEmpty(options.originalText, caseNode, options)
                         ? hardline
                         : ""
                     ]);
@@ -1952,8 +1953,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       const lastAttrHasTrailingComments =
-        n.attributes.length &&
-        hasTrailingComment(privateUtil.getLast(n.attributes));
+        n.attributes.length && hasTrailingComment(getLast(n.attributes));
 
       const bracketSameLine =
         options.jsxBracketSameLine &&
@@ -2200,7 +2200,7 @@ function printPathNoParens(path, options, print, args) {
             row.cells.forEach((cell, index) => {
               maxColumnWidths[index] = Math.max(
                 maxColumnWidths[index],
-                privateUtil.getStringWidth(cell)
+                getStringWidth(cell)
               );
             });
           });
@@ -2221,8 +2221,7 @@ function printPathNoParens(path, options, print, args) {
                             ? cell
                             : cell +
                               " ".repeat(
-                                maxColumnWidths[index] -
-                                  privateUtil.getStringWidth(cell)
+                                maxColumnWidths[index] - getStringWidth(cell)
                               )
                       )
                     )
@@ -2257,7 +2256,7 @@ function printPathNoParens(path, options, print, args) {
           // expression inside at the beginning of ${ instead of the beginning
           // of the `.
           const tabWidth = options.tabWidth;
-          const indentSize = privateUtil.getIndentSize(
+          const indentSize = getIndentSize(
             childPath.getValue().value.raw,
             tabWidth
           );
@@ -2705,9 +2704,9 @@ function printPathNoParens(path, options, print, args) {
       assert.strictEqual(typeof n.value, "number");
 
       if (n.extra != null) {
-        return privateUtil.printNumber(n.extra.raw);
+        return printNumber(n.extra.raw);
       }
-      return privateUtil.printNumber(n.raw);
+      return printNumber(n.raw);
 
     case "StringTypeAnnotation":
       return "string";
@@ -3199,7 +3198,7 @@ function printPathNoParens(path, options, print, args) {
     case "InterpreterDirective":
       parts.push("#!", n.value, hardline);
 
-      if (sharedUtil.isNextLineEmpty(options.originalText, n, options)) {
+      if (isNextLineEmpty(options.originalText, n, options)) {
         parts.push(hardline);
       }
 
@@ -3265,10 +3264,7 @@ function printStatementSequence(path, options, print) {
       }
     }
 
-    if (
-      sharedUtil.isNextLineEmpty(text, stmt, options) &&
-      !isLastStatement(stmtPath)
-    ) {
+    if (isNextLineEmpty(text, stmt, options) && !isLastStatement(stmtPath)) {
       parts.push(hardline);
     }
 
@@ -3393,8 +3389,8 @@ function couldGroupArg(arg) {
 }
 
 function shouldGroupLastArg(args) {
-  const lastArg = privateUtil.getLast(args);
-  const penultimateArg = privateUtil.getPenultimate(args);
+  const lastArg = getLast(args);
+  const penultimateArg = getPenultimate(args);
   return (
     !hasLeadingComment(lastArg) &&
     !hasTrailingComment(lastArg) &&
@@ -3470,7 +3466,7 @@ function printArgumentsList(path, options, print) {
 
     if (index === lastArgIndex) {
       // do nothing
-    } else if (sharedUtil.isNextLineEmpty(options.originalText, arg, options)) {
+    } else if (isNextLineEmpty(options.originalText, arg, options)) {
       if (index === 0) {
         hasEmptyLineFollowingFirstArg = true;
       }
@@ -3566,7 +3562,7 @@ function printArgumentsList(path, options, print) {
             : concat([
                 "(",
                 concat(printedArguments.slice(0, -1)),
-                group(privateUtil.getLast(printedExpanded), {
+                group(getLast(printedExpanded), {
                   shouldBreak: true
                 }),
                 ")"
@@ -3655,7 +3651,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
         options,
         /* sameIndent */ true,
         comment =>
-          privateUtil.getNextNonSpaceNonCommentCharacter(
+          getNextNonSpaceNonCommentCharacter(
             options.originalText,
             comment,
             options.locEnd
@@ -3665,7 +3661,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     ]);
   }
 
-  const lastParam = privateUtil.getLast(fun[paramsField]);
+  const lastParam = getLast(fun[paramsField]);
 
   // If the parent is a call with the first/last argument expansion and this is the
   // params of the first/last argument, we dont want the arguments to break and instead
@@ -3683,9 +3679,9 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   ) {
     return group(
       concat([
-        docUtils.removeLines(typeParams),
+        removeLines(typeParams),
         "(",
-        join(", ", printed.map(docUtils.removeLines)),
+        join(", ", printed.map(removeLines)),
         ")"
       ])
     );
@@ -3989,7 +3985,7 @@ function printExportDeclaration(path, options, print) {
 }
 
 function printFlowDeclaration(path, parts) {
-  const parentExportDecl = privateUtil.getParentExportDeclaration(path);
+  const parentExportDecl = getParentExportDeclaration(path);
 
   if (parentExportDecl) {
     assert.strictEqual(parentExportDecl.type, "DeclareExportDeclaration");
@@ -4242,7 +4238,7 @@ function printMemberChain(path, options, print) {
   // the first group whether it is in parentheses or not
   function shouldInsertEmptyLineAfter(node) {
     const originalText = options.originalText;
-    const nextCharIndex = sharedUtil.getNextNonSpaceNonCommentCharacterIndex(
+    const nextCharIndex = getNextNonSpaceNonCommentCharacterIndex(
       originalText,
       node,
       options
@@ -4252,14 +4248,14 @@ function printMemberChain(path, options, print) {
     // if it is cut off by a parenthesis, we only account for one typed empty
     // line after that parenthesis
     if (nextChar == ")") {
-      return sharedUtil.isNextLineEmptyAfterIndex(
+      return isNextLineEmptyAfterIndex(
         originalText,
         nextCharIndex + 1,
         options
       );
     }
 
-    return sharedUtil.isNextLineEmpty(originalText, node, options);
+    return isNextLineEmpty(originalText, node, options);
   }
 
   function rec(path) {
@@ -4475,7 +4471,7 @@ function printMemberChain(path, options, print) {
       );
     }
 
-    const lastNode = privateUtil.getLast(groups[0]).node;
+    const lastNode = getLast(groups[0]).node;
     return (
       (lastNode.type === "MemberExpression" ||
         lastNode.type === "OptionalMemberExpression") &&
@@ -4539,7 +4535,7 @@ function printMemberChain(path, options, print) {
 
   // Find out the last node in the first group and check if it has an
   // empty line after
-  const lastNodeBeforeIndent = privateUtil.getLast(
+  const lastNodeBeforeIndent = getLast(
     shouldMerge ? groups.slice(1, 2)[0] : groups[0]
   ).node;
   const shouldHaveEmptyLineBeforeIndent =
@@ -4767,7 +4763,7 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
         let endWhitespace;
         // Ends with whitespace
-        if (privateUtil.getLast(words) === "") {
+        if (getLast(words) === "") {
           words.pop();
           endWhitespace = words.pop();
         }
@@ -4955,8 +4951,7 @@ function printJSXElement(path, options, print) {
   // Trim trailing lines (or empty strings)
   while (
     children.length &&
-    (isLineNext(privateUtil.getLast(children)) ||
-      isEmpty(privateUtil.getLast(children)))
+    (isLineNext(getLast(children)) || isEmpty(getLast(children)))
   ) {
     children.pop();
   }
@@ -5130,7 +5125,7 @@ function printBinaryishExpressions(
     // precedence level and should be treated as a separate group, so
     // print them normally. (This doesn't hold for the `**` operator,
     // which is unique in that it is right-associative.)
-    if (privateUtil.shouldFlatten(node.operator, node.left.operator)) {
+    if (shouldFlatten(node.operator, node.left.operator)) {
       // Flatten them out by recursively calling this function.
       parts = parts.concat(
         path.call(
@@ -5247,7 +5242,7 @@ function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
   const raw = rawText(node);
   const isDirectiveLiteral =
     isFlowOrTypeScriptDirectiveLiteral || node.type === "DirectiveLiteral";
-  return privateUtil.printString(raw, options, isDirectiveLiteral);
+  return printString(raw, options, isDirectiveLiteral);
 }
 
 function printRegex(node) {
@@ -5280,14 +5275,13 @@ function hasTrailingComment(node) {
 
 function hasLeadingOwnLineComment(text, node, options) {
   if (isJSXNode(node)) {
-    return privateUtil.hasNodeIgnoreComment(node);
+    return hasNodeIgnoreComment(node);
   }
 
   const res =
     node.comments &&
     node.comments.some(
-      comment =>
-        comment.leading && privateUtil.hasNewline(text, options.locEnd(comment))
+      comment => comment.leading && hasNewline(text, options.locEnd(comment))
     );
   return res;
 }
@@ -5311,7 +5305,7 @@ function hasNakedLeftSide(node) {
 
 function isFlowAnnotationComment(text, typeAnnotation, options) {
   const start = options.locStart(typeAnnotation);
-  const end = privateUtil.skipWhitespace(text, options.locEnd(typeAnnotation));
+  const end = skipWhitespace(text, options.locEnd(typeAnnotation));
   return text.substr(start, 2) === "/*" && text.substr(end, 2) === "*/";
 }
 
@@ -5625,7 +5619,7 @@ function isTemplateOnItsOwnLine(n, text, options) {
     ((n.type === "TemplateLiteral" && templateLiteralHasNewLines(n)) ||
       (n.type === "TaggedTemplateExpression" &&
         templateLiteralHasNewLines(n.quasi))) &&
-    !privateUtil.hasNewline(text, options.locStart(n), { backwards: true })
+    !hasNewline(text, options.locStart(n), { backwards: true })
   );
 }
 
@@ -5640,11 +5634,7 @@ function printArrayItems(path, options, printPath, print) {
     separatorParts = [",", line];
     if (
       childPath.getValue() &&
-      sharedUtil.isNextLineEmpty(
-        options.originalText,
-        childPath.getValue(),
-        options
-      )
+      isNextLineEmpty(options.originalText, childPath.getValue(), options)
     ) {
       separatorParts.push(softline);
     }
@@ -5664,7 +5654,7 @@ function needsHardlineAfterDanglingComment(node) {
   if (!node.comments) {
     return false;
   }
-  const lastDanglingComment = privateUtil.getLast(
+  const lastDanglingComment = getLast(
     node.comments.filter(comment => !comment.leading && !comment.trailing)
   );
   return (
@@ -5809,7 +5799,7 @@ function willPrintOwnComments(path) {
           ((parent.type === "ClassDeclaration" ||
             parent.type === "ClassExpression") &&
             parent.superClass === node)))) &&
-    !privateUtil.hasIgnoreComment(path)
+    !hasIgnoreComment(path)
   );
 }
 
@@ -5840,11 +5830,9 @@ function printComment(commentPath, options) {
         // interleaved. See https://github.com/prettier/prettier/issues/4412
         if (
           comment.trailing &&
-          !privateUtil.hasNewline(
-            options.originalText,
-            options.locStart(comment),
-            { backwards: true }
-          )
+          !hasNewline(options.originalText, options.locStart(comment), {
+            backwards: true
+          })
         ) {
           return concat([hardline, printed]);
         }

@@ -1,14 +1,15 @@
 "use strict";
 
-const docBuilders = require("../doc/doc-builders");
-const concat = docBuilders.concat;
-const join = docBuilders.join;
-const softline = docBuilders.softline;
-const hardline = docBuilders.hardline;
-const line = docBuilders.line;
-const group = docBuilders.group;
-const indent = docBuilders.indent;
-const ifBreak = docBuilders.ifBreak;
+const {
+  concat,
+  join,
+  softline,
+  hardline,
+  line,
+  group,
+  indent,
+  ifBreak
+} = require("../doc").builders;
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [

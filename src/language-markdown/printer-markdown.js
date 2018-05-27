@@ -1,21 +1,23 @@
 "use strict";
 
-const docUtils = require("../doc/doc-utils");
 const privateUtil = require("../common/util");
 const embed = require("./embed");
 const pragma = require("./pragma");
-const doc = require("../doc");
-const docBuilders = doc.builders;
-const concat = docBuilders.concat;
-const join = docBuilders.join;
-const line = docBuilders.line;
-const hardline = docBuilders.hardline;
-const softline = docBuilders.softline;
-const fill = docBuilders.fill;
-const align = docBuilders.align;
-const indent = docBuilders.indent;
-const group = docBuilders.group;
-const printDocToString = doc.printer.printDocToString;
+const {
+  builders: {
+    concat,
+    join,
+    line,
+    hardline,
+    softline,
+    fill,
+    align,
+    indent,
+    group
+  },
+  utils: { mapDoc },
+  printer: { printDocToString }
+} = require("../doc");
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
 
@@ -732,7 +734,7 @@ function shouldRemainTheSameContent(path) {
 }
 
 function normalizeDoc(doc) {
-  return docUtils.mapDoc(doc, currentDoc => {
+  return mapDoc(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
