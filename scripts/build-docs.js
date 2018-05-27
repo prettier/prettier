@@ -2,15 +2,12 @@
 
 "use strict";
 
-const fs = require("fs");
 const path = require("path");
 const shell = require("shelljs");
 
 const rootDir = path.join(__dirname, "..", "..");
 const staticDir = path.join(rootDir, "website/static");
 const docs = path.join(rootDir, "website/static/lib");
-
-const stripLanguageDirectory = parserPath => parserPath.replace(/.*\//, "");
 
 function pipe(string) {
   return new shell.ShellString(string);
