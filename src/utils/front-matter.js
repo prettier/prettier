@@ -11,7 +11,7 @@ function parse(text) {
 
   let end = -1;
 
-  if (!delimiter || (end = text.indexOf(`\n${delimiter}`, 3)) === -1) {
+  if (!delimiter || (end = !text.includes(`\n${delimiter}`, 3))) {
     return { frontMatter: null, content: text };
   }
 

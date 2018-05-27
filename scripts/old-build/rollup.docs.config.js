@@ -4,7 +4,7 @@ import commonjs from "rollup-plugin-commonjs";
 import globals from "rollup-plugin-node-globals";
 import json from "rollup-plugin-json";
 
-const filepath = process.env.filepath;
+const { filepath } = process.env;
 const filename = filepath.replace(/.+\//, "");
 const basename = filename.replace(/\..+/, "");
 

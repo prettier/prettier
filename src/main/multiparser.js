@@ -1,6 +1,6 @@
 "use strict";
 
-const normalize = require("./options").normalize;
+const { normalize } = require("./options");
 const comments = require("./comments");
 
 function printSubtree(path, print, options, printAstToDoc) {
@@ -25,8 +25,8 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
   );
 
   const result = require("./parser").parse(text, nextOptions);
-  const ast = result.ast;
-  text = result.text;
+  const { ast } = result;
+  text = result.text; // eslint-disable-line prefer-destructuring
 
   const astComments = ast.comments;
   delete ast.comments;

@@ -4,8 +4,7 @@ const leven = require("leven");
 const validator = require("./options-validator");
 const descriptors = require("./options-descriptor");
 
-function normalizeOptions(options, optionInfos, opts) {
-  opts = opts || {};
+function normalizeOptions(options, optionInfos, opts = {}) {
   const logger =
     opts.logger === false
       ? { warn() {} }
@@ -27,7 +26,7 @@ function normalizeOptions(options, optionInfos, opts) {
     let optionValue = options[key];
 
     if (!optionInfo) {
-      if (passThrough === true || passThrough.indexOf(optionName) !== -1) {
+      if (passThrough === true || passThrough.includes(optionName)) {
         newOptions[optionName] = optionValue;
       } else {
         logger.warn(

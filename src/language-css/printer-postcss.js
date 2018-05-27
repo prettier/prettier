@@ -113,7 +113,7 @@ function genericPrint(path, options, print) {
       const rawText = node.raws.text || node.text;
       // Workaround a bug where the location is off.
       // https://github.com/postcss/postcss-scss/issues/63
-      if (text.indexOf(rawText) === -1) {
+      if (!text.includes(rawText)) {
         if (node.raws.inline) {
           return concat(["// ", rawText]);
         }
@@ -676,11 +676,11 @@ function genericPrint(path, options, print) {
         const printed = path.map(print, "groups");
         const res = [];
 
-        for (let i = 0; i < printed.length; i++) {
-          if (i !== 0) {
+        for (const group of printed) {
+          if (res.length > 0) {
             res.push(concat([",", line]));
           }
-          res.push(printed[i]);
+          res.push(group);
         }
 
         return group(indent(fill(res)));

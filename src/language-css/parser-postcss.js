@@ -5,10 +5,7 @@ const parseFrontMatter = require("../utils/front-matter");
 const lineColumnToIndex = require("../utils/line-column-to-index");
 
 // utils
-const utils = require("./utils");
-
-const isSCSS = utils.isSCSS;
-const isSCSSNestedPropertyNode = utils.isSCSSNestedPropertyNode;
+const { isSCSS, isSCSSNestedPropertyNode } = require("./utils");
 
 function parseValueNodes(nodes) {
   let parenGroup = {
@@ -189,7 +186,7 @@ function parseValue(value) {
   } catch (e) {
     return {
       type: "value-unknown",
-      value: value
+      value
     };
   }
 
@@ -351,7 +348,7 @@ function parseNestedCSS(node) {
         node.scssDefault = true;
 
         if (defaultSCSSDirectiveIndex[0].trim() !== "!default") {
-          node.raws.scssDefault = defaultSCSSDirectiveIndex[0];
+          node.raws.scssDefault = defaultSCSSDirectiveIndex[0]; // eslint-disable-line prefer-destructuring
         }
       }
 
@@ -362,14 +359,14 @@ function parseNestedCSS(node) {
         node.scssGlobal = true;
 
         if (globalSCSSDirectiveIndex[0].trim() !== "!global") {
-          node.raws.scssGlobal = globalSCSSDirectiveIndex[0];
+          node.raws.scssGlobal = globalSCSSDirectiveIndex[0]; // eslint-disable-line prefer-destructuring
         }
       }
 
       if (value.startsWith("progid:")) {
         return {
           type: "value-unknown",
-          value: value
+          value
         };
       }
 
@@ -377,7 +374,7 @@ function parseNestedCSS(node) {
     }
 
     if (node.type === "css-atrule" && params.length > 0) {
-      const name = node.name;
+      const { name } = node;
       const lowercasedName = node.name.toLowerCase();
 
       if (name === "warn" || name === "error") {
@@ -428,7 +425,7 @@ function parseNestedCSS(node) {
           "return",
           "define-mixin",
           "add-mixin"
-        ].indexOf(name) !== -1
+        ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
         params = params.replace(/(\$\S+?)\s+?\.\.\./, "$1...");
@@ -451,7 +448,7 @@ function parseNestedCSS(node) {
         return node;
       }
 
-      if (["media", "custom-media"].indexOf(lowercasedName) !== -1) {
+      if (["media", "custom-media"].includes(lowercasedName)) {
         if (params.includes("#{")) {
           // Workaround for media at rule with scss interpolation
           return {
@@ -476,7 +473,7 @@ function parseNestedCSS(node) {
 
 function parseWithParser(parser, text) {
   const parsed = parseFrontMatter(text);
-  const frontMatter = parsed.frontMatter;
+  const { frontMatter } = parsed;
   text = parsed.content;
 
   let result;

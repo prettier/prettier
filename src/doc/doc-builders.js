@@ -41,16 +41,14 @@ function align(n, contents) {
   return { type: "align", contents, n };
 }
 
-function group(contents, opts) {
-  opts = opts || {};
-
+function group(contents, opts = {}) {
   if (process.env.NODE_ENV !== "production") {
     assertDoc(contents);
   }
 
   return {
     type: "group",
-    contents: contents,
+    contents,
     break: !!opts.shouldBreak,
     expandedStates: opts.expandedStates
   };
@@ -117,12 +115,12 @@ const cursor = { type: "cursor", placeholder: Symbol("cursor") };
 function join(sep, arr) {
   const res = [];
 
-  for (let i = 0; i < arr.length; i++) {
-    if (i !== 0) {
+  for (const el of arr) {
+    if (res.length > 0) {
       res.push(sep);
     }
 
-    res.push(arr[i]);
+    res.push(el);
   }
 
   return concat(res);

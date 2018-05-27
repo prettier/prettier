@@ -40,10 +40,10 @@ self.process = {
 self.assert = { ok: function() {}, strictEqual: function() {} };
 self.require = function require(path) {
   if (path === "stream") {
-    return { PassThrough() {} };
+    return { PassThrough: function() {} };
   }
   if (path === "./third-party") {
-    return { findParentDir() {} };
+    return { findParentDir: function() {} };
   }
 
   if (~path.indexOf("parser-")) {

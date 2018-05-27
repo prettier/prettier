@@ -1,7 +1,10 @@
 "use strict";
 
-const prettier = require("prettier/local");
-const concat = prettier.doc.builders.concat;
+const {
+  doc: {
+    builders: { concat }
+  }
+} = require("prettier/local");
 
 module.exports = {
   languages: [

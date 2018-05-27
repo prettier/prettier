@@ -20,7 +20,7 @@ shell.exec("npm init -y", { cwd: tmpDir });
 shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
 shell.config.silent = false;
 
-const code = shell.exec("yarn test --color --runInBand", {
+const { code } = shell.exec("yarn test --color --runInBand", {
   cwd: rootDir,
   env: Object.assign({}, process.env, {
     NODE_ENV: "production",
@@ -28,6 +28,6 @@ const code = shell.exec("yarn test --color --runInBand", {
     PRETTIER_DIR: path.join(tmpDir, "node_modules/prettier")
   }),
   shell: true
-}).code;
+});
 
 process.exit(code);

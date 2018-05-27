@@ -18,11 +18,14 @@ rules:
   no-unneeded-ternary: error
   no-useless-return: error
   no-var: error
+  object-shorthand: error
   one-var:
   - error
   - never
   prefer-arrow-callback: error
   prefer-const: error
+  prefer-destructuring: error
+  prefer-spread: error
   react/no-deprecated: off
   react/prop-types: off
   strict: error

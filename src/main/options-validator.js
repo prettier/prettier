@@ -2,8 +2,7 @@
 
 const descriptors = require("./options-descriptor");
 
-function validateOption(value, optionInfo, opts) {
-  opts = opts || {};
+function validateOption(value, optionInfo, opts = {}) {
   const descriptor = opts.descriptor || descriptors.apiDescriptor;
 
   if (

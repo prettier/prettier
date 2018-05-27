@@ -418,9 +418,7 @@ function replaceNewlinesWithHardlines(str) {
   return join(hardline, str.split("\n"));
 }
 
-function getNthSiblingIndex(node, parentNode, condition) {
-  condition = condition || (() => true);
-
+function getNthSiblingIndex(node, parentNode, condition = () => true) {
   let index = -1;
 
   for (const childNode of parentNode.children) {
@@ -443,7 +441,7 @@ function getAncestorCounter(path, typeOrTypes) {
   let ancestorNode;
 
   while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.indexOf(ancestorNode.type) !== -1) {
+    if (types.includes(ancestorNode.type)) {
       return counter;
     }
   }
@@ -569,7 +567,7 @@ function printRoot(path, options, print) {
   /** @type {IgnorePosition | null} */
   let ignoreStart = null;
 
-  const children = path.getValue().children;
+  const { children } = path.getValue();
   children.forEach((childNode, index) => {
     switch (isPrettierIgnore(childNode)) {
       case "start":
@@ -595,7 +593,7 @@ function printRoot(path, options, print) {
   return printChildren(path, options, print, {
     processor: (childPath, index) => {
       if (ignoreRanges.length !== 0) {
-        const ignoreRange = ignoreRanges[0];
+        const [ignoreRange] = ignoreRanges;
 
         if (index === ignoreRange.start.index) {
           return concat([
@@ -623,9 +621,7 @@ function printRoot(path, options, print) {
   });
 }
 
-function printChildren(path, options, print, events) {
-  events = events || {};
-
+function printChildren(path, options, print, events = {}) {
   const postprocessor = events.postprocessor || concat;
   const processor = events.processor || (childPath => childPath.call(print));
 
@@ -683,19 +679,18 @@ function isPrettierIgnore(node) {
 
 function shouldNotPrePrintHardline(node, data) {
   const isFirstNode = data.parts.length === 0;
-  const isInlineNode = INLINE_NODE_TYPES.indexOf(node.type) !== -1;
+  const isInlineNode = INLINE_NODE_TYPES.includes(node.type);
 
   const isInlineHTML =
     node.type === "html" &&
-    INLINE_NODE_WRAPPER_TYPES.indexOf(data.parentNode.type) !== -1;
+    INLINE_NODE_WRAPPER_TYPES.includes(data.parentNode.type);
 
   return isFirstNode || isInlineNode || isInlineHTML;
 }
 
 function shouldPrePrintDoubleHardline(node, data) {
   const isSequence = (data.prevNode && data.prevNode.type) === node.type;
-  const isSiblingNode =
-    isSequence && SIBLING_NODE_TYPES.indexOf(node.type) !== -1;
+  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.includes(node.type);
 
   const isInTightListItem =
     data.parentNode.type === "listItem" && !data.parentNode.loose;
@@ -747,7 +742,7 @@ function normalizeDoc(doc) {
 
     currentDoc.parts.forEach(part => {
       if (part.type === "concat") {
-        parts.push.apply(parts, part.parts);
+        parts.push(...part.parts);
       } else if (part !== "") {
         parts.push(part);
       }

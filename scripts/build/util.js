@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const rimraf = require("rimraf");
-const promisify = require("util").promisify;
+const { promisify } = require("util");
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);

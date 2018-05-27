@@ -74,7 +74,7 @@ function skip(chars) {
       return false;
     }
 
-    const length = text.length;
+    const { length } = text;
     let cursor = index;
     while (cursor >= 0 && cursor < length) {
       const c = text.charAt(cursor);
@@ -82,7 +82,7 @@ function skip(chars) {
         if (!chars.test(c)) {
           return cursor;
         }
-      } else if (chars.indexOf(c) === -1) {
+      } else if (chars.includes(c)) {
         return cursor;
       }
 
@@ -170,8 +170,7 @@ function skipNewline(text, index, opts) {
   return index;
 }
 
-function hasNewline(text, index, opts) {
-  opts = opts || {};
+function hasNewline(text, index, opts = {}) {
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   const idx2 = skipNewline(text, idx, opts);
   return idx !== idx2;
@@ -234,8 +233,7 @@ function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   );
 }
 
-function hasSpaces(text, index, opts) {
-  opts = opts || {};
+function hasSpaces(text, index, opts = {}) {
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   return idx !== index;
 }
@@ -429,9 +427,7 @@ function getLeftMost(node) {
   return node;
 }
 
-function getAlignmentSize(value, tabWidth, startIndex) {
-  startIndex = startIndex || 0;
-
+function getAlignmentSize(value, tabWidth, startIndex = 0) {
   let size = 0;
   for (let i = startIndex; i < value.length; ++i) {
     if (value[i] === "\t") {

@@ -1,2 +1,11 @@
 rules:
   import/no-extraneous-dependencies: off
+overrides:
+  - files: static/*
+    parserOptions:
+      ecmaVersion: 5
+    rules:
+      no-var: off
+      object-shorthand: off
+      prefer-destructuring: off
+      prefer-spread: off

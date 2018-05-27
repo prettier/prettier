@@ -7,7 +7,7 @@ function flattenDoc(doc) {
     for (let i = 0; i < doc.parts.length; ++i) {
       const doc2 = doc.parts[i];
       if (typeof doc2 !== "string" && doc2.type === "concat") {
-        [].push.apply(res, flattenDoc(doc2).parts);
+        res.push(...flattenDoc(doc2).parts);
       } else {
         const flattened = flattenDoc(doc2);
         if (flattened !== "") {
@@ -124,7 +124,7 @@ function printDoc(doc) {
 }
 
 module.exports = {
-  printDocToDebug: function(doc) {
+  printDocToDebug(doc) {
     return printDoc(flattenDoc(doc));
   }
 };

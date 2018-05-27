@@ -1,9 +1,9 @@
 "use strict";
 
-const version = require("./package.json").version;
+const { version } = require("./package.json");
 
 const core = require("./src/main/core");
-const getSupportInfo = require("./src/main/support").getSupportInfo;
+const { getSupportInfo } = require("./src/main/support");
 const getFileInfo = require("./src/common/get-file-info");
 const sharedUtil = require("./src/common/util-shared");
 const loadPlugins = require("./src/common/load-plugins");
@@ -14,13 +14,12 @@ const doc = require("./src/doc");
 
 // Luckily `opts` is always the 2nd argument
 function _withPlugins(fn) {
-  return function() {
-    const args = Array.from(arguments);
+  return function(...args) {
     const opts = args[1] || {};
     args[1] = Object.assign({}, opts, {
       plugins: loadPlugins(opts.plugins, opts.pluginSearchDirs)
     });
-    return fn.apply(null, args);
+    return fn(...args);
   };
 }
 
@@ -41,8 +40,8 @@ module.exports = {
     return formatWithCursor(text, opts).formatted;
   },
 
-  check: function(text, opts) {
-    const formatted = formatWithCursor(text, opts).formatted;
+  check(text, opts) {
+    const { formatted } = formatWithCursor(text, opts);
     return formatted === text;
   },
 

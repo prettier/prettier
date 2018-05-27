@@ -47,7 +47,7 @@ function print(path, options, print) {
       );
     }
     case "ElementNode": {
-      const isVoid = voidTags.indexOf(n.tag) !== -1;
+      const isVoid = voidTags.includes(n.tag);
       const closeTag = isVoid ? concat([" />", softline]) : ">";
       const hasChildren = n.children.length > 0;
       const getParams = (path, print) =>
@@ -204,7 +204,7 @@ function print(path, options, print) {
         const parentNode = path.getParentNode(0);
         const isConcat = parentNode.type === "ConcatStatement";
         if (isConcat) {
-          const parts = parentNode.parts;
+          const { parts } = parentNode;
           const partIndex = parts.indexOf(n);
           if (partIndex > 0) {
             const partType = parts[partIndex - 1].type;

@@ -5,17 +5,13 @@ const comments = require("./comments");
 const FastPath = require("../common/fast-path");
 const multiparser = require("./multiparser");
 
-const doc = require("../doc");
-const docBuilders = doc.builders;
-const concat = docBuilders.concat;
-const hardline = docBuilders.hardline;
-const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
-const docUtils = doc.utils;
+const {
+  builders: { concat, hardline, addAlignmentToDoc },
+  utils: { removeLines, propagateBreaks }
+} = require("../doc");
 
-function printAstToDoc(ast, options, addAlignmentSize) {
-  addAlignmentSize = addAlignmentSize || 0;
-
-  const printer = options.printer;
+function printAstToDoc(ast, options, addAlignmentSize = 0) {
+  const { printer } = options;
   const cache = new Map();
 
   function printGenerically(path, args) {
@@ -52,12 +48,12 @@ function printAstToDoc(ast, options, addAlignmentSize) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()
     doc = addAlignmentToDoc(
-      docUtils.removeLines(concat([hardline, doc])),
+      removeLines(concat([hardline, doc])),
       addAlignmentSize,
       options.tabWidth
     );
   }
-  docUtils.propagateBreaks(doc);
+  propagateBreaks(doc);
 
   if (
     options.parser === "json" ||
@@ -74,7 +70,7 @@ function genericPrint(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
   const node = path.getValue();
-  const printer = options.printer;
+  const { printer } = options;
 
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {

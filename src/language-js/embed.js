@@ -256,7 +256,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }
-    let parts = doc.parts;
+    let { parts } = doc;
     const atIndex = parts.indexOf("@");
     const placeholderIndex = atIndex + 1;
     if (
@@ -283,10 +283,13 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       const placeholderMatch = placeholder.match(
         /@prettier-placeholder-(.+)-id([\s\S]*)/
       );
-      const placeholderID = placeholderMatch[1];
-      // When the expression has a suffix appended, like:
-      // animation: linear ${time}s ease-out;
-      const suffix = placeholderMatch[2];
+      const [
+        ,
+        placeholderID,
+        // When the expression has a suffix appended, like:
+        // animation: linear ${time}s ease-out;
+        suffix
+      ] = placeholderMatch;
       const expression = expressions[placeholderID];
 
       replaceCounter++;
@@ -295,9 +298,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat(["${", expression, "}" + suffix])
         .concat(rest);
     }
-    return Object.assign({}, doc, {
-      parts: parts
-    });
+    return Object.assign({}, doc, { parts });
   });
 
   return expressions.length === replaceCounter ? newDoc : null;
@@ -394,7 +395,7 @@ function isStyledComponents(path) {
     return false;
   }
 
-  const tag = parent.tag;
+  const { tag } = parent;
 
   switch (tag.type) {
     case "MemberExpression":

@@ -68,9 +68,9 @@ const parsers = [
     target: "node"
   }
 ].map(parser => {
-  const name = getFileOutput(parser)
+  const [, name] = getFileOutput(parser)
     .replace(/\.js$/, "")
-    .split("-")[1];
+    .split("-");
   return Object.assign(parser, { type: "plugin", name });
 });
 

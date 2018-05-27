@@ -32,9 +32,9 @@ function clean(ast, newObj) {
   if (
     (ast.type === "value-word" &&
       ((ast.isColor && ast.isHex) ||
-        ["initial", "inherit", "unset", "revert"].indexOf(
+        ["initial", "inherit", "unset", "revert"].includes(
           newObj.value.replace().toLowerCase()
-        ) !== -1)) ||
+        ))) ||
     ast.type === "media-feature" ||
     ast.type === "selector-root-invalid" ||
     ast.type === "selector-pseudo"
@@ -109,11 +109,11 @@ function clean(ast, newObj) {
   if (ast.type === "selector-tag") {
     const lowercasedValue = ast.value.toLowerCase();
 
-    if (htmlTagNames.indexOf(lowercasedValue) !== -1) {
+    if (htmlTagNames.includes(lowercasedValue)) {
       newObj.value = lowercasedValue;
     }
 
-    if (["from", "to"].indexOf(lowercasedValue) !== -1) {
+    if (["from", "to"].includes(lowercasedValue)) {
       newObj.value = lowercasedValue;
     }
   }

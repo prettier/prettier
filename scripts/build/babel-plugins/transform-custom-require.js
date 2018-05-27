@@ -12,14 +12,14 @@ module.exports = function(babel) {
   const t = babel.types;
   return {
     visitor: {
-      CallExpression: function(path) {
-        const node = path.node;
+      CallExpression(path) {
+        const { node } = path;
         if (
           path.get("callee").isIdentifier({ name: "$$$r" }) &&
           node.arguments.length === 1 &&
           path.get("arguments.0").isStringLiteral()
         ) {
-          const value = node.arguments[0].value;
+          const [{ value }] = node.arguments;
           const parts = value.split("/");
           path.replaceWith(
             t.callExpression(t.identifier("require"), [

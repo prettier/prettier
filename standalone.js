@@ -1,9 +1,9 @@
 "use strict";
 
-const version = require("./package.json").version;
+const { version } = require("./package.json");
 
 const core = require("./src/main/core");
-const getSupportInfo = require("./src/main/support").getSupportInfo;
+const { getSupportInfo } = require("./src/main/support");
 const sharedUtil = require("./src/common/util-shared");
 
 const doc = require("./src/doc");
@@ -24,8 +24,7 @@ const isArray =
 
 // Luckily `opts` is always the 2nd argument
 function withPlugins(fn) {
-  return function() {
-    const args = Array.from(arguments);
+  return function(...args) {
     let plugins = (args[1] && args[1].plugins) || [];
     if (!isArray(plugins)) {
       plugins = Object.values(plugins);
@@ -33,21 +32,21 @@ function withPlugins(fn) {
     args[1] = Object.assign({}, args[1], {
       plugins: internalPlugins.concat(plugins)
     });
-    return fn.apply(null, args);
+    return fn(...args);
   };
 }
 
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
 module.exports = {
-  formatWithCursor: formatWithCursor,
+  formatWithCursor,
 
   format(text, opts) {
     return formatWithCursor(text, opts).formatted;
   },
 
   check(text, opts) {
-    const formatted = formatWithCursor(text, opts).formatted;
+    const { formatted } = formatWithCursor(text, opts);
     return formatted === text;
   },
 

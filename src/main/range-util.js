@@ -43,9 +43,13 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
   };
 }
 
-function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
-  predicate = predicate || (() => true);
-  parentNodes = parentNodes || [];
+function findNodeAtOffset(
+  node,
+  offset,
+  options,
+  predicate = () => true,
+  parentNodes = []
+) {
   const start = options.locStart(node, options.locStart);
   const end = options.locEnd(node, options.locEnd);
   if (start <= offset && offset <= end) {
@@ -64,8 +68,8 @@ function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
 
     if (predicate(node)) {
       return {
-        node: node,
-        parentNodes: parentNodes
+        node,
+        parentNodes
       };
     }
   }
@@ -191,8 +195,7 @@ function calculateRange(text, opts, ast) {
     endNodeAndParents,
     opts
   );
-  const startNode = siblingAncestors.startNode;
-  const endNode = siblingAncestors.endNode;
+  const { startNode, endNode } = siblingAncestors;
   const rangeStart = Math.min(
     opts.locStart(startNode, opts.locStart),
     opts.locStart(endNode, opts.locStart)
@@ -203,8 +206,8 @@ function calculateRange(text, opts, ast) {
   );
 
   return {
-    rangeStart: rangeStart,
-    rangeEnd: rangeEnd
+    rangeStart,
+    rangeEnd
   };
 }
 

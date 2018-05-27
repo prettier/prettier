@@ -2,7 +2,7 @@ export function stateToggler(key) {
   return state => ({ [key]: !state[key] });
 }
 
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+const { hasOwnProperty } = Object.prototype;
 
 function is(x, y) {
   // SameValue algorithm

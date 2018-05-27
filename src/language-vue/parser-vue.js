@@ -16,8 +16,8 @@
 function makeMap(str, expectsLowerCase) {
   const map = Object.create(null);
   const list = str.split(",");
-  for (let i = 0; i < list.length; i++) {
-    map[list[i]] = true;
+  for (const el of list) {
+    map[el] = true;
   }
   return expectsLowerCase ? val => map[val.toLowerCase()] : val => map[val];
 }
@@ -82,9 +82,7 @@ function decodeAttr(value, shouldDecodeNewlines) {
 
 function parseHTML(html, options) {
   const stack = [];
-  const expectHTML = options.expectHTML;
-  const isUnaryTag = options.isUnaryTag || no;
-  const canBeLeftOpenTag = options.canBeLeftOpenTag || no;
+  const { expectHTML, isUnaryTag = no, canBeLeftOpenTag = no } = options;
   let index = 0;
   let last;
   let lastTag;
@@ -244,7 +242,7 @@ function parseHTML(html, options) {
         match.attrs.push(attr);
       }
       if (end) {
-        match.unarySlash = end[1];
+        match.unarySlash = end[1]; // eslint-disable-line prefer-destructuring
         advance(end[0].length);
         match.end = index;
         return match;
@@ -253,8 +251,7 @@ function parseHTML(html, options) {
   }
 
   function handleStartTag(match) {
-    const tagName = match.tagName;
-    const unarySlash = match.unarySlash;
+    const { tagName, unarySlash } = match.tagName;
 
     if (expectHTML) {
       if (lastTag === "p" && isNonPhrasingTag(tagName)) {
@@ -272,7 +269,7 @@ function parseHTML(html, options) {
     for (let i = 0; i < l; i++) {
       const args = match.attrs[i];
       // hackish work around FF bug https://bugzilla.mozilla.org/show_bug.cgi?id=369778
-      if (IS_REGEX_CAPTURING_BROKEN && args[0].indexOf('""') === -1) {
+      if (IS_REGEX_CAPTURING_BROKEN && !args[0].includes('""')) {
         if (args[3] === "") {
           delete args[3];
         }
@@ -298,7 +295,7 @@ function parseHTML(html, options) {
       stack.push({
         tag: tagName,
         lowerCasedTag: tagName.toLowerCase(),
-        attrs: attrs
+        attrs
       });
       lastTag = tagName;
     }
@@ -382,7 +379,7 @@ function parse(text /*, parsers, opts*/) {
   const objStack = [rootObj];
   let obj = rootObj;
   parseHTML(text, {
-    start: function(tag, attrs, unary, start, end) {
+    start(tag, attrs, unary, start, end) {
       const newObj = {
         tag,
         attrs,
@@ -399,7 +396,7 @@ function parse(text /*, parsers, opts*/) {
         obj = newObj;
       }
     },
-    end: function(tag, start, end) {
+    end(tag, start, end) {
       objStack.pop();
       obj.contentEnd = start;
       obj.end = end;
