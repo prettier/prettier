@@ -11,3 +11,37 @@ describe("checks stdin with --list-different", () => {
     status: "non-zero"
   });
 });
+
+describe("--list-different lists different file and exits with code 1", () => {
+  runPrettier("cli/write", ["--list-different", "unformatted.js"]).test({
+    stdout: "unformatted.js\n",
+    status: 1
+  });
+});
+
+describe("--list-different does not list formatted file and exits with code 0", () => {
+  runPrettier("cli/write", ["--list-different", "formatted.js"]).test({
+    stdout: "",
+    status: 0
+  });
+});
+
+describe("--list-different exits with code 1 if at least 1 file is not formatted", () => {
+  runPrettier("cli/write", [
+    "--list-different",
+    "formatted.js",
+    "unformatted.js"
+  ]).test({
+    stdout: "unformatted.js\n",
+    status: 1
+  });
+});
+
+describe("--list-different only formats a file once", () => {
+  const result = runPrettier("cli/write", [
+    "--list-different",
+    "unformatted.js"
+  ]);
+
+  expect(result.formatCalls).toBe(1);
+});

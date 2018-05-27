@@ -1,3 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`--list-different does not list formatted file and exits with code 0 (stderr) 1`] = `""`;
+
+exports[`--list-different does not list formatted file and exits with code 0 (write) 1`] = `Array []`;
+
+exports[`--list-different exits with code 1 if at least 1 file is not formatted (stderr) 1`] = `""`;
+
+exports[`--list-different exits with code 1 if at least 1 file is not formatted (write) 1`] = `Array []`;
+
+exports[`--list-different lists different file and exits with code 1 (stderr) 1`] = `""`;
+
+exports[`--list-different lists different file and exits with code 1 (write) 1`] = `Array []`;
+
 exports[`checks stdin with --list-different (write) 1`] = `Array []`;

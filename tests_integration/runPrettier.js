@@ -7,6 +7,7 @@ const stripAnsi = require("strip-ansi");
 const isProduction = process.env.NODE_ENV === "production";
 const prettierRootDir = isProduction ? process.env.PRETTIER_DIR : "../";
 const prettierPkg = require(path.join(prettierRootDir, "package.json"));
+const prettierIndex = path.join(prettierRootDir, "index.js");
 const prettierCli = path.join(prettierRootDir, prettierPkg.bin.prettier);
 
 const thirdParty = isProduction
@@ -86,6 +87,8 @@ function runPrettier(dir, args, options) {
     .spyOn(require(thirdParty), "findParentDir")
     .mockImplementation(() => process.cwd());
 
+  const formatSpy = jest.spyOn(require(prettierIndex), "formatWithCursor");
+
   try {
     require(prettierCli);
     status = (status === undefined ? process.exitCode : status) || 0;
@@ -101,6 +104,7 @@ function runPrettier(dir, args, options) {
     jest.restoreAllMocks();
   }
 
+  const formatCalls = formatSpy.mock.calls.length;
   const result = { status, stdout, stderr, write };
 
   const testResult = testOptions => {
@@ -127,7 +131,7 @@ function runPrettier(dir, args, options) {
     return result;
   };
 
-  return Object.assign({ test: testResult }, result);
+  return Object.assign({ test: testResult, formatCalls }, result);
 
   function appendStdout(text) {
     if (status === undefined) {

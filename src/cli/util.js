@@ -406,7 +406,6 @@ function formatFiles(context) {
     }
 
     const start = Date.now();
-
     let result;
     let output;
 
