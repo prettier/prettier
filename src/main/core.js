@@ -8,12 +8,11 @@ const comments = require("./comments");
 const parser = require("./parser");
 const printAstToDoc = require("./ast-to-doc");
 const rangeUtil = require("./range-util");
-
 const privateUtil = require("../common/util");
-
-const doc = require("../doc");
-const printDocToString = doc.printer.printDocToString;
-const printDocToDebug = doc.debug.printDocToDebug;
+const {
+  printer: { printDocToString },
+  debug: { printDocToDebug }
+} = require("../doc");
 
 const UTF8BOM = 0xfeff;
 

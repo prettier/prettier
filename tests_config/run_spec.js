@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const extname = require("path").extname;
-const prettier = require("./require_prettier");
+const prettier = require("prettier/local");
 
 const AST_COMPARE = process.env["AST_COMPARE"];
 

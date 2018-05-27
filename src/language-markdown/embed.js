@@ -1,14 +1,11 @@
 "use strict";
 
-const docUtils = require("../doc/doc-utils");
 const util = require("../common/util");
 const support = require("../main/support");
-const doc = require("../doc");
-const docBuilders = doc.builders;
-const hardline = docBuilders.hardline;
-const literalline = docBuilders.literalline;
-const concat = docBuilders.concat;
-const markAsRoot = docBuilders.markAsRoot;
+const {
+  builders: { hardline, literalline, concat, markAsRoot },
+  utils: { mapDoc }
+} = require("../doc");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -55,7 +52,7 @@ function embed(path, print, textToDoc, options) {
   }
 
   function replaceNewlinesWithLiterallines(doc) {
-    return docUtils.mapDoc(
+    return mapDoc(
       doc,
       currentDoc =>
         typeof currentDoc === "string" && currentDoc.includes("\n")
