@@ -9,8 +9,8 @@ Atom users can simply install the [prettier-atom] package and use `Ctrl+Alt+F` t
 
 Alternatively, you can use one the packages below, which behave similarly to [prettier-atom] but have a focus on minimalism.
 
-* [mprettier](https://github.com/t9md/atom-mprettier)
-* [miniprettier](https://github.com/duailibe/atom-miniprettier)
+- [mprettier](https://github.com/t9md/atom-mprettier)
+- [miniprettier](https://github.com/duailibe/atom-miniprettier)
 
 ## Emacs
 

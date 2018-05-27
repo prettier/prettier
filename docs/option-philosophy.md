@@ -17,10 +17,10 @@ Well, had Prettier been created around the same time as JavaScript itself was bo
 
 Then there's a bunch of interesting cases.
 
-* `--trailing-comma es5` was added to make it easier to use trailing commas in most environments without having to transpile (trailing function commas were added in ES2017).
-* `--prose-wrap` is important to support all quirky markdown renderers in the wild.
-* `--arrow-parens` was added after [huge demand](https://github.com/prettier/prettier/issues/812). Prettier has to strike a balance between ideal goals and listening to the community.
-* `--jsx-bracket-same-line` was needed for a big company with a huge code base (Facebook), which backed the project when it got started, to be able to [adopt Prettier at all](https://github.com/prettier/prettier/pull/661#issuecomment-295770645).
+- `--trailing-comma es5` was added to make it easier to use trailing commas in most environments without having to transpile (trailing function commas were added in ES2017).
+- `--prose-wrap` is important to support all quirky markdown renderers in the wild.
+- `--arrow-parens` was added after [huge demand](https://github.com/prettier/prettier/issues/812). Prettier has to strike a balance between ideal goals and listening to the community.
+- `--jsx-bracket-same-line` was needed for a big company with a huge code base (Facebook), which backed the project when it got started, to be able to [adopt Prettier at all](https://github.com/prettier/prettier/pull/661#issuecomment-295770645).
 
 Finally, perhaps the most interesting of them all is `--bracket-spacing`.
 The truth is that not even [Prettier's creator knows exactly why it exists](https://github.com/prettier/prettier/issues/715#issuecomment-281096495). It was added super early on without much thought. It now serves as an example of the types of options we should avoid.

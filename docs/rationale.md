@@ -23,8 +23,8 @@ Prettier maintains the way your string is escaped. For example, `"🙂"` won't b
 
 It turns out that empty lines are very hard to automatically generate. The approach that Prettier takes is to preserve empty lines the way they were in the original source code. There are two additional rules:
 
-* Prettier collapses multiple blank lines into a single blank line.
-* Empty lines at the start and end of blocks (and whole files) are removed. (Files always end with a single newline, though.)
+- Prettier collapses multiple blank lines into a single blank line.
+- Empty lines at the start and end of blocks (and whole files) are removed. (Files always end with a single newline, though.)
 
 ### Multi-line objects
 
@@ -142,7 +142,7 @@ Prettier only _prints_ code. It does not transform it. This is to limit the scop
 
 Here are a few examples of things that are out of scope for Prettier:
 
-* Turning single- or double-quoted strings into template literals or vice versa.
-* Adding/removing `{}` and `return` where they are optional.
-* Turning `?:` into `if`-`else` statements.
-* Sorting and hoisting `import`s. (Sorting is unsafe because of side effects, which would violate the [correctness](#correctness) goal.)
+- Turning single- or double-quoted strings into template literals or vice versa.
+- Adding/removing `{}` and `return` where they are optional.
+- Turning `?:` into `if`-`else` statements.
+- Sorting and hoisting `import`s. (Sorting is unsafe because of side effects, which would violate the [correctness](#correctness) goal.)

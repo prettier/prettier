@@ -43,8 +43,8 @@ Print semicolons at the ends of statements.
 
 Valid options:
 
-* `true` - Add a semicolon at the end of every statement.
-* `false` - Only add semicolons at the beginning of lines that may introduce ASI failures.
+- `true` - Add a semicolon at the end of every statement.
+- `false` - Only add semicolons at the beginning of lines that may introduce ASI failures.
 
 | Default | CLI Override | API Override   |
 | ------- | ------------ | -------------- |
@@ -56,8 +56,8 @@ Use single quotes instead of double quotes.
 
 Notes:
 
-* Quotes in JSX will always be double and ignore this setting.
-* If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
+- Quotes in JSX will always be double and ignore this setting.
+- If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
 
 | Default | CLI Override     | API Override          |
 | ------- | ---------------- | --------------------- |
@@ -69,9 +69,9 @@ Print trailing commas wherever possible when multi-line. (A single-line array, f
 
 Valid options:
 
-* `"none"` - No trailing commas.
-* `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
-* `"all"` - Trailing commas wherever possible (including function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
+- `"none"` - No trailing commas.
+- `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
+- `"all"` - Trailing commas wherever possible (including function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
 | Default  | CLI Override                                           | API Override                                           |
 | -------- | ------------------------------------------------------ | ------------------------------------------------------ |
@@ -83,8 +83,8 @@ Print spaces between brackets in object literals.
 
 Valid options:
 
-* `true` - Example: `{ foo: bar }`.
-* `false` - Example: `{foo: bar}`.
+- `true` - Example: `{ foo: bar }`.
+- `false` - Example: `{foo: bar}`.
 
 | Default | CLI Override           | API Override             |
 | ------- | ---------------------- | ------------------------ |
@@ -96,7 +96,7 @@ Put the `>` of a multi-line JSX element at the end of the last line instead of b
 
 Valid options:
 
-* `true` - Example:
+- `true` - Example:
 
 <!-- prettier-ignore -->
 ```
@@ -108,7 +108,7 @@ Valid options:
 </button>
 ```
 
-* `false` - Example:
+- `false` - Example:
 
 <!-- prettier-ignore -->
 ```
@@ -133,8 +133,8 @@ Include parentheses around a sole arrow function parameter.
 
 Valid options:
 
-* `"avoid"` - Omit parens when possible. Example: `x => x`
-* `"always"` - Always include parens. Example: `(x) => x`
+- `"avoid"` - Omit parens when possible. Example: `x => x`
+- `"always"` - Always include parens. Example: `(x) => x`
 
 | Default   | CLI Override                                    | API Override                                    |
 | --------- | ----------------------------------------------- | ----------------------------------------------- |
@@ -146,8 +146,8 @@ Format only a segment of a file.
 
 These two options can be used to format code starting and ending at a given character offset (inclusive and exclusive, respectively). The range will extend:
 
-* Backwards to the start of the first line containing the selected statement.
-* Forwards to the end of the selected statement.
+- Backwards to the start of the first line containing the selected statement.
+- Forwards to the end of the selected statement.
 
 These options cannot be used with `cursorOffset`.
 
@@ -164,13 +164,13 @@ Both the `babylon` and `flow` parsers support the same set of JavaScript feature
 
 Built-in parsers:
 
-* [`babylon`](https://github.com/babel/babel/tree/master/packages/babylon)
-* [`flow`](https://github.com/facebook/flow/tree/master/src/parser)
-* [`typescript`](https://github.com/eslint/typescript-eslint-parser) _Since v1.4.0_
-* [`postcss`](https://github.com/postcss/postcss) _Since v1.4.0_
-* [`json`](https://github.com/babel/babylon/tree/f09eb3200f57ea94d51c2a5b1facf2149fb406bf#babylonparseexpressioncode-options) _Since v1.5.0_
-* [`graphql`](https://github.com/graphql/graphql-js/tree/master/src/language) _Since v1.5.0_
-* [`markdown`](https://github.com/wooorm/remark/tree/master/packages/remark-parse) _Since v1.8.0_
+- [`babylon`](https://github.com/babel/babel/tree/master/packages/babylon)
+- [`flow`](https://github.com/facebook/flow/tree/master/src/parser)
+- [`typescript`](https://github.com/eslint/typescript-eslint-parser) _Since v1.4.0_
+- [`postcss`](https://github.com/postcss/postcss) _Since v1.4.0_
+- [`json`](https://github.com/babel/babylon/tree/f09eb3200f57ea94d51c2a5b1facf2149fb406bf#babylonparseexpressioncode-options) _Since v1.5.0_
+- [`graphql`](https://github.com/graphql/graphql-js/tree/master/src/language) _Since v1.5.0_
+- [`markdown`](https://github.com/wooorm/remark/tree/master/packages/remark-parse) _Since v1.8.0_
 
 [Custom parsers](api.md#custom-parser-api) are also supported. _Since v1.5.0_
 
@@ -238,9 +238,9 @@ By default, Prettier will wrap markdown text as-is since some services use a lin
 
 Valid options:
 
-* `"always"` - Wrap prose if it exceeds the print width.
-* `"never"` - Do not wrap prose.
-* `"preserve"` - Wrap prose as-is. _available in v1.9.0+_
+- `"always"` - Wrap prose if it exceeds the print width.
+- `"never"` - Do not wrap prose.
+- `"preserve"` - Wrap prose as-is. _available in v1.9.0+_
 
 | Default      | CLI Override                                                | API Override                                                |
 | ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
