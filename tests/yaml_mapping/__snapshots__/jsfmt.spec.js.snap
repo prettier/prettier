@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`array-key.yml 1`] = `
+[1, 2, 3]: 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+? [1, 2, 3]
+: 123
+
+`;
+
+exports[`array-value.yml 1`] = `
+123: [1, 2, 3]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+123: [1, 2, 3]
+
+`;
+
+exports[`comment.yml 1`] = `
+? key
+# comment
+: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+? key
+# comment
+: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+
+`;
+
+exports[`comment-value.yml 1`] = `
+123: # hello
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+123: # hello
+
+`;
+
+exports[`common.yml 1`] = `
+key1: value
+key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+key1: value
+key2:
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+
+`;
+
+exports[`explicit-key.yml 1`] = `
+? key1
+: value
+? key2
+: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+: value
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+key1: value
+key2:
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+  value
+
+`;
+
+exports[`in-sequence.yml 1`] = `
+- a: b
+  c: d
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- a: b
+  c: d
+
+`;
+
+exports[`key-with-leading-comment.yml 1`] = `
+? # comment
+  key
+: value
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+? # comment
+  key
+: value
+
+`;
+
+exports[`mapping.yml 1`] = `
+key:
+  key: value
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+key:
+  key: value
+
+`;
+
+exports[`middle-comment.yml 1`] = `
+!!map # comment
+a: 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!map # comment
+a: 123
+
+`;
+
+exports[`middle-comments.yml 1`] = `
+!!map # comment 1
+# comment 2
+a: 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!map
+# comment 1
+# comment 2
+a: 123
+
+`;
+
+exports[`props.yml 1`] = `
+--- !!map &anchor
+a: 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!map &anchor
+a: 123
+
+`;
+
+exports[`props-in-map.yml 1`] = `
+a: !!map &anchor
+  a: 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a: !!map &anchor
+  a: 123
+
+`;
+
+exports[`quote-key.yml 1`] = `
+"a": 123
+'b': 123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"a": 123
+'b': 123
+
+`;
+
+exports[`sequence.yml 1`] = `
+key:
+- value
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+key:
+  - value
+
+`;
+
+exports[`tag-key.yml 1`] = `
+? !!tag key
+: value
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+? !!tag key
+: value
+
+`;

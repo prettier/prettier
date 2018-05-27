@@ -62,6 +62,12 @@ var parsers = {
   get vue() {
     importScripts("lib/parser-vue.js");
     return prettierPlugins.vue.parsers.vue;
+  },
+
+  // YAML
+  get yaml() {
+    importScripts("lib/parser-yaml.js");
+    return prettierPlugins.yaml.parsers.yaml;
   }
 };
 

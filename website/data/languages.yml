@@ -29,6 +29,11 @@
   variants:
   - "[CommonMark](http://commonmark.org/)"
   - "[GitHub Flavored Markdown](https://github.github.com/gfm/)"
+- name: YAML
+  showName: false
+  image: /images/languages/tools_yaml.svg # TODO
+  variants:
+  - "[YAML](http://yaml.org/)"
 - name: Work in Progress
   showName: true
   image: /images/languages/tools_wip.svg

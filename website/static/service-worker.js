@@ -16,6 +16,7 @@ toolbox.precache([
   "lib/parser-glimmer.js",
   "lib/parser-graphql.js",
   "lib/parser-markdown.js",
+  "lib/parser-yaml.js",
   "playground.js",
   "https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js",
 

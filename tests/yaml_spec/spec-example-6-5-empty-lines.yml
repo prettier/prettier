@@ -1,0 +1,8 @@
+Folding:
+  "Empty line
+   	
+  as a line feed"
+Chomping: |
+  Clipped empty lines
+ 
+

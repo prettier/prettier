@@ -66,6 +66,11 @@ const parsers = [
   {
     input: "src/language-html/parser-parse5.js",
     target: "node"
+  },
+  {
+    input: "src/language-yaml/parser-yaml.js",
+    target: "universal",
+    bundler: "webpack"
   }
 ].map(parser => {
   const name = getFileOutput(parser)

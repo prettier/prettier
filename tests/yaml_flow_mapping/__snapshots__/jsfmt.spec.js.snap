@@ -1,0 +1,877 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`alias-key.yml 1`] = `
+{*123 : 456}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ *123 : 456 }
+
+`;
+
+exports[`alias-key.yml 2`] = `
+{*123 : 456}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ *123 : 456 }
+
+`;
+
+exports[`alias-key.yml 3`] = `
+{*123 : 456}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{*123 : 456}
+
+`;
+
+exports[`array-key.yml 1`] = `
+{? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+}
+
+`;
+
+exports[`array-key.yml 2`] = `
+{? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    [
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+    ],
+    [
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+    ],
+    [
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+    ],
+}
+
+`;
+
+exports[`array-key.yml 3`] = `
+{? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+}
+
+`;
+
+exports[`array-key-array-value.yml 1`] = `
+{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  ? [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ]
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ],
+  ? [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ]
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ],
+  ? [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ]
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ],
+}
+
+`;
+
+exports[`array-key-array-value.yml 2`] = `
+{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    ? [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ]
+    : [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ],
+    ? [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ]
+    : [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ],
+    ? [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ]
+    : [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ],
+}
+
+`;
+
+exports[`array-key-array-value.yml 3`] = `
+{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  ? [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ]
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ],
+  ? [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ]
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ],
+  ? [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ]
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ],
+}
+
+`;
+
+exports[`array-plain.yml 1`] = `
+{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+}
+
+`;
+
+exports[`array-plain.yml 2`] = `
+{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    [
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+    ],
+    [
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+    ],
+    [
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+    ],
+}
+
+`;
+
+exports[`array-plain.yml 3`] = `
+{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+}
+
+`;
+
+exports[`array-value.yml 1`] = `
+{: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ],
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ],
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ],
+}
+
+`;
+
+exports[`array-value.yml 2`] = `
+{: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    : [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ],
+    : [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ],
+    : [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ],
+}
+
+`;
+
+exports[`array-value.yml 3`] = `
+{: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ],
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ],
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ],
+}
+
+`;
+
+exports[`comment-between.yml 1`] = `
+{
+? 123
+# comment
+: 456
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  ? 123
+  # comment
+  : 456,
+}
+
+`;
+
+exports[`comment-between.yml 2`] = `
+{
+? 123
+# comment
+: 456
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    ? 123
+    # comment
+    : 456,
+}
+
+`;
+
+exports[`comment-between.yml 3`] = `
+{
+? 123
+# comment
+: 456
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  ? 123
+  # comment
+  : 456,
+}
+
+`;
+
+exports[`comment-trailing.yml 1`] = `
+{123, # comment
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  123, # comment
+}
+
+`;
+
+exports[`comment-trailing.yml 2`] = `
+{123, # comment
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    123, # comment
+}
+
+`;
+
+exports[`comment-trailing.yml 3`] = `
+{123, # comment
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  123, # comment
+}
+
+`;
+
+exports[`empty.yml 1`] = `
+{}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{}
+
+`;
+
+exports[`empty.yml 2`] = `
+{}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{}
+
+`;
+
+exports[`empty.yml 3`] = `
+{}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{}
+
+`;
+
+exports[`empty-item.yml 1`] = `
+{,,,}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ , , , }
+
+`;
+
+exports[`empty-item.yml 2`] = `
+{,,,}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ , , , }
+
+`;
+
+exports[`empty-item.yml 3`] = `
+{,,,}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{, , ,}
+
+`;
+
+exports[`empty-item-colon.yml 1`] = `
+{ : }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ , }
+
+`;
+
+exports[`empty-item-colon.yml 2`] = `
+{ : }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ , }
+
+`;
+
+exports[`empty-item-colon.yml 3`] = `
+{ : }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{,}
+
+`;
+
+exports[`empty-line.yml 1`] = `
+{ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, 
+
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
+
+  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb,
+}
+
+`;
+
+exports[`empty-line.yml 2`] = `
+{ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, 
+
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
+
+    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb,
+}
+
+`;
+
+exports[`empty-line.yml 3`] = `
+{ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, 
+
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
+
+  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb,
+}
+
+`;
+
+exports[`empty-line-collapse.yml 1`] = `
+{ aaa, 
+
+bbb }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ aaa, bbb }
+
+`;
+
+exports[`empty-line-collapse.yml 2`] = `
+{ aaa, 
+
+bbb }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ aaa, bbb }
+
+`;
+
+exports[`empty-line-collapse.yml 3`] = `
+{ aaa, 
+
+bbb }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{aaa, bbb}
+
+`;
+
+exports[`long-key.yml 1`] = `
+{? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+}
+
+`;
+
+exports[`long-key.yml 2`] = `
+{? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+}
+
+`;
+
+exports[`long-key.yml 3`] = `
+{? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+}
+
+`;
+
+exports[`long-key-long-value.yml 1`] = `
+{longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+}
+
+`;
+
+exports[`long-key-long-value.yml 2`] = `
+{longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+        longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+        longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+        longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+}
+
+`;
+
+exports[`long-key-long-value.yml 3`] = `
+{longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+}
+
+`;
+
+exports[`long-plain.yml 1`] = `
+{longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+}
+
+`;
+
+exports[`long-plain.yml 2`] = `
+{longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+}
+
+`;
+
+exports[`long-plain.yml 3`] = `
+{longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+}
+
+`;
+
+exports[`long-value.yml 1`] = `
+{: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  : longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  : longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  : longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+}
+
+`;
+
+exports[`long-value.yml 2`] = `
+{: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    : longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+    : longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+    : longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+}
+
+`;
+
+exports[`long-value.yml 3`] = `
+{: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  : longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  : longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  : longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+}
+
+`;
+
+exports[`middle-comment.yml 1`] = `
+!!map #comment
+{}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!map #comment
+{}
+
+`;
+
+exports[`middle-comment.yml 2`] = `
+!!map #comment
+{}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!map #comment
+{}
+
+`;
+
+exports[`middle-comment.yml 3`] = `
+!!map #comment
+{}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!map #comment
+{}
+
+`;
+
+exports[`middle-comments.yml 1`] = `
+!!map # comment 1
+# comment 2
+{}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!map
+# comment 1
+# comment 2
+{}
+
+`;
+
+exports[`middle-comments.yml 2`] = `
+!!map # comment 1
+# comment 2
+{}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!map
+# comment 1
+# comment 2
+{}
+
+`;
+
+exports[`middle-comments.yml 3`] = `
+!!map # comment 1
+# comment 2
+{}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!map
+# comment 1
+# comment 2
+{}
+
+`;
+
+exports[`props.yml 1`] = `
+!!map &anchor {a: 1}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!map &anchor { a: 1 }
+
+`;
+
+exports[`props.yml 2`] = `
+!!map &anchor {a: 1}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!map &anchor { a: 1 }
+
+`;
+
+exports[`props.yml 3`] = `
+!!map &anchor {a: 1}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!map &anchor {a: 1}
+
+`;
+
+exports[`props-in-map.yml 1`] = `
+a: !!map &anchor {a: 1}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a: !!map &anchor { a: 1 }
+
+`;
+
+exports[`props-in-map.yml 2`] = `
+a: !!map &anchor {a: 1}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a: !!map &anchor { a: 1 }
+
+`;
+
+exports[`props-in-map.yml 3`] = `
+a: !!map &anchor {a: 1}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a: !!map &anchor {a: 1}
+
+`;
+
+exports[`short-key.yml 1`] = `
+{? 1,? 2,? 3}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ 1, 2, 3 }
+
+`;
+
+exports[`short-key.yml 2`] = `
+{? 1,? 2,? 3}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ 1, 2, 3 }
+
+`;
+
+exports[`short-key.yml 3`] = `
+{? 1,? 2,? 3}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{1, 2, 3}
+
+`;
+
+exports[`short-key-short-value.yml 1`] = `
+{1: a,2: b,3: c}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ 1: a, 2: b, 3: c }
+
+`;
+
+exports[`short-key-short-value.yml 2`] = `
+{1: a,2: b,3: c}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ 1: a, 2: b, 3: c }
+
+`;
+
+exports[`short-key-short-value.yml 3`] = `
+{1: a,2: b,3: c}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{1: a, 2: b, 3: c}
+
+`;
+
+exports[`short-plain.yml 1`] = `
+{1,2,3}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ 1, 2, 3 }
+
+`;
+
+exports[`short-plain.yml 2`] = `
+{1,2,3}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ 1, 2, 3 }
+
+`;
+
+exports[`short-plain.yml 3`] = `
+{1,2,3}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{1, 2, 3}
+
+`;
+
+exports[`short-value.yml 1`] = `
+{: 1,: 2,: 3}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ : 1, : 2, : 3 }
+
+`;
+
+exports[`short-value.yml 2`] = `
+{: 1,: 2,: 3}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ : 1, : 2, : 3 }
+
+`;
+
+exports[`short-value.yml 3`] = `
+{: 1,: 2,: 3}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{: 1, : 2, : 3}
+
+`;

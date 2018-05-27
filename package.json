@@ -57,7 +57,9 @@
     "typescript": "2.9.0-dev.20180421",
     "typescript-eslint-parser": "eslint/typescript-eslint-parser#2960b002746c01fb9cb15bb5f4c1e7e925c6519a",
     "unicode-regex": "1.0.1",
-    "unified": "6.1.6"
+    "unified": "6.1.6",
+    "yaml": "1.0.0-beta.5",
+    "yaml-unist-parser": "1.0.0-beta.3"
   },
   "devDependencies": {
     "@babel/cli": "7.0.0-beta.49",
