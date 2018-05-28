@@ -4,10 +4,6 @@ function getLast(array) {
   return array[array.length - 1];
 }
 
-function getParentNode(path, count) {
-  return path.getParentNode(count);
-}
-
 function getAncestorCount(path, filter) {
   let counter = 0;
   for (let i = 0; i < path.stack.length - 1; i++) {
@@ -110,9 +106,8 @@ function isPrettierIgnore(comment) {
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
-  // console.log(node.type)
   if (node.type === "documentBody") {
-    const document = getParentNode(path);
+    const document = path.getParentNode();
     return (
       document.head.children.length !== 0 &&
       (lastItem => lastItem.type === "comment" && isPrettierIgnore(lastItem))(
@@ -133,7 +128,6 @@ function hasExplicitDocumentEnd(endPoint, text) {
 
 module.exports = {
   getLast,
-  getParentNode,
   getAncestorCount,
   isNode,
   mapNode,

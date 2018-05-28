@@ -5,7 +5,6 @@ const {
   getAncestorCount,
   getLast,
   getLastDescendantNode,
-  getParentNode,
   getRoot,
   hasExplicitDocumentEnd,
   hasPrettierIgnore,
@@ -35,7 +34,7 @@ const {
 const printer = {
   print(path, options, print) {
     const node = path.getValue();
-    const parentNode = getParentNode(path);
+    const parentNode = path.getParentNode();
     const tag =
       "tag" in node && node.tag.type !== "null" ? path.call(print, "tag") : "";
     const anchor =
@@ -60,8 +59,8 @@ const printer = {
               parentParentNode.type === "mappingItem" &&
               !(
                 node.leadingComments.length !== 0 &&
-                !isImplicitMappingItem(parentParentNode, getParentNode(path, 2))
-              ))(getParentNode(path, 1)) &&
+                !isImplicitMappingItem(parentParentNode, path.getParentNode(2))
+              ))(path.getParentNode(1)) &&
             !tag &&
             !anchor
               ? hardline
@@ -86,13 +85,13 @@ const printer = {
                 parentParentNode.type === "mappingItem" &&
                 ("trailingComments" in parentParentNode.key.node &&
                   parentParentNode.key.node.trailingComments.length !== 0))(
-                getParentNode(path, 1)
+                path.getParentNode(1)
               )
             ) &&
             !(parentParentNode =>
               parentParentNode.type === "mappingItem" &&
-              !isImplicitMappingItem(parentParentNode, getParentNode(path, 2)))(
-              getParentNode(path, 1)
+              !isImplicitMappingItem(parentParentNode, path.getParentNode(2)))(
+              path.getParentNode(1)
             ))
           ? hardline
           : ""
@@ -121,7 +120,7 @@ const printer = {
               " ",
               isSingleLineNode(node) &&
               parentNode.type === "mappingValue" &&
-              getParentNode(path, 1).type === "mappingItem"
+              path.getParentNode(1).type === "mappingItem"
                 ? ""
                 : breakParent,
               path.map(print, "trailingComments")[0]
@@ -326,11 +325,11 @@ const printer = {
         case "sequenceItem":
           return concat(["- ", align(2, path.call(print, "node"))]);
         case "mappingKey":
-          return isImplicitMappingItem(parentNode, getParentNode(path, 1))
+          return isImplicitMappingItem(parentNode, path.getParentNode(1))
             ? path.call(print, "node")
             : concat(["? ", align(2, path.call(print, "node"))]);
         case "mappingValue":
-          return isImplicitMappingItem(parentNode, getParentNode(path, 1))
+          return isImplicitMappingItem(parentNode, path.getParentNode(1))
             ? concat([
                 concat([
                   needsSpaceInFrontOfMappingValue(parentNode) ? " " : "",
