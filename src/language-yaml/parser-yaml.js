@@ -24,11 +24,17 @@ function defineShortcuts(node) {
   }
 }
 
+function parse(text) {
+  return require("yaml-unist-parser").parse(
+    text.length === 0 || text[text.length - 1] === "\n" ? text : text + "\n"
+  );
+}
+
 const parser = {
   astFormat: "yaml",
   parse: text => {
     try {
-      const root = mapNode(require("yaml-unist-parser").parse(text), node => {
+      const root = mapNode(parse(text), node => {
         if (
           (node.type === "mappingKey" || node.type === "mappingValue") &&
           node.children[0].type === "null" &&
