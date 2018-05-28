@@ -19,7 +19,7 @@ shell.mkdir("-p", docs);
 
 if (isPullRequest) {
   // --- Build prettier for PR ---
-  const pkg = require("../../package.json");
+  const pkg = require("../package.json");
   pkg.version = `999.999.999-pr.${process.env.REVIEW_ID}`;
   pipe(JSON.stringify(pkg, null, 2)).to("package.json");
   shell.exec("node scripts/build/build.js");
