@@ -59,7 +59,7 @@ This option cannot be used with --range-start and --range-end.",
           "type": "boolean",
         },
         "parser": Object {
-          "default": "babylon",
+          "default": undefined,
           "description": "Which parser to use.",
           "oneOf": Array [
             Object {
@@ -105,6 +105,18 @@ This option cannot be used with --range-start and --range-end.",
               ],
             },
             Object {
+              "description": "JSON5",
+              "enum": Array [
+                "json5",
+              ],
+            },
+            Object {
+              "description": "JSON.stringify",
+              "enum": Array [
+                "json-stringify",
+              ],
+            },
+            Object {
               "description": "GraphQL",
               "enum": Array [
                 "graphql",
@@ -123,6 +135,16 @@ This option cannot be used with --range-start and --range-end.",
               ],
             },
           ],
+        },
+        "pluginSearchDirs": Object {
+          "default": Array [],
+          "description": "Custom directory that contains prettier plugins in node_modules subdirectory.
+Overrides default behavior when plugins are searched relatively to the location of Prettier.
+Multiple values are accepted.",
+          "items": Object {
+            "type": "string",
+          },
+          "type": "array",
         },
         "plugins": Object {
           "default": Array [],

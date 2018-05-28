@@ -5,9 +5,9 @@ title: Configuration File
 
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support. This means you can configure prettier via:
 
-* A `.prettierrc` file, written in YAML or JSON, with optional extensions: `.yaml/.yml/.json/.js`.
-* A `prettier.config.js` file that exports an object.
-* A `"prettier"` key in your `package.json` file.
+- A `.prettierrc` file, written in YAML or JSON, with optional extensions: `.yaml/.yml/.json/.js`.
+- A `prettier.config.js` file that exports an object.
+- A `"prettier"` key in your `package.json` file.
 
 The configuration file will be resolved starting from the location of the file being formatted, and searching up the file tree until a config file is (or isn't) found.
 

@@ -401,7 +401,24 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 - First value
 + Second value
 
-@@ -27,15 +27,26 @@
+@@ -7,10 +7,16 @@
+        \\"graphql\\",
+      ],
+      \\"JSON\\": Array [
+        \\"json\\",
+      ],
++     \\"JSON.stringify\\": Array [
++       \\"json-stringify\\",
++     ],
++     \\"JSON5\\": Array [
++       \\"json5\\",
++     ],
+      \\"JSX\\": Array [
+        \\"babylon\\",
+        \\"flow\\",
+      ],
+      \\"JavaScript\\": Array [
+@@ -27,15 +33,26 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -428,17 +445,26 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -68,14 +79,19 @@
+@@ -66,16 +83,27 @@
+          \\"typescript\\",
+          \\"css\\",
           \\"less\\",
           \\"scss\\",
           \\"json\\",
++         \\"json5\\",
++         \\"json-stringify\\",
           \\"graphql\\",
           \\"markdown\\",
 +         \\"vue\\",
         ],
-        \\"default\\": \\"babylon\\",
+-       \\"default\\": \\"babylon\\",
++       \\"default\\": undefined,
         \\"type\\": \\"choice\\",
       },
++     \\"pluginSearchDirs\\": Object {
++       \\"default\\": Array [],
++       \\"type\\": \\"path\\",
++     },
 +     \\"plugins\\": Object {
 +       \\"default\\": Array [],
 +       \\"type\\": \\"path\\",
@@ -448,7 +474,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -83,14 +99,15 @@
+@@ -83,14 +111,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -541,6 +567,20 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"aceMode\\": \\"json\\",
       \\"codemirrorMimeType\\": \\"application/json\\",
       \\"codemirrorMode\\": \\"javascript\\",
+      \\"extensions\\": [],
+      \\"filenames\\": [\\"package.json\\", \\"package-lock.json\\", \\"composer.json\\"],
+      \\"group\\": \\"JavaScript\\",
+      \\"linguistLanguageId\\": 174,
+      \\"name\\": \\"JSON.stringify\\",
+      \\"parsers\\": [\\"json-stringify\\"],
+      \\"since\\": \\"1.13.0\\",
+      \\"tmScope\\": \\"source.json\\",
+      \\"vscodeLanguageIds\\": [\\"json\\"]
+    },
+    {
+      \\"aceMode\\": \\"json\\",
+      \\"codemirrorMimeType\\": \\"application/json\\",
+      \\"codemirrorMode\\": \\"javascript\\",
       \\"extensions\\": [\\".json\\", \\".geojson\\", \\".JSON-tmLanguage\\", \\".topojson\\"],
       \\"filenames\\": [
         \\".arcconfig\\",
@@ -557,6 +597,20 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.5.0\\",
       \\"tmScope\\": \\"source.json\\",
       \\"vscodeLanguageIds\\": [\\"json\\", \\"jsonc\\"]
+    },
+    {
+      \\"aceMode\\": \\"json\\",
+      \\"codemirrorMimeType\\": \\"application/json\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"extensions\\": [\\".json5\\"],
+      \\"filenames\\": [\\".babelrc\\"],
+      \\"group\\": \\"JavaScript\\",
+      \\"linguistLanguageId\\": 175,
+      \\"name\\": \\"JSON5\\",
+      \\"parsers\\": [\\"json5\\"],
+      \\"since\\": \\"1.13.0\\",
+      \\"tmScope\\": \\"source.json\\",
+      \\"vscodeLanguageIds\\": [\\"json5\\"]
     },
     {
       \\"aceMode\\": \\"css\\",
@@ -752,16 +806,32 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"Less\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"less\\" },
         { \\"description\\": \\"SCSS\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"scss\\" },
         { \\"description\\": \\"JSON\\", \\"since\\": \\"1.5.0\\", \\"value\\": \\"json\\" },
+        { \\"description\\": \\"JSON5\\", \\"since\\": \\"1.13.0\\", \\"value\\": \\"json5\\" },
+        {
+          \\"description\\": \\"JSON.stringify\\",
+          \\"since\\": \\"1.13.0\\",
+          \\"value\\": \\"json-stringify\\"
+        },
         { \\"description\\": \\"GraphQL\\", \\"since\\": \\"1.5.0\\", \\"value\\": \\"graphql\\" },
         { \\"description\\": \\"Markdown\\", \\"since\\": \\"1.8.0\\", \\"value\\": \\"markdown\\" },
         { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" }
       ],
-      \\"default\\": \\"babylon\\",
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.10\\",
       \\"type\\": \\"choice\\"
+    },
+    {
+      \\"array\\": true,
+      \\"category\\": \\"Global\\",
+      \\"default\\": [],
+      \\"description\\":
+        \\"Custom directory that contains prettier plugins in node_modules subdirectory.\\\\nOverrides default behavior when plugins are searched relatively to the location of Prettier.\\\\nMultiple values are accepted.\\",
+      \\"name\\": \\"pluginSearchDirs\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.13.0\\",
+      \\"type\\": \\"path\\"
     },
     {
       \\"array\\": true,
