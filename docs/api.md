@@ -12,7 +12,7 @@ const prettier = require("prettier");
 `format` is used to format text using Prettier. [Options](options.md) may be provided to override the defaults.
 
 ```js
-prettier.format("foo ( );", { semi: false });
+prettier.format("foo ( );", { semi: false, parser: 'babylon' });
 // -> "foo()"
 ```
 
@@ -27,7 +27,7 @@ prettier.format("foo ( );", { semi: false });
 The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
 
 ```js
-prettier.formatWithCursor(" 1", { cursorOffset: 2 });
+prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: 'babylon' });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
