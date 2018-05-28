@@ -468,7 +468,7 @@ function printDocToString(doc, options) {
                   if (
                     out.length &&
                     typeof out[out.length - 1] === "string" &&
-                    (options.parser !== "markdown" ||
+                    (!util.isParser(options, "markdown") ||
                       // preserve markdown's `break` node (two trailing spaces)
                       !/\S {2}$/.test(out[out.length - 1]))
                   ) {

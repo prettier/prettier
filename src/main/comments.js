@@ -13,6 +13,7 @@ const {
 const {
   hasNewline,
   skipNewline,
+  isParser,
   isPreviousLineEmpty
 } = require("../common/util");
 const {
@@ -184,7 +185,7 @@ function attach(comments, ast, text, options) {
 
   comments.forEach((comment, i) => {
     if (
-      (options.parser === "json" || options.parser === "json5") &&
+      (isParser(options, "json") || isParser(options, "json5")) &&
       locStart(comment) - locStart(ast) <= 0
     ) {
       addLeadingComment(ast, comment);

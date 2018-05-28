@@ -14,6 +14,7 @@ const {
   getStringWidth,
   printString,
   printNumber,
+  isParser,
   hasIgnoreComment,
   skipWhitespace,
   hasNodeIgnoreComment,
@@ -1420,7 +1421,7 @@ function printPathNoParens(path, options, print, args) {
       // See corresponding workaround in needs-parens.js
       const grandParent = path.getParentNode(1);
       const isTypeScriptDirective =
-        options.parser === "typescript" &&
+        isParser(options, "typescript") &&
         typeof n.value === "string" &&
         grandParent &&
         (grandParent.type === "Program" ||
@@ -3281,7 +3282,7 @@ function printPropertyKey(path, options, print) {
   if (
     key.type === "Identifier" &&
     !node.computed &&
-    options.parser === "json"
+    isParser(options, "json")
   ) {
     // a -> "a"
     return path.call(
@@ -3299,8 +3300,8 @@ function printPropertyKey(path, options, print) {
     isStringLiteral(key) &&
     isIdentifierName(key.value) &&
     !node.computed &&
-    options.parser !== "json" &&
-    !(options.parser === "typescript" && node.type === "ClassProperty")
+    !isParser(options, "json") &&
+    !(isParser(options, "typescript") && node.type === "ClassProperty")
   ) {
     // 'a' -> a
     return path.call(
@@ -4070,7 +4071,7 @@ function printTypeParameters(path, options, print, paramsKey) {
         ])
       ),
       ifBreak(
-        options.parser !== "typescript" && shouldPrintComma(options, "all")
+        !isParser(options, "typescript") && shouldPrintComma(options, "all")
           ? ","
           : ""
       ),
@@ -5538,7 +5539,7 @@ function isTypeAnnotationAFunction(node, options) {
 }
 
 function isNodeStartingWithDeclare(node, options) {
-  if (!(options.parser === "flow" || options.parser === "typescript")) {
+  if (!(isParser(options, "flow") || isParser(options, "typescript"))) {
     return false;
   }
   return (

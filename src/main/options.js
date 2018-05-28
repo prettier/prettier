@@ -3,6 +3,7 @@
 const path = require("path");
 const UndefinedParserError = require("../common/errors").UndefinedParserError;
 const getSupportInfo = require("../main/support").getSupportInfo;
+const isParser = require("../common/util").isParser;
 const normalizer = require("./options-normalizer");
 const resolveParser = require("./parser").resolveParser;
 
@@ -80,7 +81,7 @@ function normalize(options, opts) {
     }
   });
 
-  if (rawOptions.parser === "json") {
+  if (isParser(rawOptions, "json")) {
     rawOptions.trailingComma = "none";
   }
 
