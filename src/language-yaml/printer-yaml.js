@@ -10,6 +10,7 @@ const {
   isLastDescendantNode,
   isNextLineEmpty,
   isNode,
+  isBlockValue,
   restoreBlockFoldedValue
 } = require("./utils");
 const {
@@ -113,8 +114,7 @@ function genericPrint(path, options, print) {
           node.position.end.offset
         )
       : group(_print(node, parentNode, path, options, print)),
-    node.type !== "blockFolded" &&
-    node.type !== "blockLiteral" &&
+    !isBlockValue(node) &&
     "trailingComments" in node &&
     node.trailingComments.length === 1
       ? lineSuffix(
@@ -159,8 +159,7 @@ function _print(node, parentNode, path, options, print) {
         ),
         node.children.length === 0 ||
         (lastDescendantNode =>
-          (lastDescendantNode.type === "blockFolded" ||
-            lastDescendantNode.type === "blockLiteral") &&
+          isBlockValue(lastDescendantNode) &&
           (/[^\S\n]\n?$/.test(lastDescendantNode.value) ||
             (lastDescendantNode.chomping === "keep" &&
               lastDescendantNode.value === "\n")))(getLastDescendantNode(node))
@@ -301,8 +300,7 @@ function _print(node, parentNode, path, options, print) {
                   : (keyNode =>
                       "trailingComments" in keyNode &&
                       keyNode.trailingComments.length !== 0 &&
-                      (node.node.type !== "blockFolded" &&
-                        node.node.type !== "blockLiteral"))(parentNode.key.node)
+                      !isBlockValue(node.node))(parentNode.key.node)
                     ? hardline
                     : isInlineNode(node.node)
                       ? line

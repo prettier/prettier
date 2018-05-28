@@ -153,10 +153,21 @@ function restoreBlockFoldedValue(value) {
   return lines.join("\n");
 }
 
+function isBlockValue(node) {
+  switch (node.type) {
+    case "blockFolded":
+    case "blockLiteral":
+      return true;
+    default:
+      return false;
+  }
+}
+
 module.exports = {
   getLast,
   getAncestorCount,
   isNode,
+  isBlockValue,
   mapNode,
   defineShortcut,
   createNull,
