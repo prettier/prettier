@@ -125,7 +125,7 @@ function genericPrint(path, options, print) {
             path.getParentNode(1).type === "mappingItem"
               ? ""
               : breakParent,
-            path.map(print, "trailingComments")[0]
+            path.call(print, "trailingComments", 0)
           ])
         )
       : "",
@@ -138,44 +138,32 @@ function _print(node, parentNode, path, options, print) {
     case "root":
       return concat([
         concat(
-          path
-            .map(print, "children")
-            .reduce(
-              (reduced, doc, index) =>
-                reduced.concat(
-                  index === 0
-                    ? doc
-                    : [
-                        !(
-                          path.call(
-                            hasPrettierIgnore,
-                            "children",
-                            index - 1,
-                            "body"
-                          ) &&
-                          hasExplicitDocumentEnd(
-                            node.children[index - 1].position.end,
-                            options.originalText
-                          )
-                        ) &&
-                        node.children[index - 1].trailingComments.length === 0
-                          ? concat([hardline, "..."])
-                          : "",
-                        hardline,
-                        doc
-                      ]
-                ),
-              []
-            )
+          path.map(
+            (childPath, index) =>
+              index === node.children.length - 1
+                ? print(childPath)
+                : concat([
+                    print(childPath),
+                    node.children[index].trailingComments.length !== 0 ||
+                    (childPath.call(hasPrettierIgnore, "body") &&
+                      hasExplicitDocumentEnd(
+                        node.children[index].position.end,
+                        options.originalText
+                      ))
+                      ? ""
+                      : concat([hardline, "..."]),
+                    hardline
+                  ]),
+            "children"
+          )
         ),
         node.children.length === 0 ||
-        (descendant =>
-          (descendant.type === "blockFolded" ||
-            descendant.type === "blockLiteral") &&
-          (/[^\S\n]\n?$/.test(descendant.value) ||
-            (descendant.chomping === "keep" && descendant.value === "\n")))(
-          getLastDescendantNode(node)
-        )
+        (lastDescendantNode =>
+          (lastDescendantNode.type === "blockFolded" ||
+            lastDescendantNode.type === "blockLiteral") &&
+          (/[^\S\n]\n?$/.test(lastDescendantNode.value) ||
+            (lastDescendantNode.chomping === "keep" &&
+              lastDescendantNode.value === "\n")))(getLastDescendantNode(node))
           ? ""
           : hardline
       ]);
