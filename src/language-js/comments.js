@@ -702,7 +702,7 @@ function handleVariableDeclaratorComments(
     (followingNode.type === "ObjectExpression" ||
       followingNode.type === "ArrayExpression" ||
       followingNode.type === "TemplateLiteral" ||
-      followingNode.type === "TaggedTemplateLiteral")
+      followingNode.type === "TaggedTemplateExpression")
   ) {
     addLeadingComment(followingNode, comment);
     return true;
