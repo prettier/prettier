@@ -66,26 +66,30 @@ function isNextLineEmpty(node, text) {
   return false;
 }
 
-function isLastNode(path) {
-  for (let i = 2; i < path.stack.length; i++) {
-    const lastLastItem = path.stack[i - 2];
-    if (
-      lastLastItem === "leadingComments" ||
-      lastLastItem === "middleComments" ||
-      lastLastItem === "trailingComments"
-    ) {
+function isLastDescendantNode(path) {
+  const node = path.getValue();
+
+  switch (node.type) {
+    case "comment":
+    case "verbatimTag":
+    case "shorthandTag":
+    case "nonSpecificTag":
       return false;
-    }
+  }
+
+  for (let i = 1; i < path.stack.length; i++) {
     const item = path.stack[i];
-    const lastItem = path.stack[i - 1];
+    const parentItem = path.stack[i - 1];
+
     if (
-      Array.isArray(lastItem) &&
+      Array.isArray(parentItem) &&
       typeof item === "number" &&
-      item !== lastItem.length - 1
+      item !== parentItem.length - 1
     ) {
       return false;
     }
   }
+
   return true;
 }
 
@@ -130,7 +134,7 @@ module.exports = {
   defineShortcut,
   createNull,
   isNextLineEmpty,
-  isLastNode,
+  isLastDescendantNode,
   getLastDescendantNode,
   hasPrettierIgnore,
   hasExplicitDocumentEnd

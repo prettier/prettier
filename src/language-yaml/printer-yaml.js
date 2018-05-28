@@ -7,7 +7,7 @@ const {
   getLastDescendantNode,
   hasExplicitDocumentEnd,
   hasPrettierIgnore,
-  isLastNode,
+  isLastDescendantNode,
   isNextLineEmpty,
   isNode
 } = require("./utils");
@@ -47,7 +47,7 @@ const printer = {
         node.type === "directive" ||
         node.type === "mappingItem" ||
         node.type === "sequenceItem") &&
-      !isLastNode(path)
+      !isLastDescendantNode(path)
         ? printNextEmptyLine(path, options.originalText)
         : "";
     return concat([
