@@ -6,6 +6,9 @@ const {
   getLast,
   getLastDescendantNode,
   hasExplicitDocumentEnd,
+  hasLeadingComments,
+  hasMiddleComments,
+  hasTrailingComments,
   hasPrettierIgnore,
   isLastDescendantNode,
   isNextLineEmpty,
@@ -38,6 +41,7 @@ function genericPrint(path, options, print) {
 
   const tag =
     "tag" in node && node.tag.type !== "null" ? path.call(print, "tag") : "";
+
   const anchor =
     "anchor" in node && node.anchor.type !== "null"
       ? path.call(print, "anchor")
@@ -55,17 +59,15 @@ function genericPrint(path, options, print) {
       : "";
 
   return concat([
-    "leadingComments" in node && node.leadingComments.length !== 0
+    hasLeadingComments(node)
       ? concat([
           (node.type === "sequence" || node.type === "mapping") &&
           (parentParentNode =>
             parentParentNode.type === "mappingItem" &&
-            !(
-              node.leadingComments.length !== 0 &&
-              !isImplicitMappingItem(parentParentNode, path.getParentNode(2))
-            ))(path.getParentNode(1)) &&
-          !tag &&
-          !anchor
+            isImplicitMappingItem(parentParentNode, path.getParentNode(2)))(
+            path.getParentNode(1)
+          ) &&
+          !(tag || anchor)
             ? hardline
             : "",
           join(hardline, path.map(print, "leadingComments")),
@@ -86,8 +88,7 @@ function genericPrint(path, options, print) {
             parentNode.type === "mappingValue" &&
             (parentParentNode =>
               parentParentNode.type === "mappingItem" &&
-              ("trailingComments" in parentParentNode.key.node &&
-                parentParentNode.key.node.trailingComments.length !== 0))(
+              hasTrailingComments(parentParentNode.key.node))(
               path.getParentNode(1)
             )
           ) &&
@@ -101,7 +102,7 @@ function genericPrint(path, options, print) {
       : tag || anchor
         ? " "
         : "",
-    "middleComments" in node && node.middleComments.length !== 0
+    hasMiddleComments(node)
       ? concat([
           node.middleComments.length === 1 ? "" : hardline,
           join(hardline, path.map(print, "middleComments")),
@@ -114,9 +115,7 @@ function genericPrint(path, options, print) {
           node.position.end.offset
         )
       : group(_print(node, parentNode, path, options, print)),
-    !isBlockValue(node) &&
-    "trailingComments" in node &&
-    node.trailingComments.length === 1
+    !isBlockValue(node) && hasTrailingComments(node) // trailing comments for block value are handled themselves
       ? lineSuffix(
           concat([
             " ",
@@ -125,7 +124,7 @@ function genericPrint(path, options, print) {
             path.getParentNode(1).type === "mappingItem"
               ? ""
               : breakParent,
-            path.call(print, "trailingComments", 0)
+            join(hardline, path.map(print, "trailingComments"))
           ])
         )
       : "",
@@ -144,7 +143,7 @@ function _print(node, parentNode, path, options, print) {
                 ? print(childPath)
                 : concat([
                     print(childPath),
-                    node.children[index].trailingComments.length !== 0 ||
+                    hasTrailingComments(node.children[index]) ||
                     (childPath.call(hasPrettierIgnore, "body") &&
                       hasExplicitDocumentEnd(
                         node.children[index].position.end,
@@ -176,7 +175,7 @@ function _print(node, parentNode, path, options, print) {
                 node.body.children.length === 0 ? [] : path.call(print, "body")
               )
             ),
-        node.trailingComments.length !== 0 ? concat([hardline, "..."]) : ""
+        hasTrailingComments(node) ? concat([hardline, "..."]) : ""
       ]);
     case "documentHead":
     case "documentBody":
@@ -221,7 +220,7 @@ function _print(node, parentNode, path, options, print) {
         node.type === "blockFolded" ? ">" : "|",
         node.indent === null ? "" : node.indent.toString(),
         node.chomping === "clip" ? "" : node.chomping === "keep" ? "+" : "-",
-        node.trailingComments.length !== 0
+        hasTrailingComments(node)
           ? concat([" ", join(hardline, path.map(print, "trailingComments"))])
           : "",
         value === ""
@@ -297,10 +296,8 @@ function _print(node, parentNode, path, options, print) {
               concat([
                 node.node.type === "null"
                   ? ""
-                  : (keyNode =>
-                      "trailingComments" in keyNode &&
-                      keyNode.trailingComments.length !== 0 &&
-                      !isBlockValue(node.node))(parentNode.key.node)
+                  : hasTrailingComments(parentNode.key.node) &&
+                    !isBlockValue(node.node)
                     ? hardline
                     : isInlineNode(node.node)
                       ? line
@@ -434,10 +431,7 @@ function isImplicitMappingItem(node, parentNode) {
    *       key
    *     : value
    */
-  if (
-    "leadingComments" in node.key.node &&
-    node.key.node.leadingComments.length !== 0
-  ) {
+  if (hasLeadingComments(node.key.node)) {
     return false;
   }
 
@@ -446,10 +440,7 @@ function isImplicitMappingItem(node, parentNode) {
    *     # comment
    *     : value
    */
-  if (
-    "leadingComments" in node.value &&
-    node.value.leadingComments.length !== 0
-  ) {
+  if (hasLeadingComments(node.value)) {
     return false;
   }
 

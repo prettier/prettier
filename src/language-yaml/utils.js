@@ -163,6 +163,18 @@ function isBlockValue(node) {
   }
 }
 
+function hasLeadingComments(node) {
+  return "leadingComments" in node && node.leadingComments.length !== 0;
+}
+
+function hasMiddleComments(node) {
+  return "middleComments" in node && node.middleComments.length !== 0;
+}
+
+function hasTrailingComments(node) {
+  return "trailingComments" in node && node.trailingComments.length !== 0;
+}
+
 module.exports = {
   getLast,
   getAncestorCount,
@@ -175,6 +187,9 @@ module.exports = {
   isLastDescendantNode,
   getLastDescendantNode,
   hasPrettierIgnore,
+  hasLeadingComments,
+  hasMiddleComments,
+  hasTrailingComments,
   hasExplicitDocumentEnd,
   restoreBlockFoldedValue
 };
