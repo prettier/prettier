@@ -5,7 +5,6 @@ const {
   getAncestorCount,
   getLast,
   getLastDescendantNode,
-  getRoot,
   hasExplicitDocumentEnd,
   hasPrettierIgnore,
   isLastNode,
@@ -49,7 +48,7 @@ const printer = {
         node.type === "mappingItem" ||
         node.type === "sequenceItem") &&
       !isLastNode(path)
-        ? printNextEmptyLine(node, getRoot(path), options.originalText)
+        ? printNextEmptyLine(path, options.originalText)
         : "";
     return concat([
       "leadingComments" in node && node.leadingComments.length !== 0
@@ -132,7 +131,6 @@ const printer = {
     function _print() {
       switch (node.type) {
         case "root":
-          node.isNextEmptyLinePrintedChecklist = [];
           return concat([
             concat(
               path
@@ -393,20 +391,23 @@ const printer = {
               concat([
                 bracketSpacing,
                 concat(
-                  path.map(print, "children").reduce((reduced, doc, index) => {
-                    if (index === node.children.length - 1) {
-                      return reduced.concat(doc);
-                    }
-                    return reduced.concat(
-                      doc,
-                      concat([",", line]),
-                      printNextEmptyLine(
-                        node.children[index],
-                        getRoot(path),
-                        options.originalText
-                      )
-                    );
-                  }, [])
+                  path.map(
+                    (childPath, index) =>
+                      concat([
+                        print(childPath),
+                        index === node.children.length - 1
+                          ? ""
+                          : concat([
+                              ",",
+                              line,
+                              printNextEmptyLine(
+                                childPath,
+                                options.originalText
+                              )
+                            ])
+                      ]),
+                    "children"
+                  )
                 ),
                 node.children.length !== 0 &&
                 (lastItem =>
@@ -566,13 +567,20 @@ function needsSpaceInFrontOfMappingValue(node) {
   return false;
 }
 
-function printNextEmptyLine(node, root, text) {
+function printNextEmptyLine(path, originalText) {
+  const node = path.getValue();
+  const root = path.stack[0];
+
+  root.isNextEmptyLinePrintedChecklist =
+    root.isNextEmptyLinePrintedChecklist || [];
+
   if (!root.isNextEmptyLinePrintedChecklist[node.position.end.line]) {
-    if (isNextLineEmpty(node, text)) {
+    if (isNextLineEmpty(node, originalText)) {
       root.isNextEmptyLinePrintedChecklist[node.position.end.line] = true;
       return softline;
     }
   }
+
   return "";
 }
 

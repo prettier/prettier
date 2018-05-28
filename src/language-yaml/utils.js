@@ -66,10 +66,6 @@ function isNextLineEmpty(node, text) {
   return false;
 }
 
-function getRoot(path) {
-  return path.stack[0];
-}
-
 function isLastNode(path) {
   for (let i = 2; i < path.stack.length; i++) {
     const lastLastItem = path.stack[i - 2];
@@ -134,7 +130,6 @@ module.exports = {
   defineShortcut,
   createNull,
   isNextLineEmpty,
-  getRoot,
   isLastNode,
   getLastDescendantNode,
   hasPrettierIgnore,
