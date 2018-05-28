@@ -35,3 +35,4 @@ title: Related Projects
 - [`rollup-plugin-prettier`](https://github.com/mjeanroy/rollup-plugin-prettier) allows you to use Prettier with Rollup
 - [`markdown-magic-prettier`](https://github.com/camacho/markdown-magic-prettier) allows you to use Prettier to format JS [codeblocks](https://help.github.com/articles/creating-and-highlighting-code-blocks/) in Markdown files via [Markdown Magic](https://github.com/DavidWells/markdown-magic)
 - [`pretty-quick`](https://github.com/azz/pretty-quick) formats your changed files with Prettier
+- [`prettier-chrome`](https://github.com/u3u/prettier-chrome) an extension that can be formatted using Prettier in Chrome
