@@ -2,6 +2,34 @@
 
 const htmlTagNames = require("html-tag-names");
 
+const colorAdjusterFunctions = [
+  "red",
+  "green",
+  "blue",
+  "alpha",
+  "a",
+  "rgb",
+  "hue",
+  "h",
+  "saturation",
+  "s",
+  "lightness",
+  "l",
+  "whiteness",
+  "w",
+  "blackness",
+  "b",
+  "tint",
+  "shade",
+  "blend",
+  "blenda",
+  "contrast",
+  "hsl",
+  "hsla",
+  "hwb",
+  "hwba"
+];
+
 function getAncestorCounter(path, typeOrTypes) {
   const types = [].concat(typeOrTypes);
 
@@ -346,6 +374,14 @@ function isMediaAndSupportsKeywords(node) {
   );
 }
 
+function isColorAdjusterFuncNode(node) {
+  if (node.type !== "value-func") {
+    return false;
+  }
+
+  return colorAdjusterFunctions.indexOf(node.value.toLowerCase()) !== -1;
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -389,5 +425,6 @@ module.exports = {
   isRightCurlyBraceNode,
   isWordNode,
   isColonNode,
-  isMediaAndSupportsKeywords
+  isMediaAndSupportsKeywords,
+  isColorAdjusterFuncNode
 };
