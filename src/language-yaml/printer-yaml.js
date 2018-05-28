@@ -5,7 +5,7 @@ const {
   getAncestorCount,
   getLast,
   getLastDescendantNode,
-  hasExplicitDocumentEnd,
+  hasExplicitDocumentEndMarker,
   hasLeadingComments,
   hasMiddleComments,
   hasTrailingComments,
@@ -145,8 +145,8 @@ function _print(node, parentNode, path, options, print) {
                     print(childPath),
                     hasTrailingComments(node.children[index]) ||
                     (childPath.call(hasPrettierIgnore, "body") &&
-                      hasExplicitDocumentEnd(
-                        node.children[index].position.end,
+                      hasExplicitDocumentEndMarker(
+                        node.children[index],
                         options.originalText
                       ))
                       ? ""

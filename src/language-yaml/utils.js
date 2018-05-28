@@ -122,8 +122,13 @@ function hasPrettierIgnore(path) {
   );
 }
 
-function hasExplicitDocumentEnd(endPoint, text) {
-  return text.slice(endPoint.offset - 4, endPoint.offset) === "\n...";
+function hasExplicitDocumentEndMarker(document, text) {
+  return (
+    text.slice(
+      document.position.end.offset - 4,
+      document.position.end.offset
+    ) === "\n..."
+  );
 }
 
 function restoreBlockFoldedValue(value) {
@@ -190,6 +195,6 @@ module.exports = {
   hasLeadingComments,
   hasMiddleComments,
   hasTrailingComments,
-  hasExplicitDocumentEnd,
+  hasExplicitDocumentEndMarker,
   restoreBlockFoldedValue
 };
