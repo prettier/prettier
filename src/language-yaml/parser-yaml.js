@@ -24,42 +24,52 @@ function defineShortcuts(node) {
   }
 }
 
-function parse(text) {
+function _parse(text) {
   return require("yaml-unist-parser").parse(
     text.length === 0 || text[text.length - 1] === "\n" ? text : text + "\n"
   );
 }
 
+function parse(text) {
+  try {
+    const root = mapNode(_parse(text), node => {
+      // replace explicit empty MappingKey/MappingValue with implicit one
+      if (
+        (node.type === "mappingKey" || node.type === "mappingValue") &&
+        node.children[0].type === "null" &&
+        node.leadingComments.length === 0 &&
+        node.trailingComments.length === 0
+      ) {
+        return createNull();
+      }
+
+      defineShortcuts(node);
+      return node;
+    });
+
+    /**
+     * suppress `comment not printed` error
+     *
+     * comments are handled in printer-yaml.js without using `printComment`
+     * so that it'll always throw errors even if we printed it correctly
+     */
+    delete root.comments;
+
+    return root;
+  } catch (error) {
+    // istanbul ignore next
+    throw error && error.name === "YAMLSyntaxError"
+      ? createError(error.message, error.position)
+      : error;
+  }
+}
+
 const parser = {
   astFormat: "yaml",
-  parse: text => {
-    try {
-      const root = mapNode(parse(text), node => {
-        if (
-          (node.type === "mappingKey" || node.type === "mappingValue") &&
-          node.children[0].type === "null" &&
-          node.leadingComments.length === 0 &&
-          node.trailingComments.length === 0
-        ) {
-          return createNull();
-        }
-        defineShortcuts(node);
-        return node;
-      });
-      delete root.comments; // suppress not printed error, comments are handled ourselves
-      return root;
-    } catch (error) {
-      // istanbul ignore next
-      if (error && error.name === "YAMLSyntaxError") {
-        throw createError(error.message, error.position);
-      }
-      // istanbul ignore next
-      throw error;
-    }
-  },
-  locStart: /* istanbul ignore next */ node => node.position.start.offset,
-  locEnd: /* istanbul ignore next */ node => node.position.end.offset,
-  hasPragma
+  parse,
+  hasPragma,
+  locStart: node => node.position.start.offset,
+  locEnd: node => node.position.end.offset
 };
 
 module.exports = {
