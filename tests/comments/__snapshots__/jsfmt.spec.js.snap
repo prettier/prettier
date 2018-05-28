@@ -1757,6 +1757,15 @@ let obj = [
   // Comment
   'val'
 ]
+
+let obj = // Comment
+\`val\`;
+
+let obj = // Comment
+\`
+val
+val
+\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let obj =
   // Comment
@@ -1797,5 +1806,16 @@ let obj = [
   // Comment
   "val"
 ];
+
+let obj =
+  // Comment
+  \`val\`;
+
+let obj =
+  // Comment
+  \`
+val
+val
+\`;
 
 `;

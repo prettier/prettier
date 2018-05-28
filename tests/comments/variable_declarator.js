@@ -35,3 +35,12 @@ let obj = [
   // Comment
   'val'
 ]
+
+let obj = // Comment
+`val`;
+
+let obj = // Comment
+`
+val
+val
+`;
