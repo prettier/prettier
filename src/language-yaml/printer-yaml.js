@@ -9,7 +9,8 @@ const {
   hasPrettierIgnore,
   isLastDescendantNode,
   isNextLineEmpty,
-  isNode
+  isNode,
+  restoreBlockFoldedValue
 } = require("./utils");
 const {
   align,
@@ -256,26 +257,7 @@ function _print(node, parentNode, path, options, print) {
                   concat(
                     (node.type === "blockLiteral"
                       ? value
-                      : (lines => {
-                          let hasChecked = false;
-                          let isIndented = false;
-                          for (let i = 0; i < lines.length; i++) {
-                            const lineContent = lines[i];
-                            if (!lineContent) {
-                              continue;
-                            }
-                            if (/^\s/.test(lineContent[0])) {
-                              isIndented = true;
-                            } else {
-                              if (!isIndented && i !== 0 && hasChecked) {
-                                lines[i] = "\n" + lineContent;
-                              }
-                              isIndented = false;
-                            }
-                            hasChecked = true;
-                          }
-                          return lines.join("\n");
-                        })(value.split("\n"))
+                      : restoreBlockFoldedValue(value)
                     )
                       .split("\n")
                       .reduce(

@@ -126,6 +126,33 @@ function hasExplicitDocumentEnd(endPoint, text) {
   return text.slice(endPoint.offset - 4, endPoint.offset) === "\n...";
 }
 
+function restoreBlockFoldedValue(value) {
+  const lines = value.split("\n");
+
+  let hasChecked = false;
+  let isIndented = false;
+  for (let i = 0; i < lines.length; i++) {
+    const lineContent = lines[i];
+
+    if (!lineContent) {
+      continue;
+    }
+
+    if (/^\s/.test(lineContent[0])) {
+      isIndented = true;
+    } else {
+      if (!isIndented && i !== 0 && hasChecked) {
+        lines[i] = "\n" + lineContent;
+      }
+      isIndented = false;
+    }
+
+    hasChecked = true;
+  }
+
+  return lines.join("\n");
+}
+
 module.exports = {
   getLast,
   getAncestorCount,
@@ -137,5 +164,6 @@ module.exports = {
   isLastDescendantNode,
   getLastDescendantNode,
   hasPrettierIgnore,
-  hasExplicitDocumentEnd
+  hasExplicitDocumentEnd,
+  restoreBlockFoldedValue
 };
