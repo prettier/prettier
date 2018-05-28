@@ -4477,9 +4477,7 @@ function printMemberChain(path, options, print) {
       (lastNode.type === "MemberExpression" ||
         lastNode.type === "OptionalMemberExpression") &&
       lastNode.property.type === "Identifier" &&
-      (isFactory(lastNode.property.name) ||
-        (isExpression && isShort(lastNode.property.name)) ||
-        hasComputed)
+      (isFactory(lastNode.property.name) || hasComputed)
     );
   }
 
