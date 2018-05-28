@@ -361,14 +361,14 @@ function _print(node, parentNode, path, options, print) {
               )
             ),
             node.children.length !== 0 &&
-            (lastItem =>
+            (lastChild =>
               (node.type === "flowMapping" &&
-                lastItem.type === "flowMappingItem" &&
-                lastItem.key.type === "null" &&
-                lastItem.value.type === "null") ||
+                lastChild.type === "flowMappingItem" &&
+                lastChild.key.type === "null" &&
+                lastChild.value.type === "null") ||
               (node.type === "flowSequence" &&
-                lastItem.type === "flowSequenceItem" &&
-                lastItem.node.type === "null"))(getLast(node.children))
+                lastChild.type === "flowSequenceItem" &&
+                lastChild.node.type === "null"))(getLast(node.children))
               ? "," // trailing empty item
               : ifBreak(",", "")
           ])

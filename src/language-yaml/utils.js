@@ -51,18 +51,23 @@ function createNull() {
 
 function isNextLineEmpty(node, text) {
   let newlineCount = 0;
+
   for (let i = node.position.end.offset - 1; i < text.length; i++) {
     const char = text[i];
+
     if (char === "\n") {
       newlineCount++;
     }
+
     if (newlineCount === 1 && /\S/.test(char)) {
       return false;
     }
+
     if (newlineCount === 2) {
       return true;
     }
   }
+
   return false;
 }
 
@@ -94,10 +99,9 @@ function isLastDescendantNode(path) {
 }
 
 function getLastDescendantNode(node) {
-  if ("children" in node && node.children.length !== 0) {
-    return getLastDescendantNode(getLast(node.children));
-  }
-  return node;
+  return "children" in node && node.children.length !== 0
+    ? getLastDescendantNode(getLast(node.children))
+    : node;
 }
 
 function isPrettierIgnore(comment) {
@@ -106,6 +110,7 @@ function isPrettierIgnore(comment) {
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
+
   if (node.type === "documentBody") {
     const document = path.getParentNode();
     return (
@@ -115,6 +120,7 @@ function hasPrettierIgnore(path) {
       )
     );
   }
+
   return (
     "leadingComments" in node &&
     node.leadingComments.length !== 0 &&
