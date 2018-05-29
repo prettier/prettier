@@ -1,3 +1,9 @@
+# 1.13.2
+
+[link](https://github.com/prettier/prettier/compare/1.13.0...1.13.1)
+
+- Republished 1.13.1 with missing README included this time
+
 # 1.13.1
 
 [link](https://github.com/prettier/prettier/compare/1.13.0...1.13.1)
