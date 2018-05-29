@@ -542,8 +542,8 @@ function genericPrint(path, options, print) {
           continue;
         }
 
-        // Print spaces after `+` and `-` in color adjuster functions as is (i.e. `color(red l(+ 20%))`)
-        // Invalid syntax (i.e. `color(red l(+20%))`) output as is
+        // Print spaces after `+` and `-` in color adjuster functions as is (e.g. `color(red l(+ 20%))`)
+        // Adjusters with signed numbers (e.g. `color(red l(+20%))`) output as-is.
         const isColorAdjusterNode =
           (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
           i === 0 &&
