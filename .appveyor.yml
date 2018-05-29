@@ -2,7 +2,7 @@ version: '{build}'
 branches:
   only: [master]
 init:
-- ps: Install-Product node 8
+- ps: Install-Product node 6
 install:
 - cmd: npm -v 
 - cmd: node -v 
