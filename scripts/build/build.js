@@ -200,7 +200,7 @@ async function createPackageJson() {
   delete pkg.devDependencies;
   pkg.scripts = {
     prepublishOnly:
-      'node -e "assert.equal(require(".").version, require("..").version)"'
+      "node -e \"assert.equal(require('.').version, require('..').version)\""
   };
   await util.writeJson("dist/package.json", pkg);
 }
@@ -213,6 +213,8 @@ async function run() {
   }
 
   await createPackageJson();
+
+  await util.copyFile("./README.md", "./dist/README.md");
 }
 
 run();
