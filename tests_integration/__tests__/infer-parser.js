@@ -122,7 +122,7 @@ describe("API with no path and no parser", () => {
   const _console = global.console;
 
   beforeEach(() => {
-    global.console = { error: jest.fn() };
+    global.console = { warn: jest.fn() };
   });
 
   afterEach(() => {
@@ -131,13 +131,13 @@ describe("API with no path and no parser", () => {
 
   test("prettier.format", () => {
     expect(prettier.format(" foo  (  )")).toEqual("foo();\n");
-    expect(global.console.error).toHaveBeenCalledTimes(1);
-    expect(global.console.error.mock.calls[0]).toMatchSnapshot();
+    expect(global.console.warn).toHaveBeenCalledTimes(1);
+    expect(global.console.warn.mock.calls[0]).toMatchSnapshot();
   });
 
   test("prettier.check", () => {
     expect(prettier.check(" foo (  )")).toBe(false);
-    expect(global.console.error).toHaveBeenCalledTimes(1);
-    expect(global.console.error.mock.calls[0]).toMatchSnapshot();
+    expect(global.console.warn).toHaveBeenCalledTimes(1);
+    expect(global.console.warn.mock.calls[0]).toMatchSnapshot();
   });
 });
