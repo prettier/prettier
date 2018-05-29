@@ -1,3 +1,9 @@
+# 1.13.1
+
+[link](https://github.com/prettier/prettier/compare/1.13.0...1.13.1)
+
+- Revert default parser change in API (still present in CLI)
+
 # 1.13.0
 
 [link](https://github.com/prettier/prettier/compare/1.12.1...1.13.0)

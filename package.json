@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "1.13.0",
+  "version": "1.13.1",
   "description": "Prettier is an opinionated code formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
@@ -55,7 +55,8 @@
     "semver": "5.4.1",
     "string-width": "2.1.1",
     "typescript": "2.9.0-dev.20180421",
-    "typescript-eslint-parser": "eslint/typescript-eslint-parser#2960b002746c01fb9cb15bb5f4c1e7e925c6519a",
+    "typescript-eslint-parser":
+      "eslint/typescript-eslint-parser#2960b002746c01fb9cb15bb5f4c1e7e925c6519a",
     "unicode-regex": "1.0.1",
     "unified": "6.1.6"
   },
@@ -98,7 +99,8 @@
     "test": "jest",
     "test:dist": "node ./scripts/test-dist.js",
     "test-integration": "jest tests_integration",
-    "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
+    "lint":
+      "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "lint-docs": "prettylint {.,docs,website,website/blog}/*.md",
     "build": "node ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
