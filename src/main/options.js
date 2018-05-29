@@ -32,16 +32,20 @@ function normalize(options, opts) {
 
   if (!rawOptions.parser) {
     if (!rawOptions.filepath) {
-      throw new UndefinedParserError(
-        "No parser and no file path given, couldn't infer a parser."
+      const logger = opts.logger || console;
+      logger.warn(
+        "No parser and no filepath given, using 'babylon' the parser now " +
+          "but this will throw an error in the future. " +
+          "Please specify a parser or a filepath so one can be inferred."
       );
-    }
-
-    rawOptions.parser = inferParser(rawOptions.filepath, rawOptions.plugins);
-    if (!rawOptions.parser) {
-      throw new UndefinedParserError(
-        `No parser could be inferred for file: ${rawOptions.filepath}`
-      );
+      rawOptions.parser = "babylon";
+    } else {
+      rawOptions.parser = inferParser(rawOptions.filepath, rawOptions.plugins);
+      if (!rawOptions.parser) {
+        throw new UndefinedParserError(
+          `No parser could be inferred for file: ${rawOptions.filepath}`
+        );
+      }
     }
   }
 
