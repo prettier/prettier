@@ -1,6 +1,7 @@
 "use strict";
 
 const chalk = require("chalk");
+const stringWidth = require("string-width");
 const bundler = require("./bundler");
 const bundleConfigs = require("./config");
 const util = require("./util");
@@ -15,18 +16,30 @@ process.on("unhandledRejection", err => {
   throw err;
 });
 
+const OK = chalk.reset.inverse.bold.green(" DONE ");
+const FAIL = chalk.reset.inverse.bold.red(" FAIL ");
+
+function fitTerminal(input) {
+  const columns = process.stdout.columns || 80;
+  const WIDTH = columns - stringWidth(OK) + 1;
+  if (input.length < WIDTH) {
+    input += Array(WIDTH - input.length).join(chalk.dim("."));
+  }
+  return input;
+}
+
 async function createBundle(bundleConfig) {
   const { output } = bundleConfig;
-  console.log(`${chalk.bgYellow.black(" BUILDING ")} ${output}`);
+  process.stdout.write(fitTerminal(output));
 
   try {
     await bundler(bundleConfig, output);
   } catch (error) {
-    console.log(`${chalk.bgRed.black("  FAILED  ")} ${output}\n`);
+    process.stdout.write(`${FAIL}\n\n`);
     handleError(error);
   }
 
-  console.log(`${chalk.bgGreen.black(" COMPLETE ")} ${output}\n`);
+  process.stdout.write(`${OK}\n`);
 }
 
 function handleError(error) {
@@ -53,6 +66,7 @@ async function preparePackage() {
 async function run() {
   await util.asyncRimRaf("dist");
 
+  console.log(chalk.inverse(" Building packages "));
   for (const bundleConfig of bundleConfigs) {
     await createBundle(bundleConfig);
   }
