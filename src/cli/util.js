@@ -115,9 +115,7 @@ function logFileInfoOrDie(context) {
   context.logger.log(
     prettier.format(
       stringify(prettier.getFileInfo.sync(context.argv["file-info"], options)),
-      {
-        parser: "json"
-      }
+      { parser: "json" }
     )
   );
 }
@@ -137,6 +135,11 @@ function listDifferent(context, input, options, filename) {
   }
 
   try {
+    if (!options.filepath && !options.parser) {
+      throw new errors.UndefinedParserError(
+        "No parser and no file path given, couldn't infer a parser."
+      );
+    }
     if (!prettier.check(input, options)) {
       if (!context.argv["write"]) {
         context.logger.log(filename);
@@ -151,6 +154,12 @@ function listDifferent(context, input, options, filename) {
 }
 
 function format(context, input, opt) {
+  if (!opt.parser && !opt.filepath) {
+    throw new errors.UndefinedParserError(
+      "No parser and no file path given, couldn't infer a parser."
+    );
+  }
+
   if (context.argv["debug-print-doc"]) {
     const doc = prettier.__debug.printToDoc(input, opt);
     return { formatted: prettier.__debug.formatDoc(doc) };
