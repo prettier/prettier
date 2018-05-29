@@ -1,5 +1,6 @@
 "use strict";
 
+const chalk = require("chalk");
 const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
@@ -15,6 +16,16 @@ const executable = require("./rollup-plugins/executable");
 
 const Bundles = require("./bundles");
 const util = require("./util");
+
+// Errors in promises should be fatal.
+const loggedErrors = new Set();
+process.on("unhandledRejection", err => {
+  if (loggedErrors.has(err)) {
+    // No need to print it twice.
+    process.exit(1);
+  }
+  throw err;
+});
 
 const EXTERNALS = [
   "assert",
@@ -38,7 +49,8 @@ const EXTERNALS = [
 function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
-    plugins: []
+    plugins: [],
+    compact: bundle.type === "plugin" ? false : "auto"
   };
   if (bundle.type === "core") {
     config.plugins.push(
@@ -177,19 +189,27 @@ function asyncWebpack(config) {
 
 async function createBundle(bundle) {
   const output = Bundles.getFileOutput(bundle);
-  console.log(`BUILDING ${output}`);
+  console.log(`${chalk.bgYellow.black(" BUILDING ")} ${output}`);
 
-  if (bundle.bundler === "webpack") {
-    await asyncWebpack(getWebpackConfig(bundle));
-  } else {
-    try {
+  try {
+    if (bundle.bundler === "webpack") {
+      await asyncWebpack(getWebpackConfig(bundle));
+    } else {
       const result = await rollup(getRollupConfig(bundle));
       await result.write(getRollupOutputOptions(bundle));
-    } catch (error) {
-      console.log(error);
-      throw error;
     }
+  } catch (error) {
+    console.log(`${chalk.bgRed.black("  ERROR!  ")} ${output}\n`);
+    handleError(error);
   }
+
+  console.log(`${chalk.bgGreen.black(" COMPLETE ")} ${output}\n`);
+}
+
+function handleError(error) {
+  loggedErrors.add(error);
+  console.error(error);
+  throw error;
 }
 
 async function createPackageJson() {
