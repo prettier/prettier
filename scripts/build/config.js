@@ -75,7 +75,7 @@ const parsers = [
 });
 
 /** @type {Bundle[]} */
-const bundles = [
+const coreBundles = [
   {
     input: "index.js",
     type: "core",
@@ -109,10 +109,12 @@ const bundles = [
       "module.parent": "(module.parent || module)"
     }
   }
-].concat(parsers);
+];
 
 function getFileOutput(bundle) {
   return bundle.output || path.basename(bundle.input);
 }
 
-module.exports = { bundles, getFileOutput };
+module.exports = coreBundles
+  .concat(parsers)
+  .map(b => Object.assign(b, { output: getFileOutput(b) }));
