@@ -3418,18 +3418,19 @@ function shouldGroupFirstArg(args) {
   );
 }
 
-const functionCompositionFunctionNames = {
-  pipe: true, // RxJS, Ramda
-  pipeP: true, // Ramda
-  pipeK: true, // Ramda
-  compose: true, // Ramda, Redux
-  composeFlipped: true, // Not from any library, but common in Haskell, so supported
-  composeP: true, // Ramda
-  composeK: true, // Ramda
-  flow: true, // Lodash
-  flowRight: true, // Lodash
-  connect: true // Redux
-};
+const functionCompositionFunctionNames = new Set([
+  "pipe", // RxJS, Ramda
+  "pipeP", // Ramda
+  "pipeK", // Ramda
+  "compose", // Ramda, Redux
+  "composeFlipped", // Not from any library, but common in Haskell, so supported
+  "composeP", // Ramda
+  "composeK", // Ramda
+  "flow", // Lodash
+  "flowRight", // Lodash
+  "connect" // Redux
+]);
+
 function isFunctionCompositionFunction(node) {
   switch (node.type) {
     case "OptionalMemberExpression":
@@ -3437,11 +3438,11 @@ function isFunctionCompositionFunction(node) {
       return isFunctionCompositionFunction(node.property);
     }
     case "Identifier": {
-      return functionCompositionFunctionNames[node.name];
+      return functionCompositionFunctionNames.has(node.name);
     }
     case "StringLiteral":
     case "Literal": {
-      return functionCompositionFunctionNames[node.value];
+      return functionCompositionFunctionNames.has(node.value);
     }
   }
 }
