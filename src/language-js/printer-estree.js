@@ -3418,7 +3418,7 @@ function shouldGroupFirstArg(args) {
   );
 }
 
-const functionCompositionFunctionNames = [
+const functionCompositionFunctionNames = new Set([
   "pipe", // RxJS, Ramda
   "pipeP", // Ramda
   "pipeK", // Ramda
@@ -3429,7 +3429,7 @@ const functionCompositionFunctionNames = [
   "flow", // Lodash
   "flowRight", // Lodash
   "connect" // Redux
-];
+]);
 
 function isFunctionCompositionFunction(node) {
   switch (node.type) {
@@ -3438,11 +3438,11 @@ function isFunctionCompositionFunction(node) {
       return isFunctionCompositionFunction(node.property);
     }
     case "Identifier": {
-      return functionCompositionFunctionNames.indexOf(node.name) !== -1;
+      return functionCompositionFunctionNames.has(node.name);
     }
     case "StringLiteral":
     case "Literal": {
-      return functionCompositionFunctionNames.indexOf(node.value) !== -1;
+      return functionCompositionFunctionNames.has(node.value);
     }
   }
 }
