@@ -120,11 +120,13 @@ function logFileInfoOrDie(context) {
   );
 }
 
-function writeOutput(result, options) {
+function writeOutput(context, result, options) {
   // Don't use `console.log` here since it adds an extra newline at the end.
-  process.stdout.write(result.formatted);
+  process.stdout.write(
+    context.argv["debug-check"] ? result.filepath : result.formatted
+  );
 
-  if (options.cursorOffset >= 0) {
+  if (options && options.cursorOffset >= 0) {
     process.stderr.write(result.cursorOffset + "\n");
   }
 }
@@ -195,7 +197,7 @@ function format(context, input, opt) {
         );
       }
     }
-    return { formatted: opt.filepath || "(stdin)\n" };
+    return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
   return prettier.formatWithCursor(input, opt);
@@ -308,7 +310,7 @@ function formatStdin(context) {
 
   thirdParty.getStream(process.stdin).then(input => {
     if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
-      writeOutput({ formatted: input }, {});
+      writeOutput(context, { formatted: input });
       return;
     }
 
@@ -319,7 +321,7 @@ function formatStdin(context) {
         return;
       }
 
-      writeOutput(format(context, input, options), options);
+      writeOutput(context, format(context, input, options), options);
     } catch (error) {
       handleError(context, "stdin", error);
     }
@@ -410,7 +412,7 @@ function formatFiles(context) {
     }
 
     if (fileIgnored) {
-      writeOutput({ formatted: input }, options);
+      writeOutput(context, { formatted: input }, options);
       return;
     }
 
@@ -465,13 +467,13 @@ function formatFiles(context) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
     } else if (context.argv["debug-check"]) {
-      if (output) {
-        context.logger.log(output);
+      if (result.filepath) {
+        context.logger.log(result.filepath);
       } else {
         process.exitCode = 2;
       }
     } else if (!context.argv["list-different"]) {
-      writeOutput(result, options);
+      writeOutput(context, result, options);
     }
   });
 }
