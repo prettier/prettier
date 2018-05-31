@@ -59,7 +59,6 @@ graphql\`
   fragment a on b {
     c
   }
-
 \`;
 
 `;

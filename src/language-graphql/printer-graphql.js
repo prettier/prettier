@@ -28,15 +28,16 @@ function genericPrint(path, options, print) {
       const parts = [];
       path.map((pathChild, index) => {
         parts.push(concat([pathChild.call(print)]));
-        parts.push(hardline);
-        if (
-          index !== n.definitions.length - 1 &&
-          isNextLineEmpty(options.originalText, pathChild.getValue(), options)
-        ) {
+        if (index !== n.definitions.length - 1) {
           parts.push(hardline);
+          if (
+            isNextLineEmpty(options.originalText, pathChild.getValue(), options)
+          ) {
+            parts.push(hardline);
+          }
         }
       }, "definitions");
-      return concat(parts, hardline);
+      return concat([concat(parts), hardline]);
     }
     case "OperationDefinition": {
       const hasOperation = options.originalText[options.locStart(n)] !== "{";
