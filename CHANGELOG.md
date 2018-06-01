@@ -1,3 +1,9 @@
+# 1.13.4
+
+[link](https://github.com/prettier/prettier/compare/1.13.3...1.13.4)
+
+- Fix a regression when printing graphql-in-js ([#4616](https://github.com/prettier/prettier/pull/4616))
+
 # 1.13.3
 
 [link](https://github.com/prettier/prettier/compare/1.13.2...1.13.3)
