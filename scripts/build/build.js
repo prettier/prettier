@@ -5,6 +5,7 @@ const stringWidth = require("string-width");
 const bundler = require("./bundler");
 const bundleConfigs = require("./config");
 const util = require("./util");
+const formatMarkdown = require("../../website/playground/markdown");
 
 // Errors in promises should be fatal.
 const loggedErrors = new Set();
@@ -58,9 +59,34 @@ async function preparePackage() {
     prepublishOnly:
       "node -e \"assert.equal(require('.').version, require('..').version)\""
   };
+  pkg.files = ["*.js"];
   await util.writeJson("dist/package.json", pkg);
 
   await util.copyFile("./README.md", "./dist/README.md");
+}
+
+async function updateIssueTemplate() {
+  const filename = ".github/ISSUE_TEMPLATE.md";
+  const issueTemplate = await util.readFile(filename, "utf8");
+
+  const pkg = await util.readJson("package.json");
+  await util.writeFile(
+    filename,
+    issueTemplate.replace(
+      /-->[^]*$/,
+      "-->\n\n" +
+        formatMarkdown(
+          "// code snippet",
+          "// code snippet",
+          "",
+          pkg.version,
+          "https://prettier.io/playground/#.....",
+          { parser: "babylon" },
+          [["# Options (if any):", true], ["--single-quote", true]],
+          true
+        )
+    )
+  );
 }
 
 async function run() {
@@ -72,6 +98,7 @@ async function run() {
   }
 
   await preparePackage();
+  await updateIssueTemplate();
 }
 
 run();

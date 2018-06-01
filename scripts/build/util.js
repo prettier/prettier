@@ -26,5 +26,7 @@ module.exports = {
   asyncRimRaf: promisify(rimraf),
   readJson,
   writeJson,
-  copyFile
+  copyFile,
+  readFile,
+  writeFile
 };
