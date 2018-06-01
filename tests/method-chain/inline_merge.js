@@ -12,3 +12,7 @@ this.layoutPartsToHide = this.utils.hashset(
 		.concat(this.record.resolved_legacy_visrules)
 		.filter(Boolean)
 );
+
+var jqxhr = $.ajax("example.php")
+  .done(doneFn)
+  .fail(failFn);

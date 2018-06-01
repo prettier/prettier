@@ -613,6 +613,10 @@ this.layoutPartsToHide = this.utils.hashset(
 		.concat(this.record.resolved_legacy_visrules)
 		.filter(Boolean)
 );
+
+var jqxhr = $.ajax("example.php")
+  .done(doneFn)
+  .fail(failFn);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object.keys(
   availableLocales({
@@ -627,6 +631,10 @@ this.layoutPartsToHide = this.utils.hashset(
     .concat(this.record.resolved_legacy_visrules)
     .filter(Boolean)
 );
+
+var jqxhr = $.ajax("example.php")
+  .done(doneFn)
+  .fail(failFn);
 
 `;
 
