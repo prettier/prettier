@@ -110,40 +110,12 @@ This rewrites all processed files in place. This is comparable to the `eslint --
 
 Change the level of logging for the CLI. Valid options are:
 
-* `error`
-* `warn`
-* `log` (default)
-* `debug`
-* `silent`
-
-## `--stdin`
-
-Force the Prettier CLI to read input from stdin. For example:
-
-```bash
-$ prettier --stdin
-function  sampleFunction (var1,
-var2)  {
-  return  var1 *  var2
-}
-function sampleFunction(var1, var2) {
-  return var1 * var2;
-}
-```
+- `error`
+- `warn`
+- `log` (default)
+- `debug`
+- `silent`
 
 ## `--stdin-filepath`
 
-A path to the file that the Prettier CLI will treat like stdin. For example:
-
-_abc.css_
-```css
-.name { display: none; }
-```
-
-_shell_
-```bash
-$ prettier --stdin-filepath abc.css
-.name {
-  display: none;
-}
-```
+A path to the file that the Prettier CLI will treat like stdin.
