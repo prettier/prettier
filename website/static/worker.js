@@ -1,78 +1,73 @@
 /* eslint-env worker */
 /* eslint no-var: off, strict: off */
+/* globals prettier prettierPlugins */
 
-var parsersLoaded = {};
-
-// "Polyfills" in order for all the code to run
-/* eslint-disable no-undef, no-global-assign */
-self.global = self;
-self.util = {};
-self.path = {};
-self.path.resolve = self.path.join = self.path.dirname = function() {
-  return "";
-};
-self.path.parse = function() {
-  return { root: "" };
-};
-self.Buffer = {
-  isBuffer: function() {
-    return false;
-  }
-};
-self.constants = {};
-module$1 = module = os = crypto = buffer = {};
-self.fs = { readFile: function() {} };
-os.homedir = function() {
-  return "/home/prettier";
-};
-os.EOL = "\n";
-self.process = {
-  argv: [],
-  env: { PRETTIER_DEBUG: true },
-  version: "v8.5.0",
-  binding: function() {
-    return {};
+// this is required to only load parsers when we need them
+var parsers = {
+  // JS - Babylon
+  get babylon() {
+    importScripts("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers.babylon;
   },
-  cwd: function() {
-    return "";
+  get json() {
+    importScripts("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers.json;
+  },
+  get json5() {
+    importScripts("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers.json5;
+  },
+  get "json-stringify"() {
+    importScripts("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers["json-stringify"];
+  },
+  // JS - Flow
+  get flow() {
+    importScripts("lib/parser-flow.js");
+    return prettierPlugins.flow.parsers.flow;
+  },
+  // JS - TypeScript
+  get typescript() {
+    importScripts("lib/parser-typescript.js");
+    return prettierPlugins.typescript.parsers.typescript;
+  },
+
+  // CSS
+  get css() {
+    importScripts("lib/parser-postcss.js");
+    return prettierPlugins.postcss.parsers.css;
+  },
+  get less() {
+    importScripts("lib/parser-postcss.js");
+    return prettierPlugins.postcss.parsers.css;
+  },
+  get scss() {
+    importScripts("lib/parser-postcss.js");
+    return prettierPlugins.postcss.parsers.css;
+  },
+
+  // GraphQL
+  get graphql() {
+    importScripts("lib/parser-graphql.js");
+    return prettierPlugins.graphql.parsers.graphql;
+  },
+
+  // Markdown
+  get markdown() {
+    importScripts("lib/parser-markdown.js");
+    return prettierPlugins.markdown.parsers.remark;
+  },
+
+  // Vue
+  get vue() {
+    importScripts("lib/parser-vue.js");
+    return prettierPlugins.vue.parsers.vue;
   }
 };
-self.assert = { ok: function() {}, strictEqual: function() {} };
-self.require = function require(path) {
-  if (path === "stream") {
-    return { PassThrough() {} };
-  }
-  if (path === "./third-party") {
-    return { findParentDir() {} };
-  }
 
-  if (~path.indexOf("parser-")) {
-    var parser = path.replace(/^.*parser-/, "");
-    if (!parsersLoaded[parser]) {
-      importScripts("lib/parser-" + parser + ".js");
-      parsersLoaded[parser] = true;
-    }
-    return self[
-      parser.replace(/-/g, "_") // `json-stringify` is not a valid identifier
-    ];
-  }
-
-  return self[path];
-};
-self.__dirname = "";
-self.events = {
-  EventEmitter: function() {}
-};
-/* eslint-enable */
-
-var prettier;
-importScripts("lib/index.js");
-if (typeof prettier === "undefined") {
-  prettier = module.exports; // eslint-disable-line
-}
-if (typeof prettier === "undefined") {
-  prettier = index; // eslint-disable-line
-}
+importScripts("lib/standalone.js");
+// eslint-disable-next-line no-unused-vars
+var PRETTIER_DEBUG = true;
 
 self.onmessage = function(event) {
   self.postMessage({
@@ -97,6 +92,9 @@ function handleMessage(message) {
     delete options.doc;
     delete options.output2;
 
+    var plugins = [{ parsers: parsers }];
+    options.plugins = plugins;
+
     var response = {
       formatted: formatCode(message.code, options),
       debug: {
@@ -118,7 +116,7 @@ function handleMessage(message) {
 
       if (!errored) {
         try {
-          ast = formatCode(ast, { parser: "json" });
+          ast = formatCode(ast, { parser: "json", plugins: plugins });
         } catch (e) {
           ast = JSON.stringify(ast, null, 2);
         }
@@ -130,7 +128,7 @@ function handleMessage(message) {
       try {
         response.debug.doc = prettier.__debug.formatDoc(
           prettier.__debug.printToDoc(message.code, options),
-          { parser: "babylon" }
+          { parser: "babylon", plugins: plugins }
         );
       } catch (e) {
         response.debug.doc = String(e);

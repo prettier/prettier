@@ -52,6 +52,23 @@ function diff(a, b) {
 }
 
 function handleError(context, filename, error) {
+  if (error instanceof errors.UndefinedParserError) {
+    if (context.argv["write"] && process.stdout.isTTY) {
+      readline.clearLine(process.stdout, 0);
+      readline.cursorTo(process.stdout, 0, null);
+    }
+    if (!context.argv["list-different"]) {
+      process.exitCode = 2;
+    }
+    context.logger.error(error.message);
+    return;
+  }
+
+  if (context.argv["write"]) {
+    // Add newline to split errors from filename line.
+    process.stdout.write("\n");
+  }
+
   const isParseError = Boolean(error && error.loc);
   const isValidationError = /Validation Error/.test(error && error.message);
 
@@ -98,18 +115,18 @@ function logFileInfoOrDie(context) {
   context.logger.log(
     prettier.format(
       stringify(prettier.getFileInfo.sync(context.argv["file-info"], options)),
-      {
-        parser: "json"
-      }
+      { parser: "json" }
     )
   );
 }
 
-function writeOutput(result, options) {
+function writeOutput(context, result, options) {
   // Don't use `console.log` here since it adds an extra newline at the end.
-  process.stdout.write(result.formatted);
+  process.stdout.write(
+    context.argv["debug-check"] ? result.filepath : result.formatted
+  );
 
-  if (options.cursorOffset >= 0) {
+  if (options && options.cursorOffset >= 0) {
     process.stderr.write(result.cursorOffset + "\n");
   }
 }
@@ -119,19 +136,32 @@ function listDifferent(context, input, options, filename) {
     return;
   }
 
-  options = Object.assign({}, options, { filepath: filename });
-
-  if (!prettier.check(input, options)) {
-    if (!context.argv["write"]) {
-      context.logger.log(filename);
+  try {
+    if (!options.filepath && !options.parser) {
+      throw new errors.UndefinedParserError(
+        "No parser and no file path given, couldn't infer a parser."
+      );
     }
-    process.exitCode = 1;
+    if (!prettier.check(input, options)) {
+      if (!context.argv["write"]) {
+        context.logger.log(filename);
+      }
+      process.exitCode = 1;
+    }
+  } catch (error) {
+    context.logger.error(error.message);
   }
 
   return true;
 }
 
 function format(context, input, opt) {
+  if (!opt.parser && !opt.filepath) {
+    throw new errors.UndefinedParserError(
+      "No parser and no file path given, couldn't infer a parser."
+    );
+  }
+
   if (context.argv["debug-print-doc"]) {
     const doc = prettier.__debug.printToDoc(input, opt);
     return { formatted: prettier.__debug.formatDoc(doc) };
@@ -167,7 +197,7 @@ function format(context, input, opt) {
         );
       }
     }
-    return { formatted: opt.filepath || "(stdin)\n" };
+    return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
   return prettier.formatWithCursor(input, opt);
@@ -280,18 +310,18 @@ function formatStdin(context) {
 
   thirdParty.getStream(process.stdin).then(input => {
     if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
-      writeOutput({ formatted: input }, {});
+      writeOutput(context, { formatted: input });
       return;
     }
 
     const options = getOptionsForFile(context, filepath);
 
-    if (listDifferent(context, input, options, "(stdin)")) {
-      return;
-    }
-
     try {
-      writeOutput(format(context, input, options), options);
+      if (listDifferent(context, input, options, "(stdin)")) {
+        return;
+      }
+
+      writeOutput(context, format(context, input, options), options);
     } catch (error) {
       handleError(context, "stdin", error);
     }
@@ -329,7 +359,12 @@ function eachFilename(context, patterns, callback) {
       return;
     }
     filePaths.forEach(filePath =>
-      callback(filePath, getOptionsForFile(context, filePath))
+      callback(
+        filePath,
+        Object.assign(getOptionsForFile(context, filePath), {
+          filepath: filePath
+        })
+      )
     );
   } catch (error) {
     context.logger.error(
@@ -377,11 +412,9 @@ function formatFiles(context) {
     }
 
     if (fileIgnored) {
-      writeOutput({ formatted: input }, options);
+      writeOutput(context, { formatted: input }, options);
       return;
     }
-
-    listDifferent(context, input, options, filename);
 
     const start = Date.now();
 
@@ -396,11 +429,15 @@ function formatFiles(context) {
       );
       output = result.formatted;
     } catch (error) {
-      // Add newline to split errors from filename line.
-      process.stdout.write("\n");
-
       handleError(context, filename, error);
       return;
+    }
+
+    const isDifferent = output !== input;
+
+    if (context.argv["list-different"] && isDifferent) {
+      context.logger.log(filename);
+      process.exitCode = 1;
     }
 
     if (context.argv["write"]) {
@@ -412,14 +449,8 @@ function formatFiles(context) {
 
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
-      if (output === input) {
+      if (isDifferent) {
         if (!context.argv["list-different"]) {
-          context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
-        }
-      } else {
-        if (context.argv["list-different"]) {
-          context.logger.log(filename);
-        } else {
           context.logger.log(`${filename} ${Date.now() - start}ms`);
         }
 
@@ -432,15 +463,17 @@ function formatFiles(context) {
           // Don't exit the process if one file failed
           process.exitCode = 2;
         }
+      } else if (!context.argv["list-different"]) {
+        context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
     } else if (context.argv["debug-check"]) {
-      if (output) {
-        context.logger.log(output);
+      if (result.filepath) {
+        context.logger.log(result.filepath);
       } else {
         process.exitCode = 2;
       }
     } else if (!context.argv["list-different"]) {
-      writeOutput(result, options);
+      writeOutput(context, result, options);
     }
   });
 }

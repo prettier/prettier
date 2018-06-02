@@ -395,7 +395,7 @@ html body {
 }
 
 pre {
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 @media only screen and (min-width: 736px) {

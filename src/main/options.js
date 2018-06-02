@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const UndefinedParserError = require("../common/errors").UndefinedParserError;
 const getSupportInfo = require("../main/support").getSupportInfo;
 const normalizer = require("./options-normalizer");
 const resolveParser = require("./parser").resolveParser;
@@ -29,30 +30,31 @@ function normalize(options, opts) {
     Object.assign({}, hiddenDefaults)
   );
 
-  if (opts.inferParser !== false) {
-    if (
-      rawOptions.filepath &&
-      (!rawOptions.parser || rawOptions.parser === defaults.parser)
-    ) {
-      const inferredParser = inferParser(
-        rawOptions.filepath,
-        rawOptions.plugins
+  if (!rawOptions.parser) {
+    if (!rawOptions.filepath) {
+      const logger = opts.logger || console;
+      logger.warn(
+        "No parser and no filepath given, using 'babylon' the parser now " +
+          "but this will throw an error in the future. " +
+          "Please specify a parser or a filepath so one can be inferred."
       );
-      if (inferredParser) {
-        rawOptions.parser = inferredParser;
+      rawOptions.parser = "babylon";
+    } else {
+      rawOptions.parser = inferParser(rawOptions.filepath, rawOptions.plugins);
+      if (!rawOptions.parser) {
+        throw new UndefinedParserError(
+          `No parser could be inferred for file: ${rawOptions.filepath}`
+        );
       }
     }
   }
 
   const parser = resolveParser(
-    !rawOptions.parser
-      ? rawOptions
-      : // handle deprecated parsers
-        normalizer.normalizeApiOptions(
-          rawOptions,
-          [supportOptions.find(x => x.name === "parser")],
-          { passThrough: true, logger: false }
-        )
+    normalizer.normalizeApiOptions(
+      rawOptions,
+      [supportOptions.find(x => x.name === "parser")],
+      { passThrough: true, logger: false }
+    )
   );
   rawOptions.astFormat = parser.astFormat;
   rawOptions.locEnd = parser.locEnd;
@@ -100,7 +102,7 @@ function getPlugin(options) {
     throw new Error("getPlugin() requires astFormat to be set");
   }
   const printerPlugin = options.plugins.find(
-    plugin => plugin.printers[astFormat]
+    plugin => plugin.printers && plugin.printers[astFormat]
   );
   if (!printerPlugin) {
     throw new Error(`Couldn't find plugin for AST format "${astFormat}"`);

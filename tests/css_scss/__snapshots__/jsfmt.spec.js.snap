@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import_comma.css 1`] = `
+exports[`import_comma.scss 1`] = `
 @import "rounded-corners", "text-shadow";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @import "rounded-corners", "text-shadow";
 
 `;
 
-exports[`scss.css 1`] = `
+exports[`scss.scss 1`] = `
 @media #{$g-breakpoint-tiny} {}
 .#{$fa-css-prefix}-glass:before { content: $fa-var-glass; }
 a {height: calc(#{$foo} + 1);}
@@ -952,6 +952,88 @@ $map: (
 key: (value),
 other-key: (key: other-other-value)
 );
+
+a {
+  content: "#{".5"}";
+  content: my-fn("_");
+  content: "#{my-fn("_")}";
+  content: my-fn("-");
+  content: "#{my-fn("-")}";
+  content: my-fn("-a");
+  content: "#{my-fn("-a")}";
+  content: my-fn("a-");
+  content: "#{my-fn("a-")}";
+  content: my-fn("foo");
+  content: "#{my-fn("foo")}";
+  content: 1 "#{my-fn("foo")}" 2;
+  content: foo "#{my-fn("foo")}" bar;
+  content: "foo #{$description} bar";
+
+  content: "#{my-fn("foo","bar")}";
+  content: "#{my-fn( "foo" , "bar" )}";
+  content: "#{my-fn(  "foo"  ,  "bar"  )}";
+
+  content: '#{my-fn("foo")}';
+  content: '#{my-fn('foo')}';
+  content: "#{my-fn('foo')}";
+  content: "#{my-fn("foo")}";
+}
+
+mixin theme($css-property, $css-value, $theme-classes: t) {
+  @each $selector in & {
+    @each $class in $theme-classes {
+      @each $theme, $theme-properties in c(themes) {
+      $value: $css-value;
+
+        @each $theme-name, $theme-value in $theme-properties {
+          $rgba-value: "rgba(#{red($theme-value)}, #{green($theme-value)}, #{blue($theme-value)}";
+          $value: str-replace($value, "rgba(\${#{$theme-name}}", $rgba-value);
+          $value: str-replace($value, "\${#{$theme-name}}", $theme-value);
+        }
+
+        @at-root .#{$class}-#{join($theme, $selector)} {
+          #{$css-property}: unquote($value);
+        }
+      }
+    }
+  }
+}
+
+.foo,
+// Comment
+.bar {
+  // Comment
+  color: red; // Comment
+}
+
+$my-list:
+  'foo', // Comment
+  'bar'; // Comment
+
+$my-map: (
+  'foo': 1, // Comment
+  'bar': 2, // Comment
+);
+
+[href]:hover &, // Comment
+[href]:focus &, // Comment
+[href]:active & {
+  .tooltip {
+    opacity: 1;
+  }
+}
+
+@import
+  // Comment
+  'mixins',
+  'variables',
+  // Comment
+  'reset',
+  'scaffolding',
+  'type',
+  // Comment
+  'bar',
+  'tabs';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @media #{$g-breakpoint-tiny} {
 }
@@ -1807,5 +1889,87 @@ $map: (
     key: other-other-value
   )
 );
+
+a {
+  content: "#{"0.5"}";
+  content: my-fn("_");
+  content: "#{my-fn("_")}";
+  content: my-fn("-");
+  content: "#{my-fn("-")}";
+  content: my-fn("-a");
+  content: "#{my-fn("-a")}";
+  content: my-fn("a-");
+  content: "#{my-fn("a-")}";
+  content: my-fn("foo");
+  content: "#{my-fn("foo")}";
+  content: 1 "#{my-fn("foo")}" 2;
+  content: foo "#{my-fn("foo")}" bar;
+  content: "foo #{$description} bar";
+
+  content: "#{my-fn("foo","bar")}";
+  content: "#{my-fn( "foo" , "bar" )}";
+  content: "#{my-fn(  "foo"  ,  "bar"  )}";
+
+  content: '#{my-fn("foo")}';
+  content: "#{my-fn("foo")}";
+  content: "#{my-fn('foo')}";
+  content: "#{my-fn("foo")}";
+}
+
+mixin theme($css-property, $css-value, $theme-classes: t) {
+  @each $selector in & {
+    @each $class in $theme-classes {
+      @each $theme, $theme-properties in c(themes) {
+        $value: $css-value;
+
+        @each $theme-name, $theme-value in $theme-properties {
+          $rgba-value: "rgba(#{red($theme-value)}, #{green($theme-value)}, #{blue($theme-value)}";
+          $value: str-replace($value, "rgba(\${#{$theme-name}}", $rgba-value);
+          $value: str-replace($value, "\${#{$theme-name}}", $theme-value);
+        }
+
+        @at-root .#{$class}-#{join($theme, $selector)} {
+          #{$css-property}: unquote($value);
+        }
+      }
+    }
+  }
+}
+
+.foo,
+// Comment
+.bar {
+  // Comment
+  color: red; // Comment
+}
+
+$my-list: "foo",
+  // Comment
+    "bar"; // Comment
+
+$my-map: (
+  "foo": 1,
+  // Comment
+    "bar": 2,
+  // Comment
+);
+
+[href]:hover &, // Comment
+[href]:focus &, // Comment
+[href]:active & {
+  .tooltip {
+    opacity: 1;
+  }
+}
+
+@import // Comment
+    "mixins",
+  "variables",
+  // Comment
+    "reset",
+  "scaffolding", "type",
+  // Comment
+    "bar",
+  "tabs";
 
 `;

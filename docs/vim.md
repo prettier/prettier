@@ -29,8 +29,8 @@ autocmd BufWritePre *.js Neoformat
 
 You can also make Vim format your code more frequently, by setting an `autocmd` for other events. Here are a couple of useful ones:
 
-* `TextChanged`: after a change was made to the text in Normal mode
-* `InsertLeave`: when leaving Insert mode
+- `TextChanged`: after a change was made to the text in Normal mode
+- `InsertLeave`: when leaving Insert mode
 
 For example, you can format on both of the above events together with `BufWritePre` like this:
 

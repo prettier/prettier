@@ -9,6 +9,8 @@ exports[`basic-handlebars.hbs 1`] = `
     </div>
   </div>
 </script>
+
+<div class="{{hello}} {{world}}"></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script id="entry-template" type="text/x-handlebars-template">
   <div class="entry">
@@ -20,6 +22,7 @@ exports[`basic-handlebars.hbs 1`] = `
     </div>
   </div>
 </script>
+<div class="{{hello}} {{world}}"></div>
 `;
 
 exports[`comments.hbs 1`] = `
@@ -128,4 +131,12 @@ exports[`nested-path.hbs 1`] = `
     {{body}}
   </div>
 </div>
+`;
+
+exports[`raw.hbs 1`] = `
+<p>{{{raw}}}</p>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<p>
+  {{{raw}}}
+</p>
 `;

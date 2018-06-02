@@ -1,15 +1,17 @@
 "use strict";
 
-const doc = require("../doc");
-const docUtils = doc.utils;
-const docBuilders = doc.builders;
-const indent = docBuilders.indent;
-const join = docBuilders.join;
-const hardline = docBuilders.hardline;
-const softline = docBuilders.softline;
-const literalline = docBuilders.literalline;
-const concat = docBuilders.concat;
-const dedentToRoot = docBuilders.dedentToRoot;
+const {
+  builders: {
+    indent,
+    join,
+    hardline,
+    softline,
+    literalline,
+    concat,
+    dedentToRoot
+  },
+  utils: { mapDoc, stripTrailingHardline }
+} = require("../doc");
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
@@ -18,9 +20,12 @@ function embed(path, print, textToDoc /*, options */) {
 
   switch (node.type) {
     case "TemplateLiteral": {
-      const isCss = [isStyledJsx, isStyledComponents, isCssProp].some(isIt =>
-        isIt(path)
-      );
+      const isCss = [
+        isStyledJsx,
+        isStyledComponents,
+        isCssProp,
+        isAngularComponentStyles
+      ].some(isIt => isIt(path));
 
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
@@ -98,9 +103,7 @@ function embed(path, print, textToDoc /*, options */) {
           if (commentsAndWhitespaceOnly) {
             doc = printGraphqlComments(lines);
           } else {
-            doc = docUtils.stripTrailingHardline(
-              textToDoc(text, { parser: "graphql" })
-            );
+            doc = stripTrailingHardline(textToDoc(text, { parser: "graphql" }));
           }
 
           if (doc) {
@@ -172,8 +175,20 @@ function embed(path, print, textToDoc /*, options */) {
 
   function printMarkdown(text) {
     const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
-    return docUtils.stripTrailingHardline(escapeBackticks(doc));
+    return stripTrailingHardline(escapeBackticks(doc));
   }
+}
+
+function isPropertyWithinAngularComponentDecorator(path, parentIndexToCheck) {
+  const parent = path.getParentNode(parentIndexToCheck);
+  return !!(
+    parent &&
+    parent.type === "Decorator" &&
+    parent.expression &&
+    parent.expression.type === "CallExpression" &&
+    parent.expression.callee &&
+    parent.expression.callee.name === "Component"
+  );
 }
 
 function getIndentation(str) {
@@ -182,7 +197,7 @@ function getIndentation(str) {
 }
 
 function escapeBackticks(doc) {
-  return docUtils.mapDoc(doc, currentDoc => {
+  return mapDoc(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
@@ -220,7 +235,7 @@ function transformCssDoc(quasisDoc, path, print) {
   }
   return concat([
     "`",
-    indent(concat([hardline, docUtils.stripTrailingHardline(newDoc)])),
+    indent(concat([hardline, stripTrailingHardline(newDoc)])),
     softline,
     "`"
   ]);
@@ -237,7 +252,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
   const expressions = expressionDocs.slice();
   let replaceCounter = 0;
-  const newDoc = docUtils.mapDoc(quasisDoc, doc => {
+  const newDoc = mapDoc(quasisDoc, doc => {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }
@@ -332,6 +347,41 @@ function isStyledJsx(path) {
       attribute => attribute.name.name === "jsx"
     )
   );
+}
+
+/**
+ * Angular Components can have:
+ * - Inline HTML template
+ * - Inline CSS styles
+ *
+ * ...which are both within template literals somewhere
+ * inside of the Component decorator factory.
+ *
+ * TODO: Format HTML template once prettier's HTML
+ * formatting is "ready"
+ *
+ * E.g.
+ * @Component({
+ *  template: `<div>...</div>`,
+ *  styles: [`h1 { color: blue; }`]
+ * })
+ */
+function isAngularComponentStyles(path) {
+  const parent = path.getParentNode();
+  const parentParent = path.getParentNode(1);
+  const isWithinArrayValueFromProperty = !!(
+    parent &&
+    (parent.type === "ArrayExpression" && parentParent.type === "Property")
+  );
+  if (
+    isWithinArrayValueFromProperty &&
+    isPropertyWithinAngularComponentDecorator(path, 4)
+  ) {
+    if (parentParent.key && parentParent.key.name === "styles") {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**

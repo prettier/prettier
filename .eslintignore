@@ -3,6 +3,7 @@
 !/tests/**/jsfmt.spec.js
 !/**/.eslintrc.js
 /test.js
+/scripts/build/shims
 /coverage/
 /dist/
 **/node_modules/**

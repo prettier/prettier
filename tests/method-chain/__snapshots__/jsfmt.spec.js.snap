@@ -494,6 +494,15 @@ d3.select('body')
 d3.scaleLinear()
   .domain([1950, 1980])
   .range([0, width])
+
+not.d3.select('body')
+  .append('circle')
+  .at({ width: 30, fill: '#f0f' })
+  .st({ fontWeight: 600 })
+
+not.d3.scaleLinear()
+  .domain([1950, 1980])
+  .range([0, width])
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 d3.select("body")
   .append("circle")
@@ -501,6 +510,17 @@ d3.select("body")
   .st({ fontWeight: 600 });
 
 d3.scaleLinear()
+  .domain([1950, 1980])
+  .range([0, width]);
+
+not.d3
+  .select("body")
+  .append("circle")
+  .at({ width: 30, fill: "#f0f" })
+  .st({ fontWeight: 600 });
+
+not.d3
+  .scaleLinear()
   .domain([1950, 1980])
   .range([0, width]);
 
@@ -587,6 +607,16 @@ Object.keys(
 .forEach(locale => {
   // ...
 });
+
+this.layoutPartsToHide = this.utils.hashset(
+	_.flatMap(this.visibilityHandlers, fn => fn())
+		.concat(this.record.resolved_legacy_visrules)
+		.filter(Boolean)
+);
+
+var jqxhr = $.ajax("example.php")
+  .done(doneFn)
+  .fail(failFn);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Object.keys(
   availableLocales({
@@ -595,6 +625,16 @@ Object.keys(
 ).forEach(locale => {
   // ...
 });
+
+this.layoutPartsToHide = this.utils.hashset(
+  _.flatMap(this.visibilityHandlers, fn => fn())
+    .concat(this.record.resolved_legacy_visrules)
+    .filter(Boolean)
+);
+
+var jqxhr = $.ajax("example.php")
+  .done(doneFn)
+  .fail(failFn);
 
 `;
 

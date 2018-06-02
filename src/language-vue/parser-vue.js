@@ -409,4 +409,11 @@ function parse(text /*, parsers, opts*/) {
   return rootObj;
 }
 
-module.exports = parse;
+module.exports = {
+  parsers: {
+    vue: {
+      parse,
+      astFormat: "vue"
+    }
+  }
+};

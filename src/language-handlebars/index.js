@@ -18,27 +18,11 @@ const languages = [
   }
 ];
 
-const parsers = {
-  glimmer: {
-    get parse() {
-      return eval("require")("./parser-glimmer");
-    },
-    astFormat: "glimmer",
-    locEnd: function(node) {
-      return node.loc && node.loc.end;
-    },
-    locStart: function(node) {
-      return node.loc && node.loc.start;
-    }
-  }
-};
-
 const printers = {
   glimmer: printer
 };
 
 module.exports = {
   languages,
-  parsers,
   printers
 };

@@ -17,7 +17,7 @@ exports[` 1`] = `
                              Defaults to false.
     --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
                              Which parser to use.
-                             Defaults to babylon."
+    --print-width <int>      The line length where Prettier will try wrap."
 `;
 
 exports[`show detailed external option with \`--help foo-option\` (stderr) 1`] = `""`;

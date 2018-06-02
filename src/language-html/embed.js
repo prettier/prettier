@@ -1,11 +1,10 @@
 "use strict";
 
-const privateUtil = require("../common/util");
-const doc = require("../doc");
-const docUtils = doc.utils;
-const docBuilders = doc.builders;
-const hardline = docBuilders.hardline;
-const concat = docBuilders.concat;
+const { hasNewlineInRange } = require("../common/util");
+const {
+  builders: { hardline, concat },
+  utils: { stripTrailingHardline, removeLines }
+} = require("../doc");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -42,7 +41,7 @@ function embed(path, print, textToDoc, options) {
       // Inline Styles
       if (parent.type === "style") {
         const doc = textToDoc(getText(options, node), { parser: "css" });
-        return concat([hardline, docUtils.stripTrailingHardline(doc)]);
+        return concat([hardline, stripTrailingHardline(doc)]);
       }
 
       break;
@@ -66,9 +65,9 @@ function embed(path, print, textToDoc, options) {
         return concat([
           node.key,
           '="',
-          privateUtil.hasNewlineInRange(node.value, 0, node.value.length)
+          hasNewlineInRange(node.value, 0, node.value.length)
             ? doc
-            : docUtils.removeLines(doc),
+            : removeLines(doc),
           '"'
         ]);
       }

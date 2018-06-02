@@ -5,14 +5,14 @@ title: What is Prettier?
 
 Prettier is an opinionated code formatter with support for:
 
-* JavaScript, including [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
-* [JSX](https://facebook.github.io/jsx/)
-* [Flow](https://flow.org/)
-* [TypeScript](https://www.typescriptlang.org/)
-* CSS, [Less](http://lesscss.org/), and [SCSS](http://sass-lang.com)
-* [JSON](http://json.org/)
-* [GraphQL](http://graphql.org/)
-* [Markdown](http://commonmark.org/), including [GFM](https://github.github.com/gfm/)
+- JavaScript, including [ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)
+- [JSX](https://facebook.github.io/jsx/)
+- [Flow](https://flow.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- CSS, [Less](http://lesscss.org/), and [SCSS](http://sass-lang.com)
+- [JSON](http://json.org/)
+- [GraphQL](http://graphql.org/)
+- [Markdown](http://commonmark.org/), including [GFM](https://github.github.com/gfm/)
 
 It removes all original styling[\*](#footnotes) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
