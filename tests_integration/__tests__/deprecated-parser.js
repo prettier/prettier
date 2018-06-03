@@ -1,6 +1,6 @@
 "use strict";
 
-const prettier = require("../../tests_config/require_prettier");
+const prettier = require("prettier/local");
 
 let warnings = "";
 

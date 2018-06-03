@@ -40,6 +40,29 @@ const query = /* GraphQL */ \`
 
 `;
 
+exports[`definitions.js 1`] = `
+graphql\`
+  fragment x on y {
+    z
+  }
+
+  fragment a on b {
+    c
+  }
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graphql\`
+  fragment x on y {
+    z
+  }
+
+  fragment a on b {
+    c
+  }
+\`;
+
+`;
+
 exports[`expressions.js 1`] = `
 graphql(schema, \`
 query allPartsByManufacturerName($name: String!) {

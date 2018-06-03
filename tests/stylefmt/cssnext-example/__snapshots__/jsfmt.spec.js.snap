@@ -33,7 +33,7 @@ color:var(--highlightColor);
 }
 a:hover{color  :gray(255,50%) }
 a:active{color : rebeccapurple }
-a:any-link { color:color(var(--highlightColor) blackness(+20%)) }
+a:any-link { color:color(var(--highlightColor) blackness(+ 20%)) }
 
 /* font stuff */
 h2 {font-variant-caps:small-caps;
@@ -85,7 +85,7 @@ a:active {
   color: rebeccapurple;
 }
 a:any-link {
-  color: color(var(--highlightColor) blackness(+20%));
+  color: color(var(--highlightColor) blackness(+ 20%));
 }
 
 /* font stuff */

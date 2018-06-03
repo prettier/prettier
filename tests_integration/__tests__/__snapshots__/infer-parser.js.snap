@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `"No parser and no file path given, couldn't infer a parser."`;
-
 exports[`--list-different with unknown path and no parser multiple files (stderr) 1`] = `
 "[error] No parser could be inferred for file: FOO
 "
@@ -60,6 +58,18 @@ Array [
 exports[`--write with unknown path and no parser specific file (stderr) 1`] = `
 "[error] No parser could be inferred for file: FOO
 "
+`;
+
+exports[`API with no path and no parser prettier.check 1`] = `
+Array [
+  "No parser and no filepath given, using 'babylon' the parser now but this will throw an error in the future. Please specify a parser or a filepath so one can be inferred.",
+]
+`;
+
+exports[`API with no path and no parser prettier.format 1`] = `
+Array [
+  "No parser and no filepath given, using 'babylon' the parser now but this will throw an error in the future. Please specify a parser or a filepath so one can be inferred.",
+]
 `;
 
 exports[`stdin no path and no parser --list-different logs error but exits with 0 (stderr) 1`] = `

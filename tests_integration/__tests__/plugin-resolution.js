@@ -1,7 +1,7 @@
 "use strict";
 
 const runPrettier = require("../runPrettier");
-const EOL = require("os").EOL;
+const EOL = "\n";
 
 describe("automatically loads 'prettier-plugin-*'", () => {
   runPrettier("plugins/automatic", ["file.txt", "--parser=foo"]).test({

@@ -1,7 +1,7 @@
 "use strict";
 
 const runPrettier = require("../runPrettier");
-const prettier = require("../../tests_config/require_prettier");
+const prettier = require("prettier/local");
 
 describe("infers postcss parser", () => {
   runPrettier("cli/with-parser-inference", ["*"]).test({

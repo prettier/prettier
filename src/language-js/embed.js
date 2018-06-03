@@ -1,15 +1,17 @@
 "use strict";
 
-const doc = require("../doc");
-const docUtils = doc.utils;
-const docBuilders = doc.builders;
-const indent = docBuilders.indent;
-const join = docBuilders.join;
-const hardline = docBuilders.hardline;
-const softline = docBuilders.softline;
-const literalline = docBuilders.literalline;
-const concat = docBuilders.concat;
-const dedentToRoot = docBuilders.dedentToRoot;
+const {
+  builders: {
+    indent,
+    join,
+    hardline,
+    softline,
+    literalline,
+    concat,
+    dedentToRoot
+  },
+  utils: { mapDoc, stripTrailingHardline }
+} = require("../doc");
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
@@ -101,9 +103,7 @@ function embed(path, print, textToDoc /*, options */) {
           if (commentsAndWhitespaceOnly) {
             doc = printGraphqlComments(lines);
           } else {
-            doc = docUtils.stripTrailingHardline(
-              textToDoc(text, { parser: "graphql" })
-            );
+            doc = stripTrailingHardline(textToDoc(text, { parser: "graphql" }));
           }
 
           if (doc) {
@@ -175,7 +175,7 @@ function embed(path, print, textToDoc /*, options */) {
 
   function printMarkdown(text) {
     const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
-    return docUtils.stripTrailingHardline(escapeBackticks(doc));
+    return stripTrailingHardline(escapeBackticks(doc));
   }
 }
 
@@ -197,7 +197,7 @@ function getIndentation(str) {
 }
 
 function escapeBackticks(doc) {
-  return docUtils.mapDoc(doc, currentDoc => {
+  return mapDoc(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
@@ -235,7 +235,7 @@ function transformCssDoc(quasisDoc, path, print) {
   }
   return concat([
     "`",
-    indent(concat([hardline, docUtils.stripTrailingHardline(newDoc)])),
+    indent(concat([hardline, stripTrailingHardline(newDoc)])),
     softline,
     "`"
   ]);
@@ -252,7 +252,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
   const expressions = expressionDocs.slice();
   let replaceCounter = 0;
-  const newDoc = docUtils.mapDoc(quasisDoc, doc => {
+  const newDoc = mapDoc(quasisDoc, doc => {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }

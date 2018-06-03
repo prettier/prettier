@@ -17,8 +17,16 @@ function writeJson(file, content) {
   return writeFile(file, content);
 }
 
+async function copyFile(from, to) {
+  const data = await readFile(from);
+  return writeFile(to, data);
+}
+
 module.exports = {
   asyncRimRaf: promisify(rimraf),
   readJson,
-  writeJson
+  writeJson,
+  copyFile,
+  readFile,
+  writeFile
 };

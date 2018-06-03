@@ -439,7 +439,7 @@ function getAlignmentSize(value, tabWidth, startIndex) {
       // multiple of tabWidth:
       // 0 -> 4, 1 -> 4, 2 -> 4, 3 -> 4
       // 4 -> 8, 5 -> 8, 6 -> 8, 7 -> 8 ...
-      size = size + tabWidth - size % tabWidth;
+      size = size + tabWidth - (size % tabWidth);
     } else {
       size++;
     }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`less.css 1`] = `
+exports[`less.less 1`] = `
 @nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
 
@@ -1640,6 +1640,28 @@ li + li {
     .thing-child {}
   }
 }
+
+.foo,
+  // Comment
+.bar {
+  // Comment
+  color: red; // Comment
+}
+
+// Variables
+@link-color: #428bca; // Comment
+
+[href]:hover &, // Comment
+[href]:focus &, // Comment
+[href]:active & {
+  .tooltip {
+    opacity: 1;
+  }
+}
+
+// Usage
+@import // Comment
+  "@{themes}/tidal-wave.less";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @nice-blue: #5b83ad;
 @light-blue: @nice-blue + #111;
@@ -3212,5 +3234,27 @@ li + li {
     }
   }
 }
+
+.foo,
+  // Comment
+.bar {
+  // Comment
+  color: red; // Comment
+}
+
+// Variables
+@link-color: #428bca; // Comment
+
+[href]:hover &, // Comment
+[href]:focus &, // Comment
+[href]:active & {
+  .tooltip {
+    opacity: 1;
+  }
+}
+
+// Usage
+@import // Comment
+  "@{themes}/tidal-wave.less";
 
 `;
