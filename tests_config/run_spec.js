@@ -63,15 +63,14 @@ function run_spec(dirname, parsers, options) {
       if (AST_COMPARE) {
         const compareOptions = Object.assign({}, mergedOptions);
         delete compareOptions.cursorOffset;
-        const astMassaged =
-          input && input.trim().length ? parse(input, compareOptions) : {};
+        const astMassaged = parse(input, compareOptions);
         let ppastMassaged;
         let pperr = null;
         try {
-          ppastMassaged =
-            input && input.trim().length
-              ? parse(prettyprint(input, path, compareOptions), compareOptions)
-              : {};
+          ppastMassaged = parse(
+            prettyprint(input, path, compareOptions),
+            compareOptions
+          );
         } catch (e) {
           pperr = e.stack;
         }
