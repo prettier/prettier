@@ -2833,6 +2833,8 @@ function printPathNoParens(path, options, print, args) {
       return "string";
     case "TSUndefinedKeyword":
       return "undefined";
+    case "TSUnknownKeyword":
+      return "unknown";
     case "TSVoidKeyword":
       return "void";
     case "TSAsExpression":
