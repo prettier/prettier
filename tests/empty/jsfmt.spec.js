@@ -8,8 +8,4 @@ run_spec(
   parsers.choices
     .filter(choice => !choice.deprecated)
     .map(choice => choice.value)
-    .filter(
-      parser =>
-        ["json", "json5", "json-stringify", "graphql"].indexOf(parser) === -1
-    )
 );
