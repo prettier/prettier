@@ -20,6 +20,7 @@ async function run() {
     require("./steps/validate-new-version"),
     require("./steps/check-git-status"),
     require("./steps/install-dependencies"),
+    require("./steps/run-tests"),
   ];
 
   try {

@@ -2,6 +2,7 @@
 
 const chalk = require("chalk");
 const fs = require("fs");
+const { exec } = require("child-process-promise");
 const stringWidth = require("string-width");
 
 const OK = chalk.bgGreen.black(" DONE ");
@@ -30,11 +31,20 @@ function logPromise(name, promise) {
     });
 }
 
+async function execYarn(command) {
+  try {
+    await exec(`yarn --silent ${command}`);
+  } catch (error) {
+    throw Error(`\`yarn ${command}\` failed\n${error.stdout}`);
+  }
+}
+
 function readJson(filename) {
   return JSON.parse(fs.readFileSync(filename, "utf-8"));
 }
 
 module.exports = {
+  execYarn,
   logPromise,
   readJson
 };
