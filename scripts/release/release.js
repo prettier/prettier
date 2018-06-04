@@ -21,6 +21,7 @@ async function run() {
     require("./steps/check-git-status"),
     require("./steps/install-dependencies"),
     require("./steps/run-tests"),
+    require("./steps/update-version"),
   ];
 
   try {

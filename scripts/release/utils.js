@@ -43,8 +43,13 @@ function readJson(filename) {
   return JSON.parse(fs.readFileSync(filename, "utf-8"));
 }
 
+function writeJson(filename, content) {
+  fs.writeFileSync(filename, JSON.stringify(content, null, 2) + "\n");
+}
+
 module.exports = {
   execYarn,
   logPromise,
-  readJson
+  readJson,
+  writeJson
 };
