@@ -1637,3 +1637,25 @@ li + li {
     .thing-child {}
   }
 }
+
+.foo,
+  // Comment
+.bar {
+  // Comment
+  color: red; // Comment
+}
+
+// Variables
+@link-color: #428bca; // Comment
+
+[href]:hover &, // Comment
+[href]:focus &, // Comment
+[href]:active & {
+  .tooltip {
+    opacity: 1;
+  }
+}
+
+// Usage
+@import // Comment
+  "@{themes}/tidal-wave.less";

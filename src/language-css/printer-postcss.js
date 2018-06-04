@@ -64,7 +64,8 @@ const {
   isRightCurlyBraceNode,
   isWordNode,
   isColonNode,
-  isMediaAndSupportsKeywords
+  isMediaAndSupportsKeywords,
+  isColorAdjusterFuncNode
 } = require("./utils");
 
 function shouldPrintComma(options) {
@@ -415,6 +416,7 @@ function genericPrint(path, options, print) {
     }
     case "value-comma_group": {
       const parentNode = path.getParentNode();
+      const parentParentNode = path.getParentNode(1);
       const declAncestorProp = getPropOfDeclNode(path);
       const isGridValue =
         declAncestorProp &&
@@ -540,6 +542,15 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        // Print spaces after `+` and `-` in color adjuster functions as is (e.g. `color(red l(+ 20%))`)
+        // Adjusters with signed numbers (e.g. `color(red l(+20%))`) output as-is.
+        const isColorAdjusterNode =
+          (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
+          i === 0 &&
+          (iNextNode.type === "value-number" || iNextNode.isHex) &&
+          (parentParentNode && isColorAdjusterFuncNode(parentParentNode)) &&
+          !hasEmptyRawBefore(iNextNode);
+
         const requireSpaceBeforeOperator =
           (iNextNextNode && iNextNextNode.type === "value-func") ||
           (iNextNextNode && isWordNode(iNextNextNode)) ||
@@ -555,6 +566,7 @@ function genericPrint(path, options, print) {
         if (
           !(isMultiplicationNode(iNextNode) || isMultiplicationNode(iNode)) &&
           !insideValueFunctionNode(path, "calc") &&
+          !isColorAdjusterNode &&
           ((isDivisionNode(iNextNode) && !requireSpaceBeforeOperator) ||
             (isDivisionNode(iNode) && !requireSpaceAfterOperator) ||
             (isAdditionNode(iNextNode) && !requireSpaceBeforeOperator) ||

@@ -705,9 +705,20 @@ function shouldPrePrintDoubleHardline(node, data) {
 
   const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode) === "next";
 
+  const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
+    node.type === "html" &&
+    data.prevNode &&
+    data.prevNode.type === "html" &&
+    data.prevNode.position.end.line + 1 === node.position.start.line;
+
   return (
     isPrevNodeLooseListItem ||
-    !(isSiblingNode || isInTightListItem || isPrevNodePrettierIgnore)
+    !(
+      isSiblingNode ||
+      isInTightListItem ||
+      isPrevNodePrettierIgnore ||
+      isBlockHtmlWithoutBlankLineBetweenPrevHtml
+    )
   );
 }
 

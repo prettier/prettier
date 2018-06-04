@@ -3418,18 +3418,19 @@ function shouldGroupFirstArg(args) {
   );
 }
 
-const functionCompositionFunctionNames = {
-  pipe: true, // RxJS, Ramda
-  pipeP: true, // Ramda
-  pipeK: true, // Ramda
-  compose: true, // Ramda, Redux
-  composeFlipped: true, // Not from any library, but common in Haskell, so supported
-  composeP: true, // Ramda
-  composeK: true, // Ramda
-  flow: true, // Lodash
-  flowRight: true, // Lodash
-  connect: true // Redux
-};
+const functionCompositionFunctionNames = new Set([
+  "pipe", // RxJS, Ramda
+  "pipeP", // Ramda
+  "pipeK", // Ramda
+  "compose", // Ramda, Redux
+  "composeFlipped", // Not from any library, but common in Haskell, so supported
+  "composeP", // Ramda
+  "composeK", // Ramda
+  "flow", // Lodash
+  "flowRight", // Lodash
+  "connect" // Redux
+]);
+
 function isFunctionCompositionFunction(node) {
   switch (node.type) {
     case "OptionalMemberExpression":
@@ -3437,11 +3438,11 @@ function isFunctionCompositionFunction(node) {
       return isFunctionCompositionFunction(node.property);
     }
     case "Identifier": {
-      return functionCompositionFunctionNames[node.name];
+      return functionCompositionFunctionNames.has(node.name);
     }
     case "StringLiteral":
     case "Literal": {
-      return functionCompositionFunctionNames[node.value];
+      return functionCompositionFunctionNames.has(node.value);
     }
   }
 }
@@ -4439,10 +4440,11 @@ function printMemberChain(path, options, print) {
   //     .map(x => x)
   //
   // In order to detect those cases, we use an heuristic: if the first
-  // node is an identifier with the name starting with a capital letter.
-  // The rationale is that they are likely to be factories.
+  // node is an identifier with the name starting with a capital
+  // letter or just a sequence of _$. The rationale is that they are
+  // likely to be factories.
   function isFactory(name) {
-    return /^[A-Z]/.test(name);
+    return /^[A-Z]|^[_$]+$/.test(name);
   }
 
   // In case the Identifier is shorter than tab width, we can keep the

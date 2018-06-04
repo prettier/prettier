@@ -1,3 +1,28 @@
+# 1.13.4
+
+[link](https://github.com/prettier/prettier/compare/1.13.3...1.13.4)
+
+- Fix a regression when printing graphql-in-js ([#4616](https://github.com/prettier/prettier/pull/4616))
+
+# 1.13.3
+
+[link](https://github.com/prettier/prettier/compare/1.13.2...1.13.3)
+
+- Fix a regression when printing `hasOwnProperty` and other functions in `Object`'s prototype ([#4603](https://github.com/prettier/prettier/pull/4603))
+- Fix a regression in exit status when using `--debug-check` and `--list-different` ([#4600](https://github.com/prettier/prettier/pull/4600))
+
+# 1.13.2
+
+[link](https://github.com/prettier/prettier/compare/1.13.1...1.13.2)
+
+- Republished 1.13.1 with missing README included this time
+
+# 1.13.1
+
+[link](https://github.com/prettier/prettier/compare/1.13.0...1.13.1)
+
+- Revert default parser change in API (still present in CLI)
+
 # 1.13.0
 
 [link](https://github.com/prettier/prettier/compare/1.12.1...1.13.0)

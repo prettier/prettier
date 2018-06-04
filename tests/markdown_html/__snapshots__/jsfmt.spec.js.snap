@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`blank-line-between-htmls.md 1`] = `
+<!--lint disable no-html-->
+<p align="center"><img src="logo/vertical.png" alt="labelify" height="150px"></p>
+<!--lint enable no-html-->
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!--lint disable no-html-->
+<p align="center"><img src="logo/vertical.png" alt="labelify" height="150px"></p>
+<!--lint enable no-html-->
+
+`;
+
 exports[`multiline.md 1`] = `
 1.  Some test text, the goal is to have the html table below nested within this number. When formating on save Prettier will continue to add an indent each time pushing the table further and further out of sync. 
 

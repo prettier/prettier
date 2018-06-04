@@ -274,10 +274,11 @@ function parseNestedCSS(node) {
     let selector = "";
 
     if (typeof node.selector === "string") {
-      selector =
-        node.raws.selector && node.raws.selector.raw
-          ? node.raws.selector.raw
-          : node.selector;
+      selector = node.raws.selector
+        ? node.raws.selector.scss
+          ? node.raws.selector.scss
+          : node.raws.selector.raw
+        : node.selector;
 
       if (node.raws.between && node.raws.between.trim().length > 0) {
         selector += node.raws.between;
@@ -289,10 +290,11 @@ function parseNestedCSS(node) {
     let value = "";
 
     if (typeof node.value === "string") {
-      value =
-        node.raws.value && node.raws.value.raw
-          ? node.raws.value.raw
-          : node.value;
+      value = node.raws.value
+        ? node.raws.value.scss
+          ? node.raws.value.scss
+          : node.raws.value.raw
+        : node.value;
 
       value = value.trim();
 
@@ -302,10 +304,11 @@ function parseNestedCSS(node) {
     let params = "";
 
     if (typeof node.params === "string") {
-      params =
-        node.raws.params && node.raws.params.raw
-          ? node.raws.params.raw
-          : node.params;
+      params = node.raws.params
+        ? node.raws.params.scss
+          ? node.raws.params.scss
+          : node.raws.params.raw
+        : node.params;
 
       if (node.raws.afterName && node.raws.afterName.trim().length > 0) {
         params = node.raws.afterName + params;

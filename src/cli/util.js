@@ -115,18 +115,18 @@ function logFileInfoOrDie(context) {
   context.logger.log(
     prettier.format(
       stringify(prettier.getFileInfo.sync(context.argv["file-info"], options)),
-      {
-        parser: "json"
-      }
+      { parser: "json" }
     )
   );
 }
 
-function writeOutput(result, options) {
+function writeOutput(context, result, options) {
   // Don't use `console.log` here since it adds an extra newline at the end.
-  process.stdout.write(result.formatted);
+  process.stdout.write(
+    context.argv["debug-check"] ? result.filepath : result.formatted
+  );
 
-  if (options.cursorOffset >= 0) {
+  if (options && options.cursorOffset >= 0) {
     process.stderr.write(result.cursorOffset + "\n");
   }
 }
@@ -137,6 +137,11 @@ function listDifferent(context, input, options, filename) {
   }
 
   try {
+    if (!options.filepath && !options.parser) {
+      throw new errors.UndefinedParserError(
+        "No parser and no file path given, couldn't infer a parser."
+      );
+    }
     if (!prettier.check(input, options)) {
       if (!context.argv["write"]) {
         context.logger.log(filename);
@@ -151,6 +156,12 @@ function listDifferent(context, input, options, filename) {
 }
 
 function format(context, input, opt) {
+  if (!opt.parser && !opt.filepath) {
+    throw new errors.UndefinedParserError(
+      "No parser and no file path given, couldn't infer a parser."
+    );
+  }
+
   if (context.argv["debug-print-doc"]) {
     const doc = prettier.__debug.printToDoc(input, opt);
     return { formatted: prettier.__debug.formatDoc(doc) };
@@ -186,7 +197,7 @@ function format(context, input, opt) {
         );
       }
     }
-    return { formatted: opt.filepath || "(stdin)\n" };
+    return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
   return prettier.formatWithCursor(input, opt);
@@ -299,7 +310,7 @@ function formatStdin(context) {
 
   thirdParty.getStream(process.stdin).then(input => {
     if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
-      writeOutput({ formatted: input }, {});
+      writeOutput(context, { formatted: input });
       return;
     }
 
@@ -310,7 +321,7 @@ function formatStdin(context) {
         return;
       }
 
-      writeOutput(format(context, input, options), options);
+      writeOutput(context, format(context, input, options), options);
     } catch (error) {
       handleError(context, "stdin", error);
     }
@@ -401,7 +412,7 @@ function formatFiles(context) {
     }
 
     if (fileIgnored) {
-      writeOutput({ formatted: input }, options);
+      writeOutput(context, { formatted: input }, options);
       return;
     }
 
@@ -456,13 +467,13 @@ function formatFiles(context) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
     } else if (context.argv["debug-check"]) {
-      if (output) {
-        context.logger.log(output);
+      if (result.filepath) {
+        context.logger.log(result.filepath);
       } else {
         process.exitCode = 2;
       }
     } else if (!context.argv["list-different"]) {
-      writeOutput(result, options);
+      writeOutput(context, result, options);
     }
   });
 }

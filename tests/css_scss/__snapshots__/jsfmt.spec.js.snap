@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import_comma.css 1`] = `
+exports[`import_comma.scss 1`] = `
 @import "rounded-corners", "text-shadow";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @import "rounded-corners", "text-shadow";
 
 `;
 
-exports[`scss.css 1`] = `
+exports[`scss.scss 1`] = `
 @media #{$g-breakpoint-tiny} {}
 .#{$fa-css-prefix}-glass:before { content: $fa-var-glass; }
 a {height: calc(#{$foo} + 1);}
@@ -998,6 +998,42 @@ mixin theme($css-property, $css-value, $theme-classes: t) {
     }
   }
 }
+
+.foo,
+// Comment
+.bar {
+  // Comment
+  color: red; // Comment
+}
+
+$my-list:
+  'foo', // Comment
+  'bar'; // Comment
+
+$my-map: (
+  'foo': 1, // Comment
+  'bar': 2, // Comment
+);
+
+[href]:hover &, // Comment
+[href]:focus &, // Comment
+[href]:active & {
+  .tooltip {
+    opacity: 1;
+  }
+}
+
+@import
+  // Comment
+  'mixins',
+  'variables',
+  // Comment
+  'reset',
+  'scaffolding',
+  'type',
+  // Comment
+  'bar',
+  'tabs';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @media #{$g-breakpoint-tiny} {
 }
@@ -1899,5 +1935,41 @@ mixin theme($css-property, $css-value, $theme-classes: t) {
     }
   }
 }
+
+.foo,
+// Comment
+.bar {
+  // Comment
+  color: red; // Comment
+}
+
+$my-list: "foo",
+  // Comment
+    "bar"; // Comment
+
+$my-map: (
+  "foo": 1,
+  // Comment
+    "bar": 2,
+  // Comment
+);
+
+[href]:hover &, // Comment
+[href]:focus &, // Comment
+[href]:active & {
+  .tooltip {
+    opacity: 1;
+  }
+}
+
+@import // Comment
+    "mixins",
+  "variables",
+  // Comment
+    "reset",
+  "scaffolding", "type",
+  // Comment
+    "bar",
+  "tabs";
 
 `;
