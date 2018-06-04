@@ -5,23 +5,22 @@ const stringWidth = require("string-width");
 const bundler = require("./bundler");
 const bundleConfigs = require("./config");
 const util = require("./util");
-const formatMarkdown = require("../../website/playground/markdown");
 
 // Errors in promises should be fatal.
 const loggedErrors = new Set();
 process.on("unhandledRejection", err => {
-  if (loggedErrors.has(err)) {
-    // No need to print it twice.
-    process.exit(1);
+  // No need to print it twice.
+  if (!loggedErrors.has(err)) {
+    console.error(err);
   }
-  throw err;
+  process.exit(1);
 });
 
 const OK = chalk.reset.inverse.bold.green(" DONE ");
 const FAIL = chalk.reset.inverse.bold.red(" FAIL ");
 
 function fitTerminal(input) {
-  const columns = process.stdout.columns || 80;
+  const columns = Math.min(process.stdout.columns, 80);
   const WIDTH = columns - stringWidth(OK) + 1;
   if (input.length < WIDTH) {
     input += Array(WIDTH - input.length).join(chalk.dim("."));
@@ -65,30 +64,6 @@ async function preparePackage() {
   await util.copyFile("./README.md", "./dist/README.md");
 }
 
-async function updateIssueTemplate() {
-  const filename = ".github/ISSUE_TEMPLATE.md";
-  const issueTemplate = await util.readFile(filename, "utf8");
-
-  const pkg = await util.readJson("package.json");
-  await util.writeFile(
-    filename,
-    issueTemplate.replace(
-      /-->[^]*$/,
-      "-->\n\n" +
-        formatMarkdown(
-          "// code snippet",
-          "// code snippet",
-          "",
-          pkg.version,
-          "https://prettier.io/playground/#.....",
-          { parser: "babylon" },
-          [["# Options (if any):", true], ["--single-quote", true]],
-          true
-        )
-    )
-  );
-}
-
 async function run() {
   await util.asyncRimRaf("dist");
 
@@ -98,7 +73,6 @@ async function run() {
   }
 
   await preparePackage();
-  await updateIssueTemplate();
 }
 
 run();
