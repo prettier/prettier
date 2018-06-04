@@ -19,6 +19,7 @@ async function run() {
   const steps = [
     require("./steps/validate-new-version"),
     require("./steps/check-git-status"),
+    require("./steps/install-dependencies"),
   ];
 
   try {
