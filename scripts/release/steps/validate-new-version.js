@@ -9,6 +9,6 @@ module.exports = async function({ version, previousVersion }) {
   }
 
   if (!semver.gt(version, previousVersion)) {
-    throw Error(`Version ${chalk.white(version)} has already been published`);
+    throw Error(`Version ${chalk.yellow(version)} has already been published`);
   }
 };
