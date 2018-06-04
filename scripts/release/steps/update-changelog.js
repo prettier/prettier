@@ -5,7 +5,7 @@ const dedent = require("dedent");
 const fs = require("fs");
 const prsMergedSince = require("prs-merged-since");
 const semver = require("semver");
-const { logPromise, keypress } = require("../utils");
+const { logPromise, waitForEnter } = require("../utils");
 
 async function prepareReleaseNotes({ version, previousVersion }) {
   const versionDiff = semver.diff(version, previousVersion);
@@ -74,7 +74,7 @@ async function waitForChangelog({ changes, warning }) {
   }
   console.log("\nPress any key to continue");
 
-  await keypress();
+  await waitForEnter();
 }
 
 module.exports = async function(params) {

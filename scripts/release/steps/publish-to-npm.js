@@ -3,7 +3,7 @@
 const chalk = require("chalk");
 const dedent = require("dedent");
 const { exec } = require("child-process-promise");
-const { logPromise, keypress } = require("../utils");
+const { logPromise, waitForEnter } = require("../utils");
 
 module.exports = async function({ dry, version }) {
   if (dry) {
@@ -32,5 +32,5 @@ module.exports = async function({ dry, version }) {
       Press any key to continue.
     `)
   );
-  await keypress();
+  await waitForEnter();
 };

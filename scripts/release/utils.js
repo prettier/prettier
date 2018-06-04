@@ -1,5 +1,7 @@
 "use strict";
 
+require("readline").emitKeypressEvents(process.stdin);
+
 const chalk = require("chalk");
 const fs = require("fs");
 const { exec } = require("child-process-promise");
@@ -39,17 +41,23 @@ async function execYarn(command) {
   }
 }
 
-function keypress() {
-  return new Promise(resolve => {
-    process.stdin.setRawMode(true);
-    process.stdin
-      .once("data", () => {
-        console.log();
-        process.stdin.pause();
+function waitForEnter() {
+  process.stdin.setRawMode(true);
+
+  return new Promise((resolve, reject) => {
+    process.stdin.on("keypress", listener);
+    process.stdin.resume();
+
+    function listener(ch, key) {
+      if (key.name === "return") {
         process.stdin.setRawMode(false);
+        process.stdin.removeListener("keypress", listener);
+        process.stdin.pause();
         resolve();
-      })
-      .resume();
+      } else if (key.ctrl && key.name === "c") {
+        reject(Error("Process terminated by the user"));
+      }
+    }
   });
 }
 
@@ -66,5 +74,5 @@ module.exports = {
   logPromise,
   readJson,
   writeJson,
-  keypress
+  waitForEnter
 };
