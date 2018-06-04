@@ -25,6 +25,7 @@ async function run() {
     require("./steps/generate-bundles"),
     require("./steps/update-changelog"),
     require("./steps/push-to-git"),
+    require("./steps/publish-to-npm"),
   ];
 
   try {
