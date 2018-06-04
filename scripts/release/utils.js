@@ -39,6 +39,20 @@ async function execYarn(command) {
   }
 }
 
+function keypress() {
+  return new Promise(resolve => {
+    process.stdin.setRawMode(true);
+    process.stdin
+      .once("data", () => {
+        console.log();
+        process.stdin.pause();
+        process.stdin.setRawMode(false);
+        resolve();
+      })
+      .resume();
+  });
+}
+
 function readJson(filename) {
   return JSON.parse(fs.readFileSync(filename, "utf-8"));
 }
@@ -51,5 +65,6 @@ module.exports = {
   execYarn,
   logPromise,
   readJson,
-  writeJson
+  writeJson,
+  keypress
 };

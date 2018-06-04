@@ -23,6 +23,7 @@ async function run() {
     require("./steps/run-tests"),
     require("./steps/update-version"),
     require("./steps/generate-bundles"),
+    require("./steps/update-changelog"),
   ];
 
   try {

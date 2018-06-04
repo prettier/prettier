@@ -5,6 +5,7 @@
     "child-process-promise": "2.2.1",
     "dedent": "0.7.0",
     "minimist": "1.2.0",
+    "prs-merged-since": "1.0.1",
     "semver": "5.5.0",
     "string-width": "2.1.1"
   }
