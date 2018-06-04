@@ -3,8 +3,10 @@
   "dependencies": {
     "chalk": "2.4.1",
     "child-process-promise": "2.2.1",
+    "clipboardy": "1.2.3",
     "dedent": "0.7.0",
     "minimist": "1.2.0",
+    "node-fetch": "2.1.2",
     "prs-merged-since": "1.0.1",
     "semver": "5.5.0",
     "string-width": "2.1.1"
