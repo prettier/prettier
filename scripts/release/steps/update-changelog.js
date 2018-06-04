@@ -7,82 +7,94 @@ const prsMergedSince = require("prs-merged-since");
 const semver = require("semver");
 const { logPromise, waitForEnter } = require("../utils");
 
-async function prepareReleaseNotes({ version, previousVersion }) {
-  const versionDiff = semver.diff(version, previousVersion);
-
-  let changes;
-  let warning;
-  let releaseNotes;
-
-  if (versionDiff !== "patch") {
-    // Changelog is the blog post, so we just add a link to it
-    changes = "blog post link";
-
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = new String(date.getMonth() + 1).padStart(2, "0");
-    const day = new String(date.getDate()).padStart(2, "0");
-    const blogPostFile = `website/blog/${year}-${month}-${day}-${version}.md`;
-    const blogPostPath = `${year}/${month}/${day}/${version}.html`;
-
-    releaseNotes = `- [Release Notes](https://prettier.io/blog/${blogPostPath})`;
-
-    if (!fs.existsSync(blogPostFile)) {
-      warning = chalk`Make sure the blog post file {yellow ${blogPostFile}} will be created.`;
-    }
-  } else {
-    // Changelog should be the most important PRs, let's add everything
-    // and ask for the releaser to edit the file later.
-    changes = "merged PRs since last release";
-    const prs = await prsMergedSince({
-      repo: "prettier/prettier",
-      tag: previousVersion,
-      githubApiToken: process.env.GITHUB_API_TOKEN
-    });
-    releaseNotes = prs
-      .map(pr => `- ${pr.title} ([#${pr.number}](${pr.html_url}))`)
-      .join("\n");
-  }
-
-  const header = dedent`
-    # ${version}
-
-    [link](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
-  `;
-  const changelog = fs.readFileSync("CHANGELOG.md", "utf-8");
-  fs.writeFileSync(
-    "CHANGELOG.md",
-    header + "\n\n" + releaseNotes + "\n\n" + changelog
-  );
+function getBlogPostInfo(version) {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = new String(date.getMonth() + 1).padStart(2, "0");
+  const day = new String(date.getDate()).padStart(2, "0");
 
   return {
-    changes,
-    warning
+    file: `website/blog/${year}-${month}-${day}-${version}.md`,
+    path: `blog/${year}/${month}/${day}/${version}.html`
   };
 }
 
-async function waitForChangelog({ changes, warning }) {
-  console.log(
-    dedent(chalk`
-      {yellow.bold A manual step is necessary.}
-      The script has updated the file {bold CHANGELOG.md} with a draft of ${changes}, you can make any changes now if necessary.
-      You don't need to commit the file, the script will take care of that.
-    `)
-  );
-  if (warning) {
-    console.log("\n" + warning);
-  }
-  console.log("\nPress any key to continue");
-
-  await waitForEnter();
+async function getMergedPrs(previousVersion) {
+  const prs = await prsMergedSince({
+    repo: "prettier/prettier",
+    tag: previousVersion,
+    githubApiToken: process.env.GITHUB_API_TOKEN
+  });
+  return prs
+    .map(pr => `- ${pr.title} ([#${pr.number}](${pr.html_url}))`)
+    .join("\n");
 }
 
-module.exports = async function(params) {
-  const result = await logPromise(
-    "Preparing release notes",
-    prepareReleaseNotes(params)
-  );
+function writeChangelog({ version, previousVersion, releaseNotes }) {
+  const changelog = fs.readFileSync("CHANGELOG.md", "utf-8");
+  const newEntry = dedent`
+    # ${version}
 
-  console.log();
-  await waitForChangelog(result);
+    [link](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
+
+    ${releaseNotes}
+  `;
+  fs.writeFileSync("CHANGELOG.md", newEntry + "\n\n" + changelog);
+}
+
+module.exports = async function({ version, previousVersion }) {
+  const semverDiff = semver.diff(version, previousVersion);
+
+  if (semverDiff !== "patch") {
+    const blogPost = getBlogPostInfo(version);
+    writeChangelog({
+      version,
+      previousVersion,
+      releaseNotes: `- [Release Notes](https://prettier.io/${blogPost.path})`
+    });
+    if (fs.existsSync(blogPost.file)) {
+      // Everything is fine, this step is finished
+      return;
+    }
+    console.warn(
+      dedent(chalk`
+        {yellow warning} The file {bold ${
+          blogPost.file
+        }} doesn't exist, but it will be referenced in {bold CHANGELOG.md}. Make sure to create it later.
+
+        Press ENTER to continue.
+      `)
+    );
+  } else {
+    if (!process.env.GITHUB_API_TOKEN) {
+      console.log(
+        chalk`{yellow warning} GitHub API access token missing. You can expose a token via {bold GITHUB_API_TOKEN} environment variable.`
+      );
+    }
+
+    const releaseNotes = await logPromise(
+      "Fetching merged PRs",
+      getMergedPrs(previousVersion)
+    );
+    writeChangelog({
+      version,
+      previousVersion,
+      releaseNotes
+    });
+    console.log();
+    console.log(
+      dedent(chalk`
+        {yellow.bold A manual step is necessary.}
+
+        The script has updated the file {bold CHANGELOG.md} with all the merged PRs since the last release.
+        You must edit it to focus only on relevant changes and make sure they have meaningful titles.
+
+        You don't need to commit the file, the script will take care of that.
+
+        When you're finished, press ENTER to continue.
+      `)
+    );
+  }
+
+  await waitForEnter();
 };
