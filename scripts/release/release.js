@@ -22,6 +22,7 @@ async function run() {
     require("./steps/install-dependencies"),
     require("./steps/run-tests"),
     require("./steps/update-version"),
+    require("./steps/generate-bundles"),
   ];
 
   try {
