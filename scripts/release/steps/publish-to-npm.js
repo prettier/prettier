@@ -10,7 +10,7 @@ module.exports = async function({ dry, version }) {
     return;
   }
 
-  await logPromise("Publishing to NPM", exec("npm publish", { cwd: "./dist" }));
+  await logPromise("Publishing to npm", exec("npm publish", { cwd: "./dist" }));
 
   console.log(
     dedent(chalk`
