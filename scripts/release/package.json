@@ -3,7 +3,6 @@
   "dependencies": {
     "chalk": "2.4.1",
     "child-process-promise": "2.2.1",
-    "clipboardy": "1.2.3",
     "dedent": "0.7.0",
     "minimist": "1.2.0",
     "node-fetch": "2.1.2",

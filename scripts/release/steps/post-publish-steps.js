@@ -3,7 +3,6 @@
 const chalk = require("chalk");
 const dedent = require("dedent");
 const fetch = require("node-fetch");
-const clipboardy = require("clipboardy");
 const { exec } = require("child-process-promise");
 const { logPromise, waitForEnter } = require("../utils");
 
@@ -27,32 +26,40 @@ async function checkSchema() {
     return;
   }
 
-  return chalk`
+  return dedent(chalk`
     {bold.underline The schema in {yellow SchemaStore} needs an update.}
     - Open {cyan.underline ${EDIT_URL}}
     - Run {yellow node scripts/generate-schema.js} and copy the new schema
     - Paste it on GitHub interface
     - Open a PR
-  `;
+  `);
+}
+
+function twitterAnnouncement() {
+  return dedent(chalk`
+    {bold.underline Announce on Twitter}
+    - Open {cyan.underline https://tweetdeck.twitter.com}
+    - Make sure you are tweeting from the {yellow @PrettierCode} account.
+    - Tweet about the release, including the blog post URL.
+  `);
 }
 
 module.exports = async function() {
-  let steps = [];
-  steps.push(await checkSchema());
-  steps.push(chalk`
-    {bold.underline Announce on Twitter}
-    - Open {cyan.underline https://tweetdeck.twitter.com}
-    - From the {yellow @PrettierCode} account, tweet about the release.
-  `);
+  const steps = [await checkSchema(), twitterAnnouncement()].filter(Boolean);
 
-  steps = steps.filter(Boolean);
+  console.log(chalk.bold.green("The script has finished!\n"));
+
+  if (steps.length === 0) {
+    return;
+  }
+
   console.log(
-    chalk.yellow.bold(
-      steps.length === 1
-        ? "A manual step is necessary"
-        : "Some manual steps are necessary\n"
-    )
-  );
+    dedent(chalk`
+      {yellow.bold The following ${
+        steps.length === 1 ? "step is" : "steps are"
+      } optional.}
 
-  console.log(steps.map(step => dedent(step)).join("\n\n"));
+      ${steps.join("\n\n")}
+    `)
+  );
 };
