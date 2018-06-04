@@ -24,7 +24,7 @@ module.exports = async function({ dry, version }) {
 
   await logPromise(
     "Installing Prettier",
-    exec(`yarn add --dev prettier@${version}`)
+    spawn("yarn", ["add", "--dev", `prettier@${version}`])
   );
 
   await logPromise("Updating files", format());
