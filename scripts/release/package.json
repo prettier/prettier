@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "dependencies": {
+    "chalk": "2.4.1",
+    "child-process-promise": "2.2.1",
+    "dedent": "0.7.0",
+    "minimist": "1.2.0",
+    "semver": "5.5.0"
+  }
+}
