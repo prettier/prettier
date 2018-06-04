@@ -1,10 +1,10 @@
 "use strict";
 
 const chalk = require("chalk");
-const { execYarn, logPromise, readJson } = require("../utils");
+const { runYarn, logPromise, readJson } = require("../utils");
 
 module.exports = async function({ version }) {
-  await logPromise("Generating bundles", execYarn("build"));
+  await logPromise("Generating bundles", runYarn("build"));
 
   const builtPkg = await readJson("dist/package.json");
   if (builtPkg.version !== version) {
@@ -13,7 +13,7 @@ module.exports = async function({ version }) {
     );
   }
 
-  await logPromise("Running tests on generated bundles", execYarn("test:dist"));
+  await logPromise("Running tests on generated bundles", runYarn("test:dist"));
 
   console.log(chalk.green.bold("Build successful!\n"));
 };

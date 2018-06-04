@@ -4,7 +4,7 @@ require("readline").emitKeypressEvents(process.stdin);
 
 const chalk = require("chalk");
 const fs = require("fs");
-const { exec } = require("child-process-promise");
+const { spawn } = require("child-process-promise");
 const stringWidth = require("string-width");
 
 const OK = chalk.bgGreen.black(" DONE ");
@@ -33,12 +33,12 @@ function logPromise(name, promise) {
     });
 }
 
-async function execYarn(command) {
-  try {
-    await exec(`yarn --silent ${command}`);
-  } catch (error) {
-    throw Error(`\`yarn ${command}\` failed\n${error.stdout}`);
-  }
+function runYarn(script) {
+  return spawn("yarn", ["--silent", script], {
+    capture: ["stdout", "stderr"]
+  }).catch(error => {
+    throw Error(`\`yarn ${script}\` failed\n${error.stdout}`);
+  });
 }
 
 function waitForEnter() {
@@ -70,7 +70,7 @@ function writeJson(filename, content) {
 }
 
 module.exports = {
-  execYarn,
+  runYarn,
   logPromise,
   readJson,
   writeJson,

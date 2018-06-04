@@ -1,6 +1,6 @@
 "use strict";
 
-const { exec } = require("child-process-promise");
+const { exec, spawn } = require("child-process-promise");
 const { logPromise } = require("../utils");
 
 async function format() {
@@ -9,7 +9,11 @@ async function format() {
 }
 
 async function commit(version) {
-  await exec(`git commit -am "Bump Prettier dependency to ${version}"`);
+  await spawn("git", [
+    "commit",
+    "-am",
+    `Bump Prettier dependency to ${version}`
+  ]);
   await exec("git push");
 }
 
