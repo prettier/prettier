@@ -330,7 +330,7 @@ function formatStdin(context) {
 
 function createIgnorerFromContextOrDie(context) {
   try {
-    return createIgnorer(
+    return createIgnorer.sync(
       context.argv["ignore-path"],
       context.argv["with-node-modules"]
     );

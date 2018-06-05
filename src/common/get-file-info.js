@@ -4,31 +4,43 @@ const createIgnorer = require("./create-ignorer");
 const options = require("../main/options");
 
 /**
+ * @typedef {{ ignorePath?: string, withNodeModules?: boolean, plugins: object }} FileInfoOptions
+ * @typedef {{ ignored: boolean, inferredParser: string | null }} FileInfoResult
+ */
+
+/**
  * @param {string} filePath
- * @param {{ ignorePath?: string, withNodeModules?: boolean, plugins: object }} opts
+ * @param {FileInfoOptions} opts
+ * @returns {Promise<FileInfoResult>}
  *
  * Please note that prettier.getFileInfo() expects opts.plugins to be an array of paths,
  * not an object. A transformation from this array to an object is automatically done
  * internally by the method wrapper. See withPlugins() in index.js.
  */
-function _getFileInfo(filePath, opts) {
-  let ignored = false;
-  const ignorer = createIgnorer(opts.ignorePath, opts.withNodeModules);
-  ignored = ignorer.ignores(filePath);
+function getFileInfo(filePath, opts) {
+  return createIgnorer(opts.ignorePath, opts.withNodeModules).then(ignorer =>
+    _getFileInfo(ignorer, filePath, opts.plugins)
+  );
+}
 
-  const inferredParser = options.inferParser(filePath, opts.plugins) || null;
+/**
+ * @param {string} filePath
+ * @param {FileInfoOptions} opts
+ * @returns {FileInfoResult}
+ */
+getFileInfo.sync = function(filePath, opts) {
+  const ignorer = createIgnorer.sync(opts.ignorePath, opts.withNodeModules);
+  return _getFileInfo(ignorer, filePath, opts.plugins);
+};
+
+function _getFileInfo(ignorer, filePath, plugins) {
+  const ignored = ignorer.ignores(filePath);
+  const inferredParser = options.inferParser(filePath, plugins) || null;
 
   return {
     ignored,
     inferredParser
   };
 }
-
-// the method has been implemented as asynchronous to avoid possible breaking changes in future
-function getFileInfo(filePath, opts) {
-  return Promise.resolve().then(() => _getFileInfo(filePath, opts));
-}
-
-getFileInfo.sync = _getFileInfo;
 
 module.exports = getFileInfo;
