@@ -4,6 +4,7 @@
 !/**/.eslintrc.js
 /test.js
 /scripts/build/shims
+/scripts/release/node_modules
 /coverage/
 /dist/
 **/node_modules/**
