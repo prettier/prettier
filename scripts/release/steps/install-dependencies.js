@@ -1,13 +1,13 @@
 "use strict";
 
-const { exec } = require("child-process-promise");
+const execa = require("execa");
 const { logPromise } = require("../utils");
 
 async function install() {
-  await exec("rm -rf node_modules");
-  await exec("yarn install");
+  await execa("rm", ["-rf", "node_modules"]);
+  await execa("yarn", ["install"]);
 
-  const status = (await exec("git ls-files -m")).stdout.trim();
+  const status = await execa.stdout("git", ["ls-files", "-m"]);
   if (status) {
     throw Error(
       "The lockfile needs to be updated, commit it before making the release."

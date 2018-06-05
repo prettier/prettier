@@ -1,9 +1,9 @@
 "use strict";
 
-const { exec } = require("child-process-promise");
+const execa = require("execa");
 
 module.exports = async function() {
-  const status = (await exec("git status --porcelain")).stdout;
+  const status = await execa.stdout("git", ["status", "--porcelain"]);
 
   if (status) {
     throw Error(

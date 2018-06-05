@@ -1,6 +1,6 @@
 "use strict";
 
-const { exec } = require("child-process-promise");
+const execa = require("execa");
 const { readFileSync, writeFileSync } = require("fs");
 const { logPromise, readJson, writeJson } = require("../utils");
 
@@ -22,6 +22,6 @@ module.exports = async function(params) {
   await logPromise("Bumping version", bump(params));
   await logPromise(
     "Updating integration snapshots",
-    exec("yarn test-integration -u")
+    execa("yarn", ["test-integration", "-u"])
   );
 };

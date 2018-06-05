@@ -1,20 +1,20 @@
 "use strict";
 
-const { exec, spawn } = require("child-process-promise");
+const execa = require("execa");
 const { logPromise } = require("../utils");
 
 async function format() {
-  await exec("yarn lint --fix");
-  await exec("yarn lint-docs --fix");
+  await execa("yarn", ["lint", "--fix"]);
+  await execa("yarn", ["lint-docs", "--fix"]);
 }
 
 async function commit(version) {
-  await spawn("git", [
+  await execa("git", [
     "commit",
     "-am",
     `Bump Prettier dependency to ${version}`
   ]);
-  await exec("git push");
+  await execa("git", ["push"]);
 }
 
 module.exports = async function({ dry, version }) {
@@ -24,7 +24,7 @@ module.exports = async function({ dry, version }) {
 
   await logPromise(
     "Installing Prettier",
-    spawn("yarn", ["add", "--dev", `prettier@${version}`])
+    execa("yarn", ["add", "--dev", `prettier@${version}`])
   );
 
   await logPromise("Updating files", format());

@@ -2,7 +2,7 @@
 
 const chalk = require("chalk");
 const dedent = require("dedent");
-const { exec } = require("child-process-promise");
+const execa = require("execa");
 const { logPromise, waitForEnter } = require("../utils");
 
 module.exports = async function({ dry, version }) {
@@ -10,7 +10,10 @@ module.exports = async function({ dry, version }) {
     return;
   }
 
-  await logPromise("Publishing to npm", exec("npm publish", { cwd: "./dist" }));
+  await logPromise(
+    "Publishing to npm",
+    execa("npm", ["publish"], { cwd: "./dist" })
+  );
 
   console.log(
     dedent(chalk`
