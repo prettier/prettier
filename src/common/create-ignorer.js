@@ -2,7 +2,7 @@
 
 const ignore = require("ignore");
 const path = require("path");
-const readMaybeExistedFile = require("./read-maybe-existed-file");
+const getFileContentOrNull = require("./get-file-content-or-null");
 
 /**
  * @param {undefined | string} ignorePath
@@ -11,7 +11,7 @@ const readMaybeExistedFile = require("./read-maybe-existed-file");
 function createIgnorer(ignorePath, withNodeModules) {
   return (!ignorePath
     ? Promise.resolve(null)
-    : readMaybeExistedFile(path.resolve(ignorePath))
+    : getFileContentOrNull(path.resolve(ignorePath))
   ).then(ignoreContent => _createIgnorer(ignoreContent, withNodeModules));
 }
 
@@ -22,7 +22,7 @@ function createIgnorer(ignorePath, withNodeModules) {
 createIgnorer.sync = function(ignorePath, withNodeModules) {
   const ignoreContent = !ignorePath
     ? null
-    : readMaybeExistedFile.sync(path.resolve(ignorePath));
+    : getFileContentOrNull.sync(path.resolve(ignorePath));
   return _createIgnorer(ignoreContent, withNodeModules);
 };
 
