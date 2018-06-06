@@ -1,26 +1,37 @@
 "use strict";
 
 const ignore = require("ignore");
-const fs = require("fs");
 const path = require("path");
+const getFileContentOrNull = require("../utils/get-file-content-or-null");
 
+/**
+ * @param {undefined | string} ignorePath
+ * @param {undefined | boolean} withNodeModules
+ */
 function createIgnorer(ignorePath, withNodeModules) {
-  let ignoreText = "";
+  return (!ignorePath
+    ? Promise.resolve(null)
+    : getFileContentOrNull(path.resolve(ignorePath))
+  ).then(ignoreContent => _createIgnorer(ignoreContent, withNodeModules));
+}
 
-  if (ignorePath) {
-    const resolvedIgnorePath = path.resolve(ignorePath);
-    try {
-      ignoreText = fs.readFileSync(resolvedIgnorePath, "utf8");
-    } catch (readError) {
-      if (readError.code !== "ENOENT") {
-        throw new Error(
-          `Unable to read ${resolvedIgnorePath}: ${readError.message}`
-        );
-      }
-    }
-  }
+/**
+ * @param {undefined | string} ignorePath
+ * @param {undefined | boolean} withNodeModules
+ */
+createIgnorer.sync = function(ignorePath, withNodeModules) {
+  const ignoreContent = !ignorePath
+    ? null
+    : getFileContentOrNull.sync(path.resolve(ignorePath));
+  return _createIgnorer(ignoreContent, withNodeModules);
+};
 
-  const ignorer = ignore().add(ignoreText);
+/**
+ * @param {null | string} ignoreContent
+ * @param {undefined | boolean} withNodeModules
+ */
+function _createIgnorer(ignoreContent, withNodeModules) {
+  const ignorer = ignore().add(ignoreContent || "");
   if (!withNodeModules) {
     ignorer.add("node_modules");
   }
