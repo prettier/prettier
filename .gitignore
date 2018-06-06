@@ -1,4 +1,5 @@
 /node_modules
+/scripts/release/node_modules
 *.log
 /errors
 /test.js

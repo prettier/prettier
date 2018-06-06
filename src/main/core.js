@@ -63,6 +63,10 @@ function attachComments(text, ast, opts) {
 }
 
 function coreFormat(text, opts, addAlignmentSize) {
+  if (!text || !text.trim().length) {
+    return { formatted: "", cursorOffset: 0 };
+  }
+
   addAlignmentSize = addAlignmentSize || 0;
 
   const parsed = parser.parse(text, opts);
@@ -245,7 +249,7 @@ function format(text, opts) {
     text = opts.printer.insertPragma(text);
   }
 
-  const result = text && text.trim().length ? coreFormat(text, opts) : "";
+  const result = coreFormat(text, opts);
   if (hasUnicodeBOM) {
     result.formatted = String.fromCharCode(UTF8BOM) + result.formatted;
   }

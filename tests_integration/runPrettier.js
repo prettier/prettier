@@ -130,9 +130,6 @@ function runPrettier(dir, args, options) {
   return Object.assign({ test: testResult }, result);
 
   function appendStdout(text) {
-    if (!text) {
-      return;
-    }
     if (status === undefined) {
       stdout += text;
     }

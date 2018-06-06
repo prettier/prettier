@@ -109,7 +109,7 @@ function prettyprint(src, filename, options) {
       "<|>" +
       result.formatted.slice(result.cursorOffset);
   }
-  return result.formatted || "";
+  return result.formatted;
 }
 
 function read(filename) {
