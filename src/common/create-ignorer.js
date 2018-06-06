@@ -2,7 +2,7 @@
 
 const ignore = require("ignore");
 const path = require("path");
-const getFileContentOrNull = require("./get-file-content-or-null");
+const getFileContentOrNull = require("../utils/get-file-content-or-null");
 
 /**
  * @param {undefined | string} ignorePath
