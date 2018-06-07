@@ -465,13 +465,7 @@ function printDocToString(doc, options) {
                     out.pop();
                   }
 
-                  if (
-                    out.length &&
-                    typeof out[out.length - 1] === "string" &&
-                    (options.parser !== "markdown" ||
-                      // preserve markdown's `break` node (two trailing spaces)
-                      !/\S {2}$/.test(out[out.length - 1]))
-                  ) {
+                  if (out.length && typeof out[out.length - 1] === "string") {
                     out[out.length - 1] = out[out.length - 1].replace(
                       /[^\S\n]*$/,
                       ""
