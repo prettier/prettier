@@ -2501,7 +2501,6 @@ function printPathNoParens(path, options, print, args) {
 
     case "DeclareInterface":
     case "InterfaceDeclaration":
-    case "InterfaceType":
     case "InterfaceTypeAnnotation": {
       if (
         n.type === "DeclareInterface" ||
