@@ -2,7 +2,7 @@
 /* eslint no-var: off, strict: off */
 /* globals prettier prettierPlugins */
 
-var imported = {};
+var imported = Object.create(null);
 function importScriptOnce(url) {
   if (!imported[url]) {
     imported[url] = true;
