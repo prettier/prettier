@@ -19,7 +19,8 @@ const {
   hasNodeIgnoreComment,
   getPenultimate,
   startsWithNoLookaheadToken,
-  getIndentSize
+  getIndentSize,
+  matchAncestorTypes
 } = require("../common/util");
 const {
   isNextLineEmpty,
@@ -5049,13 +5050,20 @@ function maybeWrapJSXElementInParens(path, elem) {
     return elem;
   }
 
+  const shouldBreak = matchAncestorTypes(path, [
+    "ArrowFunctionExpression",
+    "CallExpression",
+    "JSXExpressionContainer"
+  ]);
+
   return group(
     concat([
       ifBreak("("),
       indent(concat([softline, elem])),
       softline,
       ifBreak(")")
-    ])
+    ]),
+    { shouldBreak }
   );
 }
 
