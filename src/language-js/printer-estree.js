@@ -3414,6 +3414,8 @@ function shouldGroupFirstArg(args) {
     (firstArg.type === "FunctionExpression" ||
       (firstArg.type === "ArrowFunctionExpression" &&
         firstArg.body.type === "BlockStatement")) &&
+    secondArg.type !== "FunctionExpression" &&
+    secondArg.type !== "ArrowFunctionExpression" &&
     !couldGroupArg(secondArg)
   );
 }
