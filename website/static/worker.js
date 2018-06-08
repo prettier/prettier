@@ -2,65 +2,73 @@
 /* eslint no-var: off, strict: off */
 /* globals prettier prettierPlugins */
 
+var imported = Object.create(null);
+function importScriptOnce(url) {
+  if (!imported[url]) {
+    imported[url] = true;
+    importScripts(url);
+  }
+}
+
 // this is required to only load parsers when we need them
 var parsers = {
   // JS - Babylon
   get babylon() {
-    importScripts("lib/parser-babylon.js");
+    importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers.babylon;
   },
   get json() {
-    importScripts("lib/parser-babylon.js");
+    importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers.json;
   },
   get json5() {
-    importScripts("lib/parser-babylon.js");
+    importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers.json5;
   },
   get "json-stringify"() {
-    importScripts("lib/parser-babylon.js");
+    importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers["json-stringify"];
   },
   // JS - Flow
   get flow() {
-    importScripts("lib/parser-flow.js");
+    importScriptOnce("lib/parser-flow.js");
     return prettierPlugins.flow.parsers.flow;
   },
   // JS - TypeScript
   get typescript() {
-    importScripts("lib/parser-typescript.js");
+    importScriptOnce("lib/parser-typescript.js");
     return prettierPlugins.typescript.parsers.typescript;
   },
 
   // CSS
   get css() {
-    importScripts("lib/parser-postcss.js");
+    importScriptOnce("lib/parser-postcss.js");
     return prettierPlugins.postcss.parsers.css;
   },
   get less() {
-    importScripts("lib/parser-postcss.js");
+    importScriptOnce("lib/parser-postcss.js");
     return prettierPlugins.postcss.parsers.css;
   },
   get scss() {
-    importScripts("lib/parser-postcss.js");
+    importScriptOnce("lib/parser-postcss.js");
     return prettierPlugins.postcss.parsers.css;
   },
 
   // GraphQL
   get graphql() {
-    importScripts("lib/parser-graphql.js");
+    importScriptOnce("lib/parser-graphql.js");
     return prettierPlugins.graphql.parsers.graphql;
   },
 
   // Markdown
   get markdown() {
-    importScripts("lib/parser-markdown.js");
+    importScriptOnce("lib/parser-markdown.js");
     return prettierPlugins.markdown.parsers.remark;
   },
 
   // Vue
   get vue() {
-    importScripts("lib/parser-vue.js");
+    importScriptOnce("lib/parser-vue.js");
     return prettierPlugins.vue.parsers.vue;
   }
 };
