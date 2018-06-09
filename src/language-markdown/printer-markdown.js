@@ -8,6 +8,8 @@ const {
     concat,
     join,
     line,
+    literalline,
+    markAsRoot,
     hardline,
     softline,
     fill,
@@ -217,11 +219,15 @@ function genericPrint(path, options, print) {
       return node.value;
     case "html": {
       const parentNode = path.getParentNode();
-      return replaceNewlinesWithHardlines(
+      const value =
         parentNode.type === "root" &&
         privateUtil.getLast(parentNode.children) === node
           ? node.value.trimRight()
-          : node.value
+          : node.value;
+      const isHtmlComment = /^<!--[\s\S]*-->$/.test(value);
+      return replaceNewlinesWith(
+        value,
+        isHtmlComment ? hardline : markAsRoot(literalline)
       );
     }
     case "list": {
@@ -356,14 +362,11 @@ function genericPrint(path, options, print) {
     case "tableCell":
       return printChildren(path, options, print);
     case "break":
-      return concat([
-        /\s/.test(options.originalText[node.position.start.offset])
-          ? "  "
-          : "\\",
-        hardline
-      ]);
+      return /\s/.test(options.originalText[node.position.start.offset])
+        ? concat(["  ", markAsRoot(literalline)])
+        : concat(["\\", hardline]);
     case "liquidNode":
-      return replaceNewlinesWithHardlines(node.value);
+      return replaceNewlinesWith(node.value, hardline);
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     default:
@@ -414,8 +417,8 @@ function getNthListSiblingIndex(node, parentNode) {
   );
 }
 
-function replaceNewlinesWithHardlines(str) {
-  return join(hardline, str.split("\n"));
+function replaceNewlinesWith(str, doc) {
+  return join(doc, str.split("\n"));
 }
 
 function getNthSiblingIndex(node, parentNode, condition) {

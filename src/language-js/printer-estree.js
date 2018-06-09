@@ -19,7 +19,8 @@ const {
   hasNodeIgnoreComment,
   getPenultimate,
   startsWithNoLookaheadToken,
-  getIndentSize
+  getIndentSize,
+  matchAncestorTypes
 } = require("../common/util");
 const {
   isNextLineEmpty,
@@ -3416,6 +3417,8 @@ function shouldGroupFirstArg(args) {
     (firstArg.type === "FunctionExpression" ||
       (firstArg.type === "ArrowFunctionExpression" &&
         firstArg.body.type === "BlockStatement")) &&
+    secondArg.type !== "FunctionExpression" &&
+    secondArg.type !== "ArrowFunctionExpression" &&
     !couldGroupArg(secondArg)
   );
 }
@@ -5051,13 +5054,20 @@ function maybeWrapJSXElementInParens(path, elem) {
     return elem;
   }
 
+  const shouldBreak = matchAncestorTypes(path, [
+    "ArrowFunctionExpression",
+    "CallExpression",
+    "JSXExpressionContainer"
+  ]);
+
   return group(
     concat([
       ifBreak("("),
       indent(concat([softline, elem])),
       softline,
       ifBreak(")")
-    ])
+    ]),
+    { shouldBreak }
   );
 }
 
