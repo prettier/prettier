@@ -31,7 +31,7 @@
     "esutils": "2.0.2",
     "find-parent-dir": "0.3.0",
     "find-project-root": "1.1.1",
-    "flow-parser": "0.73.0",
+    "flow-parser": "0.74.0",
     "get-stream": "3.0.0",
     "globby": "6.1.0",
     "graphql": "0.13.2",
