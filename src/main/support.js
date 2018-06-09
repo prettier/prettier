@@ -41,7 +41,7 @@ function getSupportInfo(version, opts) {
     .map(option => {
       const newOption = Object.assign({}, option);
 
-      if (Array.isArray(newOption.default)) {
+      if (Array.isArray(newOption.default) && !newOption.array) {
         newOption.default =
           newOption.default.length === 1
             ? newOption.default[0].value
