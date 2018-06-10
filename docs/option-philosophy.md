@@ -9,7 +9,7 @@ Prettier is not a kitchen-sink code formatter that attempts to print your code i
 
 The more options Prettier has, the further from the above goal it gets. **The debates over styles just turn into debates over which Prettier options to use.**
 
-The issue about [resisting adding configuration](https://github.com/prettier/prettier/issues/40) has more 👍s than any option request issue.
+The issue about [resisting adding configuration](https://github.com/prettier/prettier/issues/40) has more 👍 than any option request issue.
 
 So why does Prettier have options at all?
 
