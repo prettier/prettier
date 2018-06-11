@@ -4912,7 +4912,7 @@ function printJSXElement(path, options, print) {
     containsMultipleExpressions;
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
-  const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
+  const jsxWhitespace = " ";
 
   const children = printJSXChildren(path, options, print, jsxWhitespace);
 
