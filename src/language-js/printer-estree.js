@@ -2940,7 +2940,8 @@ function printPathNoParens(path, options, print, args) {
         "import(",
         path.call(print, "argument"),
         ")",
-        !n.qualifier ? "" : concat([".", path.call(print, "qualifier")])
+        !n.qualifier ? "" : concat([".", path.call(print, "qualifier")]),
+        printTypeParameters(path, options, print, "typeParameters")
       ]);
     case "TSLiteralType":
       return path.call(print, "literal");
