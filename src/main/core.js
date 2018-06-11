@@ -259,7 +259,7 @@ function format(text, opts) {
 module.exports = {
   formatWithCursor(text, opts) {
     opts = normalizeOptions(opts);
-    return format(text, normalizeOptions(opts));
+    return format(text, opts);
   },
 
   parse(text, opts, massage) {
