@@ -5,19 +5,39 @@ const assert = require("assert");
 const util = require("../common/util");
 const comments = require("./comments");
 
-function hasClosureCompilerTypeCastComment(text, node, locEnd) {
+function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
   // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
   // Syntax example: var x = /** @type {string} */ (fruit);
+
+  const n = path.getValue();
+
   return (
-    node.comments &&
-    node.comments.some(
-      comment =>
-        comment.leading &&
-        comments.isBlockComment(comment) &&
-        comment.value.match(/^\*\s*@type\s*{[^}]+}\s*$/) &&
-        util.getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "("
-    )
+    util.getNextNonSpaceNonCommentCharacter(text, n, locEnd) === ")" &&
+    (hasTypeCastComment(n) || hasAncestorTypeCastComment(0))
   );
+
+  // for sub-item: /** @type {array} */ (numberOrString).map(x => x);
+  function hasAncestorTypeCastComment(index) {
+    const ancestor = path.getParentNode(index);
+    return ancestor &&
+      util.getNextNonSpaceNonCommentCharacter(text, ancestor, locEnd) !== ")" &&
+      /^[\s(]*$/.test(text.slice(locStart(ancestor), locStart(n)))
+      ? hasTypeCastComment(ancestor) || hasAncestorTypeCastComment(index + 1)
+      : false;
+  }
+
+  function hasTypeCastComment(node) {
+    return (
+      node.comments &&
+      node.comments.some(
+        comment =>
+          comment.leading &&
+          comments.isBlockComment(comment) &&
+          comment.value.match(/^\*\s*@type\s*{[^}]+}\s*$/) &&
+          util.getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "("
+      )
+    );
+  }
 }
 
 function needsParens(path, options) {
@@ -46,7 +66,8 @@ function needsParens(path, options) {
   if (
     hasClosureCompilerTypeCastComment(
       options.originalText,
-      node,
+      path,
+      options.locStart,
       options.locEnd
     )
   ) {

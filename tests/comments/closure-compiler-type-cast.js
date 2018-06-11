@@ -14,3 +14,7 @@ functionCall(1 + /** @type {string} */ (value), /** @type {!Foo} */ ({}));
 function returnValue() {
   return /** @type {!Array.<string>} */ (['hello', 'you']);
 }
+
+var newArray = /** @type {array} */ (numberOrString).map(x => x);
+var newArray = /** @type {array} */ ((numberOrString)).map(x => x);
+var newArray = /** @type {array} */ ((numberOrString).map(x => x));
