@@ -13,9 +13,7 @@ const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
 const docUtils = doc.utils;
 
 function printAstToDoc(ast, options, addAlignmentSize) {
-  options = Object.assign({}, options, {
-    originalText: options.originalText || ""
-  });
+  options = Object.assign({ originalText: "" }, options);
   addAlignmentSize = addAlignmentSize || 0;
 
   const printer = options.printer;
