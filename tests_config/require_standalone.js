@@ -23,31 +23,36 @@ const base = files
 const sandbox = vm.createContext();
 vm.runInContext(base, sandbox);
 
+function makeContext(base, input, options) {
+  return vm.createContext(
+    Object.assign(
+      { $$$input: input, $$$options: options },
+      base
+    )
+  );
+}
+
 module.exports = {
   formatWithCursor(input, options) {
-    vm.runInContext(
-      `output = prettier.formatWithCursor(
-        ${JSON.stringify(input)},
-        Object.assign({ plugins: prettierPlugins }, ${JSON.stringify(options)})
+    return vm.runInContext(
+      `prettier.formatWithCursor(
+        $$$input,
+        Object.assign({ plugins: prettierPlugins }, $$$options)
       );`,
-      sandbox
+      makeContext(sandbox, input, options)
     );
-    return sandbox.output;
   },
 
   __debug: {
     parse(input, options, massage) {
-      vm.runInContext(
-        `output = prettier.__debug.parse(
-          ${JSON.stringify(input)},
-          Object.assign({ plugins: prettierPlugins }, ${JSON.stringify(
-            options
-          )}),
+      return vm.runInContext(
+        `prettier.__debug.parse(
+          $$$input,
+          Object.assign({ plugins: prettierPlugins }, $$$options),
           ${JSON.stringify(massage)}
         );`,
-        sandbox
+        makeContext(sandbox, input, options)
       );
-      return sandbox.output;
     }
   }
 };
