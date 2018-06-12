@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const vm = require("vm");
 
-const files = [
+const sources = [
   "standalone.js",
   "parser-babylon.js",
   "parser-flow.js",
@@ -13,42 +13,33 @@ const files = [
   "parser-graphql.js",
   "parser-markdown.js",
   "parser-vue.js"
-];
-const base = files
-  .map(filename =>
-    fs.readFileSync(path.join(process.env.PRETTIER_DIR, filename), "utf-8")
-  )
-  .join("\n");
+].map(filename =>
+  fs.readFileSync(path.join(process.env.PRETTIER_DIR, filename), "utf-8")
+);
 
 const sandbox = vm.createContext();
-vm.runInContext(base, sandbox);
-
-function makeContext(base, input, options) {
-  return vm.createContext(
-    Object.assign({ $$$input: input, $$$options: options }, base)
-  );
-}
+vm.runInContext(sources.join(""), sandbox);
 
 module.exports = {
   formatWithCursor(input, options) {
-    return vm.runInContext(
+    return vm.runInNewContext(
       `prettier.formatWithCursor(
         $$$input,
         Object.assign({ plugins: prettierPlugins }, $$$options)
       );`,
-      makeContext(sandbox, input, options)
+      Object.assign({ $$$input: input, $$$options: options }, sandbox)
     );
   },
 
   __debug: {
     parse(input, options, massage) {
-      return vm.runInContext(
+      return vm.runInNewContext(
         `prettier.__debug.parse(
           $$$input,
           Object.assign({ plugins: prettierPlugins }, $$$options),
           ${JSON.stringify(massage)}
         );`,
-        makeContext(sandbox, input, options)
+        Object.assign({ $$$input: input, $$$options: options }, sandbox)
       );
     }
   }
