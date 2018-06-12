@@ -20,33 +20,34 @@ const base = files
   )
   .join("\n");
 
-const formatScript = new vm.Script(
-  base +
-    `$$$g.output = (function(input, options) {
-        options = Object.assign({ plugins: prettierPlugins }, options);
-        return prettier.formatWithCursor(input, options);
-      })($$$g.input, $$$g.options);`
-);
-
-const parseScript = new vm.Script(
-  base +
-    `$$$g.parsed = (function(input, options, massage) {
-        options = Object.assign({ plugins: prettierPlugins }, options);
-        return prettier.__debug.parse(input, options, massage);
-      })($$$g.input, $$$g.options,  $$$g.massage);`
-);
+const sandbox = vm.createContext();
+vm.runInContext(base, sandbox);
 
 module.exports = {
   formatWithCursor(input, options) {
-    const g = { input, options };
-    formatScript.runInNewContext({ $$$g: g });
-    return g.output;
+    vm.runInContext(
+      `output = prettier.formatWithCursor(
+        ${JSON.stringify(input)},
+        Object.assign({ plugins: prettierPlugins }, ${JSON.stringify(options)})
+      );`,
+      sandbox
+    );
+    return sandbox.output;
   },
+
   __debug: {
     parse(input, options, massage) {
-      const g = { input, options, massage };
-      parseScript.runInNewContext({ $$$g: g });
-      return g.parsed;
+      vm.runInContext(
+        `output = prettier.__debug.parse(
+          ${JSON.stringify(input)},
+          Object.assign({ plugins: prettierPlugins }, ${JSON.stringify(
+            options
+          )}),
+          ${JSON.stringify(massage)}
+        );`,
+        sandbox
+      );
+      return sandbox.output;
     }
   }
 };
