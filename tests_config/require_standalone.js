@@ -20,6 +20,8 @@ const sources = [
 const sandbox = vm.createContext();
 vm.runInContext(sources.join(";"), sandbox);
 
+// TODO: maybe expose (and write tests) for `format`, `utils`, and
+// `__debug` methods
 module.exports = {
   formatWithCursor(input, options) {
     return vm.runInNewContext(
