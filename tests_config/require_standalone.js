@@ -18,7 +18,7 @@ const sources = [
 );
 
 const sandbox = vm.createContext();
-vm.runInContext(sources.join(""), sandbox);
+vm.runInContext(sources.join(";"), sandbox);
 
 module.exports = {
   formatWithCursor(input, options) {
