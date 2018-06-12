@@ -1,4 +1,2 @@
-module.exports = {
-  ok() {},
-  strictEqual() {}
-};
+export function ok() {}
+export function strictEqual() {}
