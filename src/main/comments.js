@@ -384,7 +384,9 @@ function printLeadingComment(commentPath, print, options) {
   if (isBlock) {
     return concat([
       contents,
-      hasNewline(options.originalText, options.locEnd(comment)) ? hardline : " "
+      options.pure || hasNewline(options.originalText, options.locEnd(comment))
+        ? hardline
+        : " "
     ]);
   }
 
@@ -412,6 +414,7 @@ function printTrailingComment(commentPath, print, options) {
     parentParentNode.superClass === parentNode;
 
   if (
+    !options.pure &&
     hasNewline(options.originalText, options.locStart(comment), {
       backwards: true
     })
@@ -507,7 +510,10 @@ function printComments(path, print, options, needsSemi) {
       leadingParts.push(contents);
 
       const text = options.originalText;
-      if (hasNewline(text, skipNewline(text, options.locEnd(comment)))) {
+      if (
+        options.pure ||
+        hasNewline(text, skipNewline(text, options.locEnd(comment)))
+      ) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {

@@ -379,6 +379,7 @@ function printPathNoParens(path, options, print, args) {
         path.each(childPath => {
           parts.push(print(childPath), semi, hardline);
           if (
+            options.pure ||
             isNextLineEmpty(options.originalText, childPath.getValue(), options)
           ) {
             parts.push(hardline);
@@ -701,7 +702,8 @@ function printPathNoParens(path, options, print, args) {
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
           isJSXNode(n.body) ||
-          isTemplateOnItsOwnLine(n.body, options.originalText, options) ||
+          (!options.pure &&
+            isTemplateOnItsOwnLine(n.body, options.originalText, options)) ||
           n.body.type === "ArrowFunctionExpression" ||
           n.body.type === "DoExpression")
       ) {
@@ -964,6 +966,7 @@ function printPathNoParens(path, options, print, args) {
         path.each(childPath => {
           parts.push(indent(concat([hardline, print(childPath), semi])));
           if (
+            options.pure ||
             isNextLineEmpty(options.originalText, childPath.getValue(), options)
           ) {
             parts.push(hardline);
@@ -1039,6 +1042,7 @@ function printPathNoParens(path, options, print, args) {
         n.callee.type === "Import" ||
         // Template literals as single arguments
         (n.arguments.length === 1 &&
+          !options.pure &&
           isTemplateOnItsOwnLine(
             n.arguments[0],
             options.originalText,
@@ -1125,6 +1129,7 @@ function printPathNoParens(path, options, print, args) {
                 property.value.type === "ArrayPattern")
           )) ||
         (n.type !== "ObjectPattern" &&
+          !options.pure &&
           hasNewlineInRange(
             options.originalText,
             options.locStart(n),
@@ -1186,7 +1191,10 @@ function printPathNoParens(path, options, print, args) {
         ) {
           separatorParts.shift();
         }
-        if (isNextLineEmpty(options.originalText, prop.node, options)) {
+        if (
+          options.pure ||
+          isNextLineEmpty(options.originalText, prop.node, options)
+        ) {
           separatorParts.push(hardline);
         }
         return result;
@@ -1759,7 +1767,12 @@ function printPathNoParens(path, options, print, args) {
                     return concat([
                       casePath.call(print),
                       n.cases.indexOf(caseNode) !== n.cases.length - 1 &&
-                      isNextLineEmpty(options.originalText, caseNode, options)
+                      (options.pure ||
+                        isNextLineEmpty(
+                          options.originalText,
+                          caseNode,
+                          options
+                        ))
                         ? hardline
                         : ""
                     ]);
@@ -3201,7 +3214,7 @@ function printPathNoParens(path, options, print, args) {
     case "InterpreterDirective":
       parts.push("#!", n.value, hardline);
 
-      if (isNextLineEmpty(options.originalText, n, options)) {
+      if (options.pure || isNextLineEmpty(options.originalText, n, options)) {
         parts.push(hardline);
       }
 
@@ -3267,7 +3280,10 @@ function printStatementSequence(path, options, print) {
       }
     }
 
-    if (isNextLineEmpty(text, stmt, options) && !isLastStatement(stmtPath)) {
+    if (
+      (options.pure || isNextLineEmpty(text, stmt, options)) &&
+      !isLastStatement(stmtPath)
+    ) {
       parts.push(hardline);
     }
 
@@ -3473,7 +3489,10 @@ function printArgumentsList(path, options, print) {
 
     if (index === lastArgIndex) {
       // do nothing
-    } else if (isNextLineEmpty(options.originalText, arg, options)) {
+    } else if (
+      options.pure ||
+      isNextLineEmpty(options.originalText, arg, options)
+    ) {
       if (index === 0) {
         hasEmptyLineFollowingFirstArg = true;
       }
@@ -4173,7 +4192,8 @@ function printClass(path, options, print) {
   if (
     n.body &&
     n.body.comments &&
-    hasLeadingOwnLineComment(options.originalText, n.body, options)
+    (options.pure ||
+      hasLeadingOwnLineComment(options.originalText, n.body, options))
   ) {
     parts.push(hardline);
   } else {
@@ -4262,7 +4282,7 @@ function printMemberChain(path, options, print) {
       );
     }
 
-    return isNextLineEmpty(originalText, node, options);
+    return options.pure || isNextLineEmpty(originalText, node, options);
   }
 
   function rec(path) {
@@ -5647,7 +5667,8 @@ function printArrayItems(path, options, printPath, print) {
     separatorParts = [",", line];
     if (
       childPath.getValue() &&
-      isNextLineEmpty(options.originalText, childPath.getValue(), options)
+      (options.pure ||
+        isNextLineEmpty(options.originalText, childPath.getValue(), options))
     ) {
       separatorParts.push(softline);
     }
