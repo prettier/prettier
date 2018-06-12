@@ -25,10 +25,7 @@ vm.runInContext(base, sandbox);
 
 function makeContext(base, input, options) {
   return vm.createContext(
-    Object.assign(
-      { $$$input: input, $$$options: options },
-      base
-    )
+    Object.assign({ $$$input: input, $$$options: options }, base)
   );
 }
 
