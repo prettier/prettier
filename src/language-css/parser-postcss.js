@@ -3,7 +3,7 @@
 const createError = require("../common/parser-create-error");
 const parseFrontMatter = require("../utils/front-matter");
 const lineColumnToIndex = require("../utils/line-column-to-index");
-const { hasPragma } = require("./pragma");
+const hasPragma = require("./pragma").hasPragma;
 
 // utils
 const utils = require("./utils");
