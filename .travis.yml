@@ -22,6 +22,8 @@ matrix:
   include:
     - node_js: "node"
       env: JOB=lint
+  allow_failures:
+    - node_js: "6"
 
 install:
   - yarn install
@@ -31,14 +33,7 @@ before_script:
 
 script:
   - if [ "${JOB}" = "lint" ]; then yarn lint && yarn lint-docs; fi
-  - |
-    if [ "${JOB}" = "test" ]; then
-      if [ "${TRAVIS_NODE_VERSION}" = "6" ]; then
-        yarn test --runInBand --ci tests_integration/ 'tests/(?!flow)'
-      else
-        yarn test --runInBand --ci
-      fi
-    fi
+  - if [ "${JOB}" = "test" ]; then yarn test --runInBand --ci; fi
   - if [ "${JOB}" = "test" ]; then yarn codecov; fi
 
 branches:
