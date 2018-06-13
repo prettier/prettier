@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`front-matter.css 1`] = `
+---
+something
+---
+
+.class {    display: none;    }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+something
+---
+ /** @format */
+.class {
+  display: none;
+}
+
+`;
+
+exports[`simple.css 1`] = `
+.class {    display: none;    }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/** @format */
+
+.class {
+  display: none;
+}
+
+`;
+
+exports[`start-with-comment.css 1`] = `
+/**
+ * hello world
+ */
+
+.class {    display: none;    }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * hello world
+ *
+ * @format
+ */
+
+.class {
+  display: none;
+}
+
+`;
