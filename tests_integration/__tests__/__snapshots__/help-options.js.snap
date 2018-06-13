@@ -350,6 +350,19 @@ Default: preserve
 
 exports[`show detailed usage with --help prose-wrap (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help pure (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help pure (stdout) 1`] = `
+"--pure
+
+  Ignore the input formatting as much as possible.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help pure (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help range-end (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help range-end (stdout) 1`] = `
