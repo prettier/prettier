@@ -3,6 +3,7 @@ language: node_js
 
 node_js:
   - node
+  - "8"
   - "6"
 
 cache:
@@ -30,7 +31,14 @@ before_script:
 
 script:
   - if [ "${JOB}" = "lint" ]; then yarn lint && yarn lint-docs; fi
-  - if [ "${JOB}" = "test" ]; then yarn test --runInBand --ci; fi
+  - |
+    if [ "${JOB}" = "test" ]; then
+      if [ "${TRAVIS_NODE_VERSION}" = "6" ]; then
+        yarn test --runInBand --ci tests_integration/ 'tests/(?!flow)'
+      else
+        yarn test --runInBand --ci
+      fi
+    fi
   - if [ "${JOB}" = "test" ]; then yarn codecov; fi
 
 branches:
