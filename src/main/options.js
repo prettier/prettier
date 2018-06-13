@@ -9,6 +9,7 @@ const resolveParser = require("./parser").resolveParser;
 const hiddenDefaults = {
   astFormat: "estree",
   printer: {},
+  originalText: undefined,
   locStart: null,
   locEnd: null
 };
