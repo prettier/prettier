@@ -142,22 +142,35 @@ function getRollupOutputOptions(bundle) {
 }
 
 function getWebpackConfig(bundle) {
-  if (bundle.target === "node") {
-    throw new Error("Unsupported webpack bundle for node");
+  if (bundle.type !== "plugin" || bundle.target !== "universal") {
+    throw new Error("Must use rollup for this bundle");
   }
 
   const root = path.resolve(__dirname, "..", "..");
   return {
     entry: path.resolve(root, bundle.input),
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          use: {
+            loader: "babel-loader",
+            options: getBabelConfig(bundle)
+          }
+        }
+      ]
+    },
     output: {
       path: path.resolve(root, "dist"),
       filename: bundle.output,
-      library:
-        bundle.type === "plugin"
-          ? ["prettierPlugins", bundle.name]
-          : bundle.name,
+      library: ["prettierPlugins", bundle.name],
       libraryTarget: "umd"
-    }
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        "process.env.NODE_ENV": JSON.stringify("production")
+      })
+    ]
   };
 }
 
