@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scss-with-pragma.scss 1`] = `
+/**
+ * @prettier
+ */
+div,.class,#id{/*empty declaration block*/}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @prettier
+ */
+div,
+.class,
+#id {
+  /*empty declaration block*/
+}
+
+`;
+
+exports[`scss-without-pragma.scss 1`] = `
+div,.class,#id{/*empty declaration block*/}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+div,
+.class,
+#id {
+  /*empty declaration block*/
+}
+
+`;
