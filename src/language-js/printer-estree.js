@@ -1114,27 +1114,7 @@ function printPathNoParens(path, options, print, args) {
     case "TSTypeLiteral": {
       const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       const parent = path.getParentNode(0);
-      const shouldBreak =
-        n.type === "TSInterfaceBody" ||
-        (n.type === "ObjectPattern" &&
-          parent.type !== "FunctionDeclaration" &&
-          parent.type !== "FunctionExpression" &&
-          parent.type !== "ArrowFunctionExpression" &&
-          parent.type !== "AssignmentPattern" &&
-          parent.type !== "CatchClause" &&
-          n.properties.some(
-            property =>
-              property.value &&
-              (property.value.type === "ObjectPattern" ||
-                property.value.type === "ArrayPattern")
-          )) ||
-        (n.type !== "ObjectPattern" &&
-          !options.pure &&
-          hasNewlineInRange(
-            options.originalText,
-            options.locStart(n),
-            options.locEnd(n)
-          ));
+      const shouldBreak = shouldPrintObjectMultiline(path, options);
       const isFlowInterfaceLikeBody =
         isTypeAnnotation &&
         parent &&
@@ -1192,8 +1172,9 @@ function printPathNoParens(path, options, print, args) {
           separatorParts.shift();
         }
         if (
-          options.pure ||
-          isNextLineEmpty(options.originalText, prop.node, options)
+          options.pure
+            ? !prop.node.shorthand
+            : isNextLineEmpty(options.originalText, prop.node, options)
         ) {
           separatorParts.push(hardline);
         }
@@ -3439,6 +3420,44 @@ function shouldGroupFirstArg(args) {
   );
 }
 
+function shouldPrintObjectMultiline(path, options) {
+  const n = path.getValue();
+  const parent = path.getParentNode();
+
+  if (
+    n.type === "TSInterfaceBody" ||
+    (n.type === "ObjectPattern" &&
+      parent.type !== "FunctionDeclaration" &&
+      parent.type !== "FunctionExpression" &&
+      parent.type !== "ArrowFunctionExpression" &&
+      parent.type !== "AssignmentPattern" &&
+      parent.type !== "CatchClause" &&
+      n.properties.some(
+        property =>
+          property.value &&
+          (property.value.type === "ObjectPattern" ||
+            property.value.type === "ArrayPattern")
+      ))
+  ) {
+    return true;
+  }
+
+  if (
+    n.type !== "ObjectPattern" &&
+    (options.pure
+      ? n.properties.some(property => !property.shorthand)
+      : hasNewlineInRange(
+          options.originalText,
+          options.locStart(n),
+          options.locEnd(n)
+        ))
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 const functionCompositionFunctionNames = new Set([
   "pipe", // RxJS, Ramda
   "pipeP", // Ramda
@@ -3490,7 +3509,7 @@ function printArgumentsList(path, options, print) {
     if (index === lastArgIndex) {
       // do nothing
     } else if (
-      options.pure ||
+      !options.pure &&
       isNextLineEmpty(options.originalText, arg, options)
     ) {
       if (index === 0) {

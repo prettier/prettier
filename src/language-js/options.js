@@ -31,6 +31,7 @@ module.exports = {
     default: false,
     description: "Put > on the last line instead of at a new line."
   },
+  pure: commonOptions.pure,
   semi: {
     since: "1.0.0",
     category: CATEGORY_JAVASCRIPT,

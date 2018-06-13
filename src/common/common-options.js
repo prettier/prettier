@@ -12,6 +12,13 @@ module.exports = {
     description: "Print spaces between brackets.",
     oppositeDescription: "Do not print spaces between brackets."
   },
+  pure: {
+    since: "1.14.0",
+    category: CATEGORY_COMMON,
+    type: "boolean",
+    default: false,
+    description: "Ignore the input formatting as much as possible."
+  },
   singleQuote: {
     since: "0.0.0",
     category: CATEGORY_COMMON,
