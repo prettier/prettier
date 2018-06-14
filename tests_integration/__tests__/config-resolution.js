@@ -231,7 +231,7 @@ test("API resolveConfig resolves relative path values based on config filepath",
   const currentDir = path.join(__dirname, "../cli/config/resolve-relative");
   const parentDir = path.resolve(currentDir, "..");
   expect(prettier.resolveConfig.sync(`${currentDir}/index.js`)).toMatchObject({
-    plugins: [`${parentDir}/path-to-plugin`],
-    pluginSearchDirs: [`${parentDir}/path-to-plugin-search-dir`]
+    plugins: [path.join(parentDir, "path-to-plugin")],
+    pluginSearchDirs: [path.join(parentDir, "path-to-plugin-search-dir")]
   });
 });
