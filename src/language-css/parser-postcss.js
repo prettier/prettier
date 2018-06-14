@@ -3,6 +3,7 @@
 const createError = require("../common/parser-create-error");
 const parseFrontMatter = require("../utils/front-matter");
 const lineColumnToIndex = require("../utils/line-column-to-index");
+const { hasPragma } = require("./pragma");
 
 // utils
 const utils = require("./utils");
@@ -546,6 +547,7 @@ function parse(text, parsers, opts) {
 const parser = {
   parse,
   astFormat: "postcss",
+  hasPragma,
   locStart(node) {
     if (node.source) {
       return lineColumnToIndex(node.source.start, node.source.input.css) - 1;

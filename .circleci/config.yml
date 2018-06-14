@@ -80,6 +80,17 @@ jobs:
           at: ~/prettier
       - run: yarn test:dist
 
+  # Run tests using the standalone build
+  test_prod_standalone:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/prettier
+      - run:
+          command: yarn test:dist
+          environment:
+            TEST_STANDALONE: 1
+
 workflows:
   version: 2
   prod:
@@ -92,5 +103,8 @@ workflows:
           requires:
             - build_prod
       - test_prod_node9:
+          requires:
+            - build_prod
+      - test_prod_standalone:
           requires:
             - build_prod
