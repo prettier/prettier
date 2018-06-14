@@ -354,7 +354,13 @@ function _print(node, parentNode, path, options, print) {
                       : concat([
                           ",",
                           line,
-                          printNextEmptyLine(childPath, options.originalText)
+                          node.children[index].position.start.line !==
+                          node.children[index + 1].position.start.line
+                            ? printNextEmptyLine(
+                                childPath,
+                                options.originalText
+                              )
+                            : ""
                         ])
                   ]),
                 "children"
