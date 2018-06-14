@@ -34,7 +34,10 @@ function logPromise(name, promise) {
 }
 
 function runYarn(script) {
-  return execa("yarn", ["--silent", script]).catch(error => {
+  if (typeof script === "string") {
+    script = [script];
+  }
+  return execa("yarn", ["--silent"].concat(script)).catch(error => {
     throw Error(`\`yarn ${script}\` failed\n${error.stdout}`);
   });
 }
