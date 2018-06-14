@@ -482,8 +482,6 @@ function needsSpaceInFrontOfMappingValue(node) {
     switch (node.key.node.type) {
       case "alias":
         return true;
-      case "plain":
-        return node.key.node.value === "<<";
     }
   }
   return false;

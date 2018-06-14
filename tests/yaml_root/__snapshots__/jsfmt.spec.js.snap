@@ -365,16 +365,16 @@ merge:
   label: nothing
 
 - # Merge one map
-  << : *CENTER
+  <<: *CENTER
   r: 10
   label: center
 
 - # Merge multiple maps
-  << : [*CENTER, *BIG]
+  <<: [*CENTER, *BIG]
   label: center/big
 
 - # Override
-  << : [*BIG, *LEFT, *SMALL]
+  <<: [*BIG, *LEFT, *SMALL]
   x: 1
   label: big/left/small
 
