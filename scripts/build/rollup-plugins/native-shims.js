@@ -3,28 +3,32 @@
 const builtins = require("builtin-modules");
 const fs = require("fs");
 const path = require("path");
-const tempy = require("tempy");
+
+const EMPTY = "export default {};";
+const PREFIX = "\0shim:";
 
 module.exports = function(dir) {
   return {
-    resolveId(importee, importer) {
-      if (!importee || !importer || /\0/.test(importee)) {
+    resolveId(importee) {
+      if (importee.startsWith(PREFIX)) {
+        return importee;
+      }
+
+      if (/\0/.test(importee) || !builtins.includes(importee)) {
         return null;
       }
 
-      if (!~builtins.indexOf(importee)) {
-        return null;
+      const shim = path.resolve(dir, importee + ".js");
+      if (fs.existsSync(shim)) {
+        return shim;
       }
+      return PREFIX + importee;
+    },
 
-      const newPath = path.resolve(dir, `${importee}.js`);
-      if (fs.existsSync(newPath)) {
-        return newPath;
+    load(id) {
+      if (id.startsWith(PREFIX)) {
+        return EMPTY;
       }
-
-      // This helps debugging when a stub in the module is needed
-      const fallback = tempy.file({ name: `${importee}.js` });
-      fs.writeFileSync(fallback, "module.exports = {};");
-      return fallback;
     }
   };
 };

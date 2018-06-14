@@ -19,7 +19,8 @@ const {
   hasNodeIgnoreComment,
   getPenultimate,
   startsWithNoLookaheadToken,
-  getIndentSize
+  getIndentSize,
+  matchAncestorTypes
 } = require("../common/util");
 const {
   isNextLineEmpty,
@@ -2501,7 +2502,6 @@ function printPathNoParens(path, options, print, args) {
 
     case "DeclareInterface":
     case "InterfaceDeclaration":
-    case "InterfaceType":
     case "InterfaceTypeAnnotation": {
       if (
         n.type === "DeclareInterface" ||
@@ -2833,6 +2833,8 @@ function printPathNoParens(path, options, print, args) {
       return "string";
     case "TSUndefinedKeyword":
       return "undefined";
+    case "TSUnknownKeyword":
+      return "unknown";
     case "TSVoidKeyword":
       return "void";
     case "TSAsExpression":
@@ -2938,7 +2940,8 @@ function printPathNoParens(path, options, print, args) {
         "import(",
         path.call(print, "argument"),
         ")",
-        !n.qualifier ? "" : concat([".", path.call(print, "qualifier")])
+        !n.qualifier ? "" : concat([".", path.call(print, "qualifier")]),
+        printTypeParameters(path, options, print, "typeParameters")
       ]);
     case "TSLiteralType":
       return path.call(print, "literal");
@@ -3414,6 +3417,8 @@ function shouldGroupFirstArg(args) {
     (firstArg.type === "FunctionExpression" ||
       (firstArg.type === "ArrowFunctionExpression" &&
         firstArg.body.type === "BlockStatement")) &&
+    secondArg.type !== "FunctionExpression" &&
+    secondArg.type !== "ArrowFunctionExpression" &&
     !couldGroupArg(secondArg)
   );
 }
@@ -5049,13 +5054,20 @@ function maybeWrapJSXElementInParens(path, elem) {
     return elem;
   }
 
+  const shouldBreak = matchAncestorTypes(path, [
+    "ArrowFunctionExpression",
+    "CallExpression",
+    "JSXExpressionContainer"
+  ]);
+
   return group(
     concat([
       ifBreak("("),
       indent(concat([softline, elem])),
       softline,
       ifBreak(")")
-    ])
+    ]),
+    { shouldBreak }
   );
 }
 

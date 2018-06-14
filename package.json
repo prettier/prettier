@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "1.13.4",
+  "version": "1.13.5",
   "description": "Prettier is an opinionated code formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
@@ -31,7 +31,7 @@
     "esutils": "2.0.2",
     "find-parent-dir": "0.3.0",
     "find-project-root": "1.1.1",
-    "flow-parser": "0.73.0",
+    "flow-parser": "0.74.0",
     "get-stream": "3.0.0",
     "globby": "6.1.0",
     "graphql": "0.13.2",
@@ -54,7 +54,7 @@
     "resolve": "1.5.0",
     "semver": "5.4.1",
     "string-width": "2.1.1",
-    "typescript": "2.9.0-dev.20180421",
+    "typescript": "3.0.0-dev.20180602",
     "typescript-eslint-parser": "16.0.0",
     "unicode-regex": "1.0.1",
     "unified": "6.1.6",
@@ -65,6 +65,7 @@
     "@babel/cli": "7.0.0-beta.49",
     "@babel/core": "7.0.0-beta.49",
     "@babel/preset-env": "7.0.0-beta.49",
+    "babel-loader": "8.0.0-beta.3",
     "builtin-modules": "2.0.0",
     "codecov": "2.2.0",
     "cross-env": "5.0.5",
@@ -76,7 +77,7 @@
     "eslint-plugin-react": "7.7.0",
     "jest": "21.1.0",
     "mkdirp": "0.5.1",
-    "prettier": "1.13.4",
+    "prettier": "1.13.5",
     "prettylint": "1.0.0",
     "rimraf": "2.6.2",
     "rollup": "0.47.6",
@@ -92,7 +93,7 @@
     "snapshot-diff": "0.2.2",
     "strip-ansi": "4.0.0",
     "tempy": "0.2.1",
-    "webpack": "2.6.1"
+    "webpack": "3.12.0"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",

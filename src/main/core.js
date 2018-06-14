@@ -63,6 +63,10 @@ function attachComments(text, ast, opts) {
 }
 
 function coreFormat(text, opts, addAlignmentSize) {
+  if (!text || !text.trim().length) {
+    return { formatted: "", cursorOffset: 0 };
+  }
+
   addAlignmentSize = addAlignmentSize || 0;
 
   const parsed = parser.parse(text, opts);
@@ -255,7 +259,7 @@ function format(text, opts) {
 module.exports = {
   formatWithCursor(text, opts) {
     opts = normalizeOptions(opts);
-    return format(text, normalizeOptions(opts));
+    return format(text, opts);
   },
 
   parse(text, opts, massage) {

@@ -33,13 +33,6 @@ interface Q extends P {
 
 `;
 
-exports[`badArrayIndex.ts 1`] = `
-var results = number[];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var results = number[];
-
-`;
-
 exports[`castOfAwait.ts 1`] = `
 // @target: es6
 async function f() {
