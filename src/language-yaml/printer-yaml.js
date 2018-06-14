@@ -16,8 +16,8 @@ const {
   isBlockValue,
   restoreBlockFoldedValue
 } = require("./utils");
+const docBuilders = require("../doc").builders;
 const {
-  align,
   breakParent,
   concat,
   dedent,
@@ -26,14 +26,13 @@ const {
   group,
   hardline,
   ifBreak,
-  indent,
   join,
   line,
   lineSuffix,
   literalline,
   markAsRoot,
   softline
-} = require("../doc").builders;
+} = docBuilders;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -388,6 +387,16 @@ function _print(node, parentNode, path, options, print) {
     // istanbul ignore next
     default:
       throw new Error(`Unexpected node type ${node.type}`);
+  }
+
+  function indent(doc) {
+    return docBuilders.align(" ".repeat(options.tabWidth), doc);
+  }
+
+  function align(n, doc) {
+    return typeof n === "number" && n > 0
+      ? docBuilders.align(" ".repeat(n), doc)
+      : docBuilders.align(n, doc);
   }
 }
 
