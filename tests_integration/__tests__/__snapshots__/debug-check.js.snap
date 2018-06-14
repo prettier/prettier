@@ -21,9 +21,13 @@ exports[`show diff for 2+ error files with --debug-check (stderr) 1`] = `
 [error] +++ 	
 [error] @@ -1,2 +1,4 @@
 [error]  hello
+[error] 
 [error]  hello
+[error] 
 [error] +hello
+[error] 
 [error] +hello
+[error] 
 [error] 
 [error] b.debug-check: prettier(input) !== prettier(prettier(input))
 [error] Index: 
@@ -32,9 +36,13 @@ exports[`show diff for 2+ error files with --debug-check (stderr) 1`] = `
 [error] +++ 	
 [error] @@ -1,2 +1,4 @@
 [error]  world
+[error] 
 [error]  world
+[error] 
 [error] +world
+[error] 
 [error] +world
+[error] 
 [error] 
 "
 `;
