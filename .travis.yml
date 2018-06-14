@@ -3,6 +3,7 @@ language: node_js
 
 node_js:
   - node
+  - "8"
   - "6"
 
 cache:
@@ -21,6 +22,11 @@ matrix:
   include:
     - node_js: "node"
       env: JOB=lint
+  # Our test fail with a segfault in node 6
+  # (see https://github.com/prettier/prettier/issues/3457)
+  # To prevent making our Travis run useless, mark Node 6 as allowed to fail.
+  allow_failures:
+    - node_js: "6"
 
 install:
   - yarn install
