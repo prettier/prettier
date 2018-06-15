@@ -10,7 +10,8 @@ exports[`empty-front-matter-with-pragma.css 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---
 ---
- /** @prettier */
+
+/** @prettier */
 .class {
   display: none;
 }
@@ -42,7 +43,8 @@ something
 ---
 something
 ---
- /** @prettier */
+
+/** @prettier */
 .class {
   display: none;
 }
