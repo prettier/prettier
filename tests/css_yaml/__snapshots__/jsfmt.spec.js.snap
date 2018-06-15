@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comment_after.css 1`] = `
+---
+title: Title
+description: Description
+---
+/* comment */
+.something {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+title: Title
+description: Description
+---
+
+/* comment */
+.something {
+}
+
+`;
+
 exports[`empty.css 1`] = `
 ---
 ---
@@ -120,6 +140,26 @@ a {
 title: Title
 description: Description
 # This is a comment
+---
+
+a {
+  color: red;
+}
+
+`;
+
+exports[`without-newline-after.css 1`] = `
+---
+title: Title
+description: Description
+---
+a {
+    color: red;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+title: Title
+description: Description
 ---
 
 a {

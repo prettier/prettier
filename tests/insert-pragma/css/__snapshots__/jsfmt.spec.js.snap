@@ -10,7 +10,8 @@ something
 ---
 something
 ---
- /** @format */
+
+/** @format */
 .class {
   display: none;
 }
