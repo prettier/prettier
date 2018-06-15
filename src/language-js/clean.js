@@ -15,6 +15,10 @@ function clean(ast, newObj, parent) {
     delete newObj[name];
   });
 
+  if (ast.type === "BigIntLiteral") {
+    newObj.value = newObj.value.toLowerCase();
+  }
+
   // We remove extra `;` and add them when needed
   if (ast.type === "EmptyStatement") {
     return null;
