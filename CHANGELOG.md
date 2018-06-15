@@ -36,7 +36,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.12.1...1.13.0)
 
-- [Release Notes](https://prettier.io/blog/2018/05/23/1.13.0.html)
+🔗 [Release Notes](https://prettier.io/blog/2018/05/23/1.13.0.html)
 
 # 1.12.1
 
@@ -50,7 +50,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.11.1...1.12.0)
 
-- [Release Notes](https://prettier.io/blog/2018/04/11/1.12.0.html)
+🔗 [Release Notes](https://prettier.io/blog/2018/04/11/1.12.0.html)
 
 # 1.11.1
 
@@ -63,7 +63,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.10.2...1.11.0)
 
-- [Release Notes](https://prettier.io/blog/2018/02/26/1.11.0.html)
+🔗 [Release Notes](https://prettier.io/blog/2018/02/26/1.11.0.html)
 
 # 1.10.2
 
@@ -81,7 +81,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.9.2...1.10.0)
 
-- [Release Notes](https://prettier.io/blog/2018/01/10/1.10.0.html)
+🔗 [Release Notes](https://prettier.io/blog/2018/01/10/1.10.0.html)
 
 # 1.9.2
 
@@ -112,7 +112,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.8.2...1.9.0)
 
-- [Release Notes](https://prettier.io/blog/2017/12/05/1.9.0.html)
+🔗 [Release Notes](https://prettier.io/blog/2017/12/05/1.9.0.html)
 
 # 1.8.2
 
@@ -138,7 +138,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.7.4...1.8.0)
 
-- [Release Notes](https://prettier.io/blog/2017/11/07/1.8.0.html)
+🔗 [Release Notes](https://prettier.io/blog/2017/11/07/1.8.0.html)
 
 # 1.7.4
 
@@ -195,7 +195,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.6.1...1.7.0)
 
-- [Release Notes](https://prettier.io/blog/2017/09/15/1.7.0.html)
+🔗 [Release Notes](https://prettier.io/blog/2017/09/15/1.7.0.html)
 
 # 1.6.1
 
@@ -210,7 +210,7 @@
 
 [link](https://github.com/prettier/prettier/compare/1.5.3...1.6.0)
 
-- [Release Notes](https://prettier.io/blog/2017/08/29/1.6.0.html)
+🔗 [Release Notes](https://prettier.io/blog/2017/08/29/1.6.0.html)
 
 # 1.5.3
 
@@ -236,11 +236,11 @@
 
 [link](https://github.com/prettier/prettier/compare/1.4.4...1.5.0)
 
-- [Release Notes](https://prettier.io/blog/2017/06/28/1.5.0.html)
+🔗 [Release Notes](https://prettier.io/blog/2017/06/28/1.5.0.html)
 
 # 1.4.4
 
-- Fix postcss, I forgot to re-run the build script :(
+🔗 Fix postcss, I forgot to re-run the build script :(
 
 # 1.4.3
 
@@ -274,7 +274,7 @@ Lots of small fixes, mainly for TypeScript.
 
 [link](https://github.com/prettier/prettier/compare/1.3.1...1.4.0)
 
-- [Release Notes](https://prettier.io/blog/2017/06/03/1.4.0.html)
+🔗 [Release Notes](https://prettier.io/blog/2017/06/03/1.4.0.html)
 
 # 1.3.1
 
@@ -284,7 +284,7 @@ Lots of small fixes, mainly for TypeScript.
 
 [link](https://github.com/prettier/prettier/compare/1.2.2...1.3.0)
 
-- [Release Notes](https://prettier.io/blog/2017/05/03/1.3.0.html)
+🔗 [Release Notes](https://prettier.io/blog/2017/05/03/1.3.0.html)
 
 - add printer branches for some TypeScript nodes (#1331)
 - Skip trailing commas with FlowShorthandWithOneArg (#1364)
@@ -350,7 +350,7 @@ Lots of small fixes, mainly for TypeScript.
 
 [link](https://github.com/prettier/prettier/compare/1.1.0...1.2.0)
 
-- [Release Notes](https://prettier.io/blog/2017/04/20/1.2.0.html)
+🔗 [Release Notes](https://prettier.io/blog/2017/04/20/1.2.0.html)
 
 - match jsx files in pre-commit hook (#1276)
 - Fix isPreviousLineEmpty on Windows (#1263)
@@ -402,7 +402,7 @@ Lots of small fixes, mainly for TypeScript.
 
 [link](https://github.com/prettier/prettier/compare/0.22.0...1.0.0)
 
-- See announcement blog post: [http://jlongster.com/prettier-1.0](http://jlongster.com/prettier-1.0)
+🔗 [Release Notes](https://prettier.io/blog/2017/04/13/1.0.0.html)
 
 # 0.22.0
 
