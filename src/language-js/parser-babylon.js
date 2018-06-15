@@ -31,7 +31,8 @@ function parse(text, parsers, opts) {
       "optionalChaining",
       "classPrivateProperties",
       "pipelineOperator",
-      "nullishCoalescingOperator"
+      "nullishCoalescingOperator",
+      "throwExpressions"
     ]
   };
 
