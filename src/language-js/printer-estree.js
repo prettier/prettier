@@ -1405,6 +1405,8 @@ function printPathNoParens(path, options, print, args) {
       return printRegex(n);
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(n.extra.raw);
+    case "BigIntLiteral":
+      return concat([printNumber(n.extra.rawValue), "n"]);
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
     case "Literal": {

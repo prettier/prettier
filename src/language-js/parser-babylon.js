@@ -32,6 +32,7 @@ function parse(text, parsers, opts) {
       "classPrivateProperties",
       "pipelineOperator",
       "nullishCoalescingOperator",
+      "bigInt",
       "throwExpressions"
     ]
   };
