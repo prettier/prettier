@@ -377,7 +377,7 @@ function genericPrint(path, options, print) {
         node.namespace
           ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
           : "",
-        adjustNumbers(node.value)
+        node.value
       ]);
     }
     case "selector-pseudo": {

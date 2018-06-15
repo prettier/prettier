@@ -347,7 +347,7 @@ function parseNestedCSS(node) {
       return node;
     }
 
-    if (node.type !== "css-comment-yaml" && value.length > 0) {
+    if (value.length > 0) {
       const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
 
       if (defaultSCSSDirectiveIndex) {
