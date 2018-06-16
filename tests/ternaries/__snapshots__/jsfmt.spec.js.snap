@@ -27,9 +27,9 @@ room = room.map((row, rowIndex) =>
       rowIndex === 0 ||
       colIndex === 0 ||
       rowIndex === height ||
-      colIndex === width
-        ? 1
-        : 0
+      colIndex === width ?
+        1 :
+        0
   )
 );
 
@@ -62,9 +62,9 @@ room = room.map((row, rowIndex) =>
             rowIndex === 0 ||
             colIndex === 0 ||
             rowIndex === height ||
-            colIndex === width
-                ? 1
-                : 0
+            colIndex === width ?
+                1 :
+                0
     )
 );
 
@@ -97,9 +97,9 @@ room = room.map((row, rowIndex) =>
 			rowIndex === 0 ||
 			colIndex === 0 ||
 			rowIndex === height ||
-			colIndex === width
-				? 1
-				: 0
+			colIndex === width ?
+				1 :
+				0
 	)
 );
 
@@ -132,9 +132,9 @@ room = room.map((row, rowIndex) =>
 			rowIndex === 0 ||
 			colIndex === 0 ||
 			rowIndex === height ||
-			colIndex === width
-				? 1
-				: 0
+			colIndex === width ?
+				1 :
+				0
 	)
 );
 
@@ -309,156 +309,156 @@ a
 	  }
     : a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-aaaaaaaaaaaaaaa
-  ? bbbbbbbbbbbbbbbbbb
-  : ccccccccccccccc
-    ? ddddddddddddddd
-    : eeeeeeeeeeeeeee
-      ? fffffffffffffff
-      : gggggggggggggggg;
+aaaaaaaaaaaaaaa ?
+  bbbbbbbbbbbbbbbbbb :
+ccccccccccccccc ?
+  ddddddddddddddd :
+eeeeeeeeeeeeeee ?
+  fffffffffffffff :
+gggggggggggggggg;
 
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ?
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ?
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ?
+      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa :
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa :
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa :
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
 
-a
-  ? {
+a ?
+  {
+    a: 0
+  } :
+  {
+    a: {
       a: 0
-    }
-  : {
-      a: {
+    } ?
+      {
         a: 0
-      }
-        ? {
+      } :
+      {
+        y: {
+          a: 0
+        } ?
+          {
+            a: 0
+          } :
+          {
             a: 0
           }
-        : {
-            y: {
-              a: 0
-            }
-              ? {
-                  a: 0
-                }
-              : {
-                  a: 0
-                }
-          }
-    };
+      }
+  };
 
-a
-  ? {
-      a: function() {
-        return a
-          ? {
-              a: [
-                a
-                  ? {
-                      a: 0,
-                      b: [a ? [0, 1] : []]
-                    }
-                  : [
+a ?
+  {
+    a: function() {
+      return a ?
+        {
+          a: [
+            a ?
+              {
+                a: 0,
+                b: [a ? [0, 1] : []]
+              } :
+              [
+                [
+                  0,
+                  {
+                    a: 0
+                  },
+                  a ? 0 : 1
+                ],
+                function() {
+                  return a ?
+                    {
+                      a: 0
+                    } :
+                    [
+                      {
+                        a: 0
+                      },
+                      {}
+                    ];
+                }
+              ]
+          ]
+        } :
+        [
+          a ?
+            function() {
+              a ?
+                a(
+                    a ?
+                      {
+                        a: a({
+                          a: 0
+                        })
+                      } :
                       [
                         0,
-                        {
-                          a: 0
-                        },
-                        a ? 0 : 1
-                      ],
-                      function() {
-                        return a
-                          ? {
-                              a: 0
-                            }
-                          : [
-                              {
+                        a(),
+                        a(
+                          a(),
+                          {
+                            a: 0
+                          },
+                          a ?
+                            a() :
+                            a({
                                 a: 0
-                              },
-                              {}
-                            ];
-                      }
-                    ]
-              ]
-            }
-          : [
-              a
-                ? function() {
-                    a
-                      ? a(
-                          a
-                            ? {
-                                a: a({
-                                  a: 0
-                                })
+                              })
+                        ),
+                        a() ?
+                          {
+                            a: a(),
+                            b: []
+                          } :
+                          {}
+                      ]
+                  ) :
+                a(
+                    a() ?
+                      {
+                        a: 0
+                      } :
+                      (function(a) {
+                          return a() ?
+                            [
+                              {
+                                a: 0,
+                                b: a()
                               }
-                            : [
-                                0,
-                                a(),
-                                a(
-                                  a(),
+                            ] :
+                            a([
+                                a ?
                                   {
                                     a: 0
-                                  },
-                                  a
-                                    ? a()
-                                    : a({
-                                        a: 0
-                                      })
-                                ),
-                                a()
-                                  ? {
-                                      a: a(),
-                                      b: []
-                                    }
-                                  : {}
-                              ]
+                                  } :
+                                  {},
+                                {
+                                  a: 0
+                                }
+                              ]);
+                        })(
+                          a ?
+                            function(a) {
+                              return function() {
+                                return 0;
+                              };
+                            } :
+                            function(a) {
+                              return function() {
+                                return 1;
+                              };
+                            }
                         )
-                      : a(
-                          a()
-                            ? {
-                                a: 0
-                              }
-                            : (function(a) {
-                                return a()
-                                  ? [
-                                      {
-                                        a: 0,
-                                        b: a()
-                                      }
-                                    ]
-                                  : a([
-                                      a
-                                        ? {
-                                            a: 0
-                                          }
-                                        : {},
-                                      {
-                                        a: 0
-                                      }
-                                    ]);
-                              })(
-                                a
-                                  ? function(a) {
-                                      return function() {
-                                        return 0;
-                                      };
-                                    }
-                                  : function(a) {
-                                      return function() {
-                                        return 1;
-                                      };
-                                    }
-                              )
-                        );
-                  }
-                : function() {}
-            ];
-      }
+                  );
+            } :
+            function() {}
+        ];
     }
-  : a;
+  } :
+  a;
 
 `;
 
@@ -631,156 +631,156 @@ a
 	  }
     : a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-aaaaaaaaaaaaaaa
-    ? bbbbbbbbbbbbbbbbbb
-    : ccccccccccccccc
-        ? ddddddddddddddd
-        : eeeeeeeeeeeeeee
-            ? fffffffffffffff
-            : gggggggggggggggg;
+aaaaaaaaaaaaaaa ?
+    bbbbbbbbbbbbbbbbbb :
+ccccccccccccccc ?
+    ddddddddddddddd :
+eeeeeeeeeeeeeee ?
+    fffffffffffffff :
+gggggggggggggggg;
 
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-        ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-            ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-            : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-        : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ?
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ?
+        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ?
+            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa :
+        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa :
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa :
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
 
-a
-    ? {
-          a: 0
-      }
-    : {
-          a: {
-              a: 0
-          }
-              ? {
+a ?
+    {
+        a: 0
+    } :
+    {
+        a: {
+            a: 0
+        } ?
+            {
+                a: 0
+            } :
+            {
+                y: {
                     a: 0
-                }
-              : {
-                    y: {
+                } ?
+                    {
+                        a: 0
+                    } :
+                    {
                         a: 0
                     }
-                        ? {
-                              a: 0
-                          }
-                        : {
-                              a: 0
-                          }
-                }
-      };
+            }
+    };
 
-a
-    ? {
-          a: function() {
-              return a
-                  ? {
-                        a: [
-                            a
-                                ? {
-                                      a: 0,
-                                      b: [a ? [0, 1] : []]
-                                  }
-                                : [
-                                      [
-                                          0,
+a ?
+    {
+        a: function() {
+            return a ?
+                {
+                    a: [
+                        a ?
+                            {
+                                a: 0,
+                                b: [a ? [0, 1] : []]
+                            } :
+                            [
+                                [
+                                    0,
+                                    {
+                                        a: 0
+                                    },
+                                    a ? 0 : 1
+                                ],
+                                function() {
+                                    return a ?
+                                        {
+                                            a: 0
+                                        } :
+                                        [
+                                            {
+                                                a: 0
+                                            },
+                                            {}
+                                        ];
+                                }
+                            ]
+                    ]
+                } :
+                [
+                    a ?
+                        function() {
+                            a ?
+                                a(
+                                      a ?
+                                          {
+                                              a: a({
+                                                  a: 0
+                                              })
+                                          } :
+                                          [
+                                              0,
+                                              a(),
+                                              a(
+                                                  a(),
+                                                  {
+                                                      a: 0
+                                                  },
+                                                  a ?
+                                                      a() :
+                                                      a({
+                                                            a: 0
+                                                        })
+                                              ),
+                                              a() ?
+                                                  {
+                                                      a: a(),
+                                                      b: []
+                                                  } :
+                                                  {}
+                                          ]
+                                  ) :
+                                a(
+                                      a() ?
                                           {
                                               a: 0
-                                          },
-                                          a ? 0 : 1
-                                      ],
-                                      function() {
-                                          return a
-                                              ? {
-                                                    a: 0
-                                                }
-                                              : [
-                                                    {
-                                                        a: 0
-                                                    },
-                                                    {}
-                                                ];
-                                      }
-                                  ]
-                        ]
-                    }
-                  : [
-                        a
-                            ? function() {
-                                  a
-                                      ? a(
-                                            a
-                                                ? {
-                                                      a: a({
-                                                          a: 0
-                                                      })
-                                                  }
-                                                : [
-                                                      0,
-                                                      a(),
-                                                      a(
-                                                          a(),
+                                          } :
+                                          (function(a) {
+                                                return a() ?
+                                                    [
+                                                        {
+                                                            a: 0,
+                                                            b: a()
+                                                        }
+                                                    ] :
+                                                    a([
+                                                          a ?
+                                                              {
+                                                                  a: 0
+                                                              } :
+                                                              {},
                                                           {
                                                               a: 0
-                                                          },
-                                                          a
-                                                              ? a()
-                                                              : a({
-                                                                    a: 0
-                                                                })
-                                                      ),
-                                                      a()
-                                                          ? {
-                                                                a: a(),
-                                                                b: []
-                                                            }
-                                                          : {}
-                                                  ]
-                                        )
-                                      : a(
-                                            a()
-                                                ? {
-                                                      a: 0
-                                                  }
-                                                : (function(a) {
-                                                      return a()
-                                                          ? [
-                                                                {
-                                                                    a: 0,
-                                                                    b: a()
-                                                                }
-                                                            ]
-                                                          : a([
-                                                                a
-                                                                    ? {
-                                                                          a: 0
-                                                                      }
-                                                                    : {},
-                                                                {
-                                                                    a: 0
-                                                                }
-                                                            ]);
-                                                  })(
-                                                      a
-                                                          ? function(a) {
-                                                                return function() {
-                                                                    return 0;
-                                                                };
-                                                            }
-                                                          : function(a) {
-                                                                return function() {
-                                                                    return 1;
-                                                                };
-                                                            }
-                                                  )
-                                        );
-                              }
-                            : function() {}
-                    ];
-          }
-      }
-    : a;
+                                                          }
+                                                      ]);
+                                            })(
+                                                a ?
+                                                    function(a) {
+                                                        return function() {
+                                                            return 0;
+                                                        };
+                                                    } :
+                                                    function(a) {
+                                                        return function() {
+                                                            return 1;
+                                                        };
+                                                    }
+                                            )
+                                  );
+                        } :
+                        function() {}
+                ];
+        }
+    } :
+    a;
 
 `;
 
@@ -953,156 +953,156 @@ a
 	  }
     : a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-aaaaaaaaaaaaaaa
-	? bbbbbbbbbbbbbbbbbb
-	: ccccccccccccccc
-		? ddddddddddddddd
-		: eeeeeeeeeeeeeee
-			? fffffffffffffff
-			: gggggggggggggggg;
+aaaaaaaaaaaaaaa ?
+	bbbbbbbbbbbbbbbbbb :
+ccccccccccccccc ?
+	ddddddddddddddd :
+eeeeeeeeeeeeeee ?
+	fffffffffffffff :
+gggggggggggggggg;
 
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-	? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-		? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-			? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-			: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-		: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-	: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ?
+	aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ?
+		aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ?
+			aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa :
+		aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa :
+	aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa :
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
 
-a
-	? {
+a ?
+	{
+		a: 0
+	} :
+	{
+		a: {
 			a: 0
-	  }
-	: {
-			a: {
+		} ?
+			{
 				a: 0
-			}
-				? {
+			} :
+			{
+				y: {
+					a: 0
+				} ?
+					{
 						a: 0
-				  }
-				: {
-						y: {
-							a: 0
-						}
-							? {
-									a: 0
-							  }
-							: {
-									a: 0
-							  }
-				  }
-	  };
+					} :
+					{
+						a: 0
+					}
+			}
+	};
 
-a
-	? {
-			a: function() {
-				return a
-					? {
-							a: [
-								a
-									? {
-											a: 0,
-											b: [a ? [0, 1] : []]
-									  }
-									: [
+a ?
+	{
+		a: function() {
+			return a ?
+				{
+					a: [
+						a ?
+							{
+								a: 0,
+								b: [a ? [0, 1] : []]
+							} :
+							[
+								[
+									0,
+									{
+										a: 0
+									},
+									a ? 0 : 1
+								],
+								function() {
+									return a ?
+										{
+											a: 0
+										} :
+										[
+											{
+												a: 0
+											},
+											{}
+										];
+								}
+							]
+					]
+				} :
+				[
+					a ?
+						function() {
+							a ?
+								a(
+										a ?
+											{
+												a: a({
+													a: 0
+												})
+											} :
 											[
 												0,
-												{
-													a: 0
-												},
-												a ? 0 : 1
-											],
-											function() {
-												return a
-													? {
-															a: 0
-													  }
-													: [
-															{
+												a(),
+												a(
+													a(),
+													{
+														a: 0
+													},
+													a ?
+														a() :
+														a({
 																a: 0
-															},
-															{}
-													  ];
-											}
-									  ]
-							]
-					  }
-					: [
-							a
-								? function() {
-										a
-											? a(
-													a
-														? {
-																a: a({
-																	a: 0
-																})
-														  }
-														: [
-																0,
-																a(),
-																a(
-																	a(),
+														  })
+												),
+												a() ?
+													{
+														a: a(),
+														b: []
+													} :
+													{}
+											]
+								  ) :
+								a(
+										a() ?
+											{
+												a: 0
+											} :
+											(function(a) {
+													return a() ?
+														[
+															{
+																a: 0,
+																b: a()
+															}
+														] :
+														a([
+																a ?
 																	{
 																		a: 0
-																	},
-																	a
-																		? a()
-																		: a({
-																				a: 0
-																		  })
-																),
-																a()
-																	? {
-																			a: a(),
-																			b: []
-																	  }
-																	: {}
-														  ]
+																	} :
+																	{},
+																{
+																	a: 0
+																}
+														  ]);
+											  })(
+													a ?
+														function(a) {
+															return function() {
+																return 0;
+															};
+														} :
+														function(a) {
+															return function() {
+																return 1;
+															};
+														}
 											  )
-											: a(
-													a()
-														? {
-																a: 0
-														  }
-														: (function(a) {
-																return a()
-																	? [
-																			{
-																				a: 0,
-																				b: a()
-																			}
-																	  ]
-																	: a([
-																			a
-																				? {
-																						a: 0
-																				  }
-																				: {},
-																			{
-																				a: 0
-																			}
-																	  ]);
-														  })(
-																a
-																	? function(a) {
-																			return function() {
-																				return 0;
-																			};
-																	  }
-																	: function(a) {
-																			return function() {
-																				return 1;
-																			};
-																	  }
-														  )
-											  );
-								  }
-								: function() {}
-					  ];
-			}
-	  }
-	: a;
+								  );
+						} :
+						function() {}
+				];
+		}
+	} :
+	a;
 
 `;
 
@@ -1275,160 +1275,156 @@ a
 	  }
     : a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-aaaaaaaaaaaaaaa
-	? bbbbbbbbbbbbbbbbbb
-	: ccccccccccccccc
-		? ddddddddddddddd
-		: eeeeeeeeeeeeeee
-			? fffffffffffffff
-			: gggggggggggggggg;
+aaaaaaaaaaaaaaa ?
+	bbbbbbbbbbbbbbbbbb :
+ccccccccccccccc ?
+	ddddddddddddddd :
+eeeeeeeeeeeeeee ?
+	fffffffffffffff :
+gggggggggggggggg;
 
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-	? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-		? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-			? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-			: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-		: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-	: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ?
+	aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ?
+		aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ?
+			aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa :
+		aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa :
+	aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa :
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
 
-a
-	? {
+a ?
+	{
+		a: 0
+	} :
+	{
+		a: {
 			a: 0
-	  }
-	: {
-			a: {
+		} ?
+			{
 				a: 0
-			}
-				? {
+			} :
+			{
+				y: {
+					a: 0
+				} ?
+					{
 						a: 0
-				  }
-				: {
-						y: {
-							a: 0
-						}
-							? {
-									a: 0
-							  }
-							: {
-									a: 0
-							  }
-				  }
-	  };
+					} :
+					{
+						a: 0
+					}
+			}
+	};
 
-a
-	? {
-			a: function() {
-				return a
-					? {
-							a: [
-								a
-									? {
-											a: 0,
-											b: [a ? [0, 1] : []]
-									  }
-									: [
+a ?
+	{
+		a: function() {
+			return a ?
+				{
+					a: [
+						a ?
+							{
+								a: 0,
+								b: [a ? [0, 1] : []]
+							} :
+							[
+								[
+									0,
+									{
+										a: 0
+									},
+									a ? 0 : 1
+								],
+								function() {
+									return a ?
+										{
+											a: 0
+										} :
+										[
+											{
+												a: 0
+											},
+											{}
+										];
+								}
+							]
+					]
+				} :
+				[
+					a ?
+						function() {
+							a ?
+								a(
+										a ?
+											{
+												a: a({
+													a: 0
+												})
+											} :
 											[
 												0,
-												{
-													a: 0
-												},
-												a ? 0 : 1
-											],
-											function() {
-												return a
-													? {
-															a: 0
-													  }
-													: [
-															{
+												a(),
+												a(
+													a(),
+													{
+														a: 0
+													},
+													a ?
+														a() :
+														a({
 																a: 0
-															},
-															{}
-													  ];
-											}
-									  ]
-							]
-					  }
-					: [
-							a
-								? function() {
-										a
-											? a(
-													a
-														? {
-																a: a({
-																	a: 0
-																})
-														  }
-														: [
-																0,
-																a(),
-																a(
-																	a(),
+														  })
+												),
+												a() ?
+													{
+														a: a(),
+														b: []
+													} :
+													{}
+											]
+								  ) :
+								a(
+										a() ?
+											{
+												a: 0
+											} :
+											(function(a) {
+													return a() ?
+														[
+															{
+																a: 0,
+																b: a()
+															}
+														] :
+														a([
+																a ?
 																	{
 																		a: 0
-																	},
-																	a
-																		? a()
-																		: a({
-																				a: 0
-																		  })
-																),
-																a()
-																	? {
-																			a: a(),
-																			b: []
-																	  }
-																	: {}
-														  ]
+																	} :
+																	{},
+																{
+																	a: 0
+																}
+														  ]);
+											  })(
+													a ?
+														function(a) {
+															return function() {
+																return 0;
+															};
+														} :
+														function(a) {
+															return function() {
+																return 1;
+															};
+														}
 											  )
-											: a(
-													a()
-														? {
-																a: 0
-														  }
-														: (function(a) {
-																return a()
-																	? [
-																			{
-																				a: 0,
-																				b: a()
-																			}
-																	  ]
-																	: a([
-																			a
-																				? {
-																						a: 0
-																				  }
-																				: {},
-																			{
-																				a: 0
-																			}
-																	  ]);
-														  })(
-																a
-																	? function(
-																			a
-																	  ) {
-																			return function() {
-																				return 0;
-																			};
-																	  }
-																	: function(
-																			a
-																	  ) {
-																			return function() {
-																				return 1;
-																			};
-																	  }
-														  )
-											  );
-								  }
-								: function() {}
-					  ];
-			}
-	  }
-	: a;
+								  );
+						} :
+						function() {}
+				];
+		}
+	} :
+	a;
 
 `;
 
@@ -1438,9 +1434,9 @@ let icecream = what == "cone"
   : p => \`here's your \${p} \${what}\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let icecream =
-  what == "cone"
-    ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-    : p => \`here's your \${p} \${what}\`;
+  what == "cone" ?
+    p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`) :
+    p => \`here's your \${p} \${what}\`;
 
 `;
 
@@ -1450,9 +1446,9 @@ let icecream = what == "cone"
   : p => \`here's your \${p} \${what}\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let icecream =
-    what == "cone"
-        ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-        : p => \`here's your \${p} \${what}\`;
+    what == "cone" ?
+        p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`) :
+        p => \`here's your \${p} \${what}\`;
 
 `;
 
@@ -1462,9 +1458,9 @@ let icecream = what == "cone"
   : p => \`here's your \${p} \${what}\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let icecream =
-	what == "cone"
-		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-		: p => \`here's your \${p} \${what}\`;
+	what == "cone" ?
+		p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`) :
+		p => \`here's your \${p} \${what}\`;
 
 `;
 
@@ -1474,9 +1470,9 @@ let icecream = what == "cone"
   : p => \`here's your \${p} \${what}\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let icecream =
-	what == "cone"
-		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-		: p => \`here's your \${p} \${what}\`;
+	what == "cone" ?
+		p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`) :
+		p => \`here's your \${p} \${what}\`;
 
 `;
 
@@ -1489,20 +1485,20 @@ a => a ? a : a
 a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
-debug
-  ? this.state.isVisible && somethingComplex
-    ? "partially visible"
-    : "hidden"
-  : null;
+debug ?
+  this.state.isVisible && somethingComplex ?
+    "partially visible" :
+  "hidden" :
+null;
 
 a =>
-  a
-    ? () => {
-        a;
-      }
-    : () => {
-        a;
-      };
+  a ?
+    () => {
+      a;
+    } :
+    () => {
+      a;
+    };
 a => (a ? a : a);
 a =>
   a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
@@ -1518,20 +1514,20 @@ a => a ? a : a
 a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
-debug
-    ? this.state.isVisible && somethingComplex
-        ? "partially visible"
-        : "hidden"
-    : null;
+debug ?
+    this.state.isVisible && somethingComplex ?
+        "partially visible" :
+    "hidden" :
+null;
 
 a =>
-    a
-        ? () => {
-              a;
-          }
-        : () => {
-              a;
-          };
+    a ?
+        () => {
+            a;
+        } :
+        () => {
+            a;
+        };
 a => (a ? a : a);
 a =>
     a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
@@ -1547,20 +1543,20 @@ a => a ? a : a
 a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
-debug
-	? this.state.isVisible && somethingComplex
-		? "partially visible"
-		: "hidden"
-	: null;
+debug ?
+	this.state.isVisible && somethingComplex ?
+		"partially visible" :
+	"hidden" :
+null;
 
 a =>
-	a
-		? () => {
-				a;
-		  }
-		: () => {
-				a;
-		  };
+	a ?
+		() => {
+			a;
+		} :
+		() => {
+			a;
+		};
 a => (a ? a : a);
 a =>
 	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
@@ -1576,20 +1572,20 @@ a => a ? a : a
 a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
-debug
-	? this.state.isVisible && somethingComplex
-		? "partially visible"
-		: "hidden"
-	: null;
+debug ?
+	this.state.isVisible && somethingComplex ?
+		"partially visible" :
+	"hidden" :
+null;
 
 a =>
-	a
-		? () => {
-				a;
-		  }
-		: () => {
-				a;
-		  };
+	a ?
+		() => {
+			a;
+		} :
+		() => {
+			a;
+		};
 a => (a ? a : a);
 a =>
 	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
@@ -1611,40 +1607,40 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
-const obj1 = conditionIsTruthy
-  ? { some: "long", object: "with", lots: "of", stuff }
-  : shortThing;
+const obj1 = conditionIsTruthy ?
+  { some: "long", object: "with", lots: "of", stuff } :
+  shortThing;
 
-const obj2 = conditionIsTruthy
-  ? shortThing
-  : { some: "long", object: "with", lots: "of", stuff };
+const obj2 = conditionIsTruthy ?
+  shortThing :
+  { some: "long", object: "with", lots: "of", stuff };
 
-const obj3 = conditionIsTruthy
-  ? {
-      some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-      object: "with",
-      lots: "of",
-      stuff
-    }
-  : shortThing;
+const obj3 = conditionIsTruthy ?
+  {
+    some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+    object: "with",
+    lots: "of",
+    stuff
+  } :
+  shortThing;
 
-const obj4 = conditionIsTruthy
-  ? shortThing
-  : {
-      some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-      object: "with",
-      lots: "of",
-      stuff
-    };
+const obj4 = conditionIsTruthy ?
+  shortThing :
+  {
+    some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+    object: "with",
+    lots: "of",
+    stuff
+  };
 
-const obj5 = conditionIsTruthy
-  ? { some: "long", object: "with", lots: "of", stuff }
-  : {
-      some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-      object: "with",
-      lots: "of",
-      stuff
-    };
+const obj5 = conditionIsTruthy ?
+  { some: "long", object: "with", lots: "of", stuff } :
+  {
+    some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+    object: "with",
+    lots: "of",
+    stuff
+  };
 
 `;
 
@@ -1663,40 +1659,40 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
-const obj1 = conditionIsTruthy
-    ? { some: "long", object: "with", lots: "of", stuff }
-    : shortThing;
+const obj1 = conditionIsTruthy ?
+    { some: "long", object: "with", lots: "of", stuff } :
+    shortThing;
 
-const obj2 = conditionIsTruthy
-    ? shortThing
-    : { some: "long", object: "with", lots: "of", stuff };
+const obj2 = conditionIsTruthy ?
+    shortThing :
+    { some: "long", object: "with", lots: "of", stuff };
 
-const obj3 = conditionIsTruthy
-    ? {
-          some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-          object: "with",
-          lots: "of",
-          stuff
-      }
-    : shortThing;
+const obj3 = conditionIsTruthy ?
+    {
+        some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+        object: "with",
+        lots: "of",
+        stuff
+    } :
+    shortThing;
 
-const obj4 = conditionIsTruthy
-    ? shortThing
-    : {
-          some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-          object: "with",
-          lots: "of",
-          stuff
-      };
+const obj4 = conditionIsTruthy ?
+    shortThing :
+    {
+        some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+        object: "with",
+        lots: "of",
+        stuff
+    };
 
-const obj5 = conditionIsTruthy
-    ? { some: "long", object: "with", lots: "of", stuff }
-    : {
-          some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-          object: "with",
-          lots: "of",
-          stuff
-      };
+const obj5 = conditionIsTruthy ?
+    { some: "long", object: "with", lots: "of", stuff } :
+    {
+        some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+        object: "with",
+        lots: "of",
+        stuff
+    };
 
 `;
 
@@ -1715,40 +1711,40 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
-const obj1 = conditionIsTruthy
-	? { some: "long", object: "with", lots: "of", stuff }
-	: shortThing;
+const obj1 = conditionIsTruthy ?
+	{ some: "long", object: "with", lots: "of", stuff } :
+	shortThing;
 
-const obj2 = conditionIsTruthy
-	? shortThing
-	: { some: "long", object: "with", lots: "of", stuff };
+const obj2 = conditionIsTruthy ?
+	shortThing :
+	{ some: "long", object: "with", lots: "of", stuff };
 
-const obj3 = conditionIsTruthy
-	? {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff
-	  }
-	: shortThing;
+const obj3 = conditionIsTruthy ?
+	{
+		some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+		object: "with",
+		lots: "of",
+		stuff
+	} :
+	shortThing;
 
-const obj4 = conditionIsTruthy
-	? shortThing
-	: {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff
-	  };
+const obj4 = conditionIsTruthy ?
+	shortThing :
+	{
+		some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+		object: "with",
+		lots: "of",
+		stuff
+	};
 
-const obj5 = conditionIsTruthy
-	? { some: "long", object: "with", lots: "of", stuff }
-	: {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff
-	  };
+const obj5 = conditionIsTruthy ?
+	{ some: "long", object: "with", lots: "of", stuff } :
+	{
+		some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+		object: "with",
+		lots: "of",
+		stuff
+	};
 
 `;
 
@@ -1767,39 +1763,39 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
-const obj1 = conditionIsTruthy
-	? { some: "long", object: "with", lots: "of", stuff }
-	: shortThing;
+const obj1 = conditionIsTruthy ?
+	{ some: "long", object: "with", lots: "of", stuff } :
+	shortThing;
 
-const obj2 = conditionIsTruthy
-	? shortThing
-	: { some: "long", object: "with", lots: "of", stuff };
+const obj2 = conditionIsTruthy ?
+	shortThing :
+	{ some: "long", object: "with", lots: "of", stuff };
 
-const obj3 = conditionIsTruthy
-	? {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff
-	  }
-	: shortThing;
+const obj3 = conditionIsTruthy ?
+	{
+		some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+		object: "with",
+		lots: "of",
+		stuff
+	} :
+	shortThing;
 
-const obj4 = conditionIsTruthy
-	? shortThing
-	: {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff
-	  };
+const obj4 = conditionIsTruthy ?
+	shortThing :
+	{
+		some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+		object: "with",
+		lots: "of",
+		stuff
+	};
 
-const obj5 = conditionIsTruthy
-	? { some: "long", object: "with", lots: "of", stuff }
-	: {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff
-	  };
+const obj5 = conditionIsTruthy ?
+	{ some: "long", object: "with", lots: "of", stuff } :
+	{
+		some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+		object: "with",
+		lots: "of",
+		stuff
+	};
 
 `;

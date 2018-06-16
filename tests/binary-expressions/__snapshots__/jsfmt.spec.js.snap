@@ -516,16 +516,16 @@ function foo() {
 
 function foo() {
   return this.hasPlugin("dynamicImports") &&
-    this.lookahead().type === tt.parenLeft.right
-    ? true
-    : false;
+    this.lookahead().type === tt.parenLeft.right ?
+    true :
+    false;
 }
 
 function foo() {
   return this.calculate().compute().first.numberOfThings >
-    this.calculate().compute().last.numberOfThings
-    ? true
-    : false;
+    this.calculate().compute().last.numberOfThings ?
+    true :
+    false;
 }
 
 `;
@@ -645,9 +645,9 @@ const x =
   longVariable > longint && longVariable === 0 + longVariable * longVariable;
 
 foo(
-  obj.property * new Class() && obj instanceof Class && longVariable
-    ? number + 5
-    : false
+  obj.property * new Class() && obj instanceof Class && longVariable ?
+    number + 5 :
+    false
 );
 
 `;

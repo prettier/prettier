@@ -6,9 +6,9 @@ exports[`conditional.js 1`] = `
   : helper.responseBody(this.defaultUser))
 .prop;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(valid
-  ? helper.responseBody(this.currentUser)
-  : helper.responseBody(this.defaultUser)
+(valid ?
+  helper.responseBody(this.currentUser) :
+  helper.responseBody(this.defaultUser)
 ).prop;
 
 `;

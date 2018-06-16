@@ -223,7 +223,6 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
   // See tests/jsx/conditional-expression.js for more info.
   let jsxMode = false;
   const parent = path.getParentNode();
-  let forceNoIndent = parent.type === operatorOpts.operatorName;
 
   // Find the outermost non-ConditionalExpression parent, and the outermost
   // ConditionalExpression parent. We'll use these to determine if we should
@@ -246,7 +245,6 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
     conditionalExpressionChainContainsJSX(lastConditionalParent)
   ) {
     jsxMode = true;
-    forceNoIndent = true;
 
     // Even though they don't need parens, we wrap (almost) everything in
     // parens when using ?: within JSX, because the parens are analogous to
@@ -279,26 +277,64 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
     );
   } else {
     // normal mode
-    const part = concat([
+
+    const isNested = parent.type === operatorOpts.operatorName;
+
+    const hasNested = {
+      consequent:
+        n[operatorOpts.consequentNode].type === operatorOpts.operatorName,
+      alternate:
+        n[operatorOpts.alternateNode].type === operatorOpts.operatorName
+    };
+
+    const isIndentedNode = node =>
+      [
+        "ObjectExpression",
+        "ObjectPattern",
+        "ObjectTypeAnnotation",
+        "TSInterfaceBody",
+        "TSTypeLiteral",
+        "ArrayExpression",
+        "ArrayPattern",
+        "FunctionExpression",
+        "ArrowFunctionExpression"
+      ].indexOf(node.type) !== -1;
+
+    const hasIndent = {
+      consequent: isIndentedNode(n[operatorOpts.consequentNode]),
+      alternate: isIndentedNode(n[operatorOpts.alternateNode])
+    };
+
+    const consequent = concat([
       line,
-      "? ",
-      n[operatorOpts.consequentNode].type === operatorOpts.operatorName
-        ? ifBreak("", "(")
-        : "",
-      align(2, path.call(print, operatorOpts.consequentNode)),
-      n[operatorOpts.consequentNode].type === operatorOpts.operatorName
-        ? ifBreak("", ")")
-        : "",
-      line,
-      ": ",
-      align(2, path.call(print, operatorOpts.alternateNode))
+      hasNested.consequent ? ifBreak("", "(") : "",
+      align(
+        hasIndent.consequent ? 0 : 2,
+        path.call(print, operatorOpts.consequentNode)
+      ),
+      hasNested.consequent ? ifBreak("", ")") : ""
     ]);
+    const alternate = concat([
+      line,
+      align(
+        hasIndent.alternate ? 0 : 2,
+        path.call(print, operatorOpts.alternateNode)
+      )
+    ]);
+
     parts.push(
-      parent.type === operatorOpts.operatorName
+      " ?",
+      isNested
         ? options.useTabs
-          ? dedent(indent(part))
-          : align(Math.max(0, options.tabWidth - 2), part)
-        : part
+          ? dedent(indent(consequent))
+          : align(Math.max(0, options.tabWidth - 2), consequent)
+        : indent(consequent),
+      " :",
+      isNested
+        ? dedent(alternate)
+        : hasNested.alternate || hasNested.consequent
+          ? alternate
+          : indent(alternate)
     );
   }
 
@@ -327,7 +363,7 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
     concat(
       [].concat(
         operatorOpts.beforeParts(),
-        forceNoIndent ? concat(parts) : indent(concat(parts)),
+        concat(parts),
         operatorOpts.afterParts(breakClosingParen)
       )
     )
@@ -3193,8 +3229,7 @@ function printPathNoParens(path, options, print, args) {
         operatorName: "TSConditionalType",
         consequentNode: "trueType",
         alternateNode: "falseType",
-        testNode: "checkType",
-        breakNested: false
+        testNode: "checkType"
       });
 
     case "TSInferType":
