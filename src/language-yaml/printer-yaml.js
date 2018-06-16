@@ -314,9 +314,7 @@ function _print(node, parentNode, path, options, print) {
       return join(hardline, path.map(print, "children"));
     case "mappingItem":
     case "flowMappingItem": {
-      return ((node.type === "flowMappingItem" &&
-        parentNode.type === "flowSequence") ||
-        node.type === "mappingItem") &&
+      return (node.type === "flowMappingItem" || node.type === "mappingItem") &&
         node.key.type === "null" &&
         node.value.type === "null"
         ? concat([":", line])
@@ -338,6 +336,12 @@ function _print(node, parentNode, path, options, print) {
         options.bracketSpacing
           ? line
           : softline;
+      const isLastItemEmptyMappingItem =
+        node.children.length !== 0 &&
+        (lastItem =>
+          lastItem.type === "flowMappingItem" &&
+          lastItem.key.type === "null" &&
+          lastItem.value.type === "null")(getLast(node.children));
       return concat([
         openMarker,
         indent(
@@ -365,20 +369,10 @@ function _print(node, parentNode, path, options, print) {
                 "children"
               )
             ),
-            node.children.length !== 0 &&
-            (lastChild =>
-              (node.type === "flowMapping" &&
-                lastChild.type === "flowMappingItem" &&
-                lastChild.key.type === "null" &&
-                lastChild.value.type === "null") ||
-              (node.type === "flowSequence" &&
-                lastChild.type === "flowSequenceItem" &&
-                lastChild.node.type === "null"))(getLast(node.children))
-              ? "," // trailing empty item
-              : ifBreak(",", "")
+            ifBreak(",", "")
           ])
         ),
-        bracketSpacing,
+        isLastItemEmptyMappingItem ? "" : bracketSpacing,
         closeMarker
       ]);
     }

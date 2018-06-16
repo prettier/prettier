@@ -2010,7 +2010,7 @@ implicit: entry,
 ?
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{ explicit: entry, implicit: entry, , }
+{ explicit: entry, implicit: entry, : }
 
 `;
 
