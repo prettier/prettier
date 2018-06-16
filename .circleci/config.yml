@@ -79,6 +79,8 @@ jobs:
       - attach_workspace:
           at: ~/prettier
       - run: yarn test:dist
+      - store_test_results:
+          path: test-results
 
   # Run tests using the standalone build
   test_prod_standalone:

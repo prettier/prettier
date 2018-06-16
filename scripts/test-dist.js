@@ -20,7 +20,7 @@ shell.exec("npm init -y", { cwd: tmpDir });
 shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
 shell.config.silent = false;
 
-const cmd = `yarn test --color --runInBand ${
+const cmd = `yarn test --color --runInBand --reporters default --reporters jest-junit ${
   process.env.TEST_STANDALONE ? "tests/" : ""
 }`;
 

@@ -74,6 +74,7 @@
     "eslint-plugin-prettier": "2.6.0",
     "eslint-plugin-react": "7.7.0",
     "jest": "21.1.0",
+    "jest-junit": "5.0.0",
     "mkdirp": "0.5.1",
     "prettier": "1.13.5",
     "prettylint": "1.0.0",
@@ -104,5 +105,8 @@
     "build": "node ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js"
+  },
+  "jest-junit": {
+    "output": "./test-results/jest/junit.xml"
   }
 }
