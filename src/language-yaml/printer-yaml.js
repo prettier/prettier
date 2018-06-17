@@ -18,6 +18,7 @@ const {
 } = require("./utils");
 const docBuilders = require("../doc").builders;
 const {
+  conditionalGroup,
   breakParent,
   concat,
   dedent,
@@ -58,44 +59,15 @@ function genericPrint(path, options, print) {
       : "";
 
   return concat([
-    hasLeadingComments(node)
-      ? concat([
-          (node.type === "sequence" || node.type === "mapping") &&
-          (parentParentNode =>
-            parentParentNode.type === "mappingItem" &&
-            isImplicitMappingItem(parentParentNode, path.getParentNode(2)))(
-            path.getParentNode(1)
-          ) &&
-          !(tag || anchor)
-            ? hardline
-            : "",
-          join(hardline, path.map(print, "leadingComments")),
-          hardline
-        ])
+    node.type !== "mappingValue" && hasLeadingComments(node)
+      ? concat([join(hardline, path.map(print, "leadingComments")), hardline])
       : "",
     tag,
     tag && anchor ? " " : "",
     anchor,
     (node.type === "sequence" || node.type === "mapping") &&
     node.middleComments.length === 0
-      ? tag ||
-        anchor ||
-        (parentNode.type !== "documentBody" &&
-          parentNode.type !== "sequenceItem" &&
-          node.leadingComments.length === 0 &&
-          !(
-            parentNode.type === "mappingValue" &&
-            (parentParentNode =>
-              parentParentNode.type === "mappingItem" &&
-              hasTrailingComments(parentParentNode.key.node))(
-              path.getParentNode(1)
-            )
-          ) &&
-          !(parentParentNode =>
-            parentParentNode.type === "mappingItem" &&
-            !isImplicitMappingItem(parentParentNode, path.getParentNode(2)))(
-            path.getParentNode(1)
-          ))
+      ? tag || anchor
         ? hardline
         : ""
       : tag || anchor
@@ -118,9 +90,9 @@ function genericPrint(path, options, print) {
       ? lineSuffix(
           concat([
             " ",
-            isSingleLineNode(node) &&
-            parentNode.type === "mappingValue" &&
-            path.getParentNode(1).type === "mappingItem"
+            parentNode.type === "mappingKey" &&
+            path.getParentNode(2).type === "mapping" &&
+            isInlineNode(node)
               ? ""
               : breakParent,
             join(hardline, path.map(print, "trailingComments"))
@@ -281,50 +253,84 @@ function _print(node, parentNode, path, options, print) {
     case "sequenceItem":
       return concat(["- ", align(2, path.call(print, "node"))]);
     case "mappingKey":
-      return isImplicitMappingItem(parentNode, path.getParentNode(1))
-        ? path.call(print, "node")
-        : concat(["? ", align(2, path.call(print, "node"))]);
+      return path.call(print, "node");
     case "mappingValue":
-      return isImplicitMappingItem(parentNode, path.getParentNode(1))
-        ? concat([
-            concat([
-              needsSpaceInFrontOfMappingValue(parentNode) ? " " : "",
-              ":"
-            ]),
-            (doc => (node.node.type === "sequence" ? doc : indent(doc)))(
-              concat([
-                node.node.type === "null"
-                  ? ""
-                  : hasTrailingComments(parentNode.key.node) &&
-                    !isBlockValue(node.node)
-                    ? hardline
-                    : isInlineNode(node.node)
-                      ? line
-                      : " ",
-                path.call(print, "node")
-              ])
-            )
-          ])
-        : concat([
-            ":",
-            node.node.type === "null" ? "" : " ",
-            align(2, path.call(print, "node"))
-          ]);
+      return path.call(print, "node");
     case "mapping":
       return join(hardline, path.map(print, "children"));
     case "mappingItem":
     case "flowMappingItem": {
-      return (node.type === "flowMappingItem" || node.type === "mappingItem") &&
-        node.key.type === "null" &&
-        node.value.type === "null"
-        ? concat([":", line])
-        : join(
-            isImplicitMappingItem(node, parentNode) ? "" : hardline,
-            [
-              node.key.type === "null" ? "" : path.call(print, "key"),
-              node.value.type === "null" ? "" : path.call(print, "value")
-            ].filter(doc => doc !== "")
-          );
+      if (node.key.type === "null" && node.value.type === "null") {
+        return concat([":", line]);
+      }
+
+      const key = path.call(print, "key");
+      const value = path.call(print, "value");
+
+      if (node.value.type === "null") {
+        return node.type === "flowMappingItem" &&
+          path.getParentNode().type !== "flowSequence"
+          ? key
+          : concat(["? ", align(2, key)]);
+      }
+
+      if (node.key.type === "null") {
+        return concat([
+          ":",
+          node.value.node.type === "null" ? "" : " ",
+          align(2, value)
+        ]);
+      }
+
+      const groupId = Symbol("mappingKey");
+
+      const forceExplicitKey =
+        hasLeadingComments(node.value) ||
+        (node.key.type !== "null" && !isInlineNode(node.key.node));
+      return forceExplicitKey
+        ? concat([
+            "? ",
+            align(2, key),
+            hardline,
+            join(
+              "",
+              path
+                .map(print, "value", "leadingComments")
+                .map(comment => concat([comment, hardline]))
+            ),
+            ": ",
+            align(2, value)
+          ])
+        : conditionalGroup([
+            concat([
+              group(
+                concat([ifBreak("? "), group(align(2, key), { id: groupId })])
+              ),
+              ifBreak(
+                concat([hardline, ": ", align(2, value)]),
+                indent(
+                  concat([
+                    needsSpaceInFrontOfMappingValue(node) ? " " : "",
+                    ":",
+                    hasLeadingComments(node.value.node) ||
+                    (parentNode.type === "mapping" &&
+                      hasTrailingComments(node.key.node) &&
+                      isInlineNode(node.value.node)) ||
+                    ((node.value.node.type === "mapping" ||
+                      node.value.node.type === "sequence") &&
+                      node.value.node.tag.type === "null" &&
+                      node.value.node.anchor.type === "null")
+                      ? hardline
+                      : node.value.node.type === "null"
+                        ? ""
+                        : line,
+                    value
+                  ])
+                ),
+                { groupId }
+              )
+            ])
+          ]);
     }
     case "flowMapping":
     case "flowSequence": {
@@ -391,82 +397,6 @@ function _print(node, parentNode, path, options, print) {
     return typeof n === "number" && n > 0
       ? docBuilders.align(" ".repeat(n), doc)
       : docBuilders.align(n, doc);
-  }
-}
-
-/**
- * (implicit: indent)
- *
- *     key:
- *       value
- *
- * (explicit: align 2)
- *
- *     ? key
- *     : value
- */
-function isImplicitMappingItem(node, parentNode) {
-  /**
-   *     { : value }
-   */
-  if (node.key.type === "null") {
-    return false;
-  }
-
-  /**
-   *     ? key
-   *
-   *     [ ? key ]
-   *
-   *     { key }
-   */
-  if (node.value.type === "null") {
-    return parentNode.type === "flowMapping";
-  }
-
-  /**
-   *     ? !!tag key
-   *     : value
-   */
-  if (
-    "tag" in node.key.node &&
-    (node.key.node.tag.type !== "null" || node.key.node.anchor.type !== "null")
-  ) {
-    return false;
-  }
-
-  /**
-   *     ? # comment
-   *       key
-   *     : value
-   */
-  if (hasLeadingComments(node.key.node)) {
-    return false;
-  }
-
-  /**
-   *     ? key
-   *     # comment
-   *     : value
-   */
-  if (hasLeadingComments(node.value)) {
-    return false;
-  }
-
-  return isSingleLineNode(node.key.node);
-}
-
-function isSingleLineNode(node) {
-  switch (node.type) {
-    case "alias":
-      return true;
-    case "plain":
-      return !node.value.includes("\n");
-    case "quoteDouble":
-    case "quoteSingle":
-      return node.position.start.line === node.position.end.line;
-    default:
-      return false;
   }
 }
 

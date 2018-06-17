@@ -36,8 +36,7 @@ abc:  !!str #   hello
 def:  !!str #   hello
    456
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-abc:
-  !!str #   hello
+abc: !!str #   hello
   123
 # prettier-ignore
 def:  !!str #   hello
