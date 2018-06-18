@@ -33,7 +33,7 @@
     "find-project-root": "1.1.1",
     "flow-parser": "0.74.0",
     "get-stream": "3.0.0",
-    "globby": "6.1.0",
+    "globby": "8.0.1",
     "graphql": "0.13.2",
     "html-tag-names": "1.1.2",
     "ignore": "3.3.7",
