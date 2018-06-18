@@ -35,7 +35,7 @@ const EXTERNALS = [
 function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
-    plugins: [],
+    plugins: bundle.plugins || [],
     compact: bundle.type === "plugin" ? false : "auto"
   };
   if (bundle.type === "core") {
