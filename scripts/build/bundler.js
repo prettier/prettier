@@ -1,5 +1,6 @@
 "use strict";
 
+const execa = require("execa");
 const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
@@ -186,11 +187,29 @@ function runWebpack(config) {
   });
 }
 
-module.exports = async function createBundle(bundle) {
+module.exports = async function createBundle(bundle, cache) {
+  const useCache = await cache.checkBundle(
+    bundle.output,
+    getRollupConfig(bundle)
+  );
+  if (useCache) {
+    try {
+      await execa("cp", [
+        path.join(cache.cacheDir, "files", bundle.output),
+        "dist"
+      ]);
+      return { cached: true };
+    } catch (err) {
+      // Proceed to build
+    }
+  }
+
   if (bundle.bundler === "webpack") {
     await runWebpack(getWebpackConfig(bundle));
   } else {
     const result = await rollup(getRollupConfig(bundle));
     await result.write(getRollupOutputOptions(bundle));
   }
+
+  return { bundled: true };
 };

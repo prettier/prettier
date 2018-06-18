@@ -1,7 +1,6 @@
 "use strict";
 
 const fs = require("fs");
-const rimraf = require("rimraf");
 const promisify = require("util").promisify;
 
 const readFile = promisify(fs.readFile);
@@ -23,7 +22,6 @@ async function copyFile(from, to) {
 }
 
 module.exports = {
-  asyncRimRaf: promisify(rimraf),
   readJson,
   writeJson,
   copyFile,
