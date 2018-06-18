@@ -74,7 +74,7 @@ var parsers = {
 
   // YAML
   get yaml() {
-    importScripts("lib/parser-yaml.js");
+    importScriptOnce("lib/parser-yaml.js");
     return prettierPlugins.yaml.parsers.yaml;
   }
 };
