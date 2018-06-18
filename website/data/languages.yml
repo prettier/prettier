@@ -31,7 +31,7 @@
   - "[GitHub Flavored Markdown](https://github.github.com/gfm/)"
 - name: YAML
   showName: false
-  image: /images/languages/tools_yaml.svg # TODO
+  image: /images/languages/tools_yaml.svg
   variants:
   - "[YAML](http://yaml.org/)"
 - name: Work in Progress
