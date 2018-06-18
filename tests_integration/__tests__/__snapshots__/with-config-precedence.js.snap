@@ -85,24 +85,6 @@ exports[`CLI overrides take precedence with --config-precedence cli-override (st
 		\\"should have tab width 8\\"
 	)
 }
-function f() {
-  console.log(
-    \\"should have space width 2\\"
-  )
-}
-function f() {
-        console.log(
-                \\"should have space width 8\\"
-        )
-}
-function f() {
-  console.log(
-    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
-  )
-}
-console.log(
-  \\"jest/__best-tests__/file.js should have semi\\"
-);
 console.log(
   \\"jest/Component.js should not have semi\\"
 )
@@ -149,6 +131,24 @@ function rcYaml() {
     ],
   );
 }
+function f() {
+  console.log(
+    \\"should have space width 2\\"
+  )
+}
+function f() {
+        console.log(
+                \\"should have space width 8\\"
+        )
+}
+function f() {
+  console.log(
+    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+  )
+}
+console.log(
+  \\"jest/__best-tests__/file.js should have semi\\"
+);
 "
 `;
 
@@ -162,24 +162,6 @@ exports[`CLI overrides take precedence without --config-precedence (stdout) 1`] 
 		\\"should have tab width 8\\"
 	)
 }
-function f() {
-  console.log(
-    \\"should have space width 2\\"
-  )
-}
-function f() {
-        console.log(
-                \\"should have space width 8\\"
-        )
-}
-function f() {
-  console.log(
-    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
-  )
-}
-console.log(
-  \\"jest/__best-tests__/file.js should have semi\\"
-);
 console.log(
   \\"jest/Component.js should not have semi\\"
 )
@@ -226,6 +208,24 @@ function rcYaml() {
     ],
   );
 }
+function f() {
+  console.log(
+    \\"should have space width 2\\"
+  )
+}
+function f() {
+        console.log(
+                \\"should have space width 8\\"
+        )
+}
+function f() {
+  console.log(
+    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+  )
+}
+console.log(
+  \\"jest/__best-tests__/file.js should have semi\\"
+);
 "
 `;
 
