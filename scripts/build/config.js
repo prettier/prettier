@@ -13,7 +13,7 @@ const path = require("path");
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
  * @property {string[]} external - array of paths that should not be included in the final bundle
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
- * @property {string[]} plugins - babel plugins
+ * @property {string[]} babelPlugins - babel plugins
 
  * @typedef {Object} CommonJSConfig
  * @property {Object} namedExports - for cases where rollup can't infer what's exported
@@ -72,7 +72,7 @@ const parsers = [
     input: "src/language-yaml/parser-yaml.js",
     target: "universal",
     bundler: "webpack",
-    plugins: [
+    babelPlugins: [
       require.resolve("./babel-plugins/replace-array-includes-with-indexof")
     ]
   }
