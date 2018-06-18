@@ -24,15 +24,9 @@ function defineShortcuts(node) {
   }
 }
 
-function _parse(text) {
-  return require("yaml-unist-parser").parse(
-    text.length === 0 || text[text.length - 1] === "\n" ? text : text + "\n"
-  );
-}
-
 function parse(text) {
   try {
-    const root = mapNode(_parse(text), node => {
+    const root = mapNode(require("yaml-unist-parser").parse(text), node => {
       // replace explicit empty MappingKey/MappingValue with implicit one
       if (
         (node.type === "mappingKey" || node.type === "mappingValue") &&
