@@ -173,18 +173,20 @@ function _print(node, parentNode, path, options, print) {
     case "quoteSingle": {
       const singleQuote = "'";
       const doubleQuote = '"';
-      const originalQuote =
-        node.type === "quoteDouble" ? doubleQuote : singleQuote;
+
       const raw = options.originalText.slice(
         node.position.start.offset + 1,
         node.position.end.offset - 1
       );
+
       if (
         (node.type === "quoteSingle" && raw.includes("\\")) ||
         (node.type === "quoteDouble" && /\\[^"]/.test(raw))
       ) {
         // only quoteDouble can use escape chars
         // and quoteSingle do not need to escape backslashes
+        const originalQuote =
+          node.type === "quoteDouble" ? doubleQuote : singleQuote;
         return originalQuote + raw + originalQuote;
       } else if (raw.includes(doubleQuote)) {
         return (
