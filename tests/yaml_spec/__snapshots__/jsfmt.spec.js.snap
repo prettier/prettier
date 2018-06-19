@@ -295,7 +295,7 @@ baz: 2
 exports[`colon-in-double-quoted-string.yml 1`] = `
 "foo: bar\\": baz"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"foo: bar\\": baz"
+'foo: bar": baz'
 
 `;
 
@@ -719,7 +719,7 @@ exports[`non-specific-tags-on-scalars.yml 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - plain
 - "double quoted"
-- 'single quoted'
+- "single quoted"
 - >
   block
 - plain again
@@ -1114,7 +1114,7 @@ control: "\\b1998\\t1999\\t2000\\n"
 hex esc: "\\x0d\\x0a is \\r\\n"
 
 single: '"Howdy!" he cried.'
-quoted: ' # Not a ''comment''.'
+quoted: " # Not a 'comment'."
 tie-fighter: '|\\-*-/|'
 
 `;
@@ -1412,7 +1412,7 @@ exports[`spec-example-5-8-quoted-scalar-indicators.yml 1`] = `
 single: 'text'
 double: "text"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-single: 'text'
+single: "text"
 double: "text"
 
 `;
@@ -1883,7 +1883,7 @@ exports[`spec-example-7-8-single-quoted-implicit-keys.yml 1`] = `
   'implicit flow key' : value,
  ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-'implicit block key': ['implicit flow key': value]
+"implicit block key": ["implicit flow key": value]
 
 `;
 
@@ -1893,10 +1893,10 @@ exports[`spec-example-7-9-single-quoted-lines.yml 1`] = `
  2nd non-empty 
 	3rd non-empty '
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-' 1st non-empty
+" 1st non-empty
 
  2nd non-empty 
-	3rd non-empty '
+	3rd non-empty "
 
 `;
 
@@ -1966,8 +1966,8 @@ single: pair,
 ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ["double
- quoted", 'single
-           quoted', plain text, [nested], single: pair]
+ quoted", "single
+           quoted", plain text, [nested], single: pair]
 
 `;
 
@@ -2054,7 +2054,7 @@ exports[`spec-example-7-23-flow-content.yml 1`] = `
 - [a, b]
 - { a: b }
 - "a"
-- 'b'
+- "b"
 - c
 
 `;
@@ -2067,7 +2067,7 @@ exports[`spec-example-7-24-flow-nodes.yml 1`] = `
 - !!str
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - !!str "a"
-- 'b'
+- "b"
 - &anchor "c"
 - *anchor
 - !!str
@@ -2726,7 +2726,7 @@ exports[`whitespace-after-scalars-in-flow.yml 1`] = `
 - [      ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - [a, b, c]
-- { "a": b, c: 'd', e: "f" }
+- { "a": b, c: "d", e: "f" }
 - []
 
 `;
@@ -2747,15 +2747,15 @@ top6:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "top1":
   "key1": &alias1 scalar1
-'top2':
-  'key2': &alias2 scalar2
+"top2":
+  "key2": &alias2 scalar2
 top3: &node3
   *alias1 : scalar3
 top4:
   *alias2 : scalar4
 top5: scalar5
 top6:
-  &anchor6 'key6': scalar6
+  &anchor6 "key6": scalar6
 
 `;
 

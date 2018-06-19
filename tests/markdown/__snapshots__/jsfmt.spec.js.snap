@@ -1393,7 +1393,7 @@ Copy the following config into your \`.pre-commit-config.yaml\` file:
 
 \`\`\`yaml
 - repo: https://github.com/prettier/prettier
-  sha: '' # Use the sha or tag you want to point at
+  sha: "" # Use the sha or tag you want to point at
   hooks:
     - id: prettier
 \`\`\`
@@ -3772,7 +3772,7 @@ YAML:
 \`\`\`yaml
 semi: false
 overrides:
-  - files: "*.test.js"
+  - files: '*.test.js'
     options:
       semi: true
 \`\`\`

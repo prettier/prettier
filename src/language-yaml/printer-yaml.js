@@ -169,12 +169,48 @@ function _print(node, parentNode, path, options, print) {
       return concat(["&", node.value]);
     case "plain":
       return join(hardline, node.value.replace(/\n/g, "\n\n").split("\n"));
-    case "quoteDouble": // TODO: --single-quote
-    case "quoteSingle":
-      return options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset
+    case "quoteDouble":
+    case "quoteSingle": {
+      const singleQuote = "'";
+      const doubleQuote = '"';
+      const originalQuote =
+        node.type === "quoteDouble" ? doubleQuote : singleQuote;
+      const raw = options.originalText.slice(
+        node.position.start.offset + 1,
+        node.position.end.offset - 1
       );
+      if (
+        (node.type === "quoteSingle" && raw.includes("\\")) ||
+        (node.type === "quoteDouble" && /\\[^"]/.test(raw))
+      ) {
+        // only quoteDouble can use escape chars
+        // and quoteSingle do not need to escape backslashes
+        return originalQuote + raw + originalQuote;
+      } else if (raw.includes(doubleQuote)) {
+        return (
+          singleQuote +
+          (node.type === "quoteDouble"
+            ? // double quote needs to be escaped by backslash in quoteDouble
+              raw.replace(/\\"/g, doubleQuote)
+            : raw) +
+          singleQuote
+        );
+      }
+
+      if (raw.includes(singleQuote)) {
+        return (
+          doubleQuote +
+          (node.type === "quoteSingle"
+            ? // single quote needs to be escaped by 2 single quotes in quoteSingle
+              raw.replace(/''/g, singleQuote)
+            : raw) +
+          doubleQuote
+        );
+      }
+
+      const quote = options.singleQuote ? singleQuote : doubleQuote;
+      return quote + raw + quote;
+    }
     case "blockFolded": // TODO: --prose-wrap
     case "blockLiteral": {
       const value =
@@ -452,6 +488,10 @@ function clean(node, newNode /*, parent */) {
         if (isPragma(newNode.value)) {
           return null;
         }
+        break;
+      case "quoteDouble":
+      case "quoteSingle":
+        newNode.type = "quote";
         break;
     }
   }
