@@ -116,6 +116,16 @@ facebook_translation_leave_text_around_tag =
     </span>)
   </div>
 
+x =
+  <div>
+    <span>
+      First second third fourth fifth sixth seventh
+    </span>,
+    (<span>
+      Second
+    </span>)
+  </div>
+
 this_really_should_split_across_lines =
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
@@ -315,6 +325,32 @@ x =
   <p>
     text text text text text text text text text text text text text text text<br />text text text text text text
   </p>;
+
+x =
+  <div>
+    <div>
+      First
+    </div>-
+    <div>
+      Second
+    </div>
+  </div>
+
+x =
+  <div>
+    <div>
+      First
+    </div>
+    -
+    <div>
+      Second
+    </div>
+  </div>
+
+x =
+  <div>
+    <div>First</div>-<div>Second</div>
+  </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Wrapping text
 x = (
@@ -365,18 +401,34 @@ x = (
 
 x = (
   <div>
-    before<div>
+    before
+    <div>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at
       mollis lorem.
-    </div>after
+    </div>
+    after
   </div>
 );
 
 x = (
   <div>
-    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}
+    before
     {stuff}
-    {stuff}after{stuff}after
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    {stuff}
+    {stuff}
+    after
+    {stuff}
+    after
   </div>
 );
 
@@ -474,13 +526,45 @@ facebook_translation_leave_text_around_tag = (
   </div>
 );
 
+x = (
+  <div>
+    <span>First second third fourth fifth sixth seventh</span>, (<span>
+      Second
+    </span>)
+  </div>
+);
+
 this_really_should_split_across_lines = (
   <div>
-    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{
-      stuff
-    }after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{
-      stuff
-    }after
+    before
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
+    {stuff}
+    after
   </div>
 );
 
@@ -595,9 +679,11 @@ with_text_fill_line = (
 
 line_after_br = (
   <div>
-    Text<br />
+    Text
+    <br />
     More text <br />
-    And more<br />
+    And more
+    <br />
   </div>
 );
 
@@ -713,9 +799,28 @@ x = <div> </div>;
 // ----------
 x = (
   <p>
-    text text text text text text text text text text text text text text text<br />text
-    text text text text text
+    text text text text text text text text text text text text text text text
+    <br />
+    text text text text text text
   </p>
+);
+
+x = (
+  <div>
+    <div>First</div>-<div>Second</div>
+  </div>
+);
+
+x = (
+  <div>
+    <div>First</div>-<div>Second</div>
+  </div>
+);
+
+x = (
+  <div>
+    <div>First</div>-<div>Second</div>
+  </div>
 );
 
 `;

@@ -113,6 +113,16 @@ facebook_translation_leave_text_around_tag =
     </span>)
   </div>
 
+x =
+  <div>
+    <span>
+      First second third fourth fifth sixth seventh
+    </span>,
+    (<span>
+      Second
+    </span>)
+  </div>
+
 this_really_should_split_across_lines =
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
@@ -312,3 +322,29 @@ x =
   <p>
     text text text text text text text text text text text text text text text<br />text text text text text text
   </p>;
+
+x =
+  <div>
+    <div>
+      First
+    </div>-
+    <div>
+      Second
+    </div>
+  </div>
+
+x =
+  <div>
+    <div>
+      First
+    </div>
+    -
+    <div>
+      Second
+    </div>
+  </div>
+
+x =
+  <div>
+    <div>First</div>-<div>Second</div>
+  </div>
