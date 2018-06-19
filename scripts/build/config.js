@@ -71,7 +71,11 @@ const parsers = [
   {
     input: "src/language-yaml/parser-yaml.js",
     target: "universal",
-    bundler: "webpack",
+    alias: {
+      // Force using the CJS file, instead of ESM; i.e. get the file
+      // from `"main"` instead of `"module"` (rollup default) of package.json
+      "lines-and-columns": require.resolve("lines-and-columns")
+    },
     babelPlugins: [
       require.resolve("./babel-plugins/replace-array-includes-with-indexof")
     ]
