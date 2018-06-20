@@ -20,6 +20,20 @@ x =
   </fbt>
 
 x =
+  <fbt>
+    <fbt:param>First</fbt:param>,<fbt:param>Second</fbt:param>
+  </fbt>
+
+x =
+  <fbt>
+    <fbt:param>
+      First
+    </fbt:param>,<fbt:param>
+      Second
+    </fbt:param>
+  </fbt>
+
+x =
   <fbt desc="example 1">
     Prefix comes before
     <fbt:param>
