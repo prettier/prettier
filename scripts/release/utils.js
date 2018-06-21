@@ -70,9 +70,15 @@ function writeJson(filename, content) {
   fs.writeFileSync(filename, JSON.stringify(content, null, 2) + "\n");
 }
 
+function processFile(filename, fn) {
+  const content = fs.readFileSync(filename, "utf-8");
+  fs.writeFileSync(filename, fn(content));
+}
+
 module.exports = {
   runYarn,
   logPromise,
+  processFile,
   readJson,
   writeJson,
   waitForEnter
