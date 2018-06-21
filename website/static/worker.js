@@ -70,6 +70,12 @@ var parsers = {
   get vue() {
     importScriptOnce("lib/parser-vue.js");
     return prettierPlugins.vue.parsers.vue;
+  },
+
+  // YAML
+  get yaml() {
+    importScriptOnce("lib/parser-yaml.js");
+    return prettierPlugins.yaml.parsers.yaml;
   }
 };
 

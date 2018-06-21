@@ -1,0 +1,16 @@
+a: "double
+  quotes" # lala
+b: plain
+ value  # lala
+c  : #lala
+  d
+? # lala
+ - seq1
+: # lala
+ - #lala
+  seq2
+e:
+ &node # lala
+ - x: y
+block: > # lala
+  abcde

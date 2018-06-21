@@ -109,5 +109,15 @@ module.exports = [
         return $$$r("../language-vue/parser-vue").parsers.vue;
       }
     }
+  },
+
+  // YAML
+  require("../language-yaml"),
+  {
+    parsers: {
+      get yaml() {
+        return $$$r("../language-yaml/parser-yaml").parsers.yaml;
+      }
+    }
   }
 ];

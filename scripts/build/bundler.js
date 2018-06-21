@@ -5,6 +5,7 @@ const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
 const resolve = require("rollup-plugin-node-resolve");
+const alias = require("rollup-plugin-alias");
 const commonjs = require("rollup-plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
 const json = require("rollup-plugin-json");
@@ -36,7 +37,7 @@ const EXTERNALS = [
 function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
-    plugins: [],
+    plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto"
   };
   if (bundle.type === "core") {
@@ -108,6 +109,7 @@ function getRollupConfig(bundle) {
     replace(replaceStrings),
     executable(),
     json(),
+    bundle.alias && alias(bundle.alias),
     bundle.target === "universal" &&
       nativeShims(path.resolve(__dirname, "shims")),
     resolve({

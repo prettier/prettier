@@ -115,7 +115,8 @@ const options = {
       },
       { value: "graphql", since: "1.5.0", description: "GraphQL" },
       { value: "markdown", since: "1.8.0", description: "Markdown" },
-      { value: "vue", since: "1.10.0", description: "Vue" }
+      { value: "vue", since: "1.10.0", description: "Vue" },
+      { value: "yaml", since: "1.14.0", description: "YAML" }
     ]
   },
   plugins: {
