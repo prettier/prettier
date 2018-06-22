@@ -243,8 +243,7 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
     (operatorOpts.shouldCheckJsx && isJSXNode(n[operatorOpts.testNode])) ||
     isJSXNode(n[operatorOpts.consequentNode]) ||
     isJSXNode(n[operatorOpts.alternateNode]) ||
-    conditionalExpressionChainContainsJSX(lastConditionalParent) ||
-    firstNonConditionalParent.type === "JSXExpressionContainer"
+    conditionalExpressionChainContainsJSX(lastConditionalParent)
   ) {
     jsxMode = true;
     forceNoIndent = true;
