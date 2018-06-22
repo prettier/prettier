@@ -129,3 +129,13 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// This ConditionalExpression prints in JSX mode because the first 
+// non-conditional parent is a JSX expression container.
+<div>
+  {data.length > 1 ? (
+    "This is a really long non-jsx element inside of a ternary-operator that in turn is inside of a JSX expression container."
+  ) : (
+    "This is string however, is not as long as the previous one."
+  )}
+</div>
