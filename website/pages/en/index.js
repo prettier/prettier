@@ -1,6 +1,7 @@
 "use strict";
 
 const React = require("react");
+const PropTypes = require("prop-types");
 
 const CompLibrary = require("../../core/CompLibrary.js");
 const MarkdownBlock = CompLibrary.MarkdownBlock;
@@ -14,7 +15,7 @@ const ButtonGroup = props => (
 );
 
 ButtonGroup.propTypes = {
-  children: React.PropTypes.node
+  children: PropTypes.node
 };
 
 class Button extends React.Component {
@@ -34,9 +35,9 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
-  href: React.PropTypes.string,
-  target: React.PropTypes.string,
-  children: React.PropTypes.any
+  href: PropTypes.string,
+  target: PropTypes.string,
+  children: PropTypes.any
 };
 
 const HomeSplash = props => {
@@ -69,7 +70,7 @@ const HomeSplash = props => {
 };
 
 HomeSplash.propTypes = {
-  language: React.PropTypes.string
+  language: PropTypes.string
 };
 
 const TldrSection = ({ language }) => (
@@ -108,7 +109,7 @@ const TldrSection = ({ language }) => (
 );
 
 TldrSection.propTypes = {
-  language: React.PropTypes.string
+  language: PropTypes.string
 };
 
 const Language = ({ name, showName, image, variants }) => (
@@ -133,10 +134,10 @@ const Language = ({ name, showName, image, variants }) => (
 );
 
 Language.propTypes = {
-  name: React.PropTypes.string,
-  showName: React.PropTypes.boolean,
-  image: React.PropTypes.string,
-  variants: React.PropTypes.array
+  name: PropTypes.string,
+  showName: PropTypes.boolean,
+  image: PropTypes.string,
+  variants: PropTypes.array
 };
 
 const LanguagesSection = () => {
@@ -197,9 +198,9 @@ const Editor = ({ content = "", image, name }) => (
 );
 
 Editor.propTypes = {
-  content: React.PropTypes.string,
-  image: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired
+  content: PropTypes.string,
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 };
 
 const EditorSupportSection = () => (
@@ -428,7 +429,7 @@ const UsersSection = ({ language }) => {
 };
 
 UsersSection.propTypes = {
-  language: React.PropTypes.string
+  language: PropTypes.string
 };
 
 class Index extends React.Component {
@@ -452,7 +453,7 @@ class Index extends React.Component {
 }
 
 Index.propTypes = {
-  language: React.PropTypes.string
+  language: PropTypes.string
 };
 
 module.exports = Index;
