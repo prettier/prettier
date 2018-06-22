@@ -94,13 +94,8 @@ const languages = [
     aceMode: "json",
     codemirrorMode: "javascript",
     codemirrorMimeType: "application/json",
-    extensions: [
-      ".json",
-      ".jsonc",
-      ".geojson",
-      ".JSON-tmLanguage",
-      ".topojson"
-    ],
+    aliases: ["jsonc"],
+    extensions: [".json", ".geojson", ".JSON-tmLanguage", ".topojson"],
     filenames: [
       ".arcconfig",
       ".jshintrc",
