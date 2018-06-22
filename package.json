@@ -44,6 +44,7 @@
     "mem": "1.1.0",
     "minimatch": "3.0.4",
     "minimist": "1.2.0",
+    "normalize-path": "3.0.0",
     "parse5": "3.0.3",
     "postcss-less": "1.1.5",
     "postcss-media-query-parser": "0.2.3",
