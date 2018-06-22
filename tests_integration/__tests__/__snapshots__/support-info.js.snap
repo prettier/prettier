@@ -581,7 +581,13 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"aceMode\\": \\"json\\",
       \\"codemirrorMimeType\\": \\"application/json\\",
       \\"codemirrorMode\\": \\"javascript\\",
-      \\"extensions\\": [\\".json\\", \\".geojson\\", \\".JSON-tmLanguage\\", \\".topojson\\"],
+      \\"extensions\\": [
+        \\".json\\",
+        \\".jsonc\\",
+        \\".geojson\\",
+        \\".JSON-tmLanguage\\",
+        \\".topojson\\"
+      ],
       \\"filenames\\": [
         \\".arcconfig\\",
         \\".jshintrc\\",
