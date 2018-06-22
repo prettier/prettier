@@ -4771,9 +4771,11 @@ function printJSXChildren(
           words.shift();
           if (/\n/.test(words[0])) {
             children.push(
-              isFacebookTranslationTag || words[1].length !== 1
+              isFacebookTranslationTag
                 ? hardline
-                : softline
+                : words[1].length === 1
+                  ? ""
+                  : hardline
             );
           } else {
             children.push(jsxWhitespace);
@@ -4804,9 +4806,11 @@ function printJSXChildren(
         if (endWhitespace !== undefined) {
           if (/\n/.test(endWhitespace)) {
             children.push(
-              isFacebookTranslationTag || getLast(children).length !== 1
+              isFacebookTranslationTag
                 ? hardline
-                : softline
+                : getLast(children).length === 1
+                  ? ""
+                  : hardline
             );
           } else {
             children.push(jsxWhitespace);

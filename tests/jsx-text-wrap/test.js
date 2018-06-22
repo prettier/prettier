@@ -348,3 +348,29 @@ x =
   <div>
     <div>First</div>-<div>Second</div>
   </div>
+
+x =
+  <div>
+    <div className="first" tabIndex="1">
+      First
+    </div>-
+    <div className="second" tabIndex="2">
+      Second
+    </div>
+  </div>
+
+x =
+  <div>
+    <div className="first" tabIndex="1">
+      First
+    </div>
+    -
+    <div className="second" tabIndex="2">
+      Second
+    </div>
+  </div>
+
+x =
+  <div>
+    <div className="first" tabIndex="1">First</div>-<div className="second" tabIndex="2">Second</div>
+  </div>
