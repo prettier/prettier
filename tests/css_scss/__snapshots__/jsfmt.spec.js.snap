@@ -1034,6 +1034,16 @@ $my-map: (
   // Comment
   'bar',
   'tabs';
+
+@mixin placeholder {
+  &::placeholder {@content}
+}
+
+.container {
+  @include placeholder {
+    color: $color-silver;
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @media #{$g-breakpoint-tiny} {
 }
@@ -1971,5 +1981,17 @@ $my-map: (
   // Comment
     "bar",
   "tabs";
+
+@mixin placeholder {
+  &::placeholder {
+    @content;
+  }
+}
+
+.container {
+  @include placeholder {
+    color: $color-silver;
+  }
+}
 
 `;

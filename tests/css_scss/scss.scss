@@ -1024,3 +1024,13 @@ $my-map: (
   // Comment
   'bar',
   'tabs';
+
+@mixin placeholder {
+  &::placeholder {@content}
+}
+
+.container {
+  @include placeholder {
+    color: $color-silver;
+  }
+}
