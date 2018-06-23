@@ -40,6 +40,7 @@
     "jest-docblock": "22.2.2",
     "json-stable-stringify": "1.0.1",
     "leven": "2.1.0",
+    "linguist-languages": "6.2.0",
     "lodash.uniqby": "4.7.0",
     "mem": "1.1.0",
     "minimatch": "3.0.4",

@@ -1,25 +1,14 @@
 "use strict";
 
 const printer = require("./printer-htmlparser2");
-
-// Based on:
-// https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+const languageExtend = require("../utils/language-extend");
 
 const languages = [
-  {
-    name: "HTML",
+  languageExtend({}, require("linguist-languages/data/html"), {
     since: null, // unreleased
     parsers: ["parse5"],
-    group: "HTML",
-    tmScope: "text.html.basic",
-    aceMode: "html",
-    codemirrorMode: "htmlmixed",
-    codemirrorMimeType: "text/html",
-    aliases: ["xhtml"],
-    extensions: [".html", ".htm", ".html.hl", ".inc", ".st", ".xht", ".xhtml"],
-    linguistLanguageId: 146,
     vscodeLanguageIds: ["html"]
-  }
+  })
 ];
 
 const printers = {
