@@ -5,7 +5,7 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
 - First value
 + Second value
 
-@@ -15,19 +15,35 @@
+@@ -12,19 +12,35 @@
     \\"options\\": Object {
       \\"bracketSpacing\\": Object {
         \\"default\\": true,
@@ -41,7 +41,7 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"tabWidth\\": Object {
-@@ -42,17 +58,15 @@
+@@ -39,17 +55,15 @@
       \\"trailingComma\\": Object {
         \\"choices\\": Array [
           \\"none\\",
@@ -73,9 +73,6 @@ Object {
     "JavaScript": Array [
       "babylon",
       "flow",
-    ],
-    "YAML": Array [
-      "yaml",
     ],
   },
   "options": Object {
@@ -129,7 +126,7 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 - First value
 + Second value
 
-@@ -1,32 +1,59 @@
+@@ -1,29 +1,56 @@
   Object {
     \\"languages\\": Object {
 +     \\"CSS\\": Array [
@@ -152,9 +149,6 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 +     \\"TypeScript\\": Array [
 +       \\"typescript\\",
 +     ],
-      \\"YAML\\": Array [
-        \\"yaml\\",
-      ],
     },
     \\"options\\": Object {
       \\"bracketSpacing\\": Object {
@@ -189,7 +183,7 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
         \\"type\\": \\"choice\\",
       },
       \\"printWidth\\": Object {
-@@ -36,10 +63,28 @@
+@@ -33,10 +60,28 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -242,7 +236,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -50,10 +56,12 @@
+@@ -47,10 +53,12 @@
         \\"choices\\": Array [
           \\"flow\\",
           \\"babylon\\",
@@ -289,8 +283,8 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
       \\"TypeScript\\": Array [
         \\"typescript\\",
       ],
-      \\"YAML\\": Array [
-@@ -55,11 +55,13 @@
+    },
+@@ -52,11 +52,13 @@
       \\"parser\\": Object {
         \\"choices\\": Array [
           \\"flow\\",
@@ -305,7 +299,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         ],
         \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
-@@ -89,10 +91,14 @@
+@@ -86,10 +88,14 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -341,7 +335,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
       ],
       \\"TypeScript\\": Array [
         \\"typescript\\",
-@@ -46,10 +49,14 @@
+@@ -43,10 +46,14 @@
       },
       \\"filepath\\": Object {
         \\"default\\": undefined,
@@ -356,7 +350,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"parser\\": Object {
-@@ -60,10 +67,11 @@
+@@ -57,10 +64,11 @@
           \\"css\\",
           \\"less\\",
           \\"scss\\",
@@ -375,7 +369,7 @@ exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
 - First value
 + Second value
 
-@@ -81,10 +81,18 @@
+@@ -78,10 +78,18 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -418,7 +412,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -27,15 +33,26 @@
+@@ -27,12 +33,23 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -427,9 +421,6 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +     \\"Vue\\": Array [
 +       \\"vue\\",
 +     ],
-      \\"YAML\\": Array [
-        \\"yaml\\",
-      ],
     },
     \\"options\\": Object {
 +     \\"arrowParens\\": Object {
@@ -445,7 +436,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -66,16 +83,27 @@
+@@ -63,16 +80,27 @@
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -474,7 +465,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -83,14 +111,15 @@
+@@ -80,14 +108,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -698,28 +689,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.10.0\\",
       \\"tmScope\\": \\"text.html.vue\\",
       \\"vscodeLanguageIds\\": [\\"vue\\"]
-    },
-    {
-      \\"aceMode\\": \\"yaml\\",
-      \\"aliases\\": [\\"yml\\"],
-      \\"codemirrorMimeType\\": \\"text/x-yaml\\",
-      \\"codemirrorMode\\": \\"yaml\\",
-      \\"extensions\\": [
-        \\".yml\\",
-        \\".reek\\",
-        \\".rviz\\",
-        \\".sublime-syntax\\",
-        \\".syntax\\",
-        \\".yaml\\",
-        \\".yaml-tmlanguage\\",
-        \\".yml.mysql\\"
-      ],
-      \\"filenames\\": [\\".clang-format\\", \\".clang-tidy\\", \\".gemrc\\"],
-      \\"linguistLanguageId\\": 407,
-      \\"name\\": \\"YAML\\",
-      \\"parsers\\": [\\"yaml\\"],
-      \\"tmScope\\": \\"source.yaml\\",
-      \\"vscodeLanguageIds\\": [\\"yaml\\"]
     }
   ],
   \\"options\\": [
