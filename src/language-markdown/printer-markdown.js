@@ -147,8 +147,19 @@ function genericPrint(path, options, print) {
     }
     case "link":
       switch (options.originalText[node.position.start.offset]) {
-        case "<":
-          return concat(["<", node.url, ">"]);
+        case "<": {
+          const mailto = "mailto:";
+          const url =
+            // <hello@example.com> is parsed as { url: "mailto:hello@example.com" }
+            node.url.startsWith(mailto) &&
+            options.originalText.slice(
+              node.position.start.offset + 1,
+              node.position.start.offset + 1 + mailto.length
+            ) !== mailto
+              ? node.url.slice(mailto.length)
+              : node.url;
+          return concat(["<", url, ">"]);
+        }
         case "[":
           return concat([
             "[",

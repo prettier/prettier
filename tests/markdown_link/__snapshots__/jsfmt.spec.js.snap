@@ -9,7 +9,7 @@ exports[`autolink.md 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <https://www.example.com>
 
-<mailto:hello@example.com>
+<hello@example.com>
 
 <mailto:hello@example.com>
 
@@ -24,7 +24,7 @@ exports[`autolink.md 2`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <https://www.example.com>
 
-<mailto:hello@example.com>
+<hello@example.com>
 
 <mailto:hello@example.com>
 
