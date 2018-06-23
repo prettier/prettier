@@ -5,6 +5,7 @@ const options = require("./options");
 
 const language = {
   name: "YAML",
+  since: "1.14.0",
   parsers: ["yaml"],
   vscodeLanguageIds: ["yaml"],
   // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
