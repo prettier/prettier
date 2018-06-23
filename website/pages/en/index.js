@@ -125,9 +125,9 @@ const Language = ({ name, showName, image, variants }) => (
     <div>
       {showName && <p className="accented">{name}</p>}
       {variants.map(variant => (
-        <code key={variant}>
+        <div key={variant}>
           <MarkdownBlock>{variant}</MarkdownBlock>
-        </code>
+        </div>
       ))}
     </div>
   </div>
