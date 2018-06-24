@@ -228,6 +228,21 @@ line_after_br =
     And more<br />
   </div>
 
+line_after_br =
+  <div>
+    Text<br />More text<br />And more<br />
+  </div>
+
+line_after_br =
+  <div>
+    Text
+    <br />
+    More text
+    <br />
+    And more
+    <br />
+  </div>
+
 line_after_br_2 = <div>A<br />B<br />C</div>
 
 br_followed_by_whitespace = <div><br /> text</div>
