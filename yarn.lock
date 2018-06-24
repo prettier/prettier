@@ -6120,16 +6120,16 @@ yallist@^3.0.0, yallist@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-3.0.2.tgz#8452b4bb7e83c7c188d8041c1a837c773d6d8bb9"
 
-yaml-unist-parser@1.0.0-beta.4:
-  version "1.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/yaml-unist-parser/-/yaml-unist-parser-1.0.0-beta.4.tgz#6603d017ec1396466825a141de33637bf2e9e0c2"
+yaml-unist-parser@1.0.0-rc.0:
+  version "1.0.0-rc.0"
+  resolved "https://registry.yarnpkg.com/yaml-unist-parser/-/yaml-unist-parser-1.0.0-rc.0.tgz#621058adadf4aee2189b1839ebd44adb4579c7b1"
   dependencies:
     lines-and-columns "^1.1.6"
     tslib "^1.9.1"
 
-yaml@1.0.0-beta.7:
-  version "1.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.0.0-beta.7.tgz#681937c5b2d85b6eb474d47e877f5e63a7efe20c"
+yaml@1.0.0-rc.2:
+  version "1.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.0.0-rc.2.tgz#aeffa1ee128b7babc8f154de08e824376b674f43"
 
 yargs-parser@^7.0.0:
   version "7.0.0"

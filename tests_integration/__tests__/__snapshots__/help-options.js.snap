@@ -337,7 +337,7 @@ exports[`show detailed usage with --help prose-wrap (stderr) 1`] = `""`;
 exports[`show detailed usage with --help prose-wrap (stdout) 1`] = `
 "--prose-wrap <always|never|preserve>
 
-  How to wrap prose. (markdown)
+  How to wrap prose.
 
 Valid options:
 

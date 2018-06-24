@@ -3,6 +3,7 @@
 const { insertPragma, isPragma } = require("./pragma");
 const {
   getAncestorCount,
+  getFlowScalarLineContents,
   getLast,
   getLastDescendantNode,
   hasExplicitDocumentEndMarker,
@@ -168,7 +169,14 @@ function _print(node, parentNode, path, options, print) {
     case "anchor":
       return concat(["&", node.value]);
     case "plain":
-      return join(hardline, node.value.replace(/\n/g, "\n\n").split("\n"));
+      return printFlowScalarContent(
+        node.type,
+        options.originalText.slice(
+          node.position.start.offset,
+          node.position.end.offset
+        ),
+        options
+      );
     case "quoteDouble":
     case "quoteSingle": {
       const singleQuote = "'";
@@ -187,31 +195,47 @@ function _print(node, parentNode, path, options, print) {
         // and quoteSingle do not need to escape backslashes
         const originalQuote =
           node.type === "quoteDouble" ? doubleQuote : singleQuote;
-        return originalQuote + raw + originalQuote;
+        return concat([
+          originalQuote,
+          printFlowScalarContent(node.type, raw, options),
+          originalQuote
+        ]);
       } else if (raw.includes(doubleQuote)) {
-        return (
-          singleQuote +
-          (node.type === "quoteDouble"
-            ? // double quote needs to be escaped by backslash in quoteDouble
-              raw.replace(/\\"/g, doubleQuote)
-            : raw) +
+        return concat([
+          singleQuote,
+          printFlowScalarContent(
+            node.type,
+            node.type === "quoteDouble"
+              ? // double quote needs to be escaped by backslash in quoteDouble
+                raw.replace(/\\"/g, doubleQuote)
+              : raw,
+            options
+          ),
           singleQuote
-        );
+        ]);
       }
 
       if (raw.includes(singleQuote)) {
-        return (
-          doubleQuote +
-          (node.type === "quoteSingle"
-            ? // single quote needs to be escaped by 2 single quotes in quoteSingle
-              raw.replace(/''/g, singleQuote)
-            : raw) +
+        return concat([
+          doubleQuote,
+          printFlowScalarContent(
+            node.type,
+            node.type === "quoteSingle"
+              ? // single quote needs to be escaped by 2 single quotes in quoteSingle
+                raw.replace(/''/g, singleQuote)
+              : raw,
+            options
+          ),
           doubleQuote
-        );
+        ]);
       }
 
       const quote = options.singleQuote ? singleQuote : doubleQuote;
-      return quote + raw + quote;
+      return concat([
+        quote,
+        printFlowScalarContent(node.type, raw, options),
+        quote
+      ]);
     }
     case "blockFolded": // TODO: --prose-wrap
     case "blockLiteral": {
@@ -479,6 +503,16 @@ function printNextEmptyLine(path, originalText) {
   }
 
   return "";
+}
+
+function printFlowScalarContent(nodeType, content, options) {
+  const lineContents = getFlowScalarLineContents(nodeType, content, options);
+  return join(
+    hardline,
+    lineContents.map(lineContentWords =>
+      fill(join(line, lineContentWords).parts)
+    )
+  );
 }
 
 function clean(node, newNode /*, parent */) {

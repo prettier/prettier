@@ -186,6 +186,59 @@ function hasTrailingComments(node) {
   return "trailingComments" in node && node.trailingComments.length !== 0;
 }
 
+function getFlowScalarLineContents(nodeType, content, options) {
+  const rawLineContents = content
+    .split("\n")
+    .map(
+      (lineContent, index, lineContents) =>
+        index === 0 && index === lineContents.length - 1
+          ? lineContent
+          : index !== 0 && index !== lineContents.length - 1
+            ? lineContent.trim()
+            : index === 0
+              ? lineContent.trimRight()
+              : lineContent.trimLeft()
+    )
+    .map(
+      lineContent =>
+        lineContent.length === 0
+          ? []
+          : lineContent.split(" ").reduce(
+              (reduced, part) =>
+                part === ""
+                  ? reduced.concat((reduced.pop() || "") + " ")
+                  : // [" ", "123"] -> [" 123"]
+                    reduced.length !== 0 && getLast(reduced).endsWith(" ")
+                    ? reduced.concat(reduced.pop() + part)
+                    : reduced.concat(part),
+              []
+            )
+    );
+
+  if (options.proseWrap === "preserve") {
+    return rawLineContents;
+  }
+
+  return rawLineContents
+    .reduce(
+      (reduced, rawLineContentWords, index) =>
+        index !== 0 &&
+        rawLineContents[index - 1].length !== 0 &&
+        rawLineContentWords.length !== 0 &&
+        !// trailing backslash in quoteDouble should be preserved
+        (nodeType === "quoteDouble" && getLast(getLast(reduced)).endsWith("\\"))
+          ? reduced.concat([reduced.pop().concat(rawLineContentWords)])
+          : reduced.concat([rawLineContentWords]),
+      []
+    )
+    .map(
+      lineContentWords =>
+        options.proseWrap === "never"
+          ? [lineContentWords.join(" ")]
+          : lineContentWords
+    );
+}
+
 module.exports = {
   getLast,
   getAncestorCount,
@@ -196,6 +249,7 @@ module.exports = {
   createNull,
   isNextLineEmpty,
   isLastDescendantNode,
+  getFlowScalarLineContents,
   getLastDescendantNode,
   hasPrettierIgnore,
   hasLeadingComments,
