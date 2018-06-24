@@ -479,7 +479,8 @@ function DiffOverview(props) {
       <div className="alert alert-info">
         <p>
           This diff overview is computed against the current list of records in
-          this collection and the list it contained on <b>{humanDate(since)}</b>.
+          this collection and the list it contained on <b>{humanDate(since)}</b>
+          .
         </p>
         <p>
           <b>Note:</b> <code>last_modified</code> and <code>schema</code> record
@@ -554,9 +555,8 @@ facebook_translation_leave_text_around_tag = (
 
 x = (
   <div>
-    <span>First second third fourth fifth sixth seventh</span>, (<span>
-      Second
-    </span>)
+    <span>First second third fourth fifth sixth seventh</span>, (
+    <span>Second</span>)
   </div>
 );
 
@@ -853,7 +853,9 @@ x = (
   <div>
     <div className="first" tabIndex="1">
       First
-    </div>-<div className="second" tabIndex="2">
+    </div>
+    -
+    <div className="second" tabIndex="2">
       Second
     </div>
   </div>
@@ -863,7 +865,9 @@ x = (
   <div>
     <div className="first" tabIndex="1">
       First
-    </div>-<div className="second" tabIndex="2">
+    </div>
+    -
+    <div className="second" tabIndex="2">
       Second
     </div>
   </div>
@@ -873,7 +877,9 @@ x = (
   <div>
     <div className="first" tabIndex="1">
       First
-    </div>-<div className="second" tabIndex="2">
+    </div>
+    -
+    <div className="second" tabIndex="2">
       Second
     </div>
   </div>

@@ -4774,7 +4774,7 @@ function printJSXChildren(
               isFacebookTranslationTag
                 ? hardline
                 : words[1].length === 1
-                  ? ""
+                  ? softline
                   : hardline
             );
           } else {
@@ -4809,7 +4809,7 @@ function printJSXChildren(
               isFacebookTranslationTag
                 ? hardline
                 : getLast(children).length === 1
-                  ? ""
+                  ? softline
                   : hardline
             );
           } else {
@@ -4817,7 +4817,7 @@ function printJSXChildren(
           }
         } else {
           children.push(
-            getLast(children).length === 1 ? "" : textAndTagSeparator
+            getLast(children).length === 1 ? softline : textAndTagSeparator
           );
         }
       } else if (/\n/.test(text)) {
@@ -4842,7 +4842,7 @@ function printJSXChildren(
         const firstWord = rawText(next)
           .trim()
           .split(matchJsxWhitespaceRegex)[0];
-        children.push(firstWord.length === 1 ? "" : textAndTagSeparator);
+        children.push(firstWord.length === 1 ? softline : textAndTagSeparator);
       } else {
         children.push(hardline);
       }
