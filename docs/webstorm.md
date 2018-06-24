@@ -17,6 +17,8 @@ For older IDE versions, please follow the instructions below.
 
 To automatically format your files using `prettier` on save, you can use a file watcher.
 
+Install [File-watcher](https://plugins.jetbrains.com/plugin/7177-file-watchers).
+
 Go to _Preferences | Tools | File Watchers_ and click **+** to add a new watcher. Let’s name it **Prettier**.
 
 - **File Type**: _JavaScript_ (or _Any_ if you want to run `prettier` on all files)
