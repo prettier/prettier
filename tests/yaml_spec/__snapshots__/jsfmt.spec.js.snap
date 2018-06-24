@@ -506,6 +506,7 @@ empty block scalar: >
  # comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 empty block scalar: >
+
 # comment
 
 `;
@@ -518,6 +519,7 @@ empty block scalar: >
  # comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 empty block scalar: >
+
 # comment
 
 `;
@@ -901,7 +903,8 @@ exports[`folded-block-scalar.yml 1`] = `
  gh
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
-  ab cd
+  ab
+  cd
 
   ef
 
@@ -984,7 +987,6 @@ a: |
   cd
   ef
 
-
 `;
 
 exports[`literal-block-scalar.yml 2`] = `
@@ -1002,7 +1004,6 @@ a: |
 
   cd
   ef
-
 
 `;
 
@@ -2119,7 +2120,9 @@ exports[`spec-example-2-14-in-the-folded-scalars-newlines-become-spaces.yml 1`] 
   by a knee injury.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
-  Mark McGwire's year was crippled by a knee injury.
+  Mark McGwire's
+  year was crippled
+  by a knee injury.
 
 `;
 
@@ -2145,7 +2148,8 @@ exports[`spec-example-2-15-folded-newlines-are-preserved-for-more-indented-and-b
  What a year!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
-  Sammy Sosa completed another fine season with great stats.
+  Sammy Sosa completed another
+  fine season with great stats.
 
     63 Home Runs
     0.288 Batting Average
@@ -2185,7 +2189,8 @@ stats: |
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 name: Mark McGwire
 accomplishment: >
-  Mark set a major league home run record in 1998.
+  Mark set a major league
+  home run record in 1998.
 stats: |
   65 Home Runs
   0.278 Batting Average
@@ -2810,7 +2815,8 @@ literal: |
   some
   text
 folded: >
-  some text
+  some
+  text
 
 `;
 
@@ -3096,7 +3102,8 @@ exports[`spec-example-6-6-line-folding.yml 1`] = `
 
 
 
-  as space
+  as
+  space
 
 `;
 
@@ -4326,11 +4333,13 @@ keep: |+
 # Comments:
 strip: |-
   # text
+
 # Clip
 # comments:
 
 clip: |
   # text
+
 # Keep
 # comments:
 
@@ -4367,11 +4376,13 @@ keep: |+
 # Comments:
 strip: |-
   # text
+
 # Clip
 # comments:
 
 clip: |
   # text
+
 # Keep
 # comments:
 
@@ -4392,7 +4403,9 @@ keep: |+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 strip: >-
+
 clip: >
+
 keep: |+
 
 
@@ -4407,7 +4420,9 @@ keep: |+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 strip: >-
+
 clip: >
+
 keep: |+
 
 
@@ -4493,7 +4508,8 @@ exports[`spec-example-8-9-folded-scalar.yml 1`] = `
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
-  folded text
+  folded
+  text
 
 `;
 
@@ -4529,15 +4545,18 @@ exports[`spec-example-8-10-folded-lines-8-13-final-empty-lines.yml 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
 
-  folded line
+  folded
+  line
 
-  next line
+  next
+  line
     * bullet
 
     * list
     * lines
 
-  last line
+  last
+  line
 
 # Comment
 
@@ -5549,7 +5568,9 @@ line2
 line3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
-  line1 line2 line3
+  line1
+  line2
+  line3
 
 `;
 
@@ -5571,7 +5592,9 @@ line1
 line3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
-  line1 # no comment line3
+  line1
+  # no comment
+  line3
 
 `;
 
