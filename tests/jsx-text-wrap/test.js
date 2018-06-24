@@ -224,7 +224,7 @@ with_text_fill_line =
 line_after_br =
   <div>
     Text<br />
-    More text <br />
+    More text<br />
     And more<br />
   </div>
 
@@ -388,4 +388,25 @@ x =
 x =
   <div>
     <div className="first" tabIndex="1">First</div>-<div className="second" tabIndex="2">Second</div>
+  </div>
+
+x =
+  <div>
+    {hour}:{minute}:{second}
+  </div>
+
+x =
+  <div>
+    {hour}
+    :
+    {minute}
+    :
+    {second}
+  </div>
+
+x =
+  <div>
+    {hour}:
+    {minute}:
+    {second}
   </div>

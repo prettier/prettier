@@ -64,3 +64,52 @@ x =
     <fbt:enum enum-range={['one', 'two', 'three']} value={getValue()} />
     is awesome
   </fbt>
+
+x = (
+  <fbt>
+    {hour}:{minute}:{second}
+  </fbt>
+);
+
+x = (
+  <fbt>
+    {hour}
+    :
+    {minute}
+    :
+    {second}
+  </fbt>
+);
+
+x = (
+  <fbt>
+    {hour}:
+    {minute}:
+    {second}
+  </fbt>
+);
+
+first = (
+  <fbt>
+    Text<br />
+    More text<br />
+    And more<br />
+  </fbt>
+);
+
+second = (
+  <fbt>
+    Text<br />More text<br />And more<br />
+  </fbt>
+);
+
+third = (
+  <fbt>
+    Text
+    <br />
+    More text
+    <br />
+    And more
+    <br />
+  </fbt>
+);
