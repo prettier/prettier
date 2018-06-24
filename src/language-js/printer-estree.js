@@ -4731,6 +4731,30 @@ function isJSXWhitespaceExpression(node) {
   );
 }
 
+function separatorNoWhitespace(isFacebookTranslationTag, child) {
+  if (isFacebookTranslationTag) {
+    return "";
+  }
+
+  if (child.length === 1) {
+    return softline;
+  }
+
+  return hardline;
+}
+
+function separatorWithWhitespace(isFacebookTranslationTag, child) {
+  if (isFacebookTranslationTag) {
+    return hardline;
+  }
+
+  if (child.length === 1) {
+    return softline;
+  }
+
+  return hardline;
+}
+
 // JSX Children are strange, mostly for two reasons:
 // 1. JSX reads newlines into string values, instead of skipping them like JS
 // 2. up to one whitespace between elements within a line is significant,
@@ -4750,8 +4774,6 @@ function printJSXChildren(
   jsxWhitespace,
   isFacebookTranslationTag
 ) {
-  const textAndTagSeparator = isFacebookTranslationTag ? "" : hardline;
-
   const n = path.getValue();
   const children = [];
 
@@ -4771,11 +4793,7 @@ function printJSXChildren(
           words.shift();
           if (/\n/.test(words[0])) {
             children.push(
-              isFacebookTranslationTag
-                ? hardline
-                : words[1].length === 1
-                  ? softline
-                  : hardline
+              separatorWithWhitespace(isFacebookTranslationTag, words[1])
             );
           } else {
             children.push(jsxWhitespace);
@@ -4806,18 +4824,17 @@ function printJSXChildren(
         if (endWhitespace !== undefined) {
           if (/\n/.test(endWhitespace)) {
             children.push(
-              isFacebookTranslationTag
-                ? hardline
-                : getLast(children).length === 1
-                  ? softline
-                  : hardline
+              separatorWithWhitespace(
+                isFacebookTranslationTag,
+                getLast(children)
+              )
             );
           } else {
             children.push(jsxWhitespace);
           }
         } else {
           children.push(
-            getLast(children).length === 1 ? softline : textAndTagSeparator
+            separatorNoWhitespace(isFacebookTranslationTag, getLast(children))
           );
         }
       } else if (/\n/.test(text)) {
@@ -4842,7 +4859,9 @@ function printJSXChildren(
         const firstWord = rawText(next)
           .trim()
           .split(matchJsxWhitespaceRegex)[0];
-        children.push(firstWord.length === 1 ? softline : textAndTagSeparator);
+        children.push(
+          separatorNoWhitespace(isFacebookTranslationTag, firstWord)
+        );
       } else {
         children.push(hardline);
       }
