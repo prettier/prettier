@@ -1,6 +1,6 @@
 # 1.13.6
 
-[link](https://github.com/prettier/prettier/compare/1.13.5...1.13.6)
+[diff](https://github.com/prettier/prettier/compare/1.13.5...1.13.6)
 
 - Upgrade Flow parser to 0.75.0 ([#4649](https://github.com/prettier/prettier/pull/4649) and [#4727](https://github.com/prettier/prettier/pull/4727))
 - Preserve type parameters of import-types in TypeScript ([#4662](https://github.com/prettier/prettier/pull/4662))
