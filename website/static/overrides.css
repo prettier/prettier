@@ -78,6 +78,10 @@ html body {
   background: #1a2b34;
 }
 
+.mainContainer {
+  padding: 0;
+}
+
 .productShowcaseSection {
   background: #1a2b34;
   padding-top: 50px;
