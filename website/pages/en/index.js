@@ -440,7 +440,7 @@ class Index extends React.Component {
       <div>
         <script src="landing.js" />
         <HomeSplash language={language} />
-        <div className="mainContainer">
+        <div className="mainContainer landingContainer">
           <TldrSection language={language} />
           <LanguagesSection />
           <EditorSupportSection />

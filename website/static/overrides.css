@@ -78,7 +78,7 @@ html body {
   background: #1a2b34;
 }
 
-.mainContainer {
+.mainContainer.landingContainer {
   padding: 0;
 }
 
