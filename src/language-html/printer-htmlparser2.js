@@ -3,6 +3,7 @@
 const embed = require("./embed");
 const clean = require("./clean");
 const { getLast, hasIgnoreComment } = require("../common/util");
+const { isNextLineEmpty } = require("../common/util-shared");
 const {
   builders: {
     concat,
@@ -56,7 +57,7 @@ function genericPrint(path, options, print) {
 
   switch (n.type) {
     case "root": {
-      return concat(printChildren(path, print));
+      return concat(printChildren(path, print, options));
     }
     case "directive": {
       return concat(["<", n.data, ">", hardline]);
@@ -94,7 +95,7 @@ function genericPrint(path, options, print) {
       let forcedBreak =
         willBreak(openingPrinted) || containsTag || containsMultipleAttributes;
 
-      const children = printChildren(path, print);
+      const children = printChildren(path, print, options);
 
       // Trim trailing lines (or empty strings)
       if (!isScriptTag) {
@@ -212,21 +213,25 @@ function printClosingPart(path, print) {
   return concat(["</", path.call(print, "name"), ">"]);
 }
 
-function printChildren(path, print) {
-  const children = [];
+function printChildren(path, print, options) {
+  const parts = [];
 
   path.map(childPath => {
     const child = childPath.getValue();
     const printedChild = print(childPath);
 
-    children.push(printedChild);
+    parts.push(printedChild);
 
     if (child.type !== "text") {
-      children.push(hardline);
+      parts.push(hardline);
+    }
+
+    if (isNextLineEmpty(options.originalText, childPath.getValue(), options)) {
+      parts.push(hardline);
     }
   }, "children");
 
-  return children;
+  return parts;
 }
 
 module.exports = {
