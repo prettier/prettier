@@ -84,8 +84,7 @@ function genericPrint(path, options, print) {
         return concat([openingPrinted, closingPrinted]);
       }
 
-      const isScriptTag =
-        ["script", "style"].indexOf(n.name.toLowerCase()) !== -1;
+      const isScriptTag = isScriptTagNode(n);
       const containsTag =
         n.children.filter(
           node => ["script", "style", "tag"].indexOf(node.type) !== -1
@@ -129,9 +128,7 @@ function genericPrint(path, options, print) {
       });
 
       const printedMultilineChildren = concat([
-        ["script", "style"].indexOf(n.name.toLowerCase()) === -1
-          ? hardline
-          : "",
+        !isScriptTag ? hardline : "",
         group(concat(multilineChildren), { shouldBreak: true })
       ]);
 
@@ -170,6 +167,10 @@ function genericPrint(path, options, print) {
       /* istanbul ignore next */
       throw new Error("unknown htmlparser2 type: " + n.type);
   }
+}
+
+function isScriptTagNode(node) {
+  return ["script", "style"].indexOf(node.name.toLowerCase()) !== -1;
 }
 
 function printOpeningPart(path, print) {
