@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`attributes.html 1`] = `
+<input name=address maxlength=200>
+<input name=address maxlength='200'>
+<input name=address maxlength="200">
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<input name="address" maxlength="200" />
+<input name="address" maxlength="200" />
+<input name="address" maxlength="200" />
+
+`;
+
+exports[`boolean.html 1`] = `
+<input type="checkbox" checked name="cheese" disabled>
+<input type="checkbox" checked="checked" name="cheese" disabled="disabled">
+<input type='checkbox' checked name=cheese disabled="">
+<div lang=""></div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<input type="checkbox" checked name="cheese" disabled />
+<input type="checkbox" checked="checked" name="cheese" disabled="disabled" />
+<input type="checkbox" checked name="cheese" disabled />
+<div lang></div>
+
+`;
