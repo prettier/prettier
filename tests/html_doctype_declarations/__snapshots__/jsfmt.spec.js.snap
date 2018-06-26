@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`html4.01_frameset.html 1`] = `
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+  "http://www.w3.org/TR/html4/frameset.dtd">
+<html>
+  <head>
+    <title>An HTML standard template</title>
+    <meta charset="utf-8"  />
+  </head>
+  <body>
+    <p>… Your HTML content here …</p>
+  </body>
+</html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+
+<html>
+<head>
+  <title>An HTML standard template</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <p>… Your HTML content here …</p>
+</body>
+</html>
+
+`;
+
+exports[`html4.01_strict.html 1`] = `
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>An HTML standard template</title>
+    <meta charset="utf-8"  />
+  </head>
+  <body>
+    <p>… Your HTML content here …</p>
+  </body>
+</html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <title>An HTML standard template</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <p>… Your HTML content here …</p>
+</body>
+</html>
+
+`;
+
+exports[`html4.01_transitional.html 1`] = `
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>An HTML standard template</title>
+    <meta charset="utf-8"  />
+  </head>
+  <body>
+    <p>… Your HTML content here …</p>
+  </body>
+</html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+  <title>An HTML standard template</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <p>… Your HTML content here …</p>
+</body>
+</html>
+
+`;
+
+exports[`html5.html 1`] = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>An HTML standard template</title>
+    <meta charset="utf-8"  />
+  </head>
+  <body>
+    <p>… Your HTML content here …</p>
+  </body>
+</html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>An HTML standard template</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <p>… Your HTML content here …</p>
+</body>
+</html>
+
+`;

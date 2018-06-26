@@ -2,34 +2,47 @@
 
 const embed = require("./embed");
 const clean = require("./clean");
-const { hasNewlineInRange, hasIgnoreComment } = require("../common/util");
+const { getLast, hasIgnoreComment } = require("../common/util");
 const {
-  concat,
-  join,
-  hardline,
-  line,
-  softline,
-  group,
-  indent
-} = require("../doc").builders;
+  builders: {
+    concat,
+    join,
+    line,
+    hardline,
+    softline,
+    literalline,
+    group,
+    indent,
+    align,
+    conditionalGroup,
+    fill,
+    ifBreak,
+    breakParent,
+    lineSuffixBoundary,
+    addAlignmentToDoc,
+    dedent
+  },
+  utils: { willBreak, isLineNext, isEmpty, removeLines },
+  printer: { printDocToString }
+} = require("../doc");
 
 // http://w3c.github.io/html/single-page.html#void-elements
-const voidTags = {
-  area: true,
-  base: true,
-  br: true,
-  col: true,
-  embed: true,
-  hr: true,
-  img: true,
-  input: true,
-  link: true,
-  meta: true,
-  param: true,
-  source: true,
-  track: true,
-  wbr: true
-};
+const voidTags = [
+  "area",
+  "base",
+  "br",
+  "col",
+  "embed",
+  "hr",
+  "img",
+  "input",
+  "link",
+  "meta",
+  "param",
+  "source",
+  "track",
+  "wbr"
+];
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -43,7 +56,7 @@ function genericPrint(path, options, print) {
 
   switch (n.type) {
     case "root": {
-      return printChildren(path, print);
+      return concat(printChildren(path, print));
     }
     case "directive": {
       return concat(["<", n.data, ">", hardline]);
@@ -54,30 +67,92 @@ function genericPrint(path, options, print) {
     case "script":
     case "style":
     case "tag": {
-      const selfClose = voidTags[n.name] ? ">" : " />";
+      const isVoid = voidTags.indexOf(n.name) !== -1;
+      const openingPrinted = printOpeningPart(path, print);
+
+      // Print self closing tag
+      if (isVoid) {
+        return concat([openingPrinted]);
+      }
+
+      const closingPrinted = printClosingPart(path, print);
+      const hasChildren = n.children.length > 0;
+
+      // Print tags without children
+      if (!hasChildren) {
+        return concat([openingPrinted, closingPrinted]);
+      }
+
+      const isScriptTag =
+        ["script", "style"].indexOf(n.name.toLowerCase()) !== -1;
+      const containsTag =
+        n.children.filter(
+          node => ["script", "style", "tag"].indexOf(node.type) !== -1
+        ).length > 0;
+      const containsMultipleAttributes = n.attributes.length > 1;
+
+      let forcedBreak =
+        willBreak(openingPrinted) || containsTag || containsMultipleAttributes;
+
       const children = printChildren(path, print);
 
-      const hasNewline = hasNewlineInRange(
-        options.originalText,
-        options.locStart(n),
-        options.locEnd(n)
-      );
+      // Trim trailing lines (or empty strings)
+      if (!isScriptTag) {
+        while (
+          children.length &&
+          (isLineNext(getLast(children)) || isEmpty(getLast(children)))
+        ) {
+          children.pop();
+        }
 
-      return group(
+        // Trim leading lines (or empty strings)
+        while (
+          children.length &&
+          (isLineNext(children[0]) || isEmpty(children[0])) &&
+          (isLineNext(children[1]) || isEmpty(children[1]))
+        ) {
+          children.shift();
+          children.shift();
+        }
+      }
+
+      // Detect whether we will force this element to output over multiple lines.
+      const multilineChildren = [];
+
+      children.forEach(child => {
+        multilineChildren.push(child);
+
+        if (willBreak(child)) {
+          forcedBreak = true;
+        }
+      });
+
+      const printedMultilineChildren = concat([
+        ["script", "style"].indexOf(n.name.toLowerCase()) === -1
+          ? hardline
+          : "",
+        group(concat(multilineChildren), { shouldBreak: true })
+      ]);
+
+      const multiLineElem = group(
         concat([
-          hasNewline ? hardline : "",
-          "<",
-          n.name,
-          printAttributes(path, print),
-
-          n.children.length ? ">" : selfClose,
-
+          openingPrinted,
           n.name.toLowerCase() === "html"
-            ? concat([hardline, children])
-            : indent(children),
-          n.children.length ? concat([softline, "</", n.name, ">"]) : hardline
+            ? printedMultilineChildren
+            : indent(printedMultilineChildren),
+          hardline,
+          closingPrinted
         ])
       );
+
+      if (forcedBreak) {
+        return multiLineElem;
+      }
+
+      return conditionalGroup([
+        group(concat([openingPrinted, concat(children), closingPrinted])),
+        multiLineElem
+      ]);
     }
     case "comment": {
       return concat(["<!-- ", n.data.trim(), " -->"]);
@@ -86,6 +161,7 @@ function genericPrint(path, options, print) {
       if (!n.value) {
         return n.key;
       }
+
       return concat([n.key, '="', n.value, '"']);
     }
 
@@ -95,25 +171,62 @@ function genericPrint(path, options, print) {
   }
 }
 
-function printAttributes(path, print) {
-  const node = path.getValue();
+function printOpeningPart(path, print) {
+  const n = path.getValue();
+  const isVoid = voidTags.indexOf(n.name) !== -1;
 
-  return concat([
-    node.attributes.length ? " " : "",
-    indent(join(line, path.map(print, "attributes")))
-  ]);
+  // Don't break self-closing elements with no attributes
+  if (isVoid && !n.attributes.length) {
+    return concat(["<", n.name, " />"]);
+  }
+
+  // don't break up opening elements with a single long text attribute
+  if (n.attributes && n.attributes.length === 1 && n.attributes[0].value) {
+    return group(
+      concat([
+        "<",
+        path.call(print, "name"),
+        " ",
+        concat(path.map(print, "attributes")),
+        n.selfClosing ? " />" : ">"
+      ])
+    );
+  }
+
+  return group(
+    concat([
+      "<",
+      n.name,
+      concat([
+        indent(
+          concat(path.map(attr => concat([line, print(attr)]), "attributes"))
+        ),
+        isVoid ? line : softline
+      ]),
+      isVoid ? "/>" : ">"
+    ])
+  );
+}
+
+function printClosingPart(path, print) {
+  return concat(["</", path.call(print, "name"), ">"]);
 }
 
 function printChildren(path, print) {
   const children = [];
-  path.each(childPath => {
+
+  path.map(childPath => {
     const child = childPath.getValue();
+    const printedChild = print(childPath);
+
+    children.push(printedChild);
+
     if (child.type !== "text") {
       children.push(hardline);
     }
-    children.push(childPath.call(print));
   }, "children");
-  return concat(children);
+
+  return children;
 }
 
 module.exports = {

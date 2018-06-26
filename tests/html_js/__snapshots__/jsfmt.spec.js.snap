@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`simple.html 1`] = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sample styled page</title>
+    <script>
+      var message = "Alert!";
+
+      alert(message);
+    </script>
+  </head>
+  <body>
+    <h1>Sample styled page</h1>
+    <p>This page is just a demo.</p>
+  </body>
+</html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Sample styled page</title>
+  <script>
+    var message = "Alert!";
+
+    alert(message);
+
+  </script>
+</head>
+<body>
+  <h1>Sample styled page</h1>
+  <p>This page is just a demo.</p>
+</body>
+</html>
+
+`;
+
+exports[`single-script.html 1`] = `
+<script>
+  document.getElementById("demo").innerHTML = "Hello JavaScript!";
+</script>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<script>
+  document.getElementById("demo").innerHTML = "Hello JavaScript!";
+
+</script>
+
+`;
