@@ -258,6 +258,7 @@ exports[`html-fragment.html 1`] = `
 <textarea>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <a href="#">Link</a>
+
 <textarea></textarea>
 
 `;
@@ -316,16 +317,20 @@ exports[`html5-boilerplate.html 1`] = `
     name="viewport"
     content="width=device-width, initial-scale=1, shrink-to-fit=no"
   />
+
   <link rel="manifest" href="site.webmanifest" />
   <link rel="apple-touch-icon" href="icon.png" />
   <!-- Place favicon.ico in the root directory -->
+
   <link rel="stylesheet" href="css/normalize.css" />
   <link rel="stylesheet" href="css/main.css" />
 </head>
+
 <body>
   <!-- [if lte IE 9]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
     <![endif] -->
+
   <!-- Add your site or application content here -->
   <p>Hello world! This is HTML5 Boilerplate.</p>
   <script src="js/vendor/modernizr-3.6.0.min.js"></script>
@@ -341,6 +346,7 @@ exports[`html5-boilerplate.html 1`] = `
   </script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
+
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>
     window.ga = function() {
