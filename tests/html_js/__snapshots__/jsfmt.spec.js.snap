@@ -5,6 +5,7 @@ exports[`simple.html 1`] = `
 <html>
   <head>
     <title>Sample styled page</title>
+    <script>alert('test');</script>
     <script>
       var message = "Alert!";
 
@@ -22,10 +23,12 @@ exports[`simple.html 1`] = `
 <head>
   <title>Sample styled page</title>
   <script>
-    var message = "Alert!";
+  alert("test");
+  </script>
+  <script>
+  var message = "Alert!";
 
-    alert(message);
-
+  alert(message);
   </script>
 </head>
 <body>
@@ -37,13 +40,16 @@ exports[`simple.html 1`] = `
 `;
 
 exports[`single-script.html 1`] = `
+<script>alert('test');</script>
 <script>
   document.getElementById("demo").innerHTML = "Hello JavaScript!";
 </script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script>
-  document.getElementById("demo").innerHTML = "Hello JavaScript!";
-
+alert("test");
+</script>
+<script>
+document.getElementById("demo").innerHTML = "Hello JavaScript!";
 </script>
 
 `;

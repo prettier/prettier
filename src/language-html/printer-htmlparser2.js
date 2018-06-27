@@ -72,7 +72,15 @@ function genericPrint(path, options, print) {
         return concat([openingPrinted, closingPrinted]);
       }
 
+      const children = printChildren(path, print, options);
       const isScriptTag = isScriptTagNode(n);
+
+      if (isScriptTag) {
+        return group(
+          concat([openingPrinted, concat(children), closingPrinted])
+        );
+      }
+
       const containsTag =
         n.children.filter(
           node => ["script", "style", "tag"].indexOf(node.type) !== -1
@@ -82,26 +90,22 @@ function genericPrint(path, options, print) {
       let forcedBreak =
         willBreak(openingPrinted) || containsTag || containsMultipleAttributes;
 
-      const children = printChildren(path, print, options);
-
       // Trim trailing lines (or empty strings)
-      if (!isScriptTag) {
-        while (
-          children.length &&
-          (isLineNext(getLast(children)) || isEmpty(getLast(children)))
-        ) {
-          children.pop();
-        }
+      while (
+        children.length &&
+        (isLineNext(getLast(children)) || isEmpty(getLast(children)))
+      ) {
+        children.pop();
+      }
 
-        // Trim leading lines (or empty strings)
-        while (
-          children.length &&
-          (isLineNext(children[0]) || isEmpty(children[0])) &&
-          (isLineNext(children[1]) || isEmpty(children[1]))
-        ) {
-          children.shift();
-          children.shift();
-        }
+      // Trim leading lines (or empty strings)
+      while (
+        children.length &&
+        (isLineNext(children[0]) || isEmpty(children[0])) &&
+        (isLineNext(children[1]) || isEmpty(children[1]))
+      ) {
+        children.shift();
+        children.shift();
       }
 
       // Detect whether we will force this element to output over multiple lines.
