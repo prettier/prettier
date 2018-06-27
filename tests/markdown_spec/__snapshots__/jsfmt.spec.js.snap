@@ -5549,21 +5549,21 @@ exports[`example-566.md 1`] = `
 exports[`example-567.md 1`] = `
 <foo@bar.example.com>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<mailto:foo@bar.example.com>
+<foo@bar.example.com>
 
 `;
 
 exports[`example-568.md 1`] = `
 <foo+special@Bar.baz-bar0.com>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<mailto:foo+special@Bar.baz-bar0.com>
+<foo+special@Bar.baz-bar0.com>
 
 `;
 
 exports[`example-569.md 1`] = `
 <foo\\+@bar.example.com>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<mailto:foo\\+@bar.example.com>
+<foo\\+@bar.example.com>
 
 `;
 
