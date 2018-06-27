@@ -49,7 +49,7 @@ function embed(path, print, textToDoc, options) {
 
     case "attribute": {
       /*
-       * Vue binding sytax: JS expressions
+       * Vue binding syntax: JS expressions
        * :class="{ 'some-key': value }"
        * v-bind:id="'list-' + id"
        * v-if="foo && !bar"
