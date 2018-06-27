@@ -62,9 +62,9 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
 
 </article>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<input name="address" maxlength="200" />
-<input name="address" maxlength="200" />
-<input name="address" maxlength="200" />
+<input name="address" maxlength="200">
+<input name="address" maxlength="200">
+<input name="address" maxlength="200">
 <div class="foo"></div>
 <div class="foo"></div>
 <div class="foo bar"></div>
@@ -77,7 +77,7 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
   content="The Mozilla Developer Network (MDN) provides
 information about Open Web technologies including HTML, CSS, and APIs for both Web sites
 and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
-/>
+>
 <div attribute>String</div>
 <div attribute="">String</div>
 <div attribute="">String</div>
@@ -187,9 +187,9 @@ exports[`boolean.html 1`] = `
 <button type="submit" disabled="hahah">
   This is valid. This will be disabled.
 </button>
-<input type="checkbox" checked disabled name="cheese" />
-<input type="checkbox" checked="checked" disabled="disabled" name="cheese" />
-<input type="checkbox" checked disabled name="cheese" />
+<input type="checkbox" checked disabled name="cheese">
+<input type="checkbox" checked="checked" disabled="disabled" name="cheese">
+<input type="checkbox" checked disabled name="cheese">
 <div lang=""></div>
 
 `;
@@ -197,14 +197,14 @@ exports[`boolean.html 1`] = `
 exports[`dobule-quotes.html 1`] = `
 <img src="test.png" alt="John 'ShotGun' Nelson">
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<img src="test.png" alt="John 'ShotGun' Nelson" />
+<img src="test.png" alt="John 'ShotGun' Nelson">
 
 `;
 
 exports[`single-quotes.html 1`] = `
 <img src="test.png" alt='John "ShotGun" Nelson'>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<img src="test.png" alt="John &quot;ShotGun&quot; Nelson" />
+<img src="test.png" alt="John &quot;ShotGun&quot; Nelson">
 
 `;
 

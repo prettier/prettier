@@ -279,10 +279,10 @@ function printOpeningPart(path, print) {
 
   // Don't break self-closing elements with no attributes
   if (isVoid && !n.attributes.length) {
-    return concat(["<", n.name, " />"]);
+    return concat(["<", n.name, ">"]);
   }
 
-  // don't break up opening elements with a single long text attribute
+  // Don't break up opening elements with a single long text attribute
   if (n.attributes && n.attributes.length === 1 && n.attributes[0].value) {
     return group(
       concat([
@@ -290,7 +290,7 @@ function printOpeningPart(path, print) {
         path.call(print, "name"),
         " ",
         concat(path.map(print, "attributes")),
-        isVoid ? " />" : ">"
+        ">"
       ])
     );
   }
@@ -303,9 +303,9 @@ function printOpeningPart(path, print) {
         indent(
           concat(path.map(attr => concat([line, print(attr)]), "attributes"))
         ),
-        isVoid ? line : softline
+        softline
       ]),
-      isVoid ? "/>" : ">"
+      ">"
     ])
   );
 }
@@ -333,6 +333,27 @@ function printChildren(path, print, options) {
   }, "children");
 
   return parts;
+}
+
+function getAncestorCounter(path, typeOrTypes) {
+  const types = [].concat(typeOrTypes);
+
+  let counter = -1;
+  let ancestorNode;
+
+  while ((ancestorNode = path.getParentNode(++counter))) {
+    if (types.indexOf(ancestorNode.type) !== -1) {
+      return counter;
+    }
+  }
+
+  return -1;
+}
+
+function getAncestorNode(path, typeOrTypes) {
+  const counter = getAncestorCounter(path, typeOrTypes);
+
+  return counter === -1 ? null : path.getParentNode(counter);
 }
 
 module.exports = {
