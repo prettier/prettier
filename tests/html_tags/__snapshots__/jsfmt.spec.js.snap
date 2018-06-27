@@ -3,6 +3,7 @@
 exports[`tags.html 1`] = `
 <br/>
 <br />
+<br  />
 <br
 />
 <br attribute-a />
@@ -50,17 +51,18 @@ exports[`tags.html 1`] = `
 
 </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<br />
-<br />
-<br />
-<br attribute-a />
+<br>
+<br>
+<br>
+<br>
+<br attribute-a>
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
-/>
-<br attribute-a="value" />
-<br attribute-a="value" />
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value" />
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value" />
+>
+<br attribute-a="value">
+<br attribute-a="value">
+<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value">
+<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value">
 <br
   attribute-a="value"
   attribute-b="value"
@@ -68,7 +70,7 @@ exports[`tags.html 1`] = `
   attribute-d="value"
   attribute-e="value"
   attribute-f="value"
-/>
+>
 <div>string</div>
 <div>
   very very very very very very very very very very very very very very very very long string
@@ -108,8 +110,8 @@ exports[`tags.html 1`] = `
   very very very very very very very very very very very very very very very very long string
 </div>
 <video width="320" height="240" controls>
-  <source src="movie.mp4" type="video/mp4" />
-  <source src="movie.ogg" type="video/ogg" />
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
   Your browser does not support the video tag.
 </video>
 <div>
