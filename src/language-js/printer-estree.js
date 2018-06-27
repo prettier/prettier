@@ -2489,6 +2489,10 @@ function printPathNoParens(path, options, print, args) {
 
       return group(concat(parts));
     }
+    case "TSRestType":
+      return concat(["...", path.call(print, "typeAnnotation")]);
+    case "TSOptionalType":
+      return concat([path.call(print, "typeAnnotation"), "?"]);
     case "FunctionTypeParam":
       return concat([
         path.call(print, "name"),
