@@ -3444,7 +3444,10 @@ function isFunctionCompositionFunction(node) {
   switch (node.type) {
     case "OptionalMemberExpression":
     case "MemberExpression": {
-      return isFunctionCompositionFunction(node.property);
+      return node.object.type !== "ThisExpression" &&
+        node.object.type !== "Super"
+        ? isFunctionCompositionFunction(node.property)
+        : false;
     }
     case "Identifier": {
       return functionCompositionFunctionNames.has(node.name);
@@ -3513,7 +3516,12 @@ function printArgumentsList(path, options, print) {
   //    )
   // here, but not
   //    process.stdout.pipe(socket)
-  if (isFunctionCompositionFunction(node.callee) && args.length > 1) {
+  if (
+    isFunctionCompositionFunction(node.callee) &&
+    args.length > 1 &&
+    (args.some(a => a.type !== "Identifier") ||
+      path.getParentNode().type === "CallExpression")
+  ) {
     return allArgsBrokenOut();
   }
 
