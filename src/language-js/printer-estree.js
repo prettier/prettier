@@ -3461,6 +3461,7 @@ function isFunctionCompositionFunction(node) {
 
 function printArgumentsList(path, options, print) {
   const node = path.getValue();
+  const parentNode = path.getParentNode();
   const args = node.arguments;
 
   if (args.length === 0) {
@@ -3520,7 +3521,7 @@ function printArgumentsList(path, options, print) {
     isFunctionCompositionFunction(node.callee) &&
     args.length > 1 &&
     (args.some(a => a.type !== "Identifier") ||
-      path.getParentNode().type === "CallExpression")
+      (parentNode.type === "CallExpression" && parentNode.callee === node))
   ) {
     return allArgsBrokenOut();
   }
