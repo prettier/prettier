@@ -53,9 +53,9 @@ exports[`tags.html 1`] = `
 <br />
 <br />
 <br />
-<br attribute-a="" />
+<br attribute-a />
 <br
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute=""
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
 />
 <br attribute-a="value">
 <br attribute-a="value">
@@ -74,7 +74,7 @@ exports[`tags.html 1`] = `
   very very very very very very very very very very very very very very very very long string
 </div>
 <div
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute=""
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
 >
   string
 </div>

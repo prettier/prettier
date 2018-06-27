@@ -17,6 +17,16 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
 <div attribute>String</div>
 <div attribute="">String</div>
 <div attribute=''>String</div>
+<div attribute >String</div>
+<div attribute = "" >String</div>
+<div attribute = '' >String</div>
+<div  attribute  >String</div>
+<div  attribute  =  ""  >String</div>
+<div  attribute  =  ''  >String</div>
+<div attribute="attribute = attribute"></div>
+<div ATTRIBUTE>String</div>
+<div ATTRIBUTE="">String</div>
+<div ATTRIBUTE=''>String</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <input name="address" maxlength="200" />
 <input name="address" maxlength="200" />
@@ -26,7 +36,7 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
 <div class="foo bar"></div>
 <div class="foo bar" id="header"></div>
 <div class="foo bar" id="header"></div>
-<div data-prettier=""></div>
+<div data-prettier></div>
 <div data-prettier="true"></div>
 <meta
   property="og:description"
@@ -34,7 +44,17 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
 information about Open Web technologies including HTML, CSS, and APIs for both Web sites
 and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
 />
+<div attribute>String</div>
 <div attribute="">String</div>
+<div attribute="">String</div>
+<div attribute>String</div>
+<div attribute="">String</div>
+<div attribute="">String</div>
+<div attribute>String</div>
+<div attribute="">String</div>
+<div attribute="">String</div>
+<div attribute="attribute = attribute"></div>
+<div attribute>String</div>
 <div attribute="">String</div>
 <div attribute="">String</div>
 
