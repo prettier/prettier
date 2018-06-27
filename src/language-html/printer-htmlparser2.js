@@ -127,9 +127,7 @@ function genericPrint(path, options, print) {
       const multiLineElem = group(
         concat([
           openingPrinted,
-          n.name.toLowerCase() === "html"
-            ? printedMultilineChildren
-            : indent(printedMultilineChildren),
+          indent(printedMultilineChildren),
           hardline,
           closingPrinted
         ])
