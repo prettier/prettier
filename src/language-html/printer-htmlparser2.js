@@ -147,7 +147,11 @@ function genericPrint(path, options, print) {
     }
     case "attribute": {
       if (!n.value) {
-        return n.key;
+        if (isBooleanAttributeNode(n)) {
+          return n.key;
+        }
+
+        return concat([n.key, '=""']);
       }
 
       return concat([n.key, '="', n.value.replace(/"/g, "&quot;"), '"']);
@@ -157,6 +161,39 @@ function genericPrint(path, options, print) {
       /* istanbul ignore next */
       throw new Error("unknown htmlparser2 type: " + n.type);
   }
+}
+
+function isBooleanAttributeNode(node) {
+  return (
+    node.type === "attribute" &&
+    [
+      "allowfullscreen",
+      "allowpaymentrequest",
+      "async",
+      "autofocus",
+      "autoplay",
+      "checked",
+      "controls",
+      "default",
+      "defer",
+      "disabled",
+      "formnovalidate",
+      "hidden",
+      "ismap",
+      "itemscope",
+      "loop",
+      "multiple",
+      "muted",
+      "nomodule",
+      "novalidate",
+      "open",
+      "readonly",
+      "required",
+      "reversed",
+      "selected",
+      "typemustmatch"
+    ].indexOf(node.key.toLowerCase()) !== -1
+  );
 }
 
 // http://w3c.github.io/html/single-page.html#void-elements
