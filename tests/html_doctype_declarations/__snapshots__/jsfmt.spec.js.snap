@@ -17,7 +17,7 @@ exports[`html4.01_frameset.html 1`] = `
 <html>
   <head>
     <title>An HTML standard template</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
   </head>
   <body>
     <p>… Your HTML content here …</p>
@@ -43,7 +43,7 @@ exports[`html4.01_strict.html 1`] = `
 <html>
   <head>
     <title>An HTML standard template</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
   </head>
   <body>
     <p>… Your HTML content here …</p>
@@ -69,7 +69,7 @@ exports[`html4.01_transitional.html 1`] = `
 <html>
   <head>
     <title>An HTML standard template</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
   </head>
   <body>
     <p>… Your HTML content here …</p>
@@ -94,7 +94,7 @@ exports[`html5.html 1`] = `
 <html>
   <head>
     <title>An HTML standard template</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
   </head>
   <body>
     <p>… Your HTML content here …</p>

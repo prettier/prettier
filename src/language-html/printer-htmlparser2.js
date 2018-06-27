@@ -12,7 +12,8 @@ const {
     softline,
     group,
     indent,
-    conditionalGroup
+    conditionalGroup,
+    dedentToRoot
   },
   utils: { willBreak, isLineNext, isEmpty }
 } = require("../doc");
@@ -42,7 +43,10 @@ function genericPrint(path, options, print) {
     case "text": {
       const parentNode = path.getParentNode();
 
-      if (parentNode && isPreformattedTagNode(parentNode)) {
+      if (
+        parentNode &&
+        (isPreTagNode(parentNode) || isTextAreaTagNode(parentNode))
+      ) {
         return n.data;
       }
 
@@ -68,6 +72,28 @@ function genericPrint(path, options, print) {
       }
 
       const children = printChildren(path, print, options);
+
+      // NOTE: If the next token is a U+000A LINE FEED (LF) character token, then ignore that token and move
+      // on to the next one. (Newlines at the start of textarea elements are ignored as an authoring convenience.)
+      if (isPreTagNode(n) || isTextAreaTagNode(n)) {
+        const originalTagContent = options.originalText.slice(
+          n.sourceCodeLocation.startTag.endOffset,
+          n.sourceCodeLocation.endTag.startOffset
+        );
+        const hasNewlineAfterTag = /^(\r\n|\r|\n)/.test(originalTagContent);
+
+        return dedentToRoot(
+          group(
+            concat([
+              openingPrinted,
+              hasNewlineAfterTag ? hardline : "",
+              concat(children),
+              closingPrinted
+            ])
+          )
+        );
+      }
+
       const isScriptTag = isScriptTagNode(n);
 
       if (isScriptTag) {
@@ -232,8 +258,12 @@ function isVoidTagNode(node) {
   );
 }
 
-function isPreformattedTagNode(node) {
-  return node.type === "tag" && ["pre"].indexOf(node.name.toLowerCase()) !== -1;
+function isPreTagNode(node) {
+  return node.type === "tag" && node.name.toLowerCase() === "pre";
+}
+
+function isTextAreaTagNode(node) {
+  return node.type === "tag" && node.name.toLowerCase() === "textarea";
 }
 
 function isScriptTagNode(node) {
@@ -260,7 +290,7 @@ function printOpeningPart(path, print) {
         path.call(print, "name"),
         " ",
         concat(path.map(print, "attributes")),
-        n.selfClosing ? " />" : ">"
+        isVoid ? " />" : ">"
       ])
     );
   }

@@ -57,10 +57,10 @@ exports[`tags.html 1`] = `
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
 />
-<br attribute-a="value">
-<br attribute-a="value">
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value">
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value">
+<br attribute-a="value" />
+<br attribute-a="value" />
+<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value" />
+<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value" />
 <br
   attribute-a="value"
   attribute-b="value"
