@@ -3,12 +3,14 @@
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
   const parse5 = require("parse5");
+
   try {
     const isFragment = !/^\s*<(!doctype|html|head|body|!--)/i.test(text);
     const ast = (isFragment ? parse5.parseFragment : parse5.parse)(text, {
       treeAdapter: parse5.treeAdapters.htmlparser2,
       locationInfo: true
     });
+
     return normalize(extendAst(ast));
   } catch (error) {
     throw error;

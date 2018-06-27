@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`empty.html 1`] = `
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`;
+
+exports[`empty-doc.html 1`] = `
 <!doctype html>
 <html>
 <head></head>
@@ -8,7 +13,6 @@ exports[`empty.html 1`] = `
 </html>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
-
 <html>
 <head></head>
 <body></body>
@@ -216,7 +220,6 @@ exports[`hello-world.html 1`] = `
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -306,7 +309,6 @@ exports[`html5-boilerplate.html 1`] = `
 </html>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
-
 <html class="no-js" lang>
 <head>
   <meta charset="utf-8">

@@ -15,7 +15,6 @@ exports[`conditional.html 1`] = `
 </html>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
-
 <html>
 <head></head>
 <body>
@@ -42,7 +41,6 @@ exports[`for_debugging.html 1`] = `
 </html>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
-
 <html>
 <head></head>
 <body>
@@ -66,7 +64,6 @@ exports[`hidden.html 1`] = `
 </html>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
-
 <html>
 <head></head>
 <body>
