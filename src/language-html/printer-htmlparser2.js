@@ -114,8 +114,12 @@ function genericPrint(path, options, print) {
         }
       });
 
+      const containsOnlyEmptyTextNodes = n.children.every(node => {
+        return node.type === "text" && /^\s+$/.test(node.data);
+      });
+
       const printedMultilineChildren = concat([
-        !isScriptTag ? hardline : "",
+        !isScriptTag && !containsOnlyEmptyTextNodes ? hardline : "",
         group(concat(multilineChildren), { shouldBreak: true })
       ]);
 
