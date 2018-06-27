@@ -7,24 +7,14 @@ const { isNextLineEmpty } = require("../common/util-shared");
 const {
   builders: {
     concat,
-    join,
     line,
     hardline,
     softline,
-    literalline,
     group,
     indent,
-    align,
-    conditionalGroup,
-    fill,
-    ifBreak,
-    breakParent,
-    lineSuffixBoundary,
-    addAlignmentToDoc,
-    dedent
+    conditionalGroup
   },
-  utils: { willBreak, isLineNext, isEmpty, removeLines },
-  printer: { printDocToString }
+  utils: { willBreak, isLineNext, isEmpty }
 } = require("../doc");
 
 function genericPrint(path, options, print) {
@@ -156,7 +146,21 @@ function genericPrint(path, options, print) {
           return n.key;
         }
 
-        return concat([n.key, '=""']);
+        const parentNode = path.getParentNode();
+
+        if (!parentNode || !parentNode.sourceCodeLocation) {
+          return n.key;
+        }
+
+        const attributeSourceCodeLocation =
+          parentNode.sourceCodeLocation.attrs[n.key];
+        const originalAttributeSourceCode = options.originalText.slice(
+          attributeSourceCodeLocation.startOffset,
+          attributeSourceCodeLocation.endOffset
+        );
+        const hasEqualSign = originalAttributeSourceCode.indexOf("=") !== -1;
+
+        return hasEqualSign ? concat([n.key, '=""']) : n.key;
       }
 
       return concat([n.key, '="', n.value.replace(/"/g, "&quot;"), '"']);
