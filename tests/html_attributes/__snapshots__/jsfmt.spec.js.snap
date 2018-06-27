@@ -4,10 +4,33 @@ exports[`attributes.html 1`] = `
 <input name=address maxlength=200>
 <input name=address maxlength='200'>
 <input name=address maxlength="200">
+<div class="foo"></div>
+<div   class="foo"   ></div>
+<div class="foo bar"></div>
+<div class="foo bar" id="header"></div>
+<div   class="foo bar"   id="header"   ></div>
+<div data-prettier></div>
+<div data-prettier="true"></div>
+<meta property="og:description" content="The Mozilla Developer Network (MDN) provides
+information about Open Web technologies including HTML, CSS, and APIs for both Web sites
+and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <input name="address" maxlength="200" />
 <input name="address" maxlength="200" />
 <input name="address" maxlength="200" />
+<div class="foo"></div>
+<div class="foo"></div>
+<div class="foo bar"></div>
+<div class="foo bar" id="header"></div>
+<div class="foo bar" id="header"></div>
+<div data-prettier></div>
+<div data-prettier="true"></div>
+<meta
+  property="og:description"
+  content="The Mozilla Developer Network (MDN) provides
+information about Open Web technologies including HTML, CSS, and APIs for both Web sites
+and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
+/>
 
 `;
 
@@ -21,5 +44,26 @@ exports[`boolean.html 1`] = `
 <input type="checkbox" checked="checked" name="cheese" disabled="disabled" />
 <input type="checkbox" checked name="cheese" disabled />
 <div lang></div>
+
+`;
+
+exports[`dobule-quotes.html 1`] = `
+<img src="test.png" alt="John 'ShotGun' Nelson">
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<img src="test.png" alt="John 'ShotGun' Nelson" />
+
+`;
+
+exports[`single-quotes.html 1`] = `
+<img src="test.png" alt='John "ShotGun" Nelson'>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<img src="test.png" alt="John &quot;ShotGun&quot; Nelson" />
+
+`;
+
+exports[`without-quotes.html 1`] = `
+<p title=Title>String</p>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<p title="Title">String</p>
 
 `;
