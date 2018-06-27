@@ -150,7 +150,7 @@ function genericPrint(path, options, print) {
         return n.key;
       }
 
-      return concat([n.key, '="', n.value, '"']);
+      return concat([n.key, '="', n.value.replace(/"/g, "&quot;"), '"']);
     }
 
     default:
