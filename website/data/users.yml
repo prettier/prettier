@@ -11,7 +11,7 @@
 - caption: Jest
   image: /images/users/jest-200x100.png
   greyImage: /images/users/used_by_jest.svg
-  infoLink: https://facebook.github.io/jest/
+  infoLink: https://jestjs.io
   pinned: true
 - caption: Yarn
   image: /images/users/yarn-200x100.png
