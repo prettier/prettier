@@ -141,7 +141,7 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "comment": {
-      return concat(["<!-- ", n.data.trim(), " -->"]);
+      return concat(["<!--", n.data, "-->"]);
     }
     case "attribute": {
       if (!n.value) {
