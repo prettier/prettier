@@ -18,7 +18,6 @@ exports[`simple.html 1`] = `
 </html>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
-
 <html>
 <head>
   <title>Sample styled page</title>

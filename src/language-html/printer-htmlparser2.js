@@ -223,7 +223,7 @@ function printChildren(path, print, options) {
 
     parts.push(printedChild);
 
-    if (child.type !== "text") {
+    if (child.type !== "text" && child.type !== "directive") {
       parts.push(hardline);
     }
 
