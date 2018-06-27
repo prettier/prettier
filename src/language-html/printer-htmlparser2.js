@@ -42,7 +42,12 @@ function genericPrint(path, options, print) {
       return concat(printChildren(path, print, options));
     }
     case "directive": {
-      return concat(["<", n.data, ">", hardline]);
+      return concat([
+        "<",
+        n.data.replace('!DOCTYPE html ""', "!DOCTYPE html"),
+        ">",
+        hardline
+      ]);
     }
     case "text": {
       const parentNode = path.getParentNode();
