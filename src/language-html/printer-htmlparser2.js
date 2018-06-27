@@ -27,24 +27,6 @@ const {
   printer: { printDocToString }
 } = require("../doc");
 
-// http://w3c.github.io/html/single-page.html#void-elements
-const voidTags = [
-  "area",
-  "base",
-  "br",
-  "col",
-  "embed",
-  "hr",
-  "img",
-  "input",
-  "link",
-  "meta",
-  "param",
-  "source",
-  "track",
-  "wbr"
-];
-
 function genericPrint(path, options, print) {
   const n = path.getValue();
   if (!n) {
@@ -63,12 +45,18 @@ function genericPrint(path, options, print) {
       return concat(["<", n.data, ">", hardline]);
     }
     case "text": {
+      const parentNode = path.getParentNode();
+
+      if (parentNode && isPreformattedTagNode(parentNode)) {
+        return n.data;
+      }
+
       return n.data.replace(/\s+/g, " ").trim();
     }
     case "script":
     case "style":
     case "tag": {
-      const isVoid = voidTags.indexOf(n.name) !== -1;
+      const isVoid = isVoidTagNode(n);
       const openingPrinted = printOpeningPart(path, print);
 
       // Print self closing tag
@@ -169,13 +157,43 @@ function genericPrint(path, options, print) {
   }
 }
 
+// http://w3c.github.io/html/single-page.html#void-elements
+function isVoidTagNode(node) {
+  return (
+    node.type === "tag" &&
+    [
+      "area",
+      "base",
+      "br",
+      "col",
+      "embed",
+      "hr",
+      "img",
+      "input",
+      "link",
+      "meta",
+      "param",
+      "source",
+      "track",
+      "wbr"
+    ].indexOf(node.name.toLowerCase()) !== -1
+  );
+}
+
+function isPreformattedTagNode(node) {
+  return node.type === "tag" && ["pre"].indexOf(node.name.toLowerCase()) !== -1;
+}
+
 function isScriptTagNode(node) {
-  return ["script", "style"].indexOf(node.name.toLowerCase()) !== -1;
+  return (
+    (node.type === "script" || node.type === "style") &&
+    ["script", "style"].indexOf(node.name.toLowerCase()) !== -1
+  );
 }
 
 function printOpeningPart(path, print) {
   const n = path.getValue();
-  const isVoid = voidTags.indexOf(n.name) !== -1;
+  const isVoid = isVoidTagNode(n);
 
   // Don't break self-closing elements with no attributes
   if (isVoid && !n.attributes.length) {
