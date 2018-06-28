@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`document.html 1`] = `
+exports[`document.html - parse5-verify 1`] = `
 <!doctype html>
 <html class="no-js" lang="en">
   <head>
