@@ -231,7 +231,7 @@ function isBooleanAttributeNode(node) {
       "reversed",
       "selected",
       "typemustmatch"
-    ].indexOf(node.key.toLowerCase()) !== -1
+    ].indexOf(node.key) !== -1
   );
 }
 
@@ -254,22 +254,22 @@ function isVoidTagNode(node) {
       "source",
       "track",
       "wbr"
-    ].indexOf(node.name.toLowerCase()) !== -1
+    ].indexOf(node.name) !== -1
   );
 }
 
 function isPreTagNode(node) {
-  return node.type === "tag" && node.name.toLowerCase() === "pre";
+  return node.type === "tag" && node.name === "pre";
 }
 
 function isTextAreaTagNode(node) {
-  return node.type === "tag" && node.name.toLowerCase() === "textarea";
+  return node.type === "tag" && node.name === "textarea";
 }
 
 function isScriptTagNode(node) {
   return (
     (node.type === "script" || node.type === "style") &&
-    ["script", "style"].indexOf(node.name.toLowerCase()) !== -1
+    ["script", "style"].indexOf(node.name) !== -1
   );
 }
 
