@@ -3440,12 +3440,24 @@ const functionCompositionFunctionNames = new Set([
   "connect" // Redux
 ]);
 
+function isThisExpression(node) {
+  switch (node.type) {
+    case "OptionalMemberExpression":
+    case "MemberExpression": {
+      return isThisExpression(node.object);
+    }
+    case "ThisExpression":
+    case "Super": {
+      return true;
+    }
+  }
+}
+
 function isFunctionCompositionFunction(node) {
   switch (node.type) {
     case "OptionalMemberExpression":
     case "MemberExpression": {
-      return node.object.type !== "ThisExpression" &&
-        node.object.type !== "Super"
+      return !isThisExpression(node.object)
         ? isFunctionCompositionFunction(node.property)
         : false;
     }
