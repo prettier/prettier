@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`empty.html 1`] = `
+<script></script>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<script></script>
+
+`;
+
 exports[`js.html 1`] = `
 <script type="text/javascript">
   var message = "Alert!";

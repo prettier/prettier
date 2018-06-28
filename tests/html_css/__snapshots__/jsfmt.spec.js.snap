@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`empty.html 1`] = `
+<style></style>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<style></style>
+
+`;
+
 exports[`less.html 1`] = `
 <style type="text/less">
   @nice-blue: #5B83AD;
