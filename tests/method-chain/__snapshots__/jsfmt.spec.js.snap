@@ -212,14 +212,9 @@ foo().bar().baz();
 
 foo().bar.baz();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-object
-  .foo()
-  .bar()
-  .baz();
+object.foo().bar().baz();
 
-foo()
-  .bar()
-  .baz();
+foo().bar().baz();
 
 foo().bar.baz();
 
@@ -418,9 +413,7 @@ window.Data[key]("foo")
     .catch(() => console.log("baz"));
 });
 
-window.Data[key]("foo")
-  .then(() => a)
-  .catch(() => b);
+window.Data[key]("foo").then(() => a).catch(() => b);
 
 `;
 
@@ -455,10 +448,7 @@ object[valid
 
 (a ? b : c).d().e();
 
-(a ? b : c)
-  .d()
-  .e()
-  .f();
+(a ? b : c).d().e().f();
 
 (valid
   ? helper.responseBody(this.currentUser)
@@ -509,9 +499,7 @@ d3.select("body")
   .at({ width: 30, fill: "#f0f" })
   .st({ fontWeight: 600 });
 
-d3.scaleLinear()
-  .domain([1950, 1980])
-  .range([0, width]);
+d3.scaleLinear().domain([1950, 1980]).range([0, width]);
 
 not.d3
   .select("body")
@@ -519,10 +507,7 @@ not.d3
   .at({ width: 30, fill: "#f0f" })
   .st({ fontWeight: 600 });
 
-not.d3
-  .scaleLinear()
-  .domain([1950, 1980])
-  .range([0, width]);
+not.d3.scaleLinear().domain([1950, 1980]).range([0, width]);
 
 `;
 
@@ -632,9 +617,7 @@ this.layoutPartsToHide = this.utils.hashset(
     .filter(Boolean)
 );
 
-var jqxhr = $.ajax("example.php")
-  .done(doneFn)
-  .fail(failFn);
+var jqxhr = $.ajax("example.php").done(doneFn).fail(failFn);
 
 `;
 
@@ -723,16 +706,14 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
   describe("POST /users/me/pet", function() {
     it("saves pet", function() {
       function assert(pet) {
-        expect(pet)
-          .to.have.property("OwnerAddress")
-          .that.deep.equals({
-            AddressLine1: "Alexanderstrasse",
-            AddressLine2: "",
-            PostalCode: "10999",
-            Region: "Berlin",
-            City: "Berlin",
-            Country: "DE"
-          });
+        expect(pet).to.have.property("OwnerAddress").that.deep.equals({
+          AddressLine1: "Alexanderstrasse",
+          AddressLine2: "",
+          PostalCode: "10999",
+          Region: "Berlin",
+          City: "Berlin",
+          Country: "DE"
+        });
       }
     });
   });
@@ -818,10 +799,7 @@ method().then(x => x)
 ({}.a().b());
 ({}).a().b();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-method()
-  .then(x => x)
-  ["abc"](x => x)
-  [abc](x => x);
+method().then(x => x)["abc"](x => x)[abc](x => x);
 
 ({}.a().b());
 ({}.a().b());
