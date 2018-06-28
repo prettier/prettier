@@ -1,5 +1,173 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`pre.html 1`] = `
+<pre>
+--------------------------------------------------------------------------------
+
+
+                                      *         *       *
+                                     **        **      ***
+                                     **        **       *
+   ****    ***  ****               ********  ********                   ***  ****
+  * ***  *  **** **** *    ***    ********  ********  ***        ***     **** **** *
+ *   ****    **   ****    * ***      **        **      ***      * ***     **   ****
+**    **     **          *   ***     **        **       **     *   ***    **
+**    **     **         **    ***    **        **       **    **    ***   **
+**    **     **         ********     **        **       **    ********    **
+**    **     **         *******      **        **       **    *******     **
+**    **     **         **           **        **       **    **          **
+*******      ***        ****    *    **        **       **    ****    *   ***
+******        ***        *******      **        **      *** *  *******     ***
+**                        *****                          ***    *****
+**
+**
+ **
+
+--------------------------------------------------------------------------------
+</pre>
+<pre>
+
+        Text in a pre element
+
+    is displayed in a fixed-width
+
+   font, and it preserves
+
+   both             spaces and
+
+   line breaks
+
+</pre>
+<pre>     Foo     Bar     </pre>
+<pre>
+     Foo     Bar
+</pre>
+<pre>Foo     Bar
+</pre>
+<pre>
+     Foo     Bar</pre>
+<figure role="img" aria-labelledby="cow-caption">
+  <pre>
+___________________________
+< I'm an expert in my field. >
+---------------------------
+     \\   ^__^
+      \\  (oo)\\_______
+         (__)\\       )\\/\\
+             ||----w |
+             ||     ||
+___________________________
+  </pre>
+  <figcaption id="cow-caption">
+    A cow saying, "I'm an expert in my field." The cow is illustrated using preformatted text characters.
+  </figcaption>
+</figure>
+<pre data-attr-1="foo" data-attr-2="foo" data-attr-3="foo" data-attr-4="foo" data-attr-5="foo" data-attr-6="foo">
+     Foo     Bar
+</pre>
+<div>
+  <div>
+    <div>
+      <div>
+        <pre>
+          ______
+          STRING
+          ______
+        </pre>
+      </div>
+    </div>
+  </div>
+</div>
+<pre></pre>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<pre>
+--------------------------------------------------------------------------------
+
+
+                                      *         *       *
+                                     **        **      ***
+                                     **        **       *
+   ****    ***  ****               ********  ********                   ***  ****
+  * ***  *  **** **** *    ***    ********  ********  ***        ***     **** **** *
+ *   ****    **   ****    * ***      **        **      ***      * ***     **   ****
+**    **     **          *   ***     **        **       **     *   ***    **
+**    **     **         **    ***    **        **       **    **    ***   **
+**    **     **         ********     **        **       **    ********    **
+**    **     **         *******      **        **       **    *******     **
+**    **     **         **           **        **       **    **          **
+*******      ***        ****    *    **        **       **    ****    *   ***
+******        ***        *******      **        **      *** *  *******     ***
+**                        *****                          ***    *****
+**
+**
+ **
+
+--------------------------------------------------------------------------------
+</pre>
+<pre>
+
+        Text in a pre element
+
+    is displayed in a fixed-width
+
+   font, and it preserves
+
+   both             spaces and
+
+   line breaks
+
+</pre>
+<pre>     Foo     Bar     </pre>
+<pre>
+     Foo     Bar
+</pre>
+<pre>Foo     Bar
+</pre>
+<pre>
+     Foo     Bar</pre>
+<figure role="img" aria-labelledby="cow-caption">
+  <pre>
+___________________________
+< I'm an expert in my field. >
+---------------------------
+     \\   ^__^
+      \\  (oo)\\_______
+         (__)\\       )\\/\\
+             ||----w |
+             ||     ||
+___________________________
+  </pre>
+  <figcaption id="cow-caption">
+    A cow saying, "I'm an expert in my field." The cow is illustrated using preformatted text characters.
+  </figcaption>
+</figure>
+<pre
+  data-attr-1="foo"
+  data-attr-2="foo"
+  data-attr-3="foo"
+  data-attr-4="foo"
+  data-attr-5="foo"
+  data-attr-6="foo"
+>
+     Foo     Bar
+</pre>
+<div>
+  <div>
+    <div>
+      <div>
+        <pre>
+          ______
+          STRING
+          ______
+        </pre>
+      </div>
+    </div>
+  </div>
+</div>
+<pre></pre>
+
+`;
+
 exports[`tags.html 1`] = `
 <br/>
 <br />
@@ -164,5 +332,73 @@ exports[`tags.html 1`] = `
 
   <div>string</div>
 </div>
+
+`;
+
+exports[`textarea.html 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <div>
+                      <div>
+                        <textarea rows="10" cols="45" name="text">
+                        String
+                        </textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<textarea></textarea>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <div>
+                      <div>
+                        <textarea rows="10" cols="45" name="text">
+                        String
+                        </textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<textarea></textarea>
+
+`;
+
+exports[`unsupported.html 1`] = `
+<center></center>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<center></center>
 
 `;
