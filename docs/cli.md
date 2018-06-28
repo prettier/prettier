@@ -121,11 +121,15 @@ Change the level of logging for the CLI. Valid options are:
 A path to the file that the Prettier CLI will treat like stdin. For example:
 
 _abc.css_
+
 ```css
-.name { display: none; }
+.name {
+  display: none;
+}
 ```
 
 _shell_
+
 ```bash
 $ cat abc.css | prettier --stdin-filepath abc.css
 .name {
