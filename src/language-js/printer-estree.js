@@ -3532,7 +3532,7 @@ function printArgumentsList(path, options, print) {
   if (
     isFunctionCompositionFunction(node.callee) &&
     args.length > 1 &&
-    (args.some(a => a.type !== "Identifier") ||
+    (args.some(a => a.type !== "Identifier" && !isLiteral(a)) ||
       (parentNode.type === "CallExpression" && parentNode.callee === node))
   ) {
     return allArgsBrokenOut();

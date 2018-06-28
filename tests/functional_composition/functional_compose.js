@@ -37,5 +37,11 @@ class A extends B {
   }
 }
 
-// filter out cases when all args are Identifiers
+// filter out cases when all args are Identifiers or literals
 compose(a, b, c);
+compose(1, 2, 3);
+compose(
+  a(),
+  b,
+  3
+);
