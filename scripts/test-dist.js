@@ -21,7 +21,7 @@ shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
 shell.config.silent = false;
 
 const reporters =
-  +process.version.match(/^v\d+\./)[1] >= 6
+  require("semver").major(process.version) >= 6
     ? "--reporters default --reporters jest-junit"
     : "";
 
