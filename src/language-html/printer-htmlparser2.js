@@ -317,11 +317,26 @@ function printClosingPart(path, print) {
 function printChildren(path, print, options) {
   const parts = [];
 
-  path.map(childPath => {
+  path.map((childPath, i) => {
+    const parentNode = childPath.getParentNode();
     const child = childPath.getValue();
     const printedChild = print(childPath);
 
-    parts.push(printedChild);
+    if (
+      parentNode &&
+      parentNode.children[i - 2] &&
+      parentNode.children[i - 2].type === "comment" &&
+      parentNode.children[i - 2].data.trim() === "prettier-ignore"
+    ) {
+      parts.push(
+        options.originalText.slice(
+          options.locStart(child),
+          options.locEnd(child)
+        )
+      );
+    } else {
+      parts.push(printedChild);
+    }
 
     if (child.type !== "text" && child.type !== "directive") {
       parts.push(hardline);
