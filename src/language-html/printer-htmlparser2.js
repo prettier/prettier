@@ -350,27 +350,6 @@ function printChildren(path, print, options) {
   return parts;
 }
 
-function getAncestorCounter(path, typeOrTypes) {
-  const types = [].concat(typeOrTypes);
-
-  let counter = -1;
-  let ancestorNode;
-
-  while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.indexOf(ancestorNode.type) !== -1) {
-      return counter;
-    }
-  }
-
-  return -1;
-}
-
-function getAncestorNode(path, typeOrTypes) {
-  const counter = getAncestorCounter(path, typeOrTypes);
-
-  return counter === -1 ? null : path.getParentNode(counter);
-}
-
 module.exports = {
   print: genericPrint,
   massageAstNode: clean,
