@@ -57,7 +57,7 @@
     "semver": "5.4.1",
     "string-width": "2.1.1",
     "typescript": "3.0.0-dev.20180602",
-    "typescript-eslint-parser": "16.0.0",
+    "typescript-eslint-parser": "eslint/typescript-eslint-parser#42f29a1db5c51262fd9ed2d6105015da8925ba2d",
     "unicode-regex": "1.0.1",
     "unified": "6.1.6",
     "yaml": "1.0.0-beta.7",
