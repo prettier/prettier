@@ -1,3 +1,9 @@
+# 1.13.7
+
+[diff](https://github.com/prettier/prettier/compare/1.13.6...1.13.7)
+
+- Remove calls to `eval("require")` in the distributed code ([#4766](https://github.com/prettier/prettier/pull/4766))
+
 # 1.13.6
 
 [diff](https://github.com/prettier/prettier/compare/1.13.5...1.13.6)

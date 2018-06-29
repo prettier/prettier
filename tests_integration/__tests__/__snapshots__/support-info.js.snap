@@ -126,7 +126,7 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 - First value
 + Second value
 
-@@ -1,29 +1,56 @@
+@@ -1,29 +1,59 @@
   Object {
     \\"languages\\": Object {
 +     \\"CSS\\": Array [
@@ -141,6 +141,9 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
         \\"flow\\",
       ],
 +     \\"Less\\": Array [
++       \\"postcss\\",
++     ],
++     \\"PostCSS\\": Array [
 +       \\"postcss\\",
 +     ],
 +     \\"SCSS\\": Array [
@@ -183,7 +186,7 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
         \\"type\\": \\"choice\\",
       },
       \\"printWidth\\": Object {
-@@ -33,10 +60,28 @@
+@@ -33,10 +63,28 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -236,7 +239,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -47,10 +53,12 @@
+@@ -50,10 +56,12 @@
         \\"choices\\": Array [
           \\"flow\\",
           \\"babylon\\",
@@ -267,7 +270,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         \\"graphql\\",
       ],
       \\"JSON\\": Array [
-@@ -16,14 +16,14 @@
+@@ -16,17 +16,17 @@
       \\"JavaScript\\": Array [
         \\"babylon\\",
         \\"flow\\",
@@ -275,6 +278,10 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
       \\"Less\\": Array [
 -       \\"postcss\\",
 +       \\"less\\",
+      ],
+      \\"PostCSS\\": Array [
+-       \\"postcss\\",
++       \\"css\\",
       ],
       \\"SCSS\\": Array [
 -       \\"postcss\\",
@@ -284,7 +291,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         \\"typescript\\",
       ],
     },
-@@ -52,11 +52,13 @@
+@@ -55,11 +55,13 @@
       \\"parser\\": Object {
         \\"choices\\": Array [
           \\"flow\\",
@@ -299,7 +306,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         ],
         \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
-@@ -86,10 +88,14 @@
+@@ -89,10 +91,14 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -330,12 +337,12 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
 +     \\"Markdown\\": Array [
 +       \\"markdown\\",
 +     ],
+      \\"PostCSS\\": Array [
+        \\"css\\",
+      ],
       \\"SCSS\\": Array [
         \\"scss\\",
-      ],
-      \\"TypeScript\\": Array [
-        \\"typescript\\",
-@@ -43,10 +46,14 @@
+@@ -46,10 +49,14 @@
       },
       \\"filepath\\": Object {
         \\"default\\": undefined,
@@ -350,7 +357,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"parser\\": Object {
-@@ -57,10 +64,11 @@
+@@ -60,10 +67,11 @@
           \\"css\\",
           \\"less\\",
           \\"scss\\",
@@ -369,7 +376,7 @@ exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
 - First value
 + Second value
 
-@@ -78,10 +78,18 @@
+@@ -81,10 +81,18 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -412,7 +419,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -27,12 +33,23 @@
+@@ -30,12 +36,23 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -436,7 +443,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -63,16 +80,27 @@
+@@ -66,16 +83,27 @@
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -465,7 +472,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -80,14 +108,15 @@
+@@ -83,14 +111,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -496,6 +503,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"aliases\\": [\\"js\\", \\"node\\"],
       \\"codemirrorMimeType\\": \\"text/javascript\\",
       \\"codemirrorMode\\": \\"javascript\\",
+      \\"color\\": \\"#f1e05a\\",
       \\"extensions\\": [
         \\".js\\",
         \\"._js\\",
@@ -519,12 +527,13 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".xsjslib\\"
       ],
       \\"filenames\\": [\\"Jakefile\\"],
-      \\"group\\": \\"JavaScript\\",
+      \\"interpreters\\": [\\"node\\"],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JavaScript\\",
       \\"parsers\\": [\\"babylon\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
+      \\"type\\": \\"programming\\",
       \\"vscodeLanguageIds\\": [\\"javascript\\"]
     },
     {
@@ -533,11 +542,12 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMode\\": \\"jsx\\",
       \\"extensions\\": [\\".jsx\\"],
       \\"group\\": \\"JavaScript\\",
-      \\"liguistLanguageId\\": 178,
+      \\"linguistLanguageId\\": 178,
       \\"name\\": \\"JSX\\",
       \\"parsers\\": [\\"babylon\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js.jsx\\",
+      \\"type\\": \\"programming\\",
       \\"vscodeLanguageIds\\": [\\"javascriptreact\\"]
     },
     {
@@ -545,13 +555,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"aliases\\": [\\"ts\\"],
       \\"codemirrorMimeType\\": \\"application/typescript\\",
       \\"codemirrorMode\\": \\"javascript\\",
+      \\"color\\": \\"#2b7489\\",
       \\"extensions\\": [\\".ts\\", \\".tsx\\"],
-      \\"group\\": \\"JavaScript\\",
-      \\"liguistLanguageId\\": 378,
+      \\"linguistLanguageId\\": 378,
       \\"name\\": \\"TypeScript\\",
       \\"parsers\\": [\\"typescript\\"],
       \\"since\\": \\"1.4.0\\",
       \\"tmScope\\": \\"source.ts\\",
+      \\"type\\": \\"programming\\",
       \\"vscodeLanguageIds\\": [\\"typescript\\", \\"typescriptreact\\"]
     },
     {
@@ -564,57 +575,90 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"linguistLanguageId\\": 174,
       \\"name\\": \\"JSON.stringify\\",
       \\"parsers\\": [\\"json-stringify\\"],
+      \\"searchable\\": false,
       \\"since\\": \\"1.13.0\\",
       \\"tmScope\\": \\"source.json\\",
+      \\"type\\": \\"data\\",
       \\"vscodeLanguageIds\\": [\\"json\\"]
     },
     {
       \\"aceMode\\": \\"json\\",
       \\"codemirrorMimeType\\": \\"application/json\\",
       \\"codemirrorMode\\": \\"javascript\\",
-      \\"extensions\\": [\\".json\\", \\".geojson\\", \\".JSON-tmLanguage\\", \\".topojson\\"],
+      \\"extensions\\": [
+        \\".json\\",
+        \\".avsc\\",
+        \\".geojson\\",
+        \\".gltf\\",
+        \\".JSON-tmLanguage\\",
+        \\".jsonl\\",
+        \\".tfstate\\",
+        \\".tfstate.backup\\",
+        \\".topojson\\",
+        \\".webapp\\",
+        \\".webmanifest\\"
+      ],
       \\"filenames\\": [
         \\".arcconfig\\",
+        \\".htmlhintrc\\",
+        \\".jscsrc\\",
         \\".jshintrc\\",
-        \\".eslintrc\\",
-        \\".prettierrc\\",
+        \\".tern-config\\",
+        \\".tern-project\\",
         \\"composer.lock\\",
-        \\"mcmod.info\\"
+        \\"mcmod.info\\",
+        \\".eslintrc\\",
+        \\".prettierrc\\"
       ],
       \\"group\\": \\"JavaScript\\",
       \\"linguistLanguageId\\": 174,
       \\"name\\": \\"JSON\\",
       \\"parsers\\": [\\"json\\"],
+      \\"searchable\\": false,
       \\"since\\": \\"1.5.0\\",
       \\"tmScope\\": \\"source.json\\",
+      \\"type\\": \\"data\\",
       \\"vscodeLanguageIds\\": [\\"json\\", \\"jsonc\\"]
     },
     {
-      \\"aceMode\\": \\"json\\",
+      \\"aceMode\\": \\"javascript\\",
       \\"codemirrorMimeType\\": \\"application/json\\",
       \\"codemirrorMode\\": \\"javascript\\",
       \\"extensions\\": [\\".json5\\"],
-      \\"filenames\\": [\\".babelrc\\"],
-      \\"group\\": \\"JavaScript\\",
+      \\"filenames\\": [\\".babelrc\\", \\".jslintrc\\"],
       \\"linguistLanguageId\\": 175,
       \\"name\\": \\"JSON5\\",
       \\"parsers\\": [\\"json5\\"],
       \\"since\\": \\"1.13.0\\",
-      \\"tmScope\\": \\"source.json\\",
+      \\"tmScope\\": \\"source.js\\",
+      \\"type\\": \\"data\\",
       \\"vscodeLanguageIds\\": [\\"json5\\"]
     },
     {
       \\"aceMode\\": \\"css\\",
       \\"codemirrorMimeType\\": \\"text/css\\",
       \\"codemirrorMode\\": \\"css\\",
-      \\"extensions\\": [\\".css\\", \\".pcss\\", \\".postcss\\"],
-      \\"group\\": \\"CSS\\",
-      \\"liguistLanguageId\\": 50,
+      \\"color\\": \\"#563d7c\\",
+      \\"extensions\\": [\\".css\\"],
+      \\"linguistLanguageId\\": 50,
       \\"name\\": \\"CSS\\",
       \\"parsers\\": [\\"css\\"],
       \\"since\\": \\"1.4.0\\",
       \\"tmScope\\": \\"source.css\\",
-      \\"vscodeLanguageIds\\": [\\"css\\", \\"postcss\\"]
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"css\\"]
+    },
+    {
+      \\"aceMode\\": \\"text\\",
+      \\"extensions\\": [\\".pcss\\", \\".postcss\\"],
+      \\"group\\": \\"CSS\\",
+      \\"linguistLanguageId\\": 262764437,
+      \\"name\\": \\"PostCSS\\",
+      \\"parsers\\": [\\"css\\"],
+      \\"since\\": \\"1.4.0\\",
+      \\"tmScope\\": \\"source.postcss\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"postcss\\"]
     },
     {
       \\"aceMode\\": \\"less\\",
@@ -622,11 +666,12 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMode\\": \\"css\\",
       \\"extensions\\": [\\".less\\"],
       \\"group\\": \\"CSS\\",
-      \\"liguistLanguageId\\": 198,
+      \\"linguistLanguageId\\": 198,
       \\"name\\": \\"Less\\",
       \\"parsers\\": [\\"less\\"],
       \\"since\\": \\"1.4.0\\",
       \\"tmScope\\": \\"source.css.less\\",
+      \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"less\\"]
     },
     {
@@ -635,21 +680,23 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMode\\": \\"css\\",
       \\"extensions\\": [\\".scss\\"],
       \\"group\\": \\"CSS\\",
-      \\"liguistLanguageId\\": 329,
+      \\"linguistLanguageId\\": 329,
       \\"name\\": \\"SCSS\\",
       \\"parsers\\": [\\"scss\\"],
       \\"since\\": \\"1.4.0\\",
       \\"tmScope\\": \\"source.scss\\",
+      \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"scss\\"]
     },
     {
       \\"aceMode\\": \\"text\\",
       \\"extensions\\": [\\".graphql\\", \\".gql\\"],
-      \\"liguistLanguageId\\": 139,
+      \\"linguistLanguageId\\": 139,
       \\"name\\": \\"GraphQL\\",
       \\"parsers\\": [\\"graphql\\"],
       \\"since\\": \\"1.5.0\\",
       \\"tmScope\\": \\"source.graphql\\",
+      \\"type\\": \\"data\\",
       \\"vscodeLanguageIds\\": [\\"graphql\\"]
     },
     {
@@ -665,7 +712,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".mkd\\",
         \\".mkdn\\",
         \\".mkdown\\",
-        \\".ron\\",
+        \\".ronn\\",
         \\".workbook\\"
       ],
       \\"filenames\\": [\\"README\\"],
@@ -674,20 +721,20 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"parsers\\": [\\"markdown\\"],
       \\"since\\": \\"1.8.0\\",
       \\"tmScope\\": \\"source.gfm\\",
+      \\"type\\": \\"prose\\",
       \\"vscodeLanguageIds\\": [\\"markdown\\"],
       \\"wrap\\": true
     },
     {
       \\"aceMode\\": \\"html\\",
-      \\"codemirrorMimeType\\": \\"text/html\\",
-      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"color\\": \\"#2c3e50\\",
       \\"extensions\\": [\\".vue\\"],
-      \\"group\\": \\"HTML\\",
-      \\"linguistLanguageId\\": 146,
+      \\"linguistLanguageId\\": 391,
       \\"name\\": \\"Vue\\",
       \\"parsers\\": [\\"vue\\"],
       \\"since\\": \\"1.10.0\\",
       \\"tmScope\\": \\"text.html.vue\\",
+      \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"vue\\"]
     }
   ],
