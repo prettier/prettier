@@ -77,7 +77,7 @@ class CodeMirrorPanel extends React.Component {
   }
 
   handleDoubleClick(/* codeMirror, event */) {
-    if (this.props.placeholder && !this.props.value) {
+    if (this.props.placeholder && !this._codeMirror.getValue()) {
       this.updateValue(this.props.placeholder);
       this.updateOverlay();
     }
