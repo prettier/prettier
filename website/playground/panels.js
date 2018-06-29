@@ -9,6 +9,7 @@ class CodeMirrorPanel extends React.Component {
     this._cached = "";
     this._overlay = null;
     this.handleChange = this.handleChange.bind(this);
+    this.handleDoubleClick = this.handleDoubleClick.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +26,7 @@ class CodeMirrorPanel extends React.Component {
       options
     );
     this._codeMirror.on("change", this.handleChange);
+    this._codeMirror.on("dblclick", this.handleDoubleClick);
 
     this.updateValue(this.props.value || "");
     this.updateOverlay();
@@ -71,6 +73,13 @@ class CodeMirrorPanel extends React.Component {
       ]);
       this._overlay = createOverlay(start, end);
       this._codeMirror.addOverlay(this._overlay);
+    }
+  }
+
+  handleDoubleClick(/* codeMirror, event */) {
+    if (this.props.placeholder && !this.props.value) {
+      this.updateValue(this.props.placeholder);
+      this.updateOverlay();
     }
   }
 
@@ -150,7 +159,7 @@ export function InputPanel(props) {
       autoCloseBrackets={true}
       matchBrackets={true}
       showCursorWhenSelecting={true}
-      tabWidth={2}
+      tabSize={4}
       rulerColor="#eeeeee"
       {...props}
     />
