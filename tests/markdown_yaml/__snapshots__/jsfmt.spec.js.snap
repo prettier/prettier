@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`complex.md 1`] = `
+---
+- hello:    world
+-         123
+---
+
+# something
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+- hello: world
+- 123
+---
+
+# something
+
+`;
+
 exports[`empty.md 1`] = `
 ---
 ---

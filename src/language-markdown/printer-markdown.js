@@ -847,7 +847,7 @@ function clean(ast, newObj, parent) {
   delete newObj.raw; // front-matter
 
   // for codeblock
-  if (ast.type === "code") {
+  if (ast.type === "code" || ast.type === "yaml") {
     delete newObj.value;
   }
   // for whitespace: "\n" and " " are considered the same

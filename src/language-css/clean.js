@@ -15,6 +15,10 @@ function clean(ast, newObj, parent) {
     delete newObj[name];
   });
 
+  if (ast.type === "yaml") {
+    delete newObj.value;
+  }
+
   // --insert-pragma
   if (
     ast.type === "css-comment" &&

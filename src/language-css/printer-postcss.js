@@ -1,6 +1,7 @@
 "use strict";
 
 const clean = require("./clean");
+const embed = require("./embed");
 const { insertPragma } = require("./pragma");
 const {
   printNumber,
@@ -909,6 +910,7 @@ function printCssNumber(rawNumber) {
 
 module.exports = {
   print: genericPrint,
+  embed,
   insertPragma,
   hasPrettierIgnore: hasIgnoreComment,
   massageAstNode: clean

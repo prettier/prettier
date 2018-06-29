@@ -32,6 +32,21 @@ function embed(path, print, textToDoc, options) {
     }
   }
 
+  if (node.type === "yaml") {
+    return markAsRoot(
+      concat([
+        "---",
+        hardline,
+        node.value.trim()
+          ? replaceNewlinesWithLiterallines(
+              textToDoc(node.value, { parser: "yaml" })
+            )
+          : "",
+        "---"
+      ])
+    );
+  }
+
   return null;
 
   function getParserName(lang) {
