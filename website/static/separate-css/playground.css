@@ -141,11 +141,6 @@ header h1 {
   line-height: 1.6;
 }
 
-pre.CodeMirror-placeholder {
-  color: #888888;
-  tab-size: 4;
-}
-
 .bottom-bar {
   position: relative;
 }
