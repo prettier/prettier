@@ -1,5 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`await.js 1`] = `
+const doBothThings = async () => {
+    const request = doAsyncThing();
+    return (await request)::doSyncThing();
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const doBothThings = async () => {
+  const request = doAsyncThing();
+  return (await request)::doSyncThing();
+};
+
+`;
+
+exports[`await.js 2`] = `
+const doBothThings = async () => {
+    const request = doAsyncThing();
+    return (await request)::doSyncThing();
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const doBothThings = async () => {
+  const request = doAsyncThing()
+  return (await request)::doSyncThing()
+}
+
+`;
+
 exports[`bind_parens.js 1`] = `
 (a || b)::c;
 a || (b::c);
