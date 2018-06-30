@@ -35,10 +35,7 @@ class CodeMirrorPanel extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.readOnly && this.props.value !== this._cached) {
-      this.updateValue(this.props.value);
-    }
-    if (this.props.value !== prevProps.value) {
+    if (this.props.value !== this._cached) {
       this.updateValue(this.props.value);
     }
     if (
