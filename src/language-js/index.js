@@ -9,9 +9,14 @@ const languages = [
   languageExtend({}, require("linguist-languages/data/javascript"), {
     since: "0.0.0",
     parsers: ["babylon", "flow"],
-    extensions: [".js.flow"],
     vscodeLanguageIds: ["javascript"]
   }),
+  {
+    name: "Flow",
+    since: "0.0.0",
+    parsers: ["babylon", "flow"],
+    extensions: [".js.flow"]
+  },
   languageExtend({}, require("linguist-languages/data/jsx"), {
     since: "0.0.0",
     parsers: ["babylon", "flow"],
