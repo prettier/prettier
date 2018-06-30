@@ -191,7 +191,7 @@ const Editor = ({ content = "", image, name }) => (
   <div className="editor">
     <img className="editorImage" src={image} />
     <div className="editorInfo">
-      <h3 style={{ marginBottom: "-16px" }}>{name}</h3>
+      <h3 className="editorName">{name}</h3>
       <MarkdownBlock>{content.replace(/\n/g, "  \n")}</MarkdownBlock>
     </div>
   </div>
