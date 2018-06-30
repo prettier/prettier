@@ -185,6 +185,7 @@ class Playground extends React.Component {
                       mode={util.getCodemirrorMode(options.parser)}
                       ruler={options.printWidth}
                       value={content}
+                      codeSample={getCodeSample(options.parser)}
                       overlayStart={options.rangeStart}
                       overlayEnd={options.rangeEnd}
                       onChange={this.setContent}
