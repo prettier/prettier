@@ -524,7 +524,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".sjs\\",
         \\".ssjs\\",
         \\".xsjs\\",
-        \\".xsjslib\\"
+        \\".xsjslib\\",
+        \\".js.flow\\"
       ],
       \\"filenames\\": [\\"Jakefile\\"],
       \\"interpreters\\": [\\"node\\"],
