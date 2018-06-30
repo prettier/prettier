@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ClassDeclaration22.ts 1`] = `
+exports[`ClassDeclaration22.ts - typescript-verify: ClassDeclaration22.ts 1`] = `
 class C {
     "foo"();
     "bar"() { }
@@ -13,7 +13,7 @@ class C {
 
 `;
 
-exports[`anyIsAssignableToObject.ts 1`] = `
+exports[`anyIsAssignableToObject.ts - typescript-verify: anyIsAssignableToObject.ts 1`] = `
 interface P {
     p: {};
 }
@@ -33,7 +33,7 @@ interface Q extends P {
 
 `;
 
-exports[`castOfAwait.ts 1`] = `
+exports[`castOfAwait.ts - typescript-verify: castOfAwait.ts 1`] = `
 // @target: es6
 async function f() {
     <number> await 0;
@@ -54,7 +54,7 @@ async function f() {
 
 `;
 
-exports[`castParentheses.ts 1`] = `
+exports[`castParentheses.ts - typescript-verify: castParentheses.ts 1`] = `
 ﻿class a {
     static b: any;
 }
@@ -81,7 +81,7 @@ var b = (<any>new a()).b;
 
 `;
 
-exports[`castTest.ts 1`] = `
+exports[`castTest.ts - typescript-verify: castTest.ts 1`] = `
 
 var x : any = 0;
 var z = <number> x;
@@ -146,7 +146,7 @@ var p_cast = <Point>{
 
 `;
 
-exports[`checkInfiniteExpansionTermination.ts 1`] = `
+exports[`checkInfiniteExpansionTermination.ts - typescript-verify: checkInfiniteExpansionTermination.ts 1`] = `
 // Regression test for #1002
 // Before fix this code would cause infinite loop
 
@@ -187,7 +187,7 @@ values = values2;
 
 `;
 
-exports[`commentInNamespaceDeclarationWithIdentifierPathName.ts 1`] = `
+exports[`commentInNamespaceDeclarationWithIdentifierPathName.ts - typescript-verify: commentInNamespaceDeclarationWithIdentifierPathName.ts 1`] = `
 ﻿namespace hello.hi.world
 {
     function foo() {}
@@ -199,7 +199,7 @@ exports[`commentInNamespaceDeclarationWithIdentifierPathName.ts 1`] = `
 
 `;
 
-exports[`commentsInterface.ts 1`] = `
+exports[`commentsInterface.ts - typescript-verify: commentsInterface.ts 1`] = `
 interface i2 {
     foo: (/**param help*/b: number) => string;
 }
@@ -210,7 +210,7 @@ interface i2 {
 
 `;
 
-exports[`contextualSignatureInstantiation2.ts 1`] = `
+exports[`contextualSignatureInstantiation2.ts - typescript-verify: contextualSignatureInstantiation2.ts 1`] = `
 // dot f g x = f(g(x))
 var dot: <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T) => (_: U) => S;
 dot = <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T): (r:U) => S => (x) => f(g(x));
@@ -225,7 +225,7 @@ var r23 = dot(id)(id);
 
 `;
 
-exports[`declareDottedModuleName.ts 1`] = `
+exports[`declareDottedModuleName.ts - typescript-verify: declareDottedModuleName.ts 1`] = `
 // @declaration: true
 module M {
     module P.Q { } // This shouldnt be emitted
@@ -256,7 +256,7 @@ namespace T.U {
 
 `;
 
-exports[`decrementAndIncrementOperators.ts 1`] = `
+exports[`decrementAndIncrementOperators.ts - typescript-verify: decrementAndIncrementOperators.ts 1`] = `
 var x = 0;
 
 // errors
@@ -335,13 +335,13 @@ x[x++]++;
 
 `;
 
-exports[`downlevelLetConst1.ts 1`] = `
+exports[`downlevelLetConst1.ts - typescript-verify: downlevelLetConst1.ts 1`] = `
 const~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const;
 
 `;
 
-exports[`errorOnInitializerInInterfaceProperty.ts 1`] = `
+exports[`errorOnInitializerInInterfaceProperty.ts - typescript-verify: errorOnInitializerInInterfaceProperty.ts 1`] = `
 interface Foo {
     bar: number = 5;
 }
@@ -352,7 +352,7 @@ interface Foo {
 
 `;
 
-exports[`es5ExportDefaultClassDeclaration4.ts 1`] = `
+exports[`es5ExportDefaultClassDeclaration4.ts - typescript-verify: es5ExportDefaultClassDeclaration4.ts 1`] = `
 // @target: es5
 // @module: commonjs
 // @declaration: true
@@ -388,7 +388,7 @@ declare module "foo" {
 
 `;
 
-exports[`functionOverloadsOnGenericArity1.ts 1`] = `
+exports[`functionOverloadsOnGenericArity1.ts - typescript-verify: functionOverloadsOnGenericArity1.ts 1`] = `
 // overloading on arity not allowed
 interface C {
    f<T>(): string;
@@ -415,7 +415,7 @@ interface C {
 
 `;
 
-exports[`globalIsContextualKeyword.ts 1`] = `
+exports[`globalIsContextualKeyword.ts - typescript-verify: globalIsContextualKeyword.ts 1`] = `
 function a() {
     let global = 1;
 }
@@ -451,7 +451,7 @@ let obj = {
 
 `;
 
-exports[`indexSignatureWithInitializer.ts 1`] = `
+exports[`indexSignatureWithInitializer.ts - typescript-verify: indexSignatureWithInitializer.ts 1`] = `
 // These used to be indexers, now they are computed properties
 interface I {
     [x = '']: string;
@@ -471,7 +471,7 @@ class C {
 
 `;
 
-exports[`mappedTypeWithCombinedTypeMappers.ts 1`] = `
+exports[`mappedTypeWithCombinedTypeMappers.ts - typescript-verify: mappedTypeWithCombinedTypeMappers.ts 1`] = `
 // Repro from #13351
 
 type Meta<T, A> = {
@@ -512,7 +512,7 @@ const shouldFail: { important: boolean } = output.x.children;
 
 `;
 
-exports[`modifiersOnInterfaceIndexSignature1.ts 1`] = `
+exports[`modifiersOnInterfaceIndexSignature1.ts - typescript-verify: modifiersOnInterfaceIndexSignature1.ts 1`] = `
 interface I {
   public [a: string]: number;
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -522,7 +522,7 @@ interface I {
 
 `;
 
-exports[`privacyGloImport.ts 1`] = `
+exports[`privacyGloImport.ts - typescript-verify: privacyGloImport.ts 1`] = `
 //@declaration: true
 module m1 {
     export module m1_M1_public {

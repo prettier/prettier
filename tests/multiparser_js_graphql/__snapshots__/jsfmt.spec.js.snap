@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`backticks.js 1`] = `
+exports[`backticks.js - babylon-verify: backticks.js 1`] = `
 gql\`
   "\\\`foo\\\` mutation payload."
   type      FooPayload       {
@@ -17,7 +17,7 @@ gql\`
 
 `;
 
-exports[`comment-tag.js 1`] = `
+exports[`comment-tag.js - babylon-verify: comment-tag.js 1`] = `
 const query = /* GraphQL */\`
       {
     user(   id :   5  )  {
@@ -40,7 +40,7 @@ const query = /* GraphQL */ \`
 
 `;
 
-exports[`definitions.js 1`] = `
+exports[`definitions.js - babylon-verify: definitions.js 1`] = `
 graphql\`
   fragment x on y {
     z
@@ -63,7 +63,7 @@ graphql\`
 
 `;
 
-exports[`expressions.js 1`] = `
+exports[`expressions.js - babylon-verify: expressions.js 1`] = `
 graphql(schema, \`
 query allPartsByManufacturerName($name: String!) {
   allParts(filter:{manufacturer: {name: $name}}) {
@@ -106,7 +106,7 @@ const veryLongVariableNameToMakeTheLineBreak = graphql(
 
 `;
 
-exports[`graphql.js 1`] = `
+exports[`graphql.js - babylon-verify: graphql.js 1`] = `
 graphql(schema, \`
 mutation     MarkReadNotificationMutation(
     $input
@@ -129,7 +129,7 @@ graphql(
 
 `;
 
-exports[`graphql-tag.js 1`] = `
+exports[`graphql-tag.js - babylon-verify: graphql-tag.js 1`] = `
 import gql from "graphql-tag";
 
 const query = gql\`
@@ -455,7 +455,7 @@ gql\`
 
 `;
 
-exports[`invalid.js 1`] = `
+exports[`invalid.js - babylon-verify: invalid.js 1`] = `
 // none of the embedded GraphQL should be formatted
 // for they have an invalid escape sequence
 
@@ -504,7 +504,7 @@ gql\`
 
 `;
 
-exports[`react-relay.js 1`] = `
+exports[`react-relay.js - babylon-verify: react-relay.js 1`] = `
 const { graphql } = require("react-relay");
 
 graphql\`

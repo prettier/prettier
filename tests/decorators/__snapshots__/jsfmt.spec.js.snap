@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js 1`] = `
+exports[`comments.js - babylon-verify: comments.js 1`] = `
 var x = 100
 
 @Hello({
@@ -64,7 +64,7 @@ export class Bar {}
 
 `;
 
-exports[`methods.js 1`] = `
+exports[`methods.js - babylon-verify: methods.js 1`] = `
 
 class Yo {
   @foo("hello")
@@ -84,7 +84,7 @@ class Yo {
 
 `;
 
-exports[`mobx.js 1`] = `
+exports[`mobx.js - babylon-verify: mobx.js 1`] = `
 import {observable} from "mobx";
 
 @observer class OrderLine {
@@ -128,7 +128,7 @@ class OrderLine {
 
 `;
 
-exports[`multiple.js 1`] = `
+exports[`multiple.js - babylon-verify: multiple.js 1`] = `
 const dog = {
   @readonly
   @nonenumerable
@@ -145,7 +145,7 @@ const dog = {
 
 `;
 
-exports[`redux.js 1`] = `
+exports[`redux.js - babylon-verify: redux.js 1`] = `
 @connect(mapStateToProps, mapDispatchToProps)
 export class MyApp extends React.Component {}
 

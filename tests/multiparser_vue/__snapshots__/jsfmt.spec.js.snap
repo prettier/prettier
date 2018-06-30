@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lang-ts.vue 1`] = `
+exports[`lang-ts.vue - vue-verify: lang-ts.vue 1`] = `
 <template>
   <div>{{foo}}</div>
 </template>
@@ -28,7 +28,7 @@ export default {
 
 `;
 
-exports[`lang-tsx.vue 1`] = `
+exports[`lang-tsx.vue - vue-verify: lang-tsx.vue 1`] = `
 <script lang="tsx">
 import {VNode} from "vue"
 export default {
@@ -53,7 +53,7 @@ export default {
 
 `;
 
-exports[`template-bind.vue 1`] = `
+exports[`template-bind.vue - vue-verify: template-bind.vue 1`] = `
 <template>
     <div v-bind:id=" 'list-'   +  id "></div>
     <div v-bind:id="  rawId | formatId "></div>
@@ -71,7 +71,7 @@ exports[`template-bind.vue 1`] = `
 
 `;
 
-exports[`template-class.vue 1`] = `
+exports[`template-class.vue - vue-verify: template-class.vue 1`] = `
 <template>
   <h2
     class="title"
@@ -94,7 +94,7 @@ exports[`template-class.vue 1`] = `
 
 `;
 
-exports[`vue-component.vue 1`] = `
+exports[`vue-component.vue - vue-verify: vue-component.vue 1`] = `
 <template >
   <h1 >{{greeting}}     world</h1 >
   <script>kikoo ( ) </script>

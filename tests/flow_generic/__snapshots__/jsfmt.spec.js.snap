@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js 1`] = `
+exports[`break.js - flow-verify: break.js 1`] = `
 var X = {
   perform: function<    
      A, B, C, D, E, F, G,     
@@ -27,7 +27,7 @@ var X = {
 
 `;
 
-exports[`break.js 2`] = `
+exports[`break.js - flow-verify: break.js 2`] = `
 var X = {
   perform: function<    
      A, B, C, D, E, F, G,     
@@ -54,7 +54,7 @@ var X = {
 
 `;
 
-exports[`generic.js 1`] = `
+exports[`generic.js - flow-verify: generic.js 1`] = `
 const identity = <T>(t: T): T => t;
 const a = 1;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,7 +63,7 @@ const a = 1;
 
 `;
 
-exports[`generic.js 2`] = `
+exports[`generic.js - flow-verify: generic.js 2`] = `
 const identity = <T>(t: T): T => t;
 const a = 1;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -72,7 +72,7 @@ const a = 1;
 
 `;
 
-exports[`interface.js 1`] = `
+exports[`interface.js - flow-verify: interface.js 1`] = `
 interface A { 'C': string; }
 interface B { "D": boolean; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -81,7 +81,7 @@ interface B { D: boolean }
 
 `;
 
-exports[`interface.js 2`] = `
+exports[`interface.js - flow-verify: interface.js 2`] = `
 interface A { 'C': string; }
 interface B { "D": boolean; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -90,7 +90,7 @@ interface B { D: boolean }
 
 `;
 
-exports[`nullable.js 1`] = `
+exports[`nullable.js - flow-verify: nullable.js 1`] = `
 function formatEntireFile(
   fileVersion: FileVersion,
   range: atom$Range,
@@ -113,7 +113,7 @@ function foo(): Promise<?boolean> {}
 
 `;
 
-exports[`nullable.js 2`] = `
+exports[`nullable.js - flow-verify: nullable.js 2`] = `
 function formatEntireFile(
   fileVersion: FileVersion,
   range: atom$Range,
@@ -136,7 +136,7 @@ function foo(): Promise<?boolean> {}
 
 `;
 
-exports[`trailing.js 1`] = `
+exports[`trailing.js - flow-verify: trailing.js 1`] = `
 type State = {
   errors: Immutable.Map<
     Ahohohhohohohohohohohohohohooh,
@@ -155,7 +155,7 @@ type State = {
 
 `;
 
-exports[`trailing.js 2`] = `
+exports[`trailing.js - flow-verify: trailing.js 2`] = `
 type State = {
   errors: Immutable.Map<
     Ahohohhohohohohohohohohohohooh,
@@ -174,7 +174,7 @@ type State = {
 
 `;
 
-exports[`type.js 1`] = `
+exports[`type.js - flow-verify: type.js 1`] = `
 type F = <T>(T) => T;
 type G = (<A, B>(A) => B);
 type H = { 'A': string, "B": number };
@@ -185,7 +185,7 @@ type H = { A: string, B: number };
 
 `;
 
-exports[`type.js 2`] = `
+exports[`type.js - flow-verify: type.js 2`] = `
 type F = <T>(T) => T;
 type G = (<A, B>(A) => B);
 type H = { 'A': string, "B": number };
@@ -196,7 +196,7 @@ type H = { A: string, B: number };
 
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js - flow-verify: union.js 1`] = `
 type Foo = Promise<
   { ok: true, bar: string, baz: SomeOtherLongType } | 
   { ok: false, bar: SomeOtherLongType }
@@ -209,7 +209,7 @@ type Foo = Promise<
 
 `;
 
-exports[`union.js 2`] = `
+exports[`union.js - flow-verify: union.js 2`] = `
 type Foo = Promise<
   { ok: true, bar: string, baz: SomeOtherLongType } | 
   { ok: false, bar: SomeOtherLongType }

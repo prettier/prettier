@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class-method.ts 1`] = `
+exports[`class-method.ts - typescript-verify: class-method.ts 1`] = `
 // https://github.com/prettier/prettier/issues/4070
 export class Thing implements OtherThing {
     do: (type: Type) => Provider<Prop> = memoize((type: ObjectType): Provider<Opts> => {});
@@ -279,7 +279,7 @@ const appIDs = createSelector(
 
 `;
 
-exports[`long-function-arg.ts 1`] = `
+exports[`long-function-arg.ts - typescript-verify: long-function-arg.ts 1`] = `
 export const forwardS = R.curry(
   <V,T>(prop: string, reducer: ReducerFunction<V, T>, value: V, state: {[name: string]: T}) =>
   R.assoc(prop, reducer(value, state[prop]), state)
@@ -314,7 +314,7 @@ export const forwardS = R.curry(
 
 `;
 
-exports[`tagged-template-expression.ts 1`] = `
+exports[`tagged-template-expression.ts - typescript-verify: tagged-template-expression.ts 1`] = `
 export const RedBox = styled.div<{foo: string}>\`
   background: red;
   \${props => props.foo}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`block-statement.hbs 1`] = `
+exports[`block-statement.hbs - glimmer-verify: block-statement.hbs 1`] = `
 {{#block param hashKey=hashValue as |blockParam|}}
   Hello
 {{/block}}
@@ -92,7 +92,7 @@ exports[`block-statement.hbs 1`] = `
 {{#block}}{{#block}}hello{{/block}}{{/block}}
 `;
 
-exports[`component.hbs 1`] = `
+exports[`component.hbs - glimmer-verify: component.hbs 1`] = `
 <user-greeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
 
@@ -108,7 +108,7 @@ exports[`component.hbs 1`] = `
 </button>
 `;
 
-exports[`concat-statement.hbs 1`] = `
+exports[`concat-statement.hbs - glimmer-verify: concat-statement.hbs 1`] = `
 <div class="hello {{if goodbye true}}">
   Hello
 </div>
@@ -159,7 +159,7 @@ exports[`concat-statement.hbs 1`] = `
 <div class="class-p  class-q"></div>
 `;
 
-exports[`element-modifier-statement.hbs 1`] = `
+exports[`element-modifier-statement.hbs - glimmer-verify: element-modifier-statement.hbs 1`] = `
 <div {{hello param hash=key}} {{goodbye param}}>
   Hello
 </div>
@@ -225,7 +225,7 @@ exports[`element-modifier-statement.hbs 1`] = `
 </div>
 `;
 
-exports[`element-node.hbs 1`] = `
+exports[`element-node.hbs - glimmer-verify: element-node.hbs 1`] = `
 <div class="attribute" {{modifier}} {{! comment}}>
   Hello
 </div>
@@ -291,7 +291,7 @@ exports[`element-node.hbs 1`] = `
 <img />
 `;
 
-exports[`else-if.hbs 1`] = `
+exports[`else-if.hbs - glimmer-verify: else-if.hbs 1`] = `
 {{#if a}}
   b
 {{else if c}}
@@ -426,7 +426,7 @@ exports[`else-if.hbs 1`] = `
 {{/if}}
 `;
 
-exports[`literals.hbs 1`] = `
+exports[`literals.hbs - glimmer-verify: literals.hbs 1`] = `
 {{mustache true}}
 {{mustache 5}}
 {{mustache undefined}}
@@ -444,7 +444,7 @@ exports[`literals.hbs 1`] = `
 {{!-- Mustache Comment }} --}}
 `;
 
-exports[`loop.hbs 1`] = `
+exports[`loop.hbs - glimmer-verify: loop.hbs 1`] = `
 <ul>
   {{#each speakers key="@index" as |speaker|}}
     <li>{{speaker}}</li>
@@ -460,7 +460,7 @@ exports[`loop.hbs 1`] = `
 </ul>
 `;
 
-exports[`sub-expressions.hbs 1`] = `
+exports[`sub-expressions.hbs - glimmer-verify: sub-expressions.hbs 1`] = `
 <div
   {{mustache
     (concat

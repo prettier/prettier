@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`3-style.yml 1`] = `
+exports[`3-style.yml - yaml-verify: 3-style.yml 1`] = `
 [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -19,7 +19,7 @@ exports[`3-style.yml 1`] = `
 
 `;
 
-exports[`3-style.yml 2`] = `
+exports[`3-style.yml - yaml-verify: 3-style.yml 2`] = `
 [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -38,35 +38,35 @@ exports[`3-style.yml 2`] = `
 
 `;
 
-exports[`array-key.yml 1`] = `
+exports[`array-key.yml - yaml-verify: array-key.yml 1`] = `
 [1, 2, 3]: 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [1, 2, 3]: 123
 
 `;
 
-exports[`array-key.yml 2`] = `
+exports[`array-key.yml - yaml-verify: array-key.yml 2`] = `
 [1, 2, 3]: 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [1, 2, 3]: 123
 
 `;
 
-exports[`array-value.yml 1`] = `
+exports[`array-value.yml - yaml-verify: array-value.yml 1`] = `
 123: [1, 2, 3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 123: [1, 2, 3]
 
 `;
 
-exports[`array-value.yml 2`] = `
+exports[`array-value.yml - yaml-verify: array-value.yml 2`] = `
 123: [1, 2, 3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 123: [1, 2, 3]
 
 `;
 
-exports[`comment.yml 1`] = `
+exports[`comment.yml - yaml-verify: comment.yml 1`] = `
 ? key
 # comment
 : longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
@@ -77,7 +77,7 @@ exports[`comment.yml 1`] = `
 
 `;
 
-exports[`comment.yml 2`] = `
+exports[`comment.yml - yaml-verify: comment.yml 2`] = `
 ? key
 # comment
 : longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
@@ -88,21 +88,21 @@ exports[`comment.yml 2`] = `
 
 `;
 
-exports[`comment-value.yml 1`] = `
+exports[`comment-value.yml - yaml-verify: comment-value.yml 1`] = `
 123: # hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 123: # hello
 
 `;
 
-exports[`comment-value.yml 2`] = `
+exports[`comment-value.yml - yaml-verify: comment-value.yml 2`] = `
 123: # hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 123: # hello
 
 `;
 
-exports[`common.yml 1`] = `
+exports[`common.yml - yaml-verify: common.yml 1`] = `
 key1: value
 key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -112,7 +112,7 @@ key2:
 
 `;
 
-exports[`common.yml 2`] = `
+exports[`common.yml - yaml-verify: common.yml 2`] = `
 key1: value
 key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -122,7 +122,7 @@ key2:
 
 `;
 
-exports[`explicit-key.yml 1`] = `
+exports[`explicit-key.yml - yaml-verify: explicit-key.yml 1`] = `
 ? key1
 : value
 ? key2
@@ -138,7 +138,7 @@ key2:
 
 `;
 
-exports[`explicit-key.yml 2`] = `
+exports[`explicit-key.yml - yaml-verify: explicit-key.yml 2`] = `
 ? key1
 : value
 ? key2
@@ -154,7 +154,7 @@ key2:
 
 `;
 
-exports[`in-sequence.yml 1`] = `
+exports[`in-sequence.yml - yaml-verify: in-sequence.yml 1`] = `
 - a: b
   c: d
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -163,7 +163,7 @@ exports[`in-sequence.yml 1`] = `
 
 `;
 
-exports[`in-sequence.yml 2`] = `
+exports[`in-sequence.yml - yaml-verify: in-sequence.yml 2`] = `
 - a: b
   c: d
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -172,7 +172,7 @@ exports[`in-sequence.yml 2`] = `
 
 `;
 
-exports[`key-with-leading-comment.yml 1`] = `
+exports[`key-with-leading-comment.yml - yaml-verify: key-with-leading-comment.yml 1`] = `
 ? # comment
   key
 : value
@@ -183,7 +183,7 @@ exports[`key-with-leading-comment.yml 1`] = `
 
 `;
 
-exports[`key-with-leading-comment.yml 2`] = `
+exports[`key-with-leading-comment.yml - yaml-verify: key-with-leading-comment.yml 2`] = `
 ? # comment
   key
 : value
@@ -194,7 +194,7 @@ exports[`key-with-leading-comment.yml 2`] = `
 
 `;
 
-exports[`mapping.yml 1`] = `
+exports[`mapping.yml - yaml-verify: mapping.yml 1`] = `
 key:
   key: value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -203,7 +203,7 @@ key:
 
 `;
 
-exports[`mapping.yml 2`] = `
+exports[`mapping.yml - yaml-verify: mapping.yml 2`] = `
 key:
   key: value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -212,7 +212,7 @@ key:
 
 `;
 
-exports[`middle-comment.yml 1`] = `
+exports[`middle-comment.yml - yaml-verify: middle-comment.yml 1`] = `
 !!map # comment
 a: 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -221,7 +221,7 @@ a: 123
 
 `;
 
-exports[`middle-comment.yml 2`] = `
+exports[`middle-comment.yml - yaml-verify: middle-comment.yml 2`] = `
 !!map # comment
 a: 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -230,7 +230,7 @@ a: 123
 
 `;
 
-exports[`middle-comments.yml 1`] = `
+exports[`middle-comments.yml - yaml-verify: middle-comments.yml 1`] = `
 !!map # comment 1
 # comment 2
 a: 123
@@ -242,7 +242,7 @@ a: 123
 
 `;
 
-exports[`middle-comments.yml 2`] = `
+exports[`middle-comments.yml - yaml-verify: middle-comments.yml 2`] = `
 !!map # comment 1
 # comment 2
 a: 123
@@ -254,7 +254,7 @@ a: 123
 
 `;
 
-exports[`props.yml 1`] = `
+exports[`props.yml - yaml-verify: props.yml 1`] = `
 --- !!map &anchor
 a: 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -263,7 +263,7 @@ a: 123
 
 `;
 
-exports[`props.yml 2`] = `
+exports[`props.yml - yaml-verify: props.yml 2`] = `
 --- !!map &anchor
 a: 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -272,7 +272,7 @@ a: 123
 
 `;
 
-exports[`props-in-map.yml 1`] = `
+exports[`props-in-map.yml - yaml-verify: props-in-map.yml 1`] = `
 a: !!map &anchor
   a: 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -281,7 +281,7 @@ a: !!map &anchor
 
 `;
 
-exports[`props-in-map.yml 2`] = `
+exports[`props-in-map.yml - yaml-verify: props-in-map.yml 2`] = `
 a: !!map &anchor
   a: 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -290,7 +290,7 @@ a: !!map &anchor
 
 `;
 
-exports[`quote-key.yml 1`] = `
+exports[`quote-key.yml - yaml-verify: quote-key.yml 1`] = `
 "a": 123
 'b': 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -299,7 +299,7 @@ exports[`quote-key.yml 1`] = `
 
 `;
 
-exports[`quote-key.yml 2`] = `
+exports[`quote-key.yml - yaml-verify: quote-key.yml 2`] = `
 "a": 123
 'b': 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -308,7 +308,7 @@ exports[`quote-key.yml 2`] = `
 
 `;
 
-exports[`sequence.yml 1`] = `
+exports[`sequence.yml - yaml-verify: sequence.yml 1`] = `
 key:
 - value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -317,7 +317,7 @@ key:
 
 `;
 
-exports[`sequence.yml 2`] = `
+exports[`sequence.yml - yaml-verify: sequence.yml 2`] = `
 key:
 - value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -326,7 +326,7 @@ key:
 
 `;
 
-exports[`tag-key.yml 1`] = `
+exports[`tag-key.yml - yaml-verify: tag-key.yml 1`] = `
 ? !!tag key
 : value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -334,7 +334,7 @@ exports[`tag-key.yml 1`] = `
 
 `;
 
-exports[`tag-key.yml 2`] = `
+exports[`tag-key.yml - yaml-verify: tag-key.yml 2`] = `
 ? !!tag key
 : value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

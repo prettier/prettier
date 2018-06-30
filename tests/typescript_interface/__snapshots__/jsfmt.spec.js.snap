@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abstract.ts 1`] = `
+exports[`abstract.ts - typescript-verify: abstract.ts 1`] = `
 abstract interface I {
 
 }
@@ -9,7 +9,7 @@ abstract interface I {}
 
 `;
 
-exports[`abstract.ts 2`] = `
+exports[`abstract.ts - typescript-verify: abstract.ts 2`] = `
 abstract interface I {
 
 }
@@ -18,7 +18,7 @@ abstract interface I {}
 
 `;
 
-exports[`comments.js 1`] = `
+exports[`comments.js - typescript-verify: comments.js 1`] = `
 interface ScreenObject {
 	// I make things weird.
 	at(point: Point): Screen | undefined;
@@ -31,7 +31,7 @@ interface ScreenObject {
 
 `;
 
-exports[`comments.js 2`] = `
+exports[`comments.js - typescript-verify: comments.js 2`] = `
 interface ScreenObject {
 	// I make things weird.
 	at(point: Point): Screen | undefined;
@@ -44,7 +44,7 @@ interface ScreenObject {
 
 `;
 
-exports[`ignore.js 1`] = `
+exports[`ignore.js - typescript-verify: ignore.js 1`] = `
 interface Interface {
   // prettier-ignore
   prop: type
@@ -77,7 +77,7 @@ interface Interface {
 
 `;
 
-exports[`ignore.js 2`] = `
+exports[`ignore.js - typescript-verify: ignore.js 2`] = `
 interface Interface {
   // prettier-ignore
   prop: type
@@ -110,7 +110,7 @@ interface Interface {
 
 `;
 
-exports[`long-extends.ts 1`] = `
+exports[`long-extends.ts - typescript-verify: long-extends.ts 1`] = `
 export interface I extends A, B, C {
   c: string;
 }
@@ -161,7 +161,7 @@ export interface ThirdVeryLongAndBoringInterfaceName
 
 `;
 
-exports[`long-extends.ts 2`] = `
+exports[`long-extends.ts - typescript-verify: long-extends.ts 2`] = `
 export interface I extends A, B, C {
   c: string;
 }
@@ -212,7 +212,7 @@ export interface ThirdVeryLongAndBoringInterfaceName
 
 `;
 
-exports[`separator.ts 1`] = `
+exports[`separator.ts - typescript-verify: separator.ts 1`] = `
 declare module 'selenium-webdriver' {
   export const until: {
     ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>;
@@ -250,7 +250,7 @@ interface Test {
 
 `;
 
-exports[`separator.ts 2`] = `
+exports[`separator.ts - typescript-verify: separator.ts 2`] = `
 declare module 'selenium-webdriver' {
   export const until: {
     ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>;

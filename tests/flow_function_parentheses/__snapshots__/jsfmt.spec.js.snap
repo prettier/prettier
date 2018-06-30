@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`single.js 1`] = `
+exports[`single.js - flow-verify: single.js 1`] = `
 const selectorByPath:
   Path
  => SomethingSelector<
@@ -17,7 +17,7 @@ const selectorByPath: Path => SomethingSelector<
 
 `;
 
-exports[`single.js 2`] = `
+exports[`single.js - flow-verify: single.js 2`] = `
 const selectorByPath:
   Path
  => SomethingSelector<
@@ -34,7 +34,7 @@ const selectorByPath: Path => SomethingSelector<
 
 `;
 
-exports[`single.js 3`] = `
+exports[`single.js - flow-verify: single.js 3`] = `
 const selectorByPath:
   Path
  => SomethingSelector<
@@ -51,7 +51,7 @@ const selectorByPath: (Path) => SomethingSelector<
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify: test.js 1`] = `
 type Banana = {
   eat: string => boolean,
 };
@@ -174,7 +174,7 @@ type T = ??(() => A) | B;
 
 `;
 
-exports[`test.js 2`] = `
+exports[`test.js - flow-verify: test.js 2`] = `
 type Banana = {
   eat: string => boolean,
 };
@@ -297,7 +297,7 @@ type T = ??(() => A) | B;
 
 `;
 
-exports[`test.js 3`] = `
+exports[`test.js - flow-verify: test.js 3`] = `
 type Banana = {
   eat: string => boolean,
 };

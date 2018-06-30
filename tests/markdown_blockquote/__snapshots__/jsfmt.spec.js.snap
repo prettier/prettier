@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`code.md 1`] = `
+exports[`code.md - markdown-verify: code.md 1`] = `
 > NOTE: To use \`unobtrusive\`, \`unobtrusive/import\`, \`unobtrusive/react\`, and \`unobtrusive/flowtype\` together, your eslint config would look like this:
 >\`\`\`json
 >{
@@ -35,7 +35,7 @@ exports[`code.md 1`] = `
 
 `;
 
-exports[`ignore-code.md 1`] = `
+exports[`ignore-code.md - markdown-verify: ignore-code.md 1`] = `
 > \`\`\`\`md
 > <!-- prettier-ignore -->
 > \`\`\`js
@@ -142,14 +142,14 @@ exports[`ignore-code.md 1`] = `
 
 `;
 
-exports[`nested.md 1`] = `
+exports[`nested.md - markdown-verify: nested.md 1`] = `
 >>> 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > > > 123
 
 `;
 
-exports[`paragraph.md 1`] = `
+exports[`paragraph.md - markdown-verify: paragraph.md 1`] = `
 > This is a long long long long long long long long long long long long long long long paragraph.
 > This is a long long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -159,7 +159,7 @@ exports[`paragraph.md 1`] = `
 
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md - markdown-verify: simple.md 1`] = `
 > 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 123

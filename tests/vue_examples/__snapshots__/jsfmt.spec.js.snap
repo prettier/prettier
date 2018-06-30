@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`board_card.vue 1`] = `
+exports[`board_card.vue - vue-verify: board_card.vue 1`] = `
 <script>
 import './issue_card_inner';
 import eventHub from '../eventhub';
@@ -151,7 +151,7 @@ export default {
 
 `;
 
-exports[`board_card.vue 2`] = `
+exports[`board_card.vue - vue-verify: board_card.vue 2`] = `
 <script>
 import './issue_card_inner';
 import eventHub from '../eventhub';
@@ -302,7 +302,7 @@ export default {
 
 `;
 
-exports[`self_closing.vue 1`] = `
+exports[`self_closing.vue - vue-verify: self_closing.vue 1`] = `
 <template>
   <div />
 </template>
@@ -321,7 +321,7 @@ foo();
 
 `;
 
-exports[`self_closing.vue 2`] = `
+exports[`self_closing.vue - vue-verify: self_closing.vue 2`] = `
 <template>
   <div />
 </template>
@@ -340,7 +340,7 @@ foo();
 
 `;
 
-exports[`self_closing_style.vue 1`] = `
+exports[`self_closing_style.vue - vue-verify: self_closing_style.vue 1`] = `
 <template>
   <span :class="$style.root"><slot /></span>
 </template>
@@ -355,7 +355,7 @@ exports[`self_closing_style.vue 1`] = `
 
 `;
 
-exports[`self_closing_style.vue 2`] = `
+exports[`self_closing_style.vue - vue-verify: self_closing_style.vue 2`] = `
 <template>
   <span :class="$style.root"><slot /></span>
 </template>
@@ -370,7 +370,7 @@ exports[`self_closing_style.vue 2`] = `
 
 `;
 
-exports[`test.vue 1`] = `
+exports[`test.vue - vue-verify: test.vue 1`] = `
 <script>
 </script>
 
@@ -395,7 +395,7 @@ exports[`test.vue 1`] = `
 
 `;
 
-exports[`test.vue 2`] = `
+exports[`test.vue - vue-verify: test.vue 2`] = `
 <script>
 </script>
 

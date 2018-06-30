@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditional.js 1`] = `
+exports[`conditional.js - flow-verify: conditional.js 1`] = `
 (valid
   ? helper.responseBody(this.currentUser)
   : helper.responseBody(this.defaultUser))
@@ -13,7 +13,7 @@ exports[`conditional.js 1`] = `
 
 `;
 
-exports[`expand.js 1`] = `
+exports[`expand.js - flow-verify: expand.js 1`] = `
 const veryVeryVeryVeryVeryVeryVeryLong = doc.expandedStates[doc.expandedStates.length - 1];
 const small = doc.expandedStates[doc.expandedStates.length - 1];
 
@@ -99,7 +99,7 @@ window.FooClient.something
 
 `;
 
-exports[`logical.js 1`] = `
+exports[`logical.js - flow-verify: logical.js 1`] = `
 (veryLongVeryLongVeryLong || e).prop;
 
 (veryLongVeryLongVeryLong || anotherVeryLongVeryLongVeryLong || veryVeryVeryLongError).prop;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary.js 1`] = `
+exports[`binary.js - flow-verify: binary.js 1`] = `
 (class {}) + 1;
 (class a {}) + 1;
 (class extends b {}) + 1;
@@ -13,7 +13,7 @@ exports[`binary.js 1`] = `
 
 `;
 
-exports[`break.js 1`] = `
+exports[`break.js - flow-verify: break.js 1`] = `
 class MyContractSelectionWidget extends React.Component<void,  MyContractSelectionWidgetPropsType, void> implements SomethingLarge {
   method() {}
 }
@@ -91,14 +91,14 @@ export class VisTimelineComponent2
 
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js - flow-verify: call.js 1`] = `
 (class {})(class {});
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 (class {}(class {}));
 
 `;
 
-exports[`empty.js 1`] = `
+exports[`empty.js - flow-verify: empty.js 1`] = `
 class A {
   // comment
 }
@@ -129,7 +129,7 @@ class A {
 
 `;
 
-exports[`member.js 1`] = `
+exports[`member.js - flow-verify: member.js 1`] = `
 (class {})[1];
 (class {}).a;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -138,7 +138,7 @@ exports[`member.js 1`] = `
 
 `;
 
-exports[`method.js 1`] = `
+exports[`method.js - flow-verify: method.js 1`] = `
 
 class C {
   name/*comment*/() {
@@ -161,7 +161,7 @@ class C {
 
 `;
 
-exports[`property.js 1`] = `
+exports[`property.js - flow-verify: property.js 1`] = `
 class A {
   foobar =
     // comment to break
@@ -202,7 +202,7 @@ class B {
 
 `;
 
-exports[`ternary.js 1`] = `
+exports[`ternary.js - flow-verify: ternary.js 1`] = `
 if (1) (class {}) ? 1 : 2;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if (1) (class {} ? 1 : 2);

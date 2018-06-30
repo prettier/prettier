@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`unknown.ts 1`] = `
+exports[`unknown.ts - typescript-verify: unknown.ts 1`] = `
 type T00 = unknown;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type T00 = unknown;

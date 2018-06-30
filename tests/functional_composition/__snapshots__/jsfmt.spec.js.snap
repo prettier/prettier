@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`functional_compose.js 1`] = `
+exports[`functional_compose.js - flow-verify: functional_compose.js 1`] = `
 compose(
   sortBy(x => x), 
   flatten, 
@@ -57,7 +57,7 @@ const hasValue = hasOwnProperty(a, b);
 
 `;
 
-exports[`lodash_flow.js 1`] = `
+exports[`lodash_flow.js - flow-verify: lodash_flow.js 1`] = `
 import { flow } from "lodash";
 
 const foo = flow(
@@ -100,7 +100,7 @@ foo(6);
 
 `;
 
-exports[`lodash_flow_right.js 1`] = `
+exports[`lodash_flow_right.js - flow-verify: lodash_flow_right.js 1`] = `
 import { flowRight } from "lodash";
 
 const foo = flowRight(
@@ -143,7 +143,7 @@ foo(6);
 
 `;
 
-exports[`ramda_compose.js 1`] = `
+exports[`ramda_compose.js - flow-verify: ramda_compose.js 1`] = `
 var classyGreeting = (firstName, lastName) =>
   "The name's " + lastName + ", " + firstName + " " + lastName;
 var yellGreeting = R.compose(R.toUpper, classyGreeting);
@@ -237,7 +237,7 @@ followersForUser("JOE").then(followers => console.log("Followers:", followers));
 
 `;
 
-exports[`ramda_pipe.js 1`] = `
+exports[`ramda_pipe.js - flow-verify: ramda_pipe.js 1`] = `
 var f = R.pipe(Math.pow, R.negate, R.inc);
 
 f(3, 4); // -(3^4) + 1
@@ -298,7 +298,7 @@ var followersForUser = R.pipeP(
 
 `;
 
-exports[`redux_compose.js 1`] = `
+exports[`redux_compose.js - flow-verify: redux_compose.js 1`] = `
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import DevTools from './containers/DevTools';
@@ -328,7 +328,7 @@ const store = createStore(
 
 `;
 
-exports[`redux_connect.js 1`] = `
+exports[`redux_connect.js - flow-verify: redux_connect.js 1`] = `
 const ArtistInput = connect(mapStateToProps, mapDispatchToProps, mergeProps)(Component);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const ArtistInput = connect(
@@ -339,7 +339,7 @@ const ArtistInput = connect(
 
 `;
 
-exports[`rxjs_pipe.js 1`] = `
+exports[`rxjs_pipe.js - flow-verify: rxjs_pipe.js 1`] = `
 import { range } from 'rxjs/observable/range';
 import { map, filter, scan } from 'rxjs/operators';
 

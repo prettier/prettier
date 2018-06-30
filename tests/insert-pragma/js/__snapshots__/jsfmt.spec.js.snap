@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`module-with-late-docblock.js 1`] = `
+exports[`module-with-late-docblock.js - flow-verify: module-with-late-docblock.js 1`] = `
 function foo(bar) { 
   return bar + 3 + 4;
 }
@@ -24,7 +24,7 @@ const fruit = "tomatoes";
 
 `;
 
-exports[`module-with-multiple-same-pragma.js 1`] = `
+exports[`module-with-multiple-same-pragma.js - flow-verify: module-with-multiple-same-pragma.js 1`] = `
 /**
  * @x 1
  * @x 2
@@ -38,7 +38,7 @@ exports[`module-with-multiple-same-pragma.js 1`] = `
 
 `;
 
-exports[`module-with-pragma.js 1`] = `
+exports[`module-with-pragma.js - flow-verify: module-with-pragma.js 1`] = `
 /**
  * Here lie words above pragmas
  * 
@@ -63,7 +63,7 @@ function foo(bar) {
 
 `;
 
-exports[`module-without-docblock.js 1`] = `
+exports[`module-without-docblock.js - flow-verify: module-without-docblock.js 1`] = `
 function foo(bar) { 
   return bar + 3 + 4;
 }
@@ -76,7 +76,7 @@ function foo(bar) {
 
 `;
 
-exports[`module-without-pragma.js 1`] = `
+exports[`module-without-pragma.js - flow-verify: module-without-pragma.js 1`] = `
 /**
  * @flow
  * 
@@ -100,7 +100,7 @@ function foo(bar) {
 
 `;
 
-exports[`trailing-spaces-first-line.js 1`] = `
+exports[`trailing-spaces-first-line.js - flow-verify: trailing-spaces-first-line.js 1`] = `
 /**	
  * Copyright (c) 2015-present, Facebook, Inc.	
  * All rights reserved.	

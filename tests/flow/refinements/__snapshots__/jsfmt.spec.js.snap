@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`assignment.js 1`] = `
+exports[`assignment.js - flow-verify: assignment.js 1`] = `
 /* @flow */
 
 function foo(x : ?number) {
@@ -71,7 +71,7 @@ function bar2(x: Bar) {
 
 `;
 
-exports[`ast_node.js 1`] = `
+exports[`ast_node.js - flow-verify: ast_node.js 1`] = `
 type Node1 = {
   kind: 'Node1',
   prop1?: string
@@ -98,7 +98,7 @@ export type ASTNode = Node1 | Node2;
 
 `;
 
-exports[`bool.js 1`] = `
+exports[`bool.js - flow-verify: bool.js 1`] = `
 /* @flow */
 
 function foo(x: ?bool) {
@@ -195,7 +195,7 @@ let tests = [
 
 `;
 
-exports[`computed_string_literal.js 1`] = `
+exports[`computed_string_literal.js - flow-verify: computed_string_literal.js 1`] = `
 // @flow
 
 type A = {
@@ -238,7 +238,7 @@ function testLiteralProperty(a: A) {
 
 `;
 
-exports[`cond_prop.js 1`] = `
+exports[`cond_prop.js - flow-verify: cond_prop.js 1`] = `
 /* @flow */
 
 type Type = Name | ListType | NonNullType;
@@ -345,7 +345,7 @@ let tests = [
 
 `;
 
-exports[`constants.js 1`] = `
+exports[`constants.js - flow-verify: constants.js 1`] = `
 /* @flow */
 
 export const SUCCESS: 'SUCCESS' = 'SUCCESS';
@@ -358,7 +358,7 @@ export const ERROR: "ERROR" = "ERROR";
 
 `;
 
-exports[`eq.js 1`] = `
+exports[`eq.js - flow-verify: eq.js 1`] = `
 /* @flow */
 
 let tests = [
@@ -414,7 +414,7 @@ let tests = [
 
 `;
 
-exports[`exists.js 1`] = `
+exports[`exists.js - flow-verify: exists.js 1`] = `
 declare class Foo {
   foo: string;
 }
@@ -449,7 +449,7 @@ function foo2(x: ?Class<Foo>): string {
 
 `;
 
-exports[`func_call.js 1`] = `
+exports[`func_call.js - flow-verify: func_call.js 1`] = `
 // @flow
 
 let tests = [
@@ -478,7 +478,7 @@ let tests = [
 
 `;
 
-exports[`hasOwnProperty.js 1`] = `
+exports[`hasOwnProperty.js - flow-verify: hasOwnProperty.js 1`] = `
 /* @flow */
 
 function foo(x:{y?:() => void}) {
@@ -525,7 +525,7 @@ function bar(x: Object) {
 
 `;
 
-exports[`heap_defassign.js 1`] = `
+exports[`heap_defassign.js - flow-verify: heap_defassign.js 1`] = `
 // @flow
 
 type Obj = { p: number | string }
@@ -698,7 +698,7 @@ function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
 
 `;
 
-exports[`lib.js 1`] = `
+exports[`lib.js - flow-verify: lib.js 1`] = `
 /* @flow */
 
 declare var BAZ: {stuff?: (x: number) => void} | void;
@@ -709,7 +709,7 @@ declare var BAZ: { stuff?: (x: number) => void } | void;
 
 `;
 
-exports[`missing-property-cond.js 1`] = `
+exports[`missing-property-cond.js - flow-verify: missing-property-cond.js 1`] = `
 // @flow
 
 function foo1(o: { x: number }) {
@@ -850,7 +850,7 @@ function foo9() {
 
 `;
 
-exports[`mixed.js 1`] = `
+exports[`mixed.js - flow-verify: mixed.js 1`] = `
 /* @flow */
 
 function takesNumber(x: number) {}
@@ -1097,14 +1097,14 @@ function arr0(x: mixed) {
 
 `;
 
-exports[`node1.js 1`] = `
+exports[`node1.js - flow-verify: node1.js 1`] = `
 module.exports = 'Node1';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 module.exports = "Node1";
 
 `;
 
-exports[`not.js 1`] = `
+exports[`not.js - flow-verify: not.js 1`] = `
 /* @flow */
 
 function foo(x: ?bool) {
@@ -1213,7 +1213,7 @@ let tests = [
 
 `;
 
-exports[`null.js 1`] = `
+exports[`null.js - flow-verify: null.js 1`] = `
 /* @flow */
 
 function null_bogus_comparison() {
@@ -1238,7 +1238,7 @@ function null_bogus_comparison() {
 
 `;
 
-exports[`number.js 1`] = `
+exports[`number.js - flow-verify: number.js 1`] = `
 // @flow
 
 type Mode = 0 | 1 | 2;
@@ -1485,7 +1485,7 @@ let tests = [
 
 `;
 
-exports[`property.js 1`] = `
+exports[`property.js - flow-verify: property.js 1`] = `
 /* @flow */
 
 function a(x: {[key: string]: ?string}, y: string): string {
@@ -1657,7 +1657,7 @@ function c3(
 
 `;
 
-exports[`refinements.js 1`] = `
+exports[`refinements.js - flow-verify: refinements.js 1`] = `
 function foo(b) {
     var x = b? 0 : null;
     while (typeof x == "string" || typeof x == "number") {
@@ -1820,7 +1820,7 @@ function global_in_conditional2(x: number) {
 
 `;
 
-exports[`string.js 1`] = `
+exports[`string.js - flow-verify: string.js 1`] = `
 // @flow
 
 type Mode = "a" | "b" | "c";
@@ -2093,7 +2093,7 @@ let tests = [
 
 `;
 
-exports[`super_member.js 1`] = `
+exports[`super_member.js - flow-verify: super_member.js 1`] = `
 /* @flow */
 
 class A {
@@ -2151,7 +2151,7 @@ class C extends A {
 
 `;
 
-exports[`switch.js 1`] = `
+exports[`switch.js - flow-verify: switch.js 1`] = `
 /* @flow */
 
 function foo(text: string | number): string {
@@ -2266,7 +2266,7 @@ function corge(text: string | number | Array<string>): string {
 
 `;
 
-exports[`tagged_union.js 1`] = `
+exports[`tagged_union.js - flow-verify: tagged_union.js 1`] = `
 // example 1
 
 type Type = Name | ListType;
@@ -2836,7 +2836,7 @@ let tests = [
 
 `;
 
-exports[`tagged_union_import.js 1`] = `
+exports[`tagged_union_import.js - flow-verify: tagged_union_import.js 1`] = `
 /* @flow */
 
 import { SUCCESS, ERROR } from './constants'
@@ -2887,7 +2887,7 @@ function handleStatus(status: Success | Error) {
 
 `;
 
-exports[`typeof.js 1`] = `
+exports[`typeof.js - flow-verify: typeof.js 1`] = `
 /* @flow */
 
 function foo(x: bool | number) {
@@ -3020,7 +3020,7 @@ function testInvalidTemplateLiteral(x: string | number) {
 
 `;
 
-exports[`undef.js 1`] = `
+exports[`undef.js - flow-verify: undef.js 1`] = `
 /* @flow */
 
 function undef_var(x: ?number) {
@@ -3185,7 +3185,7 @@ function undef_bogus_comparison() {
 
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js - flow-verify: union.js 1`] = `
 /* @flow */
 
 type thing = number | bool
@@ -3232,7 +3232,7 @@ function baz(x: ?thing) {
 
 `;
 
-exports[`void.js 1`] = `
+exports[`void.js - flow-verify: void.js 1`] = `
 /* @flow */
 
 function void_var(x: ?number) {

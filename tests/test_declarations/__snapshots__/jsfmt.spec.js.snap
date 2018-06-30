@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`angular_async.js 1`] = `
+exports[`angular_async.js - flow-verify: angular_async.js 1`] = `
 beforeEach(async(() => {
   // code
 }));
@@ -51,7 +51,7 @@ function x() {
 
 `;
 
-exports[`angular_async.js 2`] = `
+exports[`angular_async.js - flow-verify: angular_async.js 2`] = `
 beforeEach(async(() => {
   // code
 }));
@@ -102,7 +102,7 @@ function x() {
 
 `;
 
-exports[`angularjs_inject.js 1`] = `
+exports[`angularjs_inject.js - flow-verify: angularjs_inject.js 1`] = `
 beforeEach(inject(($fooService, $barService) => {
   // code
 }));
@@ -164,7 +164,7 @@ function x() {
 
 `;
 
-exports[`angularjs_inject.js 2`] = `
+exports[`angularjs_inject.js - flow-verify: angularjs_inject.js 2`] = `
 beforeEach(inject(($fooService, $barService) => {
   // code
 }));
@@ -226,7 +226,7 @@ function x() {
 
 `;
 
-exports[`jest-each.js 1`] = `
+exports[`jest-each.js - flow-verify: jest-each.js 1`] = `
 describe.each\`
 a|b|expected
 \${11   } | \${  1  }|\${222}
@@ -324,7 +324,7 @@ describe.each\`
 
 `;
 
-exports[`jest-each.js 2`] = `
+exports[`jest-each.js - flow-verify: jest-each.js 2`] = `
 describe.each\`
 a|b|expected
 \${11   } | \${  1  }|\${222}
@@ -422,7 +422,7 @@ describe.each\`
 
 `;
 
-exports[`test_declarations.js 1`] = `
+exports[`test_declarations.js - flow-verify: test_declarations.js 1`] = `
 // Shouldn't break
 
 it("does something really long and complicated so I have to write a very long name for the test", () => {
@@ -652,7 +652,7 @@ xskip(
 
 `;
 
-exports[`test_declarations.js 2`] = `
+exports[`test_declarations.js - flow-verify: test_declarations.js 2`] = `
 // Shouldn't break
 
 it("does something really long and complicated so I have to write a very long name for the test", () => {
