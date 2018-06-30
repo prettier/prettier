@@ -20,7 +20,7 @@ function run_spec(dirname, parsers, options) {
     // We need to have a skipped test with the same name of the snapshots,
     // so Jest doesn't mark them as obsolete.
     if (TEST_STANDALONE && parsers.some(skipStandalone)) {
-      test.skip(filename);
+      test.skip(filename, () => {});
       return;
     }
 
