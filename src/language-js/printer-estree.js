@@ -4572,8 +4572,11 @@ function printMemberChain(path, options, print) {
   if (
     hasComment ||
     (callExpressionCount >= 3 &&
-      options.originalText.slice(node.loc.start, node.loc.end).indexOf("\n") !==
-        -1) ||
+      hasNewlineInRange(
+        options.originalText,
+        options.locStart(node),
+        options.locEnd(node)
+      ) !== -1) ||
     printedGroups.slice(0, -1).some(willBreak)
   ) {
     return group(expanded);
