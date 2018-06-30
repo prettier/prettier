@@ -369,6 +369,7 @@ function needsParens(path, options) {
         case "ExperimentalSpreadProperty":
         case "TSAsExpression":
         case "TSNonNullExpression":
+        case "BindExpression":
           return true;
 
         case "MemberExpression":
