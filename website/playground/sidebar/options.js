@@ -9,6 +9,7 @@ export function BooleanOption({ option, value, onChange }) {
   return (
     <Checkbox
       label={option.cliName}
+      title={option.description && option.description.replace(/\n/g, " ")}
       checked={maybeInvert(value)}
       onChange={checked => onChange(option, maybeInvert(checked))}
     />
@@ -19,6 +20,7 @@ export function ChoiceOption({ option, value, onChange }) {
   return (
     <Select
       label={option.cliName}
+      title={option.description && option.description.replace(/\n/g, " ")}
       values={option.choices.map(choice => choice.value)}
       selected={value}
       onChange={val => onChange(option, val)}
@@ -30,6 +32,7 @@ export function NumberOption({ option, value, onChange }) {
   return (
     <NumberInput
       label={option.cliName}
+      title={option.description && option.description.replace(/\n/g, " ")}
       min={option.range.start}
       max={option.range.end}
       step={option.range.step}
