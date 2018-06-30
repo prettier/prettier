@@ -1,0 +1,191 @@
+// https://github.com/prettier/prettier/issues/1565#issue-227278195
+d3
+  .select("body")
+  .selectAll("p")
+  .data([1, 2])
+  .enter()
+  .style("color", "white");
+
+d3
+  .select("body")
+  .selectAll("p")
+  .data([1, 2, 3])
+  .enter()
+  .style("color", "white");
+
+// https://github.com/prettier/prettier/issues/1565#issuecomment-300133602
+point().x(4).y(3).z(6).plot();
+point()
+  .x(4)
+  .y(3)
+  .z(6)
+  .plot();
+
+// https://github.com/prettier/prettier/issues/1565#issuecomment-305208956
+d3.select("body").selectAll("p").data([1, 2]).enter().style("color", "white");
+d3.select("body").selectAll("p")
+  .data([1, 2])
+  .enter()
+  .style("color", "white");
+d3
+  .select("body")
+  .selectAll("p")
+  .data([1, 2])
+  .enter()
+  .style("color", "white");
+
+// https://github.com/prettier/prettier/issues/1565#issuecomment-313638802
+Object.keys(props)
+  .filter(key => key in own === false)
+  .reduce((a, key) => {
+    a[key] = props[key];
+
+    return a;
+  }, {});
+Object.keys(props).filter(key => key in own === false).reduce((a, key) => {
+  a[key] = props[key];
+
+  return a;
+}, {}),
+
+// https://github.com/prettier/prettier/issues/1565#issuecomment-339801188
+assert.equal(this.$().text().trim(), '1000');
+assert.equal(
+  this.$()
+    .text()
+    .trim(),
+  '1000'
+);
+
+// https://github.com/prettier/prettier/issues/1565#issuecomment-339806934
+something().then(() => doSomethingElse()).then(result => dontForgetThisAsWell(result))
+something()
+    .then(() => doSomethingElse())
+    .then(result => dontForgetThisAsWell(result))
+
+// https://github.com/prettier/prettier/issues/1565#issuecomment-343767549
+db.branch(
+  db.table('users').filter({ email }).count(),
+  db.table('users').insert({ email }),
+  db.table('users').filter({ email }),
+)
+db.branch(
+  db
+    .table('users')
+    .filter({ email })
+    .count(),
+  db.table('users').insert({ email }),
+  db.table('users').filter({ email }),
+)
+
+// https://github.com/prettier/prettier/issues/1565#issuecomment-353593286
+const API = (notificationService: NotificationService) => ({
+  get: (ctx: any) => notificationService.get(ctx.params.id).then(ctx.ok),
+  getByUserAndKey: (ctx: any) => notifciationService.getByUserAndKey({ ...ctx.params }).then(ctx.ok),
+  find: (ctx: any) => notificationService.find(ctx.query).then(ctx.ok),
+  create: (ctx: any) => notificationService.create(ctx.request.body).then(ctx.created),
+  setStatus: (ctx: any) => notificationService.setStatus({
+    id: ctx.params.id,
+    status: ctx.request.body.status
+  }).then(ctx.ok),
+  setStatusBulk: (ctx: any) => notificationService.setStatusForMultiple(ctx.request.body).then(ctx.ok),
+  cancel: (ctx: any) => notificationService.cancel({ key: ctx.params.key, userId: ctx.params.userId }).then(ctx.noContent)
+})
+const API2 = (notificationService: NotificationService) => ({
+  get: (ctx: any) =>
+    notificationService
+      .get(ctx.params.id)
+      .then(ctx.ok),
+  getByUserAndKey: (ctx: any) =>
+    notifciationService
+      .getByUserAndKey({ ...ctx.params })
+      .then(ctx.ok),
+  find: (ctx: any) =>
+    notificationService
+      .find(ctx.query)
+      .then(ctx.ok),
+  create: (ctx: any) =>
+    notificationService
+      .create(ctx.request.body)
+      .then(ctx.created),
+  setStatus: (ctx: any) =>
+    notificationService
+      .setStatus({
+        id: ctx.params.id,
+        status: ctx.request.body.status
+      })
+      .then(ctx.ok),
+  setStatusBulk: (ctx: any) =>
+    notificationService
+      .setStatusForMultiple(ctx.request.body)
+      .then(ctx.ok),
+  cancel: (ctx: any) =>
+    notificationService
+      .cancel({ key: ctx.params.key, userId: ctx.params.userId })
+      .then(ctx.noContent)
+})
+
+// https://github.com/prettier/prettier/issues/1565#issuecomment-372455046
+sandbox.stub(config, 'get').withArgs('env').returns('dev')
+sandbox
+  .stub(config, 'get')
+  .withArgs('env')
+  .returns('dev')
+
+// https://github.com/prettier/prettier/issues/1565#issuecomment-372469267
+moment.utc(userInput).hour(0).minute(0).second(0)
+moment
+  .utc(userInput)
+  .hour(0)
+  .minute(0)
+  .second(0)
+fetchUser(id)
+  .then(fetchAccountForUser)
+  .catch(handleFetchError)
+fetchUser(id).then(fetchAccountForUser).catch(handleFetchError)
+
+// https://github.com/prettier/prettier/issues/1565#issuecomment-375594875
+const { error } = Joi.validate(promotion, Joi.object().keys({
+  companyId: Joi.number().integer().required(),
+  newPlanId: Joi.number().integer().required(),
+  oldPlanId: Joi.number().integer(),
+  oldPlanPrice: Joi.number(),
+  start: Joi.date().iso().required(),
+  end: Joi.date().iso().min(Joi.ref('start')).required()
+}));
+const { error } = Joi.validate(
+  promotion,
+  Joi.object().keys({
+    companyId: Joi.number()
+    .integer()
+    .required(),
+    newPlanId: Joi.number()
+    .integer()
+    .required(),
+    oldPlanId: Joi.number().integer(),
+    oldPlanPrice: Joi.number(),
+    start: Joi.date()
+    .iso()
+    .required(),
+    end: Joi.date()
+    .iso()
+    .min(Joi.ref('start'))
+    .required()
+  })
+);
+
+// https://github.com/prettier/prettier/issues/1565#issuecomment-399123593
+const a1 = b1.c1().d1();
+const a2 = b2
+            .c2()
+            .d2()
+            .e2();
+
+fetchApi().then(res => res.data).catch(err => err.stack);
+
+const a3 = b1.c1().d1();
+const a4 = b2.c2().d2().e2();
+
+fetchApi()
+         .then(res => res.data)
+         .catch(err => err.stack);
