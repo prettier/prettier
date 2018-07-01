@@ -9,7 +9,7 @@ export function BooleanOption({ option, value, onChange }) {
   return (
     <Checkbox
       label={option.cliName}
-      title={option.description && option.description.replace(/\n/g, " ")}
+      title={getDescription(option)}
       checked={maybeInvert(value)}
       onChange={checked => onChange(option, maybeInvert(checked))}
     />
@@ -20,7 +20,7 @@ export function ChoiceOption({ option, value, onChange }) {
   return (
     <Select
       label={option.cliName}
-      title={option.description && option.description.replace(/\n/g, " ")}
+      title={getDescription(option)}
       values={option.choices.map(choice => choice.value)}
       selected={value}
       onChange={val => onChange(option, val)}
@@ -32,7 +32,7 @@ export function NumberOption({ option, value, onChange }) {
   return (
     <NumberInput
       label={option.cliName}
-      title={option.description && option.description.replace(/\n/g, " ")}
+      title={getDescription(option)}
       min={option.range.start}
       max={option.range.end}
       step={option.range.step}
@@ -53,4 +53,11 @@ export default function(props) {
     default:
       throw new Error("unsupported type");
   }
+}
+
+function getDescription(option) {
+  const description = !option.inverted
+    ? option.description
+    : option.oppositeDescription;
+  return description && description.replace(/\n/g, " ");
 }
