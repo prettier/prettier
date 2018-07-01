@@ -4576,7 +4576,7 @@ function printMemberChain(path, options, print) {
         options.originalText,
         options.locStart(node),
         options.locEnd(node)
-      ) !== -1) ||
+      )) ||
     printedGroups.slice(0, -1).some(willBreak)
   ) {
     return group(expanded);
