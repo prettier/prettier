@@ -56,8 +56,8 @@ export default function(props) {
 }
 
 function getDescription(option) {
-  const description = !option.inverted
-    ? option.description
-    : option.oppositeDescription;
+  const description = option.inverted
+    ? option.oppositeDescription
+    : option.description;
   return description && description.replace(/\n/g, " ");
 }
