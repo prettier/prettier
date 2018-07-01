@@ -200,6 +200,53 @@ function format(context, input, opt) {
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
+  if (context.argv["debug-benchmark"]) {
+    context.logger.debug(
+      "'--debug-benchmark' option found, measuring formatWithCursor with 'benchmark' module."
+    );
+    const suite = new require("benchmark").Suite();
+    suite
+      .add("format", () => {
+        prettier.formatWithCursor(input, opt);
+      })
+      .on("cycle", event => {
+        const results = {
+          benchmark: String(event.target),
+          hz: event.target.hz,
+          ms: event.target.times.cycle * 1000
+        };
+        context.logger.debug(
+          "'--debug-benchmark' measurements for formatWithCursor: " +
+            JSON.stringify(results, null, 2)
+        );
+      })
+      .run({ async: false });
+  } else if (+context.argv["debug-repeat"] > 0) {
+    const repeat = +context.argv["debug-repeat"];
+    context.logger.debug(
+      "'--debug-repeat' option found, running formatWithCursor " +
+        repeat +
+        " times."
+    );
+    const performance = require("perf_hooks").performance;
+    let totalMs = 0;
+    for (let i = 0; i < repeat; ++i) {
+      const startMs = performance.now();
+      prettier.formatWithCursor(input, opt);
+      totalMs += performance.now() - startMs;
+    }
+    const averageMs = totalMs / repeat;
+    const results = {
+      repeat: repeat,
+      hz: 1000 / averageMs,
+      ms: averageMs
+    };
+    context.logger.debug(
+      "'--debug-repeat' measurements for formatWithCursor: " +
+        JSON.stringify(results, null, 2)
+    );
+  }
+
   return prettier.formatWithCursor(input, opt);
 }
 
