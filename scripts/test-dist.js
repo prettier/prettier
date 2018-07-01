@@ -20,14 +20,11 @@ shell.exec("npm init -y", { cwd: tmpDir });
 shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
 shell.config.silent = false;
 
-const reporters =
-  require("semver").major(process.version) >= 6
+const cmd = `yarn test --color --runInBand ${
+  process.env.REPORT_SUMMARIES
     ? "--reporters default --reporters jest-junit"
-    : "";
-
-const cmd = `yarn test --color --runInBand ${reporters} ${
-  process.env.TEST_STANDALONE ? "tests/" : ""
-}`;
+    : ""
+} ${process.env.TEST_STANDALONE ? "tests/" : ""}`;
 
 const code = shell.exec(cmd, {
   cwd: rootDir,
