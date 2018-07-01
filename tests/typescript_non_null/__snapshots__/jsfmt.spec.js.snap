@@ -19,15 +19,9 @@ const {
   anotherPropThatHasALongName
 } = this.props.imReallySureAboutThis!.anotherObject;
 
-this.foo
-  .get("bar")!
-  .doThings()
-  .more();
+this.foo.get("bar")!.doThings().more();
 
-foo!
-  .bar()
-  .baz()
-  .what();
+foo!.bar().baz().what();
 
 `;
 
