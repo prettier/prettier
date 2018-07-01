@@ -1,5 +1,7 @@
 "use strict";
 
+const production = process.env.NODE_ENV === "production";
+
 function assertDoc(val) {
   /* istanbul ignore if */
   if (
@@ -12,7 +14,7 @@ function assertDoc(val) {
 }
 
 function concat(parts) {
-  if (process.env.NODE_ENV !== "production") {
+  if (!production) {
     parts.forEach(assertDoc);
   }
 
@@ -26,7 +28,7 @@ function concat(parts) {
 }
 
 function indent(contents) {
-  if (process.env.NODE_ENV !== "production") {
+  if (!production) {
     assertDoc(contents);
   }
 
@@ -34,7 +36,7 @@ function indent(contents) {
 }
 
 function align(n, contents) {
-  if (process.env.NODE_ENV !== "production") {
+  if (!production) {
     assertDoc(contents);
   }
 
@@ -44,7 +46,7 @@ function align(n, contents) {
 function group(contents, opts) {
   opts = opts || {};
 
-  if (process.env.NODE_ENV !== "production") {
+  if (!production) {
     assertDoc(contents);
   }
 
@@ -77,7 +79,7 @@ function conditionalGroup(states, opts) {
 }
 
 function fill(parts) {
-  if (process.env.NODE_ENV !== "production") {
+  if (!production) {
     parts.forEach(assertDoc);
   }
 
@@ -87,7 +89,7 @@ function fill(parts) {
 function ifBreak(breakContents, flatContents, opts) {
   opts = opts || {};
 
-  if (process.env.NODE_ENV !== "production") {
+  if (!production) {
     if (breakContents) {
       assertDoc(breakContents);
     }
@@ -105,7 +107,7 @@ function ifBreak(breakContents, flatContents, opts) {
 }
 
 function lineSuffix(contents) {
-  if (process.env.NODE_ENV !== "production") {
+  if (!production) {
     assertDoc(contents);
   }
   return { type: "line-suffix", contents };
