@@ -5,7 +5,7 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
 - First value
 + Second value
 
-@@ -12,19 +12,35 @@
+@@ -16,19 +16,35 @@
     \\"options\\": Object {
       \\"bracketSpacing\\": Object {
         \\"default\\": true,
@@ -41,7 +41,7 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"tabWidth\\": Object {
-@@ -39,17 +55,15 @@
+@@ -43,17 +59,15 @@
       \\"trailingComma\\": Object {
         \\"choices\\": Array [
           \\"none\\",
@@ -66,6 +66,10 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
 exports[`API getSupportInfo() with version 0.0.0 1`] = `
 Object {
   "languages": Object {
+    "Flow": Array [
+      "babylon",
+      "flow",
+    ],
     "JSX": Array [
       "babylon",
       "flow",
@@ -126,15 +130,18 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 - First value
 + Second value
 
-@@ -1,29 +1,59 @@
+@@ -1,7 +1,10 @@
   Object {
     \\"languages\\": Object {
 +     \\"CSS\\": Array [
 +       \\"postcss\\",
 +     ],
-      \\"JSX\\": Array [
+      \\"Flow\\": Array [
         \\"babylon\\",
         \\"flow\\",
+      ],
+      \\"JSX\\": Array [
+@@ -10,24 +13,51 @@
       ],
       \\"JavaScript\\": Array [
         \\"babylon\\",
@@ -186,7 +193,7 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
         \\"type\\": \\"choice\\",
       },
       \\"printWidth\\": Object {
-@@ -33,10 +63,28 @@
+@@ -37,10 +67,28 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -222,11 +229,11 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 - First value
 + Second value
 
-@@ -1,10 +1,16 @@
-  Object {
-    \\"languages\\": Object {
-      \\"CSS\\": Array [
-        \\"postcss\\",
+@@ -5,10 +5,16 @@
+      ],
+      \\"Flow\\": Array [
+        \\"babylon\\",
+        \\"flow\\",
       ],
 +     \\"GraphQL\\": Array [
 +       \\"graphql\\",
@@ -239,7 +246,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -50,10 +56,12 @@
+@@ -54,10 +60,12 @@
         \\"choices\\": Array [
           \\"flow\\",
           \\"babylon\\",
@@ -266,11 +273,11 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
 -       \\"postcss\\",
 +       \\"css\\",
       ],
-      \\"GraphQL\\": Array [
-        \\"graphql\\",
+      \\"Flow\\": Array [
+        \\"babylon\\",
+        \\"flow\\",
       ],
-      \\"JSON\\": Array [
-@@ -16,17 +16,17 @@
+@@ -20,17 +20,17 @@
       \\"JavaScript\\": Array [
         \\"babylon\\",
         \\"flow\\",
@@ -291,7 +298,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         \\"typescript\\",
       ],
     },
-@@ -55,11 +55,13 @@
+@@ -59,11 +59,13 @@
       \\"parser\\": Object {
         \\"choices\\": Array [
           \\"flow\\",
@@ -306,7 +313,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         ],
         \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
-@@ -89,10 +91,14 @@
+@@ -93,10 +95,14 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -328,7 +335,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
 - First value
 + Second value
 
-@@ -18,10 +18,13 @@
+@@ -22,10 +22,13 @@
         \\"flow\\",
       ],
       \\"Less\\": Array [
@@ -342,7 +349,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
       ],
       \\"SCSS\\": Array [
         \\"scss\\",
-@@ -46,10 +49,14 @@
+@@ -50,10 +53,14 @@
       },
       \\"filepath\\": Object {
         \\"default\\": undefined,
@@ -357,7 +364,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"parser\\": Object {
-@@ -60,10 +67,11 @@
+@@ -64,10 +71,11 @@
           \\"css\\",
           \\"less\\",
           \\"scss\\",
@@ -376,7 +383,7 @@ exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
 - First value
 + Second value
 
-@@ -81,10 +81,18 @@
+@@ -85,10 +85,18 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -402,7 +409,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 - First value
 + Second value
 
-@@ -7,10 +7,16 @@
+@@ -11,10 +11,16 @@
         \\"graphql\\",
       ],
       \\"JSON\\": Array [
@@ -419,7 +426,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -30,12 +36,23 @@
+@@ -34,12 +40,23 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -443,7 +450,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -66,16 +83,27 @@
+@@ -70,16 +87,27 @@
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -472,7 +479,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -83,14 +111,15 @@
+@@ -87,14 +115,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -535,6 +542,12 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
       \\"vscodeLanguageIds\\": [\\"javascript\\"]
+    },
+    {
+      \\"extensions\\": [\\".js.flow\\"],
+      \\"name\\": \\"Flow\\",
+      \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"since\\": \\"0.0.0\\"
     },
     {
       \\"aceMode\\": \\"javascript\\",
