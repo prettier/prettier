@@ -200,11 +200,21 @@ function format(context, input, opt) {
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
+  /* istanbul ignore if */
   if (context.argv["debug-benchmark"]) {
+    let benchmark;
+    try {
+      benchmark = eval("require")("benchmark");
+    } catch (err) {
+      context.logger.debug(
+        "'--debug-benchmark' requires the 'benchmark' package to be installed."
+      );
+      process.exit(2);
+    }
     context.logger.debug(
       "'--debug-benchmark' option found, measuring formatWithCursor with 'benchmark' module."
     );
-    const suite = new require("benchmark").Suite();
+    const suite = new benchmark.Suite();
     suite
       .add("format", () => {
         prettier.formatWithCursor(input, opt);
