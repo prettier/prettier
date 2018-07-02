@@ -1,6 +1,6 @@
 "use strict";
 
-const util = require("../common/util");
+const { getStringWidth } = require("../common/util");
 const { concat, fill, cursor } = require("./doc-builders");
 
 /** @type {{[groupId: PropertyKey]: MODE}} */
@@ -130,7 +130,7 @@ function fits(next, restCommands, width, options, mustBeFlat) {
     const doc = x[2];
 
     if (typeof doc === "string") {
-      width -= util.getStringWidth(doc);
+      width -= getStringWidth(doc);
     } else {
       switch (doc.type) {
         case "concat":
@@ -224,7 +224,7 @@ function printDocToString(doc, options) {
     if (typeof doc === "string") {
       out.push(doc);
 
-      pos += util.getStringWidth(doc);
+      pos += getStringWidth(doc);
     } else {
       switch (doc.type) {
         case "cursor":
