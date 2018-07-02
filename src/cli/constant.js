@@ -124,7 +124,7 @@ const options = {
   },
   "debug-repeat": {
     // Repeat the formatting a few times and measure the average duration.
-    type: "number",
+    type: "int",
     default: 0
   },
   editorconfig: {
