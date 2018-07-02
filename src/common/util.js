@@ -6,6 +6,9 @@ const escapeStringRegexp = require("escape-string-regexp");
 const getCjkRegex = require("cjk-regex");
 const getUnicodeRegex = require("unicode-regex");
 
+// eslint-disable-next-line no-control-regex
+const notAsciiRegex = /[^\x20-\x7F]/;
+
 const cjkPattern = getCjkRegex().source;
 
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
@@ -711,6 +714,11 @@ function splitText(text, options) {
 function getStringWidth(text) {
   if (!text) {
     return 0;
+  }
+
+  // shortcut to avoid needless string `RegExp`s, replacements, and allocations within `string-width`
+  if (!notAsciiRegex.test(text)) {
+    return text.length;
   }
 
   // emojis are considered 2-char width for consistency
