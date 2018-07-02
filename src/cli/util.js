@@ -200,6 +200,7 @@ function format(context, input, opt) {
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
+  /* istanbul ignore if */
   if (context.argv["debug-benchmark"]) {
     let benchmark;
     try {
