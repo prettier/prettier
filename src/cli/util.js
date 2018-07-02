@@ -206,7 +206,7 @@ function format(context, input, opt) {
       benchmark = eval("require")("benchmark");
     } catch (err) {
       context.logger.debug(
-        "'--debug-benchmark' requires the 'benchmark' to be installed."
+        "'--debug-benchmark' requires the 'benchmark' package to be installed."
       );
       process.exit(2);
     }
