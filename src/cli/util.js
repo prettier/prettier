@@ -221,8 +221,8 @@ function format(context, input, opt) {
         );
       })
       .run({ async: false });
-  } else if (+context.argv["debug-repeat"] > 0) {
-    const repeat = +context.argv["debug-repeat"];
+  } else if (context.argv["debug-repeat"] > 0) {
+    const repeat = context.argv["debug-repeat"];
     context.logger.debug(
       "'--debug-repeat' option found, running formatWithCursor " +
         repeat +
@@ -238,7 +238,7 @@ function format(context, input, opt) {
     }
     const averageMs = totalMs / repeat;
     const results = {
-      repeat: repeat,
+      repeat,
       hz: 1000 / averageMs,
       ms: averageMs
     };
