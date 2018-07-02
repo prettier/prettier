@@ -1,0 +1,33 @@
+/** @flow */
+
+export type Doc =
+  | string
+  | GroupDoc
+  | {| type: "line-suffix-boundary" | "break-parent" |}
+  | {| type: "concat" | "fill", parts: Array<Doc> |}
+  | {| type: "indent" | "line-suffix", contents: Doc |}
+  | {| type: "align", contents: Doc, n: DocAlignment |}
+  | {|
+      type: "if-break",
+      breakContents?: Doc,
+      flatContents?: Doc,
+      groupId?: GroupDocId
+    |}
+  | {| type: "line", soft?: boolean, hard?: boolean, literal?: boolean |}
+  | {| type: "cursor", placeholder: Symbol |};
+
+export type DocAlignment = number | string | {| type: "root" |};
+
+export opaque type GroupDocId = mixed;
+export type GroupDoc = {|
+  type: "group",
+  contents: Doc,
+  id?: GroupDocId,
+  break: boolean,
+  expandedStates?: Array<Doc>
+|};
+export type GroupDocOptions = {
+  id?: string,
+  shouldBreak?: boolean,
+  expandedStates?: Array<Doc>
+};

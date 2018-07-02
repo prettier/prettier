@@ -1,6 +1,16 @@
+/** @flow */
+
 "use strict";
 
-function flattenDoc(doc) {
+/*::
+import type { Doc } from "./types";
+*/
+
+function flattenDoc /*:: <T: Doc> */(doc /*: T */) /*: T */ {
+  if (typeof doc === "string") {
+    return doc;
+  }
+
   if (doc.type === "concat") {
     const res = [];
 
@@ -19,10 +29,8 @@ function flattenDoc(doc) {
     return Object.assign({}, doc, { parts: res });
   } else if (doc.type === "if-break") {
     return Object.assign({}, doc, {
-      breakContents:
-        doc.breakContents != null ? flattenDoc(doc.breakContents) : null,
-      flatContents:
-        doc.flatContents != null ? flattenDoc(doc.flatContents) : null
+      breakContents: doc.breakContents && flattenDoc(doc.breakContents),
+      flatContents: doc.flatContents && flattenDoc(doc.flatContents)
     });
   } else if (doc.type === "group") {
     return Object.assign({}, doc, {
@@ -32,18 +40,20 @@ function flattenDoc(doc) {
         : doc.expandedStates
     });
   } else if (doc.contents) {
+    // $FlowFixMe
     return Object.assign({}, doc, { contents: flattenDoc(doc.contents) });
   }
+
   return doc;
 }
 
-function printDoc(doc) {
+function printDoc(doc /*: Doc */) {
   if (typeof doc === "string") {
     return JSON.stringify(doc);
   }
 
   if (doc.type === "line") {
-    if (doc.literalline) {
+    if (doc.literal) {
       return "literalline";
     }
     if (doc.hard) {
@@ -68,22 +78,29 @@ function printDoc(doc) {
   }
 
   if (doc.type === "align") {
-    return doc.n === -Infinity
-      ? "dedentToRoot(" + printDoc(doc.contents) + ")"
-      : doc.n < 0
-        ? "dedent(" + printDoc(doc.contents) + ")"
-        : doc.n.type === "root"
-          ? "markAsRoot(" + printDoc(doc.contents) + ")"
-          : "align(" +
-            JSON.stringify(doc.n) +
-            ", " +
-            printDoc(doc.contents) +
-            ")";
+    if (typeof doc.n === "number") {
+      if (doc.n === -Infinity) {
+        return "dedentToRoot(" + printDoc(doc.contents) + ")";
+      }
+
+      if (doc.n < 0) {
+        return "dedent(" + printDoc(doc.contents) + ")";
+      }
+    } else if (doc.n.type === "root") {
+      return "markAsRoot(" + printDoc(doc.contents) + ")";
+    }
+
+    return (
+      "align(" + JSON.stringify(doc.n) + ", " + printDoc(doc.contents) + ")"
+    );
   }
 
   if (doc.type === "if-break") {
     return (
       "ifBreak(" +
+      // This should never be empty but the current type says it's optional
+      // Change this when we finally type check the printers
+      // $FlowFixMe
       printDoc(doc.breakContents) +
       (doc.flatContents ? ", " + printDoc(doc.flatContents) : "") +
       ")"
@@ -124,7 +141,7 @@ function printDoc(doc) {
 }
 
 module.exports = {
-  printDocToDebug: function(doc) {
+  printDocToDebug: function(doc /*: Doc */) {
     return printDoc(flattenDoc(doc));
   }
 };
