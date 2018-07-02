@@ -79,6 +79,7 @@
     "eslint-plugin-prettier": "2.6.0",
     "eslint-plugin-react": "7.7.0",
     "execa": "0.10.0",
+    "flow-bin": "0.75.0",
     "jest": "21.1.0",
     "mkdirp": "0.5.1",
     "prettier": "1.13.7",

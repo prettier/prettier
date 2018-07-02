@@ -1,4 +1,11 @@
 [ignore]
 .*/tests/.*
-.*/node_modules/.*
 .*/dist/.*
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
