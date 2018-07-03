@@ -10,7 +10,8 @@ function hasPragma(text) {
 function insertPragma(text) {
   const { frontMatter, content } = parseFrontMatter(text);
   return (
-    (frontMatter ? frontMatter + "\n\n" : "") + jsPragma.insertPragma(content)
+    (frontMatter ? frontMatter.raw + "\n\n" : "") +
+    jsPragma.insertPragma(content)
   );
 }
 

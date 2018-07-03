@@ -1,6 +1,7 @@
 "use strict";
 
 const clean = require("./clean");
+const embed = require("./embed");
 const { insertPragma } = require("./pragma");
 const {
   printNumber,
@@ -93,8 +94,9 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
-    case "front-matter":
-      return concat([node.value, hardline]);
+    case "yaml":
+    case "toml":
+      return concat([node.raw, hardline]);
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
 
@@ -834,7 +836,8 @@ function printNodeSequence(path, options, print) {
             options.locStart(node.nodes[i + 1]),
             { backwards: true }
           ) &&
-          node.nodes[i].type !== "front-matter") ||
+          node.nodes[i].type !== "yaml" &&
+          node.nodes[i].type !== "toml") ||
         (node.nodes[i + 1].type === "css-atrule" &&
           node.nodes[i + 1].name === "else" &&
           node.nodes[i].type !== "css-comment")
@@ -848,7 +851,8 @@ function printNodeSequence(path, options, print) {
             pathChild.getValue(),
             options
           ) &&
-          node.nodes[i].type !== "front-matter"
+          node.nodes[i].type !== "yaml" &&
+          node.nodes[i].type !== "toml"
         ) {
           parts.push(hardline);
         }
@@ -906,6 +910,7 @@ function printCssNumber(rawNumber) {
 
 module.exports = {
   print: genericPrint,
+  embed,
   insertPragma,
   hasPrettierIgnore: hasIgnoreComment,
   massageAstNode: clean
