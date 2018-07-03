@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js - typescript-verify 1`] = `
 export function match(): string /* the matching pattern */
 a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ a;
 
 `;
 
-exports[`default.js 1`] = `
+exports[`default.js - typescript-verify 1`] = `
 export default interface Foo {
   readonly bar?: string;
 }
@@ -20,7 +20,7 @@ export default interface Foo {
 
 `;
 
-exports[`export.ts 1`] = `
+exports[`export.ts - typescript-verify 1`] = `
 declare module "hello" {
     export default Hello;
 }
@@ -39,7 +39,7 @@ declare module "hello" {
 
 `;
 
-exports[`export-class.js 1`] = `
+exports[`export-class.js - typescript-verify 1`] = `
 export class A {}
 export default class B {}
 export abstract class C {}

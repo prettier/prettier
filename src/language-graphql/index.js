@@ -2,21 +2,14 @@
 
 const printer = require("./printer-graphql");
 const options = require("./options");
-
-// Based on:
-// https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+const languageExtend = require("../utils/language-extend");
 
 const languages = [
-  {
-    name: "GraphQL",
+  languageExtend({}, require("linguist-languages/data/graphql"), {
     since: "1.5.0",
     parsers: ["graphql"],
-    extensions: [".graphql", ".gql"],
-    tmScope: "source.graphql",
-    aceMode: "text",
-    liguistLanguageId: 139,
     vscodeLanguageIds: ["graphql"]
-  }
+  })
 ];
 
 const printers = {

@@ -147,8 +147,19 @@ function genericPrint(path, options, print) {
     }
     case "link":
       switch (options.originalText[node.position.start.offset]) {
-        case "<":
-          return concat(["<", node.url, ">"]);
+        case "<": {
+          const mailto = "mailto:";
+          const url =
+            // <hello@example.com> is parsed as { url: "mailto:hello@example.com" }
+            node.url.startsWith(mailto) &&
+            options.originalText.slice(
+              node.position.start.offset + 1,
+              node.position.start.offset + 1 + mailto.length
+            ) !== mailto
+              ? node.url.slice(mailto.length)
+              : node.url;
+          return concat(["<", url, ">"]);
+        }
         case "[":
           return concat([
             "[",
@@ -215,8 +226,12 @@ function genericPrint(path, options, print) {
         style
       ]);
     }
-    case "front-matter":
-      return node.value;
+    case "yaml":
+    case "toml":
+      return options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset
+      );
     case "html": {
       const parentNode = path.getParentNode();
       const value =
@@ -829,9 +844,10 @@ function clamp(value, min, max) {
 
 function clean(ast, newObj, parent) {
   delete newObj.position;
+  delete newObj.raw; // front-matter
 
   // for codeblock
-  if (ast.type === "code") {
+  if (ast.type === "code" || ast.type === "yaml") {
     delete newObj.value;
   }
   // for whitespace: "\n" and " " are considered the same
@@ -844,7 +860,8 @@ function clean(ast, newObj, parent) {
     parent.type === "root" &&
     parent.children.length > 0 &&
     (parent.children[0] === ast ||
-      (parent.children[0].type === "front-matter" &&
+      ((parent.children[0].type === "yaml" ||
+        parent.children[0].type === "toml") &&
         parent.children[1] === ast)) &&
     ast.type === "html" &&
     pragma.startWithPragma(ast.value)

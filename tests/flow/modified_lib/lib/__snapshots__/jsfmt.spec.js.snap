@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lib.js 1`] = `
+exports[`lib.js - flow-verify 1`] = `
 declare module 'foo' {
   declare function bar(str: string): number;
 }

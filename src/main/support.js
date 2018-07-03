@@ -95,7 +95,10 @@ function getSupportInfo(version, opts) {
         });
       }
 
-      if (usePostCssParser && language.group === "CSS") {
+      if (
+        usePostCssParser &&
+        (language.name === "CSS" || language.group === "CSS")
+      ) {
         return Object.assign({}, language, {
           parsers: ["postcss"]
         });

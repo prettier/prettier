@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow_regression.js 1`] = `
+exports[`arrow_regression.js - typescript-verify 1`] = `
 const bar = (...varargs:any[]) => {
   console.log(varargs);
 };

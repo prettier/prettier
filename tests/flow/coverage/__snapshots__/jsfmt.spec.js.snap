@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`crash.js 1`] = `
+exports[`crash.js - flow-verify 1`] = `
 // This file triggers a violation of the "disjoint-or-nested ranges invariant"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes a crash with coverage --color.
@@ -27,7 +27,7 @@ declare module bar {
 
 `;
 
-exports[`declare_module.js 1`] = `
+exports[`declare_module.js - flow-verify 1`] = `
 // check coverage of declare module
 
 declare module foo {
@@ -40,7 +40,7 @@ declare module foo {
 
 `;
 
-exports[`no_pragma.js 1`] = `
+exports[`no_pragma.js - flow-verify 1`] = `
 let x = 0;
 (x: string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,7 +49,7 @@ let x = 0;
 
 `;
 
-exports[`non-termination.js 1`] = `
+exports[`non-termination.js - flow-verify 1`] = `
 // This file triggers a violation of the "disjoint-or-nested ranges invariant"
 // that we implicitly assume in type-at-pos and coverage implementations. In
 // particular, when unchecked it causes non-termination with coverage --color.

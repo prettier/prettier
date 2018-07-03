@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`enum.ts 1`] = `
+exports[`enum.ts - typescript-verify 1`] = `
 enum Direction {
     Up = 1,
     Down,

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`items.yml 1`] = `
+exports[`items.yml - yaml-verify 1`] = `
 - 123
 - 456
 - 789
@@ -11,7 +11,7 @@ exports[`items.yml 1`] = `
 
 `;
 
-exports[`items.yml 2`] = `
+exports[`items.yml - yaml-verify 2`] = `
 - 123
 - 456
 - 789
@@ -22,7 +22,7 @@ exports[`items.yml 2`] = `
 
 `;
 
-exports[`middle-comment.yml 1`] = `
+exports[`middle-comment.yml - yaml-verify 1`] = `
 !!set # comment
 - 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -31,7 +31,7 @@ exports[`middle-comment.yml 1`] = `
 
 `;
 
-exports[`middle-comment.yml 2`] = `
+exports[`middle-comment.yml - yaml-verify 2`] = `
 !!set # comment
 - 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -40,7 +40,7 @@ exports[`middle-comment.yml 2`] = `
 
 `;
 
-exports[`middle-comments.yml 1`] = `
+exports[`middle-comments.yml - yaml-verify 1`] = `
 !!set # comment 1
 # comment 2
 - 123
@@ -52,7 +52,7 @@ exports[`middle-comments.yml 1`] = `
 
 `;
 
-exports[`middle-comments.yml 2`] = `
+exports[`middle-comments.yml - yaml-verify 2`] = `
 !!set # comment 1
 # comment 2
 - 123
@@ -64,7 +64,7 @@ exports[`middle-comments.yml 2`] = `
 
 `;
 
-exports[`nested.yml 1`] = `
+exports[`nested.yml - yaml-verify 1`] = `
 - 1
 - - 2-1
   - 2-2
@@ -79,7 +79,7 @@ exports[`nested.yml 1`] = `
 
 `;
 
-exports[`nested.yml 2`] = `
+exports[`nested.yml - yaml-verify 2`] = `
 - 1
 - - 2-1
   - 2-2
@@ -94,21 +94,21 @@ exports[`nested.yml 2`] = `
 
 `;
 
-exports[`null-item.yml 1`] = `
+exports[`null-item.yml - yaml-verify 1`] = `
 -
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -
 
 `;
 
-exports[`null-item.yml 2`] = `
+exports[`null-item.yml - yaml-verify 2`] = `
 -
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -
 
 `;
 
-exports[`props.yml 1`] = `
+exports[`props.yml - yaml-verify 1`] = `
 --- !!set &anchor
 - 123
 - 456
@@ -119,7 +119,7 @@ exports[`props.yml 1`] = `
 
 `;
 
-exports[`props.yml 2`] = `
+exports[`props.yml - yaml-verify 2`] = `
 --- !!set &anchor
 - 123
 - 456
@@ -130,7 +130,7 @@ exports[`props.yml 2`] = `
 
 `;
 
-exports[`props-in-map.yml 1`] = `
+exports[`props-in-map.yml - yaml-verify 1`] = `
 a: !!set &anchor
 - 123
 - 456
@@ -141,7 +141,7 @@ a: !!set &anchor
 
 `;
 
-exports[`props-in-map.yml 2`] = `
+exports[`props-in-map.yml - yaml-verify 2`] = `
 a: !!set &anchor
 - 123
 - 456

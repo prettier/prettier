@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`proto_props.js 1`] = `
+exports[`proto_props.js - flow-verify 1`] = `
 declare class A { proto: T; }
 declare class B { proto x: T; }
 declare class C { proto +x: T; }

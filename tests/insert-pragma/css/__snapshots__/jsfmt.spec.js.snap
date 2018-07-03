@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`front-matter.css 1`] = `
+exports[`front-matter.css - css-verify 1`] = `
 ---
 something
 ---
@@ -18,7 +18,7 @@ something
 
 `;
 
-exports[`simple.css 1`] = `
+exports[`simple.css - css-verify 1`] = `
 .class {    display: none;    }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @format */
@@ -29,7 +29,7 @@ exports[`simple.css 1`] = `
 
 `;
 
-exports[`start-with-comment.css 1`] = `
+exports[`start-with-comment.css - css-verify 1`] = `
 /**
  * hello world
  */

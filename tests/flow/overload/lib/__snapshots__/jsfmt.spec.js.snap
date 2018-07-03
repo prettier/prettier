@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lib.js 1`] = `
+exports[`lib.js - flow-verify 1`] = `
 declare class FakeUint8Array {
   set(index: number, value: number): void;
   set(array: FakeUint8Array | Array<number>, offset?: number): void;

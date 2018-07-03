@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`export.js 1`] = `
+exports[`export.js - flow-verify 1`] = `
 /* @flow */
 exports.x = 1;
 exports.y = "";
@@ -11,7 +11,7 @@ exports.y = "";
 
 `;
 
-exports[`import.js 1`] = `
+exports[`import.js - flow-verify 1`] = `
 /* @flow */
 var e = require('./export');
 var x: string = e.x;

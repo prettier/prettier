@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generics.js 1`] = `
+exports[`generics.js - flow-verify 1`] = `
 class C<X> {
   x:X;
   constructor(x:X) { this.x = x; }

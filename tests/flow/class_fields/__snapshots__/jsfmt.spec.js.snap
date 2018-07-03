@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`base_class.js 1`] = `
+exports[`base_class.js - flow-verify 1`] = `
 // @flow
 
 class Base {
@@ -149,7 +149,7 @@ var o = new Base();
 
 `;
 
-exports[`derived_class.js 1`] = `
+exports[`derived_class.js - flow-verify 1`] = `
 // @flow
 
 class Base {
@@ -421,7 +421,7 @@ var o = new Child();
 
 `;
 
-exports[`generic_class.js 1`] = `
+exports[`generic_class.js - flow-verify 1`] = `
 // @flow
 
 /**
@@ -487,7 +487,7 @@ class ClassGenericInitialized<T, U> {
 
 `;
 
-exports[`scoping.js 1`] = `
+exports[`scoping.js - flow-verify 1`] = `
 // @flow
 
 var someVar = 42;

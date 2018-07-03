@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`clip.yml 1`] = `
+exports[`clip.yml - yaml-verify 1`] = `
 >
     123
     456
@@ -15,7 +15,7 @@ exports[`clip.yml 1`] = `
 
 `;
 
-exports[`clip.yml 2`] = `
+exports[`clip.yml - yaml-verify 2`] = `
 >
     123
     456
@@ -28,7 +28,7 @@ exports[`clip.yml 2`] = `
 
 `;
 
-exports[`indent.yml 1`] = `
+exports[`indent.yml - yaml-verify 1`] = `
 >2-
     123
    456
@@ -43,7 +43,7 @@ exports[`indent.yml 1`] = `
 
 `;
 
-exports[`indent.yml 2`] = `
+exports[`indent.yml - yaml-verify 2`] = `
 >2-
     123
    456
@@ -58,7 +58,7 @@ exports[`indent.yml 2`] = `
 
 `;
 
-exports[`keep.yml 1`] = `
+exports[`keep.yml - yaml-verify 1`] = `
 >+
     123
     456
@@ -75,7 +75,7 @@ exports[`keep.yml 1`] = `
 
 `;
 
-exports[`keep.yml 2`] = `
+exports[`keep.yml - yaml-verify 2`] = `
 >+
     123
     456
@@ -90,7 +90,7 @@ exports[`keep.yml 2`] = `
 
 `;
 
-exports[`map.yml 1`] = `
+exports[`map.yml - yaml-verify 1`] = `
 a: >
   123
   456
@@ -123,7 +123,7 @@ c: 0
 
 `;
 
-exports[`map.yml 2`] = `
+exports[`map.yml - yaml-verify 2`] = `
 a: >
   123
   456
@@ -152,7 +152,7 @@ c: 0
 
 `;
 
-exports[`middle-comment.yml 1`] = `
+exports[`middle-comment.yml - yaml-verify 1`] = `
 !!str #comment
 >
   123
@@ -163,7 +163,7 @@ exports[`middle-comment.yml 1`] = `
 
 `;
 
-exports[`middle-comment.yml 2`] = `
+exports[`middle-comment.yml - yaml-verify 2`] = `
 !!str #comment
 >
   123
@@ -174,7 +174,7 @@ exports[`middle-comment.yml 2`] = `
 
 `;
 
-exports[`middle-comments.yml 1`] = `
+exports[`middle-comments.yml - yaml-verify 1`] = `
 !!str # comment 1
 # comment 2
 >
@@ -188,7 +188,7 @@ exports[`middle-comments.yml 1`] = `
 
 `;
 
-exports[`middle-comments.yml 2`] = `
+exports[`middle-comments.yml - yaml-verify 2`] = `
 !!str # comment 1
 # comment 2
 >
@@ -202,7 +202,7 @@ exports[`middle-comments.yml 2`] = `
 
 `;
 
-exports[`newline.yml 1`] = `
+exports[`newline.yml - yaml-verify 1`] = `
 - >+
   123
   456
@@ -267,7 +267,7 @@ exports[`newline.yml 1`] = `
 
 `;
 
-exports[`newline.yml 2`] = `
+exports[`newline.yml - yaml-verify 2`] = `
 - >+
   123
   456
@@ -320,7 +320,7 @@ exports[`newline.yml 2`] = `
 
 `;
 
-exports[`newline-unaligned.yml 1`] = `
+exports[`newline-unaligned.yml - yaml-verify 1`] = `
 >
   1
   2
@@ -387,7 +387,7 @@ exports[`newline-unaligned.yml 1`] = `
 
 `;
 
-exports[`newline-unaligned.yml 2`] = `
+exports[`newline-unaligned.yml - yaml-verify 2`] = `
 >
   1
   2
@@ -446,7 +446,7 @@ exports[`newline-unaligned.yml 2`] = `
 
 `;
 
-exports[`props.yml 1`] = `
+exports[`props.yml - yaml-verify 1`] = `
 !!str &anchor >
   123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -455,7 +455,7 @@ exports[`props.yml 1`] = `
 
 `;
 
-exports[`props.yml 2`] = `
+exports[`props.yml - yaml-verify 2`] = `
 !!str &anchor >
   123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -464,7 +464,7 @@ exports[`props.yml 2`] = `
 
 `;
 
-exports[`props-in-map.yml 1`] = `
+exports[`props-in-map.yml - yaml-verify 1`] = `
 a: !!str &anchor >
   123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -473,7 +473,7 @@ a: !!str &anchor >
 
 `;
 
-exports[`props-in-map.yml 2`] = `
+exports[`props-in-map.yml - yaml-verify 2`] = `
 a: !!str &anchor >
   123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -482,7 +482,7 @@ a: !!str &anchor >
 
 `;
 
-exports[`prose.yml 1`] = `
+exports[`prose.yml - yaml-verify 1`] = `
 >
   123 456 789
   123 456 789
@@ -569,7 +569,7 @@ exports[`prose.yml 1`] = `
 
 `;
 
-exports[`prose.yml 2`] = `
+exports[`prose.yml - yaml-verify 2`] = `
 >
   123 456 789
   123 456 789
@@ -626,7 +626,7 @@ exports[`prose.yml 2`] = `
 
 `;
 
-exports[`seq.yml 1`] = `
+exports[`seq.yml - yaml-verify 1`] = `
 - >
   123
   456
@@ -649,7 +649,7 @@ exports[`seq.yml 1`] = `
 
 `;
 
-exports[`seq.yml 2`] = `
+exports[`seq.yml - yaml-verify 2`] = `
 - >
   123
   456
@@ -670,7 +670,7 @@ exports[`seq.yml 2`] = `
 
 `;
 
-exports[`strip.yml 1`] = `
+exports[`strip.yml - yaml-verify 1`] = `
 >-
     123
     456
@@ -685,7 +685,7 @@ exports[`strip.yml 1`] = `
 
 `;
 
-exports[`strip.yml 2`] = `
+exports[`strip.yml - yaml-verify 2`] = `
 >-
     123
     456
@@ -698,7 +698,7 @@ exports[`strip.yml 2`] = `
 
 `;
 
-exports[`trailing-comment.yml 1`] = `
+exports[`trailing-comment.yml - yaml-verify 1`] = `
 a: !!str > # hello
   hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -707,7 +707,7 @@ a: !!str > # hello
 
 `;
 
-exports[`trailing-comment.yml 2`] = `
+exports[`trailing-comment.yml - yaml-verify 2`] = `
 a: !!str > # hello
   hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`buffer.js 1`] = `
+exports[`buffer.js - flow-verify 1`] = `
 /* @flow */
 
 let bool: boolean = false;

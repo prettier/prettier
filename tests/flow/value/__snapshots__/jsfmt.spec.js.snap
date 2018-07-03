@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`value.js 1`] = `
+exports[`value.js - flow-verify 1`] = `
 var o = {};
 o["x"] = 4;
 var y:string = o["x"];

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`middle-comment.yml 1`] = `
+exports[`middle-comment.yml - yaml-verify 1`] = `
 !!str # comment
 hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ hello
 
 `;
 
-exports[`middle-comment.yml 2`] = `
+exports[`middle-comment.yml - yaml-verify 2`] = `
 !!str # comment
 hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -18,7 +18,7 @@ hello
 
 `;
 
-exports[`middle-comment.yml 3`] = `
+exports[`middle-comment.yml - yaml-verify 3`] = `
 !!str # comment
 hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -27,7 +27,7 @@ hello
 
 `;
 
-exports[`middle-comments.yml 1`] = `
+exports[`middle-comments.yml - yaml-verify 1`] = `
 !!str # comment 1
 # comment 2
 hello
@@ -39,7 +39,7 @@ hello
 
 `;
 
-exports[`middle-comments.yml 2`] = `
+exports[`middle-comments.yml - yaml-verify 2`] = `
 !!str # comment 1
 # comment 2
 hello
@@ -51,7 +51,7 @@ hello
 
 `;
 
-exports[`middle-comments.yml 3`] = `
+exports[`middle-comments.yml - yaml-verify 3`] = `
 !!str # comment 1
 # comment 2
 hello
@@ -63,7 +63,7 @@ hello
 
 `;
 
-exports[`multiline.yml 1`] = `
+exports[`multiline.yml - yaml-verify 1`] = `
 b:    
   123123123123123123123123123   
        123123123123123123123123123   
@@ -104,7 +104,7 @@ b: 123123123123123123123123123
 
 `;
 
-exports[`multiline.yml 2`] = `
+exports[`multiline.yml - yaml-verify 2`] = `
 b:    
   123123123123123123123123123   
        123123123123123123123123123   
@@ -140,7 +140,7 @@ b:
 
 `;
 
-exports[`multiline.yml 3`] = `
+exports[`multiline.yml - yaml-verify 3`] = `
 b:    
   123123123123123123123123123   
        123123123123123123123123123   
@@ -178,42 +178,42 @@ b: 123123123123123123123123123 123123123123123123123123123
 
 `;
 
-exports[`true.yml 1`] = `
+exports[`true.yml - yaml-verify 1`] = `
 hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 hello
 
 `;
 
-exports[`true.yml 2`] = `
+exports[`true.yml - yaml-verify 2`] = `
 hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 hello
 
 `;
 
-exports[`true.yml 3`] = `
+exports[`true.yml - yaml-verify 3`] = `
 hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 hello
 
 `;
 
-exports[`verbatim.yml 1`] = `
+exports[`verbatim.yml - yaml-verify 1`] = `
 !<hello> hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !<hello> hello
 
 `;
 
-exports[`verbatim.yml 2`] = `
+exports[`verbatim.yml - yaml-verify 2`] = `
 !<hello> hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !<hello> hello
 
 `;
 
-exports[`verbatim.yml 3`] = `
+exports[`verbatim.yml - yaml-verify 3`] = `
 !<hello> hello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !<hello> hello

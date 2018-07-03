@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`unary.js 1`] = `
+exports[`unary.js - flow-verify 1`] = `
 /* @flow */
 
 function x0(y: string): number {
@@ -43,7 +43,7 @@ function x4(y: string): boolean {
 
 `;
 
-exports[`update.js 1`] = `
+exports[`update.js - flow-verify 1`] = `
 // @flow
 
 let tests = [

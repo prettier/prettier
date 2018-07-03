@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`compatibility.js 1`] = `
+exports[`compatibility.js - flow-verify 1`] = `
 let tests = [
   function(x: { x: { foo: string } }, y: { x: { bar: number } }) {
     x = y; // 2 errors: \`foo\` not found in y.x; \`bar\` not found in x.x
@@ -63,7 +63,7 @@ let tests = [
 
 `;
 
-exports[`conversion.js 1`] = `
+exports[`conversion.js - flow-verify 1`] = `
 /* @flow */
 
 (Object({foo: 'bar'}): {foo: string});
@@ -106,7 +106,7 @@ var z = Object(123); // error (next line makes this not match any signatures)
 
 `;
 
-exports[`objects.js 1`] = `
+exports[`objects.js - flow-verify 1`] = `
 /* @flow */
 
 var x : {'123': string, bar: string} = {'123': 'val', bar: 'bar'};
@@ -147,7 +147,7 @@ y["bar"] = "abc"; // error, property not found
 
 `;
 
-exports[`unaliased_assign.js 1`] = `
+exports[`unaliased_assign.js - flow-verify 1`] = `
 /**
  * test handling of unaliased value assignment.
  *

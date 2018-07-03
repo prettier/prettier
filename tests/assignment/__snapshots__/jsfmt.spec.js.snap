@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binaryish.js 1`] = `
+exports[`binaryish.js - flow-verify 1`] = `
 const computedDescriptionLines = (showConfirm &&
   descriptionLinesConfirming) ||
   (focused && !loading && descriptionLinesFocused) ||
@@ -21,7 +21,7 @@ computedDescriptionLines =
 
 `;
 
-exports[`sequence.js 1`] = `
+exports[`sequence.js - flow-verify 1`] = `
 for ((i = 0), (len = arr.length); i < len; i++) {
   console.log(arr[i])
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`license_with_flow.js 1`] = `
+exports[`license_with_flow.js - flow-verify 1`] = `
 /* Copyright example */
 /* @flow */
 
@@ -13,7 +13,7 @@ exports[`license_with_flow.js 1`] = `
 
 `;
 
-exports[`max_header_tokens.js 1`] = `
+exports[`max_header_tokens.js - flow-verify 1`] = `
 /* @flow */
 /* second token */
 /* third token */
@@ -34,7 +34,7 @@ exports[`max_header_tokens.js 1`] = `
 
 `;
 
-exports[`multiple_flows_1.js 1`] = `
+exports[`multiple_flows_1.js - flow-verify 1`] = `
 /* @flow */
 /* @flow */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -43,7 +43,7 @@ exports[`multiple_flows_1.js 1`] = `
 
 `;
 
-exports[`multiple_flows_2.js 1`] = `
+exports[`multiple_flows_2.js - flow-verify 1`] = `
 /**
  * @flow
  * @noflow
@@ -56,7 +56,7 @@ exports[`multiple_flows_2.js 1`] = `
 
 `;
 
-exports[`multiple_providesModule_1.js 1`] = `
+exports[`multiple_providesModule_1.js - flow-verify 1`] = `
 /**
  * @providesModule Foo
  * @providesModule Bar
@@ -71,7 +71,7 @@ exports[`multiple_providesModule_1.js 1`] = `
 
 `;
 
-exports[`multiple_providesModule_2.js 1`] = `
+exports[`multiple_providesModule_2.js - flow-verify 1`] = `
 /**
  * @providesModule Foo
  * @flow
@@ -90,7 +90,7 @@ exports[`multiple_providesModule_2.js 1`] = `
 
 `;
 
-exports[`use_strict_with_flow.js 1`] = `
+exports[`use_strict_with_flow.js - flow-verify 1`] = `
 "use strict";
 /* @flow */
 
@@ -103,7 +103,7 @@ exports[`use_strict_with_flow.js 1`] = `
 
 `;
 
-exports[`with_flow.js 1`] = `
+exports[`with_flow.js - flow-verify 1`] = `
 /* @flow */
 
 ("": void); // error
@@ -114,7 +114,7 @@ exports[`with_flow.js 1`] = `
 
 `;
 
-exports[`without_flow.js 1`] = `
+exports[`without_flow.js - flow-verify 1`] = `
 /* some other comment */
 
 ("": void); // no error

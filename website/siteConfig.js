@@ -80,7 +80,8 @@ const siteConfig = {
   ],
   separateCss: ["static/separate-css"],
   gaTrackingId: "UA-111350464-1",
-  twitter: true
+  twitter: true,
+  onPageNav: "separate"
 };
 
 module.exports = siteConfig;

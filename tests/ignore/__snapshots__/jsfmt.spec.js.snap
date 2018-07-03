@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ignore.js 1`] = `
+exports[`ignore.js - flow-verify 1`] = `
 function a() {
   // prettier-ignore
   var fnString =

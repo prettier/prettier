@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`root.yml 1`] = `
+exports[`root.yml - yaml-verify 1`] = `
 #hello world
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #hello world
 
 `;
 
-exports[`set.yml 1`] = `
+exports[`set.yml - yaml-verify 1`] = `
 - 123
   # 456
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`order.js 1`] = `
+exports[`order.js - flow-verify 1`] = `
 type Foo = {
   // a
   alpha: 'hello',
@@ -29,7 +29,7 @@ type Foo = {
 
 `;
 
-exports[`order.js 2`] = `
+exports[`order.js - flow-verify 2`] = `
 type Foo = {
   // a
   alpha: 'hello',

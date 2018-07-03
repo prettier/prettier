@@ -1,27 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`collapsed.md 1`] = `
+exports[`collapsed.md - markdown-verify 1`] = `
 ![hello][]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ![hello][]
 
 `;
 
-exports[`full.md 1`] = `
+exports[`full.md - markdown-verify 1`] = `
 ![hello][world]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ![hello][world]
 
 `;
 
-exports[`full-no-alt.md 1`] = `
+exports[`full-no-alt.md - markdown-verify 1`] = `
 ![][world]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ![][world]
 
 `;
 
-exports[`shortcut.md 1`] = `
+exports[`shortcut.md - markdown-verify 1`] = `
 ![hello]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ![hello]

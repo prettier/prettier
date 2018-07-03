@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`multiline.yml 1`] = `
+exports[`multiline.yml - yaml-verify 1`] = `
 a: "   
   123123123123123123123123123   
        123123123123123123123123123   
@@ -81,7 +81,7 @@ b: "
 
 `;
 
-exports[`multiline.yml 2`] = `
+exports[`multiline.yml - yaml-verify 2`] = `
 a: "   
   123123123123123123123123123   
        123123123123123123123123123   
@@ -162,7 +162,7 @@ b: '
 
 `;
 
-exports[`multiline.yml 3`] = `
+exports[`multiline.yml - yaml-verify 3`] = `
 a: "   
   123123123123123123123123123   
        123123123123123123123123123   
@@ -231,7 +231,7 @@ b: "
 
 `;
 
-exports[`multiline.yml 4`] = `
+exports[`multiline.yml - yaml-verify 4`] = `
 a: "   
   123123123123123123123123123   
        123123123123123123123123123   
@@ -306,7 +306,7 @@ b: "
 
 `;
 
-exports[`quote.yml 1`] = `
+exports[`quote.yml - yaml-verify 1`] = `
 - "123"
 - '123'
 - "''"
@@ -327,7 +327,7 @@ exports[`quote.yml 1`] = `
 
 `;
 
-exports[`quote.yml 2`] = `
+exports[`quote.yml - yaml-verify 2`] = `
 - "123"
 - '123'
 - "''"
@@ -348,7 +348,7 @@ exports[`quote.yml 2`] = `
 
 `;
 
-exports[`quote.yml 3`] = `
+exports[`quote.yml - yaml-verify 3`] = `
 - "123"
 - '123'
 - "''"
@@ -369,7 +369,7 @@ exports[`quote.yml 3`] = `
 
 `;
 
-exports[`quote.yml 4`] = `
+exports[`quote.yml - yaml-verify 4`] = `
 - "123"
 - '123'
 - "''"

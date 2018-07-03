@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ambientDeclarations.ts 1`] = `
+exports[`ambientDeclarations.ts - typescript-verify 1`] = `
 declare var n;
 
 declare var m: string;

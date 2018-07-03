@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`unique-symbol.ts 1`] = `
+exports[`unique-symbol.ts - typescript-verify 1`] = `
 type A = unique symbol;
 type B = keyof something;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

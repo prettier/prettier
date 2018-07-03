@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`media-queries-ranges.css 1`] = `
+exports[`media-queries-ranges.css - css-verify 1`] = `
 @media (width >= 500px) and (width <= 1200px) {
   .rule {color:red;}
 }

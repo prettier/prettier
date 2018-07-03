@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`variables.css 1`] = `
+exports[`variables.css - css-verify 1`] = `
 .foo {
     --prop: 10px;
     prop1: var(--prop);
@@ -29,7 +29,7 @@ exports[`variables.css 1`] = `
 
 `;
 
-exports[`variables.scss 1`] = `
+exports[`variables.scss - css-verify 1`] = `
 .foo {
   --#{$prop}: 10px;
   #{$prop}: 10px;

@@ -1,5 +1,7 @@
 "use strict";
 
+const { hasPragma } = require("./pragma");
+
 /*!
  * Extracted from vue codebase
  * https://github.com/vuejs/vue/blob/cfd73c2386623341fdbb3ac636c4baf84ea89c2c/src/compiler/parser/html-parser.js
@@ -413,6 +415,7 @@ module.exports = {
   parsers: {
     vue: {
       parse,
+      hasPragma,
       astFormat: "vue"
     }
   }

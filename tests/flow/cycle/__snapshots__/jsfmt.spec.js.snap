@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js - flow-verify 1`] = `
 var B = require('./B');
 
 class A extends B { }
@@ -15,7 +15,7 @@ module.exports = A;
 
 `;
 
-exports[`B.js 1`] = `
+exports[`B.js - flow-verify 1`] = `
 var A = require('./A');
 
 //class B extends A { }

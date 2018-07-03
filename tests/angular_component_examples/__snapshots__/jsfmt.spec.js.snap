@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.component.ts 1`] = `
+exports[`test.component.ts - typescript-verify 1`] = `
 @Component({
        selector: 'app-test',
   template: \`<ul>   <li>test</li>
@@ -39,7 +39,7 @@ class TestComponent {}
 
 `;
 
-exports[`test.component.ts 2`] = `
+exports[`test.component.ts - typescript-verify 2`] = `
 @Component({
        selector: 'app-test',
   template: \`<ul>   <li>test</li>

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`do.js 1`] = `
+exports[`do.js - babylon-verify 1`] = `
 <div>
   {do {
 	  1

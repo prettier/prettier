@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`typeapp_call.js 1`] = `
+exports[`typeapp_call.js - flow-verify 1`] = `
 //@flow
 f<T>();
 f<T><U></U>;

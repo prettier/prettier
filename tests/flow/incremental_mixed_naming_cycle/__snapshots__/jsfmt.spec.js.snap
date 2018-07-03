@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`a.js 1`] = `
+exports[`a.js - flow-verify 1`] = `
 /**
  * @providesModule A
  * @flow
@@ -23,7 +23,7 @@ module.exports = "A";
 
 `;
 
-exports[`b.js 1`] = `
+exports[`b.js - flow-verify 1`] = `
 /**
  * @providesModule B
  * @flow
@@ -46,7 +46,7 @@ module.exports = "B";
 
 `;
 
-exports[`c.js 1`] = `
+exports[`c.js - flow-verify 1`] = `
 /**
  * @providesModule C
  * @flow
@@ -69,7 +69,7 @@ module.exports = "C";
 
 `;
 
-exports[`d.js 1`] = `
+exports[`d.js - flow-verify 1`] = `
 /**
  * @providesModule D
  * @flow
@@ -90,7 +90,7 @@ module.exports = "D";
 
 `;
 
-exports[`root.js 1`] = `
+exports[`root.js - flow-verify 1`] = `
 /**
  * @providesModule Root
  * @flow

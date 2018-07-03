@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js 1`] = `
+exports[`break.js - flow-verify 1`] = `
 h(f(g(() => {
   a
 })))
@@ -80,7 +80,7 @@ expect(
 
 `;
 
-exports[`parent.js 1`] = `
+exports[`parent.js - flow-verify 1`] = `
 runtimeAgent.getProperties(
   objectId,
   false, // ownProperties

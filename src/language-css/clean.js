@@ -3,11 +3,21 @@
 const htmlTagNames = require("html-tag-names");
 
 function clean(ast, newObj, parent) {
-  ["raws", "sourceIndex", "source", "before", "after", "trailingComma"].forEach(
-    name => {
-      delete newObj[name];
-    }
-  );
+  [
+    "raw", // front-matter
+    "raws",
+    "sourceIndex",
+    "source",
+    "before",
+    "after",
+    "trailingComma"
+  ].forEach(name => {
+    delete newObj[name];
+  });
+
+  if (ast.type === "yaml") {
+    delete newObj.value;
+  }
 
   // --insert-pragma
   if (
@@ -16,7 +26,8 @@ function clean(ast, newObj, parent) {
     parent.nodes.length !== 0 &&
     // first non-front-matter comment
     (parent.nodes[0] === ast ||
-      (parent.nodes[0].type === "front-matter" && parent.nodes[1] === ast))
+      ((parent.nodes[0].type === "yaml" || parent.nodes[0].type === "toml") &&
+        parent.nodes[1] === ast))
   ) {
     /**
      * something

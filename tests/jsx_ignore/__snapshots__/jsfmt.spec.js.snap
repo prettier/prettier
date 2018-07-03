@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`jsx_ignore.js 1`] = `
+exports[`jsx_ignore.js - flow-verify 1`] = `
 // this should remain as-is
 <div>
  {/* prettier-ignore */}
