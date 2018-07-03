@@ -884,7 +884,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"int\\"
     },
     {
-      \\"category\\": \\"Markdown\\",
+      \\"category\\": \\"Common\\",
       \\"choices\\": [
         {
           \\"description\\": \\"Wrap prose if it exceeds the print width.\\",
@@ -903,7 +903,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         }
       ],
       \\"default\\": \\"preserve\\",
-      \\"description\\": \\"How to wrap prose. (markdown)\\",
+      \\"description\\": \\"How to wrap prose.\\",
       \\"name\\": \\"proseWrap\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.8.2\\",

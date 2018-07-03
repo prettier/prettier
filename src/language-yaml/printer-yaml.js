@@ -3,6 +3,8 @@
 const { insertPragma, isPragma } = require("./pragma");
 const {
   getAncestorCount,
+  getBlockValueLineContents,
+  getFlowScalarLineContents,
   getLast,
   getLastDescendantNode,
   hasExplicitDocumentEndMarker,
@@ -13,8 +15,7 @@ const {
   isLastDescendantNode,
   isNextLineEmpty,
   isNode,
-  isBlockValue,
-  restoreBlockFoldedValue
+  isBlockValue
 } = require("./utils");
 const docBuilders = require("../doc").builders;
 const {
@@ -130,9 +131,7 @@ function _print(node, parentNode, path, options, print) {
         node.children.length === 0 ||
         (lastDescendantNode =>
           isBlockValue(lastDescendantNode) &&
-          (/[^\S\n]\n?$/.test(lastDescendantNode.value) ||
-            (lastDescendantNode.chomping === "keep" &&
-              lastDescendantNode.value === "\n")))(getLastDescendantNode(node))
+          lastDescendantNode.chomping === "keep")(getLastDescendantNode(node))
           ? ""
           : hardline
       ]);
@@ -168,7 +167,14 @@ function _print(node, parentNode, path, options, print) {
     case "anchor":
       return concat(["&", node.value]);
     case "plain":
-      return join(hardline, node.value.replace(/\n/g, "\n\n").split("\n"));
+      return printFlowScalarContent(
+        node.type,
+        options.originalText.slice(
+          node.position.start.offset,
+          node.position.end.offset
+        ),
+        options
+      );
     case "quoteDouble":
     case "quoteSingle": {
       const singleQuote = "'";
@@ -187,44 +193,56 @@ function _print(node, parentNode, path, options, print) {
         // and quoteSingle do not need to escape backslashes
         const originalQuote =
           node.type === "quoteDouble" ? doubleQuote : singleQuote;
-        return originalQuote + raw + originalQuote;
+        return concat([
+          originalQuote,
+          printFlowScalarContent(node.type, raw, options),
+          originalQuote
+        ]);
       } else if (raw.includes(doubleQuote)) {
-        return (
-          singleQuote +
-          (node.type === "quoteDouble"
-            ? // double quote needs to be escaped by backslash in quoteDouble
-              raw.replace(/\\"/g, doubleQuote)
-            : raw) +
+        return concat([
+          singleQuote,
+          printFlowScalarContent(
+            node.type,
+            node.type === "quoteDouble"
+              ? // double quote needs to be escaped by backslash in quoteDouble
+                raw.replace(/\\"/g, doubleQuote)
+              : raw,
+            options
+          ),
           singleQuote
-        );
+        ]);
       }
 
       if (raw.includes(singleQuote)) {
-        return (
-          doubleQuote +
-          (node.type === "quoteSingle"
-            ? // single quote needs to be escaped by 2 single quotes in quoteSingle
-              raw.replace(/''/g, singleQuote)
-            : raw) +
+        return concat([
+          doubleQuote,
+          printFlowScalarContent(
+            node.type,
+            node.type === "quoteSingle"
+              ? // single quote needs to be escaped by 2 single quotes in quoteSingle
+                raw.replace(/''/g, singleQuote)
+              : raw,
+            options
+          ),
           doubleQuote
-        );
+        ]);
       }
 
       const quote = options.singleQuote ? singleQuote : doubleQuote;
-      return quote + raw + quote;
+      return concat([
+        quote,
+        printFlowScalarContent(node.type, raw, options),
+        quote
+      ]);
     }
-    case "blockFolded": // TODO: --prose-wrap
+    case "blockFolded":
     case "blockLiteral": {
-      const value =
-        node.chomping === "strip" ||
-        (node.chomping === "clip" &&
-          options.originalText.slice(
-            node.position.end.offset - 2,
-            node.position.end.offset
-          ) === "\n\n") ||
-        (node.chomping === "keep" && node.value === "\n")
-          ? node.value
-          : node.value.replace(/\n$/, "");
+      const parentIndent = getAncestorCount(
+        path,
+        ancestorNode =>
+          ancestorNode.type === "sequence" || ancestorNode.type === "mapping"
+      );
+      const isLastDescendant = isLastDescendantNode(path);
       return concat([
         node.type === "blockFolded" ? ">" : "|",
         node.indent === null ? "" : node.indent.toString(),
@@ -232,58 +250,42 @@ function _print(node, parentNode, path, options, print) {
         hasTrailingComments(node)
           ? concat([" ", join(hardline, path.map(print, "trailingComments"))])
           : "",
-        value === ""
-          ? ""
-          : (node.indent === null ? dedent : dedentToRoot)(
-              align(
-                node.indent === null
-                  ? options.tabWidth
-                  : node.indent -
-                    1 +
-                    getAncestorCount(
-                      path,
-                      ancestorNode =>
-                        ancestorNode.type === "sequence" ||
-                        ancestorNode.type === "mapping"
-                    ),
-                (node.chomping === "keep" && node.value === "\n"
-                  ? dedentToRoot
-                  : markAsRoot)(
-                  concat(
-                    (node.type === "blockLiteral"
-                      ? value
-                      : restoreBlockFoldedValue(value)
-                    )
-                      .split("\n")
-                      .reduce(
-                        (reduced, lineContent, index, lines) =>
-                          reduced.concat(
-                            node.type === "blockLiteral"
-                              ? lineContent
-                              : fill(
-                                  join(
-                                    line,
-                                    lineContent
-                                      // split by single space
-                                      .replace(/(^|[^ ]) ([^ ]|$)/g, "$1\n$2")
-                                      .split("\n")
-                                  ).parts
-                                ),
-                            index === lines.length - 1 &&
-                            !/\s$/.test(lineContent)
-                              ? []
-                              : /\s$/.test(lineContent)
-                                ? index === lines.length - 1
-                                  ? dedentToRoot(literalline)
-                                  : literalline
-                                : hardline
-                          ),
-                        [hardline]
-                      )
-                  )
-                )
+        (node.indent === null ? dedent : dedentToRoot)(
+          align(
+            node.indent === null
+              ? options.tabWidth
+              : node.indent - 1 + parentIndent,
+            concat(
+              getBlockValueLineContents(node, {
+                parentIndent,
+                isLastDescendant,
+                options
+              }).reduce(
+                (reduced, lineWords, index, lineContents) =>
+                  reduced.concat(
+                    index === 0
+                      ? hardline
+                      : lineContents[index - 1].length === 0
+                        ? hardline
+                        : index === lineContents.length - 1 &&
+                          lineWords.length === 0
+                          ? dedentToRoot(literalline)
+                          : markAsRoot(literalline),
+                    fill(join(line, lineWords).parts),
+                    index === lineContents.length - 1 &&
+                    node.chomping === "keep" &&
+                    isLastDescendant
+                      ? lineWords.length === 0 ||
+                        !getLast(lineWords).endsWith(" ")
+                        ? dedentToRoot(hardline)
+                        : dedentToRoot(literalline)
+                      : []
+                  ),
+                []
               )
             )
+          )
+        )
       ]);
     }
     case "sequence":
@@ -479,6 +481,16 @@ function printNextEmptyLine(path, originalText) {
   }
 
   return "";
+}
+
+function printFlowScalarContent(nodeType, content, options) {
+  const lineContents = getFlowScalarLineContents(nodeType, content, options);
+  return join(
+    hardline,
+    lineContents.map(lineContentWords =>
+      fill(join(line, lineContentWords).parts)
+    )
+  );
 }
 
 function clean(node, newNode /*, parent */) {

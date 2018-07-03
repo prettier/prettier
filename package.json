@@ -60,8 +60,8 @@
     "typescript-eslint-parser": "eslint/typescript-eslint-parser#42f29a1db5c51262fd9ed2d6105015da8925ba2d",
     "unicode-regex": "1.0.1",
     "unified": "6.1.6",
-    "yaml": "1.0.0-beta.7",
-    "yaml-unist-parser": "1.0.0-beta.4"
+    "yaml": "1.0.0-rc.4",
+    "yaml-unist-parser": "1.0.0-rc.1"
   },
   "devDependencies": {
     "@babel/cli": "7.0.0-beta.49",
