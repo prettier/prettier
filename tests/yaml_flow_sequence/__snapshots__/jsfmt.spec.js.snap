@@ -1,27 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`alias-key.yml - yaml-verify: alias-key.yml 1`] = `
+exports[`alias-key.yml - yaml-verify 1`] = `
 [*123 : 456]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [*123 : 456]
 
 `;
 
-exports[`alias-key.yml - yaml-verify: alias-key.yml 2`] = `
+exports[`alias-key.yml - yaml-verify 2`] = `
 [*123 : 456]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [*123 : 456]
 
 `;
 
-exports[`alias-key.yml - yaml-verify: alias-key.yml 3`] = `
+exports[`alias-key.yml - yaml-verify 3`] = `
 [*123 : 456]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [*123 : 456]
 
 `;
 
-exports[`array-key.yml - yaml-verify: array-key.yml 1`] = `
+exports[`array-key.yml - yaml-verify 1`] = `
 [? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -44,7 +44,7 @@ exports[`array-key.yml - yaml-verify: array-key.yml 1`] = `
 
 `;
 
-exports[`array-key.yml - yaml-verify: array-key.yml 2`] = `
+exports[`array-key.yml - yaml-verify 2`] = `
 [? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -67,7 +67,7 @@ exports[`array-key.yml - yaml-verify: array-key.yml 2`] = `
 
 `;
 
-exports[`array-key.yml - yaml-verify: array-key.yml 3`] = `
+exports[`array-key.yml - yaml-verify 3`] = `
 [? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -90,7 +90,7 @@ exports[`array-key.yml - yaml-verify: array-key.yml 3`] = `
 
 `;
 
-exports[`array-key-array-value.yml - yaml-verify: array-key-array-value.yml 1`] = `
+exports[`array-key-array-value.yml - yaml-verify 1`] = `
 [[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -128,7 +128,7 @@ exports[`array-key-array-value.yml - yaml-verify: array-key-array-value.yml 1`] 
 
 `;
 
-exports[`array-key-array-value.yml - yaml-verify: array-key-array-value.yml 2`] = `
+exports[`array-key-array-value.yml - yaml-verify 2`] = `
 [[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -166,7 +166,7 @@ exports[`array-key-array-value.yml - yaml-verify: array-key-array-value.yml 2`] 
 
 `;
 
-exports[`array-key-array-value.yml - yaml-verify: array-key-array-value.yml 3`] = `
+exports[`array-key-array-value.yml - yaml-verify 3`] = `
 [[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -204,7 +204,7 @@ exports[`array-key-array-value.yml - yaml-verify: array-key-array-value.yml 3`] 
 
 `;
 
-exports[`array-plain.yml - yaml-verify: array-plain.yml 1`] = `
+exports[`array-plain.yml - yaml-verify 1`] = `
 [[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -227,7 +227,7 @@ exports[`array-plain.yml - yaml-verify: array-plain.yml 1`] = `
 
 `;
 
-exports[`array-plain.yml - yaml-verify: array-plain.yml 2`] = `
+exports[`array-plain.yml - yaml-verify 2`] = `
 [[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -250,7 +250,7 @@ exports[`array-plain.yml - yaml-verify: array-plain.yml 2`] = `
 
 `;
 
-exports[`array-plain.yml - yaml-verify: array-plain.yml 3`] = `
+exports[`array-plain.yml - yaml-verify 3`] = `
 [[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -273,7 +273,7 @@ exports[`array-plain.yml - yaml-verify: array-plain.yml 3`] = `
 
 `;
 
-exports[`array-value.yml - yaml-verify: array-value.yml 1`] = `
+exports[`array-value.yml - yaml-verify 1`] = `
 [: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -296,7 +296,7 @@ exports[`array-value.yml - yaml-verify: array-value.yml 1`] = `
 
 `;
 
-exports[`array-value.yml - yaml-verify: array-value.yml 2`] = `
+exports[`array-value.yml - yaml-verify 2`] = `
 [: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -319,7 +319,7 @@ exports[`array-value.yml - yaml-verify: array-value.yml 2`] = `
 
 `;
 
-exports[`array-value.yml - yaml-verify: array-value.yml 3`] = `
+exports[`array-value.yml - yaml-verify 3`] = `
 [: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -342,7 +342,7 @@ exports[`array-value.yml - yaml-verify: array-value.yml 3`] = `
 
 `;
 
-exports[`comment-between.yml - yaml-verify: comment-between.yml 1`] = `
+exports[`comment-between.yml - yaml-verify 1`] = `
 [
 ? 123
 # comment
@@ -357,7 +357,7 @@ exports[`comment-between.yml - yaml-verify: comment-between.yml 1`] = `
 
 `;
 
-exports[`comment-between.yml - yaml-verify: comment-between.yml 2`] = `
+exports[`comment-between.yml - yaml-verify 2`] = `
 [
 ? 123
 # comment
@@ -372,7 +372,7 @@ exports[`comment-between.yml - yaml-verify: comment-between.yml 2`] = `
 
 `;
 
-exports[`comment-between.yml - yaml-verify: comment-between.yml 3`] = `
+exports[`comment-between.yml - yaml-verify 3`] = `
 [
 ? 123
 # comment
@@ -387,7 +387,7 @@ exports[`comment-between.yml - yaml-verify: comment-between.yml 3`] = `
 
 `;
 
-exports[`comment-trailing.yml - yaml-verify: comment-trailing.yml 1`] = `
+exports[`comment-trailing.yml - yaml-verify 1`] = `
 [123, # comment
 ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -397,7 +397,7 @@ exports[`comment-trailing.yml - yaml-verify: comment-trailing.yml 1`] = `
 
 `;
 
-exports[`comment-trailing.yml - yaml-verify: comment-trailing.yml 2`] = `
+exports[`comment-trailing.yml - yaml-verify 2`] = `
 [123, # comment
 ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -407,7 +407,7 @@ exports[`comment-trailing.yml - yaml-verify: comment-trailing.yml 2`] = `
 
 `;
 
-exports[`comment-trailing.yml - yaml-verify: comment-trailing.yml 3`] = `
+exports[`comment-trailing.yml - yaml-verify 3`] = `
 [123, # comment
 ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -417,49 +417,49 @@ exports[`comment-trailing.yml - yaml-verify: comment-trailing.yml 3`] = `
 
 `;
 
-exports[`empty.yml - yaml-verify: empty.yml 1`] = `
+exports[`empty.yml - yaml-verify 1`] = `
 []
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 []
 
 `;
 
-exports[`empty.yml - yaml-verify: empty.yml 2`] = `
+exports[`empty.yml - yaml-verify 2`] = `
 []
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 []
 
 `;
 
-exports[`empty.yml - yaml-verify: empty.yml 3`] = `
+exports[`empty.yml - yaml-verify 3`] = `
 []
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 []
 
 `;
 
-exports[`empty-item-colon.yml - yaml-verify: empty-item-colon.yml 1`] = `
+exports[`empty-item-colon.yml - yaml-verify 1`] = `
 [ : ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [: ]
 
 `;
 
-exports[`empty-item-colon.yml - yaml-verify: empty-item-colon.yml 2`] = `
+exports[`empty-item-colon.yml - yaml-verify 2`] = `
 [ : ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [: ]
 
 `;
 
-exports[`empty-item-colon.yml - yaml-verify: empty-item-colon.yml 3`] = `
+exports[`empty-item-colon.yml - yaml-verify 3`] = `
 [ : ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [: ]
 
 `;
 
-exports[`empty-line.yml - yaml-verify: empty-line.yml 1`] = `
+exports[`empty-line.yml - yaml-verify 1`] = `
 [ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, 
 
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb ]
@@ -472,7 +472,7 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb ]
 
 `;
 
-exports[`empty-line.yml - yaml-verify: empty-line.yml 2`] = `
+exports[`empty-line.yml - yaml-verify 2`] = `
 [ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, 
 
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb ]
@@ -485,7 +485,7 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb ]
 
 `;
 
-exports[`empty-line.yml - yaml-verify: empty-line.yml 3`] = `
+exports[`empty-line.yml - yaml-verify 3`] = `
 [ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, 
 
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb ]
@@ -498,7 +498,7 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb ]
 
 `;
 
-exports[`empty-line-collapse.yml - yaml-verify: empty-line-collapse.yml 1`] = `
+exports[`empty-line-collapse.yml - yaml-verify 1`] = `
 [ aaa, 
 
 bbb ]
@@ -507,7 +507,7 @@ bbb ]
 
 `;
 
-exports[`empty-line-collapse.yml - yaml-verify: empty-line-collapse.yml 2`] = `
+exports[`empty-line-collapse.yml - yaml-verify 2`] = `
 [ aaa, 
 
 bbb ]
@@ -516,7 +516,7 @@ bbb ]
 
 `;
 
-exports[`empty-line-collapse.yml - yaml-verify: empty-line-collapse.yml 3`] = `
+exports[`empty-line-collapse.yml - yaml-verify 3`] = `
 [ aaa, 
 
 bbb ]
@@ -525,7 +525,7 @@ bbb ]
 
 `;
 
-exports[`long-key.yml - yaml-verify: long-key.yml 1`] = `
+exports[`long-key.yml - yaml-verify 1`] = `
 [? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -536,7 +536,7 @@ exports[`long-key.yml - yaml-verify: long-key.yml 1`] = `
 
 `;
 
-exports[`long-key.yml - yaml-verify: long-key.yml 2`] = `
+exports[`long-key.yml - yaml-verify 2`] = `
 [? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -547,7 +547,7 @@ exports[`long-key.yml - yaml-verify: long-key.yml 2`] = `
 
 `;
 
-exports[`long-key.yml - yaml-verify: long-key.yml 3`] = `
+exports[`long-key.yml - yaml-verify 3`] = `
 [? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -558,7 +558,7 @@ exports[`long-key.yml - yaml-verify: long-key.yml 3`] = `
 
 `;
 
-exports[`long-key-long-value.yml - yaml-verify: long-key-long-value.yml 1`] = `
+exports[`long-key-long-value.yml - yaml-verify 1`] = `
 [longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -572,7 +572,7 @@ exports[`long-key-long-value.yml - yaml-verify: long-key-long-value.yml 1`] = `
 
 `;
 
-exports[`long-key-long-value.yml - yaml-verify: long-key-long-value.yml 2`] = `
+exports[`long-key-long-value.yml - yaml-verify 2`] = `
 [longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -586,7 +586,7 @@ exports[`long-key-long-value.yml - yaml-verify: long-key-long-value.yml 2`] = `
 
 `;
 
-exports[`long-key-long-value.yml - yaml-verify: long-key-long-value.yml 3`] = `
+exports[`long-key-long-value.yml - yaml-verify 3`] = `
 [longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -600,7 +600,7 @@ exports[`long-key-long-value.yml - yaml-verify: long-key-long-value.yml 3`] = `
 
 `;
 
-exports[`long-plain.yml - yaml-verify: long-plain.yml 1`] = `
+exports[`long-plain.yml - yaml-verify 1`] = `
 [longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -611,7 +611,7 @@ exports[`long-plain.yml - yaml-verify: long-plain.yml 1`] = `
 
 `;
 
-exports[`long-plain.yml - yaml-verify: long-plain.yml 2`] = `
+exports[`long-plain.yml - yaml-verify 2`] = `
 [longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -622,7 +622,7 @@ exports[`long-plain.yml - yaml-verify: long-plain.yml 2`] = `
 
 `;
 
-exports[`long-plain.yml - yaml-verify: long-plain.yml 3`] = `
+exports[`long-plain.yml - yaml-verify 3`] = `
 [longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -633,7 +633,7 @@ exports[`long-plain.yml - yaml-verify: long-plain.yml 3`] = `
 
 `;
 
-exports[`long-value.yml - yaml-verify: long-value.yml 1`] = `
+exports[`long-value.yml - yaml-verify 1`] = `
 [: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -644,7 +644,7 @@ exports[`long-value.yml - yaml-verify: long-value.yml 1`] = `
 
 `;
 
-exports[`long-value.yml - yaml-verify: long-value.yml 2`] = `
+exports[`long-value.yml - yaml-verify 2`] = `
 [: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -655,7 +655,7 @@ exports[`long-value.yml - yaml-verify: long-value.yml 2`] = `
 
 `;
 
-exports[`long-value.yml - yaml-verify: long-value.yml 3`] = `
+exports[`long-value.yml - yaml-verify 3`] = `
 [: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -666,7 +666,7 @@ exports[`long-value.yml - yaml-verify: long-value.yml 3`] = `
 
 `;
 
-exports[`middle-comment.yml - yaml-verify: middle-comment.yml 1`] = `
+exports[`middle-comment.yml - yaml-verify 1`] = `
 !!set # comment
 []
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -675,7 +675,7 @@ exports[`middle-comment.yml - yaml-verify: middle-comment.yml 1`] = `
 
 `;
 
-exports[`middle-comment.yml - yaml-verify: middle-comment.yml 2`] = `
+exports[`middle-comment.yml - yaml-verify 2`] = `
 !!set # comment
 []
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -684,7 +684,7 @@ exports[`middle-comment.yml - yaml-verify: middle-comment.yml 2`] = `
 
 `;
 
-exports[`middle-comment.yml - yaml-verify: middle-comment.yml 3`] = `
+exports[`middle-comment.yml - yaml-verify 3`] = `
 !!set # comment
 []
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -693,7 +693,7 @@ exports[`middle-comment.yml - yaml-verify: middle-comment.yml 3`] = `
 
 `;
 
-exports[`middle-comments.yml - yaml-verify: middle-comments.yml 1`] = `
+exports[`middle-comments.yml - yaml-verify 1`] = `
 !!set # comment 1
 # comment 2
 []
@@ -705,7 +705,7 @@ exports[`middle-comments.yml - yaml-verify: middle-comments.yml 1`] = `
 
 `;
 
-exports[`middle-comments.yml - yaml-verify: middle-comments.yml 2`] = `
+exports[`middle-comments.yml - yaml-verify 2`] = `
 !!set # comment 1
 # comment 2
 []
@@ -717,7 +717,7 @@ exports[`middle-comments.yml - yaml-verify: middle-comments.yml 2`] = `
 
 `;
 
-exports[`middle-comments.yml - yaml-verify: middle-comments.yml 3`] = `
+exports[`middle-comments.yml - yaml-verify 3`] = `
 !!set # comment 1
 # comment 2
 []
@@ -729,7 +729,7 @@ exports[`middle-comments.yml - yaml-verify: middle-comments.yml 3`] = `
 
 `;
 
-exports[`next-empty-line.yml - yaml-verify: next-empty-line.yml 1`] = `
+exports[`next-empty-line.yml - yaml-verify 1`] = `
 [
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: 123, bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: 123, 
 
@@ -745,7 +745,7 @@ c: 123
 
 `;
 
-exports[`next-empty-line.yml - yaml-verify: next-empty-line.yml 2`] = `
+exports[`next-empty-line.yml - yaml-verify 2`] = `
 [
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: 123, bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: 123, 
 
@@ -761,7 +761,7 @@ c: 123
 
 `;
 
-exports[`next-empty-line.yml - yaml-verify: next-empty-line.yml 3`] = `
+exports[`next-empty-line.yml - yaml-verify 3`] = `
 [
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: 123, bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: 123, 
 
@@ -777,126 +777,126 @@ c: 123
 
 `;
 
-exports[`props.yml - yaml-verify: props.yml 1`] = `
+exports[`props.yml - yaml-verify 1`] = `
 !!set &anchor [1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !!set &anchor [1]
 
 `;
 
-exports[`props.yml - yaml-verify: props.yml 2`] = `
+exports[`props.yml - yaml-verify 2`] = `
 !!set &anchor [1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !!set &anchor [1]
 
 `;
 
-exports[`props.yml - yaml-verify: props.yml 3`] = `
+exports[`props.yml - yaml-verify 3`] = `
 !!set &anchor [1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !!set &anchor [1]
 
 `;
 
-exports[`props-in-map.yml - yaml-verify: props-in-map.yml 1`] = `
+exports[`props-in-map.yml - yaml-verify 1`] = `
 a: !!set &anchor [1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a: !!set &anchor [1]
 
 `;
 
-exports[`props-in-map.yml - yaml-verify: props-in-map.yml 2`] = `
+exports[`props-in-map.yml - yaml-verify 2`] = `
 a: !!set &anchor [1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a: !!set &anchor [1]
 
 `;
 
-exports[`props-in-map.yml - yaml-verify: props-in-map.yml 3`] = `
+exports[`props-in-map.yml - yaml-verify 3`] = `
 a: !!set &anchor [1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a: !!set &anchor [1]
 
 `;
 
-exports[`short-key.yml - yaml-verify: short-key.yml 1`] = `
+exports[`short-key.yml - yaml-verify 1`] = `
 [? 1,? 2,? 3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [? 1, ? 2, ? 3]
 
 `;
 
-exports[`short-key.yml - yaml-verify: short-key.yml 2`] = `
+exports[`short-key.yml - yaml-verify 2`] = `
 [? 1,? 2,? 3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [? 1, ? 2, ? 3]
 
 `;
 
-exports[`short-key.yml - yaml-verify: short-key.yml 3`] = `
+exports[`short-key.yml - yaml-verify 3`] = `
 [? 1,? 2,? 3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [? 1, ? 2, ? 3]
 
 `;
 
-exports[`short-key-short-value.yml - yaml-verify: short-key-short-value.yml 1`] = `
+exports[`short-key-short-value.yml - yaml-verify 1`] = `
 [1: a,2: b,3: c]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [1: a, 2: b, 3: c]
 
 `;
 
-exports[`short-key-short-value.yml - yaml-verify: short-key-short-value.yml 2`] = `
+exports[`short-key-short-value.yml - yaml-verify 2`] = `
 [1: a,2: b,3: c]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [1: a, 2: b, 3: c]
 
 `;
 
-exports[`short-key-short-value.yml - yaml-verify: short-key-short-value.yml 3`] = `
+exports[`short-key-short-value.yml - yaml-verify 3`] = `
 [1: a,2: b,3: c]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [1: a, 2: b, 3: c]
 
 `;
 
-exports[`short-plain.yml - yaml-verify: short-plain.yml 1`] = `
+exports[`short-plain.yml - yaml-verify 1`] = `
 [1,2,3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [1, 2, 3]
 
 `;
 
-exports[`short-plain.yml - yaml-verify: short-plain.yml 2`] = `
+exports[`short-plain.yml - yaml-verify 2`] = `
 [1,2,3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [1, 2, 3]
 
 `;
 
-exports[`short-plain.yml - yaml-verify: short-plain.yml 3`] = `
+exports[`short-plain.yml - yaml-verify 3`] = `
 [1,2,3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [1, 2, 3]
 
 `;
 
-exports[`short-value.yml - yaml-verify: short-value.yml 1`] = `
+exports[`short-value.yml - yaml-verify 1`] = `
 [: 1,: 2,: 3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [: 1, : 2, : 3]
 
 `;
 
-exports[`short-value.yml - yaml-verify: short-value.yml 2`] = `
+exports[`short-value.yml - yaml-verify 2`] = `
 [: 1,: 2,: 3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [: 1, : 2, : 3]
 
 `;
 
-exports[`short-value.yml - yaml-verify: short-value.yml 3`] = `
+exports[`short-value.yml - yaml-verify 3`] = `
 [: 1,: 2,: 3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [: 1, : 2, : 3]

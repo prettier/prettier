@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js - babylon-verify: comments.js 1`] = `
+exports[`comments.js - babylon-verify 1`] = `
 let error = new Error(response.statusText);
 // comment
 (error: any).response = response
@@ -27,7 +27,7 @@ x
 
 `;
 
-exports[`comments.js - flow-verify: comments.js 1`] = `
+exports[`comments.js - flow-verify 1`] = `
 let error = new Error(response.statusText);
 // comment
 (error: any).response = response
@@ -54,7 +54,7 @@ x;
 
 `;
 
-exports[`comments.js - flow-verify: comments.js 2`] = `
+exports[`comments.js - flow-verify 2`] = `
 let error = new Error(response.statusText);
 // comment
 (error: any).response = response
@@ -81,7 +81,7 @@ x
 
 `;
 
-exports[`flow-interfaces.js - babylon-verify: flow-interfaces.js 1`] = `
+exports[`flow-interfaces.js - babylon-verify 1`] = `
 declare class A {
     one: boolean;
     two: { three: string }
@@ -159,7 +159,7 @@ interface E {
 
 `;
 
-exports[`flow-interfaces.js - flow-verify: flow-interfaces.js 1`] = `
+exports[`flow-interfaces.js - flow-verify 1`] = `
 declare class A {
     one: boolean;
     two: { three: string }
@@ -237,7 +237,7 @@ interface E {
 
 `;
 
-exports[`flow-interfaces.js - flow-verify: flow-interfaces.js 2`] = `
+exports[`flow-interfaces.js - flow-verify 2`] = `
 declare class A {
     one: boolean;
     two: { three: string }
@@ -315,7 +315,7 @@ interface E {
 
 `;
 
-exports[`issue2006.js - babylon-verify: issue2006.js 1`] = `
+exports[`issue2006.js - babylon-verify 1`] = `
 switch (n) {
   case 11:
     var c = a.e;
@@ -336,7 +336,7 @@ var c = a.e
 
 `;
 
-exports[`issue2006.js - flow-verify: issue2006.js 1`] = `
+exports[`issue2006.js - flow-verify 1`] = `
 switch (n) {
   case 11:
     var c = a.e;
@@ -357,7 +357,7 @@ var c = a.e;
 
 `;
 
-exports[`issue2006.js - flow-verify: issue2006.js 2`] = `
+exports[`issue2006.js - flow-verify 2`] = `
 switch (n) {
   case 11:
     var c = a.e;
@@ -378,7 +378,7 @@ var c = a.e
 
 `;
 
-exports[`no-semi.js - babylon-verify: no-semi.js 1`] = `
+exports[`no-semi.js - babylon-verify 1`] = `
 
 // with preexisting semi
 
@@ -721,7 +721,7 @@ aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
 
 `;
 
-exports[`no-semi.js - flow-verify: no-semi.js 1`] = `
+exports[`no-semi.js - flow-verify 1`] = `
 
 // with preexisting semi
 
@@ -1064,7 +1064,7 @@ aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
 
 `;
 
-exports[`no-semi.js - flow-verify: no-semi.js 2`] = `
+exports[`no-semi.js - flow-verify 2`] = `
 
 // with preexisting semi
 

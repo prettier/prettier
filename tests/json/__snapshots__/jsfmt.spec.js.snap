@@ -1,41 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`boolean.json - json-stringify-verify: boolean.json 1`] = `
+exports[`boolean.json - json-stringify-verify 1`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
 
 `;
 
-exports[`boolean.json - json-verify: boolean.json 1`] = `
+exports[`boolean.json - json-verify 1`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
 
 `;
 
-exports[`boolean.json - json-verify: boolean.json 2`] = `
+exports[`boolean.json - json-verify 2`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
 
 `;
 
-exports[`boolean.json - json5-verify: boolean.json 1`] = `
+exports[`boolean.json - json5-verify 1`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
 
 `;
 
-exports[`boolean.json - json5-verify: boolean.json 2`] = `
+exports[`boolean.json - json5-verify 2`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
 
 `;
 
-exports[`multi-line.json - json-stringify-verify: multi-line.json 1`] = `
+exports[`multi-line.json - json-stringify-verify 1`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -58,7 +58,7 @@ exports[`multi-line.json - json-stringify-verify: multi-line.json 1`] = `
 
 `;
 
-exports[`multi-line.json - json-verify: multi-line.json 1`] = `
+exports[`multi-line.json - json-verify 1`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,7 +71,7 @@ exports[`multi-line.json - json-verify: multi-line.json 1`] = `
 
 `;
 
-exports[`multi-line.json - json-verify: multi-line.json 2`] = `
+exports[`multi-line.json - json-verify 2`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,7 +84,7 @@ exports[`multi-line.json - json-verify: multi-line.json 2`] = `
 
 `;
 
-exports[`multi-line.json - json5-verify: multi-line.json 1`] = `
+exports[`multi-line.json - json5-verify 1`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -97,7 +97,7 @@ exports[`multi-line.json - json5-verify: multi-line.json 1`] = `
 
 `;
 
-exports[`multi-line.json - json5-verify: multi-line.json 2`] = `
+exports[`multi-line.json - json5-verify 2`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,77 +110,77 @@ exports[`multi-line.json - json5-verify: multi-line.json 2`] = `
 
 `;
 
-exports[`null.json - json-stringify-verify: null.json 1`] = `
+exports[`null.json - json-stringify-verify 1`] = `
 null
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 null
 
 `;
 
-exports[`null.json - json-verify: null.json 1`] = `
+exports[`null.json - json-verify 1`] = `
 null
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 null
 
 `;
 
-exports[`null.json - json-verify: null.json 2`] = `
+exports[`null.json - json-verify 2`] = `
 null
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 null
 
 `;
 
-exports[`null.json - json5-verify: null.json 1`] = `
+exports[`null.json - json5-verify 1`] = `
 null
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 null
 
 `;
 
-exports[`null.json - json5-verify: null.json 2`] = `
+exports[`null.json - json5-verify 2`] = `
 null
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 null
 
 `;
 
-exports[`number.json - json-stringify-verify: number.json 1`] = `
+exports[`number.json - json-stringify-verify 1`] = `
 0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 0
 
 `;
 
-exports[`number.json - json-verify: number.json 1`] = `
+exports[`number.json - json-verify 1`] = `
 0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 0
 
 `;
 
-exports[`number.json - json-verify: number.json 2`] = `
+exports[`number.json - json-verify 2`] = `
 0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 0
 
 `;
 
-exports[`number.json - json5-verify: number.json 1`] = `
+exports[`number.json - json5-verify 1`] = `
 0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 0
 
 `;
 
-exports[`number.json - json5-verify: number.json 2`] = `
+exports[`number.json - json5-verify 2`] = `
 0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 0
 
 `;
 
-exports[`pass1.json - json-stringify-verify: pass1.json 1`] = `
+exports[`pass1.json - json-stringify-verify 1`] = `
 [
     "JSON Test Pattern pass1",
     {"object with 1 member":["array with 1 element"]},
@@ -318,7 +318,7 @@ exports[`pass1.json - json-stringify-verify: pass1.json 1`] = `
 
 `;
 
-exports[`pass1.json - json-verify: pass1.json 1`] = `
+exports[`pass1.json - json-verify 1`] = `
 [
     "JSON Test Pattern pass1",
     {"object with 1 member":["array with 1 element"]},
@@ -437,7 +437,7 @@ exports[`pass1.json - json-verify: pass1.json 1`] = `
 
 `;
 
-exports[`pass1.json - json-verify: pass1.json 2`] = `
+exports[`pass1.json - json-verify 2`] = `
 [
     "JSON Test Pattern pass1",
     {"object with 1 member":["array with 1 element"]},
@@ -556,7 +556,7 @@ exports[`pass1.json - json-verify: pass1.json 2`] = `
 
 `;
 
-exports[`pass1.json - json5-verify: pass1.json 1`] = `
+exports[`pass1.json - json5-verify 1`] = `
 [
     "JSON Test Pattern pass1",
     {"object with 1 member":["array with 1 element"]},
@@ -675,7 +675,7 @@ exports[`pass1.json - json5-verify: pass1.json 1`] = `
 
 `;
 
-exports[`pass1.json - json5-verify: pass1.json 2`] = `
+exports[`pass1.json - json5-verify 2`] = `
 [
     "JSON Test Pattern pass1",
     {"object with 1 member":["array with 1 element"]},
@@ -794,42 +794,42 @@ exports[`pass1.json - json5-verify: pass1.json 2`] = `
 
 `;
 
-exports[`positive-number.json - json-stringify-verify: positive-number.json 1`] = `
+exports[`positive-number.json - json-stringify-verify 1`] = `
 +123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 123
 
 `;
 
-exports[`positive-number.json - json-verify: positive-number.json 1`] = `
+exports[`positive-number.json - json-verify 1`] = `
 +123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +123
 
 `;
 
-exports[`positive-number.json - json-verify: positive-number.json 2`] = `
+exports[`positive-number.json - json-verify 2`] = `
 +123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +123
 
 `;
 
-exports[`positive-number.json - json5-verify: positive-number.json 1`] = `
+exports[`positive-number.json - json5-verify 1`] = `
 +123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +123
 
 `;
 
-exports[`positive-number.json - json5-verify: positive-number.json 2`] = `
+exports[`positive-number.json - json5-verify 2`] = `
 +123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +123
 
 `;
 
-exports[`propertyKey.json - json-stringify-verify: propertyKey.json 1`] = `
+exports[`propertyKey.json - json-stringify-verify 1`] = `
 {
     a: 123
 }
@@ -840,7 +840,7 @@ exports[`propertyKey.json - json-stringify-verify: propertyKey.json 1`] = `
 
 `;
 
-exports[`propertyKey.json - json-verify: propertyKey.json 1`] = `
+exports[`propertyKey.json - json-verify 1`] = `
 {
     a: 123
 }
@@ -851,7 +851,7 @@ exports[`propertyKey.json - json-verify: propertyKey.json 1`] = `
 
 `;
 
-exports[`propertyKey.json - json-verify: propertyKey.json 2`] = `
+exports[`propertyKey.json - json-verify 2`] = `
 {
     a: 123
 }
@@ -862,7 +862,7 @@ exports[`propertyKey.json - json-verify: propertyKey.json 2`] = `
 
 `;
 
-exports[`propertyKey.json - json5-verify: propertyKey.json 1`] = `
+exports[`propertyKey.json - json5-verify 1`] = `
 {
     a: 123
 }
@@ -873,7 +873,7 @@ exports[`propertyKey.json - json5-verify: propertyKey.json 1`] = `
 
 `;
 
-exports[`propertyKey.json - json5-verify: propertyKey.json 2`] = `
+exports[`propertyKey.json - json5-verify 2`] = `
 {
     a: 123
 }
@@ -884,7 +884,7 @@ exports[`propertyKey.json - json5-verify: propertyKey.json 2`] = `
 
 `;
 
-exports[`single-line.json - json-stringify-verify: single-line.json 1`] = `
+exports[`single-line.json - json-stringify-verify 1`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
@@ -906,105 +906,105 @@ exports[`single-line.json - json-stringify-verify: single-line.json 1`] = `
 
 `;
 
-exports[`single-line.json - json-verify: single-line.json 1`] = `
+exports[`single-line.json - json-verify 1`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { "key1": [true, false, null], "key2": { "key3": [1, 2, "3", 1e10, 1e-3] } }
 
 `;
 
-exports[`single-line.json - json-verify: single-line.json 2`] = `
+exports[`single-line.json - json-verify 2`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { "key1": [true, false, null], "key2": { "key3": [1, 2, "3", 1e10, 1e-3] } }
 
 `;
 
-exports[`single-line.json - json5-verify: single-line.json 1`] = `
+exports[`single-line.json - json5-verify 1`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { key1: [true, false, null], key2: { key3: [1, 2, "3", 1e10, 1e-3] } }
 
 `;
 
-exports[`single-line.json - json5-verify: single-line.json 2`] = `
+exports[`single-line.json - json5-verify 2`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { key1: [true, false, null], key2: { key3: [1, 2, "3", 1e10, 1e-3] } }
 
 `;
 
-exports[`single-quote.json - json-stringify-verify: single-quote.json 1`] = `
+exports[`single-quote.json - json-stringify-verify 1`] = `
 'hello'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "hello"
 
 `;
 
-exports[`single-quote.json - json-verify: single-quote.json 1`] = `
+exports[`single-quote.json - json-verify 1`] = `
 'hello'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "hello"
 
 `;
 
-exports[`single-quote.json - json-verify: single-quote.json 2`] = `
+exports[`single-quote.json - json-verify 2`] = `
 'hello'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "hello"
 
 `;
 
-exports[`single-quote.json - json5-verify: single-quote.json 1`] = `
+exports[`single-quote.json - json5-verify 1`] = `
 'hello'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "hello"
 
 `;
 
-exports[`single-quote.json - json5-verify: single-quote.json 2`] = `
+exports[`single-quote.json - json5-verify 2`] = `
 'hello'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "hello"
 
 `;
 
-exports[`string.json - json-stringify-verify: string.json 1`] = `
+exports[`string.json - json-stringify-verify 1`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
 
 `;
 
-exports[`string.json - json-verify: string.json 1`] = `
+exports[`string.json - json-verify 1`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
 
 `;
 
-exports[`string.json - json-verify: string.json 2`] = `
+exports[`string.json - json-verify 2`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
 
 `;
 
-exports[`string.json - json5-verify: string.json 1`] = `
+exports[`string.json - json5-verify 1`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
 
 `;
 
-exports[`string.json - json5-verify: string.json 2`] = `
+exports[`string.json - json5-verify 2`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
 
 `;
 
-exports[`trailingComma.notjson - json-stringify-verify: trailingComma.notjson 1`] = `
+exports[`trailingComma.notjson - json-stringify-verify 1`] = `
 {
   "k1": "v1",
   "k2": "v2",
@@ -1019,7 +1019,7 @@ exports[`trailingComma.notjson - json-stringify-verify: trailingComma.notjson 1`
 
 `;
 
-exports[`trailingComma.notjson - json-verify: trailingComma.notjson 1`] = `
+exports[`trailingComma.notjson - json-verify 1`] = `
 {
   "k1": "v1",
   "k2": "v2",
@@ -1034,7 +1034,7 @@ exports[`trailingComma.notjson - json-verify: trailingComma.notjson 1`] = `
 
 `;
 
-exports[`trailingComma.notjson - json-verify: trailingComma.notjson 2`] = `
+exports[`trailingComma.notjson - json-verify 2`] = `
 {
   "k1": "v1",
   "k2": "v2",
@@ -1049,7 +1049,7 @@ exports[`trailingComma.notjson - json-verify: trailingComma.notjson 2`] = `
 
 `;
 
-exports[`trailingComma.notjson - json5-verify: trailingComma.notjson 1`] = `
+exports[`trailingComma.notjson - json5-verify 1`] = `
 {
   "k1": "v1",
   "k2": "v2",
@@ -1064,7 +1064,7 @@ exports[`trailingComma.notjson - json5-verify: trailingComma.notjson 1`] = `
 
 `;
 
-exports[`trailingComma.notjson - json5-verify: trailingComma.notjson 2`] = `
+exports[`trailingComma.notjson - json5-verify 2`] = `
 {
   "k1": "v1",
   "k2": "v2",

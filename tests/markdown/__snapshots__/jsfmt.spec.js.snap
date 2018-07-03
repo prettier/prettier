@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`real-world-case.md - markdown-verify: real-world-case.md 1`] = `
+exports[`real-world-case.md - markdown-verify 1`] = `
 # Prettier
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
@@ -1971,7 +1971,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 `;
 
-exports[`real-world-case.md - markdown-verify: real-world-case.md 2`] = `
+exports[`real-world-case.md - markdown-verify 2`] = `
 # Prettier
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
@@ -3942,7 +3942,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 `;
 
-exports[`test-case.md - markdown-verify: test-case.md 1`] = `
+exports[`test-case.md - markdown-verify 1`] = `
 [View raw (TEST.md)](https://raw.github.com/adamschwartz/github-markdown-kitchen-sink/master/README.md)
 
 This is a paragraph.
@@ -4330,7 +4330,7 @@ This paragraph has some \`code\` in it.
 
 `;
 
-exports[`test-case.md - markdown-verify: test-case.md 2`] = `
+exports[`test-case.md - markdown-verify 2`] = `
 [View raw (TEST.md)](https://raw.github.com/adamschwartz/github-markdown-kitchen-sink/master/README.md)
 
 This is a paragraph.
