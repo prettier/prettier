@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abstractNewlineHandling.ts 1`] = `
+exports[`abstractNewlineHandling.ts - typescript-verify 1`] = `
 var
 abstract
 class X {}
@@ -31,7 +31,7 @@ export class Y {}
 
 `;
 
-exports[`abstractProperties.ts 1`] = `
+exports[`abstractProperties.ts - typescript-verify 1`] = `
 abstract class Foo {
     abstract private a: 1;
     private abstract b: 2;
@@ -62,7 +62,7 @@ abstract class Foo {
 
 `;
 
-exports[`abstractPropertiesWithBreaks.ts 1`] = `
+exports[`abstractPropertiesWithBreaks.ts - typescript-verify 1`] = `
 abstract class Foo {
     abstract private foobar =
       // comment to break

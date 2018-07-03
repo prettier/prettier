@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
+exports[`arrow.js - flow-verify 1`] = `
 // Error
 const beep = (data/*: Object */) => {}
 
@@ -23,7 +23,7 @@ const run = (cmd /*: string */) /*: Promise<void> */ => {};
 
 `;
 
-exports[`class.js 1`] = `
+exports[`class.js - flow-verify 1`] = `
 class A {
   x /*: string */;
 
@@ -38,14 +38,14 @@ class A {
 
 `;
 
-exports[`functions.js 1`] = `
+exports[`functions.js - flow-verify 1`] = `
 function foo<T>(bar  /*: T[] */, baz  /*: T */) /*: S */ {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo<T>(bar /*: T[] */, baz /*: T */) /*: S */ {}
 
 `;
 
-exports[`let.js 1`] = `
+exports[`let.js - flow-verify 1`] = `
 let foo /*: Groups<T> */;
 let foo /*: string */ = 'a';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,7 +54,7 @@ let foo /*: string */ = "a";
 
 `;
 
-exports[`object_type_annotation.js 1`] = `
+exports[`object_type_annotation.js - flow-verify 1`] = `
 type Props = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
 {
   isPlaying: boolean,

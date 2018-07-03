@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`urnary_expression.js 1`] = `
+exports[`urnary_expression.js - flow-verify 1`] = `
 !!x
 x++
 x--;

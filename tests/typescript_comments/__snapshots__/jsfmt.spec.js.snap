@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abstract_class.ts 1`] = `
+exports[`abstract_class.ts - typescript-verify 1`] = `
 abstract class AbstractRule {
     /**
      * @deprecated
@@ -21,7 +21,7 @@ abstract class AbstractRule {
 
 `;
 
-exports[`jsx.ts 1`] = `
+exports[`jsx.ts - typescript-verify 1`] = `
 var example1 = <div>
 	https://test
 </div>;
@@ -36,7 +36,7 @@ var example2 = <div>/*test*/</div>;
 
 `;
 
-exports[`location.ts 1`] = `
+exports[`location.ts - typescript-verify 1`] = `
 function x({
   x,
   y,
@@ -116,7 +116,7 @@ export type WrappedFormUtils = {
 
 `;
 
-exports[`mapped_types.ts 1`] = `
+exports[`mapped_types.ts - typescript-verify 1`] = `
 type A = {
   // commentA
   [a in A]: string;
@@ -165,7 +165,7 @@ type G = { [g in G /* commentG */]: string };
 
 `;
 
-exports[`methods.ts 1`] = `
+exports[`methods.ts - typescript-verify 1`] = `
 export class Point {
 /**
  * Does something.
@@ -261,14 +261,14 @@ export class Point {
 
 `;
 
-exports[`type-parameters.ts 1`] = `
+exports[`type-parameters.ts - typescript-verify 1`] = `
 functionName<A /* A comment */>();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 functionName<A /* A comment */>();
 
 `;
 
-exports[`types.ts 1`] = `
+exports[`types.ts - typescript-verify 1`] = `
 (() => {
   // swallow error and fallback to using directory as path
 }) as string[];

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`e1.js 1`] = `
+exports[`e1.js - flow-verify 1`] = `
 // @flow
 
 export type Action =

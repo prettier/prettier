@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`trailing.graphql 1`] = `
+exports[`trailing.graphql - graphql-verify 1`] = `
 query Query(
   $pageID: ID!
   $scale: Float
@@ -52,7 +52,7 @@ query Query(
 
 `;
 
-exports[`trailing.graphql 2`] = `
+exports[`trailing.graphql - graphql-verify 2`] = `
 query Query(
   $pageID: ID!
   $scale: Float
@@ -104,7 +104,7 @@ query Query(
 
 `;
 
-exports[`trailing.graphql 3`] = `
+exports[`trailing.graphql - graphql-verify 3`] = `
 query Query(
   $pageID: ID!
   $scale: Float

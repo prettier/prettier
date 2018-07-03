@@ -20,7 +20,7 @@ function run_spec(dirname, parsers, options) {
     // We need to have a skipped test with the same name of the snapshots,
     // so Jest doesn't mark them as obsolete.
     if (TEST_STANDALONE && parsers.some(skipStandalone)) {
-      test.skip(filename);
+      parsers.forEach(parser => test.skip(`${filename} - ${parser}-verify`));
       return;
     }
 
@@ -60,7 +60,7 @@ function run_spec(dirname, parsers, options) {
       test(`${filename} - ${mergedOptions.parser}-verify`, () => {
         expect(
           raw(source + "~".repeat(mergedOptions.printWidth) + "\n" + output)
-        ).toMatchSnapshot(filename);
+        ).toMatchSnapshot();
       });
 
       parsers.slice(1).forEach(parser => {

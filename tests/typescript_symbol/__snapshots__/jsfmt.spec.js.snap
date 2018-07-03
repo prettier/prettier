@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`symbol.ts 1`] = `
+exports[`symbol.ts - typescript-verify 1`] = `
 function test(abc: Map<symbol, string>) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function test(abc: Map<symbol, string>) {}

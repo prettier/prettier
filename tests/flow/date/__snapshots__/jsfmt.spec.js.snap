@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`date.js 1`] = `
+exports[`date.js - flow-verify 1`] = `
 var d = new Date(0);
 var x:string = d.getTime();
 

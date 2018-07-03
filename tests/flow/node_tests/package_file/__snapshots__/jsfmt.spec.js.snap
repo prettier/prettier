@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bar_lib.js 1`] = `
+exports[`bar_lib.js - flow-verify 1`] = `
 module.exports = "bar_lib";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 module.exports = "bar_lib";
 
 `;
 
-exports[`foo.js 1`] = `
+exports[`foo.js - flow-verify 1`] = `
 var x: string = require('./bar_lib'); // 'bar_lib' does not work!
 console.log(x);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

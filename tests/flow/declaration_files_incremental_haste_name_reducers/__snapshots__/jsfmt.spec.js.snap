@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js - flow-verify 1`] = `
 /* @flow */
 
 class AImplementation {}
@@ -15,7 +15,7 @@ export function foo(): AImplementation {
 
 `;
 
-exports[`index.js 1`] = `
+exports[`index.js - flow-verify 1`] = `
 /* @flow */
 
 var A = require('A');

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`variance.js 1`] = `
+exports[`variance.js - flow-verify 1`] = `
 class Route {
   static +param: T;
 }

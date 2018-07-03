@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`at-root.css 1`] = `
+exports[`at-root.css - css-verify 1`] = `
 .parent {
     @at-root {
         .child1 {
@@ -472,7 +472,7 @@ red
 
 `;
 
-exports[`charset.css 1`] = `
+exports[`charset.css - css-verify 1`] = `
 @charset "UTF-8";
 @charset "iso-8859-15";
 @charset 'iso-8859-15'; /* Invalid, wrong quoting style used */
@@ -489,7 +489,7 @@ exports[`charset.css 1`] = `
 
 `;
 
-exports[`counter-style.css 1`] = `
+exports[`counter-style.css - css-verify 1`] = `
 @counter-style identifier {
     system: cyclic;
     symbols: "\\1F44D";
@@ -596,7 +596,7 @@ suffix
 
 `;
 
-exports[`custom-media.css 1`] = `
+exports[`custom-media.css - css-verify 1`] = `
 @custom-media --small-viewport (max-width: 30em);
 @custom-media --small-viewport (max-width:30em);
 @custom-media  --small-viewport  (  max-width  :  30em  )  ;
@@ -725,7 +725,7 @@ max-width
 
 `;
 
-exports[`custom-selector.css 1`] = `
+exports[`custom-selector.css - css-verify 1`] = `
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
 @custom-selector :--heading h1,h2,h3,h4,h5,h6;
 @custom-selector  :--heading  h1  ,  h2  ,  h3  ,  h4  ,  h5  ,  h6  ;
@@ -842,7 +842,7 @@ h6
 
 `;
 
-exports[`debug.css 1`] = `
+exports[`debug.css - css-verify 1`] = `
 @debug 10em + 12em;
 @debug 10em+12em;
 @debug  10em  +  12em  ;
@@ -877,7 +877,7 @@ exports[`debug.css 1`] = `
 
 `;
 
-exports[`each.css 1`] = `
+exports[`each.css - css-verify 1`] = `
 @each $animal in puma, sea-slug, egret, salamander {}
 @each $animal in puma,sea-slug,egret,salamander{}
 @each  $animal  in  puma  ,  sea-slug  ,  egret  ,  salamander  {}
@@ -1165,7 +1165,7 @@ h3
 
 `;
 
-exports[`extend.css 1`] = `
+exports[`extend.css - css-verify 1`] = `
 .master {
     color:  black;
     font-size: 12px;
@@ -1416,7 +1416,7 @@ a.important {
 
 `;
 
-exports[`font-face.css 1`] = `
+exports[`font-face.css - css-verify 1`] = `
 @font-face {
     font-family: "Open Sans";
     src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
@@ -1541,7 +1541,7 @@ format(
 
 `;
 
-exports[`font-feature-values.css 1`] = `
+exports[`font-feature-values.css - css-verify 1`] = `
 @font-feature-values Font One {
     @styleset {
         nice-style: 12;
@@ -1629,7 +1629,7 @@ nice-style
 
 `;
 
-exports[`for.css 1`] = `
+exports[`for.css - css-verify 1`] = `
 @for $i from 1 through 8 {}
 @for $i from 1 through 8{}
 @for  $i  from  1  through  8  {}
@@ -1732,7 +1732,7 @@ through
 
 `;
 
-exports[`function.css 1`] = `
+exports[`function.css - css-verify 1`] = `
 @function func($arg, $arg1, $arg2: 10, $args...) {
     @return "Func";
 }
@@ -1858,7 +1858,7 @@ $args
 
 `;
 
-exports[`if-else.css 1`] = `
+exports[`if-else.css - css-verify 1`] = `
 @if $media == phonePortrait {
     $k: .15625;
 } @else if $media == phoneLandscape {
@@ -2138,7 +2138,7 @@ p {
 
 `;
 
-exports[`import.css 1`] = `
+exports[`import.css - css-verify 1`] = `
 @import url("fineprint.css") print;
 @import url("bluish.css") projection, tv;
 @import 'custom.css';
@@ -2315,7 +2315,7 @@ $family: unquote("Droid+Sans");
 
 `;
 
-exports[`include.css 1`] = `
+exports[`include.css - css-verify 1`] = `
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(1px,2px,$arg2:10,2px 4px 6px);
 @include mix ( 1px , 2px , $arg2 : 10 , 2px 4px 6px );
@@ -2530,7 +2530,7 @@ a {
 
 `;
 
-exports[`keyframes.css 1`] = `
+exports[`keyframes.css - css-verify 1`] = `
 @keyframes identifier {
   0% {
     top: 0;
@@ -2903,7 +2903,7 @@ margin-top: 100px;
 
 `;
 
-exports[`media.css 1`] = `
+exports[`media.css - css-verify 1`] = `
 @media screen and (min-width: 480px) {}
 @media  screen and (min-width: 480px) {}
 @MEDIA screen and (min-width: 480px) {}
@@ -3228,7 +3228,7 @@ black
 
 `;
 
-exports[`mixin.css 1`] = `
+exports[`mixin.css - css-verify 1`] = `
 @mixin clearfix {}
 @mixin clearfix{}
 @mixin  clearfix  {}
@@ -3401,7 +3401,7 @@ $background
 
 `;
 
-exports[`namespaces.css 1`] = `
+exports[`namespaces.css - css-verify 1`] = `
 @namespace toto "http://toto.example.org";
 @namespace toto url("http://toto.example.org");
 @namespace toto "http://toto.example.org" ;
@@ -3466,7 +3466,7 @@ url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/ve
 
 `;
 
-exports[`page.css 1`] = `
+exports[`page.css - css-verify 1`] = `
 @page {
     margin: 1cm;
 }
@@ -3579,7 +3579,7 @@ margin
 
 `;
 
-exports[`return.css 1`] = `
+exports[`return.css - css-verify 1`] = `
 @function grid-width($n) {
     @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
@@ -3758,7 +3758,7 @@ $gutter-width
 
 `;
 
-exports[`supports.css 1`] = `
+exports[`supports.css - css-verify 1`] = `
 @supports (transform-origin: 5% 5%) {}
 @supports (transform-origin:5% 5%) {}
 @supports ( transform-origin : 5% 5% ) {}
@@ -4193,7 +4193,7 @@ run-in
 
 `;
 
-exports[`viewport.css 1`] = `
+exports[`viewport.css - css-verify 1`] = `
 @viewport {
   min-width: 640px;
   max-width: 800px;
@@ -4281,7 +4281,7 @@ max-width
 
 `;
 
-exports[`while.css 1`] = `
+exports[`while.css - css-verify 1`] = `
 @while $i > 0 {}
 @while $i>0{}
 @while  $i  >  0  {}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`userInfo.js 1`] = `
+exports[`userInfo.js - flow-verify 1`] = `
 /* @flow */
 
 var os = require('os');

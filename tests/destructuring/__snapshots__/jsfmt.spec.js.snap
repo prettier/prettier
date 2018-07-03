@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`destructuring.js 1`] = `
+exports[`destructuring.js - flow-verify 1`] = `
 const [one, two = null, three = null] = arr;
 a = ([s=1,]) => 1
 const { children, ...props } = this.props

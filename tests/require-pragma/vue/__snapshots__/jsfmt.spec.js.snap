@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with-pragma.vue 1`] = `
+exports[`with-pragma.vue - vue-verify 1`] = `
 <!-- @prettier -->
 <template>
   <div>This will be pre-compiled</div>
@@ -22,7 +22,7 @@ const x = 1;
 
 `;
 
-exports[`without-pragma.vue 1`] = `
+exports[`without-pragma.vue - vue-verify 1`] = `
 <template>
   <div>This will be pre-compiled</div>
 </template>

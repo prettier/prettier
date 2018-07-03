@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`quotes.css 1`] = `
+exports[`quotes.css - css-verify 1`] = `
 @charset "UTF-8";
 /* @charset must always have double quotes: https://www.w3.org/TR/css-syntax-3/#determine-the-fallback-encoding */
 /* Also, it has to be the very first thing in the file, but here are some more tests anyway: */
@@ -189,7 +189,7 @@ one "two" three {
 
 `;
 
-exports[`quotes.css 2`] = `
+exports[`quotes.css - css-verify 2`] = `
 @charset "UTF-8";
 /* @charset must always have double quotes: https://www.w3.org/TR/css-syntax-3/#determine-the-fallback-encoding */
 /* Also, it has to be the very first thing in the file, but here are some more tests anyway: */

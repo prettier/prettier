@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`line-ending.js 1`] = `
+exports[`line-ending.js - flow-verify 1`] = `
 this;
 has;
 windows;
@@ -15,7 +15,7 @@ endings;
 
 `;
 
-exports[`template.js 1`] = `
+exports[`template.js - flow-verify 1`] = `
 const aLongString = \`
 Line 1
 Line 2

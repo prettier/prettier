@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js 1`] = `
+exports[`comments.js - flow-verify 1`] = `
 class A // comment 1
   // comment 2
   extends B {}

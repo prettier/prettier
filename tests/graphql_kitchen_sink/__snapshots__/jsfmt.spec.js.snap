@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`kitchen_sink.graphql 1`] = `
+exports[`kitchen_sink.graphql - graphql-verify 1`] = `
 # Copyright (c) 2015-present, Facebook, Inc.
 #
 # This source code is licensed under the MIT license found in the
@@ -126,7 +126,7 @@ fragment frag on Friend {
 
 `;
 
-exports[`schema_kitchen_sink.graphql 1`] = `
+exports[`schema_kitchen_sink.graphql - graphql-verify 1`] = `
 # Copyright (c) 2015-present, Facebook, Inc.
 #
 # This source code is licensed under the MIT license found in the

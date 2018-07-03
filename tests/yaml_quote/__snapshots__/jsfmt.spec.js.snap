@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`quote.yml 1`] = `
+exports[`quote.yml - yaml-verify 1`] = `
 - "123"
 - '123'
 - "''"
@@ -21,7 +21,7 @@ exports[`quote.yml 1`] = `
 
 `;
 
-exports[`quote.yml 2`] = `
+exports[`quote.yml - yaml-verify 2`] = `
 - "123"
 - '123'
 - "''"

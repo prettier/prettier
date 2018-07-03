@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long.js 1`] = `
+exports[`long.js - flow-verify 1`] = `
 import(
   'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
 );
@@ -18,7 +18,7 @@ import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodu
 
 `;
 
-exports[`then.js 1`] = `
+exports[`then.js - flow-verify 1`] = `
 const x = import('some-module').then(x => {
   // ...
 });
