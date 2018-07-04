@@ -7,4 +7,3 @@ lockComment: >
   any recent activity after it was closed. Please open a new issue for
   related bugs.
 setLockReason: true
-only: issues
