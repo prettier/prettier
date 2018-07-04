@@ -20,7 +20,7 @@ and add this config to your `package.json`:
 ```json
 {
   "husky": {
-    "hooks: {
+    "hooks": {
       "pre-commit": "lint-staged"
     }
   },
@@ -49,7 +49,7 @@ and add this config to your `package.json`:
 ```json
 {
   "husky": {
-    "hooks: {
+    "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
   }
@@ -88,7 +88,7 @@ and add this config to your `package.json`:
 ```json
 {
   "husky": {
-    "hooks: {
+    "hooks": {
       "pre-commit": "precise-commits"
     }
   }
