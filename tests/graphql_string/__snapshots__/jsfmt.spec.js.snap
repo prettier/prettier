@@ -118,8 +118,7 @@ input Input {
 }
 
 {
-  foo(input: { multiline: "ab
-cd" }) {
+  foo(input: { multiline: "ab\\ncd" }) {
     id
   }
 }
