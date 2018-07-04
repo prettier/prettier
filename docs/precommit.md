@@ -19,8 +19,10 @@ and add this config to your `package.json`:
 
 ```json
 {
-  "scripts": {
-    "precommit": "lint-staged"
+  "husky": {
+    "hooks: {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.{js,json,css,md}": ["prettier --write", "git add"]
@@ -46,8 +48,10 @@ and add this config to your `package.json`:
 
 ```json
 {
-  "scripts": {
-    "precommit": "pretty-quick --staged"
+  "husky": {
+    "hooks: {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
 ```
@@ -83,8 +87,10 @@ and add this config to your `package.json`:
 
 ```json
 {
-  "scripts": {
-    "precommit": "precise-commits"
+  "husky": {
+    "hooks: {
+      "pre-commit": "precise-commits"
+    }
   }
 }
 ```
