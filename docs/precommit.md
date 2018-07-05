@@ -12,7 +12,7 @@ You can use Prettier with a pre-commit tool. This can re-format your files that 
 Install it along with [husky](https://github.com/typicode/husky):
 
 ```bash
-yarn add lint-staged husky --dev
+yarn add lint-staged husky@next --dev
 ```
 
 and add this config to your `package.json`:
