@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`argument_comment.graphql 1`] = `
+exports[`argument_comment.graphql - graphql-verify 1`] = `
 
 query (
   $string: String, # Some variable comment
@@ -18,7 +18,7 @@ query(
 
 `;
 
-exports[`fields.graphql 1`] = `
+exports[`fields.graphql - graphql-verify 1`] = `
 query { 
   someField # Trailing comment
 }
@@ -31,7 +31,7 @@ query {
 
 `;
 
-exports[`tokens.graphql 1`] = `
+exports[`tokens.graphql - graphql-verify 1`] = `
 # import "./claimsFragment.gql"
 
 query claimsByBookingReferenceAndLastName($bookingReference: String!, $lastName: String!) {

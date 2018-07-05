@@ -12,6 +12,7 @@ const {
 } = require("../doc").builders;
 const { hasIgnoreComment } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
+const { insertPragma } = require("./pragma");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -143,7 +144,11 @@ function genericPrint(path, options, print) {
           '"""'
         ]);
       }
-      return concat(['"', n.value.replace(/["\\]/g, "\\$&"), '"']);
+      return concat([
+        '"',
+        n.value.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\n"),
+        '"'
+      ]);
     }
     case "IntValue":
     case "FloatValue":
@@ -658,6 +663,7 @@ module.exports = {
   print: genericPrint,
   massageAstNode: clean,
   hasPrettierIgnore: hasIgnoreComment,
+  insertPragma,
   printComment,
   canAttachComment
 };

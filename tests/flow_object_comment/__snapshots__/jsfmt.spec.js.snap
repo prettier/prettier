@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`flow_object_comment.js 1`] = `
+exports[`flow_object_comment.js - flow-verify 1`] = `
 export default (
   {
     foo,

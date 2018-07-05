@@ -1,6 +1,6 @@
 "use strict";
 
-const path = require("path");
+const normalizePath = require("normalize-path");
 const UndefinedParserError = require("../common/errors").UndefinedParserError;
 const getSupportInfo = require("../main/support").getSupportInfo;
 const normalizer = require("./options-normalizer");
@@ -113,15 +113,16 @@ function getPlugin(options) {
 }
 
 function inferParser(filepath, plugins) {
-  const extension = path.extname(filepath);
-  const filename = path.basename(filepath).toLowerCase();
+  const filepathParts = normalizePath(filepath).split("/");
+  const filename = filepathParts[filepathParts.length - 1].toLowerCase();
 
   const language = getSupportInfo(null, {
     plugins
   }).languages.find(
     language =>
       language.since !== null &&
-      ((language.extensions && language.extensions.indexOf(extension) > -1) ||
+      ((language.extensions &&
+        language.extensions.some(extension => filename.endsWith(extension))) ||
         (language.filenames &&
           language.filenames.find(name => name.toLowerCase() === filename)))
   );

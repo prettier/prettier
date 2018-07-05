@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`numbers.css 1`] = `
+exports[`numbers.css - css-verify 1`] = `
 @supports (margin: .5px ".30px" 1E+2px) {
   a {
     a: 0;

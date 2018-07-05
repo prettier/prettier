@@ -50,6 +50,7 @@ function group(contents, opts) {
 
   return {
     type: "group",
+    id: opts.id,
     contents: contents,
     break: !!opts.shouldBreak,
     expandedStates: opts.expandedStates
@@ -83,7 +84,9 @@ function fill(parts) {
   return { type: "fill", parts };
 }
 
-function ifBreak(breakContents, flatContents) {
+function ifBreak(breakContents, flatContents, opts) {
+  opts = opts || {};
+
   if (process.env.NODE_ENV !== "production") {
     if (breakContents) {
       assertDoc(breakContents);
@@ -93,7 +96,12 @@ function ifBreak(breakContents, flatContents) {
     }
   }
 
-  return { type: "if-break", breakContents, flatContents };
+  return {
+    type: "if-break",
+    breakContents,
+    flatContents,
+    groupId: opts.groupId
+  };
 }
 
 function lineSuffix(contents) {

@@ -34,7 +34,10 @@ function logPromise(name, promise) {
 }
 
 function runYarn(script) {
-  return execa("yarn", ["--silent", script]).catch(error => {
+  if (typeof script === "string") {
+    script = [script];
+  }
+  return execa("yarn", ["--silent"].concat(script)).catch(error => {
     throw Error(`\`yarn ${script}\` failed\n${error.stdout}`);
   });
 }
@@ -67,9 +70,15 @@ function writeJson(filename, content) {
   fs.writeFileSync(filename, JSON.stringify(content, null, 2) + "\n");
 }
 
+function processFile(filename, fn) {
+  const content = fs.readFileSync(filename, "utf-8");
+  fs.writeFileSync(filename, fn(content));
+}
+
 module.exports = {
   runYarn,
   logPromise,
+  processFile,
   readJson,
   writeJson,
   waitForEnter

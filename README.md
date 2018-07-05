@@ -15,6 +15,7 @@
   · GraphQL
   · JSON
   · Markdown
+  · YAML
   · <a href="https://prettier.io/docs/en/plugins.html">
       Your favorite language?
     </a>

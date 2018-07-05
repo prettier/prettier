@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with-pragma.yml - yaml-verify 1`] = `
+# @prettier
+
+    123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# @prettier
+
+123
+
+`;
+
+exports[`without-pragma.yml - yaml-verify 1`] = `
+
+
+    123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# @format
+
+123
+
+`;

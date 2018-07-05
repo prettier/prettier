@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`modules.css 1`] = `
+exports[`modules.css - css-verify 1`] = `
 @value colors: './colors.css';
 @value first, second, third from colors;
 

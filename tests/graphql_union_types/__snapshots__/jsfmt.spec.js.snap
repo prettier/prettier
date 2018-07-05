@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`union_types.graphql 1`] = `
+exports[`union_types.graphql - graphql-verify 1`] = `
 union myUnion = ATypeName | ASecondTypeName
 
 union tooLongNameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee = A | B

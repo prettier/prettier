@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`d1.js 1`] = `
+exports[`d1.js - flow-verify 1`] = `
 // @flow
 
 export class A {}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`apply.js 1`] = `
+exports[`apply.js - flow-verify 1`] = `
 function test(a: string, b: number): number {
   return this.length; // expect []/"" this
 }
@@ -105,7 +105,7 @@ function test3(x: { (a: string, b: string): void }) {
 
 `;
 
-exports[`bind.js 1`] = `
+exports[`bind.js - flow-verify 1`] = `
 // @flow
 
 let tests = [
@@ -165,7 +165,7 @@ let tests = [
 
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js - flow-verify 1`] = `
 // @flow
 
 function test(a: string, b: number): number {
@@ -256,7 +256,7 @@ function test3(x: { (a: string, b: string): void }) {
 
 `;
 
-exports[`function.js 1`] = `
+exports[`function.js - flow-verify 1`] = `
 /**
  * @flow
  */
@@ -395,7 +395,7 @@ var e = (d.bind(1): Function)();
 
 `;
 
-exports[`rest.js 1`] = `
+exports[`rest.js - flow-verify 1`] = `
 /* regression tests */
 
 function rest_array<T>(...xs: Array<T>): T { // Ok, arrays can be rest params
@@ -537,7 +537,7 @@ requires_first_param(); // Error: missing first arg
 
 `;
 
-exports[`rest_type.js 1`] = `
+exports[`rest_type.js - flow-verify 1`] = `
 /* regression tests */
 
 type rest_array = <T>(...xs: Array<T>) => T; // Ok, arrays can be rest params

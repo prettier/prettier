@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interface.graphql 1`] = `
+exports[`interface.graphql - graphql-verify 1`] = `
 interface Actor {
   id: ID
   name: String
@@ -13,7 +13,7 @@ interface Actor {
 
 `;
 
-exports[`object_type_def.graphql 1`] = `
+exports[`object_type_def.graphql - graphql-verify 1`] = `
 type Artist implements Node & Entity {
   # The ID of an object
   id: ID!
@@ -61,7 +61,7 @@ type Artist implements Node & Entity {
 
 `;
 
-exports[`object_type_def_mixed_syntax.graphql 1`] = `
+exports[`object_type_def_mixed_syntax.graphql - graphql-verify 1`] = `
 type MixedArtist implements Node, Entity & Releasable {
   # The ID of an object
   id: ID!
@@ -109,7 +109,7 @@ type MixedArtist implements Node & Entity & Releasable {
 
 `;
 
-exports[`object_type_def_old_syntax.graphql 1`] = `
+exports[`object_type_def_old_syntax.graphql - graphql-verify 1`] = `
 type OldArtist implements Node, Entity {
   # The ID of an object
   id: ID!

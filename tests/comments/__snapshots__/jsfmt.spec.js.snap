@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`assignment-pattern.js 1`] = `
+exports[`assignment-pattern.js - flow-verify 1`] = `
 const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
@@ -18,7 +18,7 @@ let {
 
 `;
 
-exports[`before-comma.js 1`] = `
+exports[`before-comma.js - flow-verify 1`] = `
 const foo = {
   a: 'a' /* comment for this line */,
 
@@ -35,7 +35,7 @@ const foo = {
 
 `;
 
-exports[`blank.js 1`] = `
+exports[`blank.js - flow-verify 1`] = `
 // This file only
 // has comments. This comment
 // should still exist
@@ -82,7 +82,7 @@ exports[`blank.js 1`] = `
 
 `;
 
-exports[`break-continue-statements.js 1`] = `
+exports[`break-continue-statements.js - flow-verify 1`] = `
 for (;;) {
   break /* comment */;
   continue /* comment */;
@@ -109,7 +109,7 @@ loop: for (;;) {
 
 `;
 
-exports[`call_comment.js 1`] = `
+exports[`call_comment.js - flow-verify 1`] = `
 render( // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
@@ -134,7 +134,7 @@ React.render(
 
 `;
 
-exports[`closure-compiler-type-cast.js 1`] = `
+exports[`closure-compiler-type-cast.js - flow-verify 1`] = `
 // test to make sure comments are attached correctly
 let inlineComment = /* some comment */ (
   someReallyLongFunctionCall(withLots, ofArguments));
@@ -181,7 +181,7 @@ var newArray = /** @type {array} */ (numberOrString.map(x => x));
 
 `;
 
-exports[`dangling.js 1`] = `
+exports[`dangling.js - flow-verify 1`] = `
 var x = {/* dangling */};
 var x = {
   // dangling
@@ -212,7 +212,7 @@ export /* dangling */{};
 
 `;
 
-exports[`dangling_array.js 1`] = `
+exports[`dangling_array.js - flow-verify 1`] = `
 expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
@@ -227,7 +227,7 @@ expect(() => {}).toTriggerReadyStateChanges([
 
 `;
 
-exports[`dangling_for.js 1`] = `
+exports[`dangling_for.js - flow-verify 1`] = `
 for // comment
 (;;);
 
@@ -241,7 +241,7 @@ for (;;);
 
 `;
 
-exports[`dynamic_imports.js 1`] = `
+exports[`dynamic_imports.js - flow-verify 1`] = `
 import(/* Hello */ 'something')
 
 import('something' /* Hello */)
@@ -260,7 +260,7 @@ import("something" /* Hello */ + "else");
 
 `;
 
-exports[`export.js 1`] = `
+exports[`export.js - flow-verify 1`] = `
 export //comment
 {}
 
@@ -301,7 +301,7 @@ export {
 
 `;
 
-exports[`first-line.js 1`] = `
+exports[`first-line.js - flow-verify 1`] = `
 a // comment
 b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -310,7 +310,7 @@ b;
 
 `;
 
-exports[`flow_union.js 1`] = `
+exports[`flow_union.js - flow-verify 1`] = `
 type UploadState<E, EM, D>
   // The upload hasnt begun yet
   = {type: "Not_begun"}
@@ -353,7 +353,7 @@ type UploadState<E, EM, D> =
 
 `;
 
-exports[`function-declaration.js 1`] = `
+exports[`function-declaration.js - flow-verify 1`] = `
 function a(/* comment */) {} // comment
 function b() {} // comment
 function c(/* comment */ argA, argB, argC) {} // comment
@@ -440,7 +440,7 @@ class C {
 
 `;
 
-exports[`if.js 1`] = `
+exports[`if.js - flow-verify 1`] = `
 if (1)
 // comment
 {
@@ -581,7 +581,7 @@ if (14) {
 
 `;
 
-exports[`issues.js 1`] = `
+exports[`issues.js - flow-verify 1`] = `
 // Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
 
@@ -805,7 +805,7 @@ foo(
 
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js - flow-verify 1`] = `
 <div>
   {
     /* comment */
@@ -1032,7 +1032,7 @@ onClick={() => {}}>
 
 `;
 
-exports[`last-arg.js 1`] = `
+exports[`last-arg.js - flow-verify 1`] = `
 type f = (
   currentRequest: {a: number},
   // TODO this is a very very very very long comment that makes it go > 80 columns
@@ -1217,7 +1217,7 @@ class Foo {
 
 `;
 
-exports[`preserve-new-line-last.js 1`] = `
+exports[`preserve-new-line-last.js - flow-verify 1`] = `
 function f() {
   a
   /* eslint-disable */
@@ -1264,7 +1264,7 @@ function name() {
 
 `;
 
-exports[`return-statement.js 1`] = `
+exports[`return-statement.js - flow-verify 1`] = `
 function jsx() {
   return (
     // Comment
@@ -1519,7 +1519,7 @@ function inlineComment() {
 
 `;
 
-exports[`switch.js 1`] = `
+exports[`switch.js - flow-verify 1`] = `
 switch (node && node.type) {
   case "Property":
   case "MethodDefinition":
@@ -1599,7 +1599,7 @@ switch (foo) {
 
 `;
 
-exports[`template-literal.js 1`] = `
+exports[`template-literal.js - flow-verify 1`] = `
 \`
 \${a // comment
 }
@@ -1630,7 +1630,7 @@ d //comment
 
 `;
 
-exports[`trailing_space.js 1`] = `
+exports[`trailing_space.js - flow-verify 1`] = `
 #!/there/is-space-here->         
 
 // Do not trim trailing whitespace from this source file!
@@ -1645,7 +1645,7 @@ exports[`trailing_space.js 1`] = `
 
 `;
 
-exports[`trailing-jsdocs.js 1`] = `
+exports[`trailing-jsdocs.js - flow-verify 1`] = `
 const CONNECTION_STATUS = exports.CONNECTION_STATUS = {
   CLOSED: Object.freeze({ kind: 'CLOSED' }),
   CONNECTED: Object.freeze({ kind: 'CONNECTED' }),
@@ -1699,7 +1699,7 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
 
 `;
 
-exports[`try.js 1`] = `
+exports[`try.js - flow-verify 1`] = `
 // comment 1
 try {
   // comment 2
@@ -1727,7 +1727,7 @@ try {
 
 `;
 
-exports[`variable_declarator.js 1`] = `
+exports[`variable_declarator.js - flow-verify 1`] = `
 let obj = // Comment
 {
   key: 'val'

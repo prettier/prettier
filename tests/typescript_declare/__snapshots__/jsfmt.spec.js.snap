@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declare_enum.ts 1`] = `
+exports[`declare_enum.ts - typescript-verify 1`] = `
 declare const enum Foo {}
 declare enum Bar {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ declare enum Bar {}
 
 `;
 
-exports[`declare_function.ts 1`] = `
+exports[`declare_function.ts - typescript-verify 1`] = `
 declare function x();
 declare function y(): void;
 
@@ -28,7 +28,7 @@ declare namespace A {
 
 `;
 
-exports[`declare_interface.ts 1`] = `
+exports[`declare_interface.ts - typescript-verify 1`] = `
 declare interface Dictionary<T> {
   [index: string]: T
 }
@@ -39,7 +39,7 @@ declare interface Dictionary<T> {
 
 `;
 
-exports[`declare_var.ts 1`] = `
+exports[`declare_var.ts - typescript-verify 1`] = `
 // tslint:disable-next-line:no-use-before-declare
 const hello = 5;
 

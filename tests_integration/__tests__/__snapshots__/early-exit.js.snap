@@ -62,12 +62,12 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
+  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue|yaml>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
   --prose-wrap <always|never|preserve>
-                           How to wrap prose. (markdown)
+                           How to wrap prose.
                            Defaults to preserve.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
@@ -165,7 +165,7 @@ exports[`show warning with --help not-found (typo) (stderr) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
+"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue|yaml>
 
   Which parser to use.
 
@@ -183,6 +183,7 @@ Valid options:
   graphql          GraphQL
   markdown         Markdown
   vue              Vue
+  yaml             YAML
 "
 `;
 
@@ -211,12 +212,12 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
+  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue|yaml>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
   --prose-wrap <always|never|preserve>
-                           How to wrap prose. (markdown)
+                           How to wrap prose.
                            Defaults to preserve.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.

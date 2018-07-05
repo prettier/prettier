@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`throw_expression.js 1`] = `
+exports[`throw_expression.js - babylon-verify 1`] = `
 function save(filename = throw new TypeError("Argument required")) {}
 
 lint(ast, {

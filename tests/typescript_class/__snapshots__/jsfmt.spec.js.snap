@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructor.ts 1`] = `
+exports[`constructor.ts - typescript-verify 1`] = `
 class foo {
   constructor(static a: number) {}
 }
@@ -19,7 +19,7 @@ class foo {
 
 `;
 
-exports[`dunder.ts 1`] = `
+exports[`dunder.ts - typescript-verify 1`] = `
 // eslint/typescript-eslint-parser#296
 class F<__T> {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,7 +28,7 @@ class F<__T> {}
 
 `;
 
-exports[`extends_implements.ts 1`] = `
+exports[`extends_implements.ts - typescript-verify 1`] = `
 class Class extends AbstractClass implements Interface1, Interface2, Interface3, Interface4 {}
 
 class ExtendsAbstractClassAndImplementsInterfaces extends AbstractClass
@@ -119,7 +119,7 @@ class ExtendsAbstractClassAndImplementsInterfaces
 
 `;
 
-exports[`generics.ts 1`] = `
+exports[`generics.ts - typescript-verify 1`] = `
 class<T> implements Map<T> {}
 
 interface AudioBufferList {
@@ -134,7 +134,7 @@ interface AudioBufferList {
 
 `;
 
-exports[`methods.ts 1`] = `
+exports[`methods.ts - typescript-verify 1`] = `
 class X {
     optionalMethod?() {}
 }
@@ -161,18 +161,20 @@ export class Check {
 
 `;
 
-exports[`optional.ts 1`] = `
+exports[`optional.ts - typescript-verify 1`] = `
 class X {
   private foo? = undefined;
+  "a-prop"?: boolean;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class X {
   private foo? = undefined;
+  "a-prop"?: boolean;
 }
 
 `;
 
-exports[`quoted-property.ts 1`] = `
+exports[`quoted-property.ts - typescript-verify 1`] = `
 class User {
     "username": string;
 }

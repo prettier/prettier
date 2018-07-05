@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`values.css 1`] = `
+exports[`values.css - css-verify 1`] = `
 .class {
   background:linear-gradient(to bottom right,white,hsla(0,0%,100%,.8));
   border: 1px      solid rgba(0,0,0,.3);

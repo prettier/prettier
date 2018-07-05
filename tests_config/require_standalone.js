@@ -12,7 +12,8 @@ const sources = [
   "parser-postcss.js",
   "parser-graphql.js",
   "parser-markdown.js",
-  "parser-vue.js"
+  "parser-vue.js",
+  "parser-yaml.js"
 ].map(filename =>
   fs.readFileSync(path.join(process.env.PRETTIER_DIR, filename), "utf-8")
 );

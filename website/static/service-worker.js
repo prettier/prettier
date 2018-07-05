@@ -16,6 +16,7 @@ toolbox.precache([
   "lib/parser-glimmer.js",
   "lib/parser-graphql.js",
   "lib/parser-markdown.js",
+  "lib/parser-yaml.js",
   "playground.js",
   "https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js",
 
@@ -27,7 +28,6 @@ toolbox.precache([
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.36.0/mode/jsx/jsx.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.36.0/mode/css/css.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.36.0/mode/markdown/markdown.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.36.0/addon/display/placeholder.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.36.0/addon/display/rulers.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.36.0/addon/search/searchcursor.js",
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.36.0/addon/edit/matchbrackets.js",

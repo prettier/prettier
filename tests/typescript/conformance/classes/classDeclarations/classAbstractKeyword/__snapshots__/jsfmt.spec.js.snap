@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classAbstractAccessor.ts 1`] = `
+exports[`classAbstractAccessor.ts - typescript-verify 1`] = `
 
 abstract class A {
    abstract get a();
@@ -20,7 +20,7 @@ abstract class A {
 
 `;
 
-exports[`classAbstractAsIdentifier.ts 1`] = `
+exports[`classAbstractAsIdentifier.ts - typescript-verify 1`] = `
 class abstract {
     foo() { return 1; }
 }
@@ -36,7 +36,7 @@ new abstract();
 
 `;
 
-exports[`classAbstractAssignabilityConstructorFunction.ts 1`] = `
+exports[`classAbstractAssignabilityConstructorFunction.ts - typescript-verify 1`] = `
 abstract class A { }
 
 var AAA: new() => A;
@@ -52,7 +52,7 @@ AAA = "asdf";
 
 `;
 
-exports[`classAbstractClinterfaceAssignability.ts 1`] = `
+exports[`classAbstractClinterfaceAssignability.ts - typescript-verify 1`] = `
 
 var I: IConstructor;
 
@@ -81,7 +81,7 @@ AAA = A;
 
 `;
 
-exports[`classAbstractConstructorAssignability.ts 1`] = `
+exports[`classAbstractConstructorAssignability.ts - typescript-verify 1`] = `
 
 class A {}
 
@@ -112,7 +112,7 @@ new CC();
 
 `;
 
-exports[`classAbstractCrashedOnce.ts 1`] = `
+exports[`classAbstractCrashedOnce.ts - typescript-verify 1`] = `
 abstract class foo {
     protected abstract test();
 }
@@ -133,7 +133,7 @@ var x = new bar();
 
 `;
 
-exports[`classAbstractExtends.ts 1`] = `
+exports[`classAbstractExtends.ts - typescript-verify 1`] = `
 
 class A {
     foo() {}
@@ -168,7 +168,7 @@ class E extends B {
 
 `;
 
-exports[`classAbstractFactoryFunction.ts 1`] = `
+exports[`classAbstractFactoryFunction.ts - typescript-verify 1`] = `
 
 class A {}
 abstract class B extends A {}
@@ -205,7 +205,7 @@ NewB(B);
 
 `;
 
-exports[`classAbstractGeneric.ts 1`] = `
+exports[`classAbstractGeneric.ts - typescript-verify 1`] = `
 abstract class A<T> {
     t: T;
 
@@ -263,7 +263,7 @@ class G<T> extends A {
 
 `;
 
-exports[`classAbstractImportInstantiation.ts 1`] = `
+exports[`classAbstractImportInstantiation.ts - typescript-verify 1`] = `
 
 export abstract class A {}
 
@@ -280,7 +280,7 @@ new myA();
 
 `;
 
-exports[`classAbstractInAModule.ts 1`] = `
+exports[`classAbstractInAModule.ts - typescript-verify 1`] = `
 
 export abstract class A {}
 export class B extends A {}
@@ -296,7 +296,7 @@ new M.B();
 
 `;
 
-exports[`classAbstractInheritance.ts 1`] = `
+exports[`classAbstractInheritance.ts - typescript-verify 1`] = `
 abstract class A {}
 
 abstract class B extends A {}
@@ -342,7 +342,7 @@ abstract class GG extends CC {}
 
 `;
 
-exports[`classAbstractInstantiations1.ts 1`] = `
+exports[`classAbstractInstantiations1.ts - typescript-verify 1`] = `
 
 abstract class A {}
 
@@ -384,7 +384,7 @@ c = new B();
 
 `;
 
-exports[`classAbstractInstantiations2.ts 1`] = `
+exports[`classAbstractInstantiations2.ts - typescript-verify 1`] = `
 class A {
 }
 
@@ -493,7 +493,7 @@ class H {
 
 `;
 
-exports[`classAbstractMethodInNonAbstractClass.ts 1`] = `
+exports[`classAbstractMethodInNonAbstractClass.ts - typescript-verify 1`] = `
 class A {
     abstract foo();
 }
@@ -511,7 +511,7 @@ class B {
 
 `;
 
-exports[`classAbstractMethodWithImplementation.ts 1`] = `
+exports[`classAbstractMethodWithImplementation.ts - typescript-verify 1`] = `
 abstract class A {
     abstract foo() {}
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -521,7 +521,7 @@ abstract class A {
 
 `;
 
-exports[`classAbstractMixedWithModifiers.ts 1`] = `
+exports[`classAbstractMixedWithModifiers.ts - typescript-verify 1`] = `
 abstract class A {
     abstract foo_a();
     
@@ -555,7 +555,7 @@ abstract class A {
 
 `;
 
-exports[`classAbstractOverloads.ts 1`] = `
+exports[`classAbstractOverloads.ts - typescript-verify 1`] = `
 abstract class A {
     abstract foo();
     abstract foo() : number;
@@ -607,7 +607,7 @@ abstract class B {
 
 `;
 
-exports[`classAbstractOverrideWithAbstract.ts 1`] = `
+exports[`classAbstractOverrideWithAbstract.ts - typescript-verify 1`] = `
 class A {
     foo() {}
 }
@@ -657,7 +657,7 @@ class DD extends BB {
 
 `;
 
-exports[`classAbstractProperties.ts 1`] = `
+exports[`classAbstractProperties.ts - typescript-verify 1`] = `
 abstract class A {
     abstract x : number;
     public abstract y : number;
@@ -687,7 +687,7 @@ abstract class A {
 
 `;
 
-exports[`classAbstractSingleLineDecl.ts 1`] = `
+exports[`classAbstractSingleLineDecl.ts - typescript-verify 1`] = `
 abstract class A {}
 
 abstract
@@ -715,7 +715,7 @@ new C();
 
 `;
 
-exports[`classAbstractSuperCalls.ts 1`] = `
+exports[`classAbstractSuperCalls.ts - typescript-verify 1`] = `
 
 class A {
     foo() { return 1; }
@@ -785,7 +785,7 @@ abstract class BB extends AA {
 
 `;
 
-exports[`classAbstractUsingAbstractMethod1.ts 1`] = `
+exports[`classAbstractUsingAbstractMethod1.ts - typescript-verify 1`] = `
 abstract class A {
     abstract foo() : number;
 }
@@ -825,7 +825,7 @@ a.foo();
 
 `;
 
-exports[`classAbstractUsingAbstractMethods2.ts 1`] = `
+exports[`classAbstractUsingAbstractMethods2.ts - typescript-verify 1`] = `
 class A {
     abstract foo();
 }
@@ -883,7 +883,7 @@ class DD extends AA {
 
 `;
 
-exports[`classAbstractWithInterface.ts 1`] = `
+exports[`classAbstractWithInterface.ts - typescript-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `;

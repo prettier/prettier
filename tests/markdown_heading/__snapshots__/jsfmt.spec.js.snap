@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`atx.md 1`] = `
+exports[`atx.md - markdown-verify 1`] = `
 # h1
 
 ## h2
@@ -11,21 +11,21 @@ exports[`atx.md 1`] = `
 
 `;
 
-exports[`long-heading.md 1`] = `
+exports[`long-heading.md - markdown-verify 1`] = `
 # this is a long long long long long long long long long long long long long long heading.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # this is a long long long long long long long long long long long long long long heading.
 
 `;
 
-exports[`mixed.md 1`] = `
+exports[`mixed.md - markdown-verify 1`] = `
 ## LaraCart - Laravel Shopping Cart Package (<a href="http://laracart.lukepolo.com/">http://laracart.lukepolo.com</a>)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## LaraCart - Laravel Shopping Cart Package (<a href="http://laracart.lukepolo.com/">http://laracart.lukepolo.com</a>)
 
 `;
 
-exports[`setext.md 1`] = `
+exports[`setext.md - markdown-verify 1`] = `
 h1
 ===
 
@@ -38,7 +38,7 @@ h2
 
 `;
 
-exports[`unbreakable.md 1`] = `
+exports[`unbreakable.md - markdown-verify 1`] = `
 ### \`reporters\` [array<moduleName | [moduleName, options]>]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ### \`reporters\` [array<moduleName | [moduleName, options]>]

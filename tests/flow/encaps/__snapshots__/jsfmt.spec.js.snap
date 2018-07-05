@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`encaps.js 1`] = `
+exports[`encaps.js - flow-verify 1`] = `
 class A { }
 var a = new A();
 var s1 = \`l\${a.x}r\`; // error: no prop x in A

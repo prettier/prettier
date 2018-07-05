@@ -200,6 +200,64 @@ function format(context, input, opt) {
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
+  /* istanbul ignore if */
+  if (context.argv["debug-benchmark"]) {
+    let benchmark;
+    try {
+      benchmark = eval("require")("benchmark");
+    } catch (err) {
+      context.logger.debug(
+        "'--debug-benchmark' requires the 'benchmark' package to be installed."
+      );
+      process.exit(2);
+    }
+    context.logger.debug(
+      "'--debug-benchmark' option found, measuring formatWithCursor with 'benchmark' module."
+    );
+    const suite = new benchmark.Suite();
+    suite
+      .add("format", () => {
+        prettier.formatWithCursor(input, opt);
+      })
+      .on("cycle", event => {
+        const results = {
+          benchmark: String(event.target),
+          hz: event.target.hz,
+          ms: event.target.times.cycle * 1000
+        };
+        context.logger.debug(
+          "'--debug-benchmark' measurements for formatWithCursor: " +
+            JSON.stringify(results, null, 2)
+        );
+      })
+      .run({ async: false });
+  } else if (context.argv["debug-repeat"] > 0) {
+    const repeat = context.argv["debug-repeat"];
+    context.logger.debug(
+      "'--debug-repeat' option found, running formatWithCursor " +
+        repeat +
+        " times."
+    );
+    // should be using `performance.now()`, but only `Date` is cross-platform enough
+    const now = Date.now ? () => Date.now() : () => +new Date();
+    let totalMs = 0;
+    for (let i = 0; i < repeat; ++i) {
+      const startMs = now();
+      prettier.formatWithCursor(input, opt);
+      totalMs += now() - startMs;
+    }
+    const averageMs = totalMs / repeat;
+    const results = {
+      repeat,
+      hz: 1000 / averageMs,
+      ms: averageMs
+    };
+    context.logger.debug(
+      "'--debug-repeat' measurements for formatWithCursor: " +
+        JSON.stringify(results, null, 2)
+    );
+  }
+
   return prettier.formatWithCursor(input, opt);
 }
 

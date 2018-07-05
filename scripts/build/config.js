@@ -13,6 +13,7 @@ const path = require("path");
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
  * @property {string[]} external - array of paths that should not be included in the final bundle
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
+ * @property {string[]} babelPlugins - babel plugins
 
  * @typedef {Object} CommonJSConfig
  * @property {Object} namedExports - for cases where rollup can't infer what's exported
@@ -66,6 +67,18 @@ const parsers = [
   {
     input: "src/language-html/parser-parse5.js",
     target: "node"
+  },
+  {
+    input: "src/language-yaml/parser-yaml.js",
+    target: "universal",
+    alias: {
+      // Force using the CJS file, instead of ESM; i.e. get the file
+      // from `"main"` instead of `"module"` (rollup default) of package.json
+      "lines-and-columns": require.resolve("lines-and-columns")
+    },
+    babelPlugins: [
+      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
+    ]
   }
 ].map(parser => {
   const name = getFileOutput(parser)

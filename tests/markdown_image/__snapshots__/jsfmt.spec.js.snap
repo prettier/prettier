@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`simple.md 1`] = `
+exports[`simple.md - markdown-verify 1`] = `
 ![hello](http://example.com/image.png)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ![hello](http://example.com/image.png)
 
 `;
 
-exports[`title.md 1`] = `
+exports[`title.md - markdown-verify 1`] = `
 ![hello](http://example.com/image.png "title")
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ![hello](http://example.com/image.png "title")

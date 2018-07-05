@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`loners.js 1`] = `
+exports[`loners.js - flow-verify 1`] = `
 var o = { x: 5, y: "jello" };
 var z = o.z;
 var export_o: { x: number; } = o;

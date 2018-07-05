@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with-pragma.json5 1`] = `
+exports[`with-pragma.json5 - json5-verify 1`] = `
 /** @format */
 
 {hello:       "world"}
@@ -11,7 +11,7 @@ exports[`with-pragma.json5 1`] = `
 
 `;
 
-exports[`without-pragma.json5 1`] = `
+exports[`without-pragma.json5 - json5-verify 1`] = `
 {hello:       "world"}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {hello:       "world"}

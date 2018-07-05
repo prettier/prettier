@@ -1,3 +1,4 @@
+/.cache
 /node_modules
 /scripts/release/node_modules
 *.log

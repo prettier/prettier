@@ -1,24 +1,14 @@
 "use strict";
 
 const printer = require("./printer-vue");
-
-// Based on:
-// https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+const languageExtend = require("../utils/language-extend");
 
 const languages = [
-  {
-    name: "Vue",
+  languageExtend({}, require("linguist-languages/data/vue"), {
     since: "1.10.0",
     parsers: ["vue"],
-    group: "HTML",
-    tmScope: "text.html.vue",
-    aceMode: "html",
-    codemirrorMode: "htmlmixed",
-    codemirrorMimeType: "text/html",
-    extensions: [".vue"],
-    linguistLanguageId: 146,
     vscodeLanguageIds: ["vue"]
-  }
+  })
 ];
 
 const printers = {

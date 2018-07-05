@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ExplicitProvidesModuleDifferentName.js 1`] = `
+exports[`ExplicitProvidesModuleDifferentName.js - flow-verify 1`] = `
 /*
  * @providesModule ExplicitProvidesModuleDifferentName
  * @flow
@@ -17,7 +17,7 @@ module.exports.fun = (): string => "hello there";
 
 `;
 
-exports[`ExplicitProvidesModuleSameName.js 1`] = `
+exports[`ExplicitProvidesModuleSameName.js - flow-verify 1`] = `
 /*
  * @providesModule ExplicitProvidesModuleSameName
  * @flow
@@ -34,7 +34,7 @@ module.exports.fun = (): string => "hello there";
 
 `;
 
-exports[`ImplicitProvidesModule.js 1`] = `
+exports[`ImplicitProvidesModule.js - flow-verify 1`] = `
 /*
  * @providesModule ImplicitProvidesModule
  * @flow
@@ -51,14 +51,14 @@ module.exports.fun = (): string => "hello there";
 
 `;
 
-exports[`md5.js 1`] = `
+exports[`md5.js - flow-verify 1`] = `
 /* @providesModule md5 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule md5 */
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 /* @flow */
 
 var Implicit = require('ImplicitProvidesModule');

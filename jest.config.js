@@ -34,5 +34,10 @@ module.exports = {
     "prettier/local": "<rootDir>/tests_config/require_prettier.js",
     "prettier/standalone": "<rootDir>/tests_config/require_standalone.js"
   },
-  transform: {}
+  testEnvironment: "node",
+  transform: {},
+  watchPlugins: [
+    "jest-watch-typeahead/filename",
+    "jest-watch-typeahead/testname"
+  ]
 };

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Promise.js 1`] = `
+exports[`Promise.js - flow-verify 1`] = `
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 // These annotations are copy/pasted from the built-in Flow definitions for

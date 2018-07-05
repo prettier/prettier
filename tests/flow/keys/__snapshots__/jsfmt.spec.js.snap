@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`keys.js 1`] = `
+exports[`keys.js - flow-verify 1`] = `
 /* @flow */
 
 function testKeysOfObject(str: string, lit: 'hi') {

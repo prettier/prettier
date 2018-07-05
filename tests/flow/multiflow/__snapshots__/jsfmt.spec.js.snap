@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`apply.js 1`] = `
+exports[`apply.js - flow-verify 1`] = `
 // @flow
 
 function apply<Args: $ReadOnlyArray<mixed>, Ret>(
@@ -93,7 +93,7 @@ applyType(withRest, ["hi", 123, false]); // Error - too many args
 
 `;
 
-exports[`issue3443.js 1`] = `
+exports[`issue3443.js - flow-verify 1`] = `
 // @flow
 
 // Adapted from https://github.com/facebook/flow/issues/3443
@@ -134,7 +134,7 @@ foo(123);
 
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js - flow-verify 1`] = `
 /**
  * @jsx JSX
  * @flow
@@ -236,7 +236,7 @@ declare function ExpectsChildrenArray(
 
 `;
 
-exports[`spread.js 1`] = `
+exports[`spread.js - flow-verify 1`] = `
 // @flow
 
 function fun(x: 'hi', y: 123) {}

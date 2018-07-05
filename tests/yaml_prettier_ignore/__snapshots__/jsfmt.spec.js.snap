@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`document.yml - yaml-verify 1`] = `
+# prettier-ignore
+---
+aaaaa:
+           bbbbb
+...
+aaaaa:
+           bbbbb
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# prettier-ignore
+---
+aaaaa:
+           bbbbb
+...
+aaaaa: bbbbb
+
+`;
+
+exports[`leading-comment.yml - yaml-verify 1`] = `
+abc:     123
+# prettier-ignore
+def:     456
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+abc: 123
+# prettier-ignore
+def:     456
+
+`;
+
+exports[`middle-comment.yml - yaml-verify 1`] = `
+abc:  !!str #   hello
+   123
+# prettier-ignore
+def:  !!str #   hello
+   456
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+abc: !!str #   hello
+  123
+# prettier-ignore
+def:  !!str #   hello
+   456
+
+`;
+
+exports[`trailing-comma.yml - yaml-verify 1`] = `
+[
+  # prettier-ignore
+             {  sss  },       # 123
+    {  qqqq },
+  
+  # prettier-ignore
+          [ccc    ]       # 777
+  , [ddd    ]
+]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[
+  # prettier-ignore
+  {  sss  }, # 123
+  { qqqq },
+
+  # prettier-ignore
+  [ccc    ], # 777
+  [ddd],
+]
+
+`;
+
+exports[`trailing-comment.yml - yaml-verify 1`] = `
+abc:     123 # hello
+# prettier-ignore
+def:     456 # hello
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+abc: 123 # hello
+# prettier-ignore
+def:     456 # hello
+
+`;
