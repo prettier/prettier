@@ -1,5 +1,4 @@
 # Configuration for lock-threads - https://github.com/dessant/lock-threads
 daysUntilLock: 90
-exemptLabels: []
 lockLabel: locked-due-to-inactivity
 setLockReason: true
