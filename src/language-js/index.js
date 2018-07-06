@@ -40,7 +40,6 @@ const languages = [
       filenames: ["package.json", "package-lock.json", "composer.json"]
     }
   ),
-  
   languageExtend({}, require("linguist-languages/data/json"), {
     since: "1.5.0",
     parsers: ["json"],
