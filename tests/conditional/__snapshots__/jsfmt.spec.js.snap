@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js 1`] = `
+exports[`comments.js - flow-verify 1`] = `
 var inspect = 4 === util.inspect.length
   ? // node <= 0.8.x
     (function(v, colors) {
@@ -82,7 +82,7 @@ const { configureStore } =
 
 `;
 
-exports[`new-expression.js 1`] = `
+exports[`new-expression.js - flow-verify 1`] = `
 const testConsole = new TestConsole(
   config.useStderr ? process.stderr : process.stdout
 );
@@ -93,7 +93,7 @@ const testConsole = new TestConsole(
 
 `;
 
-exports[`no-confusing-arrow.js 1`] = `
+exports[`no-confusing-arrow.js - flow-verify 1`] = `
 // no-confusing-arrow
 var x = a => 1 ? 2 : 3;
 var x = a <= 1 ? 2 : 3;

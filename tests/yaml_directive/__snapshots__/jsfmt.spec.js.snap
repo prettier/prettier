@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with-parameters.yml 1`] = `
+exports[`with-parameters.yml - yaml-verify 1`] = `
 %YAML 1.2
 ---
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@ exports[`with-parameters.yml 1`] = `
 
 `;
 
-exports[`without-parameters.yml 1`] = `
+exports[`without-parameters.yml - yaml-verify 1`] = `
 %SOMETHING
 ---
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

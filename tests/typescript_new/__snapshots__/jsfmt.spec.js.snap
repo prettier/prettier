@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`new-signature.ts 1`] = `
+exports[`new-signature.ts - typescript-verify 1`] = `
 interface FooConstructor {
   new (
     a: number,

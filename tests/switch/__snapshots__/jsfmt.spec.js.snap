@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js 1`] = `
+exports[`comments.js - flow-verify 1`] = `
 switch (true) {
   case true:
   // Good luck getting here
@@ -51,7 +51,7 @@ switch (x) {
 
 `;
 
-exports[`empty_lines.js 1`] = `
+exports[`empty_lines.js - flow-verify 1`] = `
 switch (foo) {
   case "bar":
     doSomething();
@@ -194,7 +194,7 @@ switch (a) {
 
 `;
 
-exports[`empty_statement.js 1`] = `
+exports[`empty_statement.js - flow-verify 1`] = `
 switch (error.code) {
 	case ConfigurationEditingErrorCode.ERROR_INVALID_CONFIGURATION: {
 		nls.localize('errorInvalidConfiguration', "Unable to write into settings. Correct errors/warnings in the file and try again.");
@@ -212,7 +212,7 @@ switch (error.code) {
 
 `;
 
-exports[`empty_switch.js 1`] = `
+exports[`empty_switch.js - flow-verify 1`] = `
 switch (1) { default:; }
 switch (1) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -224,7 +224,7 @@ switch (1) {
 
 `;
 
-exports[`switch.js 1`] = `
+exports[`switch.js - flow-verify 1`] = `
 switch (a) {
   case 3:
     alert( '3' );

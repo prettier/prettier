@@ -111,11 +111,21 @@ const options = {
     description:
       "Define in which order config files and CLI options should be evaluated."
   },
+  "debug-benchmark": {
+    // Run the formatting benchmarks. Requires 'benchmark' module to be installed.
+    type: "boolean"
+  },
   "debug-check": {
+    // Run the formatting once again on the formatted output, throw if different.
     type: "boolean"
   },
   "debug-print-doc": {
     type: "boolean"
+  },
+  "debug-repeat": {
+    // Repeat the formatting a few times and measure the average duration.
+    type: "int",
+    default: 0
   },
   editorconfig: {
     type: "boolean",

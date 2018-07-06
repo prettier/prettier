@@ -94,7 +94,7 @@ function getRollupConfig(bundle) {
   };
 
   const replaceStrings = {
-    "proces.env.NODE_ENV": JSON.stringify("production")
+    "process.env.NODE_ENV": JSON.stringify("production")
   };
   if (bundle.target === "universal") {
     // We can't reference `process` in UMD bundles and this is

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example-1.md 1`] = `
+exports[`example-1.md - markdown-verify 1`] = `
 {% include_relative _installations/tarball.md %}
 
 {% cloudinary nice_prefix_-_for_the_filename.jpg %}
@@ -29,7 +29,7 @@ where does it end }}
 
 `;
 
-exports[`example-1.md 2`] = `
+exports[`example-1.md - markdown-verify 2`] = `
 {% include_relative _installations/tarball.md %}
 
 {% cloudinary nice_prefix_-_for_the_filename.jpg %}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`promise.js 1`] = `
+exports[`promise.js - flow-verify 1`] = `
 /**
  * At the moment, all type params are invariant with
  * the exception of the single param to the Promise class,

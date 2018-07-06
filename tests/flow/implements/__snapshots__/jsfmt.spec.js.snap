@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 /* @noflow */
 
 interface IFoo { foo: string }

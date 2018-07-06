@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment_after.css 1`] = `
+exports[`comment_after.css - css-verify 1`] = `
 ---
 title: Title
 description: Description
@@ -20,7 +20,33 @@ description: Description
 
 `;
 
-exports[`empty.css 1`] = `
+exports[`dirty.css - css-verify 1`] = `
+---
+hello:     world
+a:       
+            - 123
+            - 666
+---
+
+.class {
+
+
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+hello: world
+a:
+  - 123
+  - 666
+---
+
+.class {
+}
+
+`;
+
+exports[`empty.css - css-verify 1`] = `
 ---
 ---
 
@@ -37,7 +63,7 @@ a {
 
 `;
 
-exports[`empty_newlines.css 1`] = `
+exports[`empty_newlines.css - css-verify 1`] = `
 ---
 
 
@@ -51,9 +77,6 @@ a {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---
-
-
-
 ---
 
 a {
@@ -62,7 +85,7 @@ a {
 
 `;
 
-exports[`malformed.css 1`] = `
+exports[`malformed.css - css-verify 1`] = `
 ---
 aaa
 b---
@@ -76,7 +99,7 @@ a {
 
 `;
 
-exports[`malformed-2.css 1`] = `
+exports[`malformed-2.css - css-verify 1`] = `
 ---
 foo: bar
 ---
@@ -103,7 +126,7 @@ a {
 
 `;
 
-exports[`only_comments.css 1`] = `
+exports[`only_comments.css - css-verify 1`] = `
 ---
 # comment 1
 # comment 2
@@ -126,7 +149,7 @@ a {
 
 `;
 
-exports[`with_comments.css 1`] = `
+exports[`with_comments.css - css-verify 1`] = `
 ---
 title: Title
 description: Description
@@ -148,7 +171,7 @@ a {
 
 `;
 
-exports[`without-newline-after.css 1`] = `
+exports[`without-newline-after.css - css-verify 1`] = `
 ---
 title: Title
 description: Description
@@ -168,7 +191,7 @@ a {
 
 `;
 
-exports[`yaml.css 1`] = `
+exports[`yaml.css - css-verify 1`] = `
 ---
 title: Title
 description: Description
@@ -189,7 +212,7 @@ a {
 
 `;
 
-exports[`yaml.less 1`] = `
+exports[`yaml.less - css-verify 1`] = `
 ---
 title: Title
 description: Description
@@ -210,7 +233,7 @@ a {
 
 `;
 
-exports[`yaml.scss 1`] = `
+exports[`yaml.scss - css-verify 1`] = `
 ---
 title: Title
 description: Description

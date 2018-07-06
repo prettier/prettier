@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`jsonc.md 1`] = `
+exports[`jsonc.md - markdown-verify 1`] = `
 \`\`\`jsonc
    // comment
 {
@@ -17,7 +17,7 @@ exports[`jsonc.md 1`] = `
 
 `;
 
-exports[`trailing_comma.md 1`] = `
+exports[`trailing_comma.md - markdown-verify 1`] = `
 \`\`\`json
 {
   "foo": "bar"

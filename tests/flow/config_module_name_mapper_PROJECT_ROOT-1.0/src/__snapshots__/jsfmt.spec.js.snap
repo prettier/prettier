@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`testmodule.js 1`] = `
+exports[`testmodule.js - flow-verify 1`] = `
 // @flow
 
 export let test = 42;

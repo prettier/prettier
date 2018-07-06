@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`functions.js 1`] = `
+exports[`functions.js - flow-verify 1`] = `
 const a = () => "Foo bar";
 
 function b(object, key) {
@@ -15,7 +15,7 @@ function b(object, key) {
 
 `;
 
-exports[`functions.js 2`] = `
+exports[`functions.js - flow-verify 2`] = `
 const a = () => "Foo bar";
 
 function b(object, key) {
@@ -30,7 +30,7 @@ function b(object, key) {
 
 `;
 
-exports[`strings.js 1`] = `
+exports[`strings.js - flow-verify 1`] = `
 // Prevent strings from being parsed as directives
 // See https://github.com/prettier/prettier/pull/1560#issue-227225960
 0;
@@ -221,7 +221,7 @@ exports[`strings.js 1`] = `
 
 `;
 
-exports[`strings.js 2`] = `
+exports[`strings.js - flow-verify 2`] = `
 // Prevent strings from being parsed as directives
 // See https://github.com/prettier/prettier/pull/1560#issue-227225960
 0;

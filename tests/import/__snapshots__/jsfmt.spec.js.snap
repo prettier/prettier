@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`brackets.js 1`] = `
+exports[`brackets.js - flow-verify 1`] = `
 import {
   runTaskForChanged,
   description,
@@ -27,7 +27,7 @@ import { fitsIn, oneLine } from ".";
 
 `;
 
-exports[`brackets.js 2`] = `
+exports[`brackets.js - flow-verify 2`] = `
 import {
   runTaskForChanged,
   description,
@@ -54,7 +54,7 @@ import {fitsIn, oneLine} from ".";
 
 `;
 
-exports[`comments.js 1`] = `
+exports[`comments.js - flow-verify 1`] = `
 import { a //comment1
 //comment2
 //comment3
@@ -141,7 +141,7 @@ import {
 
 `;
 
-exports[`comments.js 2`] = `
+exports[`comments.js - flow-verify 2`] = `
 import { a //comment1
 //comment2
 //comment3
@@ -228,21 +228,21 @@ import {
 
 `;
 
-exports[`empty-import.js 1`] = `
+exports[`empty-import.js - flow-verify 1`] = `
 import { } from '@types/googlemaps';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {} from "@types/googlemaps";
 
 `;
 
-exports[`empty-import.js 2`] = `
+exports[`empty-import.js - flow-verify 2`] = `
 import { } from '@types/googlemaps';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {} from "@types/googlemaps";
 
 `;
 
-exports[`inline.js 1`] = `
+exports[`inline.js - flow-verify 1`] = `
 import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import a, {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
@@ -260,7 +260,7 @@ import {
 
 `;
 
-exports[`inline.js 2`] = `
+exports[`inline.js - flow-verify 2`] = `
 import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import a, {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
@@ -278,28 +278,28 @@ import {
 
 `;
 
-exports[`long-line.js 1`] = `
+exports[`long-line.js - flow-verify 1`] = `
 import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithARatherLongName";
 
 `;
 
-exports[`long-line.js 2`] = `
+exports[`long-line.js - flow-verify 2`] = `
 import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithARatherLongName";
 
 `;
 
-exports[`multiple_standalones.js 1`] = `
+exports[`multiple_standalones.js - flow-verify 1`] = `
 import a, * as b from 'a';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import a, * as b from "a";
 
 `;
 
-exports[`multiple_standalones.js 2`] = `
+exports[`multiple_standalones.js - flow-verify 2`] = `
 import a, * as b from 'a';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import a, * as b from "a";

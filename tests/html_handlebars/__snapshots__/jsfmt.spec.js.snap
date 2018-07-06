@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic-handlebars.hbs 1`] = `
+exports[`basic-handlebars.hbs - glimmer-verify 1`] = `
 <script id="entry-template" type="text/x-handlebars-template">
   <div class="entry">
     <h1>{{title}}</h1>
@@ -25,7 +25,7 @@ exports[`basic-handlebars.hbs 1`] = `
 <div class="{{hello}} {{world}}"></div>
 `;
 
-exports[`comments.hbs 1`] = `
+exports[`comments.hbs - glimmer-verify 1`] = `
 <div class="entry">
   {{! This comment will not be in the output }}
   {{!-- This comment as }} and will not be in the output --}}
@@ -39,7 +39,7 @@ exports[`comments.hbs 1`] = `
 </div>
 `;
 
-exports[`each.hbs 1`] = `
+exports[`each.hbs - glimmer-verify 1`] = `
 <div id="comments">
   {{#each comments}}
   <h2><a href="/posts/{{permalink}}#{{id}}">{{title}}</a></h2>
@@ -61,7 +61,7 @@ exports[`each.hbs 1`] = `
 </div>
 `;
 
-exports[`if.hbs 1`] = `
+exports[`if.hbs - glimmer-verify 1`] = `
 {{#if title}}
   {{permalink}}
 {{/if}}
@@ -71,7 +71,7 @@ exports[`if.hbs 1`] = `
 {{/if}}
 `;
 
-exports[`if-else.hbs 1`] = `
+exports[`if-else.hbs - glimmer-verify 1`] = `
 <h1>
 {{#if isAtWork}}
   Ship that code!
@@ -109,7 +109,7 @@ exports[`if-else.hbs 1`] = `
 </h2>
 `;
 
-exports[`nested-path.hbs 1`] = `
+exports[`nested-path.hbs - glimmer-verify 1`] = `
 <div class="entry">
   <h1>{{title}}</h1>
   <h2>By {{author.name}}</h2>
@@ -133,7 +133,7 @@ exports[`nested-path.hbs 1`] = `
 </div>
 `;
 
-exports[`raw.hbs 1`] = `
+exports[`raw.hbs - glimmer-verify 1`] = `
 <p>{{{raw}}}</p>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <p>

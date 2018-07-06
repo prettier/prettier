@@ -2,33 +2,18 @@
 
 const printer = require("./printer-yaml");
 const options = require("./options");
+const languageExtend = require("../utils/language-extend");
 
-const language = {
-  name: "YAML",
-  parsers: ["yaml"],
-  vscodeLanguageIds: ["yaml"],
-  // https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
-  aceMode: "yaml",
-  aliases: ["yml"],
-  codemirrorMimeType: "text/x-yaml",
-  codemirrorMode: "yaml",
-  extensions: [
-    ".yml",
-    ".reek",
-    ".rviz",
-    ".sublime-syntax",
-    ".syntax",
-    ".yaml",
-    ".yaml-tmlanguage",
-    ".yml.mysql"
-  ],
-  filenames: [".clang-format", ".clang-tidy", ".gemrc"],
-  linguistLanguageId: 407,
-  tmScope: "source.yaml"
-};
+const languages = [
+  languageExtend({}, require("linguist-languages/data/yaml"), {
+    since: "1.14.0",
+    parsers: ["yaml"],
+    vscodeLanguageIds: ["yaml"]
+  })
+];
 
 module.exports = {
-  languages: [language],
+  languages,
   printers: { yaml: printer },
   options
 };

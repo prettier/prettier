@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`funrec.js 1`] = `
+exports[`funrec.js - flow-verify 1`] = `
 function bar(x) { return x; }
 function foo() {
     return function bound() {

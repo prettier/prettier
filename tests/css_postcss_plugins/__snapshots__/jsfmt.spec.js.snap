@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`postcss-mixins.css 1`] = `
+exports[`postcss-mixins.css - css-verify 1`] = `
 a {
     @mixin $(theme)-colors;
 }
@@ -69,7 +69,7 @@ a {
 
 `;
 
-exports[`postcss-nested.css 1`] = `
+exports[`postcss-nested.css - css-verify 1`] = `
 .phone {
     &_title {
         width: 500px;
@@ -102,7 +102,7 @@ exports[`postcss-nested.css 1`] = `
 
 `;
 
-exports[`postcss-nested-props.css 1`] = `
+exports[`postcss-nested-props.css - css-verify 1`] = `
 .funky {
     font: {
         family: fantasy;
@@ -133,7 +133,7 @@ exports[`postcss-nested-props.css 1`] = `
 
 `;
 
-exports[`postcss-nesting.css 1`] = `
+exports[`postcss-nesting.css - css-verify 1`] = `
 a {
   order: 1;
   @nest b & {
@@ -553,7 +553,7 @@ a {
 
 `;
 
-exports[`postcss-simple-vars.css 1`] = `
+exports[`postcss-simple-vars.css - css-verify 1`] = `
 background-color: $$(style)Color;
 background-color: $$(style)Color Color122;
 color: @@color;

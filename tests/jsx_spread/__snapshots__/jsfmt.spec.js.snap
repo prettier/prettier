@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attribute.js 1`] = `
+exports[`attribute.js - babylon-verify 1`] = `
 <div {...a}/>;
 
 <div {...a /* comment */}/>;
@@ -58,7 +58,7 @@ exports[`attribute.js 1`] = `
 
 `;
 
-exports[`child.js 1`] = `
+exports[`child.js - babylon-verify 1`] = `
 <div>{...a}</div>;
 
 <div>{...a /* comment */}</div>;

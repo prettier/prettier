@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`character_escaping.css 1`] = `
+exports[`character_escaping.css - css-verify 1`] = `
 #♥ {}
 #© {}
 #“‘’” {}

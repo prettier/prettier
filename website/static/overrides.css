@@ -5,6 +5,13 @@ html body {
   overflow-x: hidden;
 }
 
+.mainContainer .wrapper a:hover,
+.mainContainer .wrapper a:focus,
+.inner .projectIntro a:hover,
+.inner .projectIntro a:focus {
+  text-decoration: underline;
+}
+
 /* Note: CSS on body bg-color for index page is set inside landing.js, not here */
 
 .post p a {
@@ -76,6 +83,10 @@ html body {
 
 .homeContainer {
   background: #1a2b34;
+}
+
+.mainContainer.landingContainer {
+  padding: 0;
 }
 
 .productShowcaseSection {
@@ -152,7 +163,7 @@ html body {
 .editor {
   padding: 0 20px 60px 0;
   display: flex;
-  min-width: 235px;
+  min-width: 262px;
   flex: 1;
   flex-grow: 0;
   flex-basis: 22%;
@@ -172,8 +183,21 @@ html body {
   flex-shrink: 0;
 }
 
+.editorInfo .editorName {
+  margin-bottom: 0;
+  margin-top: 1em;
+}
+
+.productShowcaseSection code,
 .editorInfo code {
   white-space: normal;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.editorInfo p {
+  line-height: 1.7;
+  padding: 0;
 }
 
 @media only screen and (min-width: 360px) and (max-width: 590px) {

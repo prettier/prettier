@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pipeline_operator.js 1`] = `
+exports[`pipeline_operator.js - babylon-verify 1`] = `
 a |> b |> c;
 
 a |> (b |> c);

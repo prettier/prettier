@@ -2086,6 +2086,7 @@ function printPathNoParens(path, options, print, args) {
       } else {
         parts.push(printPropertyKey(path, options, print));
       }
+      parts.push(printOptionalToken(path));
       parts.push(printTypeAnnotation(path, options, print));
       if (n.value) {
         parts.push(
@@ -2489,6 +2490,10 @@ function printPathNoParens(path, options, print, args) {
 
       return group(concat(parts));
     }
+    case "TSRestType":
+      return concat(["...", path.call(print, "typeAnnotation")]);
+    case "TSOptionalType":
+      return concat([path.call(print, "typeAnnotation"), "?"]);
     case "FunctionTypeParam":
       return concat([
         path.call(print, "name"),
@@ -4731,6 +4736,30 @@ function isJSXWhitespaceExpression(node) {
   );
 }
 
+function separatorNoWhitespace(isFacebookTranslationTag, child) {
+  if (isFacebookTranslationTag) {
+    return "";
+  }
+
+  if (child.length === 1) {
+    return softline;
+  }
+
+  return hardline;
+}
+
+function separatorWithWhitespace(isFacebookTranslationTag, child) {
+  if (isFacebookTranslationTag) {
+    return hardline;
+  }
+
+  if (child.length === 1) {
+    return softline;
+  }
+
+  return hardline;
+}
+
 // JSX Children are strange, mostly for two reasons:
 // 1. JSX reads newlines into string values, instead of skipping them like JS
 // 2. up to one whitespace between elements within a line is significant,
@@ -4743,7 +4772,13 @@ function isJSXWhitespaceExpression(node) {
 // This requires that we give it an array of alternating
 // content and whitespace elements.
 // To ensure this we add dummy `""` content elements as needed.
-function printJSXChildren(path, options, print, jsxWhitespace) {
+function printJSXChildren(
+  path,
+  options,
+  print,
+  jsxWhitespace,
+  isFacebookTranslationTag
+) {
   const n = path.getValue();
   const children = [];
 
@@ -4762,7 +4797,9 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
           children.push("");
           words.shift();
           if (/\n/.test(words[0])) {
-            children.push(hardline);
+            children.push(
+              separatorWithWhitespace(isFacebookTranslationTag, words[1])
+            );
           } else {
             children.push(jsxWhitespace);
           }
@@ -4791,21 +4828,19 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
         if (endWhitespace !== undefined) {
           if (/\n/.test(endWhitespace)) {
-            children.push(hardline);
+            children.push(
+              separatorWithWhitespace(
+                isFacebookTranslationTag,
+                getLast(children)
+              )
+            );
           } else {
             children.push(jsxWhitespace);
           }
         } else {
-          // Ideally this would be a `hardline` to allow a break between
-          // tags and text.
-          // Unfortunately Facebook have a custom translation pipeline
-          // (https://github.com/prettier/prettier/issues/1581#issuecomment-300975032)
-          // that uses the JSX syntax, but does not follow the React whitespace
-          // rules.
-          // Ensuring that we never have a break between tags and text in JSX
-          // will allow Facebook to adopt Prettier without too much of an
-          // adverse effect on formatting algorithm.
-          children.push("");
+          children.push(
+            separatorNoWhitespace(isFacebookTranslationTag, getLast(children))
+          );
         }
       } else if (/\n/.test(text)) {
         // Keep (up to one) blank line between tags/expressions/text.
@@ -4824,12 +4859,14 @@ function printJSXChildren(path, options, print, jsxWhitespace) {
 
       const next = n.children[i + 1];
       const directlyFollowedByMeaningfulText =
-        next && isMeaningfulJSXText(next) && !/^[ \n\r\t]/.test(rawText(next));
+        next && isMeaningfulJSXText(next);
       if (directlyFollowedByMeaningfulText) {
-        // Potentially this could be a hardline as well.
-        // See the comment above about the Facebook translation pipeline as
-        // to why this is an empty string.
-        children.push("");
+        const firstWord = rawText(next)
+          .trim()
+          .split(matchJsxWhitespaceRegex)[0];
+        children.push(
+          separatorNoWhitespace(isFacebookTranslationTag, firstWord)
+        );
       } else {
         children.push(hardline);
       }
@@ -4916,7 +4953,18 @@ function printJSXElement(path, options, print) {
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
 
-  const children = printJSXChildren(path, options, print, jsxWhitespace);
+  const isFacebookTranslationTag =
+    n.openingElement &&
+    n.openingElement.name &&
+    n.openingElement.name.name === "fbt";
+
+  const children = printJSXChildren(
+    path,
+    options,
+    print,
+    jsxWhitespace,
+    isFacebookTranslationTag
+  );
 
   const containsText =
     n.children.filter(child => isMeaningfulJSXText(child)).length > 0;

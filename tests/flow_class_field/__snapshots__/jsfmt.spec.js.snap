@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`override.js 1`] = `
+exports[`override.js - babylon-verify 1`] = `
 class Foo {
   constructor: () => this;
 }

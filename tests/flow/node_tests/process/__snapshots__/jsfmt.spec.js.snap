@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nextTick.js 1`] = `
+exports[`nextTick.js - flow-verify 1`] = `
 /* @flow */
 
 process.nextTick(() => {});

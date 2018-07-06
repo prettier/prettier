@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`advanced_arrows.js 1`] = `
+exports[`advanced_arrows.js - flow-verify 1`] = `
 /**
  * @flow
  */
@@ -27,7 +27,7 @@ var ident = <T>(x: T): T => x;
 
 `;
 
-exports[`arrows.js 1`] = `
+exports[`arrows.js - flow-verify 1`] = `
 function selectBestEffortImageForWidth(
     maxWidth: number,
     images: Array<Image>

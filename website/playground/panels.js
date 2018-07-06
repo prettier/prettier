@@ -9,6 +9,7 @@ class CodeMirrorPanel extends React.Component {
     this._cached = "";
     this._overlay = null;
     this.handleChange = this.handleChange.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +26,7 @@ class CodeMirrorPanel extends React.Component {
       options
     );
     this._codeMirror.on("change", this.handleChange);
+    this._codeMirror.on("focus", this.handleFocus);
 
     this.updateValue(this.props.value || "");
     this.updateOverlay();
@@ -35,7 +37,7 @@ class CodeMirrorPanel extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.readOnly && this.props.value !== this._cached) {
+    if (this.props.value !== this._cached) {
       this.updateValue(this.props.value);
     }
     if (
@@ -46,9 +48,6 @@ class CodeMirrorPanel extends React.Component {
     }
     if (this.props.mode !== prevProps.mode) {
       this._codeMirror.setOption("mode", this.props.mode);
-    }
-    if (this.props.placeholder !== prevProps.placeholder) {
-      this._codeMirror.setOption("placeholder", this.props.placeholder);
     }
     if (this.props.ruler !== prevProps.ruler) {
       this._codeMirror.setOption("rulers", [makeRuler(this.props)]);
@@ -71,6 +70,12 @@ class CodeMirrorPanel extends React.Component {
       ]);
       this._overlay = createOverlay(start, end);
       this._codeMirror.addOverlay(this._overlay);
+    }
+  }
+
+  handleFocus(/* codeMirror, event */) {
+    if (this._codeMirror.getValue() === this.props.codeSample) {
+      this._codeMirror.execCommand("selectAll");
     }
   }
 
@@ -150,7 +155,7 @@ export function InputPanel(props) {
       autoCloseBrackets={true}
       matchBrackets={true}
       showCursorWhenSelecting={true}
-      tabWidth={2}
+      tabSize={4}
       rulerColor="#eeeeee"
       {...props}
     />

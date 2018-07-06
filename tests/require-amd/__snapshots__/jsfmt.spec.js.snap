@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`require.js 1`] = `
+exports[`require.js - flow-verify 1`] = `
 require(
     [
         'jquery',

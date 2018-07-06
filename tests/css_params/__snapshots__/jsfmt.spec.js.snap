@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`params.css 1`] = `
+exports[`params.css - css-verify 1`] = `
 .clusterPlannerDialog input[type="text"],
 .clusterPlannerDialog .uiTypeahead {
   width: 220px;

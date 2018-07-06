@@ -1,8 +1,8 @@
 import React from "react";
 
-export function Checkbox({ label: _label, checked, onChange }) {
+export function Checkbox({ label: _label, title, checked, onChange }) {
   return (
-    <label>
+    <label title={title}>
       <input
         type="checkbox"
         checked={checked}
@@ -13,9 +13,9 @@ export function Checkbox({ label: _label, checked, onChange }) {
   );
 }
 
-export function Select({ label: _label, values, selected, onChange }) {
+export function Select({ label: _label, title, values, selected, onChange }) {
   return (
-    <label>
+    <label title={title}>
       {_label}{" "}
       <select value={selected} onChange={ev => onChange(ev.target.value)}>
         {values.map(val => (
@@ -30,6 +30,7 @@ export function Select({ label: _label, values, selected, onChange }) {
 
 export function NumberInput({
   label: _label,
+  title,
   value,
   min,
   max,
@@ -37,7 +38,7 @@ export function NumberInput({
   onChange
 }) {
   return (
-    <label>
+    <label title={title}>
       {_label}{" "}
       <input
         type="number"
