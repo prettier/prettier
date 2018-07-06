@@ -2,6 +2,5 @@
 
   const y = 5
 
-  <|>
 
-  const z = 9
+  <|>const z = 9

@@ -1,6 +1,6 @@
 "use strict";
 
-const diff = require("diff");
+const diff = require("../utils/diff");
 
 const normalizeOptions = require("./options").normalize;
 const massageAST = require("./massage-ast");
@@ -15,8 +15,6 @@ const {
 } = require("../doc");
 
 const UTF8BOM = 0xfeff;
-
-const CURSOR = Symbol("cursor");
 
 function guessLineEnding(text) {
   const index = text.indexOf("\n");
@@ -137,30 +135,22 @@ function coreFormat(text, opts, addAlignmentSize) {
     }
 
     // diff old and new cursor node texts, with a special cursor
-    // symbol inserted to find out where it moves to
+    // character inserted to find out where it moves to
+    const oldCursorNodeTextWithMark =
+      oldCursorNodeText.substring(0, cursorOffsetRelativeToOldCursorNode) +
+      "\0" +
+      oldCursorNodeText.substring(cursorOffsetRelativeToOldCursorNode);
 
-    const oldCursorNodeCharArray = oldCursorNodeText.split("");
-    oldCursorNodeCharArray.splice(
-      cursorOffsetRelativeToOldCursorNode,
-      0,
-      CURSOR
-    );
-
-    const newCursorNodeCharArray = newCursorNodeText.split("");
-
-    const cursorNodeDiff = diff.diffArrays(
-      oldCursorNodeCharArray,
-      newCursorNodeCharArray
-    );
+    const cursorNodeDiff = diff(oldCursorNodeTextWithMark, newCursorNodeText);
 
     let cursorOffset = newCursorNodeStart;
     for (const entry of cursorNodeDiff) {
-      if (entry.removed) {
-        if (entry.value.indexOf(CURSOR) > -1) {
+      if (entry[0] === -1) {
+        if (entry[1].indexOf("\0") > -1) {
           break;
         }
       } else {
-        cursorOffset += entry.count;
+        cursorOffset += entry[1].length;
       }
     }
 
