@@ -116,8 +116,5 @@
     "build": "node ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js"
-  },
-  "jest-junit": {
-    "output": "./test-results/jest/junit.xml"
   }
 }

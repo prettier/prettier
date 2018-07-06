@@ -21,10 +21,8 @@ shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
 shell.config.silent = false;
 
 const cmd = `yarn test --color --runInBand ${
-  process.env.REPORT_SUMMARIES
-    ? "--reporters default --reporters jest-junit"
-    : ""
-} ${process.env.TEST_STANDALONE ? "tests/" : ""}`;
+  process.env.TEST_STANDALONE ? "tests/" : ""
+}`;
 
 const code = shell.exec(cmd, {
   cwd: rootDir,
