@@ -43,8 +43,14 @@ const languages = [
   languageExtend({}, require("linguist-languages/data/json"), {
     since: "1.5.0",
     parsers: ["json"],
-    filenames: [".eslintrc", ".prettierrc"],
-    vscodeLanguageIds: ["json", "jsonc"]
+    filenames: [".prettierrc"],
+    vscodeLanguageIds: ["json"]
+  }),
+  languageExtend({}, require("linguist-languages/data/json-with-comments"), {
+    since: "1.5.0",
+    parsers: ["json"],
+    filenames: [".eslintrc"],
+    vscodeLanguageIds: ["jsonc"]
   }),
   languageExtend({}, require("linguist-languages/data/json5"), {
     since: "1.13.0",
