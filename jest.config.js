@@ -39,5 +39,16 @@ module.exports = {
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname"
-  ]
+  ],
+  reporters: process.env.REPORT_SUMMARIES
+    ? [
+        "default",
+        [
+          "jest-junit",
+          {
+            output: "./test-results/jest/junit.xml"
+          }
+        ]
+      ]
+    : undefined
 };
