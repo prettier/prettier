@@ -29,8 +29,8 @@
   <a href="https://circleci.com/gh/prettier/prettier">
     <img alt="CircleCI Build Status" src="https://img.shields.io/circleci/project/github/prettier/prettier/master.svg?style=flat-square&label=CircleCI">
   </a>
-  <a href="https://ci.appveyor.com/project/azz/prettier">
-    <img alt="AppVeyor Build Status" src="https://img.shields.io/appveyor/ci/azz/prettier.svg?style=flat-square&label=AppVeyor">
+  <a href="https://ci.appveyor.com/project/prettier/prettier">
+    <img alt="AppVeyor Build Status" src="https://img.shields.io/appveyor/ci/prettier/prettier.svg?style=flat-square&label=AppVeyor">
   </a>
   <a href="https://codecov.io/gh/prettier/prettier">
     <img alt="Codecov Coverage Status" src="https://img.shields.io/codecov/c/github/prettier/prettier.svg?style=flat-square">
