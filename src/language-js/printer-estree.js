@@ -626,8 +626,6 @@ function printPathNoParens(path, options, print, args) {
     case "SpreadElement":
     case "SpreadElementPattern":
     case "RestProperty":
-    case "ExperimentalRestProperty":
-    case "ExperimentalSpreadProperty":
     case "SpreadProperty":
     case "SpreadPropertyPattern":
     case "RestElement":
@@ -1198,7 +1196,6 @@ function printPathNoParens(path, options, print, args) {
         lastElem &&
         (lastElem.type === "RestProperty" ||
           lastElem.type === "RestElement" ||
-          lastElem.type === "ExperimentalRestProperty" ||
           hasNodeIgnoreComment(lastElem))
       );
 
