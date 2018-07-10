@@ -67,7 +67,7 @@ Format options:
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
   --prose-wrap <always|never|preserve>
-                           How to wrap prose. (markdown)
+                           How to wrap prose.
                            Defaults to preserve.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
@@ -217,7 +217,7 @@ Format options:
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
   --prose-wrap <always|never|preserve>
-                           How to wrap prose. (markdown)
+                           How to wrap prose.
                            Defaults to preserve.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.

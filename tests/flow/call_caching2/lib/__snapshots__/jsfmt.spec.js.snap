@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`immutable.js 1`] = `
+exports[`immutable.js - flow-verify 1`] = `
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 declare class Array<T> { }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`number_constants.js 1`] = `
+exports[`number_constants.js - flow-verify 1`] = `
 var a: number = Number.MAX_SAFE_INTEGER;
 var b: string = Number.MAX_SAFE_INTEGER;
 var c: number = Number.MIN_SAFE_INTEGER;

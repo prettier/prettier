@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`asterisk.md 1`] = `
+exports[`asterisk.md - markdown-verify 1`] = `
 **123**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **123**
 
 `;
 
-exports[`underscore.md 1`] = `
+exports[`underscore.md - markdown-verify 1`] = `
 __123__
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **123**

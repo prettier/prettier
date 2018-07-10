@@ -161,7 +161,7 @@ Multiple values are accepted.",
         },
         "proseWrap": Object {
           "default": "preserve",
-          "description": "How to wrap prose. (markdown)",
+          "description": "How to wrap prose.",
           "oneOf": Array [
             Object {
               "description": "Wrap prose if it exceeds the print width.",

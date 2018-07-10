@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`a1.js 1`] = `
+exports[`a1.js - flow-verify 1`] = `
 // @flow
 
 function foo(x: number): number { return 5; }

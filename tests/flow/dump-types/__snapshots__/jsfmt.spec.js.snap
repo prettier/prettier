@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import.js 1`] = `
+exports[`import.js - flow-verify 1`] = `
 // @flow
 var num = 42;
 function bar() { }
@@ -15,7 +15,7 @@ module.exports = num;
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 // @flow
 var num = require('./import');
 function foo(x) { }

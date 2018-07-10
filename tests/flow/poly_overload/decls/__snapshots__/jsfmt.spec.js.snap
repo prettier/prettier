@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`typescript-deferred.js 1`] = `
+exports[`typescript-deferred.js - flow-verify 1`] = `
 interface Some<X> {}
 interface Other<X> { x: X; }
 interface None<Y> {}

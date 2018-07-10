@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`media-indent-with-import.css 1`] = `
+exports[`media-indent-with-import.css - css-verify 1`] = `
 @import "foo";@import "bar";
 .wrapper {
 @media (min-width: 1025px) {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abnormal.js 1`] = `
+exports[`abnormal.js - flow-verify 1`] = `
 /* @flow */
 
 function foo(x: boolean) {
@@ -99,7 +99,7 @@ function corge(x: boolean) {
 
 `;
 
-exports[`abnormal_for_in.js 1`] = `
+exports[`abnormal_for_in.js - flow-verify 1`] = `
 function foo(x: boolean) {
   var obj = { a: 1, b: 2};
   for (var prop in obj) {
@@ -188,7 +188,7 @@ function corge(x: boolean) {
 
 `;
 
-exports[`abnormal_for_of.js 1`] = `
+exports[`abnormal_for_of.js - flow-verify 1`] = `
 function foo(x: boolean) {
   var arr = [1, 2, 3];
   for (var elem of arr) {

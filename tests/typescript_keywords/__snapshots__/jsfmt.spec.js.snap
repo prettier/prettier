@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`keywords.js 1`] = `
+exports[`keywords.js - typescript-verify 1`] = `
 // All of these should be an error
 
 module Y3 {

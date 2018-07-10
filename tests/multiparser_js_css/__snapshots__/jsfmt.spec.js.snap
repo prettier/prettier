@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`styled-components.js 1`] = `
+exports[`styled-components.js - babylon-verify 1`] = `
 const ListItem = styled.li\`\`;
 
 const ListItem = styled.li\` \`;

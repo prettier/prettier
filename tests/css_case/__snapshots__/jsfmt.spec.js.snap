@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`case.css 1`] = `
+exports[`case.css - css-verify 1`] = `
 @custom-media --KeepName (MIN-WIDTH: 500PX);
 
 .foo {
@@ -130,7 +130,7 @@ x-panel {
 
 `;
 
-exports[`case.less 1`] = `
+exports[`case.less - css-verify 1`] = `
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
 // - The case should always be preserved for element names and attribute names
@@ -439,7 +439,7 @@ table {
 
 `;
 
-exports[`case.scss 1`] = `
+exports[`case.scss - css-verify 1`] = `
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
 // - The case should always be preserved for element names and attribute names
@@ -749,7 +749,7 @@ table {
 
 `;
 
-exports[`custom-selectors.css 1`] = `
+exports[`custom-selectors.css - css-verify 1`] = `
 @custom-selector :--camelCase .my-css-selector;
 
 :--camelCase {

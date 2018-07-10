@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`chaining.js 1`] = `
+exports[`chaining.js - babylon-verify 1`] = `
 var street = user.address?.street
 var fooValue = myForm.querySelector('input[name=foo]')?.value
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`custom-selector.css 1`] = `
+exports[`custom-selector.css - css-verify 1`] = `
 @custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
 @custom-selector :--icon i[ class ^= 'icon-' ], i[ class *= ' icon-' ];
 @custom-selector
@@ -24,7 +24,7 @@ class
 
 `;
 
-exports[`custom-selector.css 2`] = `
+exports[`custom-selector.css - css-verify 2`] = `
 @custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
 @custom-selector :--icon i[ class ^= 'icon-' ], i[ class *= ' icon-' ];
 @custom-selector
@@ -48,7 +48,7 @@ class
 
 `;
 
-exports[`insensitive.css 1`] = `
+exports[`insensitive.css - css-verify 1`] = `
 input[type="radio" i] {}
 img[alt~="person" i][src*="lorem" i] {}
 section:has(:not([type="radio" i], [type="checkbox" i])) {}
@@ -62,7 +62,7 @@ section:has(:not([type="radio" i], [type="checkbox" i])) {
 
 `;
 
-exports[`insensitive.css 2`] = `
+exports[`insensitive.css - css-verify 2`] = `
 input[type="radio" i] {}
 img[alt~="person" i][src*="lorem" i] {}
 section:has(:not([type="radio" i], [type="checkbox" i])) {}
@@ -76,7 +76,7 @@ section:has(:not([type='radio' i], [type='checkbox' i])) {
 
 `;
 
-exports[`namespaces.css 1`] = `
+exports[`namespaces.css - css-verify 1`] = `
 @namespace foo "http://www.example.com";
 [foo|att=val] {}
 [*|att] {}
@@ -95,7 +95,7 @@ exports[`namespaces.css 1`] = `
 
 `;
 
-exports[`namespaces.css 2`] = `
+exports[`namespaces.css - css-verify 2`] = `
 @namespace foo "http://www.example.com";
 [foo|att=val] {}
 [*|att] {}
@@ -114,7 +114,7 @@ exports[`namespaces.css 2`] = `
 
 `;
 
-exports[`quotes.css 1`] = `
+exports[`quotes.css - css-verify 1`] = `
 a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}
@@ -143,7 +143,7 @@ section:has(:not([type="radio"], [type="checkbox"])) {
 
 `;
 
-exports[`quotes.css 2`] = `
+exports[`quotes.css - css-verify 2`] = `
 a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}
@@ -172,7 +172,7 @@ section:has(:not([type='radio'], [type='checkbox'])) {
 
 `;
 
-exports[`spaces.css 1`] = `
+exports[`spaces.css - css-verify 1`] = `
 [lang] {}
 [ lang] {}
 [lang ] {}
@@ -406,7 +406,7 @@ section:has(:not([type="radio" i], [type="checkbox" i])) {
 
 `;
 
-exports[`spaces.css 2`] = `
+exports[`spaces.css - css-verify 2`] = `
 [lang] {}
 [ lang] {}
 [lang ] {}

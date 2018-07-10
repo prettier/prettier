@@ -24,7 +24,7 @@ module.exports = {
     const extracted = parseFrontMatter(text);
     const pragma = `<!-- @${pragmas[0]} -->`;
     return extracted.frontMatter
-      ? `${extracted.frontMatter}\n\n${pragma}\n\n${extracted.content}`
+      ? `${extracted.frontMatter.raw}\n\n${pragma}\n\n${extracted.content}`
       : `${pragma}\n\n${extracted.content}`;
   }
 };

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`trailing.ts 1`] = `
+exports[`trailing.ts - typescript-verify 1`] = `
 export class BaseSingleLevelProfileTargeting<
 	T extends ValidSingleLevelProfileNode,
 > {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`readonly.ts 1`] = `
+exports[`readonly.ts - typescript-verify 1`] = `
 class Foo {
   public readonly foo = 'string';
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CanvasRenderingContext2D.js 1`] = `
+exports[`CanvasRenderingContext2D.js - flow-verify 1`] = `
 // @flow
 
 let tests = [
@@ -31,7 +31,7 @@ let tests = [
 
 `;
 
-exports[`CustomEvent.js 1`] = `
+exports[`CustomEvent.js - flow-verify 1`] = `
 // @flow
 
 let tests = [
@@ -54,7 +54,7 @@ let tests = [
 
 `;
 
-exports[`Document.js 1`] = `
+exports[`Document.js - flow-verify 1`] = `
 // @flow
 
 let tests = [
@@ -85,7 +85,7 @@ let tests = [
 
 `;
 
-exports[`Element.js 1`] = `
+exports[`Element.js - flow-verify 1`] = `
 // @flow
 
 let tests = [
@@ -126,7 +126,7 @@ let tests = [
 
 `;
 
-exports[`HTMLCanvasElement.js 1`] = `
+exports[`HTMLCanvasElement.js - flow-verify 1`] = `
 // @flow
 
 let tests = [
@@ -147,7 +147,7 @@ let tests = [
 
 `;
 
-exports[`HTMLElement.js 1`] = `
+exports[`HTMLElement.js - flow-verify 1`] = `
 // @flow
 
 let tests = [
@@ -188,7 +188,7 @@ let tests = [
 
 `;
 
-exports[`HTMLInputElement.js 1`] = `
+exports[`HTMLInputElement.js - flow-verify 1`] = `
 // @flow
 
 let tests = [
@@ -217,7 +217,7 @@ let tests = [
 
 `;
 
-exports[`URL.js 1`] = `
+exports[`URL.js - flow-verify 1`] = `
 /* @flow */
 
 const a = new URL('http://flowtype.org/'); // correct
@@ -262,7 +262,7 @@ const r: string = c.username; // correct
 
 `;
 
-exports[`eventtarget.js 1`] = `
+exports[`eventtarget.js - flow-verify 1`] = `
 // @flow
 
 let listener: EventListener = function (event: Event) :void {};
@@ -317,7 +317,7 @@ let tests = [
 
 `;
 
-exports[`path2d.js 1`] = `
+exports[`path2d.js - flow-verify 1`] = `
 // @flow
 
 let tests = [
@@ -344,7 +344,7 @@ let tests = [
 
 `;
 
-exports[`registerElement.js 1`] = `
+exports[`registerElement.js - flow-verify 1`] = `
 // @flow
 
 let tests = [
@@ -464,7 +464,7 @@ let tests = [
 
 `;
 
-exports[`traversal.js 1`] = `
+exports[`traversal.js - flow-verify 1`] = `
 // @flow
 
 let tests = [

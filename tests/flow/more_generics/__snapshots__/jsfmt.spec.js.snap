@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`poly.js 1`] = `
+exports[`poly.js - flow-verify 1`] = `
 var foo1 = function<T>(x:T):T { return x; }
 
 function foo2<T,S>(x:T):S { return x; }

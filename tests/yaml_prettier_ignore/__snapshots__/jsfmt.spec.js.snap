@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`document.yml 1`] = `
+exports[`document.yml - yaml-verify 1`] = `
 # prettier-ignore
 ---
 aaaaa:
@@ -18,7 +18,7 @@ aaaaa: bbbbb
 
 `;
 
-exports[`leading-comment.yml 1`] = `
+exports[`leading-comment.yml - yaml-verify 1`] = `
 abc:     123
 # prettier-ignore
 def:     456
@@ -29,7 +29,7 @@ def:     456
 
 `;
 
-exports[`middle-comment.yml 1`] = `
+exports[`middle-comment.yml - yaml-verify 1`] = `
 abc:  !!str #   hello
    123
 # prettier-ignore
@@ -44,7 +44,7 @@ def:  !!str #   hello
 
 `;
 
-exports[`trailing-comma.yml 1`] = `
+exports[`trailing-comma.yml - yaml-verify 1`] = `
 [
   # prettier-ignore
              {  sss  },       # 123
@@ -67,7 +67,7 @@ exports[`trailing-comma.yml 1`] = `
 
 `;
 
-exports[`trailing-comment.yml 1`] = `
+exports[`trailing-comment.yml - yaml-verify 1`] = `
 abc:     123 # hello
 # prettier-ignore
 def:     456 # hello

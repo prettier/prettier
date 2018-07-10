@@ -1,0 +1,6 @@
+```jsonc
+   // comment
+{
+     "foo"   :    "bar"
+}
+```

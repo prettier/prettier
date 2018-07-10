@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`color-adjuster.css 1`] = `
+exports[`color-adjuster.css - css-verify 1`] = `
 .foo {
     color: color(red l(+ 20%));
     color: color(red w(+ 20%) s(+ 20%));
@@ -250,7 +250,7 @@ exports[`color-adjuster.css 1`] = `
 
 `;
 
-exports[`current-color.css 1`] = `
+exports[`current-color.css - css-verify 1`] = `
 .foo {
     border: 1px dashed currentColor;
     border: 1px dashed currentcolor;
@@ -263,7 +263,7 @@ exports[`current-color.css 1`] = `
 
 `;
 
-exports[`functional-syntax.css 1`] = `
+exports[`functional-syntax.css - css-verify 1`] = `
 .foo {
     color: rgb(255, 0, 153);
     color: rgb(100%, 0%, 60%);
@@ -284,7 +284,7 @@ exports[`functional-syntax.css 1`] = `
 
 `;
 
-exports[`hexcolor.css 1`] = `
+exports[`hexcolor.css - css-verify 1`] = `
 .foo {
     color: #AAA;
     -o-color: #fabcd3;
@@ -307,7 +307,7 @@ exports[`hexcolor.css 1`] = `
 
 `;
 
-exports[`whitespace-syntax.css 1`] = `
+exports[`whitespace-syntax.css - css-verify 1`] = `
 .foo {
     color: rgba(51 170 51 / 0.4);
     color: rgba(51 170 51 / 40%);

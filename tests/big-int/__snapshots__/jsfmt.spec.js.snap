@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`literal.js 1`] = `
+exports[`literal.js - babylon-verify 1`] = `
 100n
 9223372036854775807n
 0o16432n

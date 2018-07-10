@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty-front-matter-with-pragma.css 1`] = `
+exports[`empty-front-matter-with-pragma.css - css-verify 1`] = `
 ---
 ---
 
@@ -18,7 +18,7 @@ exports[`empty-front-matter-with-pragma.css 1`] = `
 
 `;
 
-exports[`empty-front-matter-without-pragma.css 1`] = `
+exports[`empty-front-matter-without-pragma.css - css-verify 1`] = `
 ---
 ---
 
@@ -31,7 +31,7 @@ exports[`empty-front-matter-without-pragma.css 1`] = `
 
 `;
 
-exports[`front-matter-with-pragma.css 1`] = `
+exports[`front-matter-with-pragma.css - css-verify 1`] = `
 ---
 something
 ---
@@ -51,7 +51,7 @@ something
 
 `;
 
-exports[`front-matter-without-pragma.css 1`] = `
+exports[`front-matter-without-pragma.css - css-verify 1`] = `
 ---
 something
 ---
@@ -66,7 +66,7 @@ something
 
 `;
 
-exports[`with-pragma.css 1`] = `
+exports[`with-pragma.css - css-verify 1`] = `
 /** @prettier */
 
 .class {    display: none;    }
@@ -79,7 +79,7 @@ exports[`with-pragma.css 1`] = `
 
 `;
 
-exports[`with-pragma-in-multiline.css 1`] = `
+exports[`with-pragma-in-multiline.css - css-verify 1`] = `
 /**
  * MIT LICENSE
  * 
@@ -104,7 +104,7 @@ exports[`with-pragma-in-multiline.css 1`] = `
 
 `;
 
-exports[`without-pragma.css 1`] = `
+exports[`without-pragma.css - css-verify 1`] = `
 .class {    display: none;    }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .class {    display: none;    }

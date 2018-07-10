@@ -33,6 +33,21 @@ function embed(path, print, textToDoc, options) {
     }
   }
 
+  if (node.type === "yaml") {
+    return markAsRoot(
+      concat([
+        "---",
+        hardline,
+        node.value.trim()
+          ? replaceNewlinesWithLiterallines(
+              textToDoc(node.value, { parser: "yaml" })
+            )
+          : "",
+        "---"
+      ])
+    );
+  }
+
   return null;
 
   function getParserName(lang) {
@@ -42,6 +57,7 @@ function embed(path, print, textToDoc, options) {
     const language = supportInfo.languages.find(
       language =>
         language.name.toLowerCase() === lang ||
+        (language.aliases && language.aliases.indexOf(lang) !== -1) ||
         (language.extensions &&
           language.extensions.find(ext => ext.substring(1) === lang))
     );

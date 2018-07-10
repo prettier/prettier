@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js 1`] = `
+exports[`array.js - flow-verify 1`] = `
 // @flow
 
 function foo(x: Array<number>): [number, ?number] {
@@ -23,7 +23,7 @@ function foo(x: Array<number>): [number, ?number] {
 
 `;
 
-exports[`optional.js 1`] = `
+exports[`optional.js - flow-verify 1`] = `
 // @flow
 
 ([0, undefined]: [number, ?string]); // Ok, correct arity
@@ -40,7 +40,7 @@ exports[`optional.js 1`] = `
 
 `;
 
-exports[`too-few.js 1`] = `
+exports[`too-few.js - flow-verify 1`] = `
 /* @flow */
 
 function foo(a: [Object, Object]) {}
@@ -55,7 +55,7 @@ foo([{}]); // error, too few elements in array passed to a tuple
 
 `;
 
-exports[`tuples.js 1`] = `
+exports[`tuples.js - flow-verify 1`] = `
 var a: [] = [];
 var b: [] = [123]; // Error - arity mismatch
 var c: [number] = []; // nope

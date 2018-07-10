@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`i1.js 1`] = `
+exports[`i1.js - flow-verify 1`] = `
 // @flow
 
 const foo: { +p: number } = { p: 0 };

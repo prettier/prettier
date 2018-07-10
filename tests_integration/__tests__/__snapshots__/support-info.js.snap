@@ -229,7 +229,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 - First value
 + Second value
 
-@@ -5,10 +5,16 @@
+@@ -5,10 +5,19 @@
       ],
       \\"Flow\\": Array [
         \\"babylon\\",
@@ -241,12 +241,15 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 +     \\"JSON\\": Array [
 +       \\"json\\",
 +     ],
++     \\"JSON with Comments\\": Array [
++       \\"json\\",
++     ],
       \\"JSX\\": Array [
         \\"babylon\\",
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -54,10 +60,12 @@
+@@ -54,10 +63,12 @@
         \\"choices\\": Array [
           \\"flow\\",
           \\"babylon\\",
@@ -277,7 +280,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         \\"babylon\\",
         \\"flow\\",
       ],
-@@ -20,17 +20,17 @@
+@@ -23,17 +23,17 @@
       \\"JavaScript\\": Array [
         \\"babylon\\",
         \\"flow\\",
@@ -298,7 +301,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         \\"typescript\\",
       ],
     },
-@@ -59,11 +59,13 @@
+@@ -62,11 +62,13 @@
       \\"parser\\": Object {
         \\"choices\\": Array [
           \\"flow\\",
@@ -313,7 +316,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         ],
         \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
-@@ -93,10 +95,14 @@
+@@ -96,10 +98,14 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -335,7 +338,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
 - First value
 + Second value
 
-@@ -22,10 +22,13 @@
+@@ -25,10 +25,13 @@
         \\"flow\\",
       ],
       \\"Less\\": Array [
@@ -349,7 +352,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
       ],
       \\"SCSS\\": Array [
         \\"scss\\",
-@@ -50,10 +53,14 @@
+@@ -53,10 +56,14 @@
       },
       \\"filepath\\": Object {
         \\"default\\": undefined,
@@ -364,7 +367,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"parser\\": Object {
-@@ -64,10 +71,11 @@
+@@ -67,10 +74,11 @@
           \\"css\\",
           \\"less\\",
           \\"scss\\",
@@ -383,7 +386,7 @@ exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
 - First value
 + Second value
 
-@@ -85,10 +85,18 @@
+@@ -88,10 +88,18 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -409,10 +412,10 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 - First value
 + Second value
 
-@@ -11,10 +11,16 @@
-        \\"graphql\\",
+@@ -14,10 +14,16 @@
+        \\"json\\",
       ],
-      \\"JSON\\": Array [
+      \\"JSON with Comments\\": Array [
         \\"json\\",
       ],
 +     \\"JSON.stringify\\": Array [
@@ -426,7 +429,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -34,12 +40,23 @@
+@@ -37,12 +43,23 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -450,7 +453,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -70,16 +87,27 @@
+@@ -73,16 +90,27 @@
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -479,7 +482,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -87,14 +115,15 @@
+@@ -90,14 +118,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -614,13 +617,10 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"filenames\\": [
         \\".arcconfig\\",
         \\".htmlhintrc\\",
-        \\".jscsrc\\",
-        \\".jshintrc\\",
         \\".tern-config\\",
         \\".tern-project\\",
         \\"composer.lock\\",
         \\"mcmod.info\\",
-        \\".eslintrc\\",
         \\".prettierrc\\"
       ],
       \\"group\\": \\"JavaScript\\",
@@ -631,14 +631,51 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.5.0\\",
       \\"tmScope\\": \\"source.json\\",
       \\"type\\": \\"data\\",
-      \\"vscodeLanguageIds\\": [\\"json\\", \\"jsonc\\"]
+      \\"vscodeLanguageIds\\": [\\"json\\"]
+    },
+    {
+      \\"aceMode\\": \\"javascript\\",
+      \\"aliases\\": [\\"jsonc\\"],
+      \\"codemirrorMimeType\\": \\"text/javascript\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"extensions\\": [
+        \\".sublime-build\\",
+        \\".sublime-commands\\",
+        \\".sublime-completions\\",
+        \\".sublime-keymap\\",
+        \\".sublime-macro\\",
+        \\".sublime-menu\\",
+        \\".sublime-mousemap\\",
+        \\".sublime-project\\",
+        \\".sublime-settings\\",
+        \\".sublime-theme\\",
+        \\".sublime-workspace\\",
+        \\".sublime_metrics\\",
+        \\".sublime_session\\"
+      ],
+      \\"filenames\\": [
+        \\".babelrc\\",
+        \\".eslintrc.json\\",
+        \\".jscsrc\\",
+        \\".jshintrc\\",
+        \\".jslintrc\\",
+        \\"tsconfig.json\\",
+        \\".eslintrc\\"
+      ],
+      \\"group\\": \\"JSON\\",
+      \\"linguistLanguageId\\": 423,
+      \\"name\\": \\"JSON with Comments\\",
+      \\"parsers\\": [\\"json\\"],
+      \\"since\\": \\"1.5.0\\",
+      \\"tmScope\\": \\"source.js\\",
+      \\"type\\": \\"data\\",
+      \\"vscodeLanguageIds\\": [\\"jsonc\\"]
     },
     {
       \\"aceMode\\": \\"javascript\\",
       \\"codemirrorMimeType\\": \\"application/json\\",
       \\"codemirrorMode\\": \\"javascript\\",
       \\"extensions\\": [\\".json5\\"],
-      \\"filenames\\": [\\".babelrc\\", \\".jslintrc\\"],
       \\"linguistLanguageId\\": 175,
       \\"name\\": \\"JSON5\\",
       \\"parsers\\": [\\"json5\\"],
@@ -884,7 +921,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"int\\"
     },
     {
-      \\"category\\": \\"Markdown\\",
+      \\"category\\": \\"Common\\",
       \\"choices\\": [
         {
           \\"description\\": \\"Wrap prose if it exceeds the print width.\\",
@@ -903,7 +940,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         }
       ],
       \\"default\\": \\"preserve\\",
-      \\"description\\": \\"How to wrap prose. (markdown)\\",
+      \\"description\\": \\"How to wrap prose.\\",
       \\"name\\": \\"proseWrap\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.8.2\\",

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cli.js 1`] = `
+exports[`cli.js - flow-verify 1`] = `
 /* @flow */
 
 var f = require('./lib');
@@ -15,7 +15,7 @@ var y: number = f(0);
 
 `;
 
-exports[`cli2.js 1`] = `
+exports[`cli2.js - flow-verify 1`] = `
 /* @flow */
 
 var f = require('./lib');
@@ -30,7 +30,7 @@ f("...");
 
 `;
 
-exports[`lib.js 1`] = `
+exports[`lib.js - flow-verify 1`] = `
 /* @flow */
 
 function g(x:string) { }

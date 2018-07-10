@@ -144,7 +144,11 @@ function genericPrint(path, options, print) {
           '"""'
         ]);
       }
-      return concat(['"', n.value.replace(/["\\]/g, "\\$&"), '"']);
+      return concat([
+        '"',
+        n.value.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\n"),
+        '"'
+      ]);
     }
     case "IntValue":
     case "FloatValue":
