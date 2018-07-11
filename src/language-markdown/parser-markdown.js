@@ -70,7 +70,8 @@ function restoreUnescapedCharacter(originalText) {
               node.value !== "*" &&
               node.value !== "_" && // handle these two cases in printer
               isSingleCharRegex.test(node.value) &&
-              node.position.end.offset - node.position.start.offset > 1
+              node.position.end.offset - node.position.start.offset !==
+                node.value.length
                 ? originalText.slice(
                     node.position.start.offset,
                     node.position.end.offset
