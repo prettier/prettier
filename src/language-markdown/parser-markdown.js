@@ -6,6 +6,9 @@ const pragma = require("./pragma");
 const parseFrontMatter = require("../utils/front-matter");
 const util = require("../common/util");
 
+// 0x0 ~ 0x10ffff
+const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
+
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
  *
@@ -66,8 +69,9 @@ function restoreUnescapedCharacter(originalText) {
             value:
               node.value !== "*" &&
               node.value !== "_" && // handle these two cases in printer
-              node.value.length === 1 &&
-              node.position.end.offset - node.position.start.offset > 1
+              isSingleCharRegex.test(node.value) &&
+              node.position.end.offset - node.position.start.offset !==
+                node.value.length
                 ? originalText.slice(
                     node.position.start.offset,
                     node.position.end.offset
