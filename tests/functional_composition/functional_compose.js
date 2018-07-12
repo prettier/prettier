@@ -25,18 +25,6 @@ somelib.composeFlipped(
 // no regression (#4602)
 const hasValue = hasOwnProperty(a, b);
 
-// filter out ThisExpression
-this.compose(sortBy(x => x), flatten);
-this.a.b.c.compose(sortBy(x => x), flatten);
-someObj.someMethod(this.field.compose(a, b));
-
-// filter out Super
-class A extends B {
-  compose() {
-    super.compose(sortBy(x => x), flatten);
-  }
-}
-
 // filter out cases when all args are Identifiers or literals
 compose(a, b, c);
 compose(1, 2, 3);
