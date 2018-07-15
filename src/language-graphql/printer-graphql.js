@@ -633,12 +633,11 @@ function canAttachComment(node) {
 
 function printComment(commentPath) {
   const comment = commentPath.getValue();
-
-  switch (comment.kind) {
-    case "Comment":
-      return "#" + comment.value.trimRight();
-    default:
-      throw new Error("Not a comment: " + JSON.stringify(comment));
+  if(comment.kind === "Comment") {
+    return "#" + comment.value.trimRight();
+  }
+  else {
+    throw new Error("Not a comment: " + JSON.stringify(comment));
   }
 }
 

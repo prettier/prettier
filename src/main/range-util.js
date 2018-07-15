@@ -191,8 +191,7 @@ function calculateRange(text, opts, ast) {
     endNodeAndParents,
     opts
   );
-  const startNode = siblingAncestors.startNode;
-  const endNode = siblingAncestors.endNode;
+  const { startNode, endNode } = siblingAncestors;
   const rangeStart = Math.min(
     opts.locStart(startNode, opts.locStart),
     opts.locStart(endNode, opts.locStart)

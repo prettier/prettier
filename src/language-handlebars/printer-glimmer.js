@@ -298,7 +298,7 @@ function printOpenBlock(path, print) {
     concat([
       "{{#",
       printPathParams(path, print),
-      printBlockParams(path, print),
+      printBlockParams(path),
       softline,
       "}}"
     ])
