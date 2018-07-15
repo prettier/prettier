@@ -1,37 +1,78 @@
+/** @flow */
+
 "use strict";
+
+/*::
+import type { Doc, DocAlignment, GroupDocId } from "./types";
+
+type Indentation = {
+  value: string,
+  length: number,
+  queue: Array<AlignmentElement>,
+  root?: Indentation
+};
+
+type AlignmentElement =
+  | { type: "indent" | "dedent" }
+  | { type: "root", root: Indentation }
+  | { type: "numberAlign", n: number }
+  | { type: "stringAlign", n: string };
+
+type PrintOptions = {
+  useTabs?: boolean,
+  tabWidth: number,
+  printWidth: number,
+  newLine?: string
+};
+
+type PrintMode = 1 | 2;
+type Command = [Indentation, PrintMode, Doc];
+type GroupModeMap = { [GroupDocId]: PrintMode };
+*/
 
 const { getStringWidth } = require("../common/util");
 const { concat, fill, cursor } = require("./doc-builders");
 
-/** @type {{[groupId: PropertyKey]: MODE}} */
-let groupModeMap;
+let groupModeMap /*: GroupModeMap */;
 
-const MODE_BREAK = 1;
-const MODE_FLAT = 2;
+const MODE_BREAK /*: PrintMode */ = 1;
+const MODE_FLAT /*: PrintMode */ = 2;
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
 }
 
-function makeIndent(ind, options) {
+function makeIndent(ind /*: Indentation */, options /*: PrintOptions */) {
   return generateInd(ind, { type: "indent" }, options);
 }
 
-function makeAlign(ind, n, options) {
+function makeAlign(
+  ind /*: Indentation */,
+  n /*: DocAlignment */,
+  options /*: PrintOptions */
+) {
+  if (typeof n === "string") {
+    return generateInd(ind, { type: "stringAlign", n }, options);
+  }
+
+  if (n.type === "root") {
+    return Object.assign({}, ind, { root: ind });
+  }
+
   return n === -Infinity
     ? ind.root || rootIndent()
     : n < 0
       ? generateInd(ind, { type: "dedent" }, options)
-      : !n
-        ? ind
-        : n.type === "root"
-          ? Object.assign({}, ind, { root: ind })
-          : typeof n === "string"
-            ? generateInd(ind, { type: "stringAlign", n }, options)
-            : generateInd(ind, { type: "numberAlign", n }, options);
+      : n > 0
+        ? generateInd(ind, { type: "numberAlign", n }, options)
+        : ind;
 }
 
-function generateInd(ind, newPart, options) {
+function generateInd(
+  ind /*: Indentation */,
+  newPart /*: AlignmentElement */,
+  options /*: PrintOptions */
+) {
   const queue =
     newPart.type === "dedent"
       ? ind.queue.slice(0, -1)
@@ -109,9 +150,15 @@ function generateInd(ind, newPart, options) {
   }
 }
 
-function fits(next, restCommands, width, options, mustBeFlat) {
+function fits(
+  next /*: Command */,
+  restCommands /*: Array<Command> */,
+  width /*: number */,
+  options /*: PrintOptions */,
+  mustBeFlat /*:: ?: boolean */
+) {
   let restIdx = restCommands.length;
-  const cmds = [next];
+  const cmds /*: Array<Command> */ = [next];
   while (width >= 0) {
     if (cmds.length === 0) {
       if (restIdx === 0) {
@@ -201,8 +248,9 @@ function fits(next, restCommands, width, options, mustBeFlat) {
   return false;
 }
 
-function printDocToString(doc, options) {
-  groupModeMap = {};
+function printDocToString(doc /*: Doc */, options /*: PrintOptions */) {
+  // prettier-ignore
+  groupModeMap = ({} /*: GroupModeMap */);
 
   const width = options.printWidth;
   const newLine = options.newLine || "\n";
@@ -210,8 +258,8 @@ function printDocToString(doc, options) {
   // cmds is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
   // cmds to the array instead of recursively calling `print`.
-  const cmds = [[rootIndent(), MODE_BREAK, doc]];
-  const out = [];
+  const cmds /*: Array<Command> */ = [[rootIndent(), MODE_BREAK, doc]];
+  const out /*: Array<string | Symbol> */ = [];
   let shouldRemeasure = false;
   let lineSuffix = [];
 
@@ -463,9 +511,10 @@ function printDocToString(doc, options) {
               }
 
               if (doc.literal) {
-                if (ind.root) {
-                  out.push(newLine, ind.root.value);
-                  pos = ind.root.length;
+                const root = ind.root;
+                if (root) {
+                  out.push(newLine, root.value);
+                  pos = root.length;
                 } else {
                   out.push(newLine);
                   pos = 0;
@@ -473,19 +522,20 @@ function printDocToString(doc, options) {
               } else {
                 if (out.length > 0) {
                   // Trim whitespace at the end of line
-                  while (
-                    out.length > 0 &&
-                    typeof out[out.length - 1] === "string" &&
-                    out[out.length - 1].match(/^[^\S\n]*$/)
-                  ) {
-                    out.pop();
+                  while (out.length > 0) {
+                    const part = out[out.length - 1];
+                    if (typeof part === "string" && part.match(/^[^\S\n]*$/)) {
+                      out.pop();
+                    } else {
+                      break;
+                    }
                   }
 
-                  if (out.length && typeof out[out.length - 1] === "string") {
-                    out[out.length - 1] = out[out.length - 1].replace(
-                      /[^\S\n]*$/,
-                      ""
-                    );
+                  if (out.length) {
+                    const part = out[out.length - 1];
+                    if (typeof part === "string") {
+                      out[out.length - 1] = part.replace(/[^\S\n]*$/, "");
+                    }
                   }
                 }
 

@@ -35,7 +35,9 @@ before_script:
   - yarn check-deps
 
 script:
-  - if [ "${JOB}" = "lint" ]; then yarn lint && yarn lint-docs; fi
+  - if [ "${JOB}" = "lint" ]; then yarn lint; fi
+  - if [ "${JOB}" = "lint" ]; then yarn lint-docs; fi
+  - if [ "${JOB}" = "lint" ]; then yarn flow check; fi
   - if [ "${JOB}" = "test" ]; then yarn test --runInBand --ci; fi
   - if [ "${JOB}" = "test" ]; then yarn codecov; fi
 
