@@ -82,7 +82,7 @@ function isLastDescendantNode(path) {
     case "nonSpecificTag":
       return false;
   }
-  const pathStackLength = path.stack.length - 1;
+  const pathStackLength = path.stack.length;
 
   for (let i = 1; i < pathStackLength; i++) {
     const item = path.stack[i];

@@ -147,7 +147,9 @@ function parseHTML(html, options) {
         }
       }
 
-      let text, rest, next;
+      let text;
+      let rest;
+      let next;
       
       if (textEnd >= 0) {
         rest = html.slice(textEnd);
