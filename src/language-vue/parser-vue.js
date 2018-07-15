@@ -150,7 +150,7 @@ function parseHTML(html, options) {
       let text;
       let rest;
       let next;
-      
+
       if (textEnd >= 0) {
         rest = html.slice(textEnd);
         while (
