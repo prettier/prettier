@@ -150,7 +150,11 @@ function parseHTML(html, options) {
       let text;
       let rest;
       let next;
+<<<<<<< pr-fixes
       
+=======
+
+>>>>>>> master
       if (textEnd >= 0) {
         rest = html.slice(textEnd);
         while (
