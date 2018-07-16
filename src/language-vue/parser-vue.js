@@ -18,7 +18,8 @@ const { hasPragma } = require("./pragma");
 function makeMap(str, expectsLowerCase) {
   const map = Object.create(null);
   const list = str.split(",");
-  for (let i = 0; i < list.length; i++) {
+  const listLength = list.length;
+  for (let i = 0; i < listLength; i++) {
     map[list[i]] = true;
   }
   return expectsLowerCase ? val => map[val.toLowerCase()] : val => map[val];
@@ -149,6 +150,7 @@ function parseHTML(html, options) {
       let text;
       let rest;
       let next;
+
       if (textEnd >= 0) {
         rest = html.slice(textEnd);
         while (
@@ -255,8 +257,7 @@ function parseHTML(html, options) {
   }
 
   function handleStartTag(match) {
-    const tagName = match.tagName;
-    const unarySlash = match.unarySlash;
+    const { tagName, unarySlash } = match;
 
     if (expectHTML) {
       if (lastTag === "p" && isNonPhrasingTag(tagName)) {
