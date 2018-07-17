@@ -633,12 +633,11 @@ function canAttachComment(node) {
 
 function printComment(commentPath) {
   const comment = commentPath.getValue();
-  if(comment.kind === "Comment") {
+  if (comment.kind === "Comment") {
     return "#" + comment.value.trimRight();
   }
-  else {
-    throw new Error("Not a comment: " + JSON.stringify(comment));
-  }
+
+  throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 
 function determineInterfaceSeparator(originalSource) {
