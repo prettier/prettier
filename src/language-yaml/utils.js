@@ -6,7 +6,8 @@ function getLast(array) {
 
 function getAncestorCount(path, filter) {
   let counter = 0;
-  for (let i = 0; i < path.stack.length - 1; i++) {
+  const pathStackLength = path.stack.length - 1;
+  for (let i = 0; i < pathStackLength; i++) {
     const value = path.stack[i];
     if (isNode(value) && filter(value)) {
       counter++;
@@ -51,8 +52,8 @@ function createNull() {
 
 function isNextLineEmpty(node, text) {
   let newlineCount = 0;
-
-  for (let i = node.position.end.offset - 1; i < text.length; i++) {
+  const textLength = text.length;
+  for (let i = node.position.end.offset - 1; i < textLength; i++) {
     const char = text[i];
 
     if (char === "\n") {
@@ -81,8 +82,9 @@ function isLastDescendantNode(path) {
     case "nonSpecificTag":
       return false;
   }
+  const pathStackLength = path.stack.length;
 
-  for (let i = 1; i < path.stack.length; i++) {
+  for (let i = 1; i < pathStackLength; i++) {
     const item = path.stack[i];
     const parentItem = path.stack[i - 1];
 

@@ -33,3 +33,15 @@ compose(
   b,
   3
 );
+
+// filter out ThisExpression
+this.compose(sortBy(x => x), flatten);
+this.a.b.c.compose(sortBy(x => x), flatten);
+someObj.someMethod(this.field.compose(a, b));
+
+// filter out Super
+class A extends B {
+  compose() {
+    super.compose(sortBy(x => x), flatten);
+  }
+}
