@@ -27,7 +27,6 @@ function getSortedChildNodes(node, options, resultArray) {
     return;
   }
   const { printer, locStart, locEnd } = options;
-  
 
   if (resultArray) {
     if (node && printer.canAttachComment && printer.canAttachComment(node)) {
@@ -88,7 +87,7 @@ function getSortedChildNodes(node, options, resultArray) {
 // least one of which is guaranteed to be defined.
 function decorateComment(node, comment, options) {
   const { locStart, locEnd } = options;
-  
+
   const childNodes = getSortedChildNodes(node, options);
   let precedingNode;
   let followingNode;
@@ -191,7 +190,6 @@ function attach(comments, ast, text, options) {
 
     decorateComment(ast, comment, options);
     const { precedingNode, enclosingNode, followingNode } = comment;
-    
 
     const pluginHandleOwnLineComment =
       options.printer.handleComments && options.printer.handleComments.ownLine
@@ -296,7 +294,7 @@ function breakTies(tiesToBreak, text, options) {
     return;
   }
   const { precedingNode, followingNode } = tiesToBreak[0];
-  
+
   let gapEndPos = options.locStart(followingNode);
 
   // Iterate backwards through tiesToBreak, examining the gaps
@@ -492,7 +490,6 @@ function printComments(path, print, options, needsSemi) {
   path.each(commentPath => {
     const comment = commentPath.getValue();
     const { leading, trailing } = comment;
-    
 
     if (leading) {
       const contents = printLeadingComment(commentPath, print, options);

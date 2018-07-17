@@ -2,7 +2,11 @@
 
 const privateUtil = require("../common/util");
 const sharedUtil = require("../common/util-shared");
-const { addLeadingComment, addTrailingComment, addDanglingComment } = sharedUtil;
+const {
+  addLeadingComment,
+  addTrailingComment,
+  addDanglingComment
+} = sharedUtil;
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
