@@ -17,7 +17,9 @@ function getSupportInfo(version, opts) {
   );
 
   if (!version) {
-    version = currentVersion;
+    // Pre-release version is smaller than the normal version,
+    // we need to treat it as the normal one so as to test new features.
+    version = currentVersion.split("-", 1)[0];
   }
 
   const plugins = opts.plugins;

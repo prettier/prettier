@@ -429,7 +429,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -37,12 +43,23 @@
+@@ -37,12 +43,26 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -437,6 +437,9 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       ],
 +     \\"Vue\\": Array [
 +       \\"vue\\",
++     ],
++     \\"YAML\\": Array [
++       \\"yaml\\",
 +     ],
     },
     \\"options\\": Object {
@@ -453,7 +456,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -73,16 +90,27 @@
+@@ -73,16 +93,28 @@
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -464,6 +467,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
           \\"graphql\\",
           \\"markdown\\",
 +         \\"vue\\",
++         \\"yaml\\",
         ],
 -       \\"default\\": \\"babylon\\",
 +       \\"default\\": undefined,
@@ -482,7 +486,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +118,15 @@
+@@ -90,14 +122,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -786,6 +790,31 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"tmScope\\": \\"text.html.vue\\",
       \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"vue\\"]
+    },
+    {
+      \\"aceMode\\": \\"yaml\\",
+      \\"aliases\\": [\\"yml\\"],
+      \\"codemirrorMimeType\\": \\"text/x-yaml\\",
+      \\"codemirrorMode\\": \\"yaml\\",
+      \\"extensions\\": [
+        \\".yml\\",
+        \\".mir\\",
+        \\".reek\\",
+        \\".rviz\\",
+        \\".sublime-syntax\\",
+        \\".syntax\\",
+        \\".yaml\\",
+        \\".yaml-tmlanguage\\",
+        \\".yml.mysql\\"
+      ],
+      \\"filenames\\": [\\".clang-format\\", \\".clang-tidy\\", \\".gemrc\\", \\"glide.lock\\"],
+      \\"linguistLanguageId\\": 407,
+      \\"name\\": \\"YAML\\",
+      \\"parsers\\": [\\"yaml\\"],
+      \\"since\\": \\"1.14.0\\",
+      \\"tmScope\\": \\"source.yaml\\",
+      \\"type\\": \\"data\\",
+      \\"vscodeLanguageIds\\": [\\"yaml\\"]
     }
   ],
   \\"options\\": [
@@ -880,7 +909,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         },
         { \\"description\\": \\"GraphQL\\", \\"since\\": \\"1.5.0\\", \\"value\\": \\"graphql\\" },
         { \\"description\\": \\"Markdown\\", \\"since\\": \\"1.8.0\\", \\"value\\": \\"markdown\\" },
-        { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" }
+        { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" },
+        { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",
