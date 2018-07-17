@@ -80,7 +80,6 @@ async function preparePackage() {
   pkg.engines.node = ">=4";
   delete pkg.dependencies;
   delete pkg.devDependencies;
-  delete pkg["jest-junit"];
   pkg.scripts = {
     prepublishOnly:
       "node -e \"assert.equal(require('.').version, require('..').version)\""
