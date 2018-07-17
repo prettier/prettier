@@ -15,7 +15,7 @@ function embed(path, print, textToDoc, options) {
       // Inline JavaScript
       if (
         parent.type === "script" &&
-        ((!parent.attribs.lang && !parent.attribs.lang) ||
+        (!parent.attribs.lang ||
           parent.attribs.type === "text/javascript" ||
           parent.attribs.type === "application/javascript")
       ) {

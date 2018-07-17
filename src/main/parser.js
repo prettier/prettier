@@ -4,8 +4,7 @@ const path = require("path");
 const ConfigError = require("../common/errors").ConfigError;
 const jsLoc = require("../language-js/loc");
 
-const locStart = jsLoc.locStart;
-const locEnd = jsLoc.locEnd;
+const { locStart, locEnd } = jsLoc;
 
 // Use defineProperties()/getOwnPropertyDescriptor() to prevent
 // triggering the parsers getters.
