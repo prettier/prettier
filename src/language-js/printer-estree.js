@@ -5271,7 +5271,10 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
     ((leftNode.type === "Identifier" ||
       isStringLiteral(leftNode) ||
       leftNode.type === "MemberExpression") &&
-      (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)));
+      (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)) &&
+      // do not put values on a separate line from the key in json
+      options.parser !== "json" &&
+      options.parser !== "json5");
 
   if (canBreak) {
     return indent(concat([line, printedRight]));
