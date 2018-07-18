@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "1.13.7",
+  "version": "1.14.0-dev",
   "description": "Prettier is an opinionated code formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
@@ -60,8 +60,8 @@
     "typescript-eslint-parser": "eslint/typescript-eslint-parser#6eec85b1466fbef087838203b246f70fa71ac0ac",
     "unicode-regex": "1.0.1",
     "unified": "6.1.6",
-    "yaml": "1.0.0-rc.4",
-    "yaml-unist-parser": "1.0.0-rc.1"
+    "yaml": "1.0.0-rc.7",
+    "yaml-unist-parser": "1.0.0-rc.2"
   },
   "devDependencies": {
     "@babel/cli": "7.0.0-beta.49",

@@ -97,7 +97,7 @@ function normalize(options, opts) {
 }
 
 function getPlugin(options) {
-  const astFormat = options.astFormat;
+  const { astFormat } = options;
 
   if (!astFormat) {
     throw new Error("getPlugin() requires astFormat to be set");
