@@ -27,23 +27,23 @@ If you want to know more about Prettier's GitHub labels, see the [Issue Labels](
 
 If you're contributing a performance improvement, the following Prettier CLI options can help:
 
-- `--debug-benchmark` uses [`benchmark`](https://npm.im/benchmark) module to produce statistically significant time measurements. The measurements are printed at the debug log level, use `--loglevel debug` to see them.
-- `--debug-repeat N` uses a naive loop to repeat the formatting `N` times and measures the average run time. It can be useful to highlight hot functions in the profiler. The measurements are printed at the debug log level, use `--loglevel debug` to see them.
+- `--debug-repeat N` uses a naive loop to repeat the formatting `N` times and measures the average run duration. It can be useful to highlight hot functions in the profiler. The measurements are printed at the debug log level, use `--loglevel debug` to see them.
+- `--debug-benchmark` uses [`benchmark`](https://npm.im/benchmark) module to produce statistically significant duration measurements. The measurements are printed at the debug log level, use `--loglevel debug` to see them.
 
-To run Prettier with the profiler, use the Node CLI `--inspect-brk` option and Chromium/Chrome browser's [`chrome://inspect`](chrome://inspect) page to activate the Chrome DevTools Profiler for Node:
+For convenience, the following commands for profiling are available via `package.json` `scripts`.
 
-```
-$ cat FileToFormat.js | NODE_ENV=production node --inspect-brk ./bin/prettier.js --stdin-filepath FileToFormat.js --debug-repeat 1000 --loglevel debug > /dev/null
-```
+_Unfortunately, [`yarn` simply appends passed arguments to commands, cannot reference them by name](https://github.com/yarnpkg/yarn/issues/5207), so we have to use inline environment variables to pass them._
 
-In the above command:
+- `PERF_FILE=<filename> PERF_REPEAT=[number-of-repetitions:1000] yarn perf-repeat` starts the naive loop. See the CLI output for when the measurements finish, and stop profiling at that moment.
+- `PERF_FILE=<filename> PERF_REPEAT=[number-of-repetitions:1000] yarn perf-repeat-inspect` starts the naive loop with `node --inspect-brk` flag that pauses execution and waits for Chromium/Chrome/Node Inspector to attach. Open [`chrome://inspect`](chrome://inspect), select the process to inspect, and activate the CPU Profiler, this will unpause execution. See the CLI output for when the measurements finish, and stop the CPU Profiler at that moment to avoid collecting more data than needed.
+- `PERF_FILE=<filename> yarn perf-benchmark` starts the `benchmark`-powered measurements. See the CLI output for when the measurements finish.
 
-- `cat FileToFormat.js |` ensures the file contents are read from the filesystem by a separate program, not Prettier CLI.
-- `NODE_ENV=production` ensures Prettier runs without internal development checks.
-- `node --inspect-brk` pauses the script execution until Chrome DevTools are connected to the Node process.
-- `--stdin-filepath FileToFormat.js` ensures the file format of the `stdin` input is deduced correctly (in this example it's JavaScript).
-- `--debug-repeat 1000` tells Prettier CLI to run the formatting 1000 times.
-- `--loglevel debug` ensures the `--debug-repeat` measurements are printed to `stderr`.
+In the above commands:
+
+- `yarn && yarn build` ensures the compiler-optimized version of Prettier is built prior to launching it. Prettier's own environment checks are defaulted to production and removed during the build. The build output is cached, so a rebuild will happen only if the source code changes.
+- `NODE_ENV=production` ensures Prettier and its dependencies run in production mode.
+- `node --inspect-brk` pauses the script execution until Inspector is connected to the Node process.
+- `--loglevel debug` ensures the `--debug-repeat` or `--debug-benchmark` measurements are printed to `stderr`.
 - `> /dev/null` ensures the formatted output is discarded.
 
-You can also use [`node --prof` and `node --prof-process`](https://nodejs.org/en/docs/guides/simple-profiling/), as well as `node --trace-opt --trace-deopt`, for more advanced performance insights.
+In addition to the options above, you can use [`node --prof` and `node --prof-process`](https://nodejs.org/en/docs/guides/simple-profiling/), as well as `node --trace-opt --trace-deopt`, to get more advanced performance insights.
