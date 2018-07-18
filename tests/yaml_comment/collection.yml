@@ -24,3 +24,6 @@ f:
     # c.endComments
   # sequence.endComments
 # documentBody.children
+
+empty_content:
+  # hello world

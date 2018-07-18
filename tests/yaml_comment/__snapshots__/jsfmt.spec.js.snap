@@ -27,6 +27,9 @@ f:
     # c.endComments
   # sequence.endComments
 # documentBody.children
+
+empty_content:
+  # hello world
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a: 123
   # impicitMappginValue
@@ -53,6 +56,8 @@ f:
     # c.endComments
   # sequence.endComments
 # documentBody.children
+
+? empty_content
 
 `;
 
