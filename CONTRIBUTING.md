@@ -27,15 +27,15 @@ If you want to know more about Prettier's GitHub labels, see the [Issue Labels](
 
 If you're contributing a performance improvement, the following Prettier CLI options can help:
 
-- `--debug-repeat N` uses a naive loop to repeat the formatting `N` times and measures the average run duration. It can be useful to highlight hot functions in the profiler. The measurements are printed at the debug log level, use `--loglevel debug` to see them.
+- `--debug-repeat N` uses a naïve loop to repeat the formatting `N` times and measures the average run duration. It can be useful to highlight hot functions in the profiler. The measurements are printed at the debug log level, use `--loglevel debug` to see them.
 - `--debug-benchmark` uses [`benchmark`](https://npm.im/benchmark) module to produce statistically significant duration measurements. The measurements are printed at the debug log level, use `--loglevel debug` to see them.
 
 For convenience, the following commands for profiling are available via `package.json` `scripts`.
 
 _Unfortunately, [`yarn` simply appends passed arguments to commands, cannot reference them by name](https://github.com/yarnpkg/yarn/issues/5207), so we have to use inline environment variables to pass them._
 
-- `PERF_FILE=<filename> PERF_REPEAT=[number-of-repetitions:1000] yarn perf-repeat` starts the naive loop. See the CLI output for when the measurements finish, and stop profiling at that moment.
-- `PERF_FILE=<filename> PERF_REPEAT=[number-of-repetitions:1000] yarn perf-repeat-inspect` starts the naive loop with `node --inspect-brk` flag that pauses execution and waits for Chromium/Chrome/Node Inspector to attach. Open [`chrome://inspect`](chrome://inspect), select the process to inspect, and activate the CPU Profiler, this will unpause execution. See the CLI output for when the measurements finish, and stop the CPU Profiler at that moment to avoid collecting more data than needed.
+- `PERF_FILE=<filename> PERF_REPEAT=[number-of-repetitions:1000] yarn perf-repeat` starts the naïve loop. See the CLI output for when the measurements finish, and stop profiling at that moment.
+- `PERF_FILE=<filename> PERF_REPEAT=[number-of-repetitions:1000] yarn perf-repeat-inspect` starts the naïve loop with `node --inspect-brk` flag that pauses execution and waits for Chromium/Chrome/Node Inspector to attach. Open [`chrome://inspect`](chrome://inspect), select the process to inspect, and activate the CPU Profiler, this will unpause execution. See the CLI output for when the measurements finish, and stop the CPU Profiler at that moment to avoid collecting more data than needed.
 - `PERF_FILE=<filename> yarn perf-benchmark` starts the `benchmark`-powered measurements. See the CLI output for when the measurements finish.
 
 In the above commands:
