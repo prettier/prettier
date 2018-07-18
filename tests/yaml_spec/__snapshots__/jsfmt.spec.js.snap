@@ -1061,20 +1061,6 @@ exports[`mapping-key-and-flow-sequence-item-anchors.yml - yaml-verify 2`] = `
 
 `;
 
-exports[`mapping-with-anchor-on-document-start-line.yml - yaml-verify 1`] = `
---- &anchor a: b
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-&anchor a: b
-
-`;
-
-exports[`mapping-with-anchor-on-document-start-line.yml - yaml-verify 2`] = `
---- &anchor a: b
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-&anchor a: b
-
-`;
-
 exports[`mixed-block-mapping-explicit-to-implicit.yml - yaml-verify 1`] = `
 ? a
 : 13

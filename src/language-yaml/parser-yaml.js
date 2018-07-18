@@ -32,7 +32,8 @@ function parse(text) {
         (node.type === "mappingKey" || node.type === "mappingValue") &&
         node.children[0].type === "null" &&
         node.leadingComments.length === 0 &&
-        node.trailingComments.length === 0
+        node.trailingComments.length === 0 &&
+        node.endComments.length === 0
       ) {
         return createNull();
       }

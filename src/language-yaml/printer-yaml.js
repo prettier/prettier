@@ -11,6 +11,7 @@ const {
   hasLeadingComments,
   hasMiddleComments,
   hasTrailingComments,
+  hasEndComments,
   hasPrettierIgnore,
   isLastDescendantNode,
   isNextLineEmpty,
@@ -100,7 +101,13 @@ function genericPrint(path, options, print) {
           ])
         )
       : "",
-    nextEmptyLine
+    nextEmptyLine,
+    hasEndComments(node)
+      ? (endComments =>
+          node.type === "sequenceItem" ? align(2, endComments) : endComments)(
+          concat([hardline, join(hardline, path.map(print, "endComments"))])
+        )
+      : ""
   ]);
 }
 
@@ -432,12 +439,12 @@ function _print(node, parentNode, path, options, print) {
   function indent(doc) {
     return docBuilders.align(" ".repeat(options.tabWidth), doc);
   }
+}
 
-  function align(n, doc) {
-    return typeof n === "number" && n > 0
-      ? docBuilders.align(" ".repeat(n), doc)
-      : docBuilders.align(n, doc);
-  }
+function align(n, doc) {
+  return typeof n === "number" && n > 0
+    ? docBuilders.align(" ".repeat(n), doc)
+    : docBuilders.align(n, doc);
 }
 
 function isInlineNode(node) {
