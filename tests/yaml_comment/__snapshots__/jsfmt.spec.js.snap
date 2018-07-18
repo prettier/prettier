@@ -57,7 +57,8 @@ f:
   # sequence.endComments
 # documentBody.children
 
-? empty_content
+empty_content:
+  # hello world
 
 `;
 
