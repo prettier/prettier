@@ -64,7 +64,11 @@ const parser = {
   parse,
   hasPragma,
   locStart: node => node.position.start.offset,
-  locEnd: node => node.position.end.offset
+  locEnd: node => node.position.end.offset,
+
+  // workaround for https://github.com/eemeli/yaml/issues/20
+  preprocess: text =>
+    text.indexOf("\r") === -1 ? text : text.replace(/\r\n?/g, "\n")
 };
 
 module.exports = {
