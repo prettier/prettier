@@ -74,9 +74,7 @@ newlines_elems =
 
 regression_extra_newline = (
   <div>
-    <span
-      className="nuclide-console-new-messages-notification-icon icon icon-nuclicon-arrow-down"
-    />
+    <span className="nuclide-console-new-messages-notification-icon icon icon-nuclicon-arrow-down"/>
     New Messages
   </div>
 );
