@@ -19,8 +19,4 @@ async function bump({ version }) {
 
 module.exports = async function(params) {
   await logPromise("Bumping version", bump(params));
-  await logPromise(
-    "Updating integration snapshots",
-    execa("yarn", ["test-integration", "-u"])
-  );
 };

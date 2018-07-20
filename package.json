@@ -107,10 +107,10 @@
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
+    "version": "node scripts/update-version.js",
     "prepare-release": "yarn && yarn build && yarn test:dist",
     "test": "jest",
     "test:dist": "node ./scripts/test-dist.js",
-    "test-integration": "jest tests_integration",
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "lint-docs": "prettylint {.,docs,website,website/blog}/*.md",
     "build": "node ./scripts/build/build.js",
