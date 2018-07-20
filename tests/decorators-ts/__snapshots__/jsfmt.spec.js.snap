@@ -161,7 +161,8 @@ class Greeter {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Greeter {
-  @format("Hello, %s") greeting: string;
+  @format("Hello, %s")
+  greeting: string;
 
   constructor(message: string) {
     this.greeting = message;
@@ -200,15 +201,20 @@ export class Board {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @Entity()
 export class Board {
-  @PrimaryGeneratedColumn() id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Column() slug: string;
+  @Column()
+  slug: string;
 
-  @Column() name: string;
+  @Column()
+  name: string;
 
-  @Column() theme: string;
+  @Column()
+  theme: string;
 
-  @Column() description: string;
+  @Column()
+  description: string;
 
   @OneToMany(type => Topic, topic => topic.board)
   topics: Topic[];

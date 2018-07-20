@@ -20,7 +20,8 @@ const {
   getPenultimate,
   startsWithNoLookaheadToken,
   getIndentSize,
-  matchAncestorTypes
+  matchAncestorTypes,
+  isWithinParentArrayProperty
 } = require("../common/util");
 const {
   isNextLineEmpty,
@@ -94,34 +95,18 @@ function genericPrint(path, options, printPath, args) {
     // responsible for printing node.decorators.
     !getParentExportDeclaration(path)
   ) {
-    let separator = hardline;
+    const separator =
+      node.decorators.length === 1 &&
+      isWithinParentArrayProperty(path, "params")
+        ? line
+        : hardline;
+
     path.each(decoratorPath => {
       let decorator = decoratorPath.getValue();
       if (decorator.expression) {
         decorator = decorator.expression;
       } else {
         decorator = decorator.callee;
-      }
-
-      if (
-        node.decorators.length === 1 &&
-        node.type !== "ClassDeclaration" &&
-        node.type !== "MethodDefinition" &&
-        node.type !== "ClassMethod" &&
-        (decorator.type === "Identifier" ||
-          decorator.type === "MemberExpression" ||
-          decorator.type === "OptionalMemberExpression" ||
-          ((decorator.type === "CallExpression" ||
-            decorator.type === "OptionalCallExpression") &&
-            (decorator.arguments.length === 0 ||
-              (decorator.arguments.length === 1 &&
-                (isStringLiteral(decorator.arguments[0]) ||
-                  decorator.arguments[0].type === "Identifier" ||
-                  decorator.arguments[0].type === "MemberExpression" ||
-                  decorator.arguments[0].type ===
-                    "OptionalMemberExpression")))))
-      ) {
-        separator = line;
       }
 
       decorators.push(printPath(decoratorPath), separator);
