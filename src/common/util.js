@@ -794,12 +794,7 @@ function isWithinParentArrayProperty(path, propertyName) {
     return false;
   }
 
-  if (
-    !(
-      parent[propertyName] &&
-      Object.prototype.toString.call(parent[propertyName]) === "[object Array]"
-    )
-  ) {
+  if (!Array.isArray(parent[propertyName])) {
     return false;
   }
 
