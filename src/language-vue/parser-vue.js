@@ -417,7 +417,9 @@ module.exports = {
     vue: {
       parse,
       hasPragma,
-      astFormat: "vue"
+      astFormat: "vue",
+      locStart: node => node.start,
+      locEnd: node => node.end
     }
   }
 };
