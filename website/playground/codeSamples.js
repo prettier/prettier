@@ -181,7 +181,7 @@ export default function(parser) {
         "</script>",
         "",
         "<style>",
-        ".and { css: too! important }",
+        ".and { css: too !important }",
         "</style>"
       ].join("\n");
     case "yaml":
