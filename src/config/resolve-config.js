@@ -4,8 +4,18 @@ const thirdParty = require("../common/third-party");
 const minimatch = require("minimatch");
 const path = require("path");
 const mem = require("mem");
+const toml = require("toml");
 
 const resolveEditorConfig = require("./resolve-config-editorconfig");
+
+function loadToml(filePath, content) {
+  try {
+    return toml.parse(content);
+  } catch (error) {
+    error.message = `TOML Error in ${filePath}:\n${error.message}`;
+    throw error;
+  }
+}
 
 const getExplorerMemoized = mem(opts =>
   thirdParty.cosmiconfig("prettier", {
@@ -17,6 +27,9 @@ const getExplorerMemoized = mem(opts =>
         delete result.config.$schema;
       }
       return result;
+    },
+    loaders: {
+      ".toml": loadToml
     }
   })
 );

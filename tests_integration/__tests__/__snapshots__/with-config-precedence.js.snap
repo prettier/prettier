@@ -139,6 +139,16 @@ function rcJson() {
     ],
   );
 }
+function rcToml() {
+  console.log.apply(
+    null,
+    [
+      'rc-toml/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
 function rcYaml() {
   console.log.apply(
     null,
@@ -211,6 +221,16 @@ function rcJson() {
     null,
     [
       'rc-json/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcToml() {
+  console.log.apply(
+    null,
+    [
+      'rc-toml/file.js',
       'should have trailing comma',
       'and single quotes',
     ],
