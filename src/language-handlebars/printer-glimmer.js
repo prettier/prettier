@@ -161,7 +161,7 @@ function print(path, options, print) {
       const params = getParams(path, print);
       const printedParams =
         params.length > 0
-          ? indent(concat([line, group(join(line, getParams(path, print)))]))
+          ? indent(concat([line, group(join(line, params))]))
           : "";
       return group(
         concat(["(", printPath(path, print), printedParams, softline, ")"])
