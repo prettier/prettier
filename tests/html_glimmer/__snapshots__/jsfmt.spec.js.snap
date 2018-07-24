@@ -112,6 +112,12 @@ exports[`component.hbs - glimmer-verify 1`] = `
 {{@greeting}}, {{@name}}!
 
 <button onclick={{action next}}>Next</button>
+
+<button disabled class="disabled"></button>
+
+<button disabled=disabled class="disabled"></button>
+
+<div ...attributes>Hello</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <user-greeting @name="Ricardo" @greeting="Olá"></user-greeting>
 {{@greeting}}
@@ -121,6 +127,11 @@ exports[`component.hbs - glimmer-verify 1`] = `
 <button onclick={{action next}}>
   Next
 </button>
+<button disabled class="disabled"></button>
+<button disabled="disabled" class="disabled"></button>
+<div ...attributes>
+  Hello
+</div>
 `;
 
 exports[`concat-statement.hbs - glimmer-verify 1`] = `
