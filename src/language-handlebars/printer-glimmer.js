@@ -158,14 +158,13 @@ function print(path, options, print) {
       );
     }
     case "SubExpression": {
+      const params = getParams(path, print);
+      const printedParams =
+        params.length > 0
+          ? indent(concat([line, group(join(line, getParams(path, print)))]))
+          : "";
       return group(
-        concat([
-          "(",
-          printPath(path, print),
-          indent(concat([line, group(join(line, getParams(path, print)))])),
-          softline,
-          ")"
-        ])
+        concat(["(", printPath(path, print), printedParams, softline, ")"])
       );
     }
     case "AttrNode": {
