@@ -82,6 +82,7 @@ function print(path, options, print) {
             "<",
             n.tag,
             getParams(path, print),
+            n.blockParams.length ? ` as |${n.blockParams.join(" ")}|` : "",
             ifBreak(softline, ""),
             closeTag
           ])
