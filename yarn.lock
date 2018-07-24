@@ -5617,9 +5617,9 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript-eslint-parser@eslint/typescript-eslint-parser#6eec85b1466fbef087838203b246f70fa71ac0ac:
+typescript-eslint-parser@ikatyang/typescript-eslint-parser#fix/support-jsx-spread-child:
   version "16.0.1"
-  resolved "https://codeload.github.com/eslint/typescript-eslint-parser/tar.gz/6eec85b1466fbef087838203b246f70fa71ac0ac"
+  resolved "https://codeload.github.com/ikatyang/typescript-eslint-parser/tar.gz/c34f1aa4f34b0ec3cd9d282787aab1d6f6587eeb"
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.5.0"
