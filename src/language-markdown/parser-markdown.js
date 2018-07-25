@@ -242,20 +242,31 @@ function markAlignedList(originalText, options) {
       return true;
     }
 
-    const firstStart = getListItemStart(list.children[0]);
+    const [firstItem, secondItem] = list.children;
+
+    const firstStart = getListItemStart(firstItem);
+    const firstInfo = getOrderedListItemInfo(firstItem, originalText);
 
     if (list.children.length === 1) {
       /**
        * aligned:
+       *
        * 1.  123
        *
+       * 1.   123
+       *
        * not aligned:
+       *
        * 1. 123
        */
-      return firstStart % options.tabWidth === 0;
+      return (
+        firstStart % options.tabWidth === 0 ||
+        firstInfo.leadingSpaces.length !== 1
+      );
     }
 
-    const secondStart = getListItemStart(list.children[1]);
+    const secondStart = getListItemStart(secondItem);
+    const secondInfo = getOrderedListItemInfo(secondItem, originalText);
 
     if (firstStart !== secondStart) {
       /**
@@ -273,24 +284,23 @@ function markAlignedList(originalText, options) {
       return true;
     }
 
-    const firstInfo = getOrderedListItemInfo(list.children[0], originalText);
-    const secondInfo = getOrderedListItemInfo(list.children[1], originalText);
-
     /**
      * aligned:
+     *
      * 11. 123
      * 1.  123
      *
-     * 1.        123
-     * 1.        123
+     * 1.   123
+     * 1.   123
      *
-     * 1.        123
+     * 1.   123
      * 1.
      *
      * 1.
      * 1.
      *
      * not aligned:
+     *
      * 11. 123
      * 1. 123
      */
