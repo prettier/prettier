@@ -1,107 +1,119 @@
-#!/usr/bin/env node
-
 "use strict";
 
+const chalk = require("chalk");
+const execa = require("execa");
+const minimist = require("minimist");
 const path = require("path");
-const pkg = require("../../package.json");
-const formatMarkdown = require("../../website/static/markdown");
-const parsers = require("./parsers");
-const shell = require("shelljs");
+const stringWidth = require("string-width");
 
-const rootDir = path.join(__dirname, "..", "..");
+const bundler = require("./bundler");
+const bundleConfigs = require("./config");
+const util = require("./util");
+const Cache = require("./cache");
 
-process.env.PATH += path.delimiter + path.join(rootDir, "node_modules", ".bin");
+// Errors in promises should be fatal.
+const loggedErrors = new Set();
+process.on("unhandledRejection", err => {
+  // No need to print it twice.
+  if (!loggedErrors.has(err)) {
+    console.error(err);
+  }
+  process.exit(1);
+});
 
-function pipe(string) {
-  return new shell.ShellString(string);
+const CACHED = chalk.bgYellow.black(" CACHED ");
+const OK = chalk.bgGreen.black("  DONE  ");
+const FAIL = chalk.bgRed.black("  FAIL  ");
+
+function fitTerminal(input) {
+  const columns = Math.min(process.stdout.columns || 40, 80);
+  const WIDTH = columns - stringWidth(OK) + 1;
+  if (input.length < WIDTH) {
+    input += Array(WIDTH - input.length).join(chalk.dim("."));
+  }
+  return input;
 }
 
-shell.set("-e");
-shell.cd(rootDir);
+async function createBundle(bundleConfig, cache) {
+  const { output } = bundleConfig;
+  process.stdout.write(fitTerminal(output));
 
-shell.rm("-Rf", "dist/");
+  return bundler(bundleConfig, cache)
+    .catch(error => {
+      console.log(FAIL + "\n");
+      handleError(error);
+    })
+    .then(result => {
+      if (result.cached) {
+        console.log(CACHED);
+      } else {
+        console.log(OK);
+      }
+    });
+}
 
-// --- Lib ---
+function handleError(error) {
+  loggedErrors.add(error);
+  console.error(error);
+  throw error;
+}
 
-shell.exec("rollup -c scripts/build/rollup.index.config.js");
-
-shell.exec("rollup -c scripts/build/rollup.bin.config.js");
-shell.chmod("+x", "./dist/bin-prettier.js");
-
-shell.exec("rollup -c scripts/build/rollup.third-party.config.js");
-
-for (const parser of parsers) {
-  if (parser.endsWith("postcss")) {
-    continue;
-  }
-  shell.exec(
-    `rollup -c scripts/build/rollup.parser.config.js --environment parser:${parser}`
-  );
-  if (parser.endsWith("glimmer")) {
-    shell.exec(
-      `node_modules/babel-cli/bin/babel.js dist/parser-glimmer.js --out-file dist/parser-glimmer.js --presets=es2015`
-    );
+async function cacheFiles() {
+  // Copy built files to .cache
+  try {
+    await execa("rm", ["-rf", path.join(".cache", "files")]);
+    await execa("mkdir", ["-p", path.join(".cache", "files")]);
+    for (const bundleConfig of bundleConfigs) {
+      await execa("cp", [
+        path.join("dist", bundleConfig.output),
+        path.join(".cache", "files")
+      ]);
+    }
+  } catch (err) {
+    // Don't fail the build
   }
 }
 
-shell.echo("\nsrc/language-css/parser-postcss.js → dist/parser-postcss.js");
-// PostCSS has dependency cycles and won't work correctly with rollup :(
-shell.exec(
-  "webpack --hide-modules src/language-css/parser-postcss.js dist/parser-postcss.js"
+async function preparePackage() {
+  const pkg = await util.readJson("package.json");
+  pkg.bin = "./bin-prettier.js";
+  pkg.engines.node = ">=4";
+  delete pkg.dependencies;
+  delete pkg.devDependencies;
+  pkg.scripts = {
+    prepublishOnly:
+      "node -e \"assert.equal(require('.').version, require('..').version)\""
+  };
+  pkg.files = ["*.js"];
+  await util.writeJson("dist/package.json", pkg);
+
+  await util.copyFile("./README.md", "./dist/README.md");
+}
+
+async function run(params) {
+  await execa("rm", ["-rf", "dist"]);
+  await execa("mkdir", ["-p", "dist"]);
+
+  if (params["purge-cache"]) {
+    await execa("rm", ["-rf", ".cache"]);
+  }
+
+  const bundleCache = new Cache(".cache/", "v2");
+  await bundleCache.load();
+
+  console.log(chalk.inverse(" Building packages "));
+  for (const bundleConfig of bundleConfigs) {
+    await createBundle(bundleConfig, bundleCache);
+  }
+
+  await bundleCache.save();
+  await cacheFiles();
+
+  await preparePackage();
+}
+
+run(
+  minimist(process.argv.slice(2), {
+    boolean: ["purge-cache"]
+  })
 );
-// Prepend module.exports =
-const content = shell.cat("dist/parser-postcss.js").stdout;
-pipe(`module.exports = ${content}`).to("dist/parser-postcss.js");
-
-shell.echo();
-
-// --- Misc ---
-
-shell.echo("Remove eval");
-shell.sed(
-  "-i",
-  /eval\("require"\)/,
-  "require",
-  "dist/index.js",
-  "dist/bin-prettier.js"
-);
-
-shell.echo("Update ISSUE_TEMPLATE.md");
-const issueTemplate = shell.cat(".github/ISSUE_TEMPLATE.md").stdout;
-const newIssueTemplate = issueTemplate.replace(
-  /-->[^]*$/,
-  "-->\n\n" +
-    formatMarkdown(
-      "// code snippet",
-      "// code snippet",
-      "",
-      pkg.version,
-      "https://prettier.io/playground/#.....",
-      { parser: "babylon" },
-      [["# Options (if any):", true], ["--single-quote", true]],
-      true
-    )
-);
-pipe(newIssueTemplate).to(".github/ISSUE_TEMPLATE.md");
-
-shell.echo("Copy package.json");
-const pkgWithoutDependencies = Object.assign({}, pkg);
-pkgWithoutDependencies.bin = "./bin-prettier.js";
-delete pkgWithoutDependencies.dependencies;
-pkgWithoutDependencies.scripts = {
-  prepublishOnly:
-    "node -e \"assert.equal(require('.').version, require('..').version)\""
-};
-pipe(JSON.stringify(pkgWithoutDependencies, null, 2)).to("dist/package.json");
-
-shell.echo("Copy README.md");
-shell.cp("README.md", "dist/README.md");
-
-shell.echo("Done!");
-shell.echo();
-shell.echo("How to test against dist:");
-shell.echo("  1) yarn test:dist");
-shell.echo();
-shell.echo("How to publish:");
-shell.echo("  1) IMPORTANT!!! Go to dist/");
-shell.echo("  2) npm publish");

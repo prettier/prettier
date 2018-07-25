@@ -1,0 +1,5 @@
+abc:  !!str #   hello
+   123
+# prettier-ignore
+def:  !!str #   hello
+   456

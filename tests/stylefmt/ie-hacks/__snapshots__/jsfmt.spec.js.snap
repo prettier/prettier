@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ie-hacks.css 1`] = `
+exports[`ie-hacks.css - css-verify 1`] = `
 * html p {font-size: 5em; }
 .class {
 *zoom: 1;_width: 200px;

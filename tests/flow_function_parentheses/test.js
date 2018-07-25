@@ -43,3 +43,18 @@ interface F {
 }
 
 type ExtractType = <A>(B<C>) => D
+
+type T = ?(() => A);
+
+type T = ?(() => A) | B;
+
+type T = ?() => A | B;
+
+type T = (?() => A) | B;
+
+// https://github.com/babel/babel/issues/7924
+//type T = ??() => A;
+
+type T = ?(?(() => A));
+
+type T = ?(?() => A) | B;

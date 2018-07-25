@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js - flow-verify 1`] = `
 for (x
 /*a*/
 in //b
@@ -67,7 +67,7 @@ for (x of y);
 
 `;
 
-exports[`for.js 1`] = `
+exports[`for.js - flow-verify 1`] = `
 for (;;) {}
 for (var i = 0; i < 10; ++i) {}
 
@@ -82,7 +82,7 @@ for (var i = 0; i < 10; ++i) 0;
 
 `;
 
-exports[`in.js 1`] = `
+exports[`in.js - flow-verify 1`] = `
 for ((x in a);;) {}
 for (a=(a in b);;) {}
 for (let a = (b in c); ; );
@@ -111,7 +111,7 @@ for (a in b) 0;
 
 `;
 
-exports[`var.js 1`] = `
+exports[`var.js - flow-verify 1`] = `
 for (a in b) var c = {}; [];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 for (a in b) var c = {};

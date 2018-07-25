@@ -1,16 +1,18 @@
 "use strict";
 
-const docBuilders = require("../doc").builders;
-const concat = docBuilders.concat;
-const join = docBuilders.join;
-const hardline = docBuilders.hardline;
-const line = docBuilders.line;
-const softline = docBuilders.softline;
-const group = docBuilders.group;
-const indent = docBuilders.indent;
-const ifBreak = docBuilders.ifBreak;
-const privateUtil = require("../common/util");
-const sharedUtil = require("../common/util-shared");
+const {
+  concat,
+  join,
+  hardline,
+  line,
+  softline,
+  group,
+  indent,
+  ifBreak
+} = require("../doc").builders;
+const { hasIgnoreComment } = require("../common/util");
+const { isNextLineEmpty } = require("../common/util-shared");
+const { insertPragma } = require("./pragma");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -24,10 +26,19 @@ function genericPrint(path, options, print) {
 
   switch (n.kind) {
     case "Document": {
-      return concat([
-        join(concat([hardline, hardline]), path.map(print, "definitions")),
-        hardline
-      ]);
+      const parts = [];
+      path.map((pathChild, index) => {
+        parts.push(concat([pathChild.call(print)]));
+        if (index !== n.definitions.length - 1) {
+          parts.push(hardline);
+          if (
+            isNextLineEmpty(options.originalText, pathChild.getValue(), options)
+          ) {
+            parts.push(hardline);
+          }
+        }
+      }, "definitions");
+      return concat([concat(parts), hardline]);
     }
     case "OperationDefinition": {
       const hasOperation = options.originalText[options.locStart(n)] !== "{";
@@ -133,7 +144,11 @@ function genericPrint(path, options, print) {
           '"""'
         ]);
       }
-      return concat(['"', n.value.replace(/["\\]/g, "\\$&"), '"']);
+      return concat([
+        '"',
+        n.value.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\n"),
+        '"'
+      ]);
     }
     case "IntValue":
     case "FloatValue":
@@ -250,7 +265,18 @@ function genericPrint(path, options, print) {
         "type ",
         path.call(print, "name"),
         n.interfaces.length > 0
-          ? concat([" implements ", join(", ", path.map(print, "interfaces"))])
+          ? concat([
+              " implements ",
+              join(
+                determineInterfaceSeparator(
+                  options.originalText.substr(
+                    options.locStart(n),
+                    options.locEnd(n)
+                  )
+                ),
+                path.map(print, "interfaces")
+              )
+            ])
           : "",
         printDirectives(path, print, n),
         n.fields.length > 0
@@ -591,11 +617,7 @@ function printSequence(sequencePath, options, print) {
     const printed = print(path);
 
     if (
-      sharedUtil.isNextLineEmpty(
-        options.originalText,
-        path.getValue(),
-        options
-      ) &&
+      isNextLineEmpty(options.originalText, path.getValue(), options) &&
       i < count - 1
     ) {
       return concat([printed, hardline]);
@@ -611,18 +633,35 @@ function canAttachComment(node) {
 
 function printComment(commentPath) {
   const comment = commentPath.getValue();
-
-  switch (comment.kind) {
-    case "Comment":
-      return "#" + comment.value.trimRight();
-    default:
-      throw new Error("Not a comment: " + JSON.stringify(comment));
+  if (comment.kind === "Comment") {
+    return "#" + comment.value.trimRight();
   }
+
+  throw new Error("Not a comment: " + JSON.stringify(comment));
+}
+
+function determineInterfaceSeparator(originalSource) {
+  const start = originalSource.indexOf("implements");
+  if (start === -1) {
+    throw new Error("Must implement interfaces: " + originalSource);
+  }
+  let end = originalSource.indexOf("{");
+  if (end === -1) {
+    end = originalSource.length;
+  }
+  return originalSource.substr(start, end).includes("&") ? " & " : ", ";
+}
+
+function clean(node, newNode /*, parent*/) {
+  delete newNode.loc;
+  delete newNode.comments;
 }
 
 module.exports = {
   print: genericPrint,
-  hasPrettierIgnore: privateUtil.hasIgnoreComment,
+  massageAstNode: clean,
+  hasPrettierIgnore: hasIgnoreComment,
+  insertPragma,
   printComment,
   canAttachComment
 };

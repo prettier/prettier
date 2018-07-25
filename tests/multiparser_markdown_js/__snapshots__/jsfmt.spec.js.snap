@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`jsx-comment.md 1`] = `
+exports[`jsx-comment.md - markdown-verify 1`] = `
 \`\`\`jsx
 const Foo = () => {
   return (
@@ -29,7 +29,7 @@ const Foo = () => {
 
 `;
 
-exports[`markdown-preview-enhanced.md 1`] = `
+exports[`markdown-preview-enhanced.md - markdown-verify 1`] = `
 ## plain js block
 
 \`\`\`js   
@@ -39,6 +39,12 @@ console.log(     "hello world"   );
 ## js block with arguments
 
 \`\`\`js {cmd=node .line-numbers}
+console.log(     "hello world"   );
+\`\`\`
+
+## js block with arguments and no space
+
+\`\`\`js{cmd=node .line-numbers}
 console.log(     "hello world"   );
 \`\`\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,9 +60,15 @@ console.log("hello world");
 console.log("hello world");
 \`\`\`
 
+## js block with arguments and no space
+
+\`\`\`js{cmd=node .line-numbers}
+console.log("hello world");
+\`\`\`
+
 `;
 
-exports[`trailing-comma.md 1`] = `
+exports[`trailing-comma.md - markdown-verify 1`] = `
 ### Some heading
 
 \`\`\`js

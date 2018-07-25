@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js - flow-verify 1`] = `
 declare var $React: $Exports<'react'>; // fake import
 type $JSXIntrinsic<T> = Class<$React.Component<void,T,mixed>>;
 

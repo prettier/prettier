@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js 1`] = `
+exports[`comments.js - babylon-verify 1`] = `
 var x = 100
 
 @Hello({
@@ -64,7 +64,7 @@ export class Bar {}
 
 `;
 
-exports[`methods.js 1`] = `
+exports[`methods.js - babylon-verify 1`] = `
 
 class Yo {
   @foo("hello")
@@ -84,7 +84,7 @@ class Yo {
 
 `;
 
-exports[`mobx.js 1`] = `
+exports[`mobx.js - babylon-verify 1`] = `
 import {observable} from "mobx";
 
 @observer class OrderLine {
@@ -108,8 +108,10 @@ import { observable } from "mobx";
 
 @observer
 class OrderLine {
-  @observable price: number = 0;
-  @observable amount: number = 1;
+  @observable
+  price: number = 0;
+  @observable
+  amount: number = 1;
 
   constructor(price) {
     this.price = price;
@@ -128,7 +130,7 @@ class OrderLine {
 
 `;
 
-exports[`multiple.js 1`] = `
+exports[`multiple.js - babylon-verify 1`] = `
 const dog = {
   @readonly
   @nonenumerable
@@ -145,14 +147,17 @@ const dog = {
 
 `;
 
-exports[`redux.js 1`] = `
+exports[`redux.js - babylon-verify 1`] = `
 @connect(mapStateToProps, mapDispatchToProps)
 export class MyApp extends React.Component {}
 
 @connect(state => ({ todos: state.todos }))
 export class Home extends React.Component {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 export class MyApp extends React.Component {}
 
 @connect(state => ({ todos: state.todos }))

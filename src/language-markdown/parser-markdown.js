@@ -1,9 +1,13 @@
 "use strict";
 
-const remarkFrontmatter = require("remark-frontmatter");
 const remarkParse = require("remark-parse");
 const unified = require("unified");
+const pragma = require("./pragma");
+const parseFrontMatter = require("../utils/front-matter");
 const util = require("../common/util");
+
+// 0x0 ~ 0x10ffff
+const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -19,14 +23,15 @@ const util = require("../common/util");
  * interface Sentence { children: Array<Word | Whitespace> }
  * interface InlineCode { children: Array<Sentence> }
  */
-function parse(text /*, parsers, opts*/) {
+function parse(text, parsers, opts) {
   const processor = unified()
     .use(remarkParse, { footnotes: true, commonmark: true })
-    .use(remarkFrontmatter, ["yaml", "toml"])
+    .use(frontMatter)
+    .use(liquid)
     .use(restoreUnescapedCharacter(text))
     .use(mergeContinuousTexts)
     .use(transformInlineCode)
-    .use(splitText);
+    .use(splitText(opts));
   return processor.runSync(processor.parse(text));
 }
 
@@ -64,8 +69,9 @@ function restoreUnescapedCharacter(originalText) {
             value:
               node.value !== "*" &&
               node.value !== "_" && // handle these two cases in printer
-              node.value.length === 1 &&
-              node.position.end.offset - node.position.start.offset > 1
+              isSingleCharRegex.test(node.value) &&
+              node.position.end.offset - node.position.start.offset !==
+                node.value.length
                 ? originalText.slice(
                     node.position.start.offset,
                     node.position.end.offset
@@ -101,8 +107,8 @@ function mergeContinuousTexts() {
     });
 }
 
-function splitText() {
-  return ast =>
+function splitText(options) {
+  return () => ast =>
     map(ast, (node, index, parentNode) => {
       if (node.type !== "text") {
         return node;
@@ -122,9 +128,59 @@ function splitText() {
       return {
         type: "sentence",
         position: node.position,
-        children: util.splitText(value)
+        children: util.splitText(value, options)
       };
     });
 }
 
-module.exports = parse;
+function frontMatter() {
+  const proto = this.Parser.prototype;
+  proto.blockMethods = ["frontMatter"].concat(proto.blockMethods);
+  proto.blockTokenizers.frontMatter = tokenizer;
+
+  function tokenizer(eat, value) {
+    const parsed = parseFrontMatter(value);
+
+    if (parsed.frontMatter) {
+      return eat(parsed.frontMatter.raw)(parsed.frontMatter);
+    }
+  }
+  tokenizer.onlyAtStart = true;
+}
+
+function liquid() {
+  const proto = this.Parser.prototype;
+  const methods = proto.inlineMethods;
+  methods.splice(methods.indexOf("text"), 0, "liquid");
+  proto.inlineTokenizers.liquid = tokenizer;
+
+  function tokenizer(eat, value) {
+    const match = value.match(/^({%[\s\S]*?%}|{{[\s\S]*?}})/);
+
+    if (match) {
+      return eat(match[0])({
+        type: "liquidNode",
+        value: match[0]
+      });
+    }
+  }
+  tokenizer.locator = function(value, fromIndex) {
+    return value.indexOf("{", fromIndex);
+  };
+}
+
+const parser = {
+  parse,
+  astFormat: "mdast",
+  hasPragma: pragma.hasPragma,
+  locStart: node => node.position.start.offset,
+  locEnd: node => node.position.end.offset
+};
+
+module.exports = {
+  parsers: {
+    remark: parser,
+    // TODO: Delete this in 2.0
+    markdown: parser
+  }
+};

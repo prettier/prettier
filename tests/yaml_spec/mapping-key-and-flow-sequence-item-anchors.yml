@@ -1,0 +1,3 @@
+---
+&mapping
+&key [ &item a, b, c ]: value

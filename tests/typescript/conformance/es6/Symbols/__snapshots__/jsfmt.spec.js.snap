@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`symbolProperty15.ts 1`] = `
+exports[`symbolProperty15.ts - typescript-verify 1`] = `
 //@target: ES6
 class C { }
 interface I {

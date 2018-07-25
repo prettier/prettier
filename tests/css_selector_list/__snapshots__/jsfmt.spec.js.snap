@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`selectors.css 1`] = `
+exports[`selectors.css - css-verify 1`] = `
 .a,.b,.c {}
 .r { &, &:hover {} }
 

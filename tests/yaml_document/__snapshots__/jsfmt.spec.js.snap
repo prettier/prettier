@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`directives-and-comments.yml - yaml-verify 1`] = `
+# 123
+%YAML 1.2
+# 456
+---
+# 789
+test
+# 000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 123
+%YAML 1.2
+# 456
+---
+# 789
+test
+# 000
+
+`;

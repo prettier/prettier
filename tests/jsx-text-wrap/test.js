@@ -113,6 +113,16 @@ facebook_translation_leave_text_around_tag =
     </span>)
   </div>
 
+x =
+  <div>
+    <span>
+      First second third fourth fifth sixth seventh
+    </span>,
+    (<span>
+      Second
+    </span>)
+  </div>
+
 this_really_should_split_across_lines =
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
@@ -214,8 +224,23 @@ with_text_fill_line =
 line_after_br =
   <div>
     Text<br />
-    More text <br />
+    More text<br />
     And more<br />
+  </div>
+
+line_after_br =
+  <div>
+    Text<br />More text<br />And more<br />
+  </div>
+
+line_after_br =
+  <div>
+    Text
+    <br />
+    More text
+    <br />
+    And more
+    <br />
   </div>
 
 line_after_br_2 = <div>A<br />B<br />C</div>
@@ -312,3 +337,76 @@ x =
   <p>
     text text text text text text text text text text text text text text text<br />text text text text text text
   </p>;
+
+x =
+  <div>
+    <div>
+      First
+    </div>-
+    <div>
+      Second
+    </div>
+  </div>
+
+x =
+  <div>
+    <div>
+      First
+    </div>
+    -
+    <div>
+      Second
+    </div>
+  </div>
+
+x =
+  <div>
+    <div>First</div>-<div>Second</div>
+  </div>
+
+x =
+  <div>
+    <div className="first" tabIndex="1">
+      First
+    </div>-
+    <div className="second" tabIndex="2">
+      Second
+    </div>
+  </div>
+
+x =
+  <div>
+    <div className="first" tabIndex="1">
+      First
+    </div>
+    -
+    <div className="second" tabIndex="2">
+      Second
+    </div>
+  </div>
+
+x =
+  <div>
+    <div className="first" tabIndex="1">First</div>-<div className="second" tabIndex="2">Second</div>
+  </div>
+
+x =
+  <div>
+    {hour}:{minute}:{second}
+  </div>
+
+x =
+  <div>
+    {hour}
+    :
+    {minute}
+    :
+    {second}
+  </div>
+
+x =
+  <div>
+    {hour}:
+    {minute}:
+    {second}
+  </div>

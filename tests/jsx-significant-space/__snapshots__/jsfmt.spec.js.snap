@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js 1`] = `
+exports[`comments.js - flow-verify 1`] = `
 <div>
   {
     // TODO: don't harcode this space! not all locales use whitespace
@@ -19,7 +19,7 @@ exports[`comments.js 1`] = `
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 after =
   <span>
       foo <span>bar</span>
@@ -141,7 +141,8 @@ break_components = (
     <Foo />
     <Bar>
       <p>
-        foo<span>bar bar bar</span>
+        foo
+        <span>bar bar bar</span>
       </p>
       <h1>
         <span>
@@ -209,7 +210,8 @@ not_broken_end = (
 not_broken_begin = (
   <div>
     <br /> long text long text long text long text long text long text long text
-    long text<link>url</link> long text long text
+    long text
+    <link>url</link> long text long text
   </div>
 );
 

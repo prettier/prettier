@@ -1,5 +1,3 @@
-$map: (a,);
-$map: ('Helvetica', 'Arial', sans-serif,);
 $map: (
     small: 767px,
     medium: 992px,
@@ -10,3 +8,4 @@ $map: (
     'large': (min-width: 1000px),
     'huge': (min-width: 1200px),
 );
+$map: ( small: 767px, medium: 992px, large: 1200px );

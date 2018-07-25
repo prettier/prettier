@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 /* @flow */
 class A {}
 class B {}
@@ -15,7 +15,7 @@ module.exports = { A, B };
 
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js - flow-verify 1`] = `
 /* @flow */
 var I = require("./test.js");
 
@@ -34,7 +34,7 @@ var y: I.B = new C();
 
 `;
 
-exports[`test3.js 1`] = `
+exports[`test3.js - flow-verify 1`] = `
 class A<X, Y, Z> {}
 class B extends A<string, number, bool> {}
 class C<X, Y, Z> extends B {}
@@ -51,7 +51,7 @@ var a: A<string, number, Array<boolean>> = c; // the third type arg is incorrect
 
 `;
 
-exports[`test4.js 1`] = `
+exports[`test4.js - flow-verify 1`] = `
 class C<X> { x: X; }
 
 function foo<X>(c: C<X>, x: X) { }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`type-argument.src.ts 1`] = `
+exports[`type-argument.src.ts - typescript-verify 1`] = `
 Observable.empty<never>();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Observable.empty<never>();

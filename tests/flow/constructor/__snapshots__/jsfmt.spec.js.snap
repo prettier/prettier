@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructor.js 1`] = `
+exports[`constructor.js - flow-verify 1`] = `
 class C {
     constructor() { }
 }

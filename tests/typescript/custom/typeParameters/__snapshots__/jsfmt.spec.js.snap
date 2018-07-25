@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`callAndConstructSignatureLong.ts 1`] = `
+exports[`callAndConstructSignatureLong.ts - typescript-verify 1`] = `
 interface Interface {
     <
         Voila, 
@@ -31,7 +31,7 @@ interface Interface {
 
 `;
 
-exports[`functionTypeLong.ts 1`] = `
+exports[`functionTypeLong.ts - typescript-verify 1`] = `
 type AwkwardlyLongFunctionTypeDefinition = <
     GenericTypeNumberOne,
     GenericTypeNumberTwo,
@@ -54,7 +54,7 @@ type AwkwardlyLongFunctionTypeDefinition = <
 
 `;
 
-exports[`interfaceParamsLong.ts 1`] = `
+exports[`interfaceParamsLong.ts - typescript-verify 1`] = `
 interface ReallyReallyLongName<
     TypeArgumentNumberOne, 
     TypeArgumentNumberTwo,
@@ -69,7 +69,7 @@ interface ReallyReallyLongName<
 
 `;
 
-exports[`typeParametersLong.ts 1`] = `
+exports[`typeParametersLong.ts - typescript-verify 1`] = `
 type ReallyReallyReallyLongName<
     ReallyReallyReallyLongName1, ReallyReallyReallyLongName2
 > = any;

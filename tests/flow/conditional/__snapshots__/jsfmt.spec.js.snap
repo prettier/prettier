@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditional.js 1`] = `
+exports[`conditional.js - flow-verify 1`] = `
 /* @flow */
 
 function a(): number {

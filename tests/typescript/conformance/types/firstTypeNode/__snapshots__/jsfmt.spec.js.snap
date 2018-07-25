@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`firstTypeNode.ts 1`] = `
+exports[`firstTypeNode.ts - typescript-verify 1`] = `
 export function fooWithTypePredicate(a: any): a is number {
     return true;
 }

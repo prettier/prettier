@@ -1,6 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`expressions.js 1`] = `
+exports[`backticks.js - babylon-verify 1`] = `
+gql\`
+  "\\\`foo\\\` mutation payload."
+  type      FooPayload       {
+    	bar: String
+  }
+\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gql\`
+  "\\\`foo\\\` mutation payload."
+  type FooPayload {
+    bar: String
+  }
+\`;
+
+`;
+
+exports[`comment-tag.js - babylon-verify 1`] = `
+const query = /* GraphQL */\`
+      {
+    user(   id :   5  )  {
+      firstName
+
+      lastName
+    }
+  }
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const query = /* GraphQL */ \`
+  {
+    user(id: 5) {
+      firstName
+
+      lastName
+    }
+  }
+\`;
+
+`;
+
+exports[`definitions.js - babylon-verify 1`] = `
+graphql\`
+  fragment x on y {
+    z
+  }
+
+  fragment a on b {
+    c
+  }
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graphql\`
+  fragment x on y {
+    z
+  }
+
+  fragment a on b {
+    c
+  }
+\`;
+
+`;
+
+exports[`expressions.js - babylon-verify 1`] = `
 graphql(schema, \`
 query allPartsByManufacturerName($name: String!) {
   allParts(filter:{manufacturer: {name: $name}}) {
@@ -43,7 +106,7 @@ const veryLongVariableNameToMakeTheLineBreak = graphql(
 
 `;
 
-exports[`graphql.js 1`] = `
+exports[`graphql.js - babylon-verify 1`] = `
 graphql(schema, \`
 mutation     MarkReadNotificationMutation(
     $input
@@ -66,7 +129,7 @@ graphql(
 
 `;
 
-exports[`graphql-tag.js 1`] = `
+exports[`graphql-tag.js - babylon-verify 1`] = `
 import gql from "graphql-tag";
 
 const query = gql\`
@@ -392,7 +455,56 @@ gql\`
 
 `;
 
-exports[`react-relay.js 1`] = `
+exports[`invalid.js - babylon-verify 1`] = `
+// none of the embedded GraphQL should be formatted
+// for they have an invalid escape sequence
+
+gql\`
+  "\\x"
+  type   Foo    {
+      a: string
+  }
+\`;
+
+gql\`
+  type   Foo {
+      a:   string
+  }
+
+  \${stuff}
+
+  "\\x"
+  type  Bar   {
+       b :   string
+  }
+\`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// none of the embedded GraphQL should be formatted
+// for they have an invalid escape sequence
+
+gql\`
+  "\\x"
+  type   Foo    {
+      a: string
+  }
+\`;
+
+gql\`
+  type   Foo {
+      a:   string
+  }
+
+  \${stuff}
+
+  "\\x"
+  type  Bar   {
+       b :   string
+  }
+\`;
+
+`;
+
+exports[`react-relay.js - babylon-verify 1`] = `
 const { graphql } = require("react-relay");
 
 graphql\`

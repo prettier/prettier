@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`last_line.js 1`] = `
+exports[`last_line.js - flow-verify 1`] = `
 <SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
   onLeave={this.onLeave}
@@ -24,7 +24,7 @@ exports[`last_line.js 1`] = `
 
 `;
 
-exports[`last_line.js 2`] = `
+exports[`last_line.js - flow-verify 2`] = `
 <SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
   onLeave={this.onLeave}
@@ -49,7 +49,7 @@ exports[`last_line.js 2`] = `
 
 `;
 
-exports[`single_prop_multiline_string.js 1`] = `
+exports[`single_prop_multiline_string.js - flow-verify 1`] = `
 <path d="M4.765 16.829l3.069-2.946 5.813 5.748
   11.33-11.232 3.006 3.18-14.36 14.080z" />;
 
@@ -71,7 +71,7 @@ exports[`single_prop_multiline_string.js 1`] = `
 
 `;
 
-exports[`single_prop_multiline_string.js 2`] = `
+exports[`single_prop_multiline_string.js - flow-verify 2`] = `
 <path d="M4.765 16.829l3.069-2.946 5.813 5.748
   11.33-11.232 3.006 3.18-14.36 14.080z" />;
 

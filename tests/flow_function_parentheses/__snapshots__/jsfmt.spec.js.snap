@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`single.js 1`] = `
+exports[`single.js - flow-verify 1`] = `
 const selectorByPath:
   Path
  => SomethingSelector<
@@ -17,7 +17,7 @@ const selectorByPath: Path => SomethingSelector<
 
 `;
 
-exports[`single.js 2`] = `
+exports[`single.js - flow-verify 2`] = `
 const selectorByPath:
   Path
  => SomethingSelector<
@@ -34,7 +34,7 @@ const selectorByPath: Path => SomethingSelector<
 
 `;
 
-exports[`single.js 3`] = `
+exports[`single.js - flow-verify 3`] = `
 const selectorByPath:
   Path
  => SomethingSelector<
@@ -51,7 +51,7 @@ const selectorByPath: (Path) => SomethingSelector<
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 type Banana = {
   eat: string => boolean,
 };
@@ -97,6 +97,21 @@ interface F {
 }
 
 type ExtractType = <A>(B<C>) => D
+
+type T = ?(() => A);
+
+type T = ?(() => A) | B;
+
+type T = ?() => A | B;
+
+type T = (?() => A) | B;
+
+// https://github.com/babel/babel/issues/7924
+//type T = ??() => A;
+
+type T = ?(?(() => A));
+
+type T = ?(?() => A) | B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Banana = {
   eat: string => boolean
@@ -142,9 +157,24 @@ interface F {
 
 type ExtractType = <A>(B<C>) => D;
 
+type T = ?() => A;
+
+type T = ?(() => A) | B;
+
+type T = ?() => A | B;
+
+type T = ?(() => A) | B;
+
+// https://github.com/babel/babel/issues/7924
+//type T = ??() => A;
+
+type T = ??(() => A);
+
+type T = ??(() => A) | B;
+
 `;
 
-exports[`test.js 2`] = `
+exports[`test.js - flow-verify 2`] = `
 type Banana = {
   eat: string => boolean,
 };
@@ -190,6 +220,21 @@ interface F {
 }
 
 type ExtractType = <A>(B<C>) => D
+
+type T = ?(() => A);
+
+type T = ?(() => A) | B;
+
+type T = ?() => A | B;
+
+type T = (?() => A) | B;
+
+// https://github.com/babel/babel/issues/7924
+//type T = ??() => A;
+
+type T = ?(?(() => A));
+
+type T = ?(?() => A) | B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Banana = {
   eat: string => boolean,
@@ -235,9 +280,24 @@ interface F {
 
 type ExtractType = <A>(B<C>) => D;
 
+type T = ?() => A;
+
+type T = ?(() => A) | B;
+
+type T = ?() => A | B;
+
+type T = ?(() => A) | B;
+
+// https://github.com/babel/babel/issues/7924
+//type T = ??() => A;
+
+type T = ??(() => A);
+
+type T = ??(() => A) | B;
+
 `;
 
-exports[`test.js 3`] = `
+exports[`test.js - flow-verify 3`] = `
 type Banana = {
   eat: string => boolean,
 };
@@ -283,6 +343,21 @@ interface F {
 }
 
 type ExtractType = <A>(B<C>) => D
+
+type T = ?(() => A);
+
+type T = ?(() => A) | B;
+
+type T = ?() => A | B;
+
+type T = (?() => A) | B;
+
+// https://github.com/babel/babel/issues/7924
+//type T = ??() => A;
+
+type T = ?(?(() => A));
+
+type T = ?(?() => A) | B;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type Banana = {
   eat: (string) => boolean
@@ -327,5 +402,20 @@ interface F {
 }
 
 type ExtractType = <A>(B<C>) => D;
+
+type T = ?() => A;
+
+type T = ?(() => A) | B;
+
+type T = ?() => A | B;
+
+type T = ?(() => A) | B;
+
+// https://github.com/babel/babel/issues/7924
+//type T = ??() => A;
+
+type T = ??(() => A);
+
+type T = ??(() => A) | B;
 
 `;

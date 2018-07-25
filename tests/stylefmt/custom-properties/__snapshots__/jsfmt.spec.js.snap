@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`custom-properties.css 1`] = `
+exports[`custom-properties.css - css-verify 1`] = `
 :root{--mainColor:#123456}
 a{color:var(        --mainColor     )     ; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js - flow-verify 1`] = `
 class C<T> {
   a<A>(x:T, a:A) {
     this.b(x); // ok
@@ -21,7 +21,7 @@ class C<T> {
 
 `;
 
-exports[`default_params.js 1`] = `
+exports[`default_params.js - flow-verify 1`] = `
 function f<T>(a:T) {
   function g<U>(b:U, c:T = a) {
     function h(d:U = b) {}
@@ -50,7 +50,7 @@ f(0); // ok
 
 `;
 
-exports[`method_shadow.js 1`] = `
+exports[`method_shadow.js - flow-verify 1`] = `
 // Ensure method type params properly shadow outer type params. Subclass ensures
 // the generated insttype has the correct tvars. Should behave the same for
 // classes, interfaces, and declared classes.

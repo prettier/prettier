@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js - babylon-verify 1`] = `
 1_1
 1_1.1_1
 0o1_1

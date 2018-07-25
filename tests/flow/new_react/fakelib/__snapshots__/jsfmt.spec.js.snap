@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`type_aliases.js 1`] = `
+exports[`type_aliases.js - flow-verify 1`] = `
 declare var $React: $Exports<'react'>; // fake import
 // Strawman: revised definition of $jsx (alternatively, React.Element).
 // Using bounded poly to specify a constraint on a type parameter, and

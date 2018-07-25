@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`call.js 1`] = `
+exports[`call.js - flow-verify 1`] = `
 new (factory())()
 new factory()()
 
@@ -13,7 +13,7 @@ new (factory())(factory());
 
 `;
 
-exports[`new_expression.js 1`] = `
+exports[`new_expression.js - flow-verify 1`] = `
 new (memoize.Cache || MapCache)
 new (typeof this == "function" ? this : Dict())
 new (createObj()).prop(a());
@@ -24,7 +24,7 @@ new (createObj()).prop(a());
 
 `;
 
-exports[`with-member-expression.js 1`] = `
+exports[`with-member-expression.js - flow-verify 1`] = `
 function functionName() {
   // indent to make the line break
   if (true) {

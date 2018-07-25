@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`asterisk.md 1`] = `
+exports[`asterisk.md - markdown-verify 1`] = `
 *123*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 _123_
 
 `;
 
-exports[`complex.md 1`] = `
+exports[`complex.md - markdown-verify 1`] = `
 **Do you want to request a *feature* or report a *bug*?**
 
 *bug*?
@@ -18,7 +18,7 @@ _bug_?
 
 `;
 
-exports[`special.md 1`] = `
+exports[`special.md - markdown-verify 1`] = `
 0*1*2
 
 !*1*2
@@ -85,7 +85,7 @@ exports[`special.md 1`] = `
 
 `;
 
-exports[`underscore.md 1`] = `
+exports[`underscore.md - markdown-verify 1`] = `
 _123_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 _123_

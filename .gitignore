@@ -1,4 +1,6 @@
+/.cache
 /node_modules
+/scripts/release/node_modules
 *.log
 /errors
 /test.js
@@ -9,8 +11,10 @@
 /website/node_modules
 /website/build
 /website/i18n
+/website/static/playground.js
 /website/static/lib
 .DS_Store
 coverage
 .idea
 package-lock.json
+/test-results

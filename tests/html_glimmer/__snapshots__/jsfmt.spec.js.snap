@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`block-statement.hbs 1`] = `
+exports[`block-statement.hbs - glimmer-verify 1`] = `
 {{#block param hashKey=hashValue as |blockParam|}}
   Hello
 {{/block}}
@@ -29,6 +29,14 @@ exports[`block-statement.hbs 1`] = `
    hello
   {{/block}}
 {{/block}}
+
+<MyComponent as |firstName|>
+  {{firstName}}
+</MyComponent>
+
+<MyComponent as |firstName lastName|>
+  {{firstName}} {{lastName}}
+</MyComponent>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {{#block param hashKey=hashValue as |blockParam|}}
   Hello
@@ -90,9 +98,16 @@ exports[`block-statement.hbs 1`] = `
   Hello
 {{/block}}
 {{#block}}{{#block}}hello{{/block}}{{/block}}
+<MyComponent as |firstName|>
+  {{firstName}}
+</MyComponent>
+<MyComponent as |firstName lastName|>
+  {{firstName}}
+  {{lastName}}
+</MyComponent>
 `;
 
-exports[`component.hbs 1`] = `
+exports[`component.hbs - glimmer-verify 1`] = `
 <user-greeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
 
@@ -108,7 +123,7 @@ exports[`component.hbs 1`] = `
 </button>
 `;
 
-exports[`concat-statement.hbs 1`] = `
+exports[`concat-statement.hbs - glimmer-verify 1`] = `
 <div class="hello {{if goodbye true}}">
   Hello
 </div>
@@ -118,24 +133,48 @@ exports[`concat-statement.hbs 1`] = `
 </div>
 
 <a href="/{{url}}/{{url}}"></a>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div class="hello{{if goodbye true}}">
+
+<div class="  class-a{{myClass}}"></div>
+<div class=" class-b {{myClass}}"></div>
+<div class="    {{myClass}}class-c"></div>
+<div class="  {{myClass}}   class-d"></div>
+<div class=" class-e{{myClass}}    class-f"></div>
+<div class="     class-g{{myClass}}class-h    "></div>
+<div class=" class-i       {{myClass}}class-j"></div>
+<div class="class-k {{myClass}}   class-l"></div>
+<div class="  class-m   {{myClass}}     class-n {{myClass}}class-o   "></div>
+<div class="  class-p  class-q"></div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div class="hello {{if goodbye true}}">
   Hello
 </div>
 <div
   class="hello
     {{if goodbye true}}
+
     {{if goodbye false}}
+
     {{if goodbye true}}
+
     {{if goodbye false}}
+
     {{if goodbye true}}"
 >
   Hello
 </div>
 <a href="/{{url}}/{{url}}"></a>
+<div class="class-a{{myClass}}"></div>
+<div class="class-b {{myClass}}"></div>
+<div class="{{myClass}}class-c"></div>
+<div class="{{myClass}} class-d"></div>
+<div class="class-e{{myClass}} class-f"></div>
+<div class="class-g{{myClass}}class-h"></div>
+<div class="class-i {{myClass}}class-j"></div>
+<div class="class-k {{myClass}} class-l"></div>
+<div class="class-m {{myClass}} class-n {{myClass}}class-o"></div>
+<div class="class-p  class-q"></div>
 `;
 
-exports[`element-modifier-statement.hbs 1`] = `
+exports[`element-modifier-statement.hbs - glimmer-verify 1`] = `
 <div {{hello param hash=key}} {{goodbye param}}>
   Hello
 </div>
@@ -201,7 +240,7 @@ exports[`element-modifier-statement.hbs 1`] = `
 </div>
 `;
 
-exports[`element-node.hbs 1`] = `
+exports[`element-node.hbs - glimmer-verify 1`] = `
 <div class="attribute" {{modifier}} {{! comment}}>
   Hello
 </div>
@@ -267,7 +306,7 @@ exports[`element-node.hbs 1`] = `
 <img />
 `;
 
-exports[`else-if.hbs 1`] = `
+exports[`else-if.hbs - glimmer-verify 1`] = `
 {{#if a}}
   b
 {{else if c}}
@@ -321,7 +360,22 @@ exports[`else-if.hbs 1`] = `
     {{/if}}
   </div>
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+{{#if a}}
+  b
+{{else}}
+  {{#each c as |d|}}
+    e
+  {{/each}}
+{{/if}}
+
+{{#if a}}
+  {{#if b}}
+    ab
+  {{else if c}}
+    ac
+  {{/if}}
+{{/if}}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {{#if a}}
   b
 {{else if c}}
@@ -371,9 +425,23 @@ exports[`else-if.hbs 1`] = `
     {{/if}}
   </div>
 </div>
+{{#if a}}
+  b
+{{else}}
+  {{#each c as |d|}}
+    e
+  {{/each}}
+{{/if}}
+{{#if a}}
+  {{#if b}}
+    ab
+  {{else if c}}
+    ac
+  {{/if}}
+{{/if}}
 `;
 
-exports[`literals.hbs 1`] = `
+exports[`literals.hbs - glimmer-verify 1`] = `
 {{mustache true}}
 {{mustache 5}}
 {{mustache undefined}}
@@ -391,7 +459,7 @@ exports[`literals.hbs 1`] = `
 {{!-- Mustache Comment }} --}}
 `;
 
-exports[`loop.hbs 1`] = `
+exports[`loop.hbs - glimmer-verify 1`] = `
 <ul>
   {{#each speakers key="@index" as |speaker|}}
     <li>{{speaker}}</li>
@@ -407,10 +475,11 @@ exports[`loop.hbs 1`] = `
 </ul>
 `;
 
-exports[`sub-expressions.hbs 1`] = `
+exports[`sub-expressions.hbs - glimmer-verify 1`] = `
 <div
   {{mustache
     (concat
+      (service)
       (helper param hashPair=Value)
       (largeNameHelper param param param param hashPair=value hashPair=value hashPair=Value)
       hashPair=(helper param param param param param param hashPair=value hashPair=value hashPair=value)
@@ -421,6 +490,7 @@ exports[`sub-expressions.hbs 1`] = `
 
 {{#block
   (concat
+    (service)
     (helper param hashPair=Value)
     (largeNameHelper param param param param hashPair=value hashPair=value hashPair=Value)
     hashPair=(helper param param param param param param hashPair=value hashPair=value hashPair=value)
@@ -442,6 +512,7 @@ exports[`sub-expressions.hbs 1`] = `
 <div
   {{mustache
     (concat
+      (service)
       (helper param hashPair=Value)
       (largeNameHelper
         param param param param hashPair=value hashPair=value hashPair=Value
@@ -463,6 +534,7 @@ exports[`sub-expressions.hbs 1`] = `
 ></div>
 {{#block
   (concat
+    (service)
     (helper param hashPair=Value)
     (largeNameHelper
       param param param param hashPair=value hashPair=value hashPair=Value

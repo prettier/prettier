@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`async-iteration.js 1`] = `
+exports[`async-iteration.js - flow-verify 1`] = `
 
 async function * a() {
     yield* b();
@@ -24,7 +24,7 @@ class X {
 
 `;
 
-exports[`await_parse.js 1`] = `
+exports[`await_parse.js - flow-verify 1`] = `
 async function f() { (await f()).length }
 async function g() {
   invariant(
@@ -35,7 +35,7 @@ function *f(){
   !(yield a);
 }
 async function f() {
-  a = !(await f());
+  a = !await f();
 }
 async () => {
   new A(await x);
@@ -52,7 +52,7 @@ function* f() {
   !(yield a);
 }
 async function f() {
-  a = !await f();
+  a = !(await f());
 }
 async () => {
   new A(await x);
@@ -61,7 +61,7 @@ async () => {
 
 `;
 
-exports[`conditional-expression.js 1`] = `
+exports[`conditional-expression.js - flow-verify 1`] = `
 async function f() {
   const result = typeof fn === 'function' ? await fn() : null;
 }
@@ -92,7 +92,7 @@ async function f() {
 
 `;
 
-exports[`parens.js 1`] = `
+exports[`parens.js - flow-verify 1`] = `
 async function *f(){ await (yield x); }
 
 async function f(){ await (() => {}); }

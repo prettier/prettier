@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`exports_default.js 1`] = `
+exports[`exports_default.js - flow-verify 1`] = `
 // @flow
 
 const x = "foo";
@@ -15,7 +15,7 @@ export default x;
 
 `;
 
-exports[`exports_named.js 1`] = `
+exports[`exports_named.js - flow-verify 1`] = `
 // @flow
 
 export const foo = "foo";

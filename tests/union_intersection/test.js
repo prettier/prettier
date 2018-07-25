@@ -46,3 +46,14 @@ type Props = {
       }
   ) => void
 };
+
+declare class FormData {
+  append(
+    options?:
+      | string
+      | {
+          filepath?: string,
+          filename?: string
+        }
+  ): void;
+}

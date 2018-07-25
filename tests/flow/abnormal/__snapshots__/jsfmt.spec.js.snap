@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break-continue.js 1`] = `
+exports[`break-continue.js - flow-verify 1`] = `
 function foo() {
     while(true) { break; }
 }
@@ -23,7 +23,7 @@ function bar() {
 
 `;
 
-exports[`return.js 1`] = `
+exports[`return.js - flow-verify 1`] = `
 function bar(x:number) { }
 function foo() {
     var x = null;
@@ -40,7 +40,7 @@ function foo() {
 
 `;
 
-exports[`toplevel_throw.js 1`] = `
+exports[`toplevel_throw.js - flow-verify 1`] = `
 // @flow
 
 throw new Error('foo'); // no error

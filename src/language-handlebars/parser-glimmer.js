@@ -42,4 +42,18 @@ function parse(text) {
     }
   }
 }
-module.exports = parse;
+
+module.exports = {
+  parsers: {
+    glimmer: {
+      parse,
+      astFormat: "glimmer",
+      locStart(node) {
+        return node.loc && node.loc.start;
+      },
+      locEnd(node) {
+        return node.loc && node.loc.end;
+      }
+    }
+  }
+};

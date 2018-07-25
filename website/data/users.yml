@@ -11,7 +11,7 @@
 - caption: Jest
   image: /images/users/jest-200x100.png
   greyImage: /images/users/used_by_jest.svg
-  infoLink: https://facebook.github.io/jest/
+  infoLink: https://jestjs.io
   pinned: true
 - caption: Yarn
   image: /images/users/yarn-200x100.png
@@ -186,3 +186,12 @@
 - caption: Drizly
   image: /images/users/drizly-200x100.png
   infoLink: https://drizly.com/
+- caption: Jane
+  image: /images/users/jane-200x100.png
+  infoLink: https://jane.com/
+- caption: Metric.ai
+  image: /images/users/metric-ai-white.svg
+  infoLink: https://www.metric.ai/
+- caption: HousingAnywhere
+  image: /images/users/housinganywhere.svg
+  infoLink: https://housinganywhere.com/

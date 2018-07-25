@@ -1,0 +1,4 @@
+{
+  foo : !!str,
+  !!str : bar,
+}

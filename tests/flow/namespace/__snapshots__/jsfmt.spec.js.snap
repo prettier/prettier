@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`client.js 1`] = `
+exports[`client.js - flow-verify 1`] = `
 var ns = require('./namespace')
 
 var bar: string = ns.foo
@@ -11,7 +11,7 @@ var bar: string = ns.foo;
 
 `;
 
-exports[`namespace.js 1`] = `
+exports[`namespace.js - flow-verify 1`] = `
 /*@flow*/// import type { T } from '...'
 type T = (x:number) => void;
 var f: T = function(x:string): void { }

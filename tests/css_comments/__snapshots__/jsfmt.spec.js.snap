@@ -1,6 +1,189 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`at-rules.css 1`] = `
+exports[`CRLF.css - css-verify 1`] = `
+/*
+ * Comment 1
+ */
+#header {
+    /*
+     * Comment 2
+     */
+    color: red;
+}
+
+@media only screen and (max-width: 600px) {
+    /*
+     * Comment 3
+     */
+    body {
+        background-color: lightblue; /* Comment 4 */
+        color: red; /* Comment 5 */
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+ * Comment 1
+ */
+#header {
+  /*
+     * Comment 2
+     */
+  color: red;
+}
+
+@media only screen and (max-width: 600px) {
+  /*
+     * Comment 3
+     */
+  body {
+    background-color: lightblue; /* Comment 4 */
+    color: red; /* Comment 5 */
+  }
+}
+
+`;
+
+exports[`CRLF.less - css-verify 1`] = `
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
+
+// Comment 1
+/*
+ * Comment 2
+ */
+#header {
+  // Comment 3
+  /*
+   * Comment 4
+   */
+  color: @light-blue;
+}
+
+@media only screen and (max-width: 600px) {
+  // Comment 1
+  /*
+   * Comment 5
+   */
+  body {
+    background-color: lightblue; // Comment 6
+    color: red; /* Comment 7 */
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
+
+// Comment 1
+/*
+ * Comment 2
+ */
+#header {
+  // Comment 3
+  /*
+   * Comment 4
+   */
+  color: @light-blue;
+}
+
+@media only screen and (max-width: 600px) {
+  // Comment 1
+  /*
+   * Comment 5
+   */
+  body {
+    background-color: lightblue; // Comment 6
+    color: red; /* Comment 7 */
+  }
+}
+
+`;
+
+exports[`CRLF.scss - css-verify 1`] = `
+$nice-blue: #5B83AD;
+$light-blue: $nice-blue + #111;
+
+// Comment 1
+/*
+ * Comment 2
+ */
+#header {
+    // Comment 3
+    /*
+     * Comment 4
+     */
+    color: @light-blue;
+}
+
+@media only screen and (max-width: 600px) {
+    // Comment 1
+    /*
+     * Comment 5
+     */
+    body {
+        background-color: lightblue; // Comment 6
+        color: red; /* Comment 7 */
+    }
+}
+
+@mixin create-rules($padding) {
+    //
+    // Comment 8
+    //
+    .abc {
+        padding: $padding;
+    }
+    /**
+     * Comment 9
+     */
+    .def {
+        padding: $padding;
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$nice-blue: #5b83ad;
+$light-blue: $nice-blue + #111;
+
+// Comment 1
+/*
+ * Comment 2
+ */
+#header {
+  // Comment 3
+  /*
+     * Comment 4
+     */
+  color: @light-blue;
+}
+
+@media only screen and (max-width: 600px) {
+  // Comment 1
+  /*
+     * Comment 5
+     */
+  body {
+    background-color: lightblue; // Comment 6
+    color: red; /* Comment 7 */
+  }
+}
+
+@mixin create-rules($padding) {
+  //
+  // Comment 8
+  //
+  .abc {
+    padding: $padding;
+  }
+  /**
+     * Comment 9
+     */
+  .def {
+    padding: $padding;
+  }
+}
+
+`;
+
+exports[`at-rules.css - css-verify 1`] = `
 @charset "utf-8"; /* comment 1 */
 
 @import /* comment 2 */ url("fineprint.css") /* comment 3 */ print /* comment 4 */; /* comment 5 */
@@ -73,17 +256,27 @@ exports[`at-rules.css 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @charset "utf-8"; /* comment 1 */
 
-@import /* comment 2 */ url("fineprint.css") /* comment 3 */ print /* comment 4 */; /* comment 5 */
-@import /* comment 6 */ url("bluish.css") /* comment 7 */ projection /* comment 8 */,
+@import /* comment 2 */ url("fineprint.css") /* comment 3 */ print
+  /* comment 4 */; /* comment 5 */
+@import /* comment 6 */ url("bluish.css") /* comment 7 */ projection
+    /* comment 8 */,
   /* comment 9 */ tv /* comment 10 */;
 /* comment 11 */
-@import /* comment 12 */ /* comment 13 */ url("bluish.css") /* comment 14 */ /* comment 15 */ projection /* comment 16 */,
+@import /* comment 12 */ /* comment 13 */ url("bluish.css") /* comment 14 */
+    /* comment 15 */ projection /* comment 16 */,
   /* comment 17 */ tv /* comment 18 */; /* comment 19 */
 /* comment 20 */
-@import /* comment 21 */url("bluish.css") /* comment 22 */projection/* comment 23 */,
-  /* comment 24 */tv/* comment 25 */;
-@import /* comment 26 */"custom.css"/* comment 27 */; /* comment 28 */
-@import /* comment 29 */ url("landscape.css") /* comment 30 */ screen /* comment 31 */ and /* comment 32 */ (/* comment 33 */orientation/* comment 34 */: /* comment 35 */landscape/* comment 36 */) /* comment 37 */;
+@import /* comment 21 */ url("bluish.css") /* comment 22 */ projection
+    /* comment 23 */,
+  /* comment 24 */ tv /* comment 25 */;
+@import /* comment 26 */ "custom.css" /* comment 27 */; /* comment 28 */
+@import /* comment 29 */ url("landscape.css") /* comment 30 */ screen
+  /* comment 31 */ and /* comment 32 */
+  (
+    /* comment 33 */ orientation /* comment 34 */: /* comment 35 */ landscape
+      /* comment 36 */
+  )
+  /* comment 37 */;
 
 @namespace /* comment 38 */ url(http://www.w3.org/1999/xhtml) /* comment 39 */;
 @namespace /* comment 40 */ svg /* comment 41 */ url(http://www.w3.org/2000/svg) /* comment 42 */;
@@ -144,17 +337,52 @@ exports[`at-rules.css 1`] = `
     /* comment 156 */) /* comment 157 */ /* comment 158 */ {
 } /* comment 159 */
 
-@supports /* comment 160 */ (/* comment 161 */ display /* comment 162 */: /* comment 163 */ flex /* comment 164 */) /* comment 165 */ {
+@supports /* comment 160 */
+  (
+    /* comment 161 */ display /* comment 162 */: /* comment 163 */ flex
+      /* comment 164 */
+  )
+  /* comment 165 */ {
 }
-@supports /* comment 166 */ not /* comment 167 */ (/* comment 168 */ display /* comment 169 */: /* comment 170 */ flex /* comment 171 */) /* comment 172 */ {
+@supports /* comment 166 */ not /* comment 167 */
+  (
+    /* comment 168 */ display /* comment 169 */: /* comment 170 */ flex
+      /* comment 171 */
+  )
+  /* comment 172 */ {
 }
-@supports /* comment 173 */ (/* comment 174 */ display /* comment 175 */: /* comment 176 */ table-cell /* comment 177 */) /* comment 178 */ and /* comment 179 */ (/* comment 180 */ display /* comment 181 */: /* comment 182 */ list-item /* comment 183 */) /* comment 184 */ and /* comment 185 */ (/* comment 186 */display /* comment 187 */: /* comment 188 */ run-in /* comment 189 */) /* comment 190 */ {
+@supports /* comment 173 */
+  (
+    /* comment 174 */ display /* comment 175 */: /* comment 176 */ table-cell
+      /* comment 177 */
+  )
+  /* comment 178 */ and /* comment 179 */
+  (
+    /* comment 180 */ display /* comment 181 */: /* comment 182 */ list-item
+      /* comment 183 */
+  )
+  /* comment 184 */ and /* comment 185 */
+  (
+    /* comment 186 */ display /* comment 187 */: /* comment 188 */ run-in
+      /* comment 189 */
+  )
+  /* comment 190 */ {
 }
-@supports /* comment 191 */ (/* comment 192 */ --foo /* comment 193 */: /* comment 194 */ green /* comment 195 */) /* comment 196 */ {
+@supports /* comment 191 */
+  (
+    /* comment 192 */ --foo /* comment 193 */: /* comment 194 */ green
+      /* comment 195 */
+  )
+  /* comment 196 */ {
 }
 
 /* comment 197 */
-@supports /* comment 198 */ (/* comment 199 */ display /* comment 200 */: /* comment 201 */ flex /* comment 202 */) /* comment 203 */ {
+@supports /* comment 198 */
+  (
+    /* comment 199 */ display /* comment 200 */: /* comment 201 */ flex
+      /* comment 202 */
+  )
+  /* comment 203 */ {
   /* comment 204 */
   @media /* comment 205 */ screen /* comment 206 */ and /* comment 207 */ (/* comment 208 */ min-width /* comment 209 */: /* comment 210 */ 900px /* comment 211 */) /* comment 212 */ {
     /* comment 213 */
@@ -164,7 +392,7 @@ exports[`at-rules.css 1`] = `
 
 `;
 
-exports[`block.css 1`] = `
+exports[`block.css - css-verify 1`] = `
 // Animation definitions cannot cross the shadow boundary,
 // and thus need to be loaded directly into the atom-text-editor scope.
 /* Kikoo */
@@ -181,7 +409,7 @@ exports[`block.css 1`] = `
 
 `;
 
-exports[`bug.css 1`] = `
+exports[`bug.css - css-verify 1`] = `
 @font-face  {
   src: url(if(
     $bootstrap-sass-asset-helper,
@@ -210,7 +438,7 @@ exports[`bug.css 1`] = `
 
 `;
 
-exports[`declaration.css 1`] = `
+exports[`declaration.css - css-verify 1`] = `
 a {
     /* comment 1 */
     /* comment 2 */ padding /* comment 3 */ : /* comment 4 */ 10px /* comment 5 */ 10px /* comment 6 */; /* comment 7 */
@@ -375,7 +603,7 @@ body {
 
 `;
 
-exports[`if-eslit-at-rule-decloration.scss 1`] = `
+exports[`if-eslit-at-rule-decloration.scss - css-verify 1`] = `
 @function _normalize-include($section) {
 // Check if $section is in the $include list.
   @if index($_normalize-include, $section) {
@@ -405,7 +633,33 @@ exports[`if-eslit-at-rule-decloration.scss 1`] = `
 
 `;
 
-exports[`places.css 1`] = `
+exports[`lists.scss - css-verify 1`] = `
+$my-list:
+  'foo', // Foo
+  'bar'; // Bar
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$my-list: "foo",
+  // Foo
+    "bar"; // Bar
+
+`;
+
+exports[`maps.scss - css-verify 1`] = `
+$my-map: (
+  'foo': 1, // Foo
+  'bar': 2, // Bar
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$my-map: (
+  "foo": 1,
+  // Foo
+    "bar": 2,
+  // Bar
+);
+
+`;
+
+exports[`places.css - css-verify 1`] = `
 div {
   // a
 
@@ -427,7 +681,7 @@ div {
 
 `;
 
-exports[`prettier-ignore.css 1`] = `
+exports[`prettier-ignore.css - css-verify 1`] = `
 // prettier-ignore
 @blue:  blue;
 @black: darkgray;
@@ -450,7 +704,7 @@ foo {
 
 `;
 
-exports[`selectors.css 1`] = `
+exports[`selectors.css - css-verify 1`] = `
 .powerPathNavigator .helm button.pressedButton, /* comment 1 */
 .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
@@ -848,7 +1102,7 @@ article /* comment 168 */ :--heading /* comment 169 */ + /* comment 170 */ p /* 
 
 `;
 
-exports[`selectors.scss 1`] = `
+exports[`selectors.scss - css-verify 1`] = `
 .powerPathNavigator .helm button.pressedButton, // comment 1
 .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
@@ -980,7 +1234,7 @@ exports[`selectors.scss 1`] = `
 
 `;
 
-exports[`source-map.css 1`] = `
+exports[`source-map.css - css-verify 1`] = `
 .foo {
     color: red;
 }
@@ -995,7 +1249,7 @@ exports[`source-map.css 1`] = `
 
 `;
 
-exports[`trailing_star_slash.css 1`] = `
+exports[`trailing_star_slash.css - css-verify 1`] = `
 @media (max-width: 1) {}
 a {
   // element.style */
@@ -1009,7 +1263,7 @@ a {
 
 `;
 
-exports[`types.css 1`] = `
+exports[`types.css - css-verify 1`] = `
 /* This is a basic comment */
 
 /* ==========================================================================
@@ -1104,7 +1358,7 @@ span {
 
 `;
 
-exports[`variable-declaration.scss 1`] = `
+exports[`variable-declaration.scss - css-verify 1`] = `
 $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 4 */
 
 @mixin text-color {
@@ -1120,12 +1374,12 @@ $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 
   /* comment 20 */
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-$var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 4 */
+$var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */; /* comment 4 */
 
 @mixin text-color {
   /* comment 5 */
   /* comment 6 */
-  $text-color/* comment 7 */ : /* comment 8 */ red /* comment 9 */ !default /* comment 10 */ ; /* comment 11 */
+  $text-color/* comment 7 */ : /* comment 8 */ red /* comment 9 */ !default /* comment 10 */; /* comment 11 */
   /* comment 12 */
   color: $text-color;
 }
@@ -1133,7 +1387,7 @@ $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 
 .error {
   /* comment 13 */
   /* comment 14 */
-  $text-color/* comment 15 */ : /* comment 16 */ green /* comment 17 */ !global /* comment 18 */ ; /* comment 19 */
+  $text-color/* comment 15 */ : /* comment 16 */ green /* comment 17 */ !global /* comment 18 */; /* comment 19 */
   /* comment 20 */
 }
 

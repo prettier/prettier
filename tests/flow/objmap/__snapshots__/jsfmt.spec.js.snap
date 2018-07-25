@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`objmap.js 1`] = `
+exports[`objmap.js - flow-verify 1`] = `
 declare function promiseAllByKey<O>(o: O): Promise<$ObjMap<O,typeof $await>>;
 declare function keyMirror<O>(o: O): $ObjMapi<O, <K>(k:K) => K>;
 

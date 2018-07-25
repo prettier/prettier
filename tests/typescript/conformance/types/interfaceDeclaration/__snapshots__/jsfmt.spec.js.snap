@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interfaceDeclaration.ts 1`] = `
+exports[`interfaceDeclaration.ts - typescript-verify 1`] = `
 interface abstract {
     abstract(): void,
     concrete(): number

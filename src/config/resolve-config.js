@@ -48,6 +48,17 @@ function _resolveConfig(filePath, opts, sync) {
       mergeOverrides(Object.assign({}, result), filePath)
     );
 
+    ["plugins", "pluginSearchDirs"].forEach(optionName => {
+      if (Array.isArray(merged[optionName])) {
+        merged[optionName] = merged[optionName].map(
+          value =>
+            typeof value === "string" && value.startsWith(".") // relative path
+              ? path.resolve(path.dirname(result.filepath), value)
+              : value
+        );
+      }
+    });
+
     if (!result && !editorConfigured) {
       return null;
     }
