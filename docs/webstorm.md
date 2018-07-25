@@ -15,12 +15,15 @@ For older IDE versions, please follow the instructions below.
 
 ## Running Prettier on save using File Watcher
 
-To automatically format your files using `prettier` on save, you can use a file watcher.
+To automatically format your files using `prettier` on save, you can use a [File Watcher](https://plugins.jetbrains.com/plugin/7177-file-watchers).
 
-Install [File-watcher](https://plugins.jetbrains.com/plugin/7177-file-watchers).
+Go to _Preferences | Tools | File Watchers_ and click **+** to add a new watcher. 
 
-Go to _Preferences | Tools | File Watchers_ and click **+** to add a new watcher. Let’s name it **Prettier**.
+In Webstorm 2018.2, select Prettier from the list, review the configuration, add any additional arguments if needed, and click OK. 
 
+In older IDE versions, select Custom and do the following configuration:
+
+- **Name**: _Prettier_ or any other name
 - **File Type**: _JavaScript_ (or _Any_ if you want to run `prettier` on all files)
 - **Scope**: _Project Files_
 - **Program**: full path to `.bin/prettier` or `.bin\prettier.cmd` in the project's `node_module` folder. Or, if Prettier is installed globally, select `prettier` on macOS and Linux or `C:\Users\user_name\AppData\Roaming\npm\prettier.cmd` on Windows (or whatever `npm prefix -g` returns).
