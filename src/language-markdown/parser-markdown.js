@@ -5,6 +5,7 @@ const unified = require("unified");
 const pragma = require("./pragma");
 const parseFrontMatter = require("../utils/front-matter");
 const util = require("../common/util");
+const { getOrderedListItemInfo } = require("./utils");
 
 // 0x0 ~ 0x10ffff
 const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
@@ -31,18 +32,23 @@ function parse(text, parsers, opts) {
     .use(restoreUnescapedCharacter(text))
     .use(mergeContinuousTexts)
     .use(transformInlineCode)
+    .use(transformIndentedCodeblockAndMarkItsParentList(text))
+    .use(markAlignedList(text, opts))
     .use(splitText(opts));
   return processor.runSync(processor.parse(text));
 }
 
 function map(ast, handler) {
-  return (function preorder(node, index, parentNode) {
-    const newNode = Object.assign({}, handler(node, index, parentNode));
+  return (function preorder(node, index, parentStack) {
+    parentStack = parentStack || [];
+
+    const newNode = Object.assign({}, handler(node, index, parentStack));
     if (newNode.children) {
       newNode.children = newNode.children.map((child, index) => {
-        return preorder(child, index, newNode);
+        return preorder(child, index, [newNode].concat(parentStack));
       });
     }
+
     return newNode;
   })(ast, null, null);
 }
@@ -109,7 +115,7 @@ function mergeContinuousTexts() {
 
 function splitText(options) {
   return () => ast =>
-    map(ast, (node, index, parentNode) => {
+    map(ast, (node, index, [parentNode]) => {
       if (node.type !== "text") {
         return node;
       }
@@ -167,6 +173,133 @@ function liquid() {
   tokenizer.locator = function(value, fromIndex) {
     return value.indexOf("{", fromIndex);
   };
+}
+
+function transformIndentedCodeblockAndMarkItsParentList(originalText) {
+  return () => ast =>
+    map(ast, (node, index, parentStack) => {
+      if (node.type === "code") {
+        // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
+        const isIndented = /^\n?( {4,}|\t)/.test(
+          originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          )
+        );
+
+        node.isIndented = isIndented;
+
+        if (isIndented) {
+          for (let i = 0; i < parentStack.length; i++) {
+            const parent = parentStack[i];
+
+            // no need to check checked items
+            if (parent.hasIndentedCodeblock) {
+              break;
+            }
+
+            if (parent.type === "list") {
+              parent.hasIndentedCodeblock = true;
+            }
+          }
+        }
+      }
+      return node;
+    });
+}
+
+function markAlignedList(originalText, options) {
+  return () => ast =>
+    map(ast, (node, index, parentStack) => {
+      if (node.type === "list" && node.children.length !== 0) {
+        // if one of its parents is not aligned, it's not possible to be aligned in sub-lists
+        for (let i = 0; i < parentStack.length; i++) {
+          const parent = parentStack[i];
+          if (parent.type === "list" && !parent.isAligned) {
+            node.isAligned = false;
+            return node;
+          }
+        }
+
+        node.isAligned = isAligned(node);
+      }
+
+      return node;
+    });
+
+  function getListItemStart(listItem) {
+    return listItem.children.length === 0
+      ? -1
+      : listItem.children[0].position.start.column - 1;
+  }
+
+  function isAligned(list) {
+    if (!list.ordered) {
+      /**
+       * - 123
+       * - 123
+       */
+      return true;
+    }
+
+    const firstStart = getListItemStart(list.children[0]);
+
+    if (list.children.length === 1) {
+      /**
+       * aligned:
+       * 1.  123
+       *
+       * not aligned:
+       * 1. 123
+       */
+      return firstStart % options.tabWidth === 0;
+    }
+
+    const secondStart = getListItemStart(list.children[1]);
+
+    if (firstStart !== secondStart) {
+      /**
+       * 1. 123
+       * 1.  123
+       */
+      return false;
+    }
+
+    if (firstStart % options.tabWidth === 0) {
+      /**
+       * 1.  123
+       * 1.  123
+       */
+      return true;
+    }
+
+    const firstInfo = getOrderedListItemInfo(list.children[0], originalText);
+    const secondInfo = getOrderedListItemInfo(list.children[1], originalText);
+
+    /**
+     * aligned:
+     * 11. 123
+     * 1.  123
+     *
+     * 1.        123
+     * 1.        123
+     *
+     * 1.        123
+     * 1.
+     *
+     * 1.
+     * 1.
+     *
+     * not aligned:
+     * 11. 123
+     * 1. 123
+     */
+    return (
+      firstInfo.numberText.length !== secondInfo.numberText.length ||
+      firstInfo.leadingSpaces.length !== 1 ||
+      secondInfo.leadingSpaces.length !== 1
+    );
+  }
 }
 
 const parser = {

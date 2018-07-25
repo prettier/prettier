@@ -2476,9 +2476,9 @@ exports[`example-219.md - markdown-verify 1`] = `
 >>
 >>     two
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > 1.  one
+> > 1. one
 > >
-> >     two
+> >    two
 
 `;
 
@@ -2615,7 +2615,7 @@ exports[`example-225.md - markdown-verify 1`] = `
 exports[`example-226.md - markdown-verify 1`] = `
 123456789. ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-123456789.  ok
+123456789. ok
 
 `;
 
@@ -2629,14 +2629,14 @@ exports[`example-227.md - markdown-verify 1`] = `
 exports[`example-228.md - markdown-verify 1`] = `
 0. ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-0.  ok
+0. ok
 
 `;
 
 exports[`example-229.md - markdown-verify 1`] = `
 003. ok
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-3.  ok
+3. ok
 
 `;
 
@@ -2785,9 +2785,9 @@ exports[`example-243.md - markdown-verify 1`] = `
 2.
 3. bar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1.  foo
+1. foo
 2.
-3.  bar
+3. bar
 
 `;
 
@@ -2891,7 +2891,7 @@ exports[`example-251.md - markdown-verify 1`] = `
 > 1. > Blockquote
 continued here.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 1.  > Blockquote continued here.
+> 1. > Blockquote continued here.
 
 `;
 
@@ -2899,7 +2899,7 @@ exports[`example-252.md - markdown-verify 1`] = `
 > 1. > Blockquote
 > continued here.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 1.  > Blockquote continued here.
+> 1. > Blockquote continued here.
 
 `;
 
@@ -2954,7 +2954,7 @@ exports[`example-257.md - markdown-verify 1`] = `
 exports[`example-258.md - markdown-verify 1`] = `
 1. - 2. foo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1.  - 2.  foo
+1. - 2. foo
 
 `;
 
@@ -2987,10 +2987,10 @@ exports[`example-261.md - markdown-verify 1`] = `
 2. bar
 3) baz
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1.  foo
-2.  bar
+1. foo
+2. bar
 
-3)  baz
+3) baz
 
 `;
 
@@ -3251,11 +3251,11 @@ exports[`example-281.md - markdown-verify 1`] = `
 
    bar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1.  \`\`\`
-    foo
-    \`\`\`
+1. \`\`\`
+   foo
+   \`\`\`
 
-    bar
+   bar
 
 `;
 
