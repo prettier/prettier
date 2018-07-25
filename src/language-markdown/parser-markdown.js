@@ -244,42 +244,60 @@ function markAlignedList(originalText, options) {
 
     const [firstItem, secondItem] = list.children;
 
-    const firstStart = getListItemStart(firstItem);
     const firstInfo = getOrderedListItemInfo(firstItem, originalText);
+
+    if (firstInfo.leadingSpaces.length > 1) {
+      /**
+       * 1.   123
+       *
+       * 1.   123
+       * 1. 123
+       */
+      return true;
+    }
+
+    const firstStart = getListItemStart(firstItem);
+
+    if (firstStart === -1) {
+      /**
+       * 1.
+       *
+       * 1.
+       * 1.
+       */
+      return false;
+    }
 
     if (list.children.length === 1) {
       /**
        * aligned:
        *
-       * 1.  123
-       *
-       * 1.   123
+       * 11. 123
        *
        * not aligned:
        *
        * 1. 123
        */
-      return (
-        firstStart % options.tabWidth === 0 ||
-        firstInfo.leadingSpaces.length !== 1
-      );
+      return firstStart % options.tabWidth === 0;
     }
 
     const secondStart = getListItemStart(secondItem);
-    const secondInfo = getOrderedListItemInfo(secondItem, originalText);
 
     if (firstStart !== secondStart) {
       /**
+       * 11. 123
        * 1. 123
-       * 1.  123
+       *
+       * 1. 123
+       * 11. 123
        */
       return false;
     }
 
     if (firstStart % options.tabWidth === 0) {
       /**
-       * 1.  123
-       * 1.  123
+       * 11. 123
+       * 12. 123
        */
       return true;
     }
@@ -290,25 +308,13 @@ function markAlignedList(originalText, options) {
      * 11. 123
      * 1.  123
      *
-     * 1.   123
-     * 1.   123
-     *
-     * 1.   123
-     * 1.
-     *
-     * 1.
-     * 1.
-     *
      * not aligned:
      *
-     * 11. 123
      * 1. 123
+     * 2. 123
      */
-    return (
-      firstInfo.numberText.length !== secondInfo.numberText.length ||
-      firstInfo.leadingSpaces.length !== 1 ||
-      secondInfo.leadingSpaces.length !== 1
-    );
+    const secondInfo = getOrderedListItemInfo(secondItem, originalText);
+    return secondInfo.leadingSpaces.length > 1;
   }
 }
 
