@@ -138,7 +138,7 @@ function print(path, options, print) {
         group(
           concat([
             indent(concat([softline, path.call(print, "program")])),
-            hasParams && hasChildren ? hardline : "",
+            hasParams && hasChildren ? hardline : softline,
             printCloseBlock(path, print)
           ])
         )
