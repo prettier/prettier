@@ -174,7 +174,7 @@ function print(path, options, print) {
     }
     case "AttrNode": {
       const isText = n.value.type === "TextNode";
-      if (isText && n.value.chars === "") {
+      if (isText && n.value.loc.start.column === n.value.loc.end.column) {
         return concat([n.name]);
       }
       const quote = isText ? '"' : "";
