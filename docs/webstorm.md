@@ -17,9 +17,9 @@ For older IDE versions, please follow the instructions below.
 
 To automatically format your files using `prettier` on save, you can use a [File Watcher](https://plugins.jetbrains.com/plugin/7177-file-watchers).
 
-Go to _Preferences | Tools | File Watchers_ and click **+** to add a new watcher. 
+Go to _Preferences | Tools | File Watchers_ and click **+** to add a new watcher.
 
-In Webstorm 2018.2, select Prettier from the list, review the configuration, add any additional arguments if needed, and click OK. 
+In Webstorm 2018.2, select Prettier from the list, review the configuration, add any additional arguments if needed, and click OK.
 
 In older IDE versions, select Custom and do the following configuration:
 
