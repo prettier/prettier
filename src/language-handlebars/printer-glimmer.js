@@ -82,6 +82,7 @@ function print(path, options, print) {
             "<",
             n.tag,
             getParams(path, print),
+            n.blockParams.length ? ` as |${n.blockParams.join(" ")}|` : "",
             ifBreak(softline, ""),
             closeTag
           ])
@@ -137,7 +138,7 @@ function print(path, options, print) {
         group(
           concat([
             indent(concat([softline, path.call(print, "program")])),
-            hasParams && hasChildren ? hardline : "",
+            hasParams && hasChildren ? hardline : softline,
             printCloseBlock(path, print)
           ])
         )
@@ -157,18 +158,21 @@ function print(path, options, print) {
       );
     }
     case "SubExpression": {
+      const params = getParams(path, print);
+      const printedParams =
+        params.length > 0
+          ? indent(concat([line, group(join(line, params))]))
+          : "";
       return group(
-        concat([
-          "(",
-          printPath(path, print),
-          indent(concat([line, group(join(line, getParams(path, print)))])),
-          softline,
-          ")"
-        ])
+        concat(["(", printPath(path, print), printedParams, softline, ")"])
       );
     }
     case "AttrNode": {
-      const quote = n.value.type === "TextNode" ? '"' : "";
+      const isText = n.value.type === "TextNode";
+      if (isText && n.value.chars === "") {
+        return concat([n.name]);
+      }
+      const quote = isText ? '"' : "";
       return concat([n.name, "=", quote, path.call(print, "value"), quote]);
     }
     case "ConcatStatement": {
