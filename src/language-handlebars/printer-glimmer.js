@@ -168,7 +168,11 @@ function print(path, options, print) {
       );
     }
     case "AttrNode": {
-      const quote = n.value.type === "TextNode" ? '"' : "";
+      const isText = n.value.type === "TextNode";
+      if (isText && n.value.chars === "") {
+        return concat([n.name]);
+      }
+      const quote = isText ? '"' : "";
       return concat([n.name, "=", quote, path.call(print, "value"), quote]);
     }
     case "ConcatStatement": {
