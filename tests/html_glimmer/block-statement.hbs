@@ -27,6 +27,22 @@
   {{/block}}
 {{/block}}
 
+{{#block}}
+  {{#block param}}
+    hello
+  {{/block}}
+{{/block}}
+
+{{#block param}}
+  {{#block param}}
+    hello
+  {{/block}}
+{{/block}}
+
+{{#block}}
+  hello
+{{/block}}
+
 <MyComponent as |firstName|>
   {{firstName}}
 </MyComponent>

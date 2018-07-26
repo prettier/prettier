@@ -30,6 +30,22 @@ exports[`block-statement.hbs - glimmer-verify 1`] = `
   {{/block}}
 {{/block}}
 
+{{#block}}
+  {{#block param}}
+    hello
+  {{/block}}
+{{/block}}
+
+{{#block param}}
+  {{#block param}}
+    hello
+  {{/block}}
+{{/block}}
+
+{{#block}}
+  hello
+{{/block}}
+
 <MyComponent as |firstName|>
   {{firstName}}
 </MyComponent>
@@ -98,6 +114,17 @@ exports[`block-statement.hbs - glimmer-verify 1`] = `
   Hello
 {{/block}}
 {{#block}}{{#block}}hello{{/block}}{{/block}}
+{{#block}}
+  {{#block param}}
+    hello
+  {{/block}}
+{{/block}}
+{{#block param}}
+  {{#block param}}
+    hello
+  {{/block}}
+{{/block}}
+{{#block}}hello{{/block}}
 <MyComponent as |firstName|>
   {{firstName}}
 </MyComponent>
