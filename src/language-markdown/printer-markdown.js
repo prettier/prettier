@@ -20,6 +20,7 @@ const {
   utils: { mapDoc },
   printer: { printDocToString }
 } = require("../doc");
+const { getOrderedListItemInfo } = require("./utils");
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
 
@@ -192,15 +193,7 @@ function genericPrint(path, options, print) {
         printChildren(path, options, print)
       ]);
     case "code": {
-      if (
-        // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
-        /^\n?( {4,}|\t)/.test(
-          options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset
-          )
-        )
-      ) {
+      if (node.isIndented) {
         // indented code block
         const alignment = " ".repeat(4);
         return align(
@@ -254,12 +247,8 @@ function genericPrint(path, options, print) {
       const isGitDiffFriendlyOrderedList =
         node.ordered &&
         node.children.length > 1 &&
-        /^\s*1(\.|\))/.test(
-          options.originalText.slice(
-            node.children[1].position.start.offset,
-            node.children[1].position.end.offset
-          )
-        );
+        +getOrderedListItemInfo(node.children[1], options.originalText)
+          .numberText === 1;
 
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
@@ -284,11 +273,8 @@ function genericPrint(path, options, print) {
                 ? "- "
                 : "* ";
 
-            // do not print trailing spaces for empty list item since it might be treated as `break` node
-            // by [doc-printer](https://github.com/prettier/prettier/blob/1.10.2/src/doc/doc-printer.js#L395-L405),
-            // we don't want to preserve unnecessary trailing spaces.
-            const listItem = childPath.getValue();
-            return listItem.children.length
+            return node.isAligned ||
+              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
               ? alignListPrefix(rawPrefix, options)
               : rawPrefix;
           }
@@ -742,9 +728,7 @@ function shouldPrePrintDoubleHardline(node, data) {
 
 function shouldPrePrintTripleHardline(node, data) {
   const isPrevNodeList = data.prevNode && data.prevNode.type === "list";
-  const isIndentedCode =
-    node.type === "code" &&
-    /\s/.test(data.options.originalText[node.position.start.offset]);
+  const isIndentedCode = node.type === "code" && node.isIndented;
 
   return isPrevNodeList && isIndentedCode;
 }
@@ -850,6 +834,11 @@ function clean(ast, newObj, parent) {
   if (ast.type === "code" || ast.type === "yaml") {
     delete newObj.value;
   }
+
+  if (ast.type === "list") {
+    delete newObj.isAligned;
+  }
+
   // for whitespace: "\n" and " " are considered the same
   if (ast.type === "whitespace" && ast.value === "\n") {
     newObj.value = " ";
