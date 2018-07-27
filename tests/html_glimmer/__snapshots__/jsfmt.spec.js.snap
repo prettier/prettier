@@ -135,8 +135,15 @@ exports[`block-statement.hbs - glimmer-verify 1`] = `
 `;
 
 exports[`component.hbs - glimmer-verify 1`] = `
-<user-greeting @name="Ricardo" @greeting="Olá" />
+<UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
+
+<Form as |f|>
+  <f.input @title="hello" />
+  <f.input>hello</f.input>
+</Form>
+
+<this.label @title="hello" />
 
 <button onclick={{action next}}>Next</button>
 
@@ -146,11 +153,18 @@ exports[`component.hbs - glimmer-verify 1`] = `
 
 <div ...attributes>Hello</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<user-greeting @name="Ricardo" @greeting="Olá"></user-greeting>
+<UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}
 ,
 {{@name}}
 !
+<Form as |f|>
+  <f.input @title="hello" />
+  <f.input>
+    hello
+  </f.input>
+</Form>
+<this.label @title="hello" />
 <button onclick={{action next}}>
   Next
 </button>

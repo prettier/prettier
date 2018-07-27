@@ -47,9 +47,14 @@ function print(path, options, print) {
       );
     }
     case "ElementNode": {
-      const isVoid = voidTags.indexOf(n.tag) !== -1;
-      const closeTag = isVoid ? concat([" />", softline]) : ">";
+      const tagFirstChar = n.tag[0];
+      const isLocal = n.tag.indexOf(".") !== -1;
+      const isGlimmerComponent =
+        tagFirstChar.toUpperCase() === tagFirstChar || isLocal;
       const hasChildren = n.children.length > 0;
+      const isVoid =
+        (isGlimmerComponent && !hasChildren) || voidTags.indexOf(n.tag) !== -1;
+      const closeTag = isVoid ? concat([" />", softline]) : ">";
       const getParams = (path, print) =>
         indent(
           concat([
