@@ -41,7 +41,7 @@ See https://github.com/okonet/lint-staged#configuration for more details about h
 Install it along with [husky](https://github.com/typicode/husky):
 
 ```bash
-yarn add pretty-quick husky --dev
+yarn add pretty-quick husky@next --dev
 ```
 
 and add this config to your `package.json`:
@@ -80,7 +80,7 @@ Find more info from [here](https://pre-commit.com).
 Install it along with [husky](https://github.com/typicode/husky):
 
 ```bash
-yarn add precise-commits husky --dev
+yarn add precise-commits husky@next --dev
 ```
 
 and add this config to your `package.json`:
