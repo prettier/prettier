@@ -21,7 +21,7 @@ and add this config to your `package.json`:
 {
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "precommit": "lint-staged"
     }
   },
   "lint-staged": {
@@ -50,7 +50,7 @@ and add this config to your `package.json`:
 {
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "precommit": "pretty-quick --staged"
     }
   }
 }
@@ -89,7 +89,7 @@ and add this config to your `package.json`:
 {
   "husky": {
     "hooks": {
-      "pre-commit": "precise-commits"
+      "precommit": "precise-commits"
     }
   }
 }
