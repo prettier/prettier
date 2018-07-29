@@ -81,7 +81,6 @@
     "eslint-plugin-react": "7.7.0",
     "execa": "0.10.0",
     "jest": "23.3.0",
-    "jest-extended": "0.7.2",
     "jest-junit": "5.0.0",
     "jest-watch-typeahead": "0.1.0",
     "mkdirp": "0.5.1",
