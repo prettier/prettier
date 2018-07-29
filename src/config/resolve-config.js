@@ -17,7 +17,7 @@ function loadToml(filePath, content) {
   }
 }
 
-const getExplorerMemoized = mem(opts =>
+const getExplorerMemoized = mem(opts => {
   const explorer = thirdParty.cosmiconfig("prettier", {
     cache: opts.cache,
     transform: result => {
