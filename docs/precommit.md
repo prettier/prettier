@@ -65,10 +65,10 @@ Find more info from [here](https://github.com/azz/pretty-quick).
 Copy the following config into your `.pre-commit-config.yaml` file:
 
 ```yaml
-    -   repo: https://github.com/prettier/prettier
-        rev: ''  # Use the sha or tag you want to point at
-        hooks:
-        -   id: prettier
+- repo: https://github.com/prettier/prettier
+  rev: "" # Use the sha or tag you want to point at
+  hooks:
+    - id: prettier
 ```
 
 Find more info from [here](https://pre-commit.com).
