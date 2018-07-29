@@ -7,19 +7,33 @@ const mem = require("mem");
 
 const resolveEditorConfig = require("./resolve-config-editorconfig");
 
-const getExplorerMemoized = mem(opts =>
-  thirdParty.cosmiconfig("prettier", {
-    sync: opts.sync,
+const getExplorerMemoized = mem(opts => {
+  const explorer = thirdParty.cosmiconfig("prettier", {
     cache: opts.cache,
-    rcExtensions: true,
     transform: result => {
       if (result && result.config) {
+        if (typeof result.config !== "object") {
+          throw new Error(
+            `Config is only allowed to be an object, ` +
+              `but received ${typeof result.config} in "${result.filepath}"`
+          );
+        }
+
         delete result.config.$schema;
       }
       return result;
     }
-  })
-);
+  });
+
+  const load = opts.sync ? explorer.loadSync : explorer.load;
+  const search = opts.sync ? explorer.searchSync : explorer.search;
+
+  return {
+    // cosmiconfig v4 interface
+    load: (searchPath, configPath) =>
+      configPath ? load(configPath) : search(searchPath)
+  };
+});
 
 /** @param {{ cache: boolean, sync: boolean }} opts */
 function getLoadFunction(opts) {
