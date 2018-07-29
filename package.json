@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "1.14.0-dev",
+  "version": "1.15.0-dev",
   "description": "Prettier is an opinionated code formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
@@ -58,7 +58,7 @@
     "string-width": "2.1.1",
     "toml": "2.3.3",
     "typescript": "3.0.0-dev.20180626",
-    "typescript-eslint-parser": "eslint/typescript-eslint-parser#6eec85b1466fbef087838203b246f70fa71ac0ac",
+    "typescript-eslint-parser": "17.0.0",
     "unicode-regex": "1.0.1",
     "unified": "6.1.6",
     "yaml": "1.0.0-rc.7",
@@ -84,7 +84,7 @@
     "jest-junit": "5.0.0",
     "jest-watch-typeahead": "0.1.0",
     "mkdirp": "0.5.1",
-    "prettier": "1.13.7",
+    "prettier": "1.14.0",
     "prettylint": "1.0.0",
     "rimraf": "2.6.2",
     "rollup": "0.47.6",

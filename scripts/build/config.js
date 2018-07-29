@@ -113,13 +113,9 @@ const coreBundles = [
     type: "core",
     target: "node",
     replace: {
-      // The require-from-string module (a dependency of cosmiconfig) assumes
-      // that `module.parent` exists, but it only does for `require`:ed modules.
-      // Usually, require-from-string is _always_ `require`:ed, but when bundled
-      // with rollup the module is turned into a plain function located directly
-      // in index.js so `module.parent` does not exist. Defaulting to `module`
-      // instead seems to work.
-      "module.parent": "(module.parent || module)"
+      // cosmiconfig@5 uses `require` to resolve js config, which caused Error:
+      // Dynamic requires are not currently supported by rollup-plugin-commonjs.
+      "require(filepath)": "eval('require')(filepath)"
     }
   }
 ];

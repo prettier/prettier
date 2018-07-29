@@ -1,4 +1,17 @@
-<user-greeting @name="Ricardo" @greeting="Olá" />
+<UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
 
+<Form as |f|>
+  <f.input @title="hello" />
+  <f.input>hello</f.input>
+</Form>
+
+<this.label @title="hello" />
+
 <button onclick={{action next}}>Next</button>
+
+<button disabled class="disabled"></button>
+
+<button disabled=disabled class="disabled"></button>
+
+<div ...attributes>Hello</div>
