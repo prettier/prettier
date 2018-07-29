@@ -33,6 +33,16 @@ const getExplorerMemoized = mem(opts => {
       }
       return result;
     },
+    searchPlaces: [
+      "package.json",
+      ".prettierrc",
+      ".prettierrc.json",
+      ".prettierrc.yaml",
+      ".prettierrc.yml",
+      ".prettierrc.js",
+      "prettier.config.js",
+      ".prettierrc.toml"
+    ],
     loaders: {
       ".toml": loadToml
     }

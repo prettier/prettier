@@ -153,14 +153,11 @@ function rcJson() {
   ]);
 }
 function rcToml() {
-  console.log.apply(
-    null,
-    [
-      'rc-toml/file.js',
-      'should have trailing comma',
-      'and single quotes',
-    ],
-  );
+  console.log.apply(null, [
+    'rc-toml/file.js',
+    'should have trailing comma',
+    'and single quotes',
+  ]);
 }
 function rcYaml() {
   console.log.apply(null, [
@@ -204,7 +201,7 @@ exports[`resolves json configuration file with --find-config-path file (write) 1
 exports[`resolves toml configuration file with --find-config-path file (stderr) 1`] = `""`;
 
 exports[`resolves toml configuration file with --find-config-path file (stdout) 1`] = `
-".prettierrc
+"rc-toml/.prettierrc.toml
 "
 `;
 
