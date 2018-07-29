@@ -1,6 +1,6 @@
 "use strict";
 
-const toml = require("toml");
+const toml = require("@iarna/toml");
 
 module.exports = function(filePath, content) {
   try {
