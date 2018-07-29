@@ -1,11 +1,10 @@
 "use strict";
 
 require("jest-extended");
-const path = require("path");
 const loadToml = require("../../src/utils/load-toml");
 
 describe("TOML", () => {
-  const currentFile = path.join(__dirname, "load-toml.js");
+  const currentFile = "load-toml.js";
 
   const exampleToml = `
 # This is a TOML document.
