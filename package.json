@@ -14,8 +14,8 @@
     "node": ">=6"
   },
   "dependencies": {
-    "@babel/code-frame": "7.0.0-beta.46",
-    "@babel/parser": "7.0.0-beta.49",
+    "@babel/code-frame": "7.0.0-beta.55",
+    "@babel/parser": "7.0.0-beta.55",
     "@glimmer/syntax": "0.30.3",
     "camelcase": "4.1.0",
     "chalk": "2.1.0",
@@ -64,9 +64,9 @@
     "yaml-unist-parser": "1.0.0-rc.2"
   },
   "devDependencies": {
-    "@babel/cli": "7.0.0-beta.49",
-    "@babel/core": "7.0.0-beta.49",
-    "@babel/preset-env": "7.0.0-beta.49",
+    "@babel/cli": "7.0.0-beta.55",
+    "@babel/core": "7.0.0-beta.55",
+    "@babel/preset-env": "7.0.0-beta.55",
     "babel-loader": "8.0.0-beta.3",
     "benchmark": "2.1.4",
     "builtin-modules": "2.0.0",
@@ -103,7 +103,7 @@
     "webpack": "3.12.0"
   },
   "resolutions": {
-    "@babel/code-frame": "7.0.0-beta.46"
+    "@babel/code-frame": "7.0.0-beta.55"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
