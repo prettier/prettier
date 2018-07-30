@@ -24,7 +24,10 @@ const path = require("path");
 const parsers = [
   {
     input: "src/language-js/parser-babylon.js",
-    target: "universal"
+    target: "universal",
+    babelPlugins: [
+      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
+    ]
   },
   {
     input: "src/language-js/parser-flow.js",
