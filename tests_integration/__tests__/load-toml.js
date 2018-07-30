@@ -3,7 +3,7 @@
 const loadToml = require("../../src/utils/load-toml");
 
 describe("TOML", () => {
-  const currentFile = "load-toml.js";
+  const exampleFilePath = "example.toml";
 
   const exampleToml = `
 # This is a TOML document.
@@ -21,17 +21,17 @@ enabled = true
   const wrongToml = "///ERROR///";
 
   test("loads toml successfully", () => {
-    const parsedToml = loadToml(currentFile, exampleToml);
+    const parsedToml = loadToml(exampleFilePath, exampleToml);
     expect(parsedToml).toMatchSnapshot();
   });
 
   test("throws error on incorrect toml", () => {
     expect(() => {
-      loadToml(currentFile, wrongToml);
+      loadToml(exampleFilePath, wrongToml);
     }).toThrow();
 
     expect(() => {
-      loadToml(currentFile, wrongToml);
+      loadToml(exampleFilePath, wrongToml);
     }).toThrowErrorMatchingSnapshot();
   });
 });
