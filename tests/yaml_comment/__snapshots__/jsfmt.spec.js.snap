@@ -62,6 +62,37 @@ empty_content:
 
 `;
 
+exports[`end-comment.yml - yaml-verify 1`] = `
+parent:
+  one: 1
+  # two: 2
+
+a:
+  b:
+   #b
+ #a
+
+A:
+  B:
+ #A
+   #A
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+parent:
+  one: 1
+# two: 2
+
+a:
+  b:
+    #b
+#a
+
+A:
+  B:
+    #A
+#A
+
+`;
+
 exports[`root.yml - yaml-verify 1`] = `
 #hello world
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
