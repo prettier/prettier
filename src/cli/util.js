@@ -629,6 +629,7 @@ function createOptionUsageType(option) {
       return null;
     case "choice":
       return `<${option.choices
+        .filter(choice => choice.since !== null)
         .filter(choice => !choice.deprecated)
         .map(choice => choice.value)
         .join("|")}>`;
