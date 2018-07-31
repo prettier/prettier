@@ -184,7 +184,6 @@ Valid options:
   markdown         Markdown
   vue              Vue
   yaml             YAML
-  glimmer          Handlebars (experimental)
 "
 `;
 

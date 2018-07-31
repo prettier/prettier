@@ -120,7 +120,7 @@ const options = {
       {
         value: "glimmer",
         since: null,
-        description: "Handlebars (experimental)"
+        description: "Handlebars"
       }
     ]
   },

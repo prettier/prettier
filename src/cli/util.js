@@ -677,7 +677,9 @@ function getOptionWithLevenSuggestion(context, options, optionName) {
 }
 
 function createChoiceUsages(choices, margin, indentation) {
-  const activeChoices = choices.filter(choice => !choice.deprecated);
+  const activeChoices = choices.filter(
+    choice => !choice.deprecated && choice.since !== null
+  );
   const threshold =
     activeChoices
       .map(choice => choice.value.length)
