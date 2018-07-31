@@ -273,10 +273,17 @@ function genericPrint(path, options, print) {
       return adjustNumbers(adjustStrings(node.value, options));
     }
     case "media-feature-expression": {
+      const parenSpace = options.parenSpacing ? " " : "";
       if (!node.nodes) {
         return node.value;
       }
-      return concat(["(", concat(path.map(print, "nodes")), ")"]);
+      return concat([
+        "(",
+        parenSpace,
+        concat(path.map(print, "nodes")),
+        parenSpace,
+        ")"
+      ]);
     }
     case "media-feature": {
       return maybeToLowerCase(
