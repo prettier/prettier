@@ -12,11 +12,9 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 
   longlonglonglonglonglonglonglonglonglonglong
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-no-whitesapce:
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
-whitespace:
-  longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
+whitespace: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
 
 literal-newline: longlonglonglonglonglonglonglonglonglonglong
   longlonglonglonglonglonglonglonglonglonglong
@@ -39,14 +37,11 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 
   longlonglonglonglonglonglonglonglonglonglong
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-no-whitesapce:
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
-whitespace:
-  longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
+whitespace: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
 
-literal-newline:
-  longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
+literal-newline: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
 
 newline: longlonglonglonglonglonglonglonglonglonglong
 
@@ -66,8 +61,7 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 
   longlonglonglonglonglonglonglonglonglonglong
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-no-whitesapce:
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 whitespace:
   longlonglonglonglonglonglonglonglonglonglong
