@@ -629,6 +629,7 @@ function createOptionUsageType(option) {
       return null;
     case "choice":
       return `<${option.choices
+        .filter(choice => choice.since !== null)
         .filter(choice => !choice.deprecated)
         .map(choice => choice.value)
         .join("|")}>`;
@@ -676,7 +677,9 @@ function getOptionWithLevenSuggestion(context, options, optionName) {
 }
 
 function createChoiceUsages(choices, margin, indentation) {
-  const activeChoices = choices.filter(choice => !choice.deprecated);
+  const activeChoices = choices.filter(
+    choice => !choice.deprecated && choice.since !== null
+  );
   const threshold =
     activeChoices
       .map(choice => choice.value.length)

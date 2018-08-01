@@ -78,12 +78,7 @@ function getSupportInfo(version, opts) {
 
   const languages = plugins
     .reduce((all, plugin) => all.concat(plugin.languages || []), [])
-    .filter(
-      language =>
-        language.since
-          ? semver.gte(version, language.since)
-          : language.since !== null
-    )
+    .filter(filterSince)
     .map(language => {
       // Prevent breaking changes
       if (language.name === "Markdown") {

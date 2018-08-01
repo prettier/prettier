@@ -227,6 +227,15 @@ export default function(parser) {
         "    Billsmer @ 338-4338.",
         ""
       ].join("\n");
+    case "glimmer":
+      // modified from http://handlebarsjs.com/
+      return [
+        '  <div     class="entry"    >',
+        "  <h1>{{  title    }}</h1>",
+        '  <div   class="body">',
+        "            {{   body         }}",
+        "</div> </div>"
+      ].join("\n");
     default:
       return "";
   }
