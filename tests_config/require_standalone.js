@@ -10,6 +10,7 @@ const sources = [
   "parser-flow.js",
   "parser-typescript.js",
   "parser-postcss.js",
+  "parser-glimmer.js",
   "parser-graphql.js",
   "parser-markdown.js",
   "parser-vue.js",

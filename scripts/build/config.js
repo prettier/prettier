@@ -58,7 +58,7 @@ const parsers = [
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
-    target: "node",
+    target: "universal",
     commonjs: {
       namedExports: {
         "node_modules/handlebars/lib/index.js": ["parse"],
