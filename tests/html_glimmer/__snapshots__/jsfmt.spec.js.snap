@@ -151,6 +151,8 @@ exports[`component.hbs - glimmer-verify 1`] = `
 
 <button disabled=disabled class="disabled"></button>
 
+<img alt="" />
+
 <div ...attributes>Hello</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <UserGreeting @name="Ricardo" @greeting="Olá" />
@@ -170,6 +172,7 @@ exports[`component.hbs - glimmer-verify 1`] = `
 </button>
 <button disabled class="disabled"></button>
 <button disabled="disabled" class="disabled"></button>
+<img alt="" />
 <div ...attributes>
   Hello
 </div>
