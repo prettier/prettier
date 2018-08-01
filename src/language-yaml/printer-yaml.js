@@ -129,7 +129,12 @@ function _print(node, parentNode, path, options, print) {
                         options.originalText
                       ))
                       ? ""
-                      : concat([hardline, "..."]),
+                      : concat([
+                          hardline,
+                          node.children[index + 1].head.children.length === 0
+                            ? "---"
+                            : "..."
+                        ]),
                     hardline
                   ]),
             "children"
