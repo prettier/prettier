@@ -381,6 +381,8 @@ function _print(node, parentNode, path, options, print) {
                       needsSpaceInFrontOfMappingValue(node) ? " " : "",
                       ":",
                       hasLeadingComments(node.value.node) ||
+                      (hasEndComments(node.value) &&
+                        node.value.node.type !== "null") ||
                       (parentNode.type === "mapping" &&
                         hasTrailingComments(node.key.node) &&
                         isInlineNode(node.value.node)) ||
