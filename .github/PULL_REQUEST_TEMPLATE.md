@@ -4,5 +4,5 @@
 <!-- You can replace the `[ ]` with `[x]` to mark each task as done. -->
 
 - [ ] I’ve added tests to confirm my change works.
-- [ ] (if changing the API or CLI) I’ve documented the changes I’ve made (in the `docs/` directory)
+- [ ] (If changing the API or CLI) I’ve documented the changes I’ve made (in the `docs/` directory)
 - [ ] I’ve read the [contributing guidelines](https://github.com/prettier/prettier/blob/master/CONTRIBUTING.md).
