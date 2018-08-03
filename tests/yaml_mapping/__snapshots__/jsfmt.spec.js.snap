@@ -206,6 +206,56 @@ key:
 
 `;
 
+exports[`merge-twice.yml - yaml-verify 1`] = `
+.anchors:
+  - &anchor1
+    key: value
+  - &anchor2
+    another: prop
+
+foo:
+  bar: baz
+  <<: *anchor1
+  <<: *anchor2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.anchors:
+  - &anchor1
+    key: value
+  - &anchor2
+    another: prop
+
+foo:
+  bar: baz
+  <<: *anchor1
+  <<: *anchor2
+
+`;
+
+exports[`merge-twice.yml - yaml-verify 2`] = `
+.anchors:
+  - &anchor1
+    key: value
+  - &anchor2
+    another: prop
+
+foo:
+  bar: baz
+  <<: *anchor1
+  <<: *anchor2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.anchors:
+    - &anchor1
+      key: value
+    - &anchor2
+      another: prop
+
+foo:
+    bar: baz
+    <<: *anchor1
+    <<: *anchor2
+
+`;
+
 exports[`middle-comment.yml - yaml-verify 1`] = `
 !!map # comment
 a: 123
