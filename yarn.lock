@@ -563,6 +563,10 @@
   dependencies:
     "@glimmer/util" "^0.30.3"
 
+"@iarna/toml@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.0.0.tgz#7802115684397785b3b6dc8a3ba50e30d7a7422b"
+
 "@types/commander@^2.11.0":
   version "2.12.2"
   resolved "https://registry.yarnpkg.com/@types/commander/-/commander-2.12.2.tgz#183041a23842d4281478fa5d23c5ca78e6fd08ae"

@@ -43,6 +43,12 @@ describe("resolves yaml configuration file with --find-config-path file", () => 
   });
 });
 
+describe("resolves toml configuration file with --find-config-path file", () => {
+  runPrettier("cli/config/", ["--find-config-path", "rc-toml/file.js"]).test({
+    status: 0
+  });
+});
+
 describe("prints nothing when no file found with --find-config-path", () => {
   runPrettier("cli/config/", ["--find-config-path", ".."]).test({
     stdout: "",

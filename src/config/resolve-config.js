@@ -6,6 +6,7 @@ const path = require("path");
 const mem = require("mem");
 
 const resolveEditorConfig = require("./resolve-config-editorconfig");
+const loadToml = require("../utils/load-toml");
 
 const getExplorerMemoized = mem(opts => {
   const explorer = thirdParty.cosmiconfig("prettier", {
@@ -22,6 +23,19 @@ const getExplorerMemoized = mem(opts => {
         delete result.config.$schema;
       }
       return result;
+    },
+    searchPlaces: [
+      "package.json",
+      ".prettierrc",
+      ".prettierrc.json",
+      ".prettierrc.yaml",
+      ".prettierrc.yml",
+      ".prettierrc.js",
+      "prettier.config.js",
+      ".prettierrc.toml"
+    ],
+    loaders: {
+      ".toml": loadToml
     }
   });
 
