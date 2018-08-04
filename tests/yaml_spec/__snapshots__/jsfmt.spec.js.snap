@@ -269,7 +269,7 @@ scalar1
 key: value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scalar1
-...
+---
 key: value
 
 `;
@@ -281,7 +281,7 @@ scalar1
 key: value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scalar1
-...
+---
 key: value
 
 `;
@@ -694,7 +694,7 @@ a: b
 ---
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a: b
-...
+---
 
 
 `;
@@ -705,7 +705,7 @@ a: b
 ---
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a: b
-...
+---
 
 
 `;
@@ -1518,7 +1518,7 @@ string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "quoted
 string"
-...
+---
 &node foo
 
 `;
@@ -1529,7 +1529,7 @@ string"
 --- &node foo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "quoted string"
-...
+---
 &node foo
 
 `;
@@ -1838,7 +1838,7 @@ exports[`spec-example-2-7-two-documents-in-a-stream.yml - yaml-verify 1`] = `
 - Ken Griffey
 
 # Team ranking
-...
+---
 - Chicago Cubs
 - St Louis Cardinals
 
@@ -1863,7 +1863,7 @@ exports[`spec-example-2-7-two-documents-in-a-stream.yml - yaml-verify 2`] = `
 - Ken Griffey
 
 # Team ranking
-...
+---
 - Chicago Cubs
 - St Louis Cardinals
 
@@ -1884,7 +1884,7 @@ action: grand slam
 time: 20:03:20
 player: Sammy Sosa
 action: strike (miss)
-...
+---
 time: 20:03:47
 player: Sammy Sosa
 action: grand slam
@@ -1906,7 +1906,7 @@ action: grand slam
 time: 20:03:20
 player: Sammy Sosa
 action: strike (miss)
-...
+---
 time: 20:03:47
 player: Sammy Sosa
 action: grand slam
@@ -2631,12 +2631,12 @@ Time: 2001-11-23 15:01:42 -5
 User: ed
 Warning: This is an error message
   for the log file
-...
+---
 Time: 2001-11-23 15:02:31 -5
 User: ed
 Warning: A slightly different error
   message.
-...
+---
 Date: 2001-11-23 15:03:17 -5
 User: ed
 Fatal: Unknown variable "bar"
@@ -2683,11 +2683,11 @@ Stack:
 Time: 2001-11-23 15:01:42 -5
 User: ed
 Warning: This is an error message for the log file
-...
+---
 Time: 2001-11-23 15:02:31 -5
 User: ed
 Warning: A slightly different error message.
-...
+---
 Date: 2001-11-23 15:03:17 -5
 User: ed
 Fatal: Unknown variable "bar"
@@ -4867,9 +4867,9 @@ document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Bare
 document
-...
+---
 # No document
-...
+---
 |
   %!PS-Adobe-2.0 # Not the first line
 
@@ -4885,9 +4885,9 @@ document
 %!PS-Adobe-2.0 # Not the first line
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Bare document
-...
+---
 # No document
-...
+---
 |
   %!PS-Adobe-2.0 # Not the first line
 
@@ -4905,7 +4905,7 @@ exports[`spec-example-9-4-explicit-documents.yml - yaml-verify 1`] = `
 { ? matches
     %
   : 20 }
-...
+---
 # Empty
 
 `;
@@ -4920,7 +4920,7 @@ exports[`spec-example-9-4-explicit-documents.yml - yaml-verify 2`] = `
 ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { matches %: 20 }
-...
+---
 # Empty
 
 `;
@@ -4977,7 +4977,7 @@ Document
 matches %: 20
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Document
-...
+---
 # Empty
 ...
 %YAML 1.2
@@ -4996,7 +4996,7 @@ Document
 matches %: 20
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Document
-...
+---
 # Empty
 ...
 %YAML 1.2
@@ -5091,10 +5091,10 @@ e
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !!map
 a: b
-...
+---
 !!seq
 - !!str c
-...
+---
 !!str d
 e
 
@@ -5112,10 +5112,10 @@ e
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !!map
 a: b
-...
+---
 !!seq
 - !!str c
-...
+---
 !!str d e
 
 `;
@@ -5272,23 +5272,23 @@ a6: 1
 value11
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !!str &a1 scalar1
-...
+---
 !!str &a2 scalar2
-...
+---
 !!str &a3 scalar3
-...
+---
 !!map &a4
 !!str &a5 key5: value4
-...
+---
 a6: 1
 &anchor6 b6: 2
-...
+---
 !!map
 !!str &a8 key8: value7
-...
+---
 !!map
 !!str &a10 key10: value9
-...
+---
 !!str &a11 value11
 
 `;
@@ -5322,23 +5322,23 @@ a6: 1
 value11
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !!str &a1 scalar1
-...
+---
 !!str &a2 scalar2
-...
+---
 !!str &a3 scalar3
-...
+---
 !!map &a4
 !!str &a5 key5: value4
-...
+---
 a6: 1
 &anchor6 b6: 2
-...
+---
 !!map
 !!str &a8 key8: value7
-...
+---
 !!map
 !!str &a10 key10: value9
-...
+---
 !!str &a11 value11
 
 `;

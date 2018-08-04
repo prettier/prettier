@@ -32,7 +32,7 @@ function parse(text, parsers, opts) {
       "optionalCatchBinding",
       "optionalChaining",
       "classPrivateProperties",
-      "pipelineOperator",
+      ["pipelineOperator", { proposal: "minimal" }],
       "nullishCoalescingOperator",
       "bigInt",
       "throwExpressions"

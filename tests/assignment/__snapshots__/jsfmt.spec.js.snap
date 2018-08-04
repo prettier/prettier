@@ -21,6 +21,33 @@ computedDescriptionLines =
 
 `;
 
+exports[`destructuring.js - flow-verify 1`] = `
+let {
+  bottom: offsetBottom,
+  left: offsetLeft,
+  right: offsetRight,
+  top: offsetTop,
+} = getPressRectOffset == null ? DEFAULT_PRESS_RECT : getPressRectOffset();
+
+const { accessibilityModule: FooAccessibilityModule, accessibilityModule: FooAccessibilityModule, accessibilityModule: FooAccessibilityModule, accessibilityModule: FooAccessibilityModule,
+      } = foo || {};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let {
+  bottom: offsetBottom,
+  left: offsetLeft,
+  right: offsetRight,
+  top: offsetTop
+} = getPressRectOffset == null ? DEFAULT_PRESS_RECT : getPressRectOffset();
+
+const {
+  accessibilityModule: FooAccessibilityModule,
+  accessibilityModule: FooAccessibilityModule,
+  accessibilityModule: FooAccessibilityModule,
+  accessibilityModule: FooAccessibilityModule
+} = foo || {};
+
+`;
+
 exports[`sequence.js - flow-verify 1`] = `
 for ((i = 0), (len = arr.length); i < len; i++) {
   console.log(arr[i])

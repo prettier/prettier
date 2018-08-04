@@ -5275,7 +5275,7 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
       options.parser !== "json5");
 
   if (canBreak) {
-    return indent(concat([line, printedRight]));
+    return group(indent(concat([line, printedRight])));
   }
 
   return concat([" ", printedRight]);

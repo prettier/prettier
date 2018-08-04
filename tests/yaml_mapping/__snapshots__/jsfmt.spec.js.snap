@@ -107,8 +107,7 @@ key1: value
 key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 key1: value
-key2:
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 `;
 
@@ -117,8 +116,7 @@ key1: value
 key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 key1: value
-key2:
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 `;
 
@@ -131,10 +129,8 @@ exports[`explicit-key.yml - yaml-verify 1`] = `
 : value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 key1: value
-key2:
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-: value
+key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: value
 
 `;
 
@@ -147,10 +143,8 @@ exports[`explicit-key.yml - yaml-verify 2`] = `
 : value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 key1: value
-key2:
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-: value
+key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: value
 
 `;
 
@@ -209,6 +203,56 @@ key:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 key:
     key: value
+
+`;
+
+exports[`merge-twice.yml - yaml-verify 1`] = `
+.anchors:
+  - &anchor1
+    key: value
+  - &anchor2
+    another: prop
+
+foo:
+  bar: baz
+  <<: *anchor1
+  <<: *anchor2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.anchors:
+  - &anchor1
+    key: value
+  - &anchor2
+    another: prop
+
+foo:
+  bar: baz
+  <<: *anchor1
+  <<: *anchor2
+
+`;
+
+exports[`merge-twice.yml - yaml-verify 2`] = `
+.anchors:
+  - &anchor1
+    key: value
+  - &anchor2
+    another: prop
+
+foo:
+  bar: baz
+  <<: *anchor1
+  <<: *anchor2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.anchors:
+    - &anchor1
+      key: value
+    - &anchor2
+      another: prop
+
+foo:
+    bar: baz
+    <<: *anchor1
+    <<: *anchor2
 
 `;
 

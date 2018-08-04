@@ -129,7 +129,12 @@ function _print(node, parentNode, path, options, print) {
                         options.originalText
                       ))
                       ? ""
-                      : concat([hardline, "..."]),
+                      : concat([
+                          hardline,
+                          node.children[index + 1].head.children.length === 0
+                            ? "---"
+                            : "..."
+                        ]),
                     hardline
                   ]),
             "children"
@@ -348,36 +353,54 @@ function _print(node, parentNode, path, options, print) {
             ": ",
             align(2, value)
           ])
-        : conditionalGroup([
-            concat([
-              group(
-                concat([ifBreak("? "), group(align(2, key), { id: groupId })])
-              ),
-              ifBreak(
-                concat([hardline, ": ", align(2, value)]),
-                indent(
-                  concat([
-                    needsSpaceInFrontOfMappingValue(node) ? " " : "",
-                    ":",
-                    hasLeadingComments(node.value.node) ||
-                    (parentNode.type === "mapping" &&
-                      hasTrailingComments(node.key.node) &&
-                      isInlineNode(node.value.node)) ||
-                    ((node.value.node.type === "mapping" ||
-                      node.value.node.type === "sequence") &&
-                      node.value.node.tag.type === "null" &&
-                      node.value.node.anchor.type === "null")
-                      ? hardline
-                      : node.value.node.type === "null"
-                        ? ""
-                        : line,
-                    value
-                  ])
-                ),
-                { groupId }
-              )
+        : // force singleline
+          isSingleLineNode(node.key.node) &&
+          !hasLeadingComments(node.key.node) &&
+          !hasMiddleComments(node.key.node) &&
+          !hasTrailingComments(node.key.node) &&
+          !hasEndComments(node.key) &&
+          !hasLeadingComments(node.value.node) &&
+          !hasMiddleComments(node.value.node) &&
+          !hasEndComments(node.value) &&
+          isAbsolutelyPrintedAsSingleLineNode(node.value.node, options)
+          ? concat([
+              key,
+              needsSpaceInFrontOfMappingValue(node) ? " " : "",
+              ": ",
+              value
             ])
-          ]);
+          : conditionalGroup([
+              concat([
+                group(
+                  concat([ifBreak("? "), group(align(2, key), { id: groupId })])
+                ),
+                ifBreak(
+                  concat([hardline, ": ", align(2, value)]),
+                  indent(
+                    concat([
+                      needsSpaceInFrontOfMappingValue(node) ? " " : "",
+                      ":",
+                      hasLeadingComments(node.value.node) ||
+                      (hasEndComments(node.value) &&
+                        node.value.node.type !== "null") ||
+                      (parentNode.type === "mapping" &&
+                        hasTrailingComments(node.key.node) &&
+                        isInlineNode(node.value.node)) ||
+                      ((node.value.node.type === "mapping" ||
+                        node.value.node.type === "sequence") &&
+                        node.value.node.tag.type === "null" &&
+                        node.value.node.anchor.type === "null")
+                        ? hardline
+                        : node.value.node.type === "null"
+                          ? ""
+                          : line,
+                      value
+                    ])
+                  ),
+                  { groupId }
+                )
+              ])
+            ]);
     }
     case "flowMapping":
     case "flowSequence": {
@@ -457,6 +480,58 @@ function isInlineNode(node) {
     case "flowSequence":
     case "null":
       return true;
+    default:
+      return false;
+  }
+}
+
+function isSingleLineNode(node) {
+  switch (node.type) {
+    case "plain":
+    case "quoteDouble":
+    case "quoteSingle":
+      return node.position.start.line === node.position.end.line;
+    case "alias":
+      return true;
+    default:
+      return false;
+  }
+}
+
+function isAbsolutelyPrintedAsSingleLineNode(node, options) {
+  switch (node.type) {
+    case "plain":
+    case "quoteSingle":
+    case "quoteDouble":
+      break;
+    case "alias":
+      return true;
+    default:
+      return false;
+  }
+
+  if (options.proseWrap === "preserve") {
+    return node.position.start.line === node.position.end.line;
+  }
+
+  if (
+    // backslash-newline
+    /\\$/m.test(
+      options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset
+      )
+    )
+  ) {
+    return false;
+  }
+
+  switch (options.proseWrap) {
+    case "never":
+      return node.value.indexOf("\n") === -1;
+    case "always":
+      return !/[\n ]/.test(node.value);
+    // istanbul ignore next
     default:
       return false;
   }

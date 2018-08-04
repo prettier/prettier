@@ -181,7 +181,7 @@ export default function(parser) {
         "</script>",
         "",
         "<style>",
-        ".and { css: too! important }",
+        ".and { css: too !important }",
         "</style>"
       ].join("\n");
     case "yaml":
@@ -226,6 +226,15 @@ export default function(parser) {
         "    Backup contact is Nancy",
         "    Billsmer @ 338-4338.",
         ""
+      ].join("\n");
+    case "glimmer":
+      // modified from http://handlebarsjs.com/
+      return [
+        '  <div     class="entry"    >',
+        "  <h1>{{  title    }}</h1>",
+        '  <div   class="body">',
+        "            {{   body         }}",
+        "</div> </div>"
       ].join("\n");
     default:
       return "";

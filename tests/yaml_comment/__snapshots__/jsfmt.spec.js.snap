@@ -31,7 +31,8 @@ f:
 empty_content:
   # hello world
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-a: 123
+a:
+  123
   # impicitMappginValue
 
 ? b
@@ -59,6 +60,45 @@ f:
 
 empty_content:
   # hello world
+
+`;
+
+exports[`end-comment.yml - yaml-verify 1`] = `
+parent:
+  one: 1
+  # two: 2
+
+a:
+  b:
+   #b
+ #a
+
+A:
+  B:
+ #A
+   #A
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+parent:
+  one: 1
+  # two: 2
+
+a:
+  b:
+    #b
+  #a
+
+A:
+  ? B
+  #A
+  #A
+
+`;
+
+exports[`in-empty-item-without-newlline.yml - yaml-verify 1`] = `
+a:
+  #123~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a:
+  #123
 
 `;
 

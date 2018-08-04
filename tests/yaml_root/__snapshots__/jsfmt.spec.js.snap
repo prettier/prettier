@@ -8,7 +8,7 @@ exports[`documents.yml - yaml-verify 1`] = `
 456
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 123
-...
+---
 456
 
 `;
@@ -262,7 +262,7 @@ omap:
     - aardvark: African pig-like ant eater. Ugly.
     - anteater: South-American ant eater. Two species.
     - anaconda: South-American constrictor snake. Scaly.
-  # Etc.
+    # Etc.
   # Flow style
   Numbers: !!omap [one: 1, two: 2, three: 3]
 
