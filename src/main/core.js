@@ -58,7 +58,7 @@ function attachComments(text, ast, opts) {
     comments.attach(astComments, ast, text, opts);
   }
   ast.tokens = [];
-  opts.originalText = text.trimRight();
+  opts.originalText = opts.parser === "yaml" ? text : text.trimRight();
   return astComments;
 }
 

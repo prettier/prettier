@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with-pragma.graphql - graphql-verify 1`] = `
+# @prettier
+
+query Browse($offset:Int){browse(offset:$offset)}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# @prettier
+
+query Browse($offset: Int) {
+  browse(offset: $offset)
+}
+
+`;
+
+exports[`without-pragma.graphql - graphql-verify 1`] = `
+query Browse($offset:Int){browse(offset:$offset)}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+query Browse($offset:Int){browse(offset:$offset)}
+
+`;

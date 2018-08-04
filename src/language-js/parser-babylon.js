@@ -10,8 +10,10 @@ function parse(text, parsers, opts) {
 
   const babylonOptions = {
     sourceType: "module",
+    allowAwaitOutsideFunction: true,
     allowImportExportEverywhere: true,
     allowReturnOutsideFunction: true,
+    allowSuperOutsideMethod: true,
     plugins: [
       "jsx",
       "flow",
@@ -30,7 +32,7 @@ function parse(text, parsers, opts) {
       "optionalCatchBinding",
       "optionalChaining",
       "classPrivateProperties",
-      "pipelineOperator",
+      ["pipelineOperator", { proposal: "minimal" }],
       "nullishCoalescingOperator",
       "bigInt",
       "throwExpressions"

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment_before_else.js 1`] = `
+exports[`comment_before_else.js - flow-verify 1`] = `
 if (cond) {
   stuff;
 } /* comment */ else if (cond) {
@@ -31,7 +31,7 @@ else stuff;
 
 `;
 
-exports[`else.js 1`] = `
+exports[`else.js - flow-verify 1`] = `
 // Both functions below should be formatted exactly the same
 
 function f() {
@@ -73,7 +73,7 @@ function f() {
 
 `;
 
-exports[`if_comments.js 1`] = `
+exports[`if_comments.js - flow-verify 1`] = `
 async function f() {
   if (untrackedChoice === 0) /* Cancel */ {
     return null;
@@ -189,7 +189,7 @@ async function f() {
 
 `;
 
-exports[`trailing_comment.js 1`] = `
+exports[`trailing_comment.js - flow-verify 1`] = `
 if (code === 92 /* '\\' */) {}
 if (code === 92 /* '\\' */ /* '\\' */) {}
 

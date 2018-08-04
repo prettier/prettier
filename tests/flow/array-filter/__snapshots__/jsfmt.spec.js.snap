@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 /* @flow */
 
 function filterOutVoids<T> (arr: Array<?T>): Array<T> {
@@ -23,7 +23,7 @@ function filterOutSmall(arr: Array<?number>): Array<?number> {
 
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js - flow-verify 1`] = `
 /* @flow */
 
 function filterItems(items: Array<string|number>): Array<string|number> {

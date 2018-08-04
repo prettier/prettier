@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classAppearsToHaveMembersOfObject.ts 1`] = `
+exports[`classAppearsToHaveMembersOfObject.ts - typescript-verify 1`] = `
 class C { foo: string; }
 
 var c: C;
@@ -21,7 +21,7 @@ var o2: {} = c;
 
 `;
 
-exports[`classExtendingClass.ts 1`] = `
+exports[`classExtendingClass.ts - typescript-verify 1`] = `
 class C {
     foo: string;
     thing() { }
@@ -87,7 +87,7 @@ var r8 = D2.other(1);
 
 `;
 
-exports[`classExtendsItselfIndirectly.ts 1`] = `
+exports[`classExtendsItselfIndirectly.ts - typescript-verify 1`] = `
 class C extends E { foo: string; } // error
 
 class D extends C { bar: string; }
@@ -125,7 +125,7 @@ class E2<T> extends D2<T> {
 
 `;
 
-exports[`classIsSubtypeOfBaseType.ts 1`] = `
+exports[`classIsSubtypeOfBaseType.ts - typescript-verify 1`] = `
 class Base<T> {
     foo: T;
 }

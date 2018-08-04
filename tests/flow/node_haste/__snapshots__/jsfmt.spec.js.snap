@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`client.js 1`] = `
+exports[`client.js - flow-verify 1`] = `
 var md5 = require('./md5');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var md5 = require("./md5");
 
 `;
 
-exports[`md5.js 1`] = `
+exports[`md5.js - flow-verify 1`] = `
 /* @providesModule md5 */
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /* @providesModule md5 */

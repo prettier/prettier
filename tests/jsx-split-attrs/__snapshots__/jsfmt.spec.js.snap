@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 long_closed =
   <BaseForm url="/auth/google" method="GET" colour="blue" size="large" submitLabel="Sign in with Google"/>
 
@@ -132,7 +132,8 @@ long_open_long_children = (
         colour="blue"
         size="large"
         submitLabel="Sign in with Google"
-      />d
+      />
+      d
     </BaseForm>
     <BaseForm
       url="/auth/google"

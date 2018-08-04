@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`c2.js 1`] = `
+exports[`c2.js - flow-verify 1`] = `
 // @flow
 
 import { foo } from "./c1";

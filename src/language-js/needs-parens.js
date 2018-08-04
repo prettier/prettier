@@ -231,7 +231,6 @@ function needsParens(path, options) {
         case "UnaryExpression":
         case "SpreadElement":
         case "SpreadProperty":
-        case "ExperimentalSpreadProperty":
         case "BindExpression":
         case "AwaitExpression":
         case "TSAsExpression":
@@ -366,9 +365,9 @@ function needsParens(path, options) {
         case "LogicalExpression":
         case "SpreadElement":
         case "SpreadProperty":
-        case "ExperimentalSpreadProperty":
         case "TSAsExpression":
         case "TSNonNullExpression":
+        case "BindExpression":
           return true;
 
         case "MemberExpression":
@@ -488,7 +487,6 @@ function needsParens(path, options) {
         case "UnaryExpression":
         case "SpreadElement":
         case "SpreadProperty":
-        case "ExperimentalSpreadProperty":
         case "BinaryExpression":
         case "LogicalExpression":
         case "ExportDefaultDeclaration":

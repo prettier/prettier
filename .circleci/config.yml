@@ -22,6 +22,18 @@ aliases:
         - node_modules
       key: v1-yarn-deps-{{ checksum "yarn.lock" }}
 
+  - &restore_build_cache
+    restore_cache:
+      keys:
+        - v1-build-cache-{{ .Branch }}
+        - v1-build-cache-master
+
+  - &save_build_cache
+    save_cache:
+      paths:
+        - .cache
+      key: v1-build-cache-{{ .Branch }}
+
   # Default
   - &defaults
     working_directory: ~/prettier
@@ -54,7 +66,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/prettier
+      - *restore_build_cache
       - run: yarn build
+      - *save_build_cache
       - persist_to_workspace:
           root: .
           paths:
@@ -78,7 +92,12 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/prettier
-      - run: yarn test:dist
+      - run:
+          command: yarn test:dist
+          environment:
+            REPORT_SUMMARIES: 1
+      - store_test_results:
+          path: test-results
 
   # Run tests using the standalone build
   test_prod_standalone:

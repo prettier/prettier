@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`front-matter.md 1`] = `
+exports[`front-matter.md - markdown-verify 1`] = `
 ---
 something
 ---
@@ -21,7 +21,7 @@ some content some content some content some content
 
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md - markdown-verify 1`] = `
 # hello world
 
 some content some content some content some content
@@ -34,7 +34,7 @@ some content some content some content some content
 
 `;
 
-exports[`start-with-comment.md 1`] = `
+exports[`start-with-comment.md - markdown-verify 1`] = `
 <!-- something -->
 
 # hello world

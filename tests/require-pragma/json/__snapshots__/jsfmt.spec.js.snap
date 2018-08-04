@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`format-anyway.json 1`] = `
+exports[`format-anyway.json - json-verify 1`] = `
 {"allOn": "Single", "Line": "example",
 "noSpace":true,
   "quote": {

@@ -218,6 +218,7 @@ makeString(rawContent: string, enclosingQuote: string, unescapeUnnecessarEscapes
 getNextNonSpaceNonCommentCharacterIndex(text: string, node: object, options: object): number;
 isNextLineEmptyAfterIndex(text: string, index: number): boolean;
 isNextLineEmpty(text: string, node: object, options: object): boolean;
+isPreviousLineEmpty(text: string, node: object, options: object): boolean;
 mapDoc(doc: object, callback: function): void;
 ```
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cjs_with_types.js 1`] = `
+exports[`cjs_with_types.js - flow-verify 1`] = `
 /* @flow */
 
 export type talias4 = number;
@@ -17,7 +17,7 @@ module.exports = {};
 
 `;
 
-exports[`importer.js 1`] = `
+exports[`importer.js - flow-verify 1`] = `
 /* @flow */
 
 import type {
@@ -86,7 +86,7 @@ var n: IFoo2 = { prop: 42 }; // Error: {prop:number} ~> {prop:string}
 
 `;
 
-exports[`types_only.js 1`] = `
+exports[`types_only.js - flow-verify 1`] = `
 /* @flow */
 
 export type inlinedType1 = number;
@@ -121,7 +121,7 @@ export interface IFoo { prop: number }
 
 `;
 
-exports[`types_only2.js 1`] = `
+exports[`types_only2.js - flow-verify 1`] = `
 /* @flow */
 
 export type talias1 = number;

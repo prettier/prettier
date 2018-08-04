@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`B.js 1`] = `
+exports[`B.js - flow-verify 1`] = `
 // @flow
 var A = require ('./A');
 import type C from './C';

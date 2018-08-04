@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example.md 1`] = `
+exports[`example.md - markdown-verify 1`] = `
 - Top level list item 1 
 - Top level list item 2
   - Nested List item 1

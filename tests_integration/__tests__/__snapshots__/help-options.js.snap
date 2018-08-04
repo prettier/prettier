@@ -267,7 +267,7 @@ exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
+"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue|yaml>
 
   Which parser to use.
 
@@ -285,6 +285,7 @@ Valid options:
   graphql          GraphQL
   markdown         Markdown
   vue              Vue
+  yaml             YAML
 "
 `;
 
@@ -336,7 +337,7 @@ exports[`show detailed usage with --help prose-wrap (stderr) 1`] = `""`;
 exports[`show detailed usage with --help prose-wrap (stdout) 1`] = `
 "--prose-wrap <always|never|preserve>
 
-  How to wrap prose. (markdown)
+  How to wrap prose.
 
 Valid options:
 

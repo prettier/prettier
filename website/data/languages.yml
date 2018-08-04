@@ -2,41 +2,46 @@
   showName: false
   image: /images/languages/tools_js.svg
   variants:
-  - "[ES2017](https://github.com/tc39/proposals/blob/master/finished-proposals.md)"
-  - "[JSX](https://facebook.github.io/jsx/)"
-  - "[Flow](https://flow.org/)"
-  - "[TypeScript](https://www.typescriptlang.org/)"
-  - "[Vue](https://vuejs.org/)"
-  - "[JSON](http://json.org/)"
+  - "[`ES2017`](https://github.com/tc39/proposals/blob/master/finished-proposals.md)"
+  - "[`JSX`](https://facebook.github.io/jsx/)"
+  - "[`Flow`](https://flow.org/)"
+  - "[`TypeScript`](https://www.typescriptlang.org/)"
+  - "[`Vue`](https://vuejs.org/)"
+  - "[`JSON`](http://json.org/)"
 - name: CSS
   showName: false
   image: /images/languages/tools_css.svg
   variants:
-  - "CSS3+"
-  - "[Less](http://lesscss.org/)"
-  - "[SCSS](http://sass-lang.com)"
-  - "[styled-components](http://styled-components.com) 💅"
-  - "[styled-jsx](http://npmjs.com/styled-jsx)"
+  - "`CSS3+`"
+  - "[`Less`](http://lesscss.org/)"
+  - "[`SCSS`](http://sass-lang.com)"
+  - "[`styled-components`](http://styled-components.com) 💅"
+  - "[`styled-jsx`](http://npmjs.com/styled-jsx)"
 - name: GraphQL
   showName: false
   image: /images/languages/tools_gql.svg
   variants:
-  - "[GraphQL](http://graphql.org/)"
-  - "[GraphQL Schemas](http://graphql.org/learn/schema/)"
+  - "[`GraphQL`](http://graphql.org/)"
+  - "[`GraphQL Schemas`](http://graphql.org/learn/schema/)"
 - name: Markdown
   showName: false
   image: /images/languages/tools_md.svg
   variants:
-  - "[CommonMark](http://commonmark.org/)"
-  - "[GitHub Flavored Markdown](https://github.github.com/gfm/)"
+  - "[`CommonMark`](http://commonmark.org/)"
+  - "[`GitHub Flavored Markdown`](https://github.github.com/gfm/)"
+- name: YAML
+  showName: false
+  image: /images/languages/tools_yaml.svg
+  variants:
+  - "[`YAML`](http://yaml.org/)"
 - name: Work in Progress
   showName: true
   image: /images/languages/tools_wip.svg
   variants:
-  - "[Elm](https://github.com/gicentre/prettier-plugin-elm) (via [`elm-format`](https://github.com/avh4/elm-format))"
-  - "[Java](https://github.com/thorbenvh8/prettier-java)"
-  - "[PHP](https://github.com/prettier/prettier-php)"
-  - "[PostgreSQL](https://github.com/benjie/prettier-plugin-pg-sql/)"
-  - "[Python](https://github.com/prettier/prettier-python)"
-  - "[Ruby](https://github.com/iamsolankiamit/prettier-ruby)"
-  - "[Swift](https://github.com/prettier/prettier-swift)"
+  - "[`Elm`](https://github.com/gicentre/prettier-plugin-elm) (via [`elm-format`](https://github.com/avh4/elm-format))"
+  - "[`Java`](https://github.com/thorbenvh8/prettier-java)"
+  - "[`PHP`](https://github.com/prettier/prettier-php)"
+  - "[`PostgreSQL`](https://github.com/benjie/prettier-plugin-pg-sql/)"
+  - "[`Python`](https://github.com/prettier/prettier-python)"
+  - "[`Ruby`](https://github.com/iamsolankiamit/prettier-ruby)"
+  - "[`Swift`](https://github.com/prettier/prettier-swift)"

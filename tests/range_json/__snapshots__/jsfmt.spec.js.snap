@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`identifier.json 1`] = `
+exports[`identifier.json - json-verify 1`] = `
 {"a":1, "b":2}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {"a":1, "b":2}
 
 `;
 
-exports[`issue2297.json 1`] = `
+exports[`issue2297.json - json-verify 1`] = `
 {"a":1, "b":2}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {"a":1, "b":2}

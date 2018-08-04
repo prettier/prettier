@@ -2,15 +2,14 @@
 
 const privateUtil = require("../common/util");
 const sharedUtil = require("../common/util-shared");
-
-const addLeadingComment = sharedUtil.addLeadingComment;
-const addTrailingComment = sharedUtil.addTrailingComment;
-const addDanglingComment = sharedUtil.addDanglingComment;
+const {
+  addLeadingComment,
+  addTrailingComment,
+  addDanglingComment
+} = sharedUtil;
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
-  const precedingNode = comment.precedingNode;
-  const enclosingNode = comment.enclosingNode;
-  const followingNode = comment.followingNode;
+  const { precedingNode, enclosingNode, followingNode } = comment;
   if (
     handleLastFunctionArgComments(
       text,
@@ -62,9 +61,7 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
 }
 
 function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
-  const precedingNode = comment.precedingNode;
-  const enclosingNode = comment.enclosingNode;
-  const followingNode = comment.followingNode;
+  const { precedingNode, enclosingNode, followingNode } = comment;
   if (
     handleLastFunctionArgComments(
       text,
@@ -105,9 +102,8 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
 }
 
 function handleRemainingComment(comment, text, options, ast, isLastComment) {
-  const precedingNode = comment.precedingNode;
-  const enclosingNode = comment.enclosingNode;
-  const followingNode = comment.followingNode;
+  const { precedingNode, enclosingNode, followingNode } = comment;
+
   if (
     handleIfStatementComments(
       text,

@@ -30,6 +30,7 @@
   name: VS Code
   content: |
     [`prettier-vscode`](https://github.com/prettier/prettier-vscode)
+    [`unibeautify-vscode`](https://github.com/Unibeautify/vscode)
 - image: /images/editors/editor_webstorm.svg
   name: WebStorm
   content: |

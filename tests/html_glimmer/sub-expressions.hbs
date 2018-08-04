@@ -1,6 +1,7 @@
 <div
   {{mustache
     (concat
+      (service)
       (helper param hashPair=Value)
       (largeNameHelper param param param param hashPair=value hashPair=value hashPair=Value)
       hashPair=(helper param param param param param param hashPair=value hashPair=value hashPair=value)
@@ -11,6 +12,7 @@
 
 {{#block
   (concat
+    (service)
     (helper param hashPair=Value)
     (largeNameHelper param param param param hashPair=value hashPair=value hashPair=Value)
     hashPair=(helper param param param param param param hashPair=value hashPair=value hashPair=value)

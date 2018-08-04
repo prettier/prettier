@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`0-indent-js.md 1`] = `
+exports[`0-indent-js.md - markdown-verify 1`] = `
 - 1
   - 2
     - 3
@@ -48,7 +48,7 @@ exports[`0-indent-js.md 1`] = `
 
 `;
 
-exports[`additional-space.md 1`] = `
+exports[`additional-space.md - markdown-verify 1`] = `
 1. Fork the repo and create your branch from \`master\`.
 
    Open terminal (e.g. Terminal, iTerm, Git Bash or Git Shell) and type:
@@ -71,35 +71,35 @@ exports[`additional-space.md 1`] = `
     \`\`\`sh
     yarn --version
     \`\`\`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1.  Fork the repo and create your branch from \`master\`.
+1. Fork the repo and create your branch from \`master\`.
 
-    Open terminal (e.g. Terminal, iTerm, Git Bash or Git Shell) and type:
+   Open terminal (e.g. Terminal, iTerm, Git Bash or Git Shell) and type:
 
-    \`\`\`sh
-    git clone https://github.com/<your_username>/jest
-    cd jest
-    git checkout -b my_branch
-    \`\`\`
+   \`\`\`sh
+   git clone https://github.com/<your_username>/jest
+   cd jest
+   git checkout -b my_branch
+   \`\`\`
 
-    Note: Replace \`<your_username>\` with your GitHub username
+   Note: Replace \`<your_username>\` with your GitHub username
 
-2.  Run \`yarn install\`. On Windows: To install
-    [Yarn](https://yarnpkg.com/en/docs/install#windows-tab) on Windows you may
-    need to download either node.js or Chocolatey<br />
+2. Run \`yarn install\`. On Windows: To install
+   [Yarn](https://yarnpkg.com/en/docs/install#windows-tab) on Windows you may
+   need to download either node.js or Chocolatey<br />
 
-    \`\`\`sh
-    yarn install
-    \`\`\`
+   \`\`\`sh
+   yarn install
+   \`\`\`
 
-    To check your version of Yarn and ensure it's installed you can type:
+   To check your version of Yarn and ensure it's installed you can type:
 
-    \`\`\`sh
-    yarn --version
-    \`\`\`
+   \`\`\`sh
+   yarn --version
+   \`\`\`
 
 `;
 
-exports[`backtick.md 1`] = `
+exports[`backtick.md - markdown-verify 1`] = `
 \`\`\`\`\`\`\`\`\`\`
 
 \`\`\`js
@@ -116,7 +116,7 @@ console.log("hello world!");
 
 `;
 
-exports[`format.md 1`] = `
+exports[`format.md - markdown-verify 1`] = `
 \`\`\`js
 const foo      = 'bar'
 
@@ -133,7 +133,7 @@ console.log(213);
 
 `;
 
-exports[`indent.md 1`] = `
+exports[`indent.md - markdown-verify 1`] = `
     Indented Code Block
     Indented Code Block
     Indented Code Block
@@ -184,7 +184,7 @@ exports[`indent.md 1`] = `
 
 `;
 
-exports[`lang.md 1`] = `
+exports[`lang.md - markdown-verify 1`] = `
 \`\`\`js
 console.log("hello world");
 \`\`\`
@@ -195,7 +195,7 @@ console.log("hello world");
 
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md - markdown-verify 1`] = `
 \`\`\`
 hello world
 \`\`\`

@@ -12,8 +12,10 @@ const internalPlugins = [
   require("./src/language-js"),
   require("./src/language-css"),
   require("./src/language-graphql"),
+  require("./src/language-handlebars"),
   require("./src/language-markdown"),
-  require("./src/language-vue")
+  require("./src/language-vue"),
+  require("./src/language-yaml")
 ];
 
 const isArray =

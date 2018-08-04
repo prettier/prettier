@@ -1,3 +1,4 @@
+/.cache
 /node_modules
 /scripts/release/node_modules
 *.log
@@ -16,3 +17,4 @@
 coverage
 .idea
 package-lock.json
+/test-results

@@ -20,7 +20,9 @@ function run_spec(dirname, parsers, options) {
     // We need to have a skipped test with the same name of the snapshots,
     // so Jest doesn't mark them as obsolete.
     if (TEST_STANDALONE && parsers.some(skipStandalone)) {
-      test.skip(filename);
+      parsers.forEach(parser =>
+        test.skip(`${filename} - ${parser}-verify`, () => {})
+      );
       return;
     }
 
@@ -60,7 +62,7 @@ function run_spec(dirname, parsers, options) {
       test(`${filename} - ${mergedOptions.parser}-verify`, () => {
         expect(
           raw(source + "~".repeat(mergedOptions.printWidth) + "\n" + output)
-        ).toMatchSnapshot(filename);
+        ).toMatchSnapshot();
       });
 
       parsers.slice(1).forEach(parser => {
@@ -72,22 +74,19 @@ function run_spec(dirname, parsers, options) {
       });
 
       if (AST_COMPARE) {
-        const compareOptions = Object.assign({}, mergedOptions);
-        delete compareOptions.cursorOffset;
-        const astMassaged = parse(input, compareOptions);
-        let ppastMassaged;
-        let pperr = null;
-        try {
-          ppastMassaged = parse(
-            prettyprint(input, path, compareOptions),
-            compareOptions
-          );
-        } catch (e) {
-          pperr = e.stack;
-        }
+        test(`${path} parse`, () => {
+          const compareOptions = Object.assign({}, mergedOptions);
+          delete compareOptions.cursorOffset;
+          const astMassaged = parse(input, compareOptions);
+          let ppastMassaged = undefined;
 
-        test(path + " parse", () => {
-          expect(pperr).toBe(null);
+          expect(() => {
+            ppastMassaged = parse(
+              prettyprint(input, path, compareOptions),
+              compareOptions
+            );
+          }).not.toThrow();
+
           expect(ppastMassaged).toBeDefined();
           if (!astMassaged.errors || astMassaged.errors.length === 0) {
             expect(astMassaged).toEqual(ppastMassaged);
@@ -128,7 +127,7 @@ function read(filename) {
 }
 
 function skipStandalone(parser) {
-  return new Set(["parse5", "glimmer"]).has(parser);
+  return new Set(["parse5"]).has(parser);
 }
 
 /**

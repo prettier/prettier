@@ -70,6 +70,18 @@ var parsers = {
   get vue() {
     importScriptOnce("lib/parser-vue.js");
     return prettierPlugins.vue.parsers.vue;
+  },
+
+  // YAML
+  get yaml() {
+    importScriptOnce("lib/parser-yaml.js");
+    return prettierPlugins.yaml.parsers.yaml;
+  },
+
+  // Handlebars
+  get glimmer() {
+    importScriptOnce("lib/parser-glimmer.js");
+    return prettierPlugins.glimmer.parsers.glimmer;
   }
 };
 
@@ -88,7 +100,13 @@ function handleMessage(message) {
   if (message.type === "meta") {
     return {
       type: "meta",
-      supportInfo: JSON.parse(JSON.stringify(prettier.getSupportInfo())),
+      supportInfo: JSON.parse(
+        JSON.stringify(
+          prettier.getSupportInfo(null, {
+            showUnreleased: /-pr\./.test(prettier.version)
+          })
+        )
+      ),
       version: prettier.version
     };
   }

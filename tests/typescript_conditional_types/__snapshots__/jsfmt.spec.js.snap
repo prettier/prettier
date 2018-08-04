@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditonal-types.ts 1`] = `
+exports[`conditonal-types.ts - typescript-verify 1`] = `
 export type DeepReadonly<T> = T extends any[] ? DeepReadonlyArray<T[number]> : T extends object ? DeepReadonlyObject<T> : T;
 
 type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
@@ -27,7 +27,7 @@ type DeepReadonlyObject<T> = {
 
 `;
 
-exports[`infer-type.ts 1`] = `
+exports[`infer-type.ts - typescript-verify 1`] = `
 type TestReturnType<T extends (...args: any[]) => any> = T extends (...args: any[]) => infer R ? R : any;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type TestReturnType<T extends (...args: any[]) => any> = T extends (

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`methodSignature.ts 1`] = `
+exports[`methodSignature.ts - typescript-verify 1`] = `
 var logger: {
     log(val: any, val2: any),
     error(val: any)

@@ -13,6 +13,7 @@ const path = require("path");
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
  * @property {string[]} external - array of paths that should not be included in the final bundle
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
+ * @property {string[]} babelPlugins - babel plugins
 
  * @typedef {Object} CommonJSConfig
  * @property {Object} namedExports - for cases where rollup can't infer what's exported
@@ -23,7 +24,10 @@ const path = require("path");
 const parsers = [
   {
     input: "src/language-js/parser-babylon.js",
-    target: "universal"
+    target: "universal",
+    babelPlugins: [
+      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
+    ]
   },
   {
     input: "src/language-js/parser-flow.js",
@@ -54,7 +58,7 @@ const parsers = [
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
-    target: "node",
+    target: "universal",
     commonjs: {
       namedExports: {
         "node_modules/handlebars/lib/index.js": ["parse"],
@@ -66,6 +70,18 @@ const parsers = [
   {
     input: "src/language-html/parser-parse5.js",
     target: "node"
+  },
+  {
+    input: "src/language-yaml/parser-yaml.js",
+    target: "universal",
+    alias: {
+      // Force using the CJS file, instead of ESM; i.e. get the file
+      // from `"main"` instead of `"module"` (rollup default) of package.json
+      "lines-and-columns": require.resolve("lines-and-columns")
+    },
+    babelPlugins: [
+      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
+    ]
   }
 ].map(parser => {
   const name = getFileOutput(parser)
@@ -100,13 +116,9 @@ const coreBundles = [
     type: "core",
     target: "node",
     replace: {
-      // The require-from-string module (a dependency of cosmiconfig) assumes
-      // that `module.parent` exists, but it only does for `require`:ed modules.
-      // Usually, require-from-string is _always_ `require`:ed, but when bundled
-      // with rollup the module is turned into a plain function located directly
-      // in index.js so `module.parent` does not exist. Defaulting to `module`
-      // instead seems to work.
-      "module.parent": "(module.parent || module)"
+      // cosmiconfig@5 uses `require` to resolve js config, which caused Error:
+      // Dynamic requires are not currently supported by rollup-plugin-commonjs.
+      "require(filepath)": "eval('require')(filepath)"
     }
   }
 ];

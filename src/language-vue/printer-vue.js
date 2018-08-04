@@ -2,6 +2,7 @@
 
 const embed = require("./embed");
 const { concat, hardline } = require("../doc").builders;
+const { insertPragma } = require("./pragma");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -38,5 +39,7 @@ const clean = (ast, newObj) => {
 module.exports = {
   print: genericPrint,
   embed,
-  massageAstNode: clean
+  insertPragma,
+  massageAstNode: clean,
+  canAttachComment: node => typeof node.tag === "string"
 };

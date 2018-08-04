@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`non-nested-combinator.css 1`] = `
+exports[`non-nested-combinator.css - css-verify 1`] = `
 .card-meta {
   @include padding(null 1rem 1rem);background-color: $card-base-background-color;
   color: $meta-font-color;

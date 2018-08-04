@@ -6,6 +6,7 @@ title: Configuration File
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support. This means you can configure prettier via:
 
 - A `.prettierrc` file, written in YAML or JSON, with optional extensions: `.yaml/.yml/.json/.js`.
+- A `.prettierrc.toml` file, written in TOML (the `.toml` extension is _required_).
 - A `prettier.config.js` file that exports an object.
 - A `"prettier"` key in your `package.json` file.
 
@@ -42,6 +43,14 @@ printWidth: 100
 parser: flow
 ```
 
+TOML:
+
+```toml
+# .prettierrc.toml
+printWidth = 100
+parser = "flow"
+```
+
 ## Configuration Overrides
 
 Prettier borrows eslint's [override format](http://eslint.org/docs/user-guide/configuring#example-configuration). This allows you to apply configuration to specific files.
@@ -67,9 +76,9 @@ YAML:
 ```yaml
 semi: false
 overrides:
-- files: "*.test.js"
-  options:
-    semi: true
+  - files: "*.test.js"
+    options:
+      semi: true
 ```
 
 `files` is required for each override, and may be a string or array of strings. `excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.

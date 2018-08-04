@@ -1,93 +1,116 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`boolean.json 1`] = `
+exports[`boolean.json - json-stringify-verify 1`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
 
 `;
 
-exports[`boolean.json 2`] = `
+exports[`boolean.json - json-verify 1`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
 
 `;
 
-exports[`boolean.json 3`] = `
+exports[`boolean.json - json-verify 2`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
 
 `;
 
-exports[`boolean.json 4`] = `
+exports[`boolean.json - json5-verify 1`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
 
 `;
 
-exports[`boolean.json 5`] = `
+exports[`boolean.json - json5-verify 2`] = `
 true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 true
 
 `;
 
-exports[`multi-line.json 1`] = `
-{"key1":[true,false,null],"key2":{"key3":[1,2,"3",
-1e10,1e-3]}}
+exports[`key-value.json - json-stringify-verify 1`] = `
+{
+    "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
+    "stringstringstringstringstringstringstringstring": "stringstringstringstringstringstringstringstring",
+    "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring": "string"
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
-  "key1": [true, false, null],
-  "key2": {
-    "key3": [1, 2, "3", 1e10, 1e-3]
-  }
+  "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
+  "stringstringstringstringstringstringstringstring": "stringstringstringstringstringstringstringstring",
+  "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring": "string"
 }
 
 `;
 
-exports[`multi-line.json 2`] = `
-{"key1":[true,false,null],"key2":{"key3":[1,2,"3",
-1e10,1e-3]}}
+exports[`key-value.json - json-verify 1`] = `
+{
+    "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
+    "stringstringstringstringstringstringstringstring": "stringstringstringstringstringstringstringstring",
+    "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring": "string"
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
-  "key1": [true, false, null],
-  "key2": {
-    "key3": [1, 2, "3", 1e10, 1e-3]
-  }
+  "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
+  "stringstringstringstringstringstringstringstring": "stringstringstringstringstringstringstringstring",
+  "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring": "string"
 }
 
 `;
 
-exports[`multi-line.json 3`] = `
-{"key1":[true,false,null],"key2":{"key3":[1,2,"3",
-1e10,1e-3]}}
+exports[`key-value.json - json-verify 2`] = `
+{
+    "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
+    "stringstringstringstringstringstringstringstring": "stringstringstringstringstringstringstringstring",
+    "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring": "string"
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
-  key1: [true, false, null],
-  key2: {
-    key3: [1, 2, "3", 1e10, 1e-3]
-  }
+  "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
+  "stringstringstringstringstringstringstringstring": "stringstringstringstringstringstringstringstring",
+  "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring": "string"
 }
 
 `;
 
-exports[`multi-line.json 4`] = `
-{"key1":[true,false,null],"key2":{"key3":[1,2,"3",
-1e10,1e-3]}}
+exports[`key-value.json - json5-verify 1`] = `
+{
+    "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
+    "stringstringstringstringstringstringstringstring": "stringstringstringstringstringstringstringstring",
+    "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring": "string"
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
-  key1: [true, false, null],
-  key2: {
-    key3: [1, 2, "3", 1e10, 1e-3],
-  },
+  string: "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
+  stringstringstringstringstringstringstringstring: "stringstringstringstringstringstringstringstring",
+  stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring: "string"
 }
 
 `;
 
-exports[`multi-line.json 5`] = `
+exports[`key-value.json - json5-verify 2`] = `
+{
+    "string": "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
+    "stringstringstringstringstringstringstringstring": "stringstringstringstringstringstringstringstring",
+    "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring": "string"
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  string: "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
+  stringstringstringstringstringstringstringstring: "stringstringstringstringstringstringstringstring",
+  stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring: "string",
+}
+
+`;
+
+exports[`multi-line.json - json-stringify-verify 1`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",
 1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,553 +133,129 @@ exports[`multi-line.json 5`] = `
 
 `;
 
-exports[`null.json 1`] = `
-null
+exports[`multi-line.json - json-verify 1`] = `
+{"key1":[true,false,null],"key2":{"key3":[1,2,"3",
+1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-null
+{
+  "key1": [true, false, null],
+  "key2": {
+    "key3": [1, 2, "3", 1e10, 1e-3]
+  }
+}
 
 `;
 
-exports[`null.json 2`] = `
-null
+exports[`multi-line.json - json-verify 2`] = `
+{"key1":[true,false,null],"key2":{"key3":[1,2,"3",
+1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-null
+{
+  "key1": [true, false, null],
+  "key2": {
+    "key3": [1, 2, "3", 1e10, 1e-3]
+  }
+}
 
 `;
 
-exports[`null.json 3`] = `
-null
+exports[`multi-line.json - json5-verify 1`] = `
+{"key1":[true,false,null],"key2":{"key3":[1,2,"3",
+1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-null
+{
+  key1: [true, false, null],
+  key2: {
+    key3: [1, 2, "3", 1e10, 1e-3]
+  }
+}
 
 `;
 
-exports[`null.json 4`] = `
-null
+exports[`multi-line.json - json5-verify 2`] = `
+{"key1":[true,false,null],"key2":{"key3":[1,2,"3",
+1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-null
-
-`;
-
-exports[`null.json 5`] = `
-null
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-null
-
-`;
-
-exports[`number.json 1`] = `
-0
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-0
-
-`;
-
-exports[`number.json 2`] = `
-0
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-0
-
-`;
-
-exports[`number.json 3`] = `
-0
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-0
-
-`;
-
-exports[`number.json 4`] = `
-0
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-0
-
-`;
-
-exports[`number.json 5`] = `
-0
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-0
-
-`;
-
-exports[`pass1.json 1`] = `
-[
-    "JSON Test Pattern pass1",
-    {"object with 1 member":["array with 1 element"]},
-    {},
-    [],
-    -42,
-    true,
-    false,
-    null,
-    {
-        "integer": 1234567890,
-        "real": -9876.543210,
-        "e": 0.123456789e-12,
-        "E": 1.234567890E+34,
-        "":  23456789012E66,
-        "zero": 0,
-        "one": 1,
-        "space": " ",
-        "quote": "\\"",
-        "backslash": "\\\\",
-        "controls": "\\b\\f\\n\\r\\t",
-        "slash": "/ & \\/",
-        "alpha": "abcdefghijklmnopqrstuvwyz",
-        "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
-        "digit": "0123456789",
-        "0123456789": "digit",
-        "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
-        "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
-        "true": true,
-        "false": false,
-        "null": null,
-        "array":[  ],
-        "object":{  },
-        "address": "50 St. James Street",
-        "url": "http://www.JSON.org/",
-        "comment": "// /* <!-- --",
-        "# -- --> */": " ",
-        " s p a c e d " :[1,2 , 3
-
-,
-
-4 , 5        ,          6           ,7        ],"compact":[1,2,3,4,5,6,7],
-        "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
-        "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
-        "\\/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?"
-: "A key can be any string"
-    },
-    0.5 ,98.6
-,
-99.44
-,
-
-1066,
-1e1,
-0.1e1,
-1e-1,
-1e00,2e+00,2e-00
-,"rosebud"]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[
-  "JSON Test Pattern pass1",
-  { "object with 1 member": ["array with 1 element"] },
-  {},
-  [],
-  -42,
-  true,
-  false,
-  null,
-  {
-    "integer": 1234567890,
-    "real": -9876.54321,
-    "e": 0.123456789e-12,
-    "E": 1.23456789e34,
-    "": 23456789012e66,
-    "zero": 0,
-    "one": 1,
-    "space": " ",
-    "quote": "\\"",
-    "backslash": "\\\\",
-    "controls": "\\b\\f\\n\\r\\t",
-    "slash": "/ & /",
-    "alpha": "abcdefghijklmnopqrstuvwyz",
-    "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
-    "digit": "0123456789",
-    "0123456789": "digit",
-    "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
-    "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
-    "true": true,
-    "false": false,
-    "null": null,
-    "array": [],
-    "object": {},
-    "address": "50 St. James Street",
-    "url": "http://www.JSON.org/",
-    "comment": "// /* <!-- --",
-    "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
-    "compact": [1, 2, 3, 4, 5, 6, 7],
-    "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
-    "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
-    "/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?":
-      "A key can be any string"
+{
+  key1: [true, false, null],
+  key2: {
+    key3: [1, 2, "3", 1e10, 1e-3],
   },
-  0.5,
-  98.6,
-  99.44,
-  1066,
-  1e1,
-  0.1e1,
-  1e-1,
-  1,
-  2,
-  2,
-  "rosebud"
-]
+}
 
 `;
 
-exports[`pass1.json 2`] = `
-[
-    "JSON Test Pattern pass1",
-    {"object with 1 member":["array with 1 element"]},
-    {},
-    [],
-    -42,
-    true,
-    false,
-    null,
-    {
-        "integer": 1234567890,
-        "real": -9876.543210,
-        "e": 0.123456789e-12,
-        "E": 1.234567890E+34,
-        "":  23456789012E66,
-        "zero": 0,
-        "one": 1,
-        "space": " ",
-        "quote": "\\"",
-        "backslash": "\\\\",
-        "controls": "\\b\\f\\n\\r\\t",
-        "slash": "/ & \\/",
-        "alpha": "abcdefghijklmnopqrstuvwyz",
-        "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
-        "digit": "0123456789",
-        "0123456789": "digit",
-        "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
-        "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
-        "true": true,
-        "false": false,
-        "null": null,
-        "array":[  ],
-        "object":{  },
-        "address": "50 St. James Street",
-        "url": "http://www.JSON.org/",
-        "comment": "// /* <!-- --",
-        "# -- --> */": " ",
-        " s p a c e d " :[1,2 , 3
-
-,
-
-4 , 5        ,          6           ,7        ],"compact":[1,2,3,4,5,6,7],
-        "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
-        "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
-        "\\/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?"
-: "A key can be any string"
-    },
-    0.5 ,98.6
-,
-99.44
-,
-
-1066,
-1e1,
-0.1e1,
-1e-1,
-1e00,2e+00,2e-00
-,"rosebud"]
+exports[`null.json - json-stringify-verify 1`] = `
+null
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[
-  "JSON Test Pattern pass1",
-  { "object with 1 member": ["array with 1 element"] },
-  {},
-  [],
-  -42,
-  true,
-  false,
-  null,
-  {
-    "integer": 1234567890,
-    "real": -9876.54321,
-    "e": 0.123456789e-12,
-    "E": 1.23456789e34,
-    "": 23456789012e66,
-    "zero": 0,
-    "one": 1,
-    "space": " ",
-    "quote": "\\"",
-    "backslash": "\\\\",
-    "controls": "\\b\\f\\n\\r\\t",
-    "slash": "/ & /",
-    "alpha": "abcdefghijklmnopqrstuvwyz",
-    "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
-    "digit": "0123456789",
-    "0123456789": "digit",
-    "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
-    "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
-    "true": true,
-    "false": false,
-    "null": null,
-    "array": [],
-    "object": {},
-    "address": "50 St. James Street",
-    "url": "http://www.JSON.org/",
-    "comment": "// /* <!-- --",
-    "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
-    "compact": [1, 2, 3, 4, 5, 6, 7],
-    "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
-    "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
-    "/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?":
-      "A key can be any string"
-  },
-  0.5,
-  98.6,
-  99.44,
-  1066,
-  1e1,
-  0.1e1,
-  1e-1,
-  1,
-  2,
-  2,
-  "rosebud"
-]
+null
 
 `;
 
-exports[`pass1.json 3`] = `
-[
-    "JSON Test Pattern pass1",
-    {"object with 1 member":["array with 1 element"]},
-    {},
-    [],
-    -42,
-    true,
-    false,
-    null,
-    {
-        "integer": 1234567890,
-        "real": -9876.543210,
-        "e": 0.123456789e-12,
-        "E": 1.234567890E+34,
-        "":  23456789012E66,
-        "zero": 0,
-        "one": 1,
-        "space": " ",
-        "quote": "\\"",
-        "backslash": "\\\\",
-        "controls": "\\b\\f\\n\\r\\t",
-        "slash": "/ & \\/",
-        "alpha": "abcdefghijklmnopqrstuvwyz",
-        "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
-        "digit": "0123456789",
-        "0123456789": "digit",
-        "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
-        "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
-        "true": true,
-        "false": false,
-        "null": null,
-        "array":[  ],
-        "object":{  },
-        "address": "50 St. James Street",
-        "url": "http://www.JSON.org/",
-        "comment": "// /* <!-- --",
-        "# -- --> */": " ",
-        " s p a c e d " :[1,2 , 3
-
-,
-
-4 , 5        ,          6           ,7        ],"compact":[1,2,3,4,5,6,7],
-        "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
-        "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
-        "\\/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?"
-: "A key can be any string"
-    },
-    0.5 ,98.6
-,
-99.44
-,
-
-1066,
-1e1,
-0.1e1,
-1e-1,
-1e00,2e+00,2e-00
-,"rosebud"]
+exports[`null.json - json-verify 1`] = `
+null
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[
-  "JSON Test Pattern pass1",
-  { "object with 1 member": ["array with 1 element"] },
-  {},
-  [],
-  -42,
-  true,
-  false,
-  null,
-  {
-    integer: 1234567890,
-    real: -9876.54321,
-    e: 0.123456789e-12,
-    E: 1.23456789e34,
-    "": 23456789012e66,
-    zero: 0,
-    one: 1,
-    space: " ",
-    quote: '"',
-    backslash: "\\\\",
-    controls: "\\b\\f\\n\\r\\t",
-    slash: "/ & /",
-    alpha: "abcdefghijklmnopqrstuvwyz",
-    ALPHA: "ABCDEFGHIJKLMNOPQRSTUVWYZ",
-    digit: "0123456789",
-    "0123456789": "digit",
-    special: "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
-    hex: "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
-    true: true,
-    false: false,
-    null: null,
-    array: [],
-    object: {},
-    address: "50 St. James Street",
-    url: "http://www.JSON.org/",
-    comment: "// /* <!-- --",
-    "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
-    compact: [1, 2, 3, 4, 5, 6, 7],
-    jsontext: '{"object with 1 member":["array with 1 element"]}',
-    quotes: "&#34; \\u0022 %22 0x22 034 &#x22;",
-    "/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?":
-      "A key can be any string"
-  },
-  0.5,
-  98.6,
-  99.44,
-  1066,
-  1e1,
-  0.1e1,
-  1e-1,
-  1,
-  2,
-  2,
-  "rosebud"
-]
+null
 
 `;
 
-exports[`pass1.json 4`] = `
-[
-    "JSON Test Pattern pass1",
-    {"object with 1 member":["array with 1 element"]},
-    {},
-    [],
-    -42,
-    true,
-    false,
-    null,
-    {
-        "integer": 1234567890,
-        "real": -9876.543210,
-        "e": 0.123456789e-12,
-        "E": 1.234567890E+34,
-        "":  23456789012E66,
-        "zero": 0,
-        "one": 1,
-        "space": " ",
-        "quote": "\\"",
-        "backslash": "\\\\",
-        "controls": "\\b\\f\\n\\r\\t",
-        "slash": "/ & \\/",
-        "alpha": "abcdefghijklmnopqrstuvwyz",
-        "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
-        "digit": "0123456789",
-        "0123456789": "digit",
-        "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
-        "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
-        "true": true,
-        "false": false,
-        "null": null,
-        "array":[  ],
-        "object":{  },
-        "address": "50 St. James Street",
-        "url": "http://www.JSON.org/",
-        "comment": "// /* <!-- --",
-        "# -- --> */": " ",
-        " s p a c e d " :[1,2 , 3
-
-,
-
-4 , 5        ,          6           ,7        ],"compact":[1,2,3,4,5,6,7],
-        "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
-        "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
-        "\\/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?"
-: "A key can be any string"
-    },
-    0.5 ,98.6
-,
-99.44
-,
-
-1066,
-1e1,
-0.1e1,
-1e-1,
-1e00,2e+00,2e-00
-,"rosebud"]
+exports[`null.json - json-verify 2`] = `
+null
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[
-  "JSON Test Pattern pass1",
-  { "object with 1 member": ["array with 1 element"] },
-  {},
-  [],
-  -42,
-  true,
-  false,
-  null,
-  {
-    integer: 1234567890,
-    real: -9876.54321,
-    e: 0.123456789e-12,
-    E: 1.23456789e34,
-    "": 23456789012e66,
-    zero: 0,
-    one: 1,
-    space: " ",
-    quote: '"',
-    backslash: "\\\\",
-    controls: "\\b\\f\\n\\r\\t",
-    slash: "/ & /",
-    alpha: "abcdefghijklmnopqrstuvwyz",
-    ALPHA: "ABCDEFGHIJKLMNOPQRSTUVWYZ",
-    digit: "0123456789",
-    "0123456789": "digit",
-    special: "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
-    hex: "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
-    true: true,
-    false: false,
-    null: null,
-    array: [],
-    object: {},
-    address: "50 St. James Street",
-    url: "http://www.JSON.org/",
-    comment: "// /* <!-- --",
-    "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
-    compact: [1, 2, 3, 4, 5, 6, 7],
-    jsontext: '{"object with 1 member":["array with 1 element"]}',
-    quotes: "&#34; \\u0022 %22 0x22 034 &#x22;",
-    "/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?":
-      "A key can be any string",
-  },
-  0.5,
-  98.6,
-  99.44,
-  1066,
-  1e1,
-  0.1e1,
-  1e-1,
-  1,
-  2,
-  2,
-  "rosebud",
-]
+null
 
 `;
 
-exports[`pass1.json 5`] = `
+exports[`null.json - json5-verify 1`] = `
+null
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+null
+
+`;
+
+exports[`null.json - json5-verify 2`] = `
+null
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+null
+
+`;
+
+exports[`number.json - json-stringify-verify 1`] = `
+0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+0
+
+`;
+
+exports[`number.json - json-verify 1`] = `
+0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+0
+
+`;
+
+exports[`number.json - json-verify 2`] = `
+0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+0
+
+`;
+
+exports[`number.json - json5-verify 1`] = `
+0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+0
+
+`;
+
+exports[`number.json - json5-verify 2`] = `
+0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+0
+
+`;
+
+exports[`pass1.json - json-stringify-verify 1`] = `
 [
     "JSON Test Pattern pass1",
     {"object with 1 member":["array with 1 element"]},
@@ -794,42 +393,514 @@ exports[`pass1.json 5`] = `
 
 `;
 
-exports[`positive-number.json 1`] = `
-+123
+exports[`pass1.json - json-verify 1`] = `
+[
+    "JSON Test Pattern pass1",
+    {"object with 1 member":["array with 1 element"]},
+    {},
+    [],
+    -42,
+    true,
+    false,
+    null,
+    {
+        "integer": 1234567890,
+        "real": -9876.543210,
+        "e": 0.123456789e-12,
+        "E": 1.234567890E+34,
+        "":  23456789012E66,
+        "zero": 0,
+        "one": 1,
+        "space": " ",
+        "quote": "\\"",
+        "backslash": "\\\\",
+        "controls": "\\b\\f\\n\\r\\t",
+        "slash": "/ & \\/",
+        "alpha": "abcdefghijklmnopqrstuvwyz",
+        "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
+        "digit": "0123456789",
+        "0123456789": "digit",
+        "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
+        "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
+        "true": true,
+        "false": false,
+        "null": null,
+        "array":[  ],
+        "object":{  },
+        "address": "50 St. James Street",
+        "url": "http://www.JSON.org/",
+        "comment": "// /* <!-- --",
+        "# -- --> */": " ",
+        " s p a c e d " :[1,2 , 3
+
+,
+
+4 , 5        ,          6           ,7        ],"compact":[1,2,3,4,5,6,7],
+        "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
+        "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
+        "\\/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?"
+: "A key can be any string"
+    },
+    0.5 ,98.6
+,
+99.44
+,
+
+1066,
+1e1,
+0.1e1,
+1e-1,
+1e00,2e+00,2e-00
+,"rosebud"]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+123
+[
+  "JSON Test Pattern pass1",
+  { "object with 1 member": ["array with 1 element"] },
+  {},
+  [],
+  -42,
+  true,
+  false,
+  null,
+  {
+    "integer": 1234567890,
+    "real": -9876.54321,
+    "e": 0.123456789e-12,
+    "E": 1.23456789e34,
+    "": 23456789012e66,
+    "zero": 0,
+    "one": 1,
+    "space": " ",
+    "quote": "\\"",
+    "backslash": "\\\\",
+    "controls": "\\b\\f\\n\\r\\t",
+    "slash": "/ & /",
+    "alpha": "abcdefghijklmnopqrstuvwyz",
+    "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
+    "digit": "0123456789",
+    "0123456789": "digit",
+    "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
+    "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
+    "true": true,
+    "false": false,
+    "null": null,
+    "array": [],
+    "object": {},
+    "address": "50 St. James Street",
+    "url": "http://www.JSON.org/",
+    "comment": "// /* <!-- --",
+    "# -- --> */": " ",
+    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    "compact": [1, 2, 3, 4, 5, 6, 7],
+    "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
+    "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
+    "/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?": "A key can be any string"
+  },
+  0.5,
+  98.6,
+  99.44,
+  1066,
+  1e1,
+  0.1e1,
+  1e-1,
+  1,
+  2,
+  2,
+  "rosebud"
+]
 
 `;
 
-exports[`positive-number.json 2`] = `
-+123
+exports[`pass1.json - json-verify 2`] = `
+[
+    "JSON Test Pattern pass1",
+    {"object with 1 member":["array with 1 element"]},
+    {},
+    [],
+    -42,
+    true,
+    false,
+    null,
+    {
+        "integer": 1234567890,
+        "real": -9876.543210,
+        "e": 0.123456789e-12,
+        "E": 1.234567890E+34,
+        "":  23456789012E66,
+        "zero": 0,
+        "one": 1,
+        "space": " ",
+        "quote": "\\"",
+        "backslash": "\\\\",
+        "controls": "\\b\\f\\n\\r\\t",
+        "slash": "/ & \\/",
+        "alpha": "abcdefghijklmnopqrstuvwyz",
+        "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
+        "digit": "0123456789",
+        "0123456789": "digit",
+        "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
+        "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
+        "true": true,
+        "false": false,
+        "null": null,
+        "array":[  ],
+        "object":{  },
+        "address": "50 St. James Street",
+        "url": "http://www.JSON.org/",
+        "comment": "// /* <!-- --",
+        "# -- --> */": " ",
+        " s p a c e d " :[1,2 , 3
+
+,
+
+4 , 5        ,          6           ,7        ],"compact":[1,2,3,4,5,6,7],
+        "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
+        "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
+        "\\/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?"
+: "A key can be any string"
+    },
+    0.5 ,98.6
+,
+99.44
+,
+
+1066,
+1e1,
+0.1e1,
+1e-1,
+1e00,2e+00,2e-00
+,"rosebud"]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+123
+[
+  "JSON Test Pattern pass1",
+  { "object with 1 member": ["array with 1 element"] },
+  {},
+  [],
+  -42,
+  true,
+  false,
+  null,
+  {
+    "integer": 1234567890,
+    "real": -9876.54321,
+    "e": 0.123456789e-12,
+    "E": 1.23456789e34,
+    "": 23456789012e66,
+    "zero": 0,
+    "one": 1,
+    "space": " ",
+    "quote": "\\"",
+    "backslash": "\\\\",
+    "controls": "\\b\\f\\n\\r\\t",
+    "slash": "/ & /",
+    "alpha": "abcdefghijklmnopqrstuvwyz",
+    "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
+    "digit": "0123456789",
+    "0123456789": "digit",
+    "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
+    "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
+    "true": true,
+    "false": false,
+    "null": null,
+    "array": [],
+    "object": {},
+    "address": "50 St. James Street",
+    "url": "http://www.JSON.org/",
+    "comment": "// /* <!-- --",
+    "# -- --> */": " ",
+    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    "compact": [1, 2, 3, 4, 5, 6, 7],
+    "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
+    "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
+    "/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?": "A key can be any string"
+  },
+  0.5,
+  98.6,
+  99.44,
+  1066,
+  1e1,
+  0.1e1,
+  1e-1,
+  1,
+  2,
+  2,
+  "rosebud"
+]
 
 `;
 
-exports[`positive-number.json 3`] = `
-+123
+exports[`pass1.json - json5-verify 1`] = `
+[
+    "JSON Test Pattern pass1",
+    {"object with 1 member":["array with 1 element"]},
+    {},
+    [],
+    -42,
+    true,
+    false,
+    null,
+    {
+        "integer": 1234567890,
+        "real": -9876.543210,
+        "e": 0.123456789e-12,
+        "E": 1.234567890E+34,
+        "":  23456789012E66,
+        "zero": 0,
+        "one": 1,
+        "space": " ",
+        "quote": "\\"",
+        "backslash": "\\\\",
+        "controls": "\\b\\f\\n\\r\\t",
+        "slash": "/ & \\/",
+        "alpha": "abcdefghijklmnopqrstuvwyz",
+        "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
+        "digit": "0123456789",
+        "0123456789": "digit",
+        "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
+        "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
+        "true": true,
+        "false": false,
+        "null": null,
+        "array":[  ],
+        "object":{  },
+        "address": "50 St. James Street",
+        "url": "http://www.JSON.org/",
+        "comment": "// /* <!-- --",
+        "# -- --> */": " ",
+        " s p a c e d " :[1,2 , 3
+
+,
+
+4 , 5        ,          6           ,7        ],"compact":[1,2,3,4,5,6,7],
+        "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
+        "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
+        "\\/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?"
+: "A key can be any string"
+    },
+    0.5 ,98.6
+,
+99.44
+,
+
+1066,
+1e1,
+0.1e1,
+1e-1,
+1e00,2e+00,2e-00
+,"rosebud"]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+123
+[
+  "JSON Test Pattern pass1",
+  { "object with 1 member": ["array with 1 element"] },
+  {},
+  [],
+  -42,
+  true,
+  false,
+  null,
+  {
+    integer: 1234567890,
+    real: -9876.54321,
+    e: 0.123456789e-12,
+    E: 1.23456789e34,
+    "": 23456789012e66,
+    zero: 0,
+    one: 1,
+    space: " ",
+    quote: '"',
+    backslash: "\\\\",
+    controls: "\\b\\f\\n\\r\\t",
+    slash: "/ & /",
+    alpha: "abcdefghijklmnopqrstuvwyz",
+    ALPHA: "ABCDEFGHIJKLMNOPQRSTUVWYZ",
+    digit: "0123456789",
+    "0123456789": "digit",
+    special: "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
+    hex: "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
+    true: true,
+    false: false,
+    null: null,
+    array: [],
+    object: {},
+    address: "50 St. James Street",
+    url: "http://www.JSON.org/",
+    comment: "// /* <!-- --",
+    "# -- --> */": " ",
+    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    compact: [1, 2, 3, 4, 5, 6, 7],
+    jsontext: '{"object with 1 member":["array with 1 element"]}',
+    quotes: "&#34; \\u0022 %22 0x22 034 &#x22;",
+    "/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?": "A key can be any string"
+  },
+  0.5,
+  98.6,
+  99.44,
+  1066,
+  1e1,
+  0.1e1,
+  1e-1,
+  1,
+  2,
+  2,
+  "rosebud"
+]
 
 `;
 
-exports[`positive-number.json 4`] = `
-+123
+exports[`pass1.json - json5-verify 2`] = `
+[
+    "JSON Test Pattern pass1",
+    {"object with 1 member":["array with 1 element"]},
+    {},
+    [],
+    -42,
+    true,
+    false,
+    null,
+    {
+        "integer": 1234567890,
+        "real": -9876.543210,
+        "e": 0.123456789e-12,
+        "E": 1.234567890E+34,
+        "":  23456789012E66,
+        "zero": 0,
+        "one": 1,
+        "space": " ",
+        "quote": "\\"",
+        "backslash": "\\\\",
+        "controls": "\\b\\f\\n\\r\\t",
+        "slash": "/ & \\/",
+        "alpha": "abcdefghijklmnopqrstuvwyz",
+        "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
+        "digit": "0123456789",
+        "0123456789": "digit",
+        "special": "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
+        "hex": "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
+        "true": true,
+        "false": false,
+        "null": null,
+        "array":[  ],
+        "object":{  },
+        "address": "50 St. James Street",
+        "url": "http://www.JSON.org/",
+        "comment": "// /* <!-- --",
+        "# -- --> */": " ",
+        " s p a c e d " :[1,2 , 3
+
+,
+
+4 , 5        ,          6           ,7        ],"compact":[1,2,3,4,5,6,7],
+        "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
+        "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
+        "\\/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?"
+: "A key can be any string"
+    },
+    0.5 ,98.6
+,
+99.44
+,
+
+1066,
+1e1,
+0.1e1,
+1e-1,
+1e00,2e+00,2e-00
+,"rosebud"]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+123
+[
+  "JSON Test Pattern pass1",
+  { "object with 1 member": ["array with 1 element"] },
+  {},
+  [],
+  -42,
+  true,
+  false,
+  null,
+  {
+    integer: 1234567890,
+    real: -9876.54321,
+    e: 0.123456789e-12,
+    E: 1.23456789e34,
+    "": 23456789012e66,
+    zero: 0,
+    one: 1,
+    space: " ",
+    quote: '"',
+    backslash: "\\\\",
+    controls: "\\b\\f\\n\\r\\t",
+    slash: "/ & /",
+    alpha: "abcdefghijklmnopqrstuvwyz",
+    ALPHA: "ABCDEFGHIJKLMNOPQRSTUVWYZ",
+    digit: "0123456789",
+    "0123456789": "digit",
+    special: "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
+    hex: "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
+    true: true,
+    false: false,
+    null: null,
+    array: [],
+    object: {},
+    address: "50 St. James Street",
+    url: "http://www.JSON.org/",
+    comment: "// /* <!-- --",
+    "# -- --> */": " ",
+    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    compact: [1, 2, 3, 4, 5, 6, 7],
+    jsontext: '{"object with 1 member":["array with 1 element"]}',
+    quotes: "&#34; \\u0022 %22 0x22 034 &#x22;",
+    "/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?": "A key can be any string",
+  },
+  0.5,
+  98.6,
+  99.44,
+  1066,
+  1e1,
+  0.1e1,
+  1e-1,
+  1,
+  2,
+  2,
+  "rosebud",
+]
 
 `;
 
-exports[`positive-number.json 5`] = `
+exports[`positive-number.json - json-stringify-verify 1`] = `
 +123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 123
 
 `;
 
-exports[`propertyKey.json 1`] = `
+exports[`positive-number.json - json-verify 1`] = `
++123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++123
+
+`;
+
+exports[`positive-number.json - json-verify 2`] = `
++123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++123
+
+`;
+
+exports[`positive-number.json - json5-verify 1`] = `
++123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++123
+
+`;
+
+exports[`positive-number.json - json5-verify 2`] = `
++123
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++123
+
+`;
+
+exports[`propertyKey.json - json-stringify-verify 1`] = `
 {
     a: 123
 }
@@ -840,7 +911,7 @@ exports[`propertyKey.json 1`] = `
 
 `;
 
-exports[`propertyKey.json 2`] = `
+exports[`propertyKey.json - json-verify 1`] = `
 {
     a: 123
 }
@@ -851,7 +922,18 @@ exports[`propertyKey.json 2`] = `
 
 `;
 
-exports[`propertyKey.json 3`] = `
+exports[`propertyKey.json - json-verify 2`] = `
+{
+    a: 123
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  "a": 123
+}
+
+`;
+
+exports[`propertyKey.json - json5-verify 1`] = `
 {
     a: 123
 }
@@ -862,7 +944,7 @@ exports[`propertyKey.json 3`] = `
 
 `;
 
-exports[`propertyKey.json 4`] = `
+exports[`propertyKey.json - json5-verify 2`] = `
 {
     a: 123
 }
@@ -873,46 +955,7 @@ exports[`propertyKey.json 4`] = `
 
 `;
 
-exports[`propertyKey.json 5`] = `
-{
-    a: 123
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{
-  "a": 123
-}
-
-`;
-
-exports[`single-line.json 1`] = `
-{"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{ "key1": [true, false, null], "key2": { "key3": [1, 2, "3", 1e10, 1e-3] } }
-
-`;
-
-exports[`single-line.json 2`] = `
-{"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{ "key1": [true, false, null], "key2": { "key3": [1, 2, "3", 1e10, 1e-3] } }
-
-`;
-
-exports[`single-line.json 3`] = `
-{"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{ key1: [true, false, null], key2: { key3: [1, 2, "3", 1e10, 1e-3] } }
-
-`;
-
-exports[`single-line.json 4`] = `
-{"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{ key1: [true, false, null], key2: { key3: [1, 2, "3", 1e10, 1e-3] } }
-
-`;
-
-exports[`single-line.json 5`] = `
+exports[`single-line.json - json-stringify-verify 1`] = `
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
@@ -934,77 +977,105 @@ exports[`single-line.json 5`] = `
 
 `;
 
-exports[`single-quote.json 1`] = `
+exports[`single-line.json - json-verify 1`] = `
+{"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ "key1": [true, false, null], "key2": { "key3": [1, 2, "3", 1e10, 1e-3] } }
+
+`;
+
+exports[`single-line.json - json-verify 2`] = `
+{"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ "key1": [true, false, null], "key2": { "key3": [1, 2, "3", 1e10, 1e-3] } }
+
+`;
+
+exports[`single-line.json - json5-verify 1`] = `
+{"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ key1: [true, false, null], key2: { key3: [1, 2, "3", 1e10, 1e-3] } }
+
+`;
+
+exports[`single-line.json - json5-verify 2`] = `
+{"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{ key1: [true, false, null], key2: { key3: [1, 2, "3", 1e10, 1e-3] } }
+
+`;
+
+exports[`single-quote.json - json-stringify-verify 1`] = `
 'hello'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "hello"
 
 `;
 
-exports[`single-quote.json 2`] = `
+exports[`single-quote.json - json-verify 1`] = `
 'hello'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "hello"
 
 `;
 
-exports[`single-quote.json 3`] = `
+exports[`single-quote.json - json-verify 2`] = `
 'hello'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "hello"
 
 `;
 
-exports[`single-quote.json 4`] = `
+exports[`single-quote.json - json5-verify 1`] = `
 'hello'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "hello"
 
 `;
 
-exports[`single-quote.json 5`] = `
+exports[`single-quote.json - json5-verify 2`] = `
 'hello'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "hello"
 
 `;
 
-exports[`string.json 1`] = `
+exports[`string.json - json-stringify-verify 1`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
 
 `;
 
-exports[`string.json 2`] = `
+exports[`string.json - json-verify 1`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
 
 `;
 
-exports[`string.json 3`] = `
+exports[`string.json - json-verify 2`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
 
 `;
 
-exports[`string.json 4`] = `
+exports[`string.json - json5-verify 1`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
 
 `;
 
-exports[`string.json 5`] = `
+exports[`string.json - json5-verify 2`] = `
 "string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "string"
 
 `;
 
-exports[`trailingComma.notjson 1`] = `
+exports[`trailingComma.notjson - json-stringify-verify 1`] = `
 {
   "k1": "v1",
   "k2": "v2",
@@ -1019,7 +1090,7 @@ exports[`trailingComma.notjson 1`] = `
 
 `;
 
-exports[`trailingComma.notjson 2`] = `
+exports[`trailingComma.notjson - json-verify 1`] = `
 {
   "k1": "v1",
   "k2": "v2",
@@ -1034,7 +1105,22 @@ exports[`trailingComma.notjson 2`] = `
 
 `;
 
-exports[`trailingComma.notjson 3`] = `
+exports[`trailingComma.notjson - json-verify 2`] = `
+{
+  "k1": "v1",
+  "k2": "v2",
+  "k3": "v3"
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+  "k1": "v1",
+  "k2": "v2",
+  "k3": "v3"
+}
+
+`;
+
+exports[`trailingComma.notjson - json5-verify 1`] = `
 {
   "k1": "v1",
   "k2": "v2",
@@ -1049,7 +1135,7 @@ exports[`trailingComma.notjson 3`] = `
 
 `;
 
-exports[`trailingComma.notjson 4`] = `
+exports[`trailingComma.notjson - json5-verify 2`] = `
 {
   "k1": "v1",
   "k2": "v2",
@@ -1060,21 +1146,6 @@ exports[`trailingComma.notjson 4`] = `
   k1: "v1",
   k2: "v2",
   k3: "v3",
-}
-
-`;
-
-exports[`trailingComma.notjson 5`] = `
-{
-  "k1": "v1",
-  "k2": "v2",
-  "k3": "v3"
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-{
-  "k1": "v1",
-  "k2": "v2",
-  "k3": "v3"
 }
 
 `;

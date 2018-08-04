@@ -15,7 +15,7 @@ exports[` 1`] = `
 +                            Defaults to bar.
     --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                              Defaults to false.
-    --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue>
+    --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue|yaml>
                              Which parser to use.
     --print-width <int>      The line length where Prettier will try wrap."
 `;

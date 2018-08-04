@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`escaped.js 1`] = `
+exports[`escaped.js - flow-verify 1`] = `
 // Unnecessary escapes. (adapted from tests/quotes/strings.js)
 // Note that in directives, unnecessary escapes should be preserved.
 // See https://github.com/prettier/prettier/issues/1555
@@ -75,20 +75,20 @@ exports[`escaped.js 1`] = `
 
 `;
 
-exports[`last-line-0.js 1`] = `
+exports[`last-line-0.js - flow-verify 1`] = `
 'use strict';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "use strict";
 
 `;
 
-exports[`last-line-1.js 1`] = `
+exports[`last-line-1.js - flow-verify 1`] = `
 'use strict';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "use strict";
 
 `;
 
-exports[`last-line-2.js 1`] = `
+exports[`last-line-2.js - flow-verify 1`] = `
 'use strict';
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -96,7 +96,7 @@ exports[`last-line-2.js 1`] = `
 
 `;
 
-exports[`newline.js 1`] = `
+exports[`newline.js - flow-verify 1`] = `
 /* @flow */
 
 "use strict";
@@ -115,7 +115,7 @@ a();
 
 `;
 
-exports[`no-newline.js 1`] = `
+exports[`no-newline.js - flow-verify 1`] = `
 "use strict";
 a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -124,7 +124,7 @@ a;
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 "use strict";
 
 function fn() {

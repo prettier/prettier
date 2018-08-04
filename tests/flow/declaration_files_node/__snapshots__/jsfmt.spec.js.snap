@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js - flow-verify 1`] = `
 /* @flow */
 
 module.exports.fun = (): string => 'hello there!';
@@ -11,7 +11,7 @@ module.exports.fun = (): string => "hello there!";
 
 `;
 
-exports[`CJS.js 1`] = `
+exports[`CJS.js - flow-verify 1`] = `
 // @flow
 module.exports = 42;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -20,7 +20,7 @@ module.exports = 42;
 
 `;
 
-exports[`test_absolute.js 1`] = `
+exports[`test_absolute.js - flow-verify 1`] = `
 /* @flow */
 
 // This will require ./node_modules/B.js.flow
@@ -67,7 +67,7 @@ var F = require("package_with_dir_main");
 
 `;
 
-exports[`test_relative.js 1`] = `
+exports[`test_relative.js - flow-verify 1`] = `
 /* @flow */
 
 // This will require ./A.js.flow

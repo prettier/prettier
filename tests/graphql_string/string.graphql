@@ -46,3 +46,7 @@ Description of `one`
 """
 one: string
 }
+
+{
+  foo(input: {multiline: "ab\ncd"}) { id }
+}

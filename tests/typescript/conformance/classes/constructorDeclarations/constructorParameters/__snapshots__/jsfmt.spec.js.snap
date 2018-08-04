@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructorDefaultValuesReferencingThis.ts 1`] = `
+exports[`constructorDefaultValuesReferencingThis.ts - typescript-verify 1`] = `
 class C {
     constructor(x = this) { }
 }
@@ -26,7 +26,7 @@ class E<T> {
 
 `;
 
-exports[`constructorImplementationWithDefaultValues.ts 1`] = `
+exports[`constructorImplementationWithDefaultValues.ts - typescript-verify 1`] = `
 class C {
     constructor(x);
     constructor(x = 1) {
@@ -70,7 +70,7 @@ class E<T extends Date> {
 
 `;
 
-exports[`constructorImplementationWithDefaultValues2.ts 1`] = `
+exports[`constructorImplementationWithDefaultValues2.ts - typescript-verify 1`] = `
 class C {
     constructor(x);
     constructor(public x: string = 1) {
@@ -114,7 +114,7 @@ class E<T extends Date> {
 
 `;
 
-exports[`constructorOverloadsWithDefaultValues.ts 1`] = `
+exports[`constructorOverloadsWithDefaultValues.ts - typescript-verify 1`] = `
 class C {
     foo: string;
     constructor(x = 1);
@@ -142,7 +142,7 @@ class D<T> {
 
 `;
 
-exports[`constructorOverloadsWithOptionalParameters.ts 1`] = `
+exports[`constructorOverloadsWithOptionalParameters.ts - typescript-verify 1`] = `
 class C {
     foo: string;
     constructor(x?, y?: any[]); 
@@ -170,7 +170,7 @@ class D<T> {
 
 `;
 
-exports[`constructorParameterProperties.ts 1`] = `
+exports[`constructorParameterProperties.ts - typescript-verify 1`] = `
 class C {
     y: string;
     constructor(private x: string, protected z: string) { }
@@ -215,7 +215,7 @@ var r4 = d.z; // error
 
 `;
 
-exports[`constructorParameterProperties2.ts 1`] = `
+exports[`constructorParameterProperties2.ts - typescript-verify 1`] = `
 class C {
     y: number;
     constructor(y: number) { } // ok
@@ -282,7 +282,7 @@ var r4 = f.y; // error
 
 `;
 
-exports[`declarationEmitReadonly.ts 1`] = `
+exports[`declarationEmitReadonly.ts - typescript-verify 1`] = `
 // @declaration: true
 
 class C {
@@ -296,7 +296,7 @@ class C {
 
 `;
 
-exports[`readonlyConstructorAssignment.ts 1`] = `
+exports[`readonlyConstructorAssignment.ts - typescript-verify 1`] = `
 // Tests that readonly parameter properties behave like regular readonly properties
 
 class A {
@@ -377,7 +377,7 @@ class E extends D {
 
 `;
 
-exports[`readonlyInConstructorParameters.ts 1`] = `
+exports[`readonlyInConstructorParameters.ts - typescript-verify 1`] = `
 class C {
     constructor(readonly x: number) {}
 }
@@ -407,7 +407,7 @@ new F(1).x;
 
 `;
 
-exports[`readonlyReadonly.ts 1`] = `
+exports[`readonlyReadonly.ts - typescript-verify 1`] = `
 class C {
     readonly readonly x: number;
     constructor(readonly readonly y: number) {}

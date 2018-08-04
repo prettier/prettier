@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`decorator-type-assertion.ts 1`] = `
+exports[`decorator-type-assertion.ts - typescript-verify 1`] = `
 @(bind as ClassDecorator)
 class Decorated {
 
@@ -19,7 +19,7 @@ class Decorated {}
 
 `;
 
-exports[`decorators.js 1`] = `
+exports[`decorators.js - typescript-verify 1`] = `
 export class TestTextFileService {
 	constructor(
 		@ILifecycleService lifecycleService,
@@ -49,12 +49,13 @@ export class TabCompletionController {}
   selector: "angular-component"
 })
 class AngularComponent {
-  @Input() myInput: string;
+  @Input()
+  myInput: string;
 }
 
 `;
 
-exports[`decorators-comments.js 1`] = `
+exports[`decorators-comments.js - typescript-verify 1`] = `
 
 class Foo1 {
     @foo
@@ -142,7 +143,7 @@ class Something {
 
 `;
 
-exports[`inline-decorators.ts 1`] = `
+exports[`inline-decorators.ts - typescript-verify 1`] = `
 
 @d1
 @d2(foo)
@@ -217,10 +218,14 @@ class Class2 {
 }
 
 class Class3 {
-  @d1 fieldA;
-  @d2(foo) fieldB;
-  @d3.bar fieldC;
-  @d4.baz() fieldD;
+  @d1
+  fieldA;
+  @d2(foo)
+  fieldB;
+  @d3.bar
+  fieldC;
+  @d4.baz()
+  fieldD;
 
   constructor(
     @d1 private x: number,
@@ -248,7 +253,7 @@ class MyContainerComponent {
 
 `;
 
-exports[`interface.ts 1`] = `
+exports[`interface.ts - typescript-verify 1`] = `
 // invalid place but shouldn't be removed
 
 @hello()

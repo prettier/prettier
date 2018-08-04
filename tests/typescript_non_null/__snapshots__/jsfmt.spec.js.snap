@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`member-chain.js 1`] = `
+exports[`member-chain.js - typescript-verify 1`] = `
 const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } = this.props.imReallySureAboutThis!;
 
 const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } = this.props.imReallySureAboutThis!.anotherObject;
@@ -25,7 +25,7 @@ foo!.bar().baz().what();
 
 `;
 
-exports[`parens.ts 1`] = `
+exports[`parens.ts - typescript-verify 1`] = `
 (a ? b : c) ![tokenKey];
 (a || b) ![tokenKey];
 (void 0)!;

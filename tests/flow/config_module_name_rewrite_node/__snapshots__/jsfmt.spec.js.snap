@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js - flow-verify 1`] = `
 /* @flow */
 
 var m1 = require('./1DoesntExist');
@@ -55,7 +55,7 @@ var c_4: string = numVal3; // Error: number ~> string
 
 `;
 
-exports[`Exists.js 1`] = `
+exports[`Exists.js - flow-verify 1`] = `
 /* @flow */
 
 module.exports = {

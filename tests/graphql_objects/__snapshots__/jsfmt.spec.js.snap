@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`objects.graphql 1`] = `
+exports[`objects.graphql - graphql-verify 1`] = `
 {
   shortWithObj(obj: { hello: "world", x: 5 })
   multilineObj(obj: {

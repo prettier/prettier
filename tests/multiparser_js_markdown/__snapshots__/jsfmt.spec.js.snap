@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`0-indent.js 1`] = `
+exports[`0-indent.js - babylon-verify 1`] = `
 md\`
 This line shouldn't be indented at all in the resulting output.
 \`
@@ -46,7 +46,7 @@ text3
 
 `;
 
-exports[`codeblock.js 1`] = `
+exports[`codeblock.js - babylon-verify 1`] = `
 md\`
 \\\`\\\`\\\`js
 markdown\\\`
@@ -69,7 +69,7 @@ markdown\\\`
 
 `;
 
-exports[`escape.js 1`] = `
+exports[`escape.js - babylon-verify 1`] = `
 markdown\`
   const cssString = css\\\`
     background-color: \\$\\{color('base')\\}
@@ -98,7 +98,7 @@ markdown\`
 
 `;
 
-exports[`markdown.js 1`] = `
+exports[`markdown.js - babylon-verify 1`] = `
 export default function ReadMe() {
     return md\`
         ## Why Prettier?
@@ -151,7 +151,7 @@ export default function ReadMe() {
 
 `;
 
-exports[`single-line.js 1`] = `
+exports[`single-line.js - babylon-verify 1`] = `
 markdown\`# hello\`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 markdown\`

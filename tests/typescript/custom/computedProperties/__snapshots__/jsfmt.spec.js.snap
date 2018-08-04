@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`string.ts 1`] = `
+exports[`string.ts - typescript-verify 1`] = `
 interface I {
     "string": "I";
 }
@@ -35,7 +35,7 @@ type B = {
 
 `;
 
-exports[`symbol.ts 1`] = `
+exports[`symbol.ts - typescript-verify 1`] = `
 interface I {
     [Symbol.toStringTag]: "I";
 }

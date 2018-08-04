@@ -1,0 +1,12 @@
+"top1" : 
+  "key1" : &alias1 scalar1
+'top2' : 
+  'key2' : &alias2 scalar2
+top3: &node3 
+  *alias1 : scalar3
+top4: 
+  *alias2 : scalar4
+top5   :    
+  scalar5
+top6: 
+  &anchor6 'key6' : scalar6

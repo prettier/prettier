@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`spread.js 1`] = `
+exports[`spread.js - flow-verify 1`] = `
 const foo = { ...(a || b) };
 const foo2 = { ...a || b };
 const foo3 = { ...(a ? b : c) };

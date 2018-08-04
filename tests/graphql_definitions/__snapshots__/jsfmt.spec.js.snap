@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fields.graphql 1`] = `
+exports[`fields.graphql - graphql-verify 1`] = `
 query MyFirstQuery {
   hello
 }

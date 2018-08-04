@@ -1,48 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declare_export.js 1`] = `
+exports[`declare_export.js - flow-verify 1`] = `
 declare export default 5;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare export default 5;
 
 `;
 
-exports[`declare_export.js 2`] = `
+exports[`declare_export.js - flow-verify 2`] = `
 declare export default 5;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare export default 5
 
 `;
 
-exports[`declare_type.js 1`] = `
+exports[`declare_type.js - flow-verify 1`] = `
 declare type A = string;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare type A = string;
 
 `;
 
-exports[`declare_type.js 2`] = `
+exports[`declare_type.js - flow-verify 2`] = `
 declare type A = string;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare type A = string
 
 `;
 
-exports[`declare_var.js 1`] = `
+exports[`declare_var.js - flow-verify 1`] = `
 declare var bool: React$PropType$Primitive<boolean>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare var bool: React$PropType$Primitive<boolean>;
 
 `;
 
-exports[`declare_var.js 2`] = `
+exports[`declare_var.js - flow-verify 2`] = `
 declare var bool: React$PropType$Primitive<boolean>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare var bool: React$PropType$Primitive<boolean>
 
 `;
 
-exports[`long.js 1`] = `
+exports[`long.js - flow-verify 1`] = `
 export type AdamPlacementValidationSingleErrorKey =
   'SOME_FANCY_TARGETS.GLOBAL_TARGET';
 
@@ -63,7 +63,7 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = Some
 
 `;
 
-exports[`long.js 2`] = `
+exports[`long.js - flow-verify 2`] = `
 export type AdamPlacementValidationSingleErrorKey =
   'SOME_FANCY_TARGETS.GLOBAL_TARGET';
 
@@ -84,7 +84,7 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = Some
 
 `;
 
-exports[`opaque.js 1`] = `
+exports[`opaque.js - flow-verify 1`] = `
 declare export opaque type Foo;
 declare export opaque type Bar<T>;
 declare export opaque type Baz: Foo;
@@ -117,7 +117,7 @@ opaque type overloads = ((x: string) => number) & ((x: number) => string);
 
 `;
 
-exports[`opaque.js 2`] = `
+exports[`opaque.js - flow-verify 2`] = `
 declare export opaque type Foo;
 declare export opaque type Bar<T>;
 declare export opaque type Baz: Foo;

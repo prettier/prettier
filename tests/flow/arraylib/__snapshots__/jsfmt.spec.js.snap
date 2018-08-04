@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array_lib.js 1`] = `
+exports[`array_lib.js - flow-verify 1`] = `
 /* @flow */
 function foo(x:string) { }
 
