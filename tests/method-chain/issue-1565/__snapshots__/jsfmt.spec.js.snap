@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`api.js 1`] = `
+exports[`api.js - flow-verify 1`] = `
 // https://github.com/prettier/prettier/issues/1565#issuecomment-353593286
 const API = (notificationService: NotificationService) => ({
   get: (ctx: any) => notificationService.get(ctx.params.id).then(ctx.ok),
@@ -94,7 +94,7 @@ const API2 = (notificationService: NotificationService) => ({
 
 `;
 
-exports[`assert.js 1`] = `
+exports[`assert.js - flow-verify 1`] = `
 // https://github.com/prettier/prettier/issues/1565#issuecomment-339801188
 assert.equal(this.$().text().trim(), '1000');
 assert.equal(
@@ -115,7 +115,7 @@ assert.equal(
 
 `;
 
-exports[`d3.js 1`] = `
+exports[`d3.js - flow-verify 1`] = `
 // https://github.com/prettier/prettier/issues/1565#issue-227278195
 d3
   .select("body")
@@ -188,7 +188,7 @@ d3.select("body")
 
 `;
 
-exports[`db-query.js 1`] = `
+exports[`db-query.js - flow-verify 1`] = `
 // https://github.com/prettier/prettier/issues/1565#issuecomment-343767549
 db.branch(
   db.table('users').filter({ email }).count(),
@@ -221,7 +221,7 @@ db.branch(
 
 `;
 
-exports[`joi.js 1`] = `
+exports[`joi.js - flow-verify 1`] = `
 // https://github.com/prettier/prettier/issues/1565#issuecomment-375594875
 const { error } = Joi.validate(promotion, Joi.object().keys({
   companyId: Joi.number().integer().required(),
@@ -287,7 +287,7 @@ const { error } = Joi.validate(
 
 `;
 
-exports[`moment.js 1`] = `
+exports[`moment.js - flow-verify 1`] = `
 // https://github.com/prettier/prettier/issues/1565#issuecomment-372469267
 moment.utc(userInput).hour(0).minute(0).second(0)
 moment
@@ -306,7 +306,7 @@ moment
 
 `;
 
-exports[`object-keys.js 1`] = `
+exports[`object-keys.js - flow-verify 1`] = `
 // https://github.com/prettier/prettier/issues/1565#issuecomment-313638802
 Object.keys(props)
   .filter(key => key in own === false)
@@ -339,7 +339,7 @@ Object.keys(props)
 
 `;
 
-exports[`promises.js 1`] = `
+exports[`promises.js - flow-verify 1`] = `
 // https://github.com/prettier/prettier/issues/1565#issuecomment-339806934
 something().then(() => doSomethingElse()).then(result => dontForgetThisAsWell(result))
 something()
@@ -380,7 +380,7 @@ fetchApi()
 
 `;
 
-exports[`simple.js 1`] = `
+exports[`simple.js - flow-verify 1`] = `
 // https://github.com/prettier/prettier/issues/1565#issuecomment-399123593
 const a1 = b1.c1().d1();
 const a2 = b2
@@ -403,7 +403,7 @@ const a4 = b2.c2().d2().e2();
 
 `;
 
-exports[`stub.js 1`] = `
+exports[`stub.js - flow-verify 1`] = `
 // https://github.com/prettier/prettier/issues/1565#issuecomment-372455046
 sandbox.stub(config, 'get').withArgs('env').returns('dev')
 sandbox
