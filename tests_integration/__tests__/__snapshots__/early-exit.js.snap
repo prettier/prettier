@@ -72,7 +72,7 @@ Format options:
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
-  --split-jsx              Split jsx children if no whitespace
+  --split-jsx-text         Split jsx text if no whitespace
                            Defaults to true.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
@@ -224,7 +224,7 @@ Format options:
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
-  --split-jsx              Split jsx children if no whitespace
+  --split-jsx-text         Split jsx text if no whitespace
                            Defaults to true.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.

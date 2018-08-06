@@ -421,18 +421,18 @@ Default: false
 
 exports[`show detailed usage with --help single-quote (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help split-jsx (stderr) 1`] = `""`;
+exports[`show detailed usage with --help split-jsx-text (stderr) 1`] = `""`;
 
-exports[`show detailed usage with --help split-jsx (stdout) 1`] = `
-"--split-jsx
+exports[`show detailed usage with --help split-jsx-text (stdout) 1`] = `
+"--split-jsx-text
 
-  Split jsx children if no whitespace
+  Split jsx text if no whitespace
 
 Default: true
 "
 `;
 
-exports[`show detailed usage with --help split-jsx (write) 1`] = `Array []`;
+exports[`show detailed usage with --help split-jsx-text (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help stdin (stderr) 1`] = `""`;
 

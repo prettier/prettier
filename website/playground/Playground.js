@@ -36,7 +36,7 @@ const ENABLED_OPTIONS = [
   "proseWrap",
   "insertPragma",
   "requirePragma",
-  "splitJsx"
+  "splitJsxText"
 ];
 
 class Playground extends React.Component {

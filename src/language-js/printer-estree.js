@@ -4739,7 +4739,7 @@ function separatorNoWhitespace(isFacebookTranslationTag, child, options) {
     return "";
   }
 
-  if (!options.splitJsx || child.length === 1) {
+  if (!options.splitJsxText || child.length === 1) {
     return softline;
   }
 

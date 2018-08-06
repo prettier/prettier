@@ -219,9 +219,9 @@ in order for it to be formatted.",
           "description": "Use single quotes instead of double quotes.",
           "type": "boolean",
         },
-        "splitJsx": Object {
+        "splitJsxText": Object {
           "default": true,
-          "description": "Split jsx children if no whitespace",
+          "description": "Split jsx text if no whitespace",
           "type": "boolean",
         },
         "tabWidth": Object {

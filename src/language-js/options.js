@@ -66,11 +66,11 @@ module.exports = {
       { value: false, deprecated: "0.19.0", redirect: "none" }
     ]
   },
-  splitJsx: {
+  splitJsxText: {
     since: "1.15.0",
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: true,
-    description: "Split jsx children if no whitespace"
+    description: "Split jsx text if no whitespace"
   }
 };

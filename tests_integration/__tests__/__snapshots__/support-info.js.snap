@@ -511,7 +511,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"default\\": false,
         \\"type\\": \\"boolean\\",
       },
-+     \\"splitJsx\\": Object {
++     \\"splitJsxText\\": Object {
 +       \\"default\\": true,
 +       \\"type\\": \\"boolean\\",
 +     },
@@ -1036,8 +1036,8 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"category\\": \\"JavaScript\\",
       \\"default\\": true,
-      \\"description\\": \\"Split jsx children if no whitespace\\",
-      \\"name\\": \\"splitJsx\\",
+      \\"description\\": \\"Split jsx text if no whitespace\\",
+      \\"name\\": \\"splitJsxText\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
       \\"type\\": \\"boolean\\"
