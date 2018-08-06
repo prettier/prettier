@@ -125,6 +125,52 @@ Valid options:
 | ------- | ------------------------- | ---------------------------- |
 | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
 
+## Wrapping JSX Text
+
+Put text on a new line if text consist from multiple elements without whitespaces instead of being on one line.
+
+Valid options:
+
+- `true` - Example:
+
+<!-- prettier-ignore -->
+```
+<div>
+  <div>
+    <strong>Estimated Sales Tax</strong>
+    &nbsp;
+    <div>
+      Sales tax estimated using a rate of {salesTax * 100}
+      %.
+    </div>
+  </div>
+  <div>
+    {title}
+    &nbsp; text here
+    {title}
+  </div>
+</div>;
+```
+
+- `false` - Example:
+
+<!-- prettier-ignore -->
+```
+<div>
+  <div>
+      <strong>Estimated Sales Tax</strong>&nbsp;
+      <div>Sales tax estimated using a rate of {salesTax * 100}%.</div>
+  </div>
+  <div>
+      {title}&nbsp; text here{title}
+  </div>
+</div>
+```
+
+| Default | CLI Override              | API Override                 |
+| ------- | ------------------------- | ---------------------------- |
+| `true` | `--split-jsx-text` | `splitJsxText: <bool>` |
+
 ## Arrow Function Parentheses
 
 _available in v1.9.0+_
