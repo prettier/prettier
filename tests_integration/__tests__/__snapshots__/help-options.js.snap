@@ -421,6 +421,19 @@ Default: false
 
 exports[`show detailed usage with --help single-quote (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help split-jsx (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help split-jsx (stdout) 1`] = `
+"--split-jsx
+
+  Split jsx children if no whitespace
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help split-jsx (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help stdin (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help stdin (stdout) 1`] = `

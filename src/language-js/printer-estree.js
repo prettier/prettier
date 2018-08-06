@@ -4734,12 +4734,12 @@ function isJSXWhitespaceExpression(node) {
   );
 }
 
-function separatorNoWhitespace(isFacebookTranslationTag, child) {
+function separatorNoWhitespace(isFacebookTranslationTag, child, options) {
   if (isFacebookTranslationTag) {
     return "";
   }
 
-  if (child.length === 1) {
+  if (!options.splitJsx || child.length === 1) {
     return softline;
   }
 
@@ -4837,7 +4837,11 @@ function printJSXChildren(
           }
         } else {
           children.push(
-            separatorNoWhitespace(isFacebookTranslationTag, getLast(children))
+            separatorNoWhitespace(
+              isFacebookTranslationTag,
+              getLast(children),
+              options
+            )
           );
         }
       } else if (/\n/.test(text)) {
@@ -4863,7 +4867,7 @@ function printJSXChildren(
           .trim()
           .split(matchJsxWhitespaceRegex)[0];
         children.push(
-          separatorNoWhitespace(isFacebookTranslationTag, firstWord)
+          separatorNoWhitespace(isFacebookTranslationTag, firstWord, options)
         );
       } else {
         children.push(hardline);
