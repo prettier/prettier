@@ -31,7 +31,7 @@ export interface Foo {
   bar: import("immutable").Map<string, int>;
 }
 
-type X = A<import("B").C<any><any>>;
+type X = A<import("B").C<any>>;
 
 `;
 
@@ -66,6 +66,6 @@ export interface Foo {
   bar: import('immutable').Map<string, int>;
 }
 
-type X = A<import('B').C<any><any>>;
+type X = A<import('B').C<any>>;
 
 `;

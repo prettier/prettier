@@ -2923,11 +2923,11 @@ function printPathNoParens(path, options, print, args) {
       return concat([path.call(print, "expression"), "!"]);
     case "TSThisType":
       return "this";
-    case "TSLastTypeNode": // TSImportType
+    case "TSImportType":
       return concat([
         !n.isTypeOf ? "" : "typeof ",
         "import(",
-        path.call(print, "argument"),
+        path.call(print, "parameter"),
         ")",
         !n.qualifier ? "" : concat([".", path.call(print, "qualifier")]),
         printTypeParameters(path, options, print, "typeParameters")
