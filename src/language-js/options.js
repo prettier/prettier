@@ -65,5 +65,12 @@ module.exports = {
       { value: true, deprecated: "0.19.0", redirect: "es5" },
       { value: false, deprecated: "0.19.0", redirect: "none" }
     ]
+  },
+  splitJsxText: {
+    since: "1.15.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description: "Split jsx text if no whitespace"
   }
 };

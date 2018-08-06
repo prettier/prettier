@@ -485,23 +485,9 @@ x = (
 
 x = (
   <div>
-    before
+    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}
     {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    {stuff}
-    {stuff}
-    after
-    {stuff}
-    after
+    {stuff}after{stuff}after
   </div>
 );
 
@@ -609,35 +595,9 @@ x = (
 
 this_really_should_split_across_lines = (
   <div>
-    before
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
+    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}
+    after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}
+    after{stuff}after{stuff}after
   </div>
 );
 
@@ -752,23 +712,15 @@ with_text_fill_line = (
 
 line_after_br = (
   <div>
-    Text
-    <br />
-    More text
-    <br />
-    And more
-    <br />
+    Text<br />
+    More text<br />
+    And more<br />
   </div>
 );
 
 line_after_br = (
   <div>
-    Text
-    <br />
-    More text
-    <br />
-    And more
-    <br />
+    Text<br />More text<br />And more<br />
   </div>
 );
 
@@ -896,8 +848,7 @@ x = <div> </div>;
 x = (
   <p>
     text text text text text text text text text text text text text text text
-    <br />
-    text text text text text text
+    <br />text text text text text text
   </p>
 );
 
@@ -976,17 +927,11 @@ x = (
 x = (
   <div>
     <div>
-      <strong>Estimated Sales Tax</strong>
-      &nbsp;
-      <div>
-        Sales tax estimated using a rate of {salesTax * 100}
-        %.
-      </div>
+      <strong>Estimated Sales Tax</strong>&nbsp;
+      <div>Sales tax estimated using a rate of {salesTax * 100}%.</div>
     </div>
     <div>
-      {title}
-      &nbsp; text here
-      {title}
+      {title}&nbsp; text here{title}
     </div>
   </div>
 );

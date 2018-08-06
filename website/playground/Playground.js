@@ -35,7 +35,8 @@ const ENABLED_OPTIONS = [
   "trailingComma",
   "proseWrap",
   "insertPragma",
-  "requirePragma"
+  "requirePragma",
+  "splitJsxText"
 ];
 
 class Playground extends React.Component {
