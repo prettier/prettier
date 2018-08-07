@@ -3,6 +3,8 @@ id: install
 title: Install
 ---
 
+To install using [Yarn](https://yarnpkg.com/), you'll first need to install [yarn](https://yarnpkg.com/lang/en/docs/install/) on your system.
+
 Install with `yarn`:
 
 ```bash
@@ -11,7 +13,7 @@ yarn add prettier --dev --exact
 yarn global add prettier
 ```
 
-_We're using `yarn` but you can use `npm` if you like:_
+You can also install with [npm](https://www.npmjs.com/get-npm) if you like:_
 
 ```bash
 npm install --save-dev --save-exact prettier
