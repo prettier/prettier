@@ -22,7 +22,7 @@ if (isPullRequest) {
   const pkg = require("../package.json");
   pkg.version = `999.999.999-pr.${process.env.REVIEW_ID}`;
   pipe(JSON.stringify(pkg, null, 2)).to("package.json");
-  shell.exec("node scripts/build/build.js");
+  shell.exec("yarn build");
 }
 shell.exec(`cp ${prettierPath}/standalone.js ${docs}/`);
 shell.exec(`cp ${prettierPath}/parser-*.js ${docs}/`);
