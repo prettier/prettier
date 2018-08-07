@@ -5,6 +5,8 @@
 const path = require("path");
 const shell = require("shelljs");
 
+shell.config.fatal = true;
+
 const rootDir = path.join(__dirname, "..");
 const docs = path.join(rootDir, "website/static/lib");
 
