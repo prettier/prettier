@@ -102,6 +102,108 @@ function x() {
 
 `;
 
+exports[`angular_fakeAsync.js - flow-verify 1`] = `
+beforeEach(fakeAsync(() => {
+  // code
+}));
+
+afterAll(fakeAsync(() => {
+  console.log('Hello');
+}));
+
+it('should create the app', fakeAsync(() => {
+  //code
+}));
+
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => {
+  // code
+}));
+
+/*
+* isTestCall(parent) should only be called when parent exists
+* and parent.type is CallExpression. This test makes sure that
+* no errors are thrown when calling isTestCall(parent)
+*/
+function x() { fakeAsync(() => {}) }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+beforeEach(fakeAsync(() => {
+  // code
+}));
+
+afterAll(fakeAsync(() => {
+  console.log("Hello");
+}));
+
+it("should create the app", fakeAsync(() => {
+  //code
+}));
+
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => {
+  // code
+}));
+
+/*
+* isTestCall(parent) should only be called when parent exists
+* and parent.type is CallExpression. This test makes sure that
+* no errors are thrown when calling isTestCall(parent)
+*/
+function x() {
+  fakeAsync(() => {});
+}
+
+`;
+
+exports[`angular_fakeAsync.js - flow-verify 2`] = `
+beforeEach(fakeAsync(() => {
+  // code
+}));
+
+afterAll(fakeAsync(() => {
+  console.log('Hello');
+}));
+
+it('should create the app', fakeAsync(() => {
+  //code
+}));
+
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => {
+  // code
+}));
+
+/*
+* isTestCall(parent) should only be called when parent exists
+* and parent.type is CallExpression. This test makes sure that
+* no errors are thrown when calling isTestCall(parent)
+*/
+function x() { fakeAsync(() => {}) }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+beforeEach(fakeAsync(() => {
+  // code
+}));
+
+afterAll(fakeAsync(() => {
+  console.log("Hello");
+}));
+
+it("should create the app", fakeAsync(() => {
+  //code
+}));
+
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => {
+  // code
+}));
+
+/*
+* isTestCall(parent) should only be called when parent exists
+* and parent.type is CallExpression. This test makes sure that
+* no errors are thrown when calling isTestCall(parent)
+*/
+function x() {
+  fakeAsync(() => {});
+}
+
+`;
+
 exports[`angularjs_inject.js - flow-verify 1`] = `
 beforeEach(inject(($fooService, $barService) => {
   // code
