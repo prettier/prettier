@@ -5814,7 +5814,9 @@ function isAngularTestWrapper(node) {
     (node.type === "CallExpression" ||
       node.type === "OptionalCallExpression") &&
     node.callee.type === "Identifier" &&
-    (node.callee.name === "async" || node.callee.name === "inject")
+    (node.callee.name === "async" ||
+      node.callee.name === "inject" ||
+      node.callee.name === "fakeAsync")
   );
 }
 
