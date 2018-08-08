@@ -168,6 +168,7 @@ function needsParens(path, options) {
             (node.operator === "+" || node.operator === "-")
           );
 
+        case "BindExpression":
         case "MemberExpression":
           return name === "object" && parent.object === node;
 
