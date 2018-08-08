@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`typescript parser should throw the first error when both JSX and non-JSX mode failed 1`] = `
+'>' expected. (5:8)
+  3 | 
+  4 | const App = () => (
+> 5 |   <div className="App">
+    |        ^
+  6 |   </div>
+  7 | );
+  8 | 
+`;
+
 exports[`yaml parser should handle CRLF correctly 1`] = `
 "a: 123
 "
