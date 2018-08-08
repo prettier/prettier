@@ -1086,6 +1086,18 @@ function printPathNoParens(path, options, print, args) {
       parts.push(path.call(print, "body"));
 
       return concat(parts);
+
+    case "ObjectTypeInternalSlot":
+      return concat([
+        n.static ? "static " : "",
+        "[[",
+        path.call(print, "id"),
+        "]]",
+        printOptionalToken(path),
+        n.method ? "" : ": ",
+        path.call(print, "value")
+      ]);
+
     case "ObjectExpression":
     case "ObjectPattern":
     case "ObjectTypeAnnotation":
@@ -1140,7 +1152,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       if (isTypeAnnotation) {
-        fields.push("indexers", "callProperties");
+        fields.push("indexers", "callProperties", "internalSlots");
       }
       fields.push(propertiesField);
 
@@ -2414,7 +2426,8 @@ function printPathNoParens(path, options, print, args) {
       let isArrowFunctionTypeAnnotation =
         n.type === "TSFunctionType" ||
         !(
-          (parent.type === "ObjectTypeProperty" &&
+          ((parent.type === "ObjectTypeProperty" ||
+            parent.type === "ObjectTypeInternalSlot") &&
             !getFlowVariance(parent) &&
             !parent.optional &&
             options.locStart(parent) === options.locStart(n)) ||
@@ -5553,7 +5566,8 @@ function isMemberExpressionChain(node) {
 // type T = { method(): void };
 function isObjectTypePropertyAFunction(node, options) {
   return (
-    node.type === "ObjectTypeProperty" &&
+    (node.type === "ObjectTypeProperty" ||
+      node.type === "ObjectTypeInternalSlot") &&
     node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
     !isFunctionNotation(node, options)
