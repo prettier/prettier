@@ -1,3 +1,10 @@
+# 1.14.2
+
+[diff](https://github.com/prettier/prettier/compare/1.14.1...1.14.2)
+
+- YAML: fix the line ending issue on Windows ([#4957](https://github.com/prettier/prettier/pull/4957))
+- TypeScript: better error message ([#4947](https://github.com/prettier/prettier/pull/4947))
+
 # 1.14.1
 
 [diff](https://github.com/prettier/prettier/compare/1.14.0...1.14.1)
