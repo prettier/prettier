@@ -173,7 +173,7 @@ function needsParens(path, options) {
           );
 
         case "BindExpression":
-          return (name === "object" && parent.object === node) || (name === "callee" && parent.callee === node);
+          return true
 
         case "MemberExpression":
           return name === "object" && parent.object === node;
