@@ -173,6 +173,8 @@ function needsParens(path, options) {
           );
 
         case "BindExpression":
+          return (name === "object" && parent.object === node) || (name === "callee" && parent.callee === node);
+
         case "MemberExpression":
           return name === "object" && parent.object === node;
 
@@ -564,16 +566,25 @@ function needsParens(path, options) {
       return parent.type === "MemberExpression";
 
     case "MemberExpression":
-      if (parent.type === "BindExpression") {
+      if (parent.type === "BindExpression" && name === 'callee' && parent.callee === node) {
         let object = node.object;
         while (object) {
           if (object.type === "CallExpression") {
             return true;
           }
+          if (object.type !== "MemberExpression" && object.type !== "BindExpression") {
+            break;
+          }
           object = object.object;
         }
       }
-      return false;
+      return false
+
+    case "BindExpression":
+      if ((parent.type === "BindExpression" && name === "callee" && parent.callee === node) || parent.type === "MemberExpression") {
+        return true
+      }
+      return false
   }
 
   return false;
