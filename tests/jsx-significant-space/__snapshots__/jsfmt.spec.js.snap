@@ -141,8 +141,7 @@ break_components = (
     <Foo />
     <Bar>
       <p>
-        foo
-        <span>bar bar bar</span>
+        foo<span>bar bar bar</span>
       </p>
       <h1>
         <span>
@@ -210,8 +209,7 @@ not_broken_end = (
 not_broken_begin = (
   <div>
     <br /> long text long text long text long text long text long text long text
-    long text
-    <link>url</link> long text long text
+    long text<link>url</link> long text long text
   </div>
 );
 
