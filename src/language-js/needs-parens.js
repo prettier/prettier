@@ -140,7 +140,11 @@ function needsParens(path, options) {
       ) {
         return true;
       }
-      return false;
+
+      if (parent.type === 'BindExpression' && parent.callee === node) {
+        return true
+      }
+      return false
     }
 
     case "SpreadElement":
@@ -558,6 +562,18 @@ function needsParens(path, options) {
 
     case "OptionalMemberExpression":
       return parent.type === "MemberExpression";
+
+    case "MemberExpression":
+      if (parent.type === "BindExpression") {
+        let object = node.object
+        while (object) {
+          if (object.type === 'CallExpression') {
+            return true
+          }
+          object = object.object
+        }
+      }
+      return false
   }
 
   return false;
