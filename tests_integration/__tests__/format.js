@@ -9,3 +9,19 @@ test("yaml parser should handle CRLF correctly", () => {
     JSON.stringify(prettier.format(input, { parser: "yaml" }))
   ).toMatchSnapshot();
 });
+
+test("typescript parser should throw the first error when both JSX and non-JSX mode failed", () => {
+  const input = `
+import React from "react";
+
+const App = () => (
+  <div className="App">
+  </div>
+);
+
+label:
+  `;
+  expect(() =>
+    prettier.format(input, { parser: "typescript" })
+  ).toThrowErrorMatchingSnapshot();
+});
