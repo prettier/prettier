@@ -4741,9 +4741,6 @@ function separatorNoWhitespace(
     return "";
   }
 
-  // console.log("child", child);
-  // console.log("childNode", childNode);
-  // console.log("nextNode", nextNode);
   if (
     (childNode.type === "JSXElement" && !childNode.closingElement) ||
     (nextNode && (nextNode.type === "JSXElement" && !nextNode.closingElement))
@@ -4793,19 +4790,16 @@ function printJSXChildren(
     const child = childPath.getValue();
     if (isLiteral(child)) {
       const text = rawText(child);
-      // console.log("literal child", child);
 
       // Contains a non-whitespace character
       if (isMeaningfulJSXText(child)) {
         const words = text.split(matchJsxWhitespaceRegex);
-        // console.log("WORDS 1", words);
 
         // Starts with whitespace
         if (words[0] === "") {
           children.push("");
           words.shift();
           if (/\n/.test(words[0])) {
-            // console.log("separatorWithWhitespace", words[1]);
             children.push(
               separatorWithWhitespace(isFacebookTranslationTag, words[1])
             );
@@ -4828,7 +4822,6 @@ function printJSXChildren(
         }
 
         words.forEach((word, i) => {
-          // console.log("WORDS", words);
           if (i % 2 === 1) {
             children.push(line);
           } else {
@@ -4848,7 +4841,6 @@ function printJSXChildren(
             children.push(jsxWhitespace);
           }
         } else {
-          // console.log("CHILD", child);
           const next = n.children[i + 1];
           children.push(
             separatorNoWhitespace(
@@ -4873,19 +4865,14 @@ function printJSXChildren(
     } else {
       const printedChild = print(childPath);
       children.push(printedChild);
-      // console.log("printedChild", printedChild);
 
       const next = n.children[i + 1];
-      // console.log('child', child);
-      // console.log("next", next);
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJSXText(next);
       if (directlyFollowedByMeaningfulText) {
         const firstWord = rawText(next)
           .trim()
           .split(matchJsxWhitespaceRegex)[0];
-        // console.log('firstWord', firstWord);
-        // console.log("n.children", n.children[i - 1]);
         children.push(
           separatorNoWhitespace(
             isFacebookTranslationTag,
@@ -4895,7 +4882,6 @@ function printJSXChildren(
           )
         );
       } else {
-        // console.log('else', next);
         children.push(hardline);
       }
     }
@@ -5038,9 +5024,6 @@ function printJSXElement(path, options, print) {
     } else if (isJSXWhitespaceFollowedByLine) {
       children.splice(i + 1, 2);
     }
-
-    // console.log("i", i);
-    // console.log("children", children);
   }
 
   // Trim trailing lines (or empty strings)
