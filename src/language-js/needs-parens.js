@@ -141,10 +141,10 @@ function needsParens(path, options) {
         return true;
       }
 
-      if (parent.type === 'BindExpression' && parent.callee === node) {
-        return true
+      if (parent.type === "BindExpression" && parent.callee === node) {
+        return true;
       }
-      return false
+      return false;
     }
 
     case "SpreadElement":
@@ -565,15 +565,15 @@ function needsParens(path, options) {
 
     case "MemberExpression":
       if (parent.type === "BindExpression") {
-        let object = node.object
+        let object = node.object;
         while (object) {
-          if (object.type === 'CallExpression') {
-            return true
+          if (object.type === "CallExpression") {
+            return true;
           }
-          object = object.object
+          object = object.object;
         }
       }
-      return false
+      return false;
   }
 
   return false;
