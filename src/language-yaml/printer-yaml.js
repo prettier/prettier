@@ -323,15 +323,15 @@ function _print(node, parentNode, path, options, print) {
         return node.type === "flowMappingItem" &&
           path.getParentNode().type !== "flowSequence"
           ? key
-          : !(
+          : node.type === "mappingItem" &&
+            node.key.type !== "null" &&
+            isAbsolutelyPrintedAsSingleLineNode(node.key.node, options) &&
+            !hasTrailingComments(node.key.node) &&
+            !(
               parentNode.tag.type === "shorthandTag" &&
               parentNode.tag.handle === "!!" &&
               parentNode.tag.suffix === "set"
-            ) &&
-            node.type === "mappingItem" &&
-            node.key.type !== "null" &&
-            isAbsolutelyPrintedAsSingleLineNode(node.key.node, options) &&
-            !hasTrailingComments(node.key.node)
+            )
             ? concat([
                 key,
                 needsSpaceInFrontOfMappingValue(node) ? " " : "",
