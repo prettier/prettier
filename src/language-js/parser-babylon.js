@@ -40,12 +40,7 @@ function parse(text, parsers, opts) {
   };
 
   const parseMethod =
-    opts &&
-    (opts.parser === "json" ||
-      opts.parser === "json5" ||
-      opts.parser === "__js_expression")
-      ? "parseExpression"
-      : "parse";
+    !opts || opts.parser === "babylon" ? "parse" : "parseExpression";
 
   let ast;
   try {
