@@ -323,7 +323,16 @@ function _print(node, parentNode, path, options, print) {
         return node.type === "flowMappingItem" &&
           path.getParentNode().type !== "flowSequence"
           ? key
-          : concat(["? ", align(2, key)]);
+          : node.type === "mappingItem" &&
+            node.key.type !== "null" &&
+            isAbsolutelyPrintedAsSingleLineNode(node.key.node, options) &&
+            !hasTrailingComments(node.key.node)
+            ? concat([
+                key,
+                needsSpaceInFrontOfMappingValue(node) ? " " : "",
+                ":"
+              ])
+            : concat(["? ", align(2, key)]);
       }
 
       if (node.key.type === "null") {

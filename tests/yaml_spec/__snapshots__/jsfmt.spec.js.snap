@@ -349,9 +349,9 @@ exports[`block-mapping-with-missing-values.yml - yaml-verify 1`] = `
 ? b
 c:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-? a
-? b
-? c
+a:
+b:
+c:
 
 `;
 
@@ -360,9 +360,9 @@ exports[`block-mapping-with-missing-values.yml - yaml-verify 2`] = `
 ? b
 c:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-? a
-? b
-? c
+a:
+b:
+c:
 
 `;
 
@@ -954,7 +954,7 @@ a: 1
 &anchor c: 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a: 1
-? b
+b:
 &anchor c: 3
 
 `;
@@ -966,7 +966,7 @@ a: 1
 &anchor c: 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a: 1
-? b
+b:
 &anchor c: 3
 
 `;
@@ -2411,9 +2411,9 @@ exports[`spec-example-2-25-unordered-sets.yml - yaml-verify 1`] = `
 # associated with a null value
 ---
 !!set
-? Mark McGwire
-? Sammy Sosa
-? Ken Griff
+Mark McGwire:
+Sammy Sosa:
+Ken Griff:
 
 `;
 
