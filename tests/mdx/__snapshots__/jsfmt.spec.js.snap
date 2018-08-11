@@ -1,0 +1,365 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`import-export.mdx - mdx-verify 1`] = `
+import A from 'a'
+import {A,B,C}    from "hello-world"
+import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
+
+---
+
+import A from 'a'
+
+
+import {A,B,C}    from "hello-world"
+
+
+import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
+
+---
+
+export const meta = {
+authors: [fred, sue],
+layout: Layout
+}
+
+export default () =>
+  <Doc     components={{
+        h1: ui.Heading,
+         p:    ui.Text,
+      code:     ui.Code
+         }}
+      />
+
+---
+
+export const a = 1;
+export const b = 1;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import A from "a";
+import { A, B, C } from "hello-world";
+import {
+  AAAAAAAAAAAAAAAAAAAAAAAA,
+  BBBBBBBBBBBBBBBBBBBBBB,
+  CCCCCCCCCCCCCCCCCCCCCCC
+} from "xyz";
+
+---
+
+import A from "a";
+
+import { A, B, C } from "hello-world";
+
+import {
+  AAAAAAAAAAAAAAAAAAAAAAAA,
+  BBBBBBBBBBBBBBBBBBBBBB,
+  CCCCCCCCCCCCCCCCCCCCCCC
+} from "xyz";
+
+---
+
+export const meta = {
+  authors: [fred, sue],
+  layout: Layout
+};
+
+export default () => (
+  <Doc
+    components={{
+      h1: ui.Heading,
+      p: ui.Text,
+      code: ui.Code
+    }}
+  />
+);
+
+---
+
+export const a = 1;
+export const b = 1;
+
+`;
+
+exports[`import-export.mdx - mdx-verify 2`] = `
+import A from 'a'
+import {A,B,C}    from "hello-world"
+import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
+
+---
+
+import A from 'a'
+
+
+import {A,B,C}    from "hello-world"
+
+
+import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
+
+---
+
+export const meta = {
+authors: [fred, sue],
+layout: Layout
+}
+
+export default () =>
+  <Doc     components={{
+        h1: ui.Heading,
+         p:    ui.Text,
+      code:     ui.Code
+         }}
+      />
+
+---
+
+export const a = 1;
+export const b = 1;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import A from "a"
+import { A, B, C } from "hello-world"
+import {
+  AAAAAAAAAAAAAAAAAAAAAAAA,
+  BBBBBBBBBBBBBBBBBBBBBB,
+  CCCCCCCCCCCCCCCCCCCCCCC
+} from "xyz"
+
+---
+
+import A from "a"
+
+import { A, B, C } from "hello-world"
+
+import {
+  AAAAAAAAAAAAAAAAAAAAAAAA,
+  BBBBBBBBBBBBBBBBBBBBBB,
+  CCCCCCCCCCCCCCCCCCCCCCC
+} from "xyz"
+
+---
+
+export const meta = {
+  authors: [fred, sue],
+  layout: Layout
+}
+
+export default () => (
+  <Doc
+    components={{
+      h1: ui.Heading,
+      p: ui.Text,
+      code: ui.Code
+    }}
+  />
+)
+
+---
+
+export const a = 1
+export const b = 1
+
+`;
+
+exports[`jsx.mdx - mdx-verify 1`] = `
+<Heading hi='there'>Hello, world!
+</Heading>
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<Heading hi="there">Hello, world!</Heading>
+
+---
+
+<Hello>
+  test <World /> test
+</Hello>
+
+`;
+
+exports[`jsx.mdx - mdx-verify 2`] = `
+<Heading hi='there'>Hello, world!
+</Heading>
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<Heading hi="there">Hello, world!</Heading>
+
+---
+
+<Hello>
+  test <World /> test
+</Hello>
+
+`;
+
+exports[`mixed.mdx - mdx-verify 1`] = `
+import     {     Baz } from     './Fixture'
+import { Buz  }   from './Fixture'
+
+export  const   foo    = {
+  hi:     \`Fudge \${Baz.displayName || 'Baz'}\`,
+  authors: [
+     'fred',
+           'sally'
+    ]
+}
+
+# Hello,    world!
+
+
+ I'm an awesome   paragraph.
+
+<!-- I'm a comment -->
+
+<Foo bg='red'>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another commment */}
+</Foo>
+
+\`\`\`
+test codeblock
+\`\`\`
+
+\`\`\`js
+module.exports = 'test'
+\`\`\`
+
+\`\`\`sh
+npm i -g foo
+\`\`\`
+
+| Test  | Table   |
+|    :---     | :----  |
+|   Col1  | Col2    |
+
+export   default     ({children   }) => < div>{    children}</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { Baz } from "./Fixture";
+import { Buz } from "./Fixture";
+
+export const foo = {
+  hi: \`Fudge \${Baz.displayName || "Baz"}\`,
+  authors: ["fred", "sally"]
+};
+
+# Hello, world!
+
+I'm an awesome paragraph.
+
+<!-- I'm a comment -->
+
+<Foo bg="red">
+  <Bar>hi </Bar>
+  {hello}
+  {/* another commment */}
+</Foo>
+
+\`\`\`
+test codeblock
+\`\`\`
+
+\`\`\`js
+module.exports = "test";
+\`\`\`
+
+\`\`\`sh
+npm i -g foo
+\`\`\`
+
+| Test | Table |
+| :--- | :---- |
+| Col1 | Col2  |
+
+export default ({ children }) => <div>{children}</div>;
+
+`;
+
+exports[`mixed.mdx - mdx-verify 2`] = `
+import     {     Baz } from     './Fixture'
+import { Buz  }   from './Fixture'
+
+export  const   foo    = {
+  hi:     \`Fudge \${Baz.displayName || 'Baz'}\`,
+  authors: [
+     'fred',
+           'sally'
+    ]
+}
+
+# Hello,    world!
+
+
+ I'm an awesome   paragraph.
+
+<!-- I'm a comment -->
+
+<Foo bg='red'>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another commment */}
+</Foo>
+
+\`\`\`
+test codeblock
+\`\`\`
+
+\`\`\`js
+module.exports = 'test'
+\`\`\`
+
+\`\`\`sh
+npm i -g foo
+\`\`\`
+
+| Test  | Table   |
+|    :---     | :----  |
+|   Col1  | Col2    |
+
+export   default     ({children   }) => < div>{    children}</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { Baz } from "./Fixture"
+import { Buz } from "./Fixture"
+
+export const foo = {
+  hi: \`Fudge \${Baz.displayName || "Baz"}\`,
+  authors: ["fred", "sally"]
+}
+
+# Hello, world!
+
+I'm an awesome paragraph.
+
+<!-- I'm a comment -->
+
+<Foo bg="red">
+  <Bar>hi </Bar>
+  {hello}
+  {/* another commment */}
+</Foo>
+
+\`\`\`
+test codeblock
+\`\`\`
+
+\`\`\`js
+module.exports = "test"
+\`\`\`
+
+\`\`\`sh
+npm i -g foo
+\`\`\`
+
+| Test | Table |
+| :--- | :---- |
+| Col1 | Col2  |
+
+export default ({ children }) => <div>{children}</div>
+
+`;

@@ -29,6 +29,10 @@ var parsers = {
     importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers["json-stringify"];
   },
+  get __js_expression() {
+    importScriptOnce("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers.__js_expression;
+  },
   // JS - Flow
   get flow() {
     importScriptOnce("lib/parser-flow.js");
@@ -64,6 +68,10 @@ var parsers = {
   get markdown() {
     importScriptOnce("lib/parser-markdown.js");
     return prettierPlugins.markdown.parsers.remark;
+  },
+  get mdx() {
+    importScriptOnce("lib/parser-markdown.js");
+    return prettierPlugins.markdown.parsers.mdx;
   },
 
   // Vue

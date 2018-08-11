@@ -6,6 +6,7 @@ const pragma = require("./pragma");
 const parseFrontMatter = require("../utils/front-matter");
 const util = require("../common/util");
 const { getOrderedListItemInfo } = require("./utils");
+const mdx = require("./mdx");
 
 // 0x0 ~ 0x10ffff
 const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
@@ -24,18 +25,32 @@ const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
  * interface Sentence { children: Array<Word | Whitespace> }
  * interface InlineCode { children: Array<Sentence> }
  */
-function parse(text, parsers, opts) {
-  const processor = unified()
-    .use(remarkParse, { footnotes: true, commonmark: true })
-    .use(frontMatter)
-    .use(liquid)
-    .use(restoreUnescapedCharacter(text))
-    .use(mergeContinuousTexts)
-    .use(transformInlineCode)
-    .use(transformIndentedCodeblockAndMarkItsParentList(text))
-    .use(markAlignedList(text, opts))
-    .use(splitText(opts));
-  return processor.runSync(processor.parse(text));
+function createParse({ isMDX }) {
+  return (text, parsers, opts) => {
+    const processor = unified()
+      .use(
+        remarkParse,
+        Object.assign(
+          {
+            footnotes: true,
+            commonmark: true
+          },
+          isMDX && { blocks: [mdx.BLOCKS_REGEX] }
+        )
+      )
+      .use(frontMatter)
+      .use(isMDX ? mdx.esSyntax : identity)
+      .use(liquid)
+      .use(restoreUnescapedCharacter(text))
+      .use(mergeContinuousTexts)
+      .use(transformInlineCode)
+      .use(transformIndentedCodeblockAndMarkItsParentList(text))
+      .use(markAlignedList(text, opts))
+      .use(splitText(opts))
+      .use(isMDX ? htmlToJsx : identity)
+      .use(isMDX ? mergeContinuousImportExport : identity);
+    return processor.runSync(processor.parse(text));
+  };
 }
 
 function map(ast, handler) {
@@ -51,6 +66,41 @@ function map(ast, handler) {
 
     return newNode;
   })(ast, null, null);
+}
+
+function identity(x) {
+  return x;
+}
+
+function htmlToJsx() {
+  return ast =>
+    map(ast, (node, index, [parent]) => {
+      if (
+        node.type !== "html" ||
+        /^<!--[\s\S]*-->$/.test(node.value) ||
+        // inline html
+        parent.type === "paragraph"
+      ) {
+        return node;
+      }
+
+      return Object.assign({}, node, { type: "jsx" });
+    });
+}
+
+function mergeContinuousImportExport() {
+  return mergeChildren(
+    (prevNode, node) =>
+      prevNode.type === "importExport" && node.type === "importExport",
+    (prevNode, node) => ({
+      type: "importExport",
+      value: prevNode.value + "\n\n" + node.value,
+      position: {
+        start: prevNode.position.start,
+        end: node.position.end
+      }
+    })
+  );
 }
 
 function transformInlineCode() {
@@ -87,7 +137,7 @@ function restoreUnescapedCharacter(originalText) {
     });
 }
 
-function mergeContinuousTexts() {
+function mergeChildren(shouldMerge, mergeNode) {
   return ast =>
     map(ast, node => {
       if (!node.children) {
@@ -95,15 +145,8 @@ function mergeContinuousTexts() {
       }
       const children = node.children.reduce((current, child) => {
         const lastChild = current[current.length - 1];
-        if (lastChild && lastChild.type === "text" && child.type === "text") {
-          current.splice(-1, 1, {
-            type: "text",
-            value: lastChild.value + child.value,
-            position: {
-              start: lastChild.position.start,
-              end: child.position.end
-            }
-          });
+        if (lastChild && shouldMerge(lastChild, child)) {
+          current.splice(-1, 1, mergeNode(lastChild, child));
         } else {
           current.push(child);
         }
@@ -111,6 +154,20 @@ function mergeContinuousTexts() {
       }, []);
       return Object.assign({}, node, { children });
     });
+}
+
+function mergeContinuousTexts() {
+  return mergeChildren(
+    (prevNode, node) => prevNode.type === "text" && node.type === "text",
+    (prevNode, node) => ({
+      type: "text",
+      value: prevNode.value + node.value,
+      position: {
+        start: prevNode.position.start,
+        end: node.position.end
+      }
+    })
+  );
 }
 
 function splitText(options) {
@@ -318,18 +375,26 @@ function markAlignedList(originalText, options) {
   }
 }
 
-const parser = {
-  parse,
+const baseParser = {
   astFormat: "mdast",
   hasPragma: pragma.hasPragma,
   locStart: node => node.position.start.offset,
   locEnd: node => node.position.end.offset
 };
 
+const markdownParser = Object.assign({}, baseParser, {
+  parse: createParse({ isMDX: false })
+});
+
+const mdxParser = Object.assign({}, baseParser, {
+  parse: createParse({ isMDX: true })
+});
+
 module.exports = {
   parsers: {
-    remark: parser,
+    remark: markdownParser,
     // TODO: Delete this in 2.0
-    markdown: parser
+    markdown: markdownParser,
+    mdx: mdxParser
   }
 };

@@ -40,7 +40,10 @@ function parse(text, parsers, opts) {
   };
 
   const parseMethod =
-    opts && (opts.parser === "json" || opts.parser === "json5")
+    opts &&
+    (opts.parser === "json" ||
+      opts.parser === "json5" ||
+      opts.parser === "__js_expression")
       ? "parseExpression"
       : "parse";
 
@@ -159,6 +162,8 @@ module.exports = {
         astFormat: "estree-json"
       },
       locFns
-    )
+    ),
+    /** @internal for mdx to print jsx without semicolon */
+    __js_expression: babylon
   }
 };
