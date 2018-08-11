@@ -2411,9 +2411,9 @@ exports[`spec-example-2-25-unordered-sets.yml - yaml-verify 1`] = `
 # associated with a null value
 ---
 !!set
-Mark McGwire:
-Sammy Sosa:
-Ken Griff:
+? Mark McGwire
+? Sammy Sosa
+? Ken Griff
 
 `;
 
