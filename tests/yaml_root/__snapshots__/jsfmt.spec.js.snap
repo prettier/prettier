@@ -382,7 +382,7 @@ merge:
 null:
   # This mapping has four keys,
   # one has a value.
-  ? empty
+  empty:
   canonical: ~
   english: null
   ~: null key
