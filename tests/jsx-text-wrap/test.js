@@ -410,3 +410,19 @@ x =
     {minute}:
     {second}
   </div>
+
+x = <div><strong>text here</strong>.<br /></div>
+
+x = <div><strong>{name}</strong>’s{' '}</div>
+
+x = <Text>You {type}ed this shipment to</Text>
+
+x = <HelpBlock>{parameter.Description}: {errorMsg}</HelpBlock>
+
+x = <div>Sales tax estimated using a rate of {salesTax * 100}%.</div>
+
+x = <div>
+  {title}&nbsp;
+</div>
+
+x = <div><span/>bar</div>
