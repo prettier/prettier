@@ -1,8 +1,10 @@
 "use strict";
 
+const commonOptions = require("../common/common-options");
+
 const CATEGORY_JAVASCRIPT = "JavaScript";
 
-// format based on https://github.com/prettier/prettier/blob/master/src/common/support.js
+// format based on https://github.com/prettier/prettier/blob/master/src/main/core-options.js
 module.exports = {
   arrowParens: {
     since: "1.9.0",
@@ -21,14 +23,7 @@ module.exports = {
       }
     ]
   },
-  bracketSpacing: {
-    since: "0.0.0",
-    category: CATEGORY_JAVASCRIPT,
-    type: "boolean",
-    default: true,
-    description: "Print spaces between brackets.",
-    oppositeDescription: "Do not print spaces between brackets."
-  },
+  bracketSpacing: commonOptions.bracketSpacing,
   jsxBracketSameLine: {
     since: "0.17.0",
     category: CATEGORY_JAVASCRIPT,
@@ -45,13 +40,7 @@ module.exports = {
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them."
   },
-  singleQuote: {
-    since: "0.0.0",
-    category: CATEGORY_JAVASCRIPT,
-    type: "boolean",
-    default: false,
-    description: "Use single quotes instead of double quotes."
-  },
+  singleQuote: commonOptions.singleQuote,
   trailingComma: {
     since: "0.0.0",
     category: CATEGORY_JAVASCRIPT,

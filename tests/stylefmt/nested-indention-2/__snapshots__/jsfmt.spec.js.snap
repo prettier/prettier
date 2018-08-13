@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nested-indention-2.css 1`] = `
+exports[`nested-indention-2.css - css-verify 1`] = `
 .y-photo-grid{
     display: flex;
     width: 100%;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`no_parse_error.js 1`] = `
+exports[`no_parse_error.js - flow-verify 1`] = `
 /*
 @flow
 */

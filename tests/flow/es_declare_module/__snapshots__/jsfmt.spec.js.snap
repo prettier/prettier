@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`es_declare_module.js 1`] = `
+exports[`es_declare_module.js - flow-verify 1`] = `
 // @flow
 
 import {num1, str1} from "CJS_Named";

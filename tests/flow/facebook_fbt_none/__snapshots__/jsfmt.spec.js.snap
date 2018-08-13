@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`main.js 1`] = `
+exports[`main.js - flow-verify 1`] = `
 // @flow
 var React = require('react');
 (<fbt />: React.Element<*>);

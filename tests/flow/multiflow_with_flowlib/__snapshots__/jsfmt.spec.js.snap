@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`spread.js 1`] = `
+exports[`spread.js - flow-verify 1`] = `
 declare var iterableOf123: Iterable<123>;
 function fun(x: 'hi', y: 123) {}
 fun('hi', ...iterableOf123); // No error - ignore the fact iterableOf123 could be empty

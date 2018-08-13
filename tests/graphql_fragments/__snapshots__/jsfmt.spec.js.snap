@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fragments.graphql 1`] = `
+exports[`fragments.graphql - graphql-verify 1`] = `
 {
   field
   ...   XYZ

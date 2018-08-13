@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`simple.md 1`] = `
+exports[`simple.md - markdown-verify 1`] = `
 [alpha]: http://example.com
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [alpha]: http://example.com
 
 `;
 
-exports[`space.md 1`] = `
+exports[`space.md - markdown-verify 1`] = `
 [alpha]: <http://example.com 123> "title"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [alpha]: <http://example.com 123> "title"
 
 `;
 
-exports[`title.md 1`] = `
+exports[`title.md - markdown-verify 1`] = `
 [alpha]: http://example.com "title"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [alpha]: http://example.com "title"

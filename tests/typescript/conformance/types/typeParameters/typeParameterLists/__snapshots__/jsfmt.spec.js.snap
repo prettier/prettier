@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`innerTypeParameterShadowingOuterOne.ts 1`] = `
+exports[`innerTypeParameterShadowingOuterOne.ts - typescript-verify 1`] = `
 // inner type parameters shadow outer ones of the same name
 // no errors expected
 
@@ -61,7 +61,7 @@ function f2<T extends Date, U extends Date>() {
 
 `;
 
-exports[`innerTypeParameterShadowingOuterOne2.ts 1`] = `
+exports[`innerTypeParameterShadowingOuterOne2.ts - typescript-verify 1`] = `
 // inner type parameters shadow outer ones of the same name
 // no errors expected
 
@@ -140,7 +140,7 @@ class C2<T extends Date, U extends Date> {
 
 `;
 
-exports[`staticMembersUsingClassTypeParameter.ts 1`] = `
+exports[`staticMembersUsingClassTypeParameter.ts - typescript-verify 1`] = `
 // BUG 745747
 class C<T> {
     static x: T;
@@ -175,7 +175,7 @@ class C3<T extends Date> {
 
 `;
 
-exports[`typeParametersAvailableInNestedScope2.ts 1`] = `
+exports[`typeParametersAvailableInNestedScope2.ts - typescript-verify 1`] = `
 function foo<T, U>(x: T, y: U) {
     function bar<V>(z: V) {
         function baz<W>(a: W) {

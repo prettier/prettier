@@ -1,9 +1,15 @@
 "use strict";
 
-const remarkFrontmatter = require("remark-frontmatter");
 const remarkParse = require("remark-parse");
 const unified = require("unified");
+const pragma = require("./pragma");
+const parseFrontMatter = require("../utils/front-matter");
 const util = require("../common/util");
+const { getOrderedListItemInfo } = require("./utils");
+const mdx = require("./mdx");
+
+// 0x0 ~ 0x10ffff
+const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -19,27 +25,82 @@ const util = require("../common/util");
  * interface Sentence { children: Array<Word | Whitespace> }
  * interface InlineCode { children: Array<Sentence> }
  */
-function parse(text /*, parsers, opts*/) {
-  const processor = unified()
-    .use(remarkParse, { footnotes: true, commonmark: true })
-    .use(remarkFrontmatter, ["yaml", "toml"])
-    .use(restoreUnescapedCharacter(text))
-    .use(mergeContinuousTexts)
-    .use(transformInlineCode)
-    .use(splitText);
-  return processor.runSync(processor.parse(text));
+function createParse({ isMDX }) {
+  return (text, parsers, opts) => {
+    const processor = unified()
+      .use(
+        remarkParse,
+        Object.assign(
+          {
+            footnotes: true,
+            commonmark: true
+          },
+          isMDX && { blocks: [mdx.BLOCKS_REGEX] }
+        )
+      )
+      .use(frontMatter)
+      .use(isMDX ? mdx.esSyntax : identity)
+      .use(liquid)
+      .use(restoreUnescapedCharacter(text))
+      .use(mergeContinuousTexts)
+      .use(transformInlineCode)
+      .use(transformIndentedCodeblockAndMarkItsParentList(text))
+      .use(markAlignedList(text, opts))
+      .use(splitText(opts))
+      .use(isMDX ? htmlToJsx : identity)
+      .use(isMDX ? mergeContinuousImportExport : identity);
+    return processor.runSync(processor.parse(text));
+  };
 }
 
 function map(ast, handler) {
-  return (function preorder(node, index, parentNode) {
-    const newNode = Object.assign({}, handler(node, index, parentNode));
+  return (function preorder(node, index, parentStack) {
+    parentStack = parentStack || [];
+
+    const newNode = Object.assign({}, handler(node, index, parentStack));
     if (newNode.children) {
       newNode.children = newNode.children.map((child, index) => {
-        return preorder(child, index, newNode);
+        return preorder(child, index, [newNode].concat(parentStack));
       });
     }
+
     return newNode;
   })(ast, null, null);
+}
+
+function identity(x) {
+  return x;
+}
+
+function htmlToJsx() {
+  return ast =>
+    map(ast, (node, index, [parent]) => {
+      if (
+        node.type !== "html" ||
+        /^<!--[\s\S]*-->$/.test(node.value) ||
+        // inline html
+        parent.type === "paragraph"
+      ) {
+        return node;
+      }
+
+      return Object.assign({}, node, { type: "jsx" });
+    });
+}
+
+function mergeContinuousImportExport() {
+  return mergeChildren(
+    (prevNode, node) =>
+      prevNode.type === "importExport" && node.type === "importExport",
+    (prevNode, node) => ({
+      type: "importExport",
+      value: prevNode.value + "\n\n" + node.value,
+      position: {
+        start: prevNode.position.start,
+        end: node.position.end
+      }
+    })
+  );
 }
 
 function transformInlineCode() {
@@ -64,8 +125,9 @@ function restoreUnescapedCharacter(originalText) {
             value:
               node.value !== "*" &&
               node.value !== "_" && // handle these two cases in printer
-              node.value.length === 1 &&
-              node.position.end.offset - node.position.start.offset > 1
+              isSingleCharRegex.test(node.value) &&
+              node.position.end.offset - node.position.start.offset !==
+                node.value.length
                 ? originalText.slice(
                     node.position.start.offset,
                     node.position.end.offset
@@ -75,7 +137,7 @@ function restoreUnescapedCharacter(originalText) {
     });
 }
 
-function mergeContinuousTexts() {
+function mergeChildren(shouldMerge, mergeNode) {
   return ast =>
     map(ast, node => {
       if (!node.children) {
@@ -83,15 +145,8 @@ function mergeContinuousTexts() {
       }
       const children = node.children.reduce((current, child) => {
         const lastChild = current[current.length - 1];
-        if (lastChild && lastChild.type === "text" && child.type === "text") {
-          current.splice(-1, 1, {
-            type: "text",
-            value: lastChild.value + child.value,
-            position: {
-              start: lastChild.position.start,
-              end: child.position.end
-            }
-          });
+        if (lastChild && shouldMerge(lastChild, child)) {
+          current.splice(-1, 1, mergeNode(lastChild, child));
         } else {
           current.push(child);
         }
@@ -101,9 +156,23 @@ function mergeContinuousTexts() {
     });
 }
 
-function splitText() {
-  return ast =>
-    map(ast, (node, index, parentNode) => {
+function mergeContinuousTexts() {
+  return mergeChildren(
+    (prevNode, node) => prevNode.type === "text" && node.type === "text",
+    (prevNode, node) => ({
+      type: "text",
+      value: prevNode.value + node.value,
+      position: {
+        start: prevNode.position.start,
+        end: node.position.end
+      }
+    })
+  );
+}
+
+function splitText(options) {
+  return () => ast =>
+    map(ast, (node, index, [parentNode]) => {
       if (node.type !== "text") {
         return node;
       }
@@ -122,9 +191,210 @@ function splitText() {
       return {
         type: "sentence",
         position: node.position,
-        children: util.splitText(value)
+        children: util.splitText(value, options)
       };
     });
 }
 
-module.exports = parse;
+function frontMatter() {
+  const proto = this.Parser.prototype;
+  proto.blockMethods = ["frontMatter"].concat(proto.blockMethods);
+  proto.blockTokenizers.frontMatter = tokenizer;
+
+  function tokenizer(eat, value) {
+    const parsed = parseFrontMatter(value);
+
+    if (parsed.frontMatter) {
+      return eat(parsed.frontMatter.raw)(parsed.frontMatter);
+    }
+  }
+  tokenizer.onlyAtStart = true;
+}
+
+function liquid() {
+  const proto = this.Parser.prototype;
+  const methods = proto.inlineMethods;
+  methods.splice(methods.indexOf("text"), 0, "liquid");
+  proto.inlineTokenizers.liquid = tokenizer;
+
+  function tokenizer(eat, value) {
+    const match = value.match(/^({%[\s\S]*?%}|{{[\s\S]*?}})/);
+
+    if (match) {
+      return eat(match[0])({
+        type: "liquidNode",
+        value: match[0]
+      });
+    }
+  }
+  tokenizer.locator = function(value, fromIndex) {
+    return value.indexOf("{", fromIndex);
+  };
+}
+
+function transformIndentedCodeblockAndMarkItsParentList(originalText) {
+  return () => ast =>
+    map(ast, (node, index, parentStack) => {
+      if (node.type === "code") {
+        // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
+        const isIndented = /^\n?( {4,}|\t)/.test(
+          originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          )
+        );
+
+        node.isIndented = isIndented;
+
+        if (isIndented) {
+          for (let i = 0; i < parentStack.length; i++) {
+            const parent = parentStack[i];
+
+            // no need to check checked items
+            if (parent.hasIndentedCodeblock) {
+              break;
+            }
+
+            if (parent.type === "list") {
+              parent.hasIndentedCodeblock = true;
+            }
+          }
+        }
+      }
+      return node;
+    });
+}
+
+function markAlignedList(originalText, options) {
+  return () => ast =>
+    map(ast, (node, index, parentStack) => {
+      if (node.type === "list" && node.children.length !== 0) {
+        // if one of its parents is not aligned, it's not possible to be aligned in sub-lists
+        for (let i = 0; i < parentStack.length; i++) {
+          const parent = parentStack[i];
+          if (parent.type === "list" && !parent.isAligned) {
+            node.isAligned = false;
+            return node;
+          }
+        }
+
+        node.isAligned = isAligned(node);
+      }
+
+      return node;
+    });
+
+  function getListItemStart(listItem) {
+    return listItem.children.length === 0
+      ? -1
+      : listItem.children[0].position.start.column - 1;
+  }
+
+  function isAligned(list) {
+    if (!list.ordered) {
+      /**
+       * - 123
+       * - 123
+       */
+      return true;
+    }
+
+    const [firstItem, secondItem] = list.children;
+
+    const firstInfo = getOrderedListItemInfo(firstItem, originalText);
+
+    if (firstInfo.leadingSpaces.length > 1) {
+      /**
+       * 1.   123
+       *
+       * 1.   123
+       * 1. 123
+       */
+      return true;
+    }
+
+    const firstStart = getListItemStart(firstItem);
+
+    if (firstStart === -1) {
+      /**
+       * 1.
+       *
+       * 1.
+       * 1.
+       */
+      return false;
+    }
+
+    if (list.children.length === 1) {
+      /**
+       * aligned:
+       *
+       * 11. 123
+       *
+       * not aligned:
+       *
+       * 1. 123
+       */
+      return firstStart % options.tabWidth === 0;
+    }
+
+    const secondStart = getListItemStart(secondItem);
+
+    if (firstStart !== secondStart) {
+      /**
+       * 11. 123
+       * 1. 123
+       *
+       * 1. 123
+       * 11. 123
+       */
+      return false;
+    }
+
+    if (firstStart % options.tabWidth === 0) {
+      /**
+       * 11. 123
+       * 12. 123
+       */
+      return true;
+    }
+
+    /**
+     * aligned:
+     *
+     * 11. 123
+     * 1.  123
+     *
+     * not aligned:
+     *
+     * 1. 123
+     * 2. 123
+     */
+    const secondInfo = getOrderedListItemInfo(secondItem, originalText);
+    return secondInfo.leadingSpaces.length > 1;
+  }
+}
+
+const baseParser = {
+  astFormat: "mdast",
+  hasPragma: pragma.hasPragma,
+  locStart: node => node.position.start.offset,
+  locEnd: node => node.position.end.offset
+};
+
+const markdownParser = Object.assign({}, baseParser, {
+  parse: createParse({ isMDX: false })
+});
+
+const mdxParser = Object.assign({}, baseParser, {
+  parse: createParse({ isMDX: true })
+});
+
+module.exports = {
+  parsers: {
+    remark: markdownParser,
+    // TODO: Delete this in 2.0
+    markdown: markdownParser,
+    mdx: mdxParser
+  }
+};

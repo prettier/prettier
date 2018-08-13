@@ -6,6 +6,9 @@ const escapeStringRegexp = require("escape-string-regexp");
 const getCjkRegex = require("cjk-regex");
 const getUnicodeRegex = require("unicode-regex");
 
+// eslint-disable-next-line no-control-regex
+const notAsciiRegex = /[^\x20-\x7F]/;
+
 const cjkPattern = getCjkRegex().source;
 
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
@@ -240,18 +243,6 @@ function hasSpaces(text, index, opts) {
   return idx !== index;
 }
 
-// Super inefficient, needs to be cached.
-function lineColumnToIndex(lineColumn, text) {
-  let index = 0;
-  for (let i = 0; i < lineColumn.line - 1; ++i) {
-    index = text.indexOf("\n", index) + 1;
-    if (index === -1) {
-      return -1;
-    }
-  }
-  return index + lineColumn.column;
-}
-
 function setLocStart(node, index) {
   if (node.range) {
     node.range[0] = index;
@@ -298,6 +289,10 @@ const equalityOperators = {
   "===": true,
   "!==": true
 };
+const additiveOperators = {
+  "+": true,
+  "-": true
+};
 const multiplicativeOperators = {
   "*": true,
   "/": true,
@@ -311,6 +306,11 @@ const bitshiftOperators = {
 
 function shouldFlatten(parentOp, nodeOp) {
   if (getPrecedence(nodeOp) !== getPrecedence(parentOp)) {
+    // x + y % z --> (x + y) % z
+    if (nodeOp === "%" && !additiveOperators[parentOp]) {
+      return true;
+    }
+
     return false;
   }
 
@@ -333,6 +333,16 @@ function shouldFlatten(parentOp, nodeOp) {
     return false;
   }
 
+  // x * y / z --> (x * y) / z
+  // x / y * z --> (x / y) * z
+  if (
+    nodeOp !== parentOp &&
+    multiplicativeOperators[nodeOp] &&
+    multiplicativeOperators[parentOp]
+  ) {
+    return false;
+  }
+
   // x << y << z --> (x << y) << z
   if (bitshiftOperators[parentOp] && bitshiftOperators[nodeOp]) {
     return false;
@@ -350,54 +360,65 @@ function isBitwiseOperator(operator) {
   );
 }
 
-// Tests if an expression starts with `{`, or (if forbidFunctionAndClass holds) `function` or `class`.
-// Will be overzealous if there's already necessary grouping parentheses.
-function startsWithNoLookaheadToken(node, forbidFunctionAndClass) {
+// Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
+// holds) `function`, `class`, or `do {}`. Will be overzealous if there's
+// already necessary grouping parentheses.
+function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
   node = getLeftMost(node);
   switch (node.type) {
     // Hack. Remove after https://github.com/eslint/typescript-eslint-parser/issues/331
     case "ObjectPattern":
-      return !forbidFunctionAndClass;
+      return !forbidFunctionClassAndDoExpr;
     case "FunctionExpression":
     case "ClassExpression":
-      return forbidFunctionAndClass;
+    case "DoExpression":
+      return forbidFunctionClassAndDoExpr;
     case "ObjectExpression":
       return true;
     case "MemberExpression":
-      return startsWithNoLookaheadToken(node.object, forbidFunctionAndClass);
+      return startsWithNoLookaheadToken(
+        node.object,
+        forbidFunctionClassAndDoExpr
+      );
     case "TaggedTemplateExpression":
       if (node.tag.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;
       }
-      return startsWithNoLookaheadToken(node.tag, forbidFunctionAndClass);
+      return startsWithNoLookaheadToken(node.tag, forbidFunctionClassAndDoExpr);
     case "CallExpression":
       if (node.callee.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;
       }
-      return startsWithNoLookaheadToken(node.callee, forbidFunctionAndClass);
+      return startsWithNoLookaheadToken(
+        node.callee,
+        forbidFunctionClassAndDoExpr
+      );
     case "ConditionalExpression":
-      return startsWithNoLookaheadToken(node.test, forbidFunctionAndClass);
+      return startsWithNoLookaheadToken(
+        node.test,
+        forbidFunctionClassAndDoExpr
+      );
     case "UpdateExpression":
       return (
         !node.prefix &&
-        startsWithNoLookaheadToken(node.argument, forbidFunctionAndClass)
+        startsWithNoLookaheadToken(node.argument, forbidFunctionClassAndDoExpr)
       );
     case "BindExpression":
       return (
         node.object &&
-        startsWithNoLookaheadToken(node.object, forbidFunctionAndClass)
+        startsWithNoLookaheadToken(node.object, forbidFunctionClassAndDoExpr)
       );
     case "SequenceExpression":
       return startsWithNoLookaheadToken(
         node.expressions[0],
-        forbidFunctionAndClass
+        forbidFunctionClassAndDoExpr
       );
     case "TSAsExpression":
       return startsWithNoLookaheadToken(
         node.expression,
-        forbidFunctionAndClass
+        forbidFunctionClassAndDoExpr
       );
     default:
       return false;
@@ -421,7 +442,7 @@ function getAlignmentSize(value, tabWidth, startIndex) {
       // multiple of tabWidth:
       // 0 -> 4, 1 -> 4, 2 -> 4, 3 -> 4
       // 4 -> 8, 5 -> 8, 6 -> 8, 7 -> 8 ...
-      size = size + tabWidth - size % tabWidth;
+      size = size + tabWidth - (size % tabWidth);
     } else {
       size++;
     }
@@ -582,15 +603,17 @@ function getMaxContinuousCount(str, target) {
  * @param {string} text
  * @return {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>}
  */
-function splitText(text) {
+function splitText(text, options) {
   const KIND_NON_CJK = "non-cjk";
   const KIND_CJK_CHARACTER = "cjk-character";
   const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
   const nodes = [];
 
-  text
-    .replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
+  (options.proseWrap === "preserve"
+    ? text
+    : text.replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
+  )
     .split(/([ \t\n]+)/)
     .forEach((token, index, tokens) => {
       // whitespace
@@ -693,6 +716,11 @@ function getStringWidth(text) {
     return 0;
   }
 
+  // shortcut to avoid needless string `RegExp`s, replacements, and allocations within `string-width`
+  if (!notAsciiRegex.test(text)) {
+    return text.length;
+  }
+
   // emojis are considered 2-char width for consistency
   // see https://github.com/sindresorhus/string-width/issues/11
   // for the reason why not implemented in `string-width`
@@ -713,12 +741,18 @@ function hasNodeIgnoreComment(node) {
   );
 }
 
-function arrayify(object, keyName) {
-  return Object.keys(object).reduce(
-    (array, key) =>
-      array.concat(Object.assign({ [keyName]: key }, object[key])),
-    []
-  );
+function matchAncestorTypes(path, types, index) {
+  index = index || 0;
+  types = types.slice();
+  while (types.length) {
+    const parent = path.getParentNode(index);
+    const type = types.shift();
+    if (!parent || parent.type !== type) {
+      return false;
+    }
+    index++;
+  }
+  return true;
 }
 
 function addCommentHelper(node, comment) {
@@ -752,8 +786,23 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
+function isWithinParentArrayProperty(path, propertyName) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+
+  if (parent == null) {
+    return false;
+  }
+
+  if (!Array.isArray(parent[propertyName])) {
+    return false;
+  }
+
+  const key = path.getName();
+  return parent[propertyName][key] === node;
+}
+
 module.exports = {
-  arrayify,
   punctuationRegex,
   punctuationCharRange,
   getStringWidth,
@@ -786,9 +835,10 @@ module.exports = {
   printNumber,
   hasIgnoreComment,
   hasNodeIgnoreComment,
-  lineColumnToIndex,
   makeString,
+  matchAncestorTypes,
   addLeadingComment,
   addDanglingComment,
-  addTrailingComment
+  addTrailingComment,
+  isWithinParentArrayProperty
 };

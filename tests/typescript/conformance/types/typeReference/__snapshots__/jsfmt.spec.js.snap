@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`typeReference.ts 1`] = `
+exports[`typeReference.ts - typescript-verify 1`] = `
 let n: Promise<number>
 let m: Map<number, string>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

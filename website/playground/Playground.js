@@ -15,7 +15,13 @@ import SidebarOptions from "./sidebar/SidebarOptions";
 import Option from "./sidebar/options";
 import { Checkbox } from "./sidebar/inputs";
 
-const CATEGORIES_ORDER = ["Global", "JavaScript", "Markdown", "Special"];
+const CATEGORIES_ORDER = [
+  "Global",
+  "Common",
+  "JavaScript",
+  "Markdown",
+  "Special"
+];
 const ENABLED_OPTIONS = [
   "parser",
   "printWidth",
@@ -36,17 +42,17 @@ class Playground extends React.Component {
   constructor(props) {
     super();
 
-    const { content, options } = urlHash.read();
+    const original = urlHash.read();
 
     const defaultOptions = util.getDefaults(
       props.availableOptions,
       ENABLED_OPTIONS
     );
 
-    this.state = {
-      content: content || "",
-      options: Object.assign(defaultOptions, options)
-    };
+    const options = Object.assign(defaultOptions, original.options);
+    const content = original.content || getCodeSample(options.parser);
+
+    this.state = { content, options };
 
     this.handleOptionValueChange = this.handleOptionValueChange.bind(this);
 
@@ -76,12 +82,20 @@ class Playground extends React.Component {
   handleOptionValueChange(option, value) {
     this.setState(state => {
       const options = Object.assign({}, state.options);
+
       if (option.type === "int" && isNaN(value)) {
         delete options[option.name];
       } else {
         options[option.name] = value;
       }
-      return { options };
+
+      const content =
+        state.content === "" ||
+        state.content === getCodeSample(state.options.parser)
+          ? getCodeSample(options.parser)
+          : state.content;
+
+      return { options, content };
     });
   }
 
@@ -110,7 +124,7 @@ class Playground extends React.Component {
         {editorState => (
           <PrettierFormat
             worker={worker}
-            code={content || getCodeSample(options.parser)}
+            code={content}
             options={options}
             debugAst={editorState.showAst}
             debugDoc={editorState.showDoc}
@@ -171,7 +185,7 @@ class Playground extends React.Component {
                       mode={util.getCodemirrorMode(options.parser)}
                       ruler={options.printWidth}
                       value={content}
-                      placeholder={getCodeSample(options.parser)}
+                      codeSample={getCodeSample(options.parser)}
                       overlayStart={options.rangeStart}
                       overlayEnd={options.rangeEnd}
                       onChange={this.setContent}

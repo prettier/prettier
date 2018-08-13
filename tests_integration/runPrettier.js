@@ -82,6 +82,9 @@ function runPrettier(dir, args, options) {
         Object.assign({}, options, { stopDir: __dirname })
       )
     );
+  jest
+    .spyOn(require(thirdParty), "findParentDir")
+    .mockImplementation(() => process.cwd());
 
   try {
     require(prettierCli);

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 keep = <p>
   Welcome to the <strong>Universal React Starter-kyt</strong>.
   This starter kyt should serve as the base for an advanced,
@@ -156,7 +156,7 @@ regression_extra_newline_2 = (
 
 `;
 
-exports[`windows.js 1`] = `
+exports[`windows.js - flow-verify 1`] = `
 <div>
 Text
 </div>

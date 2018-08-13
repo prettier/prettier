@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.css 1`] = `
+exports[`empty.css - css-verify 1`] = `
 .ui-syntax-color();
 
 details[open] {

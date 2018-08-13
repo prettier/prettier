@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`e1.js 1`] = `
+exports[`e1.js - flow-verify 1`] = `
 // @flow
 
 export type Action =
@@ -18,7 +18,7 @@ export const LIFE = 0;
 
 `;
 
-exports[`e2.js 1`] = `
+exports[`e2.js - flow-verify 1`] = `
 // @flow
 
 import type { Action } from './e1';

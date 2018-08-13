@@ -1,6 +1,7 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const { hasPragma } = require("./pragma");
 
 function parseComments(ast) {
   const comments = [];
@@ -65,4 +66,24 @@ function parse(text /*, parsers, opts*/) {
   }
 }
 
-module.exports = parse;
+module.exports = {
+  parsers: {
+    graphql: {
+      parse,
+      astFormat: "graphql",
+      hasPragma,
+      locStart(node) {
+        if (typeof node.start === "number") {
+          return node.start;
+        }
+        return node.loc && node.loc.start;
+      },
+      locEnd(node) {
+        if (typeof node.end === "number") {
+          return node.end;
+        }
+        return node.loc && node.loc.end;
+      }
+    }
+  }
+};

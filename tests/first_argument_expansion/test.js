@@ -85,3 +85,7 @@ setTimeout(
 setTimeout(/* blip */ function() {
   thing();
 }, 500);
+
+func((args) => {
+  execute(args);
+}, result => result && console.log("success"))

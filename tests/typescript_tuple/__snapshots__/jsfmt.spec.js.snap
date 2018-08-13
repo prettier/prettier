@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`trailing-comma.ts 1`] = `
+exports[`trailing-comma.ts - typescript-verify 1`] = `
 export interface ShopQueryResult {
   chic: boolean;
   location: number[];
@@ -33,7 +33,7 @@ export interface ShopQueryResult {
 
 `;
 
-exports[`tuple.ts 1`] = `
+exports[`tuple.ts - typescript-verify 1`] = `
 
 export type SCMRawResource = [
 	number /*handle*/,

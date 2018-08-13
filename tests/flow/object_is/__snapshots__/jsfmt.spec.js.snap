@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`object_is.js 1`] = `
+exports[`object_is.js - flow-verify 1`] = `
 Object.is(1, 1);
 Object.is(1, 2);
 Object.is(1, {});

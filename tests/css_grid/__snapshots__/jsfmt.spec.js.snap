@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`grid.css 1`] = `
+exports[`grid.css - css-verify 1`] = `
 /* quotes */
 div {
   grid-template-areas:

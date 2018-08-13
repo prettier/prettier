@@ -12,7 +12,7 @@ const prettier = require("prettier");
 `format` is used to format text using Prettier. [Options](options.md) may be provided to override the defaults.
 
 ```js
-prettier.format("foo ( );", { semi: false });
+prettier.format("foo ( );", { semi: false, parser: "babylon" });
 // -> "foo()"
 ```
 
@@ -27,7 +27,7 @@ prettier.format("foo ( );", { semi: false });
 The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
 
 ```js
-prettier.formatWithCursor(" 1", { cursorOffset: 2 });
+prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babylon" });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
@@ -35,8 +35,8 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2 });
 
 `resolveConfig` can be used to resolve configuration for a given source file, passing its path as the first argument. The config search will start at the file path and continue to search up the directory (you can use `process.cwd()` to start searching from the current directory). Or you can pass directly the path of the config file as `options.config` if you don't wish to search for it. A promise is returned which will resolve to:
 
-* An options object, providing a [config file](configuration.md) was found.
-* `null`, if no file was found.
+- An options object, providing a [config file](configuration.md) was found.
+- `null`, if no file was found.
 
 The promise will be rejected if there was an error parsing the configuration file.
 
@@ -51,15 +51,43 @@ prettier.resolveConfig(filePath).then(options => {
 
 If `options.editorconfig` is `true` and an [`.editorconfig` file](http://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
 
-* `indent_style`
-* `indent_size`/`tab_width`
-* `max_line_length`
+- `indent_style`
+- `indent_size`/`tab_width`
+- `max_line_length`
 
 Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use sync version.
+
+## `prettier.resolveConfigFile(filePath [, options])`
+
+`resolveConfigFile` can be used to find the path of the Prettier's configuration file will be used when resolving the config (i.e. when calling `resolveConfig`). A promise is returned which will resolve to:
+
+- The path of the configuration file.
+- `null`, if no file was found.
+
+The promise will be rejected if there was an error parsing the configuration file.
+
+If `options.useCache` is `false`, all caching will be bypassed.
 
 ## `prettier.clearConfigCache()`
 
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
+
+## `prettier.getFileInfo(filePath [, options])`
+
+`getFileInfo` can be used by editor extensions to decide if a particular file needs to be formatted. This method returns a promise, which resolves to an object with the following properties:
+
+```typescript
+{
+  ignored: boolean,
+  inferredParser: string | null,
+}
+```
+
+Setting `options.ignorePath` (`string`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
+
+Providing [plugin](./plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
+
+Use `prettier.getFileInfo.sync(filePath [, options])` if you'd like to use sync version.
 
 ## `prettier.getSupportInfo([version])`
 
@@ -73,18 +101,18 @@ The support information looks like this:
 {
   languages: Array<{
     name: string,
-    since: string,
+    since?: string,
     parsers: string[],
     group?: string,
-    tmScope: string,
-    aceMode: string,
-    codemirrorMode: string,
-    codemirrorMimeType: string,
+    tmScope?: string,
+    aceMode?: string,
+    codemirrorMode?: string,
+    codemirrorMimeType?: string,
     aliases?: string[],
-    extensions: string[],
+    extensions?: string[],
     filenames?: string[],
-    linguistLanguageId: number,
-    vscodeLanguageIds: string[],
+    linguistLanguageId?: number,
+    vscodeLanguageIds?: string[],
   }>
 }
 ```

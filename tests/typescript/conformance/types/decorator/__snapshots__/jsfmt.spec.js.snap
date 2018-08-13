@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`decorator.ts 1`] = `
+exports[`decorator.ts - typescript-verify 1`] = `
 declare function dec<T>(target: T): T;
 
 @dec
@@ -8,6 +8,7 @@ enum E {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare function dec<T>(target: T): T;
 
-@dec enum E {}
+@dec
+enum E {}
 
 `;

@@ -2,15 +2,14 @@
 
 const privateUtil = require("../common/util");
 const sharedUtil = require("../common/util-shared");
-
-const addLeadingComment = sharedUtil.addLeadingComment;
-const addTrailingComment = sharedUtil.addTrailingComment;
-const addDanglingComment = sharedUtil.addDanglingComment;
+const {
+  addLeadingComment,
+  addTrailingComment,
+  addDanglingComment
+} = sharedUtil;
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
-  const precedingNode = comment.precedingNode;
-  const enclosingNode = comment.enclosingNode;
-  const followingNode = comment.followingNode;
+  const { precedingNode, enclosingNode, followingNode } = comment;
   if (
     handleLastFunctionArgComments(
       text,
@@ -62,9 +61,7 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
 }
 
 function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
-  const precedingNode = comment.precedingNode;
-  const enclosingNode = comment.enclosingNode;
-  const followingNode = comment.followingNode;
+  const { precedingNode, enclosingNode, followingNode } = comment;
   if (
     handleLastFunctionArgComments(
       text,
@@ -105,9 +102,8 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
 }
 
 function handleRemainingComment(comment, text, options, ast, isLastComment) {
-  const precedingNode = comment.precedingNode;
-  const enclosingNode = comment.enclosingNode;
-  const followingNode = comment.followingNode;
+  const { precedingNode, enclosingNode, followingNode } = comment;
+
   if (
     handleIfStatementComments(
       text,
@@ -134,6 +130,13 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
       precedingNode,
       comment,
       options
+    ) ||
+    handleTSMappedTypeComments(
+      text,
+      enclosingNode,
+      precedingNode,
+      followingNode,
+      comment
     ) ||
     handleBreakAndContinueStatementComments(enclosingNode, comment)
   ) {
@@ -689,14 +692,49 @@ function handleVariableDeclaratorComments(
 ) {
   if (
     enclosingNode &&
-    enclosingNode.type === "VariableDeclarator" &&
+    (enclosingNode.type === "VariableDeclarator" ||
+      enclosingNode.type === "AssignmentExpression") &&
     followingNode &&
     (followingNode.type === "ObjectExpression" ||
-      followingNode.type === "ArrayExpression")
+      followingNode.type === "ArrayExpression" ||
+      followingNode.type === "TemplateLiteral" ||
+      followingNode.type === "TaggedTemplateExpression")
   ) {
     addLeadingComment(followingNode, comment);
     return true;
   }
+  return false;
+}
+
+function handleTSMappedTypeComments(
+  text,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  comment
+) {
+  if (!enclosingNode || enclosingNode.type !== "TSMappedType") {
+    return false;
+  }
+
+  if (
+    followingNode &&
+    followingNode.type === "TSTypeParameter" &&
+    followingNode.name
+  ) {
+    addLeadingComment(followingNode.name, comment);
+    return true;
+  }
+
+  if (
+    precedingNode &&
+    precedingNode.type === "TSTypeParameter" &&
+    precedingNode.constraint
+  ) {
+    addTrailingComment(precedingNode.constraint, comment);
+    return true;
+  }
+
   return false;
 }
 

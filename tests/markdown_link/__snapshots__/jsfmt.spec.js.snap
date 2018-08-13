@@ -1,62 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`autolink.md 1`] = `
+exports[`autolink.md - markdown-verify 1`] = `
 <https://www.example.com>
+
+<hello@example.com>
+
+<mailto:hello@example.com>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <https://www.example.com>
 
+<hello@example.com>
+
+<mailto:hello@example.com>
+
 `;
 
-exports[`autolink.md 2`] = `
+exports[`autolink.md - markdown-verify 2`] = `
 <https://www.example.com>
+
+<hello@example.com>
+
+<mailto:hello@example.com>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <https://www.example.com>
 
+<hello@example.com>
+
+<mailto:hello@example.com>
+
 `;
 
-exports[`entity.md 1`] = `
+exports[`entity.md - markdown-verify 1`] = `
 [Test](http://localhost:8080/test?language=DE&currency=EUR)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [Test](http://localhost:8080/test?language=DE&currency=EUR)
 
 `;
 
-exports[`entity.md 2`] = `
+exports[`entity.md - markdown-verify 2`] = `
 [Test](http://localhost:8080/test?language=DE&currency=EUR)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [Test](http://localhost:8080/test?language=DE&currency=EUR)
 
 `;
 
-exports[`long.md 1`] = `
+exports[`long.md - markdown-verify 1`] = `
 [podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
 
 `;
 
-exports[`long.md 2`] = `
+exports[`long.md - markdown-verify 2`] = `
 [podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
 
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md - markdown-verify 1`] = `
 [hello](#world)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [hello](#world)
 
 `;
 
-exports[`simple.md 2`] = `
+exports[`simple.md - markdown-verify 2`] = `
 [hello](#world)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [hello](#world)
 
 `;
 
-exports[`title.md 1`] = `
+exports[`title.md - markdown-verify 1`] = `
 [hello](#world "title")
 [hello](#world 'title')
 [hello](#world (title))
@@ -115,7 +131,7 @@ exports[`title.md 1`] = `
 
 `;
 
-exports[`title.md 2`] = `
+exports[`title.md - markdown-verify 2`] = `
 [hello](#world "title")
 [hello](#world 'title')
 [hello](#world (title))
@@ -174,14 +190,14 @@ exports[`title.md 2`] = `
 
 `;
 
-exports[`url.md 1`] = `
+exports[`url.md - markdown-verify 1`] = `
 https://www.example.com/
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 https://www.example.com/
 
 `;
 
-exports[`url.md 2`] = `
+exports[`url.md - markdown-verify 2`] = `
 https://www.example.com/
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 https://www.example.com/

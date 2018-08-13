@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`readme.css 1`] = `
+exports[`readme.css - css-verify 1`] = `
 // mixin for clearfix
         @mixin      clearfix    ()      { &:before,
   &:after {

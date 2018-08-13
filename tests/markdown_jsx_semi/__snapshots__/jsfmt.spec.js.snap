@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`semi.md 1`] = `
+exports[`semi.md - markdown-verify 1`] = `
 \`\`\`jsx
 <div>foo</div>
 \`\`\`
@@ -21,7 +21,7 @@ const a = 1;
 
 `;
 
-exports[`semi.md 2`] = `
+exports[`semi.md - markdown-verify 2`] = `
 \`\`\`jsx
 <div>foo</div>
 \`\`\`

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`semi.js 1`] = `
+exports[`semi.js - typescript-verify 1`] = `
 declare module 'foo' {
   function foo(namespace: string): void;
   function bar(namespace: string): void;
@@ -19,7 +19,7 @@ function pickCard(x: number): { suit: string; card: number };
 
 `;
 
-exports[`type_literal_optional_method.ts 1`] = `
+exports[`type_literal_optional_method.ts - typescript-verify 1`] = `
 var v: { e?(): number };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var v: { e?(): number };

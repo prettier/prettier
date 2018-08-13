@@ -7,53 +7,58 @@ title: Plugins (Beta)
 
 > The plugin API is in a **beta** state as of Prettier 1.10 and the API may change in the next release!
 
-Plugins are ways of adding new languages to Prettier. Prettier's own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focussed languages built in. For additional languages you'll need to install a plugin.
+Plugins are ways of adding new languages to Prettier. Prettier's own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you'll need to install a plugin.
 
 ## Using Plugins
 
-Plugins are automatically loaded if you have them installed in your `package.json`. Prettier plugin package names must start with `@prettier/plugin-` or `prettier-plugin-` to be registered.
+Plugins are automatically loaded if you have them installed in the same `node_modules` directory where `prettier` is located. Plugin package names must start with `@prettier/plugin-` or `prettier-plugin-` to be registered.
 
-If the plugin is unable to be found automatically, you can load them with:
+When plugins cannot be found automatically, you can load them with:
 
-* The [CLI](./cli.md), via the `--plugin` flag:
+- The [CLI](./cli.md), via the `--plugin` and `--plugin-search-dir`:
 
   ```bash
-  prettier --write main.foo --plugin=./foo-plugin
+  prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=./foo-plugin
   ```
 
-  > Tip: You can pass multiple `--plugin` flags.
+  > Tip: You can set `--plugin` or `--plugin-search-dir` options multiple times.
 
-* Or the [API](./api.md), via the `plugins` field:
+- Or the [API](./api.md), via the `plugins` and `pluginSearchDirs` options:
 
   ```js
   prettier.format("code", {
     parser: "foo",
+    pluginSearchDirs: ["./dir-with-plugins"],
     plugins: ["./foo-plugin"]
   });
   ```
 
+Prettier expects each of `pluginSearchDirs` to contain `node_modules` subdirectory, where `@prettier/plugin-*` and `prettier-plugin-*` will be searched. For instance, this can be your project directory or the location of global npm modules.
+
+Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns off plugin autoloading in the default directory (i.e. `node_modules` above `prettier` binary).
+
 ## Official Plugins
 
-* [`@prettier/plugin-python`](https://github.com/prettier/plugin-python)
-* [`@prettier/plugin-php`](https://github.com/prettier/plugin-php)
-* [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
+- [`@prettier/plugin-python`](https://github.com/prettier/plugin-python)
+- [`@prettier/plugin-php`](https://github.com/prettier/plugin-php)
+- [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
 
 ## Community Plugins
 
-* [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
-* [`prettier-plugin-java`](https://github.com/thorbenvh8/prettier-java) by [**@thorbenvh8**](https://github.com/thorbenvh8)
-* [`prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg) by [**@benjie**](https://github.com/benjie)
-* [`prettier-plugin-ruby`](https://github.com/iamsolankiamit/prettier-ruby) by [**@iamsolankiamit**](https://github.com/iamsolankiamit)
+- [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
+- [`prettier-plugin-java`](https://github.com/thorbenvh8/prettier-java) by [**@thorbenvh8**](https://github.com/thorbenvh8)
+- [`prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg) by [**@benjie**](https://github.com/benjie)
+- [`prettier-plugin-ruby`](https://github.com/iamsolankiamit/prettier-ruby) by [**@iamsolankiamit**](https://github.com/iamsolankiamit)
 
 ## Developing Plugins
 
 Prettier plugins are regular JavaScript modules with five exports:
 
-* `languages`
-* `parsers`
-* `printers`
-* `options`
-* `defaultOptions`
+- `languages`
+- `parsers`
+- `printers`
+- `options`
+- `defaultOptions`
 
 ### `languages`
 
@@ -87,7 +92,8 @@ export const parsers = {
     astFormat: "dance-ast",
     hasPragma,
     locStart,
-    locEnd
+    locEnd,
+    preprocess
   }
 };
 ```
@@ -104,10 +110,16 @@ The location extraction functions (`locStart` and `locEnd`) return the starting 
 function locStart(node: object): number;
 ```
 
-The pragma detection function (`hasPragma`) should return if the text contains the pragma comment.
+_(Optional)_ The pragma detection function (`hasPragma`) should return if the text contains the pragma comment.
 
 ```ts
 function hasPragma(text: string): boolean;
+```
+
+_(Optional)_ The preprocess function can process the input text before passing into `parse` function.
+
+```ts
+function preprocess(text: string, options: object): string;
 ```
 
 ### `printers`
@@ -206,6 +218,7 @@ makeString(rawContent: string, enclosingQuote: string, unescapeUnnecessarEscapes
 getNextNonSpaceNonCommentCharacterIndex(text: string, node: object, options: object): number;
 isNextLineEmptyAfterIndex(text: string, index: number): boolean;
 isNextLineEmpty(text: string, node: object, options: object): boolean;
+isPreviousLineEmpty(text: string, node: object, options: object): boolean;
 mapDoc(doc: object, callback: function): void;
 ```
 

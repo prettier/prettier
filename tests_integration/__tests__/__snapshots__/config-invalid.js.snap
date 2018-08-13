@@ -18,8 +18,17 @@ exports[`show warning with unknown option (stdout) 1`] = `""`;
 
 exports[`show warning with unknown option (write) 1`] = `Array []`;
 
+exports[`throw error for unsupported extension (stderr) 1`] = `
+"[error] Invalid configuration file: No sync loader specified for extension \\".unsupported\\"
+"
+`;
+
+exports[`throw error for unsupported extension (stdout) 1`] = `""`;
+
+exports[`throw error for unsupported extension (write) 1`] = `Array []`;
+
 exports[`throw error with invalid config format (stderr) 1`] = `
-"[error] Invalid configuration file: Failed to parse \\"<cwd>/tests_integration/cli/config/invalid/file/.prettierrc\\" as JSON, JS, or YAML.
+"[error] Invalid configuration file: Config is only allowed to be an object, but received string in \\"<cwd>/tests_integration/cli/config/invalid/file/.prettierrc\\"
 "
 `;
 

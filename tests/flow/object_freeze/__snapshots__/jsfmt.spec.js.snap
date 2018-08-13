@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`object_freeze.js 1`] = `
+exports[`object_freeze.js - flow-verify 1`] = `
 /* @flow */
 
 var foo = Object.freeze({bar: '12345'});

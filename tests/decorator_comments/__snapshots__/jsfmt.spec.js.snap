@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js 1`] = `
+exports[`comments.js - babylon-verify 1`] = `
 class Something {
     @Annotateme()
     // comment

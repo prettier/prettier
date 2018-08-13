@@ -1,26 +1,35 @@
 "use strict";
 
-const docUtils = require("../doc/doc-utils");
 const privateUtil = require("../common/util");
 const embed = require("./embed");
 const pragma = require("./pragma");
-const doc = require("../doc");
-const docBuilders = doc.builders;
-const concat = docBuilders.concat;
-const join = docBuilders.join;
-const line = docBuilders.line;
-const hardline = docBuilders.hardline;
-const softline = docBuilders.softline;
-const fill = docBuilders.fill;
-const align = docBuilders.align;
-const group = docBuilders.group;
-const printDocToString = doc.printer.printDocToString;
+const {
+  builders: {
+    concat,
+    join,
+    line,
+    literalline,
+    markAsRoot,
+    hardline,
+    softline,
+    fill,
+    align,
+    indent,
+    group
+  },
+  utils: { mapDoc },
+  printer: { printDocToString }
+} = require("../doc");
+const { getOrderedListItemInfo } = require("./utils");
+
+const TRAILING_HARDLINE_NODES = ["importExport"];
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
 
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
 
 const INLINE_NODE_TYPES = [
+  "liquidNode",
   "inlineCode",
   "emphasis",
   "strong",
@@ -53,7 +62,8 @@ function genericPrint(path, options, print) {
           options.originalText.slice(
             node.position.start.offset,
             node.position.end.offset
-          )
+          ),
+          options
         )
         .map(
           node =>
@@ -68,7 +78,15 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "root":
-      return concat([normalizeDoc(printRoot(path, options, print)), hardline]);
+      if (node.children.length === 0) {
+        return "";
+      }
+      return concat([
+        normalizeDoc(printRoot(path, options, print)),
+        TRAILING_HARDLINE_NODES.indexOf(getLastDescendantNode(node).type) === -1
+          ? hardline
+          : ""
+      ]);
     case "paragraph":
       return printChildren(path, options, print, {
         postprocessor: fill
@@ -137,8 +155,19 @@ function genericPrint(path, options, print) {
     }
     case "link":
       switch (options.originalText[node.position.start.offset]) {
-        case "<":
-          return concat(["<", node.url, ">"]);
+        case "<": {
+          const mailto = "mailto:";
+          const url =
+            // <hello@example.com> is parsed as { url: "mailto:hello@example.com" }
+            node.url.startsWith(mailto) &&
+            options.originalText.slice(
+              node.position.start.offset + 1,
+              node.position.start.offset + 1 + mailto.length
+            ) !== mailto
+              ? node.url.slice(mailto.length)
+              : node.url;
+          return concat(["<", url, ">"]);
+        }
         case "[":
           return concat([
             "[",
@@ -171,15 +200,7 @@ function genericPrint(path, options, print) {
         printChildren(path, options, print)
       ]);
     case "code": {
-      if (
-        // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
-        /^\n?( {4,}|\t)/.test(
-          options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset
-          )
-        )
-      ) {
+      if (node.isIndented) {
         // indented code block
         const alignment = " ".repeat(4);
         return align(
@@ -206,19 +227,22 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "yaml":
-    case "toml": {
-      const style = node.type === "yaml" ? "---" : "+++";
-      return node.value
-        ? concat([style, hardline, node.value, hardline, style])
-        : concat([style, hardline, style]);
-    }
+    case "toml":
+      return options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset
+      );
     case "html": {
       const parentNode = path.getParentNode();
-      return replaceNewlinesWithHardlines(
+      const value =
         parentNode.type === "root" &&
         privateUtil.getLast(parentNode.children) === node
           ? node.value.trimRight()
-          : node.value
+          : node.value;
+      const isHtmlComment = /^<!--[\s\S]*-->$/.test(value);
+      return replaceNewlinesWith(
+        value,
+        isHtmlComment ? hardline : markAsRoot(literalline)
       );
     }
     case "list": {
@@ -230,12 +254,8 @@ function genericPrint(path, options, print) {
       const isGitDiffFriendlyOrderedList =
         node.ordered &&
         node.children.length > 1 &&
-        /^\s*1(\.|\))/.test(
-          options.originalText.slice(
-            node.children[1].position.start.offset,
-            node.children[1].position.end.offset
-          )
-        );
+        +getOrderedListItemInfo(node.children[1], options.originalText)
+          .numberText === 1;
 
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
@@ -257,14 +277,11 @@ function genericPrint(path, options, print) {
                     : node.start + index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
-                ? "* "
-                : "- ";
+                ? "- "
+                : "* ";
 
-            // do not print trailing spaces for empty list item since it might be treated as `break` node
-            // by [doc-printer](https://github.com/prettier/prettier/blob/1.10.2/src/doc/doc-printer.js#L395-L405),
-            // we don't want to preserve unnecessary trailing spaces.
-            const listItem = childPath.getValue();
-            return listItem.children.length
+            return node.isAligned ||
+              /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
               ? alignListPrefix(rawPrefix, options)
               : rawPrefix;
           }
@@ -280,7 +297,7 @@ function genericPrint(path, options, print) {
         path.getParentNode(counter),
         path.getParentNode(counter + 1)
       );
-      return nthSiblingIndex % 2 === 0 ? "---" : "***";
+      return nthSiblingIndex % 2 === 0 ? "***" : "---";
     }
     case "linkReference":
       return concat([
@@ -305,14 +322,23 @@ function genericPrint(path, options, print) {
             node.referenceType === "collapsed" ? "[]" : ""
           ]);
       }
-    case "definition":
-      return concat([
-        "[",
-        node.identifier,
-        "]: ",
-        printUrl(node.url),
-        printTitle(node.title, options)
-      ]);
+    case "definition": {
+      const lineOrSpace = options.proseWrap === "always" ? line : " ";
+      return group(
+        concat([
+          concat(["[", node.identifier, "]:"]),
+          indent(
+            concat([
+              lineOrSpace,
+              printUrl(node.url),
+              node.title === null
+                ? ""
+                : concat([lineOrSpace, printTitle(node.title, options, false)])
+            ])
+          )
+        ])
+      );
+    }
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
     case "footnoteReference":
@@ -344,12 +370,16 @@ function genericPrint(path, options, print) {
     case "tableCell":
       return printChildren(path, options, print);
     case "break":
-      return concat([
-        /\s/.test(options.originalText[node.position.start.offset])
-          ? "  "
-          : "\\",
-        hardline
-      ]);
+      return /\s/.test(options.originalText[node.position.start.offset])
+        ? concat(["  ", markAsRoot(literalline)])
+        : concat(["\\", hardline]);
+    case "liquidNode":
+      return replaceNewlinesWith(node.value, hardline);
+    // MDX
+    case "importExport":
+    case "jsx":
+      return node.value; // fallback to the original text if multiparser failed
+
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     default:
@@ -400,8 +430,8 @@ function getNthListSiblingIndex(node, parentNode) {
   );
 }
 
-function replaceNewlinesWithHardlines(str) {
-  return join(hardline, str.split("\n"));
+function replaceNewlinesWith(str, doc) {
+  return join(doc, str.split("\n"));
 }
 
 function getNthSiblingIndex(node, parentNode, condition) {
@@ -636,14 +666,23 @@ function printChildren(path, options, print, events) {
         parts.push(hardline);
 
         if (
-          shouldPrePrintDoubleHardline(childNode, data) ||
-          shouldPrePrintTripleHardline(childNode, data)
+          lastChildNode &&
+          TRAILING_HARDLINE_NODES.indexOf(lastChildNode.type) !== -1
         ) {
-          parts.push(hardline);
-        }
+          if (shouldPrePrintTripleHardline(childNode, data)) {
+            parts.push(hardline);
+          }
+        } else {
+          if (
+            shouldPrePrintDoubleHardline(childNode, data) ||
+            shouldPrePrintTripleHardline(childNode, data)
+          ) {
+            parts.push(hardline);
+          }
 
-        if (shouldPrePrintTripleHardline(childNode, data)) {
-          parts.push(hardline);
+          if (shouldPrePrintTripleHardline(childNode, data)) {
+            parts.push(hardline);
+          }
         }
       }
 
@@ -654,6 +693,14 @@ function printChildren(path, options, print, events) {
   }, "children");
 
   return postprocessor(parts);
+}
+
+function getLastDescendantNode(node) {
+  let current = node;
+  while (current.children && current.children.length !== 0) {
+    current = current.children[current.children.length - 1];
+  }
+  return current;
 }
 
 /** @return {false | 'next' | 'start' | 'end'} */
@@ -691,17 +738,26 @@ function shouldPrePrintDoubleHardline(node, data) {
 
   const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode) === "next";
 
+  const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
+    node.type === "html" &&
+    data.prevNode &&
+    data.prevNode.type === "html" &&
+    data.prevNode.position.end.line + 1 === node.position.start.line;
+
   return (
     isPrevNodeLooseListItem ||
-    !(isSiblingNode || isInTightListItem || isPrevNodePrettierIgnore)
+    !(
+      isSiblingNode ||
+      isInTightListItem ||
+      isPrevNodePrettierIgnore ||
+      isBlockHtmlWithoutBlankLineBetweenPrevHtml
+    )
   );
 }
 
 function shouldPrePrintTripleHardline(node, data) {
   const isPrevNodeList = data.prevNode && data.prevNode.type === "list";
-  const isIndentedCode =
-    node.type === "code" &&
-    /\s/.test(data.options.originalText[node.position.start.offset]);
+  const isIndentedCode = node.type === "code" && node.isIndented;
 
   return isPrevNodeList && isIndentedCode;
 }
@@ -720,7 +776,7 @@ function shouldRemainTheSameContent(path) {
 }
 
 function normalizeDoc(doc) {
-  return docUtils.mapDoc(doc, currentDoc => {
+  return mapDoc(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
@@ -752,12 +808,19 @@ function printUrl(url, dangerousCharOrChars) {
     : url;
 }
 
-function printTitle(title, options) {
+function printTitle(title, options, printSpace) {
+  if (printSpace == null) {
+    printSpace = true;
+  }
+
   if (!title) {
     return "";
   }
+  if (printSpace) {
+    return " " + printTitle(title, options, false);
+  }
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
-    return ` (${title})`; // avoid escaped quotes
+    return `(${title})`; // avoid escaped quotes
   }
   // faster than using RegExps: https://jsperf.com/performance-of-match-vs-split
   const singleCount = title.split("'").length - 1;
@@ -771,7 +834,7 @@ function printTitle(title, options) {
           ? "'"
           : '"';
   title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
-  return ` ${quote}${title}${quote}`;
+  return `${quote}${title}${quote}`;
 }
 
 function normalizeParts(parts) {
@@ -793,10 +856,23 @@ function clamp(value, min, max) {
 }
 
 function clean(ast, newObj, parent) {
+  delete newObj.position;
+  delete newObj.raw; // front-matter
+
   // for codeblock
-  if (ast.type === "code") {
+  if (
+    ast.type === "code" ||
+    ast.type === "yaml" ||
+    ast.type === "importExport" ||
+    ast.type === "jsx"
+  ) {
     delete newObj.value;
   }
+
+  if (ast.type === "list") {
+    delete newObj.isAligned;
+  }
+
   // for whitespace: "\n" and " " are considered the same
   if (ast.type === "whitespace" && ast.value === "\n") {
     newObj.value = " ";
@@ -805,6 +881,7 @@ function clean(ast, newObj, parent) {
   if (
     parent &&
     parent.type === "root" &&
+    parent.children.length > 0 &&
     (parent.children[0] === ast ||
       ((parent.children[0].type === "yaml" ||
         parent.children[0].type === "toml") &&

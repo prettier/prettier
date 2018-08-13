@@ -1,21 +1,19 @@
 "use strict";
 
-const docUtils = require("../doc/doc-utils");
 const util = require("../common/util");
-const support = require("../common/support");
-const doc = require("../doc");
-const docBuilders = doc.builders;
-const hardline = docBuilders.hardline;
-const literalline = docBuilders.literalline;
-const concat = docBuilders.concat;
-const markAsRoot = docBuilders.markAsRoot;
+const support = require("../main/support");
+const {
+  builders: { hardline, literalline, concat, markAsRoot },
+  utils: { mapDoc }
+} = require("../doc");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   if (node.type === "code" && node.lang !== null) {
     // only look for the first string so as to support [markdown-preview-enhanced](https://shd101wyy.github.io/markdown-preview-enhanced/#/code-chunk)
-    const lang = node.lang.split(/\s/, 1)[0];
+    const langMatch = node.lang.match(/^[A-Za-z0-9_-]+/);
+    const lang = langMatch ? langMatch[0] : "";
     const parser = getParserName(lang);
     if (parser) {
       const styleUnit = options.__inJsTemplate ? "~" : "`";
@@ -35,16 +33,39 @@ function embed(path, print, textToDoc, options) {
     }
   }
 
+  if (node.type === "yaml") {
+    return markAsRoot(
+      concat([
+        "---",
+        hardline,
+        node.value.trim()
+          ? replaceNewlinesWithLiterallines(
+              textToDoc(node.value, { parser: "yaml" })
+            )
+          : "",
+        "---"
+      ])
+    );
+  }
+
+  // MDX
+  switch (node.type) {
+    case "importExport":
+      return textToDoc(node.value, { parser: "babylon" });
+    case "jsx":
+      return textToDoc(node.value, { parser: "__js_expression" });
+  }
+
   return null;
 
   function getParserName(lang) {
     const supportInfo = support.getSupportInfo(null, {
-      plugins: options.plugins,
-      pluginsLoaded: true
+      plugins: options.plugins
     });
     const language = supportInfo.languages.find(
       language =>
         language.name.toLowerCase() === lang ||
+        (language.aliases && language.aliases.indexOf(lang) !== -1) ||
         (language.extensions &&
           language.extensions.find(ext => ext.substring(1) === lang))
     );
@@ -56,7 +77,7 @@ function embed(path, print, textToDoc, options) {
   }
 
   function replaceNewlinesWithLiterallines(doc) {
-    return docUtils.mapDoc(
+    return mapDoc(
       doc,
       currentDoc =>
         typeof currentDoc === "string" && currentDoc.includes("\n")

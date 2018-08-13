@@ -1,8 +1,6 @@
 "use strict";
 
-const docBuilders = require("../doc").builders;
-const concat = docBuilders.concat;
-const hardline = docBuilders.hardline;
+const { concat, hardline } = require("../doc").builders;
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();

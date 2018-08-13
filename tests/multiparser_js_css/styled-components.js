@@ -18,6 +18,10 @@ border-color : tomato
 
 `;
 
+Button.extend.attr({})`
+border-color : black;
+`
+
 styled(ExistingComponent)`
        color : papayawhip ; background-color: firebrick`;
 

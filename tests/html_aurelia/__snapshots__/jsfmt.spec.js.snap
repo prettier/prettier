@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic.html 1`] = `
+exports[`basic.html - parse5-verify 1`] = `
 <template>
   <i class.bind="icon"></i>
 </template>

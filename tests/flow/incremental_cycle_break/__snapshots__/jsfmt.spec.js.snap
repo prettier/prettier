@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js - flow-verify 1`] = `
 /**
  * @providesModule A
  * @flow
@@ -17,7 +17,7 @@ require("B");
 
 `;
 
-exports[`B.js 1`] = `
+exports[`B.js - flow-verify 1`] = `
 /**
  * @providesModule B
  * @flow

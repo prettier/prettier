@@ -213,13 +213,13 @@ If it's using in a whitespace-sensitive language, e.g. markdown, you should use 
 
 For example:
 
-* `useTabs`
-  * `tabWidth: 2`
-    * `<indent><align 2><indent><align 2>` -> `<tab><tab><tab><2 space>`
-    * `<indent><align 4><indent><align 2>` -> `<tab><tab><tab><2 space>`
-  * `tabWidth: 4`
-    * `<indent><align 2><indent><align 2>` -> `<tab><tab><tab><2 space>`
-    * `<indent><align 4><indent><align 2>` -> `<tab><tab><tab><2 space>`
+- `useTabs`
+  - `tabWidth: 2`
+    - `<indent><align 2><indent><align 2>` -> `<tab><tab><tab><2 space>`
+    - `<indent><align 4><indent><align 2>` -> `<tab><tab><tab><2 space>`
+  - `tabWidth: 4`
+    - `<indent><align 2><indent><align 2>` -> `<tab><tab><tab><2 space>`
+    - `<indent><align 4><indent><align 2>` -> `<tab><tab><tab><2 space>`
 
 ### markAsRoot
 
