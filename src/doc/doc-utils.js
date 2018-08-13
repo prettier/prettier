@@ -73,9 +73,9 @@ function mapDoc(doc, cb) {
     const flatContents = doc.flatContents && mapDoc(doc.flatContents, cb);
     return cb(Object.assign({}, doc, { breakContents, flatContents }));
   } else if (doc.type === "more-compact") {
-    const breakContents = doc.primaryGroup && mapDoc(doc.primaryGroup, cb);
-    const flatContents = doc.alternateGroup && mapDoc(doc.alternateGroup, cb);
-    return cb(Object.assign({}, doc, { breakContents, flatContents }));
+    const primaryGroup = doc.primaryGroup && mapDoc(doc.primaryGroup, cb);
+    const alternateGroup = doc.alternateGroup && mapDoc(doc.alternateGroup, cb);
+    return cb(Object.assign({}, doc, { primaryGroup, alternateGroup }));
   } else if (doc.contents) {
     const contents = mapDoc(doc.contents, cb);
     return cb(Object.assign({}, doc, { contents }));
