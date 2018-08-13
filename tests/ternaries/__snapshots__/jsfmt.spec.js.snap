@@ -161,7 +161,49 @@ fn(
 
 `;
 
+exports[`func-call.js - flow-verify 1`] = `
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol 
+      ? annularCooeedSplicesWalksWayWay 
+      : kochabCooieGameOnOboleUnweave 
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol
+    ? annularCooeedSplicesWalksWayWay
+    : kochabCooieGameOnOboleUnweave
+);
+
+`;
+
 exports[`func-call.js 2`] = `
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol 
+      ? annularCooeedSplicesWalksWayWay 
+      : kochabCooieGameOnOboleUnweave 
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fn(
+    bifornCringerMoshedPerplexSawder,
+    askTrovenaBeenaDependsRowans,
+    glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+        anodyneCondosMalateOverateRetinol
+        ? annularCooeedSplicesWalksWayWay
+        : kochabCooieGameOnOboleUnweave
+);
+
+`;
+
+exports[`func-call.js - flow-verify 2`] = `
 fn(
   bifornCringerMoshedPerplexSawder,
   askTrovenaBeenaDependsRowans,
@@ -203,7 +245,49 @@ fn(
 
 `;
 
+exports[`func-call.js - flow-verify 3`] = `
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol 
+      ? annularCooeedSplicesWalksWayWay 
+      : kochabCooieGameOnOboleUnweave 
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fn(
+	bifornCringerMoshedPerplexSawder,
+	askTrovenaBeenaDependsRowans,
+	glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+		anodyneCondosMalateOverateRetinol
+		? annularCooeedSplicesWalksWayWay
+		: kochabCooieGameOnOboleUnweave
+);
+
+`;
+
 exports[`func-call.js 4`] = `
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol 
+      ? annularCooeedSplicesWalksWayWay 
+      : kochabCooieGameOnOboleUnweave 
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fn(
+	bifornCringerMoshedPerplexSawder,
+	askTrovenaBeenaDependsRowans,
+	glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+		anodyneCondosMalateOverateRetinol
+		? annularCooeedSplicesWalksWayWay
+		: kochabCooieGameOnOboleUnweave
+);
+
+`;
+
+exports[`func-call.js - flow-verify 4`] = `
 fn(
   bifornCringerMoshedPerplexSawder,
   askTrovenaBeenaDependsRowans,
