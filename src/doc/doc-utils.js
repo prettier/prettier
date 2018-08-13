@@ -44,10 +44,10 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
         }
       } else if (doc.type === "more-compact") {
         if (doc.primaryGroup) {
-          traverseDocRec(doc.primaryGroup);
+          docsStack.push(doc.primaryGroup);
         }
         if (shouldTraverseConditionalGroups && doc.alternateGroup) {
-          traverseDocRec(doc.alternateGroup);
+          docsStack.push(doc.alternateGroup);
         }
       } else if (doc.type === "group" && doc.expandedStates) {
         if (shouldTraverseConditionalGroups) {
