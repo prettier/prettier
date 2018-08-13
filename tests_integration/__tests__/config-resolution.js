@@ -3,7 +3,7 @@
 const path = require("path");
 
 const runPrettier = require("../runPrettier");
-const prettier = require("../../tests_config/require_prettier");
+const prettier = require("prettier/local");
 
 expect.addSnapshotSerializer(require("../path-serializer"));
 
@@ -39,6 +39,12 @@ describe("resolves json configuration file with --find-config-path file", () => 
 
 describe("resolves yaml configuration file with --find-config-path file", () => {
   runPrettier("cli/config/", ["--find-config-path", "rc-yaml/file.js"]).test({
+    status: 0
+  });
+});
+
+describe("resolves toml configuration file with --find-config-path file", () => {
+  runPrettier("cli/config/", ["--find-config-path", "rc-toml/file.js"]).test({
     status: 0
   });
 });
@@ -224,5 +230,14 @@ test("API resolveConfig.sync removes $schema option", () => {
   );
   expect(prettier.resolveConfig.sync(file)).toEqual({
     tabWidth: 42
+  });
+});
+
+test("API resolveConfig resolves relative path values based on config filepath", () => {
+  const currentDir = path.join(__dirname, "../cli/config/resolve-relative");
+  const parentDir = path.resolve(currentDir, "..");
+  expect(prettier.resolveConfig.sync(`${currentDir}/index.js`)).toMatchObject({
+    plugins: [path.join(parentDir, "path-to-plugin")],
+    pluginSearchDirs: [path.join(parentDir, "path-to-plugin-search-dir")]
   });
 });

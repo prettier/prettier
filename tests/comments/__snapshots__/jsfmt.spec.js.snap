@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`assignment-pattern.js 1`] = `
+exports[`assignment-pattern.js - flow-verify 1`] = `
 const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
@@ -18,7 +18,7 @@ let {
 
 `;
 
-exports[`before-comma.js 1`] = `
+exports[`before-comma.js - flow-verify 1`] = `
 const foo = {
   a: 'a' /* comment for this line */,
 
@@ -35,7 +35,7 @@ const foo = {
 
 `;
 
-exports[`blank.js 1`] = `
+exports[`blank.js - flow-verify 1`] = `
 // This file only
 // has comments. This comment
 // should still exist
@@ -82,7 +82,34 @@ exports[`blank.js 1`] = `
 
 `;
 
-exports[`call_comment.js 1`] = `
+exports[`break-continue-statements.js - flow-verify 1`] = `
+for (;;) {
+  break /* comment */;
+  continue /* comment */;
+}
+
+loop: for (;;) {
+  break /* comment */ loop;
+  break loop /* comment */;
+  continue /* comment */ loop;
+  continue loop /* comment */;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for (;;) {
+  break; /* comment */
+  continue; /* comment */
+}
+
+loop: for (;;) {
+  break /* comment */ loop;
+  break loop /* comment */;
+  continue /* comment */ loop;
+  continue loop /* comment */;
+}
+
+`;
+
+exports[`call_comment.js - flow-verify 1`] = `
 render( // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
@@ -107,7 +134,7 @@ React.render(
 
 `;
 
-exports[`closure-compiler-type-cast.js 1`] = `
+exports[`closure-compiler-type-cast.js - flow-verify 1`] = `
 // test to make sure comments are attached correctly
 let inlineComment = /* some comment */ (
   someReallyLongFunctionCall(withLots, ofArguments));
@@ -124,6 +151,10 @@ functionCall(1 + /** @type {string} */ (value), /** @type {!Foo} */ ({}));
 function returnValue() {
   return /** @type {!Array.<string>} */ (['hello', 'you']);
 }
+
+var newArray = /** @type {array} */ (numberOrString).map(x => x);
+var newArray = /** @type {array} */ ((numberOrString)).map(x => x);
+var newArray = /** @type {array} */ ((numberOrString).map(x => x));
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // test to make sure comments are attached correctly
 let inlineComment = (
@@ -143,9 +174,13 @@ function returnValue() {
   return /** @type {!Array.<string>} */ (["hello", "you"]);
 }
 
+var newArray = /** @type {array} */ (numberOrString).map(x => x);
+var newArray = /** @type {array} */ (numberOrString).map(x => x);
+var newArray = /** @type {array} */ (numberOrString.map(x => x));
+
 `;
 
-exports[`dangling.js 1`] = `
+exports[`dangling.js - flow-verify 1`] = `
 var x = {/* dangling */};
 var x = {
   // dangling
@@ -176,7 +211,7 @@ export /* dangling */{};
 
 `;
 
-exports[`dangling_array.js 1`] = `
+exports[`dangling_array.js - flow-verify 1`] = `
 expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
@@ -191,7 +226,7 @@ expect(() => {}).toTriggerReadyStateChanges([
 
 `;
 
-exports[`dangling_for.js 1`] = `
+exports[`dangling_for.js - flow-verify 1`] = `
 for // comment
 (;;);
 
@@ -205,7 +240,7 @@ for (;;);
 
 `;
 
-exports[`dynamic_imports.js 1`] = `
+exports[`dynamic_imports.js - flow-verify 1`] = `
 import(/* Hello */ 'something')
 
 import('something' /* Hello */)
@@ -224,16 +259,48 @@ import("something" /* Hello */ + "else");
 
 `;
 
-exports[`export.js 1`] = `
+exports[`export.js - flow-verify 1`] = `
 export //comment
 {}
+
+export /* comment */ {};
+
+export {
+  foo // comment
+}
+
+export {
+  // comment
+  bar
+}
+
+export {
+  fooo, // comment
+  barr, // comment
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//comment
-export {};
+export //comment
+{};
+
+export /* comment */{};
+
+export {
+  foo // comment
+};
+
+export {
+  // comment
+  bar
+};
+
+export {
+  fooo, // comment
+  barr // comment
+};
 
 `;
 
-exports[`first-line.js 1`] = `
+exports[`first-line.js - flow-verify 1`] = `
 a // comment
 b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -242,7 +309,7 @@ b;
 
 `;
 
-exports[`flow_union.js 1`] = `
+exports[`flow_union.js - flow-verify 1`] = `
 type UploadState<E, EM, D>
   // The upload hasnt begun yet
   = {type: "Not_begun"}
@@ -285,7 +352,7 @@ type UploadState<E, EM, D> =
 
 `;
 
-exports[`function-declaration.js 1`] = `
+exports[`function-declaration.js - flow-verify 1`] = `
 function a(/* comment */) {} // comment
 function b() {} // comment
 function c(/* comment */ argA, argB, argC) {} // comment
@@ -372,7 +439,7 @@ class C {
 
 `;
 
-exports[`if.js 1`] = `
+exports[`if.js - flow-verify 1`] = `
 if (1)
 // comment
 {
@@ -438,20 +505,21 @@ true
 if (1) {
   // comment
   false;
-} else if (2)
-  // comment
-  true;
+}
+// comment
+else if (2) true;
+// multi
+// ple
+// lines
 else if (3)
-  // multi
-  // ple
-  // lines
   // existing comment
   true;
+// okay?
 else if (4) {
-  // okay?
   // empty with existing comment
-} else {
-  // comment
+}
+// comment
+else {
 }
 
 if (5)
@@ -464,8 +532,8 @@ if (6) {
 } else if (7)
   // comment
   true;
+// comment
 else {
-  // comment
   true;
 }
 
@@ -477,9 +545,9 @@ if (8) {
   // comment
   // comment
   true;
+// comment
+// comment
 else {
-  // comment
-  // comment
   true;
 }
 
@@ -495,8 +563,7 @@ else if (12)
 else if (13)
   /* comment */ /* comment */ // comment
   true;
-else {
-  /* comment */
+/* comment */ else {
   true;
 }
 
@@ -513,7 +580,7 @@ if (14) {
 
 `;
 
-exports[`issues.js 1`] = `
+exports[`issues.js - flow-verify 1`] = `
 // Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
 
@@ -721,8 +788,9 @@ if (1) {
 
 // Comments trigger invalid JavaScript in-between else if
 if (1) {
-} else {
-  // Comment
+}
+// Comment
+else {
 }
 
 // The comment makes the line break in a weird way
@@ -736,7 +804,7 @@ foo(
 
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js - flow-verify 1`] = `
 <div>
   {
     /* comment */
@@ -963,7 +1031,7 @@ onClick={() => {}}>
 
 `;
 
-exports[`last-arg.js 1`] = `
+exports[`last-arg.js - flow-verify 1`] = `
 type f = (
   currentRequest: {a: number},
   // TODO this is a very very very very long comment that makes it go > 80 columns
@@ -1148,7 +1216,7 @@ class Foo {
 
 `;
 
-exports[`preserve-new-line-last.js 1`] = `
+exports[`preserve-new-line-last.js - flow-verify 1`] = `
 function f() {
   a
   /* eslint-disable */
@@ -1195,7 +1263,7 @@ function name() {
 
 `;
 
-exports[`return-statement.js 1`] = `
+exports[`return-statement.js - flow-verify 1`] = `
 function jsx() {
   return (
     // Comment
@@ -1280,7 +1348,7 @@ function memberOutside() {
 function memberInAndOutWithCalls() {
   return (
     // Reason for a
-    a.b()
+    aFunction.b()
   ).c.d()
 }
 
@@ -1408,7 +1476,7 @@ function memberOutside() {
 
 function memberInAndOutWithCalls() {
   return (
-    a
+    aFunction
       .b// Reason for a
       ()
       .c.d()
@@ -1450,7 +1518,7 @@ function inlineComment() {
 
 `;
 
-exports[`switch.js 1`] = `
+exports[`switch.js - flow-verify 1`] = `
 switch (node && node.type) {
   case "Property":
   case "MethodDefinition":
@@ -1530,7 +1598,7 @@ switch (foo) {
 
 `;
 
-exports[`template-literal.js 1`] = `
+exports[`template-literal.js - flow-verify 1`] = `
 \`
 \${a // comment
 }
@@ -1561,7 +1629,7 @@ d //comment
 
 `;
 
-exports[`trailing_space.js 1`] = `
+exports[`trailing_space.js - flow-verify 1`] = `
 #!/there/is-space-here->         
 
 // Do not trim trailing whitespace from this source file!
@@ -1576,7 +1644,61 @@ exports[`trailing_space.js 1`] = `
 
 `;
 
-exports[`try.js 1`] = `
+exports[`trailing-jsdocs.js - flow-verify 1`] = `
+const CONNECTION_STATUS = exports.CONNECTION_STATUS = {
+  CLOSED: Object.freeze({ kind: 'CLOSED' }),
+  CONNECTED: Object.freeze({ kind: 'CONNECTED' }),
+  CONNECTING: Object.freeze({ kind: 'CONNECTING' }),
+  NOT_CONNECTED: Object.freeze({ kind: 'NOT_CONNECTED' }) };
+
+/* A comment */ /**
+* A type that can be written to a buffer.
+*/ /**
+* Describes the connection status of a ReactiveSocket/DuplexConnection.
+* - NOT_CONNECTED: no connection established or pending.
+* - CONNECTING: when \`connect()\` has been called but a connection is not yet
+*   established.
+* - CONNECTED: when a connection is established.
+* - CLOSED: when the connection has been explicitly closed via \`close()\`.
+* - ERROR: when the connection has been closed for any other reason.
+*/ /**
+* A contract providing different interaction models per the [ReactiveSocket protocol]
+* (https://github.com/ReactiveSocket/reactivesocket/blob/master/Protocol.md).
+*/ /**
+* A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
+*/
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
+  CLOSED: Object.freeze({ kind: "CLOSED" }),
+  CONNECTED: Object.freeze({ kind: "CONNECTED" }),
+  CONNECTING: Object.freeze({ kind: "CONNECTING" }),
+  NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" })
+});
+
+/* A comment */
+/**
+ * A type that can be written to a buffer.
+ */
+/**
+ * Describes the connection status of a ReactiveSocket/DuplexConnection.
+ * - NOT_CONNECTED: no connection established or pending.
+ * - CONNECTING: when \`connect()\` has been called but a connection is not yet
+ *   established.
+ * - CONNECTED: when a connection is established.
+ * - CLOSED: when the connection has been explicitly closed via \`close()\`.
+ * - ERROR: when the connection has been closed for any other reason.
+ */
+/**
+ * A contract providing different interaction models per the [ReactiveSocket protocol]
+ * (https://github.com/ReactiveSocket/reactivesocket/blob/master/Protocol.md).
+ */
+/**
+ * A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
+ */
+
+`;
+
+exports[`try.js - flow-verify 1`] = `
 // comment 1
 try {
   // comment 2
@@ -1604,7 +1726,7 @@ try {
 
 `;
 
-exports[`variable_declarator.js 1`] = `
+exports[`variable_declarator.js - flow-verify 1`] = `
 let obj = // Comment
 {
   key: 'val'
@@ -1642,6 +1764,24 @@ let obj = [
   // Comment
   'val'
 ]
+
+let obj = // Comment
+\`val\`;
+
+let obj = // Comment
+\`
+val
+val
+\`;
+
+let obj = // Comment
+tag\`val\`;
+
+let obj = // Comment
+tag\`
+val
+val
+\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let obj =
   // Comment
@@ -1682,5 +1822,27 @@ let obj = [
   // Comment
   "val"
 ];
+
+let obj =
+  // Comment
+  \`val\`;
+
+let obj =
+  // Comment
+  \`
+val
+val
+\`;
+
+let obj =
+  // Comment
+  tag\`val\`;
+
+let obj =
+  // Comment
+  tag\`
+val
+val
+\`;
 
 `;

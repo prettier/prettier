@@ -104,3 +104,7 @@ If you wish to manually publish your website with the `publish-gh-pages` script,
 ```
 DEPLOY_USER=deltice GIT_USER=test-site-bot CIRCLE_PROJECT_USERNAME=deltice CIRCLE_PROJECT_REPONAME=test-site CIRCLE_BRANCH=master npm run publish-gh-pages
 ```
+
+## Playground
+
+The playground is not integrated with the Docusaurus infrastructure. If you want to edit something in the playground, you need to run `yarn start` to start the Docusaurus server and `webpack --watch` in a separate shell to compile the playground changes.

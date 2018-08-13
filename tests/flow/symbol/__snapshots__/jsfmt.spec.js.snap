@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`symbol.js 1`] = `
+exports[`symbol.js - flow-verify 1`] = `
 var FOO = Symbol();
 var BAR = Symbol('bar');
 

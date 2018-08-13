@@ -1,6 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`keyword.tsx 1`] = `
+exports[`generic-component.tsx - typescript-verify 1`] = `
+const c1 = <MyComponent<number> data={12} />
+
+const c2 = <MyComponent<number> />
+
+const c3 = <MyComponent<number> attr="value" />
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const c1 = <MyComponent<number> data={12} />;
+
+const c2 = <MyComponent<number> />;
+
+const c3 = <MyComponent<number> attr="value" />;
+
+`;
+
+exports[`keyword.tsx - typescript-verify 1`] = `
 <try />;
 <object />
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +24,7 @@ exports[`keyword.tsx 1`] = `
 
 `;
 
-exports[`not-react.ts 1`] = `
+exports[`not-react.ts - typescript-verify 1`] = `
 /// <reference types="node" />
 
 type ul = any;
@@ -30,7 +45,7 @@ const footer = "<footer></footer>";
 
 `;
 
-exports[`react.tsx 1`] = `
+exports[`react.tsx - typescript-verify 1`] = `
 const MyCoolList = ({ things }) =>
     <ul>
         {things.map(MyCoolThing)}
@@ -44,7 +59,7 @@ const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
 
 `;
 
-exports[`this.tsx 1`] = `
+exports[`this.tsx - typescript-verify 1`] = `
 <this.state.Component />;
 <this.Component />;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

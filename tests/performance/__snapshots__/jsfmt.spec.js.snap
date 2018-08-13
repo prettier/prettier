@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nested.js 1`] = `
+exports[`nested.js - flow-verify 1`] = `
 someObject.someFunction().then(function() {
   return someObject.someFunction().then(function() {
     return someObject.someFunction().then(function() {
@@ -63,7 +63,7 @@ someObject.someFunction().then(function() {
 
 `;
 
-exports[`nested-real.js 1`] = `
+exports[`nested-real.js - flow-verify 1`] = `
 tap.test("RecordImport.advance", (t) => {
     const checkStates = (batches, states) => {
         t.equal(batches.length, states.length);

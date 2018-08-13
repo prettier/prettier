@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`no-semi.js 1`] = `
+exports[`no-semi.js - babylon-verify 1`] = `
 a
 ;::b.c
 
@@ -27,7 +27,7 @@ class A {
 
 `;
 
-exports[`no-semi.js 2`] = `
+exports[`no-semi.js - babylon-verify 2`] = `
 a
 ;::b.c
 

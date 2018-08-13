@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dupe1.js 1`] = `
+exports[`dupe1.js - flow-verify 1`] = `
 /**
  * Dupe provider 1/2
  * @providesModule Dupe
@@ -17,7 +17,7 @@ module.exports = "dupe1";
 
 `;
 
-exports[`dupe2.js 1`] = `
+exports[`dupe2.js - flow-verify 1`] = `
 /**
  * Dupe provider 2/2
  * @providesModule Dupe
@@ -34,7 +34,7 @@ module.exports = "dupe2";
 
 `;
 
-exports[`requires_dupe.js 1`] = `
+exports[`requires_dupe.js - flow-verify 1`] = `
 /**
  * depends on doubly-provided module
  * @flow

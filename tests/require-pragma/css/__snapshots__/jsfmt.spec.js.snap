@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`empty-front-matter-with-pragma.css - css-verify 1`] = `
+---
+---
+
+/** @prettier */
+
+.class {    display: none;    }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+---
+
+/** @prettier */
+.class {
+  display: none;
+}
+
+`;
+
+exports[`empty-front-matter-without-pragma.css - css-verify 1`] = `
+---
+---
+
+.class {    display: none;    }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+---
+
+.class {    display: none;    }
+
+`;
+
+exports[`front-matter-with-pragma.css - css-verify 1`] = `
+---
+something
+---
+
+/** @prettier */
+
+.class {    display: none;    }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+something
+---
+
+/** @prettier */
+.class {
+  display: none;
+}
+
+`;
+
+exports[`front-matter-without-pragma.css - css-verify 1`] = `
+---
+something
+---
+
+.class {    display: none;    }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+something
+---
+
+.class {    display: none;    }
+
+`;
+
+exports[`with-pragma.css - css-verify 1`] = `
+/** @prettier */
+
+.class {    display: none;    }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/** @prettier */
+
+.class {
+  display: none;
+}
+
+`;
+
+exports[`with-pragma-in-multiline.css - css-verify 1`] = `
+/**
+ * MIT LICENSE
+ * 
+ * bla bla bla
+ *
+ * @format
+ */
+
+.class {    display: none;    }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * MIT LICENSE
+ * 
+ * bla bla bla
+ *
+ * @format
+ */
+
+.class {
+  display: none;
+}
+
+`;
+
+exports[`without-pragma.css - css-verify 1`] = `
+.class {    display: none;    }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.class {    display: none;    }
+
+`;

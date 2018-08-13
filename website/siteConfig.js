@@ -53,6 +53,9 @@ const siteConfig = {
   },
   useEnglishUrl: true,
   scripts: ["https://buttons.github.io/buttons.js"],
+  stylesheets: [
+    "//unpkg.com/@sandhose/prettier-animated-logo@1.0.3/dist/wide.css"
+  ],
   algolia: {
     apiKey: process.env.ALGOLIA_PRETTIER_API_KEY,
     indexName: "prettier"
@@ -77,7 +80,8 @@ const siteConfig = {
   ],
   separateCss: ["static/separate-css"],
   gaTrackingId: "UA-111350464-1",
-  twitter: true
+  twitter: true,
+  onPageNav: "separate"
 };
 
 module.exports = siteConfig;

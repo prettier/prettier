@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 var o = Object.freeze({ foo: 0 });
 (o.foo: string);
 module.exports = o;
@@ -11,7 +11,7 @@ module.exports = o;
 
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js - flow-verify 1`] = `
 var o = require('./test');
 (o.foo: string);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

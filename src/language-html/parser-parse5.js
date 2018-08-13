@@ -9,10 +9,30 @@ function parse(text /*, parsers, opts*/) {
       treeAdapter: parse5.treeAdapters.htmlparser2,
       locationInfo: true
     });
-    return extendAst(ast);
+    return normalize(extendAst(ast));
   } catch (error) {
     throw error;
   }
+}
+
+function normalize(ast) {
+  if (Array.isArray(ast)) {
+    return ast.map(normalize);
+  }
+
+  if (!ast || typeof ast !== "object") {
+    return ast;
+  }
+
+  delete ast.parent;
+  delete ast.next;
+  delete ast.prev;
+
+  for (const key of Object.keys(ast)) {
+    ast[key] = normalize(ast[key]);
+  }
+
+  return ast;
 }
 
 function extendAst(ast) {
@@ -38,4 +58,17 @@ function convertAttribs(attribs) {
   });
 }
 
-module.exports = parse;
+module.exports = {
+  parsers: {
+    parse5: {
+      parse,
+      astFormat: "htmlparser2",
+      locStart(node) {
+        return node.__location && node.__location.startOffset;
+      },
+      locEnd(node) {
+        return node.__location && node.__location.endOffset;
+      }
+    }
+  }
+};

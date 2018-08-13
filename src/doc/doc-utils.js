@@ -1,7 +1,19 @@
 "use strict";
 
+// Using a unique object to compare by reference.
+const traverseDocOnExitStackMarker = {};
+
 function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
-  function traverseDocRec(doc) {
+  const docsStack = [doc];
+
+  while (docsStack.length !== 0) {
+    const doc = docsStack.pop();
+
+    if (doc === traverseDocOnExitStackMarker) {
+      onExit(docsStack.pop());
+      continue;
+    }
+
     let shouldRecurse = true;
     if (onEnter) {
       if (onEnter(doc) === false) {
@@ -9,17 +21,26 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
       }
     }
 
+    if (onExit) {
+      docsStack.push(doc);
+      docsStack.push(traverseDocOnExitStackMarker);
+    }
+
     if (shouldRecurse) {
+      // When there are multiple parts to process,
+      // the parts need to be pushed onto the stack in reverse order,
+      // so that they are processed in the original order
+      // when the stack is popped.
       if (doc.type === "concat" || doc.type === "fill") {
-        for (let i = 0; i < doc.parts.length; i++) {
-          traverseDocRec(doc.parts[i]);
+        for (let ic = doc.parts.length, i = ic - 1; i >= 0; --i) {
+          docsStack.push(doc.parts[i]);
         }
       } else if (doc.type === "if-break") {
-        if (doc.breakContents) {
-          traverseDocRec(doc.breakContents);
-        }
         if (doc.flatContents) {
-          traverseDocRec(doc.flatContents);
+          docsStack.push(doc.flatContents);
+        }
+        if (doc.breakContents) {
+          docsStack.push(doc.breakContents);
         }
       } else if (doc.type === "more-compact") {
         if (doc.primaryGroup) {
@@ -30,50 +51,42 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
         }
       } else if (doc.type === "group" && doc.expandedStates) {
         if (shouldTraverseConditionalGroups) {
-          doc.expandedStates.forEach(traverseDocRec);
+          for (let ic = doc.expandedStates.length, i = ic - 1; i >= 0; --i) {
+            docsStack.push(doc.expandedStates[i]);
+          }
         } else {
-          traverseDocRec(doc.contents);
+          docsStack.push(doc.contents);
         }
       } else if (doc.contents) {
-        traverseDocRec(doc.contents);
+        docsStack.push(doc.contents);
       }
     }
-
-    if (onExit) {
-      onExit(doc);
-    }
   }
-
-  traverseDocRec(doc);
 }
 
-function mapDoc(doc, func) {
-  doc = func(doc);
-
+function mapDoc(doc, cb) {
   if (doc.type === "concat" || doc.type === "fill") {
-    return Object.assign({}, doc, {
-      parts: doc.parts.map(d => mapDoc(d, func))
-    });
+    const parts = doc.parts.map(part => mapDoc(part, cb));
+    return cb(Object.assign({}, doc, { parts }));
   } else if (doc.type === "if-break") {
-    return Object.assign({}, doc, {
-      breakContents: doc.breakContents && mapDoc(doc.breakContents, func),
-      flatContents: doc.flatContents && mapDoc(doc.flatContents, func)
-    });
+    const breakContents = doc.breakContents && mapDoc(doc.breakContents, cb);
+    const flatContents = doc.flatContents && mapDoc(doc.flatContents, cb);
+    return cb(Object.assign({}, doc, { breakContents, flatContents }));
   } else if (doc.type === "more-compact") {
-    return Object.assign({}, doc, {
-      breakContents: doc.primaryGroup && mapDoc(doc.primaryGroup, func),
-      flatContents: doc.alternateGroup && mapDoc(doc.alternateGroup, func)
-    });
+    const breakContents = doc.primaryGroup && mapDoc(doc.primaryGroup, cb);
+    const flatContents = doc.alternateGroup && mapDoc(doc.alternateGroup, cb);
+    return cb(Object.assign({}, doc, { breakContents, flatContents }));
   } else if (doc.contents) {
-    return Object.assign({}, doc, { contents: mapDoc(doc.contents, func) });
+    const contents = mapDoc(doc.contents, cb);
+    return cb(Object.assign({}, doc, { contents }));
   }
-  return doc;
+  return cb(doc);
 }
 
 function findInDoc(doc, fn, defaultValue) {
   let result = defaultValue;
   let hasStopped = false;
-  traverseDoc(doc, doc => {
+  function findInDocOnEnterFn(doc) {
     const maybeResult = fn(doc);
     if (maybeResult !== undefined) {
       hasStopped = true;
@@ -82,7 +95,8 @@ function findInDoc(doc, fn, defaultValue) {
     if (hasStopped) {
       return false;
     }
-  });
+  }
+  traverseDoc(doc, findInDocOnEnterFn);
   return result;
 }
 
@@ -90,37 +104,33 @@ function isEmpty(n) {
   return typeof n === "string" && n.length === 0;
 }
 
+function isLineNextFn(doc) {
+  if (typeof doc === "string") {
+    return false;
+  }
+  if (doc.type === "line") {
+    return true;
+  }
+}
+
 function isLineNext(doc) {
-  return findInDoc(
-    doc,
-    doc => {
-      if (typeof doc === "string") {
-        return false;
-      }
-      if (doc.type === "line") {
-        return true;
-      }
-    },
-    false
-  );
+  return findInDoc(doc, isLineNextFn, false);
+}
+
+function willBreakFn(doc) {
+  if (doc.type === "group" && doc.break) {
+    return true;
+  }
+  if (doc.type === "line" && doc.hard) {
+    return true;
+  }
+  if (doc.type === "break-parent") {
+    return true;
+  }
 }
 
 function willBreak(doc) {
-  return findInDoc(
-    doc,
-    doc => {
-      if (doc.type === "group" && doc.break) {
-        return true;
-      }
-      if (doc.type === "line" && doc.hard) {
-        return true;
-      }
-      if (doc.type === "break-parent") {
-        return true;
-      }
-    },
-    false
-  );
+  return findInDoc(doc, willBreakFn, false);
 }
 
 function breakParentGroup(groupStack) {
@@ -136,47 +146,51 @@ function breakParentGroup(groupStack) {
 }
 
 function propagateBreaks(doc) {
-  const alreadyVisited = new Map();
+  const alreadyVisitedSet = new Set();
   const groupStack = [];
-  traverseDoc(
-    doc,
-    doc => {
-      if (doc.type === "break-parent") {
+  function propagateBreaksOnEnterFn(doc) {
+    if (doc.type === "break-parent") {
+      breakParentGroup(groupStack);
+    }
+    if (doc.type === "group") {
+      groupStack.push(doc);
+      if (alreadyVisitedSet.has(doc)) {
+        return false;
+      }
+      alreadyVisitedSet.add(doc);
+    }
+  }
+  function propagateBreaksOnExitFn(doc) {
+    if (doc.type === "group") {
+      const group = groupStack.pop();
+      if (group.break) {
         breakParentGroup(groupStack);
       }
-      if (doc.type === "group") {
-        groupStack.push(doc);
-        if (alreadyVisited.has(doc)) {
-          return false;
-        }
-        alreadyVisited.set(doc, true);
-      }
-    },
-    doc => {
-      if (doc.type === "group") {
-        const group = groupStack.pop();
-        if (group.break) {
-          breakParentGroup(groupStack);
-        }
-      }
-    },
+    }
+  }
+  traverseDoc(
+    doc,
+    propagateBreaksOnEnterFn,
+    propagateBreaksOnExitFn,
     /* shouldTraverseConditionalGroups */ true
   );
 }
 
-function removeLines(doc) {
+function removeLinesFn(doc) {
   // Force this doc into flat mode by statically converting all
   // lines into spaces (or soft lines into nothing). Hard lines
   // should still output because there's too great of a chance
   // of breaking existing assumptions otherwise.
-  return mapDoc(doc, d => {
-    if (d.type === "line" && !d.hard) {
-      return d.soft ? "" : " ";
-    } else if (d.type === "if-break") {
-      return d.flatContents || "";
-    }
-    return d;
-  });
+  if (doc.type === "line" && !doc.hard) {
+    return doc.soft ? "" : " ";
+  } else if (doc.type === "if-break") {
+    return doc.flatContents || "";
+  }
+  return doc;
+}
+
+function removeLines(doc) {
+  return mapDoc(doc, removeLinesFn);
 }
 
 function stripTrailingHardline(doc) {
@@ -194,10 +208,6 @@ function stripTrailingHardline(doc) {
   return doc;
 }
 
-function rawText(node) {
-  return node.extra ? node.extra.raw : node.raw;
-}
-
 module.exports = {
   isEmpty,
   willBreak,
@@ -206,6 +216,5 @@ module.exports = {
   mapDoc,
   propagateBreaks,
   removeLines,
-  stripTrailingHardline,
-  rawText
+  stripTrailingHardline
 };

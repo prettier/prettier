@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`foo.js 1`] = `
+exports[`foo.js - flow-verify 1`] = `
 /*
  * @providesModule Foo
  */
@@ -11,7 +11,7 @@ exports[`foo.js 1`] = `
 
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 /**
  * @flow
  */

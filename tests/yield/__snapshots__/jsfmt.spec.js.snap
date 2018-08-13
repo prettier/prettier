@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
+exports[`arrow.js - babylon-verify 1`] = `
 function *f() {
   (yield a => a);
   (yield async a => a);
@@ -15,7 +15,7 @@ function* f() {
 
 `;
 
-exports[`conditional.js 1`] = `
+exports[`conditional.js - babylon-verify 1`] = `
 function* f() {
   a = (yield) ? 1 : 1;
   a = yield 1 ? 1 : 1;

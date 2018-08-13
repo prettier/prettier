@@ -3,6 +3,7 @@
 @import 'custom.css';
 @import url("chrome://communicator/skin/");
 @import "common.css" screen, projection;
+@import "common.css" screen projection;
 @import url('landscape.css') screen and (orientation:landscape);
 
 @import (multiple) "foo.less";
@@ -69,6 +70,7 @@ $dir: 'fonts';
   projection,
   tv;
 @import url("very-very-very-very-very-very-very-very-very-very-long-name.css") projection,tv;
+@import url("very-very-very-very-very-very-very-very-very-very-long-name.css") projection tv;
 @import url('landscape.css') screen and (orientation:landscape);
 @import "rounded-corners", "text-shadow";
 @import 'rounded-corners', 'text-shadow';
@@ -83,4 +85,8 @@ $family: unquote("Droid+Sans");
 @import url("foo  bar  baz.css");
 @import url(
 "foo.css"
+);
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600';
+@import url(
+"foo.css,800"
 );

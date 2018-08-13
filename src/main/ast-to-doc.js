@@ -59,7 +59,11 @@ function printAstToDoc(ast, options, addAlignmentSize) {
   }
   docUtils.propagateBreaks(doc);
 
-  if (options.parser === "json") {
+  if (
+    options.parser === "json" ||
+    options.parser === "json5" ||
+    options.parser === "json-stringify"
+  ) {
     doc = concat([doc, hardline]);
   }
 
@@ -83,7 +87,12 @@ function genericPrint(path, options, printPath, args) {
   if (node) {
     try {
       // Potentially switch to a different parser
-      const sub = multiparser.printSubtree(path, printPath, options);
+      const sub = multiparser.printSubtree(
+        path,
+        printPath,
+        options,
+        printAstToDoc
+      );
       if (sub) {
         return sub;
       }

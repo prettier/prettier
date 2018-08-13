@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`more_switch.js 1`] = `
+exports[`more_switch.js - flow-verify 1`] = `
 /* @flow */
 
 function foo(x): number {
@@ -64,7 +64,7 @@ function baz(x): number {
 
 `;
 
-exports[`switch.js 1`] = `
+exports[`switch.js - flow-verify 1`] = `
 /**
  * @flow
  */
@@ -128,7 +128,7 @@ function qux(b) {
 
 `;
 
-exports[`switch_default_fallthrough.js 1`] = `
+exports[`switch_default_fallthrough.js - flow-verify 1`] = `
 /**
  * @flow
  */
@@ -227,7 +227,7 @@ function baz(x: mixed): number {
 
 `;
 
-exports[`trailing_cases.js 1`] = `
+exports[`trailing_cases.js - flow-verify 1`] = `
 /**
  * trailing cases are allowed - spot checks that we handle them as usual
  * @flow

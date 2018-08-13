@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js - flow-verify 1`] = `
 var x: { } = { foo: 0 };
 var y: { foo?: string } = x; // OK in TypeScript, not OK in Flow
 
@@ -29,7 +29,7 @@ bar({ foo: "" });
 
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js - flow-verify 1`] = `
 var a: { foo?: string } = {};
 a.foo = undefined; // This is not an error
 a.foo = null; // But this is an error
@@ -60,7 +60,7 @@ var f: { foo?: ?string } = { foo: null }; // Also fine
 
 `;
 
-exports[`test3.js 1`] = `
+exports[`test3.js - flow-verify 1`] = `
 // @flow
 
 /*
@@ -177,7 +177,7 @@ class A {
 
 `;
 
-exports[`test3_exact_annot.js 1`] = `
+exports[`test3_exact_annot.js - flow-verify 1`] = `
 /* The logic that allows ({}: {p?:T}), described in test3.js, should _not_ also
    fire for exact annotations. */
 
@@ -196,7 +196,7 @@ b.b = 0; // because subsequent writes would widen the exact object
 
 `;
 
-exports[`test3_failure.js 1`] = `
+exports[`test3_failure.js - flow-verify 1`] = `
 // generalization of failure in test3.js
 
 class A<O: {x: { a: number, b?: string}}> {

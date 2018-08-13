@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`a.js 1`] = `
+exports[`a.js - flow-verify 1`] = `
 // @flow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
 `;
 
-exports[`b.js 1`] = `
+exports[`b.js - flow-verify 1`] = `
 /**
  * @flow
  * @providesModule b
@@ -22,7 +22,7 @@ require("./a");
 
 `;
 
-exports[`c.js 1`] = `
+exports[`c.js - flow-verify 1`] = `
 // @flow
 require('./a.js');
 require('b');

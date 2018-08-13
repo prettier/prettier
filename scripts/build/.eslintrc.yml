@@ -1,4 +1,2 @@
-overrides:
-- files: "rollup.*.config.js"
-  parserOptions:
-    sourceType: module
+parserOptions:
+  ecmaVersion: 2017

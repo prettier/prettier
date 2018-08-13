@@ -1,19 +1,14 @@
 "use strict";
 
 const dedent = require("dedent");
-
-const CATEGORY_CONFIG = "Config";
-const CATEGORY_EDITOR = "Editor";
-const CATEGORY_FORMAT = "Format";
-const CATEGORY_OTHER = "Other";
-const CATEGORY_OUTPUT = "Output";
+const coreOptions = require("../main/core-options");
 
 const categoryOrder = [
-  CATEGORY_OUTPUT,
-  CATEGORY_FORMAT,
-  CATEGORY_CONFIG,
-  CATEGORY_EDITOR,
-  CATEGORY_OTHER
+  coreOptions.CATEGORY_OUTPUT,
+  coreOptions.CATEGORY_FORMAT,
+  coreOptions.CATEGORY_CONFIG,
+  coreOptions.CATEGORY_EDITOR,
+  coreOptions.CATEGORY_OTHER
 ];
 
 /**
@@ -87,14 +82,14 @@ const options = {
   },
   config: {
     type: "path",
-    category: CATEGORY_CONFIG,
+    category: coreOptions.CATEGORY_CONFIG,
     description:
       "Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).",
     oppositeDescription: "Do not look for a configuration file."
   },
   "config-precedence": {
     type: "choice",
-    category: CATEGORY_CONFIG,
+    category: coreOptions.CATEGORY_CONFIG,
     default: "cli-override",
     choices: [
       {
@@ -116,15 +111,25 @@ const options = {
     description:
       "Define in which order config files and CLI options should be evaluated."
   },
+  "debug-benchmark": {
+    // Run the formatting benchmarks. Requires 'benchmark' module to be installed.
+    type: "boolean"
+  },
   "debug-check": {
+    // Run the formatting once again on the formatted output, throw if different.
     type: "boolean"
   },
   "debug-print-doc": {
     type: "boolean"
   },
+  "debug-repeat": {
+    // Repeat the formatting a few times and measure the average duration.
+    type: "int",
+    default: 0
+  },
   editorconfig: {
     type: "boolean",
-    category: CATEGORY_CONFIG,
+    category: coreOptions.CATEGORY_CONFIG,
     description: "Take .editorconfig into account when parsing configuration.",
     oppositeDescription:
       "Don't take .editorconfig into account when parsing configuration.",
@@ -132,9 +137,17 @@ const options = {
   },
   "find-config-path": {
     type: "path",
-    category: CATEGORY_CONFIG,
+    category: coreOptions.CATEGORY_CONFIG,
     description:
       "Find and print the path to a configuration file for the given input file."
+  },
+  "file-info": {
+    type: "path",
+    description: dedent`
+      Extract the following info (as JSON) for a given file path. Reported fields:
+      * ignored (boolean) - true if file path is filtered by --ignore-path
+      * inferredParser (string | null) - name of parser inferred from file path
+    `
   },
   help: {
     type: "flag",
@@ -146,13 +159,13 @@ const options = {
   },
   "ignore-path": {
     type: "path",
-    category: CATEGORY_CONFIG,
+    category: coreOptions.CATEGORY_CONFIG,
     default: ".prettierignore",
     description: "Path to a file with patterns describing files to ignore."
   },
   "list-different": {
     type: "boolean",
-    category: CATEGORY_OUTPUT,
+    category: coreOptions.CATEGORY_OUTPUT,
     alias: "l",
     description:
       "Print the names of files that are different from Prettier's formatting."
@@ -178,12 +191,12 @@ const options = {
   },
   "with-node-modules": {
     type: "boolean",
-    category: CATEGORY_CONFIG,
+    category: coreOptions.CATEGORY_CONFIG,
     description: "Process files inside 'node_modules' directory."
   },
   write: {
     type: "boolean",
-    category: CATEGORY_OUTPUT,
+    category: coreOptions.CATEGORY_OUTPUT,
     description: "Edit files in-place. (Beware!)"
   }
 };
@@ -196,11 +209,6 @@ const usageSummary = dedent`
 `;
 
 module.exports = {
-  CATEGORY_CONFIG,
-  CATEGORY_EDITOR,
-  CATEGORY_FORMAT,
-  CATEGORY_OTHER,
-  CATEGORY_OUTPUT,
   categoryOrder,
   options,
   usageSummary

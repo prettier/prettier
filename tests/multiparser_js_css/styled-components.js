@@ -18,6 +18,10 @@ border-color : tomato
 
 `;
 
+Button.extend.attr({})`
+border-color : black;
+`
+
 styled(ExistingComponent)`
        color : papayawhip ; background-color: firebrick`;
 
@@ -27,3 +31,46 @@ border : rebeccapurple`;
 
 styled(ExistingComponent).attr({})`
 border : rebeccapurple`;
+
+styled.div`
+  color: ${props => props.theme.colors.paragraph};
+  /* prettier-ignore */
+  ${props => props.small ? 'font-size: 0.8em;' : ''};
+`
+
+styled.div`
+  color: ${props => props.theme.colors.paragraph};
+  /* prettier-ignore */
+  ${props => props.small ? 'font-size: 0.8em;' : ''}
+`
+
+styled.div`
+   /* prettier-ignore */
+  color: ${props => props.theme.colors.paragraph};
+  ${props => props.small ? 'font-size: 0.8em;' : ''};
+`
+
+styled.div`
+  color: ${props => props.theme.colors.paragraph};
+  /* prettier-ignore */
+  ${props => props.small ? 'font-size: 0.8em;' : ''};
+  /* prettier-ignore */
+  ${props => props.red ? 'color: red;' : ''};
+`
+
+styled.div`
+  /* prettier-ignore */
+  color: ${props => props.theme.colors.paragraph};
+  /* prettier-ignore */
+  ${props => props.small ? 'font-size: 0.8em;' : ''};
+  /* prettier-ignore */
+  ${props => props.red ? 'color: red;' : ''};
+  /* prettier-ignore */
+`
+
+styled.div`
+ ${sanitize} ${fonts}
+  html {
+    margin: 0;
+  }
+`

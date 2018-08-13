@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declares.js 1`] = `
+exports[`declares.js - flow-verify 1`] = `
 declare module "CJS_Named" {
   declare var num1: number;
   declare var str1: string;

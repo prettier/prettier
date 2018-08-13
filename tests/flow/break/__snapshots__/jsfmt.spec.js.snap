@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js 1`] = `
+exports[`break.js - flow-verify 1`] = `
 function foo(b) {
     var x = b ? null: false;
     var z;

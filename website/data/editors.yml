@@ -3,6 +3,7 @@
   content: |
     [`prettier-atom`](https://github.com/prettier/prettier-atom)
     [`mprettier`](https://github.com/t9md/atom-mprettier)
+    [`miniprettier`](https://github.com/duailibe/atom-miniprettier)
 - image: "/images/editors/editor_emacs.svg"
   name: Emacs
   content: |
@@ -29,6 +30,7 @@
   name: VS Code
   content: |
     [`prettier-vscode`](https://github.com/prettier/prettier-vscode)
+    [`unibeautify-vscode`](https://github.com/Unibeautify/vscode)
 - image: /images/editors/editor_webstorm.svg
   name: WebStorm
   content: |

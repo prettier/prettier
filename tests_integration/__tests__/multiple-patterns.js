@@ -64,7 +64,8 @@ describe("multiple patterns by with ignore pattern, doesn't ignore node_modules 
 });
 
 describe("no errors on empty patterns", () => {
-  runPrettier("cli/multiple-patterns").test({
+  // --parser is mandatory if no filepath is passed
+  runPrettier("cli/multiple-patterns", ["--parser", "babylon"]).test({
     status: 0
   });
 });

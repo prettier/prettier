@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`union.js 1`] = `
+exports[`union.js - flow-verify 1`] = `
 interface RelayProps {
   articles: Array<{
     __id: string,

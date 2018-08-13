@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`API.react.js 1`] = `
+exports[`API.react.js - flow-verify 1`] = `
 
 var app = require('JSX');
 
@@ -20,7 +20,7 @@ bar(app.props.children); // No error, App doesn't specify propTypes so anything 
 
 `;
 
-exports[`App.react.js 1`] = `
+exports[`App.react.js - flow-verify 1`] = `
 
 /**
  * @providesModule App.react
@@ -110,7 +110,7 @@ module.exports = App;
 
 `;
 
-exports[`InitializedFields.js 1`] = `
+exports[`InitializedFields.js - flow-verify 1`] = `
 /**
  * @providesModule InitializedFields.react
  */
@@ -143,7 +143,7 @@ module.exports = App;
 
 `;
 
-exports[`JSX.js 1`] = `
+exports[`JSX.js - flow-verify 1`] = `
 
 /* @providesModule JSX */
 
@@ -173,7 +173,7 @@ module.exports = app;
 
 `;
 
-exports[`checkPropTypes.js 1`] = `
+exports[`checkPropTypes.js - flow-verify 1`] = `
 /* @flow */
 
 import { PropTypes, checkPropTypes } from "react";
@@ -234,7 +234,7 @@ checkPropTypes(
 
 `;
 
-exports[`propTypes.js 1`] = `
+exports[`propTypes.js - flow-verify 1`] = `
 var React = require('React');
 
 var C = React.createClass({

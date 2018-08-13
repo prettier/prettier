@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`typeof.js 1`] = `
+exports[`typeof.js - flow-verify 1`] = `
 /**
  * @flow
  */

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`B2.js 1`] = `
+exports[`B2.js - flow-verify 1`] = `
 /**
  * @providesModule B2
  * @flow

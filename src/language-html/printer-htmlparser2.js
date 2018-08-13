@@ -1,15 +1,17 @@
 "use strict";
 
 const embed = require("./embed");
-const privateUtil = require("../common/util");
-const docBuilders = require("../doc").builders;
-const concat = docBuilders.concat;
-const join = docBuilders.join;
-const hardline = docBuilders.hardline;
-const line = docBuilders.line;
-const softline = docBuilders.softline;
-const group = docBuilders.group;
-const indent = docBuilders.indent;
+const clean = require("./clean");
+const { hasNewlineInRange, hasIgnoreComment } = require("../common/util");
+const {
+  concat,
+  join,
+  hardline,
+  line,
+  softline,
+  group,
+  indent
+} = require("../doc").builders;
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = {
@@ -55,7 +57,7 @@ function genericPrint(path, options, print) {
       const selfClose = voidTags[n.name] ? ">" : " />";
       const children = printChildren(path, print);
 
-      const hasNewline = privateUtil.hasNewlineInRange(
+      const hasNewline = hasNewlineInRange(
         options.originalText,
         options.locStart(n),
         options.locEnd(n)
@@ -116,6 +118,7 @@ function printChildren(path, print) {
 
 module.exports = {
   print: genericPrint,
+  massageAstNode: clean,
   embed,
-  hasPrettierIgnore: privateUtil.hasIgnoreComment
+  hasPrettierIgnore: hasIgnoreComment
 };

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`index.js 1`] = `
+exports[`index.js - flow-verify 1`] = `
 // @flow
 
 export var name: "otherdir/testproj2" = "otherdir/testproj2";

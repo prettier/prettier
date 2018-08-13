@@ -1,9 +1,9 @@
 html {
   background-color: #fafafa;
   color: #6a6a6a;
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
-  Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-  "Helvetica Neue", Arial, sans-serif;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Arial, sans-serif;
   font-size: 12px;
   line-height: 1.25;
 }
@@ -13,6 +13,15 @@ body {
   flex-direction: column;
   height: 100vh;
   margin: 0;
+}
+
+#root,
+.playground-container {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 header {
@@ -132,10 +141,6 @@ header h1 {
   line-height: 1.6;
 }
 
-pre.CodeMirror-placeholder {
-  color: #888888;
-}
-
 .bottom-bar {
   position: relative;
 }
@@ -171,7 +176,7 @@ pre.CodeMirror-placeholder {
   display: none;
   box-sizing: border-box;
   width: 225px;
-  height: 100%;
+  overflow-y: auto;
   border-bottom: 1px solid #ddd;
   border-right: 1px solid #ddd;
   flex: 0 1 auto;
@@ -190,7 +195,6 @@ pre.CodeMirror-placeholder {
 
 .sub-options {
   flex: 1;
-  display: flex;
   padding: 15px 0 10px;
   border-bottom: 1px solid #ddd;
 }

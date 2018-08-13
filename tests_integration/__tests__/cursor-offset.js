@@ -3,13 +3,15 @@
 const runPrettier = require("../runPrettier");
 
 describe("write cursorOffset to stderr with --cursor-offset <int>", () => {
-  runPrettier("cli", ["--cursor-offset", "2"], { input: " 1" }).test({
+  runPrettier("cli", ["--cursor-offset", "2", "--parser", "babylon"], {
+    input: " 1"
+  }).test({
     status: 0
   });
 });
 
 describe("cursorOffset should not be affected by full-width character", () => {
-  runPrettier("cli", ["--cursor-offset", "21"], {
+  runPrettier("cli", ["--cursor-offset", "21", "--parser", "babylon"], {
     input: `const x = ["中文", "中文", "中文", "中文", "中文", "中文", "中文", "中文", "中文", "中文", "中文"];`
     //                              ^ offset = 21                              ^ width = 80
   }).test({

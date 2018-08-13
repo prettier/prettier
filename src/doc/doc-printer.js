@@ -1,10 +1,10 @@
 "use strict";
 
-const util = require("../common/util");
-const docBuilders = require("./doc-builders");
-const concat = docBuilders.concat;
-const fill = docBuilders.fill;
-const cursor = docBuilders.cursor;
+const { getStringWidth } = require("../common/util");
+const { concat, fill, cursor } = require("./doc-builders");
+
+/** @type {{[groupId: PropertyKey]: MODE}} */
+let groupModeMap;
 
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
@@ -130,7 +130,7 @@ function fits(next, restCommands, width, options, mustBeFlat) {
     const doc = x[2];
 
     if (typeof doc === "string") {
-      width -= util.getStringWidth(doc);
+      width -= getStringWidth(doc);
     } else {
       switch (doc.type) {
         case "concat":
@@ -153,6 +153,9 @@ function fits(next, restCommands, width, options, mustBeFlat) {
           }
           cmds.push([ind, doc.break ? MODE_BREAK : mode, doc.contents]);
 
+          if (doc.id) {
+            groupModeMap[doc.id] = cmds[cmds.length - 1][1];
+          }
           break;
         case "fill":
           for (let i = doc.parts.length - 1; i >= 0; i--) {
@@ -160,19 +163,21 @@ function fits(next, restCommands, width, options, mustBeFlat) {
           }
 
           break;
-        case "if-break":
-          if (mode === MODE_BREAK) {
+        case "if-break": {
+          const groupMode = doc.groupId ? groupModeMap[doc.groupId] : mode;
+          if (groupMode === MODE_BREAK) {
             if (doc.breakContents) {
               cmds.push([ind, mode, doc.breakContents]);
             }
           }
-          if (mode === MODE_FLAT) {
+          if (groupMode === MODE_FLAT) {
             if (doc.flatContents) {
               cmds.push([ind, mode, doc.flatContents]);
             }
           }
 
           break;
+        }
         case "line":
           switch (mode) {
             // fallthrough
@@ -200,6 +205,8 @@ function fits(next, restCommands, width, options, mustBeFlat) {
 }
 
 function printDocToString(doc, options) {
+  groupModeMap = {};
+
   const width = options.printWidth;
   const newLine = options.newLine || "\n";
   let pos = 0;
@@ -220,7 +227,7 @@ function printDocToString(doc, options) {
     if (typeof doc === "string") {
       out.push(doc);
 
-      pos += util.getStringWidth(doc);
+      pos += getStringWidth(doc);
     } else {
       switch (doc.type) {
         case "cursor":
@@ -304,6 +311,10 @@ function printDocToString(doc, options) {
 
               break;
             }
+          }
+
+          if (doc.id) {
+            groupModeMap[doc.id] = cmds[cmds.length - 1][1];
           }
           break;
         // Fills each line with as much code as possible before moving to a new
@@ -401,19 +412,21 @@ function printDocToString(doc, options) {
           }
           break;
         }
-        case "if-break":
-          if (mode === MODE_BREAK) {
+        case "if-break": {
+          const groupMode = doc.groupId ? groupModeMap[doc.groupId] : mode;
+          if (groupMode === MODE_BREAK) {
             if (doc.breakContents) {
               cmds.push([ind, mode, doc.breakContents]);
             }
           }
-          if (mode === MODE_FLAT) {
+          if (groupMode === MODE_FLAT) {
             if (doc.flatContents) {
               cmds.push([ind, mode, doc.flatContents]);
             }
           }
 
           break;
+        }
         case "line-suffix":
           lineSuffix.push([ind, mode, doc.contents]);
           break;
@@ -465,16 +478,13 @@ function printDocToString(doc, options) {
                   // Trim whitespace at the end of line
                   while (
                     out.length > 0 &&
+                    typeof out[out.length - 1] === "string" &&
                     out[out.length - 1].match(/^[^\S\n]*$/)
                   ) {
                     out.pop();
                   }
 
-                  if (
-                    out.length &&
-                    (options.parser !== "markdown" || // preserve markdown's `break` node (two trailing spaces)
-                      !/\S {2}$/.test(out[out.length - 1]))
-                  ) {
+                  if (out.length && typeof out[out.length - 1] === "string") {
                     out[out.length - 1] = out[out.length - 1].replace(
                       /[^\S\n]*$/,
                       ""
@@ -526,12 +536,20 @@ function printDocToString(doc, options) {
 
   const cursorPlaceholderIndex = out.indexOf(cursor.placeholder);
   if (cursorPlaceholderIndex !== -1) {
+    const otherCursorPlaceholderIndex = out.indexOf(
+      cursor.placeholder,
+      cursorPlaceholderIndex + 1
+    );
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
-    const afterCursor = out.slice(cursorPlaceholderIndex + 1).join("");
+    const aroundCursor = out
+      .slice(cursorPlaceholderIndex + 1, otherCursorPlaceholderIndex)
+      .join("");
+    const afterCursor = out.slice(otherCursorPlaceholderIndex + 1).join("");
 
     return {
-      formatted: beforeCursor + afterCursor,
-      cursor: beforeCursor.length
+      formatted: beforeCursor + aroundCursor + afterCursor,
+      cursorNodeStart: beforeCursor.length,
+      cursorNodeText: aroundCursor
     };
   }
 

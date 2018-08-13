@@ -1,9 +1,8 @@
 "use strict";
 
 const embed = require("./embed");
-const docBuilders = require("../doc").builders;
-const concat = docBuilders.concat;
-const hardline = docBuilders.hardline;
+const { concat, hardline } = require("../doc").builders;
+const { insertPragma } = require("./pragma");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -31,6 +30,8 @@ function genericPrint(path, options, print) {
 }
 
 const clean = (ast, newObj) => {
+  delete newObj.start;
+  delete newObj.end;
   delete newObj.contentStart;
   delete newObj.contentEnd;
 };
@@ -38,5 +39,7 @@ const clean = (ast, newObj) => {
 module.exports = {
   print: genericPrint,
   embed,
-  massageAstNode: clean
+  insertPragma,
+  massageAstNode: clean,
+  canAttachComment: node => typeof node.tag === "string"
 };

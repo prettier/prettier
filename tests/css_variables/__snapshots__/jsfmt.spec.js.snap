@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`variables.css 1`] = `
+exports[`variables.css - css-verify 1`] = `
 .foo {
     --prop: 10px;
     prop1: var(--prop);
@@ -24,6 +24,37 @@ exports[`variables.css 1`] = `
 @supports (--foo: green) {
   body {
     color: var(--varName);
+  }
+}
+
+`;
+
+exports[`variables.scss - css-verify 1`] = `
+.foo {
+  --#{$prop}: 10px;
+  #{$prop}: 10px;
+  prop1: var(--#{$var});
+  prop2: var(#{$var}, --my-#{$var}, pink);
+  prop3: calc(var(--#{$var}) * 1px);
+}
+
+@supports (--#{$prop}: green) {
+  body {
+    color: var(--#{$var});
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  --#{$prop}: 10px;
+  #{$prop}: 10px;
+  prop1: var(--#{$var});
+  prop2: var(#{$var}, --my-#{$var}, pink);
+  prop3: calc(var(--#{$var}) * 1px);
+}
+
+@supports (--#{$prop}: green) {
+  body {
+    color: var(--#{$var});
   }
 }
 
