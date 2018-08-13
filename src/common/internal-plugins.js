@@ -25,6 +25,10 @@ module.exports = [
           "json-stringify"
         ];
       },
+      get __js_expression() {
+        return eval("require")("../language-js/parser-babylon").parsers
+          .__js_expression;
+      },
       // JS - Flow
       get flow() {
         return eval("require")("../language-js/parser-flow").parsers.flow;
@@ -93,6 +97,10 @@ module.exports = [
       get markdown() {
         return eval("require")("../language-markdown/parser-markdown").parsers
           .remark;
+      },
+      get mdx() {
+        return eval("require")("../language-markdown/parser-markdown").parsers
+          .mdx;
       }
     }
   },

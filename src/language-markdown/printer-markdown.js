@@ -22,6 +22,8 @@ const {
 } = require("../doc");
 const { getOrderedListItemInfo } = require("./utils");
 
+const TRAILING_HARDLINE_NODES = ["importExport"];
+
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
 
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
@@ -79,7 +81,12 @@ function genericPrint(path, options, print) {
       if (node.children.length === 0) {
         return "";
       }
-      return concat([normalizeDoc(printRoot(path, options, print)), hardline]);
+      return concat([
+        normalizeDoc(printRoot(path, options, print)),
+        TRAILING_HARDLINE_NODES.indexOf(getLastDescendantNode(node).type) === -1
+          ? hardline
+          : ""
+      ]);
     case "paragraph":
       return printChildren(path, options, print, {
         postprocessor: fill
@@ -368,6 +375,11 @@ function genericPrint(path, options, print) {
         : concat(["\\", hardline]);
     case "liquidNode":
       return replaceNewlinesWith(node.value, hardline);
+    // MDX
+    case "importExport":
+    case "jsx":
+      return node.value; // fallback to the original text if multiparser failed
+
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     default:
@@ -654,14 +666,23 @@ function printChildren(path, options, print, events) {
         parts.push(hardline);
 
         if (
-          shouldPrePrintDoubleHardline(childNode, data) ||
-          shouldPrePrintTripleHardline(childNode, data)
+          lastChildNode &&
+          TRAILING_HARDLINE_NODES.indexOf(lastChildNode.type) !== -1
         ) {
-          parts.push(hardline);
-        }
+          if (shouldPrePrintTripleHardline(childNode, data)) {
+            parts.push(hardline);
+          }
+        } else {
+          if (
+            shouldPrePrintDoubleHardline(childNode, data) ||
+            shouldPrePrintTripleHardline(childNode, data)
+          ) {
+            parts.push(hardline);
+          }
 
-        if (shouldPrePrintTripleHardline(childNode, data)) {
-          parts.push(hardline);
+          if (shouldPrePrintTripleHardline(childNode, data)) {
+            parts.push(hardline);
+          }
         }
       }
 
@@ -672,6 +693,14 @@ function printChildren(path, options, print, events) {
   }, "children");
 
   return postprocessor(parts);
+}
+
+function getLastDescendantNode(node) {
+  let current = node;
+  while (current.children && current.children.length !== 0) {
+    current = current.children[current.children.length - 1];
+  }
+  return current;
 }
 
 /** @return {false | 'next' | 'start' | 'end'} */
@@ -831,7 +860,12 @@ function clean(ast, newObj, parent) {
   delete newObj.raw; // front-matter
 
   // for codeblock
-  if (ast.type === "code" || ast.type === "yaml") {
+  if (
+    ast.type === "code" ||
+    ast.type === "yaml" ||
+    ast.type === "importExport" ||
+    ast.type === "jsx"
+  ) {
     delete newObj.value;
   }
 

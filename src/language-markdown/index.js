@@ -10,7 +10,14 @@ const languages = [
     parsers: ["remark"],
     filenames: ["README"],
     vscodeLanguageIds: ["markdown"]
-  })
+  }),
+  {
+    name: "MDX",
+    since: "1.15.0",
+    parsers: ["mdx"],
+    extensions: [".mdx"],
+    vscodeLanguageIds: ["mdx"]
+  }
 ];
 
 const printers = {

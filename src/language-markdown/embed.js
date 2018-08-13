@@ -48,6 +48,14 @@ function embed(path, print, textToDoc, options) {
     );
   }
 
+  // MDX
+  switch (node.type) {
+    case "importExport":
+      return textToDoc(node.value, { parser: "babylon" });
+    case "jsx":
+      return textToDoc(node.value, { parser: "__js_expression" });
+  }
+
   return null;
 
   function getParserName(lang) {
