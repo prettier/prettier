@@ -470,7 +470,8 @@ function printPathNoParens(path, options, print, args) {
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
         (n !== parent.body && parent.type === "ForStatement") ||
         (parent.type === "ConditionalExpression" &&
-          parentParent.type !== "ReturnStatement");
+          (parentParent.type !== "ReturnStatement" &&
+            parentParent.type !== "CallExpression"));
 
       const shouldIndentIfInlining =
         parent.type === "AssignmentExpression" ||
