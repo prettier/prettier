@@ -1106,6 +1106,16 @@ function printPathNoParens(path, options, print, args) {
     case "ObjectTypeAnnotation":
     case "TSInterfaceBody":
     case "TSTypeLiteral": {
+      let propertiesField;
+
+      if (n.type === "TSTypeLiteral") {
+        propertiesField = "members";
+      } else if (n.type === "TSInterfaceBody") {
+        propertiesField = "body";
+      } else {
+        propertiesField = "properties";
+      }
+
       const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
       const parent = path.getParentNode(0);
       const shouldBreak =
@@ -1123,10 +1133,11 @@ function printPathNoParens(path, options, print, args) {
                 property.value.type === "ArrayPattern")
           )) ||
         (n.type !== "ObjectPattern" &&
+          n[propertiesField].length > 0 &&
           hasNewlineInRange(
             options.originalText,
             options.locStart(n),
-            options.locEnd(n)
+            options.locStart(n[propertiesField][0])
           ));
       const isFlowInterfaceLikeBody =
         isTypeAnnotation &&
@@ -1143,16 +1154,6 @@ function printPathNoParens(path, options, print, args) {
       const fields = [];
       const leftBrace = n.exact ? "{|" : "{";
       const rightBrace = n.exact ? "|}" : "}";
-
-      let propertiesField;
-
-      if (n.type === "TSTypeLiteral") {
-        propertiesField = "members";
-      } else if (n.type === "TSInterfaceBody") {
-        propertiesField = "body";
-      } else {
-        propertiesField = "properties";
-      }
 
       if (isTypeAnnotation) {
         fields.push("indexers", "callProperties");
