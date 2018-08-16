@@ -5,3 +5,4 @@ lockComment: false
 setLockReason: true
 exemptLabels:
   - keep-unlocked
+  - status:awaiting response
