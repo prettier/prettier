@@ -1,13 +1,15 @@
 "use strict";
 
 const printer = require("./printer-htmlparser2");
-const languageExtend = require("../utils/language-extend");
+const createLanguage = require("../utils/create-language");
 
 const languages = [
-  languageExtend({}, require("linguist-languages/data/html"), {
-    since: null, // unreleased
-    parsers: ["parse5"],
-    vscodeLanguageIds: ["html"]
+  createLanguage(require("linguist-languages/data/html"), {
+    override: {
+      since: null, // unreleased
+      parsers: ["parse5"],
+      vscodeLanguageIds: ["html"]
+    }
   })
 ];
 
