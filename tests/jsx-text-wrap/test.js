@@ -413,12 +413,6 @@ x =
 
 x = <div><strong>text here</strong>.<br /></div>
 
-x = <div><strong>{name}</strong>’s{' '}</div>
-
-x = <Text>You {type}ed this shipment to</Text>
-
-x = <HelpBlock>{parameter.Description}: {errorMsg}</HelpBlock>
-
 x = <div>Sales tax estimated using a rate of {salesTax * 100}%.</div>
 
 x = <div>
@@ -426,3 +420,32 @@ x = <div>
 </div>
 
 x = <div><span/>bar</div>
+  
+x = <div>
+  <span>
+    <strong>{name}</strong>’s{' '}
+  </span>
+  Hello <strong>world</strong>.<br />
+  <Text>You {type}ed this shipment to</Text>
+</div>
+
+x = <HelpBlock>
+  {parameter.Description}: {errorMsg}
+</HelpBlock>
+  
+x = <label>
+  {value} solution{plural}
+</label>
+  
+x = <span>Copy &quot;{name}&quot;</span>
+  
+x = <BasicText light>(avg. {value}/5)</BasicText>
+  
+x = <p>
+  Use the <code>Button</code>'s
+</p>;
+
+this_really_should_split_across_lines =
+  <div>
+    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
+  </div>
