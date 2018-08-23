@@ -7,15 +7,15 @@ importScripts("https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js");
 
 toolbox.precache([
   // Scripts
-  "lib/index.js",
+  "lib/standalone.js",
   "lib/parser-babylon.js",
   "lib/parser-typescript.js",
   "lib/parser-postcss.js",
   "lib/parser-flow.js",
-  "lib/parser-json-stringify.js",
   "lib/parser-glimmer.js",
   "lib/parser-graphql.js",
   "lib/parser-markdown.js",
+  "lib/parser-vue.js",
   "lib/parser-yaml.js",
   "playground.js",
   "https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js",

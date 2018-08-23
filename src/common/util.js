@@ -786,6 +786,22 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
+function isWithinParentArrayProperty(path, propertyName) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+
+  if (parent == null) {
+    return false;
+  }
+
+  if (!Array.isArray(parent[propertyName])) {
+    return false;
+  }
+
+  const key = path.getName();
+  return parent[propertyName][key] === node;
+}
+
 module.exports = {
   punctuationRegex,
   punctuationCharRange,
@@ -823,5 +839,6 @@ module.exports = {
   matchAncestorTypes,
   addLeadingComment,
   addDanglingComment,
-  addTrailingComment
+  addTrailingComment,
+  isWithinParentArrayProperty
 };

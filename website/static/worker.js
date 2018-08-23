@@ -29,6 +29,10 @@ var parsers = {
     importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers["json-stringify"];
   },
+  get __js_expression() {
+    importScriptOnce("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers.__js_expression;
+  },
   // JS - Flow
   get flow() {
     importScriptOnce("lib/parser-flow.js");
@@ -65,6 +69,10 @@ var parsers = {
     importScriptOnce("lib/parser-markdown.js");
     return prettierPlugins.markdown.parsers.remark;
   },
+  get mdx() {
+    importScriptOnce("lib/parser-markdown.js");
+    return prettierPlugins.markdown.parsers.mdx;
+  },
 
   // Vue
   get vue() {
@@ -76,6 +84,12 @@ var parsers = {
   get yaml() {
     importScriptOnce("lib/parser-yaml.js");
     return prettierPlugins.yaml.parsers.yaml;
+  },
+
+  // Handlebars
+  get glimmer() {
+    importScriptOnce("lib/parser-glimmer.js");
+    return prettierPlugins.glimmer.parsers.glimmer;
   }
 };
 
@@ -94,7 +108,13 @@ function handleMessage(message) {
   if (message.type === "meta") {
     return {
       type: "meta",
-      supportInfo: JSON.parse(JSON.stringify(prettier.getSupportInfo())),
+      supportInfo: JSON.parse(
+        JSON.stringify(
+          prettier.getSupportInfo(null, {
+            showUnreleased: /-pr\./.test(prettier.version)
+          })
+        )
+      ),
       version: prettier.version
     };
   }

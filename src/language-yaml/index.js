@@ -2,13 +2,15 @@
 
 const printer = require("./printer-yaml");
 const options = require("./options");
-const languageExtend = require("../utils/language-extend");
+const createLanguage = require("../utils/create-language");
 
 const languages = [
-  languageExtend({}, require("linguist-languages/data/yaml"), {
-    since: "1.14.0",
-    parsers: ["yaml"],
-    vscodeLanguageIds: ["yaml"]
+  createLanguage(require("linguist-languages/data/yaml"), {
+    override: {
+      since: "1.14.0",
+      parsers: ["yaml"],
+      vscodeLanguageIds: ["yaml"]
+    }
   })
 ];
 

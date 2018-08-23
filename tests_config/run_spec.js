@@ -127,7 +127,7 @@ function read(filename) {
 }
 
 function skipStandalone(parser) {
-  return new Set(["parse5", "glimmer"]).has(parser);
+  return new Set(["parse5"]).has(parser);
 }
 
 /**

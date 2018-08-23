@@ -8,3 +8,7 @@ declare class X {
   static deserialize(): mixed,
   static deserialize: () => mixed,
 }
+
+interface I {
+  static(): number;
+}

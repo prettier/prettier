@@ -14,7 +14,7 @@ const EDIT_URL = `https://github.com/${SCHEMA_REPO}/edit/master/${SCHEMA_PATH}`;
 // Any optional or manual step can be warned in this script.
 
 async function checkSchema() {
-  const schema = await execa.stdout("node scripts/generate-schema.js");
+  const schema = await execa.stdout("node", ["scripts/generate-schema.js"]);
   const remoteSchema = await logPromise(
     "Checking current schema in SchemaStore",
     fetch(RAW_URL)

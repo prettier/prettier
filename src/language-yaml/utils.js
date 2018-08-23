@@ -161,6 +161,10 @@ function hasTrailingComments(node) {
   return "trailingComments" in node && node.trailingComments.length !== 0;
 }
 
+function hasEndComments(node) {
+  return "endComments" in node && node.endComments.length !== 0;
+}
+
 /**
  * " a   b c   d e   f " -> [" a   b", "c   d", "e   f "]
  */
@@ -346,5 +350,6 @@ module.exports = {
   hasLeadingComments,
   hasMiddleComments,
   hasTrailingComments,
+  hasEndComments,
   hasExplicitDocumentEndMarker
 };
