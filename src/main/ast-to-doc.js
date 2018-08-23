@@ -7,8 +7,7 @@ const multiparser = require("./multiparser");
 
 const doc = require("../doc");
 const docBuilders = doc.builders;
-const concat = docBuilders.concat;
-const hardline = docBuilders.hardline;
+const { concat, hardline } = docBuilders;
 const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
 const docUtils = doc.utils;
 
