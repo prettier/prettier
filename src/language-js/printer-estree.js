@@ -5771,10 +5771,7 @@ function isTestCall(n, parent) {
     }
 
     if (isUnitTestSetUp(n)) {
-      return (
-        isFunctionOrArrowExpression(n.arguments[0].type) ||
-        isAngularTestWrapper(n.arguments[0])
-      );
+      return isAngularTestWrapper(n.arguments[0]);
     }
   } else if (n.arguments.length === 2) {
     if (
