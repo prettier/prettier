@@ -47,9 +47,14 @@ function print(path, options, print) {
       );
     }
     case "ElementNode": {
-      const isVoid = voidTags.indexOf(n.tag) !== -1;
-      const closeTag = isVoid ? concat([" />", softline]) : ">";
+      const tagFirstChar = n.tag[0];
+      const isLocal = n.tag.indexOf(".") !== -1;
+      const isGlimmerComponent =
+        tagFirstChar.toUpperCase() === tagFirstChar || isLocal;
       const hasChildren = n.children.length > 0;
+      const isVoid =
+        (isGlimmerComponent && !hasChildren) || voidTags.indexOf(n.tag) !== -1;
+      const closeTag = isVoid ? concat([" />", softline]) : ">";
       const getParams = (path, print) =>
         indent(
           concat([
@@ -82,6 +87,7 @@ function print(path, options, print) {
             "<",
             n.tag,
             getParams(path, print),
+            n.blockParams.length ? ` as |${n.blockParams.join(" ")}|` : "",
             ifBreak(softline, ""),
             closeTag
           ])
@@ -137,7 +143,7 @@ function print(path, options, print) {
         group(
           concat([
             indent(concat([softline, path.call(print, "program")])),
-            hasParams && hasChildren ? hardline : "",
+            hasParams && hasChildren ? hardline : softline,
             printCloseBlock(path, print)
           ])
         )
@@ -157,18 +163,21 @@ function print(path, options, print) {
       );
     }
     case "SubExpression": {
+      const params = getParams(path, print);
+      const printedParams =
+        params.length > 0
+          ? indent(concat([line, group(join(line, params))]))
+          : "";
       return group(
-        concat([
-          "(",
-          printPath(path, print),
-          indent(concat([line, group(join(line, getParams(path, print)))])),
-          softline,
-          ")"
-        ])
+        concat(["(", printPath(path, print), printedParams, softline, ")"])
       );
     }
     case "AttrNode": {
-      const quote = n.value.type === "TextNode" ? '"' : "";
+      const isText = n.value.type === "TextNode";
+      if (isText && n.value.loc.start.column === n.value.loc.end.column) {
+        return concat([n.name]);
+      }
+      const quote = isText ? '"' : "";
       return concat([n.name, "=", quote, path.call(print, "value"), quote]);
     }
     case "ConcatStatement": {
@@ -298,7 +307,7 @@ function printOpenBlock(path, print) {
     concat([
       "{{#",
       printPathParams(path, print),
-      printBlockParams(path, print),
+      printBlockParams(path),
       softline,
       "}}"
     ])

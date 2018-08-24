@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`typescript parser should throw the first error when both JSX and non-JSX mode failed 1`] = `
+"Expression expected. (9:7)
+   7 | );
+   8 | 
+>  9 | label:
+     |       ^
+  10 |   "
+`;
+
+exports[`yaml parser should handle CRLF correctly 1`] = `"\\"a: 123\\\\r\\\\n\\""`;

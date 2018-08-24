@@ -24,7 +24,10 @@ const path = require("path");
 const parsers = [
   {
     input: "src/language-js/parser-babylon.js",
-    target: "universal"
+    target: "universal",
+    babelPlugins: [
+      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
+    ]
   },
   {
     input: "src/language-js/parser-flow.js",
@@ -55,7 +58,7 @@ const parsers = [
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
-    target: "node",
+    target: "universal",
     commonjs: {
       namedExports: {
         "node_modules/handlebars/lib/index.js": ["parse"],
@@ -113,13 +116,9 @@ const coreBundles = [
     type: "core",
     target: "node",
     replace: {
-      // The require-from-string module (a dependency of cosmiconfig) assumes
-      // that `module.parent` exists, but it only does for `require`:ed modules.
-      // Usually, require-from-string is _always_ `require`:ed, but when bundled
-      // with rollup the module is turned into a plain function located directly
-      // in index.js so `module.parent` does not exist. Defaulting to `module`
-      // instead seems to work.
-      "module.parent": "(module.parent || module)"
+      // cosmiconfig@5 uses `require` to resolve js config, which caused Error:
+      // Dynamic requires are not currently supported by rollup-plugin-commonjs.
+      "require(filepath)": "eval('require')(filepath)"
     }
   }
 ];

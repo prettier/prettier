@@ -399,10 +399,12 @@ function createIgnorerFromContextOrDie(context) {
 }
 
 function eachFilename(context, patterns, callback) {
+  // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
   const ignoreNodeModules = context.argv["with-node-modules"] !== true;
   if (ignoreNodeModules) {
     patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
   }
+  patterns = patterns.concat(["!**/.{git,svn,hg}/**", "!./.{git,svn,hg}/**"]);
 
   try {
     const filePaths = globby
@@ -627,6 +629,7 @@ function createOptionUsageType(option) {
       return null;
     case "choice":
       return `<${option.choices
+        .filter(choice => choice.since !== null)
         .filter(choice => !choice.deprecated)
         .map(choice => choice.value)
         .join("|")}>`;
@@ -674,7 +677,9 @@ function getOptionWithLevenSuggestion(context, options, optionName) {
 }
 
 function createChoiceUsages(choices, margin, indentation) {
-  const activeChoices = choices.filter(choice => !choice.deprecated);
+  const activeChoices = choices.filter(
+    choice => !choice.deprecated && choice.since !== null
+  );
   const threshold =
     activeChoices
       .map(choice => choice.value.length)

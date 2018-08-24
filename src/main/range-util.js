@@ -143,6 +143,8 @@ function isSourceElement(opts, node) {
       return jsonSourceElements.indexOf(node.type) > -1;
     case "graphql":
       return graphqlSourceElements.indexOf(node.kind) > -1;
+    case "vue":
+      return node.tag !== "root";
   }
   return false;
 }
