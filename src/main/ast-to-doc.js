@@ -14,7 +14,7 @@ const docUtils = doc.utils;
 function printAstToDoc(ast, options, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
-  const printer = options.printer;
+  const { printer } = options;
   const cache = new Map();
 
   function printGenerically(path, args) {
@@ -73,7 +73,7 @@ function genericPrint(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
   const node = path.getValue();
-  const printer = options.printer;
+  const { printer } = options;
 
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
