@@ -659,6 +659,7 @@ function handleImportDeclarationComments(
 ) {
   if (
     precedingNode &&
+    precedingNode.type === "ImportSpecifier" &&
     enclosingNode &&
     enclosingNode.type === "ImportDeclaration" &&
     privateUtil.hasNewline(text, options.locEnd(comment))
