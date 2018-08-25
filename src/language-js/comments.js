@@ -139,7 +139,7 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
       comment
     ) ||
     handleBreakAndContinueStatementComments(enclosingNode, comment)
-  ) { 
+  ) {
     return true;
   }
   return false;
@@ -474,8 +474,7 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
     (((enclosingNode.type === "FunctionDeclaration" ||
       enclosingNode.type === "FunctionExpression" ||
       (enclosingNode.type === "ArrowFunctionExpression" &&
-        (enclosingNode.type === "CallExpression" ||
-          enclosingNode.type === "NewExpression" ||
+        (enclosingNode.body.type !== "CallExpression" ||
           enclosingNode.body.arguments.length === 0)) ||
       enclosingNode.type === "ClassMethod" ||
       enclosingNode.type === "ObjectMethod") &&
