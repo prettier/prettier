@@ -1919,6 +1919,12 @@ function printPathNoParens(path, options, print, args) {
         ]);
       }
 
+      const alreadyHasNewline = hasNewlineInRange(
+        options.originalText,
+        options.locStart(n),
+        options.locEnd(n)
+      );
+
       // don't break up opening elements with a single long text attribute
       if (
         n.attributes &&
@@ -1928,6 +1934,9 @@ function printPathNoParens(path, options, print, args) {
         !n.attributes[0].value.value.includes("\n") &&
         // We should break for the following cases:
         // <div
+        //   attr="value"
+        // >
+        // <div
         //   // comment
         //   attr="value"
         // >
@@ -1935,6 +1944,7 @@ function printPathNoParens(path, options, print, args) {
         //   attr="value"
         //   // comment
         // >
+        !alreadyHasNewline &&
         !nameHasComments &&
         (!n.attributes[0].comments || !n.attributes[0].comments.length)
       ) {
@@ -1965,16 +1975,7 @@ function printPathNoParens(path, options, print, args) {
         (!nameHasComments || n.attributes.length) &&
         !lastAttrHasTrailingComments;
 
-      // We should print the opening element expanded if any prop value is a
-      // string literal with newlines
-      const shouldBreak =
-        n.attributes &&
-        n.attributes.some(
-          attr =>
-            attr.value &&
-            isStringLiteral(attr.value) &&
-            attr.value.value.includes("\n")
-        );
+      const shouldBreak = n.attributes && alreadyHasNewline;
 
       return group(
         concat([
