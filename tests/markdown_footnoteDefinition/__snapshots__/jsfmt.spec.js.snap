@@ -23,13 +23,8 @@ exports[`long.md - markdown-verify 2`] = `
 [^world]: this is a long long long long long long long long long long long long long paragraph.
           this is a long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[^hello]:
-
-  this is a long long long long long long long long long long long long long paragraph.
-
-[^world]:
-
-  this is a long long long long long long long long long long long long long paragraph. this is a long long long long long long long long long long long long long paragraph.
+[^hello]: this is a long long long long long long long long long long long long long paragraph.
+[^world]: this is a long long long long long long long long long long long long long paragraph. this is a long long long long long long long long long long long long long paragraph.
 
 `;
 
@@ -38,10 +33,7 @@ exports[`long.md - markdown-verify 3`] = `
 [^world]: this is a long long long long long long long long long long long long long paragraph.
           this is a long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[^hello]:
-
-  this is a long long long long long long long long long long long long long paragraph.
-
+[^hello]: this is a long long long long long long long long long long long long long paragraph.
 [^world]:
 
   this is a long long long long long long long long long long long long long paragraph.
