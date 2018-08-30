@@ -401,7 +401,7 @@ const UsersSection = ({ language }) => {
               <img src="/images/npm_grey.svg" style={{ height: "100px" }} />
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
-              <p>More than 900 tools and integrations on npm</p>
+              <p>More than 1250 tools and integrations on npm</p>
               <Button href="https://www.npmjs.com/browse/depended/prettier">
                 Install Them
               </Button>
@@ -416,7 +416,7 @@ const UsersSection = ({ language }) => {
               <img src="/images/github_grey.svg" style={{ height: "100px" }} />
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
-              <p>More than 150,000 dependent repositories on GitHub</p>
+              <p>More than 250,000 dependent repositories on GitHub</p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
                 Check Them Out
               </Button>
