@@ -20,7 +20,11 @@ const {
   utils: { mapDoc },
   printer: { printDocToString }
 } = require("../doc");
-const { getOrderedListItemInfo } = require("./utils");
+const {
+  getOrderedListItemInfo,
+  splitText,
+  punctuationCharRange
+} = require("./utils");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
 
@@ -57,22 +61,20 @@ function genericPrint(path, options, print) {
 
   if (shouldRemainTheSameContent(path)) {
     return concat(
-      privateUtil
-        .splitText(
-          options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset
-          ),
-          options
-        )
-        .map(
-          node =>
-            node.type === "word"
-              ? node.value
-              : node.value === ""
-                ? ""
-                : printLine(path, node.value, options)
-        )
+      splitText(
+        options.originalText.slice(
+          node.position.start.offset,
+          node.position.end.offset
+        ),
+        options
+      ).map(
+        node =>
+          node.type === "word"
+            ? node.value
+            : node.value === ""
+              ? ""
+              : printLine(path, node.value, options)
+      )
     );
   }
 
@@ -99,8 +101,8 @@ function genericPrint(path, options, print) {
         .replace(
           new RegExp(
             [
-              `(^|[${privateUtil.punctuationCharRange}])(_+)`,
-              `(_+)([${privateUtil.punctuationCharRange}]|$)`
+              `(^|[${punctuationCharRange}])(_+)`,
+              `(_+)([${punctuationCharRange}]|$)`
             ].join("|"),
             "g"
           ),

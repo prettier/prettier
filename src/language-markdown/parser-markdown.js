@@ -4,8 +4,7 @@ const remarkParse = require("remark-parse");
 const unified = require("unified");
 const pragma = require("./pragma");
 const parseFrontMatter = require("../utils/front-matter");
-const util = require("../common/util");
-const { getOrderedListItemInfo } = require("./utils");
+const { getOrderedListItemInfo, splitText } = require("./utils");
 const mdx = require("./mdx");
 
 // 0x0 ~ 0x10ffff
@@ -46,7 +45,7 @@ function createParse({ isMDX }) {
       .use(transformInlineCode)
       .use(transformIndentedCodeblockAndMarkItsParentList(text))
       .use(markAlignedList(text, opts))
-      .use(splitText(opts))
+      .use(splitTextIntoSentences(opts))
       .use(isMDX ? htmlToJsx : identity)
       .use(isMDX ? mergeContinuousImportExport : identity);
     return processor.runSync(processor.parse(text));
@@ -170,7 +169,7 @@ function mergeContinuousTexts() {
   );
 }
 
-function splitText(options) {
+function splitTextIntoSentences(options) {
   return () => ast =>
     map(ast, (node, index, [parentNode]) => {
       if (node.type !== "text") {
@@ -191,7 +190,7 @@ function splitText(options) {
       return {
         type: "sentence",
         position: node.position,
-        children: util.splitText(value, options)
+        children: splitText(value, options)
       };
     });
 }
