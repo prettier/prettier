@@ -2,7 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
-const { createNull, defineShortcut, mapNode } = require("./utils");
+const { defineShortcut, mapNode } = require("./utils");
 
 function defineShortcuts(node) {
   switch (node.type) {
@@ -10,11 +10,12 @@ function defineShortcuts(node) {
       defineShortcut(node, "head", () => node.children[0]);
       defineShortcut(node, "body", () => node.children[1]);
       break;
+    case "documentBody":
     case "sequenceItem":
     case "flowSequenceItem":
     case "mappingKey":
     case "mappingValue":
-      defineShortcut(node, "node", () => node.children[0]);
+      defineShortcut(node, "content", () => node.children[0]);
       break;
     case "mappingItem":
     case "flowMappingItem":
@@ -22,25 +23,15 @@ function defineShortcuts(node) {
       defineShortcut(node, "value", () => node.children[1]);
       break;
   }
+  return node;
 }
 
 function parse(text) {
   try {
-    const root = mapNode(require("yaml-unist-parser").parse(text), node => {
-      // replace explicit empty MappingKey/MappingValue with implicit one
-      if (
-        (node.type === "mappingKey" || node.type === "mappingValue") &&
-        node.children[0].type === "null" &&
-        node.leadingComments.length === 0 &&
-        node.trailingComments.length === 0 &&
-        node.endComments.length === 0
-      ) {
-        return createNull();
-      }
-
-      defineShortcuts(node);
-      return node;
-    });
+    const root = mapNode(
+      require("yaml-unist-parser").parse(text),
+      defineShortcuts
+    );
 
     /**
      * suppress `comment not printed` error
@@ -53,7 +44,7 @@ function parse(text) {
     return root;
   } catch (error) {
     // istanbul ignore next
-    throw error && error.name === "YAMLSyntaxError"
+    throw error && error.position
       ? createError(error.message, error.position)
       : error;
   }
