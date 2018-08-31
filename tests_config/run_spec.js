@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const extname = require("path").extname;
-const { wrap: raw } = require("jest-snapshot-serializer-raw");
+const raw = require("jest-snapshot-serializer-raw").wrap;
 
 const AST_COMPARE = process.env["AST_COMPARE"];
 const TEST_STANDALONE = process.env["TEST_STANDALONE"];
