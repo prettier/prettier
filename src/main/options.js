@@ -27,7 +27,9 @@ function normalize(options, opts) {
   }).options;
   const defaults = supportOptions.reduce(
     (reduced, optionInfo) =>
-      Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
+      optionInfo.default !== undefined
+        ? Object.assign(reduced, { [optionInfo.name]: optionInfo.default })
+        : reduced,
     Object.assign({}, hiddenDefaults)
   );
 
