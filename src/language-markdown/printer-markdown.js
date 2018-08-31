@@ -20,7 +20,7 @@ const {
   utils: { mapDoc },
   printer: { printDocToString }
 } = require("../doc");
-const { getOrderedListItemInfo } = require("./utils");
+const { getOrderedListItemInfo, getFencedCodeBlockValue } = require("./utils");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
 
@@ -221,7 +221,10 @@ function genericPrint(path, options, print) {
         style,
         node.lang || "",
         hardline,
-        join(hardline, node.value.split("\n")),
+        join(
+          hardline,
+          getFencedCodeBlockValue(node, options.originalText).split("\n")
+        ),
         hardline,
         style
       ]);
