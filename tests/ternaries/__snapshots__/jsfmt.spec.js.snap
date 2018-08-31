@@ -396,10 +396,10 @@ a
 aaaaaaaaaaaaaaa
   ? bbbbbbbbbbbbbbbbbb
   : ccccccccccccccc
-    ? ddddddddddddddd
-    : eeeeeeeeeeeeeee
-      ? fffffffffffffff
-      : gggggggggggggggg;
+  ? ddddddddddddddd
+  : eeeeeeeeeeeeeee
+  ? fffffffffffffff
+  : gggggggggggggggg;
 
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -718,10 +718,10 @@ a
 aaaaaaaaaaaaaaa
     ? bbbbbbbbbbbbbbbbbb
     : ccccccccccccccc
-        ? ddddddddddddddd
-        : eeeeeeeeeeeeeee
-            ? fffffffffffffff
-            : gggggggggggggggg;
+      ? ddddddddddddddd
+      : eeeeeeeeeeeeeee
+        ? fffffffffffffff
+        : gggggggggggggggg;
 
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -1040,10 +1040,10 @@ a
 aaaaaaaaaaaaaaa
 	? bbbbbbbbbbbbbbbbbb
 	: ccccccccccccccc
-		? ddddddddddddddd
-		: eeeeeeeeeeeeeee
-			? fffffffffffffff
-			: gggggggggggggggg;
+	? ddddddddddddddd
+	: eeeeeeeeeeeeeee
+	? fffffffffffffff
+	: gggggggggggggggg;
 
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 	? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -1362,10 +1362,10 @@ a
 aaaaaaaaaaaaaaa
 	? bbbbbbbbbbbbbbbbbb
 	: ccccccccccccccc
-		? ddddddddddddddd
-		: eeeeeeeeeeeeeee
-			? fffffffffffffff
-			: gggggggggggggggg;
+	? ddddddddddddddd
+	: eeeeeeeeeeeeeee
+	? fffffffffffffff
+	: gggggggggggggggg;
 
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 	? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
