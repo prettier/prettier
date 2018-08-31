@@ -5921,9 +5921,9 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vnopts@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/vnopts/-/vnopts-1.0.1.tgz#bff2a7b741d778458befc6d8e5143da385d6c301"
+vnopts@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vnopts/-/vnopts-1.0.2.tgz#f6a331473de0179d1679112cc090572b695202f7"
   dependencies:
     chalk "^2.4.1"
     leven "^2.1.0"
