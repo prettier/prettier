@@ -13,8 +13,8 @@ const isOldNode = semver.parse(process.version).major <= 4;
 module.exports = {
   setupFiles: ["<rootDir>/tests_config/run_spec.js"],
   snapshotSerializers: [
-    "<rootDir>/tests_config/raw-serializer.js",
-    "<rootDir>/tests_config/ansi-serializer.js"
+    "jest-snapshot-serializer-raw",
+    "jest-snapshot-serializer-ansi"
   ],
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns: ["tests/new_react", "tests/more_react"].concat(

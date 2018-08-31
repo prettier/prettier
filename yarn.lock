@@ -2603,17 +2603,17 @@ har-validator@~5.0.3:
     ajv "^5.1.0"
     har-schema "^2.0.0"
 
-has-ansi@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/has-ansi/-/has-ansi-3.0.0.tgz#36077ef1d15f333484aa7fa77a28606f1c655b37"
-  dependencies:
-    ansi-regex "^3.0.0"
-
 has-ansi@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/has-ansi/-/has-ansi-2.0.0.tgz#34f5049ce1ecdf2b0649af3ef24e45ed35416d91"
   dependencies:
     ansi-regex "^2.0.0"
+
+has-ansi@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/has-ansi/-/has-ansi-3.0.0.tgz#36077ef1d15f333484aa7fa77a28606f1c655b37"
+  dependencies:
+    ansi-regex "^3.0.0"
 
 has-flag@^1.0.0:
   version "1.0.0"
@@ -3470,6 +3470,17 @@ jest-runtime@^23.4.2:
 jest-serializer@^23.0.1:
   version "23.0.1"
   resolved "https://registry.yarnpkg.com/jest-serializer/-/jest-serializer-23.0.1.tgz#a3776aeb311e90fe83fab9e533e85102bd164165"
+
+jest-snapshot-serializer-ansi@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/jest-snapshot-serializer-ansi/-/jest-snapshot-serializer-ansi-1.0.0.tgz#7daeefe7bfa81aed44e153fd3451320b61dc2a67"
+  dependencies:
+    has-ansi "^3.0.0"
+    strip-ansi "^4.0.0"
+
+jest-snapshot-serializer-raw@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/jest-snapshot-serializer-raw/-/jest-snapshot-serializer-raw-1.1.0.tgz#1d7f09c02f3dbbc3ae70b5b7598fb2f45e37d6c8"
 
 jest-snapshot@^23.0.1:
   version "23.3.0"
