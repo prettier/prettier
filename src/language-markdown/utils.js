@@ -1,29 +1,36 @@
 "use strict";
 
-const escapeStringRegexp = require("escape-string-regexp");
-const getCjkRegex = require("cjk-regex");
-const getUnicodeRegex = require("unicode-regex");
+const cjkRegex = require("cjk-regex");
+const regexpUtil = require("regexp-util");
+const unicodeRegex = require("unicode-regex");
 const { getLast } = require("../common/util");
 
-const cjkPattern = getCjkRegex().source;
+const cjkPattern = cjkRegex().toString();
 
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
-const asciiPunctuationCharRange = escapeStringRegexp(
-  "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+const asciiPunctuationCharset = /* prettier-ignore */ regexpUtil.charset(
+  "!", '"', "#",  "$", "%", "&", "'", "(", ")", "*",
+  "+", ",", "-",  ".", "/", ":", ";", "<", "=", ">",
+  "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|",
+  "}", "~"
 );
 
 // http://spec.commonmark.org/0.25/#punctuation-character
-const punctuationCharRange = `${asciiPunctuationCharRange}${getUnicodeRegex([
-  "Pc",
-  "Pd",
-  "Pe",
-  "Pf",
-  "Pi",
-  "Po",
-  "Ps"
-]).source.slice(1, -1)}`; // remove bracket expression `[` and `]`
+const punctuationCharset = unicodeRegex({
+  // http://unicode.org/Public/5.1.0/ucd/UCD.html#General_Category_Values
+  General_Category: [
+    /* Pc */ "Connector_Punctuation",
+    /* Pd */ "Dash_Punctuation",
+    /* Pe */ "Close_Punctuation",
+    /* Pf */ "Final_Punctuation",
+    /* Pi */ "Initial_Punctuation",
+    /* Po */ "Other_Punctuation",
+    /* Ps */ "Open_Punctuation"
+  ]
+}).union(asciiPunctuationCharset);
 
-const punctuationRegex = new RegExp(`[${punctuationCharRange}]`);
+const punctuationPattern = punctuationCharset.toString();
+const punctuationRegex = new RegExp(punctuationPattern);
 
 /**
  * split text into whitespaces and words
@@ -151,6 +158,6 @@ function getOrderedListItemInfo(orderListItem, originalText) {
 
 module.exports = {
   splitText,
-  punctuationCharRange,
+  punctuationPattern,
   getOrderedListItemInfo
 };

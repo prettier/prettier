@@ -23,7 +23,7 @@ const {
 const {
   getOrderedListItemInfo,
   splitText,
-  punctuationCharRange
+  punctuationPattern
 } = require("./utils");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
@@ -101,8 +101,8 @@ function genericPrint(path, options, print) {
         .replace(
           new RegExp(
             [
-              `(^|[${punctuationCharRange}])(_+)`,
-              `(_+)([${punctuationCharRange}]|$)`
+              `(^|${punctuationPattern})(_+)`,
+              `(_+)(${punctuationPattern}|$)`
             ].join("|"),
             "g"
           ),
