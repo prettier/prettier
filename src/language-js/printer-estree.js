@@ -5204,7 +5204,9 @@ function printBinaryishExpressions(
     }
 
     const shouldInline = shouldInlineLogicalExpression(node);
-    const lineBeforeOperator = node.operator === "|>";
+    const lineBeforeOperator =
+      node.operator === "|>" &&
+      !hasLeadingOwnLineComment(options.originalText, node.right, options);
 
     const right = shouldInline
       ? concat([node.operator, " ", path.call(print, "right")])
