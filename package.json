@@ -62,8 +62,8 @@
     "unicode-regex": "1.0.1",
     "unified": "6.1.6",
     "vnopts": "1.0.2",
-    "yaml": "ikatyang/yaml#a765c1ee16d6b8a5e715564645f2b85f7e04828b",
-    "yaml-unist-parser": "ikatyang/yaml-unist-parser#cd4f73325b3fc02a6d17842d0d9cee0dfc729c9b"
+    "yaml": "1.0.0-rc.8",
+    "yaml-unist-parser": "1.0.0-rc.4"
   },
   "devDependencies": {
     "@babel/cli": "7.0.0-beta.55",
