@@ -5674,11 +5674,11 @@ tryit@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tryit/-/tryit-1.0.3.tgz#393be730a9446fd1ead6da59a014308f36c289cb"
 
-tslib@^1.8.0, tslib@^1.9.1:
+tslib@^1.8.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.1.tgz#a5d1f0532a49221c87755cfcc89ca37197242ba7"
 
-tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.9.0, tslib@^1.9.1, tslib@^1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
 
@@ -6130,16 +6130,16 @@ yallist@^3.0.0, yallist@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-3.0.2.tgz#8452b4bb7e83c7c188d8041c1a837c773d6d8bb9"
 
-yaml-unist-parser@ikatyang/yaml-unist-parser#cd4f73325b3fc02a6d17842d0d9cee0dfc729c9b:
-  version "1.0.0-rc.3"
-  resolved "https://codeload.github.com/ikatyang/yaml-unist-parser/tar.gz/cd4f73325b3fc02a6d17842d0d9cee0dfc729c9b"
+yaml-unist-parser@1.0.0-rc.4:
+  version "1.0.0-rc.4"
+  resolved "https://registry.yarnpkg.com/yaml-unist-parser/-/yaml-unist-parser-1.0.0-rc.4.tgz#d8fb9c673d59a4f7d532840b120abd6400237014"
   dependencies:
     lines-and-columns "^1.1.6"
     tslib "^1.9.1"
 
-yaml@ikatyang/yaml#a765c1ee16d6b8a5e715564645f2b85f7e04828b:
-  version "1.0.0-rc.7"
-  resolved "https://codeload.github.com/ikatyang/yaml/tar.gz/a765c1ee16d6b8a5e715564645f2b85f7e04828b"
+yaml@1.0.0-rc.8:
+  version "1.0.0-rc.8"
+  resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.0.0-rc.8.tgz#e5604c52b7b07b16e469bcf875ab0dfe08c50d42"
 
 yargs-parser@^7.0.0:
   version "7.0.0"

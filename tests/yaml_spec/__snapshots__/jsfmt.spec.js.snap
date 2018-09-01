@@ -3445,13 +3445,11 @@ exports[`spec-example-6-21-local-tag-prefix.yml - yaml-verify 1`] = `
 !m!light green
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %TAG !m! !my-
----
-# Bulb here
+--- # Bulb here
 !m!light fluorescent
 ...
 %TAG !m! !my-
----
-# Color here
+--- # Color here
 !m!light green
 
 `;
@@ -3466,13 +3464,11 @@ exports[`spec-example-6-21-local-tag-prefix.yml - yaml-verify 2`] = `
 !m!light green
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %TAG !m! !my-
----
-# Bulb here
+--- # Bulb here
 !m!light fluorescent
 ...
 %TAG !m! !my-
----
-# Color here
+--- # Color here
 !m!light green
 
 `;
@@ -4334,7 +4330,6 @@ keep: |+
 
 # Trail
 # comments.
-
 `;
 
 exports[`spec-example-8-5-chomping-trailing-lines.yml - yaml-verify 2`] = `
@@ -4377,7 +4372,6 @@ keep: |+
 
 # Trail
 # comments.
-
 `;
 
 exports[`spec-example-8-6-empty-scalar-chomping.yml - yaml-verify 1`] = `
