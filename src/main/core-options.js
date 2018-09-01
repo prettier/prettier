@@ -66,7 +66,6 @@ const options = {
     since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "path",
-    default: undefined,
     description:
       "Specify the input filepath. This will be used to do parser inference.",
     cliName: "stdin-filepath",
@@ -208,7 +207,10 @@ const options = {
     since: "0.0.0",
     category: CATEGORY_GLOBAL,
     type: "boolean",
-    default: false,
+    default: [
+      { since: "0.0.0", value: false },
+      { since: "1.15.0", value: undefined }
+    ],
     deprecated: "0.0.10",
     description: "Use flow parser.",
     redirect: { option: "parser", value: "flow" },

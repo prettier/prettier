@@ -848,12 +848,16 @@ function normalizeDetailedOptionMap(detailedOptionMap) {
 
 function createMinimistOptions(detailedOptions) {
   return {
+    // we use vnopts' AliasSchema to handle aliases for better error messages
+    alias: {},
     boolean: detailedOptions
       .filter(option => option.type === "boolean")
-      .map(option => option.name),
+      .map(option => [option.name].concat(option.alias || []))
+      .reduce((a, b) => a.concat(b)),
     string: detailedOptions
       .filter(option => option.type !== "boolean")
-      .map(option => option.name),
+      .map(option => [option.name].concat(option.alias || []))
+      .reduce((a, b) => a.concat(b)),
     default: detailedOptions
       .filter(option => !option.deprecated)
       .filter(
@@ -866,13 +870,6 @@ function createMinimistOptions(detailedOptions) {
       .reduce(
         (current, option) =>
           Object.assign({ [option.name]: option.default }, current),
-        {}
-      ),
-    alias: detailedOptions
-      .filter(option => option.alias !== undefined)
-      .reduce(
-        (current, option) =>
-          Object.assign({ [option.name]: option.alias }, current),
         {}
       )
   };
