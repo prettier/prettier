@@ -5,11 +5,10 @@ const {
   kPattern,
   punctuationPattern
 } = require("./constants.evaluate");
+const { getLast } = require("../common/util");
 
 const kRegex = new RegExp(kPattern);
 const punctuationRegex = new RegExp(punctuationPattern);
-
-const { getLast } = require("../common/util");
 
 /**
  * split text into whitespaces and words
