@@ -880,7 +880,8 @@ function clean(ast, newObj, parent) {
   if (
     ast.type === "code" ||
     ast.type === "yaml" ||
-    ast.type === "importExport" ||
+    ast.type === "import" ||
+    ast.type === "export" ||
     ast.type === "jsx"
   ) {
     delete newObj.value;

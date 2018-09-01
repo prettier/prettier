@@ -14,8 +14,20 @@ function preprocess(ast, options) {
   ast = transformIndentedCodeblockAndMarkItsParentList(text)()(ast);
   ast = markAlignedList(text, options)()(ast);
   ast = splitText(options)()(ast);
+  ast = transformImportExport()(ast);
   ast = mergeContinuousImportExport()(ast);
   return ast;
+}
+
+function transformImportExport() {
+  return ast =>
+    mapAst(ast, node => {
+      if (node.type !== "import" && node.type !== "export") {
+        return node;
+      }
+
+      return Object.assign({}, node, { type: "importExport" });
+    });
 }
 
 function transformInlineCode() {
