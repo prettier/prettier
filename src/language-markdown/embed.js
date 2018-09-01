@@ -6,6 +6,7 @@ const {
   builders: { hardline, literalline, concat, markAsRoot },
   utils: { mapDoc }
 } = require("../doc");
+const { getFencedCodeBlockValue } = require("./utils");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -20,7 +21,10 @@ function embed(path, print, textToDoc, options) {
       const style = styleUnit.repeat(
         Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
       );
-      const doc = textToDoc(node.value, { parser });
+      const doc = textToDoc(
+        getFencedCodeBlockValue(node, options.originalText),
+        { parser }
+      );
       return markAsRoot(
         concat([
           style,
