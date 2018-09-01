@@ -3,6 +3,7 @@
 const privateUtil = require("../common/util");
 const embed = require("./embed");
 const pragma = require("./pragma");
+const preprocess = require("./preprocess");
 const {
   builders: {
     concat,
@@ -889,10 +890,15 @@ function clean(ast, newObj, parent) {
     delete newObj.isAligned;
   }
 
-  // for whitespace: "\n" and " " are considered the same
-  if (ast.type === "whitespace" && ast.value === "\n") {
-    newObj.value = " ";
+  // texts can be splitted or merged
+  if (ast.type === "text") {
+    return null;
   }
+
+  if (ast.type === "inlineCode") {
+    newObj.value = ast.value.replace(/[ \t\n]+/g, " ");
+  }
+
   // for insert pragma
   if (
     parent &&
@@ -921,6 +927,7 @@ function hasPrettierIgnore(path) {
 }
 
 module.exports = {
+  preprocess,
   print: genericPrint,
   embed,
   massageAstNode: clean,
