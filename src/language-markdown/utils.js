@@ -6,6 +6,7 @@ const unicodeRegex = require("unicode-regex");
 const { getLast } = require("../common/util");
 
 const cjkPattern = cjkRegex().toString();
+const kRegex = unicodeRegex({ Script: ["Hangul"] }).toRegExp();
 
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
 const asciiPunctuationCharset = /* prettier-ignore */ regexpUtil.charset(
@@ -39,7 +40,8 @@ const punctuationRegex = new RegExp(punctuationPattern);
  */
 function splitText(text, options) {
   const KIND_NON_CJK = "non-cjk";
-  const KIND_CJK_CHARACTER = "cjk-character";
+  const KIND_CJ_LETTER = "cj-letter";
+  const KIND_K_LETTER = "k-letter";
   const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
   const nodes = [];
@@ -104,7 +106,9 @@ function splitText(text, options) {
               : {
                   type: "word",
                   value: innerToken,
-                  kind: KIND_CJK_CHARACTER,
+                  kind: kRegex.test(innerToken)
+                    ? KIND_K_LETTER
+                    : KIND_CJ_LETTER,
                   hasLeadingPunctuation: false,
                   hasTrailingPunctuation: false
                 }
@@ -119,9 +123,9 @@ function splitText(text, options) {
     if (lastNode && lastNode.type === "word") {
       if (
         (lastNode.kind === KIND_NON_CJK &&
-          node.kind === KIND_CJK_CHARACTER &&
+          node.kind === KIND_CJ_LETTER &&
           !lastNode.hasTrailingPunctuation) ||
-        (lastNode.kind === KIND_CJK_CHARACTER &&
+        (lastNode.kind === KIND_CJ_LETTER &&
           node.kind === KIND_NON_CJK &&
           !node.hasLeadingPunctuation)
       ) {
