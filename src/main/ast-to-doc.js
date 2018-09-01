@@ -12,10 +12,13 @@ const hardline = docBuilders.hardline;
 const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
 const docUtils = doc.utils;
 
-function printAstToDoc(ast, options, addAlignmentSize) {
-  addAlignmentSize = addAlignmentSize || 0;
-
+function printAstToDoc(ast, options, addAlignmentSize = 0) {
   const printer = options.printer;
+
+  if (printer.preprocess) {
+    ast = printer.preprocess(ast, options);
+  }
+
   const cache = new Map();
 
   function printGenerically(path, args) {

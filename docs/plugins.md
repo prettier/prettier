@@ -182,6 +182,12 @@ A plugin can implement how a pragma comment is inserted in the resulting code wh
 function insertPragma(text: string): string;
 ```
 
+_(Optional)_ The preprocess function can process the ast from parser before passing into `print` function.
+
+```ts
+function preprocess(ast: AST, options: object): AST;
+```
+
 ### `options`
 
 `options` is an object containing the custom options your plugin supports.
