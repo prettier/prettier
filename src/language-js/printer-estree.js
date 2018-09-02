@@ -4732,16 +4732,24 @@ function isJSXWhitespaceExpression(node) {
   );
 }
 
-function separatorNoWhitespace(isFacebookTranslationTag, child) {
+function separatorNoWhitespace(
+  isFacebookTranslationTag,
+  child,
+  childNode,
+  nextNode
+) {
   if (isFacebookTranslationTag) {
     return "";
   }
 
-  if (child.length === 1) {
-    return softline;
+  if (
+    (childNode.type === "JSXElement" && !childNode.closingElement) ||
+    (nextNode && (nextNode.type === "JSXElement" && !nextNode.closingElement))
+  ) {
+    return hardline;
   }
 
-  return hardline;
+  return softline;
 }
 
 function separatorWithWhitespace(isFacebookTranslationTag, child) {
@@ -4834,8 +4842,14 @@ function printJSXChildren(
             children.push(jsxWhitespace);
           }
         } else {
+          const next = n.children[i + 1];
           children.push(
-            separatorNoWhitespace(isFacebookTranslationTag, getLast(children))
+            separatorNoWhitespace(
+              isFacebookTranslationTag,
+              getLast(children),
+              child,
+              next
+            )
           );
         }
       } else if (/\n/.test(text)) {
@@ -4861,7 +4875,12 @@ function printJSXChildren(
           .trim()
           .split(matchJsxWhitespaceRegex)[0];
         children.push(
-          separatorNoWhitespace(isFacebookTranslationTag, firstWord)
+          separatorNoWhitespace(
+            isFacebookTranslationTag,
+            firstWord,
+            child,
+            next
+          )
         );
       } else {
         children.push(hardline);
@@ -4987,12 +5006,20 @@ function printJSXElement(path, options, print) {
       children[i] === jsxWhitespace &&
       children[i + 1] === "" &&
       children[i + 2] === jsxWhitespace;
+    const isPairOfHardOrSoftLines =
+      (children[i] === softline &&
+        children[i + 1] === "" &&
+        children[i + 2] === hardline) ||
+      (children[i] === hardline &&
+        children[i + 1] === "" &&
+        children[i + 2] === softline);
 
     if (
       (isPairOfHardlines && containsText) ||
       isPairOfEmptyStrings ||
       isLineFollowedByJSXWhitespace ||
-      isDoubleJSXWhitespace
+      isDoubleJSXWhitespace ||
+      isPairOfHardOrSoftLines
     ) {
       children.splice(i, 2);
     } else if (isJSXWhitespaceFollowedByLine) {
