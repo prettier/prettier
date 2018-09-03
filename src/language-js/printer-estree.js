@@ -290,13 +290,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
         ? path.call(print, operatorOptions.alternateNodePropertyName)
         : align(2, path.call(print, operatorOptions.alternateNodePropertyName))
     ]);
-    parts.push(
-      parent.type === operatorOptions.conditionalNodeType
-        ? options.useTabs
-          ? dedent(indent(part))
-          : align(Math.max(0, options.tabWidth - 2), part)
-        : part
-    );
+    parts.push(part);
   }
 
   // We want a whole chain of ConditionalExpressions to all
