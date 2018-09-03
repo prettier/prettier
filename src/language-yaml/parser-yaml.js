@@ -2,36 +2,10 @@
 
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
-const { defineShortcut, mapNode } = require("./utils");
-
-function defineShortcuts(node) {
-  switch (node.type) {
-    case "document":
-      defineShortcut(node, "head", () => node.children[0]);
-      defineShortcut(node, "body", () => node.children[1]);
-      break;
-    case "documentBody":
-    case "sequenceItem":
-    case "flowSequenceItem":
-    case "mappingKey":
-    case "mappingValue":
-      defineShortcut(node, "content", () => node.children[0]);
-      break;
-    case "mappingItem":
-    case "flowMappingItem":
-      defineShortcut(node, "key", () => node.children[0]);
-      defineShortcut(node, "value", () => node.children[1]);
-      break;
-  }
-  return node;
-}
 
 function parse(text) {
   try {
-    const root = mapNode(
-      require("yaml-unist-parser").parse(text),
-      defineShortcuts
-    );
+    const root = require("yaml-unist-parser").parse(text);
 
     /**
      * suppress `comment not printed` error

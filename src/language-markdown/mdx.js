@@ -38,7 +38,7 @@ const tokenizeEsSyntax = (eat, value) => {
 
   if (isExport(subvalue) || isImport(subvalue)) {
     return eat(subvalue)({
-      type: "importExport",
+      type: isExport(subvalue) ? "export" : "import",
       value: subvalue
     });
   }

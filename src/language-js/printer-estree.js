@@ -34,6 +34,7 @@ const clean = require("./clean");
 const insertPragma = require("./pragma").insertPragma;
 const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
+const preprocess = require("./preprocess");
 
 const {
   builders: {
@@ -342,6 +343,8 @@ function printPathNoParens(path, options, print, args) {
 
   let parts = [];
   switch (n.type) {
+    case "JsonRoot":
+      return concat([path.call(print, "node"), hardline]);
     case "File":
       // Print @babel/parser's InterpreterDirective here so that
       // leading comments on the `Program` node get printed after the hashbang.
@@ -5979,6 +5982,7 @@ function rawText(node) {
 }
 
 module.exports = {
+  preprocess,
   print: genericPrint,
   embed,
   insertPragma,

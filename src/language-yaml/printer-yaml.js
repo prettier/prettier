@@ -16,7 +16,9 @@ const {
   isLastDescendantNode,
   isNextLineEmpty,
   isNode,
-  isEmptyNode
+  isEmptyNode,
+  defineShortcut,
+  mapNode
 } = require("./utils");
 const docBuilders = require("../doc").builders;
 const {
@@ -36,6 +38,32 @@ const {
   markAsRoot,
   softline
 } = docBuilders;
+
+function preprocess(ast) {
+  return mapNode(ast, defineShortcuts);
+}
+
+function defineShortcuts(node) {
+  switch (node.type) {
+    case "document":
+      defineShortcut(node, "head", () => node.children[0]);
+      defineShortcut(node, "body", () => node.children[1]);
+      break;
+    case "documentBody":
+    case "sequenceItem":
+    case "flowSequenceItem":
+    case "mappingKey":
+    case "mappingValue":
+      defineShortcut(node, "content", () => node.children[0]);
+      break;
+    case "mappingItem":
+    case "flowMappingItem":
+      defineShortcut(node, "key", () => node.children[0]);
+      defineShortcut(node, "value", () => node.children[1]);
+      break;
+  }
+  return node;
+}
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -676,6 +704,7 @@ function clean(node, newNode /*, parent */) {
 }
 
 module.exports = {
+  preprocess,
   print: genericPrint,
   massageAstNode: clean,
   insertPragma
