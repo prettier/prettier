@@ -214,6 +214,12 @@ defaultOptions: {
 A `util` module from Prettier core is considered a private API and is not meant to be consumed by plugins. Instead, the `util-shared` module provides the following limited set of utility functions for plugins:
 
 ```ts
+skipWhitespace(text: string, index: number, options: object): number;
+skipSpaces(text: string, index: number, options: object): number;
+skipNewline(text: string, index: number, options: object): number;
+hasNewline(text: string, index: number, options: object): boolean;
+hasNewlineInRange(text: string, start: number, start: number): boolean;
+hasSpaces(text: string, index: number, options: object): number;
 makeString(rawContent: string, enclosingQuote: string, unescapeUnnecessarEscapes: boolean): string;
 getNextNonSpaceNonCommentCharacterIndex(text: string, node: object, options: object): number;
 isNextLineEmptyAfterIndex(text: string, index: number): boolean;
