@@ -1,7 +1,6 @@
 "use strict";
 
-const util = require("../common/util");
-const { getOrderedListItemInfo, mapAst } = require("./utils");
+const { getOrderedListItemInfo, mapAst, splitText } = require("./utils");
 
 // 0x0 ~ 0x10ffff
 const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
@@ -12,7 +11,7 @@ function preprocess(ast, options) {
   ast = transformInlineCode(ast);
   ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
   ast = markAlignedList(ast, options);
-  ast = splitText(ast, options);
+  ast = splitTextIntoSentences(ast, options);
   ast = transformImportExport(ast);
   ast = mergeContinuousImportExport(ast);
   return ast;
@@ -109,7 +108,7 @@ function mergeContinuousTexts(ast) {
   );
 }
 
-function splitText(ast, options) {
+function splitTextIntoSentences(ast, options) {
   return mapAst(ast, (node, index, [parentNode]) => {
     if (node.type !== "text") {
       return node;
@@ -129,7 +128,7 @@ function splitText(ast, options) {
     return {
       type: "sentence",
       position: node.position,
-      children: util.splitText(value, options)
+      children: splitText(value, options)
     };
   });
 }

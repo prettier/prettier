@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pipeline_own_line.js - babylon-verify 1`] = `
+function pipeline() {
+	0
+	// Comment
+	|> x
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function pipeline() {
+  0 |>
+    // Comment
+    x;
+}
+
+`;
