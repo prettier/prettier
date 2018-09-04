@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`empty-block.md - markdown-verify 1`] = `
+$$
+$$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$$
+$$
+
+`;
+
 exports[`remark-math.md - markdown-verify 1`] = `
 <!-- tests from https://github.com/Rokt33r/remark-math/blob/9e13e49/specs/remark-math.spec.js -->
 
