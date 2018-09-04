@@ -20,6 +20,12 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, options) {
 }
 
 module.exports = {
+  skipWhitespace: util.skipWhitespace,
+  skipSpaces: util.skipSpaces,
+  skipNewline: util.skipNewline,
+  hasNewline: util.hasNewline,
+  hasNewlineInRange: util.hasNewlineInRange,
+  hasSpaces: util.hasSpaces,
   isNextLineEmpty,
   isNextLineEmptyAfterIndex: util.isNextLineEmptyAfterIndex,
   isPreviousLineEmpty,
