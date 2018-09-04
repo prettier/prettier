@@ -100,7 +100,7 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print);
     case "word":
       return node.value
-        .replace(/[*$]/g, "\\$&") // escape all `*` nad `$` (math)
+        .replace(/[*$]/g, "\\$&") // escape all `*` and `$` (math)
         .replace(
           new RegExp(
             [
