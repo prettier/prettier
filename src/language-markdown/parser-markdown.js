@@ -6,6 +6,7 @@ const pragma = require("./pragma");
 const parseFrontMatter = require("../utils/front-matter");
 const { mapAst } = require("./utils");
 const mdx = require("./mdx");
+const remarkMath = require("remark-math");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -35,6 +36,7 @@ function createParse({ isMDX }) {
         )
       )
       .use(frontMatter)
+      .use(remarkMath)
       .use(isMDX ? mdx.esSyntax : identity)
       .use(liquid)
       .use(isMDX ? htmlToJsx : identity);

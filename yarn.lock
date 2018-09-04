@@ -4856,6 +4856,12 @@ regjsparser@^0.3.0:
   dependencies:
     jsesc "~0.5.0"
 
+remark-math@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/remark-math/-/remark-math-1.0.4.tgz#ced46473075ff99e4678a154a1a3d0dde403a9f2"
+  dependencies:
+    trim-trailing-lines "^1.1.0"
+
 remark-parse@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/remark-parse/-/remark-parse-5.0.0.tgz#4c077f9e499044d1d5c13f80d7a98cf7b9285d95"
@@ -5661,6 +5667,10 @@ trim-right@^1.0.1:
 trim-trailing-lines@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/trim-trailing-lines/-/trim-trailing-lines-1.1.0.tgz#7aefbb7808df9d669f6da2e438cac8c46ada7684"
+
+trim-trailing-lines@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/trim-trailing-lines/-/trim-trailing-lines-1.1.1.tgz#e0ec0810fd3c3f1730516b45f49083caaf2774d9"
 
 trim@0.0.1:
   version "0.0.1"
