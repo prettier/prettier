@@ -49,7 +49,8 @@ const INLINE_NODE_TYPES = [
   "sentence",
   "whitespace",
   "word",
-  "break"
+  "break",
+  "inlineMath"
 ];
 
 const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
@@ -99,7 +100,7 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print);
     case "word":
       return node.value
-        .replace(/[*]/g, "\\*") // escape all `*`
+        .replace(/[*$]/g, "\\$&") // escape all `*` and `$` (math)
         .replace(
           new RegExp(
             [
@@ -399,6 +400,17 @@ function genericPrint(path, options, print) {
     case "importExport":
     case "jsx":
       return node.value; // fallback to the original text if multiparser failed
+    case "math":
+      return concat([
+        "$$",
+        hardline,
+        node.value
+          ? concat([replaceNewlinesWith(node.value, hardline), hardline])
+          : "",
+        "$$"
+      ]);
+    case "inlineMath":
+      return concat(["$", node.value, "$"]);
 
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
