@@ -146,21 +146,8 @@ exports[`show version with --version (stderr) 1`] = `""`;
 
 exports[`show version with --version (write) 1`] = `Array []`;
 
-exports[`show warning with --help not-found (stderr) 1`] = `
-"[warn] Unknown option name \\"not-found\\"
-"
-`;
-
-exports[`show warning with --help not-found (stdout) 1`] = `
-"-h, --help <flag>
-
-  Show CLI usage, or details about the given flag.
-  Example: --help write
-"
-`;
-
 exports[`show warning with --help not-found (typo) (stderr) 1`] = `
-"[warn] Unknown option name \\"parserr\\", did you mean \\"parser\\"?
+"[warn] Unknown flag \\"parserr\\", did you mean \\"parser\\"?
 "
 `;
 
@@ -189,8 +176,6 @@ Valid options:
 `;
 
 exports[`show warning with --help not-found (typo) (write) 1`] = `Array []`;
-
-exports[`show warning with --help not-found (write) 1`] = `Array []`;
 
 exports[`throw error and show usage with something unexpected (stderr) 1`] = `""`;
 
@@ -310,6 +295,15 @@ exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `
 exports[`throw error with --find-config-path + multiple files (stdout) 1`] = `""`;
 
 exports[`throw error with --find-config-path + multiple files (write) 1`] = `Array []`;
+
+exports[`throw error with --help not-found (stderr) 1`] = `
+"[error] Invalid --help value. Expected \\"arrow-parens\\", \\"bracket-spacing\\", \\"color\\", \\"config\\", \\"config-precedence\\", \\"cursor-offset\\", \\"editorconfig\\", \\"file-info\\", \\"find-config-path\\", \\"h\\", \\"help\\", \\"ignore-path\\", \\"insert-pragma\\", \\"jsx-bracket-same-line\\", \\"l\\", \\"list-different\\", \\"loglevel\\", \\"no-bracket-spacing\\", \\"no-color\\", \\"no-config\\", \\"no-editorconfig\\", \\"no-semi\\", \\"parser\\", \\"plugin\\", \\"plugin-search-dir\\", \\"print-width\\", \\"prose-wrap\\", \\"range-end\\", \\"range-start\\", \\"require-pragma\\", \\"semi\\", \\"single-quote\\", \\"stdin\\", \\"stdin-filepath\\", \\"support-info\\", \\"tab-width\\", \\"trailing-comma\\", \\"use-tabs\\", \\"v\\", \\"version\\", \\"with-node-modules\\" or \\"write\\", but received \\"not-found\\".
+"
+`;
+
+exports[`throw error with --help not-found (stdout) 1`] = `""`;
+
+exports[`throw error with --help not-found (write) 1`] = `Array []`;
 
 exports[`throw error with --write + --debug-check (stderr) 1`] = `
 "[error] Cannot use --write and --debug-check together.
