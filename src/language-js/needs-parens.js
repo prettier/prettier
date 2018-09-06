@@ -4,6 +4,7 @@ const assert = require("assert");
 
 const util = require("../common/util");
 const comments = require("./comments");
+const { writtenWithParens } = require("../common/util-shared")
 
 function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
   // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
@@ -48,6 +49,8 @@ function needsParens(path, options) {
 
   const name = path.getName();
   const node = path.getNode();
+
+  const withParens = writtenWithParens(node, options)
 
   // If the value of this path is some child of a Node and not a Node
   // itself, then it doesn't need parentheses. Only Node objects (in
@@ -299,7 +302,7 @@ function needsParens(path, options) {
             return true;
           }
 
-          return false;
+          return withParens;
         }
 
         default:

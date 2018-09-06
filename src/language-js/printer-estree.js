@@ -26,7 +26,8 @@ const {
 const {
   isNextLineEmpty,
   isNextLineEmptyAfterIndex,
-  getNextNonSpaceNonCommentCharacterIndex
+  getNextNonSpaceNonCommentCharacterIndex,
+  writtenWithParens
 } = require("../common/util-shared");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
 const embed = require("./embed");
@@ -264,16 +265,17 @@ function formatTernaryOperator(path, options, print, operatorOptions) {
     );
   } else {
     // normal mode
+    const testWithParens = writtenWithParens(n.test, options);
     const part = concat([
       line,
       "? ",
       n[operatorOpts.consequentNode].type === operatorOpts.operatorName
-        ? ifBreak("", "(")
-        : "",
+        ? ifBreak(testWithParens ? "(" : "", "(")
+        : testWithParens ? "(" : "",
       align(2, path.call(print, operatorOpts.consequentNode)),
       n[operatorOpts.consequentNode].type === operatorOpts.operatorName
-        ? ifBreak("", ")")
-        : "",
+        ? ifBreak(testWithParens ? ")" : "", ")")
+        : testWithParens ? ")" : "",
       line,
       ": ",
       align(2, path.call(print, operatorOpts.alternateNode))
@@ -5209,10 +5211,13 @@ function printBinaryishExpressions(
   print,
   options,
   isNested,
-  isInsideParenthesis
+  isInsideParenthesis,
+  flattening
 ) {
   let parts = [];
   const node = path.getValue();
+
+  const withParens = flattening && writtenWithParens(node, options);
 
   // We treat BinaryExpression and LogicalExpression nodes the same.
   if (isBinaryish(node)) {
@@ -5235,7 +5240,8 @@ function printBinaryishExpressions(
               print,
               options,
               /* isNested */ true,
-              isInsideParenthesis
+              isInsideParenthesis,
+              true
             ),
           "left"
         )
@@ -5278,6 +5284,11 @@ function printBinaryishExpressions(
   } else {
     // Our stopping case. Simply print the node normally.
     parts.push(path.call(print));
+  }
+
+  if (withParens) {
+    parts.unshift("(");
+    parts.push(")");
   }
 
   return parts;
