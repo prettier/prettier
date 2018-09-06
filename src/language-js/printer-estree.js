@@ -5130,11 +5130,12 @@ function maybeWrapJSXElementInParens(path, elem) {
     return elem;
   }
 
-  const shouldBreak = matchAncestorTypes(path, [
-    "ArrowFunctionExpression",
-    "CallExpression",
-    "JSXExpressionContainer"
-  ]);
+  const shouldBreak =
+    matchAncestorTypes(path, [
+      "ArrowFunctionExpression",
+      "CallExpression",
+      "JSXExpressionContainer"
+    ]) && isMemberExpressionChain(path.getParentNode(1).callee);
 
   return group(
     concat([
