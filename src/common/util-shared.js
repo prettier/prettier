@@ -19,6 +19,11 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, options) {
   );
 }
 
+function writtenWithParens(node, options) {
+  const text = options.originalText;
+  return /[(]\s*$/.test(text.slice(0, node.start)) && /^\s*[)]/.test(text.slice(node.end))
+}
+
 module.exports = {
   skipWhitespace: util.skipWhitespace,
   skipSpaces: util.skipSpaces,
@@ -34,5 +39,6 @@ module.exports = {
   makeString: util.makeString,
   addLeadingComment: util.addLeadingComment,
   addDanglingComment: util.addDanglingComment,
-  addTrailingComment: util.addTrailingComment
+  addTrailingComment: util.addTrailingComment,
+  writtenWithParens,
 };
