@@ -52,7 +52,6 @@ const {
     ifBreak,
     breakParent,
     lineSuffixBoundary,
-    addAlignmentToDoc,
     dedent
   },
   utils: { willBreak, isLineNext, isEmpty, removeLines },
@@ -2263,6 +2262,7 @@ function printPathNoParens(path, options, print, args) {
             tabWidth
           );
 
+          /* avoid reformatting TemplateLiterals
           let printed = expressions[i];
 
           if (
@@ -2277,6 +2277,8 @@ function printPathNoParens(path, options, print, args) {
           const aligned = addAlignmentToDoc(printed, indentSize, tabWidth);
 
           parts.push(group(concat(["${", aligned, lineSuffixBoundary, "}"])));
+          */
+          parts.push(group(concat(["${", expressions[i], lineSuffixBoundary, "}"])));
         }
       }, "quasis");
 
