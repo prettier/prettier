@@ -1,6 +1,8 @@
 "use strict";
 
 const vnopts = require("vnopts");
+const leven = require("leven");
+const chalk = require("chalk");
 
 const cliDescriptor = {
   key: key => (key.length === 1 ? `-${key}` : `--${key}`),
@@ -14,6 +16,35 @@ const cliDescriptor = {
           ? `${cliDescriptor.key(key)} without an argument`
           : `${cliDescriptor.key(key)}=${value}`
 };
+
+class FlagSchema extends vnopts.ChoiceSchema {
+  constructor({ name, flags }) {
+    super({ name, choices: flags });
+    this._flags = flags.slice().sort();
+  }
+  preprocess(value, utils) {
+    if (
+      typeof value === "string" &&
+      value.length !== 0 &&
+      this._flags.indexOf(value) === -1
+    ) {
+      const suggestion = this._flags.find(flag => leven(flag, value) < 3);
+      if (suggestion) {
+        utils.logger.warn(
+          [
+            `Unknown flag ${chalk.yellow(utils.descriptor.value(value))},`,
+            `did you mean ${chalk.blue(utils.descriptor.value(suggestion))}?`
+          ].join(" ")
+        );
+        return suggestion;
+      }
+    }
+    return value;
+  }
+  expected() {
+    return "a flag";
+  }
+}
 
 function normalizeOptions(
   options,
@@ -40,7 +71,7 @@ function optionInfosToSchemas(optionInfos, { isCLI }) {
   }
 
   for (const optionInfo of optionInfos) {
-    schemas.push(optionInfoToSchema(optionInfo, { isCLI }));
+    schemas.push(optionInfoToSchema(optionInfo, { isCLI, optionInfos }));
 
     if (optionInfo.alias && isCLI) {
       schemas.push(
@@ -55,7 +86,7 @@ function optionInfosToSchemas(optionInfos, { isCLI }) {
   return schemas;
 }
 
-function optionInfoToSchema(optionInfo, { isCLI }) {
+function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
   let SchemaConstructor;
   const parameters = { name: optionInfo.name };
   const handlers = {};
@@ -84,6 +115,17 @@ function optionInfoToSchema(optionInfo, { isCLI }) {
       SchemaConstructor = vnopts.BooleanSchema;
       break;
     case "flag":
+      SchemaConstructor = FlagSchema;
+      parameters.flags = optionInfos
+        .map(optionInfo =>
+          [].concat(
+            optionInfo.alias || [],
+            optionInfo.description ? optionInfo.name : [],
+            optionInfo.oppositeDescription ? `no-${optionInfo.name}` : []
+          )
+        )
+        .reduce((a, b) => a.concat(b), []);
+      break;
     case "path":
       SchemaConstructor = vnopts.StringSchema;
       break;
