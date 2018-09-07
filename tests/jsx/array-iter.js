@@ -14,3 +14,17 @@ const TodoList = ({ todos }) => (
     <ul>{_.map(todos, (todo, i) => <TodoItem key={i} {...todo} />)}</ul>
   </div>
 );
+
+<div className="search-filter-chips">
+    {scopes
+        .filter(scope => scope.value !== '')
+        .map((scope, i) => (
+            <FilterChip
+                query={this.props.query}
+                onFilterChosen={this.onSearchScopeClicked}
+                key={i}
+                value={scope.value}
+                name={scope.name}
+            />
+        ))}
+</div>
