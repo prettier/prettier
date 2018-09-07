@@ -297,7 +297,7 @@ exports[`throw error with --find-config-path + multiple files (stdout) 1`] = `""
 exports[`throw error with --find-config-path + multiple files (write) 1`] = `Array []`;
 
 exports[`throw error with --help not-found (stderr) 1`] = `
-"[error] Invalid --help value. Expected \\"arrow-parens\\", \\"bracket-spacing\\", \\"color\\", \\"config\\", \\"config-precedence\\", \\"cursor-offset\\", \\"editorconfig\\", \\"file-info\\", \\"find-config-path\\", \\"h\\", \\"help\\", \\"ignore-path\\", \\"insert-pragma\\", \\"jsx-bracket-same-line\\", \\"l\\", \\"list-different\\", \\"loglevel\\", \\"no-bracket-spacing\\", \\"no-color\\", \\"no-config\\", \\"no-editorconfig\\", \\"no-semi\\", \\"parser\\", \\"plugin\\", \\"plugin-search-dir\\", \\"print-width\\", \\"prose-wrap\\", \\"range-end\\", \\"range-start\\", \\"require-pragma\\", \\"semi\\", \\"single-quote\\", \\"stdin\\", \\"stdin-filepath\\", \\"support-info\\", \\"tab-width\\", \\"trailing-comma\\", \\"use-tabs\\", \\"v\\", \\"version\\", \\"with-node-modules\\" or \\"write\\", but received \\"not-found\\".
+"[error] Invalid --help value. Expected a flag, but received \\"not-found\\".
 "
 `;
 

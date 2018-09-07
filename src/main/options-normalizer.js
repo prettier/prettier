@@ -41,6 +41,9 @@ class FlagSchema extends vnopts.ChoiceSchema {
     }
     return value;
   }
+  expected() {
+    return "a flag";
+  }
 }
 
 function normalizeOptions(
