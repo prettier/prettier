@@ -230,6 +230,7 @@ function needsParens(path, options) {
         case "NewExpression":
           return name === "callee" && parent.callee === node;
 
+        case "ClassExpression":
         case "ClassDeclaration":
         case "TSAbstractClassDeclaration":
           return name === "superClass" && parent.superClass === node;
