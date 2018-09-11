@@ -1957,16 +1957,19 @@ function printPathNoParens(path, options, print, args) {
         n.attributes.length && hasTrailingComment(getLast(n.attributes));
 
       const bracketSameLine =
-        options.jsxBracketSameLine &&
-        // We should print the bracket in a new line for the following cases:
-        // <div
-        //   // comment
-        // >
-        // <div
-        //   attr // comment
-        // >
-        (!nameHasComments || n.attributes.length) &&
-        !lastAttrHasTrailingComments;
+        // Simple tags (no attributes and no comment in tag name) should be
+        // kept unbroken regardless of `jsxBracketSameLine`
+        (!n.attributes.length && !nameHasComments) ||
+        (options.jsxBracketSameLine &&
+          // We should print the bracket in a new line for the following cases:
+          // <div
+          //   // comment
+          // >
+          // <div
+          //   attr // comment
+          // >
+          (!nameHasComments || n.attributes.length) &&
+          !lastAttrHasTrailingComments);
 
       // We should print the opening element expanded if any prop value is a
       // string literal with newlines
