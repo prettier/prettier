@@ -5813,7 +5813,7 @@ function isTestCall(n, parent) {
     ) {
       // it("name", () => { ... }, 2500)
       if (n.arguments[2] && !isNumericLiteral(n.arguments[2])) {
-        return false
+        return false;
       }
       return (
         (isFunctionOrArrowExpression(n.arguments[1].type) &&
