@@ -424,7 +424,7 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "WhileStatement" ||
           parent.type === "DoWhileStatement");
 
-      const parts = printBinaryishExpressions(
+      let parts = printBinaryishExpressions(
         path,
         print,
         options,
@@ -496,17 +496,36 @@ function printPathNoParens(path, options, print, args) {
         return group(concat(parts));
       }
 
-      const rest = concat(parts.slice(1));
+      // If the right part is a JSX node, we include it in a separate group to
+      // prevent it breaking the whole chain, so we can print the expression like:
+      //
+      //   foo && bar && (
+      //     <Foo>
+      //       <Bar />
+      //     </Foo>
+      //   )
 
-      return group(
+      const hasJSX = isJSXNode(n.right);
+      const right = concat(hasJSX ? parts.slice(1, -1) : parts.slice(1));
+
+      const chain = group(
         concat([
           // Don't include the initial expression in the indentation
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
-          indent(rest)
+          indent(right)
         ])
       );
+
+      if (!hasJSX) {
+        return chain;
+      }
+
+      return group(concat([
+        chain,
+        indent(parts[parts.length - 1])
+      ]))
     }
     case "AssignmentPattern":
       return concat([

@@ -423,8 +423,7 @@ exports[`jsx_parent.js - flow-verify 1`] = `
 />;
 
 <div>
-  {!isJellyfishEnabled &&
-    diffUpdateMessageInput != null && (
+  {!isJellyfishEnabled && diffUpdateMessageInput != null && (
       <div>
         <span>Text</span>
       </div>
