@@ -21,7 +21,7 @@ function embed(path, print, textToDoc, options) {
       ) {
         const parser = options.parser === "flow" ? "flow" : "babylon";
         const doc = textToDoc(getText(options, node), { parser });
-        return concat([hardline, doc]);
+        return concat([hardline, stripTrailingHardline(doc)]);
       }
 
       // Inline TypeScript
@@ -35,7 +35,7 @@ function embed(path, print, textToDoc, options) {
           { parser: "typescript" },
           options
         );
-        return concat([hardline, doc]);
+        return concat([hardline, stripTrailingHardline(doc)]);
       }
 
       // Inline Styles
@@ -49,7 +49,7 @@ function embed(path, print, textToDoc, options) {
 
     case "attribute": {
       /*
-       * Vue binding sytax: JS expressions
+       * Vue binding syntax: JS expressions
        * :class="{ 'some-key': value }"
        * v-bind:id="'list-' + id"
        * v-if="foo && !bar"

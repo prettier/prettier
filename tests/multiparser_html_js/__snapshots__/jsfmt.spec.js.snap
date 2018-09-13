@@ -13,22 +13,14 @@ exports[`html-with-js-script.html - parse5-verify 1`] = `
 </html>
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 <!DOCTYPE html>
-
-
 <html lang="en">
-
-
-<head>
-
-  <script type="text/javascript">
+  <head>
+    <script type="text/javascript">
     hello("world");
-
-  </script>
-</head>
-
-<body>
-</body>
+    </script>
+  </head>
+  <body></body>
 </html>
+
 `;
