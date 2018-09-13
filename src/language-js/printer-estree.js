@@ -424,7 +424,7 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "WhileStatement" ||
           parent.type === "DoWhileStatement");
 
-      let parts = printBinaryishExpressions(
+      const parts = printBinaryishExpressions(
         path,
         print,
         options,
@@ -522,10 +522,7 @@ function printPathNoParens(path, options, print, args) {
         return chain;
       }
 
-      return group(concat([
-        chain,
-        indent(parts[parts.length - 1])
-      ]))
+      return group(concat([chain, indent(parts[parts.length - 1])]));
     }
     case "AssignmentPattern":
       return concat([
