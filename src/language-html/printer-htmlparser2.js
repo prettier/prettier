@@ -202,6 +202,7 @@ function genericPrint(path, options, print) {
   }
 }
 
+// https://html.spec.whatwg.org/multipage/indices.html#attributes-3
 function isBooleanAttributeNode(node) {
   return (
     node.type === "attribute" &&
