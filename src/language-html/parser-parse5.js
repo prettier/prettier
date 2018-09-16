@@ -1,26 +1,24 @@
 "use strict";
 
+const htmlTagNames = require("html-tag-names");
+
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
   const parse5 = require("parse5");
   const htmlparser2TreeAdapter = require("parse5-htmlparser2-tree-adapter");
 
-  try {
-    const isFragment = !/^\s*<(!doctype|html|head|body|!--)/i.test(text);
-    const ast = (isFragment ? parse5.parseFragment : parse5.parse)(text, {
-      treeAdapter: htmlparser2TreeAdapter,
-      sourceCodeLocationInfo: true
-    });
+  const isFragment = !/^\s*<(!doctype|html|head|body|!--)/i.test(text);
+  const ast = (isFragment ? parse5.parseFragment : parse5.parse)(text, {
+    treeAdapter: htmlparser2TreeAdapter,
+    sourceCodeLocationInfo: true
+  });
 
-    return normalize(extendAst(ast));
-  } catch (error) {
-    throw error;
-  }
+  return normalize(extendAst(ast), text);
 }
 
-function normalize(ast) {
+function normalize(ast, text) {
   if (Array.isArray(ast)) {
-    return ast.map(normalize);
+    return ast.map(child => normalize(child, text));
   }
 
   if (!ast || typeof ast !== "object") {
@@ -31,8 +29,20 @@ function normalize(ast) {
   delete ast.next;
   delete ast.prev;
 
+  // preserve case-sensitive tag names
+  if (
+    ast.type === "tag" &&
+    ast.sourceCodeLocation &&
+    htmlTagNames.indexOf(ast.name) === -1
+  ) {
+    ast.name = text.slice(
+      ast.sourceCodeLocation.startOffset + 1, // <
+      ast.sourceCodeLocation.startOffset + 1 + ast.name.length
+    );
+  }
+
   for (const key of Object.keys(ast)) {
-    ast[key] = normalize(ast[key]);
+    ast[key] = normalize(ast[key], text);
   }
 
   return ast;
