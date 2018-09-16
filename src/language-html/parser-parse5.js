@@ -1,12 +1,15 @@
 "use strict";
 
+const nonFragmentRegex = /^\s*(<!--[\s\S]*?-->\s*)*<(!doctype|html|head|body)/i;
+
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
   const parse5 = require("parse5");
   const htmlparser2TreeAdapter = require("parse5-htmlparser2-tree-adapter");
 
   try {
-    const isFragment = !/^\s*<(!doctype|html|head|body|!--)/i.test(text);
+    const isFragment = !nonFragmentRegex.test(text);
+
     const ast = (isFragment ? parse5.parseFragment : parse5.parse)(text, {
       treeAdapter: htmlparser2TreeAdapter,
       sourceCodeLocationInfo: true

@@ -4,10 +4,6 @@ exports[`comment.html - parse5-verify 1`] = `
 <!--hello world-->
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!--hello world-->
-<html>
-  <head></head>
-  <body></body>
-</html>
 
 `;
 
