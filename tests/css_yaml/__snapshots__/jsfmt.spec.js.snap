@@ -98,7 +98,7 @@ hello: world
 ---
 
 /* prettier-ignore */
- pretti
+.foo {}
 
 `;
 
@@ -137,6 +137,7 @@ foo: bar
 a {
   color: blue;
 }
+
 --- .b {
   color: red;
 }
