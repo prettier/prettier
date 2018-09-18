@@ -85,6 +85,23 @@ a {
 
 `;
 
+exports[`ignore.css - css-verify 1`] = `
+---
+hello: world
+---
+
+/* prettier-ignore */
+.foo {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+hello: world
+---
+
+/* prettier-ignore */
+ pretti
+
+`;
+
 exports[`malformed.css - css-verify 1`] = `
 ---
 aaa
