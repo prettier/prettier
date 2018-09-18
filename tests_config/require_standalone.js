@@ -8,11 +8,12 @@ const sources = [
   "standalone.js",
   "parser-babylon.js",
   "parser-flow.js",
-  "parser-typescript.js",
-  "parser-postcss.js",
   "parser-glimmer.js",
   "parser-graphql.js",
   "parser-markdown.js",
+  "parser-parse5.js",
+  "parser-postcss.js",
+  "parser-typescript.js",
   "parser-vue.js",
   "parser-yaml.js"
 ].map(filename =>
