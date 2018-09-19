@@ -14,62 +14,53 @@ function parse(text /*, parsers, opts*/) {
     sourceCodeLocationInfo: true
   });
 
-  return normalize(extendAst(ast), text);
+  return normalize(ast, text);
 }
 
-function normalize(ast, text) {
-  if (Array.isArray(ast)) {
-    return ast.map(child => normalize(child, text));
-  }
+function normalize(node, text) {
+  delete node.parent;
+  delete node.next;
+  delete node.prev;
 
-  if (!ast || typeof ast !== "object") {
-    return ast;
-  }
-
-  delete ast.parent;
-  delete ast.next;
-  delete ast.prev;
+  let isCaseSensitiveTag = false;
 
   // preserve case-sensitive tag names
   if (
-    ast.type === "tag" &&
-    ast.sourceCodeLocation &&
-    htmlTagNames.indexOf(ast.name) === -1
+    node.type === "tag" &&
+    node.sourceCodeLocation &&
+    htmlTagNames.indexOf(node.name) === -1
   ) {
-    ast.name = text.slice(
-      ast.sourceCodeLocation.startOffset + 1, // <
-      ast.sourceCodeLocation.startOffset + 1 + ast.name.length
+    isCaseSensitiveTag = true;
+    node.name = text.slice(
+      node.sourceCodeLocation.startOffset + 1, // <
+      node.sourceCodeLocation.startOffset + 1 + node.name.length
     );
   }
 
-  for (const key of Object.keys(ast)) {
-    ast[key] = normalize(ast[key], text);
+  if (node.attribs) {
+    node.attributes = Object.keys(node.attribs).map(attributeKey => {
+      const sourceCodeLocation = node.sourceCodeLocation.attrs[attributeKey];
+      return {
+        type: "attribute",
+        key: isCaseSensitiveTag
+          ? text
+              .slice(
+                sourceCodeLocation.startOffset,
+                sourceCodeLocation.endOffset
+              )
+              .split("=", 1)[0]
+          : attributeKey,
+        value: node.attribs[attributeKey],
+        sourceCodeLocation
+      };
+    });
   }
 
-  return ast;
-}
-
-function extendAst(ast) {
-  if (!ast || !ast.children) {
-    return ast;
+  if (node.children) {
+    node.children = node.children.map(child => normalize(child, text));
   }
-  for (const child of ast.children) {
-    extendAst(child);
-    if (child.attribs) {
-      child.attributes = convertAttribs(child.attribs);
-    }
-  }
-  return ast;
-}
 
-function convertAttribs(attribs) {
-  return Object.keys(attribs).map(attributeKey => {
-    return {
-      type: "attribute",
-      key: attributeKey,
-      value: attribs[attributeKey]
-    };
-  });
+  return node;
 }
 
 module.exports = {

@@ -162,13 +162,9 @@ function genericPrint(path, options, print) {
           return n.key;
         }
 
-        const parentNode = path.getParentNode();
-
-        const attributeSourceCodeLocation =
-          parentNode.sourceCodeLocation.attrs[n.key];
         const originalAttributeSourceCode = options.originalText.slice(
-          attributeSourceCodeLocation.startOffset,
-          attributeSourceCodeLocation.endOffset
+          n.sourceCodeLocation.startOffset,
+          n.sourceCodeLocation.endOffset
         );
         const hasEqualSign = originalAttributeSourceCode.indexOf("=") !== -1;
 
