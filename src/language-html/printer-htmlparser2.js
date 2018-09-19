@@ -182,11 +182,9 @@ function genericPrint(path, options, print) {
           return n.key;
         }
 
-        const attributeSourceCodeLocation =
-          parentNode.sourceCodeLocation.attrs[n.key];
         const originalAttributeSourceCode = options.originalText.slice(
-          attributeSourceCodeLocation.startOffset,
-          attributeSourceCodeLocation.endOffset
+          n.sourceCodeLocation.startOffset,
+          n.sourceCodeLocation.endOffset
         );
         const hasEqualSign = originalAttributeSourceCode.indexOf("=") !== -1;
 
@@ -195,7 +193,10 @@ function genericPrint(path, options, print) {
 
       return concat([n.key, '="', n.value.replace(/"/g, "&quot;"), '"']);
     }
-
+    // front matter
+    case "yaml":
+    case "toml":
+      return concat([n.raw, hardline]);
     default:
       /* istanbul ignore next */
       throw new Error("unknown htmlparser2 type: " + n.type);

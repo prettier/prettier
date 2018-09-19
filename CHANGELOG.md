@@ -1,3 +1,9 @@
+# 1.14.3
+
+[diff](https://github.com/prettier/prettier/compare/1.14.2...1.14.3)
+
+- Chore: add missing LICENSE ([#5114](https://github.com/prettier/prettier/pull/5114))
+
 # 1.14.2
 
 [diff](https://github.com/prettier/prettier/compare/1.14.1...1.14.2)
