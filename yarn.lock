@@ -567,6 +567,10 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.0.0.tgz#7802115684397785b3b6dc8a3ba50e30d7a7422b"
 
+"@starptech/prettyhtml-parse@0.0.25":
+  version "0.0.25"
+  resolved "https://registry.yarnpkg.com/@starptech/prettyhtml-parse/-/prettyhtml-parse-0.0.25.tgz#e49064835bf3fdcd4978b7a15fe3d58973ab9d4d"
+
 "@types/commander@^2.11.0":
   version "2.12.2"
   resolved "https://registry.yarnpkg.com/@types/commander/-/commander-2.12.2.tgz#183041a23842d4281478fa5d23c5ca78e6fd08ae"
@@ -4390,7 +4394,7 @@ parse5@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-4.0.0.tgz#6d78656e3da8d78b4ec0b906f7c08ef1dfe3f608"
 
-parse5@5.0.0, parse5@^5.0.0:
+parse5@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.0.0.tgz#4d02710d44f3c3846197a11e205d4ef17842b81a"
 

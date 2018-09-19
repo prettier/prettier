@@ -27,7 +27,7 @@ exports[`svg.html - parse5-verify 1`] = `
         stroke="green"
         stroke-width="4"
         fill="yellow"
-      ></circle>
+      />
     </svg>
   </body>
 </html>

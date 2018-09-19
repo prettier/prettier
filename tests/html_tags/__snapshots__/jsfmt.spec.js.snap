@@ -14,9 +14,8 @@ exports[`custom-self-closing.html - parse5-verify 1`] = `
 </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
-  <ABC>
-    <span></span>
-  </ABC>
+  <ABC />
+  <span></span>
 </div>
 
 `;
@@ -248,10 +247,10 @@ exports[`tags.html - parse5-verify 1`] = `
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
 />
-<br attribute-a="value">
-<br attribute-a="value">
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value">
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value">
+<br attribute-a="value" />
+<br attribute-a="value" />
+<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value" />
+<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value" />
 <br
   attribute-a="value"
   attribute-b="value"
