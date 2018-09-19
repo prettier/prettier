@@ -99,15 +99,15 @@ const o = {
 };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const blablah =
-  "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
-  "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
-  "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf";
+  "aldkfkladfskladklsfkladklfkaldfadfkdaf"
+  + "adlfasdklfkldsklfakldsfkladsfkadsfladsfa"
+  + "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf";
 
 const k = {
   blablah:
-    "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
-    "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
-    "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf"
+    "aldkfkladfskladklsfkladklfkaldfadfkdaf"
+    + "adlfasdklfkldsklfakldsfkladsfkadsfladsfa"
+    + "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf"
 };
 
 somethingThatsAReallyLongPropName =

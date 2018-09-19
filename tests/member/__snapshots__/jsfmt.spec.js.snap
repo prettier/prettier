@@ -107,9 +107,9 @@ exports[`logical.js - flow-verify 1`] = `
 (veryLongVeryLongVeryLong || e).prop;
 
 (
-  veryLongVeryLongVeryLong ||
-  anotherVeryLongVeryLongVeryLong ||
-  veryVeryVeryLongError
+  veryLongVeryLongVeryLong
+  || anotherVeryLongVeryLongVeryLong
+  || veryVeryVeryLongError
 ).prop;
 
 `;
