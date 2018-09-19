@@ -20,7 +20,8 @@ exports[`html-with-css-style.html - parse5-verify 1`] = `
     <style>
     blink {
       display: none;
-    }</style>
+    }
+    </style>
   </head>
   <body></body>
 </html>

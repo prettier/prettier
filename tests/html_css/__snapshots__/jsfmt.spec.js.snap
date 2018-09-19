@@ -32,7 +32,8 @@ exports[`less.html - parse5-verify 1`] = `
 
 #header {
   color: @light-blue;
-}</style>
+}
+</style>
 
 <style lang="less">
 @nice-blue: #5B83AD;
@@ -40,7 +41,8 @@ exports[`less.html - parse5-verify 1`] = `
 
 #header {
   color: @light-blue;
-}</style>
+}
+</style>
 
 `;
 
@@ -57,13 +59,15 @@ exports[`postcss.html - parse5-verify 1`] = `
 body {
   background: navy;
   color: yellow;
-}</style>
+}
+</style>
 
 <style lang="postcss">
 body {
   background: navy;
   color: yellow;
-}</style>
+}
+</style>
 
 `;
 
@@ -95,7 +99,8 @@ $primary-color: #333;
 body {
   font: 100% $font-stack;
   color: $primary-color;
-}</style>
+}
+</style>
 
 <style lang="scss">
 $font-stack: Helvetica, sans-serif;
@@ -104,7 +109,8 @@ $primary-color: #333;
 body {
   font: 100% $font-stack;
   color: $primary-color;
-}</style>
+}
+</style>
 
 `;
 
@@ -131,12 +137,14 @@ exports[`simple.html - parse5-verify 1`] = `
     <style>
     a {
       color: red;
-    }</style>
+    }
+    </style>
     <style>
     body {
       background: navy;
       color: yellow;
-    }</style>
+    }
+    </style>
   </head>
   <body>
     <h1>Sample styled page</h1>
@@ -159,12 +167,14 @@ exports[`single-style.html - parse5-verify 1`] = `
 <style>
 a {
   color: red;
-}</style>
+}
+</style>
 <style>
 h1 {
   font-size: 120%;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   color: #333366;
-}</style>
+}
+</style>
 
 `;
