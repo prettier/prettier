@@ -121,7 +121,8 @@ const options = {
         value: "glimmer",
         since: null,
         description: "Handlebars"
-      }
+      },
+      { value: "parse5", since: null, description: "HTML" }
     ]
   },
   plugins: {

@@ -127,8 +127,8 @@ function read(filename) {
   return fs.readFileSync(filename, "utf8");
 }
 
-function skipStandalone(parser) {
-  return new Set(["parse5"]).has(parser);
+function skipStandalone(/* parser */) {
+  return false;
 }
 
 function mergeDefaultOptions(parserConfig) {

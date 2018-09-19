@@ -282,6 +282,25 @@ export default function(parser) {
         "            {{   body         }}",
         "</div> </div>"
       ].join("\n");
+    case "parse5":
+      return [
+        "<!DOCTYPE html>",
+        '<HTML CLASS="no-js mY-ClAsS">',
+        "  <HEAD>",
+        '    <META CHARSET="utf-8">',
+        "    <TITLE>My tITlE</TITLE>",
+        '    <META NAME="description" content="My CoNtEnT">',
+        "  </HEAD>",
+        "  <body>",
+        "    <P>Hello world!<BR> This is HTML5 Boilerplate.</P>",
+        "    <SCRIPT>",
+        "      window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;",
+        "      ga('create', 'UA-XXXXX-Y', 'auto'); ga('send', 'pageview')",
+        "    </SCRIPT>",
+        '    <SCRIPT src="https://www.google-analytics.com/analytics.js" ASYNC DEFER></SCRIPT>',
+        "  </body>",
+        "</HTML>"
+      ].join("\n");
     default:
       return "";
   }

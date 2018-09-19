@@ -69,7 +69,7 @@ const parsers = [
   },
   {
     input: "src/language-html/parser-parse5.js",
-    target: "node"
+    target: "universal"
   },
   {
     input: "src/language-yaml/parser-yaml.js",

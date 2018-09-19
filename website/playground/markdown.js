@@ -45,6 +45,8 @@ function getMarkdownSyntax(options) {
       return "jsonc";
     case "glimmer":
       return "hbs";
+    case "parse5":
+      return "html";
     default:
       return options.parser;
   }
