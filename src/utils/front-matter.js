@@ -13,14 +13,17 @@ function parse(text) {
     .join("|");
 
   const match = text.match(
-    new RegExp(`^(${delimiterRegex})\\n(?:([\\s\\S]*?)\\n)?\\1(\\n|$)`)
+    // trailing spaces after delimiters are allowed
+    new RegExp(
+      `^(${delimiterRegex})[^\\n\\S]*\\n(?:([\\s\\S]*?)\\n)?\\1[^\\n\\S]*(\\n|$)`
+    )
   );
 
   if (match === null) {
     return { frontMatter: null, content: text };
   }
 
-  const raw = match[0].trimRight();
+  const raw = match[0].replace(/\n$/, "");
   const delimiter = match[1];
   const value = match[2];
 
