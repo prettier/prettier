@@ -62,7 +62,7 @@ function hasPrettierIgnore(path) {
 
   const index = path.getName();
 
-  if (index === 0) {
+  if (typeof index !== "number" || index === 0) {
     return false;
   }
 
@@ -113,6 +113,7 @@ function isScriptTagNode(node) {
 module.exports = {
   hasPrettierIgnore,
   isBooleanAttributeNode,
+  isWhitespaceOnlyText,
   isPreTagNode,
   isScriptTagNode,
   isTextAreaTagNode,

@@ -23,7 +23,8 @@ const {
   isPreTagNode,
   isScriptTagNode,
   isTextAreaTagNode,
-  isVoidTagNode
+  isVoidTagNode,
+  isWhitespaceOnlyText
 } = require("./utils");
 
 function genericPrint(path, options, print) {
@@ -44,10 +45,7 @@ function genericPrint(path, options, print) {
     case "text": {
       const parentNode = path.getParentNode();
 
-      if (
-        parentNode &&
-        (isPreTagNode(parentNode) || isTextAreaTagNode(parentNode))
-      ) {
+      if (isPreTagNode(parentNode) || isTextAreaTagNode(parentNode)) {
         return n.data;
       }
 
@@ -61,14 +59,13 @@ function genericPrint(path, options, print) {
 
       // Print self closing tag
       if (isVoid) {
-        return concat([openingPrinted]);
+        return openingPrinted;
       }
 
       const closingPrinted = printClosingTag(n);
-      const hasChildren = n.children.length > 0;
 
       // Print tags without children
-      if (!hasChildren) {
+      if (n.children.length === 0) {
         return concat([openingPrinted, closingPrinted]);
       }
 
@@ -103,14 +100,12 @@ function genericPrint(path, options, print) {
         );
       }
 
-      const containsTag =
-        n.children.filter(
-          node => ["script", "style", "tag"].indexOf(node.type) !== -1
-        ).length > 0;
-      const containsMultipleAttributes = n.attributes.length > 1;
+      const containsTag = n.children.some(
+        child => ["script", "style", "tag"].indexOf(child.type) !== -1
+      );
 
       let forcedBreak =
-        willBreak(openingPrinted) || containsTag || containsMultipleAttributes;
+        willBreak(openingPrinted) || containsTag || n.attributes.length > 1;
 
       // Trim trailing lines (or empty strings)
       while (
@@ -123,31 +118,21 @@ function genericPrint(path, options, print) {
       // Trim leading lines (or empty strings)
       while (
         children.length &&
-        (isLineNext(children[0]) || isEmpty(children[0])) &&
-        (isLineNext(children[1]) || isEmpty(children[1]))
+        (isLineNext(children[0]) || isEmpty(children[0]))
       ) {
-        children.shift();
         children.shift();
       }
 
       // Detect whether we will force this element to output over multiple lines.
-      const multilineChildren = [];
+      if (children.some(doc => willBreak(doc))) {
+        forcedBreak = true;
+      }
 
-      children.forEach(child => {
-        multilineChildren.push(child);
-
-        if (willBreak(child)) {
-          forcedBreak = true;
-        }
-      });
-
-      const containsOnlyEmptyTextNodes = n.children.every(node => {
-        return node.type === "text" && /^\s+$/.test(node.data);
-      });
+      const containsOnlyEmptyTextNodes = n.children.every(isWhitespaceOnlyText);
 
       const printedMultilineChildren = concat([
         !isScriptTag && !containsOnlyEmptyTextNodes ? hardline : "",
-        group(concat(multilineChildren), { shouldBreak: true })
+        group(concat(children), { shouldBreak: true })
       ]);
 
       const multiLineElem = group(
@@ -178,10 +163,6 @@ function genericPrint(path, options, print) {
         }
 
         const parentNode = path.getParentNode();
-
-        if (!parentNode || !parentNode.sourceCodeLocation) {
-          return n.key;
-        }
 
         const attributeSourceCodeLocation =
           parentNode.sourceCodeLocation.attrs[n.key];
