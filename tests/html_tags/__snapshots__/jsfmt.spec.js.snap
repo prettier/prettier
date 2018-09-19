@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`case-sensitive.html - parse5-verify 1`] = `
-<CaseSensitive>hello world</CaseSensitive>
+<CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<CaseSensitive>hello world</CaseSensitive>
+<CaseSensitive casesensitive="true">hello world</CaseSensitive>
 
 `;
 
