@@ -57,14 +57,14 @@ function genericPrint(path, options, print) {
     case "style":
     case "tag": {
       const isVoid = isVoidTagNode(n);
-      const openingPrinted = printOpeningPart(path, print);
+      const openingPrinted = printOpeningTag(path, print, isVoid);
 
       // Print self closing tag
       if (isVoid) {
         return concat([openingPrinted]);
       }
 
-      const closingPrinted = printClosingPart(n);
+      const closingPrinted = printClosingTag(n);
       const hasChildren = n.children.length > 0;
 
       // Print tags without children
@@ -203,9 +203,8 @@ function genericPrint(path, options, print) {
   }
 }
 
-function printOpeningPart(path, print) {
+function printOpeningTag(path, print, isVoid) {
   const n = path.getValue();
-  const isVoid = isVoidTagNode(n);
 
   // Don't break self-closing elements with no attributes
   if (isVoid && !n.attributes.length) {
@@ -234,7 +233,7 @@ function printOpeningPart(path, print) {
   );
 }
 
-function printClosingPart(node) {
+function printClosingTag(node) {
   return concat(["</", node.name, ">"]);
 }
 
