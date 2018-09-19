@@ -173,7 +173,10 @@ function genericPrint(path, options, print) {
 
       return concat([n.key, '="', n.value.replace(/"/g, "&quot;"), '"']);
     }
-
+    // front matter
+    case "yaml":
+    case "toml":
+      return concat([n.raw, hardline]);
     default:
       /* istanbul ignore next */
       throw new Error("unknown htmlparser2 type: " + n.type);
