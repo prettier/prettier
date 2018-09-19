@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`attributes.html - parse5-verify 1`] = `
+<input name=address maxlength=200>
+<input name='address' maxlength='200'>
+<input name="address" maxlength="200">
+<div class="foo"></div>
+<div   class="foo"   ></div>
+<div class="foo bar"></div>
+<div class="foo bar" id="header"></div>
+<div   class="foo bar"   id="header"   ></div>
+<div data-prettier></div>
+<div data-prettier="true"></div>
+<meta property="og:description" content="The Mozilla Developer Network (MDN) provides
+information about Open Web technologies including HTML, CSS, and APIs for both Web sites
+and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
+<div attribute>String</div>
+<div attribute="">String</div>
+<div attribute=''>String</div>
+<div attribute >String</div>
+<div attribute = "" >String</div>
+<div attribute = '' >String</div>
+<div  attribute  >String</div>
+<div  attribute  =  ""  >String</div>
+<div  attribute  =  ''  >String</div>
+<div attribute="attribute = attribute"></div>
+<div ATTRIBUTE>String</div>
+<div ATTRIBUTE="">String</div>
+<div ATTRIBUTE=''>String</div>
+<article
+  id="electriccars"
+  data-columns="3"
+  data-index-number="12314"
+  data-parent="cars">
+</article>
+<article
+  id="electriccars"
+  data-columns="3"
+  data-index-number="12314"
+  data-parent="cars">...</article>
+<article
+  id="electriccars"
+  data-columns="3"
+  data-index-number="12314"
+  data-parent="cars">
+  ...
+</article>
+<article
+  id="electriccars"
+  data-columns="3"
+  data-index-number="12314"
+  data-parent="cars">
+
+</article>
+<article
+  id="electriccars"
+  data-columns="3"
+  data-index-number="12314"
+  data-parent="cars">
+
+
+
+</article>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<input name="address" maxlength="200" />
+<input name="address" maxlength="200" />
+<input name="address" maxlength="200" />
+<div class="foo"></div>
+<div class="foo"></div>
+<div class="foo bar"></div>
+<div class="foo bar" id="header"></div>
+<div class="foo bar" id="header"></div>
+<div data-prettier></div>
+<div data-prettier="true"></div>
+<meta
+  property="og:description"
+  content="The Mozilla Developer Network (MDN) provides
+information about Open Web technologies including HTML, CSS, and APIs for both Web sites
+and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
+/>
+<div attribute>String</div>
+<div attribute="">String</div>
+<div attribute="">String</div>
+<div attribute>String</div>
+<div attribute="">String</div>
+<div attribute="">String</div>
+<div attribute>String</div>
+<div attribute="">String</div>
+<div attribute="">String</div>
+<div attribute="attribute = attribute"></div>
+<div attribute>String</div>
+<div attribute="">String</div>
+<div attribute="">String</div>
+<article
+  id="electriccars"
+  data-columns="3"
+  data-index-number="12314"
+  data-parent="cars"
+>
+</article>
+<article
+  id="electriccars"
+  data-columns="3"
+  data-index-number="12314"
+  data-parent="cars"
+>
+  ...
+</article>
+<article
+  id="electriccars"
+  data-columns="3"
+  data-index-number="12314"
+  data-parent="cars"
+>
+  ...
+</article>
+<article
+  id="electriccars"
+  data-columns="3"
+  data-index-number="12314"
+  data-parent="cars"
+>
+</article>
+<article
+  id="electriccars"
+  data-columns="3"
+  data-index-number="12314"
+  data-parent="cars"
+>
+</article>
+
+`;
+
+exports[`boolean.html - parse5-verify 1`] = `
+<button type="submit">This is valid.</button>
+<button type="submit" disabled>This is valid.</button>
+<button type="submit" disabled="">This is valid.</button>
+<button type="submit" disabled="disabled">This is valid.</button>
+<button type="submit" disabled=true>This is valid. This will be disabled.</button>
+<button type="submit" disabled='true'>This is valid. This will be disabled.</button>
+<button type="submit" disabled="true">This is valid. This will be disabled.</button>
+<button type="submit" disabled=false>This is valid. This will be disabled.</button>
+<button type="submit" disabled="false">This is valid. This will be disabled.</button>
+<button type="submit" disabled='false'>This is valid. This will be disabled.</button>
+<button type="submit" disabled=hahah>This is valid. This will be disabled.</button>
+<button type="submit" disabled='hahah'>This is valid. This will be disabled.</button>
+<button type="submit" disabled="hahah">This is valid. This will be disabled.</button>
+<input type="checkbox" checked disabled name="cheese">
+<input type="checkbox" checked="checked" disabled="disabled" name="cheese">
+<input type='checkbox' checked="" disabled="" name=cheese >
+<div lang=""></div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<button type="submit">This is valid.</button>
+<button type="submit" disabled>
+  This is valid.
+</button>
+<button type="submit" disabled>
+  This is valid.
+</button>
+<button type="submit" disabled="disabled">
+  This is valid.
+</button>
+<button type="submit" disabled="true">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="true">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="true">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="false">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="false">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="false">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="hahah">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="hahah">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="hahah">
+  This is valid. This will be disabled.
+</button>
+<input type="checkbox" checked disabled name="cheese" />
+<input type="checkbox" checked="checked" disabled="disabled" name="cheese" />
+<input type="checkbox" checked disabled name="cheese" />
+<div lang=""></div>
+
+`;
+
+exports[`dobule-quotes.html - parse5-verify 1`] = `
+<img src="test.png" alt="John 'ShotGun' Nelson">
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<img src="test.png" alt="John 'ShotGun' Nelson" />
+
+`;
+
+exports[`single-quotes.html - parse5-verify 1`] = `
+<img src="test.png" alt='John "ShotGun" Nelson'>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<img src="test.png" alt="John &quot;ShotGun&quot; Nelson" />
+
+`;
+
+exports[`without-quotes.html - parse5-verify 1`] = `
+<p title=Title>String</p>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<p title="Title">String</p>
+
+`;

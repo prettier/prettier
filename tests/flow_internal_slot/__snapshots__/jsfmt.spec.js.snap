@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`internal_slot.js - flow-verify 1`] = `
+declare class C { static [[foo]]: T }
+declare class C { [[foo]]: T }
+interface T { [[foo]]: X }
+interface T { [[foo]](): X }
+type T = { [[foo]]: X }
+type T = { [[foo]](): X }
+type T = { [[foo]]?: X }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare class C { static [[foo]]: T }
+declare class C { [[foo]]: T }
+interface T { [[foo]]: X }
+interface T { [[foo]](): X }
+type T = { [[foo]]: X };
+type T = { [[foo]](): X };
+type T = { [[foo]]?: X };
+
+`;

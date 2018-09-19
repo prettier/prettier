@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`alias-key.yml - yaml-verify 1`] = `
-[*123 : 456]
+[&123 foo, *123 : 456]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[*123 : 456]
+[&123 foo, *123 : 456]
 
 `;
 
 exports[`alias-key.yml - yaml-verify 2`] = `
-[*123 : 456]
+[&123 foo, *123 : 456]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[*123 : 456]
+[&123 foo, *123 : 456]
 
 `;
 
 exports[`alias-key.yml - yaml-verify 3`] = `
-[*123 : 456]
+[&123 foo, *123 : 456]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[*123 : 456]
+[&123 foo, *123 : 456]
 
 `;
 
@@ -562,12 +562,9 @@ exports[`long-key-long-value.yml - yaml-verify 1`] = `
 [longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
 ]
 
 `;
@@ -576,12 +573,9 @@ exports[`long-key-long-value.yml - yaml-verify 2`] = `
 [longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
-        longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
-        longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
-        longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
 ]
 
 `;
@@ -590,12 +584,9 @@ exports[`long-key-long-value.yml - yaml-verify 3`] = `
 [longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
-  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
+  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong,
 ]
 
 `;

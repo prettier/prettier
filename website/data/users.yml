@@ -195,3 +195,12 @@
 - caption: HousingAnywhere
   image: /images/users/housinganywhere.svg
   infoLink: https://housinganywhere.com/
+- caption: CodeCarrot
+  image: /images/users/codecarrot.svg
+  infoLink: https://www.codecarrot.net/
+- caption: Get on Board
+  image: /images/users/getonboard-200x100.png
+  infoLink: https://www.getonbrd.com/
+- caption: Assertible
+  image: /images/users/assertible-200x100.png
+  infoLink: https://assertible.com/

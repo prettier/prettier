@@ -1,5 +1,82 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`force-singleline-in-mapping-value.yml - yaml-verify 1`] = `
+no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+
+whitespace: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
+
+literal-newline: longlonglonglonglonglonglonglonglonglonglong
+  longlonglonglonglonglonglonglonglonglonglong
+
+newline: longlonglonglonglonglonglonglonglonglonglong
+
+  longlonglonglonglonglonglonglonglonglonglong
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+
+whitespace: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
+
+literal-newline: longlonglonglonglonglonglonglonglonglonglong
+  longlonglonglonglonglonglonglonglonglonglong
+
+newline: longlonglonglonglonglonglonglonglonglonglong
+
+  longlonglonglonglonglonglonglonglonglonglong
+
+`;
+
+exports[`force-singleline-in-mapping-value.yml - yaml-verify 2`] = `
+no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+
+whitespace: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
+
+literal-newline: longlonglonglonglonglonglonglonglonglonglong
+  longlonglonglonglonglonglonglonglonglonglong
+
+newline: longlonglonglonglonglonglonglonglonglonglong
+
+  longlonglonglonglonglonglonglonglonglonglong
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+
+whitespace: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
+
+literal-newline: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
+
+newline: longlonglonglonglonglonglonglonglonglonglong
+
+  longlonglonglonglonglonglonglonglonglonglong
+
+`;
+
+exports[`force-singleline-in-mapping-value.yml - yaml-verify 3`] = `
+no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+
+whitespace: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
+
+literal-newline: longlonglonglonglonglonglonglonglonglonglong
+  longlonglonglonglonglonglonglonglonglonglong
+
+newline: longlonglonglonglonglonglonglonglonglonglong
+
+  longlonglonglonglonglonglonglonglonglonglong
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+
+whitespace:
+  longlonglonglonglonglonglonglonglonglonglong
+  longlonglonglonglonglonglonglonglonglonglong
+
+literal-newline:
+  longlonglonglonglonglonglonglonglonglonglong
+  longlonglonglonglonglonglonglonglonglonglong
+
+newline: longlonglonglonglonglonglonglonglonglonglong
+
+  longlonglonglonglonglonglonglonglonglonglong
+
+`;
+
 exports[`middle-comment.yml - yaml-verify 1`] = `
 !!str # comment
 hello

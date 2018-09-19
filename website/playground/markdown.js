@@ -40,6 +40,13 @@ function getMarkdownSyntax(options) {
       return "jsx";
     case "typescript":
       return "tsx";
+    case "json":
+    case "json-stringify":
+      return "jsonc";
+    case "glimmer":
+      return "hbs";
+    case "parse5":
+      return "html";
     default:
       return options.parser;
   }

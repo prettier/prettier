@@ -139,6 +139,16 @@ function rcJson() {
     ],
   );
 }
+function rcToml() {
+  console.log.apply(
+    null,
+    [
+      'rc-toml/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
 function rcYaml() {
   console.log.apply(
     null,
@@ -216,6 +226,16 @@ function rcJson() {
     ],
   );
 }
+function rcToml() {
+  console.log.apply(
+    null,
+    [
+      'rc-toml/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
 function rcYaml() {
   console.log.apply(
     null,
@@ -232,7 +252,7 @@ function rcYaml() {
 exports[`CLI overrides take precedence without --config-precedence (write) 1`] = `Array []`;
 
 exports[`CLI validate options with --config-precedence cli-override (stderr) 1`] = `
-"[error] Invalid \`\\"printWidth\\"\` value. Expected an integer, but received \`0.5\`.
+"[error] Invalid printWidth value. Expected an integer, but received 0.5.
 "
 `;
 
@@ -241,7 +261,7 @@ exports[`CLI validate options with --config-precedence cli-override (stdout) 1`]
 exports[`CLI validate options with --config-precedence cli-override (write) 1`] = `Array []`;
 
 exports[`CLI validate options with --config-precedence file-override (stderr) 1`] = `
-"[error] Invalid \`\\"printWidth\\"\` value. Expected an integer, but received \`0.5\`.
+"[error] Invalid printWidth value. Expected an integer, but received 0.5.
 "
 `;
 
@@ -250,7 +270,7 @@ exports[`CLI validate options with --config-precedence file-override (stdout) 1`
 exports[`CLI validate options with --config-precedence file-override (write) 1`] = `Array []`;
 
 exports[`CLI validate options with --config-precedence prefer-file (stderr) 1`] = `
-"[error] Invalid \`\\"printWidth\\"\` value. Expected an integer, but received \`0.5\`.
+"[error] Invalid printWidth value. Expected an integer, but received 0.5.
 "
 `;
 

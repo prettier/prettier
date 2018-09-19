@@ -3,3 +3,6 @@ daysUntilLock: 90
 lockLabel: locked-due-to-inactivity
 lockComment: false
 setLockReason: true
+exemptLabels:
+  - keep-unlocked
+  - status:awaiting response

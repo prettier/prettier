@@ -9,22 +9,24 @@ function parse(text /*, parsers, opts*/) {
   const jsx = isProbablyJsx(text);
   let ast;
   try {
+    // Try passing with our best guess first.
+    ast = tryParseTypeScript(text, jsx);
+  } catch (firstError) {
     try {
-      // Try passing with our best guess first.
-      ast = tryParseTypeScript(text, jsx);
-    } catch (e) {
       // But if we get it wrong, try the opposite.
-      /* istanbul ignore next */
       ast = tryParseTypeScript(text, !jsx);
-    }
-  } catch (e) /* istanbul ignore next */ {
-    if (typeof e.lineNumber === "undefined") {
-      throw e;
-    }
+    } catch (secondError) {
+      // suppose our guess is correct
+      const e = firstError;
 
-    throw createError(e.message, {
-      start: { line: e.lineNumber, column: e.column + 1 }
-    });
+      if (typeof e.lineNumber === "undefined") {
+        throw e;
+      }
+
+      throw createError(e.message, {
+        start: { line: e.lineNumber, column: e.column + 1 }
+      });
+    }
   }
 
   delete ast.tokens;

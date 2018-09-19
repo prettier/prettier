@@ -22,7 +22,7 @@ function embed(path, print, textToDoc, options) {
     }
   }
 
-  if (node.tag === "script") {
+  if (node.tag === "script" && !node.attrs.some(attr => attr.name === "src")) {
     const langAttr = node.attrs.find(attr => attr.name === "lang");
     if (!langAttr) {
       parser = "babylon";

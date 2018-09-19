@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`empty.html - parse5-verify 1`] = `
+<style></style>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<style></style>
+
+`;
+
+exports[`less.html - parse5-verify 1`] = `
+<style type="text/less">
+  @nice-blue: #5B83AD;
+  @light-blue: @nice-blue + #111;
+
+  #header {
+    color: @light-blue;
+  }
+</style>
+
+<style lang="less">
+  @nice-blue: #5B83AD;
+  @light-blue: @nice-blue + #111;
+
+  #header {
+    color: @light-blue;
+  }
+</style>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<style type="text/less">
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
+
+#header {
+  color: @light-blue;
+}
+</style>
+
+<style lang="less">
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
+
+#header {
+  color: @light-blue;
+}
+</style>
+
+`;
+
+exports[`postcss.html - parse5-verify 1`] = `
+<style type="text/css">
+  body { background: navy; color: yellow; }
+</style>
+
+<style lang="postcss">
+  body { background: navy; color: yellow; }
+</style>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<style type="text/css">
+body {
+  background: navy;
+  color: yellow;
+}
+</style>
+
+<style lang="postcss">
+body {
+  background: navy;
+  color: yellow;
+}
+</style>
+
+`;
+
+exports[`scss.html - parse5-verify 1`] = `
+<style type="text/x-scss">
+  $font-stack:    Helvetica, sans-serif;
+  $primary-color: #333;
+
+  body {
+    font: 100% $font-stack;
+    color: $primary-color;
+  }
+</style>
+
+<style lang="scss">
+  $font-stack:    Helvetica, sans-serif;
+  $primary-color: #333;
+
+  body {
+    font: 100% $font-stack;
+    color: $primary-color;
+  }
+</style>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<style type="text/x-scss">
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+}
+</style>
+
+<style lang="scss">
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+}
+</style>
+
+`;
+
+exports[`simple.html - parse5-verify 1`] = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sample styled page</title>
+    <style>a { color: red; }</style>
+    <style>
+      body { background: navy; color: yellow; }
+    </style>
+  </head>
+  <body>
+    <h1>Sample styled page</h1>
+    <p>This page is just a demo.</p>
+  </body>
+</html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sample styled page</title>
+    <style>
+    a {
+      color: red;
+    }
+    </style>
+    <style>
+    body {
+      background: navy;
+      color: yellow;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Sample styled page</h1>
+    <p>This page is just a demo.</p>
+  </body>
+</html>
+
+`;
+
+exports[`single-style.html - parse5-verify 1`] = `
+<style>a { color: red; }</style>
+<style>
+  h1 {
+    font-size: 120%;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    color: #333366;
+  }
+</style>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<style>
+a {
+  color: red;
+}
+</style>
+<style>
+h1 {
+  font-size: 120%;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  color: #333366;
+}
+</style>
+
+`;

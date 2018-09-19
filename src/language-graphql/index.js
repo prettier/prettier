@@ -2,13 +2,15 @@
 
 const printer = require("./printer-graphql");
 const options = require("./options");
-const languageExtend = require("../utils/language-extend");
+const createLanguage = require("../utils/create-language");
 
 const languages = [
-  languageExtend({}, require("linguist-languages/data/graphql"), {
-    since: "1.5.0",
-    parsers: ["graphql"],
-    vscodeLanguageIds: ["graphql"]
+  createLanguage(require("linguist-languages/data/graphql"), {
+    override: {
+      since: "1.5.0",
+      parsers: ["graphql"],
+      vscodeLanguageIds: ["graphql"]
+    }
   })
 ];
 

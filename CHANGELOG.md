@@ -1,3 +1,42 @@
+# 1.14.3
+
+[diff](https://github.com/prettier/prettier/compare/1.14.2...1.14.3)
+
+- Chore: add missing LICENSE ([#5114](https://github.com/prettier/prettier/pull/5114))
+
+# 1.14.2
+
+[diff](https://github.com/prettier/prettier/compare/1.14.1...1.14.2)
+
+- YAML: fix the line ending issue on Windows ([#4957](https://github.com/prettier/prettier/pull/4957))
+- TypeScript: better error message ([#4947](https://github.com/prettier/prettier/pull/4947))
+
+# 1.14.1
+
+[diff](https://github.com/prettier/prettier/compare/1.14.0...1.14.1)
+
+- JavaScript: add parens for unary in bind ([#4950](https://github.com/prettier/prettier/pull/4950))
+- JavaScript: format angular jasmine `it("should ...", fakeAsync(() => { ...` correctly. ([#4954](https://github.com/prettier/prettier/pull/4954))
+- JavaScript: Revert this/super blacklist for function composition heuristic ([#4936](https://github.com/prettier/prettier/pull/4936))
+- JavaScript: no extra space on Flow interface method named `static` ([#4910](https://github.com/prettier/prettier/pull/4910))
+- JavaScript: no extra line break in destructed assignment of ternary ([#4932](https://github.com/prettier/prettier/pull/4932))
+- Flow: print ObjectTypeInternalSlot with both flow/babel parsers ([#4869](https://github.com/prettier/prettier/pull/4869))
+- TypeScript: no invalid output for ImportType in TypeReference ([#4939](https://github.com/prettier/prettier/pull/4939))
+- YAML: do not throw on duplicate merge key ([#4931](https://github.com/prettier/prettier/pull/4931))
+- YAML: no duplicate comments in mappingValue ([#4931](https://github.com/prettier/prettier/pull/4931))
+- YAML: print end comment in nested mapping correctly ([#4918](https://github.com/prettier/prettier/pull/4918))
+- YAML: do not put singleline values on a separate line from the key ([#4916](https://github.com/prettier/prettier/pull/4916))
+- YAML: prefer dash as document separator ([#4921](https://github.com/prettier/prettier/pull/4921))
+- API: update support info for Flow ([#4943](https://github.com/prettier/prettier/pull/4943))
+- CLI: ignore .git, .svn and .hg directories ([#4906](https://github.com/prettier/prettier/pull/4906))
+- CLI: support TOML configuration files ([#4877](https://github.com/prettier/prettier/pull/4877))
+
+# 1.14.0
+
+[diff](https://github.com/prettier/prettier/compare/1.13.7...1.14.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2018/07/29/1.14.0.html)
+
 # 1.13.7
 
 [diff](https://github.com/prettier/prettier/compare/1.13.6...1.13.7)

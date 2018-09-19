@@ -14,23 +14,16 @@ exports[`html-with-css-style.html - parse5-verify 1`] = `
 </html>
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 <!DOCTYPE html>
-
-
 <html lang="en">
-
-
-<head>
-
-  <style>
+  <head>
+    <style>
     blink {
       display: none;
     }
-  </style>
-</head>
-
-<body>
-</body>
+    </style>
+  </head>
+  <body></body>
 </html>
+
 `;

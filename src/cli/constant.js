@@ -85,7 +85,8 @@ const options = {
     category: coreOptions.CATEGORY_CONFIG,
     description:
       "Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).",
-    oppositeDescription: "Do not look for a configuration file."
+    oppositeDescription: "Do not look for a configuration file.",
+    exception: value => value === false
   },
   "config-precedence": {
     type: "choice",
@@ -155,7 +156,8 @@ const options = {
     description: dedent`
       Show CLI usage, or details about the given flag.
       Example: --help write
-    `
+    `,
+    exception: value => value === ""
   },
   "ignore-path": {
     type: "path",
