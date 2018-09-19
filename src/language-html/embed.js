@@ -3,7 +3,7 @@
 const { hasNewlineInRange } = require("../common/util");
 const {
   builders: { hardline, concat },
-  utils: { removeLines, stripTrailingHardline }
+  utils: { removeLines }
 } = require("../doc");
 
 function embed(path, print, textToDoc, options) {
@@ -21,7 +21,7 @@ function embed(path, print, textToDoc, options) {
       ) {
         const parser = options.parser === "flow" ? "flow" : "babylon";
         const doc = textToDoc(getText(options, node), { parser });
-        return concat([hardline, stripTrailingHardline(doc), hardline]);
+        return concat([hardline, doc]);
       }
 
       // Inline TypeScript
@@ -35,13 +35,13 @@ function embed(path, print, textToDoc, options) {
           { parser: "typescript" },
           options
         );
-        return concat([hardline, stripTrailingHardline(doc), hardline]);
+        return concat([hardline, doc]);
       }
 
       // Inline Styles
       if (parent.type === "style") {
         const doc = textToDoc(getText(options, node), { parser: "css" });
-        return concat([hardline, stripTrailingHardline(doc), hardline]);
+        return concat([hardline, doc]);
       }
 
       break;
