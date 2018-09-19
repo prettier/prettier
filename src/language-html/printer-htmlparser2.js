@@ -2,7 +2,7 @@
 
 const embed = require("./embed");
 const clean = require("./clean");
-const { getLast, hasIgnoreComment } = require("../common/util");
+const { getLast } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
 const {
   builders: {
@@ -17,16 +17,10 @@ const {
   },
   utils: { willBreak, isLineNext, isEmpty }
 } = require("../doc");
+const { hasPrettierIgnore } = require("./utils");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
-  if (!n) {
-    return "";
-  }
-
-  if (typeof n === "string") {
-    return n;
-  }
 
   switch (n.type) {
     case "root": {
@@ -63,7 +57,7 @@ function genericPrint(path, options, print) {
         return concat([openingPrinted]);
       }
 
-      const closingPrinted = printClosingPart(path, print);
+      const closingPrinted = printClosingPart(n);
       const hasChildren = n.children.length > 0;
 
       // Print tags without children
@@ -286,13 +280,7 @@ function printOpeningPart(path, print) {
   // Don't break up opening elements with a single long text attribute
   if (n.attributes && n.attributes.length === 1 && n.attributes[0].value) {
     return group(
-      concat([
-        "<",
-        path.call(print, "name"),
-        " ",
-        concat(path.map(print, "attributes")),
-        ">"
-      ])
+      concat(["<", n.name, " ", concat(path.map(print, "attributes")), ">"])
     );
   }
 
@@ -311,33 +299,17 @@ function printOpeningPart(path, print) {
   );
 }
 
-function printClosingPart(path, print) {
-  return concat(["</", path.call(print, "name"), ">"]);
+function printClosingPart(node) {
+  return concat(["</", node.name, ">"]);
 }
 
 function printChildren(path, print, options) {
   const parts = [];
 
-  path.map((childPath, i) => {
-    const parentNode = childPath.getParentNode();
+  path.map(childPath => {
     const child = childPath.getValue();
-    const printedChild = print(childPath);
 
-    if (
-      parentNode &&
-      parentNode.children[i - 2] &&
-      parentNode.children[i - 2].type === "comment" &&
-      parentNode.children[i - 2].data.trim() === "prettier-ignore"
-    ) {
-      parts.push(
-        options.originalText.slice(
-          options.locStart(child),
-          options.locEnd(child)
-        )
-      );
-    } else {
-      parts.push(printedChild);
-    }
+    parts.push(print(childPath));
 
     if (child.type !== "text" && child.type !== "directive") {
       parts.push(hardline);
@@ -355,5 +327,5 @@ module.exports = {
   print: genericPrint,
   massageAstNode: clean,
   embed,
-  hasPrettierIgnore: hasIgnoreComment
+  hasPrettierIgnore
 };
