@@ -188,7 +188,7 @@ function printOpeningTag(path, print, isVoid) {
 
   // Don't break self-closing elements with no attributes
   if (isVoid && !n.attributes.length) {
-    return concat(["<", n.name, ">"]);
+    return concat(["<", n.name, " />"]);
   }
 
   // Don't break up opening elements with a single long text attribute
@@ -202,13 +202,10 @@ function printOpeningTag(path, print, isVoid) {
     concat([
       "<",
       n.name,
-      concat([
-        indent(
-          concat(path.map(attr => concat([line, print(attr)]), "attributes"))
-        ),
-        softline
-      ]),
-      ">"
+      indent(
+        concat(path.map(attr => concat([line, print(attr)]), "attributes"))
+      ),
+      isVoid ? concat([line, "/>"]) : concat([softline, ">"])
     ])
   );
 }
