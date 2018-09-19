@@ -17,7 +17,14 @@ const {
   },
   utils: { willBreak, isLineNext, isEmpty }
 } = require("../doc");
-const { hasPrettierIgnore } = require("./utils");
+const {
+  hasPrettierIgnore,
+  isBooleanAttributeNode,
+  isPreTagNode,
+  isScriptTagNode,
+  isTextAreaTagNode,
+  isVoidTagNode
+} = require("./utils");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -194,78 +201,6 @@ function genericPrint(path, options, print) {
       /* istanbul ignore next */
       throw new Error("unknown htmlparser2 type: " + n.type);
   }
-}
-
-// https://html.spec.whatwg.org/multipage/indices.html#attributes-3
-function isBooleanAttributeNode(node) {
-  return (
-    node.type === "attribute" &&
-    [
-      "allowfullscreen",
-      "allowpaymentrequest",
-      "async",
-      "autofocus",
-      "autoplay",
-      "checked",
-      "controls",
-      "default",
-      "defer",
-      "disabled",
-      "formnovalidate",
-      "hidden",
-      "ismap",
-      "itemscope",
-      "loop",
-      "multiple",
-      "muted",
-      "nomodule",
-      "novalidate",
-      "open",
-      "readonly",
-      "required",
-      "reversed",
-      "selected",
-      "typemustmatch"
-    ].indexOf(node.key) !== -1
-  );
-}
-
-// http://w3c.github.io/html/single-page.html#void-elements
-function isVoidTagNode(node) {
-  return (
-    node.type === "tag" &&
-    [
-      "area",
-      "base",
-      "br",
-      "col",
-      "embed",
-      "hr",
-      "img",
-      "input",
-      "link",
-      "meta",
-      "param",
-      "source",
-      "track",
-      "wbr"
-    ].indexOf(node.name) !== -1
-  );
-}
-
-function isPreTagNode(node) {
-  return node.type === "tag" && node.name === "pre";
-}
-
-function isTextAreaTagNode(node) {
-  return node.type === "tag" && node.name === "textarea";
-}
-
-function isScriptTagNode(node) {
-  return (
-    (node.type === "script" || node.type === "style") &&
-    ["script", "style"].indexOf(node.name) !== -1
-  );
 }
 
 function printOpeningPart(path, print) {
