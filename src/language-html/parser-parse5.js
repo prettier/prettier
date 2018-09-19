@@ -7,7 +7,7 @@ const nonFragmentRegex = /^\s*(<!--[\s\S]*?-->\s*)*<(!doctype|html|head|body)[\s
 
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
-  const parse5 = require("parse5");
+  const parse5 = require("@starptech/prettyhtml-parse");
   const htmlparser2TreeAdapter = require("parse5-htmlparser2-tree-adapter");
 
   const { frontMatter, content } = parseFrontMatter(text);
@@ -15,6 +15,7 @@ function parse(text /*, parsers, opts*/) {
   const isFragment = !nonFragmentRegex.test(content);
   const ast = (isFragment ? parse5.parseFragment : parse5.parse)(content, {
     treeAdapter: htmlparser2TreeAdapter,
+    preserveHTMLEntities: true,
     sourceCodeLocationInfo: true
   });
 
