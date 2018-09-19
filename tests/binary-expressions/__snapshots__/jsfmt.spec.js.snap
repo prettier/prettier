@@ -18,20 +18,20 @@ function f() {
 function f() {
   const appEntitys = getAppEntitys(loadObject).filter(
     entity =>
-      entity &&
-      entity.isInstallAvailable() &&
-      !entity.isQueue() &&
-      entity.isDisabled()
+      entity
+      && entity.isInstallAvailable()
+      && !entity.isQueue()
+      && entity.isDisabled()
   );
 }
 
 function f() {
   const appEntitys = getAppEntitys(loadObject).map(
     entity =>
-      entity &&
-      entity.isInstallAvailable() &&
-      !entity.isQueue() &&
-      entity.isDisabled() && {
+      entity
+      && entity.isInstallAvailable()
+      && !entity.isQueue()
+      && entity.isDisabled() && {
         id: entity.id
       }
   );
@@ -63,9 +63,9 @@ a = (
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a =
   // Commment 1
-  Math.random() * (yRange * (1 - minVerticalFraction)) +
-  minVerticalFraction * yRange -
-  offset;
+  Math.random() * (yRange * (1 - minVerticalFraction))
+  + minVerticalFraction * yRange
+  - offset;
 
 `;
 
@@ -127,14 +127,14 @@ if (this.hasPlugin("dynamicImports") && this.lookahead().type) {
 }
 
 if (
-  this.hasPlugin("dynamicImports") &&
-  this.lookahead().type === tt.parenLeft
+  this.hasPlugin("dynamicImports")
+  && this.lookahead().type === tt.parenLeft
 ) {
 }
 
 if (
-  this.hasPlugin("dynamicImports") &&
-  this.lookahead().type === tt.parenLeft.right
+  this.hasPlugin("dynamicImports")
+  && this.lookahead().type === tt.parenLeft.right
 ) {
 }
 
@@ -161,8 +161,8 @@ const user = renderedUser || (
 );
 
 const user =
-  renderedUser ||
-  (shouldRenderUser && (
+  renderedUser
+  || (shouldRenderUser && (
     <div>
       <User name={this.state.user.name} age={this.state.user.age} />
     </div>
@@ -275,8 +275,8 @@ prevState = prevState || {
   selectedCatalog: null
 };
 
-prevState = prevState ||
-  defaultState || {
+prevState = prevState
+  || defaultState || {
     catalogs: [],
     loadState: LOADED,
     opened: false,
@@ -285,8 +285,8 @@ prevState = prevState ||
   };
 
 prevState =
-  prevState ||
-  (defaultState && {
+  prevState
+  || (defaultState && {
     catalogs: [],
     loadState: LOADED,
     opened: false,
@@ -294,8 +294,8 @@ prevState =
     selectedCatalog: null
   });
 
-prevState = prevState ||
-  (useDefault && defaultState) || {
+prevState = prevState
+  || (useDefault && defaultState) || {
     catalogs: [],
     loadState: LOADED,
     opened: false,
@@ -311,8 +311,8 @@ this.steps = steps || [
 ];
 
 this.steps =
-  steps ||
-  (checkStep && [
+  steps
+  || (checkStep && [
     {
       name: "mock-module",
       path: "/nux/mock-module"
@@ -329,8 +329,8 @@ this.steps = (steps && checkStep) || [
 const create = () => {
   const result = doSomething();
   return (
-    shouldReturn &&
-    result.ok && {
+    shouldReturn
+    && result.ok && {
       status: "ok",
       createdAt: result.createdAt,
       updatedAt: result.updatedAt
@@ -350,8 +350,8 @@ const create = () => {
 };
 
 const obj = {
-  state: shouldHaveState &&
-    stateIsOK && {
+  state: shouldHaveState
+    && stateIsOK && {
       loadState: LOADED,
       opened: false
     },
@@ -400,22 +400,22 @@ exports[`jsx_parent.js - flow-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
   src={
-    !isJellyfishEnabled &&
-    diffUpdateMessageInput != null &&
-    this.state.isUpdateMessageEmpty
+    !isJellyfishEnabled
+    && diffUpdateMessageInput != null
+    && this.state.isUpdateMessageEmpty
   }
 />;
 
 <div>
-  {!isJellyfishEnabled &&
-    diffUpdateMessageInput != null &&
-    this.state.isUpdateMessageEmpty}
+  {!isJellyfishEnabled
+    && diffUpdateMessageInput != null
+    && this.state.isUpdateMessageEmpty}
 </div>;
 
 <div
   style={
-    !isJellyfishEnabled &&
-    diffUpdateMessageInput && {
+    !isJellyfishEnabled
+    && diffUpdateMessageInput && {
       fontSize: 14,
       color: "#fff"
     }
@@ -423,8 +423,8 @@ exports[`jsx_parent.js - flow-verify 1`] = `
 />;
 
 <div>
-  {!isJellyfishEnabled &&
-    diffUpdateMessageInput != null && (
+  {!isJellyfishEnabled
+    && diffUpdateMessageInput != null && (
       <div>
         <span>Text</span>
       </div>
@@ -509,21 +509,21 @@ function foo() {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function foo() {
   return (
-    this.hasPlugin("dynamicImports") &&
-    this.lookahead().type === tt.parenLeft.right
+    this.hasPlugin("dynamicImports")
+    && this.lookahead().type === tt.parenLeft.right
   );
 }
 
 function foo() {
-  return this.hasPlugin("dynamicImports") &&
-    this.lookahead().type === tt.parenLeft.right
+  return this.hasPlugin("dynamicImports")
+    && this.lookahead().type === tt.parenLeft.right
     ? true
     : false;
 }
 
 function foo() {
-  return this.calculate().compute().first.numberOfThings >
-    this.calculate().compute().last.numberOfThings
+  return this.calculate().compute().first.numberOfThings
+    > this.calculate().compute().last.numberOfThings
     ? true
     : false;
 }
@@ -551,10 +551,10 @@ defaultContent.filter(defaultLocale => {
   // ...
 })[0] || null;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-this._cumulativeHeights &&
-  Math.abs(
-    this._cachedItemHeight(this._firstVisibleIndex + i) -
-      this._provider.fastHeight(i + this._firstVisibleIndex)
+this._cumulativeHeights
+  && Math.abs(
+    this._cachedItemHeight(this._firstVisibleIndex + i)
+      - this._provider.fastHeight(i + this._firstVisibleIndex)
   ) > 1;
 
 foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
@@ -596,42 +596,42 @@ foo(obj.property * new Class() && obj instanceof Class && longVariable ? number 
 
 const x = longVariable + longVariable + longVariable;
 const x =
-  longVariable +
-  longVariable +
-  longVariable +
-  longVariable -
-  longVariable +
-  longVariable;
+  longVariable
+  + longVariable
+  + longVariable
+  + longVariable
+  - longVariable
+  + longVariable;
 const x =
-  longVariable +
-  longVariable * longVariable +
-  longVariable -
-  longVariable +
-  longVariable;
+  longVariable
+  + longVariable * longVariable
+  + longVariable
+  - longVariable
+  + longVariable;
 const x =
-  longVariable +
-  (longVariable * longVariable * longVariable) / longVariable +
-  longVariable;
+  longVariable
+  + (longVariable * longVariable * longVariable) / longVariable
+  + longVariable;
 
 const x =
-  longVariable &&
-  longVariable &&
-  longVariable &&
-  longVariable &&
-  longVariable &&
-  longVariable;
+  longVariable
+  && longVariable
+  && longVariable
+  && longVariable
+  && longVariable
+  && longVariable;
 const x =
-  (longVariable && longVariable) ||
-  (longVariable && longVariable) ||
-  (longVariable && longVariable);
+  (longVariable && longVariable)
+  || (longVariable && longVariable)
+  || (longVariable && longVariable);
 const x =
-  firstItemWithAVeryLongNameThatKeepsGoing ||
-  firstItemWithAVeryLongNameThatKeepsGoing ||
-  {};
+  firstItemWithAVeryLongNameThatKeepsGoing
+  || firstItemWithAVeryLongNameThatKeepsGoing
+  || {};
 const x =
-  firstItemWithAVeryLongNameThatKeepsGoing ||
-  firstItemWithAVeryLongNameThatKeepsGoing ||
-  [];
+  firstItemWithAVeryLongNameThatKeepsGoing
+  || firstItemWithAVeryLongNameThatKeepsGoing
+  || [];
 const x =
   call(
     firstItemWithAVeryLongNameThatKeepsGoing,
@@ -659,8 +659,8 @@ const anyTestFailures = !(
 );
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const anyTestFailures = !(
-  aggregatedResults.numFailedTests === 0 &&
-  aggregatedResults.numRuntimeErrorTestSuites === 0
+  aggregatedResults.numFailedTests === 0
+  && aggregatedResults.numRuntimeErrorTestSuites === 0
 );
 
 `;

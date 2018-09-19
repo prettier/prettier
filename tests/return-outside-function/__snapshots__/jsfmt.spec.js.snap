@@ -4,10 +4,10 @@ exports[`return-outside-function.js - babylon-verify 1`] = `
 return someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 return (
-  someVeryLongStringA &&
-  someVeryLongStringB &&
-  someVeryLongStringC &&
-  someVeryLongStringD
+  someVeryLongStringA
+  && someVeryLongStringB
+  && someVeryLongStringC
+  && someVeryLongStringD
 );
 
 `;

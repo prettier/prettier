@@ -520,9 +520,9 @@ helloWorld
   .then(t => t);
 
 (
-  veryLongVeryLongVeryLong ||
-  anotherVeryLongVeryLongVeryLong ||
-  veryVeryVeryLongError
+  veryLongVeryLongVeryLong
+  || anotherVeryLongVeryLongVeryLong
+  || veryVeryVeryLongError
 )
 
   .map(tickets => TicketRecord.createFromSomeLongString())
