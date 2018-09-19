@@ -1,6 +1,8 @@
 "use strict";
 
 const htmlTagNames = require("html-tag-names");
+const parseFrontMatter = require("../utils/front-matter");
+
 const nonFragmentRegex = /^\s*(<!--[\s\S]*?-->\s*)*<(!doctype|html|head|body)[\s>]/i;
 
 function parse(text /*, parsers, opts*/) {
@@ -8,13 +10,21 @@ function parse(text /*, parsers, opts*/) {
   const parse5 = require("parse5");
   const htmlparser2TreeAdapter = require("parse5-htmlparser2-tree-adapter");
 
-  const isFragment = !nonFragmentRegex.test(text);
-  const ast = (isFragment ? parse5.parseFragment : parse5.parse)(text, {
+  const { frontMatter, content } = parseFrontMatter(text);
+
+  const isFragment = !nonFragmentRegex.test(content);
+  const ast = (isFragment ? parse5.parseFragment : parse5.parse)(content, {
     treeAdapter: htmlparser2TreeAdapter,
     sourceCodeLocationInfo: true
   });
 
-  return normalize(ast, text);
+  const normalizedAst = normalize(ast, text);
+
+  if (frontMatter) {
+    normalizedAst.children.unshift(frontMatter);
+  }
+
+  return normalizedAst;
 }
 
 function normalize(node, text) {
