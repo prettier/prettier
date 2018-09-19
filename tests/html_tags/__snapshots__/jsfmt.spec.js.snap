@@ -3,7 +3,7 @@
 exports[`case-sensitive.html - parse5-verify 1`] = `
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<CaseSensitive casesensitive="true">hello world</CaseSensitive>
+<CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 
 `;
 

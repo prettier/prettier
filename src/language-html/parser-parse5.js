@@ -22,12 +22,15 @@ function normalize(node, text) {
   delete node.next;
   delete node.prev;
 
+  let isCaseSensitiveTag = false;
+
   // preserve case-sensitive tag names
   if (
     node.type === "tag" &&
     node.sourceCodeLocation &&
     htmlTagNames.indexOf(node.name) === -1
   ) {
+    isCaseSensitiveTag = true;
     node.name = text.slice(
       node.sourceCodeLocation.startOffset + 1, // <
       node.sourceCodeLocation.startOffset + 1 + node.name.length
@@ -36,10 +39,19 @@ function normalize(node, text) {
 
   if (node.attribs) {
     node.attributes = Object.keys(node.attribs).map(attributeKey => {
+      const sourceCodeLocation = node.sourceCodeLocation.attrs[attributeKey];
       return {
         type: "attribute",
-        key: attributeKey,
-        value: node.attribs[attributeKey]
+        key: isCaseSensitiveTag
+          ? text
+              .slice(
+                sourceCodeLocation.startOffset,
+                sourceCodeLocation.endOffset
+              )
+              .split("=", 1)[0]
+          : attributeKey,
+        value: node.attribs[attributeKey],
+        sourceCodeLocation
       };
     });
   }
