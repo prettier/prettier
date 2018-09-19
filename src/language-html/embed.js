@@ -2,8 +2,8 @@
 
 const { hasNewlineInRange } = require("../common/util");
 const {
-  builders: { hardline, concat },
-  utils: { stripTrailingHardline, removeLines }
+  builders: { hardline, concat, markAsRoot, literalline },
+  utils: { stripTrailingHardline, removeLines, mapDoc }
 } = require("../doc");
 
 function embed(path, print, textToDoc, options) {
@@ -71,8 +71,39 @@ function embed(path, print, textToDoc, options) {
           '"'
         ]);
       }
+
+      break;
     }
+
+    case "yaml":
+      return markAsRoot(
+        concat([
+          "---",
+          hardline,
+          node.value.trim()
+            ? replaceNewlinesWithLiterallines(
+                textToDoc(node.value, { parser: "yaml" })
+              )
+            : "",
+          "---",
+          hardline
+        ])
+      );
   }
+}
+
+function replaceNewlinesWithLiterallines(doc) {
+  return mapDoc(
+    doc,
+    currentDoc =>
+      typeof currentDoc === "string" && currentDoc.includes("\n")
+        ? concat(
+            currentDoc
+              .split(/(\n)/g)
+              .map((v, i) => (i % 2 === 0 ? v : literalline))
+          )
+        : currentDoc
+  );
 }
 
 function parseJavaScriptExpression(text, parsers) {
