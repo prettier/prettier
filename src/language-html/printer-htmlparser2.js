@@ -2,7 +2,7 @@
 
 const embed = require("./embed");
 const clean = require("./clean");
-const { getLast, hasIgnoreComment } = require("../common/util");
+const { getLast } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
 const {
   builders: {
@@ -17,16 +17,18 @@ const {
   },
   utils: { willBreak, isLineNext, isEmpty }
 } = require("../doc");
+const {
+  hasPrettierIgnore,
+  isBooleanAttributeNode,
+  isPreTagNode,
+  isScriptTagNode,
+  isTextAreaTagNode,
+  isVoidTagNode,
+  isWhitespaceOnlyText
+} = require("./utils");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
-  if (!n) {
-    return "";
-  }
-
-  if (typeof n === "string") {
-    return n;
-  }
 
   switch (n.type) {
     case "root": {
@@ -43,10 +45,7 @@ function genericPrint(path, options, print) {
     case "text": {
       const parentNode = path.getParentNode();
 
-      if (
-        parentNode &&
-        (isPreTagNode(parentNode) || isTextAreaTagNode(parentNode))
-      ) {
+      if (isPreTagNode(parentNode) || isTextAreaTagNode(parentNode)) {
         return n.data;
       }
 
@@ -56,18 +55,17 @@ function genericPrint(path, options, print) {
     case "style":
     case "tag": {
       const isVoid = isVoidTagNode(n);
-      const openingPrinted = printOpeningPart(path, print);
+      const openingPrinted = printOpeningTag(path, print, isVoid);
 
       // Print self closing tag
       if (isVoid) {
-        return concat([openingPrinted]);
+        return openingPrinted;
       }
 
-      const closingPrinted = printClosingPart(path, print);
-      const hasChildren = n.children.length > 0;
+      const closingPrinted = printClosingTag(n);
 
       // Print tags without children
-      if (!hasChildren) {
+      if (n.children.length === 0) {
         return concat([openingPrinted, closingPrinted]);
       }
 
@@ -102,14 +100,12 @@ function genericPrint(path, options, print) {
         );
       }
 
-      const containsTag =
-        n.children.filter(
-          node => ["script", "style", "tag"].indexOf(node.type) !== -1
-        ).length > 0;
-      const containsMultipleAttributes = n.attributes.length > 1;
+      const containsTag = n.children.some(
+        child => ["script", "style", "tag"].indexOf(child.type) !== -1
+      );
 
       let forcedBreak =
-        willBreak(openingPrinted) || containsTag || containsMultipleAttributes;
+        willBreak(openingPrinted) || containsTag || n.attributes.length > 1;
 
       // Trim trailing lines (or empty strings)
       while (
@@ -122,31 +118,21 @@ function genericPrint(path, options, print) {
       // Trim leading lines (or empty strings)
       while (
         children.length &&
-        (isLineNext(children[0]) || isEmpty(children[0])) &&
-        (isLineNext(children[1]) || isEmpty(children[1]))
+        (isLineNext(children[0]) || isEmpty(children[0]))
       ) {
-        children.shift();
         children.shift();
       }
 
       // Detect whether we will force this element to output over multiple lines.
-      const multilineChildren = [];
+      if (children.some(doc => willBreak(doc))) {
+        forcedBreak = true;
+      }
 
-      children.forEach(child => {
-        multilineChildren.push(child);
-
-        if (willBreak(child)) {
-          forcedBreak = true;
-        }
-      });
-
-      const containsOnlyEmptyTextNodes = n.children.every(node => {
-        return node.type === "text" && /^\s+$/.test(node.data);
-      });
+      const containsOnlyEmptyTextNodes = n.children.every(isWhitespaceOnlyText);
 
       const printedMultilineChildren = concat([
         !isScriptTag && !containsOnlyEmptyTextNodes ? hardline : "",
-        group(concat(multilineChildren), { shouldBreak: true })
+        group(concat(children), { shouldBreak: true })
       ]);
 
       const multiLineElem = group(
@@ -176,12 +162,6 @@ function genericPrint(path, options, print) {
           return n.key;
         }
 
-        const parentNode = path.getParentNode();
-
-        if (!parentNode || !parentNode.sourceCodeLocation) {
-          return n.key;
-        }
-
         const originalAttributeSourceCode = options.originalText.slice(
           n.sourceCodeLocation.startOffset,
           n.sourceCodeLocation.endOffset
@@ -203,81 +183,8 @@ function genericPrint(path, options, print) {
   }
 }
 
-// https://html.spec.whatwg.org/multipage/indices.html#attributes-3
-function isBooleanAttributeNode(node) {
-  return (
-    node.type === "attribute" &&
-    [
-      "allowfullscreen",
-      "allowpaymentrequest",
-      "async",
-      "autofocus",
-      "autoplay",
-      "checked",
-      "controls",
-      "default",
-      "defer",
-      "disabled",
-      "formnovalidate",
-      "hidden",
-      "ismap",
-      "itemscope",
-      "loop",
-      "multiple",
-      "muted",
-      "nomodule",
-      "novalidate",
-      "open",
-      "readonly",
-      "required",
-      "reversed",
-      "selected",
-      "typemustmatch"
-    ].indexOf(node.key) !== -1
-  );
-}
-
-// http://w3c.github.io/html/single-page.html#void-elements
-function isVoidTagNode(node) {
-  return (
-    node.type === "tag" &&
-    [
-      "area",
-      "base",
-      "br",
-      "col",
-      "embed",
-      "hr",
-      "img",
-      "input",
-      "link",
-      "meta",
-      "param",
-      "source",
-      "track",
-      "wbr"
-    ].indexOf(node.name) !== -1
-  );
-}
-
-function isPreTagNode(node) {
-  return node.type === "tag" && node.name === "pre";
-}
-
-function isTextAreaTagNode(node) {
-  return node.type === "tag" && node.name === "textarea";
-}
-
-function isScriptTagNode(node) {
-  return (
-    (node.type === "script" || node.type === "style") &&
-    ["script", "style"].indexOf(node.name) !== -1
-  );
-}
-
-function printOpeningPart(path, print) {
+function printOpeningTag(path, print, isVoid) {
   const n = path.getValue();
-  const isVoid = isVoidTagNode(n);
 
   // Don't break self-closing elements with no attributes
   if (isVoid && !n.attributes.length) {
@@ -287,13 +194,7 @@ function printOpeningPart(path, print) {
   // Don't break up opening elements with a single long text attribute
   if (n.attributes && n.attributes.length === 1 && n.attributes[0].value) {
     return group(
-      concat([
-        "<",
-        path.call(print, "name"),
-        " ",
-        concat(path.map(print, "attributes")),
-        ">"
-      ])
+      concat(["<", n.name, " ", concat(path.map(print, "attributes")), ">"])
     );
   }
 
@@ -312,33 +213,17 @@ function printOpeningPart(path, print) {
   );
 }
 
-function printClosingPart(path, print) {
-  return concat(["</", path.call(print, "name"), ">"]);
+function printClosingTag(node) {
+  return concat(["</", node.name, ">"]);
 }
 
 function printChildren(path, print, options) {
   const parts = [];
 
-  path.map((childPath, i) => {
-    const parentNode = childPath.getParentNode();
+  path.map(childPath => {
     const child = childPath.getValue();
-    const printedChild = print(childPath);
 
-    if (
-      parentNode &&
-      parentNode.children[i - 2] &&
-      parentNode.children[i - 2].type === "comment" &&
-      parentNode.children[i - 2].data.trim() === "prettier-ignore"
-    ) {
-      parts.push(
-        options.originalText.slice(
-          options.locStart(child),
-          options.locEnd(child)
-        )
-      );
-    } else {
-      parts.push(printedChild);
-    }
+    parts.push(print(childPath));
 
     if (child.type !== "text" && child.type !== "directive") {
       parts.push(hardline);
@@ -356,5 +241,5 @@ module.exports = {
   print: genericPrint,
   massageAstNode: clean,
   embed,
-  hasPrettierIgnore: hasIgnoreComment
+  hasPrettierIgnore
 };
