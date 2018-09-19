@@ -7,6 +7,20 @@ exports[`case-sensitive.html - parse5-verify 1`] = `
 
 `;
 
+exports[`custom-self-closing.html - parse5-verify 1`] = `
+<div>
+  <ABC />
+  <span></span>
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  <ABC>
+    <span></span>
+  </ABC>
+</div>
+
+`;
+
 exports[`pre.html - parse5-verify 1`] = `
 <pre>
 --------------------------------------------------------------------------------
