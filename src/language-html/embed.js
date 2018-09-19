@@ -57,7 +57,7 @@ function embed(path, print, textToDoc, options) {
        */
       if (/(^@)|(^v-)|:/.test(node.key) && !/^\w+$/.test(node.value)) {
         const doc = textToDoc(node.value, {
-          parser: parseJavaScriptExpression,
+          parser: "__js_expression",
           // Use singleQuote since HTML attributes use double-quotes.
           // TODO(azz): We still need to do an entity escape on the attribute.
           singleQuote: true
@@ -73,16 +73,6 @@ function embed(path, print, textToDoc, options) {
       }
     }
   }
-}
-
-function parseJavaScriptExpression(text, parsers) {
-  // Force parsing as an expression
-  const ast = parsers.babylon(`(${text})`);
-  // Extract expression from the declaration
-  return {
-    type: "File",
-    program: ast.program.body[0].expression
-  };
 }
 
 function getText(options, node) {
