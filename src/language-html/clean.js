@@ -11,4 +11,9 @@ module.exports = function(ast, newNode) {
   if (ast.type === "yaml") {
     return null;
   }
+
+  // void tags are considered not self-closing
+  if (ast.type === "tag") {
+    delete newNode.selfClosing;
+  }
 };

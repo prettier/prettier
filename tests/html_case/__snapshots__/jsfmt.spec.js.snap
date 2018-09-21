@@ -21,7 +21,7 @@ exports[`case.html - parse5-verify 1`] = `
 <!DOCTYPE html>
 <html class="no-js mY-ClAsS">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>My tITlE</title>
     <meta name="description" content="My CoNtEnT" />
   </head>

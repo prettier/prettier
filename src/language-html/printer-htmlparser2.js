@@ -58,7 +58,7 @@ function genericPrint(path, options, print) {
       const openingPrinted = printOpeningTag(path, print, isVoid);
 
       // Print self closing tag
-      if (isVoid) {
+      if (isVoid || n.selfClosing) {
         return openingPrinted;
       }
 
@@ -186,15 +186,23 @@ function genericPrint(path, options, print) {
 function printOpeningTag(path, print, isVoid) {
   const n = path.getValue();
 
+  const selfClosing = isVoid || n.selfClosing;
+
   // Don't break self-closing elements with no attributes
-  if (isVoid && !n.attributes.length) {
+  if (selfClosing && !n.attributes.length) {
     return concat(["<", n.name, " />"]);
   }
 
   // Don't break up opening elements with a single long text attribute
   if (n.attributes && n.attributes.length === 1 && n.attributes[0].value) {
     return group(
-      concat(["<", n.name, " ", concat(path.map(print, "attributes")), ">"])
+      concat([
+        "<",
+        n.name,
+        " ",
+        concat(path.map(print, "attributes")),
+        selfClosing ? " />" : ">"
+      ])
     );
   }
 
@@ -205,7 +213,7 @@ function printOpeningTag(path, print, isVoid) {
       indent(
         concat(path.map(attr => concat([line, print(attr)]), "attributes"))
       ),
-      isVoid ? concat([line, "/>"]) : concat([softline, ">"])
+      selfClosing ? concat([line, "/>"]) : concat([softline, ">"])
     ])
   );
 }
