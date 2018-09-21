@@ -122,7 +122,7 @@ const options = {
         since: null,
         description: "Handlebars"
       },
-      { value: "html", since: null, description: "HTML" }
+      { value: "html", since: "1.15.0", description: "HTML" }
     ]
   },
   plugins: {
