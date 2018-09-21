@@ -1,37 +1,77 @@
 "use strict";
 
-const htmlTagNames = require("html-tag-names");
 const parseFrontMatter = require("../utils/front-matter");
-
-const nonFragmentRegex = /^\s*(<!--[\s\S]*?-->\s*)*<(!doctype|html|head|body)[\s>]/i;
+const { HTML_TAGS } = require("./utils");
 
 function parse(text /*, parsers, opts*/) {
-  // Inline the require to avoid loading all the JS if we don't use it
-  const parse5 = require("@starptech/prettyhtml-parse");
-  const htmlparser2TreeAdapter = require("parse5-htmlparser2-tree-adapter");
-
   const { frontMatter, content } = parseFrontMatter(text);
 
-  const isFragment = !nonFragmentRegex.test(content);
-  const ast = (isFragment ? parse5.parseFragment : parse5.parse)(content, {
-    treeAdapter: Object.assign({}, htmlparser2TreeAdapter, {
-      createElement: (tagName, namespaceURI, attrs, selfClosing) =>
-        Object.assign(
-          htmlparser2TreeAdapter.createElement(tagName, namespaceURI, attrs),
-          { selfClosing }
-        )
-    }),
-    preserveSelfClosingCustomTags: true,
-    sourceCodeLocationInfo: true
-  });
+  // Inline the require to avoid loading all the JS if we don't use it
+  const htmlparser2 = require("htmlparser2");
 
-  const normalizedAst = normalize(ast, text);
-
-  if (frontMatter) {
-    normalizedAst.children.unshift(frontMatter);
+  /**
+   * modifications:
+   * - empty attributes (e.g., `<tag attr>`) are parsed as `{ [attr]: null }` instead of `{ [attr]: "" }`
+   * - trigger `Handler#onselfclosingtag()`
+   */
+  class CustomParser extends htmlparser2.Parser {
+    constructor(cbs, options) {
+      super(cbs, options);
+      this._attribvalue = null;
+    }
+    onattribdata(value) {
+      if (this._attribvalue === null) {
+        this._attribvalue = "";
+      }
+      super.onattribdata(value);
+    }
+    onattribend() {
+      super.onattribend();
+      this._attribvalue = null;
+    }
+    onselfclosingtag() {
+      if (this._options.xmlMode || this._options.recognizeSelfClosing) {
+        const name = this._tagname;
+        this.onopentagend();
+        if (this._stack[this._stack.length - 1] === name) {
+          this._cbs.onselfclosingtag();
+          this._cbs.onclosetag(name);
+          this._stack.pop();
+        }
+      } else {
+        this.onopentagend();
+      }
+    }
   }
 
-  return normalizedAst;
+  /**
+   * modifications:
+   * - add `selfClosing` field
+   */
+  class CustomDomHandler extends htmlparser2.DomHandler {
+    onselfclosingtag() {
+      this._tagStack[this._tagStack.length - 1].selfClosing = true;
+    }
+  }
+
+  const handler = new CustomDomHandler({
+    withStartIndices: true,
+    withEndIndices: true
+  });
+
+  new CustomParser(handler, {
+    lowerCaseTags: true, // preserve lowercase tag names to avoid false check in htmlparser2 and apply the lowercasing later
+    lowerCaseAttributeNames: false,
+    recognizeSelfClosing: true
+  }).end(content);
+
+  const ast = normalize({ type: "root", children: handler.dom }, text);
+
+  if (frontMatter) {
+    ast.children.unshift(frontMatter);
+  }
+
+  return ast;
 }
 
 function normalize(node, text) {
@@ -41,36 +81,20 @@ function normalize(node, text) {
 
   let isCaseSensitiveTag = false;
 
-  // preserve case-sensitive tag names
-  if (
-    node.type === "tag" &&
-    node.sourceCodeLocation &&
-    htmlTagNames.indexOf(node.name) === -1
-  ) {
+  if (node.type === "tag" && !(node.name in HTML_TAGS)) {
     isCaseSensitiveTag = true;
     node.name = text.slice(
-      node.sourceCodeLocation.startOffset + 1, // <
-      node.sourceCodeLocation.startOffset + 1 + node.name.length
+      node.startIndex + 1, // <
+      node.startIndex + 1 + node.name.length
     );
   }
 
   if (node.attribs) {
-    node.attributes = Object.keys(node.attribs).map(attributeKey => {
-      const sourceCodeLocation = node.sourceCodeLocation.attrs[attributeKey];
-      return {
-        type: "attribute",
-        key: isCaseSensitiveTag
-          ? text
-              .slice(
-                sourceCodeLocation.startOffset,
-                sourceCodeLocation.endOffset
-              )
-              .split("=", 1)[0]
-          : attributeKey,
-        value: node.attribs[attributeKey],
-        sourceCodeLocation
-      };
-    });
+    node.attributes = Object.keys(node.attribs).map(attributeKey => ({
+      type: "attribute",
+      key: isCaseSensitiveTag ? attributeKey : attributeKey.toLowerCase(),
+      value: node.attribs[attributeKey]
+    }));
   }
 
   if (node.children) {
@@ -85,12 +109,8 @@ module.exports = {
     parse5: {
       parse,
       astFormat: "htmlparser2",
-      locStart(node) {
-        return node.sourceCodeLocation && node.sourceCodeLocation.startOffset;
-      },
-      locEnd(node) {
-        return node.sourceCodeLocation && node.sourceCodeLocation.endOffset;
-      }
+      locStart: node => node.startIndex,
+      locEnd: node => node.endIndex + 1
     }
   }
 };

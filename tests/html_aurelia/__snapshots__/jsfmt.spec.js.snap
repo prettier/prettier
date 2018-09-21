@@ -7,7 +7,6 @@ exports[`basic.html - parse5-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template>
   <i class.bind="icon"></i>
-
 </template>
 
 `;

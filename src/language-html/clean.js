@@ -1,7 +1,9 @@
 "use strict";
 
 module.exports = function(ast, newNode) {
-  delete newNode.sourceCodeLocation;
+  delete newNode.startIndex;
+  delete newNode.endIndex;
+  delete newNode.attribs;
 
   if (ast.type === "text") {
     return null;
@@ -12,8 +14,11 @@ module.exports = function(ast, newNode) {
     return null;
   }
 
-  // void tags are considered not self-closing
-  if (ast.type === "tag") {
-    delete newNode.selfClosing;
+  if (ast.type === "attribute") {
+    delete newNode.value;
+  }
+
+  if (ast.type === "directive" && ast.name === "!doctype") {
+    delete newNode.data;
   }
 };

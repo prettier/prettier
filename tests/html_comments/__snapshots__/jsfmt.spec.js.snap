@@ -16,7 +16,6 @@ exports[`conditional.html - parse5-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
 <html>
-  <head></head>
   <body>
     <!--[if IE 5]>This is IE 5<br><![endif]-->
     <!--[if IE 6]>This is IE 6<br><![endif]-->
@@ -50,7 +49,6 @@ exports[`for_debugging.html - parse5-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
 <html>
-  <head></head>
   <body>
     <!-- Do not display this at the moment
 <img border="0" src="pic_trulli.jpg" alt="Trulli">
@@ -85,7 +83,6 @@ exports[`hidden.html - parse5-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
 <html>
-  <head></head>
   <body>
     <!--This is a comment-->
     <!-- This is a comment -->

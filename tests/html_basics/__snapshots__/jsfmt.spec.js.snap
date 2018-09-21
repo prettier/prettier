@@ -168,7 +168,7 @@ exports[`form.html - parse5-verify 1`] = `
           value="option1"
           checked
         />
-        Option one is this and that—be sure to include why it's great
+        Option one is this and that&mdash;be sure to include why it's great
       </label>
     </div>
     <div class="form-check">
@@ -253,7 +253,6 @@ exports[`html-comments.html - parse5-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!-- htmlhint attr-lowercase: false -->
 <html>
-  <head></head>
   <body>
     <a href="#">Anchor</a>
     <div hidden class="foo" id="bar"></div>

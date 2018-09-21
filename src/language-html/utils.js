@@ -1,51 +1,50 @@
 "use strict";
 
-// https://html.spec.whatwg.org/multipage/indices.html#attributes-3
-const BOOLEAN_ATTRIBUTES = [
-  "allowfullscreen",
-  "allowpaymentrequest",
-  "async",
-  "autofocus",
-  "autoplay",
-  "checked",
-  "controls",
-  "default",
-  "defer",
-  "disabled",
-  "formnovalidate",
-  "hidden",
-  "ismap",
-  "itemscope",
-  "loop",
-  "multiple",
-  "muted",
-  "nomodule",
-  "novalidate",
-  "open",
-  "readonly",
-  "required",
-  "reversed",
-  "selected",
-  "typemustmatch"
-];
+const htmlTagNames = require("html-tag-names");
 
-// http://w3c.github.io/html/single-page.html#void-elements
-const VOID_TAGS = [
+const HTML_TAGS = arrayToMap(htmlTagNames);
+
+// NOTE: must be same as the one in htmlparser2 so that the parsing won't be inconsistent
+//       https://github.com/fb55/htmlparser2/blob/v3.9.2/lib/Parser.js#L59-L91
+const VOID_TAGS = arrayToMap([
   "area",
   "base",
+  "basefont",
   "br",
   "col",
+  "command",
   "embed",
+  "frame",
   "hr",
   "img",
   "input",
+  "isindex",
+  "keygen",
   "link",
   "meta",
   "param",
   "source",
   "track",
-  "wbr"
-];
+  "wbr",
+
+  "path",
+  "circle",
+  "ellipse",
+  "line",
+  "rect",
+  "use",
+  "stop",
+  "polyline",
+  "polygon"
+]);
+
+function arrayToMap(array) {
+  const map = Object.create(null);
+  for (const value of array) {
+    map[value] = true;
+  }
+  return map;
+}
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
@@ -88,16 +87,6 @@ function isWhitespaceOnlyText(node) {
   return node.type === "text" && node.data.trim().length === 0;
 }
 
-function isBooleanAttributeNode(node) {
-  return (
-    node.type === "attribute" && BOOLEAN_ATTRIBUTES.indexOf(node.key) !== -1
-  );
-}
-
-function isVoidTagNode(node) {
-  return node.type === "tag" && VOID_TAGS.indexOf(node.name) !== -1;
-}
-
 function isPreTagNode(node) {
   return node.type === "tag" && node.name === "pre";
 }
@@ -111,11 +100,11 @@ function isScriptTagNode(node) {
 }
 
 module.exports = {
+  HTML_TAGS,
+  VOID_TAGS,
   hasPrettierIgnore,
-  isBooleanAttributeNode,
-  isWhitespaceOnlyText,
   isPreTagNode,
   isScriptTagNode,
   isTextAreaTagNode,
-  isVoidTagNode
+  isWhitespaceOnlyText
 };

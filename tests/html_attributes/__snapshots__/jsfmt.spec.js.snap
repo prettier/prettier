@@ -154,7 +154,7 @@ exports[`boolean.html - parse5-verify 1`] = `
 <button type="submit" disabled>
   This is valid.
 </button>
-<button type="submit" disabled>
+<button type="submit" disabled="">
   This is valid.
 </button>
 <button type="submit" disabled="disabled">
@@ -189,7 +189,7 @@ exports[`boolean.html - parse5-verify 1`] = `
 </button>
 <input type="checkbox" checked disabled name="cheese" />
 <input type="checkbox" checked="checked" disabled="disabled" name="cheese" />
-<input type="checkbox" checked disabled name="cheese" />
+<input type="checkbox" checked="" disabled="" name="cheese" />
 <div lang=""></div>
 
 `;

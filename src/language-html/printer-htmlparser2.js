@@ -18,12 +18,11 @@ const {
   utils: { willBreak, isLineNext, isEmpty }
 } = require("../doc");
 const {
+  VOID_TAGS,
   hasPrettierIgnore,
-  isBooleanAttributeNode,
   isPreTagNode,
   isScriptTagNode,
   isTextAreaTagNode,
-  isVoidTagNode,
   isWhitespaceOnlyText
 } = require("./utils");
 
@@ -37,7 +36,15 @@ function genericPrint(path, options, print) {
     case "directive": {
       return concat([
         "<",
-        n.data.replace('!DOCTYPE html ""', "!DOCTYPE html"),
+        n.name === "!doctype"
+          ? n.data
+              .replace(/\s+/g, " ")
+              .replace(
+                /^(!doctype)(( html)?)/i,
+                (_, doctype, doctypeHtml) =>
+                  doctype.toUpperCase() + doctypeHtml.toLowerCase()
+              )
+          : n.data,
         ">",
         hardline
       ]);
@@ -46,7 +53,9 @@ function genericPrint(path, options, print) {
       const parentNode = path.getParentNode();
 
       if (isPreTagNode(parentNode) || isTextAreaTagNode(parentNode)) {
-        return n.data;
+        return concat(
+          n.data.split(/(\n)/g).map((x, i) => (i % 2 === 1 ? hardline : x))
+        );
       }
 
       return n.data.replace(/\s+/g, " ").trim();
@@ -54,7 +63,7 @@ function genericPrint(path, options, print) {
     case "script":
     case "style":
     case "tag": {
-      const isVoid = isVoidTagNode(n);
+      const isVoid = n.name in VOID_TAGS;
       const openingPrinted = printOpeningTag(path, print, isVoid);
 
       // Print self closing tag
@@ -69,26 +78,20 @@ function genericPrint(path, options, print) {
         return concat([openingPrinted, closingPrinted]);
       }
 
-      const children = printChildren(path, print, options);
+      const children =
+        n.name === "textarea" &&
+        n.children.length === 1 &&
+        n.children[0].type === "text" &&
+        n.children[0].data === "\n" &&
+        !/<\/textarea>$/.test(
+          options.originalText.slice(options.locStart(n), options.locEnd(n))
+        )
+          ? []
+          : printChildren(path, print, options);
 
-      // NOTE: If the next token is a U+000A LINE FEED (LF) character token, then ignore that token and move
-      // on to the next one. (Newlines at the start of textarea elements are ignored as an authoring convenience.)
       if (isPreTagNode(n) || isTextAreaTagNode(n)) {
-        const originalTagContent = options.originalText.slice(
-          n.sourceCodeLocation.startTag.endOffset,
-          n.sourceCodeLocation.endTag.startOffset
-        );
-        const hasNewlineAfterTag = /^(\r\n|\r|\n)/.test(originalTagContent);
-
         return dedentToRoot(
-          group(
-            concat([
-              openingPrinted,
-              hasNewlineAfterTag ? hardline : "",
-              concat(children),
-              closingPrinted
-            ])
-          )
+          group(concat([openingPrinted, concat(children), closingPrinted]))
         );
       }
 
@@ -157,18 +160,8 @@ function genericPrint(path, options, print) {
       return concat(["<!--", n.data, "-->"]);
     }
     case "attribute": {
-      if (!n.value) {
-        if (isBooleanAttributeNode(n)) {
-          return n.key;
-        }
-
-        const originalAttributeSourceCode = options.originalText.slice(
-          n.sourceCodeLocation.startOffset,
-          n.sourceCodeLocation.endOffset
-        );
-        const hasEqualSign = originalAttributeSourceCode.indexOf("=") !== -1;
-
-        return hasEqualSign ? concat([n.key, '=""']) : n.key;
+      if (n.value === null) {
+        return n.key;
       }
 
       return concat([n.key, '="', n.value.replace(/"/g, "&quot;"), '"']);
