@@ -78,16 +78,7 @@ function genericPrint(path, options, print) {
         return concat([openingPrinted, closingPrinted]);
       }
 
-      const children =
-        n.name === "textarea" &&
-        n.children.length === 1 &&
-        n.children[0].type === "text" &&
-        n.children[0].data === "\n" &&
-        !/<\/textarea>$/.test(
-          options.originalText.slice(options.locStart(n), options.locEnd(n))
-        )
-          ? []
-          : printChildren(path, print, options);
+      const children = printChildren(path, print, options);
 
       if (isPreTagNode(n) || isTextAreaTagNode(n)) {
         return dedentToRoot(

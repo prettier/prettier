@@ -7,14 +7,15 @@ function parse(text /*, parsers, opts*/) {
   const { frontMatter, content } = parseFrontMatter(text);
 
   // Inline the require to avoid loading all the JS if we don't use it
-  const htmlparser2 = require("htmlparser2");
+  const Parser = require("htmlparser2/lib/Parser");
+  const DomHandler = require("domhandler");
 
   /**
    * modifications:
    * - empty attributes (e.g., `<tag attr>`) are parsed as `{ [attr]: null }` instead of `{ [attr]: "" }`
    * - trigger `Handler#onselfclosingtag()`
    */
-  class CustomParser extends htmlparser2.Parser {
+  class CustomParser extends Parser {
     constructor(cbs, options) {
       super(cbs, options);
       this._attribvalue = null;
@@ -48,7 +49,7 @@ function parse(text /*, parsers, opts*/) {
    * modifications:
    * - add `selfClosing` field
    */
-  class CustomDomHandler extends htmlparser2.DomHandler {
+  class CustomDomHandler extends DomHandler {
     onselfclosingtag() {
       this._tagStack[this._tagStack.length - 1].selfClosing = true;
     }
@@ -101,16 +102,35 @@ function normalize(node, text) {
     node.children = node.children.map(child => normalize(child, text));
   }
 
+  if (
+    node.type === "tag" &&
+    node.name === "textarea" &&
+    node.children.length === 1 &&
+    node.children[0].type === "text" &&
+    node.children[0].data === "\n" &&
+    !/<\/textarea>$/.test(text.slice(locStart(node), locEnd(node)))
+  ) {
+    node.children = [];
+  }
+
   return node;
+}
+
+function locStart(node) {
+  return node.startIndex;
+}
+
+function locEnd(node) {
+  return node.endIndex + 1;
 }
 
 module.exports = {
   parsers: {
-    parse5: {
+    html: {
       parse,
       astFormat: "htmlparser2",
-      locStart: node => node.startIndex,
-      locEnd: node => node.endIndex + 1
+      locStart,
+      locEnd
     }
   }
 };

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditional.html - parse5-verify 1`] = `
+exports[`conditional.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html>
   <body>
@@ -27,7 +27,7 @@ exports[`conditional.html - parse5-verify 1`] = `
 
 `;
 
-exports[`for_debugging.html - parse5-verify 1`] = `
+exports[`for_debugging.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html>
   <body>
@@ -66,7 +66,7 @@ exports[`for_debugging.html - parse5-verify 1`] = `
 
 `;
 
-exports[`hidden.html - parse5-verify 1`] = `
+exports[`hidden.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html>
     <body>

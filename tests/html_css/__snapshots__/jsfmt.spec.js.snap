@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.html - parse5-verify 1`] = `
+exports[`empty.html - html-verify 1`] = `
 <style></style>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <style></style>
 
 `;
 
-exports[`less.html - parse5-verify 1`] = `
+exports[`less.html - html-verify 1`] = `
 <style type="text/less">
   @nice-blue: #5B83AD;
   @light-blue: @nice-blue + #111;
@@ -46,7 +46,7 @@ exports[`less.html - parse5-verify 1`] = `
 
 `;
 
-exports[`postcss.html - parse5-verify 1`] = `
+exports[`postcss.html - html-verify 1`] = `
 <style type="text/css">
   body { background: navy; color: yellow; }
 </style>
@@ -71,7 +71,7 @@ body {
 
 `;
 
-exports[`scss.html - parse5-verify 1`] = `
+exports[`scss.html - html-verify 1`] = `
 <style type="text/x-scss">
   $font-stack:    Helvetica, sans-serif;
   $primary-color: #333;
@@ -114,7 +114,7 @@ body {
 
 `;
 
-exports[`simple.html - parse5-verify 1`] = `
+exports[`simple.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html>
   <head>
@@ -154,7 +154,7 @@ exports[`simple.html - parse5-verify 1`] = `
 
 `;
 
-exports[`single-style.html - parse5-verify 1`] = `
+exports[`single-style.html - html-verify 1`] = `
 <style>a { color: red; }</style>
 <style>
   h1 {

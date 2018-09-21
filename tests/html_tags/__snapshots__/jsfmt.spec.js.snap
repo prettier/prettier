@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`case-sensitive.html - parse5-verify 1`] = `
+exports[`case-sensitive.html - html-verify 1`] = `
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 
 `;
 
-exports[`custom-self-closing.html - parse5-verify 1`] = `
+exports[`custom-self-closing.html - html-verify 1`] = `
 <div>
   <ABC />
   <span></span>
@@ -20,7 +20,7 @@ exports[`custom-self-closing.html - parse5-verify 1`] = `
 
 `;
 
-exports[`pre.html - parse5-verify 1`] = `
+exports[`pre.html - html-verify 1`] = `
 <pre>
 --------------------------------------------------------------------------------
 
@@ -188,7 +188,7 @@ ___________________________
 
 `;
 
-exports[`tags.html - parse5-verify 1`] = `
+exports[`tags.html - html-verify 1`] = `
 <br/>
 <br />
 <br  />
@@ -355,7 +355,7 @@ exports[`tags.html - parse5-verify 1`] = `
 
 `;
 
-exports[`textarea.html - parse5-verify 1`] = `
+exports[`textarea.html - html-verify 1`] = `
 <div>
   <div>
     <div>
@@ -416,7 +416,7 @@ exports[`textarea.html - parse5-verify 1`] = `
 
 `;
 
-exports[`unsupported.html - parse5-verify 1`] = `
+exports[`unsupported.html - html-verify 1`] = `
 <center></center>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <center></center>
