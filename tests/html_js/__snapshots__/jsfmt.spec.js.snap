@@ -96,6 +96,18 @@ document.getElementById("demo").innerHTML = "Hello JavaScript!";
 
 `;
 
+exports[`something-else.html - html-verify 1`] = `
+<script type="text/template">
+ <div>
+    </div>
+</script>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<script type="text/template">
+<div />;
+</script>
+
+`;
+
 exports[`typescript.html - html-verify 1`] = `
 <script type="application/x-typescript">
   class Student {
