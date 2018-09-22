@@ -62,7 +62,7 @@
     "semver": "5.4.1",
     "string-width": "2.1.1",
     "typescript": "3.0.1",
-    "typescript-eslint-parser": "18.0.0",
+    "typescript-estree": "1.0.0",
     "unicode-regex": "2.0.0",
     "unified": "6.1.6",
     "vnopts": "1.0.2",
