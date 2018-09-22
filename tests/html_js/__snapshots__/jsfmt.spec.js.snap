@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.html - parse5-verify 1`] = `
+exports[`empty.html - html-verify 1`] = `
 <script></script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script></script>
 
 `;
 
-exports[`js.html - parse5-verify 1`] = `
+exports[`js.html - html-verify 1`] = `
 <script type="text/javascript">
   var message = "Alert!";
 
@@ -42,7 +42,7 @@ alert(message);
 
 `;
 
-exports[`simple.html - parse5-verify 1`] = `
+exports[`simple.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html>
   <head>
@@ -81,7 +81,7 @@ exports[`simple.html - parse5-verify 1`] = `
 
 `;
 
-exports[`single-script.html - parse5-verify 1`] = `
+exports[`single-script.html - html-verify 1`] = `
 <script>alert('test');</script>
 <script>
   document.getElementById("demo").innerHTML = "Hello JavaScript!";
@@ -96,7 +96,7 @@ document.getElementById("demo").innerHTML = "Hello JavaScript!";
 
 `;
 
-exports[`typescript.html - parse5-verify 1`] = `
+exports[`typescript.html - html-verify 1`] = `
 <script type="application/x-typescript">
   class Student {
     fullName: string;

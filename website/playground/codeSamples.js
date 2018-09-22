@@ -282,7 +282,7 @@ export default function(parser) {
         "            {{   body         }}",
         "</div> </div>"
       ].join("\n");
-    case "parse5":
+    case "html":
       return [
         "<!DOCTYPE html>",
         '<HTML CLASS="no-js mY-ClAsS">',

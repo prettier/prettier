@@ -109,8 +109,8 @@ module.exports = [
   require("../language-html"),
   {
     parsers: {
-      get parse5() {
-        return eval("require")("../language-html/parser-parse5").parsers.parse5;
+      get html() {
+        return eval("require")("../language-html/parser-html").parsers.html;
       }
     }
   },

@@ -6,8 +6,8 @@ const createLanguage = require("../utils/create-language");
 const languages = [
   createLanguage(require("linguist-languages/data/html"), {
     override: {
-      since: null, // unreleased
-      parsers: ["parse5"],
+      since: "1.15.0",
+      parsers: ["html"],
       vscodeLanguageIds: ["html"]
     }
   })

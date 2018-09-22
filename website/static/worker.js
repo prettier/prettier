@@ -93,9 +93,9 @@ var parsers = {
   },
 
   // HTML
-  get parse5() {
-    importScriptOnce("lib/parser-parse5.js");
-    return prettierPlugins.parse5.parsers.parse5;
+  get html() {
+    importScriptOnce("lib/parser-html.js");
+    return prettierPlugins.html.parsers.html;
   }
 };
 

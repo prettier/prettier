@@ -62,7 +62,7 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml>
+  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
@@ -152,7 +152,7 @@ exports[`show warning with --help not-found (typo) (stderr) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml>
+"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html>
 
   Which parser to use.
 
@@ -172,6 +172,7 @@ Valid options:
   mdx              MDX
   vue              Vue
   yaml             YAML
+  html             HTML
 "
 `;
 
@@ -198,7 +199,7 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml>
+  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
