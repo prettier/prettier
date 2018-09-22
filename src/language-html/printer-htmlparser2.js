@@ -52,7 +52,11 @@ function genericPrint(path, options, print) {
     case "text": {
       const parentNode = path.getParentNode();
 
-      if (isPreTagNode(parentNode) || isTextAreaTagNode(parentNode)) {
+      if (
+        isPreTagNode(parentNode) ||
+        isTextAreaTagNode(parentNode) ||
+        isScriptTagNode(parentNode)
+      ) {
         return concat(
           n.data.split(/(\n)/g).map((x, i) => (i % 2 === 1 ? hardline : x))
         );
