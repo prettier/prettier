@@ -231,10 +231,12 @@ let g:ale_javascript_prettier_use_local_config = 1
 
 ## Running manually
 
-### Running Prettier manually in Vim
-
-If you need a little more control over when prettier is run, you can create a custom key binding. In this example, `gp` (mnemonic: "get pretty") is used to run prettier (with options) in the currently active buffer:
+If you want something really bare-bones, you can create a custom key binding. In this example, `gp` (mnemonic: "get pretty") is used to run prettier (with options) in the currently active buffer:
 
 ```
-nnoremap gp :silent %!prettier --stdin --trailing-comma all --single-quote<CR>
+nnoremap gp :silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>
 ```
+
+Note that if there's a syntax error in your code, the whole buffer will be replaced with an error message. You'll need to press `u` to get your code back.
+
+Another disadvantage of this approach is that the cursor position won't be preserved.
