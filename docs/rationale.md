@@ -166,7 +166,7 @@ Then there’s the question of _where_ to put the comments. Turns out this is a 
 
 Generally, you get the best results when placing comments **on their own lines,** instead of at the end of lines. Prefer `// eslint-disable-next-line` over `// eslint-disable-line`.
 
-Note that “magic comments” such as `eslint-disable-next-line`, `istanbul ignore next` and `$FlowFixMe` might sometimes need to be manually moved due to Prettier breaking an expression into multiple lines.
+Note that “magic comments” such as `eslint-disable-next-line` and `$FlowFixMe` might sometimes need to be manually moved due to Prettier breaking an expression into multiple lines.
 
 Imagine this piece of code:
 
