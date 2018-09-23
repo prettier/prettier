@@ -88,9 +88,9 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
 <div attribute="">String</div>
 <div attribute="">String</div>
 <div attribute="attribute = attribute"></div>
-<div attribute>String</div>
-<div attribute="">String</div>
-<div attribute="">String</div>
+<div ATTRIBUTE>String</div>
+<div ATTRIBUTE="">String</div>
+<div ATTRIBUTE="">String</div>
 <article
   id="electriccars"
   data-columns="3"
@@ -197,7 +197,7 @@ exports[`boolean.html - html-verify 1`] = `
 exports[`case-sensitive.html - html-verify 1`] = `
 <div CaseSensitive></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div casesensitive></div>
+<div CaseSensitive></div>
 
 `;
 

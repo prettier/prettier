@@ -1,8 +1,10 @@
 "use strict";
 
 const htmlTagNames = require("html-tag-names");
+const htmlElementAttributes = require("html-element-attributes");
 
 const HTML_TAGS = arrayToMap(htmlTagNames);
+const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
 
 // NOTE: must be same as the one in htmlparser2 so that the parsing won't be inconsistent
 //       https://github.com/fb55/htmlparser2/blob/v3.9.2/lib/Parser.js#L59-L91
@@ -44,6 +46,14 @@ function arrayToMap(array) {
     map[value] = true;
   }
   return map;
+}
+
+function mapObject(object, fn) {
+  const newObject = Object.create(null);
+  for (const key of Object.keys(object)) {
+    newObject[key] = fn(object[key], key);
+  }
+  return newObject;
 }
 
 function hasPrettierIgnore(path) {
@@ -100,6 +110,7 @@ function isScriptTagNode(node) {
 }
 
 module.exports = {
+  HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   VOID_TAGS,
   hasPrettierIgnore,
