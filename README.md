@@ -18,6 +18,9 @@
   · YAML
   · <a href="https://prettier.io/docs/en/plugins.html">
       Your favorite language?
+      javascript
+      python
+      css
     </a>
   </em>
 </p>
