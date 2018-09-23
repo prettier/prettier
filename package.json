@@ -100,8 +100,12 @@
     "typescript-eslint-parser": "eslint/typescript-eslint-parser#6eec85b1466fbef087838203b246f70fa71ac0ac",
     "unicode-regex": "2.0.0",
     "unified": "7.0.0",
+<<<<<<< HEAD
 >>>>>>> 10
     "yaml": "1.0.0-rc.8",
+=======
+    "yaml": "1.0.0",
+>>>>>>> commit
     "yaml-unist-parser": "1.0.0-rc.4"
   },
   "devDependencies": {
@@ -150,7 +154,7 @@
     "prettier": "1.14.3",
     "prettylint": "1.0.0",
     "rimraf": "2.6.2",
-    "rollup": "0.66.0",
+    "rollup": "0.66.1",
     "rollup-plugin-alias": "1.4.0",
     "rollup-plugin-babel": "4.0.3",
     "rollup-plugin-commonjs": "9.1.8",
