@@ -57,7 +57,7 @@ if (shouldAddLines) {
 }
 ```
 
-This is to help you avoid mistakes. Imagine adding this line:
+This is to help you avoid mistakes. Imagine Prettier _not_ inserting that semicolon and adding this line:
 
 ```diff
  if (shouldAddLines) {
