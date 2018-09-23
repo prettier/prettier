@@ -81,7 +81,15 @@ This practice is also common in [standard] which uses a semicolon-free style.
 
 [standard]: https://standardjs.com/rules.html#semicolons
 
-### Imports
+### Print width
+
+The [printWidth](options.md#print-width) is more of a guideline to Prettier than a hard rule. It generally means “try to make lines this long, go shorter if needed and longer in special cases.”
+
+There are some edge cases, such as really long string literals, regexps, comments and variable names, which cannot be broken across lines (without using code transforms which [Prettier doesn’t do](#what-prettier-is-not-concerned-about)). Or if you nest your code 50 levels deep your lines are of course going to be mostly indentation :)
+
+Apart from that, there a few cases where Prettier intentionally exceeds the print width.
+
+#### Imports
 
 Prettier can break long `import` statements across several lines:
 
@@ -99,6 +107,20 @@ import { CollectionDashboard } from "../components/collections/collection-dashbo
 ```
 
 This might be unexpected by some, but we do it this way since it was a common request to keep `import`s with single elements in a single line. The same applies for `require` calls.
+
+#### Testing functions
+
+Another common request was to keep lengthy test descriptions in one line, even if it gets too long. In such cases, wrapping the arguments to new lines doesn’t help much.
+
+```js
+describe("NodeRegistry", () => {
+  it("makes no request if there are no nodes to prefetch, even if the cache is stale", async () => {
+    // The above line exceeds the print width but stayed on one line anyway.
+  });
+});
+```
+
+Prettier special cases common test framework functions such as `describe`, `it` and `test`.
 
 ### JSX
 
@@ -143,6 +165,7 @@ Prettier only _prints_ code. It does not transform it. This is to limit the scop
 Here are a few examples of things that are out of scope for Prettier:
 
 - Turning single- or double-quoted strings into template literals or vice versa.
+- Using `+` to break long string literals into parts that fit the print width.
 - Adding/removing `{}` and `return` where they are optional.
 - Turning `?:` into `if`-`else` statements.
 - Sorting and hoisting `import`s. (Sorting is unsafe because of side effects, which would violate the [correctness](#correctness) goal.)
