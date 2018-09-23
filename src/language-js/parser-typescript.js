@@ -69,6 +69,10 @@ const parser = Object.assign({ parse, astFormat: "estree", hasPragma }, locFns);
 module.exports = {
   parsers: {
     typescript: parser,
-    "typescript-estree": parser
+    "typescript-estree": parser,
+    /**
+     * TODO: Remove this old alias in a major version
+     */
+    "typescript-eslint": parser
   }
 };
