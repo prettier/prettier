@@ -20,3 +20,6 @@ non_breaking_spaces = <div>]   [</div>
 em_space = <div>]   [</div>
 hair_space = <div>]  [</div>
 zero_width_space = <div>]​​​[</div>
+real_world_non_breaking_spaces = <p>
+  Supprimer l’objectif « {goal.name} » ?
+</p>
