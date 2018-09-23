@@ -22,7 +22,7 @@ const {
   isWhitespaceOnlyText,
   isWhitespaceSensitiveTagNode
 } = require("./utils");
-const LineAndColumn = require("lines-and-columns").default;
+const LineAndColumn = (m => m.default || m)(require("lines-and-columns"));
 
 /**
  * modifications:
