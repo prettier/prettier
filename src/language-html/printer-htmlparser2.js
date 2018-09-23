@@ -158,7 +158,13 @@ function genericPrint(path, options, print) {
     case "attribute":
       return node.value === null
         ? node.key
-        : concat([node.key, '="', node.value.replace(/"/g, "&quot;"), '"']);
+        : concat([
+            node.key,
+            '="',
+            node.value.replace(/"/g, "&quot;"),
+            '"',
+            node.value.includes("\n") ? breakParent : ""
+          ]);
     // front matter
     case "yaml":
     case "toml":
