@@ -99,12 +99,15 @@ function isScriptTagNode(node) {
   return node.type === "script" || node.type === "style";
 }
 
+function isWhitespaceSensitiveTagNode(node) {
+  return isPreTagNode(node) || isTextAreaTagNode(node) || isScriptTagNode(node);
+}
+
 module.exports = {
   HTML_TAGS,
   VOID_TAGS,
   hasPrettierIgnore,
-  isPreTagNode,
   isScriptTagNode,
-  isTextAreaTagNode,
-  isWhitespaceOnlyText
+  isWhitespaceOnlyText,
+  isWhitespaceSensitiveTagNode
 };

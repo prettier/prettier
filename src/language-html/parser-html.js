@@ -66,7 +66,15 @@ function parse(text /*, parsers, opts*/) {
     recognizeSelfClosing: true
   }).end(content);
 
-  const ast = normalize({ type: "root", children: handler.dom }, text);
+  const ast = normalize(
+    {
+      type: "root",
+      children: handler.dom,
+      startIndex: 0,
+      endIndex: text.length
+    },
+    text
+  );
 
   if (frontMatter) {
     ast.children.unshift(frontMatter);

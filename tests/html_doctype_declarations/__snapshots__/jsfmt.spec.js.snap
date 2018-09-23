@@ -147,9 +147,12 @@ exports[`xhtml1.1.html - html-verify 1`] = `
       />
     </div>
     <p align="center" style="font-size:17px">
-      Bar Foo,<br />
-      Foo,<br />
-      Bar<br />
+      Bar Foo,
+      <br />
+      Foo,
+      <br />
+      Bar
+      <br />
       Foo
     </p>
     <p align="center">

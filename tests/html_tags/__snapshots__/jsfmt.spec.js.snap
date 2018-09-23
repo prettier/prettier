@@ -244,9 +244,7 @@ exports[`tags.html - html-verify 1`] = `
 <br />
 <br />
 <br attribute-a />
-<br
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
-/>
+<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute />
 <br attribute-a="value" />
 <br attribute-a="value" />
 <br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value" />
@@ -263,9 +261,7 @@ exports[`tags.html - html-verify 1`] = `
 <div>
   very very very very very very very very very very very very very very very very long string
 </div>
-<div
-  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
->
+<div very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute>
   string
 </div>
 <div very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value">
