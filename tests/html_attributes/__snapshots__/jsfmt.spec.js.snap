@@ -194,6 +194,13 @@ exports[`boolean.html - html-verify 1`] = `
 
 `;
 
+exports[`case-sensitive.html - html-verify 1`] = `
+<div CaseSensitive></div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div casesensitive></div>
+
+`;
+
 exports[`dobule-quotes.html - html-verify 1`] = `
 <img src="test.png" alt="John 'ShotGun' Nelson">
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
