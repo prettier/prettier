@@ -91,11 +91,19 @@ function normalize(node, text) {
   }
 
   if (node.attribs) {
-    node.attributes = Object.keys(node.attribs).map(attributeKey => ({
+    const attributes = Object.keys(node.attribs).map(attributeKey => ({
       type: "attribute",
       key: isCaseSensitiveTag ? attributeKey : attributeKey.toLowerCase(),
       value: node.attribs[attributeKey]
     }));
+
+    const attribs = Object.create(null);
+    for (const attribute of attributes) {
+      attribs[attribute.key] = attribute.value;
+    }
+
+    node.attribs = attribs;
+    node.attributes = attributes;
   }
 
   if (node.children) {
