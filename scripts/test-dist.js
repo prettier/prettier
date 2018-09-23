@@ -20,9 +20,9 @@ shell.exec("npm init -y", { cwd: tmpDir });
 shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
 shell.config.silent = false;
 
-const cmd = `yarn test --color --runInBand ${
-  process.env.TEST_STANDALONE ? "tests/" : ""
-}`;
+const runInBand = process.env.CI ? "--runInBand" : "";
+const testPath = process.env.TEST_STANDALONE ? "tests/" : "";
+const cmd = `yarn test --color ${runInBand} ${testPath}`;
 
 const code = shell.exec(cmd, {
   cwd: rootDir,

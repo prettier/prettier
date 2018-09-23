@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cjk.md - markdown-verify 1`] = `
+exports[`chinese-japanese.md - markdown-verify 1`] = `
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
 
 全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白全　　形　空白
@@ -15,6 +15,13 @@ exports[`cjk.md - markdown-verify 1`] = `
 
 空白全形空白全形空白全形空白　空白全形空白全形空白全形空白　空白全形空白全形空白
 全形空白　空白全形空白全形空白全形空白
+
+`;
+
+exports[`korean.md - markdown-verify 1`] = `
+예문Latin예문Latin 예문Latin예문 Latin예문Latin 예문 Latin 예문
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+예문Latin예문Latin 예문Latin예문 Latin예문Latin 예문 Latin 예문
 
 `;
 

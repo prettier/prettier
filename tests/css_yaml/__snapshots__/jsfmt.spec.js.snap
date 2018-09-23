@@ -85,6 +85,23 @@ a {
 
 `;
 
+exports[`ignore.css - css-verify 1`] = `
+---
+hello: world
+---
+
+/* prettier-ignore */
+.foo {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+hello: world
+---
+
+/* prettier-ignore */
+.foo {}
+
+`;
+
 exports[`malformed.css - css-verify 1`] = `
 ---
 aaa
@@ -120,6 +137,7 @@ foo: bar
 a {
   color: blue;
 }
+
 --- .b {
   color: red;
 }

@@ -43,7 +43,7 @@ function printDoc(doc) {
   }
 
   if (doc.type === "line") {
-    if (doc.literalline) {
+    if (doc.literal) {
       return "literalline";
     }
     if (doc.hard) {

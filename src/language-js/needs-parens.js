@@ -140,6 +140,10 @@ function needsParens(path, options) {
       ) {
         return true;
       }
+
+      if (parent.type === "BindExpression" && parent.callee === node) {
+        return true;
+      }
       return false;
     }
 
@@ -167,6 +171,9 @@ function needsParens(path, options) {
             node.operator === parent.operator &&
             (node.operator === "+" || node.operator === "-")
           );
+
+        case "BindExpression":
+          return true;
 
         case "MemberExpression":
           return name === "object" && parent.object === node;
@@ -223,6 +230,7 @@ function needsParens(path, options) {
         case "NewExpression":
           return name === "callee" && parent.callee === node;
 
+        case "ClassExpression":
         case "ClassDeclaration":
         case "TSAbstractClassDeclaration":
           return name === "superClass" && parent.superClass === node;
@@ -310,7 +318,8 @@ function needsParens(path, options) {
           parent.type === "TSTypeReference") &&
         (node.typeAnnotation.type === "TSTypeAnnotation" &&
           node.typeAnnotation.typeAnnotation.type !== "TSFunctionType" &&
-          grandParent.type !== "TSTypeOperator")
+          grandParent.type !== "TSTypeOperator" &&
+          grandParent.type !== "TSOptionalType")
       ) {
         return false;
       }
@@ -478,6 +487,8 @@ function needsParens(path, options) {
         (grandParent.init === parent || grandParent.update === parent)
       ) {
         return false;
+      } else if (parent.type === "Property" && parent.value === node) {
+        return false;
       }
       return true;
     }
@@ -557,6 +568,39 @@ function needsParens(path, options) {
 
     case "OptionalMemberExpression":
       return parent.type === "MemberExpression";
+
+    case "MemberExpression":
+      if (
+        parent.type === "BindExpression" &&
+        name === "callee" &&
+        parent.callee === node
+      ) {
+        let object = node.object;
+        while (object) {
+          if (object.type === "CallExpression") {
+            return true;
+          }
+          if (
+            object.type !== "MemberExpression" &&
+            object.type !== "BindExpression"
+          ) {
+            break;
+          }
+          object = object.object;
+        }
+      }
+      return false;
+
+    case "BindExpression":
+      if (
+        (parent.type === "BindExpression" &&
+          name === "callee" &&
+          parent.callee === node) ||
+        parent.type === "MemberExpression"
+      ) {
+        return true;
+      }
+      return false;
   }
 
   return false;

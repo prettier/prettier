@@ -40,5 +40,6 @@ module.exports = {
   print: genericPrint,
   embed,
   insertPragma,
-  massageAstNode: clean
+  massageAstNode: clean,
+  canAttachComment: node => typeof node.tag === "string"
 };

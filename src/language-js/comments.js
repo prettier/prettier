@@ -479,7 +479,8 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
       enclosingNode.type === "ClassMethod" ||
       enclosingNode.type === "ObjectMethod") &&
       enclosingNode.params.length === 0) ||
-      (enclosingNode.type === "CallExpression" &&
+      ((enclosingNode.type === "CallExpression" ||
+        enclosingNode.type === "NewExpression") &&
         enclosingNode.arguments.length === 0))
   ) {
     addDanglingComment(enclosingNode, comment);
@@ -659,6 +660,7 @@ function handleImportDeclarationComments(
 ) {
   if (
     precedingNode &&
+    precedingNode.type === "ImportSpecifier" &&
     enclosingNode &&
     enclosingNode.type === "ImportDeclaration" &&
     privateUtil.hasNewline(text, options.locEnd(comment))

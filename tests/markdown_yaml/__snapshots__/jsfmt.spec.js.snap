@@ -64,3 +64,22 @@ hello: world
 Content
 
 `;
+
+exports[`trailing-spaces.md - markdown-verify 1`] = `
+---
+           v spaces
+---         
+
+This paragraph should be considered part of the _markdown_ instead of *yaml*.
+
+---
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+v spaces
+---
+
+This paragraph should be considered part of the _markdown_ instead of _yaml_.
+
+---
+
+`;

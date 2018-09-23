@@ -2,15 +2,29 @@
 
 const printer = require("./printer-markdown");
 const options = require("./options");
-const languageExtend = require("../utils/language-extend");
+const createLanguage = require("../utils/create-language");
 
 const languages = [
-  languageExtend({}, require("linguist-languages/data/markdown"), {
-    since: "1.8.0",
-    parsers: ["remark"],
-    filenames: ["README"],
-    vscodeLanguageIds: ["markdown"]
-  })
+  createLanguage(require("linguist-languages/data/markdown"), {
+    override: {
+      since: "1.8.0",
+      parsers: ["remark"],
+      vscodeLanguageIds: ["markdown"]
+    },
+    extend: {
+      filenames: ["README"]
+    }
+  }),
+  createLanguage(
+    { name: "MDX", extensions: [".mdx"] }, // TODO: use linguist data
+    {
+      override: {
+        since: "1.15.0",
+        parsers: ["mdx"],
+        vscodeLanguageIds: ["mdx"]
+      }
+    }
+  )
 ];
 
 const printers = {

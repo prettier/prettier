@@ -29,6 +29,7 @@
   variants:
   - "[`CommonMark`](http://commonmark.org/)"
   - "[`GitHub Flavored Markdown`](https://github.github.com/gfm/)"
+  - "[`MDX`](https://mdxjs.com/)"
 - name: YAML
   showName: false
   image: /images/languages/tools_yaml.svg

@@ -28,6 +28,10 @@ declare class X {
   static deserialize(): mixed,
   static deserialize: () => mixed,
 }
+
+interface I {
+  static(): number;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 type T = { method: () => void };
 type T = { method(): void };
@@ -38,6 +42,10 @@ var f: () => void;
 declare class X {
   static deserialize(): mixed;
   static deserialize: () => mixed;
+}
+
+interface I {
+  static(): number;
 }
 
 `;

@@ -136,6 +136,20 @@ function foo(): Promise<?boolean> {}
 
 `;
 
+exports[`single-identifier.js - flow-verify 1`] = `
+const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
+
+`;
+
+exports[`single-identifier.js - flow-verify 2`] = `
+const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
+
+`;
+
 exports[`trailing.js - flow-verify 1`] = `
 type State = {
   errors: Immutable.Map<

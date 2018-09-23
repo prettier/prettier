@@ -2,11 +2,42 @@
 
 exports[`long.md - markdown-verify 1`] = `
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
+[^world]: this is a long long long long long long long long long long long long long paragraph.
+          this is a long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [^hello]:
 
   this is a long long long long long long long long long long long long long
   paragraph.
+
+[^world]:
+
+  this is a long long long long long long long long long long long long long
+  paragraph. this is a long long long long long long long long long long long
+  long long paragraph.
+
+`;
+
+exports[`long.md - markdown-verify 2`] = `
+[^hello]: this is a long long long long long long long long long long long long long paragraph.
+[^world]: this is a long long long long long long long long long long long long long paragraph.
+          this is a long long long long long long long long long long long long long paragraph.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[^hello]: this is a long long long long long long long long long long long long long paragraph.
+[^world]: this is a long long long long long long long long long long long long long paragraph. this is a long long long long long long long long long long long long long paragraph.
+
+`;
+
+exports[`long.md - markdown-verify 3`] = `
+[^hello]: this is a long long long long long long long long long long long long long paragraph.
+[^world]: this is a long long long long long long long long long long long long long paragraph.
+          this is a long long long long long long long long long long long long long paragraph.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[^hello]: this is a long long long long long long long long long long long long long paragraph.
+[^world]:
+
+  this is a long long long long long long long long long long long long long paragraph.
+  this is a long long long long long long long long long long long long long paragraph.
 
 `;
 
@@ -55,6 +86,112 @@ exports[`multiline.md - markdown-verify 1`] = `
 
   Here is a footnote which includes code. Here is a footnote which includes
   code. Here is a footnote which includes code.
+
+  \`\`\`rs
+  fn main() {
+      println!("this is some Rust!");
+  }
+  \`\`\`
+
+`;
+
+exports[`multiline.md - markdown-verify 2`] = `
+[^fn1]:
+
+    > \`\`\`rs
+    > fn main() {
+    >     println!("this is some Rust!");
+    > }
+    > \`\`\`
+
+[^fn2]: Here is a footnote which includes code.
+
+    \`\`\`rs
+    fn main() {
+        println!("this is some Rust!");
+    }
+    \`\`\`
+
+[^fn2]: Here is a footnote which includes code. Here is a footnote which includes code. Here is a footnote which includes code.
+
+    \`\`\`rs
+    fn main() {
+        println!("this is some Rust!");
+    }
+    \`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[^fn1]:
+
+  > \`\`\`rs
+  > fn main() {
+  >     println!("this is some Rust!");
+  > }
+  > \`\`\`
+
+[^fn2]: Here is a footnote which includes code.
+
+  \`\`\`rs
+  fn main() {
+      println!("this is some Rust!");
+  }
+  \`\`\`
+
+[^fn2]:
+
+  Here is a footnote which includes code. Here is a footnote which includes code. Here is a footnote which includes code.
+
+  \`\`\`rs
+  fn main() {
+      println!("this is some Rust!");
+  }
+  \`\`\`
+
+`;
+
+exports[`multiline.md - markdown-verify 3`] = `
+[^fn1]:
+
+    > \`\`\`rs
+    > fn main() {
+    >     println!("this is some Rust!");
+    > }
+    > \`\`\`
+
+[^fn2]: Here is a footnote which includes code.
+
+    \`\`\`rs
+    fn main() {
+        println!("this is some Rust!");
+    }
+    \`\`\`
+
+[^fn2]: Here is a footnote which includes code. Here is a footnote which includes code. Here is a footnote which includes code.
+
+    \`\`\`rs
+    fn main() {
+        println!("this is some Rust!");
+    }
+    \`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[^fn1]:
+
+  > \`\`\`rs
+  > fn main() {
+  >     println!("this is some Rust!");
+  > }
+  > \`\`\`
+
+[^fn2]: Here is a footnote which includes code.
+
+  \`\`\`rs
+  fn main() {
+      println!("this is some Rust!");
+  }
+  \`\`\`
+
+[^fn2]:
+
+  Here is a footnote which includes code. Here is a footnote which includes code. Here is a footnote which includes code.
 
   \`\`\`rs
   fn main() {
@@ -121,7 +258,135 @@ exports[`sibling.md - markdown-verify 1`] = `
 
 `;
 
+exports[`sibling.md - markdown-verify 2`] = `
+[^a]: a
+[^a]: a
+[^a]: a
+[^a]: > 123
+[^a]: a
+[^a]: > 123
+[^a]: a
+[^a]: a
+[^a]: a
+
+---
+
+[^a]: a
+[^a]: a
+[^a]: a
+[^a]: > 123\\
+      > 456
+[^a]: a
+[^a]: > 123\\
+      > 456
+[^a]: a
+[^a]: a
+[^a]: a
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[^a]: a
+[^a]: a
+[^a]: a
+[^a]: > 123
+[^a]: a
+[^a]: > 123
+[^a]: a
+[^a]: a
+[^a]: a
+
+---
+
+[^a]: a
+[^a]: a
+[^a]: a
+[^a]:
+
+  > 123\\
+  > 456
+
+[^a]: a
+[^a]:
+
+  > 123\\
+  > 456
+
+[^a]: a
+[^a]: a
+[^a]: a
+
+`;
+
+exports[`sibling.md - markdown-verify 3`] = `
+[^a]: a
+[^a]: a
+[^a]: a
+[^a]: > 123
+[^a]: a
+[^a]: > 123
+[^a]: a
+[^a]: a
+[^a]: a
+
+---
+
+[^a]: a
+[^a]: a
+[^a]: a
+[^a]: > 123\\
+      > 456
+[^a]: a
+[^a]: > 123\\
+      > 456
+[^a]: a
+[^a]: a
+[^a]: a
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[^a]: a
+[^a]: a
+[^a]: a
+[^a]: > 123
+[^a]: a
+[^a]: > 123
+[^a]: a
+[^a]: a
+[^a]: a
+
+---
+
+[^a]: a
+[^a]: a
+[^a]: a
+[^a]:
+
+  > 123\\
+  > 456
+
+[^a]: a
+[^a]:
+
+  > 123\\
+  > 456
+
+[^a]: a
+[^a]: a
+[^a]: a
+
+`;
+
 exports[`simple.md - markdown-verify 1`] = `
+[^hello]: world
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[^hello]: world
+
+`;
+
+exports[`simple.md - markdown-verify 2`] = `
+[^hello]: world
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[^hello]: world
+
+`;
+
+exports[`simple.md - markdown-verify 3`] = `
 [^hello]: world
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [^hello]: world

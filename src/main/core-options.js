@@ -66,7 +66,6 @@ const options = {
     since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "path",
-    default: undefined,
     description:
       "Specify the input filepath. This will be used to do parser inference.",
     cliName: "stdin-filepath",
@@ -115,8 +114,15 @@ const options = {
       },
       { value: "graphql", since: "1.5.0", description: "GraphQL" },
       { value: "markdown", since: "1.8.0", description: "Markdown" },
+      { value: "mdx", since: "1.15.0", description: "MDX" },
       { value: "vue", since: "1.10.0", description: "Vue" },
-      { value: "yaml", since: "1.14.0", description: "YAML" }
+      { value: "yaml", since: "1.14.0", description: "YAML" },
+      {
+        value: "glimmer",
+        since: null,
+        description: "Handlebars"
+      },
+      { value: "html", since: "1.15.0", description: "HTML" }
     ]
   },
   plugins: {
@@ -202,7 +208,10 @@ const options = {
     since: "0.0.0",
     category: CATEGORY_GLOBAL,
     type: "boolean",
-    default: false,
+    default: [
+      { since: "0.0.0", value: false },
+      { since: "1.15.0", value: undefined }
+    ],
     deprecated: "0.0.10",
     description: "Use flow parser.",
     redirect: { option: "parser", value: "flow" },
