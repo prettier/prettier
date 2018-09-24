@@ -44,10 +44,6 @@ module.exports = [
       get "typescript-eslint"() {
         return eval("require")("../language-js/parser-typescript").parsers
           .typescript;
-      },
-      get "typescript-estree"() {
-        return eval("require")("../language-js/parser-typescript").parsers
-          .typescript;
       }
     }
   },
