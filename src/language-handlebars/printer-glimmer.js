@@ -249,7 +249,8 @@ function print(path, options, print) {
       return concat(["<!--", n.value, "-->"]);
     }
     case "StringLiteral": {
-      return `"${n.value}"`;
+      const escapedString = n.value.replace(/"/g, '\\"');
+      return `"${escapedString}"`;
     }
     case "NumberLiteral": {
       return String(n.value);
