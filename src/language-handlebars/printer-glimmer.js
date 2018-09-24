@@ -249,7 +249,7 @@ function print(path, options, print) {
       return concat(["<!--", n.value, "-->"]);
     }
     case "StringLiteral": {
-      return `"${n.value}"`;
+      return JSON.stringify(n.value);
     }
     case "NumberLiteral": {
       return String(n.value);

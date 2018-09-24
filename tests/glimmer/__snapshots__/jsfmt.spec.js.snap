@@ -496,6 +496,12 @@ exports[`else-if.hbs - glimmer-verify 1`] = `
 {{/if}}
 `;
 
+exports[`escaped-quote.hbs - glimmer-verify 1`] = `
+{{"<span class=\\"foo\\">bar</span>"}}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{{"<span class=\\"foo\\">bar</span>"}}
+`;
+
 exports[`literals.hbs - glimmer-verify 1`] = `
 {{mustache true}}
 {{mustache 5}}
