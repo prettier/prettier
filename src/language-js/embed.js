@@ -107,7 +107,7 @@ function embed(path, print, textToDoc /*, options */) {
           }
 
           if (doc) {
-            doc = escapeBackticksAndInterpolations(doc);
+            doc = escapeTemplateCharacters(doc, false);
             if (!isFirst && startsWithBlankLine) {
               parts.push("");
             }
@@ -175,7 +175,7 @@ function embed(path, print, textToDoc /*, options */) {
 
   function printMarkdown(text) {
     const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
-    return stripTrailingHardline(escapeBackticksAndInterpolations(doc));
+    return stripTrailingHardline(escapeTemplateCharacters(doc, true));
   }
 }
 
@@ -196,7 +196,7 @@ function getIndentation(str) {
   return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 
-function escapeBackticksAndInterpolations(doc) {
+function escapeTemplateCharacters(doc, raw) {
   return mapDoc(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
@@ -206,7 +206,11 @@ function escapeBackticksAndInterpolations(doc) {
 
     currentDoc.parts.forEach(part => {
       if (typeof part === "string") {
-        parts.push(part.replace(/(\\*)(`|\$\{)/g, "$1$1\\$2"));
+        parts.push(
+          raw
+            ? part.replace(/(\\*)`/g, "$1$1\\`")
+            : part.replace(/([\\`]|\$\{)/g, "\\$1")
+        );
       } else {
         parts.push(part);
       }
