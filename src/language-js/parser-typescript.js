@@ -35,7 +35,7 @@ function parse(text /*, parsers, opts*/) {
 }
 
 function tryParseTypeScript(text, jsx) {
-  const parser = require("typescript-eslint-parser");
+  const parser = require("typescript-estree");
   return parser.parse(text, {
     loc: true,
     range: true,
@@ -68,7 +68,6 @@ const parser = Object.assign({ parse, astFormat: "estree", hasPragma }, locFns);
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
-    typescript: parser,
-    "typescript-eslint": parser
+    typescript: parser
   }
 };
