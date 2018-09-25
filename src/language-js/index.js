@@ -35,7 +35,7 @@ const languages = [
   createLanguage(require("linguist-languages/data/typescript"), {
     override: {
       since: "1.4.0",
-      parsers: ["typescript-estree"],
+      parsers: ["typescript"],
       vscodeLanguageIds: ["typescript", "typescriptreact"]
     }
   }),
