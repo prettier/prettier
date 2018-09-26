@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`html4.01_frameset.html - parse5-verify 1`] = `
+exports[`html4.01_frameset.html - html-verify 1`] = `
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
   "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
@@ -17,7 +17,7 @@ exports[`html4.01_frameset.html - parse5-verify 1`] = `
 <html>
   <head>
     <title>An HTML standard template</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
   </head>
   <body>
     <p>… Your HTML content here …</p>
@@ -26,7 +26,7 @@ exports[`html4.01_frameset.html - parse5-verify 1`] = `
 
 `;
 
-exports[`html4.01_strict.html - parse5-verify 1`] = `
+exports[`html4.01_strict.html - html-verify 1`] = `
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
   "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -43,7 +43,7 @@ exports[`html4.01_strict.html - parse5-verify 1`] = `
 <html>
   <head>
     <title>An HTML standard template</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
   </head>
   <body>
     <p>… Your HTML content here …</p>
@@ -52,7 +52,7 @@ exports[`html4.01_strict.html - parse5-verify 1`] = `
 
 `;
 
-exports[`html4.01_transitional.html - parse5-verify 1`] = `
+exports[`html4.01_transitional.html - html-verify 1`] = `
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
   "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -69,7 +69,7 @@ exports[`html4.01_transitional.html - parse5-verify 1`] = `
 <html>
   <head>
     <title>An HTML standard template</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
   </head>
   <body>
     <p>… Your HTML content here …</p>
@@ -78,7 +78,7 @@ exports[`html4.01_transitional.html - parse5-verify 1`] = `
 
 `;
 
-exports[`html5.html - parse5-verify 1`] = `
+exports[`html5.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html>
   <head>
@@ -94,7 +94,7 @@ exports[`html5.html - parse5-verify 1`] = `
 <html>
   <head>
     <title>An HTML standard template</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
   </head>
   <body>
     <p>… Your HTML content here …</p>
@@ -103,7 +103,7 @@ exports[`html5.html - parse5-verify 1`] = `
 
 `;
 
-exports[`xhtml1.1.html - parse5-verify 1`] = `
+exports[`xhtml1.1.html - html-verify 1`] = `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>

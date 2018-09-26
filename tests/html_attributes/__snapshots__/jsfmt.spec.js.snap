@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attributes.html - parse5-verify 1`] = `
+exports[`attributes.html - html-verify 1`] = `
 <input name=address maxlength=200>
 <input name='address' maxlength='200'>
 <input name="address" maxlength="200">
@@ -131,7 +131,7 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
 
 `;
 
-exports[`boolean.html - parse5-verify 1`] = `
+exports[`boolean.html - html-verify 1`] = `
 <button type="submit">This is valid.</button>
 <button type="submit" disabled>This is valid.</button>
 <button type="submit" disabled="">This is valid.</button>
@@ -154,7 +154,7 @@ exports[`boolean.html - parse5-verify 1`] = `
 <button type="submit" disabled>
   This is valid.
 </button>
-<button type="submit" disabled>
+<button type="submit" disabled="">
   This is valid.
 </button>
 <button type="submit" disabled="disabled">
@@ -189,26 +189,26 @@ exports[`boolean.html - parse5-verify 1`] = `
 </button>
 <input type="checkbox" checked disabled name="cheese" />
 <input type="checkbox" checked="checked" disabled="disabled" name="cheese" />
-<input type="checkbox" checked disabled name="cheese" />
+<input type="checkbox" checked="" disabled="" name="cheese" />
 <div lang=""></div>
 
 `;
 
-exports[`dobule-quotes.html - parse5-verify 1`] = `
+exports[`dobule-quotes.html - html-verify 1`] = `
 <img src="test.png" alt="John 'ShotGun' Nelson">
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <img src="test.png" alt="John 'ShotGun' Nelson" />
 
 `;
 
-exports[`single-quotes.html - parse5-verify 1`] = `
+exports[`single-quotes.html - html-verify 1`] = `
 <img src="test.png" alt='John "ShotGun" Nelson'>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <img src="test.png" alt="John &quot;ShotGun&quot; Nelson" />
 
 `;
 
-exports[`without-quotes.html - parse5-verify 1`] = `
+exports[`without-quotes.html - html-verify 1`] = `
 <p title=Title>String</p>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <p title="Title">String</p>

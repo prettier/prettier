@@ -15,12 +15,12 @@ function embed(path, print, textToDoc, options) {
       // Inline JavaScript
       if (
         parent.type === "script" &&
-        (!parent.attribs.lang ||
+        ((!parent.attribs.lang && !parent.attribs.type) ||
           parent.attribs.type === "text/javascript" ||
           parent.attribs.type === "application/javascript")
       ) {
         const parser = options.parser === "flow" ? "flow" : "babylon";
-        const doc = textToDoc(getText(options, node), { parser });
+        const doc = textToDoc(node.data, { parser });
         return concat([hardline, doc]);
       }
 
@@ -30,17 +30,13 @@ function embed(path, print, textToDoc, options) {
         (parent.attribs.type === "application/x-typescript" ||
           parent.attribs.lang === "ts")
       ) {
-        const doc = textToDoc(
-          getText(options, node),
-          { parser: "typescript" },
-          options
-        );
+        const doc = textToDoc(node.data, { parser: "typescript" }, options);
         return concat([hardline, doc]);
       }
 
       // Inline Styles
       if (parent.type === "style") {
-        const doc = textToDoc(getText(options, node), { parser: "css" });
+        const doc = textToDoc(node.data, { parser: "css" });
         return concat([hardline, doc]);
       }
 
@@ -103,13 +99,6 @@ function replaceNewlinesWithLiterallines(doc) {
               .map((v, i) => (i % 2 === 0 ? v : literalline))
           )
         : currentDoc
-  );
-}
-
-function getText(options, node) {
-  return options.originalText.slice(
-    options.locStart(node),
-    options.locEnd(node)
   );
 }
 
