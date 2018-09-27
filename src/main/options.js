@@ -122,6 +122,11 @@ function inferParser(filepath, plugins) {
   let shebang = null;
   const getShebang = () => {
     if (shebang === null) {
+    	if (!filepath || filename.indexOf('.') !== -1) {
+    		shebang = '';
+    		return shebang;
+	    }
+
       const liner = new readlines(filepath);
       try {
       	const firstLine = liner.next().toString('utf8').trim();
