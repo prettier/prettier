@@ -3423,6 +3423,7 @@ function shouldGroupFirstArg(args) {
         firstArg.body.type === "BlockStatement")) &&
     secondArg.type !== "FunctionExpression" &&
     secondArg.type !== "ArrowFunctionExpression" &&
+    secondArg.type !== "ConditionalExpression" &&
     !couldGroupArg(secondArg)
   );
 }
