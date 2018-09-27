@@ -147,7 +147,7 @@ function inferParser(filepath, plugins) {
         } else if (firstLine.startsWith("#!/usr/bin/env")) {
           shebang = firstLine.replace(/(#!\/usr\/bin\/env\s+(?:\S+)).*/, "$1");
         } else {
-          shebang = firstLine.replace(/^(\S)+.*/, "$1");
+          shebang = firstLine.replace(/^(\S+).*/, "$1");
         }
       } catch (err) {
         // There are some weird cases where paths are missing, causing Jest
