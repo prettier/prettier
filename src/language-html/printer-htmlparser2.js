@@ -101,7 +101,7 @@ function genericPrint(path, options, print) {
       const isVoid = node.name in VOID_TAGS;
       const openingTagDoc = printOpeningTag(path, print, isVoid);
 
-      if (isVoid || node.selfClosing) {
+      if (isVoid || node.isSelfClosing) {
         return group(openingTagDoc);
       }
 
@@ -178,7 +178,7 @@ function genericPrint(path, options, print) {
 function printOpeningTag(path, print, isVoid) {
   const node = path.getValue();
 
-  const selfClosing = isVoid || node.selfClosing;
+  const selfClosing = isVoid || node.isSelfClosing;
 
   const forceSingeLine =
     node.attributes.length === 0 ||

@@ -47,11 +47,11 @@ function parse(text /*, parsers, opts*/) {
 
   /**
    * modifications:
-   * - add `selfClosing` field
+   * - add `isSelfClosing` field
    */
   class CustomDomHandler extends DomHandler {
     onselfclosingtag() {
-      this._tagStack[this._tagStack.length - 1].selfClosing = true;
+      this._tagStack[this._tagStack.length - 1].isSelfClosing = true;
     }
   }
 
