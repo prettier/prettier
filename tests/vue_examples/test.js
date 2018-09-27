@@ -1,0 +1,1 @@
+console.log('expect newline at the end');
