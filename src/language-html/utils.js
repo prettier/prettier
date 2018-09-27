@@ -100,6 +100,23 @@ function isWhitespaceSensitiveTagNode(node) {
   return isPreTagNode(node) || isTextAreaTagNode(node) || isScriptTagNode(node);
 }
 
+/**
+ * @param {unknown} node
+ * @param {(node: unknown, index: number, parent: unknown | null)} fn
+ * @param {unknown=} parent
+ */
+function mapNode(node, fn, parent = null, index = -1) {
+  const newNode = Object.assign({}, node);
+
+  if (newNode.children) {
+    newNode.children = newNode.children.map((child, childIndex) =>
+      mapNode(child, fn, node, childIndex)
+    );
+  }
+
+  return fn(newNode, index, parent);
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -107,5 +124,6 @@ module.exports = {
   hasPrettierIgnore,
   isScriptTagNode,
   isWhitespaceOnlyText,
-  isWhitespaceSensitiveTagNode
+  isWhitespaceSensitiveTagNode,
+  mapNode
 };

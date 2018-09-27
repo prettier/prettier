@@ -16,49 +16,8 @@ const {
     softline
   }
 } = require("../doc");
-const {
-  VOID_TAGS,
-  hasPrettierIgnore,
-  isWhitespaceOnlyText,
-  isWhitespaceSensitiveTagNode
-} = require("./utils");
-const LineAndColumn = (m => m.default || m)(require("lines-and-columns"));
-
-/**
- * modifications:
- * - remove whitespaceOnly `text` node
- * - add `startLocation` and `endLocation` field
- */
-function preprocess(
-  ast,
-  options,
-  locator = new LineAndColumn(options.originalText)
-) {
-  const startLocation = locator.locationForIndex(options.locStart(ast));
-  const endLocation = locator.locationForIndex(options.locEnd(ast) - 1);
-
-  if (!ast.children) {
-    return Object.assign({}, ast, { startLocation, endLocation });
-  }
-
-  const children = [];
-
-  for (let i = 0; i < ast.children.length; i++) {
-    const child = ast.children[i];
-
-    if (isWhitespaceOnlyText(child)) {
-      continue;
-    }
-
-    children.push(child);
-  }
-
-  return Object.assign({}, ast, {
-    startLocation,
-    endLocation,
-    children: children.map(child => preprocess(child, options, locator))
-  });
-}
+const { hasPrettierIgnore, isWhitespaceSensitiveTagNode } = require("./utils");
+const preprocess = require("./preprocess");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -98,10 +57,9 @@ function genericPrint(path, options, print) {
     case "script":
     case "style":
     case "tag": {
-      const isVoid = node.name in VOID_TAGS;
-      const openingTagDoc = printOpeningTag(path, print, isVoid);
+      const openingTagDoc = printOpeningTag(path, options, print);
 
-      if (isVoid || node.isSelfClosing) {
+      if (node.isSelfClosing) {
         return group(openingTagDoc);
       }
 
@@ -175,10 +133,8 @@ function genericPrint(path, options, print) {
   }
 }
 
-function printOpeningTag(path, print, isVoid) {
+function printOpeningTag(path, options, print) {
   const node = path.getValue();
-
-  const selfClosing = isVoid || node.isSelfClosing;
 
   const forceSingeLine =
     node.attributes.length === 0 ||
@@ -195,10 +151,13 @@ function printOpeningTag(path, print, isVoid) {
       ])
     ),
     forceSingeLine
-      ? selfClosing
+      ? node.isSelfClosing
         ? " />"
         : ">"
-      : concat([softline, selfClosing ? concat([ifBreak("", " "), "/>"]) : ">"])
+      : concat([
+          softline,
+          node.isSelfClosing ? concat([ifBreak("", " "), "/>"]) : ">"
+        ])
   ]);
 }
 
