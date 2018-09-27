@@ -48,6 +48,7 @@
     "mem": "1.1.0",
     "minimatch": "3.0.4",
     "minimist": "1.2.0",
+    "n-readlines": "^1.0.0",
     "normalize-path": "3.0.0",
     "parse5-htmlparser2-tree-adapter": "5.0.0",
     "postcss-less": "1.1.5",

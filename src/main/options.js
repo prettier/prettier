@@ -1,6 +1,7 @@
 "use strict";
 
 const normalizePath = require("normalize-path");
+const readlines = require("n-readlines");
 const UndefinedParserError = require("../common/errors").UndefinedParserError;
 const getSupportInfo = require("../main/support").getSupportInfo;
 const normalizer = require("./options-normalizer");
@@ -118,6 +119,26 @@ function inferParser(filepath, plugins) {
   const filepathParts = normalizePath(filepath).split("/");
   const filename = filepathParts[filepathParts.length - 1].toLowerCase();
 
+  let shebang = null;
+  const getShebang = () => {
+    if (shebang === null) {
+      const liner = new readlines(filepath);
+      try {
+      	const firstLine = liner.next().toString('utf8').trim();
+      	if (!firstLine.startsWith('#!')) {
+      		shebang = '';
+	      } else if (firstLine.startsWith('#!/usr/bin/env')) {
+      		shebang = firstLine.replace(/(#!\/usr\/bin\/env\s+(?:\S+)).*/, '$1');
+	      } else {
+      		shebang = firstLine.replace(/^(\S)+.*/, '$1');
+	      }
+      } finally {
+        liner.close();
+      }
+    }
+    return shebang;
+  };
+
   const language = getSupportInfo(null, {
     plugins
   }).languages.find(
@@ -126,7 +147,8 @@ function inferParser(filepath, plugins) {
       ((language.extensions &&
         language.extensions.some(extension => filename.endsWith(extension))) ||
         (language.filenames &&
-          language.filenames.find(name => name.toLowerCase() === filename)))
+          language.filenames.find(name => name.toLowerCase() === filename)) ||
+        (language.shebangs && language.shebangs.indexOf(getShebang()) !== -1))
   );
 
   return language && language.parsers[0];
