@@ -123,41 +123,44 @@ function inferParser(filepath, plugins) {
   let shebang = null;
   const getShebang = () => {
     if (shebang === null) {
-    	if (typeof (filepath) !== 'string' || filename.indexOf('.') !== -1) {
-    		shebang = '';
-    		return shebang;
-	    }
+      if (typeof filepath !== "string" || filename.indexOf(".") !== -1) {
+        shebang = "";
+        return shebang;
+      }
 
-	    let fd;
-    	try {
-    		fd  = fs.openSync(filepath, 'r');
-	    } catch (err) {
-		    shebang = '';
-		    return shebang;
-	    }
+      let fd;
+      try {
+        fd = fs.openSync(filepath, "r");
+      } catch (err) {
+        shebang = "";
+        return shebang;
+      }
 
       try {
-	      const liner = new readlines(fd);
-	      const firstLine = liner.next().toString('utf8').trim();
-	      if (!firstLine.startsWith('#!')) {
-		      shebang = '';
-	      } else if (firstLine.startsWith('#!/usr/bin/env')) {
-		      shebang = firstLine.replace(/(#!\/usr\/bin\/env\s+(?:\S+)).*/, '$1');
-	      } else {
-		      shebang = firstLine.replace(/^(\S)+.*/, '$1');
-	      }
+        const liner = new readlines(fd);
+        const firstLine = liner
+          .next()
+          .toString("utf8")
+          .trim();
+        if (!firstLine.startsWith("#!")) {
+          shebang = "";
+        } else if (firstLine.startsWith("#!/usr/bin/env")) {
+          shebang = firstLine.replace(/(#!\/usr\/bin\/env\s+(?:\S+)).*/, "$1");
+        } else {
+          shebang = firstLine.replace(/^(\S)+.*/, "$1");
+        }
       } catch (err) {
-    		// There are some weird cases where paths are missing, causing Jest
-	      // failures. It's unclear what these correspond to in the real world.
-      	shebang = '';
+        // There are some weird cases where paths are missing, causing Jest
+        // failures. It's unclear what these correspond to in the real world.
+        shebang = "";
       } finally {
-	      try {
-		      // There are some weird cases where paths are missing, causing Jest
-		      // failures. It's unclear what these correspond to in the real world.
-		      fs.closeSync(fd);
-		    } catch (err) {
-	      	// nop
-	      }
+        try {
+          // There are some weird cases where paths are missing, causing Jest
+          // failures. It's unclear what these correspond to in the real world.
+          fs.closeSync(fd);
+        } catch (err) {
+          // nop
+        }
       }
     }
 
