@@ -388,6 +388,16 @@ exports[`self_closing_style.vue - vue-verify 2`] = `
 
 `;
 
+exports[`test.js - vue-verify 1`] = `
+console.log('expect newline at the end');~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+console.log('expect newline at the end');
+`;
+
+exports[`test.js - vue-verify 2`] = `
+console.log('expect newline at the end');~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+console.log('expect newline at the end');
+`;
+
 exports[`test.vue - vue-verify 1`] = `
 <script>
 </script>
@@ -398,8 +408,7 @@ exports[`test.vue - vue-verify 1`] = `
     foo
     <br/>
   </footer>
-</template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</template>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script>
 </script>
 
@@ -423,8 +432,7 @@ exports[`test.vue - vue-verify 2`] = `
     foo
     <br/>
   </footer>
-</template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</template>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script>
 </script>
 
