@@ -10,6 +10,9 @@ const {
   indent,
   ifBreak
 } = require("../doc").builders;
+const {
+  printString,
+} = require("../common/util");
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [
@@ -249,7 +252,10 @@ function print(path, options, print) {
       return concat(["<!--", n.value, "-->"]);
     }
     case "StringLiteral": {
-      return JSON.stringify(n.value);
+      // printString expects the `rawString` to be passed to it--including
+      // the surrounding quotes. So we wrap the literal value in
+      // quotes to simulate the `rawString` value.
+      return printString(`"${n.value}"`, options, false);
     }
     case "NumberLiteral": {
       return String(n.value);
