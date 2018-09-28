@@ -120,20 +120,20 @@ function inferParser(filepath, plugins) {
   const filepathParts = normalizePath(filepath).split("/");
   const filename = filepathParts[filepathParts.length - 1].toLowerCase();
 
-  let shebang = null;
-  const getShebang = () => {
-    if (shebang === null) {
-      if (typeof filepath !== "string" || filename.indexOf(".") !== -1) {
-        shebang = "";
-        return shebang;
+  let interpreter = null;
+  const getInterpreter = () => {
+    if (interpreter === null) {
+      if (typeof filepath !== "string") {
+        interpreter = "";
+        return interpreter;
       }
 
       let fd;
       try {
         fd = fs.openSync(filepath, "r");
       } catch (err) {
-        shebang = "";
-        return shebang;
+        interpreter = "";
+        return interpreter;
       }
 
       try {
@@ -142,17 +142,31 @@ function inferParser(filepath, plugins) {
           .next()
           .toString("utf8")
           .trim();
-        if (!firstLine.startsWith("#!")) {
-          shebang = "";
-        } else if (firstLine.startsWith("#!/usr/bin/env")) {
-          shebang = firstLine.replace(/(#!\/usr\/bin\/env\s+(?:\S+)).*/, "$1");
-        } else {
-          shebang = firstLine.replace(/^(\S+).*/, "$1");
+
+        // #!/bin/env node
+        // #!/usr/bin/env node
+        const m1 = /^#!\/usr(?:\/bin)?\/env\s+(\S+).*/.exec(firstLine);
+        if (m1) {
+          interpreter = m1[1];
+          return interpreter;
         }
+
+        // #!/bin/node
+        // #!/usr/bin/node
+        // #!/usr/local/bin/node
+        const m2 = /^#!\/usr(?:\/local)?(?:\/bin)?\/(\S+).*/.exec(firstLine);
+        if (m2) {
+          interpreter = m2[1];
+          return interpreter;
+        }
+
+        interpreter = "";
+        return interpreter;
       } catch (err) {
         // There are some weird cases where paths are missing, causing Jest
         // failures. It's unclear what these correspond to in the real world.
-        shebang = "";
+        interpreter = "";
+        return interpreter;
       } finally {
         try {
           // There are some weird cases where paths are missing, causing Jest
@@ -164,9 +178,12 @@ function inferParser(filepath, plugins) {
       }
     }
 
-    return shebang;
+    return interpreter;
   };
 
+  // If the file has no extension, we can try to infer the language from the
+  // interpreter in the shebang line, if any; but since this requires FS access,
+  // do it last.
   const language = getSupportInfo(null, {
     plugins
   }).languages.find(
@@ -176,7 +193,9 @@ function inferParser(filepath, plugins) {
         language.extensions.some(extension => filename.endsWith(extension))) ||
         (language.filenames &&
           language.filenames.find(name => name.toLowerCase() === filename)) ||
-        (language.shebangs && language.shebangs.indexOf(getShebang()) !== -1))
+        (filename.indexOf(".") === -1 &&
+          language.interpreters &&
+          language.interpreters.indexOf(getInterpreter()) !== -1))
   );
 
   return language && language.parsers[0];

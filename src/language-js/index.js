@@ -11,14 +11,10 @@ const languages = [
       since: "0.0.0",
       parsers: ["babylon", "flow"],
       vscodeLanguageIds: ["javascript"],
-      shebangs: [
-        "#!/usr/bin/node",
-        "#!/usr/local/bin/node",
-        "#!/usr/bin/babel-node",
-        "#!/usr/local/bin/babel-node",
-        "#!/usr/bin/env node",
-        "#!/usr/bin/env babel-node"
-      ]
+      interpreters: ["node"]
+    },
+    extend: {
+      interpreters: ["nodejs"]
     }
   }),
   createLanguage(require("linguist-languages/data/javascript"), {
