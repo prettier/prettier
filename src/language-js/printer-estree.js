@@ -28,7 +28,7 @@ const {
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex
 } = require("../common/util-shared");
-const isIdentifierName = require("esutils").keyword.isIdentifierNameES6;
+const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const embed = require("./embed");
 const clean = require("./clean");
 const insertPragma = require("./pragma").insertPragma;
