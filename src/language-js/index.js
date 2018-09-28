@@ -10,10 +10,9 @@ const languages = [
     override: {
       since: "0.0.0",
       parsers: ["babylon", "flow"],
-      vscodeLanguageIds: ["javascript"],
-      interpreters: ["node"]
+      vscodeLanguageIds: ["javascript"]
     },
-    extend: {
+	  extend: {
       interpreters: ["nodejs"]
     }
   }),
