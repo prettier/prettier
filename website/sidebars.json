@@ -17,6 +17,7 @@
       "precommit",
       "watching-files",
       "eslint",
+      "stylelint",
       "ignore"
     ],
     "Configuring Prettier": [

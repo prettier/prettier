@@ -11,7 +11,7 @@ There are two different ways you might want to integrate Prettier into ESLint. Y
 
 If you're already running ESLint in your project and would like to do all of your style checking with a single command execution, you can ask ESLint to run Prettier for you.
 
-Just add Prettier as an ESLint rule using [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier).
+Add Prettier as an ESLint rule using [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier).
 
 ```bash
 yarn add --dev prettier eslint-plugin-prettier
