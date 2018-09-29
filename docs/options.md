@@ -63,7 +63,7 @@ Notes:
 - Quotes in JSX will always be double and ignore this setting.
 - If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
 
-See the [strings rationale](#rationale.md#strings) for more information.
+See the [strings rationale](rationale.md#strings) for more information.
 
 | Default | CLI Override     | API Override          |
 | ------- | ---------------- | --------------------- |
