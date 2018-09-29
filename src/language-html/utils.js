@@ -80,24 +80,9 @@ function isPrettierIgnore(node) {
   return node.type === "comment" && node.data.trim() === "prettier-ignore";
 }
 
-function isWhitespaceOnlyText(node) {
-  return node.type === "text" && node.data.trim().length === 0;
-}
-
-function isPreTagNode(node) {
-  return node.type === "tag" && node.name === "pre";
-}
-
-function isTextAreaTagNode(node) {
-  return node.type === "tag" && node.name === "textarea";
-}
-
-function isScriptTagNode(node) {
-  return node.type === "script" || node.type === "style";
-}
-
 function isWhitespaceSensitiveTagNode(node) {
-  return isPreTagNode(node) || isTextAreaTagNode(node) || isScriptTagNode(node);
+  // TODO
+  return false;
 }
 
 /**
@@ -117,13 +102,18 @@ function mapNode(node, fn, parent = null, index = -1) {
   return fn(newNode, index, parent);
 }
 
+function replaceNewlines(text, replacement) {
+  return text
+    .split(/(\n)/g)
+    .map((data, index) => (index % 2 === 1 ? replacement : data));
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   VOID_TAGS,
   hasPrettierIgnore,
-  isScriptTagNode,
-  isWhitespaceOnlyText,
   isWhitespaceSensitiveTagNode,
-  mapNode
+  mapNode,
+  replaceNewlines
 };

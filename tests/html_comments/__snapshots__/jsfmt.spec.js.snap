@@ -50,16 +50,17 @@ exports[`for_debugging.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html>
   <body>
-    <!-- Do not display this at the moment
-<img border="0" src="pic_trulli.jpg" alt="Trulli">
--->
-
-    <!-- Do not display this at the moment
-  <img border="0" src="pic_trulli.jpg" alt="Trulli">
-  -->
-
-    <!-- Do not display this at the moment
-    <img border="0" src="pic_trulli.jpg" alt="Trulli">
+    <!--
+      Do not display this at the moment
+      <img border="0" src="pic_trulli.jpg" alt="Trulli">
+    -->
+    <!--
+      Do not display this at the moment
+       <img border="0" src="pic_trulli.jpg" alt="Trulli">
+    -->
+    <!--
+      Do not display this at the moment
+         <img border="0" src="pic_trulli.jpg" alt="Trulli">
     -->
   </body>
 </html>

@@ -6,194 +6,389 @@ const {
   builders: {
     breakParent,
     concat,
-    dedentToRoot,
     group,
     hardline,
-    ifBreak,
     indent,
     join,
     line,
+    literalline,
     softline
   }
 } = require("../doc");
-const { hasPrettierIgnore, isWhitespaceSensitiveTagNode } = require("./utils");
+const { hasPrettierIgnore, replaceNewlines } = require("./utils");
 const preprocess = require("./preprocess");
+const dedentString = require("dedent");
+const assert = require("assert");
+
+// TODO: embed
+// TODO: parse ie comment
+// TODO: next empty line
+// TODO: ignore
+// TODO: sophisticated rule (CSS: display, white-space)
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
-
   switch (node.type) {
     case "root":
-      return node.children.length === 0
-        ? ""
-        : concat([printChildren(path, print, options), hardline]);
-    case "directive":
+      return concat([printChildren(path, options, print), hardline]);
+    case "tag":
       return concat([
-        "<",
-        node.name === "!doctype"
-          ? node.data
-              .replace(/\s+/g, " ")
-              .replace(
-                /^(!doctype)(( html)?)/i,
-                (_, doctype, doctypeHtml) =>
-                  doctype.toUpperCase() + doctypeHtml.toLowerCase()
-              )
-          : node.data,
-        ">"
-      ]);
-    case "text": {
-      const parentNode = path.getParentNode();
-
-      if (isWhitespaceSensitiveTagNode(parentNode)) {
-        return concat(
-          node.data
-            .split(/(\n)/g)
-            .map((x, i) => (i % 2 === 1 ? dedentToRoot(hardline) : x))
-        );
-      }
-
-      return node.data.replace(/\s+/g, " ").trim();
-    }
-    case "script":
-    case "style":
-    case "tag": {
-      const openingTagDoc = printOpeningTag(path, options, print);
-
-      if (node.isSelfClosing) {
-        return group(openingTagDoc);
-      }
-
-      const closingTagDoc = printClosingTag(node);
-
-      if (node.children.length === 0) {
-        return group(
+        group(
           concat([
-            openingTagDoc,
-            node.type === "script" && node.attribs.src
+            node.children.some(child => child.type !== "text")
+              ? breakParent
+              : "",
+            printOpeningTag(path, options, print),
+            node.isSelfClosing
               ? /**
-                 * <script
-                 *   src="long-long-long-long-long-long-long-long-long-long-long-long-long-long-string"
-                 *   async
-                 * ></script>
+                 *     <br />
+                 *       ^
+                 *
+                 *     <meta
+                 *       longAttr
+                 *     />
+                 *     ~
                  */
-                ""
-              : /**
-                 * <div
-                 *   class="long-long-long-long-long-long-long-long-long-long-long-long-long-long-string"
-                 *   something="something"
-                 * >
-                 * </div>
-                 */
-                softline,
-            closingTagDoc
+                node.attributes.length === 1
+                ? " "
+                : line
+              : node.children.length === 0
+                ? node.hasDanglingSpaces
+                  ? /**
+                     *     <p>
+                     *     </p>
+                     *     ~
+                     * */
+                    softline
+                  : ""
+                : concat([
+                    indent(printChildren(path, options, print)),
+                    softline
+                  ])
           ])
-        );
-      }
-
-      if (isWhitespaceSensitiveTagNode(node)) {
-        return concat([
-          group(openingTagDoc),
-          printChildren(path, print, options),
-          closingTagDoc
-        ]);
-      }
-
-      return group(
-        concat([
-          group(openingTagDoc),
-          node.attributes.length > 1 ||
-          node.children.some(childNode => childNode.type !== "text")
-            ? breakParent
-            : "",
-          indent(concat([softline, printChildren(path, print, options)])),
-          softline,
-          closingTagDoc
-        ])
-      );
-    }
+        ),
+        group(printClosingTag(node))
+      ]);
+    case "text":
+      return concat([
+        printOpeningTagPrefix(node),
+        node.data.replace(/\s+/g, " "),
+        printClosingTagSuffix(node)
+      ]);
     case "comment":
-      return concat(["<!--", node.data, "-->"]);
+    case "directive": {
+      const data = node.data.includes("\n")
+        ? dedentString(node.data.trimRight())
+        : node.data;
+      return concat([
+        group(
+          concat([
+            printOpeningTagStart(node),
+            data.trim().length === 0
+              ? ""
+              : indent(
+                  node.prev && needsToBorrowNextOpeningTagStartMarker(node.prev)
+                    ? /**
+                       *     123<!--
+                       *            ~
+                       *       123
+                       *     ^^
+                       */
+                      concat([
+                        hardline,
+                        concat(replaceNewlines(data.trim(), hardline))
+                      ])
+                    : /**
+                       *     ><!-- 123
+                       *          ^
+                       *
+                       *     ><!--
+                       *          ~
+                       *       123
+                       *     ^^
+                       *       123
+                       */
+                      concat([
+                        node.type === "directive" ? "" : softline,
+                        concat(replaceNewlines(data, hardline))
+                      ])
+                ),
+            node.type === "directive" ? "" : softline
+          ])
+        ),
+        group(printClosingTagEnd(node))
+      ]);
+    }
     case "attribute":
-      return node.value === null
-        ? node.key
-        : concat([
-            node.key,
-            '="',
-            node.value.replace(/"/g, "&quot;"),
-            '"',
-            node.value.includes("\n") ? breakParent : ""
-          ]);
-    // front matter
+      return concat([
+        node.key,
+        node.value === null
+          ? ""
+          : concat([
+              '="',
+              concat(
+                replaceNewlines(node.value.replace(/"/g, "&quot;"), literalline)
+              ),
+              '"'
+            ])
+      ]);
     case "yaml":
     case "toml":
       return node.raw;
     default:
-      /* istanbul ignore next */
-      throw new Error("unknown htmlparser2 type: " + node.type);
+      throw new Error(`Unexpected node type ${node.type}`);
   }
+}
+
+function printChildren(path, options, print) {
+  const node = path.getValue();
+  return concat(
+    path.map((childPath, childIndex) => {
+      const childNode = childPath.getValue();
+      return concat([
+        childNode.prev &&
+        (childNode.prev.type === "yaml" || childNode.prev.type === "toml")
+          ? hardline
+          : "", // TODO next empty line
+        (childIndex === 0 && node.type === "root") ||
+        (childNode.prev &&
+          needsToBorrowNextOpeningTagStartMarker(childNode.prev))
+          ? /**
+             *     123<br />
+             *            ~
+             *     456
+             *
+             *     123<a
+             *          ~
+             *       longAttr
+             */
+            ""
+          : softline,
+        print(childPath)
+      ]);
+    }, "children")
+  );
 }
 
 function printOpeningTag(path, options, print) {
   const node = path.getValue();
-
-  const forceSingeLine =
-    node.attributes.length === 0 ||
-    (node.attributes.length === 1 &&
-      (!node.attributes[0].value || !node.attributes[0].value.includes("\n")));
-
   return concat([
-    "<",
-    node.name,
-    indent(
-      concat([
-        forceSingeLine ? (node.attributes.length === 0 ? "" : " ") : line,
-        join(line, path.map(print, "attributes"))
-      ])
-    ),
-    forceSingeLine
-      ? node.isSelfClosing
-        ? " />"
-        : ">"
-      : concat([
-          softline,
-          node.isSelfClosing ? concat([ifBreak("", " "), "/>"]) : ">"
-        ])
+    printOpeningTagStart(node),
+    node.attributes.length === 0
+      ? ""
+      : group(
+          concat([
+            indent(
+              concat([
+                node.prev && needsToBorrowNextOpeningTagStartMarker(node.prev)
+                  ? /**
+                     *     123<a
+                     *          ~
+                     *       longAttr
+                     *     ^^
+                     */
+                    hardline
+                  : node.attributes.length === 1
+                    ? /**
+                       *     <a attr
+                       *       ^
+                       */
+                      " "
+                    : /**
+                       *     <a attr1 attr2
+                       *       ^
+                       *
+                       *     <a
+                       *       ~
+                       *       longAttr1
+                       *     ^^
+                       *       longAttr2
+                       */
+                      line,
+                join(line, path.map(print, "attributes"))
+              ])
+            ),
+            node.isSelfClosing ||
+            (node.firstChild &&
+              needsToBorrowParentOpeningTagEndMarker(node.firstChild))
+              ? /**
+                 *     <meta
+                 *       longAttr
+                 *               ~
+                 *     />
+                 *
+                 *     <p
+                 *       longAttr
+                 *               ~
+                 *       >123
+                 */
+                ""
+              : softline
+          ])
+        ),
+    node.isSelfClosing ? "" : printOpeningTagEnd(node)
   ]);
 }
 
-function printClosingTag(node) {
-  return concat(["</", node.name, ">"]);
+function printOpeningTagStart(node) {
+  return node.prev && needsToBorrowNextOpeningTagStartMarker(node.prev)
+    ? ""
+    : concat([printOpeningTagPrefix(node), printOpeningTagStartMarker(node)]);
 }
 
-function printChildren(path, print /*, options*/) {
-  const parts = [];
+function printOpeningTagEnd(node) {
+  return node.firstChild &&
+    needsToBorrowParentOpeningTagEndMarker(node.firstChild)
+    ? ""
+    : printOpeningTagEndMarker(node);
+}
 
-  const node = path.getValue();
+function printClosingTag(node) {
+  return concat([
+    node.isSelfClosing ? "" : printClosingTagStart(node),
+    printClosingTagEnd(node),
+  ]);
+}
 
-  path.map((childPath, index) => {
-    const childNode = childPath.getValue();
+function printClosingTagStart(node) {
+  return node.lastChild &&
+    needsToBorrowParentClosingTagStartMarker(node.lastChild)
+    ? ""
+    : concat([printClosingTagPrefix(node), printClosingTagStartMarker(node)]);
+}
 
-    parts.push(print(childPath));
+function printClosingTagEnd(node) {
+  return (node.next && needsToBorrowPrevClosingTagEndMarker(node.next)) ||
+    (!node.next &&
+      node.parent &&
+      needsToBorrowLastChildClosingTagEndMarker(node.parent))
+    ? ""
+    : concat([printClosingTagEndMarker(node), printClosingTagSuffix(node)]);
+}
 
-    if (index !== node.children.length - 1) {
-      parts.push(hardline);
+function hasSpacesBeforeOpeningTag(node) {
+  return node.hasLeadingSpaces || (!node.prev && node.parent.type === "root");
+}
 
-      if (
-        childNode.type === "yaml" ||
-        childNode.type === "toml" ||
-        // next empty line
-        (childNode.type !== "text" &&
-          childNode.type !== "directive" &&
-          node.children[index + 1].startLocation.line -
-            childNode.endLocation.line >
-            1)
-      ) {
-        parts.push(hardline);
+function hasSpacesAfterClosingTag(node) {
+  return node.hasTrailingSpaces || (!node.next && node.parent.type === "root");
+}
+
+function needsToBorrowNextOpeningTagStartMarker(node) {
+  /**
+   *     123<p
+   *        ^^
+   *     >
+   */
+  return node.type === "text" && !hasSpacesAfterClosingTag(node) && node.next;
+}
+
+function needsToBorrowParentOpeningTagEndMarker(node) {
+  /**
+   *     <p
+   *       >123
+   *       ^
+   *
+   *     <p
+   *       ><a
+   *       ^
+   */
+  return !hasSpacesBeforeOpeningTag(node) && !node.prev;
+}
+
+function needsToBorrowPrevClosingTagEndMarker(node) {
+  /**
+   *     <p></p
+   *     >123
+   *     ^
+   *
+   *     <p></p
+   *     ><a
+   *     ^
+   */
+  return !hasSpacesBeforeOpeningTag(node) && node.prev;
+}
+
+function needsToBorrowLastChildClosingTagEndMarker(node) {
+  /**
+   *     <p
+   *       ><a></a
+   *     ></p
+   *     ^
+   *     >
+   */
+  return node.lastChild && !hasSpacesAfterClosingTag(node.lastChild);
+}
+
+function needsToBorrowParentClosingTagStartMarker(node) {
+  /**
+   *     <p>
+   *       123</p
+   *          ^^^
+   *     >
+   */
+  return node.type === "text" && !hasSpacesAfterClosingTag(node) && !node.next;
+}
+
+function printOpeningTagPrefix(node) {
+  return concat([
+    needsToBorrowParentOpeningTagEndMarker(node)
+      ? printOpeningTagEndMarker(node.parent)
+      : needsToBorrowPrevClosingTagEndMarker(node)
+        ? printClosingTagEndMarker(node.prev)
+        : ""
+  ]);
+}
+
+function printClosingTagPrefix(node) {
+  return concat([
+    needsToBorrowLastChildClosingTagEndMarker(node)
+      ? printClosingTagEndMarker(node.lastChild)
+      : ""
+  ]);
+}
+
+function printClosingTagSuffix(node) {
+  return concat([
+    needsToBorrowParentClosingTagStartMarker(node)
+      ? printClosingTagStartMarker(node.parent)
+      : needsToBorrowNextOpeningTagStartMarker(node)
+        ? printOpeningTagStartMarker(node.next)
+        : ""
+  ]);
+}
+
+function printOpeningTagStartMarker(node) {
+  switch (node.type) {
+    case "comment":
+      return "<!--";
+    default:
+      return `<${node.name}`;
+  }
+}
+
+function printOpeningTagEndMarker(node) {
+  assert(!node.isSelfClosing);
+  return ">";
+}
+
+function printClosingTagStartMarker(node) {
+  assert(!node.isSelfClosing);
+  return `</${node.name}`;
+}
+
+function printClosingTagEndMarker(node) {
+  switch (node.type) {
+    case "comment":
+      return "-->";
+    case "tag":
+      if (node.isSelfClosing) {
+        return "/>";
       }
-    }
-  }, "children");
-
-  return concat(parts);
+    // fall through
+    default:
+      return ">";
+  }
 }
 
 module.exports = {

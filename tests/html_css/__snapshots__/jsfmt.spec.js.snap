@@ -27,21 +27,10 @@ exports[`less.html - html-verify 1`] = `
 </style>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <style type="text/less">
-  @nice-blue: #5B83AD;
-  @light-blue: @nice-blue + #111;
-
-  #header {
-    color: @light-blue;
-  }
+  @nice-blue: #5B83AD; @light-blue: @nice-blue + #111; #header { color: @light-blue; }
 </style>
-
 <style lang="less">
-  @nice-blue: #5B83AD;
-  @light-blue: @nice-blue + #111;
-
-  #header {
-    color: @light-blue;
-  }
+  @nice-blue: #5B83AD; @light-blue: @nice-blue + #111; #header { color: @light-blue; }
 </style>
 
 `;
@@ -55,19 +44,8 @@ exports[`postcss.html - html-verify 1`] = `
   body { background: navy; color: yellow; }
 </style>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<style type="text/css">
-  body {
-    background: navy;
-    color: yellow;
-  }
-</style>
-
-<style lang="postcss">
-  body {
-    background: navy;
-    color: yellow;
-  }
-</style>
+<style type="text/css">body { background: navy; color: yellow; }</style>
+<style lang="postcss">body { background: navy; color: yellow; }</style>
 
 `;
 
@@ -93,23 +71,10 @@ exports[`scss.html - html-verify 1`] = `
 </style>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <style type="text/x-scss">
-  $font-stack: Helvetica, sans-serif;
-  $primary-color: #333;
-
-  body {
-    font: 100% $font-stack;
-    color: $primary-color;
-  }
+  $font-stack: Helvetica, sans-serif; $primary-color: #333; body { font: 100% $font-stack; color: $primary-color; }
 </style>
-
 <style lang="scss">
-  $font-stack: Helvetica, sans-serif;
-  $primary-color: #333;
-
-  body {
-    font: 100% $font-stack;
-    color: $primary-color;
-  }
+  $font-stack: Helvetica, sans-serif; $primary-color: #333; body { font: 100% $font-stack; color: $primary-color; }
 </style>
 
 `;
@@ -134,17 +99,8 @@ exports[`simple.html - html-verify 1`] = `
 <html>
   <head>
     <title>Sample styled page</title>
-    <style>
-      a {
-        color: red;
-      }
-    </style>
-    <style>
-      body {
-        background: navy;
-        color: yellow;
-      }
-    </style>
+    <style>a { color: red; }</style>
+    <style>body { background: navy; color: yellow; }</style>
   </head>
   <body>
     <h1>Sample styled page</h1>
@@ -164,17 +120,9 @@ exports[`single-style.html - html-verify 1`] = `
   }
 </style>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<style>a { color: red; }</style>
 <style>
-  a {
-    color: red;
-  }
-</style>
-<style>
-  h1 {
-    font-size: 120%;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    color: #333366;
-  }
+  h1 { font-size: 120%; font-family: Verdana, Arial, Helvetica, sans-serif; color: #333366; }
 </style>
 
 `;

@@ -146,18 +146,15 @@ exports[`xhtml1.1.html - html-verify 1`] = `
         vspace="20"
       />
     </div>
-    <p align="center" style="font-size:17px">
-      Bar Foo,
-      <br />
-      Foo,
-      <br />
-      Bar
-      <br />
-      Foo
-    </p>
-    <p align="center">
-      <em>String</em>
-    </p>
+    <p align="center" style="font-size:17px"
+      >Bar Foo,<br />
+      Foo,<br />
+      Bar<br />
+      Foo</p
+    >
+    <p align="center"
+      ><em>String</em
+    ></p>
     <br />
     <hr />
   </body>

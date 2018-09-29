@@ -17,11 +17,7 @@ exports[`html-with-css-style.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <style>
-      blink {
-        display: none;
-      }
-    </style>
+    <style>blink{ display: none ;}</style>
   </head>
   <body></body>
 </html>

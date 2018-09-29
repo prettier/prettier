@@ -8,6 +8,8 @@ const {
 const { isScriptTagNode } = require("./utils");
 
 function embed(path, print, textToDoc /*, options */) {
+  return null; // TODO
+
   const node = path.getValue();
 
   switch (node.type) {
