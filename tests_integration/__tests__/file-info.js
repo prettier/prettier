@@ -194,6 +194,15 @@ test("API getFileInfo with withNodeModules", () => {
   });
 });
 
+describe("extracts file-info for a file with no extension but a standard shebang", () => {
+  expect(
+    prettier.getFileInfo.sync("tests_integration/cli/shebang/sample-bin")
+  ).toMatchObject({
+    ignored: false,
+    inferredParser: "babylon"
+  });
+});
+
 test("API getFileInfo with plugins loaded using pluginSearchDir", () => {
   const file = "file.foo";
   const pluginsPath = path.resolve(

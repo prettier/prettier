@@ -12,7 +12,7 @@ const languages = [
       parsers: ["babylon", "flow"],
       vscodeLanguageIds: ["javascript"]
     },
-	  extend: {
+    extend: {
       interpreters: ["nodejs"]
     }
   }),
