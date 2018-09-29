@@ -38,6 +38,7 @@ function embed(path, print, textToDoc /*, options */) {
         const parser = inferScriptParser(node.parent);
         if (parser) {
           return concat([
+            breakParent,
             printOpeningTagPrefix(node),
             markAsRoot(stripTrailingHardline(textToDoc(node.data, { parser }))),
             printClosingTagSuffix(node)

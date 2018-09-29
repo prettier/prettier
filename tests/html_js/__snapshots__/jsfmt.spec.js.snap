@@ -64,7 +64,9 @@ exports[`simple.html - html-verify 1`] = `
 <html>
   <head>
     <title>Sample styled page</title>
-    <script>alert("test");</script>
+    <script>
+      alert("test");
+    </script>
     <script>
       var message = "Alert!";
 
@@ -85,7 +87,9 @@ exports[`single-script.html - html-verify 1`] = `
   document.getElementById("demo").innerHTML = "Hello JavaScript!";
 </script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<script>alert("test");</script>
+<script>
+  alert("test");
+</script>
 <script>
   document.getElementById("demo").innerHTML = "Hello JavaScript!";
 </script>
