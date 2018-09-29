@@ -146,7 +146,16 @@ function genericPrint(path, options, print) {
     case "comment":
     case "directive": {
       const data = node.data.includes("\n")
-        ? dedentString(node.data.trimRight())
+        ? dedentString(
+            /**
+             *       <!-- hello
+             *     ^^^^^^
+             *            world
+             */
+            (
+              " ".repeat(node.startLocation.column + "<!--".length) + node.data
+            ).trimRight()
+          )
         : node.data;
       return concat([
         group(
