@@ -58,35 +58,22 @@ function mapObject(object, fn) {
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
-
-  if (isWhitespaceOnlyText(node) || node.type === "attribute") {
+  if (node.type === "attribute") {
     return false;
   }
 
   const parentNode = path.getParentNode();
-
   if (!parentNode) {
     return false;
   }
 
   const index = path.getName();
-
   if (typeof index !== "number" || index === 0) {
     return false;
   }
 
   const prevNode = parentNode.children[index - 1];
-
-  if (isPrettierIgnore(prevNode)) {
-    return true;
-  }
-
-  if (!isWhitespaceOnlyText(prevNode)) {
-    return false;
-  }
-
-  const prevPrevNode = parentNode.children[index - 2];
-  return prevPrevNode && isPrettierIgnore(prevPrevNode);
+  return isPrettierIgnore(prevNode);
 }
 
 function isPrettierIgnore(node) {
@@ -109,13 +96,34 @@ function isScriptTagNode(node) {
   return node.type === "script" || node.type === "style";
 }
 
+function isWhitespaceSensitiveTagNode(node) {
+  return isPreTagNode(node) || isTextAreaTagNode(node) || isScriptTagNode(node);
+}
+
+/**
+ * @param {unknown} node
+ * @param {(node: unknown, index: number, parent: unknown | null)} fn
+ * @param {unknown=} parent
+ */
+function mapNode(node, fn, parent = null, index = -1) {
+  const newNode = Object.assign({}, node);
+
+  if (newNode.children) {
+    newNode.children = newNode.children.map((child, childIndex) =>
+      mapNode(child, fn, node, childIndex)
+    );
+  }
+
+  return fn(newNode, index, parent);
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   VOID_TAGS,
   hasPrettierIgnore,
-  isPreTagNode,
   isScriptTagNode,
-  isTextAreaTagNode,
-  isWhitespaceOnlyText
+  isWhitespaceOnlyText,
+  isWhitespaceSensitiveTagNode,
+  mapNode
 };

@@ -17,7 +17,7 @@ exports[`html-with-js-script.html - html-verify 1`] = `
 <html lang="en">
   <head>
     <script type="text/javascript">
-    hello("world");
+      hello("world");
     </script>
   </head>
   <body></body>

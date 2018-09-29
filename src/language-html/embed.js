@@ -2,42 +2,31 @@
 
 const { hasNewlineInRange } = require("../common/util");
 const {
-  builders: { hardline, concat, markAsRoot, literalline },
-  utils: { removeLines, mapDoc }
+  builders: { hardline, concat, markAsRoot, literalline, indent },
+  utils: { removeLines, mapDoc, stripTrailingHardline }
 } = require("../doc");
+const { isScriptTagNode } = require("./utils");
 
-function embed(path, print, textToDoc, options) {
+function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
 
   switch (node.type) {
     case "text": {
-      const parent = path.getParentNode();
-      // Inline JavaScript
-      if (
-        parent.type === "script" &&
-        ((!parent.attribs.lang && !parent.attribs.type) ||
-          parent.attribs.type === "text/javascript" ||
-          parent.attribs.type === "application/javascript")
-      ) {
-        const parser = options.parser === "flow" ? "flow" : "babylon";
-        const doc = textToDoc(node.data, { parser });
-        return concat([hardline, doc]);
-      }
+      const parentNode = path.getParentNode();
 
-      // Inline TypeScript
-      if (
-        parent.type === "script" &&
-        (parent.attribs.type === "application/x-typescript" ||
-          parent.attribs.lang === "ts")
-      ) {
-        const doc = textToDoc(node.data, { parser: "typescript" }, options);
-        return concat([hardline, doc]);
-      }
-
-      // Inline Styles
-      if (parent.type === "style") {
-        const doc = textToDoc(node.data, { parser: "css" });
-        return concat([hardline, doc]);
+      if (node.data.trim().length !== 0 && isScriptTagNode(parentNode)) {
+        const parser = inferScriptParser(parentNode);
+        if (parser) {
+          return concat([
+            indent(
+              concat([
+                hardline,
+                stripTrailingHardline(textToDoc(node.data, { parser }))
+              ])
+            ),
+            hardline
+          ]);
+        }
       }
 
       break;
@@ -81,11 +70,35 @@ function embed(path, print, textToDoc, options) {
                 textToDoc(node.value, { parser: "yaml" })
               )
             : "",
-          "---",
-          hardline
+          "---"
         ])
       );
   }
+}
+
+function inferScriptParser(node) {
+  if (
+    node.type === "script" &&
+    ((!node.attribs.lang && !node.attribs.type) ||
+      node.attribs.type === "text/javascript" ||
+      node.attribs.type === "application/javascript")
+  ) {
+    return "babylon";
+  }
+
+  if (
+    node.type === "script" &&
+    (node.attribs.type === "application/x-typescript" ||
+      node.attribs.lang === "ts")
+  ) {
+    return "typescript";
+  }
+
+  if (node.type === "style") {
+    return "css";
+  }
+
+  return null;
 }
 
 function replaceNewlinesWithLiterallines(doc) {

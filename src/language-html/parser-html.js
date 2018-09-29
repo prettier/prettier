@@ -47,11 +47,11 @@ function parse(text /*, parsers, opts*/) {
 
   /**
    * modifications:
-   * - add `selfClosing` field
+   * - add `isSelfClosing` field
    */
   class CustomDomHandler extends DomHandler {
     onselfclosingtag() {
-      this._tagStack[this._tagStack.length - 1].selfClosing = true;
+      this._tagStack[this._tagStack.length - 1].isSelfClosing = true;
     }
   }
 
@@ -66,7 +66,15 @@ function parse(text /*, parsers, opts*/) {
     recognizeSelfClosing: true
   }).end(content);
 
-  const ast = normalize({ type: "root", children: handler.dom }, text);
+  const ast = normalize(
+    {
+      type: "root",
+      children: handler.dom,
+      startIndex: 0,
+      endIndex: text.length
+    },
+    text
+  );
 
   if (frontMatter) {
     ast.children.unshift(frontMatter);
