@@ -28,8 +28,6 @@ const preprocess = require("./preprocess");
 const dedentString = require("dedent");
 const assert = require("assert");
 
-// TODO: next empty line
-// TODO: ignore
 // TODO: sophisticated rule (CSS: display, white-space)
 
 function embed(path, print, textToDoc /*, options */) {
@@ -224,9 +222,11 @@ function printChildren(path, options, print) {
       const childNode = childPath.getValue();
       return concat([
         childNode.prev &&
-        (childNode.prev.type === "yaml" || childNode.prev.type === "toml")
+        (childNode.prev.type === "yaml" ||
+          childNode.prev.type === "toml" ||
+          childNode.prev.endLocation.line + 1 < childNode.startLocation.line)
           ? hardline
-          : "", // TODO next empty line
+          : "",
         (childIndex === 0 && node.type === "root") ||
         (childNode.prev &&
           needsToBorrowNextOpeningTagStartMarker(childNode.prev))

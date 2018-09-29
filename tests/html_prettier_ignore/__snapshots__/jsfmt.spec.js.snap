@@ -57,15 +57,18 @@ exports[`document.html - html-verify 1`] = `
     <p>
       Test  Test   Test
     </p>
+
     <!-- prettier-ignore -->
     <p attribute  =  "value">
       Test  Test   Test
     </p>
+
     <!-- prettier-ignore -->
     <ul
       ><li> First  </li
       ><li>Second<i>1</i><div><div>String</div></div></li
     ></ul>
+
     <!-- prettier-ignore -->
     <div>
 
@@ -74,11 +77,13 @@ exports[`document.html - html-verify 1`] = `
 
 
     </div>
+
     <!-- prettier-ignore -->
     <ul><!--
       --><li>   First   </li><!--
       --><li>   Second   </li><!--
     --></ul>
+
     <!-- prettier-ignore -->
     <br />
   </body>

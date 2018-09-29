@@ -9,11 +9,11 @@ const {
 const LineAndColumn = (m => m.default || m)(require("lines-and-columns"));
 
 const PREPROCESS_PIPELINE = [
-  addStartAndEndLocation,
   renameScriptAndStyleWithTag,
   processDirectives,
   addIsSelfClosing,
   extractWhitespaces,
+  addStartAndEndLocation,
   addShortcuts
 ];
 

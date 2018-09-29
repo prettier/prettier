@@ -58,6 +58,7 @@ exports[`openging-at-end.html - html-verify 1`] = `
   ></a
   >.</p
 >
+
 <p
   >Want to write us a letter? Use our<a
     href="contacts.html#Mailing_address"
@@ -67,6 +68,7 @@ exports[`openging-at-end.html - html-verify 1`] = `
   ></a
   >.</p
 >
+
 <p
   >Want to write us a letter? Use our<a
     href="contacts.html#Mailing_address"
@@ -359,6 +361,7 @@ exports[`tags.html - html-verify 1`] = `
 </div>
 <div>
   <div>string</div>
+
   <div>string</div>
 </div>
 

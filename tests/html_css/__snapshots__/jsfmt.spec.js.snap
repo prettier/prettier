@@ -34,6 +34,7 @@ exports[`less.html - html-verify 1`] = `
     color: @light-blue;
   }
 </style>
+
 <style lang="less">
   @nice-blue: #5B83AD;
   @light-blue: @nice-blue + #111;
@@ -60,6 +61,7 @@ exports[`postcss.html - html-verify 1`] = `
     color: yellow;
   }
 </style>
+
 <style lang="postcss">
   body {
     background: navy;
@@ -99,6 +101,7 @@ exports[`scss.html - html-verify 1`] = `
     color: $primary-color;
   }
 </style>
+
 <style lang="scss">
   $font-stack: Helvetica, sans-serif;
   $primary-color: #333;
