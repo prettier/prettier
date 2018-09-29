@@ -257,11 +257,23 @@ function printOpeningTag(path, options, print) {
                      */
                     hardline
                   : node.attributes.length === 1
-                    ? /**
-                       *     <a attr
-                       *       ^
-                       */
-                      " "
+                    ? node.attributes[0].value &&
+                      node.attributes[0].value.includes("\n")
+                      ? /**
+                         *     <a
+                         *       ~
+                         *       attr="
+                         *     ^^
+                         *         123
+                         *         456
+                         *       "
+                         */
+                        hardline
+                      : /**
+                         *     <a attr="123"
+                         *       ^
+                         */
+                        " "
                     : /**
                        *     <a attr1 attr2
                        *       ^
