@@ -1,7 +1,7 @@
 "use strict";
 
 const parseFrontMatter = require("../utils/front-matter");
-const { HTML_TAGS } = require("./utils");
+const { HTML_TAGS, HTML_ELEMENT_ATTRIBUTES } = require("./utils");
 
 function parse(text /*, parsers, opts*/) {
   const { frontMatter, content } = parseFrontMatter(text);
@@ -80,10 +80,7 @@ function normalize(node, text) {
   delete node.next;
   delete node.prev;
 
-  let isCaseSensitiveTag = false;
-
   if (node.type === "tag" && !(node.name in HTML_TAGS)) {
-    isCaseSensitiveTag = true;
     node.name = text.slice(
       node.startIndex + 1, // <
       node.startIndex + 1 + node.name.length
@@ -91,11 +88,20 @@ function normalize(node, text) {
   }
 
   if (node.attribs) {
-    const attributes = Object.keys(node.attribs).map(attributeKey => ({
-      type: "attribute",
-      key: isCaseSensitiveTag ? attributeKey : attributeKey.toLowerCase(),
-      value: node.attribs[attributeKey]
-    }));
+    const CURRENT_HTML_ELEMENT_ATTRIBUTES =
+      HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
+    const attributes = Object.keys(node.attribs).map(attributeKey => {
+      const lowerCaseAttributeKey = attributeKey.toLowerCase();
+      return {
+        type: "attribute",
+        key:
+          lowerCaseAttributeKey in HTML_ELEMENT_ATTRIBUTES["*"] ||
+          lowerCaseAttributeKey in CURRENT_HTML_ELEMENT_ATTRIBUTES
+            ? lowerCaseAttributeKey
+            : attributeKey,
+        value: node.attribs[attributeKey]
+      };
+    });
 
     const attribs = Object.create(null);
     for (const attribute of attributes) {
