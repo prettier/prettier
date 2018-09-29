@@ -1,10 +1,12 @@
 "use strict";
 
 const parseFrontMatter = require("../utils/front-matter");
-const { HTML_TAGS, HTML_ELEMENT_ATTRIBUTES } = require("./utils");
+const { HTML_TAGS, HTML_ELEMENT_ATTRIBUTES, mapNode } = require("./utils");
 
-function parse(text /*, parsers, opts*/) {
-  const { frontMatter, content } = parseFrontMatter(text);
+function parse(text, parsers, options, { shouldParseFrontMatter = true } = {}) {
+  const { frontMatter, content } = shouldParseFrontMatter
+    ? parseFrontMatter(text)
+    : { frontMatter: null, content: text };
 
   // Inline the require to avoid loading all the JS if we don't use it
   const Parser = require("htmlparser2/lib/Parser");
@@ -80,7 +82,45 @@ function parse(text /*, parsers, opts*/) {
     ast.children.unshift(frontMatter);
   }
 
-  return ast;
+  const parseHtml = data =>
+    parse(data, parsers, options, {
+      shouldParseFrontMatter: false
+    });
+
+  return mapNode(ast, node => {
+    const ieConditionalComment = parseIeConditionalComment(node, parseHtml);
+    return ieConditionalComment ? ieConditionalComment : node;
+  });
+}
+
+function parseIeConditionalComment(node, parseHtml) {
+  if (node.type !== "comment") {
+    return null;
+  }
+
+  const match = node.data.match(/^(\[if([^\]]*?)\]>)([\s\S]*?)<!\s*\[endif\]$/);
+
+  if (!match) {
+    return null;
+  }
+
+  const [_, openingTagSuffix, condition, data] = match;
+  const subTree = parseHtml(data);
+  const baseIndex = node.startIndex + "<!--".length + openingTagSuffix.length;
+
+  return Object.assign(
+    {},
+    mapNode(subTree, currentNode =>
+      Object.assign({}, currentNode, {
+        startIndex: baseIndex + currentNode.startIndex,
+        endIndex: baseIndex + currentNode.endIndex
+      })
+    ),
+    {
+      type: "ieConditionalComment",
+      condition: condition.trim().replace(/\s+/g, " ")
+    }
+  );
 }
 
 function normalize(node, text) {

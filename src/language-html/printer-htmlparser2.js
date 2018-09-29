@@ -28,7 +28,6 @@ const preprocess = require("./preprocess");
 const dedentString = require("dedent");
 const assert = require("assert");
 
-// TODO: parse ie comment
 // TODO: next empty line
 // TODO: ignore
 // TODO: sophisticated rule (CSS: display, white-space)
@@ -98,6 +97,7 @@ function genericPrint(path, options, print) {
     case "root":
       return concat([printChildren(path, options, print), hardline]);
     case "tag":
+    case "ieConditionalComment":
       return concat([
         group(
           concat([
@@ -242,7 +242,7 @@ function printOpeningTag(path, options, print) {
   const node = path.getValue();
   return concat([
     printOpeningTagStart(node),
-    node.attributes.length === 0
+    !node.attributes || node.attributes.length === 0
       ? ""
       : group(
           concat([
@@ -442,6 +442,8 @@ function printOpeningTagStartMarker(node) {
   switch (node.type) {
     case "comment":
       return "<!--";
+    case "ieConditionalComment":
+      return `<!--[if ${node.condition}`;
     default:
       return `<${node.name}`;
   }
@@ -449,18 +451,30 @@ function printOpeningTagStartMarker(node) {
 
 function printOpeningTagEndMarker(node) {
   assert(!node.isSelfClosing);
-  return ">";
+  switch (node.type) {
+    case "ieConditionalComment":
+      return "]>";
+    default:
+      return `>`;
+  }
 }
 
 function printClosingTagStartMarker(node) {
   assert(!node.isSelfClosing);
-  return `</${node.name}`;
+  switch (node.type) {
+    case "ieConditionalComment":
+      return "<!";
+    default:
+      return `</${node.name}`;
+  }
 }
 
 function printClosingTagEndMarker(node) {
   switch (node.type) {
     case "comment":
       return "-->";
+    case "ieConditionalComment":
+      return `[endif]-->`;
     case "tag":
       if (node.isSelfClosing) {
         return "/>";

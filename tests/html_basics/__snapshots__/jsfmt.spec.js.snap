@@ -329,11 +329,15 @@ exports[`html5-boilerplate.html - html-verify 1`] = `
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <!--
-      [if lte IE 9]>
-      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-      <![endif]
-    -->
+    <!--[if lte IE 9]>
+      <p class="browserupgrade"
+        >You are using an
+        <strong>outdated</strong>
+        browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a>
+        to improve your experience and security.</p
+      >
+    <![endif]-->
     <!-- Add your site or application content here -->
     <p>Hello world! This is HTML5 Boilerplate.</p>
     <script src="js/vendor/modernizr-3.6.0.min.js"></script>
