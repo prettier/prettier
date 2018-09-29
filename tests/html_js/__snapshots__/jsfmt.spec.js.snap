@@ -24,11 +24,21 @@ exports[`js.html - html-verify 1`] = `
   alert(message);
 </script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<script type="text/javascript">var message = "Alert!"; alert(message);</script>
-<script type="application/javascript">
-  var message = "Alert!"; alert(message);
+<script type="text/javascript">
+  var message = "Alert!";
+
+  alert(message);
 </script>
-<script>var message = "Alert!"; alert(message);</script>
+<script type="application/javascript">
+  var message = "Alert!";
+
+  alert(message);
+</script>
+<script>
+  var message = "Alert!";
+
+  alert(message);
+</script>
 
 `;
 
@@ -54,8 +64,12 @@ exports[`simple.html - html-verify 1`] = `
 <html>
   <head>
     <title>Sample styled page</title>
-    <script>alert('test');</script>
-    <script>var message = "Alert!"; alert(message);</script>
+    <script>alert("test");</script>
+    <script>
+      var message = "Alert!";
+
+      alert(message);
+    </script>
   </head>
   <body>
     <h1>Sample styled page</h1>
@@ -71,7 +85,7 @@ exports[`single-script.html - html-verify 1`] = `
   document.getElementById("demo").innerHTML = "Hello JavaScript!";
 </script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<script>alert('test');</script>
+<script>alert("test");</script>
 <script>
   document.getElementById("demo").innerHTML = "Hello JavaScript!";
 </script>
@@ -84,7 +98,10 @@ exports[`something-else.html - html-verify 1`] = `
     </div>
 </script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<script type="text/template"><div> </div></script>
+<script type="text/template">
+  <div>
+    </div>
+</script>
 
 `;
 
@@ -169,13 +186,90 @@ exports[`typescript.html - html-verify 1`] = `
 </script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script type="application/x-typescript">
-  class Student { fullName: string; constructor(public firstName: string, public middleInitial: string, public lastName: string) { this.fullName = firstName + " " + middleInitial + " " + lastName; } } interface Person { firstName: string; lastName: string; } function greeter(person : Person) { return "Hello, " + person.firstName + " " + person.lastName; } let user = new Student("Jane", "M.", "User"); document.body.innerHTML = greeter(user);
+  class Student {
+    fullName: string;
+    constructor(
+      public firstName: string,
+      public middleInitial: string,
+      public lastName: string
+    ) {
+      this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+  }
+
+  interface Person {
+    firstName: string;
+    lastName: string;
+  }
+
+  function greeter(person: Person) {
+    return "Hello, " + person.firstName + " " + person.lastName;
+  }
+
+  let user = new Student("Jane", "M.", "User");
+
+  document.body.innerHTML = greeter(user);
 </script>
 <script lang="ts">
-  class Student { fullName: string; constructor(public firstName: string, public middleInitial: string, public lastName: string) { this.fullName = firstName + " " + middleInitial + " " + lastName; } } interface Person { firstName: string; lastName: string; } function greeter(person : Person) { return "Hello, " + person.firstName + " " + person.lastName; } let user = new Student("Jane", "M.", "User"); document.body.innerHTML = greeter(user);
+  class Student {
+    fullName: string;
+    constructor(
+      public firstName: string,
+      public middleInitial: string,
+      public lastName: string
+    ) {
+      this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+  }
+
+  interface Person {
+    firstName: string;
+    lastName: string;
+  }
+
+  function greeter(person: Person) {
+    return "Hello, " + person.firstName + " " + person.lastName;
+  }
+
+  let user = new Student("Jane", "M.", "User");
+
+  document.body.innerHTML = greeter(user);
 </script>
 <script lang="tsx">
-  class CommentBox extends React.Component<{ url: string, pollInterval: number}, CommentData> { constructor(){ super() this.state = { data: [] }; } fetchComments() { $.ajax({ url: this.props.url, dataType: 'json', cache: false, success: (data) => this.setState({ data: data }), error: (xhr, status, err) => console.error(status, err) }) } componentDidMount() { this.fetchComments(); setInterval(this.fetchComments.bind(this), this.props.pollInterval); } render() { let handleCommentSubmit = (comment: { author: string, text: string }) => { console.warn('comment submitted!', comment); const updated = this.state.data.slice(0); updated.push(comment); this.setState({ data: updated }); } return ( <div className="commentBox"> <h1>Comments</h1> <CommentList data={this.state.data}/> <CommentForm onCommentSubmit={handleCommentSubmit} /> </div> ); } }
+  class CommentBox extends React.Component<{ url: string, pollInterval: number}, CommentData> {
+    constructor(){
+      super()
+      this.state = { data: [] };
+    }
+    fetchComments() {
+      $.ajax({
+        url: this.props.url,
+        dataType: 'json',
+        cache: false,
+        success: (data) => this.setState({ data: data }),
+        error: (xhr, status, err) => console.error(status, err)
+      })
+    }
+    componentDidMount() {
+      this.fetchComments();
+      setInterval(this.fetchComments.bind(this), this.props.pollInterval);
+    }
+    render() {
+      let handleCommentSubmit = (comment: { author: string, text: string }) => {
+        console.warn('comment submitted!', comment);
+        const updated = this.state.data.slice(0);
+        updated.push(comment);
+        this.setState({ data: updated });
+      }
+      return (
+        <div className="commentBox">
+        <h1>Comments</h1>
+        <CommentList data={this.state.data}/>
+      <CommentForm onCommentSubmit={handleCommentSubmit} />
+      </div>
+    );
+    }
+  }
 </script>
 
 `;

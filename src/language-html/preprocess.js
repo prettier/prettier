@@ -1,6 +1,11 @@
 "use strict";
 
-const { mapNode, VOID_TAGS, isWhitespaceSensitiveTagNode } = require("./utils");
+const {
+  VOID_TAGS,
+  isScriptLikeTag,
+  isWhitespaceSensitiveTag,
+  mapNode
+} = require("./utils");
 const LineAndColumn = (m => m.default || m)(require("lines-and-columns"));
 
 const PREPROCESS_PIPELINE = [
@@ -72,7 +77,7 @@ function processDirectives(ast /*, options */) {
 function extractWhitespaces(ast /*, options*/) {
   const TYPE_WHITESPACE = "whitespace";
   return mapNode(ast, node => {
-    if (!node.children || isWhitespaceSensitiveTagNode(node)) {
+    if (!node.children || isWhitespaceSensitiveTag(node)) {
       return node;
     }
 
@@ -120,6 +125,8 @@ function extractWhitespaces(ast /*, options*/) {
       }
     }
 
+    const isScriptLike = isScriptLikeTag(node);
+
     const children = [];
     for (let i = 0; i < childrenWithWhitespaces.length; i++) {
       const child = childrenWithWhitespaces[i];
@@ -129,11 +136,13 @@ function extractWhitespaces(ast /*, options*/) {
       }
 
       const hasLeadingSpaces =
-        i !== 0 && childrenWithWhitespaces[i - 1].type === TYPE_WHITESPACE;
+        isScriptLike ||
+        (i !== 0 && childrenWithWhitespaces[i - 1].type === TYPE_WHITESPACE);
 
       const hasTrailingSpaces =
-        i !== childrenWithWhitespaces.length - 1 &&
-        childrenWithWhitespaces[i + 1].type === TYPE_WHITESPACE;
+        isScriptLike ||
+        (i !== childrenWithWhitespaces.length - 1 &&
+          childrenWithWhitespaces[i + 1].type === TYPE_WHITESPACE);
 
       children.push(
         Object.assign({}, child, { hasLeadingSpaces, hasTrailingSpaces })

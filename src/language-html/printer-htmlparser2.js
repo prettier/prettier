@@ -1,6 +1,5 @@
 "use strict";
 
-const embed = require("./embed");
 const clean = require("./clean");
 const {
   builders: {
@@ -12,19 +11,86 @@ const {
     join,
     line,
     literalline,
+    markAsRoot,
     softline
-  }
+  },
+  utils: { stripTrailingHardline, removeLines }
 } = require("../doc");
-const { hasPrettierIgnore, replaceNewlines } = require("./utils");
+const { hasNewlineInRange } = require("../common/util");
+const {
+  hasPrettierIgnore,
+  inferScriptParser,
+  isScriptLikeTag,
+  replaceDocNewlines,
+  replaceNewlines
+} = require("./utils");
 const preprocess = require("./preprocess");
 const dedentString = require("dedent");
 const assert = require("assert");
 
-// TODO: embed
 // TODO: parse ie comment
 // TODO: next empty line
 // TODO: ignore
 // TODO: sophisticated rule (CSS: display, white-space)
+
+function embed(path, print, textToDoc /*, options */) {
+  const node = path.getValue();
+  switch (node.type) {
+    case "text": {
+      if (isScriptLikeTag(node.parent)) {
+        const parser = inferScriptParser(node.parent);
+        if (parser) {
+          return concat([
+            printOpeningTagPrefix(node),
+            markAsRoot(stripTrailingHardline(textToDoc(node.data, { parser }))),
+            printClosingTagSuffix(node)
+          ]);
+        }
+      }
+      break;
+    }
+    case "attribute": {
+      /*
+       * Vue binding syntax: JS expressions
+       * :class="{ 'some-key': value }"
+       * v-bind:id="'list-' + id"
+       * v-if="foo && !bar"
+       * @click="someFunction()"
+       */
+      if (/(^@)|(^v-)|:/.test(node.key) && !/^\w+$/.test(node.value)) {
+        const doc = textToDoc(node.value, {
+          parser: "__js_expression",
+          // Use singleQuote since HTML attributes use double-quotes.
+          // TODO(azz): We still need to do an entity escape on the attribute.
+          singleQuote: true
+        });
+        return concat([
+          node.key,
+          '="',
+          hasNewlineInRange(node.value, 0, node.value.length)
+            ? doc
+            : removeLines(doc),
+          '"'
+        ]);
+      }
+      break;
+    }
+    case "yaml":
+      return markAsRoot(
+        concat([
+          "---",
+          hardline,
+          node.value.trim().length === 0
+            ? ""
+            : replaceDocNewlines(
+                textToDoc(node.value, { parser: "yaml" }),
+                literalline
+              ),
+          "---"
+        ])
+      );
+  }
+}
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -72,7 +138,9 @@ function genericPrint(path, options, print) {
     case "text":
       return concat([
         printOpeningTagPrefix(node),
-        node.data.replace(/\s+/g, " "),
+        isScriptLikeTag(node.parent)
+          ? concat(replaceNewlines(node.data, literalline))
+          : node.data.replace(/\s+/g, " "),
         printClosingTagSuffix(node)
       ]);
     case "comment":
@@ -246,7 +314,7 @@ function printOpeningTagEnd(node) {
 function printClosingTag(node) {
   return concat([
     node.isSelfClosing ? "" : printClosingTagStart(node),
-    printClosingTagEnd(node),
+    printClosingTagEnd(node)
   ]);
 }
 

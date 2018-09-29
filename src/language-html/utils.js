@@ -1,5 +1,10 @@
 "use strict";
 
+const {
+  builders: { concat },
+  utils: { mapDoc }
+} = require("../doc");
+
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
 
@@ -80,9 +85,17 @@ function isPrettierIgnore(node) {
   return node.type === "comment" && node.data.trim() === "prettier-ignore";
 }
 
-function isWhitespaceSensitiveTagNode(node) {
+function isTag(node) {
+  return node.type === "tag";
+}
+
+function isWhitespaceSensitiveTag(node) {
   // TODO
   return false;
+}
+
+function isScriptLikeTag(node) {
+  return isTag(node) && (node.name === "script" || node.name === "style");
 }
 
 /**
@@ -108,12 +121,50 @@ function replaceNewlines(text, replacement) {
     .map((data, index) => (index % 2 === 1 ? replacement : data));
 }
 
+function replaceDocNewlines(doc, replacement) {
+  return mapDoc(
+    doc,
+    currentDoc =>
+      typeof currentDoc === "string" && currentDoc.includes("\n")
+        ? concat(replaceNewlines(currentDoc, replacement))
+        : currentDoc
+  );
+}
+
+function inferScriptParser(node) {
+  if (
+    node.name === "script" &&
+    ((!node.attribs.lang && !node.attribs.type) ||
+      node.attribs.type === "text/javascript" ||
+      node.attribs.type === "application/javascript")
+  ) {
+    return "babylon";
+  }
+
+  if (
+    node.name === "script" &&
+    (node.attribs.type === "application/x-typescript" ||
+      node.attribs.lang === "ts")
+  ) {
+    return "typescript";
+  }
+
+  if (node.name === "style") {
+    return "css";
+  }
+
+  return null;
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   VOID_TAGS,
   hasPrettierIgnore,
-  isWhitespaceSensitiveTagNode,
+  inferScriptParser,
+  isScriptLikeTag,
+  isWhitespaceSensitiveTag,
   mapNode,
+  replaceDocNewlines,
   replaceNewlines
 };
