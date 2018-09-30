@@ -104,7 +104,7 @@ exports[`something-else.html - html-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script type="text/template">
   <div>
-    </div>
+     </div>
 </script>
 
 `;

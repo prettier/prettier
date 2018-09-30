@@ -7,8 +7,12 @@ const {
 
 const {
   CSS_DISPLAY_TAGS,
-  CSS_DISPLAY_DEFAULT
+  CSS_DISPLAY_DEFAULT,
+  CSS_WHITE_SPACE_TAGS,
+  CSS_WHITE_SPACE_DEFAULT
 } = require("./constants.evaluate");
+
+const dedentString = require("dedent");
 
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
@@ -219,7 +223,29 @@ function inferScriptParser(node) {
 }
 
 function getNodeCssStyleDisplay(node) {
-  return (isTag(node) && CSS_DISPLAY_TAGS[node.name]) || CSS_DISPLAY_DEFAULT;
+  return (isTag(node) && CSS_DISPLAY_TAGS[node.name]) ||
+    getNodeCssStyleWhiteSpace(node) === "pre-wrap"
+    ? /** textarea-like */ "block"
+    : CSS_DISPLAY_DEFAULT;
+}
+
+function getNodeCssStyleWhiteSpace(node) {
+  return (
+    (isTag(node) && CSS_WHITE_SPACE_TAGS[node.name]) || CSS_WHITE_SPACE_DEFAULT
+  );
+}
+
+function getIndentationRestoredData(node) {
+  return dedentString(
+    /**
+     *       <!-- hello
+     *     ^^^^^^
+     *            world
+     */
+    (
+      " ".repeat(node.startLocation.column + "<!--".length) + node.data
+    ).trimRight()
+  );
 }
 
 module.exports = {
@@ -227,6 +253,7 @@ module.exports = {
   HTML_TAGS,
   VOID_TAGS,
   forceNextEmptyLine,
+  getNodeCssStyleWhiteSpace,
   hasPrettierIgnore,
   inferScriptParser,
   isDanglingSpaceSensitiveNode,
@@ -236,5 +263,6 @@ module.exports = {
   isTrailingSpaceSensitiveNode,
   mapNode,
   replaceDocNewlines,
-  replaceNewlines
+  replaceNewlines,
+  getIndentationRestoredData
 };

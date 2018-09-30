@@ -19,6 +19,7 @@ const {
 const { hasNewlineInRange } = require("../common/util");
 const {
   forceNextEmptyLine,
+  getIndentationRestoredData,
   hasPrettierIgnore,
   inferScriptParser,
   isScriptLikeTag,
@@ -26,10 +27,7 @@ const {
   replaceNewlines
 } = require("./utils");
 const preprocess = require("./preprocess");
-const dedentString = require("dedent");
 const assert = require("assert");
-
-// TODO: sophisticated rule (CSS: display, white-space)
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
@@ -138,24 +136,26 @@ function genericPrint(path, options, print) {
     case "text":
       return concat([
         printOpeningTagPrefix(node),
-        isScriptLikeTag(node.parent)
-          ? concat(replaceNewlines(node.data, literalline))
-          : node.data.replace(/\s+/g, " "),
+        node.isWhiteSpaceSensitive
+          ? node.isIndentationSensitive
+            ? concat(
+                replaceNewlines(
+                  node.data.replace(/^\s*?\n|\n\s*?$/g, ""),
+                  literalline
+                )
+              )
+            : concat(
+                replaceNewlines(getIndentationRestoredData(node), hardline)
+              )
+          : concat(
+              replaceNewlines(node.data.replace(/\s+/g, " "), literalline)
+            ),
         printClosingTagSuffix(node)
       ]);
     case "comment":
     case "directive": {
       const data = node.data.includes("\n")
-        ? dedentString(
-            /**
-             *       <!-- hello
-             *     ^^^^^^
-             *            world
-             */
-            (
-              " ".repeat(node.startLocation.column + "<!--".length) + node.data
-            ).trimRight()
-          )
+        ? getIndentationRestoredData(node)
         : node.data;
       return concat([
         group(
@@ -241,7 +241,11 @@ function printChildren(path, options, print) {
              *       longAttr
              */
             ""
-          : softline,
+          : childNode.type === "text" &&
+            childNode.isWhiteSpaceSensitive &&
+            childNode.isIndentationSensitive
+            ? literalline
+            : softline,
         print(childPath)
       ]);
     }, "children")

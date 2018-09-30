@@ -2,8 +2,10 @@
 
 const {
   VOID_TAGS,
+  getNodeCssStyleWhiteSpace,
   isDanglingSpaceSensitiveNode,
   isLeadingSpaceSensitiveNode,
+  isScriptLikeTag,
   isTrailingSpaceSensitiveNode,
   mapNode
 } = require("./utils");
@@ -74,7 +76,14 @@ function processDirectives(ast /*, options */) {
   });
 }
 
-/** add `hasLeadingSpaces`, `hasTrailingSpaces`, and `hasDanglingSpaces` field; and remove those whitespaces. */
+/**
+ * - add `hasLeadingSpaces` field
+ * - add `hasTrailingSpaces` field
+ * - add `hasDanglingSpaces` field for parent nodes
+ * - add `isWhiteSpaceSensitive` field for text nodes
+ * - add `isIndentationSensitive` field for text nodes
+ * - remove insensitive whitespaces
+ */
 function extractWhitespaces(ast /*, options*/) {
   const TYPE_WHITESPACE = "whitespace";
   return mapNode(ast, node => {
@@ -95,12 +104,25 @@ function extractWhitespaces(ast /*, options*/) {
       });
     }
 
+    const cssStyleWhiteSpace = getNodeCssStyleWhiteSpace(node);
+    const isCssStyleWhiteSpacePre = cssStyleWhiteSpace.startsWith("pre");
+    const isScriptLike = isScriptLikeTag(node);
+
     return Object.assign({}, node, {
       children: node.children
         // extract whitespace nodes
         .reduce((newChildren, child) => {
           if (child.type !== "text") {
             return newChildren.concat(child);
+          }
+
+          if (isCssStyleWhiteSpacePre || isScriptLike) {
+            return newChildren.concat(
+              Object.assign({}, child, {
+                isWhiteSpaceSensitive: true,
+                isIndentationSensitive: isCssStyleWhiteSpacePre
+              })
+            );
           }
 
           const localChildren = [];

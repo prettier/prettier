@@ -19,8 +19,12 @@ const getCssStyleTags = property =>
 
 const CSS_DISPLAY_TAGS = getCssStyleTags("display");
 const CSS_DISPLAY_DEFAULT = "inline";
+const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");
+const CSS_WHITE_SPACE_DEFAULT = "normal";
 
 module.exports = {
   CSS_DISPLAY_TAGS,
-  CSS_DISPLAY_DEFAULT
+  CSS_DISPLAY_DEFAULT,
+  CSS_WHITE_SPACE_TAGS,
+  CSS_WHITE_SPACE_DEFAULT
 };
