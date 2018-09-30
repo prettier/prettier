@@ -111,7 +111,7 @@ function isLeadingSpaceSensitiveNode(node, { parent, prev /*, next */ }) {
     return false;
   }
 
-  if (!parent) {
+  if (!parent || getNodeCssStyleDisplay(parent) === "none") {
     return false;
   }
 
@@ -136,7 +136,7 @@ function isTrailingSpaceSensitiveNode(node, { parent /*, prev */, next }) {
     return false;
   }
 
-  if (!parent) {
+  if (!parent || getNodeCssStyleDisplay(parent) === "none") {
     return false;
   }
 
