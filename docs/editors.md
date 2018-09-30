@@ -18,7 +18,9 @@ Emacs users should see [this repository](https://github.com/prettier/prettier-em
 
 ## Vim
 
-Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), [w0rp](https://github.com/w0rp)/[ale](https://github.com/w0rp/ale), or [prettier](https://github.com/prettier)/[vim-prettier](https://github.com/prettier/vim-prettier), for more details see [the vim setup guide](vim.md).
+Vim users can install either [vim-prettier](https://github.com/prettier/vim-prettier), which is Prettier specific, or [Neoformat](https://github.com/sbdchd/neoformat) or [ALE](https://github.com/w0rp/ale) which are generalized lint/format engines with support for Prettier.
+
+For more details see [the Vim setup guide](vim.md).
 
 ## Visual Studio Code
 

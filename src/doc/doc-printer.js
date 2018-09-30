@@ -476,14 +476,14 @@ function printDocToString(doc, options) {
                   while (
                     out.length > 0 &&
                     typeof out[out.length - 1] === "string" &&
-                    out[out.length - 1].match(/^[^\S\n]*$/)
+                    out[out.length - 1].match(/^[ \t]*$/)
                   ) {
                     out.pop();
                   }
 
                   if (out.length && typeof out[out.length - 1] === "string") {
                     out[out.length - 1] = out[out.length - 1].replace(
-                      /[^\S\n]*$/,
+                      /[ \t]*$/,
                       ""
                     );
                   }

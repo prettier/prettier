@@ -7,6 +7,7 @@ markdown`
 markdown`
   - \`
   - \\\`
+  - \\ a
   - \\\\
   - \$
   - \u1234

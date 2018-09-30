@@ -202,6 +202,7 @@ function inferScriptParser(node) {
     node.name === "script" &&
     ((!node.attribs.lang && !node.attribs.type) ||
       node.attribs.type === "text/javascript" ||
+      node.attribs.type === "text/babel" ||
       node.attribs.type === "application/javascript")
   ) {
     return "babylon";

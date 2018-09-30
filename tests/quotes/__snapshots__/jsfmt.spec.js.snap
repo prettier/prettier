@@ -30,6 +30,36 @@ function b(object, key) {
 
 `;
 
+exports[`objects.js - flow-verify 1`] = `
+const obj = {
+ 'a': true,
+ b: true,
+ "𐊧": true,
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const obj = {
+  a: true,
+  b: true,
+  "𐊧": true
+};
+
+`;
+
+exports[`objects.js - flow-verify 2`] = `
+const obj = {
+ 'a': true,
+ b: true,
+ "𐊧": true,
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const obj = {
+  a: true,
+  b: true,
+  '𐊧': true
+};
+
+`;
+
 exports[`strings.js - flow-verify 1`] = `
 // Prevent strings from being parsed as directives
 // See https://github.com/prettier/prettier/pull/1560#issue-227225960
