@@ -2749,6 +2749,10 @@ html-encoding-sniffer@^1.0.2:
   dependencies:
     whatwg-encoding "^1.0.1"
 
+html-styles@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/html-styles/-/html-styles-1.0.0.tgz#a18061fd651f99c6b75c45c8e0549a3bc3e01a75"
+
 html-tag-names@1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/html-tag-names/-/html-tag-names-1.1.2.tgz#f65168964c5a9c82675efda882875dcb2a875c22"

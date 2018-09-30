@@ -50,27 +50,27 @@ exports[`openging-at-end.html - html-verify 1`] = `
     ></a
   >.</p
 >~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<p
-  >Want to write us a letter? Use our<a
+<p>
+  Want to write us a letter? Use our<a
     ><b
       ><a>mailing address</a
     ></b
   ></a
-  >.</p
->
+  >.
+</p>
 
-<p
-  >Want to write us a letter? Use our<a
+<p>
+  Want to write us a letter? Use our<a
     href="contacts.html#Mailing_address"
     ><b
       ><a>mailing address</a
     ></b
   ></a
-  >.</p
->
+  >.
+</p>
 
-<p
-  >Want to write us a letter? Use our<a
+<p>
+  Want to write us a letter? Use our<a
     href="contacts.html#Mailing_address"
     href1="contacts.html#Mailing_address"
     href2="contacts.html#Mailing_address"
@@ -80,8 +80,8 @@ exports[`openging-at-end.html - html-verify 1`] = `
       ><a>mailing address</a
     ></b
   ></a
-  >.</p
->
+  >.
+</p>
 
 `;
 
@@ -276,30 +276,21 @@ exports[`tags.html - html-verify 1`] = `
   attribute-f="value"
 />
 <div>string</div>
-<div
-  >very very very very very very very very very very very very very very very very long string</div
->
-<div very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
-  >string</div
->
-<div very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value"
-  >string</div
->
-<div attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value"
-  >string</div
->
-<div attribute="value"
-  >very very very very very very very very very very very very very very very very long string</div
->
-<div
-  attribute="value"
-  attributea="value"
-  attributeb="value"
-  attributec="value"
-  attributed="value"
-  attributef="value"
-  >string</div
->
+<div>
+  very very very very very very very very very very very very very very very very long string
+</div>
+<div very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute>
+  string
+</div>
+<div very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value">
+  string
+</div>
+<div attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value">
+  string
+</div>
+<div attribute="value">
+  very very very very very very very very very very very very very very very very long string
+</div>
 <div
   attribute="value"
   attributea="value"
@@ -307,52 +298,63 @@ exports[`tags.html - html-verify 1`] = `
   attributec="value"
   attributed="value"
   attributef="value"
-  >very very very very very very very very very very very very very very very very long string</div
 >
+  string
+</div>
+<div
+  attribute="value"
+  attributea="value"
+  attributeb="value"
+  attributec="value"
+  attributed="value"
+  attributef="value"
+>
+  very very very very very very very very very very very very very very very very long string
+</div>
 <video width="320" height="240" controls>
   <source src="movie.mp4" type="video/mp4" />
   <source src="movie.ogg" type="video/ogg" />
   Your browser does not support the video tag.
 </video>
-<div
-  ><div>string</div
-></div>
-<div
-  ><div>string</div
-  ><div>string</div
-></div>
-<div
-  ><div
-    ><div>string</div
-  ></div
-  ><div>string</div
-></div>
-<div
-  ><div>string</div
-  ><div
-    ><div>string</div
-  ></div
-></div>
-<div
-  ><div></div
-></div>
-<div
-  ><div></div
-  ><div></div
-></div>
-<div
-  ><div
-    ><div
-      ><div
-        ><div
-          ><div
-            ><div>string</div
-          ></div
-        ></div
-      ></div
-    ></div
-  ></div
-></div>
+<div>
+  <div>string</div>
+</div>
+<div>
+  <div>string</div>
+  <div>string</div>
+</div>
+<div>
+  <div>
+    <div>string</div>
+  </div>
+  <div>string</div>
+</div>
+<div>
+  <div>string</div>
+  <div>
+    <div>string</div>
+  </div>
+</div>
+<div>
+  <div></div>
+</div>
+<div>
+  <div></div>
+  <div></div>
+</div>
+<div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>string</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div>
   <div>string</div>
 </div>

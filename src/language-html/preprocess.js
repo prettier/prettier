@@ -128,10 +128,6 @@ function extractWhitespaces(ast /*, options*/) {
 
           return newChildren.concat(localChildren);
         }, [])
-        .map(x => {
-          console.log(x);
-          return x;
-        })
         // set hasLeadingSpaces/hasTrailingSpaces and filter whitespace nodes
         .reduce((newChildren, child, i, children) => {
           if (child.type === TYPE_WHITESPACE) {

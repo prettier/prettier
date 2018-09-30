@@ -26,10 +26,10 @@ exports[`case.html - html-verify 1`] = `
     <meta name="description" content="My CoNtEnT" />
   </head>
   <body>
-    <p
-      >Hello world!<br />
-      This is HTML5 Boilerplate.</p
-    >
+    <p>
+      Hello world!<br />
+      This is HTML5 Boilerplate.
+    </p>
     <script>
       window.ga = function() {
         ga.q.push(arguments);

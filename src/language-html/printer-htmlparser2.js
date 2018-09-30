@@ -300,7 +300,10 @@ function printOpeningTag(path, options, print) {
             ),
             node.isSelfClosing ||
             (node.firstChild &&
-              needsToBorrowParentOpeningTagEndMarker(node.firstChild))
+              needsToBorrowParentOpeningTagEndMarker(node.firstChild)) ||
+            (node.attributes.length === 1 &&
+              (!node.attributes[0].value ||
+                !node.attributes[0].value.includes("\n")))
               ? /**
                  *     <meta
                  *       longAttr
@@ -311,6 +314,9 @@ function printOpeningTag(path, options, print) {
                  *       longAttr
                  *               ~
                  *       >123
+                 *
+                 *     <div longAttr>
+                 *                  ~
                  */
                 ""
               : softline

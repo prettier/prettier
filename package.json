@@ -38,6 +38,7 @@
     "globby": "6.1.0",
     "graphql": "0.13.2",
     "html-element-attributes": "2.0.0",
+    "html-styles": "1.0.0",
     "html-tag-names": "1.1.2",
     "htmlparser2": "3.9.2",
     "ignore": "3.3.7",

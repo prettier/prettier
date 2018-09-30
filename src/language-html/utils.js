@@ -5,6 +5,11 @@ const {
   utils: { mapDoc }
 } = require("../doc");
 
+const {
+  CSS_DISPLAY_TAGS,
+  CSS_DISPLAY_DEFAULT
+} = require("./constants.evaluate");
+
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
 
@@ -106,7 +111,16 @@ function isLeadingSpaceSensitiveNode(node, { parent, prev /*, next */ }) {
     return false;
   }
 
-  if (!prev && (parent.type === "root" || isScriptLikeTag(parent))) {
+  if (
+    !prev &&
+    (parent.type === "root" ||
+      isScriptLikeTag(parent) ||
+      getNodeCssStyleDisplay(parent) === "block")
+  ) {
+    return false;
+  }
+
+  if (prev && getNodeCssStyleDisplay(prev) === "block") {
     return false;
   }
 
@@ -122,7 +136,16 @@ function isTrailingSpaceSensitiveNode(node, { parent /*, prev */, next }) {
     return false;
   }
 
-  if (!next && (parent.type === "root" || isScriptLikeTag(parent))) {
+  if (
+    !next &&
+    (parent.type === "root" ||
+      isScriptLikeTag(parent) ||
+      getNodeCssStyleDisplay(parent) === "block")
+  ) {
+    return false;
+  }
+
+  if (next && getNodeCssStyleDisplay(next) === "block") {
     return false;
   }
 
@@ -193,6 +216,10 @@ function inferScriptParser(node) {
   }
 
   return null;
+}
+
+function getNodeCssStyleDisplay(node) {
+  return (isTag(node) && CSS_DISPLAY_TAGS[node.name]) || CSS_DISPLAY_DEFAULT;
 }
 
 module.exports = {
