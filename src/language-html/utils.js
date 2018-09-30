@@ -224,10 +224,12 @@ function inferScriptParser(node) {
 }
 
 function getNodeCssStyleDisplay(node) {
-  return (isTag(node) && CSS_DISPLAY_TAGS[node.name]) ||
-    getNodeCssStyleWhiteSpace(node) === "pre-wrap"
-    ? /** textarea-like */ "block"
-    : CSS_DISPLAY_DEFAULT;
+  return (
+    (isTag(node) && CSS_DISPLAY_TAGS[node.name]) ||
+    (getNodeCssStyleWhiteSpace(node) === "pre-wrap"
+      ? /** textarea-like */ "block"
+      : CSS_DISPLAY_DEFAULT)
+  );
 }
 
 function getNodeCssStyleWhiteSpace(node) {
