@@ -306,6 +306,16 @@ exports[`tags.html - html-verify 1`] = `
   <div>string</div>
 
 </div>
+<ul
+  >123<li
+    class="foo"
+    id="bar"
+  >First</li
+  >456<li
+    class="baz"
+  >Second</li
+  >789</ul
+>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -416,6 +426,18 @@ exports[`tags.html - html-verify 1`] = `
 
   <div>string</div>
 </div>
+<ul>
+  123<li
+    class="foo"
+    id="bar"
+    >First</li
+
+  >456<li
+    class="baz"
+    >Second</li
+
+  >789
+</ul>
 
 `;
 
