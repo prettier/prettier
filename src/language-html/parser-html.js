@@ -50,10 +50,25 @@ function parse(text, parsers, options, { shouldParseFrontMatter = true } = {}) {
   /**
    * modifications:
    * - add `isSelfClosing` field
+   * - correct `endIndex` for whitespaces before closing tag end marker (e.g., `<x></x\n>`)
    */
   class CustomDomHandler extends DomHandler {
     onselfclosingtag() {
       this._tagStack[this._tagStack.length - 1].isSelfClosing = true;
+    }
+    onclosetag() {
+      const elem = this._tagStack.pop();
+      if (this._options.withEndIndices && elem) {
+        const buffer = this._parser._tokenizer._buffer;
+        let endIndex = this._parser.endIndex;
+        while (buffer[endIndex] && buffer[endIndex] !== ">") {
+          endIndex++;
+        }
+        elem.endIndex = buffer[endIndex] ? endIndex : this._parser.endIndex;
+      }
+      if (this._elementCB) {
+        this._elementCB(elem);
+      }
     }
   }
 
