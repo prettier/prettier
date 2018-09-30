@@ -71,7 +71,14 @@ function processDirectives(ast /*, options */) {
 
     return Object.assign({}, node, {
       name: isDoctype ? "!DOCTYPE" : node.name,
-      data: isDoctype ? data.replace(/^\s+html/i, " html") : data
+      data: isDoctype ? data.replace(/^\s+html/i, " html") : data,
+      // workaround for htmlparser2 bug
+      endIndex:
+        node.startIndex +
+        "<".length +
+        node.name.length +
+        node.data.length +
+        ">".length
     });
   });
 }
