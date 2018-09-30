@@ -23,6 +23,9 @@ exports[`js.html - html-verify 1`] = `
 
   alert(message);
 </script>
+<script type="text/babel">
+            const    someJS    =   'this should be formatted'
+</script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script type="text/javascript">
 var message = "Alert!";
@@ -38,6 +41,9 @@ alert(message);
 var message = "Alert!";
 
 alert(message);
+</script>
+<script type="text/babel">
+const someJS = "this should be formatted";
 </script>
 
 `;

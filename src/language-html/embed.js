@@ -17,6 +17,7 @@ function embed(path, print, textToDoc, options) {
         parent.type === "script" &&
         ((!parent.attribs.lang && !parent.attribs.type) ||
           parent.attribs.type === "text/javascript" ||
+          parent.attribs.type === "text/babel" ||
           parent.attribs.type === "application/javascript")
       ) {
         const parser = options.parser === "flow" ? "flow" : "babylon";
