@@ -134,7 +134,7 @@ function extractWhitespaces(ast /*, options*/) {
 
           const localChildren = [];
 
-          const [_, leadingSpaces, text, trailingSpaces] = child.data.match(
+          const [, leadingSpaces, text, trailingSpaces] = child.data.match(
             /^(\s*)([\s\S]*?)(\s*)$/
           );
 

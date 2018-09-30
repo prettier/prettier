@@ -104,7 +104,7 @@ function parseIeConditionalComment(node, parseHtml) {
     return null;
   }
 
-  const [_, openingTagSuffix, condition, data] = match;
+  const [, openingTagSuffix, condition, data] = match;
   const subTree = parseHtml(data);
   const baseIndex = node.startIndex + "<!--".length + openingTagSuffix.length;
 
