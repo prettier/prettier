@@ -18,6 +18,7 @@ const {
 } = require("../doc");
 const { hasNewlineInRange } = require("../common/util");
 const {
+  forceNextEmptyLine,
   hasPrettierIgnore,
   inferScriptParser,
   isScriptLikeTag,
@@ -118,13 +119,13 @@ function genericPrint(path, options, print) {
                 ? " "
                 : line
               : node.children.length === 0
-                ? node.hasDanglingSpaces
+                ? node.isDanglingSpaceSensitive && node.hasDanglingSpaces
                   ? /**
                      *     <p>
                      *     </p>
                      *     ~
                      * */
-                    softline
+                    hardline
                   : ""
                 : concat([
                     indent(printChildren(path, options, print)),
@@ -223,8 +224,7 @@ function printChildren(path, options, print) {
       const childNode = childPath.getValue();
       return concat([
         childNode.prev &&
-        (childNode.prev.type === "yaml" ||
-          childNode.prev.type === "toml" ||
+        (forceNextEmptyLine(childNode.prev) ||
           childNode.prev.endLocation.line + 1 < childNode.startLocation.line)
           ? hardline
           : "",
@@ -356,21 +356,18 @@ function printClosingTagEnd(node) {
     : concat([printClosingTagEndMarker(node), printClosingTagSuffix(node)]);
 }
 
-function hasSpacesBeforeOpeningTag(node) {
-  return node.hasLeadingSpaces || (!node.prev && node.parent.type === "root");
-}
-
-function hasSpacesAfterClosingTag(node) {
-  return node.hasTrailingSpaces || (!node.next && node.parent.type === "root");
-}
-
 function needsToBorrowNextOpeningTagStartMarker(node) {
   /**
    *     123<p
    *        ^^
    *     >
    */
-  return node.type === "text" && !hasSpacesAfterClosingTag(node) && node.next;
+  return (
+    node.type === "text" &&
+    node.isTrailingSpaceSensitive &&
+    !node.hasTrailingSpaces &&
+    node.next
+  );
 }
 
 function needsToBorrowParentOpeningTagEndMarker(node) {
@@ -383,7 +380,7 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
    *       ><a
    *       ^
    */
-  return !hasSpacesBeforeOpeningTag(node) && !node.prev;
+  return node.isLeadingSpaceSensitive && !node.hasLeadingSpaces && !node.prev;
 }
 
 function needsToBorrowPrevClosingTagEndMarker(node) {
@@ -396,7 +393,7 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
    *     ><a
    *     ^
    */
-  return !hasSpacesBeforeOpeningTag(node) && node.prev;
+  return node.isLeadingSpaceSensitive && !node.hasLeadingSpaces && node.prev;
 }
 
 function needsToBorrowLastChildClosingTagEndMarker(node) {
@@ -407,7 +404,11 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
    *     ^
    *     >
    */
-  return node.lastChild && !hasSpacesAfterClosingTag(node.lastChild);
+  return (
+    node.lastChild &&
+    node.lastChild.isTrailingSpaceSensitive &&
+    !node.lastChild.hasTrailingSpaces
+  );
 }
 
 function needsToBorrowParentClosingTagStartMarker(node) {
@@ -417,7 +418,12 @@ function needsToBorrowParentClosingTagStartMarker(node) {
    *          ^^^
    *     >
    */
-  return node.type === "text" && !hasSpacesAfterClosingTag(node) && !node.next;
+  return (
+    node.type === "text" &&
+    node.isTrailingSpaceSensitive &&
+    !node.hasTrailingSpaces &&
+    !node.next
+  );
 }
 
 function printOpeningTagPrefix(node) {

@@ -89,13 +89,48 @@ function isTag(node) {
   return node.type === "tag";
 }
 
-function isWhitespaceSensitiveTag(node) {
-  // TODO
-  return false;
-}
-
 function isScriptLikeTag(node) {
   return isTag(node) && (node.name === "script" || node.name === "style");
+}
+
+function isFrontMatterNode(node) {
+  return node.type === "yaml" || node.type === "toml";
+}
+
+function isLeadingSpaceSensitiveNode(node, { parent, prev /*, next */ }) {
+  if (isFrontMatterNode(node)) {
+    return false;
+  }
+
+  if (!parent) {
+    return false;
+  }
+
+  if (!prev && (parent.type === "root" || isScriptLikeTag(parent))) {
+    return false;
+  }
+
+  return true;
+}
+
+function isTrailingSpaceSensitiveNode(node, { parent /*, prev */, next }) {
+  if (isFrontMatterNode(node)) {
+    return false;
+  }
+
+  if (!parent) {
+    return false;
+  }
+
+  if (!next && (parent.type === "root" || isScriptLikeTag(parent))) {
+    return false;
+  }
+
+  return true;
+}
+
+function isDanglingSpaceSensitiveNode(/* node */) {
+  return true;
 }
 
 /**
@@ -131,6 +166,10 @@ function replaceDocNewlines(doc, replacement) {
   );
 }
 
+function forceNextEmptyLine(node) {
+  return isFrontMatterNode(node);
+}
+
 function inferScriptParser(node) {
   if (
     node.name === "script" &&
@@ -160,10 +199,14 @@ module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   VOID_TAGS,
+  forceNextEmptyLine,
   hasPrettierIgnore,
   inferScriptParser,
+  isDanglingSpaceSensitiveNode,
+  isFrontMatterNode,
+  isLeadingSpaceSensitiveNode,
   isScriptLikeTag,
-  isWhitespaceSensitiveTag,
+  isTrailingSpaceSensitiveNode,
   mapNode,
   replaceDocNewlines,
   replaceNewlines

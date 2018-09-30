@@ -2,8 +2,9 @@
 
 const {
   VOID_TAGS,
-  isScriptLikeTag,
-  isWhitespaceSensitiveTag,
+  isDanglingSpaceSensitiveNode,
+  isLeadingSpaceSensitiveNode,
+  isTrailingSpaceSensitiveNode,
   mapNode
 } = require("./utils");
 const LineAndColumn = (m => m.default || m)(require("lines-and-columns"));
@@ -77,79 +78,117 @@ function processDirectives(ast /*, options */) {
 function extractWhitespaces(ast /*, options*/) {
   const TYPE_WHITESPACE = "whitespace";
   return mapNode(ast, node => {
-    if (!node.children || isWhitespaceSensitiveTag(node)) {
+    if (!node.children) {
       return node;
     }
 
-    if (node.type === "yaml" || node.type === "toml") {
+    if (
+      node.children.length === 0 ||
+      (node.children.length === 1 &&
+        node.children[0].type === "text" &&
+        node.children[0].data.trim().length === 0)
+    ) {
       return Object.assign({}, node, {
-        hasLeadingSpaces: true,
-        hasTrailingSpaces: true
+        children: [],
+        hasDanglingSpaces: node.children.length !== 0,
+        isDanglingSpaceSensitive: isDanglingSpaceSensitiveNode(node)
       });
     }
 
-    if (
-      node.children.length === 1 &&
-      node.children[0].type === "text" &&
-      node.children[0].data.trim().length === 0
-    ) {
-      return Object.assign({}, node, { hasDanglingSpaces: true, children: [] });
-    }
+    return Object.assign({}, node, {
+      children: node.children
+        // extract whitespace nodes
+        .reduce((newChildren, child) => {
+          if (child.type !== "text") {
+            return newChildren.concat(child);
+          }
 
-    const childrenWithWhitespaces = [];
-    for (const child of node.children) {
-      if (child.type !== "text") {
-        childrenWithWhitespaces.push(child);
-        continue;
-      }
+          const localChildren = [];
 
-      const [_, leadingSpaces, text, trailingSpaces] = child.data.match(
-        /^(\s*)([\s\S]*?)(\s*)$/
-      );
+          const [_, leadingSpaces, text, trailingSpaces] = child.data.match(
+            /^(\s*)([\s\S]*?)(\s*)$/
+          );
 
-      if (leadingSpaces) {
-        childrenWithWhitespaces.push({ type: TYPE_WHITESPACE });
-      }
+          if (leadingSpaces) {
+            localChildren.push({ type: TYPE_WHITESPACE });
+          }
 
-      if (text) {
-        childrenWithWhitespaces.push({
-          type: "text",
-          data: text,
-          startIndex: child.startIndex + leadingSpaces.length,
-          endIndex: child.endIndex - trailingSpaces.length
-        });
-      }
+          if (text) {
+            localChildren.push({
+              type: "text",
+              data: text,
+              startIndex: child.startIndex + leadingSpaces.length,
+              endIndex: child.endIndex - trailingSpaces.length
+            });
+          }
 
-      if (trailingSpaces) {
-        childrenWithWhitespaces.push({ type: TYPE_WHITESPACE });
-      }
-    }
+          if (trailingSpaces) {
+            localChildren.push({ type: TYPE_WHITESPACE });
+          }
 
-    const isScriptLike = isScriptLikeTag(node);
+          return newChildren.concat(localChildren);
+        }, [])
+        .map(x => {
+          console.log(x);
+          return x;
+        })
+        // set hasLeadingSpaces/hasTrailingSpaces and filter whitespace nodes
+        .reduce((newChildren, child, i, children) => {
+          if (child.type === TYPE_WHITESPACE) {
+            return newChildren;
+          }
 
-    const children = [];
-    for (let i = 0; i < childrenWithWhitespaces.length; i++) {
-      const child = childrenWithWhitespaces[i];
+          const hasLeadingSpaces =
+            i !== 0 && children[i - 1].type === TYPE_WHITESPACE;
+          const hasTrailingSpaces =
+            i !== children.length - 1 &&
+            children[i + 1].type === TYPE_WHITESPACE;
 
-      if (child.type === TYPE_WHITESPACE) {
-        continue;
-      }
-
-      const hasLeadingSpaces =
-        isScriptLike ||
-        (i !== 0 && childrenWithWhitespaces[i - 1].type === TYPE_WHITESPACE);
-
-      const hasTrailingSpaces =
-        isScriptLike ||
-        (i !== childrenWithWhitespaces.length - 1 &&
-          childrenWithWhitespaces[i + 1].type === TYPE_WHITESPACE);
-
-      children.push(
-        Object.assign({}, child, { hasLeadingSpaces, hasTrailingSpaces })
-      );
-    }
-
-    return Object.assign({}, node, { children });
+          return newChildren.concat(
+            Object.assign({}, child, {
+              hasLeadingSpaces,
+              hasTrailingSpaces
+            })
+          );
+        }, [])
+        // set isLeadingSpaceSensitive
+        .map((child, i, children) => {
+          const prevChild = i === 0 ? null : children[i - 1];
+          const nextChild = i === children.length - 1 ? null : children[i + 1];
+          return Object.assign({}, child, {
+            isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child, {
+              parent: node,
+              prev: prevChild,
+              next: nextChild
+            })
+          });
+        })
+        // set isTrailingSpaceSensitive and update isLeadingSpaceSensitive if necessary
+        .reduce((newChildren, child, i, children) => {
+          const prevChild = i === 0 ? null : newChildren[i - 1];
+          const nextChild = i === children.length - 1 ? null : children[i + 1];
+          const isTrailingSpaceSensitive =
+            nextChild && !nextChild.isLeadingSpaceSensitive
+              ? false
+              : isTrailingSpaceSensitiveNode(child, {
+                  parent: node,
+                  prev: prevChild,
+                  next: nextChild
+                });
+          return newChildren.concat(
+            Object.assign(
+              {},
+              child,
+              { isTrailingSpaceSensitive },
+              prevChild &&
+              !prevChild.isTrailingSpaceSensitive &&
+              child.isLeadingSpaceSensitive
+                ? { isLeadingSpaceSensitive: false }
+                : null
+            )
+          );
+        }, [])
+    });
   });
 }
 
