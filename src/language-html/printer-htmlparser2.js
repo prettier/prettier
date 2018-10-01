@@ -93,7 +93,17 @@ function genericPrint(path, options, print) {
   const node = path.getValue();
   switch (node.type) {
     case "root":
-      return concat([printChildren(path, options, print), hardline]);
+      return concat([
+        group(
+          concat([
+            node.children.some(child => child.type !== "text")
+              ? breakParent
+              : "",
+            printChildren(path, options, print)
+          ])
+        ),
+        hardline
+      ]);
     case "tag":
     case "ieConditionalComment":
       return concat([
@@ -127,7 +137,18 @@ function genericPrint(path, options, print) {
                   : ""
                 : concat([
                     indent(printChildren(path, options, print)),
-                    softline
+                    node.next &&
+                    needsToBorrowPrevClosingTagEndMarker(node.next) &&
+                    needsToBorrowParentClosingTagStartMarker(node.lastChild)
+                      ? /**
+                         *
+                         *     <div>
+                         *       123</div
+                         *               ~
+                         *     >456
+                         */
+                        ""
+                      : softline
                   ])
           ])
         ),
@@ -230,10 +251,7 @@ function printChildren(path, options, print) {
           : "",
         (childIndex === 0 && node.type === "root") ||
         (childNode.prev &&
-          needsToBorrowNextOpeningTagStartMarker(childNode.prev)) ||
-        (needsToBorrowPrevClosingTagEndMarker(childNode) &&
-          childNode.prev.lastChild &&
-          needsToBorrowParentClosingTagStartMarker(childNode.prev.lastChild))
+          needsToBorrowNextOpeningTagStartMarker(childNode.prev))
           ? /**
              *     123<br />
              *            ~
@@ -242,11 +260,6 @@ function printChildren(path, options, print) {
              *     123<a
              *          ~
              *       longAttr
-             *
-             *     <div>
-             *       123</div
-             *               ~
-             *     >456
              */
             ""
           : childNode.type === "text" &&
