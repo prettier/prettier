@@ -18,8 +18,9 @@ const {
 } = require("../doc");
 const { hasNewlineInRange } = require("../common/util");
 const {
+  dedentString,
   forceNextEmptyLine,
-  getIndentationRestoredData,
+  getCommentData,
   hasPrettierIgnore,
   inferScriptParser,
   isScriptLikeTag,
@@ -166,7 +167,10 @@ function genericPrint(path, options, print) {
                 )
               )
             : concat(
-                replaceNewlines(getIndentationRestoredData(node), hardline)
+                replaceNewlines(
+                  dedentString(node.data.replace(/^\s*?\n|\n\s*?$/g, "")),
+                  hardline
+                )
               )
           : concat(
               replaceNewlines(node.data.replace(/\s+/g, " "), literalline)
@@ -175,9 +179,7 @@ function genericPrint(path, options, print) {
       ]);
     case "comment":
     case "directive": {
-      const data = node.data.includes("\n")
-        ? getIndentationRestoredData(node)
-        : node.data;
+      const data = getCommentData(node);
       return concat([
         group(
           concat([
@@ -194,7 +196,7 @@ function genericPrint(path, options, print) {
                        */
                       concat([
                         hardline,
-                        concat(replaceNewlines(data.trim(), hardline))
+                        concat(replaceNewlines(data, hardline))
                       ])
                     : /**
                        *     ><!-- 123
@@ -207,11 +209,20 @@ function genericPrint(path, options, print) {
                        *       123
                        */
                       concat([
-                        node.type === "directive" ? "" : softline,
+                        node.type === "directive" ? " " : line,
                         concat(replaceNewlines(data, hardline))
                       ])
                 ),
-            node.type === "directive" ? "" : softline
+            node.type === "directive" ||
+            (node.next && needsToBorrowPrevClosingTagEndMarker(node.next))
+              ? /**
+                 *     <!--
+                 *         123
+                 *            ~
+                 *   -->456
+                 */
+                ""
+              : line
           ])
         ),
         group(printClosingTagEnd(node))

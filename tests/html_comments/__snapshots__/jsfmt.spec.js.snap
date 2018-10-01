@@ -97,10 +97,10 @@ exports[`hidden.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html>
   <body>
-    <!--This is a comment-->
     <!-- This is a comment -->
-    <!--  This is a comment  -->
-    <!--   This   is   a   comment   -->
+    <!-- This is a comment -->
+    <!-- This is a comment -->
+    <!-- This   is   a   comment -->
     <p>This is a paragraph.</p>
     <!-- Comments are not displayed in the browser -->
   </body>
@@ -132,22 +132,20 @@ exports[`surrounding-empty-line.html - html-verify 1`] = `
 --></ul>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <ul>
-  <!--123
+  <!-- 123
   --><li>First</li
   ><!--
     123
     456
-    789
-
+       789
   --><li>Second</li
   ><!--
     123
        456
           789
-
   --><li>Second</li
   ><!--
-    123
+           123
         456
     789
   -->

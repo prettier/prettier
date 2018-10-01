@@ -12,8 +12,6 @@ const {
   CSS_WHITE_SPACE_DEFAULT
 } = require("./constants.evaluate");
 
-const dedentString = require("dedent");
-
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
 
@@ -238,25 +236,106 @@ function getNodeCssStyleWhiteSpace(node) {
   );
 }
 
-function getIndentationRestoredData(node) {
-  return dedentString(
+function getCommentData(node) {
+  debugger;
+  const rightTrimmedData = node.data.trimRight();
+
+  const hasLeadingEmptyLine = /^[^\S\n]*?\n/.test(node.data);
+  if (hasLeadingEmptyLine) {
     /**
-     *       <!-- hello
-     *     ^^^^^^
-     *            world
+     *     <!--
+     *     123
+     *        456
+     *     -->
      */
-    (
-      " ".repeat(node.startLocation.column + "<!--".length) + node.data
-    ).trimRight()
+    return dedentString(rightTrimmedData.replace(/^\s*\n/, ""));
+  }
+
+  /**
+   *     <!-- 123 -->
+   *
+   *     <!-- 123
+   *     -->
+   *
+   *     <!-- 123
+   *
+   *     -->
+   */
+  if (!rightTrimmedData.includes("\n")) {
+    return rightTrimmedData.trimLeft();
+  }
+
+  const firstNewlineIndex = rightTrimmedData.indexOf("\n");
+  const dataWithoutLeadingLine = rightTrimmedData.slice(firstNewlineIndex + 1);
+  const minIndentationForDataWithoutLeadingLine = getMinIndentation(
+    dataWithoutLeadingLine
   );
+
+  const commentDataStartColumn = node.startLocation.column + "<!--".length;
+
+  /**
+   *     <!-- 123
+   *          456 -->
+   */
+  if (minIndentationForDataWithoutLeadingLine >= commentDataStartColumn) {
+    return dedentString(
+      " ".repeat(commentDataStartColumn) + "\n" + rightTrimmedData
+    );
+  }
+
+  const leadingLineData = rightTrimmedData.slice(0, firstNewlineIndex);
+  /**
+   *     <!-- 123
+   *     456 -->
+   */
+  return (
+    leadingLineData.trim() +
+    "\n" +
+    dedentString(
+      dataWithoutLeadingLine,
+      minIndentationForDataWithoutLeadingLine
+    )
+  );
+}
+
+function getMinIndentation(text) {
+  let minIndentation = Infinity;
+
+  for (const lineText of text.split("\n")) {
+    if (/\S/.test(lineText[0])) {
+      return 0;
+    }
+
+    const indentation = lineText.match(/^\s*/)[0].length;
+
+    if (lineText.length === indentation) {
+      continue;
+    }
+
+    if (indentation < minIndentation) {
+      minIndentation = indentation;
+    }
+  }
+
+  return minIndentation === Infinity ? 0 : minIndentation;
+}
+
+function dedentString(text, minIndent = getMinIndentation(text)) {
+  return minIndent === 0
+    ? text
+    : text
+        .split("\n")
+        .map(lineText => lineText.slice(minIndent))
+        .join("\n");
 }
 
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   VOID_TAGS,
+  dedentString,
   forceNextEmptyLine,
-  getIndentationRestoredData,
+  getCommentData,
   getNodeCssStyleWhiteSpace,
   hasPrettierIgnore,
   inferScriptParser,

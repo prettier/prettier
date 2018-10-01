@@ -3,7 +3,7 @@
 exports[`comment.html - html-verify 1`] = `
 <!--hello world-->
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<!--hello world-->
+<!-- hello world -->
 
 `;
 
