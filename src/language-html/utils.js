@@ -237,7 +237,6 @@ function getNodeCssStyleWhiteSpace(node) {
 }
 
 function getCommentData(node) {
-  debugger;
   const rightTrimmedData = node.data.trimRight();
 
   const hasLeadingEmptyLine = /^[^\S\n]*?\n/.test(node.data);
