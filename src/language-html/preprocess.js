@@ -84,11 +84,10 @@ function processDirectives(ast /*, options */) {
 }
 
 /**
- * - add `hasLeadingSpaces` field
- * - add `hasTrailingSpaces` field
- * - add `hasDanglingSpaces` field for parent nodes
- * - add `isWhiteSpaceSensitive` field for text nodes
- * - add `isIndentationSensitive` field for text nodes
+ * - add `hasLeadingSpaces`, `isLeadingSpaceSensitive` field
+ * - add `hasTrailingSpaces`, `isTrailingSpaceSensitive` field
+ * - add `hasDanglingSpaces`, `isDanglingSpaceSensitive` field for parent nodes
+ * - add `isWhiteSpaceSensitive`, `isIndentationSensitive` field for text nodes
  * - remove insensitive whitespaces
  */
 function extractWhitespaces(ast /*, options*/) {

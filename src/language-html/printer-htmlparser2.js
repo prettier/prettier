@@ -14,7 +14,7 @@ const {
     markAsRoot,
     softline
   },
-  utils: { stripTrailingHardline, removeLines }
+  utils: { removeLines, stripTrailingHardline }
 } = require("../doc");
 const { hasNewlineInRange } = require("../common/util");
 const {

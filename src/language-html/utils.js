@@ -256,6 +256,7 @@ module.exports = {
   HTML_TAGS,
   VOID_TAGS,
   forceNextEmptyLine,
+  getIndentationRestoredData,
   getNodeCssStyleWhiteSpace,
   hasPrettierIgnore,
   inferScriptParser,
@@ -266,6 +267,5 @@ module.exports = {
   isTrailingSpaceSensitiveNode,
   mapNode,
   replaceDocNewlines,
-  replaceNewlines,
-  getIndentationRestoredData
+  replaceNewlines
 };

@@ -1,7 +1,7 @@
 "use strict";
 
 const parseFrontMatter = require("../utils/front-matter");
-const { HTML_TAGS, HTML_ELEMENT_ATTRIBUTES, mapNode } = require("./utils");
+const { HTML_ELEMENT_ATTRIBUTES, HTML_TAGS, mapNode } = require("./utils");
 
 function parse(text, parsers, options, { shouldParseFrontMatter = true } = {}) {
   const { frontMatter, content } = shouldParseFrontMatter
