@@ -194,9 +194,18 @@ test("API getFileInfo with withNodeModules", () => {
   });
 });
 
-describe("extracts file-info for a file with no extension but a standard shebang", () => {
+describe("extracts file-info for a JS file with no extension but a standard shebang", () => {
   expect(
-    prettier.getFileInfo.sync("tests_integration/cli/shebang/sample-bin")
+    prettier.getFileInfo.sync("tests_integration/cli/shebang/sample-bin1")
+  ).toMatchObject({
+    ignored: false,
+    inferredParser: "babylon"
+  });
+});
+
+describe("extracts file-info for a JS file with no extension but an env-based shebang", () => {
+  expect(
+    prettier.getFileInfo.sync("tests_integration/cli/shebang/sample-bin2")
   ).toMatchObject({
     ignored: false,
     inferredParser: "babylon"
