@@ -501,8 +501,7 @@ function printString(raw, options, isDirectiveLiteral) {
     !(
       options.parser === "css" ||
       options.parser === "less" ||
-      options.parser === "scss" ||
-      options.parser === "glimmer"
+      options.parser === "scss"
     )
   );
 }

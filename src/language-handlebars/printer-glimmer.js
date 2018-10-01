@@ -10,9 +10,6 @@ const {
   indent,
   ifBreak
 } = require("../doc").builders;
-const {
-  printString,
-} = require("../common/util");
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [
@@ -252,10 +249,7 @@ function print(path, options, print) {
       return concat(["<!--", n.value, "-->"]);
     }
     case "StringLiteral": {
-      // printString expects the `rawString` to be passed to it--including
-      // the surrounding quotes. So we wrap the literal value in
-      // quotes to simulate the `rawString` value.
-      return printString(`"${n.value}"`, options, false);
+      return printStringLiteral(n.value, options);
     }
     case "NumberLiteral": {
       return String(n.value);
@@ -271,6 +265,41 @@ function print(path, options, print) {
     default:
       throw new Error("unknown glimmer type: " + JSON.stringify(n.type));
   }
+}
+
+function printStringLiteral(stringLiteral, options) {
+  const double = { quote: '"', regex: /"/g };
+  const single = { quote: "'", regex: /'/g };
+
+  const preferred = options.singleQuote ? single : double;
+  const alternate = preferred === single ? double : single;
+
+  let shouldUseAlternateQuote = false;
+
+  // If `stringLiteral` contains at least one of the quote preferred for
+  // enclosing the string, we might want to enclose with the alternate quote
+  // instead, to minimize the number of escaped quotes.
+  if (
+    stringLiteral.includes(preferred.quote) ||
+    stringLiteral.includes(alternate.quote)
+  ) {
+    const numPreferredQuotes = (stringLiteral.match(preferred.regex) || [])
+      .length;
+    const numAlternateQuotes = (stringLiteral.match(alternate.regex) || [])
+      .length;
+
+    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
+  }
+
+  const enclosingQuote = shouldUseAlternateQuote ? alternate : preferred;
+  const escapedStringLiteral = stringLiteral.replace(
+    enclosingQuote.regex,
+    `\\${enclosingQuote.quote}`
+  );
+
+  return `${enclosingQuote.quote}${escapedStringLiteral}${
+    enclosingQuote.quote
+  }`;
 }
 
 function printPath(path, print) {
