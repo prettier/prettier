@@ -23,3 +23,16 @@ exports[`display-none.html - html-verify 1`] = `
 </html>
 
 `;
+
+exports[`inline-leading-trailing-spaces.html - html-verify 1`] = `
+<span> 321 </span>
+
+<span> <a>321</a> </span>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<span>321</span>
+
+<span>
+  <a>321</a>
+</span>
+
+`;
