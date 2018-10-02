@@ -104,12 +104,18 @@ function isFrontMatterNode(node) {
   return node.type === "yaml" || node.type === "toml";
 }
 
-function isLeadingSpaceSensitiveNode(node, { parent, prev /*, next */ }) {
+function isLeadingSpaceSensitiveNode(
+  node,
+  { prev, index, parent, parentStack }
+) {
   if (isFrontMatterNode(node)) {
     return false;
   }
 
-  if (!parent || getNodeCssStyleDisplay(parent) === "none") {
+  if (
+    !parent ||
+    getNodeCssStyleDisplay(parent, getPrevNode(parentStack)) === "none"
+  ) {
     return false;
   }
 
@@ -117,24 +123,30 @@ function isLeadingSpaceSensitiveNode(node, { parent, prev /*, next */ }) {
     !prev &&
     (parent.type === "root" ||
       isScriptLikeTag(parent) ||
-      getNodeCssStyleDisplay(parent) === "block")
+      getNodeCssStyleDisplay(parent, getPrevNode(parentStack)) === "block")
   ) {
     return false;
   }
 
-  if (prev && getNodeCssStyleDisplay(prev) === "block") {
+  if (
+    prev &&
+    getNodeCssStyleDisplay(prev, parent.children[index - 2]) === "block"
+  ) {
     return false;
   }
 
   return true;
 }
 
-function isTrailingSpaceSensitiveNode(node, { parent /*, prev */, next }) {
+function isTrailingSpaceSensitiveNode(node, { next, parent, parentStack }) {
   if (isFrontMatterNode(node)) {
     return false;
   }
 
-  if (!parent || getNodeCssStyleDisplay(parent) === "none") {
+  if (
+    !parent ||
+    getNodeCssStyleDisplay(parent, getPrevNode(parentStack)) === "none"
+  ) {
     return false;
   }
 
@@ -142,12 +154,12 @@ function isTrailingSpaceSensitiveNode(node, { parent /*, prev */, next }) {
     !next &&
     (parent.type === "root" ||
       isScriptLikeTag(parent) ||
-      getNodeCssStyleDisplay(parent) === "block")
+      getNodeCssStyleDisplay(parent, getPrevNode(parentStack)) === "block")
   ) {
     return false;
   }
 
-  if (next && getNodeCssStyleDisplay(next) === "block") {
+  if (next && getNodeCssStyleDisplay(next, node) === "block") {
     return false;
   }
 
@@ -160,19 +172,29 @@ function isDanglingSpaceSensitiveNode(/* node */) {
 
 /**
  * @param {unknown} node
- * @param {(node: unknown, index: number, parent: unknown | null)} fn
+ * @param {(node: unknown, stack: Array<string | object>)} fn
  * @param {unknown=} parent
  */
-function mapNode(node, fn, parent = null, index = -1) {
+function mapNode(node, fn, stack = []) {
   const newNode = Object.assign({}, node);
 
   if (newNode.children) {
     newNode.children = newNode.children.map((child, childIndex) =>
-      mapNode(child, fn, node, childIndex)
+      mapNode(child, fn, [childIndex, node].concat(stack))
     );
   }
 
-  return fn(newNode, index, parent);
+  return fn(newNode, stack);
+}
+
+function getPrevNode(stack) {
+  const [index, parent] = stack;
+
+  if (typeof index !== "number" || index === 0) {
+    return null;
+  }
+
+  return parent.children[index - 1];
 }
 
 function replaceNewlines(text, replacement) {
@@ -221,7 +243,14 @@ function inferScriptParser(node) {
   return null;
 }
 
-function getNodeCssStyleDisplay(node) {
+function getNodeCssStyleDisplay(node, prevNode) {
+  if (prevNode && prevNode.type === "comment") {
+    // <!-- display: block -->
+    const match = prevNode.data.match(/^\s*display:\s*([a-z]+)\s*$/);
+    if (match) {
+      return match[1];
+    }
+  }
   return (
     (isTag(node) && CSS_DISPLAY_TAGS[node.name]) ||
     (getNodeCssStyleWhiteSpace(node) === "pre-wrap"

@@ -16,6 +16,7 @@ const PREPROCESS_PIPELINE = [
   processDirectives,
   addIsSelfClosing,
   extractWhitespaces,
+  addIsSpaceSensitive,
   addStartAndEndLocation,
   addShortcuts
 ];
@@ -84,9 +85,9 @@ function processDirectives(ast /*, options */) {
 }
 
 /**
- * - add `hasLeadingSpaces`, `isLeadingSpaceSensitive` field
- * - add `hasTrailingSpaces`, `isTrailingSpaceSensitive` field
- * - add `hasDanglingSpaces`, `isDanglingSpaceSensitive` field for parent nodes
+ * - add `hasLeadingSpaces` field
+ * - add `hasTrailingSpaces` field
+ * - add `hasDanglingSpaces` field for parent nodes
  * - add `isWhiteSpaceSensitive`, `isIndentationSensitive` field for text nodes
  * - remove insensitive whitespaces
  */
@@ -105,8 +106,7 @@ function extractWhitespaces(ast /*, options*/) {
     ) {
       return Object.assign({}, node, {
         children: [],
-        hasDanglingSpaces: node.children.length !== 0,
-        isDanglingSpaceSensitive: isDanglingSpaceSensitiveNode(node)
+        hasDanglingSpaces: node.children.length !== 0
       });
     }
 
@@ -175,13 +175,38 @@ function extractWhitespaces(ast /*, options*/) {
             })
           );
         }, [])
+    });
+  });
+}
+
+/**
+ * - add `isLeadingSpaceSensitive` field
+ * - add `isTrailingSpaceSensitive` field
+ * - add `isDanglingSpaceSensitive` field for parent nodes
+ */
+function addIsSpaceSensitive(ast /*, options */) {
+  return mapNode(ast, (node, stack) => {
+    if (!node.children) {
+      return node;
+    }
+
+    if (node.children.length === 0) {
+      return Object.assign({}, node, {
+        isDanglingSpaceSensitive: isDanglingSpaceSensitiveNode(node)
+      });
+    }
+
+    return Object.assign({}, node, {
+      children: node.children
         // set isLeadingSpaceSensitive
         .map((child, i, children) => {
           const prevChild = i === 0 ? null : children[i - 1];
           const nextChild = i === children.length - 1 ? null : children[i + 1];
           return Object.assign({}, child, {
             isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child, {
+              parentStack: stack,
               parent: node,
+              index: i,
               prev: prevChild,
               next: nextChild
             })
@@ -195,7 +220,9 @@ function extractWhitespaces(ast /*, options*/) {
             nextChild && !nextChild.isLeadingSpaceSensitive
               ? false
               : isTrailingSpaceSensitiveNode(child, {
+                  parentStack: stack,
                   parent: node,
+                  index: i,
                   prev: prevChild,
                   next: nextChild
                 });
