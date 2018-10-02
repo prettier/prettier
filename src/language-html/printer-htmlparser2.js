@@ -137,7 +137,15 @@ function genericPrint(path, options, print) {
                     hardline
                   : ""
                 : concat([
+                    node.firstChild.isLeadingSpaceSensitive &&
+                    node.firstChild.hasLeadingSpaces
+                      ? " "
+                      : "",
                     indent(printChildren(path, options, print)),
+                    node.lastChild.isTrailingSpaceSensitive &&
+                    node.lastChild.hasTrailingSpaces
+                      ? " "
+                      : "",
                     node.next &&
                     needsToBorrowPrevClosingTagEndMarker(node.next) &&
                     needsToBorrowParentClosingTagStartMarker(node.lastChild)
