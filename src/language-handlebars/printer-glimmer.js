@@ -267,6 +267,15 @@ function print(path, options, print) {
   }
 }
 
+/**
+ * Prints a string literal with the correct surrounding quotes based on
+ * `options.singleQuote` and the number of escaped quotes contained in
+ * the string literal. This function is the glimmer equivalent of `printString`
+ * in `common/util`, but has differences because of the way escaped characters
+ * are treated in hbs string literals.
+ * @param {string} stringLiteral - the string literal value
+ * @param {object} options - the prettier options object
+ */
 function printStringLiteral(stringLiteral, options) {
   const double = { quote: '"', regex: /"/g };
   const single = { quote: "'", regex: /'/g };
