@@ -270,7 +270,11 @@ function printChildren(path, options, print) {
           : "",
         (childIndex === 0 && node.type === "root") ||
         (childNode.prev &&
-          needsToBorrowNextOpeningTagStartMarker(childNode.prev))
+          needsToBorrowNextOpeningTagStartMarker(childNode.prev) &&
+          (childNode.isSelfClosing ||
+            (!needsToBorrowParentOpeningTagEndMarker(childNode.prev) &&
+              childNode.firstChild &&
+              needsToBorrowParentOpeningTagEndMarker(childNode.firstChild))))
           ? /**
              *     123<br />
              *            ~
@@ -278,7 +282,8 @@ function printChildren(path, options, print) {
              *
              *     123<a
              *          ~
-             *       longAttr
+             *       ><b
+             *         >456
              */
             ""
           : childNode.type === "text" &&
