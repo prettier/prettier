@@ -5,6 +5,7 @@ const {
   builders: {
     breakParent,
     concat,
+    fill,
     group,
     hardline,
     indent,
@@ -180,9 +181,7 @@ function genericPrint(path, options, print) {
                   hardline
                 )
               )
-          : concat(
-              replaceNewlines(node.data.replace(/\s+/g, " "), literalline)
-            ),
+          : fill(join(line, node.data.split(/\s+/)).parts),
         printClosingTagSuffix(node)
       ]);
     case "comment":
