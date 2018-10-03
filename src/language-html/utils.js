@@ -104,18 +104,12 @@ function isFrontMatterNode(node) {
   return node.type === "yaml" || node.type === "toml";
 }
 
-function isLeadingSpaceSensitiveNode(
-  node,
-  { prev, index, parent, parentStack }
-) {
+function isLeadingSpaceSensitiveNode(node, { prev, parent }) {
   if (isFrontMatterNode(node)) {
     return false;
   }
 
-  if (
-    !parent ||
-    getNodeCssStyleDisplay(parent, getPrevNode(parentStack)) === "none"
-  ) {
+  if (!parent || parent.cssDisplay === "none") {
     return false;
   }
 
@@ -123,30 +117,24 @@ function isLeadingSpaceSensitiveNode(
     !prev &&
     (parent.type === "root" ||
       isScriptLikeTag(parent) ||
-      getNodeCssStyleDisplay(parent, getPrevNode(parentStack)) === "block")
+      parent.cssDisplay === "block")
   ) {
     return false;
   }
 
-  if (
-    prev &&
-    getNodeCssStyleDisplay(prev, parent.children[index - 2]) === "block"
-  ) {
+  if (prev && prev.cssDisplay === "block") {
     return false;
   }
 
   return true;
 }
 
-function isTrailingSpaceSensitiveNode(node, { next, parent, parentStack }) {
+function isTrailingSpaceSensitiveNode(node, { next, parent }) {
   if (isFrontMatterNode(node)) {
     return false;
   }
 
-  if (
-    !parent ||
-    getNodeCssStyleDisplay(parent, getPrevNode(parentStack)) === "none"
-  ) {
+  if (!parent || parent.cssDisplay === "none") {
     return false;
   }
 
@@ -154,12 +142,12 @@ function isTrailingSpaceSensitiveNode(node, { next, parent, parentStack }) {
     !next &&
     (parent.type === "root" ||
       isScriptLikeTag(parent) ||
-      getNodeCssStyleDisplay(parent, getPrevNode(parentStack)) === "block")
+      parent.cssDisplay === "block")
   ) {
     return false;
   }
 
-  if (next && getNodeCssStyleDisplay(next, node) === "block") {
+  if (next && next.cssDisplay === "block") {
     return false;
   }
 
@@ -365,6 +353,8 @@ module.exports = {
   forceNextEmptyLine,
   getCommentData,
   getNodeCssStyleWhiteSpace,
+  getNodeCssStyleDisplay,
+  getPrevNode,
   hasPrettierIgnore,
   inferScriptParser,
   isDanglingSpaceSensitiveNode,

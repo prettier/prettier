@@ -2,7 +2,9 @@
 
 const {
   VOID_TAGS,
+  getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
+  getPrevNode,
   isDanglingSpaceSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isScriptLikeTag,
@@ -16,6 +18,7 @@ const PREPROCESS_PIPELINE = [
   processDirectives,
   addIsSelfClosing,
   extractWhitespaces,
+  addCssDisplay,
   addIsSpaceSensitive,
   addStartAndEndLocation,
   addShortcuts
@@ -179,13 +182,22 @@ function extractWhitespaces(ast /*, options*/) {
   });
 }
 
+function addCssDisplay(ast /*, options */) {
+  return mapNode(ast, (node, stack) => {
+    const prevNode = getPrevNode(stack);
+    return Object.assign({}, node, {
+      cssDisplay: getNodeCssStyleDisplay(node, prevNode)
+    });
+  });
+}
+
 /**
  * - add `isLeadingSpaceSensitive` field
  * - add `isTrailingSpaceSensitive` field
  * - add `isDanglingSpaceSensitive` field for parent nodes
  */
 function addIsSpaceSensitive(ast /*, options */) {
-  return mapNode(ast, (node, stack) => {
+  return mapNode(ast, node => {
     if (!node.children) {
       return node;
     }
@@ -204,9 +216,7 @@ function addIsSpaceSensitive(ast /*, options */) {
           const nextChild = i === children.length - 1 ? null : children[i + 1];
           return Object.assign({}, child, {
             isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child, {
-              parentStack: stack,
               parent: node,
-              index: i,
               prev: prevChild,
               next: nextChild
             })
@@ -220,9 +230,7 @@ function addIsSpaceSensitive(ast /*, options */) {
             nextChild && !nextChild.isLeadingSpaceSensitive
               ? false
               : isTrailingSpaceSensitiveNode(child, {
-                  parentStack: stack,
                   parent: node,
-                  index: i,
                   prev: prevChild,
                   next: nextChild
                 });
