@@ -130,19 +130,16 @@ function getInterpreter(filepath) {
 
   try {
     const liner = new readlines(fd);
-    const firstLine = liner
-      .next()
-      .toString("utf8")
-      .trim();
+    const firstLine = liner.next().toString("utf8");
 
     // #!/bin/env node, #!/usr/bin/env node
-    const m1 = /^#!\/usr(?:\/bin)?\/env\s+(\S+).*/.exec(firstLine);
+    const m1 = firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(\S+)/);
     if (m1) {
       return m1[1];
     }
 
     // #!/bin/node, #!/usr/bin/node, #!/usr/local/bin/node
-    const m2 = /^#!\/usr(?:\/local)?(?:\/bin)?\/(\S+).*/.exec(firstLine);
+    const m2 = firstLine.match(/^#!\/(?:usr\/(?:local\/)?)?bin\/(\S+)/);
     if (m2) {
       return m2[1];
     }
