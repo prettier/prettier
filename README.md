@@ -37,7 +37,7 @@
   <a href="https://www.npmjs.com/package/prettier">
     <img alt="npm version" src="https://img.shields.io/npm/v/prettier.svg?style=flat-square"></a>
   <a href="https://www.npmjs.com/package/prettier">
-    <img alt="monthly downloads from npm" src="https://img.shields.io/npm/dm/prettier.svg?style=flat-square"></a>
+    <img alt="weekly downloads from npm" src="https://img.shields.io/npm/dw/prettier.svg?style=flat-square"></a>
   <a href="#badge">
     <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"></a>
   <a href="https://gitter.im/jlongster/prettier">
