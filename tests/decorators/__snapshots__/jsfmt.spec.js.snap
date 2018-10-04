@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`classes.js - babylon-verify 1`] = `
+@deco class Foo {}
+
+@deco export class Bar {}
+
+@deco export default class Baz {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@deco
+class Foo {}
+
+@deco
+export class Bar {}
+
+@deco
+export default class Baz {}
+
+`;
+
 exports[`comments.js - babylon-verify 1`] = `
 var x = 100
 
@@ -129,6 +147,21 @@ class OrderLine {
   setPrice(price) {
     this.price = price;
   }
+}
+
+`;
+
+exports[`multiline.js - babylon-verify 1`] = `
+class Foo {
+  @deco([
+    foo,
+    bar
+  ]) prop = value;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Foo {
+  @deco([foo, bar])
+  prop = value;
 }
 
 `;

@@ -96,10 +96,11 @@ function genericPrint(path, options, printPath, args) {
     !getParentExportDeclaration(path)
   ) {
     const shouldBreak =
+      node.type === "ClassDeclaration" ||
       hasNewlineInRange(
         options.originalText,
         options.locStart(node.decorators[0]),
-        options.locStart(getLast(node.decorators))
+        options.locEnd(getLast(node.decorators))
       ) ||
       hasNewline(
         options.originalText,
