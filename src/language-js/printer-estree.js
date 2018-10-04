@@ -5294,6 +5294,9 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
       isBinaryish(rightNode.test) &&
       !shouldInlineLogicalExpression(rightNode.test)) ||
     rightNode.type === "StringLiteralTypeAnnotation" ||
+    (rightNode.type === "ClassExpression" &&
+      rightNode.decorators &&
+      rightNode.decorators.length) ||
     ((leftNode.type === "Identifier" ||
       isStringLiteral(leftNode) ||
       leftNode.type === "MemberExpression") &&

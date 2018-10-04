@@ -6,6 +6,16 @@ exports[`classes.js - babylon-verify 1`] = `
 @deco export class Bar {}
 
 @deco export default class Baz {}
+
+const foo = @deco class {
+  //
+};
+
+const foo =
+  @deco
+  class {
+    //
+  };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @deco
 class Foo {}
@@ -15,6 +25,18 @@ export class Bar {}
 
 @deco
 export default class Baz {}
+
+const foo =
+  @deco
+  class {
+    //
+  };
+
+const foo =
+  @deco
+  class {
+    //
+  };
 
 `;
 

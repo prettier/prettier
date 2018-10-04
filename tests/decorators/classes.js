@@ -3,3 +3,13 @@
 @deco export class Bar {}
 
 @deco export default class Baz {}
+
+const foo = @deco class {
+  //
+};
+
+const foo =
+  @deco
+  class {
+    //
+  };
