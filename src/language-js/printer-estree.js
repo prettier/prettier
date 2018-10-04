@@ -20,8 +20,7 @@ const {
   getPenultimate,
   startsWithNoLookaheadToken,
   getIndentSize,
-  matchAncestorTypes,
-  isWithinParentArrayProperty
+  matchAncestorTypes
 } = require("../common/util");
 const {
   isNextLineEmpty,
@@ -96,11 +95,18 @@ function genericPrint(path, options, printPath, args) {
     // responsible for printing node.decorators.
     !getParentExportDeclaration(path)
   ) {
-    const separator =
-      node.decorators.length === 1 &&
-      isWithinParentArrayProperty(path, "params")
-        ? line
-        : hardline;
+    const shouldBreak =
+      hasNewlineInRange(
+        options.originalText,
+        options.locStart(node.decorators[0]),
+        options.locStart(getLast(node.decorators))
+      ) ||
+      hasNewline(
+        options.originalText,
+        options.locEnd(getLast(node.decorators))
+      );
+
+    const separator = shouldBreak ? hardline : line;
 
     path.each(decoratorPath => {
       let decorator = decoratorPath.getValue();

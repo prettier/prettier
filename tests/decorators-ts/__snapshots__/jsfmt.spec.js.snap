@@ -161,8 +161,7 @@ class Greeter {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Greeter {
-  @format("Hello, %s")
-  greeting: string;
+  @format("Hello, %s") greeting: string;
 
   constructor(message: string) {
     this.greeting = message;
