@@ -130,7 +130,7 @@ test("API getFileInfo.sync with filepath only", () => {
   });
 });
 
-test("API getFileInfo with ignorePath", async () => {
+test("API getFileInfo with ignorePath", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/ignore-path/regular-module.js")
   );
@@ -138,42 +138,49 @@ test("API getFileInfo with ignorePath", async () => {
     path.join(__dirname, "../cli/ignore-path/.prettierignore")
   );
 
-  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: "babylon"
-  });
+  return Promise.all([
+    expect(prettier.getFileInfo(file)).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: "babylon"
+    }),
 
-  await expect(
-    prettier.getFileInfo(file, {
-      ignorePath
+    expect(
+      prettier.getFileInfo(file, {
+        ignorePath
+      })
+    ).resolves.toMatchObject({
+      ignored: true,
+      inferredParser: "babylon"
     })
-  ).resolves.toMatchObject({
-    ignored: true,
-    inferredParser: "babylon"
-  });
+  ]);
 });
 
-test("API getFileInfo with ignorePath containing relative paths", async () => {
+test("API getFileInfo with ignorePath containing relative paths", () => {
   const file = path.resolve(
-    path.join(__dirname, "../cli/ignore-relative-path/level1-glob/level2-glob/level3-glob/shouldNotBeFormat.js")
+    path.join(
+      __dirname,
+      "../cli/ignore-relative-path/level1-glob/level2-glob/level3-glob/shouldNotBeFormat.js"
+    )
   );
   const ignorePath = path.resolve(
     path.join(__dirname, "../cli/ignore-relative-path/.prettierignore")
   );
 
-  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: "babylon"
-  });
+  return Promise.all([
+    expect(prettier.getFileInfo(file)).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: "babylon"
+    }),
 
-  await expect(
-    prettier.getFileInfo(file, {
-      ignorePath
+    expect(
+      prettier.getFileInfo(file, {
+        ignorePath
+      })
+    ).resolves.toMatchObject({
+      ignored: true,
+      inferredParser: "babylon"
     })
-  ).resolves.toMatchObject({
-    ignored: true,
-    inferredParser: "babylon"
-  });
+  ]);
 });
 
 test("API getFileInfo.sync with ignorePath", () => {
