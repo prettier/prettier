@@ -20,6 +20,7 @@ const {
 const { hasNewlineInRange } = require("../common/util");
 const {
   dedentString,
+  forceBreakChildren,
   forceNextEmptyLine,
   getCommentData,
   hasPrettierIgnore,
@@ -98,9 +99,7 @@ function genericPrint(path, options, print) {
       return concat([
         group(
           concat([
-            node.children.some(child => child.type !== "text")
-              ? breakParent
-              : "",
+            forceBreakChildren(node) ? breakParent : "",
             printChildren(path, options, print)
           ])
         ),
@@ -111,9 +110,7 @@ function genericPrint(path, options, print) {
       return concat([
         group(
           concat([
-            node.children.some(child => child.type !== "text")
-              ? breakParent
-              : "",
+            forceBreakChildren(node) ? breakParent : "",
             printOpeningTag(path, options, print),
             node.isSelfClosing
               ? /**
@@ -138,15 +135,7 @@ function genericPrint(path, options, print) {
                     hardline
                   : ""
                 : concat([
-                    node.firstChild.isLeadingSpaceSensitive &&
-                    node.firstChild.hasLeadingSpaces
-                      ? " "
-                      : "",
                     indent(printChildren(path, options, print)),
-                    node.lastChild.isTrailingSpaceSensitive &&
-                    node.lastChild.hasTrailingSpaces
-                      ? " "
-                      : "",
                     node.next &&
                     needsToBorrowPrevClosingTagEndMarker(node.next) &&
                     needsToBorrowParentClosingTagStartMarker(node.lastChild)
@@ -158,7 +147,10 @@ function genericPrint(path, options, print) {
                          *     >456
                          */
                         ""
-                      : softline
+                      : node.lastChild.hasTrailingSpaces &&
+                        node.lastChild.isTrailingSpaceSensitive
+                        ? line
+                        : softline
                   ])
           ])
         ),
@@ -289,7 +281,9 @@ function printChildren(path, options, print) {
             childNode.isWhiteSpaceSensitive &&
             childNode.isIndentationSensitive
             ? literalline
-            : softline,
+            : childNode.hasLeadingSpaces && childNode.isLeadingSpaceSensitive
+              ? line
+              : softline,
         print(childPath)
       ]);
     }, "children")

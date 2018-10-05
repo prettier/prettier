@@ -205,6 +205,18 @@ function forceNextEmptyLine(node) {
   return isFrontMatterNode(node);
 }
 
+function forceBreakChildren(node) {
+  return (
+    (isTag(node) &&
+      ["html", "head", "body", "template"].indexOf(node.name) !== -1) ||
+    node.children.some(child => hasNonTextChild(child))
+  );
+}
+
+function hasNonTextChild(node) {
+  return node.children && node.children.some(child => child.type !== "text");
+}
+
 function inferScriptParser(node) {
   if (
     node.name === "script" &&
@@ -350,10 +362,11 @@ module.exports = {
   HTML_TAGS,
   VOID_TAGS,
   dedentString,
+  forceBreakChildren,
   forceNextEmptyLine,
   getCommentData,
-  getNodeCssStyleWhiteSpace,
   getNodeCssStyleDisplay,
+  getNodeCssStyleWhiteSpace,
   getPrevNode,
   hasPrettierIgnore,
   inferScriptParser,
