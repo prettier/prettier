@@ -11,6 +11,9 @@ const languages = [
       since: "0.0.0",
       parsers: ["babylon", "flow"],
       vscodeLanguageIds: ["javascript"]
+    },
+    extend: {
+      interpreters: ["nodejs"]
     }
   }),
   createLanguage(require("linguist-languages/data/javascript"), {

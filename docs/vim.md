@@ -85,6 +85,35 @@ It's recommended to use a [config file](configuration.md), but you can also add 
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
 ```
 
+## [coc-prettier](https://github.com/neoclide/coc-prettier)
+
+Prettier extension for [coc.nvim](https://github.com/neoclide/coc.nvim) which requires neovim or vim8.1.
+Install coc.nvim with your favorite plugin manager, such as [vim-plug](https://github.com/junegunn/vim-plug):
+
+```
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+```
+
+And install coc-prettier by command:
+
+```
+CocInstall coc-prettier
+```
+
+Setup `Prettier` command in your `init.vim` or `.vimrc`
+
+```
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+```
+
+Update your `coc-settings.json` for languages that you want format on save.
+
+```
+  "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown"],
+```
+
+[coc-prettier](https://github.com/neoclide/coc-prettier) have same configurations of [prettier-vscode](https://github.com/prettier/prettier-vscode), open `coc-settings.json` by `:CocConfig` to get autocompletion support.
+
 ## Running manually
 
 If you want something really bare-bones, you can create a custom key binding. In this example, `gp` (mnemonic: "get pretty") is used to run prettier (with options) in the currently active buffer:

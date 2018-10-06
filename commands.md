@@ -237,6 +237,14 @@ declare function dedentToRoot(doc: Doc): Doc;
 
 This will dedent the current indentation to the root marked by `markAsRoot`.
 
+### trim
+
+```ts
+declare var trim: Doc;
+```
+
+This will trim any whitespace or tab character on the current line. This is used for preprocessor directives.
+
 ### cursor
 
 ```ts

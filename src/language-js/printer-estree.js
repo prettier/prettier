@@ -1475,9 +1475,9 @@ function printPathNoParens(path, options, print, args) {
       const hasValue = n.declarations.some(decl => decl.init);
 
       let firstVariable;
-      if (printed.length === 1) {
+      if (printed.length === 1 && !n.declarations[0].comments) {
         firstVariable = printed[0];
-      } else if (printed.length > 1) {
+      } else if (printed.length > 0) {
         // Indent first var to comply with eslint one-var rule
         firstVariable = indent(printed[0]);
       }
@@ -4504,7 +4504,7 @@ function printMemberChain(path, options, print) {
     const result = [];
     for (let i = 0; i < printedGroup.length; i++) {
       // Checks if the next node (i.e. the parent node) needs parens
-      // and print accordingl y
+      // and print accordingly
       if (printedGroup[i + 1] && printedGroup[i + 1].needsParens) {
         result.push(
           "(",

@@ -59,6 +59,10 @@ function printDoc(doc) {
     return "breakParent";
   }
 
+  if (doc.type === "trim") {
+    return "trim";
+  }
+
   if (doc.type === "concat") {
     return "[" + doc.parts.map(printDoc).join(", ") + "]";
   }
