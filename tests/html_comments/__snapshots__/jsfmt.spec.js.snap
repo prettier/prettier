@@ -258,6 +258,20 @@ exports[`surrounding-empty-line.html - html-verify 1`] = `
 
 
 --></ul>
+<span><!--
+--><span>a</span><!--
+--><span>b</span><!--
+--></span>
+
+<span><!-- 1
+--><span>a</span><!-- 2
+--><span>b</span><!-- 3
+--></span>
+
+<span><!--
+1 --><span>a</span><!--
+2 --><span>b</span><!--
+3 --></span>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <ul>
   <!-- 123
@@ -278,6 +292,11 @@ exports[`surrounding-empty-line.html - html-verify 1`] = `
     789
   -->
 </ul>
+<span><!----><span>a</span><!----><span>b</span><!----></span>
+
+<span><!-- 1--><span>a</span><!-- 2--><span>b</span><!-- 3 --></span>
+
+<span><!-- 1--><span>a</span><!-- 2--><span>b</span><!-- 3 --></span>
 
 `;
 
@@ -303,6 +322,20 @@ exports[`surrounding-empty-line.html - html-verify 2`] = `
 
 
 --></ul>
+<span><!--
+--><span>a</span><!--
+--><span>b</span><!--
+--></span>
+
+<span><!-- 1
+--><span>a</span><!-- 2
+--><span>b</span><!-- 3
+--></span>
+
+<span><!--
+1 --><span>a</span><!--
+2 --><span>b</span><!--
+3 --></span>
 ~
 <ul>
   <!--
@@ -327,5 +360,42 @@ exports[`surrounding-empty-line.html - html-verify 2`] = `
     789
   -->
 </ul>
+<span
+  ><!--
+  --><span
+    >a</span
+  ><!--
+  --><span
+    >b</span
+  ><!--
+--></span>
+
+<span
+  ><!--
+    1
+  --><span
+    >a</span
+  ><!--
+    2
+  --><span
+    >b</span
+  ><!--
+    3
+
+--></span>
+
+<span
+  ><!--
+    1
+  --><span
+    >a</span
+  ><!--
+    2
+  --><span
+    >b</span
+  ><!--
+    3
+
+--></span>
 
 `;
