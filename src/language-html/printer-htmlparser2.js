@@ -8,7 +8,6 @@ const {
     fill,
     group,
     hardline,
-    ifBreak,
     indent,
     join,
     line,
