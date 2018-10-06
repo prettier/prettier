@@ -294,9 +294,9 @@ exports[`surrounding-empty-line.html - html-verify 1`] = `
 </ul>
 <span><!----><span>a</span><!----><span>b</span><!----></span>
 
-<span><!-- 1--><span>a</span><!-- 2--><span>b</span><!-- 3 --></span>
+<span><!-- 1 --><span>a</span><!-- 2 --><span>b</span><!-- 3 --></span>
 
-<span><!-- 1--><span>a</span><!-- 2--><span>b</span><!-- 3 --></span>
+<span><!-- 1 --><span>a</span><!-- 2 --><span>b</span><!-- 3 --></span>
 
 `;
 
@@ -381,7 +381,6 @@ exports[`surrounding-empty-line.html - html-verify 2`] = `
     >b</span
   ><!--
     3
-
 --></span>
 
 <span
@@ -395,7 +394,6 @@ exports[`surrounding-empty-line.html - html-verify 2`] = `
     >b</span
   ><!--
     3
-
 --></span>
 
 `;

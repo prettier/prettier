@@ -8,6 +8,7 @@ const {
     fill,
     group,
     hardline,
+    ifBreak,
     indent,
     join,
     line,
@@ -193,10 +194,13 @@ function genericPrint(path, options, print) {
                       concat(replaceNewlines(data, hardline))
                     ])
                   ),
-                  node.type === "directive" ||
-                  (node.next && needsToBorrowPrevClosingTagEndMarker(node.next))
+                  node.type === "directive"
                     ? ""
-                    : line
+                    : (node.next
+                      ? needsToBorrowPrevClosingTagEndMarker(node.next)
+                      : needsToBorrowLastChildClosingTagEndMarker(node.parent))
+                      ? " "
+                      : line
                 ])
           ])
         ),
