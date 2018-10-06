@@ -208,9 +208,16 @@ function forceNextEmptyLine(node) {
 function forceBreakChildren(node) {
   return (
     (isTag(node) &&
-      ["html", "head", "body", "template"].indexOf(node.name) !== -1) ||
+      node.children.length !== 0 &&
+      ["html", "head", "body", "template", "ul", "ol", "select"].indexOf(
+        node.name
+      ) !== -1) ||
     node.children.some(child => hasNonTextChild(child))
   );
+}
+
+function getLastDescendant(node) {
+  return node.lastChild ? getLastDescendant(node.lastChild) : node;
 }
 
 function hasNonTextChild(node) {
@@ -365,6 +372,7 @@ module.exports = {
   forceBreakChildren,
   forceNextEmptyLine,
   getCommentData,
+  getLastDescendant,
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
   getPrevNode,

@@ -50,7 +50,7 @@ exports[`openging-at-end.html - html-verify 1`] = `
 <p>
   Want to write us a letter? Use our<a
     ><b><a>mailing address</a></b
-  ></a
+    ></a
   >.
 </p>
 
@@ -58,7 +58,7 @@ exports[`openging-at-end.html - html-verify 1`] = `
   Want to write us a letter? Use our<a
     href="contacts.html#Mailing_address"
     ><b><a>mailing address</a></b
-  ></a
+    ></a
   >.
 </p>
 
@@ -70,7 +70,7 @@ exports[`openging-at-end.html - html-verify 1`] = `
     href3="contacts.html#Mailing_address"
     href4="contacts.html#Mailing_address"
     ><b><a>mailing address</a></b
-  ></a
+    ></a
   >.
 </p>
 
@@ -315,11 +315,17 @@ exports[`tags.html - html-verify 1`] = `
 <br />
 <br />
 <br attribute-a />
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute />
+<br
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
+/>
 <br attribute-a="value" />
 <br attribute-a="value" />
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value" />
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value" />
+<br
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value"
+/>
+<br
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value"
+/>
 <br
   attribute-a="value"
   attribute-b="value"
@@ -333,13 +339,19 @@ exports[`tags.html - html-verify 1`] = `
   very very very very very very very very very very very very very very very
   very long string
 </div>
-<div very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute>
+<div
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
+>
   string
 </div>
-<div very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value">
+<div
+  very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value"
+>
   string
 </div>
-<div attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value">
+<div
+  attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value"
+>
   string
 </div>
 <div attribute="value">
