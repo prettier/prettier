@@ -93,6 +93,7 @@ Install coc.nvim with your favorite plugin manager, such as [vim-plug](https://g
 ```
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 ```
+
 And install coc-prettier by command:
 
 ```
@@ -106,6 +107,7 @@ command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 ```
 
 Update your `coc-settings.json` for languages that you want format on save.
+
 ```
   "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown"],
 ```
