@@ -75,7 +75,7 @@ Find more info from [here](https://pre-commit.com).
 
 ## Option 4. [precise-commits](https://github.com/JamesHenry/precise-commits)
 
-**Use Case:** Great for when you want a partial file formatting on your changed/staged files.
+**Use Case:** Great for when you want partial file formatting on your changed/staged files.
 
 Install it along with [husky](https://github.com/typicode/husky):
 
