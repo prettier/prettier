@@ -12,6 +12,7 @@ exports[`empty-front-matter-with-pragma.css - css-verify 1`] = `
 ---
 
 /** @prettier */
+
 .class {
   display: none;
 }
@@ -45,6 +46,7 @@ something
 ---
 
 /** @prettier */
+
 .class {
   display: none;
 }

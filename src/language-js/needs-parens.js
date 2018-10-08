@@ -431,7 +431,7 @@ function needsParens(path, options) {
       if (
         typeof node.value === "string" &&
         parent.type === "ExpressionStatement" &&
-        // TypeScript workaround for eslint/typescript-eslint-parser#267
+        // TypeScript workaround for https://github.com/JamesHenry/typescript-estree/issues/2
         // See corresponding workaround in printer.js case: "Literal"
         ((options.parser !== "typescript" && !parent.directive) ||
           (options.parser === "typescript" &&
@@ -487,6 +487,8 @@ function needsParens(path, options) {
         (grandParent.init === parent || grandParent.update === parent)
       ) {
         return false;
+      } else if (parent.type === "Property" && parent.value === node) {
+        return false;
       }
       return true;
     }
@@ -505,6 +507,7 @@ function needsParens(path, options) {
         case "TypeCastExpression":
         case "TSAsExpression":
         case "TSNonNullExpression":
+        case "OptionalMemberExpression":
           return true;
 
         case "NewExpression":

@@ -12,6 +12,7 @@ something
 ---
 
 /** @format */
+
 .class {
   display: none;
 }

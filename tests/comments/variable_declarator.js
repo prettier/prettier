@@ -53,3 +53,10 @@ tag`
 val
 val
 `;
+
+let // Comment
+  foo = 'val';
+
+let // Comment
+  foo = 'val',
+  bar = 'val';

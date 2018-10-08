@@ -344,9 +344,6 @@ function isBitwiseOperator(operator) {
 function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
   node = getLeftMost(node);
   switch (node.type) {
-    // Hack. Remove after https://github.com/eslint/typescript-eslint-parser/issues/331
-    case "ObjectPattern":
-      return !forbidFunctionClassAndDoExpr;
     case "FunctionExpression":
     case "ClassExpression":
     case "DoExpression":

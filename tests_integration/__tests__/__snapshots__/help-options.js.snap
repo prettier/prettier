@@ -267,7 +267,7 @@ exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml>
+"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html>
 
   Which parser to use.
 
@@ -287,6 +287,7 @@ Valid options:
   mdx              MDX
   vue              Vue
   yaml             YAML
+  html             HTML
 "
 `;
 

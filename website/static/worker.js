@@ -90,6 +90,12 @@ var parsers = {
   get glimmer() {
     importScriptOnce("lib/parser-glimmer.js");
     return prettierPlugins.glimmer.parsers.glimmer;
+  },
+
+  // HTML
+  get html() {
+    importScriptOnce("lib/parser-html.js");
+    return prettierPlugins.html.parsers.html;
   }
 };
 

@@ -41,6 +41,27 @@ class Point {
 
 `;
 
+exports[`angular.ts - typescript-verify 1`] = `
+@Component({
+  selector: 'toh-hero-button',
+  template: \`<button>{{label}}</button>\`
+})
+export class HeroButtonComponent {
+  @Output() change = new EventEmitter<any>();
+  @Input() label: string;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@Component({
+  selector: "toh-hero-button",
+  template: \`<button>{{label}}</button>\`
+})
+export class HeroButtonComponent {
+  @Output() change = new EventEmitter<any>();
+  @Input() label: string;
+}
+
+`;
+
 exports[`class-decorator.ts - typescript-verify 1`] = `
 @sealed
 class Greeter {
@@ -161,8 +182,7 @@ class Greeter {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Greeter {
-  @format("Hello, %s")
-  greeting: string;
+  @format("Hello, %s") greeting: string;
 
   constructor(message: string) {
     this.greeting = message;

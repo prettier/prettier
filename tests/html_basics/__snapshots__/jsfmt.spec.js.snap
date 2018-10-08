@@ -1,11 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.html - parse5-verify 1`] = `
+exports[`comment.html - html-verify 1`] = `
+<!--hello world-->
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!--hello world-->
+
+`;
+
+exports[`empty.html - html-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `;
 
-exports[`empty-doc.html - parse5-verify 1`] = `
+exports[`empty-doc.html - html-verify 1`] = `
 <!doctype html>
 <html>
 <head></head>
@@ -20,7 +27,7 @@ exports[`empty-doc.html - parse5-verify 1`] = `
 
 `;
 
-exports[`form.html - parse5-verify 1`] = `
+exports[`form.html - html-verify 1`] = `
 <form>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
@@ -99,7 +106,7 @@ exports[`form.html - parse5-verify 1`] = `
       id="exampleInputEmail1"
       aria-describedby="emailHelp"
       placeholder="Enter email"
-    >
+    />
     <small id="emailHelp" class="form-text text-muted">
       We'll never share your email with anyone else.
     </small>
@@ -111,7 +118,7 @@ exports[`form.html - parse5-verify 1`] = `
       class="form-control"
       id="exampleInputPassword1"
       placeholder="Password"
-    >
+    />
   </div>
   <div class="form-group">
     <label for="exampleSelect1">Example select</label>
@@ -144,7 +151,7 @@ exports[`form.html - parse5-verify 1`] = `
       class="form-control-file"
       id="exampleInputFile"
       aria-describedby="fileHelp"
-    >
+    />
     <small id="fileHelp" class="form-text text-muted">
       This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.
     </small>
@@ -160,8 +167,8 @@ exports[`form.html - parse5-verify 1`] = `
           id="optionsRadios1"
           value="option1"
           checked
-        >
-        Option one is this and that—be sure to include why it's great
+        />
+        Option one is this and that&mdash;be sure to include why it's great
       </label>
     </div>
     <div class="form-check">
@@ -172,7 +179,7 @@ exports[`form.html - parse5-verify 1`] = `
           name="optionsRadios"
           id="optionsRadios2"
           value="option2"
-        >
+        />
         Option two can be something else and selecting it will deselect option one
       </label>
     </div>
@@ -185,14 +192,14 @@ exports[`form.html - parse5-verify 1`] = `
           id="optionsRadios3"
           value="option3"
           disabled
-        >
+        />
         Option three is disabled
       </label>
     </div>
   </fieldset>
   <div class="form-check">
     <label class="form-check-label">
-      <input type="checkbox" class="form-check-input">
+      <input type="checkbox" class="form-check-input" />
       Check me out
     </label>
   </div>
@@ -203,7 +210,7 @@ exports[`form.html - parse5-verify 1`] = `
 
 `;
 
-exports[`hello-world.html - parse5-verify 1`] = `
+exports[`hello-world.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -222,9 +229,9 @@ exports[`hello-world.html - parse5-verify 1`] = `
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
   </head>
   <body>
@@ -235,7 +242,7 @@ exports[`hello-world.html - parse5-verify 1`] = `
 
 `;
 
-exports[`html-comments.html - parse5-verify 1`] = `
+exports[`html-comments.html - html-verify 1`] = `
 <!-- htmlhint attr-lowercase: false -->
 <html>
   <body>
@@ -246,7 +253,6 @@ exports[`html-comments.html - parse5-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!-- htmlhint attr-lowercase: false -->
 <html>
-  <head></head>
   <body>
     <a href="#">Anchor</a>
     <div hidden class="foo" id="bar"></div>
@@ -255,7 +261,7 @@ exports[`html-comments.html - parse5-verify 1`] = `
 
 `;
 
-exports[`html-fragment.html - parse5-verify 1`] = `
+exports[`html-fragment.html - html-verify 1`] = `
 <a href="#">Link</a>
 
 <textarea>
@@ -266,7 +272,7 @@ exports[`html-fragment.html - parse5-verify 1`] = `
 
 `;
 
-exports[`html5-boilerplate.html - parse5-verify 1`] = `
+exports[`html5-boilerplate.html - html-verify 1`] = `
 <!doctype html>
 <html class="no-js" lang="">
 
@@ -311,21 +317,21 @@ exports[`html5-boilerplate.html - parse5-verify 1`] = `
 <!DOCTYPE html>
 <html class="no-js" lang="">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title></title>
-    <meta name="description" content="">
+    <meta name="description" content="" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    >
+    />
 
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="apple-touch-icon" href="icon.png" />
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/main.css" />
   </head>
 
   <body>
@@ -368,7 +374,7 @@ exports[`html5-boilerplate.html - parse5-verify 1`] = `
 
 `;
 
-exports[`more-html.html - parse5-verify 1`] = `
+exports[`more-html.html - html-verify 1`] = `
 <html>
 <head></head>
 <body>
@@ -387,7 +393,7 @@ exports[`more-html.html - parse5-verify 1`] = `
 
 `;
 
-exports[`void-elements.html - parse5-verify 1`] = `
+exports[`void-elements.html - html-verify 1`] = `
 <html>
 <head>
   <meta charset="UTF-8">
@@ -398,8 +404,8 @@ exports[`void-elements.html - parse5-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <html>
   <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="code-guide.css">
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="code-guide.css" />
   </head>
   <body></body>
 </html>

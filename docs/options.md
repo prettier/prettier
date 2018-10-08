@@ -14,6 +14,8 @@ Specify the line length that the printer will wrap on.
 > In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don't strive to reach the maximum number of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends up well below the maximum.
 >
 > Prettier, on the other hand, strives to fit the most code into every line. With the print width set to 120, prettier may produce overly compact, or otherwise undesirable code.
+>
+> See the [print width rationale](rationale.md#print-width) for more information.
 
 | Default | CLI Override          | API Override        |
 | ------- | --------------------- | ------------------- |
@@ -31,11 +33,13 @@ Specify the number of spaces per indentation-level.
 
 ## Tabs
 
-Indent lines with tabs instead of spaces
+Indent lines with tabs instead of spaces.
 
 | Default | CLI Override | API Override      |
 | ------- | ------------ | ----------------- |
 | `false` | `--use-tabs` | `useTabs: <bool>` |
+
+(Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries.)
 
 ## Semicolons
 
@@ -44,7 +48,7 @@ Print semicolons at the ends of statements.
 Valid options:
 
 - `true` - Add a semicolon at the end of every statement.
-- `false` - Only add semicolons at the beginning of lines that may introduce ASI failures.
+- `false` - Only add semicolons at the beginning of lines that [may introduce ASI failures](rationale.md#semicolons).
 
 | Default | CLI Override | API Override   |
 | ------- | ------------ | -------------- |
@@ -58,6 +62,8 @@ Notes:
 
 - Quotes in JSX will always be double and ignore this setting.
 - If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
+
+See the [strings rationale](rationale.md#strings) for more information.
 
 | Default | CLI Override     | API Override          |
 | ------- | ---------------- | --------------------- |
@@ -160,17 +166,29 @@ These options cannot be used with `cursorOffset`.
 
 Specify which parser to use.
 
-Both the `babylon` and `flow` parsers support the same set of JavaScript features (including Flow). Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting.
+Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting.
 
-Built-in parsers:
+Both the `babylon` and `flow` parsers support the same set of JavaScript features (including Flow type annotations). They might differ in some edge cases, so if you run into one of those you can try `flow` instead of `babylon`.
 
-- [`babylon`](https://github.com/babel/babel/tree/master/packages/babylon)
-- [`flow`](https://github.com/facebook/flow/tree/master/src/parser)
-- [`typescript`](https://github.com/eslint/typescript-eslint-parser) _Since v1.4.0_
-- [`postcss`](https://github.com/postcss/postcss) _Since v1.4.0_
-- [`json`](https://github.com/babel/babylon/tree/f09eb3200f57ea94d51c2a5b1facf2149fb406bf#babylonparseexpressioncode-options) _Since v1.5.0_
-- [`graphql`](https://github.com/graphql/graphql-js/tree/master/src/language) _Since v1.5.0_
-- [`markdown`](https://github.com/wooorm/remark/tree/master/packages/remark-parse) _Since v1.8.0_
+Valid options:
+
+- `"babylon"` (via [@babel/parser](https://github.com/babel/babel/tree/master/packages/babel-parser))
+- `"flow"` (via [flow-parser](https://github.com/facebook/flow/tree/master/src/parser))
+- `"typescript"` (via [typescript-estree](https://github.com/JamesHenry/typescript-estree)) _Since v1.4.0_
+- `"css"` (via [postcss-scss](https://github.com/postcss/postcss-scss) and [postcss-less](https://github.com/shellscape/postcss-less), autodetects which to use) _Since v1.7.1_
+- `"scss"` (same parsers as `"css"`, prefers postcss-scss) _Since v1.7.1_
+- `"less"` (same parsers as `"css"`, prefers postcss-less) _Since v1.7.1_
+- `"json"` (via [@babel/parser parseExpression](https://babeljs.io/docs/en/next/babel-parser.html#babelparserparseexpressioncode-options)) _Since v1.5.0_
+- `"json5"` (same parser as `"json"`, but outputs as [json5](https://json5.org/)) _Since v1.13.0_
+- `"json-stringify"` (same parser as `"json"`, but outputs like `JSON.stringify`) _Since v1.13.0_
+- `"graphql"` (via [graphql/language](https://github.com/graphql/graphql-js/tree/master/src/language)) _Since v1.5.0_
+- `"markdown"` (via [remark-parse](https://github.com/wooorm/remark/tree/master/packages/remark-parse)) _Since v1.8.0_
+- `"vue"` (uses several parsers) _Since 1.10.0_
+- `"yaml"` (via [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser)) _Since 1.14.0_
+
+<!-- TODO: Uncomment and move below "markdown" above when 1.15.0 is released.
+- `"mdx"` (same parser as `"markdown"`, with some custom overrides) _Since 1.15.0_
+-->
 
 [Custom parsers](api.md#custom-parser-api) are also supported. _Since v1.5.0_
 
@@ -184,7 +202,7 @@ Note: the default value was `"babylon"` until v1.13.0.
 
 Specify the input filepath. This will be used to do parser inference.
 
-For example, the following will use `postcss` parser:
+For example, the following will use the CSS parser:
 
 ```bash
 cat foo | prettier --stdin-filepath foo.css

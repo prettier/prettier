@@ -38,10 +38,12 @@ module.exports = [
         return eval("require")("../language-js/parser-typescript").parsers
           .typescript;
       },
+      /**
+       * TODO: Remove this old alias in a major version
+       */
       get "typescript-eslint"() {
-        return eval("require")("../language-js/parser-typescript").parsers[
-          "typescript-eslint"
-        ];
+        return eval("require")("../language-js/parser-typescript").parsers
+          .typescript;
       }
     }
   },
@@ -109,8 +111,8 @@ module.exports = [
   require("../language-html"),
   {
     parsers: {
-      get parse5() {
-        return eval("require")("../language-html/parser-parse5").parsers.parse5;
+      get html() {
+        return eval("require")("../language-html/parser-html").parsers.html;
       }
     }
   },

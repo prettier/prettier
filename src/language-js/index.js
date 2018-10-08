@@ -11,6 +11,9 @@ const languages = [
       since: "0.0.0",
       parsers: ["babylon", "flow"],
       vscodeLanguageIds: ["javascript"]
+    },
+    extend: {
+      interpreters: ["nodejs"]
     }
   }),
   createLanguage(require("linguist-languages/data/javascript"), {
@@ -35,7 +38,7 @@ const languages = [
   createLanguage(require("linguist-languages/data/typescript"), {
     override: {
       since: "1.4.0",
-      parsers: ["typescript-eslint"],
+      parsers: ["typescript"],
       vscodeLanguageIds: ["typescript", "typescriptreact"]
     }
   }),

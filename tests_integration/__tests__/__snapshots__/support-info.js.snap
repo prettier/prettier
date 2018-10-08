@@ -412,7 +412,16 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 - First value
 + Second value
 
-@@ -14,10 +14,16 @@
+@@ -8,16 +8,25 @@
+        \\"flow\\",
+      ],
+      \\"GraphQL\\": Array [
+        \\"graphql\\",
+      ],
++     \\"HTML\\": Array [
++       \\"html\\",
++     ],
+      \\"JSON\\": Array [
         \\"json\\",
       ],
       \\"JSON with Comments\\": Array [
@@ -429,7 +438,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -25,10 +31,13 @@
+@@ -25,10 +34,13 @@
         \\"flow\\",
       ],
       \\"Less\\": Array [
@@ -443,7 +452,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       ],
       \\"PostCSS\\": Array [
         \\"css\\",
-@@ -37,12 +46,26 @@
+@@ -37,12 +49,26 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -470,7 +479,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -73,16 +96,29 @@
+@@ -73,16 +99,30 @@
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -483,6 +492,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +         \\"mdx\\",
 +         \\"vue\\",
 +         \\"yaml\\",
++         \\"html\\",
         ],
 -       \\"default\\": \\"babylon\\",
 +       \\"default\\": undefined,
@@ -501,7 +511,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +126,15 @@
+@@ -90,14 +130,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -556,7 +566,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".xsjslib\\"
       ],
       \\"filenames\\": [\\"Jakefile\\"],
-      \\"interpreters\\": [\\"node\\"],
+      \\"interpreters\\": [\\"node\\", \\"nodejs\\"],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JavaScript\\",
       \\"parsers\\": [\\"babylon\\", \\"flow\\"],
@@ -814,6 +824,29 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       \\"aceMode\\": \\"html\\",
+      \\"aliases\\": [\\"xhtml\\"],
+      \\"codemirrorMimeType\\": \\"text/html\\",
+      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"color\\": \\"#e34c26\\",
+      \\"extensions\\": [
+        \\".html\\",
+        \\".htm\\",
+        \\".html.hl\\",
+        \\".inc\\",
+        \\".st\\",
+        \\".xht\\",
+        \\".xhtml\\"
+      ],
+      \\"linguistLanguageId\\": 146,
+      \\"name\\": \\"HTML\\",
+      \\"parsers\\": [\\"html\\"],
+      \\"since\\": \\"1.15.0\\",
+      \\"tmScope\\": \\"text.html.basic\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"html\\"]
+    },
+    {
+      \\"aceMode\\": \\"html\\",
       \\"color\\": \\"#2c3e50\\",
       \\"extensions\\": [\\".vue\\"],
       \\"linguistLanguageId\\": 391,
@@ -940,7 +973,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"Markdown\\", \\"since\\": \\"1.8.0\\", \\"value\\": \\"markdown\\" },
         { \\"description\\": \\"MDX\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"mdx\\" },
         { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" },
-        { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" }
+        { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" },
+        { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",

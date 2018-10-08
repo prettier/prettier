@@ -1,6 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pre.html - parse5-verify 1`] = `
+exports[`case-sensitive.html - html-verify 1`] = `
+<CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
+
+`;
+
+exports[`custom-self-closing.html - html-verify 1`] = `
+<div>
+  <ABC />
+  <span></span>
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  <ABC />
+  <span></span>
+</div>
+
+`;
+
+exports[`pre.html - html-verify 1`] = `
 <pre>
 --------------------------------------------------------------------------------
 
@@ -168,7 +188,7 @@ ___________________________
 
 `;
 
-exports[`tags.html - parse5-verify 1`] = `
+exports[`tags.html - html-verify 1`] = `
 <br/>
 <br />
 <br  />
@@ -219,18 +239,18 @@ exports[`tags.html - parse5-verify 1`] = `
 
 </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<br>
-<br>
-<br>
-<br>
-<br attribute-a>
+<br />
+<br />
+<br />
+<br />
+<br attribute-a />
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
->
-<br attribute-a="value">
-<br attribute-a="value">
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value">
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value">
+/>
+<br attribute-a="value" />
+<br attribute-a="value" />
+<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value" />
+<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value" />
 <br
   attribute-a="value"
   attribute-b="value"
@@ -238,7 +258,7 @@ exports[`tags.html - parse5-verify 1`] = `
   attribute-d="value"
   attribute-e="value"
   attribute-f="value"
->
+/>
 <div>string</div>
 <div>
   very very very very very very very very very very very very very very very very long string
@@ -278,8 +298,8 @@ exports[`tags.html - parse5-verify 1`] = `
   very very very very very very very very very very very very very very very very long string
 </div>
 <video width="320" height="240" controls>
-  <source src="movie.mp4" type="video/mp4">
-  <source src="movie.ogg" type="video/ogg">
+  <source src="movie.mp4" type="video/mp4" />
+  <source src="movie.ogg" type="video/ogg" />
   Your browser does not support the video tag.
 </video>
 <div>
@@ -335,7 +355,7 @@ exports[`tags.html - parse5-verify 1`] = `
 
 `;
 
-exports[`textarea.html - parse5-verify 1`] = `
+exports[`textarea.html - html-verify 1`] = `
 <div>
   <div>
     <div>
@@ -396,7 +416,7 @@ exports[`textarea.html - parse5-verify 1`] = `
 
 `;
 
-exports[`unsupported.html - parse5-verify 1`] = `
+exports[`unsupported.html - html-verify 1`] = `
 <center></center>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <center></center>

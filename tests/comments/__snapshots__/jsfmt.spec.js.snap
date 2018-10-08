@@ -1934,6 +1934,13 @@ tag\`
 val
 val
 \`;
+
+let // Comment
+  foo = 'val';
+
+let // Comment
+  foo = 'val',
+  bar = 'val';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let obj =
   // Comment
@@ -1996,5 +2003,12 @@ let obj =
 val
 val
 \`;
+
+let // Comment
+  foo = "val";
+
+let // Comment
+  foo = "val",
+  bar = "val";
 
 `;

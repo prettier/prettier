@@ -2,8 +2,8 @@
 
 const { hasNewlineInRange } = require("../common/util");
 const {
-  builders: { hardline, concat },
-  utils: { stripTrailingHardline, removeLines }
+  builders: { hardline, concat, markAsRoot, literalline },
+  utils: { removeLines, mapDoc }
 } = require("../doc");
 
 function embed(path, print, textToDoc, options) {
@@ -15,13 +15,14 @@ function embed(path, print, textToDoc, options) {
       // Inline JavaScript
       if (
         parent.type === "script" &&
-        (!parent.attribs.lang ||
+        ((!parent.attribs.lang && !parent.attribs.type) ||
           parent.attribs.type === "text/javascript" ||
+          parent.attribs.type === "text/babel" ||
           parent.attribs.type === "application/javascript")
       ) {
         const parser = options.parser === "flow" ? "flow" : "babylon";
-        const doc = textToDoc(getText(options, node), { parser });
-        return concat([hardline, stripTrailingHardline(doc)]);
+        const doc = textToDoc(node.data, { parser });
+        return concat([hardline, doc]);
       }
 
       // Inline TypeScript
@@ -30,18 +31,14 @@ function embed(path, print, textToDoc, options) {
         (parent.attribs.type === "application/x-typescript" ||
           parent.attribs.lang === "ts")
       ) {
-        const doc = textToDoc(
-          getText(options, node),
-          { parser: "typescript" },
-          options
-        );
-        return concat([hardline, stripTrailingHardline(doc)]);
+        const doc = textToDoc(node.data, { parser: "typescript" }, options);
+        return concat([hardline, doc]);
       }
 
       // Inline Styles
       if (parent.type === "style") {
-        const doc = textToDoc(getText(options, node), { parser: "css" });
-        return concat([hardline, stripTrailingHardline(doc)]);
+        const doc = textToDoc(node.data, { parser: "css" });
+        return concat([hardline, doc]);
       }
 
       break;
@@ -57,7 +54,7 @@ function embed(path, print, textToDoc, options) {
        */
       if (/(^@)|(^v-)|:/.test(node.key) && !/^\w+$/.test(node.value)) {
         const doc = textToDoc(node.value, {
-          parser: parseJavaScriptExpression,
+          parser: "__js_expression",
           // Use singleQuote since HTML attributes use double-quotes.
           // TODO(azz): We still need to do an entity escape on the attribute.
           singleQuote: true
@@ -71,24 +68,38 @@ function embed(path, print, textToDoc, options) {
           '"'
         ]);
       }
+
+      break;
     }
+
+    case "yaml":
+      return markAsRoot(
+        concat([
+          "---",
+          hardline,
+          node.value.trim()
+            ? replaceNewlinesWithLiterallines(
+                textToDoc(node.value, { parser: "yaml" })
+              )
+            : "",
+          "---",
+          hardline
+        ])
+      );
   }
 }
 
-function parseJavaScriptExpression(text, parsers) {
-  // Force parsing as an expression
-  const ast = parsers.babylon(`(${text})`);
-  // Extract expression from the declaration
-  return {
-    type: "File",
-    program: ast.program.body[0].expression
-  };
-}
-
-function getText(options, node) {
-  return options.originalText.slice(
-    options.locStart(node),
-    options.locEnd(node)
+function replaceNewlinesWithLiterallines(doc) {
+  return mapDoc(
+    doc,
+    currentDoc =>
+      typeof currentDoc === "string" && currentDoc.includes("\n")
+        ? concat(
+            currentDoc
+              .split(/(\n)/g)
+              .map((v, i) => (i % 2 === 0 ? v : literalline))
+          )
+        : currentDoc
   );
 }
 

@@ -3,29 +3,27 @@ id: vim
 title: Vim Setup
 ---
 
-Vim users can simply install either [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat), [w0rp](https://github.com/w0rp)/[ale](https://github.com/w0rp/ale), or [prettier](https://github.com/prettier)/[vim-prettier](https://github.com/prettier/vim-prettier).
+Vim users can install either [vim-prettier](https://github.com/prettier/vim-prettier), which is Prettier specific, or [Neoformat](https://github.com/sbdchd/neoformat) or [ALE](https://github.com/w0rp/ale) which are generalized lint/format engines with support for Prettier.
 
----
+## [vim-prettier](https://github.com/prettier/vim-prettier)
 
-## Neoformat
+See the [vim-prettier](https://github.com/prettier/vim-prettier) readme for installation and usage instructions.
 
-### Neoformat - Installation
+## [Neoformat](https://github.com/sbdchd/neoformat)
 
-Add [sbdchd](https://github.com/sbdchd)/[neoformat](https://github.com/sbdchd/neoformat) to your list based on the tool you use:
+The best way to install Neoformat is with your favorite plugin manager for Vim, such as [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```
 Plug 'sbdchd/neoformat'
 ```
 
-### Neoformat - Usage
+Run `:Neoformat` or `:Neoformat prettier` in a supported file to run Prettier.
 
-Then make Neoformat run on save:
+To have Neoformat run Prettier on save:
 
 ```
 autocmd BufWritePre *.js Neoformat
 ```
-
-### Neoformat - Other `autocmd` events
 
 You can also make Vim format your code more frequently, by setting an `autocmd` for other events. Here are a couple of useful ones:
 
@@ -40,153 +38,21 @@ autocmd BufWritePre,TextChanged,InsertLeave *.js Neoformat
 
 See `:help autocmd-events` in Vim for details.
 
-### Neoformat - Customizing Prettier
-
-If your project requires settings other than the default Prettier settings, you can pass arguments to do so in your `.vimrc` or [vim project](http://vim.wikia.com/wiki/Project_specific_settings), you can do so:
+It's recommended to use a [config file](configuration.md), but you can also add options in your `.vimrc`:
 
 ```
-autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
+autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma\ es5
 " Use formatprg when available
 let g:neoformat_try_formatprg = 1
 ```
 
 Each space in prettier options should be escaped with `\`.
 
----
+## [ALE](https://github.com/w0rp/ale)
 
-## vim-prettier
+ALE requires either Vim 8 or Neovim as ALE makes use of the asynchronous abilities that both Vim 8 and Neovim provide.
 
-![vim-prettier](https://raw.githubusercontent.com/prettier/vim-prettier/master/media/vim-prettier.gif?raw=true "vim-prettier")
-
-### vim-prettier - Installation
-
-Install with [vim-plug](https://github.com/junegunn/vim-plug), assumes node and yarn|npm installed globally.
-
-By default it will auto format **javascript**, **typescript**, **less**, **scss** and **css** files that have "@format" annotation in the header of the file.
-
-```
-" post install (yarn install | npm install) then load plugin only for editing supported files
-Plug 'prettier/vim-prettier', {
-    \ 'do': 'npm install',
-    \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
-```
-
-If using other vim plugin managers or doing manual setup make sure to have `prettier` installed globally or go to your vim-prettier directory and either do `npm install` or `yarn install`
-
-When installed via vim-plug, a default prettier executable is installed inside vim-prettier.
-
-vim-prettier executable resolution:
-
-1.  Traverse parents and search for Prettier installation inside `node_modules`
-2.  Look for a global prettier installation
-3.  Use locally installed vim-prettier prettier executable
-
-### vim-prettier - Usage
-
-Prettier by default will run on auto save but can also be manually triggered by:
-
-```
-<Leader>p
-```
-
-or
-
-```
-:Prettier
-```
-
-If your are on vim 8+ you can also trigger async formatting by:
-
-```
-:PrettierAsync
-```
-
-### vim-prettier - Configuration
-
-Disable auto formatting of files that have "@format" tag
-
-```
-let g:prettier#autoformat = 0
-```
-
-The command `:Prettier` by default is synchronous but can also be forced async
-
-```
-let g:prettier#exec_cmd_async = 1
-```
-
-By default parsing errors will open the quickfix but can also be disabled
-
-```
-let g:prettier#quickfix_enabled = 0
-```
-
-To enable vim-prettier to run in files without requiring the "@format" doc tag. First disable the default autoformat, then update to your own custom behaviour
-
-Running before saving sync:
-
-```
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.css,*.scss,*.less Prettier
-```
-
-Running before saving async (vim 8+):
-
-```
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.css,*.scss,*.less PrettierAsync
-```
-
-Running before saving, changing text or leaving insert mode:
-
-```
-" when running at every change you may want to disable quickfix
-let g:prettier#quickfix_enabled = 0
-
-let g:prettier#autoformat = 0
-autocmd BufWritePre,TextChanged,InsertLeave *.js,*.css,*.scss,*.less PrettierAsync
-```
-
-**Vim-prettier default formatting settings are different from the prettier defaults, but they can be configured**
-
-```
-" max line lengh that prettier will wrap on
-g:prettier#config#print_width = 80
-
-" number of spaces per indentation level
-g:prettier#config#tab_width = 2
-
-" use tabs over spaces
-g:prettier#config#use_tabs = 'false'
-
-" print semicolons
-g:prettier#config#semi = 'true'
-
-" single quotes over double quotes
-g:prettier#config#single_quote = 'true'
-
-" print spaces between brackets
-g:prettier#config#bracket_spacing = 'false'
-
-" put > on the last line instead of new line
-g:prettier#config#jsx_bracket_same_line = 'true'
-
-" none|es5|all
-g:prettier#config#trailing_comma = 'all'
-
-" flow|babylon|typescript|postcss
-g:prettier#config#parser = 'flow'
-```
-
----
-
-## ALE
-
-### ALE - Installation
-
-[ALE](https://github.com/w0rp/ale) is an asynchronous lint engine for Vim that also has the ability to run formatters over code, including Prettier. For ALE to work you'll have to be using either Vim 8 or Neovim as ALE makes use of the asynchronous abilities that both Vim 8 and Neovim provide.
-
-The best way to install ALE is with your favourite plugin manager for Vim, such as [Vim-Plug](https://github.com/junegunn/vim-plug):
+The best way to install ALE is with your favorite plugin manager for Vim, such as [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```
 Plug 'w0rp/ale'
@@ -194,47 +60,68 @@ Plug 'w0rp/ale'
 
 You can find further instructions on the [ALE repository](https://github.com/w0rp/ale#3-installation).
 
-### ALE - Usage
+ALE will try to use Prettier installed locally before looking for a global installation.
 
-Once you've installed ALE you need to enable the Prettier fixer:
+Enable the Prettier fixer for the languages you use:
 
 ```
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers = {
+\   'javascript': ['prettier'],
+\   'css': ['prettier'],
+\}
 ```
 
-ALE will first use the Prettier installed locally (in `node_modules/.bin/prettier`) before looking for a global installation.
+You can then run `:ALEFix` in a JavaScript or CSS file to run Prettier.
 
-You can then run `:ALEFix` in a JavaScript file to run Prettier.
-
-### ALE - Configuration
-
-To have ALE run `prettier` when you save a file you can tell ALE to run automatically:
+To have ALE run Prettier on save:
 
 ```
 let g:ale_fix_on_save = 1
 ```
 
-To configure Prettier, you can set `g:ale_javascript_prettier_options`. This is a string that will be passed through to the Prettier command line tool:
+It's recommended to use a [config file](configuration.md), but you can also add options in your `.vimrc`:
 
 ```
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
 ```
 
-If you use Prettier config files, you must set `g:ale_javascript_prettier_use_local_config` to have ALE respect them:
+## [coc-prettier](https://github.com/neoclide/coc-prettier)
+
+Prettier extension for [coc.nvim](https://github.com/neoclide/coc.nvim) which requires neovim or vim8.1.
+Install coc.nvim with your favorite plugin manager, such as [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```
-let g:ale_javascript_prettier_use_local_config = 1
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 ```
 
----
+And install coc-prettier by command:
+
+```
+CocInstall coc-prettier
+```
+
+Setup `Prettier` command in your `init.vim` or `.vimrc`
+
+```
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+```
+
+Update your `coc-settings.json` for languages that you want format on save.
+
+```
+  "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown"],
+```
+
+[coc-prettier](https://github.com/neoclide/coc-prettier) have same configurations of [prettier-vscode](https://github.com/prettier/prettier-vscode), open `coc-settings.json` by `:CocConfig` to get autocompletion support.
 
 ## Running manually
 
-### Running Prettier manually in Vim
-
-If you need a little more control over when prettier is run, you can create a custom key binding. In this example, `gp` (mnemonic: "get pretty") is used to run prettier (with options) in the currently active buffer:
+If you want something really bare-bones, you can create a custom key binding. In this example, `gp` (mnemonic: "get pretty") is used to run prettier (with options) in the currently active buffer:
 
 ```
-nnoremap gp :silent %!prettier --stdin --trailing-comma all --single-quote<CR>
+nnoremap gp :silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>
 ```
+
+Note that if there's a syntax error in your code, the whole buffer will be replaced with an error message. You'll need to press `u` to get your code back.
+
+Another disadvantage of this approach is that the cursor position won't be preserved.
