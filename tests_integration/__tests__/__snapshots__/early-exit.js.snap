@@ -62,7 +62,7 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue|yaml>
+  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
@@ -146,26 +146,13 @@ exports[`show version with --version (stderr) 1`] = `""`;
 
 exports[`show version with --version (write) 1`] = `Array []`;
 
-exports[`show warning with --help not-found (stderr) 1`] = `
-"[warn] Unknown option name \\"not-found\\"
-"
-`;
-
-exports[`show warning with --help not-found (stdout) 1`] = `
-"-h, --help <flag>
-
-  Show CLI usage, or details about the given flag.
-  Example: --help write
-"
-`;
-
 exports[`show warning with --help not-found (typo) (stderr) 1`] = `
-"[warn] Unknown option name \\"parserr\\", did you mean \\"parser\\"?
+"[warn] Unknown flag \\"parserr\\", did you mean \\"parser\\"?
 "
 `;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue|yaml>
+"--parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html>
 
   Which parser to use.
 
@@ -182,14 +169,14 @@ Valid options:
   json-stringify   JSON.stringify
   graphql          GraphQL
   markdown         Markdown
+  mdx              MDX
   vue              Vue
   yaml             YAML
+  html             HTML
 "
 `;
 
 exports[`show warning with --help not-found (typo) (write) 1`] = `Array []`;
-
-exports[`show warning with --help not-found (write) 1`] = `Array []`;
 
 exports[`throw error and show usage with something unexpected (stderr) 1`] = `""`;
 
@@ -212,7 +199,7 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
-  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue|yaml>
+  --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
@@ -309,6 +296,15 @@ exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `
 exports[`throw error with --find-config-path + multiple files (stdout) 1`] = `""`;
 
 exports[`throw error with --find-config-path + multiple files (write) 1`] = `Array []`;
+
+exports[`throw error with --help not-found (stderr) 1`] = `
+"[error] Invalid --help value. Expected a flag, but received \\"not-found\\".
+"
+`;
+
+exports[`throw error with --help not-found (stdout) 1`] = `""`;
+
+exports[`throw error with --help not-found (write) 1`] = `Array []`;
 
 exports[`throw error with --write + --debug-check (stderr) 1`] = `
 "[error] Cannot use --write and --debug-check together.

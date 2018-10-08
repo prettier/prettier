@@ -80,7 +80,6 @@ async function preparePackage() {
   pkg.engines.node = ">=4";
   delete pkg.dependencies;
   delete pkg.devDependencies;
-  delete pkg["jest-junit"];
   pkg.scripts = {
     prepublishOnly:
       "node -e \"assert.equal(require('.').version, require('..').version)\""
@@ -89,6 +88,7 @@ async function preparePackage() {
   await util.writeJson("dist/package.json", pkg);
 
   await util.copyFile("./README.md", "./dist/README.md");
+  await util.copyFile("./LICENSE", "./dist/LICENSE");
 }
 
 async function run(params) {
@@ -99,7 +99,7 @@ async function run(params) {
     await execa("rm", ["-rf", ".cache"]);
   }
 
-  const bundleCache = new Cache(".cache/", "v2");
+  const bundleCache = new Cache(".cache/", "v7");
   await bundleCache.load();
 
   console.log(chalk.inverse(" Building packages "));

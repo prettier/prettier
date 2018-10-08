@@ -11,3 +11,5 @@ export let shim: typeof import("./foo2") = {
 export interface Foo {
     bar: import('immutable').Map<string, int>;
 }
+
+type X = A<import("B").C<any>>;

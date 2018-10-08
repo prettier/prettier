@@ -25,6 +25,10 @@ module.exports = [
           "json-stringify"
         ];
       },
+      get __js_expression() {
+        return eval("require")("../language-js/parser-babylon").parsers
+          .__js_expression;
+      },
       // JS - Flow
       get flow() {
         return eval("require")("../language-js/parser-flow").parsers.flow;
@@ -34,10 +38,12 @@ module.exports = [
         return eval("require")("../language-js/parser-typescript").parsers
           .typescript;
       },
+      /**
+       * TODO: Remove this old alias in a major version
+       */
       get "typescript-eslint"() {
-        return eval("require")("../language-js/parser-typescript").parsers[
-          "typescript-eslint"
-        ];
+        return eval("require")("../language-js/parser-typescript").parsers
+          .typescript;
       }
     }
   },
@@ -93,6 +99,10 @@ module.exports = [
       get markdown() {
         return eval("require")("../language-markdown/parser-markdown").parsers
           .remark;
+      },
+      get mdx() {
+        return eval("require")("../language-markdown/parser-markdown").parsers
+          .mdx;
       }
     }
   },
@@ -101,8 +111,8 @@ module.exports = [
   require("../language-html"),
   {
     parsers: {
-      get parse5() {
-        return eval("require")("../language-html/parser-parse5").parsers.parse5;
+      get html() {
+        return eval("require")("../language-html/parser-html").parsers.html;
       }
     }
   },

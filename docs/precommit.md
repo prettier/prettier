@@ -12,7 +12,7 @@ You can use Prettier with a pre-commit tool. This can re-format your files that 
 Install it along with [husky](https://github.com/typicode/husky):
 
 ```bash
-yarn add lint-staged husky@next --dev
+yarn add lint-staged husky --dev
 ```
 
 and add this config to your `package.json`:
@@ -65,17 +65,17 @@ Find more info from [here](https://github.com/azz/pretty-quick).
 Copy the following config into your `.pre-commit-config.yaml` file:
 
 ```yaml
-    -   repo: https://github.com/prettier/prettier
-        rev: ''  # Use the sha or tag you want to point at
-        hooks:
-        -   id: prettier
+- repo: https://github.com/prettier/prettier
+  rev: "" # Use the sha or tag you want to point at
+  hooks:
+    - id: prettier
 ```
 
 Find more info from [here](https://pre-commit.com).
 
 ## Option 4. [precise-commits](https://github.com/JamesHenry/precise-commits)
 
-**Use Case:** Great for when you want an partial file formatting on your changed/staged files.
+**Use Case:** Great for when you want partial file formatting on your changed/staged files.
 
 Install it along with [husky](https://github.com/typicode/husky):
 

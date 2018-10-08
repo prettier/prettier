@@ -269,7 +269,7 @@ scalar1
 key: value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scalar1
-...
+---
 key: value
 
 `;
@@ -281,7 +281,7 @@ scalar1
 key: value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 scalar1
-...
+---
 key: value
 
 `;
@@ -349,9 +349,9 @@ exports[`block-mapping-with-missing-values.yml - yaml-verify 1`] = `
 ? b
 c:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-? a
-? b
-? c
+a:
+b:
+c:
 
 `;
 
@@ -360,9 +360,9 @@ exports[`block-mapping-with-missing-values.yml - yaml-verify 2`] = `
 ? b
 c:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-? a
-? b
-? c
+a:
+b:
+c:
 
 `;
 
@@ -694,7 +694,7 @@ a: b
 ---
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a: b
-...
+---
 
 
 `;
@@ -705,7 +705,7 @@ a: b
 ---
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a: b
-...
+---
 
 
 `;
@@ -954,7 +954,7 @@ a: 1
 &anchor c: 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a: 1
-? b
+b:
 &anchor c: 3
 
 `;
@@ -966,7 +966,7 @@ a: 1
 &anchor c: 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 a: 1
-? b
+b:
 &anchor c: 3
 
 `;
@@ -1058,20 +1058,6 @@ exports[`mapping-key-and-flow-sequence-item-anchors.yml - yaml-verify 2`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 &mapping
 &key [&item a, b, c]: value
-
-`;
-
-exports[`mapping-with-anchor-on-document-start-line.yml - yaml-verify 1`] = `
---- &anchor a: b
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-&anchor a: b
-
-`;
-
-exports[`mapping-with-anchor-on-document-start-line.yml - yaml-verify 2`] = `
---- &anchor a: b
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-&anchor a: b
 
 `;
 
@@ -1532,7 +1518,7 @@ string"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "quoted
 string"
-...
+---
 &node foo
 
 `;
@@ -1543,7 +1529,7 @@ string"
 --- &node foo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "quoted string"
-...
+---
 &node foo
 
 `;
@@ -1852,7 +1838,7 @@ exports[`spec-example-2-7-two-documents-in-a-stream.yml - yaml-verify 1`] = `
 - Ken Griffey
 
 # Team ranking
-...
+---
 - Chicago Cubs
 - St Louis Cardinals
 
@@ -1877,7 +1863,7 @@ exports[`spec-example-2-7-two-documents-in-a-stream.yml - yaml-verify 2`] = `
 - Ken Griffey
 
 # Team ranking
-...
+---
 - Chicago Cubs
 - St Louis Cardinals
 
@@ -1898,7 +1884,7 @@ action: grand slam
 time: 20:03:20
 player: Sammy Sosa
 action: strike (miss)
-...
+---
 time: 20:03:47
 player: Sammy Sosa
 action: grand slam
@@ -1920,7 +1906,7 @@ action: grand slam
 time: 20:03:20
 player: Sammy Sosa
 action: strike (miss)
-...
+---
 time: 20:03:47
 player: Sammy Sosa
 action: grand slam
@@ -2645,12 +2631,12 @@ Time: 2001-11-23 15:01:42 -5
 User: ed
 Warning: This is an error message
   for the log file
-...
+---
 Time: 2001-11-23 15:02:31 -5
 User: ed
 Warning: A slightly different error
   message.
-...
+---
 Date: 2001-11-23 15:03:17 -5
 User: ed
 Fatal: Unknown variable "bar"
@@ -2697,11 +2683,11 @@ Stack:
 Time: 2001-11-23 15:01:42 -5
 User: ed
 Warning: This is an error message for the log file
-...
+---
 Time: 2001-11-23 15:02:31 -5
 User: ed
 Warning: A slightly different error message.
-...
+---
 Date: 2001-11-23 15:03:17 -5
 User: ed
 Fatal: Unknown variable "bar"
@@ -3459,13 +3445,11 @@ exports[`spec-example-6-21-local-tag-prefix.yml - yaml-verify 1`] = `
 !m!light green
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %TAG !m! !my-
----
-# Bulb here
+--- # Bulb here
 !m!light fluorescent
 ...
 %TAG !m! !my-
----
-# Color here
+--- # Color here
 !m!light green
 
 `;
@@ -3480,13 +3464,11 @@ exports[`spec-example-6-21-local-tag-prefix.yml - yaml-verify 2`] = `
 !m!light green
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %TAG !m! !my-
----
-# Bulb here
+--- # Bulb here
 !m!light fluorescent
 ...
 %TAG !m! !my-
----
-# Color here
+--- # Color here
 !m!light green
 
 `;
@@ -4348,7 +4330,6 @@ keep: |+
 
 # Trail
 # comments.
-
 `;
 
 exports[`spec-example-8-5-chomping-trailing-lines.yml - yaml-verify 2`] = `
@@ -4391,7 +4372,6 @@ keep: |+
 
 # Trail
 # comments.
-
 `;
 
 exports[`spec-example-8-6-empty-scalar-chomping.yml - yaml-verify 1`] = `
@@ -4881,9 +4861,9 @@ document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Bare
 document
-...
+---
 # No document
-...
+---
 |
   %!PS-Adobe-2.0 # Not the first line
 
@@ -4899,9 +4879,9 @@ document
 %!PS-Adobe-2.0 # Not the first line
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Bare document
-...
+---
 # No document
-...
+---
 |
   %!PS-Adobe-2.0 # Not the first line
 
@@ -4919,7 +4899,7 @@ exports[`spec-example-9-4-explicit-documents.yml - yaml-verify 1`] = `
 { ? matches
     %
   : 20 }
-...
+---
 # Empty
 
 `;
@@ -4934,7 +4914,7 @@ exports[`spec-example-9-4-explicit-documents.yml - yaml-verify 2`] = `
 ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 { matches %: 20 }
-...
+---
 # Empty
 
 `;
@@ -4991,7 +4971,7 @@ Document
 matches %: 20
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Document
-...
+---
 # Empty
 ...
 %YAML 1.2
@@ -5010,7 +4990,7 @@ Document
 matches %: 20
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Document
-...
+---
 # Empty
 ...
 %YAML 1.2
@@ -5105,10 +5085,10 @@ e
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !!map
 a: b
-...
+---
 !!seq
 - !!str c
-...
+---
 !!str d
 e
 
@@ -5126,10 +5106,10 @@ e
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !!map
 a: b
-...
+---
 !!seq
 - !!str c
-...
+---
 !!str d e
 
 `;
@@ -5286,23 +5266,23 @@ a6: 1
 value11
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !!str &a1 scalar1
-...
+---
 !!str &a2 scalar2
-...
+---
 !!str &a3 scalar3
-...
+---
 !!map &a4
 !!str &a5 key5: value4
-...
+---
 a6: 1
 &anchor6 b6: 2
-...
+---
 !!map
 !!str &a8 key8: value7
-...
+---
 !!map
 !!str &a10 key10: value9
-...
+---
 !!str &a11 value11
 
 `;
@@ -5336,23 +5316,23 @@ a6: 1
 value11
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !!str &a1 scalar1
-...
+---
 !!str &a2 scalar2
-...
+---
 !!str &a3 scalar3
-...
+---
 !!map &a4
 !!str &a5 key5: value4
-...
+---
 a6: 1
 &anchor6 b6: 2
-...
+---
 !!map
 !!str &a8 key8: value7
-...
+---
 !!map
 !!str &a10 key10: value9
-...
+---
 !!str &a11 value11
 
 `;

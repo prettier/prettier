@@ -129,9 +129,27 @@ This option cannot be used with --range-start and --range-end.",
               ],
             },
             Object {
+              "description": "MDX",
+              "enum": Array [
+                "mdx",
+              ],
+            },
+            Object {
               "description": "Vue",
               "enum": Array [
                 "vue",
+              ],
+            },
+            Object {
+              "description": "YAML",
+              "enum": Array [
+                "yaml",
+              ],
+            },
+            Object {
+              "description": "HTML",
+              "enum": Array [
+                "html",
               ],
             },
           ],

@@ -104,3 +104,16 @@ it.only.only("does something really long and complicated so I have to write a ve
 });
 
 xskip("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+// timeout
+
+it(`handles
+  some
+    newlines
+  does something really long and complicated so I have to write a very long name for the test`, () => {
+  console.log("hello!");
+}, 2500)
+
+it("does something quick", () => {
+  console.log("hello!")
+}, 1000000000)

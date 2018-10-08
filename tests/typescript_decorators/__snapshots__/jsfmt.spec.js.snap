@@ -237,8 +237,7 @@ class Class3 {
 class Foo {}
 
 class Bar {
-  @decorated
-  method() {}
+  @decorated method() {}
 }
 
 class MyContainerComponent {

@@ -17,7 +17,9 @@ function getSupportInfo(version, opts) {
   );
 
   if (!version) {
-    version = currentVersion;
+    // pre-release version is smaller than the normal version in semver,
+    // we need to treat it as the normal one so as to test new features.
+    version = currentVersion.split("-", 1)[0];
   }
 
   const plugins = opts.plugins;
@@ -76,12 +78,7 @@ function getSupportInfo(version, opts) {
 
   const languages = plugins
     .reduce((all, plugin) => all.concat(plugin.languages || []), [])
-    .filter(
-      language =>
-        language.since
-          ? semver.gte(version, language.since)
-          : language.since !== null
-    )
+    .filter(filterSince)
     .map(language => {
       // Prevent breaking changes
       if (language.name === "Markdown") {

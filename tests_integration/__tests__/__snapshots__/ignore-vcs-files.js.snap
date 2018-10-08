@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ignores files in version control systems (stderr) 1`] = `""`;
+
+exports[`ignores files in version control systems (stdout) 1`] = `
+"file.js
+"
+`;
+
+exports[`ignores files in version control systems (write) 1`] = `Array []`;

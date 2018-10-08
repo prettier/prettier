@@ -113,6 +113,7 @@ function lineSuffix(contents) {
 
 const lineSuffixBoundary = { type: "line-suffix-boundary" };
 const breakParent = { type: "break-parent" };
+const trim = { type: "trim" };
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
 const hardline = concat([{ type: "line", hard: true }, breakParent]);
@@ -167,6 +168,7 @@ module.exports = {
   cursor,
   breakParent,
   ifBreak,
+  trim,
   indent,
   align,
   addAlignmentToDoc,
