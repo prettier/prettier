@@ -3400,6 +3400,7 @@ function couldGroupArg(arg) {
         arg.body.type === "ArrayExpression" ||
         arg.body.type === "CallExpression" ||
         arg.body.type === "OptionalCallExpression" ||
+        arg.body.type === "ConditionalExpression" ||
         isJSXNode(arg.body)))
   );
 }

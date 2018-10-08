@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow_call.js - flow-verify 1`] = `
+exports[`arrow_call.js - babylon-verify 1`] = `
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
 );
@@ -43,6 +43,8 @@ const composition = (ViewComponent, ContainerComponent) =>
   class extends React.Component {
     static propTypes = {};
   };
+
+promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
@@ -93,9 +95,15 @@ const composition = (ViewComponent, ContainerComponent) =>
     static propTypes = {};
   };
 
+promise.then(result =>
+  result.veryLongVariable.veryLongPropertyName > someOtherVariable
+    ? "ok"
+    : "fail"
+);
+
 `;
 
-exports[`arrow_call.js - flow-verify 2`] = `
+exports[`arrow_call.js - babylon-verify 2`] = `
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
 );
@@ -138,6 +146,8 @@ const composition = (ViewComponent, ContainerComponent) =>
   class extends React.Component {
     static propTypes = {};
   };
+
+promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter),
@@ -188,9 +198,15 @@ const composition = (ViewComponent, ContainerComponent) =>
     static propTypes = {};
   };
 
+promise.then(result =>
+  result.veryLongVariable.veryLongPropertyName > someOtherVariable
+    ? "ok"
+    : "fail",
+);
+
 `;
 
-exports[`arrow_call.js - flow-verify 3`] = `
+exports[`arrow_call.js - babylon-verify 3`] = `
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
 );
@@ -233,6 +249,8 @@ const composition = (ViewComponent, ContainerComponent) =>
   class extends React.Component {
     static propTypes = {};
   };
+
+promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const testResults = results.testResults.map((testResult) =>
   formatResult(testResult, formatter, reporter)
@@ -282,5 +300,11 @@ const composition = (ViewComponent, ContainerComponent) =>
   class extends React.Component {
     static propTypes = {};
   };
+
+promise.then((result) =>
+  result.veryLongVariable.veryLongPropertyName > someOtherVariable
+    ? "ok"
+    : "fail"
+);
 
 `;
