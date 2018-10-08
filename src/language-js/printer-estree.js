@@ -1737,11 +1737,31 @@ function printPathNoParens(path, options, print, args) {
         n.finalizer ? concat([" finally ", path.call(print, "finalizer")]) : ""
       ]);
     case "CatchClause":
-      return concat([
-        "catch ",
-        n.param ? concat(["(", path.call(print, "param"), ") "]) : "",
-        path.call(print, "body")
-      ]);
+      if (n.param) {
+        const hasComments =
+          n.param.comments &&
+          n.param.comments.some(
+            comment =>
+              !handleComments.isBlockComment(comment) ||
+              (comment.leading &&
+                hasNewline(options.originalText, options.locEnd(comment))) ||
+              (comment.trailing &&
+                hasNewline(options.originalText, options.locStart(comment), {
+                  backwards: true
+                }))
+          );
+        const param = path.call(print, "param");
+
+        return concat([
+          "catch ",
+          hasComments
+            ? concat(["(", indent(concat([softline, param])), softline, ") "])
+            : concat(["(", param, ") "]),
+          path.call(print, "body")
+        ]);
+      }
+
+      return concat(["catch ", path.call(print, "body")]);
     case "ThrowStatement":
       return concat(["throw ", path.call(print, "argument"), semi]);
     // Note: ignoring n.lexical because it has no printing consequences.
