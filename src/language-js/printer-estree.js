@@ -20,8 +20,7 @@ const {
   getPenultimate,
   startsWithNoLookaheadToken,
   getIndentSize,
-  matchAncestorTypes,
-  isWithinParentArrayProperty
+  matchAncestorTypes
 } = require("../common/util");
 const {
   isNextLineEmpty,
@@ -96,11 +95,19 @@ function genericPrint(path, options, printPath, args) {
     // responsible for printing node.decorators.
     !getParentExportDeclaration(path)
   ) {
-    const separator =
-      node.decorators.length === 1 &&
-      isWithinParentArrayProperty(path, "params")
-        ? line
-        : hardline;
+    const shouldBreak =
+      node.type === "ClassDeclaration" ||
+      hasNewlineInRange(
+        options.originalText,
+        options.locStart(node.decorators[0]),
+        options.locEnd(getLast(node.decorators))
+      ) ||
+      hasNewline(
+        options.originalText,
+        options.locEnd(getLast(node.decorators))
+      );
+
+    const separator = shouldBreak ? hardline : line;
 
     path.each(decoratorPath => {
       let decorator = decoratorPath.getValue();
@@ -5287,6 +5294,9 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
       isBinaryish(rightNode.test) &&
       !shouldInlineLogicalExpression(rightNode.test)) ||
     rightNode.type === "StringLiteralTypeAnnotation" ||
+    (rightNode.type === "ClassExpression" &&
+      rightNode.decorators &&
+      rightNode.decorators.length) ||
     ((leftNode.type === "Identifier" ||
       isStringLiteral(leftNode) ||
       leftNode.type === "MemberExpression") &&
