@@ -5976,7 +5976,7 @@ function isJsDocComment(comment) {
   const lines = comment.value.split("\n");
   return (
     lines.length > 1 &&
-    lines.slice(0, lines.length - 1).every(line => line.trim()[0] === "*")
+    lines.slice(1, lines.length - 1).every(line => line.trim()[0] === "*")
   );
 }
 
@@ -5989,7 +5989,7 @@ function printJsDocComment(comment) {
       hardline,
       lines.map(
         (line, index) =>
-          (index > 0 ? " " : "") +
+          (index === 0 && line[0] === "*" ? "" : " ") +
           (index < lines.length - 1 ? line.trim() : line.trimLeft())
       )
     ),
