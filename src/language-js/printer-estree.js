@@ -135,6 +135,7 @@ function genericPrint(path, options, printPath, args) {
     isExportDeclaration(node) &&
     node.declaration &&
     node.declaration.decorators &&
+    node.declaration.decorators.length > 0 &&
     // Only print decorators here if they were written before the export,
     // otherwise they are printed by the node.declaration
     options.locStart(node, { ignoreDecorators: true }) >
