@@ -2,16 +2,18 @@
 
 const getLast = require("../utils/get-last");
 
-function locStart(node) {
+function locStart(node, opts) {
+  opts = opts || {};
   // Handle nodes with decorators. They should start at the first decorator
   if (
+    !opts.ignoreDecorators &&
     node.declaration &&
     node.declaration.decorators &&
     node.declaration.decorators.length > 0
   ) {
     return locStart(node.declaration.decorators[0]);
   }
-  if (node.decorators && node.decorators.length > 0) {
+  if (!opts.ignoreDecorators && node.decorators && node.decorators.length > 0) {
     return locStart(node.decorators[0]);
   }
 

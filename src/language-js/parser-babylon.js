@@ -4,69 +4,97 @@ const createError = require("../common/parser-create-error");
 const hasPragma = require("./pragma").hasPragma;
 const locFns = require("./loc");
 
+function babylonOptions(extraOptions, extraPlugins) {
+  return Object.assign(
+    {
+      sourceType: "module",
+      allowAwaitOutsideFunction: true,
+      allowImportExportEverywhere: true,
+      allowReturnOutsideFunction: true,
+      allowSuperOutsideMethod: true,
+      plugins: [
+        "jsx",
+        "flow",
+        "doExpressions",
+        "objectRestSpread",
+        "classProperties",
+        "exportDefaultFrom",
+        "exportNamespaceFrom",
+        "asyncGenerators",
+        "functionBind",
+        "functionSent",
+        "dynamicImport",
+        "numericSeparator",
+        "importMeta",
+        "optionalCatchBinding",
+        "optionalChaining",
+        "classPrivateProperties",
+        ["pipelineOperator", { proposal: "minimal" }],
+        "nullishCoalescingOperator",
+        "bigInt",
+        "throwExpressions"
+      ].concat(extraPlugins)
+    },
+    extraOptions
+  );
+}
+
 function parse(text, parsers, opts) {
   // Inline the require to avoid loading all the JS if we don't use it
   const babylon = require("@babel/parser");
 
-  const babylonOptions = {
-    sourceType: "module",
-    allowAwaitOutsideFunction: true,
-    allowImportExportEverywhere: true,
-    allowReturnOutsideFunction: true,
-    allowSuperOutsideMethod: true,
-    plugins: [
-      "jsx",
-      "flow",
-      "doExpressions",
-      "objectRestSpread",
-      "decorators-legacy",
-      "classProperties",
-      "exportDefaultFrom",
-      "exportNamespaceFrom",
-      "asyncGenerators",
-      "functionBind",
-      "functionSent",
-      "dynamicImport",
-      "numericSeparator",
-      "importMeta",
-      "optionalCatchBinding",
-      "optionalChaining",
-      "classPrivateProperties",
-      ["pipelineOperator", { proposal: "minimal" }],
-      "nullishCoalescingOperator",
-      "bigInt",
-      "throwExpressions"
-    ]
-  };
+  const combinations = [
+    babylonOptions({}, [["decorators", { decoratorsBeforeExport: false }]]),
+    babylonOptions({ strictMode: false }, [
+      ["decorators", { decoratorsBeforeExport: false }]
+    ]),
+    babylonOptions({}, ["decorators", { decoratorsBeforeExport: true }]),
+    babylonOptions({ strictMode: false }, [
+      ["decorators", { decoratorsBeforeExport: true }]
+    ]),
+    babylonOptions({}, ["decorators-legacy"]),
+    babylonOptions({ strictMode: false }, ["decorators-legacy"])
+  ];
 
   const parseMethod =
     !opts || opts.parser === "babylon" ? "parse" : "parseExpression";
 
+  function parseFn(options) {
+    return babylon[parseMethod](text, options);
+  }
+
   let ast;
   try {
-    ast = babylon[parseMethod](text, babylonOptions);
-  } catch (originalError) {
-    try {
-      ast = babylon[parseMethod](
-        text,
-        Object.assign({}, babylonOptions, { strictMode: false })
-      );
-    } catch (nonStrictError) {
-      throw createError(
-        // babel error prints (l:c) with cols that are zero indexed
-        // so we need our custom error
-        originalError.message.replace(/ \(.*\)/, ""),
-        {
-          start: {
-            line: originalError.loc.line,
-            column: originalError.loc.column + 1
-          }
+    ast = tryCombinations(parseFn, combinations);
+  } catch (error) {
+    throw createError(
+      // babel error prints (l:c) with cols that are zero indexed
+      // so we need our custom error
+      error.message.replace(/ \(.*\)/, ""),
+      {
+        start: {
+          line: error.loc.line,
+          column: error.loc.column + 1
         }
-      );
-    }
+      }
+    );
   }
   delete ast.tokens;
   return ast;
+}
+
+function tryCombinations(fn, combinations) {
+  let error;
+  for (let i = 0; i < combinations.length; i++) {
+    try {
+      return fn(combinations[i]);
+    } catch (_error) {
+      if (!error) {
+        error = _error;
+      }
+    }
+  }
+  throw error;
 }
 
 function parseJson(text, parsers, opts) {
