@@ -1,0 +1,5 @@
+try {}
+catch(
+  // comment
+  foo
+) {}

@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`catch.js - flow-verify 1`] = `
+try {}
+catch(
+  // comment
+  foo
+) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+try {
+} catch (
+  // comment
+  foo
+) {}
+
+`;
+
 exports[`empty.js - flow-verify 1`] = `
 try {
 } catch (e) {

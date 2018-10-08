@@ -1732,7 +1732,16 @@ function printPathNoParens(path, options, print, args) {
     case "CatchClause":
       return concat([
         "catch ",
-        n.param ? concat(["(", path.call(print, "param"), ") "]) : "",
+        n.param
+          ? group(
+              concat([
+                "(",
+                indent(concat([softline, path.call(print, "param")])),
+                softline,
+                ") "
+              ])
+            )
+          : "",
         path.call(print, "body")
       ]);
     case "ThrowStatement":
