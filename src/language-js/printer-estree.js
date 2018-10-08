@@ -5976,7 +5976,9 @@ function isJsDocComment(comment) {
   const lines = comment.value.split("\n");
   return (
     lines.length > 1 &&
-    lines.slice(1, lines.length - 1).every(line => line.trim()[0] === "*")
+    lines.slice(1, lines.length - 1).every(line => line.trim()[0] === "*") &&
+    (lines[lines.length - 1].trim() === "" ||
+      lines[lines.length - 1].trim()[0] === "*")
   );
 }
 
