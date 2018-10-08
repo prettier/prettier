@@ -23,7 +23,9 @@ interface Bad {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @flow
 
-interface Ok { [key: string]: string }
+interface Ok {
+  [key: string]: string;
+}
 
 interface Bad {
   [k1: string]: string;
