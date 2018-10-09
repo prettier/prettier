@@ -1,0 +1,3 @@
+yarn run v1.10.1
+$ cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
