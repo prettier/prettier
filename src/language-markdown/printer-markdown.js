@@ -409,8 +409,15 @@ function genericPrint(path, options, print) {
           : "",
         "$$"
       ]);
-    case "inlineMath":
-      return concat(["$", node.value, "$"]);
+    case "inlineMath": {
+      // $$math$$ can be block math in some variants
+      // see https://github.com/Rokt33r/remark-math#double-dollars-in-inline
+      const style =
+        options.originalText[node.position.start.offset + 1] === "$"
+          ? "$$"
+          : "$";
+      return concat([style, node.value, style]);
+    }
 
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
