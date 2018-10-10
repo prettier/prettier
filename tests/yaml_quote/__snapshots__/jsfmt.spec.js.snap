@@ -325,7 +325,7 @@ exports[`quote.yml - yaml-verify 1`] = `
 - '""'
 - '\\n123'
 - "\\n123"
-- ''a"b'
+- '''a"b'
 
 `;
 
@@ -348,7 +348,7 @@ exports[`quote.yml - yaml-verify 2`] = `
 - '""'
 - '\\n123'
 - "\\n123"
-- ''a"b'
+- '''a"b'
 
 `;
 
@@ -371,7 +371,7 @@ exports[`quote.yml - yaml-verify 3`] = `
 - '""'
 - '\\n123'
 - "\\n123"
-- ''a"b'
+- '''a"b'
 
 `;
 
@@ -394,6 +394,6 @@ exports[`quote.yml - yaml-verify 4`] = `
 - '""'
 - '\\n123'
 - "\\n123"
-- ''a"b'
+- '''a"b'
 
 `;

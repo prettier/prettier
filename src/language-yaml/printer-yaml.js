@@ -265,8 +265,10 @@ function _print(node, parentNode, path, options, print) {
           printFlowScalarContent(
             node.type,
             node.type === "quoteDouble"
-              ? // double quote needs to be escaped by backslash in quoteDouble
-                raw.replace(/\\"/g, doubleQuote)
+              ? raw
+                  // double quote needs to be escaped by backslash in quoteDouble
+                  .replace(/\\"/g, doubleQuote)
+                  .replace(/'/g, singleQuote.repeat(2))
               : raw,
             options
           ),
