@@ -58,6 +58,8 @@ const {
   printer: { printDocToString }
 } = require("../doc");
 
+let uid = 0;
+
 function shouldPrintComma(options, level) {
   level = level || "es5";
 
@@ -503,16 +505,41 @@ function printPathNoParens(path, options, print, args) {
         return group(concat(parts));
       }
 
-      const rest = concat(parts.slice(1));
+      if (parts.length === 0) {
+        return "";
+      }
 
-      return group(
+      // If the right part is a JSX node, we include it in a separate group to
+      // prevent it breaking the whole chain, so we can print the expression like:
+      //
+      //   foo && bar && (
+      //     <Foo>
+      //       <Bar />
+      //     </Foo>
+      //   )
+
+      const hasJSX = isJSXNode(n.right);
+      const rest = concat(hasJSX ? parts.slice(1, -1) : parts.slice(1));
+
+      const groupId = Symbol("logicalChain-" + ++uid);
+      const chain = group(
         concat([
           // Don't include the initial expression in the indentation
           // level. The first item is guaranteed to be the first
           // left-most expression.
           parts.length > 0 ? parts[0] : "",
           indent(rest)
-        ])
+        ]),
+        { id: groupId }
+      );
+
+      if (!hasJSX) {
+        return chain;
+      }
+
+      const jsxPart = getLast(parts);
+      return group(
+        concat([chain, ifBreak(indent(jsxPart), jsxPart, { groupId })])
       );
     }
     case "AssignmentPattern":
