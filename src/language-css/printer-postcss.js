@@ -58,6 +58,7 @@ const {
   hasEmptyRawBefore,
   isKeyValuePairNode,
   isDetachedRulesetCallNode,
+  isTemplatePlaceholderNode,
   isPostcssSimpleVarNode,
   isSCSSMapItemNode,
   isInlineValueCommentNode,
@@ -191,7 +192,11 @@ function genericPrint(path, options, print) {
           : maybeToLowerCase(node.name),
         node.params
           ? concat([
-              isDetachedRulesetCallNode(node) ? "" : " ",
+              isDetachedRulesetCallNode(node)
+                ? ""
+                : isTemplatePlaceholderNode(node)
+                  ? node.raws.afterName
+                  : " ",
               path.call(print, "params")
             ])
           : "",
