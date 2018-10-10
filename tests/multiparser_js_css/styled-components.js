@@ -105,3 +105,26 @@ styled.span`
   ${foo} ${bar}
   baz: ${foo}
 `
+
+styled.span`
+${foo};
+${bar};
+`
+
+styled.span`
+${foo}: ${bar};
+`
+
+styled.span`
+${foo}: ${bar}
+`
+
+styled.span`
+${foo}:
+${bar}
+`
+
+styled.span`
+${foo}:
+${bar};
+`

@@ -107,6 +107,29 @@ styled.div\`
 styled.span\`
   \${foo} \${bar}
   baz: \${foo}
+\`
+
+styled.span\`
+\${foo};
+\${bar};
+\`
+
+styled.span\`
+\${foo}: \${bar};
+\`
+
+styled.span\`
+\${foo}: \${bar}
+\`
+
+styled.span\`
+\${foo}:
+\${bar}
+\`
+
+styled.span\`
+\${foo}:
+\${bar};
 \`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const ListItem = styled.li\`\`;
 
@@ -217,6 +240,27 @@ styled.div\`
 styled.span\`
   \${foo} \${bar}
   baz: \${foo}
+\`;
+
+styled.span\`
+  \${foo};
+  \${bar};
+\`;
+
+styled.span\`
+  \${foo}: \${bar};
+\`;
+
+styled.span\`
+  \${foo}: \${bar};
+\`;
+
+styled.span\`
+  \${foo}: \${bar};
+\`;
+
+styled.span\`
+  \${foo}: \${bar};
 \`;
 
 `;
