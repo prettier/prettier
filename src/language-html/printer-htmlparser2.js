@@ -45,8 +45,7 @@ function concat(parts) {
 }
 
 function fill(parts) {
-  const newParts = normalizeParts(parts);
-  return newParts.length === 0 ? "" : builders.fill(newParts);
+  return builders.fill(normalizeParts(parts));
 }
 
 function embed(path, print, textToDoc /*, options */) {
