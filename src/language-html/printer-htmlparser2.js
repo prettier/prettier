@@ -34,6 +34,7 @@ const {
 } = require("./utils");
 const preprocess = require("./preprocess");
 const assert = require("assert");
+const { insertPragma } = require("./pragma");
 
 function concat(parts) {
   const newParts = normalizeParts(parts);
@@ -578,6 +579,7 @@ function printClosingTagEndMarker(node) {
 module.exports = {
   preprocess,
   print: genericPrint,
+  insertPragma,
   massageAstNode: clean,
   embed,
   hasPrettierIgnore
