@@ -45,7 +45,30 @@ function concat(parts) {
 }
 
 function fill(parts) {
-  return builders.fill(normalizeParts(parts));
+  const newParts = [];
+
+  let hasSeparator = true;
+  for (const part of normalizeParts(parts)) {
+    switch (part) {
+      case line:
+      case hardline:
+      case literalline:
+      case softline:
+        newParts.push(part);
+        hasSeparator = true;
+        break;
+      default:
+        if (!hasSeparator) {
+          // `fill` needs a separator between each two parts
+          newParts.push("");
+        }
+        newParts.push(part);
+        hasSeparator = false;
+        break;
+    }
+  }
+
+  return builders.fill(newParts);
 }
 
 function embed(path, print, textToDoc /*, options */) {
@@ -268,9 +291,6 @@ function printChildren(path, options, print) {
         } else {
           parts.push(prevBetweenLine);
         }
-      } else {
-        // `fill` needs a separator between each two parts
-        parts.push(builders.concat([""]));
       }
     }
 
@@ -413,9 +433,10 @@ function printClosingTagEnd(node) {
 }
 
 function printLastChildTrailingSpace(node) {
-  return (node.next
-  ? needsToBorrowPrevClosingTagEndMarker(node.next)
-  : needsToBorrowLastChildClosingTagEndMarker(node.parent))
+  return !node.lastChild ||
+    (node.next
+      ? needsToBorrowPrevClosingTagEndMarker(node.next)
+      : needsToBorrowLastChildClosingTagEndMarker(node.parent))
     ? ""
     : node.lastChild.hasTrailingSpaces &&
       node.lastChild.isTrailingSpaceSensitive
@@ -433,12 +454,13 @@ function shouldClosingTagBelongToOuterGroup(node) {
    */
   return (
     !forceBreakChildren(node.parent) &&
-    node.lastChild &&
-    needsToBorrowParentClosingTagStartMarker(node.lastChild) &&
     node.next &&
     node.next.type === "text" &&
     node.next.hasLeadingSpaces &&
-    node.next.isLeadingSpaceSensitive
+    node.next.isLeadingSpaceSensitive &&
+    (node.lastChild
+      ? needsToBorrowParentClosingTagStartMarker(node.lastChild)
+      : node.isSelfClosing)
   );
 }
 
