@@ -285,7 +285,14 @@ function inferScriptParser(node) {
   return null;
 }
 
-function getNodeCssStyleDisplay(node, prevNode) {
+function getNodeCssStyleDisplay(node, prevNode, options) {
+  switch (getNodeCssStyleWhiteSpace(node)) {
+    case "pre":
+    case "pre-wrap":
+      // textarea-like
+      return "block";
+  }
+
   if (prevNode && prevNode.type === "comment") {
     // <!-- display: block -->
     const match = prevNode.data.match(/^\s*display:\s*([a-z]+)\s*$/);
@@ -293,12 +300,17 @@ function getNodeCssStyleDisplay(node, prevNode) {
       return match[1];
     }
   }
-  return (
-    (isTag(node) && CSS_DISPLAY_TAGS[node.name]) ||
-    (getNodeCssStyleWhiteSpace(node) === "pre-wrap"
-      ? /** textarea-like */ "block"
-      : CSS_DISPLAY_DEFAULT)
-  );
+
+  switch (options.htmlWhitespaceSensitivity) {
+    case "strict":
+      return "inline";
+    case "ignore":
+      return "block";
+    default:
+      return (
+        (isTag(node) && CSS_DISPLAY_TAGS[node.name]) || CSS_DISPLAY_DEFAULT
+      );
+  }
 }
 
 function getNodeCssStyleWhiteSpace(node) {

@@ -479,7 +479,27 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -73,16 +99,30 @@
+@@ -56,10 +82,19 @@
+      },
+      \\"filepath\\": Object {
+        \\"default\\": undefined,
+        \\"type\\": \\"path\\",
+      },
++     \\"htmlWhitespaceSensitivity\\": Object {
++       \\"choices\\": Array [
++         \\"css\\",
++         \\"strict\\",
++         \\"ignore\\",
++       ],
++       \\"default\\": \\"css\\",
++       \\"type\\": \\"choice\\",
++     },
+      \\"insertPragma\\": Object {
+        \\"default\\": false,
+        \\"type\\": \\"boolean\\",
+      },
+      \\"jsxBracketSameLine\\": Object {
+@@ -73,16 +108,30 @@
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -511,7 +531,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +130,15 @@
+@@ -90,14 +139,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -930,6 +950,29 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"path\\"
+    },
+    {
+      \\"category\\": \\"HTML\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Respect the default value of CSS display property.\\",
+          \\"value\\": \\"css\\"
+        },
+        {
+          \\"description\\": \\"Whitespaces are considered sensitive.\\",
+          \\"value\\": \\"strict\\"
+        },
+        {
+          \\"description\\": \\"Whitespaces are considered insensitive.\\",
+          \\"value\\": \\"ignore\\"
+        }
+      ],
+      \\"default\\": \\"css\\",
+      \\"description\\": \\"How to handle whitespaces in HTML.\\",
+      \\"name\\": \\"htmlWhitespaceSensitivity\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"choice\\"
     },
     {
       \\"category\\": \\"Special\\",

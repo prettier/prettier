@@ -2,6 +2,7 @@
 
 const printer = require("./printer-htmlparser2");
 const createLanguage = require("../utils/create-language");
+const options = require("./options");
 
 const languages = [
   createLanguage(require("linguist-languages/data/html"), {
@@ -19,5 +20,6 @@ const printers = {
 
 module.exports = {
   languages,
-  printers
+  printers,
+  options
 };

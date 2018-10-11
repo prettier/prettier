@@ -182,11 +182,11 @@ function extractWhitespaces(ast /*, options*/) {
   });
 }
 
-function addCssDisplay(ast /*, options */) {
+function addCssDisplay(ast, options) {
   return mapNode(ast, (node, stack) => {
     const prevNode = getPrevNode(stack);
     return Object.assign({}, node, {
-      cssDisplay: getNodeCssStyleDisplay(node, prevNode)
+      cssDisplay: getNodeCssStyleDisplay(node, prevNode, options)
     });
   });
 }
