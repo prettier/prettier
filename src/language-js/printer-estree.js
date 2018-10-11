@@ -2583,7 +2583,11 @@ function printPathNoParens(path, options, print, args) {
         parts.push(
           group(
             indent(
-              concat([line, "extends ", join(", ", path.map(print, "extends"))])
+              concat([
+                line,
+                "extends ",
+                indent(join(concat([",", line]), path.map(print, "extends")))
+              ])
             )
           )
         );
