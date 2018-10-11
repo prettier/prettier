@@ -554,6 +554,17 @@ function handleLastFunctionArgComments(
     addTrailingComment(precedingNode, comment);
     return true;
   }
+
+  if (
+    enclosingNode &&
+    enclosingNode.type === "FunctionDeclaration" &&
+    followingNode &&
+    followingNode.type === "BlockStatement"
+  ) {
+    addBlockStatementFirstComment(followingNode, comment);
+    return true;
+  }
+
   return false;
 }
 
