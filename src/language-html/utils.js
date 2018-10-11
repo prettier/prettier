@@ -205,15 +205,50 @@ function forceNextEmptyLine(node) {
   return isFrontMatterNode(node);
 }
 
-function forceBreakChildren(node) {
+/** firstChild leadingSpaces and lastChild trailingSpaces */
+function forceBreakContent(node) {
   return (
+    forceBreakChildren(node) ||
     (isTag(node) &&
       node.children.length !== 0 &&
-      ["html", "head", "body", "template", "ul", "ol", "select"].indexOf(
-        node.name
-      ) !== -1) ||
-    node.children.some(child => hasNonTextChild(child))
+      (["body", "template"].indexOf(node.name) !== -1 ||
+        node.children.some(child => hasNonTextChild(child))))
   );
+}
+
+/** spaces between children */
+function forceBreakChildren(node) {
+  return (
+    isTag(node) &&
+    node.children.length !== 0 &&
+    ["html", "head", "ul", "ol", "select"].indexOf(node.name) !== -1
+  );
+}
+
+function preferHardlineAsLeadingSpaces(node) {
+  return (
+    preferHardlineAsSurroundingSpaces(node) ||
+    (node.prev && preferHardlineAsTrailingSpaces(node.prev))
+  );
+}
+
+function preferHardlineAsTrailingSpaces(node) {
+  return (
+    preferHardlineAsSurroundingSpaces(node) ||
+    (isTag(node) && node.name === "br")
+  );
+}
+
+function preferHardlineAsSurroundingSpaces(node) {
+  switch (node.type) {
+    case "ieConditionalComment":
+    case "comment":
+    case "directive":
+      return true;
+    case "tag":
+      return ["script", "select"].indexOf(node.name) !== -1;
+  }
+  return false;
 }
 
 function getLastDescendant(node) {
@@ -370,6 +405,7 @@ module.exports = {
   VOID_TAGS,
   dedentString,
   forceBreakChildren,
+  forceBreakContent,
   forceNextEmptyLine,
   getCommentData,
   getLastDescendant,
@@ -384,6 +420,8 @@ module.exports = {
   isScriptLikeTag,
   isTrailingSpaceSensitiveNode,
   mapNode,
+  preferHardlineAsLeadingSpaces,
+  preferHardlineAsTrailingSpaces,
   replaceDocNewlines,
   replaceNewlines
 };

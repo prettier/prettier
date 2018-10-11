@@ -153,8 +153,8 @@ exports[`form.html - html-verify 1`] = `
       aria-describedby="fileHelp"
     />
     <small id="fileHelp" class="form-text text-muted"
-      >This is some placeholder block-level help text for the above input. It's
-      a bit lighter and easily wraps to a new line.</small
+      >This is some placeholder block-level help text for the above input. It's a
+      bit lighter and easily wraps to a new line.</small
     >
   </div>
   <fieldset class="form-group">
@@ -181,8 +181,7 @@ exports[`form.html - html-verify 1`] = `
           id="optionsRadios2"
           value="option2"
         />
-        Option two can be something else and selecting it will deselect option
-        one
+        Option two can be something else and selecting it will deselect option one
       </label>
     </div>
     <div class="form-check disabled">
@@ -201,8 +200,7 @@ exports[`form.html - html-verify 1`] = `
   </fieldset>
   <div class="form-check">
     <label class="form-check-label">
-      <input type="checkbox" class="form-check-input" />
-      Check me out
+      <input type="checkbox" class="form-check-input" /> Check me out
     </label>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
@@ -337,11 +335,9 @@ exports[`html5-boilerplate.html - html-verify 1`] = `
   <body>
     <!--[if lte IE 9]>
       <p class="browserupgrade">
-        You are using an
-        <strong>outdated</strong>
-        browser. Please
-        <a href="https://browsehappy.com/">upgrade your browser</a>
-        to improve your experience and security.
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve your
+        experience and security.
       </p>
     <![endif]-->
 

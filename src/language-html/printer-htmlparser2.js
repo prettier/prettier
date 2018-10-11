@@ -21,12 +21,14 @@ const { hasNewlineInRange } = require("../common/util");
 const {
   dedentString,
   forceBreakChildren,
+  forceBreakContent,
   forceNextEmptyLine,
   getCommentData,
   getLastDescendant,
   hasPrettierIgnore,
   inferScriptParser,
   isScriptLikeTag,
+  preferHardlineAsLeadingSpaces,
   replaceDocNewlines,
   replaceNewlines
 } = require("./utils");
@@ -97,37 +99,19 @@ function genericPrint(path, options, print) {
   const node = path.getValue();
   switch (node.type) {
     case "root":
-      return concat([
-        group(
-          concat([
-            forceBreakChildren(node) ? breakParent : "",
-            printChildren(path, options, print)
-          ])
-        ),
-        hardline
-      ]);
+      return concat([group(printChildren(path, options, print)), hardline]);
     case "tag":
-    case "ieConditionalComment": {
-      const doesLastChildTrailingSpaceBelongToOuterGroup = node.next
-        ? needsToBorrowPrevClosingTagEndMarker(node.next)
-        : needsToBorrowParentClosingTagStartMarker(node);
-      const lastChildTrailingSpace =
-        node.children.length === 0
-          ? ""
-          : node.lastChild.hasTrailingSpaces &&
-            node.lastChild.isTrailingSpaceSensitive
-            ? line
-            : softline;
+    case "ieConditionalComment":
       return concat([
         group(
           concat([
-            forceBreakChildren(node) ? breakParent : "",
             printOpeningTag(path, options, print),
             node.children.length === 0
               ? node.hasDanglingSpaces && node.isDanglingSpaceSensitive
                 ? line
                 : ""
               : concat([
+                  forceBreakContent(node) ? breakParent : "",
                   indent(
                     concat([
                       node.firstChild.type === "text" &&
@@ -141,38 +125,37 @@ function genericPrint(path, options, print) {
                       printChildren(path, options, print)
                     ])
                   ),
-                  doesLastChildTrailingSpaceBelongToOuterGroup
+                  (node.next
+                  ? needsToBorrowPrevClosingTagEndMarker(node.next)
+                  : needsToBorrowLastChildClosingTagEndMarker(node.parent))
                     ? ""
-                    : lastChildTrailingSpace
+                    : node.lastChild.hasTrailingSpaces &&
+                      node.lastChild.isTrailingSpaceSensitive
+                      ? line
+                      : softline
                 ])
           ])
         ),
-        doesLastChildTrailingSpaceBelongToOuterGroup
-          ? lastChildTrailingSpace
-          : "",
         group(printClosingTag(node))
       ]);
-    }
     case "text":
-      return concat([
-        printOpeningTagPrefix(node),
-        node.isWhiteSpaceSensitive
-          ? node.isIndentationSensitive
-            ? concat(
-                replaceNewlines(
+      return fill(
+        [].concat(
+          printOpeningTagPrefix(node),
+          node.isWhiteSpaceSensitive
+            ? node.isIndentationSensitive
+              ? replaceNewlines(
                   node.data.replace(/^\s*?\n|\n\s*?$/g, ""),
                   literalline
                 )
-              )
-            : concat(
-                replaceNewlines(
+              : replaceNewlines(
                   dedentString(node.data.replace(/^\s*?\n|\n\s*?$/g, "")),
                   hardline
                 )
-              )
-          : fill(join(line, node.data.split(/\s+/)).parts),
-        printClosingTagSuffix(node)
-      ]);
+            : join(line, node.data.split(/\s+/)).parts,
+          printClosingTagSuffix(node)
+        )
+      );
     case "comment":
     case "directive": {
       const data = getCommentData(node);
@@ -228,49 +211,96 @@ function genericPrint(path, options, print) {
 }
 
 function printChildren(path, options, print) {
-  return concat(
-    path.map((childPath, childIndex) => {
-      const childNode = childPath.getValue();
-      return concat([
-        // line between children
-        childIndex === 0 ||
-        (needsToBorrowNextOpeningTagStartMarker(childNode.prev) &&
-          /**
-           *     123<a
-           *          ~
-           *       ><b>
-           */
-          (childNode.firstChild ||
-            /**
-             *     123<br />
-             *            ~
-             */
-            (childNode.isSelfClosing && childNode.attributes.length === 0))) ||
+  const node = path.getValue();
+
+  if (forceBreakChildren(node)) {
+    return concat([
+      breakParent,
+      concat(
+        path.map(childPath => {
+          const childNode = childPath.getValue();
+          const prevBetweenLine = !childNode.prev
+            ? ""
+            : printBetweenLine(childNode.prev, childNode);
+          return concat([
+            !prevBetweenLine
+              ? ""
+              : concat([
+                  prevBetweenLine,
+                  forceNextEmptyLine(childNode.prev) ||
+                  childNode.prev.endLocation.line + 1 <
+                    childNode.startLocation.line
+                    ? hardline
+                    : ""
+                ]),
+            print(childPath)
+          ]);
+        }, "children")
+      )
+    ]);
+  }
+
+  const parts = [];
+
+  path.map((childPath, childIndex) => {
+    const childNode = childPath.getValue();
+
+    if (childIndex !== 0) {
+      const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
+      if (prevBetweenLine) {
+        if (
+          forceNextEmptyLine(childNode.prev) ||
+          childNode.prev.endLocation.line + 1 < childNode.startLocation.line
+        ) {
+          parts.push(hardline, hardline);
+        } else {
+          parts.push(prevBetweenLine);
+        }
+      }
+    }
+
+    Array.prototype.push.apply(
+      parts,
+      childNode.type === "text" ? print(childPath).parts : [print(childPath)]
+    );
+  }, "children");
+
+  return fill(parts);
+
+  function printBetweenLine(prevNode, nextNode) {
+    return needsToBorrowNextOpeningTagStartMarker(prevNode) &&
+      /**
+       *     123<a
+       *          ~
+       *       ><b>
+       */
+      (nextNode.firstChild ||
         /**
-         *     <x
-         *       >123</x
-         *              ~
-         *     >456
+         *     123<br />
+         *            ~
          */
-        (needsToBorrowPrevClosingTagEndMarker(childNode) &&
-          !childNode.prev.isSelfClosing)
-          ? ""
-          : childNode.hasLeadingSpaces && childNode.isLeadingSpaceSensitive
-            ? line
-            : softline,
-
-        // child
-        print(childPath),
-
-        // next empty line
-        childNode.next &&
-        (forceNextEmptyLine(childNode) ||
-          childNode.endLocation.line + 1 < childNode.next.startLocation.line)
-          ? hardline
-          : ""
-      ]);
-    }, "children")
-  );
+        (nextNode.isSelfClosing && nextNode.attributes.length === 0))
+      ? ""
+      : !nextNode.isLeadingSpaceSensitive ||
+        preferHardlineAsLeadingSpaces(nextNode) ||
+        /**
+         *       Want to write us a letter? Use our<a
+         *         ><b><a>mailing address</a></b></a
+         *                                          ~
+         *       >.
+         */
+        (needsToBorrowPrevClosingTagEndMarker(nextNode) &&
+          prevNode.lastChild &&
+          needsToBorrowParentClosingTagStartMarker(prevNode.lastChild) &&
+          prevNode.lastChild.lastChild &&
+          needsToBorrowParentClosingTagStartMarker(
+            prevNode.lastChild.lastChild
+          ))
+        ? hardline
+        : nextNode.hasLeadingSpaces
+          ? line
+          : softline;
+  }
 }
 
 function printOpeningTag(path, options, print) {
@@ -288,7 +318,12 @@ function printOpeningTag(path, options, print) {
       : group(
           concat([
             node.prev && needsToBorrowNextOpeningTagStartMarker(node.prev)
-              ? breakParent
+              ? /**
+                 *     123<a
+                 *       attr
+                 *     >
+                 */
+                breakParent
               : "",
             indent(concat([line, join(line, path.map(print, "attributes"))])),
             node.firstChild &&
@@ -337,10 +372,9 @@ function printClosingTagStart(node) {
 }
 
 function printClosingTagEnd(node) {
-  return (node.next && needsToBorrowPrevClosingTagEndMarker(node.next)) ||
-    (!node.next &&
-      node.parent &&
-      needsToBorrowLastChildClosingTagEndMarker(node.parent))
+  return (node.next
+  ? needsToBorrowPrevClosingTagEndMarker(node.next)
+  : needsToBorrowLastChildClosingTagEndMarker(node.parent))
     ? ""
     : concat([printClosingTagEndMarker(node), printClosingTagSuffix(node)]);
 }
@@ -352,10 +386,10 @@ function needsToBorrowNextOpeningTagStartMarker(node) {
    *     >
    */
   return (
+    node.next &&
     node.type === "text" &&
     node.isTrailingSpaceSensitive &&
-    !node.hasTrailingSpaces &&
-    node.next
+    !node.hasTrailingSpaces
   );
 }
 
@@ -369,7 +403,7 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
    *       ><a
    *       ^
    */
-  return node.isLeadingSpaceSensitive && !node.hasLeadingSpaces && !node.prev;
+  return !node.prev && node.isLeadingSpaceSensitive && !node.hasLeadingSpaces;
 }
 
 function needsToBorrowPrevClosingTagEndMarker(node) {
@@ -382,7 +416,7 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
    *     ><a
    *     ^
    */
-  return node.isLeadingSpaceSensitive && !node.hasLeadingSpaces && node.prev;
+  return node.prev && node.isLeadingSpaceSensitive && !node.hasLeadingSpaces;
 }
 
 function needsToBorrowLastChildClosingTagEndMarker(node) {
