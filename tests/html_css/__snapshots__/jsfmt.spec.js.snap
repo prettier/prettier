@@ -36,7 +36,7 @@ exports[`less.html - html-verify 1`] = `
 </style>
 
 <style lang="less">
-  @nice-blue: #5B83AD;
+  @nice-blue: #5b83ad;
   @light-blue: @nice-blue + #111;
 
   #header {

@@ -261,26 +261,37 @@ function hasNonTextChild(node) {
 }
 
 function inferScriptParser(node) {
-  if (
-    node.name === "script" &&
-    ((!node.attribs.lang && !node.attribs.type) ||
+  if (node.name === "script" && !node.attribs.src) {
+    if (
+      (!node.attribs.lang && !node.attribs.type) ||
       node.attribs.type === "text/javascript" ||
       node.attribs.type === "text/babel" ||
-      node.attribs.type === "application/javascript")
-  ) {
-    return "babylon";
-  }
+      node.attribs.type === "application/javascript"
+    ) {
+      return "babylon";
+    }
 
-  if (
-    node.name === "script" &&
-    (node.attribs.type === "application/x-typescript" ||
-      node.attribs.lang === "ts")
-  ) {
-    return "typescript";
+    if (
+      node.attribs.type === "application/x-typescript" ||
+      node.attribs.lang === "ts" ||
+      node.attribs.lang === "tsx"
+    ) {
+      return "typescript";
+    }
   }
 
   if (node.name === "style") {
-    return "css";
+    if (!node.attribs.lang || node.attribs.lang === "postcss") {
+      return "css";
+    }
+
+    if (node.attribs.lang === "scss") {
+      return "scss";
+    }
+
+    if (node.attribs.lang === "less") {
+      return "less";
+    }
   }
 
   return null;
