@@ -4,11 +4,7 @@ const parseFrontMatter = require("../utils/front-matter");
 const { HTML_ELEMENT_ATTRIBUTES, HTML_TAGS, mapNode } = require("./utils");
 const { hasPragma } = require("./pragma");
 
-function parse(text, parsers, options, { shouldParseFrontMatter = true } = {}) {
-  const { frontMatter, content } = shouldParseFrontMatter
-    ? parseFrontMatter(text)
-    : { frontMatter: null, content: text };
-
+function htmlparser2(text) {
   // Inline the require to avoid loading all the JS if we don't use it
   const Parser = require("htmlparser2/lib/Parser");
   const DomHandler = require("domhandler");
@@ -94,12 +90,20 @@ function parse(text, parsers, options, { shouldParseFrontMatter = true } = {}) {
     lowerCaseTags: true, // preserve lowercase tag names to avoid false check in htmlparser2 and apply the lowercasing later
     lowerCaseAttributeNames: false,
     recognizeSelfClosing: true
-  }).end(content);
+  }).end(text);
+
+  return handler.dom;
+}
+
+function _parse(text, options, shouldParseFrontMatter = true) {
+  const { frontMatter, content } = shouldParseFrontMatter
+    ? parseFrontMatter(text)
+    : { frontMatter: null, content: text };
 
   const ast = normalize(
     {
       type: "root",
-      children: handler.dom,
+      children: htmlparser2(content),
       startIndex: 0,
       endIndex: text.length
     },
@@ -110,15 +114,16 @@ function parse(text, parsers, options, { shouldParseFrontMatter = true } = {}) {
     ast.children.unshift(frontMatter);
   }
 
-  const parseHtml = data =>
-    parse(data, parsers, options, {
-      shouldParseFrontMatter: false
-    });
+  const parseSubHtml = subContent => _parse(subContent, options, false);
 
   return mapNode(ast, node => {
-    const ieConditionalComment = parseIeConditionalComment(node, parseHtml);
+    const ieConditionalComment = parseIeConditionalComment(node, parseSubHtml);
     return ieConditionalComment ? ieConditionalComment : node;
   });
+}
+
+function createParser() {
+  return (text, parsers, options) => _parse(text, options);
 }
 
 function parseIeConditionalComment(node, parseHtml) {
@@ -217,7 +222,7 @@ function locEnd(node) {
 module.exports = {
   parsers: {
     html: {
-      parse,
+      parse: createParser(),
       hasPragma,
       astFormat: "htmlparser2",
       locStart,
