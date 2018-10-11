@@ -88,8 +88,7 @@ function htmlparser2(text) {
 
   new CustomParser(handler, {
     lowerCaseTags: true, // preserve lowercase tag names to avoid false check in htmlparser2 and apply the lowercasing later
-    lowerCaseAttributeNames: false,
-    recognizeSelfClosing: true
+    lowerCaseAttributeNames: false
   }).end(text);
 
   return handler.dom;
