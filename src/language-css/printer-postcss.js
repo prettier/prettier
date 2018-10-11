@@ -238,7 +238,9 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
-          : isTemplatePlaceholderNode(node) && !parentNode.raws.semicolon ? "" : ";"
+          : isTemplatePlaceholderNode(node) && !parentNode.raws.semicolon
+            ? ""
+            : ";"
       ]);
     }
     // postcss-media-query-parser
