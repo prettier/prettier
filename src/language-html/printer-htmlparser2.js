@@ -142,18 +142,13 @@ function genericPrint(path, options, print) {
                       printChildren(path, options, print)
                     ])
                   ),
-                  (node.next
-                  ? needsToBorrowPrevClosingTagEndMarker(node.next)
-                  : needsToBorrowLastChildClosingTagEndMarker(node.parent))
+                  shouldClosingTagBelongToOuterGroup(node)
                     ? ""
-                    : node.lastChild.hasTrailingSpaces &&
-                      node.lastChild.isTrailingSpaceSensitive
-                      ? line
-                      : softline
+                    : printLastChildTrailingSpace(node)
                 ])
           ])
         ),
-        group(printClosingTag(node))
+        shouldClosingTagBelongToOuterGroup(node) ? "" : printClosingTag(node)
       ]);
     case "text":
       return fill(
@@ -280,6 +275,13 @@ function printChildren(path, options, print) {
       parts,
       childNode.type === "text" ? print(childPath).parts : [print(childPath)]
     );
+
+    if (shouldClosingTagBelongToOuterGroup(childNode)) {
+      parts.push(
+        printLastChildTrailingSpace(childNode),
+        printClosingTag(childNode)
+      );
+    }
   }, "children");
 
   return fill(parts);
@@ -405,6 +407,36 @@ function printClosingTagEnd(node) {
   : needsToBorrowLastChildClosingTagEndMarker(node.parent))
     ? ""
     : concat([printClosingTagEndMarker(node), printClosingTagSuffix(node)]);
+}
+
+function printLastChildTrailingSpace(node) {
+  return (node.next
+  ? needsToBorrowPrevClosingTagEndMarker(node.next)
+  : needsToBorrowLastChildClosingTagEndMarker(node.parent))
+    ? ""
+    : node.lastChild.hasTrailingSpaces &&
+      node.lastChild.isTrailingSpaceSensitive
+      ? line
+      : softline;
+}
+
+function shouldClosingTagBelongToOuterGroup(node) {
+  /**
+   *      <a
+   *        href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+   *         >bbbbbbbbbb</a
+   *      > cccccccccc
+   *      ^
+   */
+  return (
+    !forceBreakChildren(node.parent) &&
+    node.lastChild &&
+    needsToBorrowParentClosingTagStartMarker(node.lastChild) &&
+    node.next &&
+    node.next.type === "text" &&
+    node.next.hasLeadingSpaces &&
+    node.next.isLeadingSpaceSensitive
+  );
 }
 
 function needsToBorrowNextOpeningTagStartMarker(node) {

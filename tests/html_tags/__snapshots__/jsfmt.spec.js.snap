@@ -61,8 +61,7 @@ exports[`closing-at-start.html - html-verify 1`] = `
   <a
     href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
     >bbbbbbbbbb</a
-  >
-  cccccccccc
+  > cccccccccc
 </div>
 <div>
   aaaaaaaaaa
@@ -153,8 +152,7 @@ exports[`closing-at-start.html - html-verify 4`] = `
   <a
     href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
     >bbbbbbbbbb</a
-  >
-  cccccccccc
+  > cccccccccc
 </div>
 <div>
   aaaaaaaaaa
