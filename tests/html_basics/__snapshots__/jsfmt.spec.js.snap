@@ -181,7 +181,8 @@ exports[`form.html - html-verify 1`] = `
           id="optionsRadios2"
           value="option2"
         />
-        Option two can be something else and selecting it will deselect option one
+        Option two can be something else and selecting it will deselect option
+        one
       </label>
     </div>
     <div class="form-check disabled">
@@ -336,8 +337,8 @@ exports[`html5-boilerplate.html - html-verify 1`] = `
     <!--[if lte IE 9]>
       <p class="browserupgrade">
         You are using an <strong>outdated</strong> browser. Please
-        <a href="https://browsehappy.com/">upgrade your browser</a> to improve your
-        experience and security.
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
       </p>
     <![endif]-->
 

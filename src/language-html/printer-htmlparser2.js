@@ -43,10 +43,14 @@ function embed(path, print, textToDoc /*, options */) {
         const parser = inferScriptParser(node.parent);
         if (parser) {
           return concat([
-            breakParent,
-            printOpeningTagPrefix(node),
-            markAsRoot(stripTrailingHardline(textToDoc(node.data, { parser }))),
-            printClosingTagSuffix(node)
+            concat([
+              breakParent,
+              printOpeningTagPrefix(node),
+              markAsRoot(
+                stripTrailingHardline(textToDoc(node.data, { parser }))
+              ),
+              printClosingTagSuffix(node)
+            ])
           ]);
         }
       }
@@ -265,7 +269,7 @@ function printChildren(path, options, print) {
     );
   }, "children");
 
-  return fill(parts);
+  return fill(parts.filter(Boolean));
 
   function printBetweenLine(prevNode, nextNode) {
     return needsToBorrowNextOpeningTagStartMarker(prevNode) &&
@@ -456,31 +460,25 @@ function needsToBorrowParentClosingTagStartMarker(node) {
 }
 
 function printOpeningTagPrefix(node) {
-  return concat([
-    needsToBorrowParentOpeningTagEndMarker(node)
-      ? printOpeningTagEndMarker(node.parent)
-      : needsToBorrowPrevClosingTagEndMarker(node)
-        ? printClosingTagEndMarker(node.prev)
-        : ""
-  ]);
+  return needsToBorrowParentOpeningTagEndMarker(node)
+    ? printOpeningTagEndMarker(node.parent)
+    : needsToBorrowPrevClosingTagEndMarker(node)
+      ? printClosingTagEndMarker(node.prev)
+      : "";
 }
 
 function printClosingTagPrefix(node) {
-  return concat([
-    needsToBorrowLastChildClosingTagEndMarker(node)
-      ? printClosingTagEndMarker(node.lastChild)
-      : ""
-  ]);
+  return needsToBorrowLastChildClosingTagEndMarker(node)
+    ? printClosingTagEndMarker(node.lastChild)
+    : "";
 }
 
 function printClosingTagSuffix(node) {
-  return concat([
-    needsToBorrowParentClosingTagStartMarker(node)
-      ? printClosingTagStartMarker(node.parent)
-      : needsToBorrowNextOpeningTagStartMarker(node)
-        ? printOpeningTagStartMarker(node.next)
-        : ""
-  ]);
+  return needsToBorrowParentClosingTagStartMarker(node)
+    ? printClosingTagStartMarker(node.parent)
+    : needsToBorrowNextOpeningTagStartMarker(node)
+      ? printOpeningTagStartMarker(node.next)
+      : "";
 }
 
 function printOpeningTagStartMarker(node) {
