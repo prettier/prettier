@@ -74,12 +74,6 @@ var parsers = {
     return prettierPlugins.markdown.parsers.mdx;
   },
 
-  // Vue
-  get vue() {
-    importScriptOnce("lib/parser-vue.js");
-    return prettierPlugins.vue.parsers.vue;
-  },
-
   // YAML
   get yaml() {
     importScriptOnce("lib/parser-yaml.js");
@@ -96,6 +90,11 @@ var parsers = {
   get html() {
     importScriptOnce("lib/parser-html.js");
     return prettierPlugins.html.parsers.html;
+  },
+  // Vue
+  get vue() {
+    importScriptOnce("lib/parser-html.js");
+    return prettierPlugins.html.parsers.vue;
   }
 };
 

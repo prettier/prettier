@@ -53,10 +53,6 @@ const parsers = [
     target: "universal"
   },
   {
-    input: "src/language-vue/parser-vue.js",
-    target: "universal"
-  },
-  {
     input: "src/language-handlebars/parser-glimmer.js",
     target: "universal",
     commonjs: {

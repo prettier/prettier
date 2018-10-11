@@ -155,7 +155,7 @@ function isTrailingSpaceSensitiveNode(node, { next, parent }) {
 }
 
 function isDanglingSpaceSensitiveNode(node) {
-  return !isBlockLikeCssDisplay(node.cssDisplay);
+  return !isBlockLikeCssDisplay(node.cssDisplay) && !isScriptLikeTag(node);
 }
 
 /**
@@ -453,6 +453,10 @@ function normalizeParts(parts) {
   return newParts;
 }
 
+function identity(x) {
+  return x;
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -467,6 +471,7 @@ module.exports = {
   getNodeCssStyleWhiteSpace,
   getPrevNode,
   hasPrettierIgnore,
+  identity,
   inferScriptParser,
   isDanglingSpaceSensitiveNode,
   isFrontMatterNode,

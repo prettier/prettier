@@ -107,22 +107,16 @@ module.exports = [
     }
   },
 
-  // HTML
   require("../language-html"),
   {
     parsers: {
+      // HTML
       get html() {
         return eval("require")("../language-html/parser-html").parsers.html;
-      }
-    }
-  },
-
-  // Vue
-  require("../language-vue"),
-  {
-    parsers: {
+      },
+      // Vue
       get vue() {
-        return eval("require")("../language-vue/parser-vue").parsers.vue;
+        return eval("require")("../language-html/parser-html").parsers.vue;
       }
     }
   },

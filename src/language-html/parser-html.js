@@ -4,7 +4,7 @@ const parseFrontMatter = require("../utils/front-matter");
 const { HTML_ELEMENT_ATTRIBUTES, HTML_TAGS, mapNode } = require("./utils");
 const { hasPragma } = require("./pragma");
 
-function htmlparser2(text) {
+function htmlparser2(text, recognizeSelfClosing) {
   // Inline the require to avoid loading all the JS if we don't use it
   const Parser = require("htmlparser2/lib/Parser");
   const DomHandler = require("domhandler");
@@ -88,13 +88,19 @@ function htmlparser2(text) {
 
   new CustomParser(handler, {
     lowerCaseTags: true, // preserve lowercase tag names to avoid false check in htmlparser2 and apply the lowercasing later
-    lowerCaseAttributeNames: false
+    lowerCaseAttributeNames: false,
+    recognizeSelfClosing
   }).end(text);
 
   return handler.dom;
 }
 
-function _parse(text, options, shouldParseFrontMatter = true) {
+function _parse(
+  text,
+  options,
+  recognizeSelfClosing = false,
+  shouldParseFrontMatter = true
+) {
   const { frontMatter, content } = shouldParseFrontMatter
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
@@ -102,7 +108,7 @@ function _parse(text, options, shouldParseFrontMatter = true) {
   const ast = normalize(
     {
       type: "root",
-      children: htmlparser2(content),
+      children: htmlparser2(content, recognizeSelfClosing),
       startIndex: 0,
       endIndex: text.length
     },
@@ -113,16 +119,13 @@ function _parse(text, options, shouldParseFrontMatter = true) {
     ast.children.unshift(frontMatter);
   }
 
-  const parseSubHtml = subContent => _parse(subContent, options, false);
+  const parseSubHtml = subContent =>
+    _parse(subContent, options, recognizeSelfClosing, false);
 
   return mapNode(ast, node => {
     const ieConditionalComment = parseIeConditionalComment(node, parseSubHtml);
     return ieConditionalComment ? ieConditionalComment : node;
   });
-}
-
-function createParser() {
-  return (text, parsers, options) => _parse(text, options);
 }
 
 function parseIeConditionalComment(node, parseHtml) {
@@ -218,14 +221,20 @@ function locEnd(node) {
   return node.endIndex + 1;
 }
 
+function createParser({ recognizeSelfClosing }) {
+  return {
+    parse: (text, parsers, options) =>
+      _parse(text, options, recognizeSelfClosing),
+    hasPragma,
+    astFormat: "htmlparser2",
+    locStart,
+    locEnd
+  };
+}
+
 module.exports = {
   parsers: {
-    html: {
-      parse: createParser(),
-      hasPragma,
-      astFormat: "htmlparser2",
-      locStart,
-      locEnd
-    }
+    html: createParser({ recognizeSelfClosing: false }),
+    vue: createParser({ recognizeSelfClosing: true })
   }
 };

@@ -3,7 +3,7 @@
 const clean = require("./clean");
 const {
   builders,
-  utils: { removeLines, stripTrailingHardline }
+  utils: { stripTrailingHardline }
 } = require("../doc");
 const {
   breakParent,
@@ -16,9 +16,7 @@ const {
   markAsRoot,
   softline
 } = builders;
-const { hasNewlineInRange } = require("../common/util");
 const {
-  normalizeParts,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
@@ -26,8 +24,10 @@ const {
   getCommentData,
   getLastDescendant,
   hasPrettierIgnore,
+  identity,
   inferScriptParser,
   isScriptLikeTag,
+  normalizeParts,
   preferHardlineAsLeadingSpaces,
   replaceDocNewlines,
   replaceNewlines
@@ -108,14 +108,7 @@ function embed(path, print, textToDoc /*, options */) {
           // TODO(azz): We still need to do an entity escape on the attribute.
           singleQuote: true
         });
-        return concat([
-          node.key,
-          '="',
-          hasNewlineInRange(node.value, 0, node.value.length)
-            ? doc
-            : removeLines(doc),
-          '"'
-        ]);
+        return concat([node.key, '="', doc, '"']);
       }
       break;
     }
@@ -153,7 +146,11 @@ function genericPrint(path, options, print) {
                 : ""
               : concat([
                   forceBreakContent(node) ? breakParent : "",
-                  indent(
+                  (isScriptLikeTag(node) &&
+                  node.parent.type === "root" &&
+                  options.parser === "vue"
+                    ? identity
+                    : indent)(
                     concat([
                       node.firstChild.type === "text" &&
                       node.firstChild.isWhiteSpaceSensitive &&

@@ -63,10 +63,10 @@ exports[`template-bind.vue - vue-verify 1`] = `
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template>
-    <div v-bind:id=" 'list-'   +  id "></div>
-    <div v-bind:id="  rawId | formatId "></div>
-    <div v-bind:id=" ok ? 'YES' : 'NO' "></div>
-    <button @click=" foo ( arg, 'string' ) "></button>
+  <div v-bind:id="'list-' + id"></div>
+  <div v-bind:id="rawId | formatId"></div>
+  <div v-bind:id="ok ? 'YES' : 'NO'"></div>
+  <button @click="foo(arg, 'string')"></button>
 </template>
 
 `;
@@ -85,11 +85,12 @@ exports[`template-class.vue - vue-verify 1`] = `
 <template>
   <h2
     class="title"
-    :class="{ 'issue-realtime-pre-pulse': preAnimation,
- 'issue-realtime-trigger-pulse': pulseAnimation}"
+    :class="{
+      'issue-realtime-pre-pulse': preAnimation,
+      'issue-realtime-trigger-pulse': pulseAnimation
+    }"
     v-html="titleHtml"
-  >
-  </h2>
+  ></h2>
 </template>
 
 `;
@@ -118,10 +119,12 @@ p { font-size : 2em ; text-align : center ; }
 
   </style >
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<template >
-  <h1 >{{greeting}}     world</h1 >
-  <script>kikoo ( ) </script>
-</template >
+<template>
+  <h1>{{greeting}} world</h1>
+  <script>
+    kikoo();
+  </script>
+</template>
 
 <script>
 module.exports = {
@@ -133,18 +136,18 @@ module.exports = {
 };
 </script>
 
-<style   scoped >
+<style scoped>
 p {
   font-size: 2em;
   text-align: center;
 }
-</style >
+</style>
 
-<style   lang="postcss" >
+<style lang="postcss">
 p {
   font-size: 2em;
   text-align: center;
 }
-</style >
+</style>
 
 `;

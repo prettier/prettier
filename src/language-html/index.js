@@ -11,6 +11,13 @@ const languages = [
       parsers: ["html"],
       vscodeLanguageIds: ["html"]
     }
+  }),
+  createLanguage(require("linguist-languages/data/vue"), {
+    override: {
+      since: "1.10.0",
+      parsers: ["vue"],
+      vscodeLanguageIds: ["vue"]
+    }
   })
 ];
 

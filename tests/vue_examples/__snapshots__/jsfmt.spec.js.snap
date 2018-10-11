@@ -133,19 +133,26 @@ export default {
 </script>
 
 <template>
-  <li class="card"
-    :class="{ 'user-can-drag': !disabled && issue.id, 'is-disabled': disabled || !issue.id, 'is-active': issueDetailVisible }"
+  <li
+    class="card"
+    :class="{
+      'user-can-drag': !disabled && issue.id,
+      'is-disabled': disabled || !issue.id,
+      'is-active': issueDetailVisible
+    }"
     :index="index"
     :data-issue-id="issue.id"
     @mousedown="mouseDown"
     @mousemove="mouseMove"
-    @mouseup="showIssue($event)">
+    @mouseup="showIssue($event)"
+  >
     <issue-card-inner
       :list="list"
       :issue="issue"
       :issue-link-base="issueLinkBase"
       :root-path="rootPath"
-      :update-filters="true" />
+      :update-filters="true"
+    />
   </li>
 </template>
 
@@ -284,19 +291,26 @@ export default {
 </script>
 
 <template>
-  <li class="card"
-    :class="{ 'user-can-drag': !disabled && issue.id, 'is-disabled': disabled || !issue.id, 'is-active': issueDetailVisible }"
+  <li
+    class="card"
+    :class="{
+      'user-can-drag': !disabled && issue.id,
+      'is-disabled': disabled || !issue.id,
+      'is-active': issueDetailVisible,
+    }"
     :index="index"
     :data-issue-id="issue.id"
     @mousedown="mouseDown"
     @mousemove="mouseMove"
-    @mouseup="showIssue($event)">
+    @mouseup="showIssue($event)"
+  >
     <issue-card-inner
       :list="list"
       :issue="issue"
       :issue-link-base="issueLinkBase"
       :root-path="rootPath"
-      :update-filters="true" />
+      :update-filters="true"
+    />
   </li>
 </template>
 
@@ -307,7 +321,9 @@ exports[`script_src.vue - vue-verify 1`] = `
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
+<script
+  src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"
+></script>
 
 `;
 
@@ -316,7 +332,9 @@ exports[`script_src.vue - vue-verify 2`] = `
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
+<script
+  src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"
+></script>
 
 `;
 
@@ -400,15 +418,11 @@ exports[`test.vue - vue-verify 1`] = `
   </footer>
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<script>
-</script>
+<script></script>
 
 <template>
   <br />
-  <footer>
-    foo
-    <br/>
-  </footer>
+  <footer>foo <br /></footer>
 </template>
 
 `;
@@ -425,15 +439,11 @@ exports[`test.vue - vue-verify 2`] = `
   </footer>
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<script>
-</script>
+<script></script>
 
 <template>
   <br />
-  <footer>
-    foo
-    <br/>
-  </footer>
+  <footer>foo <br /></footer>
 </template>
 
 `;
