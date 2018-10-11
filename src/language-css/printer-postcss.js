@@ -59,6 +59,7 @@ const {
   isKeyValuePairNode,
   isDetachedRulesetCallNode,
   isTemplatePlaceholderNode,
+  isTemplatePropNode,
   isPostcssSimpleVarNode,
   isSCSSMapItemNode,
   isInlineValueCommentNode,
@@ -178,7 +179,9 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
-          : ";"
+          : isTemplatePropNode(node)
+            ? ""
+            : ";"
       ]);
     }
     case "css-atrule": {
