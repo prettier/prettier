@@ -213,7 +213,7 @@ styled.div\`
 
 styled.div\`
   \${bar}
-  baz;
+  baz
 \`;
 
 styled.span\`
@@ -230,11 +230,11 @@ styled.div\`
 
 styled.span\`
   \${foo}
-  \${bar};
+  \${bar}
 \`;
 
 styled.div\`
-  \${foo} bar;
+  \${foo} bar
 \`;
 
 styled.span\`
@@ -248,7 +248,7 @@ styled.span\`
 \`;
 
 styled.span\`
-  \${foo}: \${bar}
+  \${foo}: \${bar};
 \`;
 
 styled.span\`
@@ -260,7 +260,7 @@ styled.span\`
 \`;
 
 styled.span\`
-  \${foo}: \${bar}
+  \${foo}: \${bar};
 \`;
 
 `;
