@@ -285,7 +285,7 @@ function printChildren(path, options, print) {
   return fill(parts);
 
   function printBetweenLine(prevNode, nextNode) {
-    return needsToBorrowNextOpeningTagStartMarker(prevNode) &&
+    return (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
       /**
        *     123<a
        *          ~
@@ -296,7 +296,18 @@ function printChildren(path, options, print) {
          *     123<br />
          *            ~
          */
-        (nextNode.isSelfClosing && nextNode.attributes.length === 0))
+        (nextNode.type === "tag" &&
+          nextNode.isSelfClosing &&
+          nextNode.attributes.length === 0))) ||
+      /**
+       *     <img
+       *       src="long"
+       *                 ~
+       *     />123
+       */
+      (prevNode.type === "tag" &&
+        prevNode.isSelfClosing &&
+        needsToBorrowPrevClosingTagEndMarker(nextNode))
       ? ""
       : !nextNode.isLeadingSpaceSensitive ||
         preferHardlineAsLeadingSpaces(nextNode) ||

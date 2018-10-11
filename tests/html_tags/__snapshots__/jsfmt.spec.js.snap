@@ -1478,7 +1478,6 @@ exports[`tags.html - html-verify 1`] = `
 <span>*<b>200</b></span>
 <img
   src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
-
 />123
 
 `;
@@ -1786,7 +1785,6 @@ exports[`tags.html - html-verify 2`] = `
 >
 <img
   src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
-
 />123
 
 `;
@@ -2095,7 +2093,6 @@ exports[`tags.html - html-verify 4`] = `
 <span>*<b>200</b></span>
 <img
   src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
-
 />123
 
 `;
