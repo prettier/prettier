@@ -268,6 +268,9 @@ function printChildren(path, options, print) {
         } else {
           parts.push(prevBetweenLine);
         }
+      } else {
+        // `fill` needs a separator between each two parts
+        parts.push(builders.concat([""]));
       }
     }
 
