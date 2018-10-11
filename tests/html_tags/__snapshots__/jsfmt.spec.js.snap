@@ -39,6 +39,171 @@ exports[`case-sensitive.html - html-verify 5`] = `
 
 `;
 
+exports[`closing-at-start.html - html-verify 1`] = `
+<div>
+    aaaaaaaaaa
+    <a
+      href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+      >bbbbbbbbbb</a
+    >
+    cccccccccc
+</div>
+<div>
+    aaaaaaaaaa
+    <a
+      href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+      >bbbbbbbbbb</a
+    >cccccccccc
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  aaaaaaaaaa
+  <a
+    href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+    >bbbbbbbbbb</a
+  >
+  cccccccccc
+</div>
+<div>
+  aaaaaaaaaa
+  <a
+    href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+    >bbbbbbbbbb</a
+  >cccccccccc
+</div>
+
+`;
+
+exports[`closing-at-start.html - html-verify 2`] = `
+<div>
+    aaaaaaaaaa
+    <a
+      href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+      >bbbbbbbbbb</a
+    >
+    cccccccccc
+</div>
+<div>
+    aaaaaaaaaa
+    <a
+      href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+      >bbbbbbbbbb</a
+    >cccccccccc
+</div>
+~
+<div>
+  aaaaaaaaaa
+  <a
+    href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+    >bbbbbbbbbb</a
+  >
+  cccccccccc
+</div>
+<div>
+  aaaaaaaaaa
+  <a
+    href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+    >bbbbbbbbbb</a
+  >cccccccccc
+</div>
+
+`;
+
+exports[`closing-at-start.html - html-verify 3`] = `
+<div>
+    aaaaaaaaaa
+    <a
+      href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+      >bbbbbbbbbb</a
+    >
+    cccccccccc
+</div>
+<div>
+    aaaaaaaaaa
+    <a
+      href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+      >bbbbbbbbbb</a
+    >cccccccccc
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>aaaaaaaaaa <a href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong">bbbbbbbbbb</a> cccccccccc</div>
+<div>aaaaaaaaaa <a href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong">bbbbbbbbbb</a>cccccccccc</div>
+
+`;
+
+exports[`closing-at-start.html - html-verify 4`] = `
+<div>
+    aaaaaaaaaa
+    <a
+      href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+      >bbbbbbbbbb</a
+    >
+    cccccccccc
+</div>
+<div>
+    aaaaaaaaaa
+    <a
+      href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+      >bbbbbbbbbb</a
+    >cccccccccc
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  aaaaaaaaaa
+  <a
+    href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+    >bbbbbbbbbb</a
+  >
+  cccccccccc
+</div>
+<div>
+  aaaaaaaaaa
+  <a
+    href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+    >bbbbbbbbbb</a
+  >cccccccccc
+</div>
+
+`;
+
+exports[`closing-at-start.html - html-verify 5`] = `
+<div>
+    aaaaaaaaaa
+    <a
+      href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+      >bbbbbbbbbb</a
+    >
+    cccccccccc
+</div>
+<div>
+    aaaaaaaaaa
+    <a
+      href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+      >bbbbbbbbbb</a
+    >cccccccccc
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>
+  aaaaaaaaaa
+  <a
+    href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+  >
+    bbbbbbbbbb
+  </a>
+  cccccccccc
+</div>
+<div>
+  aaaaaaaaaa
+  <a
+    href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+  >
+    bbbbbbbbbb
+  </a>
+  cccccccccc
+</div>
+
+`;
+
 exports[`custom-self-closing.html - html-verify 1`] = `
 <div>
   <ABC />
