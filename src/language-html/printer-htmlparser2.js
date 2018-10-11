@@ -221,7 +221,7 @@ function genericPrint(path, options, print) {
                 ])
           ])
         ),
-        group(printClosingTagEnd(node))
+        shouldClosingTagBelongToOuterGroup(node) ? "" : printClosingTagEnd(node)
       ]);
     }
     case "attribute":
