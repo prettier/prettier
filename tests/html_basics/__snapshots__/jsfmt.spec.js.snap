@@ -153,8 +153,8 @@ exports[`form.html - html-verify 1`] = `
       aria-describedby="fileHelp"
     />
     <small id="fileHelp" class="form-text text-muted"
-      >This is some placeholder block-level help text for the above input. It's a
-      bit lighter and easily wraps to a new line.</small
+      >This is some placeholder block-level help text for the above input. It's
+      a bit lighter and easily wraps to a new line.</small
     >
   </div>
   <fieldset class="form-group">

@@ -2001,8 +2001,8 @@ exports[`tags.html - html-verify 4`] = `
 />
 <div>string</div>
 <div
-  >very very very very very very very very very very very very very very very very
-  long string</div
+  >very very very very very very very very very very very very very very very
+  very long string</div
 >
 <div
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
@@ -2017,8 +2017,8 @@ exports[`tags.html - html-verify 4`] = `
   >string</div
 >
 <div attribute="value"
-  >very very very very very very very very very very very very very very very very
-  long string</div
+  >very very very very very very very very very very very very very very very
+  very long string</div
 >
 <div
   attribute="value"
@@ -2036,8 +2036,8 @@ exports[`tags.html - html-verify 4`] = `
   attributec="value"
   attributed="value"
   attributef="value"
-  >very very very very very very very very very very very very very very very very
-  long string</div
+  >very very very very very very very very very very very very very very very
+  very long string</div
 >
 <video width="320" height="240" controls>
   <source src="movie.mp4" type="video/mp4" />

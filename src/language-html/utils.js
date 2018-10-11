@@ -411,6 +411,29 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
         .join("\n");
 }
 
+function normalizeParts(parts) {
+  const newParts = [];
+
+  for (const part of parts) {
+    if (!part) {
+      continue;
+    }
+
+    if (
+      newParts.length !== 0 &&
+      typeof newParts[newParts.length - 1] === "string" &&
+      typeof part === "string"
+    ) {
+      newParts.push(newParts.pop() + part);
+      continue;
+    }
+
+    newParts.push(part);
+  }
+
+  return newParts;
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -432,6 +455,7 @@ module.exports = {
   isScriptLikeTag,
   isTrailingSpaceSensitiveNode,
   mapNode,
+  normalizeParts,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,
   replaceDocNewlines,

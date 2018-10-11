@@ -2,23 +2,23 @@
 
 const clean = require("./clean");
 const {
-  builders: {
-    breakParent,
-    concat,
-    fill,
-    group,
-    hardline,
-    indent,
-    join,
-    line,
-    literalline,
-    markAsRoot,
-    softline
-  },
+  builders,
   utils: { removeLines, stripTrailingHardline }
 } = require("../doc");
+const {
+  breakParent,
+  group,
+  hardline,
+  indent,
+  join,
+  line,
+  literalline,
+  markAsRoot,
+  softline
+} = builders;
 const { hasNewlineInRange } = require("../common/util");
 const {
+  normalizeParts,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
@@ -35,6 +35,20 @@ const {
 const preprocess = require("./preprocess");
 const assert = require("assert");
 
+function concat(parts) {
+  const newParts = normalizeParts(parts);
+  return newParts.length === 0
+    ? ""
+    : newParts.length === 1
+      ? newParts[0]
+      : builders.concat(newParts);
+}
+
+function fill(parts) {
+  const newParts = normalizeParts(parts);
+  return newParts.length === 0 ? "" : builders.fill(newParts);
+}
+
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
   switch (node.type) {
@@ -42,7 +56,7 @@ function embed(path, print, textToDoc /*, options */) {
       if (isScriptLikeTag(node.parent)) {
         const parser = inferScriptParser(node.parent);
         if (parser) {
-          return concat([
+          return builders.concat([
             concat([
               breakParent,
               printOpeningTagPrefix(node),
