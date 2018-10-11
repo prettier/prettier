@@ -354,6 +354,12 @@ function printChildren(path, options, print) {
 
 function printOpeningTag(path, options, print) {
   const node = path.getValue();
+  const forceNotToBreakAttrContent =
+    node.type === "tag" &&
+    node.name === "script" &&
+    node.attributes.length === 1 &&
+    node.attributes[0].key === "src" &&
+    node.children.length === 0;
   return concat([
     printOpeningTagStart(node),
     !node.attributes || node.attributes.length === 0
@@ -374,7 +380,12 @@ function printOpeningTag(path, options, print) {
                  */
                 breakParent
               : "",
-            indent(concat([line, join(line, path.map(print, "attributes"))])),
+            indent(
+              concat([
+                forceNotToBreakAttrContent ? " " : line,
+                join(line, path.map(print, "attributes"))
+              ])
+            ),
             node.firstChild &&
             needsToBorrowParentOpeningTagEndMarker(node.firstChild)
               ? /**
@@ -385,8 +396,12 @@ function printOpeningTag(path, options, print) {
                  */
                 ""
               : node.isSelfClosing
-                ? line
-                : softline
+                ? forceNotToBreakAttrContent
+                  ? " "
+                  : line
+                : forceNotToBreakAttrContent
+                  ? ""
+                  : softline
           ])
         ),
     node.isSelfClosing ? "" : printOpeningTagEnd(node)
