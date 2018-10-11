@@ -283,7 +283,7 @@ function printChildren(path, options, print) {
     );
   }, "children");
 
-  return fill(parts.filter(Boolean));
+  return fill(parts);
 
   function printBetweenLine(prevNode, nextNode) {
     return needsToBorrowNextOpeningTagStartMarker(prevNode) &&
