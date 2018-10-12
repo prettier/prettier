@@ -90,6 +90,20 @@ function embed(path, print, textToDoc /*, options */) {
             ])
           ]);
         }
+      } else {
+        const interpolationTextParts = getInterpolationTextDataParts(
+          node,
+          textToDoc
+        );
+        if (interpolationTextParts) {
+          return fill(
+            [].concat(
+              printOpeningTagPrefix(node),
+              interpolationTextParts,
+              printClosingTagSuffix(node)
+            )
+          );
+        }
       }
       break;
     }
@@ -185,17 +199,7 @@ function genericPrint(path, options, print) {
       return fill(
         [].concat(
           printOpeningTagPrefix(node),
-          node.isWhiteSpaceSensitive
-            ? node.isIndentationSensitive
-              ? replaceNewlines(
-                  node.data.replace(/^\s*?\n|\n\s*?$/g, ""),
-                  literalline
-                )
-              : replaceNewlines(
-                  dedentString(node.data.replace(/^\s*?\n|\n\s*?$/g, "")),
-                  hardline
-                )
-            : join(line, node.data.split(/\s+/)).parts,
+          getTextDataParts(node),
           printClosingTagSuffix(node)
         )
       );
@@ -591,6 +595,106 @@ function printClosingTagEndMarker(node) {
     default:
       return ">";
   }
+}
+
+function getTextDataParts(node, data = node.data) {
+  return node.isWhiteSpaceSensitive
+    ? node.isIndentationSensitive
+      ? replaceNewlines(data.replace(/^\s*?\n|\n\s*?$/g, ""), literalline)
+      : replaceNewlines(
+          dedentString(data.replace(/^\s*?\n|\n\s*?$/g, "")),
+          hardline
+        )
+    : join(line, data.split(/\s+/)).parts;
+}
+
+function getInterpolationTextDataParts(node, textToDoc) {
+  const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
+  if (!interpolationRegex.test(node.data)) {
+    return null;
+  }
+
+  const componentParts = [];
+  const TYPE_INTERPOLATION_FAILED = "interpolationFailed";
+  const TYPE_INTERPOLATION_IDENTIFIER = "interpolationIdentifier";
+
+  const identifierRegex = /^\w+$/;
+
+  const components = node.data.split(interpolationRegex);
+  for (let i = 0; i < components.length; i++) {
+    const component = components[i];
+
+    if (i % 2 === 0) {
+      const text =
+        (i === 0 ? "" : "}}") +
+        component +
+        (i === components.length - 1 ? "" : "{{");
+
+      componentParts.push(text);
+      continue;
+    }
+
+    const interpolation = component;
+
+    const trimmedInterpolation = interpolation.trim();
+    if (identifierRegex.test(trimmedInterpolation)) {
+      componentParts.push({
+        type: TYPE_INTERPOLATION_IDENTIFIER,
+        data: trimmedInterpolation
+      });
+      continue;
+    }
+
+    try {
+      const interpolationDoc = textToDoc(interpolation, {
+        parser: "__js_expression"
+      });
+      componentParts.push(interpolationDoc);
+    } catch (e) {
+      componentParts.push({
+        type: TYPE_INTERPOLATION_FAILED,
+        data: interpolation
+      });
+    }
+  }
+
+  const parts = [];
+
+  for (let i = 0; i < componentParts.length; i++) {
+    const componentPart = componentParts[i];
+    if (i % 2 === 0) {
+      Array.prototype.push.apply(parts, getTextDataParts(node, componentPart));
+      continue;
+    }
+
+    switch (componentPart.type) {
+      case TYPE_INTERPOLATION_FAILED: {
+        const trailingNewlineRegex = /\n[^\S\n]*?$/;
+        // replace the trailing literalline with hardline for better readability
+        Array.prototype.push.apply(
+          parts,
+          [].concat(
+            replaceNewlines(
+              componentPart.data.replace(trailingNewlineRegex, ""),
+              literalline
+            ),
+            trailingNewlineRegex.test(componentPart.data) ? hardline : []
+          )
+        );
+        break;
+      }
+      case TYPE_INTERPOLATION_IDENTIFIER:
+        parts.push(componentPart.data);
+        break;
+      default:
+        parts.push(
+          group(concat([indent(concat([softline, componentPart])), softline]))
+        );
+        break;
+    }
+  }
+
+  return parts;
 }
 
 module.exports = {
