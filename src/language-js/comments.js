@@ -28,6 +28,14 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
       comment,
       options
     ) ||
+    handleWhileComments(
+      text,
+      precedingNode,
+      enclosingNode,
+      followingNode,
+      comment,
+      options
+    ) ||
     handleTryStatementComments(
       enclosingNode,
       precedingNode,
@@ -86,6 +94,14 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
     ) ||
     handleImportSpecifierComments(enclosingNode, comment) ||
     handleIfStatementComments(
+      text,
+      precedingNode,
+      enclosingNode,
+      followingNode,
+      comment,
+      options
+    ) ||
+    handleWhileComments(
       text,
       precedingNode,
       enclosingNode,
@@ -246,6 +262,40 @@ function handleIfStatementComments(
   // is the consequent for the if statement
   if (nextCharacter === "{" || enclosingNode.consequent === followingNode) {
     addLeadingComment(followingNode, comment);
+    return true;
+  }
+
+  return false;
+}
+
+function handleWhileComments(
+  text,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  comment,
+  options
+) {
+  if (
+    !enclosingNode ||
+    enclosingNode.type !== "WhileStatement" ||
+    !followingNode
+  ) {
+    return false;
+  }
+
+  // We unfortunately have no way using the AST or location of nodes to know
+  // if the comment is positioned before the condition parenthesis:
+  //   while (a /* comment */) {}
+  // The only workaround I found is to look at the next character to see if
+  // it is a ).
+  const nextCharacter = privateUtil.getNextNonSpaceNonCommentCharacter(
+    text,
+    comment,
+    options.locEnd
+  );
+  if (nextCharacter === ")") {
+    addTrailingComment(precedingNode, comment);
     return true;
   }
 

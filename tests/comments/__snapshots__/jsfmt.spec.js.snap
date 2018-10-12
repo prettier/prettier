@@ -2012,3 +2012,16 @@ let // Comment
   bar = "val";
 
 `;
+
+exports[`while.js - flow-verify 1`] = `
+while(
+    true
+    // Comment
+  ) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+while (
+  true
+  // Comment
+) {}
+
+`;
