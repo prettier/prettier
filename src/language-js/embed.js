@@ -179,18 +179,6 @@ function embed(path, print, textToDoc /*, options */) {
   }
 }
 
-function isPropertyWithinAngularComponentDecorator(path, parentIndexToCheck) {
-  const parent = path.getParentNode(parentIndexToCheck);
-  return !!(
-    parent &&
-    parent.type === "Decorator" &&
-    parent.expression &&
-    parent.expression.type === "CallExpression" &&
-    parent.expression.callee &&
-    parent.expression.callee.name === "Component"
-  );
-}
-
 function getIndentation(str) {
   const firstMatchedIndent = str.match(/^([^\S\n]*)\S/m);
   return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
@@ -371,21 +359,22 @@ function isStyledJsx(path) {
  * })
  */
 function isAngularComponentStyles(path) {
-  const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
-  const isWithinArrayValueFromProperty = !!(
-    parent &&
-    (parent.type === "ArrayExpression" && parentParent.type === "Property")
-  );
-  if (
-    isWithinArrayValueFromProperty &&
-    isPropertyWithinAngularComponentDecorator(path, 4)
-  ) {
-    if (parentParent.key && parentParent.key.name === "styles") {
-      return true;
-    }
-  }
-  return false;
+  return isPathMatch(path, [
+    node => node.type === "TemplateLiteral",
+    (node, name) => node.type === "ArrayExpression" && name === "elements",
+    (node, name) =>
+      node.type === "Property" &&
+      node.key.type === "Identifier" &&
+      node.key.name === "styles" &&
+      name === "value",
+    (node, name) => node.type === "ObjectExpression" && name === "properties",
+    (node, name) =>
+      node.type === "CallExpression" &&
+      node.callee.type === "Identifier" &&
+      node.callee.name === "Component" &&
+      name === "arguments",
+    (node, name) => node.type === "Decorator" && name === "expression"
+  ]);
 }
 
 /**
@@ -495,6 +484,34 @@ function isGraphQL(path) {
           parent.callee.type === "Identifier" &&
           parent.callee.name === "graphql")))
   );
+}
+
+function isPathMatch(path, predicateStack) {
+  const stack = path.stack.slice();
+
+  let name = null;
+  let node = stack.pop();
+
+  for (const predicate of predicateStack) {
+    if (node === undefined) {
+      return false;
+    }
+
+    // skip index/array
+    if (typeof name === "number") {
+      name = stack.pop();
+      node = stack.pop();
+    }
+
+    if (!predicate(node, name)) {
+      return false;
+    }
+
+    name = stack.pop();
+    node = stack.pop();
+  }
+
+  return true;
 }
 
 module.exports = embed;
