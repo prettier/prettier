@@ -25,3 +25,6 @@ const f = classnames({
 const g = classnames({
   "some-prop": longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar || 1337
 });
+
+const h = { foo: "bar", baz: `Lorem
+ipsum` }
