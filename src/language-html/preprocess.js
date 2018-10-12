@@ -15,6 +15,7 @@ const LineAndColumn = (m => m.default || m)(require("lines-and-columns"));
 
 const PREPROCESS_PIPELINE = [
   renameScriptAndStyleWithTag,
+  mergeCdataIntoText,
   processDirectives,
   addIsSelfClosing,
   extractWhitespaces,
@@ -29,6 +30,56 @@ function preprocess(ast, options) {
     ast = fn(ast, options);
   }
   return ast;
+}
+
+function mergeCdataIntoText(ast, options) {
+  return mapNode(ast, node => {
+    if (node.type === "cdata") {
+      const newNode = Object.assign({}, node, {
+        // we cannot use child.data here since there's no child for whitespace-only text in cdata
+        data: options.originalText.slice(
+          options.locStart(node),
+          options.locEnd(node)
+        )
+      });
+      delete newNode.children;
+      return newNode;
+    }
+
+    if (node.children && node.children.some(child => child.type === "cdata")) {
+      const newChildren = [];
+      for (const child of node.children) {
+        if (child.type !== "text" && child.type !== "cdata") {
+          newChildren.push(child);
+          continue;
+        }
+
+        const newChild =
+          child.type === "text"
+            ? child
+            : Object.assign({}, child, { type: "text" });
+
+        if (
+          newChildren.length === 0 ||
+          newChildren[newChildren.length - 1].type !== "text"
+        ) {
+          newChildren.push(newChild);
+          continue;
+        }
+
+        const lastChild = newChildren.pop();
+        newChildren.push(
+          Object.assign({}, lastChild, {
+            data: lastChild.data + newChild.data,
+            endIndex: newChild.endIndex
+          })
+        );
+      }
+      return Object.assign({}, node, { children: newChildren });
+    }
+
+    return node;
+  });
 }
 
 /** add `startLocation` and `endLocation` field */
