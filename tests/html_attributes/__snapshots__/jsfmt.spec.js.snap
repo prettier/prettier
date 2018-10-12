@@ -9,10 +9,10 @@ exports[`angular.html - html-verify 1`] = `
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
-  [target]="  'hello'.repeat(    2   )  "
-  (target)="  'hello'.repeat(    2   )  "
-  [(target)]="  'hello'.repeat(    2   )  "
-  *ngIf=" something?true:false    "
+  [target]="'hello'.repeat(2)"
+  (target)="'hello'.repeat(2)"
+  [(target)]="'hello'.repeat(2)"
+  *ngIf="something ? true : false"
 ></div>
 
 `;

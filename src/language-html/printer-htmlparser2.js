@@ -108,14 +108,25 @@ function embed(path, print, textToDoc /*, options */) {
       break;
     }
     case "attribute": {
-      /*
+      /**
        * Vue binding syntax: JS expressions
-       * :class="{ 'some-key': value }"
-       * v-bind:id="'list-' + id"
-       * v-if="foo && !bar"
-       * @click="someFunction()"
+       *
+       *   :class="jsExpression"
+       *   v-bind:id="jsExpression"
+       *   v-if="jsExpression"
+       *   @click="jsExpression"
+       *
+       * Angular binding syntax: JS expressions
+       *
+       *   *ngIf="jsExpression"
+       *   [target]="jsExpression"
+       *   (target]="jsExpression"
+       *   [(target)]="jsExpression"
        */
-      if (/(^@)|(^v-)|:/.test(node.key) && !/^\w+$/.test(node.value)) {
+      if (
+        /^:|^v-|^@|^\*ng|^\[.+\]$|^\(.+\)$/.test(node.key) &&
+        !/^\w+$/.test(node.value)
+      ) {
         return concat([
           node.key,
           '="',
