@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`angular.html - html-verify 1`] = `
+<div
+    [target]="  'hello'.repeat(    2   )  "
+    (target)="  'hello'.repeat(    2   )  "
+    [(target)]="  'hello'.repeat(    2   )  "
+    *ngIf=" something?true:false    "
+></div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div
+  [target]="  'hello'.repeat(    2   )  "
+  (target)="  'hello'.repeat(    2   )  "
+  [(target)]="  'hello'.repeat(    2   )  "
+  *ngIf=" something?true:false    "
+></div>
+
+`;
+
 exports[`attributes.html - html-verify 1`] = `
 <input name=address maxlength=200>
 <input name='address' maxlength='200'>
