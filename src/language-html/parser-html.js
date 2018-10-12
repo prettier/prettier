@@ -29,7 +29,13 @@ function parse(text, parsers, options, { shouldParseFrontMatter = true } = {}) {
       super.onattribdata(value);
     }
     onattribend() {
-      super.onattribend();
+      if (this._cbs.onattribute) {
+        this._cbs.onattribute(this._attribname, this._attribvalue);
+      }
+      if (this._attribs) {
+        this._attribs.push([this._attribname, this._attribvalue]);
+      }
+      this._attribname = "";
       this._attribvalue = null;
     }
     onselfclosingtag() {
@@ -43,6 +49,12 @@ function parse(text, parsers, options, { shouldParseFrontMatter = true } = {}) {
         }
       } else {
         this.onopentagend();
+      }
+    }
+    onopentagname(name) {
+      super.onopentagname(name);
+      if (this._cbs.onopentag) {
+        this._attribs = [];
       }
     }
   }
@@ -153,7 +165,7 @@ function normalize(node, text) {
   if (node.attribs) {
     const CURRENT_HTML_ELEMENT_ATTRIBUTES =
       HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
-    const attributes = Object.keys(node.attribs).map(attributeKey => {
+    const attributes = node.attribs.map(([attributeKey, attributeValue]) => {
       const lowerCaseAttributeKey = attributeKey.toLowerCase();
       return {
         type: "attribute",
@@ -162,7 +174,7 @@ function normalize(node, text) {
           lowerCaseAttributeKey in CURRENT_HTML_ELEMENT_ATTRIBUTES
             ? lowerCaseAttributeKey
             : attributeKey,
-        value: node.attribs[attributeKey]
+        value: attributeValue
       };
     });
 

@@ -230,7 +230,7 @@ exports[`dobule-quotes.html - html-verify 1`] = `
 exports[`duplicate.html - html-verify 1`] = `
 <a href="1" href="2">123</a>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<a href="1">123</a>
+<a href="1" href="2">123</a>
 
 `;
 
