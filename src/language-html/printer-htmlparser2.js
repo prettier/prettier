@@ -3,7 +3,7 @@
 const clean = require("./clean");
 const {
   builders,
-  utils: { stripTrailingHardline }
+  utils: { stripTrailingHardline, mapDoc }
 } = require("../doc");
 const {
   breakParent,
@@ -102,13 +102,18 @@ function embed(path, print, textToDoc /*, options */) {
        * @click="someFunction()"
        */
       if (/(^@)|(^v-)|:/.test(node.key) && !/^\w+$/.test(node.value)) {
-        const doc = textToDoc(node.value, {
-          parser: "__js_expression",
-          // Use singleQuote since HTML attributes use double-quotes.
-          // TODO(azz): We still need to do an entity escape on the attribute.
-          singleQuote: true
-        });
-        return concat([node.key, '="', doc, '"']);
+        return concat([
+          node.key,
+          '="',
+          mapDoc(
+            textToDoc(
+              node.value.replace(/&quot;/g, '"').replace(/&apos;/g, "'"),
+              { parser: "__js_expression", singleQuote: true }
+            ),
+            doc => (typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc)
+          ),
+          '"'
+        ]);
       }
       break;
     }
