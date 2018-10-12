@@ -133,7 +133,7 @@ function embed(path, print, textToDoc /*, options */) {
         ]);
       }
 
-      if (isHtml(path)) {
+      if (isHtml(path) || isAngularComponentTemplate(path)) {
         return printHtmlTemplateLiteral(path, print, textToDoc);
       }
 
@@ -354,9 +354,6 @@ function isStyledJsx(path) {
  * ...which are both within template literals somewhere
  * inside of the Component decorator factory.
  *
- * TODO: Format HTML template once prettier's HTML
- * formatting is "ready"
- *
  * E.g.
  * @Component({
  *  template: `<div>...</div>`,
@@ -364,14 +361,34 @@ function isStyledJsx(path) {
  * })
  */
 function isAngularComponentStyles(path) {
-  return isPathMatch(path, [
-    node => node.type === "TemplateLiteral",
-    (node, name) => node.type === "ArrayExpression" && name === "elements",
-    (node, name) =>
-      node.type === "Property" &&
-      node.key.type === "Identifier" &&
-      node.key.name === "styles" &&
-      name === "value",
+  return isPathMatch(
+    path,
+    [
+      node => node.type === "TemplateLiteral",
+      (node, name) => node.type === "ArrayExpression" && name === "elements",
+      (node, name) =>
+        node.type === "Property" &&
+        node.key.type === "Identifier" &&
+        node.key.name === "styles" &&
+        name === "value"
+    ].concat(getAngularComponentObjectExpressionPredicates())
+  );
+}
+function isAngularComponentTemplate(path) {
+  return isPathMatch(
+    path,
+    [
+      node => node.type === "TemplateLiteral",
+      (node, name) =>
+        node.type === "Property" &&
+        node.key.type === "Identifier" &&
+        node.key.name === "template" &&
+        name === "value"
+    ].concat(getAngularComponentObjectExpressionPredicates())
+  );
+}
+function getAngularComponentObjectExpressionPredicates() {
+  return [
     (node, name) => node.type === "ObjectExpression" && name === "properties",
     (node, name) =>
       node.type === "CallExpression" &&
@@ -379,7 +396,7 @@ function isAngularComponentStyles(path) {
       node.callee.name === "Component" &&
       name === "arguments",
     (node, name) => node.type === "Decorator" && name === "expression"
-  ]);
+  ];
 }
 
 /**
