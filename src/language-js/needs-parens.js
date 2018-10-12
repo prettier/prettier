@@ -291,10 +291,10 @@ function needsParens(path, options) {
           }
 
           if (pp < np && no === "%") {
-            return !util.shouldFlatten(po, no);
+            return po === "+" || po === "-";
           }
 
-          // Add parenthesis when working with binary operators
+          // Add parenthesis when working with bitwise operators
           // It's not stricly needed but helps with code understanding
           if (util.isBitwiseOperator(po)) {
             return true;
