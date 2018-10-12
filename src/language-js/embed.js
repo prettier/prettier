@@ -8,6 +8,7 @@ const {
     softline,
     literalline,
     concat,
+    group,
     dedentToRoot
   },
   utils: { mapDoc, stripTrailingHardline }
@@ -130,6 +131,10 @@ function embed(path, print, textToDoc /*, options */) {
           hardline,
           "`"
         ]);
+      }
+
+      if (isHtml(path)) {
+        return printHtmlTemplateLiteral(path, print, textToDoc);
       }
 
       break;
@@ -512,6 +517,87 @@ function isPathMatch(path, predicateStack) {
   }
 
   return true;
+}
+
+/**
+ * lit-html
+ *
+ * html`...`
+ */
+function isHtml(path) {
+  return isPathMatch(path, [
+    node => node.type === "TemplateLiteral",
+    (node, name) =>
+      node.type === "TaggedTemplateExpression" &&
+      node.tag.type === "Identifier" &&
+      node.tag.name === "html" &&
+      name === "quasi"
+  ]);
+}
+
+function printHtmlTemplateLiteral(path, print, textToDoc) {
+  const node = path.getValue();
+
+  const placeholderRegex = /prettierhtmlplaceholder(\d+)redlohecalplmthreitterp/g;
+  const placeholders = node.expressions.map(
+    (_, i) => `prettierhtmlplaceholder${i}redlohecalplmthreitterp`
+  );
+
+  const text = node.quasis
+    .map(
+      (quasi, index, quasis) =>
+        index === quasis.length - 1
+          ? quasi.value.raw
+          : quasi.value.raw + placeholders[index]
+    )
+    .join("");
+
+  const expressionDocs = path.map(print, "expressions");
+
+  const contentDoc = mapDoc(
+    stripTrailingHardline(textToDoc(text, { parser: "html" })),
+    doc => {
+      const hasPlaceholder =
+        typeof doc === "string" && placeholderRegex.test(doc);
+
+      if (!hasPlaceholder) {
+        return doc;
+      }
+
+      const parts = [];
+
+      const components = doc.split(placeholderRegex);
+      for (let i = 0; i < components.length; i++) {
+        const component = components[i];
+
+        if (i % 2 === 0) {
+          if (component) {
+            parts.push(component);
+          }
+          continue;
+        }
+
+        const placeholderIndex = +component;
+
+        parts.push(
+          concat([
+            "${",
+            group(
+              concat([
+                indent(concat([softline, expressionDocs[placeholderIndex]])),
+                softline
+              ])
+            ),
+            "}"
+          ])
+        );
+      }
+
+      return concat(parts);
+    }
+  );
+
+  return concat(["`", indent(concat([hardline, contentDoc])), softline, "`"]);
 }
 
 module.exports = embed;
