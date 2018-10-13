@@ -109,6 +109,12 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
       comment,
       options
     ) ||
+    handleTryStatementComments(
+      enclosingNode,
+      precedingNode,
+      followingNode,
+      comment
+    ) ||
     handleClassComments(enclosingNode, precedingNode, followingNode, comment) ||
     handleLabeledStatementComments(enclosingNode, comment) ||
     handleCallExpressionComments(precedingNode, enclosingNode, comment) ||

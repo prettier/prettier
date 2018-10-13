@@ -1851,30 +1851,34 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
 `;
 
 exports[`try.js - flow-verify 1`] = `
-// comment 1
-try {
-  // comment 2
+// Comment 1
+try { // Comment 2
+  // Comment 3
 }
-// comment 3
-catch(e) {
-  // comment 4
+// Comment 4
+catch(e) { // Comment 5
+  // Comment 6
 }
-// comment 5
-finally // comment 6
-{
-  // comment 7
+// Comment 7
+finally { // Comment 8
+  // Comment 9
 }
+// Comment 10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// comment 1
+// Comment 1
 try {
-  // comment 2
+  // Comment 2
+  // Comment 3
 } catch (e) {
-  // comment 3
-  // comment 4
-} finally { // comment 6
-  // comment 5
-  // comment 7
+  // Comment 4
+  // Comment 5
+  // Comment 6
+} finally {
+  // Comment 7
+  // Comment 8
+  // Comment 9
 }
+// Comment 10
 
 `;
 

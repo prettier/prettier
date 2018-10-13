@@ -1141,7 +1141,27 @@ function printPathNoParens(path, options, print, args) {
     case "ObjectTypeAnnotation":
     case "TSInterfaceBody":
     case "TSTypeLiteral": {
+      let propertiesField;
+
+      if (n.type === "TSTypeLiteral") {
+        propertiesField = "members";
+      } else if (n.type === "TSInterfaceBody") {
+        propertiesField = "body";
+      } else {
+        propertiesField = "properties";
+      }
+
       const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
+      const fields = [];
+      if (isTypeAnnotation) {
+        fields.push("indexers", "callProperties", "internalSlots");
+      }
+      fields.push(propertiesField);
+
+      const firstProperty = fields
+        .map(field => n[field][0])
+        .sort((a, b) => options.locStart(a) - options.locStart(b))[0];
+
       const parent = path.getParentNode(0);
       const shouldBreak =
         n.type === "TSInterfaceBody" ||
@@ -1158,10 +1178,11 @@ function printPathNoParens(path, options, print, args) {
                 property.value.type === "ArrayPattern")
           )) ||
         (n.type !== "ObjectPattern" &&
+          firstProperty &&
           hasNewlineInRange(
             options.originalText,
             options.locStart(n),
-            options.locEnd(n)
+            options.locStart(firstProperty)
           ));
       const isFlowInterfaceLikeBody =
         isTypeAnnotation &&
@@ -1170,29 +1191,14 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "DeclareInterface" ||
           parent.type === "DeclareClass") &&
         path.getName() === "body";
+
       const separator = isFlowInterfaceLikeBody
         ? ";"
         : n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
           ? ifBreak(semi, ";")
           : ",";
-      const fields = [];
       const leftBrace = n.exact ? "{|" : "{";
       const rightBrace = n.exact ? "|}" : "}";
-
-      let propertiesField;
-
-      if (n.type === "TSTypeLiteral") {
-        propertiesField = "members";
-      } else if (n.type === "TSInterfaceBody") {
-        propertiesField = "body";
-      } else {
-        propertiesField = "properties";
-      }
-
-      if (isTypeAnnotation) {
-        fields.push("indexers", "callProperties", "internalSlots");
-      }
-      fields.push(propertiesField);
 
       // Unfortunately, things are grouped together in the ast can be
       // interleaved in the source code. So we need to reorder them before
