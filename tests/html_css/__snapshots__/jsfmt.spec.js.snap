@@ -91,6 +91,19 @@ exports[`scss.html - html-verify 1`] = `
     color: $primary-color;
   }
 </style>
+
+<style lang="scss">
+.someElement {
+    @include bp-medium {
+      display: flex;
+    }
+    
+    @include bp-large {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+}
+</style>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <style type="text/x-scss">
   $font-stack: Helvetica, sans-serif;
@@ -109,6 +122,15 @@ exports[`scss.html - html-verify 1`] = `
   body {
     font: 100% $font-stack;
     color: $primary-color;
+  }
+</style>
+
+<style lang="scss">
+  .someElement {
+    @include bp-medium {display: flex;}
+
+    @include bp-large {margin-top: 10px;
+      margin-bottom: 10px;}
   }
 </style>
 
