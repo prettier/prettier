@@ -18,12 +18,12 @@ const IDENTIFIER_PATTERN = "[a-zA-Z_][a-zA-Z0-9_]*";
  *     NgForLetOf ::
  *         'let' Identifier 'of' Expression
  */
-const NG_FOR_LET_OF_PATTERN = `^let\\s+(${IDENTIFIER_PATTERN})\\s+of\\s+([\\s\\S]+)$`;
+const NG_FOR_LET_OF_PATTERN = `^let\\s+(${IDENTIFIER_PATTERN})\\s+of\\b\\s*([\\s\\S]+)$`;
 /**
  *     NgForLetEqual ::
  *         'let' Identifier '=' Identifier
  */
-const NG_FOR_LET_EQUAL_PATTERN = `^let\\s+(${IDENTIFIER_PATTERN})\\s*=\\s*(${IDENTIFIER_PATTERN})$`;
+const NG_FOR_LET_EQUAL_PATTERN = `^let\\s+(${IDENTIFIER_PATTERN})=(${IDENTIFIER_PATTERN})$`;
 /**
  *     NgForColon ::
  *         Identifier ':' Expression
@@ -83,7 +83,7 @@ function printNgForLetOf(data, textToDoc) {
 
 function printNgForLetEqual(data /*, textToDoc */) {
   const [, identifier1, identifier2] = data.match(NG_FOR_LET_EQUAL_PATTERN);
-  return concat(["let ", identifier1, " = ", identifier2]);
+  return concat(["let ", identifier1, "=", identifier2]);
 }
 
 function printNgForColon(data, textToDoc) {
