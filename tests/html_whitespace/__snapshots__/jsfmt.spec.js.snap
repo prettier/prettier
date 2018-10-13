@@ -163,7 +163,7 @@ exports[`table.html - html-verify 1`] = `
 
 <table>
   <thead>
-    <tr> </tr>
+    <tr></tr>
   </thead>
 </table>
 

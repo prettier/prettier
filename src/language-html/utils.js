@@ -155,7 +155,7 @@ function isTrailingSpaceSensitiveNode(node, { next, parent }) {
 }
 
 function isDanglingSpaceSensitiveNode(node) {
-  return true;
+  return !isBlockLikeCssDisplay(node.cssDisplay);
 }
 
 /**
@@ -287,7 +287,7 @@ function inferScriptParser(node) {
 }
 
 /**
- * firstChild leadingSpaces and lastChild trailingSpaces are insensitive
+ * firstChild leadingSpaces, lastChild trailingSpaces, and danglingSpaces are insensitive
  */
 function isBlockLikeCssDisplay(cssDisplay) {
   return cssDisplay === "block" || cssDisplay.startsWith("table");
