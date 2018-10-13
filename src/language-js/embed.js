@@ -481,20 +481,8 @@ function isGraphQL(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
 
-  // This checks for a leading comment that is exactly `/* GraphQL */`
-  // In order to be in line with other implementations of this comment tag
-  // we will not trim the comment value and we will expect exactly one space on
-  // either side of the GraphQL string
-  // Also see ./clean.js
-  const hasGraphQLComment =
-    node.leadingComments &&
-    node.leadingComments.some(
-      comment =>
-        comment.type === "CommentBlock" && comment.value === " GraphQL "
-    );
-
   return (
-    hasGraphQLComment ||
+    hasLanguageComment(node, "GraphQL") ||
     (parent &&
       ((parent.type === "TaggedTemplateExpression" &&
         ((parent.tag.type === "MemberExpression" &&
@@ -505,6 +493,21 @@ function isGraphQL(path) {
         (parent.type === "CallExpression" &&
           parent.callee.type === "Identifier" &&
           parent.callee.name === "graphql")))
+  );
+}
+
+function hasLanguageComment(node, languageName) {
+  // This checks for a leading comment that is exactly `/* GraphQL */`
+  // In order to be in line with other implementations of this comment tag
+  // we will not trim the comment value and we will expect exactly one space on
+  // either side of the GraphQL string
+  // Also see ./clean.js
+  return (
+    node.leadingComments &&
+    node.leadingComments.some(
+      comment =>
+        comment.type === "CommentBlock" && comment.value === ` ${languageName} `
+    )
   );
 }
 
@@ -537,19 +540,22 @@ function isPathMatch(path, predicateStack) {
 }
 
 /**
- * lit-html
- *
- * html`...`
+ *     - html`...`
+ *     - HTML comment block
  */
 function isHtml(path) {
-  return isPathMatch(path, [
-    node => node.type === "TemplateLiteral",
-    (node, name) =>
-      node.type === "TaggedTemplateExpression" &&
-      node.tag.type === "Identifier" &&
-      node.tag.name === "html" &&
-      name === "quasi"
-  ]);
+  const node = path.getValue();
+  return (
+    hasLanguageComment(node, "HTML") ||
+    isPathMatch(path, [
+      node => node.type === "TemplateLiteral",
+      (node, name) =>
+        node.type === "TaggedTemplateExpression" &&
+        node.tag.type === "Identifier" &&
+        node.tag.name === "html" &&
+        name === "quasi"
+    ])
+  );
 }
 
 function printHtmlTemplateLiteral(path, print, textToDoc) {

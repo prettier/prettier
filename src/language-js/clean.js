@@ -183,14 +183,17 @@ function clean(ast, newObj, parent) {
     // we will not trim the comment value and we will expect exactly one space on
     // either side of the GraphQL string
     // Also see ./embed.js
-    const hasGraphQLComment =
+    const hasLanguageComment =
       ast.leadingComments &&
       ast.leadingComments.some(
         comment =>
-          comment.type === "CommentBlock" && comment.value === " GraphQL "
+          comment.type === "CommentBlock" &&
+          ["GraphQL", "HTML"].some(
+            languageName => comment.value === ` ${languageName} `
+          )
       );
     if (
-      hasGraphQLComment ||
+      hasLanguageComment ||
       (parent.type === "CallExpression" && parent.callee.name === "graphql")
     ) {
       newObj.quasis.forEach(quasi => delete quasi.value);
