@@ -134,6 +134,14 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
       comment,
       options
     ) ||
+    handleWhileComments(
+      text,
+      precedingNode,
+      enclosingNode,
+      followingNode,
+      comment,
+      options
+    ) ||
     handleObjectPropertyAssignment(enclosingNode, precedingNode, comment) ||
     handleCommentInEmptyParens(text, enclosingNode, comment, options) ||
     handleMethodNameComments(
@@ -256,11 +264,11 @@ function handleIfStatementComments(
   }
 
   // For comments positioned after the condition parenthesis in an if statement
-  // before the consequent with or without brackets on, such as
-  // if (a) /* comment */ {} or if (a) /* comment */ true,
-  // we look at the next character to see if it is a { or if the following node
+  // before the consequent without brackets on, such as
+  // if (a) /* comment */ true,
+  // we look at the next character to see if the following node
   // is the consequent for the if statement
-  if (nextCharacter === "{" || enclosingNode.consequent === followingNode) {
+  if (enclosingNode.consequent === followingNode) {
     addLeadingComment(followingNode, comment);
     return true;
   }
@@ -296,6 +304,11 @@ function handleWhileComments(
   );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  if (followingNode.type === "BlockStatement") {
+    addBlockStatementFirstComment(followingNode, comment);
     return true;
   }
 
