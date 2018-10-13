@@ -117,12 +117,12 @@ function isLeadingSpaceSensitiveNode(node, { prev, parent }) {
     !prev &&
     (parent.type === "root" ||
       isScriptLikeTag(parent) ||
-      parent.cssDisplay === "block")
+      isBlockLikeCssDisplay(parent.cssDisplay))
   ) {
     return false;
   }
 
-  if (prev && prev.cssDisplay === "block") {
+  if (prev && isBlockLikeCssDisplay(prev.cssDisplay)) {
     return false;
   }
 
@@ -142,19 +142,19 @@ function isTrailingSpaceSensitiveNode(node, { next, parent }) {
     !next &&
     (parent.type === "root" ||
       isScriptLikeTag(parent) ||
-      parent.cssDisplay === "block")
+      isBlockLikeCssDisplay(parent.cssDisplay))
   ) {
     return false;
   }
 
-  if (next && next.cssDisplay === "block") {
+  if (next && isBlockLikeCssDisplay(next.cssDisplay)) {
     return false;
   }
 
   return true;
 }
 
-function isDanglingSpaceSensitiveNode(/* node */) {
+function isDanglingSpaceSensitiveNode(node) {
   return true;
 }
 
@@ -221,7 +221,8 @@ function forceBreakChildren(node) {
   return (
     isTag(node) &&
     node.children.length !== 0 &&
-    ["html", "head", "ul", "ol", "select"].indexOf(node.name) !== -1
+    (["html", "head", "ul", "ol", "select"].indexOf(node.name) !== -1 ||
+      (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
   );
 }
 
@@ -283,6 +284,13 @@ function inferScriptParser(node) {
   }
 
   return null;
+}
+
+/**
+ * firstChild leadingSpaces and lastChild trailingSpaces are insensitive
+ */
+function isBlockLikeCssDisplay(cssDisplay) {
+  return cssDisplay === "block" || cssDisplay.startsWith("table");
 }
 
 function getNodeCssStyleDisplay(node, prevNode, options) {
