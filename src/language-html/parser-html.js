@@ -1,10 +1,12 @@
 "use strict";
 
 const parseFrontMatter = require("../utils/front-matter");
-const { HTML_TAGS, HTML_ELEMENT_ATTRIBUTES } = require("./utils");
+const { HTML_ELEMENT_ATTRIBUTES, HTML_TAGS, mapNode } = require("./utils");
 
-function parse(text /*, parsers, opts*/) {
-  const { frontMatter, content } = parseFrontMatter(text);
+function parse(text, parsers, options, { shouldParseFrontMatter = true } = {}) {
+  const { frontMatter, content } = shouldParseFrontMatter
+    ? parseFrontMatter(text)
+    : { frontMatter: null, content: text };
 
   // Inline the require to avoid loading all the JS if we don't use it
   const Parser = require("htmlparser2/lib/Parser");
@@ -27,7 +29,13 @@ function parse(text /*, parsers, opts*/) {
       super.onattribdata(value);
     }
     onattribend() {
-      super.onattribend();
+      if (this._cbs.onattribute) {
+        this._cbs.onattribute(this._attribname, this._attribvalue);
+      }
+      if (this._attribs) {
+        this._attribs.push([this._attribname, this._attribvalue]);
+      }
+      this._attribname = "";
       this._attribvalue = null;
     }
     onselfclosingtag() {
@@ -43,15 +51,36 @@ function parse(text /*, parsers, opts*/) {
         this.onopentagend();
       }
     }
+    onopentagname(name) {
+      super.onopentagname(name);
+      if (this._cbs.onopentag) {
+        this._attribs = [];
+      }
+    }
   }
 
   /**
    * modifications:
-   * - add `selfClosing` field
+   * - add `isSelfClosing` field
+   * - correct `endIndex` for whitespaces before closing tag end marker (e.g., `<x></x\n>`)
    */
   class CustomDomHandler extends DomHandler {
     onselfclosingtag() {
-      this._tagStack[this._tagStack.length - 1].selfClosing = true;
+      this._tagStack[this._tagStack.length - 1].isSelfClosing = true;
+    }
+    onclosetag() {
+      const elem = this._tagStack.pop();
+      if (this._options.withEndIndices && elem) {
+        const buffer = this._parser._tokenizer._buffer;
+        let endIndex = this._parser.endIndex;
+        while (buffer[endIndex] && buffer[endIndex] !== ">") {
+          endIndex++;
+        }
+        elem.endIndex = buffer[endIndex] ? endIndex : this._parser.endIndex;
+      }
+      if (this._elementCB) {
+        this._elementCB(elem);
+      }
     }
   }
 
@@ -66,13 +95,59 @@ function parse(text /*, parsers, opts*/) {
     recognizeSelfClosing: true
   }).end(content);
 
-  const ast = normalize({ type: "root", children: handler.dom }, text);
+  const ast = normalize(
+    {
+      type: "root",
+      children: handler.dom,
+      startIndex: 0,
+      endIndex: text.length
+    },
+    text
+  );
 
   if (frontMatter) {
     ast.children.unshift(frontMatter);
   }
 
-  return ast;
+  const parseHtml = data =>
+    parse(data, parsers, options, {
+      shouldParseFrontMatter: false
+    });
+
+  return mapNode(ast, node => {
+    const ieConditionalComment = parseIeConditionalComment(node, parseHtml);
+    return ieConditionalComment ? ieConditionalComment : node;
+  });
+}
+
+function parseIeConditionalComment(node, parseHtml) {
+  if (node.type !== "comment") {
+    return null;
+  }
+
+  const match = node.data.match(/^(\[if([^\]]*?)\]>)([\s\S]*?)<!\s*\[endif\]$/);
+
+  if (!match) {
+    return null;
+  }
+
+  const [, openingTagSuffix, condition, data] = match;
+  const subTree = parseHtml(data);
+  const baseIndex = node.startIndex + "<!--".length + openingTagSuffix.length;
+
+  return Object.assign(
+    {},
+    mapNode(subTree, currentNode =>
+      Object.assign({}, currentNode, {
+        startIndex: baseIndex + currentNode.startIndex,
+        endIndex: baseIndex + currentNode.endIndex
+      })
+    ),
+    {
+      type: "ieConditionalComment",
+      condition: condition.trim().replace(/\s+/g, " ")
+    }
+  );
 }
 
 function normalize(node, text) {
@@ -90,7 +165,7 @@ function normalize(node, text) {
   if (node.attribs) {
     const CURRENT_HTML_ELEMENT_ATTRIBUTES =
       HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
-    const attributes = Object.keys(node.attribs).map(attributeKey => {
+    const attributes = node.attribs.map(([attributeKey, attributeValue]) => {
       const lowerCaseAttributeKey = attributeKey.toLowerCase();
       return {
         type: "attribute",
@@ -99,7 +174,7 @@ function normalize(node, text) {
           lowerCaseAttributeKey in CURRENT_HTML_ELEMENT_ATTRIBUTES
             ? lowerCaseAttributeKey
             : attributeKey,
-        value: node.attribs[attributeKey]
+        value: attributeValue
       };
     });
 

@@ -5,12 +5,12 @@ module.exports = function(ast, newNode) {
   delete newNode.endIndex;
   delete newNode.attribs;
 
-  if (ast.type === "text") {
+  if (ast.type === "text" || ast.type === "comment") {
     return null;
   }
 
   // may be formatted by multiparser
-  if (ast.type === "yaml") {
+  if (ast.type === "yaml" || ast.type === "toml") {
     return null;
   }
 

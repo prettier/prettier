@@ -3,7 +3,7 @@
 exports[`comment.html - html-verify 1`] = `
 <!--hello world-->
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<!--hello world-->
+<!-- hello world -->
 
 `;
 
@@ -107,9 +107,9 @@ exports[`form.html - html-verify 1`] = `
       aria-describedby="emailHelp"
       placeholder="Enter email"
     />
-    <small id="emailHelp" class="form-text text-muted">
-      We'll never share your email with anyone else.
-    </small>
+    <small id="emailHelp" class="form-text text-muted"
+      >We'll never share your email with anyone else.</small
+    >
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
@@ -152,9 +152,10 @@ exports[`form.html - html-verify 1`] = `
       id="exampleInputFile"
       aria-describedby="fileHelp"
     />
-    <small id="fileHelp" class="form-text text-muted">
-      This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.
-    </small>
+    <small id="fileHelp" class="form-text text-muted"
+      >This is some placeholder block-level help text for the above input. It's
+      a bit lighter and easily wraps to a new line.</small
+    >
   </div>
   <fieldset class="form-group">
     <legend>Radio buttons</legend>
@@ -180,7 +181,8 @@ exports[`form.html - html-verify 1`] = `
           id="optionsRadios2"
           value="option2"
         />
-        Option two can be something else and selecting it will deselect option one
+        Option two can be something else and selecting it will deselect option
+        one
       </label>
     </div>
     <div class="form-check disabled">
@@ -199,13 +201,10 @@ exports[`form.html - html-verify 1`] = `
   </fieldset>
   <div class="form-check">
     <label class="form-check-label">
-      <input type="checkbox" class="form-check-input" />
-      Check me out
+      <input type="checkbox" class="form-check-input" /> Check me out
     </label>
   </div>
-  <button type="submit" class="btn btn-primary">
-    Submit
-  </button>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 `;
@@ -336,7 +335,11 @@ exports[`html5-boilerplate.html - html-verify 1`] = `
 
   <body>
     <!--[if lte IE 9]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
+      </p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
@@ -348,21 +351,21 @@ exports[`html5-boilerplate.html - html-verify 1`] = `
       crossorigin="anonymous"
     ></script>
     <script>
-    window.jQuery ||
-      document.write('<script src="js/vendor/jquery-3.3.1.min.js"></script>');
+      window.jQuery ||
+        document.write('<script src="js/vendor/jquery-3.3.1.min.js"></script>');
     </script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
 
     <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
     <script>
-    window.ga = function() {
-      ga.q.push(arguments);
-    };
-    ga.q = [];
-    ga.l = +new Date();
-    ga("create", "UA-XXXXX-Y", "auto");
-    ga("send", "pageview");
+      window.ga = function() {
+        ga.q.push(arguments);
+      };
+      ga.q = [];
+      ga.l = +new Date();
+      ga("create", "UA-XXXXX-Y", "auto");
+      ga("send", "pageview");
     </script>
     <script
       src="https://www.google-analytics.com/analytics.js"

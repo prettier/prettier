@@ -1,5 +1,17 @@
 "use strict";
 
+const {
+  builders: { concat },
+  utils: { mapDoc }
+} = require("../doc");
+
+const {
+  CSS_DISPLAY_TAGS,
+  CSS_DISPLAY_DEFAULT,
+  CSS_WHITE_SPACE_TAGS,
+  CSS_WHITE_SPACE_DEFAULT
+} = require("./constants.evaluate");
+
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
 
@@ -58,64 +70,402 @@ function mapObject(object, fn) {
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
-
-  if (isWhitespaceOnlyText(node) || node.type === "attribute") {
+  if (node.type === "attribute") {
     return false;
   }
 
   const parentNode = path.getParentNode();
-
   if (!parentNode) {
     return false;
   }
 
   const index = path.getName();
-
   if (typeof index !== "number" || index === 0) {
     return false;
   }
 
   const prevNode = parentNode.children[index - 1];
-
-  if (isPrettierIgnore(prevNode)) {
-    return true;
-  }
-
-  if (!isWhitespaceOnlyText(prevNode)) {
-    return false;
-  }
-
-  const prevPrevNode = parentNode.children[index - 2];
-  return prevPrevNode && isPrettierIgnore(prevPrevNode);
+  return isPrettierIgnore(prevNode);
 }
 
 function isPrettierIgnore(node) {
   return node.type === "comment" && node.data.trim() === "prettier-ignore";
 }
 
-function isWhitespaceOnlyText(node) {
-  return node.type === "text" && node.data.trim().length === 0;
+function isTag(node) {
+  return node.type === "tag";
 }
 
-function isPreTagNode(node) {
-  return node.type === "tag" && node.name === "pre";
+function isScriptLikeTag(node) {
+  return isTag(node) && (node.name === "script" || node.name === "style");
 }
 
-function isTextAreaTagNode(node) {
-  return node.type === "tag" && node.name === "textarea";
+function isFrontMatterNode(node) {
+  return node.type === "yaml" || node.type === "toml";
 }
 
-function isScriptTagNode(node) {
-  return node.type === "script" || node.type === "style";
+function isLeadingSpaceSensitiveNode(node, { prev, parent }) {
+  if (isFrontMatterNode(node)) {
+    return false;
+  }
+
+  if (!parent || parent.cssDisplay === "none") {
+    return false;
+  }
+
+  if (
+    !prev &&
+    (parent.type === "root" ||
+      isScriptLikeTag(parent) ||
+      isBlockLikeCssDisplay(parent.cssDisplay))
+  ) {
+    return false;
+  }
+
+  if (prev && isBlockLikeCssDisplay(prev.cssDisplay)) {
+    return false;
+  }
+
+  return true;
+}
+
+function isTrailingSpaceSensitiveNode(node, { next, parent }) {
+  if (isFrontMatterNode(node)) {
+    return false;
+  }
+
+  if (!parent || parent.cssDisplay === "none") {
+    return false;
+  }
+
+  if (
+    !next &&
+    (parent.type === "root" ||
+      isScriptLikeTag(parent) ||
+      isBlockLikeCssDisplay(parent.cssDisplay))
+  ) {
+    return false;
+  }
+
+  if (next && isBlockLikeCssDisplay(next.cssDisplay)) {
+    return false;
+  }
+
+  return true;
+}
+
+function isDanglingSpaceSensitiveNode(node) {
+  return !isBlockLikeCssDisplay(node.cssDisplay);
+}
+
+/**
+ * @param {unknown} node
+ * @param {(node: unknown, stack: Array<string | object>)} fn
+ * @param {unknown=} parent
+ */
+function mapNode(node, fn, stack = []) {
+  const newNode = Object.assign({}, node);
+
+  if (newNode.children) {
+    newNode.children = newNode.children.map((child, childIndex) =>
+      mapNode(child, fn, [childIndex, node].concat(stack))
+    );
+  }
+
+  return fn(newNode, stack);
+}
+
+function getPrevNode(stack) {
+  const [index, parent] = stack;
+
+  if (typeof index !== "number" || index === 0) {
+    return null;
+  }
+
+  return parent.children[index - 1];
+}
+
+function replaceNewlines(text, replacement) {
+  return text
+    .split(/(\n)/g)
+    .map((data, index) => (index % 2 === 1 ? replacement : data));
+}
+
+function replaceDocNewlines(doc, replacement) {
+  return mapDoc(
+    doc,
+    currentDoc =>
+      typeof currentDoc === "string" && currentDoc.includes("\n")
+        ? concat(replaceNewlines(currentDoc, replacement))
+        : currentDoc
+  );
+}
+
+function forceNextEmptyLine(node) {
+  return isFrontMatterNode(node);
+}
+
+/** firstChild leadingSpaces and lastChild trailingSpaces */
+function forceBreakContent(node) {
+  return (
+    forceBreakChildren(node) ||
+    (isTag(node) &&
+      node.children.length !== 0 &&
+      (["body", "template"].indexOf(node.name) !== -1 ||
+        node.children.some(child => hasNonTextChild(child))))
+  );
+}
+
+/** spaces between children */
+function forceBreakChildren(node) {
+  return (
+    isTag(node) &&
+    node.children.length !== 0 &&
+    (["html", "head", "ul", "ol", "select"].indexOf(node.name) !== -1 ||
+      (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
+  );
+}
+
+function preferHardlineAsLeadingSpaces(node) {
+  return (
+    preferHardlineAsSurroundingSpaces(node) ||
+    (node.prev && preferHardlineAsTrailingSpaces(node.prev))
+  );
+}
+
+function preferHardlineAsTrailingSpaces(node) {
+  return (
+    preferHardlineAsSurroundingSpaces(node) ||
+    (isTag(node) && node.name === "br")
+  );
+}
+
+function preferHardlineAsSurroundingSpaces(node) {
+  switch (node.type) {
+    case "ieConditionalComment":
+    case "comment":
+    case "directive":
+      return true;
+    case "tag":
+      return ["script", "select"].indexOf(node.name) !== -1;
+  }
+  return false;
+}
+
+function getLastDescendant(node) {
+  return node.lastChild ? getLastDescendant(node.lastChild) : node;
+}
+
+function hasNonTextChild(node) {
+  return node.children && node.children.some(child => child.type !== "text");
+}
+
+function inferScriptParser(node) {
+  if (
+    node.name === "script" &&
+    ((!node.attribs.lang && !node.attribs.type) ||
+      node.attribs.type === "text/javascript" ||
+      node.attribs.type === "text/babel" ||
+      node.attribs.type === "application/javascript")
+  ) {
+    return "babylon";
+  }
+
+  if (
+    node.name === "script" &&
+    (node.attribs.type === "application/x-typescript" ||
+      node.attribs.lang === "ts")
+  ) {
+    return "typescript";
+  }
+
+  if (node.name === "style") {
+    return "css";
+  }
+
+  return null;
+}
+
+/**
+ * firstChild leadingSpaces, lastChild trailingSpaces, and danglingSpaces are insensitive
+ */
+function isBlockLikeCssDisplay(cssDisplay) {
+  return cssDisplay === "block" || cssDisplay.startsWith("table");
+}
+
+function getNodeCssStyleDisplay(node, prevNode, options) {
+  switch (getNodeCssStyleWhiteSpace(node)) {
+    case "pre":
+    case "pre-wrap":
+      // textarea-like
+      return "block";
+  }
+
+  if (prevNode && prevNode.type === "comment") {
+    // <!-- display: block -->
+    const match = prevNode.data.match(/^\s*display:\s*([a-z]+)\s*$/);
+    if (match) {
+      return match[1];
+    }
+  }
+
+  switch (options.htmlWhitespaceSensitivity) {
+    case "strict":
+      return "inline";
+    case "ignore":
+      return "block";
+    default:
+      return (
+        (isTag(node) && CSS_DISPLAY_TAGS[node.name]) || CSS_DISPLAY_DEFAULT
+      );
+  }
+}
+
+function getNodeCssStyleWhiteSpace(node) {
+  return (
+    (isTag(node) && CSS_WHITE_SPACE_TAGS[node.name]) || CSS_WHITE_SPACE_DEFAULT
+  );
+}
+
+function getCommentData(node) {
+  const rightTrimmedData = node.data.trimRight();
+
+  const hasLeadingEmptyLine = /^[^\S\n]*?\n/.test(node.data);
+  if (hasLeadingEmptyLine) {
+    /**
+     *     <!--
+     *     123
+     *        456
+     *     -->
+     */
+    return dedentString(rightTrimmedData.replace(/^\s*\n/, ""));
+  }
+
+  /**
+   *     <!-- 123 -->
+   *
+   *     <!-- 123
+   *     -->
+   *
+   *     <!-- 123
+   *
+   *     -->
+   */
+  if (!rightTrimmedData.includes("\n")) {
+    return rightTrimmedData.trimLeft();
+  }
+
+  const firstNewlineIndex = rightTrimmedData.indexOf("\n");
+  const dataWithoutLeadingLine = rightTrimmedData.slice(firstNewlineIndex + 1);
+  const minIndentationForDataWithoutLeadingLine = getMinIndentation(
+    dataWithoutLeadingLine
+  );
+
+  const commentDataStartColumn = node.startLocation.column + "<!--".length;
+
+  /**
+   *     <!-- 123
+   *          456 -->
+   */
+  if (minIndentationForDataWithoutLeadingLine >= commentDataStartColumn) {
+    return dedentString(
+      " ".repeat(commentDataStartColumn) + "\n" + rightTrimmedData
+    );
+  }
+
+  const leadingLineData = rightTrimmedData.slice(0, firstNewlineIndex);
+  /**
+   *     <!-- 123
+   *     456 -->
+   */
+  return (
+    leadingLineData.trim() +
+    "\n" +
+    dedentString(
+      dataWithoutLeadingLine,
+      minIndentationForDataWithoutLeadingLine
+    )
+  );
+}
+
+function getMinIndentation(text) {
+  let minIndentation = Infinity;
+
+  for (const lineText of text.split("\n")) {
+    if (/\S/.test(lineText[0])) {
+      return 0;
+    }
+
+    const indentation = lineText.match(/^\s*/)[0].length;
+
+    if (lineText.length === indentation) {
+      continue;
+    }
+
+    if (indentation < minIndentation) {
+      minIndentation = indentation;
+    }
+  }
+
+  return minIndentation === Infinity ? 0 : minIndentation;
+}
+
+function dedentString(text, minIndent = getMinIndentation(text)) {
+  return minIndent === 0
+    ? text
+    : text
+        .split("\n")
+        .map(lineText => lineText.slice(minIndent))
+        .join("\n");
+}
+
+function normalizeParts(parts) {
+  const newParts = [];
+
+  for (const part of parts) {
+    if (!part) {
+      continue;
+    }
+
+    if (
+      newParts.length !== 0 &&
+      typeof newParts[newParts.length - 1] === "string" &&
+      typeof part === "string"
+    ) {
+      newParts.push(newParts.pop() + part);
+      continue;
+    }
+
+    newParts.push(part);
+  }
+
+  return newParts;
 }
 
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   VOID_TAGS,
+  dedentString,
+  forceBreakChildren,
+  forceBreakContent,
+  forceNextEmptyLine,
+  getCommentData,
+  getLastDescendant,
+  getNodeCssStyleDisplay,
+  getNodeCssStyleWhiteSpace,
+  getPrevNode,
   hasPrettierIgnore,
-  isPreTagNode,
-  isScriptTagNode,
-  isTextAreaTagNode,
-  isWhitespaceOnlyText
+  inferScriptParser,
+  isDanglingSpaceSensitiveNode,
+  isFrontMatterNode,
+  isLeadingSpaceSensitiveNode,
+  isScriptLikeTag,
+  isTrailingSpaceSensitiveNode,
+  mapNode,
+  normalizeParts,
+  preferHardlineAsLeadingSpaces,
+  preferHardlineAsTrailingSpaces,
+  replaceDocNewlines,
+  replaceNewlines
 };

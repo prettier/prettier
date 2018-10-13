@@ -48,6 +48,30 @@ This option cannot be used with --range-start and --range-end.",
           "description": "Specify the input filepath. This will be used to do parser inference.",
           "type": "string",
         },
+        "htmlWhitespaceSensitivity": Object {
+          "default": "css",
+          "description": "How to handle whitespaces in HTML.",
+          "oneOf": Array [
+            Object {
+              "description": "Respect the default value of CSS display property.",
+              "enum": Array [
+                "css",
+              ],
+            },
+            Object {
+              "description": "Whitespaces are considered sensitive.",
+              "enum": Array [
+                "strict",
+              ],
+            },
+            Object {
+              "description": "Whitespaces are considered insensitive.",
+              "enum": Array [
+                "ignore",
+              ],
+            },
+          ],
+        },
         "insertPragma": Object {
           "default": false,
           "description": "Insert @format pragma into file's first docblock comment.",

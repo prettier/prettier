@@ -31,13 +31,13 @@ exports[`case.html - html-verify 1`] = `
       This is HTML5 Boilerplate.
     </p>
     <script>
-    window.ga = function() {
-      ga.q.push(arguments);
-    };
-    ga.q = [];
-    ga.l = +new Date();
-    ga("create", "UA-XXXXX-Y", "auto");
-    ga("send", "pageview");
+      window.ga = function() {
+        ga.q.push(arguments);
+      };
+      ga.q = [];
+      ga.l = +new Date();
+      ga("create", "UA-XXXXX-Y", "auto");
+      ga("send", "pageview");
     </script>
     <script
       src="https://www.google-analytics.com/analytics.js"

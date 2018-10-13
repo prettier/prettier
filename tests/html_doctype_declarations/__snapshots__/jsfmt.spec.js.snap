@@ -152,9 +152,7 @@ exports[`xhtml1.1.html - html-verify 1`] = `
       Bar<br />
       Foo
     </p>
-    <p align="center">
-      <em>String</em>
-    </p>
+    <p align="center"><em>String</em></p>
     <br />
     <hr />
   </body>

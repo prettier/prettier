@@ -138,6 +138,25 @@ exports[`show detailed usage with --help help (stdout) 1`] = `
 
 exports[`show detailed usage with --help help (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help html-whitespace-sensitivity (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help html-whitespace-sensitivity (stdout) 1`] = `
+"--html-whitespace-sensitivity <css|strict|ignore>
+
+  How to handle whitespaces in HTML.
+
+Valid options:
+
+  css      Respect the default value of CSS display property.
+  strict   Whitespaces are considered sensitive.
+  ignore   Whitespaces are considered insensitive.
+
+Default: css
+"
+`;
+
+exports[`show detailed usage with --help html-whitespace-sensitivity (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help ignore-path (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help ignore-path (stdout) 1`] = `
