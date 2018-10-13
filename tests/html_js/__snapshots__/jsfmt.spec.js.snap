@@ -26,6 +26,11 @@ exports[`js.html - html-verify 1`] = `
 <script type="text/babel">
             const    someJS    =   'this should be formatted'
 </script>
+<script type="module">
+      import lib from './lib.js';
+  
+        function myFunction() { return 'foo'; }
+  </script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script type="text/javascript">
   var message = "Alert!";
@@ -44,6 +49,11 @@ exports[`js.html - html-verify 1`] = `
 </script>
 <script type="text/babel">
   const someJS = "this should be formatted";
+</script>
+<script type="module">
+  import lib from './lib.js';
+
+    function myFunction() { return 'foo'; }
 </script>
 
 `;
