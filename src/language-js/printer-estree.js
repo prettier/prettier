@@ -5461,7 +5461,8 @@ function hasNakedLeftSide(node) {
     node.type === "SequenceExpression" ||
     node.type === "TaggedTemplateExpression" ||
     node.type === "BindExpression" ||
-    (node.type === "UpdateExpression" && !node.prefix)
+    (node.type === "UpdateExpression" && !node.prefix) ||
+    node.type === "TSNonNullExpression"
   );
 }
 
