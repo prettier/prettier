@@ -279,6 +279,10 @@ function inferScriptParser(node) {
     ) {
       return "typescript";
     }
+
+    if (node.attribs.type === "text/markdown") {
+      return "markdown";
+    }
   }
 
   if (node.name === "style") {

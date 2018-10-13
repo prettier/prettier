@@ -79,13 +79,15 @@ function embed(path, print, textToDoc /*, options */) {
       if (isScriptLikeTag(node.parent)) {
         const parser = inferScriptParser(node.parent);
         if (parser) {
+          const data =
+            parser === "markdown"
+              ? dedentString(node.data.replace(/^[^\S\n]*?\n/, ""))
+              : node.data;
           return builders.concat([
             concat([
               breakParent,
               printOpeningTagPrefix(node),
-              markAsRoot(
-                stripTrailingHardline(textToDoc(node.data, { parser }))
-              ),
+              markAsRoot(stripTrailingHardline(textToDoc(data, { parser }))),
               printClosingTagSuffix(node)
             ])
           ]);

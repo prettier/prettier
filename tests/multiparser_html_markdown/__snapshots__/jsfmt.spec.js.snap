@@ -19,8 +19,9 @@ exports[`html-with-markdown-script.html - html-verify 1`] = `
   <head>
     <script type="text/markdown">
       # hello
-      + **foo**
-      + __bar__
+
+      - **foo**
+      - **bar**
     </script>
   </head>
   <body></body>
