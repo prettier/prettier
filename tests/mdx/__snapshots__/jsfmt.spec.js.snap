@@ -172,9 +172,11 @@ exports[`jsx.mdx - mdx-verify 1`] = `
 
 ---
 
-<Hello>
-  test <World /> test
-</Hello>
+(
+  <Hello>
+    test <World /> test
+  </Hello>
+)
 
 `;
 
@@ -192,9 +194,11 @@ exports[`jsx.mdx - mdx-verify 2`] = `
 
 ---
 
-<Hello>
-  test <World /> test
-</Hello>
+(
+  <Hello>
+    test <World /> test
+  </Hello>
+)
 
 `;
 
@@ -255,11 +259,13 @@ I'm an awesome paragraph.
 
 <!-- I'm a comment -->
 
-<Foo bg="red">
-  <Bar>hi </Bar>
-  {hello}
-  {/* another commment */}
-</Foo>
+(
+  <Foo bg="red">
+    <Bar>hi </Bar>
+    {hello}
+    {/* another commment */}
+  </Foo>
+)
 
 \`\`\`
 test codeblock
@@ -338,11 +344,13 @@ I'm an awesome paragraph.
 
 <!-- I'm a comment -->
 
-<Foo bg="red">
-  <Bar>hi </Bar>
-  {hello}
-  {/* another commment */}
-</Foo>
+(
+  <Foo bg="red">
+    <Bar>hi </Bar>
+    {hello}
+    {/* another commment */}
+  </Foo>
+)
 
 \`\`\`
 test codeblock
