@@ -156,7 +156,8 @@ const options = {
     description: dedent`
       Show CLI usage, or details about the given flag.
       Example: --help write
-    `
+    `,
+    exception: value => value === ""
   },
   "ignore-path": {
     type: "path",

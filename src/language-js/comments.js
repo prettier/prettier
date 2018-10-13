@@ -28,7 +28,12 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
       comment,
       options
     ) ||
-    handleTryStatementComments(enclosingNode, followingNode, comment) ||
+    handleTryStatementComments(
+      enclosingNode,
+      precedingNode,
+      followingNode,
+      comment
+    ) ||
     handleClassComments(enclosingNode, precedingNode, followingNode, comment) ||
     handleImportSpecifierComments(enclosingNode, comment) ||
     handleForComments(enclosingNode, precedingNode, comment) ||
@@ -87,6 +92,12 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
       followingNode,
       comment,
       options
+    ) ||
+    handleTryStatementComments(
+      enclosingNode,
+      precedingNode,
+      followingNode,
+      comment
     ) ||
     handleClassComments(enclosingNode, precedingNode, followingNode, comment) ||
     handleLabeledStatementComments(enclosingNode, comment) ||
@@ -248,13 +259,24 @@ function handleIfStatementComments(
 }
 
 // Same as IfStatement but for TryStatement
-function handleTryStatementComments(enclosingNode, followingNode, comment) {
+function handleTryStatementComments(
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  comment
+) {
   if (
     !enclosingNode ||
-    enclosingNode.type !== "TryStatement" ||
+    (enclosingNode.type !== "TryStatement" &&
+      enclosingNode.type !== "CatchClause") ||
     !followingNode
   ) {
     return false;
+  }
+
+  if (enclosingNode.type === "CatchClause" && precedingNode) {
+    addTrailingComment(precedingNode, comment);
+    return true;
   }
 
   if (followingNode.type === "BlockStatement") {

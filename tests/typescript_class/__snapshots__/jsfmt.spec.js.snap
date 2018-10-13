@@ -20,10 +20,8 @@ class foo {
 `;
 
 exports[`dunder.ts - typescript-verify 1`] = `
-// eslint/typescript-eslint-parser#296
 class F<__T> {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// eslint/typescript-eslint-parser#296
 class F<__T> {}
 
 `;

@@ -4,12 +4,9 @@ const remarkParse = require("remark-parse");
 const unified = require("unified");
 const pragma = require("./pragma");
 const parseFrontMatter = require("../utils/front-matter");
-const util = require("../common/util");
-const { getOrderedListItemInfo } = require("./utils");
+const { mapAst } = require("./utils");
 const mdx = require("./mdx");
-
-// 0x0 ~ 0x10ffff
-const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
+const remarkMath = require("remark-math");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -26,7 +23,7 @@ const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
  * interface InlineCode { children: Array<Sentence> }
  */
 function createParse({ isMDX }) {
-  return (text, parsers, opts) => {
+  return text => {
     const processor = unified()
       .use(
         remarkParse,
@@ -39,33 +36,12 @@ function createParse({ isMDX }) {
         )
       )
       .use(frontMatter)
+      .use(remarkMath)
       .use(isMDX ? mdx.esSyntax : identity)
       .use(liquid)
-      .use(restoreUnescapedCharacter(text))
-      .use(mergeContinuousTexts)
-      .use(transformInlineCode)
-      .use(transformIndentedCodeblockAndMarkItsParentList(text))
-      .use(markAlignedList(text, opts))
-      .use(splitText(opts))
-      .use(isMDX ? htmlToJsx : identity)
-      .use(isMDX ? mergeContinuousImportExport : identity);
+      .use(isMDX ? htmlToJsx : identity);
     return processor.runSync(processor.parse(text));
   };
-}
-
-function map(ast, handler) {
-  return (function preorder(node, index, parentStack) {
-    parentStack = parentStack || [];
-
-    const newNode = Object.assign({}, handler(node, index, parentStack));
-    if (newNode.children) {
-      newNode.children = newNode.children.map((child, index) => {
-        return preorder(child, index, [newNode].concat(parentStack));
-      });
-    }
-
-    return newNode;
-  })(ast, null, null);
 }
 
 function identity(x) {
@@ -74,7 +50,7 @@ function identity(x) {
 
 function htmlToJsx() {
   return ast =>
-    map(ast, (node, index, [parent]) => {
+    mapAst(ast, (node, index, [parent]) => {
       if (
         node.type !== "html" ||
         /^<!--[\s\S]*-->$/.test(node.value) ||
@@ -85,114 +61,6 @@ function htmlToJsx() {
       }
 
       return Object.assign({}, node, { type: "jsx" });
-    });
-}
-
-function mergeContinuousImportExport() {
-  return mergeChildren(
-    (prevNode, node) =>
-      prevNode.type === "importExport" && node.type === "importExport",
-    (prevNode, node) => ({
-      type: "importExport",
-      value: prevNode.value + "\n\n" + node.value,
-      position: {
-        start: prevNode.position.start,
-        end: node.position.end
-      }
-    })
-  );
-}
-
-function transformInlineCode() {
-  return ast =>
-    map(ast, node => {
-      if (node.type !== "inlineCode") {
-        return node;
-      }
-
-      return Object.assign({}, node, {
-        value: node.value.replace(/\s+/g, " ")
-      });
-    });
-}
-
-function restoreUnescapedCharacter(originalText) {
-  return () => ast =>
-    map(ast, node => {
-      return node.type !== "text"
-        ? node
-        : Object.assign({}, node, {
-            value:
-              node.value !== "*" &&
-              node.value !== "_" && // handle these two cases in printer
-              isSingleCharRegex.test(node.value) &&
-              node.position.end.offset - node.position.start.offset !==
-                node.value.length
-                ? originalText.slice(
-                    node.position.start.offset,
-                    node.position.end.offset
-                  )
-                : node.value
-          });
-    });
-}
-
-function mergeChildren(shouldMerge, mergeNode) {
-  return ast =>
-    map(ast, node => {
-      if (!node.children) {
-        return node;
-      }
-      const children = node.children.reduce((current, child) => {
-        const lastChild = current[current.length - 1];
-        if (lastChild && shouldMerge(lastChild, child)) {
-          current.splice(-1, 1, mergeNode(lastChild, child));
-        } else {
-          current.push(child);
-        }
-        return current;
-      }, []);
-      return Object.assign({}, node, { children });
-    });
-}
-
-function mergeContinuousTexts() {
-  return mergeChildren(
-    (prevNode, node) => prevNode.type === "text" && node.type === "text",
-    (prevNode, node) => ({
-      type: "text",
-      value: prevNode.value + node.value,
-      position: {
-        start: prevNode.position.start,
-        end: node.position.end
-      }
-    })
-  );
-}
-
-function splitText(options) {
-  return () => ast =>
-    map(ast, (node, index, [parentNode]) => {
-      if (node.type !== "text") {
-        return node;
-      }
-
-      let value = node.value;
-
-      if (parentNode.type === "paragraph") {
-        if (index === 0) {
-          value = value.trimLeft();
-        }
-        if (index === parentNode.children.length - 1) {
-          value = value.trimRight();
-        }
-      }
-
-      return {
-        type: "sentence",
-        position: node.position,
-        children: util.splitText(value, options)
-      };
     });
 }
 
@@ -232,154 +100,12 @@ function liquid() {
   };
 }
 
-function transformIndentedCodeblockAndMarkItsParentList(originalText) {
-  return () => ast =>
-    map(ast, (node, index, parentStack) => {
-      if (node.type === "code") {
-        // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
-        const isIndented = /^\n?( {4,}|\t)/.test(
-          originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset
-          )
-        );
-
-        node.isIndented = isIndented;
-
-        if (isIndented) {
-          for (let i = 0; i < parentStack.length; i++) {
-            const parent = parentStack[i];
-
-            // no need to check checked items
-            if (parent.hasIndentedCodeblock) {
-              break;
-            }
-
-            if (parent.type === "list") {
-              parent.hasIndentedCodeblock = true;
-            }
-          }
-        }
-      }
-      return node;
-    });
-}
-
-function markAlignedList(originalText, options) {
-  return () => ast =>
-    map(ast, (node, index, parentStack) => {
-      if (node.type === "list" && node.children.length !== 0) {
-        // if one of its parents is not aligned, it's not possible to be aligned in sub-lists
-        for (let i = 0; i < parentStack.length; i++) {
-          const parent = parentStack[i];
-          if (parent.type === "list" && !parent.isAligned) {
-            node.isAligned = false;
-            return node;
-          }
-        }
-
-        node.isAligned = isAligned(node);
-      }
-
-      return node;
-    });
-
-  function getListItemStart(listItem) {
-    return listItem.children.length === 0
-      ? -1
-      : listItem.children[0].position.start.column - 1;
-  }
-
-  function isAligned(list) {
-    if (!list.ordered) {
-      /**
-       * - 123
-       * - 123
-       */
-      return true;
-    }
-
-    const [firstItem, secondItem] = list.children;
-
-    const firstInfo = getOrderedListItemInfo(firstItem, originalText);
-
-    if (firstInfo.leadingSpaces.length > 1) {
-      /**
-       * 1.   123
-       *
-       * 1.   123
-       * 1. 123
-       */
-      return true;
-    }
-
-    const firstStart = getListItemStart(firstItem);
-
-    if (firstStart === -1) {
-      /**
-       * 1.
-       *
-       * 1.
-       * 1.
-       */
-      return false;
-    }
-
-    if (list.children.length === 1) {
-      /**
-       * aligned:
-       *
-       * 11. 123
-       *
-       * not aligned:
-       *
-       * 1. 123
-       */
-      return firstStart % options.tabWidth === 0;
-    }
-
-    const secondStart = getListItemStart(secondItem);
-
-    if (firstStart !== secondStart) {
-      /**
-       * 11. 123
-       * 1. 123
-       *
-       * 1. 123
-       * 11. 123
-       */
-      return false;
-    }
-
-    if (firstStart % options.tabWidth === 0) {
-      /**
-       * 11. 123
-       * 12. 123
-       */
-      return true;
-    }
-
-    /**
-     * aligned:
-     *
-     * 11. 123
-     * 1.  123
-     *
-     * not aligned:
-     *
-     * 1. 123
-     * 2. 123
-     */
-    const secondInfo = getOrderedListItemInfo(secondItem, originalText);
-    return secondInfo.leadingSpaces.length > 1;
-  }
-}
-
 const baseParser = {
   astFormat: "mdast",
   hasPragma: pragma.hasPragma,
   locStart: node => node.position.start.offset,
-  locEnd: node => node.position.end.offset
+  locEnd: node => node.position.end.offset,
+  preprocess: text => text.replace(/\n\s+$/, "\n") // workaround for https://github.com/remarkjs/remark/issues/350
 };
 
 const markdownParser = Object.assign({}, baseParser, {

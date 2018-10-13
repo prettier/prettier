@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`html-with-ts-script.html - parse5-verify 1`] = `
+exports[`html-with-ts-script.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,26 +22,18 @@ exports[`html-with-ts-script.html - parse5-verify 1`] = `
 </html>
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 <!DOCTYPE html>
-
-
 <html lang="en">
+  <head>
+    <script lang="ts">
+      type X = { [K in keyof Y]: Partial<K> };
 
-
-<head>
-
-  <script lang="ts">
-    type X = { [K in keyof Y]: Partial<K> };
-
-    class Foo<T> {
-      constructor(private foo: keyof Apple) {}
-    }
-
-  </script>
-</head>
-
-<body>
-</body>
+      class Foo<T> {
+        constructor(private foo: keyof Apple) {}
+      }
+    </script>
+  </head>
+  <body></body>
 </html>
+
 `;

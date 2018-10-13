@@ -12,3 +12,11 @@ interface Interface {
   prop: type
   prop: type
 }
+
+interface foo extends bar {
+  // prettier-ignore
+  f(): void;
+  // prettier-ignore
+  g(): void;
+  h(): void;
+}

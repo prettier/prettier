@@ -19,7 +19,7 @@ title: Related Projects
 
 ## stylelint Integrations
 
-- [`stylelint-prettier`](https://github.com/BPScott/stylelint-prettier) runs Prettier as a stylelint rule and reports differences as individual stylelint issues
+- [`stylelint-prettier`](https://github.com/prettier/stylelint-prettier) runs Prettier as a stylelint rule and reports differences as individual stylelint issues
 - [`stylelint-config-prettier`](https://github.com/prettier/stylelint-config-prettier) turns off all rules that are unnecessary or might conflict with Prettier.
 - [`prettier-stylelint`](https://github.com/hugomrdias/prettier-stylelint) passes `prettier` output to `stylelint --fix`
 

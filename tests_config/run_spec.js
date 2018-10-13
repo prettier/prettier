@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const extname = require("path").extname;
+const raw = require("jest-snapshot-serializer-raw").wrap;
 
 const AST_COMPARE = process.env["AST_COMPARE"];
 const TEST_STANDALONE = process.env["TEST_STANDALONE"];
@@ -126,20 +127,8 @@ function read(filename) {
   return fs.readFileSync(filename, "utf8");
 }
 
-function skipStandalone(parser) {
-  return new Set(["parse5"]).has(parser);
-}
-
-/**
- * Wraps a string in a marker object that is used by `./raw-serializer.js` to
- * directly print that string in a snapshot without escaping all double quotes.
- * Backticks will still be escaped.
- */
-function raw(string) {
-  if (typeof string !== "string") {
-    throw new Error("Raw snapshots have to be strings.");
-  }
-  return { [Symbol.for("raw")]: string };
+function skipStandalone(/* parser */) {
+  return false;
 }
 
 function mergeDefaultOptions(parserConfig) {

@@ -3,6 +3,7 @@
 const privateUtil = require("../common/util");
 const embed = require("./embed");
 const pragma = require("./pragma");
+const preprocess = require("./preprocess");
 const {
   builders: {
     concat,
@@ -20,7 +21,12 @@ const {
   utils: { mapDoc },
   printer: { printDocToString }
 } = require("../doc");
-const { getOrderedListItemInfo } = require("./utils");
+const {
+  getFencedCodeBlockValue,
+  getOrderedListItemInfo,
+  splitText,
+  punctuationPattern
+} = require("./utils");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
 
@@ -43,7 +49,8 @@ const INLINE_NODE_TYPES = [
   "sentence",
   "whitespace",
   "word",
-  "break"
+  "break",
+  "inlineMath"
 ];
 
 const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
@@ -57,22 +64,20 @@ function genericPrint(path, options, print) {
 
   if (shouldRemainTheSameContent(path)) {
     return concat(
-      privateUtil
-        .splitText(
-          options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset
-          ),
-          options
-        )
-        .map(
-          node =>
-            node.type === "word"
-              ? node.value
-              : node.value === ""
-                ? ""
-                : printLine(path, node.value, options)
-        )
+      splitText(
+        options.originalText.slice(
+          node.position.start.offset,
+          node.position.end.offset
+        ),
+        options
+      ).map(
+        node =>
+          node.type === "word"
+            ? node.value
+            : node.value === ""
+              ? ""
+              : printLine(path, node.value, options)
+      )
     );
   }
 
@@ -95,12 +100,12 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print);
     case "word":
       return node.value
-        .replace(/[*]/g, "\\*") // escape all `*`
+        .replace(/[*$]/g, "\\$&") // escape all `*` and `$` (math)
         .replace(
           new RegExp(
             [
-              `(^|[${privateUtil.punctuationCharRange}])(_+)`,
-              `(_+)([${privateUtil.punctuationCharRange}]|$)`
+              `(^|${punctuationPattern})(_+)`,
+              `(_+)(${punctuationPattern}|$)`
             ].join("|"),
             "g"
           ),
@@ -221,7 +226,10 @@ function genericPrint(path, options, print) {
         style,
         node.lang || "",
         hardline,
-        join(hardline, node.value.split("\n")),
+        join(
+          hardline,
+          getFencedCodeBlockValue(node, options.originalText).split("\n")
+        ),
         hardline,
         style
       ]);
@@ -345,24 +353,37 @@ function genericPrint(path, options, print) {
       return concat(["[^", node.identifier, "]"]);
     case "footnoteDefinition": {
       const nextNode = path.getParentNode().children[path.getName() + 1];
+      const shouldInlineFootnote =
+        node.children.length === 1 &&
+        node.children[0].type === "paragraph" &&
+        (options.proseWrap === "never" ||
+          (options.proseWrap === "preserve" &&
+            node.children[0].position.start.line ===
+              node.children[0].position.end.line));
       return concat([
         "[^",
         node.identifier,
         "]: ",
-        group(
-          concat([
-            align(
-              " ".repeat(options.tabWidth),
-              printChildren(path, options, print, {
-                processor: (childPath, index) =>
-                  index === 0
-                    ? group(concat([softline, softline, childPath.call(print)]))
-                    : childPath.call(print)
-              })
-            ),
-            nextNode && nextNode.type === "footnoteDefinition" ? softline : ""
-          ])
-        )
+        shouldInlineFootnote
+          ? printChildren(path, options, print)
+          : group(
+              concat([
+                align(
+                  " ".repeat(options.tabWidth),
+                  printChildren(path, options, print, {
+                    processor: (childPath, index) =>
+                      index === 0
+                        ? group(
+                            concat([softline, softline, childPath.call(print)])
+                          )
+                        : childPath.call(print)
+                  })
+                ),
+                nextNode && nextNode.type === "footnoteDefinition"
+                  ? softline
+                  : ""
+              ])
+            )
       ]);
     }
     case "table":
@@ -379,6 +400,24 @@ function genericPrint(path, options, print) {
     case "importExport":
     case "jsx":
       return node.value; // fallback to the original text if multiparser failed
+    case "math":
+      return concat([
+        "$$",
+        hardline,
+        node.value
+          ? concat([replaceNewlinesWith(node.value, hardline), hardline])
+          : "",
+        "$$"
+      ]);
+    case "inlineMath": {
+      // $$math$$ can be block math in some variants
+      // see https://github.com/Rokt33r/remark-math#double-dollars-in-inline
+      const style =
+        options.originalText[node.position.start.offset + 1] === "$"
+          ? "$$"
+          : "$";
+      return concat([style, node.value, style]);
+    }
 
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
@@ -863,7 +902,8 @@ function clean(ast, newObj, parent) {
   if (
     ast.type === "code" ||
     ast.type === "yaml" ||
-    ast.type === "importExport" ||
+    ast.type === "import" ||
+    ast.type === "export" ||
     ast.type === "jsx"
   ) {
     delete newObj.value;
@@ -873,10 +913,15 @@ function clean(ast, newObj, parent) {
     delete newObj.isAligned;
   }
 
-  // for whitespace: "\n" and " " are considered the same
-  if (ast.type === "whitespace" && ast.value === "\n") {
-    newObj.value = " ";
+  // texts can be splitted or merged
+  if (ast.type === "text") {
+    return null;
   }
+
+  if (ast.type === "inlineCode") {
+    newObj.value = ast.value.replace(/[ \t\n]+/g, " ");
+  }
+
   // for insert pragma
   if (
     parent &&
@@ -905,6 +950,7 @@ function hasPrettierIgnore(path) {
 }
 
 module.exports = {
+  preprocess,
   print: genericPrint,
   embed,
   massageAstNode: clean,

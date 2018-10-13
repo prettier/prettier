@@ -14,6 +14,7 @@ const uglify = require("rollup-plugin-uglify");
 const babel = require("rollup-plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
+const evaluate = require("./rollup-plugins/evaluate");
 
 const EXTERNALS = [
   "assert",
@@ -108,6 +109,7 @@ function getRollupConfig(bundle) {
   config.plugins = [
     replace(replaceStrings),
     executable(),
+    evaluate(),
     json(),
     bundle.alias && alias(bundle.alias),
     bundle.target === "universal" &&

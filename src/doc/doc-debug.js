@@ -43,7 +43,7 @@ function printDoc(doc) {
   }
 
   if (doc.type === "line") {
-    if (doc.literalline) {
+    if (doc.literal) {
       return "literalline";
     }
     if (doc.hard) {
@@ -57,6 +57,10 @@ function printDoc(doc) {
 
   if (doc.type === "break-parent") {
     return "breakParent";
+  }
+
+  if (doc.type === "trim") {
+    return "trim";
   }
 
   if (doc.type === "concat") {

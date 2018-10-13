@@ -20,6 +20,7 @@ const CATEGORIES_ORDER = [
   "Common",
   "JavaScript",
   "Markdown",
+  "HTML",
   "Special"
 ];
 const ENABLED_OPTIONS = [
@@ -34,6 +35,7 @@ const ENABLED_OPTIONS = [
   "arrowParens",
   "trailingComma",
   "proseWrap",
+  "htmlWhitespaceSensitivity",
   "insertPragma",
   "requirePragma"
 ];

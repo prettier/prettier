@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`html-with-css-style.html - parse5-verify 1`] = `
+exports[`html-with-css-style.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,23 +14,16 @@ exports[`html-with-css-style.html - parse5-verify 1`] = `
 </html>
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 <!DOCTYPE html>
-
-
 <html lang="en">
-
-
-<head>
-
-  <style>
-    blink {
-      display: none;
-    }
-  </style>
-</head>
-
-<body>
-</body>
+  <head>
+    <style>
+      blink {
+        display: none;
+      }
+    </style>
+  </head>
+  <body></body>
 </html>
+
 `;

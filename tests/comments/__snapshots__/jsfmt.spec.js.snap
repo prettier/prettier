@@ -35,6 +35,153 @@ const foo = {
 
 `;
 
+exports[`binary-expressions.js - flow-verify 1`] = `
+function addition() {
+	0
+	// Comment
+	+ x
+}
+
+function multiplication() {
+	0
+	// Comment
+	* x
+}
+
+function division() {
+	0
+	// Comment
+	/ x
+}
+
+function substraction() {
+	0
+	// Comment
+	- x
+}
+
+function remainder() {
+	0
+	// Comment
+	% x
+}
+
+function exponentiation() {
+	0
+	// Comment
+	** x
+}
+
+function leftShift() {
+	0
+	// Comment
+	<< x
+}
+
+function rightShift() {
+	0
+	// Comment
+	>> x
+}
+
+function unsignedRightShift() {
+	0
+	// Comment
+	>>> x
+}
+
+function bitwiseAnd() {
+	0
+	// Comment
+	& x
+}
+
+function bitwiseOr() {
+	0
+	// Comment
+	| x
+}
+
+function bitwiseXor() {
+	0
+	// Comment
+	^ x
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function addition() {
+  0 +
+    // Comment
+    x;
+}
+
+function multiplication() {
+  0 *
+    // Comment
+    x;
+}
+
+function division() {
+  0 /
+    // Comment
+    x;
+}
+
+function substraction() {
+  0 -
+    // Comment
+    x;
+}
+
+function remainder() {
+  0 %
+    // Comment
+    x;
+}
+
+function exponentiation() {
+  0 **
+    // Comment
+    x;
+}
+
+function leftShift() {
+  0 <<
+    // Comment
+    x;
+}
+
+function rightShift() {
+  0 >>
+    // Comment
+    x;
+}
+
+function unsignedRightShift() {
+  0 >>>
+    // Comment
+    x;
+}
+
+function bitwiseAnd() {
+  0 &
+    // Comment
+    x;
+}
+
+function bitwiseOr() {
+  0 |
+    // Comment
+    x;
+}
+
+function bitwiseXor() {
+  0 ^
+    // Comment
+    x;
+}
+
+`;
+
 exports[`blank.js - flow-verify 1`] = `
 // This file only
 // has comments. This comment
@@ -1704,30 +1851,34 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
 `;
 
 exports[`try.js - flow-verify 1`] = `
-// comment 1
-try {
-  // comment 2
+// Comment 1
+try { // Comment 2
+  // Comment 3
 }
-// comment 3
-catch(e) {
-  // comment 4
+// Comment 4
+catch(e) { // Comment 5
+  // Comment 6
 }
-// comment 5
-finally // comment 6
-{
-  // comment 7
+// Comment 7
+finally { // Comment 8
+  // Comment 9
 }
+// Comment 10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// comment 1
+// Comment 1
 try {
-  // comment 2
+  // Comment 2
+  // Comment 3
 } catch (e) {
-  // comment 3
-  // comment 4
-} finally { // comment 6
-  // comment 5
-  // comment 7
+  // Comment 4
+  // Comment 5
+  // Comment 6
+} finally {
+  // Comment 7
+  // Comment 8
+  // Comment 9
 }
+// Comment 10
 
 `;
 
@@ -1787,6 +1938,13 @@ tag\`
 val
 val
 \`;
+
+let // Comment
+  foo = 'val';
+
+let // Comment
+  foo = 'val',
+  bar = 'val';
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let obj =
   // Comment
@@ -1849,5 +2007,12 @@ let obj =
 val
 val
 \`;
+
+let // Comment
+  foo = "val";
+
+let // Comment
+  foo = "val",
+  bar = "val";
 
 `;

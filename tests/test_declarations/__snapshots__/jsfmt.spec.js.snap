@@ -5,9 +5,21 @@ beforeEach(async(() => {
   // code
 }));
 
+beforeEach(done =>
+  foo()
+    .bar()
+    .bar(),
+);
+
 afterAll(async(() => {
   console.log('Hello');
 }));
+
+afterAll(done =>
+  foo()
+    .bar()
+    .bar(),
+);
 
 it('should create the app', async(() => {
   //code
@@ -28,9 +40,21 @@ beforeEach(async(() => {
   // code
 }));
 
+beforeEach(done =>
+  foo()
+    .bar()
+    .bar()
+);
+
 afterAll(async(() => {
   console.log("Hello");
 }));
+
+afterAll(done =>
+  foo()
+    .bar()
+    .bar()
+);
 
 it("should create the app", async(() => {
   //code
@@ -56,9 +80,21 @@ beforeEach(async(() => {
   // code
 }));
 
+beforeEach(done =>
+  foo()
+    .bar()
+    .bar(),
+);
+
 afterAll(async(() => {
   console.log('Hello');
 }));
+
+afterAll(done =>
+  foo()
+    .bar()
+    .bar(),
+);
 
 it('should create the app', async(() => {
   //code
@@ -79,9 +115,21 @@ beforeEach(async(() => {
   // code
 }));
 
+beforeEach((done) =>
+  foo()
+    .bar()
+    .bar()
+);
+
 afterAll(async(() => {
   console.log("Hello");
 }));
+
+afterAll((done) =>
+  foo()
+    .bar()
+    .bar()
+);
 
 it("should create the app", async(() => {
   //code
@@ -631,6 +679,19 @@ it.only.only("does something really long and complicated so I have to write a ve
 });
 
 xskip("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+// timeout
+
+it(\`handles
+  some
+    newlines
+  does something really long and complicated so I have to write a very long name for the test\`, () => {
+  console.log("hello!");
+}, 2500)
+
+it("does something quick", () => {
+  console.log("hello!")
+}, 1000000000)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Shouldn't break
 
@@ -752,6 +813,19 @@ xskip(
   () => {}
 );
 
+// timeout
+
+it(\`handles
+  some
+    newlines
+  does something really long and complicated so I have to write a very long name for the test\`, () => {
+  console.log("hello!");
+}, 2500);
+
+it("does something quick", () => {
+  console.log("hello!");
+}, 1000000000);
+
 `;
 
 exports[`test_declarations.js - flow-verify 2`] = `
@@ -861,6 +935,19 @@ it.only.only("does something really long and complicated so I have to write a ve
 });
 
 xskip("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+// timeout
+
+it(\`handles
+  some
+    newlines
+  does something really long and complicated so I have to write a very long name for the test\`, () => {
+  console.log("hello!");
+}, 2500)
+
+it("does something quick", () => {
+  console.log("hello!")
+}, 1000000000)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Shouldn't break
 
@@ -981,5 +1068,18 @@ xskip(
   "does something really long and complicated so I have to write a very long name for the test",
   () => {}
 );
+
+// timeout
+
+it(\`handles
+  some
+    newlines
+  does something really long and complicated so I have to write a very long name for the test\`, () => {
+  console.log("hello!");
+}, 2500);
+
+it("does something quick", () => {
+  console.log("hello!");
+}, 1000000000);
 
 `;
