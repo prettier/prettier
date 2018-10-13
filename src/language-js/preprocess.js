@@ -13,6 +13,8 @@ function preprocess(ast, options) {
             : "JsonRoot",
         node: Object.assign({}, ast, { comments: [] })
       });
+    // do not process jsx expression to avoid unnecessary parens
+    case "__jsx_expression":
     default:
       return ast;
   }

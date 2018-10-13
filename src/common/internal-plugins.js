@@ -29,6 +29,10 @@ module.exports = [
         return eval("require")("../language-js/parser-babylon").parsers
           .__js_expression;
       },
+      get __jsx_expression() {
+        return eval("require")("../language-js/parser-babylon").parsers
+          .__jsx_expression;
+      },
       // JS - Flow
       get flow() {
         return eval("require")("../language-js/parser-flow").parsers.flow;
