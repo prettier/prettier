@@ -35,6 +35,7 @@ const {
 const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
+const { printNgForValue } = require("./angular-microsyntax");
 
 function concat(parts) {
   const newParts = normalizeParts(parts);
@@ -129,14 +130,21 @@ function embed(path, print, textToDoc /*, options */) {
         /^:|^v-|^@|^\*ng|^\[.+\]$|^\(.+\)$/.test(node.key) &&
         !/^\w+$/.test(node.value)
       ) {
+        const value = node.value
+          .replace(/&quot;/g, '"')
+          .replace(/&apos;/g, "'");
+        const valueDoc =
+          node.key === "*ngFor"
+            ? printNgForValue(value, textToDoc)
+            : textToDoc(value, {
+                parser: "__js_expression",
+                singleQuote: true
+              });
         return concat([
           node.key,
           '="',
           mapDoc(
-            textToDoc(
-              node.value.replace(/&quot;/g, '"').replace(/&apos;/g, "'"),
-              { parser: "__js_expression", singleQuote: true }
-            ),
+            valueDoc,
             doc => (typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc)
           ),
           '"'
