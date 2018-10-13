@@ -42,6 +42,9 @@ class MyElement extends LitElement {
 }
 
 customElements.define('my-element', MyElement);
+
+const someHtml1 = html\`<div       > hello \${world} </div     >\`;
+const someHtml2 = /* HTML */ \`<div      > hello \${world} </div     >\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { LitElement, html } from "@polymer/lit-element";
 
@@ -70,5 +73,10 @@ class MyElement extends LitElement {
 }
 
 customElements.define("my-element", MyElement);
+
+const someHtml1 = html\`
+  <div>hello \${world}</div>
+\`;
+const someHtml2 = /* HTML */ \`<div      > hello \${world} </div     >\`;
 
 `;
