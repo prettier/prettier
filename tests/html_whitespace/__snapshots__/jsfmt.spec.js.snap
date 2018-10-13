@@ -108,3 +108,49 @@ conubia nostra, per inceptos himenaeos. Donec in ornare velit.</p>
 </p>
 
 `;
+
+exports[`table.html - html-verify 1`] = `
+<table>
+  <thead>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+    </tr>
+  </thead>
+</table>
+
+<table><thead><tr><th>A</th><th>B</th><th>C</th></tr></thead></table>
+
+<table> <thead> <tr> <th> A </th> <th> B </th> <th> C </th> </tr> </thead> </table>
+
+<table>
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+</table>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<table>
+  <thead>
+    <tr> <th>A</th> <th>B</th> <th>C</th> </tr>
+  </thead>
+</table>
+
+<table
+  ><thead
+    ><tr><th>A</th><th>B</th><th>C</th></tr></thead
+  ></table
+>
+
+<table>
+  <thead>
+    <tr> <th> A </th> <th> B </th> <th> C </th> </tr>
+  </thead>
+</table>
+
+<table>
+  <thead> <tr> </tr> </thead>
+</table>
+
+`;
