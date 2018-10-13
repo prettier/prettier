@@ -264,6 +264,7 @@ function inferScriptParser(node) {
   if (node.name === "script" && !node.attribs.src) {
     if (
       (!node.attribs.lang && !node.attribs.type) ||
+      node.attribs.type === "module" ||
       node.attribs.type === "text/javascript" ||
       node.attribs.type === "text/babel" ||
       node.attribs.type === "application/javascript"

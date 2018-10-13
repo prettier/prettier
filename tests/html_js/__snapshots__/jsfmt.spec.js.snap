@@ -51,9 +51,11 @@ exports[`js.html - html-verify 1`] = `
   const someJS = "this should be formatted";
 </script>
 <script type="module">
-  import lib from './lib.js';
+  import lib from "./lib.js";
 
-    function myFunction() { return 'foo'; }
+  function myFunction() {
+    return "foo";
+  }
 </script>
 
 `;
