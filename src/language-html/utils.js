@@ -221,7 +221,9 @@ function forceBreakChildren(node) {
   return (
     isTag(node) &&
     node.children.length !== 0 &&
-    (["html", "head", "ul", "ol", "select"].indexOf(node.name) !== -1 ||
+    (["html", "head", "ul", "ol", "select", "script", "style"].indexOf(
+      node.name
+    ) !== -1 ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
   );
 }
