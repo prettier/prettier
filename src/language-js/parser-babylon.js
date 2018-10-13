@@ -44,28 +44,22 @@ function parse(text, parsers, opts) {
   const babylon = require("@babel/parser");
 
   const combinations = [
-    babylonOptions({}, [["decorators", { decoratorsBeforeExport: false }]]),
-    babylonOptions({ strictMode: false }, [
+    babylonOptions({ strictMode: true }, ["decorators-legacy"]),
+    babylonOptions({ strictMode: false }, ["decorators-legacy"]),
+    babylonOptions({ strictMode: true }, [
       ["decorators", { decoratorsBeforeExport: false }]
     ]),
-    babylonOptions({}, ["decorators", { decoratorsBeforeExport: true }]),
     babylonOptions({ strictMode: false }, [
-      ["decorators", { decoratorsBeforeExport: true }]
-    ]),
-    babylonOptions({}, ["decorators-legacy"]),
-    babylonOptions({ strictMode: false }, ["decorators-legacy"])
+      ["decorators", { decoratorsBeforeExport: false }]
+    ])
   ];
 
   const parseMethod =
     !opts || opts.parser === "babylon" ? "parse" : "parseExpression";
 
-  function parseFn(options) {
-    return babylon[parseMethod](text, options);
-  }
-
   let ast;
   try {
-    ast = tryCombinations(parseFn, combinations);
+    ast = tryCombinations(babylon[parseMethod].bind(null, text), combinations);
   } catch (error) {
     throw createError(
       // babel error prints (l:c) with cols that are zero indexed
