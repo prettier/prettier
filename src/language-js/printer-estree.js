@@ -5937,8 +5937,8 @@ function printComment(commentPath, options) {
   switch (comment.type) {
     case "CommentBlock":
     case "Block": {
-      if (isJsDocComment(comment)) {
-        const printed = printJsDocComment(comment);
+      if (isIndentableBlockComment(comment)) {
+        const printed = printIndentableBlockComment(comment);
         // We need to prevent an edge case of a previous trailing comment
         // printed as a `lineSuffix` which causes the comments to be
         // interleaved. See https://github.com/prettier/prettier/issues/4412
@@ -5972,7 +5972,7 @@ function printComment(commentPath, options) {
   }
 }
 
-function isJsDocComment(comment) {
+function isIndentableBlockComment(comment) {
   // /**/
   if (!comment.value) {
     return false;
@@ -5992,7 +5992,7 @@ function isJsDocComment(comment) {
   );
 }
 
-function printJsDocComment(comment) {
+function printIndentableBlockComment(comment) {
   const lines = comment.value.split("\n");
 
   return concat([
