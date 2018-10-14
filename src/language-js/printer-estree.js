@@ -301,9 +301,12 @@ function printTernaryOperator(path, options, print, operatorOptions) {
         : align(2, path.call(print, operatorOptions.alternateNodePropertyName))
     ]);
     parts.push(
-      options.useTabs && parent.type === operatorOptions.conditionalNodeType
-        ? dedent(indent(part))
-        : part
+      parent.type !== operatorOptions.conditionalNodeType ||
+      parent[operatorOptions.alternateNodePropertyName] === node
+        ? part
+        : options.useTabs
+          ? dedent(indent(part))
+          : align(Math.max(0, options.tabWidth - 2), part)
     );
   }
 
