@@ -426,7 +426,13 @@ function isStyledComponents(path) {
 
     case "Identifier":
       // css``
-      return tag.name === "css";
+      return (
+        tag.name === "css" ||
+        tag.name === "createGlobalStyle" ||
+        // deprecated, but used by emotion
+        tag.name === "injectGlobal" ||
+        tag.name === "keyframes"
+      );
 
     default:
       return false;
