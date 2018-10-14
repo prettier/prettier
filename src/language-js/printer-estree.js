@@ -5973,9 +5973,19 @@ function printComment(commentPath, options) {
 }
 
 function isJsDocComment(comment) {
+  // /**/
+  if (!comment.value) {
+    return false
+  }
+
+  // /** foo */
+  if (comment.value.indexOf('\n') === -1) {
+    return comment.value[0] === '*'
+  }
   const lines = comment.value.split("\n");
   return (
     lines.length > 1 &&
+    /^\*?\s*$/.test(lines[0]) &&
     lines.slice(1, lines.length - 1).every(line => line.trim()[0] === "*") &&
     (lines[lines.length - 1].trim() === "" ||
       lines[lines.length - 1].trim()[0] === "*")
