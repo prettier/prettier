@@ -5975,12 +5975,12 @@ function printComment(commentPath, options) {
 function isJsDocComment(comment) {
   // /**/
   if (!comment.value) {
-    return false
+    return false;
   }
 
   // /** foo */
-  if (comment.value.indexOf('\n') === -1) {
-    return comment.value[0] === '*'
+  if (comment.value.indexOf("\n") === -1) {
+    return comment.value[0] === "*"
   }
   const lines = comment.value.split("\n");
   return (
