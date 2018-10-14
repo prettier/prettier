@@ -28,7 +28,7 @@ const NG_FOR_LET_EQUAL_PATTERN = `^let\\s+(${IDENTIFIER_PATTERN})\\s*=\\s*(${IDE
  *     NgForColon ::
  *         Identifier ':' Expression
  */
-const NG_FOR_COLON_PATTERN = `^(${IDENTIFIER_PATTERN})\\s*:\\s*([\\s\\S]+)$`;
+const NG_FOR_COLON_PATTERN = `^(${IDENTIFIER_PATTERN})\\s*:?\\s*([\\s\\S]+)$`;
 /**
  *     NgForAs ::
  *         Identifier 'as' Identifier
