@@ -23,7 +23,7 @@ const NG_FOR_LET_OF_PATTERN = `^let\\s+(${IDENTIFIER_PATTERN})\\s+of\\b\\s*([\\s
  *     NgForLetEqual ::
  *         'let' Identifier '=' Identifier
  */
-const NG_FOR_LET_EQUAL_PATTERN = `^let\\s+(${IDENTIFIER_PATTERN})=(${IDENTIFIER_PATTERN})$`;
+const NG_FOR_LET_EQUAL_PATTERN = `^let\\s+(${IDENTIFIER_PATTERN})\\s*=\\s*(${IDENTIFIER_PATTERN})$`;
 /**
  *     NgForColon ::
  *         Identifier ':' Expression
