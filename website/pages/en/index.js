@@ -300,9 +300,11 @@ class GetStartedSection extends React.Component {
                   </div>
                   Then add this config to <code>package.json</code>:
                   <MarkdownBlock>
-                    {json("husky": {
-                      "hooks": {
-                        "pre-commit": "pretty-quick --staged"
+                    {json({
+                      "husky": {
+                        "hooks": {
+                          "pre-commit": "pretty-quick --staged"
+                        }
                       }
                     })}
                   </MarkdownBlock>
