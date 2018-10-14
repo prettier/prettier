@@ -41,3 +41,26 @@ margin: 0;
 	left: 0;right: 0;
 }
 `;
+
+const GlobalStyle = createGlobalStyle`
+a {
+
+color:   red;
+}
+`;
+
+injectGlobal`
+a {
+
+color:   red;
+}
+`;
+
+const fadeIn = keyframes`
+0% {
+opacity: 0;
+}
+100% {
+opacity: 1;
+}
+`;
