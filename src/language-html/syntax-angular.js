@@ -4,8 +4,6 @@ const {
   builders: { concat, group, line, join, softline, indent }
 } = require("../doc");
 
-const options = { parser: "__js_expression", singleQuote: true };
-
 /**
  *     NgFor ::
  *         '*ngFor="' NgForValue '"'
@@ -77,7 +75,7 @@ function printNgForLetOf(data, textToDoc) {
     "let ",
     identifier,
     " of ",
-    group(textToDoc(expression, options))
+    group(textToDoc(expression, { parser: "__js_expression" }))
   ]);
 }
 
@@ -88,7 +86,11 @@ function printNgForLetEqual(data /*, textToDoc */) {
 
 function printNgForColon(data, textToDoc) {
   const [, identifier, expression] = data.match(NG_FOR_COLON_PATTERN);
-  return concat([identifier, ": ", group(textToDoc(expression, options))]);
+  return concat([
+    identifier,
+    ": ",
+    group(textToDoc(expression, { parser: "__js_expression" }))
+  ]);
 }
 
 function printNgForAs(data /*, textToDoc */) {

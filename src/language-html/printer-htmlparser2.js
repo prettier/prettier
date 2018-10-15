@@ -35,7 +35,7 @@ const {
 const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
-const { printNgForValue } = require("./angular-microsyntax");
+const { printNgForValue } = require("./syntax-angular");
 
 function concat(parts) {
   const newParts = normalizeParts(parts);
@@ -111,40 +111,18 @@ function embed(path, print, textToDoc /*, options */) {
       break;
     }
     case "attribute": {
-      /**
-       * Vue binding syntax: JS expressions
-       *
-       *   :class="jsExpression"
-       *   v-bind:id="jsExpression"
-       *   v-if="jsExpression"
-       *   @click="jsExpression"
-       *
-       * Angular binding syntax: JS expressions
-       *
-       *   *ngIf="jsExpression"
-       *   [target]="jsExpression"
-       *   (target]="jsExpression"
-       *   [(target)]="jsExpression"
-       */
-      if (
-        /^:|^v-|^@|^\*ng|^\[.+\]$|^\(.+\)$/.test(node.key) &&
-        !/^\w+$/.test(node.value)
-      ) {
-        const value = node.value
-          .replace(/&quot;/g, '"')
-          .replace(/&apos;/g, "'");
-        const valueDoc =
-          node.key === "*ngFor"
-            ? printNgForValue(value, textToDoc)
-            : textToDoc(value, {
-                parser: "__js_expression",
-                singleQuote: true
-              });
+      const embeddedAttributeValueDoc = printEmbeddedAttributeValue(
+        node,
+        (code, opts) =>
+          // prefer single quote to avoid unnecessary escape
+          textToDoc(code, Object.assign({ singleQuote: true }, opts))
+      );
+      if (embeddedAttributeValueDoc) {
         return concat([
           node.key,
           '="',
           mapDoc(
-            valueDoc,
+            embeddedAttributeValueDoc,
             doc => (typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc)
           ),
           '"'
@@ -716,6 +694,41 @@ function getInterpolationTextDataParts(node, textToDoc) {
   }
 
   return parts;
+}
+
+function printEmbeddedAttributeValue(node, textToDoc) {
+  // avoid unnecessary parsing
+  if (!node.value || /^\w+$/.test(node.value)) {
+    return null;
+  }
+
+  /**
+   * Vue binding syntax: JS expressions
+   *
+   *   :class="jsExpression"
+   *   v-bind:id="jsExpression"
+   *   v-if="jsExpression"
+   *   @click="jsExpression"
+   *
+   * Angular binding syntax: JS expressions
+   *
+   *   *ngIf="jsExpression"
+   *   [target]="jsExpression"
+   *   (target]="jsExpression"
+   *   [(target)]="jsExpression"
+   */
+  const embeddedKeyRegex = /^:|^v-|^@|^\*ng|^\[.+\]$|^\(.+\)$/;
+  if (!embeddedKeyRegex.test(node.key)) {
+    return null;
+  }
+
+  const value = node.value.replace(/&quot;/g, '"').replace(/&apos;/g, "'");
+
+  if (node.key === "*ngFor") {
+    return printNgForValue(value, textToDoc);
+  }
+
+  return textToDoc(value, { parser: "__js_expression" });
 }
 
 module.exports = {
