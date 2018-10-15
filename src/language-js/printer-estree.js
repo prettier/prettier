@@ -3277,7 +3277,7 @@ function printPathNoParens(path, options, print, args) {
         consequentNodePropertyName: "trueType",
         alternateNodePropertyName: "falseType",
         testNodePropertyName: "checkType",
-        breakNested: false
+        breakNested: true
       });
 
     case "TSInferType":
