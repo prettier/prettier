@@ -350,6 +350,22 @@ function printPathNoParens(path, options, print, args) {
     return n;
   }
 
+  if (options.__isVueFor && n.type === "File") {
+    return path.call(
+      forStatementPath =>
+        concat([
+          forStatementPath.call(print, "left"),
+          " ",
+          forStatementPath.getValue().type === "ForOfStatement" ? "of" : "in",
+          " ",
+          forStatementPath.call(print, "right")
+        ]),
+      "program",
+      "body",
+      0
+    );
+  }
+
   let parts = [];
   switch (n.type) {
     case "JsExpressionRoot":

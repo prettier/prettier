@@ -36,6 +36,7 @@ const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
 const { printNgForValue } = require("./syntax-angular");
+const { printVForValue } = require("./syntax-vue");
 
 function concat(parts) {
   const newParts = normalizeParts(parts);
@@ -726,6 +727,10 @@ function printEmbeddedAttributeValue(node, textToDoc) {
 
   if (node.key === "*ngFor") {
     return printNgForValue(value, textToDoc);
+  }
+
+  if (node.key === "v-for") {
+    return printVForValue(value, textToDoc);
   }
 
   return textToDoc(value, { parser: "__js_expression" });

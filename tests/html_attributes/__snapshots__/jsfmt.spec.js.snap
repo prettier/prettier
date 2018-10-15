@@ -287,8 +287,8 @@ exports[`vue.html - html-verify 1`] = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
   v-for="item in items"
-  v-for="  item  of  items "
-  v-for="{a:b}of[1,2,3].map(x=>({a:x}))"
+  v-for="item of items"
+  v-for="{ a: b } of [1, 2, 3].map(x => ({ a: x }))"
   v-for="(item, index) in items"
   v-for="value in object"
   v-for="(value, key) in object"
@@ -298,10 +298,9 @@ exports[`vue.html - html-verify 1`] = `
   v-for="n in 10"
   v-for="{ a } in [0].map(() => ({ a: 1 }))"
   v-for="({ a }, [c]) in [0].map(() => 1)"
-  v-for="n in
-    items.map(x => {
-      return x;
-    })"
+  v-for="n in items.map(x => {
+    return x;
+  })"
 ></div>
 
 `;
