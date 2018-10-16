@@ -7,6 +7,17 @@ const options = require("./options");
 const languages = [
   createLanguage(require("linguist-languages/data/html"), {
     override: {
+      name: "Angular",
+      since: "1.15.0",
+      parsers: ["angular"],
+      vscodeLanguageIds: ["html"],
+
+      extensions: [".component.html"],
+      filenames: []
+    }
+  }),
+  createLanguage(require("linguist-languages/data/html"), {
+    override: {
       since: "1.15.0",
       parsers: ["html"],
       vscodeLanguageIds: ["html"]

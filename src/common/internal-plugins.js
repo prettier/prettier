@@ -121,6 +121,10 @@ module.exports = [
       // Vue
       get vue() {
         return eval("require")("../language-html/parser-html").parsers.vue;
+      },
+      // Angular
+      get angular() {
+        return eval("require")("../language-html/parser-html").parsers.angular;
       }
     }
   },

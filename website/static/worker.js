@@ -95,6 +95,11 @@ var parsers = {
   get vue() {
     importScriptOnce("lib/parser-html.js");
     return prettierPlugins.html.parsers.vue;
+  },
+  // Angular
+  get angular() {
+    importScriptOnce("lib/parser-html.js");
+    return prettierPlugins.html.parsers.angular;
   }
 };
 

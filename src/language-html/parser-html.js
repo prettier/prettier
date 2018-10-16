@@ -236,6 +236,7 @@ function createParser({ recognizeSelfClosing }) {
 module.exports = {
   parsers: {
     html: createParser({ recognizeSelfClosing: false }),
+    angular: createParser({ recognizeSelfClosing: false }),
     vue: createParser({ recognizeSelfClosing: true })
   }
 };

@@ -133,8 +133,12 @@ function embed(path, print, textToDoc /*, options */) {
         ]);
       }
 
-      if (isHtml(path) || isAngularComponentTemplate(path)) {
-        return printHtmlTemplateLiteral(path, print, textToDoc);
+      if (isHtml(path)) {
+        return printHtmlTemplateLiteral(path, print, textToDoc, "html");
+      }
+
+      if (isAngularComponentTemplate(path)) {
+        return printHtmlTemplateLiteral(path, print, textToDoc, "angular");
       }
 
       break;
@@ -558,7 +562,7 @@ function isHtml(path) {
   );
 }
 
-function printHtmlTemplateLiteral(path, print, textToDoc) {
+function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
   const node = path.getValue();
 
   const placeholderRegex = /prettierhtmlplaceholder(\d+)redlohecalplmthreitterp/g;
@@ -578,7 +582,7 @@ function printHtmlTemplateLiteral(path, print, textToDoc) {
   const expressionDocs = path.map(print, "expressions");
 
   const contentDoc = mapDoc(
-    stripTrailingHardline(textToDoc(text, { parser: "html" })),
+    stripTrailingHardline(textToDoc(text, { parser })),
     doc => {
       const hasPlaceholder =
         typeof doc === "string" && placeholderRegex.test(doc);

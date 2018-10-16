@@ -1,36 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`angular.html - html-verify 1`] = `
-<div
-    [target]="  'hello'.repeat(    2   )  "
-    (target)="  'hello'.repeat(    2   )  "
-    [(target)]="  'hello'.repeat(    2   )  "
-    *ngIf=" something?true:false    "
-    *ngFor="  let     hero     of     heroes"
-    *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
-    *ngFor="     let hero     of     heroes;     trackBy    :    trackByHeroes     "
-    *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
-    *ngFor="  let    hero     of heroes; let i  =  index"
-    *ngFor="  let    hero     of heroes; value     myValue"
-></div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div
-  [target]="'hello'.repeat(2)"
-  (target)="'hello'.repeat(2)"
-  [(target)]="'hello'.repeat(2)"
-  *ngIf="something ? true : false"
-  *ngFor="let hero of heroes"
-  *ngFor="
-    let hero of [1, 2, 3, 666666666666666666666666666666666666];
-    let i=index
-  "
-  *ngFor="let hero of heroes; trackBy: trackByHeroes"
-  *ngFor="let item of items; index as i; trackBy: trackByFn"
-  *ngFor="let hero of heroes; let i=index"
-  *ngFor="let hero of heroes; value: myValue"
-></div>
-
-`;
-
 exports[`attributes.html - html-verify 1`] = `
 <input name=address maxlength=200>
 <input name='address' maxlength='200'>
@@ -265,59 +234,6 @@ exports[`single-quotes.html - html-verify 1`] = `
 <img src="test.png" alt='John "ShotGun" Nelson'>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <img src="test.png" alt="John &quot;ShotGun&quot; Nelson" />
-
-`;
-
-exports[`vue.html - html-verify 1`] = `
-<div
-  v-for="  item  in  items "
-  v-for="  item  of  items "
-  v-for="(    item    , index)    in    items"
-  v-for="value    in     object"
-  v-for="(value,    key)    in    object"
-  v-for="(value,    key)    of    object"
-  v-for="(value  ,   key,   index)    in   object"
-  v-for="   n    in   evenNumbers"
-  v-for=" n in even   ( numbers) "
-  v-for=" n    in    10"
-  v-for=" { a }    in    [0].map(()=>({a:1}))   "
-  v-for=" ({ a }, [c  ])    in    [0].map(()=>1)   "
-  v-for=" n in items.map(x => { return x }) "
-  @click="  /* hello */   "
-  @click="   /* 1 */ $emit( /* 2 */ 'click' /* 3 */ ) /* 4 */ ; /* 5 */   "
-  @click="   $emit(   'click'   )   "
-  @click="   $emit(   'click'   )  ;"
-  @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
-></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div
-  v-for="item in items"
-  v-for="item of items"
-  v-for="(item, index) in items"
-  v-for="value in object"
-  v-for="(value, key) in object"
-  v-for="(value, key) of object"
-  v-for="(value, key, index) in object"
-  v-for="n in evenNumbers"
-  v-for="n in even(numbers)"
-  v-for="n in 10"
-  v-for="{ a } in [0].map(() => ({ a: 1 }))"
-  v-for="({ a }, [c]) in [0].map(() => 1)"
-  v-for="n in items.map(x => {
-    return x;
-  })"
-  @click="/* hello */"
-  @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */; /* 5 */"
-  @click="$emit('click');"
-  @click="$emit('click');"
-  @click="
-    $emit('click');
-    if (something) {
-      for (let i = j; i < 100; i++) {}
-    } else {
-    }
-  "
-></div>
 
 `;
 

@@ -176,6 +176,12 @@ This option cannot be used with --range-start and --range-end.",
                 "html",
               ],
             },
+            Object {
+              "description": "Angular",
+              "enum": Array [
+                "angular",
+              ],
+            },
           ],
         },
         "pluginSearchDirs": Object {

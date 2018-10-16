@@ -1,4 +1,4 @@
-<!--interpolations in html should be treated as normal text--><div>Fuga magnam facilis. Voluptatem quaerat porro.{{
+<div>Fuga magnam facilis. Voluptatem quaerat porro.{{
 
 
 x => {

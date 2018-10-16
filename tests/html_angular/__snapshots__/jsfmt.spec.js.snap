@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`attributes.component.html - angular-verify 1`] = `
+<div
+    [target]="  'hello'.repeat(    2   )  "
+    (target)="  'hello'.repeat(    2   )  "
+    [(target)]="  'hello'.repeat(    2   )  "
+    *ngIf=" something?true:false    "
+    *ngFor="  let     hero     of     heroes"
+    *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
+    *ngFor="     let hero     of     heroes;     trackBy    :    trackByHeroes     "
+    *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
+    *ngFor="  let    hero     of heroes; let i  =  index"
+    *ngFor="  let    hero     of heroes; value     myValue"
+></div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div
+  [target]="'hello'.repeat(2)"
+  (target)="'hello'.repeat(2)"
+  [(target)]="'hello'.repeat(2)"
+  *ngIf="something ? true : false"
+  *ngFor="let hero of heroes"
+  *ngFor="
+    let hero of [1, 2, 3, 666666666666666666666666666666666666];
+    let i=index
+  "
+  *ngFor="let hero of heroes; trackBy: trackByHeroes"
+  *ngFor="let item of items; index as i; trackBy: trackByFn"
+  *ngFor="let hero of heroes; let i=index"
+  *ngFor="let hero of heroes; value: myValue"
+></div>
+
+`;

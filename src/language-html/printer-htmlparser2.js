@@ -74,7 +74,7 @@ function fill(parts) {
   return builders.fill(newParts);
 }
 
-function embed(path, print, textToDoc /*, options */) {
+function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   switch (node.type) {
     case "text": {
@@ -94,7 +94,7 @@ function embed(path, print, textToDoc /*, options */) {
             ])
           ]);
         }
-      } else {
+      } else if (options.parser !== "html") {
         const interpolationTextParts = getInterpolationTextDataParts(
           node,
           textToDoc
@@ -116,7 +116,8 @@ function embed(path, print, textToDoc /*, options */) {
         node,
         (code, opts) =>
           // prefer single quote to avoid unnecessary escape
-          textToDoc(code, Object.assign({ singleQuote: true }, opts))
+          textToDoc(code, Object.assign({ singleQuote: true }, opts)),
+        options
       );
       if (embeddedAttributeValueDoc) {
         return concat([
@@ -697,73 +698,84 @@ function getInterpolationTextDataParts(node, textToDoc) {
   return parts;
 }
 
-function printEmbeddedAttributeValue(node, textToDoc) {
-  /**
-   *     @click="jsStatement"
-   *     v-on:click="jsStatement"
-   */
-  const vueStatementBindingPatterns = ["^@", "^v-on:"];
-  /**
-   *     :class="jsExpression"
-   *     v-bind:id="jsExpression"
-   *     v-if="jsExpression"
-   */
-  const vueExpressionBindingPatterns = ["^:", "^v-"];
-  const vueBindingPatterns = [].concat(
-    vueStatementBindingPatterns,
-    vueExpressionBindingPatterns
-  );
-
-  /**
-   *     *ngFor="angularDirective"
-   */
-  const ngDirectiveBindingPatterns = ["^\\*ng"];
-  /**
-   *     (click)="angularStatement"
-   */
-  const ngStatementBindingPatterns = ["^\\(.+\\)$"];
-  /**
-   *     [target]="angularExpression"
-   *     [(target)]="angularExpression"
-   */
-  const ngExpressionBindingPatterns = ["^\\[.+\\]$"];
-  const ngBindingPatterns = [].concat(
-    ngDirectiveBindingPatterns,
-    ngStatementBindingPatterns,
-    ngExpressionBindingPatterns
-  );
-
+function printEmbeddedAttributeValue(node, textToDoc, options) {
   const isKeyMatched = patterns =>
     new RegExp(patterns.join("|")).test(node.key);
+  const getValue = () =>
+    node.value.replace(/&quot;/g, '"').replace(/&apos;/g, "'");
 
-  if (!isKeyMatched([].concat(vueBindingPatterns, ngBindingPatterns))) {
-    return null;
-  }
-
-  const value = node.value.replace(/&quot;/g, '"').replace(/&apos;/g, "'");
-
-  switch (node.key) {
-    case "*ngFor":
-      return printNgForValue(value, textToDoc);
-    case "v-for":
-      return printVForValue(value, textToDoc);
-  }
-
-  if (isKeyMatched(vueStatementBindingPatterns)) {
-    return group(
-      concat([
-        indent(
-          concat([
-            softline,
-            stripTrailingHardline(textToDoc(value, { parser: "babylon" }))
-          ])
-        ),
-        softline
-      ])
+  if (options.parser === "vue") {
+    /**
+     *     @click="jsStatement"
+     *     v-on:click="jsStatement"
+     */
+    const vueStatementBindingPatterns = ["^@", "^v-on:"];
+    /**
+     *     :class="jsExpression"
+     *     v-bind:id="jsExpression"
+     *     v-if="jsExpression"
+     */
+    const vueExpressionBindingPatterns = ["^:", "^v-"];
+    const vueBindingPatterns = [].concat(
+      vueStatementBindingPatterns,
+      vueExpressionBindingPatterns
     );
+    if (isKeyMatched(vueBindingPatterns)) {
+      const value = getValue();
+
+      if (node.key === "v-for") {
+        return printVForValue(value, textToDoc);
+      }
+
+      if (isKeyMatched(vueStatementBindingPatterns)) {
+        return group(
+          concat([
+            indent(
+              concat([
+                softline,
+                stripTrailingHardline(textToDoc(value, { parser: "babylon" }))
+              ])
+            ),
+            softline
+          ])
+        );
+      }
+
+      return textToDoc(value, { parser: "__js_expression" });
+    }
   }
 
-  return textToDoc(value, { parser: "__js_expression" });
+  if (options.parser === "angular") {
+    /**
+     *     *ngFor="angularDirective"
+     */
+    const ngDirectiveBindingPatterns = ["^\\*ng"];
+    /**
+     *     (click)="angularStatement"
+     */
+    const ngStatementBindingPatterns = ["^\\(.+\\)$"];
+    /**
+     *     [target]="angularExpression"
+     *     [(target)]="angularExpression"
+     */
+    const ngExpressionBindingPatterns = ["^\\[.+\\]$"];
+    const ngBindingPatterns = [].concat(
+      ngDirectiveBindingPatterns,
+      ngStatementBindingPatterns,
+      ngExpressionBindingPatterns
+    );
+    if (isKeyMatched(ngBindingPatterns)) {
+      const value = getValue();
+
+      if (node.key === "*ngFor") {
+        return printNgForValue(value, textToDoc);
+      }
+
+      return textToDoc(value, { parser: "__js_expression" });
+    }
+  }
+
+  return null;
 }
 
 module.exports = {
