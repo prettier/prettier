@@ -724,14 +724,14 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
     const vueExpressionBindingPatterns = ["^:", "^v-"];
 
     if (isKeyMatched(vueStatementOrExpressionBindingPatterns)) {
+      // copied from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/codegen/events.js#L3-L4
+      const fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
+      const simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
       const value = getValue();
-      let doc = null;
-      // vue treats `a`/`a;` differently
-      try {
-        doc = textToDoc(value, { parser: "__js_expression" });
-      } catch (e) {
-        doc = stripTrailingHardline(textToDoc(value, { parser: "babylon" }));
-      }
+      const doc =
+        simplePathRE.test(value) || fnExpRE.test(value)
+          ? textToDoc(value, { parser: "__js_expression" })
+          : stripTrailingHardline(textToDoc(value, { parser: "babylon" }));
       return group(concat([indent(concat([softline, doc])), softline]));
     }
 

@@ -41,7 +41,7 @@ exports[`attributes.vue - vue-verify 1`] = `
   })"
   @click="/* hello */"
   @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */; /* 5 */"
-  @click="$emit('click')"
+  @click="$emit('click');"
   @click="$emit('click');"
   @click="
     $emit('click');
@@ -96,7 +96,7 @@ exports[`attributes.vue - vue-verify 2`] = `
   })"
   @click="/* hello */"
   @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */; /* 5 */"
-  @click="$emit('click')"
+  @click="$emit('click');"
   @click="$emit('click');"
   @click="
     $emit('click');
@@ -254,7 +254,7 @@ export default {
     :data-issue-id="issue.id"
     @mousedown="mouseDown"
     @mousemove="mouseMove"
-    @mouseup="showIssue($event)"
+    @mouseup="showIssue($event);"
   >
     <issue-card-inner
       :list="list"
@@ -412,7 +412,7 @@ export default {
     :data-issue-id="issue.id"
     @mousedown="mouseDown"
     @mousemove="mouseMove"
-    @mouseup="showIssue($event)"
+    @mouseup="showIssue($event);"
   >
     <issue-card-inner
       :list="list"
