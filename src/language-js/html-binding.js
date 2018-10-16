@@ -11,7 +11,7 @@ function printHtmlBinding(path, options, print) {
     return;
   }
 
-  if (options.__isVForBindingLeft) {
+  if (options.__isVueForBindingLeft) {
     return path.call(
       functionDeclarationPath => {
         const { params } = functionDeclarationPath.getValue();

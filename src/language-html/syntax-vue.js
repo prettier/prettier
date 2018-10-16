@@ -10,13 +10,13 @@ const {
  *     v-for="(..., ...) in ..."
  *     v-for="(..., ...) of ..."
  */
-function printVForValue(value, textToDoc) {
-  const { left, operator, right } = parseVForValue(value);
+function printVueFor(value, textToDoc) {
+  const { left, operator, right } = parseVueFor(value);
   return concat([
     group(
       textToDoc(`function _(${left}) {}`, {
         parser: "babylon",
-        __isVForBindingLeft: true
+        __isVueForBindingLeft: true
       })
     ),
     " ",
@@ -27,7 +27,7 @@ function printVForValue(value, textToDoc) {
 }
 
 // modified from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/parser/index.js#L370-L387
-function parseVForValue(value) {
+function parseVueFor(value) {
   const forAliasRE = /([^]*?)\s+(in|of)\s+([^]*)/;
   const forIteratorRE = /,([^,}\]]*)(?:,([^,}\]]*))?$/;
   const stripParensRE = /^\(|\)$/g;
@@ -60,5 +60,5 @@ function parseVForValue(value) {
 }
 
 module.exports = {
-  printVForValue
+  printVueFor
 };

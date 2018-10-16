@@ -35,8 +35,8 @@ const {
 const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
-const { printNgForValue } = require("./syntax-angular");
-const { printVForValue } = require("./syntax-vue");
+const { printNgFor } = require("./syntax-angular");
+const { printVueFor } = require("./syntax-vue");
 
 function concat(parts) {
   const newParts = normalizeParts(parts);
@@ -706,7 +706,7 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
 
   if (options.parser === "vue") {
     if (node.key === "v-for") {
-      return printVForValue(getValue(), textToDoc);
+      return printVueFor(getValue(), textToDoc);
     }
 
     /**
@@ -715,7 +715,7 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
      *     v-on:click="jsStatement"
      *     v-on:click="jsExpression"
      */
-    const vueStatementOrExpressionBindingPatterns = ["^@", "^v-on:"];
+    const vueEventBindingPatterns = ["^@", "^v-on:"];
     /**
      *     :class="jsExpression"
      *     v-bind:id="jsExpression"
@@ -723,10 +723,11 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
      */
     const vueExpressionBindingPatterns = ["^:", "^v-"];
 
-    if (isKeyMatched(vueStatementOrExpressionBindingPatterns)) {
+    if (isKeyMatched(vueEventBindingPatterns)) {
       // copied from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/codegen/events.js#L3-L4
       const fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
       const simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
+
       const value = getValue();
       const doc =
         simplePathRE.test(value) || fnExpRE.test(value)
@@ -744,6 +745,10 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
   }
 
   if (options.parser === "angular") {
+    if (node.key === "*ngFor") {
+      return printNgFor(getValue(), textToDoc);
+    }
+
     /**
      *     *ngFor="angularDirective"
      */
@@ -762,11 +767,8 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
       ngStatementBindingPatterns,
       ngExpressionBindingPatterns
     );
-    if (isKeyMatched(ngBindingPatterns)) {
-      if (node.key === "*ngFor") {
-        return printNgForValue(getValue(), textToDoc);
-      }
 
+    if (isKeyMatched(ngBindingPatterns)) {
       return textToDoc(getValue(), { parser: "__js_expression" });
     }
   }

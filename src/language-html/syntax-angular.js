@@ -38,7 +38,7 @@ const NG_FOR_AS_PATTERN = `^(${IDENTIFIER_PATTERN})\\s+as\\s+(${IDENTIFIER_PATTE
  *     *ngFor="let hero of heroes; trackBy: trackByHeroes"
  *     *ngFor="let item of items; index as i; trackBy: trackByFn"
  */
-function printNgForValue(data, textToDoc) {
+function printNgFor(data, textToDoc) {
   return group(
     concat([
       indent(
@@ -99,5 +99,5 @@ function printNgForAs(data /*, textToDoc */) {
 }
 
 module.exports = {
-  printNgForValue
+  printNgFor
 };
