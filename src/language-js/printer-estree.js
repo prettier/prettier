@@ -350,16 +350,19 @@ function printPathNoParens(path, options, print, args) {
     return n;
   }
 
-  if (options.__isVueFor && n.type === "File") {
+  if (options.__isVueForLeft && n.type === "File") {
     return path.call(
-      forStatementPath =>
-        concat([
-          forStatementPath.call(print, "left"),
-          " ",
-          forStatementPath.getValue().type === "ForOfStatement" ? "of" : "in",
-          " ",
-          forStatementPath.call(print, "right")
-        ]),
+      functionDeclarationPath => {
+        const { params } = functionDeclarationPath.getValue();
+        return concat([
+          params.length > 1 ? "(" : "",
+          join(
+            concat([",", line]),
+            functionDeclarationPath.map(print, "params")
+          ),
+          params.length > 1 ? ")" : ""
+        ]);
+      },
       "program",
       "body",
       0
