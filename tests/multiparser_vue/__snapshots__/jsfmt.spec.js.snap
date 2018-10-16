@@ -72,7 +72,7 @@ exports[`template-bind.vue - vue-verify 1`] = `
   <div v-bind:id="'&quot;' + id"></div>
   <div v-bind:id="rawId | formatId"></div>
   <div v-bind:id="ok ? 'YES' : 'NO'"></div>
-  <button @click="foo(arg, 'string')"></button>
+  <button @click="foo(arg, 'string');"></button>
 </template>
 
 `;

@@ -306,11 +306,17 @@ exports[`vue.html - html-verify 1`] = `
   v-for="n in items.map(x => {
     return x;
   })"
-  @click="  /* hello */   "
-  @click="   /* 1 */ $emit( /* 2 */ 'click' /* 3 */ ) /* 4 */ ; /* 5 */   "
-  @click="$emit('click')"
-  @click="   $emit(   'click'   )  ;"
-  @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
+  @click="/* hello */"
+  @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */; /* 5 */"
+  @click="$emit('click');"
+  @click="$emit('click');"
+  @click="
+    $emit('click');
+    if (something) {
+      for (let i = j; i < 100; i++) {}
+    } else {
+    }
+  "
 ></div>
 
 `;

@@ -142,9 +142,9 @@ export default {
     }"
     :index="index"
     :data-issue-id="issue.id"
-    @mousedown="mouseDown"
-    @mousemove="mouseMove"
-    @mouseup="showIssue($event)"
+    @mousedown="mouseDown;"
+    @mousemove="mouseMove;"
+    @mouseup="showIssue($event);"
   >
     <issue-card-inner
       :list="list"
@@ -300,9 +300,9 @@ export default {
     }"
     :index="index"
     :data-issue-id="issue.id"
-    @mousedown="mouseDown"
-    @mousemove="mouseMove"
-    @mouseup="showIssue($event)"
+    @mousedown="mouseDown;"
+    @mousemove="mouseMove;"
+    @mouseup="showIssue($event);"
   >
     <issue-card-inner
       :list="list"

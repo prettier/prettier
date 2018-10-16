@@ -698,11 +698,6 @@ function getInterpolationTextDataParts(node, textToDoc) {
 }
 
 function printEmbeddedAttributeValue(node, textToDoc) {
-  // avoid unnecessary parsing
-  if (!node.value || /^\w+$/.test(node.value)) {
-    return null;
-  }
-
   /**
    *     @click="jsStatement"
    *     v-on:click="jsStatement"
@@ -752,6 +747,20 @@ function printEmbeddedAttributeValue(node, textToDoc) {
       return printNgForValue(value, textToDoc);
     case "v-for":
       return printVForValue(value, textToDoc);
+  }
+
+  if (isKeyMatched(vueStatementBindingPatterns)) {
+    return group(
+      concat([
+        indent(
+          concat([
+            softline,
+            stripTrailingHardline(textToDoc(value, { parser: "babylon" }))
+          ])
+        ),
+        softline
+      ])
+    );
   }
 
   return textToDoc(value, { parser: "__js_expression" });
