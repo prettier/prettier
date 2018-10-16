@@ -704,33 +704,54 @@ function printEmbeddedAttributeValue(node, textToDoc) {
   }
 
   /**
-   * Vue binding syntax: JS expressions
-   *
-   *   :class="jsExpression"
-   *   v-bind:id="jsExpression"
-   *   v-if="jsExpression"
-   *   @click="jsExpression"
-   *
-   * Angular binding syntax: JS expressions
-   *
-   *   *ngIf="jsExpression"
-   *   [target]="jsExpression"
-   *   (target]="jsExpression"
-   *   [(target)]="jsExpression"
+   *     @click="jsStatement"
+   *     v-on:click="jsStatement"
    */
-  const embeddedKeyRegex = /^:|^v-|^@|^\*ng|^\[.+\]$|^\(.+\)$/;
-  if (!embeddedKeyRegex.test(node.key)) {
+  const vueStatementBindingPatterns = ["^@", "^v-on:"];
+  /**
+   *     :class="jsExpression"
+   *     v-bind:id="jsExpression"
+   *     v-if="jsExpression"
+   */
+  const vueExpressionBindingPatterns = ["^:", "^v-"];
+  const vueBindingPatterns = [].concat(
+    vueStatementBindingPatterns,
+    vueExpressionBindingPatterns
+  );
+
+  /**
+   *     *ngFor="angularDirective"
+   */
+  const ngDirectiveBindingPatterns = ["^\\*ng"];
+  /**
+   *     (click)="angularStatement"
+   */
+  const ngStatementBindingPatterns = ["^\\(.+\\)$"];
+  /**
+   *     [target]="angularExpression"
+   *     [(target)]="angularExpression"
+   */
+  const ngExpressionBindingPatterns = ["^\\[.+\\]$"];
+  const ngBindingPatterns = [].concat(
+    ngDirectiveBindingPatterns,
+    ngStatementBindingPatterns,
+    ngExpressionBindingPatterns
+  );
+
+  const isKeyMatched = patterns =>
+    new RegExp(patterns.join("|")).test(node.key);
+
+  if (!isKeyMatched([].concat(vueBindingPatterns, ngBindingPatterns))) {
     return null;
   }
 
   const value = node.value.replace(/&quot;/g, '"').replace(/&apos;/g, "'");
 
-  if (node.key === "*ngFor") {
-    return printNgForValue(value, textToDoc);
-  }
-
-  if (node.key === "v-for") {
-    return printVForValue(value, textToDoc);
+  switch (node.key) {
+    case "*ngFor":
+      return printNgForValue(value, textToDoc);
+    case "v-for":
+      return printVForValue(value, textToDoc);
   }
 
   return textToDoc(value, { parser: "__js_expression" });
