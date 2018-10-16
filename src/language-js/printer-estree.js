@@ -34,6 +34,7 @@ const insertPragma = require("./pragma").insertPragma;
 const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
 const preprocess = require("./preprocess");
+const { printHtmlBinding } = require("./html-binding");
 
 const {
   builders: {
@@ -350,23 +351,9 @@ function printPathNoParens(path, options, print, args) {
     return n;
   }
 
-  if (options.__isVueForLeft && n.type === "File") {
-    return path.call(
-      functionDeclarationPath => {
-        const { params } = functionDeclarationPath.getValue();
-        return concat([
-          params.length > 1 ? "(" : "",
-          join(
-            concat([",", line]),
-            functionDeclarationPath.map(print, "params")
-          ),
-          params.length > 1 ? ")" : ""
-        ]);
-      },
-      "program",
-      "body",
-      0
-    );
+  const htmlBinding = printHtmlBinding(path, options, print);
+  if (htmlBinding) {
+    return htmlBinding;
   }
 
   let parts = [];

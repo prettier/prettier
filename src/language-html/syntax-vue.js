@@ -16,7 +16,7 @@ function printVForValue(value, textToDoc) {
     group(
       textToDoc(`function _(${left}) {}`, {
         parser: "babylon",
-        __isVueForLeft: true
+        __isVForBindingLeft: true
       })
     ),
     " ",

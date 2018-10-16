@@ -1,0 +1,36 @@
+"use strict";
+
+const {
+  builders: { concat, join, line }
+} = require("../doc");
+
+function printHtmlBinding(path, options, print) {
+  const node = path.getValue();
+
+  if (node.type !== "File") {
+    return;
+  }
+
+  if (options.__isVForBindingLeft) {
+    return path.call(
+      functionDeclarationPath => {
+        const { params } = functionDeclarationPath.getValue();
+        return concat([
+          params.length > 1 ? "(" : "",
+          join(
+            concat([",", line]),
+            functionDeclarationPath.map(print, "params")
+          ),
+          params.length > 1 ? ")" : ""
+        ]);
+      },
+      "program",
+      "body",
+      0
+    );
+  }
+}
+
+module.exports = {
+  printHtmlBinding
+};
