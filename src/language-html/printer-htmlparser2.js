@@ -705,6 +705,10 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
     node.value.replace(/&quot;/g, '"').replace(/&apos;/g, "'");
 
   if (options.parser === "vue") {
+    if (node.key === "v-for") {
+      return printVForValue(getValue(), textToDoc);
+    }
+
     /**
      *     @click="jsStatement"
      *     v-on:click="jsStatement"
@@ -716,32 +720,25 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
      *     v-if="jsExpression"
      */
     const vueExpressionBindingPatterns = ["^:", "^v-"];
-    const vueBindingPatterns = [].concat(
-      vueStatementBindingPatterns,
-      vueExpressionBindingPatterns
-    );
-    if (isKeyMatched(vueBindingPatterns)) {
-      const value = getValue();
 
-      if (node.key === "v-for") {
-        return printVForValue(value, textToDoc);
-      }
+    if (isKeyMatched(vueStatementBindingPatterns)) {
+      return group(
+        concat([
+          indent(
+            concat([
+              softline,
+              stripTrailingHardline(
+                textToDoc(getValue(), { parser: "babylon" })
+              )
+            ])
+          ),
+          softline
+        ])
+      );
+    }
 
-      if (isKeyMatched(vueStatementBindingPatterns)) {
-        return group(
-          concat([
-            indent(
-              concat([
-                softline,
-                stripTrailingHardline(textToDoc(value, { parser: "babylon" }))
-              ])
-            ),
-            softline
-          ])
-        );
-      }
-
-      return textToDoc(value, { parser: "__js_expression" });
+    if (isKeyMatched(vueExpressionBindingPatterns)) {
+      return textToDoc(getValue(), { parser: "__js_expression" });
     }
   }
 
@@ -765,13 +762,11 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
       ngExpressionBindingPatterns
     );
     if (isKeyMatched(ngBindingPatterns)) {
-      const value = getValue();
-
       if (node.key === "*ngFor") {
-        return printNgForValue(value, textToDoc);
+        return printNgForValue(getValue(), textToDoc);
       }
 
-      return textToDoc(value, { parser: "__js_expression" });
+      return textToDoc(getValue(), { parser: "__js_expression" });
     }
   }
 
