@@ -20,6 +20,7 @@ exports[`attributes.vue - vue-verify 1`] = `
   @click="   $emit(   'click'   )   "
   @click="   $emit(   'click'   )  ;"
   @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
+  slot-scope="{destructuring:{a:{b}}}"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -49,6 +50,7 @@ exports[`attributes.vue - vue-verify 1`] = `
     } else {
     }
   "
+  slot-scope="{destructuring:{a:{b}}}"
 ></div>
 
 `;
@@ -73,6 +75,7 @@ exports[`attributes.vue - vue-verify 2`] = `
   @click="   $emit(   'click'   )   "
   @click="   $emit(   'click'   )  ;"
   @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
+  slot-scope="{destructuring:{a:{b}}}"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -102,6 +105,7 @@ exports[`attributes.vue - vue-verify 2`] = `
     } else {
     }
   "
+  slot-scope="{destructuring:{a:{b}}}"
 ></div>
 
 `;
