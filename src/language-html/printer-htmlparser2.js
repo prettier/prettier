@@ -711,9 +711,11 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
 
     /**
      *     @click="jsStatement"
+     *     @click="jsExpression"
      *     v-on:click="jsStatement"
+     *     v-on:click="jsExpression"
      */
-    const vueStatementBindingPatterns = ["^@", "^v-on:"];
+    const vueStatementOrExpressionBindingPatterns = ["^@", "^v-on:"];
     /**
      *     :class="jsExpression"
      *     v-bind:id="jsExpression"
@@ -721,20 +723,16 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
      */
     const vueExpressionBindingPatterns = ["^:", "^v-"];
 
-    if (isKeyMatched(vueStatementBindingPatterns)) {
-      return group(
-        concat([
-          indent(
-            concat([
-              softline,
-              stripTrailingHardline(
-                textToDoc(getValue(), { parser: "babylon" })
-              )
-            ])
-          ),
-          softline
-        ])
-      );
+    if (isKeyMatched(vueStatementOrExpressionBindingPatterns)) {
+      const value = getValue();
+      let doc = null;
+      // vue treats `a`/`a;` differently
+      try {
+        doc = textToDoc(value, { parser: "__js_expression" });
+      } catch (e) {
+        doc = stripTrailingHardline(textToDoc(value, { parser: "babylon" }));
+      }
+      return group(concat([indent(concat([softline, doc])), softline]));
     }
 
     if (
