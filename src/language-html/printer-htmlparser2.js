@@ -737,7 +737,10 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
       );
     }
 
-    if (isKeyMatched(vueExpressionBindingPatterns)) {
+    if (
+      node.key === "slot-scope" ||
+      isKeyMatched(vueExpressionBindingPatterns)
+    ) {
       return textToDoc(getValue(), { parser: "__js_expression" });
     }
   }
