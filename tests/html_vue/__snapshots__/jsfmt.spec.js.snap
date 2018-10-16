@@ -50,7 +50,11 @@ exports[`attributes.vue - vue-verify 1`] = `
     } else {
     }
   "
-  slot-scope="{ destructuring: { a: { b } } }"
+  slot-scope="{
+    destructuring: {
+      a: { b }
+    }
+  }"
 ></div>
 
 `;
@@ -105,7 +109,11 @@ exports[`attributes.vue - vue-verify 2`] = `
     } else {
     }
   "
-  slot-scope="{ destructuring: { a: { b } } }"
+  slot-scope="{
+    destructuring: {
+      a: { b },
+    },
+  }"
 ></div>
 
 `;

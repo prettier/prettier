@@ -36,7 +36,7 @@ const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
 const { printNgFor } = require("./syntax-angular");
-const { printVueFor } = require("./syntax-vue");
+const { printVueFor, printVueSlotScope } = require("./syntax-vue");
 
 function concat(parts) {
   const newParts = normalizeParts(parts);
@@ -709,6 +709,10 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
       return printVueFor(getValue(), textToDoc);
     }
 
+    if (node.key === "slot-scope") {
+      return printVueSlotScope(getValue(), textToDoc);
+    }
+
     /**
      *     @click="jsStatement"
      *     @click="jsExpression"
@@ -736,10 +740,7 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
       return group(concat([indent(concat([softline, doc])), softline]));
     }
 
-    if (
-      node.key === "slot-scope" ||
-      isKeyMatched(vueExpressionBindingPatterns)
-    ) {
+    if (isKeyMatched(vueExpressionBindingPatterns)) {
       return textToDoc(getValue(), { parser: "__js_expression" });
     }
   }

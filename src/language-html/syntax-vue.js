@@ -59,6 +59,14 @@ function parseVueFor(value) {
   };
 }
 
+function printVueSlotScope(value, textToDoc) {
+  return textToDoc(`function _(${value}) {}`, {
+    parser: "babylon",
+    __isVueSlotScope: true
+  });
+}
+
 module.exports = {
-  printVueFor
+  printVueFor,
+  printVueSlotScope
 };

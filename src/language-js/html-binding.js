@@ -29,6 +29,16 @@ function printHtmlBinding(path, options, print) {
       0
     );
   }
+
+  if (options.__isVueSlotScope) {
+    return path.call(
+      functionDeclarationPath =>
+        join(concat([",", line]), functionDeclarationPath.map(print, "params")),
+      "program",
+      "body",
+      0
+    );
+  }
 }
 
 module.exports = {
