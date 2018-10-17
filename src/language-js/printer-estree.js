@@ -89,13 +89,19 @@ function genericPrint(path, options, printPath, args) {
     return linesWithoutParens;
   }
 
+  const parentExportDecl = getParentExportDeclaration(path);
   const decorators = [];
   if (
     node.decorators &&
     node.decorators.length > 0 &&
-    // If the parent node is an export declaration, it will be
-    // responsible for printing node.decorators.
-    !getParentExportDeclaration(path)
+    // If the parent node is an export declaration and the decorator
+    // was written before the export, the export will be responsible
+    // for printing the decorators.
+    !(
+      parentExportDecl &&
+      options.locStart(parentExportDecl, { ignoreDecorators: true }) >
+        options.locStart(node.decorators[0])
+    )
   ) {
     const shouldBreak =
       node.type === "ClassDeclaration" ||
@@ -121,10 +127,19 @@ function genericPrint(path, options, printPath, args) {
 
       decorators.push(printPath(decoratorPath), separator);
     }, "decorators");
+
+    if (parentExportDecl) {
+      decorators.unshift(hardline);
+    }
   } else if (
     isExportDeclaration(node) &&
     node.declaration &&
-    node.declaration.decorators
+    node.declaration.decorators &&
+    node.declaration.decorators.length > 0 &&
+    // Only print decorators here if they were written before the export,
+    // otherwise they are printed by the node.declaration
+    options.locStart(node, { ignoreDecorators: true }) >
+      options.locStart(node.declaration.decorators[0])
   ) {
     // Export declarations are responsible for printing any decorators
     // that logically apply to node.declaration.
