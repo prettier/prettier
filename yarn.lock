@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@angular/compiler@6.1.10":
+  version "6.1.10"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-6.1.10.tgz#6ab35c8584fbda13a6708df14b8b03cc8f849a94"
+  integrity sha512-FPIb2j3zfoBwb6vo/u0gQeu70h8InGlSisBr3xMACs/35/pwB6kbQR+JQiUr0D7k6QApg7AuMkvq8aFNelg0aw==
+  dependencies:
+    tslib "^1.9.0"
+
 "@babel/cli@7.1.2":
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.1.2.tgz#fc2853ae96824b3779ca85de4fd025ce3cf62a5e"
@@ -752,6 +759,14 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
+
+angular-estree-parser@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-1.0.0.tgz#f47ebd4322243cba3702f870e694f3d1a39f7751"
+  integrity sha512-iNuMnoaDV9gUO7D6vzr+tWptRa+GFB/lSbqoqFvbuQ+vju29MomqcJ15r7nQ1DSUWokMsutYCH0rthzFw6eJxg==
+  dependencies:
+    lines-and-columns "^1.1.6"
+    tslib "^1.9.3"
 
 ansi-escapes@^2.0.0:
   version "2.0.0"
@@ -3187,6 +3202,7 @@ html-encoding-sniffer@^1.0.2:
 html-styles@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/html-styles/-/html-styles-1.0.0.tgz#a18061fd651f99c6b75c45c8e0549a3bc3e01a75"
+  integrity sha1-oYBh/WUfmca3XEXI4FSaO8PgGnU=
 
 html-tag-names@1.1.2:
   version "1.1.2"
@@ -4735,6 +4751,7 @@ mute-stream@0.0.7:
 n-readlines@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/n-readlines/-/n-readlines-1.0.0.tgz#c353797f216c253fdfef7e91da4e8b17c29a91a6"
+  integrity sha512-ISDqGcspVu6U3VKqtJZG1uR55SmNNF9uK0EMq1IvNVVZOui6MW6VR0+pIZhqz85ORAGp+4zW+5fJ/SE7bwEibA==
 
 nan@^2.9.2:
   version "2.10.0"

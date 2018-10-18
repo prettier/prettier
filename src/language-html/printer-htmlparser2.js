@@ -97,7 +97,8 @@ function embed(path, print, textToDoc, options) {
       } else if (options.parser !== "html") {
         const interpolationTextParts = getInterpolationTextDataParts(
           node,
-          textToDoc
+          textToDoc,
+          options
         );
         if (interpolationTextParts) {
           return fill(
@@ -609,7 +610,7 @@ function getTextDataParts(node, data = node.data) {
     : join(line, data.split(/\s+/)).parts;
 }
 
-function getInterpolationTextDataParts(node, textToDoc) {
+function getInterpolationTextDataParts(node, textToDoc, options) {
   const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
   if (!interpolationRegex.test(node.data)) {
     return null;
@@ -648,7 +649,10 @@ function getInterpolationTextDataParts(node, textToDoc) {
 
     try {
       const interpolationDoc = textToDoc(interpolation, {
-        parser: "__js_expression"
+        parser:
+          options.parser === "angular"
+            ? "__ng_interpolation"
+            : "__js_expression"
       });
       componentParts.push(interpolationDoc);
     } catch (e) {
@@ -763,13 +767,17 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
      *     [(target)]="angularExpression"
      */
     const ngExpressionBindingPatterns = ["^\\[.+\\]$"];
-    const ngBindingPatterns = [].concat(
-      ngDirectiveBindingPatterns,
-      ngStatementBindingPatterns,
-      ngExpressionBindingPatterns
-    );
 
-    if (isKeyMatched(ngBindingPatterns)) {
+    if (isKeyMatched(ngStatementBindingPatterns)) {
+      return textToDoc(getValue(), { parser: "__ng_action" });
+    }
+
+    if (isKeyMatched(ngExpressionBindingPatterns)) {
+      return textToDoc(getValue(), { parser: "__ng_binding" });
+    }
+
+    if (isKeyMatched(ngDirectiveBindingPatterns)) {
+      // TODO
       return textToDoc(getValue(), { parser: "__js_expression" });
     }
   }

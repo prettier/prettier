@@ -48,6 +48,21 @@ module.exports = [
       get "typescript-eslint"() {
         return eval("require")("../language-js/parser-typescript").parsers
           .typescript;
+      },
+      // JS - Angular Action
+      get __ng_action() {
+        return eval("require")("../language-js/parser-angular").parsers
+          .__ng_action;
+      },
+      // JS - Angular Binding
+      get __ng_binding() {
+        return eval("require")("../language-js/parser-angular").parsers
+          .__ng_binding;
+      },
+      // JS - Angular Interpolation
+      get __ng_interpolation() {
+        return eval("require")("../language-js/parser-angular").parsers
+          .__ng_interpolation;
       }
     }
   },

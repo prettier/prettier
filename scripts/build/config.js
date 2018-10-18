@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const PROJECT_ROOT = path.resolve(__dirname, "../..");
 
 /**
  * @typedef {Object} Bundle
@@ -37,6 +38,18 @@ const parsers = [
   {
     input: "src/language-js/parser-typescript.js",
     target: "universal"
+  },
+  {
+    input: "src/language-js/parser-angular.js",
+    target: "universal",
+    alias: {
+      // Force using the CJS file, instead of ESM; i.e. get the file
+      // from `"main"` instead of `"module"` (rollup default) of package.json
+      "lines-and-columns": require.resolve("lines-and-columns"),
+      "@angular/compiler/src": path.resolve(
+        `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
+      )
+    }
   },
   {
     input: "src/language-css/parser-postcss.js",

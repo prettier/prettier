@@ -8,6 +8,7 @@ importScripts("https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js");
 toolbox.precache([
   // Scripts
   "lib/standalone.js",
+  "lib/parser-angular.js",
   "lib/parser-babylon.js",
   "lib/parser-flow.js",
   "lib/parser-glimmer.js",

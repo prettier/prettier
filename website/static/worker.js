@@ -43,6 +43,21 @@ var parsers = {
     importScriptOnce("lib/parser-typescript.js");
     return prettierPlugins.typescript.parsers.typescript;
   },
+  // JS - Angular Action
+  get __ng_action() {
+    importScriptOnce("lib/parser-angular.js");
+    return prettierPlugins.angular.parsers.__ng_action;
+  },
+  // JS - Angular Binding
+  get __ng_binding() {
+    importScriptOnce("lib/parser-angular.js");
+    return prettierPlugins.angular.parsers.__ng_binding;
+  },
+  // JS - Angular Interpolation
+  get __ng_interpolation() {
+    importScriptOnce("lib/parser-angular.js");
+    return prettierPlugins.angular.parsers.__ng_interpolation;
+  },
 
   // CSS
   get css() {
