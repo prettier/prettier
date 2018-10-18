@@ -2,9 +2,38 @@
 
 exports[`attributes.component.html - angular-verify 1`] = `
 <div
-    [target]="  'hello'.repeat(    2   )  "
-    (target)="  'hello'.repeat(    2   )  "
-    [(target)]="  'hello'.repeat(    2   )  "
+    [target]=" a | b : c "
+    [target]=" 0 - 1 "
+    [target]=" - 1 "
+    [target]=" a ? 1 : 2 "
+    [target]=" "
+    [target]=" a ( 1 ) ( 2 ) "
+    [target]=" a [ b ] "
+    [target]=" [ 1 ] "
+    [target]=" { 'a' : 1 } "
+    [target]=" { a : 1 } "
+    [target]=" true "
+    [target]=" undefined "
+    [target]=" null "
+    [target]=" ( 1 ) "
+    [target]=" 1 "
+    [target]="  'hello' "
+    [target]=" a ( 1 , 2 ) "
+    [target]=" a . b ( 1 , 2 ) "
+    [target]=" x ! "
+    [target]=" ! x "
+    [target]=" ( ( a ) ) "
+    [target]=" a "
+    [target]=" a // hello "
+    [target]=" a . b "
+    [target]=" javascript : 'hello world' "
+    [target]=" a ?. b ( ) "
+    [target]=" a ?. b "
+    (target)=" a = 1 "
+    (target)=" a . b = 1 "
+    (target)=" a [ b ] = 1 "
+    (target)=" a // hello "
+    (target)=" a ; b "
     *ngIf=" something?true:false    "
     *ngFor="  let     hero     of     heroes"
     *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
@@ -15,9 +44,38 @@ exports[`attributes.component.html - angular-verify 1`] = `
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
-  [target]="'hello'.repeat(2)"
-  (target)="'hello'.repeat(2)"
-  [(target)]="'hello'.repeat(2)"
+  [target]=" a | b : c "
+  [target]="0 - 1"
+  [target]="-1"
+  [target]="a ? 1 : 2"
+  [target]=" "
+  [target]="a(1)(2)"
+  [target]="a[b]"
+  [target]="[1]"
+  [target]="{ a: 1 }"
+  [target]="{ a: 1 }"
+  [target]="true"
+  [target]="undefined"
+  [target]="null"
+  [target]="1"
+  [target]="1"
+  [target]="'hello'"
+  [target]="a(1, 2)"
+  [target]="a.b(1, 2)"
+  [target]=" x ! "
+  [target]="!x"
+  [target]="a"
+  [target]="a"
+  [target]="a"
+  [target]="a.b"
+  [target]=" javascript : 'hello world' "
+  [target]="a?.b()"
+  [target]="a?.b"
+  (target)="(a = 1)"
+  (target)="(a.b = 1)"
+  (target)="(a[b] = 1)"
+  (target)="a"
+  (target)=" a ; b "
   *ngIf="something ? true : false"
   *ngFor="let hero of heroes"
   *ngFor="
@@ -29,5 +87,60 @@ exports[`attributes.component.html - angular-verify 1`] = `
   *ngFor="let hero of heroes; let i=index"
   *ngFor="let hero of heroes; value: myValue"
 ></div>
+
+`;
+
+exports[`interpolation.component.html - angular-verify 1`] = `
+<div>{{ a | b : c }}</div>
+<div>{{ 0 - 1 }}</div>
+<div>{{ - 1 }}</div>
+<div>{{ a ? 1 : 2 }}</div>
+<div>{{ a ( 1 ) ( 2 ) }}</div>
+<div>{{ a [ b ] }}</div>
+<div>{{ [ 1 ] }}</div>
+<div>{{ { 'a' : 1 } }}</div>
+<div>{{ { a : 1 } }}</div>
+<div>{{ true }}</div>
+<div>{{ undefined }}</div>
+<div>{{ null }}</div>
+<div>{{ ( 1 ) }}</div>
+<div>{{ 1 }}</div>
+<div>{{  'hello' }}</div>
+<div>{{ a ( 1 , 2 ) }}</div>
+<div>{{ a . b ( 1 , 2 ) }}</div>
+<div>{{ x ! }}</div>
+<div>{{ ! x }}</div>
+<div>{{ ( ( a ) ) }}</div>
+<div>{{ a }}</div>
+<div>{{ a // hello }}</div>
+<div>{{ a . b }}</div>
+<div>{{ a ?. b ( ) }}</div>
+<div>{{ a ?. b }}</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>{{ a | b : c }}</div>
+<div>{{0 - 1}}</div>
+<div>{{-1}}</div>
+<div>{{a ? 1 : 2}}</div>
+<div>{{a(1)(2)}}</div>
+<div>{{a[b]}}</div>
+<div>{{[1]}}</div>
+<div>{{{ a: 1 }}}</div>
+<div>{{{ a: 1 }}}</div>
+<div>{{true}}</div>
+<div>{{undefined}}</div>
+<div>{{null}}</div>
+<div>{{1}}</div>
+<div>{{1}}</div>
+<div>{{"hello"}}</div>
+<div>{{a(1, 2)}}</div>
+<div>{{a.b(1, 2)}}</div>
+<div>{{ x ! }}</div>
+<div>{{!x}}</div>
+<div>{{a}}</div>
+<div>{{a}}</div>
+<div>{{a}}</div>
+<div>{{a.b}}</div>
+<div>{{a?.b()}}</div>
+<div>{{a?.b}}</div>
 
 `;
