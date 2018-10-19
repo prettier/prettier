@@ -85,3 +85,18 @@ type Props = {
 };
 
 `;
+
+exports[`type_annotations.js - flow-verify 1`] = `
+new (window.Request/*: Class<Request> */)("");
+
+(this/*: any */).foo = 5;
+
+const x = (input /*: string */) /*: string */ => {};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+new (window.Request /*: Class<Request> */)("");
+
+(this /*: any */).foo = 5;
+
+const x = (input /*: string */) /*: string */ => {};
+
+`;

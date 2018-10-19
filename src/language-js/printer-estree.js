@@ -32,6 +32,7 @@ const embed = require("./embed");
 const clean = require("./clean");
 const insertPragma = require("./pragma").insertPragma;
 const handleComments = require("./comments");
+const hasFlowShorthandAnnotationComment = require("./flow-comments");
 const pathNeedsParens = require("./needs-parens");
 const preprocess = require("./preprocess");
 
@@ -151,7 +152,16 @@ function genericPrint(path, options, printPath, args) {
   parts.push(linesWithoutParens);
 
   if (needsParens) {
-    parts.push(")");
+    const node = path.getValue();
+    if (hasFlowShorthandAnnotationComment(node)) {
+      parts.push(" /*");
+      parts.push(node.trailingComments[0].value);
+      parts.push("*/");
+      node.trailingComments[0].printed = true;
+      parts.push(")");
+    } else {
+      parts.push(")");
+    }
   }
 
   if (decorators.length > 0) {
@@ -2802,14 +2812,27 @@ function printPathNoParens(path, options, print, args) {
 
       return group(concat(parts));
     }
-    case "TypeCastExpression":
+    case "TypeCastExpression": {
+      const value = path.getValue();
+      // Flow supports a comment syntax for specifying type annotations: https://flow.org/en/docs/types/comments/.
+      // Unfortunately, its parser doesn't differentiate between comment annotations and regular
+      // annotations when producing an AST. So to preserve parentheses around type casts that use
+      // the comment syntax, we need to hackily read the source itself to see if the code contains
+      // a type annotation comment.
+      const commentSyntax =
+        value &&
+        value.typeAnnotation &&
+        value.typeAnnotation.range &&
+        options.originalText.substr(value.typeAnnotation.range[0], 3) === "/*:";
       return concat([
         "(",
         path.call(print, "expression"),
-        ": ",
+        commentSyntax ? " /*: " : ": ",
         path.call(print, "typeAnnotation"),
-        ")"
+        commentSyntax ? " */)" : ")"
       ]);
+    }
+
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation":
     case "TSTypeParameterDeclaration":
@@ -5958,7 +5981,7 @@ function willPrintOwnComments(path) {
   const parent = path.getParentNode();
 
   return (
-    ((node && isJSXNode(node)) ||
+    ((node && (isJSXNode(node) || hasFlowShorthandAnnotationComment(node))) ||
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||
