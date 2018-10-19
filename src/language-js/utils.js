@@ -8,7 +8,15 @@ function hasFlowShorthandAnnotationComment(node) {
     node.extra &&
     node.extra.parenthesized &&
     node.trailingComments &&
-    node.trailingComments[0].value.trimLeft().startsWith(":")
+    // We intentionally only match spaces and tabs here instead of any whitespace because
+    // Flow annotation comments cannot be split across lines. For example:
+    //
+    // (this /*
+    // : any */).foo = 5;
+    //
+    // is not picked up by Flow, so removing the newline would create a type annotation
+    // that the user did not intend to create.
+    node.trailingComments[0].value.match(/^[ \t]*:/)
   );
 }
 
