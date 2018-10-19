@@ -3291,7 +3291,7 @@ function printPathNoParens(path, options, print, args) {
         [].concat(
           shouldPrintSurroundingSpaces ? " " : [],
           path.call(print, "node"),
-          n.node.comments.length === 0
+          !n.node.comments || n.node.comments.length === 0
             ? []
             : concat([" //", n.node.comments[0].value]),
           shouldPrintSurroundingSpaces ? " " : []
@@ -3304,10 +3304,66 @@ function printPathNoParens(path, options, print, args) {
       return "";
     case "NGQuotedExpression":
       return concat([n.prefix, ":", n.value]);
+    case "NGMicrosyntax":
+      return concat(
+        path.map(
+          (childPath, index) =>
+            concat([
+              index === 0
+                ? ""
+                : isNgForOf(childPath)
+                  ? " "
+                  : concat([";", line]),
+              print(childPath)
+            ]),
+          "body"
+        )
+      );
+    case "NGMicrosyntaxKey":
+      return /^[a-z_$][a-z0-9_$]*(-[a-z_$][a-z0-9_$])*$/i.test(n.name)
+        ? n.name
+        : JSON.stringify(n.name);
+    case "NGMicrosyntaxExpression":
+      return concat([
+        path.call(print, "expression"),
+        n.alias === null ? "" : concat([" as ", path.call(print, "alias")])
+      ]);
+    case "NGMicrosyntaxKeyedExpression":
+      return concat([
+        path.call(print, "key"),
+        isNgForOf(path) ? " " : ": ",
+        path.call(print, "expression")
+      ]);
+    case "NGMicrosyntaxLet":
+      return concat([
+        "let ",
+        path.call(print, "key"),
+        n.value === null ? "" : concat(["=", path.call(print, "value")])
+      ]);
+    case "NGMicrosyntaxAs":
+      return concat([
+        path.call(print, "key"),
+        " as ",
+        path.call(print, "alias")
+      ]);
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));
   }
+}
+
+/** prefer `let hero of heros` over `let hero; of: heros` */
+function isNgForOf(path) {
+  const node = path.getValue();
+  const index = path.getName();
+  const parentNode = path.getParentNode();
+  return (
+    node.type === "NGMicrosyntaxKeyedExpression" &&
+    node.key.name === "of" &&
+    index === 1 &&
+    parentNode.body[0].type === "NGMicrosyntaxLet" &&
+    parentNode.body[0].value === null
+  );
 }
 
 function printStatementSequence(path, options, print) {

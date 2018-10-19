@@ -35,7 +35,6 @@ const {
 const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
-const { printNgFor } = require("./syntax-angular");
 const { printVueFor, printVueSlotScope } = require("./syntax-vue");
 
 function concat(parts) {
@@ -750,14 +749,10 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
   }
 
   if (options.parser === "angular") {
-    if (node.key === "*ngFor") {
-      return printNgFor(getValue(), textToDoc);
-    }
-
     /**
-     *     *ngFor="angularDirective"
+     *     *directive="angularDirective"
      */
-    const ngDirectiveBindingPatterns = ["^\\*ng"];
+    const ngDirectiveBindingPatterns = ["^\\*"];
     /**
      *     (click)="angularStatement"
      */
@@ -777,8 +772,17 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
     }
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {
-      // TODO
-      return textToDoc(getValue(), { parser: "__js_expression" });
+      return group(
+        concat([
+          indent(
+            concat([
+              softline,
+              textToDoc(getValue(), { parser: "__ng_directive" })
+            ])
+          ),
+          softline
+        ])
+      );
     }
   }
 

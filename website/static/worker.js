@@ -58,6 +58,11 @@ var parsers = {
     importScriptOnce("lib/parser-angular.js");
     return prettierPlugins.angular.parsers.__ng_interpolation;
   },
+  // JS - Angular Directive
+  get __ng_directive() {
+    importScriptOnce("lib/parser-angular.js");
+    return prettierPlugins.angular.parsers.__ng_directive;
+  },
 
   // CSS
   get css() {

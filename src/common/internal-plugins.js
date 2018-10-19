@@ -63,6 +63,11 @@ module.exports = [
       get __ng_interpolation() {
         return eval("require")("../language-js/parser-angular").parsers
           .__ng_interpolation;
+      },
+      // JS - Angular Directive
+      get __ng_directive() {
+        return eval("require")("../language-js/parser-angular").parsers
+          .__ng_directive;
       }
     }
   },
