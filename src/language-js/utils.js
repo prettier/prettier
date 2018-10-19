@@ -7,9 +7,11 @@ function hasFlowShorthandAnnotationComment(node) {
   return (
     node.extra &&
     node.extra.parenthesized &&
-    !!node.trailingComments &&
-    node.trailingComments[0].value.startsWith(":")
+    node.trailingComments &&
+    node.trailingComments[0].value.trimLeft().startsWith(":")
   );
 }
 
-module.exports = hasFlowShorthandAnnotationComment;
+module.exports = {
+  hasFlowShorthandAnnotationComment
+};

@@ -32,9 +32,9 @@ const embed = require("./embed");
 const clean = require("./clean");
 const insertPragma = require("./pragma").insertPragma;
 const handleComments = require("./comments");
-const hasFlowShorthandAnnotationComment = require("./flow-comments");
 const pathNeedsParens = require("./needs-parens");
 const preprocess = require("./preprocess");
+const { hasFlowShorthandAnnotationComment } = require("./utils");
 
 const {
   builders: {
@@ -2823,7 +2823,9 @@ function printPathNoParens(path, options, print, args) {
         value &&
         value.typeAnnotation &&
         value.typeAnnotation.range &&
-        options.originalText.substr(value.typeAnnotation.range[0], 3) === "/*:";
+        options.originalText
+          .substring(value.typeAnnotation.range[0])
+          .match(/^\/\*\s*:/);
       return concat([
         "(",
         path.call(print, "expression"),

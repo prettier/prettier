@@ -4,7 +4,7 @@ const assert = require("assert");
 
 const util = require("../common/util");
 const comments = require("./comments");
-const hasFlowShorthandAnnotationComment = require("./flow-comments");
+const { hasFlowShorthandAnnotationComment } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
   // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
