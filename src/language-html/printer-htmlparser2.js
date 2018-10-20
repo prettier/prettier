@@ -350,7 +350,13 @@ function printChildren(path, options, print) {
          *            ~
          *     -->
          */
-        nextNode.isSelfClosing)) ||
+        nextNode.isSelfClosing ||
+        /**
+         *     123<span
+         *             ~
+         *       attr
+         */
+        (nextNode.type === "tag" && nextNode.attributes.length !== 0))) ||
       /**
        *     <img
        *       src="long"
