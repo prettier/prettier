@@ -11,7 +11,7 @@ exports[`cases.html - html-verify 1`] = `
 
 <span></span
 ><!-- prettier-ignore
-<span></span>
+--><span></span>
 
 `;
 

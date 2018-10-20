@@ -281,7 +281,7 @@ function printChildren(path, options, print) {
                     ? hardline
                     : ""
                 ]),
-            print(childPath)
+            printChild(childPath)
           ]);
         }, "children")
       )
@@ -307,13 +307,35 @@ function printChildren(path, options, print) {
       }
     }
 
+    const childDoc = printChild(childPath);
     Array.prototype.push.apply(
       parts,
-      childNode.type === "text" ? print(childPath).parts : [print(childPath)]
+      childNode.type === "text" && childDoc.parts ? childDoc.parts : [childDoc]
     );
   }, "children");
 
   return fill(parts);
+
+  function printChild(childPath) {
+    if (!hasPrettierIgnore(childPath)) {
+      return print(childPath);
+    }
+    const child = childPath.getValue();
+    return concat([
+      printOpeningTagPrefix(child),
+      options.originalText.slice(
+        options.locStart(child) +
+          (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
+            ? printOpeningTagStartMarker(child).length
+            : 0),
+        options.locEnd(child) -
+          (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
+            ? printClosingTagEndMarker(child).length
+            : 0),
+        printClosingTagSuffix(child)
+      )
+    ]);
+  }
 
   function printBetweenLine(prevNode, nextNode) {
     return (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
@@ -793,6 +815,5 @@ module.exports = {
   print: genericPrint,
   insertPragma,
   massageAstNode: clean,
-  embed,
-  hasPrettierIgnore
+  embed
 };
