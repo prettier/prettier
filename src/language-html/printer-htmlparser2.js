@@ -776,13 +776,16 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
     const ngDirectiveBindingPatterns = ["^\\*"];
     /**
      *     (click)="angularStatement"
+     *     on-click="angularStatement"
      */
-    const ngStatementBindingPatterns = ["^\\(.+\\)$"];
+    const ngStatementBindingPatterns = ["^\\(.+\\)$", "^on-"];
     /**
      *     [target]="angularExpression"
+     *     bind-target="angularExpression"
      *     [(target)]="angularExpression"
+     *     bindon-target="angularExpression"
      */
-    const ngExpressionBindingPatterns = ["^\\[.+\\]$"];
+    const ngExpressionBindingPatterns = ["^\\[.+\\]$", "^bind(on)?-"];
 
     if (isKeyMatched(ngStatementBindingPatterns)) {
       return textToDoc(getValue(), { parser: "__ng_action" });
