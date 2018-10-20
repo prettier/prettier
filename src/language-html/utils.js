@@ -379,7 +379,9 @@ function getCommentData(node) {
     dataWithoutLeadingLine
   );
 
-  const commentDataStartColumn = node.startLocation.column + "<!--".length;
+  const leadingSpaces = rightTrimmedData.match(/^[^\n\S]*/)[0].length;
+  const commentDataStartColumn =
+    node.startLocation.column + "<!--".length + leadingSpaces;
 
   /**
    *     <!-- 123
@@ -387,7 +389,7 @@ function getCommentData(node) {
    */
   if (minIndentationForDataWithoutLeadingLine >= commentDataStartColumn) {
     return dedentString(
-      " ".repeat(commentDataStartColumn) + "\n" + rightTrimmedData
+      " ".repeat(commentDataStartColumn) + rightTrimmedData.slice(leadingSpaces)
     );
   }
 

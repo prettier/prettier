@@ -462,9 +462,8 @@ exports[`surrounding-empty-line.html - html-verify 1`] = `
 -->456
 
 <!--
-
   A
-      B
+  B
 -->
 
 `;
@@ -579,9 +578,8 @@ exports[`surrounding-empty-line.html - html-verify 2`] = `
 -->456
 
 <!--
-
   A
-      B
+  B
 -->
 
 `;
@@ -679,9 +677,8 @@ exports[`surrounding-empty-line.html - html-verify 3`] = `
 -->456
 
 <!--
-
   A
-      B
+  B
 -->
 
 `;
