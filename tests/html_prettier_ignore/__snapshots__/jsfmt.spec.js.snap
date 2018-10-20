@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`cases.html - html-verify 1`] = `
+123<!--prettier-ignore-->456
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+123<!--
+  prettier-ignore
+
+
+`;
+
 exports[`document.html - html-verify 1`] = `
 <!doctype html>
 <html class="no-js" lang="en">
