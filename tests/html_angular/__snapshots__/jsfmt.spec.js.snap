@@ -2,6 +2,9 @@
 
 exports[`attributes.component.html - angular-verify 1`] = `
 <div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
     [target]=" a | b : c "
     [target]=" 0 - 1 "
     [target]=" - 1 "
@@ -29,6 +32,7 @@ exports[`attributes.component.html - angular-verify 1`] = `
     [target]=" javascript : 'hello world' "
     [target]=" a ?. b ( ) "
     [target]=" a ?. b "
+    on-target=" a = 1 "
     (target)=" a = 1 "
     (target)=" a . b = 1 "
     (target)=" a [ b ] = 1 "
@@ -58,6 +62,9 @@ exports[`attributes.component.html - angular-verify 1`] = `
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
+  bindon-target=" a | b : c "
+  [(target)]="a | b:c"
+  bind-target=" a | b : c "
   [target]="a | b:c"
   [target]="0 - 1"
   [target]="-1"
@@ -85,6 +92,7 @@ exports[`attributes.component.html - angular-verify 1`] = `
   [target]="javascript: 'hello world' "
   [target]="a?.b()"
   [target]="a?.b"
+  on-target=" a = 1 "
   (target)="(a = 1)"
   (target)="(a.b = 1)"
   (target)="(a[b] = 1)"
