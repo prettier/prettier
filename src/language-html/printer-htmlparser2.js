@@ -300,7 +300,7 @@ function printChildren(path, options, print) {
           forceNextEmptyLine(childNode.prev) ||
           childNode.prev.endLocation.line + 1 < childNode.startLocation.line
         ) {
-          parts.push(hardline, hardline);
+          parts.push(concat([hardline, hardline]));
         } else {
           parts.push(prevBetweenLine);
         }

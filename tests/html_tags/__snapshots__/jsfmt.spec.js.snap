@@ -1678,7 +1678,8 @@ exports[`tags.html - html-verify 1`] = `
 
 <label
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-></label> | <span></span>
+></label>
+| <span></span>
 
 `;
 
@@ -2380,7 +2381,8 @@ exports[`tags.html - html-verify 4`] = `
 
 <label
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-></label> | <span></span>
+></label>
+| <span></span>
 
 `;
 
