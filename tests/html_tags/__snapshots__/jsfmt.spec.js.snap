@@ -1527,6 +1527,8 @@ exports[`tags.html - html-verify 1`] = `
 <img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
 <div>123<meta attr/>456</div>
 <p>x<span a="b"></span></p>
+<p>x<meta a></p>
+<p>x<meta></p>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -1662,6 +1664,12 @@ exports[`tags.html - html-verify 1`] = `
     a="b"
   ></span>
 </p>
+<p>
+  x<meta
+    a
+  />
+</p>
+<p>x<meta /></p>
 
 `;
 
@@ -1729,6 +1737,8 @@ exports[`tags.html - html-verify 2`] = `
 <img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
 <div>123<meta attr/>456</div>
 <p>x<span a="b"></span></p>
+<p>x<meta a></p>
+<p>x<meta></p>
 ~
 <br />
 <br />
@@ -1981,6 +1991,14 @@ exports[`tags.html - html-verify 2`] = `
     a="b"
   ></span>
 </p>
+<p>
+  x<meta
+    a
+  />
+</p>
+<p>
+  x<meta />
+</p>
 
 `;
 
@@ -2048,6 +2066,8 @@ exports[`tags.html - html-verify 3`] = `
 <img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
 <div>123<meta attr/>456</div>
 <p>x<span a="b"></span></p>
+<p>x<meta a></p>
+<p>x<meta></p>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -2126,6 +2146,12 @@ exports[`tags.html - html-verify 3`] = `
     a="b"
   ></span>
 </p>
+<p>
+  x<meta
+    a
+  />
+</p>
+<p>x<meta /></p>
 
 `;
 
@@ -2193,6 +2219,8 @@ exports[`tags.html - html-verify 4`] = `
 <img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
 <div>123<meta attr/>456</div>
 <p>x<span a="b"></span></p>
+<p>x<meta a></p>
+<p>x<meta></p>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -2313,6 +2341,12 @@ exports[`tags.html - html-verify 4`] = `
     a="b"
   ></span
 ></p>
+<p
+  >x<meta
+    a
+
+/></p>
+<p>x<meta /></p>
 
 `;
 
@@ -2380,6 +2414,8 @@ exports[`tags.html - html-verify 5`] = `
 <img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
 <div>123<meta attr/>456</div>
 <p>x<span a="b"></span></p>
+<p>x<meta a></p>
+<p>x<meta></p>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -2514,6 +2550,14 @@ exports[`tags.html - html-verify 5`] = `
 <p>
   x
   <span a="b"></span>
+</p>
+<p>
+  x
+  <meta a />
+</p>
+<p>
+  x
+  <meta />
 </p>
 
 `;
