@@ -8,7 +8,7 @@ function hasFlowShorthandAnnotationComment(node) {
     node.extra &&
     node.extra.parenthesized &&
     node.trailingComments &&
-    // We intentionally only match spaces and tabs here instead of any whitespace because
+    // We match any whitespace except line terminators because
     // Flow annotation comments cannot be split across lines. For example:
     //
     // (this /*
