@@ -423,15 +423,23 @@ function printOpeningTag(path, options, print) {
                 join(line, path.map(print, "attributes"))
               ])
             ),
-            node.firstChild &&
-            needsToBorrowParentOpeningTagEndMarker(node.firstChild)
-              ? /**
-                 *     123<a
-                 *       attr
-                 *           ~
-                 *       >456
-                 */
-                ""
+            /**
+             *     123<a
+             *       attr
+             *           ~
+             *       >456
+             */
+            (node.firstChild &&
+              needsToBorrowParentOpeningTagEndMarker(node.firstChild)) ||
+            /**
+             *     <span
+             *       >123<meta
+             *                ~
+             *     /></span>
+             */
+            (node.isSelfClosing &&
+              needsToBorrowLastChildClosingTagEndMarker(node.parent))
+              ? ""
               : node.isSelfClosing
                 ? forceNotToBreakAttrContent
                   ? " "
