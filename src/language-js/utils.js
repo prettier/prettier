@@ -16,7 +16,7 @@ function hasFlowShorthandAnnotationComment(node) {
     //
     // is not picked up by Flow, so removing the newline would create a type annotation
     // that the user did not intend to create.
-    node.trailingComments[0].value.match(/^[ \t]*:/)
+    node.trailingComments[0].value.match(/^(?:(?=.)\s)*:/)
   );
 }
 

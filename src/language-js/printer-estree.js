@@ -2819,6 +2819,11 @@ function printPathNoParens(path, options, print, args) {
       // annotations when producing an AST. So to preserve parentheses around type casts that use
       // the comment syntax, we need to hackily read the source itself to see if the code contains
       // a type annotation comment.
+      //
+      // Note that we're able to use the normal whitespace regex here because the Flow parser has
+      // already deemed this AST node to be a type cast. Only the Babylon parser needs the
+      // non-line-break whitespace regex, which is why hasFlowShorthandAnnotationComment() is
+      // implemented differently.
       const commentSyntax =
         value &&
         value.typeAnnotation &&
