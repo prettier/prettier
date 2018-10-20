@@ -324,12 +324,11 @@ function printChildren(path, options, print) {
        */
       (nextNode.firstChild ||
         /**
-         *     123<br />
+         *     123<!--
          *            ~
+         *     -->
          */
-        (nextNode.type === "tag" &&
-          nextNode.isSelfClosing &&
-          nextNode.attributes.length === 0))) ||
+        nextNode.isSelfClosing)) ||
       /**
        *     <img
        *       src="long"

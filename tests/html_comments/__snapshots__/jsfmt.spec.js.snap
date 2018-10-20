@@ -454,9 +454,7 @@ exports[`surrounding-empty-line.html - html-verify 1`] = `
 --></span>
 
 123<!--
-
 -->456 123<!--
-
   x
 -->456
 
@@ -563,10 +561,8 @@ exports[`surrounding-empty-line.html - html-verify 2`] = `
 --></span>
 
 123<!--
-
 -->456
 123<!--
-
   x
 -->456
 
@@ -657,9 +653,7 @@ exports[`surrounding-empty-line.html - html-verify 3`] = `
 --></span>
 
 123<!--
-
 -->456 123<!--
-
   x
 -->456
 
