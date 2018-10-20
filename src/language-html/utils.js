@@ -70,7 +70,7 @@ function mapObject(object, fn) {
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
-  if (node.type === "attribute") {
+  if (node.type === "attribute" || node.type === "text") {
     return false;
   }
 
