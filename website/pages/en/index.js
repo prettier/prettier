@@ -135,7 +135,7 @@ const Language = ({ name, showName, image, variants }) => (
 
 Language.propTypes = {
   name: PropTypes.string,
-  showName: PropTypes.boolean,
+  showName: PropTypes.bool,
   image: PropTypes.string,
   variants: PropTypes.array
 };

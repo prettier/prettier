@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`after_export.js - babylon-verify 1`] = `
+export @decorator class Foo {}
+
+export default @decorator class {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export
+@decorator
+class Foo {}
+
+export default
+@decorator
+class {}
+
+`;
+
+exports[`before_export.js - babylon-verify 1`] = `
+@decorator
+export class Foo {}
+
+@decorator
+export default class {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@decorator
+export class Foo {}
+
+@decorator
+export default class {}
+
+`;
