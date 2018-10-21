@@ -670,6 +670,116 @@ export default {
 
 `;
 
+exports[`pre-child.vue - vue-verify 1`] = `
+<!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
+<pre
+  ref="buildTrace"
+  class="build-trace mb-0 h-100"
+  @scroll="scrollBuildLog"
+>
+  <code
+    v-show="!detailJob.isLoading"
+    class="bash"
+    v-html="jobOutput"
+  >
+  </code>
+  <div
+    v-show="detailJob.isLoading"
+    class="build-loader-animation"
+  >
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</pre>
+
+<!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
+<template>
+  <pre class="code-block rounded">
+    <code class="d-block">{{ code }}</code>
+  </pre>
+</template>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!--
+  copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue
+-->
+<pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
+  <code v-show="!detailJob.isLoading" class="bash" v-html="jobOutput"> </code>
+  <div v-show="detailJob.isLoading" class="build-loader-animation">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+</pre>
+
+<!--
+  copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue
+-->
+<template>
+  <pre class="code-block rounded">
+    <code class="d-block">{{code}}</code
+    >
+  </pre>
+</template>
+
+`;
+
+exports[`pre-child.vue - vue-verify 2`] = `
+<!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
+<pre
+  ref="buildTrace"
+  class="build-trace mb-0 h-100"
+  @scroll="scrollBuildLog"
+>
+  <code
+    v-show="!detailJob.isLoading"
+    class="bash"
+    v-html="jobOutput"
+  >
+  </code>
+  <div
+    v-show="detailJob.isLoading"
+    class="build-loader-animation"
+  >
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</pre>
+
+<!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
+<template>
+  <pre class="code-block rounded">
+    <code class="d-block">{{ code }}</code>
+  </pre>
+</template>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!--
+  copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue
+-->
+<pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
+  <code v-show="!detailJob.isLoading" class="bash" v-html="jobOutput"> </code>
+  <div v-show="detailJob.isLoading" class="build-loader-animation">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+</pre>
+
+<!--
+  copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue
+-->
+<template>
+  <pre class="code-block rounded">
+    <code class="d-block">{{code}}</code
+    >
+  </pre>
+</template>
+
+`;
+
 exports[`script_src.vue - vue-verify 1`] = `
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
