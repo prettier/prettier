@@ -412,6 +412,20 @@ exports[`surrounding-empty-line.html - html-verify 1`] = `
 
 <!-- A
      B -->
+
+<!--
+The null hero's name is {{nullHero.name}}
+
+See console log:
+  TypeError: Cannot read property 'name' of null in [null]
+-->
+
+<!--
+    The null hero's name is {{nullHero.name}}
+
+    See console log:
+    TypeError: Cannot read property 'name' of null in [null]
+-->
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <ul>
   <!-- 123
@@ -466,6 +480,20 @@ exports[`surrounding-empty-line.html - html-verify 1`] = `
   B
 -->
 
+<!--
+  The null hero's name is {{nullHero.name}}
+
+  See console log:
+    TypeError: Cannot read property 'name' of null in [null]
+-->
+
+<!--
+      The null hero's name is {{nullHero.name}}
+
+      See console log:
+      TypeError: Cannot read property 'name' of null in [null]
+-->
+
 `;
 
 exports[`surrounding-empty-line.html - html-verify 2`] = `
@@ -511,6 +539,20 @@ exports[`surrounding-empty-line.html - html-verify 2`] = `
 
 <!-- A
      B -->
+
+<!--
+The null hero's name is {{nullHero.name}}
+
+See console log:
+  TypeError: Cannot read property 'name' of null in [null]
+-->
+
+<!--
+    The null hero's name is {{nullHero.name}}
+
+    See console log:
+    TypeError: Cannot read property 'name' of null in [null]
+-->
 ~
 <ul>
   <!--
@@ -582,6 +624,20 @@ exports[`surrounding-empty-line.html - html-verify 2`] = `
   B
 -->
 
+<!--
+  The null hero's name is {{nullHero.name}}
+
+  See console log:
+    TypeError: Cannot read property 'name' of null in [null]
+-->
+
+<!--
+      The null hero's name is {{nullHero.name}}
+
+      See console log:
+      TypeError: Cannot read property 'name' of null in [null]
+-->
+
 `;
 
 exports[`surrounding-empty-line.html - html-verify 3`] = `
@@ -627,6 +683,20 @@ exports[`surrounding-empty-line.html - html-verify 3`] = `
 
 <!-- A
      B -->
+
+<!--
+The null hero's name is {{nullHero.name}}
+
+See console log:
+  TypeError: Cannot read property 'name' of null in [null]
+-->
+
+<!--
+    The null hero's name is {{nullHero.name}}
+
+    See console log:
+    TypeError: Cannot read property 'name' of null in [null]
+-->
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <ul>
   <!-- 123
@@ -679,6 +749,20 @@ exports[`surrounding-empty-line.html - html-verify 3`] = `
 <!--
   A
   B
+-->
+
+<!--
+  The null hero's name is {{nullHero.name}}
+
+  See console log:
+    TypeError: Cannot read property 'name' of null in [null]
+-->
+
+<!--
+      The null hero's name is {{nullHero.name}}
+
+      See console log:
+      TypeError: Cannot read property 'name' of null in [null]
 -->
 
 `;
