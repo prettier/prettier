@@ -158,10 +158,9 @@ function genericPrint(path, options, printPath, args) {
       parts.push(node.trailingComments[0].value.trimLeft());
       parts.push("*/");
       node.trailingComments[0].printed = true;
-      parts.push(")");
-    } else {
-      parts.push(")");
     }
+
+    parts.push(")");
   }
 
   if (decorators.length > 0) {
@@ -2834,9 +2833,11 @@ function printPathNoParens(path, options, print, args) {
       return concat([
         "(",
         path.call(print, "expression"),
-        commentSyntax ? " /*: " : ": ",
+        commentSyntax ? " /*" : "",
+        ": ",
         path.call(print, "typeAnnotation"),
-        commentSyntax ? " */)" : ")"
+        commentSyntax ? " */" : "",
+        ")",
       ]);
     }
 
