@@ -2837,7 +2837,7 @@ function printPathNoParens(path, options, print, args) {
         ": ",
         path.call(print, "typeAnnotation"),
         commentSyntax ? " */" : "",
-        ")",
+        ")"
       ]);
     }
 
