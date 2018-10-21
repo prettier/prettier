@@ -14,9 +14,9 @@ const {
 const LineAndColumn = (m => m.default || m)(require("lines-and-columns"));
 
 const PREPROCESS_PIPELINE = [
+  renameScriptAndStyleWithTag,
   mergeCdataIntoText,
   extractInterpolation,
-  renameScriptAndStyleWithTag,
   processDirectives,
   addIsSelfClosing,
   extractWhitespaces,
@@ -90,7 +90,7 @@ function extractInterpolation(ast, options) {
 
   const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
   return mapNode(ast, node => {
-    if (!node.children) {
+    if (!node.children || isScriptLikeTag(node)) {
       return node;
     }
 

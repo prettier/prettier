@@ -504,12 +504,11 @@ export default {
   render (h) {
     return (
       <ul
-        class=
-{{
-            'a': b,
-            'c': d,
-            "e": f
-}}
+        class={{
+          'a': b,
+          'c': d,
+          "e": f
+        }}
       >
         { this.xyz }
       </ul>
@@ -589,12 +588,11 @@ export default {
   render (h) {
     return (
       <ul
-        class=
-{{
-            'a': b,
-            'c': d,
-            "e": f
-}}
+        class={{
+          'a': b,
+          'c': d,
+          "e": f
+        }}
       >
         { this.xyz }
       </ul>
