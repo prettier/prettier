@@ -415,6 +415,10 @@ function getMinIndentation(text) {
   let minIndentation = Infinity;
 
   for (const lineText of text.split("\n")) {
+    if (lineText.length === 0) {
+      continue;
+    }
+
     if (/\S/.test(lineText[0])) {
       return 0;
     }

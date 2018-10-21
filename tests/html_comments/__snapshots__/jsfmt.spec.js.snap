@@ -488,10 +488,10 @@ See console log:
 -->
 
 <!--
-      The null hero's name is {{nullHero.name}}
+  The null hero's name is {{nullHero.name}}
 
-      See console log:
-      TypeError: Cannot read property 'name' of null in [null]
+  See console log:
+  TypeError: Cannot read property 'name' of null in [null]
 -->
 
 `;
@@ -632,10 +632,10 @@ See console log:
 -->
 
 <!--
-      The null hero's name is {{nullHero.name}}
+  The null hero's name is {{nullHero.name}}
 
-      See console log:
-      TypeError: Cannot read property 'name' of null in [null]
+  See console log:
+  TypeError: Cannot read property 'name' of null in [null]
 -->
 
 `;
@@ -759,10 +759,10 @@ See console log:
 -->
 
 <!--
-      The null hero's name is {{nullHero.name}}
+  The null hero's name is {{nullHero.name}}
 
-      See console log:
-      TypeError: Cannot read property 'name' of null in [null]
+  See console log:
+  TypeError: Cannot read property 'name' of null in [null]
 -->
 
 `;
