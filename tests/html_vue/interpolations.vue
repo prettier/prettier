@@ -24,3 +24,20 @@ x => {
                     interpolation
 
 }} reprehenderit voluptates minus {{console.log(  short_interpolation )}} nemo.</div>
+
+<script type="text/jsx">
+  export default {
+    render (h) {
+      return (
+        <ul
+          class={{
+            'a': b,
+            'c': d,
+            "e": f
+          }}
+        >
+          { this.xyz }
+        </ul>
+    )
+  };
+</script>
