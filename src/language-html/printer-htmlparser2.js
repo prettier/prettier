@@ -168,7 +168,10 @@ function genericPrint(path, options, print) {
                   (node.next
                   ? needsToBorrowPrevClosingTagEndMarker(node.next)
                   : needsToBorrowLastChildClosingTagEndMarker(node.parent))
-                    ? ""
+                    ? node.lastChild.hasTrailingSpaces &&
+                      node.lastChild.isTrailingSpaceSensitive
+                      ? " "
+                      : ""
                     : node.lastChild.hasTrailingSpaces &&
                       node.lastChild.isTrailingSpaceSensitive
                       ? line

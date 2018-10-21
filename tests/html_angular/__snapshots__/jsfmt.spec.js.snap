@@ -1557,7 +1557,7 @@ without NgModel <br />
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price:</label>{{product.price | currency:"USD":true}}
+  <label>Price: </label>{{product.price | currency:"USD":true}}
 </div>
 
 <a class="to-toc" href="#toc">top</a>

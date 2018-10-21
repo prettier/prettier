@@ -249,7 +249,7 @@ exports[`custom-self-closing.html - html-verify 4`] = `
 </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
-  <ABC> <span></span></ABC
+  <ABC> <span></span> </ABC
 ></div>
 
 `;
