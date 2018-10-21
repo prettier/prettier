@@ -807,10 +807,7 @@ exports[`template.vue - vue-verify 1`] = `
           |
         </template>
         <template v-if="width && height">
-          W:
-          {{width}}
-          | H:
-          {{height}}
+          W: {{width}} | H: {{height}}
         </template>
       </p>
     </div>
@@ -870,10 +867,7 @@ exports[`template.vue - vue-verify 2`] = `
           |
         </template>
         <template v-if="width && height">
-          W:
-          {{width}}
-          | H:
-          {{height}}
+          W: {{width}} | H: {{height}}
         </template>
       </p>
     </div>

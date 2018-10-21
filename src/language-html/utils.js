@@ -92,12 +92,24 @@ function isPrettierIgnore(node) {
   return node.type === "comment" && node.data.trim() === "prettier-ignore";
 }
 
-function isTag(node) {
-  return node.type === "tag";
+function isTag(node, nameOrNames) {
+  if (node.type !== "tag") {
+    return false;
+  }
+
+  if (!nameOrNames) {
+    return true;
+  }
+
+  if (typeof nameOrNames === "string") {
+    return node.name === nameOrNames;
+  }
+
+  return nameOrNames.indexOf(node.name) !== -1;
 }
 
 function isScriptLikeTag(node) {
-  return isTag(node) && (node.name === "script" || node.name === "style");
+  return isTag(node, ["script", "style"]);
 }
 
 function isFrontMatterNode(node) {
@@ -336,6 +348,9 @@ function getNodeCssStyleDisplay(node, prevNode, options) {
     case "ignore":
       return "block";
     default:
+      if (isTag(node, "template")) {
+        return "inline";
+      }
       return (
         (isTag(node) && CSS_DISPLAY_TAGS[node.name]) || CSS_DISPLAY_DEFAULT
       );
