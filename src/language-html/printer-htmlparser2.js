@@ -448,14 +448,6 @@ function printOpeningTag(path, options, print) {
         : ""
       : group(
           concat([
-            node.prev && needsToBorrowNextOpeningTagStartMarker(node.prev)
-              ? /**
-                 *     123<a
-                 *       attr
-                 *     >
-                 */
-                breakParent
-              : "",
             indent(
               concat([
                 forceNotToBreakAttrContent ? " " : line,
