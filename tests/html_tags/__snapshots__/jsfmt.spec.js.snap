@@ -1697,17 +1697,15 @@ exports[`tags.html - html-verify 1`] = `
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ></label>
 | <span></span> <br />
-<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  >12345678901234567890</button
-> <br /><br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
+<br /><br />
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)"
   >Disabled Cancel</button
 >
 <br /><br />
-<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  >12345678901234567890</button
-> <br /><br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
+<br /><br />
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)"
   >Disabled Cancel</button
@@ -2500,17 +2498,15 @@ exports[`tags.html - html-verify 4`] = `
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ></label>
 | <span></span> <br />
-<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  >12345678901234567890</button
-> <br /><br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
+<br /><br />
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)"
   >Disabled Cancel</button
 >
 <br /><br />
-<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  >12345678901234567890</button
-> <br /><br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
+<br /><br />
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)"
   >Disabled Cancel</button

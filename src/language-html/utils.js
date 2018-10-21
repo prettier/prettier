@@ -202,7 +202,10 @@ function replaceDocNewlines(doc, replacement) {
 }
 
 function forceNextEmptyLine(node) {
-  return isFrontMatterNode(node);
+  return (
+    isFrontMatterNode(node) ||
+    (node.next && node.endLocation.line + 1 < node.next.startLocation.line)
+  );
 }
 
 /** firstChild leadingSpaces and lastChild trailingSpaces */
@@ -442,8 +445,16 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
 function normalizeParts(parts) {
   const newParts = [];
 
-  for (const part of parts) {
+  const restParts = parts.slice();
+  while (restParts.length !== 0) {
+    const part = restParts.shift();
+
     if (!part) {
+      continue;
+    }
+
+    if (part.type === "concat") {
+      Array.prototype.unshift.apply(restParts, part.parts);
       continue;
     }
 

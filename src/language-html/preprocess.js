@@ -14,8 +14,9 @@ const {
 const LineAndColumn = (m => m.default || m)(require("lines-and-columns"));
 
 const PREPROCESS_PIPELINE = [
-  renameScriptAndStyleWithTag,
   mergeCdataIntoText,
+  extractInterpolation,
+  renameScriptAndStyleWithTag,
   processDirectives,
   addIsSelfClosing,
   extractWhitespaces,
@@ -82,6 +83,63 @@ function mergeCdataIntoText(ast, options) {
   });
 }
 
+function extractInterpolation(ast, options) {
+  if (options.parser === "html") {
+    return ast;
+  }
+
+  const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
+  return mapNode(ast, node => {
+    if (!node.children) {
+      return node;
+    }
+
+    const newChildren = [];
+
+    for (const child of node.children) {
+      if (child.type !== "text") {
+        newChildren.push(child);
+        continue;
+      }
+
+      let startIndex = child.startIndex;
+      let endIndex = null;
+      const components = child.data.split(interpolationRegex);
+      for (let i = 0; i < components.length; i++, startIndex = endIndex) {
+        const data = components[i];
+
+        if (i % 2 === 0) {
+          endIndex = startIndex + data.length;
+          if (data.length !== 0) {
+            newChildren.push({ type: "text", data, startIndex, endIndex });
+          }
+          continue;
+        }
+
+        endIndex = startIndex + data.length + 4; // `{{` + `}}`
+        newChildren.push({
+          type: "interpolation",
+          startIndex,
+          endIndex,
+          children:
+            data.length === 0
+              ? []
+              : [
+                  {
+                    type: "text",
+                    startIndex: startIndex + 2,
+                    endIndex: endIndex - 2,
+                    data
+                  }
+                ]
+        });
+      }
+    }
+
+    return Object.assign({}, node, { children: newChildren });
+  });
+}
+
 /** add `startLocation` and `endLocation` field */
 function addStartAndEndLocation(ast, options) {
   const locator = new LineAndColumn(options.originalText);
@@ -104,11 +162,7 @@ function renameScriptAndStyleWithTag(ast /*, options */) {
 /** add `isSelfClosing` for void tags, directives, and comments */
 function addIsSelfClosing(ast /*, options */) {
   return mapNode(ast, node => {
-    if (
-      (node.type === "tag" && node.name in VOID_TAGS) ||
-      node.type === "directive" ||
-      node.type === "comment"
-    ) {
+    if (!node.children || (node.type === "tag" && node.name in VOID_TAGS)) {
       return Object.assign({}, node, { isSelfClosing: true });
     }
     return node;
@@ -176,7 +230,11 @@ function extractWhitespaces(ast /*, options*/) {
             return newChildren.concat(child);
           }
 
-          if (isCssStyleWhiteSpacePre || isScriptLike) {
+          if (
+            isCssStyleWhiteSpacePre ||
+            isScriptLike ||
+            node.type === "interpolation"
+          ) {
             return newChildren.concat(
               Object.assign({}, child, {
                 isWhiteSpaceSensitive: true,

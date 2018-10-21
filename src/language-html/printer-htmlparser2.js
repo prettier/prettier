@@ -7,8 +7,10 @@ const {
 } = require("../doc");
 const {
   breakParent,
+  fill,
   group,
   hardline,
+  ifBreak,
   indent,
   join,
   line,
@@ -46,33 +48,6 @@ function concat(parts) {
       : builders.concat(newParts);
 }
 
-function fill(parts) {
-  const newParts = [];
-
-  let hasSeparator = true;
-  for (const part of normalizeParts(parts)) {
-    switch (part) {
-      case line:
-      case hardline:
-      case literalline:
-      case softline:
-        newParts.push(part);
-        hasSeparator = true;
-        break;
-      default:
-        if (!hasSeparator) {
-          // `fill` needs a separator between each two parts
-          newParts.push("");
-        }
-        newParts.push(part);
-        hasSeparator = false;
-        break;
-    }
-  }
-
-  return builders.fill(newParts);
-}
-
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   switch (node.type) {
@@ -93,21 +68,21 @@ function embed(path, print, textToDoc, options) {
             ])
           ]);
         }
-      } else if (options.parser !== "html") {
-        const interpolationTextParts = getInterpolationTextDataParts(
-          node,
-          textToDoc,
-          options
-        );
-        if (interpolationTextParts) {
-          return fill(
-            [].concat(
-              printOpeningTagPrefix(node),
-              interpolationTextParts,
-              printClosingTagSuffix(node)
-            )
-          );
-        }
+      } else if (node.parent.type === "interpolation") {
+        return concat([
+          indent(
+            concat([
+              softline,
+              textToDoc(node.data, {
+                parser:
+                  options.parser === "angular"
+                    ? "__ng_interpolation"
+                    : "__js_expression"
+              })
+            ])
+          ),
+          softline
+        ]);
       }
       break;
     }
@@ -153,7 +128,11 @@ function genericPrint(path, options, print) {
   const node = path.getValue();
   switch (node.type) {
     case "root":
-      return concat([group(printChildren(path, options, print)), hardline]);
+      // use original concat to not break stripTrailingHardline
+      return builders.concat([
+        group(printChildren(path, options, print)),
+        hardline
+      ]);
     case "tag":
     case "ieConditionalComment":
       return concat([
@@ -196,14 +175,35 @@ function genericPrint(path, options, print) {
         ),
         printClosingTag(node)
       ]);
-    case "text":
+    case "interpolation":
+      return concat([
+        printOpeningTagStart(node),
+        concat(path.map(print, "children")),
+        printClosingTagEnd(node)
+      ]);
+    case "text": {
+      if (node.parent.type === "interpolation") {
+        // replace the trailing literalline with hardline for better readability
+        const trailingNewlineRegex = /\n[^\S\n]*?$/;
+        const hasTrailingNewline = trailingNewlineRegex.test(node.data);
+        const data = hasTrailingNewline
+          ? node.data.replace(trailingNewlineRegex, "")
+          : node.data;
+        return concat([
+          concat(replaceNewlines(data, literalline)),
+          hasTrailingNewline ? hardline : ""
+        ]);
+      }
       return fill(
-        [].concat(
-          printOpeningTagPrefix(node),
-          getTextDataParts(node),
-          printClosingTagSuffix(node)
+        normalizeParts(
+          [].concat(
+            printOpeningTagPrefix(node),
+            getTextDataParts(node),
+            printClosingTagSuffix(node)
+          )
         )
       );
+    }
     case "comment":
     case "directive": {
       const data = getCommentData(node);
@@ -275,11 +275,7 @@ function printChildren(path, options, print) {
               ? ""
               : concat([
                   prevBetweenLine,
-                  forceNextEmptyLine(childNode.prev) ||
-                  childNode.prev.endLocation.line + 1 <
-                    childNode.startLocation.line
-                    ? hardline
-                    : ""
+                  forceNextEmptyLine(childNode.prev) ? hardline : ""
                 ]),
             printChild(childPath)
           ]);
@@ -288,33 +284,76 @@ function printChildren(path, options, print) {
     ]);
   }
 
-  const parts = [];
+  const groupIds = node.children.map(() => Symbol(""));
+  return concat(
+    path.map((childPath, childIndex) => {
+      const childNode = childPath.getValue();
 
-  path.map((childPath, childIndex) => {
-    const childNode = childPath.getValue();
+      if (childNode.type === "text") {
+        return printChild(childPath);
+      }
 
-    if (childIndex !== 0) {
-      const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
+      const prevParts = [];
+      const leadingParts = [];
+      const trailingParts = [];
+      const nextParts = [];
+
+      const prevBetweenLine = childNode.prev
+        ? printBetweenLine(childNode.prev, childNode)
+        : "";
+
+      const nextBetweenLine = childNode.next
+        ? printBetweenLine(childNode, childNode.next)
+        : "";
+
       if (prevBetweenLine) {
-        if (
-          forceNextEmptyLine(childNode.prev) ||
-          childNode.prev.endLocation.line + 1 < childNode.startLocation.line
-        ) {
-          parts.push(concat([hardline, hardline]));
+        if (forceNextEmptyLine(childNode.prev)) {
+          prevParts.push(hardline, hardline);
+        } else if (prevBetweenLine === hardline) {
+          prevParts.push(hardline);
         } else {
-          parts.push(prevBetweenLine);
+          if (childNode.prev.type === "text") {
+            leadingParts.push(prevBetweenLine);
+          } else {
+            leadingParts.push(
+              ifBreak("", softline, {
+                groupId: groupIds[childIndex - 1]
+              })
+            );
+          }
         }
       }
-    }
 
-    const childDoc = printChild(childPath);
-    Array.prototype.push.apply(
-      parts,
-      childNode.type === "text" && childDoc.parts ? childDoc.parts : [childDoc]
-    );
-  }, "children");
+      if (nextBetweenLine) {
+        if (forceNextEmptyLine(childNode)) {
+          if (childNode.next.type === "text") {
+            nextParts.push(hardline, hardline);
+          }
+        } else if (nextBetweenLine === hardline) {
+          if (childNode.next.type === "text") {
+            nextParts.push(hardline);
+          }
+        } else {
+          trailingParts.push(nextBetweenLine);
+        }
+      }
 
-  return fill(parts);
+      return concat(
+        [].concat(
+          prevParts,
+          group(
+            concat([
+              concat(leadingParts),
+              group(concat([printChild(childPath), concat(trailingParts)]), {
+                id: groupIds[childIndex]
+              })
+            ])
+          ),
+          nextParts
+        )
+      );
+    }, "children")
+  );
 
   function printChild(childPath) {
     if (!hasPrettierIgnore(childPath)) {
@@ -592,6 +631,8 @@ function printOpeningTagStartMarker(node) {
       return "<!--";
     case "ieConditionalComment":
       return `<!--[if ${node.condition}`;
+    case "interpolation":
+      return "{{";
     default:
       return `<${node.name}`;
   }
@@ -623,6 +664,8 @@ function printClosingTagEndMarker(node) {
       return "-->";
     case "ieConditionalComment":
       return `[endif]-->`;
+    case "interpolation":
+      return "}}";
     case "tag":
       if (node.isSelfClosing) {
         return "/>";
@@ -642,98 +685,6 @@ function getTextDataParts(node, data = node.data) {
           hardline
         )
     : join(line, data.split(/\s+/)).parts;
-}
-
-function getInterpolationTextDataParts(node, textToDoc, options) {
-  const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
-  if (!interpolationRegex.test(node.data)) {
-    return null;
-  }
-
-  const componentParts = [];
-  const TYPE_INTERPOLATION_FAILED = "interpolationFailed";
-  const TYPE_INTERPOLATION_IDENTIFIER = "interpolationIdentifier";
-
-  const identifierRegex = /^\w+$/;
-
-  const components = node.data.split(interpolationRegex);
-  for (let i = 0; i < components.length; i++) {
-    const component = components[i];
-
-    if (i % 2 === 0) {
-      const text =
-        (i === 0 ? "" : "}}") +
-        component +
-        (i === components.length - 1 ? "" : "{{");
-
-      componentParts.push(text);
-      continue;
-    }
-
-    const interpolation = component;
-
-    const trimmedInterpolation = interpolation.trim();
-    if (identifierRegex.test(trimmedInterpolation)) {
-      componentParts.push({
-        type: TYPE_INTERPOLATION_IDENTIFIER,
-        data: trimmedInterpolation
-      });
-      continue;
-    }
-
-    try {
-      const interpolationDoc = textToDoc(interpolation, {
-        parser:
-          options.parser === "angular"
-            ? "__ng_interpolation"
-            : "__js_expression"
-      });
-      componentParts.push(interpolationDoc);
-    } catch (e) {
-      componentParts.push({
-        type: TYPE_INTERPOLATION_FAILED,
-        data: interpolation
-      });
-    }
-  }
-
-  const parts = [];
-
-  for (let i = 0; i < componentParts.length; i++) {
-    const componentPart = componentParts[i];
-    if (i % 2 === 0) {
-      Array.prototype.push.apply(parts, getTextDataParts(node, componentPart));
-      continue;
-    }
-
-    switch (componentPart.type) {
-      case TYPE_INTERPOLATION_FAILED: {
-        const trailingNewlineRegex = /\n[^\S\n]*?$/;
-        // replace the trailing literalline with hardline for better readability
-        Array.prototype.push.apply(
-          parts,
-          [].concat(
-            replaceNewlines(
-              componentPart.data.replace(trailingNewlineRegex, ""),
-              literalline
-            ),
-            trailingNewlineRegex.test(componentPart.data) ? hardline : []
-          )
-        );
-        break;
-      }
-      case TYPE_INTERPOLATION_IDENTIFIER:
-        parts.push(componentPart.data);
-        break;
-      default:
-        parts.push(
-          group(concat([indent(concat([softline, componentPart])), softline]))
-        );
-        break;
-    }
-  }
-
-  return parts;
 }
 
 function printEmbeddedAttributeValue(node, textToDoc, options) {
