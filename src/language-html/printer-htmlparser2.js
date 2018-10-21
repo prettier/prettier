@@ -81,7 +81,10 @@ function embed(path, print, textToDoc, options) {
               })
             ])
           ),
-          softline
+          node.parent.next &&
+          needsToBorrowPrevClosingTagEndMarker(node.parent.next)
+            ? ""
+            : softline
         ]);
       }
       break;
