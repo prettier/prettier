@@ -74,6 +74,14 @@ function hasPrettierIgnore(path) {
     return false;
   }
 
+  // TODO: handle non-text children in <pre>
+  if (
+    isPreLikeNode(node) &&
+    node.children.some(child => child.type !== "text")
+  ) {
+    return true;
+  }
+
   const parentNode = path.getParentNode();
   if (!parentNode) {
     return false;
@@ -326,12 +334,14 @@ function isBlockLikeCssDisplay(cssDisplay) {
   return cssDisplay === "block" || cssDisplay.startsWith("table");
 }
 
+function isPreLikeNode(node) {
+  return ["pre", "pre-wrap"].indexOf(getNodeCssStyleWhiteSpace(node)) !== -1;
+}
+
 function getNodeCssStyleDisplay(node, prevNode, options) {
-  switch (getNodeCssStyleWhiteSpace(node)) {
-    case "pre":
-    case "pre-wrap":
-      // textarea-like
-      return "block";
+  if (isPreLikeNode(node)) {
+    // textarea-like
+    return "block";
   }
 
   if (prevNode && prevNode.type === "comment") {
