@@ -5973,23 +5973,12 @@ function printComment(commentPath, options) {
 }
 
 function isIndentableBlockComment(comment) {
-  // /**/
-  if (!comment.value) {
-    return false;
-  }
-
-  // /** foo */
-  if (comment.value.indexOf("\n") === -1) {
-    return comment.value[0] === "*"
-  }
-
-  const lines = comment.value.split("\n");
-  return (
-    lines.length > 1 &&
-    lines.slice(1, lines.length - 1).every(line => line.trim()[0] === "*") &&
-    (lines[lines.length - 1].trim() === "" ||
-      lines[lines.length - 1].trim()[0] === "*")
-  );
+  // If the comment has multiple lines and every line starts with a star
+  // we can fix the indentation of each line. The stars in the `/*` and
+  // `*/` delimiters are not included in the comment value, so add them
+  // back first.
+  const lines = `*${comment.value}*`.split("\n");
+  return lines.length > 1 && lines.every(line => line.trim()[0] === "*");
 }
 
 function printIndentableBlockComment(comment) {
