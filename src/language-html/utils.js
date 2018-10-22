@@ -331,7 +331,11 @@ function inferScriptParser(node) {
  * firstChild leadingSpaces, lastChild trailingSpaces, and danglingSpaces are insensitive
  */
 function isBlockLikeCssDisplay(cssDisplay) {
-  return cssDisplay === "block" || cssDisplay.startsWith("table");
+  return (
+    cssDisplay === "block" ||
+    cssDisplay === "list-item" ||
+    cssDisplay.startsWith("table")
+  );
 }
 
 function isPreLikeNode(node) {
