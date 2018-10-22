@@ -90,6 +90,10 @@ function embed(path, print, textToDoc, options) {
       break;
     }
     case "attribute": {
+      if (!node.value) {
+        break;
+      }
+
       const embeddedAttributeValueDoc = printEmbeddedAttributeValue(
         node,
         (code, opts) =>
