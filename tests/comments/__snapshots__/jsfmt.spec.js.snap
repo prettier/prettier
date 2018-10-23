@@ -1082,16 +1082,23 @@ onClick={() => {}}>
 
 <div>{/* comment */}</div>;
 
-<div>{/* comment
-*/}</div>;
+<div>
+  {/* comment
+   */}
+</div>;
 
-<div>{a /* comment
-*/}</div>;
+<div>
+  {
+    a
+    /* comment
+     */
+  }
+</div>;
 
 <div>
   {
     /* comment
-*/
+     */
     a
   }
 </div>;
@@ -1667,6 +1674,45 @@ function taggedTemplate() {
 function inlineComment() {
   return /* hi */ 42 || 42;
 }
+
+`;
+
+exports[`single-star-jsdoc.js - flow-verify 1`] = `
+/*
+ * Looking good!
+ */
+
+if(true) {
+    /*
+     * Oh no
+     */
+}
+
+  /** first line
+* second line
+   * third line */
+
+  /* first line
+* second line
+   * third line */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+ * Looking good!
+ */
+
+if (true) {
+  /*
+   * Oh no
+   */
+}
+
+/** first line
+ * second line
+ * third line */
+
+/* first line
+ * second line
+ * third line */
 
 `;
 
