@@ -35,6 +35,7 @@ const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
 const preprocess = require("./preprocess");
 const { printHtmlBinding } = require("./html-binding");
+const { hasFlowShorthandAnnotationComment } = require("./utils");
 
 const {
   builders: {
@@ -167,6 +168,14 @@ function genericPrint(path, options, printPath, args) {
   parts.push(linesWithoutParens);
 
   if (needsParens) {
+    const node = path.getValue();
+    if (hasFlowShorthandAnnotationComment(node)) {
+      parts.push(" /*");
+      parts.push(node.trailingComments[0].value.trimLeft());
+      parts.push("*/");
+      node.trailingComments[0].printed = true;
+    }
+
     parts.push(")");
   }
 
@@ -2845,14 +2854,36 @@ function printPathNoParens(path, options, print, args) {
 
       return group(concat(parts));
     }
-    case "TypeCastExpression":
+    case "TypeCastExpression": {
+      const value = path.getValue();
+      // Flow supports a comment syntax for specifying type annotations: https://flow.org/en/docs/types/comments/.
+      // Unfortunately, its parser doesn't differentiate between comment annotations and regular
+      // annotations when producing an AST. So to preserve parentheses around type casts that use
+      // the comment syntax, we need to hackily read the source itself to see if the code contains
+      // a type annotation comment.
+      //
+      // Note that we're able to use the normal whitespace regex here because the Flow parser has
+      // already deemed this AST node to be a type cast. Only the Babylon parser needs the
+      // non-line-break whitespace regex, which is why hasFlowShorthandAnnotationComment() is
+      // implemented differently.
+      const commentSyntax =
+        value &&
+        value.typeAnnotation &&
+        value.typeAnnotation.range &&
+        options.originalText
+          .substring(value.typeAnnotation.range[0])
+          .match(/^\/\*\s*:/);
       return concat([
         "(",
         path.call(print, "expression"),
+        commentSyntax ? " /*" : "",
         ": ",
         path.call(print, "typeAnnotation"),
+        commentSyntax ? " */" : "",
         ")"
       ]);
+    }
+
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation":
     case "TSTypeParameterDeclaration":
@@ -6094,7 +6125,7 @@ function willPrintOwnComments(path) {
   const parent = path.getParentNode();
 
   return (
-    ((node && isJSXNode(node)) ||
+    ((node && (isJSXNode(node) || hasFlowShorthandAnnotationComment(node))) ||
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||
@@ -6127,8 +6158,8 @@ function printComment(commentPath, options) {
   switch (comment.type) {
     case "CommentBlock":
     case "Block": {
-      if (isJsDocComment(comment)) {
-        const printed = printJsDocComment(comment);
+      if (isIndentableBlockComment(comment)) {
+        const printed = printIndentableBlockComment(comment);
         // We need to prevent an edge case of a previous trailing comment
         // printed as a `lineSuffix` which causes the comments to be
         // interleaved. See https://github.com/prettier/prettier/issues/4412
@@ -6162,15 +6193,16 @@ function printComment(commentPath, options) {
   }
 }
 
-function isJsDocComment(comment) {
-  const lines = comment.value.split("\n");
-  return (
-    lines.length > 1 &&
-    lines.slice(0, lines.length - 1).every(line => line.trim()[0] === "*")
-  );
+function isIndentableBlockComment(comment) {
+  // If the comment has multiple lines and every line starts with a star
+  // we can fix the indentation of each line. The stars in the `/*` and
+  // `*/` delimiters are not included in the comment value, so add them
+  // back first.
+  const lines = `*${comment.value}*`.split("\n");
+  return lines.length > 1 && lines.every(line => line.trim()[0] === "*");
 }
 
-function printJsDocComment(comment) {
+function printIndentableBlockComment(comment) {
   const lines = comment.value.split("\n");
 
   return concat([
@@ -6179,7 +6211,7 @@ function printJsDocComment(comment) {
       hardline,
       lines.map(
         (line, index) =>
-          (index > 0 ? " " : "") +
+          (index === 0 && line[0] === "*" ? "" : " ") +
           (index < lines.length - 1 ? line.trim() : line.trimLeft())
       )
     ),

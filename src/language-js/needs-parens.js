@@ -4,6 +4,7 @@ const assert = require("assert");
 
 const util = require("../common/util");
 const comments = require("./comments");
+const { hasFlowShorthandAnnotationComment } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
   // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
@@ -70,6 +71,16 @@ function needsParens(path, options) {
       options.locStart,
       options.locEnd
     )
+  ) {
+    return true;
+  }
+
+  if (
+    // Preserve parens if we have a Flow annotation comment, unless we're using the Flow
+    // parser. The Flow parser turns Flow comments into type annotation nodes in its
+    // AST, which we handle separately.
+    options.parser !== "flow" &&
+    hasFlowShorthandAnnotationComment(path.getValue())
   ) {
     return true;
   }
