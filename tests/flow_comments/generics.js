@@ -7,3 +7,5 @@ const Component = branch/*::     <Props, ExternalProps> */(
 const C = b/*:: <A> */(foo) + c/*:: <B> */(bar);
 
 foo/*::<bar>*/(baz);
+
+foo/*::<bar>*/();
