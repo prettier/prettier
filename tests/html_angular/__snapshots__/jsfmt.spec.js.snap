@@ -986,10 +986,9 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="statement-context">Statement context</h2>
 
-<p>
-  Component statement context ( (click)="onSave() )
-  <div class="context"><button (click)="deleteHero()">Delete hero</button></div>
-</p>
+<p>Component statement context ( (click)="onSave() )</p>
+<div class="context"><button (click)="deleteHero()">Delete hero</button></div>
+
 <p>Template $event statement context</p>
 <div class="context"><button (click)="onSave($event)">Save</button></div>
 

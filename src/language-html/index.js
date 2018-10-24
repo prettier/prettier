@@ -1,6 +1,6 @@
 "use strict";
 
-const printer = require("./printer-htmlparser2");
+const printer = require("./printer-html");
 const createLanguage = require("../utils/create-language");
 const options = require("./options");
 
@@ -33,7 +33,7 @@ const languages = [
 ];
 
 const printers = {
-  htmlparser2: printer
+  html: printer
 };
 
 module.exports = {

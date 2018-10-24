@@ -20,6 +20,7 @@
     "@glimmer/syntax": "0.30.3",
     "@iarna/toml": "2.0.0",
     "angular-estree-parser": "1.1.0",
+    "angular-html-parser": "1.0.0",
     "camelcase": "4.1.0",
     "chalk": "2.1.0",
     "cjk-regex": "2.0.0",

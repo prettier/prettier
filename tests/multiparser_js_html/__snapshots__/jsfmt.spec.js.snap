@@ -67,6 +67,7 @@ class MyElement extends LitElement {
           color: green;
         }
       </style>
+
       Web Components are <span class="mood">\${this.mood}</span>!
     \`;
   }

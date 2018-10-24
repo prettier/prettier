@@ -18,40 +18,6 @@ const htmlElementAttributes = require("html-element-attributes");
 const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
 
-// NOTE: must be same as the one in htmlparser2 so that the parsing won't be inconsistent
-//       https://github.com/fb55/htmlparser2/blob/v3.9.2/lib/Parser.js#L59-L91
-const VOID_TAGS = arrayToMap([
-  "area",
-  "base",
-  "basefont",
-  "br",
-  "col",
-  "command",
-  "embed",
-  "frame",
-  "hr",
-  "img",
-  "input",
-  "isindex",
-  "keygen",
-  "link",
-  "meta",
-  "param",
-  "source",
-  "track",
-  "wbr",
-
-  "path",
-  "circle",
-  "ellipse",
-  "line",
-  "rect",
-  "use",
-  "stop",
-  "polyline",
-  "polygon"
-]);
-
 function arrayToMap(array) {
   const map = Object.create(null);
   for (const value of array) {
@@ -97,11 +63,11 @@ function hasPrettierIgnore(path) {
 }
 
 function isPrettierIgnore(node) {
-  return node.type === "comment" && node.data.trim() === "prettier-ignore";
+  return node.type === "comment" && node.value.trim() === "prettier-ignore";
 }
 
-function isTag(node, nameOrNames) {
-  if (node.type !== "tag") {
+function isElement(node, nameOrNames) {
+  if (node.type !== "element") {
     return false;
   }
 
@@ -117,7 +83,7 @@ function isTag(node, nameOrNames) {
 }
 
 function isScriptLikeTag(node) {
-  return isTag(node, ["script", "style"]);
+  return isElement(node, ["script", "style"]);
 }
 
 function isFrontMatterNode(node) {
@@ -224,7 +190,8 @@ function replaceDocNewlines(doc, replacement) {
 function forceNextEmptyLine(node) {
   return (
     isFrontMatterNode(node) ||
-    (node.next && node.endLocation.line + 1 < node.next.startLocation.line)
+    (node.next &&
+      node.sourceSpan.end.line + 1 < node.next.sourceSpan.start.line)
   );
 }
 
@@ -232,7 +199,7 @@ function forceNextEmptyLine(node) {
 function forceBreakContent(node) {
   return (
     forceBreakChildren(node) ||
-    (isTag(node) &&
+    (isElement(node) &&
       node.children.length !== 0 &&
       (["body", "template"].indexOf(node.name) !== -1 ||
         node.children.some(child => hasNonTextChild(child))))
@@ -242,7 +209,7 @@ function forceBreakContent(node) {
 /** spaces between children */
 function forceBreakChildren(node) {
   return (
-    isTag(node) &&
+    isElement(node) &&
     node.children.length !== 0 &&
     (["html", "head", "ul", "ol", "select", "script", "style"].indexOf(
       node.name
@@ -259,10 +226,7 @@ function preferHardlineAsLeadingSpaces(node) {
 }
 
 function preferHardlineAsTrailingSpaces(node) {
-  return (
-    preferHardlineAsSurroundingSpaces(node) ||
-    (isTag(node) && node.name === "br")
-  );
+  return preferHardlineAsSurroundingSpaces(node) || isElement(node, "br");
 }
 
 function preferHardlineAsSurroundingSpaces(node) {
@@ -271,7 +235,7 @@ function preferHardlineAsSurroundingSpaces(node) {
     case "comment":
     case "directive":
       return true;
-    case "tag":
+    case "element":
       return ["script", "select"].indexOf(node.name) !== -1;
   }
   return false;
@@ -286,40 +250,45 @@ function hasNonTextChild(node) {
 }
 
 function inferScriptParser(node) {
-  if (node.name === "script" && !node.attribs.src) {
+  const attrMap = node.attrs.reduce((reduced, attr) => {
+    reduced[attr.name] = attr.value;
+    return reduced;
+  }, {});
+
+  if (node.name === "script" && !attrMap.src) {
     if (
-      (!node.attribs.lang && !node.attribs.type) ||
-      node.attribs.type === "module" ||
-      node.attribs.type === "text/javascript" ||
-      node.attribs.type === "text/babel" ||
-      node.attribs.type === "application/javascript"
+      (!attrMap.lang && !attrMap.type) ||
+      attrMap.type === "module" ||
+      attrMap.type === "text/javascript" ||
+      attrMap.type === "text/babel" ||
+      attrMap.type === "application/javascript"
     ) {
       return "babylon";
     }
 
     if (
-      node.attribs.type === "application/x-typescript" ||
-      node.attribs.lang === "ts" ||
-      node.attribs.lang === "tsx"
+      attrMap.type === "application/x-typescript" ||
+      attrMap.lang === "ts" ||
+      attrMap.lang === "tsx"
     ) {
       return "typescript";
     }
 
-    if (node.attribs.type === "text/markdown") {
+    if (attrMap.type === "text/markdown") {
       return "markdown";
     }
   }
 
   if (node.name === "style") {
-    if (!node.attribs.lang || node.attribs.lang === "postcss") {
+    if (!attrMap.lang || attrMap.lang === "postcss") {
       return "css";
     }
 
-    if (node.attribs.lang === "scss") {
+    if (attrMap.lang === "scss") {
       return "scss";
     }
 
-    if (node.attribs.lang === "less") {
+    if (attrMap.lang === "less") {
       return "less";
     }
   }
@@ -350,7 +319,7 @@ function getNodeCssStyleDisplay(node, prevNode, options) {
 
   if (prevNode && prevNode.type === "comment") {
     // <!-- display: block -->
-    const match = prevNode.data.match(/^\s*display:\s*([a-z]+)\s*$/);
+    const match = prevNode.value.match(/^\s*display:\s*([a-z]+)\s*$/);
     if (match) {
       return match[1];
     }
@@ -362,25 +331,26 @@ function getNodeCssStyleDisplay(node, prevNode, options) {
     case "ignore":
       return "block";
     default:
-      if (isTag(node, "template")) {
+      if (isElement(node, "template")) {
         return "inline";
       }
       return (
-        (isTag(node) && CSS_DISPLAY_TAGS[node.name]) || CSS_DISPLAY_DEFAULT
+        (isElement(node) && CSS_DISPLAY_TAGS[node.name]) || CSS_DISPLAY_DEFAULT
       );
   }
 }
 
 function getNodeCssStyleWhiteSpace(node) {
   return (
-    (isTag(node) && CSS_WHITE_SPACE_TAGS[node.name]) || CSS_WHITE_SPACE_DEFAULT
+    (isElement(node) && CSS_WHITE_SPACE_TAGS[node.name]) ||
+    CSS_WHITE_SPACE_DEFAULT
   );
 }
 
 function getCommentData(node) {
-  const rightTrimmedData = node.data.trimRight();
+  const rightTrimmedValue = node.value.trimRight();
 
-  const hasLeadingEmptyLine = /^[^\S\n]*?\n/.test(node.data);
+  const hasLeadingEmptyLine = /^[^\S\n]*?\n/.test(node.value);
   if (hasLeadingEmptyLine) {
     /**
      *     <!--
@@ -388,7 +358,7 @@ function getCommentData(node) {
      *        456
      *     -->
      */
-    return dedentString(rightTrimmedData.replace(/^\s*\n/, ""));
+    return dedentString(rightTrimmedValue.replace(/^\s*\n/, ""));
   }
 
   /**
@@ -401,19 +371,19 @@ function getCommentData(node) {
    *
    *     -->
    */
-  if (!rightTrimmedData.includes("\n")) {
-    return rightTrimmedData.trimLeft();
+  if (!rightTrimmedValue.includes("\n")) {
+    return rightTrimmedValue.trimLeft();
   }
 
-  const firstNewlineIndex = rightTrimmedData.indexOf("\n");
-  const dataWithoutLeadingLine = rightTrimmedData.slice(firstNewlineIndex + 1);
+  const firstNewlineIndex = rightTrimmedValue.indexOf("\n");
+  const dataWithoutLeadingLine = rightTrimmedValue.slice(firstNewlineIndex + 1);
   const minIndentationForDataWithoutLeadingLine = getMinIndentation(
     dataWithoutLeadingLine
   );
 
-  const leadingSpaces = rightTrimmedData.match(/^[^\n\S]*/)[0].length;
+  const leadingSpaces = rightTrimmedValue.match(/^[^\n\S]*/)[0].length;
   const commentDataStartColumn =
-    node.startLocation.column + "<!--".length + leadingSpaces;
+    node.sourceSpan.start.col + "<!--".length + leadingSpaces;
 
   /**
    *     <!-- 123
@@ -421,17 +391,18 @@ function getCommentData(node) {
    */
   if (minIndentationForDataWithoutLeadingLine >= commentDataStartColumn) {
     return dedentString(
-      " ".repeat(commentDataStartColumn) + rightTrimmedData.slice(leadingSpaces)
+      " ".repeat(commentDataStartColumn) +
+        rightTrimmedValue.slice(leadingSpaces)
     );
   }
 
-  const leadingLineData = rightTrimmedData.slice(0, firstNewlineIndex);
+  const leadingLineValue = rightTrimmedValue.slice(0, firstNewlineIndex);
   /**
    *     <!-- 123
    *     456 -->
    */
   return (
-    leadingLineData.trim() +
+    leadingLineValue.trim() +
     "\n" +
     dedentString(
       dataWithoutLeadingLine,
@@ -513,7 +484,6 @@ function identity(x) {
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
-  VOID_TAGS,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
