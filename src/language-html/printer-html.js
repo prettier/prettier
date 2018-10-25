@@ -159,7 +159,7 @@ function genericPrint(path, options, print) {
                     : indent)(
                     concat([
                       node.firstChild.type === "text" &&
-                      node.firstChild.isWhiteSpaceSensitive &&
+                      node.firstChild.isWhitespaceSensitive &&
                       node.firstChild.isIndentationSensitive
                         ? literalline
                         : node.firstChild.hasLeadingSpaces &&
@@ -689,7 +689,7 @@ function printClosingTagEndMarker(node) {
 }
 
 function getTextValueParts(node, value = node.value) {
-  return node.isWhiteSpaceSensitive
+  return node.isWhitespaceSensitive
     ? node.isIndentationSensitive
       ? replaceNewlines(value.replace(/^\s*?\n|\n\s*?$/g, ""), literalline)
       : replaceNewlines(

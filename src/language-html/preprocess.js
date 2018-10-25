@@ -1,13 +1,14 @@
 "use strict";
 
 const {
+  canHaveInterpolation,
   getNodeCssStyleDisplay,
-  getNodeCssStyleWhiteSpace,
   getPrevNode,
   isDanglingSpaceSensitiveNode,
+  isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
-  isScriptLikeTag,
   isTrailingSpaceSensitiveNode,
+  isWhitespaceSensitiveNode,
   mapNode
 } = require("./utils");
 
@@ -80,7 +81,7 @@ function extractInterpolation(ast, options) {
 
   const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
   return mapNode(ast, node => {
-    if (!node.children || isScriptLikeTag(node)) {
+    if (!canHaveInterpolation(node)) {
       return node;
     }
 
@@ -145,7 +146,9 @@ function addIsSelfClosing(ast /*, options */) {
     if (
       !node.children ||
       (node.type === "element" &&
-        (node.isVoid || node.startSourceSpan === node.endSourceSpan))
+        (node.tagDefinition.isVoid ||
+          // self-closing
+          node.startSourceSpan === node.endSourceSpan))
     ) {
       return Object.assign({}, node, { isSelfClosing: true });
     }
@@ -157,7 +160,7 @@ function addIsSelfClosing(ast /*, options */) {
  * - add `hasLeadingSpaces` field
  * - add `hasTrailingSpaces` field
  * - add `hasDanglingSpaces` field for parent nodes
- * - add `isWhiteSpaceSensitive`, `isIndentationSensitive` field for text nodes
+ * - add `isWhitespaceSensitive`, `isIndentationSensitive` field for text nodes
  * - remove insensitive whitespaces
  */
 function extractWhitespaces(ast /*, options*/) {
@@ -179,9 +182,8 @@ function extractWhitespaces(ast /*, options*/) {
       });
     }
 
-    const cssStyleWhiteSpace = getNodeCssStyleWhiteSpace(node);
-    const isCssStyleWhiteSpacePre = cssStyleWhiteSpace.startsWith("pre");
-    const isScriptLike = isScriptLikeTag(node);
+    const isWhitespaceSensitive = isWhitespaceSensitiveNode(node);
+    const isIndentationSensitive = isIndentationSensitiveNode(node);
 
     return Object.assign({}, node, {
       children: node.children
@@ -191,15 +193,11 @@ function extractWhitespaces(ast /*, options*/) {
             return newChildren.concat(child);
           }
 
-          if (
-            isCssStyleWhiteSpacePre ||
-            isScriptLike ||
-            node.type === "interpolation"
-          ) {
+          if (isWhitespaceSensitive) {
             return newChildren.concat(
               Object.assign({}, child, {
-                isWhiteSpaceSensitive: true,
-                isIndentationSensitive: isCssStyleWhiteSpacePre
+                isWhitespaceSensitive,
+                isIndentationSensitive
               })
             );
           }

@@ -90,6 +90,22 @@ function isFrontMatterNode(node) {
   return node.type === "yaml" || node.type === "toml";
 }
 
+function canHaveInterpolation(node) {
+  return node.children && !isScriptLikeTag(node);
+}
+
+function isWhitespaceSensitiveNode(node) {
+  return (
+    isScriptLikeTag(node) ||
+    node.type === "interpolation" ||
+    isIndentationSensitiveNode(node)
+  );
+}
+
+function isIndentationSensitiveNode(node) {
+  return getNodeCssStyleWhiteSpace(node).startsWith("pre");
+}
+
 function isLeadingSpaceSensitiveNode(node, { prev, parent }) {
   if (isFrontMatterNode(node)) {
     return false;
@@ -201,7 +217,7 @@ function forceBreakContent(node) {
     forceBreakChildren(node) ||
     (isElement(node) &&
       node.children.length !== 0 &&
-      (["body", "template"].indexOf(node.name) !== -1 ||
+      (["body", "template", "script", "style"].indexOf(node.name) !== -1 ||
         node.children.some(child => hasNonTextChild(child))))
   );
 }
@@ -211,9 +227,7 @@ function forceBreakChildren(node) {
   return (
     isElement(node) &&
     node.children.length !== 0 &&
-    (["html", "head", "ul", "ol", "select", "script", "style"].indexOf(
-      node.name
-    ) !== -1 ||
+    (["html", "head", "ul", "ol", "select"].indexOf(node.name) !== -1 ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
   );
 }
@@ -308,7 +322,7 @@ function isBlockLikeCssDisplay(cssDisplay) {
 }
 
 function isPreLikeNode(node) {
-  return ["pre", "pre-wrap"].indexOf(getNodeCssStyleWhiteSpace(node)) !== -1;
+  return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
 function getNodeCssStyleDisplay(node, prevNode, options) {
@@ -484,6 +498,7 @@ function identity(x) {
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
+  canHaveInterpolation,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
@@ -498,9 +513,11 @@ module.exports = {
   inferScriptParser,
   isDanglingSpaceSensitiveNode,
   isFrontMatterNode,
+  isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isScriptLikeTag,
   isTrailingSpaceSensitiveNode,
+  isWhitespaceSensitiveNode,
   mapNode,
   normalizeParts,
   preferHardlineAsLeadingSpaces,

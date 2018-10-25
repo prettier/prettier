@@ -106,9 +106,9 @@ function ngHtmlParser(input, canSelfClose) {
     }
   };
 
-  const addIsVoid = node => {
+  const addTagDefinition = node => {
     if (node instanceof Element) {
-      node.isVoid = getHtmlTagDefinition(node.name).isVoid;
+      node.tagDefinition = getHtmlTagDefinition(node.name);
     }
   };
 
@@ -118,7 +118,7 @@ function ngHtmlParser(input, canSelfClose) {
         addType(node);
         restoreNameAndValue(node);
         normalizeName(node);
-        addIsVoid(node);
+        addTagDefinition(node);
         fixSourceSpan(node);
       }
     }(),
