@@ -211,7 +211,7 @@ exports[`attributes.component.html - angular-verify 2`] = `
   [target]="{ a: 1 }"
   [target]="{ a: 1 }"
   [target]="{
-    trailingComma: 'notAllowed',
+    trailingComma: 'notAllowed'
   }"
   [target]="true"
   [target]="undefined"

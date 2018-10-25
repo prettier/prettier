@@ -76,12 +76,12 @@ function embed(path, print, textToDoc, options) {
           indent(
             concat([
               softline,
-              textToDoc(node.value, {
-                parser:
-                  options.parser === "angular"
-                    ? "__ng_interpolation"
-                    : "__js_expression"
-              })
+              textToDoc(
+                node.value,
+                options.parser === "angular"
+                  ? { parser: "__ng_interpolation", trailingComma: "none" }
+                  : { parser: "__js_expression" }
+              )
             ])
           ),
           node.parent.next &&
@@ -790,11 +790,17 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
     const ngExpressionBindingPatterns = ["^\\[.+\\]$", "^bind(on)?-"];
 
     if (isKeyMatched(ngStatementBindingPatterns)) {
-      return textToDoc(getValue(), { parser: "__ng_action" });
+      return textToDoc(getValue(), {
+        parser: "__ng_action",
+        trailingComma: "none"
+      });
     }
 
     if (isKeyMatched(ngExpressionBindingPatterns)) {
-      return textToDoc(getValue(), { parser: "__ng_binding" });
+      return textToDoc(getValue(), {
+        parser: "__ng_binding",
+        trailingComma: "none"
+      });
     }
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {
@@ -803,7 +809,10 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
           indent(
             concat([
               softline,
-              textToDoc(getValue(), { parser: "__ng_directive" })
+              textToDoc(getValue(), {
+                parser: "__ng_directive",
+                trailingComma: "none"
+              })
             ])
           ),
           softline
