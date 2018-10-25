@@ -2736,6 +2736,8 @@ exports[`textarea.html - html-verify 1`] = `
   </div>
 </div>
 <textarea></textarea>
+
+<div><textarea>lorem ipsum</textarea></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
   <div>
@@ -2765,6 +2767,12 @@ exports[`textarea.html - html-verify 1`] = `
   </div>
 </div>
 <textarea></textarea>
+
+<div>
+  <textarea>
+lorem ipsum
+  </textarea>
+</div>
 
 `;
 
@@ -2797,6 +2805,8 @@ exports[`textarea.html - html-verify 2`] = `
   </div>
 </div>
 <textarea></textarea>
+
+<div><textarea>lorem ipsum</textarea></div>
 ~
 <div>
   <div>
@@ -2831,6 +2841,12 @@ exports[`textarea.html - html-verify 2`] = `
 </div>
 <textarea></textarea>
 
+<div>
+  <textarea>
+lorem ipsum
+  </textarea>
+</div>
+
 `;
 
 exports[`textarea.html - html-verify 3`] = `
@@ -2862,6 +2878,8 @@ exports[`textarea.html - html-verify 3`] = `
   </div>
 </div>
 <textarea></textarea>
+
+<div><textarea>lorem ipsum</textarea></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
   <div>
@@ -2891,6 +2909,12 @@ exports[`textarea.html - html-verify 3`] = `
   </div>
 </div>
 <textarea></textarea>
+
+<div>
+  <textarea>
+lorem ipsum
+  </textarea>
+</div>
 
 `;
 
@@ -2923,6 +2947,8 @@ exports[`textarea.html - html-verify 4`] = `
   </div>
 </div>
 <textarea></textarea>
+
+<div><textarea>lorem ipsum</textarea></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
   <div>
@@ -2952,6 +2978,12 @@ exports[`textarea.html - html-verify 4`] = `
   </div>
 </div>
 <textarea></textarea>
+
+<div
+  ><textarea>
+lorem ipsum
+  </textarea></div
+>
 
 `;
 
@@ -2984,6 +3016,8 @@ exports[`textarea.html - html-verify 5`] = `
   </div>
 </div>
 <textarea></textarea>
+
+<div><textarea>lorem ipsum</textarea></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>
   <div>
@@ -3013,6 +3047,12 @@ exports[`textarea.html - html-verify 5`] = `
   </div>
 </div>
 <textarea></textarea>
+
+<div>
+  <textarea>
+lorem ipsum
+  </textarea>
+</div>
 
 `;
 
