@@ -1288,6 +1288,10 @@ function printPathNoParens(path, options, print, args) {
         return result;
       });
 
+      if (n.inexact) {
+        props.push(concat(separatorParts.concat(group("..."))));
+      }
+
       const lastElem = getLast(n[propertiesField]);
 
       const canHaveTrailingSeparator = !(
