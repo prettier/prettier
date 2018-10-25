@@ -19,6 +19,7 @@ const {
   softline
 } = builders;
 const {
+  countParents,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
@@ -28,6 +29,8 @@ const {
   hasPrettierIgnore,
   identity,
   inferScriptParser,
+  isElement,
+  isPreLikeNode,
   isScriptLikeTag,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
@@ -161,7 +164,9 @@ function genericPrint(path, options, print) {
                       node.firstChild.type === "text" &&
                       node.firstChild.isWhitespaceSensitive &&
                       node.firstChild.isIndentationSensitive
-                        ? literalline
+                        ? node.firstChild.value.indexOf("\n") === -1
+                          ? ""
+                          : literalline
                         : node.firstChild.hasLeadingSpaces &&
                           node.firstChild.isLeadingSpaceSensitive
                           ? line
@@ -179,7 +184,27 @@ function genericPrint(path, options, print) {
                     : node.lastChild.hasTrailingSpaces &&
                       node.lastChild.isTrailingSpaceSensitive
                       ? line
-                      : softline
+                      : isElement(node) &&
+                        isPreLikeNode(node) &&
+                        node.lastChild.type === "text" &&
+                        (node.lastChild.value.indexOf("\n") === -1 ||
+                          new RegExp(
+                            `\\n\\s{${options.tabWidth *
+                              countParents(
+                                path,
+                                n => n.parent && n.parent.type !== "root"
+                              )}}$`
+                          ).test(node.lastChild.value))
+                        ? /**
+                           *     <div>
+                           *       <pre>
+                           *         something
+                           *       </pre>
+                           *            ~
+                           *     </div>
+                           */
+                          ""
+                        : softline
                 ])
           ])
         ),
@@ -691,7 +716,7 @@ function printClosingTagEndMarker(node) {
 function getTextValueParts(node, value = node.value) {
   return node.isWhitespaceSensitive
     ? node.isIndentationSensitive
-      ? replaceNewlines(value.replace(/^\s*?\n|\n\s*?$/g, ""), literalline)
+      ? replaceNewlines(value, literalline)
       : replaceNewlines(
           dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
           hardline

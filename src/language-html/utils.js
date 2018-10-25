@@ -115,6 +115,14 @@ function isLeadingSpaceSensitiveNode(node, { prev, parent }) {
     return false;
   }
 
+  if (!node.prev && isElement(parent) && parent.tagDefinition.ignoreFirstLf) {
+    return false;
+  }
+
+  if (isPreLikeNode(parent)) {
+    return true;
+  }
+
   if (
     !prev &&
     (parent.type === "root" ||
@@ -138,6 +146,10 @@ function isTrailingSpaceSensitiveNode(node, { next, parent }) {
 
   if (!parent || parent.cssDisplay === "none") {
     return false;
+  }
+
+  if (isPreLikeNode(parent)) {
+    return true;
   }
 
   if (
@@ -325,12 +337,23 @@ function isPreLikeNode(node) {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
-function getNodeCssStyleDisplay(node, prevNode, options) {
-  if (isPreLikeNode(node)) {
-    // textarea-like
-    return "block";
+function countParents(path, predicate = () => true) {
+  let counter = 0;
+  for (let i = path.stack.length - 1; i >= 0; i--) {
+    const value = path.stack[i];
+    if (
+      value &&
+      typeof value === "object" &&
+      !Array.isArray(value) &&
+      predicate(value)
+    ) {
+      counter++;
+    }
   }
+  return counter;
+}
 
+function getNodeCssStyleDisplay(node, prevNode, options) {
   if (prevNode && prevNode.type === "comment") {
     // <!-- display: block -->
     const match = prevNode.value.match(/^\s*display:\s*([a-z]+)\s*$/);
@@ -499,6 +522,7 @@ module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   canHaveInterpolation,
+  countParents,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
@@ -512,9 +536,11 @@ module.exports = {
   identity,
   inferScriptParser,
   isDanglingSpaceSensitiveNode,
+  isElement,
   isFrontMatterNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
+  isPreLikeNode,
   isScriptLikeTag,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,

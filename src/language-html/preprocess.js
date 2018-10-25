@@ -13,6 +13,7 @@ const {
 } = require("./utils");
 
 const PREPROCESS_PIPELINE = [
+  removeIgnorableFirstLf,
   mergeCdataIntoText,
   extractInterpolation,
   addIsSelfClosing,
@@ -27,6 +28,30 @@ function preprocess(ast, options) {
     ast = fn(ast, options);
   }
   return ast;
+}
+
+function removeIgnorableFirstLf(ast /*, options */) {
+  return mapNode(ast, node => {
+    if (
+      node.type === "element" &&
+      node.tagDefinition.ignoreFirstLf &&
+      node.children.length !== 0 &&
+      node.children[0].type === "text" &&
+      node.children[0].value[0] === "\n"
+    ) {
+      const text = node.children[0];
+      return Object.assign({}, node, {
+        children:
+          text.value.length === 1
+            ? node.children.slice(1)
+            : [].concat(
+                Object.assign({}, text, { value: text.value.slice(1) }),
+                node.children.slice(1)
+              )
+      });
+    }
+    return node;
+  });
 }
 
 function mergeCdataIntoText(ast /*, options */) {

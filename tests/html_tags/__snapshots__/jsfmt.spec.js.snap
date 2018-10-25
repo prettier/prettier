@@ -638,19 +638,16 @@ ___________________________
    both             spaces and
 
    line breaks
+
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar     </pre>
 <pre>
      Foo     Bar
 </pre>
 <pre>
 Foo     Bar
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar</pre>
 <figure role="img" aria-labelledby="cow-caption">
   <pre>
 ___________________________
@@ -810,19 +807,16 @@ ___________________________
    both             spaces and
 
    line breaks
+
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar     </pre>
 <pre>
      Foo     Bar
 </pre>
 <pre>
 Foo     Bar
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar</pre>
 <figure
   role="img"
   aria-labelledby="cow-caption"
@@ -1002,19 +996,16 @@ ___________________________
    both             spaces and
 
    line breaks
+
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar     </pre>
 <pre>
      Foo     Bar
 </pre>
 <pre>
 Foo     Bar
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar</pre>
 <figure role="img" aria-labelledby="cow-caption">
   <pre>
 ___________________________
@@ -1164,19 +1155,16 @@ ___________________________
    both             spaces and
 
    line breaks
+
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar     </pre>
 <pre>
      Foo     Bar
 </pre>
 <pre>
 Foo     Bar
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar</pre>
 <figure role="img" aria-labelledby="cow-caption">
   <pre>
 ___________________________
@@ -1336,19 +1324,16 @@ ___________________________
    both             spaces and
 
    line breaks
+
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar     </pre>
 <pre>
      Foo     Bar
 </pre>
 <pre>
 Foo     Bar
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar</pre>
 <figure role="img" aria-labelledby="cow-caption">
   <pre>
 ___________________________
@@ -2768,11 +2753,7 @@ exports[`textarea.html - html-verify 1`] = `
 </div>
 <textarea></textarea>
 
-<div>
-  <textarea>
-lorem ipsum
-  </textarea>
-</div>
+<div><textarea>lorem ipsum</textarea></div>
 
 `;
 
@@ -2842,9 +2823,7 @@ exports[`textarea.html - html-verify 2`] = `
 <textarea></textarea>
 
 <div>
-  <textarea>
-lorem ipsum
-  </textarea>
+  <textarea>lorem ipsum</textarea>
 </div>
 
 `;
@@ -2910,11 +2889,7 @@ exports[`textarea.html - html-verify 3`] = `
 </div>
 <textarea></textarea>
 
-<div>
-  <textarea>
-lorem ipsum
-  </textarea>
-</div>
+<div><textarea>lorem ipsum</textarea></div>
 
 `;
 
@@ -2979,11 +2954,7 @@ exports[`textarea.html - html-verify 4`] = `
 </div>
 <textarea></textarea>
 
-<div
-  ><textarea>
-lorem ipsum
-  </textarea></div
->
+<div><textarea>lorem ipsum</textarea></div>
 
 `;
 
@@ -3048,11 +3019,7 @@ exports[`textarea.html - html-verify 5`] = `
 </div>
 <textarea></textarea>
 
-<div>
-  <textarea>
-lorem ipsum
-  </textarea>
-</div>
+<div><textarea>lorem ipsum</textarea></div>
 
 `;
 
