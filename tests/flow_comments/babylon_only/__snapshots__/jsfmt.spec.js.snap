@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class_with_generics.js - babylon-verify 1`] = `
+import React from 'react';
+
+/*:: type Props = {
+  foo?: ?string,
+  bar: number,
+}; */
+
+/*:: type State = { baz: number }; */
+
+class Component extends React.Component/*:: <Props, State> */ {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import React from "react";
+
+/*:: type Props = {
+  foo?: ?string,
+  bar: number,
+}; */
+
+/*:: type State = { baz: number }; */
+
+class Component extends React.Component /*:: <Props, State> */ {
+}
+
+`;

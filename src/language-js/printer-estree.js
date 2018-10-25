@@ -35,7 +35,10 @@ const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
 const preprocess = require("./preprocess");
 const { printHtmlBinding } = require("./html-binding");
-const { hasFlowShorthandAnnotationComment } = require("./utils");
+const {
+  hasFlowAnnotationComment,
+  hasFlowShorthandAnnotationComment
+} = require("./utils");
 
 const {
   builders: {
@@ -1124,6 +1127,19 @@ function printPathNoParens(path, options, print, args) {
         ]);
       }
 
+      // Inline Flow annotation comments following Identifiers in Call nodes need to
+      // stay with the Identifier. For example:
+      //
+      // foo /*:: <SomeGeneric> */(bar);
+      //
+      // Here, we ensure that such comments stay between the Identifier and the Callee.
+      const isIdentifierWithFlowAnnotation =
+        n.callee.type === "Identifier" &&
+        hasFlowAnnotationComment(n.callee.trailingComments);
+      if (isIdentifierWithFlowAnnotation) {
+        n.callee.trailingComments[0].printed = true;
+      }
+
       // We detect calls on member lookups and possibly print them in a
       // special chain format. See `printMemberChain` for more info.
       if (!isNew && isMemberish(n.callee)) {
@@ -1134,6 +1150,9 @@ function printPathNoParens(path, options, print, args) {
         isNew ? "new " : "",
         path.call(print, "callee"),
         optional,
+        isIdentifierWithFlowAnnotation
+          ? `/*:: ${n.callee.trailingComments[0].value.substring(2).trim()} */`
+          : "",
         printFunctionTypeParameters(path, options, print),
         printArgumentsList(path, options, print)
       ]);
@@ -2885,7 +2904,27 @@ function printPathNoParens(path, options, print, args) {
     }
 
     case "TypeParameterDeclaration":
-    case "TypeParameterInstantiation":
+    case "TypeParameterInstantiation": {
+      const value = path.getValue();
+      const commentStart = value.range
+        ? options.originalText.substring(0, value.range[0]).lastIndexOf("/*")
+        : -1;
+      // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
+      // because we know for sure that this is a type definition.
+      const commentSyntax =
+        commentStart >= 0 &&
+        options.originalText.substring(commentStart).match(/^\/\*\s*::/);
+      if (commentSyntax) {
+        return concat([
+          "/*:: ",
+          printTypeParameters(path, options, print, "params"),
+          " */"
+        ]);
+      }
+
+      return printTypeParameters(path, options, print, "params");
+    }
+
     case "TSTypeParameterDeclaration":
     case "TSTypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
@@ -6125,7 +6164,13 @@ function willPrintOwnComments(path) {
   const parent = path.getParentNode();
 
   return (
-    ((node && (isJSXNode(node) || hasFlowShorthandAnnotationComment(node))) ||
+    ((node &&
+      (isJSXNode(node) ||
+        hasFlowShorthandAnnotationComment(node) ||
+        (parent &&
+          parent.type === "CallExpression" &&
+          (hasFlowAnnotationComment(node.leadingComments) ||
+            hasFlowAnnotationComment(node.trailingComments))))) ||
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||
