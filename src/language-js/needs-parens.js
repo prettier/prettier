@@ -613,6 +613,20 @@ function needsParens(path, options) {
         return true;
       }
       return false;
+    case "NGPipeExpression":
+      if (
+        parent.type === "NGRoot" ||
+        parent.type === "ObjectProperty" ||
+        parent.type === "ArrayExpression" ||
+        parent.type === "CallExpression" ||
+        parent.type === "OptionalCallExpression" ||
+        (parent.type === "NGPipeExpression" && name === "right") ||
+        parent.type === "MemberExpression" ||
+        parent.type === "AssignmentExpression"
+      ) {
+        return false;
+      }
+      return true;
   }
 
   return false;
