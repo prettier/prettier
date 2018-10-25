@@ -9,5 +9,6 @@
     fn(a | b),
     a?.b(c | d),
     a[b | c],
-    ($students | async).items
+    ($students | async).items,
+    ($students | async)()
 ]
