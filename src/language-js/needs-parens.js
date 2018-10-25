@@ -621,7 +621,7 @@ function needsParens(path, options) {
         parent.type === "CallExpression" ||
         parent.type === "OptionalCallExpression" ||
         (parent.type === "NGPipeExpression" && name === "right") ||
-        parent.type === "MemberExpression" ||
+        (parent.type === "MemberExpression" && name === "property") ||
         parent.type === "AssignmentExpression"
       ) {
         return false;

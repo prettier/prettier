@@ -26,6 +26,6 @@ exports[`pipe-expression.ng - __ng_interpolation-verify 1`] = `
   fn(a | b),
   a?.b(c | d),
   a[b | c],
-  $students | async.items
+  ($students | async).items
 ]
 `;
