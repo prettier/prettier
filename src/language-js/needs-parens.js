@@ -618,8 +618,9 @@ function needsParens(path, options) {
         parent.type === "NGRoot" ||
         parent.type === "ObjectProperty" ||
         parent.type === "ArrayExpression" ||
-        parent.type === "CallExpression" ||
-        parent.type === "OptionalCallExpression" ||
+        ((parent.type === "CallExpression" ||
+          parent.type === "OptionalCallExpression") &&
+          parent.arguments[name] === node) ||
         (parent.type === "NGPipeExpression" && name === "right") ||
         (parent.type === "MemberExpression" && name === "property") ||
         parent.type === "AssignmentExpression"
