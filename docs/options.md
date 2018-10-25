@@ -183,12 +183,11 @@ Valid options:
 - `"json-stringify"` (same parser as `"json"`, but outputs like `JSON.stringify`) _Since v1.13.0_
 - `"graphql"` (via [graphql/language](https://github.com/graphql/graphql-js/tree/master/src/language)) _Since v1.5.0_
 - `"markdown"` (via [remark-parse](https://github.com/wooorm/remark/tree/master/packages/remark-parse)) _Since v1.8.0_
-- `"vue"` (uses several parsers) _Since 1.10.0_
+- `"mdx"` (via [remark-parse](https://github.com/wooorm/remark/tree/master/packages/remark-parse) and [@mdx-js/mdx](https://github.com/mdx-js/mdx/tree/master/packages/mdx)) _Since v1.15.0_
+- `"html"` (via [angular-html-parser](https://github.com/ikatyang/angular-html-parser/tree/master/packages/angular-html-parser)) _Since 1.15.0_
+- `"vue"` (same parser as `"html"`, but also formats vue-specific syntax) _Since 1.10.0_
+- `"angular"` (same parser as `"html"`, but also formats angular-specific syntax via [angular-estree-parser](https://github.com/ikatyang/angular-estree-parser)) _Since 1.15.0_
 - `"yaml"` (via [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser)) _Since 1.14.0_
-
-<!-- TODO: Uncomment and move below "markdown" above when 1.15.0 is released.
-- `"mdx"` (same parser as `"markdown"`, with some custom overrides) _Since 1.15.0_
--->
 
 [Custom parsers](api.md#custom-parser-api) are also supported. _Since v1.5.0_
 
@@ -263,3 +262,19 @@ Valid options:
 | Default      | CLI Override                                                | API Override                                                |
 | ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
 | `"preserve"` | <code>--prose-wrap <always&#124;never&#124;preserve></code> | <code>proseWrap: "<always&#124;never&#124;preserve>"</code> |
+
+## HTML Whitespace Sensitivity
+
+_available in v1.15.0+_
+
+TODO
+
+Valid options:
+
+- `"css"` - Respect the default value of CSS `display` property.
+- `"strict"` - Whitespaces are considered sensitive.
+- `"ignore"` - Whitespaces are considered insensitive.
+
+| Default | CLI Override                                                             | API Override                                                            |
+| ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| `"css"` | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |

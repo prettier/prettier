@@ -11,7 +11,9 @@
   · SCSS
   · Less
   · JSX
+  · HTML
   · Vue
+  · Angular
   · GraphQL
   · JSON
   · Markdown
