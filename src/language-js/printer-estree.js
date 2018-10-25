@@ -3443,7 +3443,7 @@ function printPathNoParens(path, options, print, args) {
       return concat([
         "let ",
         path.call(print, "key"),
-        n.value === null ? "" : concat(["=", path.call(print, "value")])
+        n.value === null ? "" : concat([" = ", path.call(print, "value")])
       ]);
     case "NGMicrosyntaxAs":
       return concat([

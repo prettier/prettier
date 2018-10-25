@@ -102,16 +102,16 @@ exports[`attributes.component.html - angular-verify 1`] = `
   *ngFor="let hero of heroes"
   *ngFor="
     let hero of [1, 2, 3, 666666666666666666666666666666666666];
-    let i=index
+    let i = index
   "
   *ngFor="let hero of heroes; trackBy: trackByHeroes"
   *ngFor="let item of items; index as i; trackBy: trackByFn"
-  *ngFor="let hero of heroes; let i=index"
+  *ngFor="let hero of heroes; let i = index"
   *ngFor="let hero of heroes; value: myValue"
   *ngIf="condition; then: thenBlock; else: elseBlock"
   *ngIf="condition as value; else: elseBlock"
   *directive="let hero"
-  *directive="let hero=hello"
+  *directive="let hero = hello"
   *directive="let hero of heroes"
   *directive="let hero of heroes"
   *directive="a"
@@ -1402,13 +1402,17 @@ without NgModel <br />
 <h4 id="ngFor-index">*ngFor with index</h4>
 <p>with <i>semi-colon</i> separator</p>
 <div class="box">
-  <div *ngFor="let hero of heroes; let i=index">{{i + 1}} - {{hero.name}}</div>
+  <div *ngFor="let hero of heroes; let i = index">
+    {{i + 1}} - {{hero.name}}
+  </div>
 </div>
 
 <p>with <i>comma</i> separator</p>
 <div class="box">
   <!-- Ex: "1 - Hercules" -->
-  <div *ngFor="let hero of heroes; let i=index">{{i + 1}} - {{hero.name}}</div>
+  <div *ngFor="let hero of heroes; let i = index">
+    {{i + 1}} - {{hero.name}}
+  </div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
