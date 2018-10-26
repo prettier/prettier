@@ -127,12 +127,12 @@ function isLeadingSpaceSensitiveNode(node, { prev, parent }) {
     !prev &&
     (parent.type === "root" ||
       isScriptLikeTag(parent) ||
-      isBlockLikeCssDisplay(parent.cssDisplay))
+      !isFirstChildLeadingSpaceSensitiveCssDisplay(parent.cssDisplay))
   ) {
     return false;
   }
 
-  if (prev && isBlockLikeCssDisplay(prev.cssDisplay)) {
+  if (prev && !isNextLeadingSpaceSensitiveCssDisplay(prev.cssDisplay)) {
     return false;
   }
 
@@ -156,12 +156,12 @@ function isTrailingSpaceSensitiveNode(node, { next, parent }) {
     !next &&
     (parent.type === "root" ||
       isScriptLikeTag(parent) ||
-      isBlockLikeCssDisplay(parent.cssDisplay))
+      !isLastChildTrailingSpaceSensitiveCssDisplay(parent.cssDisplay))
   ) {
     return false;
   }
 
-  if (next && isBlockLikeCssDisplay(next.cssDisplay)) {
+  if (next && !isPrevTrailingSpaceSensitiveCssDisplay(next.cssDisplay)) {
     return false;
   }
 
@@ -169,7 +169,10 @@ function isTrailingSpaceSensitiveNode(node, { next, parent }) {
 }
 
 function isDanglingSpaceSensitiveNode(node) {
-  return !isBlockLikeCssDisplay(node.cssDisplay) && !isScriptLikeTag(node);
+  return (
+    isDanglingSpaceSensitiveCssDisplay(node.cssDisplay) &&
+    !isScriptLikeTag(node)
+  );
 }
 
 /**
@@ -322,15 +325,32 @@ function inferScriptParser(node) {
   return null;
 }
 
-/**
- * firstChild leadingSpaces, lastChild trailingSpaces, and danglingSpaces are insensitive
- */
 function isBlockLikeCssDisplay(cssDisplay) {
   return (
     cssDisplay === "block" ||
     cssDisplay === "list-item" ||
     cssDisplay.startsWith("table")
   );
+}
+
+function isFirstChildLeadingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay);
+}
+
+function isLastChildTrailingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay);
+}
+
+function isPrevTrailingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay);
+}
+
+function isNextLeadingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay);
+}
+
+function isDanglingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay);
 }
 
 function isPreLikeNode(node) {
