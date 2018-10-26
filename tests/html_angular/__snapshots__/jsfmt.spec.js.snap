@@ -290,6 +290,21 @@ exports[`interpolation.component.html - angular-verify 1`] = `
 <div>{{ a . b }}</div>
 <div>{{ a ?. b ( ) }}</div>
 <div>{{ a ?. b }}</div>
+<label for="transmissionLayoutRadioButton">{{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
+<label for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton">{{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
+<label for="transmissionLayoutRadioButton">{{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}} </label>
+<label for="transmissionLayoutRadioButton"> {{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
+<label for="transmissionLayoutRadioButton"> {{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}} </label>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>{{a | b:c}}</div>
 <div>{{0 - 1}}</div>
@@ -316,6 +331,37 @@ exports[`interpolation.component.html - angular-verify 1`] = `
 <div>{{a.b}}</div>
 <div>{{a?.b()}}</div>
 <div>{{a?.b}}</div>
+<label for="transmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton" |
+      localize:localizationSection
+  }}</label
+>
+<label
+  for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton" |
+      localize:localizationSection
+  }}</label
+>
+<label for="transmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton" |
+      localize:localizationSection
+  }}
+</label>
+<label for="transmissionLayoutRadioButton">
+  {{
+    "SearchSelection.transmissionLayoutRadioButton" |
+      localize:localizationSection
+  }}</label
+>
+<label for="transmissionLayoutRadioButton">
+  {{
+    "SearchSelection.transmissionLayoutRadioButton" |
+      localize:localizationSection
+  }}
+</label>
 
 `;
 
@@ -345,6 +391,21 @@ exports[`interpolation.component.html - angular-verify 2`] = `
 <div>{{ a . b }}</div>
 <div>{{ a ?. b ( ) }}</div>
 <div>{{ a ?. b }}</div>
+<label for="transmissionLayoutRadioButton">{{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
+<label for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton">{{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
+<label for="transmissionLayoutRadioButton">{{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}} </label>
+<label for="transmissionLayoutRadioButton"> {{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
+<label for="transmissionLayoutRadioButton"> {{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}} </label>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>{{a | b:c}}</div>
 <div>{{0 - 1}}</div>
@@ -371,6 +432,37 @@ exports[`interpolation.component.html - angular-verify 2`] = `
 <div>{{a.b}}</div>
 <div>{{a?.b()}}</div>
 <div>{{a?.b}}</div>
+<label for="transmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton" |
+      localize:localizationSection
+  }}</label
+>
+<label
+  for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton" |
+      localize:localizationSection
+  }}</label
+>
+<label for="transmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton" |
+      localize:localizationSection
+  }}
+</label>
+<label for="transmissionLayoutRadioButton">
+  {{
+    "SearchSelection.transmissionLayoutRadioButton" |
+      localize:localizationSection
+  }}</label
+>
+<label for="transmissionLayoutRadioButton">
+  {{
+    "SearchSelection.transmissionLayoutRadioButton" |
+      localize:localizationSection
+  }}
+</label>
 
 `;
 
