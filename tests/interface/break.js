@@ -16,3 +16,49 @@ export class Environment2 extends GenericEnvironment<
 > {
   m() {};
 };
+
+// Declare Interface Break
+declare interface ExtendsOne extends ASingleInterface {
+  x: string;
+}
+
+declare interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
+  x: string;
+}
+
+declare interface ExtendsMany extends Interface1, Interface2, Interface3, Interface4, Interface5, Interface6, Interface7 {
+  x: string;
+}
+
+// Interface declaration break
+interface ExtendsOne extends ASingleInterface {
+  x: string;
+}
+
+interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName {
+  x: string;
+}
+
+interface ExtendsMany extends Interface1, Interface2, Interface3, Interface4, Interface5, Interface6, Interface7 {
+  s: string;
+}
+
+// Generic Types
+interface ExtendsOne extends ASingleInterface<string> {
+  x: string;
+}
+
+interface ExtendsLarge extends ASingleInterfaceWithAReallyReallyReallyReallyLongName<string> {
+  x: string;
+}
+
+interface ExtendsMany
+  extends ASingleGenericInterface<Interface1, Interface2, Interface3, Interface4, Interface5, Interface6, Interface7> {
+  x: string;
+}
+
+interface ExtendsManyWithGenerics
+  extends InterfaceOne, InterfaceTwo, ASingleGenericInterface<Interface1, Interface2, Interface3, Interface4, Interface5, Interface6, Interface7>, InterfaceThree {
+
+    x: string;
+  }

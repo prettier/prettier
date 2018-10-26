@@ -2062,3 +2062,51 @@ let // Comment
   bar = "val";
 
 `;
+
+exports[`while.js - flow-verify 1`] = `
+while(
+    true
+    // Comment
+  ) {}
+
+while(true)// Comment
+{}
+
+while(true){}// Comment
+
+while(true)/*Comment*/{}
+
+while(
+  true // Comment
+  && true // Comment
+  ){}
+
+while(true) {} // comment
+
+while(true) /* comment */ ++x; 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+while (
+  true
+  // Comment
+) {}
+
+while (true) {
+  // Comment
+}
+
+while (true) {} // Comment
+
+while (true) {
+  /*Comment*/
+}
+
+while (
+  true && // Comment
+  true // Comment
+) {}
+
+while (true) {} // comment
+
+while (true) /* comment */ ++x;
+
+`;
