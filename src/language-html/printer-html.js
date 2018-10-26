@@ -27,7 +27,6 @@ const {
   getCommentData,
   getLastDescendant,
   hasPrettierIgnore,
-  identity,
   inferScriptParser,
   isElement,
   isPreLikeNode,
@@ -144,72 +143,110 @@ function genericPrint(path, options, print) {
         hardline
       ]);
     case "element":
-    case "ieConditionalComment":
+    case "ieConditionalComment": {
+      /**
+       * do not break:
+       *
+       *     <div>{{
+       *         ~
+       *       interpolation
+       *     }}</div>
+       *            ~
+       *
+       * exception: break if the opening tag breaks
+       *
+       *     <div
+       *       long
+       *           ~
+       *       >{{
+       *         interpolation
+       *       }}</div
+       *              ~
+       *     >
+       */
+      const shouldHugContent =
+        node.children.length === 1 &&
+        node.firstChild.type === "interpolation" &&
+        (!node.firstChild.isLeadingSpaceSensitive ||
+          !node.firstChild.hasLeadingSpaces) &&
+        (!node.lastChild.isTrailingSpaceSensitive ||
+          !node.lastChild.hasTrailingSpaces);
+      const attrGroupId = Symbol("element-attr-group-id");
       return concat([
         group(
           concat([
-            printOpeningTag(path, options, print),
+            group(printOpeningTag(path, options, print), { id: attrGroupId }),
             node.children.length === 0
               ? node.hasDanglingSpaces && node.isDanglingSpaceSensitive
                 ? line
                 : ""
               : concat([
                   forceBreakContent(node) ? breakParent : "",
-                  (isScriptLikeTag(node) &&
-                  node.parent.type === "root" &&
-                  options.parser === "vue"
-                    ? identity
-                    : indent)(
+                  (childrenDoc =>
+                    shouldHugContent
+                      ? ifBreak(indent(childrenDoc), childrenDoc, {
+                          groupId: attrGroupId
+                        })
+                      : isScriptLikeTag(node) &&
+                        node.parent.type === "root" &&
+                        options.parser === "vue"
+                        ? childrenDoc
+                        : indent(childrenDoc))(
                     concat([
-                      node.firstChild.type === "text" &&
-                      node.firstChild.isWhitespaceSensitive &&
-                      node.firstChild.isIndentationSensitive
-                        ? node.firstChild.value.indexOf("\n") === -1
-                          ? ""
-                          : literalline
-                        : node.firstChild.hasLeadingSpaces &&
-                          node.firstChild.isLeadingSpaceSensitive
-                          ? line
-                          : softline,
+                      shouldHugContent
+                        ? ifBreak(softline, "", { groupId: attrGroupId })
+                        : node.firstChild.type === "text" &&
+                          node.firstChild.isWhitespaceSensitive &&
+                          node.firstChild.isIndentationSensitive
+                          ? node.firstChild.value.indexOf("\n") === -1
+                            ? ""
+                            : literalline
+                          : node.firstChild.hasLeadingSpaces &&
+                            node.firstChild.isLeadingSpaceSensitive
+                            ? line
+                            : softline,
                       printChildren(path, options, print)
                     ])
                   ),
-                  (node.next
-                  ? needsToBorrowPrevClosingTagEndMarker(node.next)
-                  : needsToBorrowLastChildClosingTagEndMarker(node.parent))
-                    ? node.lastChild.hasTrailingSpaces &&
-                      node.lastChild.isTrailingSpaceSensitive
-                      ? " "
-                      : ""
-                    : node.lastChild.hasTrailingSpaces &&
-                      node.lastChild.isTrailingSpaceSensitive
-                      ? line
-                      : isElement(node) &&
-                        isPreLikeNode(node) &&
-                        node.lastChild.type === "text" &&
-                        (node.lastChild.value.indexOf("\n") === -1 ||
-                          new RegExp(
-                            `\\n\\s{${options.tabWidth *
-                              countParents(
-                                path,
-                                n => n.parent && n.parent.type !== "root"
-                              )}}$`
-                          ).test(node.lastChild.value))
-                        ? /**
-                           *     <div>
-                           *       <pre>
-                           *         something
-                           *       </pre>
-                           *            ~
-                           *     </div>
-                           */
-                          ""
-                        : softline
+                  shouldHugContent
+                    ? ifBreak(softline, "", { groupId: attrGroupId })
+                    : (node.next
+                      ? needsToBorrowPrevClosingTagEndMarker(node.next)
+                      : needsToBorrowLastChildClosingTagEndMarker(node.parent))
+                      ? node.lastChild.hasTrailingSpaces &&
+                        node.lastChild.isTrailingSpaceSensitive
+                        ? " "
+                        : ""
+                      : node.lastChild.hasTrailingSpaces &&
+                        node.lastChild.isTrailingSpaceSensitive
+                        ? line
+                        : isElement(node) &&
+                          isPreLikeNode(node) &&
+                          node.lastChild.type === "text" &&
+                          (node.lastChild.value.indexOf("\n") === -1 ||
+                            new RegExp(
+                              `\\n\\s{${options.tabWidth *
+                                countParents(
+                                  path,
+                                  n => n.parent && n.parent.type !== "root"
+                                )}}$`
+                            ).test(node.lastChild.value))
+                          ? /**
+                             *     <div>
+                             *       <pre>
+                             *         something
+                             *       </pre>
+                             *            ~
+                             *     </div>
+                             */
+                            ""
+                          : softline
                 ])
           ])
         ),
         printClosingTag(node)
       ]);
+    }
     case "interpolation":
       return concat([
         printOpeningTagStart(node),
@@ -489,40 +526,38 @@ function printOpeningTag(path, options, print) {
            */
           " "
         : ""
-      : group(
-          concat([
-            indent(
-              concat([
-                forceNotToBreakAttrContent ? " " : line,
-                join(line, path.map(print, "attrs"))
-              ])
-            ),
-            /**
-             *     123<a
-             *       attr
-             *           ~
-             *       >456
-             */
-            (node.firstChild &&
-              needsToBorrowParentOpeningTagEndMarker(node.firstChild)) ||
-            /**
-             *     <span
-             *       >123<meta
-             *                ~
-             *     /></span>
-             */
-            (node.isSelfClosing &&
-              needsToBorrowLastChildClosingTagEndMarker(node.parent))
-              ? ""
-              : node.isSelfClosing
-                ? forceNotToBreakAttrContent
-                  ? " "
-                  : line
-                : forceNotToBreakAttrContent
-                  ? ""
-                  : softline
-          ])
-        ),
+      : concat([
+          indent(
+            concat([
+              forceNotToBreakAttrContent ? " " : line,
+              join(line, path.map(print, "attrs"))
+            ])
+          ),
+          /**
+           *     123<a
+           *       attr
+           *           ~
+           *       >456
+           */
+          (node.firstChild &&
+            needsToBorrowParentOpeningTagEndMarker(node.firstChild)) ||
+          /**
+           *     <span
+           *       >123<meta
+           *                ~
+           *     /></span>
+           */
+          (node.isSelfClosing &&
+            needsToBorrowLastChildClosingTagEndMarker(node.parent))
+            ? ""
+            : node.isSelfClosing
+              ? forceNotToBreakAttrContent
+                ? " "
+                : line
+              : forceNotToBreakAttrContent
+                ? ""
+                : softline
+        ]),
     node.isSelfClosing ? "" : printOpeningTagEnd(node)
   ]);
 }

@@ -331,12 +331,9 @@ exports[`interpolation.component.html - angular-verify 1`] = `
 <div>{{a.b}}</div>
 <div>{{a?.b()}}</div>
 <div>{{a?.b}}</div>
-<label for="transmissionLayoutRadioButton"
-  >{{
-    "SearchSelection.transmissionLayoutRadioButton" |
-      localize:localizationSection
-  }}</label
->
+<label for="transmissionLayoutRadioButton">{{
+  "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
@@ -432,12 +429,9 @@ exports[`interpolation.component.html - angular-verify 2`] = `
 <div>{{a.b}}</div>
 <div>{{a?.b()}}</div>
 <div>{{a?.b}}</div>
-<label for="transmissionLayoutRadioButton"
-  >{{
-    "SearchSelection.transmissionLayoutRadioButton" |
-      localize:localizationSection
-  }}</label
->
+<label for="transmissionLayoutRadioButton">{{
+  "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
@@ -1280,9 +1274,9 @@ can be found in the LICENSE file at http://angular.io/license
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
 <div class="context">
-  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)"
-    >{{hero.name}}</button
-  >
+  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">{{
+    hero.name
+  }}</button>
 </div>
 
 <p>Template reference variable statement context (#heroForm)</p>
@@ -2767,9 +2761,9 @@ can be found in the LICENSE file at http://angular.io/license
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
 <div class="context">
-  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)"
-    >{{hero.name}}</button
-  >
+  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">{{
+    hero.name
+  }}</button>
 </div>
 
 <p>Template reference variable statement context (#heroForm)</p>
