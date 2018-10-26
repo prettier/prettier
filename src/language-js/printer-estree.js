@@ -1298,7 +1298,8 @@ function printPathNoParens(path, options, print, args) {
         lastElem &&
         (lastElem.type === "RestProperty" ||
           lastElem.type === "RestElement" ||
-          hasNodeIgnoreComment(lastElem))
+          hasNodeIgnoreComment(lastElem) ||
+          n.inexact)
       );
 
       let content;
