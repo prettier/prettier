@@ -760,10 +760,10 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
-angular-estree-parser@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-1.1.0.tgz#64bb1f8ebced8167ad64bf93c00d65f142a83fa5"
-  integrity sha512-kLigPNv5DoOU0E+lMh9aAFWakAoOPtM5Xk6HOKHLVZqRWM30Z6MnQrXSGwOShWv7HyXtpqftoe85dYvFPVW8Sg==
+angular-estree-parser@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-1.1.1.tgz#408a2e0f2ca95a7d8563a4c93d3411c7148d9b67"
+  integrity sha512-9FoXf5n9seO0SioEabxr+dUHxjiUIN/+Nh20rSlMucWd1NH85C0CQbfBlpjukW2sY3hWROYbz3apl4532eXeqw==
   dependencies:
     lines-and-columns "^1.1.6"
     tslib "^1.9.3"
