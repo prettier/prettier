@@ -26,31 +26,26 @@ Click here! Click here! Click here! Click here! Click here! Click here!
 <button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
 </div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<button
-  >Click here! Click here! Click here! Click here! Click here! Click
-  here!</button
->
+<button>
+  Click here! Click here! Click here! Click here! Click here! Click here!
+</button>
 <button>
   Click here! Click here! Click here! Click here! Click here! Click here!
 </button>
 <div>
-  <button
-    >Click here! Click here! Click here! Click here! Click here! Click
-    here!</button
-  ><button
-    >Click here! Click here! Click here! Click here! Click here! Click
-    here!</button
-  >
+  <button>
+    Click here! Click here! Click here! Click here! Click here! Click here!</button
+  ><button>
+    Click here! Click here! Click here! Click here! Click here! Click here!
+  </button>
 </div>
 <div>
-  <button
-    >Click here! Click here! Click here! Click here! Click here! Click
-    here!</button
-  >
-  <button
-    >Click here! Click here! Click here! Click here! Click here! Click
-    here!</button
-  >
+  <button>
+    Click here! Click here! Click here! Click here! Click here! Click here!
+  </button>
+  <button>
+    Click here! Click here! Click here! Click here! Click here! Click here!
+  </button>
 </div>
 
 `;

@@ -1602,16 +1602,16 @@ exports[`tags.html - html-verify 1`] = `
 <button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
 <br /><br />
 
-<button bind-disabled="isUnchanged" on-click="onSave($event)"
-  >Disabled Cancel</button
->
+<button bind-disabled="isUnchanged" on-click="onSave($event)">
+  Disabled Cancel
+</button>
 <br /><br />
 <button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
 <br /><br />
 
-<button bind-disabled="isUnchanged" on-click="onSave($event)"
-  >Disabled Cancel</button
->
+<button bind-disabled="isUnchanged" on-click="onSave($event)">
+  Disabled Cancel
+</button>
 <br /><br />
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 <li>
@@ -1985,29 +1985,33 @@ exports[`tags.html - html-verify 2`] = `
 <br />
 <button
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  >12345678901234567890</button
 >
+  12345678901234567890
+</button>
 <br /><br />
 
 <button
   bind-disabled="isUnchanged"
   on-click="onSave($event)"
-  >Disabled
-  Cancel</button
 >
+  Disabled
+  Cancel
+</button>
 <br /><br />
 <button
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  >12345678901234567890</button
 >
+  12345678901234567890
+</button>
 <br /><br />
 
 <button
   bind-disabled="isUnchanged"
   on-click="onSave($event)"
-  >Disabled
-  Cancel</button
 >
+  Disabled
+  Cancel
+</button>
 <br /><br />
 <p>
   "<span

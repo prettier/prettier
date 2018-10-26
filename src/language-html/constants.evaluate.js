@@ -17,7 +17,10 @@ const getCssStyleTags = property =>
     )
     .reduce((reduced, value) => Object.assign(reduced, value), {});
 
-const CSS_DISPLAY_TAGS = getCssStyleTags("display");
+const CSS_DISPLAY_TAGS = Object.assign({}, getCssStyleTags("display"), {
+  // TODO: send PR to upstream
+  button: "inline-block"
+});
 const CSS_DISPLAY_DEFAULT = "inline";
 const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");
 const CSS_WHITE_SPACE_DEFAULT = "normal";

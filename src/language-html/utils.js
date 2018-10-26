@@ -334,11 +334,11 @@ function isBlockLikeCssDisplay(cssDisplay) {
 }
 
 function isFirstChildLeadingSpaceSensitiveCssDisplay(cssDisplay) {
-  return !isBlockLikeCssDisplay(cssDisplay);
+  return !isBlockLikeCssDisplay(cssDisplay) && cssDisplay !== "inline-block";
 }
 
 function isLastChildTrailingSpaceSensitiveCssDisplay(cssDisplay) {
-  return !isBlockLikeCssDisplay(cssDisplay);
+  return !isBlockLikeCssDisplay(cssDisplay) && cssDisplay !== "inline-block";
 }
 
 function isPrevTrailingSpaceSensitiveCssDisplay(cssDisplay) {
@@ -350,7 +350,7 @@ function isNextLeadingSpaceSensitiveCssDisplay(cssDisplay) {
 }
 
 function isDanglingSpaceSensitiveCssDisplay(cssDisplay) {
-  return !isBlockLikeCssDisplay(cssDisplay);
+  return !isBlockLikeCssDisplay(cssDisplay) && cssDisplay !== "inline-block";
 }
 
 function isPreLikeNode(node) {

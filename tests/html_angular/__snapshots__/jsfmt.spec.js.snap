@@ -1331,7 +1331,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'"> button</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -1357,9 +1357,9 @@ can be found in the LICENSE file at http://angular.io/license
 <button disabled>disabled by attribute</button>
 <button [disabled]="isUnchanged">disabled by property binding</button>
 <br /><br />
-<button bind-disabled="isUnchanged" on-click="onSave($event)"
-  >Disabled Cancel</button
->
+<button bind-disabled="isUnchanged" on-click="onSave($event)">
+  Disabled Cancel
+</button>
 <button [disabled]="!canSave" (click)="onSave($event)">Enabled Save</button>
 
 <a class="to-toc" href="#toc">top</a>
@@ -1908,9 +1908,9 @@ without NgModel <br />
 <p>
   The name of the Color.Red enum is {{Color[Color.Red]}}.<br />
   The current color is {{Color[color]}} and its number is {{color}}.<br />
-  <button [style.color]="Color[color]" (click)="colorToggle()"
-    >Enum Toggle</button
-  >
+  <button [style.color]="Color[color]" (click)="colorToggle()">
+    Enum Toggle
+  </button>
 </p>
 
 <a class="to-toc" href="#toc">top</a>
@@ -2818,7 +2818,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'"> button</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -2844,9 +2844,9 @@ can be found in the LICENSE file at http://angular.io/license
 <button disabled>disabled by attribute</button>
 <button [disabled]="isUnchanged">disabled by property binding</button>
 <br /><br />
-<button bind-disabled="isUnchanged" on-click="onSave($event)"
-  >Disabled Cancel</button
->
+<button bind-disabled="isUnchanged" on-click="onSave($event)">
+  Disabled Cancel
+</button>
 <button [disabled]="!canSave" (click)="onSave($event)">Enabled Save</button>
 
 <a class="to-toc" href="#toc">top</a>
@@ -3395,9 +3395,9 @@ without NgModel <br />
 <p>
   The name of the Color.Red enum is {{Color[Color.Red]}}.<br />
   The current color is {{Color[color]}} and its number is {{color}}.<br />
-  <button [style.color]="Color[color]" (click)="colorToggle()"
-    >Enum Toggle</button
-  >
+  <button [style.color]="Color[color]" (click)="colorToggle()">
+    Enum Toggle
+  </button>
 </p>
 
 <a class="to-toc" href="#toc">top</a>
