@@ -13,6 +13,48 @@ exports[`break-tags.html - html-verify 1`] = `
 
 `;
 
+exports[`display-inline-block.html - html-verify 1`] = `
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+<button>
+Click here! Click here! Click here! Click here! Click here! Click here!
+</button>
+<div>
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button><button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+</div>
+<div>
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<button
+  >Click here! Click here! Click here! Click here! Click here! Click
+  here!</button
+>
+<button>
+  Click here! Click here! Click here! Click here! Click here! Click here!
+</button>
+<div>
+  <button
+    >Click here! Click here! Click here! Click here! Click here! Click
+    here!</button
+  ><button
+    >Click here! Click here! Click here! Click here! Click here! Click
+    here!</button
+  >
+</div>
+<div>
+  <button
+    >Click here! Click here! Click here! Click here! Click here! Click
+    here!</button
+  >
+  <button
+    >Click here! Click here! Click here! Click here! Click here! Click
+    here!</button
+  >
+</div>
+
+`;
+
 exports[`display-none.html - html-verify 1`] = `
 <!DOCTYPE html><HTML CLASS="no-js mY-ClAsS"><HEAD><META CHARSET="utf-8"><TITLE>My tITlE</TITLE><META NAME="description" content="My CoNtEnT"></HEAD></HTML>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
