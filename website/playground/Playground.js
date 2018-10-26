@@ -218,6 +218,9 @@ class Playground extends React.Component {
                       {editorState.showSidebar ? "Hide" : "Show"} options
                     </Button>
                     <Button onClick={this.clearContent}>Clear</Button>
+                    <ClipboardButton copy={JSON.stringify(options, null, 2)}>
+                      Copy config JSON
+                    </ClipboardButton>
                   </div>
                   <div className="bottom-bar-buttons bottom-bar-buttons-right">
                     <ClipboardButton copy={window.location.href}>
