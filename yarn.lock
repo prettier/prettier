@@ -5106,22 +5106,10 @@ parse-json@^4.0.0:
     error-ex "^1.3.1"
     json-parse-better-errors "^1.0.1"
 
-parse5-htmlparser2-tree-adapter@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/parse5-htmlparser2-tree-adapter/-/parse5-htmlparser2-tree-adapter-5.0.0.tgz#f941eced8061ecb1bc2db744c416a037abfe64d1"
-  integrity sha512-Rco+Uuas6kYDOJTVlMjtRhSjVOcflt6LNHFJAO5xz+8mMrA23Qzlrc5gGEhl/qKZovZSZCHWtcpZTV4xGexCeg==
-  dependencies:
-    parse5 "^5.0.0"
-
 parse5@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-4.0.0.tgz#6d78656e3da8d78b4ec0b906f7c08ef1dfe3f608"
   integrity sha512-VrZ7eOd3T1Fk4XWNXMgiGBK/z0MG48BWG2uQNU4I72fkQuKUTZpl+u9k+CxEG0twMVzSmXEEz12z5Fnw1jIQFA==
-
-parse5@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.0.0.tgz#4d02710d44f3c3846197a11e205d4ef17842b81a"
-  integrity sha512-0ywuiUOnpWWeil5grH2rxjyTJoeQVwyBuO2si6QIU9dWtj2npjuyK1HaY1RbLnVfDhEbhyAPNUBKRK0Xj2xE0w==
 
 pascalcase@^0.1.1:
   version "0.1.1"
