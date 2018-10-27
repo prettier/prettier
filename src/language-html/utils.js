@@ -388,9 +388,6 @@ function getNodeCssStyleDisplay(node, prevNode, options) {
     case "ignore":
       return "block";
     default:
-      if (isElement(node, "template")) {
-        return "inline";
-      }
       return (
         (isElement(node) && CSS_DISPLAY_TAGS[node.name]) || CSS_DISPLAY_DEFAULT
       );
