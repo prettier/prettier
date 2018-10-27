@@ -60,7 +60,7 @@ Use single quotes instead of double quotes.
 
 Notes:
 
-- Quotes in JSX will always be double and ignore this setting.
+- JSX Quotes will ignore this setting. see `jsSingleQuotes`
 - If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
 
 See the [strings rationale](rationale.md#strings) for more information.
@@ -68,6 +68,20 @@ See the [strings rationale](rationale.md#strings) for more information.
 | Default | CLI Override     | API Override          |
 | ------- | ---------------- | --------------------- |
 | `false` | `--single-quote` | `singleQuote: <bool>` |
+
+## JSX Quotes
+
+Use single quotes in JSX
+
+Valid options:
+
+- `"none"` - Do not use single quotes.
+- `"all"` - Use single quotes everywhere (including JSX).
+- `"js"` - Use single quotes only in Javascript, and use double quotes in JSX.
+
+| Default | CLI Override     | API Override          |
+| ------- | ---------------- | --------------------- |
+| `js`    | <code>--single-quote <none&#124;js&#124;all></code> | <code>singleQuote: "<none&#124;js&#124;all>"</code> |
 
 ## Trailing Commas
 
