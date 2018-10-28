@@ -500,7 +500,8 @@ x => {
     }
   }}
   Magni consectetur in et molestias neque esse voluptatibus voluptas.
-  {{some_variable}} Eum quia nihil nulla esse. Dolorem asperiores vero est error
+  {{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
+  error
   {{
 
                     preserve
@@ -510,7 +511,7 @@ x => {
                     interpolation
 
   }}
-  reprehenderit voluptates minus {{console.log(short_interpolation)}} nemo.
+  reprehenderit voluptates minus {{ console.log(short_interpolation) }} nemo.
 </div>
 
 <script type="text/jsx">
@@ -537,7 +538,7 @@ export default {
 </div>
 <div>
   1234567890123456789012345678901234567890123456789012345678901234567890
-  {{something}}1234567890
+  {{ something }}1234567890
 </div>
 <div>
   1234567890123456789012345678901234567890123456789012345678901234567890{{
@@ -547,7 +548,7 @@ export default {
 </div>
 <div>
   1234567890123456789012345678901234567890123456789012345678901234567890
-  {{something}} 1234567890
+  {{ something }} 1234567890
 </div>
 
 `;
@@ -618,7 +619,8 @@ x => {
     }
   }}
   Magni consectetur in et molestias neque esse voluptatibus voluptas.
-  {{some_variable}} Eum quia nihil nulla esse. Dolorem asperiores vero est error
+  {{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
+  error
   {{
 
                     preserve
@@ -628,7 +630,7 @@ x => {
                     interpolation
 
   }}
-  reprehenderit voluptates minus {{console.log(short_interpolation)}} nemo.
+  reprehenderit voluptates minus {{ console.log(short_interpolation) }} nemo.
 </div>
 
 <script type="text/jsx">
@@ -655,7 +657,7 @@ export default {
 </div>
 <div>
   1234567890123456789012345678901234567890123456789012345678901234567890
-  {{something}}1234567890
+  {{ something }}1234567890
 </div>
 <div>
   1234567890123456789012345678901234567890123456789012345678901234567890{{
@@ -665,7 +667,7 @@ export default {
 </div>
 <div>
   1234567890123456789012345678901234567890123456789012345678901234567890
-  {{something}} 1234567890
+  {{ something }} 1234567890
 </div>
 
 `;
@@ -931,13 +933,13 @@ exports[`template.vue - vue-verify 1`] = `
       />
       <p v-if="renderInfo" class="file-info prepend-top-10">
         <template v-if="fileSize > 0">
-          {{fileSizeReadable}}
+          {{ fileSizeReadable }}
         </template>
         <template v-if="fileSize > 0 && width && height">
           |
         </template>
         <template v-if="width && height">
-          W: {{width}} | H: {{height}}
+          W: {{ width }} | H: {{ height }}
         </template>
       </p>
     </div>
@@ -991,13 +993,13 @@ exports[`template.vue - vue-verify 2`] = `
       />
       <p v-if="renderInfo" class="file-info prepend-top-10">
         <template v-if="fileSize > 0">
-          {{fileSizeReadable}}
+          {{ fileSizeReadable }}
         </template>
         <template v-if="fileSize > 0 && width && height">
           |
         </template>
         <template v-if="width && height">
-          W: {{width}} | H: {{height}}
+          W: {{ width }} | H: {{ height }}
         </template>
       </p>
     </div>

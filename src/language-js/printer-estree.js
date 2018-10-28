@@ -3390,23 +3390,15 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
 
-    case "NGRoot": {
-      const shouldPrintSurroundingSpaces =
-        // avoid invalid syntax `{{{}}}`
-        options.parser === "__ng_interpolation" &&
-        n.node.type === "ObjectExpression" &&
-        n.node.comments.length === 0;
+    case "NGRoot": 
       return concat(
         [].concat(
-          shouldPrintSurroundingSpaces ? " " : [],
           path.call(print, "node"),
           !n.node.comments || n.node.comments.length === 0
             ? []
-            : concat([" //", n.node.comments[0].value]),
-          shouldPrintSurroundingSpaces ? " " : []
+            : concat([" //", n.node.comments[0].value.trimRight()])
         )
       );
-    }
     case "NGChainedExpression":
       return group(join(concat([";", line]), path.map(print, "expressions")));
     case "NGEmptyExpression":

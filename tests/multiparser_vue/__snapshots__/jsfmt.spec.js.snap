@@ -13,7 +13,7 @@ export default {
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template>
-  <div>{{foo}}</div>
+  <div>{{ foo }}</div>
 </template>
 
 <script lang="ts">
@@ -126,7 +126,7 @@ p { font-size : 2em ; text-align : center ; }
   </style >
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template>
-  <h1>{{greeting}} world</h1>
+  <h1>{{ greeting }} world</h1>
   <script>
     kikoo();
   </script>

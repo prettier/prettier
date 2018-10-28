@@ -93,7 +93,7 @@ exports[`attributes.component.html - angular-verify 1`] = `
   [target]="!x"
   [target]="a"
   [target]="a"
-  [target]="a // hello "
+  [target]="a // hello"
   [target]="a.b"
   [target]="javascript: 'hello world' "
   [target]="a?.b()"
@@ -102,7 +102,7 @@ exports[`attributes.component.html - angular-verify 1`] = `
   (target)="(a = 1)"
   (target)="(a.b = 1)"
   (target)="(a[b] = 1)"
-  (target)="a // hello "
+  (target)="a // hello"
   (target)="a; b"
   *ngIf="something ? true : false"
   *ngFor="let hero of heroes"
@@ -225,7 +225,7 @@ exports[`attributes.component.html - angular-verify 2`] = `
   [target]="!x"
   [target]="a"
   [target]="a"
-  [target]="a // hello "
+  [target]="a // hello"
   [target]="a.b"
   [target]="javascript: 'hello world' "
   [target]="a?.b()"
@@ -234,7 +234,7 @@ exports[`attributes.component.html - angular-verify 2`] = `
   (target)="(a = 1)"
   (target)="(a.b = 1)"
   (target)="(a[b] = 1)"
-  (target)="a // hello "
+  (target)="a // hello"
   (target)="a; b"
   *ngIf="something ? true : false"
   *ngFor="let hero of heroes"
@@ -307,32 +307,32 @@ exports[`interpolation.component.html - angular-verify 1`] = `
 "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
 }} </label>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>{{a | b:c}}</div>
-<div>{{0 - 1}}</div>
-<div>{{-1}}</div>
-<div>{{a ? 1 : 2}}</div>
-<div>{{a(1)(2)}}</div>
-<div>{{a[b]}}</div>
-<div>{{[1]}}</div>
+<div>{{ a | b:c }}</div>
+<div>{{ 0 - 1 }}</div>
+<div>{{ -1 }}</div>
+<div>{{ a ? 1 : 2 }}</div>
+<div>{{ a(1)(2) }}</div>
+<div>{{ a[b] }}</div>
+<div>{{ [1] }}</div>
 <div>{{ { a: 1 } }}</div>
 <div>{{ { a: 1 } }}</div>
-<div>{{true}}</div>
-<div>{{undefined}}</div>
-<div>{{null}}</div>
-<div>{{1}}</div>
-<div>{{1}}</div>
-<div>{{"hello"}}</div>
-<div>{{a(1, 2)}}</div>
-<div>{{a.b(1, 2)}}</div>
-<div>{{x!}}</div>
-<div>{{!x}}</div>
-<div>{{a}}</div>
-<div>{{a}}</div>
-<div>{{a // hello }}</div>
-<div>{{a.b}}</div>
-<div>{{a?.b()}}</div>
-<div>{{a?.b}}</div>
-<div>{{a // hello  }}</div>
+<div>{{ true }}</div>
+<div>{{ undefined }}</div>
+<div>{{ null }}</div>
+<div>{{ 1 }}</div>
+<div>{{ 1 }}</div>
+<div>{{ "hello" }}</div>
+<div>{{ a(1, 2) }}</div>
+<div>{{ a.b(1, 2) }}</div>
+<div>{{ x! }}</div>
+<div>{{ !x }}</div>
+<div>{{ a }}</div>
+<div>{{ a }}</div>
+<div>{{ a // hello }}</div>
+<div>{{ a.b }}</div>
+<div>{{ a?.b() }}</div>
+<div>{{ a?.b }}</div>
+<div>{{ a // hello }}</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
 }}</label>
@@ -407,32 +407,32 @@ exports[`interpolation.component.html - angular-verify 2`] = `
 "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
 }} </label>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>{{a | b:c}}</div>
-<div>{{0 - 1}}</div>
-<div>{{-1}}</div>
-<div>{{a ? 1 : 2}}</div>
-<div>{{a(1)(2)}}</div>
-<div>{{a[b]}}</div>
-<div>{{[1]}}</div>
+<div>{{ a | b:c }}</div>
+<div>{{ 0 - 1 }}</div>
+<div>{{ -1 }}</div>
+<div>{{ a ? 1 : 2 }}</div>
+<div>{{ a(1)(2) }}</div>
+<div>{{ a[b] }}</div>
+<div>{{ [1] }}</div>
 <div>{{ { a: 1 } }}</div>
 <div>{{ { a: 1 } }}</div>
-<div>{{true}}</div>
-<div>{{undefined}}</div>
-<div>{{null}}</div>
-<div>{{1}}</div>
-<div>{{1}}</div>
-<div>{{"hello"}}</div>
-<div>{{a(1, 2)}}</div>
-<div>{{a.b(1, 2)}}</div>
-<div>{{x!}}</div>
-<div>{{!x}}</div>
-<div>{{a}}</div>
-<div>{{a}}</div>
-<div>{{a // hello }}</div>
-<div>{{a.b}}</div>
-<div>{{a?.b()}}</div>
-<div>{{a?.b}}</div>
-<div>{{a // hello  }}</div>
+<div>{{ true }}</div>
+<div>{{ undefined }}</div>
+<div>{{ null }}</div>
+<div>{{ 1 }}</div>
+<div>{{ 1 }}</div>
+<div>{{ "hello" }}</div>
+<div>{{ a(1, 2) }}</div>
+<div>{{ a.b(1, 2) }}</div>
+<div>{{ x! }}</div>
+<div>{{ !x }}</div>
+<div>{{ a }}</div>
+<div>{{ a }}</div>
+<div>{{ a // hello }}</div>
+<div>{{ a.b }}</div>
+<div>{{ a?.b() }}</div>
+<div>{{ a?.b }}</div>
+<div>{{ a // hello }}</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
 }}</label>
@@ -1232,15 +1232,15 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="interpolation">Interpolation</h2>
 
-<p>My current hero is {{currentHero.name}}</p>
+<p>My current hero is {{ currentHero.name }}</p>
 
-<h3>{{title}} <img src="{{heroImageUrl}}" style="height:30px" /></h3>
+<h3>{{ title }} <img src="{{heroImageUrl}}" style="height:30px" /></h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
-<p>The sum of 1 + 1 is {{1 + 1}}</p>
+<p>The sum of 1 + 1 is {{ 1 + 1 }}</p>
 
 <!-- "The sum of 1 + 1 is not 4" -->
-<p>The sum of 1 + 1 is not {{1 + 1 + getVal()}}</p>
+<p>The sum of 1 + 1 is not {{ 1 + 1 + getVal() }}</p>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -1251,17 +1251,19 @@ can be found in the LICENSE file at http://angular.io/license
   Component expression context (&#123;&#123;title&#125;&#125;,
   [hidden]="isUnchanged")
 </p>
-<div class="context">{{title}} <span [hidden]="isUnchanged">changed</span></div>
+<div class="context">
+  {{ title }} <span [hidden]="isUnchanged">changed</span>
+</div>
 
 <p>Template input variable expression context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
 <ng-template>
-  <div *ngFor="let hero of heroes">{{hero.name}}</div>
+  <div *ngFor="let hero of heroes">{{ hero.name }}</div>
 </ng-template>
 
 <p>Template reference variable expression context (#heroInput)</p>
 <div (keyup)="0" class="context">
-  Type something: <input #heroInput /> {{heroInput.value}}
+  Type something: <input #heroInput /> {{ heroInput.value }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -1325,9 +1327,9 @@ can be found in the LICENSE file at http://angular.io/license
 <button (click)="onSave()">Save</button>
 <app-hero-detail (deleteRequest)="deleteHero()"></app-hero-detail>
 <div (myClick)="(clicked = $event)" clickable>click me</div>
-{{clicked}} <br /><br />
+{{ clicked }} <br /><br />
 
-<div>Hero Name: <input [(ngModel)]="name" /> {{name}}</div>
+<div>Hero Name: <input [(ngModel)]="name" /> {{ name }}</div>
 <br /><br />
 
 <button [attr.aria-label]="help">help</button> <br /><br />
@@ -1389,7 +1391,7 @@ can be found in the LICENSE file at http://angular.io/license
 <p><img [src]="heroImageUrl" /> is the <i>property bound</i> image.</p>
 
 <p>
-  <span>"{{title}}" is the <i>interpolated</i> title.</span>
+  <span>"{{ title }}" is the <i>interpolated</i> title.</span>
 </p>
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 
@@ -1398,7 +1400,7 @@ can be found in the LICENSE file at http://angular.io/license
   WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).
 -->
 <p>
-  <span>"{{evilTitle}}" is the <i>interpolated</i> evil title.</span>
+  <span>"{{ evilTitle }}" is the <i>interpolated</i> evil title.</span>
 </p>
 <p>
   "<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil
@@ -1431,7 +1433,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <br />
 <!-- create and set an aria attribute for assistive technology -->
-<button [attr.aria-label]="actionName">{{actionName}} with Aria</button>
+<button [attr.aria-label]="actionName">{{ actionName }} with Aria</button>
 <br /><br />
 
 <!-- The following effects are not discussed in the chapter -->
@@ -1492,7 +1494,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <!-- \`myClick\` is an event on the custom \`ClickDirective\` -->
   <div (myClick)="(clickMessage = $event)" clickable>click with myClick</div>
-  {{clickMessage}}
+  {{ clickMessage }}
 </div>
 
 <!-- binding to a nested component -->
@@ -1547,7 +1549,7 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="ngModel">NgModel (two-way) Binding</h2>
 
-<h3>Result: {{currentHero.name}}</h3>
+<h3>Result: {{ currentHero.name }}</h3>
 
 <input
   [value]="currentHero.name"
@@ -1573,7 +1575,7 @@ without NgModel <br />
 <hr />
 <h2 id="ngClass">NgClass Binding</h2>
 
-<p>currentClasses is {{currentClasses | json}}</p>
+<p>currentClasses is {{ currentClasses | json }}</p>
 <div [ngClass]="currentClasses">
   This div is initially saveable, unchanged, and special
 </div>
@@ -1592,9 +1594,9 @@ without NgModel <br />
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
-  This div should be {{canSave ? "" : "not"}} saveable,
-  {{isUnchanged ? "unchanged" : "modified"}} and,
-  {{isSpecial ? "" : "not"}} special after clicking "Refresh".
+  This div should be {{ canSave ? "" : "not" }} saveable,
+  {{ isUnchanged ? "unchanged" : "modified" }} and,
+  {{ isSpecial ? "" : "not" }} special after clicking "Refresh".
 </div>
 <br /><br />
 
@@ -1614,7 +1616,7 @@ without NgModel <br />
 </div>
 
 <h3>[ngStyle] binding to currentStyles - CSS property names</h3>
-<p>currentStyles is {{currentStyles | json}}</p>
+<p>currentStyles is {{ currentStyles | json }}</p>
 <div [ngStyle]="currentStyles">
   This div is initially italic, normal weight, and extra large (24px).
 </div>
@@ -1626,9 +1628,9 @@ without NgModel <br />
 <label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
 <button (click)="setCurrentStyles()">Refresh currentStyles</button> <br /><br />
 <div [ngStyle]="currentStyles">
-  This div should be {{canSave ? "italic" : "plain"}},
-  {{isUnchanged ? "normal weight" : "bold"}} and,
-  {{isSpecial ? "extra large" : "normal size"}} after clicking "Refresh".
+  This div should be {{ canSave ? "italic" : "plain" }},
+  {{ isUnchanged ? "normal weight" : "bold" }} and,
+  {{ isSpecial ? "extra large" : "normal size" }} after clicking "Refresh".
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -1639,13 +1641,13 @@ without NgModel <br />
 
 <app-hero-detail *ngIf="isActive"></app-hero-detail>
 
-<div *ngIf="currentHero">Hello, {{currentHero.name}}</div>
-<div *ngIf="nullHero">Hello, {{nullHero.name}}</div>
+<div *ngIf="currentHero">Hello, {{ currentHero.name }}</div>
+<div *ngIf="nullHero">Hello, {{ nullHero.name }}</div>
 
 <!-- NgIf binding with template (no *) -->
 
 <ng-template [ngIf]="currentHero"
-  >Add {{currentHero.name}} with template</ng-template
+  >Add {{ currentHero.name }} with template</ng-template
 >
 
 <!-- Does not show because isActive is false! -->
@@ -1671,7 +1673,7 @@ without NgModel <br />
 <h2 id="ngFor">NgFor Binding</h2>
 
 <div class="box">
-  <div *ngFor="let hero of heroes">{{hero.name}}</div>
+  <div *ngFor="let hero of heroes">{{ hero.name }}</div>
 </div>
 <br />
 
@@ -1686,7 +1688,7 @@ without NgModel <br />
 <p>with <i>semi-colon</i> separator</p>
 <div class="box">
   <div *ngFor="let hero of heroes; let i = index">
-    {{i + 1}} - {{hero.name}}
+    {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
 
@@ -1694,7 +1696,7 @@ without NgModel <br />
 <div class="box">
   <!-- Ex: "1 - Hercules" -->
   <div *ngFor="let hero of heroes; let i = index">
-    {{i + 1}} - {{hero.name}}
+    {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
 
@@ -1707,21 +1709,23 @@ without NgModel <br />
 
 <p><i>without</i> trackBy</p>
 <div class="box">
-  <div #noTrackBy *ngFor="let hero of heroes">({{hero.id}}) {{hero.name}}</div>
+  <div #noTrackBy *ngFor="let hero of heroes">
+    ({{ hero.id }}) {{ hero.name }}
+  </div>
 
   <div id="noTrackByCnt" *ngIf="heroesNoTrackByCount">
-    Hero DOM elements change #{{heroesNoTrackByCount}} without trackBy
+    Hero DOM elements change #{{ heroesNoTrackByCount }} without trackBy
   </div>
 </div>
 
 <p>with trackBy</p>
 <div class="box">
   <div #withTrackBy *ngFor="let hero of heroes; trackBy: trackByHeroes">
-    ({{hero.id}}) {{hero.name}}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 
   <div id="withTrackByCnt" *ngIf="heroesWithTrackByCount">
-    Hero DOM elements change #{{heroesWithTrackByCount}} with trackBy
+    Hero DOM elements change #{{ heroesWithTrackByCount }} with trackBy
   </div>
 </div>
 
@@ -1730,28 +1734,28 @@ without NgModel <br />
 <p>with trackBy and <i>semi-colon</i> separator</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
-    ({{hero.id}}) {{hero.name}}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
 <p>with trackBy and <i>comma</i> separator</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
-    ({{hero.id}}) {{hero.name}}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
 <p>with trackBy and <i>space</i> separator</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
-    ({{hero.id}}) {{hero.name}}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
 <p>with <i>generic</i> trackById function</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackById">
-    ({{hero.id}}) {{hero.name}}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
@@ -1778,7 +1782,7 @@ without NgModel <br />
     [hero]="currentHero"
   ></app-confused-hero>
   <div *ngSwitchCase="'confused'">
-    Are you as confused as {{currentHero.name}}?
+    Are you as confused as {{ currentHero.name }}?
   </div>
   <app-unknown-hero *ngSwitchDefault [hero]="currentHero"></app-unknown-hero>
 </div>
@@ -1821,7 +1825,7 @@ without NgModel <br />
 </app-hero-detail>
 
 <div (myClick)="(clickMessage2 = $event)" clickable>myClick2</div>
-{{clickMessage2}}
+{{ clickMessage2 }}
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -1829,21 +1833,21 @@ without NgModel <br />
 <hr />
 <h2 id="pipes">Pipes</h2>
 
-<div>Title through uppercase pipe: {{title | uppercase}}</div>
+<div>Title through uppercase pipe: {{ title | uppercase }}</div>
 
 <!-- Pipe chaining: convert title to uppercase, then to lowercase -->
-<div>Title through a pipe chain: {{title | uppercase | lowercase}}</div>
+<div>Title through a pipe chain: {{ title | uppercase | lowercase }}</div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>Birthdate: {{currentHero?.birthdate | date:"longDate"}}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date:"longDate" }}</div>
 
-<div>{{currentHero | json}}</div>
+<div>{{ currentHero | json }}</div>
 
-<div>Birthdate: {{currentHero?.birthdate | date:"longDate" | uppercase}}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date:"longDate" | uppercase }}</div>
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price: </label>{{product.price | currency:"USD":true}}
+  <label>Price: </label>{{ product.price | currency:"USD":true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -1852,11 +1856,11 @@ without NgModel <br />
 <hr />
 <h2 id="safe-navigation-operator">Safe navigation operator <i>?.</i></h2>
 
-<div>The title is {{title}}</div>
+<div>The title is {{ title }}</div>
 
-<div>The current hero's name is {{currentHero?.name}}</div>
+<div>The current hero's name is {{ currentHero?.name }}</div>
 
-<div>The current hero's name is {{currentHero.name}}</div>
+<div>The current hero's name is {{ currentHero.name }}</div>
 
 <!--
   The null hero's name is {{nullHero.name}}
@@ -1866,13 +1870,13 @@ without NgModel <br />
 -->
 
 <!-- No hero, div not displayed, no error -->
-<div *ngIf="nullHero">The null hero's name is {{nullHero.name}}</div>
+<div *ngIf="nullHero">The null hero's name is {{ nullHero.name }}</div>
 
-<div>The null hero's name is {{nullHero && nullHero.name}}</div>
+<div>The null hero's name is {{ nullHero && nullHero.name }}</div>
 
 <div>
   <!-- No hero, no problem! -->
-  The null hero's name is {{nullHero?.name}}
+  The null hero's name is {{ nullHero?.name }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -1883,7 +1887,7 @@ without NgModel <br />
 
 <div>
   <!-- No hero, no text -->
-  <div *ngIf="hero">The hero's name is {{hero!.name}}</div>
+  <div *ngIf="hero">The hero's name is {{ hero!.name }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -1894,7 +1898,7 @@ without NgModel <br />
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>The hero's marker is {{$any(hero).marker}}</div>
+  <div>The hero's marker is {{ $any(hero).marker }}</div>
 </div>
 
 <div>
@@ -1910,8 +1914,8 @@ without NgModel <br />
 <h2 id="enums">Enums in binding</h2>
 
 <p>
-  The name of the Color.Red enum is {{Color[Color.Red]}}.<br />
-  The current color is {{Color[color]}} and its number is {{color}}.<br />
+  The name of the Color.Red enum is {{ Color[Color.Red] }}.<br />
+  The current color is {{ Color[color] }} and its number is {{ color }}.<br />
   <button [style.color]="Color[color]" (click)="colorToggle()">
     Enum Toggle
   </button>
@@ -1940,7 +1944,7 @@ without NgModel <br />
     </div>
     <button type="submit" [disabled]="!heroForm.form.valid">Submit</button>
   </form>
-  <div [hidden]="!heroForm.form.valid">{{submitMessage}}</div>
+  <div [hidden]="!heroForm.form.valid">{{ submitMessage }}</div>
 </div>
 
 <!--
@@ -2719,15 +2723,15 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="interpolation">Interpolation</h2>
 
-<p>My current hero is {{currentHero.name}}</p>
+<p>My current hero is {{ currentHero.name }}</p>
 
-<h3>{{title}} <img src="{{heroImageUrl}}" style="height:30px" /></h3>
+<h3>{{ title }} <img src="{{heroImageUrl}}" style="height:30px" /></h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
-<p>The sum of 1 + 1 is {{1 + 1}}</p>
+<p>The sum of 1 + 1 is {{ 1 + 1 }}</p>
 
 <!-- "The sum of 1 + 1 is not 4" -->
-<p>The sum of 1 + 1 is not {{1 + 1 + getVal()}}</p>
+<p>The sum of 1 + 1 is not {{ 1 + 1 + getVal() }}</p>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -2738,17 +2742,19 @@ can be found in the LICENSE file at http://angular.io/license
   Component expression context (&#123;&#123;title&#125;&#125;,
   [hidden]="isUnchanged")
 </p>
-<div class="context">{{title}} <span [hidden]="isUnchanged">changed</span></div>
+<div class="context">
+  {{ title }} <span [hidden]="isUnchanged">changed</span>
+</div>
 
 <p>Template input variable expression context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
 <ng-template>
-  <div *ngFor="let hero of heroes">{{hero.name}}</div>
+  <div *ngFor="let hero of heroes">{{ hero.name }}</div>
 </ng-template>
 
 <p>Template reference variable expression context (#heroInput)</p>
 <div (keyup)="0" class="context">
-  Type something: <input #heroInput /> {{heroInput.value}}
+  Type something: <input #heroInput /> {{ heroInput.value }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -2812,9 +2818,9 @@ can be found in the LICENSE file at http://angular.io/license
 <button (click)="onSave()">Save</button>
 <app-hero-detail (deleteRequest)="deleteHero()"></app-hero-detail>
 <div (myClick)="(clicked = $event)" clickable>click me</div>
-{{clicked}} <br /><br />
+{{ clicked }} <br /><br />
 
-<div>Hero Name: <input [(ngModel)]="name" /> {{name}}</div>
+<div>Hero Name: <input [(ngModel)]="name" /> {{ name }}</div>
 <br /><br />
 
 <button [attr.aria-label]="help">help</button> <br /><br />
@@ -2876,7 +2882,7 @@ can be found in the LICENSE file at http://angular.io/license
 <p><img [src]="heroImageUrl" /> is the <i>property bound</i> image.</p>
 
 <p>
-  <span>"{{title}}" is the <i>interpolated</i> title.</span>
+  <span>"{{ title }}" is the <i>interpolated</i> title.</span>
 </p>
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 
@@ -2885,7 +2891,7 @@ can be found in the LICENSE file at http://angular.io/license
   WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).
 -->
 <p>
-  <span>"{{evilTitle}}" is the <i>interpolated</i> evil title.</span>
+  <span>"{{ evilTitle }}" is the <i>interpolated</i> evil title.</span>
 </p>
 <p>
   "<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil
@@ -2918,7 +2924,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <br />
 <!-- create and set an aria attribute for assistive technology -->
-<button [attr.aria-label]="actionName">{{actionName}} with Aria</button>
+<button [attr.aria-label]="actionName">{{ actionName }} with Aria</button>
 <br /><br />
 
 <!-- The following effects are not discussed in the chapter -->
@@ -2979,7 +2985,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <!-- \`myClick\` is an event on the custom \`ClickDirective\` -->
   <div (myClick)="(clickMessage = $event)" clickable>click with myClick</div>
-  {{clickMessage}}
+  {{ clickMessage }}
 </div>
 
 <!-- binding to a nested component -->
@@ -3034,7 +3040,7 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="ngModel">NgModel (two-way) Binding</h2>
 
-<h3>Result: {{currentHero.name}}</h3>
+<h3>Result: {{ currentHero.name }}</h3>
 
 <input
   [value]="currentHero.name"
@@ -3060,7 +3066,7 @@ without NgModel <br />
 <hr />
 <h2 id="ngClass">NgClass Binding</h2>
 
-<p>currentClasses is {{currentClasses | json}}</p>
+<p>currentClasses is {{ currentClasses | json }}</p>
 <div [ngClass]="currentClasses">
   This div is initially saveable, unchanged, and special
 </div>
@@ -3079,9 +3085,9 @@ without NgModel <br />
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
-  This div should be {{canSave ? "" : "not"}} saveable,
-  {{isUnchanged ? "unchanged" : "modified"}} and,
-  {{isSpecial ? "" : "not"}} special after clicking "Refresh".
+  This div should be {{ canSave ? "" : "not" }} saveable,
+  {{ isUnchanged ? "unchanged" : "modified" }} and,
+  {{ isSpecial ? "" : "not" }} special after clicking "Refresh".
 </div>
 <br /><br />
 
@@ -3101,7 +3107,7 @@ without NgModel <br />
 </div>
 
 <h3>[ngStyle] binding to currentStyles - CSS property names</h3>
-<p>currentStyles is {{currentStyles | json}}</p>
+<p>currentStyles is {{ currentStyles | json }}</p>
 <div [ngStyle]="currentStyles">
   This div is initially italic, normal weight, and extra large (24px).
 </div>
@@ -3113,9 +3119,9 @@ without NgModel <br />
 <label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
 <button (click)="setCurrentStyles()">Refresh currentStyles</button> <br /><br />
 <div [ngStyle]="currentStyles">
-  This div should be {{canSave ? "italic" : "plain"}},
-  {{isUnchanged ? "normal weight" : "bold"}} and,
-  {{isSpecial ? "extra large" : "normal size"}} after clicking "Refresh".
+  This div should be {{ canSave ? "italic" : "plain" }},
+  {{ isUnchanged ? "normal weight" : "bold" }} and,
+  {{ isSpecial ? "extra large" : "normal size" }} after clicking "Refresh".
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -3126,13 +3132,13 @@ without NgModel <br />
 
 <app-hero-detail *ngIf="isActive"></app-hero-detail>
 
-<div *ngIf="currentHero">Hello, {{currentHero.name}}</div>
-<div *ngIf="nullHero">Hello, {{nullHero.name}}</div>
+<div *ngIf="currentHero">Hello, {{ currentHero.name }}</div>
+<div *ngIf="nullHero">Hello, {{ nullHero.name }}</div>
 
 <!-- NgIf binding with template (no *) -->
 
 <ng-template [ngIf]="currentHero"
-  >Add {{currentHero.name}} with template</ng-template
+  >Add {{ currentHero.name }} with template</ng-template
 >
 
 <!-- Does not show because isActive is false! -->
@@ -3158,7 +3164,7 @@ without NgModel <br />
 <h2 id="ngFor">NgFor Binding</h2>
 
 <div class="box">
-  <div *ngFor="let hero of heroes">{{hero.name}}</div>
+  <div *ngFor="let hero of heroes">{{ hero.name }}</div>
 </div>
 <br />
 
@@ -3173,7 +3179,7 @@ without NgModel <br />
 <p>with <i>semi-colon</i> separator</p>
 <div class="box">
   <div *ngFor="let hero of heroes; let i = index">
-    {{i + 1}} - {{hero.name}}
+    {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
 
@@ -3181,7 +3187,7 @@ without NgModel <br />
 <div class="box">
   <!-- Ex: "1 - Hercules" -->
   <div *ngFor="let hero of heroes; let i = index">
-    {{i + 1}} - {{hero.name}}
+    {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
 
@@ -3194,21 +3200,23 @@ without NgModel <br />
 
 <p><i>without</i> trackBy</p>
 <div class="box">
-  <div #noTrackBy *ngFor="let hero of heroes">({{hero.id}}) {{hero.name}}</div>
+  <div #noTrackBy *ngFor="let hero of heroes">
+    ({{ hero.id }}) {{ hero.name }}
+  </div>
 
   <div id="noTrackByCnt" *ngIf="heroesNoTrackByCount">
-    Hero DOM elements change #{{heroesNoTrackByCount}} without trackBy
+    Hero DOM elements change #{{ heroesNoTrackByCount }} without trackBy
   </div>
 </div>
 
 <p>with trackBy</p>
 <div class="box">
   <div #withTrackBy *ngFor="let hero of heroes; trackBy: trackByHeroes">
-    ({{hero.id}}) {{hero.name}}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 
   <div id="withTrackByCnt" *ngIf="heroesWithTrackByCount">
-    Hero DOM elements change #{{heroesWithTrackByCount}} with trackBy
+    Hero DOM elements change #{{ heroesWithTrackByCount }} with trackBy
   </div>
 </div>
 
@@ -3217,28 +3225,28 @@ without NgModel <br />
 <p>with trackBy and <i>semi-colon</i> separator</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
-    ({{hero.id}}) {{hero.name}}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
 <p>with trackBy and <i>comma</i> separator</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
-    ({{hero.id}}) {{hero.name}}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
 <p>with trackBy and <i>space</i> separator</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
-    ({{hero.id}}) {{hero.name}}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
 <p>with <i>generic</i> trackById function</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackById">
-    ({{hero.id}}) {{hero.name}}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
@@ -3265,7 +3273,7 @@ without NgModel <br />
     [hero]="currentHero"
   ></app-confused-hero>
   <div *ngSwitchCase="'confused'">
-    Are you as confused as {{currentHero.name}}?
+    Are you as confused as {{ currentHero.name }}?
   </div>
   <app-unknown-hero *ngSwitchDefault [hero]="currentHero"></app-unknown-hero>
 </div>
@@ -3308,7 +3316,7 @@ without NgModel <br />
 </app-hero-detail>
 
 <div (myClick)="(clickMessage2 = $event)" clickable>myClick2</div>
-{{clickMessage2}}
+{{ clickMessage2 }}
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -3316,21 +3324,21 @@ without NgModel <br />
 <hr />
 <h2 id="pipes">Pipes</h2>
 
-<div>Title through uppercase pipe: {{title | uppercase}}</div>
+<div>Title through uppercase pipe: {{ title | uppercase }}</div>
 
 <!-- Pipe chaining: convert title to uppercase, then to lowercase -->
-<div>Title through a pipe chain: {{title | uppercase | lowercase}}</div>
+<div>Title through a pipe chain: {{ title | uppercase | lowercase }}</div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>Birthdate: {{currentHero?.birthdate | date:"longDate"}}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date:"longDate" }}</div>
 
-<div>{{currentHero | json}}</div>
+<div>{{ currentHero | json }}</div>
 
-<div>Birthdate: {{currentHero?.birthdate | date:"longDate" | uppercase}}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date:"longDate" | uppercase }}</div>
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price: </label>{{product.price | currency:"USD":true}}
+  <label>Price: </label>{{ product.price | currency:"USD":true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -3339,11 +3347,11 @@ without NgModel <br />
 <hr />
 <h2 id="safe-navigation-operator">Safe navigation operator <i>?.</i></h2>
 
-<div>The title is {{title}}</div>
+<div>The title is {{ title }}</div>
 
-<div>The current hero's name is {{currentHero?.name}}</div>
+<div>The current hero's name is {{ currentHero?.name }}</div>
 
-<div>The current hero's name is {{currentHero.name}}</div>
+<div>The current hero's name is {{ currentHero.name }}</div>
 
 <!--
   The null hero's name is {{nullHero.name}}
@@ -3353,13 +3361,13 @@ without NgModel <br />
 -->
 
 <!-- No hero, div not displayed, no error -->
-<div *ngIf="nullHero">The null hero's name is {{nullHero.name}}</div>
+<div *ngIf="nullHero">The null hero's name is {{ nullHero.name }}</div>
 
-<div>The null hero's name is {{nullHero && nullHero.name}}</div>
+<div>The null hero's name is {{ nullHero && nullHero.name }}</div>
 
 <div>
   <!-- No hero, no problem! -->
-  The null hero's name is {{nullHero?.name}}
+  The null hero's name is {{ nullHero?.name }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -3370,7 +3378,7 @@ without NgModel <br />
 
 <div>
   <!-- No hero, no text -->
-  <div *ngIf="hero">The hero's name is {{hero!.name}}</div>
+  <div *ngIf="hero">The hero's name is {{ hero!.name }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -3381,7 +3389,7 @@ without NgModel <br />
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>The hero's marker is {{$any(hero).marker}}</div>
+  <div>The hero's marker is {{ $any(hero).marker }}</div>
 </div>
 
 <div>
@@ -3397,8 +3405,8 @@ without NgModel <br />
 <h2 id="enums">Enums in binding</h2>
 
 <p>
-  The name of the Color.Red enum is {{Color[Color.Red]}}.<br />
-  The current color is {{Color[color]}} and its number is {{color}}.<br />
+  The name of the Color.Red enum is {{ Color[Color.Red] }}.<br />
+  The current color is {{ Color[color] }} and its number is {{ color }}.<br />
   <button [style.color]="Color[color]" (click)="colorToggle()">
     Enum Toggle
   </button>
@@ -3427,7 +3435,7 @@ without NgModel <br />
     </div>
     <button type="submit" [disabled]="!heroForm.form.valid">Submit</button>
   </form>
-  <div [hidden]="!heroForm.form.valid">{{submitMessage}}</div>
+  <div [hidden]="!heroForm.form.valid">{{ submitMessage }}</div>
 </div>
 
 <!--

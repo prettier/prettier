@@ -74,7 +74,7 @@ function embed(path, print, textToDoc, options) {
         return concat([
           indent(
             concat([
-              softline,
+              line,
               textToDoc(
                 node.value,
                 options.parser === "angular"
@@ -85,8 +85,8 @@ function embed(path, print, textToDoc, options) {
           ),
           node.parent.next &&
           needsToBorrowPrevClosingTagEndMarker(node.parent.next)
-            ? ""
-            : softline
+            ? " "
+            : line
         ]);
       }
       break;
