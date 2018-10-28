@@ -290,6 +290,7 @@ exports[`interpolation.component.html - angular-verify 1`] = `
 <div>{{ a . b }}</div>
 <div>{{ a ?. b ( ) }}</div>
 <div>{{ a ?. b }}</div>
+<div>{{  a // hello  }}</div>
 <label for="transmissionLayoutRadioButton">{{
 "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
 }}</label>
@@ -331,6 +332,7 @@ exports[`interpolation.component.html - angular-verify 1`] = `
 <div>{{a.b}}</div>
 <div>{{a?.b()}}</div>
 <div>{{a?.b}}</div>
+<div>{{a // hello  }}</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
 }}</label>
@@ -388,6 +390,7 @@ exports[`interpolation.component.html - angular-verify 2`] = `
 <div>{{ a . b }}</div>
 <div>{{ a ?. b ( ) }}</div>
 <div>{{ a ?. b }}</div>
+<div>{{  a // hello  }}</div>
 <label for="transmissionLayoutRadioButton">{{
 "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
 }}</label>
@@ -429,6 +432,7 @@ exports[`interpolation.component.html - angular-verify 2`] = `
 <div>{{a.b}}</div>
 <div>{{a?.b()}}</div>
 <div>{{a?.b}}</div>
+<div>{{a // hello  }}</div>
 <label for="transmissionLayoutRadioButton">{{
   "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
 }}</label>
