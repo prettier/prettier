@@ -3395,7 +3395,7 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
 
-    case "NGRoot": 
+    case "NGRoot":
       return concat(
         [].concat(
           path.call(print, "node"),
