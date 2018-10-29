@@ -21,6 +21,8 @@ exports[`attributes.vue - vue-verify 1`] = `
   @click="   $emit(   'click'   )  ;"
   @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
   slot-scope="{destructuring:{a:{b}}}"
+  :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
+  :class="(() => { return 'hello' })()"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -55,6 +57,12 @@ exports[`attributes.vue - vue-verify 1`] = `
       a: { b }
     }
   }"
+  :class="{
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+  }"
+  :class="(() => {
+    return 'hello';
+  })()"
 ></div>
 
 `;
@@ -80,6 +88,8 @@ exports[`attributes.vue - vue-verify 2`] = `
   @click="   $emit(   'click'   )  ;"
   @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
   slot-scope="{destructuring:{a:{b}}}"
+  :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
+  :class="(() => { return 'hello' })()"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -114,6 +124,12 @@ exports[`attributes.vue - vue-verify 2`] = `
       a: { b },
     },
   }"
+  :class="{
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
+  }"
+  :class="(() => {
+    return 'hello';
+  })()"
 ></div>
 
 `;
