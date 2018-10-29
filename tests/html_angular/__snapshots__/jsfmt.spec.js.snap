@@ -62,6 +62,10 @@ exports[`attributes.component.html - angular-verify 1`] = `
     *directive=" a ; b : c "
     *directive=" a ; b : c as d "
     *directive=" a ; b as c "
+    *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    (target)="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    [target]="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    [target]="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -128,6 +132,20 @@ exports[`attributes.component.html - angular-verify 1`] = `
   *directive="a; b: c"
   *directive="a; b: c as d"
   *directive="a; b as c"
+  *ngIf="
+    listRow.NextScheduledSendStatus == 1 ||
+      listRow.NextScheduledSendStatus == 2 ||
+      listRow.NextScheduledSendStatus == 3
+  "
+  (target)="listRow.NextScheduledSendStatus == 1 ||
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3"
+  [target]="listRow.NextScheduledSendStatus == 1 ||
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3"
+  [target]="{
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+  }"
 ></div>
 
 `;
@@ -194,6 +212,10 @@ exports[`attributes.component.html - angular-verify 2`] = `
     *directive=" a ; b : c "
     *directive=" a ; b : c as d "
     *directive=" a ; b as c "
+    *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    (target)="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    [target]="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    [target]="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -260,6 +282,20 @@ exports[`attributes.component.html - angular-verify 2`] = `
   *directive="a; b: c"
   *directive="a; b: c as d"
   *directive="a; b as c"
+  *ngIf="
+    listRow.NextScheduledSendStatus == 1 ||
+      listRow.NextScheduledSendStatus == 2 ||
+      listRow.NextScheduledSendStatus == 3
+  "
+  (target)="listRow.NextScheduledSendStatus == 1 ||
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3"
+  [target]="listRow.NextScheduledSendStatus == 1 ||
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3"
+  [target]="{
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+  }"
 ></div>
 
 `;
@@ -307,6 +343,7 @@ exports[`interpolation.component.html - angular-verify 1`] = `
 "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
 }} </label>
 <div class="Nemo possimus non voluptates dicta accusamus id quia">{{copyTypes[options.copyType]}}</div>
+{{listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>{{ a | b:c }}</div>
 <div>{{ 0 - 1 }}</div>
@@ -365,6 +402,11 @@ exports[`interpolation.component.html - angular-verify 1`] = `
 <div class="Nemo possimus non voluptates dicta accusamus id quia">
   {{ copyTypes[options.copyType] }}
 </div>
+{{
+  listRow.NextScheduledSendStatus == 1 ||
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3
+}}
 
 `;
 
@@ -411,6 +453,7 @@ exports[`interpolation.component.html - angular-verify 2`] = `
 "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
 }} </label>
 <div class="Nemo possimus non voluptates dicta accusamus id quia">{{copyTypes[options.copyType]}}</div>
+{{listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>{{ a | b:c }}</div>
 <div>{{ 0 - 1 }}</div>
@@ -469,6 +512,11 @@ exports[`interpolation.component.html - angular-verify 2`] = `
 <div class="Nemo possimus non voluptates dicta accusamus id quia">
   {{ copyTypes[options.copyType] }}
 </div>
+{{
+  listRow.NextScheduledSendStatus == 1 ||
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3
+}}
 
 `;
 
