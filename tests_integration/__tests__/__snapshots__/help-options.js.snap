@@ -183,25 +183,6 @@ Default: false
 
 exports[`show detailed usage with --help insert-pragma (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help js-single-quote (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help js-single-quote (stdout) 1`] = `
-"--js-single-quote <none|all|js>
-
-  Use single quotes instead of double quotes.
-
-Valid options:
-
-  none   Do not use single quotes
-  all    Use single quotes everywhere (including JSX)
-  js     Use single quotes only in Javascript, and use double quotes in JSX
-
-Default: none
-"
-`;
-
-exports[`show detailed usage with --help js-single-quote (write) 1`] = `Array []`;
-
 exports[`show detailed usage with --help jsx-bracket-same-line (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help jsx-bracket-same-line (stdout) 1`] = `
@@ -214,6 +195,19 @@ Default: false
 `;
 
 exports[`show detailed usage with --help jsx-bracket-same-line (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help jsx-single-quote (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help jsx-single-quote (stdout) 1`] = `
+"--jsx-single-quote
+
+  Use single quotes in JSX.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help jsx-single-quote (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help list-different (stderr) 1`] = `""`;
 

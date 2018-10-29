@@ -1020,6 +1020,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"boolean\\"
     },
     {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Use single quotes in JSX.\\",
+      \\"name\\": \\"jsxSingleQuote\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
       \\"category\\": \\"Global\\",
       \\"choices\\": [
         { \\"description\\": \\"Flow\\", \\"value\\": \\"flow\\" },
