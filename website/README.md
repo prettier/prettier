@@ -1,3 +1,21 @@
+# Prettier Website
+
+https://prettier.io/
+
+## Setup
+
+1. Optionally, download the Playground parser libs (to `prettier/website/static/lib/`) by running the following in the project root dir:
+
+       cd your/path/to/prettier
+       yarn build-docs
+
+    (To build for master, use `yarn build-docs PULL_REQUEST=true`)
+
+2. Switch to the `website` dir and start the server:
+
+       cd website
+       yarn start
+
 ## Configuration
 
 In the project repo, the `docs` folder is used to hold documentation written in markdown. A `blog` folder can be used to hold blog posts written in markdown.
@@ -104,7 +122,3 @@ If you wish to manually publish your website with the `publish-gh-pages` script,
 ```
 DEPLOY_USER=deltice GIT_USER=test-site-bot CIRCLE_PROJECT_USERNAME=deltice CIRCLE_PROJECT_REPONAME=test-site CIRCLE_BRANCH=master npm run publish-gh-pages
 ```
-
-## Playground
-
-The playground is not integrated with the Docusaurus infrastructure. If you want to edit something in the playground, you need to run `yarn start` to start the Docusaurus server and `webpack --watch` in a separate shell to compile the playground changes.
