@@ -528,6 +528,11 @@ function printPathNoParens(path, options, print, args) {
         parent.type === "ReturnStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
+        (n.type !== "NGPipeExpression" &&
+          ((parent.type === "NGRoot" && options.parser === "__ng_binding") ||
+            (parent.type === "NGMicrosyntaxExpression" &&
+              parentParent.type === "NGMicrosyntax" &&
+              parentParent.body.length === 1))) ||
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
         (n !== parent.body && parent.type === "ForStatement") ||
         (parent.type === "ConditionalExpression" &&

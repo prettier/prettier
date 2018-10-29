@@ -135,8 +135,8 @@ exports[`attributes.component.html - angular-verify 1`] = `
   *directive="a; b as c"
   *ngIf="
     listRow.NextScheduledSendStatus == 1 ||
-      listRow.NextScheduledSendStatus == 2 ||
-      listRow.NextScheduledSendStatus == 3
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3
   "
   *ngIf="
     listRow.NextScheduledSendStatus == 1 ||
@@ -151,8 +151,8 @@ exports[`attributes.component.html - angular-verify 1`] = `
   "
   [target]="
     listRow.NextScheduledSendStatus == 1 ||
-      listRow.NextScheduledSendStatus == 2 ||
-      listRow.NextScheduledSendStatus == 3
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3
   "
   [target]="{
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
@@ -296,8 +296,8 @@ exports[`attributes.component.html - angular-verify 2`] = `
   *directive="a; b as c"
   *ngIf="
     listRow.NextScheduledSendStatus == 1 ||
-      listRow.NextScheduledSendStatus == 2 ||
-      listRow.NextScheduledSendStatus == 3
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3
   "
   *ngIf="
     listRow.NextScheduledSendStatus == 1 ||
@@ -312,8 +312,8 @@ exports[`attributes.component.html - angular-verify 2`] = `
   "
   [target]="
     listRow.NextScheduledSendStatus == 1 ||
-      listRow.NextScheduledSendStatus == 2 ||
-      listRow.NextScheduledSendStatus == 3
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3
   "
   [target]="{
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
