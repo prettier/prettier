@@ -592,7 +592,7 @@ Default | CLI Override | API Override
 Use single quotes instead of double quotes.
 
 Notes:
-* JSX will always be double quotes and ignore this setting. To use single quotes in JSX use `jsxSingleQuote`
+* Quotes in JSX will always be double and ignore this setting.
 * If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
 
 Default | CLI Override | API Override

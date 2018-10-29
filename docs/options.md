@@ -60,7 +60,7 @@ Use single quotes instead of double quotes.
 
 Notes:
 
-- JSX Quotes will ignore this setting. see `jsx-single-quote`
+- JSX quotes ignore this option – see [jsx-single-quote](#jsx-single-quote).
 - If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
 
 See the [strings rationale](rationale.md#strings) for more information.
@@ -71,11 +71,11 @@ See the [strings rationale](rationale.md#strings) for more information.
 
 ## JSX Quotes
 
-Use single quotes in JSX
+Use single quotes instead of double quotes in JSX.
 
-| Default | CLI Override | API Override   |
-| ------- | ------------ | -------------- |
-| `false`  | `--jsx-single-quote`  | `jsxSingleQuote: <bool>` |
+| Default | CLI Override         | API Override             |
+| ------- | -------------------- | ------------------------ |
+| `false` | `--jsx-single-quote` | `jsxSingleQuote: <bool>` |
 
 ## Trailing Commas
 
