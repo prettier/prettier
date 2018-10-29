@@ -1834,7 +1834,7 @@ function printPathNoParens(path, options, print, args) {
           let final = raw.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
           const quote = getPreferredQuote(
             final,
-            options.jsSingleQuote === "all" ? "'" : '"'
+            options.jsxSingleQuote ? "'" : '"'
           );
           const escape = quote === "'" ? "&apos;" : "&quot;";
           final = final.slice(1, -1).replace(new RegExp(quote, "g"), escape);
@@ -5071,7 +5071,7 @@ function printJSXElement(path, options, print) {
     containsMultipleAttributes ||
     containsMultipleExpressions;
 
-  const rawJsxWhitespace = options.jsSingleQuote !== "none" ? "{' '}" : '{" "}';
+  const rawJsxWhitespace = options.jsxSingleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
 
   const isFacebookTranslationTag =

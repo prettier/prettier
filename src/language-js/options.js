@@ -41,31 +41,12 @@ module.exports = {
       "Do not print semicolons, except at the beginning of lines which may need them."
   },
   singleQuote: commonOptions.singleQuote,
-  jsSingleQuote: {
-    since: "0.0.0",
+  jsxSingleQuote: {
+    since: "1.15.0",
     category: CATEGORY_JAVASCRIPT,
-    type: "choice",
-    default: "none",
-    choices: [
-      {
-        value: "none",
-        description: "Do not use single quotes",
-        forward: { key: "single-quote", value: false }
-      },
-      {
-        value: "all",
-        description: "Use single quotes everywhere (including JSX)",
-        forward: { key: "single-quote", value: true }
-      },
-      {
-        value: "js",
-        description: "Use single quotes only in Javascript, and use double quotes in JSX",
-        forward: { key: "single-quote", value: true }
-      },
-      { value: false, deprecated: "1.14.0", redirect: "none" },
-      { value: true, deprecated: "1.14.0", redirect: "js" }
-    ],
-    description: "Use single quotes instead of double quotes."
+    type: "boolean",
+    default: false,
+    description: "Use single quotes in JSX."
   },
   trailingComma: {
     since: "0.0.0",

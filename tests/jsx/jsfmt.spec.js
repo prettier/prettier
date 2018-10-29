@@ -1,3 +1,16 @@
-run_spec(__dirname, ["flow", "babylon", "typescript"], { jsSingleQuote: "none" });
-run_spec(__dirname, ["flow", "babylon", "typescript"], { jsSingleQuote: "js" });
-run_spec(__dirname, ["flow", "babylon", "typescript"], { jsSingleQuote: "all" });
+run_spec(__dirname, ["flow", "babylon", "typescript"], {
+  singleQuote: false,
+  jsxSingleQuote: false
+});
+run_spec(__dirname, ["flow", "babylon", "typescript"], {
+  singleQuote: false,
+  jsxSingleQuote: true
+});
+run_spec(__dirname, ["flow", "babylon", "typescript"], {
+  singleQuote: true,
+  jsxSingleQuote: false
+});
+run_spec(__dirname, ["flow", "babylon", "typescript"], {
+  singleQuote: true,
+  jsxSingleQuote: true
+});
