@@ -362,9 +362,9 @@ exports[`interpolation.component.html - angular-verify 1`] = `
       localize:localizationSection
   }}
 </label>
-<div class="Nemo possimus non voluptates dicta accusamus id quia">{{
-  copyTypes[options.copyType]
-}}</div>
+<div class="Nemo possimus non voluptates dicta accusamus id quia">
+  {{ copyTypes[options.copyType] }}
+</div>
 
 `;
 
@@ -466,9 +466,9 @@ exports[`interpolation.component.html - angular-verify 2`] = `
       localize:localizationSection
   }}
 </label>
-<div class="Nemo possimus non voluptates dicta accusamus id quia">{{
-  copyTypes[options.copyType]
-}}</div>
+<div class="Nemo possimus non voluptates dicta accusamus id quia">
+  {{ copyTypes[options.copyType] }}
+</div>
 
 `;
 
@@ -1288,9 +1288,9 @@ can be found in the LICENSE file at http://angular.io/license
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
 <div class="context">
-  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">{{
-    hero.name
-  }}</button>
+  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">
+    {{ hero.name }}
+  </button>
 </div>
 
 <p>Template reference variable statement context (#heroForm)</p>
@@ -2779,9 +2779,9 @@ can be found in the LICENSE file at http://angular.io/license
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
 <div class="context">
-  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">{{
-    hero.name
-  }}</button>
+  <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">
+    {{ hero.name }}
+  </button>
 </div>
 
 <p>Template reference variable statement context (#heroForm)</p>
