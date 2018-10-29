@@ -3395,15 +3395,22 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
 
-    case "NGRoot":
-      return concat(
-        [].concat(
-          path.call(print, "node"),
-          !n.node.comments || n.node.comments.length === 0
-            ? []
-            : concat([" //", n.node.comments[0].value.trimRight()])
-        )
+    case "NGRoot": {
+      const rootNode = n.node;
+      const rootDoc = path.call(print, "node");
+      const postprocess = options.__ng_root_postprocess || (x => x);
+      return postprocess(
+        concat(
+          [].concat(
+            rootDoc,
+            !n.node.comments || n.node.comments.length === 0
+              ? []
+              : concat([" //", n.node.comments[0].value.trimRight()])
+          )
+        ),
+        rootNode
       );
+    }
     case "NGChainedExpression":
       return group(join(concat([";", line]), path.map(print, "expressions")));
     case "NGEmptyExpression":

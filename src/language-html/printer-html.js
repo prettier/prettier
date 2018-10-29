@@ -824,35 +824,33 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
      */
     const ngExpressionBindingPatterns = ["^\\[.+\\]$", "^bind(on)?-"];
 
+    const __ng_root_postprocess = (rootDoc, rootNode) =>
+      rootNode.type === "ObjectExpression"
+        ? rootDoc
+        : group(concat([indent(concat([softline, rootDoc])), softline]));
+
     if (isKeyMatched(ngStatementBindingPatterns)) {
       return textToDoc(getValue(), {
         parser: "__ng_action",
-        trailingComma: "none"
+        trailingComma: "none",
+        __ng_root_postprocess
       });
     }
 
     if (isKeyMatched(ngExpressionBindingPatterns)) {
       return textToDoc(getValue(), {
         parser: "__ng_binding",
-        trailingComma: "none"
+        trailingComma: "none",
+        __ng_root_postprocess
       });
     }
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {
-      return group(
-        concat([
-          indent(
-            concat([
-              softline,
-              textToDoc(getValue(), {
-                parser: "__ng_directive",
-                trailingComma: "none"
-              })
-            ])
-          ),
-          softline
-        ])
-      );
+      return textToDoc(getValue(), {
+        parser: "__ng_directive",
+        trailingComma: "none",
+        __ng_root_postprocess
+      });
     }
   }
 
