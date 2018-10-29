@@ -60,9 +60,11 @@ exports[`attributes.vue - vue-verify 1`] = `
   :class="{
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
   }"
-  :class="(() => {
-    return 'hello';
-  })()"
+  :class="
+    (() => {
+      return 'hello';
+    })()
+  "
 ></div>
 
 `;
@@ -127,9 +129,11 @@ exports[`attributes.vue - vue-verify 2`] = `
   :class="{
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
   }"
-  :class="(() => {
-    return 'hello';
-  })()"
+  :class="
+    (() => {
+      return 'hello';
+    })()
+  "
 ></div>
 
 `;

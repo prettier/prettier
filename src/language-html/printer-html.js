@@ -759,11 +759,37 @@ function getTextValueParts(node, value = node.value) {
     : join(line, value.split(/\s+/)).parts;
 }
 
-function printEmbeddedAttributeValue(node, textToDoc, options) {
+function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const isKeyMatched = patterns =>
     new RegExp(patterns.join("|")).test(node.name);
   const getValue = () =>
     node.value.replace(/&quot;/g, '"').replace(/&apos;/g, "'");
+
+  let shouldHug = false;
+
+  const __onHtmlBindingRoot = root => {
+    const rootNode =
+      root.type === "NGRoot"
+        ? root.node.type === "NGMicrosyntax" &&
+          root.node.body.length === 1 &&
+          root.node.body[0].type === "NGMicrosyntaxExpression"
+          ? root.node.body[0].expression
+          : root.node
+        : root.type === "JsExpressionRoot"
+          ? root.node
+          : root;
+    if (rootNode && rootNode.type === "ObjectExpression") {
+      shouldHug = true;
+    }
+  };
+
+  const printMaybeHug = doc =>
+    shouldHug
+      ? group(doc)
+      : group(concat([indent(concat([softline, doc])), softline]));
+
+  const textToDoc = (code, opts) =>
+    originalTextToDoc(code, Object.assign({ __onHtmlBindingRoot }, opts));
 
   if (options.parser === "vue") {
     if (node.name === "v-for") {
@@ -794,19 +820,25 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
       const simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
 
       const value = getValue();
-      const doc =
+      return printMaybeHug(
         simplePathRE.test(value) || fnExpRE.test(value)
           ? textToDoc(value, { parser: "__js_expression" })
-          : stripTrailingHardline(textToDoc(value, { parser: "babylon" }));
-      return group(concat([indent(concat([softline, doc])), softline]));
+          : stripTrailingHardline(textToDoc(value, { parser: "babylon" }))
+      );
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
-      return textToDoc(getValue(), { parser: "__js_expression" });
+      return printMaybeHug(
+        textToDoc(getValue(), { parser: "__js_expression" })
+      );
     }
   }
 
   if (options.parser === "angular") {
+    const ngTextToDoc = (code, opts) =>
+      // angular does not allow trailing comma
+      textToDoc(code, Object.assign({ trailingComma: "none" }, opts));
+
     /**
      *     *directive="angularDirective"
      */
@@ -824,33 +856,18 @@ function printEmbeddedAttributeValue(node, textToDoc, options) {
      */
     const ngExpressionBindingPatterns = ["^\\[.+\\]$", "^bind(on)?-"];
 
-    const __ng_root_postprocess = (rootDoc, rootNode) =>
-      rootNode.type === "ObjectExpression"
-        ? rootDoc
-        : group(concat([indent(concat([softline, rootDoc])), softline]));
-
     if (isKeyMatched(ngStatementBindingPatterns)) {
-      return textToDoc(getValue(), {
-        parser: "__ng_action",
-        trailingComma: "none",
-        __ng_root_postprocess
-      });
+      return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_action" }));
     }
 
     if (isKeyMatched(ngExpressionBindingPatterns)) {
-      return textToDoc(getValue(), {
-        parser: "__ng_binding",
-        trailingComma: "none",
-        __ng_root_postprocess
-      });
+      return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_binding" }));
     }
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {
-      return textToDoc(getValue(), {
-        parser: "__ng_directive",
-        trailingComma: "none",
-        __ng_root_postprocess
-      });
+      return printMaybeHug(
+        ngTextToDoc(getValue(), { parser: "__ng_directive" })
+      );
     }
   }
 
