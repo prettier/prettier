@@ -60,6 +60,7 @@
     *directive=" a ; b : c as d "
     *directive=" a ; b as c "
     *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3; else hello"
     (target)="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
     [target]="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
     [target]="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
