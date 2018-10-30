@@ -18,8 +18,7 @@ The options to the configuration file are the same as the [API options](options.
 
 JSON:
 
-```json
-{
+```json {
   "trailingComma": "es5",
   "tabWidth": 4,
   "semi": false,
@@ -65,8 +64,7 @@ Prettier borrows eslint's [override format](http://eslint.org/docs/user-guide/co
 
 JSON:
 
-```json
-{
+```json {
   "semi": false,
   "overrides": [
     {
@@ -97,8 +95,7 @@ By default, Prettier automatically infers which parser to use based on the input
 
 For example, to get Prettier to format its own `.prettierrc` file, you can do:
 
-```json
-{
+```json {
   "overrides": [
     {
       "files": ".prettierrc",
@@ -110,8 +107,7 @@ For example, to get Prettier to format its own `.prettierrc` file, you can do:
 
 You can also switch to the `flow` parser instead of the default `babylon` for .js files:
 
-```json
-{
+```json {
   "overrides": [
     {
       "files": "*.js",
