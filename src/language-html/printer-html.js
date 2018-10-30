@@ -99,8 +99,8 @@ function embed(path, print, textToDoc, options) {
       const embeddedAttributeValueDoc = printEmbeddedAttributeValue(
         node,
         (code, opts) =>
-          // prefer single quote to avoid unnecessary escape
-          textToDoc(code, Object.assign({ singleQuote: true }, opts)),
+          // strictly prefer single quote to avoid unnecessary html entity escape
+          textToDoc(code, Object.assign({ __isInHtmlAttribute: true }, opts)),
         options
       );
       if (embeddedAttributeValueDoc) {
