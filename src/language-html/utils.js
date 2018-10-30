@@ -250,12 +250,47 @@ function forceBreakChildren(node) {
 function preferHardlineAsLeadingSpaces(node) {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
-    (node.prev && preferHardlineAsTrailingSpaces(node.prev))
+    (node.prev && preferHardlineAsTrailingSpaces(node.prev)) ||
+    isCustomElementWithSurroundingLineBreak(node)
   );
 }
 
 function preferHardlineAsTrailingSpaces(node) {
-  return preferHardlineAsSurroundingSpaces(node) || isElement(node, "br");
+  return (
+    preferHardlineAsSurroundingSpaces(node) ||
+    isElement(node, "br") ||
+    isCustomElementWithSurroundingLineBreak(node)
+  );
+}
+
+function isCustomElementWithSurroundingLineBreak(node) {
+  return isCustomElement(node) && hasSurroundingLineBreak(node);
+}
+
+function isCustomElement(node) {
+  return isElement(node) && node.name.includes("-");
+}
+
+function hasSurroundingLineBreak(node) {
+  return hasLeadingLineBreak(node) && hasTrailingLineBreak(node);
+}
+
+function hasLeadingLineBreak(node) {
+  return (
+    node.hasLeadingSpaces &&
+    (node.prev
+      ? node.prev.sourceSpan.end.line < node.sourceSpan.start.line
+      : node.parent.startSourceSpan.end.line < node.sourceSpan.start.line)
+  );
+}
+
+function hasTrailingLineBreak(node) {
+  return (
+    node.hasTrailingSpaces &&
+    (node.next
+      ? node.next.sourceSpan.start.line > node.sourceSpan.end.line
+      : node.parent.endSourceSpan.start.line > node.sourceSpan.end.line)
+  );
 }
 
 function preferHardlineAsSurroundingSpaces(node) {

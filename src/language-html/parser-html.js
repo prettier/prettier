@@ -148,8 +148,8 @@ function _parse(
     ast.children.unshift(frontMatter);
   }
 
-  const parseSubHtml = (subContent, startSourceSpan) => {
-    const { offset } = startSourceSpan;
+  const parseSubHtml = (subContent, startSpan) => {
+    const { offset } = startSpan;
     const fakeContent = text.slice(0, offset).replace(/[^\r\n]/g, " ");
     const realContent = subContent;
     const subAst = _parse(
@@ -160,7 +160,7 @@ function _parse(
     );
     const ParseSourceSpan = subAst.children[0].sourceSpan.constructor;
     subAst.sourceSpan = new ParseSourceSpan(
-      startSourceSpan,
+      startSpan,
       subAst.children[subAst.children.length - 1].sourceSpan.end
     );
     const firstText = subAst.children[0];
@@ -220,11 +220,19 @@ function parseIeConditionalComment(node, parseHtml) {
 
   const [, openingTagSuffix, condition, data] = match;
   const offset = "<!--".length + openingTagSuffix.length;
-  const startSourceSpan = node.sourceSpan.start.moveBy(offset);
-
-  return Object.assign({}, parseHtml(data, startSourceSpan), {
+  const contentStartSpan = node.sourceSpan.start.moveBy(offset);
+  const ParseSourceSpan = contentStartSpan.constructor;
+  return Object.assign({}, parseHtml(data, contentStartSpan), {
     type: "ieConditionalComment",
-    condition: condition.trim().replace(/\s+/g, " ")
+    condition: condition.trim().replace(/\s+/g, " "),
+    startSourceSpan: new ParseSourceSpan(
+      node.sourceSpan.start,
+      contentStartSpan
+    ),
+    endSourceSpan: new ParseSourceSpan(
+      contentStartSpan.moveBy(data.length),
+      node.sourceSpan.end
+    )
   });
 }
 

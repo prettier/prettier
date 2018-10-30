@@ -1631,13 +1631,17 @@ exports[`tags.html - html-verify 1`] = `
   12345678901234567890123456789012345678901234567890123456789012345678901234567890
 </li>
 <div>
-  <app-nav></app-nav> <router-outlet></router-outlet> <app-footer></app-footer>
+  <app-nav></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
 
-  <app-nav [input]="something"></app-nav> <router-outlet></router-outlet>
+  <app-nav [input]="something"></app-nav>
+  <router-outlet></router-outlet>
   <app-footer></app-footer>
 
   <app-primary-navigation></app-primary-navigation>
-  <router-outlet></router-outlet> <app-footer [input]="something"></app-footer>
+  <router-outlet></router-outlet>
+  <app-footer [input]="something"></app-footer>
 </div>
 
 `;
@@ -2271,11 +2275,17 @@ exports[`tags.html - html-verify 3`] = `
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 <li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
 <div>
-  <app-nav></app-nav> <router-outlet></router-outlet> <app-footer></app-footer>
+  <app-nav></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
 
-  <app-nav [input]="something"></app-nav> <router-outlet></router-outlet> <app-footer></app-footer>
+  <app-nav [input]="something"></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
 
-  <app-primary-navigation></app-primary-navigation> <router-outlet></router-outlet> <app-footer [input]="something"></app-footer>
+  <app-primary-navigation></app-primary-navigation>
+  <router-outlet></router-outlet>
+  <app-footer [input]="something"></app-footer>
 </div>
 
 `;
@@ -2512,13 +2522,17 @@ exports[`tags.html - html-verify 4`] = `
   >12345678901234567890123456789012345678901234567890123456789012345678901234567890</li
 >
 <div>
-  <app-nav></app-nav> <router-outlet></router-outlet> <app-footer></app-footer>
+  <app-nav></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
 
-  <app-nav [input]="something"></app-nav> <router-outlet></router-outlet>
+  <app-nav [input]="something"></app-nav>
+  <router-outlet></router-outlet>
   <app-footer></app-footer>
 
   <app-primary-navigation></app-primary-navigation>
-  <router-outlet></router-outlet> <app-footer [input]="something"></app-footer>
+  <router-outlet></router-outlet>
+  <app-footer [input]="something"></app-footer>
 </div>
 
 `;
