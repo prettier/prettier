@@ -9,7 +9,7 @@ https://prettier.io/
        cd your/path/to/prettier
        yarn build-docs
 
-    (To build for master, use `yarn build-docs PULL_REQUEST=true`)
+    (To build for master, use `PULL_REQUEST=true yarn build-docs`)
 
 2. Switch to the `website` dir and start the server:
 
