@@ -1467,6 +1467,19 @@ exports[`tags.html - html-verify 1`] = `
 <br /><br />
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 <li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
+<div>
+<app-nav></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-nav [input]="something"></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-primary-navigation></app-primary-navigation>
+<router-outlet></router-outlet>
+<app-footer [input]="something"></app-footer>
+</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -1617,6 +1630,15 @@ exports[`tags.html - html-verify 1`] = `
 <li>
   12345678901234567890123456789012345678901234567890123456789012345678901234567890
 </li>
+<div>
+  <app-nav></app-nav> <router-outlet></router-outlet> <app-footer></app-footer>
+
+  <app-nav [input]="something"></app-nav> <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-primary-navigation></app-primary-navigation>
+  <router-outlet></router-outlet> <app-footer [input]="something"></app-footer>
+</div>
 
 `;
 
@@ -1709,6 +1731,19 @@ exports[`tags.html - html-verify 2`] = `
 <br /><br />
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 <li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
+<div>
+<app-nav></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-nav [input]="something"></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-primary-navigation></app-primary-navigation>
+<router-outlet></router-outlet>
+<app-footer [input]="something"></app-footer>
+</div>
 ~
 <br />
 <br />
@@ -2029,6 +2064,23 @@ exports[`tags.html - html-verify 2`] = `
 <li>
   12345678901234567890123456789012345678901234567890123456789012345678901234567890
 </li>
+<div>
+  <app-nav></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-nav
+    [input]="something"
+  ></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-primary-navigation></app-primary-navigation>
+  <router-outlet></router-outlet>
+  <app-footer
+    [input]="something"
+  ></app-footer>
+</div>
 
 `;
 
@@ -2121,6 +2173,19 @@ exports[`tags.html - html-verify 3`] = `
 <br /><br />
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 <li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
+<div>
+<app-nav></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-nav [input]="something"></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-primary-navigation></app-primary-navigation>
+<router-outlet></router-outlet>
+<app-footer [input]="something"></app-footer>
+</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -2205,6 +2270,13 @@ exports[`tags.html - html-verify 3`] = `
 <button bind-disabled="isUnchanged" on-click="onSave($event)">Disabled Cancel</button> <br /><br />
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 <li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
+<div>
+  <app-nav></app-nav> <router-outlet></router-outlet> <app-footer></app-footer>
+
+  <app-nav [input]="something"></app-nav> <router-outlet></router-outlet> <app-footer></app-footer>
+
+  <app-primary-navigation></app-primary-navigation> <router-outlet></router-outlet> <app-footer [input]="something"></app-footer>
+</div>
 
 `;
 
@@ -2297,6 +2369,19 @@ exports[`tags.html - html-verify 4`] = `
 <br /><br />
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 <li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
+<div>
+<app-nav></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-nav [input]="something"></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-primary-navigation></app-primary-navigation>
+<router-outlet></router-outlet>
+<app-footer [input]="something"></app-footer>
+</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -2426,6 +2511,15 @@ exports[`tags.html - html-verify 4`] = `
 <li
   >12345678901234567890123456789012345678901234567890123456789012345678901234567890</li
 >
+<div>
+  <app-nav></app-nav> <router-outlet></router-outlet> <app-footer></app-footer>
+
+  <app-nav [input]="something"></app-nav> <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-primary-navigation></app-primary-navigation>
+  <router-outlet></router-outlet> <app-footer [input]="something"></app-footer>
+</div>
 
 `;
 
@@ -2518,6 +2612,19 @@ exports[`tags.html - html-verify 5`] = `
 <br /><br />
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 <li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
+<div>
+<app-nav></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-nav [input]="something"></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-primary-navigation></app-primary-navigation>
+<router-outlet></router-outlet>
+<app-footer [input]="something"></app-footer>
+</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -2697,6 +2804,19 @@ exports[`tags.html - html-verify 5`] = `
 <li>
   12345678901234567890123456789012345678901234567890123456789012345678901234567890
 </li>
+<div>
+  <app-nav></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-nav [input]="something"></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-primary-navigation></app-primary-navigation>
+  <router-outlet></router-outlet>
+  <app-footer [input]="something"></app-footer>
+</div>
 
 `;
 
