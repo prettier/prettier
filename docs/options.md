@@ -267,7 +267,11 @@ Valid options:
 
 _available in v1.15.0+_
 
-TODO
+Specify the global whitespace sensitivity for HTML files, see [whitespace-sensitive formatting] for more info.
+
+TODO: update the blog post link
+
+[whitespace-sensitive formatting]: https://prettier.io/blog/2018/10/00/1.15.0.html#whitespace-sensitive-formatting
 
 Valid options:
 
