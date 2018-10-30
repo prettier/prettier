@@ -4,7 +4,7 @@ https://prettier.io/
 
 ## Setup
 
-1. Optionally, download the Playground parser libs (to `prettier/website/static/lib/`) by running the following in the project root dir:
+1. Build the Prettier browser libs for playground by running the following in the project root dir:
 
        cd your/path/to/prettier
        yarn build-docs
