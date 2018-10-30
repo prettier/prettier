@@ -3,9 +3,19 @@
 const locFns = require("./loc");
 
 function createParser(_parse) {
-  const parse = (text /*, parsers, opts */) => {
+  const parse = (text, parsers, options) => {
     const ngEstreeParser = require("angular-estree-parser");
-    return { type: "NGRoot", node: _parse(text, ngEstreeParser) };
+    const node = _parse(text, ngEstreeParser);
+    return {
+      type: "NGRoot",
+      node:
+        options.parser === "__ng_action" && node.type !== "NGChainedExpression"
+          ? Object.assign({}, node, {
+              type: "NGChainedExpression",
+              expressions: [node]
+            })
+          : node
+    };
   };
   return Object.assign({ astFormat: "estree", parse }, locFns);
 }

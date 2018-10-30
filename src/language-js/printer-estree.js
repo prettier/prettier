@@ -36,6 +36,7 @@ const pathNeedsParens = require("./needs-parens");
 const preprocess = require("./preprocess");
 const { printHtmlBinding } = require("./html-binding");
 const {
+  hasNode,
   hasFlowAnnotationComment,
   hasFlowShorthandAnnotationComment
 } = require("./utils");
@@ -3410,7 +3411,18 @@ function printPathNoParens(path, options, print, args) {
         )
       );
     case "NGChainedExpression":
-      return group(join(concat([";", line]), path.map(print, "expressions")));
+      return group(
+        join(
+          concat([";", line]),
+          path.map(
+            childPath =>
+              hasNgSideEffect(childPath)
+                ? print(childPath)
+                : concat(["(", print(childPath), ")"]),
+            "expressions"
+          )
+        )
+      );
     case "NGEmptyExpression":
       return "";
     case "NGQuotedExpression":
@@ -3475,6 +3487,20 @@ function isNgForOf(path) {
     parentNode.body[0].type === "NGMicrosyntaxLet" &&
     parentNode.body[0].value === null
   );
+}
+
+/** identify if an angular expression seems to have side effects */
+function hasNgSideEffect(path) {
+  return hasNode(path.getValue(), node => {
+    switch (node.type) {
+      case undefined:
+        return false;
+      case "CallExpression":
+      case "OptionalCallExpression":
+      case "AssignmentExpression":
+        return true;
+    }
+  });
 }
 
 function printStatementSequence(path, options, print) {

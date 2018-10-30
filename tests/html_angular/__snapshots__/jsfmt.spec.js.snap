@@ -114,20 +114,20 @@ exports[`attributes.component.html - angular-verify 1`] = `
   [target]="a?.b()"
   [target]="a?.b"
   [target]="this.a"
-  on-target="(a = 1)"
-  (target)="(a = 1)"
-  (target)="(a.b = 1)"
-  (target)="(a[b] = 1)"
-  (target)="a // hello"
-  (target)="a; b"
-  (event)="0"
-  (event)="a.b"
-  (event)="hello"
+  on-target="a = 1"
+  (target)="a = 1"
+  (target)="a.b = 1"
+  (target)="a[b] = 1"
+  (target)="(a) // hello"
+  (target)="(a); (b)"
+  (event)="(0)"
+  (event)="(a.b)"
+  (event)="(hello)"
   (event)="hello()"
-  (event)="a && b"
+  (event)="(a && b)"
   (event)="a && b()"
-  (event)="(foo = $event)"
-  (event)="foo == $event"
+  (event)="foo = $event"
+  (event)="(foo == $event)"
   *ngIf="something ? true : false"
   *ngFor="let hero of heroes"
   *ngFor="
@@ -164,9 +164,9 @@ exports[`attributes.component.html - angular-verify 1`] = `
     else: hello
   "
   (target)="
-    listRow.NextScheduledSendStatus == 1 ||
+    (listRow.NextScheduledSendStatus == 1 ||
       listRow.NextScheduledSendStatus == 2 ||
-      listRow.NextScheduledSendStatus == 3
+      listRow.NextScheduledSendStatus == 3)
   "
   [target]="
     listRow.NextScheduledSendStatus == 1 ||
@@ -295,20 +295,20 @@ exports[`attributes.component.html - angular-verify 2`] = `
   [target]="a?.b()"
   [target]="a?.b"
   [target]="this.a"
-  on-target="(a = 1)"
-  (target)="(a = 1)"
-  (target)="(a.b = 1)"
-  (target)="(a[b] = 1)"
-  (target)="a // hello"
-  (target)="a; b"
-  (event)="0"
-  (event)="a.b"
-  (event)="hello"
+  on-target="a = 1"
+  (target)="a = 1"
+  (target)="a.b = 1"
+  (target)="a[b] = 1"
+  (target)="(a) // hello"
+  (target)="(a); (b)"
+  (event)="(0)"
+  (event)="(a.b)"
+  (event)="(hello)"
   (event)="hello()"
-  (event)="a && b"
+  (event)="(a && b)"
   (event)="a && b()"
-  (event)="(foo = $event)"
-  (event)="foo == $event"
+  (event)="foo = $event"
+  (event)="(foo == $event)"
   *ngIf="something ? true : false"
   *ngFor="let hero of heroes"
   *ngFor="
@@ -345,9 +345,9 @@ exports[`attributes.component.html - angular-verify 2`] = `
     else: hello
   "
   (target)="
-    listRow.NextScheduledSendStatus == 1 ||
+    (listRow.NextScheduledSendStatus == 1 ||
       listRow.NextScheduledSendStatus == 2 ||
-      listRow.NextScheduledSendStatus == 3
+      listRow.NextScheduledSendStatus == 3)
   "
   [target]="
     listRow.NextScheduledSendStatus == 1 ||
@@ -1380,7 +1380,7 @@ can be found in the LICENSE file at http://angular.io/license
 </ng-template>
 
 <p>Template reference variable expression context (#heroInput)</p>
-<div (keyup)="0" class="context">
+<div (keyup)="(0)" class="context">
   Type something: <input #heroInput /> {{ heroInput.value }}
 </div>
 
@@ -1444,7 +1444,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <button (click)="onSave()">Save</button>
 <app-hero-detail (deleteRequest)="deleteHero()"></app-hero-detail>
-<div (myClick)="(clicked = $event)" clickable>click me</div>
+<div (myClick)="clicked = $event" clickable>click me</div>
 {{ clicked }} <br /><br />
 
 <div>Hero Name: <input [(ngModel)]="name" /> {{ name }}</div>
@@ -1611,7 +1611,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <div>
   <!-- \`myClick\` is an event on the custom \`ClickDirective\` -->
-  <div (myClick)="(clickMessage = $event)" clickable>click with myClick</div>
+  <div (myClick)="clickMessage = $event" clickable>click with myClick</div>
   {{ clickMessage }}
 </div>
 
@@ -1652,10 +1652,7 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <div id="two-way-2">
   <h3>De-sugared two-way binding</h3>
-  <app-sizer
-    [size]="fontSizePx"
-    (sizeChange)="(fontSizePx = $event)"
-  ></app-sizer>
+  <app-sizer [size]="fontSizePx" (sizeChange)="fontSizePx = $event"></app-sizer>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -1671,14 +1668,14 @@ can be found in the LICENSE file at http://angular.io/license
 
 <input
   [value]="currentHero.name"
-  (input)="(currentHero.name = $event.target.value)"
+  (input)="currentHero.name = $event.target.value"
 />
 without NgModel <br />
 <input [(ngModel)]="currentHero.name" /> [(ngModel)] <br />
 <input bindon-ngModel="currentHero.name" /> bindon-ngModel <br />
 <input
   [ngModel]="currentHero.name"
-  (ngModelChange)="(currentHero.name = $event)"
+  (ngModelChange)="currentHero.name = $event"
 />
 (ngModelChange)="...name=$event" <br />
 <input
@@ -1706,7 +1703,7 @@ without NgModel <br />
   <input
     type="checkbox"
     [value]="!isUnchanged"
-    (change)="(isUnchanged = !isUnchanged)"
+    (change)="isUnchanged = !isUnchanged"
 /></label>
 | <label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
@@ -1942,7 +1939,7 @@ without NgModel <br />
 <app-hero-detail [hero]="currentHero" (deleteRequest)="deleteHero($event)">
 </app-hero-detail>
 
-<div (myClick)="(clickMessage2 = $event)" clickable>myClick2</div>
+<div (myClick)="clickMessage2 = $event" clickable>myClick2</div>
 {{ clickMessage2 }}
 
 <a class="to-toc" href="#toc">top</a>
@@ -2871,7 +2868,7 @@ can be found in the LICENSE file at http://angular.io/license
 </ng-template>
 
 <p>Template reference variable expression context (#heroInput)</p>
-<div (keyup)="0" class="context">
+<div (keyup)="(0)" class="context">
   Type something: <input #heroInput /> {{ heroInput.value }}
 </div>
 
@@ -2935,7 +2932,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <button (click)="onSave()">Save</button>
 <app-hero-detail (deleteRequest)="deleteHero()"></app-hero-detail>
-<div (myClick)="(clicked = $event)" clickable>click me</div>
+<div (myClick)="clicked = $event" clickable>click me</div>
 {{ clicked }} <br /><br />
 
 <div>Hero Name: <input [(ngModel)]="name" /> {{ name }}</div>
@@ -3102,7 +3099,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <div>
   <!-- \`myClick\` is an event on the custom \`ClickDirective\` -->
-  <div (myClick)="(clickMessage = $event)" clickable>click with myClick</div>
+  <div (myClick)="clickMessage = $event" clickable>click with myClick</div>
   {{ clickMessage }}
 </div>
 
@@ -3143,10 +3140,7 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <div id="two-way-2">
   <h3>De-sugared two-way binding</h3>
-  <app-sizer
-    [size]="fontSizePx"
-    (sizeChange)="(fontSizePx = $event)"
-  ></app-sizer>
+  <app-sizer [size]="fontSizePx" (sizeChange)="fontSizePx = $event"></app-sizer>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -3162,14 +3156,14 @@ can be found in the LICENSE file at http://angular.io/license
 
 <input
   [value]="currentHero.name"
-  (input)="(currentHero.name = $event.target.value)"
+  (input)="currentHero.name = $event.target.value"
 />
 without NgModel <br />
 <input [(ngModel)]="currentHero.name" /> [(ngModel)] <br />
 <input bindon-ngModel="currentHero.name" /> bindon-ngModel <br />
 <input
   [ngModel]="currentHero.name"
-  (ngModelChange)="(currentHero.name = $event)"
+  (ngModelChange)="currentHero.name = $event"
 />
 (ngModelChange)="...name=$event" <br />
 <input
@@ -3197,7 +3191,7 @@ without NgModel <br />
   <input
     type="checkbox"
     [value]="!isUnchanged"
-    (change)="(isUnchanged = !isUnchanged)"
+    (change)="isUnchanged = !isUnchanged"
 /></label>
 | <label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
@@ -3433,7 +3427,7 @@ without NgModel <br />
 <app-hero-detail [hero]="currentHero" (deleteRequest)="deleteHero($event)">
 </app-hero-detail>
 
-<div (myClick)="(clickMessage2 = $event)" clickable>myClick2</div>
+<div (myClick)="clickMessage2 = $event" clickable>myClick2</div>
 {{ clickMessage2 }}
 
 <a class="to-toc" href="#toc">top</a>

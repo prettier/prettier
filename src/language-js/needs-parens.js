@@ -500,6 +500,8 @@ function needsParens(path, options) {
         return false;
       } else if (parent.type === "Property" && parent.value === node) {
         return false;
+      } else if (parent.type === "NGChainedExpression") {
+        return false;
       }
       return true;
     }
