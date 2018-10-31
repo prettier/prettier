@@ -11,7 +11,7 @@
     const match = /^https:\/\/github\.com\/prettier\/prettier\/pull\/(\d+)/.exec(document.referrer)
     if (match != null) {
       const [/* url */, pr] = match
-      location.href = `https://deploy-preview-${pr}--prettier.netlify.com/playground`
+      location.replace(`https://deploy-preview-${pr}--prettier.netlify.com/playground`)
     } else {
       const el = document.createElement('p')
       el.textContent = `The referrer URL (${document.referrer}) was not recognized. Sorry :(`
