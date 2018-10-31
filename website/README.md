@@ -4,17 +4,18 @@ https://prettier.io/
 
 ## Setup
 
-1. Build the Prettier browser libs for playground by running the following in the project root dir:
-
-       cd your/path/to/prettier
-       yarn build-docs
-
-    (To build for master, use `PULL_REQUEST=true yarn build-docs`)
+1. Build the Prettier browser libs for the playground by running the following in the project root dir:
+   ```sh
+   cd your/path/to/prettier
+   yarn build-docs
+   ```
+   (To build for master, use `PULL_REQUEST=true yarn build-docs`)
 
 2. Switch to the `website` dir and start the server:
-
-       cd website
-       yarn start
+   ```sh
+   cd website
+   yarn start
+   ```
 
 ## Configuration
 
@@ -24,7 +25,7 @@ In the project repo, the `docs` folder is used to hold documentation written in 
 
 Documentation should contain front matter that follows this example:
 
-```
+```yaml
 ---
 id: doc1 <!-- used for docs to find each other and to map links -->
 title: Document Title
@@ -39,7 +40,7 @@ next: doc2 <!-- next doc on the sidebar for navigation -->
 
 Blog posts should be written as markdown files with the following front matter:
 
-```
+```yaml
 ---
 title: Blog Post Title
 author: Author Name
