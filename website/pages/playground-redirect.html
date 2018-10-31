@@ -8,7 +8,7 @@
   <h1>Redirecting…</h1>
   <p>Redirecting you to the appropriate playground. If the redirect doesn’t work, <a href="javascript:history.back()">go back to the PR</a> and click the appropriate link.</p>
   <script>
-    const match = /^https:\/\/github\.com\/pull\/(\d+)/.exec(document.referrer)
+    const match = /^https:\/\/github\.com\/prettier\/prettier\/pull\/(\d+)/.exec(document.referrer)
     if (match != null) {
       const [/* url */, pr] = match
       location.href = `https://deploy-preview-${pr}--prettier.netlify.com/playground`
