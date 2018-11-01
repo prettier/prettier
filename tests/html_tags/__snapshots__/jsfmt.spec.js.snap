@@ -1480,6 +1480,7 @@ exports[`tags.html - html-verify 1`] = `
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -1643,6 +1644,7 @@ exports[`tags.html - html-verify 1`] = `
   <router-outlet></router-outlet>
   <app-footer [input]="something"></app-footer>
 </div>
+<x:root><span>foreign tag name should not be lower cased</span></x:root>
 
 `;
 
@@ -1748,6 +1750,7 @@ exports[`tags.html - html-verify 2`] = `
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
 ~
 <br />
 <br />
@@ -2085,6 +2088,18 @@ exports[`tags.html - html-verify 2`] = `
     [input]="something"
   ></app-footer>
 </div>
+<x:root
+  ><span
+    >foreign
+    tag
+    name
+    should
+    not
+    be
+    lower
+    cased</span
+  ></x:root
+>
 
 `;
 
@@ -2190,6 +2205,7 @@ exports[`tags.html - html-verify 3`] = `
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -2287,6 +2303,7 @@ exports[`tags.html - html-verify 3`] = `
   <router-outlet></router-outlet>
   <app-footer [input]="something"></app-footer>
 </div>
+<x:root><span>foreign tag name should not be lower cased</span></x:root>
 
 `;
 
@@ -2392,6 +2409,7 @@ exports[`tags.html - html-verify 4`] = `
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -2534,6 +2552,7 @@ exports[`tags.html - html-verify 4`] = `
   <router-outlet></router-outlet>
   <app-footer [input]="something"></app-footer>
 </div>
+<x:root><span>foreign tag name should not be lower cased</span></x:root>
 
 `;
 
@@ -2639,6 +2658,7 @@ exports[`tags.html - html-verify 5`] = `
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <br />
 <br />
@@ -2831,6 +2851,7 @@ exports[`tags.html - html-verify 5`] = `
   <router-outlet></router-outlet>
   <app-footer [input]="something"></app-footer>
 </div>
+<x:root><span>foreign tag name should not be lower cased</span></x:root>
 
 `;
 
