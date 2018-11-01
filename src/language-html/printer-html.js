@@ -816,7 +816,10 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const textToDoc = (code, opts) =>
     originalTextToDoc(code, Object.assign({ __onHtmlBindingRoot }, opts));
 
-  if (node.name === "srcset" && node.parent.name === "img") {
+  if (
+    node.name === "srcset" &&
+    (node.parent.name === "img" || node.parent.name === "source")
+  ) {
     return printExpand(printImgSrcset(getValue()));
   }
 
