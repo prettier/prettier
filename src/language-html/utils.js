@@ -66,6 +66,20 @@ function isPrettierIgnore(node) {
   return node.type === "comment" && node.value.trim() === "prettier-ignore";
 }
 
+function getPrettierIgnoreAttributeCommentData(value) {
+  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+([^]+))?$/);
+
+  if (!match) {
+    return false;
+  }
+
+  if (!match[1]) {
+    return true;
+  }
+
+  return match[1].split(/\s+/);
+}
+
 function isElement(node, nameOrNames) {
   if (node.type !== "element") {
     return false;
@@ -583,6 +597,7 @@ module.exports = {
   getLastDescendant,
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
+  getPrettierIgnoreAttributeCommentData,
   getPrevNode,
   hasPrettierIgnore,
   identity,

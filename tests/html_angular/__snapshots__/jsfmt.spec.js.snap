@@ -394,21 +394,21 @@ exports[`ignore-attribute.component.html - angular-verify 1`] = `
 ></div>
 <!-- prettier-ignore-attribute -->
 <div
-  bindon-target="a | b: c"
-  [(target)]="a | b: c"
-  bind-target="a | b: c"
+  bindon-target=" a | b : c "
+  [(target)]=" a | b : c "
+  bind-target=" a | b : c "
 ></div>
 <!-- prettier-ignore-attribute bind-target -->
 <div
   bindon-target="a | b: c"
   [(target)]="a | b: c"
-  bind-target="a | b: c"
+  bind-target=" a | b : c "
 ></div>
 <!-- prettier-ignore-attribute [(target)] bind-target -->
 <div
   bindon-target="a | b: c"
-  [(target)]="a | b: c"
-  bind-target="a | b: c"
+  [(target)]=" a | b : c "
+  bind-target=" a | b : c "
 ></div>
 
 `;
@@ -445,21 +445,21 @@ exports[`ignore-attribute.component.html - angular-verify 2`] = `
 ></div>
 <!-- prettier-ignore-attribute -->
 <div
-  bindon-target="a | b: c"
-  [(target)]="a | b: c"
-  bind-target="a | b: c"
+  bindon-target=" a | b : c "
+  [(target)]=" a | b : c "
+  bind-target=" a | b : c "
 ></div>
 <!-- prettier-ignore-attribute bind-target -->
 <div
   bindon-target="a | b: c"
   [(target)]="a | b: c"
-  bind-target="a | b: c"
+  bind-target=" a | b : c "
 ></div>
 <!-- prettier-ignore-attribute [(target)] bind-target -->
 <div
   bindon-target="a | b: c"
-  [(target)]="a | b: c"
-  bind-target="a | b: c"
+  [(target)]=" a | b : c "
+  bind-target=" a | b : c "
 ></div>
 
 `;

@@ -26,6 +26,7 @@ const {
   forceNextEmptyLine,
   getCommentData,
   getLastDescendant,
+  getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
   isElement,
@@ -531,7 +532,30 @@ function printOpeningTag(path, options, print) {
           indent(
             concat([
               forceNotToBreakAttrContent ? " " : line,
-              join(line, path.map(print, "attrs"))
+              join(
+                line,
+                (ignoreAttributeData => {
+                  const hasPrettierIgnoreAttribute =
+                    typeof ignoreAttributeData === "boolean"
+                      ? () => ignoreAttributeData
+                      : Array.isArray(ignoreAttributeData)
+                        ? attr => ignoreAttributeData.indexOf(attr.name) !== -1
+                        : () => false;
+                  return path.map(attrPath => {
+                    const attr = attrPath.getValue();
+                    return hasPrettierIgnoreAttribute(attr)
+                      ? options.originalText.slice(
+                          options.locStart(attr),
+                          options.locEnd(attr)
+                        )
+                      : print(attrPath);
+                  }, "attrs");
+                })(
+                  node.prev &&
+                    node.prev.type === "comment" &&
+                    getPrettierIgnoreAttributeCommentData(node.prev.value)
+                )
+              )
             ])
           ),
           /**
