@@ -80,7 +80,7 @@ export default async function foo() {}
 exports[`export_default_function_declaration_async.js - flow-verify 1`] = `
 export default async function foo() {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default (async function foo() {});
+export default async function foo() {}
 
 `;
 
