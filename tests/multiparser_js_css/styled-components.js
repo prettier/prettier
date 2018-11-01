@@ -74,3 +74,57 @@ styled.div`
     margin: 0;
   }
 `
+
+styled.div`
+  ${bar}
+  baz
+`
+
+styled.span`
+  foo
+  ${bar}
+  baz
+`
+
+styled.div`
+  foo
+  ${bar}
+  ${baz}
+`
+
+styled.span`
+  ${foo}
+  ${bar}
+`
+
+styled.div`
+  ${foo} bar
+`
+
+styled.span`
+  ${foo} ${bar}
+  baz: ${foo}
+`
+
+styled.span`
+${foo};
+${bar};
+`
+
+styled.span`
+${foo}: ${bar};
+`
+
+styled.span`
+${foo}: ${bar}
+`
+
+styled.span`
+${foo}:
+${bar}
+`
+
+styled.span`
+${foo}:
+${bar};
+`
