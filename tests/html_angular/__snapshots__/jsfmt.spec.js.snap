@@ -362,6 +362,108 @@ exports[`attributes.component.html - angular-verify 2`] = `
 
 `;
 
+exports[`ignore-attribute.component.html - angular-verify 1`] = `
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute -->
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute bind-target -->
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute [(target)] bind-target -->
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+></div>
+<!-- prettier-ignore-attribute -->
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+></div>
+<!-- prettier-ignore-attribute bind-target -->
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+></div>
+<!-- prettier-ignore-attribute [(target)] bind-target -->
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+></div>
+
+`;
+
+exports[`ignore-attribute.component.html - angular-verify 2`] = `
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute -->
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute bind-target -->
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute [(target)] bind-target -->
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+></div>
+<!-- prettier-ignore-attribute -->
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+></div>
+<!-- prettier-ignore-attribute bind-target -->
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+></div>
+<!-- prettier-ignore-attribute [(target)] bind-target -->
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+></div>
+
+`;
+
 exports[`interpolation.component.html - angular-verify 1`] = `
 <div>{{ a | b : c }}</div>
 <div>{{ 0 - 1 }}</div>
