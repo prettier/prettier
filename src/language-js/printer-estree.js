@@ -5536,7 +5536,18 @@ function printBinaryishExpressions(
     const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
     const rightSuffix =
       node.type === "NGPipeExpression" && node.arguments.length !== 0
-        ? concat([":", join(":", path.map(print, "arguments"))])
+        ? group(
+            indent(
+              concat([
+                softline,
+                ": ",
+                join(
+                  concat([softline, ":", ifBreak(" ")]),
+                  path.map(print, "arguments").map(arg => align(2, group(arg)))
+                )
+              ])
+            )
+          )
         : "";
 
     const right = shouldInline

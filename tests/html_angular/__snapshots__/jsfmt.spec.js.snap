@@ -80,10 +80,10 @@ exports[`attributes.component.html - angular-verify 1`] = `
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
-  bindon-target="a | b:c"
-  [(target)]="a | b:c"
-  bind-target="a | b:c"
-  [target]="a | b:c"
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+  [target]="a | b: c"
   [target]="0 - 1"
   [target]="-1"
   [target]="a ? 1 : 2"
@@ -261,10 +261,10 @@ exports[`attributes.component.html - angular-verify 2`] = `
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
-  bindon-target="a | b:c"
-  [(target)]="a | b:c"
-  bind-target="a | b:c"
-  [target]="a | b:c"
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+  [target]="a | b: c"
   [target]="0 - 1"
   [target]="-1"
   [target]="a ? 1 : 2"
@@ -407,7 +407,7 @@ exports[`interpolation.component.html - angular-verify 1`] = `
 <div class="Nemo possimus non voluptates dicta accusamus id quia">{{copyTypes[options.copyType]}}</div>
 {{listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>{{ a | b:c }}</div>
+<div>{{ a | b: c }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ -1 }}</div>
 <div>{{ a ? 1 : 2 }}</div>
@@ -434,31 +434,32 @@ exports[`interpolation.component.html - angular-verify 1`] = `
 <div>{{ a?.b }}</div>
 <div>{{ a // hello }}</div>
 <label for="transmissionLayoutRadioButton">{{
-  "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+  "SearchSelection.transmissionLayoutRadioButton"
+    | localize: localizationSection
 }}</label>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize:localizationSection
+      | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton"
   >{{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize:localizationSection
+      | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize:localizationSection
+      | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize:localizationSection
+      | localize: localizationSection
   }}
 </label>
 <div class="Nemo possimus non voluptates dicta accusamus id quia">
@@ -517,7 +518,7 @@ exports[`interpolation.component.html - angular-verify 2`] = `
 <div class="Nemo possimus non voluptates dicta accusamus id quia">{{copyTypes[options.copyType]}}</div>
 {{listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3}}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>{{ a | b:c }}</div>
+<div>{{ a | b: c }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ -1 }}</div>
 <div>{{ a ? 1 : 2 }}</div>
@@ -544,31 +545,32 @@ exports[`interpolation.component.html - angular-verify 2`] = `
 <div>{{ a?.b }}</div>
 <div>{{ a // hello }}</div>
 <label for="transmissionLayoutRadioButton">{{
-  "SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+  "SearchSelection.transmissionLayoutRadioButton"
+    | localize: localizationSection
 }}</label>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize:localizationSection
+      | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton"
   >{{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize:localizationSection
+      | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize:localizationSection
+      | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
-      | localize:localizationSection
+      | localize: localizationSection
   }}
 </label>
 <div class="Nemo possimus non voluptates dicta accusamus id quia">
@@ -1954,15 +1956,17 @@ without NgModel <br />
 <div>Title through a pipe chain: {{ title | uppercase | lowercase }}</div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>Birthdate: {{ currentHero?.birthdate | date:"longDate" }}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
 
 <div>{{ currentHero | json }}</div>
 
-<div>Birthdate: {{ currentHero?.birthdate | date:"longDate" | uppercase }}</div>
+<div>
+  Birthdate: {{ currentHero?.birthdate | date: "longDate" | uppercase }}
+</div>
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price: </label>{{ product.price | currency:"USD":true }}
+  <label>Price: </label>{{ product.price | currency: "USD":true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -3442,15 +3446,17 @@ without NgModel <br />
 <div>Title through a pipe chain: {{ title | uppercase | lowercase }}</div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>Birthdate: {{ currentHero?.birthdate | date:"longDate" }}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
 
 <div>{{ currentHero | json }}</div>
 
-<div>Birthdate: {{ currentHero?.birthdate | date:"longDate" | uppercase }}</div>
+<div>
+  Birthdate: {{ currentHero?.birthdate | date: "longDate" | uppercase }}
+</div>
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price: </label>{{ product.price | currency:"USD":true }}
+  <label>Price: </label>{{ product.price | currency: "USD":true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
