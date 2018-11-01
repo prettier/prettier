@@ -67,8 +67,10 @@ exports[`attributes.vue - vue-verify 1`] = `
       return 'hello';
     })()
   "
-  :key="index"
-  :key="index"
+  :key="index /* hello */"
+  :key="
+    index // hello
+  "
 ></div>
 
 `;
@@ -140,8 +142,10 @@ exports[`attributes.vue - vue-verify 2`] = `
       return 'hello';
     })()
   "
-  :key="index"
-  :key="index"
+  :key="index /* hello */"
+  :key="
+    index // hello
+  "
 ></div>
 
 `;

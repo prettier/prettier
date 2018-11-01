@@ -33,10 +33,6 @@ var parsers = {
     importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers.__js_expression;
   },
-  get __jsx_expression() {
-    importScriptOnce("lib/parser-babylon.js");
-    return prettierPlugins.babylon.parsers.__jsx_expression;
-  },
   // JS - Flow
   get flow() {
     importScriptOnce("lib/parser-flow.js");

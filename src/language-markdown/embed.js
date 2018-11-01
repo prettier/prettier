@@ -57,7 +57,7 @@ function embed(path, print, textToDoc, options) {
     case "importExport":
       return textToDoc(node.value, { parser: "babylon" });
     case "jsx":
-      return textToDoc(node.value, { parser: "__jsx_expression" });
+      return textToDoc(node.value, { parser: "__js_expression" });
   }
 
   return null;

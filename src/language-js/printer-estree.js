@@ -5413,7 +5413,8 @@ function maybeWrapJSXElementInParens(path, elem) {
     ExpressionStatement: true,
     CallExpression: true,
     OptionalCallExpression: true,
-    ConditionalExpression: true
+    ConditionalExpression: true,
+    JsExpressionRoot: true
   };
   if (NO_WRAP_PARENTS[parent.type]) {
     return elem;

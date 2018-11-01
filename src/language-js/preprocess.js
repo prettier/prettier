@@ -11,10 +11,9 @@ function preprocess(ast, options) {
           options.parser === "__js_expression"
             ? "JsExpressionRoot"
             : "JsonRoot",
-        node: Object.assign({}, ast, { comments: [] })
+        node: ast,
+        comments: []
       });
-    // do not process jsx expression to avoid unnecessary parens
-    case "__jsx_expression":
     default:
       return ast;
   }

@@ -180,9 +180,7 @@ module.exports = {
       },
       locFns
     ),
-    /** @internal for html to print js without semicolon and trailing newline */
-    __js_expression: babylon,
-    /** @internal for mdx to print jsx without semicolon and outer parens */
-    __jsx_expression: babylon
+    /** @internal */
+    __js_expression: babylon
   }
 };
