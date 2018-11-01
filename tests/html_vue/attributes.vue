@@ -20,4 +20,6 @@
   slot-scope="{destructuring:{a:{b}}}"
   :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
   :class="(() => { return 'hello' })()"
+  :key="index /* hello */ "
+  :key="index // hello "
 ></div>
