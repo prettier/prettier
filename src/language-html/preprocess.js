@@ -366,11 +366,22 @@ function addShortcuts(ast /*, options */) {
       lastChild: { value: lastChild, enumerable: false }
     });
 
-    if (node.attrs) {
+    if (node.type === "element") {
+      const rawNameGetter = function() {
+        return this.hasExplicitNamespace ? this.fullName : this.name;
+      };
+      const fullNameGetter = function() {
+        return this.namespace ? this.namespace + ":" + this.name : this.name;
+      };
+      Object.defineProperties(node, {
+        rawName: { get: rawNameGetter, enumerable: false },
+        fullName: { get: fullNameGetter, enumerable: false }
+      });
       node.attrs.forEach(attribute =>
-        Object.defineProperty(attribute, "parent", {
-          value: node,
-          enumerable: false
+        Object.defineProperties(attribute, {
+          parent: { value: node, enumerable: false },
+          rawName: { get: rawNameGetter, enumerable: false },
+          fullName: { get: fullNameGetter, enumerable: false }
         })
       );
     }

@@ -80,24 +80,12 @@ function getPrettierIgnoreAttributeCommentData(value) {
   return match[1].split(/\s+/);
 }
 
-function isElement(node, nameOrNames) {
-  if (node.type !== "element") {
-    return false;
-  }
-
-  if (!nameOrNames) {
-    return true;
-  }
-
-  if (typeof nameOrNames === "string") {
-    return node.name === nameOrNames;
-  }
-
-  return nameOrNames.indexOf(node.name) !== -1;
-}
-
 function isScriptLikeTag(node) {
-  return isElement(node, ["script", "style"]);
+  return (
+    node.type === "element" &&
+    !node.namespace &&
+    (node.name === "script" || node.name === "style")
+  );
 }
 
 function isFrontMatterNode(node) {
@@ -129,7 +117,11 @@ function isLeadingSpaceSensitiveNode(node, { prev, parent }) {
     return false;
   }
 
-  if (!node.prev && isElement(parent) && parent.tagDefinition.ignoreFirstLf) {
+  if (
+    !node.prev &&
+    parent.type === "element" &&
+    parent.tagDefinition.ignoreFirstLf
+  ) {
     return false;
   }
 
@@ -244,7 +236,7 @@ function forceNextEmptyLine(node) {
 function forceBreakContent(node) {
   return (
     forceBreakChildren(node) ||
-    (isElement(node) &&
+    (node.type === "element" &&
       node.children.length !== 0 &&
       (["body", "template", "script", "style"].indexOf(node.name) !== -1 ||
         node.children.some(child => hasNonTextChild(child))))
@@ -254,7 +246,7 @@ function forceBreakContent(node) {
 /** spaces between children */
 function forceBreakChildren(node) {
   return (
-    isElement(node) &&
+    node.type === "element" &&
     node.children.length !== 0 &&
     (["html", "head", "ul", "ol", "select"].indexOf(node.name) !== -1 ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
@@ -272,7 +264,7 @@ function preferHardlineAsLeadingSpaces(node) {
 function preferHardlineAsTrailingSpaces(node) {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
-    isElement(node, "br") ||
+    (node.type === "element" && node.fullName === "br") ||
     isCustomElementWithSurroundingLineBreak(node)
   );
 }
@@ -282,7 +274,7 @@ function isCustomElementWithSurroundingLineBreak(node) {
 }
 
 function isCustomElement(node) {
-  return isElement(node) && node.name.includes("-");
+  return node.type === "element" && !node.namespace && node.name.includes("-");
 }
 
 function hasSurroundingLineBreak(node) {
@@ -438,14 +430,19 @@ function getNodeCssStyleDisplay(node, prevNode, options) {
       return "block";
     default:
       return (
-        (isElement(node) && CSS_DISPLAY_TAGS[node.name]) || CSS_DISPLAY_DEFAULT
+        (node.type === "element" &&
+          !node.namespace &&
+          CSS_DISPLAY_TAGS[node.name]) ||
+        CSS_DISPLAY_DEFAULT
       );
   }
 }
 
 function getNodeCssStyleWhiteSpace(node) {
   return (
-    (isElement(node) && CSS_WHITE_SPACE_TAGS[node.name]) ||
+    (node.type === "element" &&
+      !node.namespace &&
+      CSS_WHITE_SPACE_TAGS[node.name]) ||
     CSS_WHITE_SPACE_DEFAULT
   );
 }
@@ -603,7 +600,6 @@ module.exports = {
   identity,
   inferScriptParser,
   isDanglingSpaceSensitiveNode,
-  isElement,
   isFrontMatterNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,

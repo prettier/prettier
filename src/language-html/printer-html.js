@@ -29,7 +29,6 @@ const {
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
-  isElement,
   isPreLikeNode,
   isScriptLikeTag,
   normalizeParts,
@@ -107,7 +106,7 @@ function embed(path, print, textToDoc, options) {
       );
       if (embeddedAttributeValueDoc) {
         return concat([
-          node.name,
+          node.rawName,
           '="',
           mapDoc(
             embeddedAttributeValueDoc,
@@ -222,7 +221,7 @@ function genericPrint(path, options, print) {
                       : node.lastChild.hasTrailingSpaces &&
                         node.lastChild.isTrailingSpaceSensitive
                         ? line
-                        : isElement(node) &&
+                        : node.type === "element" &&
                           isPreLikeNode(node) &&
                           node.lastChild.type === "text" &&
                           (node.lastChild.value.indexOf("\n") === -1 ||
@@ -321,7 +320,7 @@ function genericPrint(path, options, print) {
     }
     case "attribute":
       return concat([
-        node.name,
+        node.rawName,
         node.value === null
           ? ""
           : concat([
@@ -514,9 +513,9 @@ function printOpeningTag(path, options, print) {
   const node = path.getValue();
   const forceNotToBreakAttrContent =
     node.type === "element" &&
-    node.name === "script" &&
+    node.fullName === "script" &&
     node.attrs.length === 1 &&
-    node.attrs[0].name === "src" &&
+    node.attrs[0].fullName === "src" &&
     node.children.length === 0;
   return concat([
     printOpeningTagStart(node),
@@ -539,7 +538,8 @@ function printOpeningTag(path, options, print) {
                     typeof ignoreAttributeData === "boolean"
                       ? () => ignoreAttributeData
                       : Array.isArray(ignoreAttributeData)
-                        ? attr => ignoreAttributeData.indexOf(attr.name) !== -1
+                        ? attr =>
+                            ignoreAttributeData.indexOf(attr.rawName) !== -1
                         : () => false;
                   return path.map(attrPath => {
                     const attr = attrPath.getValue();
@@ -731,7 +731,7 @@ function printOpeningTagStartMarker(node) {
     case "docType":
       return "<!DOCTYPE";
     default:
-      return `<${node.name}`;
+      return `<${node.rawName}`;
   }
 }
 
@@ -751,7 +751,7 @@ function printClosingTagStartMarker(node) {
     case "ieConditionalComment":
       return "<!";
     default:
-      return `</${node.name}`;
+      return `</${node.rawName}`;
   }
 }
 
@@ -786,7 +786,7 @@ function getTextValueParts(node, value = node.value) {
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const isKeyMatched = patterns =>
-    new RegExp(patterns.join("|")).test(node.name);
+    new RegExp(patterns.join("|")).test(node.fullName);
   const getValue = () =>
     node.value.replace(/&quot;/g, '"').replace(/&apos;/g, "'");
 
@@ -817,18 +817,18 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     originalTextToDoc(code, Object.assign({ __onHtmlBindingRoot }, opts));
 
   if (
-    node.name === "srcset" &&
-    (node.parent.name === "img" || node.parent.name === "source")
+    node.fullName === "srcset" &&
+    (node.parent.fullName === "img" || node.parent.fullName === "source")
   ) {
     return printExpand(printImgSrcset(getValue()));
   }
 
   if (options.parser === "vue") {
-    if (node.name === "v-for") {
+    if (node.fullName === "v-for") {
       return printVueFor(getValue(), textToDoc);
     }
 
-    if (node.name === "slot-scope") {
+    if (node.fullName === "slot-scope") {
       return printVueSlotScope(getValue(), textToDoc);
     }
 

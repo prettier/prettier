@@ -50,11 +50,26 @@ function ngHtmlParser(input, canSelfClose) {
     }
   };
 
+  const restoreName = node => {
+    const namespace = node.name.startsWith(":")
+      ? node.name.slice(1).split(":")[0]
+      : null;
+    const rawName = node.nameSpan ? node.nameSpan.toString() : node.name;
+    const hasExplicitNamespace = rawName.startsWith(`${namespace}:`);
+    const name = hasExplicitNamespace
+      ? rawName.slice(namespace.length + 1)
+      : rawName;
+
+    node.name = name;
+    node.namespace = namespace;
+    node.hasExplicitNamespace = hasExplicitNamespace;
+  };
+
   const restoreNameAndValue = node => {
     if (node instanceof Element) {
-      node.name = node.nameSpan ? node.nameSpan.toString() : node.name;
+      restoreName(node);
       node.attrs.forEach(attr => {
-        attr.name = attr.nameSpan.toString();
+        restoreName(attr);
         if (!attr.valueSpan) {
           attr.value = null;
         } else {
@@ -79,20 +94,28 @@ function ngHtmlParser(input, canSelfClose) {
   };
   const normalizeName = node => {
     if (node instanceof Element) {
-      node.name = lowerCaseIfFn(
-        node.name,
-        lowerCasedName => lowerCasedName in HTML_TAGS
-      );
+      if (
+        !node.namespace ||
+        node.namespace === node.tagDefinition.implicitNamespacePrefix
+      ) {
+        node.name = lowerCaseIfFn(
+          node.name,
+          lowerCasedName => lowerCasedName in HTML_TAGS
+        );
+      }
+
       const CURRENT_HTML_ELEMENT_ATTRIBUTES =
         HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
       node.attrs.forEach(attr => {
-        attr.name = lowerCaseIfFn(
-          attr.name,
-          lowerCasedAttrName =>
-            node.name in HTML_ELEMENT_ATTRIBUTES &&
-            (lowerCasedAttrName in HTML_ELEMENT_ATTRIBUTES["*"] ||
-              lowerCasedAttrName in CURRENT_HTML_ELEMENT_ATTRIBUTES)
-        );
+        if (!attr.namespace) {
+          attr.name = lowerCaseIfFn(
+            attr.name,
+            lowerCasedAttrName =>
+              node.name in HTML_ELEMENT_ATTRIBUTES &&
+              (lowerCasedAttrName in HTML_ELEMENT_ATTRIBUTES["*"] ||
+                lowerCasedAttrName in CURRENT_HTML_ELEMENT_ATTRIBUTES)
+          );
+        }
       });
     }
   };
@@ -108,7 +131,15 @@ function ngHtmlParser(input, canSelfClose) {
 
   const addTagDefinition = node => {
     if (node instanceof Element) {
-      node.tagDefinition = getHtmlTagDefinition(node.name);
+      const tagDefinition = getHtmlTagDefinition(node.name);
+      if (
+        !node.namespace ||
+        node.namespace === tagDefinition.implicitNamespacePrefix
+      ) {
+        node.tagDefinition = tagDefinition;
+      } else {
+        node.tagDefinition = getHtmlTagDefinition(""); // the default one
+      }
     }
   };
 
@@ -117,8 +148,8 @@ function ngHtmlParser(input, canSelfClose) {
       visit(node) {
         addType(node);
         restoreNameAndValue(node);
-        normalizeName(node);
         addTagDefinition(node);
+        normalizeName(node);
         fixSourceSpan(node);
       }
     }(),
