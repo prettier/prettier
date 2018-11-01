@@ -479,28 +479,28 @@ exports[`filter.vue - vue-verify 1`] = `
 <template>
   <div class="allowed">
     {{
-      value |
-        thisIsARealSuperLongFilterPipe("arg1", arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
+      value
+        | thisIsARealSuperLongFilterPipe("arg1", arg2)
+        | anotherPipeLongJustForFun
+        | pipeTheThird
     }}
   </div>
   <div
     class="allowed"
     v-bind:something="
-      value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
+      value
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
+        | anotherPipeLongJustForFun
+        | pipeTheThird
     "
   ></div>
   <div
     class="allowed"
     :class="
-      value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
+      value
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
+        | anotherPipeLongJustForFun
+        | pipeTheThird
     "
   ></div>
   <div
@@ -529,28 +529,28 @@ exports[`filter.vue - vue-verify 2`] = `
 <template>
   <div class="allowed">
     {{
-      value |
-        thisIsARealSuperLongFilterPipe("arg1", arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
+      value
+        | thisIsARealSuperLongFilterPipe("arg1", arg2)
+        | anotherPipeLongJustForFun
+        | pipeTheThird
     }}
   </div>
   <div
     class="allowed"
     v-bind:something="
-      value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
+      value
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
+        | anotherPipeLongJustForFun
+        | pipeTheThird
     "
   ></div>
   <div
     class="allowed"
     :class="
-      value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
+      value
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
+        | anotherPipeLongJustForFun
+        | pipeTheThird
     "
   ></div>
   <div

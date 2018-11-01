@@ -6,11 +6,9 @@ function preprocess(ast, options) {
     case "json5":
     case "json-stringify":
     case "__js_expression":
+    case "__vue_expression":
       return Object.assign({}, ast, {
-        type:
-          options.parser === "__js_expression"
-            ? "JsExpressionRoot"
-            : "JsonRoot",
+        type: options.parser.startsWith("__") ? "JsExpressionRoot" : "JsonRoot",
         node: ast,
         comments: []
       });

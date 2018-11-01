@@ -181,6 +181,8 @@ module.exports = {
       locFns
     ),
     /** @internal */
-    __js_expression: babylon
+    __js_expression: babylon,
+    /** for vue filter */
+    __vue_expression: babylon
   }
 };

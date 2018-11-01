@@ -80,7 +80,9 @@ function embed(path, print, textToDoc, options) {
                 node.value,
                 options.parser === "angular"
                   ? { parser: "__ng_interpolation", trailingComma: "none" }
-                  : { parser: "__js_expression" }
+                  : options.parser === "vue"
+                    ? { parser: "__vue_expression" }
+                    : { parser: "__js_expression" }
               )
             ])
           ),
@@ -840,11 +842,14 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
      */
     const vueEventBindingPatterns = ["^@", "^v-on:"];
     /**
-     *     :class="jsExpression"
-     *     v-bind:id="jsExpression"
+     *     :class="vueExpression"
+     *     v-bind:id="vueExpression"
+     */
+    const vueExpressionBindingPatterns = ["^:", "^v-bind:"];
+    /**
      *     v-if="jsExpression"
      */
-    const vueExpressionBindingPatterns = ["^:", "^v-"];
+    const jsExpressionBindingPatterns = ["^v-"];
 
     if (isKeyMatched(vueEventBindingPatterns)) {
       // copied from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/codegen/events.js#L3-L4
@@ -860,6 +865,12 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
+      return printMaybeHug(
+        textToDoc(getValue(), { parser: "__vue_expression" })
+      );
+    }
+
+    if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
         textToDoc(getValue(), { parser: "__js_expression" })
       );
