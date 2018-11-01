@@ -40,6 +40,7 @@ const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
 const { printVueFor, printVueSlotScope } = require("./syntax-vue");
+const { printImgSrcset } = require("./syntax-attribute");
 
 function concat(parts) {
   const newParts = normalizeParts(parts);
@@ -783,13 +784,17 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     }
   };
 
-  const printMaybeHug = doc =>
-    shouldHug
-      ? group(doc)
-      : group(concat([indent(concat([softline, doc])), softline]));
+  const printHug = doc => group(doc);
+  const printExpand = doc =>
+    group(concat([indent(concat([softline, doc])), softline]));
+  const printMaybeHug = doc => (shouldHug ? printHug(doc) : printExpand(doc));
 
   const textToDoc = (code, opts) =>
     originalTextToDoc(code, Object.assign({ __onHtmlBindingRoot }, opts));
+
+  if (node.name === "srcset" && node.parent.name === "img") {
+    return printExpand(printImgSrcset(getValue()));
+  }
 
   if (options.parser === "vue") {
     if (node.name === "v-for") {

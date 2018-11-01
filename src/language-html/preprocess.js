@@ -366,6 +366,15 @@ function addShortcuts(ast /*, options */) {
       lastChild: { value: lastChild, enumerable: false }
     });
 
+    if (node.attrs) {
+      node.attrs.forEach(attribute =>
+        Object.defineProperty(attribute, "parent", {
+          value: node,
+          enumerable: false
+        })
+      );
+    }
+
     if (node.children) {
       node.children.forEach((child, childIndex) =>
         _addShortcuts(child, node, childIndex)
