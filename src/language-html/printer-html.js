@@ -806,7 +806,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
         : root.type === "JsExpressionRoot"
           ? root.node
           : root;
-    if (rootNode && rootNode.type === "ObjectExpression") {
+    if (
+      rootNode &&
+      (rootNode.type === "ObjectExpression" ||
+        rootNode.type === "ArrayExpression")
+    ) {
       shouldHug = true;
     }
   };
