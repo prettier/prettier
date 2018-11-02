@@ -18,6 +18,9 @@ exports[`attributes.component.html - angular-verify 1`] = `
     [target]=" { 
       trailingComma : 'notAllowed'
     }"
+    [target]=" [ 
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    ]"
     [target]=" true "
     [target]=" undefined "
     [target]=" null "
@@ -97,6 +100,11 @@ exports[`attributes.component.html - angular-verify 1`] = `
   [target]="{
     trailingComma: 'notAllowed'
   }"
+  [target]="
+    [
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    ]
+  "
   [target]="true"
   [target]="undefined"
   [target]="null"
@@ -201,6 +209,9 @@ exports[`attributes.component.html - angular-verify 2`] = `
     [target]=" { 
       trailingComma : 'notAllowed'
     }"
+    [target]=" [ 
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    ]"
     [target]=" true "
     [target]=" undefined "
     [target]=" null "
@@ -280,6 +291,11 @@ exports[`attributes.component.html - angular-verify 2`] = `
   [target]="{
     trailingComma: 'notAllowed'
   }"
+  [target]="
+    [
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    ]
+  "
   [target]="true"
   [target]="undefined"
   [target]="null"
@@ -384,6 +400,9 @@ exports[`attributes.component.html - angular-verify 3`] = `
     [target]=" { 
       trailingComma : 'notAllowed'
     }"
+    [target]=" [ 
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    ]"
     [target]=" true "
     [target]=" undefined "
     [target]=" null "
@@ -509,6 +528,11 @@ exports[`attributes.component.html - angular-verify 3`] = `
     trailingComma:
       'notAllowed'
   }"
+  [target]="
+    [
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    ]
+  "
   [target]="
     true
   "
