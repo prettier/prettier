@@ -77,6 +77,7 @@ exports[`attributes.component.html - angular-verify 1`] = `
     [target]="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
     [target]="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
     [error]="'We couldn\\\\\\'t find anything with that name.'"
+    *ngIf="form.controls.details?.controls.amount?.errors.min"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -177,6 +178,7 @@ exports[`attributes.component.html - angular-verify 1`] = `
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
   }"
   [error]="'We couldn\\\\\\'t find anything with that name.'"
+  *ngIf="((form.controls.details?.controls).amount?.errors).min"
 ></div>
 
 `;
@@ -258,6 +260,7 @@ exports[`attributes.component.html - angular-verify 2`] = `
     [target]="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
     [target]="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
     [error]="'We couldn\\\\\\'t find anything with that name.'"
+    *ngIf="form.controls.details?.controls.amount?.errors.min"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -358,6 +361,7 @@ exports[`attributes.component.html - angular-verify 2`] = `
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
   }"
   [error]="'We couldn\\\\\\'t find anything with that name.'"
+  *ngIf="((form.controls.details?.controls).amount?.errors).min"
 ></div>
 
 `;

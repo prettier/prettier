@@ -74,4 +74,5 @@
     [target]="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
     [target]="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
     [error]="'We couldn\\\'t find anything with that name.'"
+    *ngIf="form.controls.details?.controls.amount?.errors.min"
 ></div>
