@@ -565,7 +565,8 @@ function isHtml(path) {
 function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
   const node = path.getValue();
 
-  const placeholderRegex = /prettierhtmlplaceholder(\d+)redlohecalplmthreitterp/g;
+  const placeholderPattern =
+    "prettierhtmlplaceholder(\\d+)redlohecalplmthreitterp";
   const placeholders = node.expressions.map(
     (_, i) => `prettierhtmlplaceholder${i}redlohecalplmthreitterp`
   );
@@ -584,6 +585,7 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
   const contentDoc = mapDoc(
     stripTrailingHardline(textToDoc(text, { parser })),
     doc => {
+      const placeholderRegex = new RegExp(placeholderPattern, "g");
       const hasPlaceholder =
         typeof doc === "string" && placeholderRegex.test(doc);
 
