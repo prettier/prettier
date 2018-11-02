@@ -14,9 +14,9 @@ const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,
   mergeCdataIntoText,
   extractInterpolation,
-  addIsSelfClosing,
   extractWhitespaces,
   addCssDisplay,
+  addIsSelfClosing,
   addIsSpaceSensitive
 ];
 
@@ -164,22 +164,6 @@ function extractInterpolation(ast, options) {
   });
 }
 
-/** add `isSelfClosing` for void tags, directives, and comments */
-function addIsSelfClosing(ast /*, options */) {
-  return ast.map(node => {
-    if (
-      !node.children ||
-      (node.type === "element" &&
-        (node.tagDefinition.isVoid ||
-          // self-closing
-          node.startSourceSpan === node.endSourceSpan))
-    ) {
-      return node.clone({ isSelfClosing: true });
-    }
-    return node;
-  });
-}
-
 /**
  * - add `hasLeadingSpaces` field
  * - add `hasTrailingSpaces` field
@@ -278,9 +262,22 @@ function extractWhitespaces(ast /*, options*/) {
   });
 }
 
+function addIsSelfClosing(ast /*, options */) {
+  return ast.map(node =>
+    Object.assign(node, {
+      isSelfClosing:
+        !node.children ||
+        (node.type === "element" &&
+          (node.tagDefinition.isVoid ||
+            // self-closing
+            node.startSourceSpan === node.endSourceSpan))
+    })
+  );
+}
+
 function addCssDisplay(ast, options) {
   return ast.map(node =>
-    node.clone({ cssDisplay: getNodeCssStyleDisplay(node, options) })
+    Object.assign(node, { cssDisplay: getNodeCssStyleDisplay(node, options) })
   );
 }
 
