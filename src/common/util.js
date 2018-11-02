@@ -3,7 +3,6 @@
 const stringWidth = require("string-width");
 const emojiRegex = require("emoji-regex")();
 const escapeStringRegexp = require("escape-string-regexp");
-const assert = require("assert");
 
 // eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
@@ -432,11 +431,6 @@ function getIndentSize(value, tabWidth) {
 }
 
 function getPreferredQuote(raw, preferredQuote) {
-  assert(
-    !preferredQuote || preferredQuote === "'" || preferredQuote === '"',
-    "The preferredQuote option must be either a single quote or a double quote"
-  );
-
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
   const rawContent = raw.slice(1, -1);
