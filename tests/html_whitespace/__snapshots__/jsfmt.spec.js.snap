@@ -164,8 +164,7 @@ exports[`non-breaking-whitespace.html - html-verify 1`] = `
 >
 <!-- non-breaking whitespaces -->
 <span
-  >Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores
-  voluptas quaerat ut qui sunt vitae error.</span
+  >Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores voluptas quaerat ut qui sunt vitae error.</span
 >
 
 `;

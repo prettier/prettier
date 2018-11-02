@@ -783,7 +783,8 @@ function getTextValueParts(node, value = node.value) {
           dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
           hardline
         )
-    : join(line, value.split(/\s+/)).parts;
+    : // non-breaking whitespace: 0xA0
+      join(line, value.split(/[^\S\xA0]+/)).parts;
 }
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
