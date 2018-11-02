@@ -211,15 +211,15 @@ function genericPrint(path, options, print) {
                       printChildren(path, options, print)
                     ])
                   ),
-                  shouldHugContent
-                    ? ifBreak(softline, "", { groupId: attrGroupId })
-                    : (node.next
-                      ? needsToBorrowPrevClosingTagEndMarker(node.next)
-                      : needsToBorrowLastChildClosingTagEndMarker(node.parent))
-                      ? node.lastChild.hasTrailingSpaces &&
-                        node.lastChild.isTrailingSpaceSensitive
-                        ? " "
-                        : ""
+                  (node.next
+                  ? needsToBorrowPrevClosingTagEndMarker(node.next)
+                  : needsToBorrowLastChildClosingTagEndMarker(node.parent))
+                    ? node.lastChild.hasTrailingSpaces &&
+                      node.lastChild.isTrailingSpaceSensitive
+                      ? " "
+                      : ""
+                    : shouldHugContent
+                      ? ifBreak(softline, "", { groupId: attrGroupId })
                       : node.lastChild.hasTrailingSpaces &&
                         node.lastChild.isTrailingSpaceSensitive
                         ? line

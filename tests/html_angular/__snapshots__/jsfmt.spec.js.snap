@@ -1465,13 +1465,11 @@ exports[`interpolation.component.html - angular-verify 3`] = `
     >{{
       a
     }}</span
-
   ><!--
   --><span
     >{{
       b
     }}</span
-
   ><!--
 --></span>
 
