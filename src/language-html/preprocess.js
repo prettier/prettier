@@ -51,49 +51,59 @@ function removeIgnorableFirstLf(ast /*, options */) {
   });
 }
 
-function mergeCdataIntoText(ast /*, options */) {
+function mergeNodeIntoText(ast, shouldMerge, getValue) {
   return ast.map(node => {
-    if (node.children && node.children.some(child => child.type === "cdata")) {
-      const newChildren = [];
-      for (const child of node.children) {
-        if (child.type !== "text" && child.type !== "cdata") {
-          newChildren.push(child);
-          continue;
+    if (node.children) {
+      const shouldMergeResults = node.children.map(shouldMerge);
+      if (shouldMergeResults.some(Boolean)) {
+        const newChildren = [];
+        for (let i = 0; i < node.children.length; i++) {
+          const child = node.children[i];
+
+          if (child.type !== "text" && !shouldMergeResults[i]) {
+            newChildren.push(child);
+            continue;
+          }
+
+          const newChild =
+            child.type === "text"
+              ? child
+              : child.clone({ type: "text", value: getValue(child) });
+
+          if (
+            newChildren.length === 0 ||
+            newChildren[newChildren.length - 1].type !== "text"
+          ) {
+            newChildren.push(newChild);
+            continue;
+          }
+
+          const lastChild = newChildren.pop();
+          const ParseSourceSpan = lastChild.sourceSpan.constructor;
+          newChildren.push(
+            lastChild.clone({
+              value: lastChild.value + newChild.value,
+              sourceSpan: new ParseSourceSpan(
+                lastChild.sourceSpan.start,
+                newChild.sourceSpan.end
+              )
+            })
+          );
         }
-
-        const newChild =
-          child.type === "text"
-            ? child
-            : child.clone({
-                type: "text",
-                value: `<![CDATA[${child.value}]]>`
-              });
-
-        if (
-          newChildren.length === 0 ||
-          newChildren[newChildren.length - 1].type !== "text"
-        ) {
-          newChildren.push(newChild);
-          continue;
-        }
-
-        const lastChild = newChildren.pop();
-        const ParseSourceSpan = lastChild.sourceSpan.constructor;
-        newChildren.push(
-          lastChild.clone({
-            value: lastChild.value + newChild.value,
-            sourceSpan: new ParseSourceSpan(
-              lastChild.sourceSpan.start,
-              newChild.sourceSpan.end
-            )
-          })
-        );
+        return node.clone({ children: newChildren });
       }
-      return node.clone({ children: newChildren });
     }
 
     return node;
   });
+}
+
+function mergeCdataIntoText(ast /*, options */) {
+  return mergeNodeIntoText(
+    ast,
+    node => node.type === "cdata",
+    node => `<![CDATA[${node.value}]]>`
+  );
 }
 
 function extractInterpolation(ast, options) {
