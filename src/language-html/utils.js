@@ -181,33 +181,6 @@ function isDanglingSpaceSensitiveNode(node) {
   );
 }
 
-/**
- * @param {unknown} node
- * @param {(node: unknown, stack: Array<string | object>)} fn
- * @param {unknown=} parent
- */
-function mapNode(node, fn, stack = []) {
-  const newNode = Object.assign({}, node);
-
-  if (newNode.children) {
-    newNode.children = newNode.children.map((child, childIndex) =>
-      mapNode(child, fn, [childIndex, node].concat(stack))
-    );
-  }
-
-  return fn(newNode, stack);
-}
-
-function getPrevNode(stack) {
-  const [index, parent] = stack;
-
-  if (typeof index !== "number" || index === 0) {
-    return null;
-  }
-
-  return parent.children[index - 1];
-}
-
 function replaceNewlines(text, replacement) {
   return text
     .split(/(\n)/g)
@@ -595,7 +568,6 @@ module.exports = {
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
   getPrettierIgnoreAttributeCommentData,
-  getPrevNode,
   hasPrettierIgnore,
   identity,
   inferScriptParser,
@@ -607,7 +579,6 @@ module.exports = {
   isScriptLikeTag,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-  mapNode,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,

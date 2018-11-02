@@ -3,13 +3,11 @@
 const {
   canHaveInterpolation,
   getNodeCssStyleDisplay,
-  getPrevNode,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
-  isWhitespaceSensitiveNode,
-  mapNode
+  isWhitespaceSensitiveNode
 } = require("./utils");
 
 const PREPROCESS_PIPELINE = [
@@ -19,8 +17,7 @@ const PREPROCESS_PIPELINE = [
   addIsSelfClosing,
   extractWhitespaces,
   addCssDisplay,
-  addIsSpaceSensitive,
-  addShortcuts
+  addIsSpaceSensitive
 ];
 
 function preprocess(ast, options) {
@@ -31,7 +28,7 @@ function preprocess(ast, options) {
 }
 
 function removeIgnorableFirstLf(ast /*, options */) {
-  return mapNode(ast, node => {
+  return ast.map(node => {
     if (
       node.type === "element" &&
       node.tagDefinition.ignoreFirstLf &&
@@ -40,12 +37,12 @@ function removeIgnorableFirstLf(ast /*, options */) {
       node.children[0].value[0] === "\n"
     ) {
       const text = node.children[0];
-      return Object.assign({}, node, {
+      return node.clone({
         children:
           text.value.length === 1
             ? node.children.slice(1)
             : [].concat(
-                Object.assign({}, text, { value: text.value.slice(1) }),
+                text.clone({ value: text.value.slice(1) }),
                 node.children.slice(1)
               )
       });
@@ -55,7 +52,7 @@ function removeIgnorableFirstLf(ast /*, options */) {
 }
 
 function mergeCdataIntoText(ast /*, options */) {
-  return mapNode(ast, node => {
+  return ast.map(node => {
     if (node.children && node.children.some(child => child.type === "cdata")) {
       const newChildren = [];
       for (const child of node.children) {
@@ -67,7 +64,7 @@ function mergeCdataIntoText(ast /*, options */) {
         const newChild =
           child.type === "text"
             ? child
-            : Object.assign({}, child, {
+            : child.clone({
                 type: "text",
                 value: `<![CDATA[${child.value}]]>`
               });
@@ -83,7 +80,7 @@ function mergeCdataIntoText(ast /*, options */) {
         const lastChild = newChildren.pop();
         const ParseSourceSpan = lastChild.sourceSpan.constructor;
         newChildren.push(
-          Object.assign({}, lastChild, {
+          lastChild.clone({
             value: lastChild.value + newChild.value,
             sourceSpan: new ParseSourceSpan(
               lastChild.sourceSpan.start,
@@ -92,7 +89,7 @@ function mergeCdataIntoText(ast /*, options */) {
           })
         );
       }
-      return Object.assign({}, node, { children: newChildren });
+      return node.clone({ children: newChildren });
     }
 
     return node;
@@ -105,7 +102,7 @@ function extractInterpolation(ast, options) {
   }
 
   const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
-  return mapNode(ast, node => {
+  return ast.map(node => {
     if (!canHaveInterpolation(node)) {
       return node;
     }
@@ -117,6 +114,8 @@ function extractInterpolation(ast, options) {
         newChildren.push(child);
         continue;
       }
+
+      const ParseSourceSpan = child.sourceSpan.constructor;
 
       let startSourceSpan = child.sourceSpan.start;
       let endSourceSpan = null;
@@ -134,7 +133,7 @@ function extractInterpolation(ast, options) {
             newChildren.push({
               type: "text",
               value,
-              sourceSpan: { start: startSourceSpan, end: endSourceSpan }
+              sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan)
             });
           }
           continue;
@@ -143,7 +142,7 @@ function extractInterpolation(ast, options) {
         endSourceSpan = startSourceSpan.moveBy(value.length + 4); // `{{` + `}}`
         newChildren.push({
           type: "interpolation",
-          sourceSpan: { start: startSourceSpan, end: endSourceSpan },
+          sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan),
           children:
             value.length === 0
               ? []
@@ -151,23 +150,23 @@ function extractInterpolation(ast, options) {
                   {
                     type: "text",
                     value,
-                    sourceSpan: {
-                      start: startSourceSpan.moveBy(2),
-                      end: endSourceSpan.moveBy(-2)
-                    }
+                    sourceSpan: new ParseSourceSpan(
+                      startSourceSpan.moveBy(2),
+                      endSourceSpan.moveBy(-2)
+                    )
                   }
                 ]
         });
       }
     }
 
-    return Object.assign({}, node, { children: newChildren });
+    return node.clone({ children: newChildren });
   });
 }
 
 /** add `isSelfClosing` for void tags, directives, and comments */
 function addIsSelfClosing(ast /*, options */) {
-  return mapNode(ast, node => {
+  return ast.map(node => {
     if (
       !node.children ||
       (node.type === "element" &&
@@ -175,7 +174,7 @@ function addIsSelfClosing(ast /*, options */) {
           // self-closing
           node.startSourceSpan === node.endSourceSpan))
     ) {
-      return Object.assign({}, node, { isSelfClosing: true });
+      return node.clone({ isSelfClosing: true });
     }
     return node;
   });
@@ -190,7 +189,7 @@ function addIsSelfClosing(ast /*, options */) {
  */
 function extractWhitespaces(ast /*, options*/) {
   const TYPE_WHITESPACE = "whitespace";
-  return mapNode(ast, node => {
+  return ast.map(node => {
     if (!node.children) {
       return node;
     }
@@ -201,7 +200,7 @@ function extractWhitespaces(ast /*, options*/) {
         node.children[0].type === "text" &&
         node.children[0].value.trim().length === 0)
     ) {
-      return Object.assign({}, node, {
+      return node.clone({
         children: [],
         hasDanglingSpaces: node.children.length !== 0
       });
@@ -210,7 +209,7 @@ function extractWhitespaces(ast /*, options*/) {
     const isWhitespaceSensitive = isWhitespaceSensitiveNode(node);
     const isIndentationSensitive = isIndentationSensitiveNode(node);
 
-    return Object.assign({}, node, {
+    return node.clone({
       children: node.children
         // extract whitespace nodes
         .reduce((newChildren, child) => {
@@ -237,14 +236,16 @@ function extractWhitespaces(ast /*, options*/) {
             localChildren.push({ type: TYPE_WHITESPACE });
           }
 
+          const ParseSourceSpan = child.sourceSpan.constructor;
+
           if (text) {
             localChildren.push({
               type: "text",
               value: text,
-              sourceSpan: {
-                start: child.sourceSpan.start.moveBy(leadingSpaces.length),
-                end: child.sourceSpan.end.moveBy(-trailingSpaces.length)
-              }
+              sourceSpan: new ParseSourceSpan(
+                child.sourceSpan.start.moveBy(leadingSpaces.length),
+                child.sourceSpan.end.moveBy(-trailingSpaces.length)
+              )
             });
           }
 
@@ -278,10 +279,9 @@ function extractWhitespaces(ast /*, options*/) {
 }
 
 function addCssDisplay(ast, options) {
-  return mapNode(ast, (node, stack) => {
-    const prevNode = getPrevNode(stack);
-    return Object.assign({}, node, {
-      cssDisplay: getNodeCssStyleDisplay(node, prevNode, options)
+  return ast.map(node => {
+    return node.clone({
+      cssDisplay: getNodeCssStyleDisplay(node, node.prev, options)
     });
   });
 }
@@ -292,24 +292,24 @@ function addCssDisplay(ast, options) {
  * - add `isDanglingSpaceSensitive` field for parent nodes
  */
 function addIsSpaceSensitive(ast /*, options */) {
-  return mapNode(ast, node => {
+  return ast.map(node => {
     if (!node.children) {
       return node;
     }
 
     if (node.children.length === 0) {
-      return Object.assign({}, node, {
+      return node.clone({
         isDanglingSpaceSensitive: isDanglingSpaceSensitiveNode(node)
       });
     }
 
-    return Object.assign({}, node, {
+    return node.clone({
       children: node.children
         // set isLeadingSpaceSensitive
         .map((child, i, children) => {
           const prevChild = i === 0 ? null : children[i - 1];
           const nextChild = i === children.length - 1 ? null : children[i + 1];
-          return Object.assign({}, child, {
+          return child.clone({
             isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child, {
               parent: node,
               prev: prevChild,
@@ -330,71 +330,20 @@ function addIsSpaceSensitive(ast /*, options */) {
                   next: nextChild
                 });
           return newChildren.concat(
-            Object.assign(
-              {},
-              child,
-              { isTrailingSpaceSensitive },
-              prevChild &&
-              !prevChild.isTrailingSpaceSensitive &&
-              child.isLeadingSpaceSensitive
-                ? { isLeadingSpaceSensitive: false }
-                : null
+            child.clone(
+              Object.assign(
+                { isTrailingSpaceSensitive },
+                prevChild &&
+                !prevChild.isTrailingSpaceSensitive &&
+                child.isLeadingSpaceSensitive
+                  ? { isLeadingSpaceSensitive: false }
+                  : null
+              )
             )
           );
         }, [])
     });
   });
-}
-
-function addShortcuts(ast /*, options */) {
-  function _addShortcuts(node, parent, index) {
-    const prev = index === -1 ? null : parent.children[index - 1];
-    const next = index === -1 ? null : parent.children[index + 1];
-
-    const hasChildren = node.children && node.children.length !== 0;
-
-    const firstChild = !hasChildren ? null : node.children[0];
-    const lastChild = !hasChildren
-      ? null
-      : node.children[node.children.length - 1];
-
-    Object.defineProperties(node, {
-      parent: { value: parent, enumerable: false },
-      prev: { value: prev, enumerable: false },
-      next: { value: next, enumerable: false },
-      firstChild: { value: firstChild, enumerable: false },
-      lastChild: { value: lastChild, enumerable: false }
-    });
-
-    if (node.type === "element") {
-      const rawNameGetter = function() {
-        return this.hasExplicitNamespace ? this.fullName : this.name;
-      };
-      const fullNameGetter = function() {
-        return this.namespace ? this.namespace + ":" + this.name : this.name;
-      };
-      Object.defineProperties(node, {
-        rawName: { get: rawNameGetter, enumerable: false },
-        fullName: { get: fullNameGetter, enumerable: false }
-      });
-      node.attrs.forEach(attribute =>
-        Object.defineProperties(attribute, {
-          parent: { value: node, enumerable: false },
-          rawName: { get: rawNameGetter, enumerable: false },
-          fullName: { get: fullNameGetter, enumerable: false }
-        })
-      );
-    }
-
-    if (node.children) {
-      node.children.forEach((child, childIndex) =>
-        _addShortcuts(child, node, childIndex)
-      );
-    }
-  }
-
-  _addShortcuts(ast, null, -1);
-  return ast;
 }
 
 module.exports = preprocess;

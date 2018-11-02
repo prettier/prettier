@@ -1,9 +1,10 @@
 "use strict";
 
 const parseFrontMatter = require("../utils/front-matter");
-const { HTML_ELEMENT_ATTRIBUTES, HTML_TAGS, mapNode } = require("./utils");
+const { HTML_ELEMENT_ATTRIBUTES, HTML_TAGS } = require("./utils");
 const { hasPragma } = require("./pragma");
 const createError = require("../common/parser-create-error");
+const { Node } = require("./ast");
 
 function ngHtmlParser(input, canSelfClose) {
   const parser = require("angular-html-parser");
@@ -169,15 +170,17 @@ function _parse(
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
 
-  const ast = {
+  const rawAst = {
     type: "root",
     sourceSpan: { start: { offset: 0 }, end: { offset: text.length } },
     children: ngHtmlParser(content, recognizeSelfClosing)
   };
 
   if (frontMatter) {
-    ast.children.unshift(frontMatter);
+    rawAst.children.unshift(frontMatter);
   }
+
+  const ast = new Node(rawAst);
 
   const parseSubHtml = (subContent, startSpan) => {
     const { offset } = startSpan;
@@ -207,19 +210,20 @@ function _parse(
     return subAst;
   };
 
-  return mapNode(ast, node => {
-    if (node.children) {
+  const isFakeElement = node => node.type === "element" && !node.nameSpan;
+  return ast.map(node => {
+    if (node.children && node.children.some(isFakeElement)) {
       const newChildren = [];
 
       for (const child of node.children) {
-        if (child.type === "element" && !child.nameSpan) {
+        if (isFakeElement(child)) {
           Array.prototype.push.apply(newChildren, child.children);
         } else {
           newChildren.push(child);
         }
       }
 
-      return Object.assign({}, node, { children: newChildren });
+      return node.clone({ children: newChildren });
     }
 
     if (node.type === "comment") {
@@ -252,8 +256,8 @@ function parseIeConditionalComment(node, parseHtml) {
   const [, openingTagSuffix, condition, data] = match;
   const offset = "<!--".length + openingTagSuffix.length;
   const contentStartSpan = node.sourceSpan.start.moveBy(offset);
-  const ParseSourceSpan = contentStartSpan.constructor;
-  return Object.assign({}, parseHtml(data, contentStartSpan), {
+  const ParseSourceSpan = node.sourceSpan.constructor;
+  return Object.assign(parseHtml(data, contentStartSpan), {
     type: "ieConditionalComment",
     condition: condition.trim().replace(/\s+/g, " "),
     startSourceSpan: new ParseSourceSpan(
