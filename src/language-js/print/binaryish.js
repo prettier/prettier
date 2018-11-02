@@ -27,6 +27,7 @@ const {
   isObjectProperty,
   isEnabledHackPipeline,
 } = require("../utils/index.js");
+const { isTypeCastComment } = require("../comments.js");
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -230,11 +231,14 @@ function printBinaryishExpressions(
   }
 
   const shouldInline = shouldInlineLogicalExpression(node);
-  const lineBeforeOperator =
-    (node.operator === "|>" ||
-      node.type === "NGPipeExpression" ||
-      (node.operator === "|" && options.parser === "__vue_expression")) &&
-    !hasLeadingOwnLineComment(options.originalText, node.right);
+  const hasTypeCastComment = hasComment(
+    node.right,
+    CommentCheckFlags.Leading,
+    (comment) => isTypeCastComment(comment)
+  );
+  const commentBeforeOperator =
+    !hasTypeCastComment &&
+    hasLeadingOwnLineComment(options.originalText, node.right);
 
   const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
   const rightSuffix =
@@ -270,13 +274,9 @@ function printBinaryishExpressions(
           "right"
         )
       : print("right");
-    right = [
-      lineBeforeOperator ? line : "",
-      operator,
-      lineBeforeOperator ? " " : line,
-      rightContent,
-      rightSuffix,
-    ];
+    // Place leading own line non-typecast comments before the operator.
+    const comment = commentBeforeOperator ? rightContent.splice(0, 1)[0] : "";
+    right = [line, comment, operator, " ", rightContent, rightSuffix];
   }
 
   // If there's only a single binary expression, we want to create a group
@@ -294,7 +294,7 @@ function printBinaryishExpressions(
       node.right.type !== node.type);
 
   parts.push(
-    lineBeforeOperator ? "" : " ",
+    !commentBeforeOperator && !shouldInline ? "" : " ",
     shouldGroup ? group(right, { shouldBreak }) : right
   );
 
