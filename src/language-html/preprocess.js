@@ -305,43 +305,26 @@ function addIsSpaceSensitive(ast /*, options */) {
 
     return node.clone({
       children: node.children
-        // set isLeadingSpaceSensitive
-        .map((child, i, children) => {
-          const prevChild = i === 0 ? null : children[i - 1];
-          const nextChild = i === children.length - 1 ? null : children[i + 1];
-          return child.clone({
-            isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child, {
-              parent: node,
-              prev: prevChild,
-              next: nextChild
-            })
+        .map(child => {
+          return Object.assign({}, child, {
+            isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child),
+            isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(child)
           });
         })
-        // set isTrailingSpaceSensitive and update isLeadingSpaceSensitive if necessary
-        .reduce((newChildren, child, i, children) => {
-          const prevChild = i === 0 ? null : newChildren[i - 1];
-          const nextChild = i === children.length - 1 ? null : children[i + 1];
-          const isTrailingSpaceSensitive =
-            nextChild && !nextChild.isLeadingSpaceSensitive
-              ? false
-              : isTrailingSpaceSensitiveNode(child, {
-                  parent: node,
-                  prev: prevChild,
-                  next: nextChild
-                });
-          return newChildren.concat(
-            child.clone(
-              Object.assign(
-                { isTrailingSpaceSensitive },
-                prevChild &&
-                !prevChild.isTrailingSpaceSensitive &&
-                child.isLeadingSpaceSensitive
-                  ? { isLeadingSpaceSensitive: false }
-                  : null
-              )
-            )
-          );
-        }, [])
+        .map((child, index, children) =>
+          Object.assign({}, child, {
+            isLeadingSpaceSensitive:
+              index === 0
+                ? child.isLeadingSpaceSensitive
+                : children[index - 1].isTrailingSpaceSensitive &&
+                  child.isLeadingSpaceSensitive,
+            isTrailingSpaceSensitive:
+              index === children.length - 1
+                ? child.isTrailingSpaceSensitive
+                : children[index + 1].isLeadingSpaceSensitive &&
+                  child.isTrailingSpaceSensitive
+          })
+        )
     });
   });
 }

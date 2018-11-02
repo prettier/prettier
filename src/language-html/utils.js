@@ -108,66 +108,72 @@ function isIndentationSensitiveNode(node) {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
-function isLeadingSpaceSensitiveNode(node, { prev, parent }) {
+function isLeadingSpaceSensitiveNode(node) {
   if (isFrontMatterNode(node)) {
     return false;
   }
 
-  if (!parent || parent.cssDisplay === "none") {
+  if (!node.parent || node.parent.cssDisplay === "none") {
     return false;
   }
 
   if (
     !node.prev &&
-    parent.type === "element" &&
-    parent.tagDefinition.ignoreFirstLf
+    node.parent.type === "element" &&
+    node.parent.tagDefinition.ignoreFirstLf
   ) {
     return false;
   }
 
-  if (isPreLikeNode(parent)) {
+  if (isPreLikeNode(node.parent)) {
     return true;
   }
 
   if (
-    !prev &&
-    (parent.type === "root" ||
-      isScriptLikeTag(parent) ||
-      !isFirstChildLeadingSpaceSensitiveCssDisplay(parent.cssDisplay))
+    !node.prev &&
+    (node.parent.type === "root" ||
+      isScriptLikeTag(node.parent) ||
+      !isFirstChildLeadingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
   ) {
     return false;
   }
 
-  if (prev && !isNextLeadingSpaceSensitiveCssDisplay(prev.cssDisplay)) {
+  if (
+    node.prev &&
+    !isNextLeadingSpaceSensitiveCssDisplay(node.prev.cssDisplay)
+  ) {
     return false;
   }
 
   return true;
 }
 
-function isTrailingSpaceSensitiveNode(node, { next, parent }) {
+function isTrailingSpaceSensitiveNode(node) {
   if (isFrontMatterNode(node)) {
     return false;
   }
 
-  if (!parent || parent.cssDisplay === "none") {
+  if (!node.parent || node.parent.cssDisplay === "none") {
     return false;
   }
 
-  if (isPreLikeNode(parent)) {
+  if (isPreLikeNode(node.parent)) {
     return true;
   }
 
   if (
-    !next &&
-    (parent.type === "root" ||
-      isScriptLikeTag(parent) ||
-      !isLastChildTrailingSpaceSensitiveCssDisplay(parent.cssDisplay))
+    !node.next &&
+    (node.parent.type === "root" ||
+      isScriptLikeTag(node.parent) ||
+      !isLastChildTrailingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
   ) {
     return false;
   }
 
-  if (next && !isPrevTrailingSpaceSensitiveCssDisplay(next.cssDisplay)) {
+  if (
+    node.next &&
+    !isPrevTrailingSpaceSensitiveCssDisplay(node.next.cssDisplay)
+  ) {
     return false;
   }
 
