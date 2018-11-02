@@ -279,11 +279,9 @@ function extractWhitespaces(ast /*, options*/) {
 }
 
 function addCssDisplay(ast, options) {
-  return ast.map(node => {
-    return node.clone({
-      cssDisplay: getNodeCssStyleDisplay(node, node.prev, options)
-    });
-  });
+  return ast.map(node =>
+    node.clone({ cssDisplay: getNodeCssStyleDisplay(node, options) })
+  );
 }
 
 /**

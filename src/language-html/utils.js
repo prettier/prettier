@@ -393,10 +393,10 @@ function countParents(path, predicate = () => true) {
   return counter;
 }
 
-function getNodeCssStyleDisplay(node, prevNode, options) {
-  if (prevNode && prevNode.type === "comment") {
+function getNodeCssStyleDisplay(node, options) {
+  if (node.prev && node.prev.type === "comment") {
     // <!-- display: block -->
-    const match = prevNode.value.match(/^\s*display:\s*([a-z]+)\s*$/);
+    const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
     if (match) {
       return match[1];
     }
