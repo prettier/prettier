@@ -668,9 +668,9 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-angular-estree-parser@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-1.1.2.tgz#d95f263df5825ea59c643d38b67119576d21c844"
+angular-estree-parser@1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-1.1.3.tgz#679b7a1ab57e56cd484b5c44e380bcec7633df58"
   dependencies:
     lines-and-columns "^1.1.6"
     tslib "^1.9.3"
