@@ -1654,9 +1654,8 @@ exports[`tags.html - html-verify 1`] = `
 </div>
 <x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
 <div>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, "<strong
-    >seddoeiusmod</strong
-  >".
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
 </div>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -2134,9 +2133,7 @@ exports[`tags.html - html-verify 2`] = `
   consectetur
   adipiscing
   elit,
-  "<strong
-    >seddoeiusmod</strong
-  >".
+  "<strong>seddoeiusmod</strong>".
 </div>
 <div>
   Lorem
@@ -2623,9 +2620,8 @@ exports[`tags.html - html-verify 4`] = `
 </div>
 <x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
 <div>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, "<strong
-    >seddoeiusmod</strong
-  >".
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
 </div>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,

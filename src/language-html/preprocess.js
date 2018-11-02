@@ -17,7 +17,8 @@ const PREPROCESS_PIPELINE = [
   extractWhitespaces,
   addCssDisplay,
   addIsSelfClosing,
-  addIsSpaceSensitive
+  addIsSpaceSensitive,
+  mergeSimpleElementIntoText
 ];
 
 function preprocess(ast, options) {
@@ -104,6 +105,63 @@ function mergeCdataIntoText(ast /*, options */) {
     node => node.type === "cdata",
     node => `<![CDATA[${node.value}]]>`
   );
+}
+
+function mergeSimpleElementIntoText(ast /*, options */) {
+  const isSimpleElement = node =>
+    node.type === "element" &&
+    node.attrs.length === 0 &&
+    node.children.length === 1 &&
+    node.firstChild.type === "text" &&
+    // \xA0: non-breaking whitespace
+    !/[^\S\xA0]/.test(node.children[0].value) &&
+    !node.firstChild.hasLeadingSpaces &&
+    !node.firstChild.hasTrailingSpaces &&
+    node.isLeadingSpaceSensitive &&
+    !node.hasLeadingSpaces &&
+    node.isTrailingSpaceSensitive &&
+    !node.hasTrailingSpaces &&
+    node.prev &&
+    node.prev.type === "text" &&
+    node.next &&
+    node.next.type === "text";
+  return ast.map(node => {
+    if (node.children) {
+      const isSimpleElementResults = node.children.map(isSimpleElement);
+      if (isSimpleElementResults.some(Boolean)) {
+        const newChildren = [];
+        for (let i = 0; i < node.children.length; i++) {
+          const child = node.children[i];
+          if (isSimpleElementResults[i]) {
+            const lastChild = newChildren.pop();
+            const nextChild = node.children[++i];
+            const ParseSourceSpan = node.sourceSpan.constructor;
+            const { isTrailingSpaceSensitive, hasTrailingSpaces } = nextChild;
+            newChildren.push(
+              lastChild.clone({
+                value:
+                  lastChild.value +
+                  `<${child.rawName}>` +
+                  child.firstChild.value +
+                  `</${child.rawName}>` +
+                  nextChild.value,
+                sourceSpan: new ParseSourceSpan(
+                  lastChild.sourceSpan.start,
+                  nextChild.sourceSpan.end
+                ),
+                isTrailingSpaceSensitive,
+                hasTrailingSpaces
+              })
+            );
+          } else {
+            newChildren.push(child);
+          }
+        }
+        return node.clone({ children: newChildren });
+      }
+    }
+    return node;
+  });
 }
 
 function extractInterpolation(ast, options) {
