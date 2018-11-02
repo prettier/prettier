@@ -151,6 +151,25 @@ conubia nostra, per inceptos himenaeos. Donec in ornare velit.</p>
 
 `;
 
+exports[`non-breaking-whitespace.html - html-verify 1`] = `
+<!-- normal whitespaces -->
+<span>Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores voluptas quaerat ut qui sunt vitae error.</span>
+<!-- non-breaking whitespaces -->
+<span>Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores voluptas quaerat ut qui sunt vitae error.</span>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- normal whitespaces -->
+<span
+  >Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores
+  voluptas quaerat ut qui sunt vitae error.</span
+>
+<!-- non-breaking whitespaces -->
+<span
+  >Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores
+  voluptas quaerat ut qui sunt vitae error.</span
+>
+
+`;
+
 exports[`table.html - html-verify 1`] = `
 <table>
   <thead>
