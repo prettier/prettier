@@ -62,6 +62,30 @@ const options = {
     `,
     cliCategory: CATEGORY_EDITOR
   },
+  eol: {
+    since: "1.15.0",
+    category: CATEGORY_GLOBAL,
+    type: "choice",
+    default: "auto",
+    description: "Which end of line characters to apply.",
+    exception: value => typeof value === "string",
+    choices: [
+      {
+        value: "auto",
+        description: dedent`
+          Maintain existing
+          (mixed values within one file are normalised by looking at what's used after the first line)
+        `
+      },
+      { value: "cr", description: "Caret Return character only (\\r)" },
+      {
+        value: "crlf",
+        description:
+          "Caret Return + Line Feed characters (\\r\\n) - common on Windows"
+      },
+      { value: "lf", description: "Line Feed only (\\n) - common on *nix" }
+    ]
+  },
   filepath: {
     since: "1.4.0",
     category: CATEGORY_SPECIAL,

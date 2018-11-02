@@ -102,6 +102,27 @@ Default: true
 
 exports[`show detailed usage with --help editorconfig (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help eol (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help eol (stdout) 1`] = `
+"--eol <auto|cr|crlf|lf>
+
+  Which end of line characters to apply.
+
+Valid options:
+
+  auto   Maintain existing
+         (mixed values within one file are normalised by looking at what's used after the first line)
+  cr     Caret Return character only (\\\\r)
+  crlf   Caret Return + Line Feed characters (\\\\r\\\\n) - common on Windows
+  lf     Line Feed only (\\\\n) - common on *nix
+
+Default: auto
+"
+`;
+
+exports[`show detailed usage with --help eol (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help file-info (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help file-info (stdout) 1`] = `

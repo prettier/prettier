@@ -489,8 +489,22 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -56,10 +85,19 @@
+@@ -52,14 +81,33 @@
+          \\"start\\": -1,
+          \\"step\\": 1,
+        },
+        \\"type\\": \\"int\\",
       },
++     \\"eol\\": Object {
++       \\"choices\\": Array [
++         \\"auto\\",
++         \\"cr\\",
++         \\"crlf\\",
++         \\"lf\\",
++       ],
++       \\"default\\": \\"auto\\",
++       \\"type\\": \\"choice\\",
++     },
       \\"filepath\\": Object {
         \\"default\\": undefined,
         \\"type\\": \\"path\\",
@@ -509,7 +523,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"jsxBracketSameLine\\": Object {
-@@ -73,16 +111,31 @@
+@@ -73,16 +121,31 @@
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -542,7 +556,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +143,15 @@
+@@ -90,14 +153,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -969,6 +983,30 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"range\\": { \\"end\\": null, \\"start\\": -1, \\"step\\": 1 },
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"int\\"
+    },
+    {
+      \\"category\\": \\"Global\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
+          \\"value\\": \\"auto\\"
+        },
+        { \\"description\\": \\"Caret Return character only (\\\\\\\\r)\\", \\"value\\": \\"cr\\" },
+        {
+          \\"description\\": \\"Caret Return + Line Feed characters (\\\\\\\\r\\\\\\\\n) - common on Windows\\",
+          \\"value\\": \\"crlf\\"
+        },
+        {
+          \\"description\\": \\"Line Feed only (\\\\\\\\n) - common on *nix\\",
+          \\"value\\": \\"lf\\"
+        }
+      ],
+      \\"default\\": \\"auto\\",
+      \\"description\\": \\"Which end of line characters to apply.\\",
+      \\"name\\": \\"eol\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"choice\\"
     },
     {
       \\"category\\": \\"Special\\",

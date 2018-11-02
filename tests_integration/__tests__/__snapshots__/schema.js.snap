@@ -43,6 +43,37 @@ Object {
 This option cannot be used with --range-start and --range-end.",
           "type": "integer",
         },
+        "eol": Object {
+          "default": "auto",
+          "description": "Which end of line characters to apply.",
+          "oneOf": Array [
+            Object {
+              "description": "Maintain existing
+(mixed values within one file are normalised by looking at what's used after the first line)",
+              "enum": Array [
+                "auto",
+              ],
+            },
+            Object {
+              "description": "Caret Return character only (\\\\r)",
+              "enum": Array [
+                "cr",
+              ],
+            },
+            Object {
+              "description": "Caret Return + Line Feed characters (\\\\r\\\\n) - common on Windows",
+              "enum": Array [
+                "crlf",
+              ],
+            },
+            Object {
+              "description": "Line Feed only (\\\\n) - common on *nix",
+              "enum": Array [
+                "lf",
+              ],
+            },
+          ],
+        },
         "filepath": Object {
           "default": undefined,
           "description": "Specify the input filepath. This will be used to do parser inference.",

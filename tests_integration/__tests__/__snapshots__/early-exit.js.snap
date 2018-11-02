@@ -60,6 +60,8 @@ Format options:
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
   --no-bracket-spacing     Do not print spaces between brackets.
+  --eol <auto|cr|crlf|lf>  Which end of line characters to apply.
+                           Defaults to auto.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
@@ -201,6 +203,8 @@ Format options:
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
   --no-bracket-spacing     Do not print spaces between brackets.
+  --eol <auto|cr|crlf|lf>  Which end of line characters to apply.
+                           Defaults to auto.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
