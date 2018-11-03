@@ -28,7 +28,48 @@ It turns out that empty lines are very hard to automatically generate. The appro
 
 ### Multi-line objects
 
-By default, Prettier’s printing algorithm prints expressions on a single line if they fit. Objects are used for a lot of different things in JavaScript, though, and sometimes it really helps readability if they stay multiline. See [object lists], [nested configs], [stylesheets] and [keyed methods], for example. We haven't been able to find a good rule for all those cases, so Prettier instead keeps objects multiline if there's a newline anywhere inside it in the original source code. A consequence of this is that long singleline objects are automatically expanded, but short multiline objects are never collapsed.
+By default, Prettier’s printing algorithm prints expressions on a single line if they fit. Objects are used for a lot of different things in JavaScript, though, and sometimes it really helps readability if they stay multiline. See [object lists], [nested configs], [stylesheets] and [keyed methods], for example. We haven't been able to find a good rule for all those cases, so Prettier instead keeps objects multiline if there's a newline between the `{` and the first key in the original source code. A consequence of this is that long singleline objects are automatically expanded, but short multiline objects are never collapsed.
+
+**Tip:** If you have a multiline object that you'd like to join up into a single line:
+
+```js
+const user = {
+  name: "John Doe",
+  age: 30
+};
+```
+
+…all you need to do is remove the newline after `{`:
+
+<!-- prettier-ignore -->
+```js
+const user = {  name: "John Doe",
+  age: 30
+};
+```
+
+…and then run Prettier:
+
+```js
+const user = { name: "John Doe", age: 30 };
+```
+
+And if you'd like to go multiline again, add in a newline after `{`:
+
+<!-- prettier-ignore -->
+```js
+const user = {
+ name: "John Doe", age: 30 };
+```
+
+…and run Prettier:
+
+```js
+const user = {
+  name: "John Doe",
+  age: 30
+};
+```
 
 [object lists]: https://github.com/prettier/prettier/issues/74#issue-199965534
 [nested configs]: https://github.com/prettier/prettier/issues/88#issuecomment-275448346
