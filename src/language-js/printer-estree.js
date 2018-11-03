@@ -6165,8 +6165,9 @@ function printIndentableBlockComment(comment) {
       hardline,
       lines.map(
         (line, index) =>
-          (index === 0 && line[0] === "*" ? "" : " ") +
-          (index < lines.length - 1 ? line.trim() : line.trimLeft())
+          index === 0
+            ? line.trimRight()
+            : " " + (index < lines.length - 1 ? line.trim() : line.trimLeft())
       )
     ),
     "*/"
