@@ -1599,7 +1599,16 @@ const foo = <div className={'match-achievement-medal-type type' + (medals[0].rec
 	) : (
 		i18n('Theme')
 	)}
-</div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</div>
+
+a
+    ? literalline
+    : {
+      123: 12
+    }
+    ? line
+    : softline
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let icecream =
   what == "cone"
     ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
@@ -1688,6 +1697,14 @@ const foo = (
       : i18n("Theme")}
   </div>
 );
+
+a
+  ? literalline
+  : {
+    123: 12
+  }
+  ? line
+  : softline;
 
 `;
 
@@ -1778,7 +1795,16 @@ const foo = <div className={'match-achievement-medal-type type' + (medals[0].rec
 	) : (
 		i18n('Theme')
 	)}
-</div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</div>
+
+a
+    ? literalline
+    : {
+      123: 12
+    }
+    ? line
+    : softline
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let icecream =
     what == "cone"
         ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
@@ -1867,6 +1893,14 @@ const foo = (
             : i18n("Theme")}
     </div>
 );
+
+a
+    ? literalline
+    : {
+        123: 12
+    }
+    ? line
+    : softline;
 
 `;
 
@@ -1957,7 +1991,16 @@ const foo = <div className={'match-achievement-medal-type type' + (medals[0].rec
 	) : (
 		i18n('Theme')
 	)}
-</div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</div>
+
+a
+    ? literalline
+    : {
+      123: 12
+    }
+    ? line
+    : softline
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let icecream =
 	what == "cone"
 		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
@@ -2046,6 +2089,14 @@ const foo = (
 			: i18n("Theme")}
 	</div>
 );
+
+a
+	? literalline
+	: {
+		123: 12
+	}
+	? line
+	: softline;
 
 `;
 
@@ -2136,7 +2187,16 @@ const foo = <div className={'match-achievement-medal-type type' + (medals[0].rec
 	) : (
 		i18n('Theme')
 	)}
-</div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</div>
+
+a
+    ? literalline
+    : {
+      123: 12
+    }
+    ? line
+    : softline
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let icecream =
 	what == "cone"
 		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
@@ -2225,6 +2285,14 @@ const foo = (
 			: i18n("Theme")}
 	</div>
 );
+
+a
+	? literalline
+	: {
+		123: 12
+	}
+	? line
+	: softline;
 
 `;
 
