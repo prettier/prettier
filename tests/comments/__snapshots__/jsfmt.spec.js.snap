@@ -1123,21 +1123,21 @@ onClick={() => {}}>
 <div>{/* comment */}</div>;
 
 <div>
-  {/*comment
+  {/* comment
    */}
 </div>;
 
 <div>
   {
     a
-    /*comment
+    /* comment
      */
   }
 </div>;
 
 <div>
   {
-    /*comment
+    /* comment
      */
     a
   }
@@ -1364,7 +1364,7 @@ var x = {
   getSectionMode(
     pageMetaData: PageMetaData,
     sectionMetaData: SectionMetaData
-    /*$FlowFixMe This error was exposed while converting keyMirror
+    /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {}
 };
@@ -1373,7 +1373,7 @@ class X {
   getSectionMode(
     pageMetaData: PageMetaData,
     sectionMetaData: SectionMetaData = ["unknown"]
-    /*$FlowFixMe This error was exposed while converting keyMirror
+    /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {}
 }
@@ -1763,7 +1763,7 @@ if (true) {
  * second line
  * third line */
 
-/*first line
+/* first line
  * second line
  * third line */
 
