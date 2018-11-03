@@ -1701,8 +1701,8 @@ const foo = (
 a
   ? literalline
   : {
-    123: 12
-  }
+      123: 12
+    }
   ? line
   : softline;
 
@@ -1897,8 +1897,8 @@ const foo = (
 a
     ? literalline
     : {
-        123: 12
-    }
+          123: 12
+      }
     ? line
     : softline;
 
@@ -2093,8 +2093,8 @@ const foo = (
 a
 	? literalline
 	: {
-		123: 12
-	}
+			123: 12
+	  }
 	? line
 	: softline;
 
@@ -2289,8 +2289,8 @@ const foo = (
 a
 	? literalline
 	: {
-		123: 12
-	}
+			123: 12
+	  }
 	? line
 	: softline;
 
