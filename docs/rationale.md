@@ -76,6 +76,57 @@ const user = {
 [stylesheets]: https://github.com/prettier/prettier/issues/74#issuecomment-275262094
 [keyed methods]: https://github.com/prettier/prettier/pull/495#issuecomment-275745434
 
+### Decorators
+
+Just like with objects, decorators are used for a lot of different things. Sometimes it makes sense to write decorators _above_ the line they're decorating, sometimes it's nicer if they're on the _same_ line. We haven't been able to find a good rule for this, so Prettier keeps your decorator positioned like you wrote them (if they fit on the line). This isn't ideal, but a pragmatic solution to a difficult problem.
+
+```js
+@Component({
+  selector: "hero-button",
+  template: `<button>{{label}}</button>`
+})
+export class HeroButtonComponent {
+  // These decorators were written inline and fit on the line so they stay
+  // inline.
+  @Output() change = new EventEmitter();
+  @Input() label: string;
+
+  // These were written multiline, so they stay multiline.
+  @readonly
+  @nonenumerable
+  NODE_TYPE: 2;
+}
+```
+
+There's one exception: classes. We don't think it ever makes sense to inline the decorators for them, so they are always moved to their own line.
+
+<!-- prettier-ignore -->
+```js
+// Before running Prettier:
+@observer class OrderLine {
+  @observable price: number = 0;
+}
+```
+
+```js
+// After running Prettier:
+@observer
+class OrderLine {
+  @observable price: number = 0;
+}
+```
+
+Note: Prettier 1.14.x and older tried to automatically move your decorators, so if you've run an older Prettier version on your code you might need to manually join up some decorators here and there to avoid inconsistencies:
+
+```js
+@observer
+class OrderLine {
+  @observable price: number = 0;
+  @observable
+  amount: number = 0;
+}
+```
+
 ### Semicolons
 
 This is about using the [`--no-semi`](options.md#semicolons) option.
