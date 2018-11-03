@@ -35,7 +35,10 @@ const getExplorerMemoized = mem(opts => {
       ".prettierrc.toml"
     ],
     loaders: {
-      ".toml": loadToml
+      ".toml": loadToml,
+      // default parser of cosmiconfig (see: https://github.com/davidtheclark/cosmiconfig/blob/c6f0953b808a9046a23f6e8983e6cbb455dd03c7/README.md#loaders)
+      // if this setting is missing, prettier cannot recognize a configuration file that has `.prettierrc` extension (e.g. `foo.prettierrc`)
+      ".prettierrc": thirdParty.cosmiconfig.loadYaml
     }
   });
 
