@@ -265,7 +265,8 @@ function hasLeadingLineBreak(node) {
     node.hasLeadingSpaces &&
     (node.prev
       ? node.prev.sourceSpan.end.line < node.sourceSpan.start.line
-      : node.parent.startSourceSpan.end.line < node.sourceSpan.start.line)
+      : node.parent.type === "root" ||
+        node.parent.startSourceSpan.end.line < node.sourceSpan.start.line)
   );
 }
 
@@ -274,7 +275,8 @@ function hasTrailingLineBreak(node) {
     node.hasTrailingSpaces &&
     (node.next
       ? node.next.sourceSpan.start.line > node.sourceSpan.end.line
-      : node.parent.endSourceSpan.start.line > node.sourceSpan.end.line)
+      : node.parent.type === "root" ||
+        node.parent.endSourceSpan.start.line > node.sourceSpan.end.line)
   );
 }
 
