@@ -5,9 +5,12 @@ function preprocess(ast, options) {
     case "json":
     case "json5":
     case "json-stringify":
+    case "__js_expression":
+    case "__vue_expression":
       return Object.assign({}, ast, {
-        type: "JsonRoot",
-        node: Object.assign({}, ast, { comments: [] })
+        type: options.parser.startsWith("__") ? "JsExpressionRoot" : "JsonRoot",
+        node: ast,
+        comments: []
       });
     default:
       return ast;

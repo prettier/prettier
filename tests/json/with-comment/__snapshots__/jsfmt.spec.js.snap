@@ -28,6 +28,62 @@ exports[`block-comment.json - json5-verify 2`] = `
 
 `;
 
+exports[`bottom-block-comment.json - json-verify 1`] = `
+1 /* block-comment */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 /* block-comment */
+
+`;
+
+exports[`bottom-block-comment.json - json-verify 2`] = `
+1 /* block-comment */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 /* block-comment */
+
+`;
+
+exports[`bottom-block-comment.json - json5-verify 1`] = `
+1 /* block-comment */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 /* block-comment */
+
+`;
+
+exports[`bottom-block-comment.json - json5-verify 2`] = `
+1 /* block-comment */
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 /* block-comment */
+
+`;
+
+exports[`bottom-line-comment.json - json-verify 1`] = `
+1 // line-comment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 // line-comment
+
+`;
+
+exports[`bottom-line-comment.json - json-verify 2`] = `
+1 // line-comment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 // line-comment
+
+`;
+
+exports[`bottom-line-comment.json - json5-verify 1`] = `
+1 // line-comment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 // line-comment
+
+`;
+
+exports[`bottom-line-comment.json - json5-verify 2`] = `
+1 // line-comment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 // line-comment
+
+`;
+
 exports[`line-comment.json - json-verify 1`] = `
 {
   //comment

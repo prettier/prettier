@@ -181,11 +181,19 @@ function attach(comments, ast, text, options) {
 
   comments.forEach((comment, i) => {
     if (
-      (options.parser === "json" || options.parser === "json5") &&
-      locStart(comment) - locStart(ast) <= 0
+      options.parser === "json" ||
+      options.parser === "json5" ||
+      options.parser === "__js_expression" ||
+      options.parser === "__vue_expression"
     ) {
-      addLeadingComment(ast, comment);
-      return;
+      if (locStart(comment) - locStart(ast) <= 0) {
+        addLeadingComment(ast, comment);
+        return;
+      }
+      if (locEnd(comment) - locEnd(ast) >= 0) {
+        addTrailingComment(ast, comment);
+        return;
+      }
     }
 
     decorateComment(ast, comment, options);

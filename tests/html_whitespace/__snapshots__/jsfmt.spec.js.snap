@@ -13,6 +13,48 @@ exports[`break-tags.html - html-verify 1`] = `
 
 `;
 
+exports[`display-inline-block.html - html-verify 1`] = `
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+<button>
+Click here! Click here! Click here! Click here! Click here! Click here!
+</button>
+<div>
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button><button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+</div>
+<div>
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+<button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
+</div>
+<video src="brave.webm"><track kind=subtitles src=brave.en.vtt srclang=en label="English"><track kind=subtitles src=brave.en.vtt srclang=en label="English"></video>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<button>
+  Click here! Click here! Click here! Click here! Click here! Click here!
+</button>
+<button>
+  Click here! Click here! Click here! Click here! Click here! Click here!
+</button>
+<div>
+  <button>
+    Click here! Click here! Click here! Click here! Click here! Click here!</button
+  ><button>
+    Click here! Click here! Click here! Click here! Click here! Click here!
+  </button>
+</div>
+<div>
+  <button>
+    Click here! Click here! Click here! Click here! Click here! Click here!
+  </button>
+  <button>
+    Click here! Click here! Click here! Click here! Click here! Click here!
+  </button>
+</div>
+<video src="brave.webm">
+  <track kind="subtitles" src="brave.en.vtt" srclang="en" label="English" />
+  <track kind="subtitles" src="brave.en.vtt" srclang="en" label="English" />
+</video>
+
+`;
+
 exports[`display-none.html - html-verify 1`] = `
 <!DOCTYPE html><HTML CLASS="no-js mY-ClAsS"><HEAD><META CHARSET="utf-8"><TITLE>My tITlE</TITLE><META NAME="description" content="My CoNtEnT"></HEAD></HTML>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -106,6 +148,24 @@ conubia nostra, per inceptos himenaeos. Donec in ornare velit.</p>
   sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec
   in ornare velit.
 </p>
+
+`;
+
+exports[`non-breaking-whitespace.html - html-verify 1`] = `
+<!-- normal whitespaces -->
+<span>Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores voluptas quaerat ut qui sunt vitae error.</span>
+<!-- non-breaking whitespaces -->
+<span>Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores voluptas quaerat ut qui sunt vitae error.</span>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- normal whitespaces -->
+<span
+  >Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores
+  voluptas quaerat ut qui sunt vitae error.</span
+>
+<!-- non-breaking whitespaces -->
+<span
+  >Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores voluptas quaerat ut qui sunt vitae error.</span
+>
 
 `;
 

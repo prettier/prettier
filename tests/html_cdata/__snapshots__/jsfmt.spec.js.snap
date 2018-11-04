@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`example.html - html-verify 1`] = `
+<span><![CDATA[<sender>John Smith</sender>]]></span>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<span><![CDATA[<sender>John Smith</sender>]]></span>
+
+`;

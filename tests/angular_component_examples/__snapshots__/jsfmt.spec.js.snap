@@ -21,8 +21,10 @@ class     TestComponent {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @Component({
   selector: "app-test",
-  template: \`<ul>   <li>test</li>
-  </ul>
+  template: \`
+    <ul>
+      <li>test</li>
+    </ul>
   \`,
   styles: [
     \`
@@ -60,8 +62,10 @@ class     TestComponent {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @Component({
   selector: "app-test",
-  template: \`<ul>   <li>test</li>
-  </ul>
+  template: \`
+    <ul>
+      <li>test</li>
+    </ul>
   \`,
   styles: [
     \`

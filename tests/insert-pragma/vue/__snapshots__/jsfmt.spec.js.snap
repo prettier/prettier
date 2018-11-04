@@ -20,8 +20,7 @@ const    x      = 1;
 <script>
 const x = 1;
 </script>
-<style src="./my-component.css">
-</style>
+<style src="./my-component.css"></style>
 
 `;
 
@@ -46,7 +45,6 @@ const    x      = 1;
 <script>
 const x = 1;
 </script>
-<style src="./my-component.css">
-</style>
+<style src="./my-component.css"></style>
 
 `;

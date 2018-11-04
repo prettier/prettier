@@ -15,8 +15,7 @@ let Prettier        = format => { your.js('though') }
 </style>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template>
-  <p>Templates are not formatted yet ...
-    </p>
+  <p>Templates are not formatted yet ...</p>
 </template>
 
 <script>
@@ -26,7 +25,8 @@ let Prettier = format => {
 </script>
 
 <style>
-.and { css: too !important }
+.and {
+  css: too !important;
+}
 </style>
-
 `;
