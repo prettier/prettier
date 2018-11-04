@@ -8,7 +8,7 @@ function hasPragma(text) {
 }
 
 function insertPragma(text) {
-  const parsedDocblock = docblock.parseWithComments(docblock.extract(text));
+  const parsedDocblock = docblock.parseWithComments(docblock.extract(text).replace(/\r\n?/g, "\n"));
   const pragmas = Object.assign({ format: "" }, parsedDocblock.pragmas);
   const newDocblock = docblock.print({
     pragmas,
