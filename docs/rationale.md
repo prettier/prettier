@@ -88,10 +88,8 @@ Just like with objects, decorators are used for a lot of different things. Somet
 export class HeroButtonComponent {
   // These decorators were written inline and fit on the line so they stay
   // inline.
-  @Output()
-  change = new EventEmitter();
-  @Input()
-  label: string;
+  @Output() change = new EventEmitter();
+  @Input() label: string;
 
   // These were written multiline, so they stay multiline.
   @readonly
@@ -114,8 +112,7 @@ There's one exception: classes. We don't think it ever makes sense to inline the
 // After running Prettier:
 @observer
 class OrderLine {
-  @observable
-  price: number = 0;
+  @observable price: number = 0;
 }
 ```
 
@@ -124,8 +121,7 @@ Note: Prettier 1.14.x and older tried to automatically move your decorators, so 
 ```js
 @observer
 class OrderLine {
-  @observable
-  price: number = 0;
+  @observable price: number = 0;
   @observable
   amount: number = 0;
 }
