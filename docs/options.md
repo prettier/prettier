@@ -133,7 +133,7 @@ Valid options:
 
 ## Arrow Function Parentheses
 
-_available in v1.9.0+_
+_First available in v1.9.0._
 
 Include parentheses around a sole arrow function parameter.
 
@@ -174,23 +174,23 @@ Valid options:
 
 - `"babylon"` (via [@babel/parser](https://github.com/babel/babel/tree/master/packages/babel-parser))
 - `"flow"` (via [flow-parser](https://github.com/facebook/flow/tree/master/src/parser))
-- `"typescript"` (via [typescript-estree](https://github.com/JamesHenry/typescript-estree)) _Since v1.4.0_
-- `"css"` (via [postcss-scss](https://github.com/postcss/postcss-scss) and [postcss-less](https://github.com/shellscape/postcss-less), autodetects which to use) _Since v1.7.1_
-- `"scss"` (same parsers as `"css"`, prefers postcss-scss) _Since v1.7.1_
-- `"less"` (same parsers as `"css"`, prefers postcss-less) _Since v1.7.1_
-- `"json"` (via [@babel/parser parseExpression](https://babeljs.io/docs/en/next/babel-parser.html#babelparserparseexpressioncode-options)) _Since v1.5.0_
-- `"json5"` (same parser as `"json"`, but outputs as [json5](https://json5.org/)) _Since v1.13.0_
-- `"json-stringify"` (same parser as `"json"`, but outputs like `JSON.stringify`) _Since v1.13.0_
-- `"graphql"` (via [graphql/language](https://github.com/graphql/graphql-js/tree/master/src/language)) _Since v1.5.0_
-- `"markdown"` (via [remark-parse](https://github.com/wooorm/remark/tree/master/packages/remark-parse)) _Since v1.8.0_
-- `"vue"` (uses several parsers) _Since 1.10.0_
-- `"yaml"` (via [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser)) _Since 1.14.0_
+- `"typescript"` (via [typescript-estree](https://github.com/JamesHenry/typescript-estree)) _First available in v1.4.0_
+- `"css"` (via [postcss-scss](https://github.com/postcss/postcss-scss) and [postcss-less](https://github.com/shellscape/postcss-less), autodetects which to use) _First available in v1.7.1_
+- `"scss"` (same parsers as `"css"`, prefers postcss-scss) _First available in v1.7.1_
+- `"less"` (same parsers as `"css"`, prefers postcss-less) _First available in v1.7.1_
+- `"json"` (via [@babel/parser parseExpression](https://babeljs.io/docs/en/next/babel-parser.html#babelparserparseexpressioncode-options)) _First available in v1.5.0_
+- `"json5"` (same parser as `"json"`, but outputs as [json5](https://json5.org/)) _First available in v1.13.0_
+- `"json-stringify"` (same parser as `"json"`, but outputs like `JSON.stringify`) _First available in v1.13.0_
+- `"graphql"` (via [graphql/language](https://github.com/graphql/graphql-js/tree/master/src/language)) _First available in v1.5.0_
+- `"markdown"` (via [remark-parse](https://github.com/wooorm/remark/tree/master/packages/remark-parse)) _First available in v1.8.0_
+- `"vue"` (uses several parsers) _First available in 1.10.0_
+- `"yaml"` (via [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser)) _First available in 1.14.0_
 
 <!-- TODO: Uncomment and move below "markdown" above when 1.15.0 is released.
-- `"mdx"` (same parser as `"markdown"`, with some custom overrides) _Since 1.15.0_
+- `"mdx"` (same parser as `"markdown"`, with some custom overrides) _First available in 1.15.0_
 -->
 
-[Custom parsers](api.md#custom-parser-api) are also supported. _Since v1.5.0_
+[Custom parsers](api.md#custom-parser-api) are also supported. _First available in v1.5.0_
 
 | Default | CLI Override                                    | API Override                                               |
 | ------- | ----------------------------------------------- | ---------------------------------------------------------- |
@@ -214,7 +214,7 @@ cat foo | prettier --stdin-filepath foo.css
 
 ## Require pragma
 
-_available in v1.7.0+_
+_First available in v1.7.0_
 
 Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful when gradually transitioning large, unformatted codebases to prettier.
 
@@ -240,7 +240,7 @@ or
 
 ## Insert Pragma
 
-_available in v1.8.0+_
+_First available in v1.8.0_
 
 Prettier can insert a special @format marker at the top of files specifying that the file has been formatted with prettier. This works well when used in tandem with the `--require-pragma` option. If there is already a docblock at the top of the file then this option will add a newline to it with the @format marker.
 
@@ -250,7 +250,7 @@ Prettier can insert a special @format marker at the top of files specifying that
 
 ## Prose Wrap
 
-_available in v1.8.2+_
+_First available in v1.8.2_
 
 By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer, e.g. GitHub comment and BitBucket. In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out with `"never"`.
 
@@ -258,7 +258,7 @@ Valid options:
 
 - `"always"` - Wrap prose if it exceeds the print width.
 - `"never"` - Do not wrap prose.
-- `"preserve"` - Wrap prose as-is. _available in v1.9.0+_
+- `"preserve"` - Wrap prose as-is. _First available in v1.9.0_
 
 | Default      | CLI Override                                                | API Override                                                |
 | ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
