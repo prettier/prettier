@@ -110,7 +110,11 @@ function genericPrint(path, options, print) {
     }
     case "css-comment": {
       if (node.raws.content) {
-        return node.raws.content;
+        return (
+          node.raws.content
+            // there's a bug in the less parser that trailing `\r`s are included in inline comments
+            .replace(/^(\/\/[^]+)\r+$/, "$1")
+        );
       }
       const text = options.originalText.slice(
         options.locStart(node),
