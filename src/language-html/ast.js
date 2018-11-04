@@ -20,6 +20,14 @@ class Node {
   _setNodes(key, nodes) {
     if (nodes !== this[key]) {
       this[key] = cloneAndUpdateNodes(nodes, this);
+      if (key === "attrs") {
+        setNonEnumerableProperties(this, {
+          attrMap: this[key].reduce((reduced, attr) => {
+            reduced[attr.fullName] = attr.value;
+            return reduced;
+          }, Object.create(null))
+        });
+      }
     }
   }
 

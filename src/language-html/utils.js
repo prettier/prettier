@@ -301,45 +301,40 @@ function hasNonTextChild(node) {
 }
 
 function inferScriptParser(node) {
-  const attrMap = node.attrs.reduce((reduced, attr) => {
-    reduced[attr.name] = attr.value;
-    return reduced;
-  }, {});
-
-  if (node.name === "script" && !attrMap.src) {
+  if (node.name === "script" && !node.attrMap.src) {
     if (
-      (!attrMap.lang && !attrMap.type) ||
-      attrMap.type === "module" ||
-      attrMap.type === "text/javascript" ||
-      attrMap.type === "text/babel" ||
-      attrMap.type === "application/javascript"
+      (!node.attrMap.lang && !node.attrMap.type) ||
+      node.attrMap.type === "module" ||
+      node.attrMap.type === "text/javascript" ||
+      node.attrMap.type === "text/babel" ||
+      node.attrMap.type === "application/javascript"
     ) {
       return "babylon";
     }
 
     if (
-      attrMap.type === "application/x-typescript" ||
-      attrMap.lang === "ts" ||
-      attrMap.lang === "tsx"
+      node.attrMap.type === "application/x-typescript" ||
+      node.attrMap.lang === "ts" ||
+      node.attrMap.lang === "tsx"
     ) {
       return "typescript";
     }
 
-    if (attrMap.type === "text/markdown") {
+    if (node.attrMap.type === "text/markdown") {
       return "markdown";
     }
   }
 
   if (node.name === "style") {
-    if (!attrMap.lang || attrMap.lang === "postcss") {
+    if (!node.attrMap.lang || node.attrMap.lang === "postcss") {
       return "css";
     }
 
-    if (attrMap.lang === "scss") {
+    if (node.attrMap.lang === "scss") {
       return "scss";
     }
 
-    if (attrMap.lang === "less") {
+    if (node.attrMap.lang === "less") {
       return "less";
     }
   }
