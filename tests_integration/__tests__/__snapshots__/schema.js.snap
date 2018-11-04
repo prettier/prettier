@@ -55,19 +55,19 @@ This option cannot be used with --range-start and --range-end.",
               ],
             },
             Object {
-              "description": "Caret Return character only (\\\\r)",
+              "description": "Carriage Return character only (\\\\r)",
               "enum": Array [
                 "cr",
               ],
             },
             Object {
-              "description": "Caret Return + Line Feed characters (\\\\r\\\\n) - common on Windows",
+              "description": "Carriage Return + Line Feed characters (\\\\r\\\\n), common on Windows",
               "enum": Array [
                 "crlf",
               ],
             },
             Object {
-              "description": "Line Feed only (\\\\n) - common on *nix",
+              "description": "Line Feed only (\\\\n), common on Linux and macOS as well as in git repos",
               "enum": Array [
                 "lf",
               ],

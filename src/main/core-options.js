@@ -77,13 +77,17 @@ const options = {
           (mixed values within one file are normalised by looking at what's used after the first line)
         `
       },
-      { value: "cr", description: "Caret Return character only (\\r)" },
+      { value: "cr", description: "Carriage Return character only (\\r)" },
       {
         value: "crlf",
         description:
-          "Caret Return + Line Feed characters (\\r\\n) - common on Windows"
+          "Carriage Return + Line Feed characters (\\r\\n), common on Windows"
       },
-      { value: "lf", description: "Line Feed only (\\n) - common on *nix" }
+      {
+        value: "lf",
+        description:
+          "Line Feed only (\\n), common on Linux and macOS as well as in git repos"
+      }
     ]
   },
   filepath: {

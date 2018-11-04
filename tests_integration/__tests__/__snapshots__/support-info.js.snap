@@ -991,13 +991,16 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
           \\"value\\": \\"auto\\"
         },
-        { \\"description\\": \\"Caret Return character only (\\\\\\\\r)\\", \\"value\\": \\"cr\\" },
         {
-          \\"description\\": \\"Caret Return + Line Feed characters (\\\\\\\\r\\\\\\\\n) - common on Windows\\",
+          \\"description\\": \\"Carriage Return character only (\\\\\\\\r)\\",
+          \\"value\\": \\"cr\\"
+        },
+        {
+          \\"description\\": \\"Carriage Return + Line Feed characters (\\\\\\\\r\\\\\\\\n), common on Windows\\",
           \\"value\\": \\"crlf\\"
         },
         {
-          \\"description\\": \\"Line Feed only (\\\\\\\\n) - common on *nix\\",
+          \\"description\\": \\"Line Feed only (\\\\\\\\n), common on Linux and macOS as well as in git repos\\",
           \\"value\\": \\"lf\\"
         }
       ],
