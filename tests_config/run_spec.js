@@ -120,7 +120,10 @@ function prettyprint(src, filename, options) {
       "<|>" +
       result.formatted.slice(result.cursorOffset);
   }
-  return result.formatted;
+
+  // \r is trimmed from jest snapshots by default;
+  // manually replacing this character with [[CR]] to test its true presence
+  return result.formatted.replace(/\r/g, "[[CR]]");
 }
 
 function read(filename) {
