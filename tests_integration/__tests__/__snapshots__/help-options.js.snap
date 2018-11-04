@@ -217,6 +217,19 @@ Default: false
 
 exports[`show detailed usage with --help jsx-bracket-same-line (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help jsx-single-quote (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help jsx-single-quote (stdout) 1`] = `
+"--jsx-single-quote
+
+  Use single quotes in JSX.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help jsx-single-quote (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help list-different (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help list-different (stdout) 1`] = `
