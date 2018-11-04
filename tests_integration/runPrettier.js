@@ -109,8 +109,10 @@ function runPrettier(dir, args, options) {
     Object.keys(result).forEach(name => {
       test(`(${name})`, () => {
         const value =
+          // \r is trimmed from jest snapshots by default;
+          // manually replacing this character with [[CR]] to test its true presence
           typeof result[name] === "string"
-            ? stripAnsi(result[name])
+            ? stripAnsi(result[name]).replace(/\r/g, "[[CR]]")
             : result[name];
         if (name in testOptions) {
           if (name === "status" && testOptions[name] === "non-zero") {

@@ -80,16 +80,11 @@ exports[`CLI overrides take lower precedence with --config-precedence file-overr
 exports[`CLI overrides take precedence with --config-precedence cli-override (stderr) 1`] = `""`;
 
 exports[`CLI overrides take precedence with --config-precedence cli-override (stdout) 1`] = `
-"function f() {
-	console.log(
-		\\"line endings should be CR\\"
-	)
-}
-function f() {
-	console.log(
-		\\"line endings should be CRLF\\"
-	)
-}
+"function f() {[[CR]]	console.log([[CR]]		\\"line endings should be CR\\"[[CR]]	)[[CR]]}[[CR]]function f() {[[CR]]
+	console.log([[CR]]
+		\\"line endings should be CRLF\\"[[CR]]
+	)[[CR]]
+}[[CR]]
 function f() {
 	console.log(
 		\\"line endings should be LF\\"
@@ -182,16 +177,11 @@ exports[`CLI overrides take precedence with --config-precedence cli-override (wr
 exports[`CLI overrides take precedence without --config-precedence (stderr) 1`] = `""`;
 
 exports[`CLI overrides take precedence without --config-precedence (stdout) 1`] = `
-"function f() {
-	console.log(
-		\\"line endings should be CR\\"
-	)
-}
-function f() {
-	console.log(
-		\\"line endings should be CRLF\\"
-	)
-}
+"function f() {[[CR]]	console.log([[CR]]		\\"line endings should be CR\\"[[CR]]	)[[CR]]}[[CR]]function f() {[[CR]]
+	console.log([[CR]]
+		\\"line endings should be CRLF\\"[[CR]]
+	)[[CR]]
+}[[CR]]
 function f() {
 	console.log(
 		\\"line endings should be LF\\"
