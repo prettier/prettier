@@ -279,7 +279,8 @@ When people collaborate on a project from different operating systems, it become
 It is also possible for Windows users to accidentally change line endings in an already committed file from `LF` to `CRLF`.
 Doing so produces a large `git diff`, and if it get unnoticed during code review, all line-by-line history for the file (`git blame`) gets lost.
 
-If you want to make sure that your central repository only contains Linux-style line endings in files covered by Prettier:
+If you want to make sure that your git repository only contains Linux-style line endings in files covered by Prettier:
+
 1. Set `eol` option to `lf`
 1. Configure [a pre-commit hook](./precommit.md) that will run Prettier
 1. Configure Prettier to run in your CI pipeline (e.g. using [`prettier-check` npm package](https://www.npmjs.com/package/prettier-check))
