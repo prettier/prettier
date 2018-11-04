@@ -3,11 +3,11 @@
 exports[`CLI overrides take precedence (stderr) 1`] = `""`;
 
 exports[`CLI overrides take precedence (stdout) 1`] = `
-"function f() {[[CR]]	console.log([[CR]]		\\"line endings should be CR\\"[[CR]]	)[[CR]]}[[CR]]function f() {[[CR]]
-	console.log([[CR]]
-		\\"line endings should be CRLF\\"[[CR]]
-	)[[CR]]
-}[[CR]]
+"function f() {/*CR*/	console.log(/*CR*/		\\"line endings should be CR\\"/*CR*/	)/*CR*/}/*CR*/function f() {/*CR*/
+	console.log(/*CR*/
+		\\"line endings should be CRLF\\"/*CR*/
+	)/*CR*/
+}/*CR*/
 function f() {
 	console.log(
 		\\"line endings should be LF\\"
@@ -124,9 +124,9 @@ exports[`resolves configuration file with --find-config-path file (write) 1`] = 
 exports[`resolves configuration from external files (stderr) 1`] = `""`;
 
 exports[`resolves configuration from external files (stdout) 1`] = `
-"function f() {[[CR]]	console.log(\\"line endings should be CR\\")[[CR]]}[[CR]]function f() {[[CR]]
-	console.log(\\"line endings should be CRLF\\")[[CR]]
-}[[CR]]
+"function f() {/*CR*/	console.log(\\"line endings should be CR\\")/*CR*/}/*CR*/function f() {/*CR*/
+	console.log(\\"line endings should be CRLF\\")/*CR*/
+}/*CR*/
 function f() {
 	console.log(\\"line endings should be LF\\")
 }
