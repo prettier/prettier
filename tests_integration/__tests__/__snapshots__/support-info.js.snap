@@ -489,7 +489,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -56,10 +85,19 @@
+@@ -56,33 +85,61 @@
       },
       \\"filepath\\": Object {
         \\"default\\": undefined,
@@ -509,7 +509,17 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"jsxBracketSameLine\\": Object {
-@@ -73,16 +111,31 @@
+        \\"default\\": false,
+        \\"type\\": \\"boolean\\",
+      },
++     \\"jsxSingleQuote\\": Object {
++       \\"default\\": false,
++       \\"type\\": \\"boolean\\",
++     },
+      \\"parser\\": Object {
+        \\"choices\\": Array [
+          \\"flow\\",
+          \\"babylon\\",
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -542,7 +552,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +143,15 @@
+@@ -90,14 +147,15 @@
         },
         \\"type\\": \\"int\\",
       },
