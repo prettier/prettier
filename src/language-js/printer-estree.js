@@ -35,6 +35,7 @@ const insertPragma = require("./pragma").insertPragma;
 const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
 const { printHtmlBinding } = require("./html-binding");
+const preprocess = require("./preprocess");
 const {
   hasNode,
   hasFlowAnnotationComment,
