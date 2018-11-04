@@ -83,8 +83,9 @@ function getPrettierIgnoreAttributeCommentData(value) {
 function isScriptLikeTag(node) {
   return (
     node.type === "element" &&
-    !node.namespace &&
-    (node.name === "script" || node.name === "style")
+    (node.fullName === "script" ||
+      node.fullName === "style" ||
+      node.fullName === "svg:style")
   );
 }
 
@@ -390,12 +391,35 @@ function countParents(path, predicate = () => true) {
   return counter;
 }
 
+function hasParent(node, fn) {
+  let current = node;
+
+  while (current) {
+    if (fn(current)) {
+      return true;
+    }
+
+    current = current.parent;
+  }
+
+  return false;
+}
+
 function getNodeCssStyleDisplay(node, options) {
   if (node.prev && node.prev.type === "comment") {
     // <!-- display: block -->
     const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
     if (match) {
       return match[1];
+    }
+  }
+
+  let isInSvgForeignObject = false;
+  if (node.type === "element" && node.namespace === "svg") {
+    if (hasParent(node, parent => parent.fullName === "svg:foreignObject")) {
+      isInSvgForeignObject = true;
+    } else {
+      return node.name === "svg" ? "inline-block" : "block";
     }
   }
 
@@ -407,7 +431,7 @@ function getNodeCssStyleDisplay(node, options) {
     default:
       return (
         (node.type === "element" &&
-          !node.namespace &&
+          (!node.namespace || isInSvgForeignObject) &&
           CSS_DISPLAY_TAGS[node.name]) ||
         CSS_DISPLAY_DEFAULT
       );
