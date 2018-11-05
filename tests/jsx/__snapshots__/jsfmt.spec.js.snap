@@ -3785,6 +3785,12 @@ exports[`quotes.js - flow-verify 1`] = `
   doubleBoth2={"\\" '"}
   doubleBoth3="&quot; &apos; '"
 />;
+
+<p>
+  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+  restart. This has been reported to the team, but if youencounter this121312331
+  repeatedly please report this issue to the GitHub 12312312312312313{'  '}{' '}
+</p>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div id="&quot;'<>&amp;quot;" />;
 <div id='"&#39;<>&amp;quot;' />;
@@ -3814,6 +3820,12 @@ exports[`quotes.js - flow-verify 1`] = `
   doubleBoth2={"\\" '"}
   doubleBoth3="&quot; ' '"
 />;
+
+<p>
+  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+  restart. This has been reported to the team, but if youencounter this121312331
+  repeatedly please report this issue to the GitHub 12312312312312313{"  "}{" "}
+</p>;
 
 `;
 
@@ -3854,6 +3866,12 @@ exports[`quotes.js - flow-verify 2`] = `
   doubleBoth2={"\\" '"}
   doubleBoth3="&quot; &apos; '"
 />;
+
+<p>
+  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+  restart. This has been reported to the team, but if youencounter this121312331
+  repeatedly please report this issue to the GitHub 12312312312312313{'  '}{' '}
+</p>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div id='"&apos;<>&amp;quot;' />;
 <div id='"&#39;<>&amp;quot;' />;
@@ -3883,6 +3901,12 @@ exports[`quotes.js - flow-verify 2`] = `
   doubleBoth2={"\\" '"}
   doubleBoth3="&quot; ' '"
 />;
+
+<p>
+  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+  restart. This has been reported to the team, but if youencounter this121312331
+  repeatedly please report this issue to the GitHub 12312312312312313{"  "}{' '}
+</p>;
 
 `;
 
@@ -3923,6 +3947,12 @@ exports[`quotes.js - flow-verify 3`] = `
   doubleBoth2={"\\" '"}
   doubleBoth3="&quot; &apos; '"
 />;
+
+<p>
+  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+  restart. This has been reported to the team, but if youencounter this121312331
+  repeatedly please report this issue to the GitHub 12312312312312313{'  '}{' '}
+</p>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div id="&quot;'<>&amp;quot;" />;
 <div id='"&#39;<>&amp;quot;' />;
@@ -3952,6 +3982,12 @@ exports[`quotes.js - flow-verify 3`] = `
   doubleBoth2={'" \\''}
   doubleBoth3="&quot; ' '"
 />;
+
+<p>
+  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+  restart. This has been reported to the team, but if youencounter this121312331
+  repeatedly please report this issue to the GitHub 12312312312312313{'  '}{" "}
+</p>;
 
 `;
 
@@ -3992,6 +4028,12 @@ exports[`quotes.js - flow-verify 4`] = `
   doubleBoth2={"\\" '"}
   doubleBoth3="&quot; &apos; '"
 />;
+
+<p>
+  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+  restart. This has been reported to the team, but if youencounter this121312331
+  repeatedly please report this issue to the GitHub 12312312312312313{'  '}{' '}
+</p>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div id='"&apos;<>&amp;quot;' />;
 <div id='"&#39;<>&amp;quot;' />;
@@ -4021,6 +4063,12 @@ exports[`quotes.js - flow-verify 4`] = `
   doubleBoth2={'" \\''}
   doubleBoth3="&quot; ' '"
 />;
+
+<p>
+  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+  restart. This has been reported to the team, but if youencounter this121312331
+  repeatedly please report this issue to the GitHub 12312312312312313{'  '}{' '}
+</p>;
 
 `;
 
