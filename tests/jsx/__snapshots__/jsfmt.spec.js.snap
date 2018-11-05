@@ -1782,6 +1782,16 @@ exports[`expression.js - flow-verify 1`] = `
     });
   }}
 </Component>;
+
+<SuspendyTree>
+  <div style={{ height: 200, overflow: "scroll" }}>
+    {Array(20)
+      .fill()
+      .map((_, i) => (
+        <h2 key={i}>{i + 1}</h2>
+      ))}
+  </div>
+</SuspendyTree>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <View
   style={{
@@ -1916,6 +1926,14 @@ exports[`expression.js - flow-verify 1`] = `
     });
   }}
 </Component>;
+
+<SuspendyTree>
+  <div style={{ height: 200, overflow: "scroll" }}>
+    {Array(20)
+      .fill()
+      .map((_, i) => <h2 key={i}>{i + 1}</h2>)}
+  </div>
+</SuspendyTree>;
 
 `;
 
@@ -2041,6 +2059,16 @@ exports[`expression.js - flow-verify 2`] = `
     });
   }}
 </Component>;
+
+<SuspendyTree>
+  <div style={{ height: 200, overflow: "scroll" }}>
+    {Array(20)
+      .fill()
+      .map((_, i) => (
+        <h2 key={i}>{i + 1}</h2>
+      ))}
+  </div>
+</SuspendyTree>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <View
   style={{
@@ -2176,6 +2204,14 @@ exports[`expression.js - flow-verify 2`] = `
   }}
 </Component>;
 
+<SuspendyTree>
+  <div style={{ height: 200, overflow: "scroll" }}>
+    {Array(20)
+      .fill()
+      .map((_, i) => <h2 key={i}>{i + 1}</h2>)}
+  </div>
+</SuspendyTree>;
+
 `;
 
 exports[`expression.js - flow-verify 3`] = `
@@ -2300,6 +2336,16 @@ exports[`expression.js - flow-verify 3`] = `
     });
   }}
 </Component>;
+
+<SuspendyTree>
+  <div style={{ height: 200, overflow: "scroll" }}>
+    {Array(20)
+      .fill()
+      .map((_, i) => (
+        <h2 key={i}>{i + 1}</h2>
+      ))}
+  </div>
+</SuspendyTree>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <View
   style={{
@@ -2435,6 +2481,14 @@ exports[`expression.js - flow-verify 3`] = `
   }}
 </Component>;
 
+<SuspendyTree>
+  <div style={{ height: 200, overflow: 'scroll' }}>
+    {Array(20)
+      .fill()
+      .map((_, i) => <h2 key={i}>{i + 1}</h2>)}
+  </div>
+</SuspendyTree>;
+
 `;
 
 exports[`expression.js - flow-verify 4`] = `
@@ -2559,6 +2613,16 @@ exports[`expression.js - flow-verify 4`] = `
     });
   }}
 </Component>;
+
+<SuspendyTree>
+  <div style={{ height: 200, overflow: "scroll" }}>
+    {Array(20)
+      .fill()
+      .map((_, i) => (
+        <h2 key={i}>{i + 1}</h2>
+      ))}
+  </div>
+</SuspendyTree>;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <View
   style={{
@@ -2693,6 +2757,14 @@ exports[`expression.js - flow-verify 4`] = `
     });
   }}
 </Component>;
+
+<SuspendyTree>
+  <div style={{ height: 200, overflow: 'scroll' }}>
+    {Array(20)
+      .fill()
+      .map((_, i) => <h2 key={i}>{i + 1}</h2>)}
+  </div>
+</SuspendyTree>;
 
 `;
 
