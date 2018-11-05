@@ -15,7 +15,8 @@ The first requirement of Prettier is to output valid code that has the exact sam
 
 Double or single quotes? Prettier chooses the one which results in the fewest number of escapes. `"It's gettin' better!"`, not `'It\'s gettin\' better!'`. In case of a tie, Prettier defaults to double quotes (but that can be changed via the [`--single-quote`](options.html#quotes) option).
 
-JSX always uses double quotes. JSX takes its roots from HTML, where the dominant use of quotes for attributes is double quotes. Browser developer tools also follow this convention by always displaying HTML with double quotes, even if the source code uses single quotes.
+JSX has its own option for quotes: [`--jsx-single-quote`](options.html#jsx-quotes).
+JSX takes its roots from HTML, where the dominant use of quotes for attributes is double quotes. Browser developer tools also follow this convention by always displaying HTML with double quotes, even if the source code uses single quotes. A separate option allows using single quotes for JS and double quotes for "HTML" (JSX).
 
 Prettier maintains the way your string is escaped. For example, `"🙂"` won't be formatted into `"\uD83D\uDE42"` and vice versa.
 
