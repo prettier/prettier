@@ -76,7 +76,10 @@ const options = {
           (mixed values within one file are normalised by looking at what's used after the first line)
         `
       },
-      { value: "cr", description: "Carriage Return character only (\\r)" },
+      {
+        value: "cr",
+        description: "Carriage Return character only (\\r), used very rarely"
+      },
       {
         value: "crlf",
         description:
@@ -85,7 +88,7 @@ const options = {
       {
         value: "lf",
         description:
-          "Line Feed only (\\n), common on Linux and macOS as well as in git repos"
+          "Line Feed only (\\n), common on Linux and macOS as well as inside git repos"
       }
     ]
   },

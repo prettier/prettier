@@ -1002,7 +1002,7 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"value\\": \\"auto\\"
         },
         {
-          \\"description\\": \\"Carriage Return character only (\\\\\\\\r)\\",
+          \\"description\\": \\"Carriage Return character only (\\\\\\\\r), used very rarely\\",
           \\"value\\": \\"cr\\"
         },
         {
@@ -1010,7 +1010,7 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"value\\": \\"crlf\\"
         },
         {
-          \\"description\\": \\"Line Feed only (\\\\\\\\n), common on Linux and macOS as well as in git repos\\",
+          \\"description\\": \\"Line Feed only (\\\\\\\\n), common on Linux and macOS as well as inside git repos\\",
           \\"value\\": \\"lf\\"
         }
       ],
