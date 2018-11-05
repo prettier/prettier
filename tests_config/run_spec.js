@@ -83,7 +83,10 @@ function run_spec(dirname, parsers, options) {
 
           expect(() => {
             ppastMassaged = parse(
-              prettyprint(input, path, compareOptions),
+              prettyprint(input, path, compareOptions)
+                // \r has been replaced with /*CR*/ to test presence of CR in jest snapshots;
+                // reverting this to get the right AST
+                .replace(/\/\*CR\*\//g, "\r"),
               compareOptions
             );
           }).not.toThrow();
