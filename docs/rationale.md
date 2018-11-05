@@ -85,7 +85,7 @@ Just like with objects, decorators are used for a lot of different things. Somet
   selector: "hero-button",
   template: `<button>{{label}}</button>`
 })
-export class HeroButtonComponent {
+class HeroButtonComponent {
   // These decorators were written inline and fit on the line so they stay
   // inline.
   @Output() change = new EventEmitter();
@@ -125,6 +125,15 @@ class OrderLine {
   @observable
   amount: number = 0;
 }
+```
+
+One final thing: TC39 has [not yet decided if decorators come before or after `export`](https://github.com/tc39/proposal-decorators/issues/69). In the meantime, Prettier supports both:
+
+```js
+@decorator
+export class Foo { }
+
+export @decorator class Foo { }
 ```
 
 ### Semicolons
