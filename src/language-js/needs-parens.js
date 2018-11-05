@@ -500,6 +500,8 @@ function needsParens(path, options) {
         return false;
       } else if (parent.type === "Property" && parent.value === node) {
         return false;
+      } else if (parent.type === "NGChainedExpression") {
+        return false;
       }
       return true;
     }
@@ -613,6 +615,21 @@ function needsParens(path, options) {
         return true;
       }
       return false;
+    case "NGPipeExpression":
+      if (
+        parent.type === "NGRoot" ||
+        parent.type === "ObjectProperty" ||
+        parent.type === "ArrayExpression" ||
+        ((parent.type === "CallExpression" ||
+          parent.type === "OptionalCallExpression") &&
+          parent.arguments[name] === node) ||
+        (parent.type === "NGPipeExpression" && name === "right") ||
+        (parent.type === "MemberExpression" && name === "property") ||
+        parent.type === "AssignmentExpression"
+      ) {
+        return false;
+      }
+      return true;
   }
 
   return false;

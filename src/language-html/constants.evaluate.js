@@ -17,7 +17,19 @@ const getCssStyleTags = property =>
     )
     .reduce((reduced, value) => Object.assign(reduced, value), {});
 
-const CSS_DISPLAY_TAGS = getCssStyleTags("display");
+const CSS_DISPLAY_TAGS = Object.assign({}, getCssStyleTags("display"), {
+  // TODO: send PR to upstream
+  button: "inline-block",
+
+  // special cases for some css display=none elements
+  template: "inline",
+  source: "block",
+  track: "block",
+
+  // there's no css display for these elements but they behave these ways
+  video: "inline-block",
+  audio: "inline-block"
+});
 const CSS_DISPLAY_DEFAULT = "inline";
 const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");
 const CSS_WHITE_SPACE_DEFAULT = "normal";

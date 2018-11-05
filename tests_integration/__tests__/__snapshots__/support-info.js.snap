@@ -412,7 +412,17 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 - First value
 + Second value
 
-@@ -8,16 +8,25 @@
+@@ -1,23 +1,35 @@
+  Object {
+    \\"languages\\": Object {
++     \\"Angular\\": Array [
++       \\"angular\\",
++     ],
+      \\"CSS\\": Array [
+        \\"css\\",
+      ],
+      \\"Flow\\": Array [
+        \\"babylon\\",
         \\"flow\\",
       ],
       \\"GraphQL\\": Array [
@@ -438,7 +448,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -25,10 +34,13 @@
+@@ -25,10 +37,13 @@
         \\"flow\\",
       ],
       \\"Less\\": Array [
@@ -452,7 +462,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       ],
       \\"PostCSS\\": Array [
         \\"css\\",
-@@ -37,12 +49,26 @@
+@@ -37,12 +52,26 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -479,7 +489,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -56,10 +82,19 @@
+@@ -56,33 +85,61 @@
       },
       \\"filepath\\": Object {
         \\"default\\": undefined,
@@ -499,7 +509,17 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"jsxBracketSameLine\\": Object {
-@@ -73,16 +108,30 @@
+        \\"default\\": false,
+        \\"type\\": \\"boolean\\",
+      },
++     \\"jsxSingleQuote\\": Object {
++       \\"default\\": false,
++       \\"type\\": \\"boolean\\",
++     },
+      \\"parser\\": Object {
+        \\"choices\\": Array [
+          \\"flow\\",
+          \\"babylon\\",
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -513,6 +533,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +         \\"vue\\",
 +         \\"yaml\\",
 +         \\"html\\",
++         \\"angular\\",
         ],
 -       \\"default\\": \\"babylon\\",
 +       \\"default\\": undefined,
@@ -531,7 +552,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +139,15 @@
+@@ -90,14 +147,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -848,6 +869,22 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMimeType\\": \\"text/html\\",
       \\"codemirrorMode\\": \\"htmlmixed\\",
       \\"color\\": \\"#e34c26\\",
+      \\"extensions\\": [\\".component.html\\"],
+      \\"filenames\\": [],
+      \\"linguistLanguageId\\": 146,
+      \\"name\\": \\"Angular\\",
+      \\"parsers\\": [\\"angular\\"],
+      \\"since\\": \\"1.15.0\\",
+      \\"tmScope\\": \\"text.html.basic\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"html\\"]
+    },
+    {
+      \\"aceMode\\": \\"html\\",
+      \\"aliases\\": [\\"xhtml\\"],
+      \\"codemirrorMimeType\\": \\"text/html\\",
+      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"color\\": \\"#e34c26\\",
       \\"extensions\\": [
         \\".html\\",
         \\".htm\\",
@@ -993,6 +1030,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"boolean\\"
     },
     {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Use single quotes in JSX.\\",
+      \\"name\\": \\"jsxSingleQuote\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
       \\"category\\": \\"Global\\",
       \\"choices\\": [
         { \\"description\\": \\"Flow\\", \\"value\\": \\"flow\\" },
@@ -1017,7 +1063,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"MDX\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"mdx\\" },
         { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" },
         { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" },
-        { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" }
+        { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" },
+        { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",

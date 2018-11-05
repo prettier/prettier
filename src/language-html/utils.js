@@ -18,40 +18,6 @@ const htmlElementAttributes = require("html-element-attributes");
 const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
 
-// NOTE: must be same as the one in htmlparser2 so that the parsing won't be inconsistent
-//       https://github.com/fb55/htmlparser2/blob/v3.9.2/lib/Parser.js#L59-L91
-const VOID_TAGS = arrayToMap([
-  "area",
-  "base",
-  "basefont",
-  "br",
-  "col",
-  "command",
-  "embed",
-  "frame",
-  "hr",
-  "img",
-  "input",
-  "isindex",
-  "keygen",
-  "link",
-  "meta",
-  "param",
-  "source",
-  "track",
-  "wbr",
-
-  "path",
-  "circle",
-  "ellipse",
-  "line",
-  "rect",
-  "use",
-  "stop",
-  "polyline",
-  "polygon"
-]);
-
 function arrayToMap(array) {
   const map = Object.create(null);
   for (const value of array) {
@@ -70,8 +36,16 @@ function mapObject(object, fn) {
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
-  if (node.type === "attribute") {
+  if (node.type === "attribute" || node.type === "text") {
     return false;
+  }
+
+  // TODO: handle non-text children in <pre>
+  if (
+    isPreLikeNode(node) &&
+    node.children.some(child => child.type !== "text")
+  ) {
+    return true;
   }
 
   const parentNode = path.getParentNode();
@@ -89,65 +63,118 @@ function hasPrettierIgnore(path) {
 }
 
 function isPrettierIgnore(node) {
-  return node.type === "comment" && node.data.trim() === "prettier-ignore";
+  return node.type === "comment" && node.value.trim() === "prettier-ignore";
 }
 
-function isTag(node) {
-  return node.type === "tag";
+function getPrettierIgnoreAttributeCommentData(value) {
+  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+([^]+))?$/);
+
+  if (!match) {
+    return false;
+  }
+
+  if (!match[1]) {
+    return true;
+  }
+
+  return match[1].split(/\s+/);
 }
 
 function isScriptLikeTag(node) {
-  return isTag(node) && (node.name === "script" || node.name === "style");
+  return (
+    node.type === "element" &&
+    (node.fullName === "script" ||
+      node.fullName === "style" ||
+      node.fullName === "svg:style")
+  );
 }
 
 function isFrontMatterNode(node) {
   return node.type === "yaml" || node.type === "toml";
 }
 
-function isLeadingSpaceSensitiveNode(node, { prev, parent }) {
+function canHaveInterpolation(node) {
+  return node.children && !isScriptLikeTag(node);
+}
+
+function isWhitespaceSensitiveNode(node) {
+  return (
+    isScriptLikeTag(node) ||
+    node.type === "interpolation" ||
+    isIndentationSensitiveNode(node)
+  );
+}
+
+function isIndentationSensitiveNode(node) {
+  return getNodeCssStyleWhiteSpace(node).startsWith("pre");
+}
+
+function isLeadingSpaceSensitiveNode(node) {
   if (isFrontMatterNode(node)) {
     return false;
   }
 
-  if (!parent || parent.cssDisplay === "none") {
+  if (!node.parent || node.parent.cssDisplay === "none") {
     return false;
   }
 
   if (
-    !prev &&
-    (parent.type === "root" ||
-      isScriptLikeTag(parent) ||
-      isBlockLikeCssDisplay(parent.cssDisplay))
+    !node.prev &&
+    node.parent.type === "element" &&
+    node.parent.tagDefinition.ignoreFirstLf
   ) {
     return false;
   }
 
-  if (prev && isBlockLikeCssDisplay(prev.cssDisplay)) {
+  if (isPreLikeNode(node.parent)) {
+    return true;
+  }
+
+  if (
+    !node.prev &&
+    (node.parent.type === "root" ||
+      isScriptLikeTag(node.parent) ||
+      !isFirstChildLeadingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
+  ) {
+    return false;
+  }
+
+  if (
+    node.prev &&
+    !isNextLeadingSpaceSensitiveCssDisplay(node.prev.cssDisplay)
+  ) {
     return false;
   }
 
   return true;
 }
 
-function isTrailingSpaceSensitiveNode(node, { next, parent }) {
+function isTrailingSpaceSensitiveNode(node) {
   if (isFrontMatterNode(node)) {
     return false;
   }
 
-  if (!parent || parent.cssDisplay === "none") {
+  if (!node.parent || node.parent.cssDisplay === "none") {
     return false;
   }
 
+  if (isPreLikeNode(node.parent)) {
+    return true;
+  }
+
   if (
-    !next &&
-    (parent.type === "root" ||
-      isScriptLikeTag(parent) ||
-      isBlockLikeCssDisplay(parent.cssDisplay))
+    !node.next &&
+    (node.parent.type === "root" ||
+      isScriptLikeTag(node.parent) ||
+      !isLastChildTrailingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
   ) {
     return false;
   }
 
-  if (next && isBlockLikeCssDisplay(next.cssDisplay)) {
+  if (
+    node.next &&
+    !isPrevTrailingSpaceSensitiveCssDisplay(node.next.cssDisplay)
+  ) {
     return false;
   }
 
@@ -155,34 +182,10 @@ function isTrailingSpaceSensitiveNode(node, { next, parent }) {
 }
 
 function isDanglingSpaceSensitiveNode(node) {
-  return !isBlockLikeCssDisplay(node.cssDisplay);
-}
-
-/**
- * @param {unknown} node
- * @param {(node: unknown, stack: Array<string | object>)} fn
- * @param {unknown=} parent
- */
-function mapNode(node, fn, stack = []) {
-  const newNode = Object.assign({}, node);
-
-  if (newNode.children) {
-    newNode.children = newNode.children.map((child, childIndex) =>
-      mapNode(child, fn, [childIndex, node].concat(stack))
-    );
-  }
-
-  return fn(newNode, stack);
-}
-
-function getPrevNode(stack) {
-  const [index, parent] = stack;
-
-  if (typeof index !== "number" || index === 0) {
-    return null;
-  }
-
-  return parent.children[index - 1];
+  return (
+    isDanglingSpaceSensitiveCssDisplay(node.cssDisplay) &&
+    !isScriptLikeTag(node)
+  );
 }
 
 function replaceNewlines(text, replacement) {
@@ -202,16 +205,20 @@ function replaceDocNewlines(doc, replacement) {
 }
 
 function forceNextEmptyLine(node) {
-  return isFrontMatterNode(node);
+  return (
+    isFrontMatterNode(node) ||
+    (node.next &&
+      node.sourceSpan.end.line + 1 < node.next.sourceSpan.start.line)
+  );
 }
 
 /** firstChild leadingSpaces and lastChild trailingSpaces */
 function forceBreakContent(node) {
   return (
     forceBreakChildren(node) ||
-    (isTag(node) &&
+    (node.type === "element" &&
       node.children.length !== 0 &&
-      (["body", "template"].indexOf(node.name) !== -1 ||
+      (["body", "template", "script", "style"].indexOf(node.name) !== -1 ||
         node.children.some(child => hasNonTextChild(child))))
   );
 }
@@ -219,7 +226,7 @@ function forceBreakContent(node) {
 /** spaces between children */
 function forceBreakChildren(node) {
   return (
-    isTag(node) &&
+    node.type === "element" &&
     node.children.length !== 0 &&
     (["html", "head", "ul", "ol", "select"].indexOf(node.name) !== -1 ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
@@ -229,14 +236,48 @@ function forceBreakChildren(node) {
 function preferHardlineAsLeadingSpaces(node) {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
-    (node.prev && preferHardlineAsTrailingSpaces(node.prev))
+    (node.prev && preferHardlineAsTrailingSpaces(node.prev)) ||
+    isCustomElementWithSurroundingLineBreak(node)
   );
 }
 
 function preferHardlineAsTrailingSpaces(node) {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
-    (isTag(node) && node.name === "br")
+    (node.type === "element" && node.fullName === "br") ||
+    isCustomElementWithSurroundingLineBreak(node)
+  );
+}
+
+function isCustomElementWithSurroundingLineBreak(node) {
+  return isCustomElement(node) && hasSurroundingLineBreak(node);
+}
+
+function isCustomElement(node) {
+  return node.type === "element" && !node.namespace && node.name.includes("-");
+}
+
+function hasSurroundingLineBreak(node) {
+  return hasLeadingLineBreak(node) && hasTrailingLineBreak(node);
+}
+
+function hasLeadingLineBreak(node) {
+  return (
+    node.hasLeadingSpaces &&
+    (node.prev
+      ? node.prev.sourceSpan.end.line < node.sourceSpan.start.line
+      : node.parent.type === "root" ||
+        node.parent.startSourceSpan.end.line < node.sourceSpan.start.line)
+  );
+}
+
+function hasTrailingLineBreak(node) {
+  return (
+    node.hasTrailingSpaces &&
+    (node.next
+      ? node.next.sourceSpan.start.line > node.sourceSpan.end.line
+      : node.parent.type === "root" ||
+        node.parent.endSourceSpan.start.line > node.sourceSpan.end.line)
   );
 }
 
@@ -246,7 +287,7 @@ function preferHardlineAsSurroundingSpaces(node) {
     case "comment":
     case "directive":
       return true;
-    case "tag":
+    case "element":
       return ["script", "select"].indexOf(node.name) !== -1;
   }
   return false;
@@ -261,51 +302,124 @@ function hasNonTextChild(node) {
 }
 
 function inferScriptParser(node) {
-  if (
-    node.name === "script" &&
-    ((!node.attribs.lang && !node.attribs.type) ||
-      node.attribs.type === "text/javascript" ||
-      node.attribs.type === "text/babel" ||
-      node.attribs.type === "application/javascript")
-  ) {
-    return "babylon";
-  }
+  if (node.name === "script" && !node.attrMap.src) {
+    if (
+      (!node.attrMap.lang && !node.attrMap.type) ||
+      node.attrMap.type === "module" ||
+      node.attrMap.type === "text/javascript" ||
+      node.attrMap.type === "text/babel" ||
+      node.attrMap.type === "application/javascript"
+    ) {
+      return "babylon";
+    }
 
-  if (
-    node.name === "script" &&
-    (node.attribs.type === "application/x-typescript" ||
-      node.attribs.lang === "ts")
-  ) {
-    return "typescript";
+    if (
+      node.attrMap.type === "application/x-typescript" ||
+      node.attrMap.lang === "ts" ||
+      node.attrMap.lang === "tsx"
+    ) {
+      return "typescript";
+    }
+
+    if (node.attrMap.type === "text/markdown") {
+      return "markdown";
+    }
   }
 
   if (node.name === "style") {
-    return "css";
+    if (!node.attrMap.lang || node.attrMap.lang === "postcss") {
+      return "css";
+    }
+
+    if (node.attrMap.lang === "scss") {
+      return "scss";
+    }
+
+    if (node.attrMap.lang === "less") {
+      return "less";
+    }
   }
 
   return null;
 }
 
-/**
- * firstChild leadingSpaces, lastChild trailingSpaces, and danglingSpaces are insensitive
- */
 function isBlockLikeCssDisplay(cssDisplay) {
-  return cssDisplay === "block" || cssDisplay.startsWith("table");
+  return (
+    cssDisplay === "block" ||
+    cssDisplay === "list-item" ||
+    cssDisplay.startsWith("table")
+  );
 }
 
-function getNodeCssStyleDisplay(node, prevNode, options) {
-  switch (getNodeCssStyleWhiteSpace(node)) {
-    case "pre":
-    case "pre-wrap":
-      // textarea-like
-      return "block";
+function isFirstChildLeadingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay) && cssDisplay !== "inline-block";
+}
+
+function isLastChildTrailingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay) && cssDisplay !== "inline-block";
+}
+
+function isPrevTrailingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay);
+}
+
+function isNextLeadingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay);
+}
+
+function isDanglingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay) && cssDisplay !== "inline-block";
+}
+
+function isPreLikeNode(node) {
+  return getNodeCssStyleWhiteSpace(node).startsWith("pre");
+}
+
+function countParents(path, predicate = () => true) {
+  let counter = 0;
+  for (let i = path.stack.length - 1; i >= 0; i--) {
+    const value = path.stack[i];
+    if (
+      value &&
+      typeof value === "object" &&
+      !Array.isArray(value) &&
+      predicate(value)
+    ) {
+      counter++;
+    }
+  }
+  return counter;
+}
+
+function hasParent(node, fn) {
+  let current = node;
+
+  while (current) {
+    if (fn(current)) {
+      return true;
+    }
+
+    current = current.parent;
   }
 
-  if (prevNode && prevNode.type === "comment") {
+  return false;
+}
+
+function getNodeCssStyleDisplay(node, options) {
+  if (node.prev && node.prev.type === "comment") {
     // <!-- display: block -->
-    const match = prevNode.data.match(/^\s*display:\s*([a-z]+)\s*$/);
+    const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
     if (match) {
       return match[1];
+    }
+  }
+
+  let isInSvgForeignObject = false;
+  if (node.type === "element" && node.namespace === "svg") {
+    if (hasParent(node, parent => parent.fullName === "svg:foreignObject")) {
+      isInSvgForeignObject = true;
+    } else {
+      return node.name === "svg" ? "inline-block" : "block";
     }
   }
 
@@ -316,21 +430,27 @@ function getNodeCssStyleDisplay(node, prevNode, options) {
       return "block";
     default:
       return (
-        (isTag(node) && CSS_DISPLAY_TAGS[node.name]) || CSS_DISPLAY_DEFAULT
+        (node.type === "element" &&
+          (!node.namespace || isInSvgForeignObject) &&
+          CSS_DISPLAY_TAGS[node.name]) ||
+        CSS_DISPLAY_DEFAULT
       );
   }
 }
 
 function getNodeCssStyleWhiteSpace(node) {
   return (
-    (isTag(node) && CSS_WHITE_SPACE_TAGS[node.name]) || CSS_WHITE_SPACE_DEFAULT
+    (node.type === "element" &&
+      !node.namespace &&
+      CSS_WHITE_SPACE_TAGS[node.name]) ||
+    CSS_WHITE_SPACE_DEFAULT
   );
 }
 
 function getCommentData(node) {
-  const rightTrimmedData = node.data.trimRight();
+  const rightTrimmedValue = node.value.trimRight();
 
-  const hasLeadingEmptyLine = /^[^\S\n]*?\n/.test(node.data);
+  const hasLeadingEmptyLine = /^[^\S\n]*?\n/.test(node.value);
   if (hasLeadingEmptyLine) {
     /**
      *     <!--
@@ -338,7 +458,7 @@ function getCommentData(node) {
      *        456
      *     -->
      */
-    return dedentString(rightTrimmedData.replace(/^\s*\n/, ""));
+    return dedentString(rightTrimmedValue.replace(/^\s*\n/, ""));
   }
 
   /**
@@ -351,17 +471,19 @@ function getCommentData(node) {
    *
    *     -->
    */
-  if (!rightTrimmedData.includes("\n")) {
-    return rightTrimmedData.trimLeft();
+  if (!rightTrimmedValue.includes("\n")) {
+    return rightTrimmedValue.trimLeft();
   }
 
-  const firstNewlineIndex = rightTrimmedData.indexOf("\n");
-  const dataWithoutLeadingLine = rightTrimmedData.slice(firstNewlineIndex + 1);
+  const firstNewlineIndex = rightTrimmedValue.indexOf("\n");
+  const dataWithoutLeadingLine = rightTrimmedValue.slice(firstNewlineIndex + 1);
   const minIndentationForDataWithoutLeadingLine = getMinIndentation(
     dataWithoutLeadingLine
   );
 
-  const commentDataStartColumn = node.startLocation.column + "<!--".length;
+  const leadingSpaces = rightTrimmedValue.match(/^[^\n\S]*/)[0].length;
+  const commentDataStartColumn =
+    node.sourceSpan.start.col + "<!--".length + leadingSpaces;
 
   /**
    *     <!-- 123
@@ -369,17 +491,18 @@ function getCommentData(node) {
    */
   if (minIndentationForDataWithoutLeadingLine >= commentDataStartColumn) {
     return dedentString(
-      " ".repeat(commentDataStartColumn) + "\n" + rightTrimmedData
+      " ".repeat(commentDataStartColumn) +
+        rightTrimmedValue.slice(leadingSpaces)
     );
   }
 
-  const leadingLineData = rightTrimmedData.slice(0, firstNewlineIndex);
+  const leadingLineValue = rightTrimmedValue.slice(0, firstNewlineIndex);
   /**
    *     <!-- 123
    *     456 -->
    */
   return (
-    leadingLineData.trim() +
+    leadingLineValue.trim() +
     "\n" +
     dedentString(
       dataWithoutLeadingLine,
@@ -392,6 +515,10 @@ function getMinIndentation(text) {
   let minIndentation = Infinity;
 
   for (const lineText of text.split("\n")) {
+    if (lineText.length === 0) {
+      continue;
+    }
+
     if (/\S/.test(lineText[0])) {
       return 0;
     }
@@ -422,8 +549,16 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
 function normalizeParts(parts) {
   const newParts = [];
 
-  for (const part of parts) {
+  const restParts = parts.slice();
+  while (restParts.length !== 0) {
+    const part = restParts.shift();
+
     if (!part) {
+      continue;
+    }
+
+    if (part.type === "concat") {
+      Array.prototype.unshift.apply(restParts, part.parts);
       continue;
     }
 
@@ -442,10 +577,15 @@ function normalizeParts(parts) {
   return newParts;
 }
 
+function identity(x) {
+  return x;
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
-  VOID_TAGS,
+  canHaveInterpolation,
+  countParents,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
@@ -454,15 +594,18 @@ module.exports = {
   getLastDescendant,
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
-  getPrevNode,
+  getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
+  identity,
   inferScriptParser,
   isDanglingSpaceSensitiveNode,
   isFrontMatterNode,
+  isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
+  isPreLikeNode,
   isScriptLikeTag,
   isTrailingSpaceSensitiveNode,
-  mapNode,
+  isWhitespaceSensitiveNode,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,

@@ -85,3 +85,11 @@ const foo = <div className={'match-achievement-medal-type type' + (medals[0].rec
 		i18n('Theme')
 	)}
 </div>
+
+a
+    ? literalline
+    : {
+      123: 12
+    }
+    ? line
+    : softline

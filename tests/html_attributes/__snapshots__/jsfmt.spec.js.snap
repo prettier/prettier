@@ -175,33 +175,33 @@ exports[`boolean.html - html-verify 1`] = `
 <button type="submit" disabled>This is valid.</button>
 <button type="submit" disabled="">This is valid.</button>
 <button type="submit" disabled="disabled">This is valid.</button>
-<button type="submit" disabled="true"
-  >This is valid. This will be disabled.</button
->
-<button type="submit" disabled="true"
-  >This is valid. This will be disabled.</button
->
-<button type="submit" disabled="true"
-  >This is valid. This will be disabled.</button
->
-<button type="submit" disabled="false"
-  >This is valid. This will be disabled.</button
->
-<button type="submit" disabled="false"
-  >This is valid. This will be disabled.</button
->
-<button type="submit" disabled="false"
-  >This is valid. This will be disabled.</button
->
-<button type="submit" disabled="hahah"
-  >This is valid. This will be disabled.</button
->
-<button type="submit" disabled="hahah"
-  >This is valid. This will be disabled.</button
->
-<button type="submit" disabled="hahah"
-  >This is valid. This will be disabled.</button
->
+<button type="submit" disabled="true">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="true">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="true">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="false">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="false">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="false">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="hahah">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="hahah">
+  This is valid. This will be disabled.
+</button>
+<button type="submit" disabled="hahah">
+  This is valid. This will be disabled.
+</button>
 <input type="checkbox" checked disabled name="cheese" />
 <input type="checkbox" checked="checked" disabled="disabled" name="cheese" />
 <input type="checkbox" checked="" disabled="" name="cheese" />
@@ -234,6 +234,48 @@ exports[`single-quotes.html - html-verify 1`] = `
 <img src="test.png" alt='John "ShotGun" Nelson'>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <img src="test.png" alt="John &quot;ShotGun&quot; Nelson" />
+
+`;
+
+exports[`srcset.html - html-verify 1`] = `
+<img src="/assets/visual.png" 
+srcset="/assets/visual@0.5.png  400w, /assets/visual.png      805w" 
+sizes="(max-width: 66rem) 100vw, 66rem" alt=""/>
+<img src="/assets/visual.png" 
+srcset="/assets/visual@0.5.png  400w, /assets/visual.png      805w,	/assets/visual@2x.png   1610w,	/assets/visual@3x.png   2415w" 
+sizes="(max-width: 66rem) 100vw, 66rem" alt=""/>
+<img src="/assets/visual.png" 
+srcset="/assets/visual@0.5.png  0.5x, /assets/visual.png      1111x,	/assets/visual@2x.png   2x,	/assets/visual@3x.png   3.3333x" 
+sizes="(max-width: 66rem) 100vw, 66rem" alt=""/>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<img
+  src="/assets/visual.png"
+  srcset="/assets/visual@0.5.png 400w, /assets/visual.png 805w"
+  sizes="(max-width: 66rem) 100vw, 66rem"
+  alt=""
+/>
+<img
+  src="/assets/visual.png"
+  srcset="
+    /assets/visual@0.5.png  400w,
+    /assets/visual.png      805w,
+    /assets/visual@2x.png  1610w,
+    /assets/visual@3x.png  2415w
+  "
+  sizes="(max-width: 66rem) 100vw, 66rem"
+  alt=""
+/>
+<img
+  src="/assets/visual.png"
+  srcset="
+    /assets/visual@0.5.png    0.5x,
+    /assets/visual.png     1111x,
+    /assets/visual@2x.png     2x,
+    /assets/visual@3x.png     3.3333x
+  "
+  sizes="(max-width: 66rem) 100vw, 66rem"
+  alt=""
+/>
 
 `;
 

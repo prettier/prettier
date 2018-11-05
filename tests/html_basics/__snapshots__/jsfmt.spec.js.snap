@@ -260,17 +260,6 @@ exports[`html-comments.html - html-verify 1`] = `
 
 `;
 
-exports[`html-fragment.html - html-verify 1`] = `
-<a href="#">Link</a>
-
-<textarea>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<a href="#">Link</a>
-
-<textarea></textarea>
-
-`;
-
 exports[`html5-boilerplate.html - html-verify 1`] = `
 <!doctype html>
 <html class="no-js" lang="">
@@ -352,7 +341,9 @@ exports[`html5-boilerplate.html - html-verify 1`] = `
     ></script>
     <script>
       window.jQuery ||
-        document.write('<script src="js/vendor/jquery-3.3.1.min.js"></script>');
+        document.write(
+          '<script src="js/vendor/jquery-3.3.1.min.js"><\\/script>'
+        );
     </script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>

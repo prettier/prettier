@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with-pragma.html - html-verify 1`] = `
+<!-- @prettier -->
+
+Hello        World
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- @prettier -->
+
+Hello World
+
+`;
+
+exports[`without-pragma.html - html-verify 1`] = `
+Hello        World
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!-- @format -->
+
+Hello World
+
+`;

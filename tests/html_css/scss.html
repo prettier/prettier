@@ -17,3 +17,16 @@
     color: $primary-color;
   }
 </style>
+
+<style lang="scss">
+.someElement {
+    @include bp-medium {
+      display: flex;
+    }
+    
+    @include bp-large {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+}
+</style>

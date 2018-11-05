@@ -33,6 +33,10 @@ var parsers = {
     importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers.__js_expression;
   },
+  get __vue_expression() {
+    importScriptOnce("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers.__vue_expression;
+  },
   // JS - Flow
   get flow() {
     importScriptOnce("lib/parser-flow.js");
@@ -42,6 +46,26 @@ var parsers = {
   get typescript() {
     importScriptOnce("lib/parser-typescript.js");
     return prettierPlugins.typescript.parsers.typescript;
+  },
+  // JS - Angular Action
+  get __ng_action() {
+    importScriptOnce("lib/parser-angular.js");
+    return prettierPlugins.angular.parsers.__ng_action;
+  },
+  // JS - Angular Binding
+  get __ng_binding() {
+    importScriptOnce("lib/parser-angular.js");
+    return prettierPlugins.angular.parsers.__ng_binding;
+  },
+  // JS - Angular Interpolation
+  get __ng_interpolation() {
+    importScriptOnce("lib/parser-angular.js");
+    return prettierPlugins.angular.parsers.__ng_interpolation;
+  },
+  // JS - Angular Directive
+  get __ng_directive() {
+    importScriptOnce("lib/parser-angular.js");
+    return prettierPlugins.angular.parsers.__ng_directive;
   },
 
   // CSS
@@ -74,12 +98,6 @@ var parsers = {
     return prettierPlugins.markdown.parsers.mdx;
   },
 
-  // Vue
-  get vue() {
-    importScriptOnce("lib/parser-vue.js");
-    return prettierPlugins.vue.parsers.vue;
-  },
-
   // YAML
   get yaml() {
     importScriptOnce("lib/parser-yaml.js");
@@ -96,6 +114,23 @@ var parsers = {
   get html() {
     importScriptOnce("lib/parser-html.js");
     return prettierPlugins.html.parsers.html;
+  },
+  // Vue
+  get vue() {
+    // TODO(1.15): remove this workaround
+    // parser-vue is replaced by parser-html in 1.15+
+    try {
+      importScriptOnce("lib/parser-vue.js");
+      return prettierPlugins.vue.parsers.vue;
+    } catch (e) {
+      importScriptOnce("lib/parser-html.js");
+      return prettierPlugins.html.parsers.vue;
+    }
+  },
+  // Angular
+  get angular() {
+    importScriptOnce("lib/parser-html.js");
+    return prettierPlugins.html.parsers.angular;
   }
 };
 

@@ -20,7 +20,8 @@ const {
   getPenultimate,
   startsWithNoLookaheadToken,
   getIndentSize,
-  matchAncestorTypes
+  matchAncestorTypes,
+  getPreferredQuote
 } = require("../common/util");
 const {
   isNextLineEmpty,
@@ -33,8 +34,10 @@ const clean = require("./clean");
 const insertPragma = require("./pragma").insertPragma;
 const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
+const { printHtmlBinding } = require("./html-binding");
 const preprocess = require("./preprocess");
 const {
+  hasNode,
   hasFlowAnnotationComment,
   hasFlowShorthandAnnotationComment
 } = require("./utils");
@@ -361,7 +364,21 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   return maybeGroup(
     concat(
       [].concat(
-        operatorOptions.beforeParts(),
+        (testDoc =>
+          /**
+           *     a
+           *       ? b
+           *       : multiline
+           *         test
+           *         node
+           *       ^^ align(2)
+           *       ? d
+           *       : e
+           */
+          parent.type === operatorOptions.conditionalNodeType &&
+          parent[operatorOptions.alternateNodePropertyName] === node
+            ? align(2, testDoc)
+            : testDoc)(concat(operatorOptions.beforeParts())),
         forceNoIndent ? concat(parts) : indent(concat(parts)),
         operatorOptions.afterParts(breakClosingParen)
       )
@@ -390,8 +407,15 @@ function printPathNoParens(path, options, print, args) {
     return n;
   }
 
+  const htmlBinding = printHtmlBinding(path, options, print);
+  if (htmlBinding) {
+    return htmlBinding;
+  }
+
   let parts = [];
   switch (n.type) {
+    case "JsExpressionRoot":
+      return path.call(print, "node");
     case "JsonRoot":
       return concat([path.call(print, "node"), hardline]);
     case "File":
@@ -464,7 +488,8 @@ function printPathNoParens(path, options, print, args) {
         options
       );
     case "BinaryExpression":
-    case "LogicalExpression": {
+    case "LogicalExpression":
+    case "NGPipeExpression": {
       const parent = path.getParentNode();
       const parentParent = path.getParentNode(1);
       const isInsideParenthesis =
@@ -519,6 +544,11 @@ function printPathNoParens(path, options, print, args) {
         parent.type === "ReturnStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
+        (n.type !== "NGPipeExpression" &&
+          ((parent.type === "NGRoot" && options.parser === "__ng_binding") ||
+            (parent.type === "NGMicrosyntaxExpression" &&
+              parentParent.type === "NGMicrosyntax" &&
+              parentParent.body.length === 1))) ||
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
         (n !== parent.body && parent.type === "ForStatement") ||
         (parent.type === "ConditionalExpression" &&
@@ -1933,8 +1963,16 @@ function printPathNoParens(path, options, print, args) {
       if (n.value) {
         let res;
         if (isStringLiteral(n.value)) {
-          const value = rawText(n.value);
-          res = '"' + value.slice(1, -1).replace(/"/g, "&quot;") + '"';
+          const raw = rawText(n.value);
+          // Unescape all quotes so we get an accurate preferred quote
+          let final = raw.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
+          const quote = getPreferredQuote(
+            final,
+            options.jsxSingleQuote ? "'" : '"'
+          );
+          const escape = quote === "'" ? "&apos;" : "&quot;";
+          final = final.slice(1, -1).replace(new RegExp(quote, "g"), escape);
+          res = concat([quote, final, quote]);
         } else {
           res = path.call(print, "value");
         }
@@ -3386,10 +3424,106 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
 
+    case "NGRoot":
+      return concat(
+        [].concat(
+          path.call(print, "node"),
+          !n.node.comments || n.node.comments.length === 0
+            ? []
+            : concat([" //", n.node.comments[0].value.trimRight()])
+        )
+      );
+    case "NGChainedExpression":
+      return group(
+        join(
+          concat([";", line]),
+          path.map(
+            childPath =>
+              hasNgSideEffect(childPath)
+                ? print(childPath)
+                : concat(["(", print(childPath), ")"]),
+            "expressions"
+          )
+        )
+      );
+    case "NGEmptyExpression":
+      return "";
+    case "NGQuotedExpression":
+      return concat([n.prefix, ":", n.value]);
+    case "NGMicrosyntax":
+      return concat(
+        path.map(
+          (childPath, index) =>
+            concat([
+              index === 0
+                ? ""
+                : isNgForOf(childPath)
+                  ? " "
+                  : concat([";", line]),
+              print(childPath)
+            ]),
+          "body"
+        )
+      );
+    case "NGMicrosyntaxKey":
+      return /^[a-z_$][a-z0-9_$]*(-[a-z_$][a-z0-9_$])*$/i.test(n.name)
+        ? n.name
+        : JSON.stringify(n.name);
+    case "NGMicrosyntaxExpression":
+      return concat([
+        path.call(print, "expression"),
+        n.alias === null ? "" : concat([" as ", path.call(print, "alias")])
+      ]);
+    case "NGMicrosyntaxKeyedExpression":
+      return concat([
+        path.call(print, "key"),
+        isNgForOf(path) ? " " : ": ",
+        path.call(print, "expression")
+      ]);
+    case "NGMicrosyntaxLet":
+      return concat([
+        "let ",
+        path.call(print, "key"),
+        n.value === null ? "" : concat([" = ", path.call(print, "value")])
+      ]);
+    case "NGMicrosyntaxAs":
+      return concat([
+        path.call(print, "key"),
+        " as ",
+        path.call(print, "alias")
+      ]);
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));
   }
+}
+
+/** prefer `let hero of heros` over `let hero; of: heros` */
+function isNgForOf(path) {
+  const node = path.getValue();
+  const index = path.getName();
+  const parentNode = path.getParentNode();
+  return (
+    node.type === "NGMicrosyntaxKeyedExpression" &&
+    node.key.name === "of" &&
+    index === 1 &&
+    parentNode.body[0].type === "NGMicrosyntaxLet" &&
+    parentNode.body[0].value === null
+  );
+}
+
+/** identify if an angular expression seems to have side effects */
+function hasNgSideEffect(path) {
+  return hasNode(path.getValue(), node => {
+    switch (node.type) {
+      case undefined:
+        return false;
+      case "CallExpression":
+      case "OptionalCallExpression":
+      case "AssignmentExpression":
+        return true;
+    }
+  });
 }
 
 function printStatementSequence(path, options, print) {
@@ -5146,7 +5280,7 @@ function printJSXElement(path, options, print) {
     containsMultipleAttributes ||
     containsMultipleExpressions;
 
-  const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
+  const rawJsxWhitespace = options.jsxSingleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
 
   const isFacebookTranslationTag =
@@ -5302,7 +5436,8 @@ function maybeWrapJSXElementInParens(path, elem) {
     ExpressionStatement: true,
     CallExpression: true,
     OptionalCallExpression: true,
-    ConditionalExpression: true
+    ConditionalExpression: true,
+    JsExpressionRoot: true
   };
   if (NO_WRAP_PARENTS[parent.type]) {
     return elem;
@@ -5327,7 +5462,11 @@ function maybeWrapJSXElementInParens(path, elem) {
 }
 
 function isBinaryish(node) {
-  return node.type === "BinaryExpression" || node.type === "LogicalExpression";
+  return (
+    node.type === "BinaryExpression" ||
+    node.type === "LogicalExpression" ||
+    node.type === "NGPipeExpression"
+  );
 }
 
 function isMemberish(node) {
@@ -5414,16 +5553,36 @@ function printBinaryishExpressions(
 
     const shouldInline = shouldInlineLogicalExpression(node);
     const lineBeforeOperator =
-      node.operator === "|>" &&
+      (node.operator === "|>" ||
+        node.type === "NGPipeExpression" ||
+        (node.operator === "|" && options.parser === "__vue_expression")) &&
       !hasLeadingOwnLineComment(options.originalText, node.right, options);
 
+    const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
+    const rightSuffix =
+      node.type === "NGPipeExpression" && node.arguments.length !== 0
+        ? group(
+            indent(
+              concat([
+                softline,
+                ": ",
+                join(
+                  concat([softline, ":", ifBreak(" ")]),
+                  path.map(print, "arguments").map(arg => align(2, group(arg)))
+                )
+              ])
+            )
+          )
+        : "";
+
     const right = shouldInline
-      ? concat([node.operator, " ", path.call(print, "right")])
+      ? concat([operator, " ", path.call(print, "right"), rightSuffix])
       : concat([
           lineBeforeOperator ? softline : "",
-          node.operator,
+          operator,
           lineBeforeOperator ? " " : line,
-          path.call(print, "right")
+          path.call(print, "right"),
+          rightSuffix
         ]);
 
     // If there's only a single binary expression, we want to create a group
@@ -5567,6 +5726,7 @@ function hasNakedLeftSide(node) {
     node.type === "AssignmentExpression" ||
     node.type === "BinaryExpression" ||
     node.type === "LogicalExpression" ||
+    node.type === "NGPipeExpression" ||
     node.type === "ConditionalExpression" ||
     node.type === "CallExpression" ||
     node.type === "OptionalCallExpression" ||
@@ -6165,8 +6325,9 @@ function printIndentableBlockComment(comment) {
       hardline,
       lines.map(
         (line, index) =>
-          (index === 0 && line[0] === "*" ? "" : " ") +
-          (index < lines.length - 1 ? line.trim() : line.trimLeft())
+          index === 0
+            ? line.trimRight()
+            : " " + (index < lines.length - 1 ? line.trim() : line.trimLeft())
       )
     ),
     "*/"

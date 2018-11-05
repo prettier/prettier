@@ -8,6 +8,7 @@ const {
     softline,
     literalline,
     concat,
+    group,
     dedentToRoot
   },
   utils: { mapDoc, stripTrailingHardline }
@@ -132,6 +133,14 @@ function embed(path, print, textToDoc /*, options */) {
         ]);
       }
 
+      if (isHtml(path)) {
+        return printHtmlTemplateLiteral(path, print, textToDoc, "html");
+      }
+
+      if (isAngularComponentTemplate(path)) {
+        return printHtmlTemplateLiteral(path, print, textToDoc, "angular");
+      }
+
       break;
     }
 
@@ -177,18 +186,6 @@ function embed(path, print, textToDoc /*, options */) {
     const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
     return stripTrailingHardline(escapeTemplateCharacters(doc, true));
   }
-}
-
-function isPropertyWithinAngularComponentDecorator(path, parentIndexToCheck) {
-  const parent = path.getParentNode(parentIndexToCheck);
-  return !!(
-    parent &&
-    parent.type === "Decorator" &&
-    parent.expression &&
-    parent.expression.type === "CallExpression" &&
-    parent.expression.callee &&
-    parent.expression.callee.name === "Component"
-  );
 }
 
 function getIndentation(str) {
@@ -361,9 +358,6 @@ function isStyledJsx(path) {
  * ...which are both within template literals somewhere
  * inside of the Component decorator factory.
  *
- * TODO: Format HTML template once prettier's HTML
- * formatting is "ready"
- *
  * E.g.
  * @Component({
  *  template: `<div>...</div>`,
@@ -371,21 +365,42 @@ function isStyledJsx(path) {
  * })
  */
 function isAngularComponentStyles(path) {
-  const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
-  const isWithinArrayValueFromProperty = !!(
-    parent &&
-    (parent.type === "ArrayExpression" && parentParent.type === "Property")
+  return isPathMatch(
+    path,
+    [
+      node => node.type === "TemplateLiteral",
+      (node, name) => node.type === "ArrayExpression" && name === "elements",
+      (node, name) =>
+        node.type === "Property" &&
+        node.key.type === "Identifier" &&
+        node.key.name === "styles" &&
+        name === "value"
+    ].concat(getAngularComponentObjectExpressionPredicates())
   );
-  if (
-    isWithinArrayValueFromProperty &&
-    isPropertyWithinAngularComponentDecorator(path, 4)
-  ) {
-    if (parentParent.key && parentParent.key.name === "styles") {
-      return true;
-    }
-  }
-  return false;
+}
+function isAngularComponentTemplate(path) {
+  return isPathMatch(
+    path,
+    [
+      node => node.type === "TemplateLiteral",
+      (node, name) =>
+        node.type === "Property" &&
+        node.key.type === "Identifier" &&
+        node.key.name === "template" &&
+        name === "value"
+    ].concat(getAngularComponentObjectExpressionPredicates())
+  );
+}
+function getAngularComponentObjectExpressionPredicates() {
+  return [
+    (node, name) => node.type === "ObjectExpression" && name === "properties",
+    (node, name) =>
+      node.type === "CallExpression" &&
+      node.callee.type === "Identifier" &&
+      node.callee.name === "Component" &&
+      name === "arguments",
+    (node, name) => node.type === "Decorator" && name === "expression"
+  ];
 }
 
 /**
@@ -470,20 +485,8 @@ function isGraphQL(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
 
-  // This checks for a leading comment that is exactly `/* GraphQL */`
-  // In order to be in line with other implementations of this comment tag
-  // we will not trim the comment value and we will expect exactly one space on
-  // either side of the GraphQL string
-  // Also see ./clean.js
-  const hasGraphQLComment =
-    node.leadingComments &&
-    node.leadingComments.some(
-      comment =>
-        comment.type === "CommentBlock" && comment.value === " GraphQL "
-    );
-
   return (
-    hasGraphQLComment ||
+    hasLanguageComment(node, "GraphQL") ||
     (parent &&
       ((parent.type === "TaggedTemplateExpression" &&
         ((parent.tag.type === "MemberExpression" &&
@@ -495,6 +498,135 @@ function isGraphQL(path) {
           parent.callee.type === "Identifier" &&
           parent.callee.name === "graphql")))
   );
+}
+
+function hasLanguageComment(node, languageName) {
+  // This checks for a leading comment that is exactly `/* GraphQL */`
+  // In order to be in line with other implementations of this comment tag
+  // we will not trim the comment value and we will expect exactly one space on
+  // either side of the GraphQL string
+  // Also see ./clean.js
+  return (
+    node.leadingComments &&
+    node.leadingComments.some(
+      comment =>
+        comment.type === "CommentBlock" && comment.value === ` ${languageName} `
+    )
+  );
+}
+
+function isPathMatch(path, predicateStack) {
+  const stack = path.stack.slice();
+
+  let name = null;
+  let node = stack.pop();
+
+  for (const predicate of predicateStack) {
+    if (node === undefined) {
+      return false;
+    }
+
+    // skip index/array
+    if (typeof name === "number") {
+      name = stack.pop();
+      node = stack.pop();
+    }
+
+    if (!predicate(node, name)) {
+      return false;
+    }
+
+    name = stack.pop();
+    node = stack.pop();
+  }
+
+  return true;
+}
+
+/**
+ *     - html`...`
+ *     - HTML comment block
+ */
+function isHtml(path) {
+  const node = path.getValue();
+  return (
+    hasLanguageComment(node, "HTML") ||
+    isPathMatch(path, [
+      node => node.type === "TemplateLiteral",
+      (node, name) =>
+        node.type === "TaggedTemplateExpression" &&
+        node.tag.type === "Identifier" &&
+        node.tag.name === "html" &&
+        name === "quasi"
+    ])
+  );
+}
+
+function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
+  const node = path.getValue();
+
+  const placeholderPattern =
+    "prettierhtmlplaceholder(\\d+)redlohecalplmthreitterp";
+  const placeholders = node.expressions.map(
+    (_, i) => `prettierhtmlplaceholder${i}redlohecalplmthreitterp`
+  );
+
+  const text = node.quasis
+    .map(
+      (quasi, index, quasis) =>
+        index === quasis.length - 1
+          ? quasi.value.raw
+          : quasi.value.raw + placeholders[index]
+    )
+    .join("");
+
+  const expressionDocs = path.map(print, "expressions");
+
+  const contentDoc = mapDoc(
+    stripTrailingHardline(textToDoc(text, { parser })),
+    doc => {
+      const placeholderRegex = new RegExp(placeholderPattern, "g");
+      const hasPlaceholder =
+        typeof doc === "string" && placeholderRegex.test(doc);
+
+      if (!hasPlaceholder) {
+        return doc;
+      }
+
+      const parts = [];
+
+      const components = doc.split(placeholderRegex);
+      for (let i = 0; i < components.length; i++) {
+        const component = components[i];
+
+        if (i % 2 === 0) {
+          if (component) {
+            parts.push(component);
+          }
+          continue;
+        }
+
+        const placeholderIndex = +component;
+
+        parts.push(
+          concat([
+            "${",
+            group(
+              concat([
+                indent(concat([softline, expressionDocs[placeholderIndex]])),
+                softline
+              ])
+            ),
+            "}"
+          ])
+        );
+      }
+
+      return concat(parts);
+    }
+  );
+
+  return concat(["`", indent(concat([hardline, contentDoc])), softline, "`"]);
 }
 
 module.exports = embed;

@@ -180,7 +180,9 @@ module.exports = {
       },
       locFns
     ),
-    /** @internal for mdx to print jsx without semicolon */
-    __js_expression: babylon
+    /** @internal */
+    __js_expression: babylon,
+    /** for vue filter */
+    __vue_expression: babylon
   }
 };
