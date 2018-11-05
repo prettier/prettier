@@ -1817,7 +1817,7 @@ ecc-jsbn@~0.1.1:
 
 "editorconfig-to-prettier@https://github.com/kachkaev/editorconfig-to-prettier#eol-option":
   version "0.0.6"
-  resolved "https://github.com/kachkaev/editorconfig-to-prettier#130610e0bb42191838f7fc27af877b8d4fa786f7"
+  resolved "https://github.com/kachkaev/editorconfig-to-prettier#6607a7872309a6ddc5633587f8411ff4513b3afd"
 
 editorconfig@0.15.2:
   version "0.15.2"

@@ -43,7 +43,7 @@ Object {
 This option cannot be used with --range-start and --range-end.",
           "type": "integer",
         },
-        "eol": Object {
+        "endOfLine": Object {
           "default": "auto",
           "description": "Which end of line characters to apply.",
           "oneOf": Array [

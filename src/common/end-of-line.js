@@ -1,6 +1,6 @@
 "use strict";
 
-function guessEol(text) {
+function guessEndOfLine(text) {
   const index = text.indexOf("\r");
   if (index >= 0) {
     return text.charAt(index + 1) === "\n" ? "crlf" : "cr";
@@ -8,7 +8,7 @@ function guessEol(text) {
   return "lf";
 }
 
-function convertEolToChars(value) {
+function convertEndOfLineToChars(value) {
   switch (value) {
     case "cr":
       return "\r";
@@ -20,6 +20,6 @@ function convertEolToChars(value) {
 }
 
 module.exports = {
-  guessEol,
-  convertEolToChars
+  guessEndOfLine,
+  convertEndOfLineToChars
 };

@@ -495,7 +495,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         },
         \\"type\\": \\"int\\",
       },
-+     \\"eol\\": Object {
++     \\"endOfLine\\": Object {
 +       \\"choices\\": Array [
 +         \\"auto\\",
 +         \\"cr\\",
@@ -1016,7 +1016,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       ],
       \\"default\\": \\"auto\\",
       \\"description\\": \\"Which end of line characters to apply.\\",
-      \\"name\\": \\"eol\\",
+      \\"name\\": \\"endOfLine\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
       \\"type\\": \\"choice\\"

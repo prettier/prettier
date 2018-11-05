@@ -62,13 +62,12 @@ const options = {
     `,
     cliCategory: CATEGORY_EDITOR
   },
-  eol: {
+  endOfLine: {
     since: "1.15.0",
     category: CATEGORY_GLOBAL,
     type: "choice",
     default: "auto",
     description: "Which end of line characters to apply.",
-    exception: value => typeof value === "string",
     choices: [
       {
         value: "auto",

@@ -7,7 +7,10 @@ const massageAST = require("./massage-ast");
 const comments = require("./comments");
 const parser = require("./parser");
 const printAstToDoc = require("./ast-to-doc");
-const { guessEol, convertEolToChars } = require("../common/eol");
+const {
+  guessEndOfLine,
+  convertEndOfLineToChars
+} = require("../common/end-of-line");
 const rangeUtil = require("./range-util");
 const privateUtil = require("../common/util");
 const {
@@ -77,8 +80,8 @@ function coreFormat(text, opts, addAlignmentSize) {
 
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
-  if (opts.eol === "auto") {
-    opts.eol = guessEol(originalText);
+  if (opts.endOfLine === "auto") {
+    opts.endOfLine = guessEndOfLine(originalText);
   }
 
   const result = printDocToString(doc, opts);
@@ -92,7 +95,7 @@ function coreFormat(text, opts, addAlignmentSize) {
       result.cursorNodeStart -= result.formatted.indexOf(trimmed);
     }
 
-    result.formatted = trimmed + convertEolToChars(opts.eol);
+    result.formatted = trimmed + convertEndOfLineToChars(opts.endOfLine);
   }
 
   if (opts.cursorOffset >= 0) {

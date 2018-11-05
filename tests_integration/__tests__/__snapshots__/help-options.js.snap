@@ -102,10 +102,10 @@ Default: true
 
 exports[`show detailed usage with --help editorconfig (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help eol (stderr) 1`] = `""`;
+exports[`show detailed usage with --help end-of-line (stderr) 1`] = `""`;
 
-exports[`show detailed usage with --help eol (stdout) 1`] = `
-"--eol <auto|cr|crlf|lf>
+exports[`show detailed usage with --help end-of-line (stdout) 1`] = `
+"--end-of-line <auto|cr|crlf|lf>
 
   Which end of line characters to apply.
 
@@ -121,7 +121,7 @@ Default: auto
 "
 `;
 
-exports[`show detailed usage with --help eol (write) 1`] = `Array []`;
+exports[`show detailed usage with --help end-of-line (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help file-info (stderr) 1`] = `""`;
 
