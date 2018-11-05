@@ -1815,9 +1815,10 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
-"editorconfig-to-prettier@https://github.com/kachkaev/editorconfig-to-prettier#eol-option":
-  version "0.0.6"
-  resolved "https://github.com/kachkaev/editorconfig-to-prettier#6607a7872309a6ddc5633587f8411ff4513b3afd"
+editorconfig-to-prettier@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/editorconfig-to-prettier/-/editorconfig-to-prettier-0.1.0.tgz#c31d2ceea2ef922835c53f6ca0e5ba2930b8940d"
+  integrity sha512-qm9q2KRUYXjSzAYTfnitukCZkbXJLFylIs3c51YEZ+rViQmnrAQSsAJaG3cBWsoSZRo6wSMYYMiHSIaMD0gKjw==
 
 editorconfig@0.15.2:
   version "0.15.2"
