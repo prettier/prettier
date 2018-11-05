@@ -302,9 +302,9 @@ Valid options:
 
 - `"auto"` - Maintain existing line endings
   (mixed values within one file are normalised by looking at what's used after the first line)
-- `"cr"` - Carriage Return character only (`\r`), used very rarely
-- `"crlf"` - Carriage Return + Line Feed characters (`\r\n`), common on Windows.
 - `"lf"` – Line Feed only (`\n`), common on Linux and macOS as well as inside git repos
+- `"crlf"` - Carriage Return + Line Feed characters (`\r\n`), common on Windows
+- `"cr"` - Carriage Return character only (`\r`), used very rarely
 
 | Default  | CLI Override                                                | API Override                                               |
 | -------- | ----------------------------------------------------------- | ---------------------------------------------------------- |

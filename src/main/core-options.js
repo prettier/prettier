@@ -77,8 +77,9 @@ const options = {
         `
       },
       {
-        value: "cr",
-        description: "Carriage Return character only (\\r), used very rarely"
+        value: "lf",
+        description:
+          "Line Feed only (\\n), common on Linux and macOS as well as inside git repos"
       },
       {
         value: "crlf",
@@ -86,9 +87,8 @@ const options = {
           "Carriage Return + Line Feed characters (\\r\\n), common on Windows"
       },
       {
-        value: "lf",
-        description:
-          "Line Feed only (\\n), common on Linux and macOS as well as inside git repos"
+        value: "cr",
+        description: "Carriage Return character only (\\r), used very rarely"
       }
     ]
   },

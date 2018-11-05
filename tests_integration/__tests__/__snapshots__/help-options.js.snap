@@ -105,7 +105,7 @@ exports[`show detailed usage with --help editorconfig (write) 1`] = `Array []`;
 exports[`show detailed usage with --help end-of-line (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help end-of-line (stdout) 1`] = `
-"--end-of-line <auto|cr|crlf|lf>
+"--end-of-line <auto|lf|crlf|cr>
 
   Which end of line characters to apply.
 
@@ -113,9 +113,9 @@ Valid options:
 
   auto   Maintain existing
          (mixed values within one file are normalised by looking at what's used after the first line)
-  cr     Carriage Return character only (\\\\r), used very rarely
-  crlf   Carriage Return + Line Feed characters (\\\\r\\\\n), common on Windows
   lf     Line Feed only (\\\\n), common on Linux and macOS as well as inside git repos
+  crlf   Carriage Return + Line Feed characters (\\\\r\\\\n), common on Windows
+  cr     Carriage Return character only (\\\\r), used very rarely
 
 Default: auto
 "

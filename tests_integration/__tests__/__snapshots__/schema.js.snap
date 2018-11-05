@@ -55,9 +55,9 @@ This option cannot be used with --range-start and --range-end.",
               ],
             },
             Object {
-              "description": "Carriage Return character only (\\\\r), used very rarely",
+              "description": "Line Feed only (\\\\n), common on Linux and macOS as well as inside git repos",
               "enum": Array [
-                "cr",
+                "lf",
               ],
             },
             Object {
@@ -67,9 +67,9 @@ This option cannot be used with --range-start and --range-end.",
               ],
             },
             Object {
-              "description": "Line Feed only (\\\\n), common on Linux and macOS as well as inside git repos",
+              "description": "Carriage Return character only (\\\\r), used very rarely",
               "enum": Array [
-                "lf",
+                "cr",
               ],
             },
           ],
