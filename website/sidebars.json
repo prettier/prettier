@@ -16,8 +16,7 @@
       "plugins",
       "precommit",
       "watching-files",
-      "eslint",
-      "stylelint",
+      "integrating-with-linters",
       "ignore"
     ],
     "Configuring Prettier": [
