@@ -14,20 +14,13 @@ exports[`usingCrlf.md - markdown-verify 2`] = `
 # Markdown file
 
 testing line endings~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Markdown file/*CR*//*CR*/testing line endings/*CR*/
-`;
-
-exports[`usingCrlf.md - markdown-verify 3`] = `
-# Markdown file
-
-testing line endings~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Markdown file/*CR*/
 /*CR*/
 testing line endings/*CR*/
 
 `;
 
-exports[`usingCrlf.md - markdown-verify 4`] = `
+exports[`usingCrlf.md - markdown-verify 3`] = `
 # Markdown file
 
 testing line endings~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,20 +44,13 @@ exports[`usingLf.md - markdown-verify 2`] = `
 # Markdown file
 
 testing line endings~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Markdown file/*CR*//*CR*/testing line endings/*CR*/
-`;
-
-exports[`usingLf.md - markdown-verify 3`] = `
-# Markdown file
-
-testing line endings~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Markdown file/*CR*/
 /*CR*/
 testing line endings/*CR*/
 
 `;
 
-exports[`usingLf.md - markdown-verify 4`] = `
+exports[`usingLf.md - markdown-verify 3`] = `
 # Markdown file
 
 testing line endings~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
