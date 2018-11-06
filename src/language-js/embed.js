@@ -626,7 +626,19 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
     }
   );
 
-  return concat(["`", indent(concat([hardline, contentDoc])), softline, "`"]);
+  return group(
+    concat([
+      "`",
+      indent(
+        concat([
+          text.trim().length !== 0 ? hardline : softline,
+          group(contentDoc)
+        ])
+      ),
+      softline,
+      "`"
+    ])
+  );
 }
 
 module.exports = embed;

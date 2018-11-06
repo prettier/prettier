@@ -84,8 +84,6 @@ const someHtml2 = /* HTML */ \`
   <div>hello \${world}</div>
 \`;
 
-html\`
-
-\`;
+html\`\`;
 
 `;
