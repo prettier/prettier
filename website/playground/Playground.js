@@ -31,6 +31,7 @@ const ENABLED_OPTIONS = [
   "semi",
   "singleQuote",
   "bracketSpacing",
+  "jsxSingleQuote",
   "jsxBracketSameLine",
   "arrowParens",
   "trailingComma",
