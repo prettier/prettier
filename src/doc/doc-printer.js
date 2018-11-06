@@ -1,6 +1,7 @@
 "use strict";
 
 const { getStringWidth } = require("../common/util");
+const { convertEndOfLineToChars } = require("../common/end-of-line");
 const { concat, fill, cursor } = require("./doc-builders");
 
 /** @type {{[groupId: PropertyKey]: MODE}} */
@@ -241,7 +242,7 @@ function printDocToString(doc, options) {
   groupModeMap = {};
 
   const width = options.printWidth;
-  const newLine = options.newLine || "\n";
+  const newLine = convertEndOfLineToChars(options.endOfLine);
   let pos = 0;
   // cmds is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new

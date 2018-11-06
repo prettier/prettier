@@ -34,3 +34,9 @@
   doubleBoth2={"\" '"}
   doubleBoth3="&quot; &apos; '"
 />;
+
+<p>
+  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+  restart. This has been reported to the team, but if youencounter this121312331
+  repeatedly please report this issue to the GitHub 12312312312312313{'  '}{' '}
+</p>

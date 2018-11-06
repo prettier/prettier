@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`usingCrlf.css - css-verify 1`] = `
+.foo {
+        margin: 42px;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  margin: 42px;
+}
+
+`;
+
+exports[`usingCrlf.css - css-verify 2`] = `
+.foo {
+        margin: 42px;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {/*CR*/  margin: 42px;/*CR*/}/*CR*/
+`;
+
+exports[`usingCrlf.css - css-verify 3`] = `
+.foo {
+        margin: 42px;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {/*CR*/
+  margin: 42px;/*CR*/
+}/*CR*/
+
+`;
+
+exports[`usingCrlf.css - css-verify 4`] = `
+.foo {
+        margin: 42px;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  margin: 42px;
+}
+
+`;
+
+exports[`usingLf.css - css-verify 1`] = `
+.foo {
+        margin: 42px;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  margin: 42px;
+}
+
+`;
+
+exports[`usingLf.css - css-verify 2`] = `
+.foo {
+        margin: 42px;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {/*CR*/  margin: 42px;/*CR*/}/*CR*/
+`;
+
+exports[`usingLf.css - css-verify 3`] = `
+.foo {
+        margin: 42px;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {/*CR*/
+  margin: 42px;/*CR*/
+}/*CR*/
+
+`;
+
+exports[`usingLf.css - css-verify 4`] = `
+.foo {
+        margin: 42px;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.foo {
+  margin: 42px;
+}
+
+`;

@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`usingCrlf.js - babylon-verify 1`] = `
+function f() {
+  console.log("testing line endings");
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {
+  console.log("testing line endings");
+}
+
+`;
+
+exports[`usingCrlf.js - babylon-verify 2`] = `
+function f() {
+  console.log("testing line endings");
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {/*CR*/  console.log("testing line endings");/*CR*/}/*CR*/
+`;
+
+exports[`usingCrlf.js - babylon-verify 3`] = `
+function f() {
+  console.log("testing line endings");
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {/*CR*/
+  console.log("testing line endings");/*CR*/
+}/*CR*/
+
+`;
+
+exports[`usingCrlf.js - babylon-verify 4`] = `
+function f() {
+  console.log("testing line endings");
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {
+  console.log("testing line endings");
+}
+
+`;
+
+exports[`usingLf.js - babylon-verify 1`] = `
+function f() {
+  console.log("testing line endings");
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {
+  console.log("testing line endings");
+}
+
+`;
+
+exports[`usingLf.js - babylon-verify 2`] = `
+function f() {
+  console.log("testing line endings");
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {/*CR*/  console.log("testing line endings");/*CR*/}/*CR*/
+`;
+
+exports[`usingLf.js - babylon-verify 3`] = `
+function f() {
+  console.log("testing line endings");
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {/*CR*/
+  console.log("testing line endings");/*CR*/
+}/*CR*/
+
+`;
+
+exports[`usingLf.js - babylon-verify 4`] = `
+function f() {
+  console.log("testing line endings");
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function f() {
+  console.log("testing line endings");
+}
+
+`;

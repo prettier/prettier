@@ -13,3 +13,13 @@ indent_size = 2
 
 [lib/indent_size=tab.js]
 indent_size = tab
+
+# End of line (--eol opition)
+[eol/cr.js]
+end_of_line = cr
+
+[eol/crlf.js]
+end_of_line = crlf
+
+[eol/lf.js]
+end_of_line = lf
