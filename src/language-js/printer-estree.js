@@ -5078,19 +5078,27 @@ function separatorNoWhitespace(
     (childNode.type === "JSXElement" && !childNode.closingElement) ||
     (nextNode && (nextNode.type === "JSXElement" && !nextNode.closingElement))
   ) {
-    return hardline;
+    return child.length === 1 ? softline : hardline;
   }
 
   return softline;
 }
 
-function separatorWithWhitespace(isFacebookTranslationTag, child) {
+function separatorWithWhitespace(
+  isFacebookTranslationTag,
+  child,
+  childNode,
+  nextNode
+) {
   if (isFacebookTranslationTag) {
     return hardline;
   }
 
   if (child.length === 1) {
-    return softline;
+    return (childNode.type === "JSXElement" && !childNode.closingElement) ||
+      (nextNode && nextNode.type === "JSXElement" && !nextNode.closingElement)
+      ? hardline
+      : softline;
   }
 
   return hardline;
@@ -5133,8 +5141,14 @@ function printJSXChildren(
           children.push("");
           words.shift();
           if (/\n/.test(words[0])) {
+            const next = n.children[i + 1];
             children.push(
-              separatorWithWhitespace(isFacebookTranslationTag, words[1])
+              separatorWithWhitespace(
+                isFacebookTranslationTag,
+                words[1],
+                child,
+                next
+              )
             );
           } else {
             children.push(jsxWhitespace);
@@ -5164,10 +5178,13 @@ function printJSXChildren(
 
         if (endWhitespace !== undefined) {
           if (/\n/.test(endWhitespace)) {
+            const next = n.children[i + 1];
             children.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
-                getLast(children)
+                getLast(children),
+                child,
+                next
               )
             );
           } else {
