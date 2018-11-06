@@ -48,13 +48,25 @@ function group(contents, opts) {
     assertDoc(contents);
   }
 
-  return {
+  const ret = {
     type: "group",
     id: opts.id,
     contents: contents,
-    break: !!opts.shouldBreak,
-    expandedStates: opts.expandedStates
+    break: !!opts.shouldBreak
   };
+  if (opts.expandedStates) {
+    ret.expandedStates = opts.expandedStates;
+  }
+  if (opts.visibleType) {
+    ret.visibleType = opts.visibleType;
+  }
+  if (opts.breakIfVisibleTypeBroke) {
+    ret.breakIfVisibleTypeBroke = opts.breakIfVisibleTypeBroke;
+  }
+  if (opts.firstBreakingIndex) {
+    ret.firstBreakingIndex = opts.firstBreakingIndex;
+  }
+  return ret;
 }
 
 function dedentToRoot(contents) {
@@ -96,12 +108,26 @@ function ifBreak(breakContents, flatContents, opts) {
     }
   }
 
-  return {
+  const ret = {
     type: "if-break",
     breakContents,
-    flatContents,
-    groupId: opts.groupId
+    flatContents
   };
+  if (opts.groupId) {
+    ret.groupId = opts.groupId;
+  }
+  if (opts.visibleType) {
+    ret.visibleType = opts.visibleType;
+    ret.offset = opts.offset;
+  }
+  if (opts.breakIfVisibleTypeBroke) {
+    ret.breakIfVisibleTypeBroke = opts.breakIfVisibleTypeBroke;
+  }
+  return ret;
+}
+
+function blockVisible(contents) {
+  return { type: "block-visible", contents };
 }
 
 function lineSuffix(contents) {
@@ -168,6 +194,7 @@ module.exports = {
   cursor,
   breakParent,
   ifBreak,
+  blockVisible,
   trim,
   indent,
   align,
