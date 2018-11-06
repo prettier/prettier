@@ -272,7 +272,9 @@ Valid options:
 | ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
 | `"preserve"` | <code>--prose-wrap <always&#124;never&#124;preserve></code> | <code>proseWrap: "<always&#124;never&#124;preserve>"</code> |
 
-## End of Line (EOL)
+<!--TODO(1.15)
+
+## End of Line
 
 _available in 1.15.0+_
 
@@ -309,3 +311,5 @@ Valid options:
 | Default  | CLI Override                                                | API Override                                               |
 | -------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
 | `"auto"` | <code>--end-of-line <auto&#124;cr&#124;crlf&#124;lf></code> | <code>endOfLine: "<auto&#124;cr&#124;crlf&#124;lf>"</code> |
+
+-->
