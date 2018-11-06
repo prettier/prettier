@@ -83,7 +83,10 @@ function run_spec(dirname, parsers, options) {
 
           expect(() => {
             ppastMassaged = parse(
-              prettyprint(input, path, compareOptions),
+              prettyprint(input, path, compareOptions)
+                // \r has been replaced with /*CR*/ to test presence of CR in jest snapshots;
+                // reverting this to get the right AST
+                .replace(/\/\*CR\*\//g, "\r"),
               compareOptions
             );
           }).not.toThrow();
@@ -120,7 +123,10 @@ function prettyprint(src, filename, options) {
       "<|>" +
       result.formatted.slice(result.cursorOffset);
   }
-  return result.formatted;
+
+  // \r is trimmed from jest snapshots by default;
+  // manually replacing this character with /*CR*/ to test its true presence
+  return result.formatted.replace(/\r/g, "/*CR*/");
 }
 
 function read(filename) {

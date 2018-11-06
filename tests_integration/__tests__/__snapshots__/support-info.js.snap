@@ -489,8 +489,22 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -56,33 +85,61 @@
+@@ -52,37 +81,75 @@
+          \\"start\\": -1,
+          \\"step\\": 1,
+        },
+        \\"type\\": \\"int\\",
       },
++     \\"endOfLine\\": Object {
++       \\"choices\\": Array [
++         \\"auto\\",
++         \\"lf\\",
++         \\"crlf\\",
++         \\"cr\\",
++       ],
++       \\"default\\": \\"auto\\",
++       \\"type\\": \\"choice\\",
++     },
       \\"filepath\\": Object {
         \\"default\\": undefined,
         \\"type\\": \\"path\\",
@@ -552,7 +566,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +147,15 @@
+@@ -90,14 +157,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -979,6 +993,33 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"range\\": { \\"end\\": null, \\"start\\": -1, \\"step\\": 1 },
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"int\\"
+    },
+    {
+      \\"category\\": \\"Global\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
+          \\"value\\": \\"auto\\"
+        },
+        {
+          \\"description\\": \\"Line Feed only (\\\\\\\\n), common on Linux and macOS as well as inside git repos\\",
+          \\"value\\": \\"lf\\"
+        },
+        {
+          \\"description\\": \\"Carriage Return + Line Feed characters (\\\\\\\\r\\\\\\\\n), common on Windows\\",
+          \\"value\\": \\"crlf\\"
+        },
+        {
+          \\"description\\": \\"Carriage Return character only (\\\\\\\\r), used very rarely\\",
+          \\"value\\": \\"cr\\"
+        }
+      ],
+      \\"default\\": \\"auto\\",
+      \\"description\\": \\"Which end of line characters to apply.\\",
+      \\"name\\": \\"endOfLine\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"choice\\"
     },
     {
       \\"category\\": \\"Special\\",

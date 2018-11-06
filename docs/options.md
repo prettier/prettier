@@ -271,3 +271,45 @@ Valid options:
 | Default      | CLI Override                                                | API Override                                                |
 | ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
 | `"preserve"` | <code>--prose-wrap <always&#124;never&#124;preserve></code> | <code>proseWrap: "<always&#124;never&#124;preserve>"</code> |
+
+<!--TODO(1.15)
+
+## End of Line
+
+_available in 1.15.0+_
+
+For historical reasons, there exist two commonly used flavors of line endings in text files. That is `\n` (or `LF` for _Line Feed_) and `\r\n` (or `CRLF` for _Carriage Return + Line Feed_).
+The former is common on Linux and macOS, while the latter is prevalent on Windows.
+Some details explaining why it is so [can be found on Wikipedia](https://en.wikipedia.org/wiki/Newline).
+
+By default, Prettier preserves a flavor of line endings a given file has already used.
+It also converts mixed line endings within one file to what it finds at the end of the first line.
+
+When people collaborate on a project from different operating systems, it becomes easy to end up with mixed line endings in the central git repository.
+It is also possible for Windows users to accidentally change line endings in an already committed file from `LF` to `CRLF`.
+Doing so produces a large `git diff`, and if it get unnoticed during code review, all line-by-line history for the file (`git blame`) gets lost.
+
+If you want to make sure that your git repository only contains Linux-style line endings in files covered by Prettier:
+
+1. Set `endOfLine` option to `lf`
+1. Configure [a pre-commit hook](./precommit.md) that will run Prettier
+1. Configure Prettier to run in your CI pipeline (e.g. using [`prettier-check` npm package](https://www.npmjs.com/package/prettier-check))
+1. Ask Windows users to run `git config core.autocrlf false` before working on your repo so that git did not convert `LF` to `CRLF` on checkout.
+   Alternatively, you can add `* text=auto eol=lf` to the repo's `.gitattributes` file to achieve this.
+
+All modern text editors in all operating systems are able to correctly display line endings when `\n` (`LF`) is used.
+However, old versions of Notepad for Windows will visually squash such lines into one.
+
+Valid options:
+
+- `"auto"` - Maintain existing line endings
+  (mixed values within one file are normalised by looking at what's used after the first line)
+- `"lf"` – Line Feed only (`\n`), common on Linux and macOS as well as inside git repos
+- `"crlf"` - Carriage Return + Line Feed characters (`\r\n`), common on Windows
+- `"cr"` - Carriage Return character only (`\r`), used very rarely
+
+| Default  | CLI Override                                                | API Override                                               |
+| -------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
+| `"auto"` | <code>--end-of-line <auto&#124;cr&#124;crlf&#124;lf></code> | <code>endOfLine: "<auto&#124;cr&#124;crlf&#124;lf>"</code> |
+
+-->
