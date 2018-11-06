@@ -5096,8 +5096,7 @@ function separatorWithWhitespace(
 
   if (child.length === 1) {
     return (childNode.type === "JSXElement" && !childNode.closingElement) ||
-      (nextNode &&
-        (nextNode.type === "JSXElement" && !nextNode.closingElement))
+      (nextNode && nextNode.type === "JSXElement" && !nextNode.closingElement)
       ? hardline
       : softline;
   }
