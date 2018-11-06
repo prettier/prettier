@@ -582,6 +582,10 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
 
   const expressionDocs = path.map(print, "expressions");
 
+  if (expressionDocs.length === 0 && text.trim().length === 0) {
+    return "``";
+  }
+
   const contentDoc = mapDoc(
     stripTrailingHardline(textToDoc(text, { parser })),
     doc => {
@@ -627,17 +631,7 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
   );
 
   return group(
-    concat([
-      "`",
-      indent(
-        concat([
-          text.trim().length !== 0 ? hardline : softline,
-          group(contentDoc)
-        ])
-      ),
-      softline,
-      "`"
-    ])
+    concat(["`", indent(concat([hardline, group(contentDoc)])), softline, "`"])
   );
 }
 
