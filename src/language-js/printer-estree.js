@@ -4874,11 +4874,9 @@ function printMemberChain(path, options, print) {
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1))
   ]);
 
-  const callExpressionCount = printedNodes.filter(
-    tuple =>
-      tuple.node.type === "CallExpression" ||
-      tuple.node.type === "OptionalCallExpression"
-  ).length;
+  const callExpressions = printedNodes
+    .map(({ node }) => node)
+    .filter(isCallOrOptionalCallExpression);
 
   // We don't want to print in one line if there's:
   //  * A comment.
@@ -4887,8 +4885,21 @@ function printMemberChain(path, options, print) {
   // If the last group is a function it's okay to inline if it fits.
   if (
     hasComment ||
-    callExpressionCount >= 3 ||
-    printedGroups.slice(0, -1).some(willBreak)
+    callExpressions.length >= 3 ||
+    printedGroups.slice(0, -1).some(willBreak) ||
+    /**
+     *     scopes.filter(scope => scope.value !== '').map((scope, i) => {
+     *       // multi line content
+     *     })
+     */
+    (((lastGroupDoc, lastGroupNode) =>
+      isCallOrOptionalCallExpression(lastGroupNode) && willBreak(lastGroupDoc))(
+      getLast(printedGroups),
+      getLast(getLast(groups)).node
+    ) &&
+      callExpressions
+        .slice(0, -1)
+        .some(n => n.arguments.some(isFunctionOrArrowExpression)))
   ) {
     return group(expanded);
   }
@@ -4900,6 +4911,12 @@ function printMemberChain(path, options, print) {
     willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
     conditionalGroup([oneLine, expanded])
   ]);
+}
+
+function isCallOrOptionalCallExpression(node) {
+  return (
+    node.type === "CallExpression" || node.type === "OptionalCallExpression"
+  );
 }
 
 function isJSXNode(node) {
@@ -5443,12 +5460,11 @@ function maybeWrapJSXElementInParens(path, elem) {
     return elem;
   }
 
-  const shouldBreak =
-    matchAncestorTypes(path, [
-      "ArrowFunctionExpression",
-      "CallExpression",
-      "JSXExpressionContainer"
-    ]) && isMemberExpressionChain(path.getParentNode(1).callee);
+  const shouldBreak = matchAncestorTypes(path, [
+    "ArrowFunctionExpression",
+    "CallExpression",
+    "JSXExpressionContainer"
+  ]);
 
   return group(
     concat([
@@ -6144,7 +6160,7 @@ function isTestCall(n, parent) {
   }
   if (n.arguments.length === 1) {
     if (isAngularTestWrapper(n) && parent && isTestCall(parent)) {
-      return isFunctionOrArrowExpression(n.arguments[0].type);
+      return isFunctionOrArrowExpression(n.arguments[0]);
     }
 
     if (isUnitTestSetUp(n)) {
@@ -6161,7 +6177,7 @@ function isTestCall(n, parent) {
         return false;
       }
       return (
-        (isFunctionOrArrowExpression(n.arguments[1].type) &&
+        (isFunctionOrArrowExpression(n.arguments[1]) &&
           n.arguments[1].params.length <= 1) ||
         isAngularTestWrapper(n.arguments[1])
       );
@@ -6199,8 +6215,11 @@ function isAngularTestWrapper(node) {
   );
 }
 
-function isFunctionOrArrowExpression(type) {
-  return type === "FunctionExpression" || type === "ArrowFunctionExpression";
+function isFunctionOrArrowExpression(node) {
+  return (
+    node.type === "FunctionExpression" ||
+    node.type === "ArrowFunctionExpression"
+  );
 }
 
 function isUnitTestSetUp(n) {
