@@ -275,7 +275,7 @@ styled.span\`
 
 styled.a\`
   \${feedbackCountBlockCss}
-  text-decoration: none
+  text-decoration: none;
 
   \${FeedbackCount} {
     margin: 0;
