@@ -291,8 +291,6 @@ Valid options:
 | ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
 | `"css"` | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |
 
-<!--TODO(1.15)
-
 ## End of Line
 
 _available in 1.15.0+_
@@ -329,6 +327,4 @@ Valid options:
 
 | Default  | CLI Override                                                | API Override                                               |
 | -------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
-| `"auto"` | <code>--end-of-line <auto&#124;cr&#124;crlf&#124;lf></code> | <code>endOfLine: "<auto&#124;cr&#124;crlf&#124;lf>"</code> |
-
--->
+| `"auto"` | <code>--end-of-line <auto&#124;lf&#124;crlf&#124;cr></code> | <code>endOfLine: "<auto&#124;lf&#124;crlf&#124;cr>"</code> |
