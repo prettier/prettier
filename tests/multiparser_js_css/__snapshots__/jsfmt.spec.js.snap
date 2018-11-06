@@ -130,7 +130,17 @@ styled.span\`
 styled.span\`
 \${foo}:
 \${bar};
-\`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`
+
+styled.a\`
+  \${feedbackCountBlockCss}
+  text-decoration: none;
+
+  \${FeedbackCount} {
+    margin: 0;
+  }
+\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const ListItem = styled.li\`\`;
 
 const ListItem = styled.li\`\`;
@@ -261,6 +271,15 @@ styled.span\`
 
 styled.span\`
   \${foo}: \${bar};
+\`;
+
+styled.a\`
+  \${feedbackCountBlockCss}
+  text-decoration: none;
+
+  \${FeedbackCount} {
+    margin: 0;
+  }
 \`;
 
 `;

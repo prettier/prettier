@@ -128,3 +128,12 @@ styled.span`
 ${foo}:
 ${bar};
 `
+
+styled.a`
+  ${feedbackCountBlockCss}
+  text-decoration: none;
+
+  ${FeedbackCount} {
+    margin: 0;
+  }
+`

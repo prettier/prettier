@@ -185,7 +185,9 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
-          : isTemplatePropNode(node) && !parentNode.raws.semicolon
+          : isTemplatePropNode(node) &&
+            !parentNode.raws.semicolon &&
+            options.originalText[options.locEnd(node) - 1] !== ";"
             ? ""
             : ";"
       ]);
@@ -242,7 +244,9 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
-          : isTemplatePlaceholderNode(node) && !parentNode.raws.semicolon
+          : isTemplatePlaceholderNode(node) &&
+            !parentNode.raws.semicolon &&
+            options.originalText[options.locEnd(node) - 1] !== ";"
             ? ""
             : ";"
       ]);
