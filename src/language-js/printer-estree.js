@@ -6200,8 +6200,10 @@ function isTestCall(n, parent) {
         return false;
       }
       return (
-        (isFunctionOrArrowExpressionWithBody(n.arguments[1]) &&
-          n.arguments[1].params.length <= 1) ||
+        (n.arguments.length === 2
+          ? isFunctionOrArrowExpression(n.arguments[1])
+          : isFunctionOrArrowExpressionWithBody(n.arguments[1]) &&
+            n.arguments[1].params.length <= 1) ||
         isAngularTestWrapper(n.arguments[1])
       );
     }
