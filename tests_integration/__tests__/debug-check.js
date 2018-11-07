@@ -22,6 +22,8 @@ describe("checks stdin with --debug-check", () => {
 
 describe("show diff for 2+ error files with --debug-check", () => {
   runPrettier("cli/debug-check", [
+    "--end-of-line",
+    "lf",
     "*.debug-check",
     "--debug-check",
     "--plugin",

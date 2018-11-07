@@ -74,11 +74,17 @@ describe("automatically loads '@prettier/plugin-*' from --plugin-search-dir (dif
 });
 
 describe("does not crash when --plugin-search-dir does not contain node_modules", () => {
-  runPrettier("plugins/extensions", [
-    "file.foo",
-    "--plugin=./plugin",
-    "--plugin-search-dir=."
-  ]).test({
+  runPrettier(
+    "plugins/extensions",
+    [
+      "file.foo",
+      "--end-of-line",
+      "lf",
+      "--plugin=./plugin",
+      "--plugin-search-dir=."
+    ],
+    { ignoreLineEndings: true }
+  ).test({
     stdout: "!contents" + EOL,
     stderr: "",
     status: 0,
