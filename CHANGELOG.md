@@ -1,3 +1,9 @@
+# 1.15.1
+
+[diff](https://github.com/prettier/prettier/compare/1.15.0...1.15.1)
+
+- Markdown: do not keep increasing backslashes for dollar sign ([#5358](https://github.com/prettier/prettier/pull/5358))
+
 # 1.15.0
 
 [diff](https://github.com/prettier/prettier/compare/1.14.3...1.15.0)
@@ -64,7 +70,7 @@
 - Better handling of trailing spaces in Markdown ([#4593](https://github.com/prettier/prettier/pull/4593))
 - Fix empty file error in JSON and GraphQL ([#4553](https://github.com/prettier/prettier/pull/4553))
 - Preserve decorator on TypeScript interfaces ([#4632](https://github.com/prettier/prettier/pull/4632))
-- Inline \_ or \$ in the root of a method chain ([#4621](https://github.com/prettier/prettier/pull/4621))
+- Inline \_ or \\$ in the root of a method chain ([#4621](https://github.com/prettier/prettier/pull/4621))
 
 # 1.13.4
 
