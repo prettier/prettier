@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`dollar-sign.md - markdown-verify 1`] = `
+$
+
+\\$
+
+\\\\$
+
+\\\\\\$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\\$
+
+\\$
+
+\\\\\\$
+
+\\\\\\$
+
+`;
+
 exports[`empty-block.md - markdown-verify 1`] = `
 $$
 $$
@@ -107,7 +126,7 @@ $$
 
 ---
 
-\\\\$\\alpha\\$
+\\$\\alpha\\$
 
 ---
 
