@@ -231,8 +231,8 @@ exports[`align.md - markdown-verify 2`] = `
 
 ---
 
--   123
--   123
+- 123
+- 123
     1.  123
     2.  123
 
@@ -491,10 +491,10 @@ exports[`checkbox.md - markdown-verify 2`] = `
 - [ ] this is a long long long long long long long long long long long long long long paragraph.
 - [x] this is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--   [ ] this is a long long long long long long long long long long long long
-        long long paragraph.
--   [x] this is a long long long long long long long long long long long long
-        long long paragraph.
+- [ ] this is a long long long long long long long long long long long long long
+      long paragraph.
+- [x] this is a long long long long long long long long long long long long long
+      long paragraph.
 
 `;
 
@@ -869,17 +869,17 @@ exports[`indent.md - markdown-verify 2`] = `
 
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
+- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      a a a a a a a a a a a a a a a
 
-    -   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
 
-    -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a a
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+          a a a a a a a a a a a a a a a
 
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
@@ -1450,7 +1450,7 @@ exports[`interrupt.md - markdown-verify 2`] = `
 * Something
 ### Some heading
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--   Something
+- Something
 
 ### Some heading
 
@@ -1487,8 +1487,8 @@ exports[`long-paragraph.md - markdown-verify 1`] = `
 exports[`long-paragraph.md - markdown-verify 2`] = `
 - This is a long long long long long long long long long long long long long long paragraph.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--   This is a long long long long long long long long long long long long long
-    long paragraph.
+- This is a long long long long long long long long long long long long long
+  long paragraph.
 
 `;
 
@@ -1548,17 +1548,17 @@ exports[`loose.md - markdown-verify 2`] = `
 
   - ghi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--   123
+- 123
 
-    -   abc
+    - abc
 
--   456
+- 456
 
-    -   def
+    - def
 
--   789
+- 789
 
-    -   ghi
+    - ghi
 
 `;
 
@@ -1630,7 +1630,7 @@ exports[`multiline.md - markdown-verify 2`] = `
   456
   789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--   123 456 789
+- 123 456 789
 
 `;
 
@@ -1668,9 +1668,9 @@ exports[`nested.md - markdown-verify 2`] = `
   - Level 2
     - Level 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--   Level 1
-    -   Level 2
-        -   Level 3
+- Level 1
+    - Level 2
+        - Level 3
 
 `;
 
@@ -1742,20 +1742,20 @@ exports[`nested-checkbox.md - markdown-verify 2`] = `
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--   parent list item parent list item parent list item parent list item parent
-    list item parent list item
+- parent list item parent list item parent list item parent list item parent
+  list item parent list item
 
-    -   child list item child list item child list item child list item child
-        list item child list item
+    - child list item child list item child list item child list item child list
+      item child list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
 
--   [x] parent task list item parent task list item parent task list item parent
-        task list item
+- [x] parent task list item parent task list item parent task list item parent
+      task list item
 
-    -   [x] child task list item child task list item child task list item child
-            task list item
+    - [x] child task list item child task list item child task list item child
+          task list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
@@ -1900,13 +1900,13 @@ exports[`separate.md - markdown-verify 2`] = `
 * 123
 * 123
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--   123
--   123
--   123
+- 123
+- 123
+- 123
 
-*   123
-*   123
-*   123
+* 123
+* 123
+* 123
 
 `;
 
@@ -1964,9 +1964,9 @@ exports[`simple.md - markdown-verify 2`] = `
 - 456
 - 789
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--   123
--   456
--   789
+- 123
+- 456
+- 789
 
 `;
 
@@ -2033,5 +2033,57 @@ exports[`start.md - markdown-verify 4`] = `
 5. abc
 6. def
 7. ghi
+
+`;
+
+exports[`unordered.md - markdown-verify 1`] = `
+- A
+    - a
+    - b
+- B
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- A
+  - a
+  - b
+- B
+
+`;
+
+exports[`unordered.md - markdown-verify 2`] = `
+- A
+    - a
+    - b
+- B
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- A
+    - a
+    - b
+- B
+
+`;
+
+exports[`unordered.md - markdown-verify 3`] = `
+- A
+    - a
+    - b
+- B
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- A
+     - a
+     - b
+- B
+
+`;
+
+exports[`unordered.md - markdown-verify 4`] = `
+- A
+    - a
+    - b
+- B
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- A
+  - a
+  - b
+- B
 
 `;

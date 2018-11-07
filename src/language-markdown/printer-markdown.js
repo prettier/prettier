@@ -451,7 +451,7 @@ function alignListPrefix(prefix, options) {
   return (
     prefix +
     " ".repeat(
-      additionalSpaces >= 4 ? 0 : additionalSpaces // 4+ will cause indented code block
+      additionalSpaces >= 2 ? 0 : additionalSpaces // 4+ will cause indented code block
     )
   );
 
