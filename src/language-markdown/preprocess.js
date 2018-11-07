@@ -47,7 +47,7 @@ function restoreUnescapedCharacter(ast, options) {
           value:
             node.value !== "*" &&
             node.value !== "_" &&
-            node.value !== "$" && // handle these two cases in printer
+            node.value !== "$" && // handle these cases in printer
             isSingleCharRegex.test(node.value) &&
             node.position.end.offset - node.position.start.offset !==
               node.value.length
