@@ -120,6 +120,11 @@ it("does something quick", () => {
 
 it(
   'succeeds if the test finishes in time',
+  () => new Promise(resolve => setTimeout(resolve, 10))
+);
+
+it(
+  'succeeds if the test finishes in time',
   () => new Promise(resolve => setTimeout(resolve, 10)),
   250
 );
