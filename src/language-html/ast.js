@@ -99,8 +99,8 @@ function mapNodesIfChanged(nodes, fn) {
 }
 
 function cloneAndUpdateNodes(nodes, parent) {
-  const siblings = nodes.map(
-    node => (node instanceof Node ? node.clone() : new Node(node))
+  const siblings = nodes.map(node =>
+    node instanceof Node ? node.clone() : new Node(node)
   );
 
   let prev = null;

@@ -22,14 +22,14 @@ function makeAlign(ind, n, options) {
   return n === -Infinity
     ? ind.root || rootIndent()
     : n < 0
-      ? generateInd(ind, { type: "dedent" }, options)
-      : !n
-        ? ind
-        : n.type === "root"
-          ? Object.assign({}, ind, { root: ind })
-          : typeof n === "string"
-            ? generateInd(ind, { type: "stringAlign", n }, options)
-            : generateInd(ind, { type: "numberAlign", n }, options);
+    ? generateInd(ind, { type: "dedent" }, options)
+    : !n
+    ? ind
+    : n.type === "root"
+    ? Object.assign({}, ind, { root: ind })
+    : typeof n === "string"
+    ? generateInd(ind, { type: "stringAlign", n }, options)
+    : generateInd(ind, { type: "numberAlign", n }, options);
 }
 
 function generateInd(ind, newPart, options) {

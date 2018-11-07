@@ -308,23 +308,25 @@ function printGraphqlComments(lines) {
   const parts = [];
   let seenComment = false;
 
-  lines.map(textLine => textLine.trim()).forEach((textLine, i, array) => {
-    // Lines are either whitespace only, or a comment (with poential whitespace
-    // around it). Drop whitespace-only lines.
-    if (textLine === "") {
-      return;
-    }
+  lines
+    .map(textLine => textLine.trim())
+    .forEach((textLine, i, array) => {
+      // Lines are either whitespace only, or a comment (with poential whitespace
+      // around it). Drop whitespace-only lines.
+      if (textLine === "") {
+        return;
+      }
 
-    if (array[i - 1] === "" && seenComment) {
-      // If a non-first comment is preceded by a blank (whitespace only) line,
-      // add in a blank line.
-      parts.push(concat([hardline, textLine]));
-    } else {
-      parts.push(textLine);
-    }
+      if (array[i - 1] === "" && seenComment) {
+        // If a non-first comment is preceded by a blank (whitespace only) line,
+        // add in a blank line.
+        parts.push(concat([hardline, textLine]));
+      } else {
+        parts.push(textLine);
+      }
 
-    seenComment = true;
-  });
+      seenComment = true;
+    });
 
   // If `lines` was whitespace only, return `null`.
   return parts.length === 0 ? null : join(hardline, parts);
@@ -572,11 +574,10 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
   );
 
   const text = node.quasis
-    .map(
-      (quasi, index, quasis) =>
-        index === quasis.length - 1
-          ? quasi.value.raw
-          : quasi.value.raw + placeholders[index]
+    .map((quasi, index, quasis) =>
+      index === quasis.length - 1
+        ? quasi.value.raw
+        : quasi.value.raw + placeholders[index]
     )
     .join("");
 

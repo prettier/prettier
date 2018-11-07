@@ -195,12 +195,10 @@ function replaceNewlines(text, replacement) {
 }
 
 function replaceDocNewlines(doc, replacement) {
-  return mapDoc(
-    doc,
-    currentDoc =>
-      typeof currentDoc === "string" && currentDoc.includes("\n")
-        ? concat(replaceNewlines(currentDoc, replacement))
-        : currentDoc
+  return mapDoc(doc, currentDoc =>
+    typeof currentDoc === "string" && currentDoc.includes("\n")
+      ? concat(replaceNewlines(currentDoc, replacement))
+      : currentDoc
   );
 }
 

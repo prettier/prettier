@@ -47,8 +47,8 @@ function concat(parts) {
   return newParts.length === 0
     ? ""
     : newParts.length === 1
-      ? newParts[0]
-      : builders.concat(newParts);
+    ? newParts[0]
+    : builders.concat(newParts);
 }
 
 function embed(path, print, textToDoc, options) {
@@ -81,8 +81,8 @@ function embed(path, print, textToDoc, options) {
                 options.parser === "angular"
                   ? { parser: "__ng_interpolation", trailingComma: "none" }
                   : options.parser === "vue"
-                    ? { parser: "__vue_expression" }
-                    : { parser: "__js_expression" }
+                  ? { parser: "__vue_expression" }
+                  : { parser: "__js_expression" }
               )
             ])
           ),
@@ -110,9 +110,8 @@ function embed(path, print, textToDoc, options) {
         return concat([
           node.rawName,
           '="',
-          mapDoc(
-            embeddedAttributeValueDoc,
-            doc => (typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc)
+          mapDoc(embeddedAttributeValueDoc, doc =>
+            typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
           ),
           '"'
         ]);
@@ -193,21 +192,21 @@ function genericPrint(path, options, print) {
                       : isScriptLikeTag(node) &&
                         node.parent.type === "root" &&
                         options.parser === "vue"
-                        ? childrenDoc
-                        : indent(childrenDoc))(
+                      ? childrenDoc
+                      : indent(childrenDoc))(
                     concat([
                       shouldHugContent
                         ? ifBreak(softline, "", { groupId: attrGroupId })
                         : node.firstChild.type === "text" &&
                           node.firstChild.isWhitespaceSensitive &&
                           node.firstChild.isIndentationSensitive
-                          ? node.firstChild.value.indexOf("\n") === -1
-                            ? ""
-                            : literalline
-                          : node.firstChild.hasLeadingSpaces &&
-                            node.firstChild.isLeadingSpaceSensitive
-                            ? line
-                            : softline,
+                        ? node.firstChild.value.indexOf("\n") === -1
+                          ? ""
+                          : literalline
+                        : node.firstChild.hasLeadingSpaces &&
+                          node.firstChild.isLeadingSpaceSensitive
+                        ? line
+                        : softline,
                       printChildren(path, options, print)
                     ])
                   ),
@@ -219,31 +218,31 @@ function genericPrint(path, options, print) {
                       ? " "
                       : ""
                     : shouldHugContent
-                      ? ifBreak(softline, "", { groupId: attrGroupId })
-                      : node.lastChild.hasTrailingSpaces &&
-                        node.lastChild.isTrailingSpaceSensitive
-                        ? line
-                        : node.type === "element" &&
-                          isPreLikeNode(node) &&
-                          node.lastChild.type === "text" &&
-                          (node.lastChild.value.indexOf("\n") === -1 ||
-                            new RegExp(
-                              `\\n\\s{${options.tabWidth *
-                                countParents(
-                                  path,
-                                  n => n.parent && n.parent.type !== "root"
-                                )}}$`
-                            ).test(node.lastChild.value))
-                          ? /**
-                             *     <div>
-                             *       <pre>
-                             *         something
-                             *       </pre>
-                             *            ~
-                             *     </div>
-                             */
-                            ""
-                          : softline
+                    ? ifBreak(softline, "", { groupId: attrGroupId })
+                    : node.lastChild.hasTrailingSpaces &&
+                      node.lastChild.isTrailingSpaceSensitive
+                    ? line
+                    : node.type === "element" &&
+                      isPreLikeNode(node) &&
+                      node.lastChild.type === "text" &&
+                      (node.lastChild.value.indexOf("\n") === -1 ||
+                        new RegExp(
+                          `\\n\\s{${options.tabWidth *
+                            countParents(
+                              path,
+                              n => n.parent && n.parent.type !== "root"
+                            )}}$`
+                        ).test(node.lastChild.value))
+                    ? /**
+                       *     <div>
+                       *       <pre>
+                       *         something
+                       *       </pre>
+                       *            ~
+                       *     </div>
+                       */
+                      ""
+                    : softline
                 ])
           ])
         ),
@@ -504,10 +503,10 @@ function printChildren(path, options, print) {
           needsToBorrowParentClosingTagStartMarker(
             prevNode.lastChild.lastChild
           ))
-        ? hardline
-        : nextNode.hasLeadingSpaces
-          ? line
-          : softline;
+      ? hardline
+      : nextNode.hasLeadingSpaces
+      ? line
+      : softline;
   }
 }
 
@@ -540,9 +539,8 @@ function printOpeningTag(path, options, print) {
                     typeof ignoreAttributeData === "boolean"
                       ? () => ignoreAttributeData
                       : Array.isArray(ignoreAttributeData)
-                        ? attr =>
-                            ignoreAttributeData.indexOf(attr.rawName) !== -1
-                        : () => false;
+                      ? attr => ignoreAttributeData.indexOf(attr.rawName) !== -1
+                      : () => false;
                   return path.map(attrPath => {
                     const attr = attrPath.getValue();
                     return hasPrettierIgnoreAttribute(attr)
@@ -578,12 +576,12 @@ function printOpeningTag(path, options, print) {
             needsToBorrowLastChildClosingTagEndMarker(node.parent))
             ? ""
             : node.isSelfClosing
-              ? forceNotToBreakAttrContent
-                ? " "
-                : line
-              : forceNotToBreakAttrContent
-                ? ""
-                : softline
+            ? forceNotToBreakAttrContent
+              ? " "
+              : line
+            : forceNotToBreakAttrContent
+            ? ""
+            : softline
         ]),
     node.isSelfClosing ? "" : printOpeningTagEnd(node)
   ]);
@@ -704,8 +702,8 @@ function printOpeningTagPrefix(node) {
   return needsToBorrowParentOpeningTagEndMarker(node)
     ? printOpeningTagEndMarker(node.parent)
     : needsToBorrowPrevClosingTagEndMarker(node)
-      ? printClosingTagEndMarker(node.prev)
-      : "";
+    ? printClosingTagEndMarker(node.prev)
+    : "";
 }
 
 function printClosingTagPrefix(node) {
@@ -718,8 +716,8 @@ function printClosingTagSuffix(node) {
   return needsToBorrowParentClosingTagStartMarker(node)
     ? printClosingTagStartMarker(node.parent)
     : needsToBorrowNextOpeningTagStartMarker(node)
-      ? printOpeningTagStartMarker(node.next)
-      : "";
+    ? printOpeningTagStartMarker(node.next)
+    : "";
 }
 
 function printOpeningTagStartMarker(node) {
@@ -804,8 +802,8 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
           ? root.node.body[0].expression
           : root.node
         : root.type === "JsExpressionRoot"
-          ? root.node
-          : root;
+        ? root.node
+        : root;
     if (
       rootNode &&
       (rootNode.type === "ObjectExpression" ||

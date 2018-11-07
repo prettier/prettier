@@ -194,27 +194,25 @@ function splitWithSingleSpace(text) {
 function getFlowScalarLineContents(nodeType, content, options) {
   const rawLineContents = content
     .split("\n")
-    .map(
-      (lineContent, index, lineContents) =>
-        index === 0 && index === lineContents.length - 1
-          ? lineContent
-          : index !== 0 && index !== lineContents.length - 1
-            ? lineContent.trim()
-            : index === 0
-              ? lineContent.trimRight()
-              : lineContent.trimLeft()
+    .map((lineContent, index, lineContents) =>
+      index === 0 && index === lineContents.length - 1
+        ? lineContent
+        : index !== 0 && index !== lineContents.length - 1
+        ? lineContent.trim()
+        : index === 0
+        ? lineContent.trimRight()
+        : lineContent.trimLeft()
     );
 
   if (options.proseWrap === "preserve") {
-    return rawLineContents.map(
-      lineContent => (lineContent.length === 0 ? [] : [lineContent])
+    return rawLineContents.map(lineContent =>
+      lineContent.length === 0 ? [] : [lineContent]
     );
   }
 
   return rawLineContents
-    .map(
-      lineContent =>
-        lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent)
+    .map(lineContent =>
+      lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent)
     )
     .reduce(
       (reduced, lineContentWords, index) =>
@@ -227,11 +225,10 @@ function getFlowScalarLineContents(nodeType, content, options) {
           : reduced.concat([lineContentWords]),
       []
     )
-    .map(
-      lineContentWords =>
-        options.proseWrap === "never"
-          ? [lineContentWords.join(" ")]
-          : lineContentWords
+    .map(lineContentWords =>
+      options.proseWrap === "never"
+        ? [lineContentWords.join(" ")]
+        : lineContentWords
     );
 }
 
@@ -260,17 +257,16 @@ function getBlockValueLineContents(
 
   if (options.proseWrap === "preserve" || node.type === "blockLiteral") {
     return removeUnnecessaryTrailingNewlines(
-      rawLineContents.map(
-        lineContent => (lineContent.length === 0 ? [] : [lineContent])
+      rawLineContents.map(lineContent =>
+        lineContent.length === 0 ? [] : [lineContent]
       )
     );
   }
 
   return removeUnnecessaryTrailingNewlines(
     rawLineContents
-      .map(
-        lineContent =>
-          lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent)
+      .map(lineContent =>
+        lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent)
       )
       .reduce(
         (reduced, lineContentWords, index) =>
@@ -293,11 +289,10 @@ function getBlockValueLineContents(
           []
         )
       )
-      .map(
-        lineContentWords =>
-          options.proseWrap === "never"
-            ? [lineContentWords.join(" ")]
-            : lineContentWords
+      .map(lineContentWords =>
+        options.proseWrap === "never"
+          ? [lineContentWords.join(" ")]
+          : lineContentWords
       )
   );
 
@@ -320,9 +315,9 @@ function getBlockValueLineContents(
     return trailingNewlineCount === 0
       ? lineContents
       : trailingNewlineCount >= 2 && !isLastDescendant
-        ? // next empty line
-          lineContents.slice(0, -(trailingNewlineCount - 1))
-        : lineContents.slice(0, -trailingNewlineCount);
+      ? // next empty line
+        lineContents.slice(0, -(trailingNewlineCount - 1))
+      : lineContents.slice(0, -trailingNewlineCount);
   }
 }
 

@@ -11,10 +11,10 @@ const cliDescriptor = {
     value === false
       ? `--no-${key}`
       : value === true
-        ? cliDescriptor.key(key)
-        : value === ""
-          ? `${cliDescriptor.key(key)} without an argument`
-          : `${cliDescriptor.key(key)}=${value}`
+      ? cliDescriptor.key(key)
+      : value === ""
+      ? `${cliDescriptor.key(key)} without an argument`
+      : `${cliDescriptor.key(key)}=${value}`
 };
 
 class FlagSchema extends vnopts.ChoiceSchema {
@@ -54,9 +54,9 @@ function normalizeOptions(
   const unknown = !passThrough
     ? vnopts.levenUnknownHandler
     : Array.isArray(passThrough)
-      ? (key, value) =>
-          passThrough.indexOf(key) === -1 ? undefined : { [key]: value }
-      : (key, value) => ({ [key]: value });
+    ? (key, value) =>
+        passThrough.indexOf(key) === -1 ? undefined : { [key]: value }
+    : (key, value) => ({ [key]: value });
 
   const descriptor = isCLI ? cliDescriptor : vnopts.apiDescriptor;
   const schemas = optionInfosToSchemas(optionInfos, { isCLI });
@@ -100,15 +100,14 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
       break;
     case "choice":
       SchemaConstructor = vnopts.ChoiceSchema;
-      parameters.choices = optionInfo.choices.map(
-        choiceInfo =>
-          typeof choiceInfo === "object" && choiceInfo.redirect
-            ? Object.assign({}, choiceInfo, {
-                redirect: {
-                  to: { key: optionInfo.name, value: choiceInfo.redirect }
-                }
-              })
-            : choiceInfo
+      parameters.choices = optionInfo.choices.map(choiceInfo =>
+        typeof choiceInfo === "object" && choiceInfo.redirect
+          ? Object.assign({}, choiceInfo, {
+              redirect: {
+                to: { key: optionInfo.name, value: choiceInfo.redirect }
+              }
+            })
+          : choiceInfo
       );
       break;
     case "boolean":

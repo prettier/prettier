@@ -308,7 +308,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
         : wrap(path.call(print, operatorOptions.consequentNodePropertyName)),
       " : ",
       alternateNode.type === operatorOptions.conditionalNodeType ||
-      isNull(alternateNode)
+        isNull(alternateNode)
         ? path.call(print, operatorOptions.alternateNodePropertyName)
         : wrap(path.call(print, operatorOptions.alternateNodePropertyName))
     );
@@ -332,11 +332,11 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     ]);
     parts.push(
       parent.type !== operatorOptions.conditionalNodeType ||
-      parent[operatorOptions.alternateNodePropertyName] === node
+        parent[operatorOptions.alternateNodePropertyName] === node
         ? part
         : options.useTabs
-          ? dedent(indent(part))
-          : align(Math.max(0, options.tabWidth - 2), part)
+        ? dedent(indent(part))
+        : align(Math.max(0, options.tabWidth - 2), part)
     );
   }
 
@@ -1281,8 +1281,8 @@ function printPathNoParens(path, options, print, args) {
       const separator = isFlowInterfaceLikeBody
         ? ";"
         : n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
-          ? ifBreak(semi, ";")
-          : ",";
+        ? ifBreak(semi, ";")
+        : ",";
       const leftBrace = n.exact ? "{|" : "{";
       const rightBrace = n.exact ? "|}" : "}";
 
@@ -1302,21 +1302,23 @@ function printPathNoParens(path, options, print, args) {
       });
 
       let separatorParts = [];
-      const props = propsAndLoc.sort((a, b) => a.loc - b.loc).map(prop => {
-        const result = concat(separatorParts.concat(group(prop.printed)));
-        separatorParts = [separator, line];
-        if (
-          (prop.node.type === "TSPropertySignature" ||
-            prop.node.type === "TSMethodSignature") &&
-          hasNodeIgnoreComment(prop.node)
-        ) {
-          separatorParts.shift();
-        }
-        if (isNextLineEmpty(options.originalText, prop.node, options)) {
-          separatorParts.push(hardline);
-        }
-        return result;
-      });
+      const props = propsAndLoc
+        .sort((a, b) => a.loc - b.loc)
+        .map(prop => {
+          const result = concat(separatorParts.concat(group(prop.printed)));
+          separatorParts = [separator, line];
+          if (
+            (prop.node.type === "TSPropertySignature" ||
+              prop.node.type === "TSMethodSignature") &&
+            hasNodeIgnoreComment(prop.node)
+          ) {
+            separatorParts.shift();
+          }
+          if (isNextLineEmpty(options.originalText, prop.node, options)) {
+            separatorParts.push(hardline);
+          }
+          return result;
+        });
 
       if (n.inexact) {
         props.push(concat(separatorParts.concat(group("..."))));
@@ -1355,7 +1357,7 @@ function printPathNoParens(path, options, print, args) {
           ),
           ifBreak(
             canHaveTrailingSeparator &&
-            (separator !== "," || shouldPrintComma(options))
+              (separator !== "," || shouldPrintComma(options))
               ? separator
               : ""
           ),
@@ -1479,8 +1481,8 @@ function printPathNoParens(path, options, print, args) {
               needsForcedTrailingComma ? "," : "",
               ifBreak(
                 canHaveTrailingComma &&
-                !needsForcedTrailingComma &&
-                shouldPrintComma(options)
+                  !needsForcedTrailingComma &&
+                  shouldPrintComma(options)
                   ? ","
                   : ""
               ),
@@ -1998,22 +2000,25 @@ function printPathNoParens(path, options, print, args) {
     case "JSXSpreadChild": {
       return concat([
         "{",
-        path.call(p => {
-          const printed = concat(["...", print(p)]);
-          const n = p.getValue();
-          if (!n.comments || !n.comments.length) {
-            return printed;
-          }
-          return concat([
-            indent(
-              concat([
-                softline,
-                comments.printComments(p, () => printed, options)
-              ])
-            ),
-            softline
-          ]);
-        }, n.type === "JSXSpreadAttribute" ? "argument" : "expression"),
+        path.call(
+          p => {
+            const printed = concat(["...", print(p)]);
+            const n = p.getValue();
+            if (!n.comments || !n.comments.length) {
+              return printed;
+            }
+            return concat([
+              indent(
+                concat([
+                  softline,
+                  comments.printComments(p, () => printed, options)
+                ])
+              ),
+              softline
+            ]);
+          },
+          n.type === "JSXSpreadAttribute" ? "argument" : "expression"
+        ),
         "}"
       ]);
     }
@@ -2179,8 +2184,8 @@ function printPathNoParens(path, options, print, args) {
             hasOwnLineComment
               ? hardline
               : hasComment && !isOpeningFragment
-                ? " "
-                : "",
+              ? " "
+              : "",
             comments.printDanglingComments(path, options, true)
           ])
         ),
@@ -2362,14 +2367,16 @@ function printPathNoParens(path, options, print, args) {
           const table = [{ cells: headerNames }].concat(
             tableBody.filter(row => row.cells.length !== 0)
           );
-          table.filter(row => !row.hasLineBreak).forEach(row => {
-            row.cells.forEach((cell, index) => {
-              maxColumnWidths[index] = Math.max(
-                maxColumnWidths[index],
-                getStringWidth(cell)
-              );
+          table
+            .filter(row => !row.hasLineBreak)
+            .forEach(row => {
+              row.cells.forEach((cell, index) => {
+                maxColumnWidths[index] = Math.max(
+                  maxColumnWidths[index],
+                  getStringWidth(cell)
+                );
+              });
             });
-          });
 
           parts.push(
             "`",
@@ -2381,14 +2388,13 @@ function printPathNoParens(path, options, print, args) {
                   table.map(row =>
                     join(
                       " | ",
-                      row.cells.map(
-                        (cell, index) =>
-                          row.hasLineBreak
-                            ? cell
-                            : cell +
-                              " ".repeat(
-                                maxColumnWidths[index] - getStringWidth(cell)
-                              )
+                      row.cells.map((cell, index) =>
+                        row.hasLineBreak
+                          ? cell
+                          : cell +
+                            " ".repeat(
+                              maxColumnWidths[index] - getStringWidth(cell)
+                            )
                       )
                     )
                   )
@@ -3458,8 +3464,8 @@ function printPathNoParens(path, options, print, args) {
               index === 0
                 ? ""
                 : isNgForOf(childPath)
-                  ? " "
-                  : concat([";", line]),
+                ? " "
+                : concat([";", line]),
               print(childPath)
             ]),
           "body"
@@ -6359,11 +6365,10 @@ function printIndentableBlockComment(comment) {
     "/*",
     join(
       hardline,
-      lines.map(
-        (line, index) =>
-          index === 0
-            ? line.trimRight()
-            : " " + (index < lines.length - 1 ? line.trim() : line.trimLeft())
+      lines.map((line, index) =>
+        index === 0
+          ? line.trimRight()
+          : " " + (index < lines.length - 1 ? line.trim() : line.trimLeft())
       )
     ),
     "*/"

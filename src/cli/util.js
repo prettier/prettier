@@ -25,13 +25,15 @@ const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 function getOptions(argv, detailedOptions) {
-  return detailedOptions.filter(option => option.forwardToApi).reduce(
-    (current, option) =>
-      Object.assign(current, {
-        [option.forwardToApi]: argv[option.name]
-      }),
-    {}
-  );
+  return detailedOptions
+    .filter(option => option.forwardToApi)
+    .reduce(
+      (current, option) =>
+        Object.assign(current, {
+          [option.forwardToApi]: argv[option.name]
+        }),
+      {}
+    );
 }
 
 function cliifyOptions(object, apiDetailedOptionMap) {

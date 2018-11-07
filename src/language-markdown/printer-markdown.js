@@ -70,13 +70,12 @@ function genericPrint(path, options, print) {
           node.position.end.offset
         ),
         options
-      ).map(
-        node =>
-          node.type === "word"
-            ? node.value
-            : node.value === ""
-              ? ""
-              : printLine(path, node.value, options)
+      ).map(node =>
+        node.type === "word"
+          ? node.value
+          : node.value === ""
+          ? ""
+          : printLine(path, node.value, options)
       )
     );
   }
@@ -281,12 +280,12 @@ function genericPrint(path, options, print) {
               ? (index === 0
                   ? node.start
                   : isGitDiffFriendlyOrderedList
-                    ? 1
-                    : node.start + index) +
+                  ? 1
+                  : node.start + index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
-                ? "- "
-                : "* ";
+              ? "- "
+              : "* ";
 
             return node.isAligned ||
               /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
@@ -315,8 +314,8 @@ function genericPrint(path, options, print) {
         node.referenceType === "full"
           ? concat(["[", node.identifier, "]"])
           : node.referenceType === "collapsed"
-            ? "[]"
-            : ""
+          ? "[]"
+          : ""
       ]);
     case "imageReference":
       switch (node.referenceType) {
@@ -524,8 +523,8 @@ function printLine(path, value, options) {
       ? line
       : " "
     : isBreakable
-      ? softline
-      : "";
+    ? softline
+    : "";
 }
 
 function printTable(path, options, print) {
@@ -868,10 +867,10 @@ function printTitle(title, options, printSpace) {
     singleCount > doubleCount
       ? '"'
       : doubleCount > singleCount
-        ? "'"
-        : options.singleQuote
-          ? "'"
-          : '"';
+      ? "'"
+      : options.singleQuote
+      ? "'"
+      : '"';
   title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
   return `${quote}${title}${quote}`;
 }
