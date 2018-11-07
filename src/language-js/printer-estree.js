@@ -98,6 +98,7 @@ function genericPrint(path, options, printPath, args) {
 
   const parentExportDecl = getParentExportDeclaration(path);
   const decorators = [];
+  let shouldBreakDecorators = false;
   if (
     node.decorators &&
     node.decorators.length > 0 &&
@@ -110,19 +111,20 @@ function genericPrint(path, options, printPath, args) {
         options.locStart(node.decorators[0])
     )
   ) {
-    const shouldBreak =
+    if (
+      node.type === "ClassExpression" ||
       node.type === "ClassDeclaration" ||
       hasNewlineInRange(
         options.originalText,
         options.locStart(node.decorators[0]),
         options.locEnd(getLast(node.decorators))
       ) ||
-      hasNewline(
-        options.originalText,
-        options.locEnd(getLast(node.decorators))
-      );
+      hasNewline(options.originalText, options.locEnd(getLast(node.decorators)))
+    ) {
+      shouldBreakDecorators = true;
+    }
 
-    const separator = shouldBreak ? hardline : line;
+    const separator = shouldBreakDecorators ? hardline : line;
 
     path.each(decoratorPath => {
       let decorator = decoratorPath.getValue();
@@ -185,7 +187,9 @@ function genericPrint(path, options, printPath, args) {
   }
 
   if (decorators.length > 0) {
-    return group(concat(decorators.concat(parts)));
+    return !shouldBreakDecorators && willBreak(concat(parts))
+      ? group(concat([group(concat(decorators)), concat(parts)]))
+      : group(concat(decorators.concat(parts)));
   }
   return concat(parts);
 }
