@@ -1,0 +1,90 @@
+trigger:
+- master
+- releases/*
+
+jobs:
+
+# Test production bundle on Linux using Node 4
+- job: prod_linux_node_4
+  displayName: Test production bundle (Linux, node 4)
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  variables:
+    node_version: 4.x
+  steps:
+  - template: azure-pipelines/production-bundle.yml
+
+# Test production bundle on Linux using Node 9
+- job: prod_linux_node_9
+  displayName: Test production bundle (Linux, node 9)
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  variables:
+    node_version: 9.x
+    report_summaries: true
+  steps:
+  - template: azure-pipelines/production-bundle.yml
+
+# Build and test on Windows using Node 8
+- job: build_all_windows
+  displayName: Run tests using Node 8 (Windows)
+  pool:
+    vmImage: vs2017-win2016
+  variables:
+    node_version: 8.x
+    report_summaries: true
+  steps:
+  - template: azure-pipelines/run-tests.yml
+
+# Build and test on macOS using Node 8
+- job: build_all_darwin
+  displayName: Run tests using Node 8 (macOS)
+  pool:
+    vmImage: macos-10.13
+  variables:
+    node_version: 8.x
+    report_summaries: true
+  steps:
+  - template: azure-pipelines/run-tests.yml
+
+# Build and test on Linux using Node 8
+- job: build_all_linux_node_8
+  displayName: Run tests using Node 8 (Linux)
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  variables:
+    node_version: 8.x
+    report_summaries: true
+  steps:
+  - template: azure-pipelines/run-tests.yml
+
+# Build and test on Linux using Node 11
+- job: build_all_linux_node_11
+  displayName: Run tests using Node 11 (Linux)
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  variables:
+    node_version: 11.x
+    report_summaries: true
+  steps:
+  - template: azure-pipelines/run-tests.yml
+
+# Lint checks on Linux
+- job: lint_linux
+  displayName: Lint (Linux)
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '8.x'
+    displayName: 'Install Node.js'
+
+  - script: yarn install
+    displayName: 'yarn install'
+
+  - script: yarn lint
+    displayName: 'Lint code'
+
+  - script: yarn lint-docs
+    displayName: 'Lint docs'
