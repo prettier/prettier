@@ -117,15 +117,8 @@ var parsers = {
   },
   // Vue
   get vue() {
-    // TODO(1.15): remove this workaround
-    // parser-vue is replaced by parser-html in 1.15+
-    try {
-      importScriptOnce("lib/parser-vue.js");
-      return prettierPlugins.vue.parsers.vue;
-    } catch (e) {
-      importScriptOnce("lib/parser-html.js");
-      return prettierPlugins.html.parsers.vue;
-    }
+    importScriptOnce("lib/parser-html.js");
+    return prettierPlugins.html.parsers.vue;
   },
   // Angular
   get angular() {

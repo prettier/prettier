@@ -6,8 +6,14 @@
   - "[`JSX`](https://facebook.github.io/jsx/)"
   - "[`Flow`](https://flow.org/)"
   - "[`TypeScript`](https://www.typescriptlang.org/)"
-  - "[`Vue`](https://vuejs.org/)"
   - "[`JSON`](http://json.org/)"
+- name: HTML
+  showName: false
+  image: /images/languages/tools_html.svg
+  variants:
+  - "`HTML5`"
+  - "[`Vue`](https://vuejs.org/)"
+  - "[`Angular`](https://angular.io/)"
 - name: CSS
   showName: false
   image: /images/languages/tools_css.svg

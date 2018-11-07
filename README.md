@@ -4,19 +4,33 @@
 
 <p align="center">
   <em>
-  JavaScript
-  · Flow
-  · TypeScript
-  · CSS
-  · SCSS
-  · Less
-  · JSX
-  · Vue
-  · GraphQL
-  · JSON
-  · Markdown
-  · YAML
-  · <a href="https://prettier.io/docs/en/plugins.html">
+    JavaScript
+    · TypeScript
+    · Flow
+    · JSX
+    · JSON
+  </em>
+  <br />
+  <em>
+    CSS
+    · SCSS
+    · Less
+  </em>
+  <br />
+  <em>
+    HTML
+    · Vue
+    · Angular
+  </em>
+  <br />
+  <em>
+    GraphQL
+    · Markdown
+    · YAML
+  </em>
+  <br />
+  <em>
+    <a href="https://prettier.io/docs/en/plugins.html">
       Your favorite language?
     </a>
   </em>
