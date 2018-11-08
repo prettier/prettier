@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`allow overriding flags (stderr) 1`] = `
-"[error] Invalid --tab-width value. Expected an integer, but received null.
-"
-`;
-
-exports[`allow overriding flags (stdout) 1`] = `""`;
+exports[`allow overriding flags (stderr) 1`] = `""`;
 
 exports[`allow overriding flags (write) 1`] = `Array []`;
 
