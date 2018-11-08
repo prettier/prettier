@@ -1,4 +1,3 @@
 # Make sure baseline files have consistent line endings
-*.txt text eol=lf
 *.snap text eol=lf
 *.debug-check text eol=lf

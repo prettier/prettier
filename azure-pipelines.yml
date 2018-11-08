@@ -9,24 +9,17 @@ jobs:
   displayName: Test production bundle (Linux, node 4)
   pool:
     vmImage: 'Ubuntu 16.04'
-  variables:
-    node_version: 4.x
+  strategy:
+    matrix:
+      Production Bundle Node 4 (Linux):
+        node.version: '4.x'
+      Production Bundle Node 9 (Linux):
+        node.version: '9.x'
   steps:
   - template: azure-pipelines/production-bundle.yml
 
-# Test production bundle on Linux using Node 9
-- job: prod_linux_node_9
-  displayName: Test production bundle (Linux, node 9)
-  pool:
-    vmImage: 'Ubuntu 16.04'
-  variables:
-    node_version: 9.x
-    report_summaries: true
-  steps:
-  - template: azure-pipelines/production-bundle.yml
-
-# Build and test on Windows using Node 8
-- job: build_all_windows
+# Build and test on Windows
+- job: Test(Windows)
   displayName: Run tests using Node 8 (Windows)
   pool:
     vmImage: vs2017-win2016
@@ -36,8 +29,8 @@ jobs:
   steps:
   - template: azure-pipelines/run-tests.yml
 
-# Build and test on macOS using Node 8
-- job: build_all_darwin
+# Build and test on macOS
+- job: Test(macOS)
   displayName: Run tests using Node 8 (macOS)
   pool:
     vmImage: macos-10.13
@@ -47,24 +40,17 @@ jobs:
   steps:
   - template: azure-pipelines/run-tests.yml
 
-# Build and test on Linux using Node 8
-- job: build_all_linux_node_8
-  displayName: Run tests using Node 8 (Linux)
+# Build and test on Linux
+- job: 'Test(Linux)'
   pool:
     vmImage: 'Ubuntu 16.04'
+  strategy:
+    matrix:
+      Run tests using Node 8 (Linux):
+        node.version: '8.x'
+      Production Bundle Node 11 (Linux):
+        node.version: '11.x'
   variables:
-    node_version: 8.x
-    report_summaries: true
-  steps:
-  - template: azure-pipelines/run-tests.yml
-
-# Build and test on Linux using Node 11
-- job: build_all_linux_node_11
-  displayName: Run tests using Node 11 (Linux)
-  pool:
-    vmImage: 'Ubuntu 16.04'
-  variables:
-    node_version: 11.x
     report_summaries: true
   steps:
   - template: azure-pipelines/run-tests.yml

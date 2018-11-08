@@ -21,8 +21,8 @@ module.exports = {
     .concat(isOldNode ? requiresPrettierInternals : [])
     .concat(
       require("os").EOL == "\n"
-        ? ["tests_integration/__tests__/windows_only.js"]
-        : ["tests_integration/__tests__/unix_only.js"]
+        ? ["tests_integration/__tests__/eol-crlf.js"]
+        : ["tests_integration/__tests__/eol-lf.js"]
     ),
   collectCoverage: ENABLE_COVERAGE,
   collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
