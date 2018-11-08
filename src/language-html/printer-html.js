@@ -200,7 +200,11 @@ function genericPrint(path, options, print) {
                         : node.firstChild.type === "text" &&
                           node.firstChild.isWhitespaceSensitive &&
                           node.firstChild.isIndentationSensitive
-                        ? node.firstChild.value.indexOf("\n") === -1
+                        ? (node.children.length === 1 &&
+                            node.firstChild.type === "text" &&
+                            node.firstChild.value.indexOf("\n") === -1) ||
+                          node.firstChild.sourceSpan.start.line ===
+                            node.lastChild.sourceSpan.end.line
                           ? ""
                           : literalline
                         : node.firstChild.hasLeadingSpaces &&
