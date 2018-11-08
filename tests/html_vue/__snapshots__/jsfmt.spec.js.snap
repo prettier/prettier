@@ -1148,7 +1148,9 @@ exports[`template-lang.vue - vue-verify 1`] = `
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template lang="pug">
-  .test #foo .bla
+  .test
+    #foo
+  .bla
 </template>
 
 `;
@@ -1161,7 +1163,9 @@ exports[`template-lang.vue - vue-verify 2`] = `
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template lang="pug">
-  .test #foo .bla
+  .test
+    #foo
+  .bla
 </template>
 
 `;

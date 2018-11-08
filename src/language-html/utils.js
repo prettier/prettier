@@ -40,6 +40,15 @@ function hasPrettierIgnore(path) {
     return false;
   }
 
+  if (
+    node.type === "element" &&
+    node.fullName === "template" &&
+    node.attrMap.lang &&
+    node.attrMap.lang !== "html"
+  ) {
+    return true;
+  }
+
   // TODO: handle non-text children in <pre>
   if (
     isPreLikeNode(node) &&
