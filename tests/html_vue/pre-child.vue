@@ -26,3 +26,16 @@
     <code class="d-block">{{ code }}</code>
   </pre>
 </template>
+
+<template>
+<pre class='woot'>
+  {{ stuff }}
+  </pre>
+</template>
+
+<template>
+<pre class='woot'>
+  123{{ wqeqwwqwqweqweqwewwq || wqeqwwqwqweqweqwewwq || wqeqwwqwqweqweqwewwq || wqeqwwqwqweqweqwewwq }}123
+  123{{ wqeqwwqwqweqweqwewwq || wqeqwwqwqweqweqwewwq || wqeqwwqwqweqweqwewwq || wqeqwwqwqweqweqwewwq }}123
+    </pre>
+</template>
