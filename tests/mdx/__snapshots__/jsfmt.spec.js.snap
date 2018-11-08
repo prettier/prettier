@@ -198,6 +198,48 @@ exports[`jsx.mdx - mdx-verify 2`] = `
 
 `;
 
+exports[`jsx-codeblock.mdx - mdx-verify 1`] = `
+\`\`\`jsx
+<div>foo</div>
+\`\`\`
+
+\`\`\`jsx
+const a = 1;
+<div>foo</div>;
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`\`\`jsx
+<div>foo</div>;
+\`\`\`
+
+\`\`\`jsx
+const a = 1;
+<div>foo</div>;
+\`\`\`
+
+`;
+
+exports[`jsx-codeblock.mdx - mdx-verify 2`] = `
+\`\`\`jsx
+<div>foo</div>
+\`\`\`
+
+\`\`\`jsx
+const a = 1;
+<div>foo</div>;
+\`\`\`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\`\`\`jsx
+;<div>foo</div>
+\`\`\`
+
+\`\`\`jsx
+const a = 1
+;<div>foo</div>
+\`\`\`
+
+`;
+
 exports[`mixed.mdx - mdx-verify 1`] = `
 import     {     Baz } from     './Fixture'
 import { Buz  }   from './Fixture'
