@@ -190,9 +190,9 @@ exports[`attributes.component.html - angular-verify 1`] = `
   [error]="'We couldn\\\\\\'t find anything with that name.'"
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
-    '-success\\': ': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
-    '-warning\\': ': (dialog$ | async).level === dialogLevelEnum.WARNING,
-    '-svg\\': ': (dialog$ | async).level === dialogLevelEnum.DANGER
+    'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
+    'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
+    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
 ></div>
 
@@ -388,9 +388,9 @@ exports[`attributes.component.html - angular-verify 2`] = `
   [error]="'We couldn\\\\\\'t find anything with that name.'"
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
-    '-success\\': ': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
-    '-warning\\': ': (dialog$ | async).level === dialogLevelEnum.WARNING,
-    '-svg\\': ': (dialog$ | async).level === dialogLevelEnum.DANGER
+    'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
+    'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
+    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
 ></div>
 
@@ -790,21 +790,21 @@ exports[`attributes.component.html - angular-verify 3`] = `
       .min
   "
   [ngClass]="{
-    '-success\\': ':
+    'btn-success':
       (
         dialog$
         | async
       )
         .level ===
       dialogLevelEnum.SUCCESS,
-    '-warning\\': ':
+    'btn-warning':
       (
         dialog$
         | async
       )
         .level ===
       dialogLevelEnum.WARNING,
-    '-svg\\': ':
+    'btn-svg':
       (
         dialog$
         | async
