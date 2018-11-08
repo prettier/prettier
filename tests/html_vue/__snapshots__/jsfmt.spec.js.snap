@@ -1140,6 +1140,32 @@ exports[`template.vue - vue-verify 2`] = `
 
 `;
 
+exports[`template-lang.vue - vue-verify 1`] = `
+<template lang="pug">
+  .test
+    #foo
+  .bla
+</template>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template lang="pug">
+  .test #foo .bla
+</template>
+
+`;
+
+exports[`template-lang.vue - vue-verify 2`] = `
+<template lang="pug">
+  .test
+    #foo
+  .bla
+</template>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template lang="pug">
+  .test #foo .bla
+</template>
+
+`;
+
 exports[`test.vue - vue-verify 1`] = `
 <script>
 </script>
