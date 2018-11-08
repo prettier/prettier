@@ -6204,8 +6204,10 @@ function isTestCall(n, parent) {
         return false;
       }
       return (
-        (isFunctionOrArrowExpression(n.arguments[1]) &&
-          n.arguments[1].params.length <= 1) ||
+        (n.arguments.length === 2
+          ? isFunctionOrArrowExpression(n.arguments[1])
+          : isFunctionOrArrowExpressionWithBody(n.arguments[1]) &&
+            n.arguments[1].params.length <= 1) ||
         isAngularTestWrapper(n.arguments[1])
       );
     }
@@ -6246,6 +6248,14 @@ function isFunctionOrArrowExpression(node) {
   return (
     node.type === "FunctionExpression" ||
     node.type === "ArrowFunctionExpression"
+  );
+}
+
+function isFunctionOrArrowExpressionWithBody(node) {
+  return (
+    node.type === "FunctionExpression" ||
+    (node.type === "ArrowFunctionExpression" &&
+      node.body.type === "BlockStatement")
   );
 }
 
