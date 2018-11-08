@@ -1247,6 +1247,10 @@ exports[`interpolation.component.html - angular-verify 1`] = `
   >{{b}}</span
 ><!--
 --></span>
+<span>
+  {{ aNormalValue | aPipe }}:
+  <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
+</span>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>{{ a | b: c }}</div>
 <div>{{ 0 - 1 }}</div>
@@ -1318,6 +1322,12 @@ exports[`interpolation.component.html - angular-verify 1`] = `
   --><span>{{ b }}</span
   ><!--
 --></span>
+<span>
+  {{ aNormalValue | aPipe }}:
+  <strong>{{
+    aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
+  }}</strong>
+</span>
 
 `;
 
@@ -1374,6 +1384,10 @@ exports[`interpolation.component.html - angular-verify 2`] = `
   >{{b}}</span
 ><!--
 --></span>
+<span>
+  {{ aNormalValue | aPipe }}:
+  <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
+</span>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>{{ a | b: c }}</div>
 <div>{{ 0 - 1 }}</div>
@@ -1445,6 +1459,12 @@ exports[`interpolation.component.html - angular-verify 2`] = `
   --><span>{{ b }}</span
   ><!--
 --></span>
+<span>
+  {{ aNormalValue | aPipe }}:
+  <strong>{{
+    aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
+  }}</strong>
+</span>
 
 `;
 
@@ -1501,6 +1521,10 @@ exports[`interpolation.component.html - angular-verify 3`] = `
   >{{b}}</span
 ><!--
 --></span>
+<span>
+  {{ aNormalValue | aPipe }}:
+  <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
+</span>
 ~
 <div>
   {{
@@ -1728,6 +1752,18 @@ exports[`interpolation.component.html - angular-verify 3`] = `
     }}</span
   ><!--
 --></span>
+<span>
+  {{
+    aNormalValue
+      | aPipe
+  }}:
+  <strong
+    >{{
+      aReallyReallySuperLongValue
+        | andASuperLongPipeJustToBreakThis
+    }}</strong
+  >
+</span>
 
 `;
 
@@ -1784,6 +1820,10 @@ exports[`interpolation.component.html - angular-verify 4`] = `
   >{{b}}</span
 ><!--
 --></span>
+<span>
+  {{ aNormalValue | aPipe }}:
+  <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
+</span>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div>{{ a | b: c }}</div>
 <div>{{ 0 - 1 }}</div>
@@ -1857,6 +1897,13 @@ exports[`interpolation.component.html - angular-verify 4`] = `
   <!---->
   <span>{{ b }}</span>
   <!---->
+</span>
+<span>
+  {{ aNormalValue | aPipe }}
+  :
+  <strong>
+    {{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}
+  </strong>
 </span>
 
 `;
