@@ -18,39 +18,25 @@ jobs:
   steps:
   - template: azure-pipelines/production-bundle.yml
 
-# Build and test on Windows
-- job: Test_Windows
-  displayName: Tests on Windows Node8
-  pool:
-    vmImage: vs2017-win2016
-  variables:
-    node_version: 8.x
-    report_summaries: true
-  steps:
-  - template: azure-pipelines/run-tests.yml
-
-# Build and test on macOS
-- job: Test_macOS
-  displayName: Tests on macOS Node8
-  pool:
-    vmImage: macos-10.13
-  variables:
-    node_version: 8.x
-    report_summaries: true
-  steps:
-  - template: azure-pipelines/run-tests.yml
-
 # Build and test on Linux
-- job: Test_Linux
-  displayName: Tests on Linux
-  pool:
-    vmImage: 'Ubuntu 16.04'
+- job: Tests
+  displayName: Run tests
   strategy:
     matrix:
-      Node8:
+      Linux_Node_8:
         node_version: '8.x'
-      Node11:
+        image: 'Ubuntu 16.04'
+      Linux_Node_11:
         node_version: '11.x'
+        image: 'Ubuntu 16.04'
+      MacOS_Node_8:
+        node_version: '8.x'
+        image: 'macos-10.13'
+      Windows_Node_8:
+        node_version: '8.x'
+        image: 'vs2017-win2016'
+  pool:
+    vmImage: '$(image)'
   variables:
     report_summaries: true
   steps:
