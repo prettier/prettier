@@ -19,7 +19,7 @@ jobs:
   - template: azure-pipelines/production-bundle.yml
 
 # Build and test on Windows
-- job: Test(Windows)
+- job: Test_Windows
   displayName: Run tests using Node 8 (Windows)
   pool:
     vmImage: vs2017-win2016
@@ -30,7 +30,7 @@ jobs:
   - template: azure-pipelines/run-tests.yml
 
 # Build and test on macOS
-- job: Test(macOS)
+- job: Test_macOS
   displayName: Run tests using Node 8 (macOS)
   pool:
     vmImage: macos-10.13
@@ -41,7 +41,7 @@ jobs:
   - template: azure-pipelines/run-tests.yml
 
 # Build and test on Linux
-- job: 'Test(Linux)'
+- job: 'Test_Linux'
   pool:
     vmImage: 'Ubuntu 16.04'
   strategy:
