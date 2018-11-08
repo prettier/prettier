@@ -5,22 +5,22 @@ trigger:
 jobs:
 
 # Test production bundle on Linux using Node 4
-- job: prod_linux_node_4
-  displayName: Test production bundle (Linux, node 4)
+- job: Prod_Linux
+  displayName: Test production bundle on Linux
   pool:
     vmImage: 'Ubuntu 16.04'
   strategy:
     matrix:
-      Production Bundle Node 4 (Linux):
-        node.version: '4.x'
-      Production Bundle Node 9 (Linux):
-        node.version: '9.x'
+      Node4:
+        node_version: '4.x'
+      Node9:
+        node_version: '9.x'
   steps:
   - template: azure-pipelines/production-bundle.yml
 
 # Build and test on Windows
 - job: Test_Windows
-  displayName: Run tests using Node 8 (Windows)
+  displayName: Tests on Windows Node8
   pool:
     vmImage: vs2017-win2016
   variables:
@@ -31,7 +31,7 @@ jobs:
 
 # Build and test on macOS
 - job: Test_macOS
-  displayName: Run tests using Node 8 (macOS)
+  displayName: Tests on macOS Node8
   pool:
     vmImage: macos-10.13
   variables:
@@ -41,22 +41,23 @@ jobs:
   - template: azure-pipelines/run-tests.yml
 
 # Build and test on Linux
-- job: 'Test_Linux'
+- job: Test_Linux
+  displayName: Tests on Linux
   pool:
     vmImage: 'Ubuntu 16.04'
   strategy:
     matrix:
-      Run tests using Node 8 (Linux):
-        node.version: '8.x'
-      Production Bundle Node 11 (Linux):
-        node.version: '11.x'
+      Node8:
+        node_version: '8.x'
+      Node11:
+        node_version: '11.x'
   variables:
     report_summaries: true
   steps:
   - template: azure-pipelines/run-tests.yml
 
 # Lint checks on Linux
-- job: lint_linux
+- job: Lint_linux
   displayName: Lint (Linux)
   pool:
     vmImage: 'Ubuntu 16.04'
