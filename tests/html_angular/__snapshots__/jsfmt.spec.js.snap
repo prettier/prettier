@@ -1899,8 +1899,7 @@ exports[`interpolation.component.html - angular-verify 4`] = `
   <!---->
 </span>
 <span>
-  {{ aNormalValue | aPipe }}
-  :
+  {{ aNormalValue | aPipe }}:
   <strong>
     {{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}
   </strong>
@@ -9215,10 +9214,7 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="interpolation">Interpolation</h2>
 
-<p>
-  My current hero is
-  {{ currentHero.name }}
-</p>
+<p>My current hero is {{ currentHero.name }}</p>
 
 <h3>
   {{ title }}
@@ -9226,16 +9222,10 @@ can be found in the LICENSE file at http://angular.io/license
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
-<p>
-  The sum of 1 + 1 is
-  {{ 1 + 1 }}
-</p>
+<p>The sum of 1 + 1 is {{ 1 + 1 }}</p>
 
 <!-- "The sum of 1 + 1 is not 4" -->
-<p>
-  The sum of 1 + 1 is not
-  {{ 1 + 1 + getVal() }}
-</p>
+<p>The sum of 1 + 1 is not {{ 1 + 1 + getVal() }}</p>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -9422,9 +9412,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <p>
   <span>
-    "
-    {{ title }}
-    " is the
+    "{{ title }}" is the
     <i>interpolated</i>
     title.
   </span>
@@ -9443,9 +9431,7 @@ can be found in the LICENSE file at http://angular.io/license
 -->
 <p>
   <span>
-    "
-    {{ evilTitle }}
-    " is the
+    "{{ evilTitle }}" is the
     <i>interpolated</i>
     evil title.
   </span>
@@ -9482,10 +9468,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <br />
 <!-- create and set an aria attribute for assistive technology -->
-<button [attr.aria-label]="actionName">
-  {{ actionName }}
-  with Aria
-</button>
+<button [attr.aria-label]="actionName">{{ actionName }} with Aria</button>
 <br />
 <br />
 
@@ -9604,10 +9587,7 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="ngModel">NgModel (two-way) Binding</h2>
 
-<h3>
-  Result:
-  {{ currentHero.name }}
-</h3>
+<h3>Result: {{ currentHero.name }}</h3>
 
 <input
   [value]="currentHero.name"
@@ -9639,10 +9619,7 @@ bindon-ngModel
 <hr />
 <h2 id="ngClass">NgClass Binding</h2>
 
-<p>
-  currentClasses is
-  {{ currentClasses | json }}
-</p>
+<p>currentClasses is {{ currentClasses | json }}</p>
 <div [ngClass]="currentClasses">
   This div is initially saveable, unchanged, and special
 </div>
@@ -9671,13 +9648,9 @@ bindon-ngModel
 <br />
 <br />
 <div [ngClass]="currentClasses">
-  This div should be
-  {{ canSave ? "" : "not" }}
-  saveable,
-  {{ isUnchanged ? "unchanged" : "modified" }}
-  and,
-  {{ isSpecial ? "" : "not" }}
-  special after clicking "Refresh".
+  This div should be {{ canSave ? "" : "not" }} saveable,
+  {{ isUnchanged ? "unchanged" : "modified" }} and,
+  {{ isSpecial ? "" : "not" }} special after clicking "Refresh".
 </div>
 <br />
 <br />
@@ -9698,10 +9671,7 @@ bindon-ngModel
 </div>
 
 <h3>[ngStyle] binding to currentStyles - CSS property names</h3>
-<p>
-  currentStyles is
-  {{ currentStyles | json }}
-</p>
+<p>currentStyles is {{ currentStyles | json }}</p>
 <div [ngStyle]="currentStyles">
   This div is initially italic, normal weight, and extra large (24px).
 </div>
@@ -9726,13 +9696,9 @@ bindon-ngModel
 <br />
 <br />
 <div [ngStyle]="currentStyles">
-  This div should be
-  {{ canSave ? "italic" : "plain" }}
-  ,
-  {{ isUnchanged ? "normal weight" : "bold" }}
-  and,
-  {{ isSpecial ? "extra large" : "normal size" }}
-  after clicking "Refresh".
+  This div should be {{ canSave ? "italic" : "plain" }},
+  {{ isUnchanged ? "normal weight" : "bold" }} and,
+  {{ isSpecial ? "extra large" : "normal size" }} after clicking "Refresh".
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -9743,21 +9709,13 @@ bindon-ngModel
 
 <app-hero-detail *ngIf="isActive"></app-hero-detail>
 
-<div *ngIf="currentHero">
-  Hello,
-  {{ currentHero.name }}
-</div>
-<div *ngIf="nullHero">
-  Hello,
-  {{ nullHero.name }}
-</div>
+<div *ngIf="currentHero">Hello, {{ currentHero.name }}</div>
+<div *ngIf="nullHero">Hello, {{ nullHero.name }}</div>
 
 <!-- NgIf binding with template (no *) -->
 
 <ng-template [ngIf]="currentHero">
-  Add
-  {{ currentHero.name }}
-  with template
+  Add {{ currentHero.name }} with template
 </ng-template>
 
 <!-- Does not show because isActive is false! -->
@@ -9800,9 +9758,7 @@ bindon-ngModel
 </p>
 <div class="box">
   <div *ngFor="let hero of heroes; let i = index">
-    {{ i + 1 }}
-    -
-    {{ hero.name }}
+    {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
 
@@ -9814,9 +9770,7 @@ bindon-ngModel
 <div class="box">
   <!-- Ex: "1 - Hercules" -->
   <div *ngFor="let hero of heroes; let i = index">
-    {{ i + 1 }}
-    -
-    {{ hero.name }}
+    {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
 
@@ -9833,32 +9787,22 @@ bindon-ngModel
 </p>
 <div class="box">
   <div #noTrackBy *ngFor="let hero of heroes">
-    (
-    {{ hero.id }}
-    )
-    {{ hero.name }}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 
   <div id="noTrackByCnt" *ngIf="heroesNoTrackByCount">
-    Hero DOM elements change #
-    {{ heroesNoTrackByCount }}
-    without trackBy
+    Hero DOM elements change #{{ heroesNoTrackByCount }} without trackBy
   </div>
 </div>
 
 <p>with trackBy</p>
 <div class="box">
   <div #withTrackBy *ngFor="let hero of heroes; trackBy: trackByHeroes">
-    (
-    {{ hero.id }}
-    )
-    {{ hero.name }}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 
   <div id="withTrackByCnt" *ngIf="heroesWithTrackByCount">
-    Hero DOM elements change #
-    {{ heroesWithTrackByCount }}
-    with trackBy
+    Hero DOM elements change #{{ heroesWithTrackByCount }} with trackBy
   </div>
 </div>
 
@@ -9873,10 +9817,7 @@ bindon-ngModel
 </p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
-    (
-    {{ hero.id }}
-    )
-    {{ hero.name }}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
@@ -9887,10 +9828,7 @@ bindon-ngModel
 </p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
-    (
-    {{ hero.id }}
-    )
-    {{ hero.name }}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
@@ -9901,10 +9839,7 @@ bindon-ngModel
 </p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
-    (
-    {{ hero.id }}
-    )
-    {{ hero.name }}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
@@ -9915,10 +9850,7 @@ bindon-ngModel
 </p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackById">
-    (
-    {{ hero.id }}
-    )
-    {{ hero.name }}
+    ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
@@ -9944,9 +9876,7 @@ bindon-ngModel
     [hero]="currentHero"
   ></app-confused-hero>
   <div *ngSwitchCase="'confused'">
-    Are you as confused as
-    {{ currentHero.name }}
-    ?
+    Are you as confused as {{ currentHero.name }}?
   </div>
   <app-unknown-hero *ngSwitchDefault [hero]="currentHero"></app-unknown-hero>
 </div>
@@ -10000,28 +9930,18 @@ bindon-ngModel
 <hr />
 <h2 id="pipes">Pipes</h2>
 
-<div>
-  Title through uppercase pipe:
-  {{ title | uppercase }}
-</div>
+<div>Title through uppercase pipe: {{ title | uppercase }}</div>
 
 <!-- Pipe chaining: convert title to uppercase, then to lowercase -->
-<div>
-  Title through a pipe chain:
-  {{ title | uppercase | lowercase }}
-</div>
+<div>Title through a pipe chain: {{ title | uppercase | lowercase }}</div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>
-  Birthdate:
-  {{ currentHero?.birthdate | date: "longDate" }}
-</div>
+<div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
 
 <div>{{ currentHero | json }}</div>
 
 <div>
-  Birthdate:
-  {{ currentHero?.birthdate | date: "longDate" | uppercase }}
+  Birthdate: {{ currentHero?.birthdate | date: "longDate" | uppercase }}
 </div>
 
 <div>
@@ -10039,20 +9959,11 @@ bindon-ngModel
   <i>?.</i>
 </h2>
 
-<div>
-  The title is
-  {{ title }}
-</div>
+<div>The title is {{ title }}</div>
 
-<div>
-  The current hero's name is
-  {{ currentHero?.name }}
-</div>
+<div>The current hero's name is {{ currentHero?.name }}</div>
 
-<div>
-  The current hero's name is
-  {{ currentHero.name }}
-</div>
+<div>The current hero's name is {{ currentHero.name }}</div>
 
 <!--
   The null hero's name is {{nullHero.name}}
@@ -10062,20 +9973,13 @@ bindon-ngModel
 -->
 
 <!-- No hero, div not displayed, no error -->
-<div *ngIf="nullHero">
-  The null hero's name is
-  {{ nullHero.name }}
-</div>
+<div *ngIf="nullHero">The null hero's name is {{ nullHero.name }}</div>
 
-<div>
-  The null hero's name is
-  {{ nullHero && nullHero.name }}
-</div>
+<div>The null hero's name is {{ nullHero && nullHero.name }}</div>
 
 <div>
   <!-- No hero, no problem! -->
-  The null hero's name is
-  {{ nullHero?.name }}
+  The null hero's name is {{ nullHero?.name }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -10089,10 +9993,7 @@ bindon-ngModel
 
 <div>
   <!-- No hero, no text -->
-  <div *ngIf="hero">
-    The hero's name is
-    {{ hero!.name }}
-  </div>
+  <div *ngIf="hero">The hero's name is {{ hero!.name }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -10107,18 +10008,12 @@ bindon-ngModel
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>
-    The hero's marker is
-    {{ $any(hero).marker }}
-  </div>
+  <div>The hero's marker is {{ $any(hero).marker }}</div>
 </div>
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>
-    Undeclared members is
-    {{$any(this).member}}
-  </div>
+  <div>Undeclared members is {{$any(this).member}}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -10129,15 +10024,9 @@ bindon-ngModel
 <h2 id="enums">Enums in binding</h2>
 
 <p>
-  The name of the Color.Red enum is
-  {{ Color[Color.Red] }}
-  .
+  The name of the Color.Red enum is {{ Color[Color.Red] }}.
   <br />
-  The current color is
-  {{ Color[color] }}
-  and its number is
-  {{ color }}
-  .
+  The current color is {{ Color[color] }} and its number is {{ color }}.
   <br />
   <button [style.color]="Color[color]" (click)="colorToggle()">
     Enum Toggle
