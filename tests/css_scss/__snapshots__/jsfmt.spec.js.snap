@@ -1044,6 +1044,10 @@ $my-map: (
     color: $color-silver;
   }
 }
+
+.something {
+  grid-template-columns: 1 2fr (3 + 4);
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @media #{$g-breakpoint-tiny} {
 }
@@ -1992,6 +1996,10 @@ $my-map: (
   @include placeholder {
     color: $color-silver;
   }
+}
+
+.something {
+  grid-template-columns: 1 2fr (3 + 4);
 }
 
 `;
