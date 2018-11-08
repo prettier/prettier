@@ -252,7 +252,11 @@ function isCustomElementWithSurroundingLineBreak(node) {
 }
 
 function isCustomElement(node) {
-  return node.type === "element" && !node.namespace && node.name.includes("-");
+  return (
+    node.type === "element" &&
+    !node.namespace &&
+    (node.name.includes("-") || /[A-Z]/.test(node.name[0]))
+  );
 }
 
 function hasSurroundingLineBreak(node) {

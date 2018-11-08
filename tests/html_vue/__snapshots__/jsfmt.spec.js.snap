@@ -976,7 +976,12 @@ foo( )
 foo();
 </script>
 
-<div class="container"><HomeH /> <HomeA /> <HomeX /> <HomeY /></div>
+<div class="container">
+  <HomeH />
+  <HomeA />
+  <HomeX />
+  <HomeY />
+</div>
 
 `;
 
@@ -1004,7 +1009,12 @@ foo( )
 foo();
 </script>
 
-<div class="container"><HomeH /> <HomeA /> <HomeX /> <HomeY /></div>
+<div class="container">
+  <HomeH />
+  <HomeA />
+  <HomeX />
+  <HomeY />
+</div>
 
 `;
 
