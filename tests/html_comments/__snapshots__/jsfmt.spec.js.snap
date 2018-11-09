@@ -70,6 +70,27 @@ exports[`conditional.html - html-verify 1`] = `
 
   </body>
 </html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><div><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><div></div><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
 <html>
@@ -80,6 +101,33 @@ exports[`conditional.html - html-verify 1`] = `
     <!--[if IE 8]>This is IE 8<br /><![endif]-->
     <!--[if IE 9]>This is IE 9<br /><![endif]-->
   </body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"></html><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9
+  ]><html lang="zh-CN">
+    <div></div></html
+><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9
+  ]><html lang="zh-CN">
+    <div></div></html
+><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
 </html>
 
 `;
@@ -96,6 +144,27 @@ exports[`conditional.html - html-verify 2`] = `
     <!--[if IE 9]>This is IE 9<br><![endif]-->
 
   </body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><div><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><div></div><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
 </html>
 ~
 <!DOCTYPE html>
@@ -134,6 +203,47 @@ exports[`conditional.html - html-verify 2`] = `
   </body>
 </html>
 
+<!DOCTYPE html>
+<!--[if lt IE 9
+  ]><html
+    lang="zh-CN"
+  ></html
+><![endif]-->
+<html
+  lang="zh-CN"
+>
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9
+  ]><html
+    lang="zh-CN"
+  >
+    <div></div></html
+><![endif]-->
+<html
+  lang="zh-CN"
+>
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9
+  ]><html
+    lang="zh-CN"
+  >
+    <div></div></html
+><![endif]-->
+<html
+  lang="zh-CN"
+>
+  <head></head>
+  <body></body>
+</html>
+
 `;
 
 exports[`conditional.html - html-verify 3`] = `
@@ -149,6 +259,27 @@ exports[`conditional.html - html-verify 3`] = `
 
   </body>
 </html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><div><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><div></div><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
 <html>
@@ -159,6 +290,33 @@ exports[`conditional.html - html-verify 3`] = `
     <!--[if IE 8]>This is IE 8<br /><![endif]-->
     <!--[if IE 9]>This is IE 9<br /><![endif]-->
   </body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"></html><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9
+  ]><html lang="zh-CN">
+    <div></div></html
+><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9
+  ]><html lang="zh-CN">
+    <div></div></html
+><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
 </html>
 
 `;
@@ -176,6 +334,27 @@ exports[`conditional.html - html-verify 4`] = `
 
   </body>
 </html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><div><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><div></div><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
 <html>
@@ -186,6 +365,33 @@ exports[`conditional.html - html-verify 4`] = `
     <!--[if IE 8]>This is IE 8<br /><![endif]-->
     <!--[if IE 9]>This is IE 9<br /><![endif]-->
   </body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"></html><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9
+  ]><html lang="zh-CN"
+    ><div></div></html
+><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9
+  ]><html lang="zh-CN"
+    ><div></div></html
+><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
 </html>
 
 `;
@@ -202,6 +408,27 @@ exports[`conditional.html - html-verify 5`] = `
     <!--[if IE 9]>This is IE 9<br><![endif]-->
 
   </body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><div><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"><div></div><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
 </html>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
@@ -228,6 +455,35 @@ exports[`conditional.html - html-verify 5`] = `
       <br />
     <![endif]-->
   </body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html lang="zh-CN"></html><![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]>
+  <html lang="zh-CN">
+    <div></div>
+  </html>
+<![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 9]>
+  <html lang="zh-CN">
+    <div></div>
+  </html>
+<![endif]-->
+<html lang="zh-CN">
+  <head></head>
+  <body></body>
 </html>
 
 `;
