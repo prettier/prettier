@@ -311,4 +311,4 @@ Here are a few examples of things that are out of scope for Prettier:
 - Using `+` to break long string literals into parts that fit the print width.
 - Adding/removing `{}` and `return` where they are optional.
 - Turning `?:` into `if`-`else` statements.
-- Sorting and hoisting `import`s. (Sorting is unsafe because of side effects, which would violate the [correctness](#correctness) goal.)
+- Sorting/moving imports, object keys, class members, JSX keys, CSS properties or anything else. Apart from being a _transform_ rather than just printing (as mentioned above), sorting is potentially unsafe because of side effects (for imports, as an example) and makes it difficult to verify the most important [correctness](#correctness) goal.
