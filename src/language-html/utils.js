@@ -34,10 +34,16 @@ function mapObject(object, fn) {
   return newObject;
 }
 
-function hasPrettierIgnore(path) {
+function shouldPreserveElementContent(path) {
   const node = path.getValue();
-  if (node.type === "attribute" || node.type === "text") {
-    return false;
+
+  if (
+    node.type === "element" &&
+    node.fullName === "template" &&
+    node.attrMap.lang &&
+    node.attrMap.lang !== "html"
+  ) {
+    return true;
   }
 
   // TODO: handle non-text children in <pre>
@@ -48,6 +54,15 @@ function hasPrettierIgnore(path) {
     )
   ) {
     return true;
+  }
+
+  return false;
+}
+
+function hasPrettierIgnore(path) {
+  const node = path.getValue();
+  if (node.type === "attribute" || node.type === "text") {
+    return false;
   }
 
   const parentNode = path.getParentNode();
@@ -614,5 +629,6 @@ module.exports = {
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,
   replaceDocNewlines,
-  replaceNewlines
+  replaceNewlines,
+  shouldPreserveElementContent
 };
