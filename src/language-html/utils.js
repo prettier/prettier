@@ -137,6 +137,14 @@ function isLeadingSpaceSensitiveNode(node) {
     return false;
   }
 
+  if (
+    (node.type === "text" || node.type === "interpolation") &&
+    node.prev &&
+    (node.prev.type === "text" || node.prev.type === "interpolation")
+  ) {
+    return true;
+  }
+
   if (!node.parent || node.parent.cssDisplay === "none") {
     return false;
   }
@@ -175,6 +183,14 @@ function isLeadingSpaceSensitiveNode(node) {
 function isTrailingSpaceSensitiveNode(node) {
   if (isFrontMatterNode(node)) {
     return false;
+  }
+
+  if (
+    (node.type === "text" || node.type === "interpolation") &&
+    node.next &&
+    (node.next.type === "text" || node.next.type === "interpolation")
+  ) {
+    return true;
   }
 
   if (!node.parent || node.parent.cssDisplay === "none") {
