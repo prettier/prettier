@@ -17,7 +17,8 @@ const foo =
     //
   };
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@deco class Foo {}
+@deco
+class Foo {}
 
 @deco
 export class Bar {}

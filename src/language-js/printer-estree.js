@@ -117,9 +117,12 @@ function genericPrint(path, options, printPath, args) {
         options.locStart(node.decorators[0])
     )
   ) {
-    const separator = hasNewlineBetweenOrAfterDecorators(node, options)
-      ? hardline
-      : line;
+    const shouldBreak =
+      node.type === "ClassExpression" ||
+      node.type === "ClassDeclaration" ||
+      hasNewlineBetweenOrAfterDecorators(node, options);
+
+    const separator = shouldBreak ? hardline : line;
 
     path.each(decoratorPath => {
       let decorator = decoratorPath.getValue();
@@ -133,7 +136,7 @@ function genericPrint(path, options, printPath, args) {
     }, "decorators");
 
     if (parentExportDecl) {
-      decorators.unshift(softline);
+      decorators.unshift(hardline);
     }
   } else if (
     isExportDeclaration(node) &&

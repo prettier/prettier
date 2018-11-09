@@ -233,7 +233,8 @@ class Class3 {
   ) {}
 }
 
-@decorated class Foo {}
+@decorated
+class Foo {}
 
 class Bar {
   @decorated method() {}

@@ -14,9 +14,13 @@ class Hello {}
 
 export default @decorator class {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export @decorator class Foo {}
+export
+@decorator
+class Foo {}
 
-export @decorator class Bar {}
+export
+@decorator
+class Bar {}
 
 export
 @decorator
@@ -32,7 +36,9 @@ export
 @decorator
 class Hello {}
 
-export default @decorator class {}
+export default
+@decorator
+class {}
 
 `;
 

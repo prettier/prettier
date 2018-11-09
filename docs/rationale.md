@@ -99,6 +99,24 @@ class HeroButtonComponent {
 }
 ```
 
+There's one exception: classes. We don't think it ever makes sense to inline the decorators for them, so they are always moved to their own line.
+
+<!-- prettier-ignore -->
+```js
+// Before running Prettier:
+@observer class OrderLine {
+  @observable price: number = 0;
+}
+```
+
+```js
+// After running Prettier:
+@observer
+class OrderLine {
+  @observable price: number = 0;
+}
+```
+
 Note: Prettier 1.14.x and older tried to automatically move your decorators, so if you've run an older Prettier version on your code you might need to manually join up some decorators here and there to avoid inconsistencies:
 
 ```js
