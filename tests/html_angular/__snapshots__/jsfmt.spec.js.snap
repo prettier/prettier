@@ -85,6 +85,7 @@ exports[`attributes.component.html - angular-verify 1`] = `
     {'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
       'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
+    [stickout]="+toolAssembly.stickoutMm"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -194,6 +195,7 @@ exports[`attributes.component.html - angular-verify 1`] = `
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
+  [stickout]="+toolAssembly.stickoutMm"
 ></div>
 
 `;
@@ -283,6 +285,7 @@ exports[`attributes.component.html - angular-verify 2`] = `
     {'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
       'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
+    [stickout]="+toolAssembly.stickoutMm"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -392,6 +395,7 @@ exports[`attributes.component.html - angular-verify 2`] = `
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
+  [stickout]="+toolAssembly.stickoutMm"
 ></div>
 
 `;
@@ -481,6 +485,7 @@ exports[`attributes.component.html - angular-verify 3`] = `
     {'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
       'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
+    [stickout]="+toolAssembly.stickoutMm"
 ></div>
 ~
 <div
@@ -812,6 +817,9 @@ exports[`attributes.component.html - angular-verify 3`] = `
         .level ===
       dialogLevelEnum.DANGER
   }"
+  [stickout]="
+    +toolAssembly.stickoutMm
+  "
 ></div>
 
 `;
