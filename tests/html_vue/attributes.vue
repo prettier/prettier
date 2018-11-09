@@ -22,4 +22,10 @@
   :class="(() => { return 'hello' })()"
   :key="index /* hello */ "
   :key="index // hello "
+  @click="() => {console.log(test)}"
+  @click="
+    () => {
+      console.log(test);
+    }
+  "
 ></div>

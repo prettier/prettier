@@ -25,6 +25,12 @@ exports[`attributes.vue - vue-verify 1`] = `
   :class="(() => { return 'hello' })()"
   :key="index /* hello */ "
   :key="index // hello "
+  @click="() => {console.log(test)}"
+  @click="
+    () => {
+      console.log(test);
+    }
+  "
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -71,6 +77,16 @@ exports[`attributes.vue - vue-verify 1`] = `
   :key="
     index // hello
   "
+  @click="
+    () => {
+      console.log(test);
+    }
+  "
+  @click="
+    () => {
+      console.log(test);
+    };
+  "
 ></div>
 
 `;
@@ -100,6 +116,12 @@ exports[`attributes.vue - vue-verify 2`] = `
   :class="(() => { return 'hello' })()"
   :key="index /* hello */ "
   :key="index // hello "
+  @click="() => {console.log(test)}"
+  @click="
+    () => {
+      console.log(test);
+    }
+  "
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -145,6 +167,16 @@ exports[`attributes.vue - vue-verify 2`] = `
   :key="index /* hello */"
   :key="
     index // hello
+  "
+  @click="
+    () => {
+      console.log(test);
+    }
+  "
+  @click="
+    () => {
+      console.log(test);
+    };
   "
 ></div>
 
