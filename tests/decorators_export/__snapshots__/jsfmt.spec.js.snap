@@ -3,11 +3,38 @@
 exports[`after_export.js - babylon-verify 1`] = `
 export @decorator class Foo {}
 
+export
+@decorator class Bar {}
+
+export @decorator
+class Baz {}
+
+export @decorator @decorator @decorator @decorator @decorator @decorator @decorator
+class Hello {}
+
 export default @decorator class {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export
 @decorator
 class Foo {}
+
+export
+@decorator
+class Bar {}
+
+export
+@decorator
+class Baz {}
+
+export
+@decorator
+@decorator
+@decorator
+@decorator
+@decorator
+@decorator
+@decorator
+class Hello {}
 
 export default
 @decorator
@@ -19,11 +46,26 @@ exports[`before_export.js - babylon-verify 1`] = `
 @decorator
 export class Foo {}
 
+@decorator export class Bar {}
+
+@decorator @decorator @decorator @decorator @decorator @decorator export class Baz {}
+
 @decorator
 export default class {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @decorator
 export class Foo {}
+
+@decorator
+export class Bar {}
+
+@decorator
+@decorator
+@decorator
+@decorator
+@decorator
+@decorator
+export class Baz {}
 
 @decorator
 export default class {}
