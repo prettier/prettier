@@ -34,14 +34,23 @@ function mapObject(object, fn) {
   return newObject;
 }
 
-function shouldPreserveElementContent(path) {
-  const node = path.getValue();
-
+function shouldPreserveContent(node) {
   if (
     node.type === "element" &&
     node.fullName === "template" &&
     node.attrMap.lang &&
     node.attrMap.lang !== "html"
+  ) {
+    return true;
+  }
+
+  // unterminated node in ie conditional comment
+  // e.g. <!--[if lt IE 9]><html><![endif]-->
+  if (
+    node.type === "ieConditionalComment" &&
+    node.lastChild &&
+    !node.lastChild.isSelfClosing &&
+    !node.lastChild.endSourceSpan
   ) {
     return true;
   }
@@ -59,23 +68,20 @@ function shouldPreserveElementContent(path) {
   return false;
 }
 
-function hasPrettierIgnore(path) {
-  const node = path.getValue();
+function hasPrettierIgnore(node) {
   if (node.type === "attribute" || node.type === "text") {
     return false;
   }
 
-  const parentNode = path.getParentNode();
-  if (!parentNode) {
+  if (!node.parent) {
     return false;
   }
 
-  const index = path.getName();
-  if (typeof index !== "number" || index === 0) {
+  if (typeof node.index !== "number" || node.index === 0) {
     return false;
   }
 
-  const prevNode = parentNode.children[index - 1];
+  const prevNode = node.parent.children[node.index - 1];
   return isPrettierIgnore(prevNode);
 }
 
@@ -600,6 +606,14 @@ function identity(x) {
   return x;
 }
 
+function shouldNotPrintClosingTag(node) {
+  return (
+    !node.isSelfClosing &&
+    !node.endSourceSpan &&
+    (hasPrettierIgnore(node) || shouldPreserveContent(node.parent))
+  );
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -630,5 +644,6 @@ module.exports = {
   preferHardlineAsTrailingSpaces,
   replaceDocNewlines,
   replaceNewlines,
-  shouldPreserveElementContent
+  shouldNotPrintClosingTag,
+  shouldPreserveContent
 };

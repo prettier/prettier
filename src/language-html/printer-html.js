@@ -35,7 +35,8 @@ const {
   preferHardlineAsLeadingSpaces,
   replaceDocNewlines,
   replaceNewlines,
-  shouldPreserveElementContent
+  shouldNotPrintClosingTag,
+  shouldPreserveContent
 } = require("./utils");
 const preprocess = require("./preprocess");
 const assert = require("assert");
@@ -445,7 +446,7 @@ function printChildren(path, options, print) {
   function printChild(childPath) {
     const child = childPath.getValue();
 
-    if (hasPrettierIgnore(childPath)) {
+    if (hasPrettierIgnore(child)) {
       return concat(
         [].concat(
           printOpeningTagPrefix(child),
@@ -468,7 +469,7 @@ function printChildren(path, options, print) {
       );
     }
 
-    if (shouldPreserveElementContent(childPath)) {
+    if (shouldPreserveContent(child)) {
       return concat(
         [].concat(
           printOpeningTagPrefix(child),
@@ -791,6 +792,9 @@ function printOpeningTagEndMarker(node) {
 
 function printClosingTagStartMarker(node) {
   assert(!node.isSelfClosing);
+  if (shouldNotPrintClosingTag(node)) {
+    return "";
+  }
   switch (node.type) {
     case "ieConditionalComment":
       return "<!";
@@ -800,6 +804,9 @@ function printClosingTagStartMarker(node) {
 }
 
 function printClosingTagEndMarker(node) {
+  if (shouldNotPrintClosingTag(node)) {
+    return "";
+  }
   switch (node.type) {
     case "comment":
       return "-->";
