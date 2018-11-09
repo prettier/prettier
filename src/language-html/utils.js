@@ -43,7 +43,9 @@ function hasPrettierIgnore(path) {
   // TODO: handle non-text children in <pre>
   if (
     isPreLikeNode(node) &&
-    node.children.some(child => child.type !== "text")
+    node.children.some(
+      child => child.type !== "text" && child.type !== "interpolation"
+    )
   ) {
     return true;
   }
