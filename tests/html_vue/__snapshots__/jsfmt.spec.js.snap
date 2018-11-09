@@ -1034,6 +1034,13 @@ exports[`self_closing.vue - vue-verify 1`] = `
 <script>
 foo( )
 </script>
+
+<div class="container">
+  <HomeH />
+  <HomeA />
+  <HomeX />
+  <HomeY />
+</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template>
   <div />
@@ -1042,6 +1049,13 @@ foo( )
 <script>
 foo();
 </script>
+
+<div class="container">
+  <HomeH />
+  <HomeA />
+  <HomeX />
+  <HomeY />
+</div>
 
 `;
 
@@ -1053,6 +1067,13 @@ exports[`self_closing.vue - vue-verify 2`] = `
 <script>
 foo( )
 </script>
+
+<div class="container">
+  <HomeH />
+  <HomeA />
+  <HomeX />
+  <HomeY />
+</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template>
   <div />
@@ -1061,6 +1082,13 @@ foo( )
 <script>
 foo();
 </script>
+
+<div class="container">
+  <HomeH />
+  <HomeA />
+  <HomeX />
+  <HomeY />
+</div>
 
 `;
 
