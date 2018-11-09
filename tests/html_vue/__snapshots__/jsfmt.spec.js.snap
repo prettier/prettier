@@ -1248,8 +1248,28 @@ exports[`template-lang.vue - vue-verify 1`] = `
     #foo
   .bla
 </template>
+
+<template 
+
+
+   
+   lang='pug'>
+  .test
+    #foo
+  .bla
+</template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template lang="pug">
+  .test
+    #foo
+  .bla
+</template>
+
+<template 
+
+
+   
+   lang='pug'>
   .test
     #foo
   .bla
@@ -1263,8 +1283,28 @@ exports[`template-lang.vue - vue-verify 2`] = `
     #foo
   .bla
 </template>
+
+<template 
+
+
+   
+   lang='pug'>
+  .test
+    #foo
+  .bla
+</template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template lang="pug">
+  .test
+    #foo
+  .bla
+</template>
+
+<template 
+
+
+   
+   lang='pug'>
   .test
     #foo
   .bla
