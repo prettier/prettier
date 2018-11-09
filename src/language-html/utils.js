@@ -55,6 +55,12 @@ function shouldPreserveContent(node) {
     return true;
   }
 
+  // incomplete html in ie conditional comment
+  // e.g. <!--[if lt IE 9]></div><![endif]-->
+  if (node.type === "ieConditionalComment" && !node.complete) {
+    return true;
+  }
+
   // TODO: handle non-text children in <pre>
   if (
     isPreLikeNode(node) &&

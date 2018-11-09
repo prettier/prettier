@@ -91,6 +91,14 @@ exports[`conditional.html - html-verify 1`] = `
   <head></head>
   <body></body>
 </html>
+
+<body width="100%" align="center">
+  <center  >                                        
+    <!--[if (gte mso 9)|(IE)]><table cellpadding="0" cellspacing="0" border="0" width="600" align="center"><tr><td><![endif]-->
+    <div>  </div>
+    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+  </center  >
+</body>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
 <html>
@@ -123,6 +131,14 @@ exports[`conditional.html - html-verify 1`] = `
   <head></head>
   <body></body>
 </html>
+
+<body width="100%" align="center">
+  <center>
+    <!--[if (gte mso 9)|(IE)]><table cellpadding="0" cellspacing="0" border="0" width="600" align="center"><tr><td><![endif]-->
+    <div></div>
+    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+  </center>
+</body>
 
 `;
 
@@ -160,6 +176,14 @@ exports[`conditional.html - html-verify 2`] = `
   <head></head>
   <body></body>
 </html>
+
+<body width="100%" align="center">
+  <center  >                                        
+    <!--[if (gte mso 9)|(IE)]><table cellpadding="0" cellspacing="0" border="0" width="600" align="center"><tr><td><![endif]-->
+    <div>  </div>
+    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+  </center  >
+</body>
 ~
 <!DOCTYPE html>
 <html>
@@ -224,6 +248,17 @@ exports[`conditional.html - html-verify 2`] = `
   <body></body>
 </html>
 
+<body
+  width="100%"
+  align="center"
+>
+  <center>
+    <!--[if (gte mso 9)|(IE)]><table cellpadding="0" cellspacing="0" border="0" width="600" align="center"><tr><td><![endif]-->
+    <div></div>
+    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+  </center>
+</body>
+
 `;
 
 exports[`conditional.html - html-verify 3`] = `
@@ -260,6 +295,14 @@ exports[`conditional.html - html-verify 3`] = `
   <head></head>
   <body></body>
 </html>
+
+<body width="100%" align="center">
+  <center  >                                        
+    <!--[if (gte mso 9)|(IE)]><table cellpadding="0" cellspacing="0" border="0" width="600" align="center"><tr><td><![endif]-->
+    <div>  </div>
+    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+  </center  >
+</body>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
 <html>
@@ -292,6 +335,14 @@ exports[`conditional.html - html-verify 3`] = `
   <head></head>
   <body></body>
 </html>
+
+<body width="100%" align="center">
+  <center>
+    <!--[if (gte mso 9)|(IE)]><table cellpadding="0" cellspacing="0" border="0" width="600" align="center"><tr><td><![endif]-->
+    <div></div>
+    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+  </center>
+</body>
 
 `;
 
@@ -329,6 +380,14 @@ exports[`conditional.html - html-verify 4`] = `
   <head></head>
   <body></body>
 </html>
+
+<body width="100%" align="center">
+  <center  >                                        
+    <!--[if (gte mso 9)|(IE)]><table cellpadding="0" cellspacing="0" border="0" width="600" align="center"><tr><td><![endif]-->
+    <div>  </div>
+    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+  </center  >
+</body>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
 <html>
@@ -361,6 +420,14 @@ exports[`conditional.html - html-verify 4`] = `
   <head></head>
   <body></body>
 </html>
+
+<body width="100%" align="center">
+  <center>
+    <!--[if (gte mso 9)|(IE)]><table cellpadding="0" cellspacing="0" border="0" width="600" align="center"><tr><td><![endif]-->
+    <div> </div>
+    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+  </center>
+</body>
 
 `;
 
@@ -398,6 +465,14 @@ exports[`conditional.html - html-verify 5`] = `
   <head></head>
   <body></body>
 </html>
+
+<body width="100%" align="center">
+  <center  >                                        
+    <!--[if (gte mso 9)|(IE)]><table cellpadding="0" cellspacing="0" border="0" width="600" align="center"><tr><td><![endif]-->
+    <div>  </div>
+    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+  </center  >
+</body>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <!DOCTYPE html>
 <html>
@@ -445,6 +520,14 @@ exports[`conditional.html - html-verify 5`] = `
   <head></head>
   <body></body>
 </html>
+
+<body width="100%" align="center">
+  <center>
+    <!--[if (gte mso 9)|(IE)]><table cellpadding="0" cellspacing="0" border="0" width="600" align="center"><tr><td><![endif]-->
+    <div></div>
+    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+  </center>
+</body>
 
 `;
 
