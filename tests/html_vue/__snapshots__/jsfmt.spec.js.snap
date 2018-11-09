@@ -850,11 +850,7 @@ exports[`pre-child.vue - vue-verify 1`] = `
 <!--
   copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue
 -->
-<pre
-  ref="buildTrace"
-  class="build-trace mb-0 h-100"
-  @scroll="scrollBuildLog"
->
+<pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
   <code
     v-show="!detailJob.isLoading"
     class="bash"
@@ -952,11 +948,7 @@ exports[`pre-child.vue - vue-verify 2`] = `
 <!--
   copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue
 -->
-<pre
-  ref="buildTrace"
-  class="build-trace mb-0 h-100"
-  @scroll="scrollBuildLog"
->
+<pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
   <code
     v-show="!detailJob.isLoading"
     class="bash"
@@ -1265,11 +1257,7 @@ exports[`template-lang.vue - vue-verify 1`] = `
   .bla
 </template>
 
-<template 
-
-
-   
-   lang='pug'>
+<template lang="pug">
   .test
     #foo
   .bla
@@ -1300,11 +1288,7 @@ exports[`template-lang.vue - vue-verify 2`] = `
   .bla
 </template>
 
-<template 
-
-
-   
-   lang='pug'>
+<template lang="pug">
   .test
     #foo
   .bla

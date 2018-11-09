@@ -34,7 +34,8 @@ const {
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   replaceDocNewlines,
-  replaceNewlines
+  replaceNewlines,
+  shouldPreserveElementContent
 } = require("./utils");
 const preprocess = require("./preprocess");
 const assert = require("assert");
@@ -442,29 +443,58 @@ function printChildren(path, options, print) {
   );
 
   function printChild(childPath) {
-    if (!hasPrettierIgnore(childPath)) {
-      return print(childPath);
-    }
     const child = childPath.getValue();
-    return concat(
-      [].concat(
-        printOpeningTagPrefix(child),
-        replaceNewlines(
-          options.originalText.slice(
-            options.locStart(child) +
-              (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
-                ? printOpeningTagStartMarker(child).length
-                : 0),
-            options.locEnd(child) -
-              (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
-                ? printClosingTagEndMarker(child).length
-                : 0)
+
+    if (hasPrettierIgnore(childPath)) {
+      return concat(
+        [].concat(
+          printOpeningTagPrefix(child),
+          replaceNewlines(
+            options.originalText.slice(
+              options.locStart(child) +
+                (child.prev &&
+                needsToBorrowNextOpeningTagStartMarker(child.prev)
+                  ? printOpeningTagStartMarker(child).length
+                  : 0),
+              options.locEnd(child) -
+                (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
+                  ? printClosingTagEndMarker(child).length
+                  : 0)
+            ),
+            literalline
           ),
-          literalline
-        ),
-        printClosingTagSuffix(child)
-      )
-    );
+          printClosingTagSuffix(child)
+        )
+      );
+    }
+
+    if (shouldPreserveElementContent(childPath)) {
+      return concat(
+        [].concat(
+          printOpeningTagPrefix(child),
+          group(printOpeningTag(childPath, options, print)),
+          replaceNewlines(
+            options.originalText.slice(
+              child.startSourceSpan.end.offset -
+                (child.firstChild &&
+                needsToBorrowParentOpeningTagEndMarker(child.firstChild)
+                  ? printOpeningTagEndMarker(child).length
+                  : 0),
+              child.endSourceSpan.start.offset +
+                (child.lastChild &&
+                needsToBorrowParentClosingTagStartMarker(child.lastChild)
+                  ? printClosingTagStartMarker(child).length
+                  : 0)
+            ),
+            literalline
+          ),
+          printClosingTag(child),
+          printClosingTagSuffix(child)
+        )
+      );
+    }
+
+    return print(childPath);
   }
 
   function printBetweenLine(prevNode, nextNode) {
