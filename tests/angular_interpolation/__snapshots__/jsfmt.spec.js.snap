@@ -36,7 +36,8 @@ exports[`pipe-expression.ng - __ng_interpolation-verify 1`] = `
         keyA: reallySuperLongValue,
         keyB: shortValue | pipeB | pipeC: valueToPipeC
       }
-      | aaa
+      | aaa,
+   (hideLinqPanel ? "ReportSelection.HideShowLabel_Show.String" : "ReportSelection.HideShowLabel_Hide.String") | localize:(localizationSection) 
 ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [
@@ -63,6 +64,10 @@ exports[`pipe-expression.ng - __ng_interpolation-verify 1`] = `
           keyA: reallySuperLongValue,
           keyB: shortValue | pipeB | pipeC: valueToPipeC
         }
-    | aaa
+    | aaa,
+  (hideLinqPanel
+    ? "ReportSelection.HideShowLabel_Show.String"
+    : "ReportSelection.HideShowLabel_Hide.String")
+    | localize: localizationSection
 ]
 `;

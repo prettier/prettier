@@ -20,5 +20,6 @@
         keyA: reallySuperLongValue,
         keyB: shortValue | pipeB | pipeC: valueToPipeC
       }
-      | aaa
+      | aaa,
+   (hideLinqPanel ? "ReportSelection.HideShowLabel_Show.String" : "ReportSelection.HideShowLabel_Hide.String") | localize:(localizationSection) 
 ]
