@@ -19,6 +19,8 @@ Then there's a bunch of interesting cases.
 
 - `--trailing-comma es5` was added to make it easier to use trailing commas in most environments without having to transpile (trailing function commas were added in ES2017).
 - `--prose-wrap` is important to support all quirky markdown renderers in the wild.
+- `--html-whitespace-sensitivity` is needed due to the unfortunate whitespace rules of HTML.
+- `--end-of-line` makes it easier for teams to keep CRLFs out of their git repositories.
 - `--arrow-parens` was added after – at the time – [huge demand](https://github.com/prettier/prettier/issues/812). Prettier has to strike a balance between ideal goals and listening to the community.
 - `--jsx-single-quote` was also added after [great demand](https://github.com/prettier/prettier/issues/1080), but after more consideration. It took quite some time to figure out the right approach.
 - `--jsx-bracket-same-line` was needed for a big company with a huge code base (Facebook), which backed the project when it got started, to be able to [adopt Prettier at all](https://github.com/prettier/prettier/pull/661#issuecomment-295770645).
