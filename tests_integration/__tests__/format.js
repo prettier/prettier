@@ -33,3 +33,11 @@ test("html parser should handle CRLF correctly", () => {
     JSON.stringify(prettier.format(input, { parser: "html" }))
   ).toMatchSnapshot();
 });
+
+test("markdown parser should handle CRLF correctly", () => {
+  const input = "```\r\n\r\n\r\n```";
+  expect(
+    // use JSON.stringify to observe CRLF
+    JSON.stringify(prettier.format(input, { parser: "markdown" }))
+  ).toMatchSnapshot();
+});
