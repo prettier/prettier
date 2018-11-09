@@ -98,8 +98,14 @@ function genericPrint(path, options, printPath, args) {
 
   const parentExportDecl = getParentExportDeclaration(path);
   const decorators = [];
-  let shouldBreakDecorators = false;
   if (
+    node.type === "ClassMethod" ||
+    node.type === "ClassProperty" ||
+    node.type === "TSAbstractClassProperty" ||
+    node.type === "ClassPrivateProperty"
+  ) {
+    // their decorators are handled themselves
+  } else if (
     node.decorators &&
     node.decorators.length > 0 &&
     // If the parent node is an export declaration and the decorator
@@ -111,20 +117,12 @@ function genericPrint(path, options, printPath, args) {
         options.locStart(node.decorators[0])
     )
   ) {
-    if (
+    const shouldBreak =
       node.type === "ClassExpression" ||
       node.type === "ClassDeclaration" ||
-      hasNewlineInRange(
-        options.originalText,
-        options.locStart(node.decorators[0]),
-        options.locEnd(getLast(node.decorators))
-      ) ||
-      hasNewline(options.originalText, options.locEnd(getLast(node.decorators)))
-    ) {
-      shouldBreakDecorators = true;
-    }
+      hasNewlineBetweenOrAfterDecorators(node, options);
 
-    const separator = shouldBreakDecorators ? hardline : line;
+    const separator = shouldBreak ? hardline : line;
 
     path.each(decoratorPath => {
       let decorator = decoratorPath.getValue();
@@ -187,11 +185,30 @@ function genericPrint(path, options, printPath, args) {
   }
 
   if (decorators.length > 0) {
-    return !shouldBreakDecorators && willBreak(concat(parts))
-      ? group(concat([group(concat(decorators)), concat(parts)]))
-      : group(concat(decorators.concat(parts)));
+    return group(concat(decorators.concat(parts)));
   }
   return concat(parts);
+}
+
+function hasNewlineBetweenOrAfterDecorators(node, options) {
+  return (
+    hasNewlineInRange(
+      options.originalText,
+      options.locStart(node.decorators[0]),
+      options.locEnd(getLast(node.decorators))
+    ) ||
+    hasNewline(options.originalText, options.locEnd(getLast(node.decorators)))
+  );
+}
+
+function printDecorators(path, options, print) {
+  const node = path.getValue();
+  return group(
+    concat([
+      join(line, path.map(print, "decorators")),
+      hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line
+    ])
+  );
 }
 
 function hasPrettierIgnore(path) {
@@ -1421,6 +1438,9 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts); // Babel 6
     case "ClassMethod":
+      if (n.decorators && n.decorators.length !== 0) {
+        parts.push(printDecorators(path, options, print));
+      }
       if (n.static) {
         parts.push("static ");
       }
@@ -2236,6 +2256,9 @@ function printPathNoParens(path, options, print, args) {
     case "ClassProperty":
     case "TSAbstractClassProperty":
     case "ClassPrivateProperty": {
+      if (n.decorators && n.decorators.length !== 0) {
+        parts.push(printDecorators(path, options, print));
+      }
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
       }

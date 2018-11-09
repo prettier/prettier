@@ -241,8 +241,9 @@ class Bar {
 }
 
 class MyContainerComponent {
-  @ContentChildren(MyComponent)
-  components: QueryListSomeBigName<MyComponentThat>;
+  @ContentChildren(MyComponent) components: QueryListSomeBigName<
+    MyComponentThat
+  >;
 }
 
 `;
