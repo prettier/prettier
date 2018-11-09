@@ -207,8 +207,11 @@ function genericPrint(path, options, print) {
           ? concat([
               isDetachedRulesetCallNode(node)
                 ? ""
-                : isTemplatePlaceholderNode(node)
-                ? node.raws.afterName
+                : isTemplatePlaceholderNode(node) &&
+                  /^\s*\n/.test(node.raws.afterName)
+                ? /^\s*\n\s*\n/.test(node.raws.afterName)
+                  ? concat([hardline, hardline])
+                  : hardline
                 : " ",
               path.call(print, "params")
             ])

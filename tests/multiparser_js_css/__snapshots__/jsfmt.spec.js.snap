@@ -305,8 +305,6 @@ const StyledComponent = styled.div\`
   \${anInterpolation}
   /* a comment */
 
-  /* a comment */
-
   .aRule {
     color: red;
   }
@@ -314,8 +312,6 @@ const StyledComponent = styled.div\`
 
 const StyledComponent = styled.div\`
   \${anInterpolation}
-
-  /* a comment */
 
   /* a comment */
 
