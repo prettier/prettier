@@ -85,7 +85,7 @@ exports[`attributes.vue - vue-verify 1`] = `
   @click="
     () => {
       console.log(test);
-    };
+    }
   "
 ></div>
 
@@ -176,7 +176,7 @@ exports[`attributes.vue - vue-verify 2`] = `
   @click="
     () => {
       console.log(test);
-    };
+    }
   "
 ></div>
 
