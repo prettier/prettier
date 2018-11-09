@@ -52,7 +52,9 @@ function hasPrettierIgnore(path) {
   // TODO: handle non-text children in <pre>
   if (
     isPreLikeNode(node) &&
-    node.children.some(child => child.type !== "text")
+    node.children.some(
+      child => child.type !== "text" && child.type !== "interpolation"
+    )
   ) {
     return true;
   }
@@ -261,7 +263,11 @@ function isCustomElementWithSurroundingLineBreak(node) {
 }
 
 function isCustomElement(node) {
-  return node.type === "element" && !node.namespace && node.name.includes("-");
+  return (
+    node.type === "element" &&
+    !node.namespace &&
+    (node.name.includes("-") || /[A-Z]/.test(node.name[0]))
+  );
 }
 
 function hasSurroundingLineBreak(node) {

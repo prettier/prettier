@@ -25,3 +25,11 @@ label:
     prettier.format(input, { parser: "typescript" })
   ).toThrowErrorMatchingSnapshot();
 });
+
+test("html parser should handle CRLF correctly", () => {
+  const input = "<!--\r\n  test\r\n  test\r\n-->";
+  expect(
+    // use JSON.stringify to observe CRLF
+    JSON.stringify(prettier.format(input, { parser: "html" }))
+  ).toMatchSnapshot();
+});

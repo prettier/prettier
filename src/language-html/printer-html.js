@@ -200,7 +200,11 @@ function genericPrint(path, options, print) {
                         : node.firstChild.type === "text" &&
                           node.firstChild.isWhitespaceSensitive &&
                           node.firstChild.isIndentationSensitive
-                        ? node.firstChild.value.indexOf("\n") === -1
+                        ? (node.children.length === 1 &&
+                            node.firstChild.type === "text" &&
+                            node.firstChild.value.indexOf("\n") === -1) ||
+                          node.firstChild.sourceSpan.start.line ===
+                            node.lastChild.sourceSpan.end.line
                           ? ""
                           : literalline
                         : node.firstChild.hasLeadingSpaces &&
@@ -442,20 +446,25 @@ function printChildren(path, options, print) {
       return print(childPath);
     }
     const child = childPath.getValue();
-    return concat([
-      printOpeningTagPrefix(child),
-      options.originalText.slice(
-        options.locStart(child) +
-          (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
-            ? printOpeningTagStartMarker(child).length
-            : 0),
-        options.locEnd(child) -
-          (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
-            ? printClosingTagEndMarker(child).length
-            : 0),
+    return concat(
+      [].concat(
+        printOpeningTagPrefix(child),
+        replaceNewlines(
+          options.originalText.slice(
+            options.locStart(child) +
+              (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
+                ? printOpeningTagStartMarker(child).length
+                : 0),
+            options.locEnd(child) -
+              (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
+                ? printClosingTagEndMarker(child).length
+                : 0)
+          ),
+          literalline
+        ),
         printClosingTagSuffix(child)
       )
-    ]);
+    );
   }
 
   function printBetweenLine(prevNode, nextNode) {
@@ -544,9 +553,14 @@ function printOpeningTag(path, options, print) {
                   return path.map(attrPath => {
                     const attr = attrPath.getValue();
                     return hasPrettierIgnoreAttribute(attr)
-                      ? options.originalText.slice(
-                          options.locStart(attr),
-                          options.locEnd(attr)
+                      ? concat(
+                          replaceNewlines(
+                            options.originalText.slice(
+                              options.locStart(attr),
+                              options.locEnd(attr)
+                            ),
+                            literalline
+                          )
                         )
                       : print(attrPath);
                   }, "attrs");

@@ -6204,8 +6204,10 @@ function isTestCall(n, parent) {
         return false;
       }
       return (
-        (isFunctionOrArrowExpression(n.arguments[1]) &&
-          n.arguments[1].params.length <= 1) ||
+        (n.arguments.length === 2
+          ? isFunctionOrArrowExpression(n.arguments[1])
+          : isFunctionOrArrowExpressionWithBody(n.arguments[1]) &&
+            n.arguments[1].params.length <= 1) ||
         isAngularTestWrapper(n.arguments[1])
       );
     }
@@ -6249,6 +6251,14 @@ function isFunctionOrArrowExpression(node) {
   );
 }
 
+function isFunctionOrArrowExpressionWithBody(node) {
+  return (
+    node.type === "FunctionExpression" ||
+    (node.type === "ArrowFunctionExpression" &&
+      node.body.type === "BlockStatement")
+  );
+}
+
 function isUnitTestSetUp(n) {
   const unitTestSetUpRe = /^(before|after)(Each|All)$/;
   return (
@@ -6259,7 +6269,7 @@ function isUnitTestSetUp(n) {
 }
 
 function isTheOnlyJSXElementInMarkdown(options, path) {
-  if (options.parentParser !== "markdown") {
+  if (options.parentParser !== "markdown" && options.parentParser !== "mdx") {
     return false;
   }
 
