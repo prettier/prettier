@@ -65,6 +65,8 @@ interface ExtendsManyWithGenerics
 
     x: string;
   }
+
+export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,  ToBreakLineToBreakLineToBreakLine> {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export interface Environment1
   extends GenericEnvironment<SomeType, AnotherType, YetAnotherType> {
@@ -162,6 +164,12 @@ interface ExtendsManyWithGenerics
     InterfaceThree {
   x: string;
 }
+
+export interface ExtendsLongOneWithGenerics
+  extends Bar<
+      SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
+      ToBreakLineToBreakLineToBreakLine
+    > {}
 
 `;
 

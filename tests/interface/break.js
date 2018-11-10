@@ -62,3 +62,5 @@ interface ExtendsManyWithGenerics
 
     x: string;
   }
+
+export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,  ToBreakLineToBreakLineToBreakLine> {}
