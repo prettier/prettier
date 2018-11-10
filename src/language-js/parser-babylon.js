@@ -3,6 +3,7 @@
 const createError = require("../common/parser-create-error");
 const hasPragma = require("./pragma").hasPragma;
 const locFns = require("./loc");
+const postprocess = require("./postprocess");
 
 function babylonOptions(extraOptions, extraPlugins) {
   return Object.assign(
@@ -74,7 +75,7 @@ function parse(text, parsers, opts) {
     );
   }
   delete ast.tokens;
-  return ast;
+  return postprocess(ast, Object.assign({}, opts, { originalText: text }));
 }
 
 function tryCombinations(fn, combinations) {
