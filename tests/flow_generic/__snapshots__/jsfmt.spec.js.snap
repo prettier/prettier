@@ -76,8 +76,12 @@ exports[`interface.js - flow-verify 1`] = `
 interface A { 'C': string; }
 interface B { "D": boolean; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface A { C: string }
-interface B { D: boolean }
+interface A {
+  C: string;
+}
+interface B {
+  D: boolean;
+}
 
 `;
 
@@ -85,8 +89,12 @@ exports[`interface.js - flow-verify 2`] = `
 interface A { 'C': string; }
 interface B { "D": boolean; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface A { C: string }
-interface B { D: boolean }
+interface A {
+  C: string;
+}
+interface B {
+  D: boolean;
+}
 
 `;
 
