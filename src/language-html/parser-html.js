@@ -256,19 +256,32 @@ function parseIeConditionalComment(node, parseHtml) {
   const [, openingTagSuffix, condition, data] = match;
   const offset = "<!--".length + openingTagSuffix.length;
   const contentStartSpan = node.sourceSpan.start.moveBy(offset);
+  const contentEndSpan = contentStartSpan.moveBy(data.length);
   const ParseSourceSpan = node.sourceSpan.constructor;
-  return Object.assign(parseHtml(data, contentStartSpan), {
+  const [complete, children] = (() => {
+    try {
+      return [true, parseHtml(data, contentStartSpan).children];
+    } catch (e) {
+      const text = {
+        type: "text",
+        value: data,
+        sourceSpan: new ParseSourceSpan(contentStartSpan, contentEndSpan)
+      };
+      return [false, [text]];
+    }
+  })();
+  return {
     type: "ieConditionalComment",
+    complete,
+    children,
     condition: condition.trim().replace(/\s+/g, " "),
+    sourceSpan: node.sourceSpan,
     startSourceSpan: new ParseSourceSpan(
       node.sourceSpan.start,
       contentStartSpan
     ),
-    endSourceSpan: new ParseSourceSpan(
-      contentStartSpan.moveBy(data.length),
-      node.sourceSpan.end
-    )
-  });
+    endSourceSpan: new ParseSourceSpan(contentEndSpan, node.sourceSpan.end)
+  };
 }
 
 function locStart(node) {
