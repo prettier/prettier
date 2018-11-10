@@ -910,7 +910,9 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       const fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
       const simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
 
-      const value = getValue();
+      const value = getValue()
+        // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/helpers.js#L104
+        .trim();
       return printMaybeHug(
         simplePathRE.test(value) || fnExpRE.test(value)
           ? textToDoc(value, { parser: "__js_expression" })
