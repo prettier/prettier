@@ -390,6 +390,35 @@ const ArtistInput = connect(
 
 `;
 
+exports[`reselect_createselector.js - flow-verify 1`] = `
+import { createSelector } from 'reselect';
+
+const resolve = createSelector(
+  getIds,
+  getObjects,
+  (ids, objects) => ids.map(id => objects[id])
+);
+
+const resolve = createSelector(
+  [getIds, getObjects],
+  (ids, objects) => ids.map(id => objects[id])
+);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { createSelector } from "reselect";
+
+const resolve = createSelector(
+  getIds,
+  getObjects,
+  (ids, objects) => ids.map(id => objects[id])
+);
+
+const resolve = createSelector(
+  [getIds, getObjects],
+  (ids, objects) => ids.map(id => objects[id])
+);
+
+`;
+
 exports[`rxjs_pipe.js - flow-verify 1`] = `
 import { range } from 'rxjs/observable/range';
 import { map, filter, scan } from 'rxjs/operators';
