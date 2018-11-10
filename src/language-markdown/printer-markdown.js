@@ -209,7 +209,7 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(
           alignment,
-          concat([alignment, join(hardline, node.value.split("\n"))])
+          concat([alignment, replaceNewlinesWith(node.value, hardline)])
         );
       }
 
@@ -225,9 +225,9 @@ function genericPrint(path, options, print) {
         style,
         node.lang || "",
         hardline,
-        join(
-          hardline,
-          getFencedCodeBlockValue(node, options.originalText).split("\n")
+        replaceNewlinesWith(
+          getFencedCodeBlockValue(node, options.originalText),
+          hardline
         ),
         hardline,
         style
@@ -469,7 +469,7 @@ function getNthListSiblingIndex(node, parentNode) {
 }
 
 function replaceNewlinesWith(str, doc) {
-  return join(doc, str.split("\n"));
+  return join(doc, str.replace(/\r\n?/g, "\n").split("\n"));
 }
 
 function getNthSiblingIndex(node, parentNode, condition) {
