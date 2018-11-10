@@ -29,4 +29,8 @@ import {observable} from "mobx";
   @computed @computed @computed @computed @computed @computed @computed get total() {
     return this.price * this.amount;
   }
+
+  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) => this.count--;
+  
+  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) => doSomething();
 }
