@@ -1203,8 +1203,7 @@ function printPathNoParens(path, options, print, args) {
               concat([
                 softline,
                 "extends ",
-                (heritageDoc =>
-                  n.heritage.length === 1 ? heritageDoc : indent(heritageDoc))(
+                (n.heritage.length === 1 ? identity : indent)(
                   join(concat([",", line]), path.map(print, "heritage"))
                 ),
                 " "
@@ -2711,8 +2710,7 @@ function printPathNoParens(path, options, print, args) {
               concat([
                 line,
                 "extends ",
-                (extendsDoc =>
-                  n.extends.length === 1 ? extendsDoc : indent(extendsDoc))(
+                (n.extends.length === 1 ? identity : indent)(
                   join(concat([",", line]), path.map(print, "extends"))
                 )
               ])
@@ -6403,6 +6401,10 @@ function printIndentableBlockComment(comment) {
 
 function rawText(node) {
   return node.extra ? node.extra.raw : node.raw;
+}
+
+function identity(x) {
+  return x;
 }
 
 module.exports = {
