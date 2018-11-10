@@ -1203,7 +1203,10 @@ function printPathNoParens(path, options, print, args) {
               concat([
                 softline,
                 "extends ",
-                indent(join(concat([",", line]), path.map(print, "heritage"))),
+                (heritageDoc =>
+                  n.heritage.length === 1 ? heritageDoc : indent(heritageDoc))(
+                  join(concat([",", line]), path.map(print, "heritage"))
+                ),
                 " "
               ])
             )
@@ -2708,7 +2711,10 @@ function printPathNoParens(path, options, print, args) {
               concat([
                 line,
                 "extends ",
-                indent(join(concat([",", line]), path.map(print, "extends")))
+                (extendsDoc =>
+                  n.extends.length === 1 ? extendsDoc : indent(extendsDoc))(
+                  join(concat([",", line]), path.map(print, "extends"))
+                )
               ])
             )
           )

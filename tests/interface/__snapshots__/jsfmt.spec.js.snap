@@ -138,14 +138,14 @@ interface ExtendsLarge
 
 interface ExtendsMany
   extends ASingleGenericInterface<
-      Interface1,
-      Interface2,
-      Interface3,
-      Interface4,
-      Interface5,
-      Interface6,
-      Interface7
-    > {
+    Interface1,
+    Interface2,
+    Interface3,
+    Interface4,
+    Interface5,
+    Interface6,
+    Interface7
+  > {
   x: string;
 }
 
@@ -167,9 +167,9 @@ interface ExtendsManyWithGenerics
 
 export interface ExtendsLongOneWithGenerics
   extends Bar<
-      SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
-      ToBreakLineToBreakLineToBreakLine
-    > {}
+    SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
+    ToBreakLineToBreakLineToBreakLine
+  > {}
 
 `;
 
