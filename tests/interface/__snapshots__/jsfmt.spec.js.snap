@@ -65,6 +65,8 @@ interface ExtendsManyWithGenerics
 
     x: string;
   }
+
+export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,  ToBreakLineToBreakLineToBreakLine> {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export interface Environment1
   extends GenericEnvironment<SomeType, AnotherType, YetAnotherType> {
@@ -136,14 +138,14 @@ interface ExtendsLarge
 
 interface ExtendsMany
   extends ASingleGenericInterface<
-      Interface1,
-      Interface2,
-      Interface3,
-      Interface4,
-      Interface5,
-      Interface6,
-      Interface7
-    > {
+    Interface1,
+    Interface2,
+    Interface3,
+    Interface4,
+    Interface5,
+    Interface6,
+    Interface7
+  > {
   x: string;
 }
 
@@ -163,6 +165,12 @@ interface ExtendsManyWithGenerics
   x: string;
 }
 
+export interface ExtendsLongOneWithGenerics
+  extends Bar<
+    SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
+    ToBreakLineToBreakLineToBreakLine
+  > {}
+
 `;
 
 exports[`module.js - flow-verify 1`] = `
@@ -171,7 +179,9 @@ declare module X {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 declare module X {
-  declare interface Y { x: number }
+  declare interface Y {
+    x: number;
+  }
 }
 
 `;
