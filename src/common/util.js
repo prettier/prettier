@@ -196,9 +196,8 @@ function isNextLineEmpty(text, node, locEnd) {
   return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
-function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
   let oldIdx = null;
-  let idx = locEnd(node);
   while (idx !== oldIdx) {
     oldIdx = idx;
     idx = skipSpaces(text, idx);
@@ -207,6 +206,13 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
     idx = skipNewline(text, idx);
   }
   return idx;
+}
+
+function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+  return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    locEnd(node)
+  );
 }
 
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
@@ -679,6 +685,7 @@ module.exports = {
   getParentExportDeclaration,
   getPenultimate,
   getLast,
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
   skip,

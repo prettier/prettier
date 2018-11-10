@@ -26,3 +26,17 @@ class Component extends React.Component /*:: <Props, State> */ {
 }
 
 `;
+
+exports[`functions.js - babylon-verify 1`] = `
+
+export function updateStoreFromURL(
+  store /*: Store*/,
+  {search, hash} /*: {search: string, hash: string}*/
+) {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export function updateStoreFromURL(
+  store /*: Store*/,
+  { search, hash } /*: {search: string, hash: string}*/
+) {}
+
+`;
