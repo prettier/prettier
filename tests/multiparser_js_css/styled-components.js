@@ -137,3 +137,22 @@ styled.a`
     margin: 0;
   }
 `
+
+const StyledComponent = styled.div`
+  ${anInterpolation}
+  /* a comment */
+
+  .aRule {
+    color: red
+  }
+`;
+
+const StyledComponent = styled.div`
+  ${anInterpolation}
+
+  /* a comment */
+
+  .aRule {
+    color: red
+  }
+`;
