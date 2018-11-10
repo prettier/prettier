@@ -34,8 +34,9 @@ export function updateStoreFromURL(
   {search, hash} /*: {search: string, hash: string}*/
 ) {}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export function updateStoreFromURL(store /*: Store*/, { search, hash }) {
-  /*: {search: string, hash: string}*/
-}
+export function updateStoreFromURL(
+  store /*: Store*/,
+  { search, hash } /*: {search: string, hash: string}*/
+) {}
 
 `;

@@ -7,6 +7,10 @@ const {
   addTrailingComment,
   addDanglingComment
 } = sharedUtil;
+const {
+  getLast,
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex
+} = require("../common/util");
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
@@ -630,8 +634,26 @@ function handleLastFunctionArgComments(
     followingNode &&
     followingNode.type === "BlockStatement"
   ) {
-    addBlockStatementFirstComment(followingNode, comment);
-    return true;
+    const functionParamRightParenIndex = (() => {
+      if (enclosingNode.params.length !== 0) {
+        return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+          text,
+          options.locEnd(getLast(enclosingNode.params))
+        );
+      }
+      const functionParamLeftParenIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+        text,
+        options.locEnd(enclosingNode.id)
+      );
+      return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+        text,
+        functionParamLeftParenIndex + 1
+      );
+    })();
+    if (options.locStart(comment) > functionParamRightParenIndex) {
+      addBlockStatementFirstComment(followingNode, comment);
+      return true;
+    }
   }
 
   return false;
