@@ -1,3 +1,33 @@
+# 1.15.2
+
+[diff](https://github.com/prettier/prettier/compare/1.15.1...1.15.2)
+
+- CLI: allow flag overriding ([#5390](https://github.com/prettier/prettier/pull/5390))
+- JavaScript: do not apply test call formatting to arrow function without body ([#5366](https://github.com/prettier/prettier/pull/5366))
+- JavaScript: do not duplicate comments in styled-components ([#5416](https://github.com/prettier/prettier/pull/5416))
+- JavaScript: do not indent comments behind variable declarations ([#5434](https://github.com/prettier/prettier/pull/5434))
+- JavaScript: inline property decorator should stay inline ([#5364](https://github.com/prettier/prettier/pull/5364), [#5423](https://github.com/prettier/prettier/pull/5423))
+- JavaScript: treat `createSelector` as function composition ([#5430](https://github.com/prettier/prettier/pull/5430))
+- Flow: do not move flow comment for function argument to its body ([#5435](https://github.com/prettier/prettier/pull/5435))
+- Flow: force-break interface body to be consistent with TypeScript interface ([#5432](https://github.com/prettier/prettier/pull/5432))
+- Flow/TypeScript: remove extra indentation for `extends` ([#5432](https://github.com/prettier/prettier/pull/5432))
+- TypeScript: distinguish `module` and `namespace` correctly ([#5432](https://github.com/prettier/prettier/pull/5432))
+- HTML: handle CRLF correctly ([#5393](https://github.com/prettier/prettier/pull/5393))
+- HTML: handle `<pre>` with interpolation ([#5400](https://github.com/prettier/prettier/pull/5400))
+- HTML: preserve content for `<template>` with unknown `lang` ([#5388](https://github.com/prettier/prettier/pull/5388))
+- HTML: preserve incomplete IE conditional comments ([#5429](https://github.com/prettier/prettier/pull/5429))
+- HTML: preserve unterminated IE conditional comments ([#5424](https://github.com/prettier/prettier/pull/5424))
+- HTML: treat capital element as custom element ([#5395](https://github.com/prettier/prettier/pull/5395))
+- Angular: add missing parens for pipe in ternary ([#5397](https://github.com/prettier/prettier/pull/5397))
+- Angular: correctly print unary expression with operator `+` ([#5405](https://github.com/prettier/prettier/pull/5405))
+- Angular: correctly handle parens ([#5387](https://github.com/prettier/prettier/pull/5387))
+- Angular/Vue: whitespaces between interpolation and text are sensitive ([#5396](https://github.com/prettier/prettier/pull/5396))
+- Vue: do not add invalid semicolon for `v-on` attribute value ([#5418](https://github.com/prettier/prettier/pull/5418))
+- SCSS: do not crash on grid value ([#5394](https://github.com/prettier/prettier/pull/5394))
+- Markdown: handle CRLF correctly ([#5414](https://github.com/prettier/prettier/pull/5414))
+- Markdown: identify CJK correctly ([#5402](https://github.com/prettier/prettier/pull/5402))
+- MDX: treat JSX code block same as in Markdown ([#5391](https://github.com/prettier/prettier/pull/5391))
+
 # 1.15.1
 
 [diff](https://github.com/prettier/prettier/compare/1.15.0...1.15.1)
