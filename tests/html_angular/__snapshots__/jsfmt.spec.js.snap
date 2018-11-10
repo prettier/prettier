@@ -905,6 +905,11 @@ exports[`attributes.component.html - angular-verify 4`] = `
     [target]="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
     [error]="'We couldn\\\\\\'t find anything with that name.'"
     *ngIf="form.controls.details?.controls.amount?.errors.min"
+    [ngClass]="
+    {'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
+      'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
+      'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
+    [stickout]="+toolAssembly.stickoutMm"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -1009,6 +1014,12 @@ exports[`attributes.component.html - angular-verify 4`] = `
   }"
   [error]="'We couldn\\\\\\'t find anything with that name.'"
   *ngIf="form.controls.details?.controls.amount?.errors.min"
+  [ngClass]="{
+    'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
+    'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
+    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
+  }"
+  [stickout]="+toolAssembly.stickoutMm"
 ></div>
 
 `;
