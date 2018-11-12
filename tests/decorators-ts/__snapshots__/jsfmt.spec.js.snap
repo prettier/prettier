@@ -116,6 +116,29 @@ class Greeter {
 
 `;
 
+exports[`mobx.ts - typescript-verify 1`] = `
+class X {
+	@deco x() {
+      return this.count * 2;
+	}
+	@deco get x() {
+      return this.count * 2;
+	}
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class X {
+  @deco
+  x() {
+    return this.count * 2;
+  }
+  @deco
+  get x() {
+    return this.count * 2;
+  }
+}
+
+`;
+
 exports[`multiple.ts - typescript-verify 1`] = `
 class C {
   @f()
