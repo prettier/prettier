@@ -71,7 +71,8 @@ let g:ale_fixers = {
 \}
 ```
 
-ALE supports both *linters* and *fixers*. If you don't specify which *linters* to run, **all available tools for all supported languages will be run**, and you might get a correctly formatted file with a bunch of lint errors. To disable this behavior you can tell ALE to run only linters you've explicitly configured (more info in the [FAQ](https://github.com/w0rp/ale/blob/ed8104b6ab10f63c78e49b60d2468ae2656250e9/README.md#faq-disable-linters)):
+ALE supports both _linters_ and _fixers_. If you don't specify which _linters_ to run, **all available tools for all supported languages will be run**, and you might get a correctly formatted file with a bunch of lint errors. To disable this behavior you can tell ALE to run only linters you've explicitly configured (more info in the [FAQ](https://github.com/w0rp/ale/blob/ed8104b6ab10f63c78e49b60d2468ae2656250e9/README.md#faq-disable-linters)):
+
 ```
 let g:ale_linters_explicit = 1
 ```
