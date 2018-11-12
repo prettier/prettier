@@ -127,12 +127,10 @@ class X {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class X {
-  @deco
-  x() {
+  @deco x() {
     return this.count * 2;
   }
-  @deco
-  get x() {
+  @deco get x() {
     return this.count * 2;
   }
 }
