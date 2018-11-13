@@ -1,3 +1,4 @@
+<template>
 <div>Fuga magnam facilis. Voluptatem quaerat porro.{{
 
 
@@ -54,3 +55,4 @@ x => {
 <div>
   1234567890123456789012345678901234567890123456789012345678901234567890 {{ something }} 1234567890
 </div>
+</template>
