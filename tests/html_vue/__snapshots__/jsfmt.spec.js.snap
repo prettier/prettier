@@ -515,7 +515,11 @@ exports[`custom-block.vue - vue-verify 1`] = `
 
 <html><head></head><body></body></html>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<i18n> en: one: One two: Two </i18n>
+<i18n>
+  en:
+    one: One
+    two: Two
+</i18n>
 
 <html>
   <head></head>
@@ -533,7 +537,11 @@ exports[`custom-block.vue - vue-verify 2`] = `
 
 <html><head></head><body></body></html>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<i18n> en: one: One two: Two </i18n>
+<i18n>
+  en:
+    one: One
+    two: Two
+</i18n>
 
 <html>
   <head></head>
