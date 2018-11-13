@@ -506,6 +506,42 @@ export default {
 
 `;
 
+exports[`custom-block.vue - vue-verify 1`] = `
+<i18n>
+  en:
+    one: One
+    two: Two
+</i18n>
+
+<html><head></head><body></body></html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<i18n> en: one: One two: Two </i18n>
+
+<html>
+  <head></head>
+  <body></body>
+</html>
+
+`;
+
+exports[`custom-block.vue - vue-verify 2`] = `
+<i18n>
+  en:
+    one: One
+    two: Two
+</i18n>
+
+<html><head></head><body></body></html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<i18n> en: one: One two: Two </i18n>
+
+<html>
+  <head></head>
+  <body></body>
+</html>
+
+`;
+
 exports[`filter.vue - vue-verify 1`] = `
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
