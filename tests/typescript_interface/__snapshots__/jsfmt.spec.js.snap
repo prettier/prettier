@@ -99,7 +99,7 @@ interface foo extends bar {
 
 interface T<T> {
   // prettier-ignore
-  new<T>(): T<T>;;
+  new<T>(): T<T>;
   new <T>(): T<T>;
 }
 

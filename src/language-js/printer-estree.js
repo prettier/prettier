@@ -1338,7 +1338,8 @@ function printPathNoParens(path, options, print, args) {
           separatorParts = [separator, line];
           if (
             (prop.node.type === "TSPropertySignature" ||
-              prop.node.type === "TSMethodSignature") &&
+              prop.node.type === "TSMethodSignature" ||
+              prop.node.type === "TSConstructSignature") &&
             hasNodeIgnoreComment(prop.node)
           ) {
             separatorParts.shift();
