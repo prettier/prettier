@@ -203,8 +203,8 @@ function genericPrint(path, options, print) {
                           node.firstChild.isLeadingSpaceSensitive
                         ? line
                         : node.firstChild.type === "text" &&
-                          node.firstChild.isWhitespaceSensitive &&
-                          node.firstChild.isIndentationSensitive
+                          node.isWhitespaceSensitive &&
+                          node.isIndentationSensitive
                         ? dedentToRoot(softline)
                         : softline,
                       printChildren(path, options, print)
@@ -223,8 +223,8 @@ function genericPrint(path, options, print) {
                       node.lastChild.isTrailingSpaceSensitive
                     ? line
                     : node.lastChild.type === "text" &&
-                      node.lastChild.isWhitespaceSensitive &&
-                      node.lastChild.isIndentationSensitive &&
+                      node.isWhitespaceSensitive &&
+                      node.isIndentationSensitive &&
                       new RegExp(
                         `\\n\\s{${options.tabWidth *
                           countParents(
@@ -818,8 +818,8 @@ function printClosingTagEndMarker(node) {
 }
 
 function getTextValueParts(node, value = node.value) {
-  return node.isWhitespaceSensitive
-    ? node.isIndentationSensitive
+  return node.parent.isWhitespaceSensitive
+    ? node.parent.isIndentationSensitive
       ? replaceNewlines(value, literalline)
       : replaceNewlines(
           dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),

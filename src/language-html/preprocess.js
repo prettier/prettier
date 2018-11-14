@@ -262,20 +262,13 @@ function extractWhitespaces(ast /*, options*/) {
     const isIndentationSensitive = isIndentationSensitiveNode(node);
 
     return node.clone({
+      isWhitespaceSensitive,
+      isIndentationSensitive,
       children: node.children
         // extract whitespace nodes
         .reduce((newChildren, child) => {
-          if (child.type !== "text") {
+          if (child.type !== "text" || isWhitespaceSensitive) {
             return newChildren.concat(child);
-          }
-
-          if (isWhitespaceSensitive) {
-            return newChildren.concat(
-              Object.assign({}, child, {
-                isWhitespaceSensitive,
-                isIndentationSensitive
-              })
-            );
           }
 
           const localChildren = [];
