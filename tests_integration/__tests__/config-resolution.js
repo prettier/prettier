@@ -8,13 +8,13 @@ const prettier = require("prettier/local");
 expect.addSnapshotSerializer(require("../path-serializer"));
 
 describe("resolves configuration from external files", () => {
-  runPrettier("cli/config/", ["**/*.js"]).test({
+  runPrettier("cli/config/", ["--end-of-line", "lf", "**/*.js"]).test({
     status: 0
   });
 });
 
 describe("resolves configuration from external files and overrides by extname", () => {
-  runPrettier("cli/config/", ["**/*.ts"]).test({
+  runPrettier("cli/config/", ["--end-of-line", "lf", "**/*.ts"]).test({
     status: 0
   });
 });
@@ -50,14 +50,25 @@ describe("resolves toml configuration file with --find-config-path file", () => 
 });
 
 describe("prints nothing when no file found with --find-config-path", () => {
-  runPrettier("cli/config/", ["--find-config-path", ".."]).test({
+  runPrettier("cli/config/", [
+    "--end-of-line",
+    "lf",
+    "--find-config-path",
+    ".."
+  ]).test({
     stdout: "",
     status: 1
   });
 });
 
 describe("CLI overrides take precedence", () => {
-  runPrettier("cli/config/", ["--print-width", "1", "**/*.js"]).test({
+  runPrettier("cli/config/", [
+    "--end-of-line",
+    "lf",
+    "--print-width",
+    "1",
+    "**/*.js"
+  ]).test({
     status: 0
   });
 });

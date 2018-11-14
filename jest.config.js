@@ -17,9 +17,13 @@ module.exports = {
     "jest-snapshot-serializer-ansi"
   ],
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
-  testPathIgnorePatterns: ["tests/new_react", "tests/more_react"].concat(
-    isOldNode ? requiresPrettierInternals : []
-  ),
+  testPathIgnorePatterns: ["tests/new_react", "tests/more_react"]
+    .concat(isOldNode ? requiresPrettierInternals : [])
+    .concat(
+      require("os").EOL == "\n"
+        ? ["tests_integration/__tests__/eol-crlf.js"]
+        : ["tests_integration/__tests__/eol-lf.js"]
+    ),
   collectCoverage: ENABLE_COVERAGE,
   collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
   coveragePathIgnorePatterns: [

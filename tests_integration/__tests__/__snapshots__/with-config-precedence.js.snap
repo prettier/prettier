@@ -54,6 +54,7 @@ exports[`CLI overrides gets ignored when config exists with --config-precedence 
 \\"use strict\\";
 
 module.exports = {
+        endOfLine: \\"lf\\",
         tabWidth: 8
 };
 "
@@ -70,6 +71,7 @@ exports[`CLI overrides take lower precedence with --config-precedence file-overr
 \\"use strict\\";
 
 module.exports = {
+        endOfLine: \\"lf\\",
         tabWidth: 8
 };
 "
@@ -80,17 +82,7 @@ exports[`CLI overrides take lower precedence with --config-precedence file-overr
 exports[`CLI overrides take precedence with --config-precedence cli-override (stderr) 1`] = `""`;
 
 exports[`CLI overrides take precedence with --config-precedence cli-override (stdout) 1`] = `
-"function f() {/*CR*/	console.log(/*CR*/		\\"line endings should be CR\\"/*CR*/	)/*CR*/}/*CR*/function f() {/*CR*/
-	console.log(/*CR*/
-		\\"line endings should be CRLF\\"/*CR*/
-	)/*CR*/
-}/*CR*/
-function f() {
-	console.log(
-		\\"line endings should be LF\\"
-	)
-}
-function f() {
+"function f() {
 	console.log(
 		\\"should have tab width 8\\"
 	)
@@ -127,6 +119,8 @@ function js() {
 \\"use strict\\";
 
 module.exports = {
+        endOfLine:
+                \\"lf\\",
         tabWidth: 8
 };
 function noConfigJs() {
@@ -177,17 +171,7 @@ exports[`CLI overrides take precedence with --config-precedence cli-override (wr
 exports[`CLI overrides take precedence without --config-precedence (stderr) 1`] = `""`;
 
 exports[`CLI overrides take precedence without --config-precedence (stdout) 1`] = `
-"function f() {/*CR*/	console.log(/*CR*/		\\"line endings should be CR\\"/*CR*/	)/*CR*/}/*CR*/function f() {/*CR*/
-	console.log(/*CR*/
-		\\"line endings should be CRLF\\"/*CR*/
-	)/*CR*/
-}/*CR*/
-function f() {
-	console.log(
-		\\"line endings should be LF\\"
-	)
-}
-function f() {
+"function f() {
 	console.log(
 		\\"should have tab width 8\\"
 	)
@@ -224,6 +208,8 @@ function js() {
 \\"use strict\\";
 
 module.exports = {
+        endOfLine:
+                \\"lf\\",
         tabWidth: 8
 };
 function noConfigJs() {
