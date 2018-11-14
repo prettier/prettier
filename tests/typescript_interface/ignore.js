@@ -20,3 +20,9 @@ interface foo extends bar {
   g(): void;
   h(): void;
 }
+
+interface T<T> {
+  // prettier-ignore
+  new<T>(): T<T>;
+  new<T>(): T<T>;
+}

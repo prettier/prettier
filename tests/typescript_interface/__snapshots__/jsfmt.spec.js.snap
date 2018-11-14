@@ -67,6 +67,12 @@ interface foo extends bar {
   g(): void;
   h(): void;
 }
+
+interface T<T> {
+  // prettier-ignore
+  new<T>(): T<T>;
+  new<T>(): T<T>;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface Interface {
   // prettier-ignore
@@ -89,6 +95,12 @@ interface foo extends bar {
   // prettier-ignore
   g(): void;
   h(): void;
+}
+
+interface T<T> {
+  // prettier-ignore
+  new<T>(): T<T>;;
+  new <T>(): T<T>;
 }
 
 `;
@@ -116,6 +128,12 @@ interface foo extends bar {
   g(): void;
   h(): void;
 }
+
+interface T<T> {
+  // prettier-ignore
+  new<T>(): T<T>;
+  new<T>(): T<T>;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 interface Interface {
   // prettier-ignore
@@ -138,6 +156,12 @@ interface foo extends bar {
   // prettier-ignore
   g(): void;
   h(): void
+}
+
+interface T<T> {
+  // prettier-ignore
+  new<T>(): T<T>;
+  new <T>(): T<T>
 }
 
 `;
