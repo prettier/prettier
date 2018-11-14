@@ -781,6 +781,11 @@ function printOpeningTagStartMarker(node) {
       return "{{";
     case "docType":
       return "<!DOCTYPE";
+    case "element":
+      if (node.condition) {
+        return `<!--[if ${node.condition}]><!--><${node.rawName}`;
+      }
+    // fall through
     default:
       return `<${node.rawName}`;
   }
@@ -791,6 +796,11 @@ function printOpeningTagEndMarker(node) {
   switch (node.type) {
     case "ieConditionalComment":
       return "]>";
+    case "element":
+      if (node.condition) {
+        return `><!--<![endif]-->`;
+      }
+    // fall through
     default:
       return `>`;
   }
