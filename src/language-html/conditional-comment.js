@@ -1,18 +1,33 @@
 "use strict";
 
+// https://css-tricks.com/how-to-create-an-ie-only-stylesheet
+
+// <!--[if ... ]> ... <![endif]-->
+const IE_CONDITIONAL_START_END_COMMENT_REGEX = /^(\[if([^\]]*?)\]>)([\s\S]*?)<!\s*\[endif\]$/;
+// <!--[if ... ]><!-->
+const IE_CONDITIONAL_START_COMMENT_REGEX = /^\[if([^\]]*?)\]><!$/;
+// <!--<![endif]-->
+const IE_CONDITIONAL_END_COMMENT_REGEX = /^<!\s*\[endif\]$/;
+
+const REGEX_PARSE_TUPLES = [
+  [IE_CONDITIONAL_START_END_COMMENT_REGEX, parseIeConditionalStartEndComment],
+  [IE_CONDITIONAL_START_COMMENT_REGEX, parseIeConditionalStartComment],
+  [IE_CONDITIONAL_END_COMMENT_REGEX, parseIeConditionalEndComment]
+];
+
 function parseIeConditionalComment(node, parseHtml) {
-  if (!node.value) {
-    return null;
+  if (node.value) {
+    let match;
+    for (const [regex, parse] of REGEX_PARSE_TUPLES) {
+      if ((match = node.value.match(regex))) {
+        return parse(node, parseHtml, match);
+      }
+    }
   }
+  return null;
+}
 
-  const match = node.value.match(
-    /^(\[if([^\]]*?)\]>)([\s\S]*?)<!\s*\[endif\]$/
-  );
-
-  if (!match) {
-    return null;
-  }
-
+function parseIeConditionalStartEndComment(node, parseHtml, match) {
   const [, openingTagSuffix, condition, data] = match;
   const offset = "<!--".length + openingTagSuffix.length;
   const contentStartSpan = node.sourceSpan.start.moveBy(offset);
@@ -41,6 +56,22 @@ function parseIeConditionalComment(node, parseHtml) {
       contentStartSpan
     ),
     endSourceSpan: new ParseSourceSpan(contentEndSpan, node.sourceSpan.end)
+  };
+}
+
+function parseIeConditionalStartComment(node, parseHtml, match) {
+  const [, condition] = match;
+  return {
+    type: "ieConditionalStartComment",
+    condition: condition.trim().replace(/\s+/g, " "),
+    sourceSpan: node.sourceSpan
+  };
+}
+
+function parseIeConditionalEndComment(node /*, parseHtml, match */) {
+  return {
+    type: "ieConditionalEndComment",
+    sourceSpan: node.sourceSpan
   };
 }
 

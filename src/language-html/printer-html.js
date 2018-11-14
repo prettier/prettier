@@ -255,6 +255,9 @@ function genericPrint(path, options, print) {
         printClosingTag(node)
       ]);
     }
+    case "ieConditionalStartComment":
+    case "ieConditionalEndComment":
+      return concat([printOpeningTagStart(node), printClosingTagEnd(node)]);
     case "interpolation":
       return concat([
         printOpeningTagStart(node),
@@ -770,7 +773,10 @@ function printOpeningTagStartMarker(node) {
     case "comment":
       return "<!--";
     case "ieConditionalComment":
+    case "ieConditionalStartComment":
       return `<!--[if ${node.condition}`;
+    case "ieConditionalEndComment":
+      return `<!--<!`;
     case "interpolation":
       return "{{";
     case "docType":
@@ -811,7 +817,10 @@ function printClosingTagEndMarker(node) {
     case "comment":
       return "-->";
     case "ieConditionalComment":
+    case "ieConditionalEndComment":
       return `[endif]-->`;
+    case "ieConditionalStartComment":
+      return `]><!-->`;
     case "interpolation":
       return "}}";
     case "element":

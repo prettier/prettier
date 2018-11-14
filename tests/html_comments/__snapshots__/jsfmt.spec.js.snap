@@ -163,28 +163,28 @@ exports[`conditional.html - html-verify 1`] = `
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><![endif]-->
-<!-- [if gte IE 9]><! -->
+<!--[if gte IE 9]><!-->
 <html>
-  <!-- <![endif] -->
+  <!--<![endif]-->
   <head></head>
   <body></body>
 </html>
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><![endif]-->
-<!-- [if gte IE 9]><! -->
+<!--[if gte IE 9]><!-->
 <html hello>
-  <!-- <![endif] -->
+  <!--<![endif]-->
   <head></head>
   <body></body>
 </html>
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><head><![endif]-->
-<!-- [if gte IE 9]><! -->
+<!--[if gte IE 9]><!-->
 <html>
   <head>
-    <!-- <![endif] -->
+    <!--<![endif]-->
   </head>
   <body></body>
 </html>
@@ -331,42 +331,30 @@ exports[`conditional.html - html-verify 2`] = `
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><![endif]-->
-<!--
-  [if gte IE 9]><!
--->
+<!--[if gte IE 9]><!-->
 <html>
-  <!--
-    <![endif]
-  -->
+  <!--<![endif]-->
   <head></head>
   <body></body>
 </html>
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><![endif]-->
-<!--
-  [if gte IE 9]><!
--->
+<!--[if gte IE 9]><!-->
 <html
   hello
 >
-  <!--
-    <![endif]
-  -->
+  <!--<![endif]-->
   <head></head>
   <body></body>
 </html>
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><head><![endif]-->
-<!--
-  [if gte IE 9]><!
--->
+<!--[if gte IE 9]><!-->
 <html>
   <head>
-    <!--
-      <![endif]
-    -->
+    <!--<![endif]-->
   </head>
   <body></body>
 </html>
@@ -479,28 +467,28 @@ exports[`conditional.html - html-verify 3`] = `
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><![endif]-->
-<!-- [if gte IE 9]><! -->
+<!--[if gte IE 9]><!-->
 <html>
-  <!-- <![endif] -->
+  <!--<![endif]-->
   <head></head>
   <body></body>
 </html>
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><![endif]-->
-<!-- [if gte IE 9]><! -->
+<!--[if gte IE 9]><!-->
 <html hello>
-  <!-- <![endif] -->
+  <!--<![endif]-->
   <head></head>
   <body></body>
 </html>
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><head><![endif]-->
-<!-- [if gte IE 9]><! -->
+<!--[if gte IE 9]><!-->
 <html>
   <head>
-    <!-- <![endif] -->
+    <!--<![endif]-->
   </head>
   <body></body>
 </html>
@@ -613,28 +601,28 @@ exports[`conditional.html - html-verify 4`] = `
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><![endif]-->
-<!-- [if gte IE 9]><!
---><html
-  ><!-- <![endif] -->
+<!--[if gte IE 9
+]><!--><html
+  ><!--<![endif]-->
   <head></head>
   <body></body>
 </html>
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><![endif]-->
-<!-- [if gte IE 9]><!
---><html hello
-  ><!-- <![endif] -->
+<!--[if gte IE 9
+]><!--><html hello
+  ><!--<![endif]-->
   <head></head>
   <body></body>
 </html>
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><head><![endif]-->
-<!-- [if gte IE 9]><!
---><html
+<!--[if gte IE 9
+]><!--><html
   ><head
-    ><!-- <![endif] -->
+    ><!--<![endif]-->
   </head>
   <body></body>
 </html>
@@ -762,28 +750,28 @@ exports[`conditional.html - html-verify 5`] = `
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><![endif]-->
-<!-- [if gte IE 9]><! -->
+<!--[if gte IE 9]><!-->
 <html>
-  <!-- <![endif] -->
+  <!--<![endif]-->
   <head></head>
   <body></body>
 </html>
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><![endif]-->
-<!-- [if gte IE 9]><! -->
+<!--[if gte IE 9]><!-->
 <html hello>
-  <!-- <![endif] -->
+  <!--<![endif]-->
   <head></head>
   <body></body>
 </html>
 
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="legacy-ie"><head><![endif]-->
-<!-- [if gte IE 9]><! -->
+<!--[if gte IE 9]><!-->
 <html>
   <head>
-    <!-- <![endif] -->
+    <!--<![endif]-->
   </head>
   <body></body>
 </html>
