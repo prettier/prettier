@@ -737,7 +737,7 @@ ___________________________
 </div>
 <pre></pre>
 
-<pre><code #foo></code>></pre>
+<pre><code #foo></code></pre>
 
 `;
 
@@ -930,7 +930,7 @@ ___________________________
 </div>
 <pre></pre>
 
-<pre><code #foo></code>></pre>
+<pre><code #foo></code></pre>
 
 `;
 
@@ -1093,7 +1093,7 @@ ___________________________
 </div>
 <pre></pre>
 
-<pre><code #foo></code>></pre>
+<pre><code #foo></code></pre>
 
 `;
 
@@ -1266,7 +1266,7 @@ ___________________________
 </div>
 <pre></pre>
 
-<pre><code #foo></code>></pre>
+<pre><code #foo></code></pre>
 
 `;
 
@@ -1439,7 +1439,7 @@ ___________________________
 </div>
 <pre></pre>
 
-<pre><code #foo></code>></pre>
+<pre><code #foo></code></pre>
 
 `;
 
