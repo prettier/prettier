@@ -854,14 +854,18 @@ ___________________________
    line breaks
 
 </pre>
-<pre>     Foo     Bar     </pre>
+<pre>
+     Foo     Bar     </pre
+>
 <pre>
      Foo     Bar
 </pre>
 <pre>
 Foo     Bar
 </pre>
-<pre>     Foo     Bar</pre>
+<pre>
+     Foo     Bar</pre
+>
 <figure
   role="img"
   aria-labelledby="cow-caption"
@@ -3123,7 +3127,9 @@ exports[`textarea.html - html-verify 2`] = `
 <textarea></textarea>
 
 <div>
-  <textarea>lorem ipsum</textarea>
+  <textarea>
+lorem ipsum</textarea
+  >
 </div>
 
 `;

@@ -7,6 +7,7 @@ const {
 } = require("../doc");
 const {
   breakParent,
+  dedentToRoot,
   fill,
   group,
   hardline,
@@ -29,7 +30,6 @@ const {
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
-  isPreLikeNode,
   isScriptLikeTag,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
@@ -199,19 +199,13 @@ function genericPrint(path, options, print) {
                     concat([
                       shouldHugContent
                         ? ifBreak(softline, "", { groupId: attrGroupId })
-                        : node.firstChild.type === "text" &&
-                          node.firstChild.isWhitespaceSensitive &&
-                          node.firstChild.isIndentationSensitive
-                        ? (node.children.length === 1 &&
-                            node.firstChild.type === "text" &&
-                            node.firstChild.value.indexOf("\n") === -1) ||
-                          node.firstChild.sourceSpan.start.line ===
-                            node.lastChild.sourceSpan.end.line
-                          ? ""
-                          : literalline
                         : node.firstChild.hasLeadingSpaces &&
                           node.firstChild.isLeadingSpaceSensitive
                         ? line
+                        : node.firstChild.type === "text" &&
+                          node.firstChild.isWhitespaceSensitive &&
+                          node.firstChild.isIndentationSensitive
+                        ? dedentToRoot(softline)
                         : softline,
                       printChildren(path, options, print)
                     ])
@@ -228,17 +222,16 @@ function genericPrint(path, options, print) {
                     : node.lastChild.hasTrailingSpaces &&
                       node.lastChild.isTrailingSpaceSensitive
                     ? line
-                    : node.type === "element" &&
-                      isPreLikeNode(node) &&
-                      node.lastChild.type === "text" &&
-                      (node.lastChild.value.indexOf("\n") === -1 ||
-                        new RegExp(
-                          `\\n\\s{${options.tabWidth *
-                            countParents(
-                              path,
-                              n => n.parent && n.parent.type !== "root"
-                            )}}$`
-                        ).test(node.lastChild.value))
+                    : node.lastChild.type === "text" &&
+                      node.lastChild.isWhitespaceSensitive &&
+                      node.lastChild.isIndentationSensitive &&
+                      new RegExp(
+                        `\\n\\s{${options.tabWidth *
+                          countParents(
+                            path,
+                            n => n.parent && n.parent.type !== "root"
+                          )}}$`
+                      ).test(node.lastChild.value)
                     ? /**
                        *     <div>
                        *       <pre>
