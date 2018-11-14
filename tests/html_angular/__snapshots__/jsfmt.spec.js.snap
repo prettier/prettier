@@ -1024,6 +1024,430 @@ exports[`attributes.component.html - angular-verify 4`] = `
 
 `;
 
+exports[`first-lf.component.html - angular-verify 1`] = `
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>
+{{ generatedDiscountCodes }}</textarea>
+<textarea>
+    {{ generatedDiscountCodes }}</textarea>
+<textarea>  
+{{ generatedDiscountCodes }}</textarea>
+<textarea>  
+    {{ generatedDiscountCodes }}</textarea>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>
+{{ generatedDiscountCodes }}123</textarea>
+<textarea>
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea>  
+{{ generatedDiscountCodes }}123</textarea>
+<textarea>  
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">  
+{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">  
+    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">  
+{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">  
+    {{ generatedDiscountCodes }}123</textarea>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>    {{ generatedDiscountCodes }}</textarea>
+<textarea>
+  
+{{ generatedDiscountCodes }}</textarea
+>
+<textarea>
+  
+    {{ generatedDiscountCodes }}</textarea
+>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>    {{ generatedDiscountCodes }}123</textarea>
+<textarea>
+  
+{{ generatedDiscountCodes }}123</textarea
+>
+<textarea>
+  
+    {{ generatedDiscountCodes }}123</textarea
+>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+  
+{{ generatedDiscountCodes }}</textarea
+>
+<textarea type="text">
+  
+    {{ generatedDiscountCodes }}</textarea
+>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+  
+{{ generatedDiscountCodes }}123</textarea
+>
+<textarea type="text">
+  
+    {{ generatedDiscountCodes }}123</textarea
+>
+
+`;
+
+exports[`first-lf.component.html - angular-verify 2`] = `
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>
+{{ generatedDiscountCodes }}</textarea>
+<textarea>
+    {{ generatedDiscountCodes }}</textarea>
+<textarea>  
+{{ generatedDiscountCodes }}</textarea>
+<textarea>  
+    {{ generatedDiscountCodes }}</textarea>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>
+{{ generatedDiscountCodes }}123</textarea>
+<textarea>
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea>  
+{{ generatedDiscountCodes }}123</textarea>
+<textarea>  
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">  
+{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">  
+    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">  
+{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">  
+    {{ generatedDiscountCodes }}123</textarea>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>    {{ generatedDiscountCodes }}</textarea>
+<textarea>
+  
+{{ generatedDiscountCodes }}</textarea
+>
+<textarea>
+  
+    {{ generatedDiscountCodes }}</textarea
+>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>    {{ generatedDiscountCodes }}123</textarea>
+<textarea>
+  
+{{ generatedDiscountCodes }}123</textarea
+>
+<textarea>
+  
+    {{ generatedDiscountCodes }}123</textarea
+>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+  
+{{ generatedDiscountCodes }}</textarea
+>
+<textarea type="text">
+  
+    {{ generatedDiscountCodes }}</textarea
+>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+  
+{{ generatedDiscountCodes }}123</textarea
+>
+<textarea type="text">
+  
+    {{ generatedDiscountCodes }}123</textarea
+>
+
+`;
+
+exports[`first-lf.component.html - angular-verify 3`] = `
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>
+{{ generatedDiscountCodes }}</textarea>
+<textarea>
+    {{ generatedDiscountCodes }}</textarea>
+<textarea>  
+{{ generatedDiscountCodes }}</textarea>
+<textarea>  
+    {{ generatedDiscountCodes }}</textarea>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>
+{{ generatedDiscountCodes }}123</textarea>
+<textarea>
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea>  
+{{ generatedDiscountCodes }}123</textarea>
+<textarea>  
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">  
+{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">  
+    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">  
+{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">  
+    {{ generatedDiscountCodes }}123</textarea>
+~
+<textarea>
+  {{
+    generatedDiscountCodes
+  }}</textarea
+>
+<textarea>
+  {{
+    generatedDiscountCodes
+  }}</textarea
+>
+<textarea>
+    {{
+    generatedDiscountCodes
+  }}</textarea
+>
+<textarea>
+  
+{{
+    generatedDiscountCodes
+  }}</textarea
+>
+<textarea>
+  
+    {{
+    generatedDiscountCodes
+  }}</textarea
+>
+<textarea>
+  {{
+    generatedDiscountCodes
+  }}123</textarea
+>
+<textarea>
+  {{
+    generatedDiscountCodes
+  }}123</textarea
+>
+<textarea>
+    {{
+    generatedDiscountCodes
+  }}123</textarea
+>
+<textarea>
+  
+{{
+    generatedDiscountCodes
+  }}123</textarea
+>
+<textarea>
+  
+    {{
+    generatedDiscountCodes
+  }}123</textarea
+>
+<textarea
+  type="text"
+>
+  {{
+    generatedDiscountCodes
+  }}</textarea
+>
+<textarea
+  type="text"
+>
+  {{
+    generatedDiscountCodes
+  }}</textarea
+>
+<textarea
+  type="text"
+>
+    {{
+    generatedDiscountCodes
+  }}</textarea
+>
+<textarea
+  type="text"
+>
+  
+{{
+    generatedDiscountCodes
+  }}</textarea
+>
+<textarea
+  type="text"
+>
+  
+    {{
+    generatedDiscountCodes
+  }}</textarea
+>
+<textarea
+  type="text"
+>
+  {{
+    generatedDiscountCodes
+  }}123</textarea
+>
+<textarea
+  type="text"
+>
+  {{
+    generatedDiscountCodes
+  }}123</textarea
+>
+<textarea
+  type="text"
+>
+    {{
+    generatedDiscountCodes
+  }}123</textarea
+>
+<textarea
+  type="text"
+>
+  
+{{
+    generatedDiscountCodes
+  }}123</textarea
+>
+<textarea
+  type="text"
+>
+  
+    {{
+    generatedDiscountCodes
+  }}123</textarea
+>
+
+`;
+
+exports[`first-lf.component.html - angular-verify 4`] = `
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>
+{{ generatedDiscountCodes }}</textarea>
+<textarea>
+    {{ generatedDiscountCodes }}</textarea>
+<textarea>  
+{{ generatedDiscountCodes }}</textarea>
+<textarea>  
+    {{ generatedDiscountCodes }}</textarea>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>
+{{ generatedDiscountCodes }}123</textarea>
+<textarea>
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea>  
+{{ generatedDiscountCodes }}123</textarea>
+<textarea>  
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">  
+{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">  
+    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">  
+{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">  
+    {{ generatedDiscountCodes }}123</textarea>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>    {{ generatedDiscountCodes }}</textarea>
+<textarea>
+  
+{{ generatedDiscountCodes }}</textarea
+>
+<textarea>
+  
+    {{ generatedDiscountCodes }}</textarea
+>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>    {{ generatedDiscountCodes }}123</textarea>
+<textarea>
+  
+{{ generatedDiscountCodes }}123</textarea
+>
+<textarea>
+  
+    {{ generatedDiscountCodes }}123</textarea
+>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+  
+{{ generatedDiscountCodes }}</textarea
+>
+<textarea type="text">
+  
+    {{ generatedDiscountCodes }}</textarea
+>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+  
+{{ generatedDiscountCodes }}123</textarea
+>
+<textarea type="text">
+  
+    {{ generatedDiscountCodes }}123</textarea
+>
+
+`;
+
 exports[`ignore-attribute.component.html - angular-verify 1`] = `
 <div
     bindon-target=" a | b : c "
