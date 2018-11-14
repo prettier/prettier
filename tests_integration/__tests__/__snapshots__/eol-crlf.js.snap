@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Has correct default Windows line endings (stderr) 1`] = `""`;
+
+exports[`Has correct default Windows line endings (stdout) 1`] = `
+"function f() {
+	console.log(\\"should have tab width 8\\")
+}
+function f() {
+  console.log(\\"should have space width 2\\")
+}
+function f() {
+        console.log(\\"should have space width 8\\")
+}
+function f() {
+  console.log(
+    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+  )
+}
+console.log(\\"jest/__best-tests__/file.js should have semi\\");/*CR*/
+console.log(\\"jest/Component.js should not have semi\\")/*CR*/
+console.log(\\"jest/Component.test.js should have semi\\");/*CR*/
+function js() {
+        console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
+}
+\\"use strict\\";
+
+module.exports = {
+        endOfLine: \\"lf\\",
+        tabWidth: 8
+};
+function noConfigJs() {
+  console.log(\\"no-config/file.js should have no semicolons\\")
+}
+function packageJs() {/*CR*/
+   console.log(\\"package/file.js should have tab width 3\\");/*CR*/
+}/*CR*/
+function rcJson() {/*CR*/
+  console.log.apply(null, [/*CR*/
+    'rc-json/file.js',/*CR*/
+    'should have trailing comma',/*CR*/
+    'and single quotes',/*CR*/
+  ]);/*CR*/
+}/*CR*/
+function rcToml() {/*CR*/
+  console.log.apply(null, [/*CR*/
+    'rc-toml/file.js',/*CR*/
+    'should have trailing comma',/*CR*/
+    'and single quotes',/*CR*/
+  ]);/*CR*/
+}/*CR*/
+function rcYaml() {/*CR*/
+  console.log.apply(null, [/*CR*/
+    'rc-yaml/file.js',/*CR*/
+    'should have trailing comma',/*CR*/
+    'and single quotes',/*CR*/
+  ]);/*CR*/
+}/*CR*/
+"
+`;
+
+exports[`Has correct default Windows line endings (write) 1`] = `Array []`;

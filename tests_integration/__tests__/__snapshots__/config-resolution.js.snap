@@ -3,17 +3,7 @@
 exports[`CLI overrides take precedence (stderr) 1`] = `""`;
 
 exports[`CLI overrides take precedence (stdout) 1`] = `
-"function f() {/*CR*/	console.log(/*CR*/		\\"line endings should be CR\\"/*CR*/	)/*CR*/}/*CR*/function f() {/*CR*/
-	console.log(/*CR*/
-		\\"line endings should be CRLF\\"/*CR*/
-	)/*CR*/
-}/*CR*/
-function f() {
-	console.log(
-		\\"line endings should be LF\\"
-	)
-}
-function f() {
+"function f() {
 	console.log(
 		\\"should have tab width 8\\"
 	)
@@ -50,6 +40,8 @@ function js() {
 \\"use strict\\";
 
 module.exports = {
+        endOfLine:
+                \\"lf\\",
         tabWidth: 8
 };
 function noConfigJs() {
@@ -124,13 +116,7 @@ exports[`resolves configuration file with --find-config-path file (write) 1`] = 
 exports[`resolves configuration from external files (stderr) 1`] = `""`;
 
 exports[`resolves configuration from external files (stdout) 1`] = `
-"function f() {/*CR*/	console.log(\\"line endings should be CR\\")/*CR*/}/*CR*/function f() {/*CR*/
-	console.log(\\"line endings should be CRLF\\")/*CR*/
-}/*CR*/
-function f() {
-	console.log(\\"line endings should be LF\\")
-}
-function f() {
+"function f() {
 	console.log(\\"should have tab width 8\\")
 }
 function f() {
@@ -153,6 +139,7 @@ function js() {
 \\"use strict\\";
 
 module.exports = {
+        endOfLine: \\"lf\\",
         tabWidth: 8
 };
 function noConfigJs() {
