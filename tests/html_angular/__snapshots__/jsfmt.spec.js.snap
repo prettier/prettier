@@ -1232,13 +1232,13 @@ exports[`first-lf.component.html - angular-verify 3`] = `
 <textarea type="text">  
     {{ generatedDiscountCodes }}123</textarea>
 ~
-<textarea>
-  {{
+<textarea
+  >{{
     generatedDiscountCodes
   }}</textarea
 >
-<textarea>
-  {{
+<textarea
+  >{{
     generatedDiscountCodes
   }}</textarea
 >
@@ -1259,13 +1259,13 @@ exports[`first-lf.component.html - angular-verify 3`] = `
     generatedDiscountCodes
   }}</textarea
 >
-<textarea>
-  {{
+<textarea
+  >{{
     generatedDiscountCodes
   }}123</textarea
 >
-<textarea>
-  {{
+<textarea
+  >{{
     generatedDiscountCodes
   }}123</textarea
 >
@@ -1288,15 +1288,13 @@ exports[`first-lf.component.html - angular-verify 3`] = `
 >
 <textarea
   type="text"
->
-  {{
+  >{{
     generatedDiscountCodes
   }}</textarea
 >
 <textarea
   type="text"
->
-  {{
+  >{{
     generatedDiscountCodes
   }}</textarea
 >
@@ -1325,15 +1323,13 @@ exports[`first-lf.component.html - angular-verify 3`] = `
 >
 <textarea
   type="text"
->
-  {{
+  >{{
     generatedDiscountCodes
   }}123</textarea
 >
 <textarea
   type="text"
->
-  {{
+  >{{
     generatedDiscountCodes
   }}123</textarea
 >
