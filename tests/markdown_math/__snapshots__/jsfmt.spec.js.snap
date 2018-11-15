@@ -28,6 +28,13 @@ $$
 
 `;
 
+exports[`math-like.md - markdown-verify 1`] = `
+$10 - $20
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$10 -$20
+
+`;
+
 exports[`remark-math.md - markdown-verify 1`] = `
 <!-- tests from https://github.com/Rokt33r/remark-math/blob/9e13e49/specs/remark-math.spec.js -->
 
