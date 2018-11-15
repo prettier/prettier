@@ -42,7 +42,7 @@
   <a href="https://circleci.com/gh/prettier/prettier">
     <img alt="CircleCI Build Status" src="https://img.shields.io/circleci/project/github/prettier/prettier/master.svg?style=flat-square&label=CircleCI"></a>
   <a href="https://dev.azure.com/prettier/prettier/_build/latest?definitionId=5">
-    <img alt="AppVeyor Build Status" src="https://dev.azure.com/prettier/prettier/_apis/build/status/prettier.prettier"></a>
+    <img alt="Azure Pipelines Build Status" src="https://dev.azure.com/prettier/prettier/_apis/build/status/prettier.prettier"></a>
   <a href="https://codecov.io/gh/prettier/prettier">
     <img alt="Codecov Coverage Status" src="https://img.shields.io/codecov/c/github/prettier/prettier.svg?style=flat-square"></a>
   <a href="https://twitter.com/acdlite/status/974390255393505280">
