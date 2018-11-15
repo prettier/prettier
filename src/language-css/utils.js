@@ -62,7 +62,7 @@ function getPropOfDeclNode(path) {
 
 function isSCSS(parser, text) {
   const hasExplicitParserChoice = parser === "less" || parser === "scss";
-  const IS_POSSIBLY_SCSS = /(\w\s*: [^}:]+|#){|@import[^\n]+(url|,)/;
+  const IS_POSSIBLY_SCSS = /(\w\s*: [^}:]+|#|:\s*\(){|@import[^\n]+(url|,)/;
   return hasExplicitParserChoice
     ? parser === "scss"
     : IS_POSSIBLY_SCSS.test(text);
@@ -315,6 +315,14 @@ function isKeyValuePairInParenGroupNode(node) {
 }
 
 function isSCSSMapItemNode(path) {
+  const rootNode = getAncestorNode(path, "css-root");
+
+  console.log(rootNode.parser)
+
+  if (rootNode.parser !== "scss") {
+    return false;
+  }
+
   const node = path.getValue();
 
   // Ignore empty item (i.e. `$key: ()`)

@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.css - css-verify 1`] = `
+a {
+    color: red;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a {
+  color: red;
+}
+less
+`;
+
+exports[`test.less - css-verify 1`] = `
+a {
+  color: red;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a {
+  color: red;
+}
+less
+`;
+
+exports[`test.scss - css-verify 1`] = `
+a {
+  color: red;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a {
+  color: red;
+}
+less
+`;
