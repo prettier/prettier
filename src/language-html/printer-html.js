@@ -248,6 +248,9 @@ function genericPrint(path, options, print) {
         printClosingTag(node)
       ]);
     }
+    case "ieConditionalStartComment":
+    case "ieConditionalEndComment":
+      return concat([printOpeningTagStart(node), printClosingTagEnd(node)]);
     case "interpolation":
       return concat([
         printOpeningTagStart(node),
@@ -765,11 +768,19 @@ function printOpeningTagStartMarker(node) {
     case "comment":
       return "<!--";
     case "ieConditionalComment":
+    case "ieConditionalStartComment":
       return `<!--[if ${node.condition}`;
+    case "ieConditionalEndComment":
+      return `<!--<!`;
     case "interpolation":
       return "{{";
     case "docType":
       return "<!DOCTYPE";
+    case "element":
+      if (node.condition) {
+        return `<!--[if ${node.condition}]><!--><${node.rawName}`;
+      }
+    // fall through
     default:
       return `<${node.rawName}`;
   }
@@ -780,6 +791,11 @@ function printOpeningTagEndMarker(node) {
   switch (node.type) {
     case "ieConditionalComment":
       return "]>";
+    case "element":
+      if (node.condition) {
+        return `><!--<![endif]-->`;
+      }
+    // fall through
     default:
       return `>`;
   }
@@ -806,7 +822,10 @@ function printClosingTagEndMarker(node) {
     case "comment":
       return "-->";
     case "ieConditionalComment":
+    case "ieConditionalEndComment":
       return `[endif]-->`;
+    case "ieConditionalStartComment":
+      return `]><!-->`;
     case "interpolation":
       return "}}";
     case "element":
