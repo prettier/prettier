@@ -87,7 +87,7 @@ function mergeIeConditonalStartEndCommentIntoElementOpeningTag(
 
             const ParseSourceSpan = child.sourceSpan.constructor;
             const startSourceSpan = new ParseSourceSpan(
-              ieConditionalEndComment.sourceSpan.start,
+              ieConditionalStartComment.sourceSpan.start,
               ieConditionalEndComment.sourceSpan.end
             );
             const sourceSpan = new ParseSourceSpan(
