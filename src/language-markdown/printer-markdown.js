@@ -409,7 +409,7 @@ function genericPrint(path, options, print) {
         "$$"
       ]);
     case "inlineMath": {
-      // remark-parse trims content but we don't want to remove whitespaces
+      // remark-math trims content but we don't want to remove whitespaces
       // since it's very possible that it's recognized as math accidentally
       return options.originalText.slice(
         options.locStart(node),
