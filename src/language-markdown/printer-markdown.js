@@ -409,13 +409,12 @@ function genericPrint(path, options, print) {
         "$$"
       ]);
     case "inlineMath": {
-      // $$math$$ can be block math in some variants
-      // see https://github.com/Rokt33r/remark-math#double-dollars-in-inline
-      const style =
-        options.originalText[node.position.start.offset + 1] === "$"
-          ? "$$"
-          : "$";
-      return concat([style, node.value, style]);
+      // remark-math trims content but we don't want to remove whitespaces
+      // since it's very possible that it's recognized as math accidentally
+      return options.originalText.slice(
+        options.locStart(node),
+        options.locEnd(node)
+      );
     }
 
     case "tableRow": // handled in "table"
