@@ -476,15 +476,17 @@ function printChildren(path, options, print) {
           group(printOpeningTag(childPath, options, print)),
           replaceNewlines(
             options.originalText.slice(
-              child.startSourceSpan.end.offset -
+              child.startSourceSpan.end.offset +
                 (child.firstChild &&
                 needsToBorrowParentOpeningTagEndMarker(child.firstChild)
-                  ? printOpeningTagEndMarker(child).length
+                  ? -printOpeningTagEndMarker(child).length
                   : 0),
               child.endSourceSpan.start.offset +
                 (child.lastChild &&
                 needsToBorrowParentClosingTagStartMarker(child.lastChild)
                   ? printClosingTagStartMarker(child).length
+                  : needsToBorrowLastChildClosingTagEndMarker(child)
+                  ? -printClosingTagEndMarker(child.lastChild).length
                   : 0)
             ),
             literalline
