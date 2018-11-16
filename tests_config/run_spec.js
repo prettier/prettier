@@ -13,9 +13,7 @@ const prettier = !TEST_STANDALONE
   ? require("prettier/local")
   : require("prettier/standalone");
 
-global.run_spec = run_spec;
-
-function run_spec(dirname, parsers, options) {
+global.run_spec = (dirname, parsers, options) => {
   // istanbul ignore next
   if (!parsers || !parsers.length) {
     throw new Error(`No parsers were specified for ${dirname}`);
@@ -60,6 +58,8 @@ function run_spec(dirname, parsers, options) {
       cursorOffset
     });
 
+    const hasEndOfLine = "endOfLine" in formatOptions;
+
     const output = format(input, filename, formatOptions);
     const visualizedOutput = visualizeEndOfLine(output);
 
@@ -68,17 +68,22 @@ function run_spec(dirname, parsers, options) {
         visualizeEndOfLine(consistentEndOfLine(output))
       );
       expect(
-        raw(source + "~".repeat(formatOptions.printWidth) + "\n" + output)
+        raw(
+          (hasEndOfLine ? visualizeEndOfLine(source) : source) +
+            "~".repeat(formatOptions.printWidth) +
+            "\n" +
+            (hasEndOfLine ? visualizedOutput : output)
+        )
       ).toMatchSnapshot();
     });
 
-    parsers.slice(1).forEach(parser => {
+    for (const parser of parsers.slice(1)) {
       const verifyOptions = Object.assign({}, formatOptions, { parser });
       test(`${basename} - ${parser}-verify`, () => {
         const verifyOutput = format(input, filename, verifyOptions);
         expect(visualizedOutput).toEqual(visualizeEndOfLine(verifyOutput));
       });
-    });
+    }
 
     if (AST_COMPARE) {
       test(`${filename} parse`, () => {
@@ -95,7 +100,7 @@ function run_spec(dirname, parsers, options) {
       });
     }
   });
-}
+};
 
 function parse(source, options) {
   return prettier.__debug.parse(source, options, /* massage */ true).ast;
@@ -115,12 +120,12 @@ function format(source, filename, options) {
 }
 
 function consistentEndOfLine(text) {
-  let expectedEndOfLine;
+  let firstEndOfLine;
   return text.replace(/\r\n?|\n/g, endOfLine => {
-    if (!expectedEndOfLine) {
-      expectedEndOfLine = endOfLine;
+    if (!firstEndOfLine) {
+      firstEndOfLine = endOfLine;
     }
-    return expectedEndOfLine;
+    return firstEndOfLine;
   });
 }
 
