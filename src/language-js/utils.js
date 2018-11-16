@@ -23,6 +23,7 @@ function hasFlowShorthandAnnotationComment(node) {
     node.extra &&
     node.extra.parenthesized &&
     node.trailingComments &&
+    node.trailingComments.length &&
     node.trailingComments[0].value.match(FLOW_SHORTHAND_ANNOTATION)
   );
 }
