@@ -7,6 +7,9 @@ steps:
   - script: yarn install --frozen-lockfile
     displayName: "Install dependencies"
 
+  - script: echo $AST_COMPARE
+    displayName: "Test env var"
+
   - script: yarn check-deps
     displayName: "Check dependencies"
 
