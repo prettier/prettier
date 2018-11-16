@@ -4,14 +4,11 @@ steps:
       versionSpec: "$(node_version)"
     displayName: "Install Node.js"
 
-  - script: npm install -g yarn
-    displayName: "Get yarn"
-
-  - script: yarn install
-    displayName: "yarn install"
+  - script: yarn install --frozen-lockfile
+    displayName: "Install dependencies"
 
   - script: yarn test
-    displayName: "Test"
+    displayName: "Run tests"
 
   - task: PublishTestResults@2
     inputs:
