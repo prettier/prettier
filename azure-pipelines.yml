@@ -53,6 +53,7 @@ jobs:
       matrix:
         Node_v4:
           node_version: 4
+          REPORT_SUMMARIES: "" # jest-junit requires node v6+
         Node_v10:
           node_version: 10
         Node_v10_standalone:
