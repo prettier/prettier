@@ -23,4 +23,4 @@ steps:
   - task: PublishTestResults@2
     inputs:
       testResultsFiles: "**/junit.xml"
-    condition: succeededOrFailed()
+    condition: and(eq(variables['REPORT_SUMMARIES'], true), succeededOrFailed())
