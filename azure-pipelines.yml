@@ -14,7 +14,7 @@ jobs:
     variables:
       node_version: 10
     steps:
-      - template: azure-pipelines-lint.yml
+      - template: .azure-pipelines/lint.yml
 
   - job: Dev_Test_Windows_Node_v10
     displayName: Dev Tests on Windows Node v10
@@ -23,7 +23,7 @@ jobs:
     variables:
       node_version: 10
     steps:
-      - template: azure-pipelines-dev.yml
+      - template: .azure-pipelines/dev.yml
 
   - job: Dev_Test_macOS_Node_v10
     displayName: Dev Tests on macOS Node v10
@@ -32,7 +32,7 @@ jobs:
     variables:
       node_version: 10
     steps:
-      - template: azure-pipelines-dev.yml
+      - template: .azure-pipelines/dev.yml
 
   - job: Dev_Test_Linux_Node_v10
     displayName: Dev Tests on Linux Node v10
@@ -41,7 +41,7 @@ jobs:
     variables:
       node_version: 10
     steps:
-      - template: azure-pipelines-dev.yml
+      - template: .azure-pipelines/dev.yml
 
   - job: Prod_Test_Linux
     displayName: Prod Tests on Linux
@@ -59,4 +59,4 @@ jobs:
           node_version: 10
           TEST_STANDALONE: true
     steps:
-      - template: azure-pipelines-prod.yml
+      - template: .azure-pipelines/prod.yml
