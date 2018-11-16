@@ -38,7 +38,6 @@ function run_spec(dirname, parsers, options) {
       let rangeEnd = Infinity;
       let cursorOffset;
       const source = read(path)
-        .replace(/\r\n/g, "\n")
         .replace("<<<PRETTIER_RANGE_START>>>", (match, offset) => {
           rangeStart = offset;
           return "";
@@ -60,9 +59,18 @@ function run_spec(dirname, parsers, options) {
         cursorOffset
       });
       const output = prettyprint(input, path, mergedOptions);
+      const visualizedOutput = visualizeEndOfLine(output);
       test(`${filename} - ${mergedOptions.parser}-verify`, () => {
+        expect(visualizedOutput).toEqual(
+          visualizeEndOfLine(consistentEndOfLine(output))
+        );
         expect(
-          raw(source + "~".repeat(mergedOptions.printWidth) + "\n" + output)
+          raw(
+            normalizeEndOfLine(source) +
+              "~".repeat(mergedOptions.printWidth) +
+              "\n" +
+              normalizeEndOfLine(output)
+          )
         ).toMatchSnapshot();
       });
 
@@ -70,7 +78,7 @@ function run_spec(dirname, parsers, options) {
         const verifyOptions = Object.assign({}, mergedOptions, { parser });
         test(`${filename} - ${parser}-verify`, () => {
           const verifyOutput = prettyprint(input, path, verifyOptions);
-          expect(output).toEqual(verifyOutput);
+          expect(visualizedOutput).toEqual(visualizeEndOfLine(verifyOutput));
         });
       });
 
@@ -82,13 +90,7 @@ function run_spec(dirname, parsers, options) {
           let ppastMassaged = undefined;
 
           expect(() => {
-            ppastMassaged = parse(
-              prettyprint(input, path, compareOptions)
-                // \r has been replaced with /*CR*/ to test presence of CR in jest snapshots;
-                // reverting this to get the right AST
-                .replace(/\/\*CR\*\//g, "\r"),
-              compareOptions
-            );
+            ppastMassaged = parse(output, compareOptions);
           }).not.toThrow();
 
           expect(ppastMassaged).toBeDefined();
@@ -124,9 +126,36 @@ function prettyprint(src, filename, options) {
       result.formatted.slice(result.cursorOffset);
   }
 
-  // \r is trimmed from jest snapshots by default;
-  // manually replacing this character with /*CR*/ to test its true presence
-  return result.formatted.replace(/\r/g, "/*CR*/");
+  return result.formatted;
+}
+
+function normalizeEndOfLine(text) {
+  return text.replace(/\r\n?/g, "\n");
+}
+
+function consistentEndOfLine(text) {
+  let expectedEndOfLine;
+  return text.replace(/\r\n?|\n/g, endOfLine => {
+    if (!expectedEndOfLine) {
+      expectedEndOfLine = endOfLine;
+    }
+    return expectedEndOfLine;
+  });
+}
+
+function visualizeEndOfLine(text) {
+  return text.replace(/\r\n?|\n/g, endOfLine => {
+    switch (endOfLine) {
+      case "\n":
+        return "↓\n";
+      case "\r\n":
+        return "↵\n";
+      case "\r":
+        return "←\n";
+      default:
+        throw new Error(`Unexpected end of line ${JSON.stringify(endOfLine)}`);
+    }
+  });
 }
 
 function read(filename) {
