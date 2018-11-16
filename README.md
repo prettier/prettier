@@ -41,8 +41,8 @@
     <img alt="Travis CI Build Status" src="https://img.shields.io/travis/prettier/prettier/master.svg?style=flat-square&label=Travis+CI"></a>
   <a href="https://circleci.com/gh/prettier/prettier">
     <img alt="CircleCI Build Status" src="https://img.shields.io/circleci/project/github/prettier/prettier/master.svg?style=flat-square&label=CircleCI"></a>
-  <a href="https://ci.appveyor.com/project/prettier/prettier">
-    <img alt="AppVeyor Build Status" src="https://img.shields.io/appveyor/ci/prettier/prettier.svg?style=flat-square&label=AppVeyor"></a>
+  <a href="https://dev.azure.com/prettier/prettier/_build/latest?definitionId=5">
+    <img alt="Azure Pipelines Build Status" src="https://img.shields.io/azure-devops/build/prettier/79013671-677c-4846-a6d8-3050d40e21c0/5.svg?style=flat-square&label=Azure+Pipelines&branchName=master"></a>
   <a href="https://codecov.io/gh/prettier/prettier">
     <img alt="Codecov Coverage Status" src="https://img.shields.io/codecov/c/github/prettier/prettier.svg?style=flat-square"></a>
   <a href="https://twitter.com/acdlite/status/974390255393505280">
