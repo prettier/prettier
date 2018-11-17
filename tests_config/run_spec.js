@@ -96,7 +96,10 @@ global.run_spec = (dirname, parsers, options) => {
         let formattedAst;
 
         expect(() => {
-          formattedAst = parse(output, parseOptions);
+          formattedAst = parse(
+            output.replace(CURSOR_PLACEHOLDER, ""),
+            parseOptions
+          );
         }).not.toThrow();
         expect(originalAst).toEqual(formattedAst);
       });
