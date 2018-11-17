@@ -22,7 +22,6 @@ jobs:
       vmImage: vs2017-win2016
     variables:
       node_version: 10
-      TEST_CRLF: true
     steps:
       - template: .azure-pipelines/dev.yml
 
@@ -41,6 +40,18 @@ jobs:
       vmImage: "Ubuntu 16.04"
     variables:
       node_version: 10
+    steps:
+      - template: .azure-pipelines/dev.yml
+
+  # There're issues for unicode on Windows build
+  # https://github.com/Microsoft/azure-pipelines-tasks/issues/8534
+  - job: CRLF_Test_Linux_Node_v10
+    displayName: CRLF Tests on Linux Node v10
+    pool:
+      vmImage: "Ubuntu 16.04"
+    variables:
+      node_version: 10
+      TEST_CRLF: true
     steps:
       - template: .azure-pipelines/dev.yml
 
