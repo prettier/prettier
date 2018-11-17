@@ -1,45 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`example.js - babylon-verify 1`] = `
-function f() {↓
-  console.log("testing line endings");↓
-}↓
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function f() {↓
-  console.log("testing line endings");↓
-}↓
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 
 `;
 
 exports[`example.js - babylon-verify 2`] = `
-function f() {↓
-  console.log("testing line endings");↓
-}↓
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function f() {←
-  console.log("testing line endings");←
-}←
+function f() {<CR>
+  console.log("testing line endings");<CR>
+}<CR>
 
 `;
 
 exports[`example.js - babylon-verify 3`] = `
-function f() {↓
-  console.log("testing line endings");↓
-}↓
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function f() {↵
-  console.log("testing line endings");↵
-}↵
+function f() {<CRLF>
+  console.log("testing line endings");<CRLF>
+}<CRLF>
 
 `;
 
 exports[`example.js - babylon-verify 4`] = `
-function f() {↓
-  console.log("testing line endings");↓
-}↓
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function f() {↓
-  console.log("testing line endings");↓
-}↓
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 
 `;
