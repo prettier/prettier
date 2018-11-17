@@ -6,6 +6,7 @@ const raw = require("jest-snapshot-serializer-raw").wrap;
 
 const AST_COMPARE = process.env["AST_COMPARE"];
 const TEST_STANDALONE = process.env["TEST_STANDALONE"];
+const TEST_CRLF = process.env["TEST_CRLF"];
 
 const CURSOR_PLACEHOLDER = "<|>";
 
@@ -35,8 +36,9 @@ global.run_spec = (dirname, parsers, options) => {
     let rangeEnd;
     let cursorOffset;
 
-    const source = fs
-      .readFileSync(filename, "utf8")
+    const text = fs.readFileSync(filename, "utf8");
+
+    const source = (TEST_CRLF ? text.replace(/\n/g, "\r\n") : text)
       .replace("<<<PRETTIER_RANGE_START>>>", (match, offset) => {
         rangeStart = offset;
         return "";
