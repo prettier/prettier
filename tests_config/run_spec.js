@@ -138,11 +138,11 @@ function visualizeEndOfLine(text) {
   return text.replace(/\r\n?|\n/g, endOfLine => {
     switch (endOfLine) {
       case "\n":
-        return "↓\n";
+        return "<LF>\n";
       case "\r\n":
-        return "↵\n";
+        return "<CRLF>\n";
       case "\r":
-        return "←\n";
+        return "<CR>\n";
       default:
         throw new Error(`Unexpected end of line ${JSON.stringify(endOfLine)}`);
     }
