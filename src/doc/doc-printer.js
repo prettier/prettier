@@ -207,7 +207,7 @@ function fits(next, restCommands, width, options, mustBeFlat) {
 
           break;
         case "group":
-          if (doc.break == null && doc.breakIfVisibleTypeBroke) {
+          if (!doc.break && doc.breakIfVisibleTypeBroke) {
             const { offset, type } = doc.breakIfVisibleTypeBroke;
             if (
               getVisibleGroupMode({ type, offset, visibleGroups }) ===
