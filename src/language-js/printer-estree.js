@@ -1280,8 +1280,16 @@ function printPathNoParens(path, options, print, args) {
         .sort((a, b) => options.locStart(a) - options.locStart(b))[0];
 
       const parent = path.getParentNode(0);
+      const isFlowInterfaceLikeBody =
+        isTypeAnnotation &&
+        parent &&
+        (parent.type === "InterfaceDeclaration" ||
+          parent.type === "DeclareInterface" ||
+          parent.type === "DeclareClass") &&
+        path.getName() === "body";
       const shouldBreak =
         n.type === "TSInterfaceBody" ||
+        isFlowInterfaceLikeBody ||
         (n.type === "ObjectPattern" &&
           parent.type !== "FunctionDeclaration" &&
           parent.type !== "FunctionExpression" &&
@@ -1319,13 +1327,6 @@ function printPathNoParens(path, options, print, args) {
       const breakIfVisibleTypeBroke = shouldHug
         ? { type: "paramsAndReturnType" }
         : null;
-      const isFlowInterfaceLikeBody =
-        isTypeAnnotation &&
-        parent &&
-        (parent.type === "InterfaceDeclaration" ||
-          parent.type === "DeclareInterface" ||
-          parent.type === "DeclareClass") &&
-        path.getName() === "body";
 
       const separator = isFlowInterfaceLikeBody
         ? ";"
