@@ -33,7 +33,8 @@ function babylonOptions(extraOptions, extraPlugins) {
         ["pipelineOperator", { proposal: "minimal" }],
         "nullishCoalescingOperator",
         "bigInt",
-        "throwExpressions"
+        "throwExpressions",
+        "logicalAssignment"
       ].concat(extraPlugins)
     },
     extraOptions
