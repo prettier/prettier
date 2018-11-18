@@ -620,7 +620,7 @@ function printPathNoParens(path, options, print, args) {
           // Don't include the initial expression in the indentation
           // level. The first item is guaranteed to be the first
           // left-most expression.
-          parts[0],
+          parts.length > 0 ? parts[0] : "",
           indent(rest)
         ]),
         { id: groupId }
