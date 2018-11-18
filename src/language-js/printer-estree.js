@@ -1301,11 +1301,21 @@ function printPathNoParens(path, options, print, args) {
             options.locStart(n),
             options.locStart(firstProperty)
           ));
+
+      // If we inline the object as first argument of the parent, we want
+      // the object to break before the return type
+      const parentParentParent = path.getParentNode(2);
       const shouldHug =
-        n.type === "ObjectPattern" &&
-        parent &&
-        shouldHugArguments(parent) &&
-        parent.params[0] === n;
+        (n.type === "ObjectPattern" &&
+          parent &&
+          shouldHugArguments(parent) &&
+          parent.params[0] === n) ||
+        (shouldHugType(n) &&
+          parentParentParent &&
+          shouldHugArguments(parentParentParent) &&
+          parentParentParent.params[0].typeAnnotation &&
+          parentParentParent.params[0].typeAnnotation.typeAnnotation === n);
+
       const breakIfVisibleTypeBroke = shouldHug
         ? { type: "paramsAndReturnType" }
         : null;
@@ -1407,25 +1417,7 @@ function printPathNoParens(path, options, print, args) {
         ]);
       }
 
-      // If we inline the object as first argument of the parent, we don't want
-      // to create another group so that the object breaks before the return
-      // type
-      const parentParentParent = path.getParentNode(2);
-      if (
-        shouldHugType(n) &&
-        parentParentParent &&
-        shouldHugArguments(parentParentParent) &&
-        parentParentParent.params[0].typeAnnotation &&
-        parentParentParent.params[0].typeAnnotation.typeAnnotation === n
-      ) {
-        return content;
-      }
-
-      const groupOpts = {
-        shouldBreak,
-        breakIfVisibleTypeBroke
-      };
-      return group(content, groupOpts);
+      return group(content, { shouldBreak, breakIfVisibleTypeBroke });
     }
     // Babel 6
     case "ObjectProperty": // Non-standard AST node type.
