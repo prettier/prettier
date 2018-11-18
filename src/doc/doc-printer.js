@@ -206,27 +206,28 @@ function fits(next, restCommands, width, options, mustBeFlat) {
           width += trim(out);
 
           break;
-        case "group":
-          if (!doc.break && doc.breakIfVisibleTypeBroke) {
+        case "group": {
+          let docBreaks = doc.break;
+          if (!docBreaks && doc.breakIfVisibleTypeBroke) {
             const { offset, type } = doc.breakIfVisibleTypeBroke;
             if (
               getVisibleGroupMode({ type, offset, visibleGroups }) ===
               MODE_BREAK
             ) {
-              doc.break = true;
+              docBreaks = true;
             }
           }
-          if (mustBeFlat && doc.break) {
+          if (mustBeFlat && docBreaks) {
             return false;
           }
           cmds.push([
             ind,
-            doc.break ? MODE_BREAK : mode,
+            docBreaks ? MODE_BREAK : mode,
             doc.contents,
             doc.visibleType
               ? [
                   ...(visibleGroups || []),
-                  { type: doc.visibleType, mode: doc.break ? MODE_BREAK : mode }
+                  { type: doc.visibleType, mode: docBreaks ? MODE_BREAK : mode }
                 ]
               : visibleGroups
           ]);
@@ -235,6 +236,7 @@ function fits(next, restCommands, width, options, mustBeFlat) {
             groupModeMap[doc.id] = cmds[cmds.length - 1][1];
           }
           break;
+        }
         case "fill":
           for (let i = doc.parts.length - 1; i >= 0; i--) {
             cmds.push([ind, mode, doc.parts[i], visibleGroups]);
@@ -352,7 +354,7 @@ function printDocToString(doc, options) {
 
           break;
         case "group": {
-          if (doc.break == null && doc.breakIfVisibleTypeBroke) {
+          if (!doc.break && doc.breakIfVisibleTypeBroke) {
             const { offset, type } = doc.breakIfVisibleTypeBroke;
             if (
               getVisibleGroupMode({ type, offset, visibleGroups }) ===
