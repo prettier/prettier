@@ -247,12 +247,12 @@ function fits(next, restCommands, width, options, mustBeFlat) {
           const groupMode = doc.groupId
             ? groupModeMap[doc.groupId]
             : doc.visibleType
-              ? getVisibleGroupMode({
-                  type: doc.visibleType,
-                  offset: doc.offset,
-                  visibleGroups
-                })
-              : mode;
+            ? getVisibleGroupMode({
+                type: doc.visibleType,
+                offset: doc.offset,
+                visibleGroups
+              })
+            : mode;
           if (groupMode === MODE_BREAK) {
             if (doc.breakContents) {
               cmds.push([ind, mode, doc.breakContents, visibleGroups]);
@@ -571,12 +571,12 @@ function printDocToString(doc, options) {
           const groupMode = doc.groupId
             ? groupModeMap[doc.groupId]
             : doc.visibleType
-              ? getVisibleGroupMode({
-                  type: doc.visibleType,
-                  offset: doc.offset,
-                  visibleGroups
-                })
-              : mode;
+            ? getVisibleGroupMode({
+                type: doc.visibleType,
+                offset: doc.offset,
+                visibleGroups
+              })
+            : mode;
           if (groupMode === MODE_BREAK) {
             if (doc.breakContents) {
               cmds.push([ind, mode, doc.breakContents, visibleGroups]);
