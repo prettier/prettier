@@ -169,7 +169,12 @@ function _print(node, parentNode, path, options, print) {
       return join(
         hardline,
         [
-          shouldPrintDocumentHeadEndMarker(node, nextDocument) === "head"
+          shouldPrintDocumentHeadEndMarker(
+            node,
+            nextDocument,
+            parentNode,
+            options
+          ) === "head"
             ? join(
                 hardline,
                 [
@@ -582,8 +587,24 @@ function shouldPrintDocumentEndMarker(document, nextDocument) {
   );
 }
 
-function shouldPrintDocumentHeadEndMarker(document, nextDocument) {
+function shouldPrintDocumentHeadEndMarker(
+  document,
+  nextDocument,
+  root,
+  options
+) {
   if (
+    /**
+     * ---
+     * preserve the first document head end marker
+     */
+    (root.children[0] === document &&
+      /---(\s|$)/.test(
+        options.originalText.slice(
+          options.locStart(document),
+          options.locStart(document) + 4
+        )
+      )) ||
     /**
      * %DIRECTIVE
      * ---
