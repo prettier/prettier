@@ -9,6 +9,8 @@ const TEST_STANDALONE = process.env["TEST_STANDALONE"];
 const TEST_CRLF = process.env["TEST_CRLF"];
 
 const CURSOR_PLACEHOLDER = "<|>";
+const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
+const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 
 const prettier = !TEST_STANDALONE
   ? require("prettier/local")
@@ -39,11 +41,11 @@ global.run_spec = (dirname, parsers, options) => {
     const text = fs.readFileSync(filename, "utf8");
 
     const source = (TEST_CRLF ? text.replace(/\n/g, "\r\n") : text)
-      .replace("<<<PRETTIER_RANGE_START>>>", (match, offset) => {
+      .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
         rangeStart = offset;
         return "";
       })
-      .replace("<<<PRETTIER_RANGE_END>>>", (match, offset) => {
+      .replace(RANGE_END_PLACEHOLDER, (match, offset) => {
         rangeEnd = offset;
         return "";
       });
@@ -71,7 +73,13 @@ global.run_spec = (dirname, parsers, options) => {
       );
       expect(
         raw(
-          (hasEndOfLine ? visualizeEndOfLine(source) : source) +
+          (hasEndOfLine
+            ? visualizeEndOfLine(
+                text
+                  .replace(RANGE_START_PLACEHOLDER, "")
+                  .replace(RANGE_END_PLACEHOLDER, "")
+              )
+            : source) +
             "~".repeat(formatOptions.printWidth) +
             "\n" +
             (hasEndOfLine ? visualizedOutput : output)
