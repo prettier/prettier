@@ -41,7 +41,11 @@ const {
 const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
-const { printVueFor, printVueSlotScope } = require("./syntax-vue");
+const {
+  printVueFor,
+  printVueSlotScope,
+  isVueEventBindingExpression
+} = require("./syntax-vue");
 const { printImgSrcset } = require("./syntax-attribute");
 
 function concat(parts) {
@@ -920,17 +924,13 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     const jsExpressionBindingPatterns = ["^v-"];
 
     if (isKeyMatched(vueEventBindingPatterns)) {
-      // copied from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/codegen/events.js#L3-L4
-      const fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
-      const simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
-
-      const value = getValue()
-        // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/helpers.js#L104
-        .trim();
+      const value = getValue();
       return printMaybeHug(
-        simplePathRE.test(value) || fnExpRE.test(value)
+        isVueEventBindingExpression(value)
           ? textToDoc(value, { parser: "__js_expression" })
-          : stripTrailingHardline(textToDoc(value, { parser: "babylon" }))
+          : stripTrailingHardline(
+              textToDoc(value, { parser: "__vue_event_binding" })
+            )
       );
     }
 

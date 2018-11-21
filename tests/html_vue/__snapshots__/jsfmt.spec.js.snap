@@ -52,9 +52,9 @@ exports[`attributes.vue - vue-verify 1`] = `
     return x;
   })"
   @click="/* hello */"
-  @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */; /* 5 */"
-  @click="$emit('click');"
-  @click="$emit('click');"
+  @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
+  @click="$emit('click')"
+  @click="$emit('click')"
   @click="
     $emit('click');
     if (something) {
@@ -89,7 +89,7 @@ exports[`attributes.vue - vue-verify 1`] = `
       console.log(test);
     }
   "
-  @click="doSomething();"
+  @click="doSomething()"
   @click="doSomething;"
 ></div>
 
@@ -147,9 +147,9 @@ exports[`attributes.vue - vue-verify 2`] = `
     return x;
   })"
   @click="/* hello */"
-  @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */; /* 5 */"
-  @click="$emit('click');"
-  @click="$emit('click');"
+  @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
+  @click="$emit('click')"
+  @click="$emit('click')"
   @click="
     $emit('click');
     if (something) {
@@ -184,7 +184,7 @@ exports[`attributes.vue - vue-verify 2`] = `
       console.log(test);
     }
   "
-  @click="doSomething();"
+  @click="doSomething()"
   @click="doSomething;"
 ></div>
 
@@ -280,7 +280,7 @@ exports[`attributes.vue - vue-verify 3`] = `
     }
   "
   @click="doSomething()"
-  @click="doSomething"
+  @click="doSomething;"
 ></div>
 
 `;
@@ -429,7 +429,7 @@ export default {
     :data-issue-id="issue.id"
     @mousedown="mouseDown"
     @mousemove="mouseMove"
-    @mouseup="showIssue($event);"
+    @mouseup="showIssue($event)"
   >
     <issue-card-inner
       :list="list"
@@ -587,7 +587,7 @@ export default {
     :data-issue-id="issue.id"
     @mousedown="mouseDown"
     @mousemove="mouseMove"
-    @mouseup="showIssue($event);"
+    @mouseup="showIssue($event)"
   >
     <issue-card-inner
       :list="list"
