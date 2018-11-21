@@ -676,12 +676,14 @@ function isWithinParentArrayProperty(path, propertyName) {
 }
 
 function replaceEndOfLineWith(text, replacement) {
-  return text
-    .split("\n")
-    .reduce(
-      (a, b) => (a.length === 0 ? a.concat(b) : a.concat(replacement, b)),
-      []
-    );
+  const parts = [];
+  for (const part of text.split("\n")) {
+    if (parts.length !== 0) {
+      parts.push(replacement);
+    }
+    parts.push(part);
+  }
+  return parts;
 }
 
 module.exports = {
