@@ -1,6 +1,6 @@
 trigger:
   - master
-  - releases-*
+  - release-*
 
 variables:
   AST_COMPARE: true
