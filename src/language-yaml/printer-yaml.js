@@ -38,7 +38,7 @@ const {
   markAsRoot,
   softline
 } = docBuilders;
-const { normalizeEndOfLine, replaceEndOfLineWith } = require("../common/util");
+const { replaceEndOfLineWith } = require("../common/util");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -107,11 +107,9 @@ function genericPrint(path, options, print) {
     hasPrettierIgnore(path)
       ? concat(
           replaceEndOfLineWith(
-            normalizeEndOfLine(
-              options.originalText.slice(
-                node.position.start.offset,
-                node.position.end.offset
-              )
+            options.originalText.slice(
+              node.position.start.offset,
+              node.position.end.offset
             ),
             literalline
           )
@@ -238,11 +236,9 @@ function _print(node, parentNode, path, options, print) {
     case "plain":
       return printFlowScalarContent(
         node.type,
-        normalizeEndOfLine(
-          options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset
-          )
+        options.originalText.slice(
+          node.position.start.offset,
+          node.position.end.offset
         ),
         options
       );
@@ -251,11 +247,9 @@ function _print(node, parentNode, path, options, print) {
       const singleQuote = "'";
       const doubleQuote = '"';
 
-      const raw = normalizeEndOfLine(
-        options.originalText.slice(
-          node.position.start.offset + 1,
-          node.position.end.offset - 1
-        )
+      const raw = options.originalText.slice(
+        node.position.start.offset + 1,
+        node.position.end.offset - 1
       );
 
       if (

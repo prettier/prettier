@@ -1,7 +1,6 @@
 "use strict";
 
 const { getOrderedListItemInfo, mapAst, splitText } = require("./utils");
-const { normalizeEndOfLine } = require("../common/util");
 
 // 0x0 ~ 0x10ffff
 const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
@@ -130,7 +129,7 @@ function splitTextIntoSentences(ast, options) {
     return {
       type: "sentence",
       position: node.position,
-      children: splitText(normalizeEndOfLine(value), options)
+      children: splitText(value, options)
     };
   });
 }

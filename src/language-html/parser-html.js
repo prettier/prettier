@@ -251,7 +251,6 @@ function locEnd(node) {
 
 function createParser({ recognizeSelfClosing }) {
   return {
-    preprocess: text => text.replace(/\r\n?/g, "\n"),
     parse: (text, parsers, options) =>
       _parse(text, options, recognizeSelfClosing),
     hasPragma,

@@ -1,10 +1,6 @@
 "use strict";
 
-const { normalizeEndOfLine } = require("../common/util");
-
-function getLast(array) {
-  return array[array.length - 1];
-}
+const { getLast } = require("../common/util");
 
 function getAncestorCount(path, filter) {
   let counter = 0;
@@ -241,12 +237,8 @@ function getBlockValueLineContents(
   const content =
     node.position.start.line === node.position.end.line
       ? ""
-      : normalizeEndOfLine(
-          options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset
-          )
-        )
+      : options.originalText
+          .slice(node.position.start.offset, node.position.end.offset)
           // exclude open line `>` or `|`
           .match(/^[^\n]*?\n([\s\S]*)$/)[1];
 

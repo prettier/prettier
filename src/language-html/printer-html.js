@@ -36,7 +36,7 @@ const {
   shouldNotPrintClosingTag,
   shouldPreserveContent
 } = require("./utils");
-const { normalizeEndOfLine, replaceEndOfLineWith } = require("../common/util");
+const { replaceEndOfLineWith } = require("../common/util");
 const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
@@ -126,7 +126,7 @@ function embed(path, print, textToDoc, options) {
           hardline,
           node.value.trim().length === 0
             ? ""
-            : textToDoc(normalizeEndOfLine(node.value), { parser: "yaml" }),
+            : textToDoc(node.value, { parser: "yaml" }),
           "---"
         ])
       );
@@ -842,9 +842,7 @@ function getTextValueParts(node, value = node.value) {
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLineWith(value, literalline)
       : replaceEndOfLineWith(
-          dedentString(
-            normalizeEndOfLine(value).replace(/^\s*?\n|\n\s*?$/g, "")
-          ),
+          dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
           hardline
         )
     : // non-breaking whitespace: 0xA0

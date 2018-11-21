@@ -27,7 +27,7 @@ const {
   splitText,
   punctuationPattern
 } = require("./utils");
-const { normalizeEndOfLine, replaceEndOfLineWith } = require("../common/util");
+const { replaceEndOfLineWith } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
 
@@ -66,11 +66,9 @@ function genericPrint(path, options, print) {
   if (shouldRemainTheSameContent(path)) {
     return concat(
       splitText(
-        normalizeEndOfLine(
-          options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset
-          )
+        options.originalText.slice(
+          node.position.start.offset,
+          node.position.end.offset
         ),
         options
       ).map(node =>
@@ -214,9 +212,7 @@ function genericPrint(path, options, print) {
           alignment,
           concat([
             alignment,
-            concat(
-              replaceEndOfLineWith(normalizeEndOfLine(node.value), hardline)
-            )
+            concat(replaceEndOfLineWith(node.value, hardline))
           ])
         );
       }
@@ -244,11 +240,9 @@ function genericPrint(path, options, print) {
     case "toml":
       return concat(
         replaceEndOfLineWith(
-          normalizeEndOfLine(
-            options.originalText.slice(
-              node.position.start.offset,
-              node.position.end.offset
-            )
+          options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
           ),
           literalline
         )
@@ -409,9 +403,7 @@ function genericPrint(path, options, print) {
         ? concat(["  ", markAsRoot(literalline)])
         : concat(["\\", hardline]);
     case "liquidNode":
-      return concat(
-        replaceEndOfLineWith(normalizeEndOfLine(node.value), hardline)
-      );
+      return concat(replaceEndOfLineWith(node.value, hardline));
     // MDX
     case "importExport":
     case "jsx":
@@ -422,9 +414,7 @@ function genericPrint(path, options, print) {
         hardline,
         node.value
           ? concat([
-              concat(
-                replaceEndOfLineWith(normalizeEndOfLine(node.value), hardline)
-              ),
+              concat(replaceEndOfLineWith(node.value, hardline)),
               hardline
             ])
           : "",
@@ -435,11 +425,9 @@ function genericPrint(path, options, print) {
       // since it's very possible that it's recognized as math accidentally
       return concat(
         replaceEndOfLineWith(
-          normalizeEndOfLine(
-            options.originalText.slice(
-              options.locStart(node),
-              options.locEnd(node)
-            )
+          options.originalText.slice(
+            options.locStart(node),
+            options.locEnd(node)
           ),
           literalline
         )
@@ -680,11 +668,9 @@ function printRoot(path, options, print) {
             children[ignoreRange.start.index].value,
             concat(
               replaceEndOfLineWith(
-                normalizeEndOfLine(
-                  options.originalText.slice(
-                    ignoreRange.start.offset,
-                    ignoreRange.end.offset
-                  )
+                options.originalText.slice(
+                  ignoreRange.start.offset,
+                  ignoreRange.end.offset
                 ),
                 literalline
               )
