@@ -675,7 +675,12 @@ function isWithinParentArrayProperty(path, propertyName) {
   return parent[propertyName][key] === node;
 }
 
+function normalizeEndOfLine(text) {
+  return text.replace(/\r\n?/g, "\n");
+}
+
 module.exports = {
+  normalizeEndOfLine,
   getStringWidth,
   getMaxContinuousCount,
   getPrecedence,

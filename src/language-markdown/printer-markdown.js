@@ -27,6 +27,7 @@ const {
   splitText,
   punctuationPattern
 } = require("./utils");
+const { normalizeEndOfLine } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
 
@@ -65,9 +66,11 @@ function genericPrint(path, options, print) {
   if (shouldRemainTheSameContent(path)) {
     return concat(
       splitText(
-        options.originalText.slice(
-          node.position.start.offset,
-          node.position.end.offset
+        normalizeEndOfLine(
+          options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          )
         ),
         options
       ).map(node =>
@@ -209,7 +212,10 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(
           alignment,
-          concat([alignment, replaceNewlinesWith(node.value, hardline)])
+          concat([
+            alignment,
+            replaceNewlinesWith(normalizeEndOfLine(node.value), hardline)
+          ])
         );
       }
 
@@ -225,19 +231,21 @@ function genericPrint(path, options, print) {
         style,
         node.lang || "",
         hardline,
-        replaceNewlinesWith(
-          getFencedCodeBlockValue(node, options.originalText),
-          hardline
-        ),
+        replaceNewlinesWith(getFencedCodeBlockValue(node, options), hardline),
         hardline,
         style
       ]);
     }
     case "yaml":
     case "toml":
-      return options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset
+      return replaceNewlinesWith(
+        normalizeEndOfLine(
+          options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          )
+        ),
+        literalline
       );
     case "html": {
       const parentNode = path.getParentNode();
@@ -261,8 +269,7 @@ function genericPrint(path, options, print) {
       const isGitDiffFriendlyOrderedList =
         node.ordered &&
         node.children.length > 1 &&
-        +getOrderedListItemInfo(node.children[1], options.originalText)
-          .numberText === 1;
+        +getOrderedListItemInfo(node.children[1], options).numberText === 1;
 
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
@@ -394,7 +401,7 @@ function genericPrint(path, options, print) {
         ? concat(["  ", markAsRoot(literalline)])
         : concat(["\\", hardline]);
     case "liquidNode":
-      return replaceNewlinesWith(node.value, hardline);
+      return replaceNewlinesWith(normalizeEndOfLine(node.value), hardline);
     // MDX
     case "importExport":
     case "jsx":
@@ -404,16 +411,24 @@ function genericPrint(path, options, print) {
         "$$",
         hardline,
         node.value
-          ? concat([replaceNewlinesWith(node.value, hardline), hardline])
+          ? concat([
+              replaceNewlinesWith(normalizeEndOfLine(node.value), hardline),
+              hardline
+            ])
           : "",
         "$$"
       ]);
     case "inlineMath": {
       // remark-math trims content but we don't want to remove whitespaces
       // since it's very possible that it's recognized as math accidentally
-      return options.originalText.slice(
-        options.locStart(node),
-        options.locEnd(node)
+      return replaceNewlinesWith(
+        normalizeEndOfLine(
+          options.originalText.slice(
+            options.locStart(node),
+            options.locEnd(node)
+          )
+        ),
+        literalline
       );
     }
 
@@ -467,8 +482,8 @@ function getNthListSiblingIndex(node, parentNode) {
   );
 }
 
-function replaceNewlinesWith(str, doc) {
-  return join(doc, str.replace(/\r\n?/g, "\n").split("\n"));
+function replaceNewlinesWith(text, doc) {
+  return join(doc, text.split("\n"));
 }
 
 function getNthSiblingIndex(node, parentNode, condition) {
@@ -653,9 +668,14 @@ function printRoot(path, options, print) {
         if (index === ignoreRange.start.index) {
           return concat([
             children[ignoreRange.start.index].value,
-            options.originalText.slice(
-              ignoreRange.start.offset,
-              ignoreRange.end.offset
+            replaceNewlinesWith(
+              normalizeEndOfLine(
+                options.originalText.slice(
+                  ignoreRange.start.offset,
+                  ignoreRange.end.offset
+                )
+              ),
+              literalline
             ),
             children[ignoreRange.end.index].value
           ]);

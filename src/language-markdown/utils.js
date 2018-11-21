@@ -5,7 +5,7 @@ const {
   kPattern,
   punctuationPattern
 } = require("./constants.evaluate");
-const { getLast } = require("../common/util");
+const { getLast, normalizeEndOfLine } = require("../common/util");
 
 const kRegex = new RegExp(kPattern);
 const punctuationRegex = new RegExp(punctuationPattern);
@@ -126,23 +126,25 @@ function splitText(text, options) {
   }
 }
 
-function getOrderedListItemInfo(orderListItem, originalText) {
-  const [, numberText, marker, leadingSpaces] = originalText
-    .slice(
+function getOrderedListItemInfo(orderListItem, options) {
+  const [, numberText, marker, leadingSpaces] = normalizeEndOfLine(
+    options.originalText.slice(
       orderListItem.position.start.offset,
       orderListItem.position.end.offset
     )
-    .match(/^\s*(\d+)(\.|\))(\s*)/);
+  ).match(/^\s*(\d+)(\.|\))(\s*)/);
 
   return { numberText, marker, leadingSpaces };
 }
 
 // workaround for https://github.com/remarkjs/remark/issues/351
 // leading and trailing newlines are stripped by remark
-function getFencedCodeBlockValue(node, originalText) {
-  const text = originalText.slice(
-    node.position.start.offset,
-    node.position.end.offset
+function getFencedCodeBlockValue(node, options) {
+  const text = normalizeEndOfLine(
+    options.originalText.slice(
+      node.position.start.offset,
+      node.position.end.offset
+    )
   );
 
   const leadingSpaceCount = text.match(/^\s*/)[0].length;

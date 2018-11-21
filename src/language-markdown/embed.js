@@ -21,10 +21,7 @@ function embed(path, print, textToDoc, options) {
       const style = styleUnit.repeat(
         Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
       );
-      const doc = textToDoc(
-        getFencedCodeBlockValue(node, options.originalText),
-        { parser }
-      );
+      const doc = textToDoc(getFencedCodeBlockValue(node, options), { parser });
       return markAsRoot(
         concat([
           style,
@@ -42,7 +39,7 @@ function embed(path, print, textToDoc, options) {
       concat([
         "---",
         hardline,
-        node.value.trim()
+        node.value && node.value.trim()
           ? replaceNewlinesWithLiterallines(
               textToDoc(node.value, { parser: "yaml" })
             )

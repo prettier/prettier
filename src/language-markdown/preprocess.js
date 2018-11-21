@@ -1,6 +1,7 @@
 "use strict";
 
 const { getOrderedListItemInfo, mapAst, splitText } = require("./utils");
+const { normalizeEndOfLine } = require("../common/util");
 
 // 0x0 ~ 0x10ffff
 const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
@@ -129,7 +130,7 @@ function splitTextIntoSentences(ast, options) {
     return {
       type: "sentence",
       position: node.position,
-      children: splitText(value, options)
+      children: splitText(normalizeEndOfLine(value), options)
     };
   });
 }
@@ -201,7 +202,7 @@ function markAlignedList(ast, options) {
 
     const [firstItem, secondItem] = list.children;
 
-    const firstInfo = getOrderedListItemInfo(firstItem, options.originalText);
+    const firstInfo = getOrderedListItemInfo(firstItem, options);
 
     if (firstInfo.leadingSpaces.length > 1) {
       /**
@@ -270,7 +271,7 @@ function markAlignedList(ast, options) {
      * 1. 123
      * 2. 123
      */
-    const secondInfo = getOrderedListItemInfo(secondItem, options.originalText);
+    const secondInfo = getOrderedListItemInfo(secondItem, options);
     return secondInfo.leadingSpaces.length > 1;
   }
 }
