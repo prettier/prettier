@@ -14,6 +14,7 @@ const {
 const rangeUtil = require("./range-util");
 const privateUtil = require("../common/util");
 const {
+  utils: { mapDoc },
   printer: { printDocToString },
   debug: { printDocToDebug }
 } = require("../doc");
@@ -21,8 +22,11 @@ const {
 const UTF8BOM = 0xfeff;
 
 const CURSOR = Symbol("cursor");
-const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
-const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
+const PLACEHOLDERS = {
+  cursorOffset: "<<<PRETTIER_CURSOR>>>",
+  rangeStart: "<<<PRETTIER_RANGE_START>>>",
+  rangeEnd: "<<<PRETTIER_RANGE_END>>>"
+};
 
 function ensureAllCommentsPrinted(astComments) {
   if (!astComments) {
@@ -81,7 +85,17 @@ function coreFormat(text, opts, addAlignmentSize) {
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
 
-  const result = printDocToString(doc, opts);
+  const eol = convertEndOfLineToChars(opts.endOfLine);
+  const result = printDocToString(
+    opts.endOfLine === "lf"
+      ? doc
+      : mapDoc(doc, currentDoc =>
+          typeof currentDoc === "string" && currentDoc.indexOf("\n") !== -1
+            ? currentDoc.replace(/\n/g, eol)
+            : currentDoc
+        ),
+    opts
+  );
 
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
@@ -209,8 +223,8 @@ function formatRange(text, opts) {
   // Since the range contracts to avoid trailing whitespace,
   // we need to remove the newline that was inserted by the `format` call.
   const rangeTrimmed = rangeResult.formatted.trimRight();
-  const formatted =
-    text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
+  const rangeLeft = text.slice(0, rangeStart);
+  const rangeRight = text.slice(rangeEnd);
 
   let cursorOffset = opts.cursorOffset;
   if (opts.cursorOffset >= rangeEnd) {
@@ -222,6 +236,44 @@ function formatRange(text, opts) {
     cursorOffset = rangeResult.cursorOffset + rangeStart;
   }
   // keep the cursor as it was if it was before the start of the range
+
+  let formatted;
+  if (opts.endOfLine === "lf") {
+    formatted = rangeLeft + rangeTrimmed + rangeRight;
+  } else {
+    const eol = convertEndOfLineToChars(opts.endOfLine);
+    if (cursorOffset >= 0) {
+      const parts = [rangeLeft, rangeTrimmed, rangeRight];
+      let partIndex = 0;
+      let partOffset = cursorOffset;
+      while (partIndex < parts.length) {
+        const part = parts[partIndex];
+        if (partOffset < part.length) {
+          parts[partIndex] =
+            parts[partIndex].slice(0, partOffset) +
+            PLACEHOLDERS.cursorOffset +
+            parts[partIndex].slice(partOffset);
+          break;
+        }
+        partIndex++;
+        partOffset -= part.length;
+      }
+      const [newRangeLeft, newRangeTrimmed, newRangeRight] = parts;
+      formatted = (
+        newRangeLeft.replace(/\n/g, eol) +
+        newRangeTrimmed +
+        newRangeRight.replace(/\n/g, eol)
+      ).replace(PLACEHOLDERS.cursorOffset, (_, index) => {
+        cursorOffset = index;
+        return "";
+      });
+    } else {
+      formatted =
+        rangeLeft.replace(/\n/g, eol) +
+        rangeTrimmed +
+        rangeRight.replace(/\n/g, eol);
+    }
+  }
 
   return { formatted, cursorOffset };
 }
@@ -237,57 +289,79 @@ function format(text, opts) {
     opts.endOfLine = guessEndOfLine(text);
   }
 
+  const hasCursor = opts.cursorOffset >= 0;
   const hasRangeStart = opts.rangeStart > 0;
   const hasRangeEnd = opts.rangeEnd < text.length;
 
   // get rid of CR/CRLF parsing
   if (text.indexOf("\r") !== -1) {
-    if (hasRangeEnd) {
+    const offsetKeys = [
+      hasCursor && "cursorOffset",
+      hasRangeStart && "rangeStart",
+      hasRangeEnd && "rangeEnd"
+    ]
+      .filter(Boolean)
+      .sort((aKey, bKey) => opts[aKey] - opts[bKey]);
+
+    for (let i = offsetKeys.length - 1; i >= 0; i--) {
+      const key = offsetKeys[i];
       text =
-        text.slice(0, opts.rangeEnd) +
-        RANGE_END_PLACEHOLDER +
-        text.slice(opts.rangeEnd);
-    }
-    if (hasRangeStart) {
-      text =
-        text.slice(0, opts.rangeStart) +
-        RANGE_START_PLACEHOLDER +
-        text.slice(opts.rangeStart);
+        text.slice(0, opts[key]) + PLACEHOLDERS[key] + text.slice(opts[key]);
     }
 
     text = text.replace(/\r\n?/g, "\n");
 
-    if (hasRangeStart) {
-      text = text.replace(RANGE_START_PLACEHOLDER, (_, index) => {
-        opts.rangeStart = index;
+    for (let i = 0; i < offsetKeys.length; i++) {
+      const key = offsetKeys[i];
+      text = text.replace(PLACEHOLDERS[key], (_, index) => {
+        opts[key] = index;
         return "";
       });
     }
-    if (hasRangeEnd) {
-      text = text.replace(RANGE_END_PLACEHOLDER, (_, index) => {
-        opts.rangeEnd = index;
-        return "";
-      });
-    }
-  }
-
-  if (hasRangeStart || hasRangeEnd) {
-    return formatRange(text, opts);
   }
 
   const hasUnicodeBOM = text.charCodeAt(0) === UTF8BOM;
   if (hasUnicodeBOM) {
     text = text.substring(1);
+    if (hasCursor) {
+      opts.cursorOffset++;
+    }
+    if (hasRangeStart) {
+      opts.rangeStart++;
+    }
+    if (hasRangeEnd) {
+      opts.rangeEnd++;
+    }
   }
 
-  if (opts.insertPragma && opts.printer.insertPragma && !hasPragma) {
-    text = opts.printer.insertPragma(text);
+  if (!hasCursor) {
+    opts.cursorOffset = -1;
+  }
+  if (opts.rangeStart < 0) {
+    opts.rangeStart = 0;
+  }
+  if (opts.rangeEnd > text.length) {
+    opts.rangeEnd = text.length;
   }
 
-  const result = coreFormat(text, opts);
+  const result =
+    hasRangeStart || hasRangeEnd
+      ? formatRange(text, opts)
+      : coreFormat(
+          opts.insertPragma && opts.printer.insertPragma && !hasPragma
+            ? opts.printer.insertPragma(text)
+            : text,
+          opts
+        );
+
   if (hasUnicodeBOM) {
     result.formatted = String.fromCharCode(UTF8BOM) + result.formatted;
+
+    if (hasCursor) {
+      result.cursorOffset++;
+    }
   }
+
   return result;
 }
 
