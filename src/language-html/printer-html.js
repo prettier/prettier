@@ -33,11 +33,11 @@ const {
   isScriptLikeTag,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
-  replaceDocNewlines,
-  replaceNewlines,
+  replaceNewlinesWith,
   shouldNotPrintClosingTag,
   shouldPreserveContent
 } = require("./utils");
+const { normalizeEndOfLine } = require("../common/util");
 const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
@@ -127,10 +127,7 @@ function embed(path, print, textToDoc, options) {
           hardline,
           node.value.trim().length === 0
             ? ""
-            : replaceDocNewlines(
-                textToDoc(node.value, { parser: "yaml" }),
-                literalline
-              ),
+            : textToDoc(normalizeEndOfLine(node.value), { parser: "yaml" }),
           "---"
         ])
       );
@@ -266,7 +263,7 @@ function genericPrint(path, options, print) {
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
         return concat([
-          concat(replaceNewlines(value, literalline)),
+          concat(replaceNewlinesWith(value, literalline)),
           hasTrailingNewline ? hardline : ""
         ]);
       }
@@ -307,7 +304,7 @@ function genericPrint(path, options, print) {
                         ? breakParent
                         : "",
                       line,
-                      concat(replaceNewlines(value, hardline))
+                      concat(replaceNewlinesWith(value, hardline))
                     ])
                   ),
                   (node.next
@@ -329,14 +326,17 @@ function genericPrint(path, options, print) {
           : concat([
               '="',
               concat(
-                replaceNewlines(node.value.replace(/"/g, "&quot;"), literalline)
+                replaceNewlinesWith(
+                  node.value.replace(/"/g, "&quot;"),
+                  literalline
+                )
               ),
               '"'
             ])
       ]);
     case "yaml":
     case "toml":
-      return node.raw;
+      return concat(replaceNewlinesWith(node.raw, literalline));
     default:
       throw new Error(`Unexpected node type ${node.type}`);
   }
@@ -446,7 +446,7 @@ function printChildren(path, options, print) {
       return concat(
         [].concat(
           printOpeningTagPrefix(child),
-          replaceNewlines(
+          replaceNewlinesWith(
             options.originalText.slice(
               options.locStart(child) +
                 (child.prev &&
@@ -470,7 +470,7 @@ function printChildren(path, options, print) {
         [].concat(
           printOpeningTagPrefix(child),
           group(printOpeningTag(childPath, options, print)),
-          replaceNewlines(
+          replaceNewlinesWith(
             options.originalText.slice(
               child.startSourceSpan.end.offset +
                 (child.firstChild &&
@@ -583,7 +583,7 @@ function printOpeningTag(path, options, print) {
                     const attr = attrPath.getValue();
                     return hasPrettierIgnoreAttribute(attr)
                       ? concat(
-                          replaceNewlines(
+                          replaceNewlinesWith(
                             options.originalText.slice(
                               options.locStart(attr),
                               options.locEnd(attr)
@@ -841,9 +841,11 @@ function printClosingTagEndMarker(node) {
 function getTextValueParts(node, value = node.value) {
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
-      ? replaceNewlines(value, literalline)
-      : replaceNewlines(
-          dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
+      ? replaceNewlinesWith(value, literalline)
+      : replaceNewlinesWith(
+          dedentString(
+            normalizeEndOfLine(value).replace(/^\s*?\n|\n\s*?$/g, "")
+          ),
           hardline
         )
     : // non-breaking whitespace: 0xA0

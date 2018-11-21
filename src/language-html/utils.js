@@ -1,16 +1,12 @@
 "use strict";
 
 const {
-  builders: { concat },
-  utils: { mapDoc }
-} = require("../doc");
-
-const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT
 } = require("./constants.evaluate");
+const { normalizeEndOfLine } = require("../common/util");
 
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
@@ -238,20 +234,6 @@ function isDanglingSpaceSensitiveNode(node) {
   return (
     isDanglingSpaceSensitiveCssDisplay(node.cssDisplay) &&
     !isScriptLikeTag(node)
-  );
-}
-
-function replaceNewlines(text, replacement) {
-  return text
-    .split(/(\n)/g)
-    .map((data, index) => (index % 2 === 1 ? replacement : data));
-}
-
-function replaceDocNewlines(doc, replacement) {
-  return mapDoc(doc, currentDoc =>
-    typeof currentDoc === "string" && currentDoc.includes("\n")
-      ? concat(replaceNewlines(currentDoc, replacement))
-      : currentDoc
   );
 }
 
@@ -644,6 +626,15 @@ function shouldNotPrintClosingTag(node) {
   );
 }
 
+function replaceNewlinesWith(text, replacement) {
+  return normalizeEndOfLine(text)
+    .split("\n")
+    .reduce(
+      (a, b) => (a.length === 0 ? a.concat(b) : a.concat(replacement, b)),
+      []
+    );
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -672,8 +663,7 @@ module.exports = {
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,
-  replaceDocNewlines,
-  replaceNewlines,
+  replaceNewlinesWith,
   shouldNotPrintClosingTag,
   shouldPreserveContent
 };
