@@ -21,6 +21,8 @@ const {
 const UTF8BOM = 0xfeff;
 
 const CURSOR = Symbol("cursor");
+const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
+const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 
 function ensureAllCommentsPrinted(astComments) {
   if (!astComments) {
@@ -67,8 +69,6 @@ function coreFormat(text, opts, addAlignmentSize) {
 
   const parsed = parser.parse(text, opts);
   const ast = parsed.ast;
-
-  const originalText = text;
   text = parsed.text;
 
   if (opts.cursorOffset >= 0) {
@@ -80,9 +80,6 @@ function coreFormat(text, opts, addAlignmentSize) {
 
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
-  if (opts.endOfLine === "auto") {
-    opts.endOfLine = guessEndOfLine(originalText);
-  }
 
   const result = printDocToString(doc, opts);
 
@@ -236,7 +233,45 @@ function format(text, opts) {
     return { formatted: text };
   }
 
-  if (opts.rangeStart > 0 || opts.rangeEnd < text.length) {
+  if (opts.endOfLine === "auto") {
+    opts.endOfLine = guessEndOfLine(text);
+  }
+
+  const hasRangeStart = opts.rangeStart > 0;
+  const hasRangeEnd = opts.rangeEnd < text.length;
+
+  // get rid of CR/CRLF parsing
+  if (text.indexOf("\r") !== -1) {
+    if (hasRangeEnd) {
+      text =
+        text.slice(0, opts.rangeEnd) +
+        RANGE_END_PLACEHOLDER +
+        text.slice(opts.rangeEnd);
+    }
+    if (hasRangeStart) {
+      text =
+        text.slice(0, opts.rangeStart) +
+        RANGE_START_PLACEHOLDER +
+        text.slice(opts.rangeStart);
+    }
+
+    text = text.replace(/\r\n?/g, "\n");
+
+    if (hasRangeStart) {
+      text = text.replace(RANGE_START_PLACEHOLDER, (_, index) => {
+        opts.rangeStart = index;
+        return "";
+      });
+    }
+    if (hasRangeEnd) {
+      text = text.replace(RANGE_END_PLACEHOLDER, (_, index) => {
+        opts.rangeEnd = index;
+        return "";
+      });
+    }
+  }
+
+  if (hasRangeStart || hasRangeEnd) {
     return formatRange(text, opts);
   }
 
