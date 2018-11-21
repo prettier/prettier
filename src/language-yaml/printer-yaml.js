@@ -38,6 +38,7 @@ const {
   markAsRoot,
   softline
 } = docBuilders;
+const { normalizeEndOfLine } = require("../common/util");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -104,9 +105,14 @@ function genericPrint(path, options, print) {
         ])
       : "",
     hasPrettierIgnore(path)
-      ? options.originalText.slice(
-          node.position.start.offset,
-          node.position.end.offset
+      ? replaceNewLinesWith(
+          normalizeEndOfLine(
+            options.originalText.slice(
+              node.position.start.offset,
+              node.position.end.offset
+            )
+          ),
+          literalline
         )
       : group(_print(node, parentNode, path, options, print)),
     hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])
@@ -230,9 +236,11 @@ function _print(node, parentNode, path, options, print) {
     case "plain":
       return printFlowScalarContent(
         node.type,
-        options.originalText.slice(
-          node.position.start.offset,
-          node.position.end.offset
+        normalizeEndOfLine(
+          options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          )
         ),
         options
       );
@@ -241,9 +249,11 @@ function _print(node, parentNode, path, options, print) {
       const singleQuote = "'";
       const doubleQuote = '"';
 
-      const raw = options.originalText.slice(
-        node.position.start.offset + 1,
-        node.position.end.offset - 1
+      const raw = normalizeEndOfLine(
+        options.originalText.slice(
+          node.position.start.offset + 1,
+          node.position.end.offset - 1
+        )
       );
 
       if (
@@ -699,6 +709,10 @@ function clean(node, newNode /*, parent */) {
         break;
     }
   }
+}
+
+function replaceNewLinesWith(text, doc) {
+  return join(doc, text.split("\n"));
 }
 
 module.exports = {
