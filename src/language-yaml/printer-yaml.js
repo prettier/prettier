@@ -38,7 +38,7 @@ const {
   markAsRoot,
   softline
 } = docBuilders;
-const { normalizeEndOfLine } = require("../common/util");
+const { normalizeEndOfLine, replaceEndOfLineWith } = require("../common/util");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -105,14 +105,16 @@ function genericPrint(path, options, print) {
         ])
       : "",
     hasPrettierIgnore(path)
-      ? replaceNewLinesWith(
-          normalizeEndOfLine(
-            options.originalText.slice(
-              node.position.start.offset,
-              node.position.end.offset
-            )
-          ),
-          literalline
+      ? concat(
+          replaceEndOfLineWith(
+            normalizeEndOfLine(
+              options.originalText.slice(
+                node.position.start.offset,
+                node.position.end.offset
+              )
+            ),
+            literalline
+          )
         )
       : group(_print(node, parentNode, path, options, print)),
     hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])
@@ -709,10 +711,6 @@ function clean(node, newNode /*, parent */) {
         break;
     }
   }
-}
-
-function replaceNewLinesWith(text, doc) {
-  return join(doc, text.split("\n"));
 }
 
 module.exports = {

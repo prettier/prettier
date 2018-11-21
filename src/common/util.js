@@ -679,8 +679,18 @@ function normalizeEndOfLine(text) {
   return text.replace(/\r\n?/g, "\n");
 }
 
+function replaceEndOfLineWith(text, replacement) {
+  return normalizeEndOfLine(text)
+    .split("\n")
+    .reduce(
+      (a, b) => (a.length === 0 ? a.concat(b) : a.concat(replacement, b)),
+      []
+    );
+}
+
 module.exports = {
   normalizeEndOfLine,
+  replaceEndOfLineWith,
   getStringWidth,
   getMaxContinuousCount,
   getPrecedence,

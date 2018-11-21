@@ -27,7 +27,7 @@ const {
   splitText,
   punctuationPattern
 } = require("./utils");
-const { normalizeEndOfLine } = require("../common/util");
+const { normalizeEndOfLine, replaceEndOfLineWith } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
 
@@ -214,7 +214,9 @@ function genericPrint(path, options, print) {
           alignment,
           concat([
             alignment,
-            replaceNewlinesWith(normalizeEndOfLine(node.value), hardline)
+            concat(
+              replaceEndOfLineWith(normalizeEndOfLine(node.value), hardline)
+            )
           ])
         );
       }
@@ -231,21 +233,25 @@ function genericPrint(path, options, print) {
         style,
         node.lang || "",
         hardline,
-        replaceNewlinesWith(getFencedCodeBlockValue(node, options), hardline),
+        concat(
+          replaceEndOfLineWith(getFencedCodeBlockValue(node, options), hardline)
+        ),
         hardline,
         style
       ]);
     }
     case "yaml":
     case "toml":
-      return replaceNewlinesWith(
-        normalizeEndOfLine(
-          options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset
-          )
-        ),
-        literalline
+      return concat(
+        replaceEndOfLineWith(
+          normalizeEndOfLine(
+            options.originalText.slice(
+              node.position.start.offset,
+              node.position.end.offset
+            )
+          ),
+          literalline
+        )
       );
     case "html": {
       const parentNode = path.getParentNode();
@@ -255,9 +261,11 @@ function genericPrint(path, options, print) {
           ? node.value.trimRight()
           : node.value;
       const isHtmlComment = /^<!--[\s\S]*-->$/.test(value);
-      return replaceNewlinesWith(
-        value,
-        isHtmlComment ? hardline : markAsRoot(literalline)
+      return concat(
+        replaceEndOfLineWith(
+          value,
+          isHtmlComment ? hardline : markAsRoot(literalline)
+        )
       );
     }
     case "list": {
@@ -401,7 +409,9 @@ function genericPrint(path, options, print) {
         ? concat(["  ", markAsRoot(literalline)])
         : concat(["\\", hardline]);
     case "liquidNode":
-      return replaceNewlinesWith(normalizeEndOfLine(node.value), hardline);
+      return concat(
+        replaceEndOfLineWith(normalizeEndOfLine(node.value), hardline)
+      );
     // MDX
     case "importExport":
     case "jsx":
@@ -412,7 +422,9 @@ function genericPrint(path, options, print) {
         hardline,
         node.value
           ? concat([
-              replaceNewlinesWith(normalizeEndOfLine(node.value), hardline),
+              concat(
+                replaceEndOfLineWith(normalizeEndOfLine(node.value), hardline)
+              ),
               hardline
             ])
           : "",
@@ -421,14 +433,16 @@ function genericPrint(path, options, print) {
     case "inlineMath": {
       // remark-math trims content but we don't want to remove whitespaces
       // since it's very possible that it's recognized as math accidentally
-      return replaceNewlinesWith(
-        normalizeEndOfLine(
-          options.originalText.slice(
-            options.locStart(node),
-            options.locEnd(node)
-          )
-        ),
-        literalline
+      return concat(
+        replaceEndOfLineWith(
+          normalizeEndOfLine(
+            options.originalText.slice(
+              options.locStart(node),
+              options.locEnd(node)
+            )
+          ),
+          literalline
+        )
       );
     }
 
@@ -480,10 +494,6 @@ function getNthListSiblingIndex(node, parentNode) {
     parentNode,
     siblingNode => siblingNode.ordered === node.ordered
   );
-}
-
-function replaceNewlinesWith(text, doc) {
-  return join(doc, text.split("\n"));
 }
 
 function getNthSiblingIndex(node, parentNode, condition) {
@@ -668,14 +678,16 @@ function printRoot(path, options, print) {
         if (index === ignoreRange.start.index) {
           return concat([
             children[ignoreRange.start.index].value,
-            replaceNewlinesWith(
-              normalizeEndOfLine(
-                options.originalText.slice(
-                  ignoreRange.start.offset,
-                  ignoreRange.end.offset
-                )
-              ),
-              literalline
+            concat(
+              replaceEndOfLineWith(
+                normalizeEndOfLine(
+                  options.originalText.slice(
+                    ignoreRange.start.offset,
+                    ignoreRange.end.offset
+                  )
+                ),
+                literalline
+              )
             ),
             children[ignoreRange.end.index].value
           ]);
