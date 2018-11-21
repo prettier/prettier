@@ -373,6 +373,9 @@ module.exports = {
 
   parse(text, opts, massage) {
     opts = normalizeOptions(opts);
+    if (text.indexOf("\r") !== -1) {
+      text = text.replace(/\r\n?/g, "\n");
+    }
     const parsed = parser.parse(text, opts);
     if (massage) {
       parsed.ast = massageAST(parsed.ast, opts);
