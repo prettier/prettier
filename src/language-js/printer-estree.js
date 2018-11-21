@@ -2371,7 +2371,10 @@ function printPathNoParens(path, options, print, args) {
               "${" +
               printDocToString(
                 doc,
-                Object.assign({}, options, { printWidth: Infinity })
+                Object.assign({}, options, {
+                  printWidth: Infinity,
+                  endOfLine: "lf"
+                })
               ).formatted +
               "}"
           );

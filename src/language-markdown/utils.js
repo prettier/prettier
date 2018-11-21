@@ -126,8 +126,8 @@ function splitText(text, options) {
   }
 }
 
-function getOrderedListItemInfo(orderListItem, options) {
-  const [, numberText, marker, leadingSpaces] = options.originalText
+function getOrderedListItemInfo(orderListItem, originalText) {
+  const [, numberText, marker, leadingSpaces] = originalText
     .slice(
       orderListItem.position.start.offset,
       orderListItem.position.end.offset
@@ -139,8 +139,8 @@ function getOrderedListItemInfo(orderListItem, options) {
 
 // workaround for https://github.com/remarkjs/remark/issues/351
 // leading and trailing newlines are stripped by remark
-function getFencedCodeBlockValue(node, options) {
-  const text = options.originalText.slice(
+function getFencedCodeBlockValue(node, originalText) {
+  const text = originalText.slice(
     node.position.start.offset,
     node.position.end.offset
   );

@@ -201,7 +201,7 @@ function markAlignedList(ast, options) {
 
     const [firstItem, secondItem] = list.children;
 
-    const firstInfo = getOrderedListItemInfo(firstItem, options);
+    const firstInfo = getOrderedListItemInfo(firstItem, options.originalText);
 
     if (firstInfo.leadingSpaces.length > 1) {
       /**
@@ -270,7 +270,7 @@ function markAlignedList(ast, options) {
      * 1. 123
      * 2. 123
      */
-    const secondInfo = getOrderedListItemInfo(secondItem, options);
+    const secondInfo = getOrderedListItemInfo(secondItem, options.originalText);
     return secondInfo.leadingSpaces.length > 1;
   }
 }

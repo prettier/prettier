@@ -230,7 +230,10 @@ function genericPrint(path, options, print) {
         node.lang || "",
         hardline,
         concat(
-          replaceEndOfLineWith(getFencedCodeBlockValue(node, options), hardline)
+          replaceEndOfLineWith(
+            getFencedCodeBlockValue(node, options.originalText),
+            hardline
+          )
         ),
         hardline,
         style
@@ -238,14 +241,9 @@ function genericPrint(path, options, print) {
     }
     case "yaml":
     case "toml":
-      return concat(
-        replaceEndOfLineWith(
-          options.originalText.slice(
-            node.position.start.offset,
-            node.position.end.offset
-          ),
-          literalline
-        )
+      return options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset
       );
     case "html": {
       const parentNode = path.getParentNode();
@@ -271,7 +269,8 @@ function genericPrint(path, options, print) {
       const isGitDiffFriendlyOrderedList =
         node.ordered &&
         node.children.length > 1 &&
-        +getOrderedListItemInfo(node.children[1], options).numberText === 1;
+        +getOrderedListItemInfo(node.children[1], options.originalText)
+          .numberText === 1;
 
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
@@ -423,14 +422,9 @@ function genericPrint(path, options, print) {
     case "inlineMath": {
       // remark-math trims content but we don't want to remove whitespaces
       // since it's very possible that it's recognized as math accidentally
-      return concat(
-        replaceEndOfLineWith(
-          options.originalText.slice(
-            options.locStart(node),
-            options.locEnd(node)
-          ),
-          literalline
-        )
+      return options.originalText.slice(
+        options.locStart(node),
+        options.locEnd(node)
       );
     }
 
@@ -666,14 +660,9 @@ function printRoot(path, options, print) {
         if (index === ignoreRange.start.index) {
           return concat([
             children[ignoreRange.start.index].value,
-            concat(
-              replaceEndOfLineWith(
-                options.originalText.slice(
-                  ignoreRange.start.offset,
-                  ignoreRange.end.offset
-                ),
-                literalline
-              )
+            options.originalText.slice(
+              ignoreRange.start.offset,
+              ignoreRange.end.offset
             ),
             children[ignoreRange.end.index].value
           ]);

@@ -21,7 +21,10 @@ function embed(path, print, textToDoc, options) {
       const style = styleUnit.repeat(
         Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
       );
-      const doc = textToDoc(getFencedCodeBlockValue(node, options), { parser });
+      const doc = textToDoc(
+        getFencedCodeBlockValue(node, options.originalText),
+        { parser }
+      );
       return markAsRoot(
         concat([
           style,
