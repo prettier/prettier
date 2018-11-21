@@ -28,4 +28,5 @@
       console.log(test);
     }
   "
+  @click="doSomething()"
 ></div>
