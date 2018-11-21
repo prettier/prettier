@@ -29,4 +29,5 @@
     }
   "
   @click="doSomething()"
+  @click="doSomething;"
 ></div>

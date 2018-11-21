@@ -32,6 +32,7 @@ exports[`attributes.vue - vue-verify 1`] = `
     }
   "
   @click="doSomething()"
+  @click="doSomething;"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -89,6 +90,7 @@ exports[`attributes.vue - vue-verify 1`] = `
     }
   "
   @click="doSomething();"
+  @click="doSomething;"
 ></div>
 
 `;
@@ -125,6 +127,7 @@ exports[`attributes.vue - vue-verify 2`] = `
     }
   "
   @click="doSomething()"
+  @click="doSomething;"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -182,6 +185,7 @@ exports[`attributes.vue - vue-verify 2`] = `
     }
   "
   @click="doSomething();"
+  @click="doSomething;"
 ></div>
 
 `;
@@ -218,6 +222,7 @@ exports[`attributes.vue - vue-verify 3`] = `
     }
   "
   @click="doSomething()"
+  @click="doSomething;"
 ></div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <div
@@ -275,6 +280,7 @@ exports[`attributes.vue - vue-verify 3`] = `
     }
   "
   @click="doSomething()"
+  @click="doSomething"
 ></div>
 
 `;
