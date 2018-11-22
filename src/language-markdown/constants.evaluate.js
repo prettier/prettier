@@ -12,7 +12,9 @@ const cjkPattern = cjkRegex()
         "Other_Letter",
         "Letter_Number",
         "Other_Symbol",
-        "Modifier_Letter"
+        "Modifier_Letter",
+        "Modifier_Symbol",
+        "Nonspacing_Mark"
       ]
     })
   )

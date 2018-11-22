@@ -7,6 +7,7 @@ const {
 } = require("../doc");
 const {
   breakParent,
+  dedentToRoot,
   fill,
   group,
   hardline,
@@ -29,7 +30,6 @@ const {
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
-  isPreLikeNode,
   isScriptLikeTag,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
@@ -199,19 +199,13 @@ function genericPrint(path, options, print) {
                     concat([
                       shouldHugContent
                         ? ifBreak(softline, "", { groupId: attrGroupId })
-                        : node.firstChild.type === "text" &&
-                          node.firstChild.isWhitespaceSensitive &&
-                          node.firstChild.isIndentationSensitive
-                        ? (node.children.length === 1 &&
-                            node.firstChild.type === "text" &&
-                            node.firstChild.value.indexOf("\n") === -1) ||
-                          node.firstChild.sourceSpan.start.line ===
-                            node.lastChild.sourceSpan.end.line
-                          ? ""
-                          : literalline
                         : node.firstChild.hasLeadingSpaces &&
                           node.firstChild.isLeadingSpaceSensitive
                         ? line
+                        : node.firstChild.type === "text" &&
+                          node.isWhitespaceSensitive &&
+                          node.isIndentationSensitive
+                        ? dedentToRoot(softline)
                         : softline,
                       printChildren(path, options, print)
                     ])
@@ -228,17 +222,16 @@ function genericPrint(path, options, print) {
                     : node.lastChild.hasTrailingSpaces &&
                       node.lastChild.isTrailingSpaceSensitive
                     ? line
-                    : node.type === "element" &&
-                      isPreLikeNode(node) &&
-                      node.lastChild.type === "text" &&
-                      (node.lastChild.value.indexOf("\n") === -1 ||
-                        new RegExp(
-                          `\\n\\s{${options.tabWidth *
-                            countParents(
-                              path,
-                              n => n.parent && n.parent.type !== "root"
-                            )}}$`
-                        ).test(node.lastChild.value))
+                    : node.lastChild.type === "text" &&
+                      node.isWhitespaceSensitive &&
+                      node.isIndentationSensitive &&
+                      new RegExp(
+                        `\\n\\s{${options.tabWidth *
+                          countParents(
+                            path,
+                            n => n.parent && n.parent.type !== "root"
+                          )}}$`
+                      ).test(node.lastChild.value)
                     ? /**
                        *     <div>
                        *       <pre>
@@ -255,6 +248,9 @@ function genericPrint(path, options, print) {
         printClosingTag(node, options)
       ]);
     }
+    case "ieConditionalStartComment":
+    case "ieConditionalEndComment":
+      return concat([printOpeningTagStart(node), printClosingTagEnd(node)]);
     case "interpolation":
       return concat([
         printOpeningTagStart(node, options),
@@ -476,15 +472,17 @@ function printChildren(path, options, print) {
           group(printOpeningTag(childPath, options, print)),
           replaceNewlines(
             options.originalText.slice(
-              child.startSourceSpan.end.offset -
+              child.startSourceSpan.end.offset +
                 (child.firstChild &&
                 needsToBorrowParentOpeningTagEndMarker(child.firstChild)
-                  ? printOpeningTagEndMarker(child).length
+                  ? -printOpeningTagEndMarker(child).length
                   : 0),
               child.endSourceSpan.start.offset +
                 (child.lastChild &&
                 needsToBorrowParentClosingTagStartMarker(child.lastChild)
                   ? printClosingTagStartMarker(child, options).length
+                  : needsToBorrowLastChildClosingTagEndMarker(child)
+                  ? -printClosingTagEndMarker(child.lastChild, options).length
                   : 0)
             ),
             literalline
@@ -779,11 +777,19 @@ function printOpeningTagStartMarker(node) {
     case "comment":
       return "<!--";
     case "ieConditionalComment":
+    case "ieConditionalStartComment":
       return `<!--[if ${node.condition}`;
+    case "ieConditionalEndComment":
+      return `<!--<!`;
     case "interpolation":
       return "{{";
     case "docType":
       return "<!DOCTYPE";
+    case "element":
+      if (node.condition) {
+        return `<!--[if ${node.condition}]><!--><${node.rawName}`;
+      }
+    // fall through
     default:
       return `<${node.rawName}`;
   }
@@ -794,6 +800,11 @@ function printOpeningTagEndMarker(node) {
   switch (node.type) {
     case "ieConditionalComment":
       return "]>";
+    case "element":
+      if (node.condition) {
+        return `><!--<![endif]-->`;
+      }
+    // fall through
     default:
       return `>`;
   }
@@ -820,7 +831,10 @@ function printClosingTagEndMarker(node, options) {
     case "comment":
       return "-->";
     case "ieConditionalComment":
+    case "ieConditionalEndComment":
       return `[endif]-->`;
+    case "ieConditionalStartComment":
+      return `]><!-->`;
     case "interpolation":
       return "}}";
     case "element":
@@ -834,8 +848,8 @@ function printClosingTagEndMarker(node, options) {
 }
 
 function getTextValueParts(node, value = node.value) {
-  return node.isWhitespaceSensitive
-    ? node.isIndentationSensitive
+  return node.parent.isWhitespaceSensitive
+    ? node.parent.isIndentationSensitive
       ? replaceNewlines(value, literalline)
       : replaceNewlines(
           dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),

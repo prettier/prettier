@@ -102,7 +102,9 @@ function genericPrint(path, options, printPath, args) {
     node.type === "ClassMethod" ||
     node.type === "ClassProperty" ||
     node.type === "TSAbstractClassProperty" ||
-    node.type === "ClassPrivateProperty"
+    node.type === "ClassPrivateProperty" ||
+    node.type === "MethodDefinition" ||
+    node.type === "TSAbstractMethodDefinition"
   ) {
     // their decorators are handled themselves
   } else if (
@@ -875,6 +877,9 @@ function printPathNoParens(path, options, print, args) {
     }
     case "MethodDefinition":
     case "TSAbstractMethodDefinition":
+      if (n.decorators && n.decorators.length !== 0) {
+        parts.push(printDecorators(path, options, print));
+      }
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
       }
@@ -1333,7 +1338,8 @@ function printPathNoParens(path, options, print, args) {
           separatorParts = [separator, line];
           if (
             (prop.node.type === "TSPropertySignature" ||
-              prop.node.type === "TSMethodSignature") &&
+              prop.node.type === "TSMethodSignature" ||
+              prop.node.type === "TSConstructSignature") &&
             hasNodeIgnoreComment(prop.node)
           ) {
             separatorParts.shift();

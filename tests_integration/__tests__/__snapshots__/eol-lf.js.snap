@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Has correct default Unix line endings (stderr) 1`] = `""`;
+
+exports[`Has correct default Unix line endings (stdout) 1`] = `
+"function f() {
+	console.log(\\"should have tab width 8\\")
+}
+function f() {
+  console.log(\\"should have space width 2\\")
+}
+function f() {
+        console.log(\\"should have space width 8\\")
+}
+function f() {
+  console.log(
+    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+  )
+}
+console.log(\\"jest/__best-tests__/file.js should have semi\\");
+console.log(\\"jest/Component.js should not have semi\\")
+console.log(\\"jest/Component.test.js should have semi\\");
+function js() {
+        console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
+}
+\\"use strict\\";
+
+module.exports = {
+        endOfLine: \\"lf\\",
+        tabWidth: 8
+};
+function noConfigJs() {
+  console.log(\\"no-config/file.js should have no semicolons\\")
+}
+function packageJs() {
+   console.log(\\"package/file.js should have tab width 3\\");
+}
+function rcJson() {
+  console.log.apply(null, [
+    'rc-json/file.js',
+    'should have trailing comma',
+    'and single quotes',
+  ]);
+}
+function rcToml() {
+  console.log.apply(null, [
+    'rc-toml/file.js',
+    'should have trailing comma',
+    'and single quotes',
+  ]);
+}
+function rcYaml() {
+  console.log.apply(null, [
+    'rc-yaml/file.js',
+    'should have trailing comma',
+    'and single quotes',
+  ]);
+}
+"
+`;
+
+exports[`Has correct default Unix line endings (write) 1`] = `Array []`;

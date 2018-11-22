@@ -156,51 +156,59 @@ function isIndentationSensitiveNode(node) {
 }
 
 function isLeadingSpaceSensitiveNode(node) {
-  if (isFrontMatterNode(node)) {
-    return false;
-  }
+  const isLeadingSpaceSensitive = _isLeadingSpaceSensitiveNode();
 
   if (
-    (node.type === "text" || node.type === "interpolation") &&
-    node.prev &&
-    (node.prev.type === "text" || node.prev.type === "interpolation")
-  ) {
-    return true;
-  }
-
-  if (!node.parent || node.parent.cssDisplay === "none") {
-    return false;
-  }
-
-  if (
+    isLeadingSpaceSensitive &&
     !node.prev &&
-    node.parent.type === "element" &&
+    node.parent &&
+    node.parent.tagDefinition &&
     node.parent.tagDefinition.ignoreFirstLf
   ) {
-    return false;
+    return node.type === "interpolation";
   }
 
-  if (isPreLikeNode(node.parent)) {
+  return isLeadingSpaceSensitive;
+
+  function _isLeadingSpaceSensitiveNode() {
+    if (isFrontMatterNode(node)) {
+      return false;
+    }
+
+    if (
+      (node.type === "text" || node.type === "interpolation") &&
+      node.prev &&
+      (node.prev.type === "text" || node.prev.type === "interpolation")
+    ) {
+      return true;
+    }
+
+    if (!node.parent || node.parent.cssDisplay === "none") {
+      return false;
+    }
+
+    if (isPreLikeNode(node.parent)) {
+      return true;
+    }
+
+    if (
+      !node.prev &&
+      (node.parent.type === "root" ||
+        isScriptLikeTag(node.parent) ||
+        !isFirstChildLeadingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
+    ) {
+      return false;
+    }
+
+    if (
+      node.prev &&
+      !isNextLeadingSpaceSensitiveCssDisplay(node.prev.cssDisplay)
+    ) {
+      return false;
+    }
+
     return true;
   }
-
-  if (
-    !node.prev &&
-    (node.parent.type === "root" ||
-      isScriptLikeTag(node.parent) ||
-      !isFirstChildLeadingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
-  ) {
-    return false;
-  }
-
-  if (
-    node.prev &&
-    !isNextLeadingSpaceSensitiveCssDisplay(node.prev.cssDisplay)
-  ) {
-    return false;
-  }
-
-  return true;
 }
 
 function isTrailingSpaceSensitiveNode(node) {
