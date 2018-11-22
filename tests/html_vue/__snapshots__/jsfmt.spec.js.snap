@@ -879,9 +879,7 @@ exports[`pre-child.vue - vue-verify 1`] = `
     </pre>
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<!--
-  copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue
--->
+<!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
 <pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
   <code
     v-show="!detailJob.isLoading"
@@ -899,9 +897,7 @@ exports[`pre-child.vue - vue-verify 1`] = `
   </div>
 </pre>
 
-<!--
-  copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue
--->
+<!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
 <template>
   <pre class="code-block rounded">
     <code class="d-block">{{ code }}</code>
@@ -977,9 +973,7 @@ exports[`pre-child.vue - vue-verify 2`] = `
     </pre>
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<!--
-  copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue
--->
+<!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
 <pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
   <code
     v-show="!detailJob.isLoading"
@@ -997,9 +991,7 @@ exports[`pre-child.vue - vue-verify 2`] = `
   </div>
 </pre>
 
-<!--
-  copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue
--->
+<!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
 <template>
   <pre class="code-block rounded">
     <code class="d-block">{{ code }}</code>
@@ -1175,9 +1167,7 @@ exports[`template.vue - vue-verify 1`] = `
   </div>
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<!--
-  copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue
--->
+<!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
   <div class="file-container">
     <div class="file-content image_file">
@@ -1235,9 +1225,7 @@ exports[`template.vue - vue-verify 2`] = `
   </div>
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<!--
-  copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue
--->
+<!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
   <div class="file-container">
     <div class="file-content image_file">

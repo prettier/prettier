@@ -75,7 +75,7 @@ function shouldPreserveContent(node) {
 }
 
 function hasPrettierIgnore(node) {
-  if (node.type === "attribute" || node.type === "text") {
+  if (node.type === "attribute" || isTextLikeNode(node)) {
     return false;
   }
 
@@ -107,6 +107,11 @@ function getPrettierIgnoreAttributeCommentData(value) {
   }
 
   return match[1].split(/\s+/);
+}
+
+/** there's no opening/closing tag or it's considered not breakable */
+function isTextLikeNode(node) {
+  return node.type === "text" || node.type === "comment";
 }
 
 function isScriptLikeTag(node) {
@@ -502,70 +507,6 @@ function getNodeCssStyleWhiteSpace(node) {
   );
 }
 
-function getCommentData(node) {
-  const rightTrimmedValue = node.value.trimRight();
-
-  const hasLeadingEmptyLine = /^[^\S\n]*?\n/.test(node.value);
-  if (hasLeadingEmptyLine) {
-    /**
-     *     <!--
-     *     123
-     *        456
-     *     -->
-     */
-    return dedentString(rightTrimmedValue.replace(/^\s*\n/, ""));
-  }
-
-  /**
-   *     <!-- 123 -->
-   *
-   *     <!-- 123
-   *     -->
-   *
-   *     <!-- 123
-   *
-   *     -->
-   */
-  if (!rightTrimmedValue.includes("\n")) {
-    return rightTrimmedValue.trimLeft();
-  }
-
-  const firstNewlineIndex = rightTrimmedValue.indexOf("\n");
-  const dataWithoutLeadingLine = rightTrimmedValue.slice(firstNewlineIndex + 1);
-  const minIndentationForDataWithoutLeadingLine = getMinIndentation(
-    dataWithoutLeadingLine
-  );
-
-  const leadingSpaces = rightTrimmedValue.match(/^[^\n\S]*/)[0].length;
-  const commentDataStartColumn =
-    node.sourceSpan.start.col + "<!--".length + leadingSpaces;
-
-  /**
-   *     <!-- 123
-   *          456 -->
-   */
-  if (minIndentationForDataWithoutLeadingLine >= commentDataStartColumn) {
-    return dedentString(
-      " ".repeat(commentDataStartColumn) +
-        rightTrimmedValue.slice(leadingSpaces)
-    );
-  }
-
-  const leadingLineValue = rightTrimmedValue.slice(0, firstNewlineIndex);
-  /**
-   *     <!-- 123
-   *     456 -->
-   */
-  return (
-    leadingLineValue.trim() +
-    "\n" +
-    dedentString(
-      dataWithoutLeadingLine,
-      minIndentationForDataWithoutLeadingLine
-    )
-  );
-}
-
 function getMinIndentation(text) {
   let minIndentation = Infinity;
 
@@ -653,7 +594,6 @@ module.exports = {
   forceBreakChildren,
   forceBreakContent,
   forceNextEmptyLine,
-  getCommentData,
   getLastDescendant,
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
@@ -667,6 +607,7 @@ module.exports = {
   isLeadingSpaceSensitiveNode,
   isPreLikeNode,
   isScriptLikeTag,
+  isTextLikeNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
   normalizeParts,

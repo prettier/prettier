@@ -28,7 +28,7 @@ x => {
 
 }} reprehenderit voluptates minus {{console.log(  short_interpolation )}} nemo.</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<!-- interpolations in html should be treated as normal text -->
+<!--interpolations in html should be treated as normal text-->
 <div>
   Fuga magnam facilis. Voluptatem quaerat porro.{{ x => { const hello = 'world'
   return hello; } }} Magni consectetur in et molestias neque esse voluptatibus

@@ -5,13 +5,11 @@ exports[`cases.html - html-verify 1`] = `
 
 <span></span><!--prettier-ignore--><span></span>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-123<!--
-  prettier-ignore
--->456
+123<!--prettier-ignore-->456
 
 <span></span
-><!-- prettier-ignore
---><span></span>
+><!--prettier-ignore--><span
+></span>
 
 `;
 
