@@ -1152,7 +1152,7 @@ exports[`tag-name.vue - vue-verify 1`] = `
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template>
-  <table></table>
+  <Table></Table>
 </template>
 
 `;
@@ -1163,7 +1163,7 @@ exports[`tag-name.vue - vue-verify 2`] = `
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template>
-  <table></table>
+  <Table></Table>
 </template>
 
 `;
