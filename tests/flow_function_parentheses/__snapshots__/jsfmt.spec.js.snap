@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`single.js - flow-verify 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const selectorByPath:
   Path
  => SomethingSelector<
@@ -8,16 +13,24 @@ const selectorByPath:
   SomethingUEditorContextType,
   SomethingBulkValue<string>
 > = memoizeWithArgs(/* ... */)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const selectorByPath: Path => SomethingSelector<
   SomethingUEditorContextType,
   SomethingUEditorContextType,
   SomethingBulkValue<string>
 > = memoizeWithArgs(/* ... */);
 
+================================================================================
 `;
 
 exports[`single.js - flow-verify 2`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 const selectorByPath:
   Path
  => SomethingSelector<
@@ -25,16 +38,24 @@ const selectorByPath:
   SomethingUEditorContextType,
   SomethingBulkValue<string>
 > = memoizeWithArgs(/* ... */)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const selectorByPath: Path => SomethingSelector<
   SomethingUEditorContextType,
   SomethingUEditorContextType,
   SomethingBulkValue<string>,
 > = memoizeWithArgs(/* ... */);
 
+================================================================================
 `;
 
 exports[`single.js - flow-verify 3`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const selectorByPath:
   Path
  => SomethingSelector<
@@ -42,16 +63,23 @@ const selectorByPath:
   SomethingUEditorContextType,
   SomethingBulkValue<string>
 > = memoizeWithArgs(/* ... */)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const selectorByPath: (Path) => SomethingSelector<
   SomethingUEditorContextType,
   SomethingUEditorContextType,
   SomethingBulkValue<string>
 > = memoizeWithArgs(/* ... */);
 
+================================================================================
 `;
 
 exports[`test.js - flow-verify 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type Banana = {
   eat: string => boolean,
 };
@@ -112,7 +140,8 @@ type T = (?() => A) | B;
 type T = ?(?(() => A));
 
 type T = ?(?() => A) | B;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type Banana = {
   eat: string => boolean
 };
@@ -178,9 +207,16 @@ type T = ??(() => A);
 
 type T = ??(() => A) | B;
 
+================================================================================
 `;
 
 exports[`test.js - flow-verify 2`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 type Banana = {
   eat: string => boolean,
 };
@@ -241,7 +277,8 @@ type T = (?() => A) | B;
 type T = ?(?(() => A));
 
 type T = ?(?() => A) | B;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type Banana = {
   eat: string => boolean,
 };
@@ -307,9 +344,16 @@ type T = ??(() => A);
 
 type T = ??(() => A) | B;
 
+================================================================================
 `;
 
 exports[`test.js - flow-verify 3`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type Banana = {
   eat: string => boolean,
 };
@@ -370,7 +414,8 @@ type T = (?() => A) | B;
 type T = ?(?(() => A));
 
 type T = ?(?() => A) | B;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type Banana = {
   eat: (string) => boolean
 };
@@ -436,4 +481,5 @@ type T = ??(() => A);
 
 type T = ??(() => A) | B;
 
+================================================================================
 `;

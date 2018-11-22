@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`typescript-deferred.js - flow-verify 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface Some<X> {}
 interface Other<X> { x: X; }
 interface None<Y> {}
@@ -17,7 +22,8 @@ interface B<X> extends A<X> {
   foo<Y>(s: Other<X>, e: None<Y>): B<Y>;
   foo<Y>(s: Other<X>, e: Nada<Y>): B<Y>;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface Some<X> {}
 interface Other<X> {
   x: X;
@@ -39,4 +45,5 @@ interface B<X> extends A<X> {
   foo<Y>(s: Other<X>, e: Nada<Y>): B<Y>;
 }
 
+================================================================================
 `;

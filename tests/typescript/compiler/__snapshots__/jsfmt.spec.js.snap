@@ -1,19 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ClassDeclaration22.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class C {
     "foo"();
     "bar"() { }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class C {
   foo();
   bar() {}
 }
 
+================================================================================
 `;
 
 exports[`anyIsAssignableToObject.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface P {
     p: {};
 }
@@ -21,7 +33,8 @@ interface P {
 interface Q extends P { // Check assignability here. Any is assignable to {}
     p: any;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface P {
   p: {};
 }
@@ -31,9 +44,15 @@ interface Q extends P {
   p: any;
 }
 
+================================================================================
 `;
 
 exports[`castOfAwait.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @target: es6
 async function f() {
     <number> await 0;
@@ -42,7 +61,8 @@ async function f() {
     await void <string> typeof <number> void await 0;
     await await 0;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @target: es6
 async function f() {
   <number>await 0;
@@ -52,9 +72,15 @@ async function f() {
   await await 0;
 }
 
+================================================================================
 `;
 
 exports[`castParentheses.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ﻿class a {
     static b: any;
 }
@@ -66,7 +92,8 @@ var b = (<any>a.b()).c;
 var b = (<any>new a);
 var b = (<any>new a.b);
 var b = (<any>new a).b
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ﻿class a {
   static b: any;
 }
@@ -79,9 +106,15 @@ var b = <any>new a();
 var b = <any>new a.b();
 var b = (<any>new a()).b;
 
+================================================================================
 `;
 
 exports[`castTest.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 var x : any = 0;
 var z = <number> x;
@@ -112,7 +145,8 @@ var p_cast = <Point> ({
     },
     mult: function(p) { return p; }
 })
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x: any = 0;
 var z = <number>x;
 var y = x + z;
@@ -144,9 +178,15 @@ var p_cast = <Point>{
   }
 };
 
+================================================================================
 `;
 
 exports[`checkInfiniteExpansionTermination.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Regression test for #1002
 // Before fix this code would cause infinite loop
 
@@ -163,7 +203,8 @@ interface Bar { y }
 var values: IObservable<Foo>;
 var values2: ISubject<Bar>;
 values = values2;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Regression test for #1002
 // Before fix this code would cause infinite loop
 
@@ -185,37 +226,58 @@ var values: IObservable<Foo>;
 var values2: ISubject<Bar>;
 values = values2;
 
+================================================================================
 `;
 
 exports[`commentInNamespaceDeclarationWithIdentifierPathName.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ﻿namespace hello.hi.world
 {
     function foo() {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ﻿namespace hello.hi.world {
   function foo() {}
 }
 
+================================================================================
 `;
 
 exports[`commentsInterface.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface i2 {
     foo: (/**param help*/b: number) => string;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface i2 {
   foo: (/**param help*/ b: number) => string;
 }
 
+================================================================================
 `;
 
 exports[`contextualSignatureInstantiation2.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // dot f g x = f(g(x))
 var dot: <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T) => (_: U) => S;
 dot = <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T): (r:U) => S => (x) => f(g(x));
 var id: <T>(x:T) => T;
-var r23 = dot(id)(id);~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var r23 = dot(id)(id);
+=====================================output=====================================
 // dot f g x = f(g(x))
 var dot: <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T) => (_: U) => S;
 dot = <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T): ((r: U) => S) => x =>
@@ -223,9 +285,15 @@ dot = <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T): ((r: U) => S) => x =>
 var id: <T>(x: T) => T;
 var r23 = dot(id)(id);
 
+================================================================================
 `;
 
 exports[`declareDottedModuleName.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @declaration: true
 module M {
     module P.Q { } // This shouldnt be emitted
@@ -236,7 +304,8 @@ module M {
 }
 
 module T.U { // This needs to be emitted
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 // @declaration: true
 namespace M {
   namespace P.Q {
@@ -254,9 +323,15 @@ namespace T.U {
   // This needs to be emitted
 }
 
+================================================================================
 `;
 
 exports[`decrementAndIncrementOperators.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x = 0;
 
 // errors
@@ -294,7 +369,8 @@ x--;
 ((x))--;
 
 x[x++]++;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x = 0;
 
 // errors
@@ -333,26 +409,46 @@ x--;
 
 x[x++]++;
 
+================================================================================
 `;
 
 exports[`downlevelLetConst1.ts - typescript-verify 1`] = `
-const~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const
+=====================================output=====================================
 const;
 
+================================================================================
 `;
 
 exports[`errorOnInitializerInInterfaceProperty.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface Foo {
     bar: number = 5;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface Foo {
   bar: number = 5;
 }
 
+================================================================================
 `;
 
 exports[`es5ExportDefaultClassDeclaration4.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @target: es5
 // @module: commonjs
 // @declaration: true
@@ -369,7 +465,8 @@ declare module "foo" {
     export var t: typeof C;
 }
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @target: es5
 // @module: commonjs
 // @declaration: true
@@ -386,9 +483,15 @@ declare module "foo" {
   export var t: typeof C;
 }
 
+================================================================================
 `;
 
 exports[`functionOverloadsOnGenericArity1.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // overloading on arity not allowed
 interface C {
    f<T>(): string;
@@ -400,7 +503,8 @@ interface C {
   new <T>(): string;
   new <T, U>(): string; 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // overloading on arity not allowed
 interface C {
   f<T>(): string;
@@ -413,9 +517,15 @@ interface C {
   new <T, U>(): string;
 }
 
+================================================================================
 `;
 
 exports[`globalIsContextualKeyword.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function a() {
     let global = 1;
 }
@@ -431,7 +541,8 @@ function foo(global: number) {
 
 let obj = {
     global: "123"
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 function a() {
   let global = 1;
 }
@@ -449,9 +560,15 @@ let obj = {
   global: "123"
 };
 
+================================================================================
 `;
 
 exports[`indexSignatureWithInitializer.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // These used to be indexers, now they are computed properties
 interface I {
     [x = '']: string;
@@ -459,7 +576,8 @@ interface I {
 
 class C {
     [x = 0]: string
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 // These used to be indexers, now they are computed properties
 interface I {
   [x = ""]: string;
@@ -469,9 +587,15 @@ class C {
   [x = 0]: string;
 }
 
+================================================================================
 `;
 
 exports[`mappedTypeWithCombinedTypeMappers.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Repro from #13351
 
 type Meta<T, A> = {
@@ -490,7 +614,8 @@ interface Input {
 declare const output: Meta<Input, boolean>;
 
 const shouldFail: { important: boolean } = output.x.children;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Repro from #13351
 
 type Meta<T, A> = {
@@ -510,19 +635,32 @@ declare const output: Meta<Input, boolean>;
 
 const shouldFail: { important: boolean } = output.x.children;
 
+================================================================================
 `;
 
 exports[`modifiersOnInterfaceIndexSignature1.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface I {
   public [a: string]: number;
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 interface I {
   public [a: string]: number;
 }
 
+================================================================================
 `;
 
 exports[`privacyGloImport.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 //@declaration: true
 module m1 {
     export module m1_M1_public {
@@ -675,7 +813,8 @@ module m2 {
         //import m2 = require("use_glo_M1_public");
     }
 
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 //@declaration: true
 namespace m1 {
   export namespace m1_M1_public {
@@ -824,4 +963,5 @@ namespace m2 {
   }
 }
 
+================================================================================
 `;

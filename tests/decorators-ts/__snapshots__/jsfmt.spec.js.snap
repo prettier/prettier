@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`accessor-decorator.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class Point {
   private _x: number;
   private _y: number;
@@ -19,7 +24,8 @@ class Point {
     return this._y;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Point {
   private _x: number;
   private _y: number;
@@ -39,9 +45,15 @@ class Point {
   }
 }
 
+================================================================================
 `;
 
 exports[`angular.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @Component({
   selector: 'toh-hero-button',
   template: \`<button>{{label}}</button>\`
@@ -50,7 +62,8 @@ export class HeroButtonComponent {
   @Output() change = new EventEmitter<any>();
   @Input() label: string;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @Component({
   selector: "toh-hero-button",
   template: \`
@@ -62,20 +75,15 @@ export class HeroButtonComponent {
   @Input() label: string;
 }
 
+================================================================================
 `;
 
 exports[`class-decorator.ts - typescript-verify 1`] = `
-@sealed
-class Greeter {
-  greeting: string;
-  constructor(message: string) {
-    this.greeting = message;
-  }
-  greet() {
-    return "Hello, " + this.greeting;
-  }
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @sealed
 class Greeter {
   greeting: string;
@@ -87,9 +95,27 @@ class Greeter {
   }
 }
 
+=====================================output=====================================
+@sealed
+class Greeter {
+  greeting: string;
+  constructor(message: string) {
+    this.greeting = message;
+  }
+  greet() {
+    return "Hello, " + this.greeting;
+  }
+}
+
+================================================================================
 `;
 
 exports[`method-decorator.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class Greeter {
   greeting: string;
   constructor(message: string) {
@@ -101,7 +127,8 @@ class Greeter {
     return "Hello, " + this.greeting;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Greeter {
   greeting: string;
   constructor(message: string) {
@@ -114,9 +141,15 @@ class Greeter {
   }
 }
 
+================================================================================
 `;
 
 exports[`mobx.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class X {
 	@deco x() {
       return this.count * 2;
@@ -125,7 +158,8 @@ class X {
       return this.count * 2;
 	}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class X {
   @deco x() {
     return this.count * 2;
@@ -135,24 +169,37 @@ class X {
   }
 }
 
+================================================================================
 `;
 
 exports[`multiple.ts - typescript-verify 1`] = `
-class C {
-  @f()
-  @g()
-  method() {}
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class C {
   @f()
   @g()
   method() {}
 }
 
+=====================================output=====================================
+class C {
+  @f()
+  @g()
+  method() {}
+}
+
+================================================================================
 `;
 
 exports[`parameter-decorator.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class Greeter {
   greeting: string;
 
@@ -170,7 +217,8 @@ class Greeter {
     return Function.prototype.toString.apply(toString);
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Greeter {
   greeting: string;
 
@@ -189,9 +237,15 @@ class Greeter {
   }
 }
 
+================================================================================
 `;
 
 exports[`property-decorator.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class Greeter {
   @format("Hello, %s") greeting: string;
 
@@ -203,7 +257,8 @@ class Greeter {
     return formatString.replace("%s", this.greeting);
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Greeter {
   @format("Hello, %s") greeting: string;
 
@@ -216,9 +271,15 @@ class Greeter {
   }
 }
 
+================================================================================
 `;
 
 exports[`typeorm.ts - typescript-verify 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @Entity()
 export class Board {
 
@@ -241,7 +302,8 @@ export class Board {
     topics: Topic[]
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @Entity()
 export class Board {
   @PrimaryGeneratedColumn()
@@ -263,4 +325,5 @@ export class Board {
   topics: Topic[];
 }
 
+================================================================================
 `;

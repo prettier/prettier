@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`example.vue - vue-verify 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <template>
   <p>Templates are not formatted yet ...
     </p>
@@ -13,7 +18,8 @@ let Prettier        = format => { your.js('though') }
 <style>
 .and { css: too !important }
 </style>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <template>
   <p>Templates are not formatted yet ...</p>
 </template>
@@ -29,4 +35,5 @@ let Prettier = format => {
   css: too !important;
 }
 </style>
+================================================================================
 `;

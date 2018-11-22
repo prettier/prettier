@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`attributes.vue - vue-verify 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div
   v-for="  item  in  items "
   v-for="  item  of  items "
@@ -32,7 +37,8 @@ exports[`attributes.vue - vue-verify 1`] = `
     }
   "
 ></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   v-for="item in items"
   v-for="item of items"
@@ -89,9 +95,16 @@ exports[`attributes.vue - vue-verify 1`] = `
   "
 ></div>
 
+================================================================================
 `;
 
 exports[`attributes.vue - vue-verify 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <div
   v-for="  item  in  items "
   v-for="  item  of  items "
@@ -123,7 +136,8 @@ exports[`attributes.vue - vue-verify 2`] = `
     }
   "
 ></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   v-for="item in items"
   v-for="item of items"
@@ -180,9 +194,15 @@ exports[`attributes.vue - vue-verify 2`] = `
   "
 ></div>
 
+================================================================================
 `;
 
 exports[`board_card.vue - vue-verify 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <script>
 import './issue_card_inner';
 import eventHub from '../eventhub';
@@ -256,7 +276,8 @@ export default {
       :update-filters="true" />
   </li>
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <script>
 import "./issue_card_inner";
 import eventHub from "../eventhub";
@@ -338,9 +359,16 @@ export default {
   </li>
 </template>
 
+================================================================================
 `;
 
 exports[`board_card.vue - vue-verify 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <script>
 import './issue_card_inner';
 import eventHub from '../eventhub';
@@ -414,7 +442,8 @@ export default {
       :update-filters="true" />
   </li>
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <script>
 import "./issue_card_inner";
 import eventHub from "../eventhub";
@@ -496,9 +525,15 @@ export default {
   </li>
 </template>
 
+================================================================================
 `;
 
 exports[`filter.vue - vue-verify 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
   <div class="allowed">{{value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird}}</div>
@@ -506,7 +541,8 @@ exports[`filter.vue - vue-verify 1`] = `
   <div class="allowed" :class='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
   <div class="not-allowed" v-if='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
   <div class="allowed">
@@ -546,9 +582,16 @@ exports[`filter.vue - vue-verify 1`] = `
   ></div>
 </template>
 
+================================================================================
 `;
 
 exports[`filter.vue - vue-verify 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
   <div class="allowed">{{value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird}}</div>
@@ -556,7 +599,8 @@ exports[`filter.vue - vue-verify 2`] = `
   <div class="allowed" :class='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
   <div class="not-allowed" v-if='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'></div>
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
   <div class="allowed">
@@ -596,9 +640,15 @@ exports[`filter.vue - vue-verify 2`] = `
   ></div>
 </template>
 
+================================================================================
 `;
 
 exports[`interpolations.vue - vue-verify 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>Fuga magnam facilis. Voluptatem quaerat porro.{{
 
 
@@ -655,7 +705,8 @@ x => {
 <div>
   1234567890123456789012345678901234567890123456789012345678901234567890 {{ something }} 1234567890
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>
   Fuga magnam facilis. Voluptatem quaerat porro.{{
     x => {
@@ -715,9 +766,16 @@ export default {
   {{ something }} 1234567890
 </div>
 
+================================================================================
 `;
 
 exports[`interpolations.vue - vue-verify 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <div>Fuga magnam facilis. Voluptatem quaerat porro.{{
 
 
@@ -774,7 +832,8 @@ x => {
 <div>
   1234567890123456789012345678901234567890123456789012345678901234567890 {{ something }} 1234567890
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>
   Fuga magnam facilis. Voluptatem quaerat porro.{{
     x => {
@@ -834,9 +893,15 @@ export default {
   {{ something }} 1234567890
 </div>
 
+================================================================================
 `;
 
 exports[`pre-child.vue - vue-verify 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
 <pre
   ref="buildTrace"
@@ -878,7 +943,8 @@ exports[`pre-child.vue - vue-verify 1`] = `
   123{{ wqeqwwqwqweqweqwewwq || wqeqwwqwqweqweqwewwq || wqeqwwqwqweqweqwewwq || wqeqwwqwqweqweqwewwq }}123
     </pre>
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!--
   copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue
 -->
@@ -932,9 +998,16 @@ exports[`pre-child.vue - vue-verify 1`] = `
   >
 </template>
 
+================================================================================
 `;
 
 exports[`pre-child.vue - vue-verify 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
 <pre
   ref="buildTrace"
@@ -976,7 +1049,8 @@ exports[`pre-child.vue - vue-verify 2`] = `
   123{{ wqeqwwqwqweqweqwewwq || wqeqwwqwqweqweqwewwq || wqeqwwqwqweqweqwewwq || wqeqwwqwqweqweqwewwq }}123
     </pre>
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!--
   copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue
 -->
@@ -1030,27 +1104,48 @@ exports[`pre-child.vue - vue-verify 2`] = `
   >
 </template>
 
+================================================================================
 `;
 
 exports[`script_src.vue - vue-verify 1`] = `
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
 
+=====================================output=====================================
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
+
+================================================================================
 `;
 
 exports[`script_src.vue - vue-verify 2`] = `
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
 
+=====================================output=====================================
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
+
+================================================================================
 `;
 
 exports[`self_closing.vue - vue-verify 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <template>
   <div />
 </template>
@@ -1065,7 +1160,8 @@ foo( )
   <HomeX />
   <HomeY />
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <template>
   <div />
 </template>
@@ -1081,9 +1177,16 @@ foo();
   <HomeY />
 </div>
 
+================================================================================
 `;
 
 exports[`self_closing.vue - vue-verify 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <template>
   <div />
 </template>
@@ -1098,7 +1201,8 @@ foo( )
   <HomeX />
   <HomeY />
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <template>
   <div />
 </template>
@@ -1114,39 +1218,60 @@ foo();
   <HomeY />
 </div>
 
+================================================================================
 `;
 
 exports[`self_closing_style.vue - vue-verify 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <template>
   <span :class="$style.root"><slot /></span>
 </template>
 
 <style src="./style.css" module />
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <template>
   <span :class="$style.root"><slot /></span>
 </template>
 
 <style src="./style.css" module />
 
+================================================================================
 `;
 
 exports[`self_closing_style.vue - vue-verify 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <template>
   <span :class="$style.root"><slot /></span>
 </template>
 
 <style src="./style.css" module />
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <template>
   <span :class="$style.root"><slot /></span>
 </template>
 
 <style src="./style.css" module />
 
+================================================================================
 `;
 
 exports[`template.vue - vue-verify 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
   <div class="file-container">
@@ -1174,7 +1299,8 @@ exports[`template.vue - vue-verify 1`] = `
     </div>
   </div>
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!--
   copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue
 -->
@@ -1204,9 +1330,16 @@ exports[`template.vue - vue-verify 1`] = `
   </div>
 </template>
 
+================================================================================
 `;
 
 exports[`template.vue - vue-verify 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
   <div class="file-container">
@@ -1234,7 +1367,8 @@ exports[`template.vue - vue-verify 2`] = `
     </div>
   </div>
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!--
   copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue
 -->
@@ -1264,9 +1398,15 @@ exports[`template.vue - vue-verify 2`] = `
   </div>
 </template>
 
+================================================================================
 `;
 
 exports[`template-lang.vue - vue-verify 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <template lang="pug">
   .test
     #foo
@@ -1282,7 +1422,8 @@ exports[`template-lang.vue - vue-verify 1`] = `
     #foo
   .bla
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <template lang="pug">
   .test
     #foo
@@ -1295,9 +1436,16 @@ exports[`template-lang.vue - vue-verify 1`] = `
   .bla
 </template>
 
+================================================================================
 `;
 
 exports[`template-lang.vue - vue-verify 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <template lang="pug">
   .test
     #foo
@@ -1313,7 +1461,8 @@ exports[`template-lang.vue - vue-verify 2`] = `
     #foo
   .bla
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <template lang="pug">
   .test
     #foo
@@ -1326,9 +1475,15 @@ exports[`template-lang.vue - vue-verify 2`] = `
   .bla
 </template>
 
+================================================================================
 `;
 
 exports[`test.vue - vue-verify 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <script>
 </script>
 
@@ -1339,7 +1494,8 @@ exports[`test.vue - vue-verify 1`] = `
     <br/>
   </footer>
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <script></script>
 
 <template>
@@ -1347,9 +1503,16 @@ exports[`test.vue - vue-verify 1`] = `
   <footer>foo <br /></footer>
 </template>
 
+================================================================================
 `;
 
 exports[`test.vue - vue-verify 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <script>
 </script>
 
@@ -1360,7 +1523,8 @@ exports[`test.vue - vue-verify 2`] = `
     <br/>
   </footer>
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <script></script>
 
 <template>
@@ -1368,4 +1532,5 @@ exports[`test.vue - vue-verify 2`] = `
   <footer>foo <br /></footer>
 </template>
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`lit-html.js - babylon-verify 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { LitElement, html } from '@polymer/lit-element';
 
 class MyElement extends LitElement {
@@ -47,7 +52,8 @@ const someHtml1 = html\`<div       > hello \${world} </div     >\`;
 const someHtml2 = /* HTML */ \`<div      > hello \${world} </div     >\`;
 
 html\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import { LitElement, html } from "@polymer/lit-element";
 
 class MyElement extends LitElement {
@@ -86,4 +92,5 @@ const someHtml2 = /* HTML */ \`
 
 html\`\`;
 
+================================================================================
 `;

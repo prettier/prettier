@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`attributes.component.html - angular-verify 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div
     bindon-target=" a | b : c "
     [(target)]=" a | b : c "
@@ -87,7 +92,8 @@ exports[`attributes.component.html - angular-verify 1`] = `
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
 ></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   bindon-target="a | b: c"
   [(target)]="a | b: c"
@@ -198,9 +204,16 @@ exports[`attributes.component.html - angular-verify 1`] = `
   [stickout]="+toolAssembly.stickoutMm"
 ></div>
 
+================================================================================
 `;
 
 exports[`attributes.component.html - angular-verify 2`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <div
     bindon-target=" a | b : c "
     [(target)]=" a | b : c "
@@ -287,7 +300,8 @@ exports[`attributes.component.html - angular-verify 2`] = `
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
 ></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   bindon-target="a | b: c"
   [(target)]="a | b: c"
@@ -398,9 +412,15 @@ exports[`attributes.component.html - angular-verify 2`] = `
   [stickout]="+toolAssembly.stickoutMm"
 ></div>
 
+================================================================================
 `;
 
 exports[`attributes.component.html - angular-verify 3`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
 <div
     bindon-target=" a | b : c "
     [(target)]=" a | b : c "
@@ -487,7 +507,8 @@ exports[`attributes.component.html - angular-verify 3`] = `
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
 ></div>
-~
+
+=====================================output=====================================
 <div
   bindon-target="
     a
@@ -822,9 +843,16 @@ exports[`attributes.component.html - angular-verify 3`] = `
   "
 ></div>
 
+================================================================================
 `;
 
 exports[`attributes.component.html - angular-verify 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div
     bindon-target=" a | b : c "
     [(target)]=" a | b : c "
@@ -911,7 +939,8 @@ exports[`attributes.component.html - angular-verify 4`] = `
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
 ></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   bindon-target="a | b: c"
   [(target)]="a | b: c"
@@ -1022,9 +1051,15 @@ exports[`attributes.component.html - angular-verify 4`] = `
   [stickout]="+toolAssembly.stickoutMm"
 ></div>
 
+================================================================================
 `;
 
 exports[`first-lf.component.html - angular-verify 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>
 {{ generatedDiscountCodes }}</textarea>
@@ -1061,7 +1096,8 @@ exports[`first-lf.component.html - angular-verify 1`] = `
 {{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">  
     {{ generatedDiscountCodes }}123</textarea>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>    {{ generatedDiscountCodes }}</textarea>
@@ -1107,9 +1143,16 @@ exports[`first-lf.component.html - angular-verify 1`] = `
     {{ generatedDiscountCodes }}123</textarea
 >
 
+================================================================================
 `;
 
 exports[`first-lf.component.html - angular-verify 2`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>
 {{ generatedDiscountCodes }}</textarea>
@@ -1146,7 +1189,8 @@ exports[`first-lf.component.html - angular-verify 2`] = `
 {{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">  
     {{ generatedDiscountCodes }}123</textarea>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>    {{ generatedDiscountCodes }}</textarea>
@@ -1192,9 +1236,15 @@ exports[`first-lf.component.html - angular-verify 2`] = `
     {{ generatedDiscountCodes }}123</textarea
 >
 
+================================================================================
 `;
 
 exports[`first-lf.component.html - angular-verify 3`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>
 {{ generatedDiscountCodes }}</textarea>
@@ -1231,7 +1281,8 @@ exports[`first-lf.component.html - angular-verify 3`] = `
 {{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">  
     {{ generatedDiscountCodes }}123</textarea>
-~
+
+=====================================output=====================================
 <textarea
   >{{
     generatedDiscountCodes
@@ -1357,9 +1408,16 @@ exports[`first-lf.component.html - angular-verify 3`] = `
   }}123</textarea
 >
 
+================================================================================
 `;
 
 exports[`first-lf.component.html - angular-verify 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>
 {{ generatedDiscountCodes }}</textarea>
@@ -1396,7 +1454,8 @@ exports[`first-lf.component.html - angular-verify 4`] = `
 {{ generatedDiscountCodes }}123</textarea>
 <textarea type="text">  
     {{ generatedDiscountCodes }}123</textarea>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>{{ generatedDiscountCodes }}</textarea>
 <textarea>    {{ generatedDiscountCodes }}</textarea>
@@ -1442,9 +1501,15 @@ exports[`first-lf.component.html - angular-verify 4`] = `
     {{ generatedDiscountCodes }}123</textarea
 >
 
+================================================================================
 `;
 
 exports[`ignore-attribute.component.html - angular-verify 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div
     bindon-target=" a | b : c "
     [(target)]=" a | b : c "
@@ -1468,7 +1533,8 @@ exports[`ignore-attribute.component.html - angular-verify 1`] = `
     [(target)]=" a | b : c "
     bind-target=" a | b : c "
 ></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   bindon-target="a | b: c"
   [(target)]="a | b: c"
@@ -1493,9 +1559,16 @@ exports[`ignore-attribute.component.html - angular-verify 1`] = `
   bind-target=" a | b : c "
 ></div>
 
+================================================================================
 `;
 
 exports[`ignore-attribute.component.html - angular-verify 2`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <div
     bindon-target=" a | b : c "
     [(target)]=" a | b : c "
@@ -1519,7 +1592,8 @@ exports[`ignore-attribute.component.html - angular-verify 2`] = `
     [(target)]=" a | b : c "
     bind-target=" a | b : c "
 ></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   bindon-target="a | b: c"
   [(target)]="a | b: c"
@@ -1544,9 +1618,15 @@ exports[`ignore-attribute.component.html - angular-verify 2`] = `
   bind-target=" a | b : c "
 ></div>
 
+================================================================================
 `;
 
 exports[`ignore-attribute.component.html - angular-verify 3`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
 <div
     bindon-target=" a | b : c "
     [(target)]=" a | b : c "
@@ -1570,7 +1650,8 @@ exports[`ignore-attribute.component.html - angular-verify 3`] = `
     [(target)]=" a | b : c "
     bind-target=" a | b : c "
 ></div>
-~
+
+=====================================output=====================================
 <div
   bindon-target="
     a
@@ -1625,9 +1706,16 @@ exports[`ignore-attribute.component.html - angular-verify 3`] = `
   bind-target=" a | b : c "
 ></div>
 
+================================================================================
 `;
 
 exports[`ignore-attribute.component.html - angular-verify 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div
     bindon-target=" a | b : c "
     [(target)]=" a | b : c "
@@ -1651,7 +1739,8 @@ exports[`ignore-attribute.component.html - angular-verify 4`] = `
     [(target)]=" a | b : c "
     bind-target=" a | b : c "
 ></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   bindon-target="a | b: c"
   [(target)]="a | b: c"
@@ -1676,9 +1765,15 @@ exports[`ignore-attribute.component.html - angular-verify 4`] = `
   bind-target=" a | b : c "
 ></div>
 
+================================================================================
 `;
 
 exports[`interpolation.component.html - angular-verify 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>{{ a | b : c }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ - 1 }}</div>
@@ -1735,7 +1830,8 @@ exports[`interpolation.component.html - angular-verify 1`] = `
   {{ aNormalValue | aPipe }}:
   <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
 </span>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>{{ a | b: c }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ -1 }}</div>
@@ -1813,9 +1909,16 @@ exports[`interpolation.component.html - angular-verify 1`] = `
   }}</strong>
 </span>
 
+================================================================================
 `;
 
 exports[`interpolation.component.html - angular-verify 2`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <div>{{ a | b : c }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ - 1 }}</div>
@@ -1872,7 +1975,8 @@ exports[`interpolation.component.html - angular-verify 2`] = `
   {{ aNormalValue | aPipe }}:
   <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
 </span>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>{{ a | b: c }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ -1 }}</div>
@@ -1950,9 +2054,15 @@ exports[`interpolation.component.html - angular-verify 2`] = `
   }}</strong>
 </span>
 
+================================================================================
 `;
 
 exports[`interpolation.component.html - angular-verify 3`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
 <div>{{ a | b : c }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ - 1 }}</div>
@@ -2009,7 +2119,8 @@ exports[`interpolation.component.html - angular-verify 3`] = `
   {{ aNormalValue | aPipe }}:
   <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
 </span>
-~
+
+=====================================output=====================================
 <div>
   {{
     a
@@ -2249,9 +2360,16 @@ exports[`interpolation.component.html - angular-verify 3`] = `
   >
 </span>
 
+================================================================================
 `;
 
 exports[`interpolation.component.html - angular-verify 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>{{ a | b : c }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ - 1 }}</div>
@@ -2308,7 +2426,8 @@ exports[`interpolation.component.html - angular-verify 4`] = `
   {{ aNormalValue | aPipe }}:
   <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
 </span>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>{{ a | b: c }}</div>
 <div>{{ 0 - 1 }}</div>
 <div>{{ -1 }}</div>
@@ -2389,9 +2508,15 @@ exports[`interpolation.component.html - angular-verify 4`] = `
   </strong>
 </span>
 
+================================================================================
 `;
 
 exports[`real-world.component.html - angular-verify 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
 <a id="toc"></a>
@@ -3110,7 +3235,8 @@ Copyright 2017-2018 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license
 -->
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
 <a id="toc"></a>
@@ -3879,9 +4005,16 @@ without NgModel <br />
   can be found in the LICENSE file at http://angular.io/license
 -->
 
+================================================================================
 `;
 
 exports[`real-world.component.html - angular-verify 2`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
 <a id="toc"></a>
@@ -4600,7 +4733,8 @@ Copyright 2017-2018 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license
 -->
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
 <a id="toc"></a>
@@ -5369,9 +5503,15 @@ without NgModel <br />
   can be found in the LICENSE file at http://angular.io/license
 -->
 
+================================================================================
 `;
 
 exports[`real-world.component.html - angular-verify 3`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
 <a id="toc"></a>
@@ -6090,7 +6230,8 @@ Copyright 2017-2018 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license
 -->
-~
+
+=====================================output=====================================
 <!--
   copied from: https://stackblitz.com/angular/ymdjlgmlavo
 -->
@@ -8898,9 +9039,16 @@ bindon-ngModel
   can be found in the LICENSE file at http://angular.io/license
 -->
 
+================================================================================
 `;
 
 exports[`real-world.component.html - angular-verify 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
 <a id="toc"></a>
@@ -9619,7 +9767,8 @@ Copyright 2017-2018 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license
 -->
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
 <a id="toc"></a>
@@ -10549,4 +10698,5 @@ bindon-ngModel
   can be found in the LICENSE file at http://angular.io/license
 -->
 
+================================================================================
 `;

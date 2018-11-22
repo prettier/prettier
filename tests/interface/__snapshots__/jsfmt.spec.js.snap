@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`break.js - flow-verify 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export interface Environment1 extends GenericEnvironment<
   SomeType,
   AnotherType,
@@ -67,7 +72,8 @@ interface ExtendsManyWithGenerics
   }
 
 export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,  ToBreakLineToBreakLineToBreakLine> {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export interface Environment1
   extends GenericEnvironment<SomeType, AnotherType, YetAnotherType> {
   m(): void;
@@ -171,17 +177,25 @@ export interface ExtendsLongOneWithGenerics
     ToBreakLineToBreakLineToBreakLine
   > {}
 
+================================================================================
 `;
 
 exports[`module.js - flow-verify 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare module X {
   declare interface Y { x: number; }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare module X {
   declare interface Y {
     x: number;
   }
 }
 
+================================================================================
 `;
