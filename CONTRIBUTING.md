@@ -47,3 +47,4 @@ In the above commands:
 - `> /dev/null` ensures the formatted output is discarded.
 
 In addition to the options above, you can use [`node --prof` and `node --prof-process`](https://nodejs.org/en/docs/guides/simple-profiling/), as well as `node --trace-opt --trace-deopt`, to get more advanced performance insights.
+q
