@@ -127,6 +127,42 @@ exports[`something-else.html - html-verify 1`] = `
 
 `;
 
+exports[`template-literal.html - html-verify 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    </head>
+    <body>
+        <script>
+            function foo() {
+                return \`
+                    <div>
+                        <p>Text</p>
+                    </div>
+                \`;
+            }
+        </script>
+    </body>
+</html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <script>
+      function foo() {
+        return \`
+                          <div>
+                              <p>Text</p>
+                          </div>
+                      \`;
+      }
+    </script>
+  </body>
+</html>
+
+`;
+
 exports[`typescript.html - html-verify 1`] = `
 <script type="application/x-typescript">
   class Student {
