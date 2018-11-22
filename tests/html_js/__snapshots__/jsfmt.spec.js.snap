@@ -152,10 +152,10 @@ exports[`template-literal.html - html-verify 1`] = `
     <script>
       function foo() {
         return \`
-                          <div>
-                              <p>Text</p>
-                          </div>
-                      \`;
+                    <div>
+                        <p>Text</p>
+                    </div>
+                \`;
       }
     </script>
   </body>
