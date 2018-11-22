@@ -65,11 +65,11 @@ function run_spec(dirname, parsers, options) {
       test(`${filename} - ${mainOptions.parser}-verify`, () => {
         expect(
           raw(
-            createSnapshot({
-              input: source,
+            createSnapshot(
+              source,
               output,
-              options: Object.assign({}, baseOptions, { parsers })
-            })
+              Object.assign({}, baseOptions, { parsers })
+            )
           )
         ).toMatchSnapshot();
       });
@@ -154,7 +154,7 @@ function mergeDefaultOptions(parserConfig) {
   );
 }
 
-function createSnapshot({ input, output, options }) {
+function createSnapshot(input, output, options) {
   const separatorWidth = 80;
   const printWidthIndicator =
     options.printWidth > 0 && Number.isFinite(options.printWidth)
@@ -179,7 +179,8 @@ function createSnapshot({ input, output, options }) {
     .join("\n");
 }
 
-function printSeparator(width, description = "") {
+function printSeparator(width, description) {
+  description = description || "";
   const leftLength = Math.floor((width - description.length) / 2);
   const rightLength = width - leftLength - description.length;
   return "=".repeat(leftLength) + description + "=".repeat(rightLength);
