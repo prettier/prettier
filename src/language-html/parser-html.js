@@ -249,7 +249,7 @@ function locEnd(node) {
 
 function createParser({
   recognizeSelfClosing = false,
-  normalizeTagName = true
+  normalizeTagName = false
 } = {}) {
   return {
     preprocess: text => text.replace(/\r\n?/g, "\n"),
@@ -267,8 +267,8 @@ function createParser({
 
 module.exports = {
   parsers: {
-    html: createParser(),
+    html: createParser({ normalizeTagName: true }),
     angular: createParser(),
-    vue: createParser({ recognizeSelfClosing: true, normalizeTagName: false })
+    vue: createParser({ recognizeSelfClosing: true })
   }
 };
