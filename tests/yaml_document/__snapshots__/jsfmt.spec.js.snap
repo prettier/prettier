@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`directives-and-comments.yml - yaml-verify 1`] = `
+exports[`directives-and-comments.yml 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -26,7 +26,7 @@ test
 ================================================================================
 `;
 
-exports[`separator.yml - yaml-verify 1`] = `
+exports[`separator.yml 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80

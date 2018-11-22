@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`issue-1249.js - flow-verify 1`] = `
+exports[`issue-1249.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -54,7 +54,7 @@ type X = (a & b) => void;
 ================================================================================
 `;
 
-exports[`parens.js - flow-verify 1`] = `
+exports[`parens.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

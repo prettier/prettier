@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.js - flow-verify 1`] = `
+exports[`empty.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -18,7 +18,7 @@ const a =
 ================================================================================
 `;
 
-exports[`last.js - flow-verify 1`] = `
+exports[`last.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -38,7 +38,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`preserve_empty_lines.js - flow-verify 1`] = `
+exports[`preserve_empty_lines.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

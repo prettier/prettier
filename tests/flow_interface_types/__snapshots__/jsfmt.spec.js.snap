@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interface_types.js - flow-verify 1`] = `
+exports[`interface_types.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80

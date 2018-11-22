@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.html - html-verify 1`] = `
+exports[`empty.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`js.html - html-verify 1`] = `
+exports[`js.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -74,7 +74,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`simple.html - html-verify 1`] = `
+exports[`simple.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -120,7 +120,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`single-script.html - html-verify 1`] = `
+exports[`single-script.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -142,7 +142,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`something-else.html - html-verify 1`] = `
+exports[`something-else.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -162,7 +162,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`typescript.html - html-verify 1`] = `
+exports[`typescript.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

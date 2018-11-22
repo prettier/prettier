@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditonal-types.ts - typescript-verify 1`] = `
+exports[`conditonal-types.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -56,7 +56,7 @@ type TypeName<T> = T extends string
 ================================================================================
 `;
 
-exports[`infer-type.ts - typescript-verify 1`] = `
+exports[`infer-type.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

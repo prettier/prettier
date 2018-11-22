@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`documents.yml - yaml-verify 1`] = `
+exports[`documents.yml 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -20,7 +20,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`documents-with-directive.yml - yaml-verify 1`] = `
+exports[`documents-with-directive.yml 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -43,7 +43,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty.yml - yaml-verify 1`] = `
+exports[`empty.yml 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -55,7 +55,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`example.yml - yaml-verify 1`] = `
+exports[`example.yml 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80

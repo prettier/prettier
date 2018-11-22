@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`backtick.md - markdown-verify 1`] = `
+exports[`backtick.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -31,7 +31,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`cjk.md - markdown-verify 1`] = `
+exports[`cjk.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -46,7 +46,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`escape.md - markdown-verify 1`] = `
+exports[`escape.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -61,7 +61,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`long.md - markdown-verify 1`] = `
+exports[`long.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -76,7 +76,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple.md - markdown-verify 1`] = `
+exports[`simple.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

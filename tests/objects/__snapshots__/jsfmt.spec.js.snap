@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`expand.js - babylon-verify 1`] = `
+exports[`expand.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -24,7 +24,7 @@ const Component2 = ({ props }) => <Text>Test</Text>;
 ================================================================================
 `;
 
-exports[`expression.js - babylon-verify 1`] = `
+exports[`expression.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -54,7 +54,7 @@ a = () => ({}.x);
 ================================================================================
 `;
 
-exports[`method.js - babylon-verify 1`] = `
+exports[`method.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -68,7 +68,7 @@ a = { f() {} };
 ================================================================================
 `;
 
-exports[`range.js - babylon-verify 1`] = `
+exports[`range.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -106,7 +106,7 @@ group(
 ================================================================================
 `;
 
-exports[`right_break.js - babylon-verify 1`] = `
+exports[`right_break.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80

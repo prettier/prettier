@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js - flow-verify 1`] = `
+exports[`comment.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -20,7 +20,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty_label.js - flow-verify 1`] = `
+exports[`empty_label.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

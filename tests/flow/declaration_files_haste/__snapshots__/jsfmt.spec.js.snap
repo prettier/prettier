@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ExplicitProvidesModuleDifferentName.js - flow-verify 1`] = `
+exports[`ExplicitProvidesModuleDifferentName.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -24,7 +24,7 @@ module.exports.fun = (): string => "hello there";
 ================================================================================
 `;
 
-exports[`ExplicitProvidesModuleSameName.js - flow-verify 1`] = `
+exports[`ExplicitProvidesModuleSameName.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -48,7 +48,7 @@ module.exports.fun = (): string => "hello there";
 ================================================================================
 `;
 
-exports[`ImplicitProvidesModule.js - flow-verify 1`] = `
+exports[`ImplicitProvidesModule.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -72,7 +72,7 @@ module.exports.fun = (): string => "hello there";
 ================================================================================
 `;
 
-exports[`md5.js - flow-verify 1`] = `
+exports[`md5.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -86,7 +86,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

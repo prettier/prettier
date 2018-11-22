@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lang-ts.vue - vue-verify 1`] = `
+exports[`lang-ts.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -35,7 +35,7 @@ export default {
 ================================================================================
 `;
 
-exports[`lang-tsx.vue - vue-verify 1`] = `
+exports[`lang-tsx.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -67,7 +67,7 @@ export default {
 ================================================================================
 `;
 
-exports[`template-bind.vue - vue-verify 1`] = `
+exports[`template-bind.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -98,7 +98,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template-class.vue - vue-verify 1`] = `
+exports[`template-class.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -129,7 +129,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`vue-component.vue - vue-verify 1`] = `
+exports[`vue-component.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`chaining.js - babylon-verify 1`] = `
+exports[`chaining.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon", "flow"]
 printWidth: 80

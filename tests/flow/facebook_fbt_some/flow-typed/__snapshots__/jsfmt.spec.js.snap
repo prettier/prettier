@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fbt.js - flow-verify 1`] = `
+exports[`fbt.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

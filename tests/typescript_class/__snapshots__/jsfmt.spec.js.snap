@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructor.ts - typescript-verify 1`] = `
+exports[`constructor.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -26,7 +26,7 @@ class foo {
 ================================================================================
 `;
 
-exports[`dunder.ts - typescript-verify 1`] = `
+exports[`dunder.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -40,7 +40,7 @@ class F<__T> {}
 ================================================================================
 `;
 
-exports[`extends_implements.ts - typescript-verify 1`] = `
+exports[`extends_implements.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -138,7 +138,7 @@ class ExtendsAbstractClassAndImplementsInterfaces
 ================================================================================
 `;
 
-exports[`generics.ts - typescript-verify 1`] = `
+exports[`generics.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -160,7 +160,7 @@ interface AudioBufferList {
 ================================================================================
 `;
 
-exports[`methods.ts - typescript-verify 1`] = `
+exports[`methods.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -194,7 +194,7 @@ export class Check {
 ================================================================================
 `;
 
-exports[`optional.ts - typescript-verify 1`] = `
+exports[`optional.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -214,7 +214,7 @@ class X {
 ================================================================================
 `;
 
-exports[`quoted-property.ts - typescript-verify 1`] = `
+exports[`quoted-property.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

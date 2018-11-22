@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`media-queries-ranges.css - css-verify 1`] = `
+exports[`media-queries-ranges.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

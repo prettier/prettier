@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`member-chain.js - typescript-verify 1`] = `
+exports[`member-chain.js 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -38,7 +38,7 @@ foo!
 ================================================================================
 `;
 
-exports[`parens.ts - typescript-verify 1`] = `
+exports[`parens.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

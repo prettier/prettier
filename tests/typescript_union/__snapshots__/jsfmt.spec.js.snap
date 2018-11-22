@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inlining.ts - typescript-verify 1`] = `
+exports[`inlining.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -76,7 +76,7 @@ type window = Window & {
 ================================================================================
 `;
 
-exports[`union-parens.ts - typescript-verify 1`] = `
+exports[`union-parens.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -164,7 +164,7 @@ type State = {
 ================================================================================
 `;
 
-exports[`with-type-params.ts - typescript-verify 1`] = `
+exports[`with-type-params.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lit-html.js - babylon-verify 1`] = `
+exports[`lit-html.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80

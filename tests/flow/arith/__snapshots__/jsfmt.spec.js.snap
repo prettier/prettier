@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Arith.js - flow-verify 1`] = `
+exports[`Arith.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -193,7 +193,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`exponent.js - flow-verify 1`] = `
+exports[`exponent.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -227,7 +227,7 @@ y **= 2; // error
 ================================================================================
 `;
 
-exports[`generic.js - flow-verify 1`] = `
+exports[`generic.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -263,7 +263,7 @@ function f<A, B>(a: A, b: B): B {
 ================================================================================
 `;
 
-exports[`mult.js - flow-verify 1`] = `
+exports[`mult.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -299,7 +299,7 @@ y *= 2; // error
 ================================================================================
 `;
 
-exports[`relational.js - flow-verify 1`] = `
+exports[`relational.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

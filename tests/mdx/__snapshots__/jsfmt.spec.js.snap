@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import-export.mdx - mdx-verify 1`] = `
+exports[`import-export.mdx 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -86,7 +86,7 @@ export const b = 1;
 ================================================================================
 `;
 
-exports[`import-export.mdx - mdx-verify 2`] = `
+exports[`import-export.mdx 2`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -173,7 +173,7 @@ export const b = 1
 ================================================================================
 `;
 
-exports[`jsx.mdx - mdx-verify 1`] = `
+exports[`jsx.mdx 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -200,7 +200,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`jsx.mdx - mdx-verify 2`] = `
+exports[`jsx.mdx 2`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -228,7 +228,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`jsx-codeblock.mdx - mdx-verify 1`] = `
+exports[`jsx-codeblock.mdx 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -256,7 +256,7 @@ const a = 1;
 ================================================================================
 `;
 
-exports[`jsx-codeblock.mdx - mdx-verify 2`] = `
+exports[`jsx-codeblock.mdx 2`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -285,7 +285,7 @@ const a = 1
 ================================================================================
 `;
 
-exports[`mixed.mdx - mdx-verify 1`] = `
+exports[`mixed.mdx 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -375,7 +375,7 @@ export default ({ children }) => <div>{children}</div>;
 ================================================================================
 `;
 
-exports[`mixed.mdx - mdx-verify 2`] = `
+exports[`mixed.mdx 2`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80

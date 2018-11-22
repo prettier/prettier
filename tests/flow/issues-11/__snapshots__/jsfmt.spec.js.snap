@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`export.js - flow-verify 1`] = `
+exports[`export.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ exports.y = "";
 ================================================================================
 `;
 
-exports[`import.js - flow-verify 1`] = `
+exports[`import.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

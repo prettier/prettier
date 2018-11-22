@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generic-cast.ts - typescript-verify 1`] = `
+exports[`generic-cast.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -253,7 +253,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`hug-args.ts - typescript-verify 1`] = `
+exports[`hug-args.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -303,7 +303,7 @@ postMessages(<IActionMessage[]>[
 ================================================================================
 `;
 
-exports[`parenthesis.ts - typescript-verify 1`] = `
+exports[`parenthesis.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

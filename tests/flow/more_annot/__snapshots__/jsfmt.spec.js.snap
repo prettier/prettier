@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`client_object.js - flow-verify 1`] = `
+exports[`client_object.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -18,7 +18,7 @@ var a: number = o.w.z.y;
 ================================================================================
 `;
 
-exports[`object.js - flow-verify 1`] = `
+exports[`object.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -48,7 +48,7 @@ module.exports = o3;
 ================================================================================
 `;
 
-exports[`proto.js - flow-verify 1`] = `
+exports[`proto.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -74,7 +74,7 @@ var o2: Foo = new Foo();
 ================================================================================
 `;
 
-exports[`super.js - flow-verify 1`] = `
+exports[`super.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80

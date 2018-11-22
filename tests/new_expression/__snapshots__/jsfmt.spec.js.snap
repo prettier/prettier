@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`call.js - flow-verify 1`] = `
+exports[`call.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -20,7 +20,7 @@ new (factory())(factory());
 ================================================================================
 `;
 
-exports[`new_expression.js - flow-verify 1`] = `
+exports[`new_expression.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -38,7 +38,7 @@ new (createObj()).prop(a());
 ================================================================================
 `;
 
-exports[`with-member-expression.js - flow-verify 1`] = `
+exports[`with-member-expression.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

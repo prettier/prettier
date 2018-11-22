@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`logical-expression.ng - __ng_interpolation-verify 1`] = `
+exports[`logical-expression.ng 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
 printWidth: 80
@@ -20,7 +20,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`pipe-expression.ng - __ng_interpolation-verify 1`] = `
+exports[`pipe-expression.ng 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
 printWidth: 80

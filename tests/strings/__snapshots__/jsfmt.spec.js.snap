@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`strings.js - flow-verify 1`] = `
+exports[`strings.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -61,7 +61,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`strings.js - flow-verify 2`] = `
+exports[`strings.js 2`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -123,7 +123,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`template-literals.js - flow-verify 1`] = `
+exports[`template-literals.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -316,7 +316,7 @@ const Bar = styled.div\`
 ================================================================================
 `;
 
-exports[`template-literals.js - flow-verify 2`] = `
+exports[`template-literals.js 2`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

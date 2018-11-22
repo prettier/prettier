@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`usingCrlf.css - css-verify 1`] = `
+exports[`usingCrlf.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -17,7 +17,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`usingCrlf.css - css-verify 2`] = `
+exports[`usingCrlf.css 2`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["css"]
@@ -32,7 +32,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`usingCrlf.css - css-verify 3`] = `
+exports[`usingCrlf.css 3`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["css"]
@@ -50,7 +50,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`usingCrlf.css - css-verify 4`] = `
+exports[`usingCrlf.css 4`] = `
 ====================================options=====================================
 endOfLine: "lf"
 parsers: ["css"]
@@ -68,7 +68,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`usingLf.css - css-verify 1`] = `
+exports[`usingLf.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -85,7 +85,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`usingLf.css - css-verify 2`] = `
+exports[`usingLf.css 2`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["css"]
@@ -100,7 +100,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`usingLf.css - css-verify 3`] = `
+exports[`usingLf.css 3`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["css"]
@@ -118,7 +118,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`usingLf.css - css-verify 4`] = `
+exports[`usingLf.css 4`] = `
 ====================================options=====================================
 endOfLine: "lf"
 parsers: ["css"]

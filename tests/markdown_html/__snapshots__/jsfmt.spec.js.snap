@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`blank-line-between-htmls.md - markdown-verify 1`] = `
+exports[`blank-line-between-htmls.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -19,7 +19,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`multiline.md - markdown-verify 1`] = `
+exports[`multiline.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -78,7 +78,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`multiline-with-trailing-space.md - markdown-verify 1`] = `
+exports[`multiline-with-trailing-space.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -137,7 +137,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple.md - markdown-verify 1`] = `
+exports[`simple.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

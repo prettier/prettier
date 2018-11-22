@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`assignment-pattern.js - flow-verify 1`] = `
+exports[`assignment-pattern.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -25,7 +25,7 @@ let {
 ================================================================================
 `;
 
-exports[`before-comma.js - flow-verify 1`] = `
+exports[`before-comma.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -49,7 +49,7 @@ const foo = {
 ================================================================================
 `;
 
-exports[`binary-expressions.js - flow-verify 1`] = `
+exports[`binary-expressions.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -203,7 +203,7 @@ function bitwiseXor() {
 ================================================================================
 `;
 
-exports[`blank.js - flow-verify 1`] = `
+exports[`blank.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -257,7 +257,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`break-continue-statements.js - flow-verify 1`] = `
+exports[`break-continue-statements.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -291,7 +291,7 @@ loop: for (;;) {
 ================================================================================
 `;
 
-exports[`call_comment.js - flow-verify 1`] = `
+exports[`call_comment.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -323,7 +323,7 @@ React.render(
 ================================================================================
 `;
 
-exports[`closure-compiler-type-cast.js - flow-verify 1`] = `
+exports[`closure-compiler-type-cast.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -377,7 +377,7 @@ var newArray = /** @type {array} */ (numberOrString.map(x => x));
 ================================================================================
 `;
 
-exports[`dangling.js - flow-verify 1`] = `
+exports[`dangling.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -419,7 +419,7 @@ export /* dangling */{};
 ================================================================================
 `;
 
-exports[`dangling_array.js - flow-verify 1`] = `
+exports[`dangling_array.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -441,7 +441,7 @@ expect(() => {}).toTriggerReadyStateChanges([
 ================================================================================
 `;
 
-exports[`dangling_for.js - flow-verify 1`] = `
+exports[`dangling_for.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -462,7 +462,7 @@ for (;;);
 ================================================================================
 `;
 
-exports[`dynamic_imports.js - flow-verify 1`] = `
+exports[`dynamic_imports.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -488,7 +488,7 @@ import("something" /* Hello */ + "else");
 ================================================================================
 `;
 
-exports[`export.js - flow-verify 1`] = `
+exports[`export.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -536,7 +536,7 @@ export {
 ================================================================================
 `;
 
-exports[`first-line.js - flow-verify 1`] = `
+exports[`first-line.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -552,7 +552,7 @@ b;
 ================================================================================
 `;
 
-exports[`flow_union.js - flow-verify 1`] = `
+exports[`flow_union.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -602,7 +602,7 @@ type UploadState<E, EM, D> =
 ================================================================================
 `;
 
-exports[`function-declaration.js - flow-verify 1`] = `
+exports[`function-declaration.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -736,7 +736,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`if.js - flow-verify 1`] = `
+exports[`if.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -884,7 +884,7 @@ if (14) {
 ================================================================================
 `;
 
-exports[`issues.js - flow-verify 1`] = `
+exports[`issues.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -1115,7 +1115,7 @@ foo(
 ================================================================================
 `;
 
-exports[`jsx.js - flow-verify 1`] = `
+exports[`jsx.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -1356,7 +1356,7 @@ onClick={() => {}}>
 ================================================================================
 `;
 
-exports[`last-arg.js - flow-verify 1`] = `
+exports[`last-arg.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -1548,7 +1548,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`preserve-new-line-last.js - flow-verify 1`] = `
+exports[`preserve-new-line-last.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -1602,7 +1602,7 @@ function name() {
 ================================================================================
 `;
 
-exports[`return-statement.js - flow-verify 1`] = `
+exports[`return-statement.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -1864,7 +1864,7 @@ function inlineComment() {
 ================================================================================
 `;
 
-exports[`single-star-jsdoc.js - flow-verify 1`] = `
+exports[`single-star-jsdoc.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -1936,7 +1936,7 @@ if (true) {
 ================================================================================
 `;
 
-exports[`switch.js - flow-verify 1`] = `
+exports[`switch.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -2023,7 +2023,7 @@ switch (foo) {
 ================================================================================
 `;
 
-exports[`template-literal.js - flow-verify 1`] = `
+exports[`template-literal.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -2061,7 +2061,7 @@ d //comment
 ================================================================================
 `;
 
-exports[`trailing_space.js - flow-verify 1`] = `
+exports[`trailing_space.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -2083,7 +2083,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`trailing-jsdocs.js - flow-verify 1`] = `
+exports[`trailing-jsdocs.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -2144,7 +2144,7 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
 ================================================================================
 `;
 
-exports[`try.js - flow-verify 1`] = `
+exports[`try.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -2183,7 +2183,7 @@ try {
 ================================================================================
 `;
 
-exports[`variable_declarator.js - flow-verify 1`] = `
+exports[`variable_declarator.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -2333,7 +2333,7 @@ const foo = 123;
 ================================================================================
 `;
 
-exports[`while.js - flow-verify 1`] = `
+exports[`while.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80

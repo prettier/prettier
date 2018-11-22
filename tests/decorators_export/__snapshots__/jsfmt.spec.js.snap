@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`after_export.js - babylon-verify 1`] = `
+exports[`after_export.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -22,7 +22,7 @@ class {}
 ================================================================================
 `;
 
-exports[`before_export.js - babylon-verify 1`] = `
+exports[`before_export.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80

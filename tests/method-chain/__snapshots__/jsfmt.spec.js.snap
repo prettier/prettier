@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bracket_0.js - flow-verify 1`] = `
+exports[`bracket_0.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -31,7 +31,7 @@ function a() {
 ================================================================================
 `;
 
-exports[`break-last-call.js - flow-verify 1`] = `
+exports[`break-last-call.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -157,7 +157,7 @@ it("should group messages with same created time", () => {
 ================================================================================
 `;
 
-exports[`break-last-member.js - flow-verify 1`] = `
+exports[`break-last-member.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -226,7 +226,7 @@ const {
 ================================================================================
 `;
 
-exports[`break-multiple.js - flow-verify 1`] = `
+exports[`break-multiple.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -253,7 +253,7 @@ foo().bar.baz();
 ================================================================================
 `;
 
-exports[`comment.js - flow-verify 1`] = `
+exports[`comment.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -405,7 +405,7 @@ angular
 ================================================================================
 `;
 
-exports[`computed.js - flow-verify 1`] = `
+exports[`computed.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -429,7 +429,7 @@ nock(/test/)
 ================================================================================
 `;
 
-exports[`computed-merge.js - flow-verify 1`] = `
+exports[`computed-merge.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -473,7 +473,7 @@ window.Data[key]("foo")
 ================================================================================
 `;
 
-exports[`conditional.js - flow-verify 1`] = `
+exports[`conditional.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -541,7 +541,7 @@ object[
 ================================================================================
 `;
 
-exports[`d3.js - flow-verify 1`] = `
+exports[`d3.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -589,7 +589,7 @@ not.d3
 ================================================================================
 `;
 
-exports[`first_long.js - flow-verify 1`] = `
+exports[`first_long.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -668,7 +668,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`inline_merge.js - flow-verify 1`] = `
+exports[`inline_merge.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -715,7 +715,7 @@ var jqxhr = $.ajax("example.php")
 ================================================================================
 `;
 
-exports[`logical.js - flow-verify 1`] = `
+exports[`logical.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -769,7 +769,7 @@ const someLongVariableName = (
 ================================================================================
 `;
 
-exports[`multiple-members.js - flow-verify 1`] = `
+exports[`multiple-members.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -865,7 +865,7 @@ wrapper
 ================================================================================
 `;
 
-exports[`short-names.js - flow-verify 1`] = `
+exports[`short-names.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -885,7 +885,7 @@ const svgJsFiles = fs
 ================================================================================
 `;
 
-exports[`square_0.js - flow-verify 1`] = `
+exports[`square_0.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -915,7 +915,7 @@ const component = find(".org-lclp-edit-copy-url-banner__link")[0]
 ================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -940,7 +940,7 @@ method()
 ================================================================================
 `;
 
-exports[`this.js - flow-verify 1`] = `
+exports[`this.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

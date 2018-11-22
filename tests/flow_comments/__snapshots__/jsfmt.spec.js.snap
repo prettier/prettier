@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js - flow-verify 1`] = `
+exports[`arrow.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -30,7 +30,7 @@ const run = (cmd /*: string */) /*: Promise<void> */ => {};
 ================================================================================
 `;
 
-exports[`class.js - flow-verify 1`] = `
+exports[`class.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -52,7 +52,7 @@ class A {
 ================================================================================
 `;
 
-exports[`functions.js - flow-verify 1`] = `
+exports[`functions.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -66,7 +66,7 @@ function foo<T>(bar /*: T[] */, baz /*: T */) /*: S */ {}
 ================================================================================
 `;
 
-exports[`generics.js - flow-verify 1`] = `
+exports[`generics.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -100,7 +100,7 @@ foo/*:: <bar> */();
 ================================================================================
 `;
 
-exports[`let.js - flow-verify 1`] = `
+exports[`let.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -116,7 +116,7 @@ let foo /*: string */ = "a";
 ================================================================================
 `;
 
-exports[`object_type_annotation.js - flow-verify 1`] = `
+exports[`object_type_annotation.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -155,7 +155,7 @@ type Props = {
 ================================================================================
 `;
 
-exports[`type_annotations.js - flow-verify 1`] = `
+exports[`type_annotations.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`B.js - flow-verify 1`] = `
+exports[`B.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ exports.numberValue = 42;
 ================================================================================
 `;
 
-exports[`C.js - flow-verify 1`] = `
+exports[`C.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -32,7 +32,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`E.js - flow-verify 1`] = `
+exports[`E.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -64,7 +64,7 @@ exports = { stringValue: "" };
 ================================================================================
 `;
 
-exports[`ProvidesModuleA.js - flow-verify 1`] = `
+exports[`ProvidesModuleA.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -88,7 +88,7 @@ exports.numberValue = 42;
 ================================================================================
 `;
 
-exports[`ProvidesModuleD.js - flow-verify 1`] = `
+exports[`ProvidesModuleD.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -108,7 +108,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`not_builtin_require.js - flow-verify 1`] = `
+exports[`not_builtin_require.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -128,7 +128,7 @@ require("not a module name");
 ================================================================================
 `;
 
-exports[`not_builtin_require2.js - flow-verify 1`] = `
+exports[`not_builtin_require2.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -148,7 +148,7 @@ var a: require = 42;
 ================================================================================
 `;
 
-exports[`require.js - flow-verify 1`] = `
+exports[`require.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

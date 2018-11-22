@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic-handlebars.hbs - glimmer-verify 1`] = `
+exports[`basic-handlebars.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -32,7 +32,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`comments.hbs - glimmer-verify 1`] = `
+exports[`comments.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -53,7 +53,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`each.hbs - glimmer-verify 1`] = `
+exports[`each.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -82,7 +82,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`if.hbs - glimmer-verify 1`] = `
+exports[`if.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -99,7 +99,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`if-else.hbs - glimmer-verify 1`] = `
+exports[`if-else.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -144,7 +144,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`nested-path.hbs - glimmer-verify 1`] = `
+exports[`nested-path.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -175,7 +175,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`raw.hbs - glimmer-verify 1`] = `
+exports[`raw.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80

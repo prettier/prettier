@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.html - html-verify 1`] = `
+exports[`comment.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty.html - html-verify 1`] = `
+exports[`empty.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -26,7 +26,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty-doc.html - html-verify 1`] = `
+exports[`empty-doc.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -48,7 +48,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`form.html - html-verify 1`] = `
+exports[`form.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -237,7 +237,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`hello-world.html - html-verify 1`] = `
+exports[`hello-world.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -276,7 +276,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html-comments.html - html-verify 1`] = `
+exports[`html-comments.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -302,7 +302,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html5-boilerplate.html - html-verify 1`] = `
+exports[`html5-boilerplate.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -417,7 +417,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`more-html.html - html-verify 1`] = `
+exports[`more-html.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -443,7 +443,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`void-elements.html - html-verify 1`] = `
+exports[`void-elements.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

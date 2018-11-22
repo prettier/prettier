@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`angular_async.js - flow-verify 1`] = `
+exports[`angular_async.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -82,7 +82,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_async.js - flow-verify 2`] = `
+exports[`angular_async.js 2`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["flow", "typescript"]
@@ -165,7 +165,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_fakeAsync.js - flow-verify 1`] = `
+exports[`angular_fakeAsync.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -228,7 +228,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_fakeAsync.js - flow-verify 2`] = `
+exports[`angular_fakeAsync.js 2`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["flow", "typescript"]
@@ -292,7 +292,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angularjs_inject.js - flow-verify 1`] = `
+exports[`angularjs_inject.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -361,7 +361,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angularjs_inject.js - flow-verify 2`] = `
+exports[`angularjs_inject.js 2`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["flow", "typescript"]
@@ -431,7 +431,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`jest-each.js - flow-verify 1`] = `
+exports[`jest-each.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -536,7 +536,7 @@ describe.each\`
 ================================================================================
 `;
 
-exports[`jest-each.js - flow-verify 2`] = `
+exports[`jest-each.js 2`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["flow", "typescript"]
@@ -642,7 +642,7 @@ describe.each\`
 ================================================================================
 `;
 
-exports[`test_declarations.js - flow-verify 1`] = `
+exports[`test_declarations.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -925,7 +925,7 @@ it(
 ================================================================================
 `;
 
-exports[`test_declarations.js - flow-verify 2`] = `
+exports[`test_declarations.js 2`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["flow", "typescript"]

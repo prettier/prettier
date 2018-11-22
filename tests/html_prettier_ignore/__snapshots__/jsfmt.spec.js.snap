@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cases.html - html-verify 1`] = `
+exports[`cases.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -22,7 +22,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`document.html - html-verify 1`] = `
+exports[`document.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

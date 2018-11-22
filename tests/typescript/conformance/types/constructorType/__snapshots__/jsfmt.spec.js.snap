@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cunstructorType.ts - typescript-verify 1`] = `
+exports[`cunstructorType.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

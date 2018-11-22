@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`trailing-comma.ts - typescript-verify 1`] = `
+exports[`trailing-comma.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -40,7 +40,7 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
-exports[`tuple.ts - typescript-verify 1`] = `
+exports[`tuple.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

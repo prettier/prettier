@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`block-statement.hbs - glimmer-verify 1`] = `
+exports[`block-statement.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -141,7 +141,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`block-statement.hbs - glimmer-verify 2`] = `
+exports[`block-statement.hbs 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -283,7 +283,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`component.hbs - glimmer-verify 1`] = `
+exports[`component.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -334,7 +334,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`component.hbs - glimmer-verify 2`] = `
+exports[`component.hbs 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -386,7 +386,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`concat-statement.hbs - glimmer-verify 1`] = `
+exports[`concat-statement.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -444,7 +444,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`concat-statement.hbs - glimmer-verify 2`] = `
+exports[`concat-statement.hbs 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -503,7 +503,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`element-modifier-statement.hbs - glimmer-verify 1`] = `
+exports[`element-modifier-statement.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -576,7 +576,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`element-modifier-statement.hbs - glimmer-verify 2`] = `
+exports[`element-modifier-statement.hbs 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -650,7 +650,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`element-node.hbs - glimmer-verify 1`] = `
+exports[`element-node.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -723,7 +723,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`element-node.hbs - glimmer-verify 2`] = `
+exports[`element-node.hbs 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -797,7 +797,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`else-if.hbs - glimmer-verify 1`] = `
+exports[`else-if.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -939,181 +939,155 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`else-if.hbs - glimmer-verify 2`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-singleQuote: true
-                                                                                | printWidth
-=====================================input======================================
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  e
-{{/if}}
-
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  hello
-  {{#if f}}
-    g
-  {{/if}}
-  e
-{{/if}}
-
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else if e}}
-  f
-{{else if g}}
-  h
-{{else}}
-  j
-{{/if}}
-
-<div>
-  {{#if a}}
-    b
-  {{else if c}}
-    d
-  {{else}}
-    e
-  {{/if}}
-</div>
-
-<div>
-  <div>
-    {{#if a}}
-      b
-    {{else if c}}
-      d
-    {{else}}
-      e
-    {{/if}}
-  </div>
-</div>
-
-{{#if a}}
-  b
-{{else}}
-  {{#each c as |d|}}
-    e
-  {{/each}}
-{{/if}}
-
-{{#if a}}
-  {{#if b}}
-    ab
-  {{else if c}}
-    ac
-  {{/if}}
-{{/if}}
-=====================================output=====================================
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  e
-{{/if}}
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  hello
-  {{#if f}}
-    g
-  {{/if}}
-  e
-{{/if}}
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else if e}}
-  f
-{{else if g}}
-  h
-{{else}}
-  j
-{{/if}}
-<div>
-  {{#if a}}
-    b
-  {{else if c}}
-    d
-  {{else}}
-    e
-  {{/if}}
-</div>
-<div>
-  <div>
-    {{#if a}}
-      b
-    {{else if c}}
-      d
-    {{else}}
-      e
-    {{/if}}
-  </div>
-</div>
-{{#if a}}
-  b
-{{else}}
-  {{#each c as |d|}}
-    e
-  {{/each}}
-{{/if}}
-{{#if a}}
-  {{#if b}}
-    ab
-  {{else if c}}
-    ac
-  {{/if}}
-{{/if}}
-================================================================================
-`;
-
-exports[`literals.hbs - glimmer-verify 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{{mustache true}}
-{{mustache 5}}
-{{mustache undefined}}
-{{mustache null}}
-<!-- hello world -->
-{{! Mustache Comment}}
-{{!-- Mustache Comment }} --}}
-
-=====================================output=====================================
-{{mustache true}}
-{{mustache 5}}
-{{mustache undefined}}
-{{mustache null}}
-<!-- hello world -->
-{{! Mustache Comment}}
-{{!-- Mustache Comment }} --}}
-================================================================================
-`;
-
-exports[`literals.hbs - glimmer-verify 2`] = `
+exports[`else-if.hbs 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  e
+{{/if}}
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  hello
+  {{#if f}}
+    g
+  {{/if}}
+  e
+{{/if}}
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else if e}}
+  f
+{{else if g}}
+  h
+{{else}}
+  j
+{{/if}}
+
+<div>
+  {{#if a}}
+    b
+  {{else if c}}
+    d
+  {{else}}
+    e
+  {{/if}}
+</div>
+
+<div>
+  <div>
+    {{#if a}}
+      b
+    {{else if c}}
+      d
+    {{else}}
+      e
+    {{/if}}
+  </div>
+</div>
+
+{{#if a}}
+  b
+{{else}}
+  {{#each c as |d|}}
+    e
+  {{/each}}
+{{/if}}
+
+{{#if a}}
+  {{#if b}}
+    ab
+  {{else if c}}
+    ac
+  {{/if}}
+{{/if}}
+=====================================output=====================================
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  e
+{{/if}}
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  hello
+  {{#if f}}
+    g
+  {{/if}}
+  e
+{{/if}}
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else if e}}
+  f
+{{else if g}}
+  h
+{{else}}
+  j
+{{/if}}
+<div>
+  {{#if a}}
+    b
+  {{else if c}}
+    d
+  {{else}}
+    e
+  {{/if}}
+</div>
+<div>
+  <div>
+    {{#if a}}
+      b
+    {{else if c}}
+      d
+    {{else}}
+      e
+    {{/if}}
+  </div>
+</div>
+{{#if a}}
+  b
+{{else}}
+  {{#each c as |d|}}
+    e
+  {{/each}}
+{{/if}}
+{{#if a}}
+  {{#if b}}
+    ab
+  {{else if c}}
+    ac
+  {{/if}}
+{{/if}}
+================================================================================
+`;
+
+exports[`literals.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 {{mustache true}}
 {{mustache 5}}
 {{mustache undefined}}
@@ -1133,7 +1107,33 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`loop.hbs - glimmer-verify 1`] = `
+exports[`literals.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+{{mustache true}}
+{{mustache 5}}
+{{mustache undefined}}
+{{mustache null}}
+<!-- hello world -->
+{{! Mustache Comment}}
+{{!-- Mustache Comment }} --}}
+
+=====================================output=====================================
+{{mustache true}}
+{{mustache 5}}
+{{mustache undefined}}
+{{mustache null}}
+<!-- hello world -->
+{{! Mustache Comment}}
+{{!-- Mustache Comment }} --}}
+================================================================================
+`;
+
+exports[`loop.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -1156,7 +1156,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`loop.hbs - glimmer-verify 2`] = `
+exports[`loop.hbs 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -1180,7 +1180,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`string-literals.hbs - glimmer-verify 1`] = `
+exports[`string-literals.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -1203,7 +1203,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`string-literals.hbs - glimmer-verify 2`] = `
+exports[`string-literals.hbs 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -1227,7 +1227,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`sub-expressions.hbs - glimmer-verify 1`] = `
+exports[`sub-expressions.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -1323,7 +1323,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`sub-expressions.hbs - glimmer-verify 2`] = `
+exports[`sub-expressions.hbs 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80

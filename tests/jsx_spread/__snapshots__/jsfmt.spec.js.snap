@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attribute.js - babylon-verify 1`] = `
+exports[`attribute.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon", "flow", "typescript"]
 printWidth: 80
@@ -65,7 +65,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`child.js - babylon-verify 1`] = `
+exports[`child.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon", "flow", "typescript"]
 printWidth: 80

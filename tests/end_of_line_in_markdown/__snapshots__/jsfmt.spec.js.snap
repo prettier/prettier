@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`usingCrlf.md - markdown-verify 1`] = `
+exports[`usingCrlf.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -17,7 +17,7 @@ testing line endings
 ================================================================================
 `;
 
-exports[`usingCrlf.md - markdown-verify 2`] = `
+exports[`usingCrlf.md 2`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["markdown"]
@@ -32,7 +32,7 @@ testing line endings
 ================================================================================
 `;
 
-exports[`usingCrlf.md - markdown-verify 3`] = `
+exports[`usingCrlf.md 3`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["markdown"]
@@ -50,7 +50,7 @@ testing line endings/*CR*/
 ================================================================================
 `;
 
-exports[`usingCrlf.md - markdown-verify 4`] = `
+exports[`usingCrlf.md 4`] = `
 ====================================options=====================================
 endOfLine: "lf"
 parsers: ["markdown"]
@@ -68,7 +68,7 @@ testing line endings
 ================================================================================
 `;
 
-exports[`usingLf.md - markdown-verify 1`] = `
+exports[`usingLf.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -85,7 +85,7 @@ testing line endings
 ================================================================================
 `;
 
-exports[`usingLf.md - markdown-verify 2`] = `
+exports[`usingLf.md 2`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["markdown"]
@@ -100,7 +100,7 @@ testing line endings
 ================================================================================
 `;
 
-exports[`usingLf.md - markdown-verify 3`] = `
+exports[`usingLf.md 3`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["markdown"]
@@ -118,7 +118,7 @@ testing line endings/*CR*/
 ================================================================================
 `;
 
-exports[`usingLf.md - markdown-verify 4`] = `
+exports[`usingLf.md 4`] = `
 ====================================options=====================================
 endOfLine: "lf"
 parsers: ["markdown"]

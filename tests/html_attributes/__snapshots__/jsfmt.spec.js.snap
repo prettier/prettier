@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attributes.html - html-verify 1`] = `
+exports[`attributes.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -162,7 +162,7 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
 ================================================================================
 `;
 
-exports[`boolean.html - html-verify 1`] = `
+exports[`boolean.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -226,7 +226,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`case-sensitive.html - html-verify 1`] = `
+exports[`case-sensitive.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -240,7 +240,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`dobule-quotes.html - html-verify 1`] = `
+exports[`dobule-quotes.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -254,7 +254,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`duplicate.html - html-verify 1`] = `
+exports[`duplicate.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -268,7 +268,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`single-quotes.html - html-verify 1`] = `
+exports[`single-quotes.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -282,7 +282,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`srcset.html - html-verify 1`] = `
+exports[`srcset.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -331,7 +331,7 @@ sizes="(max-width: 66rem) 100vw, 66rem" alt=""/>
 ================================================================================
 `;
 
-exports[`without-quotes.html - html-verify 1`] = `
+exports[`without-quotes.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

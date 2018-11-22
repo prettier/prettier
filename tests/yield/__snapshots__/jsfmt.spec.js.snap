@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js - babylon-verify 1`] = `
+exports[`arrow.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon", "typescript"]
 printWidth: 80
@@ -22,7 +22,7 @@ function* f() {
 ================================================================================
 `;
 
-exports[`conditional.js - babylon-verify 1`] = `
+exports[`conditional.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon", "typescript"]
 printWidth: 80

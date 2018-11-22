@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`functional_compose.js - flow-verify 1`] = `
+exports[`functional_compose.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon", "typescript"]
 printWidth: 80
@@ -115,7 +115,7 @@ this.subscriptions.add(
 ================================================================================
 `;
 
-exports[`lodash_flow.js - flow-verify 1`] = `
+exports[`lodash_flow.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon", "typescript"]
 printWidth: 80
@@ -165,7 +165,7 @@ foo(6);
 ================================================================================
 `;
 
-exports[`lodash_flow_right.js - flow-verify 1`] = `
+exports[`lodash_flow_right.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon", "typescript"]
 printWidth: 80
@@ -215,7 +215,7 @@ foo(6);
 ================================================================================
 `;
 
-exports[`ramda_compose.js - flow-verify 1`] = `
+exports[`ramda_compose.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon", "typescript"]
 printWidth: 80
@@ -316,7 +316,7 @@ followersForUser("JOE").then(followers => console.log("Followers:", followers));
 ================================================================================
 `;
 
-exports[`ramda_pipe.js - flow-verify 1`] = `
+exports[`ramda_pipe.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon", "typescript"]
 printWidth: 80
@@ -384,7 +384,7 @@ var followersForUser = R.pipeP(
 ================================================================================
 `;
 
-exports[`redux_compose.js - flow-verify 1`] = `
+exports[`redux_compose.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon", "typescript"]
 printWidth: 80
@@ -421,7 +421,7 @@ const store = createStore(
 ================================================================================
 `;
 
-exports[`redux_connect.js - flow-verify 1`] = `
+exports[`redux_connect.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon", "typescript"]
 printWidth: 80
@@ -439,7 +439,7 @@ const ArtistInput = connect(
 ================================================================================
 `;
 
-exports[`reselect_createselector.js - flow-verify 1`] = `
+exports[`reselect_createselector.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon", "typescript"]
 printWidth: 80
@@ -475,7 +475,7 @@ const resolve = createSelector(
 ================================================================================
 `;
 
-exports[`rxjs_pipe.js - flow-verify 1`] = `
+exports[`rxjs_pipe.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon", "typescript"]
 printWidth: 80

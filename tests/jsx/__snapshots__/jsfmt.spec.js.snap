@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array-iter.js - flow-verify 1`] = `
+exports[`array-iter.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -78,7 +78,7 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`array-iter.js - flow-verify 2`] = `
+exports[`array-iter.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -156,7 +156,7 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`array-iter.js - flow-verify 3`] = `
+exports[`array-iter.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -234,7 +234,7 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`array-iter.js - flow-verify 4`] = `
+exports[`array-iter.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -312,7 +312,7 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`attr-comments.js - flow-verify 1`] = `
+exports[`attr-comments.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -388,7 +388,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`attr-comments.js - flow-verify 2`] = `
+exports[`attr-comments.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -464,7 +464,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`attr-comments.js - flow-verify 3`] = `
+exports[`attr-comments.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -540,7 +540,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`attr-comments.js - flow-verify 4`] = `
+exports[`attr-comments.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -616,7 +616,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`conditional-expression.js - flow-verify 1`] = `
+exports[`conditional-expression.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -904,7 +904,7 @@ cable ? (
 ================================================================================
 `;
 
-exports[`conditional-expression.js - flow-verify 2`] = `
+exports[`conditional-expression.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -1192,7 +1192,7 @@ cable ? (
 ================================================================================
 `;
 
-exports[`conditional-expression.js - flow-verify 3`] = `
+exports[`conditional-expression.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -1480,7 +1480,7 @@ cable ? (
 ================================================================================
 `;
 
-exports[`conditional-expression.js - flow-verify 4`] = `
+exports[`conditional-expression.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -1768,7 +1768,7 @@ cable ? (
 ================================================================================
 `;
 
-exports[`expression.js - flow-verify 1`] = `
+exports[`expression.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -2056,7 +2056,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`expression.js - flow-verify 2`] = `
+exports[`expression.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -2344,7 +2344,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`expression.js - flow-verify 3`] = `
+exports[`expression.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -2632,7 +2632,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`expression.js - flow-verify 4`] = `
+exports[`expression.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -2920,7 +2920,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`flow_fix_me.js - flow-verify 1`] = `
+exports[`flow_fix_me.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -2944,7 +2944,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`flow_fix_me.js - flow-verify 2`] = `
+exports[`flow_fix_me.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -2968,7 +2968,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`flow_fix_me.js - flow-verify 3`] = `
+exports[`flow_fix_me.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -2992,7 +2992,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`flow_fix_me.js - flow-verify 4`] = `
+exports[`flow_fix_me.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -3016,7 +3016,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`html_escape.js - flow-verify 1`] = `
+exports[`html_escape.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -3036,7 +3036,7 @@ export default () => <a href="https://foo.bar?q1=foo&q2=bar" />;
 ================================================================================
 `;
 
-exports[`html_escape.js - flow-verify 2`] = `
+exports[`html_escape.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -3056,7 +3056,7 @@ export default () => <a href='https://foo.bar?q1=foo&q2=bar' />;
 ================================================================================
 `;
 
-exports[`html_escape.js - flow-verify 3`] = `
+exports[`html_escape.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -3076,7 +3076,7 @@ export default () => <a href="https://foo.bar?q1=foo&q2=bar" />;
 ================================================================================
 `;
 
-exports[`html_escape.js - flow-verify 4`] = `
+exports[`html_escape.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -3096,7 +3096,7 @@ export default () => <a href='https://foo.bar?q1=foo&q2=bar' />;
 ================================================================================
 `;
 
-exports[`hug.js - flow-verify 1`] = `
+exports[`hug.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -3178,7 +3178,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`hug.js - flow-verify 2`] = `
+exports[`hug.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -3260,7 +3260,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`hug.js - flow-verify 3`] = `
+exports[`hug.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -3342,7 +3342,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`hug.js - flow-verify 4`] = `
+exports[`hug.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -3424,7 +3424,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`logical-expression.js - flow-verify 1`] = `
+exports[`logical-expression.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -3502,7 +3502,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`logical-expression.js - flow-verify 2`] = `
+exports[`logical-expression.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -3580,7 +3580,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`logical-expression.js - flow-verify 3`] = `
+exports[`logical-expression.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -3658,7 +3658,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`logical-expression.js - flow-verify 4`] = `
+exports[`logical-expression.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -3736,7 +3736,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`object-property.js - flow-verify 1`] = `
+exports[`object-property.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -3776,7 +3776,7 @@ const tabs = [
 ================================================================================
 `;
 
-exports[`object-property.js - flow-verify 2`] = `
+exports[`object-property.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -3816,7 +3816,7 @@ const tabs = [
 ================================================================================
 `;
 
-exports[`object-property.js - flow-verify 3`] = `
+exports[`object-property.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -3856,7 +3856,7 @@ const tabs = [
 ================================================================================
 `;
 
-exports[`object-property.js - flow-verify 4`] = `
+exports[`object-property.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -3896,7 +3896,7 @@ const tabs = [
 ================================================================================
 `;
 
-exports[`open-break.js - flow-verify 1`] = `
+exports[`open-break.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -3940,7 +3940,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`open-break.js - flow-verify 2`] = `
+exports[`open-break.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -3984,7 +3984,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`open-break.js - flow-verify 3`] = `
+exports[`open-break.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -4028,7 +4028,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`open-break.js - flow-verify 4`] = `
+exports[`open-break.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -4072,7 +4072,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`parens.js - flow-verify 1`] = `
+exports[`parens.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -4110,7 +4110,7 @@ a = [
 ================================================================================
 `;
 
-exports[`parens.js - flow-verify 2`] = `
+exports[`parens.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -4148,7 +4148,7 @@ a = [
 ================================================================================
 `;
 
-exports[`parens.js - flow-verify 3`] = `
+exports[`parens.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -4186,7 +4186,7 @@ a = [
 ================================================================================
 `;
 
-exports[`parens.js - flow-verify 4`] = `
+exports[`parens.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -4224,7 +4224,7 @@ a = [
 ================================================================================
 `;
 
-exports[`quotes.js - flow-verify 1`] = `
+exports[`quotes.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -4314,7 +4314,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`quotes.js - flow-verify 2`] = `
+exports[`quotes.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -4404,7 +4404,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`quotes.js - flow-verify 3`] = `
+exports[`quotes.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -4494,7 +4494,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`quotes.js - flow-verify 4`] = `
+exports[`quotes.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -4584,7 +4584,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`return-statement.js - flow-verify 1`] = `
+exports[`return-statement.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -4698,7 +4698,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`return-statement.js - flow-verify 2`] = `
+exports[`return-statement.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -4812,7 +4812,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`return-statement.js - flow-verify 3`] = `
+exports[`return-statement.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -4926,7 +4926,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`return-statement.js - flow-verify 4`] = `
+exports[`return-statement.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -5040,7 +5040,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`spacing.js - flow-verify 1`] = `
+exports[`spacing.js 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -5080,7 +5080,7 @@ const Labels = {
 ================================================================================
 `;
 
-exports[`spacing.js - flow-verify 2`] = `
+exports[`spacing.js 2`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]
@@ -5120,7 +5120,7 @@ const Labels = {
 ================================================================================
 `;
 
-exports[`spacing.js - flow-verify 3`] = `
+exports[`spacing.js 3`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babylon", "typescript"]
@@ -5160,7 +5160,7 @@ const Labels = {
 ================================================================================
 `;
 
-exports[`spacing.js - flow-verify 4`] = `
+exports[`spacing.js 4`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babylon", "typescript"]

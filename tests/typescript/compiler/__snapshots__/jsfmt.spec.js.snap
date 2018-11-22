@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ClassDeclaration22.ts - typescript-verify 1`] = `
+exports[`ClassDeclaration22.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -20,7 +20,7 @@ class C {
 ================================================================================
 `;
 
-exports[`anyIsAssignableToObject.ts - typescript-verify 1`] = `
+exports[`anyIsAssignableToObject.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -47,7 +47,7 @@ interface Q extends P {
 ================================================================================
 `;
 
-exports[`castOfAwait.ts - typescript-verify 1`] = `
+exports[`castOfAwait.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -75,7 +75,7 @@ async function f() {
 ================================================================================
 `;
 
-exports[`castParentheses.ts - typescript-verify 1`] = `
+exports[`castParentheses.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -109,7 +109,7 @@ var b = (<any>new a()).b;
 ================================================================================
 `;
 
-exports[`castTest.ts - typescript-verify 1`] = `
+exports[`castTest.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -181,7 +181,7 @@ var p_cast = <Point>{
 ================================================================================
 `;
 
-exports[`checkInfiniteExpansionTermination.ts - typescript-verify 1`] = `
+exports[`checkInfiniteExpansionTermination.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -229,7 +229,7 @@ values = values2;
 ================================================================================
 `;
 
-exports[`commentInNamespaceDeclarationWithIdentifierPathName.ts - typescript-verify 1`] = `
+exports[`commentInNamespaceDeclarationWithIdentifierPathName.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -248,7 +248,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`commentsInterface.ts - typescript-verify 1`] = `
+exports[`commentsInterface.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -266,7 +266,7 @@ interface i2 {
 ================================================================================
 `;
 
-exports[`contextualSignatureInstantiation2.ts - typescript-verify 1`] = `
+exports[`contextualSignatureInstantiation2.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -288,7 +288,7 @@ var r23 = dot(id)(id);
 ================================================================================
 `;
 
-exports[`declareDottedModuleName.ts - typescript-verify 1`] = `
+exports[`declareDottedModuleName.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -326,7 +326,7 @@ namespace T.U {
 ================================================================================
 `;
 
-exports[`decrementAndIncrementOperators.ts - typescript-verify 1`] = `
+exports[`decrementAndIncrementOperators.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -412,7 +412,7 @@ x[x++]++;
 ================================================================================
 `;
 
-exports[`downlevelLetConst1.ts - typescript-verify 1`] = `
+exports[`downlevelLetConst1.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -425,7 +425,7 @@ const;
 ================================================================================
 `;
 
-exports[`errorOnInitializerInInterfaceProperty.ts - typescript-verify 1`] = `
+exports[`errorOnInitializerInInterfaceProperty.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -443,7 +443,7 @@ interface Foo {
 ================================================================================
 `;
 
-exports[`es5ExportDefaultClassDeclaration4.ts - typescript-verify 1`] = `
+exports[`es5ExportDefaultClassDeclaration4.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -486,7 +486,7 @@ declare module "foo" {
 ================================================================================
 `;
 
-exports[`functionOverloadsOnGenericArity1.ts - typescript-verify 1`] = `
+exports[`functionOverloadsOnGenericArity1.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -520,7 +520,7 @@ interface C {
 ================================================================================
 `;
 
-exports[`globalIsContextualKeyword.ts - typescript-verify 1`] = `
+exports[`globalIsContextualKeyword.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -563,7 +563,7 @@ let obj = {
 ================================================================================
 `;
 
-exports[`indexSignatureWithInitializer.ts - typescript-verify 1`] = `
+exports[`indexSignatureWithInitializer.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -590,7 +590,7 @@ class C {
 ================================================================================
 `;
 
-exports[`mappedTypeWithCombinedTypeMappers.ts - typescript-verify 1`] = `
+exports[`mappedTypeWithCombinedTypeMappers.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -638,7 +638,7 @@ const shouldFail: { important: boolean } = output.x.children;
 ================================================================================
 `;
 
-exports[`modifiersOnInterfaceIndexSignature1.ts - typescript-verify 1`] = `
+exports[`modifiersOnInterfaceIndexSignature1.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -655,7 +655,7 @@ interface I {
 ================================================================================
 `;
 
-exports[`privacyGloImport.ts - typescript-verify 1`] = `
+exports[`privacyGloImport.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

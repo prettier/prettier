@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`align.md - markdown-verify 1`] = `
+exports[`align.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -127,7 +127,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`align.md - markdown-verify 2`] = `
+exports[`align.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -255,7 +255,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`align.md - markdown-verify 3`] = `
+exports[`align.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -383,7 +383,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`align.md - markdown-verify 4`] = `
+exports[`align.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -511,7 +511,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`checkbox.md - markdown-verify 1`] = `
+exports[`checkbox.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -530,7 +530,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`checkbox.md - markdown-verify 2`] = `
+exports[`checkbox.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -550,7 +550,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`checkbox.md - markdown-verify 3`] = `
+exports[`checkbox.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -570,7 +570,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`checkbox.md - markdown-verify 4`] = `
+exports[`checkbox.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -590,7 +590,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`git-diff-friendly.md - markdown-verify 1`] = `
+exports[`git-diff-friendly.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -609,7 +609,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`git-diff-friendly.md - markdown-verify 2`] = `
+exports[`git-diff-friendly.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -629,7 +629,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`git-diff-friendly.md - markdown-verify 3`] = `
+exports[`git-diff-friendly.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -649,7 +649,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`git-diff-friendly.md - markdown-verify 4`] = `
+exports[`git-diff-friendly.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -669,7 +669,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`indent.md - markdown-verify 1`] = `
+exports[`indent.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -895,7 +895,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`indent.md - markdown-verify 2`] = `
+exports[`indent.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1122,7 +1122,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`indent.md - markdown-verify 3`] = `
+exports[`indent.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1349,7 +1349,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`indent.md - markdown-verify 4`] = `
+exports[`indent.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1576,7 +1576,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`interrupt.md - markdown-verify 1`] = `
+exports[`interrupt.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1594,7 +1594,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`interrupt.md - markdown-verify 2`] = `
+exports[`interrupt.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1613,7 +1613,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`interrupt.md - markdown-verify 3`] = `
+exports[`interrupt.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1632,7 +1632,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`interrupt.md - markdown-verify 4`] = `
+exports[`interrupt.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1651,7 +1651,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`long-paragraph.md - markdown-verify 1`] = `
+exports[`long-paragraph.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1667,7 +1667,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`long-paragraph.md - markdown-verify 2`] = `
+exports[`long-paragraph.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1684,7 +1684,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`long-paragraph.md - markdown-verify 3`] = `
+exports[`long-paragraph.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1701,7 +1701,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`long-paragraph.md - markdown-verify 4`] = `
+exports[`long-paragraph.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1718,7 +1718,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`loose.md - markdown-verify 1`] = `
+exports[`loose.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1753,7 +1753,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`loose.md - markdown-verify 2`] = `
+exports[`loose.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1789,7 +1789,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`loose.md - markdown-verify 3`] = `
+exports[`loose.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1825,7 +1825,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`loose.md - markdown-verify 4`] = `
+exports[`loose.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1861,7 +1861,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`multiline.md - markdown-verify 1`] = `
+exports[`multiline.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1878,7 +1878,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`multiline.md - markdown-verify 2`] = `
+exports[`multiline.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1896,7 +1896,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`multiline.md - markdown-verify 3`] = `
+exports[`multiline.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1914,7 +1914,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`multiline.md - markdown-verify 4`] = `
+exports[`multiline.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1932,7 +1932,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`nested.md - markdown-verify 1`] = `
+exports[`nested.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1951,7 +1951,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`nested.md - markdown-verify 2`] = `
+exports[`nested.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1971,7 +1971,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`nested.md - markdown-verify 3`] = `
+exports[`nested.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1991,7 +1991,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`nested.md - markdown-verify 4`] = `
+exports[`nested.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2011,7 +2011,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`nested-checkbox.md - markdown-verify 1`] = `
+exports[`nested-checkbox.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2052,7 +2052,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`nested-checkbox.md - markdown-verify 2`] = `
+exports[`nested-checkbox.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2094,7 +2094,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`nested-checkbox.md - markdown-verify 3`] = `
+exports[`nested-checkbox.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2136,7 +2136,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`nested-checkbox.md - markdown-verify 4`] = `
+exports[`nested-checkbox.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2178,7 +2178,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`ordered.md - markdown-verify 1`] = `
+exports[`ordered.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2197,7 +2197,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`ordered.md - markdown-verify 2`] = `
+exports[`ordered.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2217,7 +2217,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`ordered.md - markdown-verify 3`] = `
+exports[`ordered.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2237,7 +2237,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`ordered.md - markdown-verify 4`] = `
+exports[`ordered.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2257,7 +2257,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`separate.md - markdown-verify 1`] = `
+exports[`separate.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2284,7 +2284,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`separate.md - markdown-verify 2`] = `
+exports[`separate.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2312,7 +2312,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`separate.md - markdown-verify 3`] = `
+exports[`separate.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2340,7 +2340,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`separate.md - markdown-verify 4`] = `
+exports[`separate.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2368,7 +2368,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`simple.md - markdown-verify 1`] = `
+exports[`simple.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2387,7 +2387,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple.md - markdown-verify 2`] = `
+exports[`simple.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2407,7 +2407,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`simple.md - markdown-verify 3`] = `
+exports[`simple.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2427,7 +2427,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`simple.md - markdown-verify 4`] = `
+exports[`simple.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2447,7 +2447,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`start.md - markdown-verify 1`] = `
+exports[`start.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2466,7 +2466,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`start.md - markdown-verify 2`] = `
+exports[`start.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2486,7 +2486,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`start.md - markdown-verify 3`] = `
+exports[`start.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2506,7 +2506,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`start.md - markdown-verify 4`] = `
+exports[`start.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

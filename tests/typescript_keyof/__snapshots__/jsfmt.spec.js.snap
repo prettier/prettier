@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`keyof.ts - typescript-verify 1`] = `
+exports[`keyof.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

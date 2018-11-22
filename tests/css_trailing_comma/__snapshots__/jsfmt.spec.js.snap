@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`at-rules.css - css-verify 1`] = `
+exports[`at-rules.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -75,7 +75,7 @@ a {
 ================================================================================
 `;
 
-exports[`at-rules.css - scss-verify 1`] = `
+exports[`at-rules.css 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -151,7 +151,7 @@ a {
 ================================================================================
 `;
 
-exports[`declaration.css - css-verify 1`] = `
+exports[`declaration.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -169,7 +169,7 @@ a {
 ================================================================================
 `;
 
-exports[`declaration.css - scss-verify 1`] = `
+exports[`declaration.css 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -188,7 +188,7 @@ a {
 ================================================================================
 `;
 
-exports[`list.css - css-verify 1`] = `
+exports[`list.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -293,7 +293,7 @@ $breakpoint-map: (
 ================================================================================
 `;
 
-exports[`list.css - scss-verify 1`] = `
+exports[`list.css 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -399,7 +399,7 @@ $breakpoint-map: (
 ================================================================================
 `;
 
-exports[`map.css - css-verify 1`] = `
+exports[`map.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -443,7 +443,7 @@ $map: (
 ================================================================================
 `;
 
-exports[`map.css - scss-verify 1`] = `
+exports[`map.css 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -488,7 +488,7 @@ $map: (
 ================================================================================
 `;
 
-exports[`selector_list.css - css-verify 1`] = `
+exports[`selector_list.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -519,7 +519,7 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
 ================================================================================
 `;
 
-exports[`selector_list.css - scss-verify 1`] = `
+exports[`selector_list.css 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -551,7 +551,7 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
 ================================================================================
 `;
 
-exports[`variable.css - css-verify 1`] = `
+exports[`variable.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -568,7 +568,7 @@ $margin: 0, 2em, 0, 1.5em;
 ================================================================================
 `;
 
-exports[`variable.css - scss-verify 1`] = `
+exports[`variable.css 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80

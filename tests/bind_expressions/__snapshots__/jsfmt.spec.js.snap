@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`await.js - babylon-verify 1`] = `
+exports[`await.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -20,7 +20,7 @@ const doBothThings = async () => {
 ================================================================================
 `;
 
-exports[`await.js - babylon-verify 2`] = `
+exports[`await.js 2`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -41,7 +41,7 @@ const doBothThings = async () => {
 ================================================================================
 `;
 
-exports[`bind_parens.js - babylon-verify 1`] = `
+exports[`bind_parens.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -113,7 +113,7 @@ b.c::d.e;
 ================================================================================
 `;
 
-exports[`bind_parens.js - babylon-verify 2`] = `
+exports[`bind_parens.js 2`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -186,7 +186,7 @@ b.c::d.e
 ================================================================================
 `;
 
-exports[`long_name_method.js - babylon-verify 1`] = `
+exports[`long_name_method.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -216,7 +216,7 @@ class X {
 ================================================================================
 `;
 
-exports[`long_name_method.js - babylon-verify 2`] = `
+exports[`long_name_method.js 2`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -247,7 +247,7 @@ class X {
 ================================================================================
 `;
 
-exports[`method_chain.js - babylon-verify 1`] = `
+exports[`method_chain.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -293,7 +293,7 @@ function test(observable) {
 ================================================================================
 `;
 
-exports[`method_chain.js - babylon-verify 2`] = `
+exports[`method_chain.js 2`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -340,7 +340,7 @@ function test(observable) {
 ================================================================================
 `;
 
-exports[`short_name_method.js - babylon-verify 1`] = `
+exports[`short_name_method.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -369,7 +369,7 @@ class X {
 ================================================================================
 `;
 
-exports[`short_name_method.js - babylon-verify 2`] = `
+exports[`short_name_method.js 2`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80

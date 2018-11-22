@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shebang.js - flow-verify 1`] = `
+exports[`shebang.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript", "babylon"]
 printWidth: 80
@@ -16,7 +16,7 @@ function a() {}
 ================================================================================
 `;
 
-exports[`shebang-newline.js - flow-verify 1`] = `
+exports[`shebang-newline.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript", "babylon"]
 printWidth: 80

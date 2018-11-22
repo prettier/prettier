@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long.js - flow-verify 1`] = `
+exports[`long.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -25,7 +25,7 @@ import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodu
 ================================================================================
 `;
 
-exports[`then.js - flow-verify 1`] = `
+exports[`then.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`complex.ts - typescript-verify 1`] = `
+exports[`complex.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ type T = [("a" | "b")?];
 ================================================================================
 `;
 
-exports[`simple.ts - typescript-verify 1`] = `
+exports[`simple.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

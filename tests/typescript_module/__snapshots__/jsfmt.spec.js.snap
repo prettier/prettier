@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.js - typescript-verify 1`] = `
+exports[`empty.js 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ declare module "autoprefixer";
 ================================================================================
 `;
 
-exports[`global.js - typescript-verify 1`] = `
+exports[`global.js 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -42,7 +42,7 @@ declare global {
 ================================================================================
 `;
 
-exports[`namespace_function.ts - typescript-verify 1`] = `
+exports[`namespace_function.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attributes.vue - vue-verify 1`] = `
+exports[`attributes.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -98,7 +98,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attributes.vue - vue-verify 2`] = `
+exports[`attributes.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -197,7 +197,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`board_card.vue - vue-verify 1`] = `
+exports[`board_card.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -362,7 +362,7 @@ export default {
 ================================================================================
 `;
 
-exports[`board_card.vue - vue-verify 2`] = `
+exports[`board_card.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -528,7 +528,7 @@ export default {
 ================================================================================
 `;
 
-exports[`filter.vue - vue-verify 1`] = `
+exports[`filter.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -585,7 +585,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`filter.vue - vue-verify 2`] = `
+exports[`filter.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -643,7 +643,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`interpolations.vue - vue-verify 1`] = `
+exports[`interpolations.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -769,7 +769,7 @@ export default {
 ================================================================================
 `;
 
-exports[`interpolations.vue - vue-verify 2`] = `
+exports[`interpolations.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -896,7 +896,7 @@ export default {
 ================================================================================
 `;
 
-exports[`pre-child.vue - vue-verify 1`] = `
+exports[`pre-child.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1001,7 +1001,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`pre-child.vue - vue-verify 2`] = `
+exports[`pre-child.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1107,7 +1107,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`script_src.vue - vue-verify 1`] = `
+exports[`script_src.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1123,7 +1123,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`script_src.vue - vue-verify 2`] = `
+exports[`script_src.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1140,7 +1140,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`self_closing.vue - vue-verify 1`] = `
+exports[`self_closing.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1180,7 +1180,7 @@ foo();
 ================================================================================
 `;
 
-exports[`self_closing.vue - vue-verify 2`] = `
+exports[`self_closing.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1221,7 +1221,7 @@ foo();
 ================================================================================
 `;
 
-exports[`self_closing_style.vue - vue-verify 1`] = `
+exports[`self_closing_style.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1243,7 +1243,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`self_closing_style.vue - vue-verify 2`] = `
+exports[`self_closing_style.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1266,7 +1266,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`template.vue - vue-verify 1`] = `
+exports[`template.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1333,7 +1333,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template.vue - vue-verify 2`] = `
+exports[`template.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1401,7 +1401,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`template-lang.vue - vue-verify 1`] = `
+exports[`template-lang.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1439,7 +1439,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template-lang.vue - vue-verify 2`] = `
+exports[`template-lang.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1478,7 +1478,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`test.vue - vue-verify 1`] = `
+exports[`test.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1506,7 +1506,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`test.vue - vue-verify 2`] = `
+exports[`test.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`decorator-type-assertion.ts - typescript-verify 1`] = `
+exports[`decorator-type-assertion.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -26,7 +26,7 @@ class Decorated {}
 ================================================================================
 `;
 
-exports[`decorators.js - typescript-verify 1`] = `
+exports[`decorators.js 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -68,7 +68,7 @@ class AngularComponent {
 ================================================================================
 `;
 
-exports[`decorators-comments.js - typescript-verify 1`] = `
+exports[`decorators-comments.js 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -163,7 +163,7 @@ class Something {
 ================================================================================
 `;
 
-exports[`inline-decorators.ts - typescript-verify 1`] = `
+exports[`inline-decorators.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -276,7 +276,7 @@ class MyContainerComponent {
 ================================================================================
 `;
 
-exports[`interface.ts - typescript-verify 1`] = `
+exports[`interface.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

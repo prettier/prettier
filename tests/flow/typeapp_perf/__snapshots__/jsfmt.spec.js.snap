@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test1.js - flow-verify 1`] = `
+exports[`test1.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -52,7 +52,7 @@ declare var b: B<any>;
 ================================================================================
 `;
 
-exports[`test2.js - flow-verify 1`] = `
+exports[`test2.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80

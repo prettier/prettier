@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`argument-list.js - flow-verify 1`] = `
+exports[`argument-list.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -359,7 +359,7 @@ doSomething(
 ================================================================================
 `;
 
-exports[`comments.js - flow-verify 1`] = `
+exports[`comments.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -427,7 +427,7 @@ function a() {
 ================================================================================
 `;
 
-exports[`member-chain.js - flow-verify 1`] = `
+exports[`member-chain.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example.js - flow-verify 1`] = `
+exports[`example.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -42,7 +42,7 @@ lib.bar();
 ================================================================================
 `;
 
-exports[`imports.js - flow-verify 1`] = `
+exports[`imports.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -76,7 +76,7 @@ things;
 ================================================================================
 `;
 
-exports[`library.js - flow-verify 1`] = `
+exports[`library.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

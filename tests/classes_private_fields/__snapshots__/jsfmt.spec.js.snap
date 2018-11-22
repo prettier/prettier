@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`private_fields.js - babylon-verify 1`] = `
+exports[`private_fields.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -94,7 +94,7 @@ class Point {
 ================================================================================
 `;
 
-exports[`private_fields.js - babylon-verify 2`] = `
+exports[`private_fields.js 2`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -189,7 +189,7 @@ class Point {
 ================================================================================
 `;
 
-exports[`with_comments.js - babylon-verify 1`] = `
+exports[`with_comments.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80
@@ -215,7 +215,7 @@ class A {
 ================================================================================
 `;
 
-exports[`with_comments.js - babylon-verify 2`] = `
+exports[`with_comments.js 2`] = `
 ====================================options=====================================
 parsers: ["babylon"]
 printWidth: 80

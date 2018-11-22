@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`prefix.css - css-verify 1`] = `
+exports[`prefix.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

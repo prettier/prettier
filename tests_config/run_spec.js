@@ -62,7 +62,7 @@ function run_spec(dirname, parsers, options) {
         parser: parsers[0]
       });
       const output = prettyprint(input, path, mainOptions);
-      test(`${filename} - ${mainOptions.parser}-verify`, () => {
+      test(filename, () => {
         expect(
           raw(
             createSnapshot(

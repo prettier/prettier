@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attributes.component.html - angular-verify 1`] = `
+exports[`attributes.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -207,7 +207,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attributes.component.html - angular-verify 2`] = `
+exports[`attributes.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -415,7 +415,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`attributes.component.html - angular-verify 3`] = `
+exports[`attributes.component.html 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -846,7 +846,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`attributes.component.html - angular-verify 4`] = `
+exports[`attributes.component.html 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -1054,7 +1054,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`first-lf.component.html - angular-verify 1`] = `
+exports[`first-lf.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -1146,7 +1146,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`first-lf.component.html - angular-verify 2`] = `
+exports[`first-lf.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -1239,7 +1239,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`first-lf.component.html - angular-verify 3`] = `
+exports[`first-lf.component.html 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -1411,7 +1411,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`first-lf.component.html - angular-verify 4`] = `
+exports[`first-lf.component.html 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -1504,7 +1504,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html - angular-verify 1`] = `
+exports[`ignore-attribute.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -1562,7 +1562,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html - angular-verify 2`] = `
+exports[`ignore-attribute.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -1621,7 +1621,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html - angular-verify 3`] = `
+exports[`ignore-attribute.component.html 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -1709,7 +1709,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html - angular-verify 4`] = `
+exports[`ignore-attribute.component.html 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -1768,7 +1768,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`interpolation.component.html - angular-verify 1`] = `
+exports[`interpolation.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -1912,7 +1912,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`interpolation.component.html - angular-verify 2`] = `
+exports[`interpolation.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -2057,7 +2057,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`interpolation.component.html - angular-verify 3`] = `
+exports[`interpolation.component.html 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -2363,7 +2363,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`interpolation.component.html - angular-verify 4`] = `
+exports[`interpolation.component.html 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -2511,7 +2511,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`real-world.component.html - angular-verify 1`] = `
+exports[`real-world.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -4008,7 +4008,7 @@ without NgModel <br />
 ================================================================================
 `;
 
-exports[`real-world.component.html - angular-verify 2`] = `
+exports[`real-world.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -5506,7 +5506,7 @@ without NgModel <br />
 ================================================================================
 `;
 
-exports[`real-world.component.html - angular-verify 3`] = `
+exports[`real-world.component.html 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -9042,7 +9042,7 @@ bindon-ngModel
 ================================================================================
 `;
 
-exports[`real-world.component.html - angular-verify 4`] = `
+exports[`real-world.component.html 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]

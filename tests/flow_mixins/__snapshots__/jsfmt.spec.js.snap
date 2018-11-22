@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`type.js - babylon-verify 1`] = `
+exports[`type.js 1`] = `
 ====================================options=====================================
 parsers: ["babylon", "flow"]
 printWidth: 80

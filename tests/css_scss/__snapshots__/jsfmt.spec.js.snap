@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import_comma.scss - scss-verify 1`] = `
+exports[`import_comma.scss 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`scss.scss - scss-verify 1`] = `
+exports[`scss.scss 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80

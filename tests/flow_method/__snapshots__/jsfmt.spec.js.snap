@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js - flow-verify 1`] = `
+exports[`comment.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80
@@ -24,7 +24,7 @@ type Foo = {
 ================================================================================
 `;
 
-exports[`method.js - flow-verify 1`] = `
+exports[`method.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon"]
 printWidth: 80

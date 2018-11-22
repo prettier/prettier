@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`directives.graphql - graphql-verify 1`] = `
+exports[`directives.graphql 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80

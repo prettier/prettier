@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generic-component.tsx - typescript-verify 1`] = `
+exports[`generic-component.tsx 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -22,7 +22,7 @@ const c3 = <MyComponent<number> attr="value" />;
 ================================================================================
 `;
 
-exports[`keyword.tsx - typescript-verify 1`] = `
+exports[`keyword.tsx 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -38,7 +38,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`not-react.ts - typescript-verify 1`] = `
+exports[`not-react.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -66,7 +66,7 @@ const footer = "<footer></footer>";
 ================================================================================
 `;
 
-exports[`react.tsx - typescript-verify 1`] = `
+exports[`react.tsx 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -87,7 +87,7 @@ const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
 ================================================================================
 `;
 
-exports[`this.tsx - typescript-verify 1`] = `
+exports[`this.tsx 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

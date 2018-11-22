@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary.js - flow-verify 1`] = `
+exports[`binary.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -41,7 +41,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js - flow-verify 2`] = `
+exports[`binary.js 2`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -83,7 +83,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js - flow-verify 3`] = `
+exports[`binary.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -125,7 +125,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js - flow-verify 4`] = `
+exports[`binary.js 4`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -168,7 +168,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`func-call.js - flow-verify 1`] = `
+exports[`func-call.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -196,7 +196,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js - flow-verify 2`] = `
+exports[`func-call.js 2`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -225,7 +225,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js - flow-verify 3`] = `
+exports[`func-call.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -254,7 +254,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js - flow-verify 4`] = `
+exports[`func-call.js 4`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -284,7 +284,7 @@ fn(
 ================================================================================
 `;
 
-exports[`indent.js - flow-verify 1`] = `
+exports[`indent.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -613,7 +613,7 @@ a
 ================================================================================
 `;
 
-exports[`indent.js - flow-verify 2`] = `
+exports[`indent.js 2`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -943,7 +943,7 @@ a
 ================================================================================
 `;
 
-exports[`indent.js - flow-verify 3`] = `
+exports[`indent.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -1273,7 +1273,7 @@ a
 ================================================================================
 `;
 
-exports[`indent.js - flow-verify 4`] = `
+exports[`indent.js 4`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -1608,7 +1608,7 @@ a
 ================================================================================
 `;
 
-exports[`nested.js - flow-verify 1`] = `
+exports[`nested.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -1811,7 +1811,7 @@ a
 ================================================================================
 `;
 
-exports[`nested.js - flow-verify 2`] = `
+exports[`nested.js 2`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2015,7 +2015,7 @@ a
 ================================================================================
 `;
 
-exports[`nested.js - flow-verify 3`] = `
+exports[`nested.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2219,7 +2219,7 @@ a
 ================================================================================
 `;
 
-exports[`nested.js - flow-verify 4`] = `
+exports[`nested.js 4`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2424,7 +2424,7 @@ a
 ================================================================================
 `;
 
-exports[`parenthesis.js - flow-verify 1`] = `
+exports[`parenthesis.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2460,7 +2460,7 @@ a =>
 ================================================================================
 `;
 
-exports[`parenthesis.js - flow-verify 2`] = `
+exports[`parenthesis.js 2`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2497,7 +2497,7 @@ a =>
 ================================================================================
 `;
 
-exports[`parenthesis.js - flow-verify 3`] = `
+exports[`parenthesis.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2534,7 +2534,7 @@ a =>
 ================================================================================
 `;
 
-exports[`parenthesis.js - flow-verify 4`] = `
+exports[`parenthesis.js 4`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2572,7 +2572,7 @@ a =>
 ================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2631,7 +2631,7 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js - flow-verify 2`] = `
+exports[`test.js 2`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2691,7 +2691,7 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js - flow-verify 3`] = `
+exports[`test.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2751,7 +2751,7 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js - flow-verify 4`] = `
+exports[`test.js 4`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

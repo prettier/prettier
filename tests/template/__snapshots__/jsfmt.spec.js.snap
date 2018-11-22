@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js - flow-verify 1`] = `
+exports[`arrow.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -26,7 +26,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`call.js - flow-verify 1`] = `
+exports[`call.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -62,7 +62,7 @@ new Error(formatErrorMessage\`
 ================================================================================
 `;
 
-exports[`comment.js - flow-verify 1`] = `
+exports[`comment.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -101,7 +101,7 @@ g
 ================================================================================
 `;
 
-exports[`faulty-locations.js - flow-verify 1`] = `
+exports[`faulty-locations.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -141,7 +141,7 @@ var x = {
 ================================================================================
 `;
 
-exports[`graphql.js - flow-verify 1`] = `
+exports[`graphql.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -187,7 +187,7 @@ module.exports = Relay.createContainer(
 ================================================================================
 `;
 
-exports[`inline.js - flow-verify 1`] = `
+exports[`inline.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -305,7 +305,7 @@ this._pipe.write(\`
 ================================================================================
 `;
 
-exports[`parenthesis.js - flow-verify 1`] = `
+exports[`parenthesis.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

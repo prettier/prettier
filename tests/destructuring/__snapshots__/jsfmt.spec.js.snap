@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`destructuring.js - flow-verify 1`] = `
+exports[`destructuring.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babylon", "typescript"]
 printWidth: 80

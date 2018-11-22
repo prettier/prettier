@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`indent.js - flow-verify 1`] = `
+exports[`indent.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -66,7 +66,7 @@ Tabs:
 ================================================================================
 `;
 
-exports[`indent.js - flow-verify 2`] = `
+exports[`indent.js 2`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
