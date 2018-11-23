@@ -1,6 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`attributes.vue - vue-verify 1`] = `
+<template>
 <div
   v-for="  item  in  items "
   v-for="  item  of  items "
@@ -32,66 +33,70 @@ exports[`attributes.vue - vue-verify 1`] = `
     }
   "
 ></div>
+</template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div
-  v-for="item in items"
-  v-for="item of items"
-  v-for="(item, index) in items"
-  v-for="value in object"
-  v-for="(value, key) in object"
-  v-for="(value, key) of object"
-  v-for="(value, key, index) in object"
-  v-for="n in evenNumbers"
-  v-for="n in even(numbers)"
-  v-for="n in 10"
-  v-for="{ a } in [0].map(() => ({ a: 1 }))"
-  v-for="({ a }, [c]) in [0].map(() => 1)"
-  v-for="n in items.map(x => {
-    return x;
-  })"
-  @click="/* hello */"
-  @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */; /* 5 */"
-  @click="$emit('click');"
-  @click="$emit('click');"
-  @click="
-    $emit('click');
-    if (something) {
-      for (let i = j; i < 100; i++) {}
-    } else {
-    }
-  "
-  slot-scope="{
-    destructuring: {
-      a: { b }
-    }
-  }"
-  :class="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
-  }"
-  :class="
-    (() => {
-      return 'hello';
-    })()
-  "
-  :key="index /* hello */"
-  :key="
-    index // hello
-  "
-  @click="
-    () => {
-      console.log(test);
-    }
-  "
-  @click="
-    () => {
-      console.log(test);
-    }
-  "
-></div>
+<template>
+  <div
+    v-for="item in items"
+    v-for="item of items"
+    v-for="(item, index) in items"
+    v-for="value in object"
+    v-for="(value, key) in object"
+    v-for="(value, key) of object"
+    v-for="(value, key, index) in object"
+    v-for="n in evenNumbers"
+    v-for="n in even(numbers)"
+    v-for="n in 10"
+    v-for="{ a } in [0].map(() => ({ a: 1 }))"
+    v-for="({ a }, [c]) in [0].map(() => 1)"
+    v-for="n in items.map(x => {
+      return x;
+    })"
+    @click="/* hello */"
+    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */; /* 5 */"
+    @click="$emit('click');"
+    @click="$emit('click');"
+    @click="
+      $emit('click');
+      if (something) {
+        for (let i = j; i < 100; i++) {}
+      } else {
+      }
+    "
+    slot-scope="{
+      destructuring: {
+        a: { b }
+      }
+    }"
+    :class="{
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+    }"
+    :class="
+      (() => {
+        return 'hello';
+      })()
+    "
+    :key="index /* hello */"
+    :key="
+      index // hello
+    "
+    @click="
+      () => {
+        console.log(test);
+      }
+    "
+    @click="
+      () => {
+        console.log(test);
+      }
+    "
+  ></div>
+</template>
 
 `;
 
 exports[`attributes.vue - vue-verify 2`] = `
+<template>
 <div
   v-for="  item  in  items "
   v-for="  item  of  items "
@@ -123,62 +128,65 @@ exports[`attributes.vue - vue-verify 2`] = `
     }
   "
 ></div>
+</template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div
-  v-for="item in items"
-  v-for="item of items"
-  v-for="(item, index) in items"
-  v-for="value in object"
-  v-for="(value, key) in object"
-  v-for="(value, key) of object"
-  v-for="(value, key, index) in object"
-  v-for="n in evenNumbers"
-  v-for="n in even(numbers)"
-  v-for="n in 10"
-  v-for="{ a } in [0].map(() => ({ a: 1 }))"
-  v-for="({ a }, [c]) in [0].map(() => 1)"
-  v-for="n in items.map(x => {
-    return x;
-  })"
-  @click="/* hello */"
-  @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */; /* 5 */"
-  @click="$emit('click');"
-  @click="$emit('click');"
-  @click="
-    $emit('click');
-    if (something) {
-      for (let i = j; i < 100; i++) {}
-    } else {
-    }
-  "
-  slot-scope="{
-    destructuring: {
-      a: { b },
-    },
-  }"
-  :class="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
-  }"
-  :class="
-    (() => {
-      return 'hello';
-    })()
-  "
-  :key="index /* hello */"
-  :key="
-    index // hello
-  "
-  @click="
-    () => {
-      console.log(test);
-    }
-  "
-  @click="
-    () => {
-      console.log(test);
-    }
-  "
-></div>
+<template>
+  <div
+    v-for="item in items"
+    v-for="item of items"
+    v-for="(item, index) in items"
+    v-for="value in object"
+    v-for="(value, key) in object"
+    v-for="(value, key) of object"
+    v-for="(value, key, index) in object"
+    v-for="n in evenNumbers"
+    v-for="n in even(numbers)"
+    v-for="n in 10"
+    v-for="{ a } in [0].map(() => ({ a: 1 }))"
+    v-for="({ a }, [c]) in [0].map(() => 1)"
+    v-for="n in items.map(x => {
+      return x;
+    })"
+    @click="/* hello */"
+    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */; /* 5 */"
+    @click="$emit('click');"
+    @click="$emit('click');"
+    @click="
+      $emit('click');
+      if (something) {
+        for (let i = j; i < 100; i++) {}
+      } else {
+      }
+    "
+    slot-scope="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    :class="{
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
+    }"
+    :class="
+      (() => {
+        return 'hello';
+      })()
+    "
+    :key="index /* hello */"
+    :key="
+      index // hello
+    "
+    @click="
+      () => {
+        console.log(test);
+      }
+    "
+    @click="
+      () => {
+        console.log(test);
+      }
+    "
+  ></div>
+</template>
 
 `;
 
@@ -498,6 +506,50 @@ export default {
 
 `;
 
+exports[`custom-block.vue - vue-verify 1`] = `
+<i18n>
+  en:
+    one: One
+    two: Two
+</i18n>
+
+<html><head></head><body></body></html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<i18n>
+  en:
+    one: One
+    two: Two
+</i18n>
+
+<html>
+  <head></head>
+  <body></body>
+</html>
+
+`;
+
+exports[`custom-block.vue - vue-verify 2`] = `
+<i18n>
+  en:
+    one: One
+    two: Two
+</i18n>
+
+<html><head></head><body></body></html>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<i18n>
+  en:
+    one: One
+    two: Two
+</i18n>
+
+<html>
+  <head></head>
+  <body></body>
+</html>
+
+`;
+
 exports[`filter.vue - vue-verify 1`] = `
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
@@ -599,6 +651,7 @@ exports[`filter.vue - vue-verify 2`] = `
 `;
 
 exports[`interpolations.vue - vue-verify 1`] = `
+<template>
 <div>Fuga magnam facilis. Voluptatem quaerat porro.{{
 
 
@@ -655,18 +708,20 @@ x => {
 <div>
   1234567890123456789012345678901234567890123456789012345678901234567890 {{ something }} 1234567890
 </div>
+</template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>
-  Fuga magnam facilis. Voluptatem quaerat porro.{{
-    x => {
-      const hello = "world";
-      return hello;
-    }
-  }}
-  Magni consectetur in et molestias neque esse voluptatibus voluptas.
-  {{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
-  error
-  {{
+<template>
+  <div>
+    Fuga magnam facilis. Voluptatem quaerat porro.{{
+      x => {
+        const hello = "world";
+        return hello;
+      }
+    }}
+    Magni consectetur in et molestias neque esse voluptatibus voluptas.
+    {{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
+    error
+    {{
 
                     preserve
 
@@ -674,50 +729,52 @@ x => {
                     
                     interpolation
 
-  }}
-  reprehenderit voluptates minus {{ console.log(short_interpolation) }} nemo.
-</div>
+    }}
+    reprehenderit voluptates minus {{ console.log(short_interpolation) }} nemo.
+  </div>
 
-<script type="text/jsx">
-export default {
-  render (h) {
-    return (
-      <ul
-        class={{
-          'a': b,
-          'c': d,
-          "e": f
-        }}
-      >
-        { this.xyz }
-      </ul>
-  )
-};
-</script>
+  <script type="text/jsx">
+    export default {
+      render (h) {
+        return (
+          <ul
+            class={{
+              'a': b,
+              'c': d,
+              "e": f
+            }}
+          >
+            { this.xyz }
+          </ul>
+      )
+    };
+  </script>
 
-<div>
-  1234567890123456789012345678901234567890123456789012345678901234567890{{
-    something
-  }}1234567890
-</div>
-<div>
-  1234567890123456789012345678901234567890123456789012345678901234567890
-  {{ something }}1234567890
-</div>
-<div>
-  1234567890123456789012345678901234567890123456789012345678901234567890{{
-    something
-  }}
-  1234567890
-</div>
-<div>
-  1234567890123456789012345678901234567890123456789012345678901234567890
-  {{ something }} 1234567890
-</div>
+  <div>
+    1234567890123456789012345678901234567890123456789012345678901234567890{{
+      something
+    }}1234567890
+  </div>
+  <div>
+    1234567890123456789012345678901234567890123456789012345678901234567890
+    {{ something }}1234567890
+  </div>
+  <div>
+    1234567890123456789012345678901234567890123456789012345678901234567890{{
+      something
+    }}
+    1234567890
+  </div>
+  <div>
+    1234567890123456789012345678901234567890123456789012345678901234567890
+    {{ something }} 1234567890
+  </div>
+</template>
 
 `;
 
 exports[`interpolations.vue - vue-verify 2`] = `
+<template>
 <div>Fuga magnam facilis. Voluptatem quaerat porro.{{
 
 
@@ -774,18 +831,20 @@ x => {
 <div>
   1234567890123456789012345678901234567890123456789012345678901234567890 {{ something }} 1234567890
 </div>
+</template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>
-  Fuga magnam facilis. Voluptatem quaerat porro.{{
-    x => {
-      const hello = "world";
-      return hello;
-    }
-  }}
-  Magni consectetur in et molestias neque esse voluptatibus voluptas.
-  {{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
-  error
-  {{
+<template>
+  <div>
+    Fuga magnam facilis. Voluptatem quaerat porro.{{
+      x => {
+        const hello = "world";
+        return hello;
+      }
+    }}
+    Magni consectetur in et molestias neque esse voluptatibus voluptas.
+    {{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
+    error
+    {{
 
                     preserve
 
@@ -793,50 +852,52 @@ x => {
                     
                     interpolation
 
-  }}
-  reprehenderit voluptates minus {{ console.log(short_interpolation) }} nemo.
-</div>
+    }}
+    reprehenderit voluptates minus {{ console.log(short_interpolation) }} nemo.
+  </div>
 
-<script type="text/jsx">
-export default {
-  render (h) {
-    return (
-      <ul
-        class={{
-          'a': b,
-          'c': d,
-          "e": f
-        }}
-      >
-        { this.xyz }
-      </ul>
-  )
-};
-</script>
+  <script type="text/jsx">
+    export default {
+      render (h) {
+        return (
+          <ul
+            class={{
+              'a': b,
+              'c': d,
+              "e": f
+            }}
+          >
+            { this.xyz }
+          </ul>
+      )
+    };
+  </script>
 
-<div>
-  1234567890123456789012345678901234567890123456789012345678901234567890{{
-    something
-  }}1234567890
-</div>
-<div>
-  1234567890123456789012345678901234567890123456789012345678901234567890
-  {{ something }}1234567890
-</div>
-<div>
-  1234567890123456789012345678901234567890123456789012345678901234567890{{
-    something
-  }}
-  1234567890
-</div>
-<div>
-  1234567890123456789012345678901234567890123456789012345678901234567890
-  {{ something }} 1234567890
-</div>
+  <div>
+    1234567890123456789012345678901234567890123456789012345678901234567890{{
+      something
+    }}1234567890
+  </div>
+  <div>
+    1234567890123456789012345678901234567890123456789012345678901234567890
+    {{ something }}1234567890
+  </div>
+  <div>
+    1234567890123456789012345678901234567890123456789012345678901234567890{{
+      something
+    }}
+    1234567890
+  </div>
+  <div>
+    1234567890123456789012345678901234567890123456789012345678901234567890
+    {{ something }} 1234567890
+  </div>
+</template>
 
 `;
 
 exports[`pre-child.vue - vue-verify 1`] = `
+<template>
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
 <pre
   ref="buildTrace"
@@ -858,6 +919,7 @@ exports[`pre-child.vue - vue-verify 1`] = `
     <div class="dot"></div>
   </div>
 </pre>
+</template>
 
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
 <template>
@@ -879,10 +941,11 @@ exports[`pre-child.vue - vue-verify 1`] = `
     </pre>
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<!--
-  copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue
--->
-<pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
+<template>
+  <!--
+    copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue
+  -->
+  <pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
   <code
     v-show="!detailJob.isLoading"
     class="bash"
@@ -898,6 +961,7 @@ exports[`pre-child.vue - vue-verify 1`] = `
     <div class="dot"></div>
   </div>
 </pre>
+</template>
 
 <!--
   copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue
@@ -935,6 +999,7 @@ exports[`pre-child.vue - vue-verify 1`] = `
 `;
 
 exports[`pre-child.vue - vue-verify 2`] = `
+<template>
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
 <pre
   ref="buildTrace"
@@ -956,6 +1021,7 @@ exports[`pre-child.vue - vue-verify 2`] = `
     <div class="dot"></div>
   </div>
 </pre>
+</template>
 
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
 <template>
@@ -977,10 +1043,11 @@ exports[`pre-child.vue - vue-verify 2`] = `
     </pre>
 </template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<!--
-  copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue
--->
-<pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
+<template>
+  <!--
+    copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue
+  -->
+  <pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
   <code
     v-show="!detailJob.isLoading"
     class="bash"
@@ -996,6 +1063,7 @@ exports[`pre-child.vue - vue-verify 2`] = `
     <div class="dot"></div>
   </div>
 </pre>
+</template>
 
 <!--
   copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue
@@ -1059,12 +1127,14 @@ exports[`self_closing.vue - vue-verify 1`] = `
 foo( )
 </script>
 
+<template>
 <div class="container">
   <HomeH />
   <HomeA />
   <HomeX />
   <HomeY />
 </div>
+</template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template>
   <div />
@@ -1074,12 +1144,14 @@ foo( )
 foo();
 </script>
 
-<div class="container">
-  <HomeH />
-  <HomeA />
-  <HomeX />
-  <HomeY />
-</div>
+<template>
+  <div class="container">
+    <HomeH />
+    <HomeA />
+    <HomeX />
+    <HomeY />
+  </div>
+</template>
 
 `;
 
@@ -1092,12 +1164,14 @@ exports[`self_closing.vue - vue-verify 2`] = `
 foo( )
 </script>
 
+<template>
 <div class="container">
   <HomeH />
   <HomeA />
   <HomeX />
   <HomeY />
 </div>
+</template>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <template>
   <div />
@@ -1107,12 +1181,14 @@ foo( )
 foo();
 </script>
 
-<div class="container">
-  <HomeH />
-  <HomeA />
-  <HomeX />
-  <HomeY />
-</div>
+<template>
+  <div class="container">
+    <HomeH />
+    <HomeA />
+    <HomeX />
+    <HomeY />
+  </div>
+</template>
 
 `;
 
@@ -1143,6 +1219,28 @@ exports[`self_closing_style.vue - vue-verify 2`] = `
 </template>
 
 <style src="./style.css" module />
+
+`;
+
+exports[`tag-name.vue - vue-verify 1`] = `
+<template>
+  <Table></Table>
+</template>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template>
+  <Table></Table>
+</template>
+
+`;
+
+exports[`tag-name.vue - vue-verify 2`] = `
+<template>
+  <Table></Table>
+</template>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template>
+  <Table></Table>
+</template>
 
 `;
 
