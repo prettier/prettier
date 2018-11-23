@@ -68,7 +68,7 @@ function embed(path, print, textToDoc, options) {
             concat([
               breakParent,
               printOpeningTagPrefix(node, options),
-              markAsRoot(stripTrailingHardline(textToDoc(value, { parser }))),
+              stripTrailingHardline(textToDoc(value, { parser })),
               printClosingTagSuffix(node, options)
             ])
           ]);
