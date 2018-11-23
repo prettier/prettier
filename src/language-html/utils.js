@@ -34,7 +34,7 @@ function mapObject(object, fn) {
   return newObject;
 }
 
-function shouldPreserveContent(node) {
+function shouldPreserveContent(node, options) {
   if (
     node.type === "element" &&
     node.fullName === "template" &&
@@ -58,6 +58,23 @@ function shouldPreserveContent(node) {
   // incomplete html in ie conditional comment
   // e.g. <!--[if lt IE 9]></div><![endif]-->
   if (node.type === "ieConditionalComment" && !node.complete) {
+    return true;
+  }
+
+  // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
+  // custom blocks can be written in other languages so we should preserve them to not break the code
+  if (
+    options.parser === "vue" &&
+    node.type === "element" &&
+    node.parent.type === "root" &&
+    [
+      "template",
+      "style",
+      "script",
+      // vue parser can be used for vue dom template as well, so we should still format top-level <html>
+      "html"
+    ].indexOf(node.fullName) === -1
+  ) {
     return true;
   }
 
@@ -577,11 +594,11 @@ function identity(x) {
   return x;
 }
 
-function shouldNotPrintClosingTag(node) {
+function shouldNotPrintClosingTag(node, options) {
   return (
     !node.isSelfClosing &&
     !node.endSourceSpan &&
-    (hasPrettierIgnore(node) || shouldPreserveContent(node.parent))
+    (hasPrettierIgnore(node) || shouldPreserveContent(node.parent, options))
   );
 }
 
