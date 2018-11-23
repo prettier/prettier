@@ -1,3 +1,4 @@
+<template>
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
 <pre
   ref="buildTrace"
@@ -19,6 +20,7 @@
     <div class="dot"></div>
   </div>
 </pre>
+</template>
 
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
 <template>
