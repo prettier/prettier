@@ -1,5 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`module-with-block-comment-pragma.js - flow-verify 1`] = `
+/**
+ * @flow
+ */
+ // this is a test
+ /*
+  *
+   @prettier
+   */
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+// this is a test
+/*
+  *
+   @prettier
+   */
+
+function foo(bar) {
+  return bar + 3 + 4;
+}
+
+`;
+
+exports[`module-with-inline-comment-pragma.js - flow-verify 1`] = `
+/**
+ * @flow
+ */
+ // this is a test
+ // @prettier
+
+function      foo(bar)
+
+
+{
+
+  return bar +
+    3 +
+  4;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+// this is a test
+// @prettier
+
+function foo(bar) {
+  return bar + 3 + 4;
+}
+
+`;
+
 exports[`module-with-pragma.js - flow-verify 1`] = `
 /**
  * @flow

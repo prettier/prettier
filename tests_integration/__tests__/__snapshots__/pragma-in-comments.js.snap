@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ignores non-leading // @prettier comment (stderr) 1`] = `""`;
+
+exports[`ignores non-leading // @prettier comment (write) 1`] = `Array []`;
+
+exports[`supports /* @flow @prettier */ comment (stderr) 1`] = `""`;
+
+exports[`supports /* @flow @prettier */ comment (write) 1`] = `Array []`;
+
+exports[`supports /* @prettier */ comment (stderr) 1`] = `""`;
+
+exports[`supports /* @prettier */ comment (write) 1`] = `Array []`;
+
+exports[`supports // @format comment (stderr) 1`] = `""`;
+
+exports[`supports // @format comment (write) 1`] = `Array []`;
+
+exports[`supports // @prettier comment (stderr) 1`] = `""`;
+
+exports[`supports // @prettier comment (write) 1`] = `Array []`;
+
+exports[`supports // @prettier comment after hashbang (stderr) 1`] = `""`;
+
+exports[`supports // @prettier comment after hashbang (write) 1`] = `Array []`;
