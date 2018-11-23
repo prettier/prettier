@@ -16,9 +16,7 @@ exports[`before-text.html - html-verify 2`] = `
 
 123
 ~
-<!--
-  hello
--->
+<!-- hello -->
 
 123
 
@@ -856,19 +854,16 @@ exports[`for_debugging.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html>
   <body>
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
-    -->
+    <!-- Do not display this at the moment
+<img border="0" src="pic_trulli.jpg" alt="Trulli">
+-->
 
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
-    -->
+    <!-- Do not display this at the moment
+  <img border="0" src="pic_trulli.jpg" alt="Trulli">
+  -->
 
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
+    <!-- Do not display this at the moment
+    <img border="0" src="pic_trulli.jpg" alt="Trulli">
     -->
   </body>
 </html>
@@ -898,19 +893,16 @@ exports[`for_debugging.html - html-verify 2`] = `
 <!DOCTYPE html>
 <html>
   <body>
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
-    -->
+    <!-- Do not display this at the moment
+<img border="0" src="pic_trulli.jpg" alt="Trulli">
+-->
 
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
-    -->
+    <!-- Do not display this at the moment
+  <img border="0" src="pic_trulli.jpg" alt="Trulli">
+  -->
 
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
+    <!-- Do not display this at the moment
+    <img border="0" src="pic_trulli.jpg" alt="Trulli">
     -->
   </body>
 </html>
@@ -940,19 +932,16 @@ exports[`for_debugging.html - html-verify 3`] = `
 <!DOCTYPE html>
 <html>
   <body>
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
-    -->
+    <!-- Do not display this at the moment
+<img border="0" src="pic_trulli.jpg" alt="Trulli">
+-->
 
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
-    -->
+    <!-- Do not display this at the moment
+  <img border="0" src="pic_trulli.jpg" alt="Trulli">
+  -->
 
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
+    <!-- Do not display this at the moment
+    <img border="0" src="pic_trulli.jpg" alt="Trulli">
     -->
   </body>
 </html>
@@ -982,19 +971,16 @@ exports[`for_debugging.html - html-verify 4`] = `
 <!DOCTYPE html>
 <html>
   <body>
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
-    -->
+    <!-- Do not display this at the moment
+<img border="0" src="pic_trulli.jpg" alt="Trulli">
+-->
 
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
-    -->
+    <!-- Do not display this at the moment
+  <img border="0" src="pic_trulli.jpg" alt="Trulli">
+  -->
 
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
+    <!-- Do not display this at the moment
+    <img border="0" src="pic_trulli.jpg" alt="Trulli">
     -->
   </body>
 </html>
@@ -1024,19 +1010,16 @@ exports[`for_debugging.html - html-verify 5`] = `
 <!DOCTYPE html>
 <html>
   <body>
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
-    -->
+    <!-- Do not display this at the moment
+<img border="0" src="pic_trulli.jpg" alt="Trulli">
+-->
 
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
-    -->
+    <!-- Do not display this at the moment
+  <img border="0" src="pic_trulli.jpg" alt="Trulli">
+  -->
 
-    <!--
-      Do not display this at the moment
-      <img border="0" src="pic_trulli.jpg" alt="Trulli">
+    <!-- Do not display this at the moment
+    <img border="0" src="pic_trulli.jpg" alt="Trulli">
     -->
   </body>
 </html>
@@ -1061,10 +1044,10 @@ exports[`hidden.html - html-verify 1`] = `
 <!DOCTYPE html>
 <html>
   <body>
+    <!--This is a comment-->
     <!-- This is a comment -->
-    <!-- This is a comment -->
-    <!-- This is a comment -->
-    <!-- This   is   a   comment -->
+    <!--  This is a comment  -->
+    <!--   This   is   a   comment   -->
     <p>This is a paragraph.</p>
     <!-- Comments are not displayed in the browser -->
   </body>
@@ -1090,27 +1073,17 @@ exports[`hidden.html - html-verify 2`] = `
 <!DOCTYPE html>
 <html>
   <body>
-    <!--
-      This is a comment
-    -->
-    <!--
-      This is a comment
-    -->
-    <!--
-      This is a comment
-    -->
-    <!--
-      This   is   a   comment
-    -->
+    <!--This is a comment-->
+    <!-- This is a comment -->
+    <!--  This is a comment  -->
+    <!--   This   is   a   comment   -->
     <p>
       This
       is
       a
       paragraph.
     </p>
-    <!--
-      Comments are not displayed in the browser
-    -->
+    <!-- Comments are not displayed in the browser -->
   </body>
 </html>
 
@@ -1134,10 +1107,10 @@ exports[`hidden.html - html-verify 3`] = `
 <!DOCTYPE html>
 <html>
   <body>
+    <!--This is a comment-->
     <!-- This is a comment -->
-    <!-- This is a comment -->
-    <!-- This is a comment -->
-    <!-- This   is   a   comment -->
+    <!--  This is a comment  -->
+    <!--   This   is   a   comment   -->
     <p>This is a paragraph.</p>
     <!-- Comments are not displayed in the browser -->
   </body>
@@ -1163,10 +1136,10 @@ exports[`hidden.html - html-verify 4`] = `
 <!DOCTYPE html>
 <html>
   <body>
+    <!--This is a comment-->
     <!-- This is a comment -->
-    <!-- This is a comment -->
-    <!-- This is a comment -->
-    <!-- This   is   a   comment -->
+    <!--  This is a comment  -->
+    <!--   This   is   a   comment   -->
     <p>This is a paragraph.</p>
     <!-- Comments are not displayed in the browser -->
   </body>
@@ -1192,10 +1165,10 @@ exports[`hidden.html - html-verify 5`] = `
 <!DOCTYPE html>
 <html>
   <body>
+    <!--This is a comment-->
     <!-- This is a comment -->
-    <!-- This is a comment -->
-    <!-- This is a comment -->
-    <!-- This   is   a   comment -->
+    <!--  This is a comment  -->
+    <!--   This   is   a   comment   -->
     <p>This is a paragraph.</p>
     <!-- Comments are not displayed in the browser -->
   </body>
@@ -1262,72 +1235,75 @@ See console log:
 -->
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <ul>
-  <!-- 123 -->
+  <!-- 123
+-->
   <li>First</li>
-  <!--
-    123
-    456
-       789
-  -->
+  <!-- 123
+456
+   789
+-->
   <li>Second</li>
   <!--
+
+
     123
        456
           789
-  -->
+
+
+-->
   <li>Second</li>
   <!--
+
+
            123
         456
     789
-  -->
-</ul>
+
+
+--></ul>
 <span
   ><!--
-  --><span>a</span
+--><span>a</span
   ><!--
-  --><span>b</span
+--><span>b</span
   ><!--
 --></span>
 
 <span
   ><!-- 1
-  --><span>a</span
+--><span>a</span
   ><!-- 2
-  --><span>b</span
+--><span>b</span
   ><!-- 3
 --></span>
 
 <span
-  ><!-- 1
-  --><span>a</span
-  ><!-- 2
-  --><span>b</span
-  ><!-- 3
---></span>
+  ><!--
+1 --><span>a</span
+  ><!--
+2 --><span>b</span
+  ><!--
+3 --></span
+>
 
-123<!--
--->456 123<!--
-  x
--->456
+123<!---->456 123<!--x-->456
 
-<!--
-  A
-  B
--->
+<!-- A
+     B -->
 
 <!--
-  The null hero's name is {{nullHero.name}}
+The null hero's name is {{nullHero.name}}
 
-  See console log:
-    TypeError: Cannot read property 'name' of null in [null]
--->
-
-<!--
-  The null hero's name is {{nullHero.name}}
-
-  See console log:
+See console log:
   TypeError: Cannot read property 'name' of null in [null]
+-->
+
+<!--
+    The null hero's name is {{nullHero.name}}
+
+    See console log:
+    TypeError: Cannot read property 'name' of null in [null]
 -->
 
 `;
@@ -1391,93 +1367,88 @@ See console log:
 -->
 ~
 <ul>
-  <!--
-    123
-  -->
+  <!-- 123
+-->
   <li>
     First
   </li>
-  <!--
-    123
-    456
-       789
-  -->
+  <!-- 123
+456
+   789
+-->
   <li>
     Second
   </li>
   <!--
+
+
     123
        456
           789
-  -->
+
+
+-->
   <li>
     Second
   </li>
   <!--
+
+
            123
         456
     789
-  -->
-</ul>
+
+
+--></ul>
 <span
   ><!--
-  --><span
+--><span
     >a</span
   ><!--
-  --><span
+--><span
     >b</span
   ><!--
 --></span>
 
 <span
-  ><!--
-    1
-  --><span
+  ><!-- 1
+--><span
     >a</span
-  ><!--
-    2
-  --><span
+  ><!-- 2
+--><span
     >b</span
-  ><!--
-    3
+  ><!-- 3
 --></span>
 
 <span
   ><!--
-    1
-  --><span
+1 --><span
     >a</span
   ><!--
-    2
-  --><span
+2 --><span
     >b</span
   ><!--
-    3
---></span>
+3 --></span
+>
 
-123<!--
--->456
-123<!--
-  x
--->456
+123<!---->456
+123<!--x-->456
 
-<!--
-  A
-  B
--->
+<!-- A
+     B -->
 
 <!--
-  The null hero's name is {{nullHero.name}}
+The null hero's name is {{nullHero.name}}
 
-  See console log:
-    TypeError: Cannot read property 'name' of null in [null]
--->
-
-<!--
-  The null hero's name is {{nullHero.name}}
-
-  See console log:
+See console log:
   TypeError: Cannot read property 'name' of null in [null]
+-->
+
+<!--
+    The null hero's name is {{nullHero.name}}
+
+    See console log:
+    TypeError: Cannot read property 'name' of null in [null]
 -->
 
 `;
@@ -1541,72 +1512,75 @@ See console log:
 -->
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <ul>
-  <!-- 123 -->
+  <!-- 123
+-->
   <li>First</li>
-  <!--
-    123
-    456
-       789
-  -->
+  <!-- 123
+456
+   789
+-->
   <li>Second</li>
   <!--
+
+
     123
        456
           789
-  -->
+
+
+-->
   <li>Second</li>
   <!--
+
+
            123
         456
     789
-  -->
-</ul>
+
+
+--></ul>
 <span
   ><!--
-  --><span>a</span
+--><span>a</span
   ><!--
-  --><span>b</span
+--><span>b</span
   ><!--
 --></span>
 
 <span
   ><!-- 1
-  --><span>a</span
+--><span>a</span
   ><!-- 2
-  --><span>b</span
+--><span>b</span
   ><!-- 3
 --></span>
 
 <span
-  ><!-- 1
-  --><span>a</span
-  ><!-- 2
-  --><span>b</span
-  ><!-- 3
---></span>
+  ><!--
+1 --><span>a</span
+  ><!--
+2 --><span>b</span
+  ><!--
+3 --></span
+>
 
-123<!--
--->456 123<!--
-  x
--->456
+123<!---->456 123<!--x-->456
 
-<!--
-  A
-  B
--->
+<!-- A
+     B -->
 
 <!--
-  The null hero's name is {{nullHero.name}}
+The null hero's name is {{nullHero.name}}
 
-  See console log:
-    TypeError: Cannot read property 'name' of null in [null]
--->
-
-<!--
-  The null hero's name is {{nullHero.name}}
-
-  See console log:
+See console log:
   TypeError: Cannot read property 'name' of null in [null]
+-->
+
+<!--
+    The null hero's name is {{nullHero.name}}
+
+    See console log:
+    TypeError: Cannot read property 'name' of null in [null]
 -->
 
 `;
@@ -1671,68 +1645,71 @@ See console log:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <ul
   ><!-- 123
-  --><li>First</li
+--><li>First</li
+  ><!-- 123
+456
+   789
+--><li>Second</li
   ><!--
-    123
-    456
-       789
-  --><li>Second</li
-  ><!--
+
+
     123
        456
           789
-  --><li>Second</li
+
+
+--><li>Second</li
   ><!--
+
+
            123
         456
     789
+
+
 --></ul>
 <span
   ><!--
-  --><span>a</span
+--><span>a</span
   ><!--
-  --><span>b</span
+--><span>b</span
   ><!--
 --></span>
 
 <span
   ><!-- 1
-  --><span>a</span
+--><span>a</span
   ><!-- 2
-  --><span>b</span
+--><span>b</span
   ><!-- 3
 --></span>
 
 <span
-  ><!-- 1
-  --><span>a</span
-  ><!-- 2
-  --><span>b</span
-  ><!-- 3
---></span>
+  ><!--
+1 --><span>a</span
+  ><!--
+2 --><span>b</span
+  ><!--
+3 --></span
+>
 
-123<!--
--->456 123<!--
-  x
--->456
+123<!---->456 123<!--x-->456
 
-<!--
-  A
-  B
--->
+<!-- A
+     B -->
 
 <!--
-  The null hero's name is {{nullHero.name}}
+The null hero's name is {{nullHero.name}}
 
-  See console log:
-    TypeError: Cannot read property 'name' of null in [null]
--->
-
-<!--
-  The null hero's name is {{nullHero.name}}
-
-  See console log:
+See console log:
   TypeError: Cannot read property 'name' of null in [null]
+-->
+
+<!--
+    The null hero's name is {{nullHero.name}}
+
+    See console log:
+    TypeError: Cannot read property 'name' of null in [null]
 -->
 
 `;
@@ -1796,73 +1773,85 @@ See console log:
 -->
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <ul>
-  <!-- 123 -->
+  <!-- 123
+-->
   <li>First</li>
-  <!--
-    123
-    456
-       789
-  -->
+  <!-- 123
+456
+   789
+-->
   <li>Second</li>
   <!--
+
+
     123
        456
           789
-  -->
+
+
+-->
   <li>Second</li>
   <!--
+
+
            123
         456
     789
-  -->
-</ul>
+
+
+--></ul>
 <span>
-  <!---->
+  <!--
+-->
   <span>a</span>
-  <!---->
+  <!--
+-->
   <span>b</span>
-  <!---->
-</span>
+  <!--
+--></span>
 
 <span>
-  <!-- 1 -->
+  <!-- 1
+-->
   <span>a</span>
-  <!-- 2 -->
+  <!-- 2
+-->
   <span>b</span>
-  <!-- 3 -->
-</span>
+  <!-- 3
+--></span>
 
 <span>
-  <!-- 1 -->
+  <!--
+1 -->
   <span>a</span>
-  <!-- 2 -->
+  <!--
+2 -->
   <span>b</span>
-  <!-- 3 -->
+  <!--
+3 -->
 </span>
 
 123
 <!---->
 456 123
-<!-- x -->
+<!--x-->
 456
 
-<!--
-  A
-  B
--->
+<!-- A
+     B -->
 
 <!--
-  The null hero's name is {{nullHero.name}}
+The null hero's name is {{nullHero.name}}
 
-  See console log:
-    TypeError: Cannot read property 'name' of null in [null]
--->
-
-<!--
-  The null hero's name is {{nullHero.name}}
-
-  See console log:
+See console log:
   TypeError: Cannot read property 'name' of null in [null]
+-->
+
+<!--
+    The null hero's name is {{nullHero.name}}
+
+    See console log:
+    TypeError: Cannot read property 'name' of null in [null]
 -->
 
 `;
