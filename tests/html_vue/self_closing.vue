@@ -6,9 +6,11 @@
 foo( )
 </script>
 
+<template>
 <div class="container">
   <HomeH />
   <HomeA />
   <HomeX />
   <HomeY />
 </div>
+</template>

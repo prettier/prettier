@@ -71,9 +71,9 @@ function embed(path, print, textToDoc, options) {
           return builders.concat([
             concat([
               breakParent,
-              printOpeningTagPrefix(node),
+              printOpeningTagPrefix(node, options),
               markAsRoot(stripTrailingHardline(textToDoc(value, { parser }))),
-              printClosingTagSuffix(node)
+              printClosingTagSuffix(node, options)
             ])
           ]);
         }
@@ -249,7 +249,7 @@ function genericPrint(path, options, print) {
                 ])
           ])
         ),
-        printClosingTag(node)
+        printClosingTag(node, options)
       ]);
     }
     case "ieConditionalStartComment":
@@ -257,9 +257,9 @@ function genericPrint(path, options, print) {
       return concat([printOpeningTagStart(node), printClosingTagEnd(node)]);
     case "interpolation":
       return concat([
-        printOpeningTagStart(node),
+        printOpeningTagStart(node, options),
         concat(path.map(print, "children")),
-        printClosingTagEnd(node)
+        printClosingTagEnd(node, options)
       ]);
     case "text": {
       if (node.parent.type === "interpolation") {
@@ -277,9 +277,9 @@ function genericPrint(path, options, print) {
       return fill(
         normalizeParts(
           [].concat(
-            printOpeningTagPrefix(node),
+            printOpeningTagPrefix(node, options),
             getTextValueParts(node),
-            printClosingTagSuffix(node)
+            printClosingTagSuffix(node, options)
           )
         )
       );
@@ -288,19 +288,19 @@ function genericPrint(path, options, print) {
       return concat([
         group(
           concat([
-            printOpeningTagStart(node),
+            printOpeningTagStart(node, options),
             " ",
             node.value.replace(/^html\b/i, "html").replace(/\s+/g, " ")
           ])
         ),
-        printClosingTagEnd(node)
+        printClosingTagEnd(node, options)
       ]);
     case "comment": {
       const value = getCommentData(node);
       return concat([
         group(
           concat([
-            printOpeningTagStart(node),
+            printOpeningTagStart(node, options),
             value.trim().length === 0
               ? ""
               : concat([
@@ -322,7 +322,7 @@ function genericPrint(path, options, print) {
                 ])
           ])
         ),
-        printClosingTagEnd(node)
+        printClosingTagEnd(node, options)
       ]);
     }
     case "attribute":
@@ -449,7 +449,7 @@ function printChildren(path, options, print) {
     if (hasPrettierIgnore(child)) {
       return concat(
         [].concat(
-          printOpeningTagPrefix(child),
+          printOpeningTagPrefix(child, options),
           replaceNewlines(
             options.originalText.slice(
               options.locStart(child) +
@@ -459,20 +459,20 @@ function printChildren(path, options, print) {
                   : 0),
               options.locEnd(child) -
                 (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
-                  ? printClosingTagEndMarker(child).length
+                  ? printClosingTagEndMarker(child, options).length
                   : 0)
             ),
             literalline
           ),
-          printClosingTagSuffix(child)
+          printClosingTagSuffix(child, options)
         )
       );
     }
 
-    if (shouldPreserveContent(child)) {
+    if (shouldPreserveContent(child, options)) {
       return concat(
         [].concat(
-          printOpeningTagPrefix(child),
+          printOpeningTagPrefix(child, options),
           group(printOpeningTag(childPath, options, print)),
           replaceNewlines(
             options.originalText.slice(
@@ -484,15 +484,15 @@ function printChildren(path, options, print) {
               child.endSourceSpan.start.offset +
                 (child.lastChild &&
                 needsToBorrowParentClosingTagStartMarker(child.lastChild)
-                  ? printClosingTagStartMarker(child).length
+                  ? printClosingTagStartMarker(child, options).length
                   : needsToBorrowLastChildClosingTagEndMarker(child)
-                  ? -printClosingTagEndMarker(child.lastChild).length
+                  ? -printClosingTagEndMarker(child.lastChild, options).length
                   : 0)
             ),
             literalline
           ),
-          printClosingTag(child),
-          printClosingTagSuffix(child)
+          printClosingTag(child, options),
+          printClosingTagSuffix(child, options)
         )
       );
     }
@@ -561,7 +561,7 @@ function printOpeningTag(path, options, print) {
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
   return concat([
-    printOpeningTagStart(node),
+    printOpeningTagStart(node, options),
     !node.attrs || node.attrs.length === 0
       ? node.isSelfClosing
         ? /**
@@ -634,10 +634,13 @@ function printOpeningTag(path, options, print) {
   ]);
 }
 
-function printOpeningTagStart(node) {
+function printOpeningTagStart(node, options) {
   return node.prev && needsToBorrowNextOpeningTagStartMarker(node.prev)
     ? ""
-    : concat([printOpeningTagPrefix(node), printOpeningTagStartMarker(node)]);
+    : concat([
+        printOpeningTagPrefix(node, options),
+        printOpeningTagStartMarker(node)
+      ]);
 }
 
 function printOpeningTagEnd(node) {
@@ -647,26 +650,32 @@ function printOpeningTagEnd(node) {
     : printOpeningTagEndMarker(node);
 }
 
-function printClosingTag(node) {
+function printClosingTag(node, options) {
   return concat([
-    node.isSelfClosing ? "" : printClosingTagStart(node),
-    printClosingTagEnd(node)
+    node.isSelfClosing ? "" : printClosingTagStart(node, options),
+    printClosingTagEnd(node, options)
   ]);
 }
 
-function printClosingTagStart(node) {
+function printClosingTagStart(node, options) {
   return node.lastChild &&
     needsToBorrowParentClosingTagStartMarker(node.lastChild)
     ? ""
-    : concat([printClosingTagPrefix(node), printClosingTagStartMarker(node)]);
+    : concat([
+        printClosingTagPrefix(node, options),
+        printClosingTagStartMarker(node, options)
+      ]);
 }
 
-function printClosingTagEnd(node) {
+function printClosingTagEnd(node, options) {
   return (node.next
   ? needsToBorrowPrevClosingTagEndMarker(node.next)
   : needsToBorrowLastChildClosingTagEndMarker(node.parent))
     ? ""
-    : concat([printClosingTagEndMarker(node), printClosingTagSuffix(node)]);
+    : concat([
+        printClosingTagEndMarker(node, options),
+        printClosingTagSuffix(node, options)
+      ]);
 }
 
 function needsToBorrowNextOpeningTagStartMarker(node) {
@@ -745,23 +754,23 @@ function needsToBorrowParentClosingTagStartMarker(node) {
   );
 }
 
-function printOpeningTagPrefix(node) {
+function printOpeningTagPrefix(node, options) {
   return needsToBorrowParentOpeningTagEndMarker(node)
     ? printOpeningTagEndMarker(node.parent)
     : needsToBorrowPrevClosingTagEndMarker(node)
-    ? printClosingTagEndMarker(node.prev)
+    ? printClosingTagEndMarker(node.prev, options)
     : "";
 }
 
-function printClosingTagPrefix(node) {
+function printClosingTagPrefix(node, options) {
   return needsToBorrowLastChildClosingTagEndMarker(node)
-    ? printClosingTagEndMarker(node.lastChild)
+    ? printClosingTagEndMarker(node.lastChild, options)
     : "";
 }
 
-function printClosingTagSuffix(node) {
+function printClosingTagSuffix(node, options) {
   return needsToBorrowParentClosingTagStartMarker(node)
-    ? printClosingTagStartMarker(node.parent)
+    ? printClosingTagStartMarker(node.parent, options)
     : needsToBorrowNextOpeningTagStartMarker(node)
     ? printOpeningTagStartMarker(node.next)
     : "";
@@ -805,9 +814,9 @@ function printOpeningTagEndMarker(node) {
   }
 }
 
-function printClosingTagStartMarker(node) {
+function printClosingTagStartMarker(node, options) {
   assert(!node.isSelfClosing);
-  if (shouldNotPrintClosingTag(node)) {
+  if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
   switch (node.type) {
@@ -818,8 +827,8 @@ function printClosingTagStartMarker(node) {
   }
 }
 
-function printClosingTagEndMarker(node) {
-  if (shouldNotPrintClosingTag(node)) {
+function printClosingTagEndMarker(node, options) {
+  if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
   switch (node.type) {
