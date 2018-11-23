@@ -1222,6 +1222,28 @@ exports[`self_closing_style.vue - vue-verify 2`] = `
 
 `;
 
+exports[`tag-name.vue - vue-verify 1`] = `
+<template>
+  <Table></Table>
+</template>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template>
+  <Table></Table>
+</template>
+
+`;
+
+exports[`tag-name.vue - vue-verify 2`] = `
+<template>
+  <Table></Table>
+</template>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template>
+  <Table></Table>
+</template>
+
+`;
+
 exports[`template.vue - vue-verify 1`] = `
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>

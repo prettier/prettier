@@ -10550,3 +10550,31 @@ bindon-ngModel
 -->
 
 `;
+
+exports[`tag-name.component.html - angular-verify 1`] = `
+<Table></Table>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<Table></Table>
+
+`;
+
+exports[`tag-name.component.html - angular-verify 2`] = `
+<Table></Table>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<Table></Table>
+
+`;
+
+exports[`tag-name.component.html - angular-verify 3`] = `
+<Table></Table>
+~
+<Table></Table>
+
+`;
+
+exports[`tag-name.component.html - angular-verify 4`] = `
+<Table></Table>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<Table></Table>
+
+`;
