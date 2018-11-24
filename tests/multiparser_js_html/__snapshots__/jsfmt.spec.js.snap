@@ -89,7 +89,7 @@ const someHtml2 = /* HTML */ \`
 html\`\`;
 
 html\`
-  <my-element obj="\${obj}"></my-element>
+  <my-element obj=\${obj}></my-element>
 \`;
 
 `;
