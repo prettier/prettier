@@ -60,6 +60,7 @@ exports[`attributes.component.html - angular-verify 1`] = `
     *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
     *ngFor="  let    hero     of heroes; let i  =  index"
     *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
     *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
     *ngIf=" condition  as  value  ;  else  elseBlock "
     *directive=" let hero "
@@ -150,6 +151,7 @@ exports[`attributes.component.html - angular-verify 1`] = `
   *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="let hero of heroes; let i = index"
   *ngFor="let hero of heroes; value: myValue"
+  *ngIf="condition; else: elseBlock"
   *ngIf="condition; then: thenBlock; else: elseBlock"
   *ngIf="condition as value; else: elseBlock"
   *directive="let hero"
@@ -260,6 +262,7 @@ exports[`attributes.component.html - angular-verify 2`] = `
     *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
     *ngFor="  let    hero     of heroes; let i  =  index"
     *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
     *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
     *ngIf=" condition  as  value  ;  else  elseBlock "
     *directive=" let hero "
@@ -350,6 +353,7 @@ exports[`attributes.component.html - angular-verify 2`] = `
   *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="let hero of heroes; let i = index"
   *ngFor="let hero of heroes; value: myValue"
+  *ngIf="condition; else: elseBlock"
   *ngIf="condition; then: thenBlock; else: elseBlock"
   *ngIf="condition as value; else: elseBlock"
   *directive="let hero"
@@ -460,6 +464,7 @@ exports[`attributes.component.html - angular-verify 3`] = `
     *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
     *ngFor="  let    hero     of heroes; let i  =  index"
     *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
     *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
     *ngIf=" condition  as  value  ;  else  elseBlock "
     *directive=" let hero "
@@ -697,6 +702,10 @@ exports[`attributes.component.html - angular-verify 3`] = `
   "
   *ngIf="
     condition;
+    else: elseBlock
+  "
+  *ngIf="
+    condition;
     then: thenBlock;
     else: elseBlock
   "
@@ -884,6 +893,7 @@ exports[`attributes.component.html - angular-verify 4`] = `
     *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
     *ngFor="  let    hero     of heroes; let i  =  index"
     *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
     *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
     *ngIf=" condition  as  value  ;  else  elseBlock "
     *directive=" let hero "
@@ -974,6 +984,7 @@ exports[`attributes.component.html - angular-verify 4`] = `
   *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="let hero of heroes; let i = index"
   *ngFor="let hero of heroes; value: myValue"
+  *ngIf="condition; else: elseBlock"
   *ngIf="condition; then: thenBlock; else: elseBlock"
   *ngIf="condition as value; else: elseBlock"
   *directive="let hero"
