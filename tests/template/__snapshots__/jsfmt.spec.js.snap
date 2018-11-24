@@ -211,6 +211,9 @@ this._pipe.write(\`
   \`
     a
   \`;
+
+// https://github.com/prettier/prettier/issues/5529
+editTitle += \`\${iconHTML({ class: "reply-to-glyph" })}\`;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
@@ -260,6 +263,9 @@ this._pipe.write(\`
   \`
     a
   \`;
+
+// https://github.com/prettier/prettier/issues/5529
+editTitle += \`\${iconHTML({ class: "reply-to-glyph" })}\`;
 
 `;
 
