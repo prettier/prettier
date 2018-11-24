@@ -44,3 +44,5 @@ const someHtml1 = html`<div       > hello ${world} </div     >`;
 const someHtml2 = /* HTML */ `<div      > hello ${world} </div     >`;
 
 html``
+
+html`<my-element obj=${obj}></my-element>`;
