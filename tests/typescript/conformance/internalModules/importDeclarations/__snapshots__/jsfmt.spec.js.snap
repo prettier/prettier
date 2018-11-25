@@ -28,14 +28,14 @@ var c = new B.a.C();
 =====================================output=====================================
 // expected no error
 
-namespace B {
+module B {
   export import a = A;
   export class D extends a.C {
     id: number;
   }
 }
 
-namespace A {
+module A {
   export class C {
     name: string;
   }
@@ -125,19 +125,19 @@ var p: M.D.Point;
 =====================================output=====================================
 // expect no errors here
 
-namespace A {
+module A {
   export var x = "hello world";
   export class Point {
     constructor(public x: number, public y: number) {}
   }
-  export namespace B {
+  export module B {
     export interface Id {
       name: string;
     }
   }
 }
 
-namespace C {
+module C {
   export import a = A;
 }
 
@@ -146,19 +146,19 @@ var b: { x: number; y: number } = new C.a.Point(0, 0);
 var c: { name: string };
 var c: C.a.B.Id;
 
-namespace X {
+module X {
   export function Y() {
     return 42;
   }
 
-  export namespace Y {
+  export module Y {
     export class Point {
       constructor(public x: number, public y: number) {}
     }
   }
 }
 
-namespace Z {
+module Z {
   // 'y' should be a fundule here
   export import y = X.Y;
 }
@@ -166,12 +166,12 @@ namespace Z {
 var m: number = Z.y();
 var n: { x: number; y: number } = new Z.y.Point(0, 0);
 
-namespace K {
+module K {
   export class L {
     constructor(public name: string) {}
   }
 
-  export namespace L {
+  export module L {
     export var y = 12;
     export interface Point {
       x: number;
@@ -180,7 +180,7 @@ namespace K {
   }
 }
 
-namespace M {
+module M {
   export import D = K.L;
 }
 
@@ -259,7 +259,7 @@ var p: funlias.Point;
 var p: fundule.Point;
 var p: { x: number; y: number; };
 =====================================output=====================================
-namespace moduleA {
+module moduleA {
   export class Point {
     constructor(public x: number, public y: number) {}
   }
@@ -275,7 +275,7 @@ class clodule {
   name: string;
 }
 
-namespace clodule {
+module clodule {
   export interface Point {
     x: number;
     y: number;
@@ -293,7 +293,7 @@ function fundule() {
   return { x: 0, y: 0 };
 }
 
-namespace fundule {
+module fundule {
   export interface Point {
     x: number;
     y: number;
@@ -411,7 +411,7 @@ module Z {
 =====================================output=====================================
 // all errors imported modules conflict with local variables
 
-namespace A {
+module A {
   export var Point = { x: 0, y: 0 };
   export interface Point {
     x: number;
@@ -419,13 +419,13 @@ namespace A {
   }
 }
 
-namespace B {
+module B {
   var A = { x: 0, y: 0 };
   import Point = A;
 }
 
-namespace X {
-  export namespace Y {
+module X {
+  export module Y {
     export interface Point {
       x: number;
       y: number;
@@ -437,7 +437,7 @@ namespace X {
   }
 }
 
-namespace Z {
+module Z {
   import Y = X.Y;
 
   var Y = 12;

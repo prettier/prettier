@@ -29,7 +29,7 @@ declare global {}
 namespace global {
 
 }
-namespace global {
+module global {
 
 }
 global {
@@ -81,20 +81,20 @@ namespace X {
 }
 
 =====================================output=====================================
-namespace X {
+module X {
 
 }
 
-namespace X {
+module X {
   const x = 1;
 }
 
-namespace X {
-  namespace X {  }
+module X {
+  module X {  }
 }
 
-namespace X {
-  namespace X { const x = 1; }
+module X {
+  module X { const x = 1; }
 }
 
 namespace X {

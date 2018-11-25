@@ -3400,7 +3400,8 @@ function printPathNoParens(path, options, print, args) {
 
         if (!isGlobalDeclaration) {
           parts.push(
-            isExternalModule || /\smodule\s/.test(textBetweenNodeAndItsId)
+            isExternalModule ||
+              /(^|\s)module(\s|$)/.test(textBetweenNodeAndItsId)
               ? "module "
               : "namespace "
           );
