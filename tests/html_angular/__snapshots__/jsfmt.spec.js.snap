@@ -9,7 +9,7 @@ printWidth: 80
 <div someDirective itemType="x"></div>
 
 =====================================output=====================================
-<div someDirective itemtype="x"></div>
+<div someDirective itemType="x"></div>
 
 ================================================================================
 `;
@@ -24,7 +24,7 @@ trailingComma: "es5"
 <div someDirective itemType="x"></div>
 
 =====================================output=====================================
-<div someDirective itemtype="x"></div>
+<div someDirective itemType="x"></div>
 
 ================================================================================
 `;
@@ -40,7 +40,7 @@ printWidth: 1
 =====================================output=====================================
 <div
   someDirective
-  itemtype="x"
+  itemType="x"
 ></div>
 
 ================================================================================
@@ -56,7 +56,7 @@ printWidth: 80
 <div someDirective itemType="x"></div>
 
 =====================================output=====================================
-<div someDirective itemtype="x"></div>
+<div someDirective itemType="x"></div>
 
 ================================================================================
 `;
