@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example.html - html-verify 1`] = `
+exports[`example.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!--interpolations in html should be treated as normal text--><div>Fuga magnam facilis. Voluptatem quaerat porro.{{
 
 
@@ -27,8 +32,9 @@ x => {
                     interpolation
 
 }} reprehenderit voluptates minus {{console.log(  short_interpolation )}} nemo.</div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<!-- interpolations in html should be treated as normal text -->
+
+=====================================output=====================================
+<!--interpolations in html should be treated as normal text-->
 <div>
   Fuga magnam facilis. Voluptatem quaerat porro.{{ x => { const hello = 'world'
   return hello; } }} Magni consectetur in et molestias neque esse voluptatibus
@@ -37,4 +43,5 @@ x => {
   minus {{console.log( short_interpolation )}} nemo.
 </div>
 
+================================================================================
 `;

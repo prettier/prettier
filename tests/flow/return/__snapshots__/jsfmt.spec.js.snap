@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function_return.js - flow-verify 1`] = `
+exports[`function_return.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class C {
     foo() { }
     bar() { return; }
@@ -37,7 +42,8 @@ module.exports = C;
 
 //function fn(x:number) { return x; }
 //module.exports = fn;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class C {
   foo() {}
   bar() {
@@ -79,9 +85,15 @@ module.exports = C;
 //function fn(x:number) { return x; }
 //module.exports = fn;
 
+================================================================================
 `;
 
-exports[`void.js - flow-verify 1`] = `
+exports[`void.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* This is a regression test. At one point we incorrectly inferred the return
    type of functions that have an explicit \`undefined\` to be only \`undefined\` --
    ignoring other possible exits. */
@@ -94,7 +106,8 @@ function f(b) {
 }
 
 (f(true): void); // error: string ~> void
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* This is a regression test. At one point we incorrectly inferred the return
    type of functions that have an explicit \`undefined\` to be only \`undefined\` --
    ignoring other possible exits. */
@@ -108,4 +121,5 @@ function f(b) {
 
 (f(true): void); // error: string ~> void
 
+================================================================================
 `;

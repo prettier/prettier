@@ -1,15 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js - typescript-verify 1`] = `
-export class ViewTokensChangedEvent {
-  public readonly ranges: {
-    /**
-     * Start line number of range
-     */
-    readonly fromLineNumber: number;
-  }[];
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`comment.js 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export class ViewTokensChangedEvent {
   public readonly ranges: {
     /**
@@ -19,4 +15,15 @@ export class ViewTokensChangedEvent {
   }[];
 }
 
+=====================================output=====================================
+export class ViewTokensChangedEvent {
+  public readonly ranges: {
+    /**
+     * Start line number of range
+     */
+    readonly fromLineNumber: number;
+  }[];
+}
+
+================================================================================
 `;

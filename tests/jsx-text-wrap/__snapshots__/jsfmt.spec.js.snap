@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Wrapping text
 x =
   <div>
@@ -459,7 +464,8 @@ let myDiv = ReactTestUtils.renderIntoDocument(
     <div key="theBird" className="bird" />
   </div>
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Wrapping text
 x = (
   <div>
@@ -1031,4 +1037,5 @@ let myDiv = ReactTestUtils.renderIntoDocument(
   </div>
 );
 
+================================================================================
 `;

@@ -25,12 +25,12 @@ const {
   forceBreakChildren,
   forceBreakContent,
   forceNextEmptyLine,
-  getCommentData,
   getLastDescendant,
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
   isScriptLikeTag,
+  isTextLikeNode,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   replaceDocNewlines,
@@ -72,7 +72,7 @@ function embed(path, print, textToDoc, options) {
             concat([
               breakParent,
               printOpeningTagPrefix(node, options),
-              markAsRoot(stripTrailingHardline(textToDoc(value, { parser }))),
+              stripTrailingHardline(textToDoc(value, { parser })),
               printClosingTagSuffix(node, options)
             ])
           ]);
@@ -103,6 +103,18 @@ function embed(path, print, textToDoc, options) {
     case "attribute": {
       if (!node.value) {
         break;
+      }
+
+      // lit-html: html`<my-element obj=${obj}></my-element>`
+      if (
+        /^PRETTIER_PLACEHOLDER_\d+$/.test(
+          options.originalText.slice(
+            node.valueSpan.start.offset,
+            node.valueSpan.end.offset
+          )
+        )
+      ) {
+        return concat([node.rawName, "=", node.value]);
       }
 
       const embeddedAttributeValueDoc = printEmbeddedAttributeValue(
@@ -226,9 +238,10 @@ function genericPrint(path, options, print) {
                     : node.lastChild.hasTrailingSpaces &&
                       node.lastChild.isTrailingSpaceSensitive
                     ? line
-                    : node.lastChild.type === "text" &&
-                      node.isWhitespaceSensitive &&
-                      node.isIndentationSensitive &&
+                    : (node.lastChild.type === "comment" ||
+                        (node.lastChild.type === "text" &&
+                          node.isWhitespaceSensitive &&
+                          node.isIndentationSensitive)) &&
                       new RegExp(
                         `\\n\\s{${options.tabWidth *
                           countParents(
@@ -296,33 +309,12 @@ function genericPrint(path, options, print) {
         printClosingTagEnd(node, options)
       ]);
     case "comment": {
-      const value = getCommentData(node);
       return concat([
-        group(
-          concat([
-            printOpeningTagStart(node, options),
-            value.trim().length === 0
-              ? ""
-              : concat([
-                  indent(
-                    concat([
-                      node.prev &&
-                      needsToBorrowNextOpeningTagStartMarker(node.prev)
-                        ? breakParent
-                        : "",
-                      line,
-                      concat(replaceNewlines(value, hardline))
-                    ])
-                  ),
-                  (node.next
-                  ? needsToBorrowPrevClosingTagEndMarker(node.next)
-                  : needsToBorrowLastChildClosingTagEndMarker(node.parent))
-                    ? " "
-                    : line
-                ])
-          ])
-        ),
-        printClosingTagEnd(node, options)
+        printOpeningTagPrefix(node, options),
+        "<!--",
+        concat(replaceNewlines(node.value, literalline)),
+        "-->",
+        printClosingTagSuffix(node, options)
       ]);
     }
     case "attribute":
@@ -377,7 +369,16 @@ function printChildren(path, options, print) {
     path.map((childPath, childIndex) => {
       const childNode = childPath.getValue();
 
-      if (childNode.type === "text") {
+      if (isTextLikeNode(childNode)) {
+        if (childNode.prev && isTextLikeNode(childNode.prev)) {
+          const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
+          if (prevBetweenLine) {
+            if (forceNextEmptyLine(childNode.prev)) {
+              return concat([hardline, hardline, printChild(childPath)]);
+            }
+            return concat([prevBetweenLine, printChild(childPath)]);
+          }
+        }
         return printChild(childPath);
       }
 
@@ -400,7 +401,7 @@ function printChildren(path, options, print) {
         } else if (prevBetweenLine === hardline) {
           prevParts.push(hardline);
         } else {
-          if (childNode.prev.type === "text") {
+          if (isTextLikeNode(childNode.prev)) {
             leadingParts.push(prevBetweenLine);
           } else {
             leadingParts.push(
@@ -414,11 +415,11 @@ function printChildren(path, options, print) {
 
       if (nextBetweenLine) {
         if (forceNextEmptyLine(childNode)) {
-          if (childNode.next.type === "text") {
+          if (isTextLikeNode(childNode.next)) {
             nextParts.push(hardline, hardline);
           }
         } else if (nextBetweenLine === hardline) {
-          if (childNode.next.type === "text") {
+          if (isTextLikeNode(childNode.next)) {
             nextParts.push(hardline);
           }
         } else {
@@ -501,34 +502,44 @@ function printChildren(path, options, print) {
   }
 
   function printBetweenLine(prevNode, nextNode) {
-    return (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
-      /**
-       *     123<a
-       *          ~
-       *       ><b>
-       */
-      (nextNode.firstChild ||
+    return isTextLikeNode(prevNode) && isTextLikeNode(nextNode)
+      ? prevNode.isTrailingSpaceSensitive
+        ? prevNode.hasTrailingSpaces
+          ? preferHardlineAsLeadingSpaces(nextNode)
+            ? hardline
+            : line
+          : ""
+        : preferHardlineAsLeadingSpaces(nextNode)
+        ? hardline
+        : softline
+      : (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
+          /**
+           *     123<a
+           *          ~
+           *       ><b>
+           */
+          (nextNode.firstChild ||
+            /**
+             *     123<!--
+             *            ~
+             *     -->
+             */
+            nextNode.isSelfClosing ||
+            /**
+             *     123<span
+             *             ~
+             *       attr
+             */
+            (nextNode.type === "element" && nextNode.attrs.length !== 0))) ||
         /**
-         *     123<!--
-         *            ~
-         *     -->
+         *     <img
+         *       src="long"
+         *                 ~
+         *     />123
          */
-        nextNode.isSelfClosing ||
-        /**
-         *     123<span
-         *             ~
-         *       attr
-         */
-        (nextNode.type === "element" && nextNode.attrs.length !== 0))) ||
-      /**
-       *     <img
-       *       src="long"
-       *                 ~
-       *     />123
-       */
-      (prevNode.type === "element" &&
-        prevNode.isSelfClosing &&
-        needsToBorrowPrevClosingTagEndMarker(nextNode))
+        (prevNode.type === "element" &&
+          prevNode.isSelfClosing &&
+          needsToBorrowPrevClosingTagEndMarker(nextNode))
       ? ""
       : !nextNode.isLeadingSpaceSensitive ||
         preferHardlineAsLeadingSpaces(nextNode) ||
@@ -686,7 +697,8 @@ function needsToBorrowNextOpeningTagStartMarker(node) {
    */
   return (
     node.next &&
-    node.type === "text" &&
+    !isTextLikeNode(node.next) &&
+    isTextLikeNode(node) &&
     node.isTrailingSpaceSensitive &&
     !node.hasTrailingSpaces
   );
@@ -715,7 +727,12 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
    *     ><a
    *     ^
    */
-  return node.prev && node.isLeadingSpaceSensitive && !node.hasLeadingSpaces;
+  return (
+    node.prev &&
+    !isTextLikeNode(node.prev) &&
+    node.isLeadingSpaceSensitive &&
+    !node.hasLeadingSpaces
+  );
 }
 
 function needsToBorrowLastChildClosingTagEndMarker(node) {
@@ -730,7 +747,7 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
     node.lastChild &&
     node.lastChild.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
-    getLastDescendant(node.lastChild).type !== "text"
+    !isTextLikeNode(getLastDescendant(node.lastChild))
   );
 }
 
@@ -750,7 +767,7 @@ function needsToBorrowParentClosingTagStartMarker(node) {
     !node.next &&
     !node.hasTrailingSpaces &&
     node.isTrailingSpaceSensitive &&
-    getLastDescendant(node).type === "text"
+    isTextLikeNode(getLastDescendant(node))
   );
 }
 
@@ -778,8 +795,6 @@ function printClosingTagSuffix(node, options) {
 
 function printOpeningTagStartMarker(node) {
   switch (node.type) {
-    case "comment":
-      return "<!--";
     case "ieConditionalComment":
     case "ieConditionalStartComment":
       return `<!--[if ${node.condition}`;
@@ -832,8 +847,6 @@ function printClosingTagEndMarker(node, options) {
     return "";
   }
   switch (node.type) {
-    case "comment":
-      return "-->";
     case "ieConditionalComment":
     case "ieConditionalEndComment":
       return `[endif]-->`;

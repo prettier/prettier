@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nested-indention-2.css - css-verify 1`] = `
+exports[`nested-indention-2.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 .y-photo-grid{
     display: flex;
     width: 100%;
@@ -20,7 +25,8 @@ exports[`nested-indention-2.css - css-verify 1`] = `
         justify-content: flex-start;
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 .y-photo-grid {
   display: flex;
   width: 100%;
@@ -44,4 +50,5 @@ exports[`nested-indention-2.css - css-verify 1`] = `
   }
 }
 
+================================================================================
 `;

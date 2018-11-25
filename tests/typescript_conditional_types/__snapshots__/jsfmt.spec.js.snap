@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditonal-types.ts - typescript-verify 1`] = `
+exports[`conditonal-types.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export type DeepReadonly<T> = T extends any[] ? DeepReadonlyArray<T[number]> : T extends object ? DeepReadonlyObject<T> : T;
 
 type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
@@ -18,7 +23,8 @@ type TypeName<T> =
   T extends undefined ? "undefined" :
   T extends Function ? "function" :
   "object";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export type DeepReadonly<T> = T extends any[]
   ? DeepReadonlyArray<T[number]>
   : T extends object
@@ -47,15 +53,23 @@ type TypeName<T> = T extends string
   ? "function"
   : "object";
 
+================================================================================
 `;
 
-exports[`infer-type.ts - typescript-verify 1`] = `
+exports[`infer-type.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type TestReturnType<T extends (...args: any[]) => any> = T extends (...args: any[]) => infer R ? R : any;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type TestReturnType<T extends (...args: any[]) => any> = T extends (
   ...args: any[]
 ) => infer R
   ? R
   : any;
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - babylon-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from "exports";
 
 export a,{b} from "./baz";
@@ -8,7 +13,8 @@ export a,{b} from "./baz";
 export * as ns from "mod";
 
 export * as foo,{bar} from "./baz";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export {
   value1,
   value2 as value2_renamed,
@@ -23,4 +29,5 @@ export * as ns from "mod";
 
 export * as foo, { bar } from "./baz";
 
+================================================================================
 `;

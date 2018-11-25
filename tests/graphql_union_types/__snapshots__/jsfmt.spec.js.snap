@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`union_types.graphql - graphql-verify 1`] = `
+exports[`union_types.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 union myUnion = ATypeName | ASecondTypeName
 
 union tooLongNameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee = A | B
@@ -13,7 +18,8 @@ union longUnion = A | B | C | D | E | F | G | H | I | J | K | L |  A | B | C | D
 
 # comment
 # comment2
-union union = B | C | D~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+union union = B | C | D
+=====================================output=====================================
 union myUnion = ATypeName | ASecondTypeName
 
 union tooLongNameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee =
@@ -56,4 +62,5 @@ union longUnion =
 # comment2
 union union = B | C | D
 
+================================================================================
 `;

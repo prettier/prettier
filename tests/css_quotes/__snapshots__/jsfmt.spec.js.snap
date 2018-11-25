@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`quotes.css - css-verify 1`] = `
+exports[`quotes.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @charset "UTF-8";
 /* @charset must always have double quotes: https://www.w3.org/TR/css-syntax-3/#determine-the-fallback-encoding */
 /* Also, it has to be the very first thing in the file, but here are some more tests anyway: */
@@ -92,7 +97,8 @@ exports[`quotes.css - css-verify 1`] = `
 
 one "two" three {}
 one 'two' three {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @charset "UTF-8";
 /* @charset must always have double quotes: https://www.w3.org/TR/css-syntax-3/#determine-the-fallback-encoding */
 /* Also, it has to be the very first thing in the file, but here are some more tests anyway: */
@@ -187,9 +193,16 @@ one "two" three {
 one "two" three {
 }
 
+================================================================================
 `;
 
-exports[`quotes.css - css-verify 2`] = `
+exports[`quotes.css 2`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 @charset "UTF-8";
 /* @charset must always have double quotes: https://www.w3.org/TR/css-syntax-3/#determine-the-fallback-encoding */
 /* Also, it has to be the very first thing in the file, but here are some more tests anyway: */
@@ -281,7 +294,8 @@ exports[`quotes.css - css-verify 2`] = `
 
 one "two" three {}
 one 'two' three {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @charset "UTF-8";
 /* @charset must always have double quotes: https://www.w3.org/TR/css-syntax-3/#determine-the-fallback-encoding */
 /* Also, it has to be the very first thing in the file, but here are some more tests anyway: */
@@ -376,4 +390,5 @@ one 'two' three {
 one 'two' three {
 }
 
+================================================================================
 `;

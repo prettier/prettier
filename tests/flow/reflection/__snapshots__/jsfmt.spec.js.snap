@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`type.js - flow-verify 1`] = `
+exports[`type.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare var a: number;
 var b: typeof a = "...";
 var c: typeof a = "...";
@@ -9,7 +14,8 @@ type T = number;
 var x:T = "...";
 
 // what about recursive unions?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare var a: number;
 var b: typeof a = "...";
 var c: typeof a = "...";
@@ -19,4 +25,5 @@ var x: T = "...";
 
 // what about recursive unions?
 
+================================================================================
 `;

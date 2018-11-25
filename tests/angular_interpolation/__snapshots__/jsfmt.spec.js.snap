@@ -1,19 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`logical-expression.ng - __ng_interpolation-verify 1`] = `
+exports[`logical-expression.ng 1`] = `
+====================================options=====================================
+parsers: ["__ng_interpolation"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 [
     advancedSearchService.patientInformationFieldsRow2 && advancedSearchService.patientInformationFieldsRow2.indexOf(advancedSearchService.formElementData.customFieldList[i].customFieldType) !== -1
 ]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [
   advancedSearchService.patientInformationFieldsRow2 &&
     advancedSearchService.patientInformationFieldsRow2.indexOf(
       advancedSearchService.formElementData.customFieldList[i].customFieldType
     ) !== -1
 ]
+================================================================================
 `;
 
-exports[`pipe-expression.ng - __ng_interpolation-verify 1`] = `
+exports[`pipe-expression.ng 1`] = `
+====================================options=====================================
+parsers: ["__ng_interpolation"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 [
     a ? (b | c : d) : (e | f : g),
     a | b | c | d,
@@ -39,7 +51,8 @@ exports[`pipe-expression.ng - __ng_interpolation-verify 1`] = `
       | aaa,
    (hideLinqPanel ? "ReportSelection.HideShowLabel_Show.String" : "ReportSelection.HideShowLabel_Hide.String") | localize:(localizationSection) 
 ]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [
   a ? (b | c: d) : (e | f: g),
   a | b | c | d,
@@ -70,4 +83,5 @@ exports[`pipe-expression.ng - __ng_interpolation-verify 1`] = `
     : "ReportSelection.HideShowLabel_Hide.String")
     | localize: localizationSection
 ]
+================================================================================
 `;

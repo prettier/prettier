@@ -1,8 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`min.js - flow-verify 1`] = `
-module.exports.fun = (): string => "hello there";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`min.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 module.exports.fun = (): string => "hello there";
 
+=====================================output=====================================
+module.exports.fun = (): string => "hello there";
+
+================================================================================
 `;

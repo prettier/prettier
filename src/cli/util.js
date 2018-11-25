@@ -146,8 +146,8 @@ function listDifferent(context, input, options, filename) {
     if (!prettier.check(input, options)) {
       if (!context.argv["write"]) {
         context.logger.log(filename);
+        process.exitCode = 1;
       }
-      process.exitCode = 1;
     }
   } catch (error) {
     context.logger.error(error.message);
@@ -498,7 +498,9 @@ function formatFiles(context) {
 
     if (context.argv["list-different"] && isDifferent) {
       context.logger.log(filename);
-      process.exitCode = 1;
+      if (!context.argv["write"]) {
+        process.exitCode = 1;
+      }
     }
 
     if (context.argv["write"]) {

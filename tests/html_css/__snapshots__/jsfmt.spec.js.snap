@@ -1,13 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.html - html-verify 1`] = `
-<style></style>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`empty.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <style></style>
 
+=====================================output=====================================
+<style></style>
+
+================================================================================
 `;
 
-exports[`less.html - html-verify 1`] = `
+exports[`less.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <style type="text/less">
   @nice-blue: #5B83AD;
   @light-blue: @nice-blue + #111;
@@ -25,7 +37,8 @@ exports[`less.html - html-verify 1`] = `
     color: @light-blue;
   }
 </style>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <style type="text/less">
   @nice-blue: #5B83AD;
   @light-blue: @nice-blue + #111;
@@ -44,9 +57,15 @@ exports[`less.html - html-verify 1`] = `
   }
 </style>
 
+================================================================================
 `;
 
-exports[`postcss.html - html-verify 1`] = `
+exports[`postcss.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <style type="text/css">
   body { background: navy; color: yellow; }
 </style>
@@ -54,7 +73,8 @@ exports[`postcss.html - html-verify 1`] = `
 <style lang="postcss">
   body { background: navy; color: yellow; }
 </style>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <style type="text/css">
   body {
     background: navy;
@@ -69,9 +89,15 @@ exports[`postcss.html - html-verify 1`] = `
   }
 </style>
 
+================================================================================
 `;
 
-exports[`scss.html - html-verify 1`] = `
+exports[`scss.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <style type="text/x-scss">
   $font-stack:    Helvetica, sans-serif;
   $primary-color: #333;
@@ -104,7 +130,8 @@ exports[`scss.html - html-verify 1`] = `
     }
 }
 </style>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <style type="text/x-scss">
   $font-stack: Helvetica, sans-serif;
   $primary-color: #333;
@@ -138,9 +165,15 @@ exports[`scss.html - html-verify 1`] = `
   }
 </style>
 
+================================================================================
 `;
 
-exports[`simple.html - html-verify 1`] = `
+exports[`simple.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!DOCTYPE html>
 <html>
   <head>
@@ -155,7 +188,8 @@ exports[`simple.html - html-verify 1`] = `
     <p>This page is just a demo.</p>
   </body>
 </html>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!DOCTYPE html>
 <html>
   <head>
@@ -178,9 +212,15 @@ exports[`simple.html - html-verify 1`] = `
   </body>
 </html>
 
+================================================================================
 `;
 
-exports[`single-style.html - html-verify 1`] = `
+exports[`single-style.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <style>a { color: red; }</style>
 <style>
   h1 {
@@ -189,7 +229,8 @@ exports[`single-style.html - html-verify 1`] = `
     color: #333366;
   }
 </style>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <style>
   a {
     color: red;
@@ -203,4 +244,5 @@ exports[`single-style.html - html-verify 1`] = `
   }
 </style>
 
+================================================================================
 `;

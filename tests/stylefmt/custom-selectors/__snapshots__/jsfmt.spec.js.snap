@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`custom-selectors.css - css-verify 1`] = `
+exports[`custom-selectors.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @custom-selector  :--button     button,.button;
 @custom-selector       :--enter     :hover,:focus      ;
 
@@ -8,7 +13,8 @@ exports[`custom-selectors.css - css-verify 1`] = `
 }:--button:--enter{
   text-decoration:underline;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @custom-selector :--button button, .button;
 @custom-selector :--enter :hover, :focus;
 
@@ -19,4 +25,5 @@ exports[`custom-selectors.css - css-verify 1`] = `
   text-decoration: underline;
 }
 
+================================================================================
 `;

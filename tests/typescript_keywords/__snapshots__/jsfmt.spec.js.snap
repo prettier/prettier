@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`keywords.js - typescript-verify 1`] = `
+exports[`keywords.js 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // All of these should be an error
 
 module Y3 {
@@ -39,7 +44,8 @@ module YYY3 {
 module YYY4 {
     static enum Color { Blue, Red }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // All of these should be an error
 
 namespace Y3 {
@@ -94,4 +100,5 @@ namespace YYY4 {
   }
 }
 
+================================================================================
 `;

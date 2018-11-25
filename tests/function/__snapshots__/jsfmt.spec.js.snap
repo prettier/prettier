@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function_expression.js - flow-verify 1`] = `
+exports[`function_expression.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 (function() {}).length
 typeof (function() {});
 export default (function() {})();
@@ -12,7 +17,8 @@ a = function f() {} || b;
 (function() {} && a);
 a + function() {};
 new function() {};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 (function() {}.length);
 typeof function() {};
 export default (function() {})();
@@ -25,9 +31,15 @@ a = function f() {} || b;
 a + function() {};
 new function() {}();
 
+================================================================================
 `;
 
-exports[`single_expand.js - flow-verify 1`] = `
+exports[`single_expand.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function onDidInsertSuggestion({
   editor,
   triggerPosition,
@@ -41,7 +53,8 @@ class X {
   > {
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function onDidInsertSuggestion({
   editor,
   triggerPosition,
@@ -56,4 +69,5 @@ class X {
   }): Promise<void> {}
 }
 
+================================================================================
 `;

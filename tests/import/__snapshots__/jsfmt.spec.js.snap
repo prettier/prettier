@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`brackets.js - flow-verify 1`] = `
+exports[`brackets.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import {
   runTaskForChanged,
   description,
@@ -12,7 +17,8 @@ import {
   soWeCanGetItTo80Columns
 } from '.';
 import {fitsIn, oneLine} from '.';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import {
   runTaskForChanged,
   description,
@@ -25,9 +31,16 @@ import {
 } from ".";
 import { fitsIn, oneLine } from ".";
 
+================================================================================
 `;
 
-exports[`brackets.js - flow-verify 2`] = `
+exports[`brackets.js 2`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import {
   runTaskForChanged,
   description,
@@ -39,7 +52,8 @@ import {
   soWeCanGetItTo80Columns
 } from '.';
 import {fitsIn, oneLine} from '.';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import {
   runTaskForChanged,
   description,
@@ -52,9 +66,15 @@ import {
 } from ".";
 import {fitsIn, oneLine} from ".";
 
+================================================================================
 `;
 
-exports[`comments.js - flow-verify 1`] = `
+exports[`comments.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { a //comment1
 //comment2
 //comment3
@@ -100,7 +120,8 @@ import x, {
   // comment
   y
 } from 'z';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import {
   //comment1
   //comment2
@@ -149,9 +170,16 @@ import x, {
   y
 } from "z";
 
+================================================================================
 `;
 
-exports[`comments.js - flow-verify 2`] = `
+exports[`comments.js 2`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { a //comment1
 //comment2
 //comment3
@@ -197,7 +225,8 @@ import x, {
   // comment
   y
 } from 'z';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import {
   //comment1
   //comment2
@@ -246,28 +275,50 @@ import x, {
   y
 } from "z";
 
+================================================================================
 `;
 
-exports[`empty-import.js - flow-verify 1`] = `
+exports[`empty-import.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { } from '@types/googlemaps';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import {} from "@types/googlemaps";
 
+================================================================================
 `;
 
-exports[`empty-import.js - flow-verify 2`] = `
+exports[`empty-import.js 2`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { } from '@types/googlemaps';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import {} from "@types/googlemaps";
 
+================================================================================
 `;
 
-exports[`inline.js - flow-verify 1`] = `
+exports[`inline.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import a, {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import {a, somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import { somethingSuperLongsomethingSuperLong } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import a, {
@@ -278,14 +329,22 @@ import {
   somethingSuperLongsomethingSuperLong
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 
+================================================================================
 `;
 
-exports[`inline.js - flow-verify 2`] = `
+exports[`inline.js 2`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import a, {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 import {a, somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import {somethingSuperLongsomethingSuperLong} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import a, {
@@ -296,32 +355,63 @@ import {
   somethingSuperLongsomethingSuperLong
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 
+================================================================================
 `;
 
-exports[`long-line.js - flow-verify 1`] = `
+exports[`long-line.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithARatherLongName";
 
+================================================================================
 `;
 
-exports[`long-line.js - flow-verify 2`] = `
+exports[`long-line.js 2`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithARatherLongName";
 
+================================================================================
 `;
 
-exports[`multiple_standalones.js - flow-verify 1`] = `
+exports[`multiple_standalones.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import a, * as b from 'a';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import a, * as b from "a";
 
+================================================================================
 `;
 
-exports[`multiple_standalones.js - flow-verify 2`] = `
+exports[`multiple_standalones.js 2`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import a, * as b from 'a';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import a, * as b from "a";
 
+================================================================================
 `;

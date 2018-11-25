@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with-pragma.vue - vue-verify 1`] = `
+exports[`with-pragma.vue 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!-- @prettier -->
 
 <template>
@@ -11,7 +17,8 @@ const    x      = 1;
 </script>
 <style src="./my-component.css"></style>
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- @prettier -->
 
 <template>
@@ -22,9 +29,16 @@ const x = 1;
 </script>
 <style src="./my-component.css"></style>
 
+================================================================================
 `;
 
-exports[`without-pragma.vue - vue-verify 1`] = `
+exports[`without-pragma.vue 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 
 
@@ -36,7 +50,8 @@ exports[`without-pragma.vue - vue-verify 1`] = `
 const    x      = 1;
 </script>
 <style src="./my-component.css"></style>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- @format -->
 
 <template>
@@ -47,4 +62,5 @@ const x = 1;
 </script>
 <style src="./my-component.css"></style>
 
+================================================================================
 `;

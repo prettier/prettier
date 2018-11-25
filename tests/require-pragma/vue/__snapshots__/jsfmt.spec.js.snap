@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with-pragma.vue - vue-verify 1`] = `
+exports[`with-pragma.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+requirePragma: true
+                                                                                | printWidth
+=====================================input======================================
 <!-- @prettier -->
 <template>
   <div>This will be pre-compiled</div>
@@ -9,7 +15,8 @@ exports[`with-pragma.vue - vue-verify 1`] = `
 const    x      = 1;
 </script>
 <style src="./my-component.css"></style>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- @prettier -->
 <template>
   <div>This will be pre-compiled</div>
@@ -19,17 +26,16 @@ const x = 1;
 </script>
 <style src="./my-component.css"></style>
 
+================================================================================
 `;
 
-exports[`without-pragma.vue - vue-verify 1`] = `
-<template>
-  <div>This will be pre-compiled</div>
-</template>
-<script>
-const    x      = 1;
-</script>
-<style src="./my-component.css"></style>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`without-pragma.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+requirePragma: true
+                                                                                | printWidth
+=====================================input======================================
 <template>
   <div>This will be pre-compiled</div>
 </template>
@@ -38,4 +44,14 @@ const    x      = 1;
 </script>
 <style src="./my-component.css"></style>
 
+=====================================output=====================================
+<template>
+  <div>This will be pre-compiled</div>
+</template>
+<script>
+const    x      = 1;
+</script>
+<style src="./my-component.css"></style>
+
+================================================================================
 `;

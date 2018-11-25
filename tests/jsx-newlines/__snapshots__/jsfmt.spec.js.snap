@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 keep = <p>
   Welcome to the <strong>Universal React Starter-kyt</strong>.
   This starter kyt should serve as the base for an advanced,
@@ -95,7 +100,8 @@ regression_extra_newline_2 = (
     )
   </div>
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 keep = (
   <p>
     Welcome to the <strong>Universal React Starter-kyt</strong>. This starter
@@ -154,13 +160,21 @@ regression_extra_newline_2 = (
   </div>
 );
 
+================================================================================
 `;
 
-exports[`windows.js - flow-verify 1`] = `
+exports[`windows.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>
 Text
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>Text</div>;
 
+================================================================================
 `;

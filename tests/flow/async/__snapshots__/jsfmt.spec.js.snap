@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`async.js - flow-verify 1`] = `
+exports[`async.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // "For async functions, a Promise<T> is returned,
@@ -53,7 +58,8 @@ class C {
 
 var obj = { f: async () => await 1 };
 var objf : () => Promise<number> = obj.f;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // "For async functions, a Promise<T> is returned,
@@ -115,9 +121,15 @@ class C {
 var obj = { f: async () => await 1 };
 var objf: () => Promise<number> = obj.f;
 
+================================================================================
 `;
 
-exports[`async_base_class.js - flow-verify 1`] = `
+exports[`async_base_class.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // This is kind of weird, but it should parse. This works in babel without the
 // parens around (await promise). From the es6 and async/await specs I (nmote)
 // am not clear on whether it should. In any case it's a strange corner case
@@ -132,7 +144,8 @@ async function foo() {
   class Bar extends (await P) { }
   return Bar;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // This is kind of weird, but it should parse. This works in babel without the
 // parens around (await promise). From the es6 and async/await specs I (nmote)
 // am not clear on whether it should. In any case it's a strange corner case
@@ -148,9 +161,15 @@ async function foo() {
   return Bar;
 }
 
+================================================================================
 `;
 
-exports[`async_parse.js - flow-verify 1`] = `
+exports[`async_parse.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 async function f() {}
 async function ft<T>(a: T) {}
 
@@ -175,7 +194,8 @@ console.log(x.async);
 
 var async = 3;
 var y = { async };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 async function f() {}
 async function ft<T>(a: T) {}
 
@@ -201,20 +221,33 @@ console.log(x.async);
 var async = 3;
 var y = { async };
 
+================================================================================
 `;
 
-exports[`async_promise.js - flow-verify 1`] = `
+exports[`async_promise.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 async function f(): Promise<number> {
   return Promise.resolve(1);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 async function f(): Promise<number> {
   return Promise.resolve(1);
 }
 
+================================================================================
 `;
 
-exports[`async_return_void.js - flow-verify 1`] = `
+exports[`async_return_void.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 async function foo1(): Promise<string> {
@@ -229,7 +262,8 @@ async function foo3(): Promise<string> {
   function bar() { }
   return bar();
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 async function foo1(): Promise<string> {
@@ -245,9 +279,15 @@ async function foo3(): Promise<string> {
   return bar();
 }
 
+================================================================================
 `;
 
-exports[`async2.js - flow-verify 1`] = `
+exports[`async2.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // misc basic
@@ -308,7 +348,8 @@ function test5() {
     console.log("HEY");
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // misc basic
@@ -372,9 +413,15 @@ function test5() {
   }
 }
 
+================================================================================
 `;
 
-exports[`async3.js - flow-verify 1`] = `
+exports[`async3.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 /**
@@ -407,7 +454,8 @@ async function baz() {
   // Promise ~> string error for the same reason
   var c: string = a;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 /**
@@ -440,9 +488,15 @@ async function baz() {
   var c: string = a;
 }
 
+================================================================================
 `;
 
-exports[`await_parse.js - flow-verify 1`] = `
+exports[`await_parse.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 async function f() { await 1; }
 async function ft<T>(a: T) { await 1; }
 
@@ -467,7 +521,8 @@ console.log(x.await);
 
 var await = 3;
 var y = { await };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 async function f() {
   await 1;
 }
@@ -523,4 +578,5 @@ console.log(x.await);
 var await = 3;
 var y = { await };
 
+================================================================================
 `;

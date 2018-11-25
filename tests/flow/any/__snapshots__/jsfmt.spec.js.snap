@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`any.js - flow-verify 1`] = `
+exports[`any.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 function foo(x:any):any { return x; }
@@ -10,7 +15,8 @@ function qux(x:mixed):any { return x; }
 var x:string = foo(0);
 var y:string = bar(0);
 var z:string = qux(0);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 function foo(x: any): any {
@@ -27,20 +33,33 @@ var x: string = foo(0);
 var y: string = bar(0);
 var z: string = qux(0);
 
+================================================================================
 `;
 
-exports[`anyexportflowfile.js - flow-verify 1`] = `
+exports[`anyexportflowfile.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 module.exports = ((x: any) => x: any);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 module.exports = ((x: any) => x: any);
 
+================================================================================
 `;
 
-exports[`flowfixme.js - flow-verify 1`] = `
+exports[`flowfixme.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
   FlowFixMe is a synonym for any, used by the Flow team to
   signal a needed mod to JS devs.
@@ -60,7 +79,8 @@ var x:string = foo(0);
 var y:string = bar(0);
 var z:string = qux(0);
 var w:string = baz(0);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
   FlowFixMe is a synonym for any, used by the Flow team to
   signal a needed mod to JS devs.
@@ -89,9 +109,15 @@ var y: string = bar(0);
 var z: string = qux(0);
 var w: string = baz(0);
 
+================================================================================
 `;
 
-exports[`flowissue.js - flow-verify 1`] = `
+exports[`flowissue.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
   $FlowIssue is a synonym for any, used by JS devs to signal
   a potential typechecker bug to the Flow team.
@@ -111,7 +137,8 @@ var x:string = foo(0);
 var y:string = bar(0);
 var z:string = qux(0);
 var w:string = baz(0);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
   $FlowIssue is a synonym for any, used by JS devs to signal
   a potential typechecker bug to the Flow team.
@@ -140,20 +167,33 @@ var y: string = bar(0);
 var z: string = qux(0);
 var w: string = baz(0);
 
+================================================================================
 `;
 
-exports[`nonflowfile.js - flow-verify 1`] = `
+exports[`nonflowfile.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 module.exports = (x) => x;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 module.exports = x => x;
 
+================================================================================
 `;
 
-exports[`propagate.js - flow-verify 1`] = `
+exports[`propagate.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 declare class C {
@@ -179,7 +219,8 @@ function bar2(x: mixed) {
     (x: boolean);
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 declare class C {
@@ -206,9 +247,15 @@ function bar2(x: mixed) {
   }
 }
 
+================================================================================
 `;
 
-exports[`reach.js - flow-verify 1`] = `
+exports[`reach.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * like class and function values, any-typed values may be used in
  * type annotations. Here we test propagation of any through the
@@ -222,7 +269,8 @@ function foo(o: ?AsyncRequest) {
     var n: number = o;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * like class and function values, any-typed values may be used in
  * type annotations. Here we test propagation of any through the
@@ -237,4 +285,5 @@ function foo(o: ?AsyncRequest) {
   }
 }
 
+================================================================================
 `;

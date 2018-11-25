@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`directive_decl.graphql - graphql-verify 1`] = `
+exports[`directive_decl.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 directive @dir(
   # comment
   arg1: String
@@ -11,7 +16,8 @@ directive @dir(
   arg3: String
 
 ) on QUERY
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 directive @dir(
   # comment
   arg1: String
@@ -21,9 +27,15 @@ directive @dir(
   arg3: String
 ) on QUERY
 
+================================================================================
 `;
 
-exports[`directives.graphql - graphql-verify 1`] = `
+exports[`directives.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 query MyQuery @directive(
   arg: 5
 
@@ -41,7 +53,8 @@ query MyQuery @directive(
   otherField
   ...fragmentSpread, @include(if: ["this isn't even a boolean", "wow, that's really odd",,,,,])
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 query MyQuery
   @directive(
     arg: 5
@@ -62,9 +75,15 @@ query MyQuery
     @include(if: ["this isn't even a boolean", "wow, that's really odd"])
 }
 
+================================================================================
 `;
 
-exports[`enum.graphql - graphql-verify 1`] = `
+exports[`enum.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 enum State {
   # pending state
   PENDING
@@ -76,7 +95,8 @@ enum State {
   # archive state
   ARCHIVED
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 enum State {
   # pending state
   PENDING
@@ -89,9 +109,15 @@ enum State {
   ARCHIVED
 }
 
+================================================================================
 `;
 
-exports[`fields.graphql - graphql-verify 1`] = `
+exports[`fields.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 query MyFirstQuery {
   # comment
   field {
@@ -127,7 +153,8 @@ subscription MySubscription {
   kind
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 query MyFirstQuery {
   # comment
   field {
@@ -157,9 +184,15 @@ subscription MySubscription {
   kind
 }
 
+================================================================================
 `;
 
-exports[`input.graphql - graphql-verify 1`] = `
+exports[`input.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 input Params {
   # Id
   id: ID
@@ -168,7 +201,8 @@ input Params {
   name: String
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 input Params {
   # Id
   id: ID
@@ -177,9 +211,15 @@ input Params {
   name: String
 }
 
+================================================================================
 `;
 
-exports[`interface.graphql - graphql-verify 1`] = `
+exports[`interface.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface Actor {
   # Id
   id: ID
@@ -189,7 +229,8 @@ interface Actor {
   kind: String
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface Actor {
   # Id
   id: ID
@@ -199,9 +240,15 @@ interface Actor {
   kind: String
 }
 
+================================================================================
 `;
 
-exports[`object_type_def.graphql - graphql-verify 1`] = `
+exports[`object_type_def.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type Artist implements Node, Entity {
   # The ID of an object
   id: ID!
@@ -224,7 +271,8 @@ type Artist implements Node, Entity {
   ): ReleaseConnection
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type Artist implements Node, Entity {
   # The ID of an object
   id: ID!
@@ -247,9 +295,15 @@ type Artist implements Node, Entity {
   ): ReleaseConnection
 }
 
+================================================================================
 `;
 
-exports[`schema.graphql - graphql-verify 1`] = `
+exports[`schema.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 # Schema
 schema {
   # Query and Mutation
@@ -260,7 +314,8 @@ schema {
   subscription: Subscription
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 # Schema
 schema {
   # Query and Mutation
@@ -271,4 +326,5 @@ schema {
   subscription: Subscription
 }
 
+================================================================================
 `;
