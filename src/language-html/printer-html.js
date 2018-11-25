@@ -101,6 +101,18 @@ function embed(path, print, textToDoc, options) {
         break;
       }
 
+      // lit-html: html`<my-element obj=${obj}></my-element>`
+      if (
+        /^PRETTIER_PLACEHOLDER_\d+$/.test(
+          options.originalText.slice(
+            node.valueSpan.start.offset,
+            node.valueSpan.end.offset
+          )
+        )
+      ) {
+        return concat([node.rawName, "=", node.value]);
+      }
+
       const embeddedAttributeValueDoc = printEmbeddedAttributeValue(
         node,
         (code, opts) =>
