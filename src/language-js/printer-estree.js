@@ -2096,7 +2096,6 @@ function printPathNoParens(path, options, print, args) {
       );
     }
     case "JSXFragment":
-    case "TSJsxFragment":
     case "JSXElement": {
       const elem = comments.printComments(
         path,
@@ -2202,14 +2201,11 @@ function printPathNoParens(path, options, print, args) {
     case "JSXClosingElement":
       return concat(["</", path.call(print, "name"), ">"]);
     case "JSXOpeningFragment":
-    case "JSXClosingFragment":
-    case "TSJsxOpeningFragment":
-    case "TSJsxClosingFragment": {
+    case "JSXClosingFragment": {
       const hasComment = n.comments && n.comments.length;
       const hasOwnLineComment =
         hasComment && !n.comments.every(handleComments.isBlockComment);
-      const isOpeningFragment =
-        n.type === "JSXOpeningFragment" || n.type === "TSJsxOpeningFragment";
+      const isOpeningFragment = n.type === "JSXOpeningFragment";
       return concat([
         isOpeningFragment ? "<" : "</",
         indent(
@@ -4977,11 +4973,7 @@ function isCallOrOptionalCallExpression(node) {
 }
 
 function isJSXNode(node) {
-  return (
-    node.type === "JSXElement" ||
-    node.type === "JSXFragment" ||
-    node.type === "TSJsxFragment"
-  );
+  return node.type === "JSXElement" || node.type === "JSXFragment";
 }
 
 function isEmptyJSXElement(node) {
@@ -5523,7 +5515,6 @@ function maybeWrapJSXElementInParens(path, elem) {
     JSXElement: true,
     JSXExpressionContainer: true,
     JSXFragment: true,
-    TSJsxFragment: true,
     ExpressionStatement: true,
     CallExpression: true,
     OptionalCallExpression: true,
