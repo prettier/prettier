@@ -1,15 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`keyof.ts - typescript-verify 1`] = `
+exports[`keyof.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type A = keyof (T | U);
 type B = keyof (X & Y);
 type C = keyof T | U;
 type D = keyof X & Y;
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type A = keyof (T | U);
 type B = keyof (X & Y);
 type C = keyof T | U;
 type D = keyof X & Y;
 
+================================================================================
 `;

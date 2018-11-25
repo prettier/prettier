@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`grid.css - css-verify 1`] = `
+exports[`grid.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* quotes */
 div {
   grid-template-areas:
@@ -115,7 +120,8 @@ div {
   grid-area: main;
   grid-area: 1 / main-start / 3 / main-end;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* quotes */
 div {
   grid-template-areas:
@@ -231,4 +237,5 @@ div {
   grid-area: 1 / main-start / 3 / main-end;
 }
 
+================================================================================
 `;

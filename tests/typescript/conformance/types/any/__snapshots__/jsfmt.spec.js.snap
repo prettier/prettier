@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`anyAsConstructor.ts - typescript-verify 1`] = `
+exports[`anyAsConstructor.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // any is considered an untyped function call
 // can be called except with type arguments which is an error
 
@@ -11,7 +16,8 @@ var c = new x(x);
 
 // grammar allows this for constructors
 var d = new x<any>(x); // no error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // any is considered an untyped function call
 // can be called except with type arguments which is an error
 
@@ -23,9 +29,15 @@ var c = new x(x);
 // grammar allows this for constructors
 var d = new x<any>(x); // no error
 
+================================================================================
 `;
 
-exports[`anyAsFunctionCall.ts - typescript-verify 1`] = `
+exports[`anyAsFunctionCall.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // any is considered an untyped function call
 // can be called except with type arguments which is an error
 
@@ -33,7 +45,8 @@ var x: any;
 var a = x();
 var b = x('hello');
 var c = x(x);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // any is considered an untyped function call
 // can be called except with type arguments which is an error
 
@@ -42,9 +55,15 @@ var a = x();
 var b = x("hello");
 var c = x(x);
 
+================================================================================
 `;
 
-exports[`anyAsGenericFunctionCall.ts - typescript-verify 1`] = `
+exports[`anyAsGenericFunctionCall.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // any is considered an untyped function call
 // can be called except with type arguments which is an error
 
@@ -56,7 +75,8 @@ var c = x<object>('hello');
 class C { foo: string; }
 var c = x<C>(x);
 var d = x<any>(x);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // any is considered an untyped function call
 // can be called except with type arguments which is an error
 
@@ -71,9 +91,15 @@ class C {
 var c = x<C>(x);
 var d = x<any>(x);
 
+================================================================================
 `;
 
-exports[`anyPropertyAccess.ts - typescript-verify 1`] = `
+exports[`anyPropertyAccess.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x: any;
 var a = x.foo;
 var b = x['foo'];
@@ -81,7 +107,8 @@ var c = x['fn']();
 var d = x.bar.baz;
 var e = x[0].foo;
 var f = x['0'].bar;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x: any;
 var a = x.foo;
 var b = x["foo"];
@@ -90,4 +117,5 @@ var d = x.bar.baz;
 var e = x[0].foo;
 var f = x["0"].bar;
 
+================================================================================
 `;

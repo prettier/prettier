@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ambientDeclarations.ts - typescript-verify 1`] = `
+exports[`ambientDeclarations.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare var n;
 
 declare var m: string;
@@ -27,7 +32,8 @@ declare class cls {
     private fn();
     private static fns();
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare var n;
 
 declare var m: string;
@@ -55,4 +61,5 @@ declare class cls {
   private static fns();
 }
 
+================================================================================
 `;

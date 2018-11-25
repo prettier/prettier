@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`builtin.js - flow-verify 1`] = `
+exports[`builtin.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -13,7 +18,8 @@ var lengthTest1: IHasLength = [];
 var lengthTest2: IHasLength = 'hello';
 var lengthTest3: IHasLength = 123; // number doesn't have length
 var lengthTest4: IHasLength = true; // bool doesn't have length
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -27,9 +33,15 @@ var lengthTest2: IHasLength = "hello";
 var lengthTest3: IHasLength = 123; // number doesn't have length
 var lengthTest4: IHasLength = true; // bool doesn't have length
 
+================================================================================
 `;
 
-exports[`class.js - flow-verify 1`] = `
+exports[`class.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -53,7 +65,8 @@ interface IHasYString {
 var testInstance1: IHasXString = new ClassWithXString();
 var testInstance2: IHasXNumber = new ClassWithXString(); // Error wrong type
 var testInstance3: IHasYString = new ClassWithXString(); // Error missing prop
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -78,9 +91,15 @@ var testInstance1: IHasXString = new ClassWithXString();
 var testInstance2: IHasXNumber = new ClassWithXString(); // Error wrong type
 var testInstance3: IHasYString = new ClassWithXString(); // Error missing prop
 
+================================================================================
 `;
 
-exports[`obj.js - flow-verify 1`] = `
+exports[`obj.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -101,7 +120,8 @@ function propTest5(y: {[key: string]: string}) {
 function propTest6(y: {[key: string]: number}) {
   (y: IHasXString); // error: string != number
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -123,9 +143,15 @@ function propTest6(y: { [key: string]: number }) {
   (y: IHasXString); // error: string != number
 }
 
+================================================================================
 `;
 
-exports[`optional.js - flow-verify 1`] = `
+exports[`optional.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 interface HasOptional {
@@ -138,7 +164,8 @@ var test1: HasOptional = { a: "hello" }
 var test2: HasOptional = {}; // Error: missing property a
 
 var test3: HasOptional = { a: "hello", b: true }; // Error: boolean ~> number
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 interface HasOptional {
@@ -152,4 +179,5 @@ var test2: HasOptional = {}; // Error: missing property a
 
 var test3: HasOptional = { a: "hello", b: true }; // Error: boolean ~> number
 
+================================================================================
 `;

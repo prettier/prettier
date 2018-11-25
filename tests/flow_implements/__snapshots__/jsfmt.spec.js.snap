@@ -1,16 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`implements.js - flow-verify 1`] = `
-class A implements B {}
-class A implements B, C {}
-declare class A implements B {}
-declare class A mixins B implements C {}
-declare class A implements B, C {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`implements.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A implements B {}
 class A implements B, C {}
 declare class A implements B {}
 declare class A mixins B implements C {}
 declare class A implements B, C {}
 
+=====================================output=====================================
+class A implements B {}
+class A implements B, C {}
+declare class A implements B {}
+declare class A mixins B implements C {}
+declare class A implements B, C {}
+
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Fun.js - flow-verify 1`] = `
+exports[`Fun.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 /* @providesModule Fun */
 
@@ -31,7 +36,8 @@ var factorial = mk_factorial();
 factorial("...");
 
 module.exports = {fn: fix};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @providesModule Fun */
 
 function eq(x: number, y: number) {
@@ -70,9 +76,15 @@ factorial("...");
 
 module.exports = { fn: fix };
 
+================================================================================
 `;
 
-exports[`Ycombinator.js - flow-verify 1`] = `
+exports[`Ycombinator.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 /* @providesModule Ycombinator */
 
@@ -94,7 +106,8 @@ Y(func1);
 Y(func2);
 
 module.exports = Y;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @providesModule Ycombinator */
 
 function Y(f) {
@@ -122,4 +135,5 @@ Y(func2);
 
 module.exports = Y;
 
+================================================================================
 `;

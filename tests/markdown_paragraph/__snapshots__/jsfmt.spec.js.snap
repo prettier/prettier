@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cjk.md - markdown-verify 1`] = `
+exports[`cjk.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
 
 這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
@@ -16,7 +22,8 @@ This ia an english paragraph with a CJK quote “中文“.
 ::: warning 注意
 该网站在国外无法访问，故以下演示无效
 :::
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長
 很長的段落
 
@@ -42,9 +49,16 @@ This ia an english paragraph with a CJK quote “中文“.
 
 ::: warning 注意该网站在国外无法访问，故以下演示无效 :::
 
+================================================================================
 `;
 
-exports[`cjk.md - markdown-verify 2`] = `
+exports[`cjk.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
 
 這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
@@ -60,7 +74,8 @@ This ia an english paragraph with a CJK quote “中文“.
 ::: warning 注意
 该网站在国外无法访问，故以下演示无效
 :::
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
 
 這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！
@@ -75,9 +90,16 @@ This ia an english paragraph with a CJK quote “中文“.
 
 ::: warning 注意该网站在国外无法访问，故以下演示无效 :::
 
+================================================================================
 `;
 
-exports[`cjk.md - markdown-verify 3`] = `
+exports[`cjk.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
 
 這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！這是一個English混合著中文的一段Paragraph！
@@ -93,7 +115,8 @@ This ia an english paragraph with a CJK quote “中文“.
 ::: warning 注意
 该网站在国外无法访问，故以下演示无效
 :::
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落
 
 這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！這是一個 English 混合著中文的一段 Paragraph！
@@ -110,32 +133,63 @@ This ia an english paragraph with a CJK quote “中文“.
 该网站在国外无法访问，故以下演示无效
 :::
 
+================================================================================
 `;
 
-exports[`inline-nodes.md - markdown-verify 1`] = `
+exports[`inline-nodes.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 It removes all original styling[\\*](#styling-footnote) and ensures that all
 outputted code conforms to a consistent style. (See this
 [blog post](http://jlongster.com/A-Prettier-Formatter))
 
+================================================================================
 `;
 
-exports[`inline-nodes.md - markdown-verify 2`] = `
+exports[`inline-nodes.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 It removes all original styling[\\*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
+================================================================================
 `;
 
-exports[`inline-nodes.md - markdown-verify 3`] = `
+exports[`inline-nodes.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
 It removes all original styling[*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 It removes all original styling[\\*](#styling-footnote) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
 
+================================================================================
 `;
 
-exports[`lorem.md - markdown-verify 1`] = `
+exports[`lorem.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 Hic dicta et recusandae incidunt. Reiciendis saepe voluptatem tempore rem aut.
 Iusto sapiente impedit. Laudantium ut id non et aperiam ab.
  
@@ -146,7 +200,8 @@ Architecto esse ut aut autem ullam consequatur reiciendis aliquid dolorum.
  
 Et quam mollitia velit iste enim exercitationem nemo.
 Hic dignissimos eos et. Eos eos consequatur.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 Hic dicta et recusandae incidunt. Reiciendis saepe voluptatem tempore rem aut.
 Iusto sapiente impedit. Laudantium ut id non et aperiam ab.
 
@@ -159,9 +214,16 @@ consequatur reiciendis aliquid dolorum.
 Et quam mollitia velit iste enim exercitationem nemo. Hic dignissimos eos et.
 Eos eos consequatur.
 
+================================================================================
 `;
 
-exports[`lorem.md - markdown-verify 2`] = `
+exports[`lorem.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 Hic dicta et recusandae incidunt. Reiciendis saepe voluptatem tempore rem aut.
 Iusto sapiente impedit. Laudantium ut id non et aperiam ab.
  
@@ -172,16 +234,24 @@ Architecto esse ut aut autem ullam consequatur reiciendis aliquid dolorum.
  
 Et quam mollitia velit iste enim exercitationem nemo.
 Hic dignissimos eos et. Eos eos consequatur.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 Hic dicta et recusandae incidunt. Reiciendis saepe voluptatem tempore rem aut. Iusto sapiente impedit. Laudantium ut id non et aperiam ab.
 
 Sit minus architecto quas quibusdam sed ipsam aut eum. Dolores tempora reiciendis magni blanditiis laborum aliquid rem corporis enim. Et consectetur quo sed excepturi soluta repudiandae commodi id. Eum possimus optio distinctio incidunt quasi optio culpa accusamus. Architecto esse ut aut autem ullam consequatur reiciendis aliquid dolorum.
 
 Et quam mollitia velit iste enim exercitationem nemo. Hic dignissimos eos et. Eos eos consequatur.
 
+================================================================================
 `;
 
-exports[`lorem.md - markdown-verify 3`] = `
+exports[`lorem.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
 Hic dicta et recusandae incidunt. Reiciendis saepe voluptatem tempore rem aut.
 Iusto sapiente impedit. Laudantium ut id non et aperiam ab.
  
@@ -192,7 +262,8 @@ Architecto esse ut aut autem ullam consequatur reiciendis aliquid dolorum.
  
 Et quam mollitia velit iste enim exercitationem nemo.
 Hic dignissimos eos et. Eos eos consequatur.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 Hic dicta et recusandae incidunt. Reiciendis saepe voluptatem tempore rem aut.
 Iusto sapiente impedit. Laudantium ut id non et aperiam ab.
 
@@ -204,31 +275,62 @@ Architecto esse ut aut autem ullam consequatur reiciendis aliquid dolorum.
 Et quam mollitia velit iste enim exercitationem nemo.
 Hic dignissimos eos et. Eos eos consequatur.
 
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 1`] = `
+exports[`simple.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 This is a long long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 This is a long long long long long long long long long long long long long long
 long paragraph.
 
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 2`] = `
-This is a long long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`simple.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 This is a long long long long long long long long long long long long long long long paragraph.
 
+=====================================output=====================================
+This is a long long long long long long long long long long long long long long long paragraph.
+
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 3`] = `
-This is a long long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`simple.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
 This is a long long long long long long long long long long long long long long long paragraph.
 
+=====================================output=====================================
+This is a long long long long long long long long long long long long long long long paragraph.
+
+================================================================================
 `;
 
-exports[`special-prefix.md - markdown-verify 1`] = `
+exports[`special-prefix.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc - abc abc abc 
 
 ## Supported Rules
@@ -250,7 +352,8 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
   ensure expect is called correctly.
 
 She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc
 abc - abc abc abc
 
@@ -279,9 +382,16 @@ abc - abc abc abc
 She grew up in an isolated village in the 19th century and met her father
 aged 29. Oh no, why are we in a numbered list now?
 
+================================================================================
 `;
 
-exports[`special-prefix.md - markdown-verify 2`] = `
+exports[`special-prefix.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc - abc abc abc 
 
 ## Supported Rules
@@ -303,7 +413,8 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
   ensure expect is called correctly.
 
 She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc - abc abc abc
 
 ## Supported Rules
@@ -325,9 +436,16 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
 
 She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?
 
+================================================================================
 `;
 
-exports[`special-prefix.md - markdown-verify 3`] = `
+exports[`special-prefix.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
 abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc - abc abc abc 
 
 ## Supported Rules
@@ -349,7 +467,8 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
   ensure expect is called correctly.
 
 She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc - abc abc abc
 
 ## Supported Rules
@@ -372,9 +491,16 @@ abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc 
 
 She grew up in an isolated village in the 19th century and met her father aged 29. Oh no, why are we in a numbered list now?
 
+================================================================================
 `;
 
-exports[`whitespace.md - markdown-verify 1`] = `
+exports[`whitespace.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 <!-- 0xA0 non-breaking whitespace -->
 
 keep these words together keep these words together keep these words together keep these words together
@@ -382,7 +508,8 @@ keep these words together keep these words together keep these words 
 <!-- 0x20 standard whitespace -->
 
 keep these words together keep these words together keep these words together keep these words together
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- 0xA0 non-breaking whitespace -->
 
 keep these words together keep these words together keep these words together keep these words together
@@ -392,9 +519,16 @@ keep these words together keep these words together keep these words 
 keep these words together keep these words together keep these words together
 keep these words together
 
+================================================================================
 `;
 
-exports[`whitespace.md - markdown-verify 2`] = `
+exports[`whitespace.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 <!-- 0xA0 non-breaking whitespace -->
 
 keep these words together keep these words together keep these words together keep these words together
@@ -402,7 +536,8 @@ keep these words together keep these words together keep these words 
 <!-- 0x20 standard whitespace -->
 
 keep these words together keep these words together keep these words together keep these words together
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- 0xA0 non-breaking whitespace -->
 
 keep these words together keep these words together keep these words together keep these words together
@@ -411,9 +546,16 @@ keep these words together keep these words together keep these words 
 
 keep these words together keep these words together keep these words together keep these words together
 
+================================================================================
 `;
 
-exports[`whitespace.md - markdown-verify 3`] = `
+exports[`whitespace.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
 <!-- 0xA0 non-breaking whitespace -->
 
 keep these words together keep these words together keep these words together keep these words together
@@ -421,7 +563,8 @@ keep these words together keep these words together keep these words 
 <!-- 0x20 standard whitespace -->
 
 keep these words together keep these words together keep these words together keep these words together
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- 0xA0 non-breaking whitespace -->
 
 keep these words together keep these words together keep these words together keep these words together
@@ -430,4 +573,5 @@ keep these words together keep these words together keep these words 
 
 keep these words together keep these words together keep these words together keep these words together
 
+================================================================================
 `;

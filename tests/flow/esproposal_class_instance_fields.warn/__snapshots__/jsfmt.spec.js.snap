@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 class Foo {
@@ -8,7 +13,8 @@ class Foo {
   initOnly = 'asdf';
   initWithAnnotation: string = 'asdf';
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 class Foo {
@@ -17,4 +23,5 @@ class Foo {
   initWithAnnotation: string = "asdf";
 }
 
+================================================================================
 `;

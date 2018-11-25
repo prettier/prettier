@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`front-matter.md - markdown-verify 1`] = `
+exports[`front-matter.md 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ---
 something
 ---
@@ -8,7 +14,8 @@ something
 # hello world
 
 some content some content some content some content
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ---
 something
 ---
@@ -19,28 +26,44 @@ something
 
 some content some content some content some content
 
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 1`] = `
+exports[`simple.md 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 # hello world
 
 some content some content some content some content
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- @format -->
 
 # hello world
 
 some content some content some content some content
 
+================================================================================
 `;
 
-exports[`start-with-comment.md - markdown-verify 1`] = `
+exports[`start-with-comment.md 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!-- something -->
 
 # hello world
 
 some content some content some content some content
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- @format -->
 
 <!-- something -->
@@ -49,4 +72,5 @@ some content some content some content some content
 
 some content some content some content some content
 
+================================================================================
 `;

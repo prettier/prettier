@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`immutable.js - flow-verify 1`] = `
+exports[`immutable.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 declare class Array<T> { }
@@ -10,7 +15,8 @@ declare class Iterable<S> {
   static <T>(iter: Array<T>): Iterable<T>;
   size: number;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 declare class Array<T> {}
@@ -21,4 +27,5 @@ declare class Iterable<S> {
   size: number;
 }
 
+================================================================================
 `;

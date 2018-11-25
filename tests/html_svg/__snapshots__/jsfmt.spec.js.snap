@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`svg.html - html-verify 1`] = `
+exports[`svg.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!DOCTYPE html>
 <html>
   <head>
@@ -45,7 +50,8 @@ exports[`svg.html - html-verify 1`] = `
     </div>
   </foreignObject>
 </svg>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!DOCTYPE html>
 <html>
   <head>
@@ -99,4 +105,5 @@ exports[`svg.html - html-verify 1`] = `
   </foreignObject>
 </svg>
 
+================================================================================
 `;

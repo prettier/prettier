@@ -1,8 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`return-outside-function.js - babylon-verify 1`] = `
+exports[`return-outside-function.js 1`] = `
+====================================options=====================================
+parsers: ["babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 return someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 return (
   someVeryLongStringA &&
   someVeryLongStringB &&
@@ -10,4 +16,5 @@ return (
   someVeryLongStringD
 );
 
+================================================================================
 `;

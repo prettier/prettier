@@ -55,40 +55,43 @@ global.run_spec = (dirname, parsers, options) => {
       return "";
     });
 
-    const formatOptions = Object.assign({ printWidth: 80 }, options, {
-      parser: parsers[0],
+    const baseOptions = Object.assign({ printWidth: 80 }, options, {
       rangeStart,
       rangeEnd,
       cursorOffset
     });
+    const mainOptions = Object.assign({}, baseOptions, {
+      parser: parsers[0]
+    });
 
-    const hasEndOfLine = "endOfLine" in formatOptions;
+    const hasEndOfLine = "endOfLine" in mainOptions;
 
-    const output = format(input, filename, formatOptions);
+    const output = format(input, filename, mainOptions);
     const visualizedOutput = visualizeEndOfLine(output);
 
-    test(`${basename} - ${formatOptions.parser}-verify`, () => {
+    test(basename, () => {
       expect(visualizedOutput).toEqual(
         visualizeEndOfLine(consistentEndOfLine(output))
       );
       expect(
         raw(
-          (hasEndOfLine
-            ? visualizeEndOfLine(
-                text
-                  .replace(RANGE_START_PLACEHOLDER, "")
-                  .replace(RANGE_END_PLACEHOLDER, "")
-              )
-            : source) +
-            "~".repeat(formatOptions.printWidth) +
-            "\n" +
-            (hasEndOfLine ? visualizedOutput : output)
+          createSnapshot(
+            hasEndOfLine
+              ? visualizeEndOfLine(
+                  text
+                    .replace(RANGE_START_PLACEHOLDER, "")
+                    .replace(RANGE_END_PLACEHOLDER, "")
+                )
+              : source,
+            hasEndOfLine ? visualizedOutput : output,
+            Object.assign({}, baseOptions, { parsers })
+          )
         )
       ).toMatchSnapshot();
     });
 
     for (const parser of parsers.slice(1)) {
-      const verifyOptions = Object.assign({}, formatOptions, { parser });
+      const verifyOptions = Object.assign({}, baseOptions, { parser });
       test(`${basename} - ${parser}-verify`, () => {
         const verifyOutput = format(input, filename, verifyOptions);
         expect(visualizedOutput).toEqual(visualizeEndOfLine(verifyOutput));
@@ -97,7 +100,7 @@ global.run_spec = (dirname, parsers, options) => {
 
     if (AST_COMPARE) {
       test(`${filename} parse`, () => {
-        const parseOptions = Object.assign({}, formatOptions);
+        const parseOptions = Object.assign({}, mainOptions);
         delete parseOptions.cursorOffset;
 
         const originalAst = parse(input, parseOptions);
@@ -155,4 +158,58 @@ function visualizeEndOfLine(text) {
         throw new Error(`Unexpected end of line ${JSON.stringify(endOfLine)}`);
     }
   });
+}
+
+function createSnapshot(input, output, options) {
+  const separatorWidth = 80;
+  const printWidthIndicator =
+    options.printWidth > 0 && Number.isFinite(options.printWidth)
+      ? " ".repeat(options.printWidth) + "| printWidth"
+      : [];
+  return []
+    .concat(
+      printSeparator(separatorWidth, "options"),
+      printOptions(
+        omit(
+          options,
+          k => k === "rangeStart" || k === "rangeEnd" || k === "cursorOffset"
+        )
+      ),
+      printWidthIndicator,
+      printSeparator(separatorWidth, "input"),
+      input,
+      printSeparator(separatorWidth, "output"),
+      output,
+      printSeparator(separatorWidth)
+    )
+    .join("\n");
+}
+
+function printSeparator(width, description) {
+  description = description || "";
+  const leftLength = Math.floor((width - description.length) / 2);
+  const rightLength = width - leftLength - description.length;
+  return "=".repeat(leftLength) + description + "=".repeat(rightLength);
+}
+
+function printOptions(options) {
+  const keys = Object.keys(options).sort();
+  return keys.map(key => `${key}: ${stringify(options[key])}`).join("\n");
+  function stringify(value) {
+    return value === Infinity
+      ? "Infinity"
+      : Array.isArray(value)
+      ? `[${value.map(v => JSON.stringify(v)).join(", ")}]`
+      : JSON.stringify(value);
+  }
+}
+
+function omit(obj, fn) {
+  return Object.keys(obj).reduce((reduced, key) => {
+    const value = obj[key];
+    if (!fn(key, value)) {
+      reduced[key] = value;
+    }
+    return reduced;
+  }, {});
 }

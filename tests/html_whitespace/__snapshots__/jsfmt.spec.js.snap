@@ -1,19 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break-tags.html - html-verify 1`] = `
+exports[`break-tags.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <a>Lorem</a>, ispum dolor sit <strong>amet</strong>.
 <div><a>Lorem</a>, ispum dolor sit <strong>amet</strong>.</div>
 <div><div><a>Lorem</a>, ispum dolor sit <strong>amet</strong>.</div></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <a>Lorem</a>, ispum dolor sit <strong>amet</strong>.
 <div><a>Lorem</a>, ispum dolor sit <strong>amet</strong>.</div>
 <div>
   <div><a>Lorem</a>, ispum dolor sit <strong>amet</strong>.</div>
 </div>
 
+================================================================================
 `;
 
-exports[`display-inline-block.html - html-verify 1`] = `
+exports[`display-inline-block.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
 <button>
 Click here! Click here! Click here! Click here! Click here! Click here!
@@ -26,7 +38,8 @@ Click here! Click here! Click here! Click here! Click here! Click here!
 <button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
 </div>
 <video src="brave.webm"><track kind=subtitles src=brave.en.vtt srclang=en label="English"><track kind=subtitles src=brave.en.vtt srclang=en label="English"></video>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <button>
   Click here! Click here! Click here! Click here! Click here! Click here!
 </button>
@@ -53,11 +66,18 @@ Click here! Click here! Click here! Click here! Click here! Click here!
   <track kind="subtitles" src="brave.en.vtt" srclang="en" label="English" />
 </video>
 
+================================================================================
 `;
 
-exports[`display-none.html - html-verify 1`] = `
+exports[`display-none.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!DOCTYPE html><HTML CLASS="no-js mY-ClAsS"><HEAD><META CHARSET="utf-8"><TITLE>My tITlE</TITLE><META NAME="description" content="My CoNtEnT"></HEAD></HTML>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!DOCTYPE html>
 <html class="no-js mY-ClAsS">
   <head>
@@ -67,9 +87,15 @@ exports[`display-none.html - html-verify 1`] = `
   </head>
 </html>
 
+================================================================================
 `;
 
-exports[`fill.html - html-verify 1`] = `
+exports[`fill.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <p>
   <img
     src="/images/pansies.jpg"
@@ -81,7 +107,8 @@ exports[`fill.html - html-verify 1`] = `
   members 40%. Consumer and worker members share proportionately in the cooperative&#8217;s
   profits through our annual patronage dividends.
 </p>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <p>
   <img
     src="/images/pansies.jpg"
@@ -95,20 +122,33 @@ exports[`fill.html - html-verify 1`] = `
   patronage dividends.
 </p>
 
+================================================================================
 `;
 
-exports[`inline-leading-trailing-spaces.html - html-verify 1`] = `
+exports[`inline-leading-trailing-spaces.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <span> 321 </span>
 
 <span> <a>321</a> </span>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <span> 321 </span>
 
 <span> <a>321</a> </span>
 
+================================================================================
 `;
 
-exports[`inline-nodes.html - html-verify 1`] = `
+exports[`inline-nodes.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce cursus massa vel augue 
 vestibulum facilisis in porta turpis. Ut faucibus lectus sit amet urna consectetur dignissim.
 Sam vitae neque quis ex dapibus faucibus at sed ligula. Nulla sit amet aliquet nibh.
@@ -124,7 +164,8 @@ Vestibulum at congue mi. Suspendisse vitae odio vitae massa hendrerit mattis sed
 Sed eu scelerisque neque. Donec <a href="#"><b>maximus</b></a> rhoncus pellentesque. Aenean purus turpis, vehicula 
 euismod ante vel, ultricies eleifend dui. Class aptent taciti sociosqu ad litora torquent per 
 conubia nostra, per inceptos himenaeos. Donec in ornare velit.</p>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <p>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce cursus massa
   vel augue vestibulum facilisis in porta turpis. Ut faucibus lectus sit amet
@@ -149,14 +190,21 @@ conubia nostra, per inceptos himenaeos. Donec in ornare velit.</p>
   in ornare velit.
 </p>
 
+================================================================================
 `;
 
-exports[`non-breaking-whitespace.html - html-verify 1`] = `
+exports[`non-breaking-whitespace.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!-- normal whitespaces -->
 <span>Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores voluptas quaerat ut qui sunt vitae error.</span>
 <!-- non-breaking whitespaces -->
 <span>Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores voluptas quaerat ut qui sunt vitae error.</span>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- normal whitespaces -->
 <span
   >Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores
@@ -167,9 +215,15 @@ exports[`non-breaking-whitespace.html - html-verify 1`] = `
   >Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores voluptas quaerat ut qui sunt vitae error.</span
 >
 
+================================================================================
 `;
 
-exports[`table.html - html-verify 1`] = `
+exports[`table.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <table>
   <thead>
     <tr>
@@ -190,7 +244,8 @@ exports[`table.html - html-verify 1`] = `
     </tr>
   </thead>
 </table>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <table>
   <thead>
     <tr>
@@ -227,4 +282,5 @@ exports[`table.html - html-verify 1`] = `
   </thead>
 </table>
 
+================================================================================
 `;

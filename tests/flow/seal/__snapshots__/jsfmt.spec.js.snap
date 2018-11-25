@@ -1,19 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`imp.js - flow-verify 1`] = `
+exports[`imp.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var imp = require('./obj_annot');
 imp({ name: "imp" });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var imp = require("./obj_annot");
 imp({ name: "imp" });
 
+================================================================================
 `;
 
-exports[`obj_annot.js - flow-verify 1`] = `
+exports[`obj_annot.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function foo(param: { name: string; }): number {
@@ -23,7 +35,8 @@ function foo(param: { name: string; }): number {
 foo({ name: "test" });
 
 module.exports = foo;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function foo(param: { name: string }): number {
@@ -34,4 +47,5 @@ foo({ name: "test" });
 
 module.exports = foo;
 
+================================================================================
 `;

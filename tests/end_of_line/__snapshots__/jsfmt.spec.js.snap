@@ -1,34 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example.js - babylon-verify 1`] = `
+exports[`example.js 1`] = `
+====================================options=====================================
+endOfLine: "cr"
+parsers: ["babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f() {<LF>
   console.log("testing line endings");<LF>
 }<LF>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f() {<CR>
   console.log("testing line endings");<CR>
 }<CR>
 
+================================================================================
 `;
 
-exports[`example.js - babylon-verify 2`] = `
+exports[`example.js 2`] = `
+====================================options=====================================
+endOfLine: "crlf"
+parsers: ["babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f() {<LF>
   console.log("testing line endings");<LF>
 }<LF>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f() {<CRLF>
   console.log("testing line endings");<CRLF>
 }<CRLF>
 
+================================================================================
 `;
 
-exports[`example.js - babylon-verify 3`] = `
-function f() {<LF>
-  console.log("testing line endings");<LF>
-}<LF>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`example.js 3`] = `
+====================================options=====================================
+endOfLine: "lf"
+parsers: ["babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f() {<LF>
   console.log("testing line endings");<LF>
 }<LF>
 
+=====================================output=====================================
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
+
+================================================================================
 `;

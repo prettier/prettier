@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cssnext-example.css - css-verify 1`] = `
+exports[`cssnext-example.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* custom properties */
 :root{--fontSize: 1rem;
   --mainColor       :#12345678;
@@ -42,7 +47,8 @@ h2 {font-variant-caps:small-caps;
 /* filters */
 .blur{filter:blur(4px)}.sepia{
 filter: sepia(.8);}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* custom properties */
 :root {
   --fontSize: 1rem;
@@ -103,4 +109,5 @@ table {
   filter: sepia(0.8);
 }
 
+================================================================================
 `;

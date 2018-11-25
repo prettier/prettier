@@ -1,13 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import_comma.scss - scss-verify 1`] = `
-@import "rounded-corners", "text-shadow";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`import_comma.scss 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @import "rounded-corners", "text-shadow";
 
+=====================================output=====================================
+@import "rounded-corners", "text-shadow";
+
+================================================================================
 `;
 
-exports[`scss.scss - scss-verify 1`] = `
+exports[`scss.scss 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @media #{$g-breakpoint-tiny} {}
 .#{$fa-css-prefix}-glass:before { content: $fa-var-glass; }
 a {height: calc(#{$foo} + 1);}
@@ -1048,7 +1060,8 @@ $my-map: (
 .something {
   grid-template-columns: 1 2fr (3 + 4);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @media #{$g-breakpoint-tiny} {
 }
 .#{$fa-css-prefix}-glass:before {
@@ -2002,4 +2015,5 @@ $my-map: (
   grid-template-columns: 1 2fr (3 + 4);
 }
 
+================================================================================
 `;

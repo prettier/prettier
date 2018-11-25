@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`jsx_same_line.js - flow-verify 1`] = `
+exports[`jsx_same_line.js 1`] = `
+====================================options=====================================
+jsxBracketSameLine: true
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div
   // comment
 >
@@ -29,7 +35,8 @@ exports[`jsx_same_line.js - flow-verify 1`] = `
 
 <br // comment
 />;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
 // comment
 >
@@ -58,4 +65,5 @@ exports[`jsx_same_line.js - flow-verify 1`] = `
 <br // comment
 />;
 
+================================================================================
 `;

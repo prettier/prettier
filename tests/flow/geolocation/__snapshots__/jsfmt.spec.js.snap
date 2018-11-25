@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`a.js - flow-verify 1`] = `
+exports[`a.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var geolocation = new Geolocation();
@@ -21,7 +26,8 @@ var id = geolocation.watchPosition(
   }
 );
 geolocation.clearWatch(id);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var geolocation = new Geolocation();
@@ -43,4 +49,5 @@ var id = geolocation.watchPosition(
 );
 geolocation.clearWatch(id);
 
+================================================================================
 `;

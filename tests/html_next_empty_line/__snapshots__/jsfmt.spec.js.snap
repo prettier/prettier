@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`standalone-end-marker.html - html-verify 1`] = `
+exports[`standalone-end-marker.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div></div
 >
 <span></span>
@@ -21,7 +26,8 @@ exports[`standalone-end-marker.html - html-verify 1`] = `
 
   123123
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div></div>
 <span></span>
 <div></div>
@@ -39,4 +45,5 @@ exports[`standalone-end-marker.html - html-verify 1`] = `
   123123
 </div>
 
+================================================================================
 `;

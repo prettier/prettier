@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`gen_big_disjoint_union.js - flow-verify 1`] = `
+exports[`gen_big_disjoint_union.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // perf test for big disjoint union with 1000 cases
 type TAction =
 {
@@ -4004,7 +4009,8 @@ type TAction =
   a100: number,
 };
 function foo(x: TAction): TAction { return x; }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // perf test for big disjoint union with 1000 cases
 type TAction =
   | {
@@ -8011,9 +8017,15 @@ function foo(x: TAction): TAction {
   return x;
 }
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type A = {a: number};
 type B = {b: number};
 type C = {c: number};
@@ -8029,7 +8041,8 @@ function f3(x: T3): T3 { return x; }
 
 type T4 = (A | C) & (B | C);
 function f4(x: T4): T4 { return x; }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type A = { a: number };
 type B = { b: number };
 type C = { c: number };
@@ -8054,4 +8067,5 @@ function f4(x: T4): T4 {
   return x;
 }
 
+================================================================================
 `;

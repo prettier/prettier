@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`base_class.js - flow-verify 1`] = `
+exports[`base_class.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 class Base {
@@ -73,7 +78,8 @@ var o = new Base();
 (o.annotatedInitializedFieldInvalid: string); // Error: number ~> string
 (Base.annotatedInitializedFieldInvalid: number);
 (Base.annotatedInitializedFieldInvalid: string); // Error: number ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 class Base {
@@ -147,9 +153,15 @@ var o = new Base();
 (Base.annotatedInitializedFieldInvalid: number);
 (Base.annotatedInitializedFieldInvalid: string); // Error: number ~> string
 
+================================================================================
 `;
 
-exports[`derived_class.js - flow-verify 1`] = `
+exports[`derived_class.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 class Base {
@@ -284,7 +296,8 @@ var o = new Child();
 (o.inherited_initializer: string); // Error: number ~> string
 (Child.inherited_initializer: number);
 (Child.inherited_initializer: string); // Error: number ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 class Base {
@@ -419,9 +432,15 @@ var o = new Child();
 (Child.inherited_initializer: number);
 (Child.inherited_initializer: string); // Error: number ~> string
 
+================================================================================
 `;
 
-exports[`generic_class.js - flow-verify 1`] = `
+exports[`generic_class.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 /**
@@ -453,7 +472,8 @@ class ClassGenericInitialized<T, U> {
   static invalid: T = 42; // Error: number ~> Generic<T>
   static valid: T = ((42:any):T);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 /**
@@ -485,9 +505,15 @@ class ClassGenericInitialized<T, U> {
   static valid: T = ((42: any): T);
 }
 
+================================================================================
 `;
 
-exports[`scoping.js - flow-verify 1`] = `
+exports[`scoping.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 var someVar = 42;
@@ -528,7 +554,8 @@ class Foo {
 (new Foo().selfTypedInit: number); // Error: Foo ~> number
 (Foo.selfTypedInit: Foo);
 (Foo.selfTypedInit: number); // Error: Foo ~> number
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 var someVar = 42;
@@ -570,4 +597,5 @@ class Foo {
 (Foo.selfTypedInit: Foo);
 (Foo.selfTypedInit: number); // Error: Foo ~> number
 
+================================================================================
 `;

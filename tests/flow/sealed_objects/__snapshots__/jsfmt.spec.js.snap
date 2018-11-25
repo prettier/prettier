@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var o1 = { x: 0 };
 var s1: string = o1.y; // error
 
@@ -20,7 +25,8 @@ var o6: { x: number; [_:any]:any } = { x: 0 };
 var s6: string = o6.y; // ok  (indexers make object types extensible)
 
 var o7: { x: number; y?: string; } = ({ x: 0, y: 0 }: { x: number; [_:any]:number}); // error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var o1 = { x: 0 };
 var s1: string = o1.y; // error
 
@@ -44,4 +50,5 @@ var o7: { x: number, y?: string } = ({ x: 0, y: 0 }: {
   [_: any]: number
 }); // error
 
+================================================================================
 `;

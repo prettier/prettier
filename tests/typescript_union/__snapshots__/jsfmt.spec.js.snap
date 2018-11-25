@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inlining.ts - typescript-verify 1`] = `
+exports[`inlining.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface RelayProps {
   articles: a | null,
 }
@@ -33,7 +38,8 @@ type UploadState<E, EM, D>
 type window = Window & {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface RelayProps {
   articles: a | null;
 }
@@ -67,9 +73,15 @@ type window = Window & {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
 };
 
+================================================================================
 `;
 
-exports[`union-parens.ts - typescript-verify 1`] = `
+exports[`union-parens.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 export type A = (
   | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -110,7 +122,8 @@ type State = {
   | { discriminant: "BAR"; bar: any }
   | { discriminant: "BAZ"; baz: any } 
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export type A =
   | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   | bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb;
@@ -148,9 +161,15 @@ type State = {
   | { discriminant: "BAR"; bar: any }
   | { discriminant: "BAZ"; baz: any });
 
+================================================================================
 `;
 
-exports[`with-type-params.ts - typescript-verify 1`] = `
+exports[`with-type-params.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type GetChatsSagaEffects =
   | CallEffect
   | PutEffect<
@@ -160,7 +179,8 @@ type GetChatsSagaEffects =
       | GetChatsStartedAction
     >
   | SelectEffect
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type GetChatsSagaEffects =
   | CallEffect
   | PutEffect<
@@ -171,4 +191,5 @@ type GetChatsSagaEffects =
     >
   | SelectEffect;
 
+================================================================================
 `;
