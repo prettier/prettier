@@ -258,6 +258,7 @@ function needsParens(path, options) {
           return true;
 
         case "MemberExpression":
+        case "OptionalMemberExpression":
           return name === "object" && parent.object === node;
 
         case "AssignmentExpression":
