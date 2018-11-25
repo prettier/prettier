@@ -25,12 +25,12 @@ const {
   forceBreakChildren,
   forceBreakContent,
   forceNextEmptyLine,
-  getCommentData,
   getLastDescendant,
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
   isScriptLikeTag,
+  isTextLikeNode,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   replaceDocNewlines,
@@ -67,9 +67,9 @@ function embed(path, print, textToDoc, options) {
           return builders.concat([
             concat([
               breakParent,
-              printOpeningTagPrefix(node),
-              markAsRoot(stripTrailingHardline(textToDoc(value, { parser }))),
-              printClosingTagSuffix(node)
+              printOpeningTagPrefix(node, options),
+              stripTrailingHardline(textToDoc(value, { parser })),
+              printClosingTagSuffix(node, options)
             ])
           ]);
         }
@@ -99,6 +99,18 @@ function embed(path, print, textToDoc, options) {
     case "attribute": {
       if (!node.value) {
         break;
+      }
+
+      // lit-html: html`<my-element obj=${obj}></my-element>`
+      if (
+        /^PRETTIER_PLACEHOLDER_\d+$/.test(
+          options.originalText.slice(
+            node.valueSpan.start.offset,
+            node.valueSpan.end.offset
+          )
+        )
+      ) {
+        return concat([node.rawName, "=", node.value]);
       }
 
       const embeddedAttributeValueDoc = printEmbeddedAttributeValue(
@@ -222,9 +234,10 @@ function genericPrint(path, options, print) {
                     : node.lastChild.hasTrailingSpaces &&
                       node.lastChild.isTrailingSpaceSensitive
                     ? line
-                    : node.lastChild.type === "text" &&
-                      node.isWhitespaceSensitive &&
-                      node.isIndentationSensitive &&
+                    : (node.lastChild.type === "comment" ||
+                        (node.lastChild.type === "text" &&
+                          node.isWhitespaceSensitive &&
+                          node.isIndentationSensitive)) &&
                       new RegExp(
                         `\\n\\s{${options.tabWidth *
                           countParents(
@@ -245,7 +258,7 @@ function genericPrint(path, options, print) {
                 ])
           ])
         ),
-        printClosingTag(node)
+        printClosingTag(node, options)
       ]);
     }
     case "ieConditionalStartComment":
@@ -253,9 +266,9 @@ function genericPrint(path, options, print) {
       return concat([printOpeningTagStart(node), printClosingTagEnd(node)]);
     case "interpolation":
       return concat([
-        printOpeningTagStart(node),
+        printOpeningTagStart(node, options),
         concat(path.map(print, "children")),
-        printClosingTagEnd(node)
+        printClosingTagEnd(node, options)
       ]);
     case "text": {
       if (node.parent.type === "interpolation") {
@@ -273,9 +286,9 @@ function genericPrint(path, options, print) {
       return fill(
         normalizeParts(
           [].concat(
-            printOpeningTagPrefix(node),
+            printOpeningTagPrefix(node, options),
             getTextValueParts(node),
-            printClosingTagSuffix(node)
+            printClosingTagSuffix(node, options)
           )
         )
       );
@@ -284,41 +297,20 @@ function genericPrint(path, options, print) {
       return concat([
         group(
           concat([
-            printOpeningTagStart(node),
+            printOpeningTagStart(node, options),
             " ",
             node.value.replace(/^html\b/i, "html").replace(/\s+/g, " ")
           ])
         ),
-        printClosingTagEnd(node)
+        printClosingTagEnd(node, options)
       ]);
     case "comment": {
-      const value = getCommentData(node);
       return concat([
-        group(
-          concat([
-            printOpeningTagStart(node),
-            value.trim().length === 0
-              ? ""
-              : concat([
-                  indent(
-                    concat([
-                      node.prev &&
-                      needsToBorrowNextOpeningTagStartMarker(node.prev)
-                        ? breakParent
-                        : "",
-                      line,
-                      concat(replaceNewlines(value, hardline))
-                    ])
-                  ),
-                  (node.next
-                  ? needsToBorrowPrevClosingTagEndMarker(node.next)
-                  : needsToBorrowLastChildClosingTagEndMarker(node.parent))
-                    ? " "
-                    : line
-                ])
-          ])
-        ),
-        printClosingTagEnd(node)
+        printOpeningTagPrefix(node, options),
+        "<!--",
+        concat(replaceNewlines(node.value, literalline)),
+        "-->",
+        printClosingTagSuffix(node, options)
       ]);
     }
     case "attribute":
@@ -373,7 +365,16 @@ function printChildren(path, options, print) {
     path.map((childPath, childIndex) => {
       const childNode = childPath.getValue();
 
-      if (childNode.type === "text") {
+      if (isTextLikeNode(childNode)) {
+        if (childNode.prev && isTextLikeNode(childNode.prev)) {
+          const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
+          if (prevBetweenLine) {
+            if (forceNextEmptyLine(childNode.prev)) {
+              return concat([hardline, hardline, printChild(childPath)]);
+            }
+            return concat([prevBetweenLine, printChild(childPath)]);
+          }
+        }
         return printChild(childPath);
       }
 
@@ -396,7 +397,7 @@ function printChildren(path, options, print) {
         } else if (prevBetweenLine === hardline) {
           prevParts.push(hardline);
         } else {
-          if (childNode.prev.type === "text") {
+          if (isTextLikeNode(childNode.prev)) {
             leadingParts.push(prevBetweenLine);
           } else {
             leadingParts.push(
@@ -410,11 +411,11 @@ function printChildren(path, options, print) {
 
       if (nextBetweenLine) {
         if (forceNextEmptyLine(childNode)) {
-          if (childNode.next.type === "text") {
+          if (isTextLikeNode(childNode.next)) {
             nextParts.push(hardline, hardline);
           }
         } else if (nextBetweenLine === hardline) {
-          if (childNode.next.type === "text") {
+          if (isTextLikeNode(childNode.next)) {
             nextParts.push(hardline);
           }
         } else {
@@ -445,7 +446,7 @@ function printChildren(path, options, print) {
     if (hasPrettierIgnore(child)) {
       return concat(
         [].concat(
-          printOpeningTagPrefix(child),
+          printOpeningTagPrefix(child, options),
           replaceNewlines(
             options.originalText.slice(
               options.locStart(child) +
@@ -455,20 +456,20 @@ function printChildren(path, options, print) {
                   : 0),
               options.locEnd(child) -
                 (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
-                  ? printClosingTagEndMarker(child).length
+                  ? printClosingTagEndMarker(child, options).length
                   : 0)
             ),
             literalline
           ),
-          printClosingTagSuffix(child)
+          printClosingTagSuffix(child, options)
         )
       );
     }
 
-    if (shouldPreserveContent(child)) {
+    if (shouldPreserveContent(child, options)) {
       return concat(
         [].concat(
-          printOpeningTagPrefix(child),
+          printOpeningTagPrefix(child, options),
           group(printOpeningTag(childPath, options, print)),
           replaceNewlines(
             options.originalText.slice(
@@ -480,15 +481,15 @@ function printChildren(path, options, print) {
               child.endSourceSpan.start.offset +
                 (child.lastChild &&
                 needsToBorrowParentClosingTagStartMarker(child.lastChild)
-                  ? printClosingTagStartMarker(child).length
+                  ? printClosingTagStartMarker(child, options).length
                   : needsToBorrowLastChildClosingTagEndMarker(child)
-                  ? -printClosingTagEndMarker(child.lastChild).length
+                  ? -printClosingTagEndMarker(child.lastChild, options).length
                   : 0)
             ),
             literalline
           ),
-          printClosingTag(child),
-          printClosingTagSuffix(child)
+          printClosingTag(child, options),
+          printClosingTagSuffix(child, options)
         )
       );
     }
@@ -497,34 +498,44 @@ function printChildren(path, options, print) {
   }
 
   function printBetweenLine(prevNode, nextNode) {
-    return (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
-      /**
-       *     123<a
-       *          ~
-       *       ><b>
-       */
-      (nextNode.firstChild ||
+    return isTextLikeNode(prevNode) && isTextLikeNode(nextNode)
+      ? prevNode.isTrailingSpaceSensitive
+        ? prevNode.hasTrailingSpaces
+          ? preferHardlineAsLeadingSpaces(nextNode)
+            ? hardline
+            : line
+          : ""
+        : preferHardlineAsLeadingSpaces(nextNode)
+        ? hardline
+        : softline
+      : (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
+          /**
+           *     123<a
+           *          ~
+           *       ><b>
+           */
+          (nextNode.firstChild ||
+            /**
+             *     123<!--
+             *            ~
+             *     -->
+             */
+            nextNode.isSelfClosing ||
+            /**
+             *     123<span
+             *             ~
+             *       attr
+             */
+            (nextNode.type === "element" && nextNode.attrs.length !== 0))) ||
         /**
-         *     123<!--
-         *            ~
-         *     -->
+         *     <img
+         *       src="long"
+         *                 ~
+         *     />123
          */
-        nextNode.isSelfClosing ||
-        /**
-         *     123<span
-         *             ~
-         *       attr
-         */
-        (nextNode.type === "element" && nextNode.attrs.length !== 0))) ||
-      /**
-       *     <img
-       *       src="long"
-       *                 ~
-       *     />123
-       */
-      (prevNode.type === "element" &&
-        prevNode.isSelfClosing &&
-        needsToBorrowPrevClosingTagEndMarker(nextNode))
+        (prevNode.type === "element" &&
+          prevNode.isSelfClosing &&
+          needsToBorrowPrevClosingTagEndMarker(nextNode))
       ? ""
       : !nextNode.isLeadingSpaceSensitive ||
         preferHardlineAsLeadingSpaces(nextNode) ||
@@ -557,7 +568,7 @@ function printOpeningTag(path, options, print) {
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
   return concat([
-    printOpeningTagStart(node),
+    printOpeningTagStart(node, options),
     !node.attrs || node.attrs.length === 0
       ? node.isSelfClosing
         ? /**
@@ -630,10 +641,13 @@ function printOpeningTag(path, options, print) {
   ]);
 }
 
-function printOpeningTagStart(node) {
+function printOpeningTagStart(node, options) {
   return node.prev && needsToBorrowNextOpeningTagStartMarker(node.prev)
     ? ""
-    : concat([printOpeningTagPrefix(node), printOpeningTagStartMarker(node)]);
+    : concat([
+        printOpeningTagPrefix(node, options),
+        printOpeningTagStartMarker(node)
+      ]);
 }
 
 function printOpeningTagEnd(node) {
@@ -643,26 +657,32 @@ function printOpeningTagEnd(node) {
     : printOpeningTagEndMarker(node);
 }
 
-function printClosingTag(node) {
+function printClosingTag(node, options) {
   return concat([
-    node.isSelfClosing ? "" : printClosingTagStart(node),
-    printClosingTagEnd(node)
+    node.isSelfClosing ? "" : printClosingTagStart(node, options),
+    printClosingTagEnd(node, options)
   ]);
 }
 
-function printClosingTagStart(node) {
+function printClosingTagStart(node, options) {
   return node.lastChild &&
     needsToBorrowParentClosingTagStartMarker(node.lastChild)
     ? ""
-    : concat([printClosingTagPrefix(node), printClosingTagStartMarker(node)]);
+    : concat([
+        printClosingTagPrefix(node, options),
+        printClosingTagStartMarker(node, options)
+      ]);
 }
 
-function printClosingTagEnd(node) {
+function printClosingTagEnd(node, options) {
   return (node.next
   ? needsToBorrowPrevClosingTagEndMarker(node.next)
   : needsToBorrowLastChildClosingTagEndMarker(node.parent))
     ? ""
-    : concat([printClosingTagEndMarker(node), printClosingTagSuffix(node)]);
+    : concat([
+        printClosingTagEndMarker(node, options),
+        printClosingTagSuffix(node, options)
+      ]);
 }
 
 function needsToBorrowNextOpeningTagStartMarker(node) {
@@ -673,7 +693,8 @@ function needsToBorrowNextOpeningTagStartMarker(node) {
    */
   return (
     node.next &&
-    node.type === "text" &&
+    !isTextLikeNode(node.next) &&
+    isTextLikeNode(node) &&
     node.isTrailingSpaceSensitive &&
     !node.hasTrailingSpaces
   );
@@ -702,7 +723,12 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
    *     ><a
    *     ^
    */
-  return node.prev && node.isLeadingSpaceSensitive && !node.hasLeadingSpaces;
+  return (
+    node.prev &&
+    !isTextLikeNode(node.prev) &&
+    node.isLeadingSpaceSensitive &&
+    !node.hasLeadingSpaces
+  );
 }
 
 function needsToBorrowLastChildClosingTagEndMarker(node) {
@@ -717,7 +743,7 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
     node.lastChild &&
     node.lastChild.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
-    getLastDescendant(node.lastChild).type !== "text"
+    !isTextLikeNode(getLastDescendant(node.lastChild))
   );
 }
 
@@ -737,27 +763,27 @@ function needsToBorrowParentClosingTagStartMarker(node) {
     !node.next &&
     !node.hasTrailingSpaces &&
     node.isTrailingSpaceSensitive &&
-    getLastDescendant(node).type === "text"
+    isTextLikeNode(getLastDescendant(node))
   );
 }
 
-function printOpeningTagPrefix(node) {
+function printOpeningTagPrefix(node, options) {
   return needsToBorrowParentOpeningTagEndMarker(node)
     ? printOpeningTagEndMarker(node.parent)
     : needsToBorrowPrevClosingTagEndMarker(node)
-    ? printClosingTagEndMarker(node.prev)
+    ? printClosingTagEndMarker(node.prev, options)
     : "";
 }
 
-function printClosingTagPrefix(node) {
+function printClosingTagPrefix(node, options) {
   return needsToBorrowLastChildClosingTagEndMarker(node)
-    ? printClosingTagEndMarker(node.lastChild)
+    ? printClosingTagEndMarker(node.lastChild, options)
     : "";
 }
 
-function printClosingTagSuffix(node) {
+function printClosingTagSuffix(node, options) {
   return needsToBorrowParentClosingTagStartMarker(node)
-    ? printClosingTagStartMarker(node.parent)
+    ? printClosingTagStartMarker(node.parent, options)
     : needsToBorrowNextOpeningTagStartMarker(node)
     ? printOpeningTagStartMarker(node.next)
     : "";
@@ -765,8 +791,6 @@ function printClosingTagSuffix(node) {
 
 function printOpeningTagStartMarker(node) {
   switch (node.type) {
-    case "comment":
-      return "<!--";
     case "ieConditionalComment":
     case "ieConditionalStartComment":
       return `<!--[if ${node.condition}`;
@@ -801,9 +825,9 @@ function printOpeningTagEndMarker(node) {
   }
 }
 
-function printClosingTagStartMarker(node) {
+function printClosingTagStartMarker(node, options) {
   assert(!node.isSelfClosing);
-  if (shouldNotPrintClosingTag(node)) {
+  if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
   switch (node.type) {
@@ -814,13 +838,11 @@ function printClosingTagStartMarker(node) {
   }
 }
 
-function printClosingTagEndMarker(node) {
-  if (shouldNotPrintClosingTag(node)) {
+function printClosingTagEndMarker(node, options) {
+  if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
   switch (node.type) {
-    case "comment":
-      return "-->";
     case "ieConditionalComment":
     case "ieConditionalEndComment":
       return `[endif]-->`;

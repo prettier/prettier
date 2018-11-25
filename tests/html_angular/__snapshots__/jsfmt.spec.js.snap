@@ -65,6 +65,7 @@ printWidth: 80
     *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
     *ngFor="  let    hero     of heroes; let i  =  index"
     *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
     *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
     *ngIf=" condition  as  value  ;  else  elseBlock "
     *directive=" let hero "
@@ -156,8 +157,9 @@ printWidth: 80
   *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="let hero of heroes; let i = index"
   *ngFor="let hero of heroes; value: myValue"
-  *ngIf="condition; then: thenBlock; else: elseBlock"
-  *ngIf="condition as value; else: elseBlock"
+  *ngIf="condition; else elseBlock"
+  *ngIf="condition; then thenBlock; else elseBlock"
+  *ngIf="condition as value; else elseBlock"
   *directive="let hero"
   *directive="let hero = hello"
   *directive="let hero of heroes"
@@ -179,7 +181,7 @@ printWidth: 80
     listRow.NextScheduledSendStatus == 1 ||
       listRow.NextScheduledSendStatus == 2 ||
       listRow.NextScheduledSendStatus == 3;
-    else: hello
+    else hello
   "
   (target)="
     (listRow.NextScheduledSendStatus == 1 ||
@@ -273,6 +275,7 @@ trailingComma: "es5"
     *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
     *ngFor="  let    hero     of heroes; let i  =  index"
     *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
     *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
     *ngIf=" condition  as  value  ;  else  elseBlock "
     *directive=" let hero "
@@ -364,8 +367,9 @@ trailingComma: "es5"
   *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="let hero of heroes; let i = index"
   *ngFor="let hero of heroes; value: myValue"
-  *ngIf="condition; then: thenBlock; else: elseBlock"
-  *ngIf="condition as value; else: elseBlock"
+  *ngIf="condition; else elseBlock"
+  *ngIf="condition; then thenBlock; else elseBlock"
+  *ngIf="condition as value; else elseBlock"
   *directive="let hero"
   *directive="let hero = hello"
   *directive="let hero of heroes"
@@ -387,7 +391,7 @@ trailingComma: "es5"
     listRow.NextScheduledSendStatus == 1 ||
       listRow.NextScheduledSendStatus == 2 ||
       listRow.NextScheduledSendStatus == 3;
-    else: hello
+    else hello
   "
   (target)="
     (listRow.NextScheduledSendStatus == 1 ||
@@ -480,6 +484,7 @@ printWidth: 1
     *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
     *ngFor="  let    hero     of heroes; let i  =  index"
     *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
     *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
     *ngIf=" condition  as  value  ;  else  elseBlock "
     *directive=" let hero "
@@ -718,12 +723,16 @@ printWidth: 1
   "
   *ngIf="
     condition;
-    then: thenBlock;
-    else: elseBlock
+    else elseBlock
+  "
+  *ngIf="
+    condition;
+    then thenBlock;
+    else elseBlock
   "
   *ngIf="
     condition as value;
-    else: elseBlock
+    else elseBlock
   "
   *directive="
     let hero
@@ -782,7 +791,7 @@ printWidth: 1
         2 ||
       listRow.NextScheduledSendStatus ==
         3;
-    else: hello
+    else hello
   "
   (target)="
     (listRow.NextScheduledSendStatus ==
@@ -912,6 +921,7 @@ printWidth: 80
     *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
     *ngFor="  let    hero     of heroes; let i  =  index"
     *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
     *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
     *ngIf=" condition  as  value  ;  else  elseBlock "
     *directive=" let hero "
@@ -1003,8 +1013,9 @@ printWidth: 80
   *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="let hero of heroes; let i = index"
   *ngFor="let hero of heroes; value: myValue"
-  *ngIf="condition; then: thenBlock; else: elseBlock"
-  *ngIf="condition as value; else: elseBlock"
+  *ngIf="condition; else elseBlock"
+  *ngIf="condition; then thenBlock; else elseBlock"
+  *ngIf="condition as value; else elseBlock"
   *directive="let hero"
   *directive="let hero = hello"
   *directive="let hero of heroes"
@@ -1026,7 +1037,7 @@ printWidth: 80
     listRow.NextScheduledSendStatus == 1 ||
       listRow.NextScheduledSendStatus == 2 ||
       listRow.NextScheduledSendStatus == 3;
-    else: hello
+    else hello
   "
   (target)="
     (listRow.NextScheduledSendStatus == 1 ||
@@ -1540,19 +1551,19 @@ printWidth: 80
   [(target)]="a | b: c"
   bind-target="a | b: c"
 ></div>
-<!-- prettier-ignore-attribute -->
+<!--  prettier-ignore-attribute -->
 <div
   bindon-target=" a | b : c "
   [(target)]=" a | b : c "
   bind-target=" a | b : c "
 ></div>
-<!-- prettier-ignore-attribute bind-target -->
+<!--  prettier-ignore-attribute bind-target -->
 <div
   bindon-target="a | b: c"
   [(target)]="a | b: c"
   bind-target=" a | b : c "
 ></div>
-<!-- prettier-ignore-attribute [(target)] bind-target -->
+<!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
   bindon-target="a | b: c"
   [(target)]=" a | b : c "
@@ -1599,19 +1610,19 @@ trailingComma: "es5"
   [(target)]="a | b: c"
   bind-target="a | b: c"
 ></div>
-<!-- prettier-ignore-attribute -->
+<!--  prettier-ignore-attribute -->
 <div
   bindon-target=" a | b : c "
   [(target)]=" a | b : c "
   bind-target=" a | b : c "
 ></div>
-<!-- prettier-ignore-attribute bind-target -->
+<!--  prettier-ignore-attribute bind-target -->
 <div
   bindon-target="a | b: c"
   [(target)]="a | b: c"
   bind-target=" a | b : c "
 ></div>
-<!-- prettier-ignore-attribute [(target)] bind-target -->
+<!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
   bindon-target="a | b: c"
   [(target)]=" a | b : c "
@@ -1669,17 +1680,13 @@ printWidth: 1
         : c
   "
 ></div>
-<!--
-  prettier-ignore-attribute
--->
+<!--  prettier-ignore-attribute -->
 <div
   bindon-target=" a | b : c "
   [(target)]=" a | b : c "
   bind-target=" a | b : c "
 ></div>
-<!--
-  prettier-ignore-attribute bind-target
--->
+<!--  prettier-ignore-attribute bind-target -->
 <div
   bindon-target="
     a
@@ -1693,9 +1700,7 @@ printWidth: 1
   "
   bind-target=" a | b : c "
 ></div>
-<!--
-  prettier-ignore-attribute [(target)] bind-target
--->
+<!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
   bindon-target="
     a
@@ -1746,19 +1751,19 @@ printWidth: 80
   [(target)]="a | b: c"
   bind-target="a | b: c"
 ></div>
-<!-- prettier-ignore-attribute -->
+<!--  prettier-ignore-attribute -->
 <div
   bindon-target=" a | b : c "
   [(target)]=" a | b : c "
   bind-target=" a | b : c "
 ></div>
-<!-- prettier-ignore-attribute bind-target -->
+<!--  prettier-ignore-attribute bind-target -->
 <div
   bindon-target="a | b: c"
   [(target)]="a | b: c"
   bind-target=" a | b : c "
 ></div>
-<!-- prettier-ignore-attribute [(target)] bind-target -->
+<!--  prettier-ignore-attribute [(target)] bind-target -->
 <div
   bindon-target="a | b: c"
   [(target)]=" a | b : c "
@@ -1897,9 +1902,9 @@ printWidth: 80
 }}
 <span
   ><!--
-  --><span>{{ a }}</span
+--><span>{{ a }}</span
   ><!--
-  --><span>{{ b }}</span
+--><span>{{ b }}</span
   ><!--
 --></span>
 <span>
@@ -2042,9 +2047,9 @@ trailingComma: "es5"
 }}
 <span
   ><!--
-  --><span>{{ a }}</span
+--><span>{{ a }}</span
   ><!--
-  --><span>{{ b }}</span
+--><span>{{ b }}</span
   ><!--
 --></span>
 <span>
@@ -2336,12 +2341,12 @@ printWidth: 1
 }}
 <span
   ><!--
-  --><span
+--><span
     >{{
       a
     }}</span
   ><!--
-  --><span
+--><span
     >{{
       b
     }}</span
@@ -2495,12 +2500,14 @@ printWidth: 80
     listRow.NextScheduledSendStatus == 3
 }}
 <span>
-  <!---->
+  <!--
+-->
   <span>{{ a }}</span>
-  <!---->
+  <!--
+-->
   <span>{{ b }}</span>
-  <!---->
-</span>
+  <!--
+--></span>
 <span>
   {{ aNormalValue | aPipe }}:
   <strong>
@@ -3349,9 +3356,7 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="mental-model">New Mental Model</h2>
 
-<!--
-  <img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">
--->
+<!--<img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">-->
 <!-- Public Domain terms of use: http://www.wpclipart.com/terms.html -->
 <div class="special">Mental Model</div>
 <img src="assets/images/hero.png" /> <button disabled>Save</button> <br /><br />
@@ -3433,10 +3438,8 @@ can be found in the LICENSE file at http://angular.io/license
 <app-hero-detail [hero]="currentHero"></app-hero-detail>
 <img bind-src="heroImageUrl" />
 
-<!--
-  ERROR: HeroDetailComponent.hero expects a
-  Hero object, not the string "currentHero"
--->
+<!-- ERROR: HeroDetailComponent.hero expects a
+     Hero object, not the string "currentHero" -->
 <div *ngIf="false"><app-hero-detail hero="currentHero"></app-hero-detail></div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
@@ -3451,7 +3454,7 @@ can be found in the LICENSE file at http://angular.io/license
 <!--
   Angular generates warnings for these two lines as it sanitizes them
   WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).
--->
+ -->
 <p>
   <span>"{{ evilTitle }}" is the <i>interpolated</i> evil title.</span>
 </p>
@@ -3466,15 +3469,14 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="attribute-binding">Attribute Binding</h2>
 
-<!-- create and set a colspan attribute -->
+<!--  create and set a colspan attribute -->
 <table border="1">
-  <!-- expression calculates colspan=2 -->
+  <!--  expression calculates colspan=2 -->
   <tr>
     <td [attr.colspan]="1 + 1">One-Two</td>
   </tr>
 
-  <!--
-    ERROR: There is no \`colspan\` property to set!
+  <!-- ERROR: There is no \`colspan\` property to set!
     <tr><td colspan="{{1 + 1}}">Three-Four</td></tr>
   -->
 
@@ -3506,10 +3508,10 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="class-binding">Class Binding</h2>
 
-<!-- standard class attribute setting -->
+<!-- standard class attribute setting  -->
 <div class="bad curly special">Bad curly special</div>
 
-<!-- reset/override all class names with a binding -->
+<!-- reset/override all class names with a binding  -->
 <div class="bad curly special" [class]="badCurly">Bad curly</div>
 
 <!-- toggle the "special" class on/off with a property -->
@@ -3524,7 +3526,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <a class="to-toc" href="#toc">top</a>
 
-<!-- style binding -->
+<!--style binding -->
 <hr />
 <h2 id="style-binding">Style Binding</h2>
 
@@ -3592,10 +3594,8 @@ can be found in the LICENSE file at http://angular.io/license
 
 <a class="to-toc" href="#toc">top</a>
 
-<!--
-  Two way data binding unwound;
-  passing the changed display value to the event handler via \`$event\`
--->
+<!-- Two way data binding unwound;
+    passing the changed display value to the event handler via \`$event\` -->
 <hr />
 <h2 id="ngModel">NgModel (two-way) Binding</h2>
 
@@ -3915,13 +3915,13 @@ without NgModel <br />
 <div>The current hero's name is {{ currentHero.name }}</div>
 
 <!--
-  The null hero's name is {{nullHero.name}}
+The null hero's name is {{nullHero.name}}
 
-  See console log:
-    TypeError: Cannot read property 'name' of null in [null]
+See console log:
+  TypeError: Cannot read property 'name' of null in [null]
 -->
 
-<!-- No hero, div not displayed, no error -->
+<!--No hero, div not displayed, no error -->
 <div *ngIf="nullHero">The null hero's name is {{ nullHero.name }}</div>
 
 <div>The null hero's name is {{ nullHero && nullHero.name }}</div>
@@ -3938,7 +3938,7 @@ without NgModel <br />
 <h2 id="non-null-assertion-operator">Non-null assertion operator <i>!.</i></h2>
 
 <div>
-  <!-- No hero, no text -->
+  <!--No hero, no text -->
   <div *ngIf="hero">The hero's name is {{ hero!.name }}</div>
 </div>
 
@@ -3975,10 +3975,10 @@ without NgModel <br />
 
 <a class="to-toc" href="#toc">top</a>
 
-<!--
-  Copyright 2017-2018 Google Inc. All Rights Reserved.
-  Use of this source code is governed by an MIT-style license that
-  can be found in the LICENSE file at http://angular.io/license
+<!-- 
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
 -->
 
 <div id="heroForm">
@@ -3999,10 +3999,10 @@ without NgModel <br />
   <div [hidden]="!heroForm.form.valid">{{ submitMessage }}</div>
 </div>
 
-<!--
-  Copyright 2017-2018 Google Inc. All Rights Reserved.
-  Use of this source code is governed by an MIT-style license that
-  can be found in the LICENSE file at http://angular.io/license
+<!-- 
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
 -->
 
 ================================================================================
@@ -4847,9 +4847,7 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="mental-model">New Mental Model</h2>
 
-<!--
-  <img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">
--->
+<!--<img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">-->
 <!-- Public Domain terms of use: http://www.wpclipart.com/terms.html -->
 <div class="special">Mental Model</div>
 <img src="assets/images/hero.png" /> <button disabled>Save</button> <br /><br />
@@ -4931,10 +4929,8 @@ can be found in the LICENSE file at http://angular.io/license
 <app-hero-detail [hero]="currentHero"></app-hero-detail>
 <img bind-src="heroImageUrl" />
 
-<!--
-  ERROR: HeroDetailComponent.hero expects a
-  Hero object, not the string "currentHero"
--->
+<!-- ERROR: HeroDetailComponent.hero expects a
+     Hero object, not the string "currentHero" -->
 <div *ngIf="false"><app-hero-detail hero="currentHero"></app-hero-detail></div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
@@ -4949,7 +4945,7 @@ can be found in the LICENSE file at http://angular.io/license
 <!--
   Angular generates warnings for these two lines as it sanitizes them
   WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).
--->
+ -->
 <p>
   <span>"{{ evilTitle }}" is the <i>interpolated</i> evil title.</span>
 </p>
@@ -4964,15 +4960,14 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="attribute-binding">Attribute Binding</h2>
 
-<!-- create and set a colspan attribute -->
+<!--  create and set a colspan attribute -->
 <table border="1">
-  <!-- expression calculates colspan=2 -->
+  <!--  expression calculates colspan=2 -->
   <tr>
     <td [attr.colspan]="1 + 1">One-Two</td>
   </tr>
 
-  <!--
-    ERROR: There is no \`colspan\` property to set!
+  <!-- ERROR: There is no \`colspan\` property to set!
     <tr><td colspan="{{1 + 1}}">Three-Four</td></tr>
   -->
 
@@ -5004,10 +4999,10 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="class-binding">Class Binding</h2>
 
-<!-- standard class attribute setting -->
+<!-- standard class attribute setting  -->
 <div class="bad curly special">Bad curly special</div>
 
-<!-- reset/override all class names with a binding -->
+<!-- reset/override all class names with a binding  -->
 <div class="bad curly special" [class]="badCurly">Bad curly</div>
 
 <!-- toggle the "special" class on/off with a property -->
@@ -5022,7 +5017,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <a class="to-toc" href="#toc">top</a>
 
-<!-- style binding -->
+<!--style binding -->
 <hr />
 <h2 id="style-binding">Style Binding</h2>
 
@@ -5090,10 +5085,8 @@ can be found in the LICENSE file at http://angular.io/license
 
 <a class="to-toc" href="#toc">top</a>
 
-<!--
-  Two way data binding unwound;
-  passing the changed display value to the event handler via \`$event\`
--->
+<!-- Two way data binding unwound;
+    passing the changed display value to the event handler via \`$event\` -->
 <hr />
 <h2 id="ngModel">NgModel (two-way) Binding</h2>
 
@@ -5413,13 +5406,13 @@ without NgModel <br />
 <div>The current hero's name is {{ currentHero.name }}</div>
 
 <!--
-  The null hero's name is {{nullHero.name}}
+The null hero's name is {{nullHero.name}}
 
-  See console log:
-    TypeError: Cannot read property 'name' of null in [null]
+See console log:
+  TypeError: Cannot read property 'name' of null in [null]
 -->
 
-<!-- No hero, div not displayed, no error -->
+<!--No hero, div not displayed, no error -->
 <div *ngIf="nullHero">The null hero's name is {{ nullHero.name }}</div>
 
 <div>The null hero's name is {{ nullHero && nullHero.name }}</div>
@@ -5436,7 +5429,7 @@ without NgModel <br />
 <h2 id="non-null-assertion-operator">Non-null assertion operator <i>!.</i></h2>
 
 <div>
-  <!-- No hero, no text -->
+  <!--No hero, no text -->
   <div *ngIf="hero">The hero's name is {{ hero!.name }}</div>
 </div>
 
@@ -5473,10 +5466,10 @@ without NgModel <br />
 
 <a class="to-toc" href="#toc">top</a>
 
-<!--
-  Copyright 2017-2018 Google Inc. All Rights Reserved.
-  Use of this source code is governed by an MIT-style license that
-  can be found in the LICENSE file at http://angular.io/license
+<!-- 
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
 -->
 
 <div id="heroForm">
@@ -5497,10 +5490,10 @@ without NgModel <br />
   <div [hidden]="!heroForm.form.valid">{{ submitMessage }}</div>
 </div>
 
-<!--
-  Copyright 2017-2018 Google Inc. All Rights Reserved.
-  Use of this source code is governed by an MIT-style license that
-  can be found in the LICENSE file at http://angular.io/license
+<!-- 
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
 -->
 
 ================================================================================
@@ -6232,9 +6225,7 @@ can be found in the LICENSE file at http://angular.io/license
 -->
 
 =====================================output=====================================
-<!--
-  copied from: https://stackblitz.com/angular/ymdjlgmlavo
--->
+<!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
 
 <a
   id="toc"
@@ -6400,9 +6391,7 @@ can be found in the LICENSE file at http://angular.io/license
   >Enums</a
 ><br />
 
-<!--
-  Interpolation and expressions
--->
+<!-- Interpolation and expressions -->
 <hr />
 <h2
   id="interpolation"
@@ -6430,9 +6419,7 @@ can be found in the LICENSE file at http://angular.io/license
   />
 </h3>
 
-<!--
-  "The sum of 1 + 1 is 2"
--->
+<!-- "The sum of 1 + 1 is 2" -->
 <p>
   The
   sum
@@ -6447,9 +6434,7 @@ can be found in the LICENSE file at http://angular.io/license
   }}
 </p>
 
-<!--
-  "The sum of 1 + 1 is not 4"
--->
+<!-- "The sum of 1 + 1 is not 4" -->
 <p>
   The
   sum
@@ -6510,9 +6495,7 @@ can be found in the LICENSE file at http://angular.io/license
   (let
   hero)
 </p>
-<!--
-  template hides the following; plenty of examples later
--->
+<!-- template hides the following; plenty of examples later -->
 <ng-template>
   <div
     *ngFor="
@@ -6613,9 +6596,7 @@ can be found in the LICENSE file at http://angular.io/license
   (let
   hero)
 </p>
-<!--
-  template hides the following; plenty of examples later
--->
+<!-- template hides the following; plenty of examples later -->
 <div
   class="context"
 >
@@ -6664,9 +6645,7 @@ can be found in the LICENSE file at http://angular.io/license
   >top</a
 >
 
-<!--
-  New Mental Model
--->
+<!-- New Mental Model -->
 <hr />
 <h2
   id="mental-model"
@@ -6676,12 +6655,8 @@ can be found in the LICENSE file at http://angular.io/license
   Model
 </h2>
 
-<!--
-  <img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">
--->
-<!--
-  Public Domain terms of use: http://www.wpclipart.com/terms.html
--->
+<!--<img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">-->
+<!-- Public Domain terms of use: http://www.wpclipart.com/terms.html -->
 <div
   class="special"
 >
@@ -6699,26 +6674,20 @@ can be found in the LICENSE file at http://angular.io/license
 <br /><br />
 
 <div>
-  <!--
-    Normal HTML
-  -->
+  <!-- Normal HTML -->
   <div
     class="special"
   >
     Mental
     Model
   </div>
-  <!--
-    Wow! A new element!
-  -->
+  <!-- Wow! A new element! -->
   <app-hero-detail></app-hero-detail>
 </div>
 <br /><br />
 
 <div>
-  <!--
-    Bind button disabled state to \`isUnchanged\` property
-  -->
+  <!-- Bind button disabled state to \`isUnchanged\` property -->
   <button
     [disabled]="
       isUnchanged
@@ -6822,9 +6791,7 @@ can be found in the LICENSE file at http://angular.io/license
   >top</a
 >
 
-<!--
-  property vs. attribute
--->
+<!-- property vs. attribute -->
 <hr />
 <h2
   id="prop-vs-attrib"
@@ -6835,9 +6802,7 @@ can be found in the LICENSE file at http://angular.io/license
   (img
   examples)
 </h2>
-<!--
-  examine the following <img> tag in the browser tools
--->
+<!-- examine the following <img> tag in the browser tools -->
 <img
   src="images/ng-logo.png"
   [src]="
@@ -6869,9 +6834,7 @@ can be found in the LICENSE file at http://angular.io/license
   >top</a
 >
 
-<!--
-  buttons
--->
+<!-- buttons -->
 <hr />
 <h2
   id="buttons"
@@ -6948,9 +6911,7 @@ can be found in the LICENSE file at http://angular.io/license
   >top</a
 >
 
-<!--
-  property binding
--->
+<!-- property binding -->
 <hr />
 <h2
   id="property-binding"
@@ -6996,10 +6957,8 @@ can be found in the LICENSE file at http://angular.io/license
   "
 />
 
-<!--
-  ERROR: HeroDetailComponent.hero expects a
-  Hero object, not the string "currentHero"
--->
+<!-- ERROR: HeroDetailComponent.hero expects a
+     Hero object, not the string "currentHero" -->
 <div
   *ngIf="
     false
@@ -7074,7 +7033,7 @@ can be found in the LICENSE file at http://angular.io/license
 <!--
   Angular generates warnings for these two lines as it sanitizes them
   WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).
--->
+ -->
 <p>
   <span
     >"{{
@@ -7112,9 +7071,7 @@ can be found in the LICENSE file at http://angular.io/license
   >top</a
 >
 
-<!--
-  attribute binding
--->
+<!-- attribute binding -->
 <hr />
 <h2
   id="attribute-binding"
@@ -7123,15 +7080,11 @@ can be found in the LICENSE file at http://angular.io/license
   Binding
 </h2>
 
-<!--
-  create and set a colspan attribute
--->
+<!--  create and set a colspan attribute -->
 <table
   border="1"
 >
-  <!--
-    expression calculates colspan=2
-  -->
+  <!--  expression calculates colspan=2 -->
   <tr>
     <td
       [attr.colspan]="
@@ -7143,8 +7096,7 @@ can be found in the LICENSE file at http://angular.io/license
     </td>
   </tr>
 
-  <!--
-    ERROR: There is no \`colspan\` property to set!
+  <!-- ERROR: There is no \`colspan\` property to set!
     <tr><td colspan="{{1 + 1}}">Three-Four</td></tr>
   -->
 
@@ -7159,9 +7111,7 @@ can be found in the LICENSE file at http://angular.io/license
 </table>
 
 <br />
-<!--
-  create and set an aria attribute for assistive technology
--->
+<!-- create and set an aria attribute for assistive technology -->
 <button
   [attr.aria-label]="
     actionName
@@ -7175,13 +7125,9 @@ can be found in the LICENSE file at http://angular.io/license
 </button>
 <br /><br />
 
-<!--
-  The following effects are not discussed in the chapter
--->
+<!-- The following effects are not discussed in the chapter -->
 <div>
-  <!--
-    any use of [attr.disabled] creates the disabled attribute
-  -->
+  <!-- any use of [attr.disabled] creates the disabled attribute -->
   <button
     [attr.disabled]="
       isUnchanged
@@ -7200,9 +7146,7 @@ can be found in the LICENSE file at http://angular.io/license
     well
   </button>
 
-  <!--
-    we'd have to remove it with property binding
-  -->
+  <!-- we'd have to remove it with property binding -->
   <button
     disabled
     [disabled]="
@@ -7221,9 +7165,7 @@ can be found in the LICENSE file at http://angular.io/license
   >top</a
 >
 
-<!--
-  class binding
--->
+<!-- class binding -->
 <hr />
 <h2
   id="class-binding"
@@ -7232,9 +7174,7 @@ can be found in the LICENSE file at http://angular.io/license
   Binding
 </h2>
 
-<!--
-  standard class attribute setting
--->
+<!-- standard class attribute setting  -->
 <div
   class="bad curly special"
 >
@@ -7243,9 +7183,7 @@ can be found in the LICENSE file at http://angular.io/license
   special
 </div>
 
-<!--
-  reset/override all class names with a binding
--->
+<!-- reset/override all class names with a binding  -->
 <div
   class="bad curly special"
   [class]="
@@ -7256,9 +7194,7 @@ can be found in the LICENSE file at http://angular.io/license
   curly
 </div>
 
-<!--
-  toggle the "special" class on/off with a property
--->
+<!-- toggle the "special" class on/off with a property -->
 <div
   [class.special]="
     isSpecial
@@ -7271,9 +7207,7 @@ can be found in the LICENSE file at http://angular.io/license
   special
 </div>
 
-<!--
-  binding to \`class.special\` trumps the class attribute
--->
+<!-- binding to \`class.special\` trumps the class attribute -->
 <div
   class="special"
   [class.special]="
@@ -7307,9 +7241,7 @@ can be found in the LICENSE file at http://angular.io/license
   >top</a
 >
 
-<!--
-  style binding
--->
+<!--style binding -->
 <hr />
 <h2
   id="style-binding"
@@ -7362,9 +7294,7 @@ can be found in the LICENSE file at http://angular.io/license
   >top</a
 >
 
-<!--
-  event binding
--->
+<!-- event binding -->
 <hr />
 <h2
   id="event-binding"
@@ -7391,9 +7321,7 @@ can be found in the LICENSE file at http://angular.io/license
 </button>
 
 <div>
-  <!--
-    \`myClick\` is an event on the custom \`ClickDirective\`
-  -->
+  <!-- \`myClick\` is an event on the custom \`ClickDirective\` -->
   <div
     (myClick)="
       clickMessage = $event
@@ -7409,9 +7337,7 @@ can be found in the LICENSE file at http://angular.io/license
   }}
 </div>
 
-<!--
-  binding to a nested component
--->
+<!-- binding to a nested component -->
 <app-hero-detail
   (deleteRequest)="
     deleteHero(
@@ -7456,9 +7382,7 @@ can be found in the LICENSE file at http://angular.io/license
   </div>
 </div>
 
-<!--
-  Will save only once
--->
+<!-- Will save only once -->
 <div
   (click)="
     onSave()
@@ -7478,9 +7402,7 @@ can be found in the LICENSE file at http://angular.io/license
   </button>
 </div>
 
-<!--
-  Will save twice
--->
+<!-- Will save twice -->
 <div
   (click)="
     onSave()
@@ -7561,10 +7483,8 @@ can be found in the LICENSE file at http://angular.io/license
   >top</a
 >
 
-<!--
-  Two way data binding unwound;
-  passing the changed display value to the event handler via \`$event\`
--->
+<!-- Two way data binding unwound;
+    passing the changed display value to the event handler via \`$event\` -->
 <hr />
 <h2
   id="ngModel"
@@ -7635,9 +7555,7 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  NgClass binding
--->
+<!-- NgClass binding -->
 <hr />
 <h2
   id="ngClass"
@@ -7669,9 +7587,7 @@ bindon-ngModel
   special
 </div>
 
-<!--
-  not used in chapter
--->
+<!-- not used in chapter -->
 <br />
 <label
   >saveable
@@ -7781,9 +7697,7 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  NgStyle binding
--->
+<!-- NgStyle binding -->
 <hr />
 <h2
   id="ngStyle"
@@ -7843,9 +7757,7 @@ bindon-ngModel
   (24px).
 </div>
 
-<!--
-  not used in chapter
--->
+<!-- not used in chapter -->
 <br />
 <label
   >italic:
@@ -7918,9 +7830,7 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  NgIf binding
--->
+<!-- NgIf binding -->
 <hr />
 <h2
   id="ngIf"
@@ -7956,9 +7866,7 @@ bindon-ngModel
   }}
 </div>
 
-<!--
-  NgIf binding with template (no *)
--->
+<!-- NgIf binding with template (no *) -->
 
 <ng-template
   [ngIf]="
@@ -7972,9 +7880,7 @@ bindon-ngModel
   template</ng-template
 >
 
-<!--
-  Does not show because isActive is false!
--->
+<!-- Does not show because isActive is false! -->
 <div>
   Hero
   Detail
@@ -7996,9 +7902,7 @@ bindon-ngModel
   <app-hero-detail></app-hero-detail>
 </ng-template>
 
-<!--
-  isSpecial is true
--->
+<!-- isSpecial is true -->
 <div
   [class.hidden]="
     !isSpecial
@@ -8018,9 +7922,7 @@ bindon-ngModel
   class
 </div>
 
-<!--
-  HeroDetail is in the DOM but hidden
--->
+<!-- HeroDetail is in the DOM but hidden -->
 <app-hero-detail
   [class.hidden]="
     isSpecial
@@ -8056,9 +7958,7 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  NgFor binding
--->
+<!-- NgFor binding -->
 <hr />
 <h2
   id="ngFor"
@@ -8085,9 +7985,7 @@ bindon-ngModel
 <div
   class="box"
 >
-  <!--
-    *ngFor w/ hero-detail Component
-  -->
+  <!-- *ngFor w/ hero-detail Component -->
   <app-hero-detail
     *ngFor="
       let hero of heroes
@@ -8148,9 +8046,7 @@ bindon-ngModel
 <div
   class="box"
 >
-  <!--
-    Ex: "1 - Hercules"
-  -->
+  <!-- Ex: "1 - Hercules" -->
   <div
     *ngFor="
       let hero of heroes;
@@ -8401,9 +8297,7 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  NgSwitch binding
--->
+<!-- NgSwitch binding -->
 <hr />
 <h2
   id="ngSwitch"
@@ -8496,9 +8390,7 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  template reference variable
--->
+<!-- template reference variable -->
 <hr />
 <h2
   id="ref-vars"
@@ -8513,13 +8405,9 @@ bindon-ngModel
   placeholder="phone number"
 />
 
-<!--
-  lots of other elements
--->
+<!-- lots of other elements -->
 
-<!--
-  phone refers to the input element; pass its \`value\` to an event handler
--->
+<!-- phone refers to the input element; pass its \`value\` to an event handler -->
 <button
   (click)="
     callPhone(
@@ -8544,9 +8432,7 @@ bindon-ngModel
   Fax
 </button>
 
-<!--
-  btn refers to the button element; show its disabled state
--->
+<!-- btn refers to the button element; show its disabled state -->
 <button
   #btn
   disabled
@@ -8572,9 +8458,7 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  inputs and output
--->
+<!-- inputs and output -->
 <hr />
 <h2
   id="inputs-and-outputs"
@@ -8627,9 +8511,7 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  Pipes
--->
+<!-- Pipes -->
 <hr />
 <h2
   id="pipes"
@@ -8648,9 +8530,7 @@ bindon-ngModel
   }}
 </div>
 
-<!--
-  Pipe chaining: convert title to uppercase, then to lowercase
--->
+<!-- Pipe chaining: convert title to uppercase, then to lowercase -->
 <div>
   Title
   through
@@ -8664,9 +8544,7 @@ bindon-ngModel
   }}
 </div>
 
-<!--
-  pipe with configuration argument => "February 25, 1970"
--->
+<!-- pipe with configuration argument => "February 25, 1970" -->
 <div>
   Birthdate:
   {{
@@ -8694,9 +8572,7 @@ bindon-ngModel
 </div>
 
 <div>
-  <!--
-    pipe price to USD and display the $ symbol
-  -->
+  <!-- pipe price to USD and display the $ symbol -->
   <label
     >Price: </label
   >{{
@@ -8713,9 +8589,7 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  Null values and the safe navigation operator
--->
+<!-- Null values and the safe navigation operator -->
 <hr />
 <h2
   id="safe-navigation-operator"
@@ -8760,15 +8634,13 @@ bindon-ngModel
 </div>
 
 <!--
-  The null hero's name is {{nullHero.name}}
+The null hero's name is {{nullHero.name}}
 
-  See console log:
-    TypeError: Cannot read property 'name' of null in [null]
+See console log:
+  TypeError: Cannot read property 'name' of null in [null]
 -->
 
-<!--
-  No hero, div not displayed, no error
--->
+<!--No hero, div not displayed, no error -->
 <div
   *ngIf="
     nullHero
@@ -8797,9 +8669,7 @@ bindon-ngModel
 </div>
 
 <div>
-  <!--
-    No hero, no problem!
-  -->
+  <!-- No hero, no problem! -->
   The
   null
   hero's
@@ -8816,9 +8686,7 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  non-null assertion operator
--->
+<!-- non-null assertion operator -->
 <hr />
 <h2
   id="non-null-assertion-operator"
@@ -8832,9 +8700,7 @@ bindon-ngModel
 </h2>
 
 <div>
-  <!--
-    No hero, no text
-  -->
+  <!--No hero, no text -->
   <div
     *ngIf="
       hero
@@ -8857,9 +8723,7 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  non-null assertion operator
--->
+<!-- non-null assertion operator -->
 <hr />
 <h2
   id="any-type-cast-function"
@@ -8875,9 +8739,7 @@ bindon-ngModel
 </h2>
 
 <div>
-  <!--
-    Accessing an undeclared member
-  -->
+  <!-- Accessing an undeclared member -->
   <div>
     The
     hero's
@@ -8893,9 +8755,7 @@ bindon-ngModel
 </div>
 
 <div>
-  <!--
-    Accessing an undeclared member
-  -->
+  <!-- Accessing an undeclared member -->
   <div>
     Undeclared
     members
@@ -8910,12 +8770,8 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  TODO: discuss this in the Style binding section
--->
-<!--
-  enums in bindings
--->
+<!-- TODO: discuss this in the Style binding section -->
+<!-- enums in bindings -->
 <hr />
 <h2
   id="enums"
@@ -8976,10 +8832,10 @@ bindon-ngModel
   >top</a
 >
 
-<!--
-  Copyright 2017-2018 Google Inc. All Rights Reserved.
-  Use of this source code is governed by an MIT-style license that
-  can be found in the LICENSE file at http://angular.io/license
+<!-- 
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
 -->
 
 <div
@@ -9033,10 +8889,10 @@ bindon-ngModel
   </div>
 </div>
 
-<!--
-  Copyright 2017-2018 Google Inc. All Rights Reserved.
-  Use of this source code is governed by an MIT-style license that
-  can be found in the LICENSE file at http://angular.io/license
+<!-- 
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
 -->
 
 ================================================================================
@@ -9917,9 +9773,7 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="mental-model">New Mental Model</h2>
 
-<!--
-  <img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">
--->
+<!--<img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">-->
 <!-- Public Domain terms of use: http://www.wpclipart.com/terms.html -->
 <div class="special">Mental Model</div>
 <img src="assets/images/hero.png" />
@@ -10023,10 +9877,8 @@ can be found in the LICENSE file at http://angular.io/license
 <app-hero-detail [hero]="currentHero"></app-hero-detail>
 <img bind-src="heroImageUrl" />
 
-<!--
-  ERROR: HeroDetailComponent.hero expects a
-  Hero object, not the string "currentHero"
--->
+<!-- ERROR: HeroDetailComponent.hero expects a
+     Hero object, not the string "currentHero" -->
 <div *ngIf="false"><app-hero-detail hero="currentHero"></app-hero-detail></div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
@@ -10061,7 +9913,7 @@ can be found in the LICENSE file at http://angular.io/license
 <!--
   Angular generates warnings for these two lines as it sanitizes them
   WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).
--->
+ -->
 <p>
   <span>
     "{{ evilTitle }}" is the
@@ -10083,13 +9935,12 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="attribute-binding">Attribute Binding</h2>
 
-<!-- create and set a colspan attribute -->
+<!--  create and set a colspan attribute -->
 <table border="1">
-  <!-- expression calculates colspan=2 -->
+  <!--  expression calculates colspan=2 -->
   <tr><td [attr.colspan]="1 + 1">One-Two</td></tr>
 
-  <!--
-    ERROR: There is no \`colspan\` property to set!
+  <!-- ERROR: There is no \`colspan\` property to set!
     <tr><td colspan="{{1 + 1}}">Three-Four</td></tr>
   -->
 
@@ -10122,10 +9973,10 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="class-binding">Class Binding</h2>
 
-<!-- standard class attribute setting -->
+<!-- standard class attribute setting  -->
 <div class="bad curly special">Bad curly special</div>
 
-<!-- reset/override all class names with a binding -->
+<!-- reset/override all class names with a binding  -->
 <div class="bad curly special" [class]="badCurly">Bad curly</div>
 
 <!-- toggle the "special" class on/off with a property -->
@@ -10140,7 +9991,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <a class="to-toc" href="#toc">top</a>
 
-<!-- style binding -->
+<!--style binding -->
 <hr />
 <h2 id="style-binding">Style Binding</h2>
 
@@ -10213,10 +10064,8 @@ can be found in the LICENSE file at http://angular.io/license
 
 <a class="to-toc" href="#toc">top</a>
 
-<!--
-  Two way data binding unwound;
-  passing the changed display value to the event handler via \`$event\`
--->
+<!-- Two way data binding unwound;
+    passing the changed display value to the event handler via \`$event\` -->
 <hr />
 <h2 id="ngModel">NgModel (two-way) Binding</h2>
 
@@ -10599,13 +10448,13 @@ bindon-ngModel
 <div>The current hero's name is {{ currentHero.name }}</div>
 
 <!--
-  The null hero's name is {{nullHero.name}}
+The null hero's name is {{nullHero.name}}
 
-  See console log:
-    TypeError: Cannot read property 'name' of null in [null]
+See console log:
+  TypeError: Cannot read property 'name' of null in [null]
 -->
 
-<!-- No hero, div not displayed, no error -->
+<!--No hero, div not displayed, no error -->
 <div *ngIf="nullHero">The null hero's name is {{ nullHero.name }}</div>
 
 <div>The null hero's name is {{ nullHero && nullHero.name }}</div>
@@ -10625,7 +10474,7 @@ bindon-ngModel
 </h2>
 
 <div>
-  <!-- No hero, no text -->
+  <!--No hero, no text -->
   <div *ngIf="hero">The hero's name is {{ hero!.name }}</div>
 </div>
 
@@ -10668,10 +10517,10 @@ bindon-ngModel
 
 <a class="to-toc" href="#toc">top</a>
 
-<!--
-  Copyright 2017-2018 Google Inc. All Rights Reserved.
-  Use of this source code is governed by an MIT-style license that
-  can be found in the LICENSE file at http://angular.io/license
+<!-- 
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
 -->
 
 <div id="heroForm">
@@ -10692,11 +10541,69 @@ bindon-ngModel
   <div [hidden]="!heroForm.form.valid">{{ submitMessage }}</div>
 </div>
 
-<!--
-  Copyright 2017-2018 Google Inc. All Rights Reserved.
-  Use of this source code is governed by an MIT-style license that
-  can be found in the LICENSE file at http://angular.io/license
+<!-- 
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
 -->
+
+================================================================================
+`;
+
+exports[`tag-name.component.html 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<Table></Table>
+
+=====================================output=====================================
+<Table></Table>
+
+================================================================================
+`;
+
+exports[`tag-name.component.html 2`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+<Table></Table>
+
+=====================================output=====================================
+<Table></Table>
+
+================================================================================
+`;
+
+exports[`tag-name.component.html 3`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<Table></Table>
+
+=====================================output=====================================
+<Table></Table>
+
+================================================================================
+`;
+
+exports[`tag-name.component.html 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<Table></Table>
+
+=====================================output=====================================
+<Table></Table>
 
 ================================================================================
 `;

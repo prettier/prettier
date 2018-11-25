@@ -3505,7 +3505,7 @@ function printPathNoParens(path, options, print, args) {
             concat([
               index === 0
                 ? ""
-                : isNgForOf(childPath)
+                : isNgForOf(childPath.getValue(), index, n)
                 ? " "
                 : concat([";", line]),
               print(childPath)
@@ -3522,12 +3522,24 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "expression"),
         n.alias === null ? "" : concat([" as ", path.call(print, "alias")])
       ]);
-    case "NGMicrosyntaxKeyedExpression":
+    case "NGMicrosyntaxKeyedExpression": {
+      const index = path.getName();
+      const parentNode = path.getParentNode();
+      const shouldNotPrintColon =
+        isNgForOf(n, index, parentNode) ||
+        (((index === 1 && (n.key.name === "then" || n.key.name === "else")) ||
+          (index === 2 &&
+            (n.key.name === "else" &&
+              parentNode.body[index - 1].type ===
+                "NGMicrosyntaxKeyedExpression" &&
+              parentNode.body[index - 1].key.name === "then"))) &&
+          parentNode.body[0].type === "NGMicrosyntaxExpression");
       return concat([
         path.call(print, "key"),
-        isNgForOf(path) ? " " : ": ",
+        shouldNotPrintColon ? " " : ": ",
         path.call(print, "expression")
       ]);
+    }
     case "NGMicrosyntaxLet":
       return concat([
         "let ",
@@ -3546,11 +3558,7 @@ function printPathNoParens(path, options, print, args) {
   }
 }
 
-/** prefer `let hero of heros` over `let hero; of: heros` */
-function isNgForOf(path) {
-  const node = path.getValue();
-  const index = path.getName();
-  const parentNode = path.getParentNode();
+function isNgForOf(node, index, parentNode) {
   return (
     node.type === "NGMicrosyntaxKeyedExpression" &&
     node.key.name === "of" &&

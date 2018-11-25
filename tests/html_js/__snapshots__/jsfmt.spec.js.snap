@@ -162,6 +162,49 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`template-literal.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    </head>
+    <body>
+        <script>
+            function foo() {
+                return \`
+                    <div>
+                        <p>Text</p>
+                    </div>
+                \`;
+            }
+        </script>
+    </body>
+</html>
+
+=====================================output=====================================
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <script>
+      function foo() {
+        return \`
+                    <div>
+                        <p>Text</p>
+                    </div>
+                \`;
+      }
+    </script>
+  </body>
+</html>
+
+================================================================================
+`;
+
 exports[`typescript.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
