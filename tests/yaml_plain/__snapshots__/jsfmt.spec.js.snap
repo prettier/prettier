@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`force-singleline-in-mapping-value.yml - yaml-verify 1`] = `
+exports[`force-singleline-in-mapping-value.yml 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 whitespace: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
@@ -11,7 +16,8 @@ literal-newline: longlonglonglonglonglonglonglonglonglonglong
 newline: longlonglonglonglonglonglonglonglonglonglong
 
   longlonglonglonglonglonglonglonglonglonglong
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 whitespace: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
@@ -23,9 +29,16 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 
   longlonglonglonglonglonglonglonglonglonglong
 
+================================================================================
 `;
 
-exports[`force-singleline-in-mapping-value.yml - yaml-verify 2`] = `
+exports[`force-singleline-in-mapping-value.yml 2`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 whitespace: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
@@ -36,7 +49,8 @@ literal-newline: longlonglonglonglonglonglonglonglonglonglong
 newline: longlonglonglonglonglonglonglonglonglonglong
 
   longlonglonglonglonglonglonglonglonglonglong
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 whitespace: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
@@ -47,9 +61,16 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 
   longlonglonglonglonglonglonglonglonglonglong
 
+================================================================================
 `;
 
-exports[`force-singleline-in-mapping-value.yml - yaml-verify 3`] = `
+exports[`force-singleline-in-mapping-value.yml 3`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 whitespace: longlonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglong
@@ -60,7 +81,8 @@ literal-newline: longlonglonglonglonglonglonglonglonglonglong
 newline: longlonglonglonglonglonglonglonglonglonglong
 
   longlonglonglonglonglonglonglonglonglonglong
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 no-whitesapce: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 whitespace:
@@ -75,72 +97,124 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 
   longlonglonglonglonglonglonglonglonglonglong
 
+================================================================================
 `;
 
-exports[`middle-comment.yml - yaml-verify 1`] = `
-!!str # comment
-hello
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`middle-comment.yml 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 !!str # comment
 hello
 
+=====================================output=====================================
+!!str # comment
+hello
+
+================================================================================
 `;
 
-exports[`middle-comment.yml - yaml-verify 2`] = `
-!!str # comment
-hello
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`middle-comment.yml 2`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 !!str # comment
 hello
 
+=====================================output=====================================
+!!str # comment
+hello
+
+================================================================================
 `;
 
-exports[`middle-comment.yml - yaml-verify 3`] = `
-!!str # comment
-hello
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`middle-comment.yml 3`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 !!str # comment
 hello
 
+=====================================output=====================================
+!!str # comment
+hello
+
+================================================================================
 `;
 
-exports[`middle-comments.yml - yaml-verify 1`] = `
+exports[`middle-comments.yml 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 !!str # comment 1
 # comment 2
 hello
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 !!str
 # comment 1
 # comment 2
 hello
 
+================================================================================
 `;
 
-exports[`middle-comments.yml - yaml-verify 2`] = `
+exports[`middle-comments.yml 2`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 !!str # comment 1
 # comment 2
 hello
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 !!str
 # comment 1
 # comment 2
 hello
 
+================================================================================
 `;
 
-exports[`middle-comments.yml - yaml-verify 3`] = `
+exports[`middle-comments.yml 3`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 !!str # comment 1
 # comment 2
 hello
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 !!str
 # comment 1
 # comment 2
 hello
 
+================================================================================
 `;
 
-exports[`multiline.yml - yaml-verify 1`] = `
+exports[`multiline.yml 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 b:    
   123123123123123123123123123   
        123123123123123123123123123   
@@ -160,7 +234,8 @@ b:
          
          123123123123123123123123123  
     
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 b: 123123123123123123123123123
   123123123123123123123123123
   123123123123123123123123123
@@ -179,9 +254,16 @@ b: 123123123123123123123123123
 
   123123123123123123123123123
 
+================================================================================
 `;
 
-exports[`multiline.yml - yaml-verify 2`] = `
+exports[`multiline.yml 2`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 b:    
   123123123123123123123123123   
        123123123123123123123123123   
@@ -201,7 +283,8 @@ b:
          
          123123123123123123123123123  
     
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 b:
   123123123123123123123123123 123123123123123123123123123 123123123123123123123123123 123123123123123123123123123 123123123123123123123123123 123123123123123123123123123 123123123123123123123123123
 
@@ -215,9 +298,16 @@ b:
 
   123123123123123123123123123
 
+================================================================================
 `;
 
-exports[`multiline.yml - yaml-verify 3`] = `
+exports[`multiline.yml 3`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 b:    
   123123123123123123123123123   
        123123123123123123123123123   
@@ -237,7 +327,8 @@ b:
          
          123123123123123123123123123  
     
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 b: 123123123123123123123123123 123123123123123123123123123
   123123123123123123123123123 123123123123123123123123123
   123123123123123123123123123 123123123123123123123123123
@@ -253,46 +344,93 @@ b: 123123123123123123123123123 123123123123123123123123123
 
   123123123123123123123123123
 
+================================================================================
 `;
 
-exports[`true.yml - yaml-verify 1`] = `
-hello
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`true.yml 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 hello
 
+=====================================output=====================================
+hello
+
+================================================================================
 `;
 
-exports[`true.yml - yaml-verify 2`] = `
-hello
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-hello
-
-`;
-
-exports[`true.yml - yaml-verify 3`] = `
-hello
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`true.yml 2`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 hello
 
+=====================================output=====================================
+hello
+
+================================================================================
 `;
 
-exports[`verbatim.yml - yaml-verify 1`] = `
-!<hello> hello
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!<hello> hello
+exports[`true.yml 3`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+hello
 
+=====================================output=====================================
+hello
+
+================================================================================
 `;
 
-exports[`verbatim.yml - yaml-verify 2`] = `
-!<hello> hello
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`verbatim.yml 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 !<hello> hello
 
+=====================================output=====================================
+!<hello> hello
+
+================================================================================
 `;
 
-exports[`verbatim.yml - yaml-verify 3`] = `
-!<hello> hello
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`verbatim.yml 2`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 !<hello> hello
 
+=====================================output=====================================
+!<hello> hello
+
+================================================================================
+`;
+
+exports[`verbatim.yml 3`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+!<hello> hello
+
+=====================================output=====================================
+!<hello> hello
+
+================================================================================
 `;

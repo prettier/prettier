@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
  * @flow
  */
@@ -12,7 +17,8 @@ function foo(x) {
 
 // This file should be ignored, so this should not result in an error
 foo('Hello, world!');
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
  * @flow
  */
@@ -25,4 +31,5 @@ function foo(x) {
 // This file should be ignored, so this should not result in an error
 foo("Hello, world!");
 
+================================================================================
 `;

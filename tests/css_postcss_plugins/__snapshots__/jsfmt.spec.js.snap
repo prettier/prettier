@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`postcss-mixins.css - css-verify 1`] = `
+exports[`postcss-mixins.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a {
     @mixin $(theme)-colors;
 }
@@ -33,7 +38,8 @@ a {
         @mixin child;
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a {
   @mixin $(theme)-colors;
 }
@@ -67,9 +73,15 @@ a {
   }
 }
 
+================================================================================
 `;
 
-exports[`postcss-nested.css - css-verify 1`] = `
+exports[`postcss-nested.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 .phone {
     &_title {
         width: 500px;
@@ -84,7 +96,8 @@ exports[`postcss-nested.css - css-verify 1`] = `
         display: block;
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 .phone {
   &_title {
     width: 500px;
@@ -100,9 +113,15 @@ exports[`postcss-nested.css - css-verify 1`] = `
   }
 }
 
+================================================================================
 `;
 
-exports[`postcss-nested-props.css - css-verify 1`] = `
+exports[`postcss-nested-props.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 .funky {
     font: {
         family: fantasy;
@@ -116,7 +135,8 @@ exports[`postcss-nested-props.css - css-verify 1`] = `
         weight: bold;
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 .funky {
   font: {
     family: fantasy;
@@ -131,9 +151,15 @@ exports[`postcss-nested-props.css - css-verify 1`] = `
   }
 }
 
+================================================================================
 `;
 
-exports[`postcss-nesting.css - css-verify 1`] = `
+exports[`postcss-nesting.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a {
   order: 1;
   @nest b & {
@@ -335,7 +361,8 @@ a {
     order: 2;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a {
   order: 1;
   @nest b & {
@@ -551,9 +578,15 @@ a {
   }
 }
 
+================================================================================
 `;
 
-exports[`postcss-simple-vars.css - css-verify 1`] = `
+exports[`postcss-simple-vars.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 background-color: $$(style)Color;
 background-color: $$(style)Color Color122;
 color: @@color;
@@ -563,7 +596,8 @@ border: 1px solid var(--border-color);
 color: $(style)color;
 color: @@(style) color123;
 color: @@(style)color123;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 background-color: $$(style)Color;
 background-color: $$(style)Color Color122;
 color: @@color;
@@ -574,4 +608,5 @@ color: $(style) color;
 color: @@(style) color123;
 color: @@(style) color123;
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`qualified.js - flow-verify 1`] = `
+exports[`qualified.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class C { }
 var M = { C: C };
 
@@ -13,7 +18,8 @@ type bar = typeof of_type_foo.bar;
 
 var a: bar = 42;
 var b: bar = 'asdf'; // Error: string ~> number
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class C {}
 var M = { C: C };
 
@@ -27,4 +33,5 @@ type bar = typeof of_type_foo.bar;
 var a: bar = 42;
 var b: bar = "asdf"; // Error: string ~> number
 
+================================================================================
 `;

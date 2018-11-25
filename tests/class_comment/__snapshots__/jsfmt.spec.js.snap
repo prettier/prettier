@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js - flow-verify 1`] = `
+exports[`comments.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A // comment 1
   // comment 2
   extends B {}
@@ -49,7 +54,8 @@ export class SnapshotLogger {
   ) {
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class A // comment 1
   // comment 2
   extends B {}
@@ -102,4 +108,5 @@ export class SnapshotLogger {
   ) {}
 }
 
+================================================================================
 `;

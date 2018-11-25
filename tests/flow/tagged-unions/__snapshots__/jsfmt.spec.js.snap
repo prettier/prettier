@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classes.js - flow-verify 1`] = `
+exports[`classes.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 class Foo {
@@ -32,7 +37,8 @@ function foo(x: Foo): string {
 function bar(x: Bar): string {
   return x.bar;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 class Foo {
@@ -65,9 +71,15 @@ function bar(x: Bar): string {
   return x.bar;
 }
 
+================================================================================
 `;
 
-exports[`interfaces-neg.js - flow-verify 1`] = `
+exports[`interfaces-neg.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 declare interface IDataBase {
@@ -94,7 +106,8 @@ const data: IData = {
 if (data.kind === "user") {
   (data: ISystemData);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 declare interface IDataBase {
@@ -122,9 +135,15 @@ if (data.kind === "user") {
   (data: ISystemData);
 }
 
+================================================================================
 `;
 
-exports[`interfaces-pos.js - flow-verify 1`] = `
+exports[`interfaces-pos.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 declare interface IDataBase {
@@ -151,7 +170,8 @@ const data: IData = {
 if (data.kind === "system") {
   (data: ISystemData);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 declare interface IDataBase {
@@ -179,9 +199,15 @@ if (data.kind === "system") {
   (data: ISystemData);
 }
 
+================================================================================
 `;
 
-exports[`type-decls-neg.js - flow-verify 1`] = `
+exports[`type-decls-neg.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 type DataBase = {
@@ -212,7 +238,8 @@ const data: Data = {
 if (data.kind === "user") {
   (data: SystemData);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 type DataBase = {
@@ -244,9 +271,15 @@ if (data.kind === "user") {
   (data: SystemData);
 }
 
+================================================================================
 `;
 
-exports[`type-decls-pos.js - flow-verify 1`] = `
+exports[`type-decls-pos.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 type DataBase = {
@@ -277,7 +310,8 @@ const data: Data = {
 if (data.kind === "system") {
   (data: SystemData);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 type DataBase = {
@@ -309,4 +343,5 @@ if (data.kind === "system") {
   (data: SystemData);
 }
 
+================================================================================
 `;

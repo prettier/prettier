@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`jsx-comment.md - markdown-verify 1`] = `
+exports[`jsx-comment.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 \`\`\`jsx
 const Foo = () => {
   return (
@@ -13,7 +19,8 @@ const Foo = () => {
   );
 };
 \`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 \`\`\`jsx
 const Foo = () => {
   return (
@@ -27,9 +34,16 @@ const Foo = () => {
 };
 \`\`\`
 
+================================================================================
 `;
 
-exports[`markdown-preview-enhanced.md - markdown-verify 1`] = `
+exports[`markdown-preview-enhanced.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 ## plain js block
 
 \`\`\`js   
@@ -47,7 +61,8 @@ console.log(     "hello world"   );
 \`\`\`js{cmd=node .line-numbers}
 console.log(     "hello world"   );
 \`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ## plain js block
 
 \`\`\`js
@@ -66,9 +81,16 @@ console.log("hello world");
 console.log("hello world");
 \`\`\`
 
+================================================================================
 `;
 
-exports[`trailing-comma.md - markdown-verify 1`] = `
+exports[`trailing-comma.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 ### Some heading
 
 \`\`\`js
@@ -81,7 +103,8 @@ someFunctionCall(
   breakNow,
 );
 \`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ### Some heading
 
 \`\`\`js
@@ -95,4 +118,5 @@ someFunctionCall(
 );
 \`\`\`
 
+================================================================================
 `;

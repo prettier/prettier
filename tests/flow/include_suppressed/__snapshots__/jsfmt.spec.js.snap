@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 (123: string); // Normal error
@@ -9,7 +14,8 @@ exports[`test.js - flow-verify 1`] = `
 (123: string); // Suppressed error
 
 // $FlowFixMe - unused suppression comment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 (123: string); // Normal error
@@ -19,4 +25,5 @@ exports[`test.js - flow-verify 1`] = `
 
 // $FlowFixMe - unused suppression comment
 
+================================================================================
 `;

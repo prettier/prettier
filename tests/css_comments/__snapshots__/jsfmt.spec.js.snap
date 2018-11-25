@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CRLF.css - css-verify 1`] = `
+exports[`CRLF.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
  * Comment 1
  */
@@ -20,7 +25,8 @@ exports[`CRLF.css - css-verify 1`] = `
         color: red; /* Comment 5 */
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
  * Comment 1
  */
@@ -41,9 +47,15 @@ exports[`CRLF.css - css-verify 1`] = `
   }
 }
 
+================================================================================
 `;
 
-exports[`CRLF.less - css-verify 1`] = `
+exports[`CRLF.less 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
 
@@ -69,7 +81,8 @@ exports[`CRLF.less - css-verify 1`] = `
     color: red; /* Comment 7 */
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
 
@@ -96,9 +109,15 @@ exports[`CRLF.less - css-verify 1`] = `
   }
 }
 
+================================================================================
 `;
 
-exports[`CRLF.scss - css-verify 1`] = `
+exports[`CRLF.scss 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 $nice-blue: #5B83AD;
 $light-blue: $nice-blue + #111;
 
@@ -139,7 +158,8 @@ $light-blue: $nice-blue + #111;
         padding: $padding;
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 $nice-blue: #5b83ad;
 $light-blue: $nice-blue + #111;
 
@@ -181,9 +201,15 @@ $light-blue: $nice-blue + #111;
   }
 }
 
+================================================================================
 `;
 
-exports[`at-rules.css - css-verify 1`] = `
+exports[`at-rules.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @charset "utf-8"; /* comment 1 */
 
 @import /* comment 2 */ url("fineprint.css") /* comment 3 */ print /* comment 4 */; /* comment 5 */
@@ -253,7 +279,8 @@ exports[`at-rules.css - css-verify 1`] = `
     /* comment 213 */ } /* comment 214 */
 /* comment 215 */ } /* comment 216 */
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @charset "utf-8"; /* comment 1 */
 
 @import /* comment 2 */ url("fineprint.css") /* comment 3 */ print
@@ -390,16 +417,23 @@ exports[`at-rules.css - css-verify 1`] = `
   /* comment 215 */
 } /* comment 216 */
 
+================================================================================
 `;
 
-exports[`block.css - css-verify 1`] = `
+exports[`block.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Animation definitions cannot cross the shadow boundary,
 // and thus need to be loaded directly into the atom-text-editor scope.
 /* Kikoo */
 /**
  * Kikoo
  */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Animation definitions cannot cross the shadow boundary,
 // and thus need to be loaded directly into the atom-text-editor scope.
 /* Kikoo */
@@ -407,9 +441,15 @@ exports[`block.css - css-verify 1`] = `
  * Kikoo
  */
 
+================================================================================
 `;
 
-exports[`bug.css - css-verify 1`] = `
+exports[`bug.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @font-face  {
   src: url(if(
     $bootstrap-sass-asset-helper,
@@ -422,7 +462,8 @@ exports[`bug.css - css-verify 1`] = `
 /* Catchall baseclass */
 .glyphicon {
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @font-face {
   src: url(if(
     $bootstrap-sass-asset-helper,
@@ -436,9 +477,15 @@ exports[`bug.css - css-verify 1`] = `
 .glyphicon {
 }
 
+================================================================================
 `;
 
-exports[`declaration.css - css-verify 1`] = `
+exports[`declaration.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a {
     /* comment 1 */
     /* comment 2 */ padding /* comment 3 */ : /* comment 4 */ 10px /* comment 5 */ 10px /* comment 6 */; /* comment 7 */
@@ -511,7 +558,8 @@ body
     /* comment 84 */
     background: #000;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a {
   /* comment 1 */
   /* comment 2 */
@@ -601,9 +649,15 @@ body {
   background: #000;
 }
 
+================================================================================
 `;
 
-exports[`if-eslit-at-rule-decloration.scss - css-verify 1`] = `
+exports[`if-eslit-at-rule-decloration.scss 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @function _normalize-include($section) {
 // Check if $section is in the $include list.
   @if index($_normalize-include, $section) {
@@ -615,7 +669,8 @@ exports[`if-eslit-at-rule-decloration.scss - css-verify 1`] = `
   }
   @return false;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @function _normalize-include($section) {
   // Check if $section is in the $include list.
   @if index($_normalize-include, $section) {
@@ -631,25 +686,39 @@ exports[`if-eslit-at-rule-decloration.scss - css-verify 1`] = `
   @return false;
 }
 
+================================================================================
 `;
 
-exports[`lists.scss - css-verify 1`] = `
+exports[`lists.scss 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 $my-list:
   'foo', // Foo
   'bar'; // Bar
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 $my-list: "foo",
   // Foo
     "bar"; // Bar
 
+================================================================================
 `;
 
-exports[`maps.scss - css-verify 1`] = `
+exports[`maps.scss 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 $my-map: (
   'foo': 1, // Foo
   'bar': 2, // Bar
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 $my-map: (
   "foo": 1,
   // Foo
@@ -657,9 +726,15 @@ $my-map: (
   // Bar
 );
 
+================================================================================
 `;
 
-exports[`places.css - css-verify 1`] = `
+exports[`places.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 div {
   // a
 
@@ -668,7 +743,8 @@ div {
 
 // d
 div {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 div {
   // a
 
@@ -679,9 +755,15 @@ div {
 div {
 }
 
+================================================================================
 `;
 
-exports[`prettier-ignore.css - css-verify 1`] = `
+exports[`prettier-ignore.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // prettier-ignore
 @blue:  blue;
 @black: darkgray;
@@ -691,7 +773,8 @@ foo {
   thing:     foo;
   -ms-thing: foo;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // prettier-ignore
 @blue:  blue;
 @black: darkgray;
@@ -702,9 +785,15 @@ foo {
   -ms-thing: foo;
 }
 
+================================================================================
 `;
 
-exports[`selectors.css - css-verify 1`] = `
+exports[`selectors.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 .powerPathNavigator .helm button.pressedButton, /* comment 1 */
 .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
@@ -862,7 +951,8 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
         justify-content: center;
     };
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 .powerPathNavigator .helm button.pressedButton, /* comment 1 */
 .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
@@ -1100,9 +1190,15 @@ article /* comment 168 */ :--heading /* comment 169 */ + /* comment 170 */ p /* 
   }
 }
 
+================================================================================
 `;
 
-exports[`selectors.scss - css-verify 1`] = `
+exports[`selectors.scss 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 .powerPathNavigator .helm button.pressedButton, // comment 1
 .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
@@ -1165,7 +1261,8 @@ exports[`selectors.scss - css-verify 1`] = `
 .bar
 // comment 29
 {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 .powerPathNavigator .helm button.pressedButton, // comment 1
 .powerPathNavigator .helm button:active:not(.disabledButton),
 .powerPathNavigator table.powerPathInfo th:active,
@@ -1232,38 +1329,58 @@ exports[`selectors.scss - css-verify 1`] = `
  {
 }
 
+================================================================================
 `;
 
-exports[`source-map.css - css-verify 1`] = `
+exports[`source-map.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 .foo {
     color: red;
 }
 
 /*# sourceMappingURL=file.css.map */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 .foo {
   color: red;
 }
 
 /*# sourceMappingURL=file.css.map */
 
+================================================================================
 `;
 
-exports[`trailing_star_slash.css - css-verify 1`] = `
+exports[`trailing_star_slash.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @media (max-width: 1) {}
 a {
   // element.style */
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @media (max-width: 1) {
 }
 a {
   // element.style */
 }
 
+================================================================================
 `;
 
-exports[`types.css - css-verify 1`] = `
+exports[`types.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* This is a basic comment */
 
 /* ==========================================================================
@@ -1309,7 +1426,8 @@ span {
 /*
 <small class=tooltip><span>Lorem ipsum dolor</span></small>
 */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* This is a basic comment */
 
 /* ==========================================================================
@@ -1356,9 +1474,15 @@ span {
 <small class=tooltip><span>Lorem ipsum dolor</span></small>
 */
 
+================================================================================
 `;
 
-exports[`variable-declaration.scss - css-verify 1`] = `
+exports[`variable-declaration.scss 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 4 */
 
 @mixin text-color {
@@ -1373,7 +1497,8 @@ $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 
   /* comment 14 */ $text-color /* comment 15 */ : /* comment 16 */ green /* comment 17 */ !global /* comment 18 */ ; /* comment 19 */
   /* comment 20 */
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */; /* comment 4 */
 
 @mixin text-color {
@@ -1391,4 +1516,5 @@ $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */; /* comment 4
   /* comment 20 */
 }
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parens.js - flow-verify 1`] = `
+exports[`parens.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const result = (a + b) >>> 1;
 var sizeIndex = ((index - 1) >>> level) & MASK;
 var from = offset > left ? 0 : (left - offset) >> level;
@@ -19,7 +24,8 @@ a % 10 - 5;
 a * b % 10;
 a % 10 > 5;
 a % 10 == 0;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const result = (a + b) >>> 1;
 var sizeIndex = ((index - 1) >>> level) & MASK;
 var from = offset > left ? 0 : (left - offset) >> level;
@@ -42,4 +48,5 @@ const rotateY =
 a % 10 > 5;
 a % 10 == 0;
 
+================================================================================
 `;

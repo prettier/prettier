@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`styled-components.js - babylon-verify 1`] = `
+exports[`styled-components.js 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const ListItem = styled.li\`\`;
 
 const ListItem = styled.li\` \`;
@@ -159,7 +164,8 @@ const StyledComponent = styled.div\`
     color: red
   }
 \`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const ListItem = styled.li\`\`;
 
 const ListItem = styled.li\`\`;
@@ -320,4 +326,5 @@ const StyledComponent = styled.div\`
   }
 \`;
 
+================================================================================
 `;

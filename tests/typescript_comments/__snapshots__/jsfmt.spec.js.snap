@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abstract_class.ts - typescript-verify 1`] = `
+exports[`abstract_class.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class AbstractRule {
     /**
      * @deprecated
@@ -9,7 +14,8 @@ abstract class AbstractRule {
      */
     filterFailures() {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 abstract class AbstractRule {
   /**
    * @deprecated
@@ -19,9 +25,15 @@ abstract class AbstractRule {
   filterFailures() {}
 }
 
+================================================================================
 `;
 
-exports[`jsx.ts - typescript-verify 1`] = `
+exports[`jsx.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var example1 = <div>
 	https://test
 </div>;
@@ -29,14 +41,21 @@ var example1 = <div>
 var example2 = <div>
 	/*test*/
 </div>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var example1 = <div>https://test</div>;
 
 var example2 = <div>/*test*/</div>;
 
+================================================================================
 `;
 
-exports[`location.ts - typescript-verify 1`] = `
+exports[`location.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function x({
   x,
   y,
@@ -72,7 +91,8 @@ export type WrappedFormUtils = {
     exclusive?: boolean;
   }): (node: React.ReactNode) => React.ReactNode;
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function x({
   x,
   y
@@ -114,9 +134,15 @@ export type WrappedFormUtils = {
   ): (node: React.ReactNode) => React.ReactNode;
 };
 
+================================================================================
 `;
 
-exports[`mapped_types.ts - typescript-verify 1`] = `
+exports[`mapped_types.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type A = {
   // commentA
   [a in A]: string;
@@ -145,7 +171,8 @@ type F = {
 type G = {
   [g in G] /* commentG */: string
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type A = {
   // commentA
   [a in A]: string
@@ -163,9 +190,15 @@ type F = { [f in F /* commentF */]: string };
 
 type G = { [g in G /* commentG */]: string };
 
+================================================================================
 `;
 
-exports[`methods.ts - typescript-verify 1`] = `
+exports[`methods.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export class Point {
 /**
  * Does something.
@@ -212,7 +245,8 @@ export class Point {
   mismatchedIndentation() {}
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export class Point {
   /**
    * Does something.
@@ -259,22 +293,37 @@ export class Point {
   mismatchedIndentation() {}
 }
 
+================================================================================
 `;
 
-exports[`type-parameters.ts - typescript-verify 1`] = `
-functionName<A /* A comment */>();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`type-parameters.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 functionName<A /* A comment */>();
 
+=====================================output=====================================
+functionName<A /* A comment */>();
+
+================================================================================
 `;
 
-exports[`types.ts - typescript-verify 1`] = `
+exports[`types.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 (() => {
   // swallow error and fallback to using directory as path
 }) as string[];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 (() => {
   // swallow error and fallback to using directory as path
 }) as string[];
 
+================================================================================
 `;

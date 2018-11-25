@@ -1,12 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interface_types.js - flow-verify 1`] = `
-type A = interface { p: string };
-type B = interface extends X { p: string };
-type C = interface extends X, Y { p: string };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`interface_types.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type A = interface { p: string };
 type B = interface extends X { p: string };
 type C = interface extends X, Y { p: string };
 
+=====================================output=====================================
+type A = interface { p: string };
+type B = interface extends X { p: string };
+type C = interface extends X, Y { p: string };
+
+================================================================================
 `;

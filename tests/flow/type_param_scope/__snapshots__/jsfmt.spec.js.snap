@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js - flow-verify 1`] = `
+exports[`class.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class C<T> {
   a<A>(x:T, a:A) {
     this.b(x); // ok
@@ -9,7 +14,8 @@ class C<T> {
 
   b(x:T) {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class C<T> {
   a<A>(x: T, a: A) {
     this.b(x); // ok
@@ -19,9 +25,15 @@ class C<T> {
   b(x: T) {}
 }
 
+================================================================================
 `;
 
-exports[`default_params.js - flow-verify 1`] = `
+exports[`default_params.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f<T>(a:T) {
   function g<U>(b:U, c:T = a) {
     function h(d:U = b) {}
@@ -34,7 +46,8 @@ function f<T>(a:T) {
   g(0,0); // error: number ~> T
 }
 f(0); // ok
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f<T>(a: T) {
   function g<U>(b: U, c: T = a) {
     function h(d: U = b) {}
@@ -48,9 +61,15 @@ function f<T>(a: T) {
 }
 f(0); // ok
 
+================================================================================
 `;
 
-exports[`method_shadow.js - flow-verify 1`] = `
+exports[`method_shadow.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Ensure method type params properly shadow outer type params. Subclass ensures
 // the generated insttype has the correct tvars. Should behave the same for
 // classes, interfaces, and declared classes.
@@ -104,7 +123,8 @@ class H<T> {
         this.x = x; // err, m's T != H's T
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Ensure method type params properly shadow outer type params. Subclass ensures
 // the generated insttype has the correct tvars. Should behave the same for
 // classes, interfaces, and declared classes.
@@ -167,4 +187,5 @@ class H<T> {
   }
 }
 
+================================================================================
 `;

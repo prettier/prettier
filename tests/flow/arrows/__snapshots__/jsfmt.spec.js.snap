@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`advanced_arrows.js - flow-verify 1`] = `
+exports[`advanced_arrows.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -12,7 +17,8 @@ var bad = (x: number): string => x; // Error!
 var ident = <T>(x: T): T => x;
 (ident(1): number);
 (ident("hi"): number); // Error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -25,9 +31,15 @@ var ident = <T>(x: T): T => x;
 (ident(1): number);
 (ident("hi"): number); // Error
 
+================================================================================
 `;
 
-exports[`arrows.js - flow-verify 1`] = `
+exports[`arrows.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function selectBestEffortImageForWidth(
     maxWidth: number,
     images: Array<Image>
@@ -38,7 +50,8 @@ function selectBestEffortImageForWidth(
     return images.find(image => image.width >= maxPixelWidth) ||
         images[images.length - 1];
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function selectBestEffortImageForWidth(
   maxWidth: number,
   images: Array<Image>
@@ -52,4 +65,5 @@ function selectBestEffortImageForWidth(
   );
 }
 
+================================================================================
 `;

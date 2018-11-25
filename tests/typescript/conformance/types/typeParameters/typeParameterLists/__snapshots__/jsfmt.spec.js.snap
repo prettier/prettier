@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`innerTypeParameterShadowingOuterOne.ts - typescript-verify 1`] = `
+exports[`innerTypeParameterShadowingOuterOne.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // inner type parameters shadow outer ones of the same name
 // no errors expected
 
@@ -29,7 +34,8 @@ function f2<T extends Date, U extends Date>() {
 //    var x: U;
 //    x.getDate();
 //}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // inner type parameters shadow outer ones of the same name
 // no errors expected
 
@@ -59,9 +65,15 @@ function f2<T extends Date, U extends Date>() {
 //    x.getDate();
 //}
 
+================================================================================
 `;
 
-exports[`innerTypeParameterShadowingOuterOne2.ts - typescript-verify 1`] = `
+exports[`innerTypeParameterShadowingOuterOne2.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // inner type parameters shadow outer ones of the same name
 // no errors expected
 
@@ -99,7 +111,8 @@ class C2<T extends Date, U extends Date> {
 //        x.getDate();
 //    }
 //}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // inner type parameters shadow outer ones of the same name
 // no errors expected
 
@@ -138,9 +151,15 @@ class C2<T extends Date, U extends Date> {
 //    }
 //}
 
+================================================================================
 `;
 
-exports[`staticMembersUsingClassTypeParameter.ts - typescript-verify 1`] = `
+exports[`staticMembersUsingClassTypeParameter.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // BUG 745747
 class C<T> {
     static x: T;
@@ -156,7 +175,8 @@ class C3<T extends Date> {
     static x: T;
     static f(x: T) { }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // BUG 745747
 class C<T> {
   static x: T;
@@ -173,9 +193,15 @@ class C3<T extends Date> {
   static f(x: T) {}
 }
 
+================================================================================
 `;
 
-exports[`typeParametersAvailableInNestedScope2.ts - typescript-verify 1`] = `
+exports[`typeParametersAvailableInNestedScope2.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo<T, U>(x: T, y: U) {
     function bar<V>(z: V) {
         function baz<W>(a: W) {
@@ -185,7 +211,8 @@ function foo<T, U>(x: T, y: U) {
         }
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo<T, U>(x: T, y: U) {
   function bar<V>(z: V) {
     function baz<W>(a: W) {
@@ -196,4 +223,5 @@ function foo<T, U>(x: T, y: U) {
   }
 }
 
+================================================================================
 `;

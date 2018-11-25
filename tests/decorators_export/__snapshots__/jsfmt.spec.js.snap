@@ -1,10 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`after_export.js - babylon-verify 1`] = `
+exports[`after_export.js 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export @decorator class Foo {}
 
 export default @decorator class {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export
 @decorator
 class Foo {}
@@ -13,19 +19,27 @@ export default
 @decorator
 class {}
 
+================================================================================
 `;
 
-exports[`before_export.js - babylon-verify 1`] = `
+exports[`before_export.js 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @decorator
 export class Foo {}
 
 @decorator
 export default class {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @decorator
 export class Foo {}
 
 @decorator
 export default class {}
 
+================================================================================
 `;

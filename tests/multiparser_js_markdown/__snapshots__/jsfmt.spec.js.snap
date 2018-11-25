@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`0-indent.js - babylon-verify 1`] = `
+exports[`0-indent.js 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 md\`
 This line shouldn't be indented at all in the resulting output.
 \`
@@ -20,7 +26,8 @@ text3
   - 456
 \`;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 md\`
 This line shouldn't be indented at all in the resulting output.
 \`;
@@ -44,9 +51,16 @@ text3
   \`;
 }
 
+================================================================================
 `;
 
-exports[`codeblock.js - babylon-verify 1`] = `
+exports[`codeblock.js 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 md\`
 \\\`\\\`\\\`js
 markdown\\\`
@@ -56,7 +70,8 @@ markdown\\\`
 \\\`
 \\\`\\\`\\\`
 \`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 md\`
 ~~~js
 markdown\\\`
@@ -67,9 +82,16 @@ markdown\\\`
 ~~~
 \`;
 
+================================================================================
 `;
 
-exports[`escape.js - babylon-verify 1`] = `
+exports[`escape.js 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 markdown\`
   const cssString = css\\\`
     background-color: \\$\\{color('base')\\}
@@ -84,7 +106,8 @@ markdown\`
   - \\$
   - \\u1234
 \`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 markdown\`
   const cssString = css\\\`background-color: \\$\\{color('base')\\}\\\`;
 \`;
@@ -98,9 +121,16 @@ markdown\`
   - \\u1234
 \`;
 
+================================================================================
 `;
 
-exports[`issue-5021.js - babylon-verify 1`] = `
+exports[`issue-5021.js 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 if (true) {
   md\`
 text1
@@ -135,7 +165,8 @@ text3
   - 456
   \`;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 if (true) {
   md\`
 text1
@@ -174,9 +205,16 @@ text3
   \`;
 }
 
+================================================================================
 `;
 
-exports[`markdown.js - babylon-verify 1`] = `
+exports[`markdown.js 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 export default function ReadMe() {
     return md\`
         ## Why Prettier?
@@ -193,7 +231,8 @@ export default function ReadMe() {
         - “It reminds me of how Steve Jobs used to wear the same clothes every day because he has a million decisions to make and he didn't want to be bothered to make trivial ones like picking out clothes. I think Prettier is like that.”
     \`;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export default function ReadMe() {
   return md\`
     ## Why Prettier?
@@ -227,13 +266,22 @@ export default function ReadMe() {
   \`;
 }
 
+================================================================================
 `;
 
-exports[`single-line.js - babylon-verify 1`] = `
+exports[`single-line.js 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 markdown\`# hello\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 markdown\`
 # hello
 \`;
 
+================================================================================
 `;

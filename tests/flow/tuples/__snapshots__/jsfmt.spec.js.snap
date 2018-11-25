@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js - flow-verify 1`] = `
+exports[`array.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 function foo(x: Array<number>): [number, ?number] {
@@ -10,7 +15,8 @@ function foo(x: Array<number>): [number, ?number] {
 function foo(x: Array<number>): [number, ?number] {
   return [x[0], x[1]]; // OK. This is unsound, but at least arity is enforced
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 function foo(x: Array<number>): [number, ?number] {
@@ -21,16 +27,23 @@ function foo(x: Array<number>): [number, ?number] {
   return [x[0], x[1]]; // OK. This is unsound, but at least arity is enforced
 }
 
+================================================================================
 `;
 
-exports[`optional.js - flow-verify 1`] = `
+exports[`optional.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 ([0, undefined]: [number, ?string]); // Ok, correct arity
 ([0]: [number, ?string]); // Error, arity is enforced
 
 ([]: [?number, string]); // error, since second element is not marked optional
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 ([0, undefined]: [number, ?string]); // Ok, correct arity
@@ -38,31 +51,45 @@ exports[`optional.js - flow-verify 1`] = `
 
 ([]: [?number, string]); // error, since second element is not marked optional
 
+================================================================================
 `;
 
-exports[`too-few.js - flow-verify 1`] = `
+exports[`too-few.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function foo(a: [Object, Object]) {}
 
 foo([ {} ]); // error, too few elements in array passed to a tuple
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function foo(a: [Object, Object]) {}
 
 foo([{}]); // error, too few elements in array passed to a tuple
 
+================================================================================
 `;
 
-exports[`tuples.js - flow-verify 1`] = `
+exports[`tuples.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var a: [] = [];
 var b: [] = [123]; // Error - arity mismatch
 var c: [number] = []; // nope
 var d: [number, string] = [123,'duck'];
 var e: [number, string,] = [123,'duck'];
 var f: [number, string] = [123, 456];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var a: [] = [];
 var b: [] = [123]; // Error - arity mismatch
 var c: [number] = []; // nope
@@ -70,4 +97,5 @@ var d: [number, string] = [123, "duck"];
 var e: [number, string] = [123, "duck"];
 var f: [number, string] = [123, 456];
 
+================================================================================
 `;

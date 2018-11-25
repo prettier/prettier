@@ -1,14 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`index-signature.ts - typescript-verify 1`] = `
-class LocalStorage implements Storage {
-  [index: number]: string;
-  [key: string]: any;
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`index-signature.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class LocalStorage implements Storage {
   [index: number]: string;
   [key: string]: any;
 }
 
+=====================================output=====================================
+class LocalStorage implements Storage {
+  [index: number]: string;
+  [key: string]: any;
+}
+
+================================================================================
 `;

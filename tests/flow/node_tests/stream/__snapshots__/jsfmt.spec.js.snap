@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`stream.js - flow-verify 1`] = `
+exports[`stream.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var child_process = require('child_process');
@@ -38,7 +43,8 @@ new MyReadStream()
   .on('error', () => {})
   .pipe(new MyDuplex())
   .once('close', () => {});
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var child_process = require("child_process");
@@ -77,4 +83,5 @@ new MyReadStream()
   .pipe(new MyDuplex())
   .once("close", () => {});
 
+================================================================================
 `;

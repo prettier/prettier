@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`foo.js - flow-verify 1`] = `
+exports[`foo.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /** @flow */
 /* this require routes to nothing, because
    our node_modules/underscore directory
@@ -15,7 +20,8 @@ function foo(): string {
 }
 
 module.exports = foo;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /** @flow */
 /* this require routes to nothing, because
    our node_modules/underscore directory
@@ -31,4 +37,5 @@ function foo(): string {
 
 module.exports = foo;
 
+================================================================================
 `;

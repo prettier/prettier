@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`union.js - flow-verify 1`] = `
+exports[`union.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface RelayProps {
   articles: Array<{
     __id: string,
@@ -27,7 +32,8 @@ export function aShortFn(aShortParmName: MyType | null): string[] {}
 export function aPrettyLongFunctionE(aRatherLongParameterName: Array<{
   __id: string,
 } | null> | null | void): string[] {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface RelayProps {
   articles:
     | Array<{
@@ -71,4 +77,5 @@ export function aPrettyLongFunctionE(
   } | null> | null | void
 ): string[] {}
 
+================================================================================
 `;

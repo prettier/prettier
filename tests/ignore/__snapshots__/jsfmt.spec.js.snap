@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ignore.js - flow-verify 1`] = `
+exports[`ignore.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function a() {
   // prettier-ignore
   var fnString =
@@ -70,7 +75,8 @@ const response = {
   '_text': 'Turn on the lights',
   intent: 'lights',
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function a() {
   // prettier-ignore
   var fnString =
@@ -140,4 +146,5 @@ const response = {
   intent: "lights"
 };
 
+================================================================================
 `;

@@ -1,16 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import_meta.js - babylon-verify 1`] = `
-const x = import.meta;
-const url = import.meta.url;
-import.meta;
-import.meta.url;
-import.meta.couldBeMutable = true;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`import_meta.js 1`] = `
+====================================options=====================================
+parsers: ["babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const x = import.meta;
 const url = import.meta.url;
 import.meta;
 import.meta.url;
 import.meta.couldBeMutable = true;
 
+=====================================output=====================================
+const x = import.meta;
+const url = import.meta.url;
+import.meta;
+import.meta.url;
+import.meta.couldBeMutable = true;
+
+================================================================================
 `;

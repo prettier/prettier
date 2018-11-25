@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`case.css - css-verify 1`] = `
+exports[`case.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @custom-media --KeepName (MIN-WIDTH: 500PX);
 
 .foo {
@@ -63,7 +68,8 @@ x-panel {
 :host(:hover) {
     transform: scale(1.1);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @custom-media --KeepName (min-width: 500px);
 
 .foo {
@@ -128,9 +134,15 @@ x-panel {
   transform: scale(1.1);
 }
 
+================================================================================
 `;
 
-exports[`case.less - css-verify 1`] = `
+exports[`case.less 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
 // - The case should always be preserved for element names and attribute names
@@ -275,7 +287,8 @@ a:AFTER {
 TABLE {}
 
 .foo { &-KeepSelector {} &-KeepSelector & .KeepClassSelector {} &-100\\.200 {} }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
 // - The case should always be preserved for element names and attribute names
@@ -437,9 +450,15 @@ table {
   }
 }
 
+================================================================================
 `;
 
-exports[`case.scss - css-verify 1`] = `
+exports[`case.scss 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
 // - The case should always be preserved for element names and attribute names
@@ -587,7 +606,8 @@ a:AFTER {
 TABLE {}
 
 .foo { &-KeepSelector {} &-KeepSelector & .KeepClassSelector {} &-100\\.200 {} }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
 // - The case should always be preserved for element names and attribute names
@@ -747,19 +767,27 @@ table {
   }
 }
 
+================================================================================
 `;
 
-exports[`custom-selectors.css - css-verify 1`] = `
+exports[`custom-selectors.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @custom-selector :--camelCase .my-css-selector;
 
 :--camelCase {
   content: red;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @custom-selector :--camelCase .my-css-selector;
 
 :--camelCase {
   content: red;
 }
 
+================================================================================
 `;

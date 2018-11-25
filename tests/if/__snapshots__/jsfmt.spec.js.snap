@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment_before_else.js - flow-verify 1`] = `
+exports[`comment_before_else.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 if (cond) {
   stuff;
 } /* comment */ else if (cond) {
@@ -14,7 +19,8 @@ else {
 if (cond) stuff;
 // comment
 else stuff;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 if (cond) {
   stuff;
 } /* comment */ else if (cond) {
@@ -29,9 +35,15 @@ if (cond) stuff;
 // comment
 else stuff;
 
+================================================================================
 `;
 
-exports[`else.js - flow-verify 1`] = `
+exports[`else.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Both functions below should be formatted exactly the same
 
 function f() {
@@ -50,7 +62,8 @@ function f() {
       value: pair.substring(position + 1)
     };
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Both functions below should be formatted exactly the same
 
 function f() {
@@ -71,9 +84,15 @@ function f() {
     };
 }
 
+================================================================================
 `;
 
-exports[`if_comments.js - flow-verify 1`] = `
+exports[`if_comments.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 async function f() {
   if (untrackedChoice === 0) /* Cancel */ {
     return null;
@@ -129,7 +148,8 @@ async function f() {
     /* Allow Untracked */ allowUntracked = true;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 async function f() {
   if (untrackedChoice === 0) {
     /* Cancel */ return null;
@@ -187,9 +207,15 @@ async function f() {
   }
 }
 
+================================================================================
 `;
 
-exports[`trailing_comment.js - flow-verify 1`] = `
+exports[`trailing_comment.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 if (code === 92 /* '\\' */) {}
 if (code === 92 /* '\\' */ /* '\\' */) {}
 
@@ -202,7 +228,8 @@ if (
 ) {
   a;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 if (code === 92 /* '\\' */) {
 }
 if (code === 92 /* '\\' */ /* '\\' */) {
@@ -222,4 +249,5 @@ if (
   a;
 }
 
+================================================================================
 `;

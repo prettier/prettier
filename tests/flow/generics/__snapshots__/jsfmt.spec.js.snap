@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generics.js - flow-verify 1`] = `
+exports[`generics.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class C<X> {
   x:X;
   constructor(x:X) { this.x = x; }
@@ -44,7 +49,8 @@ var h2:F<Array<Array<Array<number>>>> = h1;
 var obj : Object<string, string> = {} // error, arity 0
 var fn : Function<string> = function() { return 'foo'; } // error, arity 0
 var fn : function<string> = function() { return 'foo'; } // error, arity 0
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class C<X> {
   x: X;
   constructor(x: X) {
@@ -102,4 +108,5 @@ var fn: function<string> = function() {
   return "foo";
 }; // error, arity 0
 
+================================================================================
 `;

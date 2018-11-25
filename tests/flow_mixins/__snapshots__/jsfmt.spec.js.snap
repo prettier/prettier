@@ -1,10 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`type.js - babylon-verify 1`] = `
-declare class A<T> extends B<T> mixins C<T> {}
-declare class D<T> mixins C<T> {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`type.js 1`] = `
+====================================options=====================================
+parsers: ["babylon", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare class A<T> extends B<T> mixins C<T> {}
 declare class D<T> mixins C<T> {}
 
+=====================================output=====================================
+declare class A<T> extends B<T> mixins C<T> {}
+declare class D<T> mixins C<T> {}
+
+================================================================================
 `;

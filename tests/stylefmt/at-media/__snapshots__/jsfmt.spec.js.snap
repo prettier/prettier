@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`at-media.css - css-verify 1`] = `
+exports[`at-media.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @media   (    max-width:600px    )      {}
 @media   (   min-width:700px) and (     orientation:    landscape){}
 @media (min-width: 700px), handheld and (orientation: landscape) {}
@@ -13,7 +18,8 @@ exports[`at-media.css - css-verify 1`] = `
          (min--moz-device-pixel-ratio: 2        ),
          (min-resolution:           2dppx),
          (min-resolution: 192dpi     ){}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @media (max-width: 600px) {
 }
 @media (min-width: 700px) and (orientation: landscape) {
@@ -36,4 +42,5 @@ exports[`at-media.css - css-verify 1`] = `
   (min-resolution: 192dpi) {
 }
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js - flow-verify 1`] = `
+exports[`array.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function excludeFirstFiveResults([first, second, third, fourth, fifth, ...rest]) {
   return rest;
 }
@@ -30,7 +35,8 @@ class A {
 promise.then(([firstResult, secondResult, thirdResult, fourthResult, fifthResult, ...rest]) => {
   return rest;
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function excludeFirstFiveResults([
   first,
   second,
@@ -114,9 +120,15 @@ promise.then(
   }
 );
 
+================================================================================
 `;
 
-exports[`object.js - flow-verify 1`] = `
+exports[`object.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function StatelessFunctionalComponent({
   isActive,
   onFiltersUpdated,
@@ -225,7 +237,8 @@ const X = (props: {
   a: boolean,
 }) =>
   <A />;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function StatelessFunctionalComponent({
   isActive,
   onFiltersUpdated,
@@ -332,4 +345,5 @@ type T = ({
 
 const X = (props: { a: boolean }) => <A />;
 
+================================================================================
 `;
