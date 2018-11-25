@@ -149,6 +149,7 @@ seq:
 - a
 - b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 seq: &anchor
   - a
   - b
@@ -162,6 +163,7 @@ seq:
 - a
 - b
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 seq: &anchor
   - a
   - b
@@ -172,6 +174,7 @@ exports[`anchor-with-unicode-character.yml - yaml-verify 1`] = `
 ---
 - &😁 unicode anchor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 - &😁 unicode anchor
 
 `;
@@ -180,6 +183,7 @@ exports[`anchor-with-unicode-character.yml - yaml-verify 2`] = `
 ---
 - &😁 unicode anchor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 - &😁 unicode anchor
 
 `;
@@ -268,6 +272,7 @@ scalar1
 ...
 key: value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 scalar1
 ---
 key: value
@@ -280,6 +285,7 @@ scalar1
 ...
 key: value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 scalar1
 ---
 key: value
@@ -453,6 +459,7 @@ exports[`block-scalar-keep.yml - yaml-verify 1`] = `
   
 ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 |+
   ab
 
@@ -467,6 +474,7 @@ exports[`block-scalar-keep.yml - yaml-verify 2`] = `
   
 ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 |+
   ab
 
@@ -610,6 +618,7 @@ exports[`comment-in-flow-sequence-before-comma.yml - yaml-verify 1`] = `
 # comment
 , word2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 [
   word1,
   # comment
@@ -624,6 +633,7 @@ exports[`comment-in-flow-sequence-before-comma.yml - yaml-verify 2`] = `
 # comment
 , word2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 [
   word1,
   # comment
@@ -693,6 +703,7 @@ exports[`document-start-on-last-line.yml - yaml-verify 1`] = `
 a: b
 ---
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 a: b
 ---
 
@@ -704,6 +715,7 @@ exports[`document-start-on-last-line.yml - yaml-verify 2`] = `
 a: b
 ---
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 a: b
 ---
 
@@ -953,6 +965,7 @@ a: 1
 ? b
 &anchor c: 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 a: 1
 b:
 &anchor c: 3
@@ -965,6 +978,7 @@ a: 1
 ? b
 &anchor c: 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 a: 1
 b:
 &anchor c: 3
@@ -1011,6 +1025,7 @@ exports[`literal-unicode.yml - yaml-verify 1`] = `
 ---
 wanted: love ♥ and peace ☮
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 wanted: love ♥ and peace ☮
 
 `;
@@ -1019,6 +1034,7 @@ exports[`literal-unicode.yml - yaml-verify 2`] = `
 ---
 wanted: love ♥ and peace ☮
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 wanted: love ♥ and peace ☮
 
 `;
@@ -1046,6 +1062,7 @@ exports[`mapping-key-and-flow-sequence-item-anchors.yml - yaml-verify 1`] = `
 &mapping
 &key [ &item a, b, c ]: value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 &mapping
 &key [&item a, b, c]: value
 
@@ -1056,6 +1073,7 @@ exports[`mapping-key-and-flow-sequence-item-anchors.yml - yaml-verify 2`] = `
 &mapping
 &key [ &item a, b, c ]: value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 &mapping
 &key [&item a, b, c]: value
 
@@ -1142,6 +1160,7 @@ plain: a
 
  c
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 plain: a
   b
 
@@ -1156,6 +1175,7 @@ plain: a
 
  c
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 plain: a b
 
   c
@@ -1224,6 +1244,7 @@ exports[`multiline-scalar-that-looks-like-a-yaml-directive.yml - yaml-verify 1`]
 scalar
 %YAML 1.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 scalar
 %YAML 1.2
 
@@ -1234,6 +1255,7 @@ exports[`multiline-scalar-that-looks-like-a-yaml-directive.yml - yaml-verify 2`]
 scalar
 %YAML 1.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 scalar %YAML 1.2
 
 `;
@@ -1292,6 +1314,7 @@ exports[`nested-flow-collections.yml - yaml-verify 1`] = `
  ]
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 { a: [b, c, { d: [e, f] }] }
 
 `;
@@ -1306,6 +1329,7 @@ exports[`nested-flow-collections.yml - yaml-verify 2`] = `
  ]
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 { a: [b, c, { d: [e, f] }] }
 
 `;
@@ -1314,6 +1338,7 @@ exports[`nested-flow-collections-on-one-line.yml - yaml-verify 1`] = `
 ---
 { a: [b, c, { d: [e, f] } ] }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 { a: [b, c, { d: [e, f] }] }
 
 `;
@@ -1322,6 +1347,7 @@ exports[`nested-flow-collections-on-one-line.yml - yaml-verify 2`] = `
 ---
 { a: [b, c, { d: [e, f] } ] }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 { a: [b, c, { d: [e, f] }] }
 
 `;
@@ -1365,6 +1391,7 @@ top6: &val6
 top7:
   &val7 seven
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 top1: &node1
   &k1 key1: one
 top2: &node2 # comment
@@ -1399,6 +1426,7 @@ top6: &val6
 top7:
   &val7 seven
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 top1: &node1
   &k1 key1: one
 top2: &node2 # comment
@@ -1452,6 +1480,7 @@ exports[`plain-mapping-key-ending-with-colon.yml - yaml-verify 1`] = `
 ---
 key ends with two colons::: value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 key ends with two colons::: value
 
 `;
@@ -1460,6 +1489,7 @@ exports[`plain-mapping-key-ending-with-colon.yml - yaml-verify 2`] = `
 ---
 key ends with two colons::: value
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 key ends with two colons::: value
 
 `;
@@ -1485,6 +1515,7 @@ exports[`plain-scalar-with-backslashes.yml - yaml-verify 1`] = `
 ---
 plain\\value\\with\\backslashes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 plain\\value\\with\\backslashes
 
 `;
@@ -1493,6 +1524,7 @@ exports[`plain-scalar-with-backslashes.yml - yaml-verify 2`] = `
 ---
 plain\\value\\with\\backslashes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 plain\\value\\with\\backslashes
 
 `;
@@ -1516,6 +1548,7 @@ exports[`scalars-on-line.yml - yaml-verify 1`] = `
 string"
 --- &node foo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 "quoted
 string"
 ---
@@ -1528,6 +1561,7 @@ exports[`scalars-on-line.yml - yaml-verify 2`] = `
 string"
 --- &node foo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 "quoted string"
 ---
 &node foo
@@ -1881,6 +1915,7 @@ player: Sammy Sosa
 action: grand slam
 ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 time: 20:03:20
 player: Sammy Sosa
 action: strike (miss)
@@ -1903,6 +1938,7 @@ player: Sammy Sosa
 action: grand slam
 ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 time: 20:03:20
 player: Sammy Sosa
 action: strike (miss)
@@ -1923,6 +1959,7 @@ rbi:
   - Sammy Sosa
   - Ken Griffey
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 hr: # 1998 hr ranking
   - Mark McGwire
   - Sammy Sosa
@@ -1943,6 +1980,7 @@ rbi:
   - Sammy Sosa
   - Ken Griffey
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 hr: # 1998 hr ranking
   - Mark McGwire
   - Sammy Sosa
@@ -1963,6 +2001,7 @@ rbi:
   - *SS # Subsequent occurrence
   - Ken Griffey
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 hr:
   - Mark McGwire
   # Following node labeled SS
@@ -1983,6 +2022,7 @@ rbi:
   - *SS # Subsequent occurrence
   - Ken Griffey
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 hr:
   - Mark McGwire
   # Following node labeled SS
@@ -2041,6 +2081,7 @@ exports[`spec-example-2-12-compact-nested-mapping.yml - yaml-verify 1`] = `
 - item    : Big Shoes
   quantity: 1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 # Products purchased
 - item: Super Hoop
   quantity: 1
@@ -2061,6 +2102,7 @@ exports[`spec-example-2-12-compact-nested-mapping.yml - yaml-verify 2`] = `
 - item    : Big Shoes
   quantity: 1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 # Products purchased
 - item: Super Hoop
   quantity: 1
@@ -2105,6 +2147,7 @@ exports[`spec-example-2-14-in-the-folded-scalars-newlines-become-spaces.yml - ya
   year was crippled
   by a knee injury.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 >
   Mark McGwire's
   year was crippled
@@ -2118,6 +2161,7 @@ exports[`spec-example-2-14-in-the-folded-scalars-newlines-become-spaces.yml - ya
   year was crippled
   by a knee injury.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 >
   Mark McGwire's year was crippled by a knee injury.
 
@@ -2284,6 +2328,7 @@ application specific tag: !something |
  above may be different for
  different documents.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 not-date: !!str 2002-04-28
 
 picture: !!binary |
@@ -2314,6 +2359,7 @@ application specific tag: !something |
  above may be different for
  different documents.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 not-date: !!str 2002-04-28
 
 picture: !!binary |
@@ -2508,6 +2554,7 @@ comments:
     Backup contact is Nancy
     Billsmer @ 338-4338.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 !<tag:clarkevans.com,2002:invoice>
 invoice: 34843
 date: 2001-01-23
@@ -2570,6 +2617,7 @@ comments:
     Backup contact is Nancy
     Billsmer @ 338-4338.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 !<tag:clarkevans.com,2002:invoice>
 invoice: 34843
 date: 2001-01-23
@@ -2627,6 +2675,7 @@ Stack:
     code: |-
       foo = bar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 Time: 2001-11-23 15:01:42 -5
 User: ed
 Warning: This is an error message
@@ -2680,6 +2729,7 @@ Stack:
     code: |-
       foo = bar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 Time: 2001-11-23 15:01:42 -5
 User: ed
 Warning: This is an error message for the log file
@@ -4896,6 +4946,7 @@ exports[`spec-example-9-4-explicit-documents.yml - yaml-verify 1`] = `
 # Empty
 ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 { ? matches
     %
   : 20 }
@@ -4913,6 +4964,7 @@ exports[`spec-example-9-4-explicit-documents.yml - yaml-verify 2`] = `
 # Empty
 ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 { matches %: 20 }
 ---
 # Empty
@@ -5002,6 +5054,7 @@ matches %: 20
 exports[`tab-after-document-header.yml - yaml-verify 1`] = `
 ---	scalar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 scalar
 
 `;
@@ -5009,6 +5062,7 @@ scalar
 exports[`tab-after-document-header.yml - yaml-verify 2`] = `
 ---	scalar
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 scalar
 
 `;
@@ -5083,6 +5137,7 @@ exports[`tags-for-root-objects.yml - yaml-verify 1`] = `
 d
 e
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 !!map
 a: b
 ---
@@ -5104,6 +5159,7 @@ exports[`tags-for-root-objects.yml - yaml-verify 2`] = `
 d
 e
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 !!map
 a: b
 ---
@@ -5265,6 +5321,7 @@ a6: 1
 !!str &a11
 value11
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 !!str &a1 scalar1
 ---
 !!str &a2 scalar2
@@ -5315,6 +5372,7 @@ a6: 1
 !!str &a11
 value11
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 !!str &a1 scalar1
 ---
 !!str &a2 scalar2
@@ -5547,6 +5605,7 @@ line1
 line2
 line3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 >
   line1
   line2
@@ -5560,6 +5619,7 @@ line1
 line2
 line3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 >
   line1 line2 line3
 
@@ -5571,6 +5631,7 @@ line1
 # no comment
 line3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 >
   line1
   # no comment
@@ -5584,6 +5645,7 @@ line1
 # no comment
 line3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 >
   line1 # no comment line3
 
