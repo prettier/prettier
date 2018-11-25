@@ -42,6 +42,80 @@ declare global {
 ================================================================================
 `;
 
+exports[`keyword.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+module X {}
+
+module X {
+  const x = 1;
+}
+
+module X {
+  module X {}
+}
+
+module X {
+  module X {
+    const x = 1;
+  }
+}
+
+namespace X {}
+
+namespace X {
+  const x = 1;
+}
+
+namespace X {
+  namespace X {}
+}
+
+namespace X {
+  namespace X {
+    const x = 1;
+  }
+}
+
+=====================================output=====================================
+namespace X {
+
+}
+
+namespace X {
+  const x = 1;
+}
+
+namespace X {
+  namespace X {  }
+}
+
+namespace X {
+  namespace X { const x = 1; }
+}
+
+namespace X {
+
+}
+
+namespace X {
+  const x = 1;
+}
+
+namespace X {
+  namespace X {  }
+}
+
+namespace X {
+  namespace X { const x = 1; }
+}
+
+================================================================================
+`;
+
 exports[`namespace_function.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
