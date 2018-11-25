@@ -1046,6 +1046,7 @@ function printPathNoParens(path, options, print, args) {
 
     case "Import":
       return "import";
+    case "TSModuleBlock":
     case "BlockStatement": {
       const naked = path.call(bodyPath => {
         return printStatementSequence(bodyPath, options, print);
@@ -1069,7 +1070,8 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "WhileStatement" ||
           parent.type === "DoWhileStatement" ||
           parent.type === "DoExpression" ||
-          (parent.type === "CatchClause" && !parentParent.finalizer))
+          (parent.type === "CatchClause" && !parentParent.finalizer) ||
+          parent.type === "TSModuleDeclaration")
       ) {
         return "{}";
       }
@@ -3413,32 +3415,13 @@ function printPathNoParens(path, options, print, args) {
       if (bodyIsDeclaration) {
         parts.push(path.call(print, "body"));
       } else if (n.body) {
-        parts.push(
-          " {",
-          indent(
-            concat([
-              line,
-              path.call(
-                bodyPath =>
-                  comments.printDanglingComments(bodyPath, options, true),
-                "body"
-              ),
-              group(path.call(print, "body"))
-            ])
-          ),
-          line,
-          "}"
-        );
+        parts.push(" ", group(path.call(print, "body")));
       } else {
         parts.push(semi);
       }
 
       return concat(parts);
     }
-    case "TSModuleBlock":
-      return path.call(bodyPath => {
-        return printStatementSequence(bodyPath, options, print);
-      }, "body");
 
     case "PrivateName":
       return concat(["#", path.call(print, "id")]);
