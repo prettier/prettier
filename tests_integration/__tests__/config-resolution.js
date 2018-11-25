@@ -157,7 +157,7 @@ test("API resolveConfig.sync with file arg and .editorconfig (key = unset)", () 
 
   expect(
     prettier.resolveConfig.sync(file, { editorconfig: true })
-  ).toMatchObject({ tabWidth: "unset" });
+  ).not.toMatchObject({ tabWidth: "unset" });
 });
 
 test("API resolveConfig with nested file arg and .editorconfig", () => {
