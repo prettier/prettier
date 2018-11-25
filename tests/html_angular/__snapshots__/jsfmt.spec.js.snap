@@ -60,6 +60,7 @@ exports[`attributes.component.html - angular-verify 1`] = `
     *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
     *ngFor="  let    hero     of heroes; let i  =  index"
     *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
     *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
     *ngIf=" condition  as  value  ;  else  elseBlock "
     *directive=" let hero "
@@ -150,8 +151,9 @@ exports[`attributes.component.html - angular-verify 1`] = `
   *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="let hero of heroes; let i = index"
   *ngFor="let hero of heroes; value: myValue"
-  *ngIf="condition; then: thenBlock; else: elseBlock"
-  *ngIf="condition as value; else: elseBlock"
+  *ngIf="condition; else elseBlock"
+  *ngIf="condition; then thenBlock; else elseBlock"
+  *ngIf="condition as value; else elseBlock"
   *directive="let hero"
   *directive="let hero = hello"
   *directive="let hero of heroes"
@@ -173,7 +175,7 @@ exports[`attributes.component.html - angular-verify 1`] = `
     listRow.NextScheduledSendStatus == 1 ||
       listRow.NextScheduledSendStatus == 2 ||
       listRow.NextScheduledSendStatus == 3;
-    else: hello
+    else hello
   "
   (target)="
     (listRow.NextScheduledSendStatus == 1 ||
@@ -260,6 +262,7 @@ exports[`attributes.component.html - angular-verify 2`] = `
     *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
     *ngFor="  let    hero     of heroes; let i  =  index"
     *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
     *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
     *ngIf=" condition  as  value  ;  else  elseBlock "
     *directive=" let hero "
@@ -350,8 +353,9 @@ exports[`attributes.component.html - angular-verify 2`] = `
   *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="let hero of heroes; let i = index"
   *ngFor="let hero of heroes; value: myValue"
-  *ngIf="condition; then: thenBlock; else: elseBlock"
-  *ngIf="condition as value; else: elseBlock"
+  *ngIf="condition; else elseBlock"
+  *ngIf="condition; then thenBlock; else elseBlock"
+  *ngIf="condition as value; else elseBlock"
   *directive="let hero"
   *directive="let hero = hello"
   *directive="let hero of heroes"
@@ -373,7 +377,7 @@ exports[`attributes.component.html - angular-verify 2`] = `
     listRow.NextScheduledSendStatus == 1 ||
       listRow.NextScheduledSendStatus == 2 ||
       listRow.NextScheduledSendStatus == 3;
-    else: hello
+    else hello
   "
   (target)="
     (listRow.NextScheduledSendStatus == 1 ||
@@ -460,6 +464,7 @@ exports[`attributes.component.html - angular-verify 3`] = `
     *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
     *ngFor="  let    hero     of heroes; let i  =  index"
     *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
     *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
     *ngIf=" condition  as  value  ;  else  elseBlock "
     *directive=" let hero "
@@ -697,12 +702,16 @@ exports[`attributes.component.html - angular-verify 3`] = `
   "
   *ngIf="
     condition;
-    then: thenBlock;
-    else: elseBlock
+    else elseBlock
+  "
+  *ngIf="
+    condition;
+    then thenBlock;
+    else elseBlock
   "
   *ngIf="
     condition as value;
-    else: elseBlock
+    else elseBlock
   "
   *directive="
     let hero
@@ -761,7 +770,7 @@ exports[`attributes.component.html - angular-verify 3`] = `
         2 ||
       listRow.NextScheduledSendStatus ==
         3;
-    else: hello
+    else hello
   "
   (target)="
     (listRow.NextScheduledSendStatus ==
@@ -884,6 +893,7 @@ exports[`attributes.component.html - angular-verify 4`] = `
     *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
     *ngFor="  let    hero     of heroes; let i  =  index"
     *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
     *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
     *ngIf=" condition  as  value  ;  else  elseBlock "
     *directive=" let hero "
@@ -974,8 +984,9 @@ exports[`attributes.component.html - angular-verify 4`] = `
   *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="let hero of heroes; let i = index"
   *ngFor="let hero of heroes; value: myValue"
-  *ngIf="condition; then: thenBlock; else: elseBlock"
-  *ngIf="condition as value; else: elseBlock"
+  *ngIf="condition; else elseBlock"
+  *ngIf="condition; then thenBlock; else elseBlock"
+  *ngIf="condition as value; else elseBlock"
   *directive="let hero"
   *directive="let hero = hello"
   *directive="let hero of heroes"
@@ -997,7 +1008,7 @@ exports[`attributes.component.html - angular-verify 4`] = `
     listRow.NextScheduledSendStatus == 1 ||
       listRow.NextScheduledSendStatus == 2 ||
       listRow.NextScheduledSendStatus == 3;
-    else: hello
+    else hello
   "
   (target)="
     (listRow.NextScheduledSendStatus == 1 ||
