@@ -30,7 +30,7 @@ module m2 {
 }
 
 =====================================output=====================================
-namespace m2 {
+module m2 {
   function fn() {
     return 1;
   }
@@ -42,7 +42,7 @@ namespace m2 {
   }
 }
 
-namespace m2 {
+module m2 {
   export function exports() {
     return 1;
   }

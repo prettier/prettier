@@ -17,7 +17,7 @@ declare module "B" {
 }
 
 =====================================output=====================================
-namespace A {
+module A {
   export class A {}
 }
 
