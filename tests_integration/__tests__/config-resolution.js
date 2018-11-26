@@ -150,6 +150,16 @@ test("API resolveConfig.sync with file arg and .editorconfig", () => {
   });
 });
 
+test("API resolveConfig.sync with file arg and .editorconfig (key = unset)", () => {
+  const file = path.resolve(
+    path.join(__dirname, "../cli/config/editorconfig/tab_width=unset.js")
+  );
+
+  expect(
+    prettier.resolveConfig.sync(file, { editorconfig: true })
+  ).not.toMatchObject({ tabWidth: "unset" });
+});
+
 test("API resolveConfig with nested file arg and .editorconfig", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/lib/file.js")
