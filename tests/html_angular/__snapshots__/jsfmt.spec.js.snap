@@ -1,5 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`attr-name.component.html 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div someDirective itemType="x"></div>
+
+=====================================output=====================================
+<div someDirective itemType="x"></div>
+
+================================================================================
+`;
+
+exports[`attr-name.component.html 2`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+<div someDirective itemType="x"></div>
+
+=====================================output=====================================
+<div someDirective itemType="x"></div>
+
+================================================================================
+`;
+
+exports[`attr-name.component.html 3`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<div someDirective itemType="x"></div>
+
+=====================================output=====================================
+<div
+  someDirective
+  itemType="x"
+></div>
+
+================================================================================
+`;
+
+exports[`attr-name.component.html 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div someDirective itemType="x"></div>
+
+=====================================output=====================================
+<div someDirective itemType="x"></div>
+
+================================================================================
+`;
+
 exports[`attributes.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]

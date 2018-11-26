@@ -7,7 +7,10 @@ const createError = require("../common/parser-create-error");
 const { Node } = require("./ast");
 const { parseIeConditionalComment } = require("./conditional-comment");
 
-function ngHtmlParser(input, { recognizeSelfClosing, normalizeTagName }) {
+function ngHtmlParser(
+  input,
+  { recognizeSelfClosing, normalizeTagName, normalizeAttributeName }
+) {
   const parser = require("angular-html-parser");
   const {
     RecursiveVisitor,
@@ -109,19 +112,21 @@ function ngHtmlParser(input, { recognizeSelfClosing, normalizeTagName }) {
         );
       }
 
-      const CURRENT_HTML_ELEMENT_ATTRIBUTES =
-        HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
-      node.attrs.forEach(attr => {
-        if (!attr.namespace) {
-          attr.name = lowerCaseIfFn(
-            attr.name,
-            lowerCasedAttrName =>
-              node.name in HTML_ELEMENT_ATTRIBUTES &&
-              (lowerCasedAttrName in HTML_ELEMENT_ATTRIBUTES["*"] ||
-                lowerCasedAttrName in CURRENT_HTML_ELEMENT_ATTRIBUTES)
-          );
-        }
-      });
+      if (normalizeAttributeName) {
+        const CURRENT_HTML_ELEMENT_ATTRIBUTES =
+          HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
+        node.attrs.forEach(attr => {
+          if (!attr.namespace) {
+            attr.name = lowerCaseIfFn(
+              attr.name,
+              lowerCasedAttrName =>
+                node.name in HTML_ELEMENT_ATTRIBUTES &&
+                (lowerCasedAttrName in HTML_ELEMENT_ATTRIBUTES["*"] ||
+                  lowerCasedAttrName in CURRENT_HTML_ELEMENT_ATTRIBUTES)
+            );
+          }
+        });
+      }
     }
   };
 
@@ -249,14 +254,16 @@ function locEnd(node) {
 
 function createParser({
   recognizeSelfClosing = false,
-  normalizeTagName = false
+  normalizeTagName = false,
+  normalizeAttributeName = false
 } = {}) {
   return {
     preprocess: text => text.replace(/\r\n?/g, "\n"),
     parse: (text, parsers, options) =>
       _parse(text, options, {
         recognizeSelfClosing,
-        normalizeTagName
+        normalizeTagName,
+        normalizeAttributeName
       }),
     hasPragma,
     astFormat: "html",
@@ -267,7 +274,10 @@ function createParser({
 
 module.exports = {
   parsers: {
-    html: createParser({ normalizeTagName: true }),
+    html: createParser({
+      normalizeTagName: true,
+      normalizeAttributeName: true
+    }),
     angular: createParser(),
     vue: createParser({ recognizeSelfClosing: true })
   }
