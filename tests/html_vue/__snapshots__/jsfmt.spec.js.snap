@@ -70,9 +70,7 @@ printWidth: 80
       } else {
       }
     "
-    slot-scope="{
-      row
-    }"
+    slot-scope="{ row }"
     slot-scope="{
       destructuring: {
         a: { b }
@@ -177,9 +175,7 @@ trailingComma: "es5"
       } else {
       }
     "
-    slot-scope="{
-      row,
-    }"
+    slot-scope="{ row }"
     slot-scope="{
       destructuring: {
         a: { b },
