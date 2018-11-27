@@ -307,9 +307,15 @@ function genericPrint(path, options, print) {
     case "comment": {
       return concat([
         printOpeningTagPrefix(node, options),
-        "<!--",
-        concat(replaceNewlines(node.value, literalline)),
-        "-->",
+        concat(
+          replaceNewlines(
+            options.originalText.slice(
+              options.locStart(node),
+              options.locEnd(node)
+            ),
+            literalline
+          )
+        ),
         printClosingTagSuffix(node, options)
       ]);
     }
