@@ -46,3 +46,7 @@ const someHtml2 = /* HTML */ `<div      > hello ${world} </div     >`;
 html``
 
 html`<my-element obj=${obj}></my-element>`;
+
+html`  <${Footer}  >footer      content<//     >  `
+
+html`  <div />  `
