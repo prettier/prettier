@@ -256,8 +256,7 @@ test("API resolveConfig resolves relative path values based on config filepath",
 });
 
 test("API resolveConfig should pick up .js config changes", () => {
-  const tempDir = tempy.directory();
-  const tempConfigFile = `${tempDir}/prettier.config.js`;
+  const tempConfigFile = tempy.file({ name: "prettier.config.js" });
   const oldConfig = `
     "use strict";
 
