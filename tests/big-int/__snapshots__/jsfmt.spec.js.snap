@@ -2,7 +2,7 @@
 
 exports[`literal.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babylon", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
