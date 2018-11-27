@@ -4,7 +4,6 @@ const stringWidth = require("string-width");
 const emojiRegex = require("emoji-regex")();
 const escapeStringRegexp = require("escape-string-regexp");
 
-// eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
 
 function isExportDeclaration(node) {
