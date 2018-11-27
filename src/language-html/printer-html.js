@@ -833,6 +833,11 @@ function printClosingTagStartMarker(node, options) {
   switch (node.type) {
     case "ieConditionalComment":
       return "<!";
+    case "element":
+      if (node.hasHtmComponentClosingTag) {
+        return "<//";
+      }
+    // fall through
     default:
       return `</${node.rawName}`;
   }

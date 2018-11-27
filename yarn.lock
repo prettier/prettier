@@ -675,9 +675,9 @@ angular-estree-parser@1.1.5:
     lines-and-columns "^1.1.6"
     tslib "^1.9.3"
 
-angular-html-parser@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/angular-html-parser/-/angular-html-parser-1.0.0.tgz#57feed04674c170fa56bfcd556cf7b2cd677e170"
+angular-html-parser@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/angular-html-parser/-/angular-html-parser-1.1.0.tgz#0199c3c675c6bc9e1c7df9b41569c9df99b53f8c"
   dependencies:
     tslib "^1.9.3"
 
