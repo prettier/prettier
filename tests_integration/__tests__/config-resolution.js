@@ -1,8 +1,6 @@
 "use strict";
 
 const path = require("path");
-const tempy = require("tempy");
-const fs = require("fs");
 
 const runPrettier = require("../runPrettier");
 const prettier = require("prettier/local");
@@ -253,30 +251,4 @@ test("API resolveConfig resolves relative path values based on config filepath",
     plugins: [path.join(parentDir, "path-to-plugin")],
     pluginSearchDirs: [path.join(parentDir, "path-to-plugin-search-dir")]
   });
-});
-
-test("API resolveConfig should pick up .js config changes", () => {
-  const tempConfigFile = tempy.file({ name: "prettier.config.js" });
-  const oldConfig = `
-    "use strict";
-
-    module.exports = {
-      tabWidth: 8
-    };
-  `;
-
-  const newConfig = `
-    "use strict";
-
-    module.exports = {
-      tabWidth: 16
-    };
-  `;
-  fs.writeFileSync(tempConfigFile, oldConfig);
-  prettier.resolveConfig.sync(tempConfigFile, { useCache: false });
-  fs.writeFileSync(tempConfigFile, newConfig);
-  prettier.clearConfigCache();
-  expect(
-    prettier.resolveConfig.sync(tempConfigFile, { useCache: false })
-  ).toEqual({ tabWidth: 16 });
 });
