@@ -18,6 +18,7 @@
   @click="   $emit(   'click'   )   "
   @click="   $emit(   'click'   )  ;"
   @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
+  slot-scope="{row}"
   slot-scope="{destructuring:{a:{b}}}"
   :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
   :class="(() => { return 'hello' })()"
