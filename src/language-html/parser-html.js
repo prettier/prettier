@@ -36,7 +36,7 @@ function ngHtmlParser(
   if (errors.length !== 0) {
     const { msg, span } = errors[0];
     const { line, col } = span.start;
-    throw createError(msg, { start: { line: line + 1, column: col } });
+    throw createError(msg, { start: { line: line + 1, column: col + 1 } });
   }
 
   const addType = node => {
