@@ -25,15 +25,15 @@ let Prettier        = format => { your.js('though') }
 </template>
 
 <script>
-let Prettier = format => {
-  your.js("though");
-};
+  let Prettier = format => {
+    your.js("though");
+  };
 </script>
 
 <style>
-.and {
-  css: too !important;
-}
+  .and {
+    css: too !important;
+  }
 </style>
 ================================================================================
 `;

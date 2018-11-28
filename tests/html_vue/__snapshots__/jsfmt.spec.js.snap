@@ -287,60 +287,60 @@ export default {
 
 =====================================output=====================================
 <script>
-import "./issue_card_inner";
-import eventHub from "../eventhub";
+  import "./issue_card_inner";
+  import eventHub from "../eventhub";
 
-const Store = gl.issueBoards.BoardsStore;
+  const Store = gl.issueBoards.BoardsStore;
 
-export default {
-  name: "BoardsIssueCard",
-  components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner
-  },
-  props: {
-    list: Object,
-    issue: Object,
-    issueLinkBase: String,
-    disabled: Boolean,
-    index: Number,
-    rootPath: String
-  },
-  data() {
-    return {
-      showDetail: false,
-      detailIssue: Store.detail
-    };
-  },
-  computed: {
-    issueDetailVisible() {
-      return (
-        this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
-      );
-    }
-  },
-  methods: {
-    mouseDown() {
-      this.showDetail = true;
+  export default {
+    name: "BoardsIssueCard",
+    components: {
+      "issue-card-inner": gl.issueBoards.IssueCardInner
     },
-    mouseMove() {
-      this.showDetail = false;
+    props: {
+      list: Object,
+      issue: Object,
+      issueLinkBase: String,
+      disabled: Boolean,
+      index: Number,
+      rootPath: String
     },
-    showIssue(e) {
-      if (e.target.classList.contains("js-no-trigger")) return;
-
-      if (this.showDetail) {
+    data() {
+      return {
+        showDetail: false,
+        detailIssue: Store.detail
+      };
+    },
+    computed: {
+      issueDetailVisible() {
+        return (
+          this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
+        );
+      }
+    },
+    methods: {
+      mouseDown() {
+        this.showDetail = true;
+      },
+      mouseMove() {
         this.showDetail = false;
+      },
+      showIssue(e) {
+        if (e.target.classList.contains("js-no-trigger")) return;
 
-        if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
-          eventHub.$emit("clearDetailIssue");
-        } else {
-          eventHub.$emit("newDetailIssue", this.issue);
-          Store.detail.list = this.list;
+        if (this.showDetail) {
+          this.showDetail = false;
+
+          if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
+            eventHub.$emit("clearDetailIssue");
+          } else {
+            eventHub.$emit("newDetailIssue", this.issue);
+            Store.detail.list = this.list;
+          }
         }
       }
     }
-  }
-};
+  };
 </script>
 
 <template>
@@ -453,60 +453,60 @@ export default {
 
 =====================================output=====================================
 <script>
-import "./issue_card_inner";
-import eventHub from "../eventhub";
+  import "./issue_card_inner";
+  import eventHub from "../eventhub";
 
-const Store = gl.issueBoards.BoardsStore;
+  const Store = gl.issueBoards.BoardsStore;
 
-export default {
-  name: "BoardsIssueCard",
-  components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner,
-  },
-  props: {
-    list: Object,
-    issue: Object,
-    issueLinkBase: String,
-    disabled: Boolean,
-    index: Number,
-    rootPath: String,
-  },
-  data() {
-    return {
-      showDetail: false,
-      detailIssue: Store.detail,
-    };
-  },
-  computed: {
-    issueDetailVisible() {
-      return (
-        this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
-      );
+  export default {
+    name: "BoardsIssueCard",
+    components: {
+      "issue-card-inner": gl.issueBoards.IssueCardInner,
     },
-  },
-  methods: {
-    mouseDown() {
-      this.showDetail = true;
+    props: {
+      list: Object,
+      issue: Object,
+      issueLinkBase: String,
+      disabled: Boolean,
+      index: Number,
+      rootPath: String,
     },
-    mouseMove() {
-      this.showDetail = false;
+    data() {
+      return {
+        showDetail: false,
+        detailIssue: Store.detail,
+      };
     },
-    showIssue(e) {
-      if (e.target.classList.contains("js-no-trigger")) return;
-
-      if (this.showDetail) {
+    computed: {
+      issueDetailVisible() {
+        return (
+          this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
+        );
+      },
+    },
+    methods: {
+      mouseDown() {
+        this.showDetail = true;
+      },
+      mouseMove() {
         this.showDetail = false;
+      },
+      showIssue(e) {
+        if (e.target.classList.contains("js-no-trigger")) return;
 
-        if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
-          eventHub.$emit("clearDetailIssue");
-        } else {
-          eventHub.$emit("newDetailIssue", this.issue);
-          Store.detail.list = this.list;
+        if (this.showDetail) {
+          this.showDetail = false;
+
+          if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
+            eventHub.$emit("clearDetailIssue");
+          } else {
+            eventHub.$emit("newDetailIssue", this.issue);
+            Store.detail.list = this.list;
+          }
         }
-      }
+      },
     },
-  },
-};
+  };
 </script>
 
 <template>
@@ -1244,7 +1244,7 @@ foo( )
 </template>
 
 <script>
-foo();
+  foo();
 </script>
 
 <template>
@@ -1289,7 +1289,7 @@ foo( )
 </template>
 
 <script>
-foo();
+  foo();
 </script>
 
 <template>
