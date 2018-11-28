@@ -58,16 +58,8 @@ function getBabelConfig(bundle) {
 }
 
 function getRollupConfig(bundle) {
-  const relative = fp => `./${path.basename(fp).replace(/\.js$/, "")}`;
-  const paths = (bundle.external || []).reduce(
-    (paths, filepath) =>
-      Object.assign(paths, { [filepath]: relative(filepath) }),
-    { "graceful-fs": "fs" }
-  );
-
   const config = {
     input: bundle.input,
-    output: { paths },
 
     onwarn(warning) {
       if (
@@ -132,7 +124,15 @@ function getRollupConfig(bundle) {
 }
 
 function getRollupOutputOptions(bundle) {
+  const relative = fp => `./${path.basename(fp).replace(/\.js$/, "")}`;
+  const paths = (bundle.external || []).reduce(
+    (paths, filepath) =>
+      Object.assign(paths, { [filepath]: relative(filepath) }),
+    { "graceful-fs": "fs" }
+  );
+
   const options = {
+    paths,
     dest: `dist/${bundle.output}`,
     useStrict: typeof bundle.strict === "undefined" ? true : bundle.strict
   };
@@ -140,7 +140,7 @@ function getRollupOutputOptions(bundle) {
     options.format = "cjs";
   } else if (bundle.target === "universal") {
     options.format = "umd";
-    options.moduleName =
+    options.name =
       bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
   }
   return options;
