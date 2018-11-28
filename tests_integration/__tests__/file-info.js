@@ -203,12 +203,12 @@ describe("API getFileInfo.sync with ignorePath", () => {
   test("with relative filePath starts with dot", () => {
     expect(
       prettier.getFileInfo.sync(`./${filePath}`, options).ignored
-    ).toMatchInlineSnapshot(`false`);
+    ).toMatchInlineSnapshot(`true`);
   });
   test("with absolute filePath", () => {
     expect(
       prettier.getFileInfo.sync(path.resolve(filePath), options).ignored
-    ).toMatchInlineSnapshot(`false`);
+    ).toMatchInlineSnapshot(`true`);
   });
 });
 
