@@ -1004,6 +1004,38 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
         ngTextToDoc(getValue(), { parser: "__ng_directive" })
       );
     }
+
+    const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
+    const value = getValue();
+    if (interpolationRegex.test(value)) {
+      const parts = [];
+      value.split(interpolationRegex).forEach((part, index) => {
+        if (index % 2 === 0) {
+          parts.push(concat(replaceNewlines(part, literalline)));
+        } else {
+          try {
+            parts.push(
+              group(
+                concat([
+                  "{{",
+                  indent(
+                    concat([
+                      line,
+                      ngTextToDoc(part, { parser: "__ng_interpolation" })
+                    ])
+                  ),
+                  line,
+                  "}}"
+                ])
+              )
+            );
+          } catch (e) {
+            parts.push("{{", concat(replaceNewlines(part, literalline)), "}}");
+          }
+        }
+      });
+      return group(concat(parts));
+    }
   }
 
   return null;

@@ -277,8 +277,8 @@ printWidth: 80
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
-  test="{{ &quot;test&quot; | translate }}"
-  test="foo {{       invalid invalid       }} bar {{       valid       }} baz"
+  test="{{ 'test' | translate }}"
+  test="foo {{       invalid invalid       }} bar {{ valid }} baz"
   test="foo
     
     {{       invalid
@@ -286,7 +286,7 @@ printWidth: 80
     
     bar 
     
-          {{       valid       }} 
+          {{ valid }} 
     
     baz"
 ></div>
@@ -511,8 +511,8 @@ trailingComma: "es5"
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
-  test="{{ &quot;test&quot; | translate }}"
-  test="foo {{       invalid invalid       }} bar {{       valid       }} baz"
+  test="{{ 'test' | translate }}"
+  test="foo {{       invalid invalid       }} bar {{ valid }} baz"
   test="foo
     
     {{       invalid
@@ -520,7 +520,7 @@ trailingComma: "es5"
     
     bar 
     
-          {{       valid       }} 
+          {{ valid }} 
     
     baz"
 ></div>
@@ -971,8 +971,13 @@ printWidth: 1
   [stickout]="
     +toolAssembly.stickoutMm
   "
-  test="{{ &quot;test&quot; | translate }}"
-  test="foo {{       invalid invalid       }} bar {{       valid       }} baz"
+  test="{{
+    'test'
+      | translate
+  }}"
+  test="foo {{       invalid invalid       }} bar {{
+    valid
+  }} baz"
   test="foo
     
     {{       invalid
@@ -980,7 +985,9 @@ printWidth: 1
     
     bar 
     
-          {{       valid       }} 
+          {{
+    valid
+  }} 
     
     baz"
 ></div>
@@ -1205,8 +1212,8 @@ printWidth: 80
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
-  test="{{ &quot;test&quot; | translate }}"
-  test="foo {{       invalid invalid       }} bar {{       valid       }} baz"
+  test="{{ 'test' | translate }}"
+  test="foo {{       invalid invalid       }} bar {{ valid }} baz"
   test="foo
     
     {{       invalid
@@ -1214,7 +1221,7 @@ printWidth: 80
     
     bar 
     
-          {{       valid       }} 
+          {{ valid }} 
     
     baz"
 ></div>
@@ -3451,7 +3458,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <p>My current hero is {{ currentHero.name }}</p>
 
-<h3>{{ title }} <img src="{{heroImageUrl}}" style="height:30px" /></h3>
+<h3>{{ title }} <img src="{{ heroImageUrl }}" style="height:30px" /></h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
 <p>The sum of 1 + 1 is {{ 1 + 1 }}</p>
@@ -3600,7 +3607,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div *ngIf="false"><app-hero-detail hero="currentHero"></app-hero-detail></div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
-<p><img src="{{heroImageUrl}}" /> is the <i>interpolated</i> image.</p>
+<p><img src="{{ heroImageUrl }}" /> is the <i>interpolated</i> image.</p>
 <p><img [src]="heroImageUrl" /> is the <i>property bound</i> image.</p>
 
 <p>
@@ -4942,7 +4949,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <p>My current hero is {{ currentHero.name }}</p>
 
-<h3>{{ title }} <img src="{{heroImageUrl}}" style="height:30px" /></h3>
+<h3>{{ title }} <img src="{{ heroImageUrl }}" style="height:30px" /></h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
 <p>The sum of 1 + 1 is {{ 1 + 1 }}</p>
@@ -5091,7 +5098,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div *ngIf="false"><app-hero-detail hero="currentHero"></app-hero-detail></div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
-<p><img src="{{heroImageUrl}}" /> is the <i>interpolated</i> image.</p>
+<p><img src="{{ heroImageUrl }}" /> is the <i>interpolated</i> image.</p>
 <p><img [src]="heroImageUrl" /> is the <i>property bound</i> image.</p>
 
 <p>
@@ -6571,7 +6578,9 @@ can be found in the LICENSE file at http://angular.io/license
     title
   }}
   <img
-    src="{{heroImageUrl}}"
+    src="{{
+      heroImageUrl
+    }}"
     style="height:30px"
   />
 </h3>
@@ -7134,7 +7143,9 @@ can be found in the LICENSE file at http://angular.io/license
 
 <p>
   <img
-    src="{{heroImageUrl}}"
+    src="{{
+      heroImageUrl
+    }}"
   />
   is
   the
@@ -9864,7 +9875,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{heroImageUrl}}" style="height:30px" />
+  <img src="{{ heroImageUrl }}" style="height:30px" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
@@ -10040,7 +10051,7 @@ can be found in the LICENSE file at http://angular.io/license
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
 <p>
-  <img src="{{heroImageUrl}}" />
+  <img src="{{ heroImageUrl }}" />
   is the
   <i>interpolated</i>
   image.
