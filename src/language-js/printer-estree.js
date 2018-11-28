@@ -2839,8 +2839,12 @@ function printPathNoParens(path, options, print, args) {
         return join(" | ", printed);
       }
 
+      const shouldAddStartLine =
+        shouldIndent &&
+        !hasLeadingOwnLineComment(options.originalText, n, options);
+
       const code = concat([
-        ifBreak(concat([shouldIndent ? line : "", "| "])),
+        ifBreak(concat([shouldAddStartLine ? line : "", "| "])),
         join(concat([line, "| "]), printed)
       ]);
 
