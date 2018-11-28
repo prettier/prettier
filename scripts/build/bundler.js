@@ -66,8 +66,8 @@ function getRollupConfig(bundle) {
   );
 
   const config = {
-    entry: bundle.input,
-    paths,
+    input: bundle.input,
+    output: { paths },
 
     onwarn(warning) {
       if (
