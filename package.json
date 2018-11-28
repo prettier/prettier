@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@angular/compiler": "6.1.10",
-    "@babel/code-frame": "7.0.0",
+    "@babel/code-frame": "7.0.0-beta.46",
     "@babel/parser": "7.1.6",
     "@glimmer/syntax": "0.36.5",
     "@iarna/toml": "2.2.0",
