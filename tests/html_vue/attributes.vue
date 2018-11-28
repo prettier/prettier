@@ -1,3 +1,4 @@
+<template>
 <div
   v-for="  item  in  items "
   v-for="  item  of  items "
@@ -29,3 +30,4 @@
     }
   "
 ></div>
+</template>

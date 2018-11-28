@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function.js - flow-verify 1`] = `
+exports[`function.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function Bar(x: number) {
@@ -10,7 +15,8 @@ Bar.prototype.getX = function() { return this.x; }
 Bar.prototype.getY = function(): string { return this.y; }
 
 module.exports = Bar;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function Bar(x: number) {
@@ -25,9 +31,15 @@ Bar.prototype.getY = function(): string {
 
 module.exports = Bar;
 
+================================================================================
 `;
 
-exports[`proto.js - flow-verify 1`] = `
+exports[`proto.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function Foo() { }
 var o = new Foo();
 var x:number = o.x;
@@ -42,7 +54,8 @@ Foo.prototype = { m: function() { return false; } }
 var export_o: { x:any; } = o; // awkward type cast
 
 module.exports = export_o;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function Foo() {}
 var o = new Foo();
 var x: number = o.x;
@@ -64,9 +77,15 @@ var export_o: { x: any } = o; // awkward type cast
 
 module.exports = export_o;
 
+================================================================================
 `;
 
-exports[`sealed.js - flow-verify 1`] = `
+exports[`sealed.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var o = require('./proto');
 
 o.z = 0;
@@ -78,7 +97,8 @@ a.x = 123;
 a.y = 'abc'; // error, needs to be declared in Bar's constructor
 (a.getX(): number);
 (a.getY(): string);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var o = require("./proto");
 
 o.z = 0;
@@ -91,4 +111,5 @@ a.y = "abc"; // error, needs to be declared in Bar's constructor
 (a.getX(): number);
 (a.getY(): string);
 
+================================================================================
 `;

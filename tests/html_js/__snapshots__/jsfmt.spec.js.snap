@@ -1,13 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.html - html-verify 1`] = `
-<script></script>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`empty.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <script></script>
 
+=====================================output=====================================
+<script></script>
+
+================================================================================
 `;
 
-exports[`js.html - html-verify 1`] = `
+exports[`js.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <script type="text/javascript">
   var message = "Alert!";
 
@@ -31,7 +43,8 @@ exports[`js.html - html-verify 1`] = `
   
         function myFunction() { return 'foo'; }
   </script>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <script type="text/javascript">
   var message = "Alert!";
 
@@ -58,9 +71,15 @@ exports[`js.html - html-verify 1`] = `
   }
 </script>
 
+================================================================================
 `;
 
-exports[`simple.html - html-verify 1`] = `
+exports[`simple.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!DOCTYPE html>
 <html>
   <head>
@@ -77,7 +96,8 @@ exports[`simple.html - html-verify 1`] = `
     <p>This page is just a demo.</p>
   </body>
 </html>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!DOCTYPE html>
 <html>
   <head>
@@ -97,14 +117,21 @@ exports[`simple.html - html-verify 1`] = `
   </body>
 </html>
 
+================================================================================
 `;
 
-exports[`single-script.html - html-verify 1`] = `
+exports[`single-script.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <script>alert('test');</script>
 <script>
   document.getElementById("demo").innerHTML = "Hello JavaScript!";
 </script>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <script>
   alert("test");
 </script>
@@ -112,22 +139,78 @@ exports[`single-script.html - html-verify 1`] = `
   document.getElementById("demo").innerHTML = "Hello JavaScript!";
 </script>
 
+================================================================================
 `;
 
-exports[`something-else.html - html-verify 1`] = `
+exports[`something-else.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <script type="text/template">
  <div>
     </div>
 </script>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <script type="text/template">
   <div>
      </div>
 </script>
 
+================================================================================
 `;
 
-exports[`typescript.html - html-verify 1`] = `
+exports[`template-literal.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    </head>
+    <body>
+        <script>
+            function foo() {
+                return \`
+                    <div>
+                        <p>Text</p>
+                    </div>
+                \`;
+            }
+        </script>
+    </body>
+</html>
+
+=====================================output=====================================
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <script>
+      function foo() {
+        return \`
+                    <div>
+                        <p>Text</p>
+                    </div>
+                \`;
+      }
+    </script>
+  </body>
+</html>
+
+================================================================================
+`;
+
+exports[`typescript.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <script type="application/x-typescript">
   class Student {
     fullName: string;
@@ -206,7 +289,8 @@ exports[`typescript.html - html-verify 1`] = `
     }
   }
 </script>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <script type="application/x-typescript">
   class Student {
     fullName: string;
@@ -297,4 +381,5 @@ exports[`typescript.html - html-verify 1`] = `
   }
 </script>
 
+================================================================================
 `;

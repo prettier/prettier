@@ -1,13 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`while.js - flow-verify 1`] = `
+exports[`while.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x = 1;
 while(typeof x == "number" || typeof x == "string") {
     x = x + 1;
     if (true) x = "";
 }
 var z:number = x;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x = 1;
 while (typeof x == "number" || typeof x == "string") {
   x = x + 1;
@@ -15,4 +21,5 @@ while (typeof x == "number" || typeof x == "string") {
 }
 var z: number = x;
 
+================================================================================
 `;

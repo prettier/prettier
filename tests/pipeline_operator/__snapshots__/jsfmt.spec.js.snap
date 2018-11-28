@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pipeline_operator.js - babylon-verify 1`] = `
+exports[`pipeline_operator.js 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a |> b |> c;
 
 a |> (b |> c);
@@ -28,7 +33,8 @@ function createPerson (attrs) {
 
 foo |> (bar ?? baz);
 (foo |> bar) ?? baz;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a |> b |> c;
 
 a |> (b |> c);
@@ -55,4 +61,5 @@ function createPerson(attrs) {
 foo |> bar ?? baz;
 (foo |> bar) ?? baz;
 
+================================================================================
 `;

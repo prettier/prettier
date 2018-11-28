@@ -1,19 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`no_regression.js - babylon-verify 1`] = `
-// Ensure no regression.
-"use strict";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`no_regression.js 1`] = `
+====================================options=====================================
+parsers: ["babylon", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Ensure no regression.
 "use strict";
 
+=====================================output=====================================
+// Ensure no regression.
+"use strict";
+
+================================================================================
 `;
 
-exports[`use_strict.js - babylon-verify 1`] = `
-// Parentheses around expression statement should be preserved in this case.
-("use strict");
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`use_strict.js 1`] = `
+====================================options=====================================
+parsers: ["babylon", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Parentheses around expression statement should be preserved in this case.
 ("use strict");
 
+=====================================output=====================================
+// Parentheses around expression statement should be preserved in this case.
+("use strict");
+
+================================================================================
 `;

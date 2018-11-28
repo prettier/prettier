@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @noflow */
 
 interface IFoo { foo: string }
@@ -31,7 +36,8 @@ class C7 implements C1 {} // error: C1 is a class, expected an interface
 // ensure BoundT substituted appropriately
 interface IPoly<T> { x: T }
 class C8<T> implements IPoly<T> { x: T }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @noflow */
 
 interface IFoo {
@@ -77,4 +83,5 @@ class C8<T> implements IPoly<T> {
   x: T;
 }
 
+================================================================================
 `;

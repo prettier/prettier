@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow_call.js - babylon-verify 1`] = `
+exports[`arrow_call.js 1`] = `
+====================================options=====================================
+parsers: ["babylon", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
 );
@@ -45,7 +50,8 @@ const composition = (ViewComponent, ContainerComponent) =>
   };
 
 promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
 );
@@ -101,9 +107,16 @@ promise.then(result =>
     : "fail"
 );
 
+================================================================================
 `;
 
-exports[`arrow_call.js - babylon-verify 2`] = `
+exports[`arrow_call.js 2`] = `
+====================================options=====================================
+parsers: ["babylon", "flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
 );
@@ -148,7 +161,8 @@ const composition = (ViewComponent, ContainerComponent) =>
   };
 
 promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter),
 );
@@ -204,9 +218,16 @@ promise.then(result =>
     : "fail",
 );
 
+================================================================================
 `;
 
-exports[`arrow_call.js - babylon-verify 3`] = `
+exports[`arrow_call.js 3`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babylon", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
 );
@@ -251,7 +272,8 @@ const composition = (ViewComponent, ContainerComponent) =>
   };
 
 promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const testResults = results.testResults.map((testResult) =>
   formatResult(testResult, formatter, reporter)
 );
@@ -307,4 +329,5 @@ promise.then((result) =>
     : "fail"
 );
 
+================================================================================
 `;

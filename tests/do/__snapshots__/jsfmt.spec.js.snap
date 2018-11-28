@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`do.js - babylon-verify 1`] = `
+exports[`do.js 1`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const envSpecific = {
   domain:
     do {
@@ -55,7 +60,8 @@ function foo() {
     obj[key];
   }
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const envSpecific = {
   domain: do {
     if (env === "production") "https://abc.mno.com/";
@@ -114,4 +120,5 @@ function foo() {
   }
 };
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`new-signature.ts - typescript-verify 1`] = `
+exports[`new-signature.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface FooConstructor {
   new (
     a: number,
@@ -64,7 +69,8 @@ interface TimerConstructor {
   // Line-splitting comment
   new (interval: number, callback: (handler: Timer) => void): Timer;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface FooConstructor {
   new (
     a: number,
@@ -132,4 +138,5 @@ interface TimerConstructor {
   new (interval: number, callback: (handler: Timer) => void): Timer;
 }
 
+================================================================================
 `;

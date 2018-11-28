@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`typecast.js - flow-verify 1`] = `
+exports[`typecast.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * Copyright 2004-present Facebook. All Rights Reserved.
  */
@@ -27,7 +32,8 @@ var tests = [
     // var b = [(0 : ?number), 1, 2, 3, 4, 5, 6, 7, null];
   }
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * Copyright 2004-present Facebook. All Rights Reserved.
  */
@@ -55,4 +61,5 @@ var tests = [
   }
 ];
 
+================================================================================
 `;

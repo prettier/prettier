@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`readme.css - css-verify 1`] = `
+exports[`readme.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // mixin for clearfix
         @mixin      clearfix    ()      { &:before,
   &:after {
@@ -27,7 +32,8 @@ padding: 12px
       {     @extend            %base;
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // mixin for clearfix
 @mixin clearfix() {
   &:before,
@@ -60,4 +66,5 @@ padding: 12px
   @extend %base;
 }
 
+================================================================================
 `;

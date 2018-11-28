@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`code.md - markdown-verify 1`] = `
+exports[`code.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 > NOTE: To use \`unobtrusive\`, \`unobtrusive/import\`, \`unobtrusive/react\`, and \`unobtrusive/flowtype\` together, your eslint config would look like this:
 >\`\`\`json
 >{
@@ -15,7 +21,8 @@ exports[`code.md - markdown-verify 1`] = `
 >  }
 >}
 >\`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 > NOTE: To use \`unobtrusive\`, \`unobtrusive/import\`, \`unobtrusive/react\`, and
 > \`unobtrusive/flowtype\` together, your eslint config would look like this:
 >
@@ -33,9 +40,16 @@ exports[`code.md - markdown-verify 1`] = `
 > }
 > \`\`\`
 
+================================================================================
 `;
 
-exports[`ignore-code.md - markdown-verify 1`] = `
+exports[`ignore-code.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 > \`\`\`\`md
 > <!-- prettier-ignore -->
 > \`\`\`js
@@ -88,7 +102,8 @@ exports[`ignore-code.md - markdown-verify 1`] = `
 > const x = 1,
 > b = 2
 > \`\`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 > \`\`\`\`md
 > <!-- prettier-ignore -->
 > \`\`\`js
@@ -140,28 +155,53 @@ exports[`ignore-code.md - markdown-verify 1`] = `
 > b = 2
 > \`\`\`
 
+================================================================================
 `;
 
-exports[`nested.md - markdown-verify 1`] = `
+exports[`nested.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 >>> 123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 > > > 123
 
+================================================================================
 `;
 
-exports[`paragraph.md - markdown-verify 1`] = `
+exports[`paragraph.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 > This is a long long long long long long long long long long long long long long long paragraph.
 > This is a long long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 > This is a long long long long long long long long long long long long long
 > long long paragraph. This is a long long long long long long long long long
 > long long long long long long paragraph.
 
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 1`] = `
-> 123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`simple.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 > 123
 
+=====================================output=====================================
+> 123
+
+================================================================================
 `;

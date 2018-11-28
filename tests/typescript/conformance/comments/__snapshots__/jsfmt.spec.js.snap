@@ -1,8 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.ts - typescript-verify 1`] = `
-/* http://www.site.com or http://www.site.com/page.html */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`comments.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* http://www.site.com or http://www.site.com/page.html */
 
+=====================================output=====================================
+/* http://www.site.com or http://www.site.com/page.html */
+
+================================================================================
 `;

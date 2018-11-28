@@ -1046,6 +1046,7 @@ function printPathNoParens(path, options, print, args) {
 
     case "Import":
       return "import";
+    case "TSModuleBlock":
     case "BlockStatement": {
       const naked = path.call(bodyPath => {
         return printStatementSequence(bodyPath, options, print);
@@ -1069,7 +1070,8 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "WhileStatement" ||
           parent.type === "DoWhileStatement" ||
           parent.type === "DoExpression" ||
-          (parent.type === "CatchClause" && !parentParent.finalizer))
+          (parent.type === "CatchClause" && !parentParent.finalizer) ||
+          parent.type === "TSModuleDeclaration")
       ) {
         return "{}";
       }
@@ -1571,7 +1573,15 @@ function printPathNoParens(path, options, print, args) {
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(n.extra.raw);
     case "BigIntLiteral":
-      return concat([printNumber(n.extra.rawValue), "n"]);
+      return concat([
+        printNumber(
+          n.extra
+            ? n.extra.rawValue
+            : // TypeScript
+              n.value
+        ),
+        "n"
+      ]);
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
     case "Literal": {
@@ -2096,7 +2106,6 @@ function printPathNoParens(path, options, print, args) {
       );
     }
     case "JSXFragment":
-    case "TSJsxFragment":
     case "JSXElement": {
       const elem = comments.printComments(
         path,
@@ -2202,14 +2211,11 @@ function printPathNoParens(path, options, print, args) {
     case "JSXClosingElement":
       return concat(["</", path.call(print, "name"), ">"]);
     case "JSXOpeningFragment":
-    case "JSXClosingFragment":
-    case "TSJsxOpeningFragment":
-    case "TSJsxClosingFragment": {
+    case "JSXClosingFragment": {
       const hasComment = n.comments && n.comments.length;
       const hasOwnLineComment =
         hasComment && !n.comments.every(handleComments.isBlockComment);
-      const isOpeningFragment =
-        n.type === "JSXOpeningFragment" || n.type === "TSJsxOpeningFragment";
+      const isOpeningFragment = n.type === "JSXOpeningFragment";
       return concat([
         isOpeningFragment ? "<" : "</",
         indent(
@@ -3400,7 +3406,8 @@ function printPathNoParens(path, options, print, args) {
 
         if (!isGlobalDeclaration) {
           parts.push(
-            isExternalModule || /\smodule\s/.test(textBetweenNodeAndItsId)
+            isExternalModule ||
+              /(^|\s)module(\s|$)/.test(textBetweenNodeAndItsId)
               ? "module "
               : "namespace "
           );
@@ -3412,32 +3419,13 @@ function printPathNoParens(path, options, print, args) {
       if (bodyIsDeclaration) {
         parts.push(path.call(print, "body"));
       } else if (n.body) {
-        parts.push(
-          " {",
-          indent(
-            concat([
-              line,
-              path.call(
-                bodyPath =>
-                  comments.printDanglingComments(bodyPath, options, true),
-                "body"
-              ),
-              group(path.call(print, "body"))
-            ])
-          ),
-          line,
-          "}"
-        );
+        parts.push(" ", group(path.call(print, "body")));
       } else {
         parts.push(semi);
       }
 
       return concat(parts);
     }
-    case "TSModuleBlock":
-      return path.call(bodyPath => {
-        return printStatementSequence(bodyPath, options, print);
-      }, "body");
 
     case "PrivateName":
       return concat(["#", path.call(print, "id")]);
@@ -3505,7 +3493,7 @@ function printPathNoParens(path, options, print, args) {
             concat([
               index === 0
                 ? ""
-                : isNgForOf(childPath)
+                : isNgForOf(childPath.getValue(), index, n)
                 ? " "
                 : concat([";", line]),
               print(childPath)
@@ -3522,12 +3510,24 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "expression"),
         n.alias === null ? "" : concat([" as ", path.call(print, "alias")])
       ]);
-    case "NGMicrosyntaxKeyedExpression":
+    case "NGMicrosyntaxKeyedExpression": {
+      const index = path.getName();
+      const parentNode = path.getParentNode();
+      const shouldNotPrintColon =
+        isNgForOf(n, index, parentNode) ||
+        (((index === 1 && (n.key.name === "then" || n.key.name === "else")) ||
+          (index === 2 &&
+            (n.key.name === "else" &&
+              parentNode.body[index - 1].type ===
+                "NGMicrosyntaxKeyedExpression" &&
+              parentNode.body[index - 1].key.name === "then"))) &&
+          parentNode.body[0].type === "NGMicrosyntaxExpression");
       return concat([
         path.call(print, "key"),
-        isNgForOf(path) ? " " : ": ",
+        shouldNotPrintColon ? " " : ": ",
         path.call(print, "expression")
       ]);
+    }
     case "NGMicrosyntaxLet":
       return concat([
         "let ",
@@ -3546,11 +3546,7 @@ function printPathNoParens(path, options, print, args) {
   }
 }
 
-/** prefer `let hero of heros` over `let hero; of: heros` */
-function isNgForOf(path) {
-  const node = path.getValue();
-  const index = path.getName();
-  const parentNode = path.getParentNode();
+function isNgForOf(node, index, parentNode) {
   return (
     node.type === "NGMicrosyntaxKeyedExpression" &&
     node.key.name === "of" &&
@@ -4969,11 +4965,7 @@ function isCallOrOptionalCallExpression(node) {
 }
 
 function isJSXNode(node) {
-  return (
-    node.type === "JSXElement" ||
-    node.type === "JSXFragment" ||
-    node.type === "TSJsxFragment"
-  );
+  return node.type === "JSXElement" || node.type === "JSXFragment";
 }
 
 function isEmptyJSXElement(node) {
@@ -5515,7 +5507,6 @@ function maybeWrapJSXElementInParens(path, elem) {
     JSXElement: true,
     JSXExpressionContainer: true,
     JSXFragment: true,
-    TSJsxFragment: true,
     ExpressionStatement: true,
     CallExpression: true,
     OptionalCallExpression: true,

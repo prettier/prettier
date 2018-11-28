@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attributes.html - html-verify 1`] = `
+exports[`attributes.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <input name=address maxlength=200>
 <input name='address' maxlength='200'>
 <input name="address" maxlength="200">
@@ -77,7 +82,8 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
   "
 >
 </p>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <input name="address" maxlength="200" />
 <input name="address" maxlength="200" />
 <input name="address" maxlength="200" />
@@ -153,9 +159,15 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
   "
 ></p>
 
+================================================================================
 `;
 
-exports[`boolean.html - html-verify 1`] = `
+exports[`boolean.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <button type="submit">This is valid.</button>
 <button type="submit" disabled>This is valid.</button>
 <button type="submit" disabled="">This is valid.</button>
@@ -173,7 +185,8 @@ exports[`boolean.html - html-verify 1`] = `
 <input type="checkbox" checked="checked" disabled="disabled" name="cheese">
 <input type='checkbox' checked="" disabled="" name=cheese >
 <div lang=""></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <button type="submit">This is valid.</button>
 <button type="submit" disabled>This is valid.</button>
 <button type="submit" disabled="">This is valid.</button>
@@ -210,37 +223,71 @@ exports[`boolean.html - html-verify 1`] = `
 <input type="checkbox" checked="" disabled="" name="cheese" />
 <div lang=""></div>
 
+================================================================================
 `;
 
-exports[`case-sensitive.html - html-verify 1`] = `
-<div CaseSensitive></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`case-sensitive.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div CaseSensitive></div>
 
+=====================================output=====================================
+<div CaseSensitive></div>
+
+================================================================================
 `;
 
-exports[`dobule-quotes.html - html-verify 1`] = `
+exports[`dobule-quotes.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <img src="test.png" alt="John 'ShotGun' Nelson">
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <img src="test.png" alt="John 'ShotGun' Nelson" />
 
+================================================================================
 `;
 
-exports[`duplicate.html - html-verify 1`] = `
-<a href="1" href="2">123</a>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`duplicate.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <a href="1" href="2">123</a>
 
+=====================================output=====================================
+<a href="1" href="2">123</a>
+
+================================================================================
 `;
 
-exports[`single-quotes.html - html-verify 1`] = `
+exports[`single-quotes.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <img src="test.png" alt='John "ShotGun" Nelson'>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <img src="test.png" alt="John &quot;ShotGun&quot; Nelson" />
 
+================================================================================
 `;
 
-exports[`srcset.html - html-verify 1`] = `
+exports[`srcset.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <img src="/assets/visual.png" 
 srcset="/assets/visual@0.5.png  400w, /assets/visual.png      805w" 
 sizes="(max-width: 66rem) 100vw, 66rem" alt=""/>
@@ -250,7 +297,8 @@ sizes="(max-width: 66rem) 100vw, 66rem" alt=""/>
 <img src="/assets/visual.png" 
 srcset="/assets/visual@0.5.png  0.5x, /assets/visual.png      1111x,	/assets/visual@2x.png   2x,	/assets/visual@3x.png   3.3333x" 
 sizes="(max-width: 66rem) 100vw, 66rem" alt=""/>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <img
   src="/assets/visual.png"
   srcset="/assets/visual@0.5.png 400w, /assets/visual.png 805w"
@@ -280,11 +328,19 @@ sizes="(max-width: 66rem) 100vw, 66rem" alt=""/>
   alt=""
 />
 
+================================================================================
 `;
 
-exports[`without-quotes.html - html-verify 1`] = `
+exports[`without-quotes.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <p title=Title>String</p>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <p title="Title">String</p>
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditional.js - flow-verify 1`] = `
+exports[`conditional.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function a(): number {
@@ -25,7 +30,8 @@ function d(): string { // expected \`: number | boolean\`
   var x: ?number = null;
   return (x != null) ? x : (x != null);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function a(): number {
@@ -52,4 +58,5 @@ function d(): string {
   return x != null ? x : x != null;
 }
 
+================================================================================
 `;

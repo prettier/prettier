@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ExportCJSDefault_Class.js - flow-verify 1`] = `
+exports[`ExportCJSDefault_Class.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -13,7 +18,8 @@ class ClassFoo3 {
 }
 
 module.exports = ClassFoo3;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -29,9 +35,15 @@ class ClassFoo3 {
 
 module.exports = ClassFoo3;
 
+================================================================================
 `;
 
-exports[`ExportCJSNamed_Class.js - flow-verify 1`] = `
+exports[`ExportCJSNamed_Class.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -54,7 +66,8 @@ exports.ClassFoo4 = ClassFoo4;
 exports.ClassFoo5 = ClassFoo5
 exports.foo4Inst = new ClassFoo4();
 exports.foo5Inst = new ClassFoo5();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -80,9 +93,15 @@ exports.ClassFoo5 = ClassFoo5;
 exports.foo4Inst = new ClassFoo4();
 exports.foo5Inst = new ClassFoo5();
 
+================================================================================
 `;
 
-exports[`ExportDefault_Class.js - flow-verify 1`] = `
+exports[`ExportDefault_Class.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -93,7 +112,8 @@ class ClassFoo1 {
 
 export default ClassFoo1;
 export var foo1Inst = new ClassFoo1();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -107,9 +127,15 @@ class ClassFoo1 {
 export default ClassFoo1;
 export var foo1Inst = new ClassFoo1();
 
+================================================================================
 `;
 
-exports[`ExportNamed_Alias.js - flow-verify 1`] = `
+exports[`ExportNamed_Alias.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -122,7 +148,8 @@ export function givesAFoo3Obj(): AliasFoo3 {
     givesANum(): number { return 42; }
   };
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -138,9 +165,15 @@ export function givesAFoo3Obj(): AliasFoo3 {
   };
 }
 
+================================================================================
 `;
 
-exports[`ExportNamed_Class.js - flow-verify 1`] = `
+exports[`ExportNamed_Class.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -151,7 +184,8 @@ class ClassFoo2 {
 
 export {ClassFoo2};
 export var foo2Inst = new ClassFoo2();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -165,20 +199,33 @@ class ClassFoo2 {
 export { ClassFoo2 };
 export var foo2Inst = new ClassFoo2();
 
+================================================================================
 `;
 
-exports[`ExportsANumber.js - flow-verify 1`] = `
+exports[`ExportsANumber.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @ flow */
 
 export var numValue = 42;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @ flow */
 
 export var numValue = 42;
 
+================================================================================
 `;
 
-exports[`import_type.js - flow-verify 1`] = `
+exports[`import_type.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -261,7 +308,8 @@ import type ClassFoo6 from "./issue-359";
 function foo() {
   ClassFoo6; // Error: Not a value binding
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -345,19 +393,27 @@ function foo() {
   ClassFoo6; // Error: Not a value binding
 }
 
+================================================================================
 `;
 
-exports[`issue-359.js - flow-verify 1`] = `
+exports[`issue-359.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 class ClassFoo6 {};
 
 export default ClassFoo6;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 class ClassFoo6 {}
 
 export default ClassFoo6;
 
+================================================================================
 `;

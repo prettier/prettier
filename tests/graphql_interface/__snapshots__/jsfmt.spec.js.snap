@@ -1,19 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interface.graphql - graphql-verify 1`] = `
-interface Actor {
-  id: ID
-  name: String
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`interface.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface Actor {
   id: ID
   name: String
 }
 
+=====================================output=====================================
+interface Actor {
+  id: ID
+  name: String
+}
+
+================================================================================
 `;
 
-exports[`object_type_def.graphql - graphql-verify 1`] = `
+exports[`object_type_def.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type Artist implements Node & Entity {
   # The ID of an object
   id: ID!
@@ -36,7 +48,8 @@ type Artist implements Node & Entity {
   ): ReleaseConnection
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type Artist implements Node & Entity {
   # The ID of an object
   id: ID!
@@ -59,9 +72,15 @@ type Artist implements Node & Entity {
   ): ReleaseConnection
 }
 
+================================================================================
 `;
 
-exports[`object_type_def_mixed_syntax.graphql - graphql-verify 1`] = `
+exports[`object_type_def_mixed_syntax.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type MixedArtist implements Node, Entity & Releasable {
   # The ID of an object
   id: ID!
@@ -84,7 +103,8 @@ type MixedArtist implements Node, Entity & Releasable {
   ): ReleaseConnection
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type MixedArtist implements Node & Entity & Releasable {
   # The ID of an object
   id: ID!
@@ -107,9 +127,15 @@ type MixedArtist implements Node & Entity & Releasable {
   ): ReleaseConnection
 }
 
+================================================================================
 `;
 
-exports[`object_type_def_old_syntax.graphql - graphql-verify 1`] = `
+exports[`object_type_def_old_syntax.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type OldArtist implements Node, Entity {
   # The ID of an object
   id: ID!
@@ -132,7 +158,8 @@ type OldArtist implements Node, Entity {
   ): ReleaseConnection
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type OldArtist implements Node, Entity {
   # The ID of an object
   id: ID!
@@ -155,4 +182,5 @@ type OldArtist implements Node, Entity {
   ): ReleaseConnection
 }
 
+================================================================================
 `;

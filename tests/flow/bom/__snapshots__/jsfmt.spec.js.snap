@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FormData.js - flow-verify 1`] = `
+exports[`FormData.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 // constructor
@@ -68,7 +73,8 @@ for (let [x, y]: [string, string | File | Blob] of a.entries()) {} // incorrect
 for (let [x, y]: [number, string] of a.entries()) {} // incorrect
 for (let [x, y]: [string, number] of a.entries()) {} // incorrect
 for (let [x, y]: [number, number] of a.entries()) {} // incorrect
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 // constructor
@@ -146,9 +152,15 @@ for (let [x, y]: [string, number] of a.entries()) {
 for (let [x, y]: [number, number] of a.entries()) {
 } // incorrect
 
+================================================================================
 `;
 
-exports[`MutationObserver.js - flow-verify 1`] = `
+exports[`MutationObserver.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 // constructor
@@ -178,7 +190,8 @@ o.takeRecords(); // correct
 
 // disconnect
 o.disconnect(); // correct
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 // constructor
@@ -212,4 +225,5 @@ o.takeRecords(); // correct
 // disconnect
 o.disconnect(); // correct
 
+================================================================================
 `;

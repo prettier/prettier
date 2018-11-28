@@ -20,7 +20,7 @@ module.exports = function() {
       );
 
       return {
-        code: `const json = ${json}; export default json;`,
+        code: `var json = ${json}; export default json;`,
         map: { mappings: "" }
       };
     }

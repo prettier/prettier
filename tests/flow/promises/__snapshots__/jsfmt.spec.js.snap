@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`all.js - flow-verify 1`] = `
+exports[`all.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 declare var pstr: Promise<string>;
@@ -40,7 +45,8 @@ function test(val: Iterable<Promise<number>>) {
 function tes2(val: Map<string, Promise<number>>) {
   const r: Promise<Array<number>> = Promise.all(val.values());
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 declare var pstr: Promise<string>;
@@ -81,9 +87,15 @@ function tes2(val: Map<string, Promise<number>>) {
   const r: Promise<Array<number>> = Promise.all(val.values());
 }
 
+================================================================================
 `;
 
-exports[`covariance.js - flow-verify 1`] = `
+exports[`covariance.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 async function testAll() {
@@ -100,7 +112,8 @@ async function testRace() {
     const y: Promise<?string> = Promise.race(x);
     const z: ?string = await y;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 async function testAll() {
@@ -118,9 +131,15 @@ async function testRace() {
   const z: ?string = await y;
 }
 
+================================================================================
 `;
 
-exports[`promise.js - flow-verify 1`] = `
+exports[`promise.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -347,7 +366,8 @@ Promise.resolve(0)
     var a: ?number = num;
     var b: string = num; // Error: string ~> number
   });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -594,9 +614,15 @@ Promise.resolve(0)
     var b: string = num; // Error: string ~> number
   });
 
+================================================================================
 `;
 
-exports[`resolve_global.js - flow-verify 1`] = `
+exports[`resolve_global.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * test Promise name resolution
  * @flow
@@ -638,7 +664,8 @@ async function bar() {
 async function baz(): Promise<number> {
   return 0;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * test Promise name resolution
  * @flow
@@ -681,19 +708,27 @@ async function baz(): Promise<number> {
   return 0;
 }
 
+================================================================================
 `;
 
-exports[`resolve_void.js - flow-verify 1`] = `
+exports[`resolve_void.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 (Promise.resolve(): Promise<number>); // error
 
 (Promise.resolve(undefined): Promise<number>); // error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 (Promise.resolve(): Promise<number>); // error
 
 (Promise.resolve(undefined): Promise<number>); // error
 
+================================================================================
 `;
