@@ -17,7 +17,7 @@ export default function({ version }) {
     <a
       href={`https://github.com/prettier/prettier/${href}`}
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
     >
       {match ? `PR #${match[1]}` : `v${version}`}
     </a>,
