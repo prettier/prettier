@@ -5,16 +5,16 @@ const path = require("path");
 
 module.exports = function() {
   let banner;
-  let entry;
+  let input;
 
   return {
     options(options) {
-      entry = path.resolve(options.entry);
+      input = path.resolve(options.input);
       return options;
     },
 
     load(id) {
-      if (id !== entry) {
+      if (id !== input) {
         return;
       }
       const source = fs.readFileSync(id, "utf-8");
@@ -36,7 +36,7 @@ module.exports = function() {
 
     onwrite(bundle) {
       if (banner) {
-        fs.chmodSync(bundle.dest, 0o755 & ~process.umask());
+        fs.chmodSync(bundle.file, 0o755 & ~process.umask());
       }
     }
   };
