@@ -133,8 +133,8 @@ function getRollupOutputOptions(bundle) {
 
   const options = {
     paths,
-    dest: `dist/${bundle.output}`,
-    useStrict: typeof bundle.strict === "undefined" ? true : bundle.strict
+    file: `dist/${bundle.output}`,
+    strict: typeof bundle.strict === "undefined" ? true : bundle.strict
   };
   if (bundle.target === "node") {
     options.format = "cjs";
