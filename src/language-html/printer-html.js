@@ -203,10 +203,6 @@ function genericPrint(path, options, print) {
                       ? ifBreak(indent(childrenDoc), childrenDoc, {
                           groupId: attrGroupId
                         })
-                      : isScriptLikeTag(node) &&
-                        node.parent.type === "root" &&
-                        options.parser === "vue"
-                      ? childrenDoc
                       : indent(childrenDoc))(
                     concat([
                       shouldHugContent
