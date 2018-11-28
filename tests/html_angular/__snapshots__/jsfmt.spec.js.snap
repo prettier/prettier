@@ -153,6 +153,7 @@ printWidth: 80
       'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
+    test='{{ "test" | translate }}'
 ></div>
 
 =====================================output=====================================
@@ -265,6 +266,7 @@ printWidth: 80
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
+  test="{{ &quot;test&quot; | translate }}"
 ></div>
 
 ================================================================================
@@ -363,6 +365,7 @@ trailingComma: "es5"
       'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
+    test='{{ "test" | translate }}'
 ></div>
 
 =====================================output=====================================
@@ -475,6 +478,7 @@ trailingComma: "es5"
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
+  test="{{ &quot;test&quot; | translate }}"
 ></div>
 
 ================================================================================
@@ -572,6 +576,7 @@ printWidth: 1
       'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
+    test='{{ "test" | translate }}'
 ></div>
 
 =====================================output=====================================
@@ -911,6 +916,7 @@ printWidth: 1
   [stickout]="
     +toolAssembly.stickoutMm
   "
+  test="{{ &quot;test&quot; | translate }}"
 ></div>
 
 ================================================================================
@@ -1009,6 +1015,7 @@ printWidth: 80
       'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
+    test='{{ "test" | translate }}'
 ></div>
 
 =====================================output=====================================
@@ -1121,6 +1128,7 @@ printWidth: 80
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
+  test="{{ &quot;test&quot; | translate }}"
 ></div>
 
 ================================================================================
