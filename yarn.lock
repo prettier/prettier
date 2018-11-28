@@ -24,12 +24,19 @@
   optionalDependencies:
     chokidar "^2.0.3"
 
-"@babel/code-frame@7.0.0", "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.0.0-beta.35":
+"@babel/code-frame@7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0.tgz#06e2ab19bdb535385559aabb5ba59729482800f8"
   integrity sha512-OfC2uemaknXr87bdLUkWog7nYuliM9Ij5HUcajsVcMCpQrcLmtxRbVFTIqmcSkSeYRBFBRxs2FiUqFJDLdiebA==
   dependencies:
     "@babel/highlight" "^7.0.0"
+
+"@babel/code-frame@7.0.0-beta.46", "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.0.0-beta.35":
+  version "7.0.0-beta.46"
+  resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.46.tgz#e0d002100805daab1461c0fcb32a07e304f3a4f4"
+  integrity sha512-7BKRkmYaPZm3Yff5HGZJKCz7RqZ5jUjknsXT6Gz5YKG23J3uq9hAj0epncCB0rlqmnZ8Q+UUpQB2tCR5mT37vw==
+  dependencies:
+    "@babel/highlight" "7.0.0-beta.46"
 
 "@babel/core@7.1.6":
   version "7.1.6"
@@ -215,6 +222,15 @@
     "@babel/template" "^7.1.2"
     "@babel/traverse" "^7.1.5"
     "@babel/types" "^7.1.5"
+
+"@babel/highlight@7.0.0-beta.46":
+  version "7.0.0-beta.46"
+  resolved "https://registry.yarnpkg.com/@babel/highlight/-/highlight-7.0.0-beta.46.tgz#c553c51e65f572bdedd6eff66fc0bb563016645e"
+  integrity sha512-r4snW6Q8ICL3Y8hGzYJRvyG/+sc+kvkewXNedG9tQjoHmUFMwMSv/o45GWQUQswevGnWghiGkpRPivFfOuMsOA==
+  dependencies:
+    chalk "^2.0.0"
+    esutils "^2.0.2"
+    js-tokens "^3.0.0"
 
 "@babel/highlight@^7.0.0":
   version "7.0.0"
@@ -2310,10 +2326,10 @@ exec-sh@^0.2.0:
   dependencies:
     merge "^1.1.3"
 
-execa@0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/execa/-/execa-0.11.0.tgz#0b3c71daf9b9159c252a863cd981af1b4410d97a"
-  integrity sha512-k5AR22vCt1DcfeiRixW46U5tMLtBg44ssdJM9PiXw3D8Bn5qyxFCSnKY/eR22y+ctFDGPqafpaXg2G4Emyua4A==
+execa@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-1.0.0.tgz#c6236a5bb4df6d6f15e88e7f017798216749ddd8"
+  integrity sha512-adbxcyWV46qiHyvSp50TKt05tB4tK3HcmF7/nxfAdhnox83seTDbwnaqKO4sXRy7roHAIFqJP/Rw/AuEbX61LA==
   dependencies:
     cross-spawn "^6.0.0"
     get-stream "^4.0.0"
@@ -2534,10 +2550,10 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-parser@0.86.0:
-  version "0.86.0"
-  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.86.0.tgz#8e5116325b8c02326f2ab98446a27123a0cc7125"
-  integrity sha512-92gl8/Sfcbgyd+aNLcpnTGtPOMOGR4zzzXiKI1Bb699rRUtXFTb4fiPWh9lOwJ2NLJpkvbddjo8TZN0ud4kOwA==
+flow-parser@0.84.0:
+  version "0.84.0"
+  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.84.0.tgz#4b1ec75c3d0fa50e6d43e7214b7dfb5c7d17d80b"
+  integrity sha512-SzbETNQrYZ/cOpzxn2yH3eLPNxPABbIrtQ3IaitfMue6r/NA0xXNxoW6MSpaGtgQMmOHPgQyJ0ElNQ2hsZkUuQ==
 
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
@@ -5451,10 +5467,10 @@ rollup-plugin-alias@1.4.0:
   dependencies:
     slash "^1.0.0"
 
-rollup-plugin-babel@4.1.0-0:
-  version "4.1.0-0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-babel/-/rollup-plugin-babel-4.1.0-0.tgz#69ad2d2859d34d058379e2168d6dd93b40487934"
-  integrity sha512-whxVQDhbA+gggqnz2+CWqYj8kA5SlObR0+AR2V9AxHu7qb+MfugiBn3LYjXNJec2v2K2RwzeRF+w+Uf+z+YX6Q==
+rollup-plugin-babel@4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-babel/-/rollup-plugin-babel-4.0.3.tgz#8282b0e22233160d679e9c7631342e848422fb02"
+  integrity sha512-/PP0MgbPQyRywI4zRIJim6ySjTcOLo4kQbEbROqp9kOR3kHC3FeU++QpBDZhS2BcHtJTVZMVbBV46flbBN5zxQ==
   dependencies:
     "@babel/helper-module-imports" "^7.0.0"
     rollup-pluginutils "^2.3.0"
@@ -6159,10 +6175,10 @@ typescript-estree@6.0.0-rc.1:
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-typescript@3.3.0-dev.20181127:
-  version "3.3.0-dev.20181127"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.3.0-dev.20181127.tgz#e608597eec811417b17dc33938e504c2aaab95b4"
-  integrity sha512-LHB208RG88fqINemsRqckHuqEPzAqzu7jx2McYP2J0A4zGlQe+jyfRj0IONqlAQtuIxTh+ScSly0PXQiqEENMw==
+typescript@3.2.0-rc:
+  version "3.2.0-rc"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.0-rc.tgz#7c3816f1c761b096f4f1712382e872f4da8f263e"
+  integrity sha512-RgKDOpEdbU9dAkB4TzxWy46wiyNUKQo0NM0bB7WfvEFw50yu046ldQXpOUYMUTLIAHnToOCtHsu39MYE8o6NCw==
 
 uglify-es@^3.3.7:
   version "3.3.9"

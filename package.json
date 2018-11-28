@@ -35,7 +35,7 @@
     "esutils": "2.0.2",
     "find-parent-dir": "0.3.0",
     "find-project-root": "1.1.1",
-    "flow-parser": "0.86.0",
+    "flow-parser": "0.84.0",
     "get-stream": "3.0.0",
     "globby": "6.1.0",
     "graphql": "0.13.2",
@@ -66,7 +66,7 @@
     "resolve": "1.8.1",
     "semver": "5.6.0",
     "string-width": "2.1.1",
-    "typescript": "3.3.0-dev.20181127",
+    "typescript": "3.2.0-rc",
     "typescript-estree": "6.0.0-rc.1",
     "unicode-regex": "2.0.0",
     "unified": "6.2.0",
@@ -89,7 +89,7 @@
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-prettier": "2.7.0",
     "eslint-plugin-react": "7.11.1",
-    "execa": "0.11.0",
+    "execa": "1.0.0",
     "jest": "23.6.0",
     "jest-junit": "5.2.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
@@ -101,7 +101,7 @@
     "rimraf": "2.6.2",
     "rollup": "0.67.3",
     "rollup-plugin-alias": "1.4.0",
-    "rollup-plugin-babel": "4.1.0-0",
+    "rollup-plugin-babel": "4.0.3",
     "rollup-plugin-commonjs": "8.4.1",
     "rollup-plugin-json": "2.3.1",
     "rollup-plugin-node-builtins": "2.1.2",
@@ -116,7 +116,7 @@
     "webpack": "3.12.0"
   },
   "resolutions": {
-    "@babel/code-frame": "7.0.0"
+    "@babel/code-frame": "7.0.0-beta.46"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
