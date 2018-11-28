@@ -154,6 +154,17 @@ printWidth: 80
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
     test='{{ "test" | translate }}'
+    test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
+    test='foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{       valid       }} 
+    
+    baz'
 ></div>
 
 =====================================output=====================================
@@ -267,6 +278,17 @@ printWidth: 80
   }"
   [stickout]="+toolAssembly.stickoutMm"
   test="{{ &quot;test&quot; | translate }}"
+  test="foo {{       invalid invalid       }} bar {{       valid       }} baz"
+  test="foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{       valid       }} 
+    
+    baz"
 ></div>
 
 ================================================================================
@@ -366,6 +388,17 @@ trailingComma: "es5"
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
     test='{{ "test" | translate }}'
+    test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
+    test='foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{       valid       }} 
+    
+    baz'
 ></div>
 
 =====================================output=====================================
@@ -479,6 +512,17 @@ trailingComma: "es5"
   }"
   [stickout]="+toolAssembly.stickoutMm"
   test="{{ &quot;test&quot; | translate }}"
+  test="foo {{       invalid invalid       }} bar {{       valid       }} baz"
+  test="foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{       valid       }} 
+    
+    baz"
 ></div>
 
 ================================================================================
@@ -577,6 +621,17 @@ printWidth: 1
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
     test='{{ "test" | translate }}'
+    test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
+    test='foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{       valid       }} 
+    
+    baz'
 ></div>
 
 =====================================output=====================================
@@ -917,6 +972,17 @@ printWidth: 1
     +toolAssembly.stickoutMm
   "
   test="{{ &quot;test&quot; | translate }}"
+  test="foo {{       invalid invalid       }} bar {{       valid       }} baz"
+  test="foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{       valid       }} 
+    
+    baz"
 ></div>
 
 ================================================================================
@@ -1016,6 +1082,17 @@ printWidth: 80
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
     test='{{ "test" | translate }}'
+    test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
+    test='foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{       valid       }} 
+    
+    baz'
 ></div>
 
 =====================================output=====================================
@@ -1129,6 +1206,17 @@ printWidth: 80
   }"
   [stickout]="+toolAssembly.stickoutMm"
   test="{{ &quot;test&quot; | translate }}"
+  test="foo {{       invalid invalid       }} bar {{       valid       }} baz"
+  test="foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{       valid       }} 
+    
+    baz"
 ></div>
 
 ================================================================================

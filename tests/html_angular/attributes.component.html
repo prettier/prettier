@@ -85,4 +85,15 @@
       'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
     [stickout]="+toolAssembly.stickoutMm"
     test='{{ "test" | translate }}'
+    test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
+    test='foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{       valid       }} 
+    
+    baz'
 ></div>
