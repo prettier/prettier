@@ -9,7 +9,12 @@ const { parseIeConditionalComment } = require("./conditional-comment");
 
 function ngHtmlParser(
   input,
-  { recognizeSelfClosing, normalizeTagName, normalizeAttributeName }
+  {
+    recognizeSelfClosing,
+    normalizeTagName,
+    normalizeAttributeName,
+    allowHtmComponentClosingTags
+  }
 ) {
   const parser = require("angular-html-parser");
   const {
@@ -30,7 +35,8 @@ function ngHtmlParser(
   } = require("angular-html-parser/lib/compiler/src/ml_parser/html_tags");
 
   const { rootNodes, errors } = parser.parse(input, {
-    canSelfClose: recognizeSelfClosing
+    canSelfClose: recognizeSelfClosing,
+    allowHtmComponentClosingTags
   });
 
   if (errors.length !== 0) {
@@ -255,7 +261,8 @@ function locEnd(node) {
 function createParser({
   recognizeSelfClosing = false,
   normalizeTagName = false,
-  normalizeAttributeName = false
+  normalizeAttributeName = false,
+  allowHtmComponentClosingTags = false
 } = {}) {
   return {
     preprocess: text => text.replace(/\r\n?/g, "\n"),
@@ -263,7 +270,8 @@ function createParser({
       _parse(text, options, {
         recognizeSelfClosing,
         normalizeTagName,
-        normalizeAttributeName
+        normalizeAttributeName,
+        allowHtmComponentClosingTags
       }),
     hasPragma,
     astFormat: "html",
@@ -275,8 +283,10 @@ function createParser({
 module.exports = {
   parsers: {
     html: createParser({
+      recognizeSelfClosing: true,
       normalizeTagName: true,
-      normalizeAttributeName: true
+      normalizeAttributeName: true,
+      allowHtmComponentClosingTags: true
     }),
     angular: createParser(),
     vue: createParser({ recognizeSelfClosing: true })
