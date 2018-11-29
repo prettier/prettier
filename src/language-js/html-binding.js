@@ -45,6 +45,25 @@ function printHtmlBinding(path, options, print) {
   }
 }
 
+// based on https://github.com/prettier/prettier/blob/master/src/language-html/syntax-vue.js isVueEventBindingExpression()
+function isVueEventBindingExpression(node) {
+  switch (node.type) {
+    case "MemberExpression":
+      switch (node.property.type) {
+        case "Identifier":
+        case "NumericLiteral":
+        case "StringLiteral":
+          return isVueEventBindingExpression(node.object);
+      }
+      return false;
+    case "Identifier":
+      return true;
+    default:
+      return false;
+  }
+}
+
 module.exports = {
+  isVueEventBindingExpression,
   printHtmlBinding
 };

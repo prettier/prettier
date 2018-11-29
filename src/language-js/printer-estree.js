@@ -34,7 +34,10 @@ const clean = require("./clean");
 const insertPragma = require("./pragma").insertPragma;
 const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
-const { printHtmlBinding } = require("./html-binding");
+const {
+  printHtmlBinding,
+  isVueEventBindingExpression
+} = require("./html-binding");
 const preprocess = require("./preprocess");
 const {
   hasNode,
@@ -494,6 +497,21 @@ function printPathNoParens(path, options, print, args) {
       if (n.directive) {
         return concat([nodeStr(n.expression, options, true), semi]);
       }
+
+      if (options.parser === "__vue_event_binding") {
+        const parent = path.getParentNode();
+        if (
+          parent.type === "Program" &&
+          parent.body.length === 1 &&
+          parent.body[0] === n
+        ) {
+          return concat([
+            path.call(print, "expression"),
+            isVueEventBindingExpression(n.expression) ? ";" : ""
+          ]);
+        }
+      }
+
       // Do not append semicolon after the only JSX element in a program
       return concat([
         path.call(print, "expression"),

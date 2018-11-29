@@ -37,6 +37,10 @@ var parsers = {
     importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers.__vue_expression;
   },
+  get __vue_event_binding() {
+    importScriptOnce("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers.__vue_event_binding;
+  },
   // JS - Flow
   get flow() {
     importScriptOnce("lib/parser-flow.js");

@@ -29,5 +29,7 @@
       console.log(test);
     }
   "
+  @click="doSomething()"
+  @click="doSomething;"
 ></div>
 </template>
