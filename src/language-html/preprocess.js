@@ -18,6 +18,7 @@ const PREPROCESS_PIPELINE = [
   extractWhitespaces,
   addCssDisplay,
   addIsSelfClosing,
+  addHasHtmComponentClosingTag,
   addIsSpaceSensitive,
   mergeSimpleElementIntoText
 ];
@@ -398,6 +399,23 @@ function addIsSelfClosing(ast /*, options */) {
             // self-closing
             node.startSourceSpan === node.endSourceSpan))
     })
+  );
+}
+
+function addHasHtmComponentClosingTag(ast, options) {
+  return ast.map(node =>
+    node.type !== "element"
+      ? node
+      : Object.assign(node, {
+          hasHtmComponentClosingTag:
+            node.endSourceSpan &&
+            /^<\s*\/\s*\/\s*>$/.test(
+              options.originalText.slice(
+                node.endSourceSpan.start.offset,
+                node.endSourceSpan.end.offset
+              )
+            )
+        })
   );
 }
 

@@ -33,6 +33,10 @@ module.exports = [
         return eval("require")("../language-js/parser-babylon").parsers
           .__vue_expression;
       },
+      get __vue_event_binding() {
+        return eval("require")("../language-js/parser-babylon").parsers
+          .__vue_event_binding;
+      },
       // JS - Flow
       get flow() {
         return eval("require")("../language-js/parser-flow").parsers.flow;
