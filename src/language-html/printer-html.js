@@ -128,8 +128,10 @@ function embed(path, print, textToDoc, options) {
         return concat([
           node.rawName,
           '="',
-          mapDoc(embeddedAttributeValueDoc, doc =>
-            typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
+          group(
+            mapDoc(embeddedAttributeValueDoc, doc =>
+              typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
+            )
           ),
           '"'
         ]);
