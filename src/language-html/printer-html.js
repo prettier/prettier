@@ -41,7 +41,11 @@ const {
 const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
-const { printVueFor, printVueSlotScope } = require("./syntax-vue");
+const {
+  printVueFor,
+  printVueSlotScope,
+  isVueEventBindingExpression
+} = require("./syntax-vue");
 const { printImgSrcset } = require("./syntax-attribute");
 
 function concat(parts) {
@@ -103,7 +107,7 @@ function embed(path, print, textToDoc, options) {
 
       // lit-html: html`<my-element obj=${obj}></my-element>`
       if (
-        /^PRETTIER_PLACEHOLDER_\d+$/.test(
+        /^PRETTIER_HTML_PLACEHOLDER_\d+_IN_JS$/.test(
           options.originalText.slice(
             node.valueSpan.start.offset,
             node.valueSpan.end.offset
@@ -124,8 +128,10 @@ function embed(path, print, textToDoc, options) {
         return concat([
           node.rawName,
           '="',
-          mapDoc(embeddedAttributeValueDoc, doc =>
-            typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
+          group(
+            mapDoc(embeddedAttributeValueDoc, doc =>
+              typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
+            )
           ),
           '"'
         ]);
@@ -307,9 +313,15 @@ function genericPrint(path, options, print) {
     case "comment": {
       return concat([
         printOpeningTagPrefix(node, options),
-        "<!--",
-        concat(replaceNewlines(node.value, literalline)),
-        "-->",
+        concat(
+          replaceNewlines(
+            options.originalText.slice(
+              options.locStart(node),
+              options.locEnd(node)
+            ),
+            literalline
+          )
+        ),
         printClosingTagSuffix(node, options)
       ]);
     }
@@ -833,6 +845,11 @@ function printClosingTagStartMarker(node, options) {
   switch (node.type) {
     case "ieConditionalComment":
       return "<!";
+    case "element":
+      if (node.hasHtmComponentClosingTag) {
+        return "<//";
+      }
+    // fall through
     default:
       return `</${node.rawName}`;
   }
@@ -942,17 +959,13 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     const jsExpressionBindingPatterns = ["^v-"];
 
     if (isKeyMatched(vueEventBindingPatterns)) {
-      // copied from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/codegen/events.js#L3-L4
-      const fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
-      const simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
-
-      const value = getValue()
-        // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/helpers.js#L104
-        .trim();
+      const value = getValue();
       return printMaybeHug(
-        simplePathRE.test(value) || fnExpRE.test(value)
+        isVueEventBindingExpression(value)
           ? textToDoc(value, { parser: "__js_expression" })
-          : stripTrailingHardline(textToDoc(value, { parser: "babylon" }))
+          : stripTrailingHardline(
+              textToDoc(value, { parser: "__vue_event_binding" })
+            )
       );
     }
 
@@ -1003,6 +1016,38 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       return printMaybeHug(
         ngTextToDoc(getValue(), { parser: "__ng_directive" })
       );
+    }
+
+    const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
+    const value = getValue();
+    if (interpolationRegex.test(value)) {
+      const parts = [];
+      value.split(interpolationRegex).forEach((part, index) => {
+        if (index % 2 === 0) {
+          parts.push(concat(replaceNewlines(part, literalline)));
+        } else {
+          try {
+            parts.push(
+              group(
+                concat([
+                  "{{",
+                  indent(
+                    concat([
+                      line,
+                      ngTextToDoc(part, { parser: "__ng_interpolation" })
+                    ])
+                  ),
+                  line,
+                  "}}"
+                ])
+              )
+            );
+          } catch (e) {
+            parts.push("{{", concat(replaceNewlines(part, literalline)), "}}");
+          }
+        }
+      });
+      return group(concat(parts));
     }
   }
 
