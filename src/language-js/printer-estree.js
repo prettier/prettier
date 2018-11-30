@@ -3093,6 +3093,8 @@ function printPathNoParens(path, options, print, args) {
       return "async";
     case "TSBooleanKeyword":
       return "boolean";
+    case "TSBigIntKeyword":
+      return "bigint";
     case "TSConstKeyword":
       return "const";
     case "TSDeclareKeyword":
