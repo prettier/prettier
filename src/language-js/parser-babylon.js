@@ -41,43 +41,48 @@ function babylonOptions(extraOptions, extraPlugins) {
   );
 }
 
-function parse(text, parsers, opts) {
-  // Inline the require to avoid loading all the JS if we don't use it
-  const babylon = require("@babel/parser");
+function createParse(parseMethod) {
+  return (text, parsers, opts) => {
+    // Inline the require to avoid loading all the JS if we don't use it
+    const babylon = require("@babel/parser");
 
-  const combinations = [
-    babylonOptions({ strictMode: true }, ["decorators-legacy"]),
-    babylonOptions({ strictMode: false }, ["decorators-legacy"]),
-    babylonOptions({ strictMode: true }, [
-      ["decorators", { decoratorsBeforeExport: false }]
-    ]),
-    babylonOptions({ strictMode: false }, [
-      ["decorators", { decoratorsBeforeExport: false }]
-    ])
-  ];
+    const combinations = [
+      babylonOptions({ strictMode: true }, ["decorators-legacy"]),
+      babylonOptions({ strictMode: false }, ["decorators-legacy"]),
+      babylonOptions({ strictMode: true }, [
+        ["decorators", { decoratorsBeforeExport: false }]
+      ]),
+      babylonOptions({ strictMode: false }, [
+        ["decorators", { decoratorsBeforeExport: false }]
+      ])
+    ];
 
-  const parseMethod =
-    !opts || opts.parser === "babylon" ? "parse" : "parseExpression";
-
-  let ast;
-  try {
-    ast = tryCombinations(babylon[parseMethod].bind(null, text), combinations);
-  } catch (error) {
-    throw createError(
-      // babel error prints (l:c) with cols that are zero indexed
-      // so we need our custom error
-      error.message.replace(/ \(.*\)/, ""),
-      {
-        start: {
-          line: error.loc.line,
-          column: error.loc.column + 1
+    let ast;
+    try {
+      ast = tryCombinations(
+        babylon[parseMethod].bind(null, text),
+        combinations
+      );
+    } catch (error) {
+      throw createError(
+        // babel error prints (l:c) with cols that are zero indexed
+        // so we need our custom error
+        error.message.replace(/ \(.*\)/, ""),
+        {
+          start: {
+            line: error.loc.line,
+            column: error.loc.column + 1
+          }
         }
-      }
-    );
-  }
-  delete ast.tokens;
-  return postprocess(ast, Object.assign({}, opts, { originalText: text }));
+      );
+    }
+    delete ast.tokens;
+    return postprocess(ast, Object.assign({}, opts, { originalText: text }));
+  };
 }
+
+const parse = createParse("parse");
+const parseExpression = createParse("parseExpression");
 
 function tryCombinations(fn, combinations) {
   let error;
@@ -94,7 +99,7 @@ function tryCombinations(fn, combinations) {
 }
 
 function parseJson(text, parsers, opts) {
-  const ast = parse(text, parsers, Object.assign({}, opts, { parser: "json" }));
+  const ast = parseExpression(text, parsers, opts);
 
   ast.comments.forEach(assertJsonNode);
   assertJsonNode(ast);
@@ -164,17 +169,20 @@ const babylon = Object.assign(
   { parse, astFormat: "estree", hasPragma },
   locFns
 );
+const babylonExpression = Object.assign({}, babylon, {
+  parse: parseExpression
+});
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
     babylon,
-    json: Object.assign({}, babylon, {
+    json: Object.assign({}, babylonExpression, {
       hasPragma() {
         return true;
       }
     }),
-    json5: babylon,
+    json5: babylonExpression,
     "json-stringify": Object.assign(
       {
         parse: parseJson,
@@ -183,8 +191,10 @@ module.exports = {
       locFns
     ),
     /** @internal */
-    __js_expression: babylon,
+    __js_expression: babylonExpression,
     /** for vue filter */
-    __vue_expression: babylon
+    __vue_expression: babylonExpression,
+    /** for vue event binding to handle semicolon */
+    __vue_event_binding: babylon
   }
 };

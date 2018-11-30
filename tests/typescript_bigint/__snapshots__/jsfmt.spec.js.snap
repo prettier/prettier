@@ -1,29 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`moduleDeclaration.ts 1`] = `
+exports[`bigint.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-module A {
-    export class A {
-    }
-}
-
-declare module "B" {
-    export class B {
-    }
-}
+type T00 = bigint;
 
 =====================================output=====================================
-module A {
-  export class A {}
-}
-
-declare module "B" {
-  export class B {}
-}
+type T00 = bigint;
 
 ================================================================================
 `;

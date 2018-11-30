@@ -2,6 +2,7 @@
 
 const createIgnorer = require("./create-ignorer");
 const options = require("../main/options");
+const path = require("path");
 
 /**
  * @typedef {{ ignorePath?: string, withNodeModules?: boolean, plugins: object }} FileInfoOptions
@@ -19,7 +20,11 @@ const options = require("../main/options");
  */
 function getFileInfo(filePath, opts) {
   return createIgnorer(opts.ignorePath, opts.withNodeModules).then(ignorer =>
-    _getFileInfo(ignorer, filePath, opts.plugins)
+    _getFileInfo(
+      ignorer,
+      normalizeFilePath(filePath, opts.ignorePath),
+      opts.plugins
+    )
   );
 }
 
@@ -30,7 +35,11 @@ function getFileInfo(filePath, opts) {
  */
 getFileInfo.sync = function(filePath, opts) {
   const ignorer = createIgnorer.sync(opts.ignorePath, opts.withNodeModules);
-  return _getFileInfo(ignorer, filePath, opts.plugins);
+  return _getFileInfo(
+    ignorer,
+    normalizeFilePath(filePath, opts.ignorePath),
+    opts.plugins
+  );
 };
 
 function _getFileInfo(ignorer, filePath, plugins) {
@@ -41,6 +50,12 @@ function _getFileInfo(ignorer, filePath, plugins) {
     ignored,
     inferredParser
   };
+}
+
+function normalizeFilePath(filePath, ignorePath) {
+  return ignorePath
+    ? path.relative(path.dirname(ignorePath), filePath)
+    : filePath;
 }
 
 module.exports = getFileInfo;

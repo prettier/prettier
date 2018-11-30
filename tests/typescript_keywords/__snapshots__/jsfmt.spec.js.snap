@@ -48,7 +48,7 @@ module YYY4 {
 =====================================output=====================================
 // All of these should be an error
 
-namespace Y3 {
+module Y3 {
   public module Module {
     class A {
       s: string;
@@ -63,14 +63,14 @@ namespace Y3 {
   }
 }
 
-namespace Y4 {
+module Y4 {
   public enum Color {
     Blue,
     Red
   }
 }
 
-namespace YY3 {
+module YY3 {
   private module Module {
     class A {
       s: string;
@@ -78,14 +78,14 @@ namespace YY3 {
   }
 }
 
-namespace YY4 {
+module YY4 {
   private enum Color {
     Blue,
     Red
   }
 }
 
-namespace YYY3 {
+module YYY3 {
   static module Module {
     class A {
       s: string;
@@ -93,7 +93,7 @@ namespace YYY3 {
   }
 }
 
-namespace YYY4 {
+module YYY4 {
   static enum Color {
     Blue,
     Red

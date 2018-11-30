@@ -7,7 +7,15 @@ const createError = require("../common/parser-create-error");
 const { Node } = require("./ast");
 const { parseIeConditionalComment } = require("./conditional-comment");
 
-function ngHtmlParser(input, { recognizeSelfClosing, normalizeTagName }) {
+function ngHtmlParser(
+  input,
+  {
+    recognizeSelfClosing,
+    normalizeTagName,
+    normalizeAttributeName,
+    allowHtmComponentClosingTags
+  }
+) {
   const parser = require("angular-html-parser");
   const {
     RecursiveVisitor,
@@ -27,13 +35,14 @@ function ngHtmlParser(input, { recognizeSelfClosing, normalizeTagName }) {
   } = require("angular-html-parser/lib/compiler/src/ml_parser/html_tags");
 
   const { rootNodes, errors } = parser.parse(input, {
-    canSelfClose: recognizeSelfClosing
+    canSelfClose: recognizeSelfClosing,
+    allowHtmComponentClosingTags
   });
 
   if (errors.length !== 0) {
     const { msg, span } = errors[0];
     const { line, col } = span.start;
-    throw createError(msg, { start: { line: line + 1, column: col } });
+    throw createError(msg, { start: { line: line + 1, column: col + 1 } });
   }
 
   const addType = node => {
@@ -109,19 +118,21 @@ function ngHtmlParser(input, { recognizeSelfClosing, normalizeTagName }) {
         );
       }
 
-      const CURRENT_HTML_ELEMENT_ATTRIBUTES =
-        HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
-      node.attrs.forEach(attr => {
-        if (!attr.namespace) {
-          attr.name = lowerCaseIfFn(
-            attr.name,
-            lowerCasedAttrName =>
-              node.name in HTML_ELEMENT_ATTRIBUTES &&
-              (lowerCasedAttrName in HTML_ELEMENT_ATTRIBUTES["*"] ||
-                lowerCasedAttrName in CURRENT_HTML_ELEMENT_ATTRIBUTES)
-          );
-        }
-      });
+      if (normalizeAttributeName) {
+        const CURRENT_HTML_ELEMENT_ATTRIBUTES =
+          HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
+        node.attrs.forEach(attr => {
+          if (!attr.namespace) {
+            attr.name = lowerCaseIfFn(
+              attr.name,
+              lowerCasedAttrName =>
+                node.name in HTML_ELEMENT_ATTRIBUTES &&
+                (lowerCasedAttrName in HTML_ELEMENT_ATTRIBUTES["*"] ||
+                  lowerCasedAttrName in CURRENT_HTML_ELEMENT_ATTRIBUTES)
+            );
+          }
+        });
+      }
     }
   };
 
@@ -249,13 +260,17 @@ function locEnd(node) {
 
 function createParser({
   recognizeSelfClosing = false,
-  normalizeTagName = false
+  normalizeTagName = false,
+  normalizeAttributeName = false,
+  allowHtmComponentClosingTags = false
 } = {}) {
   return {
     parse: (text, parsers, options) =>
       _parse(text, options, {
         recognizeSelfClosing,
-        normalizeTagName
+        normalizeTagName,
+        normalizeAttributeName,
+        allowHtmComponentClosingTags
       }),
     hasPragma,
     astFormat: "html",
@@ -266,7 +281,12 @@ function createParser({
 
 module.exports = {
   parsers: {
-    html: createParser({ normalizeTagName: true }),
+    html: createParser({
+      recognizeSelfClosing: true,
+      normalizeTagName: true,
+      normalizeAttributeName: true,
+      allowHtmComponentClosingTags: true
+    }),
     angular: createParser(),
     vue: createParser({ recognizeSelfClosing: true })
   }

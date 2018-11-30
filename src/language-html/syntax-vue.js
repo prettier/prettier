@@ -66,7 +66,21 @@ function printVueSlotScope(value, textToDoc) {
   });
 }
 
+function isVueEventBindingExpression(eventBindingValue) {
+  // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/codegen/events.js#L3-L4
+  // arrow function or anonymous function
+  const fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
+  // simple member expression chain (a, a.b, a['b'], a["b"], a[0], a[b])
+  const simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
+
+  // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/helpers.js#L104
+  const value = eventBindingValue.trim();
+
+  return fnExpRE.test(value) || simplePathRE.test(value);
+}
+
 module.exports = {
+  isVueEventBindingExpression,
   printVueFor,
   printVueSlotScope
 };

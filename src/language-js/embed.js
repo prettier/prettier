@@ -567,9 +567,9 @@ function isHtml(path) {
 function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
   const node = path.getValue();
 
-  const placeholderPattern = "PRETTIER_PLACEHOLDER_(\\d+)";
+  const placeholderPattern = "PRETTIER_HTML_PLACEHOLDER_(\\d+)_IN_JS";
   const placeholders = node.expressions.map(
-    (_, i) => `PRETTIER_PLACEHOLDER_${i}`
+    (_, i) => `PRETTIER_HTML_PLACEHOLDER_${i}_IN_JS`
   );
 
   const text = node.quasis

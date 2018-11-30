@@ -1,6 +1,8 @@
 "use strict";
 
 const path = require("path");
+const tempy = require("tempy");
+const fs = require("fs");
 
 const runPrettier = require("../runPrettier");
 const prettier = require("prettier/local");
@@ -173,6 +175,40 @@ test("API getFileInfo.sync with ignorePath", () => {
   ).toMatchObject({
     ignored: true,
     inferredParser: "babylon"
+  });
+});
+
+describe("API getFileInfo.sync with ignorePath", () => {
+  let cwd;
+  let filePath;
+  let options;
+  beforeAll(() => {
+    cwd = process.cwd();
+    const tempDir = tempy.directory();
+    process.chdir(tempDir);
+    const fileDir = "src";
+    filePath = `${fileDir}/should-be-ignored.js`;
+    const ignorePath = path.join(tempDir, ".prettierignore");
+    fs.writeFileSync(ignorePath, filePath, "utf8");
+    options = { ignorePath };
+  });
+  afterAll(() => {
+    process.chdir(cwd);
+  });
+  test("with relative filePath", () => {
+    expect(
+      prettier.getFileInfo.sync(filePath, options).ignored
+    ).toMatchInlineSnapshot(`true`);
+  });
+  test("with relative filePath starts with dot", () => {
+    expect(
+      prettier.getFileInfo.sync(`./${filePath}`, options).ignored
+    ).toMatchInlineSnapshot(`true`);
+  });
+  test("with absolute filePath", () => {
+    expect(
+      prettier.getFileInfo.sync(path.resolve(filePath), options).ignored
+    ).toMatchInlineSnapshot(`true`);
   });
 });
 
