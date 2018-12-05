@@ -515,18 +515,18 @@ function genericPrint(path, options, print) {
           continue;
         }
 
-        // Ignore escape `\` in Less
+        // Ignore escape `\`
         if (
-          options.parser === "less" &&
           iNode.value &&
-          iNode.value.indexOf("\\") !== -1
+          iNode.value.indexOf("\\") !== -1 &&
+          iNextNode &&
+          iNextNode.type !== "value-comment"
         ) {
           continue;
         }
 
-        // Ignore escaped `/` in Less
+        // Ignore escaped `/`
         if (
-          options.parser === "less" &&
           iPrevNode &&
           iPrevNode.value &&
           iPrevNode.value.indexOf("\\") === iPrevNode.value.length - 1 &&
