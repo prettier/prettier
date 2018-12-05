@@ -906,7 +906,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".inc\\",
         \\".st\\",
         \\".xht\\",
-        \\".xhtml\\"
+        \\".xhtml\\",
+        \\".mjml\\"
       ],
       \\"linguistLanguageId\\": 146,
       \\"name\\": \\"HTML\\",
