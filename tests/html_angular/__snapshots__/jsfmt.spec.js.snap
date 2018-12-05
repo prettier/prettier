@@ -3458,7 +3458,10 @@ can be found in the LICENSE file at http://angular.io/license
 
 <p>My current hero is {{ currentHero.name }}</p>
 
-<h3>{{ title }} <img src="{{ heroImageUrl }}" style="height:30px" /></h3>
+<h3>
+  {{ title }}
+  <img src="{{ heroImageUrl }}" style="height:30px" />
+</h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
 <p>The sum of 1 + 1 is {{ 1 + 1 }}</p>
@@ -3523,7 +3526,8 @@ can be found in the LICENSE file at http://angular.io/license
 <!--<img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">-->
 <!-- Public Domain terms of use: http://www.wpclipart.com/terms.html -->
 <div class="special">Mental Model</div>
-<img src="assets/images/hero.png" /> <button disabled>Save</button> <br /><br />
+<img src="assets/images/hero.png" />
+<button disabled>Save</button> <br /><br />
 
 <div>
   <!-- Normal HTML -->
@@ -3551,7 +3555,11 @@ can be found in the LICENSE file at http://angular.io/license
 <div (myClick)="clicked = $event" clickable>click me</div>
 {{ clicked }} <br /><br />
 
-<div>Hero Name: <input [(ngModel)]="name" /> {{ name }}</div>
+<div>
+  Hero Name:
+  <input [(ngModel)]="name" />
+  {{ name }}
+</div>
 <br /><br />
 
 <button [attr.aria-label]="help">help</button> <br /><br />
@@ -3571,7 +3579,8 @@ can be found in the LICENSE file at http://angular.io/license
 
 <br /><br />
 
-<img [src]="iconUrl" /> <img bind-src="heroImageUrl" />
+<img [src]="iconUrl" />
+<img bind-src="heroImageUrl" />
 <img [attr.src]="villainImageUrl" />
 
 <a class="to-toc" href="#toc">top</a>
@@ -3769,14 +3778,20 @@ can be found in the LICENSE file at http://angular.io/license
   [value]="currentHero.name"
   (input)="currentHero.name = $event.target.value"
 />
-without NgModel <br />
-<input [(ngModel)]="currentHero.name" /> [(ngModel)] <br />
-<input bindon-ngModel="currentHero.name" /> bindon-ngModel <br />
+without NgModel
+<br />
+<input [(ngModel)]="currentHero.name" />
+[(ngModel)]
+<br />
+<input bindon-ngModel="currentHero.name" />
+bindon-ngModel
+<br />
 <input
   [ngModel]="currentHero.name"
   (ngModelChange)="currentHero.name = $event"
 />
-(ngModelChange)="...name=$event" <br />
+(ngModelChange)="...name=$event"
+<br />
 <input
   [ngModel]="currentHero.name"
   (ngModelChange)="setUppercaseName($event)"
@@ -4033,7 +4048,8 @@ without NgModel <br />
 <hr />
 <h2 id="inputs-and-outputs">Inputs and Outputs</h2>
 
-<img [src]="iconUrl" /> <button (click)="onSave()">Save</button>
+<img [src]="iconUrl" />
+<button (click)="onSave()">Save</button>
 
 <app-hero-detail [hero]="currentHero" (deleteRequest)="deleteHero($event)">
 </app-hero-detail>
@@ -4949,7 +4965,10 @@ can be found in the LICENSE file at http://angular.io/license
 
 <p>My current hero is {{ currentHero.name }}</p>
 
-<h3>{{ title }} <img src="{{ heroImageUrl }}" style="height:30px" /></h3>
+<h3>
+  {{ title }}
+  <img src="{{ heroImageUrl }}" style="height:30px" />
+</h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
 <p>The sum of 1 + 1 is {{ 1 + 1 }}</p>
@@ -5014,7 +5033,8 @@ can be found in the LICENSE file at http://angular.io/license
 <!--<img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">-->
 <!-- Public Domain terms of use: http://www.wpclipart.com/terms.html -->
 <div class="special">Mental Model</div>
-<img src="assets/images/hero.png" /> <button disabled>Save</button> <br /><br />
+<img src="assets/images/hero.png" />
+<button disabled>Save</button> <br /><br />
 
 <div>
   <!-- Normal HTML -->
@@ -5042,7 +5062,11 @@ can be found in the LICENSE file at http://angular.io/license
 <div (myClick)="clicked = $event" clickable>click me</div>
 {{ clicked }} <br /><br />
 
-<div>Hero Name: <input [(ngModel)]="name" /> {{ name }}</div>
+<div>
+  Hero Name:
+  <input [(ngModel)]="name" />
+  {{ name }}
+</div>
 <br /><br />
 
 <button [attr.aria-label]="help">help</button> <br /><br />
@@ -5062,7 +5086,8 @@ can be found in the LICENSE file at http://angular.io/license
 
 <br /><br />
 
-<img [src]="iconUrl" /> <img bind-src="heroImageUrl" />
+<img [src]="iconUrl" />
+<img bind-src="heroImageUrl" />
 <img [attr.src]="villainImageUrl" />
 
 <a class="to-toc" href="#toc">top</a>
@@ -5260,14 +5285,20 @@ can be found in the LICENSE file at http://angular.io/license
   [value]="currentHero.name"
   (input)="currentHero.name = $event.target.value"
 />
-without NgModel <br />
-<input [(ngModel)]="currentHero.name" /> [(ngModel)] <br />
-<input bindon-ngModel="currentHero.name" /> bindon-ngModel <br />
+without NgModel
+<br />
+<input [(ngModel)]="currentHero.name" />
+[(ngModel)]
+<br />
+<input bindon-ngModel="currentHero.name" />
+bindon-ngModel
+<br />
 <input
   [ngModel]="currentHero.name"
   (ngModelChange)="currentHero.name = $event"
 />
-(ngModelChange)="...name=$event" <br />
+(ngModelChange)="...name=$event"
+<br />
 <input
   [ngModel]="currentHero.name"
   (ngModelChange)="setUppercaseName($event)"
@@ -5524,7 +5555,8 @@ without NgModel <br />
 <hr />
 <h2 id="inputs-and-outputs">Inputs and Outputs</h2>
 
-<img [src]="iconUrl" /> <button (click)="onSave()">Save</button>
+<img [src]="iconUrl" />
+<button (click)="onSave()">Save</button>
 
 <app-hero-detail [hero]="currentHero" (deleteRequest)="deleteHero($event)">
 </app-hero-detail>

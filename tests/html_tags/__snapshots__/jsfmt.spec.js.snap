@@ -1880,7 +1880,8 @@ printWidth: 80
 <label
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ></label>
-| <span></span> <br />
+| <span></span>
+<br />
 <button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
 <br /><br />
 
@@ -1922,7 +1923,8 @@ printWidth: 80
   <strong>seddoeiusmod</strong>.
 </div>
 <span>
-  <i class="fa fa-refresh fa-spin" /> <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
 
@@ -2635,7 +2637,8 @@ printWidth: Infinity
 <p>x<meta /></p>
 <span></span>
 
-<label aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa></label> | <span></span> <br />
+<label aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa></label> | <span></span>
+<br />
 <button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button> <br /><br />
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)">Disabled Cancel</button> <br /><br />
@@ -2660,7 +2663,11 @@ printWidth: Infinity
 <x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, "<strong>seddoeiusmod</strong>".</div>
 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, <strong>seddoeiusmod</strong>.</div>
-<span> <i class="fa fa-refresh fa-spin" /> <i class="fa fa-refresh fa-spin" /> <i class="fa fa-refresh fa-spin" /> </span>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
 
 ================================================================================
 `;
@@ -2855,8 +2862,8 @@ printWidth: 80
 >
 <video width="320" height="240" controls>
   <source src="movie.mp4" type="video/mp4" />
-  <source src="movie.ogg" type="video/ogg" /> Your browser does not support the
-  video tag.
+  <source src="movie.ogg" type="video/ogg" />
+  Your browser does not support the video tag.
 </video>
 <div><div>string</div></div> <div><div>string</div><div>string</div></div>
 <div
@@ -2898,7 +2905,8 @@ printWidth: 80
 <label
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ></label>
-| <span></span> <br />
+| <span></span>
+<br />
 <button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
 <br /><br />
 
@@ -2940,7 +2948,8 @@ printWidth: 80
   <strong>seddoeiusmod</strong>.
 </div>
 <span>
-  <i class="fa fa-refresh fa-spin" /> <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
 
