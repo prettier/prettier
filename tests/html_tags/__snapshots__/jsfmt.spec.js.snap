@@ -1743,6 +1743,11 @@ printWidth: 80
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   <strong>seddoeiusmod</strong>.
 </div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
 
 =====================================output=====================================
 <br />
@@ -1916,6 +1921,10 @@ printWidth: 80
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   <strong>seddoeiusmod</strong>.
 </div>
+<span>
+  <i class="fa fa-refresh fa-spin" /> <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
 
 ================================================================================
 `;
@@ -2036,6 +2045,11 @@ printWidth: 1
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   <strong>seddoeiusmod</strong>.
 </div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
 
 =====================================output=====================================
 <br />
@@ -2410,6 +2424,17 @@ printWidth: 1
     >seddoeiusmod</strong
   >.
 </div>
+<span>
+  <i
+    class="fa fa-refresh fa-spin"
+  />
+  <i
+    class="fa fa-refresh fa-spin"
+  />
+  <i
+    class="fa fa-refresh fa-spin"
+  />
+</span>
 
 ================================================================================
 `;
@@ -2529,6 +2554,11 @@ printWidth: Infinity
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   <strong>seddoeiusmod</strong>.
 </div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
 
 =====================================output=====================================
 <br />
@@ -2630,6 +2660,7 @@ printWidth: Infinity
 <x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, "<strong>seddoeiusmod</strong>".</div>
 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, <strong>seddoeiusmod</strong>.</div>
+<span> <i class="fa fa-refresh fa-spin" /> <i class="fa fa-refresh fa-spin" /> <i class="fa fa-refresh fa-spin" /> </span>
 
 ================================================================================
 `;
@@ -2751,6 +2782,11 @@ printWidth: 80
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   <strong>seddoeiusmod</strong>.
 </div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
 
 =====================================output=====================================
 <br />
@@ -2903,6 +2939,10 @@ printWidth: 80
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   <strong>seddoeiusmod</strong>.
 </div>
+<span>
+  <i class="fa fa-refresh fa-spin" /> <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
 
 ================================================================================
 `;
@@ -3024,6 +3064,11 @@ printWidth: 80
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   <strong>seddoeiusmod</strong>.
 </div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
 
 =====================================output=====================================
 <br />
@@ -3228,6 +3273,11 @@ printWidth: 80
   <strong>seddoeiusmod</strong>
   .
 </div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
 
 ================================================================================
 `;
