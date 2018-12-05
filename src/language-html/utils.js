@@ -310,7 +310,7 @@ function preferHardlineAsLeadingSpaces(node) {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
     (node.prev && preferHardlineAsTrailingSpaces(node.prev)) ||
-    preferSurroundingLineBreak(node)
+    hasSurroundingLineBreak(node)
   );
 }
 
@@ -318,27 +318,8 @@ function preferHardlineAsTrailingSpaces(node) {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
     (node.type === "element" && node.fullName === "br") ||
-    preferSurroundingLineBreak(node)
-  );
-}
-
-function preferSurroundingLineBreak(node) {
-  return (
-    (isSelfClosingElement(node) || isCustomElement(node)) &&
     hasSurroundingLineBreak(node)
   );
-}
-
-function isCustomElement(node) {
-  return (
-    node.type === "element" &&
-    !node.namespace &&
-    (node.name.includes("-") || /[A-Z]/.test(node.name[0]))
-  );
-}
-
-function isSelfClosingElement(node) {
-  return node.type === "element" && node.isSelfClosing;
 }
 
 function hasSurroundingLineBreak(node) {

@@ -3479,7 +3479,8 @@ can be found in the LICENSE file at http://angular.io/license
   [hidden]="isUnchanged")
 </p>
 <div class="context">
-  {{ title }} <span [hidden]="isUnchanged">changed</span>
+  {{ title }}
+  <span [hidden]="isUnchanged">changed</span>
 </div>
 
 <p>Template input variable expression context (let hero)</p>
@@ -3490,7 +3491,8 @@ can be found in the LICENSE file at http://angular.io/license
 
 <p>Template reference variable expression context (#heroInput)</p>
 <div (keyup)="(0)" class="context">
-  Type something: <input #heroInput /> {{ heroInput.value }}
+  Type something:
+  <input #heroInput /> {{ heroInput.value }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -3527,7 +3529,8 @@ can be found in the LICENSE file at http://angular.io/license
 <!-- Public Domain terms of use: http://www.wpclipart.com/terms.html -->
 <div class="special">Mental Model</div>
 <img src="assets/images/hero.png" />
-<button disabled>Save</button> <br /><br />
+<button disabled>Save</button>
+<br /><br />
 
 <div>
   <!-- Normal HTML -->
@@ -3553,7 +3556,8 @@ can be found in the LICENSE file at http://angular.io/license
 <button (click)="onSave()">Save</button>
 <app-hero-detail (deleteRequest)="deleteHero()"></app-hero-detail>
 <div (myClick)="clicked = $event" clickable>click me</div>
-{{ clicked }} <br /><br />
+{{ clicked }}
+<br /><br />
 
 <div>
   Hero Name:
@@ -3562,7 +3566,8 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 <br /><br />
 
-<button [attr.aria-label]="help">help</button> <br /><br />
+<button [attr.aria-label]="help">help</button>
+<br /><br />
 
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
@@ -3589,8 +3594,10 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="buttons">Buttons</h2>
 
-<button>Enabled (but does nothing)</button> <button disabled>Disabled</button>
-<button disabled="false">Still disabled</button> <br /><br />
+<button>Enabled (but does nothing)</button>
+<button disabled>Disabled</button>
+<button disabled="false">Still disabled</button>
+<br /><br />
 <button disabled>disabled by attribute</button>
 <button [disabled]="isUnchanged">disabled by property binding</button>
 <br /><br />
@@ -3819,7 +3826,8 @@ bindon-ngModel
     [value]="!isUnchanged"
     (change)="isUnchanged = !isUnchanged"
 /></label>
-| <label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+|
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
@@ -3855,7 +3863,8 @@ bindon-ngModel
 <label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
 <label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
 <label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
-<button (click)="setCurrentStyles()">Refresh currentStyles</button> <br /><br />
+<button (click)="setCurrentStyles()">Refresh currentStyles</button>
+<br /><br />
 <div [ngStyle]="currentStyles">
   This div should be {{ canSave ? "italic" : "plain" }},
   {{ isUnchanged ? "normal weight" : "bold" }} and,
@@ -4066,7 +4075,10 @@ bindon-ngModel
 <div>Title through uppercase pipe: {{ title | uppercase }}</div>
 
 <!-- Pipe chaining: convert title to uppercase, then to lowercase -->
-<div>Title through a pipe chain: {{ title | uppercase | lowercase }}</div>
+<div>
+  Title through a pipe chain:
+  {{ title | uppercase | lowercase }}
+</div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
 <div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
@@ -4986,7 +4998,8 @@ can be found in the LICENSE file at http://angular.io/license
   [hidden]="isUnchanged")
 </p>
 <div class="context">
-  {{ title }} <span [hidden]="isUnchanged">changed</span>
+  {{ title }}
+  <span [hidden]="isUnchanged">changed</span>
 </div>
 
 <p>Template input variable expression context (let hero)</p>
@@ -4997,7 +5010,8 @@ can be found in the LICENSE file at http://angular.io/license
 
 <p>Template reference variable expression context (#heroInput)</p>
 <div (keyup)="(0)" class="context">
-  Type something: <input #heroInput /> {{ heroInput.value }}
+  Type something:
+  <input #heroInput /> {{ heroInput.value }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -5034,7 +5048,8 @@ can be found in the LICENSE file at http://angular.io/license
 <!-- Public Domain terms of use: http://www.wpclipart.com/terms.html -->
 <div class="special">Mental Model</div>
 <img src="assets/images/hero.png" />
-<button disabled>Save</button> <br /><br />
+<button disabled>Save</button>
+<br /><br />
 
 <div>
   <!-- Normal HTML -->
@@ -5060,7 +5075,8 @@ can be found in the LICENSE file at http://angular.io/license
 <button (click)="onSave()">Save</button>
 <app-hero-detail (deleteRequest)="deleteHero()"></app-hero-detail>
 <div (myClick)="clicked = $event" clickable>click me</div>
-{{ clicked }} <br /><br />
+{{ clicked }}
+<br /><br />
 
 <div>
   Hero Name:
@@ -5069,7 +5085,8 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 <br /><br />
 
-<button [attr.aria-label]="help">help</button> <br /><br />
+<button [attr.aria-label]="help">help</button>
+<br /><br />
 
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
@@ -5096,8 +5113,10 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="buttons">Buttons</h2>
 
-<button>Enabled (but does nothing)</button> <button disabled>Disabled</button>
-<button disabled="false">Still disabled</button> <br /><br />
+<button>Enabled (but does nothing)</button>
+<button disabled>Disabled</button>
+<button disabled="false">Still disabled</button>
+<br /><br />
 <button disabled>disabled by attribute</button>
 <button [disabled]="isUnchanged">disabled by property binding</button>
 <br /><br />
@@ -5326,7 +5345,8 @@ bindon-ngModel
     [value]="!isUnchanged"
     (change)="isUnchanged = !isUnchanged"
 /></label>
-| <label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+|
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
@@ -5362,7 +5382,8 @@ bindon-ngModel
 <label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
 <label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
 <label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
-<button (click)="setCurrentStyles()">Refresh currentStyles</button> <br /><br />
+<button (click)="setCurrentStyles()">Refresh currentStyles</button>
+<br /><br />
 <div [ngStyle]="currentStyles">
   This div should be {{ canSave ? "italic" : "plain" }},
   {{ isUnchanged ? "normal weight" : "bold" }} and,
@@ -5573,7 +5594,10 @@ bindon-ngModel
 <div>Title through uppercase pipe: {{ title | uppercase }}</div>
 
 <!-- Pipe chaining: convert title to uppercase, then to lowercase -->
-<div>Title through a pipe chain: {{ title | uppercase | lowercase }}</div>
+<div>
+  Title through a pipe chain:
+  {{ title | uppercase | lowercase }}
+</div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
 <div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
@@ -10615,7 +10639,10 @@ bindon-ngModel
 <div>Title through uppercase pipe: {{ title | uppercase }}</div>
 
 <!-- Pipe chaining: convert title to uppercase, then to lowercase -->
-<div>Title through a pipe chain: {{ title | uppercase | lowercase }}</div>
+<div>
+  Title through a pipe chain:
+  {{ title | uppercase | lowercase }}
+</div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
 <div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
