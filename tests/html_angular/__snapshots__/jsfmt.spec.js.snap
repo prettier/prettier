@@ -3501,10 +3501,14 @@ can be found in the LICENSE file at http://angular.io/license
 <h2 id="statement-context">Statement context</h2>
 
 <p>Component statement context ( (click)="onSave() )</p>
-<div class="context"><button (click)="deleteHero()">Delete hero</button></div>
+<div class="context">
+  <button (click)="deleteHero()">Delete hero</button>
+</div>
 
 <p>Template $event statement context</p>
-<div class="context"><button (click)="onSave($event)">Save</button></div>
+<div class="context">
+  <button (click)="onSave($event)">Save</button>
+</div>
 
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
@@ -3572,7 +3576,9 @@ can be found in the LICENSE file at http://angular.io/license
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">
+  button
+</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -3620,7 +3626,9 @@ can be found in the LICENSE file at http://angular.io/license
 
 <!-- ERROR: HeroDetailComponent.hero expects a
      Hero object, not the string "currentHero" -->
-<div *ngIf="false"><app-hero-detail hero="currentHero"></app-hero-detail></div>
+<div *ngIf="false">
+  <app-hero-detail hero="currentHero"></app-hero-detail>
+</div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
 <p><img src="{{ heroImageUrl }}" /> is the <i>interpolated</i> image.</p>
@@ -4188,7 +4196,9 @@ can be found in the LICENSE file at http://angular.io/license
     </div>
     <button type="submit" [disabled]="!heroForm.form.valid">Submit</button>
   </form>
-  <div [hidden]="!heroForm.form.valid">{{ submitMessage }}</div>
+  <div [hidden]="!heroForm.form.valid">
+    {{ submitMessage }}
+  </div>
 </div>
 
 <!-- 
@@ -5020,10 +5030,14 @@ can be found in the LICENSE file at http://angular.io/license
 <h2 id="statement-context">Statement context</h2>
 
 <p>Component statement context ( (click)="onSave() )</p>
-<div class="context"><button (click)="deleteHero()">Delete hero</button></div>
+<div class="context">
+  <button (click)="deleteHero()">Delete hero</button>
+</div>
 
 <p>Template $event statement context</p>
-<div class="context"><button (click)="onSave($event)">Save</button></div>
+<div class="context">
+  <button (click)="onSave($event)">Save</button>
+</div>
 
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
@@ -5091,7 +5105,9 @@ can be found in the LICENSE file at http://angular.io/license
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">
+  button
+</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -5139,7 +5155,9 @@ can be found in the LICENSE file at http://angular.io/license
 
 <!-- ERROR: HeroDetailComponent.hero expects a
      Hero object, not the string "currentHero" -->
-<div *ngIf="false"><app-hero-detail hero="currentHero"></app-hero-detail></div>
+<div *ngIf="false">
+  <app-hero-detail hero="currentHero"></app-hero-detail>
+</div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
 <p><img src="{{ heroImageUrl }}" /> is the <i>interpolated</i> image.</p>
@@ -5707,7 +5725,9 @@ can be found in the LICENSE file at http://angular.io/license
     </div>
     <button type="submit" [disabled]="!heroForm.form.valid">Submit</button>
   </form>
-  <div [hidden]="!heroForm.form.valid">{{ submitMessage }}</div>
+  <div [hidden]="!heroForm.form.valid">
+    {{ submitMessage }}
+  </div>
 </div>
 
 <!-- 
@@ -9973,10 +9993,14 @@ can be found in the LICENSE file at http://angular.io/license
 <h2 id="statement-context">Statement context</h2>
 
 <p>Component statement context ( (click)="onSave() )</p>
-<div class="context"><button (click)="deleteHero()">Delete hero</button></div>
+<div class="context">
+  <button (click)="deleteHero()">Delete hero</button>
+</div>
 
 <p>Template $event statement context</p>
-<div class="context"><button (click)="onSave($event)">Save</button></div>
+<div class="context">
+  <button (click)="onSave($event)">Save</button>
+</div>
 
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
@@ -10052,7 +10076,9 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">
+  button
+</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -10103,7 +10129,9 @@ can be found in the LICENSE file at http://angular.io/license
 
 <!-- ERROR: HeroDetailComponent.hero expects a
      Hero object, not the string "currentHero" -->
-<div *ngIf="false"><app-hero-detail hero="currentHero"></app-hero-detail></div>
+<div *ngIf="false">
+  <app-hero-detail hero="currentHero"></app-hero-detail>
+</div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
 <p>
@@ -10426,7 +10454,9 @@ bindon-ngModel
 
 <!-- Does not show because isActive is false! -->
 <div>Hero Detail removed from DOM (via template) because isActive is false</div>
-<ng-template [ngIf]="isActive"><app-hero-detail></app-hero-detail></ng-template>
+<ng-template [ngIf]="isActive">
+  <app-hero-detail></app-hero-detail>
+</ng-template>
 
 <!-- isSpecial is true -->
 <div [class.hidden]="!isSpecial">Show with class</div>
@@ -10765,7 +10795,9 @@ can be found in the LICENSE file at http://angular.io/license
     </div>
     <button type="submit" [disabled]="!heroForm.form.valid">Submit</button>
   </form>
-  <div [hidden]="!heroForm.form.valid">{{ submitMessage }}</div>
+  <div [hidden]="!heroForm.form.valid">
+    {{ submitMessage }}
+  </div>
 </div>
 
 <!-- 
