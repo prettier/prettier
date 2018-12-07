@@ -20,6 +20,7 @@ const {
   softline
 } = builders;
 const {
+  countChars,
   countParents,
   dedentString,
   forceBreakChildren,
@@ -34,7 +35,8 @@ const {
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   shouldNotPrintClosingTag,
-  shouldPreserveContent
+  shouldPreserveContent,
+  unescapeQuoteEntities
 } = require("./utils");
 const { replaceEndOfLineWith } = require("../common/util");
 const preprocess = require("./preprocess");
@@ -321,22 +323,31 @@ function genericPrint(path, options, print) {
         printClosingTagSuffix(node, options)
       ]);
     }
-    case "attribute":
+    case "attribute": {
+      if (node.value === null) {
+        return node.rawName;
+      }
+      const value = unescapeQuoteEntities(node.value);
+      const singleQuoteCount = countChars(value, "'");
+      const doubleQuoteCount = countChars(value, '"');
+      const quote = singleQuoteCount < doubleQuoteCount ? "'" : '"';
       return concat([
         node.rawName,
-        node.value === null
-          ? ""
-          : concat([
-              '="',
-              concat(
-                replaceEndOfLineWith(
-                  node.value.replace(/"/g, "&quot;"),
-                  literalline
-                )
-              ),
-              '"'
-            ])
+        concat([
+          "=",
+          quote,
+          concat(
+            replaceEndOfLineWith(
+              quote === '"'
+                ? value.replace(/"/g, "&quot;")
+                : value.replace(/'/g, "&apos;"),
+              literalline
+            )
+          ),
+          quote
+        ])
       ]);
+    }
     case "yaml":
     case "toml":
       return concat(replaceEndOfLineWith(node.raw, literalline));
@@ -891,8 +902,7 @@ function getTextValueParts(node, value = node.value) {
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const isKeyMatched = patterns =>
     new RegExp(patterns.join("|")).test(node.fullName);
-  const getValue = () =>
-    node.value.replace(/&quot;/g, '"').replace(/&apos;/g, "'");
+  const getValue = () => unescapeQuoteEntities(node.value);
 
   let shouldHug = false;
 

@@ -21,6 +21,11 @@ const languages = [
       since: "1.15.0",
       parsers: ["html"],
       vscodeLanguageIds: ["html"]
+    },
+    extend: {
+      extensions: [
+        ".mjml" // MJML is considered XML in Linguist but it should be formatted as HTML
+      ]
     }
   }),
   createLanguage(require("linguist-languages/data/vue"), {
