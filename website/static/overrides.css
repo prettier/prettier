@@ -5,6 +5,10 @@ html body {
   overflow-x: hidden;
 }
 
+em {
+  font-style: italic;
+}
+
 .mainContainer .wrapper a:hover,
 .mainContainer .wrapper a:focus,
 .inner .projectIntro a:hover,
