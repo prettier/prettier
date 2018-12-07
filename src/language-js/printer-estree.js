@@ -3802,7 +3802,8 @@ function shouldGroupFirstArg(args) {
     secondArg.type !== "FunctionExpression" &&
     secondArg.type !== "ArrowFunctionExpression" &&
     secondArg.type !== "ConditionalExpression" &&
-    (!couldGroupArg(secondArg) || (secondArg.type === 'ArrayExpression' && !secondArg.comments))
+    (!couldGroupArg(secondArg) ||
+      (secondArg.type === 'ArrayExpression' && !secondArg.comments))
   );
 }
 
