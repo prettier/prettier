@@ -613,16 +613,6 @@
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.0.tgz#bd9295ad48ecfc5cf802610d2f06f8e4c462976a"
   integrity sha512-ESqb7nwPdXRZ3AXVub1ToyeIf9bkXY4Cs21DSmr+ns705Dcz6KjB7gVXRxH93kwP8Vbx5Lg1dYewAIHmOTSg+A==
 
-"@types/estree@0.0.39":
-  version "0.0.39"
-  resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
-  integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
-
-"@types/node@*":
-  version "10.12.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.10.tgz#4fa76e6598b7de3f0cb6ec3abacc4f59e5b3a2ce"
-  integrity sha512-8xZEYckCbUVgK8Eg7lf5Iy4COKJ5uXlnIOnePN0WUwSQggy9tolM+tDJf7wMOnT/JT/W9xDYIaYggt3mRV2O5w==
-
 "@types/node@^10.11.7":
   version "10.12.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.0.tgz#ea6dcbddbc5b584c83f06c60e82736d8fbb0c235"
@@ -3445,7 +3435,7 @@ jest-changed-files@^23.4.2:
   dependencies:
     throat "^4.0.0"
 
-jest-cli@23.3.0:
+jest-cli@23.3.0, jest-cli@^23.3.0:
   version "23.3.0"
   resolved "https://registry.yarnpkg.com/jest-cli/-/jest-cli-23.3.0.tgz"
   dependencies:
@@ -3460,22 +3450,22 @@ jest-cli@23.3.0:
     istanbul-lib-coverage "^1.2.0"
     istanbul-lib-instrument "^1.10.1"
     istanbul-lib-source-maps "^1.2.4"
-    jest-changed-files "^23.4.2"
-    jest-config "^23.6.0"
-    jest-environment-jsdom "^23.4.0"
+    jest-changed-files "^23.2.0"
+    jest-config "^23.3.0"
+    jest-environment-jsdom "^23.3.0"
     jest-get-type "^22.1.0"
-    jest-haste-map "^23.6.0"
-    jest-message-util "^23.4.0"
+    jest-haste-map "^23.2.0"
+    jest-message-util "^23.3.0"
     jest-regex-util "^23.3.0"
-    jest-resolve-dependencies "^23.6.0"
-    jest-runner "^23.6.0"
-    jest-runtime "^23.6.0"
-    jest-snapshot "^23.6.0"
-    jest-util "^23.4.0"
-    jest-validate "^23.6.0"
-    jest-watcher "^23.4.0"
+    jest-resolve-dependencies "^23.3.0"
+    jest-runner "^23.3.0"
+    jest-runtime "^23.3.0"
+    jest-snapshot "^23.3.0"
+    jest-util "^23.3.0"
+    jest-validate "^23.3.0"
+    jest-watcher "^23.2.0"
     jest-worker "^23.2.0"
-    micromatch "^2.3.11"
+    micromatch "^3.1.10"
     node-notifier "^5.2.1"
     prompts "^0.1.9"
     realpath-native "^1.0.0"
@@ -5540,13 +5530,10 @@ rollup-pluginutils@^2.3.0, rollup-pluginutils@^2.3.1:
     estree-walker "^0.5.2"
     micromatch "^2.3.11"
 
-rollup@0.67.3:
-  version "0.67.3"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.67.3.tgz#55475b1b62c43220c3b4bd7edc5846233932f50b"
-  integrity sha512-TyNQCz97rKuVVbsKUTXfwIjV7UljWyTVd7cTMuE+aqlQ7WJslkYF5QaYGjMLR2BlQtUOO5CAxSVnpQ55iYp5jg==
-  dependencies:
-    "@types/estree" "0.0.39"
-    "@types/node" "*"
+rollup@0.47.6:
+  version "0.47.6"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.47.6.tgz#83b90a1890dd3321a3f8d0b2bd216e88483f33de"
+  integrity sha512-bH3eWh7MzbiKTQcHQN7Ievqbs/yY7T+ZcJYboBYkp7BkRlAr2DXHPfiqlvlEH/M95giEBpinHEi/s9CVIgYT6w==
 
 run-async@^2.2.0:
   version "2.3.0"
@@ -6165,10 +6152,6 @@ typescript-estree@6.0.0-rc.1:
 typescript@3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.1.tgz#0b7a04b8cf3868188de914d9568bd030f0c56192"
-
-ua-parser-js@^0.7.9:
-  version "0.7.17"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
 
 uglify-es@^3.3.7:
   version "3.3.9"
