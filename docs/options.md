@@ -141,7 +141,7 @@ Valid options:
 
 ## Arrow Function Parentheses
 
-_First available in v1.9.0._
+_First available in v1.9.0_
 
 Include parentheses around a sole arrow function parameter.
 
@@ -205,9 +205,11 @@ Valid options:
 
 Note: the default value was `"babylon"` until v1.13.0.
 
-## FilePath
+<a name="filepath"></a>
 
-Specify the input filepath. This will be used to do parser inference.
+## File Path
+
+Specify the file name to use to infer which parser to use.
 
 For example, the following will use the CSS parser:
 
@@ -273,7 +275,7 @@ Valid options:
 
 ## HTML Whitespace Sensitivity
 
-_available in v1.15.0+_
+_First available in v1.15.0_
 
 Specify the global whitespace sensitivity for HTML files, see [whitespace-sensitive formatting] for more info.
 
@@ -291,7 +293,7 @@ Valid options:
 
 ## End of Line
 
-_available in 1.15.0+_
+_First available in 1.15.0_
 
 For historical reasons, there exist two commonly used flavors of line endings in text files. That is `\n` (or `LF` for _Line Feed_) and `\r\n` (or `CRLF` for _Carriage Return + Line Feed_).
 The former is common on Linux and macOS, while the latter is prevalent on Windows.
