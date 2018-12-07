@@ -3803,7 +3803,7 @@ function shouldGroupFirstArg(args) {
     secondArg.type !== "ArrowFunctionExpression" &&
     secondArg.type !== "ConditionalExpression" &&
     (!couldGroupArg(secondArg) ||
-      (secondArg.type === 'ArrayExpression' && !secondArg.comments))
+      (secondArg.type === "ArrayExpression" && !secondArg.comments))
   );
 }
 
