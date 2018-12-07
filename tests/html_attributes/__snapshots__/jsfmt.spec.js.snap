@@ -277,7 +277,29 @@ printWidth: 80
 <img src="test.png" alt='John "ShotGun" Nelson'>
 
 =====================================output=====================================
-<img src="test.png" alt="John &quot;ShotGun&quot; Nelson" />
+<img src="test.png" alt='John "ShotGun" Nelson' />
+
+================================================================================
+`;
+
+exports[`smart-quotes.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div 
+    smart-quotes='123 " 456'
+    smart-quotes="123 ' 456"
+    smart-quotes='123 &apos;&quot; 456'
+></div>
+
+=====================================output=====================================
+<div
+  smart-quotes='123 " 456'
+  smart-quotes="123 ' 456"
+  smart-quotes="123 '&quot; 456"
+></div>
 
 ================================================================================
 `;
