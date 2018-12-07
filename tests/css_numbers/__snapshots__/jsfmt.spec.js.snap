@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`numbers.css - css-verify 1`] = `
+exports[`numbers.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @supports (margin: .5px ".30px" 1E+2px) {
   a {
     a: 0;
@@ -74,7 +79,8 @@ exports[`numbers.css - css-verify 1`] = `
 
 @media only screen and (-webkit-min-device-pixel-ratio : .5), only screen and (min-device-pixel-ratio : .5) { }
 @include single-transition(transform, .5s ease);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @supports (margin: 0.5px ".30px" 1e2px) {
   a {
     a: 0;
@@ -151,4 +157,5 @@ exports[`numbers.css - css-verify 1`] = `
 }
 @include single-transition(transform, 0.5s ease);
 
+================================================================================
 `;

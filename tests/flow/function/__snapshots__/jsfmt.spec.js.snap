@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`apply.js - flow-verify 1`] = `
+exports[`apply.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function test(a: string, b: number): number {
   return this.length; // expect []/"" this
 }
@@ -49,7 +54,8 @@ function test3(x: { (a: string, b: string): void }) {
   x.apply(x, ['foo', 'bar']); // ok
   x.apply(x, ['foo', 123]); // error, number !~> string
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function test(a: string, b: number): number {
   return this.length; // expect []/"" this
 }
@@ -103,9 +109,15 @@ function test3(x: { (a: string, b: string): void }) {
   x.apply(x, ["foo", 123]); // error, number !~> string
 }
 
+================================================================================
 `;
 
-exports[`bind.js - flow-verify 1`] = `
+exports[`bind.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -134,7 +146,8 @@ let tests = [
   },
 
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -163,9 +176,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`call.js - flow-verify 1`] = `
+exports[`call.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 function test(a: string, b: number): number {
@@ -207,7 +226,8 @@ function test3(x: { (a: string, b: string): void }) {
   x.call(x, 'foo', 'bar'); // ok
   x.call(x, 'foo', 123); // error, number !~> string
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 function test(a: string, b: number): number {
@@ -254,9 +274,15 @@ function test3(x: { (a: string, b: string): void }) {
   x.call(x, "foo", 123); // error, number !~> string
 }
 
+================================================================================
 `;
 
-exports[`function.js - flow-verify 1`] = `
+exports[`function.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -323,7 +349,8 @@ var d: Function = () => 1;
 var e = (d.bind(1): Function)();
 (e: number);
 (e: string);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -393,9 +420,15 @@ var e = (d.bind(1): Function)();
 (e: number);
 (e: string);
 
+================================================================================
 `;
 
-exports[`rest.js - flow-verify 1`] = `
+exports[`rest.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* regression tests */
 
 function rest_array<T>(...xs: Array<T>): T { // Ok, arrays can be rest params
@@ -460,7 +493,8 @@ function return_rest_param<Args:Array<mixed>>(
 
 function requires_first_param(x: number, ...rest: Array<number>): void {}
 requires_first_param(); // Error: missing first arg
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* regression tests */
 
 function rest_array<T>(...xs: Array<T>): T {
@@ -535,9 +569,15 @@ function return_rest_param<Args: Array<mixed>>(
 function requires_first_param(x: number, ...rest: Array<number>): void {}
 requires_first_param(); // Error: missing first arg
 
+================================================================================
 `;
 
-exports[`rest_type.js - flow-verify 1`] = `
+exports[`rest_type.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* regression tests */
 
 type rest_array = <T>(...xs: Array<T>) => T; // Ok, arrays can be rest params
@@ -569,7 +609,8 @@ type rest_intersection = (...xs: { x: number } & [1,2]) => number; // OK
 
 type empty_rest = <T:Array<mixed>>(...xs: T) => T; // OK
 ((f: empty_rest) => (f(): empty)); // Error Array ~> empty
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* regression tests */
 
 type rest_array = <T>(...xs: Array<T>) => T; // Ok, arrays can be rest params
@@ -602,4 +643,5 @@ type rest_intersection = (...xs: { x: number } & [1, 2]) => number; // OK
 type empty_rest = <T: Array<mixed>>(...xs: T) => T; // OK
 (f: empty_rest) => (f(): empty); // Error Array ~> empty
 
+================================================================================
 `;

@@ -283,6 +283,7 @@ export default function(parser) {
         "</div> </div>"
       ].join("\n");
     case "html":
+    case "angular":
       return [
         "<!DOCTYPE html>",
         '<HTML CLASS="no-js mY-ClAsS">',

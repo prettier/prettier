@@ -1,6 +1,7 @@
 "use strict";
 
 const { getStringWidth } = require("../common/util");
+const { convertEndOfLineToChars } = require("../common/end-of-line");
 const { concat, fill, cursor } = require("./doc-builders");
 
 /** @type {{[groupId: PropertyKey]: MODE}} */
@@ -21,14 +22,14 @@ function makeAlign(ind, n, options) {
   return n === -Infinity
     ? ind.root || rootIndent()
     : n < 0
-      ? generateInd(ind, { type: "dedent" }, options)
-      : !n
-        ? ind
-        : n.type === "root"
-          ? Object.assign({}, ind, { root: ind })
-          : typeof n === "string"
-            ? generateInd(ind, { type: "stringAlign", n }, options)
-            : generateInd(ind, { type: "numberAlign", n }, options);
+    ? generateInd(ind, { type: "dedent" }, options)
+    : !n
+    ? ind
+    : n.type === "root"
+    ? Object.assign({}, ind, { root: ind })
+    : typeof n === "string"
+    ? generateInd(ind, { type: "stringAlign", n }, options)
+    : generateInd(ind, { type: "numberAlign", n }, options);
 }
 
 function generateInd(ind, newPart, options) {
@@ -241,7 +242,7 @@ function printDocToString(doc, options) {
   groupModeMap = {};
 
   const width = options.printWidth;
-  const newLine = options.newLine || "\n";
+  const newLine = convertEndOfLineToChars(options.endOfLine);
   let pos = 0;
   // cmds is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class_expr.js - flow-verify 1`] = `
+exports[`class_expr.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 // issue #1191
 
@@ -9,7 +14,8 @@ const Thing = class Thing {
     this.x = 123; // error: property not found (must be declared)
   }
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 // issue #1191
 
@@ -19,9 +25,15 @@ const Thing = class Thing {
   }
 };
 
+================================================================================
 `;
 
-exports[`contra.js - flow-verify 1`] = `
+exports[`contra.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Counterexample with contravariant this type
 
 class C {
@@ -76,7 +88,8 @@ class Misc {
   in_generator(_: Generator<this,this,this>) { }
   inout_generator: Generator<this,this,this>;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Counterexample with contravariant this type
 
 class C {
@@ -140,9 +153,15 @@ class Misc {
   inout_generator: Generator<this, this, this>;
 }
 
+================================================================================
 `;
 
-exports[`export.js - flow-verify 1`] = `
+exports[`export.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export class A1 {
   foo(): this { return this; }
   bar(): this { return this; }
@@ -155,7 +174,8 @@ export class A2<X> {
 }
 
 export class A3<X> extends A2<X> {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export class A1 {
   foo(): this {
     return this;
@@ -179,9 +199,15 @@ export class A2<X> {
 
 export class A3<X> extends A2<X> {}
 
+================================================================================
 `;
 
-exports[`generics.js - flow-verify 1`] = `
+exports[`generics.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class Generic<X> {
   clone(): Generic<X> { return this; }
 }
@@ -190,7 +216,8 @@ class Implicit<X> { arg: X; val: X; }
 class ImplicitNumber extends Implicit { arg: number; }
 
 (new ImplicitNumber().val: string) // error: number ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Generic<X> {
   clone(): Generic<X> {
     return this;
@@ -207,9 +234,15 @@ class ImplicitNumber extends Implicit {
 
 (new ImplicitNumber().val: string); // error: number ~> string
 
+================================================================================
 `;
 
-exports[`import.js - flow-verify 1`] = `
+exports[`import.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Check that imports are handled properly with this types
 
 import { A1 } from './export';
@@ -232,7 +265,8 @@ class B3<X> extends A3<X> {
 (new B3().bar(): A2<*>); // OK
 ((new B3().bar(): B3<string>): A2<number>); // error
 ((new B3(): A2<number>).qux(0): string); // error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Check that imports are handled properly with this types
 
 import { A1 } from "./export";
@@ -260,9 +294,15 @@ class B3<X> extends A3<X> {
 ((new B3().bar(): B3<string>): A2<number>); // error
 ((new B3(): A2<number>).qux(0): string); // error
 
+================================================================================
 `;
 
-exports[`interface.js - flow-verify 1`] = `
+exports[`interface.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface I { xs: Array<this>; }
 interface J { f(): J; }
 class C {
@@ -271,9 +311,14 @@ class C {
 }
 function foo(c: C): I { return c; }
 function bar(c: C): J { return c; }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface I { xs: Array<this> }
-interface J { f(): J }
+
+=====================================output=====================================
+interface I {
+  xs: Array<this>;
+}
+interface J {
+  f(): J;
+}
 class C {
   xs: Array<C>;
   f(): C {
@@ -287,9 +332,15 @@ function bar(c: C): J {
   return c;
 }
 
+================================================================================
 `;
 
-exports[`lib_client.js - flow-verify 1`] = `
+exports[`lib_client.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 (new DoublyLinkedList().prev(): DoublyLinkedList);
 (new DoublyLinkedList().next(): DoublyLinkedList)
 
@@ -300,7 +351,8 @@ class C {
     this.map = this.map.set(0,"");
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 (new DoublyLinkedList().prev(): DoublyLinkedList);
 (new DoublyLinkedList().next(): DoublyLinkedList);
 
@@ -312,16 +364,23 @@ class C {
   }
 }
 
+================================================================================
 `;
 
-exports[`self.js - flow-verify 1`] = `
+exports[`self.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A {
   foo() { return this; } // return of foo is not annotated to get around
                          // substituting this below
   bar(): this { return new A().foo(); } // same as returning : A, so error
   qux(): this { return this.bar(); } // OK (don't cascade errors)
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class A {
   foo() {
     return this;
@@ -335,9 +394,15 @@ class A {
   } // OK (don't cascade errors)
 }
 
+================================================================================
 `;
 
-exports[`statics.js - flow-verify 1`] = `
+exports[`statics.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // supporting \`this\` type in statics
 
 class A {
@@ -355,7 +420,8 @@ class B extends A { } // inherits statics method too, with \`this\` bound to the
 (B.make(): B); // OK
 (B.make(): A); // OK
 (A.make(): B); // error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // supporting \`this\` type in statics
 
 class A {
@@ -375,9 +441,15 @@ class B extends A {} // inherits statics method too, with \`this\` bound to the 
 (B.make(): A); // OK
 (A.make(): B); // error
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Examples without \`this\` types (compare with examples below)
 
 class Base {
@@ -448,7 +520,8 @@ class InheritOverride2 extends Override2 { }
 (new InheritOverride2().bar_caller(): InheritOverride2); // exploits error above
 
 (new Override2(): Base2).corge(new Base2()); // exploits error above
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Examples without \`this\` types (compare with examples below)
 
 class Base {
@@ -548,4 +621,5 @@ class InheritOverride2 extends Override2 {}
 
 (new Override2(): Base2).corge(new Base2()); // exploits error above
 
+================================================================================
 `;

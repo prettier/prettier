@@ -1,11 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bug.js - flow-verify 1`] = `
+exports[`bug.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 35
+                                   | printWidth
+=====================================input======================================
 const foo = {
   bar: props.bar ? props.bar : noop,
   baz: props.baz
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const foo = {
   bar: props.bar
     ? props.bar
@@ -13,4 +19,5 @@ const foo = {
   baz: props.baz
 };
 
+================================================================================
 `;

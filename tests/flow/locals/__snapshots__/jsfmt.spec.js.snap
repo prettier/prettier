@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lex.js - flow-verify 1`] = `
+exports[`lex.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function switch_scope(x: mixed) {
   let a = "";
   let b = "";
@@ -61,7 +66,8 @@ function for_of_scope(xs: number[]) {
   (a : string);
   (b : string); // error: number ~> string
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function switch_scope(x: mixed) {
   let a = "";
   let b = "";
@@ -123,9 +129,15 @@ function for_of_scope(xs: number[]) {
   (b: string); // error: number ~> string
 }
 
+================================================================================
 `;
 
-exports[`locals.js - flow-verify 1`] = `
+exports[`locals.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x:string = 0;
 var x:number = 1;
 
@@ -149,7 +161,8 @@ function foo0(b: bool): number {
   }
   return x;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x: string = 0;
 var x: number = 1;
 
@@ -174,4 +187,5 @@ function foo0(b: boolean): number {
   return x;
 }
 
+================================================================================
 `;

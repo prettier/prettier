@@ -4,8 +4,9 @@ const createError = require("../common/parser-create-error");
 const includeShebang = require("../common/parser-include-shebang");
 const hasPragma = require("./pragma").hasPragma;
 const locFns = require("./loc");
+const postprocess = require("./postprocess");
 
-function parse(text /*, parsers, opts*/) {
+function parse(text, parsers, opts) {
   const jsx = isProbablyJsx(text);
   let ast;
   try {
@@ -31,7 +32,7 @@ function parse(text /*, parsers, opts*/) {
 
   delete ast.tokens;
   includeShebang(text, ast);
-  return ast;
+  return postprocess(ast, Object.assign({}, opts, { originalText: text }));
 }
 
 function tryParseTypeScript(text, jsx) {
@@ -42,7 +43,7 @@ function tryParseTypeScript(text, jsx) {
     tokens: true,
     comment: true,
     useJSXTextNode: true,
-    ecmaFeatures: { jsx },
+    jsx,
     // Override logger function with noop,
     // to avoid unsupported version errors being logged
     loggerFn: () => {}

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bound.js - flow-verify 1`] = `
+exports[`bound.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // refinements of bound vars (closed-over locals)
 // should have the same lifetimes as heap objects.
 
@@ -65,7 +70,8 @@ var tests =
     var y : string = x || ""; // ok
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // refinements of bound vars (closed-over locals)
 // should have the same lifetimes as heap objects.
 
@@ -132,9 +138,15 @@ var tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`heap.js - flow-verify 1`] = `
+exports[`heap.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var tests =
 [
   function() {
@@ -372,7 +384,8 @@ var tests =
     }
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var tests = [
   function() {
     var x: { p: ?string } = { p: "xxx" };
@@ -615,9 +628,15 @@ var tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`lex.js - flow-verify 1`] = `
+exports[`lex.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function block_scope(x: string | number) {
   {
     let x;
@@ -654,7 +673,8 @@ function try_scope_catch(x: string | number) {
   }
   (x : string); // error: number ~> string
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function block_scope(x: string | number) {
   {
     let x;
@@ -692,9 +712,15 @@ function try_scope_catch(x: string | number) {
   (x: string); // error: number ~> string
 }
 
+================================================================================
 `;
 
-exports[`local.js - flow-verify 1`] = `
+exports[`local.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var paths =
 [
   function() {
@@ -779,7 +805,8 @@ var paths =
     var y : string = x;
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var paths = [
   function() {
     var x: ?string = "xxx";
@@ -866,9 +893,15 @@ var paths = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`null_tests.js - flow-verify 1`] = `
+exports[`null_tests.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var null_tests =
 [
   // expr != null
@@ -1023,7 +1056,8 @@ class D extends C {
     return "";
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var null_tests = [
   // expr != null
   function() {
@@ -1173,9 +1207,15 @@ class D extends C {
   }
 }
 
+================================================================================
 `;
 
-exports[`switch.js - flow-verify 1`] = `
+exports[`switch.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 function foo(a,b,c) {
   switch (c) {
@@ -1239,7 +1279,8 @@ function exhaustion3(x): number {
   }
   return foo; // no error
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 function foo(a, b, c) {
   switch (c) {
@@ -1304,9 +1345,15 @@ function exhaustion3(x): number {
   return foo; // no error
 }
 
+================================================================================
 `;
 
-exports[`typeof_tests.js - flow-verify 1`] = `
+exports[`typeof_tests.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var null_tests =
 [
   // typeof expr == typename
@@ -1437,7 +1484,8 @@ class A {
       return this.p;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var null_tests = [
   // typeof expr == typename
   function() {
@@ -1566,9 +1614,15 @@ class A {
   }
 }
 
+================================================================================
 `;
 
-exports[`undef_tests.js - flow-verify 1`] = `
+exports[`undef_tests.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var undef_tests =
 [
   // NOTE: not (yet?) supporting non-strict eq test for undefined
@@ -1643,7 +1697,8 @@ class A {
       return this.p;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var undef_tests = [
   // NOTE: not (yet?) supporting non-strict eq test for undefined
 
@@ -1717,9 +1772,15 @@ class A {
   }
 }
 
+================================================================================
 `;
 
-exports[`void_tests.js - flow-verify 1`] = `
+exports[`void_tests.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var void_tests =
 [
   // NOTE: not (yet?) supporting non-strict eq test for undefined
@@ -1794,7 +1855,8 @@ class A {
       return this.p;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var void_tests = [
   // NOTE: not (yet?) supporting non-strict eq test for undefined
 
@@ -1868,4 +1930,5 @@ class A {
   }
 }
 
+================================================================================
 `;

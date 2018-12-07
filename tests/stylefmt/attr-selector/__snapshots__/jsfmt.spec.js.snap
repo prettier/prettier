@@ -1,13 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attr-selector.css - css-verify 1`] = `
+exports[`attr-selector.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 [  data-sizes~="m:0" ]    {
   color:pink;
 }
 
 [ class*="test" ]{
   color: silver}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [data-sizes~="m:0"] {
   color: pink;
 }
@@ -16,4 +22,5 @@ exports[`attr-selector.css - css-verify 1`] = `
   color: silver;
 }
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js - flow-verify 1`] = `
+exports[`A.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // No indexer should be fine
 function foo0(): {} {
   return { foo: "bar" }
@@ -40,7 +45,8 @@ function foo6(): {[key: number]: number; foo: string} {
 function foo7(): {[key: string]: number; foo: number} {
   return { foo: "bar" }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // No indexer should be fine
 function foo0(): {} {
   return { foo: "bar" };
@@ -81,9 +87,15 @@ function foo7(): { [key: string]: number, foo: number } {
   return { foo: "bar" };
 }
 
+================================================================================
 `;
 
-exports[`multiple.js - flow-verify 1`] = `
+exports[`multiple.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -94,7 +106,8 @@ let tests = [
     });
   }
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -106,4 +119,5 @@ let tests = [
   }
 ];
 
+================================================================================
 `;

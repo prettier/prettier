@@ -1,0 +1,16 @@
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "$(node_version)"
+    displayName: "Install Node.js"
+
+  - script: yarn install --frozen-lockfile
+    displayName: "Install dependencies"
+
+  - script: yarn test
+    displayName: "Run tests"
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFiles: "**/junit.xml"
+    condition: and(eq(variables['REPORT_SUMMARIES'], true), succeededOrFailed())

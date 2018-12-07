@@ -1,0 +1,72 @@
+trigger:
+  - master
+  - releases-*
+
+variables:
+  AST_COMPARE: true
+  REPORT_SUMMARIES: true
+
+jobs:
+  - job: Lint_Linux_Node_v10
+    displayName: Lint on Linux Node v10
+    pool:
+      vmImage: "Ubuntu 16.04"
+    variables:
+      node_version: 10
+    steps:
+      - template: .azure-pipelines/lint.yml
+
+  - job: Lint_Dist_Linux_Node_v10
+    displayName: Lint Dist on Linux Node v10
+    pool:
+      vmImage: "Ubuntu 16.04"
+    variables:
+      node_version: 10
+    steps:
+      - template: .azure-pipelines/lint-dist.yml
+
+  - job: Dev_Test_Windows_Node_v10
+    displayName: Dev Tests on Windows Node v10
+    pool:
+      vmImage: vs2017-win2016
+    variables:
+      node_version: 10
+    steps:
+      - template: .azure-pipelines/dev.yml
+
+  - job: Dev_Test_macOS_Node_v10
+    displayName: Dev Tests on macOS Node v10
+    pool:
+      vmImage: macos-10.13
+    variables:
+      node_version: 10
+    steps:
+      - template: .azure-pipelines/dev.yml
+
+  - job: Dev_Test_Linux_Node_v10
+    displayName: Dev Tests on Linux Node v10
+    pool:
+      vmImage: "Ubuntu 16.04"
+    variables:
+      node_version: 10
+    steps:
+      - template: .azure-pipelines/dev.yml
+
+  - job: Prod_Test_Linux
+    displayName: Prod Tests on Linux
+    pool:
+      vmImage: "Ubuntu 16.04"
+    variables:
+      node_version_for_build: 10
+    strategy:
+      matrix:
+        Node_v4:
+          node_version: 4
+          REPORT_SUMMARIES: "" # jest-junit requires node v6+
+        Node_v10:
+          node_version: 10
+        Node_v10_standalone:
+          node_version: 10
+          TEST_STANDALONE: true
+    steps:
+      - template: .azure-pipelines/prod.yml

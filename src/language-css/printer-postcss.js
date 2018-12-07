@@ -58,6 +58,8 @@ const {
   hasEmptyRawBefore,
   isKeyValuePairNode,
   isDetachedRulesetCallNode,
+  isTemplatePlaceholderNode,
+  isTemplatePropNode,
   isPostcssSimpleVarNode,
   isSCSSMapItemNode,
   isInlineValueCommentNode,
@@ -108,7 +110,11 @@ function genericPrint(path, options, print) {
     }
     case "css-comment": {
       if (node.raws.content) {
-        return node.raws.content;
+        return (
+          node.raws.content
+            // there's a bug in the less parser that trailing `\r`s are included in inline comments
+            .replace(/^(\/\/[^]+)\r+$/, "$1")
+        );
       }
       const text = options.originalText.slice(
         options.locStart(node),
@@ -145,6 +151,8 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "css-decl": {
+      const parentNode = path.getParentNode();
+
       return concat([
         node.raws.before.replace(/[\s;]/g, ""),
         insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
@@ -156,18 +164,18 @@ function genericPrint(path, options, print) {
         node.raws.important
           ? node.raws.important.replace(/\s*!\s*important/i, " !important")
           : node.important
-            ? " !important"
-            : "",
+          ? " !important"
+          : "",
         node.raws.scssDefault
           ? node.raws.scssDefault.replace(/\s*!default/i, " !default")
           : node.scssDefault
-            ? " !default"
-            : "",
+          ? " !default"
+          : "",
         node.raws.scssGlobal
           ? node.raws.scssGlobal.replace(/\s*!global/i, " !global")
           : node.scssGlobal
-            ? " !global"
-            : "",
+          ? " !global"
+          : "",
         node.nodes
           ? concat([
               " {",
@@ -177,10 +185,16 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
+          : isTemplatePropNode(node) &&
+            !parentNode.raws.semicolon &&
+            options.originalText[options.locEnd(node) - 1] !== ";"
+          ? ""
           : ";"
       ]);
     }
     case "css-atrule": {
+      const parentNode = path.getParentNode();
+
       return concat([
         "@",
         // If a Less file ends up being parsed with the SCSS parser, Less
@@ -191,7 +205,14 @@ function genericPrint(path, options, print) {
           : maybeToLowerCase(node.name),
         node.params
           ? concat([
-              isDetachedRulesetCallNode(node) ? "" : " ",
+              isDetachedRulesetCallNode(node)
+                ? ""
+                : isTemplatePlaceholderNode(node) &&
+                  /^\s*\n/.test(node.raws.afterName)
+                ? /^\s*\n\s*\n/.test(node.raws.afterName)
+                  ? concat([hardline, hardline])
+                  : hardline
+                : " ",
               path.call(print, "params")
             ])
           : "",
@@ -211,8 +232,8 @@ function genericPrint(path, options, print) {
               ])
             )
           : node.name === "else"
-            ? " "
-            : "",
+          ? " "
+          : "",
         node.nodes
           ? concat([
               isSCSSControlDirectiveNode(node) ? "" : " ",
@@ -226,6 +247,10 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
+          : isTemplatePlaceholderNode(node) &&
+            !parentNode.raws.semicolon &&
+            options.originalText[options.locEnd(node) - 1] !== ";"
+          ? ""
           : ";"
       ]);
     }
@@ -321,7 +346,7 @@ function genericPrint(path, options, print) {
           ? node.value
           : adjustNumbers(
               isHTMLTag(node.value) ||
-              isKeyframeAtRuleKeywords(path, node.value)
+                isKeyframeAtRuleKeywords(path, node.value)
                 ? node.value.toLowerCase()
                 : node.value
             )
@@ -625,7 +650,11 @@ function genericPrint(path, options, print) {
 
         // Formatting `grid` property
         if (isGridValue) {
-          if (iNode.source.start.line !== iNextNode.source.start.line) {
+          if (
+            iNode.source &&
+            iNextNode.source &&
+            iNode.source.start.line !== iNextNode.source.start.line
+          ) {
             parts.push(hardline);
 
             didBreak = true;
@@ -737,8 +766,8 @@ function genericPrint(path, options, print) {
           ),
           ifBreak(
             isSCSS(options.parser, options.originalText) &&
-            isSCSSMapItem &&
-            shouldPrintComma(options)
+              isSCSSMapItem &&
+              shouldPrintComma(options)
               ? ","
               : ""
           ),

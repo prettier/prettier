@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`iter.js - flow-verify 1`] = `
+exports[`iter.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var a = [true,false];
 function foo(x) { }
 
@@ -38,7 +43,8 @@ for (var y in this) {
     // regression test to make sure \`in this\` doesn't fatal. it's currently
     // allowed, even though we can't actually enumerate all the keys on \`this\`.
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var a = [true, false];
 function foo(x) {}
 
@@ -77,4 +83,5 @@ for (var y in this) {
   // allowed, even though we can't actually enumerate all the keys on \`this\`.
 }
 
+================================================================================
 `;

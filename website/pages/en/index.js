@@ -135,7 +135,7 @@ const Language = ({ name, showName, image, variants }) => (
 
 Language.propTypes = {
   name: PropTypes.string,
-  showName: PropTypes.boolean,
+  showName: PropTypes.bool,
   image: PropTypes.string,
   variants: PropTypes.array
 };
@@ -298,11 +298,13 @@ class GetStartedSection extends React.Component {
                       {bash`npm install pretty-quick husky --save-dev`}
                     </MarkdownBlock>
                   </div>
-                  Then edit <code>package.json</code>:
+                  Then add this config to <code>package.json</code>:
                   <MarkdownBlock>
                     {json({
-                      scripts: {
-                        precommit: "pretty-quick --staged"
+                      husky: {
+                        hooks: {
+                          "pre-commit": "pretty-quick --staged"
+                        }
                       }
                     })}
                   </MarkdownBlock>

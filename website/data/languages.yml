@@ -6,8 +6,14 @@
   - "[`JSX`](https://facebook.github.io/jsx/)"
   - "[`Flow`](https://flow.org/)"
   - "[`TypeScript`](https://www.typescriptlang.org/)"
-  - "[`Vue`](https://vuejs.org/)"
   - "[`JSON`](http://json.org/)"
+- name: HTML
+  showName: false
+  image: /images/languages/tools_html.svg
+  variants:
+  - "`HTML5`"
+  - "[`Vue`](https://vuejs.org/)"
+  - "[`Angular`](https://angular.io/)"
 - name: CSS
   showName: false
   image: /images/languages/tools_css.svg
@@ -41,8 +47,8 @@
   variants:
   - "[`Elm`](https://github.com/gicentre/prettier-plugin-elm) (via [`elm-format`](https://github.com/avh4/elm-format))"
   - "[`Java`](https://github.com/thorbenvh8/prettier-java)"
-  - "[`PHP`](https://github.com/prettier/prettier-php)"
+  - "[`PHP`](https://github.com/prettier/plugin-php)"
   - "[`PostgreSQL`](https://github.com/benjie/prettier-plugin-pg-sql/)"
-  - "[`Python`](https://github.com/prettier/prettier-python)"
+  - "[`Python`](https://github.com/prettier/plugin-python)"
   - "[`Ruby`](https://github.com/iamsolankiamit/prettier-ruby)"
-  - "[`Swift`](https://github.com/prettier/prettier-swift)"
+  - "[`Swift`](https://github.com/prettier/plugin-swift)"

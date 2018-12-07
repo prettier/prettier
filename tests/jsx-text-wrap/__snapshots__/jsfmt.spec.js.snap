@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Wrapping text
 x =
   <div>
@@ -452,7 +457,15 @@ this_really_should_split_across_lines =
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
   </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+let myDiv = ReactTestUtils.renderIntoDocument(
+  <div>
+    <div key="theDog" className="dog" />,
+    <div key="theBird" className="bird" />
+  </div>
+);
+
+=====================================output=====================================
 // Wrapping text
 x = (
   <div>
@@ -773,11 +786,7 @@ line_after_br = (
 
 line_after_br_2 = (
   <div>
-    A
-    <br />
-    B
-    <br />
-    C
+    A<br />B<br />C
   </div>
 );
 
@@ -967,8 +976,7 @@ x = (
 
 x = (
   <div>
-    <strong>text here</strong>.
-    <br />
+    <strong>text here</strong>.<br />
   </div>
 );
 
@@ -988,8 +996,7 @@ x = (
     <span>
       <strong>{name}</strong>’s{" "}
     </span>
-    Hello <strong>world</strong>.
-    <br />
+    Hello <strong>world</strong>.<br />
     <Text>You {type}ed this shipment to</Text>
   </div>
 );
@@ -1023,4 +1030,12 @@ this_really_should_split_across_lines = (
   </div>
 );
 
+let myDiv = ReactTestUtils.renderIntoDocument(
+  <div>
+    <div key="theDog" className="dog" />,
+    <div key="theBird" className="bird" />
+  </div>
+);
+
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`block-statement.hbs - glimmer-verify 1`] = `
+exports[`block-statement.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 {{#block param hashKey=hashValue as |blockParam|}}
   Hello
 {{/block}}
@@ -53,7 +58,8 @@ exports[`block-statement.hbs - glimmer-verify 1`] = `
 <MyComponent as |firstName lastName|>
   {{firstName}} {{lastName}}
 </MyComponent>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 {{#block param hashKey=hashValue as |blockParam|}}
   Hello
 {{/block}}
@@ -132,9 +138,16 @@ exports[`block-statement.hbs - glimmer-verify 1`] = `
   {{firstName}}
   {{lastName}}
 </MyComponent>
+================================================================================
 `;
 
-exports[`block-statement.hbs - glimmer-verify 2`] = `
+exports[`block-statement.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 {{#block param hashKey=hashValue as |blockParam|}}
   Hello
 {{/block}}
@@ -187,7 +200,8 @@ exports[`block-statement.hbs - glimmer-verify 2`] = `
 <MyComponent as |firstName lastName|>
   {{firstName}} {{lastName}}
 </MyComponent>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 {{#block param hashKey=hashValue as |blockParam|}}
   Hello
 {{/block}}
@@ -266,9 +280,15 @@ exports[`block-statement.hbs - glimmer-verify 2`] = `
   {{firstName}}
   {{lastName}}
 </MyComponent>
+================================================================================
 `;
 
-exports[`component.hbs - glimmer-verify 1`] = `
+exports[`component.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
 
@@ -288,7 +308,8 @@ exports[`component.hbs - glimmer-verify 1`] = `
 <img alt="" />
 
 <div ...attributes>Hello</div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}
 ,
@@ -310,9 +331,16 @@ exports[`component.hbs - glimmer-verify 1`] = `
 <div ...attributes>
   Hello
 </div>
+================================================================================
 `;
 
-exports[`component.hbs - glimmer-verify 2`] = `
+exports[`component.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
 
@@ -332,7 +360,8 @@ exports[`component.hbs - glimmer-verify 2`] = `
 <img alt="" />
 
 <div ...attributes>Hello</div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}
 ,
@@ -354,9 +383,15 @@ exports[`component.hbs - glimmer-verify 2`] = `
 <div ...attributes>
   Hello
 </div>
+================================================================================
 `;
 
-exports[`concat-statement.hbs - glimmer-verify 1`] = `
+exports[`concat-statement.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div class="hello {{if goodbye true}}">
   Hello
 </div>
@@ -376,7 +411,8 @@ exports[`concat-statement.hbs - glimmer-verify 1`] = `
 <div class=" class-i       {{myClass}}class-j"></div>
 <div class="class-k {{myClass}}   class-l"></div>
 <div class="  class-m   {{myClass}}     class-n {{myClass}}class-o   "></div>
-<div class="  class-p  class-q"></div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div class="  class-p  class-q"></div>
+=====================================output=====================================
 <div class="hello {{if goodbye true}}">
   Hello
 </div>
@@ -405,9 +441,16 @@ exports[`concat-statement.hbs - glimmer-verify 1`] = `
 <div class="class-k {{myClass}} class-l"></div>
 <div class="class-m {{myClass}} class-n {{myClass}}class-o"></div>
 <div class="class-p  class-q"></div>
+================================================================================
 `;
 
-exports[`concat-statement.hbs - glimmer-verify 2`] = `
+exports[`concat-statement.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 <div class="hello {{if goodbye true}}">
   Hello
 </div>
@@ -427,7 +470,8 @@ exports[`concat-statement.hbs - glimmer-verify 2`] = `
 <div class=" class-i       {{myClass}}class-j"></div>
 <div class="class-k {{myClass}}   class-l"></div>
 <div class="  class-m   {{myClass}}     class-n {{myClass}}class-o   "></div>
-<div class="  class-p  class-q"></div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div class="  class-p  class-q"></div>
+=====================================output=====================================
 <div class="hello {{if goodbye true}}">
   Hello
 </div>
@@ -456,9 +500,15 @@ exports[`concat-statement.hbs - glimmer-verify 2`] = `
 <div class="class-k {{myClass}} class-l"></div>
 <div class="class-m {{myClass}} class-n {{myClass}}class-o"></div>
 <div class="class-p  class-q"></div>
+================================================================================
 `;
 
-exports[`element-modifier-statement.hbs - glimmer-verify 1`] = `
+exports[`element-modifier-statement.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div {{hello param hash=key}} {{goodbye param}}>
   Hello
 </div>
@@ -474,7 +524,8 @@ exports[`element-modifier-statement.hbs - glimmer-verify 1`] = `
 <div {{hello param param param param hashPair=value hashPair=value hashPair=value hashPair=value hashPair=value}}>
   Hello
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div {{hello param hash=key}} {{goodbye param}}>
   Hello
 </div>
@@ -522,9 +573,16 @@ exports[`element-modifier-statement.hbs - glimmer-verify 1`] = `
 >
   Hello
 </div>
+================================================================================
 `;
 
-exports[`element-modifier-statement.hbs - glimmer-verify 2`] = `
+exports[`element-modifier-statement.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 <div {{hello param hash=key}} {{goodbye param}}>
   Hello
 </div>
@@ -540,7 +598,8 @@ exports[`element-modifier-statement.hbs - glimmer-verify 2`] = `
 <div {{hello param param param param hashPair=value hashPair=value hashPair=value hashPair=value hashPair=value}}>
   Hello
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div {{hello param hash=key}} {{goodbye param}}>
   Hello
 </div>
@@ -588,9 +647,15 @@ exports[`element-modifier-statement.hbs - glimmer-verify 2`] = `
 >
   Hello
 </div>
+================================================================================
 `;
 
-exports[`element-node.hbs - glimmer-verify 1`] = `
+exports[`element-node.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div class="attribute" {{modifier}} {{! comment}}>
   Hello
 </div>
@@ -627,7 +692,8 @@ exports[`element-node.hbs - glimmer-verify 1`] = `
 
 <div></div>
 <img />
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div class="attribute" {{modifier}} {{! comment}}>
   Hello
 </div>
@@ -654,9 +720,16 @@ exports[`element-node.hbs - glimmer-verify 1`] = `
 </div>
 <div></div>
 <img />
+================================================================================
 `;
 
-exports[`element-node.hbs - glimmer-verify 2`] = `
+exports[`element-node.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 <div class="attribute" {{modifier}} {{! comment}}>
   Hello
 </div>
@@ -693,7 +766,8 @@ exports[`element-node.hbs - glimmer-verify 2`] = `
 
 <div></div>
 <img />
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div class="attribute" {{modifier}} {{! comment}}>
   Hello
 </div>
@@ -720,9 +794,15 @@ exports[`element-node.hbs - glimmer-verify 2`] = `
 </div>
 <div></div>
 <img />
+================================================================================
 `;
 
-exports[`else-if.hbs - glimmer-verify 1`] = `
+exports[`else-if.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 {{#if a}}
   b
 {{else if c}}
@@ -791,7 +871,8 @@ exports[`else-if.hbs - glimmer-verify 1`] = `
   {{else if c}}
     ac
   {{/if}}
-{{/if}}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{{/if}}
+=====================================output=====================================
 {{#if a}}
   b
 {{else if c}}
@@ -855,9 +936,16 @@ exports[`else-if.hbs - glimmer-verify 1`] = `
     ac
   {{/if}}
 {{/if}}
+================================================================================
 `;
 
-exports[`else-if.hbs - glimmer-verify 2`] = `
+exports[`else-if.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 {{#if a}}
   b
 {{else if c}}
@@ -926,7 +1014,8 @@ exports[`else-if.hbs - glimmer-verify 2`] = `
   {{else if c}}
     ac
   {{/if}}
-{{/if}}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{{/if}}
+=====================================output=====================================
 {{#if a}}
   b
 {{else if c}}
@@ -990,9 +1079,15 @@ exports[`else-if.hbs - glimmer-verify 2`] = `
     ac
   {{/if}}
 {{/if}}
+================================================================================
 `;
 
-exports[`literals.hbs - glimmer-verify 1`] = `
+exports[`literals.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 {{mustache true}}
 {{mustache 5}}
 {{mustache undefined}}
@@ -1000,7 +1095,8 @@ exports[`literals.hbs - glimmer-verify 1`] = `
 <!-- hello world -->
 {{! Mustache Comment}}
 {{!-- Mustache Comment }} --}}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 {{mustache true}}
 {{mustache 5}}
 {{mustache undefined}}
@@ -1008,9 +1104,16 @@ exports[`literals.hbs - glimmer-verify 1`] = `
 <!-- hello world -->
 {{! Mustache Comment}}
 {{!-- Mustache Comment }} --}}
+================================================================================
 `;
 
-exports[`literals.hbs - glimmer-verify 2`] = `
+exports[`literals.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 {{mustache true}}
 {{mustache 5}}
 {{mustache undefined}}
@@ -1018,7 +1121,8 @@ exports[`literals.hbs - glimmer-verify 2`] = `
 <!-- hello world -->
 {{! Mustache Comment}}
 {{!-- Mustache Comment }} --}}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 {{mustache true}}
 {{mustache 5}}
 {{mustache undefined}}
@@ -1026,15 +1130,22 @@ exports[`literals.hbs - glimmer-verify 2`] = `
 <!-- hello world -->
 {{! Mustache Comment}}
 {{!-- Mustache Comment }} --}}
+================================================================================
 `;
 
-exports[`loop.hbs - glimmer-verify 1`] = `
+exports[`loop.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <ul>
   {{#each speakers key="@index" as |speaker|}}
     <li>{{speaker}}</li>
   {{/each}}
 </ul>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <ul>
   {{#each speakers key="@index" as |speaker|}}
     <li>
@@ -1042,15 +1153,23 @@ exports[`loop.hbs - glimmer-verify 1`] = `
     </li>
   {{/each}}
 </ul>
+================================================================================
 `;
 
-exports[`loop.hbs - glimmer-verify 2`] = `
+exports[`loop.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 <ul>
   {{#each speakers key="@index" as |speaker|}}
     <li>{{speaker}}</li>
   {{/each}}
 </ul>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <ul>
   {{#each speakers key='@index' as |speaker|}}
     <li>
@@ -1058,41 +1177,62 @@ exports[`loop.hbs - glimmer-verify 2`] = `
     </li>
   {{/each}}
 </ul>
+================================================================================
 `;
 
-exports[`string-literals.hbs - glimmer-verify 1`] = `
+exports[`string-literals.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 {{"abc"}}
 {{'abc'}}
 {{" \\" \\" ' more double quote than single quote "}}
 {{' \\' \\' " more single quote than double quote '}}
 {{' " \\' \\" \\\\ '}}
 {{" \\" \\' ' \\\\ "}}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 {{"abc"}}
 {{"abc"}}
 {{' " " \\' more double quote than single quote '}}
 {{" ' ' \\" more single quote than double quote "}}
 {{' " \\' \\" \\\\ '}}
 {{" \\" \\' ' \\\\ "}}
+================================================================================
 `;
 
-exports[`string-literals.hbs - glimmer-verify 2`] = `
+exports[`string-literals.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 {{"abc"}}
 {{'abc'}}
 {{" \\" \\" ' more double quote than single quote "}}
 {{' \\' \\' " more single quote than double quote '}}
 {{' " \\' \\" \\\\ '}}
 {{" \\" \\' ' \\\\ "}}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 {{'abc'}}
 {{'abc'}}
 {{' " " \\' more double quote than single quote '}}
 {{" ' ' \\" more single quote than double quote "}}
 {{' " \\' \\" \\\\ '}}
 {{" \\" \\' ' \\\\ "}}
+================================================================================
 `;
 
-exports[`sub-expressions.hbs - glimmer-verify 1`] = `
+exports[`sub-expressions.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div
   {{mustache
     (concat
@@ -1125,7 +1265,8 @@ exports[`sub-expressions.hbs - glimmer-verify 1`] = `
       foo=(simple-helper (hash hashKey=blockParam.foo assignParam=blockParam.bar))
     )
 }}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   {{mustache
     (concat
@@ -1179,9 +1320,16 @@ exports[`sub-expressions.hbs - glimmer-verify 1`] = `
     foo=(simple-helper (hash hashKey=blockParam.foo assignParam=blockParam.bar))
   )
 }}
+================================================================================
 `;
 
-exports[`sub-expressions.hbs - glimmer-verify 2`] = `
+exports[`sub-expressions.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 <div
   {{mustache
     (concat
@@ -1214,7 +1362,8 @@ exports[`sub-expressions.hbs - glimmer-verify 2`] = `
       foo=(simple-helper (hash hashKey=blockParam.foo assignParam=blockParam.bar))
     )
 }}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   {{mustache
     (concat
@@ -1268,4 +1417,5 @@ exports[`sub-expressions.hbs - glimmer-verify 2`] = `
     foo=(simple-helper (hash hashKey=blockParam.foo assignParam=blockParam.bar))
   )
 }}
+================================================================================
 `;

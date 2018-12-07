@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`strings.js - flow-verify 1`] = `
+exports[`strings.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 [
   "abc",
   'abc',
@@ -26,7 +31,8 @@ exports[`strings.js - flow-verify 1`] = `
 
   '\\uD801\\uDC28',
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [
   "abc",
   "abc",
@@ -52,9 +58,16 @@ exports[`strings.js - flow-verify 1`] = `
   "\\uD801\\uDC28"
 ];
 
+================================================================================
 `;
 
-exports[`strings.js - flow-verify 2`] = `
+exports[`strings.js 2`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 [
   "abc",
   'abc',
@@ -80,7 +93,8 @@ exports[`strings.js - flow-verify 2`] = `
 
   '\\uD801\\uDC28',
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [
   "abc",
   "abc",
@@ -106,9 +120,15 @@ exports[`strings.js - flow-verify 2`] = `
   "\\uD801\\uDC28",
 ];
 
+================================================================================
 `;
 
-exports[`template-literals.js - flow-verify 1`] = `
+exports[`template-literals.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 foo(\`a long string \${ 1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 } with expr\`);
 
 const x = \`a long string \${ 1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + ( function() {return 3 })() + 3 + 2 + 3 + 2 + 3 } with expr\`;
@@ -166,7 +186,8 @@ const makeBody = (store, assets, html) =>
 const Bar = styled.div\`
   color: \${props => (props.highlight.length > 0 ? palette(['text', 'dark', 'tertiary'])(props) : palette(['text', 'dark', 'primary'])(props))} !important;
 \`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 foo(
   \`a long string \${1 +
     2 +
@@ -292,9 +313,16 @@ const Bar = styled.div\`
       : palette(["text", "dark", "primary"])(props)} !important;
 \`;
 
+================================================================================
 `;
 
-exports[`template-literals.js - flow-verify 2`] = `
+exports[`template-literals.js 2`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 foo(\`a long string \${ 1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 } with expr\`);
 
 const x = \`a long string \${ 1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + ( function() {return 3 })() + 3 + 2 + 3 + 2 + 3 } with expr\`;
@@ -352,7 +380,8 @@ const makeBody = (store, assets, html) =>
 const Bar = styled.div\`
   color: \${props => (props.highlight.length > 0 ? palette(['text', 'dark', 'tertiary'])(props) : palette(['text', 'dark', 'primary'])(props))} !important;
 \`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 foo(
   \`a long string \${1 +
     2 +
@@ -478,4 +507,5 @@ const Bar = styled.div\`
       : palette(["text", "dark", "primary"])(props)} !important;
 \`;
 
+================================================================================
 `;

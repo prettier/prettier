@@ -70,13 +70,12 @@ function genericPrint(path, options, print) {
           node.position.end.offset
         ),
         options
-      ).map(
-        node =>
-          node.type === "word"
-            ? node.value
-            : node.value === ""
-              ? ""
-              : printLine(path, node.value, options)
+      ).map(node =>
+        node.type === "word"
+          ? node.value
+          : node.value === ""
+          ? ""
+          : printLine(path, node.value, options)
       )
     );
   }
@@ -210,7 +209,7 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(
           alignment,
-          concat([alignment, join(hardline, node.value.split("\n"))])
+          concat([alignment, replaceNewlinesWith(node.value, hardline)])
         );
       }
 
@@ -226,9 +225,9 @@ function genericPrint(path, options, print) {
         style,
         node.lang || "",
         hardline,
-        join(
-          hardline,
-          getFencedCodeBlockValue(node, options.originalText).split("\n")
+        replaceNewlinesWith(
+          getFencedCodeBlockValue(node, options.originalText),
+          hardline
         ),
         hardline,
         style
@@ -281,12 +280,12 @@ function genericPrint(path, options, print) {
               ? (index === 0
                   ? node.start
                   : isGitDiffFriendlyOrderedList
-                    ? 1
-                    : node.start + index) +
+                  ? 1
+                  : node.start + index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
-                ? "- "
-                : "* ";
+              ? "- "
+              : "* ";
 
             return node.isAligned ||
               /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
@@ -315,8 +314,8 @@ function genericPrint(path, options, print) {
         node.referenceType === "full"
           ? concat(["[", node.identifier, "]"])
           : node.referenceType === "collapsed"
-            ? "[]"
-            : ""
+          ? "[]"
+          : ""
       ]);
     case "imageReference":
       switch (node.referenceType) {
@@ -410,13 +409,12 @@ function genericPrint(path, options, print) {
         "$$"
       ]);
     case "inlineMath": {
-      // $$math$$ can be block math in some variants
-      // see https://github.com/Rokt33r/remark-math#double-dollars-in-inline
-      const style =
-        options.originalText[node.position.start.offset + 1] === "$"
-          ? "$$"
-          : "$";
-      return concat([style, node.value, style]);
+      // remark-math trims content but we don't want to remove whitespaces
+      // since it's very possible that it's recognized as math accidentally
+      return options.originalText.slice(
+        options.locStart(node),
+        options.locEnd(node)
+      );
     }
 
     case "tableRow": // handled in "table"
@@ -470,7 +468,7 @@ function getNthListSiblingIndex(node, parentNode) {
 }
 
 function replaceNewlinesWith(str, doc) {
-  return join(doc, str.split("\n"));
+  return join(doc, str.replace(/\r\n?/g, "\n").split("\n"));
 }
 
 function getNthSiblingIndex(node, parentNode, condition) {
@@ -524,8 +522,8 @@ function printLine(path, value, options) {
       ? line
       : " "
     : isBreakable
-      ? softline
-      : "";
+    ? softline
+    : "";
 }
 
 function printTable(path, options, print) {
@@ -868,10 +866,10 @@ function printTitle(title, options, printSpace) {
     singleCount > doubleCount
       ? '"'
       : doubleCount > singleCount
-        ? "'"
-        : options.singleQuote
-          ? "'"
-          : '"';
+      ? "'"
+      : options.singleQuote
+      ? "'"
+      : '"';
   title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
   return `${quote}${title}${quote}`;
 }

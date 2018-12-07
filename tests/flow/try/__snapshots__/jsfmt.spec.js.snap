@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abnormals.js - flow-verify 1`] = `
+exports[`abnormals.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 /* This test documents an issue we used to have with merging the environment of
@@ -16,7 +21,8 @@ function foo() {
     }
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 /* This test documents an issue we used to have with merging the environment of
@@ -33,9 +39,15 @@ function foo() {
   }
 }
 
+================================================================================
 `;
 
-exports[`init.js - flow-verify 1`] = `
+exports[`init.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /***
  * test initialization tracking of hoisted stuff
  * @flow
@@ -190,7 +202,8 @@ function f(b) {
   }
   var y:number = x; // error
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /***
  * test initialization tracking of hoisted stuff
  * @flow
@@ -342,9 +355,15 @@ function f(b) {
   var y: number = x; // error
 }
 
+================================================================================
 `;
 
-exports[`return.js - flow-verify 1`] = `
+exports[`return.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -410,7 +429,8 @@ function corge(): string {
   }
   bar(); // unreachable
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -475,9 +495,15 @@ function corge(): string {
   bar(); // unreachable
 }
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /***
  * test env state tracking thru try/catch/finally
  * @flow
@@ -520,7 +546,8 @@ function qux() {
     }
     x(); // unreachable
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /***
  * test env state tracking thru try/catch/finally
  * @flow
@@ -565,4 +592,5 @@ function qux() {
   x(); // unreachable
 }
 
+================================================================================
 `;

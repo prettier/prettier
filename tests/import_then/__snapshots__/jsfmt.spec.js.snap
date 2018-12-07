@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long.js - flow-verify 1`] = `
+exports[`long.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import(
   'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
 );
@@ -9,22 +14,31 @@ import(
   'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
 ).then(exports => {
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename");
 
 import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename").then(
   exports => {}
 );
 
+================================================================================
 `;
 
-exports[`then.js - flow-verify 1`] = `
+exports[`then.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const x = import('some-module').then(x => {
   // ...
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const x = import("some-module").then(x => {
   // ...
 });
 
+================================================================================
 `;

@@ -4,6 +4,7 @@ const assert = require("assert");
 
 const util = require("../common/util");
 const comments = require("./comments");
+const { hasFlowShorthandAnnotationComment } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
   // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
@@ -70,6 +71,16 @@ function needsParens(path, options) {
       options.locStart,
       options.locEnd
     )
+  ) {
+    return true;
+  }
+
+  if (
+    // Preserve parens if we have a Flow annotation comment, unless we're using the Flow
+    // parser. The Flow parser turns Flow comments into type annotation nodes in its
+    // AST, which we handle separately.
+    options.parser !== "flow" &&
+    hasFlowShorthandAnnotationComment(path.getValue())
   ) {
     return true;
   }
@@ -247,6 +258,7 @@ function needsParens(path, options) {
           return true;
 
         case "MemberExpression":
+        case "OptionalMemberExpression":
           return name === "object" && parent.object === node;
 
         case "AssignmentExpression":
@@ -489,6 +501,8 @@ function needsParens(path, options) {
         return false;
       } else if (parent.type === "Property" && parent.value === node) {
         return false;
+      } else if (parent.type === "NGChainedExpression") {
+        return false;
       }
       return true;
     }
@@ -500,6 +514,7 @@ function needsParens(path, options) {
         case "SpreadProperty":
         case "BinaryExpression":
         case "LogicalExpression":
+        case "NGPipeExpression":
         case "ExportDefaultDeclaration":
         case "AwaitExpression":
         case "JSXSpreadAttribute":
@@ -602,6 +617,21 @@ function needsParens(path, options) {
         return true;
       }
       return false;
+    case "NGPipeExpression":
+      if (
+        parent.type === "NGRoot" ||
+        parent.type === "ObjectProperty" ||
+        parent.type === "ArrayExpression" ||
+        ((parent.type === "CallExpression" ||
+          parent.type === "OptionalCallExpression") &&
+          parent.arguments[name] === node) ||
+        (parent.type === "NGPipeExpression" && name === "right") ||
+        (parent.type === "MemberExpression" && name === "property") ||
+        parent.type === "AssignmentExpression"
+      ) {
+        return false;
+      }
+      return true;
   }
 
   return false;

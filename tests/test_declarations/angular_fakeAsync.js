@@ -14,6 +14,8 @@ it("does something really long and complicated so I have to write a very long na
   // code
 }));
 
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS));
+
 /*
 * isTestCall(parent) should only be called when parent exists
 * and parent.type is CallExpression. This test makes sure that

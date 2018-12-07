@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const PROJECT_ROOT = path.resolve(__dirname, "../..");
 
 /**
  * @typedef {Object} Bundle
@@ -39,6 +40,18 @@ const parsers = [
     target: "universal"
   },
   {
+    input: "src/language-js/parser-angular.js",
+    target: "universal",
+    alias: {
+      // Force using the CJS file, instead of ESM; i.e. get the file
+      // from `"main"` instead of `"module"` (rollup default) of package.json
+      "lines-and-columns": require.resolve("lines-and-columns"),
+      "@angular/compiler/src": path.resolve(
+        `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
+      )
+    }
+  },
+  {
     input: "src/language-css/parser-postcss.js",
     target: "universal",
     // postcss has dependency cycles that don't work with rollup
@@ -50,10 +63,6 @@ const parsers = [
   },
   {
     input: "src/language-markdown/parser-markdown.js",
-    target: "universal"
-  },
-  {
-    input: "src/language-vue/parser-vue.js",
     target: "universal"
   },
   {
@@ -116,9 +125,10 @@ const coreBundles = [
     type: "core",
     target: "node",
     replace: {
-      // cosmiconfig@5 uses `require` to resolve js config, which caused Error:
+      // cosmiconfig@5 -> import-fresh uses `require` to resolve js config, which caused Error:
       // Dynamic requires are not currently supported by rollup-plugin-commonjs.
-      "require(filepath)": "eval('require')(filepath)"
+      "require(filePath)": "eval('require')(filePath)",
+      "require.cache": "eval('require').cache"
     }
   }
 ];

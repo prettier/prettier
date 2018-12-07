@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`assignment_comments.js - flow-verify 1`] = `
+exports[`assignment_comments.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 fnString =
   // Comment
   'some' + 'long' + 'string';
@@ -55,7 +60,8 @@ let f = (
   a =
   b //comment
 ) => {};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 fnString =
   // Comment
   "some" + "long" + "string";
@@ -117,4 +123,5 @@ let f = (
   a = b //comment
 ) => {};
 
+================================================================================
 `;

@@ -1,20 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`escape.js - babylon-verify 1`] = `
+exports[`escape.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>&lt;</div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>&lt;</div>;
 
+================================================================================
 `;
 
-exports[`escape.js - flow-verify 1`] = `
+exports[`escape.js 2`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>&lt;</div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>&lt;</div>;
 
+================================================================================
 `;
 
-exports[`nbsp.js - babylon-verify 1`] = `
+exports[`nbsp.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 many_nbsp = <div>&nbsp; &nbsp; </div>
 single_nbsp = <div>&nbsp;</div>
 nbsp_with_newline =
@@ -28,7 +47,8 @@ many_raw_spaces = <div>   </div>
 
 amp = <span>foo &amp; bar</span>
 raw_amp = <span>foo & bar</span>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 many_nbsp = <div>&nbsp; &nbsp; </div>;
 single_nbsp = <div>&nbsp;</div>;
 nbsp_with_newline = <div>&nbsp;</div>;
@@ -39,9 +59,15 @@ many_raw_spaces = <div> </div>;
 amp = <span>foo &amp; bar</span>;
 raw_amp = <span>foo & bar</span>;
 
+================================================================================
 `;
 
-exports[`nbsp.js - flow-verify 1`] = `
+exports[`nbsp.js 2`] = `
+====================================options=====================================
+parsers: ["babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 many_nbsp = <div>&nbsp; &nbsp; </div>
 single_nbsp = <div>&nbsp;</div>
 nbsp_with_newline =
@@ -55,7 +81,8 @@ many_raw_spaces = <div>   </div>
 
 amp = <span>foo &amp; bar</span>
 raw_amp = <span>foo & bar</span>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 many_nbsp = <div>&nbsp; &nbsp; </div>;
 single_nbsp = <div>&nbsp;</div>;
 nbsp_with_newline = <div>&nbsp;</div>;
@@ -66,4 +93,5 @@ many_raw_spaces = <div> </div>;
 amp = <span>foo &amp; bar</span>;
 raw_amp = <span>foo & bar</span>;
 
+================================================================================
 `;

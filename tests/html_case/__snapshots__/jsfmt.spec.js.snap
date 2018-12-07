@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`case.html - html-verify 1`] = `
+exports[`case.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!DOCTYPE html>
 <HTML CLASS="no-js mY-ClAsS">
   <HEAD>
@@ -17,7 +22,8 @@ exports[`case.html - html-verify 1`] = `
     <SCRIPT src="https://www.google-analytics.com/analytics.js" ASYNC DEFER></SCRIPT>
   </body>
 </HTML>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!DOCTYPE html>
 <html class="no-js mY-ClAsS">
   <head>
@@ -47,4 +53,5 @@ exports[`case.html - html-verify 1`] = `
   </body>
 </html>
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`disjoint_union.js - flow-verify 1`] = `
+exports[`disjoint_union.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 type Shape =
@@ -15,7 +20,8 @@ function area(shape: Shape): number {
   }
   throw "unreachable"; // TODO: this shouldn't be needed
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 type Shape =
@@ -32,9 +38,15 @@ function area(shape: Shape): number {
   throw "unreachable"; // TODO: this shouldn't be needed
 }
 
+================================================================================
 `;
 
-exports[`enum.js - flow-verify 1`] = `
+exports[`enum.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 type Binary = 0 | 1;
@@ -47,7 +59,8 @@ function stringifyBinary(binary: Binary): string {
   }
   throw "unreachable"; // TODO: this shouldn't be needed
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 type Binary = 0 | 1;
@@ -62,4 +75,5 @@ function stringifyBinary(binary: Binary): string {
   throw "unreachable"; // TODO: this shouldn't be needed
 }
 
+================================================================================
 `;

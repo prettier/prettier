@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attribute.js - babylon-verify 1`] = `
+exports[`attribute.js 1`] = `
+====================================options=====================================
+parsers: ["babylon", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div {...a}/>;
 
 <div {...a /* comment */}/>;
@@ -22,7 +27,8 @@ exports[`attribute.js - babylon-verify 1`] = `
 <div {//comment
   ...a // comment
 }/>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div {...a} />;
 
 <div {...a /* comment */} />;
@@ -56,9 +62,15 @@ exports[`attribute.js - babylon-verify 1`] = `
   }
 />;
 
+================================================================================
 `;
 
-exports[`child.js - babylon-verify 1`] = `
+exports[`child.js 1`] = `
+====================================options=====================================
+parsers: ["babylon", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>{...a}</div>;
 
 <div>{...a /* comment */}</div>;
@@ -80,7 +92,8 @@ exports[`child.js - babylon-verify 1`] = `
 <div>{//comment
   ...a // comment
 }</div>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>{...a}</div>;
 
 <div>{...a /* comment */}</div>;
@@ -114,4 +127,5 @@ exports[`child.js - babylon-verify 1`] = `
   }
 </div>;
 
+================================================================================
 `;

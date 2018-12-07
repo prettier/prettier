@@ -3,74 +3,103 @@
 const createError = require("../common/parser-create-error");
 const hasPragma = require("./pragma").hasPragma;
 const locFns = require("./loc");
+const postprocess = require("./postprocess");
 
-function parse(text, parsers, opts) {
-  // Inline the require to avoid loading all the JS if we don't use it
-  const babylon = require("@babel/parser");
+function babylonOptions(extraOptions, extraPlugins) {
+  return Object.assign(
+    {
+      sourceType: "module",
+      allowAwaitOutsideFunction: true,
+      allowImportExportEverywhere: true,
+      allowReturnOutsideFunction: true,
+      allowSuperOutsideMethod: true,
+      plugins: [
+        "jsx",
+        "flow",
+        "doExpressions",
+        "objectRestSpread",
+        "classProperties",
+        "exportDefaultFrom",
+        "exportNamespaceFrom",
+        "asyncGenerators",
+        "functionBind",
+        "functionSent",
+        "dynamicImport",
+        "numericSeparator",
+        "importMeta",
+        "optionalCatchBinding",
+        "optionalChaining",
+        "classPrivateProperties",
+        ["pipelineOperator", { proposal: "minimal" }],
+        "nullishCoalescingOperator",
+        "bigInt",
+        "throwExpressions",
+        "logicalAssignment"
+      ].concat(extraPlugins)
+    },
+    extraOptions
+  );
+}
 
-  const babylonOptions = {
-    sourceType: "module",
-    allowAwaitOutsideFunction: true,
-    allowImportExportEverywhere: true,
-    allowReturnOutsideFunction: true,
-    allowSuperOutsideMethod: true,
-    plugins: [
-      "jsx",
-      "flow",
-      "doExpressions",
-      "objectRestSpread",
-      "decorators-legacy",
-      "classProperties",
-      "exportDefaultFrom",
-      "exportNamespaceFrom",
-      "asyncGenerators",
-      "functionBind",
-      "functionSent",
-      "dynamicImport",
-      "numericSeparator",
-      "importMeta",
-      "optionalCatchBinding",
-      "optionalChaining",
-      "classPrivateProperties",
-      ["pipelineOperator", { proposal: "minimal" }],
-      "nullishCoalescingOperator",
-      "bigInt",
-      "throwExpressions"
-    ]
-  };
+function createParse(parseMethod) {
+  return (text, parsers, opts) => {
+    // Inline the require to avoid loading all the JS if we don't use it
+    const babylon = require("@babel/parser");
 
-  const parseMethod =
-    !opts || opts.parser === "babylon" ? "parse" : "parseExpression";
+    const combinations = [
+      babylonOptions({ strictMode: true }, ["decorators-legacy"]),
+      babylonOptions({ strictMode: false }, ["decorators-legacy"]),
+      babylonOptions({ strictMode: true }, [
+        ["decorators", { decoratorsBeforeExport: false }]
+      ]),
+      babylonOptions({ strictMode: false }, [
+        ["decorators", { decoratorsBeforeExport: false }]
+      ])
+    ];
 
-  let ast;
-  try {
-    ast = babylon[parseMethod](text, babylonOptions);
-  } catch (originalError) {
+    let ast;
     try {
-      ast = babylon[parseMethod](
-        text,
-        Object.assign({}, babylonOptions, { strictMode: false })
+      ast = tryCombinations(
+        babylon[parseMethod].bind(null, text),
+        combinations
       );
-    } catch (nonStrictError) {
+    } catch (error) {
       throw createError(
         // babel error prints (l:c) with cols that are zero indexed
         // so we need our custom error
-        originalError.message.replace(/ \(.*\)/, ""),
+        error.message.replace(/ \(.*\)/, ""),
         {
           start: {
-            line: originalError.loc.line,
-            column: originalError.loc.column + 1
+            line: error.loc.line,
+            column: error.loc.column + 1
           }
         }
       );
     }
+    delete ast.tokens;
+    return postprocess(ast, Object.assign({}, opts, { originalText: text }));
+  };
+}
+
+const parse = createParse("parse");
+const parseExpression = createParse("parseExpression");
+
+function tryCombinations(fn, combinations) {
+  let error;
+  for (let i = 0; i < combinations.length; i++) {
+    try {
+      return fn(combinations[i]);
+    } catch (_error) {
+      if (!error) {
+        error = _error;
+      }
+    }
   }
-  delete ast.tokens;
-  return ast;
+  throw error;
 }
 
 function parseJson(text, parsers, opts) {
-  const ast = parse(text, parsers, Object.assign({}, opts, { parser: "json" }));
+  const ast = parseExpression(text, parsers, opts);
 
   ast.comments.forEach(assertJsonNode);
   assertJsonNode(ast);
@@ -140,17 +169,20 @@ const babylon = Object.assign(
   { parse, astFormat: "estree", hasPragma },
   locFns
 );
+const babylonExpression = Object.assign({}, babylon, {
+  parse: parseExpression
+});
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
     babylon,
-    json: Object.assign({}, babylon, {
+    json: Object.assign({}, babylonExpression, {
       hasPragma() {
         return true;
       }
     }),
-    json5: babylon,
+    json5: babylonExpression,
     "json-stringify": Object.assign(
       {
         parse: parseJson,
@@ -158,7 +190,11 @@ module.exports = {
       },
       locFns
     ),
-    /** @internal for mdx to print jsx without semicolon */
-    __js_expression: babylon
+    /** @internal */
+    __js_expression: babylonExpression,
+    /** for vue filter */
+    __vue_expression: babylonExpression,
+    /** for vue event binding to handle semicolon */
+    __vue_event_binding: babylon
   }
 };

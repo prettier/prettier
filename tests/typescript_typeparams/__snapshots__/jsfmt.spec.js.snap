@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class-method.ts - typescript-verify 1`] = `
+exports[`class-method.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // https://github.com/prettier/prettier/issues/4070
 export class Thing implements OtherThing {
     do: (type: Type) => Provider<Prop> = memoize((type: ObjectType): Provider<Opts> => {});
@@ -98,7 +103,8 @@ export class Thing22 implements OtherThing {
 const appIDs = createSelector(
     PubXURLParams.APP_IDS,
    (rawAppIDs): Array<AppID> => deserializeList(rawAppIDs),
-);~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+);
+=====================================output=====================================
 // https://github.com/prettier/prettier/issues/4070
 export class Thing implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(
@@ -277,9 +283,15 @@ const appIDs = createSelector(
   (rawAppIDs): Array<AppID> => deserializeList(rawAppIDs)
 );
 
+================================================================================
 `;
 
-exports[`long-function-arg.ts - typescript-verify 1`] = `
+exports[`long-function-arg.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export const forwardS = R.curry(
   <V,T>(prop: string, reducer: ReducerFunction<V, T>, value: V, state: {[name: string]: T}) =>
   R.assoc(prop, reducer(value, state[prop]), state)
@@ -290,7 +302,8 @@ export const forwardS = R.curry(
   R.assoc(prop, reducer(value, state[prop]), state)
 )
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export const forwardS = R.curry(
   <V, T>(
     prop: string,
@@ -312,17 +325,25 @@ export const forwardS = R.curry(
   ) => R.assoc(prop, reducer(value, state[prop]), state)
 );
 
+================================================================================
 `;
 
-exports[`tagged-template-expression.ts - typescript-verify 1`] = `
+exports[`tagged-template-expression.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export const RedBox = styled.div<{foo: string}>\`
   background: red;
   \${props => props.foo}
 \`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export const RedBox = styled.div<{ foo: string }>\`
   background: red;
-  \${props => props.foo};
+  \${props => props.foo}
 \`;
 
+================================================================================
 `;

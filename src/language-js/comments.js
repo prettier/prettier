@@ -28,6 +28,14 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
       comment,
       options
     ) ||
+    handleWhileComments(
+      text,
+      precedingNode,
+      enclosingNode,
+      followingNode,
+      comment,
+      options
+    ) ||
     handleTryStatementComments(
       enclosingNode,
       precedingNode,
@@ -93,6 +101,14 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
       comment,
       options
     ) ||
+    handleWhileComments(
+      text,
+      precedingNode,
+      enclosingNode,
+      followingNode,
+      comment,
+      options
+    ) ||
     handleTryStatementComments(
       enclosingNode,
       precedingNode,
@@ -117,6 +133,14 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
 
   if (
     handleIfStatementComments(
+      text,
+      precedingNode,
+      enclosingNode,
+      followingNode,
+      comment,
+      options
+    ) ||
+    handleWhileComments(
       text,
       precedingNode,
       enclosingNode,
@@ -246,12 +270,51 @@ function handleIfStatementComments(
   }
 
   // For comments positioned after the condition parenthesis in an if statement
-  // before the consequent with or without brackets on, such as
-  // if (a) /* comment */ {} or if (a) /* comment */ true,
-  // we look at the next character to see if it is a { or if the following node
+  // before the consequent without brackets on, such as
+  // if (a) /* comment */ true,
+  // we look at the next character to see if the following node
   // is the consequent for the if statement
-  if (nextCharacter === "{" || enclosingNode.consequent === followingNode) {
+  if (enclosingNode.consequent === followingNode) {
     addLeadingComment(followingNode, comment);
+    return true;
+  }
+
+  return false;
+}
+
+function handleWhileComments(
+  text,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  comment,
+  options
+) {
+  if (
+    !enclosingNode ||
+    enclosingNode.type !== "WhileStatement" ||
+    !followingNode
+  ) {
+    return false;
+  }
+
+  // We unfortunately have no way using the AST or location of nodes to know
+  // if the comment is positioned before the condition parenthesis:
+  //   while (a /* comment */) {}
+  // The only workaround I found is to look at the next character to see if
+  // it is a ).
+  const nextCharacter = privateUtil.getNextNonSpaceNonCommentCharacter(
+    text,
+    comment,
+    options.locEnd
+  );
+  if (nextCharacter === ")") {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  if (followingNode.type === "BlockStatement") {
+    addBlockStatementFirstComment(followingNode, comment);
     return true;
   }
 
@@ -560,6 +623,35 @@ function handleLastFunctionArgComments(
     addTrailingComment(precedingNode, comment);
     return true;
   }
+
+  if (
+    enclosingNode &&
+    enclosingNode.type === "FunctionDeclaration" &&
+    followingNode &&
+    followingNode.type === "BlockStatement"
+  ) {
+    const functionParamRightParenIndex = (() => {
+      if (enclosingNode.params.length !== 0) {
+        return privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+          text,
+          options.locEnd(privateUtil.getLast(enclosingNode.params))
+        );
+      }
+      const functionParamLeftParenIndex = privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+        text,
+        options.locEnd(enclosingNode.id)
+      );
+      return privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+        text,
+        functionParamLeftParenIndex + 1
+      );
+    })();
+    if (options.locStart(comment) > functionParamRightParenIndex) {
+      addBlockStatementFirstComment(followingNode, comment);
+      return true;
+    }
+  }
+
   return false;
 }
 

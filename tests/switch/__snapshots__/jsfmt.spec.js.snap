@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js - flow-verify 1`] = `
+exports[`comments.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 switch (true) {
   case true:
   // Good luck getting here
@@ -24,7 +29,8 @@ switch(x) {
   case y: {
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 switch (true) {
   case true:
   // Good luck getting here
@@ -49,9 +55,15 @@ switch (x) {
   }
 }
 
+================================================================================
 `;
 
-exports[`empty_lines.js - flow-verify 1`] = `
+exports[`empty_lines.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 switch (foo) {
   case "bar":
     doSomething();
@@ -122,7 +134,8 @@ switch (a) {
   case z:
     call();
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 switch (foo) {
   case "bar":
     doSomething();
@@ -192,15 +205,22 @@ switch (a) {
     call();
 }
 
+================================================================================
 `;
 
-exports[`empty_statement.js - flow-verify 1`] = `
+exports[`empty_statement.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 switch (error.code) {
 	case ConfigurationEditingErrorCode.ERROR_INVALID_CONFIGURATION: {
 		nls.localize('errorInvalidConfiguration', "Unable to write into settings. Correct errors/warnings in the file and try again.");
 	};
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 switch (error.code) {
   case ConfigurationEditingErrorCode.ERROR_INVALID_CONFIGURATION: {
     nls.localize(
@@ -210,21 +230,34 @@ switch (error.code) {
   }
 }
 
+================================================================================
 `;
 
-exports[`empty_switch.js - flow-verify 1`] = `
+exports[`empty_switch.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 switch (1) { default:; }
 switch (1) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 switch (1) {
   default:
 }
 switch (1) {
 }
 
+================================================================================
 `;
 
-exports[`switch.js - flow-verify 1`] = `
+exports[`switch.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 switch (a) {
   case 3:
     alert( '3' );
@@ -254,7 +287,8 @@ switch (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVery
   default:
     alert( 'default' );
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 switch (a) {
   case 3:
     alert("3");
@@ -290,4 +324,5 @@ switch (
     alert("default");
 }
 
+================================================================================
 `;

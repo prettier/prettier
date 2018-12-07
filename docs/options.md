@@ -60,7 +60,7 @@ Use single quotes instead of double quotes.
 
 Notes:
 
-- Quotes in JSX will always be double and ignore this setting.
+- JSX quotes ignore this option – see [jsx-single-quote](#jsx-quotes).
 - If the number of quotes outweighs the other quote, the quote which is less used will be used to format the string - Example: `"I'm double quoted"` results in `"I'm double quoted"` and `"This \"example\" is single quoted"` results in `'This "example" is single quoted'`.
 
 See the [strings rationale](rationale.md#strings) for more information.
@@ -68,6 +68,14 @@ See the [strings rationale](rationale.md#strings) for more information.
 | Default | CLI Override     | API Override          |
 | ------- | ---------------- | --------------------- |
 | `false` | `--single-quote` | `singleQuote: <bool>` |
+
+## JSX Quotes
+
+Use single quotes instead of double quotes in JSX.
+
+| Default | CLI Override         | API Override             |
+| ------- | -------------------- | ------------------------ |
+| `false` | `--jsx-single-quote` | `jsxSingleQuote: <bool>` |
 
 ## Trailing Commas
 
@@ -183,12 +191,11 @@ Valid options:
 - `"json-stringify"` (same parser as `"json"`, but outputs like `JSON.stringify`) _First available in v1.13.0_
 - `"graphql"` (via [graphql/language](https://github.com/graphql/graphql-js/tree/master/src/language)) _First available in v1.5.0_
 - `"markdown"` (via [remark-parse](https://github.com/wooorm/remark/tree/master/packages/remark-parse)) _First available in v1.8.0_
-- `"vue"` (uses several parsers) _First available in 1.10.0_
+- `"mdx"` (via [remark-parse](https://github.com/wooorm/remark/tree/master/packages/remark-parse) and [@mdx-js/mdx](https://github.com/mdx-js/mdx/tree/master/packages/mdx)) _First available in v1.15.0_
+- `"html"` (via [angular-html-parser](https://github.com/ikatyang/angular-html-parser/tree/master/packages/angular-html-parser)) _First available in 1.15.0_
+- `"vue"` (same parser as `"html"`, but also formats vue-specific syntax) _First available in 1.10.0_
+- `"angular"` (same parser as `"html"`, but also formats angular-specific syntax via [angular-estree-parser](https://github.com/ikatyang/angular-estree-parser)) _First available in 1.15.0_
 - `"yaml"` (via [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser)) _First available in 1.14.0_
-
-<!-- TODO: Uncomment and move below "markdown" above when 1.15.0 is released.
-- `"mdx"` (same parser as `"markdown"`, with some custom overrides) _First available in 1.15.0_
--->
 
 [Custom parsers](api.md#custom-parser-api) are also supported. _First available in v1.5.0_
 
@@ -263,3 +270,59 @@ Valid options:
 | Default      | CLI Override                                                | API Override                                                |
 | ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
 | `"preserve"` | <code>--prose-wrap <always&#124;never&#124;preserve></code> | <code>proseWrap: "<always&#124;never&#124;preserve>"</code> |
+
+## HTML Whitespace Sensitivity
+
+_available in v1.15.0+_
+
+Specify the global whitespace sensitivity for HTML files, see [whitespace-sensitive formatting] for more info.
+
+[whitespace-sensitive formatting]: https://prettier.io/blog/2018/11/07/1.15.0.html#whitespace-sensitive-formatting
+
+Valid options:
+
+- `"css"` - Respect the default value of CSS `display` property.
+- `"strict"` - Whitespaces are considered sensitive.
+- `"ignore"` - Whitespaces are considered insensitive.
+
+| Default | CLI Override                                                             | API Override                                                            |
+| ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| `"css"` | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |
+
+## End of Line
+
+_available in 1.15.0+_
+
+For historical reasons, there exist two commonly used flavors of line endings in text files. That is `\n` (or `LF` for _Line Feed_) and `\r\n` (or `CRLF` for _Carriage Return + Line Feed_).
+The former is common on Linux and macOS, while the latter is prevalent on Windows.
+Some details explaining why it is so [can be found on Wikipedia](https://en.wikipedia.org/wiki/Newline).
+
+By default, Prettier preserves a flavor of line endings a given file has already used.
+It also converts mixed line endings within one file to what it finds at the end of the first line.
+
+When people collaborate on a project from different operating systems, it becomes easy to end up with mixed line endings in the central git repository.
+It is also possible for Windows users to accidentally change line endings in an already committed file from `LF` to `CRLF`.
+Doing so produces a large `git diff`, and if it get unnoticed during code review, all line-by-line history for the file (`git blame`) gets lost.
+
+If you want to make sure that your git repository only contains Linux-style line endings in files covered by Prettier:
+
+1. Set `endOfLine` option to `lf`
+1. Configure [a pre-commit hook](./precommit.md) that will run Prettier
+1. Configure Prettier to run in your CI pipeline (e.g. using [`prettier-check` npm package](https://www.npmjs.com/package/prettier-check))
+1. Ask Windows users to run `git config core.autocrlf false` before working on your repo so that git did not convert `LF` to `CRLF` on checkout.
+   Alternatively, you can add `* text=auto eol=lf` to the repo's `.gitattributes` file to achieve this.
+
+All modern text editors in all operating systems are able to correctly display line endings when `\n` (`LF`) is used.
+However, old versions of Notepad for Windows will visually squash such lines into one.
+
+Valid options:
+
+- `"auto"` - Maintain existing line endings
+  (mixed values within one file are normalised by looking at what's used after the first line)
+- `"lf"` – Line Feed only (`\n`), common on Linux and macOS as well as inside git repos
+- `"crlf"` - Carriage Return + Line Feed characters (`\r\n`), common on Windows
+- `"cr"` - Carriage Return character only (`\r`), used very rarely
+
+| Default  | CLI Override                                                | API Override                                               |
+| -------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
+| `"auto"` | <code>--end-of-line <auto&#124;lf&#124;crlf&#124;cr></code> | <code>endOfLine: "<auto&#124;lf&#124;crlf&#124;cr>"</code> |

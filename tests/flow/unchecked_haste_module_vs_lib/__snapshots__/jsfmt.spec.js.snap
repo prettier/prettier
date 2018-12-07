@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`buffer.js - flow-verify 1`] = `
+exports[`buffer.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule buffer
  *
@@ -13,7 +18,8 @@ exports[`buffer.js - flow-verify 1`] = `
  */
 
 export var INSPECT_MAX_BYTES = 0;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule buffer
  *
@@ -27,9 +33,15 @@ export var INSPECT_MAX_BYTES = 0;
 
 export var INSPECT_MAX_BYTES = 0;
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * Copyright 2004-present Facebook. All Rights Reserved.
  * @flow
@@ -43,7 +55,8 @@ exports[`test.js - flow-verify 1`] = `
  */
 var buffer = require("buffer");
 var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * Copyright 2004-present Facebook. All Rights Reserved.
  * @flow
@@ -58,4 +71,5 @@ var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
 var buffer = require("buffer");
 var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
 
+================================================================================
 `;

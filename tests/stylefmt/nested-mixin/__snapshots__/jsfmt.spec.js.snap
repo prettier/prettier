@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nested-mixin.css - css-verify 1`] = `
+exports[`nested-mixin.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @mixin test() {
   $values: blue red;
   @each $val in $values {
@@ -13,7 +18,8 @@ exports[`nested-mixin.css - css-verify 1`] = `
     color: $i;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @mixin test() {
   $values: blue red;
   @each $val in $values {
@@ -27,4 +33,5 @@ exports[`nested-mixin.css - css-verify 1`] = `
   }
 }
 
+================================================================================
 `;

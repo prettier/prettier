@@ -1,13 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`P.js - flow-verify 1`] = `
+exports[`P.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 module.exports = require('M');
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 module.exports = require("M");
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var M = require('M');
 var N = require('N');
 N.x = M(N.x);
@@ -15,7 +27,8 @@ var P = require('./P'); // implementation of P redirects to module M
 N.y = P(N.y);
 var Q = require('Q'); // declaration of Q redirects to module M
 N.z = Q(N.z);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var M = require("M");
 var N = require("N");
 N.x = M(N.x);
@@ -24,4 +37,5 @@ N.y = P(N.y);
 var Q = require("Q"); // declaration of Q redirects to module M
 N.z = Q(N.z);
 
+================================================================================
 `;
