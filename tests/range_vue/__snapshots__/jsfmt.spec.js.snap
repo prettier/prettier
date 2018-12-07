@@ -7,7 +7,7 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <template>
-  <p>Templates are not formatted yet ...
+  <p>Templates are formatted as well...
     </p>
 </template>
 
@@ -21,7 +21,7 @@ let Prettier        = format => { your.js('though') }
 
 =====================================output=====================================
 <template>
-  <p>Templates are not formatted yet ...</p>
+  <p>Templates are formatted as well...</p>
 </template>
 
 <script>

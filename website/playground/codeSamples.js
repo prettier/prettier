@@ -218,7 +218,7 @@ export default function(parser) {
     case "vue":
       return [
         "<template>",
-        "  <p>Templates are not formatted yet ...",
+        "  <p>Templates are formatted as well...",
         "    </p>",
         "</template>",
         "",
