@@ -1,6 +1,7 @@
 steps:
   - task: PublishTestResults@2
     inputs:
-      testResultsFiles: "junit.xml"
+      testResultsFormat: JUnit
+      testResultsFiles: $(System.DefaultWorkingDirectory)/junit.xml
     displayName: "Publish test results"
     condition: and(variables.ENABLE_TEST_RESULTS, succeededOrFailed())
