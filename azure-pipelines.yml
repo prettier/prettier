@@ -6,7 +6,6 @@ variables:
   AST_COMPARE: true
   ENABLE_TEST_RESULTS: true
   ENABLE_CODE_COVERAGE: "" # only enable coverage on the fastest job
-  NODE_ENV: development
 
 jobs:
   - job: Dev_Lint
@@ -71,8 +70,6 @@ jobs:
     displayName: Prod Test on macOS
     pool:
       vmImage: macos-10.13
-    variables:
-      NODE_ENV: production
     strategy:
       matrix:
         Node_v4:
