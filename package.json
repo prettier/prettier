@@ -80,20 +80,6 @@
     "@babel/preset-env": "7.1.5",
     "babel-loader": "8.0.4",
     "benchmark": "2.1.4",
-<<<<<<< HEAD
-    "builtin-modules": "2.0.0",
-    "codecov": "2.2.0",
-    "cross-env": "5.0.5",
-    "eslint": "4.18.2",
-    "eslint-config-prettier": "2.9.0",
-    "eslint-friendly-formatter": "3.0.0",
-    "eslint-plugin-import": "2.9.0",
-    "eslint-plugin-prettier": "2.6.0",
-    "eslint-plugin-react": "7.7.0",
-    "execa": "0.10.0",
-    "jest": "23.3.0",
-    "jest-junit": "5.0.0",
-=======
     "builtin-modules": "3.0.0",
     "codecov": "3.1.0",
     "cross-env": "5.2.0",
@@ -107,7 +93,6 @@
     "execa": "1.0.0",
     "jest": "23.6.0",
     "jest-junit": "5.2.0",
->>>>>>> First commit
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
     "jest-watch-typeahead": "0.1.0",
@@ -131,7 +116,11 @@
     "tempy": "0.2.1",
     "webpack": "3.12.0"
   },
+<<<<<<< HEAD
   "resolutions": {
+=======
+ "resolutions": {
+>>>>>>> commit
     "@babel/code-frame": "7.0.0-beta.46"
   },
   "scripts": {
@@ -149,5 +138,9 @@
     "build": "node --max-old-space-size=2048 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js"
+<<<<<<< HEAD
   }
 }
+=======
+
+>>>>>>> commit
