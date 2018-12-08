@@ -3801,8 +3801,7 @@ function shouldGroupFirstArg(args) {
     secondArg.type !== "FunctionExpression" &&
     secondArg.type !== "ArrowFunctionExpression" &&
     secondArg.type !== "ConditionalExpression" &&
-    (!couldGroupArg(secondArg) ||
-      (secondArg.type === "ArrayExpression" && !secondArg.comments))
+    !couldGroupArg(secondArg)
   );
 }
 
@@ -3866,6 +3865,23 @@ function printArgumentsList(path, options, print) {
     return concat([
       "(",
       comments.printDanglingComments(path, options, /* sameIndent */ true),
+      ")"
+    ]);
+  }
+
+  // useEffect(() => { ... }, [foo, bar, baz])
+  if (
+    args.length === 2 &&
+    args[0].type === "ArrowFunctionExpression" &&
+    args[0].body.type === "BlockStatement" &&
+    args[1].type === "ArrayExpression" &&
+    !args.find(arg => arg.leadingComments || arg.trailingComments)
+  ) {
+    return concat([
+      "(",
+      path.call(print, "arguments", 0),
+      ", ",
+      path.call(print, "arguments", 1),
       ")"
     ]);
   }
