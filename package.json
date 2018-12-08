@@ -81,7 +81,7 @@
     "babel-loader": "8.0.4",
     "benchmark": "2.1.4",
     "builtin-modules": "2.0.0",
-    "codecov": "2.2.0",
+    "codecov": "ikatyang/codecov-node#feat/azure-pipelines",
     "cross-env": "5.0.5",
     "eslint": "4.18.2",
     "eslint-config-prettier": "2.9.0",

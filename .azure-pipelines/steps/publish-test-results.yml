@@ -1,0 +1,6 @@
+steps:
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFiles: "junit.xml"
+    displayName: "Publish test results"
+    condition: and(variables.ENABLE_TEST_RESULTS, succeededOrFailed())
