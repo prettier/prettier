@@ -1,145 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`usingCrlf.js 1`] = `
-====================================options=====================================
-parsers: ["babylon"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-function f() {
-  console.log("testing line endings");
-}
-
-=====================================output=====================================
-function f() {
-  console.log("testing line endings");
-}
-
-================================================================================
-`;
-
-exports[`usingCrlf.js 2`] = `
+exports[`example.js 1`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["babylon"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function f() {
-  console.log("testing line endings");
-}
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 
 =====================================output=====================================
-function f() {/*CR*/  console.log("testing line endings");/*CR*/}/*CR*/
+function f() {<CR>
+  console.log("testing line endings");<CR>
+}<CR>
+
 ================================================================================
 `;
 
-exports[`usingCrlf.js 3`] = `
+exports[`example.js 2`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["babylon"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function f() {
-  console.log("testing line endings");
-}
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 
 =====================================output=====================================
-function f() {/*CR*/
-  console.log("testing line endings");/*CR*/
-}/*CR*/
+function f() {<CRLF>
+  console.log("testing line endings");<CRLF>
+}<CRLF>
 
 ================================================================================
 `;
 
-exports[`usingCrlf.js 4`] = `
+exports[`example.js 3`] = `
 ====================================options=====================================
 endOfLine: "lf"
 parsers: ["babylon"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function f() {
-  console.log("testing line endings");
-}
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 
 =====================================output=====================================
-function f() {
-  console.log("testing line endings");
-}
-
-================================================================================
-`;
-
-exports[`usingLf.js 1`] = `
-====================================options=====================================
-parsers: ["babylon"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-function f() {
-  console.log("testing line endings");
-}
-
-=====================================output=====================================
-function f() {
-  console.log("testing line endings");
-}
-
-================================================================================
-`;
-
-exports[`usingLf.js 2`] = `
-====================================options=====================================
-endOfLine: "cr"
-parsers: ["babylon"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-function f() {
-  console.log("testing line endings");
-}
-
-=====================================output=====================================
-function f() {/*CR*/  console.log("testing line endings");/*CR*/}/*CR*/
-================================================================================
-`;
-
-exports[`usingLf.js 3`] = `
-====================================options=====================================
-endOfLine: "crlf"
-parsers: ["babylon"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-function f() {
-  console.log("testing line endings");
-}
-
-=====================================output=====================================
-function f() {/*CR*/
-  console.log("testing line endings");/*CR*/
-}/*CR*/
-
-================================================================================
-`;
-
-exports[`usingLf.js 4`] = `
-====================================options=====================================
-endOfLine: "lf"
-parsers: ["babylon"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-function f() {
-  console.log("testing line endings");
-}
-
-=====================================output=====================================
-function f() {
-  console.log("testing line endings");
-}
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 
 ================================================================================
 `;

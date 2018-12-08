@@ -1,157 +1,163 @@
 "use strict";
 
 const fs = require("fs");
-const extname = require("path").extname;
+const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
 
 const AST_COMPARE = process.env["AST_COMPARE"];
 const TEST_STANDALONE = process.env["TEST_STANDALONE"];
+const TEST_CRLF = process.env["TEST_CRLF"];
+
+const CURSOR_PLACEHOLDER = "<|>";
+const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
+const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 
 const prettier = !TEST_STANDALONE
   ? require("prettier/local")
   : require("prettier/standalone");
 
-function run_spec(dirname, parsers, options) {
-  /* instabul ignore if */
+global.run_spec = (dirname, parsers, options) => {
+  // istanbul ignore next
   if (!parsers || !parsers.length) {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
-  fs.readdirSync(dirname).forEach(filename => {
-    // We need to have a skipped test with the same name of the snapshots,
-    // so Jest doesn't mark them as obsolete.
-    if (TEST_STANDALONE && parsers.some(skipStandalone)) {
-      parsers.forEach(parser =>
-        test.skip(`${filename} - ${parser}-verify`, () => {})
-      );
+  fs.readdirSync(dirname).forEach(basename => {
+    const filename = path.join(dirname, basename);
+
+    if (
+      path.extname(basename) === ".snap" ||
+      !fs.lstatSync(filename).isFile() ||
+      basename[0] === "." ||
+      basename === "jsfmt.spec.js"
+    ) {
       return;
     }
 
-    const path = dirname + "/" + filename;
-    if (
-      extname(filename) !== ".snap" &&
-      fs.lstatSync(path).isFile() &&
-      filename[0] !== "." &&
-      filename !== "jsfmt.spec.js"
-    ) {
-      let rangeStart;
-      let rangeEnd;
-      let cursorOffset;
-      const source = read(path)
-        .replace(/\r\n/g, "\n")
-        .replace("<<<PRETTIER_RANGE_START>>>", (match, offset) => {
-          rangeStart = offset;
-          return "";
-        })
-        .replace("<<<PRETTIER_RANGE_END>>>", (match, offset) => {
-          rangeEnd = offset;
-          return "";
-        });
+    let rangeStart;
+    let rangeEnd;
+    let cursorOffset;
 
-      const input = source.replace("<|>", (match, offset) => {
-        cursorOffset = offset;
+    const text = fs.readFileSync(filename, "utf8");
+
+    const source = (TEST_CRLF ? text.replace(/\n/g, "\r\n") : text)
+      .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
+        rangeStart = offset;
+        return "";
+      })
+      .replace(RANGE_END_PLACEHOLDER, (match, offset) => {
+        rangeEnd = offset;
         return "";
       });
 
-      const baseOptions = Object.assign(mergeDefaultOptions(options || {}), {
-        rangeStart,
-        rangeEnd,
-        cursorOffset
-      });
-      const mainOptions = Object.assign({}, baseOptions, {
-        parser: parsers[0]
-      });
-      const output = prettyprint(input, path, mainOptions);
-      test(filename, () => {
-        expect(
-          raw(
-            createSnapshot(
-              source,
-              output,
-              Object.assign({}, baseOptions, { parsers })
-            )
+    const input = source.replace(CURSOR_PLACEHOLDER, (match, offset) => {
+      cursorOffset = offset;
+      return "";
+    });
+
+    const baseOptions = Object.assign({ printWidth: 80 }, options, {
+      rangeStart,
+      rangeEnd,
+      cursorOffset
+    });
+    const mainOptions = Object.assign({}, baseOptions, {
+      parser: parsers[0]
+    });
+
+    const hasEndOfLine = "endOfLine" in mainOptions;
+
+    const output = format(input, filename, mainOptions);
+    const visualizedOutput = visualizeEndOfLine(output);
+
+    test(basename, () => {
+      expect(visualizedOutput).toEqual(
+        visualizeEndOfLine(consistentEndOfLine(output))
+      );
+      expect(
+        raw(
+          createSnapshot(
+            hasEndOfLine
+              ? visualizeEndOfLine(
+                  text
+                    .replace(RANGE_START_PLACEHOLDER, "")
+                    .replace(RANGE_END_PLACEHOLDER, "")
+                )
+              : source,
+            hasEndOfLine ? visualizedOutput : output,
+            Object.assign({}, baseOptions, { parsers })
           )
-        ).toMatchSnapshot();
+        )
+      ).toMatchSnapshot();
+    });
+
+    for (const parser of parsers.slice(1)) {
+      const verifyOptions = Object.assign({}, baseOptions, { parser });
+      test(`${basename} - ${parser}-verify`, () => {
+        const verifyOutput = format(input, filename, verifyOptions);
+        expect(visualizedOutput).toEqual(visualizeEndOfLine(verifyOutput));
       });
-
-      parsers.slice(1).forEach(parser => {
-        const verifyOptions = Object.assign({}, mainOptions, { parser });
-        test(`${filename} - ${parser}-verify`, () => {
-          const verifyOutput = prettyprint(input, path, verifyOptions);
-          expect(output).toEqual(verifyOutput);
-        });
-      });
-
-      if (AST_COMPARE) {
-        test(`${path} parse`, () => {
-          const compareOptions = Object.assign({}, mainOptions);
-          delete compareOptions.cursorOffset;
-          const astMassaged = parse(input, compareOptions);
-          let ppastMassaged = undefined;
-
-          expect(() => {
-            ppastMassaged = parse(
-              prettyprint(input, path, compareOptions)
-                // \r has been replaced with /*CR*/ to test presence of CR in jest snapshots;
-                // reverting this to get the right AST
-                .replace(/\/\*CR\*\//g, "\r"),
-              compareOptions
-            );
-          }).not.toThrow();
-
-          expect(ppastMassaged).toBeDefined();
-          if (!astMassaged.errors || astMassaged.errors.length === 0) {
-            expect(astMassaged).toEqual(ppastMassaged);
-          }
-        });
-      }
     }
+
+    if (AST_COMPARE) {
+      test(`${filename} parse`, () => {
+        const parseOptions = Object.assign({}, mainOptions);
+        delete parseOptions.cursorOffset;
+
+        const originalAst = parse(input, parseOptions);
+        let formattedAst;
+
+        expect(() => {
+          formattedAst = parse(
+            output.replace(CURSOR_PLACEHOLDER, ""),
+            parseOptions
+          );
+        }).not.toThrow();
+        expect(originalAst).toEqual(formattedAst);
+      });
+    }
+  });
+};
+
+function parse(source, options) {
+  return prettier.__debug.parse(source, options, /* massage */ true).ast;
+}
+
+function format(source, filename, options) {
+  const result = prettier.formatWithCursor(
+    source,
+    Object.assign({ filepath: filename }, options)
+  );
+
+  return options.cursorOffset >= 0
+    ? result.formatted.slice(0, result.cursorOffset) +
+        CURSOR_PLACEHOLDER +
+        result.formatted.slice(result.cursorOffset)
+    : result.formatted;
+}
+
+function consistentEndOfLine(text) {
+  let firstEndOfLine;
+  return text.replace(/\r\n?|\n/g, endOfLine => {
+    if (!firstEndOfLine) {
+      firstEndOfLine = endOfLine;
+    }
+    return firstEndOfLine;
   });
 }
 
-global.run_spec = run_spec;
-
-function parse(string, opts) {
-  return prettier.__debug.parse(string, opts, /* massage */ true).ast;
-}
-
-function prettyprint(src, filename, options) {
-  const result = prettier.formatWithCursor(
-    src,
-    Object.assign(
-      {
-        filepath: filename
-      },
-      options
-    )
-  );
-  if (options.cursorOffset >= 0) {
-    result.formatted =
-      result.formatted.slice(0, result.cursorOffset) +
-      "<|>" +
-      result.formatted.slice(result.cursorOffset);
-  }
-
-  // \r is trimmed from jest snapshots by default;
-  // manually replacing this character with /*CR*/ to test its true presence
-  return result.formatted.replace(/\r/g, "/*CR*/");
-}
-
-function read(filename) {
-  return fs.readFileSync(filename, "utf8");
-}
-
-function skipStandalone(/* parser */) {
-  return false;
-}
-
-function mergeDefaultOptions(parserConfig) {
-  return Object.assign(
-    {
-      printWidth: 80
-    },
-    parserConfig
-  );
+function visualizeEndOfLine(text) {
+  return text.replace(/\r\n?|\n/g, endOfLine => {
+    switch (endOfLine) {
+      case "\n":
+        return "<LF>\n";
+      case "\r\n":
+        return "<CRLF>\n";
+      case "\r":
+        return "<CR>\n";
+      default:
+        throw new Error(`Unexpected end of line ${JSON.stringify(endOfLine)}`);
+    }
+  });
 }
 
 function createSnapshot(input, output, options) {

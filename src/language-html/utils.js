@@ -1,11 +1,6 @@
 "use strict";
 
 const {
-  builders: { concat },
-  utils: { mapDoc }
-} = require("../doc");
-
-const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
@@ -260,20 +255,6 @@ function isDanglingSpaceSensitiveNode(node) {
   return (
     isDanglingSpaceSensitiveCssDisplay(node.cssDisplay) &&
     !isScriptLikeTag(node)
-  );
-}
-
-function replaceNewlines(text, replacement) {
-  return text
-    .split(/(\n)/g)
-    .map((data, index) => (index % 2 === 1 ? replacement : data));
-}
-
-function replaceDocNewlines(doc, replacement) {
-  return mapDoc(doc, currentDoc =>
-    typeof currentDoc === "string" && currentDoc.includes("\n")
-      ? concat(replaceNewlines(currentDoc, replacement))
-      : currentDoc
   );
 }
 
@@ -645,8 +626,6 @@ module.exports = {
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,
-  replaceDocNewlines,
-  replaceNewlines,
   shouldNotPrintClosingTag,
   shouldPreserveContent,
   unescapeQuoteEntities

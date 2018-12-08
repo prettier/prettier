@@ -1,8 +1,6 @@
 "use strict";
 
-function getLast(array) {
-  return array[array.length - 1];
-}
+const { getLast } = require("../common/util");
 
 function getAncestorCount(path, filter) {
   let counter = 0;

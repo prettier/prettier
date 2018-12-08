@@ -27,6 +27,7 @@ const {
   splitText,
   punctuationPattern
 } = require("./utils");
+const { replaceEndOfLineWith } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
 
@@ -209,7 +210,10 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(
           alignment,
-          concat([alignment, replaceNewlinesWith(node.value, hardline)])
+          concat([
+            alignment,
+            concat(replaceEndOfLineWith(node.value, hardline))
+          ])
         );
       }
 
@@ -225,9 +229,11 @@ function genericPrint(path, options, print) {
         style,
         node.lang || "",
         hardline,
-        replaceNewlinesWith(
-          getFencedCodeBlockValue(node, options.originalText),
-          hardline
+        concat(
+          replaceEndOfLineWith(
+            getFencedCodeBlockValue(node, options.originalText),
+            hardline
+          )
         ),
         hardline,
         style
@@ -247,9 +253,11 @@ function genericPrint(path, options, print) {
           ? node.value.trimRight()
           : node.value;
       const isHtmlComment = /^<!--[\s\S]*-->$/.test(value);
-      return replaceNewlinesWith(
-        value,
-        isHtmlComment ? hardline : markAsRoot(literalline)
+      return concat(
+        replaceEndOfLineWith(
+          value,
+          isHtmlComment ? hardline : markAsRoot(literalline)
+        )
       );
     }
     case "list": {
@@ -394,7 +402,7 @@ function genericPrint(path, options, print) {
         ? concat(["  ", markAsRoot(literalline)])
         : concat(["\\", hardline]);
     case "liquidNode":
-      return replaceNewlinesWith(node.value, hardline);
+      return concat(replaceEndOfLineWith(node.value, hardline));
     // MDX
     case "importExport":
     case "jsx":
@@ -404,7 +412,10 @@ function genericPrint(path, options, print) {
         "$$",
         hardline,
         node.value
-          ? concat([replaceNewlinesWith(node.value, hardline), hardline])
+          ? concat([
+              concat(replaceEndOfLineWith(node.value, hardline)),
+              hardline
+            ])
           : "",
         "$$"
       ]);
@@ -465,10 +476,6 @@ function getNthListSiblingIndex(node, parentNode) {
     parentNode,
     siblingNode => siblingNode.ordered === node.ordered
   );
-}
-
-function replaceNewlinesWith(str, doc) {
-  return join(doc, str.replace(/\r\n?/g, "\n").split("\n"));
 }
 
 function getNthSiblingIndex(node, parentNode, condition) {

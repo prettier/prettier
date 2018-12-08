@@ -34,12 +34,11 @@ const {
   isTextLikeNode,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
-  replaceDocNewlines,
-  replaceNewlines,
   shouldNotPrintClosingTag,
   shouldPreserveContent,
   unescapeQuoteEntities
 } = require("./utils");
+const { replaceEndOfLineWith } = require("../common/util");
 const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
@@ -147,10 +146,7 @@ function embed(path, print, textToDoc, options) {
           hardline,
           node.value.trim().length === 0
             ? ""
-            : replaceDocNewlines(
-                textToDoc(node.value, { parser: "yaml" }),
-                literalline
-              ),
+            : textToDoc(node.value, { parser: "yaml" }),
           "---"
         ])
       );
@@ -287,7 +283,7 @@ function genericPrint(path, options, print) {
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
         return concat([
-          concat(replaceNewlines(value, literalline)),
+          concat(replaceEndOfLineWith(value, literalline)),
           hasTrailingNewline ? hardline : ""
         ]);
       }
@@ -316,7 +312,7 @@ function genericPrint(path, options, print) {
       return concat([
         printOpeningTagPrefix(node, options),
         concat(
-          replaceNewlines(
+          replaceEndOfLineWith(
             options.originalText.slice(
               options.locStart(node),
               options.locEnd(node)
@@ -341,7 +337,7 @@ function genericPrint(path, options, print) {
           "=",
           quote,
           concat(
-            replaceNewlines(
+            replaceEndOfLineWith(
               quote === '"'
                 ? value.replace(/"/g, "&quot;")
                 : value.replace(/'/g, "&apos;"),
@@ -354,7 +350,7 @@ function genericPrint(path, options, print) {
     }
     case "yaml":
     case "toml":
-      return node.raw;
+      return concat(replaceEndOfLineWith(node.raw, literalline));
     default:
       throw new Error(`Unexpected node type ${node.type}`);
   }
@@ -473,7 +469,7 @@ function printChildren(path, options, print) {
       return concat(
         [].concat(
           printOpeningTagPrefix(child, options),
-          replaceNewlines(
+          replaceEndOfLineWith(
             options.originalText.slice(
               options.locStart(child) +
                 (child.prev &&
@@ -497,7 +493,7 @@ function printChildren(path, options, print) {
         [].concat(
           printOpeningTagPrefix(child, options),
           group(printOpeningTag(childPath, options, print)),
-          replaceNewlines(
+          replaceEndOfLineWith(
             options.originalText.slice(
               child.startSourceSpan.end.offset +
                 (child.firstChild &&
@@ -620,7 +616,7 @@ function printOpeningTag(path, options, print) {
                     const attr = attrPath.getValue();
                     return hasPrettierIgnoreAttribute(attr)
                       ? concat(
-                          replaceNewlines(
+                          replaceEndOfLineWith(
                             options.originalText.slice(
                               options.locStart(attr),
                               options.locEnd(attr)
@@ -894,8 +890,8 @@ function printClosingTagEndMarker(node, options) {
 function getTextValueParts(node, value = node.value) {
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
-      ? replaceNewlines(value, literalline)
-      : replaceNewlines(
+      ? replaceEndOfLineWith(value, literalline)
+      : replaceEndOfLineWith(
           dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
           hardline
         )
@@ -1037,7 +1033,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       const parts = [];
       value.split(interpolationRegex).forEach((part, index) => {
         if (index % 2 === 0) {
-          parts.push(concat(replaceNewlines(part, literalline)));
+          parts.push(concat(replaceEndOfLineWith(part, literalline)));
         } else {
           try {
             parts.push(
@@ -1056,7 +1052,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
               )
             );
           } catch (e) {
-            parts.push("{{", concat(replaceNewlines(part, literalline)), "}}");
+            parts.push(
+              "{{",
+              concat(replaceEndOfLineWith(part, literalline)),
+              "}}"
+            );
           }
         }
       });

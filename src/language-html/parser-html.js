@@ -265,7 +265,6 @@ function createParser({
   allowHtmComponentClosingTags = false
 } = {}) {
   return {
-    preprocess: text => text.replace(/\r\n?/g, "\n"),
     parse: (text, parsers, options) =>
       _parse(text, options, {
         recognizeSelfClosing,

@@ -38,6 +38,7 @@ const {
   markAsRoot,
   softline
 } = docBuilders;
+const { replaceEndOfLineWith } = require("../common/util");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -104,9 +105,14 @@ function genericPrint(path, options, print) {
         ])
       : "",
     hasPrettierIgnore(path)
-      ? options.originalText.slice(
-          node.position.start.offset,
-          node.position.end.offset
+      ? concat(
+          replaceEndOfLineWith(
+            options.originalText.slice(
+              node.position.start.offset,
+              node.position.end.offset
+            ),
+            literalline
+          )
         )
       : group(_print(node, parentNode, path, options, print)),
     hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])

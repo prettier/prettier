@@ -1,6 +1,6 @@
 trigger:
   - master
-  - releases-*
+  - release-*
 
 variables:
   AST_COMPARE: true
@@ -31,6 +31,7 @@ jobs:
       vmImage: vs2017-win2016
     variables:
       node_version: 10
+      TEST_CRLF: true
     steps:
       - template: .azure-pipelines/dev.yml
 

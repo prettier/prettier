@@ -148,7 +148,7 @@ function getFencedCodeBlockValue(node, originalText) {
   const leadingSpaceCount = text.match(/^\s*/)[0].length;
   const replaceRegex = new RegExp(`^\\s{0,${leadingSpaceCount}}`);
 
-  const lineContents = text.replace(/\r\n?/g, "\n").split("\n");
+  const lineContents = text.split("\n");
 
   const markerStyle = text[leadingSpaceCount]; // ` or ~
   const marker = text
