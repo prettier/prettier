@@ -23,7 +23,9 @@ module.exports = function() {
             "process.env.PRETTIER_TARGET_UNIVERSAL"
         ) {
           if (state.opts.target === "universal") {
-            path.replaceWithMultiple(node.consequent ? node.consequent.body : []);
+            path.replaceWithMultiple(
+              node.consequent ? node.consequent.body : []
+            );
           } else {
             path.replaceWithMultiple(node.consequent.body);
           }
