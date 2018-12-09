@@ -17,6 +17,7 @@ env:
     - JOB=test AST_COMPARE=1
 
 matrix:
+  fast_finish: true
   include:
     - node_js: "node"
       env: JOB=lint
