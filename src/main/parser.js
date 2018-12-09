@@ -42,7 +42,7 @@ function resolveParser(opts, parsers) {
     if (parsers.hasOwnProperty(opts.parser)) {
       return parsers[opts.parser];
     }
-    if (!process.env.PRETTIER_TARGET_UNIVERSAL) {
+    if (process.env.PRETTIER_TARGET !== "universal") {
       try {
         return {
           parse: eval("require")(path.resolve(process.cwd(), opts.parser)),

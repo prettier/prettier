@@ -41,12 +41,6 @@ function getBabelConfig(bundle) {
     plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto"
   };
-  config.plugins = config.plugins.concat([
-    [
-      require.resolve("./babel-plugins/strip-target-env"),
-      { target: bundle.target }
-    ]
-  ]);
   if (bundle.type === "core") {
     config.plugins.push(
       require.resolve("./babel-plugins/transform-custom-require")
@@ -101,6 +95,7 @@ function getRollupConfig(bundle) {
   };
 
   const replaceStrings = {
+    "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
     "process.env.NODE_ENV": JSON.stringify("production")
   };
   if (bundle.target === "universal") {
