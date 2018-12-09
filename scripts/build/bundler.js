@@ -41,6 +41,12 @@ function getBabelConfig(bundle) {
     plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto"
   };
+  config.plugins = config.plugins.concat([
+    [
+      require.resolve("./babel-plugins/strip-target-env"),
+      { target: bundle.target }
+    ]
+  ]);
   if (bundle.type === "core") {
     config.plugins.push(
       require.resolve("./babel-plugins/transform-custom-require")
