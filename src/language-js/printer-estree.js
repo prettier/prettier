@@ -3873,6 +3873,23 @@ function printArgumentsList(path, options, print) {
     ]);
   }
 
+  // useEffect(() => { ... }, [foo, bar, baz])
+  if (
+    args.length === 2 &&
+    args[0].type === "ArrowFunctionExpression" &&
+    args[0].body.type === "BlockStatement" &&
+    args[1].type === "ArrayExpression" &&
+    !args.find(arg => arg.leadingComments || arg.trailingComments)
+  ) {
+    return concat([
+      "(",
+      path.call(print, "arguments", 0),
+      ", ",
+      path.call(print, "arguments", 1),
+      ")"
+    ]);
+  }
+
   let anyArgEmptyLine = false;
   let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
