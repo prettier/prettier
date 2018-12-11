@@ -273,7 +273,12 @@ function forceBreakContent(node) {
     (node.type === "element" &&
       node.children.length !== 0 &&
       (["body", "template", "script", "style"].indexOf(node.name) !== -1 ||
-        node.children.some(child => hasNonTextChild(child))))
+        node.children.some(child => hasNonTextChild(child)))) ||
+    (node.firstChild &&
+      node.firstChild === node.lastChild &&
+      (hasLeadingLineBreak(node.firstChild) &&
+        (!node.lastChild.isTrailingSpaceSensitive ||
+          hasTrailingLineBreak(node.lastChild))))
   );
 }
 
@@ -291,7 +296,7 @@ function preferHardlineAsLeadingSpaces(node) {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
     (node.prev && preferHardlineAsTrailingSpaces(node.prev)) ||
-    isCustomElementWithSurroundingLineBreak(node)
+    hasSurroundingLineBreak(node)
   );
 }
 
@@ -299,19 +304,7 @@ function preferHardlineAsTrailingSpaces(node) {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
     (node.type === "element" && node.fullName === "br") ||
-    isCustomElementWithSurroundingLineBreak(node)
-  );
-}
-
-function isCustomElementWithSurroundingLineBreak(node) {
-  return isCustomElement(node) && hasSurroundingLineBreak(node);
-}
-
-function isCustomElement(node) {
-  return (
-    node.type === "element" &&
-    !node.namespace &&
-    (node.name.includes("-") || /[A-Z]/.test(node.name[0]))
+    hasSurroundingLineBreak(node)
   );
 }
 
