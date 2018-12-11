@@ -18,7 +18,7 @@ prettier.format("foo ( );", { semi: false, parser: "babylon" });
 
 ## `prettier.check(source [, options])`
 
-`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`. This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
+`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`. This is similar to the `--check` or `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
 
 ## `prettier.formatWithCursor(source [, options])`
 
