@@ -222,7 +222,7 @@ describe("NodeRegistry", () => {
 });
 ```
 
-Prettier special cases common test framework functions such as `describe`, `it` and `test`.
+Prettier special cases work with common test framework functions such as `describe`, `it` and `test`.
 
 ### JSX
 
