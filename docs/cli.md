@@ -45,7 +45,7 @@ src/fileB.js
 ```
 
 The command will return exit code 1 in the second case, which is helpful inside the CI pipelines.
-Human-friendly status messages make help project contributors react on possible problems.
+Human-friendly status messages help project contributors react on possible problems.
 To minimise the number of times `prettier --check` finds unformatted files, you may be interested in configuring a [pre-commit hook](precommit.md) in your repo.
 Applying this practice will minimise the number of times the CI fails because of code formatting problems.
 
