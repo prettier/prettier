@@ -95,6 +95,7 @@ function getRollupConfig(bundle) {
   };
 
   const replaceStrings = {
+    "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
     "process.env.NODE_ENV": JSON.stringify("production")
   };
   if (bundle.target === "universal") {

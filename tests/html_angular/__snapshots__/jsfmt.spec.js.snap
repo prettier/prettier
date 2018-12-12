@@ -3458,7 +3458,10 @@ can be found in the LICENSE file at http://angular.io/license
 
 <p>My current hero is {{ currentHero.name }}</p>
 
-<h3>{{ title }} <img src="{{ heroImageUrl }}" style="height:30px" /></h3>
+<h3>
+  {{ title }}
+  <img src="{{ heroImageUrl }}" style="height:30px" />
+</h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
 <p>The sum of 1 + 1 is {{ 1 + 1 }}</p>
@@ -3476,7 +3479,8 @@ can be found in the LICENSE file at http://angular.io/license
   [hidden]="isUnchanged")
 </p>
 <div class="context">
-  {{ title }} <span [hidden]="isUnchanged">changed</span>
+  {{ title }}
+  <span [hidden]="isUnchanged">changed</span>
 </div>
 
 <p>Template input variable expression context (let hero)</p>
@@ -3487,7 +3491,8 @@ can be found in the LICENSE file at http://angular.io/license
 
 <p>Template reference variable expression context (#heroInput)</p>
 <div (keyup)="(0)" class="context">
-  Type something: <input #heroInput /> {{ heroInput.value }}
+  Type something:
+  <input #heroInput /> {{ heroInput.value }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -3496,10 +3501,14 @@ can be found in the LICENSE file at http://angular.io/license
 <h2 id="statement-context">Statement context</h2>
 
 <p>Component statement context ( (click)="onSave() )</p>
-<div class="context"><button (click)="deleteHero()">Delete hero</button></div>
+<div class="context">
+  <button (click)="deleteHero()">Delete hero</button>
+</div>
 
 <p>Template $event statement context</p>
-<div class="context"><button (click)="onSave($event)">Save</button></div>
+<div class="context">
+  <button (click)="onSave($event)">Save</button>
+</div>
 
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
@@ -3523,7 +3532,9 @@ can be found in the LICENSE file at http://angular.io/license
 <!--<img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">-->
 <!-- Public Domain terms of use: http://www.wpclipart.com/terms.html -->
 <div class="special">Mental Model</div>
-<img src="assets/images/hero.png" /> <button disabled>Save</button> <br /><br />
+<img src="assets/images/hero.png" />
+<button disabled>Save</button>
+<br /><br />
 
 <div>
   <!-- Normal HTML -->
@@ -3549,17 +3560,25 @@ can be found in the LICENSE file at http://angular.io/license
 <button (click)="onSave()">Save</button>
 <app-hero-detail (deleteRequest)="deleteHero()"></app-hero-detail>
 <div (myClick)="clicked = $event" clickable>click me</div>
-{{ clicked }} <br /><br />
-
-<div>Hero Name: <input [(ngModel)]="name" /> {{ name }}</div>
+{{ clicked }}
 <br /><br />
 
-<button [attr.aria-label]="help">help</button> <br /><br />
+<div>
+  Hero Name:
+  <input [(ngModel)]="name" />
+  {{ name }}
+</div>
+<br /><br />
+
+<button [attr.aria-label]="help">help</button>
+<br /><br />
 
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">
+  button
+</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -3571,7 +3590,8 @@ can be found in the LICENSE file at http://angular.io/license
 
 <br /><br />
 
-<img [src]="iconUrl" /> <img bind-src="heroImageUrl" />
+<img [src]="iconUrl" />
+<img bind-src="heroImageUrl" />
 <img [attr.src]="villainImageUrl" />
 
 <a class="to-toc" href="#toc">top</a>
@@ -3580,8 +3600,10 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="buttons">Buttons</h2>
 
-<button>Enabled (but does nothing)</button> <button disabled>Disabled</button>
-<button disabled="false">Still disabled</button> <br /><br />
+<button>Enabled (but does nothing)</button>
+<button disabled>Disabled</button>
+<button disabled="false">Still disabled</button>
+<br /><br />
 <button disabled>disabled by attribute</button>
 <button [disabled]="isUnchanged">disabled by property binding</button>
 <br /><br />
@@ -3604,7 +3626,9 @@ can be found in the LICENSE file at http://angular.io/license
 
 <!-- ERROR: HeroDetailComponent.hero expects a
      Hero object, not the string "currentHero" -->
-<div *ngIf="false"><app-hero-detail hero="currentHero"></app-hero-detail></div>
+<div *ngIf="false">
+  <app-hero-detail hero="currentHero"></app-hero-detail>
+</div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
 <p><img src="{{ heroImageUrl }}" /> is the <i>interpolated</i> image.</p>
@@ -3769,14 +3793,20 @@ can be found in the LICENSE file at http://angular.io/license
   [value]="currentHero.name"
   (input)="currentHero.name = $event.target.value"
 />
-without NgModel <br />
-<input [(ngModel)]="currentHero.name" /> [(ngModel)] <br />
-<input bindon-ngModel="currentHero.name" /> bindon-ngModel <br />
+without NgModel
+<br />
+<input [(ngModel)]="currentHero.name" />
+[(ngModel)]
+<br />
+<input bindon-ngModel="currentHero.name" />
+bindon-ngModel
+<br />
 <input
   [ngModel]="currentHero.name"
   (ngModelChange)="currentHero.name = $event"
 />
-(ngModelChange)="...name=$event" <br />
+(ngModelChange)="...name=$event"
+<br />
 <input
   [ngModel]="currentHero.name"
   (ngModelChange)="setUppercaseName($event)"
@@ -3804,7 +3834,8 @@ without NgModel <br />
     [value]="!isUnchanged"
     (change)="isUnchanged = !isUnchanged"
 /></label>
-| <label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+|
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
@@ -3840,7 +3871,8 @@ without NgModel <br />
 <label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
 <label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
 <label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
-<button (click)="setCurrentStyles()">Refresh currentStyles</button> <br /><br />
+<button (click)="setCurrentStyles()">Refresh currentStyles</button>
+<br /><br />
 <div [ngStyle]="currentStyles">
   This div should be {{ canSave ? "italic" : "plain" }},
   {{ isUnchanged ? "normal weight" : "bold" }} and,
@@ -4033,7 +4065,8 @@ without NgModel <br />
 <hr />
 <h2 id="inputs-and-outputs">Inputs and Outputs</h2>
 
-<img [src]="iconUrl" /> <button (click)="onSave()">Save</button>
+<img [src]="iconUrl" />
+<button (click)="onSave()">Save</button>
 
 <app-hero-detail [hero]="currentHero" (deleteRequest)="deleteHero($event)">
 </app-hero-detail>
@@ -4050,7 +4083,10 @@ without NgModel <br />
 <div>Title through uppercase pipe: {{ title | uppercase }}</div>
 
 <!-- Pipe chaining: convert title to uppercase, then to lowercase -->
-<div>Title through a pipe chain: {{ title | uppercase | lowercase }}</div>
+<div>
+  Title through a pipe chain:
+  {{ title | uppercase | lowercase }}
+</div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
 <div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
@@ -4160,7 +4196,9 @@ can be found in the LICENSE file at http://angular.io/license
     </div>
     <button type="submit" [disabled]="!heroForm.form.valid">Submit</button>
   </form>
-  <div [hidden]="!heroForm.form.valid">{{ submitMessage }}</div>
+  <div [hidden]="!heroForm.form.valid">
+    {{ submitMessage }}
+  </div>
 </div>
 
 <!-- 
@@ -4949,7 +4987,10 @@ can be found in the LICENSE file at http://angular.io/license
 
 <p>My current hero is {{ currentHero.name }}</p>
 
-<h3>{{ title }} <img src="{{ heroImageUrl }}" style="height:30px" /></h3>
+<h3>
+  {{ title }}
+  <img src="{{ heroImageUrl }}" style="height:30px" />
+</h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
 <p>The sum of 1 + 1 is {{ 1 + 1 }}</p>
@@ -4967,7 +5008,8 @@ can be found in the LICENSE file at http://angular.io/license
   [hidden]="isUnchanged")
 </p>
 <div class="context">
-  {{ title }} <span [hidden]="isUnchanged">changed</span>
+  {{ title }}
+  <span [hidden]="isUnchanged">changed</span>
 </div>
 
 <p>Template input variable expression context (let hero)</p>
@@ -4978,7 +5020,8 @@ can be found in the LICENSE file at http://angular.io/license
 
 <p>Template reference variable expression context (#heroInput)</p>
 <div (keyup)="(0)" class="context">
-  Type something: <input #heroInput /> {{ heroInput.value }}
+  Type something:
+  <input #heroInput /> {{ heroInput.value }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -4987,10 +5030,14 @@ can be found in the LICENSE file at http://angular.io/license
 <h2 id="statement-context">Statement context</h2>
 
 <p>Component statement context ( (click)="onSave() )</p>
-<div class="context"><button (click)="deleteHero()">Delete hero</button></div>
+<div class="context">
+  <button (click)="deleteHero()">Delete hero</button>
+</div>
 
 <p>Template $event statement context</p>
-<div class="context"><button (click)="onSave($event)">Save</button></div>
+<div class="context">
+  <button (click)="onSave($event)">Save</button>
+</div>
 
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
@@ -5014,7 +5061,9 @@ can be found in the LICENSE file at http://angular.io/license
 <!--<img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">-->
 <!-- Public Domain terms of use: http://www.wpclipart.com/terms.html -->
 <div class="special">Mental Model</div>
-<img src="assets/images/hero.png" /> <button disabled>Save</button> <br /><br />
+<img src="assets/images/hero.png" />
+<button disabled>Save</button>
+<br /><br />
 
 <div>
   <!-- Normal HTML -->
@@ -5040,17 +5089,25 @@ can be found in the LICENSE file at http://angular.io/license
 <button (click)="onSave()">Save</button>
 <app-hero-detail (deleteRequest)="deleteHero()"></app-hero-detail>
 <div (myClick)="clicked = $event" clickable>click me</div>
-{{ clicked }} <br /><br />
-
-<div>Hero Name: <input [(ngModel)]="name" /> {{ name }}</div>
+{{ clicked }}
 <br /><br />
 
-<button [attr.aria-label]="help">help</button> <br /><br />
+<div>
+  Hero Name:
+  <input [(ngModel)]="name" />
+  {{ name }}
+</div>
+<br /><br />
+
+<button [attr.aria-label]="help">help</button>
+<br /><br />
 
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">
+  button
+</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -5062,7 +5119,8 @@ can be found in the LICENSE file at http://angular.io/license
 
 <br /><br />
 
-<img [src]="iconUrl" /> <img bind-src="heroImageUrl" />
+<img [src]="iconUrl" />
+<img bind-src="heroImageUrl" />
 <img [attr.src]="villainImageUrl" />
 
 <a class="to-toc" href="#toc">top</a>
@@ -5071,8 +5129,10 @@ can be found in the LICENSE file at http://angular.io/license
 <hr />
 <h2 id="buttons">Buttons</h2>
 
-<button>Enabled (but does nothing)</button> <button disabled>Disabled</button>
-<button disabled="false">Still disabled</button> <br /><br />
+<button>Enabled (but does nothing)</button>
+<button disabled>Disabled</button>
+<button disabled="false">Still disabled</button>
+<br /><br />
 <button disabled>disabled by attribute</button>
 <button [disabled]="isUnchanged">disabled by property binding</button>
 <br /><br />
@@ -5095,7 +5155,9 @@ can be found in the LICENSE file at http://angular.io/license
 
 <!-- ERROR: HeroDetailComponent.hero expects a
      Hero object, not the string "currentHero" -->
-<div *ngIf="false"><app-hero-detail hero="currentHero"></app-hero-detail></div>
+<div *ngIf="false">
+  <app-hero-detail hero="currentHero"></app-hero-detail>
+</div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
 <p><img src="{{ heroImageUrl }}" /> is the <i>interpolated</i> image.</p>
@@ -5260,14 +5322,20 @@ can be found in the LICENSE file at http://angular.io/license
   [value]="currentHero.name"
   (input)="currentHero.name = $event.target.value"
 />
-without NgModel <br />
-<input [(ngModel)]="currentHero.name" /> [(ngModel)] <br />
-<input bindon-ngModel="currentHero.name" /> bindon-ngModel <br />
+without NgModel
+<br />
+<input [(ngModel)]="currentHero.name" />
+[(ngModel)]
+<br />
+<input bindon-ngModel="currentHero.name" />
+bindon-ngModel
+<br />
 <input
   [ngModel]="currentHero.name"
   (ngModelChange)="currentHero.name = $event"
 />
-(ngModelChange)="...name=$event" <br />
+(ngModelChange)="...name=$event"
+<br />
 <input
   [ngModel]="currentHero.name"
   (ngModelChange)="setUppercaseName($event)"
@@ -5295,7 +5363,8 @@ without NgModel <br />
     [value]="!isUnchanged"
     (change)="isUnchanged = !isUnchanged"
 /></label>
-| <label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+|
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
@@ -5331,7 +5400,8 @@ without NgModel <br />
 <label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
 <label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
 <label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
-<button (click)="setCurrentStyles()">Refresh currentStyles</button> <br /><br />
+<button (click)="setCurrentStyles()">Refresh currentStyles</button>
+<br /><br />
 <div [ngStyle]="currentStyles">
   This div should be {{ canSave ? "italic" : "plain" }},
   {{ isUnchanged ? "normal weight" : "bold" }} and,
@@ -5524,7 +5594,8 @@ without NgModel <br />
 <hr />
 <h2 id="inputs-and-outputs">Inputs and Outputs</h2>
 
-<img [src]="iconUrl" /> <button (click)="onSave()">Save</button>
+<img [src]="iconUrl" />
+<button (click)="onSave()">Save</button>
 
 <app-hero-detail [hero]="currentHero" (deleteRequest)="deleteHero($event)">
 </app-hero-detail>
@@ -5541,7 +5612,10 @@ without NgModel <br />
 <div>Title through uppercase pipe: {{ title | uppercase }}</div>
 
 <!-- Pipe chaining: convert title to uppercase, then to lowercase -->
-<div>Title through a pipe chain: {{ title | uppercase | lowercase }}</div>
+<div>
+  Title through a pipe chain:
+  {{ title | uppercase | lowercase }}
+</div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
 <div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
@@ -5651,7 +5725,9 @@ can be found in the LICENSE file at http://angular.io/license
     </div>
     <button type="submit" [disabled]="!heroForm.form.valid">Submit</button>
   </form>
-  <div [hidden]="!heroForm.form.valid">{{ submitMessage }}</div>
+  <div [hidden]="!heroForm.form.valid">
+    {{ submitMessage }}
+  </div>
 </div>
 
 <!-- 
@@ -9917,10 +9993,14 @@ can be found in the LICENSE file at http://angular.io/license
 <h2 id="statement-context">Statement context</h2>
 
 <p>Component statement context ( (click)="onSave() )</p>
-<div class="context"><button (click)="deleteHero()">Delete hero</button></div>
+<div class="context">
+  <button (click)="deleteHero()">Delete hero</button>
+</div>
 
 <p>Template $event statement context</p>
-<div class="context"><button (click)="onSave($event)">Save</button></div>
+<div class="context">
+  <button (click)="onSave($event)">Save</button>
+</div>
 
 <p>Template input variable statement context (let hero)</p>
 <!-- template hides the following; plenty of examples later -->
@@ -9996,7 +10076,9 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">
+  button
+</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -10047,7 +10129,9 @@ can be found in the LICENSE file at http://angular.io/license
 
 <!-- ERROR: HeroDetailComponent.hero expects a
      Hero object, not the string "currentHero" -->
-<div *ngIf="false"><app-hero-detail hero="currentHero"></app-hero-detail></div>
+<div *ngIf="false">
+  <app-hero-detail hero="currentHero"></app-hero-detail>
+</div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
 <p>
@@ -10370,7 +10454,9 @@ bindon-ngModel
 
 <!-- Does not show because isActive is false! -->
 <div>Hero Detail removed from DOM (via template) because isActive is false</div>
-<ng-template [ngIf]="isActive"><app-hero-detail></app-hero-detail></ng-template>
+<ng-template [ngIf]="isActive">
+  <app-hero-detail></app-hero-detail>
+</ng-template>
 
 <!-- isSpecial is true -->
 <div [class.hidden]="!isSpecial">Show with class</div>
@@ -10583,7 +10669,10 @@ bindon-ngModel
 <div>Title through uppercase pipe: {{ title | uppercase }}</div>
 
 <!-- Pipe chaining: convert title to uppercase, then to lowercase -->
-<div>Title through a pipe chain: {{ title | uppercase | lowercase }}</div>
+<div>
+  Title through a pipe chain:
+  {{ title | uppercase | lowercase }}
+</div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
 <div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
@@ -10706,7 +10795,9 @@ can be found in the LICENSE file at http://angular.io/license
     </div>
     <button type="submit" [disabled]="!heroForm.form.valid">Submit</button>
   </form>
-  <div [hidden]="!heroForm.form.valid">{{ submitMessage }}</div>
+  <div [hidden]="!heroForm.form.valid">
+    {{ submitMessage }}
+  </div>
 </div>
 
 <!-- 

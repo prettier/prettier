@@ -99,8 +99,12 @@ printWidth: 80
       In the context of SVG embeded into HTML, the XHTML namespace could be avoided, but it is mandatory in the context of an SVG document
     -->
     <div xmlns="http://www.w3.org/1999/xhtml">
-      <p>123</p>
-      <span> 123 </span>
+      <p>
+        123
+      </p>
+      <span>
+        123
+      </span>
     </div>
   </foreignObject>
 </svg>

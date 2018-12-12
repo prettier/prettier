@@ -2491,10 +2491,8 @@ function printPathNoParens(path, options, print, args) {
           // expression inside at the beginning of ${ instead of the beginning
           // of the `.
           const tabWidth = options.tabWidth;
-          const indentSize = getIndentSize(
-            childPath.getValue().value.raw,
-            tabWidth
-          );
+          const quasi = childPath.getValue();
+          const indentSize = getIndentSize(quasi.value.raw, tabWidth);
 
           let printed = expressions[i];
 
@@ -2507,7 +2505,10 @@ function printPathNoParens(path, options, print, args) {
             printed = concat([indent(concat([softline, printed])), softline]);
           }
 
-          const aligned = addAlignmentToDoc(printed, indentSize, tabWidth);
+          const aligned =
+            indentSize === 0 && quasi.value.raw.endsWith("\n")
+              ? align(-Infinity, printed)
+              : addAlignmentToDoc(printed, indentSize, tabWidth);
 
           parts.push(group(concat(["${", aligned, lineSuffixBoundary, "}"])));
         }
@@ -3869,6 +3870,23 @@ function printArgumentsList(path, options, print) {
     return concat([
       "(",
       comments.printDanglingComments(path, options, /* sameIndent */ true),
+      ")"
+    ]);
+  }
+
+  // useEffect(() => { ... }, [foo, bar, baz])
+  if (
+    args.length === 2 &&
+    args[0].type === "ArrowFunctionExpression" &&
+    args[0].body.type === "BlockStatement" &&
+    args[1].type === "ArrayExpression" &&
+    !args.find(arg => arg.leadingComments || arg.trailingComments)
+  ) {
+    return concat([
+      "(",
+      path.call(print, "arguments", 0),
+      ", ",
+      path.call(print, "arguments", 1),
       ")"
     ]);
   }
