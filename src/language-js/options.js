@@ -31,6 +31,13 @@ module.exports = {
     default: false,
     description: "Put > on the last line instead of at a new line."
   },
+  jsxBracketSpacing: {
+    since: "1.17.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description: "Put spaces in JSX bracket expressions"
+  },
   semi: {
     since: "1.0.0",
     category: CATEGORY_JAVASCRIPT,

@@ -3,6 +3,7 @@
 exports[`jsx_same_line.js 1`] = `
 ====================================options=====================================
 jsxBracketSameLine: true
+jsxBracketSpacing: false
 parsers: ["flow", "babylon", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -60,6 +61,75 @@ printWidth: 80
   // comment
 >
   {foo}
+</div>;
+
+<br // comment
+/>;
+
+================================================================================
+`;
+
+exports[`jsx_same_line.js 2`] = `
+====================================options=====================================
+jsxBracketSameLine: true
+jsxBracketSpacing: true
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div
+  // comment
+>
+  {foo}
+</div>;
+
+<div
+  // comment
+  attr="foo"
+>
+  {foo}
+</div>;
+
+<div
+  attr="foo" // comment
+>
+  {foo}
+</div>;
+
+<div
+  attr="foo"
+  // comment
+>
+  {foo}
+</div>;
+
+<br // comment
+/>;
+
+=====================================output=====================================
+<div
+// comment
+>
+  { foo }
+</div>;
+
+<div
+  // comment
+  attr="foo">
+  { foo }
+</div>;
+
+<div
+  attr="foo" // comment
+>
+  { foo }
+</div>;
+
+<div
+  attr="foo"
+  // comment
+>
+  { foo }
 </div>;
 
 <br // comment

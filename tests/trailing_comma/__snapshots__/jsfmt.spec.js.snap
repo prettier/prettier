@@ -2,8 +2,10 @@
 
 exports[`es5.js 1`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: undefined
                                                                                 | printWidth
 =====================================input======================================
 function send_single_email(
@@ -48,6 +50,7 @@ function send_single_email(
 
 exports[`es5.js 2`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
@@ -95,6 +98,151 @@ function send_single_email(
 
 exports[`es5.js 3`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to);
+  return "nothing";
+}
+
+=====================================output=====================================
+function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(
+    app,
+    email_id,
+    email_address,
+    subject,
+    html,
+    reply_to
+  );
+  return "nothing";
+}
+
+================================================================================
+`;
+
+exports[`es5.js 4`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: undefined
+                                                                                | printWidth
+=====================================input======================================
+function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to);
+  return "nothing";
+}
+
+=====================================output=====================================
+function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(
+    app,
+    email_id,
+    email_address,
+    subject,
+    html,
+    reply_to
+  );
+  return "nothing";
+}
+
+================================================================================
+`;
+
+exports[`es5.js 5`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to
+) {
+  send_single_email_implementation(  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to);
+  return "nothing";
+}
+
+=====================================output=====================================
+function send_single_email(
+  app,
+  email_id,
+  email_address,
+  subject,
+  html,
+  reply_to,
+) {
+  send_single_email_implementation(
+    app,
+    email_id,
+    email_address,
+    subject,
+    html,
+    reply_to,
+  );
+  return "nothing";
+}
+
+================================================================================
+`;
+
+exports[`es5.js 6`] = `
+====================================options=====================================
+jsxBracketSpacing: true
 parsers: ["flow", "typescript"]
 printWidth: 80
 trailingComma: "es5"
@@ -142,8 +290,10 @@ function send_single_email(
 
 exports[`function-calls.js 1`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: undefined
                                                                                 | printWidth
 =====================================input======================================
 const a = (param1, param2, param3) => {}
@@ -194,6 +344,7 @@ a.b().c(
 
 exports[`function-calls.js 2`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
@@ -247,6 +398,169 @@ a.b().c(
 
 exports[`function-calls.js 3`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+const a = (param1, param2, param3) => {}
+
+a('value', 'value2', 'value3');
+
+a(
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
+);
+
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
+
+a.b().c(
+  {
+    d,
+  },
+  () => {}
+);
+
+=====================================output=====================================
+const a = (param1, param2, param3) => {};
+
+a("value", "value2", "value3");
+
+a(
+  "a-long-value",
+  "a-really-really-long-value",
+  "a-really-really-really-long-value"
+);
+
+a(
+  "value",
+  "value2",
+  a("long-nested-value", "long-nested-value2", "long-nested-value3")
+);
+
+a.b().c(
+  {
+    d,
+  },
+  () => {}
+);
+
+================================================================================
+`;
+
+exports[`function-calls.js 4`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: undefined
+                                                                                | printWidth
+=====================================input======================================
+const a = (param1, param2, param3) => {}
+
+a('value', 'value2', 'value3');
+
+a(
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
+);
+
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
+
+a.b().c(
+  {
+    d,
+  },
+  () => {}
+);
+
+=====================================output=====================================
+const a = (param1, param2, param3) => {};
+
+a("value", "value2", "value3");
+
+a(
+  "a-long-value",
+  "a-really-really-long-value",
+  "a-really-really-really-long-value"
+);
+
+a(
+  "value",
+  "value2",
+  a("long-nested-value", "long-nested-value2", "long-nested-value3")
+);
+
+a.b().c(
+  {
+    d
+  },
+  () => {}
+);
+
+================================================================================
+`;
+
+exports[`function-calls.js 5`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+const a = (param1, param2, param3) => {}
+
+a('value', 'value2', 'value3');
+
+a(
+  'a-long-value',
+  'a-really-really-long-value',
+  'a-really-really-really-long-value',
+);
+
+a('value', 'value2', a('long-nested-value', 'long-nested-value2', 'long-nested-value3'));
+
+a.b().c(
+  {
+    d,
+  },
+  () => {}
+);
+
+=====================================output=====================================
+const a = (param1, param2, param3) => {};
+
+a("value", "value2", "value3");
+
+a(
+  "a-long-value",
+  "a-really-really-long-value",
+  "a-really-really-really-long-value",
+);
+
+a(
+  "value",
+  "value2",
+  a("long-nested-value", "long-nested-value2", "long-nested-value3"),
+);
+
+a.b().c(
+  {
+    d,
+  },
+  () => {},
+);
+
+================================================================================
+`;
+
+exports[`function-calls.js 6`] = `
+====================================options=====================================
+jsxBracketSpacing: true
 parsers: ["flow", "typescript"]
 printWidth: 80
 trailingComma: "es5"
@@ -300,8 +614,10 @@ a.b().c(
 
 exports[`jsx.js 1`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: undefined
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -326,6 +642,7 @@ printWidth: 80
 
 exports[`jsx.js 2`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
@@ -353,6 +670,7 @@ trailingComma: "all"
 
 exports[`jsx.js 3`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
 trailingComma: "es5"
@@ -378,10 +696,102 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`object.js 1`] = `
+exports[`jsx.js 4`] = `
 ====================================options=====================================
+jsxBracketSpacing: true
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: undefined
+                                                                                | printWidth
+=====================================input======================================
+<div
+  onClick={() =>
+    doSomething({
+      foo: bar
+    })
+  }
+/>;
+
+=====================================output=====================================
+<div
+  onClick={
+    () =>
+      doSomething({
+        foo: bar
+      })
+
+  }
+/>;
+
+================================================================================
+`;
+
+exports[`jsx.js 5`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+<div
+  onClick={() =>
+    doSomething({
+      foo: bar
+    })
+  }
+/>;
+
+=====================================output=====================================
+<div
+  onClick={
+    () =>
+      doSomething({
+        foo: bar,
+      })
+
+  }
+/>;
+
+================================================================================
+`;
+
+exports[`jsx.js 6`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+<div
+  onClick={() =>
+    doSomething({
+      foo: bar
+    })
+  }
+/>;
+
+=====================================output=====================================
+<div
+  onClick={
+    () =>
+      doSomething({
+        foo: bar,
+      })
+
+  }
+/>;
+
+================================================================================
+`;
+
+exports[`object.js 1`] = `
+====================================options=====================================
+jsxBracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: undefined
                                                                                 | printWidth
 =====================================input======================================
 const a = {
@@ -434,6 +844,7 @@ const aLong = {
 
 exports[`object.js 2`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
@@ -489,6 +900,175 @@ const aLong = {
 
 exports[`object.js 3`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+const a = {
+  b: true,
+  c: {
+    c1: 'hello'
+  },
+  d: false
+};
+
+const aLong = {
+  bHasALongName: 'a-long-value',
+  cHasALongName: {
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
+  },
+  dHasALongName: 'a-long-value-too'
+};
+
+const aLong = {
+  dHasALongName: 'a-long-value-too',
+  eHasABooleanExpression: a === a,
+};
+
+=====================================output=====================================
+const a = {
+  b: true,
+  c: {
+    c1: "hello",
+  },
+  d: false,
+};
+
+const aLong = {
+  bHasALongName: "a-long-value",
+  cHasALongName: {
+    c1: "a-really-long-value",
+    c2: "a-really-really-long-value",
+  },
+  dHasALongName: "a-long-value-too",
+};
+
+const aLong = {
+  dHasALongName: "a-long-value-too",
+  eHasABooleanExpression: a === a,
+};
+
+================================================================================
+`;
+
+exports[`object.js 4`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: undefined
+                                                                                | printWidth
+=====================================input======================================
+const a = {
+  b: true,
+  c: {
+    c1: 'hello'
+  },
+  d: false
+};
+
+const aLong = {
+  bHasALongName: 'a-long-value',
+  cHasALongName: {
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
+  },
+  dHasALongName: 'a-long-value-too'
+};
+
+const aLong = {
+  dHasALongName: 'a-long-value-too',
+  eHasABooleanExpression: a === a,
+};
+
+=====================================output=====================================
+const a = {
+  b: true,
+  c: {
+    c1: "hello"
+  },
+  d: false
+};
+
+const aLong = {
+  bHasALongName: "a-long-value",
+  cHasALongName: {
+    c1: "a-really-long-value",
+    c2: "a-really-really-long-value"
+  },
+  dHasALongName: "a-long-value-too"
+};
+
+const aLong = {
+  dHasALongName: "a-long-value-too",
+  eHasABooleanExpression: a === a
+};
+
+================================================================================
+`;
+
+exports[`object.js 5`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+const a = {
+  b: true,
+  c: {
+    c1: 'hello'
+  },
+  d: false
+};
+
+const aLong = {
+  bHasALongName: 'a-long-value',
+  cHasALongName: {
+    c1: 'a-really-long-value',
+    c2: 'a-really-really-long-value',
+  },
+  dHasALongName: 'a-long-value-too'
+};
+
+const aLong = {
+  dHasALongName: 'a-long-value-too',
+  eHasABooleanExpression: a === a,
+};
+
+=====================================output=====================================
+const a = {
+  b: true,
+  c: {
+    c1: "hello",
+  },
+  d: false,
+};
+
+const aLong = {
+  bHasALongName: "a-long-value",
+  cHasALongName: {
+    c1: "a-really-long-value",
+    c2: "a-really-really-long-value",
+  },
+  dHasALongName: "a-long-value-too",
+};
+
+const aLong = {
+  dHasALongName: "a-long-value-too",
+  eHasABooleanExpression: a === a,
+};
+
+================================================================================
+`;
+
+exports[`object.js 6`] = `
+====================================options=====================================
+jsxBracketSpacing: true
 parsers: ["flow", "typescript"]
 printWidth: 80
 trailingComma: "es5"
@@ -544,8 +1124,10 @@ const aLong = {
 
 exports[`trailing_whitespace.js 1`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: undefined
                                                                                 | printWidth
 =====================================input======================================
 let example = [
@@ -642,6 +1224,7 @@ this.getAttribute(function(s) /*string*/ {
 
 exports[`trailing_whitespace.js 2`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
@@ -741,6 +1324,307 @@ this.getAttribute(function(s) /*string*/ {
 
 exports[`trailing_whitespace.js 3`] = `
 ====================================options=====================================
+jsxBracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+let example = [
+  'FOO',
+  'BAR',
+  // Comment
+];
+
+foo({},
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+  // Comment
+) {
+  a
+}
+
+this.getAttribute(function(s)
+  /*string*/ {
+  console.log()
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log()
+});
+
+=====================================output=====================================
+let example = [
+  "FOO",
+  "BAR",
+  // Comment
+];
+
+foo(
+  {}
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a;
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a;
+}
+
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+
+================================================================================
+`;
+
+exports[`trailing_whitespace.js 4`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: undefined
+                                                                                | printWidth
+=====================================input======================================
+let example = [
+  'FOO',
+  'BAR',
+  // Comment
+];
+
+foo({},
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+  // Comment
+) {
+  a
+}
+
+this.getAttribute(function(s)
+  /*string*/ {
+  console.log()
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log()
+});
+
+=====================================output=====================================
+let example = [
+  "FOO",
+  "BAR"
+  // Comment
+];
+
+foo(
+  {}
+  // Comment
+);
+
+o = {
+  state
+  // Comment
+};
+
+o = {
+  state
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a;
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a;
+}
+
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+
+================================================================================
+`;
+
+exports[`trailing_whitespace.js 5`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+let example = [
+  'FOO',
+  'BAR',
+  // Comment
+];
+
+foo({},
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB
+  // Comment
+) {
+  a
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+  // Comment
+) {
+  a
+}
+
+this.getAttribute(function(s)
+  /*string*/ {
+  console.log()
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log()
+});
+
+=====================================output=====================================
+let example = [
+  "FOO",
+  "BAR",
+  // Comment
+];
+
+foo(
+  {},
+  // Comment
+);
+
+o = {
+  state,
+  // Comment
+};
+
+o = {
+  state,
+
+  // Comment
+};
+
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+  // Comment
+) {
+  a;
+}
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB,
+  // Comment
+) {
+  a;
+}
+
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+this.getAttribute(function(s) /*string*/ {
+  console.log();
+});
+
+================================================================================
+`;
+
+exports[`trailing_whitespace.js 6`] = `
+====================================options=====================================
+jsxBracketSpacing: true
 parsers: ["flow", "typescript"]
 printWidth: 80
 trailingComma: "es5"

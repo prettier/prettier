@@ -2071,11 +2071,11 @@ function printPathNoParens(path, options, print, args) {
             return concat([
               indent(
                 concat([
-                  softline,
+                  options.jsxBracketSpacing ? line : softline,
                   comments.printComments(p, () => printed, options)
                 ])
               ),
-              softline
+              options.jsxBracketSpacing ? line : softline
             ]);
           },
           n.type === "JSXSpreadAttribute" ? "argument" : "expression"
@@ -2092,6 +2092,7 @@ function printPathNoParens(path, options, print, args) {
         n.expression.comments.length > 0;
 
       const shouldInline =
+        !options.jsxBracketSpacing &&
         !preventInline &&
         (n.expression.type === "ArrayExpression" ||
           n.expression.type === "ObjectExpression" ||
@@ -2116,8 +2117,8 @@ function printPathNoParens(path, options, print, args) {
       return group(
         concat([
           "{",
-          indent(concat([softline, path.call(print, "expression")])),
-          softline,
+          indent(concat([options.jsxBracketSpacing ? line : softline, path.call(print, "expression")])),
+          options.jsxBracketSpacing ? line : softline,
           lineSuffixBoundary,
           "}"
         ])

@@ -61,3 +61,67 @@ ExampleStory.getFragment('story')}
 
 ================================================================================
 `;
+
+exports[`boundary.js 2`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+\`\${
+a +  // a
+  a
+}
+
+\${a // comment
+}
+
+\${b /* comment */}
+
+\${/* comment */ c /* comment */}
+
+\${// comment
+d //comment
+}
+
+\${// $FlowFixMe found when converting React.createClass to ES6
+ExampleStory.getFragment('story')}
+\`;
+
+<div>
+{ExampleStory.getFragment('story') // $FlowFixMe found when converting React.createClass to ES6
+}
+</div>;
+
+=====================================output=====================================
+\`\${a + a // a
+}
+
+\${
+  a // comment
+}
+
+\${b /* comment */}
+
+\${/* comment */ c /* comment */}
+
+\${
+  // comment
+  d //comment
+}
+
+\${
+  // $FlowFixMe found when converting React.createClass to ES6
+  ExampleStory.getFragment("story")
+}
+\`;
+
+<div>
+  {
+    ExampleStory.getFragment("story") // $FlowFixMe found when converting React.createClass to ES6
+  }
+</div>;
+
+================================================================================
+`;

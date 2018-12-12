@@ -22,6 +22,29 @@ const c3 = <MyComponent<number> attr="value" />;
 ================================================================================
 `;
 
+exports[`generic-component.tsx 2`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const c1 = <MyComponent<number> data={12} />
+
+const c2 = <MyComponent<number> />
+
+const c3 = <MyComponent<number> attr="value" />
+
+=====================================output=====================================
+const c1 = <MyComponent<number> data={ 12 } />;
+
+const c2 = <MyComponent<number> />;
+
+const c3 = <MyComponent<number> attr="value" />;
+
+================================================================================
+`;
+
 exports[`keyword.tsx 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -38,8 +61,54 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`keyword.tsx 2`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<try />;
+<object />
+
+=====================================output=====================================
+<try />;
+<object />;
+
+================================================================================
+`;
+
 exports[`not-react.ts 1`] = `
 ====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/// <reference types="node" />
+
+type ul = any;
+const somethingElse = 1;
+const thing = <ul>somethingElse;
+const div = "<div></div>";
+const h1 = \`<h1>Hi</h1>\`;
+const footer = '<footer></footer>';
+
+=====================================output=====================================
+/// <reference types="node" />
+
+type ul = any;
+const somethingElse = 1;
+const thing = <ul>somethingElse;
+const div = "<div></div>";
+const h1 = \`<h1>Hi</h1>\`;
+const footer = "<footer></footer>";
+
+================================================================================
+`;
+
+exports[`not-react.ts 2`] = `
+====================================options=====================================
+jsxBracketSpacing: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -87,8 +156,47 @@ const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
 ================================================================================
 `;
 
+exports[`react.tsx 2`] = `
+====================================options=====================================
+jsxBracketSpacing: true
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const MyCoolList = ({ things }) =>
+    <ul>
+        {things.map(MyCoolThing)}
+    </ul>;
+
+const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
+
+=====================================output=====================================
+const MyCoolList = ({ things }) => <ul>{ things.map(MyCoolThing) }</ul>;
+
+const MyCoolThing = ({ thingo }) => <li>{ thingo }</li>;
+
+================================================================================
+`;
+
 exports[`this.tsx 1`] = `
 ====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<this.state.Component />;
+<this.Component />;
+
+=====================================output=====================================
+<this.state.Component />;
+<this.Component />;
+
+================================================================================
+`;
+
+exports[`this.tsx 2`] = `
+====================================options=====================================
+jsxBracketSpacing: true
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
