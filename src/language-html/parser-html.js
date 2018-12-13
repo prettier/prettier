@@ -13,7 +13,8 @@ function ngHtmlParser(
     recognizeSelfClosing,
     normalizeTagName,
     normalizeAttributeName,
-    allowHtmComponentClosingTags
+    allowHtmComponentClosingTags,
+    isTagNameCaseSensitive
   }
 ) {
   const parser = require("angular-html-parser");
@@ -36,7 +37,8 @@ function ngHtmlParser(
 
   const { rootNodes, errors } = parser.parse(input, {
     canSelfClose: recognizeSelfClosing,
-    allowHtmComponentClosingTags
+    allowHtmComponentClosingTags,
+    isTagNameCaseSensitive
   });
 
   if (errors.length !== 0) {
@@ -147,7 +149,9 @@ function ngHtmlParser(
 
   const addTagDefinition = node => {
     if (node instanceof Element) {
-      const tagDefinition = getHtmlTagDefinition(node.name);
+      const tagDefinition = getHtmlTagDefinition(
+        isTagNameCaseSensitive ? node.name : node.name.toLowerCase()
+      );
       if (
         !node.namespace ||
         node.namespace === tagDefinition.implicitNamespacePrefix
@@ -262,7 +266,8 @@ function createParser({
   recognizeSelfClosing = false,
   normalizeTagName = false,
   normalizeAttributeName = false,
-  allowHtmComponentClosingTags = false
+  allowHtmComponentClosingTags = false,
+  isTagNameCaseSensitive = false
 } = {}) {
   return {
     parse: (text, parsers, options) =>
@@ -270,7 +275,8 @@ function createParser({
         recognizeSelfClosing,
         normalizeTagName,
         normalizeAttributeName,
-        allowHtmComponentClosingTags
+        allowHtmComponentClosingTags,
+        isTagNameCaseSensitive
       }),
     hasPragma,
     astFormat: "html",
@@ -288,6 +294,9 @@ module.exports = {
       allowHtmComponentClosingTags: true
     }),
     angular: createParser(),
-    vue: createParser({ recognizeSelfClosing: true })
+    vue: createParser({
+      recognizeSelfClosing: true,
+      isTagNameCaseSensitive: true
+    })
   }
 };
