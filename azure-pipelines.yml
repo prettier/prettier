@@ -55,6 +55,16 @@ jobs:
     steps:
       - template: .azure-pipelines/jobs/prod-build.yml
 
+  - job: Prod_Pack
+    dependsOn: Prod_Build
+    displayName: Prod Pack on Linux Node v10
+    pool:
+      vmImage: "Ubuntu 16.04"
+    variables:
+      node_version: 10
+    steps:
+      - template: .azure-pipelines/jobs/prod-pack.yml
+
   - job: Prod_Lint
     dependsOn: Prod_Build
     displayName: Prod Lint on Linux Node v10
