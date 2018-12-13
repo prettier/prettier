@@ -1435,9 +1435,9 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-codecov@ikatyang/codecov-node#feat/azure-pipelines:
+codecov@codecov/codecov-node#e427d900309adb50746a39a50aa7d80071a5ddd0:
   version "3.1.0"
-  resolved "https://codeload.github.com/ikatyang/codecov-node/tar.gz/5d0d0fae6ba07be6ef2cbdf38e2fb6ad3c731a00"
+  resolved "https://codeload.github.com/codecov/codecov-node/tar.gz/e427d900309adb50746a39a50aa7d80071a5ddd0"
   dependencies:
     argv "^0.0.2"
     ignore-walk "^3.0.1"
