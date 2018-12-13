@@ -139,6 +139,59 @@ Valid options:
 | ------- | ------------------------- | ---------------------------- |
 | `false` | `--jsx-bracket-same-line` | `jsxBracketSameLine: <bool>` |
 
+## JSX Bracket Spacing
+
+_First available in v1.17.0_
+
+Print spaces between brackets in JSX attributes and containers, or newlines
+when the content breaks.
+
+Valid options:
+
+- `false` - Example:
+
+<!-- prettier-ignore -->
+```
+<div className="search-filter-chips">
+  {scopes
+    .filter(scope => scope.value !== "")
+    .map((scope, i) => (
+      <FilterChip
+        query={this.props.query}
+        onFilterChosen={this.onSearchScopeClicked}
+        key={i}
+        value={scope.value}
+        name={scope.name}
+      />
+    ))}
+</div>
+```
+
+- `true` - Example:
+
+<!-- prettier-ignore -->
+```
+<div className="search-filter-chips">
+  {
+    scopes
+      .filter(scope => scope.value !== "")
+      .map((scope, i) => (
+        <FilterChip
+          query={ this.props.query }
+          onFilterChosen={ this.onSearchScopeClicked }
+          key={ i }
+          value={ scope.value }
+          name={ scope.name }
+        />
+      ))
+  }
+</div>
+```
+
+| Default | CLI Override              | API Override                 |
+| ------- | ------------------------- | ---------------------------- |
+| `false` | `--jsx-bracket-spacing`   | `jsxBracketSpacing: <bool>`  |
+
 ## Arrow Function Parentheses
 
 _First available in v1.9.0_
