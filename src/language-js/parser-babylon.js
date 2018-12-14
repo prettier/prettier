@@ -34,7 +34,8 @@ function babylonOptions(extraOptions, extraPlugins) {
         "nullishCoalescingOperator",
         "bigInt",
         "throwExpressions",
-        "logicalAssignment"
+        "logicalAssignment",
+        "classPrivateMethods"
       ].concat(extraPlugins)
     },
     extraOptions

@@ -103,6 +103,7 @@ function genericPrint(path, options, printPath, args) {
   const decorators = [];
   if (
     node.type === "ClassMethod" ||
+    node.type === "ClassPrivateMethod" ||
     node.type === "ClassProperty" ||
     node.type === "TSAbstractClassProperty" ||
     node.type === "ClassPrivateProperty" ||
@@ -1084,6 +1085,7 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "FunctionDeclaration" ||
           parent.type === "ObjectMethod" ||
           parent.type === "ClassMethod" ||
+          parent.type === "ClassPrivateMethod" ||
           parent.type === "ForStatement" ||
           parent.type === "WhileStatement" ||
           parent.type === "DoWhileStatement" ||
@@ -1467,6 +1469,7 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts); // Babel 6
     case "ClassMethod":
+    case "ClassPrivateMethod":
       if (n.decorators && n.decorators.length !== 0) {
         parts.push(printDecorators(path, options, print));
       }
@@ -3705,7 +3708,11 @@ function printMethod(path, options, print) {
   const kind = node.kind;
   const parts = [];
 
-  if (node.type === "ObjectMethod" || node.type === "ClassMethod") {
+  if (
+    node.type === "ObjectMethod" ||
+    node.type === "ClassMethod" ||
+    node.type === "ClassPrivateMethod"
+  ) {
     node.value = node;
   }
 
@@ -6002,7 +6009,8 @@ function classChildNeedsASIProtection(node) {
       return node.computed;
     case "MethodDefinition": // Flow
     case "TSAbstractMethodDefinition": // TypeScript
-    case "ClassMethod": {
+    case "ClassMethod":
+    case "ClassPrivateMethod": {
       // Babylon
       const isAsync = node.value ? node.value.async : node.async;
       const isGenerator = node.value ? node.value.generator : node.generator;
