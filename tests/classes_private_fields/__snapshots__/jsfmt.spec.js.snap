@@ -39,6 +39,17 @@ class Point {
   toString() { return \`Point<\${ this.#x },\${ this.#y }>\` }
 }
 
+class E {
+  async #a() {}
+  #b() {}
+  get #c() {}
+  set #c(bar) {}
+  *#d() {}
+  async *#e() {}
+  get #f() {}
+  set #f(taz) {}
+}
+
 =====================================output=====================================
 class A {
   #x;
@@ -91,6 +102,17 @@ class Point {
   }
 }
 
+class E {
+  async #a() {}
+  #b() {}
+  get #c() {}
+  set #c(bar) {}
+  *#d() {}
+  async *#e() {}
+  get #f() {}
+  set #f(taz) {}
+}
+
 ================================================================================
 `;
 
@@ -132,6 +154,17 @@ class Point {
   equals(p) { return this.#x === p.#x && this.#y === p.#y }
 
   toString() { return \`Point<\${ this.#x },\${ this.#y }>\` }
+}
+
+class E {
+  async #a() {}
+  #b() {}
+  get #c() {}
+  set #c(bar) {}
+  *#d() {}
+  async *#e() {}
+  get #f() {}
+  set #f(taz) {}
 }
 
 =====================================output=====================================
@@ -184,6 +217,17 @@ class Point {
   toString() {
     return \`Point<\${this.#x},\${this.#y}>\`
   }
+}
+
+class E {
+  async #a() {}
+  #b() {}
+  get #c() {}
+  set #c(bar) {}
+  *#d() {}
+  async *#e() {}
+  get #f() {}
+  set #f(taz) {}
 }
 
 ================================================================================
