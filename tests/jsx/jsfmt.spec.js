@@ -4,7 +4,7 @@ for (const jsxBracketSpacing of [false, true]) {
       run_spec(__dirname, ["flow", "babylon", "typescript"], {
         singleQuote,
         jsxSingleQuote,
-        jsxBracketSpacing,
+        jsxBracketSpacing
       });
     }
   }

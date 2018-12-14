@@ -2066,7 +2066,7 @@ function printPathNoParens(path, options, print, args) {
             const printed = concat(["...", print(p)]);
             const n = p.getValue();
             if (!n.comments || !n.comments.length) {
-              return printed;
+              return options.jsxBracketSpacing ? concat([" ", printed, " "]) : printed;
             }
             return concat([
               indent(

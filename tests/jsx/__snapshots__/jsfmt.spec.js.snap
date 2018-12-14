@@ -375,7 +375,7 @@ const TodoList = ({ todos }) => (
     <ul>
       {
         _.map(todos, (todo, i) => (
-          <TodoItem key={ i } {...todo} />
+          <TodoItem key={ i } { ...todo } />
         ))
       }
     </ul>
@@ -460,7 +460,7 @@ const TodoList = ({ todos }) => (
     <ul>
       {
         _.map(todos, (todo, i) => (
-          <TodoItem key={ i } {...todo} />
+          <TodoItem key={ i } { ...todo } />
         ))
       }
     </ul>
@@ -545,7 +545,7 @@ const TodoList = ({ todos }) => (
     <ul>
       {
         _.map(todos, (todo, i) => (
-          <TodoItem key={ i } {...todo} />
+          <TodoItem key={ i } { ...todo } />
         ))
       }
     </ul>
@@ -630,7 +630,7 @@ const TodoList = ({ todos }) => (
     <ul>
       {
         _.map(todos, (todo, i) => (
-          <TodoItem key={ i } {...todo} />
+          <TodoItem key={ i } { ...todo } />
         ))
       }
     </ul>
@@ -8630,7 +8630,7 @@ a = [
   />
 ];
 
-<div {...(foo || foo === null ? { foo } : null)} />;
+<div { ...(foo || foo === null ? { foo } : null) } />;
 
 ================================================================================
 `;
@@ -8669,7 +8669,7 @@ a = [
   />
 ];
 
-<div {...(foo || foo === null ? { foo } : null)} />;
+<div { ...(foo || foo === null ? { foo } : null) } />;
 
 ================================================================================
 `;
@@ -8708,7 +8708,7 @@ a = [
   />
 ];
 
-<div {...(foo || foo === null ? { foo } : null)} />;
+<div { ...(foo || foo === null ? { foo } : null) } />;
 
 ================================================================================
 `;
@@ -8747,7 +8747,7 @@ a = [
   />
 ];
 
-<div {...(foo || foo === null ? { foo } : null)} />;
+<div { ...(foo || foo === null ? { foo } : null) } />;
 
 ================================================================================
 `;
