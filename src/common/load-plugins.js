@@ -46,16 +46,16 @@ function loadPlugins(plugins, pluginSearchDirs) {
         pluginSearchDir
       );
 
-      if (!isDirectory(resolvedPluginSearchDir)) {
-        throw new Error(
-          `${pluginSearchDir} does not exist or is not a directory`
-        );
-      }
-
       const nodeModulesDir = path.resolve(
         resolvedPluginSearchDir,
         "node_modules"
       );
+
+      if (!isDirectory(nodeModulesDir)) {
+        throw new Error(
+          `${pluginSearchDir} does not exist or is not a directory`
+        );
+      }
 
       return findPluginsInNodeModules(nodeModulesDir).map(pluginName => ({
         name: pluginName,
