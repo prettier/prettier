@@ -300,6 +300,15 @@ Other options:
 
 exports[`throw error and show usage with something unexpected (write) 1`] = `Array []`;
 
+exports[`throw error with --check + --list-different (stderr) 1`] = `
+"[error] Cannot use --check and --list-different together.
+"
+`;
+
+exports[`throw error with --check + --list-different (stdout) 1`] = `""`;
+
+exports[`throw error with --check + --list-different (write) 1`] = `Array []`;
+
 exports[`throw error with --file-info + multiple files (stderr) 1`] = `
 "[error] Cannot use --file-info with multiple files
 "
