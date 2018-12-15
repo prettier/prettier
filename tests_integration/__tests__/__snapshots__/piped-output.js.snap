@@ -17,7 +17,7 @@ exports[`output with --list-different + unformatted differs when piped (stderr) 
 exports[`output with --list-different + unformatted differs when piped (stderr) 2`] = `""`;
 
 exports[`output with --list-different + unformatted differs when piped (stdout) 1`] = `
-"unformatted.jsunformatted.js
+"unformatted.js
 "
 `;
 

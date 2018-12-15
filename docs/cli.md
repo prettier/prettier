@@ -33,15 +33,17 @@ prettier --check "src/**/*.js"
 Console output if all files are formatted:
 
 ```
-All files use Prettier code style.
+Checking formatting...
+All matched files use Prettier code style!
 ```
 
 Console output if some of the files require re-formatting:
 
 ```
-Forgot to run Prettier? There are files without correct code style:
+Checking formatting...
 src/fileA.js
 src/fileB.js
+Code style issues found in the above file(s). Forgot to run Prettier?
 ```
 
 The command will return exit code 1 in the second case, which is helpful inside the CI pipelines.

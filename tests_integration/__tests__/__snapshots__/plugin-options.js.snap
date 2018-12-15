@@ -5,7 +5,7 @@ exports[` 1`] = `
 - First value
 + Second value
 
-@@ -15,10 +15,12 @@
+@@ -17,10 +17,12 @@
                              Defaults to avoid.
     --no-bracket-spacing     Do not print spaces between brackets.
     --end-of-line <auto|lf|crlf|cr>

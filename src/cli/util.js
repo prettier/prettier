@@ -58,7 +58,7 @@ function handleError(context, filename, error) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
     }
-    if (!context.argv["list-different"]) {
+    if (!context.argv["check"] && !context.argv["list-different"]) {
       process.exitCode = 2;
     }
     context.logger.error(error.message);
@@ -133,7 +133,7 @@ function writeOutput(context, result, options) {
 }
 
 function listDifferent(context, input, options, filename) {
-  if (!context.argv["list-different"]) {
+  if (!context.argv["check"] && !context.argv["list-different"]) {
     return;
   }
 
@@ -146,8 +146,8 @@ function listDifferent(context, input, options, filename) {
     if (!prettier.check(input, options)) {
       if (!context.argv["write"]) {
         context.logger.log(filename);
-        process.exitCode = 1;
       }
+      process.exitCode = 1;
     }
   } catch (error) {
     context.logger.error(error.message);
@@ -441,12 +441,17 @@ function formatFiles(context) {
   // before any files are actually written
   const ignorer = createIgnorerFromContextOrDie(context);
 
+  if (context.argv["check"]) {
+    context.logger.log("Checking formatting...");
+  }
+
   eachFilename(context, context.filePatterns, (filename, options) => {
     const fileIgnored = ignorer.filter([filename]).length === 0;
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
         context.argv["write"] ||
+        context.argv["check"] ||
         context.argv["list-different"])
     ) {
       return;
@@ -496,13 +501,6 @@ function formatFiles(context) {
 
     const isDifferent = output !== input;
 
-    if (context.argv["list-different"] && isDifferent) {
-      context.logger.log(filename);
-      if (!context.argv["write"]) {
-        process.exitCode = 1;
-      }
-    }
-
     if (context.argv["write"]) {
       if (process.stdout.isTTY) {
         // Remove previously printed filename to log it with duration.
@@ -513,7 +511,7 @@ function formatFiles(context) {
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
       if (isDifferent) {
-        if (!context.argv["list-different"]) {
+        if (!context.argv["check"] && !context.argv["list-different"]) {
           context.logger.log(`${filename} ${Date.now() - start}ms`);
         }
 
@@ -526,7 +524,7 @@ function formatFiles(context) {
           // Don't exit the process if one file failed
           process.exitCode = 2;
         }
-      } else if (!context.argv["list-different"]) {
+      } else if (!context.argv["check"] && !context.argv["list-different"]) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
     } else if (context.argv["debug-check"]) {
@@ -535,10 +533,39 @@ function formatFiles(context) {
       } else {
         process.exitCode = 2;
       }
-    } else if (!context.argv["list-different"]) {
+    } else if (!context.argv["check"] && !context.argv["list-different"]) {
       writeOutput(context, result, options);
     }
+
+    if (
+      (context.argv["check"] || context.argv["list-different"]) &&
+      isDifferent
+    ) {
+      // Don't print filename on the same line twice in tty mode
+      context.logger.log(process.stdout.isTTY ? "" : filename);
+      process.exitCode = 1;
+    }
   });
+
+  // Print check summary based on expected exit code
+  if (context.argv["check"]) {
+    context.logger.log(
+      process.exitCode !== 1
+        ? "All matched files use Prettier code style!"
+        : context.argv["write"]
+        ? "Code style issues fixed in the above file(s)."
+        : "Code style issues found in the above file(s). Forgot to run Prettier?"
+    );
+  }
+
+  // Reset exitCode to 0 when using check/list-different is combined with write
+  if (
+    (context.argv["check"] || context.argv["list-different"]) &&
+    context.argv["write"] &&
+    process.exitCode === 1
+  ) {
+    process.exitCode = 0;
+  }
 }
 
 function getOptionsWithOpposites(options) {
