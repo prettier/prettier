@@ -23,7 +23,7 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt-out f
 
 ## `--check`
 
-When you want to check if your files are formatted, you can run Prettier with the `--check` flag.
+When you want to check if your files are formatted, you can run Prettier with the `--check` flag (or `-c`).
 This will output a human-friendly message and a list of unformatted files, if any.
 
 ```bash
