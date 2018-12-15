@@ -375,6 +375,10 @@ function inferScriptParser(node) {
     if (node.attrMap.type === "text/markdown") {
       return "markdown";
     }
+
+    if (node.attrMap.type === "application/ld+json") {
+      return "json";
+    }
   }
 
   if (node.name === "style") {
