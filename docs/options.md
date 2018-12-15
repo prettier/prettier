@@ -170,6 +170,14 @@ These options cannot be used with `cursorOffset`.
 | `0`        | `--range-start <int>` | `rangeStart: <int>` |
 | `Infinity` | `--range-end <int>`   | `rangeEnd: <int>`   |
 
+## Space before function parentheses
+
+Put a space before function parenthesis.
+
+| Default | CLI Override                    | API Override                       |
+| ------- | ------------------------------- | ---------------------------------- |
+| `false` | `--space-before-function-paren` | `spaceBeforeFunctionParen: <bool>` |
+
 ## Parser
 
 Specify which parser to use.

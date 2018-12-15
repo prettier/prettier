@@ -3736,8 +3736,13 @@ function printMethod(path, options, print) {
     key = concat(["[", key, "]"]);
   }
 
+  parts.push(key);
+
+  if (options.spaceBeforeFunctionParen && !node.value.async) {
+    parts.push(" ");
+  }
+
   parts.push(
-    key,
     concat(
       path.call(
         valuePath => [
@@ -4228,6 +4233,10 @@ function printFunctionDeclaration(path, print, options) {
   }
   if (n.id) {
     parts.push(" ", path.call(print, "id"));
+  }
+
+  if (options.spaceBeforeFunctionParen) {
+    parts.push(" ");
   }
 
   parts.push(
