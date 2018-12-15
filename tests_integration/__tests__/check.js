@@ -11,3 +11,13 @@ describe("checks stdin with --check", () => {
     status: "non-zero"
   });
 });
+
+describe("checks stdin with -c (alias for --check)", () => {
+  runPrettier("cli/with-shebang", ["-c", "--parser", "babylon"], {
+    input: "0"
+  }).test({
+    stdout: "(stdin)\n",
+    stderr: "",
+    status: "non-zero"
+  });
+});
