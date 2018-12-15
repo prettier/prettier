@@ -53,7 +53,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
 
       if (!isDirectory(nodeModulesDir)) {
         throw new Error(
-          `${pluginSearchDir} does not exist or is not a directory`
+          `${nodeModulesDir} does not exist or is not a directory`
         );
       }
 
