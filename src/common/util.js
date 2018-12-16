@@ -1,7 +1,6 @@
 "use strict";
 
 const stringWidth = require("string-width");
-const emojiRegex = require("emoji-regex")();
 const escapeStringRegexp = require("escape-string-regexp");
 
 // eslint-disable-next-line no-control-regex
@@ -594,10 +593,9 @@ function getStringWidth(text) {
     return text.length;
   }
 
-  // emojis are considered 2-char width for consistency
-  // see https://github.com/sindresorhus/string-width/issues/11
-  // for the reason why not implemented in `string-width`
-  return stringWidth(text.replace(emojiRegex, "  "));
+  // now string-width supports emoji
+  // https://github.com/sindresorhus/string-width/pull/17
+  return stringWidth(text);
 }
 
 function hasIgnoreComment(path) {
