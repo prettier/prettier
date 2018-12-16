@@ -17,6 +17,9 @@ class Foo {
     constructor() {
         // ...
     }
+    bar() {
+        // ...
+    }
 }
 
 var foo = {

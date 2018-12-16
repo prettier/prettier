@@ -26,6 +26,9 @@ class Foo {
     constructor() {
         // ...
     }
+    bar() {
+        // ...
+    }
 }
 
 var foo = {
@@ -54,6 +57,9 @@ var bar = function foo () {
 
 class Foo {
   constructor () {
+    // ...
+  }
+  bar () {
     // ...
   }
 }
@@ -94,6 +100,9 @@ class Foo {
     constructor() {
         // ...
     }
+    bar() {
+        // ...
+    }
 }
 
 var foo = {
@@ -122,6 +131,9 @@ var bar = function foo() {
 
 class Foo {
   constructor() {
+    // ...
+  }
+  bar() {
     // ...
   }
 }
