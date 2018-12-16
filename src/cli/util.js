@@ -457,10 +457,7 @@ function formatFiles(context) {
       return;
     }
 
-    if (
-      (context.argv["check"] || context.argv["write"]) &&
-      process.stdout.isTTY
-    ) {
+    if (process.stdout.isTTY) {
       // Don't use `console.log` here since we need to replace this line.
       context.logger.log(filename, { newline: false });
     }
@@ -504,10 +501,7 @@ function formatFiles(context) {
 
     const isDifferent = output !== input;
 
-    if (
-      (context.argv["check"] || context.argv["write"]) &&
-      process.stdout.isTTY
-    ) {
+    if (process.stdout.isTTY) {
       // Remove previously printed filename to log it with duration.
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
