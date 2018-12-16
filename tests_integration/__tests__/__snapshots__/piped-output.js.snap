@@ -38,7 +38,7 @@ exports[`output with --check + unformatted differs when piped (stderr) 2`] = `""
 
 exports[`output with --check + unformatted differs when piped (stdout) 1`] = `
 "Checking formatting...
-unformatted.js
+unformatted.jsunformatted.js
 Code style issues fixed in the above file(s).
 "
 `;
@@ -75,7 +75,7 @@ exports[`output with --list-different + unformatted differs when piped (stderr) 
 exports[`output with --list-different + unformatted differs when piped (stderr) 2`] = `""`;
 
 exports[`output with --list-different + unformatted differs when piped (stdout) 1`] = `
-"unformatted.js
+"unformatted.jsunformatted.js
 "
 `;
 
