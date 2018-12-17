@@ -16,7 +16,7 @@ export default () => {};
 
 exports[`export_default_arrow_expression.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -44,7 +44,7 @@ export default foo();
 
 exports[`export_default_call_expression.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -72,7 +72,7 @@ export default class Foo {}
 
 exports[`export_default_class_declaration.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -100,7 +100,7 @@ export default (class foobar {});
 
 exports[`export_default_class_expression.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -128,7 +128,7 @@ export default function() {}
 
 exports[`export_default_function_declaration.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -156,7 +156,7 @@ export default async function foo() {}
 
 exports[`export_default_function_declaration_async.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -184,7 +184,7 @@ export default function f() {}
 
 exports[`export_default_function_declaration_named.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -212,7 +212,7 @@ export default (function() {});
 
 exports[`export_default_function_expression.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -240,7 +240,7 @@ export default (function f() {});
 
 exports[`export_default_function_expression_named.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -268,7 +268,7 @@ export default new Foo();
 
 exports[`export_default_new_expression.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

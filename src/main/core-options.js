@@ -115,7 +115,7 @@ const options = {
     category: CATEGORY_GLOBAL,
     type: "choice",
     default: [
-      { since: "0.0.10", value: "babylon" },
+      { since: "0.0.10", value: "babel" },
       { since: "1.13.0", value: undefined }
     ],
     description: "Which parser to use.",
@@ -123,7 +123,7 @@ const options = {
       typeof value === "string" || typeof value === "function",
     choices: [
       { value: "flow", description: "Flow" },
-      { value: "babylon", description: "JavaScript" },
+      { value: "babel", description: "JavaScript" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
       { value: "css", since: "1.7.1", description: "CSS" },
       {

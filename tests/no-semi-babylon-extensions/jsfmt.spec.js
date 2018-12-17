@@ -1,2 +1,2 @@
-run_spec(__dirname, ["babylon"]);
-run_spec(__dirname, ["babylon"], { semi: false });
+run_spec(__dirname, ["babel"]);
+run_spec(__dirname, ["babel"], { semi: false });

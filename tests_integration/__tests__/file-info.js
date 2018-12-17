@@ -142,7 +142,7 @@ test("API getFileInfo with ignorePath", () => {
 
   expect(prettier.getFileInfo(file)).resolves.toMatchObject({
     ignored: false,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 
   expect(
@@ -151,7 +151,7 @@ test("API getFileInfo with ignorePath", () => {
     })
   ).resolves.toMatchObject({
     ignored: true,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 });
 
@@ -165,7 +165,7 @@ test("API getFileInfo.sync with ignorePath", () => {
 
   expect(prettier.getFileInfo.sync(file)).toMatchObject({
     ignored: false,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 
   expect(
@@ -174,7 +174,7 @@ test("API getFileInfo.sync with ignorePath", () => {
     })
   ).toMatchObject({
     ignored: true,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 });
 
@@ -218,7 +218,7 @@ test("API getFileInfo with withNodeModules", () => {
   );
   expect(prettier.getFileInfo(file)).resolves.toMatchObject({
     ignored: true,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
   expect(
     prettier.getFileInfo(file, {
@@ -226,7 +226,7 @@ test("API getFileInfo with withNodeModules", () => {
     })
   ).resolves.toMatchObject({
     ignored: false,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 });
 
@@ -235,7 +235,7 @@ describe("extracts file-info for a JS file with no extension but a standard sheb
     prettier.getFileInfo.sync("tests_integration/cli/shebang/node-shebang")
   ).toMatchObject({
     ignored: false,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 });
 
@@ -244,7 +244,7 @@ describe("extracts file-info for a JS file with no extension but an env-based sh
     prettier.getFileInfo.sync("tests_integration/cli/shebang/env-node-shebang")
   ).toMatchObject({
     ignored: false,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 });
 

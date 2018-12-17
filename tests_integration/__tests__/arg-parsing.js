@@ -71,7 +71,7 @@ describe("deprecated option values are warned", () => {
 describe("allow overriding flags", () => {
   runPrettier(
     "cli/arg-parsing",
-    ["--tab-width=1", "--tab-width=3", "--parser=babylon"],
+    ["--tab-width=1", "--tab-width=3", "--parser=babel"],
     { input: "function a() { b }" }
   ).test({
     stdout: "function a() {\n   b;\n}\n",

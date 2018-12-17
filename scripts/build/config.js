@@ -24,7 +24,7 @@ const PROJECT_ROOT = path.resolve(__dirname, "../..");
 /** @type {Bundle[]} */
 const parsers = [
   {
-    input: "src/language-js/parser-babylon.js",
+    input: "src/language-js/parser-babel.js",
     target: "universal",
     babelPlugins: [
       require.resolve("./babel-plugins/replace-array-includes-with-indexof")

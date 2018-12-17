@@ -2,7 +2,7 @@
 
 exports[`getters_and_setters.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

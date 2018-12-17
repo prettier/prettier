@@ -39,11 +39,11 @@ function normalize(options, opts) {
     if (!rawOptions.filepath) {
       const logger = opts.logger || console;
       logger.warn(
-        "No parser and no filepath given, using 'babylon' the parser now " +
+        "No parser and no filepath given, using 'babel' the parser now " +
           "but this will throw an error in the future. " +
           "Please specify a parser or a filepath so one can be inferred."
       );
-      rawOptions.parser = "babylon";
+      rawOptions.parser = "babel";
     } else {
       rawOptions.parser = inferParser(rawOptions.filepath, rawOptions.plugins);
       if (!rawOptions.parser) {

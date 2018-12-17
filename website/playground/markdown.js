@@ -35,7 +35,7 @@ function formatMarkdown(
 
 function getMarkdownSyntax(options) {
   switch (options.parser) {
-    case "babylon":
+    case "babel":
     case "flow":
       return "jsx";
     case "typescript":

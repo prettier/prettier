@@ -2,7 +2,7 @@
 
 exports[`argument-name-clash.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -18,7 +18,7 @@ function f(a, a) {
 
 exports[`keywords.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -46,7 +46,7 @@ function myFunction() {
 
 exports[`octal-number.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

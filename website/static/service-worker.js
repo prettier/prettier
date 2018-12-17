@@ -9,7 +9,7 @@ toolbox.precache([
   // Scripts
   "lib/standalone.js",
   "lib/parser-angular.js",
-  "lib/parser-babylon.js",
+  "lib/parser-babel.js",
   "lib/parser-flow.js",
   "lib/parser-glimmer.js",
   "lib/parser-graphql.js",

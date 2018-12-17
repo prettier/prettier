@@ -12,34 +12,34 @@ function importScriptOnce(url) {
 
 // this is required to only load parsers when we need them
 var parsers = {
-  // JS - Babylon
-  get babylon() {
-    importScriptOnce("lib/parser-babylon.js");
-    return prettierPlugins.babylon.parsers.babylon;
+  // JS - Babel
+  get babel() {
+    importScriptOnce("lib/parser-babel.js");
+    return prettierPlugins.babel.parsers.babel;
   },
   get json() {
-    importScriptOnce("lib/parser-babylon.js");
-    return prettierPlugins.babylon.parsers.json;
+    importScriptOnce("lib/parser-babel.js");
+    return prettierPlugins.babel.parsers.json;
   },
   get json5() {
-    importScriptOnce("lib/parser-babylon.js");
-    return prettierPlugins.babylon.parsers.json5;
+    importScriptOnce("lib/parser-babel.js");
+    return prettierPlugins.babel.parsers.json5;
   },
   get "json-stringify"() {
-    importScriptOnce("lib/parser-babylon.js");
-    return prettierPlugins.babylon.parsers["json-stringify"];
+    importScriptOnce("lib/parser-babel.js");
+    return prettierPlugins.babel.parsers["json-stringify"];
   },
   get __js_expression() {
-    importScriptOnce("lib/parser-babylon.js");
-    return prettierPlugins.babylon.parsers.__js_expression;
+    importScriptOnce("lib/parser-babel.js");
+    return prettierPlugins.babel.parsers.__js_expression;
   },
   get __vue_expression() {
-    importScriptOnce("lib/parser-babylon.js");
-    return prettierPlugins.babylon.parsers.__vue_expression;
+    importScriptOnce("lib/parser-babel.js");
+    return prettierPlugins.babel.parsers.__vue_expression;
   },
   get __vue_event_binding() {
-    importScriptOnce("lib/parser-babylon.js");
-    return prettierPlugins.babylon.parsers.__vue_event_binding;
+    importScriptOnce("lib/parser-babel.js");
+    return prettierPlugins.babel.parsers.__vue_event_binding;
   },
   // JS - Flow
   get flow() {
@@ -200,7 +200,7 @@ function handleMessage(message) {
       try {
         response.debug.doc = prettier.__debug.formatDoc(
           prettier.__debug.printToDoc(message.code, options),
-          { parser: "babylon", plugins: plugins }
+          { parser: "babel", plugins: plugins }
         );
       } catch (e) {
         response.debug.doc = String(e);

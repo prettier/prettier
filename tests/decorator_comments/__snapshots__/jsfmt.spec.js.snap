@@ -2,7 +2,7 @@
 
 exports[`comments.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon", "typescript"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

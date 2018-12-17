@@ -1,1 +1,1 @@
-run_spec(__dirname, ["babylon", "flow"]);
+run_spec(__dirname, ["babel", "flow"]);

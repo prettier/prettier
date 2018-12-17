@@ -2,7 +2,7 @@
 
 exports[`class.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon", "typescript"]
+parsers: ["flow", "babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -27,7 +27,7 @@ class x {
 
 exports[`empty_paren_comment.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon", "typescript"]
+parsers: ["flow", "babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
