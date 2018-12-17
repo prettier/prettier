@@ -5,7 +5,7 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
 - First value
 + Second value
 
-@@ -13,19 +13,35 @@
+@@ -16,19 +16,35 @@
     \\"options\\": Object {
       \\"bracketSpacing\\": Object {
         \\"default\\": true,
@@ -41,7 +41,7 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"tabWidth\\": Object {
-@@ -40,17 +56,15 @@
+@@ -43,17 +59,15 @@
       \\"trailingComma\\": Object {
         \\"choices\\": Array [
           \\"none\\",
@@ -68,12 +68,15 @@ Object {
   "languages": Object {
     "Flow": Array [
       "babel",
+      "flow",
     ],
     "JSX": Array [
       "babel",
+      "flow",
     ],
     "JavaScript": Array [
       "babel",
+      "flow",
     ],
   },
   "options": Object {
@@ -127,7 +130,7 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 - First value
 + Second value
 
-@@ -1,30 +1,60 @@
+@@ -1,7 +1,10 @@
   Object {
     \\"languages\\": Object {
 +     \\"CSS\\": Array [
@@ -135,12 +138,14 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 +     ],
       \\"Flow\\": Array [
         \\"babel\\",
+        \\"flow\\",
       ],
       \\"JSX\\": Array [
-        \\"babel\\",
+@@ -10,24 +13,51 @@
       ],
       \\"JavaScript\\": Array [
         \\"babel\\",
+        \\"flow\\",
       ],
 +     \\"Less\\": Array [
 +       \\"postcss\\",
@@ -188,7 +193,7 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
         \\"type\\": \\"choice\\",
       },
       \\"printWidth\\": Object {
-@@ -34,10 +64,28 @@
+@@ -37,10 +67,28 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -224,11 +229,11 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 - First value
 + Second value
 
-@@ -4,10 +4,19 @@
-        \\"postcss\\",
+@@ -5,10 +5,19 @@
       ],
       \\"Flow\\": Array [
         \\"babel\\",
+        \\"flow\\",
       ],
 +     \\"GraphQL\\": Array [
 +       \\"graphql\\",
@@ -241,10 +246,10 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 +     ],
       \\"JSX\\": Array [
         \\"babel\\",
+        \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-        \\"babel\\",
-@@ -51,10 +60,12 @@
+@@ -54,10 +63,12 @@
         \\"choices\\": Array [
           \\"flow\\",
           \\"babel\\",
@@ -273,12 +278,12 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
       ],
       \\"Flow\\": Array [
         \\"babel\\",
+        \\"flow\\",
       ],
-      \\"GraphQL\\": Array [
-@@ -20,17 +20,17 @@
-      ],
+@@ -23,17 +23,17 @@
       \\"JavaScript\\": Array [
         \\"babel\\",
+        \\"flow\\",
       ],
       \\"Less\\": Array [
 -       \\"postcss\\",
@@ -296,7 +301,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         \\"typescript\\",
       ],
     },
-@@ -59,11 +59,13 @@
+@@ -62,11 +62,13 @@
       \\"parser\\": Object {
         \\"choices\\": Array [
           \\"flow\\",
@@ -311,7 +316,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         ],
         \\"default\\": \\"babel\\",
         \\"type\\": \\"choice\\",
-@@ -93,10 +95,14 @@
+@@ -96,10 +98,14 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -333,8 +338,8 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
 - First value
 + Second value
 
-@@ -22,10 +22,13 @@
-        \\"babel\\",
+@@ -25,10 +25,13 @@
+        \\"flow\\",
       ],
       \\"Less\\": Array [
         \\"less\\",
@@ -347,7 +352,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
       ],
       \\"SCSS\\": Array [
         \\"scss\\",
-@@ -50,10 +53,14 @@
+@@ -53,10 +56,14 @@
       },
       \\"filepath\\": Object {
         \\"default\\": undefined,
@@ -362,7 +367,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"parser\\": Object {
-@@ -64,10 +71,11 @@
+@@ -67,10 +74,11 @@
           \\"css\\",
           \\"less\\",
           \\"scss\\",
@@ -381,7 +386,7 @@ exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
 - First value
 + Second value
 
-@@ -85,10 +85,18 @@
+@@ -88,10 +88,18 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -407,7 +412,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 - First value
 + Second value
 
-@@ -1,31 +1,46 @@
+@@ -1,23 +1,35 @@
   Object {
     \\"languages\\": Object {
 +     \\"Angular\\": Array [
@@ -418,6 +423,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       ],
       \\"Flow\\": Array [
         \\"babel\\",
+        \\"flow\\",
       ],
       \\"GraphQL\\": Array [
         \\"graphql\\",
@@ -439,9 +445,11 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +     ],
       \\"JSX\\": Array [
         \\"babel\\",
+        \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-        \\"babel\\",
+@@ -25,10 +37,13 @@
+        \\"flow\\",
       ],
       \\"Less\\": Array [
         \\"less\\",
@@ -454,7 +462,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       ],
       \\"PostCSS\\": Array [
         \\"css\\",
-@@ -34,12 +49,26 @@
+@@ -37,12 +52,26 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -481,7 +489,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -49,37 +78,75 @@
+@@ -52,37 +81,75 @@
           \\"start\\": -1,
           \\"step\\": 1,
         },
@@ -558,7 +566,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -87,14 +154,15 @@
+@@ -90,14 +157,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -616,7 +624,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"interpreters\\": [\\"node\\", \\"nodejs\\"],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JavaScript\\",
-      \\"parsers\\": [\\"babel\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -633,7 +641,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"interpreters\\": [\\"node\\"],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"Flow\\",
-      \\"parsers\\": [\\"babel\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -647,7 +655,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"group\\": \\"JavaScript\\",
       \\"linguistLanguageId\\": 178,
       \\"name\\": \\"JSX\\",
-      \\"parsers\\": [\\"babel\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js.jsx\\",
       \\"type\\": \\"programming\\",

@@ -176,11 +176,11 @@ Specify which parser to use.
 
 Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting.
 
-Both the `babylon` and `flow` parsers support the same set of JavaScript features (including Flow type annotations). They might differ in some edge cases, so if you run into one of those you can try `flow` instead of `babylon`.
+Both the `babel` and `flow` parsers support the same set of JavaScript features (including Flow type annotations). They might differ in some edge cases, so if you run into one of those you can try `flow` instead of `babel`.
 
 Valid options:
 
-- `"babylon"` (via [@babel/parser](https://github.com/babel/babel/tree/master/packages/babel-parser))
+- `"babel"` (via [@babel/parser](https://github.com/babel/babel/tree/master/packages/babel-parser))
 - `"flow"` (via [flow-parser](https://github.com/facebook/flow/tree/master/src/parser))
 - `"typescript"` (via [typescript-estree](https://github.com/JamesHenry/typescript-estree)) _First available in v1.4.0_
 - `"css"` (via [postcss-scss](https://github.com/postcss/postcss-scss) and [postcss-less](https://github.com/shellscape/postcss-less), autodetects which to use) _First available in v1.7.1_
@@ -203,7 +203,7 @@ Valid options:
 | ------- | ----------------------------------------------- | ---------------------------------------------------------- |
 | None    | `--parser <string>`<br />`--parser ./my-parser` | `parser: "<string>"`<br />`parser: require("./my-parser")` |
 
-Note: the default value was `"babylon"` until v1.13.0.
+Note: the default value was `"babel"` until v1.13.0.
 
 <a name="filepath"></a>
 
