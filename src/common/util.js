@@ -593,8 +593,6 @@ function getStringWidth(text) {
     return text.length;
   }
 
-  // now string-width supports emoji
-  // https://github.com/sindresorhus/string-width/pull/17
   return stringWidth(text);
 }
 
