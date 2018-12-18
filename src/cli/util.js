@@ -441,6 +441,8 @@ function formatFiles(context) {
   // before any files are actually written
   const ignorer = createIgnorerFromContextOrDie(context);
 
+  let numberOfUnformattedFilesFound = 0;
+
   if (context.argv["check"]) {
     context.logger.log("Checking formatting...");
   }
@@ -542,14 +544,14 @@ function formatFiles(context) {
       isDifferent
     ) {
       context.logger.log(filename);
-      process.exitCode = 1;
+      numberOfUnformattedFilesFound += 1;
     }
   });
 
   // Print check summary based on expected exit code
   if (context.argv["check"]) {
     context.logger.log(
-      process.exitCode !== 1
+      numberOfUnformattedFilesFound === 0
         ? "All matched files use Prettier code style!"
         : context.argv["write"]
         ? "Code style issues fixed in the above file(s)."
@@ -557,13 +559,14 @@ function formatFiles(context) {
     );
   }
 
-  // Reset exitCode to 0 when using check/list-different is combined with write
+  // Ensure non-zero exitCode when using --check/list-different is not combined with --write
   if (
     (context.argv["check"] || context.argv["list-different"]) &&
-    context.argv["write"] &&
-    process.exitCode === 1
+    numberOfUnformattedFilesFound > 0 &&
+    !process.exitCode &&
+    !context.argv["write"]
   ) {
-    process.exitCode = 0;
+    process.exitCode = 1;
   }
 }
 
