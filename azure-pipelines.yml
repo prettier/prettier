@@ -4,70 +4,91 @@ trigger:
 
 variables:
   AST_COMPARE: true
-  REPORT_SUMMARIES: true
+  ENABLE_TEST_RESULTS: true
+  ENABLE_CODE_COVERAGE: "" # only enable coverage on the fastest job
 
 jobs:
-  - job: Lint_Linux_Node_v10
-    displayName: Lint on Linux Node v10
+  - job: Dev_Lint
+    displayName: Dev Lint on Linux Node v10
     pool:
       vmImage: "Ubuntu 16.04"
     variables:
       node_version: 10
     steps:
-      - template: .azure-pipelines/lint.yml
+      - template: .azure-pipelines/jobs/dev-lint.yml
 
-  - job: Lint_Dist_Linux_Node_v10
-    displayName: Lint Dist on Linux Node v10
-    pool:
-      vmImage: "Ubuntu 16.04"
-    variables:
-      node_version: 10
-    steps:
-      - template: .azure-pipelines/lint-dist.yml
-
-  - job: Dev_Test_Windows_Node_v10
-    displayName: Dev Tests on Windows Node v10
+  - job: Dev_Test_Windows
+    displayName: Dev Test on Windows Node v10
     pool:
       vmImage: vs2017-win2016
     variables:
       node_version: 10
       TEST_CRLF: true
     steps:
-      - template: .azure-pipelines/dev.yml
+      - template: .azure-pipelines/jobs/dev-test.yml
 
-  - job: Dev_Test_macOS_Node_v10
-    displayName: Dev Tests on macOS Node v10
+  - job: Dev_Test_macOS
+    displayName: Dev Test on macOS Node v10
     pool:
       vmImage: macos-10.13
     variables:
       node_version: 10
+      ENABLE_CODE_COVERAGE: true
     steps:
-      - template: .azure-pipelines/dev.yml
+      - template: .azure-pipelines/jobs/dev-test.yml
 
-  - job: Dev_Test_Linux_Node_v10
-    displayName: Dev Tests on Linux Node v10
+  - job: Dev_Test_Linux
+    displayName: Dev Test on Linux Node v10
     pool:
       vmImage: "Ubuntu 16.04"
     variables:
       node_version: 10
     steps:
-      - template: .azure-pipelines/dev.yml
+      - template: .azure-pipelines/jobs/dev-test.yml
 
-  - job: Prod_Test_Linux
-    displayName: Prod Tests on Linux
+  - job: Prod_Build
+    displayName: Prod Build on Linux Node v10
     pool:
       vmImage: "Ubuntu 16.04"
     variables:
-      node_version_for_build: 10
+      node_version: 10
+    steps:
+      - template: .azure-pipelines/jobs/prod-build.yml
+
+  - job: Prod_Pack
+    dependsOn: Prod_Build
+    displayName: Prod Pack on Linux Node v10
+    pool:
+      vmImage: "Ubuntu 16.04"
+    variables:
+      node_version: 10
+    steps:
+      - template: .azure-pipelines/jobs/prod-pack.yml
+
+  - job: Prod_Lint
+    dependsOn: Prod_Build
+    displayName: Prod Lint on Linux Node v10
+    pool:
+      vmImage: "Ubuntu 16.04"
+    variables:
+      node_version: 10
+    steps:
+      - template: .azure-pipelines/jobs/prod-lint.yml
+
+  - job: Prod_Test
+    dependsOn: Prod_Build
+    displayName: Prod Test on macOS
+    pool:
+      vmImage: macos-10.13
     strategy:
       matrix:
         Node_v4:
           node_version: 4
-          REPORT_SUMMARIES: "" # jest-junit requires node v6+
+          ENABLE_TEST_RESULTS: "" # jest-junit requires node v6+
         Node_v10:
           node_version: 10
         Node_v10_standalone:
           node_version: 10
           TEST_STANDALONE: true
     steps:
-      - template: .azure-pipelines/prod.yml
+      - template: .azure-pipelines/jobs/prod-test.yml

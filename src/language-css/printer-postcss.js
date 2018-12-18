@@ -511,6 +511,27 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        // Ignore escape `\`
+        if (
+          iNode.value &&
+          iNode.value.indexOf("\\") !== -1 &&
+          iNextNode &&
+          iNextNode.type !== "value-comment"
+        ) {
+          continue;
+        }
+
+        // Ignore escaped `/`
+        if (
+          iPrevNode &&
+          iPrevNode.value &&
+          iPrevNode.value.indexOf("\\") === iPrevNode.value.length - 1 &&
+          iNode.type === "value-operator" &&
+          iNode.value === "/"
+        ) {
+          continue;
+        }
+
         // Ignore `\` (i.e. `$variable: \@small;`)
         if (iNode.value === "\\") {
           continue;
