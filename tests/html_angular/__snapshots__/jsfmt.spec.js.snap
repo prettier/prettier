@@ -2400,7 +2400,12 @@ printWidth: 80
   {{ aNormalValue | aPipe }}:
   <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
 </span>
-
+<p>
+  {{
+      'delete'
+          | translate: {what: ('entities' | translate: {count: array.length})}
+  }}
+</p>
 =====================================output=====================================
 <div>{{ a | b: c }}</div>
 <div>{{ 0 - 1 }}</div>
@@ -2478,6 +2483,12 @@ printWidth: 80
     aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
   }}</strong>
 </span>
+<p>
+  {{
+    "delete"
+      | translate: { what: "entities" | translate: { count: array.length } }
+  }}
+</p>
 
 ================================================================================
 `;
@@ -2545,7 +2556,12 @@ trailingComma: "es5"
   {{ aNormalValue | aPipe }}:
   <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
 </span>
-
+<p>
+  {{
+      'delete'
+          | translate: {what: ('entities' | translate: {count: array.length})}
+  }}
+</p>
 =====================================output=====================================
 <div>{{ a | b: c }}</div>
 <div>{{ 0 - 1 }}</div>
@@ -2623,6 +2639,12 @@ trailingComma: "es5"
     aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
   }}</strong>
 </span>
+<p>
+  {{
+    "delete"
+      | translate: { what: "entities" | translate: { count: array.length } }
+  }}
+</p>
 
 ================================================================================
 `;
@@ -2689,7 +2711,12 @@ printWidth: 1
   {{ aNormalValue | aPipe }}:
   <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
 </span>
-
+<p>
+  {{
+      'delete'
+          | translate: {what: ('entities' | translate: {count: array.length})}
+  }}
+</p>
 =====================================output=====================================
 <div>
   {{
@@ -2929,6 +2956,21 @@ printWidth: 1
     }}</strong
   >
 </span>
+<p>
+  {{
+    "delete"
+      | translate
+        : {
+            what:
+              "entities"
+              | translate
+                : {
+                    count:
+                      array.length
+                  }
+          }
+  }}
+</p>
 
 ================================================================================
 `;
@@ -2996,7 +3038,12 @@ printWidth: 80
   {{ aNormalValue | aPipe }}:
   <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
 </span>
-
+<p>
+  {{
+      'delete'
+          | translate: {what: ('entities' | translate: {count: array.length})}
+  }}
+</p>
 =====================================output=====================================
 <div>{{ a | b: c }}</div>
 <div>{{ 0 - 1 }}</div>
@@ -3079,6 +3126,12 @@ printWidth: 80
     {{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}
   </strong>
 </span>
+<p>
+  {{
+    "delete"
+      | translate: { what: "entities" | translate: { count: array.length } }
+  }}
+</p>
 
 ================================================================================
 `;
@@ -3146,7 +3199,12 @@ printWidth: 80
   {{ aNormalValue | aPipe }}:
   <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
 </span>
-
+<p>
+  {{
+      'delete'
+          | translate: {what: ('entities' | translate: {count: array.length})}
+  }}
+</p>
 =====================================output=====================================
 <div>{{ a | b: c }}</div>
 <div>{{ 0 - 1 }}</div>
@@ -3224,6 +3282,11 @@ printWidth: 80
     aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
   }}</strong>
 </span>
+<p>
+  {{
+    "delete" | translate: {what: "entities" | translate: {count: array.length}}
+  }}
+</p>
 
 ================================================================================
 `;
