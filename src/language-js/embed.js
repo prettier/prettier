@@ -1,6 +1,6 @@
 "use strict";
 
-const { isBlockComment } = require("./comments");
+const { isBlockComment, hasLeadingComment } = require("./comments");
 
 const {
   builders: {
@@ -510,11 +510,9 @@ function hasLanguageComment(node, languageName) {
   // we will not trim the comment value and we will expect exactly one space on
   // either side of the GraphQL string
   // Also see ./clean.js
-  const isLanguageComment = comment =>
-    isBlockComment(comment) && comment.value === ` ${languageName} `;
-  return (
-    (node.comments && node.comments.some(isLanguageComment)) ||
-    (node.leadingComments && node.leadingComments.some(isLanguageComment))
+  return hasLeadingComment(
+    node,
+    comment => isBlockComment(comment) && comment.value === ` ${languageName} `
   );
 }
 
