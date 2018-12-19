@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`checks stdin with --check (write) 1`] = `Array []`;
+
+exports[`checks stdin with -c (alias for --check) (write) 1`] = `Array []`;
