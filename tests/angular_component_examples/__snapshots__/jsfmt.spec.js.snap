@@ -10,6 +10,13 @@ printWidth: 80
        selector: 'app-test',
   template: \`<ul>   <li>test</li>
   </ul>
+
+  <div>
+    <pre>
+        test
+      </pre>
+    ~
+</div>
   \`,
   styles: [   \`
   
@@ -31,6 +38,13 @@ class     TestComponent {}
     <ul>
       <li>test</li>
     </ul>
+
+    <div>
+      <pre>
+        test
+      </pre>
+      ~
+    </div>
   \`,
   styles: [
     \`
@@ -59,6 +73,13 @@ trailingComma: "es5"
        selector: 'app-test',
   template: \`<ul>   <li>test</li>
   </ul>
+
+  <div>
+    <pre>
+        test
+      </pre>
+    ~
+</div>
   \`,
   styles: [   \`
   
@@ -80,6 +101,13 @@ class     TestComponent {}
     <ul>
       <li>test</li>
     </ul>
+
+    <div>
+      <pre>
+        test
+      </pre>
+      ~
+    </div>
   \`,
   styles: [
     \`
