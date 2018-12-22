@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
  *
@@ -5,22 +7,27 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const React = require('react');
-
-const CompLibrary = require('../../core/CompLibrary');
-
+const React = require("react");
+const CompLibrary = require("../../core/CompLibrary");
 const Container = CompLibrary.Container;
 
 const CWD = process.cwd();
 
 const versions = require(`${CWD}/versions.json`);
 
+const rootPackageJson = require(`${CWD}/../package.json`);
+const masterVersion = rootPackageJson.version;
+const isMasterDevVersion = masterVersion.endsWith("-dev");
+const devVersion = isMasterDevVersion ? masterVersion : null;
+const latestVersion = isMasterDevVersion
+  ? rootPackageJson.devDependencies.prettier
+  : masterVersion;
+
+const latestDocsVersion = versions[0];
+const pastDocsVersions = versions.slice(1);
+
 function Versions(props) {
-  const {config: siteConfig} = props;
-  const latestVersion = versions[0];
-  const repoUrl = `https://github.com/${siteConfig.organizationName}/${
-    siteConfig.projectName
-  }`;
+  const { config: siteConfig } = props;
   return (
     <div className="docMainWrapper wrapper">
       <Container className="mainContainer versionsContainer">
@@ -28,63 +35,63 @@ function Versions(props) {
           <header className="postHeader">
             <h1>{siteConfig.title} Versions</h1>
           </header>
-          <p>New versions of this project are released every so often.</p>
-          <h3 id="latest">Current version (Stable)</h3>
           <table className="versions">
             <tbody>
               <tr>
-                <th>{latestVersion}</th>
-                <td>
-                  <a href="">Documentation</a>
-                </td>
-                <td>
-                  <a href="">Release Notes</a>
-                </td>
+                <th>Version</th>
+                <th />
+                <th>Documentation</th>
               </tr>
-            </tbody>
-          </table>
-          <p>
-            This is the version that is configured automatically when you first
-            install this project.
-          </p>
-          <h3 id="rc">Pre-release versions</h3>
-          <table className="versions">
-            <tbody>
               <tr>
-                <th>master</th>
+                <td>{latestVersion}</td>
                 <td>
-                  <a href="">Documentation</a>
+                  <code>npm install prettier</code>
                 </td>
                 <td>
-                  <a href="">Release Notes</a>
+                  <a href={`${siteConfig.baseUrl}docs/en/index.html`}>
+                    {latestDocsVersion}
+                  </a>{" "}
+                  (latest)
                 </td>
               </tr>
-            </tbody>
-          </table>
-          <p>Other text describing this section.</p>
-          <h3 id="archive">Past Versions</h3>
-          <table className="versions">
-            <tbody>
-              {versions.map(
-                version =>
-                  version !== latestVersion && (
-                    <tr>
-                      <th>{version}</th>
+              <tr>
+                <td>{devVersion}</td>
+                <td>
+                  <code>npm install prettier/prettier</code>
+                </td>
+                <td>
+                  <a href={`${siteConfig.baseUrl}docs/en/next/index.html`}>
+                    next
+                  </a>{" "}
+                  (master)
+                </td>
+              </tr>
+              {pastDocsVersions.length !== 0 &&
+                pastDocsVersions.map((pastDocsVersion, index) => {
+                  const pastMajorVersion = pastDocsVersion.replace(/^v/, "");
+                  return (
+                    <tr key={index}>
+                      <td>{pastMajorVersion + ".x"}</td>
                       <td>
-                        <a href="">Documentation</a>
+                        <code>
+                          npm install prettier@
+                          {pastMajorVersion}
+                        </code>
                       </td>
                       <td>
-                        <a href="">Release Notes</a>
+                        <a
+                          href={`${
+                            siteConfig.baseUrl
+                          }docs/en/${pastDocsVersion}/index.html`}
+                        >
+                          {pastDocsVersion}
+                        </a>
                       </td>
                     </tr>
-                  ),
-              )}
+                  );
+                })}
             </tbody>
           </table>
-          <p>
-            You can find past versions of this project on{' '}
-            <a href={repoUrl}>GitHub</a>.
-          </p>
         </div>
       </Container>
     </div>
