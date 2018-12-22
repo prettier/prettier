@@ -1,0 +1,35 @@
+{
+  "version-v1-docs": {
+    "About": [
+      "version-v1-index",
+      "version-v1-why-prettier",
+      "version-v1-comparison",
+      "version-v1-option-philosophy",
+      "version-v1-rationale"
+    ],
+    "Usage": [
+      "version-v1-install",
+      "version-v1-cli",
+      "version-v1-api",
+      "version-v1-browser",
+      "version-v1-plugins",
+      "version-v1-precommit",
+      "version-v1-watching-files",
+      "version-v1-eslint",
+      "version-v1-ignore"
+    ],
+    "Configuring Prettier": [
+      "version-v1-options",
+      "version-v1-configuration"
+    ],
+    "Editors": [
+      "version-v1-editors",
+      "version-v1-webstorm",
+      "version-v1-vim"
+    ],
+    "Misc": [
+      "version-v1-technical-details",
+      "version-v1-related-projects"
+    ]
+  }
+}
