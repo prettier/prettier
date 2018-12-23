@@ -39,7 +39,7 @@ function Versions(props) {
             <tbody>
               <tr>
                 <th>Version</th>
-                <th />
+                <th>Install with</th>
                 <th>Documentation</th>
               </tr>
               <tr>
@@ -71,7 +71,7 @@ function Versions(props) {
                   const pastMajorVersion = pastDocsVersion.replace(/^v/, "");
                   return (
                     <tr key={index}>
-                      <td>{pastMajorVersion + ".x"}</td>
+                      <td>{pastMajorVersion}.x</td>
                       <td>
                         <code>
                           npm install prettier@
