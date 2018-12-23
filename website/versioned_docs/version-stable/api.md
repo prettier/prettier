@@ -1,5 +1,5 @@
 ---
-id: version-v1-api
+id: version-stable-api
 title: API
 original_id: api
 ---

@@ -1,5 +1,5 @@
 ---
-id: version-v1-why-prettier
+id: version-stable-why-prettier
 title: Why Prettier?
 original_id: why-prettier
 ---

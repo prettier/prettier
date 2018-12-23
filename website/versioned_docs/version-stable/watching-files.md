@@ -1,5 +1,5 @@
 ---
-id: version-v1-watching-files
+id: version-stable-watching-files
 title: Watching For Changes
 original_id: watching-files
 ---

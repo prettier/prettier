@@ -1,5 +1,5 @@
 ---
-id: version-v1-index
+id: version-stable-index
 title: What is Prettier?
 original_id: index
 ---

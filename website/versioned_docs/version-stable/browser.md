@@ -1,5 +1,5 @@
 ---
-id: version-v1-browser
+id: version-stable-browser
 title: Browser
 original_id: browser
 ---

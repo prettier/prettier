@@ -1,5 +1,5 @@
 ---
-id: version-v1-webstorm
+id: version-stable-webstorm
 title: WebStorm Setup
 original_id: webstorm
 ---

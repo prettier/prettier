@@ -1,5 +1,5 @@
 ---
-id: version-v1-option-philosophy
+id: version-stable-option-philosophy
 title: Option Philosophy
 original_id: option-philosophy
 ---

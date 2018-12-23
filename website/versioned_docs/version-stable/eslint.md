@@ -1,5 +1,5 @@
 ---
-id: version-v1-eslint
+id: version-stable-eslint
 title: Integrating with ESLint
 original_id: eslint
 ---

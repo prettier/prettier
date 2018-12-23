@@ -1,5 +1,5 @@
 ---
-id: version-v1-configuration
+id: version-stable-configuration
 title: Configuration File
 original_id: configuration
 ---

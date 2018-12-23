@@ -1,5 +1,5 @@
 ---
-id: version-v1-related-projects
+id: version-stable-related-projects
 title: Related Projects
 original_id: related-projects
 ---

@@ -1,5 +1,5 @@
 ---
-id: version-v1-plugins
+id: version-stable-plugins
 title: Plugins (Beta)
 original_id: plugins
 ---
