@@ -1,6 +1,7 @@
 "use strict";
 
 const { getStringWidth } = require("../common/util");
+const { convertEndOfLineToChars } = require("../common/end-of-line");
 const { concat, fill, cursor } = require("./doc-builders");
 
 /** @type {{[groupId: PropertyKey]: MODE}} */
@@ -21,14 +22,14 @@ function makeAlign(ind, n, options) {
   return n === -Infinity
     ? ind.root || rootIndent()
     : n < 0
-      ? generateInd(ind, { type: "dedent" }, options)
-      : !n
-        ? ind
-        : n.type === "root"
-          ? Object.assign({}, ind, { root: ind })
-          : typeof n === "string"
-            ? generateInd(ind, { type: "stringAlign", n }, options)
-            : generateInd(ind, { type: "numberAlign", n }, options);
+    ? generateInd(ind, { type: "dedent" }, options)
+    : !n
+    ? ind
+    : n.type === "root"
+    ? Object.assign({}, ind, { root: ind })
+    : typeof n === "string"
+    ? generateInd(ind, { type: "stringAlign", n }, options)
+    : generateInd(ind, { type: "numberAlign", n }, options);
 }
 
 function generateInd(ind, newPart, options) {
@@ -109,9 +110,37 @@ function generateInd(ind, newPart, options) {
   }
 }
 
+function trim(out) {
+  if (out.length === 0) {
+    return 0;
+  }
+
+  let trimCount = 0;
+
+  // Trim whitespace at the end of line
+  while (
+    out.length > 0 &&
+    typeof out[out.length - 1] === "string" &&
+    out[out.length - 1].match(/^[ \t]*$/)
+  ) {
+    trimCount += out.pop().length;
+  }
+
+  if (out.length && typeof out[out.length - 1] === "string") {
+    const trimmed = out[out.length - 1].replace(/[ \t]*$/, "");
+    trimCount += out[out.length - 1].length - trimmed.length;
+    out[out.length - 1] = trimmed;
+  }
+
+  return trimCount;
+}
+
 function fits(next, restCommands, width, options, mustBeFlat) {
   let restIdx = restCommands.length;
   const cmds = [next];
+  // `out` is only used for width counting because `trim` requires to look
+  // backwards for space characters.
+  const out = [];
   while (width >= 0) {
     if (cmds.length === 0) {
       if (restIdx === 0) {
@@ -130,6 +159,8 @@ function fits(next, restCommands, width, options, mustBeFlat) {
     const doc = x[2];
 
     if (typeof doc === "string") {
+      out.push(doc);
+
       width -= getStringWidth(doc);
     } else {
       switch (doc.type) {
@@ -145,6 +176,10 @@ function fits(next, restCommands, width, options, mustBeFlat) {
           break;
         case "align":
           cmds.push([makeAlign(ind, doc.n, options), mode, doc.contents]);
+
+          break;
+        case "trim":
+          width += trim(out);
 
           break;
         case "group":
@@ -184,6 +219,8 @@ function fits(next, restCommands, width, options, mustBeFlat) {
             case MODE_FLAT:
               if (!doc.hard) {
                 if (!doc.soft) {
+                  out.push(" ");
+
                   width -= 1;
                 }
 
@@ -205,7 +242,7 @@ function printDocToString(doc, options) {
   groupModeMap = {};
 
   const width = options.printWidth;
-  const newLine = options.newLine || "\n";
+  const newLine = convertEndOfLineToChars(options.endOfLine);
   let pos = 0;
   // cmds is basically a stack. We've turned a recursive call into a
   // while loop which is much faster. The while loop below adds new
@@ -243,6 +280,10 @@ function printDocToString(doc, options) {
           break;
         case "align":
           cmds.push([makeAlign(ind, doc.n, options), mode, doc.contents]);
+
+          break;
+        case "trim":
+          pos -= trim(out);
 
           break;
         case "group":
@@ -471,24 +512,7 @@ function printDocToString(doc, options) {
                   pos = 0;
                 }
               } else {
-                if (out.length > 0) {
-                  // Trim whitespace at the end of line
-                  while (
-                    out.length > 0 &&
-                    typeof out[out.length - 1] === "string" &&
-                    out[out.length - 1].match(/^[^\S\n]*$/)
-                  ) {
-                    out.pop();
-                  }
-
-                  if (out.length && typeof out[out.length - 1] === "string") {
-                    out[out.length - 1] = out[out.length - 1].replace(
-                      /[^\S\n]*$/,
-                      ""
-                    );
-                  }
-                }
-
+                pos -= trim(out);
                 out.push(newLine + ind.value);
                 pos = ind.length;
               }

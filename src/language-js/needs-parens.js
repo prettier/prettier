@@ -4,6 +4,7 @@ const assert = require("assert");
 
 const util = require("../common/util");
 const comments = require("./comments");
+const { hasFlowShorthandAnnotationComment } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
   // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
@@ -74,6 +75,16 @@ function needsParens(path, options) {
     return true;
   }
 
+  if (
+    // Preserve parens if we have a Flow annotation comment, unless we're using the Flow
+    // parser. The Flow parser turns Flow comments into type annotation nodes in its
+    // AST, which we handle separately.
+    options.parser !== "flow" &&
+    hasFlowShorthandAnnotationComment(path.getValue())
+  ) {
+    return true;
+  }
+
   // Identifiers never need parentheses.
   if (node.type === "Identifier") {
     return false;
@@ -140,6 +151,10 @@ function needsParens(path, options) {
       ) {
         return true;
       }
+
+      if (parent.type === "BindExpression" && parent.callee === node) {
+        return true;
+      }
       return false;
     }
 
@@ -167,6 +182,9 @@ function needsParens(path, options) {
             node.operator === parent.operator &&
             (node.operator === "+" || node.operator === "-")
           );
+
+        case "BindExpression":
+          return true;
 
         case "MemberExpression":
           return name === "object" && parent.object === node;
@@ -223,6 +241,7 @@ function needsParens(path, options) {
         case "NewExpression":
           return name === "callee" && parent.callee === node;
 
+        case "ClassExpression":
         case "ClassDeclaration":
         case "TSAbstractClassDeclaration":
           return name === "superClass" && parent.superClass === node;
@@ -239,6 +258,7 @@ function needsParens(path, options) {
           return true;
 
         case "MemberExpression":
+        case "OptionalMemberExpression":
           return name === "object" && parent.object === node;
 
         case "AssignmentExpression":
@@ -283,10 +303,10 @@ function needsParens(path, options) {
           }
 
           if (pp < np && no === "%") {
-            return !util.shouldFlatten(po, no);
+            return po === "+" || po === "-";
           }
 
-          // Add parenthesis when working with binary operators
+          // Add parenthesis when working with bitwise operators
           // It's not stricly needed but helps with code understanding
           if (util.isBitwiseOperator(po)) {
             return true;
@@ -310,7 +330,8 @@ function needsParens(path, options) {
           parent.type === "TSTypeReference") &&
         (node.typeAnnotation.type === "TSTypeAnnotation" &&
           node.typeAnnotation.typeAnnotation.type !== "TSFunctionType" &&
-          grandParent.type !== "TSTypeOperator")
+          grandParent.type !== "TSTypeOperator" &&
+          grandParent.type !== "TSOptionalType")
       ) {
         return false;
       }
@@ -422,7 +443,7 @@ function needsParens(path, options) {
       if (
         typeof node.value === "string" &&
         parent.type === "ExpressionStatement" &&
-        // TypeScript workaround for eslint/typescript-eslint-parser#267
+        // TypeScript workaround for https://github.com/JamesHenry/typescript-estree/issues/2
         // See corresponding workaround in printer.js case: "Literal"
         ((options.parser !== "typescript" && !parent.directive) ||
           (options.parser === "typescript" &&
@@ -478,6 +499,10 @@ function needsParens(path, options) {
         (grandParent.init === parent || grandParent.update === parent)
       ) {
         return false;
+      } else if (parent.type === "Property" && parent.value === node) {
+        return false;
+      } else if (parent.type === "NGChainedExpression") {
+        return false;
       }
       return true;
     }
@@ -489,6 +514,7 @@ function needsParens(path, options) {
         case "SpreadProperty":
         case "BinaryExpression":
         case "LogicalExpression":
+        case "NGPipeExpression":
         case "ExportDefaultDeclaration":
         case "AwaitExpression":
         case "JSXSpreadAttribute":
@@ -496,6 +522,7 @@ function needsParens(path, options) {
         case "TypeCastExpression":
         case "TSAsExpression":
         case "TSNonNullExpression":
+        case "OptionalMemberExpression":
           return true;
 
         case "NewExpression":
@@ -557,6 +584,54 @@ function needsParens(path, options) {
 
     case "OptionalMemberExpression":
       return parent.type === "MemberExpression";
+
+    case "MemberExpression":
+      if (
+        parent.type === "BindExpression" &&
+        name === "callee" &&
+        parent.callee === node
+      ) {
+        let object = node.object;
+        while (object) {
+          if (object.type === "CallExpression") {
+            return true;
+          }
+          if (
+            object.type !== "MemberExpression" &&
+            object.type !== "BindExpression"
+          ) {
+            break;
+          }
+          object = object.object;
+        }
+      }
+      return false;
+
+    case "BindExpression":
+      if (
+        (parent.type === "BindExpression" &&
+          name === "callee" &&
+          parent.callee === node) ||
+        parent.type === "MemberExpression"
+      ) {
+        return true;
+      }
+      return false;
+    case "NGPipeExpression":
+      if (
+        parent.type === "NGRoot" ||
+        parent.type === "ObjectProperty" ||
+        parent.type === "ArrayExpression" ||
+        ((parent.type === "CallExpression" ||
+          parent.type === "OptionalCallExpression") &&
+          parent.arguments[name] === node) ||
+        (parent.type === "NGPipeExpression" && name === "right") ||
+        (parent.type === "MemberExpression" && name === "property") ||
+        parent.type === "AssignmentExpression"
+      ) {
+        return false;
+      }
+      return true;
   }
 
   return false;

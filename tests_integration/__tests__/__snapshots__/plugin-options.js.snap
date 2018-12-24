@@ -5,19 +5,19 @@ exports[` 1`] = `
 - First value
 + Second value
 
-@@ -12,10 +12,12 @@
-  
-    --arrow-parens <avoid|always>
-                             Include parentheses around a sole arrow function parameter.
+@@ -17,10 +17,12 @@
                              Defaults to avoid.
     --no-bracket-spacing     Do not print spaces between brackets.
+    --end-of-line <auto|lf|crlf|cr>
+                             Which end of line characters to apply.
+                             Defaults to auto.
 +   --foo-option <bar|baz>   foo description
 +                            Defaults to bar.
+    --html-whitespace-sensitivity <css|strict|ignore>
+                             How to handle whitespaces in HTML.
+                             Defaults to css.
     --jsx-bracket-same-line  Put > on the last line instead of at a new line.
-                             Defaults to false.
-    --parser <flow|babylon|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|vue|yaml>
-                             Which parser to use.
-    --print-width <int>      The line length where Prettier will try wrap."
+                             Defaults to false."
 `;
 
 exports[`show detailed external option with \`--help foo-option\` (stderr) 1`] = `""`;

@@ -1,25 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`window1.js - flow-verify 1`] = `
-/*
-@providesModule Window1
-*/
-module.exports = window.history;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`window1.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
 @providesModule Window1
 */
 module.exports = window.history;
 
+=====================================output=====================================
+/*
+@providesModule Window1
+*/
+module.exports = window.history;
+
+================================================================================
 `;
 
-exports[`window2.js - flow-verify 1`] = `
+exports[`window2.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @providesModule Window2 */
 
 module.exports = window.parent;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @providesModule Window2 */
 
 module.exports = window.parent;
 
+================================================================================
 `;

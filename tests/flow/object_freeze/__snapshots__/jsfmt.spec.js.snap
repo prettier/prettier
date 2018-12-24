@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`object_freeze.js - flow-verify 1`] = `
+exports[`object_freeze.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var foo = Object.freeze({bar: '12345'});
@@ -21,7 +26,8 @@ baz.baz = 0;
 var x : number = Object.freeze(123);
 
 var xx : { x: number } = Object.freeze({ x: "error" })
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var foo = Object.freeze({ bar: "12345" });
@@ -43,4 +49,5 @@ var x: number = Object.freeze(123);
 
 var xx: { x: number } = Object.freeze({ x: "error" });
 
+================================================================================
 `;

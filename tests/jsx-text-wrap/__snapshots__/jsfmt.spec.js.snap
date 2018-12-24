@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Wrapping text
 x =
   <div>
@@ -413,7 +418,54 @@ x =
     {minute}:
     {second}
   </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+x = <div><strong>text here</strong>.<br /></div>
+
+x = <div>Sales tax estimated using a rate of {salesTax * 100}%.</div>
+
+x = <div>
+  {title}&nbsp;
+</div>
+
+x = <div><span/>bar</div>
+  
+x = <div>
+  <span>
+    <strong>{name}</strong>’s{' '}
+  </span>
+  Hello <strong>world</strong>.<br />
+  <Text>You {type}ed this shipment to</Text>
+</div>
+
+x = <HelpBlock>
+  {parameter.Description}: {errorMsg}
+</HelpBlock>
+  
+x = <label>
+  {value} solution{plural}
+</label>
+  
+x = <span>Copy &quot;{name}&quot;</span>
+  
+x = <BasicText light>(avg. {value}/5)</BasicText>
+  
+x = <p>
+  Use the <code>Button</code>'s
+</p>;
+
+this_really_should_split_across_lines =
+  <div>
+    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
+  </div>
+
+let myDiv = ReactTestUtils.renderIntoDocument(
+  <div>
+    <div key="theDog" className="dog" />,
+    <div key="theBird" className="bird" />
+  </div>
+);
+
+=====================================output=====================================
 // Wrapping text
 x = (
   <div>
@@ -474,23 +526,9 @@ x = (
 
 x = (
   <div>
-    before
+    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}
     {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    {stuff}
-    {stuff}
-    after
-    {stuff}
-    after
+    {stuff}after{stuff}after
   </div>
 );
 
@@ -598,35 +636,9 @@ x = (
 
 this_really_should_split_across_lines = (
   <div>
-    before
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
-    {stuff}
-    after
+    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}
+    after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}
+    after{stuff}after{stuff}after
   </div>
 );
 
@@ -962,4 +974,68 @@ x = (
   </div>
 );
 
+x = (
+  <div>
+    <strong>text here</strong>.<br />
+  </div>
+);
+
+x = <div>Sales tax estimated using a rate of {salesTax * 100}%.</div>;
+
+x = <div>{title}&nbsp;</div>;
+
+x = (
+  <div>
+    <span />
+    bar
+  </div>
+);
+
+x = (
+  <div>
+    <span>
+      <strong>{name}</strong>’s{" "}
+    </span>
+    Hello <strong>world</strong>.<br />
+    <Text>You {type}ed this shipment to</Text>
+  </div>
+);
+
+x = (
+  <HelpBlock>
+    {parameter.Description}: {errorMsg}
+  </HelpBlock>
+);
+
+x = (
+  <label>
+    {value} solution{plural}
+  </label>
+);
+
+x = <span>Copy &quot;{name}&quot;</span>;
+
+x = <BasicText light>(avg. {value}/5)</BasicText>;
+
+x = (
+  <p>
+    Use the <code>Button</code>'s
+  </p>
+);
+
+this_really_should_split_across_lines = (
+  <div>
+    before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}
+    after{stuff}after
+  </div>
+);
+
+let myDiv = ReactTestUtils.renderIntoDocument(
+  <div>
+    <div key="theDog" className="dog" />,
+    <div key="theBird" className="bird" />
+  </div>
+);
+
+================================================================================
 `;

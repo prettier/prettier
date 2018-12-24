@@ -6,14 +6,15 @@ const vm = require("vm");
 
 const sources = [
   "standalone.js",
+  "parser-angular.js",
   "parser-babylon.js",
   "parser-flow.js",
-  "parser-typescript.js",
-  "parser-postcss.js",
   "parser-glimmer.js",
   "parser-graphql.js",
+  "parser-html.js",
   "parser-markdown.js",
-  "parser-vue.js",
+  "parser-postcss.js",
+  "parser-typescript.js",
   "parser-yaml.js"
 ].map(filename =>
   fs.readFileSync(path.join(process.env.PRETTIER_DIR, filename), "utf-8")

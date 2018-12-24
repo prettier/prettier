@@ -184,16 +184,24 @@ function removeLines(doc) {
 
 function stripTrailingHardline(doc) {
   // HACK remove ending hardline, original PR: #1984
-  if (
-    doc.type === "concat" &&
-    doc.parts.length === 2 &&
-    doc.parts[1].type === "concat" &&
-    doc.parts[1].parts.length === 2 &&
-    doc.parts[1].parts[0].hard &&
-    doc.parts[1].parts[1].type === "break-parent"
-  ) {
-    return doc.parts[0];
+  if (doc.type === "concat" && doc.parts.length !== 0) {
+    const lastPart = doc.parts[doc.parts.length - 1];
+    if (lastPart.type === "concat") {
+      if (
+        lastPart.parts.length === 2 &&
+        lastPart.parts[0].hard &&
+        lastPart.parts[1].type === "break-parent"
+      ) {
+        return { type: "concat", parts: doc.parts.slice(0, -1) };
+      }
+
+      return {
+        type: "concat",
+        parts: doc.parts.slice(0, -1).concat(stripTrailingHardline(lastPart))
+      };
+    }
   }
+
   return doc;
 }
 

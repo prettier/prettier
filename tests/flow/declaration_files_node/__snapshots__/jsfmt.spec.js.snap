@@ -1,26 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js - flow-verify 1`] = `
+exports[`A.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 module.exports.fun = (): string => 'hello there!';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 module.exports.fun = (): string => "hello there!";
 
+================================================================================
 `;
 
-exports[`CJS.js - flow-verify 1`] = `
-// @flow
-module.exports = 42;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`CJS.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 module.exports = 42;
 
+=====================================output=====================================
+// @flow
+module.exports = 42;
+
+================================================================================
 `;
 
-exports[`test_absolute.js - flow-verify 1`] = `
+exports[`test_absolute.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 // This will require ./node_modules/B.js.flow
@@ -42,7 +61,8 @@ var E = require('package_with_no_package_json');
 
 var F = require('package_with_dir_main');
 (F.fun(): string); // Error number ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 // This will require ./node_modules/B.js.flow
@@ -65,9 +85,15 @@ var E = require("package_with_no_package_json");
 var F = require("package_with_dir_main");
 (F.fun(): string); // Error number ~> string
 
+================================================================================
 `;
 
-exports[`test_relative.js - flow-verify 1`] = `
+exports[`test_relative.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 // This will require ./A.js.flow
@@ -81,7 +107,8 @@ var A2 = require('./A.js');
 var CJS = require('./CJS.js');
 (CJS: string);
 (CJS: number); // Error: string ~> number
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 // This will require ./A.js.flow
@@ -96,4 +123,5 @@ var CJS = require("./CJS.js");
 (CJS: string);
 (CJS: number); // Error: string ~> number
 
+================================================================================
 `;

@@ -45,6 +45,7 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 
 ## Community Plugins
 
+- [`prettier-plugin-apex`](https://github.com/dangmai/prettier-plugin-apex) by [**@dangmai**](https://github.com/dangmai)
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
 - [`prettier-plugin-java`](https://github.com/thorbenvh8/prettier-java) by [**@thorbenvh8**](https://github.com/thorbenvh8)
 - [`prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg) by [**@benjie**](https://github.com/benjie)
@@ -182,6 +183,12 @@ A plugin can implement how a pragma comment is inserted in the resulting code wh
 function insertPragma(text: string): string;
 ```
 
+_(Optional)_ The preprocess function can process the ast from parser before passing into `print` function.
+
+```ts
+function preprocess(ast: AST, options: object): AST;
+```
+
 ### `options`
 
 `options` is an object containing the custom options your plugin supports.
@@ -214,6 +221,21 @@ defaultOptions: {
 A `util` module from Prettier core is considered a private API and is not meant to be consumed by plugins. Instead, the `util-shared` module provides the following limited set of utility functions for plugins:
 
 ```ts
+getMaxContinuousCount(str: string, target: string): number;
+getStringWidth(text: string): number;
+getAlignmentSize(value: string, tabWidth: number, startIndex: number): number;
+getIndentSize(value: string, tabWidth: number): number;
+skip(chars: string|RegExp): number;
+skipWhitespace(text: string, index: number, options: object): number;
+skipSpaces(text: string, index: number, options: object): number;
+skipToLineEnd(text: string, index: number, options: object): number;
+skipEverythingButNewLine(text: string, index: number, options: object): number;
+skipInlineComment(text: string, index: number): number;
+skipTrailingComment(text: string, index: number): number;
+skipNewline(text: string, index: number, options: object): number;
+hasNewline(text: string, index: number, options: object): boolean;
+hasNewlineInRange(text: string, start: number, start: number): boolean;
+hasSpaces(text: string, index: number, options: object): number;
 makeString(rawContent: string, enclosingQuote: string, unescapeUnnecessarEscapes: boolean): string;
 getNextNonSpaceNonCommentCharacterIndex(text: string, node: object, options: object): number;
 isNextLineEmptyAfterIndex(text: string, index: number): boolean;

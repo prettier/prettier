@@ -62,11 +62,40 @@ const options = {
     `,
     cliCategory: CATEGORY_EDITOR
   },
+  endOfLine: {
+    since: "1.15.0",
+    category: CATEGORY_GLOBAL,
+    type: "choice",
+    default: "auto",
+    description: "Which end of line characters to apply.",
+    choices: [
+      {
+        value: "auto",
+        description: dedent`
+          Maintain existing
+          (mixed values within one file are normalised by looking at what's used after the first line)
+        `
+      },
+      {
+        value: "lf",
+        description:
+          "Line Feed only (\\n), common on Linux and macOS as well as inside git repos"
+      },
+      {
+        value: "crlf",
+        description:
+          "Carriage Return + Line Feed characters (\\r\\n), common on Windows"
+      },
+      {
+        value: "cr",
+        description: "Carriage Return character only (\\r), used very rarely"
+      }
+    ]
+  },
   filepath: {
     since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "path",
-    default: undefined,
     description:
       "Specify the input filepath. This will be used to do parser inference.",
     cliName: "stdin-filepath",
@@ -115,13 +144,16 @@ const options = {
       },
       { value: "graphql", since: "1.5.0", description: "GraphQL" },
       { value: "markdown", since: "1.8.0", description: "Markdown" },
+      { value: "mdx", since: "1.15.0", description: "MDX" },
       { value: "vue", since: "1.10.0", description: "Vue" },
       { value: "yaml", since: "1.14.0", description: "YAML" },
       {
         value: "glimmer",
         since: null,
         description: "Handlebars"
-      }
+      },
+      { value: "html", since: "1.15.0", description: "HTML" },
+      { value: "angular", since: "1.15.0", description: "Angular" }
     ]
   },
   plugins: {
@@ -207,7 +239,10 @@ const options = {
     since: "0.0.0",
     category: CATEGORY_GLOBAL,
     type: "boolean",
-    default: false,
+    default: [
+      { since: "0.0.0", value: false },
+      { since: "1.15.0", value: undefined }
+    ],
     deprecated: "0.0.10",
     description: "Use flow parser.",
     redirect: { option: "parser", value: "flow" },

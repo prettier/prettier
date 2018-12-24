@@ -1,16 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js - babylon-verify 1`] = `
+exports[`comments.js 1`] = `
+====================================options=====================================
+parsers: ["babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class Something {
     @Annotateme()
     // comment
     static property: Array<string>;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Something {
   @Annotateme()
   // comment
   static property: Array<string>;
 }
 
+================================================================================
 `;

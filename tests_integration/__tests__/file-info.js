@@ -1,6 +1,8 @@
 "use strict";
 
 const path = require("path");
+const tempy = require("tempy");
+const fs = require("fs");
 
 const runPrettier = require("../runPrettier");
 const prettier = require("prettier/local");
@@ -176,6 +178,40 @@ test("API getFileInfo.sync with ignorePath", () => {
   });
 });
 
+describe("API getFileInfo.sync with ignorePath", () => {
+  let cwd;
+  let filePath;
+  let options;
+  beforeAll(() => {
+    cwd = process.cwd();
+    const tempDir = tempy.directory();
+    process.chdir(tempDir);
+    const fileDir = "src";
+    filePath = `${fileDir}/should-be-ignored.js`;
+    const ignorePath = path.join(tempDir, ".prettierignore");
+    fs.writeFileSync(ignorePath, filePath, "utf8");
+    options = { ignorePath };
+  });
+  afterAll(() => {
+    process.chdir(cwd);
+  });
+  test("with relative filePath", () => {
+    expect(
+      prettier.getFileInfo.sync(filePath, options).ignored
+    ).toMatchInlineSnapshot(`true`);
+  });
+  test("with relative filePath starts with dot", () => {
+    expect(
+      prettier.getFileInfo.sync(`./${filePath}`, options).ignored
+    ).toMatchInlineSnapshot(`true`);
+  });
+  test("with absolute filePath", () => {
+    expect(
+      prettier.getFileInfo.sync(path.resolve(filePath), options).ignored
+    ).toMatchInlineSnapshot(`true`);
+  });
+});
+
 test("API getFileInfo with withNodeModules", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/with-node-modules/node_modules/file.js")
@@ -191,6 +227,33 @@ test("API getFileInfo with withNodeModules", () => {
   ).resolves.toMatchObject({
     ignored: false,
     inferredParser: "babylon"
+  });
+});
+
+describe("extracts file-info for a JS file with no extension but a standard shebang", () => {
+  expect(
+    prettier.getFileInfo.sync("tests_integration/cli/shebang/node-shebang")
+  ).toMatchObject({
+    ignored: false,
+    inferredParser: "babylon"
+  });
+});
+
+describe("extracts file-info for a JS file with no extension but an env-based shebang", () => {
+  expect(
+    prettier.getFileInfo.sync("tests_integration/cli/shebang/env-node-shebang")
+  ).toMatchObject({
+    ignored: false,
+    inferredParser: "babylon"
+  });
+});
+
+describe("returns null parser for unknown shebang", () => {
+  expect(
+    prettier.getFileInfo.sync("tests_integration/cli/shebang/nonsense-shebang")
+  ).toMatchObject({
+    ignored: false,
+    inferredParser: null
   });
 });
 

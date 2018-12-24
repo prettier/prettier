@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Treated as whitespace in JSX
 spaces = <div>]   [</div>
 tabs = <div>]      [</div>
@@ -23,7 +28,14 @@ non_breaking_spaces = <div>]   [</div>
 em_space = <div>]   [</div>
 hair_space = <div>]  [</div>
 zero_width_space = <div>]​​​[</div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+real_world_non_breaking_spaces = <p>
+  Supprimer l’objectif « {goal.name} » ?
+</p>
+real_world_non_breaking_spaces2 = <p>
+  Supprimer l’objectif padding padding padding padding padding padding « {goal.name} » ?
+</p>
+
+=====================================output=====================================
 // Treated as whitespace in JSX
 spaces = <div>] [</div>;
 tabs = <div>] [</div>;
@@ -39,5 +51,13 @@ non_breaking_spaces = <div>]   [</div>;
 em_space = <div>]   [</div>;
 hair_space = <div>]  [</div>;
 zero_width_space = <div>]​​​[</div>;
+real_world_non_breaking_spaces = <p>Supprimer l’objectif « {goal.name} » ?</p>;
+real_world_non_breaking_spaces2 = (
+  <p>
+    Supprimer l’objectif padding padding padding padding padding padding « 
+    {goal.name} » ?
+  </p>
+);
 
+================================================================================
 `;

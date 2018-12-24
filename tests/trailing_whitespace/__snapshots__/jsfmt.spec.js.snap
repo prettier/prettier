@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`trailing.js - flow-verify 1`] = `
+exports[`trailing.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export type Result<T, V> = | { kind: "not-test-editor1" } | { kind: "not-test-editor2" };
 
 // Note: there are trailing whitespace in this file
@@ -11,7 +16,8 @@ export type Result<T, V> = | { kind: "not-test-editor1" } | { kind: "not-test-ed
     
     
 \`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export type Result<T, V> =
   | { kind: "not-test-editor1" }
   | { kind: "not-test-editor2" };
@@ -26,4 +32,5 @@ export type Result<T, V> =
     
 \`;
 
+================================================================================
 `;

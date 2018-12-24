@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`css-prop.js - flow-verify 1`] = `
+exports[`css-prop.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function SomeComponent (props) {
   // Create styles as if you're calling css and the class will be applied to the component
   return (<div css={\`
@@ -27,7 +32,8 @@ const TestComponent = ({ children, ...props }) => (
     {children}
   </div>
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function SomeComponent(props) {
   // Create styles as if you're calling css and the class will be applied to the component
   return (
@@ -62,9 +68,15 @@ const TestComponent = ({ children, ...props }) => (
   </div>
 );
 
+================================================================================
 `;
 
-exports[`expressions.js - flow-verify 1`] = `
+exports[`expressions.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const long = \`long \${a//comment
   .b} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long long\`;
 const long = \`long \${a.b.c.d.e} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long long\`;
@@ -106,7 +118,8 @@ descirbe('something', () => {
 })
 
 throw new Error(\`pretty-format: Option "theme" has a key "\${key}" whose value "\${value}" is undefined in ansi-styles.\`,)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const long = \`long \${
   a.b //comment
 } long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${
@@ -170,9 +183,15 @@ throw new Error(
   \`pretty-format: Option "theme" has a key "\${key}" whose value "\${value}" is undefined in ansi-styles.\`
 );
 
+================================================================================
 `;
 
-exports[`styled-components-with-expressions.js - flow-verify 1`] = `
+exports[`styled-components-with-expressions.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const Button = styled.a\`
 /* Comment */
 	display: \${props=>props.display};
@@ -216,7 +235,8 @@ margin: 0;
 	left: 0;right: 0;
 }
 \`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const Button = styled.a\`
   /* Comment */
   display: \${props => props.display};
@@ -264,9 +284,15 @@ const header = css\`
   }
 \`;
 
+================================================================================
 `;
 
-exports[`styled-jsx.js - flow-verify 1`] = `
+exports[`styled-jsx.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <style jsx>{\`
 	/* a comment */
 	div :global(.react-select) {
@@ -291,7 +317,8 @@ color: red; display: none
       Shouldn't fail.
             Shouldn't be formatted.\`}</style>
 </div>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <style jsx>{\`
   /* a comment */
   div :global(.react-select) {
@@ -324,9 +351,15 @@ color: red; display: none
             Shouldn't be formatted.\`}</style>
 </div>;
 
+================================================================================
 `;
 
-exports[`styled-jsx-with-expressions.js - flow-verify 1`] = `
+exports[`styled-jsx-with-expressions.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <style jsx>{\`
   div {
   display: \${expr};
@@ -368,7 +401,8 @@ exports[`styled-jsx-with-expressions.js - flow-verify 1`] = `
   animation: 3s ease-in 1s \${foo => foo.getIterations()} reverse both paused slidein;
   }
 \`}</style>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <style jsx>{\`
   div {
     display: \${expr};
@@ -395,7 +429,7 @@ exports[`styled-jsx-with-expressions.js - flow-verify 1`] = `
     }
   }
   @font-face {
-    \${expr};
+    \${expr}
   }
 \`}</style>;
 
@@ -412,4 +446,5 @@ exports[`styled-jsx-with-expressions.js - flow-verify 1`] = `
   }
 \`}</style>;
 
+================================================================================
 `;

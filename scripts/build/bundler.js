@@ -14,6 +14,7 @@ const uglify = require("rollup-plugin-uglify");
 const babel = require("rollup-plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
+const evaluate = require("./rollup-plugins/evaluate");
 
 const EXTERNALS = [
   "assert",
@@ -94,6 +95,7 @@ function getRollupConfig(bundle) {
   };
 
   const replaceStrings = {
+    "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
     "process.env.NODE_ENV": JSON.stringify("production")
   };
   if (bundle.target === "universal") {
@@ -108,6 +110,7 @@ function getRollupConfig(bundle) {
   config.plugins = [
     replace(replaceStrings),
     executable(),
+    evaluate(),
     json(),
     bundle.alias && alias(bundle.alias),
     bundle.target === "universal" &&

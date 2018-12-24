@@ -4,6 +4,15 @@ const runPrettier = require("../runPrettier");
 
 expect.addSnapshotSerializer(require("../path-serializer"));
 
+describe("throw error for unsupported extension", () => {
+  runPrettier("cli/config/invalid", [
+    "--config",
+    "file/.prettierrc.unsupported"
+  ]).test({
+    status: "non-zero"
+  });
+});
+
 describe("throw error with invalid config format", () => {
   runPrettier("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
     status: "non-zero"

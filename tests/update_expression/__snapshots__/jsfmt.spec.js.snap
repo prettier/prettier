@@ -1,14 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`update_expression.js - flow-verify 1`] = `
+exports[`update_expression.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 (this.x++).toString()
 new (r++);
 (x++)();
 const uuid = String(this._uuidCounter++);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 (this.x++).toString();
 new (r++)();
 (x++)();
 const uuid = String(this._uuidCounter++);
 
+================================================================================
 `;

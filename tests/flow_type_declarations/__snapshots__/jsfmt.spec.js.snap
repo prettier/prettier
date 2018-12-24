@@ -1,48 +1,98 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declare_export.js - flow-verify 1`] = `
-declare export default 5;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`declare_export.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare export default 5;
 
+=====================================output=====================================
+declare export default 5;
+
+================================================================================
 `;
 
-exports[`declare_export.js - flow-verify 2`] = `
+exports[`declare_export.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 declare export default 5;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare export default 5
 
+================================================================================
 `;
 
-exports[`declare_type.js - flow-verify 1`] = `
-declare type A = string;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`declare_type.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare type A = string;
 
+=====================================output=====================================
+declare type A = string;
+
+================================================================================
 `;
 
-exports[`declare_type.js - flow-verify 2`] = `
+exports[`declare_type.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 declare type A = string;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare type A = string
 
+================================================================================
 `;
 
-exports[`declare_var.js - flow-verify 1`] = `
-declare var bool: React$PropType$Primitive<boolean>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`declare_var.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare var bool: React$PropType$Primitive<boolean>;
 
+=====================================output=====================================
+declare var bool: React$PropType$Primitive<boolean>;
+
+================================================================================
 `;
 
-exports[`declare_var.js - flow-verify 2`] = `
+exports[`declare_var.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 declare var bool: React$PropType$Primitive<boolean>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare var bool: React$PropType$Primitive<boolean>
 
+================================================================================
 `;
 
-exports[`long.js - flow-verify 1`] = `
+exports[`long.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export type AdamPlacementValidationSingleErrorKey =
   'SOME_FANCY_TARGETS.GLOBAL_TARGET';
 
@@ -51,7 +101,8 @@ export type SomeReallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongKe
 export type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = null;
 
 type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = SomeReallyLongLongLongLongLongLongIdentifier;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export type AdamPlacementValidationSingleErrorKey =
   "SOME_FANCY_TARGETS.GLOBAL_TARGET";
 
@@ -61,9 +112,16 @@ export type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey
 
 type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = SomeReallyLongLongLongLongLongLongIdentifier;
 
+================================================================================
 `;
 
-exports[`long.js - flow-verify 2`] = `
+exports[`long.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 export type AdamPlacementValidationSingleErrorKey =
   'SOME_FANCY_TARGETS.GLOBAL_TARGET';
 
@@ -72,7 +130,8 @@ export type SomeReallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongKe
 export type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = null;
 
 type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = SomeReallyLongLongLongLongLongLongIdentifier;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export type AdamPlacementValidationSingleErrorKey =
   "SOME_FANCY_TARGETS.GLOBAL_TARGET"
 
@@ -82,9 +141,15 @@ export type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey
 
 type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = SomeReallyLongLongLongLongLongLongIdentifier
 
+================================================================================
 `;
 
-exports[`opaque.js - flow-verify 1`] = `
+exports[`opaque.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare export opaque type Foo;
 declare export opaque type Bar<T>;
 declare export opaque type Baz: Foo;
@@ -101,7 +166,8 @@ opaque type union =
 opaque type overloads =
   & ((x: string) => number)
   & ((x: number) => string);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare export opaque type Foo;
 declare export opaque type Bar<T>;
 declare export opaque type Baz: Foo;
@@ -115,9 +181,16 @@ export opaque type Foo = number;
 opaque type union = { type: "A" } | { type: "B" };
 opaque type overloads = ((x: string) => number) & ((x: number) => string);
 
+================================================================================
 `;
 
-exports[`opaque.js - flow-verify 2`] = `
+exports[`opaque.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 declare export opaque type Foo;
 declare export opaque type Bar<T>;
 declare export opaque type Baz: Foo;
@@ -134,7 +207,8 @@ opaque type union =
 opaque type overloads =
   & ((x: string) => number)
   & ((x: number) => string);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare export opaque type Foo
 declare export opaque type Bar<T>
 declare export opaque type Baz: Foo
@@ -148,4 +222,5 @@ export opaque type Foo = number
 opaque type union = { type: "A" } | { type: "B" }
 opaque type overloads = ((x: string) => number) & ((x: number) => string)
 
+================================================================================
 `;

@@ -42,16 +42,26 @@ function resolveParser(opts, parsers) {
     if (parsers.hasOwnProperty(opts.parser)) {
       return parsers[opts.parser];
     }
-    try {
-      return {
-        parse: eval("require")(path.resolve(process.cwd(), opts.parser)),
-        astFormat: "estree",
-        locStart,
-        locEnd
-      };
-    } catch (err) {
-      /* istanbul ignore next */
-      throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
+
+    /* istanbul ignore next */
+    if (process.env.PRETTIER_TARGET === "universal") {
+      throw new ConfigError(
+        `Couldn't resolve parser "${
+          opts.parser
+        }". Parsers must be explicitly added to the standalone bundle.`
+      );
+    } else {
+      try {
+        return {
+          parse: eval("require")(path.resolve(process.cwd(), opts.parser)),
+          astFormat: "estree",
+          locStart,
+          locEnd
+        };
+      } catch (err) {
+        /* istanbul ignore next */
+        throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
+      }
     }
   }
 }

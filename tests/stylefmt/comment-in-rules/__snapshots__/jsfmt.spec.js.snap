@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment-in-rules.css - css-verify 1`] = `
+exports[`comment-in-rules.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 .class
 {display: inline-block;
 /* comment */
@@ -14,7 +19,8 @@ float: left;}
   color: pink;
   background: #fff;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 .class {
   display: inline-block;
   /* comment */
@@ -30,4 +36,5 @@ float: left;}
   background: #fff;
 }
 
+================================================================================
 `;

@@ -36,7 +36,7 @@ function writeChangelog({ version, previousVersion, releaseNotes }) {
   const newEntry = dedent`
     # ${version}
 
-    [link](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
+    [diff](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
 
     ${releaseNotes}
   `;
@@ -51,7 +51,7 @@ module.exports = async function({ version, previousVersion }) {
     writeChangelog({
       version,
       previousVersion,
-      releaseNotes: `- [Release Notes](https://prettier.io/${blogPost.path})`
+      releaseNotes: `🔗 [Release Notes](https://prettier.io/${blogPost.path})`
     });
     if (fs.existsSync(blogPost.file)) {
       // Everything is fine, this step is finished

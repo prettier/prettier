@@ -12,6 +12,16 @@ describe("stdin no path and no parser", () => {
     });
   });
 
+  describe("--check logs error but exits with 0", () => {
+    runPrettier("cli/infer-parser/", ["--check", "--stdin"], {
+      input: "foo"
+    }).test({
+      status: 0,
+      stdout: "",
+      write: []
+    });
+  });
+
   describe("--list-different logs error but exits with 0", () => {
     runPrettier("cli/infer-parser/", ["--list-different", "--stdin"], {
       input: "foo"
@@ -34,6 +44,18 @@ describe("stdin with unknown path and no parser", () => {
     });
   });
 
+  describe("--check logs error but exits with 0", () => {
+    runPrettier(
+      "cli/infer-parser/",
+      ["--check", "--stdin", "--stdin-filepath", "foo"],
+      { input: "foo" }
+    ).test({
+      status: 0,
+      stdout: "",
+      write: []
+    });
+  });
+
   describe("--list-different logs error but exits with 0", () => {
     runPrettier(
       "cli/infer-parser/",
@@ -49,7 +71,7 @@ describe("stdin with unknown path and no parser", () => {
 
 describe("unknown path and no parser", () => {
   describe("specific file", () => {
-    runPrettier("cli/infer-parser/", ["FOO"]).test({
+    runPrettier("cli/infer-parser/", ["--end-of-line", "lf", "FOO"]).test({
       status: 2,
       stdout: "",
       write: []
@@ -57,8 +79,24 @@ describe("unknown path and no parser", () => {
   });
 
   describe("multiple files", () => {
-    runPrettier("cli/infer-parser/", ["*"]).test({
+    runPrettier("cli/infer-parser/", ["--end-of-line", "lf", "*"]).test({
       status: 2,
+      write: []
+    });
+  });
+});
+
+describe("--check with unknown path and no parser", () => {
+  describe("specific file", () => {
+    runPrettier("cli/infer-parser/", ["--check", "FOO"]).test({
+      status: 0,
+      write: []
+    });
+  });
+
+  describe("multiple files", () => {
+    runPrettier("cli/infer-parser/", ["--check", "*"]).test({
+      status: 1,
       write: []
     });
   });
@@ -98,6 +136,21 @@ describe("--write with unknown path and no parser", () => {
   });
 });
 
+describe("--write and --check with unknown path and no parser", () => {
+  describe("specific file", () => {
+    runPrettier("cli/infer-parser/", ["--check", "--write", "FOO"]).test({
+      status: 0,
+      write: []
+    });
+  });
+
+  describe("multiple files", () => {
+    runPrettier("cli/infer-parser/", ["--check", "--write", "*"]).test({
+      status: 0
+    });
+  });
+});
+
 describe("--write and --list-different with unknown path and no parser", () => {
   describe("specific file", () => {
     runPrettier("cli/infer-parser/", [
@@ -113,7 +166,7 @@ describe("--write and --list-different with unknown path and no parser", () => {
 
   describe("multiple files", () => {
     runPrettier("cli/infer-parser/", ["--list-different", "--write", "*"]).test(
-      { status: 1 }
+      { status: 0 }
     );
   });
 });

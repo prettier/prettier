@@ -5,9 +5,9 @@ title: Configuration File
 
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support. This means you can configure prettier via:
 
-- A `.prettierrc` file, written in YAML or JSON, with optional extensions: `.yaml/.yml/.json/.js`.
+- A `.prettierrc` file, written in YAML or JSON, with optional extensions: `.yaml/.yml/.json`.
 - A `.prettierrc.toml` file, written in TOML (the `.toml` extension is _required_).
-- A `prettier.config.js` file that exports an object.
+- A `prettier.config.js` or `.prettierrc.js` file that exports an object.
 - A `"prettier"` key in your `package.json` file.
 
 The configuration file will be resolved starting from the location of the file being formatted, and searching up the file tree until a config file is (or isn't) found.
@@ -20,35 +20,43 @@ JSON:
 
 ```json
 {
-  "printWidth": 100,
-  "parser": "flow"
+  "trailingComma": "es5",
+  "tabWidth": 4,
+  "semi": false,
+  "singleQuote": true
 }
 ```
 
 JS:
 
 ```js
-// .prettierrc.js
+// prettier.config.js or .prettierrc.js
 module.exports = {
-  printWidth: 100,
-  parser: "flow"
+  trailingComma: "es5",
+  tabWidth: 4,
+  semi: false,
+  singleQuote: true
 };
 ```
 
 YAML:
 
 ```yaml
-# .prettierrc
-printWidth: 100
-parser: flow
+# .prettierrc or .prettierrc.yaml
+trailingComma: "es5"
+tabWidth: 4
+semi: false
+singleQuote: true
 ```
 
 TOML:
 
 ```toml
 # .prettierrc.toml
-printWidth = 100
-parser = "flow"
+trailingComma = "es5"
+tabWidth = 4
+semi = false
+singleQuote = true
 ```
 
 ## Configuration Overrides
@@ -83,7 +91,11 @@ overrides:
 
 `files` is required for each override, and may be a string or array of strings. `excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.
 
-To get prettier to format its own `.prettierrc` file, you can do:
+## Setting the [parser](options.md#parser) option
+
+By default, Prettier automatically infers which parser to use based on the input file extension. Combined with `overrides` you can teach Prettier how to parse files it does not recognize.
+
+For example, to get Prettier to format its own `.prettierrc` file, you can do:
 
 ```json
 {
@@ -96,7 +108,22 @@ To get prettier to format its own `.prettierrc` file, you can do:
 }
 ```
 
-For more information on how to use the CLI to locate a file, see the [CLI](cli.md) section.
+You can also switch to the `flow` parser instead of the default `babylon` for .js files:
+
+```json
+{
+  "overrides": [
+    {
+      "files": "*.js",
+      "options": {
+        "parser": "flow"
+      }
+    }
+  ]
+}
+```
+
+**Note:** _Never_ put the `parser` option at the top level of your configuration. _Only_ use it inside `overrides`. Otherwise you effectively disable Prettier's automatic file extension based parser inference. This forces Prettier to use the parser you specified for _all_ types of files – even when it doesn't make sense, such as trying to parse a CSS file as JavaScript.
 
 ## Configuration Schema
 

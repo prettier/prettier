@@ -12,7 +12,7 @@ You can use Prettier with a pre-commit tool. This can re-format your files that 
 Install it along with [husky](https://github.com/typicode/husky):
 
 ```bash
-yarn add lint-staged husky@next --dev
+yarn add lint-staged husky --dev
 ```
 
 and add this config to your `package.json`:
@@ -30,8 +30,6 @@ and add this config to your `package.json`:
 }
 ```
 
-**Warning:** Currently there is a limitation where if you stage specific lines this approach will stage the whole file after formatting. See this [issue](https://github.com/okonet/lint-staged/issues/62) for more info.
-
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
 ## Option 2. [pretty-quick](https://github.com/azz/pretty-quick)
@@ -41,7 +39,7 @@ See https://github.com/okonet/lint-staged#configuration for more details about h
 Install it along with [husky](https://github.com/typicode/husky):
 
 ```bash
-yarn add pretty-quick husky@next --dev
+yarn add pretty-quick husky --dev
 ```
 
 and add this config to your `package.json`:
@@ -75,12 +73,12 @@ Find more info from [here](https://pre-commit.com).
 
 ## Option 4. [precise-commits](https://github.com/JamesHenry/precise-commits)
 
-**Use Case:** Great for when you want an partial file formatting on your changed/staged files.
+**Use Case:** Great for when you want partial file formatting on your changed/staged files.
 
 Install it along with [husky](https://github.com/typicode/husky):
 
 ```bash
-yarn add precise-commits husky@next --dev
+yarn add precise-commits husky --dev
 ```
 
 and add this config to your `package.json`:

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`custom-selector.css - css-verify 1`] = `
+exports[`custom-selector.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
 @custom-selector :--icon i[ class ^= 'icon-' ], i[ class *= ' icon-' ];
 @custom-selector
@@ -17,14 +22,22 @@ class
 ' icon-'
 ]
 ;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @custom-selector :--icon i[class^="icon-"], i[class*=" icon-"];
 @custom-selector :--icon i[class^="icon-"], i[class*=" icon-"];
 @custom-selector :--icon i[class^="icon-"], i[class*=" icon-"];
 
+================================================================================
 `;
 
-exports[`custom-selector.css - css-verify 2`] = `
+exports[`custom-selector.css 2`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 @custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
 @custom-selector :--icon i[ class ^= 'icon-' ], i[ class *= ' icon-' ];
 @custom-selector
@@ -41,18 +54,26 @@ class
 ' icon-'
 ]
 ;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
 @custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
 @custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
 
+================================================================================
 `;
 
-exports[`insensitive.css - css-verify 1`] = `
+exports[`insensitive.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 input[type="radio" i] {}
 img[alt~="person" i][src*="lorem" i] {}
 section:has(:not([type="radio" i], [type="checkbox" i])) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 input[type="radio" i] {
 }
 img[alt~="person" i][src*="lorem" i] {
@@ -60,13 +81,21 @@ img[alt~="person" i][src*="lorem" i] {
 section:has(:not([type="radio" i], [type="checkbox" i])) {
 }
 
+================================================================================
 `;
 
-exports[`insensitive.css - css-verify 2`] = `
+exports[`insensitive.css 2`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 input[type="radio" i] {}
 img[alt~="person" i][src*="lorem" i] {}
 section:has(:not([type="radio" i], [type="checkbox" i])) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 input[type='radio' i] {
 }
 img[alt~='person' i][src*='lorem' i] {
@@ -74,15 +103,22 @@ img[alt~='person' i][src*='lorem' i] {
 section:has(:not([type='radio' i], [type='checkbox' i])) {
 }
 
+================================================================================
 `;
 
-exports[`namespaces.css - css-verify 1`] = `
+exports[`namespaces.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @namespace foo "http://www.example.com";
 [foo|att=val] {}
 [*|att] {}
 [|att] {}
 [att] {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @namespace foo "http://www.example.com";
 [foo|att="val"] {
 }
@@ -93,15 +129,23 @@ exports[`namespaces.css - css-verify 1`] = `
 [att] {
 }
 
+================================================================================
 `;
 
-exports[`namespaces.css - css-verify 2`] = `
+exports[`namespaces.css 2`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 @namespace foo "http://www.example.com";
 [foo|att=val] {}
 [*|att] {}
 [|att] {}
 [att] {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @namespace foo 'http://www.example.com';
 [foo|att='val'] {
 }
@@ -112,9 +156,15 @@ exports[`namespaces.css - css-verify 2`] = `
 [att] {
 }
 
+================================================================================
 `;
 
-exports[`quotes.css - css-verify 1`] = `
+exports[`quotes.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}
@@ -123,7 +173,8 @@ a[class="(╯°□°）╯︵ ┻━┻"]{}
 input:not([type="radio"]):not([type="checkbox"]) {}
 input:not([type="radio"], [type="checkbox"]) {}
 section:has(:not([type="radio"], [type="checkbox"])) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a[id="test"] {
 }
 a[id="test"] {
@@ -141,9 +192,16 @@ input:not([type="radio"], [type="checkbox"]) {
 section:has(:not([type="radio"], [type="checkbox"])) {
 }
 
+================================================================================
 `;
 
-exports[`quotes.css - css-verify 2`] = `
+exports[`quotes.css 2`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}
@@ -152,7 +210,8 @@ a[class="(╯°□°）╯︵ ┻━┻"]{}
 input:not([type="radio"]):not([type="checkbox"]) {}
 input:not([type="radio"], [type="checkbox"]) {}
 section:has(:not([type="radio"], [type="checkbox"])) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a[id='test'] {
 }
 a[id='test'] {
@@ -170,9 +229,15 @@ input:not([type='radio'], [type='checkbox']) {
 section:has(:not([type='radio'], [type='checkbox'])) {
 }
 
+================================================================================
 `;
 
-exports[`spaces.css - css-verify 1`] = `
+exports[`spaces.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 [lang] {}
 [ lang] {}
 [lang ] {}
@@ -288,7 +353,8 @@ att
 |
 att
 ] {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [lang] {
 }
 [lang] {
@@ -404,9 +470,16 @@ section:has(:not([type="radio" i], [type="checkbox" i])) {
 [|att] {
 }
 
+================================================================================
 `;
 
-exports[`spaces.css - css-verify 2`] = `
+exports[`spaces.css 2`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 [lang] {}
 [ lang] {}
 [lang ] {}
@@ -522,7 +595,8 @@ att
 |
 att
 ] {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [lang] {
 }
 [lang] {
@@ -638,4 +712,5 @@ section:has(:not([type='radio' i], [type='checkbox' i])) {
 [|att] {
 }
 
+================================================================================
 `;

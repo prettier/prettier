@@ -7,3 +7,5 @@ let {
 
 const { accessibilityModule: FooAccessibilityModule, accessibilityModule: FooAccessibilityModule, accessibilityModule: FooAccessibilityModule, accessibilityModule: FooAccessibilityModule,
       } = foo || {};
+
+({ prop: toAssign = "default" } = { prop: "propval" });

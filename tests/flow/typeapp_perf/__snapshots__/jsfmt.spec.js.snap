@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test1.js - flow-verify 1`] = `
+exports[`test1.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* This test ensures that the code below does not take a long time to check. If
  * this test is taking a very long time to complete, there is a bug. */
 
@@ -21,7 +26,8 @@ type B<T> = A & {
 declare var b: B<any>;
 
 (b: B<any>);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* This test ensures that the code below does not take a long time to check. If
  * this test is taking a very long time to complete, there is a bug. */
 
@@ -43,9 +49,15 @@ declare var b: B<any>;
 
 (b: B<any>);
 
+================================================================================
 `;
 
-exports[`test2.js - flow-verify 1`] = `
+exports[`test2.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* This test ensures that the code below does not take a long time to check. If
  * this test is taking a very long time to complete, there is a bug. */
 
@@ -66,7 +78,8 @@ type B<T> = A & {
 declare var b: B<any>;
 
 (b: B<any>);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* This test ensures that the code below does not take a long time to check. If
  * this test is taking a very long time to complete, there is a bug. */
 
@@ -88,4 +101,5 @@ declare var b: B<any>;
 
 (b: B<any>);
 
+================================================================================
 `;

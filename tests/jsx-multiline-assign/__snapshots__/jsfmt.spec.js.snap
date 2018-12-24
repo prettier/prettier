@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const comp1 = (
   <div style={styles} key="something">
     Keep the wrapping parens.
@@ -20,7 +25,8 @@ const comp3 = <div style={styles} key="something">Bump to next line without pare
 const comp4 = <div style={styles} key="something">Create wrapping parens and indent <strong>all the things</strong>.</div>;
 
 const comp5 = <div>Keep it on one line.</div>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const comp1 = (
   <div style={styles} key="something">
     Keep the wrapping parens.
@@ -53,4 +59,5 @@ const comp4 = (
 
 const comp5 = <div>Keep it on one line.</div>;
 
+================================================================================
 `;

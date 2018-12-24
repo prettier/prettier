@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`decorator-type-assertion.ts - typescript-verify 1`] = `
+exports[`decorator-type-assertion.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @(bind as ClassDecorator)
 class Decorated {
 
@@ -10,16 +15,23 @@ class Decorated {
 class Decorated {
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @(bind as ClassDecorator)
 class Decorated {}
 
 @(<ClassDecorator>bind)
 class Decorated {}
 
+================================================================================
 `;
 
-exports[`decorators.js - typescript-verify 1`] = `
+exports[`decorators.js 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export class TestTextFileService {
 	constructor(
 		@ILifecycleService lifecycleService,
@@ -37,7 +49,8 @@ export class TabCompletionController {
 class AngularComponent {
   @Input() myInput: string;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export class TestTextFileService {
   constructor(@ILifecycleService lifecycleService) {}
 }
@@ -49,13 +62,18 @@ export class TabCompletionController {}
   selector: "angular-component"
 })
 class AngularComponent {
-  @Input()
-  myInput: string;
+  @Input() myInput: string;
 }
 
+================================================================================
 `;
 
-exports[`decorators-comments.js - typescript-verify 1`] = `
+exports[`decorators-comments.js 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 class Foo1 {
     @foo
@@ -98,7 +116,8 @@ class Something {
     // comment
     abstract method(): Array<string>
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Foo1 {
   @foo
   // comment
@@ -141,9 +160,15 @@ class Something {
   abstract method(): Array<string>;
 }
 
+================================================================================
 `;
 
-exports[`inline-decorators.ts - typescript-verify 1`] = `
+exports[`inline-decorators.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 @d1
 @d2(foo)
@@ -193,7 +218,8 @@ class Bar {
 class MyContainerComponent {
   @ContentChildren(MyComponent) components: QueryListSomeBigName<MyComponentThat>;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @d1
 @d2(foo)
 @d3.bar
@@ -218,14 +244,10 @@ class Class2 {
 }
 
 class Class3 {
-  @d1
-  fieldA;
-  @d2(foo)
-  fieldB;
-  @d3.bar
-  fieldC;
-  @d4.baz()
-  fieldD;
+  @d1 fieldA;
+  @d2(foo) fieldB;
+  @d3.bar fieldC;
+  @d4.baz() fieldD;
 
   constructor(
     @d1 private x: number,
@@ -242,25 +264,32 @@ class Class3 {
 class Foo {}
 
 class Bar {
-  @decorated
-  method() {}
+  @decorated method() {}
 }
 
 class MyContainerComponent {
-  @ContentChildren(MyComponent)
-  components: QueryListSomeBigName<MyComponentThat>;
+  @ContentChildren(MyComponent) components: QueryListSomeBigName<
+    MyComponentThat
+  >;
 }
 
+================================================================================
 `;
 
-exports[`interface.ts - typescript-verify 1`] = `
+exports[`interface.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // invalid place but shouldn't be removed
 
 @hello()
 interface MyInterface {
   id: string;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // invalid place but shouldn't be removed
 
 @hello()
@@ -268,4 +297,5 @@ interface MyInterface {
   id: string;
 }
 
+================================================================================
 `;

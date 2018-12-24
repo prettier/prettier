@@ -1,10 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`asOperatorContextualType.ts - typescript-verify 1`] = `
-// should error
-var x = (v => v) as (x: number) => string;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`asOperatorContextualType.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // should error
 var x = (v => v) as (x: number) => string;
 
+=====================================output=====================================
+// should error
+var x = (v => v) as (x: number) => string;
+
+================================================================================
 `;

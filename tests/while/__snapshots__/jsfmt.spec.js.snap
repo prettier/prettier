@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`indent.js - flow-verify 1`] = `
+exports[`indent.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 if (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
 while (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
 do {}
@@ -15,7 +20,8 @@ while (0) 1;
 
 do 1;
 while (0);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 if (
   someVeryLongStringA &&
   someVeryLongStringB &&
@@ -67,4 +73,5 @@ while (0) 1;
 do 1;
 while (0);
 
+================================================================================
 `;

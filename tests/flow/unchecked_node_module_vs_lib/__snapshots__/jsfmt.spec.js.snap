@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * Test resolution precedence in node:
  * checked module > lib def > unchecked module
@@ -27,7 +32,8 @@ var x2: string = buffer2.INSPECT_MAX_BYTES; // error, module not found
 
 var buffer3 = require("./buffer.js");
 var x3: string = buffer3.INSPECT_MAX_BYTES; // error, module not found
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * Test resolution precedence in node:
  * checked module > lib def > unchecked module
@@ -55,4 +61,5 @@ var x2: string = buffer2.INSPECT_MAX_BYTES; // error, module not found
 var buffer3 = require("./buffer.js");
 var x3: string = buffer3.INSPECT_MAX_BYTES; // error, module not found
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`async-iteration.js - flow-verify 1`] = `
+exports[`async-iteration.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 async function * a() {
     yield* b();
@@ -11,7 +16,8 @@ class X {
         yield* a();
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 async function* a() {
   yield* b();
 }
@@ -22,9 +28,15 @@ class X {
   }
 }
 
+================================================================================
 `;
 
-exports[`await_parse.js - flow-verify 1`] = `
+exports[`await_parse.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 async function f() { (await f()).length }
 async function g() {
   invariant(
@@ -41,7 +53,8 @@ async () => {
   new A(await x);
   obj[await x];
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 async function f() {
   (await f()).length;
 }
@@ -59,9 +72,15 @@ async () => {
   obj[await x];
 };
 
+================================================================================
 `;
 
-exports[`conditional-expression.js - flow-verify 1`] = `
+exports[`conditional-expression.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 async function f() {
   const result = typeof fn === 'function' ? await fn() : null;
 }
@@ -76,7 +95,8 @@ async function f() {
   await (spellcheck && spellcheck.setChecking(false));
   await spellcheck && spellcheck.setChecking(false)
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 async function f() {
   const result = typeof fn === "function" ? await fn() : null;
 }
@@ -90,13 +110,20 @@ async function f() {
   (await spellcheck) && spellcheck.setChecking(false);
 }
 
+================================================================================
 `;
 
-exports[`parens.js - flow-verify 1`] = `
+exports[`parens.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 async function *f(){ await (yield x); }
 
 async function f(){ await (() => {}); }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 async function* f() {
   await (yield x);
 }
@@ -105,4 +132,5 @@ async function f() {
   await (() => {});
 }
 
+================================================================================
 `;

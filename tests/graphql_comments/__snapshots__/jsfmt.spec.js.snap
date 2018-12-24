@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`argument_comment.graphql - graphql-verify 1`] = `
+exports[`argument_comment.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 query (
   $string: String, # Some variable comment
@@ -8,7 +13,8 @@ query (
  ) {
    someField
  }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 query(
   $string: String # Some variable comment
   $bool: Boolean # Some comment
@@ -16,22 +22,35 @@ query(
   someField
 }
 
+================================================================================
 `;
 
-exports[`fields.graphql - graphql-verify 1`] = `
+exports[`fields.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 query { 
   someField # Trailing comment
 }
 
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 query {
   someField # Trailing comment
 }
 
+================================================================================
 `;
 
-exports[`tokens.graphql - graphql-verify 1`] = `
+exports[`tokens.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 # import "./claimsFragment.gql"
 
 query claimsByBookingReferenceAndLastName($bookingReference: String!, $lastName: String!) {
@@ -39,7 +58,8 @@ query claimsByBookingReferenceAndLastName($bookingReference: String!, $lastName:
     ... claim
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 # import "./claimsFragment.gql"
 
 query claimsByBookingReferenceAndLastName(
@@ -54,4 +74,5 @@ query claimsByBookingReferenceAndLastName(
   }
 }
 
+================================================================================
 `;

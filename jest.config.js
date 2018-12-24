@@ -1,6 +1,7 @@
 "use strict";
 
-const ENABLE_COVERAGE = !!process.env.CI;
+const ENABLE_TEST_RESULTS = !!process.env.ENABLE_TEST_RESULTS;
+const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
 
 const requiresPrettierInternals = [
   "tests_integration/__tests__/util-shared.js",
@@ -12,18 +13,22 @@ const isOldNode = semver.parse(process.version).major <= 4;
 
 module.exports = {
   setupFiles: ["<rootDir>/tests_config/run_spec.js"],
-  snapshotSerializers: ["<rootDir>/tests_config/raw-serializer.js"],
+  snapshotSerializers: [
+    "jest-snapshot-serializer-raw",
+    "jest-snapshot-serializer-ansi"
+  ],
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns: ["tests/new_react", "tests/more_react"].concat(
     isOldNode ? requiresPrettierInternals : []
   ),
-  collectCoverage: ENABLE_COVERAGE,
+  collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
   coveragePathIgnorePatterns: [
     "<rootDir>/standalone.js",
     "<rootDir>/src/doc/doc-debug.js",
     "<rootDir>/src/main/massage-ast.js"
   ],
+  coverageReporters: ["text", "html", "cobertura"],
   moduleNameMapper: {
     // Jest wires `fs` to `graceful-fs`, which causes a memory leak when
     // `graceful-fs` does `require('fs')`.
@@ -40,15 +45,5 @@ module.exports = {
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname"
   ],
-  reporters: process.env.REPORT_SUMMARIES
-    ? [
-        "default",
-        [
-          "jest-junit",
-          {
-            output: "./test-results/jest/junit.xml"
-          }
-        ]
-      ]
-    : undefined
+  reporters: ["default"].concat(ENABLE_TEST_RESULTS ? "jest-junit" : [])
 };

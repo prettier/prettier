@@ -1,13 +1,13 @@
-// comment 1
-try {
-  // comment 2
+// Comment 1
+try { // Comment 2
+  // Comment 3
 }
-// comment 3
-catch(e) {
-  // comment 4
+// Comment 4
+catch(e) { // Comment 5
+  // Comment 6
 }
-// comment 5
-finally // comment 6
-{
-  // comment 7
+// Comment 7
+finally { // Comment 8
+  // Comment 9
 }
+// Comment 10

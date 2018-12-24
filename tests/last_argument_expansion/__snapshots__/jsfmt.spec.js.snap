@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js - flow-verify 1`] = `
+exports[`arrow.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default function searchUsers(action$) {
   return action$.ofType(ActionTypes.SEARCHED_USERS)
     .map(action => action.payload.query)
@@ -16,7 +21,8 @@ export default function searchUsers(action$) {
         ))
     );
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export default function searchUsers(action$) {
   return action$
     .ofType(ActionTypes.SEARCHED_USERS)
@@ -37,9 +43,15 @@ export default function searchUsers(action$) {
     );
 }
 
+================================================================================
 `;
 
-exports[`break.js - flow-verify 1`] = `
+exports[`break.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default class AddAssetHtmlPlugin {
   apply(compiler: WebpackCompilerType) {
     compiler.plugin('compilation', (compilation: WebpackCompilationType) => {
@@ -49,7 +61,8 @@ export default class AddAssetHtmlPlugin {
     });
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export default class AddAssetHtmlPlugin {
   apply(compiler: WebpackCompilerType) {
     compiler.plugin("compilation", (compilation: WebpackCompilationType) => {
@@ -68,9 +81,15 @@ export default class AddAssetHtmlPlugin {
   }
 }
 
+================================================================================
 `;
 
-exports[`break-parent.js - flow-verify 1`] = `
+exports[`break-parent.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ({
   processors: [
     require("autoprefixer", {
@@ -96,7 +115,8 @@ true
       f={123412341234}
       g={123412341234}
     />;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ({
   processors: [
     require("autoprefixer", {
@@ -125,9 +145,15 @@ true ? (
   />
 );
 
+================================================================================
 `;
 
-exports[`edge_case.js - flow-verify 1`] = `
+exports[`edge_case.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var listener = DOM.listen(
   introCard,
   'click',
@@ -194,7 +220,8 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ }
 /******/ ])
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var listener = DOM.listen(
   introCard,
   "click",
@@ -275,9 +302,15 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
   );
 });
 
+================================================================================
 `;
 
-exports[`empty-object.js - flow-verify 1`] = `
+exports[`empty-object.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 func(first, second, third, fourth, fifth, aReallyLongArgumentsListToForceItToBreak, {
   // comment
 })
@@ -299,7 +332,8 @@ func(
   // comment
   {}
 )
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 func(
   first,
   second,
@@ -330,24 +364,37 @@ func(
   {}
 );
 
+================================================================================
 `;
 
-exports[`jsx.js - flow-verify 1`] = `
+exports[`jsx.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const els = items.map(item => (
   <div className="whatever">
     <span>{children}</span>
   </div>
 ));
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const els = items.map(item => (
   <div className="whatever">
     <span>{children}</span>
   </div>
 ));
 
+================================================================================
 `;
 
-exports[`object.js - flow-verify 1`] = `
+exports[`object.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const formatData = pipe(
   zip,
   map(([ ref, data ]) => ({
@@ -367,7 +414,8 @@ export const setProp = y => ({
 export const log = y => {
   console.log('very, very, very long very, very long text')
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const formatData = pipe(
   zip,
   map(([ref, data]) => ({
@@ -388,9 +436,15 @@ export const log = y => {
   console.log("very, very, very long very, very long text");
 };
 
+================================================================================
 `;
 
-exports[`overflow.js - flow-verify 1`] = `
+exports[`overflow.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLongCall((err, result) => {
   // comment
 });
@@ -442,7 +496,8 @@ const contentTypes = function(tile, singleSelection) {
     }
   );
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLongCall(
   (err, result) => {
     // comment
@@ -526,4 +581,5 @@ const contentTypes = function(tile, singleSelection) {
   });
 };
 
+================================================================================
 `;

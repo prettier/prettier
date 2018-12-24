@@ -1,78 +1,152 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`autolink.md - markdown-verify 1`] = `
-<https://www.example.com>
-
-<hello@example.com>
-
-<mailto:hello@example.com>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<https://www.example.com>
-
-<hello@example.com>
-
-<mailto:hello@example.com>
-
-`;
-
-exports[`autolink.md - markdown-verify 2`] = `
-<https://www.example.com>
-
-<hello@example.com>
-
-<mailto:hello@example.com>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`autolink.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 <https://www.example.com>
 
 <hello@example.com>
 
 <mailto:hello@example.com>
 
+=====================================output=====================================
+<https://www.example.com>
+
+<hello@example.com>
+
+<mailto:hello@example.com>
+
+================================================================================
 `;
 
-exports[`entity.md - markdown-verify 1`] = `
+exports[`autolink.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<https://www.example.com>
+
+<hello@example.com>
+
+<mailto:hello@example.com>
+
+=====================================output=====================================
+<https://www.example.com>
+
+<hello@example.com>
+
+<mailto:hello@example.com>
+
+================================================================================
+`;
+
+exports[`entity.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [Test](http://localhost:8080/test?language=DE&currency=EUR)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [Test](http://localhost:8080/test?language=DE&currency=EUR)
 
+================================================================================
 `;
 
-exports[`entity.md - markdown-verify 2`] = `
+exports[`entity.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 [Test](http://localhost:8080/test?language=DE&currency=EUR)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [Test](http://localhost:8080/test?language=DE&currency=EUR)
 
+================================================================================
 `;
 
-exports[`long.md - markdown-verify 1`] = `
-[podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
-
-`;
-
-exports[`long.md - markdown-verify 2`] = `
-[podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`long.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
 
+=====================================output=====================================
+[podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
+
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 1`] = `
-[hello](#world)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[hello](#world)
+exports[`long.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+[podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
 
+=====================================output=====================================
+[podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
+
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 2`] = `
-[hello](#world)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`simple.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [hello](#world)
 
+=====================================output=====================================
+[hello](#world)
+
+================================================================================
 `;
 
-exports[`title.md - markdown-verify 1`] = `
+exports[`simple.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+[hello](#world)
+
+=====================================output=====================================
+[hello](#world)
+
+================================================================================
+`;
+
+exports[`title.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [hello](#world "title")
 [hello](#world 'title')
 [hello](#world (title))
@@ -104,7 +178,8 @@ exports[`title.md - markdown-verify 1`] = `
 [a](https://example.com "\\\\'")
 [a](https://example.com '\\\\"')
 [a](https://example.com (\\\\"))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [hello](#world "title") [hello](#world "title") [hello](#world "title")
 
 [a](https://example.com '"') [a](https://example.com '"')
@@ -129,9 +204,17 @@ exports[`title.md - markdown-verify 1`] = `
 [a](https://example.com "'") [a](https://example.com '"')
 [a](https://example.com '"')
 
+================================================================================
 `;
 
-exports[`title.md - markdown-verify 2`] = `
+exports[`title.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 [hello](#world "title")
 [hello](#world 'title')
 [hello](#world (title))
@@ -163,7 +246,8 @@ exports[`title.md - markdown-verify 2`] = `
 [a](https://example.com "\\\\'")
 [a](https://example.com '\\\\"')
 [a](https://example.com (\\\\"))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [hello](#world 'title') [hello](#world 'title') [hello](#world 'title')
 
 [a](https://example.com '"') [a](https://example.com '"')
@@ -188,18 +272,36 @@ exports[`title.md - markdown-verify 2`] = `
 [a](https://example.com "'") [a](https://example.com '"')
 [a](https://example.com '"')
 
+================================================================================
 `;
 
-exports[`url.md - markdown-verify 1`] = `
-https://www.example.com/
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`url.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 https://www.example.com/
 
+=====================================output=====================================
+https://www.example.com/
+
+================================================================================
 `;
 
-exports[`url.md - markdown-verify 2`] = `
-https://www.example.com/
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`url.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 https://www.example.com/
 
+=====================================output=====================================
+https://www.example.com/
+
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UnicodeUtils.js - flow-verify 1`] = `
+exports[`UnicodeUtils.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -35,7 +40,8 @@ function inSurrogateRange(codeUnit) {
 function utf16Length(str, pos) {
   return 1 + inSurrogateRange(str.charCodeAt(pos));
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -70,4 +76,5 @@ function utf16Length(str, pos) {
   return 1 + inSurrogateRange(str.charCodeAt(pos));
 }
 
+================================================================================
 `;

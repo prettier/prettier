@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CanvasRenderingContext2D.js - flow-verify 1`] = `
+exports[`CanvasRenderingContext2D.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -14,7 +19,8 @@ let tests = [
     ctx.moveTo('0', '1');  // error: should be numbers
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -29,9 +35,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`CustomEvent.js - flow-verify 1`] = `
+exports[`CustomEvent.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -41,7 +53,8 @@ let tests = [
     event.initCustomEvent('butts', true, false, { nice: 42 });
   }
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -52,9 +65,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`Document.js - flow-verify 1`] = `
+exports[`Document.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -68,7 +87,8 @@ let tests = [
     (document.createElement('hr'): HTMLElement); // GH #3752
   }
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -83,9 +103,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`Element.js - flow-verify 1`] = `
+exports[`Element.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -104,7 +130,8 @@ let tests = [
     element.scrollIntoView(1);
   }
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -124,9 +151,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`HTMLCanvasElement.js - flow-verify 1`] = `
+exports[`HTMLCanvasElement.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -135,7 +168,8 @@ let tests = [
     (el.getContext('2d'): ?CanvasRenderingContext2D);
   }
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -145,9 +179,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`HTMLElement.js - flow-verify 1`] = `
+exports[`HTMLElement.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -166,7 +206,8 @@ let tests = [
     element.scrollIntoView(1);
   }
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -186,9 +227,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`HTMLInputElement.js - flow-verify 1`] = `
+exports[`HTMLInputElement.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -201,7 +248,8 @@ let tests = [
     el.setRangeText('foo', 123, 234, 'bogus'); // invalid value
   }
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -215,9 +263,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`URL.js - flow-verify 1`] = `
+exports[`URL.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 const a = new URL('http://flowtype.org/'); // correct
@@ -238,7 +292,8 @@ const o: string = c.port; // correct
 const p: string = c.protocol; // correct
 const q: string = c.search; // correct
 const r: string = c.username; // correct
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 const a = new URL("http://flowtype.org/"); // correct
@@ -260,9 +315,15 @@ const p: string = c.protocol; // correct
 const q: string = c.search; // correct
 const r: string = c.username; // correct
 
+================================================================================
 `;
 
-exports[`eventtarget.js - flow-verify 1`] = `
+exports[`eventtarget.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let listener: EventListener = function (event: Event) :void {};
@@ -288,7 +349,8 @@ let tests = [
     };
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let listener: EventListener = function(event: Event): void {};
@@ -315,9 +377,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`path2d.js - flow-verify 1`] = `
+exports[`path2d.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -329,7 +397,8 @@ let tests = [
     (path.arcTo(0, 0, 0, 0, 10, '20', 5): void); // invalid
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -342,9 +411,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`registerElement.js - flow-verify 1`] = `
+exports[`registerElement.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -403,7 +478,8 @@ let tests = [
     });
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -411,15 +487,9 @@ let tests = [
   function() {
     document.registerElement("custom-element", {
       prototype: Object.create(HTMLElement.prototype, {
-        createdCallback: {
-          value: function createdCallback() {}
-        },
-        attachedCallback: {
-          value: function attachedCallback() {}
-        },
-        detachedCallback: {
-          value: function detachedCallback() {}
-        },
+        createdCallback: { value: function createdCallback() {} },
+        attachedCallback: { value: function attachedCallback() {} },
+        detachedCallback: { value: function detachedCallback() {} },
         attributeChangedCallback: {
           value: function attributeChangedCallback(
             attributeLocalName,
@@ -462,9 +532,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`traversal.js - flow-verify 1`] = `
+exports[`traversal.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -660,7 +736,8 @@ let tests = [
     document.createTreeWalker(document.body, -1, {}); // invalid
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -877,4 +954,5 @@ let tests = [
   }
 ];
 
+================================================================================
 `;

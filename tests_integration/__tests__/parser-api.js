@@ -31,6 +31,8 @@ test("allows usage of prettier's supported parsers", () => {
 
 describe("allows passing a string to resolve a parser", () => {
   runPrettier("./custom-parsers/", [
+    "--end-of-line",
+    "lf",
     "./custom-rename-input.js",
     "--parser",
     "./custom-rename-parser"

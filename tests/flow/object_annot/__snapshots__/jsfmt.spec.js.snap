@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo(x: Array<Object>): Array<Object> {
     return x.sort((a, b) => a.foo - b.foo);
 }
@@ -9,7 +14,8 @@ function foo(x: Array<Object>): Array<Object> {
 function bar(x: Object): Array<string> {
   return Object.keys(x);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo(x: Array<Object>): Array<Object> {
   return x.sort((a, b) => a.foo - b.foo);
 }
@@ -19,4 +25,5 @@ function bar(x: Object): Array<string> {
   return Object.keys(x);
 }
 
+================================================================================
 `;

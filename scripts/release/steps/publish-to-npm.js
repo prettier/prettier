@@ -12,7 +12,10 @@ module.exports = async function({ dry, version }) {
 
   await logPromise(
     "Publishing to npm",
-    execa("npm", ["publish"], { cwd: "./dist" })
+    execa("npm", ["publish"], {
+      cwd: "./dist",
+      stdio: "inherit" // we need to input OTP if 2FA enabled
+    })
   );
 
   console.log(
@@ -24,7 +27,6 @@ module.exports = async function({ dry, version }) {
       {bold.underline Create a GitHub Release}
       - Go to {cyan.underline https://github.com/prettier/prettier/releases/new?tag=${version}}
       - Copy release notes from {yellow CHANGELOG.md}
-      - Attach all files in {yellow dist/} folder.
       - Press {bgGreen.black  Publish release }
 
       {bold.underline Test the new releae}
