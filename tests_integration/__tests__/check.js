@@ -7,7 +7,8 @@ describe("checks stdin with --check", () => {
     input: "0"
   }).test({
     stdout: "(stdin)\n",
-    stderr: "",
+    stderr:
+      "[warn] --parser=babylon is deprecated; we now treat it as --parser=babel.\n",
     status: "non-zero"
   });
 });
@@ -17,7 +18,8 @@ describe("checks stdin with -c (alias for --check)", () => {
     input: "0"
   }).test({
     stdout: "(stdin)\n",
-    stderr: "",
+    stderr:
+      "[warn] --parser=babylon is deprecated; we now treat it as --parser=babel.\n",
     status: "non-zero"
   });
 });

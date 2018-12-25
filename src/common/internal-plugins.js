@@ -12,29 +12,29 @@ module.exports = [
     parsers: {
       // JS - Babel
       get babel() {
-        return eval("require")("../language-js/parser-babel").parsers.babel;
+        return eval("require")("../language-js/parser-babylon").parsers.babel;
       },
       get json() {
-        return eval("require")("../language-js/parser-babel").parsers.json;
+        return eval("require")("../language-js/parser-babylon").parsers.json;
       },
       get json5() {
-        return eval("require")("../language-js/parser-babel").parsers.json5;
+        return eval("require")("../language-js/parser-babylon").parsers.json5;
       },
       get "json-stringify"() {
-        return eval("require")("../language-js/parser-babel").parsers[
+        return eval("require")("../language-js/parser-babylon").parsers[
           "json-stringify"
         ];
       },
       get __js_expression() {
-        return eval("require")("../language-js/parser-babel").parsers
+        return eval("require")("../language-js/parser-babylon").parsers
           .__js_expression;
       },
       get __vue_expression() {
-        return eval("require")("../language-js/parser-babel").parsers
+        return eval("require")("../language-js/parser-babylon").parsers
           .__vue_expression;
       },
       get __vue_event_binding() {
-        return eval("require")("../language-js/parser-babel").parsers
+        return eval("require")("../language-js/parser-babylon").parsers
           .__vue_event_binding;
       },
       // JS - Flow

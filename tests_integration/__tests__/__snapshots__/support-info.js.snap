@@ -18,9 +18,9 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
 +     \\"parser\\": Object {
 +       \\"choices\\": Array [
 +         \\"flow\\",
-+         \\"babel\\",
++         \\"babylon\\",
 +       ],
-+       \\"default\\": \\"babel\\",
++       \\"default\\": \\"babylon\\",
 +       \\"type\\": \\"choice\\",
 +     },
       \\"printWidth\\": Object {
@@ -185,11 +185,11 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
       \\"parser\\": Object {
         \\"choices\\": Array [
           \\"flow\\",
-          \\"babel\\",
+          \\"babylon\\",
 +         \\"typescript\\",
 +         \\"postcss\\",
         ],
-        \\"default\\": \\"babel\\",
+        \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
       },
       \\"printWidth\\": Object {
@@ -252,13 +252,13 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 @@ -54,10 +63,12 @@
         \\"choices\\": Array [
           \\"flow\\",
-          \\"babel\\",
+          \\"babylon\\",
           \\"typescript\\",
           \\"postcss\\",
 +         \\"json\\",
 +         \\"graphql\\",
         ],
-        \\"default\\": \\"babel\\",
+        \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
       },
       \\"printWidth\\": Object {"
@@ -305,7 +305,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
       \\"parser\\": Object {
         \\"choices\\": Array [
           \\"flow\\",
-          \\"babel\\",
+          \\"babylon\\",
           \\"typescript\\",
 -         \\"postcss\\",
 +         \\"css\\",
@@ -314,7 +314,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
           \\"json\\",
           \\"graphql\\",
         ],
-        \\"default\\": \\"babel\\",
+        \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
 @@ -96,10 +98,14 @@
           \\"start\\": 0,
@@ -375,7 +375,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
           \\"graphql\\",
 +         \\"markdown\\",
         ],
-        \\"default\\": \\"babel\\",
+        \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
       },
       \\"printWidth\\": Object {"
@@ -533,7 +533,8 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       \\"parser\\": Object {
         \\"choices\\": Array [
           \\"flow\\",
-          \\"babel\\",
+-         \\"babylon\\",
++         \\"babel\\",
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -549,7 +550,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +         \\"html\\",
 +         \\"angular\\",
         ],
--       \\"default\\": \\"babel\\",
+-       \\"default\\": \\"babylon\\",
 +       \\"default\\": undefined,
         \\"type\\": \\"choice\\",
       },
@@ -1084,7 +1085,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"category\\": \\"Global\\",
       \\"choices\\": [
         { \\"description\\": \\"Flow\\", \\"value\\": \\"flow\\" },
-        { \\"description\\": \\"JavaScript\\", \\"value\\": \\"babel\\" },
+        { \\"description\\": \\"JavaScript\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel\\" },
         {
           \\"description\\": \\"TypeScript\\",
           \\"since\\": \\"1.4.0\\",

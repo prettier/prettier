@@ -17,7 +17,8 @@ describe("checks stdin with -l (alias for --list-different)", () => {
     input: "0"
   }).test({
     stdout: "(stdin)\n",
-    stderr: "",
+    stderr:
+      "[warn] --parser=babylon is deprecated; we now treat it as --parser=babel.\n",
     status: "non-zero"
   });
 });

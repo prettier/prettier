@@ -14,31 +14,31 @@ function importScriptOnce(url) {
 var parsers = {
   // JS - Babel
   get babel() {
-    importScriptOnce("lib/parser-babel.js");
+    importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babel.parsers.babel;
   },
   get json() {
-    importScriptOnce("lib/parser-babel.js");
+    importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babel.parsers.json;
   },
   get json5() {
-    importScriptOnce("lib/parser-babel.js");
+    importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babel.parsers.json5;
   },
   get "json-stringify"() {
-    importScriptOnce("lib/parser-babel.js");
+    importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babel.parsers["json-stringify"];
   },
   get __js_expression() {
-    importScriptOnce("lib/parser-babel.js");
+    importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babel.parsers.__js_expression;
   },
   get __vue_expression() {
-    importScriptOnce("lib/parser-babel.js");
+    importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babel.parsers.__vue_expression;
   },
   get __vue_event_binding() {
-    importScriptOnce("lib/parser-babel.js");
+    importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babel.parsers.__vue_event_binding;
   },
   // JS - Flow

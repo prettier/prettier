@@ -7,7 +7,7 @@ const vm = require("vm");
 const sources = [
   "standalone.js",
   "parser-angular.js",
-  "parser-babel.js",
+  "parser-babylon.js",
   "parser-flow.js",
   "parser-glimmer.js",
   "parser-graphql.js",
