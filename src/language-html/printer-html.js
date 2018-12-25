@@ -85,16 +85,11 @@ function embed(path, print, textToDoc, options) {
               line,
               textToDoc(
                 node.value,
-                Object.assign(
-                  {
-                    bracketSpacing: true // to avoid unexpected `}}`
-                  },
-                  options.parser === "angular"
-                    ? { parser: "__ng_interpolation", trailingComma: "none" }
-                    : options.parser === "vue"
-                    ? { parser: "__vue_expression" }
-                    : { parser: "__js_expression" }
-                )
+                options.parser === "angular"
+                  ? { parser: "__ng_interpolation", trailingComma: "none" }
+                  : options.parser === "vue"
+                  ? { parser: "__vue_expression" }
+                  : { parser: "__js_expression" }
               )
             ])
           ),
@@ -1048,10 +1043,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
                   indent(
                     concat([
                       line,
-                      ngTextToDoc(part, {
-                        parser: "__ng_interpolation",
-                        bracketSpacing: true // to avoid unexpected `}}`
-                      })
+                      ngTextToDoc(part, { parser: "__ng_interpolation" })
                     ])
                   ),
                   line,

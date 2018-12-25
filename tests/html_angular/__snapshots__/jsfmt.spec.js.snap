@@ -3213,8 +3213,8 @@ printWidth: 80
 <div>{{ a(1)(2) }}</div>
 <div>{{ a[b] }}</div>
 <div>{{ [1] }}</div>
-<div>{{ { a: 1 } }}</div>
-<div>{{ { a: 1 } }}</div>
+<div>{{ {a: 1} }}</div>
+<div>{{ {a: 1} }}</div>
 <div>{{ true }}</div>
 <div>{{ undefined }}</div>
 <div>{{ null }}</div>
@@ -3284,8 +3284,7 @@ printWidth: 80
 </span>
 <p>
   {{
-    "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+    "delete" | translate: {what: "entities" | translate: {count: array.length}}
   }}
 </p>
 
