@@ -9,6 +9,12 @@ describe("infers postcss parser", () => {
   });
 });
 
+describe("infers postcss parser with --check", () => {
+  runPrettier("cli/with-parser-inference", ["--check", "*"]).test({
+    status: 0
+  });
+});
+
 describe("infers postcss parser with --list-different", () => {
   runPrettier("cli/with-parser-inference", ["--list-different", "*"]).test({
     status: 0

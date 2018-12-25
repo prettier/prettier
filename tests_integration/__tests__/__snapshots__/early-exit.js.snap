@@ -5,7 +5,7 @@ exports[`show detailed usage with --help l (alias) (stderr) 1`] = `""`;
 exports[`show detailed usage with --help l (alias) (stdout) 1`] = `
 "-l, --list-different
 
-  Print the names of files that are different from Prettier's formatting.
+  Print the names of files that are different from Prettier's formatting (see also --check).
 "
 `;
 
@@ -51,7 +51,9 @@ Stdin is read if it is piped to Prettier and no files are given.
 
 Output options:
 
-  -l, --list-different     Print the names of files that are different from Prettier's formatting.
+  -c, --check              Check if the given files are formatted, print a human-friendly summary
+                           message and paths to unformatted files (see also --list-different).
+  -l, --list-different     Print the names of files that are different from Prettier's formatting (see also --check).
   --write                  Edit files in-place. (Beware!)
 
 Format options:
@@ -197,7 +199,9 @@ Stdin is read if it is piped to Prettier and no files are given.
 
 Output options:
 
-  -l, --list-different     Print the names of files that are different from Prettier's formatting.
+  -c, --check              Check if the given files are formatted, print a human-friendly summary
+                           message and paths to unformatted files (see also --list-different).
+  -l, --list-different     Print the names of files that are different from Prettier's formatting (see also --check).
   --write                  Edit files in-place. (Beware!)
 
 Format options:
@@ -295,6 +299,15 @@ Other options:
 `;
 
 exports[`throw error and show usage with something unexpected (write) 1`] = `Array []`;
+
+exports[`throw error with --check + --list-different (stderr) 1`] = `
+"[error] Cannot use --check and --list-different together.
+"
+`;
+
+exports[`throw error with --check + --list-different (stdout) 1`] = `""`;
+
+exports[`throw error with --check + --list-different (write) 1`] = `Array []`;
 
 exports[`throw error with --file-info + multiple files (stderr) 1`] = `
 "[error] Cannot use --file-info with multiple files

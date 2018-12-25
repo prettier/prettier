@@ -858,9 +858,20 @@ function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
 
+function hasLeadingComment(node, fn = () => true) {
+  if (node.leadingComments) {
+    return node.leadingComments.some(fn);
+  }
+  if (node.comments) {
+    return node.comments.some(comment => comment.leading && fn(comment));
+  }
+  return false;
+}
+
 module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment,
+  hasLeadingComment,
   isBlockComment
 };

@@ -2,7 +2,11 @@
 
 exports[`lit-html.js 1`] = `
 ====================================options=====================================
+<<<<<<< HEAD
 parsers: ["babel"]
+=======
+parsers: ["babylon", "flow", "typescript"]
+>>>>>>> master
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

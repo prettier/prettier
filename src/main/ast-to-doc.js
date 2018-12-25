@@ -78,7 +78,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()
     doc = addAlignmentToDoc(
-      docUtils.removeLines(concat([hardline, doc])),
+      concat([hardline, doc]),
       alignmentSize,
       options.tabWidth
     );
