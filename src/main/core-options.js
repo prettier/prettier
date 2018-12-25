@@ -115,7 +115,7 @@ const options = {
     category: CATEGORY_GLOBAL,
     type: "choice",
     default: [
-      { since: "0.0.10", value: "babel" },
+      { since: "0.0.10", value: "babylon" },
       { since: "1.13.0", value: undefined }
     ],
     description: "Which parser to use.",
