@@ -3284,7 +3284,8 @@ printWidth: 80
 </span>
 <p>
   {{
-    "delete" | translate: {what: "entities" | translate: {count: array.length}}
+    "delete"
+      | translate: {what: "entities" | translate: ({count: array.length})}
   }}
 </p>
 

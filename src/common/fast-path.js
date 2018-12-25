@@ -29,17 +29,18 @@ FastPath.prototype.getValue = function getValue() {
 };
 
 function getNodeHelper(path, count) {
-  const s = path.stack;
+  const stackIndex = getNodeStackIndexHelper(path.stack, count);
+  return stackIndex === -1 ? null : path.stack[stackIndex];
+}
 
-  for (let i = s.length - 1; i >= 0; i -= 2) {
-    const value = s[i];
-
+function getNodeStackIndexHelper(stack, count) {
+  for (let i = stack.length - 1; i >= 0; i -= 2) {
+    const value = stack[i];
     if (value && !Array.isArray(value) && --count < 0) {
-      return value;
+      return i;
     }
   }
-
-  return null;
+  return -1;
 }
 
 FastPath.prototype.getNode = function getNode(count) {
@@ -67,6 +68,14 @@ FastPath.prototype.call = function call(callback /*, name1, name2, ... */) {
   }
   const result = callback(this);
   s.length = origLen;
+  return result;
+};
+
+FastPath.prototype.callParent = function callParent(callback, count) {
+  const stackIndex = getNodeStackIndexHelper(this.stack, ~~count + 1);
+  const parentValues = this.stack.splice(stackIndex + 1);
+  const result = callback(this);
+  Array.prototype.push.apply(this.stack, parentValues);
   return result;
 };
 
