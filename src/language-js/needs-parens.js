@@ -729,6 +729,22 @@ function isFollowedByRightBracket(path) {
         );
       }
       break;
+    case "BinaryExpression":
+    case "LogicalExpression":
+      if (name === "right") {
+        return path.callParent(isFollowedByRightBracket);
+      }
+      break;
+    case "ConditionalExpression":
+      if (name === "alternate") {
+        return path.callParent(isFollowedByRightBracket);
+      }
+      break;
+    case "UnaryExpression":
+      if (parent.prefix) {
+        return path.callParent(isFollowedByRightBracket);
+      }
+      break;
   }
   return false;
 }
