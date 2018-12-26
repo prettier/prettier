@@ -14,6 +14,9 @@ module.exports = [
       get babel() {
         return eval("require")("../language-js/parser-babylon").parsers.babel;
       },
+      get babylon() {
+        return eval("require")("../language-js/parser-babylon").parsers.babel;
+      },
       get json() {
         return eval("require")("../language-js/parser-babylon").parsers.json;
       },
