@@ -1,3 +1,7 @@
-run_spec(__dirname, ["flow", "typescript"]);
-run_spec(__dirname, ["flow", "typescript"], { trailingComma: "all" });
-run_spec(__dirname, ["flow", "typescript"], { arrowParens: "always" });
+run_spec(__dirname, ["babylon", "flow", "typescript"]);
+run_spec(__dirname, ["babylon", "flow", "typescript"], {
+  trailingComma: "all"
+});
+run_spec(__dirname, ["babylon", "flow", "typescript"], {
+  arrowParens: "always"
+});

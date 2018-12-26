@@ -2,36 +2,29 @@
 
 const printer = require("./printer-markdown");
 const options = require("./options");
-
-// Based on:
-// https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+const createLanguage = require("../utils/create-language");
 
 const languages = [
-  {
-    name: "Markdown",
-    since: "1.8.0",
-    parsers: ["remark"],
-    aliases: ["pandoc"],
-    aceMode: "markdown",
-    codemirrorMode: "gfm",
-    codemirrorMimeType: "text/x-gfm",
-    wrap: true,
-    extensions: [
-      ".md",
-      ".markdown",
-      ".mdown",
-      ".mdwn",
-      ".mkd",
-      ".mkdn",
-      ".mkdown",
-      ".ron",
-      ".workbook"
-    ],
-    filenames: ["README"],
-    tmScope: "source.gfm",
-    linguistLanguageId: 222,
-    vscodeLanguageIds: ["markdown"]
-  }
+  createLanguage(require("linguist-languages/data/markdown"), {
+    override: {
+      since: "1.8.0",
+      parsers: ["remark"],
+      vscodeLanguageIds: ["markdown"]
+    },
+    extend: {
+      filenames: ["README"]
+    }
+  }),
+  createLanguage(
+    { name: "MDX", extensions: [".mdx"] }, // TODO: use linguist data
+    {
+      override: {
+        since: "1.15.0",
+        parsers: ["mdx"],
+        vscodeLanguageIds: ["mdx"]
+      }
+    }
+  )
 ];
 
 const printers = {

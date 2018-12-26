@@ -1,6 +1,8 @@
 "use strict";
 
 const clean = require("./clean");
+const embed = require("./embed");
+const { insertPragma } = require("./pragma");
 const {
   printNumber,
   printString,
@@ -56,6 +58,8 @@ const {
   hasEmptyRawBefore,
   isKeyValuePairNode,
   isDetachedRulesetCallNode,
+  isTemplatePlaceholderNode,
+  isTemplatePropNode,
   isPostcssSimpleVarNode,
   isSCSSMapItemNode,
   isInlineValueCommentNode,
@@ -92,8 +96,9 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
-    case "front-matter":
-      return concat([node.value, hardline]);
+    case "yaml":
+    case "toml":
+      return concat([node.raw, hardline]);
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
 
@@ -142,6 +147,8 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "css-decl": {
+      const parentNode = path.getParentNode();
+
       return concat([
         node.raws.before.replace(/[\s;]/g, ""),
         insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
@@ -153,18 +160,18 @@ function genericPrint(path, options, print) {
         node.raws.important
           ? node.raws.important.replace(/\s*!\s*important/i, " !important")
           : node.important
-            ? " !important"
-            : "",
+          ? " !important"
+          : "",
         node.raws.scssDefault
           ? node.raws.scssDefault.replace(/\s*!default/i, " !default")
           : node.scssDefault
-            ? " !default"
-            : "",
+          ? " !default"
+          : "",
         node.raws.scssGlobal
           ? node.raws.scssGlobal.replace(/\s*!global/i, " !global")
           : node.scssGlobal
-            ? " !global"
-            : "",
+          ? " !global"
+          : "",
         node.nodes
           ? concat([
               " {",
@@ -174,10 +181,16 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
+          : isTemplatePropNode(node) &&
+            !parentNode.raws.semicolon &&
+            options.originalText[options.locEnd(node) - 1] !== ";"
+          ? ""
           : ";"
       ]);
     }
     case "css-atrule": {
+      const parentNode = path.getParentNode();
+
       return concat([
         "@",
         // If a Less file ends up being parsed with the SCSS parser, Less
@@ -188,7 +201,14 @@ function genericPrint(path, options, print) {
           : maybeToLowerCase(node.name),
         node.params
           ? concat([
-              isDetachedRulesetCallNode(node) ? "" : " ",
+              isDetachedRulesetCallNode(node)
+                ? ""
+                : isTemplatePlaceholderNode(node) &&
+                  /^\s*\n/.test(node.raws.afterName)
+                ? /^\s*\n\s*\n/.test(node.raws.afterName)
+                  ? concat([hardline, hardline])
+                  : hardline
+                : " ",
               path.call(print, "params")
             ])
           : "",
@@ -208,8 +228,8 @@ function genericPrint(path, options, print) {
               ])
             )
           : node.name === "else"
-            ? " "
-            : "",
+          ? " "
+          : "",
         node.nodes
           ? concat([
               isSCSSControlDirectiveNode(node) ? "" : " ",
@@ -223,6 +243,10 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
+          : isTemplatePlaceholderNode(node) &&
+            !parentNode.raws.semicolon &&
+            options.originalText[options.locEnd(node) - 1] !== ";"
+          ? ""
           : ";"
       ]);
     }
@@ -318,7 +342,7 @@ function genericPrint(path, options, print) {
           ? node.value
           : adjustNumbers(
               isHTMLTag(node.value) ||
-              isKeyframeAtRuleKeywords(path, node.value)
+                isKeyframeAtRuleKeywords(path, node.value)
                 ? node.value.toLowerCase()
                 : node.value
             )
@@ -376,7 +400,7 @@ function genericPrint(path, options, print) {
         node.namespace
           ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
           : "",
-        adjustNumbers(node.value)
+        node.value
       ]);
     }
     case "selector-pseudo": {
@@ -484,6 +508,27 @@ function genericPrint(path, options, print) {
 
         // Ignore `~` in Less (i.e. `content: ~"^//* some horrible but needed css hack";`)
         if (iNode.value === "~") {
+          continue;
+        }
+
+        // Ignore escape `\`
+        if (
+          iNode.value &&
+          iNode.value.indexOf("\\") !== -1 &&
+          iNextNode &&
+          iNextNode.type !== "value-comment"
+        ) {
+          continue;
+        }
+
+        // Ignore escaped `/`
+        if (
+          iPrevNode &&
+          iPrevNode.value &&
+          iPrevNode.value.indexOf("\\") === iPrevNode.value.length - 1 &&
+          iNode.type === "value-operator" &&
+          iNode.value === "/"
+        ) {
           continue;
         }
 
@@ -622,7 +667,11 @@ function genericPrint(path, options, print) {
 
         // Formatting `grid` property
         if (isGridValue) {
-          if (iNode.source.start.line !== iNextNode.source.start.line) {
+          if (
+            iNode.source &&
+            iNextNode.source &&
+            iNode.source.start.line !== iNextNode.source.start.line
+          ) {
             parts.push(hardline);
 
             didBreak = true;
@@ -734,8 +783,8 @@ function genericPrint(path, options, print) {
           ),
           ifBreak(
             isSCSS(options.parser, options.originalText) &&
-            isSCSSMapItem &&
-            shouldPrintComma(options)
+              isSCSSMapItem &&
+              shouldPrintComma(options)
               ? ","
               : ""
           ),
@@ -832,7 +881,9 @@ function printNodeSequence(path, options, print) {
             options.originalText,
             options.locStart(node.nodes[i + 1]),
             { backwards: true }
-          )) ||
+          ) &&
+          node.nodes[i].type !== "yaml" &&
+          node.nodes[i].type !== "toml") ||
         (node.nodes[i + 1].type === "css-atrule" &&
           node.nodes[i + 1].name === "else" &&
           node.nodes[i].type !== "css-comment")
@@ -841,7 +892,13 @@ function printNodeSequence(path, options, print) {
       } else {
         parts.push(hardline);
         if (
-          isNextLineEmpty(options.originalText, pathChild.getValue(), options)
+          isNextLineEmpty(
+            options.originalText,
+            pathChild.getValue(),
+            options
+          ) &&
+          node.nodes[i].type !== "yaml" &&
+          node.nodes[i].type !== "toml"
         ) {
           parts.push(hardline);
         }
@@ -899,6 +956,8 @@ function printCssNumber(rawNumber) {
 
 module.exports = {
   print: genericPrint,
+  embed,
+  insertPragma,
   hasPrettierIgnore: hasIgnoreComment,
   massageAstNode: clean
 };

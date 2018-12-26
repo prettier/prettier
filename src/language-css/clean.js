@@ -2,12 +2,45 @@
 
 const htmlTagNames = require("html-tag-names");
 
-function clean(ast, newObj) {
-  ["raws", "sourceIndex", "source", "before", "after", "trailingComma"].forEach(
-    name => {
-      delete newObj[name];
+function clean(ast, newObj, parent) {
+  [
+    "raw", // front-matter
+    "raws",
+    "sourceIndex",
+    "source",
+    "before",
+    "after",
+    "trailingComma"
+  ].forEach(name => {
+    delete newObj[name];
+  });
+
+  if (ast.type === "yaml") {
+    delete newObj.value;
+  }
+
+  // --insert-pragma
+  if (
+    ast.type === "css-comment" &&
+    parent.type === "css-root" &&
+    parent.nodes.length !== 0 &&
+    // first non-front-matter comment
+    (parent.nodes[0] === ast ||
+      ((parent.nodes[0].type === "yaml" || parent.nodes[0].type === "toml") &&
+        parent.nodes[1] === ast))
+  ) {
+    /**
+     * something
+     *
+     * @format
+     */
+    delete newObj.text;
+
+    // standalone pragma
+    if (/^\*\s*@(format|prettier)\s*$/.test(ast.text)) {
+      return null;
     }
-  );
+  }
 
   if (
     ast.type === "media-query" ||

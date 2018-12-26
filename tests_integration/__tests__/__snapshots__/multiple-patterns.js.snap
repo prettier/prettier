@@ -72,7 +72,7 @@ directory/nested-directory/nested-directory-file.js
 exports[`multiple patterns with non exists pattern (write) 1`] = `Array []`;
 
 exports[`multiple patterns, throw error and exit with non zero code on non existing files (stderr) 1`] = `
-"[error] No matching files. Patterns tried: non-existent.js other-non-existent.js !**/node_modules/** !./node_modules/**
+"[error] No matching files. Patterns tried: non-existent.js other-non-existent.js !**/node_modules/** !./node_modules/** !**/.{git,svn,hg}/** !./.{git,svn,hg}/**
 "
 `;
 

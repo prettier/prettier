@@ -143,6 +143,8 @@ function isSourceElement(opts, node) {
       return jsonSourceElements.indexOf(node.type) > -1;
     case "graphql":
       return graphqlSourceElements.indexOf(node.kind) > -1;
+    case "vue":
+      return node.tag !== "root";
   }
   return false;
 }
@@ -191,8 +193,7 @@ function calculateRange(text, opts, ast) {
     endNodeAndParents,
     opts
   );
-  const startNode = siblingAncestors.startNode;
-  const endNode = siblingAncestors.endNode;
+  const { startNode, endNode } = siblingAncestors;
   const rangeStart = Math.min(
     opts.locStart(startNode, opts.locStart),
     opts.locStart(endNode, opts.locStart)

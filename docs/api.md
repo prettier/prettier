@@ -18,7 +18,7 @@ prettier.format("foo ( );", { semi: false, parser: "babylon" });
 
 ## `prettier.check(source [, options])`
 
-`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`. This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
+`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`. This is similar to the `--check` or `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
 
 ## `prettier.formatWithCursor(source [, options])`
 
@@ -51,6 +51,7 @@ prettier.resolveConfig(filePath).then(options => {
 
 If `options.editorconfig` is `true` and an [`.editorconfig` file](http://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
 
+- `end_of_line`
 - `indent_style`
 - `indent_size`/`tab_width`
 - `max_line_length`
@@ -104,15 +105,15 @@ The support information looks like this:
     since?: string,
     parsers: string[],
     group?: string,
-    tmScope: string,
-    aceMode: string,
-    codemirrorMode: string,
-    codemirrorMimeType: string,
+    tmScope?: string,
+    aceMode?: string,
+    codemirrorMode?: string,
+    codemirrorMimeType?: string,
     aliases?: string[],
-    extensions: string[],
+    extensions?: string[],
     filenames?: string[],
-    linguistLanguageId: number,
-    vscodeLanguageIds: string[],
+    linguistLanguageId?: number,
+    vscodeLanguageIds?: string[],
   }>
 }
 ```

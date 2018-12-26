@@ -19,16 +19,16 @@ and add this config to your `package.json`:
 
 ```json
 {
-  "scripts": {
-    "precommit": "lint-staged"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.{js,json,css,md}": ["prettier --write", "git add"]
   }
 }
 ```
-
-**Warning:** Currently there is a limitation where if you stage specific lines this approach will stage the whole file after formatting. See this [issue](https://github.com/okonet/lint-staged/issues/62) for more info.
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
@@ -46,8 +46,10 @@ and add this config to your `package.json`:
 
 ```json
 {
-  "scripts": {
-    "precommit": "pretty-quick --staged"
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
 ```
@@ -61,17 +63,17 @@ Find more info from [here](https://github.com/azz/pretty-quick).
 Copy the following config into your `.pre-commit-config.yaml` file:
 
 ```yaml
-    -   repo: https://github.com/prettier/prettier
-        sha: ''  # Use the sha or tag you want to point at
-        hooks:
-        -   id: prettier
+- repo: https://github.com/prettier/prettier
+  rev: "" # Use the sha or tag you want to point at
+  hooks:
+    - id: prettier
 ```
 
 Find more info from [here](https://pre-commit.com).
 
 ## Option 4. [precise-commits](https://github.com/JamesHenry/precise-commits)
 
-**Use Case:** Great for when you want an partial file formatting on your changed/staged files.
+**Use Case:** Great for when you want partial file formatting on your changed/staged files.
 
 Install it along with [husky](https://github.com/typicode/husky):
 
@@ -83,8 +85,10 @@ and add this config to your `package.json`:
 
 ```json
 {
-  "scripts": {
-    "precommit": "precise-commits"
+  "husky": {
+    "hooks": {
+      "pre-commit": "precise-commits"
+    }
   }
 }
 ```

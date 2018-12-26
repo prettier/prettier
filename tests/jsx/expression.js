@@ -119,3 +119,13 @@
     });
   }}
 </Component>;
+
+<SuspendyTree>
+  <div style={{ height: 200, overflow: "scroll" }}>
+    {Array(20)
+      .fill()
+      .map((_, i) => (
+        <h2 key={i}>{i + 1}</h2>
+      ))}
+  </div>
+</SuspendyTree>;

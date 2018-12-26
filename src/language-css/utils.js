@@ -253,6 +253,14 @@ function isDetachedRulesetCallNode(node) {
   return node.raws && node.raws.params && /^\(\s*\)$/.test(node.raws.params);
 }
 
+function isTemplatePlaceholderNode(node) {
+  return node.name.startsWith("prettier-placeholder");
+}
+
+function isTemplatePropNode(node) {
+  return node.prop.startsWith("@prettier-placeholder");
+}
+
 function isPostcssSimpleVarNode(currentNode, nextNode) {
   return (
     currentNode.value === "$$" &&
@@ -415,6 +423,8 @@ module.exports = {
   hasEmptyRawBefore,
   isSCSSNestedPropertyNode,
   isDetachedRulesetCallNode,
+  isTemplatePlaceholderNode,
+  isTemplatePropNode,
   isPostcssSimpleVarNode,
   isKeyValuePairNode,
   isKeyValuePairInParenGroupNode,

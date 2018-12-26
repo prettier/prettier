@@ -11,19 +11,18 @@ export default function({
   onOptionValueChange
 }) {
   const options = groupBy(availableOptions, "category");
-  return categories.map(
-    category =>
-      options[category] ? (
-        <SidebarCategory key={category} title={category}>
-          {options[category].map(option => (
-            <Option
-              key={option.name}
-              option={option}
-              value={optionValues[option.name]}
-              onChange={onOptionValueChange}
-            />
-          ))}
-        </SidebarCategory>
-      ) : null
+  return categories.map(category =>
+    options[category] ? (
+      <SidebarCategory key={category} title={category}>
+        {options[category].map(option => (
+          <Option
+            key={option.name}
+            option={option}
+            value={optionValues[option.name]}
+            onChange={onOptionValueChange}
+          />
+        ))}
+      </SidebarCategory>
+    ) : null
   );
 }

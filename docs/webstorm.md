@@ -15,10 +15,15 @@ For older IDE versions, please follow the instructions below.
 
 ## Running Prettier on save using File Watcher
 
-To automatically format your files using `prettier` on save, you can use a file watcher.
+To automatically format your files using `prettier` on save, you can use a [File Watcher](https://plugins.jetbrains.com/plugin/7177-file-watchers).
 
-Go to _Preferences | Tools | File Watchers_ and click **+** to add a new watcher. Let’s name it **Prettier**.
+Go to _Preferences | Tools | File Watchers_ and click **+** to add a new watcher.
 
+In Webstorm 2018.2, select Prettier from the list, review the configuration, add any additional arguments if needed, and click OK.
+
+In older IDE versions, select Custom and do the following configuration:
+
+- **Name**: _Prettier_ or any other name
 - **File Type**: _JavaScript_ (or _Any_ if you want to run `prettier` on all files)
 - **Scope**: _Project Files_
 - **Program**: full path to `.bin/prettier` or `.bin\prettier.cmd` in the project's `node_module` folder. Or, if Prettier is installed globally, select `prettier` on macOS and Linux or `C:\Users\user_name\AppData\Roaming\npm\prettier.cmd` on Windows (or whatever `npm prefix -g` returns).
@@ -33,7 +38,7 @@ Go to _Preferences | Tools | File Watchers_ and click **+** to add a new watcher
 
 ### Using Prettier with ESLint
 
-If you are using ESLint with [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier), use the `Fix ESLint Problems` action to reformat the currect file – find it using _Find Action_ (`Cmd/Ctrl-Shift-A`) or [add a keyboard shortcut](https://www.jetbrains.com/help/webstorm/configuring-keyboard-shortcuts.html) to it in _Preferences | Kymap_ and then use it.
+If you are using ESLint with [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier), use the `Fix ESLint Problems` action to reformat the currect file – find it using _Find Action_ (`Cmd/Ctrl-Shift-A`) or [add a keyboard shortcut](https://www.jetbrains.com/help/webstorm/configuring-keyboard-shortcuts.html) to it in _Preferences | Keymap_ and then use it.
 
 Make sure that the ESLint integration is enabled in _Preferences | Languages & Frameworks | JavaScript | Code Quality Tools | ESLint_.
 

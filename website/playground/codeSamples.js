@@ -169,10 +169,56 @@ export default function(parser) {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "Curabitur consectetur maximus risus, sed maximus tellus tincidunt et."
       ].join("\n");
+    case "mdx":
+      // modified from https://github.com/mdx-js/mdx/blob/master/packages/mdx/test/fixtures/blog-post.md
+      return [
+        "import     {     Baz } from     './Fixture'",
+        "import { Buz  }   from './Fixture'",
+        "",
+        "export  const   foo    = {",
+        "  hi:     `Fudge ${Baz.displayName || 'Baz'}`,",
+        "  authors: [",
+        "     'fred',",
+        "           'sally'",
+        "    ]",
+        "}",
+        "",
+        "# Hello,    world!",
+        "",
+        "",
+        " I'm an awesome   paragraph.",
+        "",
+        "<!-- I'm a comment -->",
+        "",
+        "<Foo bg='red'>",
+        "      <Bar    >hi    </Bar>",
+        "       {  hello       }",
+        "       {     /* another commment */}",
+        "</Foo>",
+        "",
+        "```",
+        "test codeblock",
+        "```",
+        "",
+        "```js",
+        "module.exports = 'test'",
+        "```",
+        "",
+        "```sh",
+        "npm i -g foo",
+        "```",
+        "",
+        "| Test  | Table   |",
+        "|    :---     | :----  |",
+        "|   Col1  | Col2    |",
+        "",
+        "export   default     ({children   }) => < div>{    children}</div>",
+        ""
+      ].join("\n");
     case "vue":
       return [
         "<template>",
-        "  <p>Templates are not formatted yet ...",
+        "  <p>Templates are formatted as well...",
         "    </p>",
         "</template>",
         "",
@@ -181,8 +227,80 @@ export default function(parser) {
         "</script>",
         "",
         "<style>",
-        ".and { css: too! important }",
+        ".and { css: too !important }",
         "</style>"
+      ].join("\n");
+    case "yaml":
+      // modified from http://yaml.org/start.html
+      return [
+        "---",
+        "invoice   :   34843",
+        "date   :    2001-01-23",
+        "bill-to:    &id001",
+        "    given    : Chris",
+        "    family  : Dumars",
+        "    address:",
+        "        lines: |",
+        "            458 Walkman Dr.",
+        "            Suite #292",
+        "        city        : Royal Oak",
+        "        state      : MI",
+        "        postal  : 48046",
+        "ship-to: *id001",
+        "product:",
+        "    - ",
+        "    ",
+        "      sku         : BL394D",
+        "      ? quantity    ",
+        "      : 4",
+        "      description : Basketball",
+        "      ? price       ",
+        "      : 450.00",
+        "      ",
+        "      ",
+        "    - ",
+        "      sku          :   BL4438H",
+        "      quantity      :  1",
+        "      description:      Super Hoop",
+        "      price         :  2392.00",
+        "      ",
+        "      ",
+        "tax  :  251.42",
+        "total : 4443.52",
+        "comments: >",
+        "    Late afternoon is best.",
+        "    Backup contact is Nancy",
+        "    Billsmer @ 338-4338.",
+        ""
+      ].join("\n");
+    case "glimmer":
+      // modified from http://handlebarsjs.com/
+      return [
+        '  <div     class="entry"    >',
+        "  <h1>{{  title    }}</h1>",
+        '  <div   class="body">',
+        "            {{   body         }}",
+        "</div> </div>"
+      ].join("\n");
+    case "html":
+    case "angular":
+      return [
+        "<!DOCTYPE html>",
+        '<HTML CLASS="no-js mY-ClAsS">',
+        "  <HEAD>",
+        '    <META CHARSET="utf-8">',
+        "    <TITLE>My tITlE</TITLE>",
+        '    <META NAME="description" content="My CoNtEnT">',
+        "  </HEAD>",
+        "  <body>",
+        "    <P>Hello world!<BR> This is HTML5 Boilerplate.</P>",
+        "    <SCRIPT>",
+        "      window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;",
+        "      ga('create', 'UA-XXXXX-Y', 'auto'); ga('send', 'pageview')",
+        "    </SCRIPT>",
+        '    <SCRIPT src="https://www.google-analytics.com/analytics.js" ASYNC DEFER></SCRIPT>',
+        "  </body>",
+        "</HTML>"
       ].join("\n");
     default:
       return "";

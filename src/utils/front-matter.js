@@ -1,25 +1,35 @@
 "use strict";
 
+const escape = require("escape-string-regexp");
+
+const DELIMITER_MAP = {
+  "---": "yaml",
+  "+++": "toml"
+};
+
 function parse(text) {
-  let delimiter;
+  const delimiterRegex = Object.keys(DELIMITER_MAP)
+    .map(escape)
+    .join("|");
 
-  if (text.indexOf("---") === 0) {
-    delimiter = "---";
-  } else if (text.indexOf("+++") === 0) {
-    delimiter = "+++";
-  }
+  const match = text.match(
+    // trailing spaces after delimiters are allowed
+    new RegExp(
+      `^(${delimiterRegex})[^\\n\\S]*\\n(?:([\\s\\S]*?)\\n)?\\1[^\\n\\S]*(\\n|$)`
+    )
+  );
 
-  let end = -1;
-
-  if (!delimiter || (end = text.indexOf(`\n${delimiter}`, 3)) === -1) {
+  if (match === null) {
     return { frontMatter: null, content: text };
   }
 
-  end = end + 4;
+  const raw = match[0].replace(/\n$/, "");
+  const delimiter = match[1];
+  const value = match[2];
 
   return {
-    frontMatter: text.slice(0, end),
-    content: text.slice(end)
+    frontMatter: { type: DELIMITER_MAP[delimiter], value, raw },
+    content: match[0].replace(/[^\n]/g, " ") + text.slice(match[0].length)
   };
 }
 

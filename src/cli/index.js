@@ -12,6 +12,11 @@ function run(args) {
 
     context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
+    if (context.argv["check"] && context.argv["list-different"]) {
+      context.logger.error("Cannot use --check and --list-different together.");
+      process.exit(1);
+    }
+
     if (context.argv["write"] && context.argv["debug-check"]) {
       context.logger.error("Cannot use --write and --debug-check together.");
       process.exit(1);

@@ -1,42 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`functional_compose.js 1`] = `
-compose(
-  sortBy(x => x), 
-  flatten, 
-  map(x => [x, x*2])
-);
-
-somelib.compose(
-  sortBy(x => x), 
-  flatten, 
-  map(x => [x, x*2])
-);
-
-composeFlipped(
-  sortBy(x => x), 
-  flatten, 
-  map(x => [x, x*2])
-);
-
-somelib.composeFlipped(
-  sortBy(x => x), 
-  flatten, 
-  map(x => [x, x*2])
-);
-
-// no regression (#4602)
-const hasValue = hasOwnProperty(a, b);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 compose(
   sortBy(x => x),
   flatten,
-  map(x => [x, x * 2])
+  map(x => [x, x*2])
 );
 
 somelib.compose(
   sortBy(x => x),
   flatten,
+  map(x => [x, x*2])
+);
+
+composeFlipped(
+  sortBy(x => x),
+  flatten,
+  map(x => [x, x*2])
+);
+
+somelib.composeFlipped(
+  sortBy(x => x),
+  flatten,
+  map(x => [x, x*2])
+);
+
+// no regression (#4602)
+const hasValue = hasOwnProperty(a, b);
+
+this.compose(sortBy(x => x), flatten);
+this.a.b.c.compose(sortBy(x => x), flatten);
+someObj.someMethod(this.field.compose(a, b));
+
+class A extends B {
+  compose() {
+    super.compose(sortBy(x => x), flatten);
+  }
+}
+
+this.subscriptions.add(
+            this.componentUpdates
+                .pipe(startWith(this.props), distinctUntilChanged(isEqual))
+                .subscribe(props => {
+
+                })
+        )
+
+=====================================output=====================================
+compose(
+  sortBy(x => x),
+  flatten,
+  map(x => [x, x * 2])
+);
+
+somelib.compose(
+  sortBy(x => x),
+  flatten,
   map(x => [x, x * 2])
 );
 
@@ -55,9 +79,48 @@ somelib.composeFlipped(
 // no regression (#4602)
 const hasValue = hasOwnProperty(a, b);
 
+this.compose(
+  sortBy(x => x),
+  flatten
+);
+this.a.b.c.compose(
+  sortBy(x => x),
+  flatten
+);
+someObj.someMethod(
+  this.field.compose(
+    a,
+    b
+  )
+);
+
+class A extends B {
+  compose() {
+    super.compose(
+      sortBy(x => x),
+      flatten
+    );
+  }
+}
+
+this.subscriptions.add(
+  this.componentUpdates
+    .pipe(
+      startWith(this.props),
+      distinctUntilChanged(isEqual)
+    )
+    .subscribe(props => {})
+);
+
+================================================================================
 `;
 
 exports[`lodash_flow.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { flow } from "lodash";
 
 const foo = flow(
@@ -77,7 +140,8 @@ const foo = _.flow(
 );
 
 foo(6);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import { flow } from "lodash";
 
 const foo = flow(
@@ -98,9 +162,15 @@ const foo = _.flow(
 
 foo(6);
 
+================================================================================
 `;
 
 exports[`lodash_flow_right.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { flowRight } from "lodash";
 
 const foo = flowRight(
@@ -120,7 +190,8 @@ const foo = _.flowRight(
 );
 
 foo(6);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import { flowRight } from "lodash";
 
 const foo = flowRight(
@@ -141,9 +212,15 @@ const foo = _.flowRight(
 
 foo(6);
 
+================================================================================
 `;
 
 exports[`ramda_compose.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var classyGreeting = (firstName, lastName) =>
   "The name's " + lastName + ", " + firstName + " " + lastName;
 var yellGreeting = R.compose(R.toUpper, classyGreeting);
@@ -182,7 +259,8 @@ lookupUser("JOE").then(lookupFollowers);
 var followersForUser = R.composeP(lookupFollowers, lookupUser);
 followersForUser("JOE").then(followers => console.log("Followers:", followers));
 // Followers: ["STEVE","SUZY"]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var classyGreeting = (firstName, lastName) =>
   "The name's " + lastName + ", " + firstName + " " + lastName;
 var yellGreeting = R.compose(
@@ -235,9 +313,15 @@ var followersForUser = R.composeP(
 followersForUser("JOE").then(followers => console.log("Followers:", followers));
 // Followers: ["STEVE","SUZY"]
 
+================================================================================
 `;
 
 exports[`ramda_pipe.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var f = R.pipe(Math.pow, R.negate, R.inc);
 
 f(3, 4); // -(3^4) + 1
@@ -261,7 +345,8 @@ getStateCode("[Invalid JSON]");
 
 //  followersForUser :: String -> Promise [User]
 var followersForUser = R.pipeP(db.getUserById, db.getFollowers);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var f = R.pipe(
   Math.pow,
   R.negate,
@@ -296,9 +381,15 @@ var followersForUser = R.pipeP(
   db.getFollowers
 );
 
+================================================================================
 `;
 
 exports[`redux_compose.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import DevTools from './containers/DevTools';
@@ -312,7 +403,8 @@ const store = createStore(
   )
 )
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import DevTools from "./containers/DevTools";
@@ -326,20 +418,69 @@ const store = createStore(
   )
 );
 
+================================================================================
 `;
 
 exports[`redux_connect.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const ArtistInput = connect(mapStateToProps, mapDispatchToProps, mergeProps)(Component);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const ArtistInput = connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps
 )(Component);
 
+================================================================================
+`;
+
+exports[`reselect_createselector.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import { createSelector } from 'reselect';
+
+const resolve = createSelector(
+  getIds,
+  getObjects,
+  (ids, objects) => ids.map(id => objects[id])
+);
+
+const resolve = createSelector(
+  [getIds, getObjects],
+  (ids, objects) => ids.map(id => objects[id])
+);
+
+=====================================output=====================================
+import { createSelector } from "reselect";
+
+const resolve = createSelector(
+  getIds,
+  getObjects,
+  (ids, objects) => ids.map(id => objects[id])
+);
+
+const resolve = createSelector(
+  [getIds, getObjects],
+  (ids, objects) => ids.map(id => objects[id])
+);
+
+================================================================================
 `;
 
 exports[`rxjs_pipe.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { range } from 'rxjs/observable/range';
 import { map, filter, scan } from 'rxjs/operators';
 
@@ -351,7 +492,8 @@ source$.pipe(
   scan((acc, x) => acc + x, 0)
 )
 .subscribe(x => console.log(x))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import { range } from "rxjs/observable/range";
 import { map, filter, scan } from "rxjs/operators";
 
@@ -365,4 +507,5 @@ source$
   )
   .subscribe(x => console.log(x));
 
+================================================================================
 `;

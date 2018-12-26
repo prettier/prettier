@@ -1,2 +1,4 @@
-export function ok() {}
-export function strictEqual() {}
+function assert() {}
+assert.ok = function() {};
+assert.strictEqual = function() {};
+export default assert;

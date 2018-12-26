@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 long_closed =
   <BaseForm url="/auth/google" method="GET" colour="blue" size="large" submitLabel="Sign in with Google"/>
 
@@ -49,7 +54,8 @@ long_string_with_extra_param =
 
 long_obj =
   <div style={{ i: 'dont', use: 'bootstrap', and: 'instead', use: 'massive', objects }}>hello world</div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 long_closed = (
   <BaseForm
     url="/auth/google"
@@ -132,7 +138,8 @@ long_open_long_children = (
         colour="blue"
         size="large"
         submitLabel="Sign in with Google"
-      />d
+      />
+      d
     </BaseForm>
     <BaseForm
       url="/auth/google"
@@ -220,4 +227,5 @@ long_obj = (
   </div>
 );
 
+================================================================================
 `;

@@ -44,15 +44,21 @@ describe(`show detailed usage with plugin options (manual resolution)`, () => {
   });
 });
 
-describe("show warning with --help not-found", () => {
+describe("throw error with --help not-found", () => {
   runPrettier("cli", ["--help", "not-found"]).test({
-    status: 0
+    status: 1
   });
 });
 
 describe("show warning with --help not-found (typo)", () => {
   runPrettier("cli", ["--help", "parserr"]).test({
     status: 0
+  });
+});
+
+describe("throw error with --check + --list-different", () => {
+  runPrettier("cli", ["--check", "--list-different"]).test({
+    status: 1
   });
 });
 

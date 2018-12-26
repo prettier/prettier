@@ -2,32 +2,54 @@
 
 //
 // BEFORE:
-//   $$$r("path/to/file")
+//   eval("require")("./path/to/file")
+//   eval("require")(identifier)
+//   eval("require").cache
 //
 // AFTER:
 //   require("./file")
+//   require(identifier)
+//   require.cache
 //
 
 module.exports = function(babel) {
   const t = babel.types;
+
   return {
     visitor: {
-      CallExpression: function(path) {
+      CallExpression(path) {
         const node = path.node;
-        if (
-          path.get("callee").isIdentifier({ name: "$$$r" }) &&
-          node.arguments.length === 1 &&
-          path.get("arguments.0").isStringLiteral()
-        ) {
-          const value = node.arguments[0].value;
-          const parts = value.split("/");
+        if (isEvalRequire(node.callee) && node.arguments.length === 1) {
+          let arg = node.arguments[0];
+          if (t.isLiteral(arg) && arg.value.startsWith(".")) {
+            const value = "." + arg.value.substring(arg.value.lastIndexOf("/"));
+            arg = t.stringLiteral(value);
+          }
+          path.replaceWith(t.callExpression(t.identifier("require"), [arg]));
+        }
+      },
+      MemberExpression(path) {
+        const node = path.node;
+        if (isEvalRequire(node.object)) {
           path.replaceWith(
-            t.callExpression(t.identifier("require"), [
-              t.stringLiteral(`./${parts[parts.length - 1]}`)
-            ])
+            t.memberExpression(
+              t.identifier("require"),
+              node.property,
+              node.compute,
+              node.optional
+            )
           );
         }
       }
     }
   };
+
+  function isEvalRequire(node) {
+    return (
+      t.isCallExpression(node) &&
+      t.isIdentifier(node.callee, { name: "eval" }) &&
+      node.arguments.length === 1 &&
+      t.isLiteral(node.arguments[0], { value: "require" })
+    );
+  }
 };

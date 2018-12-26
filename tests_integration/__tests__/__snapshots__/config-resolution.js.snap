@@ -40,6 +40,8 @@ function js() {
 \\"use strict\\";
 
 module.exports = {
+        endOfLine:
+                \\"lf\\",
         tabWidth: 8
 };
 function noConfigJs() {
@@ -57,6 +59,16 @@ function rcJson() {
     null,
     [
       'rc-json/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcToml() {
+  console.log.apply(
+    null,
+    [
+      'rc-toml/file.js',
       'should have trailing comma',
       'and single quotes',
     ],
@@ -127,6 +139,7 @@ function js() {
 \\"use strict\\";
 
 module.exports = {
+        endOfLine: \\"lf\\",
         tabWidth: 8
 };
 function noConfigJs() {
@@ -138,6 +151,13 @@ function packageJs() {
 function rcJson() {
   console.log.apply(null, [
     'rc-json/file.js',
+    'should have trailing comma',
+    'and single quotes',
+  ]);
+}
+function rcToml() {
+  console.log.apply(null, [
+    'rc-toml/file.js',
     'should have trailing comma',
     'and single quotes',
   ]);
@@ -180,6 +200,15 @@ exports[`resolves json configuration file with --find-config-path file (stdout) 
 `;
 
 exports[`resolves json configuration file with --find-config-path file (write) 1`] = `Array []`;
+
+exports[`resolves toml configuration file with --find-config-path file (stderr) 1`] = `""`;
+
+exports[`resolves toml configuration file with --find-config-path file (stdout) 1`] = `
+"rc-toml/.prettierrc.toml
+"
+`;
+
+exports[`resolves toml configuration file with --find-config-path file (write) 1`] = `Array []`;
 
 exports[`resolves yaml configuration file with --find-config-path file (stderr) 1`] = `""`;
 

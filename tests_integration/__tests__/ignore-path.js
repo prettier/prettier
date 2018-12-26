@@ -26,7 +26,9 @@ describe("ignore file when using --debug-check", () => {
 });
 
 describe("outputs files as-is if no --write", () => {
-  runPrettier("cli/ignore-path", ["regular-module.js"]).test({
+  runPrettier("cli/ignore-path", ["regular-module.js"], {
+    ignoreLineEndings: true
+  }).test({
     status: 0
   });
 });
