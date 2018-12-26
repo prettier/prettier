@@ -137,7 +137,6 @@ function isSourceElement(opts, node) {
   switch (opts.parser) {
     case "flow":
     case "babel":
-    case "babylon":
     case "typescript":
       return jsSourceElements.indexOf(node.type) > -1;
     case "json":

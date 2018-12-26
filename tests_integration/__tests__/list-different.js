@@ -13,12 +13,11 @@ describe("checks stdin with --list-different", () => {
 });
 
 describe("checks stdin with -l (alias for --list-different)", () => {
-  runPrettier("cli/with-shebang", ["-l", "--parser", "babylon"], {
+  runPrettier("cli/with-shebang", ["-l", "--parser", "babel"], {
     input: "0"
   }).test({
     stdout: "(stdin)\n",
-    stderr:
-      "[warn] --parser=babylon is deprecated; we now treat it as --parser=babel.\n",
+    stderr: "",
     status: "non-zero"
   });
 });
