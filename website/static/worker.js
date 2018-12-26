@@ -19,7 +19,7 @@ var parsers = {
   },
   get json() {
     importScriptOnce("lib/parser-babylon.js");
-    return prettierPlugins.babel.parsers.json;
+    return prettierPlugins.babylon.parsers.json;
   },
   get json5() {
     importScriptOnce("lib/parser-babylon.js");
