@@ -566,7 +566,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +157,15 @@
+@@ -90,16 +157,21 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -582,9 +582,15 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +       \\"default\\": \\"preserve\\",
         \\"type\\": \\"choice\\",
       },
++     \\"pure\\": Object {
++       \\"default\\": false,
++       \\"type\\": \\"boolean\\",
++     },
       \\"rangeEnd\\": Object {
         \\"default\\": Infinity,
-        \\"range\\": Object {"
+        \\"range\\": Object {
+          \\"end\\": Infinity,
+          \\"start\\": 0,"
 `;
 
 exports[`CLI --support-info (stderr) 1`] = `""`;
@@ -1169,6 +1175,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.8.2\\",
       \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"Common\\",
+      \\"default\\": false,
+      \\"description\\": \\"Ignore the input formatting as much as possible.\\",
+      \\"name\\": \\"pure\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.14.0\\",
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"Special\\",

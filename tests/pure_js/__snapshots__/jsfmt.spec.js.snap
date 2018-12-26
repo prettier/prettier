@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`objects.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babylon", "typescript"]
+printWidth: 80
+pure: true
+                                                                                | printWidth
+=====================================input======================================
 const A = {};
 
 const B = { oneShorthand };
@@ -24,7 +30,8 @@ const J = { oneArrowFunction: () => {} };
 const K = { oneArrowFunction: () => { withContents(); } };
 
 const L = { oneMethod() {}, twoMethod() {} };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const A = {};
 
 const B = { oneShorthand };
@@ -74,4 +81,5 @@ const L = {
   twoMethod() {}
 };
 
+================================================================================
 `;

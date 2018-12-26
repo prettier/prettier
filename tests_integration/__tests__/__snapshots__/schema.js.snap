@@ -267,6 +267,11 @@ Multiple values are accepted.",
             },
           ],
         },
+        "pure": Object {
+          "default": false,
+          "description": "Ignore the input formatting as much as possible.",
+          "type": "boolean",
+        },
         "rangeEnd": Object {
           "default": Infinity,
           "description": "Format code ending at a given character offset (exclusive).
