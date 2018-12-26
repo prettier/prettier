@@ -3846,7 +3846,7 @@ function shouldPrintObjectMultiline(
 
   if (
     n.type !== "ObjectPattern" &&
-    (options.pure
+    (options.pure && n.properties
       ? n.properties.some(property => !property.shorthand)
       : firstProperty &&
         hasNewlineInRange(
