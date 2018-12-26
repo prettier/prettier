@@ -15,7 +15,7 @@ var parsers = {
   // JS - Babel
   get babel() {
     importScriptOnce("lib/parser-babylon.js");
-    return prettierPlugins.babel.parsers.babel;
+    return prettierPlugins.babylon.parsers.babel;
   },
   get json() {
     importScriptOnce("lib/parser-babylon.js");
