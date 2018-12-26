@@ -1310,7 +1310,12 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "DeclareInterface" ||
           parent.type === "DeclareClass") &&
         path.getName() === "body";
-      const shouldBreak = shouldPrintObjectMultiline(path, options, isFlowInterfaceLikeBody, firstProperty);
+      const shouldBreak = shouldPrintObjectMultiline(
+        path,
+        options,
+        isFlowInterfaceLikeBody,
+        firstProperty
+      );
       const separator = isFlowInterfaceLikeBody
         ? ";"
         : n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
@@ -1350,8 +1355,8 @@ function printPathNoParens(path, options, print, args) {
           }
           if (
             options.pure
-            ? !prop.node.shorthand
-            : isNextLineEmpty(options.originalText, prop.node, options)
+              ? !prop.node.shorthand
+              : isNextLineEmpty(options.originalText, prop.node, options)
           ) {
             separatorParts.push(hardline);
           }
@@ -3811,7 +3816,12 @@ function shouldGroupFirstArg(args) {
   );
 }
 
-function shouldPrintObjectMultiline(path, options, isFlowInterfaceLikeBody, firstProperty) {
+function shouldPrintObjectMultiline(
+  path,
+  options,
+  isFlowInterfaceLikeBody,
+  firstProperty
+) {
   const n = path.getValue();
   const parent = path.getParentNode();
 
@@ -3838,7 +3848,8 @@ function shouldPrintObjectMultiline(path, options, isFlowInterfaceLikeBody, firs
     n.type !== "ObjectPattern" &&
     (options.pure
       ? n.properties.some(property => !property.shorthand)
-      : firstProperty && hasNewlineInRange(
+      : firstProperty &&
+        hasNewlineInRange(
           options.originalText,
           options.locStart(n),
           options.locEnd(firstProperty)
