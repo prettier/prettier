@@ -31,7 +31,7 @@ var parsers = {
   },
   get __js_expression() {
     importScriptOnce("lib/parser-babylon.js");
-    return prettierPlugins.babel.parsers.__js_expression;
+    return prettierPlugins.babylon.parsers.__js_expression;
   },
   get __vue_expression() {
     importScriptOnce("lib/parser-babylon.js");
