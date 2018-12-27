@@ -28,7 +28,7 @@ describe("infers parser from filename", () => {
     ).toEqual("{}\n");
   });
 
-  test("babylon from Jakefile", () => {
+  test("babel from Jakefile", () => {
     expect(
       prettier.format("let foo = ( x = 1 ) => x", { filepath: "x/y/Jakefile" })
     ).toEqual("let foo = (x = 1) => x;\n");

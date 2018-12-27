@@ -2,7 +2,7 @@
 
 exports[`destructuring.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon", "typescript"]
+parsers: ["flow", "babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

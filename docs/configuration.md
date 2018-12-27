@@ -108,7 +108,7 @@ For example, to get Prettier to format its own `.prettierrc` file, you can do:
 }
 ```
 
-You can also switch to the `flow` parser instead of the default `babylon` for .js files:
+You can also switch to the `flow` parser instead of the default `babel` for .js files:
 
 ```json
 {

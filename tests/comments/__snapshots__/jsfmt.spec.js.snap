@@ -2,7 +2,7 @@
 
 exports[`assignment-pattern.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -27,7 +27,7 @@ let {
 
 exports[`before-comma.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -51,7 +51,7 @@ const foo = {
 
 exports[`binary-expressions.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -205,7 +205,7 @@ function bitwiseXor() {
 
 exports[`blank.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -259,7 +259,7 @@ printWidth: 80
 
 exports[`break-continue-statements.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -293,7 +293,7 @@ loop: for (;;) {
 
 exports[`call_comment.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -325,7 +325,7 @@ React.render(
 
 exports[`closure-compiler-type-cast.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -379,7 +379,7 @@ var newArray = /** @type {array} */ (numberOrString.map(x => x));
 
 exports[`dangling.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -421,7 +421,7 @@ export /* dangling */{};
 
 exports[`dangling_array.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -443,7 +443,7 @@ expect(() => {}).toTriggerReadyStateChanges([
 
 exports[`dangling_for.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -464,7 +464,7 @@ for (;;);
 
 exports[`dynamic_imports.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -490,7 +490,7 @@ import("something" /* Hello */ + "else");
 
 exports[`export.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -538,7 +538,7 @@ export {
 
 exports[`first-line.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -554,7 +554,7 @@ b;
 
 exports[`flow_union.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -604,7 +604,7 @@ type UploadState<E, EM, D> =
 
 exports[`function-declaration.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -738,7 +738,7 @@ function foo() {
 
 exports[`if.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -886,7 +886,7 @@ if (14) {
 
 exports[`issues.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1117,7 +1117,7 @@ foo(
 
 exports[`jsx.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1358,7 +1358,7 @@ onClick={() => {}}>
 
 exports[`last-arg.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1550,7 +1550,7 @@ class Foo {
 
 exports[`preserve-new-line-last.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1604,7 +1604,7 @@ function name() {
 
 exports[`return-statement.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1866,7 +1866,7 @@ function inlineComment() {
 
 exports[`single-star-jsdoc.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1938,7 +1938,7 @@ if (true) {
 
 exports[`switch.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2025,7 +2025,7 @@ switch (foo) {
 
 exports[`template-literal.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2063,7 +2063,7 @@ d //comment
 
 exports[`trailing_space.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2085,7 +2085,7 @@ printWidth: 80
 
 exports[`trailing-jsdocs.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2146,7 +2146,7 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
 
 exports[`try.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2185,7 +2185,7 @@ try {
 
 exports[`variable_declarator.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2335,7 +2335,7 @@ const foo = 123;
 
 exports[`while.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon"]
+parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

@@ -3,7 +3,7 @@
 exports[`example.js 1`] = `
 ====================================options=====================================
 endOfLine: "cr"
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -22,7 +22,7 @@ function f() {<CR>
 exports[`example.js 2`] = `
 ====================================options=====================================
 endOfLine: "crlf"
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -41,7 +41,7 @@ function f() {<CRLF>
 exports[`example.js 3`] = `
 ====================================options=====================================
 endOfLine: "lf"
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

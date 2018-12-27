@@ -2,7 +2,7 @@
 
 exports[`after_export.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -24,7 +24,7 @@ class {}
 
 exports[`before_export.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

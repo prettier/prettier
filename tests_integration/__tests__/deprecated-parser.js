@@ -18,9 +18,16 @@ afterAll(() => {
   jest.restoreAllMocks();
 });
 
-test("API format with deprecated parser should work", () => {
+test("API format with deprecated parser (postcss) should work", () => {
   expect(() =>
     prettier.format("body { color: #131313; }", { parser: "postcss" })
+  ).not.toThrowError();
+  expect(warnings).toMatchSnapshot();
+});
+
+test("API format with deprecated parser (babylon) should work", () => {
+  expect(() =>
+    prettier.format("hello_world( )", { parser: "babylon" })
   ).not.toThrowError();
   expect(warnings).toMatchSnapshot();
 });

@@ -2,7 +2,7 @@
 
 exports[`pipeline_own_line.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

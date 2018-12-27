@@ -2,7 +2,7 @@
 
 exports[`await.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -22,7 +22,7 @@ const doBothThings = async () => {
 
 exports[`await.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -43,7 +43,7 @@ const doBothThings = async () => {
 
 exports[`bind_parens.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -115,7 +115,7 @@ b.c::d.e;
 
 exports[`bind_parens.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -188,7 +188,7 @@ b.c::d.e
 
 exports[`long_name_method.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -218,7 +218,7 @@ class X {
 
 exports[`long_name_method.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -249,7 +249,7 @@ class X {
 
 exports[`method_chain.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -295,7 +295,7 @@ function test(observable) {
 
 exports[`method_chain.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -342,7 +342,7 @@ function test(observable) {
 
 exports[`short_name_method.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -371,7 +371,7 @@ class X {
 
 exports[`short_name_method.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth

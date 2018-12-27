@@ -1,11 +1,14 @@
 "use strict";
 
+// This file is currently named parser-babylon.js to maintain backwards compatibility.
+// However, it should be named parser-babel.js in the next major release.
+
 const createError = require("../common/parser-create-error");
 const hasPragma = require("./pragma").hasPragma;
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
 
-function babylonOptions(extraOptions, extraPlugins) {
+function babelOptions(extraOptions, extraPlugins) {
   return Object.assign(
     {
       sourceType: "module",
@@ -45,25 +48,22 @@ function babylonOptions(extraOptions, extraPlugins) {
 function createParse(parseMethod) {
   return (text, parsers, opts) => {
     // Inline the require to avoid loading all the JS if we don't use it
-    const babylon = require("@babel/parser");
+    const babel = require("@babel/parser");
 
     const combinations = [
-      babylonOptions({ strictMode: true }, ["decorators-legacy"]),
-      babylonOptions({ strictMode: false }, ["decorators-legacy"]),
-      babylonOptions({ strictMode: true }, [
+      babelOptions({ strictMode: true }, ["decorators-legacy"]),
+      babelOptions({ strictMode: false }, ["decorators-legacy"]),
+      babelOptions({ strictMode: true }, [
         ["decorators", { decoratorsBeforeExport: false }]
       ]),
-      babylonOptions({ strictMode: false }, [
+      babelOptions({ strictMode: false }, [
         ["decorators", { decoratorsBeforeExport: false }]
       ])
     ];
 
     let ast;
     try {
-      ast = tryCombinations(
-        babylon[parseMethod].bind(null, text),
-        combinations
-      );
+      ast = tryCombinations(babel[parseMethod].bind(null, text), combinations);
     } catch (error) {
       throw createError(
         // babel error prints (l:c) with cols that are zero indexed
@@ -166,24 +166,23 @@ function assertJsonNode(node, parent) {
   }
 }
 
-const babylon = Object.assign(
-  { parse, astFormat: "estree", hasPragma },
-  locFns
-);
-const babylonExpression = Object.assign({}, babylon, {
+const babel = Object.assign({ parse, astFormat: "estree", hasPragma }, locFns);
+const babelExpression = Object.assign({}, babel, {
   parse: parseExpression
 });
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
-    babylon,
-    json: Object.assign({}, babylonExpression, {
+    babel,
+    // aliased to keep backwards compatibility
+    babylon: babel,
+    json: Object.assign({}, babelExpression, {
       hasPragma() {
         return true;
       }
     }),
-    json5: babylonExpression,
+    json5: babelExpression,
     "json-stringify": Object.assign(
       {
         parse: parseJson,
@@ -192,10 +191,10 @@ module.exports = {
       locFns
     ),
     /** @internal */
-    __js_expression: babylonExpression,
+    __js_expression: babelExpression,
     /** for vue filter */
-    __vue_expression: babylonExpression,
+    __vue_expression: babelExpression,
     /** for vue event binding to handle semicolon */
-    __vue_event_binding: babylon
+    __vue_event_binding: babel
   }
 };

@@ -3,7 +3,7 @@
 exports[`extracts file-info for a file in not_node_modules (stderr) 1`] = `""`;
 
 exports[`extracts file-info for a file in not_node_modules (stdout) 1`] = `
-"{ \\"ignored\\": false, \\"inferredParser\\": \\"babylon\\" }
+"{ \\"ignored\\": false, \\"inferredParser\\": \\"babel\\" }
 
 "
 `;
@@ -13,7 +13,7 @@ exports[`extracts file-info for a file in not_node_modules (write) 1`] = `Array 
 exports[`extracts file-info for a js file (stderr) 1`] = `""`;
 
 exports[`extracts file-info for a js file (stdout) 1`] = `
-"{ \\"ignored\\": false, \\"inferredParser\\": \\"babylon\\" }
+"{ \\"ignored\\": false, \\"inferredParser\\": \\"babel\\" }
 
 "
 `;
@@ -43,7 +43,7 @@ exports[`extracts file-info for a markdown file (write) 1`] = `Array []`;
 exports[`extracts file-info with ignored=false for a file in node_modules when --with-node-modules provided (stderr) 1`] = `""`;
 
 exports[`extracts file-info with ignored=false for a file in node_modules when --with-node-modules provided (stdout) 1`] = `
-"{ \\"ignored\\": false, \\"inferredParser\\": \\"babylon\\" }
+"{ \\"ignored\\": false, \\"inferredParser\\": \\"babel\\" }
 
 "
 `;
@@ -53,7 +53,7 @@ exports[`extracts file-info with ignored=false for a file in node_modules when -
 exports[`extracts file-info with ignored=true for a file in .prettierignore (stderr) 1`] = `""`;
 
 exports[`extracts file-info with ignored=true for a file in .prettierignore (stdout) 1`] = `
-"{ \\"ignored\\": true, \\"inferredParser\\": \\"babylon\\" }
+"{ \\"ignored\\": true, \\"inferredParser\\": \\"babel\\" }
 
 "
 `;
@@ -63,7 +63,7 @@ exports[`extracts file-info with ignored=true for a file in .prettierignore (wri
 exports[`extracts file-info with ignored=true for a file in a hand-picked .prettierignore (stderr) 1`] = `""`;
 
 exports[`extracts file-info with ignored=true for a file in a hand-picked .prettierignore (stdout) 1`] = `
-"{ \\"ignored\\": true, \\"inferredParser\\": \\"babylon\\" }
+"{ \\"ignored\\": true, \\"inferredParser\\": \\"babel\\" }
 
 "
 `;
@@ -113,7 +113,7 @@ exports[`extracts file-info with inferredParser=null for file.foo (write) 1`] = 
 exports[`extracts file-info with with ignored=true for a file in node_modules (stderr) 1`] = `""`;
 
 exports[`extracts file-info with with ignored=true for a file in node_modules (stdout) 1`] = `
-"{ \\"ignored\\": true, \\"inferredParser\\": \\"babylon\\" }
+"{ \\"ignored\\": true, \\"inferredParser\\": \\"babel\\" }
 
 "
 `;

@@ -2,7 +2,7 @@
 
 exports[`require.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript", "babylon"]
+parsers: ["flow", "typescript", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
