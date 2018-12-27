@@ -14,6 +14,11 @@ module.exports = [
       get babel() {
         return eval("require")("../language-js/parser-babylon").parsers.babel;
       },
+      get "babel-flow"() {
+        return eval("require")("../language-js/parser-babylon").parsers[
+          "babel-flow"
+        ];
+      },
       get babylon() {
         return eval("require")("../language-js/parser-babylon").parsers.babel;
       },

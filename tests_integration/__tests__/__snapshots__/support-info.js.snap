@@ -489,7 +489,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -52,37 +81,75 @@
+@@ -52,37 +81,76 @@
           \\"start\\": -1,
           \\"step\\": 1,
         },
@@ -535,6 +535,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
           \\"flow\\",
 -         \\"babylon\\",
 +         \\"babel\\",
++         \\"babel-flow\\",
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -567,7 +568,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +157,15 @@
+@@ -90,14 +158,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -1086,6 +1087,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"choices\\": [
         { \\"description\\": \\"Flow\\", \\"value\\": \\"flow\\" },
         { \\"description\\": \\"JavaScript\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel\\" },
+        { \\"description\\": \\"Flow\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel-flow\\" },
         {
           \\"description\\": \\"TypeScript\\",
           \\"since\\": \\"1.4.0\\",

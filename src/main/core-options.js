@@ -130,6 +130,7 @@ const options = {
         redirect: "babel"
       },
       { value: "babel", since: "1.16.0", description: "JavaScript" },
+      { value: "babel-flow", since: "1.16.0", description: "Flow" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
       { value: "css", since: "1.7.1", description: "CSS" },
       {

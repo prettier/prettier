@@ -2,14 +2,14 @@
 
 exports[`generic.js 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel-flow", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 const Theme = React.createContext<"light" | "dark">("light");
 
 =====================================output=====================================
-const Theme = (React.createContext < "light") | ("dark" > "light");
+const Theme = React.createContext<"light" | "dark">("light");
 
 ================================================================================
 `;

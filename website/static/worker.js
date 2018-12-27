@@ -17,6 +17,10 @@ var parsers = {
     importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers.babel;
   },
+  get "babel-flow"() {
+    importScriptOnce("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers["babel-flow"];
+  },
   get json() {
     importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers.json;
