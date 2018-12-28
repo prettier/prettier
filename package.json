@@ -216,9 +216,9 @@
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js"
   },
-  "name": "prettiervscodecomplements",
+  "name": "vscode",
   "description": "![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "main": "main.js",
   "bin": {
     "prettier-vscode": "prettier.js"
