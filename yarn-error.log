@@ -2,7 +2,7 @@ Arguments:
   C:\Program Files\nodejs\node.exe C:\Users\edwin perez\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add lodash --dev
 
 PATH: 
-  C:\Users\edwin perez\bin;E:\Program Files\mingw64\bin;E:\Program Files\usr\local\bin;E:\Program Files\usr\bin;E:\Program Files\usr\bin;E:\Program Files\mingw64\bin;E:\Program Files\usr\bin;C:\Users\edwin perez\bin;C:\Program Files\Microsoft MPI\Bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\PuTTY;C:\Program Files\dotnet;C:\Users\edwin perez\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn;C:\Program Files\Microsoft SQL Server\140\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn;C:\Program Files\Microsoft SQL Server\140\DTS\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn;C:\Program Files (x86)\Xoreax\IncrediBuild;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Microsoft Emulator Manager\1.0;E:\Program Files\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs;C:\Users\edwin perez\AppData\Local\Microsoft\WindowsApps;C:\Users\edwin perez\AppData\Local\.meteor;C:\AppServ\Apache24\bin;C:\AppServ\php5;C:\AppServ\MySQL\bin;E:\VS\bin;C:\Program Files (x86)\Microsoft VS Code\bin;C:\AppServ\Apache24\bin;C:\AppServ\php5;C:\AppServ\MySQL\bin;C:\Users\edwin perez\AppData\Roaming\npm;E:\Program Files\usr\bin\vendor_perl;E:\Program Files\usr\bin\core_perl
+  C:\Users\edwin perez\bin;E:\Program Files\mingw64\bin;E:\Program Files\usr\local\bin;E:\Program Files\usr\bin;E:\Program Files\usr\bin;E:\Program Files\mingw64\bin;E:\Program Files\usr\bin;C:\Users\edwin perez\bin;C:\Program Files\Microsoft MPI\Bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\PuTTY;C:\Program Files\dotnet;C:\Users\edwin perez\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files (x86)\Xoreax\IncrediBuild;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Microsoft Emulator Manager\1.0;E:\Program Files\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs;C:\Users\edwin perez\AppData\Local\Microsoft\WindowsApps;C:\Users\edwin perez\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\edwin perez\AppData\Local\.meteor;C:\AppServ\Apache24\bin;C:\AppServ\php5;C:\AppServ\MySQL\bin;E:\VS\bin;C:\Program Files (x86)\Microsoft VS Code\bin;C:\AppServ\Apache24\bin;C:\AppServ\php5;C:\AppServ\MySQL\bin;C:\Program Files\Microsoft VS Code\bin;C:\Users\edwin perez\AppData\Roaming\npm;E:\Program Files\usr\bin\vendor_perl;E:\Program Files\usr\bin\core_perl
 
 Yarn version: 
   1.12.3
@@ -236,9 +236,9 @@ npm manifest:
       "build-docs": "node ./scripts/build-docs.js",
       "check-deps": "node ./scripts/check-deps.js"
     },
-    "name": "prettiervscodecomplements",
+    "name": "vscode",
     "description": "![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)",
-    "version": "3.0.0",
+    "version": "4.0.0",
     "main": "main.js",
     "bin": {
       "prettier-vscode": "prettier.js"
