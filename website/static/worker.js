@@ -17,6 +17,11 @@ var parsers = {
     importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers.babel;
   },
+  // backward compatibility for v1.15 playground
+  get babylon() {
+    importScriptOnce("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers.babylon;
+  },
   get json() {
     importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers.json;
