@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`url.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+body {
+  background-image: url(http://123.com);
+  background: url(path/to/123.jpg);
+  background: url(#123.foo);
+  background: no-repeat center/80% url(http://123.com);
+  background: no-repeat center/80% url(path/to/123.jpg);
+  background: no-repeat center/80% url(#123.foo);
+}
+=====================================output=====================================
+body {
+  background-image: url(http://123.com);
+  background: url(path/to/123.jpg);
+  background: url(#123.foo);
+  background: no-repeat center/80% url(http://123.com);
+  background: no-repeat center/80% url(path/to/123.jpg);
+  background: no-repeat center/80% url(#123.foo);
+}
+
+================================================================================
+`;
+
+exports[`url.css 2`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+body {
+  background-image: url(http://123.com);
+  background: url(path/to/123.jpg);
+  background: url(#123.foo);
+  background: no-repeat center/80% url(http://123.com);
+  background: no-repeat center/80% url(path/to/123.jpg);
+  background: no-repeat center/80% url(#123.foo);
+}
+=====================================output=====================================
+body {
+  background-image: url(http://123.com);
+  background: url(path/to/123.jpg);
+  background: url(#123.foo);
+  background: no-repeat center/80% url(http://123.com);
+  background: no-repeat center/80% url(path/to/123.jpg);
+  background: no-repeat center/80% url(#123.foo);
+}
+
+================================================================================
+`;

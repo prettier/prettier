@@ -40,8 +40,17 @@ function parseValueNodes(nodes) {
       node.group.groups[0].groups[0].value === "data" &&
       node.group.groups[0].groups[1].type === "colon" &&
       node.group.groups[0].groups[1].value === ":";
+    const isUnquotedURLWithNumber =
+      node.type === "func" &&
+      node.value === "url" &&
+      node.group &&
+      node.group.groups &&
+      node.group.groups[0] &&
+      node.group.groups[0].groups &&
+      node.group.groups[0].groups.length > 2 &&
+      node.group.groups[0].groups.find(group => group.type === "number");
 
-    if (isUnquotedDataURLCall) {
+    if (isUnquotedDataURLCall || isUnquotedURLWithNumber) {
       node.group.groups = [stringifyGroup(node)];
     }
 
