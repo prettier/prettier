@@ -1,6 +1,7 @@
 export default function(parser) {
   switch (parser) {
     case "babel":
+    case "babylon": // backward compatibility for v1.15 playground
       return [
         'function HelloWorld({greeting = "hello", greeted = \'"World"\', silent = false, onMouseOver,}) {',
         "",
