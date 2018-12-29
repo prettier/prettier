@@ -18,7 +18,6 @@ function babelOptions(extraOptions, extraPlugins) {
       allowSuperOutsideMethod: true,
       plugins: [
         "jsx",
-        "flow",
         "doExpressions",
         "objectRestSpread",
         "classProperties",
@@ -45,20 +44,28 @@ function babelOptions(extraOptions, extraPlugins) {
   );
 }
 
-function createParse(parseMethod) {
+function createParse(parseMethod, extraPlugins) {
   return (text, parsers, opts) => {
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
 
     const combinations = [
-      babelOptions({ strictMode: true }, ["decorators-legacy"]),
-      babelOptions({ strictMode: false }, ["decorators-legacy"]),
-      babelOptions({ strictMode: true }, [
-        ["decorators", { decoratorsBeforeExport: false }]
-      ]),
-      babelOptions({ strictMode: false }, [
-        ["decorators", { decoratorsBeforeExport: false }]
-      ])
+      babelOptions(
+        { strictMode: true },
+        ["decorators-legacy"].concat(extraPlugins)
+      ),
+      babelOptions(
+        { strictMode: false },
+        ["decorators-legacy"].concat(extraPlugins)
+      ),
+      babelOptions(
+        { strictMode: true },
+        [["decorators", { decoratorsBeforeExport: false }]].concat(extraPlugins)
+      ),
+      babelOptions(
+        { strictMode: false },
+        [["decorators", { decoratorsBeforeExport: false }]].concat(extraPlugins)
+      )
     ];
 
     let ast;
@@ -82,7 +89,8 @@ function createParse(parseMethod) {
   };
 }
 
-const parse = createParse("parse");
+const parse = createParse("parse", ["flow"]);
+const parseFlow = createParse("parse", [["flow", { all: true }]]);
 const parseExpression = createParse("parseExpression");
 
 function tryCombinations(fn, combinations) {
@@ -167,14 +175,14 @@ function assertJsonNode(node, parent) {
 }
 
 const babel = Object.assign({ parse, astFormat: "estree", hasPragma }, locFns);
-const babelExpression = Object.assign({}, babel, {
-  parse: parseExpression
-});
+const babelFlow = Object.assign({}, babel, { parse: parseFlow });
+const babelExpression = Object.assign({}, babel, { parse: parseExpression });
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
     babel,
+    "babel-flow": babelFlow,
     // aliased to keep backwards compatibility
     babylon: babel,
     json: Object.assign({}, babelExpression, {
