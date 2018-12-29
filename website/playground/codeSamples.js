@@ -1,6 +1,7 @@
 export default function(parser) {
   switch (parser) {
     case "babel":
+    case "babylon": // backward compatibility
       return [
         'function HelloWorld({greeting = "hello", greeted = \'"World"\', silent = false, onMouseOver,}) {',
         "",

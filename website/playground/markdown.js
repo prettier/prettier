@@ -36,6 +36,7 @@ function formatMarkdown(
 function getMarkdownSyntax(options) {
   switch (options.parser) {
     case "babel":
+    case "babylon": // backward compatibility
     case "flow":
       return "jsx";
     case "typescript":
