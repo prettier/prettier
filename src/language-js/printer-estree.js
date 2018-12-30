@@ -1310,12 +1310,30 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "DeclareInterface" ||
           parent.type === "DeclareClass") &&
         path.getName() === "body";
-      const shouldBreak = shouldPrintObjectMultiline(
-        path,
-        options,
-        isFlowInterfaceLikeBody,
-        firstProperty
-      );
+      const shouldBreak =
+        n.type === "TSInterfaceBody" ||
+        isFlowInterfaceLikeBody ||
+        (n.type === "ObjectPattern" &&
+          parent.type !== "FunctionDeclaration" &&
+          parent.type !== "FunctionExpression" &&
+          parent.type !== "ArrowFunctionExpression" &&
+          parent.type !== "AssignmentPattern" &&
+          parent.type !== "CatchClause" &&
+          n.properties.some(
+            property =>
+              property.value &&
+              (property.value.type === "ObjectPattern" ||
+                property.value.type === "ArrayPattern")
+          )) ||
+        (n.type !== "ObjectPattern" &&
+          (options.pure && n.properties
+            ? n.properties.some(property => !property.shorthand)
+            : firstProperty &&
+              hasNewlineInRange(
+                options.originalText,
+                options.locStart(n),
+                options.locEnd(firstProperty)
+              )));
       const separator = isFlowInterfaceLikeBody
         ? ";"
         : n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
@@ -3814,51 +3832,6 @@ function shouldGroupFirstArg(args) {
     secondArg.type !== "ConditionalExpression" &&
     !couldGroupArg(secondArg)
   );
-}
-
-function shouldPrintObjectMultiline(
-  path,
-  options,
-  isFlowInterfaceLikeBody,
-  firstProperty
-) {
-  const n = path.getValue();
-  const parent = path.getParentNode();
-
-  if (
-    n.type === "TSInterfaceBody" ||
-    isFlowInterfaceLikeBody ||
-    (n.type === "ObjectPattern" &&
-      parent.type !== "FunctionDeclaration" &&
-      parent.type !== "FunctionExpression" &&
-      parent.type !== "ArrowFunctionExpression" &&
-      parent.type !== "AssignmentPattern" &&
-      parent.type !== "CatchClause" &&
-      n.properties.some(
-        property =>
-          property.value &&
-          (property.value.type === "ObjectPattern" ||
-            property.value.type === "ArrayPattern")
-      ))
-  ) {
-    return true;
-  }
-
-  if (
-    n.type !== "ObjectPattern" &&
-    (options.pure && n.properties
-      ? n.properties.some(property => !property.shorthand)
-      : firstProperty &&
-        hasNewlineInRange(
-          options.originalText,
-          options.locStart(n),
-          options.locEnd(firstProperty)
-        ))
-  ) {
-    return true;
-  }
-
-  return false;
 }
 
 function isSimpleFlowType(node) {
