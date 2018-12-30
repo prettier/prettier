@@ -155,13 +155,9 @@ declare var gen: AsyncGenerator<void, string, void>;
 
 // the AsyncGenerator's return type
 
-gen
-
-  .return(0)
-
-  .then(result => {
-    (result.value: void); // error: string | number ~> void
-  });
+gen.return(0).then(result => {
+  (result.value: void); // error: string | number ~> void
+});
 // However, a generator can "refuse" the return by catching an exception and
 
 // yielding or returning internally.
@@ -175,7 +171,6 @@ async function* refuse_return() {
 }
 refuse_return()
   .return("string")
-
   .then(result => {
     if (result.done) {
       (result.value: string); // error: number | void ~> string
@@ -235,7 +230,6 @@ async function* catch_return() {
 async () => {
   catch_return()
     .throw("")
-
     .then(({ value }) => {
       if (value !== undefined) {
         (value: void); // error: number ~> void
@@ -253,7 +247,6 @@ async function* yield_return() {
 async () => {
   yield_return()
     .throw("")
-
     .then(({ value }) => {
       if (value !== undefined) {
         (value: void); // error: number ~> void

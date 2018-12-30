@@ -37,91 +37,35 @@ someObject.someFunction().then(function() {
 });
 
 =====================================output=====================================
-someObject
-
-  .someFunction()
-
-  .then(function() {
-    return someObject
-
-      .someFunction()
-
-      .then(function() {
-        return someObject
-
-          .someFunction()
-
-          .then(function() {
-            return someObject
-
-              .someFunction()
-
-              .then(function() {
-                return someObject
-
-                  .someFunction()
-
-                  .then(function() {
-                    return someObject
-
-                      .someFunction()
-
-                      .then(function() {
-                        return someObject
-
-                          .someFunction()
-
-                          .then(function() {
-                            return someObject
-
-                              .someFunction()
-
-                              .then(function() {
-                                return someObject
-
-                                  .someFunction()
-
-                                  .then(function() {
-                                    return someObject
-
-                                      .someFunction()
-
-                                      .then(function() {
-                                        return someObject
-
-                                          .someFunction()
-
-                                          .then(function() {
-                                            return someObject
-
-                                              .someFunction()
-
-                                              .then(function() {
-                                                return someObject
-
-                                                  .someFunction()
-
-                                                  .then(function() {
-                                                    return someObject
-
-                                                      .someFunction()
-
-                                                      .then(function() {
-                                                        anotherFunction();
-                                                      });
-                                                  });
-                                              });
-                                          });
-                                      });
-                                  });
-                              });
+someObject.someFunction().then(function() {
+  return someObject.someFunction().then(function() {
+    return someObject.someFunction().then(function() {
+      return someObject.someFunction().then(function() {
+        return someObject.someFunction().then(function() {
+          return someObject.someFunction().then(function() {
+            return someObject.someFunction().then(function() {
+              return someObject.someFunction().then(function() {
+                return someObject.someFunction().then(function() {
+                  return someObject.someFunction().then(function() {
+                    return someObject.someFunction().then(function() {
+                      return someObject.someFunction().then(function() {
+                        return someObject.someFunction().then(function() {
+                          return someObject.someFunction().then(function() {
+                            anotherFunction();
                           });
+                        });
                       });
+                    });
                   });
+                });
               });
+            });
           });
+        });
       });
+    });
   });
+});
 
 ================================================================================
 `;
@@ -222,13 +166,7 @@ tap.test("RecordImport.advance", t => {
     t.equal(batches.length, states.length);
     for (const batch of batches) {
       t.equal(batch.state, states.shift());
-      t.ok(
-        batch
-
-          .getCurState()
-
-          .name(i18n)
-      );
+      t.ok(batch.getCurState().name(i18n));
     }
   };
   const batch = init.getRecordBatch();
@@ -270,53 +208,23 @@ tap.test("RecordImport.advance", t => {
                     checkStates(batches, ["similarity.sync.completed"]);
                     RecordImport.advance(err => {
                       t.error(err, "Error should be empty.");
-                      t.ok(
-                        batch
-
-                          .getCurState()
-
-                          .name(i18n)
-                      );
+                      t.ok(batch.getCurState().name(i18n));
                       getBatches((err, batches) => {
                         checkStates(batches, []);
                         t.end();
                         callback();
                       });
                     });
-                    t.ok(
-                      batch
-
-                        .getCurState()
-
-                        .name(i18n)
-                    );
+                    t.ok(batch.getCurState().name(i18n));
                   });
                 });
-                t.ok(
-                  batch
-
-                    .getCurState()
-
-                    .name(i18n)
-                );
+                t.ok(batch.getCurState().name(i18n));
               });
             });
-            t.ok(
-              batch
-
-                .getCurState()
-
-                .name(i18n)
-            );
+            t.ok(batch.getCurState().name(i18n));
           });
         });
-        t.ok(
-          batch
-
-            .getCurState()
-
-            .name(i18n)
-        );
+        t.ok(batch.getCurState().name(i18n));
       });
     });
   });

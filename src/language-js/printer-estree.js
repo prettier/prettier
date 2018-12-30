@@ -4699,7 +4699,7 @@ function printMemberChain(path, options, print) {
       );
     }
 
-    return options.pure || isNextLineEmpty(originalText, node, options);
+    return !options.pure && isNextLineEmpty(originalText, node, options);
   }
 
   function rec(path) {

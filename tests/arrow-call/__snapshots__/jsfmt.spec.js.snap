@@ -87,10 +87,12 @@ expect(() =>
     url: "/test-endpoint-but-with-a-long-url"
   })
 ).not.toThrowError();
-const a = Observable.fromPromise(axiosInstance.post("/carts/mine"))
-.map(response => response.data);
-const b = Observable.fromPromise(axiosInstance.get(url))
-.map(response => response.data);
+const a = Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
+  response => response.data
+);
+const b = Observable.fromPromise(axiosInstance.get(url)).map(
+  response => response.data
+);
 func(
   veryLoooooooooooooooooooooooongName,
   veryLooooooooooooooooooooooooongName =>
@@ -197,10 +199,12 @@ expect(() =>
     url: "/test-endpoint-but-with-a-long-url",
   }),
 ).not.toThrowError();
-const a = Observable.fromPromise(axiosInstance.post("/carts/mine"))
-.map(response => response.data);
-const b = Observable.fromPromise(axiosInstance.get(url))
-.map(response => response.data);
+const a = Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
+  response => response.data,
+);
+const b = Observable.fromPromise(axiosInstance.get(url)).map(
+  response => response.data,
+);
 func(
   veryLoooooooooooooooooooooooongName,
   veryLooooooooooooooooooooooooongName =>
@@ -307,10 +311,12 @@ expect(() =>
     url: "/test-endpoint-but-with-a-long-url"
   })
 ).not.toThrowError();
-const a = Observable.fromPromise(axiosInstance.post("/carts/mine"))
-.map((response) => response.data);
-const b = Observable.fromPromise(axiosInstance.get(url))
-.map((response) => response.data);
+const a = Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
+  (response) => response.data
+);
+const b = Observable.fromPromise(axiosInstance.get(url)).map(
+  (response) => response.data
+);
 func(
   veryLoooooooooooooooooooooooongName,
   (veryLooooooooooooooooooooooooongName) =>

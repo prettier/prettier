@@ -245,13 +245,11 @@ var sealed = {
 (Object.keys(sealed): Array<"one" | "two">);
 (Object.keys(sealed): void); // error, Array<string>
 var unsealed = {};
-Object.keys(unsealed)
-.forEach(k => {
+Object.keys(unsealed).forEach(k => {
   (k: number); // error: string ~> number
 });
 var dict: { [k: number]: string } = {};
-Object.keys(dict)
-.forEach(k => {
+Object.keys(dict).forEach(k => {
   (k: number); // error: string ~> number
 });
 var any: Object = {};

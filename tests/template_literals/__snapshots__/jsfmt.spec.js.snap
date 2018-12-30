@@ -149,9 +149,7 @@ function testing() {
       return \`\${
         process.env.OPENID_URL
       }/something/something/something?\${Object.keys(p)
-
         .map(k => \`\${encodeURIComponent(k)}=\${encodeURIComponent(p[k])}\`)
-
         .join("&")}\`;
     }
   }
@@ -162,8 +160,7 @@ console.log(
   })\`
 );
 console.log(
-  \`brew cask audit --download \${_.map(definitions, "caskName")
-  .join(" ")}\`
+  \`brew cask audit --download \${_.map(definitions, "caskName").join(" ")}\`
 );
 console.log(
   \`\\nApparently jetbrains changed the release artifact for \${app.name}@\${

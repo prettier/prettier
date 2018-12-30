@@ -55,8 +55,7 @@ Promise.all([
   pstr,
   pnum,
   true // non-Promise values passed through
-])
-.then(xs => {
+]).then(xs => {
   // tuple information is preserved
 
   let [a, b, c] = xs;
@@ -496,22 +495,19 @@ new Promise(function(resolve, reject) {
 
 // Promise.resolve(T) -> then(T)
 
-Promise.resolve(0)
-.then(function(num) {
+Promise.resolve(0).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
 });
 // Promise.resolve(Promise<T>) -> then(T)
 
-Promise.resolve(Promise.resolve(0))
-.then(function(num) {
+Promise.resolve(Promise.resolve(0)).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
 });
 // Promise.resolve(Promise<Promise<T>>) -> then(T)
 
-Promise.resolve(Promise.resolve(Promise.resolve(0)))
-.then(function(num) {
+Promise.resolve(Promise.resolve(Promise.resolve(0))).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
 });
@@ -523,8 +519,7 @@ Promise.resolve(Promise.resolve(Promise.resolve(0)))
 
 // TODO: Promise.reject(T) -> catch(T)
 
-Promise.reject(0)
-.catch(function(num) {
+Promise.reject(0).catch(function(num) {
   var a: number = num;
   // TODO
 
@@ -532,8 +527,7 @@ Promise.reject(0)
 });
 // TODO: Promise.reject(Promise<T>) -> catch(Promise<T>)
 
-Promise.reject(Promise.resolve(0))
-.then(function(num) {
+Promise.reject(Promise.resolve(0)).then(function(num) {
   var a: Promise<number> = num;
   // TODO
 
@@ -548,11 +542,9 @@ Promise.reject(Promise.resolve(0))
 // resolvedPromise.then():T -> then(T)
 
 Promise.resolve(0)
-
   .then(function(num) {
     return "asdf";
   })
-
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -560,11 +552,9 @@ Promise.resolve(0)
 // resolvedPromise.then():Promise<T> -> then(T)
 
 Promise.resolve(0)
-
   .then(function(num) {
     return Promise.resolve("asdf");
   })
-
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -572,11 +562,9 @@ Promise.resolve(0)
 // resolvedPromise.then():Promise<Promise<T>> -> then(T)
 
 Promise.resolve(0)
-
   .then(function(num) {
     return Promise.resolve(Promise.resolve("asdf"));
   })
-
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -584,11 +572,9 @@ Promise.resolve(0)
 // TODO: resolvedPromise.then(<throw(T)>) -> catch(T)
 
 Promise.resolve(0)
-
   .then(function(num) {
     throw "str";
   })
-
   .catch(function(str) {
     var a: string = str;
     // TODO
@@ -604,11 +590,9 @@ Promise.resolve(0)
 // rejectedPromise.catch():U -> then(U)
 
 Promise.reject(0)
-
   .catch(function(num) {
     return "asdf";
   })
-
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -616,11 +600,9 @@ Promise.reject(0)
 // rejectedPromise.catch():Promise<U> -> then(U)
 
 Promise.reject(0)
-
   .catch(function(num) {
     return Promise.resolve("asdf");
   })
-
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -628,11 +610,9 @@ Promise.reject(0)
 // rejectedPromise.catch():Promise<Promise<U>> -> then(U)
 
 Promise.reject(0)
-
   .catch(function(num) {
     return Promise.resolve(Promise.resolve("asdf"));
   })
-
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
@@ -640,9 +620,7 @@ Promise.reject(0)
 // resolvedPromise<T> -> catch() -> then():?T
 
 Promise.resolve(0)
-
   .catch(function(err) {})
-
   .then(function(num) {
     var a: ?number = num;
     var b: string = num; // Error: string ~> number

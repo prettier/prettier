@@ -95,7 +95,6 @@ function f() {
 function x() {
   return (
     func2
-
       //comment
 
       .bar()
@@ -104,7 +103,6 @@ function x() {
 function f() {
   return (
     foo
-
       // comment
 
       .bar()
@@ -113,7 +111,6 @@ function f() {
 fn(function f() {
   return (
     foo
-
       // comment
 
       .bar()

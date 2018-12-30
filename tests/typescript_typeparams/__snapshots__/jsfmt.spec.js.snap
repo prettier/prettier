@@ -154,11 +154,10 @@ export class Thing7 implements OtherThing {
 }
 export class Thing8 implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(
-    (type: ObjectType) => <Provider<Opts>>type
-
-        .doSomething(withArgs, soIt, does, not, fit)
-
-        .extraCall()
+    (type: ObjectType) =>
+      <Provider<Opts>>(
+        type.doSomething(withArgs, soIt, does, not, fit).extraCall()
+      )
   );
 }
 export class Thing9 implements OtherThing {
@@ -234,11 +233,9 @@ export class Thing18 implements OtherThing {
 }
 export class Thing19 implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(function(type: ObjectType) {
-    return <Provider<Opts>>type
-
-      .doSomething(withArgs, soIt, does, not, fit)
-
-      .extraCall();
+    return <Provider<Opts>>(
+      type.doSomething(withArgs, soIt, does, not, fit).extraCall()
+    );
   });
 }
 export class Thing20 implements OtherThing {

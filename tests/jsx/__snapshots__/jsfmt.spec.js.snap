@@ -61,9 +61,7 @@ const TodoList = ({ todos }) => (
 );
 <div className="search-filter-chips">
   {scopes
-
     .filter(scope => scope.value !== "")
-
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -139,9 +137,7 @@ const TodoList = ({ todos }) => (
 );
 <div className='search-filter-chips'>
   {scopes
-
     .filter(scope => scope.value !== "")
-
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -217,9 +213,7 @@ const TodoList = ({ todos }) => (
 );
 <div className="search-filter-chips">
   {scopes
-
     .filter(scope => scope.value !== '')
-
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -295,9 +289,7 @@ const TodoList = ({ todos }) => (
 );
 <div className='search-filter-chips'>
   {scopes
-
     .filter(scope => scope.value !== '')
-
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -2237,7 +2229,6 @@ singleQuote: false
   >
     {Array(20)
       .fill()
-
       .map((_, i) => (
         <h2 key={i}>{i + 1}</h2>
       ))}
@@ -2516,7 +2507,6 @@ singleQuote: false
   >
     {Array(20)
       .fill()
-
       .map((_, i) => (
         <h2 key={i}>{i + 1}</h2>
       ))}
@@ -2795,7 +2785,6 @@ singleQuote: true
   >
     {Array(20)
       .fill()
-
       .map((_, i) => (
         <h2 key={i}>{i + 1}</h2>
       ))}
@@ -3074,7 +3063,6 @@ singleQuote: true
   >
     {Array(20)
       .fill()
-
       .map((_, i) => (
         <h2 key={i}>{i + 1}</h2>
       ))}

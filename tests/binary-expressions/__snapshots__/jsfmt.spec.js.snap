@@ -572,10 +572,8 @@ function foo() {
     : false;
 }
 function foo() {
-  return this.calculate()
-  .compute().first.numberOfThings >
-    this.calculate()
-    .compute().last.numberOfThings
+  return this.calculate().compute().first.numberOfThings >
+    this.calculate().compute().last.numberOfThings
     ? true
     : false;
 }
