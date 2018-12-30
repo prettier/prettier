@@ -12,6 +12,7 @@ export function foo(): Implementation { return new Implementation; }
 
 =====================================output=====================================
 /* @providesModule A */
+
 class Implementation {}
 export function foo(): Implementation {
   return new Implementation();
@@ -39,6 +40,7 @@ module.exports.fun = (): Implementation => new Implementation;
  * @providesModule ExplicitProvidesModuleDifferentName
  * @flow
  */
+
 class Implementation {}
 module.exports.fun = (): Implementation => new Implementation();
 
@@ -64,6 +66,7 @@ module.exports.fun = (): Implementation => new Implementation;
  * @providesModule ExplicitProvidesModuleSameName
  * @flow
  */
+
 class Implementation {}
 module.exports.fun = (): Implementation => new Implementation();
 
@@ -89,6 +92,7 @@ module.exports.fun = (): Implementation => new Implementation;
  * @providesModule ImplicitProvidesModule
  * @flow
  */
+
 class Implementation {}
 module.exports.fun = (): Implementation => new Implementation();
 
@@ -128,6 +132,7 @@ var ExplicitDifferentName = require('ExplicitProvidesModuleDifferentName');
 
 =====================================output=====================================
 /* @flow */
+
 var Implicit = require("ImplicitProvidesModule");
 (Implicit.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
 var ExplicitSameName = require("ExplicitProvidesModuleSameName");

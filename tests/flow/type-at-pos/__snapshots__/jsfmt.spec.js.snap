@@ -36,6 +36,7 @@ let [x, y] = [1, 2];
  * \`this.returnsATuple()\` is; thus, we never evaluate \`b\` and so type-at-pos
  * returns EmptyT.
  */
+
 export const X = {
   returnsATuple: function(): [number, number] {
     return [1, 2];
@@ -213,6 +214,7 @@ let tests = [
 
 =====================================output=====================================
 /* @flow */
+
 let tests = [
   function() {
     let x = {};
@@ -279,6 +281,7 @@ if (Array.isArray(x)) {}
 
 =====================================output=====================================
 /* @flow */
+
 let x = 0;
 if (x == null) {
 }
@@ -317,6 +320,7 @@ printWidth: 80
 
 =====================================output=====================================
 /* @flow */
+
 \`foo bar\`;
 
 ================================================================================

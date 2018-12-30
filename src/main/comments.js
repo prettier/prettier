@@ -385,7 +385,7 @@ function printLeadingComment(commentPath, print, options) {
   if (isBlock) {
     return concat([
       contents,
-      !options.pure && hasNewline(options.originalText, options.locEnd(comment))
+      options.pure || hasNewline(options.originalText, options.locEnd(comment))
         ? hardline
         : " "
     ]);

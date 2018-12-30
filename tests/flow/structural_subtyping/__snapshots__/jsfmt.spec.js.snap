@@ -23,6 +23,7 @@ var lengthTest4: IHasLength = true; // bool doesn't have length
 /**
  * @flow
  */
+
 interface IHasLength {
   length: number;
 }
@@ -68,6 +69,7 @@ var testInstance3: IHasYString = new ClassWithXString(); // Error missing prop
 /**
  * @flow
  */
+
 class ClassWithXString {
   x: string;
 }
@@ -118,6 +120,7 @@ function propTest6(y: {[key: string]: number}) {
 /**
  * @flow
  */
+
 interface IHasXString {
   x: string;
 }
@@ -160,6 +163,7 @@ var test3: HasOptional = { a: "hello", b: true }; // Error: boolean ~> number
 
 =====================================output=====================================
 /* @flow */
+
 interface HasOptional {
   a: string;
   b?: number;

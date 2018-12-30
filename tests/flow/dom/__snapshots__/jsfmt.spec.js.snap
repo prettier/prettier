@@ -326,6 +326,7 @@ const r: string = c.username; // correct
 
 =====================================output=====================================
 /* @flow */
+
 const a = new URL("http://flowtype.org/"); // correct
 const b = new URL("/docs", a); // correct
 const c = new URL("/docs", "http://flowtype.org/"); // correct

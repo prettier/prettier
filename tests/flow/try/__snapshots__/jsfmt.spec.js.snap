@@ -24,11 +24,13 @@ function foo() {
 
 =====================================output=====================================
 /* @flow */
+
 /* This test documents an issue we used to have with merging the environment of
  * the try block and the catch block. The error variable, when inspected and in
  * the presence of an abnormal, would sometimes kind of leak. It would hit an
  * abnormal. It was weird.
  */
+
 function foo() {
   try {
   } catch (error) {
@@ -207,6 +209,7 @@ function f(b) {
  * test initialization tracking of hoisted stuff
  * @flow
  */
+
 // for illustrative purposes only - Flow considers a throw possible
 
 // anywhere within a block
@@ -434,6 +437,7 @@ function corge(): string {
 /**
  * @flow
  */
+
 function foo(x: ?number): string {
   try {
   } catch (e) {
@@ -545,6 +549,7 @@ function qux() {
  * test env state tracking thru try/catch/finally
  * @flow
  */
+
 function foo() {
   var x = 0;
   var y;

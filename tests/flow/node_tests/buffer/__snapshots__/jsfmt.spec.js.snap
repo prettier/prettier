@@ -66,6 +66,7 @@ buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72], (a:number) => a + 1, 
 
 =====================================output=====================================
 /* @flow */
+
 let bool: boolean = false;
 let buffer: Buffer = new Buffer(0);
 let num: number = 0;

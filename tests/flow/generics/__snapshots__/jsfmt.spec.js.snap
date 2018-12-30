@@ -78,8 +78,10 @@ class E<X> extends C<X> {
 
   set(x: X): X {
     /*return x;*/
+
     this.x = x;
     return /*this.x; */
+
     this.get();
   }
 }

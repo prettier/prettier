@@ -14,6 +14,7 @@ const val: string = dict[k] // error: number incompatible with string
 
 =====================================output=====================================
 /* @flow */
+
 const dict: { [key: string]: number } = {};
 const k: any = "foo";
 const val: string = dict[k]; // error: number incompatible with string
@@ -45,6 +46,7 @@ function foo2(
 
 =====================================output=====================================
 /* @flow */
+
 function foo0(
   x: Array<{ [key: string]: mixed }>
 ): Array<{ [key: string]: mixed }> {
@@ -412,6 +414,7 @@ function subtype_optional_c_to_dict(
  *
  * @flow
  */
+
 // Some logic is variance-sensitive.
 
 class A {}
@@ -809,6 +812,7 @@ function foo8(x: {[key: string]: number}) {
 
 =====================================output=====================================
 /* @flow */
+
 var x: { [key: string]: string } = {};
 var y: { [key: string]: number } = x; // 2 errors, number !~> string & vice versa
 var z: { [key: number]: string } = x; // 2 errors, string !~> number & vice versa
@@ -923,6 +927,7 @@ class B {
 
 =====================================output=====================================
 /* @flow */
+
 class A {
   x: { [k: string]: number };
   m1() {

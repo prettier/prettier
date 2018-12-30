@@ -37,6 +37,7 @@ module.exports = {
 /**
  * @flow
  */
+
 var EventEmitter = require("events").EventEmitter;
 // This pattern seems to cause the trouble.
 
@@ -95,6 +96,7 @@ A.js|8 col 23 error|  object literal
 /**
  * @flow
  */
+
 var A = require("./A.js");
 var good: number = A.Good.foo();
 var f = A.Bad.foo; // Property access is fine
@@ -151,6 +153,7 @@ Object.assign({a: "foo"}, 123);
 
 =====================================output=====================================
 /* @flow */
+
 Object.assign("123", {
   a: "foo"
 });
@@ -269,6 +272,7 @@ class MyReactThing extends React.Component {
 
 =====================================output=====================================
 /* @flow */
+
 var React = require("react");
 type DefaultProps = {
   foo: number

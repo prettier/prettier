@@ -58,6 +58,7 @@ foo(
 
 =====================================output=====================================
 /* @flow */
+
 declare class Bar<K> {
   update<K_>(updater: (value: this) => Bar<K_>): Bar<K_>;
 }

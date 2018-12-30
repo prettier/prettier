@@ -56,6 +56,7 @@ module.exports = FeedUFI;
  * @providesModule FeedUFI.react
  * @flow
  */
+
 "use strict";
 var UFILikeCount = require("UFILikeCount.react");
 var React = require("react");
@@ -94,6 +95,7 @@ module.exports = {
 
 =====================================output=====================================
 /* @providesModule Mixin */
+
 module.exports = {
   success: function() {}
 };
@@ -138,6 +140,7 @@ module.exports = UFILikeCount;
  * @providesModule UFILikeCount.react
  * @flow
  */
+
 "use strict";
 var React = require("react");
 var UFILikeCount = React.createClass({
@@ -427,6 +430,7 @@ class HelloMessage extends React.Component {
 
 =====================================output=====================================
 /* @flow */
+
 // Testing local binding of React in all kinds of ways. The only reason this
 
 // might even be an issue is that internally, the use of JSX triggers an
@@ -954,6 +958,7 @@ var ReactClass = React.createClass({
 
 =====================================output=====================================
 /* @flow */
+
 var React = require("react");
 type State = {
   bar: ?{

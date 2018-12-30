@@ -80,14 +80,17 @@ var fnString =
   "some" + "long" + "string";
 var fnString =
   /* comment */
+
   "some" + "long" + "string";
 var fnString =
   /**
    * multi-line
    */
+
   "some" + "long" + "string";
 var fnString =
   /* inline */
+
   "some" +
   "long" +
   "string" +

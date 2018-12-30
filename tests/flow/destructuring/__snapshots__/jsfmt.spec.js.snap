@@ -159,6 +159,7 @@ function default_expr_scope({a, b = a}) {}
 
 =====================================output=====================================
 /* @flow */
+
 function obj_prop_fun(
   {
     p: { q = 0 } = {

@@ -58,6 +58,7 @@ function _for_of(arr: Array<number>) {
  * test initialization tracking in the presence of hoisting
  * @flow
  */
+
 function _if(b: () => boolean) {
   if (b()) {
     var f = function() {};
@@ -379,6 +380,7 @@ function for_in_post_init() {
  * note: for try/catch/finally, see tests/try/init.js
  * @flow
  */
+
 // deferred init on annotated vars is ok
 
 function linear_deferred_init() {
@@ -828,6 +830,7 @@ function sub_closure_init_reference() {
  * test initialization tracking for lets
  * @flow
  */
+
 // deferred init on annotated lets is ok
 
 function linear_deferred_init() {

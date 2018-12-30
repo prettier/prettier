@@ -66,8 +66,10 @@ printWidth: 80
     @click="/* hello */"
     @click="
       /* 1 */
+
       $emit(
         /* 2 */
+
         'click' /* 3 */
       ) /* 4 */ /* 5 */
     "
@@ -183,8 +185,10 @@ trailingComma: "es5"
     @click="/* hello */"
     @click="
       /* 1 */
+
       $emit(
         /* 2 */
+
         'click' /* 3 */
       ) /* 4 */ /* 5 */
     "
@@ -300,8 +304,10 @@ semi: false
     @click="/* hello */"
     @click="
       /* 1 */
+
       $emit(
         /* 2 */
+
         'click' /* 3 */
       ) /* 4 */ /* 5 */
     "

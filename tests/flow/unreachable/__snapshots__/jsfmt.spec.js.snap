@@ -32,6 +32,7 @@ function test2() {
 
 =====================================output=====================================
 /* @flow */
+
 function test1(): string {
   return bar();
   function bar() {
@@ -90,6 +91,7 @@ foo(1, 2);
 
 =====================================output=====================================
 /* @flow */
+
 function foo(x, y) {
   "use strict";
   return bar(x) + baz(y);

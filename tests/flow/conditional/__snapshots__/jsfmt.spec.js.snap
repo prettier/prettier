@@ -33,6 +33,7 @@ function d(): string { // expected \`: number | boolean\`
 
 =====================================output=====================================
 /* @flow */
+
 function a(): number {
   var x: ?string = null;
   return x ? 1 : 0;

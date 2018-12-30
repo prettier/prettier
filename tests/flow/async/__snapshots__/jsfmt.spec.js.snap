@@ -473,6 +473,7 @@ async function baz() {
  * be raised here. Once that's fixed, the errors here will go
  * away.
  */
+
 async function foo() {
   return 42;
 }

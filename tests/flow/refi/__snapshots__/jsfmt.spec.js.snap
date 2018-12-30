@@ -111,6 +111,7 @@ var tests = [
     }
   },
   */
+
   function() {
     if (x != null) {
     }
@@ -1425,6 +1426,7 @@ function exhaustion2(x, y): number {
      *
     foo = "";
      */
+
     case 1:
       foo = 3;
       break;

@@ -55,6 +55,7 @@ module.exports = XControllerURIBuilder;
  * @providesModule XControllerURIBuilder
  * @typechecks
  */
+
 // ...
 
 class XControllerURIBuilder {

@@ -23,6 +23,7 @@ f(A.x); // A.x is now a string, by def assign
 
 =====================================output=====================================
 /* @providesModule A */
+
 module.exports = {};
 var A = {
   x: true,
@@ -62,6 +63,7 @@ module.exports = B;
 
 =====================================output=====================================
 /* @providesModule B */
+
 var A = require("A").cls;
 function B() {
   this.b = "...";
@@ -99,6 +101,7 @@ module.exports = C;
 
 =====================================output=====================================
 /* @providesModule C */
+
 var B = require("B");
 var f = require("A").fn;
 function C() {
@@ -135,6 +138,7 @@ module.exports = "D for dummy";
 
 =====================================output=====================================
 /* @providesModule D */
+
 var f = require("A").fn;
 function g(): string {
   return this.i;
@@ -170,6 +174,7 @@ module.exports = {obj: o};
 
 =====================================output=====================================
 /* @providesModule E */
+
 function h(x: number) {}
 var proto = {
   fn: h

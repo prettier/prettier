@@ -16,6 +16,7 @@ class Foo {
 
 =====================================output=====================================
 /* @flow */
+
 class Foo {
   annotationOnly: string;
   initOnly = "asdf";

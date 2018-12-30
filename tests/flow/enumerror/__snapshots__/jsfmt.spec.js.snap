@@ -35,6 +35,7 @@ function union2keys(s: Union): Keys { return s; } // ok
 
 =====================================output=====================================
 /** @flow */
+
 function isActive(ad: {
   state: $Keys<{
     PAUSED: string,

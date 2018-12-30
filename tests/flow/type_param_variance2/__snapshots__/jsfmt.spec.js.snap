@@ -41,6 +41,7 @@ run()
  *
  * @flow
  */
+
 async function foo(
   x: boolean
 ): Promise<?{

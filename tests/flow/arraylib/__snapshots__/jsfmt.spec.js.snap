@@ -66,6 +66,7 @@ function from_test() {
 
 =====================================output=====================================
 /* @flow */
+
 function foo(x: string) {}
 var a = [0];
 var b = a.map(function(x) {
@@ -90,6 +91,7 @@ function reduce_test() {
   /* Adapted from the following source:
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
    */
+
   [0, 1, 2, 3, 4].reduce(function(previousValue, currentValue, index, array) {
     return previousValue + currentValue + array[index];
   });
@@ -103,6 +105,7 @@ function reduce_test() {
     return a.concat(b);
   });
   /* Added later, because the above is insufficient */
+
   // acc is element type of array when no init is provided
 
   [""].reduce((acc, str) => acc * str.length); // error, string ~> number

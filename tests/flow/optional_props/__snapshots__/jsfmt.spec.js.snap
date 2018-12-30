@@ -180,6 +180,7 @@ class A {
    properties, is to have the sealed type acquire the optional
    properties.
  */
+
 // x has optional property b.
 
 // (note that the initializer here does not play into
@@ -263,6 +264,7 @@ b.b = 0; // because subsequent writes would widen the exact object
 =====================================output=====================================
 /* The logic that allows ({}: {p?:T}), described in test3.js, should _not_ also
    fire for exact annotations. */
+
 const a: {|
   a: number
 |} = {

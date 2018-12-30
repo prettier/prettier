@@ -157,6 +157,7 @@ var z = Object(123); // error (next line makes this not match any signatures)
 
 =====================================output=====================================
 /* @flow */
+
 (Object({
   foo: "bar"
 }): {
@@ -206,6 +207,7 @@ y['bar'] = 'abc'; // error, property not found
 
 =====================================output=====================================
 /* @flow */
+
 var x: {
   "123": string,
   bar: string
@@ -282,6 +284,7 @@ function assign_then_widen() {
  *
  * @flow
  */
+
 var glob: {
   x: string
 } = {

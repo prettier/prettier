@@ -26,6 +26,7 @@ class Bar extends Foo {
 /**
  * @flow
  */
+
 class Foo {
   _method(): string {
     return "this is private";
@@ -68,6 +69,7 @@ class Bar extends Foo {
  * @flow
  * @preventMunge
  */
+
 class Foo {
   _method(): string {
     return "this is not private";

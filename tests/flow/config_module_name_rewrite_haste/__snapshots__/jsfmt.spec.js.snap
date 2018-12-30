@@ -22,6 +22,7 @@ import {numVal as numVal2} from '3DoesntExist'; // Error
 
 =====================================output=====================================
 /* @flow */
+
 var m1 = require("1DoesntExist");
 import { numVal as numVal1 } from "1DoesntExist";
 var a_1: number = m1.numVal;
@@ -60,6 +61,7 @@ module.exports = {
  * @providesModule Exists
  * @flow
  */
+
 module.exports = {
   numVal: 42
 };

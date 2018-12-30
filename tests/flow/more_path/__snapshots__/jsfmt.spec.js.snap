@@ -66,6 +66,7 @@ module.exports = true;
 
 =====================================output=====================================
 /* @providesModule Condition */
+
 function f(x: number) {}
 function g() {
   return 42 || "hello";
@@ -147,6 +148,7 @@ module.exports = FlowSA;
 
 =====================================output=====================================
 /* @providesModule FlowSA */
+
 function check(x: string) {}
 function FlowSA() {
   var x = 0;
@@ -207,6 +209,7 @@ module.exports = "sigma";
 
 =====================================output=====================================
 /* @providesModule Sigma */
+
 class A {
   a() {}
 }

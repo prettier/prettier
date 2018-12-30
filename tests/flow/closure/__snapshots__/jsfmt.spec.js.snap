@@ -92,6 +92,7 @@ function local_meth() {
  * Test tracking of variable types across closure calls.
  * @flow
  */
+
 function takes_string(_: string) {}
 // global write from function
 
@@ -263,6 +264,7 @@ call_me();
  * consts retain refinements
  * @flow
  */
+
 // global, anybody can call it at any time
 
 var call_me: () => void = () => {};

@@ -23,6 +23,7 @@ function area(shape: Shape): number {
 
 =====================================output=====================================
 /* @flow */
+
 type Shape =
   | {
       type: "rectangle",

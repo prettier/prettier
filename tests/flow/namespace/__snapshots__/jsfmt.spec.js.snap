@@ -43,6 +43,7 @@ module.exports = { foo: ("": number) };
 
 =====================================output=====================================
 /*@flow*/
+
 // import type { T } from '...'
 
 type T = (x: number) => void;

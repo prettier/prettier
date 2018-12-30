@@ -68,6 +68,7 @@ var F = require('package_with_dir_main');
 
 =====================================output=====================================
 /* @flow */
+
 // This will require ./node_modules/B.js.flow
 
 var B1 = require("B");

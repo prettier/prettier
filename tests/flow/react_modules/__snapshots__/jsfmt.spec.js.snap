@@ -35,6 +35,7 @@ module.exports = Callsite;
 
 =====================================output=====================================
 /* @flow */
+
 var React = require("react");
 var Hello = require("./createclass-module");
 var HelloLocal = React.createClass({
@@ -83,6 +84,7 @@ module.exports = Hello;
 
 =====================================output=====================================
 /* @flow */
+
 var React = require("react");
 var Hello = React.createClass({
   propTypes: {
@@ -132,6 +134,7 @@ module.exports = Callsite;
 
 =====================================output=====================================
 /* @flow */
+
 import React from "react";
 import Hello from "./es6class-proptypes-module";
 class HelloLocal extends React.Component<
@@ -188,6 +191,7 @@ module.exports = Hello;
 
 =====================================output=====================================
 /* @flow */
+
 import React from "react";
 class Hello extends React.Component<
   void,
@@ -244,6 +248,7 @@ module.exports = Callsite;
 
 =====================================output=====================================
 /* @flow */
+
 import React from "react";
 import Hello from "./es6class-types-module";
 type Props = {
@@ -294,6 +299,7 @@ module.exports = Hello;
 
 =====================================output=====================================
 /* @flow */
+
 import React from "react";
 type Props = {
   name: string

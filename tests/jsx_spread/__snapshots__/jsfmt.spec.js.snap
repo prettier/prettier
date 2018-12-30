@@ -34,6 +34,7 @@ printWidth: 80
 <div
   {
     /* comment */
+
     ...a
   }
 />;
@@ -99,6 +100,7 @@ printWidth: 80
 <div>
   {
     /* comment */
+
     ...a
   }
 </div>;

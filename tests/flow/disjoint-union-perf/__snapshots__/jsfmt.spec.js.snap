@@ -91,6 +91,7 @@ export type TypedNode =
 /**
  * @flow
  */
+
 export type InferredType =
   | "unknown"
   | "gender"
@@ -237,6 +238,7 @@ export function emitExpression(node: TypedNode) : t.Expression {
 /**
  * @flow
  */
+
 import * as t from "./jsAst";
 const b = t.builders;
 import type { TypedNode } from "./ast";
@@ -951,6 +953,7 @@ export const builders : {
 /**
  * @flow
  */
+
 export type Comment = {
   loc: ?SourceLocation,
   value: string,

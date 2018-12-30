@@ -28,6 +28,7 @@ function x4(y: string): boolean {
 
 =====================================output=====================================
 /* @flow */
+
 function x0(y: string): number {
   return +y; // ok, + exists solely for coercion
 }

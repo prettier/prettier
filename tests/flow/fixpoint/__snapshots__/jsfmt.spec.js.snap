@@ -39,6 +39,7 @@ module.exports = {fn: fix};
 
 =====================================output=====================================
 /* @providesModule Fun */
+
 function eq(x: number, y: number) {
   return true;
 }
@@ -106,6 +107,7 @@ module.exports = Y;
 
 =====================================output=====================================
 /* @providesModule Ycombinator */
+
 function Y(f) {
   function g(x) {
     return f(x(x));

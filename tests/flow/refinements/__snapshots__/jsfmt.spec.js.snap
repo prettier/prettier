@@ -41,6 +41,7 @@ function bar2(x : Bar) {
 
 =====================================output=====================================
 /* @flow */
+
 function foo(x: ?number) {
   var y;
   if ((y = x)) {
@@ -162,6 +163,7 @@ let tests = [
 
 =====================================output=====================================
 /* @flow */
+
 function foo(x: ?boolean) {
   if (x === false) {
     return;
@@ -330,6 +332,7 @@ let tests = [
 
 =====================================output=====================================
 /* @flow */
+
 type Type = Name | ListType | NonNullType;
 type Name = {
   kind: "Name",
@@ -423,6 +426,7 @@ export const ERROR: 'ERROR' = 'ERROR';
 
 =====================================output=====================================
 /* @flow */
+
 export const SUCCESS: "SUCCESS" = "SUCCESS";
 export const ERROR: "ERROR" = "ERROR";
 
@@ -460,6 +464,7 @@ let tests = [
 
 =====================================output=====================================
 /* @flow */
+
 let tests = [
   function(x: string, y: number) {
     if (x == y) {
@@ -609,6 +614,7 @@ function bar(x:Object) {
 
 =====================================output=====================================
 /* @flow */
+
 function foo(x: { y?: () => void }) {
   x.y(); // error: could be undefined
   if (x.hasOwnProperty("y")) {
@@ -820,6 +826,7 @@ declare var BAZ: {stuff?: (x: number) => void} | void;
 
 =====================================output=====================================
 /* @flow */
+
 declare var BAZ: {
   stuff?: (x: number) => void
 } | void;
@@ -1103,6 +1110,7 @@ function arr0(x: mixed) {
 
 =====================================output=====================================
 /* @flow */
+
 function takesNumber(x: number) {}
 function takesString(x: string) {}
 function num(x: mixed) {
@@ -1287,6 +1295,7 @@ let tests = [
 
 =====================================output=====================================
 /* @flow */
+
 function foo(x: ?boolean) {
   if (!x) {
     x++; // should error for null, void and bool (false)
@@ -1355,6 +1364,7 @@ function null_bogus_comparison() {
 
 =====================================output=====================================
 /* @flow */
+
 function null_bogus_comparison() {
   if (100 * null) {
     return;
@@ -1713,6 +1723,7 @@ function c3(x: {[key: string]: ?string}, y: {z: string, a: string}): string {
 
 =====================================output=====================================
 /* @flow */
+
 function a(x: { [key: string]: ?string }, y: string): string {
   if (x[y]) {
     return x[y];
@@ -2323,6 +2334,7 @@ class C extends A {
 
 =====================================output=====================================
 /* @flow */
+
 class A {
   prop: string;
   method(): string {
@@ -2415,6 +2427,7 @@ function corge(text: string | number | Array<string>): string {
 
 =====================================output=====================================
 /* @flow */
+
 function foo(text: string | number): string {
   switch (typeof text) {
     case "string":
@@ -3206,6 +3219,7 @@ function handleStatus(status: Success | Error) {
 
 =====================================output=====================================
 /* @flow */
+
 import { SUCCESS, ERROR } from "./constants";
 type Success = {
   type: typeof SUCCESS,
@@ -3302,6 +3316,7 @@ function testInvalidTemplateLiteral(x: string | number) {
 
 =====================================output=====================================
 /* @flow */
+
 function foo(x: boolean | number) {
   if (typeof x === "boolean") {
     x[0]; // error for boolean, not number
@@ -3315,6 +3330,7 @@ function bar(): number {
   return 0;
 }
 /* refining globals */
+
 function fn0() {
   if (typeof BAZ !== "undefined" && typeof BAZ.stuff === "function") {
     BAZ.stuff(123);
@@ -3452,6 +3468,7 @@ function undef_bogus_comparison() {
 
 =====================================output=====================================
 /* @flow */
+
 function undef_var(x: ?number) {
   if (x !== null && x !== undefined) {
     var y = x * 1000;
@@ -3554,6 +3571,7 @@ function baz(x: ?thing) {
 
 =====================================output=====================================
 /* @flow */
+
 type thing = number | boolean;
 function foo(x: thing) {
   if (x === true) {
@@ -3678,6 +3696,7 @@ function void_redefined_undefined(x: ?number) {
 
 =====================================output=====================================
 /* @flow */
+
 function void_var(x: ?number) {
   if (x !== null && x !== void 0) {
     var y = x * 1000;

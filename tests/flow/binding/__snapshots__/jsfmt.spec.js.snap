@@ -283,6 +283,7 @@ function fn_params_clash_fn_binding(x,y) {
  * const x    x      x   x     x   x
  * var   x    x      x   x
  */
+
 // type x *
 
 function type_type() {
@@ -784,6 +785,7 @@ f(a); // ok, a: number (not ?number)
 
 =====================================output=====================================
 /** @flow */
+
 // -- types ---
 
 // type aliases are hoisted and always available

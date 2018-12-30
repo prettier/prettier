@@ -64,6 +64,7 @@ function testSet2(set: Set<*>): void {
 /**
  * @flow
  */
+
 function testArray(arr: Array<number>): void {
   for (var x of arr) {
     (x: string); // Error - number ~> string

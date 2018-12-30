@@ -104,6 +104,7 @@ if (data.kind === "user") {
 
 =====================================output=====================================
 /* @flow */
+
 declare interface IDataBase {
   id: string;
   name: string;
@@ -162,6 +163,7 @@ if (data.kind === "system") {
 
 =====================================output=====================================
 /* @flow */
+
 declare interface IDataBase {
   id: string;
   name: string;
@@ -224,6 +226,7 @@ if (data.kind === "user") {
 
 =====================================output=====================================
 /* @flow */
+
 type DataBase = {
   id: string,
   name: string
@@ -290,6 +293,7 @@ if (data.kind === "system") {
 
 =====================================output=====================================
 /* @flow */
+
 type DataBase = {
   id: string,
   name: string

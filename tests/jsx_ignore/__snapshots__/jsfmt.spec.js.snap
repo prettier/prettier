@@ -93,12 +93,14 @@ f(
 
 <div>
   {/* prettier-ignore */
+
   foo ( )}
 </div>;
 // this should remain as-is
 
 <div>
   {/* prettier-ignore */
+
   x     ?   <Y/> : <Z/>}
 </div>;
 push(
@@ -112,6 +114,7 @@ function f() {
     // prettier-ignore
 
     /* $FlowFixMe(>=0.53.0) */
+
     <JSX />
   );
 }

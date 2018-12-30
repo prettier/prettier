@@ -12,6 +12,7 @@ exports.numberValue = 42;
 
 =====================================output=====================================
 /* @flow */
+
 exports.numberValue = 42;
 
 ================================================================================
@@ -64,6 +65,7 @@ module.exports = Test;
  * @providesModule CommonJS_Clobbering_Class
  * @flow
  */
+
 class Base {
   static baseProp: number;
 }
@@ -110,6 +112,7 @@ module.exports = Object.freeze({
  * @providesModule CommonJS_Clobbering_Frozen
  * @flow
  */
+
 module.exports = Object.freeze({
   numberValue1: 1
 });
@@ -141,6 +144,7 @@ module.exports = {
  * @providesModule CommonJS_Clobbering_Lit
  * @flow
  */
+
 module.exports = {
   numberValue1: 1,
   numberValue2: 2,
@@ -174,6 +178,7 @@ exports.numberValue5 = 5;
  * @providesModule CommonJS_Named
  * @flow
  */
+
 exports.numberValue1 = 1;
 exports.numberValue2 = 2;
 exports.numberValue3 = 3;
@@ -201,6 +206,7 @@ export default class { givesANum(): number { return 42; }};
  * @providesModule ES6_Default_AnonClass1
  * @flow
  */
+
 export default class {
   givesANum(): number {
     return 42;
@@ -228,6 +234,7 @@ export default class { givesANum(): number { return 42; }};
  * @providesModule ES6_Default_AnonClass2
  * @flow
  */
+
 export default class {
   givesANum(): number {
     return 42;
@@ -255,6 +262,7 @@ export default function():number { return 42; }
  * @providesModule ES6_Default_AnonFunction1
  * @flow
  */
+
 export default function(): number {
   return 42;
 }
@@ -280,6 +288,7 @@ export default function():number { return 42; }
  * @providesModule ES6_Default_AnonFunction2
  * @flow
  */
+
 export default function(): number {
   return 42;
 }
@@ -310,6 +319,7 @@ new Foo();
  * @providesModule ES6_Default_NamedClass1
  * @flow
  */
+
 export default class Foo {
   givesANum(): number {
     return 42;
@@ -344,6 +354,7 @@ export default class Foo { givesANum(): number { return 42; }};
  * @providesModule ES6_Default_NamedClass2
  * @flow
  */
+
 export default class Foo {
   givesANum(): number {
     return 42;
@@ -371,6 +382,7 @@ export default function foo():number { return 42; }
  * @providesModule ES6_Default_NamedFunction1
  * @flow
  */
+
 export default function foo(): number {
   return 42;
 }
@@ -396,6 +408,7 @@ export default function foo():number { return 42; }
  * @providesModule ES6_Default_NamedFunction2
  * @flow
  */
+
 export default function foo(): number {
   return 42;
 }
@@ -416,6 +429,7 @@ export var str = 'asdf';
 
 =====================================output=====================================
 /* @flow */
+
 export default 42;
 export var str = "asdf";
 
@@ -440,6 +454,7 @@ export * from "ES6_ExportAllFrom_Source1";
  * @providesModule ES6_ExportAllFrom_Intermediary1
  * @flow
  */
+
 export * from "ES6_ExportAllFrom_Source1";
 
 ================================================================================
@@ -463,6 +478,7 @@ export * from "ES6_ExportAllFrom_Source2";
  * @providesModule ES6_ExportAllFrom_Intermediary2
  * @flow
  */
+
 export * from "ES6_ExportAllFrom_Source2";
 
 ================================================================================
@@ -486,6 +502,7 @@ export var numberValue1 = 1;
  * @providesModule ES6_ExportAllFrom_Source1
  * @flow
  */
+
 export var numberValue1 = 1;
 
 ================================================================================
@@ -509,6 +526,7 @@ export var numberValue2 = 1;
  * @providesModule ES6_ExportAllFrom_Source2
  * @flow
  */
+
 export var numberValue2 = 1;
 
 ================================================================================
@@ -555,6 +573,7 @@ export {
  * @providesModule ES6_ExportFrom_Intermediary1
  * @flow
  */
+
 export {
   numberValue1,
   numberValue2 as numberValue2_renamed
@@ -584,6 +603,7 @@ export {
  * @providesModule ES6_ExportFrom_Intermediary2
  * @flow
  */
+
 export {
   numberValue1,
   numberValue2 as numberValue2_renamed2
@@ -610,6 +630,7 @@ export var numberValue1 = 1, numberValue2 = 2;
  * @providesModule ES6_ExportFrom_Source1
  * @flow
  */
+
 export var numberValue1 = 1,
   numberValue2 = 2;
 
@@ -634,6 +655,7 @@ export var numberValue1 = 1, numberValue2 = 2;
  * @providesModule ES6_ExportFrom_Source2
  * @flow
  */
+
 export var numberValue1 = 1,
   numberValue2 = 2;
 
@@ -674,6 +696,7 @@ export var [destructuredArrNumber] = [1]
  * @providesModule ES6_Named1
  * @flow
  */
+
 var specifierNumber1 = 1;
 var specifierNumber2 = 2;
 var specifierNumber3 = 3;
@@ -733,6 +756,7 @@ export var [destructuredArrNumber2] = [1]
  * @providesModule ES6_Named2
  * @flow
  */
+
 var specifierNumber4 = 1;
 var specifierNumber5 = 2;
 var groupedSpecifierNumber3 = 1;
@@ -798,6 +822,7 @@ exports.stringValue = "str";
  * @providesModule A
  * @flow
  */
+
 exports.numberValue1 = 42;
 exports.numberValue2 = 42;
 exports.numberValue3 = 42;
@@ -827,6 +852,7 @@ module.exports = {
  * @providesModule CJSDefault
  * @flow
  */
+
 module.exports = {
   numberValue: 42
 };
@@ -876,6 +902,7 @@ export default {
  * @providesModule ES6Default
  * @flow
  */
+
 /*
 export default {
   numberValue: 42,
@@ -1204,6 +1231,7 @@ import {typeAlias} from "./ExportType"; // Error: Cannot vanilla-import a type a
 
 =====================================output=====================================
 /* @flow */
+
 // ===================== //
 
 // == Path Resolution == //
@@ -1541,6 +1569,7 @@ function testRequires() {
 
 =====================================output=====================================
 /* @flow */
+
 //
 
 // Imports

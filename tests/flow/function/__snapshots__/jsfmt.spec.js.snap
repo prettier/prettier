@@ -363,6 +363,7 @@ var e = (d.bind(1): Function)();
 /**
  * @flow
  */
+
 // Previously we represented Function as (...rest: any) => any
 
 // This means the following wouldn't pass, because that arrow function
@@ -500,6 +501,7 @@ requires_first_param(); // Error: missing first arg
 
 =====================================output=====================================
 /* regression tests */
+
 function rest_array<T>(...xs: Array<T>): T {
   // Ok, arrays can be rest params
 
@@ -616,6 +618,7 @@ type empty_rest = <T:Array<mixed>>(...xs: T) => T; // OK
 
 =====================================output=====================================
 /* regression tests */
+
 type rest_array = <T>(...xs: Array<T>) => T; // Ok, arrays can be rest params
 type rest_tuple = <T>(...xs: [T]) => T; // Ok, tuples can be rest params
 type rest_ro_array = <T>(...xs: $ReadOnlyArray<T>) => T; // Ok

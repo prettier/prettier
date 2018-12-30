@@ -34,6 +34,7 @@ const d: Promise<Blob> = fetch('image.png'); // incorrect
 
 =====================================output=====================================
 /* @flow */
+
 // most of the details are tested in the separate file
 
 // here I test the basic usage
@@ -96,6 +97,7 @@ e.forEach(() => {}, {}); // correct
 
 =====================================output=====================================
 /* @flow */
+
 const a = new Headers("'Content-Type': 'image/jpeg'"); // not correct
 const b = new Headers(["Content-Type", "image/jpeg"]); // not correct
 const c = new Headers({
@@ -203,6 +205,7 @@ new Request('/', { method: null }); // incorrect
 
 =====================================output=====================================
 /* @flow */
+
 const a: Request = new Request(); // incorrect
 const b: Request = new Request("http://example.org"); // correct
 const c: Request = new Request(b); // correct
@@ -319,6 +322,7 @@ h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 
 =====================================output=====================================
 /* @flow */
+
 const a: Response = new Response(); // correct
 const b: Response = new Response(new Blob()); // correct
 const c: Response = new Response(new FormData()); // correct
@@ -409,6 +413,7 @@ e.forEach(() => {}, {}); // correct
 
 =====================================output=====================================
 /* @flow */
+
 const a = new URLSearchParams("key1=value1"); // correct
 const b = new URLSearchParams(["key1", "value1"]); // not correct
 const c = new URLSearchParams({

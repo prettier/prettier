@@ -46,6 +46,7 @@ y);
 
 =====================================output=====================================
 /*a*/
+
 for (x in y); //b //c
 for (x /*a*/ in y); //b //c
 for (x /*a*/ in y); //b //c
@@ -56,6 +57,7 @@ for (x in y);
 
 for (x in y);
 /*a*/
+
 for (x of y); //b //c
 for (x /*a*/ of y); //b //c
 for (x /*a*/ of y); //b //c

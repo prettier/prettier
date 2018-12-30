@@ -43,6 +43,7 @@ ExampleStory.getFragment('story')}
 
 \${
   /* comment */
+
   c /* comment */
 }
 

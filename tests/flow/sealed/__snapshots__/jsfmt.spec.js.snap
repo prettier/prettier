@@ -18,6 +18,7 @@ module.exports = Bar;
 
 =====================================output=====================================
 /* @flow */
+
 function Bar(x: number) {
   this.x = x;
 }

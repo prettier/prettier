@@ -26,6 +26,7 @@ export default class {
  * @providesModule A
  * @flow
  */
+
 import type T from "T";
 export default class {
   p: T;
@@ -57,6 +58,7 @@ class B extends A {
 /**
  * @flow
  */
+
 import A from "A";
 class B extends A {
   p: string; // OK, string ~> any

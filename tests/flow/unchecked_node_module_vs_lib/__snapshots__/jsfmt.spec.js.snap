@@ -40,6 +40,7 @@ var x3: string = buffer3.INSPECT_MAX_BYTES; // error, module not found
  *
  * @flow
  */
+
 // node_modules/buffer/index.js is unchecked,
 
 // so we shouldn't pick up its boolean redefinition of INSPECT_MAX_BYTES

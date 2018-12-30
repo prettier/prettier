@@ -12,6 +12,7 @@ module.exports.fun = (): string => 'hello there!';
 
 =====================================output=====================================
 /* @flow */
+
 module.exports.fun = (): string => "hello there!";
 
 ================================================================================
@@ -64,6 +65,7 @@ var F = require('package_with_dir_main');
 
 =====================================output=====================================
 /* @flow */
+
 // This will require ./node_modules/B.js.flow
 
 var B1 = require("B");
@@ -106,6 +108,7 @@ var CJS = require('./CJS.js');
 
 =====================================output=====================================
 /* @flow */
+
 // This will require ./A.js.flow
 
 var A1 = require("./A");

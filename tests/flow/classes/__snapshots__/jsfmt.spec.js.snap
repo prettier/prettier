@@ -137,6 +137,7 @@ var w : Foo = z;
 
 =====================================output=====================================
 /* @flow */
+
 type Foo = {
   a: string, // exists in TestClass
   b: string, // doesn't exist
@@ -275,6 +276,7 @@ class Foo {} // error, shadows type Foo
 
 =====================================output=====================================
 /* @flow */
+
 type Foo = number;
 class Foo {} // error, shadows type Foo
 
@@ -303,6 +305,7 @@ declare var o: {p:number};
 
 =====================================output=====================================
 /* @flow */
+
 class C {
   static p: string;
 }

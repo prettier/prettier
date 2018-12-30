@@ -48,6 +48,7 @@ module.exports = "arrays";
 
 =====================================output=====================================
 /* @providesModule Arrays */
+
 function foo(x: string) {}
 var a = [];
 a[0] = 1;

@@ -29,6 +29,7 @@ function bar(x: boolean) {
 
 =====================================output=====================================
 /* @flow */
+
 function foo(x: boolean) {
   var ii = 10;
   while (ii-- >= 0) {

@@ -78,6 +78,7 @@ React.createElement(Str, {}); // Error: string ~> keys of JSXIntrinsics
 
 =====================================output=====================================
 /* @flow */
+
 var React = require("react");
 var Div = "div";
 var Bad = "bad";
