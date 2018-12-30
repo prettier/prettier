@@ -63,6 +63,7 @@ class D extends C {
 interface X {
   foo(x: number, y: number, ...z: string[]);
 }
+
 function foo(x: number, y: number, ...z: string[]) {}
 var a: string[];
 var z: number[];
@@ -86,18 +87,23 @@ class C {
     this.foo(x, y);
     this.foo(x, y, ...z);
   }
+
   foo(x: number, y: number, ...z: string[]) {}
 }
+
 class D extends C {
   constructor() {
     super(1, 2);
     super(1, 2, ...a);
   }
+
   foo() {
     super.foo(1, 2);
     super.foo(1, 2, ...a);
   }
+
 }
+
 
 ================================================================================
 `;

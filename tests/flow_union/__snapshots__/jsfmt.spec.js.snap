@@ -19,6 +19,7 @@ const myValue = (callcallcallcallcallcall(
   | thre
   | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj);
 
+
 ================================================================================
 `;
 
@@ -65,11 +66,13 @@ interface RelayProps {
     | void
     | 1;
 }
+
 interface RelayProps {
   articles: Array<{
     __id: string
   } | null> | null | void;
 }
+
 export function aPrettyLongFunction(
   aRatherLongParamName: string | null
 ): string {}
@@ -93,6 +96,7 @@ export function aPrettyLongFunctionE(
     __id: string
   } | null> | null | void
 ): string[] {}
+
 
 ================================================================================
 `;

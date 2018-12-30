@@ -215,6 +215,7 @@ const x = \`a long string \${1 +
   3 +
   2 +
   3} with expr\`;
+
 foo(
   \`a long string \${1 +
     2 +
@@ -238,6 +239,7 @@ foo(
     2 +
     3} with expr\`
 );
+
 pipe.write(
   \`\\n  \${chalk.dim(
     \`\\u203A and \${more} more \${more} more \${more} more \${more}\`
@@ -258,6 +260,7 @@ const env = \${JSON.stringify(
   "\\t"
 )});
 \`;
+
 // https://github.com/prettier/prettier/issues/821#issue-210557749
 f(
   \`\${{
@@ -265,6 +268,7 @@ f(
     b: 9
   }}\`
 );
+
 // https://github.com/prettier/prettier/issues/1183#issue-220863505
 const makeBody = (store, assets, html) =>
   \`<!doctype html>\${ReactDOMServer.renderToStaticMarkup(
@@ -290,6 +294,7 @@ const makeBody = (store, assets, html) =>
       ]}
     />
   )}\`;
+
 // https://github.com/prettier/prettier/issues/1626#issue-229655106
 const Bar = styled.div\`
   color: \${props =>
@@ -297,6 +302,7 @@ const Bar = styled.div\`
       ? palette(["text", "dark", "tertiary"])(props)
       : palette(["text", "dark", "primary"])(props)} !important;
 \`;
+
 
 ================================================================================
 `;
@@ -406,6 +412,7 @@ const x = \`a long string \${1 +
   3 +
   2 +
   3} with expr\`;
+
 foo(
   \`a long string \${1 +
     2 +
@@ -429,6 +436,7 @@ foo(
     2 +
     3} with expr\`,
 );
+
 pipe.write(
   \`\\n  \${chalk.dim(
     \`\\u203A and \${more} more \${more} more \${more} more \${more}\`,
@@ -449,6 +457,7 @@ const env = \${JSON.stringify(
   "\\t",
 )});
 \`;
+
 // https://github.com/prettier/prettier/issues/821#issue-210557749
 f(
   \`\${{
@@ -456,6 +465,7 @@ f(
     b: 9,
   }}\`,
 );
+
 // https://github.com/prettier/prettier/issues/1183#issue-220863505
 const makeBody = (store, assets, html) =>
   \`<!doctype html>\${ReactDOMServer.renderToStaticMarkup(
@@ -481,6 +491,7 @@ const makeBody = (store, assets, html) =>
       ]}
     />,
   )}\`;
+
 // https://github.com/prettier/prettier/issues/1626#issue-229655106
 const Bar = styled.div\`
   color: \${props =>
@@ -488,6 +499,7 @@ const Bar = styled.div\`
       ? palette(["text", "dark", "tertiary"])(props)
       : palette(["text", "dark", "primary"])(props)} !important;
 \`;
+
 
 ================================================================================
 `;

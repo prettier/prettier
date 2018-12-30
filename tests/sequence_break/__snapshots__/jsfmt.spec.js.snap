@@ -34,6 +34,7 @@ const f = (argument1, argument2, argument3) => (
     aLongIdentifierName
   );
 });
+
 aLongIdentifierName,
   aLongIdentifierName,
   aLongIdentifierName,
@@ -79,6 +80,7 @@ for (
     : function() {
         return 0;
       });
+
 
 ================================================================================
 `;

@@ -83,6 +83,7 @@ interface FooConstructor {
     h: number
   ): Foo;
 }
+
 interface BarConstructor {
   new <A, B, C>(
     a: number,
@@ -95,6 +96,7 @@ interface BarConstructor {
     h: number
   ): Foo;
 }
+
 type BazConstructor = {
   new (
     a: number,
@@ -107,6 +109,7 @@ type BazConstructor = {
     h: number
   ): Foo;
 };
+
 interface ConstructorBigGenerics {
   // comment
   new <
@@ -124,14 +127,17 @@ interface ConstructorBigGenerics {
     h: number
   ): Foo;
 }
+
 interface ConstructorInline {
   // https://github.com/prettier/prettier/issues/2163
   (i): any;
 }
+
 interface TimerConstructor {
   // Line-splitting comment
   new (interval: number, callback: (handler: Timer) => void): Timer;
 }
+
 
 ================================================================================
 `;

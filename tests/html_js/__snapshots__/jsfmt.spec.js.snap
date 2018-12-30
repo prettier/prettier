@@ -65,6 +65,7 @@ printWidth: 80
   function myFunction() {
     return "foo";
   }
+
 </script>
 
 ================================================================================
@@ -192,7 +193,9 @@ printWidth: 80
                         <p>Text</p>
                     </div>
                 \`;
+
       }
+
     </script>
   </body>
 </html>
@@ -296,14 +299,18 @@ printWidth: 80
     ) {
       this.fullName = firstName + " " + middleInitial + " " + lastName;
     }
+
   }
+
   interface Person {
     firstName: string;
     lastName: string;
   }
+
   function greeter(person: Person) {
     return "Hello, " + person.firstName + " " + person.lastName;
   }
+
   let user = new Student("Jane", "M.", "User");
   document.body.innerHTML = greeter(user);
 </script>
@@ -317,14 +324,18 @@ printWidth: 80
     ) {
       this.fullName = firstName + " " + middleInitial + " " + lastName;
     }
+
   }
+
   interface Person {
     firstName: string;
     lastName: string;
   }
+
   function greeter(person: Person) {
     return "Hello, " + person.firstName + " " + person.lastName;
   }
+
   let user = new Student("Jane", "M.", "User");
   document.body.innerHTML = greeter(user);
 </script>
@@ -338,7 +349,9 @@ printWidth: 80
       this.state = {
         data: []
       };
+
     }
+
     fetchComments() {
       $.ajax({
         url: this.props.url,
@@ -350,11 +363,14 @@ printWidth: 80
           }),
         error: (xhr, status, err) => console.error(status, err)
       });
+
     }
+
     componentDidMount() {
       this.fetchComments();
       setInterval(this.fetchComments.bind(this), this.props.pollInterval);
     }
+
     render() {
       let handleCommentSubmit = (comment: { author: string; text: string }) => {
         console.warn("comment submitted!", comment);
@@ -363,7 +379,9 @@ printWidth: 80
         this.setState({
           data: updated
         });
+
       };
+
       return (
         <div className="commentBox">
           <h1>Comments</h1>
@@ -371,8 +389,11 @@ printWidth: 80
           <CommentForm onCommentSubmit={handleCommentSubmit} />
         </div>
       );
+
     }
+
   }
+
 </script>
 
 ================================================================================

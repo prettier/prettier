@@ -17,6 +17,7 @@ const doBothThings = async () => {
   return (await request)::doSyncThing();
 };
 
+
 ================================================================================
 `;
 
@@ -37,6 +38,7 @@ const doBothThings = async () => {
   const request = doAsyncThing()
   return (await request)::doSyncThing()
 }
+
 
 ================================================================================
 `;
@@ -207,10 +209,13 @@ class X {
     this.testLongNameMethodAndSomethingElseLallala =
       ::this.testLongNameMethodAndSomethingElseLallala;
   }
+
   testLongNameMethodAndSomethingElseLallala() {
     return true;
   }
+
 }
+
 
 ================================================================================
 `;
@@ -237,10 +242,13 @@ class X {
     this.testLongNameMethodAndSomethingElseLallala =
       ::this.testLongNameMethodAndSomethingElseLallala
   }
+
   testLongNameMethodAndSomethingElseLallala() {
     return true
   }
+
 }
+
 
 ================================================================================
 `;
@@ -285,7 +293,9 @@ function test(observable) {
         ::takeUntil(observable::filter(data => someOtherTest))
     )
     ::map(someFunction);
+
 }
+
 
 ================================================================================
 `;
@@ -331,7 +341,9 @@ function test(observable) {
         ::takeUntil(observable::filter(data => someOtherTest))
     )
     ::map(someFunction)
+
 }
+
 
 ================================================================================
 `;
@@ -356,10 +368,13 @@ class X {
   constructor() {
     this.shortMethod = ::this.shortMethod;
   }
+
   shortMethod() {
     return true;
   }
+
 }
+
 
 ================================================================================
 `;
@@ -385,10 +400,13 @@ class X {
   constructor() {
     this.shortMethod = ::this.shortMethod
   }
+
   shortMethod() {
     return true
   }
+
 }
+
 
 ================================================================================
 `;

@@ -21,9 +21,11 @@ function filterOutSmall (arr: Array<?number>): Array<?number> {
 function filterOutVoids<T>(arr: Array<?T>): Array<T> {
   return arr.filter(Boolean);
 }
+
 function filterOutSmall(arr: Array<?number>): Array<?number> {
   return arr.filter(num => num && num > 10);
 }
+
 
 ================================================================================
 `;
@@ -60,9 +62,12 @@ function filterItems(items: Array<string | number>): Array<string | number> {
       } else {
         return item * 10;
       }
+
     })
     .filter(Boolean);
+
 }
+
 const filteredItems = filterItems(["foo", "b", 1, 2]);
 console.log(filteredItems);
 

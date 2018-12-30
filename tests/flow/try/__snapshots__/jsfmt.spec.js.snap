@@ -35,8 +35,11 @@ function foo() {
     if (error.foo === 4) {
       throw error;
     }
+
   }
+
 }
+
 
 ================================================================================
 `;
@@ -210,13 +213,16 @@ function f(b) {
 // for illustrative purposes only - Flow considers a throw possible
 // anywhere within a block
 function might_throw() {}
+
 // local use of annotated var within try is ok
 function f() {
   try {
     var x: number = 0;
     var y: number = x;
   } catch (e) {}
+
 }
+
 // and within catch
 function f() {
   try {
@@ -224,7 +230,9 @@ function f() {
     var x: number = 0;
     var y: number = x;
   }
+
 }
+
 // but not across try/catch
 function f() {
   try {
@@ -232,8 +240,11 @@ function f() {
     var x: number = 0;
   } catch (e) {
     var y: number = x; // error
+
   }
+
 }
+
 // or try/finally
 function f() {
   try {
@@ -241,8 +252,11 @@ function f() {
     var x: number = 0;
   } finally {
     var y: number = x; // error
+
   }
+
 }
+
 // or catch/finally
 function f() {
   try {
@@ -250,8 +264,11 @@ function f() {
     var x: number = 0;
   } finally {
     var y: number = x; // error
+
   }
+
 }
+
 // or try/catch/finally if init doesn't dominate
 function f() {
   try {
@@ -261,28 +278,37 @@ function f() {
     var x: number = 0;
   } finally {
     var y: number = x; // error
+
   }
+
 }
+
 // post-use ok because init dominates here
 function f() {
   try {
     var x: number = 0;
   } catch (e) {
     might_throw(); // ...but if so, suffix is not reached
+
     var x: number = 0;
   }
+
   var y: number = x;
 }
+
 // and here
 function f() {
   try {
   } catch (e) {
   } finally {
     might_throw(); // ...but if so, suffix is not reached
+
     var x: number = 0;
   }
+
   var y: number = x;
 }
+
 // and here
 function f() {
   try {
@@ -290,10 +316,13 @@ function f() {
   } catch (e) {
   } finally {
     might_throw(); // ...but if so, suffix is not reached
+
     x = 0;
   }
+
   var y: number = x;
 }
+
 // and here, thank you JS for the wonder that is hoisting
 function f() {
   try {
@@ -301,32 +330,44 @@ function f() {
     var x: number;
   } finally {
     might_throw(); // ...but if so, suffix is not reached
+
     x = 0;
   }
+
   var y: number = x;
 }
+
 // error if used prior to init
 function f() {
   var y: number = x; // error
+
   try {
     var x: number = 0;
   } catch (e) {}
+
 }
+
 // another non-dominated post
 function f() {
   try {
     var x: number = 0;
   } catch (e) {}
+
   var y: number = x; // error
+
 }
+
 // ditto
 function f() {
   try {
   } catch (e) {
     var x: number = 0;
   }
+
   var y: number = x; // error
+
 }
+
 // ditto
 function f(b) {
   try {
@@ -334,10 +375,14 @@ function f(b) {
     if (b) {
       throw new Error();
     }
+
     x = 0;
   } catch (e) {}
+
   var y: number = x; // error
+
 }
+
 
 ================================================================================
 `;
@@ -423,37 +468,48 @@ function foo(x: ?number): string {
   } catch (e) {
     return "bar";
   }
+
   console.log();
   return "foo";
 }
+
 function bar(): string {
   try {
     return "foo";
   } catch (e) {
     return "bar";
   }
+
 }
+
 function baz(): string {
   try {
     throw new Error("foo");
   } catch (e) {
     return "foo";
   }
+
   return "bar"; // unreachable
+
 }
+
 function qux(): string {
   try {
     throw new Error("foo");
   } catch (e) {}
+
   console.log();
   return "bar";
 }
+
 function quux(): string {
   try {
     return qux();
   } catch (e) {}
+
   return "bar";
 }
+
 function bliffl(): string {
   try {
     throw new Error("foo");
@@ -462,15 +518,20 @@ function bliffl(): string {
   } finally {
     return "bar";
   }
+
 }
+
 function corge(): string {
   try {
     return "foo";
   } catch (e) {
     throw new Error("bar");
   }
+
   bar(); // unreachable
+
 }
+
 
 ================================================================================
 `;
@@ -540,10 +601,14 @@ function foo() {
   } finally {
     y = {};
   }
+
   // here via [try; finally] only.
   x(); // string ~/> function call (no num or bool error)
+
   y(); // object ~/> function call (no uninitialized error)
+
 }
+
 function bar(response) {
   var payload;
   try {
@@ -551,20 +616,26 @@ function bar(response) {
   } catch (e) {
     throw new Error("...");
   }
+
   // here via [try] only.
   if (payload.error) {
     // ok
     // ...
   }
+
 }
+
 function qux() {
   var x = 5;
   try {
     throw -1;
   } finally {
   }
+
   x(); // unreachable
+
 }
+
 
 ================================================================================
 `;

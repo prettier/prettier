@@ -22,6 +22,7 @@ module.exports = 'A';
  * @flow
  */
 (require("./b"): void);
+
 (require("C"): void);
 module.exports = "A";
 
@@ -50,6 +51,7 @@ module.exports = 'B';
  * @flow
  */
 (require("A"): void);
+
 (require("D"): void);
 module.exports = "B";
 
@@ -78,6 +80,7 @@ module.exports = 'C';
  * @flow
  */
 require("Root");
+
 (require("./b"): void);
 module.exports = "C";
 
@@ -105,6 +108,7 @@ module.exports = 'D';
  * @flow
  */
 (require("./b"): void);
+
 module.exports = "D";
 
 ================================================================================
@@ -129,6 +133,7 @@ module.exports = 'Root';
  * @flow
  */
 module.exports = "Root";
+
 
 ================================================================================
 `;

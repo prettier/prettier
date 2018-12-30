@@ -3671,7 +3671,7 @@ function printStatementSequence(path, options, print) {
 
     if (
       options.pure
-        ? false
+        ? willBreak(stmtPrinted)
         : isNextLineEmpty(text, stmt, options) && !isLastStatement(stmtPath)
     ) {
       parts.push(hardline);

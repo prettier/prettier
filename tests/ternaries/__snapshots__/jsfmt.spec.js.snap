@@ -492,6 +492,7 @@ a
                 }
           }
     };
+
 a
   ? {
       a: function() {
@@ -522,6 +523,7 @@ a
                               },
                               {}
                             ];
+
                       }
                     ]
               ]
@@ -582,26 +584,32 @@ a
                                         a: 0
                                       }
                                     ]);
+
                               })(
                                 a
                                   ? function(a) {
                                       return function() {
                                         return 0;
                                       };
+
                                     }
                                   : function(a) {
                                       return function() {
                                         return 1;
                                       };
+
                                     }
                               )
                         );
+
                   }
                 : function() {}
             ];
+
       }
     }
   : a;
+
 
 ================================================================================
 `;
@@ -819,6 +827,7 @@ a
                           }
                 }
       };
+
 a
     ? {
           a: function() {
@@ -849,6 +858,7 @@ a
                                                     },
                                                     {}
                                                 ];
+
                                       }
                                   ]
                         ]
@@ -909,26 +919,32 @@ a
                                                                     a: 0
                                                                 }
                                                             ]);
+
                                                   })(
                                                       a
                                                           ? function(a) {
                                                                 return function() {
                                                                     return 0;
                                                                 };
+
                                                             }
                                                           : function(a) {
                                                                 return function() {
                                                                     return 1;
                                                                 };
+
                                                             }
                                                   )
                                         );
+
                               }
                             : function() {}
                     ];
+
           }
       }
     : a;
+
 
 ================================================================================
 `;
@@ -1146,6 +1162,7 @@ a
 							  }
 				  }
 	  };
+
 a
 	? {
 			a: function() {
@@ -1176,6 +1193,7 @@ a
 															},
 															{}
 													  ];
+
 											}
 									  ]
 							]
@@ -1236,26 +1254,32 @@ a
 																				a: 0
 																			}
 																	  ]);
+
 														  })(
 																a
 																	? function(a) {
 																			return function() {
 																				return 0;
 																			};
+
 																	  }
 																	: function(a) {
 																			return function() {
 																				return 1;
 																			};
+
 																	  }
 														  )
 											  );
+
 								  }
 								: function() {}
 					  ];
+
 			}
 	  }
 	: a;
+
 
 ================================================================================
 `;
@@ -1474,6 +1498,7 @@ a
 							  }
 				  }
 	  };
+
 a
 	? {
 			a: function() {
@@ -1504,6 +1529,7 @@ a
 															},
 															{}
 													  ];
+
 											}
 									  ]
 							]
@@ -1564,6 +1590,7 @@ a
 																				a: 0
 																			}
 																	  ]);
+
 														  })(
 																a
 																	? function(
@@ -1572,6 +1599,7 @@ a
 																			return function() {
 																				return 0;
 																			};
+
 																	  }
 																	: function(
 																			a
@@ -1579,15 +1607,19 @@ a
 																			return function() {
 																				return 1;
 																			};
+
 																	  }
 														  )
 											  );
+
 								  }
 								: function() {}
 					  ];
+
 			}
 	  }
 	: a;
+
 
 ================================================================================
 `;
@@ -1725,6 +1757,7 @@ const StorybookLoader = ({ match }) =>
       </Content>
     </Message>
   );
+
 const message =
   i % 3 === 0 && i % 5 === 0
     ? "fizzbuzz"
@@ -1753,6 +1786,7 @@ const paymentMessage =
     : true //state == 'invalid_expiry'
     ? 4 //'Expiry must be sometime in the past.'
     : 5; // 'There was an issue with the payment.  Please contact support.'
+
 const foo = (
   <div
     className={
@@ -1784,6 +1818,7 @@ a
     }
   ? line
   : softline;
+
 
 ================================================================================
 `;
@@ -1922,6 +1957,7 @@ const StorybookLoader = ({ match }) =>
             </Content>
         </Message>
     );
+
 const message =
     i % 3 === 0 && i % 5 === 0
         ? "fizzbuzz"
@@ -1950,6 +1986,7 @@ const paymentMessage =
         : true //state == 'invalid_expiry'
         ? 4 //'Expiry must be sometime in the past.'
         : 5; // 'There was an issue with the payment.  Please contact support.'
+
 const foo = (
     <div
         className={
@@ -1981,6 +2018,7 @@ a
       }
     ? line
     : softline;
+
 
 ================================================================================
 `;
@@ -2119,6 +2157,7 @@ const StorybookLoader = ({ match }) =>
 			</Content>
 		</Message>
 	);
+
 const message =
 	i % 3 === 0 && i % 5 === 0
 		? "fizzbuzz"
@@ -2147,6 +2186,7 @@ const paymentMessage =
 		: true //state == 'invalid_expiry'
 		? 4 //'Expiry must be sometime in the past.'
 		: 5; // 'There was an issue with the payment.  Please contact support.'
+
 const foo = (
 	<div
 		className={
@@ -2178,6 +2218,7 @@ a
 	  }
 	? line
 	: softline;
+
 
 ================================================================================
 `;
@@ -2317,6 +2358,7 @@ const StorybookLoader = ({ match }) =>
 			</Content>
 		</Message>
 	);
+
 const message =
 	i % 3 === 0 && i % 5 === 0
 		? "fizzbuzz"
@@ -2345,6 +2387,7 @@ const paymentMessage =
 		: true //state == 'invalid_expiry'
 		? 4 //'Expiry must be sometime in the past.'
 		: 5; // 'There was an issue with the payment.  Please contact support.'
+
 const foo = (
 	<div
 		className={
@@ -2377,6 +2420,7 @@ a
 	? line
 	: softline;
 
+
 ================================================================================
 `;
 
@@ -2408,6 +2452,7 @@ a =>
     : () => {
         a;
       };
+
 a => (a ? a : a);
 a =>
   a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
@@ -2444,6 +2489,7 @@ a =>
         : () => {
               a;
           };
+
 a => (a ? a : a);
 a =>
     a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
@@ -2480,6 +2526,7 @@ a =>
 		: () => {
 				a;
 		  };
+
 a => (a ? a : a);
 a =>
 	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
@@ -2517,6 +2564,7 @@ a =>
 		: () => {
 				a;
 		  };
+
 a => (a ? a : a);
 a =>
 	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
@@ -2552,6 +2600,7 @@ const obj1 = conditionIsTruthy
       stuff
     }
   : shortThing;
+
 const obj2 = conditionIsTruthy
   ? shortThing
   : {
@@ -2560,6 +2609,7 @@ const obj2 = conditionIsTruthy
       lots: "of",
       stuff
     };
+
 const obj3 = conditionIsTruthy
   ? {
       some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
@@ -2568,6 +2618,7 @@ const obj3 = conditionIsTruthy
       stuff
     }
   : shortThing;
+
 const obj4 = conditionIsTruthy
   ? shortThing
   : {
@@ -2576,6 +2627,7 @@ const obj4 = conditionIsTruthy
       lots: "of",
       stuff
     };
+
 const obj5 = conditionIsTruthy
   ? {
       some: "long",
@@ -2589,6 +2641,7 @@ const obj5 = conditionIsTruthy
       lots: "of",
       stuff
     };
+
 
 ================================================================================
 `;
@@ -2622,6 +2675,7 @@ const obj1 = conditionIsTruthy
           stuff
       }
     : shortThing;
+
 const obj2 = conditionIsTruthy
     ? shortThing
     : {
@@ -2630,6 +2684,7 @@ const obj2 = conditionIsTruthy
           lots: "of",
           stuff
       };
+
 const obj3 = conditionIsTruthy
     ? {
           some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
@@ -2638,6 +2693,7 @@ const obj3 = conditionIsTruthy
           stuff
       }
     : shortThing;
+
 const obj4 = conditionIsTruthy
     ? shortThing
     : {
@@ -2646,6 +2702,7 @@ const obj4 = conditionIsTruthy
           lots: "of",
           stuff
       };
+
 const obj5 = conditionIsTruthy
     ? {
           some: "long",
@@ -2659,6 +2716,7 @@ const obj5 = conditionIsTruthy
           lots: "of",
           stuff
       };
+
 
 ================================================================================
 `;
@@ -2692,6 +2750,7 @@ const obj1 = conditionIsTruthy
 			stuff
 	  }
 	: shortThing;
+
 const obj2 = conditionIsTruthy
 	? shortThing
 	: {
@@ -2700,6 +2759,7 @@ const obj2 = conditionIsTruthy
 			lots: "of",
 			stuff
 	  };
+
 const obj3 = conditionIsTruthy
 	? {
 			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
@@ -2708,6 +2768,7 @@ const obj3 = conditionIsTruthy
 			stuff
 	  }
 	: shortThing;
+
 const obj4 = conditionIsTruthy
 	? shortThing
 	: {
@@ -2716,6 +2777,7 @@ const obj4 = conditionIsTruthy
 			lots: "of",
 			stuff
 	  };
+
 const obj5 = conditionIsTruthy
 	? {
 			some: "long",
@@ -2729,6 +2791,7 @@ const obj5 = conditionIsTruthy
 			lots: "of",
 			stuff
 	  };
+
 
 ================================================================================
 `;
@@ -2763,6 +2826,7 @@ const obj1 = conditionIsTruthy
 			stuff
 	  }
 	: shortThing;
+
 const obj2 = conditionIsTruthy
 	? shortThing
 	: {
@@ -2771,6 +2835,7 @@ const obj2 = conditionIsTruthy
 			lots: "of",
 			stuff
 	  };
+
 const obj3 = conditionIsTruthy
 	? {
 			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
@@ -2779,6 +2844,7 @@ const obj3 = conditionIsTruthy
 			stuff
 	  }
 	: shortThing;
+
 const obj4 = conditionIsTruthy
 	? shortThing
 	: {
@@ -2787,6 +2853,7 @@ const obj4 = conditionIsTruthy
 			lots: "of",
 			stuff
 	  };
+
 const obj5 = conditionIsTruthy
 	? {
 			some: "long",
@@ -2800,6 +2867,7 @@ const obj5 = conditionIsTruthy
 			lots: "of",
 			stuff
 	  };
+
 
 ================================================================================
 `;

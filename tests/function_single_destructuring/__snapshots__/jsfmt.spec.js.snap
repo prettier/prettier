@@ -47,6 +47,7 @@ function excludeFirstFiveResults([
 ]) {
   return rest;
 }
+
 function excludeFirstFiveResults([
   first,
   second,
@@ -57,6 +58,7 @@ function excludeFirstFiveResults([
 ] = DEFAULT_FIVE_RESULTS) {
   return rest;
 }
+
 function excludeFirstFiveResults(
   [
     firstResult,
@@ -69,6 +71,7 @@ function excludeFirstFiveResults(
 ) {
   return rest;
 }
+
 function excludeFirstFiveResults([
   first,
   second,
@@ -79,6 +82,7 @@ function excludeFirstFiveResults([
 ]: Result[]) {
   return rest;
 }
+
 const excludeFirstFiveResults = ([
   first,
   second,
@@ -89,6 +93,7 @@ const excludeFirstFiveResults = ([
 ]) => {
   return rest;
 };
+
 class A {
   excludeFirstFiveResults([
     first,
@@ -100,7 +105,9 @@ class A {
   ]) {
     return restOfResults;
   }
+
 }
+
 promise.then(
   ([
     firstResult,
@@ -113,6 +120,7 @@ promise.then(
     return rest;
   }
 );
+
 
 ================================================================================
 `;
@@ -245,6 +253,7 @@ function StatelessFunctionalComponent({
 }) {
   return <div />;
 }
+
 function StatelessFunctionalComponent({
   isActive = true,
   onFiltersUpdated = () => null,
@@ -257,6 +266,7 @@ function StatelessFunctionalComponent({
 } = {}) {
   return <div />;
 }
+
 function StatelessFunctionalComponent(
   {
     isActive,
@@ -273,6 +283,7 @@ function StatelessFunctionalComponent(
 ) {
   return <div />;
 }
+
 function StatelessFunctionalComponent({
   isActive,
   onFiltersUpdated,
@@ -285,6 +296,7 @@ function StatelessFunctionalComponent({
 }: MyType | null | void) {
   return <div />;
 }
+
 const StatelessFunctionalComponent = ({
   isActive,
   onFiltersUpdated,
@@ -306,6 +318,7 @@ const StatelessFunctionalComponent = ({
 }) => {
   return <div />;
 };
+
 class C {
   StatelessFunctionalComponent({
     isActive,
@@ -319,7 +332,9 @@ class C {
   }) {
     return <div />;
   }
+
 }
+
 type T = ({
   isActive: number,
   onFiltersUpdated: number,
@@ -330,6 +345,7 @@ type T = ({
   title: number,
   items: number
 }) => void;
+
 const X = (props: { a: boolean }) => <A />;
 
 ================================================================================

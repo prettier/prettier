@@ -23,7 +23,9 @@ abstract class AbstractRule {
    * This method now does nothing.
    */
   filterFailures() {}
+
 }
+
 
 ================================================================================
 `;
@@ -101,6 +103,7 @@ function x({
   // Yoyo.
   y: string;
 }) {}
+
 export interface ApplicationEventData {
   registerBroadcastReceiver(
     onReceiveCallback: (
@@ -109,6 +112,7 @@ export interface ApplicationEventData {
     ) => void
   ): void;
 }
+
 export type WrappedFormUtils = {
   getFieldDecorator(
     id: string,
@@ -130,6 +134,7 @@ export type WrappedFormUtils = {
     }
   ): (node: React.ReactNode) => React.ReactNode;
 };
+
 
 ================================================================================
 `;
@@ -174,19 +179,23 @@ type A = {
   // commentA
   [a in A]: string
 };
+
 type B = {
   /* commentB */
   [b in B]: string
 };
+
 type C = {
   [/* commentC */
   c in C]: string
 };
+
 type D = { [d /* commentD */ in D]: string };
 type E = {
   [e in /* commentE */
   E]: string
 };
+
 type F = { [f in F /* commentF */]: string };
 type G = { [g in G /* commentG */]: string };
 
@@ -252,10 +261,12 @@ export class Point {
    * Does something.
    */
   foo() {}
+
   /**
    * Does something else.
    */
   bar() {}
+
   /**
    * Does
    * something
@@ -266,11 +277,13 @@ export class Point {
    * rest.
    */
   baz() {}
+
   /**
    * Buzz-Fizz.
    * Note: This is indented too far.
    */
   fizzBuzz() {}
+
   /**
    * Turns the given string into pig-latin.
    */
@@ -279,6 +292,7 @@ export class Point {
      * This is a block comment inside of a method.
      */
   }
+
   /**
    * One
    * Two
@@ -286,7 +300,9 @@ export class Point {
    * Four
    */
   mismatchedIndentation() {}
+
 }
+
 
 ================================================================================
 `;
@@ -319,6 +335,7 @@ printWidth: 80
 (() => {
   // swallow error and fallback to using directory as path
 }) as string[];
+
 
 ================================================================================
 `;

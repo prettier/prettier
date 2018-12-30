@@ -13,5 +13,6 @@ declare function foo(x: number): Array;
 // @flow
 declare function foo(x: number): Array;
 
+
 ================================================================================
 `;

@@ -68,11 +68,14 @@ class MyElement extends LitElement {
         type: String
       }
     };
+
   }
+
   constructor() {
     super();
     this.mood = "happy";
   }
+
   render() {
     return html\`
       <style>
@@ -83,26 +86,34 @@ class MyElement extends LitElement {
 
       Web Components are <span class="mood">\${this.mood}</span>!
     \`;
+
   }
+
 }
+
 customElements.define("my-element", MyElement);
 const someHtml1 = html\`
   <div>hello \${world}</div>
 \`;
+
 const someHtml2 = /* HTML */
 \`
   <div>hello \${world}</div>
 \`;
+
 html\`\`;
 html\`
   <my-element obj=\${obj}></my-element>
 \`;
+
 html\`
   <\${Footer}>footer content<//>
 \`;
+
 html\`
   <div />
 \`;
+
 
 ================================================================================
 `;

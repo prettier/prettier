@@ -18,6 +18,7 @@ var o2: {} = c;
 class C {
   foo: string;
 }
+
 var c: C;
 var r = c.toString();
 var r2 = c.hasOwnProperty("");
@@ -70,9 +71,11 @@ class C {
   thing() {}
   static other() {}
 }
+
 class D extends C {
   bar: string;
 }
+
 var d: D;
 var r = d.foo;
 var r2 = d.bar;
@@ -83,9 +86,11 @@ class C2<T> {
   thing(x: T) {}
   static other<T>(x: T) {}
 }
+
 class D2<T> extends C2<T> {
   bar: string;
 }
+
 var d2: D2<string>;
 var r5 = d2.foo;
 var r6 = d2.bar;
@@ -116,21 +121,27 @@ class E2<T> extends D2<T> { baz: T; }
 class C extends E {
   foo: string;
 } // error
+
 class D extends C {
   bar: string;
 }
+
 class E extends D {
   baz: number;
 }
+
 class C2<T> extends E2<T> {
   foo: T;
 } // error
+
 class D2<T> extends C2<T> {
   bar: T;
 }
+
 class E2<T> extends D2<T> {
   baz: T;
 }
+
 
 ================================================================================
 `;
@@ -153,9 +164,11 @@ class Derived extends Base<string> {
 class Base<T> {
   foo: T;
 }
+
 class Derived extends Base<string> {
   foo: any;
 }
+
 
 ================================================================================
 `;

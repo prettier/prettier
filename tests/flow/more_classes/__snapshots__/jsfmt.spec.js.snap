@@ -30,6 +30,7 @@ module.exports = Bar;
 =====================================output=====================================
 /* @providesModule Bar */
 var Qux = require("Qux");
+
 class Bar {
   y: number;
   self: Bar;
@@ -37,11 +38,14 @@ class Bar {
     this.y = y;
     this.self = this;
   }
+
   bar(z: string, u: string): string {
     new Qux().w = "?";
     return z;
   }
+
 }
+
 module.exports = Bar;
 
 ================================================================================
@@ -83,12 +87,14 @@ module.exports = Foo;
 =====================================output=====================================
 /* @providesModule Foo */
 var Bar = require("Bar");
+
 var Qux = require("Qux");
 class Foo extends Qux {
   x: string;
   constructor(x: string) {
     this.x = x;
   }
+
   foo(y: string, z): number {
     this.x = y;
     var u = new Foo("...").qux();
@@ -96,10 +102,13 @@ class Foo extends Qux {
     v.self = v;
     return v.bar(z, u);
   }
+
   fooqux(x: string) {
     this.x;
   }
+
 }
+
 module.exports = Foo;
 
 ================================================================================
@@ -131,8 +140,10 @@ class Qux {
   qux() {
     return this.w;
   }
+
   fooqux(x: number) {}
 }
+
 module.exports = Qux;
 
 ================================================================================

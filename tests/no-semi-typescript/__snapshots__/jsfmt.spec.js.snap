@@ -24,8 +24,10 @@ class A {
   // none of the semicolons above this comment can be omitted.
   // none of the semicolons below this comment are necessary.
   bar: A;
+
   private [baz];
 }
+
 
 ================================================================================
 `;
@@ -55,8 +57,10 @@ class A {
   // none of the semicolons above this comment can be omitted.
   // none of the semicolons below this comment are necessary.
   bar: A
+
   private [baz]
 }
+
 
 ================================================================================
 `;
@@ -74,6 +78,7 @@ const el = ReactDOM.findDOMNode(ref)
 =====================================output=====================================
 // the 2nd line needs ASI protection
 const el = ReactDOM.findDOMNode(ref);
+
 (el as HTMLElement)!.style.cursor = "pointer";
 
 ================================================================================
@@ -93,6 +98,7 @@ const el = ReactDOM.findDOMNode(ref)
 =====================================output=====================================
 // the 2nd line needs ASI protection
 const el = ReactDOM.findDOMNode(ref)
+
 ;(el as HTMLElement)!.style.cursor = "pointer"
 
 ================================================================================

@@ -115,6 +115,7 @@ type T7 =
       eventName: "line",
       g: number
     };
+
 type Comment =
   | {
       type: "CommentLine",
@@ -150,6 +151,7 @@ type Comment =
       },
       start: number
     };
+
 type Props = {
   onChange: (
     | {
@@ -163,6 +165,7 @@ type Props = {
       }
   ) => void
 };
+
 declare class FormData {
   append(
     options?:
@@ -173,6 +176,7 @@ declare class FormData {
         }
   ): void;
 }
+
 
 ================================================================================
 `;

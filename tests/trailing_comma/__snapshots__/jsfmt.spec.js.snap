@@ -43,6 +43,7 @@ function send_single_email(
   return "nothing";
 }
 
+
 ================================================================================
 `;
 
@@ -90,6 +91,7 @@ function send_single_email(
   return "nothing";
 }
 
+
 ================================================================================
 `;
 
@@ -136,6 +138,7 @@ function send_single_email(
   );
   return "nothing";
 }
+
 
 ================================================================================
 `;
@@ -294,6 +297,7 @@ printWidth: 80
   }
 />;
 
+
 ================================================================================
 `;
 
@@ -321,6 +325,7 @@ trailingComma: "all"
   }
 />;
 
+
 ================================================================================
 `;
 
@@ -347,6 +352,7 @@ trailingComma: "es5"
     })
   }
 />;
+
 
 ================================================================================
 `;
@@ -387,6 +393,7 @@ const a = {
   },
   d: false
 };
+
 const aLong = {
   bHasALongName: "a-long-value",
   cHasALongName: {
@@ -395,10 +402,12 @@ const aLong = {
   },
   dHasALongName: "a-long-value-too"
 };
+
 const aLong = {
   dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a
 };
+
 
 ================================================================================
 `;
@@ -440,6 +449,7 @@ const a = {
   },
   d: false,
 };
+
 const aLong = {
   bHasALongName: "a-long-value",
   cHasALongName: {
@@ -448,10 +458,12 @@ const aLong = {
   },
   dHasALongName: "a-long-value-too",
 };
+
 const aLong = {
   dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a,
 };
+
 
 ================================================================================
 `;
@@ -493,6 +505,7 @@ const a = {
   },
   d: false,
 };
+
 const aLong = {
   bHasALongName: "a-long-value",
   cHasALongName: {
@@ -501,10 +514,12 @@ const aLong = {
   },
   dHasALongName: "a-long-value-too",
 };
+
 const aLong = {
   dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a,
 };
+
 
 ================================================================================
 `;
@@ -564,35 +579,43 @@ let example = [
   "FOO",
   "BAR" // Comment
 ];
+
 foo(
   {} // Comment
 );
+
 o = {
   state // Comment
 };
+
 o = {
   state // Comment
 };
+
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB // Comment
 ) {
   a;
 }
+
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB // Comment
 ) {
   a;
 }
+
 this.getAttribute(function(s) /*string*/
 {
   console.log();
 });
+
 this.getAttribute(function(s) /*string*/
 {
   console.log();
 });
+
 
 ================================================================================
 `;
@@ -653,35 +676,43 @@ let example = [
   "FOO",
   "BAR", // Comment
 ];
+
 foo(
   {}, // Comment
 );
+
 o = {
   state, // Comment
 };
+
 o = {
   state, // Comment
 };
+
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB, // Comment
 ) {
   a;
 }
+
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB, // Comment
 ) {
   a;
 }
+
 this.getAttribute(function(s) /*string*/
 {
   console.log();
 });
+
 this.getAttribute(function(s) /*string*/
 {
   console.log();
 });
+
 
 ================================================================================
 `;
@@ -742,35 +773,43 @@ let example = [
   "FOO",
   "BAR", // Comment
 ];
+
 foo(
   {} // Comment
 );
+
 o = {
   state, // Comment
 };
+
 o = {
   state, // Comment
 };
+
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB // Comment
 ) {
   a;
 }
+
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB // Comment
 ) {
   a;
 }
+
 this.getAttribute(function(s) /*string*/
 {
   console.log();
 });
+
 this.getAttribute(function(s) /*string*/
 {
   console.log();
 });
+
 
 ================================================================================
 `;

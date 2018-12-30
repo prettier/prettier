@@ -23,11 +23,13 @@ module.exports = AudienceInsightsContainer;
  * @providesModule ArityError.react
  */
 var React = require("react");
+
 var AudienceInsightsContainer = React.createClass({
   renderComponent(AudienceInsights: ReactClass<*>) {
     return <AudienceInsights />;
   }
 });
+
 module.exports = AudienceInsightsContainer;
 
 ================================================================================
@@ -229,28 +231,37 @@ const A = React.createClass({
   },
   m() {
     (this.props.foo: empty); // error: string ~> empty
+
     (this.props.bar: empty); // error: number ~> empty
+
   }
 });
+
 const B = React.createClass({
   p: "",
   m() {
     this.p = 0; // error: number ~> string
+
   },
   mm() {
     this.m.apply(null); // OK: this.m is autobound, so \`this.p\` will always be found
+
   }
 });
+
 const C = React.createClass({
   getInitialState(): Object {
     return {
       foo: 0
     };
+
   },
   m() {
     this.state.foo; // OK: state is unknown
+
   }
 });
+
 const D = React.createClass({
   mixins: [
     {
@@ -258,6 +269,7 @@ const D = React.createClass({
         return {
           foo: 0
         };
+
       }
     }
   ],
@@ -265,15 +277,19 @@ const D = React.createClass({
     return {
       bar: 0
     };
+
   },
   m() {
     this.state.foo; // OK: state is unknown (due to unknown mixin)
+
   }
 });
+
 const E = React.createClass({
   foo: 0,
   m() {
     (this.foo: string); // error: number ~> string
+
   },
   mm() {
     var props: {
@@ -281,45 +297,58 @@ const E = React.createClass({
     } = {
       m: this.m
     };
+
     props.m(); // OK: this.m is autobound, so \`this.foo\` will always be found
+
   }
 });
+
 const F = React.createClass({
   getInitialState(): { [string]: mixed } {
     return {
       foo: 0
     };
+
   },
   m() {
     this.state.foo;
     this.state.bar;
   }
 });
+
 const G = React.createClass({
   mixins: [],
   autobind: true,
   statics: {},
   m() {
     (this.mixins: mixed); // error: property \`mixins\` not found
+
     (this.autobind: mixed); // error: property \`autobind\` not found
+
     (this.statics: mixed); // error: property \`statics\` not found
+
   }
 });
+
 const H = React.createClass({
   statics: {
     q: 0
   },
   getDefaultProps() {
     (this.q: empty); // error: number ~> empty
+
     return {};
   }
 });
+
 const I = React.createClass({
   propTypes: ({}: { [string]: any }),
   m() {
     (this.props.foo: empty); // OK
+
   }
 });
+
 const J = React.createClass({
   mixins: [
     {
@@ -333,28 +362,36 @@ const J = React.createClass({
       return {
         foo: 0
       };
+
     }
   },
   m() {
     (this.state.foo: empty); // number ~> empty
+
   }
 });
+
 const K = React.createClass({
   propTypes: {
     foo: React.PropTypes.string.isRequired
   },
   getInitialState() {
     this.mm(); // cause error in mm below
+
     return this.props;
   },
   m() {
     (this.props.foo: empty); // string ~> empty
+
     (this.state.foo: empty); // string ~> empty
+
   },
   mm() {
     this.state.foo; // error: property fo not found (called by getInitialState)
+
   }
 });
+
 const L = React.createClass({
   propTypes: {
     foo: React.PropTypes.string.isRequired
@@ -363,49 +400,78 @@ const L = React.createClass({
     return {
       bar: 0
     };
+
   },
   componentWillMount() {
     (this.props.foo: empty); // string ~> empty
+
     return 0; // number ~> void
+
   },
   componentDidMount() {
     (this.props.foo: empty); // string ~> empty
+
     return 0; // number ~> void
+
   },
   componentWillReceiveProps(nextProps) {
     (this.props.foo: empty); // string ~> empty
+
     (nextProps.foo: empty); // string ~> empty
+
     return 0; // number ~> void
+
   },
   shouldComponentUpdate(nextProps, nextState) {
     (this.props.foo: empty); // string ~> empty
+
     (this.state.bar: empty); // number ~> empty
+
     (nextProps.foo: empty); // string ~> empty
+
     (nextState.bar: empty); // number ~> empty
+
     return 0; // number ~> bool
+
   },
   componentWillUpdate(nextProps, nextState) {
     (this.props.foo: empty); // string ~> empty
+
     (this.state.bar: empty); // number ~> empty
+
     (nextProps.foo: empty); // string ~> empty
+
     (nextState.bar: empty); // number ~> empty
+
     return 0; // number ~> void
+
   },
   componentDidUpdate(nextProps, nextState) {
     (this.props.foo: empty); // string ~> empty
+
     (this.state.bar: empty); // number ~> empty
+
     (nextProps.foo: empty); // string ~> empty
+
     (nextState.bar: empty); // number ~> empty
+
     return 0; // number ~> void
+
   },
   componentWillUnmount() {
     (this.props.foo: empty); // string ~> empty
+
     (this.state.bar: empty); // number ~> empty
+
     return 0; // number ~> void
+
   }
 });
+
 React.createClass({}); // error: spec must be [x] exact and [ ] sealed
+
 React.createClass(({}: {})); // error: spec must be [ ] exact and [x] sealed
+
 
 ================================================================================
 `;
@@ -511,27 +577,34 @@ React.createClass({
     this.setState({
       q: 0
     });
+
   },
   g() {
     (this.state.q: empty); // number ~> empty
+
   }
 });
+
 // initial state = Some (exact & sealed) [lit]
 React.createClass({
   getInitialState() {
     return {
       p: 0
     };
+
   },
   f() {
     this.setState({
       q: 0
     });
+
   },
   g() {
     (this.state.q: empty); // number ~> empty
+
   }
 });
+
 // initial state = Some (exact & sealed) [annot]
 React.createClass({
   getInitialState(): {|
@@ -540,16 +613,20 @@ React.createClass({
     return {
       p: 0
     };
+
   },
   f() {
     this.setState({
       q: 0
     });
+
   },
   g() {
     (this.state.q: empty); // number ~> empty
+
   }
 });
+
 // initial state = Some (inexact & sealed) [annot]
 React.createClass({
   getInitialState(): {
@@ -558,16 +635,20 @@ React.createClass({
     return {
       p: 0
     };
+
   },
   f() {
     this.setState({
       q: 0
     }); // property \`q\` not found
+
   },
   g() {
     (this.state.q: empty); // property \`q\` not found
+
   }
 });
+
 // mixins = (exact & sealed) + (exact & sealed)
 React.createClass({
   mixins: [
@@ -576,6 +657,7 @@ React.createClass({
         return {
           foo: 0
         };
+
       }
     }
   ],
@@ -583,16 +665,20 @@ React.createClass({
     return {
       bar: 0
     };
+
   },
   f() {
     this.setState({
       baz: 0
     });
+
   },
   g() {
     (this.state.baz: empty); // number ~> empty
+
   }
 });
+
 // mixins = (exact & sealed) + (inexact & sealed)
 React.createClass({
   mixins: [
@@ -603,6 +689,7 @@ React.createClass({
         return {
           foo: 0
         };
+
       }
     }
   ],
@@ -610,16 +697,20 @@ React.createClass({
     return {
       bar: 0
     };
+
   },
   f() {
     this.setState({
       baz: 0
     }); // property \`baz\`  not found
+
   },
   g() {
     (this.state.baz: empty); // property \`baz\` not found
+
   }
 });
+
 
 ================================================================================
 `;
@@ -691,7 +782,9 @@ import React from "react";
 const A = React.createClass({
   p: 0
 });
+
 (A.bar: empty); // number ~> empty (inflow below)
+
 A.bar = 0;
 // statics = Some (exact & sealed) [lit]
 const B = React.createClass({
@@ -699,8 +792,11 @@ const B = React.createClass({
     foo: 0
   }
 });
+
 (B.foo: empty); // number ~> empty
+
 (B.bar: empty); // number ~> empty (inflow below)
+
 B.bar = 0;
 // statics = Some (exact & sealed) [annot]
 const C = React.createClass({
@@ -710,8 +806,11 @@ const C = React.createClass({
     foo: number
   |})
 });
+
 (C.foo: empty); // number ~> empty
+
 (C.bar: empty); // number ~> empty (inflow below)
+
 C.bar = 0;
 // statics = Some (inexact & sealed) [annot]
 const D = React.createClass({
@@ -721,9 +820,13 @@ const D = React.createClass({
     foo: number
   })
 });
+
 (D.foo: empty); // number ~> empty
+
 (D.bar: empty); // property \`bar\` not found
+
 D.bar = 0; // property \`bar\` not found
+
 // mixins: (exact & sealed) + (exact & sealed)
 const E = React.createClass({
   mixins: [
@@ -737,9 +840,13 @@ const E = React.createClass({
     bar: 0
   }
 });
+
 (E.foo: empty); // number ~> empty
+
 (E.bar: empty); // number ~> empty
+
 (E.baz: empty); // number ~> empty (inflow below)
+
 E.baz = 0;
 // mixins: (exact & sealed) + (inexact & sealed)
 const F = React.createClass({
@@ -756,9 +863,13 @@ const F = React.createClass({
     bar: 0
   }
 });
+
 (F.foo: empty); // number ~> empty
+
 (F.bar: empty); // number ~> empty
+
 (F.baz: empty); // number ~> empty (inflow below)
+
 F.baz = 0;
 
 ================================================================================
@@ -785,13 +896,16 @@ class Foo extends React.Component {
 =====================================output=====================================
 // @flow
 import React from "react";
+
 class Bar extends React.Component {}
 class Foo extends React.Component {
   render() {
     const Cmp = Math.random() < 0.5 ? "div" : Bar;
     return <Cmp />;
   }
+
 }
+
 
 ================================================================================
 `;
@@ -828,20 +942,26 @@ class Foo extends React.Component {
 =====================================output=====================================
 // @flow
 import React from "react";
+
 class Bar extends React.Component {
   props: {
     test: number
   };
+
   render() {
     return <div>{this.props.test}</div>;
   }
+
 }
+
 class Foo extends React.Component {
   render() {
     const Cmp = Math.random() < 0.5 ? "div" : Bar;
     return <Cmp />;
   }
+
 }
+
 
 ================================================================================
 `;
@@ -863,9 +983,11 @@ var b: number = new react.Component(); // Error: ReactComponent ~> number
 =====================================output=====================================
 /* @flow */
 import react from "react";
+
 import { Component } from "react";
 var a: Component<*, *, *> = new react.Component();
 var b: number = new react.Component(); // Error: ReactComponent ~> number
+
 
 ================================================================================
 `;
@@ -891,15 +1013,19 @@ var blah = <Foo {...props} />; // error bar, number given string expected
 =====================================output=====================================
 /* @flow */
 var React = require("react");
+
 var Foo = React.createClass({
   propTypes: {
     bar: React.PropTypes.string.isRequired
   }
 });
+
 var props = {
   bar: 42
 };
+
 var blah = <Foo {...props} />; // error bar, number given string expected
+
 
 ================================================================================
 `;
@@ -937,15 +1063,21 @@ var AnyExample = React.createClass({
     foo: (0: any) // OK
   }
 });
+
 <AnyExample />; // OK
+
 <AnyExample foo={(0: mixed)} />; // OK
+
 var AnyFunExample = React.createClass({
   propTypes: {
     foo: (() => {}: Function) // OK
   }
 });
+
 <AnyFunExample />; // OK
+
 <AnyFunExample foo={(0: mixed)} />; // OK
+
 
 ================================================================================
 `;
@@ -1005,11 +1137,13 @@ var InvalidExample = React.createClass({
 =====================================output=====================================
 /* @flow */
 var React = require("react");
+
 var Example = React.createClass({
   propTypes: {
     arr: React.PropTypes.arrayOf(React.PropTypes.number).isRequired
   }
 });
+
 var ok_empty = <Example arr={[]} />;
 var ok_numbers = <Example arr={[1, 2]} />;
 var fail_missing = <Example />;
@@ -1019,26 +1153,35 @@ var fail_mistyped_elems = <Example arr={[1, "foo"]} />;
    allow \`null\` and \`undefined\` elements in the \`arr\` prop, but Flow has
    currently ignores the innter prop type's required flag. */
 var todo_required = <Example arr={[null]} />;
+
 var OptionalExample = React.createClass({
   propTypes: {
     arr: React.PropTypes.arrayOf(React.PropTypes.number)
   }
 });
+
 <OptionalExample />; // OK
+
 <OptionalExample arr={[0]} />; // OK
+
 <OptionalExample arr={[""]} />; // error: string ~> number
+
 var AnyExample = React.createClass({
   propTypes: {
     arr: React.PropTypes.arrayOf((0: any)) // OK
   }
 });
+
 <AnyExample arr={0} />; // error: still needs to be an array
+
 <AnyExample arr={[0]} />; // OK
+
 var InvalidExample = React.createClass({
   propTypes: {
     arr: React.PropTypes.arrayOf(0) // error: number not a prop type
   }
 });
+
 
 ================================================================================
 `;
@@ -1075,15 +1218,22 @@ var Example = React.createClass({
   propTypes: {
     foo(props, propName, componentName, href) {
       (props: empty); // ok: props is \`any\`
+
       (propName: empty); // error: propName is a string
+
       (componentName: empty); // error: componentName is a string
+
       (href: empty); // error: href is an optional string
+
       return (0: mixed); // error: should return ?Error
+
     }
   }
 });
+
 // Inferred prop type is optional \`any\`
 <Example />;
+
 <Example foo={(0: mixed)} />;
 
 ================================================================================
@@ -1113,11 +1263,13 @@ var fail_mistyped = <Example func={2} />
 =====================================output=====================================
 /* @flow */
 var React = require("react");
+
 var Example = React.createClass({
   propTypes: {
     func: React.PropTypes.func.isRequired
   }
 });
+
 var ok_void = <Example func={() => {}} />;
 var ok_args = <Example func={x => {}} />;
 var ok_retval = <Example func={() => 1} />;
@@ -1150,8 +1302,11 @@ var Example = React.createClass({
     foo: 0 // error: \`0\` is not a prop type
   }
 });
+
 <Example />; // OK: don't cascade errors
+
 <Example foo={(0: mixed)} />; // OK: don't cascade errors
+
 
 ================================================================================
 `;
@@ -1207,6 +1362,7 @@ var PolyDefaultExample = React.createClass({
 =====================================output=====================================
 /* @flow */
 class A {}
+
 class B extends A {}
 class C extends B {}
 var React = require("react");
@@ -1215,35 +1371,48 @@ var Example = React.createClass({
     x: React.PropTypes.instanceOf(B)
   }
 });
+
 <Example x={new A()} />; // error: A ~> B
+
 <Example x={new B()} />; // OK
+
 <Example x={new C()} />; // OK (C ~> B)
+
 <Example x="wrong" />; // error: string ~> B
+
 class Poly<T> {
   x: T;
 }
+
 var PolyExample = React.createClass({
   propTypes: {
     x: React.PropTypes.instanceOf(Poly).isRequired
   },
   m() {
     (this.props.x.x: empty); // OK, T instantiated to \`any\`
+
   }
 });
+
 // Different instantiations don't interact
 <PolyExample x={(new Poly(): Poly<string>)} />; // OK
+
 <PolyExample x={(new Poly(): Poly<number>)} />; // OK
+
 class PolyDefault<T = string> {
   x: T;
 }
+
 var PolyDefaultExample = React.createClass({
   propTypes: {
     x: React.PropTypes.instanceOf(PolyDefault).isRequired
   },
   m() {
     (this.props.x.x: empty); // OK, T instantiated to \`any\`
+
   }
 });
+
 
 ================================================================================
 `;
@@ -1302,6 +1471,7 @@ var Foo = React.createClass({
  * situations where it didn't used to error
  */
 var React = require("react");
+
 var Foo = React.createClass({
   getID(): string {
     // So this would have been an error in 0.21.0 if we didn't make this.props
@@ -1313,12 +1483,15 @@ var Foo = React.createClass({
       default:
         return "Alice";
     }
+
   },
   render() {
     // But this never errored
     return <div id={this.props.name} />;
+
   }
 });
+
 
 ================================================================================
 `;
@@ -1346,11 +1519,13 @@ var fail_mistyped = <Example object={2} />
 =====================================output=====================================
 /* @flow */
 var React = require("react");
+
 var Example = React.createClass({
   propTypes: {
     object: React.PropTypes.object.isRequired
   }
 });
+
 var ok_empty = <Example object={{}} />;
 var ok_props = (
   <Example
@@ -1359,6 +1534,7 @@ var ok_props = (
     }}
   />
 );
+
 var fail_mistyped = <Example object={2} />;
 
 ================================================================================
@@ -1419,11 +1595,13 @@ var InvalidExample = React.createClass({
 =====================================output=====================================
 /* @flow */
 var React = require("react");
+
 var Example = React.createClass({
   propTypes: {
     obj: React.PropTypes.objectOf(React.PropTypes.number).isRequired
   }
 });
+
 var ok_empty = <Example obj={{}} />;
 var ok_numbers = (
   <Example
@@ -1433,6 +1611,7 @@ var ok_numbers = (
     }}
   />
 );
+
 var fail_missing = <Example />;
 var fail_not_object = <Example obj={2} />;
 var fail_mistyped_props = (
@@ -1442,6 +1621,7 @@ var fail_mistyped_props = (
     }}
   />
 );
+
 /* Since the \`number\` proptype argument is not required, React will actually
    allow \`null\` and \`undefined\` elements in the \`obj\` prop, but Flow has
    currently ignores the innter prop type's required flag. */
@@ -1452,38 +1632,47 @@ var todo_required = (
     }}
   />
 );
+
 var OptionalExample = React.createClass({
   propTypes: {
     obj: React.PropTypes.objectOf(React.PropTypes.number)
   }
 });
+
 <OptionalExample />; // OK
+
 <OptionalExample
   obj={{
     p: 0
   }}
 />; // OK
+
 <OptionalExample
   obj={{
     p: ""
   }}
 />; // error: string ~> number
+
 var AnyExample = React.createClass({
   propTypes: {
     obj: React.PropTypes.objectOf((0: any)) // OK
   }
 });
+
 <AnyExample obj={0} />; // error: still needs to be an object
+
 <AnyExample
   obj={{
     p: 0
   }}
 />; // OK
+
 var InvalidExample = React.createClass({
   propTypes: {
     obj: React.PropTypes.objectOf(0) // error: number not a prop type
   }
 });
+
 
 ================================================================================
 `;
@@ -1585,6 +1774,7 @@ var NonLiteralElemExample = React.createClass({
 =====================================output=====================================
 /* @flow */
 var React = require("react");
+
 var Example = React.createClass({
   propTypes: {
     str: React.PropTypes.oneOf(["foo", "bar"]),
@@ -1593,63 +1783,89 @@ var Example = React.createClass({
     mixed: React.PropTypes.oneOf(["foo", 0, true])
   }
 });
+
 <Example str="foo" />; // OK
+
 <Example str="baz" />; // error: 'baz' not in enum
+
 <Example num={0} />; // OK
+
 <Example num={3} />; // error: 3 not in enum
+
 <Example bool={true} />; // OK
+
 <Example bool={false} />; // error: false ~> true
+
 <Example mixed={"foo"} />; // OK
+
 <Example mixed={0} />; // OK
+
 <Example mixed={"baz"} />; // error: 'baz' not in enum
+
 var RequiredExample = React.createClass({
   propTypes: {
     p: React.PropTypes.oneOf([]).isRequired
   }
 });
+
 <RequiredExample />; // error: \`p\` not found
+
 var EmptyExample = React.createClass({
   propTypes: {
     nil: React.PropTypes.oneOf([]) // i.e., \`empty\`
   }
 });
+
 <EmptyExample nil={0} />; // number ~> empty
+
 var AnyArrayExample = React.createClass({
   propTypes: {
     any: React.PropTypes.oneOf((0: any))
   }
 });
+
 <AnyArrayExample any={0} />; // OK
+
 var AnyElemExample = React.createClass({
   propTypes: {
     any: React.PropTypes.oneOf(["foo", (0: any)])
   }
 });
+
 <AnyElemExample any={0} />; // OK
+
 var DynamicArrayExample = React.createClass({
   propTypes: {
     dyn: React.PropTypes.oneOf(([]: Array<string>))
   }
 });
+
 <DynamicArrayExample dyn={0} />; // OK
+
 var DynamicElemExample = React.createClass({
   propTypes: {
     dyn: React.PropTypes.oneOf(["foo", ("": string)])
   }
 });
+
 <DynamicElemExample dyn={0} />; // OK
+
 var InvalidArrayExample = React.createClass({
   propTypes: {
     p: React.PropTypes.oneOf(0) // error: expected array, got 0
   }
 });
+
 <InvalidArrayExample p={0} />; // OK, don't cascade errors
+
 var NonLiteralElemExample = React.createClass({
   propTypes: {
     p: React.PropTypes.oneOf([{}]) // OK: allow non-literals
   }
 });
+
 <NonLiteralElemExample p={0} />; // OK, result is unknown/any
+
 
 ================================================================================
 `;
@@ -1767,6 +1983,7 @@ var InvalidElemExample = React.createClass({
 =====================================output=====================================
 /* @flow */
 var React = require("react");
+
 var Example = React.createClass({
   propTypes: {
     prop: React.PropTypes.oneOfType([
@@ -1780,8 +1997,10 @@ var Example = React.createClass({
     } else {
       return <div>{this.props.prop.toFixed(2)}</div>;
     }
+
   }
 });
+
 var ok_number = <Example prop={42} />;
 var ok_string = <Example prop="bar" />;
 var fail_missing = <Example />;
@@ -1790,38 +2009,51 @@ var fail_bool = <Example prop={true} />;
    \`null\` and \`undefined\` elements in the \`prop\` prop, but Flow has currently
    ignores the innter prop types' required flags. */
 var todo_required = <Example prop={null} />;
+
 var OptionalExample = React.createClass({
   propTypes: {
     p: React.PropTypes.oneOfType([React.PropTypes.string])
   }
 });
+
 <OptionalExample />; // OK
+
 <OptionalExample p="" />; // OK
+
 <OptionalExample p={0} />; // error: number ~> string
+
 var EmptyExample = React.createClass({
   propTypes: {
     nil: React.PropTypes.oneOfType([]) // i.e., \`empty\`
   }
 });
+
 <EmptyExample nil={0} />; // number ~> empty
+
 var AnyArrayExample = React.createClass({
   propTypes: {
     any: React.PropTypes.oneOfType((0: any))
   }
 });
+
 <AnyArrayExample any={0} />; // OK
+
 var AnyElemExample = React.createClass({
   propTypes: {
     any: React.PropTypes.oneOfType([React.PropTypes.string, (0: any)])
   }
 });
+
 <AnyElemExample any={0} />; // OK
+
 var DynamicArrayExample = React.createClass({
   propTypes: {
     dyn: React.PropTypes.oneOfType(([]: Array<Function>))
   }
 });
+
 <DynamicArrayExample dyn={0} />; // OK
+
 var DynamicElemExample = React.createClass({
   propTypes: {
     dyn: React.PropTypes.oneOfType([
@@ -1830,19 +2062,25 @@ var DynamicElemExample = React.createClass({
     ])
   }
 });
+
 <DynamicElemExample dyn={0} />; // OK
+
 var InvalidArrayExample = React.createClass({
   propTypes: {
     p: React.PropTypes.oneOfType(0) // error: expected array, got 0
   }
 });
+
 <InvalidArrayExample p={0} />; // OK, don't cascade errors
+
 var InvalidElemExample = React.createClass({
   propTypes: {
     p: React.PropTypes.oneOfType([{}]) // error: expected prop type, got {}
   }
 });
+
 <InvalidElemExample p={0} />; // OK, don't cascade errors
+
 
 ================================================================================
 `;
@@ -1899,6 +2137,7 @@ React.createClass({
  * treating the shape like an unsealed object and performing shadow read/writes.
  */
 import React from "react";
+
 React.createClass({
   propTypes: {
     foo: React.PropTypes.shape({
@@ -1912,14 +2151,17 @@ React.createClass({
     this.props.foo.baz = 0;
   }
 });
+
 React.createClass({
   propTypes: {
     foo: React.PropTypes.shape(({}: { [string]: any })).isRequired
   },
   f() {
     (this.props.foo.bar: empty); // OK
+
   }
 });
+
 
 ================================================================================
 `;
@@ -1964,21 +2206,27 @@ type NoFun = mixed => empty;
 // error: mixed ~> ReactPropsCheckType
 // error: ReactPropsChainableTypeChecker ~> empty
 (React.PropTypes.arrayOf: NoFun);
+
 // OK: mixed ~> any
 // error: ReactPropsChainableTypeChecker ~> empty
 (React.PropTypes.instanceOf: NoFun);
+
 // error: mixed ~> ReactPropsCheckType
 // error: ReactPropsChainableTypeChecker ~> empty
 (React.PropTypes.objectOf: NoFun);
+
 // error: mixed ~> Array<any>
 // error: ReactPropsChainableTypeChecker ~> empty
 (React.PropTypes.oneOf: NoFun);
+
 // error: mixed ~> Array<ReactPropsCheckType>
 // error: ReactPropsChainableTypeChecker ~> empty
 (React.PropTypes.oneOfType: NoFun);
+
 // error: mixed ~> object type
 // error: ReactPropsChainableTypeChecker ~> empty
 (React.PropTypes.shape: NoFun);
+
 
 ================================================================================
 `;
@@ -2024,6 +2272,7 @@ React.createClass({
  * treating propTypes like an unsealed object and performing shadow read/writes.
  */
 import React from "react";
+
 React.createClass({
   propTypes: {
     foo: React.PropTypes.string.isRequired
@@ -2035,6 +2284,7 @@ React.createClass({
     this.props.baz = 0;
   }
 });
+
 
 ================================================================================
 `;

@@ -24,16 +24,19 @@ f(A.x); // A.x is now a string, by def assign
 =====================================output=====================================
 /* @providesModule A */
 module.exports = {};
+
 var A = {
   x: true,
   ...{}
 };
+
 module.exports.cls = A;
 function f(x: boolean) {}
 module.exports.fn = f;
 A.y = "?";
 A.x = A.y;
 f(A.x); // A.x is now a string, by def assign
+
 
 ================================================================================
 `;
@@ -63,12 +66,15 @@ module.exports = B;
 =====================================output=====================================
 /* @providesModule B */
 var A = require("A").cls;
+
 function B() {
   this.b = "...";
 }
+
 function f(): number {
   return this.b;
 }
+
 B.prototype.s = 0;
 B.prototype.fn = f;
 module.exports = B;
@@ -100,6 +106,7 @@ module.exports = C;
 =====================================output=====================================
 /* @providesModule C */
 var B = require("B");
+
 var f = require("A").fn;
 function C() {
   var o = new B();
@@ -107,6 +114,7 @@ function C() {
   f(o.s);
   o.fn();
 }
+
 module.exports = C;
 
 ================================================================================
@@ -136,13 +144,16 @@ module.exports = "D for dummy";
 =====================================output=====================================
 /* @providesModule D */
 var f = require("A").fn;
+
 function g(): string {
   return this.i;
 }
+
 var o = {
   fn: g,
   ...{}
 };
+
 o.i = true;
 var i = o.fn();
 f(i);
@@ -171,14 +182,17 @@ module.exports = {obj: o};
 =====================================output=====================================
 /* @providesModule E */
 function h(x: number) {}
+
 var proto = {
   fn: h
 };
+
 var o = Object.create(proto);
 o.fn(false);
 module.exports = {
   obj: o
 };
+
 
 ================================================================================
 `;
@@ -200,12 +214,15 @@ function foo(x: Array<number>): string {
 function fn2(x) {
   return x.length * 4;
 }
+
 fn2({
   length: "hi"
 });
+
 function foo(x: Array<number>): string {
   return x.length;
 }
+
 
 ================================================================================
 `;
@@ -228,6 +245,7 @@ b.length();
 var a = {
   length: "duck"
 };
+
 a.length = 123;
 a.length();
 var b = [123];

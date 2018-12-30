@@ -32,13 +32,17 @@ module B {
   export class D extends a.C {
     id: number;
   }
+
 }
+
 module A {
   export class C {
     name: string;
   }
+
   export import b = B;
 }
+
 var c: { name: string };
 var c = new B.a.C();
 
@@ -126,15 +130,20 @@ module A {
   export class Point {
     constructor(public x: number, public y: number) {}
   }
+
   export module B {
     export interface Id {
       name: string;
     }
+
   }
+
 }
+
 module C {
   export import a = A;
 }
+
 var a: string = C.a.x;
 var b: { x: number; y: number } = new C.a.Point(0, 0);
 var c: { name: string };
@@ -143,33 +152,44 @@ module X {
   export function Y() {
     return 42;
   }
+
   export module Y {
     export class Point {
       constructor(public x: number, public y: number) {}
     }
+
   }
+
 }
+
 module Z {
   // 'y' should be a fundule here
   export import y = X.Y;
+
 }
+
 var m: number = Z.y();
 var n: { x: number; y: number } = new Z.y.Point(0, 0);
 module K {
   export class L {
     constructor(public name: string) {}
   }
+
   export module L {
     export var y = 12;
     export interface Point {
       x: number;
       y: number;
     }
+
   }
+
 }
+
 module M {
   export import D = K.L;
 }
+
 var o: { name: string };
 var o = new M.D("Hello");
 var p: { x: number; y: number };
@@ -248,7 +268,9 @@ module moduleA {
   export class Point {
     constructor(public x: number, public y: number) {}
   }
+
 }
+
 import alias = moduleA;
 var p: alias.Point;
 var p: moduleA.Point;
@@ -256,16 +278,20 @@ var p: { x: number; y: number };
 class clodule {
   name: string;
 }
+
 module clodule {
   export interface Point {
     x: number;
     y: number;
   }
+
   var Point: Point = {
     x: 0,
     y: 0
   };
+
 }
+
 import clolias = clodule;
 var p: clolias.Point;
 var p: clodule.Point;
@@ -275,17 +301,22 @@ function fundule() {
     x: 0,
     y: 0
   };
+
 }
+
 module fundule {
   export interface Point {
     x: number;
     y: number;
   }
+
   var Point: Point = {
     x: 0,
     y: 0
   };
+
 }
+
 import funlias = fundule;
 var p: funlias.Point;
 var p: fundule.Point;
@@ -327,19 +358,23 @@ import i = I;
 =====================================output=====================================
 // none of these should work, since non are actually modules
 var V = 12;
+
 import v = V;
 class C {
   name: string;
 }
+
 import c = C;
 enum E {
   Red,
   Blue
 }
+
 import e = E;
 interface I {
   id: number;
 }
+
 import i = I;
 
 ================================================================================
@@ -391,33 +426,43 @@ module A {
     x: 0,
     y: 0
   };
+
   export interface Point {
     x: number;
     y: number;
   }
+
 }
+
 module B {
   var A = {
     x: 0,
     y: 0
   };
+
   import Point = A;
 }
+
 module X {
   export module Y {
     export interface Point {
       x: number;
       y: number;
     }
+
   }
+
   export class Y {
     name: string;
   }
+
 }
+
 module Z {
   import Y = X.Y;
   var Y = 12;
 }
+
 
 ================================================================================
 `;

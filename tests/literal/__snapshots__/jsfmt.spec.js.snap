@@ -100,6 +100,7 @@ function test5(): string {
 function test5(): string {
   return (100).toString();
 }
+
 0;
 1;
 0.1;

@@ -65,6 +65,7 @@ export const meta = {
   authors: [fred, sue],
   layout: Layout
 };
+
 export default () => (
   <Doc
     components={{
@@ -74,6 +75,7 @@ export default () => (
     }}
   />
 );
+
 
 ---
 
@@ -149,6 +151,7 @@ export const meta = {
   authors: [fred, sue],
   layout: Layout
 }
+
 export default () => (
   <Doc
     components={{
@@ -158,6 +161,7 @@ export default () => (
     }}
   />
 )
+
 
 ---
 
@@ -335,6 +339,7 @@ export const foo = {
   authors: ["fred", "sally"]
 };
 
+
 # Hello, world!
 
 I'm an awesome paragraph.
@@ -424,6 +429,7 @@ export const foo = {
   hi: \`Fudge \${Baz.displayName || "Baz"}\`,
   authors: ["fred", "sally"]
 }
+
 
 # Hello, world!
 

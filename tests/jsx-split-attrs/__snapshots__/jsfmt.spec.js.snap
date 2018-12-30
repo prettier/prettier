@@ -76,6 +76,7 @@ long_open = (
     hello
   </BaseForm>
 );
+
 long_open_long_children = (
   <BaseForm
     url="/auth/google"
@@ -156,12 +157,14 @@ long_open_long_children = (
     </BaseForm>
   </BaseForm>
 );
+
 short_closed = <BaseForm url="/auth/google" method="GET" />;
 short_open = (
   <BaseForm url="/auth/google" method="GET">
     hello
   </BaseForm>
 );
+
 make_self_closing = (
   <div>
     <BaseForm
@@ -180,6 +183,7 @@ make_self_closing = (
     />
   </div>
 );
+
 leave_opening = (
   <BaseForm
     url="/auth/google"
@@ -191,6 +195,7 @@ leave_opening = (
     {" "}
   </BaseForm>
 );
+
 long_string = (
   <div className="i use bootstrap and just put loooaads of classnames in here all the time">
     hello world
@@ -204,6 +209,7 @@ long_string_with_extra_param = (
     hello world
   </div>
 );
+
 long_obj = (
   <div
     style={{
@@ -217,6 +223,7 @@ long_obj = (
     hello world
   </div>
 );
+
 
 ================================================================================
 `;

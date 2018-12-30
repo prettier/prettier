@@ -17,5 +17,6 @@ class LocalStorage implements Storage {
   [key: string]: any;
 }
 
+
 ================================================================================
 `;

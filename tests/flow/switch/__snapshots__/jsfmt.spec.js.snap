@@ -45,7 +45,9 @@ function foo(x): number {
     default:
       throw new Error("hi");
   }
+
 }
+
 function bar(x) {
   switch (x) {
     case 0:
@@ -54,8 +56,10 @@ function bar(x) {
     default:
       return;
   }
+
   1;
 }
+
 function baz(x): number {
   switch (x) {
     case 0:
@@ -67,8 +71,10 @@ function baz(x): number {
     default:
       throw new Error("hi");
   }
+
   return 2;
 }
+
 
 ================================================================================
 `;
@@ -119,8 +125,10 @@ function foo(): number {
     case "foo":
       return 1;
   }
+
   return 2;
 }
+
 function bar() {
   switch ("bar") {
     case "bar":
@@ -129,7 +137,9 @@ function bar() {
     default:
       break;
   }
+
 }
+
 function qux(b) {
   var x = b ? 0 : "";
   switch ("qux") {
@@ -139,7 +149,9 @@ function qux(b) {
     case "qux":
       x = x * x;
   }
+
 }
+
 
 ================================================================================
 `;
@@ -212,13 +224,19 @@ function foo(x: mixed): string {
     default:
       b = 0;
   }
+
   // a is now string | number
   (a: string); // error, string | number ~/> string
+
   (a: number); // error, string | number ~/> number
+
   // b is now number
   (b: number); // ok
+
   return b; // error, number ~/> string
+
 }
+
 function baz(x: mixed): number {
   var a = "";
   var b = "";
@@ -233,14 +251,21 @@ function baz(x: mixed): number {
     default:
       b = 0;
   }
+
   // a is now string | number
   (a: string); // error, string | number ~/> string
+
   (a: number); // error, string | number ~/> number
+
   // b is now string | number
   (b: string); // error, string | number ~/> string
+
   (b: number); // error, string | number ~/> number
+
   return a + b; // error, string ~/> number
+
 }
+
 
 ================================================================================
 `;
@@ -356,8 +381,11 @@ function f1(i) {
       x = "2";
       break;
   }
+
   var y: number = x; // error, number | string ~/> number
+
 }
+
 function f2(i) {
   var x;
   switch (i) {
@@ -371,8 +399,11 @@ function f2(i) {
 
     case 2: // does not fall through default
   }
+
   var y: number = x; // error, number | uninitialized ~/> number
+
 }
+
 function f3(i) {
   var x;
   switch (i) {
@@ -386,8 +417,11 @@ function f3(i) {
     case 2:
       x = 1;
   }
+
   var y: number = x; // no error
+
 }
+
 function foo(x): number {
   switch (x) {
     case 0:
@@ -398,7 +432,9 @@ function foo(x): number {
     case 1:
       return 1;
   }
+
 }
+
 function bar(x) {
   switch (x) {
     default:
@@ -407,8 +443,10 @@ function bar(x) {
     case 0:
       break;
   }
+
   1;
 }
+
 function baz(x): number {
   switch (x) {
     case 0:
@@ -420,8 +458,10 @@ function baz(x): number {
     case 1:
       return 1;
   }
+
   return 2;
 }
+
 
 ================================================================================
 `;

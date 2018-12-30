@@ -18,9 +18,11 @@ let a = {
 let a = {
   a /* comment */: () => 1
 };
+
 let a = {
   a /* comment */: () => 1
 };
+
 
 ================================================================================
 `;
@@ -58,6 +60,7 @@ o = {
       id: type
     }: any): CreativeConcept)
 };
+
 o = {
   // Comment A
   name:
@@ -66,12 +69,14 @@ o = {
       id: type
     }: any): CreativeConcept)
 };
+
 o = {
   // Comment B // Comment A
   name: (({
     id: type
   }: any): CreativeConcept)
 };
+
 
 ================================================================================
 `;

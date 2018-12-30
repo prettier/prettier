@@ -55,7 +55,9 @@ function SomeComponent(props) {
       <div className="some-class">This font size will be 20px</div>
     </div>
   );
+
 }
+
 const TestComponent = ({ children, ...props }) => (
   <div
     css={\`
@@ -66,6 +68,7 @@ const TestComponent = ({ children, ...props }) => (
     {children}
   </div>
 );
+
 
 ================================================================================
 `;
@@ -124,6 +127,7 @@ const long = \`long \${
 } long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${
   a.b.c.d.e
 } long long\`;
+
 const long = \`long \${
   a.b.c.d.e
 } long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long long\`;
@@ -149,9 +153,13 @@ function testing() {
       }/something/something/something?\${Object.keys(p)
         .map(k => \`\${encodeURIComponent(k)}=\${encodeURIComponent(p[k])}\`)
         .join("&")}\`;
+
     }
+
   }
+
 }
+
 console.log(
   \`Trying update appcast for \${app.name} (\${app.cask.appcast}) -> (\${
     app.cask.appcastGenerated
@@ -168,6 +176,7 @@ console.log(
 descirbe("something", () => {
   test(\`{pass: false} expect(\${small}).toBeGreaterThanOrEqual(\${big})\`, () => {});
 });
+
 throw new Error(
   \`pretty-format: Option "theme" has a key "\${key}" whose value "\${value}" is undefined in ansi-styles.\`
 );
@@ -230,11 +239,13 @@ const Button = styled.a\`
   /* Comment */
   display: \${props => props.display};
 \`;
+
 styled.div\`
   display: \${props => props.display};
   border: \${props => props.border}px;
   margin: 10px \${props => props.border}px;
 \`;
+
 const EqualDivider = styled.div\`
   margin: 0.5rem;
   padding: 1rem;
@@ -248,6 +259,7 @@ const EqualDivider = styled.div\`
     }
   }
 \`;
+
 const header = css\`
   .top-bar {
     background: black;
@@ -269,6 +281,7 @@ const header = css\`
     right: 0;
   }
 \`;
+
 
 ================================================================================
 `;
@@ -312,6 +325,7 @@ color: red; display: none
     display: none;
   }
 \`}</style>;
+
 <div>
   <style jsx>{\`
     /* a comment */
@@ -321,6 +335,7 @@ color: red; display: none
     }
   \`}</style>
 </div>;
+
 <div>
   <style jsx>{\`
     div {
@@ -328,11 +343,13 @@ color: red; display: none
     }
   \`}</style>
 </div>;
+
 <div>
   <style jsx>{\`This is invalid css. 
       Shouldn't fail.
             Shouldn't be formatted.\`}</style>
 </div>;
+
 
 ================================================================================
 `;
@@ -415,17 +432,20 @@ printWidth: 80
     \${expr}
   }
 \`}</style>;
+
 <style jsx>{\`
   div {
     animation: linear \${seconds}s ease-out;
   }
 \`}</style>;
+
 <style jsx>{\`
   div {
     animation: 3s ease-in 1s \${foo => foo.getIterations()} reverse both paused
       slidein;
   }
 \`}</style>;
+
 
 ================================================================================
 `;

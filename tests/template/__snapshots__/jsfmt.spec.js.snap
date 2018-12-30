@@ -19,10 +19,12 @@ printWidth: 80
   a\`
 	a
 \`;
+
 () =>
   \`
 	a
 \`;
+
 
 ================================================================================
 `;
@@ -52,15 +54,18 @@ insertRule(
   box-sizing: inherit;
 }\`
 );
+
 insertRule\`*, *:before, *:after {
   box-sizing: inherit;
 }\`;
+
 new Error(
   formatErrorMessage\`
   This a really bad error.
   Which has more than one line.
 \`
 );
+
 
 ================================================================================
 `;
@@ -96,6 +101,7 @@ g
   }).source
 })[^\${escapeChar}])+)+
 \`;
+
 \`a\${
   /* b */
   c /* d */
@@ -103,6 +109,7 @@ g
   // f
   g // h
 }\`;
+
 
 ================================================================================
 `;
@@ -134,6 +141,7 @@ var o = {
     // Comment
   }
 };
+
 var x = {
   y: () =>
     Relay.QL\`
@@ -143,6 +151,7 @@ var x = {
     }
   \`
 };
+
 
 ================================================================================
 `;
@@ -190,6 +199,7 @@ module.exports = Relay.createContainer(
     }
   }
 );
+
 
 ================================================================================
 `;
@@ -239,10 +249,15 @@ line n + 1
 line n + 2
 line n + n
 \`;
+
       }
+
     }
+
   }
+
 };
+
 
 ================================================================================
 `;
@@ -330,14 +345,17 @@ this._pipe.write(
   \\n\\n Pattern matches \${total} \${pluralizeTest} but that's long
 \`
 );
+
 () =>
   \`
   a
 \`;
+
 () =>
   \`
     a
   \`;
+
 (): {
   someLong: boolean,
   t: boolean
@@ -345,6 +363,7 @@ this._pipe.write(
   \`
   a
 \`;
+
 (): {
   someLong: boolean,
   t: boolean
@@ -352,18 +371,22 @@ this._pipe.write(
   \`
     a
   \`;
+
 (someLong: boolean, t: boolean) =>
   \`
     a
   \`;
+
 (someLong: boolean, t: boolean) =>
   \`
     a
   \`;
+
 // https://github.com/prettier/prettier/issues/5529
 editTitle += \`\${iconHTML({
   class: "reply-to-glyph"
 })}\`;
+
 
 ================================================================================
 `;
@@ -432,42 +455,59 @@ function* f() {
 =====================================output=====================================
 // "ArrowFunctionExpression"
 (() => {})\`\`;
+
 // "AssignmentExpression"
 (b = c)\`\`;
+
 // "AwaitExpression"
 async function f() {
   (await b)\`\`;
 }
+
 // "BinaryExpression"
 (b + c)\`\`;
+
 // "CallExpression"
 b()\`\`;
+
 // "ClassExpression"
 (class {}\`\`);
+
 // "ConditionalExpression"
 (b ? c : d)\`\`;
+
 // "FunctionExpression"
 (function() {})\`\`;
+
 // "LogicalExpression"
 (b || c)\`\`;
+
 // "MemberExpression"
 b.c\`\`;
+
 // "NewExpression"
 new B()\`\`;
+
 // "ObjectExpression"
 ({}\`\`);
+
 // "SequenceExpression"
 (b, c)\`\`;
+
 // "TaggedTemplateExpression"
 \`\`\`\`;
+
 // "UnaryExpression"
 (void b)\`\`;
+
 // "UpdateExpression"
 (++b)\`\`;
+
 // "YieldExpression"
 function* f() {
   (yield 1)\`\`;
 }
+
 
 ================================================================================
 `;

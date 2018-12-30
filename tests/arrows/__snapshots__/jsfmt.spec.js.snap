@@ -52,6 +52,7 @@ export default (() => {})();
 new (() => {})();
 if ((() => {}) ? 1 : 0) {
 }
+
 let f = () => ({}());
 let a = () => ({} instanceof a);
 a = () => ({} && a);
@@ -80,6 +81,7 @@ a = b => c;
 a = b => {
   return c;
 };
+
 
 ================================================================================
 `;
@@ -136,6 +138,7 @@ export default (() => {})();
 new (() => {})();
 if ((() => {}) ? 1 : 0) {
 }
+
 let f = () => ({}());
 let a = () => ({} instanceof a);
 a = () => ({} && a);
@@ -164,6 +167,7 @@ a = (b) => c;
 a = (b) => {
   return c;
 };
+
 
 ================================================================================
 `;
@@ -295,6 +299,7 @@ Seq(typeDef.interface.groups).forEach(group =>
     })
   )
 );
+
 const promiseFromCallback = fn =>
   new Promise((resolve, reject) =>
     fn((err, result) => {
@@ -302,6 +307,7 @@ const promiseFromCallback = fn =>
       return resolve(result);
     })
   );
+
 runtimeAgent.getProperties(
   objectId,
   false, // ownProperties
@@ -311,6 +317,7 @@ runtimeAgent.getProperties(
     return 1;
   }
 );
+
 function render() {
   return (
     <View>
@@ -325,7 +332,9 @@ function render() {
       />
     </View>
   );
+
 }
+
 function render() {
   return (
     <View>
@@ -340,7 +349,9 @@ function render() {
       />
     </View>
   );
+
 }
+
 function render() {
   return (
     <View>
@@ -355,7 +366,9 @@ function render() {
       />
     </View>
   );
+
 }
+
 jest.mock(
   "../SearchSource",
   () =>
@@ -364,9 +377,12 @@ jest.mock(
         return {
           paths: []
         };
+
       }
+
     }
 );
+
 fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
   dispatch(action)
 );
@@ -471,6 +487,7 @@ Seq(typeDef.interface.groups).forEach((group) =>
     })
   )
 );
+
 const promiseFromCallback = (fn) =>
   new Promise((resolve, reject) =>
     fn((err, result) => {
@@ -478,6 +495,7 @@ const promiseFromCallback = (fn) =>
       return resolve(result);
     })
   );
+
 runtimeAgent.getProperties(
   objectId,
   false, // ownProperties
@@ -487,6 +505,7 @@ runtimeAgent.getProperties(
     return 1;
   }
 );
+
 function render() {
   return (
     <View>
@@ -501,7 +520,9 @@ function render() {
       />
     </View>
   );
+
 }
+
 function render() {
   return (
     <View>
@@ -516,7 +537,9 @@ function render() {
       />
     </View>
   );
+
 }
+
 function render() {
   return (
     <View>
@@ -531,7 +554,9 @@ function render() {
       />
     </View>
   );
+
 }
+
 jest.mock(
   "../SearchSource",
   () =>
@@ -540,9 +565,12 @@ jest.mock(
         return {
           paths: []
         };
+
       }
+
     }
 );
+
 fooooooooooooooooooooooooooooooooooooooooooooooooooo((action) => (next) =>
   dispatch(action)
 );
@@ -612,12 +640,14 @@ export const bem = block =>
         element ? \`__\${css(element)}\` : "",
         modifier ? \`--\${css(modifier)}\` : ""
       ].join("");
+
 <FlatList
   renderItem={(
     info // $FlowExpectedError - bad widgetCount type 6, should be Object
   ) => <span>{info.item.widget.missingProp}</span>}
   data={data}
 />;
+
 
 ================================================================================
 `;
@@ -684,12 +714,14 @@ export const bem = (block) =>
         element ? \`__\${css(element)}\` : "",
         modifier ? \`--\${css(modifier)}\` : ""
       ].join("");
+
 <FlatList
   renderItem={(
     info // $FlowExpectedError - bad widgetCount type 6, should be Object
   ) => <span>{info.item.widget.missingProp}</span>}
   data={data}
 />;
+
 
 ================================================================================
 `;
@@ -723,16 +755,20 @@ const middleware = options => (req, res, next) => {
 const fn = b => c => d => {
   return 3;
 };
+
 const foo = (a, b) => c => d => {
   return 3;
 };
+
 const bar = a => b => c => a + b + c;
 const mw = store => next => action => {
   return next(action);
 };
+
 const middleware = options => (req, res, next) => {
   // ...
 };
+
 
 ================================================================================
 `;
@@ -766,16 +802,20 @@ const middleware = options => (req, res, next) => {
 const fn = (b) => (c) => (d) => {
   return 3;
 };
+
 const foo = (a, b) => (c) => (d) => {
   return 3;
 };
+
 const bar = (a) => (b) => (c) => a + b + c;
 const mw = (store) => (next) => (action) => {
   return next(action);
 };
+
 const middleware = (options) => (req, res, next) => {
   // ...
 };
+
 
 ================================================================================
 `;
@@ -835,7 +875,9 @@ const foo = () => {
     status: "Unknown",
     created: "11/01/2017 13:36"
   });
+
 };
+
 
 ================================================================================
 `;
@@ -859,7 +901,9 @@ const foo = () => {
     status: "Unknown",
     created: "11/01/2017 13:36"
   });
+
 };
+
 
 ================================================================================
 `;
@@ -899,10 +943,12 @@ promise.then(
     return err;
   }
 );
+
 foo(a => b);
 foo(a => {
   return b;
 });
+
 foo(c, a => b);
 foo(c, a => b, d);
 foo(a => b, d);
@@ -945,10 +991,12 @@ promise.then(
     return err;
   }
 );
+
 foo((a) => b);
 foo((a) => {
   return b;
 });
+
 foo(c, (a) => b);
 foo(c, (a) => b, d);
 foo((a) => b, d);

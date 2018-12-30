@@ -123,6 +123,7 @@ namespace TypeScript.WebTsc {
     for (let i = 0; i < WScript.Arguments.length; i++) {
       args[i] = WScript.Arguments.Item(i);
     }
+
     return {
       args: args,
       newLine: "\\r\\n",
@@ -136,6 +137,7 @@ namespace TypeScript.WebTsc {
         if (!fso.FileExists(fileName)) {
           return undefined;
         }
+
         fileStream.Open();
         try {
           if (encoding) {
@@ -144,10 +146,12 @@ namespace TypeScript.WebTsc {
           } else {
             // Load file and read the first two bytes into a string with no interpretation
             fileStream.Charset = "x-ansi";
+
             fileStream.LoadFromFile(fileName);
             const bom = fileStream.ReadText(2) || "";
             // Position must be at 0 before encoding can be changed
             fileStream.Position = 0;
+
             // [0xFF,0xFE] and [0xFE,0xFF] mean utf-16 (little or big endian), otherwise default to utf-8
             fileStream.Charset =
               bom.length >= 2 &&
@@ -155,14 +159,18 @@ namespace TypeScript.WebTsc {
                 (bom.charCodeAt(0) === 0xfe && bom.charCodeAt(1) === 0xff))
                 ? "unicode"
                 : "utf-8";
+
           }
+
           // ReadText method always strips byte order mark from resulting string
           return fileStream.ReadText();
+
         } catch (e) {
           throw e;
         } finally {
           fileStream.Close();
         }
+
       },
       writeFile(fileName: string, data: string): boolean {
         const f = fso.CreateTextFile(fileName, true);
@@ -183,6 +191,7 @@ namespace TypeScript.WebTsc {
         if (!this.directoryExists(directoryName)) {
           fso.CreateFolder(directoryName);
         }
+
       },
       getExecutingFilePath() {
         return WScript.ScriptFullName;
@@ -198,7 +207,9 @@ namespace TypeScript.WebTsc {
       },
       useCaseSensitiveFileNames: false
     };
+
   }
+
   export function prepareCompiler(
     currentDir: string,
     stdOut: ITextWriter,
@@ -213,8 +224,11 @@ namespace TypeScript.WebTsc {
     return (commandLine: string) => {
       ts.executeCommandLine(commandLine.split(" "));
     };
+
   }
+
 }
+
 
 ================================================================================
 `;

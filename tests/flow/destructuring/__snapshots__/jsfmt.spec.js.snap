@@ -24,11 +24,17 @@ let xs = [0, "", true];
 let [a, ...ys] = xs;
 let [b, ...zs] = ys;
 let c = zs[0]; // retain tuple info
+
 let d = zs[1]; // run off the end
+
 (a: void); // error: number ~> void
+
 (b: void); // error: string ~> void
+
 (c: void); // error: boolean ~> void
+
 (d: void); // error: number|string|boolean ~> void
+
 let [...e] = 0;
 
 ================================================================================
@@ -54,16 +60,22 @@ var { ["key"]: val3, ...spread } = { key: "val" };
 var { ["key"]: val1 } = {
   key: "val"
 };
+
 (val1: void); // error: string ~> void
+
 var key: string = "key";
 var { [key]: val2 } = {
   key: "val"
 };
+
 (val2: void); // ok (gasp!) by existing StrT -> ElemT rule
+
 var { ["key"]: val3, ...spread } = {
   key: "val"
 };
+
 (spread.key: void); // error (gasp!) in general we don't know if a computed prop should be excluded from spread
+
 
 ================================================================================
 `;
@@ -176,17 +188,23 @@ function obj_prop_fun(
   // * string  ~> void, from default on _
   // * null    ~> void, from call below
   (q: void);
+
 }
+
 obj_prop_fun(); // ok
+
 obj_prop_fun({}); // ok
+
 obj_prop_fun({
   p: {}
 }); // ok
+
 obj_prop_fun({
   p: {
     q: null
   }
 }); // ok, provides add'l lower bound
+
 function obj_prop_var(
   o = {
     p: {
@@ -199,23 +217,30 @@ function obj_prop_var(
       q: true
     }
   } = o;
+
   // errors:
   // * number  ~> void, from default on o.p.q
   // * boolean ~> void, from default on o.p
   // * string  ~> void, from default on o
   // * null    ~> void, from call below
   (q: void);
+
 }
+
 obj_prop_var(); // ok
+
 obj_prop_var({}); // ok
+
 obj_prop_var({
   p: {}
 }); // ok
+
 obj_prop_var({
   p: {
     q: null
   }
 }); // ok, provides add'l lower bound
+
 function obj_rest(
   {
     p: { q, ...o } = {
@@ -234,18 +259,24 @@ function obj_rest(
   // * string  ~> void, from default on _
   // * null    ~> void, from call below
   (o.r: void);
+
 }
+
 obj_rest(); // ok
+
 obj_rest({}); // ok
+
 obj_rest({
   p: {}
 }); // ok
+
 obj_rest({
   p: {
     q: 0,
     r: null
   }
 });
+
 function obj_prop_annot(
   {
     p = true // error: boolean ~> string
@@ -256,7 +287,9 @@ function obj_prop_annot(
   }
 ) {
   (p: void); // error: string ~> void
+
 }
+
 var {
   p = true // error: boolean ~> string
 }: {
@@ -264,11 +297,17 @@ var {
 } = {
   p: 0 // error: number ~> string
 };
+
 (p: void); // error: string ~> void
+
 function obj_prop_err({ x: { y } } = null) {} // error: property \`x\` cannot be accessed on null
+
 function obj_rest_err({ ...o } = 0) {} // error: expected object instead of number
+
 function arr_elem_err([x] = null) {} // error: element 0 cannot be accessed on null
+
 function arr_rest_err([...a] = null) {} // error: expected array instead of null
+
 function gen<T>(
   x: T,
   {
@@ -279,6 +318,7 @@ function gen<T>(
 ): T {
   return p;
 }
+
 // Default values in destructuring unwrap optional types
 obj_prop_fun(
   ({}: {
@@ -287,6 +327,7 @@ obj_prop_fun(
     }
   })
 ); // ok
+
 obj_prop_var(
   ({}: {
     p?: {
@@ -294,6 +335,7 @@ obj_prop_var(
     }
   })
 ); // ok
+
 // union-like upper bounds preserved through destructuring
 function obj_prop_opt(
   {
@@ -304,6 +346,7 @@ function obj_prop_opt(
     p: 0
   }
 ) {}
+
 function obj_prop_maybe(
   {
     p
@@ -313,6 +356,7 @@ function obj_prop_maybe(
     p: 0
   }
 ) {}
+
 function obj_prop_union(
   {
     p
@@ -322,6 +366,7 @@ function obj_prop_union(
     p: true
   }
 ) {}
+
 // TODO: union-of-objects upper bounds preserved through destructuring
 function obj_prop_union2(
   {
@@ -336,6 +381,7 @@ function obj_prop_union2(
     p: true
   }
 ) {}
+
 function default_expr_scope({ a, b = a }) {}
 
 ================================================================================
@@ -430,40 +476,50 @@ declare var c: string;
   },
   2
 ];
+
 var { m } = {
   m: 0
 };
+
 ({ m } = {
   m: m
 });
+
 var obj;
 ({ n: obj.x } = {
   n: 3
 });
+
 [obj.x] = ["foo"];
 function foo({ p, z: [r] }) {
   a = p;
   b = z;
   c = r;
 }
+
 foo({
   p: 0,
   z: [1, 2]
 });
+
 [a, , b, ...c] = [0, 1, true, 3];
 function bar({ x, ...z }) {
   var o: {
     x: string,
     y: number
   } = z;
+
 }
+
 bar({
   x: "",
   y: 0
 });
+
 var spread = {
   y: ""
 };
+
 var extend: {
   x: number,
   y: string,
@@ -472,14 +528,17 @@ var extend: {
   x: 0,
   ...spread
 };
+
 function qux(_: { a: number }) {}
 qux({
   a: ""
 });
+
 function corge({ b }: { b: string }) {}
 corge({
   b: 0
 });
+
 var {
   n
 }: {
@@ -487,41 +546,55 @@ var {
 } = {
   n: ""
 };
+
 function test() {
   var { foo } = {
     bar: 123
   }; // error on foo
+
   var { bar, baz } = {
     bar: 123
   }; // error on baz
+
 }
+
 function test() {
   var x = {
     foo: "abc",
     bar: 123
   };
+
   var { foo, ...rest } = x;
   (x.baz: string); // error, baz doesn't exist
+
   (rest.baz: string); // no error, rest is unsealed
+
 }
+
 module.exports = corge;
 class Base {
   baseprop1: number;
   baseprop2: number;
 }
+
 class Child extends Base {
   childprop1: number;
   childprop2: number;
 }
+
 var { baseprop1, childprop1, ...others } = new Child();
 var bp1: number = baseprop1;
 var bp1_err: string = baseprop1; // Error: number ~> string
+
 var bp2: number = others.baseprop2;
 var bp2_err: string = others.baseprop2; // Error: number ~> string
+
 var cp1: number = childprop1;
 var cp1_err: string = childprop1; // Error: number ~> string
+
 var cp2: number = others.childprop1;
 var cp2_err: string = others.childprop2; // Error: number ~> string
+
 
 ================================================================================
 `;
@@ -538,6 +611,7 @@ var x;
 =====================================output=====================================
 var x;
 ({ x } = null); // error, property \`x\` can not be accessed on \`null\`
+
 
 ================================================================================
 `;
@@ -583,38 +657,55 @@ function arr_rest_pattern<X>([ _, ...a ] : ArrRest<X>) { // a: [X]
 =====================================output=====================================
 // @flow
 function obj_pattern<X>({ prop }: { prop: X }) {} // prop: X
+
 type Prop<X> = {
   prop: X
 };
+
 function obj_pattern2<X>({ prop }: Prop<X>) {} // prop: X
+
 function arr_pattern<X>([elem]: X[]) {} // elem: X
+
 type Elem<X> = X[];
 function arr_pattern2<X>([elem]: Elem<X>) {} // elem: X
+
 function tup_pattern<X>([proj]: [X]) {} // proj: X
+
 type Proj<X> = [X];
 function tup_pattern2<X>([proj]: Proj<X>) {} // proj: X
+
 function rest_pattern<X>(...r: X[]) {} // r: X[]
+
 function obj_rest_pattern<X>({ _, ...o }: { _: any, x: X }) {
   // o: { x: X }
   o.x;
+
 }
+
 type ObjRest<X> = {
   _: any,
   x: X
 };
+
 function obj_rest_pattern<X>({ _, ...o }: ObjRest<X>) {
   // o: { x: X }
   o.x;
+
 }
+
 function arr_rest_pattern<X>([_, ...a]: [any, X]) {
   // a: [X]
   a[0];
+
 }
+
 type ArrRest<X> = [any, X];
 function arr_rest_pattern<X>([_, ...a]: ArrRest<X>) {
   // a: [X]
   a[0];
+
 }
+
 
 ================================================================================
 `;
@@ -651,15 +742,19 @@ var { x: o } = o;
 // Make sure that destructuring doesn't cause infinite loops when combined with
 // funny doses of repositioning
 let foo = (i: number) => [i];
+
 const bar = (i: number) => {
   [i] = foo(i);
   return [i];
 };
+
 foo = (i: number) => {
   return bar(i);
 };
+
 // Also make sure that the following doesn't loop
 declare var o;
+
 var { x: o } = o;
 
 ================================================================================
@@ -687,7 +782,9 @@ class UndefinedValue extends Value { }
 function _([argArray]: Array<Value>) {
   if (argArray instanceof NullValue || argArray instanceof UndefinedValue) {
   }
+
 }
+
 class Value {}
 class NullValue extends Value {}
 class UndefinedValue extends Value {}
@@ -711,11 +808,15 @@ var { "with-dash": with_dash } = { "with-dash": "motivating example" };
 var { key: val } = {
   key: "val"
 };
+
 (val: void); // error: string ~> void
+
 var { "with-dash": with_dash } = {
   "with-dash": "motivating example"
 };
+
 (with_dash: "motivating example"); // ok
+
 
 ================================================================================
 `;
@@ -743,9 +844,11 @@ var { x } = {
     foo: "foo"
   }
 };
+
 function bar() {
   x.bar;
 }
+
 
 ================================================================================
 `;

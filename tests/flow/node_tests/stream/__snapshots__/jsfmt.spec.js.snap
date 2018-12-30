@@ -47,6 +47,7 @@ new MyReadStream()
 =====================================output=====================================
 /* @flow */
 var child_process = require("child_process");
+
 var fs = require("fs");
 var stream = require("stream");
 var ls = child_process.spawn("ls");
@@ -70,10 +71,12 @@ new MyReadStream()
   .pipe(new MyDuplex())
   .pipe(new MyTransform())
   .pipe(new MyWriteStream());
+
 new MyReadStream()
   .on("error", () => {})
   .pipe(new MyDuplex())
   .once("close", () => {});
+
 
 ================================================================================
 `;

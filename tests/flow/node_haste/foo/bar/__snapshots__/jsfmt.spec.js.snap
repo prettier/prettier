@@ -22,5 +22,6 @@ var corge = require("qux/corge");
 // annotations - see node_modules/qux/docblock.js
 var unreachable = require("annotation");
 
+
 ================================================================================
 `;

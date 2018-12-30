@@ -56,7 +56,9 @@ var inspect =
         return util.inspect(v, {
           colors: colors
         });
+
       };
+
 var inspect =
   4 === util.inspect.length
     ? // node <= 0.8.x
@@ -68,28 +70,34 @@ var inspect =
         return util.inspect(v, {
           colors: colors
         });
+
       };
+
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
     {
       publicPath: Array(cssFilename.split("/").length).join("../")
     }
   : {};
+
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
     {
       publicPath: Array(cssFilename.split("/").length).join("../")
     }
   : {};
+
 const extractTextPluginOptions = shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
   ? {
       publicPath: Array(cssFilename.split("/").length).join("../")
     }
   : {};
+
 const { configureStore } =
   process.env.NODE_ENV === "production"
     ? require("./configureProdStore") // a
     : require("./configureDevStore"); // b
+
 
 ================================================================================
 `;
@@ -125,6 +133,7 @@ var x = a <= 1 ? 2 : 3;
 =====================================output=====================================
 // no-confusing-arrow
 var x = a => (1 ? 2 : 3);
+
 var x = a <= 1 ? 2 : 3;
 
 ================================================================================

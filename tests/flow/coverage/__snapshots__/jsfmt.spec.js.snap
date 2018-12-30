@@ -24,8 +24,10 @@ declare module bar {
 // particular, when unchecked it causes a crash with coverage --color.
 declare module foo {
 }
+
 declare module bar {
 } // TODO
+
 
 ================================================================================
 `;
@@ -45,6 +47,7 @@ declare module foo {
 // check coverage of declare module
 declare module foo {
 }
+
 
 ================================================================================
 `;
@@ -92,10 +95,13 @@ declare class qux {
 // particular, when unchecked it causes non-termination with coverage --color.
 declare module foo {
 }
+
 declare module bar {
 }
+
 // TODO
 declare class qux {}
+
 
 ================================================================================
 `;

@@ -38,6 +38,7 @@ enum Direction {
   Left,
   Right
 }
+
 enum FileAccess {
   // constant members
   None,
@@ -47,11 +48,13 @@ enum FileAccess {
   // computed member
   G = "123".length
 }
+
 enum Empty {}
 const enum Enum {
   A = 1,
   B = A * 2
 }
+
 
 ================================================================================
 `;

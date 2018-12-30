@@ -36,6 +36,7 @@ printWidth: 80
       class Foo<T> {
         constructor(private foo: keyof Apple) {}
       }
+
     </script>
   </head>
   <body></body>

@@ -31,13 +31,16 @@ declare module "classnames" {
   export interface y {}
   export type z = y;
 }
+
 declare module "x" {
   export default class x {}
 }
+
 declare module "y" {
   const y = 5;
   export default y;
 }
+
 
 ================================================================================
 `;

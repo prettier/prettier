@@ -19,10 +19,13 @@ var d: number = source.str; // Ignored error: num ~> string
 =====================================output=====================================
 // @flow
 import { source } from "./test";
+
 var a: number = source.num;
 var b: string = source.num; // Error: num ~> string
+
 var c: string = source.str;
 var d: number = source.str; // Ignored error: num ~> string
+
 
 ================================================================================
 `;
@@ -41,6 +44,7 @@ export var num = 42;
 =====================================output=====================================
 // @flow
 export var str = "asdf";
+
 export var num = 42;
 
 ================================================================================
@@ -59,6 +63,7 @@ export * as source from "./source";
 =====================================output=====================================
 // @flow
 export * as source from "./source";
+
 
 ================================================================================
 `;

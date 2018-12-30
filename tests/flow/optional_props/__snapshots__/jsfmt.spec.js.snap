@@ -23,18 +23,23 @@ bar({foo: ""});
 var x: {} = {
   foo: 0
 };
+
 var y: {
   foo?: string
 } = x; // OK in TypeScript, not OK in Flow
+
 var z: string = y.foo || "";
 var o = {};
 y = o; // OK; we know that narrowing could not have happened
+
 o.foo = 0; // future widening is constrained
+
 function bar(config: { foo?: number }) {}
 bar({});
 bar({
   foo: ""
 });
+
 
 ================================================================================
 `;
@@ -63,33 +68,43 @@ var f: { foo?: ?string } = { foo: null }; // Also fine
 var a: {
   foo?: string
 } = {};
+
 a.foo = undefined; // This is not an error
+
 a.foo = null; // But this is an error
+
 var b: {
   foo?: ?string
 } = {};
+
 b.foo = undefined; // This is fine
+
 b.foo = null; // Also fine
+
 var c: {
   foo?: string
 } = {
   foo: undefined
 }; // This is not an error
+
 var d: {
   foo?: string
 } = {
   foo: null
 }; // But this is an error
+
 var e: {
   foo?: ?string
 } = {
   foo: undefined
 }; // This is fine
+
 var f: {
   foo?: ?string
 } = {
   foo: null
 }; // Also fine
+
 
 ================================================================================
 `;
@@ -191,6 +206,7 @@ var x: {
 } = {
   a: 0
 };
+
 // now assign an object literal lacking property b.
 // the literal's type is sealed and has only a at creation.
 // but it then flows, specific ~> general, to x's annotation
@@ -199,14 +215,17 @@ var x: {
 x = {
   a: 0
 };
+
 // ...which allows this assignment to take place.
 x.b = 1;
+
 // T7810506
 class A {
   x: {
     a: number,
     b?: string
   };
+
   foo() {
     // Something similar should happen here, but doesn't: the problem is
     // made explicit by adding generics (see test3_failure.js introduced by
@@ -218,9 +237,12 @@ class A {
     this.x = {
       a: 123
     };
+
     this.x.b = "hello";
   }
+
 }
+
 
 ================================================================================
 `;
@@ -247,12 +269,16 @@ const a: {|
 |} = {
   a: 1
 };
+
 const b: {
   a: number,
   b?: number
 } = a; // error: property \`b\` not found
+
 b.b = 0; // because subsequent writes would widen the exact object
+
 (a.b: number); // error: property \`b\` not found
+
 
 ================================================================================
 `;
@@ -288,9 +314,13 @@ class A<
     this.o.x = {
       a: 123
     };
+
     this.o.x.b = "hello"; // this is a spurious error (see test3.js for details)
+
   }
+
 }
+
 
 ================================================================================
 `;

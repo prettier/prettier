@@ -31,11 +31,13 @@ printWidth: 80
     color: red;
   }
 \`}</style>;
+
 <style jsx>{tpl\`
   p {
     color: red;
   }
 \`}</style>;
+
 <style jsx>
   {\`
     p {
@@ -43,6 +45,7 @@ printWidth: 80
     }
   \`}
 </style>;
+
 
 ================================================================================
 `;

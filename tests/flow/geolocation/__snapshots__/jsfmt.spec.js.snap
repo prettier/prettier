@@ -30,6 +30,7 @@ geolocation.clearWatch(id);
 =====================================output=====================================
 /* @flow */
 var geolocation = new Geolocation();
+
 var id = geolocation.watchPosition(
   position => {
     var coords: Coordinates = position.coords;
@@ -47,8 +48,10 @@ var id = geolocation.watchPosition(
       default:
         break;
     }
+
   }
 );
+
 geolocation.clearWatch(id);
 
 ================================================================================

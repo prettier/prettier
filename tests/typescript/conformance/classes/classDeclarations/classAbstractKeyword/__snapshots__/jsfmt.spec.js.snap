@@ -20,9 +20,11 @@ abstract class A {
   abstract get aa() {
     return 1;
   }
+
   abstract set b(x: string);
   abstract set bb(x: string) {}
 }
+
 
 ================================================================================
 `;
@@ -43,7 +45,9 @@ class abstract {
   foo() {
     return 1;
   }
+
 }
+
 new abstract();
 
 ================================================================================
@@ -95,6 +99,7 @@ abstract class A {
   x: number;
   static y: number;
 }
+
 var AA: typeof A;
 AA = I;
 var AAA: typeof I;
@@ -156,9 +161,11 @@ var x = new bar();
 abstract class foo {
   protected abstract test();
 }
+
 class bar extends foo {
   test() {}
 }
+
 var x = new bar();
 
 ================================================================================
@@ -190,14 +197,17 @@ class E extends B {
 class A {
   foo() {}
 }
+
 abstract class B extends A {
   abstract bar();
 }
+
 class C extends B {}
 abstract class D extends B {}
 class E extends B {
   bar() {}
 }
+
 
 ================================================================================
 `;
@@ -231,9 +241,11 @@ abstract class B extends A {}
 function NewA(Factory: typeof A) {
   return new A();
 }
+
 function NewB(Factory: typeof B) {
   return new B();
 }
+
 NewA(A);
 NewA(B);
 NewB(A);
@@ -279,6 +291,7 @@ abstract class A<T> {
   abstract foo(): T;
   abstract bar(t: T);
 }
+
 abstract class B<T> extends A {}
 class C<T> extends A {}
 class D extends A {}
@@ -286,16 +299,21 @@ class E<T> extends A {
   foo() {
     return this.t;
   }
+
 }
+
 class F<T> extends A {
   bar(t: T) {}
 }
+
 class G<T> extends A {
   foo() {
     return this.t;
   }
+
   bar(t: T) {}
 }
+
 
 ================================================================================
 `;
@@ -378,6 +396,7 @@ class C extends A {}
 abstract class AA {
   abstract foo();
 }
+
 abstract class BB extends AA {}
 class CC extends AA {}
 class DD extends BB {}
@@ -494,8 +513,10 @@ abstract class B {
   foo(): number {
     return this.bar();
   }
+
   abstract bar(): number;
 }
+
 new B();
 var BB: typeof B = B;
 var AA: typeof A = BB;
@@ -503,6 +524,7 @@ new AA();
 function constructB(Factory: typeof B) {
   new Factory();
 }
+
 var BB = B;
 new BB();
 var x: any = C;
@@ -513,13 +535,17 @@ class E extends B {
   bar() {
     return 1;
   }
+
 }
+
 abstract class F extends B {
   abstract foo(): number;
   bar() {
     return 2;
   }
+
 }
+
 abstract class G {
   abstract qux(x: number): string;
   abstract qux(): number;
@@ -528,9 +554,11 @@ abstract class G {
   abstract nom(): boolean;
   nom(x: number): boolean;
 }
+
 class H {
   abstract baz(): number;
 }
+
 
 ================================================================================
 `;
@@ -552,9 +580,11 @@ class B {
 class A {
   abstract foo();
 }
+
 class B {
   abstract foo() {}
 }
+
 
 ================================================================================
 `;
@@ -572,6 +602,7 @@ abstract class A {
 abstract class A {
   abstract foo() {}
 }
+
 
 ================================================================================
 `;
@@ -609,6 +640,7 @@ abstract class A {
   static abstract foo_d();
   static abstract foo_e();
 }
+
 
 ================================================================================
 `;
@@ -657,6 +689,7 @@ abstract class A {
   baz() {}
   qux();
 }
+
 abstract class B {
   abstract foo(): number;
   abstract foo();
@@ -664,6 +697,7 @@ abstract class B {
   abstract foo();
   abstract foo();
 }
+
 
 ================================================================================
 `;
@@ -701,21 +735,26 @@ class DD extends BB {
 class A {
   foo() {}
 }
+
 abstract class B extends A {
   abstract foo();
 }
+
 abstract class AA {
   foo() {}
   abstract bar();
 }
+
 abstract class BB extends AA {
   abstract foo();
   bar() {}
 }
+
 class CC extends BB {}
 class DD extends BB {
   foo() {}
 }
+
 
 ================================================================================
 `;
@@ -751,6 +790,7 @@ abstract class A {
   protected abstract foo_z(): number;
   private abstract foo_w(): number;
 }
+
 
 ================================================================================
 `;
@@ -823,38 +863,51 @@ class A {
   foo() {
     return 1;
   }
+
 }
+
 abstract class B extends A {
   abstract foo();
   bar() {
     super.foo();
   }
+
   baz() {
     return this.foo;
   }
+
 }
+
 class C extends B {
   foo() {
     return 2;
   }
+
   qux() {
     return super.foo() || super.foo;
   }
+
   norf() {
     return super.bar();
   }
+
 }
+
 class AA {
   foo() {
     return 1;
   }
+
   bar() {
     return this.foo();
   }
+
 }
+
 abstract class BB extends AA {
   abstract foo();
 }
+
 
 ================================================================================
 `;
@@ -886,14 +939,18 @@ a.foo();
 abstract class A {
   abstract foo(): number;
 }
+
 class B extends A {
   foo() {
     return 1;
   }
+
 }
+
 abstract class C extends A {
   abstract foo(): number;
 }
+
 var a = new B();
 a.foo();
 a = new C();
@@ -939,22 +996,27 @@ class DD extends AA {
 class A {
   abstract foo();
 }
+
 class B extends A {}
 abstract class C extends A {}
 class D extends A {
   foo() {}
 }
+
 abstract class E extends A {
   foo() {}
 }
+
 abstract class AA {
   abstract foo();
 }
+
 class BB extends AA {}
 abstract class CC extends AA {}
 class DD extends AA {
   foo() {}
 }
+
 
 ================================================================================
 `;

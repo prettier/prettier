@@ -29,6 +29,7 @@ if (
   someVeryLongStringD
 ) {
 }
+
 while (
   someVeryLongStringA &&
   someVeryLongStringB &&
@@ -50,6 +51,7 @@ if (
   )
 ) {
 }
+
 while (
   someVeryLongFunc(
     someVeryLongArgA,
@@ -69,6 +71,7 @@ do {} while (
 while (0) 1;
 do 1;
 while (0);
+
 
 ================================================================================
 `;

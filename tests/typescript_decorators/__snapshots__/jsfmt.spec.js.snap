@@ -19,8 +19,10 @@ class Decorated {
 =====================================output=====================================
 @(bind as ClassDecorator)
 class Decorated {}
+
 @(<ClassDecorator>bind)
 class Decorated {}
+
 
 ================================================================================
 `;
@@ -53,14 +55,17 @@ class AngularComponent {
 export class TestTextFileService {
   constructor(@ILifecycleService lifecycleService) {}
 }
+
 @commonEditorContribution
 export class TabCompletionController {}
+
 @Component({
   selector: "angular-component"
 })
 class AngularComponent {
   @Input() myInput: string;
 }
+
 
 ================================================================================
 `;
@@ -118,31 +123,45 @@ class Something {
 class Foo1 {
   @foo // comment
   async method() {}
+
 }
+
 class Foo2 {
   @foo // comment
   private method() {}
+
 }
+
 class Foo3 {
   @foo // comment
   *method() {}
+
 }
+
 class Foo4 {
   @foo // comment
   async *method() {}
+
 }
+
 class Something {
   @foo() // comment
   readonly property: Array<string>;
+
 }
+
 class Something {
   @foo() // comment
   abstract property: Array<string>;
+
 }
+
 class Something {
   @foo() // comment
   abstract method(): Array<string>;
+
 }
+
 
 ================================================================================
 `;
@@ -209,19 +228,25 @@ class MyContainerComponent {
 @d3.bar
 @d4.baz()
 class Class1 {}
+
 class Class2 {
   @d1
   @d2(foo)
   @d3.bar
   @d4.baz()
   method1() {}
+
   @d1
   method2() {}
+
   @d2(foo)
   method3() {}
+
   @d3.bar
   method4() {}
+
 }
+
 class Class3 {
   @d1 fieldA;
   @d2(foo) fieldB;
@@ -236,17 +261,22 @@ class Class3 {
     })
     private a: string
   ) {}
+
 }
+
 @decorated
 class Foo {}
+
 class Bar {
   @decorated method() {}
 }
+
 class MyContainerComponent {
   @ContentChildren(MyComponent) components: QueryListSomeBigName<
     MyComponentThat
   >;
 }
+
 
 ================================================================================
 `;
@@ -270,6 +300,7 @@ interface MyInterface {
 interface MyInterface {
   id: string;
 }
+
 
 ================================================================================
 `;

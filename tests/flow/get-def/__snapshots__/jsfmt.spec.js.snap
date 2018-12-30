@@ -25,14 +25,18 @@ lib.bar();
 =====================================output=====================================
 /* @flow */
 var lib = require("./library");
+
 function add(a: number, b: number): number {
   return a + b;
 }
+
 var re = /^keynote (talk){2} (lightning){3,5} (talk){2} closing partytime!!!/;
 // t123456
 add(lib.iTakeAString(42), 7);
+
 // D123456
 lib.bar();
+
 
 ================================================================================
 `;
@@ -58,6 +62,7 @@ things;
 =====================================output=====================================
 // @flow
 import thing from "./helpers/exports_default.js";
+
 thing;
 import { foo, bar as baz } from "./helpers/exports_named.js";
 foo;
@@ -98,6 +103,7 @@ module.exports = {
     return 42;
   }
 };
+
 
 ================================================================================
 `;

@@ -23,10 +23,13 @@ var ident = <T>(x: T): T => x;
  * @flow
  */
 var add = (x: number, y: number): number => x + y;
+
 var bad = (x: number): string => x; // Error!
+
 var ident = <T>(x: T): T => x;
 (ident(1): number);
 (ident("hi"): number); // Error
+
 
 ================================================================================
 `;
@@ -56,11 +59,13 @@ function selectBestEffortImageForWidth(
   var maxPixelWidth = maxWidth;
   //images = images.sort(function (a, b) { return a.width - b.width });
   images = images.sort((a, b) => a.width - b.width + "");
+
   return (
     images.find(image => image.width >= maxPixelWidth) ||
     images[images.length - 1]
   );
 }
+
 
 ================================================================================
 `;

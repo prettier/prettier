@@ -50,6 +50,7 @@ const UsersList = ({ users }) => (
     </ul>
   </section>
 );
+
 const TodoList = ({ todos }) => (
   <div className="TodoList">
     <ul>
@@ -59,6 +60,7 @@ const TodoList = ({ todos }) => (
     </ul>
   </div>
 );
+
 <div className="search-filter-chips">
   {scopes
     .filter(scope => scope.value !== "")
@@ -72,6 +74,7 @@ const TodoList = ({ todos }) => (
       />
     ))}
 </div>;
+
 
 ================================================================================
 `;
@@ -126,6 +129,7 @@ const UsersList = ({ users }) => (
     </ul>
   </section>
 );
+
 const TodoList = ({ todos }) => (
   <div className='TodoList'>
     <ul>
@@ -135,6 +139,7 @@ const TodoList = ({ todos }) => (
     </ul>
   </div>
 );
+
 <div className='search-filter-chips'>
   {scopes
     .filter(scope => scope.value !== "")
@@ -148,6 +153,7 @@ const TodoList = ({ todos }) => (
       />
     ))}
 </div>;
+
 
 ================================================================================
 `;
@@ -202,6 +208,7 @@ const UsersList = ({ users }) => (
     </ul>
   </section>
 );
+
 const TodoList = ({ todos }) => (
   <div className="TodoList">
     <ul>
@@ -211,6 +218,7 @@ const TodoList = ({ todos }) => (
     </ul>
   </div>
 );
+
 <div className="search-filter-chips">
   {scopes
     .filter(scope => scope.value !== '')
@@ -224,6 +232,7 @@ const TodoList = ({ todos }) => (
       />
     ))}
 </div>;
+
 
 ================================================================================
 `;
@@ -278,6 +287,7 @@ const UsersList = ({ users }) => (
     </ul>
   </section>
 );
+
 const TodoList = ({ todos }) => (
   <div className='TodoList'>
     <ul>
@@ -287,6 +297,7 @@ const TodoList = ({ todos }) => (
     </ul>
   </div>
 );
+
 <div className='search-filter-chips'>
   {scopes
     .filter(scope => scope.value !== '')
@@ -300,6 +311,7 @@ const TodoList = ({ todos }) => (
       />
     ))}
 </div>;
+
 
 ================================================================================
 `;
@@ -376,6 +388,7 @@ singleQuote: false
   }
 />;
 
+
 ================================================================================
 `;
 
@@ -450,6 +463,7 @@ singleQuote: false
     \`text\`
   }
 />;
+
 
 ================================================================================
 `;
@@ -526,6 +540,7 @@ singleQuote: true
   }
 />;
 
+
 ================================================================================
 `;
 
@@ -600,6 +615,7 @@ singleQuote: true
     \`text\`
   }
 />;
+
 
 ================================================================================
 `;
@@ -770,22 +786,27 @@ cable ? (
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
 // The line does not break.
 normalModeNonBreaking ? "a" : "b";
+
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
 // Its consequent is very long, so it breaks out to multiple lines.
 normalModeBreaking
   ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
   : "c";
+
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is non-breaking.
 // Note: I have never, ever seen someone use a JSXElement as the test in a
 // ConditionalExpression. But this test is included for completeness.
 <div /> ? jsxModeFromElementNonBreaking : "a";
+
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is non-breaking.
 jsxModeFromElementNonBreaking ? <div /> : "a";
+
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is non-breaking.
 jsxModeFromElementNonBreaking ? "a" : <div />;
+
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is breaking.
 // Note: I have never, ever seen someone use a JSXElement as the test in a
@@ -799,6 +820,7 @@ jsxModeFromElementNonBreaking ? "a" : <div />;
 ) : (
   "a"
 );
+
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
@@ -810,6 +832,7 @@ jsxModeFromElementBreaking ? (
 ) : (
   "a"
 );
+
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
@@ -821,13 +844,16 @@ jsxModeFromElementBreaking ? (
     </span>
   </div>
 );
+
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
 // the outermost ConditionalExpression is a JSXExpressionContainer. It is
 // non-breaking.
 <div>{a ? "a" : b ? "b" : "c"}</div>;
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is non-breaking.
 cable ? "satellite" : public ? "affairs" : network ? <span id="c" /> : "dunno";
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the end). It is
 // breaking; notice the consequents and alternates in the entire chain get
@@ -845,6 +871,7 @@ cable ? (
 ) : (
   "dunno"
 );
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the beginning). It is
 // breaking; notice the consequents and alternates in the entire chain get
@@ -862,6 +889,7 @@ cable ? (
 ) : (
   "dunno"
 );
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
 // and alternates in the entire chain get wrapped in parens.
@@ -875,6 +903,7 @@ cable ? (
     )
   ) : null}
 </div>;
+
 
 ================================================================================
 `;
@@ -1045,22 +1074,27 @@ cable ? (
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
 // The line does not break.
 normalModeNonBreaking ? "a" : "b";
+
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
 // Its consequent is very long, so it breaks out to multiple lines.
 normalModeBreaking
   ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
   : "c";
+
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is non-breaking.
 // Note: I have never, ever seen someone use a JSXElement as the test in a
 // ConditionalExpression. But this test is included for completeness.
 <div /> ? jsxModeFromElementNonBreaking : "a";
+
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is non-breaking.
 jsxModeFromElementNonBreaking ? <div /> : "a";
+
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is non-breaking.
 jsxModeFromElementNonBreaking ? "a" : <div />;
+
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is breaking.
 // Note: I have never, ever seen someone use a JSXElement as the test in a
@@ -1074,6 +1108,7 @@ jsxModeFromElementNonBreaking ? "a" : <div />;
 ) : (
   "a"
 );
+
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
@@ -1085,6 +1120,7 @@ jsxModeFromElementBreaking ? (
 ) : (
   "a"
 );
+
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
@@ -1096,13 +1132,16 @@ jsxModeFromElementBreaking ? (
     </span>
   </div>
 );
+
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
 // the outermost ConditionalExpression is a JSXExpressionContainer. It is
 // non-breaking.
 <div>{a ? "a" : b ? "b" : "c"}</div>;
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is non-breaking.
 cable ? "satellite" : public ? "affairs" : network ? <span id='c' /> : "dunno";
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the end). It is
 // breaking; notice the consequents and alternates in the entire chain get
@@ -1120,6 +1159,7 @@ cable ? (
 ) : (
   "dunno"
 );
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the beginning). It is
 // breaking; notice the consequents and alternates in the entire chain get
@@ -1137,6 +1177,7 @@ cable ? (
 ) : (
   "dunno"
 );
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
 // and alternates in the entire chain get wrapped in parens.
@@ -1150,6 +1191,7 @@ cable ? (
     )
   ) : null}
 </div>;
+
 
 ================================================================================
 `;
@@ -1320,22 +1362,27 @@ cable ? (
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
 // The line does not break.
 normalModeNonBreaking ? 'a' : 'b';
+
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
 // Its consequent is very long, so it breaks out to multiple lines.
 normalModeBreaking
   ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
   : 'c';
+
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is non-breaking.
 // Note: I have never, ever seen someone use a JSXElement as the test in a
 // ConditionalExpression. But this test is included for completeness.
 <div /> ? jsxModeFromElementNonBreaking : 'a';
+
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is non-breaking.
 jsxModeFromElementNonBreaking ? <div /> : 'a';
+
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is non-breaking.
 jsxModeFromElementNonBreaking ? 'a' : <div />;
+
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is breaking.
 // Note: I have never, ever seen someone use a JSXElement as the test in a
@@ -1349,6 +1396,7 @@ jsxModeFromElementNonBreaking ? 'a' : <div />;
 ) : (
   'a'
 );
+
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
@@ -1360,6 +1408,7 @@ jsxModeFromElementBreaking ? (
 ) : (
   'a'
 );
+
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
@@ -1371,13 +1420,16 @@ jsxModeFromElementBreaking ? (
     </span>
   </div>
 );
+
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
 // the outermost ConditionalExpression is a JSXExpressionContainer. It is
 // non-breaking.
 <div>{a ? 'a' : b ? 'b' : 'c'}</div>;
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is non-breaking.
 cable ? 'satellite' : public ? 'affairs' : network ? <span id="c" /> : 'dunno';
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the end). It is
 // breaking; notice the consequents and alternates in the entire chain get
@@ -1395,6 +1447,7 @@ cable ? (
 ) : (
   'dunno'
 );
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the beginning). It is
 // breaking; notice the consequents and alternates in the entire chain get
@@ -1412,6 +1465,7 @@ cable ? (
 ) : (
   'dunno'
 );
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
 // and alternates in the entire chain get wrapped in parens.
@@ -1425,6 +1479,7 @@ cable ? (
     )
   ) : null}
 </div>;
+
 
 ================================================================================
 `;
@@ -1595,22 +1650,27 @@ cable ? (
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
 // The line does not break.
 normalModeNonBreaking ? 'a' : 'b';
+
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
 // Its consequent is very long, so it breaks out to multiple lines.
 normalModeBreaking
   ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
   : 'c';
+
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is non-breaking.
 // Note: I have never, ever seen someone use a JSXElement as the test in a
 // ConditionalExpression. But this test is included for completeness.
 <div /> ? jsxModeFromElementNonBreaking : 'a';
+
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is non-breaking.
 jsxModeFromElementNonBreaking ? <div /> : 'a';
+
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is non-breaking.
 jsxModeFromElementNonBreaking ? 'a' : <div />;
+
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is breaking.
 // Note: I have never, ever seen someone use a JSXElement as the test in a
@@ -1624,6 +1684,7 @@ jsxModeFromElementNonBreaking ? 'a' : <div />;
 ) : (
   'a'
 );
+
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
@@ -1635,6 +1696,7 @@ jsxModeFromElementBreaking ? (
 ) : (
   'a'
 );
+
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
@@ -1646,13 +1708,16 @@ jsxModeFromElementBreaking ? (
     </span>
   </div>
 );
+
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
 // the outermost ConditionalExpression is a JSXExpressionContainer. It is
 // non-breaking.
 <div>{a ? 'a' : b ? 'b' : 'c'}</div>;
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is non-breaking.
 cable ? 'satellite' : public ? 'affairs' : network ? <span id='c' /> : 'dunno';
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the end). It is
 // breaking; notice the consequents and alternates in the entire chain get
@@ -1670,6 +1735,7 @@ cable ? (
 ) : (
   'dunno'
 );
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the beginning). It is
 // breaking; notice the consequents and alternates in the entire chain get
@@ -1687,6 +1753,7 @@ cable ? (
 ) : (
   'dunno'
 );
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
 // and alternates in the entire chain get wrapped in parens.
@@ -1700,6 +1767,7 @@ cable ? (
     )
   ) : null}
 </div>;
+
 
 ================================================================================
 `;
@@ -1853,6 +1921,7 @@ singleQuote: false
     someVeryLongStyle4: "true"
   }}
 />;
+
 <View
   style={[
     {
@@ -1863,6 +1932,7 @@ singleQuote: false
     }
   ]}
 />;
+
 <Something>
   {() => (
     <SomethingElse>
@@ -1870,6 +1940,7 @@ singleQuote: false
     </SomethingElse>
   )}
 </Something>;
+
 <Something>
   {items.map(item => (
     <SomethingElse>
@@ -1877,6 +1948,7 @@ singleQuote: false
     </SomethingElse>
   ))}
 </Something>;
+
 <Something>
   {function() {
     return (
@@ -1884,8 +1956,10 @@ singleQuote: false
         <span />
       </SomethingElse>
     );
+
   }}
 </Something>;
+
 <RadioListItem
   key={option}
   imageSource={
@@ -1923,6 +1997,7 @@ singleQuote: false
     );
   }}
 />;
+
 <Component
   onChange={(
     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
@@ -1931,8 +2006,10 @@ singleQuote: false
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
+
   }}
 />;
+
 <BookingIntroPanel>
   {data => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
@@ -1954,6 +2031,7 @@ singleQuote: false
     );
   }}
 </BookingIntroPanel>;
+
 <Component>
   {(
     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
@@ -1962,8 +2040,10 @@ singleQuote: false
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
+
   }}
 </Component>;
+
 <SuspendyTree>
   <div
     style={{
@@ -1978,6 +2058,7 @@ singleQuote: false
       ))}
   </div>
 </SuspendyTree>;
+
 
 ================================================================================
 `;
@@ -2131,6 +2212,7 @@ singleQuote: false
     someVeryLongStyle4: "true"
   }}
 />;
+
 <View
   style={[
     {
@@ -2141,6 +2223,7 @@ singleQuote: false
     }
   ]}
 />;
+
 <Something>
   {() => (
     <SomethingElse>
@@ -2148,6 +2231,7 @@ singleQuote: false
     </SomethingElse>
   )}
 </Something>;
+
 <Something>
   {items.map(item => (
     <SomethingElse>
@@ -2155,6 +2239,7 @@ singleQuote: false
     </SomethingElse>
   ))}
 </Something>;
+
 <Something>
   {function() {
     return (
@@ -2162,8 +2247,10 @@ singleQuote: false
         <span />
       </SomethingElse>
     );
+
   }}
 </Something>;
+
 <RadioListItem
   key={option}
   imageSource={
@@ -2201,6 +2288,7 @@ singleQuote: false
     );
   }}
 />;
+
 <Component
   onChange={(
     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
@@ -2209,8 +2297,10 @@ singleQuote: false
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
+
   }}
 />;
+
 <BookingIntroPanel>
   {data => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
@@ -2232,6 +2322,7 @@ singleQuote: false
     );
   }}
 </BookingIntroPanel>;
+
 <Component>
   {(
     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
@@ -2240,8 +2331,10 @@ singleQuote: false
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
+
   }}
 </Component>;
+
 <SuspendyTree>
   <div
     style={{
@@ -2256,6 +2349,7 @@ singleQuote: false
       ))}
   </div>
 </SuspendyTree>;
+
 
 ================================================================================
 `;
@@ -2409,6 +2503,7 @@ singleQuote: true
     someVeryLongStyle4: 'true'
   }}
 />;
+
 <View
   style={[
     {
@@ -2419,6 +2514,7 @@ singleQuote: true
     }
   ]}
 />;
+
 <Something>
   {() => (
     <SomethingElse>
@@ -2426,6 +2522,7 @@ singleQuote: true
     </SomethingElse>
   )}
 </Something>;
+
 <Something>
   {items.map(item => (
     <SomethingElse>
@@ -2433,6 +2530,7 @@ singleQuote: true
     </SomethingElse>
   ))}
 </Something>;
+
 <Something>
   {function() {
     return (
@@ -2440,8 +2538,10 @@ singleQuote: true
         <span />
       </SomethingElse>
     );
+
   }}
 </Something>;
+
 <RadioListItem
   key={option}
   imageSource={
@@ -2479,6 +2579,7 @@ singleQuote: true
     );
   }}
 />;
+
 <Component
   onChange={(
     key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
@@ -2487,8 +2588,10 @@ singleQuote: true
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
+
   }}
 />;
+
 <BookingIntroPanel>
   {data => doLogClick('short', 'short', data)}
 </BookingIntroPanel>;
@@ -2510,6 +2613,7 @@ singleQuote: true
     );
   }}
 </BookingIntroPanel>;
+
 <Component>
   {(
     key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
@@ -2518,8 +2622,10 @@ singleQuote: true
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
+
   }}
 </Component>;
+
 <SuspendyTree>
   <div
     style={{
@@ -2534,6 +2640,7 @@ singleQuote: true
       ))}
   </div>
 </SuspendyTree>;
+
 
 ================================================================================
 `;
@@ -2687,6 +2794,7 @@ singleQuote: true
     someVeryLongStyle4: 'true'
   }}
 />;
+
 <View
   style={[
     {
@@ -2697,6 +2805,7 @@ singleQuote: true
     }
   ]}
 />;
+
 <Something>
   {() => (
     <SomethingElse>
@@ -2704,6 +2813,7 @@ singleQuote: true
     </SomethingElse>
   )}
 </Something>;
+
 <Something>
   {items.map(item => (
     <SomethingElse>
@@ -2711,6 +2821,7 @@ singleQuote: true
     </SomethingElse>
   ))}
 </Something>;
+
 <Something>
   {function() {
     return (
@@ -2718,8 +2829,10 @@ singleQuote: true
         <span />
       </SomethingElse>
     );
+
   }}
 </Something>;
+
 <RadioListItem
   key={option}
   imageSource={
@@ -2757,6 +2870,7 @@ singleQuote: true
     );
   }}
 />;
+
 <Component
   onChange={(
     key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
@@ -2765,8 +2879,10 @@ singleQuote: true
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
+
   }}
 />;
+
 <BookingIntroPanel>
   {data => doLogClick('short', 'short', data)}
 </BookingIntroPanel>;
@@ -2788,6 +2904,7 @@ singleQuote: true
     );
   }}
 </BookingIntroPanel>;
+
 <Component>
   {(
     key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
@@ -2796,8 +2913,10 @@ singleQuote: true
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
+
   }}
 </Component>;
+
 <SuspendyTree>
   <div
     style={{
@@ -2812,6 +2931,7 @@ singleQuote: true
       ))}
   </div>
 </SuspendyTree>;
+
 
 ================================================================================
 `;
@@ -2837,6 +2957,7 @@ const aDiv = (
   <div className="foo">Foo bar</div>
 );
 
+
 ================================================================================
 `;
 
@@ -2860,6 +2981,7 @@ const aDiv = (
   /* $FlowFixMe */
   <div className='foo'>Foo bar</div>
 );
+
 
 ================================================================================
 `;
@@ -2885,6 +3007,7 @@ const aDiv = (
   <div className="foo">Foo bar</div>
 );
 
+
 ================================================================================
 `;
 
@@ -2908,6 +3031,7 @@ const aDiv = (
   /* $FlowFixMe */
   <div className='foo'>Foo bar</div>
 );
+
 
 ================================================================================
 `;
@@ -3046,6 +3170,7 @@ singleQuote: false
     </div>
   )}
 </div>;
+
 <div>
   {__DEV__ && (
     <div>
@@ -3060,6 +3185,7 @@ singleQuote: false
     </div>
   )}
 </div>;
+
 <div>
   {member.memberName.memberSomething +
     (member.memberDef.memberSomething.signatures ? "()" : "")}
@@ -3126,6 +3252,7 @@ singleQuote: false
     </div>
   )}
 </div>;
+
 <div>
   {__DEV__ && (
     <div>
@@ -3140,6 +3267,7 @@ singleQuote: false
     </div>
   )}
 </div>;
+
 <div>
   {member.memberName.memberSomething +
     (member.memberDef.memberSomething.signatures ? "()" : "")}
@@ -3206,6 +3334,7 @@ singleQuote: true
     </div>
   )}
 </div>;
+
 <div>
   {__DEV__ && (
     <div>
@@ -3220,6 +3349,7 @@ singleQuote: true
     </div>
   )}
 </div>;
+
 <div>
   {member.memberName.memberSomething +
     (member.memberDef.memberSomething.signatures ? '()' : '')}
@@ -3286,6 +3416,7 @@ singleQuote: true
     </div>
   )}
 </div>;
+
 <div>
   {__DEV__ && (
     <div>
@@ -3300,6 +3431,7 @@ singleQuote: true
     </div>
   )}
 </div>;
+
 <div>
   {member.memberName.memberSomething +
     (member.memberDef.memberSomething.signatures ? '()' : '')}
@@ -3377,6 +3509,7 @@ singleQuote: false
   )}
 </div>;
 
+
 ================================================================================
 `;
 
@@ -3448,6 +3581,7 @@ singleQuote: false
     </span>
   )}
 </div>;
+
 
 ================================================================================
 `;
@@ -3521,6 +3655,7 @@ singleQuote: true
   )}
 </div>;
 
+
 ================================================================================
 `;
 
@@ -3593,6 +3728,7 @@ singleQuote: true
   )}
 </div>;
 
+
 ================================================================================
 `;
 
@@ -3632,6 +3768,7 @@ const tabs = [
     )
   }
 ];
+
 
 ================================================================================
 `;
@@ -3673,6 +3810,7 @@ const tabs = [
   }
 ];
 
+
 ================================================================================
 `;
 
@@ -3712,6 +3850,7 @@ const tabs = [
     )
   }
 ];
+
 
 ================================================================================
 `;
@@ -3753,6 +3892,7 @@ const tabs = [
   }
 ];
 
+
 ================================================================================
 `;
 
@@ -3785,6 +3925,7 @@ onClick={() => {
   {header}
   {showSort}
 </td>;
+
 <td
   onClick={() => {
     a;
@@ -3793,6 +3934,7 @@ onClick={() => {
   {header}
   <showSort attr="long long long long long long long long long long long" />
 </td>;
+
 <Foo>{\`    a    very    long    text    that    does    not    break    \`}</Foo>;
 
 ================================================================================
@@ -3827,6 +3969,7 @@ onClick={() => {
   {header}
   {showSort}
 </td>;
+
 <td
   onClick={() => {
     a;
@@ -3835,6 +3978,7 @@ onClick={() => {
   {header}
   <showSort attr='long long long long long long long long long long long' />
 </td>;
+
 <Foo>{\`    a    very    long    text    that    does    not    break    \`}</Foo>;
 
 ================================================================================
@@ -3869,6 +4013,7 @@ onClick={() => {
   {header}
   {showSort}
 </td>;
+
 <td
   onClick={() => {
     a;
@@ -3877,6 +4022,7 @@ onClick={() => {
   {header}
   <showSort attr="long long long long long long long long long long long" />
 </td>;
+
 <Foo>{\`    a    very    long    text    that    does    not    break    \`}</Foo>;
 
 ================================================================================
@@ -3911,6 +4057,7 @@ onClick={() => {
   {header}
   {showSort}
 </td>;
+
 <td
   onClick={() => {
     a;
@@ -3919,6 +4066,7 @@ onClick={() => {
   {header}
   <showSort attr='long long long long long long long long long long long' />
 </td>;
+
 <Foo>{\`    a    very    long    text    that    does    not    break    \`}</Foo>;
 
 ================================================================================
@@ -4497,31 +4645,40 @@ const BreakingArrowExpression = () => (
     <div>bla bla bla</div>
   </div>
 );
+
 const NonBreakingArrowExpressionWBody = () => {
   return <div />;
 };
+
 const BreakingArrowExpressionWBody = () => {
   return (
     <div>
       <div>bla bla bla</div>
     </div>
   );
+
 };
+
 const NonBreakingFunction = function() {
   return <div />;
 };
+
 const BreakingFunction = function() {
   return (
     <div>
       <div>bla bla bla</div>
     </div>
   );
+
 };
+
 class NonBreakingClass extends React.component {
   render() {
     return <div />;
   }
+
 }
+
 class BreakingClass extends React.component {
   render() {
     return (
@@ -4529,8 +4686,11 @@ class BreakingClass extends React.component {
         <div>bla bla bla</div>
       </div>
     );
+
   }
+
 }
+
 
 ================================================================================
 `;
@@ -4604,31 +4764,40 @@ const BreakingArrowExpression = () => (
     <div>bla bla bla</div>
   </div>
 );
+
 const NonBreakingArrowExpressionWBody = () => {
   return <div />;
 };
+
 const BreakingArrowExpressionWBody = () => {
   return (
     <div>
       <div>bla bla bla</div>
     </div>
   );
+
 };
+
 const NonBreakingFunction = function() {
   return <div />;
 };
+
 const BreakingFunction = function() {
   return (
     <div>
       <div>bla bla bla</div>
     </div>
   );
+
 };
+
 class NonBreakingClass extends React.component {
   render() {
     return <div />;
   }
+
 }
+
 class BreakingClass extends React.component {
   render() {
     return (
@@ -4636,8 +4805,11 @@ class BreakingClass extends React.component {
         <div>bla bla bla</div>
       </div>
     );
+
   }
+
 }
+
 
 ================================================================================
 `;
@@ -4711,31 +4883,40 @@ const BreakingArrowExpression = () => (
     <div>bla bla bla</div>
   </div>
 );
+
 const NonBreakingArrowExpressionWBody = () => {
   return <div />;
 };
+
 const BreakingArrowExpressionWBody = () => {
   return (
     <div>
       <div>bla bla bla</div>
     </div>
   );
+
 };
+
 const NonBreakingFunction = function() {
   return <div />;
 };
+
 const BreakingFunction = function() {
   return (
     <div>
       <div>bla bla bla</div>
     </div>
   );
+
 };
+
 class NonBreakingClass extends React.component {
   render() {
     return <div />;
   }
+
 }
+
 class BreakingClass extends React.component {
   render() {
     return (
@@ -4743,8 +4924,11 @@ class BreakingClass extends React.component {
         <div>bla bla bla</div>
       </div>
     );
+
   }
+
 }
+
 
 ================================================================================
 `;
@@ -4818,31 +5002,40 @@ const BreakingArrowExpression = () => (
     <div>bla bla bla</div>
   </div>
 );
+
 const NonBreakingArrowExpressionWBody = () => {
   return <div />;
 };
+
 const BreakingArrowExpressionWBody = () => {
   return (
     <div>
       <div>bla bla bla</div>
     </div>
   );
+
 };
+
 const NonBreakingFunction = function() {
   return <div />;
 };
+
 const BreakingFunction = function() {
   return (
     <div>
       <div>bla bla bla</div>
     </div>
   );
+
 };
+
 class NonBreakingClass extends React.component {
   render() {
     return <div />;
   }
+
 }
+
 class BreakingClass extends React.component {
   render() {
     return (
@@ -4850,8 +5043,11 @@ class BreakingClass extends React.component {
         <div>bla bla bla</div>
       </div>
     );
+
   }
+
 }
+
 
 ================================================================================
 `;
@@ -4891,6 +5087,7 @@ const Labels = {
   label3: <fbt>Label 3</fbt>
 };
 
+
 ================================================================================
 `;
 
@@ -4928,6 +5125,7 @@ const Labels = {
   label2: <fbt>Label 2</fbt>,
   label3: <fbt>Label 3</fbt>
 };
+
 
 ================================================================================
 `;
@@ -4967,6 +5165,7 @@ const Labels = {
   label3: <fbt>Label 3</fbt>
 };
 
+
 ================================================================================
 `;
 
@@ -5004,6 +5203,7 @@ const Labels = {
   label2: <fbt>Label 2</fbt>,
   label3: <fbt>Label 3</fbt>
 };
+
 
 ================================================================================
 `;

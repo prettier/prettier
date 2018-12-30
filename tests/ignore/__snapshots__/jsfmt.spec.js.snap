@@ -86,21 +86,26 @@ function a() {
     extra +
     this.watchFns() +
     'return fn;';
+
   // prettier-ignore
   const identity = Matrix.create(
     1, 0, 0,
     0, 1, 0,
     0, 0, 0
   );
+
   // Let's make sure that this comment doesn't interfere
   // prettier-ignore
   const commentsWithPrettierIgnore =   {
     "ewww":
             "gross-formatting",
   };
+
   function giveMeSome() {
     a(  a  ); // prettier-ignore // shouldn't I return something?  :shrug:
+
   }
+
   // prettier-ignore
   console.error(
     'In order to use ' + prompt + ', you need to configure a ' +
@@ -122,6 +127,7 @@ function a() {
     'Once this is done, commit anything to the repository to restart ' +
       'Travis and it should work :)'
   );
+
   // Incorrectly indented on purpose
   function f<
     /* prettier-ignore */
@@ -132,13 +138,17 @@ function a() {
     call(
       f(         1          ) // prettier-ignore
     );
+
   }
+
 }
+
 const response = {
   // prettier-ignore
   '_text': 'Turn on the lights',
   intent: "lights"
 };
+
 
 ================================================================================
 `;

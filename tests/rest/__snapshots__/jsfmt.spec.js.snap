@@ -34,6 +34,7 @@ declare class C {
     ...args
   ): void;
 }
+
 function f(
   superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
   ...args
@@ -43,6 +44,7 @@ declare class C {
     ...superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong
   ): void;
 }
+
 [
   superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
   ,

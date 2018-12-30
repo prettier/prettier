@@ -62,6 +62,7 @@ foo = (
   <Component />
   <Component />
 </>;
+
 <>
   text
   <h2>heading</h2>
@@ -69,6 +70,7 @@ foo = (
   <h2>heading</h2>
   text
 </>;
+
 <div>
   <>
     <>
@@ -81,14 +83,17 @@ foo = (
     </>
   </>
 </div>;
+
 foo = (
   // comment
   <></>
 );
+
 </* open fragment */>
   <Component />
   <Component />
 </ /* close fragment */>;
+
 <
   // open fragment
 >
@@ -97,6 +102,7 @@ foo = (
 </
   // close fragment
 >;
+
 
 ================================================================================
 `;

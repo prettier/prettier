@@ -47,12 +47,14 @@ const { children, ...props } = this.props;
 const {
   user: { firstName, lastName }
 } = this.props;
+
 const {
   name: { first, last },
   organisation: {
     address: { street: orgStreetAddress, postcode: orgPostcode }
   }
 } = user;
+
 function f({ data: { name } }) {}
 const UserComponent = function({
   name: { first, last },
@@ -62,17 +64,20 @@ const UserComponent = function({
 }) {
   return;
 };
+
 const {
   a,
   b,
   c,
   d: { e }
 } = someObject;
+
 try {
   // code
 } catch ({ data: { message } }) {
   // code
 }
+
 try {
   // code
 } catch ({
@@ -82,6 +87,7 @@ try {
 }) {
   // code
 }
+
 
 ================================================================================
 `;

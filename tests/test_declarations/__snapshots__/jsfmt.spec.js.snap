@@ -45,25 +45,31 @@ function x() { async(() => {}) }
 beforeEach(async(() => {
   // code
 }));
+
 beforeEach(done =>
   foo()
     .bar()
     .bar()
 );
+
 afterAll(async(() => {
   console.log("Hello");
 }));
+
 afterAll(done =>
   foo()
     .bar()
     .bar()
 );
+
 it("should create the app", async(() => {
   //code
 }));
+
 it("does something really long and complicated so I have to write a very long name for the test", async(() => {
   // code
 }));
+
 /*
  * isTestCall(parent) should only be called when parent exists
  * and parent.type is CallExpression. This test makes sure that
@@ -72,6 +78,7 @@ it("does something really long and complicated so I have to write a very long na
 function x() {
   async(() => {});
 }
+
 
 ================================================================================
 `;
@@ -122,25 +129,31 @@ function x() { async(() => {}) }
 beforeEach(async(() => {
   // code
 }));
+
 beforeEach((done) =>
   foo()
     .bar()
     .bar()
 );
+
 afterAll(async(() => {
   console.log("Hello");
 }));
+
 afterAll((done) =>
   foo()
     .bar()
     .bar()
 );
+
 it("should create the app", async(() => {
   //code
 }));
+
 it("does something really long and complicated so I have to write a very long name for the test", async(() => {
   // code
 }));
+
 /*
  * isTestCall(parent) should only be called when parent exists
  * and parent.type is CallExpression. This test makes sure that
@@ -149,6 +162,7 @@ it("does something really long and complicated so I have to write a very long na
 function x() {
   async(() => {});
 }
+
 
 ================================================================================
 `;
@@ -188,15 +202,19 @@ function x() { fakeAsync(() => {}) }
 beforeEach(fakeAsync(() => {
   // code
 }));
+
 afterAll(fakeAsync(() => {
   console.log("Hello");
 }));
+
 it("should create the app", fakeAsync(() => {
   //code
 }));
+
 it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => {
   // code
 }));
+
 it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() =>
   new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS()));
 /*
@@ -207,6 +225,7 @@ it("does something really long and complicated so I have to write a very long na
 function x() {
   fakeAsync(() => {});
 }
+
 
 ================================================================================
 `;
@@ -247,15 +266,19 @@ function x() { fakeAsync(() => {}) }
 beforeEach(fakeAsync(() => {
   // code
 }));
+
 afterAll(fakeAsync(() => {
   console.log("Hello");
 }));
+
 it("should create the app", fakeAsync(() => {
   //code
 }));
+
 it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => {
   // code
 }));
+
 it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() =>
   new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS()));
 /*
@@ -266,6 +289,7 @@ it("does something really long and complicated so I have to write a very long na
 function x() {
   fakeAsync(() => {});
 }
+
 
 ================================================================================
 `;
@@ -307,21 +331,26 @@ function x() { inject(() => {}) }
 beforeEach(inject(($fooService, $barService) => {
   // code
 }));
+
 afterAll(inject(($fooService, $barService) => {
   console.log("Hello");
 }));
+
 it("should create the app", inject(($fooService, $barService) => {
   //code
 }));
+
 it("does something really long and complicated so I have to write a very long name for the test", inject(() => {
   // code
 }));
+
 it("does something really long and complicated so I have to write a very long name for the test", inject((
   $fooServiceLongName,
   $barServiceLongName
 ) => {
   // code
 }));
+
 /*
  * isTestCall(parent) should only be called when parent exists
  * and parent.type is CallExpression. This test makes sure that
@@ -330,6 +359,7 @@ it("does something really long and complicated so I have to write a very long na
 function x() {
   inject(() => {});
 }
+
 
 ================================================================================
 `;
@@ -372,21 +402,26 @@ function x() { inject(() => {}) }
 beforeEach(inject(($fooService, $barService) => {
   // code
 }));
+
 afterAll(inject(($fooService, $barService) => {
   console.log("Hello");
 }));
+
 it("should create the app", inject(($fooService, $barService) => {
   //code
 }));
+
 it("does something really long and complicated so I have to write a very long name for the test", inject(() => {
   // code
 }));
+
 it("does something really long and complicated so I have to write a very long name for the test", inject((
   $fooServiceLongName,
   $barServiceLongName
 ) => {
   // code
 }));
+
 /*
  * isTestCall(parent) should only be called when parent exists
  * and parent.type is CallExpression. This test makes sure that
@@ -395,6 +430,7 @@ it("does something really long and complicated so I have to write a very long na
 function x() {
   inject(() => {});
 }
+
 
 ================================================================================
 `;
@@ -459,31 +495,38 @@ describe.each\`
   test(\`returns \${expected}\`, () => {
     expect(a + b).toBe(expected);
   });
+
   test(\`returned value not be greater than \${expected}\`, () => {
     expect(a + b).not.toBeGreaterThan(expected);
   });
+
   test(\`returned value not be less than \${expected}\`, () => {
     expect(a + b).not.toBeLessThan(expected);
   });
+
 });
+
 describe.only.each\`
   a            | b        | expected
   \${11}        | \${1}     | \${222}   | \${"unknown column 1"}   | \${"unknown column 2"}
   \${1 - 1}     | \${2 + 2} | \${3333}
   \${2 + 1 + 2} | \${1111}  | \${3}     | \${"unknown column xyz"}
 \`;
+
 describe.only.each\`
                |          |
   \${11}        | \${1}     | \${222}  | \${"unknown column 1"}   | \${"unknown column 2"}
   \${1 - 1}     | \${2 + 2} | \${3333}
   \${2 + 1 + 2} | \${1111}  | \${3}    | \${"unknown column xyz"}
 \`;
+
 describe.each\`
   a    | b    | expected
   \${1} | \${1} | \${2}
   \${1} | \${2} | \${3}
   \${2} | \${1} | \${3}
 \`;
+
 // an example to demo multiline quasi
 describe.each\`
   a    | b    | expected
@@ -494,6 +537,7 @@ describe.each\`
   \${1} | \${2} | \${3}
   \${2} | \${1} | \${3}
 \`;
+
 
 ================================================================================
 `;
@@ -559,31 +603,38 @@ describe.each\`
   test(\`returns \${expected}\`, () => {
     expect(a + b).toBe(expected);
   });
+
   test(\`returned value not be greater than \${expected}\`, () => {
     expect(a + b).not.toBeGreaterThan(expected);
   });
+
   test(\`returned value not be less than \${expected}\`, () => {
     expect(a + b).not.toBeLessThan(expected);
   });
+
 });
+
 describe.only.each\`
   a            | b        | expected
   \${11}        | \${1}     | \${222}   | \${"unknown column 1"}   | \${"unknown column 2"}
   \${1 - 1}     | \${2 + 2} | \${3333}
   \${2 + 1 + 2} | \${1111}  | \${3}     | \${"unknown column xyz"}
 \`;
+
 describe.only.each\`
                |          |
   \${11}        | \${1}     | \${222}  | \${"unknown column 1"}   | \${"unknown column 2"}
   \${1 - 1}     | \${2 + 2} | \${3333}
   \${2 + 1 + 2} | \${1111}  | \${3}    | \${"unknown column xyz"}
 \`;
+
 describe.each\`
   a    | b    | expected
   \${1} | \${1} | \${2}
   \${1} | \${2} | \${3}
   \${2} | \${1} | \${3}
 \`;
+
 // an example to demo multiline quasi
 describe.each\`
   a    | b    | expected
@@ -594,6 +645,7 @@ describe.each\`
   \${1} | \${2} | \${3}
   \${2} | \${1} | \${3}
 \`;
+
 
 ================================================================================
 `;
@@ -740,46 +792,60 @@ it(
 it("does something really long and complicated so I have to write a very long name for the test", () => {
   console.log("hello!");
 });
+
 it("does something really long and complicated so I have to write a very long name for the test", function() {
   console.log("hello!");
 });
+
 it("does something really long and complicated so I have to write a very long name for the test", function(done) {
   console.log("hello!");
 });
+
 it("does something really long and complicated so I have to write a very long name for the test", function myAssertions(done) {
   console.log("hello!");
 });
+
 it(\`does something really long and complicated so I have to write a very long name for the test\`, function() {
   console.log("hello!");
 });
+
 it(\`{foo + bar} does something really long and complicated so I have to write a very long name for the test\`, function() {
   console.log("hello!");
 });
+
 it(\`handles
   some
     newlines
   does something really long and complicated so I have to write a very long name for the test\`, () => {
   console.log("hello!");
 });
+
 test("does something really long and complicated so I have to write a very long name for the test", done => {
   console.log("hello!");
 });
+
 test(\`does something really long and complicated so I have to write a very long name for the test\`, done => {
   console.log("hello!");
 });
+
 test("does something really long and complicated so I have to write a very long name for the test", <T>(done) => {
   console.log("hello!");
 });
+
 describe("does something really long and complicated so I have to write a very long name for the describe block", () => {
   it("an example test", done => {
     console.log("hello!");
   });
+
 });
+
 describe(\`does something really long and complicated so I have to write a very long name for the describe block\`, () => {
   it(\`an example test\`, done => {
     console.log("hello!");
   });
+
 });
+
 xdescribe("does something really long and complicated so I have to write a very long name for the describe block", () => {});
 fdescribe("does something really long and complicated so I have to write a very long name for the describe block", () => {});
 describe.only(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
@@ -789,9 +855,11 @@ xit("does something really long and complicated so I have to write a very long n
 it.only("does something really long and complicated so I have to write a very long name for the test", () => {
   console.log("hello!");
 });
+
 it.only(\`does something really long and complicated so I have to write a very long name for the test\`, () => {
   console.log("hello!");
 });
+
 it.skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 test.only(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 test.skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
@@ -807,18 +875,21 @@ it.only(
     console.log("hello!");
   }
 );
+
 it.only.only(
   "does something really long and complicated so I have to write a very long name for the test",
   () => {
     console.log("hello!");
   }
 );
+
 it.only.only(
   "does something really long and complicated so I have to write a very long name for the test",
   (a, b, c) => {
     console.log("hello!");
   }
 );
+
 xskip(
   "does something really long and complicated so I have to write a very long name for the test",
   () => {}
@@ -830,9 +901,11 @@ it(\`handles
   does something really long and complicated so I have to write a very long name for the test\`, () => {
   console.log("hello!");
 }, 2500);
+
 it("does something quick", () => {
   console.log("hello!");
 }, 1000000000);
+
 it("succeeds if the test finishes in time", () =>
   new Promise(resolve => setTimeout(resolve, 10)));
 it(
@@ -987,46 +1060,60 @@ it(
 it("does something really long and complicated so I have to write a very long name for the test", () => {
   console.log("hello!");
 });
+
 it("does something really long and complicated so I have to write a very long name for the test", function() {
   console.log("hello!");
 });
+
 it("does something really long and complicated so I have to write a very long name for the test", function(done) {
   console.log("hello!");
 });
+
 it("does something really long and complicated so I have to write a very long name for the test", function myAssertions(done) {
   console.log("hello!");
 });
+
 it(\`does something really long and complicated so I have to write a very long name for the test\`, function() {
   console.log("hello!");
 });
+
 it(\`{foo + bar} does something really long and complicated so I have to write a very long name for the test\`, function() {
   console.log("hello!");
 });
+
 it(\`handles
   some
     newlines
   does something really long and complicated so I have to write a very long name for the test\`, () => {
   console.log("hello!");
 });
+
 test("does something really long and complicated so I have to write a very long name for the test", (done) => {
   console.log("hello!");
 });
+
 test(\`does something really long and complicated so I have to write a very long name for the test\`, (done) => {
   console.log("hello!");
 });
+
 test("does something really long and complicated so I have to write a very long name for the test", <T>(done) => {
   console.log("hello!");
 });
+
 describe("does something really long and complicated so I have to write a very long name for the describe block", () => {
   it("an example test", (done) => {
     console.log("hello!");
   });
+
 });
+
 describe(\`does something really long and complicated so I have to write a very long name for the describe block\`, () => {
   it(\`an example test\`, (done) => {
     console.log("hello!");
   });
+
 });
+
 xdescribe("does something really long and complicated so I have to write a very long name for the describe block", () => {});
 fdescribe("does something really long and complicated so I have to write a very long name for the describe block", () => {});
 describe.only(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
@@ -1036,9 +1123,11 @@ xit("does something really long and complicated so I have to write a very long n
 it.only("does something really long and complicated so I have to write a very long name for the test", () => {
   console.log("hello!");
 });
+
 it.only(\`does something really long and complicated so I have to write a very long name for the test\`, () => {
   console.log("hello!");
 });
+
 it.skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 test.only(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 test.skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
@@ -1054,18 +1143,21 @@ it.only(
     console.log("hello!");
   }
 );
+
 it.only.only(
   "does something really long and complicated so I have to write a very long name for the test",
   () => {
     console.log("hello!");
   }
 );
+
 it.only.only(
   "does something really long and complicated so I have to write a very long name for the test",
   (a, b, c) => {
     console.log("hello!");
   }
 );
+
 xskip(
   "does something really long and complicated so I have to write a very long name for the test",
   () => {}
@@ -1077,9 +1169,11 @@ it(\`handles
   does something really long and complicated so I have to write a very long name for the test\`, () => {
   console.log("hello!");
 }, 2500);
+
 it("does something quick", () => {
   console.log("hello!");
 }, 1000000000);
+
 it("succeeds if the test finishes in time", () =>
   new Promise((resolve) => setTimeout(resolve, 10)));
 it(

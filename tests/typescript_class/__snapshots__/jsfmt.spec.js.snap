@@ -18,9 +18,11 @@ class foo {
 class foo {
   constructor(static a: number) {}
 }
+
 class foo {
   constructor(export a: number) {}
 }
+
 
 ================================================================================
 `;
@@ -150,6 +152,7 @@ interface AudioBufferList {
   mBuffers: interop.Reference<any /*AudioBuffer*/>;
 }
 
+
 ================================================================================
 `;
 
@@ -175,12 +178,15 @@ export class Check {
 class X {
   optionalMethod?() {}
 }
+
 interface Iterable<T> {
   export [Symbol.iterator](): Iterator<T>;
 }
+
 export class Check {
   private static property = "test";
 }
+
 
 ================================================================================
 `;
@@ -202,6 +208,7 @@ class X {
   "a-prop"?: boolean;
 }
 
+
 ================================================================================
 `;
 
@@ -219,6 +226,7 @@ class User {
 class User {
   "username": string;
 }
+
 
 ================================================================================
 `;

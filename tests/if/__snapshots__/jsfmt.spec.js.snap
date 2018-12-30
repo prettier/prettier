@@ -29,9 +29,11 @@ if (cond) {
 else {
   stuff;
 }
+
 if (cond) stuff;
 // comment
 else stuff;
+
 
 ================================================================================
 `;
@@ -73,7 +75,9 @@ function f() {
       name: pair.substring(0, position),
       value: pair.substring(position + 1)
     };
+
 }
+
 function f() {
   if (position)
     return {
@@ -84,7 +88,9 @@ function f() {
       name: pair.substring(0, position),
       value: pair.substring(position + 1)
     };
+
 }
+
 
 ================================================================================
 `;
@@ -156,15 +162,20 @@ async function f() {
   if (untrackedChoice === 0) {
     /* Cancel */
     return null;
+
   } else if (untrackedChoice === 1) {
     /* Add */
     await repository.addAll(Array.from(untrackedChanges.keys()));
+
     shouldAmend = true;
   } else if (untrackedChoice === 2) {
     /* Allow Untracked */
     allowUntracked = true;
+
   }
+
 }
+
 async function f() {
   if (untrackedChoice === 0)
     /* Cancel */
@@ -175,7 +186,9 @@ async function f() {
   else if (untrackedChoice === 2)
     /* Allow Untracked */
     allowUntracked = true;
+
 }
+
 async function f() {
   if (untrackedChoice === 0)
     /* Cancel */
@@ -189,33 +202,45 @@ async function f() {
     /* Allow Untracked */
     // Allow Untracked
     allowUntracked = true;
+
 }
+
 async function f() {
   if (untrackedChoice === 0) {
     /* Cancel */
     return null;
+
   } else if (untrackedChoice === 1) {
     /* Add */
     await repository.addAll(Array.from(untrackedChanges.keys()));
+
     shouldAmend = true;
   } else if (untrackedChoice === 2) {
     /* Allow Untracked */
     allowUntracked = true;
+
   }
+
 }
+
 async function f() {
   if (untrackedChoice === 0) {
     /* Cancel */
     return null;
+
   } else if (untrackedChoice === 1) {
     /* Add */
     await repository.addAll(Array.from(untrackedChanges.keys()));
+
     shouldAmend = true;
   } else if (untrackedChoice === 2) {
     /* Allow Untracked */
     allowUntracked = true;
+
   }
+
 }
+
 
 ================================================================================
 `;
@@ -242,19 +267,24 @@ if (
 =====================================output=====================================
 if (code === 92 /* '\\' */) {
 }
+
 if (code === 92 /* '\\' */ /* '\\' */) {
 }
+
 if (code === 92) {
   /* '\\' */
 }
+
 if (code === 92) {
   /* '\\' */
 }
+
 if (
   1 // Comment
 ) {
   a;
 }
+
 
 ================================================================================
 `;

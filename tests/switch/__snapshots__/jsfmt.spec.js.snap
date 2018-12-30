@@ -37,20 +37,25 @@ switch (true) {
   // Good luck getting here
   case false:
 }
+
 switch (true) {
   case true:
 
   // Good luck getting here
   case false:
 }
+
 switch (x) {
   case x: {
   }
 
+
   // other
   case y: {
   }
+
 }
+
 
 ================================================================================
 `;
@@ -140,6 +145,7 @@ switch (foo) {
   case "baz":
     doOtherThing();
 }
+
 switch (foo) {
   case "bar":
     doSomething();
@@ -147,6 +153,7 @@ switch (foo) {
   case "baz":
     doOtherThing();
 }
+
 switch (foo) {
   case "bar":
     doSomething();
@@ -154,6 +161,7 @@ switch (foo) {
   case "baz":
     doOtherThing();
 }
+
 switch (foo) {
   case "bar":
     doSomething();
@@ -161,6 +169,7 @@ switch (foo) {
   case "baz":
     doOtherThing();
 }
+
 switch (x) {
   case y:
     call();
@@ -170,12 +179,15 @@ switch (x) {
     call();
     break;
 }
+
 switch (a) {
   case b:
     if (1) {
     }
+
     c;
 }
+
 switch (a) {
   case x:
 
@@ -185,6 +197,7 @@ switch (a) {
   case z:
     call();
 }
+
 switch (a) {
   case x:
 
@@ -194,6 +207,7 @@ switch (a) {
   case z:
     call();
 }
+
 
 ================================================================================
 `;
@@ -218,7 +232,9 @@ switch (error.code) {
       "Unable to write into settings. Correct errors/warnings in the file and try again."
     );
   }
+
 }
+
 
 ================================================================================
 `;
@@ -236,8 +252,10 @@ switch (1) {}
 switch (1) {
   default:
 }
+
 switch (1) {
 }
+
 
 ================================================================================
 `;
@@ -295,6 +313,7 @@ switch (a) {
   default:
     alert("default");
 }
+
 switch (
   veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
 ) {
@@ -305,6 +324,7 @@ switch (
   default:
     alert("default");
 }
+
 switch (
   veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong >
     veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
@@ -316,6 +336,7 @@ switch (
   default:
     alert("default");
 }
+
 
 ================================================================================
 `;

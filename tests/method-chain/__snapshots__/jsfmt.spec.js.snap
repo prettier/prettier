@@ -25,8 +25,11 @@ function a() {
         "someLongStringThatPushesThisTextReallyFar"
       )[0];
     });
+
   }
+
 }
+
 
 ================================================================================
 `;
@@ -91,7 +94,9 @@ export default store => {
         })
       )
   );
+
 };
+
 it("should group messages with same created time", () => {
   expect(groupMessages(messages).toJS()).toEqual({
     "11/01/2017 13:36": [
@@ -151,7 +156,9 @@ it("should group messages with same created time", () => {
       }
     ]
   });
+
 });
+
 
 ================================================================================
 `;
@@ -218,6 +225,7 @@ const {
   category: categories
 } = rawAd.entry;
 
+
 ================================================================================
 `;
 
@@ -238,9 +246,11 @@ object
   .foo()
   .bar()
   .baz();
+
 foo()
   .bar()
   .baz();
+
 foo().bar.baz();
 
 ================================================================================
@@ -323,34 +333,43 @@ function f() {
       // configurable.
       .debounceTime(debounceInterval)
   );
+
 }
+
 _.a(a)
   /* very very very very very very very long such that it is longer than 80 columns */
   .a();
+
 _.a(
   a
 ) /* very very very very very very very long such that it is longer than 80 columns */
   .a();
+
 _.a(
   a
 ) /* very very very very very very very long such that it is longer than 80 columns */
   .a();
+
 Something
   // $FlowFixMe(>=0.41.0)
   .getInstance(this.props.dao)
   .getters();
+
 // Warm-up first
 measure().then(() => {
   SomethingLong();
 });
+
 measure() // Warm-up first
   .then(() => {
     SomethingLong();
   });
+
 const configModel = this.baseConfigurationService
   .getCache()
   .consolidated // global/default values (do NOT modify)
   .merge(this.cachedWorkspaceConfig);
+
 this.doWriteConfiguration(target, value, options) // queue up writes to prevent race conditions
   .then(
     () => null,
@@ -360,10 +379,12 @@ this.doWriteConfiguration(target, value, options) // queue up writes to prevent 
         : this.onError(error, target, value);
     }
   );
+
 ret = __DEV__
   ? // $FlowFixMe: this type differs according to the env
     vm.runInContext(source, ctx)
   : a;
+
 this.firebase
   .object(\`/shops/\${shopLocation.shop}\`)
   // keep distance info
@@ -375,14 +396,17 @@ this.firebase
     ): any => {
       // add distance to result
       const s = shop;
+
       s.distance = shopLocation.distance;
       return s;
     }
   );
+
 angular
   .module("AngularAppModule")
   // Hello, I am comment.
   .constant("API_URL", "http://localhost:8080/api");
+
 
 ================================================================================
 `;
@@ -407,6 +431,7 @@ nock(/test/)
   .reply(200, {
     foo: "bar"
   });
+
 
 ================================================================================
 `;
@@ -439,16 +464,21 @@ window.Data[key]("foo")
   data[key]("foo")
     .then(() => console.log("bar"))
     .catch(() => console.log("baz"));
+
 });
+
 [].forEach(key => {
   data("foo")
     [key]("bar")
     .then(() => console.log("bar"))
     .catch(() => console.log("baz"));
+
 });
+
 window.Data[key]("foo")
   .then(() => a)
   .catch(() => b);
+
 
 ================================================================================
 `;
@@ -492,6 +522,7 @@ object[valid
   .d()
   .e()
   .f();
+
 (valid
   ? helper.responseBody(this.currentUser)
   : helper.responseBody(this.defaultUser)
@@ -549,9 +580,11 @@ d3.select("body")
   .st({
     fontWeight: 600
   });
+
 d3.scaleLinear()
   .domain([1950, 1980])
   .range([0, width]);
+
 not.d3
   .select("body")
   .append("circle")
@@ -562,10 +595,12 @@ not.d3
   .st({
     fontWeight: 600
   });
+
 not.d3
   .scaleLinear()
   .domain([1950, 1980])
   .range([0, width]);
+
 
 ================================================================================
 `;
@@ -627,7 +662,9 @@ export default function theFunction(action$, store) {
       .map(({ theType, ...data }) => theMap(theType, data))
       .retryWhen(errors => errors)
   );
+
 }
+
 function f() {
   return this._getWorker(workerOptions)({
     filePath,
@@ -635,15 +672,19 @@ function f() {
   }).then(metadata => {
     // \`1\` for truthy values instead of \`true\` to save cache space.
     fileMetadata[H.VISITED] = 1;
+
     const metadataId = metadata.id;
     const metadataModule = metadata.module;
     if (metadataId && metadataModule) {
       fileMetadata[H.ID] = metadataId;
       setModule(metadataId, metadataModule);
     }
+
     fileMetadata[H.DEPENDENCIES] = metadata.dependencies || [];
   });
+
 }
+
 
 ================================================================================
 `;
@@ -681,14 +722,17 @@ Object.keys(
 ).forEach(locale => {
   // ...
 });
+
 this.layoutPartsToHide = this.utils.hashset(
   _.flatMap(this.visibilityHandlers, fn => fn())
     .concat(this.record.resolved_legacy_visrules)
     .filter(Boolean)
 );
+
 var jqxhr = $.ajax("example.php")
   .done(doneFn)
   .fail(failFn);
+
 
 ================================================================================
 `;
@@ -797,22 +841,29 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
             City: "Berlin",
             Country: "DE"
           });
+
       }
+
     });
+
   });
+
 }
+
 wrapper
   .find("SomewhatLongNodeName")
   .prop("longPropFunctionName")()
   .then(function() {
     doSomething();
   });
+
 wrapper
   .find("SomewhatLongNodeName")
   .prop("longPropFunctionName")("argument")
   .then(function() {
     doSomething();
   });
+
 wrapper
   .find("SomewhatLongNodeName")
   .prop(
@@ -822,6 +873,7 @@ wrapper
   .then(function() {
     doSomething();
   });
+
 wrapper
   .find("SomewhatLongNodeName")
   .prop("longPropFunctionName")(
@@ -831,6 +883,7 @@ wrapper
   .then(function() {
     doSomething();
   });
+
 
 ================================================================================
 `;
@@ -851,6 +904,7 @@ const svgJsFiles = fs
   .readdirSync(svgDir)
   .filter(f => svgJsFileExtRegex.test(f))
   .map(f => path.join(svgDir, f));
+
 
 ================================================================================
 `;
@@ -877,9 +931,11 @@ const version = someLongString
   .pop()
   .split(EOL)[0]
   .trim();
+
 const component = find(".org-lclp-edit-copy-url-banner__link")[0]
   .getAttribute("href")
   .indexOf(this.landingPageLink);
+
 
 ================================================================================
 `;
@@ -902,6 +958,7 @@ method()
   .then(x => x)
   ["abc"](x => x)
   [abc](x => x);
+
 ({}.a().b());
 ({}.a().b());
 

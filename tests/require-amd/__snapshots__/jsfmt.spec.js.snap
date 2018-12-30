@@ -62,6 +62,7 @@ require([
 ) {
   console.log("some code");
 });
+
 define([
   "jquery",
   "common/global.context",
@@ -83,6 +84,7 @@ define([
 ) {
   console.log("some code");
 });
+
 
 ================================================================================
 `;

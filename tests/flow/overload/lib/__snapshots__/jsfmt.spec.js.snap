@@ -17,5 +17,6 @@ declare class FakeUint8Array {
   set(array: FakeUint8Array | Array<number>, offset?: number): void;
 }
 
+
 ================================================================================
 `;

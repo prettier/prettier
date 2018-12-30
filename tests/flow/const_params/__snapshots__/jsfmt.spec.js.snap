@@ -53,7 +53,9 @@ function durable_refi(x: ?number) {
  */
 function cannot_reassign(x: string) {
   x = "hey"; // error, const param cannot be reassigned
+
 }
+
 // Note: const params use the same machinery as explicit
 // const bindings, which are tested more extensively elsewhere.
 // Here we're just making sure the machinery is hooked up.
@@ -64,8 +66,11 @@ function durable_refi(x: ?number) {
     return () => {
       var y: number = x;
     };
+
   }
+
 }
+
 
 ================================================================================
 `;

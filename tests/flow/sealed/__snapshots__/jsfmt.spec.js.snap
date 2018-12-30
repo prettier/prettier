@@ -21,12 +21,15 @@ module.exports = Bar;
 function Bar(x: number) {
   this.x = x;
 }
+
 Bar.prototype.getX = function() {
   return this.x;
 };
+
 Bar.prototype.getY = function(): string {
   return this.y;
 };
+
 module.exports = Bar;
 
 ================================================================================
@@ -60,6 +63,7 @@ var x: number = o.x;
 Foo.prototype.m = function() {
   return this.x;
 };
+
 var y: number = o.m();
 o.x = "...";
 Foo.prototype = {
@@ -67,9 +71,11 @@ Foo.prototype = {
     return false;
   }
 };
+
 var export_o: {
   x: any
 } = o; // awkward type cast
+
 module.exports = export_o;
 
 ================================================================================
@@ -101,6 +107,7 @@ var Bar = require("./function");
 var a = new Bar(234);
 a.x = 123;
 a.y = "abc"; // error, needs to be declared in Bar's constructor
+
 (a.getX(): number);
 (a.getY(): string);
 

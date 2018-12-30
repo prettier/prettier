@@ -52,31 +52,41 @@ function foo0(): {} {
   return {
     foo: "bar"
   };
+
 }
+
 // Matching indexer should be fine
 function foo1(): { [key: string]: string } {
   return {
     foo: "bar"
   };
+
 }
+
 // Indexer with different key type is an error when it matches
 function foo2(): { [key: number]: string } {
   return {
     foo: "bar"
   };
+
 }
+
 // Matching indexer with different value type is an error
 function foo3(): { [key: string]: number } {
   return {
     foo: "bar"
   };
+
 }
+
 // Indexer with different key type and different value type is twice an error
 function foo4(): { [key: number]: number } {
   return {
     foo: "bar"
   };
+
 }
+
 // If key exists in object type then indexer is not matched
 function foo5(): {
   [key: string]: number,
@@ -85,7 +95,9 @@ function foo5(): {
   return {
     foo: "bar"
   };
+
 }
+
 // If key exists in object type then indexer is not matched
 function foo6(): {
   [key: number]: number,
@@ -94,7 +106,9 @@ function foo6(): {
   return {
     foo: "bar"
   };
+
 }
+
 // Should still complain about mistyped properties
 function foo7(): {
   [key: string]: number,
@@ -103,7 +117,9 @@ function foo7(): {
   return {
     foo: "bar"
   };
+
 }
+
 
 ================================================================================
 `;
@@ -133,8 +149,10 @@ let tests = [
       [k1: string]: string,
       [k2: number]: number // error: not supported (yet)
     });
+
   }
 ];
+
 
 ================================================================================
 `;

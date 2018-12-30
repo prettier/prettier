@@ -26,11 +26,13 @@ export type FileMetaData = [
   /* dependencies */
   Array<string>
 ];
+
 export type ModuleMetaData = [
   Path,
   /* type */
   number
 ];
+
 
 ================================================================================
 `;

@@ -66,6 +66,7 @@ type Props = {
 } & {
   propD: X
 };
+
 type Props = {
   focusedChildren?: React.Children,
   onClick: () => void,
@@ -73,10 +74,12 @@ type Props = {
   style?: Object,
   thumbnail: ImageSource
 } & FooterProps;
+
 type DuplexStreamOptions = ReadableStreamOptions & {
   allowHalfOpen?: boolean,
   readableObjectMode?: boolean
 };
+
 type DuplexStreamOptions = {
   allowHalfOpen?: boolean,
   readableObjectMode?: boolean
@@ -84,11 +87,13 @@ type DuplexStreamOptions = {
   allowHalfOpen?: boolean,
   readableObjectMode?: boolean
 };
+
 type DuplexStreamOptions = ReadableStreamOptions &
   WritableStreamOptions & {
     allowHalfOpen?: boolean,
     readableObjectMode?: boolean
   };
+
 type DuplexStreamOptions = ReadableStreamOptions &
   WritableStreamOptions & {
     allowHalfOpen?: boolean,
@@ -97,6 +102,7 @@ type DuplexStreamOptions = ReadableStreamOptions &
     allowHalfOpen?: boolean,
     readableObjectMode?: boolean
   };
+
 
 ================================================================================
 `;

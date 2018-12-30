@@ -53,19 +53,33 @@ someObject.someFunction().then(function() {
                           return someObject.someFunction().then(function() {
                             anotherFunction();
                           });
+
                         });
+
                       });
+
                     });
+
                   });
+
                 });
+
               });
+
             });
+
           });
+
         });
+
       });
+
     });
+
   });
+
 });
+
 
 ================================================================================
 `;
@@ -168,7 +182,9 @@ tap.test("RecordImport.advance", t => {
       t.equal(batch.state, states.shift());
       t.ok(batch.getCurState().name(i18n));
     }
+
   };
+
   const batch = init.getRecordBatch();
   const dataFile = path.resolve(process.cwd(), "testData", "default.json");
   const getBatches = callback => {
@@ -180,7 +196,9 @@ tap.test("RecordImport.advance", t => {
         )
       );
     });
+
   };
+
   mockFS(callback => {
     batch.setResults([fs.createReadStream(dataFile)], err => {
       t.error(err, "Error should be empty.");
@@ -190,6 +208,7 @@ tap.test("RecordImport.advance", t => {
         t.ok(result.data);
         t.equal(result.data.lang, "en");
       }
+
       getBatches((err, batches) => {
         checkStates(batches, ["started"]);
         RecordImport.advance(err => {
@@ -213,21 +232,33 @@ tap.test("RecordImport.advance", t => {
                         t.end();
                         callback();
                       });
+
                     });
+
                     t.ok(batch.getCurState().name(i18n));
                   });
+
                 });
+
                 t.ok(batch.getCurState().name(i18n));
               });
+
             });
+
             t.ok(batch.getCurState().name(i18n));
           });
+
         });
+
         t.ok(batch.getCurState().name(i18n));
       });
+
     });
+
   });
+
 });
+
 
 ================================================================================
 `;

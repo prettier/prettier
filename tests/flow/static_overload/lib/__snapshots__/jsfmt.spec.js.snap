@@ -17,5 +17,6 @@ declare class StaticOverload {
   static foo(x: string): string;
 }
 
+
 ================================================================================
 `;

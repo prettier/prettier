@@ -88,6 +88,7 @@ let tests = [
   }
 ];
 
+
 ================================================================================
 `;
 
@@ -136,7 +137,9 @@ function* generator(): Iterable<[string, number]> {
   while (true) {
     yield ["foo", 123];
   }
+
 }
+
 let tests = [
   // good constructors
   function() {
@@ -151,14 +154,19 @@ let tests = [
   // bad constructors
   function() {
     let x = new Map(["foo", 123]); // error
+
     let y: Map<number, string> = new Map([["foo", 123]]); // error
+
   },
   // get()
   function(x: Map<string, number>) {
     (x.get("foo"): boolean); // error, string | void
+
     x.get(123); // error, wrong key type
+
   }
 ];
+
 
 ================================================================================
 `;
@@ -209,7 +217,9 @@ let tests = [
     new RegExp("foo", "i");
     new RegExp("foo", "ig");
     new RegExp(/foo/, "i"); // invalid in ES5, valid in ES6
+
     new RegExp(/foo/g, "i"); // invalid in ES5, valid in ES6
+
   },
   // called as a function (equivalent to the constructor per ES6 21.2.3)
   function() {
@@ -218,14 +228,19 @@ let tests = [
     RegExp("foo", "i");
     RegExp("foo", "ig");
     RegExp(/foo/, "i"); // invalid in ES5, valid in ES6
+
     RegExp(/foo/g, "i"); // invalid in ES5, valid in ES6
+
   },
   // invalid flags
   function() {
     RegExp("foo", "z"); // error
+
     new RegExp("foo", "z"); // error
+
   }
 ];
+
 
 ================================================================================
 `;
@@ -276,12 +291,14 @@ let ws5 = new WeakSet(numbers()); // error, must be objects
 =====================================output=====================================
 // @flow
 let ws = new WeakSet();
+
 let obj: Object = {};
 let dict: {
   foo: string
 } = {
   foo: "bar"
 };
+
 ws.add(window);
 ws.add(obj);
 ws.add(dict);
@@ -293,6 +310,7 @@ ws.delete(obj);
 ws.delete(dict);
 let ws2 = new WeakSet([obj, dict]);
 let ws3 = new WeakSet([1, 2, 3]); // error, must be objects
+
 function* generator(): Iterable<{
   foo: string
 }> {
@@ -300,16 +318,22 @@ function* generator(): Iterable<{
     yield {
       foo: "bar"
     };
+
   }
+
 }
+
 let ws4 = new WeakSet(generator());
 function* numbers(): Iterable<number> {
   let i = 0;
   while (true) {
     yield i++;
   }
+
 }
+
 let ws5 = new WeakSet(numbers()); // error, must be objects
+
 
 ================================================================================
 `;

@@ -15,6 +15,7 @@ declare module A {
   declare function foo(): string;
 }
 
+
 ================================================================================
 `;
 
@@ -38,6 +39,7 @@ module.exports = require('A');
  */
 module.exports = require("A");
 
+
 ================================================================================
 `;
 
@@ -60,6 +62,7 @@ module.exports = require('B');
  * @flow
  */
 module.exports = require("B");
+
 
 ================================================================================
 `;
@@ -85,6 +88,7 @@ var bar3: string = require('C');
  * @flow
  */
 var bar1: string = require("A");
+
 var bar2: string = require("B");
 var bar3: string = require("C");
 

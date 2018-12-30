@@ -33,15 +33,19 @@ class Point {
     this._x = x;
     this._y = y;
   }
+
   @configurable(false)
   get x() {
     return this._x;
   }
+
   @configurable(false)
   get y() {
     return this._y;
   }
+
 }
+
 
 ================================================================================
 `;
@@ -73,6 +77,7 @@ export class HeroButtonComponent {
   @Input() label: string;
 }
 
+
 ================================================================================
 `;
 
@@ -100,10 +105,13 @@ class Greeter {
   constructor(message: string) {
     this.greeting = message;
   }
+
   greet() {
     return "Hello, " + this.greeting;
   }
+
 }
+
 
 ================================================================================
 `;
@@ -132,11 +140,14 @@ class Greeter {
   constructor(message: string) {
     this.greeting = message;
   }
+
   @enumerable(false)
   greet() {
     return "Hello, " + this.greeting;
   }
+
 }
+
 
 ================================================================================
 `;
@@ -161,10 +172,13 @@ class X {
   @deco x() {
     return this.count * 2;
   }
+
   @deco get x() {
     return this.count * 2;
   }
+
 }
+
 
 ================================================================================
 `;
@@ -186,7 +200,9 @@ class C {
   @f()
   @g()
   method() {}
+
 }
+
 
 ================================================================================
 `;
@@ -221,15 +237,19 @@ class Greeter {
   constructor(message: string) {
     this.greeting = message;
   }
+
   @validate
   greet(@required name: string) {
     return "Hello " + name + ", " + this.greeting;
   }
+
   @validate
   destructured(@required { toString }: Object) {
     return Function.prototype.toString.apply(toString);
   }
+
 }
+
 
 ================================================================================
 `;
@@ -258,11 +278,14 @@ class Greeter {
   constructor(message: string) {
     this.greeting = message;
   }
+
   greet() {
     let formatString = getFormat(this, "greeting");
     return formatString.replace("%s", this.greeting);
   }
+
 }
+
 
 ================================================================================
 `;
@@ -301,17 +324,24 @@ export class Board {
 export class Board {
   @PrimaryGeneratedColumn()
   id: number;
+
   @Column()
   slug: string;
+
   @Column()
   name: string;
+
   @Column()
   theme: string;
+
   @Column()
   description: string;
+
   @OneToMany(type => Topic, topic => topic.board)
   topics: Topic[];
+
 }
+
 
 ================================================================================
 `;

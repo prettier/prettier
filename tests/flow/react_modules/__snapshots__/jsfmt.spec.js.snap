@@ -36,6 +36,7 @@ module.exports = Callsite;
 =====================================output=====================================
 /* @flow */
 var React = require("react");
+
 var Hello = require("./createclass-module");
 var HelloLocal = React.createClass({
   propTypes: {
@@ -45,6 +46,7 @@ var HelloLocal = React.createClass({
     return <div>{this.props.name}</div>;
   }
 });
+
 var Callsite = React.createClass({
   render: function(): React.Element<*> {
     return (
@@ -53,8 +55,10 @@ var Callsite = React.createClass({
         <HelloLocal />
       </div>
     );
+
   }
 });
+
 module.exports = Callsite;
 
 ================================================================================
@@ -84,6 +88,7 @@ module.exports = Hello;
 =====================================output=====================================
 /* @flow */
 var React = require("react");
+
 var Hello = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired
@@ -92,6 +97,7 @@ var Hello = React.createClass({
     return <div>{this.props.name}</div>;
   }
 });
+
 module.exports = Hello;
 
 ================================================================================
@@ -133,6 +139,7 @@ module.exports = Callsite;
 =====================================output=====================================
 /* @flow */
 import React from "react";
+
 import Hello from "./es6class-proptypes-module";
 class HelloLocal extends React.Component<
   void,
@@ -145,10 +152,13 @@ class HelloLocal extends React.Component<
   propTypes = {
     name: React.PropTypes.string.isRequired
   };
+
   render(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
+
 }
+
 class Callsite extends React.Component<void, {}, void> {
   render(): React.Element<*> {
     return (
@@ -157,8 +167,11 @@ class Callsite extends React.Component<void, {}, void> {
         <HelloLocal />
       </div>
     );
+
   }
+
 }
+
 module.exports = Callsite;
 
 ================================================================================
@@ -189,6 +202,7 @@ module.exports = Hello;
 =====================================output=====================================
 /* @flow */
 import React from "react";
+
 class Hello extends React.Component<
   void,
   {
@@ -200,10 +214,13 @@ class Hello extends React.Component<
   propTypes = {
     name: React.PropTypes.string.isRequired
   };
+
   render(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
+
 }
+
 module.exports = Hello;
 
 ================================================================================
@@ -245,16 +262,20 @@ module.exports = Callsite;
 =====================================output=====================================
 /* @flow */
 import React from "react";
+
 import Hello from "./es6class-types-module";
 type Props = {
   name: string
 };
+
 class HelloLocal extends React.Component<void, Props, void> {
   props: Props;
   render(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
+
 }
+
 class Callsite extends React.Component<void, Props, void> {
   render(): React.Element<*> {
     return (
@@ -263,8 +284,11 @@ class Callsite extends React.Component<void, Props, void> {
         <HelloLocal />
       </div>
     );
+
   }
+
 }
+
 module.exports = Callsite;
 
 ================================================================================
@@ -295,16 +319,20 @@ module.exports = Hello;
 =====================================output=====================================
 /* @flow */
 import React from "react";
+
 type Props = {
   name: string
 };
+
 class Hello extends React.Component<{}, Props, void> {
   props: Props;
   static defaultProps: {};
   render(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
+
 }
+
 module.exports = Hello;
 
 ================================================================================

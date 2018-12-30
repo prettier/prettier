@@ -20,6 +20,7 @@ module.exports.fun = (): string => "hello there";
  */
 module.exports.fun = (): string => "hello there";
 
+
 ================================================================================
 `;
 
@@ -43,6 +44,7 @@ module.exports.fun = (): string => "hello there";
  */
 module.exports.fun = (): string => "hello there";
 
+
 ================================================================================
 `;
 
@@ -65,6 +67,7 @@ module.exports.fun = (): string => "hello there";
  * @flow
  */
 module.exports.fun = (): string => "hello there";
+
 
 ================================================================================
 `;
@@ -103,6 +106,7 @@ var ExplicitDifferentName = require('ExplicitProvidesModuleDifferentName');
 =====================================output=====================================
 /* @flow */
 var Implicit = require("ImplicitProvidesModule");
+
 (Implicit.fun(): string);
 var ExplicitSameName = require("ExplicitProvidesModuleSameName");
 (ExplicitSameName.fun(): string);

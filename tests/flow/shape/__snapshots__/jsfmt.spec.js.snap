@@ -17,6 +17,7 @@ var o = {};
   p: string
 }>);
 
+
 ================================================================================
 `;
 
@@ -38,9 +39,11 @@ var y: $Shape<Foo> = x;
 type Foo = {
   field: number
 };
+
 var x: {
   field?: number
 } = {};
+
 var y: $Shape<Foo> = x;
 (y.field: number);
 

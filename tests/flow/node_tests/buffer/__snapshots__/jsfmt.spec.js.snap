@@ -67,17 +67,20 @@ buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72], (a:number) => a + 1, 
 =====================================output=====================================
 /* @flow */
 let bool: boolean = false;
+
 let buffer: Buffer = new Buffer(0);
 let num: number = 0;
 let maybeNum: ?number;
 // Uint8Array properties. All of these should type check ok.
 buffer.length;
+
 buffer.buffer;
 buffer.byteOffset;
 buffer.byteLength;
 buffer[1];
 // A few Uint8Array instance methods. All of these should type check ok.
 buffer.copyWithin(0, 0);
+
 buffer.copyWithin(0, 0, 0);
 const it1: Iterator<[number, number]> = buffer.entries();
 bool = buffer.every((element: number) => false);
@@ -113,6 +116,7 @@ num = buffer.indexOf(3);
 num = buffer.indexOf(3, 4);
 // static methods
 buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+
 const typedArray = new Uint8Array([0x34]);
 buffer = Buffer.from(
   typedArray.buffer,
@@ -130,6 +134,7 @@ buffer = Buffer.from(
   (a: number) => a + 1,
   {}
 ); // error
+
 
 ================================================================================
 `;

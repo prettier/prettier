@@ -48,26 +48,32 @@ const G = {
   oneShorthand,
   oneLonghand: oneLonghand
 };
+
 const H = {
   oneMethod() {}
 };
+
 const I = {
   oneMethod() {
     withContents();
   }
 };
+
 const J = {
   oneArrowFunction: () => {}
 };
+
 const K = {
   oneArrowFunction: () => {
     withContents();
   }
 };
+
 const L = {
   oneMethod() {},
   twoMethod() {}
 };
+
 
 ================================================================================
 `;

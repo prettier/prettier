@@ -22,13 +22,18 @@ function bar(x: Class<B>): B {
 class A {}
 function foo(x: Class<A>): A {
   return new x(); // OK
+
 }
+
 class B {
   constructor(_: any) {}
 }
+
 function bar(x: Class<B>): B {
   return new x(); // error (too few args)
+
 }
+
 
 ================================================================================
 `;
@@ -59,6 +64,7 @@ check(B, new C);
 // makes it useless in such a function (when limited to classes and instances),
 // since everything can be trivially satisfied by going to \`mixed\`.
 declare function check<X>(cls: $Type<X>, inst: X): void;
+
 class A {}
 class B extends A {}
 class C {}

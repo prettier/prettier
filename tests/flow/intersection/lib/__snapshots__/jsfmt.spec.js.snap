@@ -51,6 +51,7 @@ type ObjAssignT = {
 } & {
   bar: string
 };
+
 // used in pred.js
 //
 type ReadableStreamOptions = {
@@ -58,20 +59,24 @@ type ReadableStreamOptions = {
   encoding?: ?string,
   objectMode?: boolean
 };
+
 type WritableStreamOptions = {
   highWaterMark?: number,
   decodeString?: boolean,
   objectMode?: boolean
 };
+
 // used in test_fun.js
 //
 type ObjA = {
   foo: number,
   bar: string
 };
+
 type ObjB = {
   baz: boolean
 };
+
 // used in test_obj.js
 //
 type A = {
@@ -79,10 +84,12 @@ type A = {
 } & {
   b: string
 };
+
 type B = {
   a: string,
   b: string
 };
+
 type C = { [key: string]: number } & { [key: string]: number };
 type D = { [key: string]: number };
 

@@ -25,22 +25,27 @@ const foo =
 =====================================output=====================================
 @deco
 class Foo {}
+
 @deco
 export class Bar {}
+
 @deco
 export default class Baz {}
+
 const foo =
   @deco
   class
   {
     //
   };
+
 const foo =
   @deco
   class
   {
     //
   };
+
 
 ================================================================================
 `;
@@ -91,6 +96,7 @@ var x = 100;
   b: "2"
 })
 class X {}
+
 @NgModule({
   // Imports.
   imports: [
@@ -102,11 +108,13 @@ class X {}
   ]
 })
 export class AppModule {}
+
 // A
 @Foo()
 // B
 @Bar() // C
 export class Bar {}
+
 
 ================================================================================
 `;
@@ -132,11 +140,14 @@ class Yo {
 class Yo {
   @foo("hello")
   async plop() {}
+
   @anotherDecoratorWithALongName("and a very long string as a first argument")
   async plip() {}
+
   @anotherDecoratorWithALongName("another very long string, but now inline")
   async plip() {}
 }
+
 
 ================================================================================
 `;
@@ -193,20 +204,25 @@ class OrderLine {
   constructor(price) {
     this.price = price;
   }
+
   @computed get total() {
     return this.price * this.amount;
   }
+
   @action.bound setPrice(price) {
     this.price = price;
   }
+
   @computed
   get total() {
     return this.price * this.amount;
   }
+
   @action.bound
   setPrice(price) {
     this.price = price;
   }
+
   @computed
   @computed
   @computed
@@ -217,11 +233,13 @@ class OrderLine {
   get total() {
     return this.price * this.amount;
   }
+
   @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) =>
     this.count--;
   @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) =>
     doSomething();
 }
+
 
 ================================================================================
 `;
@@ -243,7 +261,9 @@ class Foo {
 class Foo {
   @deco([foo, bar])
   prop = value;
+
 }
+
 
 ================================================================================
 `;
@@ -281,12 +301,14 @@ const dog = {
   @doubledValue
   eyes: 2
 };
+
 const foo = {
   @multipleDecorators
   @inline
   @theyWontAllFitInOneline
   aVeryLongPropName: "A very long string as value"
 };
+
 
 ================================================================================
 `;
@@ -309,10 +331,12 @@ export class Home extends React.Component {}
   mapDispatchToProps
 )
 export class MyApp extends React.Component {}
+
 @connect(state => ({
   todos: state.todos
 }))
 export class Home extends React.Component {}
+
 
 ================================================================================
 `;

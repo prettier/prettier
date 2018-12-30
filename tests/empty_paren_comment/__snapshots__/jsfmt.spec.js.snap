@@ -20,7 +20,9 @@ class x {
    * Set of default settings to be applied to model fetch calls in DAO layer.
    */
   static get defaultSettings() {}
+
 }
+
 
 ================================================================================
 `;
@@ -70,16 +72,19 @@ const obj = {
   f: function(/* ... */) {},
   f: function f(/* ... */) {}
 };
+
 class Foo {
   f(/* ... */) {}
   f() /* ... */
   {}
+
   f = (/* ... */) => {};
   static f(/* ... */) {}
   static f = (/* ... */) => {};
   static f = function(/* ... */) {};
   static f = function f(/* ... */) {};
 }
+
 f(/* ... */);
 f(a /* ... */);
 f(
@@ -87,11 +92,13 @@ f(
   /* ... */
   b
 );
+
 f(
   /* ... */
   a,
   b
 );
+
 let f = () => import(a /* ... */);
 let f = () =>
   doThing(
@@ -99,6 +106,7 @@ let f = () =>
     /* ... */
     b
   );
+
 
 ================================================================================
 `;

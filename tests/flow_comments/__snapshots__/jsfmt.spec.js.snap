@@ -19,12 +19,15 @@ const run = (cmd /*: string */) /*: Promise<void> */ => {}
 =====================================output=====================================
 // Error
 const beep = (data /*: Object */) => {};
+
 // OK
 const beep = (data /*: Object */, secondData /*: Object */) => {};
+
 const beep = (
   data /*: /* this is an object *-/
   Object */
 ) => {};
+
 const run = (cmd /*: string */) /*: Promise<void> */ => {};
 
 ================================================================================
@@ -47,6 +50,7 @@ class A {
   x /*: string */;
   method(a /*: T */, b /*: T */) /*: T */ {}
 }
+
 
 ================================================================================
 `;
@@ -89,6 +93,7 @@ const Component = branch/*:: <Props, ExternalProps> */(
   // $FlowFixMe
   renderNothing
 )(BaseComponent);
+
 const C = b/*:: <A> */(foo) + c/*:: <B> */(bar);
 foo/*:: <bar> */(baz);
 foo/*:: <bar> */();
@@ -137,14 +142,17 @@ type Props = {
 type Props = {
   isPlaying: boolean
 };
+
 type Props = {
   // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
   isPlaying: boolean
 };
+
 type Props = {
   // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
   isPlaying: boolean
 };
+
 
 ================================================================================
 `;
@@ -176,6 +184,7 @@ new (window.Request /*: Class<Request> */)("");
 // and unintentionally create a type annotation that was not there before.
 this /*
 : any */.foo = 5;
+
 const x = (input /*: string */) /*: string */ => {};
 
 ================================================================================
