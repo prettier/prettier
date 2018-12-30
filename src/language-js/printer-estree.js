@@ -1332,7 +1332,7 @@ function printPathNoParens(path, options, print, args) {
               hasNewlineInRange(
                 options.originalText,
                 options.locStart(n),
-                options.locEnd(firstProperty)
+                options.locStart(firstProperty)
               )));
       const separator = isFlowInterfaceLikeBody
         ? ";"
