@@ -38,7 +38,6 @@ switch (true) {
 
   case false:
 }
-
 switch (true) {
   case true:
 
@@ -46,7 +45,6 @@ switch (true) {
 
   case false:
 }
-
 switch (x) {
   case x: {
   }
@@ -145,7 +143,6 @@ switch (foo) {
   case "baz":
     doOtherThing();
 }
-
 switch (foo) {
   case "bar":
     doSomething();
@@ -153,7 +150,6 @@ switch (foo) {
   case "baz":
     doOtherThing();
 }
-
 switch (foo) {
   case "bar":
     doSomething();
@@ -161,7 +157,6 @@ switch (foo) {
   case "baz":
     doOtherThing();
 }
-
 switch (foo) {
   case "bar":
     doSomething();
@@ -169,27 +164,21 @@ switch (foo) {
   case "baz":
     doOtherThing();
 }
-
 switch (x) {
   case y:
     call();
-
     break;
 
   case z:
     call();
-
     break;
 }
-
 switch (a) {
   case b:
     if (1) {
     }
-
     c;
 }
-
 switch (a) {
   case x:
 
@@ -199,7 +188,6 @@ switch (a) {
   case z:
     call();
 }
-
 switch (a) {
   case x:
 
@@ -251,7 +239,6 @@ switch (1) {}
 switch (1) {
   default:
 }
-
 switch (1) {
 }
 
@@ -298,42 +285,35 @@ switch (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVery
 switch (a) {
   case 3:
     alert("3");
-
     break;
 
   case 4:
     alert("4");
-
     break;
 
   case 5:
     alert("5");
-
     break;
 
   default:
     alert("default");
 }
-
 switch (
   veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
 ) {
   case 3:
     alert("3");
-
     break;
 
   default:
     alert("default");
 }
-
 switch (
   veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong >
     veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
 ) {
   case 3:
     alert("3");
-
     break;
 
   default:

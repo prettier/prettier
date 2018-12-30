@@ -81,13 +81,11 @@ type T5 =
   | "11"
   | "12"
   | "13";
-
 type T6 =
   | "a-long-string"
   | "another-long-string"
   | "yet-another-long-string"
   | "one-more-for-good-measure";
-
 type T7 =
   | {
       eventName: "these",
@@ -117,7 +115,6 @@ type T7 =
       eventName: "line",
       g: number
     };
-
 type Comment =
   | {
       type: "CommentLine",
@@ -153,7 +150,6 @@ type Comment =
       },
       start: number
     };
-
 type Props = {
   onChange: (
     | {
@@ -167,7 +163,6 @@ type Props = {
       }
   ) => void
 };
-
 declare class FormData {
   append(
     options?:

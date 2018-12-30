@@ -33,7 +33,6 @@ export type FileMetaData = [
 
   Array<string>
 ];
-
 export type ModuleMetaData = [
   Path,
 

@@ -138,7 +138,6 @@ true
     })
   ]
 });
-
 true ? (
   test({
     a: 1
@@ -242,7 +241,6 @@ var listener = DOM.listen(
       ...DataStore.get(event.getNode(sigil))
     })
 );
-
 a(
   SomethingVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
   [
@@ -251,7 +249,6 @@ a(
     }
   ]
 );
-
 exports.examples = [
   {
     render: withGraphQLQuery("node(1234567890){image{uri}}", function(
@@ -276,7 +273,6 @@ exports.examples = [
     })
   }
 ];
-
 someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReally.a(
   [
     [],
@@ -286,7 +282,6 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
     []
   ]
 );
-
 (function webpackUniversalModuleDefinition() {})(this, function(
   __WEBPACK_EXTERNAL_MODULE_85__,
   __WEBPACK_EXTERNAL_MODULE_115__
@@ -372,19 +367,15 @@ func(
     // comment
   }
 );
-
 func({
   // comment
 });
-
 func(
   {} // comment
 );
-
 func(
   {} // comment
 );
-
 func(
   // comment
 
@@ -453,12 +444,10 @@ const formatData = pipe(
   map(mergeAll),
   values
 );
-
 export const setProp = y => ({
   ...y,
   a: "very, very, very long very, very long text"
 });
-
 export const log = y => {
   console.log("very, very, very long very, very long text");
 };
@@ -530,9 +519,7 @@ SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLongCall(
     // comment
   }
 );
-
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, no, []);
-
 func(
   one,
   two,
@@ -549,17 +536,13 @@ func(
   yes,
   []
 );
-
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, yes, [
   // Comments
 ]);
-
 func(five, six, seven, eig, is, this, too, long, yes, [
   // Comments
 ]);
-
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, no, {});
-
 func(
   one,
   two,
@@ -576,11 +559,9 @@ func(
   yes,
   {}
 );
-
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, yes, {
   // Comments
 });
-
 foo(
   (
     one,
@@ -599,7 +580,6 @@ foo(
     fourteen
   ) => {}
 );
-
 const contentTypes = function(tile, singleSelection) {
   return compute(function contentTypesContentTypes(
     tile,

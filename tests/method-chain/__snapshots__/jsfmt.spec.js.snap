@@ -92,7 +92,6 @@ export default store => {
       )
   );
 };
-
 it("should group messages with same created time", () => {
   expect(groupMessages(messages).toJS()).toEqual({
     "11/01/2017 13:36": [
@@ -191,20 +190,15 @@ const {
 =====================================output=====================================
 SomeVeryLongUpperCaseConstant.someVeryLongCallExpression()
   .some_very_long_member_expression;
-
 weNeedToReachTheEightyCharacterLimitXXXXXXXXXXXXXXXXX.someNode
   .childrenInAnArray[0];
-
 superSupersuperSupersuperSupersuperSupersuperSuperLong.exampleOfOrderOfGetterAndSetterReordered;
-
 superSupersuperSupersuperSupersuperSupersuperSuperLong
   .exampleOfOrderOfGetterAndSetterReordered[0];
-
 expect(
   findDOMNode(component.instance()).getElementsByClassName(styles.inner)[0]
     .style.paddingRight
 ).toBe("1000px");
-
 const {
   course,
   conflicts = [],
@@ -213,7 +207,6 @@ const {
   studentId,
   something
 } = a.this.props;
-
 const {
   course,
   conflicts = [],
@@ -222,7 +215,6 @@ const {
   studentId,
   something
 } = this.props;
-
 const {
   updated,
   author: { identifier: ownerId },
@@ -253,12 +245,10 @@ object
   .bar()
 
   .baz();
-
 foo()
   .bar()
 
   .baz();
-
 foo().bar.baz();
 
 ================================================================================
@@ -344,25 +334,21 @@ function f() {
       .debounceTime(debounceInterval)
   );
 }
-
 _.a(a)
 
   /* very very very very very very very long such that it is longer than 80 columns */
 
   .a();
-
 _.a(
   a
 ) /* very very very very very very very long such that it is longer than 80 columns */
 
   .a();
-
 _.a(
   a
 ) /* very very very very very very very long such that it is longer than 80 columns */
 
   .a();
-
 Something
 
   // $FlowFixMe(>=0.41.0)
@@ -370,25 +356,21 @@ Something
   .getInstance(this.props.dao)
 
   .getters();
-
 // Warm-up first
 
 measure().then(() => {
   SomethingLong();
 });
-
 measure() // Warm-up first
   .then(() => {
     SomethingLong();
   });
-
 const configModel = this.baseConfigurationService
 
   .getCache()
 
   .consolidated // global/default values (do NOT modify)
   .merge(this.cachedWorkspaceConfig);
-
 this.doWriteConfiguration(target, value, options) // queue up writes to prevent race conditions
 
   .then(
@@ -399,13 +381,11 @@ this.doWriteConfiguration(target, value, options) // queue up writes to prevent 
         : this.onError(error, target, value);
     }
   );
-
 ret = __DEV__
   ? // $FlowFixMe: this type differs according to the env
 
     vm.runInContext(source, ctx)
   : a;
-
 this.firebase
 
   .object(\`/shops/\${shopLocation.shop}\`)
@@ -421,13 +401,10 @@ this.firebase
       // add distance to result
 
       const s = shop;
-
       s.distance = shopLocation.distance;
-
       return s;
     }
   );
-
 angular
 
   .module("AngularAppModule")
@@ -496,7 +473,6 @@ window.Data[key]("foo")
 
     .catch(() => console.log("baz"));
 });
-
 [].forEach(key => {
   data("foo")
     [key]("bar")
@@ -505,7 +481,6 @@ window.Data[key]("foo")
 
     .catch(() => console.log("baz"));
 });
-
 window.Data[key]("foo")
 
   .then(() => a)
@@ -549,24 +524,20 @@ object[valid
 
 =====================================output=====================================
 (a ? b : c).d();
-
 (a ? b : c)
   .d()
 
   .e();
-
 (a ? b : c)
   .d()
 
   .e()
 
   .f();
-
 (valid
   ? helper.responseBody(this.currentUser)
   : helper.responseBody(this.defaultUser)
 ).map();
-
 (valid
   ? helper.responseBody(this.currentUser)
   : helper.responseBody(this.defaultUser)
@@ -574,12 +545,10 @@ object[valid
   .map()
 
   .filter();
-
 (valid
   ? helper.responseBody(this.currentUser)
   : helper.responseBody(defaultUser)
 ).map();
-
 object[
   valid
     ? helper.responseBody(this.currentUser)
@@ -626,13 +595,11 @@ d3.select("body")
   .st({
     fontWeight: 600
   });
-
 d3.scaleLinear()
 
   .domain([1950, 1980])
 
   .range([0, width]);
-
 not.d3
 
   .select("body")
@@ -647,7 +614,6 @@ not.d3
   .st({
     fontWeight: 600
   });
-
 not.d3
 
   .scaleLinear()
@@ -724,7 +690,6 @@ export default function theFunction(action$, store) {
         .retryWhen(errors => errors)
     );
 }
-
 function f() {
   return this._getWorker(workerOptions)
   ({
@@ -735,17 +700,12 @@ function f() {
     // \`1\` for truthy values instead of \`true\` to save cache space.
 
     fileMetadata[H.VISITED] = 1;
-
     const metadataId = metadata.id;
-
     const metadataModule = metadata.module;
-
     if (metadataId && metadataModule) {
       fileMetadata[H.ID] = metadataId;
-
       setModule(metadataId, metadataModule);
     }
-
     fileMetadata[H.DEPENDENCIES] = metadata.dependencies || [];
   });
 }
@@ -787,7 +747,6 @@ Object.keys(
 .forEach(locale => {
   // ...
 });
-
 this.layoutPartsToHide = this.utils.hashset(
   _.flatMap(this.visibilityHandlers, fn => fn())
 
@@ -795,7 +754,6 @@ this.layoutPartsToHide = this.utils.hashset(
 
     .filter(Boolean)
 );
-
 var jqxhr = $.ajax("example.php")
 
   .done(doneFn)
@@ -833,22 +791,18 @@ const someLongVariableName = (idx(
 const someLongVariableName = (
   idx(this.props, props => props.someLongPropertyName) || []
 ).map(edge => edge.node);
-
 (veryLongVeryLongVeryLong || e).map(tickets =>
   TicketRecord.createFromSomeLongString()
 );
-
 (veryLongVeryLongVeryLong || e)
   .map(tickets => TicketRecord.createFromSomeLongString())
 
   .filter(obj => !!obj);
-
 (
   veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
   veryVeryVeryLongError
 ).map(tickets => TicketRecord.createFromSomeLongString());
-
 (
   veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
@@ -920,7 +874,6 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
     });
   });
 }
-
 wrapper
 
   .find("SomewhatLongNodeName")
@@ -931,7 +884,6 @@ wrapper
   .then(function() {
     doSomething();
   });
-
 wrapper
 
   .find("SomewhatLongNodeName")
@@ -942,7 +894,6 @@ wrapper
   .then(function() {
     doSomething();
   });
-
 wrapper
 
   .find("SomewhatLongNodeName")
@@ -956,7 +907,6 @@ wrapper
   .then(function() {
     doSomething();
   });
-
 wrapper
 
   .find("SomewhatLongNodeName")
@@ -1020,7 +970,6 @@ const version = someLongString
   .split(EOL)
   [0]
   .trim();
-
 const component = find(".org-lclp-edit-copy-url-banner__link")[0]
 
   .getAttribute("href")
@@ -1050,13 +999,11 @@ method()
   ["abc"](x => x)
 
   [abc](x => x);
-
 ({}
 
   .a()
 
   .b());
-
 ({}
   .a()
 

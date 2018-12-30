@@ -105,11 +105,8 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = Some
 =====================================output=====================================
 export type AdamPlacementValidationSingleErrorKey =
   "SOME_FANCY_TARGETS.GLOBAL_TARGET";
-
 export type SomeReallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = true;
-
 export type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = null;
-
 type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = SomeReallyLongLongLongLongLongLongIdentifier;
 
 ================================================================================
@@ -134,11 +131,8 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = Some
 =====================================output=====================================
 export type AdamPlacementValidationSingleErrorKey =
   "SOME_FANCY_TARGETS.GLOBAL_TARGET"
-
 export type SomeReallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = true
-
 export type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = null
-
 type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = SomeReallyLongLongLongLongLongLongIdentifier
 
 ================================================================================
@@ -169,25 +163,15 @@ opaque type overloads =
 
 =====================================output=====================================
 declare export opaque type Foo;
-
 declare export opaque type Bar<T>;
-
 declare export opaque type Baz: Foo;
-
 declare export opaque type Foo<T>: Bar<T>;
-
 declare export opaque type Foo<T>: Bar;
-
 declare export opaque type Foo: Bar<T>;
-
 opaque type ID = string;
-
 opaque type Foo<T> = Bar<T>;
-
 opaque type Maybe<T> = _Maybe<T, *>;
-
 export opaque type Foo = number;
-
 opaque type union =
   | {
       type: "A"
@@ -195,7 +179,6 @@ opaque type union =
   | {
       type: "B"
     };
-
 opaque type overloads = ((x: string) => number) & ((x: number) => string);
 
 ================================================================================
@@ -227,25 +210,15 @@ opaque type overloads =
 
 =====================================output=====================================
 declare export opaque type Foo
-
 declare export opaque type Bar<T>
-
 declare export opaque type Baz: Foo
-
 declare export opaque type Foo<T>: Bar<T>
-
 declare export opaque type Foo<T>: Bar
-
 declare export opaque type Foo: Bar<T>
-
 opaque type ID = string
-
 opaque type Foo<T> = Bar<T>
-
 opaque type Maybe<T> = _Maybe<T, *>
-
 export opaque type Foo = number
-
 opaque type union =
   | {
       type: "A"
@@ -253,7 +226,6 @@ opaque type union =
   | {
       type: "B"
     }
-
 opaque type overloads = ((x: string) => number) & ((x: number) => string)
 
 ================================================================================

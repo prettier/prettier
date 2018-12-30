@@ -60,7 +60,6 @@ class A // comment 1
   // comment 2
 
   extends B {}
-
 class A extends B // comment1
 // comment2
 
@@ -68,25 +67,20 @@ class A extends B // comment1
 
 {
 }
-
 class A /* a */ extends B {}
-
 class A extends B
 /* a */
 
 {
 }
-
 class A
   /* a */
 
   extends B {}
-
 (class A // comment 1
   // comment 2
 
   extends B {});
-
 (class A extends B // comment1
 // comment2
 
@@ -94,20 +88,16 @@ class A
 
 {
 });
-
 (class A /* a */ extends B {});
-
 (class A extends B
 /* a */
 
 {
 });
-
 (class A
   /* a */
 
   extends B {});
-
 class x {
   focus() // do nothing
 
@@ -115,7 +105,6 @@ class x {
     // do nothing
   }
 }
-
 class X {
   TEMPLATE =
     // tab index is needed so we can focus, which is needed for keyboard events
@@ -124,7 +113,6 @@ class X {
     '<div class="ag-large-textarea"></div>' +
     "</div>";
 }
-
 export class SnapshotLogger {
   constructor(
     retentionPeriod: number = 5 * 60 * 1000, // retain past five minutes

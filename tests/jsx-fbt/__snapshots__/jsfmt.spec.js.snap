@@ -129,7 +129,6 @@ x = (
     <fbt:param>Second</fbt:param>
   </fbt>
 );
-
 x = (
   <fbt>
     <fbt:param>First</fbt:param>
@@ -137,19 +136,16 @@ x = (
     <fbt:param>Second</fbt:param>
   </fbt>
 );
-
 x = (
   <fbt>
     <fbt:param>First</fbt:param>,<fbt:param>Second</fbt:param>
   </fbt>
 );
-
 x = (
   <fbt>
     <fbt:param>First</fbt:param>,<fbt:param>Second</fbt:param>
   </fbt>
 );
-
 x = (
   <fbt desc="example 1">
     Prefix comes before
@@ -158,7 +154,6 @@ x = (
     </fbt:param>
   </fbt>
 );
-
 x = (
   <fbt desc="example 2">
     Prefix comes before
@@ -170,7 +165,6 @@ x = (
     </fbt:param>
   </fbt>
 );
-
 x = (
   <fbt desc="example 3">
     Count Chocula knows the the number
@@ -178,13 +172,11 @@ x = (
     is awesome
   </fbt>
 );
-
 x = (
   <fbt>
     {hour}:{minute}:{second}
   </fbt>
 );
-
 x = (
   <fbt>
     {hour}
@@ -194,7 +186,6 @@ x = (
     {second}
   </fbt>
 );
-
 x = (
   <fbt>
     {hour}:
@@ -202,7 +193,6 @@ x = (
     {second}
   </fbt>
 );
-
 first = (
   <fbt>
     Text<br />
@@ -210,13 +200,11 @@ first = (
     And more<br />
   </fbt>
 );
-
 second = (
   <fbt>
     Text<br />More text<br />And more<br />
   </fbt>
 );
-
 third = (
   <fbt>
     Text

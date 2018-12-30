@@ -17,7 +17,6 @@ import(
 
 =====================================output=====================================
 import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename");
-
 import("myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename").then(
   exports => {}
 );

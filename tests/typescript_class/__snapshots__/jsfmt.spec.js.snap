@@ -18,7 +18,6 @@ class foo {
 class foo {
   constructor(static a: number) {}
 }
-
 class foo {
   constructor(export a: number) {}
 }
@@ -85,14 +84,11 @@ class ExtendsAbstractClassAndImplementsInterfaces
 =====================================output=====================================
 class Class extends AbstractClass
   implements Interface1, Interface2, Interface3, Interface4 {}
-
 class ExtendsAbstractClassAndImplementsInterfaces extends AbstractClass
   implements Interface1, Interface2, Interface3, Interface4 {}
-
 class ExtendsAbstractClassAndImplementsInterfaces
   extends AAAAAAAAAAAAAAbstractClass
   implements Interface1, Interface2, Interface3, Interface4 {}
-
 class ExtendsAbstractClassAndImplementsInterfaces
   extends AAAAAAAAAAAAAAbstractClass
   implements
@@ -104,7 +100,6 @@ class ExtendsAbstractClassAndImplementsInterfaces
     Interface6,
     Interface7,
     Interface8 {}
-
 class ExtendsAbstractClassAndImplementsInterfaces extends AAAAAAAAAAAAAAbstractClass<
   Type1,
   Type2,
@@ -114,7 +109,6 @@ class ExtendsAbstractClassAndImplementsInterfaces extends AAAAAAAAAAAAAAbstractC
   Type6,
   Type7
 > {}
-
 class ExtendsAbstractClassAndImplementsInterfaces
   extends AAAAAAAAAAAAAAbstractClass<
     Type1,
@@ -152,7 +146,6 @@ interface AudioBufferList {
 
 =====================================output=====================================
 class<T> implements Map<T> {}
-
 interface AudioBufferList {
   mBuffers: interop.Reference<any /*AudioBuffer*/>;
 }
@@ -182,11 +175,9 @@ export class Check {
 class X {
   optionalMethod?() {}
 }
-
 interface Iterable<T> {
   export [Symbol.iterator](): Iterator<T>;
 }
-
 export class Check {
   private static property = "test";
 }
@@ -208,7 +199,6 @@ class X {
 =====================================output=====================================
 class X {
   private foo? = undefined;
-
   "a-prop"?: boolean;
 }
 

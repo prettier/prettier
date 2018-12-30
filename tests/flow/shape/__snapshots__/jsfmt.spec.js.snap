@@ -12,9 +12,7 @@ var o = {};
 
 =====================================output=====================================
 var o = {};
-
 (o.p: string);
-
 (o: $Shape<{
   p: string
 }>);
@@ -40,13 +38,10 @@ var y: $Shape<Foo> = x;
 type Foo = {
   field: number
 };
-
 var x: {
   field?: number
 } = {};
-
 var y: $Shape<Foo> = x;
-
 (y.field: number);
 
 ================================================================================

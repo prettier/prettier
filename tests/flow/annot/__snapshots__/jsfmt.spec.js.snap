@@ -71,13 +71,10 @@ function barfoo(n : number | null | void) : ?number { return n; }
 function foo(str: string, i: number): string {
   return str;
 }
-
 var bar: (str: number, i: number) => string = foo;
-
 var qux = function(str: string, i: number): number {
   return foo(str, i);
 };
-
 var obj: {
   str: string,
   i: number,
@@ -87,42 +84,29 @@ var obj: {
   i: "...",
   k: false
 };
-
 var arr: Array<number> = [1, 2, "..."];
-
 // array sugar
 
 var array: number[] = [1, 2, "..."];
-
 var matrix: number[][] = [[1, 2], [3, 4]];
-
 var matrix_parens: number[][] = matrix;
-
 var nullable_array: ?(number[]) = null;
-
 var nullable_array_parens: ?(number[]) = nullable_array;
-
 var array_of_nullable: (?number)[] = [null, 3];
-
 var array_of_tuple: [number, string][] = [[0, "foo"], [1, "bar"]];
-
 var array_of_tuple_parens: [number, string][] = array_of_tuple;
-
 type ObjType = {
   "bar-foo": string,
   "foo-bar": number
 };
-
 var test_obj: ObjType = {
   "bar-foo": "23"
 };
-
 // param type annos are strict UBs like var type annos
 
 function param_anno(n: number): void {
   n = "hey"; // error
 }
-
 // another error on param UB, more typical of www (mis)use-cases
 
 // this one cribbed from API.atlas.js
@@ -150,15 +134,11 @@ function param_anno2(
     };
   }); // ...
 }
-
 var toz: null = 3;
-
 var zer: null = null;
-
 function foobar(n: ?number): number | null | void {
   return n;
 }
-
 function barfoo(n: number | null | void): ?number {
   return n;
 }
@@ -189,20 +169,15 @@ function foo() {
 
 =====================================output=====================================
 let myClassInstance: MyClass = null; // forward ref ok, null ~> class error
-
 function bar(): MyClass {
   return null; // forward ref ok, null ~> class error
 }
-
 class MyClass {} // looked up above
-
 function foo() {
   let myClassInstance: MyClass = mk(); // ok (no confusion across scopes)
-
   function mk() {
     return new MyClass();
   }
-
   class MyClass {} // looked up above
 }
 
@@ -221,7 +196,6 @@ module.exports = foo;
 
 =====================================output=====================================
 function foo(...args: any) {}
-
 module.exports = foo;
 
 ================================================================================
@@ -271,11 +245,9 @@ function bar(y: MyObj): string {
  */
 
 type MyObj = Object;
-
 function foo(x: { [key: string]: mixed }) {
   bar(x);
 }
-
 function bar(y: MyObj): string {
   return y.foo;
 }
@@ -294,7 +266,6 @@ module.exports = (C: any);
 
 =====================================output=====================================
 class C {}
-
 module.exports = (C: any);
 
 ================================================================================
@@ -333,16 +304,13 @@ class Foo<A> {
 
 =====================================output=====================================
 type Merge<T> = (a: T, b: T) => T;
-
 // hypothetical immutable map
 
 declare class Map<K, V> {
   (): Map<K, V>;
   insertWith(fn: Merge<V>, k: K, v: V): Map<K, V>;
 }
-
 declare function foldr<A, B>(fn: (a: A, b: B) => B, b: B, as: A[]): B;
-
 function insertMany<K, V>(
   merge: Merge<V>,
   vs: [K, V][],
@@ -351,10 +319,8 @@ function insertMany<K, V>(
   function f([k, v]: [K, V], m: Map<K, V>): Map<K, V> {
     return m.insertWith(merge, k, v);
   }
-
   return foldr(f, m, vs);
 }
-
 class Foo<A> {
   bar<B>() {
     return function<C>(a: A, b: B, c: C): void {
@@ -377,7 +343,6 @@ var C = require('./other');
 
 =====================================output=====================================
 var C = require("./other");
-
 ((0: C): string);
 
 ================================================================================

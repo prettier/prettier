@@ -15,7 +15,6 @@ printWidth: 80
     <Baz />
   </Bar>
 />;
-
 <Foo
   prop=<>
     <Bar>

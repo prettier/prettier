@@ -66,34 +66,28 @@ fnString =
   // Comment
 
   "some" + "long" + "string";
-
 var fnString =
   // Comment
 
   "some" + "long" + "string";
-
 var fnString =
   // Comment
 
   "some" + "long" + "string";
-
 var fnString =
   // Comment
 
   "some" + "long" + "string";
-
 var fnString =
   /* comment */
 
   "some" + "long" + "string";
-
 var fnString =
   /**
    * multi-line
    */
 
   "some" + "long" + "string";
-
 var fnString =
   /* inline */
 
@@ -109,24 +103,19 @@ var fnString =
   "some" +
   "long" +
   "string";
-
 var fnString = // Comment
   // Comment
 
   "some" + "long" + "string";
-
 var fnString = "some" + "long" + "string"; // Comment
-
 let f = (
   //comment
 
   a = b
 ) => {};
-
 let f = (
   a = b //comment
 ) => {};
-
 let f = (
   a = b //comment
 ) => {};

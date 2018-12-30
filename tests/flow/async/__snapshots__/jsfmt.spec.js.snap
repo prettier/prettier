@@ -71,27 +71,21 @@ var objf : () => Promise<number> = obj.f;
 async function f0(): Promise<number> {
   return 1;
 }
-
 async function f1(): Promise<boolean> {
   return 1; // error, number != bool
 }
-
 // await: (p: Promise<T> | T) => T
 
 //
 
 async function f2(p: Promise<number>): Promise<number> {
   var x: number = await p;
-
   var y: number = await 1;
-
   return x + y;
 }
-
 async function f3(p: Promise<number>): Promise<number> {
   return await p;
 }
-
 // TODO: this is one of those bad generic errors, currently:
 
 // "inconsistent use of library definitions" with two core.js locs
@@ -99,13 +93,11 @@ async function f3(p: Promise<number>): Promise<number> {
 async function f4(p: Promise<number>): Promise<boolean> {
   return await p; // error, number != bool
 }
-
 // async arrow functions
 
 //
 
 var f5: () => Promise<number> = async () => await 1;
-
 // async methods
 
 //
@@ -114,26 +106,21 @@ class C {
   async m() {
     return 1;
   }
-
   async mt<T>(a: T): Promise<T> {
     return a;
   }
-
   static async m(a): void {
     await a;
   } // error, void != Promise<void>
-
   static async mt<T>(a: T): Promise<T> {
     return a;
   }
 }
-
 // async function props
 
 var obj = {
   f: async () => await 1
 };
-
 var objf: () => Promise<number> = obj.f;
 
 ================================================================================
@@ -170,14 +157,11 @@ async function foo() {
 // that is probably not important to support.
 
 class C {}
-
 var P: Promise<Class<C>> = new Promise(function(resolve, reject) {
   resolve(C);
 });
-
 async function foo() {
   class Bar extends (await P) {}
-
   return Bar;
 }
 
@@ -217,45 +201,30 @@ var y = { async };
 
 =====================================output=====================================
 async function f() {}
-
 async function ft<T>(a: T) {}
-
 class C {
   async m() {}
-
   async mt<T>(a: T) {}
-
   static async m(a) {}
-
   static async mt<T>(a: T) {}
 }
-
 var e = async function() {};
-
 var et = async function<T>(a: T) {};
-
 var n = new async function() {}();
-
 var o = {
   async m() {}
 };
-
 var ot = {
   async m<T>(a: T) {}
 };
-
 var oz = {
   async async() {}
 };
-
 var x = {
   async: 5
 };
-
 console.log(x.async);
-
 var async = 3;
-
 var y = { async };
 
 ================================================================================
@@ -306,14 +275,11 @@ async function foo3(): Promise<string> {
 async function foo1(): Promise<string> {
   return;
 }
-
 async function foo2(): Promise<string> {
   return undefined;
 }
-
 async function foo3(): Promise<string> {
   function bar() {}
-
   return bar();
 }
 
@@ -396,16 +362,12 @@ function test1() {
   async function foo() {
     return 42;
   }
-
   async function bar() {
     var a = await foo();
-
     var b: number = a; // valid
-
     var c: string = a; // Error: number ~> string
   }
 }
-
 //
 
 // void returns:
@@ -422,12 +384,9 @@ function test2() {
   async function voidoid1() {
     console.log("HEY");
   }
-
   var voidoid2: () => Promise<void> = voidoid1; // ok
-
   var voidoid3: () => void = voidoid1; // error, void != Promise<void>
 }
-
 // annotated return type of Promise<void> should work
 
 //
@@ -439,7 +398,6 @@ function test3() {
     console.log("HEY");
   }
 }
-
 // other annotated return types should fail
 
 // (note: misannotated return types with explicit
@@ -455,7 +413,6 @@ function test4() {
     console.log("HEY");
   }
 }
-
 function test5() {
   async function voidoid6(): Promise<number> {
     // error, number != void
@@ -520,24 +477,20 @@ async function baz() {
 async function foo() {
   return 42;
 }
-
 async function bar() {
   return foo();
 }
-
 async function baz() {
   // a should now be typed as number, but is in fact
 
   // Promise<number> until nested-promise unwrap is fixed
 
   var a = await bar();
-
   // TODO this is valid code, but currently gives Promise ~> number error
 
   // due to lack of transitive Promise unwrap.
 
   var b: number = a;
-
   // should be number ~> string error, but currently gives
 
   // Promise ~> string error for the same reason
@@ -583,67 +536,52 @@ var y = { await };
 async function f() {
   await 1;
 }
-
 async function ft<T>(a: T) {
   await 1;
 }
-
 class C {
   async m() {
     await 1;
   }
-
   async mt<T>(a: T) {
     await 1;
   }
-
   static async m(a) {
     await 1;
   }
-
   static async mt<T>(a: T) {
     await 1;
   }
 }
-
 var e = async function() {
   await 1;
 };
-
 var et = async function<T>(a: T) {
   await 1;
 };
-
 var n = new async function() {
   await 1;
 }();
-
 var o = {
   async m() {
     await 1;
   }
 };
-
 var ot = {
   async m<T>(a: T) {
     await 1;
   }
 };
-
 var oz = {
   async async(async) {
     await async;
   }
 };
-
 var x = {
   await: 5
 };
-
 console.log(x.await);
-
 var await = 3;
-
 var y = { await };
 
 ================================================================================

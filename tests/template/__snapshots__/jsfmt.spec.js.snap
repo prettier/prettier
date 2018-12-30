@@ -19,7 +19,6 @@ printWidth: 80
   a\`
 	a
 \`;
-
 () =>
   \`
 	a
@@ -53,11 +52,9 @@ insertRule(
   box-sizing: inherit;
 }\`
 );
-
 insertRule\`*, *:before, *:after {
   box-sizing: inherit;
 }\`;
-
 new Error(
   formatErrorMessage\`
   This a really bad error.
@@ -103,7 +100,6 @@ g
   }).source
 })[^\${escapeChar}])+)+
 \`;
-
 \`a\${
   /* b */
 
@@ -144,7 +140,6 @@ var o = {
     // Comment
   }
 };
-
 var x = {
   y: () =>
     Relay.QL\`
@@ -329,35 +324,27 @@ editTitle += \`\${iconHTML({ class: "reply-to-glyph" })}\`;
 
 =====================================output=====================================
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
-
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
-
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
-
 this._pipe.write(
   \`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`
 );
-
 this._pipe.write(
   \`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`
 );
-
 this._pipe.write(
   \`
   \\n\\n Pattern matches \${total} \${pluralizeTest} but that's long
 \`
 );
-
 () =>
   \`
   a
 \`;
-
 () =>
   \`
     a
   \`;
-
 (): {
   someLong: boolean,
   t: boolean
@@ -365,7 +352,6 @@ this._pipe.write(
   \`
   a
 \`;
-
 (): {
   someLong: boolean,
   t: boolean
@@ -373,17 +359,14 @@ this._pipe.write(
   \`
     a
   \`;
-
 (someLong: boolean, t: boolean) =>
   \`
     a
   \`;
-
 (someLong: boolean, t: boolean) =>
   \`
     a
   \`;
-
 // https://github.com/prettier/prettier/issues/5529
 
 editTitle += \`\${iconHTML({
@@ -458,69 +441,53 @@ function* f() {
 // "ArrowFunctionExpression"
 
 (() => {})\`\`;
-
 // "AssignmentExpression"
 
 (b = c)\`\`;
-
 // "AwaitExpression"
 
 async function f() {
   (await b)\`\`;
 }
-
 // "BinaryExpression"
 
 (b + c)\`\`;
-
 // "CallExpression"
 
 b()\`\`;
-
 // "ClassExpression"
 
 (class {}\`\`);
-
 // "ConditionalExpression"
 
 (b ? c : d)\`\`;
-
 // "FunctionExpression"
 
 (function() {})\`\`;
-
 // "LogicalExpression"
 
 (b || c)\`\`;
-
 // "MemberExpression"
 
 b.c\`\`;
-
 // "NewExpression"
 
 new B()\`\`;
-
 // "ObjectExpression"
 
 ({}\`\`);
-
 // "SequenceExpression"
 
 (b, c)\`\`;
-
 // "TaggedTemplateExpression"
 
 \`\`\`\`;
-
 // "UnaryExpression"
 
 (void b)\`\`;
-
 // "UpdateExpression"
 
 (++b)\`\`;
-
 // "YieldExpression"
 
 function* f() {

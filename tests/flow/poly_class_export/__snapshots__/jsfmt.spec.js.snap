@@ -20,7 +20,6 @@ module.exports = A;
 class A<T> {
   x: T;
 }
-
 module.exports = A;
 
 ================================================================================
@@ -48,13 +47,11 @@ module.exports = new B();
 // @flow
 
 let A = require("./A");
-
 class B extends A<string> {
   constructor() {
     super();
   }
 }
-
 module.exports = new B();
 
 ================================================================================
@@ -93,7 +90,6 @@ class Foo {
     return this;
   }
 }
-
 export function f(x: Foo) {
   return x.foo();
 }

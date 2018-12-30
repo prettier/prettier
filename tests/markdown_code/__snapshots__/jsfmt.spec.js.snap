@@ -43,7 +43,6 @@ proseWrap: "always"
 
       # this is the root indent
       \`;
-
       something\`
       asd
       
@@ -160,7 +159,6 @@ const foo      = 'bar'
 =====================================output=====================================
 \`\`\`js
 const foo = "bar";
-
 console.log(213);
 \`\`\`
 

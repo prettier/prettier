@@ -30,7 +30,6 @@ function f() {
       entity.isDisabled()
   );
 }
-
 function f() {
   const appEntitys = getAppEntitys(loadObject).map(
     entity =>
@@ -60,11 +59,8 @@ const all = FLAG_A | FLAG_B | FLAG_C;
 
 =====================================output=====================================
 const FLAG_A = 1 << 0;
-
 const FLAG_B = 1 << 1;
-
 const FLAG_C = 1 << 2;
-
 const all = FLAG_A | FLAG_B | FLAG_C;
 
 ================================================================================
@@ -111,19 +107,12 @@ x !== y !== z;
 
 =====================================output=====================================
 (x == y) == z;
-
 (x != y) == z;
-
 (x == y) != z;
-
 (x != y) != z;
-
 (x === y) === z;
-
 (x !== y) === z;
-
 (x === y) !== z;
-
 (x !== y) !== z;
 
 ================================================================================
@@ -147,21 +136,13 @@ a ** (b * c);
 
 =====================================output=====================================
 a ** (b ** c);
-
 (a ** b) ** c;
-
 a.b ** c;
-
 (-a) ** b;
-
 a ** -b;
-
 -(a ** b);
-
 (a * b) ** c;
-
 a ** (b * c);
-
 (a % b) ** c;
 
 ================================================================================
@@ -185,19 +166,16 @@ if (VeryVeryVeryVeryVeryVeryVeryVeryLong === VeryVeryVeryVeryVeryVeryVeryVeryLon
 =====================================output=====================================
 if (this.hasPlugin("dynamicImports") && this.lookahead().type) {
 }
-
 if (
   this.hasPlugin("dynamicImports") &&
   this.lookahead().type === tt.parenLeft
 ) {
 }
-
 if (
   this.hasPlugin("dynamicImports") &&
   this.lookahead().type === tt.parenLeft.right
 ) {
 }
-
 if (
   VeryVeryVeryVeryVeryVeryVeryVeryLong === VeryVeryVeryVeryVeryVeryVeryVeryLong
 ) {
@@ -226,7 +204,6 @@ const user = renderedUser || (
     <User name={this.state.user.name} age={this.state.user.age} />
   </div>
 );
-
 const user =
   renderedUser ||
   (shouldRenderUser && (
@@ -234,9 +211,7 @@ const user =
       <User name={this.state.user.name} age={this.state.user.age} />
     </div>
   ));
-
 const avatar = hasAvatar && <Gravatar user={author} size={size} />;
-
 const avatar = (hasAvatar || showPlaceholder) && (
   <Gravatar user={author} size={size} />
 );
@@ -348,7 +323,6 @@ prevState = prevState || {
   searchQuery: "",
   selectedCatalog: null
 };
-
 prevState = prevState ||
   defaultState || {
     catalogs: [],
@@ -357,7 +331,6 @@ prevState = prevState ||
     searchQuery: "",
     selectedCatalog: null
   };
-
 prevState =
   prevState ||
   (defaultState && {
@@ -367,7 +340,6 @@ prevState =
     searchQuery: "",
     selectedCatalog: null
   });
-
 prevState = prevState ||
   (useDefault && defaultState) || {
     catalogs: [],
@@ -376,14 +348,12 @@ prevState = prevState ||
     searchQuery: "",
     selectedCatalog: null
   };
-
 this.steps = steps || [
   {
     name: "mock-module",
     path: "/nux/mock-module"
   }
 ];
-
 this.steps =
   steps ||
   (checkStep && [
@@ -392,17 +362,14 @@ this.steps =
       path: "/nux/mock-module"
     }
   ]);
-
 this.steps = (steps && checkStep) || [
   {
     name: "mock-module",
     path: "/nux/mock-module"
   }
 ];
-
 const create = () => {
   const result = doSomething();
-
   return (
     shouldReturn &&
     result.ok && {
@@ -412,10 +379,8 @@ const create = () => {
     }
   );
 };
-
 const create = () => {
   const result = doSomething();
-
   return (
     (shouldReturn && result.ok && result) || {
       status: "ok",
@@ -424,7 +389,6 @@ const create = () => {
     }
   );
 };
-
 const obj = {
   state: shouldHaveState &&
     stateIsOK && {
@@ -488,13 +452,11 @@ printWidth: 80
     this.state.isUpdateMessageEmpty
   }
 />;
-
 <div>
   {!isJellyfishEnabled &&
     diffUpdateMessageInput != null &&
     this.state.isUpdateMessageEmpty}
 </div>;
-
 <div
   style={
     !isJellyfishEnabled &&
@@ -504,7 +466,6 @@ printWidth: 80
     }
   }
 />;
-
 <div>
   {!isJellyfishEnabled && diffUpdateMessageInput != null && (
     <div>
@@ -512,7 +473,6 @@ printWidth: 80
     </div>
   )}
 </div>;
-
 <div>
   {(!isJellyfishEnabled && diffUpdateMessageInput != null && child) || (
     <div>
@@ -555,39 +515,22 @@ x << y | z;
 
 =====================================output=====================================
 x + y / z;
-
 x / y + z;
-
 (x * y) % z;
-
 (x / y) % z;
-
 (x % y) * z;
-
 (x % y) / z;
-
 (x % y) % z;
-
 (x << y) >> z;
-
 (x >>> y) << z;
-
 (x >>> y) >>> z;
-
 (x + y) >> z;
-
 x | (y & z);
-
 (x & y) | z;
-
 x ^ y ^ z;
-
 x & y & z;
-
 x | y | z;
-
 x & (y >> z);
-
 (x << y) | z;
 
 ================================================================================
@@ -622,14 +565,12 @@ function foo() {
     this.lookahead().type === tt.parenLeft.right
   );
 }
-
 function foo() {
   return this.hasPlugin("dynamicImports") &&
     this.lookahead().type === tt.parenLeft.right
     ? true
     : false;
 }
-
 function foo() {
   return this.calculate()
   .compute().first.numberOfThings >
@@ -674,14 +615,11 @@ this._cumulativeHeights &&
     this._cachedItemHeight(this._firstVisibleIndex + i) -
       this._provider.fastHeight(i + this._firstVisibleIndex)
   ) > 1;
-
 foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
   aaaaaaaaaaaaaaaaaaa
 ) + a;
-
 const isPartOfPackageJSON =
   dependenciesArray.indexOf(dependencyWithOutRelativePath.split("/")[0]) !== -1;
-
 defaultContent.filter(defaultLocale => {
   // ...
 })[0] || null;
@@ -721,7 +659,6 @@ foo(obj.property * new Class() && obj instanceof Class && longVariable ? number 
 // break them all at the same time.
 
 const x = longVariable + longVariable + longVariable;
-
 const x =
   longVariable +
   longVariable +
@@ -729,19 +666,16 @@ const x =
   longVariable -
   longVariable +
   longVariable;
-
 const x =
   longVariable +
   longVariable * longVariable +
   longVariable -
   longVariable +
   longVariable;
-
 const x =
   longVariable +
   (longVariable * longVariable * longVariable) / longVariable +
   longVariable;
-
 const x =
   longVariable &&
   longVariable &&
@@ -749,34 +683,27 @@ const x =
   longVariable &&
   longVariable &&
   longVariable;
-
 const x =
   (longVariable && longVariable) ||
   (longVariable && longVariable) ||
   (longVariable && longVariable);
-
 const x =
   firstItemWithAVeryLongNameThatKeepsGoing ||
   firstItemWithAVeryLongNameThatKeepsGoing ||
   {};
-
 const x =
   firstItemWithAVeryLongNameThatKeepsGoing ||
   firstItemWithAVeryLongNameThatKeepsGoing ||
   [];
-
 const x =
   call(
     firstItemWithAVeryLongNameThatKeepsGoing,
     firstItemWithAVeryLongNameThatKeepsGoing
   ) || [];
-
 const x =
   longVariable * longint && longVariable >> 0 && longVariable + longVariable;
-
 const x =
   longVariable > longint && longVariable === 0 + longVariable * longVariable;
-
 foo(
   obj.property * new Class() && obj instanceof Class && longVariable
     ? number + 5

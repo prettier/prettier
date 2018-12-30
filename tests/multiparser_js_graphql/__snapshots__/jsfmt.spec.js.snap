@@ -117,7 +117,6 @@ gql\`
     bar: String
   }
 \`;
-
 gql\`
   type Project {
     "Pattern: \\\`\\\${project}\\\`"
@@ -137,7 +136,6 @@ gql\`
     pattern: String
   }
 \`;
-
 gql\`
   """
   - \\\`
@@ -192,7 +190,6 @@ graphql(
     \${fragments.all}
   \`
 );
-
 const veryLongVariableNameToMakeTheLineBreak = graphql(
   schema,
   \`
@@ -405,7 +402,6 @@ fragment another on User { name
 
 =====================================output=====================================
 import gql from "graphql-tag";
-
 const query = gql\`
   {
     user(id: 5) {
@@ -415,7 +411,6 @@ const query = gql\`
     }
   }
 \`;
-
 // With interpolations:
 
 gql\`
@@ -429,7 +424,6 @@ gql\`
   \${USER_DETAILS_FRAGMENT}
   \${FRIENDS_FRAGMENT}
 \`;
-
 // Skip if non-toplevel interpolation:
 
 gql\`
@@ -437,7 +431,6 @@ query User {
   user(id:\${id}){ name }
 }
 \`;
-
 // Skip if top-level interpolation within comment:
 
 gql\`
@@ -446,7 +439,6 @@ query User {
 }
 #\${test}
 \`;
-
 // Comment on last line:
 
 gql\`
@@ -456,7 +448,6 @@ gql\`
     }
   } # comment
 \`;
-
 // \` <-- editor syntax highlighting workaround
 
 // Preserve up to one blank line between things and enforce linebreak between
@@ -484,7 +475,6 @@ gql\`
 
   # blank line above this comment
 \`;
-
 // Interpolation directly before and after query:
 
 gql\`
@@ -494,29 +484,24 @@ gql\`
   }
   \${two}
 \`;
-
 // Only interpolation:
 
 gql\`
   \${test}
 \`;
-
 // Only comment:
 
 gql\`
   # comment
 \`;
-
 // \` <-- editor syntax highlighting workaround
 
 // Only whitespace:
 
 gql\`\`;
-
 // Empty:
 
 gql\`\`;
-
 // Comments after other things:
 
 // Currently, comments after interpolations are moved to the next line.
@@ -544,7 +529,6 @@ gql\`
   \${test}
   # comment
 \`;
-
 // Larger mixed test:
 
 gql\`
@@ -616,7 +600,6 @@ gql\`
       a: string
   }
 \`;
-
 gql\`
   type   Foo {
       a:   string
@@ -659,7 +642,6 @@ graphql.experimental\`
 
 =====================================output=====================================
 const { graphql } = require("react-relay");
-
 graphql\`
   mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
     markReadNotification(data: $input) {
@@ -669,7 +651,6 @@ graphql\`
     }
   }
 \`;
-
 graphql.experimental\`
   mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
     markReadNotification(data: $input) {

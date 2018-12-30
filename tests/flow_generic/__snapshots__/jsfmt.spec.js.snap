@@ -80,7 +80,6 @@ const a = 1;
 
 =====================================output=====================================
 const identity = <T>(t: T): T => t;
-
 const a = 1;
 
 ================================================================================
@@ -98,7 +97,6 @@ const a = 1;
 
 =====================================output=====================================
 const identity = <T>(t: T): T => t;
-
 const a = 1;
 
 ================================================================================
@@ -117,7 +115,6 @@ interface B { "D": boolean; }
 interface A {
   C: string;
 }
-
 interface B {
   D: boolean;
 }
@@ -139,7 +136,6 @@ interface B { "D": boolean; }
 interface A {
   C: string;
 }
-
 interface B {
   D: boolean;
 }
@@ -171,7 +167,6 @@ function formatEntireFile(
   newCursor?: number,
   formatted: string
 }> {}
-
 function foo(): Promise<?boolean> {}
 
 ================================================================================
@@ -202,7 +197,6 @@ function formatEntireFile(
   newCursor?: number,
   formatted: string,
 }> {}
-
 function foo(): Promise<?boolean> {}
 
 ================================================================================
@@ -302,9 +296,7 @@ type H = { 'A': string, "B": number };
 
 =====================================output=====================================
 type F = <T>(T) => T;
-
 type G = <A, B>(A) => B;
-
 type H = {
   A: string,
   B: number
@@ -326,9 +318,7 @@ type H = { 'A': string, "B": number };
 
 =====================================output=====================================
 type F = <T>(T) => T;
-
 type G = <A, B>(A) => B;
-
 type H = {
   A: string,
   B: number,

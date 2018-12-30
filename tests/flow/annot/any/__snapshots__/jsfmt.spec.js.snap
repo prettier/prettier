@@ -18,10 +18,8 @@ export default class {
 
 =====================================output=====================================
 type T = any;
-
 export default class {
   p: T;
-
   constructor() {
     this.p = 0;
   }
@@ -44,7 +42,6 @@ class B extends A {
 
 =====================================output=====================================
 import A from "./A";
-
 class B extends A {
   p: string; // OK, string ~> any
 }

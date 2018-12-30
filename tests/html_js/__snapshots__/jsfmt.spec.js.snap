@@ -47,17 +47,14 @@ printWidth: 80
 =====================================output=====================================
 <script type="text/javascript">
   var message = "Alert!";
-
   alert(message);
 </script>
 <script type="application/javascript">
   var message = "Alert!";
-
   alert(message);
 </script>
 <script>
   var message = "Alert!";
-
   alert(message);
 </script>
 <script type="text/babel">
@@ -65,7 +62,6 @@ printWidth: 80
 </script>
 <script type="module">
   import lib from "./lib.js";
-
   function myFunction() {
     return "foo";
   }
@@ -107,7 +103,6 @@ printWidth: 80
     </script>
     <script>
       var message = "Alert!";
-
       alert(message);
     </script>
   </head>
@@ -294,7 +289,6 @@ printWidth: 80
 <script type="application/x-typescript">
   class Student {
     fullName: string;
-
     constructor(
       public firstName: string,
       public middleInitial: string,
@@ -303,24 +297,19 @@ printWidth: 80
       this.fullName = firstName + " " + middleInitial + " " + lastName;
     }
   }
-
   interface Person {
     firstName: string;
     lastName: string;
   }
-
   function greeter(person: Person) {
     return "Hello, " + person.firstName + " " + person.lastName;
   }
-
   let user = new Student("Jane", "M.", "User");
-
   document.body.innerHTML = greeter(user);
 </script>
 <script lang="ts">
   class Student {
     fullName: string;
-
     constructor(
       public firstName: string,
       public middleInitial: string,
@@ -329,18 +318,14 @@ printWidth: 80
       this.fullName = firstName + " " + middleInitial + " " + lastName;
     }
   }
-
   interface Person {
     firstName: string;
     lastName: string;
   }
-
   function greeter(person: Person) {
     return "Hello, " + person.firstName + " " + person.lastName;
   }
-
   let user = new Student("Jane", "M.", "User");
-
   document.body.innerHTML = greeter(user);
 </script>
 <script lang="tsx">
@@ -350,12 +335,10 @@ printWidth: 80
   > {
     constructor() {
       super();
-
       this.state = {
         data: []
       };
     }
-
     fetchComments() {
       $.ajax({
         url: this.props.url,
@@ -368,26 +351,19 @@ printWidth: 80
         error: (xhr, status, err) => console.error(status, err)
       });
     }
-
     componentDidMount() {
       this.fetchComments();
-
       setInterval(this.fetchComments.bind(this), this.props.pollInterval);
     }
-
     render() {
       let handleCommentSubmit = (comment: { author: string; text: string }) => {
         console.warn("comment submitted!", comment);
-
         const updated = this.state.data.slice(0);
-
         updated.push(comment);
-
         this.setState({
           data: updated
         });
       };
-
       return (
         <div className="commentBox">
           <h1>Comments</h1>

@@ -206,9 +206,7 @@ longArgNamesWithComments(
 
   longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3
 );
-
 shortArgNames(short, short2, short3);
-
 comments(
   // Comment
 
@@ -228,14 +226,12 @@ comments(
 
   short3 // More comments
 );
-
 differentArgTypes(
   () => {
     return true;
   },
   isTrue ? doSomething() : 12
 );
-
 moreArgTypes(
   [1, 2, 3],
   {
@@ -254,7 +250,6 @@ moreArgTypes(
     oneThing + anotherThing // Comment
   )
 );
-
 evenMoreArgTypes(
   doSomething(
     {
@@ -267,18 +262,15 @@ evenMoreArgTypes(
   1 + 2 - 90 / 80,
   !98 * 60 - 90
 );
-
 foo.apply(
   null,
   // Array here
 
   [1, 2]
 );
-
 bar.on("readable", () => {
   doStuff();
 });
-
 foo(
   ["A, B"],
   /* function here */
@@ -287,20 +279,16 @@ foo(
     return true;
   }
 );
-
 doSomething.apply(
   null,
   // Comment
 
   ["Hello world 1", "Hello world 2", "Hello world 3"]
 );
-
 doAnotherThing("node", { solution_type, time_frame });
-
 stuff.doThing(someStuff, -1, {
   accept: node => doSomething(node)
 });
-
 doThing(
   someOtherStuff,
   // This is important
@@ -310,7 +298,6 @@ doThing(
     decline: creditCard => takeMoney(creditCard)
   }
 );
-
 func(
   () => {
     thing();
@@ -320,7 +307,6 @@ func(
     no: 5
   }
 );
-
 doSomething(
   {
     tomorrow: maybe,
@@ -375,31 +361,22 @@ function a() {
 =====================================output=====================================
 function a() {
   const a = 5; // comment
-
   return a;
 }
-
 function a() {
   const a = 5; /* comment */
-
   return a;
 }
-
 function a() {
   const a = 5; /* comment */ /* comment */
-
   return a;
 }
-
 function a() {
   const a = 5; /* comment */ /* comment */ // comment
-
   return a;
 }
-
 function a() {
   const a = 5; /* comment */ /* comment */ // comment
-
   return a;
 }
 
@@ -486,7 +463,6 @@ fooBar
   .doOneMoreThing(config)
 
   .run(() => console.log("Bar"));
-
 bigDeal
 
   .doSomething("Hello World")
@@ -502,7 +478,6 @@ bigDeal
   .doOneMoreThing(config)
 
   .run(() => console.log("Bar"));
-
 foo.bar.baz
 
   .doSomething("Hello World")
@@ -516,7 +491,6 @@ foo.bar.baz
   .doOneMoreThing(config)
 
   .bar.run(() => console.log("Bar"));
-
 (somethingGood ? thisIsIt : maybeNot)
 
   // Hello world
@@ -528,13 +502,11 @@ foo.bar.baz
   }) // Run this
 
   .run(() => console.log("Bar")); // Do this
-
 helloWorld
 
   .text()
 
   .then(t => t);
-
 (
   veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
@@ -544,7 +516,6 @@ helloWorld
   .map(tickets => TicketRecord.createFromSomeLongString())
 
   .filter(obj => !!obj);
-
 const sel = this.connections
 
   .concat(this.activities.concat(this.operators))

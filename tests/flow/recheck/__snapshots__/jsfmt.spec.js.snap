@@ -20,9 +20,7 @@ module.exports = foo;
 function foo(x: number): string {
   return 5;
 }
-
 foo(0);
-
 module.exports = foo;
 
 ================================================================================
@@ -44,7 +42,6 @@ module.exports = foo("");
 // @flow
 
 const foo = require("./a1");
-
 module.exports = foo("");
 
 ================================================================================
@@ -66,7 +63,6 @@ const five = require('./a2');
 // @flow
 
 const five = require("./a2");
-
 (five + five: string);
 
 ================================================================================
@@ -91,11 +87,9 @@ module.exports = { C, E };
 class C {
   x: C;
 }
-
 class E {
   x: C;
 }
-
 module.exports = { C, E };
 
 ================================================================================
@@ -121,21 +115,15 @@ module.exports = { C, D };
 // @flow
 
 import { C, E } from "./b0";
-
 function foo() {
   return C;
 }
-
 function bar() {
   return E;
 }
-
 let X = foo();
-
 class F extends X {}
-
 class D extends F {}
-
 module.exports = { C, D };
 
 ================================================================================
@@ -175,7 +163,6 @@ import { C, D } from "./b2";
 // @flow
 
 import { C, D } from "./b2";
-
 (new D(): C);
 
 ================================================================================
@@ -217,7 +204,6 @@ export function bar(props: { x: number }) {
 // @flow
 
 import { foo } from "./c1";
-
 export function bar(props: { x: number }) {
   foo({
     x: 0
@@ -243,7 +229,6 @@ bar({ x: 0 });
 // @flow
 
 import { bar } from "./c2";
-
 bar({
   x: 0
 });
@@ -267,9 +252,7 @@ export var x = new A;
 // @flow
 
 export class A {}
-
 export class B {}
-
 export var x = new A();
 
 ================================================================================
@@ -290,7 +273,6 @@ export var y: A = x;
 // @flow
 
 import { A, x } from "./d1";
-
 export var y: A = x;
 
 ================================================================================
@@ -321,7 +303,6 @@ export type Action =
   | {
       type: "BAR"
     };
-
 export const LIFE = 42;
 
 ================================================================================
@@ -349,15 +330,12 @@ import { LIFE } from './e1';
 // @flow
 
 import type { Action } from "./e1";
-
 const f = (): Action => {
   return {
     type: "FOO"
   };
 };
-
 import { LIFE } from "./e1";
-
 (LIFE: 42);
 
 ================================================================================
@@ -386,17 +364,12 @@ module.exports = { a, b, c };
 type T = {
   x: number
 };
-
 type S = {
   x: string
 };
-
 declare var a: T;
-
 declare var b: S;
-
 declare var c: T;
-
 module.exports = { a, b, c };
 
 ================================================================================
@@ -417,7 +390,6 @@ var { a, b, c } = require('./f1');
 // @flow
 
 var { a, b, c } = require("./f1");
-
 (c: {
   x: number
 });
@@ -461,9 +433,7 @@ module.exports = { D };
 // @flow
 
 import { C } from "./g1";
-
 class D extends C {}
-
 module.exports = { D };
 
 ================================================================================
@@ -486,9 +456,7 @@ import { D } from './g2';
 // @flow
 
 import { C } from "./g1";
-
 import { D } from "./g2";
-
 (new D(): C);
 
 ================================================================================
@@ -550,7 +518,6 @@ const foo: {
 } = {
   p: 0
 };
-
 module.exports = foo;
 
 ================================================================================
@@ -572,7 +539,6 @@ foo.p = 0;
 // @flow
 
 const foo = require("./i1");
-
 foo.p = 0;
 
 ================================================================================
@@ -594,7 +560,6 @@ module.exports = foo;
 // @flow
 
 const foo: { [string]: number } = {};
-
 module.exports = foo;
 
 ================================================================================
@@ -616,7 +581,6 @@ foo.p = 0;
 // @flow
 
 const foo = require("./j1");
-
 foo.p = 0;
 
 ================================================================================

@@ -18,9 +18,7 @@ module.exports = test;
 /* @flow */
 
 var test = require("test");
-
 (test: boolean);
-
 module.exports = test;
 
 ================================================================================
@@ -42,9 +40,7 @@ require('Module3');
 /* @flow */
 
 (require("Module1"): boolean);
-
 (require("Module2").foo(): boolean);
-
 require("Module3");
 
 ================================================================================

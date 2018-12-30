@@ -121,7 +121,6 @@ interface Interface {
   prop: type;
   prop: type;
 }
-
 // Last element
 
 interface Interface {
@@ -130,7 +129,6 @@ interface Interface {
   prop: type
   prop: type;
 }
-
 interface foo extends bar {
   // prettier-ignore
 
@@ -140,7 +138,6 @@ interface foo extends bar {
   g(): void;
   h(): void;
 }
-
 interface T<T> {
   // prettier-ignore
 
@@ -197,7 +194,6 @@ interface Interface {
   prop: type;
   prop: type
 }
-
 // Last element
 
 interface Interface {
@@ -206,7 +202,6 @@ interface Interface {
   prop: type
   prop: type
 }
-
 interface foo extends bar {
   // prettier-ignore
 
@@ -216,7 +211,6 @@ interface foo extends bar {
   g(): void;
   h(): void
 }
-
 interface T<T> {
   // prettier-ignore
 
@@ -257,24 +251,20 @@ export interface ThirdVeryLongAndBoringInterfaceName extends A_AVeryLongAndBorin
 export interface I extends A, B, C {
   c: string;
 }
-
 export interface ThirdVeryLongAndBoringInterfaceName
   extends ALongAndBoringInterfaceName {
   c: string;
 }
-
 export interface ThirdVeryLongAndBoringInterfaceName
   extends ALongAndBoringInterfaceName,
     AnotherLongAndBoringInterfaceName {
   c: string;
 }
-
 export interface ThirdVeryLongAndBoringInterfaceName
   extends AVeryLongAndBoringInterfaceName,
     AnotherVeryLongAndBoringInterfaceName {
   c: string;
 }
-
 export interface ThirdVeryLongAndBoringInterfaceName
   extends A_AVeryLongAndBoringInterfaceName,
     B_AVeryLongAndBoringInterfaceName,
@@ -316,24 +306,20 @@ export interface ThirdVeryLongAndBoringInterfaceName extends A_AVeryLongAndBorin
 export interface I extends A, B, C {
   c: string
 }
-
 export interface ThirdVeryLongAndBoringInterfaceName
   extends ALongAndBoringInterfaceName {
   c: string
 }
-
 export interface ThirdVeryLongAndBoringInterfaceName
   extends ALongAndBoringInterfaceName,
     AnotherLongAndBoringInterfaceName {
   c: string
 }
-
 export interface ThirdVeryLongAndBoringInterfaceName
   extends AVeryLongAndBoringInterfaceName,
     AnotherVeryLongAndBoringInterfaceName {
   c: string
 }
-
 export interface ThirdVeryLongAndBoringInterfaceName
   extends A_AVeryLongAndBoringInterfaceName,
     B_AVeryLongAndBoringInterfaceName,
@@ -373,14 +359,12 @@ declare module "selenium-webdriver" {
     alertIsPresent(): Condition<Alert>;
   };
 }
-
 export interface Edge {
   cursor: {};
   node: {
     id: {};
   };
 }
-
 interface Test {
   one: string;
   two: any[];
@@ -419,14 +403,12 @@ declare module "selenium-webdriver" {
     alertIsPresent(): Condition<Alert>
   }
 }
-
 export interface Edge {
   cursor: {}
   node: {
     id: {}
   }
 }
-
 interface Test {
   one: string
   two: any[]

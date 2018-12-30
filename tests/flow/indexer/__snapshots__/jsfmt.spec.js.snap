@@ -54,7 +54,6 @@ function foo0(): {} {
     foo: "bar"
   };
 }
-
 // Matching indexer should be fine
 
 function foo1(): { [key: string]: string } {
@@ -62,7 +61,6 @@ function foo1(): { [key: string]: string } {
     foo: "bar"
   };
 }
-
 // Indexer with different key type is an error when it matches
 
 function foo2(): { [key: number]: string } {
@@ -70,7 +68,6 @@ function foo2(): { [key: number]: string } {
     foo: "bar"
   };
 }
-
 // Matching indexer with different value type is an error
 
 function foo3(): { [key: string]: number } {
@@ -78,7 +75,6 @@ function foo3(): { [key: string]: number } {
     foo: "bar"
   };
 }
-
 // Indexer with different key type and different value type is twice an error
 
 function foo4(): { [key: number]: number } {
@@ -86,7 +82,6 @@ function foo4(): { [key: number]: number } {
     foo: "bar"
   };
 }
-
 // If key exists in object type then indexer is not matched
 
 function foo5(): {
@@ -97,7 +92,6 @@ function foo5(): {
     foo: "bar"
   };
 }
-
 // If key exists in object type then indexer is not matched
 
 function foo6(): {
@@ -108,7 +102,6 @@ function foo6(): {
     foo: "bar"
   };
 }
-
 // Should still complain about mistyped properties
 
 function foo7(): {

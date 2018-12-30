@@ -50,7 +50,6 @@ h(
     })
   )
 );
-
 deepCopyAndAsyncMapLeavesA(
   {
     source: sourceValue,
@@ -58,7 +57,6 @@ deepCopyAndAsyncMapLeavesA(
   },
   { valueMapper, overwriteExistingKeys }
 );
-
 deepCopyAndAsyncMapLeavesB(
   1337,
   {
@@ -67,7 +65,6 @@ deepCopyAndAsyncMapLeavesB(
   },
   { valueMapper, overwriteExistingKeys }
 );
-
 deepCopyAndAsyncMapLeavesC(
   {
     source: sourceValue,
@@ -76,21 +73,18 @@ deepCopyAndAsyncMapLeavesC(
   1337,
   { valueMapper, overwriteExistingKeys }
 );
-
 function someFunction(url) {
   return get(url).then(
     json => dispatch(success(json)),
     error => dispatch(failed(error))
   );
 }
-
 const mapChargeItems = fp.flow(
   l => (l < 10 ? l : 1),
   l =>
     Immutable.Range(l)
     .toMap()
 );
-
 expect(
   new LongLongLongLongLongRange([0, 0], [0, 0])
 ).toEqualAtomLongLongLongLongRange(new LongLongLongRange([0, 0], [0, 0]));
@@ -158,7 +152,6 @@ function helloWorld() {
   useEffect(() => {
     // do something
   }, [props.value]);
-
   useEffect(() => {
     // do something
   }, [
@@ -185,12 +178,10 @@ function helloWorld() {
     props.value
   ]);
 }
-
 function helloWorldWithReact() {
   React.useEffect(() => {
     // do something
   }, [props.value]);
-
   React.useEffect(() => {
     // do something
   }, [

@@ -54,7 +54,6 @@ function utf16Length(str, pos) {
 function inSurrogateRange(codeUnit) {
   return 0xd800 <= codeUnit && codeUnit <= 0xdfff;
 }
-
 /**
  * Return the length of the original Unicode character at given position in the
  * String by looking into the UTF-16 code unit; that is equal to 1 for any

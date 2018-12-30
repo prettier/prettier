@@ -26,7 +26,6 @@ const funnelSnapshotCard =
     !ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
     <ReportMetricsFunnelSnapshotCard metrics={metrics} />
   ) : null;
-
 room = room.map((row, rowIndex) =>
   row.map((col, colIndex) =>
     rowIndex === 0 ||
@@ -68,7 +67,6 @@ const funnelSnapshotCard =
         !ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
         <ReportMetricsFunnelSnapshotCard metrics={metrics} />
     ) : null;
-
 room = room.map((row, rowIndex) =>
     row.map((col, colIndex) =>
         rowIndex === 0 ||
@@ -110,7 +108,6 @@ const funnelSnapshotCard =
 		!ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
 		<ReportMetricsFunnelSnapshotCard metrics={metrics} />
 	) : null;
-
 room = room.map((row, rowIndex) =>
 	row.map((col, colIndex) =>
 		rowIndex === 0 ||
@@ -153,7 +150,6 @@ const funnelSnapshotCard =
 		!ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
 		<ReportMetricsFunnelSnapshotCard metrics={metrics} />
 	) : null;
-
 room = room.map((row, rowIndex) =>
 	row.map((col, colIndex) =>
 		rowIndex === 0 ||
@@ -466,7 +462,6 @@ aaaaaaaaaaaaaaa
   : eeeeeeeeeeeeeee
   ? fffffffffffffff
   : gggggggggggggggg;
-
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -474,7 +469,6 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
       : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
-
 a
   ? {
       a: 0
@@ -498,7 +492,6 @@ a
                 }
           }
     };
-
 a
   ? {
       a: function() {
@@ -804,7 +797,6 @@ aaaaaaaaaaaaaaa
     : eeeeeeeeeeeeeee
     ? fffffffffffffff
     : gggggggggggggggg;
-
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -812,7 +804,6 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
             : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
-
 a
     ? {
           a: 0
@@ -836,7 +827,6 @@ a
                           }
                 }
       };
-
 a
     ? {
           a: function() {
@@ -1142,7 +1132,6 @@ aaaaaaaaaaaaaaa
 	: eeeeeeeeeeeeeee
 	? fffffffffffffff
 	: gggggggggggggggg;
-
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 	? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 		? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -1150,7 +1139,6 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 			: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 		: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 	: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
-
 a
 	? {
 			a: 0
@@ -1174,7 +1162,6 @@ a
 							  }
 				  }
 	  };
-
 a
 	? {
 			a: function() {
@@ -1481,7 +1468,6 @@ aaaaaaaaaaaaaaa
 	: eeeeeeeeeeeeeee
 	? fffffffffffffff
 	: gggggggggggggggg;
-
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 	? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 		? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -1489,7 +1475,6 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 			: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 		: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 	: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
-
 a
 	? {
 			a: 0
@@ -1513,7 +1498,6 @@ a
 							  }
 				  }
 	  };
-
 a
 	? {
 			a: function() {
@@ -1747,7 +1731,6 @@ let icecream =
   what == "cone"
     ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
     : p => \`here's your \${p} \${what}\`;
-
 const value = condition1
   ? value1
   : condition2
@@ -1755,7 +1738,6 @@ const value = condition1
   : condition3
   ? value3
   : value4;
-
 const StorybookLoader = ({ match }) =>
   match.params.storyId === "button" ? (
     <ButtonStorybook />
@@ -1775,7 +1757,6 @@ const StorybookLoader = ({ match }) =>
       </Content>
     </Message>
   );
-
 const message =
   i % 3 === 0 && i % 5 === 0
     ? "fizzbuzz"
@@ -1784,7 +1765,6 @@ const message =
     : i % 5 === 0
     ? "buzz"
     : String(i);
-
 const paymentMessage =
   state == "success"
     ? "Payment completed successfully"
@@ -1795,7 +1775,6 @@ const paymentMessage =
     : state == "invalid_expiry"
     ? "Expiry must be sometime in the past."
     : "There was an issue with the payment.  Please contact support.";
-
 const paymentMessage =
   state == "success"
     ? 1 //'Payment completed successfully'
@@ -1806,7 +1785,6 @@ const paymentMessage =
     : true //state == 'invalid_expiry'
     ? 4 //'Expiry must be sometime in the past.'
     : 5; // 'There was an issue with the payment.  Please contact support.'
-
 const foo = (
   <div
     className={
@@ -1831,7 +1809,6 @@ const foo = (
       : i18n("Theme")}
   </div>
 );
-
 a
   ? literalline
   : {
@@ -1951,7 +1928,6 @@ let icecream =
     what == "cone"
         ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
         : p => \`here's your \${p} \${what}\`;
-
 const value = condition1
     ? value1
     : condition2
@@ -1959,7 +1935,6 @@ const value = condition1
     : condition3
     ? value3
     : value4;
-
 const StorybookLoader = ({ match }) =>
     match.params.storyId === "button" ? (
         <ButtonStorybook />
@@ -1979,7 +1954,6 @@ const StorybookLoader = ({ match }) =>
             </Content>
         </Message>
     );
-
 const message =
     i % 3 === 0 && i % 5 === 0
         ? "fizzbuzz"
@@ -1988,7 +1962,6 @@ const message =
         : i % 5 === 0
         ? "buzz"
         : String(i);
-
 const paymentMessage =
     state == "success"
         ? "Payment completed successfully"
@@ -1999,7 +1972,6 @@ const paymentMessage =
         : state == "invalid_expiry"
         ? "Expiry must be sometime in the past."
         : "There was an issue with the payment.  Please contact support.";
-
 const paymentMessage =
     state == "success"
         ? 1 //'Payment completed successfully'
@@ -2010,7 +1982,6 @@ const paymentMessage =
         : true //state == 'invalid_expiry'
         ? 4 //'Expiry must be sometime in the past.'
         : 5; // 'There was an issue with the payment.  Please contact support.'
-
 const foo = (
     <div
         className={
@@ -2035,7 +2006,6 @@ const foo = (
             : i18n("Theme")}
     </div>
 );
-
 a
     ? literalline
     : {
@@ -2155,7 +2125,6 @@ let icecream =
 	what == "cone"
 		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
 		: p => \`here's your \${p} \${what}\`;
-
 const value = condition1
 	? value1
 	: condition2
@@ -2163,7 +2132,6 @@ const value = condition1
 	: condition3
 	? value3
 	: value4;
-
 const StorybookLoader = ({ match }) =>
 	match.params.storyId === "button" ? (
 		<ButtonStorybook />
@@ -2183,7 +2151,6 @@ const StorybookLoader = ({ match }) =>
 			</Content>
 		</Message>
 	);
-
 const message =
 	i % 3 === 0 && i % 5 === 0
 		? "fizzbuzz"
@@ -2192,7 +2159,6 @@ const message =
 		: i % 5 === 0
 		? "buzz"
 		: String(i);
-
 const paymentMessage =
 	state == "success"
 		? "Payment completed successfully"
@@ -2203,7 +2169,6 @@ const paymentMessage =
 		: state == "invalid_expiry"
 		? "Expiry must be sometime in the past."
 		: "There was an issue with the payment.  Please contact support.";
-
 const paymentMessage =
 	state == "success"
 		? 1 //'Payment completed successfully'
@@ -2214,7 +2179,6 @@ const paymentMessage =
 		: true //state == 'invalid_expiry'
 		? 4 //'Expiry must be sometime in the past.'
 		: 5; // 'There was an issue with the payment.  Please contact support.'
-
 const foo = (
 	<div
 		className={
@@ -2239,7 +2203,6 @@ const foo = (
 			: i18n("Theme")}
 	</div>
 );
-
 a
 	? literalline
 	: {
@@ -2360,7 +2323,6 @@ let icecream =
 	what == "cone"
 		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
 		: p => \`here's your \${p} \${what}\`;
-
 const value = condition1
 	? value1
 	: condition2
@@ -2368,7 +2330,6 @@ const value = condition1
 	: condition3
 	? value3
 	: value4;
-
 const StorybookLoader = ({ match }) =>
 	match.params.storyId === "button" ? (
 		<ButtonStorybook />
@@ -2388,7 +2349,6 @@ const StorybookLoader = ({ match }) =>
 			</Content>
 		</Message>
 	);
-
 const message =
 	i % 3 === 0 && i % 5 === 0
 		? "fizzbuzz"
@@ -2397,7 +2357,6 @@ const message =
 		: i % 5 === 0
 		? "buzz"
 		: String(i);
-
 const paymentMessage =
 	state == "success"
 		? "Payment completed successfully"
@@ -2408,7 +2367,6 @@ const paymentMessage =
 		: state == "invalid_expiry"
 		? "Expiry must be sometime in the past."
 		: "There was an issue with the payment.  Please contact support.";
-
 const paymentMessage =
 	state == "success"
 		? 1 //'Payment completed successfully'
@@ -2419,7 +2377,6 @@ const paymentMessage =
 		: true //state == 'invalid_expiry'
 		? 4 //'Expiry must be sometime in the past.'
 		: 5; // 'There was an issue with the payment.  Please contact support.'
-
 const foo = (
 	<div
 		className={
@@ -2444,7 +2401,6 @@ const foo = (
 			: i18n("Theme")}
 	</div>
 );
-
 a
 	? literalline
 	: {
@@ -2471,13 +2427,11 @@ a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
 
 =====================================output=====================================
 debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
-
 debug
   ? this.state.isVisible && somethingComplex
     ? "partially visible"
     : "hidden"
   : null;
-
 a =>
   a
     ? () => {
@@ -2486,9 +2440,7 @@ a =>
     : () => {
         a;
       };
-
 a => (a ? a : a);
-
 a =>
   a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
@@ -2511,13 +2463,11 @@ a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
 
 =====================================output=====================================
 debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
-
 debug
     ? this.state.isVisible && somethingComplex
         ? "partially visible"
         : "hidden"
     : null;
-
 a =>
     a
         ? () => {
@@ -2526,9 +2476,7 @@ a =>
         : () => {
               a;
           };
-
 a => (a ? a : a);
-
 a =>
     a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
@@ -2551,13 +2499,11 @@ a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
 
 =====================================output=====================================
 debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
-
 debug
 	? this.state.isVisible && somethingComplex
 		? "partially visible"
 		: "hidden"
 	: null;
-
 a =>
 	a
 		? () => {
@@ -2566,9 +2512,7 @@ a =>
 		: () => {
 				a;
 		  };
-
 a => (a ? a : a);
-
 a =>
 	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
@@ -2592,13 +2536,11 @@ a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
 
 =====================================output=====================================
 debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
-
 debug
 	? this.state.isVisible && somethingComplex
 		? "partially visible"
 		: "hidden"
 	: null;
-
 a =>
 	a
 		? () => {
@@ -2607,9 +2549,7 @@ a =>
 		: () => {
 				a;
 		  };
-
 a => (a ? a : a);
-
 a =>
 	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
@@ -2636,7 +2576,6 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 
 =====================================output=====================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
-
 const obj1 = conditionIsTruthy
   ? {
       some: "long",
@@ -2645,7 +2584,6 @@ const obj1 = conditionIsTruthy
       stuff
     }
   : shortThing;
-
 const obj2 = conditionIsTruthy
   ? shortThing
   : {
@@ -2654,7 +2592,6 @@ const obj2 = conditionIsTruthy
       lots: "of",
       stuff
     };
-
 const obj3 = conditionIsTruthy
   ? {
       some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
@@ -2663,7 +2600,6 @@ const obj3 = conditionIsTruthy
       stuff
     }
   : shortThing;
-
 const obj4 = conditionIsTruthy
   ? shortThing
   : {
@@ -2672,7 +2608,6 @@ const obj4 = conditionIsTruthy
       lots: "of",
       stuff
     };
-
 const obj5 = conditionIsTruthy
   ? {
       some: "long",
@@ -2711,7 +2646,6 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 
 =====================================output=====================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
-
 const obj1 = conditionIsTruthy
     ? {
           some: "long",
@@ -2720,7 +2654,6 @@ const obj1 = conditionIsTruthy
           stuff
       }
     : shortThing;
-
 const obj2 = conditionIsTruthy
     ? shortThing
     : {
@@ -2729,7 +2662,6 @@ const obj2 = conditionIsTruthy
           lots: "of",
           stuff
       };
-
 const obj3 = conditionIsTruthy
     ? {
           some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
@@ -2738,7 +2670,6 @@ const obj3 = conditionIsTruthy
           stuff
       }
     : shortThing;
-
 const obj4 = conditionIsTruthy
     ? shortThing
     : {
@@ -2747,7 +2678,6 @@ const obj4 = conditionIsTruthy
           lots: "of",
           stuff
       };
-
 const obj5 = conditionIsTruthy
     ? {
           some: "long",
@@ -2786,7 +2716,6 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 
 =====================================output=====================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
-
 const obj1 = conditionIsTruthy
 	? {
 			some: "long",
@@ -2795,7 +2724,6 @@ const obj1 = conditionIsTruthy
 			stuff
 	  }
 	: shortThing;
-
 const obj2 = conditionIsTruthy
 	? shortThing
 	: {
@@ -2804,7 +2732,6 @@ const obj2 = conditionIsTruthy
 			lots: "of",
 			stuff
 	  };
-
 const obj3 = conditionIsTruthy
 	? {
 			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
@@ -2813,7 +2740,6 @@ const obj3 = conditionIsTruthy
 			stuff
 	  }
 	: shortThing;
-
 const obj4 = conditionIsTruthy
 	? shortThing
 	: {
@@ -2822,7 +2748,6 @@ const obj4 = conditionIsTruthy
 			lots: "of",
 			stuff
 	  };
-
 const obj5 = conditionIsTruthy
 	? {
 			some: "long",
@@ -2862,7 +2787,6 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 
 =====================================output=====================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
-
 const obj1 = conditionIsTruthy
 	? {
 			some: "long",
@@ -2871,7 +2795,6 @@ const obj1 = conditionIsTruthy
 			stuff
 	  }
 	: shortThing;
-
 const obj2 = conditionIsTruthy
 	? shortThing
 	: {
@@ -2880,7 +2803,6 @@ const obj2 = conditionIsTruthy
 			lots: "of",
 			stuff
 	  };
-
 const obj3 = conditionIsTruthy
 	? {
 			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
@@ -2889,7 +2811,6 @@ const obj3 = conditionIsTruthy
 			stuff
 	  }
 	: shortThing;
-
 const obj4 = conditionIsTruthy
 	? shortThing
 	: {
@@ -2898,7 +2819,6 @@ const obj4 = conditionIsTruthy
 			lots: "of",
 			stuff
 	  };
-
 const obj5 = conditionIsTruthy
 	? {
 			some: "long",

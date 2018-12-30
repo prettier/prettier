@@ -33,7 +33,6 @@ function myFunction() {
 
 =====================================output=====================================
 var package = require("../package");
-
 /**
  * My amazing comment
  */

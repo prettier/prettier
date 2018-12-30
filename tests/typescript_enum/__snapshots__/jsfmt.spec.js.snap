@@ -41,7 +41,6 @@ enum Direction {
 
   Right
 }
-
 enum FileAccess {
   // constant members
 
@@ -57,9 +56,7 @@ enum FileAccess {
 
   G = "123".length
 }
-
 enum Empty {}
-
 const enum Enum {
   A = 1,
 

@@ -87,7 +87,6 @@ function a() {
     extra +
     this.watchFns() +
     'return fn;';
-
   // prettier-ignore
 
   const identity = Matrix.create(
@@ -95,7 +94,6 @@ function a() {
     0, 1, 0,
     0, 0, 0
   );
-
   // Let's make sure that this comment doesn't interfere
 
   // prettier-ignore
@@ -104,11 +102,9 @@ function a() {
     "ewww":
             "gross-formatting",
   };
-
   function giveMeSome() {
     a(  a  ); // prettier-ignore // shouldn't I return something?  :shrug:
   }
-
   // prettier-ignore
 
   console.error(
@@ -131,7 +127,6 @@ function a() {
     'Once this is done, commit anything to the repository to restart ' +
       'Travis and it should work :)'
   );
-
   // Incorrectly indented on purpose
 
   function f<
@@ -146,7 +141,6 @@ function a() {
     );
   }
 }
-
 const response = {
   // prettier-ignore
 

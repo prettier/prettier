@@ -11,7 +11,6 @@ module.exports.fun = (): Implementation => new Implementation;
 
 =====================================output=====================================
 class Implementation {}
-
 module.exports.fun = (): Implementation => new Implementation();
 
 ================================================================================

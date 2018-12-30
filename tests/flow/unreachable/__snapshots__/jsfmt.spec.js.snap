@@ -35,24 +35,19 @@ function test2() {
 
 function test1(): string {
   return bar();
-
   function bar() {
     return 0;
   }
 }
-
 // regression test for analysis after abnormal control flow:
 
 // consts must not become bot (EmptyT).
 
 function test2() {
   const n = 0;
-
   return;
-
   function f() {
     var x: typeof n = 0; // no error, n is still number
-
     var y: string = n; // error, n is number (EmptyT would work)
   }
 }
@@ -99,25 +94,20 @@ foo(1, 2);
 
 function foo(x, y) {
   "use strict";
-
   return bar(x) + baz(y);
-
   // function declaration is hoisted, should not generate warning
 
   function bar(ecks) {
     return x + ecks;
   }
-
   // assignment is not hoisted, should generate warning
 
   var baz = function(why) {
     return y + why;
   };
-
   // variable declaration is hoisted, should not generate warning
 
   var x, y, z;
-
   // assignments are not hoisted, should generate 2 warnings
 
   var t,
@@ -125,7 +115,6 @@ function foo(x, y) {
     v,
     w = 7;
 }
-
 foo(1, 2);
 
 ================================================================================

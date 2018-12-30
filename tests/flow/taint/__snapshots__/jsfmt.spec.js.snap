@@ -44,39 +44,32 @@ function f7(x : $Tainted<string>, y : $Tainted<number>) {
 function f(x: $Tainted<number>, y: $Tainted<number>) {
   var z: $Tainted<number> = x + y;
 }
-
 function f1(x: $Tainted<number>, y: number) {
   var z: $Tainted<number> = x + y;
 }
-
 function f2(x: number, y: $Tainted<number>) {
   var z: $Tainted<number> = x + y;
 }
-
 // This should cause an error.
 
 function f3(x: $Tainted<number>, y: number) {
   var z: number = x + y;
 }
-
 // This should cause an error.
 
 function f4(x: number, y: $Tainted<number>) {
   var z: number = x + y;
 }
-
 // This should cause an error.
 
 function f5(x: number, y: $Tainted<number>) {
   var z: string = x + y;
 }
-
 // This should cause an error.
 
 function f6(x: string, y: $Tainted<number>) {
   var z: string = x + y;
 }
-
 // This should cause an error.
 
 function f7(x: $Tainted<string>, y: $Tainted<number>) {
@@ -126,9 +119,7 @@ let tests = [
 
   function(x: $Tainted<string>, y: string) {
     let obj: Object = {};
-
     obj.foo = x; // error, taint ~> any
-
     obj[y] = x; // error, taint ~> any
   },
 
@@ -138,7 +129,6 @@ let tests = [
     let obj: Object = {
       foo: "foo"
     };
-
     (obj.foo: $Tainted<string>); // ok
   },
 
@@ -146,11 +136,8 @@ let tests = [
 
   function(x: $Tainted<string>) {
     let obj: Object = {};
-
     obj.foo(x); // error, taint ~> any
-
     let foo = obj.foo;
-
     foo(x); // error, taint ~> any
   }
 ];
@@ -198,7 +185,6 @@ function foo(x: $Tainted<string>, o: Object) {
 
   o.f(x);
 }
-
 function foo1(
   x: $Tainted<string>,
   o: {
@@ -207,7 +193,6 @@ function foo1(
 ) {
   o.f(x);
 }
-
 function foo2(
   o1: Object,
   o2: {
@@ -216,7 +201,6 @@ function foo2(
 ) {
   o1.f(o2.t);
 }
-
 function foo3<T>(
   x: $Tainted<T>,
   o: {
@@ -225,13 +209,11 @@ function foo3<T>(
 ) {
   o.f(x);
 }
-
 function f_foo1(x: $Tainted<string>, f: Function) {
   // Error
 
   f(x);
 }
-
 function f_foo2(
   f1: Function,
   o: {
@@ -240,7 +222,6 @@ function f_foo2(
 ) {
   f1(o.t);
 }
-
 function f_foo3(
   f1: Function,
   o1: Object,
@@ -287,19 +268,16 @@ function f3(x : $Tainted<string>, y : string) {
 function f(x: $Tainted<string>, y: $Tainted<number>) {
   var z: $Tainted<boolean> = x < y;
 }
-
 // Should cause an error.
 
 function f1(x: string, y: $Tainted<number>) {
   var z: $Tainted<boolean> = x < y;
 }
-
 // Should cause an error.
 
 function f2(x: $Tainted<string>, y: number) {
   var z: $Tainted<boolean> = x < y;
 }
-
 // Note: We allow removing Taint when two tainted
 
 // values are compared.
@@ -346,7 +324,6 @@ let tests = [
 
   function(x: any, y: $Tainted<string>) {
     let z = x();
-
     z(y);
   }
 ];
@@ -379,10 +356,8 @@ class A {
 class A {
   f(x: $Tainted<FakeLocation>) {
     fakeDocument.location = x; // error
-
     doStuff(x); // ok
   }
-
   f1(x: $Tainted<FakeLocation>) {
     // TODO(rcastano): should cause an error.
 
@@ -416,15 +391,11 @@ declare var fakeLocation: FakeLocation;
 declare class FakeLocation {
   assign(url: string): void;
 }
-
 declare class FakeDocument {
   location: FakeLocation;
 }
-
 declare function doStuff(x: $Tainted<any>): void;
-
 declare var fakeDocument: FakeDocument;
-
 declare var fakeLocation: FakeLocation;
 
 ================================================================================
@@ -528,7 +499,6 @@ class A {
     // The Tainted annotation should still flow.
 
     var safe = tainted;
-
     // This should give a warning.
 
     var loc: string = safe;
@@ -565,11 +535,9 @@ function f(x : $Tainted<any>) {
  */
 
 var safe: string = "safe";
-
 // This should be allowed.
 
 var tainted: $Tainted<string> = safe;
-
 function f(x: $Tainted<any>) {
   // Should cause error.
 
@@ -628,7 +596,6 @@ function foo6 (a : $Tainted<Array<string>>) {
 function foo(x: $Tainted<number>) {
   var should_fail: number = x * 42;
 }
-
 // Should cause an error.
 
 function foo1(
@@ -638,7 +605,6 @@ function foo1(
 ) {
   var ok: number = x.f;
 }
-
 // Should cause an error.
 
 function foo2(
@@ -649,7 +615,6 @@ function foo2(
 ) {
   return o.f(t);
 }
-
 function foo3(
   x: $Tainted<{
     f: number
@@ -657,19 +622,16 @@ function foo3(
 ) {
   var also_tainted: $Tainted<number> = x.f;
 }
-
 // Should cause an error.
 
 function foo4(a: $Tainted<Array<string>>) {
   var trusted: string = a[0];
 }
-
 // Type error.
 
 function foo5(a: $Tainted<Array<string>>) {
   var trusted_number: number = a[0];
 }
-
 function foo6(a: $Tainted<Array<string>>) {
   var trusted: $Tainted<string> = a[0];
 }

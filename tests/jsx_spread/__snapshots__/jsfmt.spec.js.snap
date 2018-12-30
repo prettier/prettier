@@ -30,9 +30,7 @@ printWidth: 80
 
 =====================================output=====================================
 <div {...a} />;
-
 <div {...a /* comment */} />;
-
 <div
   {
     /* comment */
@@ -40,19 +38,16 @@ printWidth: 80
     ...a
   }
 />;
-
 <div
   {
     ...a //comment
   }
 />;
-
 <div
   {
     ...a //comment
   }
 />;
-
 <div
   {
     //comment
@@ -60,7 +55,6 @@ printWidth: 80
     ...a
   }
 />;
-
 <div
   {
     //comment
@@ -102,9 +96,7 @@ printWidth: 80
 
 =====================================output=====================================
 <div>{...a}</div>;
-
 <div>{...a /* comment */}</div>;
-
 <div>
   {
     /* comment */
@@ -112,19 +104,16 @@ printWidth: 80
     ...a
   }
 </div>;
-
 <div>
   {
     ...a //comment
   }
 </div>;
-
 <div>
   {
     ...a //comment
   }
 </div>;
-
 <div>
   {
     //comment
@@ -132,7 +121,6 @@ printWidth: 80
     ...a
   }
 </div>;
-
 <div>
   {
     //comment

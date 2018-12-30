@@ -70,7 +70,6 @@ var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
  */
 
 var buffer = require("buffer");
-
 var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
 
 ================================================================================

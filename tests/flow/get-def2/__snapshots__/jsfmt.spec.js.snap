@@ -17,7 +17,6 @@ module.exports = {ParentFoo};
 var ParentFoo = {
   foo: "bar"
 };
-
 module.exports = { ParentFoo };
 
 ================================================================================
@@ -58,37 +57,25 @@ function takesFoo(foo: Foo) { }
 // @flow
 
 var Parent = require("./Parent");
-
 // Hops through destructuring
 
 let ParentFoo;
-
 ({ ParentFoo } = Parent);
-
 ParentFoo; // Points to lval in line above this
-
 // Follows assignment on simple/"non-destructuring" patterns
 
 let ParentFoo2;
-
 ParentFoo2 = Parent;
-
 ParentFoo2; // Points to LHS of line above this
-
 // Follows assignment with declaration
 
 let ParentFoo3 = Parent;
-
 ParentFoo3; // Points to LHS of line above this
-
 // Follows non-destructured property access of \`require('Parent')\`
 
 let foo = require("./Parent").ParentFoo.foo;
-
 foo;
-
 import type { Foo } from "./types";
-
 function takesFoo(foo: Foo) {}
 
 ================================================================================
@@ -118,16 +105,13 @@ class D extends C {
 class C {
   override() {}
 }
-
 class D extends C {
   foo() {
     this.override();
   }
-
   bar() {
     this.override;
   }
-
   override() {}
 }
 
@@ -154,17 +138,13 @@ let msg = "hello";
 
 =====================================output=====================================
 var React = require("react");
-
 class C extends React.Component {
   props: {
     x: string
   };
 }
-
 let msg = "hello";
-
 <C x={msg} />;
-
 <div id={msg} />;
 
 ================================================================================

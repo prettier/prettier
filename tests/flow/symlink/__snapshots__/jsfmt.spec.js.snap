@@ -43,7 +43,6 @@ import type { Foo } from './bar.js';
 
 =====================================output=====================================
 import type { Foo } from "./bar.js";
-
 ({
   x: ""
 }: Foo);

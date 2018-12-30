@@ -69,7 +69,6 @@ require([
 ) {
   console.log("some code");
 });
-
 define([
   "jquery",
 

@@ -15,9 +15,7 @@ let {a //comment
 
 =====================================output=====================================
 const { a /* comment */ = 1 } = b;
-
 const { c = 1 /* comment */ } = d;
-
 let {
   a = b //comment
 } = c;
@@ -134,77 +132,66 @@ function addition() {
 
     x;
 }
-
 function multiplication() {
   0 *
     // Comment
 
     x;
 }
-
 function division() {
   0 /
     // Comment
 
     x;
 }
-
 function substraction() {
   0 -
     // Comment
 
     x;
 }
-
 function remainder() {
   0 %
     // Comment
 
     x;
 }
-
 function exponentiation() {
   0 **
     // Comment
 
     x;
 }
-
 function leftShift() {
   0 <<
     // Comment
 
     x;
 }
-
 function rightShift() {
   0 >>
     // Comment
 
     x;
 }
-
 function unsignedRightShift() {
   0 >>>
     // Comment
 
     x;
 }
-
 function bitwiseAnd() {
   0 &
     // Comment
 
     x;
 }
-
 function bitwiseOr() {
   0 |
     // Comment
 
     x;
 }
-
 function bitwiseXor() {
   0 ^
     // Comment
@@ -296,21 +283,16 @@ loop: for (;;) {
 =====================================output=====================================
 for (;;) {
   break; /* comment */
-
   continue; /* comment */
 }
-
 loop: for (;;) {
   break /* comment */
 
   loop;
-
   break loop /* comment */;
-
   continue /* comment */
 
   loop;
-
   continue loop /* comment */;
 }
 
@@ -340,7 +322,6 @@ render(
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
 );
-
 React.render(
   // Warm any cache
 
@@ -384,19 +365,16 @@ var newArray = /** @type {array} */ ((numberOrString).map(x => x));
 let inlineComment = /* some comment */
 
 someReallyLongFunctionCall(withLots, ofArguments);
-
 let object = {
   key: /* some comment */
 
   someReallyLongFunctionCall(withLots, ofArguments)
 };
-
 // preserve parens only for type casts
 
 let assignment = /** @type {string} */
 
 (getValue());
-
 functionCall(
   1 +
     /** @type {string} */
@@ -406,21 +384,17 @@ functionCall(
 
   ({})
 );
-
 function returnValue() {
   return /** @type {!Array.<string>} */
 
   (["hello", "you"]);
 }
-
 var newArray = /** @type {array} */
 
 (numberOrString).map(x => x);
-
 var newArray = /** @type {array} */
 
 (numberOrString).map(x => x);
-
 var newArray = /** @type {array} */
 
 (numberOrString.map(x => x));
@@ -451,28 +425,21 @@ export /* dangling */{};
 var x = {
   /* dangling */
 };
-
 var x = {
   // dangling
 };
-
 var x = [
   /* dangling */
 ];
-
 function x() {
   /* dangling */
 }
-
 new Thing(/* dangling */);
-
 Thing(/* dangling */);
-
 declare class Foo extends Qux<string>
 {
   /* dangling */
 }
-
 export /* dangling */{};
 
 ================================================================================
@@ -494,7 +461,6 @@ expect(() => {}).toTriggerReadyStateChanges([
 expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
-
 [1 /* first comment */, 2 /* second comment */, 3];
 
 ================================================================================
@@ -514,7 +480,6 @@ for /* comment */(;;);
 =====================================output=====================================
 // comment
 for (;;);
-
 /* comment */
 for (;;);
 
@@ -539,13 +504,10 @@ import('something' /* Hello */ + 'else')
 import(/* Hello */
 
 "something");
-
 import("something" /* Hello */);
-
 import(/* Hello */
 
 "something" /* Hello */);
-
 import("something" /* Hello */ + "else");
 
 ================================================================================
@@ -579,19 +541,15 @@ export {
 =====================================output=====================================
 export //comment
 {};
-
 export /* comment */{};
-
 export {
   foo // comment
 };
-
 export {
   // comment
 
   bar
 };
-
 export {
   fooo, // comment
   barr // comment
@@ -611,7 +569,6 @@ b
 
 =====================================output=====================================
 a; // comment
-
 b;
 
 ================================================================================
@@ -662,7 +619,6 @@ type UploadState<E, EM, D> =
       type: "Success",
       data: D
     };
-
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
 
@@ -744,9 +700,7 @@ function foo() {
 
 =====================================output=====================================
 function a(/* comment */) {} // comment
-
 function b() {} // comment
-
 function c(
   /* comment */
 
@@ -754,37 +708,28 @@ function c(
   argB,
   argC
 ) {} // comment
-
 call((
   /*object*/
 
   row
 ) => {});
-
 KEYPAD_NUMBERS.map((
   num // Buttons 0-9
 ) => <div />);
-
 function f /* f */() {}
-
 function f(/* args */) {}
-
 function f() /* returns */
 
 {}
-
 function f /* f */(/* args */) /* returns */
 
 {}
-
 function f /* f */(
   /* a */
 
   a
 ) {}
-
 function f /* f */(a /* a */) {}
-
 function f /* f */(
   /* a */
 
@@ -792,7 +737,6 @@ function f /* f */(
 ) /* returns */
 
 {}
-
 const obj = {
   f1 /* f */() {},
   f2(/* args */) {},
@@ -803,57 +747,45 @@ const obj = {
 
   {}
 };
-
 (function f /* f */() {})();
-
 (function f(/* args */) {})();
-
 (function f() /* returns */
 
 {})();
-
 (function f /* f */(/* args */) /* returns */
 
 {})();
-
 class C {
   f /* f */() {}
 }
-
 class C {
   f(/* args */) {}
 }
-
 class C {
   f() /* returns */
 
   {}
 }
-
 class C {
   f /* f */(/* args */) /* returns */
 
   {}
 }
-
 function foo() {
   // this is a function
 
   return 42;
 }
-
 function foo() {
   // this is a function
 
   return 42;
 }
-
 function foo() {
   // this is a function
 
   return 42;
 }
-
 function foo() {
   // this is a function
 
@@ -951,12 +883,10 @@ else if (4) {
 } // comment
 else {
 }
-
 if (5)
   // comment
 
   true;
-
 if (6) {
   // comment
 
@@ -969,7 +899,6 @@ if (6) {
 else {
   true;
 }
-
 if (8) {
   // comment
 
@@ -987,7 +916,6 @@ if (8) {
 else {
   true;
 }
-
 if (10) {
   /* comment */
 
@@ -1013,7 +941,6 @@ else if (13)
 /* comment */ else {
   true;
 }
-
 if (14) {
   // comment
 
@@ -1159,12 +1086,10 @@ this.call(
 
   b
 );
-
 function f(
   someReallyLongArgument: WithSomeLongType,
   someReallyLongArgument2: WithSomeLongType // Trailing comment should stay after
 ) {}
-
 // Comments should either stay at the end of the line or always before, but
 
 // not one before and one after.
@@ -1173,7 +1098,6 @@ throw new ProcessSystemError({
   code: acc.error.code, // Alias of errno
   originalError: acc.error // Just in case.
 });
-
 // Adding a comment stops the pretty printing process and everything is
 
 // squished in a single line afterward
@@ -1207,7 +1131,6 @@ export type BuckWebSocketMessage =
   | {
       type: "RunComplete"
     };
-
 // Missing one level of indentation because of the comment
 
 const rootEpic = (actions, store) =>
@@ -1217,10 +1140,8 @@ const rootEpic = (actions, store) =>
 
     .catch((err, stream) => {
       getLogger().error(err);
-
       return stream;
     });
-
 // Two extra levels of indentation because of the comment
 
 export type AsyncExecuteOptions = child_process$execFileOpts & {
@@ -1229,7 +1150,6 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
   stdin?: ?string,
   dontLogInNuclide?: ?boolean
 };
-
 // optional trailing comma gets moved all the way to the beginning
 
 const regex = new RegExp(
@@ -1240,11 +1160,9 @@ const regex = new RegExp(
   "['\\"]" + // closing quotation mark
     ",?$" // optional trailing comma
 );
-
 // The comment is moved and doesn't trigger the eslint rule anymore
 
 import path from "path"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
-
 // Comments disappear in-between MemberExpressions
 
 Observable.of(process)
@@ -1258,29 +1176,24 @@ Observable.of(process)
   .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
 
   .takeUntil(exit);
-
 // Comments disappear inside of JSX
 
 <div>{/* Some comment */}</div>;
-
 // Comments in JSX tag are placed in a non optimal way
 
 <div // comment
 />;
-
 // Comments disappear in empty blocks
 
 if (1) {
   // Comment
 }
-
 // Comments trigger invalid JavaScript in-between else if
 
 if (1) {
 } // Comment
 else {
 }
-
 // The comment makes the line break in a weird way
 
 const result = asyncExecute(
@@ -1289,7 +1202,6 @@ const result = asyncExecute(
 
   []
 );
-
 // The closing paren is printed on the same line as the comment
 
 foo(
@@ -1428,14 +1340,11 @@ onClick={() => {}}>
 
 =====================================output=====================================
 <div>{/* comment */}</div>;
-
 <div>{/* comment */}</div>;
-
 <div>
   {/* comment
    */}
 </div>;
-
 <div>
   {
     a
@@ -1443,7 +1352,6 @@ onClick={() => {}}>
      */
   }
 </div>;
-
 <div>
   {
     /* comment
@@ -1452,24 +1360,19 @@ onClick={() => {}}>
     a
   }
 </div>;
-
 <div>{/* comment */}</div>;
-
 <div>{/* comment */}</div>;
-
 <div>
   {
     // single line comment
   }
 </div>;
-
 <div>
   {
     // multiple line comments 1
     // multiple line comments 2
   }
 </div>;
-
 <div>
   {
     // multiple mixed comments 1
@@ -1478,29 +1381,24 @@ onClick={() => {}}>
     // multiple mixed comments 4
   }
 </div>;
-
 <div>
   {
     // Some very v  ery very very merry (xmas) very very long line to break line width limit
   }
 </div>;
-
 <div>
   {/*<div>  Some very v  ery very very long line to break line width limit </div>*/}
 </div>;
-
 <div>
   {/**
    * JSDoc-y comment in JSX. I wonder what will happen to it?
    */}
 </div>;
-
 <div>
   {/**
    * Another JSDoc comment in JSX.
    */}
 </div>;
-
 <div
   /**
    * Handles clicks.
@@ -1508,30 +1406,25 @@ onClick={() => {}}>
 
   onClick={() => {}}
 />;
-
 <div // comment
 >
   {foo}
 </div>;
-
 <div
   className="foo" // comment
 >
   {foo}
 </div>;
-
 <div
   className="foo" // comment
 >
   {foo}
 </div>;
-
 <div // comment
   id="foo"
 >
   {children}
 </div>;
-
 <Wrapper>
   {}
   <Component />
@@ -1647,25 +1540,21 @@ type f = (
     a: number
   } // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => number;
-
 f = (
   currentRequest: {
     a: number
   } // TODO this is a very very very very long comment that makes it go > 80 columns
 ): number => {};
-
 f = (
   currentRequest: {
     a: number
   } // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => {};
-
 f = function(
   currentRequest: {
     a: number
   } // TODO this is a very very very very long comment that makes it go > 80 columns
 ) {};
-
 class X {
   f(
     currentRequest: {
@@ -1673,13 +1562,11 @@ class X {
     } // TODO this is a very very very very long comment that makes it go > 80 columns
   ) {}
 }
-
 function f(
   a: number // some comment here
 ): number {
   return a + 1;
 }
-
 var x = {
   getSectionMode(
     pageMetaData: PageMetaData,
@@ -1687,7 +1574,6 @@ var x = {
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {}
 };
-
 class X {
   getSectionMode(
     pageMetaData: PageMetaData,
@@ -1697,14 +1583,10 @@ class X {
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {}
 }
-
 class Foo {
   a(lol /*string*/) {}
-
   b(lol /*string*/) {}
-
   d(lol /*string*/, lol2 /*string*/, lol3 /*string*/, lol4 /*string*/) {}
-
   d(
     lol /*string*/,
     lol2 /*string*/,
@@ -1713,12 +1595,10 @@ class Foo {
   ) /*string*/
 
   {}
-
   // prettier-ignore
 
   c(lol /*string*/
   ) {}
-
   // prettier-ignore
 
   d(
@@ -1727,7 +1607,6 @@ class Foo {
     lol3 /*string*/,
     lol4 /*string*/
   ) {}
-
   // prettier-ignore
 
   e(
@@ -1773,16 +1652,13 @@ function name() {
 function f() {
   a; /* eslint-disable */
 }
-
 function f() {
   a; /* eslint-disable */
 }
-
 function name() {
   // comment1
 
   func1();
-
   // comment2
 
   func2(); // comment3 why func3 commented // func3()
@@ -1927,7 +1803,6 @@ function jsx() {
     <div />
   );
 }
-
 function unary() {
   return (
     // Comment
@@ -1935,11 +1810,9 @@ function unary() {
     !!x
   );
 }
-
 function numericLiteralNoParen() {
   return 1337; // Comment
 }
-
 function logical() {
   return (
     // Reason for 42
@@ -1947,7 +1820,6 @@ function logical() {
     42 && 84
   );
 }
-
 function binary() {
   return (
     // Reason for 42
@@ -1955,7 +1827,6 @@ function binary() {
     42 * 84
   );
 }
-
 function binaryInBinaryLeft() {
   return (
     // Reason for 42
@@ -1965,7 +1836,6 @@ function binaryInBinaryLeft() {
     2
   );
 }
-
 function binaryInBinaryRight() {
   return (
     // Reason for 42
@@ -1974,7 +1844,6 @@ function binaryInBinaryRight() {
     84 * 2
   );
 }
-
 function conditional() {
   return (
     // Reason for 42
@@ -1984,7 +1853,6 @@ function conditional() {
       : 2
   );
 }
-
 function binaryInConditional() {
   return (
     // Reason for 42
@@ -1994,7 +1862,6 @@ function binaryInConditional() {
       : 2
   );
 }
-
 function call() {
   return (
     // Reason for a
@@ -2002,7 +1869,6 @@ function call() {
     a()
   );
 }
-
 function memberInside() {
   return (
     // Reason for a.b
@@ -2010,7 +1876,6 @@ function memberInside() {
     a.b.c
   );
 }
-
 function memberOutside() {
   return (
     // Reason for a
@@ -2018,7 +1883,6 @@ function memberOutside() {
     a.b.c
   );
 }
-
 function memberInAndOutWithCalls() {
   return (
     aFunction
@@ -2029,7 +1893,6 @@ function memberInAndOutWithCalls() {
       .c.d()
   );
 }
-
 function excessiveEverything() {
   return (
     // Reason for stuff
@@ -2037,7 +1900,6 @@ function excessiveEverything() {
     a.b() * 3 + 4 ? ((a\`hi\`, 1) ? 1 : 1) : 1
   );
 }
-
 // See https://github.com/prettier/prettier/issues/2392
 
 // function sequenceExpression() {
@@ -2059,7 +1921,6 @@ function sequenceExpressionInside() {
     a, b
   );
 }
-
 function taggedTemplate() {
   return (
     // Reason for a
@@ -2067,7 +1928,6 @@ function taggedTemplate() {
     a\`b\`
   );
 }
-
 function inlineComment() {
   return (
     /* hi */
@@ -2194,20 +2054,16 @@ switch (node && node.type) {
 
   case "MethodDefinition":
     prop = node.key;
-
     break;
 
   case "MemberExpression":
     prop = node.property;
-
     break; // no default
 }
-
 switch (foo) {
   case "bar":
     doThing(); // no default
 }
-
 switch (foo) {
   case "bar": //comment
     doThing(); //comment
@@ -2215,7 +2071,6 @@ switch (foo) {
   case "baz":
     doOtherThing(); //comment
 }
-
 switch (foo) {
   case "bar": {
     doThing();
@@ -2480,53 +2335,44 @@ let obj =
   {
     key: "val"
   };
-
 let obj =
   // Comment
 
   {
     key: "val"
   };
-
 let obj = {
   // Comment
 
   key: "val"
 };
-
 let obj = {
   // Comment
 
   key: "val"
 };
-
 let obj =
   // Comment
 
   ["val"];
-
 let obj =
   // Comment
 
   ["val"];
-
 let obj = [
   // Comment
 
   "val"
 ];
-
 let obj = [
   // Comment
 
   "val"
 ];
-
 let obj =
   // Comment
 
   \`val\`;
-
 let obj =
   // Comment
 
@@ -2534,12 +2380,10 @@ let obj =
 val
 val
 \`;
-
 let obj =
   // Comment
 
   tag\`val\`;
-
 let obj =
   // Comment
 
@@ -2547,18 +2391,14 @@ let obj =
 val
 val
 \`;
-
 let // Comment
 
   foo = "val";
-
 let // Comment
 
   foo = "val",
   bar = "val";
-
 const foo = 123;
-
 // Nothing to see here.
 
 ["2", "3"].forEach(x => console.log(x));
@@ -2597,24 +2437,18 @@ while(true) /* comment */ ++x;
 while (
   true // Comment
 ) {}
-
 while (true) {
   // Comment
 }
-
 while (true) {} // Comment
-
 while (true) {
   /*Comment*/
 }
-
 while (
   true && // Comment
   true // Comment
 ) {}
-
 while (true) {} // comment
-
 while (true)
   /* comment */
 

@@ -11,7 +11,6 @@ declare enum Bar {}
 
 =====================================output=====================================
 declare const enum Foo {}
-
 declare enum Bar {}
 
 ================================================================================
@@ -33,12 +32,9 @@ declare namespace A {
 
 =====================================output=====================================
 declare function x();
-
 declare function y(): void;
-
 declare namespace A {
   function x();
-
   function y(): void;
 }
 
@@ -79,7 +75,6 @@ declare const hello = 5;
 // tslint:disable-next-line:no-use-before-declare
 
 const hello = 5;
-
 // tslint:disable-next-line:no-use-before-declare
 
 declare const hello = 5;

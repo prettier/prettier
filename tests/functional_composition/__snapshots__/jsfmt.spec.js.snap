@@ -57,46 +57,38 @@ compose(
   flatten,
   map(x => [x, x * 2])
 );
-
 somelib.compose(
   sortBy(x => x),
   flatten,
   map(x => [x, x * 2])
 );
-
 composeFlipped(
   sortBy(x => x),
   flatten,
   map(x => [x, x * 2])
 );
-
 somelib.composeFlipped(
   sortBy(x => x),
   flatten,
   map(x => [x, x * 2])
 );
-
 // no regression (#4602)
 
 const hasValue = hasOwnProperty(a, b);
-
 this.compose(
   sortBy(x => x),
   flatten
 );
-
 this.a.b.c.compose(
   sortBy(x => x),
   flatten
 );
-
 someObj.someMethod(
   this.field.compose(
     a,
     b
   )
 );
-
 class A extends B {
   compose() {
     super.compose(
@@ -105,7 +97,6 @@ class A extends B {
     );
   }
 }
-
 this.subscriptions.add(
   this.componentUpdates
 
@@ -148,23 +139,18 @@ foo(6);
 
 =====================================output=====================================
 import { flow } from "lodash";
-
 const foo = flow(
   x => x + 1,
   x => x * 3,
   x => x - 6
 );
-
 foo(6);
-
 import * as _ from "lodash";
-
 const foo = _.flow(
   x => x + 1,
   x => x * 3,
   x => x - 6
 );
-
 foo(6);
 
 ================================================================================
@@ -198,23 +184,18 @@ foo(6);
 
 =====================================output=====================================
 import { flowRight } from "lodash";
-
 const foo = flowRight(
   x => x + 1,
   x => x * 3,
   x => x - 6
 );
-
 foo(6);
-
 import * as _ from "lodash";
-
 const foo = _.flowRight(
   x => x + 1,
   x => x * 3,
   x => x - 6
 );
-
 foo(6);
 
 ================================================================================
@@ -268,24 +249,19 @@ followersForUser("JOE").then(followers => console.log("Followers:", followers));
 =====================================output=====================================
 var classyGreeting = (firstName, lastName) =>
   "The name's " + lastName + ", " + firstName + " " + lastName;
-
 var yellGreeting = R.compose(
   R.toUpper,
   classyGreeting
 );
-
 yellGreeting("James", "Bond"); //=> "THE NAME'S BOND, JAMES BOND"
-
 R.compose(
   Math.abs,
   R.add(1),
   R.multiply(2)
 )(-4); //=> 7
-
 //  get :: String -> Object -> Maybe *
 
 var get = R.curry((propName, obj) => Maybe(obj[propName]));
-
 //  getStateCode :: Maybe String -> Maybe String
 
 var getStateCode = R.composeK(
@@ -297,7 +273,6 @@ var getStateCode = R.composeK(
   get("address"),
   get("user")
 );
-
 getStateCode({
   user: {
     address: {
@@ -305,9 +280,7 @@ getStateCode({
     }
   }
 }); //=> Maybe.Just("NY")
-
 getStateCode({}); //=> Maybe.Nothing()
-
 var db = {
   users: {
     JOE: {
@@ -316,22 +289,17 @@ var db = {
     }
   }
 };
-
 // We'll pretend to do a db lookup which returns a promise
 
 var lookupUser = userId => Promise.resolve(db.users[userId]);
-
 var lookupFollowers = user => Promise.resolve(user.followers);
-
 lookupUser("JOE").then(lookupFollowers);
-
 //  followersForUser :: String -> Promise [UserId]
 
 var followersForUser = R.composeP(
   lookupFollowers,
   lookupUser
 );
-
 followersForUser("JOE").then(followers => console.log("Followers:", followers)); // Followers: ["STEVE","SUZY"]
 
 ================================================================================
@@ -373,9 +341,7 @@ var f = R.pipe(
   R.negate,
   R.inc
 );
-
 f(3, 4); // -(3^4) + 1
-
 //  parseJson :: String -> Maybe *
 
 //  get :: String -> Object -> Maybe *
@@ -392,13 +358,10 @@ var getStateCode = R.pipeK(
     R.toUpper
   )
 );
-
 getStateCode('{"user":{"address":{"state":"ny"}}}');
-
 //=> Just('NY')
 
 getStateCode("[Invalid JSON]");
-
 //=> Nothing()
 
 //  followersForUser :: String -> Promise [User]
@@ -433,13 +396,9 @@ const store = createStore(
 
 =====================================output=====================================
 import { createStore, applyMiddleware, compose } from "redux";
-
 import thunk from "redux-thunk";
-
 import DevTools from "./containers/DevTools";
-
 import reducer from "../reducers";
-
 const store = createStore(
   reducer,
   compose(
@@ -490,13 +449,11 @@ const resolve = createSelector(
 
 =====================================output=====================================
 import { createSelector } from "reselect";
-
 const resolve = createSelector(
   getIds,
   getObjects,
   (ids, objects) => ids.map(id => objects[id])
 );
-
 const resolve = createSelector(
   [getIds, getObjects],
   (ids, objects) => ids.map(id => objects[id])
@@ -525,11 +482,8 @@ source$.pipe(
 
 =====================================output=====================================
 import { range } from "rxjs/observable/range";
-
 import { map, filter, scan } from "rxjs/operators";
-
 const source$ = range(0, 10);
-
 source$
 
   .pipe(

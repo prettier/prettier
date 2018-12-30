@@ -3670,8 +3670,9 @@ function printStatementSequence(path, options, print) {
     }
 
     if (
-      (options.pure || isNextLineEmpty(text, stmt, options)) &&
-      !isLastStatement(stmtPath)
+      options.pure
+        ? false
+        : isNextLineEmpty(text, stmt, options) && !isLastStatement(stmtPath)
     ) {
       parts.push(hardline);
     }

@@ -16,9 +16,7 @@ export var arr = [f];
 // @flow
 
 type Foo = {};
-
 var f: Foo = {};
-
 export var arr = [f];
 
 ================================================================================
@@ -166,7 +164,6 @@ var Foo = {
     };
   }
 };
-
 var Bar = {
   a: Foo.a("Foo"), // no annotation required
   // object property types are inferred, so make sure that this doesn't cause
@@ -177,7 +174,6 @@ var Bar = {
   c: Foo.c("bar"), // no annotation required
   d: Foo.d("bar") // no annotation required
 };
-
 (module.exports = Foo), Bar;
 
 ================================================================================

@@ -43,24 +43,17 @@ function f2<T extends Date, U extends Date>() {
 function f<T extends Date>() {
   function g<T extends Number>() {
     var x: T;
-
     x.toFixed();
   }
-
   var x: T;
-
   x.getDate();
 }
-
 function f2<T extends Date, U extends Date>() {
   function g<T extends Number, U extends Number>() {
     var x: U;
-
     x.toFixed();
   }
-
   var x: U;
-
   x.getDate();
 } //function f2<T extends Date, U extends T>() { //    function g<T extends Number, U extends T>() { //        var x: U; //        x.toFixed(); //    } //    var x: U; //    x.getDate(); //}
 
@@ -119,27 +112,20 @@ class C2<T extends Date, U extends Date> {
 class C<T extends Date> {
   g<T extends Number>() {
     var x: T;
-
     x.toFixed();
   }
-
   h() {
     var x: T;
-
     x.getDate();
   }
 }
-
 class C2<T extends Date, U extends Date> {
   g<T extends Number, U extends Number>() {
     var x: U;
-
     x.toFixed();
   }
-
   h() {
     var x: U;
-
     x.getDate();
   }
 } //class C2<T extends Date, U extends T> { //    g<T extends Number, U extends T>() { //        var x: U; //        x.toFixed(); //    } //    h() { //        var x: U; //        x.getDate(); //    } //}
@@ -174,19 +160,14 @@ class C3<T extends Date> {
 
 class C<T> {
   static x: T;
-
   static f(x: T) {}
 }
-
 class C2<T, U> {
   static x: U;
-
   static f(x: U) {}
 }
-
 class C3<T extends Date> {
   static x: T;
-
   static f(x: T) {}
 }
 
@@ -214,9 +195,7 @@ function foo<T, U>(x: T, y: U) {
   function bar<V>(z: V) {
     function baz<W>(a: W) {
       var c: T;
-
       var d: U;
-
       var e: V;
     }
   }

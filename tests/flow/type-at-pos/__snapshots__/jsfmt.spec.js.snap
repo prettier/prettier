@@ -30,7 +30,6 @@ export const X = {
 // @flow
 
 let [x, y] = [1, 2];
-
 /**
  * Test what happens when the destructuring is unevaluated. In this case,
  * \`this\` in a function is unbound, so we never actually find out the type of
@@ -93,17 +92,14 @@ const d = {
 const a = {
   bar(): void {}
 };
-
 const b = {
   bar: function(): void {}
 };
-
 const c = {
   m<T>(x: T): T {
     return x;
   }
 };
-
 const d = {
   m: function<T>(x: T): T {
     return x;
@@ -150,47 +146,29 @@ mn;
 // @flow
 
 class C<X> {}
-
 var cn: C<number> = new C();
-
 cn;
-
 function foo() {
   return C;
 }
-
 var D = foo();
-
 var dn: D<number> = new C();
-
 dn;
-
 type E<X> = C<X>;
-
 var en: E<number> = new C();
-
 en;
-
 type F<X> = C<void>;
-
 var fn: F<number> = new C();
-
 fn;
-
 type O<X> = {
   x: X
 };
-
 var on: O<number> = {
   x: 0
 };
-
 on;
-
 type Mono = C<void>;
-
 var mn: Mono<number> = new C(); // error: application of non-poly type
-
 mn;
 
 ================================================================================
@@ -212,11 +190,8 @@ module.exports = num;
 // @flow
 
 var num = 42;
-
 function bar() {}
-
 bar();
-
 module.exports = num;
 
 ================================================================================
@@ -243,7 +218,6 @@ let tests = [
 let tests = [
   function() {
     let x = {};
-
     Object.defineProperty(x, "foo", {
       value: ""
     });
@@ -281,13 +255,10 @@ function qux(x?) {
 function foo(x?: string) {
   return x;
 }
-
 foo();
-
 function bar(obj: { x?: string }) {
   return obj.x;
 }
-
 function qux(x?) {
   return x;
 }
@@ -312,13 +283,10 @@ if (Array.isArray(x)) {}
 /* @flow */
 
 let x = 0;
-
 if (x == null) {
 }
-
 if (x == undefined) {
 }
-
 if (Array.isArray(x)) {
 }
 
@@ -336,7 +304,6 @@ React.createElement;
 
 =====================================output=====================================
 import React from "react";
-
 React.createElement;
 
 ================================================================================
@@ -384,27 +351,16 @@ const w:MyNum = 42;
 // @flow
 
 var str = require("./import");
-
 function foo() {}
-
 foo();
-
 str;
-
 type Point = [number, string];
-
 const x: Point = [1, "foo"];
-
 type MyStr = "cool";
-
 const y: MyStr = "cool";
-
 type MyBool = true;
-
 const z: MyBool = true;
-
 type MyNum = 42;
-
 const w: MyNum = 42;
 
 ================================================================================

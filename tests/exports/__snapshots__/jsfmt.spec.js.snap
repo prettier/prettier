@@ -22,11 +22,8 @@ export {
   value4 as value4_renamed,
   value5
 } from "exports";
-
 export a, { b } from "./baz";
-
 export * as ns from "mod";
-
 export * as foo, { bar } from "./baz";
 
 ================================================================================

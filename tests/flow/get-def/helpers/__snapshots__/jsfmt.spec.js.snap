@@ -16,7 +16,6 @@ export default x;
 // @flow
 
 const x = "foo";
-
 export default x;
 
 ================================================================================
@@ -37,7 +36,6 @@ export const bar = "bar";
 // @flow
 
 export const foo = "foo";
-
 export const bar = "bar";
 
 ================================================================================

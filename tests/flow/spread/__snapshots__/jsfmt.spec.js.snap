@@ -41,11 +41,9 @@ function parseTimeframe(line: string): { begin: number; end: number } {
 function parseTimestamp(timestamp: string): number {
   return 0;
 }
-
 function parseCounter(line: string): number {
   return 0;
 }
-
 function parseGroup(
   lines: Array<string>
 ): {
@@ -55,16 +53,13 @@ function parseGroup(
   text: string
 } {
   var counter = parseCounter(lines[0]);
-
   var timeframe = parseTimeframe(lines[1]);
-
   return {
     counter,
     ...timeframe,
     text: lines[2]
   };
 }
-
 function parseTimeframe(
   line: string
 ): {
@@ -72,7 +67,6 @@ function parseTimeframe(
   end: number
 } {
   var timestamps = line.split("-->");
-
   return {
     begin: parseTimestamp(timestamps[0].trim()),
     end: parseTimestamp(timestamps[1].trim())
@@ -108,9 +102,7 @@ function foo(o) {
     ...o
   });
 }
-
 function bar(_: { foo: number }) {}
-
 foo({
   foo: 42
 });
@@ -146,32 +138,25 @@ var t: boolean = s.y; // error, string or number
 var p = {
   y: ""
 };
-
 var q = {
   z: ""
 };
-
 var o = {
   x: 5,
   ...p,
   ...q
 };
-
 var y: number = o.y;
-
 var z: number = o.z;
-
 // test conflicting keys (they get unioned)
 
 var r = {
   y: 123
 };
-
 var s = {
   ...p,
   ...r
 };
-
 var t: boolean = s.y; // error, string or number
 
 ================================================================================
@@ -192,7 +177,6 @@ test(0, ...[1, 2, 3]);
 /* @flow */
 
 function test(...nums: Array<number>) {}
-
 test(0, ...[1, 2, 3]);
 
 ================================================================================
@@ -237,7 +221,6 @@ declare function map<Tv, TNext>(
   obj: { [key: string]: Tv },
   iterator: (obj: Tv) => TNext
 ): Array<TNext>;
-
 /**
  * Tests overriding a property via a spread, where the value is a tvar. the
  * type of the prop from the object that is being overridden (\`x.kind\` in the
@@ -255,7 +238,6 @@ function test(
 }> {
   return map(kinds, value => {
     (value: string); // OK
-
     return {
       ...x,
       kind: value
@@ -297,44 +279,35 @@ for (var i = 0; i < 10; i++) {
 var o = {
   foo: "bar"
 };
-
 o = {
   ...o
 };
-
 (o: {
   foo: string
 });
-
 var p = {
   foo: "bar"
 };
-
 (p: {
   foo: string,
   abc: string
 }); // error, p doesn't have \`abc\` yet
-
 p = {
   ...p,
   abc: "def"
 };
-
 (p: {
   foo: string,
   abc: string
 });
-
 var q = {
   foo: "bar"
 };
-
 for (var i = 0; i < 10; i++) {
   q = {
     ...q
   };
 }
-
 (q: {
   foo: string
 });
@@ -365,7 +338,6 @@ let tests = [
     ({
       ...x
     }: Object);
-
     ({
       ...x
     }: void); // error, Object

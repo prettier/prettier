@@ -40,7 +40,6 @@ function send_single_email(
     html,
     reply_to
   );
-
   return "nothing";
 }
 
@@ -88,7 +87,6 @@ function send_single_email(
     html,
     reply_to,
   );
-
   return "nothing";
 }
 
@@ -136,7 +134,6 @@ function send_single_email(
     html,
     reply_to
   );
-
   return "nothing";
 }
 
@@ -170,21 +167,17 @@ a.b().c(
 
 =====================================output=====================================
 const a = (param1, param2, param3) => {};
-
 a("value", "value2", "value3");
-
 a(
   "a-long-value",
   "a-really-really-long-value",
   "a-really-really-really-long-value"
 );
-
 a(
   "value",
   "value2",
   a("long-nested-value", "long-nested-value2", "long-nested-value3")
 );
-
 a.b()
 .c({ d }, () => {});
 
@@ -219,21 +212,17 @@ a.b().c(
 
 =====================================output=====================================
 const a = (param1, param2, param3) => {};
-
 a("value", "value2", "value3");
-
 a(
   "a-long-value",
   "a-really-really-long-value",
   "a-really-really-really-long-value",
 );
-
 a(
   "value",
   "value2",
   a("long-nested-value", "long-nested-value2", "long-nested-value3"),
 );
-
 a.b()
 .c({ d }, () => {});
 
@@ -268,21 +257,17 @@ a.b().c(
 
 =====================================output=====================================
 const a = (param1, param2, param3) => {};
-
 a("value", "value2", "value3");
-
 a(
   "a-long-value",
   "a-really-really-long-value",
   "a-really-really-really-long-value"
 );
-
 a(
   "value",
   "value2",
   a("long-nested-value", "long-nested-value2", "long-nested-value3")
 );
-
 a.b()
 .c({ d }, () => {});
 
@@ -405,7 +390,6 @@ const a = {
   },
   d: false
 };
-
 const aLong = {
   bHasALongName: "a-long-value",
   cHasALongName: {
@@ -414,7 +398,6 @@ const aLong = {
   },
   dHasALongName: "a-long-value-too"
 };
-
 const aLong = {
   dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a
@@ -460,7 +443,6 @@ const a = {
   },
   d: false,
 };
-
 const aLong = {
   bHasALongName: "a-long-value",
   cHasALongName: {
@@ -469,7 +451,6 @@ const aLong = {
   },
   dHasALongName: "a-long-value-too",
 };
-
 const aLong = {
   dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a,
@@ -515,7 +496,6 @@ const a = {
   },
   d: false,
 };
-
 const aLong = {
   bHasALongName: "a-long-value",
   cHasALongName: {
@@ -524,7 +504,6 @@ const aLong = {
   },
   dHasALongName: "a-long-value-too",
 };
-
 const aLong = {
   dHasALongName: "a-long-value-too",
   eHasABooleanExpression: a === a,
@@ -589,39 +568,32 @@ let example = [
 
   "BAR" // Comment
 ];
-
 foo(
   {} // Comment
 );
-
 o = {
   state // Comment
 };
-
 o = {
   state // Comment
 };
-
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB // Comment
 ) {
   a;
 }
-
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB // Comment
 ) {
   a;
 }
-
 this.getAttribute(function(s) /*string*/
 
 {
   console.log();
 });
-
 this.getAttribute(function(s) /*string*/
 
 {
@@ -688,39 +660,32 @@ let example = [
 
   "BAR", // Comment
 ];
-
 foo(
   {}, // Comment
 );
-
 o = {
   state, // Comment
 };
-
 o = {
   state, // Comment
 };
-
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB, // Comment
 ) {
   a;
 }
-
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB, // Comment
 ) {
   a;
 }
-
 this.getAttribute(function(s) /*string*/
 
 {
   console.log();
 });
-
 this.getAttribute(function(s) /*string*/
 
 {
@@ -787,39 +752,32 @@ let example = [
 
   "BAR", // Comment
 ];
-
 foo(
   {} // Comment
 );
-
 o = {
   state, // Comment
 };
-
 o = {
   state, // Comment
 };
-
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB // Comment
 ) {
   a;
 }
-
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
   supersupersupersuperLongB // Comment
 ) {
   a;
 }
-
 this.getAttribute(function(s) /*string*/
 
 {
   console.log();
 });
-
 this.getAttribute(function(s) /*string*/
 
 {

@@ -124,60 +124,48 @@ func((args) => {
 setTimeout(function() {
   thing();
 }, 500);
-
 ["a", "b", "c"].reduce(function(item, thing) {
   return thing + " " + item;
 }, "letters:");
-
 func(() => {
   thing();
 }, identifier);
-
 func(function() {
   thing();
 }, this.props.timeout * 1000);
-
 func(that => {
   thing();
 }, this.props.getTimeout());
-
 func(() => {
   thing();
 }, true);
-
 func(() => {
   thing();
 }, null);
-
 func(() => {
   thing();
 }, undefined);
-
 func(() => {
   thing();
 }, /regex.*?/);
-
 func(
   () => {
     thing();
   },
   1 ? 2 : 3
 );
-
 func(
   function() {
     return thing();
   },
   1 ? 2 : 3
 );
-
 func(
   () => {
     thing();
   },
   something() ? someOtherThing() : somethingElse(true, 0)
 );
-
 func(
   () => {
     thing();
@@ -186,7 +174,6 @@ func(
     ? someOtherThing()
     : somethingElse(true, 0)
 );
-
 func(
   () => {
     thing();
@@ -200,29 +187,24 @@ func(
     ? someOtherThing()
     : somethingElse(true, 0)
 );
-
 compose(
   a => {
     return a.thing;
   },
   b => b * b
 );
-
 somthing.reduce(function(item, thing) {
   return (thing.blah = item);
 }, {});
-
 somthing.reduce(function(item, thing) {
   return thing.push(item);
 }, []);
-
 reallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongMethod(
   (f, g, h) => {
     return f.pop();
   },
   true
 );
-
 // Don't do the rest of these
 
 func(
@@ -232,7 +214,6 @@ func(
   true,
   false
 );
-
 func(
   () => {
     thing();
@@ -242,7 +223,6 @@ func(
     cats: 5
   }
 );
-
 compose(
   a => {
     return a.thing;
@@ -251,19 +231,16 @@ compose(
     return b + "";
   }
 );
-
 compose(
   a => {
     return a.thing;
   },
   b => [1, 2, 3, 4, 5]
 );
-
 renderThing(
   a => <div>Content. So much to say. Oh my. Are we done yet?</div>,
   args
 );
-
 setTimeout(
   // Something
 
@@ -272,7 +249,6 @@ setTimeout(
   },
   500
 );
-
 setTimeout(
   /* blip */
 
@@ -281,7 +257,6 @@ setTimeout(
   },
   500
 );
-
 func(
   args => {
     execute(args);

@@ -31,7 +31,6 @@ text3
 md\`
 This line shouldn't be indented at all in the resulting output.
 \`;
-
 if (true) {
   md\`
 text1
@@ -111,7 +110,6 @@ markdown\`
 markdown\`
   const cssString = css\\\`background-color: \\$\\{color('base')\\}\\\`;
 \`;
-
 markdown\`
   - \\\`
   - \\\\\\\`
@@ -185,7 +183,6 @@ text3
   - 456
   \`;
 }
-
 if (true) {
   md\`
 text1

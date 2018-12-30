@@ -18,7 +18,6 @@ const Component2 = ({
 
 =====================================output=====================================
 const Component1 = ({ props }) => <Text>Test</Text>;
-
 const Component2 = ({ props }) => <Text>Test</Text>;
 
 ================================================================================
@@ -42,21 +41,13 @@ a = () => ({}).x;
 
 =====================================output=====================================
 () => ({}\`\`);
-
 ({}\`\`);
-
 a = () => ({}.x);
-
 ({} && a, b);
-
 ({}::b, 0);
-
 ({}::b()\`\`[""].c++ && 0 ? 0 : 0, 0);
-
 ({}(), 0);
-
 ({} = 0);
-
 ({} = 0), 1;
 
 ================================================================================
@@ -152,17 +143,14 @@ const blablah =
   "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
   "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
   "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf";
-
 const k = {
   blablah:
     "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
     "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
     "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf"
 };
-
 somethingThatsAReallyLongPropName =
   this.props.cardType === AwesomizerCardEnum.SEEFIRST;
-
 const o = {
   somethingThatsAReallyLongPropName:
     this.props.cardType === AwesomizerCardEnum.SEEFIRST

@@ -43,11 +43,9 @@ var tests = [
     // erroneous typcasts raise errors...
 
     var n = ("hey": number);
-
     // ...but 'any' does dynamic downcasts, if you must
 
     var x: number = ("hey": any);
-
     var y = (("hey": any): number);
   },
 

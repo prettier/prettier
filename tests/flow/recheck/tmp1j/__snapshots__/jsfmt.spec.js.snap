@@ -16,7 +16,6 @@ module.exports = foo;
 // @flow
 
 const foo: { +[string]: number } = {};
-
 module.exports = foo;
 
 ================================================================================

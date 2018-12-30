@@ -68,13 +68,10 @@ const envSpecific = {
     else if (env === "development") "http://localhost:4000";
   }
 };
-
 let x = do {
   let tmp = f();
-
   tmp * tmp + 1;
 };
-
 let x = do {
   if (foo()) {
     f();
@@ -84,7 +81,6 @@ let x = do {
     h();
   }
 };
-
 function foo() {
   return (
     <nav>
@@ -99,15 +95,10 @@ function foo() {
     </nav>
   );
 }
-
 (do {});
-
 (do {} + 1);
-
 1 + do {};
-
 () => do {};
-
 (do {
   switch (0) {
     case 0:
@@ -117,13 +108,11 @@ function foo() {
       break;
   }
 });
-
 () => do {
   var obj = {
     foo: "bar",
     bar: "foo"
   };
-
   for (var key in obj) {
     obj[key];
   }

@@ -11,7 +11,6 @@ a
 
 =====================================output=====================================
 export function match(): string; /* the matching pattern */
-
 a;
 
 ================================================================================
@@ -53,7 +52,6 @@ declare module "hello" {
 declare module "hello" {
   export default Hello;
 }
-
 declare module "hello" {
   export = Hello;
 }
@@ -74,11 +72,8 @@ export default abstract class D {}
 
 =====================================output=====================================
 export class A {}
-
 export default class B {}
-
 export abstract class C {}
-
 export default abstract class D {}
 
 ================================================================================

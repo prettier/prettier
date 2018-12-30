@@ -57,53 +57,43 @@ export type Select = {
   expression: ArithmeticExpression,
   alias: ?string
 };
-
 export class Query {
   _select: Array<Select> = [];
-
   select(expr: ArithmeticExpression): this {
     this._select.push({
       expression: expr,
       alias: ""
     });
-
     return this;
   }
 }
-
 export class BinaryExpression<
   T: ArithmeticExpression,
   U: ArithmeticExpression
 > {}
-
 export type ArithmeticExpression = PlusOp | MinusOp | MulOp | DivOp | ModOp;
-
 export class PlusOp extends BinaryExpression<
   ArithmeticExpression,
   ArithmeticExpression
 > {}
-
 export class MinusOp extends BinaryExpression<
   ArithmeticExpression,
   ArithmeticExpression,
   ArithmeticExpression,
   ArithmeticExpression
 > {}
-
 export class MulOp extends BinaryExpression<
   ArithmeticExpression,
   ArithmeticExpression,
   ArithmeticExpression,
   ArithmeticExpression
 > {}
-
 export class DivOp extends BinaryExpression<
   ArithmeticExpression,
   ArithmeticExpression,
   ArithmeticExpression,
   ArithmeticExpression
 > {}
-
 export class ModOp extends BinaryExpression<
   ArithmeticExpression,
   ArithmeticExpression,
@@ -130,7 +120,6 @@ class C {
 =====================================output=====================================
 class C {
   x: ?number | string;
-
   constructor() {
     this.x = null;
   }
@@ -157,13 +146,10 @@ class D {
 
 =====================================output=====================================
 class C {}
-
 class D {
   content: string | C;
-
   copyContent(content: C): string | C {
     this.content = content;
-
     return this.content;
   }
 }
@@ -206,7 +192,6 @@ type T =
       type: "b",
       b: string
     };
-
 var l: Array<T> = [
   {
     type: "a",
@@ -305,11 +290,8 @@ myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function (ar) {}])
 declare class Myclass {
   myfun(myarray: Array<Function | string>): any;
 }
-
 declare var myclass: Myclass;
-
 myclass.myfun(["1", "2", "3", "4", "5", "6", function(ar) {}]);
-
 myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function(ar) {}]);
 
 ================================================================================
@@ -327,9 +309,7 @@ var foostr: Foo | string = foo;
 
 =====================================output=====================================
 var Foo = require("./issue-323-lib");
-
 var foo = new Foo();
-
 var foostr: Foo | string = foo;
 
 ================================================================================
@@ -349,7 +329,6 @@ module.exports = Foo;
 /* @flow */
 
 class Foo {}
-
 module.exports = Foo;
 
 ================================================================================
@@ -374,13 +353,9 @@ foostr = barstr;
 /* @flow */
 
 class Foo {}
-
 class Bar {}
-
 var foostr: Foo | string = new Foo();
-
 var barstr: Bar | string = new Bar();
-
 foostr = barstr;
 
 ================================================================================
@@ -411,17 +386,13 @@ class Tag_ {
 class Tag {
   constructor() {
     var a1: Array<Tag | string> = [];
-
     var a2: Array<Tag | string> = a1;
   }
 }
-
 type Node = Tag_ | string;
-
 class Tag_ {
   constructor() {
     var a1: Array<Node> = [new Tag_()];
-
     var a2: Array<Node> = a1;
   }
 }
@@ -442,9 +413,7 @@ var result = numberAndStringArr.concat(stringArr);  // no error
 
 =====================================output=====================================
 var numberAndStringArr: Array<number | string> = [1, 2];
-
 var stringArr: Array<string> = ["a", "b"];
-
 var result = numberAndStringArr.concat(stringArr); // no error
 
 ================================================================================
@@ -480,15 +449,11 @@ var nested2: FooBarBaz = 'baz';
 // inline
 
 var nested1: ("foo" | "bar") | "baz" = "baz";
-
 // through tvars
 
 type FooBar = "foo" | "bar";
-
 type Baz = "baz";
-
 type FooBarBaz = FooBar | Baz;
-
 var nested2: FooBarBaz = "baz";
 
 ================================================================================
@@ -544,30 +509,22 @@ const u3 : union2 = {
 type t1 = {
   p1: number
 };
-
 type t2 = {
   p2: number
 };
-
 type t3 = {
   p3: number
 };
-
 type intersected = t1 & t2;
-
 type union = intersected | t3;
-
 type union2 = t3 | intersected;
-
 const u1: union = {
   p3: 3
 };
-
 const u2: union = {
   p1: 1,
   p2: 2
 };
-
 const u3: union2 = {
   p1: 1,
   p2: 2
@@ -603,35 +560,25 @@ bar(f);
 
 =====================================output=====================================
 var C = require("test-lib");
-
 // TODO: spurious error! (replacing C with number makes the error go away)
 
 // type Foo<X> = Array<C> | Array<?C>;
 
 type Foo<X: ?C> = Array<X>; // workaround
-
 var x: Array<C> = [];
-
 var y: Array<?C> = [];
-
 function foo<X>(x: Foo<X>) {}
-
 foo(x);
-
 foo(y);
-
 // TODO: spurious error! (replacing C with number makes the error go away)
 
 // type Bar = (() => C) | (() => string);
 
 type Bar = () => C | string; // workaround
-
 function f() {
   return "";
 }
-
 function bar(x: Bar) {}
-
 bar(f);
 
 ================================================================================
@@ -652,7 +599,6 @@ module.exports = C;
 /* @providesModule test-lib */
 
 class C {}
-
 module.exports = C;
 
 ================================================================================
@@ -685,9 +631,7 @@ var b: Iterator<number> | number = 123;
  */
 
 class LocalClass<T> {}
-
 var a: LocalClass<number> | number = 123;
-
 // Iterator is defined in a lib file, so the speculative algorithm for the
 
 // union type would incorrectly succeed for Iterator<number>. Only later during
@@ -733,33 +677,22 @@ function corge(b) {
 
 =====================================output=====================================
 function bar(x: Document | string): void {}
-
 bar(0);
-
 class C {}
-
 class D {}
-
 function CD(b) {
   var E = b ? C : D;
-
   var c: C = new E(); // error, since E could be D, and D is not a subtype of C
-
   function qux(e: E) {} // this annotation is an error: is it C, or is it D?
-
   function qux2(e: C | D) {} // OK
-
   qux2(new C());
 }
-
 declare class F {
   foo(x: number): void;
   foo(x: string): void;
 }
-
 function corge(b) {
   var x = b ? "" : 0;
-
   new F().foo(x);
 }
 
@@ -5813,14 +5746,11 @@ type Data = {
  */
 
 "use strict";
-
 class SecurityCheckupTypedLogger {
   _data: Data;
-
   setError(value: ErrorCode) {
     this._data["error"] = value;
   }
-
   // Bug: right now, any incompatible type coming into a huge
 
   // union might blow the recursion limit.
@@ -5837,7 +5767,6 @@ class SecurityCheckupTypedLogger {
     ("": ErrorCode); // also, error pos omits this line completely
   }
 }
-
 type ErrorCode =
   | 0
   | 1
@@ -10839,7 +10768,6 @@ type ErrorCode =
   | 4997
   | 4998
   | 4999;
-
 type Data = {
   error?: ErrorCode
 };

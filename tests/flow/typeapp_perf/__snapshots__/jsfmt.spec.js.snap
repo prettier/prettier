@@ -32,7 +32,6 @@ declare var b: B<any>;
  * this test is taking a very long time to complete, there is a bug. */
 
 class A {}
-
 type B<T> = A & {
   +a: () => B<T>,
   +b: () => B<T>,
@@ -44,9 +43,7 @@ type B<T> = A & {
   +h: () => B<T>,
   +i: () => B<T>
 };
-
 declare var b: B<any>;
-
 (b: B<any>);
 
 ================================================================================
@@ -84,7 +81,6 @@ declare var b: B<any>;
  * this test is taking a very long time to complete, there is a bug. */
 
 class A {}
-
 type B<T> = A & {
   +a: (x: B<T>) => void,
   +b: (x: B<T>) => void,
@@ -96,9 +92,7 @@ type B<T> = A & {
   +h: (x: B<T>) => void,
   +i: (x: B<T>) => void
 };
-
 declare var b: B<any>;
-
 (b: B<any>);
 
 ================================================================================

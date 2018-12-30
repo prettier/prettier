@@ -40,7 +40,6 @@ declare class Array<T> {
     thisArg?: any
   ): Array<U>;
 }
-
 type IteratorResult<Yield, Return> =
   | {
       done: true,
@@ -50,20 +49,15 @@ type IteratorResult<Yield, Return> =
       done: false,
       value: Yield
     };
-
 interface $Iterator<+Yield, +Return, -Next> {
   @@iterator(): $Iterator<Yield, Return, Next>;
   next(value?: Next): IteratorResult<Yield, Return>;
 }
-
 type Iterator<+T> = $Iterator<T, void, void>;
-
 interface $Iterable<+Yield, +Return, -Next> {
   @@iterator(): $Iterator<Yield, Return, Next>;
 }
-
 type Iterable<+T> = $Iterable<T, void, void>;
-
 declare class Map<K, V> {
   @@iterator(): Iterator<[K, V]>;
   constructor(iterable: ?Iterable<[K, V]>): void;

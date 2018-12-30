@@ -474,7 +474,6 @@ x = (
     correctly and nicely
   </div>
 );
-
 // Wrapping tags
 
 x = (
@@ -483,7 +482,6 @@ x = (
     <first>f</first> <first>f</first>
   </div>
 );
-
 // Wrapping tags
 
 x = (
@@ -496,7 +494,6 @@ x = (
     <first>f</first>
   </div>
 );
-
 // Wrapping tags
 
 x = (
@@ -508,7 +505,6 @@ x = (
     <first>f</first>
   </div>
 );
-
 // Wrapping tags
 
 x = (
@@ -517,7 +513,6 @@ x = (
     <first>f</first>
   </div>
 );
-
 x = (
   <div>
     before
@@ -528,7 +523,6 @@ x = (
     after
   </div>
 );
-
 x = (
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}
@@ -536,24 +530,20 @@ x = (
     {stuff}after{stuff}after
   </div>
 );
-
 x = (
   <div>
     before {stuff} after {stuff} after {stuff} after {stuff} after {stuff} after{" "}
     {stuff} {stuff} {stuff} after {stuff} after
   </div>
 );
-
 x = (
   <div>
     Please state your <b>name</b> and <b>occupation</b> for the board of{" "}
     <b>school</b> directors.
   </div>
 );
-
 function DiffOverview(props) {
   const { source, target, since } = props;
-
   return (
     <div>
       <div className="alert alert-info">
@@ -571,7 +561,6 @@ function DiffOverview(props) {
     </div>
   );
 }
-
 x = (
   <font size={-3}>
     <i>
@@ -581,7 +570,6 @@ x = (
     </i>
   </font>
 );
-
 x = (
   <div>
     First second third
@@ -590,7 +578,6 @@ x = (
     </div>
   </div>
 );
-
 x = (
   <div>
     <div>First</div>
@@ -598,13 +585,11 @@ x = (
     <div>Third</div>
   </div>
 );
-
 x = (
   <div>
     First <div>Second</div> Third
   </div>
 );
-
 leading_whitespace = (
   <div>
     {" "}
@@ -612,34 +597,29 @@ leading_whitespace = (
     Twelfth Thirteenth Fourteenth
   </div>
 );
-
 trailing_whitespace = (
   <div>
     First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
     Twelfth Thirteenth Fourteenth{" "}
   </div>
 );
-
 no_leading_or_trailing_whitespace = (
   <div>
     First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
     Twelfth Thirteenth Fourteenth
   </div>
 );
-
 facebook_translation_leave_text_around_tag = (
   <div>
     <span>First</span>, (<span>Second</span>)
   </div>
 );
-
 x = (
   <div>
     <span>First second third fourth fifth sixth seventh</span>, (
     <span>Second</span>)
   </div>
 );
-
 this_really_should_split_across_lines = (
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}
@@ -647,7 +627,6 @@ this_really_should_split_across_lines = (
     after{stuff}after{stuff}after
   </div>
 );
-
 unstable_before = (
   <div className="yourScore">
     Your score:{" "}
@@ -656,7 +635,6 @@ unstable_before = (
     }\`}</span>
   </div>
 );
-
 unstable_after_first_run = (
   <div className="yourScore">
     Your score:{" "}
@@ -665,7 +643,6 @@ unstable_after_first_run = (
     }\`}</span>
   </div>
 );
-
 solitary_whitespace = (
   <div
     first="first"
@@ -678,13 +655,11 @@ solitary_whitespace = (
     {" "}
   </div>
 );
-
 jsx_whitespace_on_newline = (
   <div>
     <div>First</div> <div>Second</div> <div>Third</div>
   </div>
 );
-
 jsx_around_multiline_element = (
   <div>
     Before{" "}
@@ -696,7 +671,6 @@ jsx_around_multiline_element = (
     After
   </div>
 );
-
 jsx_around_multiline_element_second_pass = (
   <div>
     Before{" "}
@@ -708,9 +682,7 @@ jsx_around_multiline_element_second_pass = (
     After
   </div>
 );
-
 convert_space_expressions = <div> </div>;
-
 x = (
   <div>
     <first />
@@ -721,7 +693,6 @@ x = (
     <sixth />
   </div>
 );
-
 const Abc = () => {
   return (
     <div>
@@ -730,9 +701,7 @@ const Abc = () => {
     </div>
   );
 };
-
 x = <div id="moo">Some stuff here</div>;
-
 headers_and_paragraphs = (
   <div>
     <h2>First</h2>
@@ -742,21 +711,18 @@ headers_and_paragraphs = (
     <p>The second paragraph.</p>
   </div>
 );
-
 no_text_one_tag_per_line = (
   <div>
     <first />
     <second />
   </div>
 );
-
 with_text_fill_line = (
   <div>
     Text <first />
     <second />
   </div>
 );
-
 line_after_br = (
   <div>
     Text
@@ -767,7 +733,6 @@ line_after_br = (
     <br />
   </div>
 );
-
 line_after_br = (
   <div>
     Text
@@ -778,7 +743,6 @@ line_after_br = (
     <br />
   </div>
 );
-
 line_after_br = (
   <div>
     Text
@@ -789,19 +753,16 @@ line_after_br = (
     <br />
   </div>
 );
-
 line_after_br_2 = (
   <div>
     A<br />B<br />C
   </div>
 );
-
 br_followed_by_whitespace = (
   <div>
     <br /> text
   </div>
 );
-
 dont_preserve_blank_lines_when_jsx_contains_text = (
   <div>
     <div>Zeroth</div>
@@ -809,7 +770,6 @@ dont_preserve_blank_lines_when_jsx_contains_text = (
     Second
   </div>
 );
-
 multiple_expressions = (
   <div>
     {header}
@@ -817,21 +777,18 @@ multiple_expressions = (
     {footer}
   </div>
 );
-
 single_expression_child_tags = (
   <div>
     You currently have <strong>{dashboardStr}</strong> and{" "}
     <strong>{userStr}</strong>
   </div>
 );
-
 expression_does_not_break = (
   <div>
     texty text text text text text text text text text text text{" "}
     {this.props.type}{" "}
   </div>
 );
-
 // FIXME
 
 br_triggers_expression_break = (
@@ -842,7 +799,6 @@ br_triggers_expression_break = (
     }{" "}
   </div>
 );
-
 jsx_whitespace_after_tag = (
   <div>
     <span a="a" b="b">
@@ -851,28 +807,24 @@ jsx_whitespace_after_tag = (
     ({variable})
   </div>
 );
-
 x = (
   <div>
     ENDS IN <div>text text text text text text text text text text text</div>{" "}
     HRS
   </div>
 );
-
 x = (
   <div>
     <h2>Message</h2>
     Hello, I'm a simple message.
   </div>
 );
-
 x = (
   <div>
     Hello, I'm a simple message.
     <h2>Message</h2>
   </div>
 );
-
 x = (
   <div>
     <div>
@@ -888,18 +840,15 @@ x = (
     </div>
   </div>
 );
-
 x = (
   <div>
     {" "}
     <div>text</div>
   </div>
 );
-
 // NOTE: Multiple JSX whitespaces are collapsed into a single space.
 
 x = <div> </div>;
-
 // Don't break a self-closing element without attributes
 
 // ----------
@@ -911,25 +860,21 @@ x = (
     text text text text text text
   </p>
 );
-
 x = (
   <div>
     <div>First</div>-<div>Second</div>
   </div>
 );
-
 x = (
   <div>
     <div>First</div>-<div>Second</div>
   </div>
 );
-
 x = (
   <div>
     <div>First</div>-<div>Second</div>
   </div>
 );
-
 x = (
   <div>
     <div className="first" tabIndex="1">
@@ -941,7 +886,6 @@ x = (
     </div>
   </div>
 );
-
 x = (
   <div>
     <div className="first" tabIndex="1">
@@ -953,7 +897,6 @@ x = (
     </div>
   </div>
 );
-
 x = (
   <div>
     <div className="first" tabIndex="1">
@@ -965,42 +908,34 @@ x = (
     </div>
   </div>
 );
-
 x = (
   <div>
     {hour}:{minute}:{second}
   </div>
 );
-
 x = (
   <div>
     {hour}:{minute}:{second}
   </div>
 );
-
 x = (
   <div>
     {hour}:{minute}:{second}
   </div>
 );
-
 x = (
   <div>
     <strong>text here</strong>.<br />
   </div>
 );
-
 x = <div>Sales tax estimated using a rate of {salesTax * 100}%.</div>;
-
 x = <div>{title}&nbsp;</div>;
-
 x = (
   <div>
     <span />
     bar
   </div>
 );
-
 x = (
   <div>
     <span>
@@ -1010,36 +945,29 @@ x = (
     <Text>You {type}ed this shipment to</Text>
   </div>
 );
-
 x = (
   <HelpBlock>
     {parameter.Description}: {errorMsg}
   </HelpBlock>
 );
-
 x = (
   <label>
     {value} solution{plural}
   </label>
 );
-
 x = <span>Copy &quot;{name}&quot;</span>;
-
 x = <BasicText light>(avg. {value}/5)</BasicText>;
-
 x = (
   <p>
     Use the <code>Button</code>'s
   </p>
 );
-
 this_really_should_split_across_lines = (
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}
     after{stuff}after
   </div>
 );
-
 let myDiv = ReactTestUtils.renderIntoDocument(
   <div>
     <div key="theDog" className="dog" />,

@@ -61,7 +61,6 @@ html\`  <div />  \`
 
 =====================================output=====================================
 import { LitElement, html } from "@polymer/lit-element";
-
 class MyElement extends LitElement {
   static get properties() {
     return {
@@ -70,13 +69,10 @@ class MyElement extends LitElement {
       }
     };
   }
-
   constructor() {
     super();
-
     this.mood = "happy";
   }
-
   render() {
     return html\`
       <style>
@@ -89,29 +85,22 @@ class MyElement extends LitElement {
     \`;
   }
 }
-
 customElements.define("my-element", MyElement);
-
 const someHtml1 = html\`
   <div>hello \${world}</div>
 \`;
-
 const someHtml2 = /* HTML */
 
 \`
   <div>hello \${world}</div>
 \`;
-
 html\`\`;
-
 html\`
   <my-element obj=\${obj}></my-element>
 \`;
-
 html\`
   <\${Footer}>footer content<//>
 \`;
-
 html\`
   <div />
 \`;

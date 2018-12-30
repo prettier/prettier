@@ -25,20 +25,16 @@ const foo =
 =====================================output=====================================
 @deco
 class Foo {}
-
 @deco
 export class Bar {}
-
 @deco
 export default class Baz {}
-
 const foo =
   @deco
   class
   {
     //
   };
-
 const foo =
   @deco
   class
@@ -89,7 +85,6 @@ export class Bar{}
 
 =====================================output=====================================
 var x = 100;
-
 @Hello({
   a: "a", // Comment is in the wrong place
   // test
@@ -97,7 +92,6 @@ var x = 100;
   b: "2"
 })
 class X {}
-
 @NgModule({
   // Imports.
 
@@ -114,7 +108,6 @@ class X {}
   ]
 })
 export class AppModule {}
-
 // A
 
 @Foo()
@@ -147,10 +140,8 @@ class Yo {
 class Yo {
   @foo("hello")
   async plop() {}
-
   @anotherDecoratorWithALongName("and a very long string as a first argument")
   async plip() {}
-
   @anotherDecoratorWithALongName("another very long string, but now inline")
   async plip() {}
 }
@@ -203,35 +194,27 @@ import {observable} from "mobx";
 
 =====================================output=====================================
 import { observable } from "mobx";
-
 @observer
 class OrderLine {
   @observable price: number = 0;
-
   @observable amount: number = 1;
-
   constructor(price) {
     this.price = price;
   }
-
   @computed get total() {
     return this.price * this.amount;
   }
-
   @action.bound setPrice(price) {
     this.price = price;
   }
-
   @computed
   get total() {
     return this.price * this.amount;
   }
-
   @action.bound
   setPrice(price) {
     this.price = price;
   }
-
   @computed
   @computed
   @computed
@@ -242,10 +225,8 @@ class OrderLine {
   get total() {
     return this.price * this.amount;
   }
-
   @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) =>
     this.count--;
-
   @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) =>
     doSomething();
 }
@@ -308,7 +289,6 @@ const dog = {
   @doubledValue
   eyes: 2
 };
-
 const foo = {
   @multipleDecorators
   @inline
@@ -337,7 +317,6 @@ export class Home extends React.Component {}
   mapDispatchToProps
 )
 export class MyApp extends React.Component {}
-
 @connect(state => ({
   todos: state.todos
 }))

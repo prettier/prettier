@@ -54,7 +54,6 @@ beep
     },
     () => {}
   );
-
 //https://github.com/prettier/prettier/issues/2984
 
 db.collection("indexOptionDefault")
@@ -69,7 +68,6 @@ db.collection("indexOptionDefault")
   },
   function(err) {
     test.equal(null, err);
-
     test.deepEqual(
       {
         w: 2,
@@ -77,9 +75,7 @@ db.collection("indexOptionDefault")
       },
       commandResult.writeConcern
     );
-
     client.close();
-
     done();
   }
 );

@@ -14,7 +14,6 @@ export default @decorator class {}
 export
 @decorator
 class Foo {}
-
 export default
 @decorator
 class {}
@@ -37,7 +36,6 @@ export default class {}
 =====================================output=====================================
 @decorator
 export class Foo {}
-
 @decorator
 export default class {}
 

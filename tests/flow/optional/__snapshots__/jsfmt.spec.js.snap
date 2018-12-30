@@ -12,7 +12,6 @@ qux(0);
 
 =====================================output=====================================
 var qux = require("./optional");
-
 qux(0);
 
 ================================================================================
@@ -50,7 +49,6 @@ class C {
 
 =====================================output=====================================
 function x<T>(x: T = 0) {}
-
 class C {
   x<T>(x: T = 0) {}
 }
@@ -165,43 +163,36 @@ function optionalNullable1(x: { y?: ?number }) {
     x.y++;
   }
 }
-
 function optionalNullable2(x: { y?: ?number }) {
   if (x.y !== undefined && x.y !== null) {
     x.y++;
   }
 }
-
 function optionalNullable3(x: { y?: ?number }) {
   if (!(x.y !== null && x.y !== undefined)) {
     x.y++; // should error
   }
 }
-
 function optionalNullable4(x: { y?: ?number }) {
   if (!(x.y !== undefined && x.y !== null)) {
     x.y++; // should error
   }
 }
-
 function optionalNullable5(x: { y?: ?number }) {
   if (x.y === null || x.y === undefined) {
     x.y++; // should error
   }
 }
-
 function optionalNullable6(x: { y?: ?number }) {
   if (x.y === undefined || x.y === null) {
     x.y++; // should error
   }
 }
-
 function optionalNullable7(x: { y?: ?number }) {
   if (!(x.y === null || x.y === undefined)) {
     x.y++;
   }
 }
-
 function optionalNullable8(x: { y?: ?number }) {
   if (!(x.y === undefined || x.y === null)) {
     x.y++;
@@ -235,25 +226,16 @@ module.exports = qux;
 function bar(x?, y?) {
   x * 0;
 }
-
 bar(0);
-
 var foo: (x?: number) => void = bar;
-
 foo();
-
 function qux(x = "hello", ...y): string {
   foo(x);
-
   return y[0];
 }
-
 qux(0, 0); // Error, number ~> string
-
 qux(0, ...[42, ""]); // Error, number ~> string
-
 qux(0, ...["", 42]); // No error
-
 module.exports = qux;
 
 ================================================================================
@@ -308,53 +290,40 @@ function foo(x?: string): string {
   if (x == null) {
     return "foo";
   }
-
   return x;
 }
-
 function bar(obj: { x?: string }): string {
   if (obj.x == null) {
     return "foo";
   }
-
   return obj.x;
 }
-
 function baz(bar?) {
   if (!bar) {
     return 1;
   }
-
   return bar.duck;
 }
-
 function testOptionalNullable(x?: ?string): string {
   if (x == null) {
     return "foo";
   }
-
   return x;
 }
-
 function testOptionalNullableDefault(x?: ?string = "hi"): string {
   if (x == null) {
     return "foo";
   }
-
   return x;
 }
-
 function testOptionalNullableProperty(obj: { x?: ?string }): string {
   if (obj.x == null) {
     return "foo";
   }
-
   return obj.x;
 }
-
 function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
   var f = function(y: ?string) {};
-
   f(x);
 }
 
@@ -379,9 +348,7 @@ var j:I<number> = i.map(id => id);
 declare class I<V> {
   map<M>(mapper: (value?: V) => M): I<M>;
 }
-
 var i: I<number> = new I();
-
 var j: I<number> = i.map(id => id);
 
 ================================================================================
@@ -403,13 +370,10 @@ bar(undefined); // ok
 
 =====================================output=====================================
 function foo(x?: number) {}
-
 foo(undefined); // ok
-
 function bar(x = "bar"): string {
   return x;
 }
-
 bar(undefined); // ok
 
 ================================================================================
@@ -441,14 +405,10 @@ foo(123, true); // ERROR boolean ~> string
 function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
   return [x, y];
 }
-
 foo(); // OK
-
 foo(123), // OK
   foo(123, "hello"); // OK
-
 foo(true); // ERROR boolean ~> number
-
 foo(123, true); // ERROR boolean ~> string
 
 ================================================================================
@@ -472,11 +432,9 @@ function bar() {
 
 =====================================output=====================================
 var x;
-
 function foo(bar? = undefined) {
   x = bar;
 }
-
 function bar() {
   return x.duck;
 }
@@ -502,11 +460,9 @@ function bar() {
 
 =====================================output=====================================
 var x;
-
 function foo(bar?) {
   x = bar;
 }
-
 function bar() {
   return x.duck;
 }

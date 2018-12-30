@@ -14,7 +14,6 @@ const doBothThings = async () => {
 =====================================output=====================================
 const doBothThings = async () => {
   const request = doAsyncThing();
-
   return (await request)::doSyncThing();
 };
 
@@ -36,7 +35,6 @@ const doBothThings = async () => {
 =====================================output=====================================
 const doBothThings = async () => {
   const request = doAsyncThing()
-
   return (await request)::doSyncThing()
 }
 
@@ -82,63 +80,34 @@ b.c::d.e;
 
 =====================================output=====================================
 (a || b)::c;
-
 a || b::c;
-
 ::obj.prop;
-
 (void 0)::func();
-
 (+0)::is(-0);
-
 a::b.c;
-
 a::(b.c());
-
 a::b.c();
-
 a::(b.c()());
-
 a::(b.c()());
-
 a::(b.c())();
-
 a::(b.c().d);
-
 a::(c().d.e);
-
 a::(b());
-
 a::(b::c());
-
 a::(b()::c);
-
 a::(b().c::d);
-
 a::(b.c::d);
-
 a::(b::c.d);
-
 a::(b.c::d::e);
-
 a::(b::c::d);
-
 a::(b::c::d.e);
-
 a::(b::c::d).e;
-
 a::(void 0);
-
 a::(b.c()::d.e);
-
 a::(b.c::d.e);
-
 a::(b.c::d.e)::f.g;
-
 b.c::d.e;
-
 (b.c::d).e;
-
 (b::c::d).e;
 
 ================================================================================
@@ -184,63 +153,34 @@ b.c::d.e;
 
 =====================================output=====================================
 ;(a || b)::c
-
 a || b::c
-
 ;::obj.prop
-
 ;(void 0)::func()
-
 ;(+0)::is(-0)
-
 a::b.c
-
 a::(b.c())
-
 a::b.c()
-
 a::(b.c()())
-
 a::(b.c()())
-
 a::(b.c())()
-
 a::(b.c().d)
-
 a::(c().d.e)
-
 a::(b())
-
 a::(b::c())
-
 a::(b()::c)
-
 a::(b().c::d)
-
 a::(b.c::d)
-
 a::(b::c.d)
-
 a::(b.c::d::e)
-
 a::(b::c::d)
-
 a::(b::c::d.e)
-
 a::(b::c::d).e
-
 a::(void 0)
-
 a::(b.c()::d.e)
-
 a::(b.c::d.e)
-
 a::(b.c::d.e)::f.g
-
 b.c::d.e
-
 ;(b.c::d).e
-
 ;(b::c::d).e
 
 ================================================================================
@@ -267,7 +207,6 @@ class X {
     this.testLongNameMethodAndSomethingElseLallala =
       ::this.testLongNameMethodAndSomethingElseLallala;
   }
-
   testLongNameMethodAndSomethingElseLallala() {
     return true;
   }
@@ -298,7 +237,6 @@ class X {
     this.testLongNameMethodAndSomethingElseLallala =
       ::this.testLongNameMethodAndSomethingElseLallala
   }
-
   testLongNameMethodAndSomethingElseLallala() {
     return true
   }
@@ -333,17 +271,11 @@ function test(observable) {
 
 =====================================output=====================================
 import { interval } from "rxjs/observable/interval";
-
 import { filter } from "rxjs/operator/filter";
-
 import { take } from "rxjs/operator/take";
-
 import { map } from "rxjs/operator/map";
-
 import { throttle } from "rxjs/operator/throttle";
-
 import { takeUntil } from "rxjs/operator/takeUntil";
-
 function test(observable) {
   return observable
 
@@ -389,17 +321,11 @@ function test(observable) {
 
 =====================================output=====================================
 import { interval } from "rxjs/observable/interval"
-
 import { filter } from "rxjs/operator/filter"
-
 import { take } from "rxjs/operator/take"
-
 import { map } from "rxjs/operator/map"
-
 import { throttle } from "rxjs/operator/throttle"
-
 import { takeUntil } from "rxjs/operator/takeUntil"
-
 function test(observable) {
   return observable
 
@@ -438,7 +364,6 @@ class X {
   constructor() {
     this.shortMethod = ::this.shortMethod;
   }
-
   shortMethod() {
     return true;
   }
@@ -468,7 +393,6 @@ class X {
   constructor() {
     this.shortMethod = ::this.shortMethod
   }
-
   shortMethod() {
     return true
   }

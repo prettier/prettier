@@ -13,7 +13,6 @@ module.exports = Bar;
 var Bar = {
   x: 0
 };
-
 module.exports = Bar;
 
 ================================================================================
@@ -79,9 +78,7 @@ let tests = [
 
   function(copyProperties: Object$Assign) {
     let result = {};
-
     result.baz = false;
-
     (copyProperties(
       result,
       {
@@ -101,15 +98,12 @@ let tests = [
 
   function() {
     const copyProperties = require("copyProperties");
-
     let x = {
       foo: "a"
     };
-
     let y = {
       bar: 123
     };
-
     (copyProperties({}, x, y): {
       foo: string,
       bar: number
@@ -120,7 +114,6 @@ let tests = [
 
   function(copyProperties: Object$Assign) {
     copyProperties();
-
     (copyProperties({
       foo: "a"
     }): {
@@ -132,7 +125,6 @@ let tests = [
 
   function(copyProperties: Object$Assign) {
     function x(cb: Function) {}
-
     x(copyProperties);
   }
 ];
@@ -167,15 +159,12 @@ let tests = [
 let tests = [
   function() {
     let x: ?string = null;
-
     invariant(x, "truthy only"); // error, forgot to require invariant
   },
 
   function(invariant: Function) {
     let x: ?string = null;
-
     invariant(x);
-
     (x: string);
   }
 ];
@@ -205,11 +194,9 @@ declare module "mixin" {
 declare module "copyProperties" {
   declare var exports: Object$Assign;
 }
-
 declare module "mergeInto" {
   declare var exports: $Facebookism$MergeInto;
 }
-
 declare module "mixin" {
   declare var exports: $Facebookism$Mixin;
 }
@@ -272,9 +259,7 @@ let tests = [
 
   function(mergeInto: $Facebookism$MergeInto) {
     let result = {};
-
     result.baz = false;
-
     (mergeInto(
       result,
       {
@@ -284,7 +269,6 @@ let tests = [
         bar: 123
       }
     ): void);
-
     (result: {
       foo: string,
       bar: number,
@@ -296,7 +280,6 @@ let tests = [
 
   function() {
     const mergeInto = require("mergeInto");
-
     let result: {
       foo?: string,
       bar?: number,
@@ -304,7 +287,6 @@ let tests = [
     } = {
       baz: false
     };
-
     (mergeInto(
       result,
       {
@@ -326,7 +308,6 @@ let tests = [
 
   function(mergeInto: $Facebookism$MergeInto) {
     function x(cb: Function) {}
-
     x(mergeInto);
   }
 ];
@@ -352,13 +333,10 @@ class Foo extends mixin(Bar) {
 
 =====================================output=====================================
 var Bar = require("./Bar");
-
 var mixin = require("mixin");
-
 class Foo extends mixin(Bar) {
   m() {
     var x: string = this.x;
-
     this.y = "";
   }
 }

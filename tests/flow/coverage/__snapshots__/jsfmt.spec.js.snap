@@ -27,7 +27,6 @@ declare module bar {
 
 declare module foo {
 }
-
 declare module bar {
 } // TODO
 
@@ -65,7 +64,6 @@ let x = 0;
 
 =====================================output=====================================
 let x = 0;
-
 (x: string);
 
 ================================================================================
@@ -101,10 +99,8 @@ declare class qux {
 
 declare module foo {
 }
-
 declare module bar {
 }
-
 // TODO
 
 declare class qux {}

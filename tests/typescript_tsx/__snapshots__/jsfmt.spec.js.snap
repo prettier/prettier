@@ -14,9 +14,7 @@ const c3 = <MyComponent<number> attr="value" />
 
 =====================================output=====================================
 const c1 = <MyComponent<number> data={12} />;
-
 const c2 = <MyComponent<number> />;
-
 const c3 = <MyComponent<number> attr="value" />;
 
 ================================================================================
@@ -33,7 +31,6 @@ printWidth: 80
 
 =====================================output=====================================
 <try />;
-
 <object />;
 
 ================================================================================
@@ -58,15 +55,10 @@ const footer = '<footer></footer>';
 /// <reference types="node" />
 
 type ul = any;
-
 const somethingElse = 1;
-
 const thing = <ul>somethingElse;
-
 const div = "<div></div>";
-
 const h1 = \`<h1>Hi</h1>\`;
-
 const footer = "<footer></footer>";
 
 ================================================================================
@@ -87,7 +79,6 @@ const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
 
 =====================================output=====================================
 const MyCoolList = ({ things }) => <ul>{things.map(MyCoolThing)}</ul>;
-
 const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
 
 ================================================================================
@@ -104,7 +95,6 @@ printWidth: 80
 
 =====================================output=====================================
 <this.state.Component />;
-
 <this.Component />;
 
 ================================================================================

@@ -32,7 +32,6 @@ type T = {
   a: number,
   ...
 };
-
 type U = {
   a: number,
   b: number,
@@ -43,7 +42,6 @@ type U = {
   g: number,
   ...
 };
-
 type V = {
   x: { ... },
   y: {
@@ -64,7 +62,6 @@ type V = {
   },
   ...
 };
-
 function test(x: {
   foo: number,
   bar: number,
@@ -80,7 +77,6 @@ function test(x: {
 }) {
   return x;
 }
-
 function test(x: {
   foo: number,
   bar: number,
@@ -104,9 +100,7 @@ function test(x: {
 }) {
   return x;
 }
-
 type W = { ... };
-
 type X = { ... };
 
 ================================================================================

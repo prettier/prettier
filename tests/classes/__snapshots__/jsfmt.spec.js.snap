@@ -13,11 +13,8 @@ printWidth: 80
 
 =====================================output=====================================
 (class {} + 1);
-
 (class a {} + 1);
-
 (class extends b {} + 1);
-
 (class a extends b {} + 1);
 
 ================================================================================
@@ -71,36 +68,27 @@ class MyContractSelectionWidget
   implements SomethingLarge {
   method() {}
 }
-
 class DisplayObject extends utils.EventEmitter
   implements interaction_InteractiveTarget {}
-
 class DisplayObject extends utils.EventEmitter
   implements interaction_InteractiveTarget {}
-
 class DisplayObject extends utils.EventEmitter
   implements
     interaction_InteractiveTarget,
     somethingElse_SomeOtherThing,
     somethingElseAgain_RunningOutOfNames {}
-
 class DisplayObject extends utils.EventEmitter
   implements interaction_InteractiveTarget {}
-
 class Readable extends events.EventEmitter implements NodeJS_ReadableStream {}
-
 class InMemoryAppender extends log4javascript.Appender
   implements ICachedLogMessageProvider {}
-
 class Foo extends Immutable.Record({
   ipaddress: ""
 }) {
   ipaddress: string;
 }
-
 export class VisTimelineComponent
   implements AfterViewInit, OnChanges, OnDestroy {}
-
 export class VisTimelineComponent2
   implements
     AfterViewInit,
@@ -150,14 +138,11 @@ class A
 {
   // comment
 }
-
 class A
 {
   // comment
 }
-
 class A {}
-
 class A {
   m() {}
 }
@@ -176,7 +161,6 @@ printWidth: 80
 
 =====================================output=====================================
 (class {}[1]);
-
 (class {}.a);
 
 ================================================================================
@@ -204,7 +188,6 @@ class C {
 class C {
   name /*comment*/() {}
 }
-
 ({
   name /*comment*/() {}
 });
@@ -247,15 +230,12 @@ class A {
 
     2;
 }
-
 class B {
   someInstanceProperty =
     this.props.foofoofoofoofoofoo && this.props.barbarbarbar;
-
   someInstanceProperty2 = {
     foo: this.props.foofoofoofoofoofoo && this.props.barbarbarbar
   };
-
   someInstanceProperty3 = "foo";
 }
 

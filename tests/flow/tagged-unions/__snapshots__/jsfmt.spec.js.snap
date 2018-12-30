@@ -43,18 +43,13 @@ function bar(x: Bar): string {
 
 class Foo {
   type: "foo";
-
   foo: string;
 }
-
 class Bar {
   type: "bar";
-
   bar: string;
 }
-
 type Foobar = Foo | Bar;
-
 function foobar(x: Foobar): string {
   if (x.type === "foo") {
     return foo(x);
@@ -64,11 +59,9 @@ function foobar(x: Foobar): string {
     return "unknown";
   }
 }
-
 function foo(x: Foo): string {
   return x.foo;
 }
-
 function bar(x: Bar): string {
   return x.bar;
 }
@@ -116,23 +109,18 @@ declare interface IDataBase {
   id: string;
   name: string;
 }
-
 declare interface IUserData extends IDataBase {
   kind: "user";
 }
-
 declare interface ISystemData extends IDataBase {
   kind: "system";
 }
-
 declare type IData = IUserData | ISystemData;
-
 const data: IData = {
   id: "",
   name: "",
   kind: "system"
 };
-
 if (data.kind === "user") {
   (data: ISystemData);
 }
@@ -180,23 +168,18 @@ declare interface IDataBase {
   id: string;
   name: string;
 }
-
 declare interface IUserData extends IDataBase {
   kind: "user";
 }
-
 declare interface ISystemData extends IDataBase {
   kind: "system";
 }
-
 declare type IData = IUserData | ISystemData;
-
 const data: IData = {
   id: "",
   name: "",
   kind: "system"
 };
-
 if (data.kind === "system") {
   (data: ISystemData);
 }
@@ -248,27 +231,22 @@ type DataBase = {
   id: string,
   name: string
 };
-
 type UserData = {
   id: string,
   name: string,
   kind: "user"
 };
-
 type SystemData = {
   id: string,
   name: string,
   kind: "system"
 };
-
 declare type Data = UserData | SystemData;
-
 const data: Data = {
   id: "",
   name: "",
   kind: "system"
 };
-
 if (data.kind === "user") {
   (data: SystemData);
 }
@@ -320,27 +298,22 @@ type DataBase = {
   id: string,
   name: string
 };
-
 type UserData = {
   id: string,
   name: string,
   kind: "user"
 };
-
 type SystemData = {
   id: string,
   name: string,
   kind: "system"
 };
-
 declare type Data = UserData | SystemData;
-
 const data: Data = {
   id: "",
   name: "",
   kind: "system"
 };
-
 if (data.kind === "system") {
   (data: SystemData);
 }

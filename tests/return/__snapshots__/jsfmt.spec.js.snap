@@ -39,7 +39,6 @@ function f() {
       (callee.isMemberExpression() && shouldHoistExpression(object))) &&
     FUNCTIONS[property.node.name](expr.get("arguments"))
   );
-
   return (
     chalk.bold("No tests found related to files changed since last commit.\\n") +
     chalk.dim(
@@ -48,7 +47,6 @@ function f() {
         : "Run Jest without \`-o\` to run all tests."
     )
   );
-
   return (
     !filePath.includes(coverageDirectory) &&
     !filePath.endsWith(\`.\${SNAPSHOT_EXTENSION}\`)
@@ -94,7 +92,6 @@ fn(function f() {
 function f() {
   return /* a */;
 }
-
 function x() {
   return (
     func2
@@ -104,7 +101,6 @@ function x() {
       .bar()
   );
 }
-
 function f() {
   return (
     foo
@@ -114,7 +110,6 @@ function f() {
       .bar()
   );
 }
-
 fn(function f() {
   return (
     foo

@@ -29,7 +29,6 @@ import {
   andMore,
   soWeCanGetItTo80Columns
 } from ".";
-
 import { fitsIn, oneLine } from ".";
 
 ================================================================================
@@ -65,7 +64,6 @@ import {
   andMore,
   soWeCanGetItTo80Columns
 } from ".";
-
 import {fitsIn, oneLine} from ".";
 
 ================================================================================
@@ -133,7 +131,6 @@ import {
 
   a as b
 } from "";
-
 import {
   //comment1
 
@@ -143,7 +140,6 @@ import {
 
   a as b
 } from "";
-
 import {
   //comment2 //comment1
 
@@ -151,13 +147,11 @@ import {
 
   a as b
 } from "";
-
 import {
   //comment3 //comment2 //comment1
 
   a as b
 } from "";
-
 import {
   // comment 1
 
@@ -167,13 +161,11 @@ import {
   FN2, // FN3,
   FN4 /* comment 4 */ // FN4, // FN5
 } from "./module";
-
 import {
   ExecutionResult,
   DocumentNode /* tslint:disable */,
   SelectionSetNode /* tslint:enable */
 } from "graphql";
-
 import x, {
   // comment
 
@@ -246,7 +238,6 @@ import {
 
   a as b
 } from "";
-
 import {
   //comment1
 
@@ -256,7 +247,6 @@ import {
 
   a as b
 } from "";
-
 import {
   //comment2 //comment1
 
@@ -264,13 +254,11 @@ import {
 
   a as b
 } from "";
-
 import {
   //comment3 //comment2 //comment1
 
   a as b
 } from "";
-
 import {
   // comment 1
 
@@ -280,13 +268,11 @@ import {
   FN2, // FN3,
   FN4 /* comment 4 */ // FN4, // FN5
 } from "./module";
-
 import {
   ExecutionResult,
   DocumentNode /* tslint:disable */,
   SelectionSetNode /* tslint:enable */
 } from "graphql";
-
 import x, {
   // comment
 
@@ -338,13 +324,10 @@ import {a, somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethi
 
 =====================================output=====================================
 import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-
 import { somethingSuperLongsomethingSuperLong } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-
 import a, {
   somethingSuperLongsomethingSuperLong
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-
 import {
   a,
   somethingSuperLongsomethingSuperLong
@@ -367,13 +350,10 @@ import {a, somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethi
 
 =====================================output=====================================
 import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-
 import {somethingSuperLongsomethingSuperLong} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-
 import a, {
   somethingSuperLongsomethingSuperLong
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-
 import {
   a,
   somethingSuperLongsomethingSuperLong

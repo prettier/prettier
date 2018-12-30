@@ -19,12 +19,10 @@ const {
   somePropThatHasAReallyLongName,
   anotherPropThatHasALongName
 } = this.props.imReallySureAboutThis!;
-
 const {
   somePropThatHasAReallyLongName,
   anotherPropThatHasALongName
 } = this.props.imReallySureAboutThis!.anotherObject;
-
 this.foo
 
   .get("bar")
@@ -32,7 +30,6 @@ this.foo
   .doThings()
 
   .more();
-
 foo!
 
   .bar()
@@ -64,15 +61,11 @@ function* g() {
 
 =====================================output=====================================
 (a ? b : c)![tokenKey];
-
 (a || b)![tokenKey];
-
 (void 0)!;
-
 async function f() {
   return (await foo())!;
 }
-
 function* g() {
   return (yield* foo())!;
 }

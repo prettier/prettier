@@ -59,7 +59,6 @@ ExampleStory.getFragment('story')}
   ExampleStory.getFragment("story")
 }
 \`;
-
 <div>
   {ExampleStory.getFragment("story") // $FlowFixMe found when converting React.createClass to ES6
   }

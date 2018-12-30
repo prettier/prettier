@@ -39,7 +39,6 @@ module.exports = {
  */
 
 var EventEmitter = require("events").EventEmitter;
-
 // This pattern seems to cause the trouble.
 
 var Bad = Object.assign({}, EventEmitter.prototype, {
@@ -47,25 +46,20 @@ var Bad = Object.assign({}, EventEmitter.prototype, {
     return "hi";
   }
 });
-
 // Calling Bad.foo() in the same file doesn't error
 
 var bad: number = Bad.foo();
-
 // Doesn't repro if I extend the class myself
 
 class MyEventEmitter extends events$EventEmitter {}
-
 var Good = Object.assign({}, MyEventEmitter.prototype, {
   foo: function(): string {
     return "hi";
   }
 });
-
 // Calling Good.foo() in the same file doesn't error
 
 var good: number = Good.foo();
-
 module.exports = {
   Bad: Bad,
   Good: Good
@@ -104,13 +98,9 @@ A.js|8 col 23 error|  object literal
  */
 
 var A = require("./A.js");
-
 var good: number = A.Good.foo();
-
 var f = A.Bad.foo; // Property access is fine
-
 var bad_: number = f(); // Calling the function is fine
-
 var bad: number = A.Bad.foo(); /*
 B.js|12 col 1 error|  call of method foo
 || Property not found in
@@ -169,11 +159,9 @@ Object.assign({a: "foo"}, 123);
 Object.assign("123", {
   a: "foo"
 });
-
 Object.assign(123, {
   a: "foo"
 });
-
 Object.assign(
   {
     a: "foo"
@@ -212,11 +200,9 @@ declare var tup: [{foo: string}, {bar: number}];
 declare var arrOfObjs: Array<{
   foo: string
 }>;
-
 declare var roArrOfObjs: $ReadOnlyArray<{
   foo: string
 }>;
-
 declare var tup: [
   {
     foo: string
@@ -226,20 +212,16 @@ declare var tup: [
     bar: number
   }
 ];
-
 (Object.assign({}, ...arrOfObjs): {
   foo: number
 }); // Error: string ~> number
-
 (Object.assign({}, ...roArrOfObjs): {
   foo: number
 }); // Error: string ~> number
-
 (Object.assign({}, ...tup): {
   foo: string,
   bar: boolean
 }); // Error: number ~> boolean
-
 (Object.assign(
   {},
   ...[
@@ -296,27 +278,20 @@ class MyReactThing extends React.Component {
 /* @flow */
 
 var React = require("react");
-
 type DefaultProps = {
   foo: number
 };
-
 type Props = {
   foo: number
 };
-
 class MyReactThing extends React.Component {
   props: Props;
-
   static defaultProps: DefaultProps;
-
   getFoo(): number {
     return this.props.foo;
   }
 }
-
 <MyReactThing />; // works
-
 <MyReactThing foo={undefined} />; // also works
 
 ================================================================================

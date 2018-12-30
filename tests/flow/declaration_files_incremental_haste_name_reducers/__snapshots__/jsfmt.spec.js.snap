@@ -15,7 +15,6 @@ export function foo(): AImplementation { return new AImplementation(); }
 /* @flow */
 
 class AImplementation {}
-
 export function foo(): AImplementation {
   return new AImplementation();
 }
@@ -41,11 +40,8 @@ var test = require('test');
 /* @flow */
 
 var A = require("A");
-
 (A.foo(): boolean); // Error: Either AImplementation ~> boolean or ADefinition ~> boolean
-
 var test = require("test");
-
 (test.foo(): boolean); // Error: Either TestImplementation ~> boolean or TestDefinition ~> boolean
 
 ================================================================================

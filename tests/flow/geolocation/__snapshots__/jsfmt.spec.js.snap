@@ -31,16 +31,13 @@ geolocation.clearWatch(id);
 /* @flow */
 
 var geolocation = new Geolocation();
-
 var id = geolocation.watchPosition(
   position => {
     var coords: Coordinates = position.coords;
-
     var accuracy: number = coords.accuracy;
   },
   e => {
     var message: string = e.message;
-
     switch (e.code) {
       case e.PERMISSION_DENIED:
 
@@ -53,7 +50,6 @@ var id = geolocation.watchPosition(
     }
   }
 );
-
 geolocation.clearWatch(id);
 
 ================================================================================

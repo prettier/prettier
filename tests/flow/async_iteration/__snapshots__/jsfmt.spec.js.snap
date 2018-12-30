@@ -38,31 +38,24 @@ async function* delegate_next() {
   async function* inner() {
     var x: void = yield; // error: number ~> void
   }
-
   yield* inner();
 }
-
 delegate_next().next(0);
-
 async function* delegate_yield() {
   async function* inner() {
     yield 0;
   }
-
   yield* inner();
 }
-
 async () => {
   for await (const x of delegate_yield()) {
     (x: void); // error: number ~> void
   }
 };
-
 async function* delegate_return() {
   async function* inner() {
     return 0;
   }
-
   var x: void = yield* inner(); // error: number ~> void
 }
 
@@ -107,12 +100,9 @@ declare interface File {
   close(): void;
   EOF: boolean;
 }
-
 declare function fileOpen(path: string): Promise<File>;
-
 async function* readLines(path) {
   let file: File = await fileOpen(path);
-
   try {
     while (!file.EOF) {
       yield await file.readLine();
@@ -121,7 +111,6 @@ async function* readLines(path) {
     file.close();
   }
 }
-
 async function f() {
   for await (const line of readLines("/path/to/file")) {
     (line: void); // error: string ~> void
@@ -162,7 +151,6 @@ refuse_return().return("string").then(result => {
 
 =====================================output=====================================
 declare var gen: AsyncGenerator<void, string, void>;
-
 // You can pass whatever you like to return, it doesn't need to be related to
 
 // the AsyncGenerator's return type
@@ -174,7 +162,6 @@ gen
   .then(result => {
     (result.value: void); // error: string | number ~> void
   });
-
 // However, a generator can "refuse" the return by catching an exception and
 
 // yielding or returning internally.
@@ -186,7 +173,6 @@ async function* refuse_return() {
     return 0;
   }
 }
-
 refuse_return()
   .return("string")
 
@@ -246,7 +232,6 @@ async function* catch_return() {
     return e;
   }
 }
-
 async () => {
   catch_return()
     .throw("")
@@ -257,17 +242,14 @@ async () => {
       }
     });
 };
-
 async function* yield_return() {
   try {
     yield 0;
-
     return;
   } catch (e) {
     yield e;
   }
 }
-
 async () => {
   yield_return()
     .throw("")
