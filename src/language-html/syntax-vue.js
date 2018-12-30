@@ -15,7 +15,7 @@ function printVueFor(value, textToDoc) {
   return concat([
     group(
       textToDoc(`function _(${left}) {}`, {
-        parser: "babylon",
+        parser: "babel",
         __isVueForBindingLeft: true
       })
     ),
@@ -61,7 +61,7 @@ function parseVueFor(value) {
 
 function printVueSlotScope(value, textToDoc) {
   return textToDoc(`function _(${value}) {}`, {
-    parser: "babylon",
+    parser: "babel",
     __isVueSlotScope: true
   });
 }

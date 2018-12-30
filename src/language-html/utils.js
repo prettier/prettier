@@ -361,7 +361,7 @@ function inferScriptParser(node) {
       node.attrMap.type === "text/babel" ||
       node.attrMap.type === "application/javascript"
     ) {
-      return "babylon";
+      return "babel";
     }
 
     if (

@@ -131,7 +131,13 @@ This option cannot be used with --range-start and --range-end.",
             Object {
               "description": "JavaScript",
               "enum": Array [
-                "babylon",
+                "babel",
+              ],
+            },
+            Object {
+              "description": "Flow",
+              "enum": Array [
+                "babel-flow",
               ],
             },
             Object {

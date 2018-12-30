@@ -67,15 +67,15 @@ exports[`API getSupportInfo() with version 0.0.0 1`] = `
 Object {
   "languages": Object {
     "Flow": Array [
-      "babylon",
+      "babel",
       "flow",
     ],
     "JSX": Array [
-      "babylon",
+      "babel",
       "flow",
     ],
     "JavaScript": Array [
-      "babylon",
+      "babel",
       "flow",
     ],
   },
@@ -137,14 +137,14 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 +       \\"postcss\\",
 +     ],
       \\"Flow\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
       \\"JSX\\": Array [
 @@ -10,24 +13,51 @@
       ],
       \\"JavaScript\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
 +     \\"Less\\": Array [
@@ -232,7 +232,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 @@ -5,10 +5,19 @@
       ],
       \\"Flow\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
 +     \\"GraphQL\\": Array [
@@ -245,7 +245,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 +       \\"json\\",
 +     ],
       \\"JSX\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
@@ -277,12 +277,12 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
 +       \\"css\\",
       ],
       \\"Flow\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
 @@ -23,17 +23,17 @@
       \\"JavaScript\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
       \\"Less\\": Array [
@@ -422,7 +422,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"css\\",
       ],
       \\"Flow\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
       \\"GraphQL\\": Array [
@@ -444,7 +444,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +       \\"json5\\",
 +     ],
       \\"JSX\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
@@ -489,7 +489,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -52,37 +81,75 @@
+@@ -52,37 +81,76 @@
           \\"start\\": -1,
           \\"step\\": 1,
         },
@@ -533,7 +533,9 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       \\"parser\\": Object {
         \\"choices\\": Array [
           \\"flow\\",
-          \\"babylon\\",
+-         \\"babylon\\",
++         \\"babel\\",
++         \\"babel-flow\\",
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -566,7 +568,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,16 +157,21 @@
+@@ -90,16 +158,21 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -630,7 +632,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"interpreters\\": [\\"node\\", \\"nodejs\\"],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JavaScript\\",
-      \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -647,7 +649,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"interpreters\\": [\\"node\\"],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"Flow\\",
-      \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -661,7 +663,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"group\\": \\"JavaScript\\",
       \\"linguistLanguageId\\": 178,
       \\"name\\": \\"JSX\\",
-      \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js.jsx\\",
       \\"type\\": \\"programming\\",
@@ -1090,7 +1092,8 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"category\\": \\"Global\\",
       \\"choices\\": [
         { \\"description\\": \\"Flow\\", \\"value\\": \\"flow\\" },
-        { \\"description\\": \\"JavaScript\\", \\"value\\": \\"babylon\\" },
+        { \\"description\\": \\"JavaScript\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel\\" },
+        { \\"description\\": \\"Flow\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel-flow\\" },
         {
           \\"description\\": \\"TypeScript\\",
           \\"since\\": \\"1.4.0\\",

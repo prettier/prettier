@@ -54,3 +54,13 @@
   {{ aNormalValue | aPipe }}:
   <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
 </span>
+<p>
+  {{
+      'delete'
+          | translate: {what: ('entities' | translate: {count: array.length})}
+  }}
+</p>
+<p>{{ {a:1+{} } }}</p>
+<p>{{ {a:a==={} } }}</p>
+<p>{{ {a:!{} } }}</p>
+<p>{{ {a:a?b:{} } }}</p>

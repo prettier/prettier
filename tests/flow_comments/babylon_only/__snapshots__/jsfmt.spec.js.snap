@@ -2,7 +2,7 @@
 
 exports[`class_with_generics.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -36,7 +36,7 @@ class Component extends React.Component /*:: <Props, State> */ {
 
 exports[`functions.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

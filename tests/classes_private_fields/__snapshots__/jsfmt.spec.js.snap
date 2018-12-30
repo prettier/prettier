@@ -2,7 +2,7 @@
 
 exports[`private_fields.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -118,7 +118,7 @@ class E {
 
 exports[`private_fields.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -235,7 +235,7 @@ class E {
 
 exports[`with_comments.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -261,7 +261,7 @@ class A {
 
 exports[`with_comments.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth

@@ -2,7 +2,7 @@
 
 exports[`empty 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular"]
+parsers: ["flow", "babel", "babel-flow", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -14,7 +14,7 @@ printWidth: 80
 
 exports[`newline 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular"]
+parsers: ["flow", "babel", "babel-flow", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -27,7 +27,7 @@ printWidth: 80
 
 exports[`space 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular"]
+parsers: ["flow", "babel", "babel-flow", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -40,7 +40,7 @@ printWidth: 80
 
 exports[`space-newline 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular"]
+parsers: ["flow", "babel", "babel-flow", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

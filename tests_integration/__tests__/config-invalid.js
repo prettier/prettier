@@ -56,7 +56,7 @@ describe("show warning with unknown option", () => {
     "--config",
     "option/unknown",
     "--parser",
-    "babylon"
+    "babel"
   ]).test({
     status: 0
   });
@@ -67,7 +67,7 @@ describe("show warning with kebab-case option key", () => {
     "--config",
     "option/kebab-case",
     "--parser",
-    "babylon"
+    "babel"
   ]).test({
     status: 0
   });

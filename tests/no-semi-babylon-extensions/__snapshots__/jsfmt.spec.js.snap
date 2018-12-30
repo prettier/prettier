@@ -2,7 +2,7 @@
 
 exports[`no-semi.js 1`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -36,7 +36,7 @@ class A {
 
 exports[`no-semi.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth

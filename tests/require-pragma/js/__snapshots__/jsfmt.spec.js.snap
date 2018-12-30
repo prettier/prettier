@@ -2,7 +2,7 @@
 
 exports[`module-with-pragma.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon", "typescript"]
+parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 requirePragma: true
                                                                                 | printWidth
@@ -37,7 +37,7 @@ function foo(bar) {
 
 exports[`module-without-pragma.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon", "typescript"]
+parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 requirePragma: true
                                                                                 | printWidth
@@ -76,7 +76,7 @@ function      foo(bar)
 
 exports[`range-with-pragma.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon", "typescript"]
+parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 requirePragma: true
                                                                                 | printWidth
@@ -97,7 +97,7 @@ var test = true;
 
 exports[`range-without-pragma.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babylon", "typescript"]
+parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 requirePragma: true
                                                                                 | printWidth

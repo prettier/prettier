@@ -392,7 +392,7 @@ module.exports = {
   // Doesn't handle shebang for now
   formatDoc(doc, opts) {
     const debug = printDocToDebug(doc);
-    opts = normalizeOptions(Object.assign({}, opts, { parser: "babylon" }));
+    opts = normalizeOptions(Object.assign({}, opts, { parser: "babel" }));
     return format(debug, opts).formatted;
   },
 

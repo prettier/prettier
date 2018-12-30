@@ -1840,7 +1840,7 @@ function printPathNoParens(path, options, print, args) {
 
     case "ForOfStatement":
     case "ForAwaitStatement": {
-      // Babylon 7 removed ForAwaitStatement in favor of ForOfStatement
+      // Babel 7 removed ForAwaitStatement in favor of ForOfStatement
       // with `"await": true`:
       // https://github.com/estree/estree/pull/138
       const isAwait = n.type === "ForAwaitStatement" || n.await;
@@ -2995,7 +2995,7 @@ function printPathNoParens(path, options, print, args) {
       // a type annotation comment.
       //
       // Note that we're able to use the normal whitespace regex here because the Flow parser has
-      // already deemed this AST node to be a type cast. Only the Babylon parser needs the
+      // already deemed this AST node to be a type cast. Only the Babel parser needs the
       // non-line-break whitespace regex, which is why hasFlowShorthandAnnotationComment() is
       // implemented differently.
       const commentSyntax =
@@ -4473,7 +4473,7 @@ function getFlowVariance(path) {
     return null;
   }
 
-  // Babylon 7.0 currently uses variance node type, and flow should
+  // Babel 7.0 currently uses variance node type, and flow should
   // follow suit soon:
   // https://github.com/babel/babel/issues/4722
   const variance = path.variance.kind || path.variance;
@@ -6059,7 +6059,7 @@ function classChildNeedsASIProtection(node) {
     case "TSAbstractMethodDefinition": // TypeScript
     case "ClassMethod":
     case "ClassPrivateMethod": {
-      // Babylon
+      // Babel
       const isAsync = node.value ? node.value.async : node.async;
       const isGenerator = node.value ? node.value.generator : node.generator;
       if (isAsync || node.kind === "get" || node.kind === "set") {

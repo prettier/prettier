@@ -364,7 +364,7 @@ function findExpressionIndexForComment(quasis, comment, options) {
 
 function getQuasiRange(expr) {
   if (expr.start !== undefined) {
-    // Babylon
+    // Babel
     return { start: expr.start, end: expr.end };
   }
   // Flow

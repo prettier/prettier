@@ -11,7 +11,9 @@ export function getDefaults(availableOptions, optionNames) {
   for (const option of availableOptions) {
     if (optionNames.includes(option.name)) {
       defaults[option.name] =
-        option.name === "parser" ? "babylon" : option.default;
+        option.name === "parser"
+          ? "babylon" // TODO(1.16): replace with `babel`
+          : option.default;
     }
   }
   return defaults;

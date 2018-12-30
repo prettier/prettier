@@ -16,7 +16,7 @@ printWidth: 80
 
 exports[`escape.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -64,7 +64,7 @@ raw_amp = <span>foo & bar</span>;
 
 exports[`nbsp.js 2`] = `
 ====================================options=====================================
-parsers: ["babylon"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

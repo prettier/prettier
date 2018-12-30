@@ -12,7 +12,16 @@ function importScriptOnce(url) {
 
 // this is required to only load parsers when we need them
 var parsers = {
-  // JS - Babylon
+  // JS - Babel
+  get babel() {
+    importScriptOnce("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers.babel;
+  },
+  get "babel-flow"() {
+    importScriptOnce("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers["babel-flow"];
+  },
+  // backward compatibility
   get babylon() {
     importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers.babylon;
@@ -200,7 +209,7 @@ function handleMessage(message) {
       try {
         response.debug.doc = prettier.__debug.formatDoc(
           prettier.__debug.printToDoc(message.code, options),
-          { parser: "babylon", plugins: plugins }
+          { parser: "babel", plugins: plugins }
         );
       } catch (e) {
         response.debug.doc = String(e);
