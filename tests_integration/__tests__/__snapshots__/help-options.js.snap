@@ -427,7 +427,7 @@ exports[`show detailed usage with --help pure (stdout) 1`] = `
 
   Ignore the input formatting as much as possible.
 
-Default: false
+Default: true
 "
 `;
 

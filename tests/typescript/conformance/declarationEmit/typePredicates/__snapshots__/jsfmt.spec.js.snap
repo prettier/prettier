@@ -19,6 +19,7 @@ class D extends C {
 }
 =====================================output=====================================
 // @declaration: true
+
 // @module: commonjs
 
 export class C {

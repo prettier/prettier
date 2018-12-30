@@ -42,6 +42,7 @@ function js() {
 module.exports = {
         endOfLine:
                 \\"lf\\",
+
         tabWidth: 8
 };
 function noConfigJs() {
@@ -59,7 +60,9 @@ function rcJson() {
     null,
     [
       'rc-json/file.js',
+
       'should have trailing comma',
+
       'and single quotes',
     ],
   );
@@ -69,7 +72,9 @@ function rcToml() {
     null,
     [
       'rc-toml/file.js',
+
       'should have trailing comma',
+
       'and single quotes',
     ],
   );
@@ -79,7 +84,9 @@ function rcYaml() {
     null,
     [
       'rc-yaml/file.js',
+
       'should have trailing comma',
+
       'and single quotes',
     ],
   );
@@ -140,6 +147,7 @@ function js() {
 
 module.exports = {
         endOfLine: \\"lf\\",
+
         tabWidth: 8
 };
 function noConfigJs() {
@@ -151,21 +159,27 @@ function packageJs() {
 function rcJson() {
   console.log.apply(null, [
     'rc-json/file.js',
+
     'should have trailing comma',
+
     'and single quotes',
   ]);
 }
 function rcToml() {
   console.log.apply(null, [
     'rc-toml/file.js',
+
     'should have trailing comma',
+
     'and single quotes',
   ]);
 }
 function rcYaml() {
   console.log.apply(null, [
     'rc-yaml/file.js',
+
     'should have trailing comma',
+
     'and single quotes',
   ]);
 }

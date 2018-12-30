@@ -78,6 +78,7 @@ export interface Environment1
   extends GenericEnvironment<SomeType, AnotherType, YetAnotherType> {
   m(): void;
 }
+
 export class Environment2 extends GenericEnvironment<
   SomeType,
   AnotherType,
@@ -91,6 +92,7 @@ export class Environment2 extends GenericEnvironment<
 }
 
 // Declare Interface Break
+
 declare interface ExtendsOne extends ASingleInterface {
   x: string;
 }
@@ -112,6 +114,7 @@ declare interface ExtendsMany
 }
 
 // Interface declaration break
+
 interface ExtendsOne extends ASingleInterface {
   x: string;
 }
@@ -133,6 +136,7 @@ interface ExtendsMany
 }
 
 // Generic Types
+
 interface ExtendsOne extends ASingleInterface<string> {
   x: string;
 }

@@ -37,6 +37,7 @@ let [x, y] = [1, 2];
  * \`this.returnsATuple()\` is; thus, we never evaluate \`b\` and so type-at-pos
  * returns EmptyT.
  */
+
 export const X = {
   returnsATuple: function(): [number, number] {
     return [1, 2];
@@ -83,8 +84,11 @@ const d = {
 // @flow
 
 // TODO: type-at-pos between the ()'s should be () => void
+
 // class X {
+
 //   foo(): void {}
+
 // }
 
 const a = {
@@ -147,30 +151,47 @@ mn;
 // @flow
 
 class C<X> {}
+
 var cn: C<number> = new C();
+
 cn;
 
 function foo() {
   return C;
 }
+
 var D = foo();
+
 var dn: D<number> = new C();
+
 dn;
 
 type E<X> = C<X>;
+
 var en: E<number> = new C();
+
 en;
 
 type F<X> = C<void>;
+
 var fn: F<number> = new C();
+
 fn;
 
-type O<X> = { x: X };
-var on: O<number> = { x: 0 };
+type O<X> = {
+  x: X
+};
+
+var on: O<number> = {
+  x: 0
+};
+
 on;
 
 type Mono = C<void>;
+
 var mn: Mono<number> = new C(); // error: application of non-poly type
+
 mn;
 
 ================================================================================
@@ -190,9 +211,13 @@ module.exports = num;
 
 =====================================output=====================================
 // @flow
+
 var num = 42;
+
 function bar() {}
+
 bar();
+
 module.exports = num;
 
 ================================================================================
@@ -219,7 +244,10 @@ let tests = [
 let tests = [
   function() {
     let x = {};
-    Object.defineProperty(x, "foo", { value: "" });
+
+    Object.defineProperty(x, "foo", {
+      value: ""
+    });
   }
 ];
 
@@ -285,10 +313,13 @@ if (Array.isArray(x)) {}
 /* @flow */
 
 let x = 0;
+
 if (x == null) {
 }
+
 if (x == undefined) {
 }
+
 if (Array.isArray(x)) {
 }
 
@@ -306,6 +337,7 @@ React.createElement;
 
 =====================================output=====================================
 import React from "react";
+
 React.createElement;
 
 ================================================================================
@@ -322,6 +354,7 @@ printWidth: 80
 
 =====================================output=====================================
 /* @flow */
+
 \`foo bar\`;
 
 ================================================================================
@@ -350,18 +383,29 @@ const w:MyNum = 42;
 
 =====================================output=====================================
 // @flow
+
 var str = require("./import");
+
 function foo() {}
+
 foo();
+
 str;
 
 type Point = [number, string];
+
 const x: Point = [1, "foo"];
+
 type MyStr = "cool";
+
 const y: MyStr = "cool";
+
 type MyBool = true;
+
 const z: MyBool = true;
+
 type MyNum = 42;
+
 const w: MyNum = 42;
 
 ================================================================================

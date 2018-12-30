@@ -30,6 +30,7 @@ var c = new B.a.C();
 
 module B {
   export import a = A;
+
   export class D extends a.C {
     id: number;
   }
@@ -39,10 +40,12 @@ module A {
   export class C {
     name: string;
   }
+
   export import b = B;
 }
 
 var c: { name: string };
+
 var c = new B.a.C();
 
 ================================================================================
@@ -127,9 +130,11 @@ var p: M.D.Point;
 
 module A {
   export var x = "hello world";
+
   export class Point {
     constructor(public x: number, public y: number) {}
   }
+
   export module B {
     export interface Id {
       name: string;
@@ -142,8 +147,15 @@ module C {
 }
 
 var a: string = C.a.x;
-var b: { x: number; y: number } = new C.a.Point(0, 0);
+
+var b: {
+  x: number;
+
+  y: number;
+} = new C.a.Point(0, 0);
+
 var c: { name: string };
+
 var c: C.a.B.Id;
 
 module X {
@@ -160,11 +172,17 @@ module X {
 
 module Z {
   // 'y' should be a fundule here
+
   export import y = X.Y;
 }
 
 var m: number = Z.y();
-var n: { x: number; y: number } = new Z.y.Point(0, 0);
+
+var n: {
+  x: number;
+
+  y: number;
+} = new Z.y.Point(0, 0);
 
 module K {
   export class L {
@@ -173,8 +191,10 @@ module K {
 
   export module L {
     export var y = 12;
+
     export interface Point {
       x: number;
+
       y: number;
     }
   }
@@ -185,9 +205,15 @@ module M {
 }
 
 var o: { name: string };
+
 var o = new M.D("Hello");
 
-var p: { x: number; y: number };
+var p: {
+  x: number;
+
+  y: number;
+};
+
 var p: M.D.Point;
 
 ================================================================================
@@ -268,8 +294,14 @@ module moduleA {
 import alias = moduleA;
 
 var p: alias.Point;
+
 var p: moduleA.Point;
-var p: { x: number; y: number };
+
+var p: {
+  x: number;
+
+  y: number;
+};
 
 class clodule {
   name: string;
@@ -278,34 +310,62 @@ class clodule {
 module clodule {
   export interface Point {
     x: number;
+
     y: number;
   }
-  var Point: Point = { x: 0, y: 0 };
+
+  var Point: Point = {
+    x: 0,
+
+    y: 0
+  };
 }
 
 import clolias = clodule;
 
 var p: clolias.Point;
+
 var p: clodule.Point;
-var p: { x: number; y: number };
+
+var p: {
+  x: number;
+
+  y: number;
+};
 
 function fundule() {
-  return { x: 0, y: 0 };
+  return {
+    x: 0,
+
+    y: 0
+  };
 }
 
 module fundule {
   export interface Point {
     x: number;
+
     y: number;
   }
-  var Point: Point = { x: 0, y: 0 };
+
+  var Point: Point = {
+    x: 0,
+
+    y: 0
+  };
 }
 
 import funlias = fundule;
 
 var p: funlias.Point;
+
 var p: fundule.Point;
-var p: { x: number; y: number };
+
+var p: {
+  x: number;
+
+  y: number;
+};
 
 ================================================================================
 `;
@@ -355,6 +415,7 @@ import c = C;
 
 enum E {
   Red,
+
   Blue
 }
 
@@ -412,15 +473,26 @@ module Z {
 // all errors imported modules conflict with local variables
 
 module A {
-  export var Point = { x: 0, y: 0 };
+  export var Point = {
+    x: 0,
+
+    y: 0
+  };
+
   export interface Point {
     x: number;
+
     y: number;
   }
 }
 
 module B {
-  var A = { x: 0, y: 0 };
+  var A = {
+    x: 0,
+
+    y: 0
+  };
+
   import Point = A;
 }
 
@@ -428,6 +500,7 @@ module X {
   export module Y {
     export interface Point {
       x: number;
+
       y: number;
     }
   }

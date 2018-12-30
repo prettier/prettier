@@ -20,6 +20,7 @@ interface nil {}
 =====================================output=====================================
 interface abstract {
   abstract(): void;
+
   concrete(): number;
 }
 

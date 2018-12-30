@@ -52,6 +52,7 @@ function veryOptimistic(isThisAwesome: true): boolean {
 }
 
 var x: boolean = veryOptimistic(true);
+
 var y: boolean = veryOptimistic(false); // error
 
 function veryPessimistic(isThisAwesome: true): boolean {
@@ -59,6 +60,7 @@ function veryPessimistic(isThisAwesome: true): boolean {
 }
 
 var x: boolean = veryPessimistic(true);
+
 var y: boolean = veryPessimistic(false); // error
 
 type MyOwnBooleanLOL = true | false;
@@ -72,7 +74,9 @@ function bar(x: MyOwnBooleanLOL): false {
 }
 
 bar(true);
+
 bar(false);
+
 bar(1); // error
 
 function alwaysFalsy(x: boolean): false {
@@ -124,6 +128,7 @@ function highlander(howMany: 1): number {
 }
 
 highlander(1);
+
 highlander(2); // error
 
 type Foo = 1 | 2;
@@ -133,11 +138,15 @@ function bar(num: Foo): number {
 }
 
 bar(1);
+
 bar(2);
+
 bar(3); // error
 
 type ComparatorResult = -1 | 0 | 1;
+
 function sort(fn: (x: any, y: any) => ComparatorResult) {}
+
 sort((x, y) => -1);
 
 ================================================================================
@@ -161,9 +170,11 @@ type HasSpaces = "foo bar"
 /* @flow */
 
 type NoSpaces = "foobar";
+
 ("foobar": NoSpaces);
 
 type HasSpaces = "foo bar";
+
 ("foo bar": HasSpaces);
 
 ================================================================================

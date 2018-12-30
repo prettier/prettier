@@ -20,9 +20,11 @@ directive @dir(
 =====================================output=====================================
 directive @dir(
   # comment
+
   arg1: String
 
   # comment
+
   arg2: String
   arg3: String
 ) on QUERY
@@ -60,6 +62,7 @@ query MyQuery
     arg: 5
 
     # comment
+
     arg2: 10
   ) {
   field
@@ -67,6 +70,7 @@ query MyQuery
       if: true
 
       # comment
+
       cursor: 10
     )
     @nope
@@ -99,13 +103,16 @@ enum State {
 =====================================output=====================================
 enum State {
   # pending state
+
   PENDING
 
   # visible states
+
   VISIBLE
   INVISIBLE
 
   # archive state
+
   ARCHIVED
 }
 
@@ -157,20 +164,24 @@ subscription MySubscription {
 =====================================output=====================================
 query MyFirstQuery {
   # comment
+
   field {
     subfield
 
     # comment
+
     subfield
   }
 
   field
   #comment
+
   field
 }
 
 mutation MyFirstMutation {
   # comment
+
   name
 
   comment # comment
@@ -205,9 +216,11 @@ input Params {
 =====================================output=====================================
 input Params {
   # Id
+
   id: ID
 
   # Name
+
   name: String
 }
 
@@ -233,9 +246,11 @@ interface Actor {
 =====================================output=====================================
 interface Actor {
   # Id
+
   id: ID
 
   # Actor fields
+
   name: String
   kind: String
 }
@@ -275,20 +290,26 @@ type Artist implements Node, Entity {
 =====================================output=====================================
 type Artist implements Node, Entity {
   # The ID of an object
+
   id: ID!
 
   # The MBID of the entity.
+
   mbid: MBID!
 
   # A list of recordings linked to this entity.
+
   recordings(after: String, first: Int): RecordingConnection
 
   # A list of releases linked to this entity.
+
   releases(
     # Filter by one or more release group types.
+
     type: [ReleaseGroupType]
 
     # Filter by one or more release statuses.
+
     status: [ReleaseStatus]
     after: String
     first: Int
@@ -317,12 +338,15 @@ schema {
 
 =====================================output=====================================
 # Schema
+
 schema {
   # Query and Mutation
+
   query: Root
   mutation: Mutation
 
   # Subscription
+
   subscription: Subscription
 }
 

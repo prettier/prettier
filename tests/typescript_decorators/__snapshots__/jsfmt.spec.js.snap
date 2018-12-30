@@ -119,44 +119,37 @@ class Something {
 
 =====================================output=====================================
 class Foo1 {
-  @foo
-  // comment
+  @foo // comment
   async method() {}
 }
 
 class Foo2 {
-  @foo
-  // comment
+  @foo // comment
   private method() {}
 }
 
 class Foo3 {
-  @foo
-  // comment
+  @foo // comment
   *method() {}
 }
 
 class Foo4 {
-  @foo
-  // comment
+  @foo // comment
   async *method() {}
 }
 
 class Something {
-  @foo()
-  // comment
+  @foo() // comment
   readonly property: Array<string>;
 }
 
 class Something {
-  @foo()
-  // comment
+  @foo() // comment
   abstract property: Array<string>;
 }
 
 class Something {
-  @foo()
-  // comment
+  @foo() // comment
   abstract method(): Array<string>;
 }
 
@@ -245,8 +238,11 @@ class Class2 {
 
 class Class3 {
   @d1 fieldA;
+
   @d2(foo) fieldB;
+
   @d3.bar fieldC;
+
   @d4.baz() fieldD;
 
   constructor(

@@ -1381,6 +1381,7 @@ and add this config to your \`package.json\`:
   "scripts": {
     "precommit": "lint-staged"
   },
+
   "lint-staged": {
     "*.{js,json,css}": ["prettier --write", "git add"]
   }
@@ -1438,8 +1439,9 @@ const prettier = require("prettier");
 provided to override the defaults.
 
 \`\`\`js
-prettier.format("foo ( );", { semi: false });
-// -> "foo()"
+prettier.format("foo ( );", {
+  semi: false
+}); // -> "foo()"
 \`\`\`
 
 #### \`prettier.check(source [, options])\`
@@ -1458,8 +1460,9 @@ The \`cursorOffset\` option should be provided, to specify where the cursor is.
 This option cannot be used with \`rangeStart\` and \`rangeEnd\`.
 
 \`\`\`js
-prettier.formatWithCursor(" 1", { cursorOffset: 2 });
-// -> { formatted: '1;\\n', cursorOffset: 1 }
+prettier.formatWithCursor(" 1", {
+  cursorOffset: 2
+}); // -> { formatted: '1;\\n', cursorOffset: 1 }
 \`\`\`
 
 #### \`prettier.resolveConfig([filePath [, options]])\`
@@ -1479,9 +1482,14 @@ If \`options.useCache\` is \`false\`, all caching will be bypassed.
 
 \`\`\`js
 const text = fs.readFileSync(filePath, "utf8");
-prettier.resolveConfig(filePath).then(options => {
-  const formatted = prettier.format(text, options);
-});
+
+prettier
+
+  .resolveConfig(filePath)
+
+  .then(options => {
+    const formatted = prettier.format(text, options);
+  });
 \`\`\`
 
 Use \`prettier.resolveConfig.sync([filePath [, options]])\` if you'd like to use
@@ -1510,11 +1518,12 @@ Prettier's built-in parsers are exposed as properties on the \`parsers\` argumen
 prettier.format("lodash ( )", {
   parser(text, { babylon }) {
     const ast = babylon(text);
+
     ast.program.body[0].expression.callee.name = "_";
+
     return ast;
   }
-});
-// -> "_();\\n"
+}); // -> "_();\\n"
 \`\`\`
 
 The \`--parser\` CLI option may be a path to a node.js module exporting a parse
@@ -1531,6 +1540,7 @@ For example:
 matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
 // prettier-ignore
+
 matrix(
   1, 0, 0,
   0, 1, 0,
@@ -1544,6 +1554,7 @@ will be transformed to:
 matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
 // prettier-ignore
+
 matrix(
   1, 0, 0,
   0, 1, 0,
@@ -1767,8 +1778,10 @@ JSON:
 
 \`\`\`json
 // .prettierrc
+
 {
   "printWidth": 100,
+
   "parser": "flow"
 }
 \`\`\`
@@ -1792,9 +1805,11 @@ JSON:
 \`\`\`json
 {
   "semi": false,
+
   "overrides": [
     {
       "files": "*.test.js",
+
       "options": {
         "semi": true
       }
@@ -1824,7 +1839,10 @@ To get prettier to format its own \`.prettierrc\` file, you can do:
   "overrides": [
     {
       "files": ".prettierrc",
-      "options": { "parser": "json" }
+
+      "options": {
+        "parser": "json"
+      }
     }
   ]
 }
@@ -3361,6 +3379,7 @@ and add this config to your \`package.json\`:
   "scripts": {
     "precommit": "lint-staged"
   },
+
   "lint-staged": {
     "*.{js,json,css}": ["prettier --write", "git add"]
   }
@@ -3418,8 +3437,9 @@ const prettier = require('prettier');
 provided to override the defaults.
 
 \`\`\`js
-prettier.format('foo ( );', { semi: false });
-// -> "foo()"
+prettier.format('foo ( );', {
+  semi: false
+}); // -> "foo()"
 \`\`\`
 
 #### \`prettier.check(source [, options])\`
@@ -3438,8 +3458,9 @@ The \`cursorOffset\` option should be provided, to specify where the cursor is.
 This option cannot be used with \`rangeStart\` and \`rangeEnd\`.
 
 \`\`\`js
-prettier.formatWithCursor(' 1', { cursorOffset: 2 });
-// -> { formatted: '1;\\n', cursorOffset: 1 }
+prettier.formatWithCursor(' 1', {
+  cursorOffset: 2
+}); // -> { formatted: '1;\\n', cursorOffset: 1 }
 \`\`\`
 
 #### \`prettier.resolveConfig([filePath [, options]])\`
@@ -3459,9 +3480,14 @@ If \`options.useCache\` is \`false\`, all caching will be bypassed.
 
 \`\`\`js
 const text = fs.readFileSync(filePath, 'utf8');
-prettier.resolveConfig(filePath).then(options => {
-  const formatted = prettier.format(text, options);
-});
+
+prettier
+
+  .resolveConfig(filePath)
+
+  .then(options => {
+    const formatted = prettier.format(text, options);
+  });
 \`\`\`
 
 Use \`prettier.resolveConfig.sync([filePath [, options]])\` if you'd like to use
@@ -3490,11 +3516,12 @@ Prettier's built-in parsers are exposed as properties on the \`parsers\` argumen
 prettier.format('lodash ( )', {
   parser(text, { babylon }) {
     const ast = babylon(text);
+
     ast.program.body[0].expression.callee.name = '_';
+
     return ast;
   }
-});
-// -> "_();\\n"
+}); // -> "_();\\n"
 \`\`\`
 
 The \`--parser\` CLI option may be a path to a node.js module exporting a parse
@@ -3511,6 +3538,7 @@ For example:
 matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
 // prettier-ignore
+
 matrix(
   1, 0, 0,
   0, 1, 0,
@@ -3524,6 +3552,7 @@ will be transformed to:
 matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
 // prettier-ignore
+
 matrix(
   1, 0, 0,
   0, 1, 0,
@@ -3747,8 +3776,10 @@ JSON:
 
 \`\`\`json
 // .prettierrc
+
 {
   "printWidth": 100,
+
   "parser": "flow"
 }
 \`\`\`
@@ -3772,9 +3803,11 @@ JSON:
 \`\`\`json
 {
   "semi": false,
+
   "overrides": [
     {
       "files": "*.test.js",
+
       "options": {
         "semi": true
       }
@@ -3804,7 +3837,10 @@ To get prettier to format its own \`.prettierrc\` file, you can do:
   "overrides": [
     {
       "files": ".prettierrc",
-      "options": { "parser": "json" }
+
+      "options": {
+        "parser": "json"
+      }
     }
   ]
 }

@@ -25,18 +25,27 @@ export default function searchUsers(action$) {
 =====================================output=====================================
 export default function searchUsers(action$) {
   return action$
+
     .ofType(ActionTypes.SEARCHED_USERS)
+
     .map(action => action.payload.query)
+
     .filter(q => !!q)
+
     .switchMap(q =>
       Observable.timer(800) // debounce
+
         .takeUntil(action$.ofType(ActionTypes.CLEARED_SEARCH_RESULTS))
+
         .mergeMap(() =>
           Observable.merge(
             Observable.of(replace(\`?q=\${q}\`)),
             ajax
+
               .getJSON(\`https://api.github.com/search/users?q=\${q}\`)
+
               .map(res => res.items)
+
               .map(receiveUsers)
           )
         )
@@ -122,6 +131,7 @@ true
     require("autoprefixer", {
       browsers: ["> 1%", "last 2 versions", "ie >= 11", "Firefox ESR"]
     }),
+
     require("postcss-url")({
       url: url =>
         url.startsWith("/") || /^[a-z]+:/.test(url) ? url : \`/static/\${url}\`
@@ -229,6 +239,7 @@ var listener = DOM.listen(
   (event: JavelinEvent): void =>
     BanzaiLogger.log(config, {
       ...logData,
+
       ...DataStore.get(event.getNode(sigil))
     })
 );
@@ -255,8 +266,11 @@ exports.examples = [
               src={data[1234567890].image.uri}
               style={{
                 position: "absolute",
+
                 top: "0",
+
                 left: "0",
+
                 zIndex: "-1"
               }}
             />
@@ -270,7 +284,9 @@ exports.examples = [
 someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReally.a(
   [
     [],
+
     // comment
+
     []
   ]
 );
@@ -279,25 +295,40 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
   __WEBPACK_EXTERNAL_MODULE_85__,
   __WEBPACK_EXTERNAL_MODULE_115__
 ) {
-  return /******/ (function(modules) {
+  return /******/
+
+  (function(modules) {
     // webpackBootstrap
     /******/
   })(
     /************************************************************************/
-    /******/ [
+
+    /******/
+
+    [
       /* 0 */
-      /***/ function(module, exports, __webpack_require__) {
+
+      /***/
+
+      function(module, exports, __webpack_require__) {
         /***/
       },
+
       /* 1 */
-      /***/ function(module, exports, __webpack_require__) {
+
+      /***/
+
+      function(module, exports, __webpack_require__) {
         /***/
       },
+
       /* 2 */
-      /***/ function(module, exports, __webpack_require__) {
+
+      /***/
+
+      function(module, exports, __webpack_require__) {
         /***/
-      }
-      /******/
+      } /******/
     ]
   );
 });
@@ -355,12 +386,12 @@ func(
 );
 
 func(
-  {}
-  // comment
+  {} // comment
 );
 
 func(
   // comment
+
   {}
 );
 
@@ -420,6 +451,7 @@ const formatData = pipe(
   zip,
   map(([ref, data]) => ({
     nodeId: ref.nodeId.toString(),
+
     ...attributeFromDataValue(ref.attributeId, data)
   })),
   groupBy(prop("nodeId")),
@@ -429,6 +461,7 @@ const formatData = pipe(
 
 export const setProp = y => ({
   ...y,
+
   a: "very, very, very long very, very long text"
 });
 
@@ -505,6 +538,7 @@ SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLongCall(
 );
 
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, no, []);
+
 func(
   one,
   two,
@@ -521,14 +555,17 @@ func(
   yes,
   []
 );
+
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, yes, [
   // Comments
 ]);
+
 func(five, six, seven, eig, is, this, too, long, yes, [
   // Comments
 ]);
 
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, no, {});
+
 func(
   one,
   two,
@@ -545,6 +582,7 @@ func(
   yes,
   {}
 );
+
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, yes, {
   // Comments
 });

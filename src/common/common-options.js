@@ -16,7 +16,7 @@ module.exports = {
     since: "1.14.0",
     category: CATEGORY_COMMON,
     type: "boolean",
-    default: false,
+    default: true,
     description: "Ignore the input formatting as much as possible."
   },
   singleQuote: {

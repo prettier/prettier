@@ -14,8 +14,7 @@ class Something {
 
 =====================================output=====================================
 class Something {
-  @Annotateme()
-  // comment
+  @Annotateme() // comment
   static property: Array<string>;
 }
 

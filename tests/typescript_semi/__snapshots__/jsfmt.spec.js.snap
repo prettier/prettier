@@ -15,6 +15,7 @@ export class Mutation {
 =====================================output=====================================
 export class Mutation {
   private set: NQuad[]
+
   private delete: NQuad[]
 }
 

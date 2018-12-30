@@ -39,10 +39,15 @@ promise.then(([firstResult, secondResult, thirdResult, fourthResult, fifthResult
 =====================================output=====================================
 function excludeFirstFiveResults([
   first,
+
   second,
+
   third,
+
   fourth,
+
   fifth,
+
   ...rest
 ]) {
   return rest;
@@ -50,10 +55,15 @@ function excludeFirstFiveResults([
 
 function excludeFirstFiveResults([
   first,
+
   second,
+
   third,
+
   fourth,
+
   fifth,
+
   ...rest
 ] = DEFAULT_FIVE_RESULTS) {
   return rest;
@@ -62,10 +72,15 @@ function excludeFirstFiveResults([
 function excludeFirstFiveResults(
   [
     firstResult,
+
     secondResult,
+
     thirdResult,
+
     fourthResult,
+
     fifthResult,
+
     ...rest
   ] = [1, 2, 3, 4, 5]
 ) {
@@ -74,10 +89,15 @@ function excludeFirstFiveResults(
 
 function excludeFirstFiveResults([
   first,
+
   second,
+
   third,
+
   fourth,
+
   fifth,
+
   ...rest
 ]: Result[]) {
   return rest;
@@ -85,10 +105,15 @@ function excludeFirstFiveResults([
 
 const excludeFirstFiveResults = ([
   first,
+
   second,
+
   third,
+
   fourth,
+
   fifth,
+
   ...rest
 ]) => {
   return rest;
@@ -97,10 +122,15 @@ const excludeFirstFiveResults = ([
 class A {
   excludeFirstFiveResults([
     first,
+
     second,
+
     third,
+
     fourth,
+
     fifth,
+
     ...restOfResults
   ]) {
     return restOfResults;
@@ -110,10 +140,15 @@ class A {
 promise.then(
   ([
     firstResult,
+
     secondResult,
+
     thirdResult,
+
     fourthResult,
+
     fifthResult,
+
     ...rest
   ]) => {
     return rest;
@@ -306,12 +341,19 @@ const StatelessFunctionalComponent = ({
   items
 }: {
   isActive: number,
+
   onFiltersUpdated: number,
+
   onSelect: number,
+
   onSubmitAndDeselect: number,
+
   onCancel: number,
+
   searchFilters: number,
+
   title: number,
+
   items: number
 }) => {
   return <div />;
@@ -334,12 +376,19 @@ class C {
 
 type T = ({
   isActive: number,
+
   onFiltersUpdated: number,
+
   onSelect: number,
+
   onSubmitAndDeselect: number,
+
   onCancel: number,
+
   searchFilters: number,
+
   title: number,
+
   items: number
 }) => void;
 

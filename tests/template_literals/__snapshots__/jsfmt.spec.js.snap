@@ -36,6 +36,7 @@ const TestComponent = ({ children, ...props }) => (
 =====================================output=====================================
 function SomeComponent(props) {
   // Create styles as if you're calling css and the class will be applied to the component
+
   return (
     <div
       css={\`
@@ -125,6 +126,7 @@ const long = \`long \${
 } long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${
   a.b.c.d.e
 } long long\`;
+
 const long = \`long \${
   a.b.c.d.e
 } long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long long\`;
@@ -147,13 +149,17 @@ x = \`mdl-textfield mdl-js-textfield \${className} \${
 
 function testing() {
   const p = {};
+
   // faking some tabs since I can't paste my real code in
+
   if (true) {
     if (false) {
       return \`\${
         process.env.OPENID_URL
       }/something/something/something?\${Object.keys(p)
+
         .map(k => \`\${encodeURIComponent(k)}=\${encodeURIComponent(p[k])}\`)
+
         .join("&")}\`;
     }
   }
@@ -166,7 +172,8 @@ console.log(
 );
 
 console.log(
-  \`brew cask audit --download \${_.map(definitions, "caskName").join(" ")}\`
+  \`brew cask audit --download \${_.map(definitions, "caskName")
+  .join(" ")}\`
 );
 
 console.log(

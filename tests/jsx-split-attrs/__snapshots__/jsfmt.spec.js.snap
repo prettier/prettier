@@ -217,9 +217,13 @@ long_obj = (
   <div
     style={{
       i: "dont",
+
       use: "bootstrap",
+
       and: "instead",
+
       use: "massive",
+
       objects
     }}
   >

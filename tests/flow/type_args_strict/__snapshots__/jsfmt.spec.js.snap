@@ -94,6 +94,7 @@ var num_array:Array<number> = singleton(0); // ok, type arg inferred
 
 class MyClass<T> {
   x: T;
+
   constructor(x: T) {
     this.x = x;
   }
@@ -105,9 +106,12 @@ var c: MyClass = new MyClass(0); // error, missing argument list (1)
 
 class MyClass2<T, U = string> {
   x: T;
+
   y: U;
+
   constructor(x: T, y: U) {
     this.x = x;
+
     this.y = y;
   }
 }
@@ -120,11 +124,15 @@ type MyObject<T> = {
   x: T
 };
 
-var o: MyObject = { x: 0 }; // error, missing argument list
+var o: MyObject = {
+  x: 0
+}; // error, missing argument list
 
 // arity error in type alias rhs
 
-type MySubobject = { y: number } & MyObject; // error, missing argument list
+type MySubobject = {
+  y: number
+} & MyObject; // error, missing argument list
 
 // arity error in interface extends
 
@@ -134,6 +142,7 @@ interface MyInterface<T> {
 
 interface MySubinterface extends MyInterface {
   // error, missing argument list
+
   y: number;
 }
 
@@ -141,7 +150,9 @@ interface MySubinterface extends MyInterface {
 
 class MySubclass extends MyClass {
   // ok, type arg inferred
+
   y: number;
+
   constructor(y: number) {
     super(y);
   }

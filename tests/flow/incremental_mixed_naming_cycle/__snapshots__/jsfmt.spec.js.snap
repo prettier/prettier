@@ -23,6 +23,7 @@ module.exports = 'A';
  */
 
 (require("./b"): void);
+
 (require("C"): void);
 
 module.exports = "A";
@@ -53,6 +54,7 @@ module.exports = 'B';
  */
 
 (require("A"): void);
+
 (require("D"): void);
 
 module.exports = "B";
@@ -83,6 +85,7 @@ module.exports = 'C';
  */
 
 require("Root");
+
 (require("./b"): void);
 
 module.exports = "C";

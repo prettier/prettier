@@ -27,6 +27,7 @@ interface Interface {
     InViewHumbleVaudevillianVeteran,
     CastVicariouslyAsBothVictimAndVillainByTheVicissitudesOfFate
   >(): V;
+
   new <
     ThisVisage,
     NoMereVeneerOfVanity,

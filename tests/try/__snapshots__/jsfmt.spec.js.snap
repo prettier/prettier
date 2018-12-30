@@ -36,6 +36,7 @@ catch(
 try {
 } catch (
   // comment
+
   foo
 ) {}
 
@@ -45,15 +46,16 @@ try {
 ) {}
 
 try {
-} catch (/* comment */ foo) {}
+} catch (/* comment */
+
+foo) {}
 
 try {
 } catch (foo /* comment */) {}
 
 try {
 } catch (
-  foo
-  /* comment */
+  foo /* comment */
 ) {}
 
 ================================================================================

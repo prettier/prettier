@@ -31,7 +31,9 @@ function foo(x: ?string): $NonMaybeType<?string> {
 //(foo(): string); // should not be necessary to expose the error above
 
 (0: $NonMaybeType<null>); // error
+
 (0: $NonMaybeType<?number>); // ok
+
 (0: $NonMaybeType<number | null>); // ok
 
 ================================================================================
@@ -58,7 +60,10 @@ function foo(o: Obj): $PropertyType<Obj, 'x'> {
 =====================================output=====================================
 type Malformed = $PropertyType<any, number>;
 
-type Obj = { x: string };
+type Obj = {
+  x: string
+};
+
 type Obj_Prop_x = $PropertyType<Obj, "x">;
 
 (42: Obj_Prop_x);
@@ -84,9 +89,28 @@ var x3: $PropertyType<{p:number}|{p:string},'p'> = true; // err, boolean ~> numb
 
 =====================================output=====================================
 var x0: $NonMaybeType<number | string> = 0; // ok, number ~> number|string
+
 var x1: $NonMaybeType<number | string> = true; // err, boolean ~> number|string
-var x2: $PropertyType<{ p: number } | { p: string }, "p"> = 0; // ok, number ~> number|string
-var x3: $PropertyType<{ p: number } | { p: string }, "p"> = true; // err, boolean ~> number|string
+
+var x2: $PropertyType<
+  | {
+      p: number
+    }
+  | {
+      p: string
+    },
+  "p"
+> = 0; // ok, number ~> number|string
+
+var x3: $PropertyType<
+  | {
+      p: number
+    }
+  | {
+      p: string
+    },
+  "p"
+> = true; // err, boolean ~> number|string
 
 ================================================================================
 `;

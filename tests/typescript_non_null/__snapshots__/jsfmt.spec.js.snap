@@ -26,13 +26,19 @@ const {
 } = this.props.imReallySureAboutThis!.anotherObject;
 
 this.foo
-  .get("bar")!
+
+  .get("bar")
+  !
   .doThings()
+
   .more();
 
 foo!
+
   .bar()
+
   .baz()
+
   .what();
 
 ================================================================================
@@ -58,7 +64,9 @@ function* g() {
 
 =====================================output=====================================
 (a ? b : c)![tokenKey];
+
 (a || b)![tokenKey];
+
 (void 0)!;
 
 async function f() {

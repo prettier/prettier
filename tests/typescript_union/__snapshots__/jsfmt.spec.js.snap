@@ -43,6 +43,7 @@ type window = Window & {
 interface RelayProps {
   articles: a | null;
 }
+
 interface RelayProps {
   articles: Array<{
     __id: string;
@@ -51,22 +52,28 @@ interface RelayProps {
 
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
-  | { type: "Not_begun" }
-  // The upload timed out
-  | { type: "Timed_out" }
-  // Failed somewhere on the line
-  | { type: "Failed"; error: E; errorMsg: EM }
-  // Uploading to aws3 and CreatePostMutation succeeded
-  | { type: "Success"; data: D };
+
+  | { type: "Not_begun" } // The upload timed out
+  | { type: "Timed_out" } // Failed somewhere on the line
+  | {
+      type: "Failed";
+
+      error: E;
+
+      errorMsg: EM;
+    } // Uploading to aws3 and CreatePostMutation succeeded
+  | {
+      type: "Success";
+
+      data: D;
+    };
 
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
-  | A
-  // The upload timed out
-  | B
-  // Failed somewhere on the line
-  | C
-  // Uploading to aws3 and CreatePostMutation succeeded
+
+  | A // The upload timed out
+  | B // Failed somewhere on the line
+  | C // Uploading to aws3 and CreatePostMutation succeeded
   | D;
 
 type window = Window & {
@@ -145,21 +152,35 @@ export type Multi = (string | number)[];
 function f(): string | number {}
 
 var x: string | number;
+
 var y: string | number;
 
 class Foo<T extends string | number> {}
 
 interface Interface {
   i: (X | Y) & Z;
+
   j: Partial<X | Y>;
 }
 
 type State = {
   sharedProperty: any;
 } & (
-  | { discriminant: "FOO"; foo: any }
-  | { discriminant: "BAR"; bar: any }
-  | { discriminant: "BAZ"; baz: any });
+  | {
+      discriminant: "FOO";
+
+      foo: any;
+    }
+  | {
+      discriminant: "BAR";
+
+      bar: any;
+    }
+  | {
+      discriminant: "BAZ";
+
+      baz: any;
+    });
 
 ================================================================================
 `;

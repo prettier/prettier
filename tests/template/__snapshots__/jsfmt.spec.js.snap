@@ -15,11 +15,13 @@ printWidth: 80
 \`;
 
 =====================================output=====================================
-() => a\`
+() =>
+  a\`
 	a
 \`;
 
-() => \`
+() =>
+  \`
 	a
 \`;
 
@@ -46,18 +48,22 @@ new Error(formatErrorMessage\`
 \`);
 
 =====================================output=====================================
-insertRule(\`*, *:before, *:after {
+insertRule(
+  \`*, *:before, *:after {
   box-sizing: inherit;
-}\`);
+}\`
+);
 
 insertRule\`*, *:before, *:after {
   box-sizing: inherit;
 }\`;
 
-new Error(formatErrorMessage\`
+new Error(
+  formatErrorMessage\`
   This a really bad error.
   Which has more than one line.
-\`);
+\`
+);
 
 ================================================================================
 `;
@@ -85,17 +91,27 @@ g
 \`
 (?:\${escapeChar}[\\\\S\\\\s]|(?:(?!\${
   // Using \`XRegExp.union\` safely rewrites backreferences in \`left\` and \`right\`.
+
   // Intentionally not passing \`basicFlags\` to \`XRegExp.union\` since any syntax
+
   // transformation resulting from those flags was already applied to \`left\` and
+
   // \`right\` when they were passed through the XRegExp constructor above.
-  XRegExp.union([left, right], "", { conjunction: "or" }).source
+
+  XRegExp.union([left, right], "", {
+    conjunction: "or"
+  }).source
 })[^\${escapeChar}])+)+
 \`;
 
-\`a\${/* b */ c /* d */}e\${
+\`a\${
+  /* b */
+
+  c /* d */
+}e\${
   // f
-  g
-  // h
+
+  g // h
 }\`;
 
 ================================================================================
@@ -130,7 +146,8 @@ var o = {
 };
 
 var x = {
-  y: () => Relay.QL\`
+  y: () =>
+    Relay.QL\`
     query {
       \${foo},
       field,
@@ -169,9 +186,11 @@ module.exports = Relay.createContainer(
 =====================================output=====================================
 module.exports = Relay.createContainer(
   // ...
+
   {
     fragments: {
-      nodes: ({ solution_type, time_frame }) => Relay.QL\`
+      nodes: ({ solution_type, time_frame }) =>
+        Relay.QL\`
         fragment on RelatedNode @relay(plural: true) {
           __typename
           \${OptimalSolutionsSection.getFragment("node", {
@@ -226,6 +245,7 @@ line 2
 line n
 \${foo({
   many: keys,
+
   many: keys
 })}
 line n + 1
@@ -310,7 +330,9 @@ editTitle += \`\${iconHTML({ class: "reply-to-glyph" })}\`;
 
 =====================================output=====================================
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
+
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
+
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
 
 this._pipe.write(
@@ -321,11 +343,14 @@ this._pipe.write(
   \`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`
 );
 
-this._pipe.write(\`
+this._pipe.write(
+  \`
   \\n\\n Pattern matches \${total} \${pluralizeTest} but that's long
-\`);
+\`
+);
 
-() => \`
+() =>
+  \`
   a
 \`;
 
@@ -336,20 +361,24 @@ this._pipe.write(\`
 
 (): {
   someLong: boolean,
+
   t: boolean
-} => \`
+} =>
+  \`
   a
 \`;
 
 (): {
   someLong: boolean,
+
   t: boolean
 } =>
   \`
     a
   \`;
 
-(someLong: boolean, t: boolean) => \`
+(someLong: boolean, t: boolean) =>
+  \`
     a
   \`;
 
@@ -359,7 +388,10 @@ this._pipe.write(\`
   \`;
 
 // https://github.com/prettier/prettier/issues/5529
-editTitle += \`\${iconHTML({ class: "reply-to-glyph" })}\`;
+
+editTitle += \`\${iconHTML({
+  class: "reply-to-glyph"
+})}\`;
 
 ================================================================================
 `;
@@ -427,56 +459,73 @@ function* f() {
 
 =====================================output=====================================
 // "ArrowFunctionExpression"
+
 (() => {})\`\`;
 
 // "AssignmentExpression"
+
 (b = c)\`\`;
 
 // "AwaitExpression"
+
 async function f() {
   (await b)\`\`;
 }
 
 // "BinaryExpression"
+
 (b + c)\`\`;
 
 // "CallExpression"
+
 b()\`\`;
 
 // "ClassExpression"
+
 (class {}\`\`);
 
 // "ConditionalExpression"
+
 (b ? c : d)\`\`;
 
 // "FunctionExpression"
+
 (function() {})\`\`;
 
 // "LogicalExpression"
+
 (b || c)\`\`;
 
 // "MemberExpression"
+
 b.c\`\`;
 
 // "NewExpression"
+
 new B()\`\`;
 
 // "ObjectExpression"
+
 ({}\`\`);
 
 // "SequenceExpression"
+
 (b, c)\`\`;
 
 // "TaggedTemplateExpression"
+
 \`\`\`\`;
 
 // "UnaryExpression"
+
 (void b)\`\`;
 
 // "UpdateExpression"
+
 (++b)\`\`;
 
 // "YieldExpression"
+
 function* f() {
   (yield 1)\`\`;
 }

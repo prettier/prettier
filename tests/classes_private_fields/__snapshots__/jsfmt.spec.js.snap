@@ -53,35 +53,43 @@ class E {
 =====================================output=====================================
 class A {
   #x;
+
   #y;
 }
+
 class B {
   #x = 0;
+
   #y = 1;
 }
 
 class C {
   static #x;
+
   static #y = 1;
 }
 
 class D {
   #x;
+
   #y;
 }
 
 class Point {
   #x = 1;
+
   #y = 2;
 
   constructor(x = 0, y = 0) {
     this.#x = +x;
+
     this.#y = +y;
   }
 
   get x() {
     return this.#x;
   }
+
   set x(value) {
     this.#x = +value;
   }
@@ -89,6 +97,7 @@ class Point {
   get y() {
     return this.#y;
   }
+
   set y(value) {
     this.#y = +value;
   }
@@ -104,12 +113,19 @@ class Point {
 
 class E {
   async #a() {}
+
   #b() {}
+
   get #c() {}
+
   set #c(bar) {}
+
   *#d() {}
+
   async *#e() {}
+
   get #f() {}
+
   set #f(taz) {}
 }
 
@@ -170,35 +186,43 @@ class E {
 =====================================output=====================================
 class A {
   #x
+
   #y
 }
+
 class B {
   #x = 0
+
   #y = 1
 }
 
 class C {
   static #x
+
   static #y = 1
 }
 
 class D {
   #x
+
   #y
 }
 
 class Point {
   #x = 1
+
   #y = 2
 
   constructor(x = 0, y = 0) {
     this.#x = +x
+
     this.#y = +y
   }
 
   get x() {
     return this.#x
   }
+
   set x(value) {
     this.#x = +value
   }
@@ -206,6 +230,7 @@ class Point {
   get y() {
     return this.#y
   }
+
   set y(value) {
     this.#y = +value
   }
@@ -221,12 +246,19 @@ class Point {
 
 class E {
   async #a() {}
+
   #b() {}
+
   get #c() {}
+
   set #c(bar) {}
+
   *#d() {}
+
   async *#e() {}
+
   get #f() {}
+
   set #f(taz) {}
 }
 
@@ -251,8 +283,10 @@ class A {
 class A {
   #foobar =
     // comment to break
+
     1 +
     // comment to break again
+
     2;
 }
 
@@ -278,8 +312,10 @@ class A {
 class A {
   #foobar =
     // comment to break
+
     1 +
     // comment to break again
+
     2
 }
 

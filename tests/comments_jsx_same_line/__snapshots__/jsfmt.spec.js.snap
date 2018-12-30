@@ -37,14 +37,14 @@ printWidth: 80
 />;
 
 =====================================output=====================================
-<div
-// comment
+<div // comment
 >
   {foo}
 </div>;
 
 <div
   // comment
+
   attr="foo">
   {foo}
 </div>;
@@ -56,8 +56,7 @@ printWidth: 80
 </div>;
 
 <div
-  attr="foo"
-  // comment
+  attr="foo" // comment
 >
   {foo}
 </div>;

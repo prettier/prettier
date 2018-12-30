@@ -56,17 +56,28 @@ printWidth: 80
     v-for="n in evenNumbers"
     v-for="n in even(numbers)"
     v-for="n in 10"
-    v-for="{ a } in [0].map(() => ({ a: 1 }))"
+    v-for="{ a } in [0].map(() => ({
+      a: 1
+    }))"
     v-for="({ a }, [c]) in [0].map(() => 1)"
     v-for="n in items.map(x => {
       return x;
     })"
     @click="/* hello */"
-    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
+    @click="
+      /* 1 */
+
+      $emit(
+        /* 2 */
+
+        'click' /* 3 */
+      ) /* 4 */ /* 5 */
+    "
     @click="$emit('click')"
     @click="$emit('click')"
     @click="
       $emit('click');
+
       if (something) {
         for (let i = j; i < 100; i++) {}
       } else {
@@ -165,17 +176,28 @@ trailingComma: "es5"
     v-for="n in evenNumbers"
     v-for="n in even(numbers)"
     v-for="n in 10"
-    v-for="{ a } in [0].map(() => ({ a: 1 }))"
+    v-for="{ a } in [0].map(() => ({
+      a: 1,
+    }))"
     v-for="({ a }, [c]) in [0].map(() => 1)"
     v-for="n in items.map(x => {
       return x;
     })"
     @click="/* hello */"
-    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
+    @click="
+      /* 1 */
+
+      $emit(
+        /* 2 */
+
+        'click' /* 3 */
+      ) /* 4 */ /* 5 */
+    "
     @click="$emit('click')"
     @click="$emit('click')"
     @click="
       $emit('click');
+
       if (something) {
         for (let i = j; i < 100; i++) {}
       } else {
@@ -274,17 +296,28 @@ semi: false
     v-for="n in evenNumbers"
     v-for="n in even(numbers)"
     v-for="n in 10"
-    v-for="{ a } in [0].map(() => ({ a: 1 }))"
+    v-for="{ a } in [0].map(() => ({
+      a: 1
+    }))"
     v-for="({ a }, [c]) in [0].map(() => 1)"
     v-for="n in items.map(x => {
       return x
     })"
     @click="/* hello */"
-    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
+    @click="
+      /* 1 */
+
+      $emit(
+        /* 2 */
+
+        'click' /* 3 */
+      ) /* 4 */ /* 5 */
+    "
     @click="$emit('click')"
     @click="$emit('click')"
     @click="
       $emit('click')
+
       if (something) {
         for (let i = j; i < 100; i++) {}
       } else {
@@ -409,29 +442,40 @@ export default {
 =====================================output=====================================
 <script>
 import "./issue_card_inner";
+
 import eventHub from "../eventhub";
 
 const Store = gl.issueBoards.BoardsStore;
 
 export default {
   name: "BoardsIssueCard",
+
   components: {
     "issue-card-inner": gl.issueBoards.IssueCardInner
   },
+
   props: {
     list: Object,
+
     issue: Object,
+
     issueLinkBase: String,
+
     disabled: Boolean,
+
     index: Number,
+
     rootPath: String
   },
+
   data() {
     return {
       showDetail: false,
+
       detailIssue: Store.detail
     };
   },
+
   computed: {
     issueDetailVisible() {
       return (
@@ -439,13 +483,16 @@ export default {
       );
     }
   },
+
   methods: {
     mouseDown() {
       this.showDetail = true;
     },
+
     mouseMove() {
       this.showDetail = false;
     },
+
     showIssue(e) {
       if (e.target.classList.contains("js-no-trigger")) return;
 
@@ -456,6 +503,7 @@ export default {
           eventHub.$emit("clearDetailIssue");
         } else {
           eventHub.$emit("newDetailIssue", this.issue);
+
           Store.detail.list = this.list;
         }
       }
@@ -469,7 +517,9 @@ export default {
     class="card"
     :class="{
       'user-can-drag': !disabled && issue.id,
+
       'is-disabled': disabled || !issue.id,
+
       'is-active': issueDetailVisible
     }"
     :index="index"
@@ -575,29 +625,40 @@ export default {
 =====================================output=====================================
 <script>
 import "./issue_card_inner";
+
 import eventHub from "../eventhub";
 
 const Store = gl.issueBoards.BoardsStore;
 
 export default {
   name: "BoardsIssueCard",
+
   components: {
     "issue-card-inner": gl.issueBoards.IssueCardInner,
   },
+
   props: {
     list: Object,
+
     issue: Object,
+
     issueLinkBase: String,
+
     disabled: Boolean,
+
     index: Number,
+
     rootPath: String,
   },
+
   data() {
     return {
       showDetail: false,
+
       detailIssue: Store.detail,
     };
   },
+
   computed: {
     issueDetailVisible() {
       return (
@@ -605,13 +666,16 @@ export default {
       );
     },
   },
+
   methods: {
     mouseDown() {
       this.showDetail = true;
     },
+
     mouseMove() {
       this.showDetail = false;
     },
+
     showIssue(e) {
       if (e.target.classList.contains("js-no-trigger")) return;
 
@@ -622,6 +686,7 @@ export default {
           eventHub.$emit("clearDetailIssue");
         } else {
           eventHub.$emit("newDetailIssue", this.issue);
+
           Store.detail.list = this.list;
         }
       }
@@ -635,7 +700,9 @@ export default {
     class="card"
     :class="{
       'user-can-drag': !disabled && issue.id,
+
       'is-disabled': disabled || !issue.id,
+
       'is-active': issueDetailVisible,
     }"
     :index="index"
@@ -741,29 +808,40 @@ export default {
 =====================================output=====================================
 <script>
 import "./issue_card_inner"
+
 import eventHub from "../eventhub"
 
 const Store = gl.issueBoards.BoardsStore
 
 export default {
   name: "BoardsIssueCard",
+
   components: {
     "issue-card-inner": gl.issueBoards.IssueCardInner
   },
+
   props: {
     list: Object,
+
     issue: Object,
+
     issueLinkBase: String,
+
     disabled: Boolean,
+
     index: Number,
+
     rootPath: String
   },
+
   data() {
     return {
       showDetail: false,
+
       detailIssue: Store.detail
     }
   },
+
   computed: {
     issueDetailVisible() {
       return (
@@ -771,13 +849,16 @@ export default {
       )
     }
   },
+
   methods: {
     mouseDown() {
       this.showDetail = true
     },
+
     mouseMove() {
       this.showDetail = false
     },
+
     showIssue(e) {
       if (e.target.classList.contains("js-no-trigger")) return
 
@@ -788,6 +869,7 @@ export default {
           eventHub.$emit("clearDetailIssue")
         } else {
           eventHub.$emit("newDetailIssue", this.issue)
+
           Store.detail.list = this.list
         }
       }
@@ -801,7 +883,9 @@ export default {
     class="card"
     :class="{
       'user-can-drag': !disabled && issue.id,
+
       'is-disabled': disabled || !issue.id,
+
       'is-active': issueDetailVisible
     }"
     :index="index"
@@ -1212,6 +1296,7 @@ x => {
     Fuga magnam facilis. Voluptatem quaerat porro.{{
       x => {
         const hello = "world";
+
         return hello;
       }
     }}
@@ -1343,6 +1428,7 @@ x => {
     Fuga magnam facilis. Voluptatem quaerat porro.{{
       x => {
         const hello = "world";
+
         return hello;
       }
     }}
@@ -1474,6 +1560,7 @@ x => {
     Fuga magnam facilis. Voluptatem quaerat porro.{{
       x => {
         const hello = "world"
+
         return hello
       }
     }}
@@ -2199,7 +2286,11 @@ printWidth: 80
     <div class="file-content image_file">
       <img
         ref="contentImg"
-        :class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
+        :class="{
+          'is-zoomable': isZoomable,
+
+          'is-zoomed': isZoomed
+        }"
         :src="path"
         :alt="path"
         @load="onImgLoad"
@@ -2265,7 +2356,11 @@ trailingComma: "es5"
     <div class="file-content image_file">
       <img
         ref="contentImg"
-        :class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
+        :class="{
+          'is-zoomable': isZoomable,
+
+          'is-zoomed': isZoomed,
+        }"
         :src="path"
         :alt="path"
         @load="onImgLoad"
@@ -2331,7 +2426,11 @@ semi: false
     <div class="file-content image_file">
       <img
         ref="contentImg"
-        :class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
+        :class="{
+          'is-zoomable': isZoomable,
+
+          'is-zoomed': isZoomed
+        }"
         :src="path"
         :alt="path"
         @load="onImgLoad"

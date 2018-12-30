@@ -45,38 +45,70 @@ a = b => {
 
 =====================================output=====================================
 (a => {}).length;
+
 typeof (() => {});
+
 export default (() => {})();
+
 (() => {})()\`\`;
+
 (() => {})\`\`;
+
 new (() => {})();
+
 if ((() => {}) ? 1 : 0) {
 }
+
 let f = () => ({}());
+
 let a = () => ({} instanceof a);
+
 a = () => ({} && a);
+
 a = () => ({}() && a);
+
 a = () => ({} && a && b);
+
 a = () => ({} + a);
+
 a = () => ({}()() && a);
+
 a = () => ({}.b && a);
+
 a = () => ({}[b] && a);
+
 a = () => ({}\`\` && a);
+
 a = () => ({} = 0);
+
 a = () => ({}, a);
+
 a => a instanceof {};
+
 a => ({}().b && 0);
+
 a => ({}().c = 0);
+
 x => ({}()());
+
 x => ({}()\`\`);
+
 x => ({}().b);
+
 a = b => c;
+
 a = (b?) => c;
+
 x => (y = z);
+
 x => (y += z);
+
 f(a => ({})) + 1;
+
 (a => ({})) || 0;
+
 a = b => c;
+
 a = b => {
   return c;
 };
@@ -129,38 +161,70 @@ a = b => {
 
 =====================================output=====================================
 ((a) => {}).length;
+
 typeof (() => {});
+
 export default (() => {})();
+
 (() => {})()\`\`;
+
 (() => {})\`\`;
+
 new (() => {})();
+
 if ((() => {}) ? 1 : 0) {
 }
+
 let f = () => ({}());
+
 let a = () => ({} instanceof a);
+
 a = () => ({} && a);
+
 a = () => ({}() && a);
+
 a = () => ({} && a && b);
+
 a = () => ({} + a);
+
 a = () => ({}()() && a);
+
 a = () => ({}.b && a);
+
 a = () => ({}[b] && a);
+
 a = () => ({}\`\` && a);
+
 a = () => ({} = 0);
+
 a = () => ({}, a);
+
 (a) => a instanceof {};
+
 (a) => ({}().b && 0);
+
 (a) => ({}().c = 0);
+
 (x) => ({}()());
+
 (x) => ({}()\`\`);
+
 (x) => ({}().b);
+
 a = (b) => c;
+
 a = (b?) => c;
+
 (x) => (y = z);
+
 (x) => (y += z);
+
 f((a) => ({})) + 1;
+
 ((a) => ({})) || 0;
+
 a = (b) => c;
+
 a = (b) => {
   return c;
 };
@@ -291,6 +355,7 @@ Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(member.doc, {
       typePath: typePath.concat(memberName.slice(1)),
+
       signatures: member.signatures
     })
   )
@@ -300,6 +365,7 @@ const promiseFromCallback = fn =>
   new Promise((resolve, reject) =>
     fn((err, result) => {
       if (err) return reject(err);
+
       return resolve(result);
     })
   );
@@ -367,7 +433,9 @@ jest.mock(
   () =>
     class {
       findMatchingTests(pattern) {
-        return { paths: [] };
+        return {
+          paths: []
+        };
       }
     }
 );
@@ -472,6 +540,7 @@ Seq(typeDef.interface.groups).forEach((group) =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(member.doc, {
       typePath: typePath.concat(memberName.slice(1)),
+
       signatures: member.signatures
     })
   )
@@ -481,6 +550,7 @@ const promiseFromCallback = (fn) =>
   new Promise((resolve, reject) =>
     fn((err, result) => {
       if (err) return reject(err);
+
       return resolve(result);
     })
   );
@@ -548,7 +618,9 @@ jest.mock(
   () =>
     class {
       findMatchingTests(pattern) {
-        return { paths: [] };
+        return {
+          paths: []
+        };
       }
     }
 );
@@ -605,21 +677,27 @@ export const bem = block =>
  * @param {String} block - the BEM Block you'd like to select.
  * @returns {Function}
  */
+
 export const bem = block =>
   /**
    * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
    * @returns {Function}
    */
+
   element =>
     /**
      * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
      * @returns {String}
      */
+
     modifier =>
       [
         ".",
+
         css(block),
+
         element ? \`__\${css(element)}\` : "",
+
         modifier ? \`--\${css(modifier)}\` : ""
       ].join("");
 
@@ -678,21 +756,27 @@ export const bem = block =>
  * @param {String} block - the BEM Block you'd like to select.
  * @returns {Function}
  */
+
 export const bem = (block) =>
   /**
    * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
    * @returns {Function}
    */
+
   (element) =>
     /**
      * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
      * @returns {String}
      */
+
     (modifier) =>
       [
         ".",
+
         css(block),
+
         element ? \`__\${css(element)}\` : "",
+
         modifier ? \`--\${css(modifier)}\` : ""
       ].join("");
 
@@ -851,8 +935,11 @@ const foo = () => {
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({
     message: "test",
+
     messageType: "SMS",
+
     status: "Unknown",
+
     created: "11/01/2017 13:36"
   });
 };
@@ -875,8 +962,11 @@ const foo = () => {
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({
     message: "test",
+
     messageType: "SMS",
+
     status: "Unknown",
+
     created: "11/01/2017 13:36"
   });
 };
@@ -913,20 +1003,26 @@ promise.then(result => result, err => err);
 promise.then(
   result => {
     f();
+
     return result;
   },
   err => {
     f();
+
     return err;
   }
 );
 
 foo(a => b);
+
 foo(a => {
   return b;
 });
+
 foo(c, a => b);
+
 foo(c, a => b, d);
+
 foo(a => b, d);
 
 ================================================================================
@@ -961,20 +1057,26 @@ promise.then((result) => result, (err) => err);
 promise.then(
   (result) => {
     f();
+
     return result;
   },
   (err) => {
     f();
+
     return err;
   }
 );
 
 foo((a) => b);
+
 foo((a) => {
   return b;
 });
+
 foo(c, (a) => b);
+
 foo(c, (a) => b, d);
+
 foo((a) => b, d);
 
 ================================================================================

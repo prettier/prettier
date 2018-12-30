@@ -28,9 +28,12 @@ class Point {
 =====================================output=====================================
 class Point {
   private _x: number;
+
   private _y: number;
+
   constructor(x: number, y: number) {
     this._x = x;
+
     this._y = y;
   }
 
@@ -66,12 +69,14 @@ export class HeroButtonComponent {
 =====================================output=====================================
 @Component({
   selector: "toh-hero-button",
+
   template: \`
     <button>{{ label }}</button>
   \`
 })
 export class HeroButtonComponent {
   @Output() change = new EventEmitter<any>();
+
   @Input() label: string;
 }
 
@@ -99,9 +104,11 @@ class Greeter {
 @sealed
 class Greeter {
   greeting: string;
+
   constructor(message: string) {
     this.greeting = message;
   }
+
   greet() {
     return "Hello, " + this.greeting;
   }
@@ -131,6 +138,7 @@ class Greeter {
 =====================================output=====================================
 class Greeter {
   greeting: string;
+
   constructor(message: string) {
     this.greeting = message;
   }
@@ -164,6 +172,7 @@ class X {
   @deco x() {
     return this.count * 2;
   }
+
   @deco get x() {
     return this.count * 2;
   }
@@ -265,8 +274,10 @@ class Greeter {
   constructor(message: string) {
     this.greeting = message;
   }
+
   greet() {
     let formatString = getFormat(this, "greeting");
+
     return formatString.replace("%s", this.greeting);
   }
 }

@@ -34,13 +34,15 @@ export default class Baz {}
 
 const foo =
   @deco
-  class {
+  class
+  {
     //
   };
 
 const foo =
   @deco
-  class {
+  class
+  {
     //
   };
 
@@ -90,29 +92,36 @@ var x = 100;
 
 @Hello({
   a: "a", // Comment is in the wrong place
+
   // test
+
   b: "2"
 })
 class X {}
 
 @NgModule({
   // Imports.
+
   imports: [
     // Angular modules.
+
     BrowserModule,
 
     // App modules.
+
     CoreModule,
+
     SharedModule
   ]
 })
 export class AppModule {}
 
 // A
+
 @Foo()
 // B
-@Bar()
-// C
+
+@Bar() // C
 export class Bar {}
 
 ================================================================================
@@ -199,6 +208,7 @@ import { observable } from "mobx";
 @observer
 class OrderLine {
   @observable price: number = 0;
+
   @observable amount: number = 1;
 
   constructor(price) {
@@ -330,7 +340,9 @@ export class Home extends React.Component {}
 )
 export class MyApp extends React.Component {}
 
-@connect(state => ({ todos: state.todos }))
+@connect(state => ({
+  todos: state.todos
+}))
 export class Home extends React.Component {}
 
 ================================================================================

@@ -35,7 +35,9 @@ module.exports = Callsite;
 
 =====================================output=====================================
 /* @flow */
+
 var React = require("react");
+
 var Hello = require("./createclass-module");
 
 var HelloLocal = React.createClass({
@@ -87,6 +89,7 @@ module.exports = Hello;
 
 =====================================output=====================================
 /* @flow */
+
 var React = require("react");
 
 var Hello = React.createClass({
@@ -139,14 +142,24 @@ module.exports = Callsite;
 
 =====================================output=====================================
 /* @flow */
+
 import React from "react";
+
 import Hello from "./es6class-proptypes-module";
 
-class HelloLocal extends React.Component<void, { name: string }, void> {
+class HelloLocal extends React.Component<
+  void,
+  {
+    name: string
+  },
+  void
+> {
   defaultProps = {};
+
   propTypes = {
     name: React.PropTypes.string.isRequired
   };
+
   render(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
@@ -192,10 +205,18 @@ module.exports = Hello;
 
 =====================================output=====================================
 /* @flow */
+
 import React from "react";
 
-class Hello extends React.Component<void, { name: string }, void> {
+class Hello extends React.Component<
+  void,
+  {
+    name: string
+  },
+  void
+> {
   defaultProps = {};
+
   propTypes = {
     name: React.PropTypes.string.isRequired
   };
@@ -245,10 +266,14 @@ module.exports = Callsite;
 
 =====================================output=====================================
 /* @flow */
+
 import React from "react";
+
 import Hello from "./es6class-types-module";
 
-type Props = { name: string };
+type Props = {
+  name: string
+};
 
 class HelloLocal extends React.Component<void, Props, void> {
   props: Props;
@@ -298,12 +323,16 @@ module.exports = Hello;
 
 =====================================output=====================================
 /* @flow */
+
 import React from "react";
 
-type Props = { name: string };
+type Props = {
+  name: string
+};
 
 class Hello extends React.Component<{}, Props, void> {
   props: Props;
+
   static defaultProps: {};
 
   render(): React.Element<*> {

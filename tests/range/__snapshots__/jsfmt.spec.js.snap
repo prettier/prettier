@@ -39,6 +39,7 @@ function f() {
 =====================================output=====================================
 call(1,2,3)
 call(1, 2, 3);
+
 function f() {
   call(1, 2, 3);
 }
@@ -107,8 +108,11 @@ function ugly() {
 function ugly() {
   const dictWithSeveralEntries = {
     key: "value",
+
     anotherKey: "another value",
+
     firstNumber: 1,
+
     secondNumber: 2
   };
 }
@@ -391,7 +395,11 @@ printWidth: 80
 const y = {a:1, b:2}
 
 =====================================output=====================================
-const y = { a: 1, b: 2 };
+const y = {
+  a: 1,
+
+  b: 2
+};
 
 ================================================================================
 `;
@@ -419,8 +427,10 @@ const y = [
   {
     a: 1
   },
+
   {
     a: 1,
+
     b: 2
   }
 ];

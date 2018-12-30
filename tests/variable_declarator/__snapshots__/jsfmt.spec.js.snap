@@ -48,6 +48,7 @@ for (var i = 0, len = arr.length; i < len; i++) {}
 
 var templateTagsMapping = {
     "%{itemIndex}": "index",
+
     "%{itemContentMetaTextViews}": "views"
   },
   separator = '<span class="item__content__meta__separator">•</span>',

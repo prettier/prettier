@@ -35,6 +35,7 @@ function subtypeCheck(x: Interface): ObjectType { return x; }
 interface Interface {
   m(): void;
 }
+
 import type { ObjectType } from "./test";
 
 function subtypeCheck(x: Interface): ObjectType {
@@ -113,14 +114,14 @@ function f() {
 
 var a = {
   p: 0,
+
   f
 };
 
-var b = {
-  f
-};
+var b = { f };
 
 a.f(); // okey-dokie
+
 b.f(); // error, property \`p\` not found
 
 ================================================================================
@@ -160,6 +161,7 @@ function foo() {
 
 function bar(f: () => void) {
   f(); // passing global object as \`this\`
+
   ({ f }.f()); // passing container object as \`this\`
 }
 
@@ -169,7 +171,9 @@ function qux(o: { f: () => void }) {
   o.f(); // passing o as \`this\`
 }
 
-qux({ f: foo }); // error, since \`this\` is used non-trivially in \`foo\`
+qux({
+  f: foo
+}); // error, since \`this\` is used non-trivially in \`foo\`
 
 ================================================================================
 `;

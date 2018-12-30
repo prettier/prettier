@@ -13,6 +13,7 @@ new (factory())(factory())
 
 =====================================output=====================================
 new (factory())();
+
 new factory()();
 
 new (factory())(factory());
@@ -32,7 +33,9 @@ new (createObj()).prop(a());
 
 =====================================output=====================================
 new (memoize.Cache || MapCache)();
+
 new (typeof this == "function" ? this : Dict())();
+
 new (createObj()).prop(a());
 
 ================================================================================
@@ -58,6 +61,7 @@ function functionName() {
 =====================================output=====================================
 function functionName() {
   // indent to make the line break
+
   if (true) {
     this._aVeryLongVariableNameToForceLineBreak = new this.Promise(
       (resolve, reject) => {

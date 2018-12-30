@@ -146,11 +146,17 @@ type Banana = {
   eat: string => boolean
 };
 
-type Hex = { n: 0x01 };
+type Hex = {
+  n: 0x01
+};
 
-type T = { method: a => void };
+type T = {
+  method: a => void
+};
 
-type T = { method(a): void };
+type T = {
+  method(a): void
+};
 
 declare class X {
   method(a): void;
@@ -174,7 +180,9 @@ function f(o: { f(string): void }) {}
 
 type f = (...arg) => void;
 
-type f = /* comment */ arg => void;
+type f = /* comment */
+
+arg => void;
 
 type f = arg /* comment */ => void;
 
@@ -201,6 +209,7 @@ type T = ?() => A | B;
 type T = ?(() => A) | B;
 
 // https://github.com/babel/babel/issues/7924
+
 //type T = ??() => A;
 
 type T = ??(() => A);
@@ -283,11 +292,17 @@ type Banana = {
   eat: string => boolean,
 };
 
-type Hex = { n: 0x01 };
+type Hex = {
+  n: 0x01,
+};
 
-type T = { method: a => void };
+type T = {
+  method: a => void,
+};
 
-type T = { method(a): void };
+type T = {
+  method(a): void,
+};
 
 declare class X {
   method(a): void;
@@ -311,7 +326,9 @@ function f(o: { f(string): void }) {}
 
 type f = (...arg) => void;
 
-type f = /* comment */ arg => void;
+type f = /* comment */
+
+arg => void;
 
 type f = arg /* comment */ => void;
 
@@ -338,6 +355,7 @@ type T = ?() => A | B;
 type T = ?(() => A) | B;
 
 // https://github.com/babel/babel/issues/7924
+
 //type T = ??() => A;
 
 type T = ??(() => A);
@@ -420,11 +438,17 @@ type Banana = {
   eat: (string) => boolean
 };
 
-type Hex = { n: 0x01 };
+type Hex = {
+  n: 0x01
+};
 
-type T = { method: (a) => void };
+type T = {
+  method: (a) => void
+};
 
-type T = { method(a): void };
+type T = {
+  method(a): void
+};
 
 declare class X {
   method(a): void;
@@ -448,7 +472,9 @@ function f(o: { f(string): void }) {}
 
 type f = (...arg) => void;
 
-type f = (/* comment */ arg) => void;
+type f = (/* comment */
+
+arg) => void;
 
 type f = (arg /* comment */) => void;
 
@@ -475,6 +501,7 @@ type T = ?() => A | B;
 type T = ?(() => A) | B;
 
 // https://github.com/babel/babel/issues/7924
+
 //type T = ??() => A;
 
 type T = ??(() => A);

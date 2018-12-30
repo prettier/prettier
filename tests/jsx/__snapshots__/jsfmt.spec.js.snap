@@ -63,7 +63,9 @@ const TodoList = ({ todos }) => (
 
 <div className="search-filter-chips">
   {scopes
+
     .filter(scope => scope.value !== "")
+
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -141,7 +143,9 @@ const TodoList = ({ todos }) => (
 
 <div className='search-filter-chips'>
   {scopes
+
     .filter(scope => scope.value !== "")
+
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -219,7 +223,9 @@ const TodoList = ({ todos }) => (
 
 <div className="search-filter-chips">
   {scopes
+
     .filter(scope => scope.value !== '')
+
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -297,7 +303,9 @@ const TodoList = ({ todos }) => (
 
 <div className='search-filter-chips'>
   {scopes
+
     .filter(scope => scope.value !== '')
+
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -356,31 +364,36 @@ singleQuote: false
 <Component
   propFn={
     // comment
+
     function(arg) {
       fn(arg);
     }
   }
   propArrowFn={
     // comment
+
     arg => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
-      fn({
-        makeItBreak
-      })
+
+    arg => fn({ makeItBreak })
   }
   propArray={
     // comment
+
     [el1, el2]
   }
   propObj={
     // comment
-    { key: val }
+
+    {
+      key: val
+    }
   }
   propTemplate={
     // comment
+
     \`text\`
   }
 />;
@@ -432,31 +445,36 @@ singleQuote: false
 <Component
   propFn={
     // comment
+
     function(arg) {
       fn(arg);
     }
   }
   propArrowFn={
     // comment
+
     arg => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
-      fn({
-        makeItBreak
-      })
+
+    arg => fn({ makeItBreak })
   }
   propArray={
     // comment
+
     [el1, el2]
   }
   propObj={
     // comment
-    { key: val }
+
+    {
+      key: val
+    }
   }
   propTemplate={
     // comment
+
     \`text\`
   }
 />;
@@ -508,31 +526,36 @@ singleQuote: true
 <Component
   propFn={
     // comment
+
     function(arg) {
       fn(arg);
     }
   }
   propArrowFn={
     // comment
+
     arg => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
-      fn({
-        makeItBreak
-      })
+
+    arg => fn({ makeItBreak })
   }
   propArray={
     // comment
+
     [el1, el2]
   }
   propObj={
     // comment
-    { key: val }
+
+    {
+      key: val
+    }
   }
   propTemplate={
     // comment
+
     \`text\`
   }
 />;
@@ -584,31 +607,36 @@ singleQuote: true
 <Component
   propFn={
     // comment
+
     function(arg) {
       fn(arg);
     }
   }
   propArrowFn={
     // comment
+
     arg => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
-      fn({
-        makeItBreak
-      })
+
+    arg => fn({ makeItBreak })
   }
   propArray={
     // comment
+
     [el1, el2]
   }
   propObj={
     // comment
-    { key: val }
+
+    {
+      key: val
+    }
   }
   propTemplate={
     // comment
+
     \`text\`
   }
 />;
@@ -758,56 +786,93 @@ cable ? (
 
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
+
 // "JSX mode". This is normal mode (when breaking):
+
 //
+
 //   test
+
 //     ? consequent
+
 //     : alternate;
+
 //
+
 // And this is JSX mode (when breaking):
+
 //
+
 //   test ? (
+
 //     consequent
+
 //   ) : (
+
 //     alternate
+
 //   );
+
 //
+
 // When non-breaking, they look the same:
+
 //
+
 //  test ? consequent : alternate;
+
 //
+
 // We only print a conditional expression in JSX mode if its test,
+
 // consequent, or alternate are JSXElements.
+
 // Otherwise, we print in normal mode.
 
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
+
 // The line does not break.
+
 normalModeNonBreaking ? "a" : "b";
 
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
+
 // Its consequent is very long, so it breaks out to multiple lines.
+
 normalModeBreaking
   ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
   : "c";
 
 // This ConditionalExpression prints in JSX mode because its test is a
+
 // JSXElement. It is non-breaking.
+
 // Note: I have never, ever seen someone use a JSXElement as the test in a
+
 // ConditionalExpression. But this test is included for completeness.
+
 <div /> ? jsxModeFromElementNonBreaking : "a";
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
+
 // JSXElement. It is non-breaking.
+
 jsxModeFromElementNonBreaking ? <div /> : "a";
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
+
 // JSXElement. It is non-breaking.
+
 jsxModeFromElementNonBreaking ? "a" : <div />;
 
 // This ConditionalExpression prints in JSX mode because its test is a
+
 // JSXElement. It is breaking.
+
 // Note: I have never, ever seen someone use a JSXElement as the test in a
+
 // ConditionalExpression. But this test is included for completeness.
+
 <div>
   <span>
     thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
@@ -819,7 +884,9 @@ jsxModeFromElementNonBreaking ? "a" : <div />;
 );
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
+
 // JSXElement. It is breaking.
+
 jsxModeFromElementBreaking ? (
   <div>
     <span>
@@ -831,7 +898,9 @@ jsxModeFromElementBreaking ? (
 );
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
+
 // JSXElement. It is breaking.
+
 jsxModeFromElementBreaking ? (
   "a"
 ) : (
@@ -843,18 +912,27 @@ jsxModeFromElementBreaking ? (
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
+
 // the outermost ConditionalExpression is a JSXExpressionContainer. It is
+
 // non-breaking.
+
 <div>{a ? "a" : b ? "b" : "c"}</div>;
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain. It is non-breaking.
+
 cable ? "satellite" : public ? "affairs" : network ? <span id="c" /> : "dunno";
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain (in this case, at the end). It is
+
 // breaking; notice the consequents and alternates in the entire chain get
+
 // wrapped in parens.
+
 cable ? (
   "satellite"
 ) : public ? (
@@ -870,9 +948,13 @@ cable ? (
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain (in this case, at the beginning). It is
+
 // breaking; notice the consequents and alternates in the entire chain get
+
 // wrapped in parens.
+
 cable ? (
   <div>
     <span>
@@ -888,8 +970,11 @@ cable ? (
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain. It is breaking; notice the consequents
+
 // and alternates in the entire chain get wrapped in parens.
+
 <div>
   {properties.length > 1 ||
   (properties.length === 1 && properties[0].apps.size > 1) ? (
@@ -1046,56 +1131,93 @@ cable ? (
 
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
+
 // "JSX mode". This is normal mode (when breaking):
+
 //
+
 //   test
+
 //     ? consequent
+
 //     : alternate;
+
 //
+
 // And this is JSX mode (when breaking):
+
 //
+
 //   test ? (
+
 //     consequent
+
 //   ) : (
+
 //     alternate
+
 //   );
+
 //
+
 // When non-breaking, they look the same:
+
 //
+
 //  test ? consequent : alternate;
+
 //
+
 // We only print a conditional expression in JSX mode if its test,
+
 // consequent, or alternate are JSXElements.
+
 // Otherwise, we print in normal mode.
 
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
+
 // The line does not break.
+
 normalModeNonBreaking ? "a" : "b";
 
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
+
 // Its consequent is very long, so it breaks out to multiple lines.
+
 normalModeBreaking
   ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
   : "c";
 
 // This ConditionalExpression prints in JSX mode because its test is a
+
 // JSXElement. It is non-breaking.
+
 // Note: I have never, ever seen someone use a JSXElement as the test in a
+
 // ConditionalExpression. But this test is included for completeness.
+
 <div /> ? jsxModeFromElementNonBreaking : "a";
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
+
 // JSXElement. It is non-breaking.
+
 jsxModeFromElementNonBreaking ? <div /> : "a";
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
+
 // JSXElement. It is non-breaking.
+
 jsxModeFromElementNonBreaking ? "a" : <div />;
 
 // This ConditionalExpression prints in JSX mode because its test is a
+
 // JSXElement. It is breaking.
+
 // Note: I have never, ever seen someone use a JSXElement as the test in a
+
 // ConditionalExpression. But this test is included for completeness.
+
 <div>
   <span>
     thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
@@ -1107,7 +1229,9 @@ jsxModeFromElementNonBreaking ? "a" : <div />;
 );
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
+
 // JSXElement. It is breaking.
+
 jsxModeFromElementBreaking ? (
   <div>
     <span>
@@ -1119,7 +1243,9 @@ jsxModeFromElementBreaking ? (
 );
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
+
 // JSXElement. It is breaking.
+
 jsxModeFromElementBreaking ? (
   "a"
 ) : (
@@ -1131,18 +1257,27 @@ jsxModeFromElementBreaking ? (
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
+
 // the outermost ConditionalExpression is a JSXExpressionContainer. It is
+
 // non-breaking.
+
 <div>{a ? "a" : b ? "b" : "c"}</div>;
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain. It is non-breaking.
+
 cable ? "satellite" : public ? "affairs" : network ? <span id='c' /> : "dunno";
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain (in this case, at the end). It is
+
 // breaking; notice the consequents and alternates in the entire chain get
+
 // wrapped in parens.
+
 cable ? (
   "satellite"
 ) : public ? (
@@ -1158,9 +1293,13 @@ cable ? (
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain (in this case, at the beginning). It is
+
 // breaking; notice the consequents and alternates in the entire chain get
+
 // wrapped in parens.
+
 cable ? (
   <div>
     <span>
@@ -1176,8 +1315,11 @@ cable ? (
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain. It is breaking; notice the consequents
+
 // and alternates in the entire chain get wrapped in parens.
+
 <div>
   {properties.length > 1 ||
   (properties.length === 1 && properties[0].apps.size > 1) ? (
@@ -1334,56 +1476,93 @@ cable ? (
 
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
+
 // "JSX mode". This is normal mode (when breaking):
+
 //
+
 //   test
+
 //     ? consequent
+
 //     : alternate;
+
 //
+
 // And this is JSX mode (when breaking):
+
 //
+
 //   test ? (
+
 //     consequent
+
 //   ) : (
+
 //     alternate
+
 //   );
+
 //
+
 // When non-breaking, they look the same:
+
 //
+
 //  test ? consequent : alternate;
+
 //
+
 // We only print a conditional expression in JSX mode if its test,
+
 // consequent, or alternate are JSXElements.
+
 // Otherwise, we print in normal mode.
 
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
+
 // The line does not break.
+
 normalModeNonBreaking ? 'a' : 'b';
 
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
+
 // Its consequent is very long, so it breaks out to multiple lines.
+
 normalModeBreaking
   ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
   : 'c';
 
 // This ConditionalExpression prints in JSX mode because its test is a
+
 // JSXElement. It is non-breaking.
+
 // Note: I have never, ever seen someone use a JSXElement as the test in a
+
 // ConditionalExpression. But this test is included for completeness.
+
 <div /> ? jsxModeFromElementNonBreaking : 'a';
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
+
 // JSXElement. It is non-breaking.
+
 jsxModeFromElementNonBreaking ? <div /> : 'a';
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
+
 // JSXElement. It is non-breaking.
+
 jsxModeFromElementNonBreaking ? 'a' : <div />;
 
 // This ConditionalExpression prints in JSX mode because its test is a
+
 // JSXElement. It is breaking.
+
 // Note: I have never, ever seen someone use a JSXElement as the test in a
+
 // ConditionalExpression. But this test is included for completeness.
+
 <div>
   <span>
     thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
@@ -1395,7 +1574,9 @@ jsxModeFromElementNonBreaking ? 'a' : <div />;
 );
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
+
 // JSXElement. It is breaking.
+
 jsxModeFromElementBreaking ? (
   <div>
     <span>
@@ -1407,7 +1588,9 @@ jsxModeFromElementBreaking ? (
 );
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
+
 // JSXElement. It is breaking.
+
 jsxModeFromElementBreaking ? (
   'a'
 ) : (
@@ -1419,18 +1602,27 @@ jsxModeFromElementBreaking ? (
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
+
 // the outermost ConditionalExpression is a JSXExpressionContainer. It is
+
 // non-breaking.
+
 <div>{a ? 'a' : b ? 'b' : 'c'}</div>;
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain. It is non-breaking.
+
 cable ? 'satellite' : public ? 'affairs' : network ? <span id="c" /> : 'dunno';
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain (in this case, at the end). It is
+
 // breaking; notice the consequents and alternates in the entire chain get
+
 // wrapped in parens.
+
 cable ? (
   'satellite'
 ) : public ? (
@@ -1446,9 +1638,13 @@ cable ? (
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain (in this case, at the beginning). It is
+
 // breaking; notice the consequents and alternates in the entire chain get
+
 // wrapped in parens.
+
 cable ? (
   <div>
     <span>
@@ -1464,8 +1660,11 @@ cable ? (
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain. It is breaking; notice the consequents
+
 // and alternates in the entire chain get wrapped in parens.
+
 <div>
   {properties.length > 1 ||
   (properties.length === 1 && properties[0].apps.size > 1) ? (
@@ -1622,56 +1821,93 @@ cable ? (
 
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
+
 // "JSX mode". This is normal mode (when breaking):
+
 //
+
 //   test
+
 //     ? consequent
+
 //     : alternate;
+
 //
+
 // And this is JSX mode (when breaking):
+
 //
+
 //   test ? (
+
 //     consequent
+
 //   ) : (
+
 //     alternate
+
 //   );
+
 //
+
 // When non-breaking, they look the same:
+
 //
+
 //  test ? consequent : alternate;
+
 //
+
 // We only print a conditional expression in JSX mode if its test,
+
 // consequent, or alternate are JSXElements.
+
 // Otherwise, we print in normal mode.
 
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
+
 // The line does not break.
+
 normalModeNonBreaking ? 'a' : 'b';
 
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
+
 // Its consequent is very long, so it breaks out to multiple lines.
+
 normalModeBreaking
   ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
   : 'c';
 
 // This ConditionalExpression prints in JSX mode because its test is a
+
 // JSXElement. It is non-breaking.
+
 // Note: I have never, ever seen someone use a JSXElement as the test in a
+
 // ConditionalExpression. But this test is included for completeness.
+
 <div /> ? jsxModeFromElementNonBreaking : 'a';
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
+
 // JSXElement. It is non-breaking.
+
 jsxModeFromElementNonBreaking ? <div /> : 'a';
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
+
 // JSXElement. It is non-breaking.
+
 jsxModeFromElementNonBreaking ? 'a' : <div />;
 
 // This ConditionalExpression prints in JSX mode because its test is a
+
 // JSXElement. It is breaking.
+
 // Note: I have never, ever seen someone use a JSXElement as the test in a
+
 // ConditionalExpression. But this test is included for completeness.
+
 <div>
   <span>
     thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
@@ -1683,7 +1919,9 @@ jsxModeFromElementNonBreaking ? 'a' : <div />;
 );
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
+
 // JSXElement. It is breaking.
+
 jsxModeFromElementBreaking ? (
   <div>
     <span>
@@ -1695,7 +1933,9 @@ jsxModeFromElementBreaking ? (
 );
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
+
 // JSXElement. It is breaking.
+
 jsxModeFromElementBreaking ? (
   'a'
 ) : (
@@ -1707,18 +1947,27 @@ jsxModeFromElementBreaking ? (
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
+
 // the outermost ConditionalExpression is a JSXExpressionContainer. It is
+
 // non-breaking.
+
 <div>{a ? 'a' : b ? 'b' : 'c'}</div>;
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain. It is non-breaking.
+
 cable ? 'satellite' : public ? 'affairs' : network ? <span id='c' /> : 'dunno';
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain (in this case, at the end). It is
+
 // breaking; notice the consequents and alternates in the entire chain get
+
 // wrapped in parens.
+
 cable ? (
   'satellite'
 ) : public ? (
@@ -1734,9 +1983,13 @@ cable ? (
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain (in this case, at the beginning). It is
+
 // breaking; notice the consequents and alternates in the entire chain get
+
 // wrapped in parens.
+
 cable ? (
   <div>
     <span>
@@ -1752,8 +2005,11 @@ cable ? (
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
+
 // JSX element somewhere in the chain. It is breaking; notice the consequents
+
 // and alternates in the entire chain get wrapped in parens.
+
 <div>
   {properties.length > 1 ||
   (properties.length === 1 && properties[0].apps.size > 1) ? (
@@ -1912,8 +2168,11 @@ singleQuote: false
 <View
   style={{
     someVeryLongStyle1: "true",
+
     someVeryLongStyle2: "true",
+
     someVeryLongStyle3: "true",
+
     someVeryLongStyle4: "true"
   }}
 />;
@@ -1922,8 +2181,11 @@ singleQuote: false
   style={[
     {
       someVeryLongStyle1: "true",
+
       someVeryLongStyle2: "true",
+
       someVeryLongStyle3: "true",
+
       someVeryLongStyle4: "true"
     }
   ]}
@@ -2044,9 +2306,16 @@ singleQuote: false
 </Component>;
 
 <SuspendyTree>
-  <div style={{ height: 200, overflow: "scroll" }}>
+  <div
+    style={{
+      height: 200,
+
+      overflow: "scroll"
+    }}
+  >
     {Array(20)
       .fill()
+
       .map((_, i) => (
         <h2 key={i}>{i + 1}</h2>
       ))}
@@ -2200,8 +2469,11 @@ singleQuote: false
 <View
   style={{
     someVeryLongStyle1: "true",
+
     someVeryLongStyle2: "true",
+
     someVeryLongStyle3: "true",
+
     someVeryLongStyle4: "true"
   }}
 />;
@@ -2210,8 +2482,11 @@ singleQuote: false
   style={[
     {
       someVeryLongStyle1: "true",
+
       someVeryLongStyle2: "true",
+
       someVeryLongStyle3: "true",
+
       someVeryLongStyle4: "true"
     }
   ]}
@@ -2332,9 +2607,16 @@ singleQuote: false
 </Component>;
 
 <SuspendyTree>
-  <div style={{ height: 200, overflow: "scroll" }}>
+  <div
+    style={{
+      height: 200,
+
+      overflow: "scroll"
+    }}
+  >
     {Array(20)
       .fill()
+
       .map((_, i) => (
         <h2 key={i}>{i + 1}</h2>
       ))}
@@ -2488,8 +2770,11 @@ singleQuote: true
 <View
   style={{
     someVeryLongStyle1: 'true',
+
     someVeryLongStyle2: 'true',
+
     someVeryLongStyle3: 'true',
+
     someVeryLongStyle4: 'true'
   }}
 />;
@@ -2498,8 +2783,11 @@ singleQuote: true
   style={[
     {
       someVeryLongStyle1: 'true',
+
       someVeryLongStyle2: 'true',
+
       someVeryLongStyle3: 'true',
+
       someVeryLongStyle4: 'true'
     }
   ]}
@@ -2620,9 +2908,16 @@ singleQuote: true
 </Component>;
 
 <SuspendyTree>
-  <div style={{ height: 200, overflow: 'scroll' }}>
+  <div
+    style={{
+      height: 200,
+
+      overflow: 'scroll'
+    }}
+  >
     {Array(20)
       .fill()
+
       .map((_, i) => (
         <h2 key={i}>{i + 1}</h2>
       ))}
@@ -2776,8 +3071,11 @@ singleQuote: true
 <View
   style={{
     someVeryLongStyle1: 'true',
+
     someVeryLongStyle2: 'true',
+
     someVeryLongStyle3: 'true',
+
     someVeryLongStyle4: 'true'
   }}
 />;
@@ -2786,8 +3084,11 @@ singleQuote: true
   style={[
     {
       someVeryLongStyle1: 'true',
+
       someVeryLongStyle2: 'true',
+
       someVeryLongStyle3: 'true',
+
       someVeryLongStyle4: 'true'
     }
   ]}
@@ -2908,9 +3209,16 @@ singleQuote: true
 </Component>;
 
 <SuspendyTree>
-  <div style={{ height: 200, overflow: 'scroll' }}>
+  <div
+    style={{
+      height: 200,
+
+      overflow: 'scroll'
+    }}
+  >
     {Array(20)
       .fill()
+
       .map((_, i) => (
         <h2 key={i}>{i + 1}</h2>
       ))}
@@ -2938,6 +3246,7 @@ const aDiv = (
 =====================================output=====================================
 const aDiv = (
   /* $FlowFixMe */
+
   <div className="foo">Foo bar</div>
 );
 
@@ -2962,6 +3271,7 @@ const aDiv = (
 =====================================output=====================================
 const aDiv = (
   /* $FlowFixMe */
+
   <div className='foo'>Foo bar</div>
 );
 
@@ -2986,6 +3296,7 @@ const aDiv = (
 =====================================output=====================================
 const aDiv = (
   /* $FlowFixMe */
+
   <div className="foo">Foo bar</div>
 );
 
@@ -3010,6 +3321,7 @@ const aDiv = (
 =====================================output=====================================
 const aDiv = (
   /* $FlowFixMe */
+
   <div className='foo'>Foo bar</div>
 );
 
@@ -3762,6 +4074,7 @@ const tabs = [
 const tabs = [
   {
     title: "General Info",
+
     content: (
       <GeneralForm
         long-attribute="i-need-long-value-here"
@@ -3802,6 +4115,7 @@ const tabs = [
 const tabs = [
   {
     title: "General Info",
+
     content: (
       <GeneralForm
         long-attribute='i-need-long-value-here'
@@ -3842,6 +4156,7 @@ const tabs = [
 const tabs = [
   {
     title: 'General Info',
+
     content: (
       <GeneralForm
         long-attribute="i-need-long-value-here"
@@ -3882,6 +4197,7 @@ const tabs = [
 const tabs = [
   {
     title: 'General Info',
+
     content: (
       <GeneralForm
         long-attribute='i-need-long-value-here'
@@ -4099,6 +4415,7 @@ a = [
     key="0"
     d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
   />,
+
   <path
     key="1"
     d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
@@ -4137,6 +4454,7 @@ a = [
     key='0'
     d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
   />,
+
   <path
     key='1'
     d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
@@ -4175,6 +4493,7 @@ a = [
     key="0"
     d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
   />,
+
   <path
     key="1"
     d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
@@ -4213,6 +4532,7 @@ a = [
     key='0'
     d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
   />,
+
   <path
     key='1'
     d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
@@ -4277,11 +4597,17 @@ singleQuote: false
 
 =====================================output=====================================
 <div id="&quot;'<>&amp;quot;" />;
+
 <div id='"&#39;<>&amp;quot;' />;
+
 <div id={"'\\"&quot;<>&amp;quot;"} />;
+
 <div id="123" />;
+
 <div id='&#39;"' />;
+
 <div id={"'\\"\\\\'"} />;
+
 <div
   single="foo"
   single2={"foo"}
@@ -4367,11 +4693,17 @@ singleQuote: false
 
 =====================================output=====================================
 <div id='"&apos;<>&amp;quot;' />;
+
 <div id='"&#39;<>&amp;quot;' />;
+
 <div id={"'\\"&quot;<>&amp;quot;"} />;
+
 <div id='123' />;
+
 <div id='&#39;"' />;
+
 <div id={"'\\"\\\\'"} />;
+
 <div
   single='foo'
   single2={"foo"}
@@ -4457,11 +4789,17 @@ singleQuote: true
 
 =====================================output=====================================
 <div id="&quot;'<>&amp;quot;" />;
+
 <div id='"&#39;<>&amp;quot;' />;
+
 <div id={'\\'"&quot;<>&amp;quot;'} />;
+
 <div id="123" />;
+
 <div id='&#39;"' />;
+
 <div id={"'\\"\\\\'"} />;
+
 <div
   single="foo"
   single2={'foo'}
@@ -4547,11 +4885,17 @@ singleQuote: true
 
 =====================================output=====================================
 <div id='"&apos;<>&amp;quot;' />;
+
 <div id='"&#39;<>&amp;quot;' />;
+
 <div id={'\\'"&quot;<>&amp;quot;'} />;
+
 <div id='123' />;
+
 <div id='&#39;"' />;
+
 <div id={"'\\"\\\\'"} />;
+
 <div
   single='foo'
   single2={'foo'}

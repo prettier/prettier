@@ -9,7 +9,11 @@ printWidth: 80
 function getScaledData({x}): ?{foo: number} {}
 
 =====================================output=====================================
-function getScaledData({ x }): ?{ foo: number } {}
+function getScaledData({
+  x
+}): ?{
+  foo: number
+} {}
 
 ================================================================================
 `;

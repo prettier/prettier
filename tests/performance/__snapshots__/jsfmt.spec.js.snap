@@ -37,35 +37,91 @@ someObject.someFunction().then(function() {
 });
 
 =====================================output=====================================
-someObject.someFunction().then(function() {
-  return someObject.someFunction().then(function() {
-    return someObject.someFunction().then(function() {
-      return someObject.someFunction().then(function() {
-        return someObject.someFunction().then(function() {
-          return someObject.someFunction().then(function() {
-            return someObject.someFunction().then(function() {
-              return someObject.someFunction().then(function() {
-                return someObject.someFunction().then(function() {
-                  return someObject.someFunction().then(function() {
-                    return someObject.someFunction().then(function() {
-                      return someObject.someFunction().then(function() {
-                        return someObject.someFunction().then(function() {
-                          return someObject.someFunction().then(function() {
-                            anotherFunction();
+someObject
+
+  .someFunction()
+
+  .then(function() {
+    return someObject
+
+      .someFunction()
+
+      .then(function() {
+        return someObject
+
+          .someFunction()
+
+          .then(function() {
+            return someObject
+
+              .someFunction()
+
+              .then(function() {
+                return someObject
+
+                  .someFunction()
+
+                  .then(function() {
+                    return someObject
+
+                      .someFunction()
+
+                      .then(function() {
+                        return someObject
+
+                          .someFunction()
+
+                          .then(function() {
+                            return someObject
+
+                              .someFunction()
+
+                              .then(function() {
+                                return someObject
+
+                                  .someFunction()
+
+                                  .then(function() {
+                                    return someObject
+
+                                      .someFunction()
+
+                                      .then(function() {
+                                        return someObject
+
+                                          .someFunction()
+
+                                          .then(function() {
+                                            return someObject
+
+                                              .someFunction()
+
+                                              .then(function() {
+                                                return someObject
+
+                                                  .someFunction()
+
+                                                  .then(function() {
+                                                    return someObject
+
+                                                      .someFunction()
+
+                                                      .then(function() {
+                                                        anotherFunction();
+                                                      });
+                                                  });
+                                              });
+                                          });
+                                      });
+                                  });
+                              });
                           });
-                        });
                       });
-                    });
                   });
-                });
               });
-            });
           });
-        });
       });
-    });
   });
-});
 
 ================================================================================
 `;
@@ -164,13 +220,22 @@ tap.test("RecordImport.advance", (t) => {
 tap.test("RecordImport.advance", t => {
   const checkStates = (batches, states) => {
     t.equal(batches.length, states.length);
+
     for (const batch of batches) {
       t.equal(batch.state, states.shift());
-      t.ok(batch.getCurState().name(i18n));
+
+      t.ok(
+        batch
+
+          .getCurState()
+
+          .name(i18n)
+      );
     }
   };
 
   const batch = init.getRecordBatch();
+
   const dataFile = path.resolve(process.cwd(), "testData", "default.json");
 
   const getBatches = callback => {
@@ -187,10 +252,14 @@ tap.test("RecordImport.advance", t => {
   mockFS(callback => {
     batch.setResults([fs.createReadStream(dataFile)], err => {
       t.error(err, "Error should be empty.");
+
       t.equal(batch.results.length, 6, "Check number of results");
+
       for (const result of batch.results) {
         t.equal(result.result, "unknown");
+
         t.ok(result.data);
+
         t.equal(result.data.lang, "en");
       }
 
@@ -204,6 +273,7 @@ tap.test("RecordImport.advance", t => {
             checkStates(batches, ["process.completed"]);
 
             // Need to manually move to the next step
+
             batch.importRecords(err => {
               t.error(err, "Error should be empty.");
 
@@ -219,28 +289,60 @@ tap.test("RecordImport.advance", t => {
                     RecordImport.advance(err => {
                       t.error(err, "Error should be empty.");
 
-                      t.ok(batch.getCurState().name(i18n));
+                      t.ok(
+                        batch
+
+                          .getCurState()
+
+                          .name(i18n)
+                      );
 
                       getBatches((err, batches) => {
                         checkStates(batches, []);
+
                         t.end();
+
                         callback();
                       });
                     });
 
-                    t.ok(batch.getCurState().name(i18n));
+                    t.ok(
+                      batch
+
+                        .getCurState()
+
+                        .name(i18n)
+                    );
                   });
                 });
 
-                t.ok(batch.getCurState().name(i18n));
+                t.ok(
+                  batch
+
+                    .getCurState()
+
+                    .name(i18n)
+                );
               });
             });
 
-            t.ok(batch.getCurState().name(i18n));
+            t.ok(
+              batch
+
+                .getCurState()
+
+                .name(i18n)
+            );
           });
         });
 
-        t.ok(batch.getCurState().name(i18n));
+        t.ok(
+          batch
+
+            .getCurState()
+
+            .name(i18n)
+        );
       });
     });
   });

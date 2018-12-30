@@ -17,6 +17,7 @@ function foo(x) {
 }
 
 var [n, b, s] = foo(42);
+
 n * s.length;
 
 ================================================================================
@@ -38,6 +39,7 @@ module.exports = C;
 =====================================output=====================================
 class C {
   x: number;
+
   constructor(x: number) {
     this.x = x;
   }
@@ -63,8 +65,10 @@ function foo<X>(x: X): X { r = x; return x; }
 /* @flow */
 
 var r: number = 0;
+
 function foo<X>(x: X): X {
   r = x;
+
   return x;
 }
 
@@ -112,11 +116,13 @@ function bar(x: ?string): number {
 
 function foo() {
   var x = 0;
+
   var y = x;
 }
 
 function bar(x: ?string): number {
   if (x == null) x = "";
+
   return x.length;
 }
 
@@ -147,23 +153,41 @@ var y: number = o2.bar();
 function C() {
   this.x = 0;
 }
+
 C.prototype.foo = function() {
   return this.x;
 };
 
 var c = new C();
+
 var x: string = c.foo();
 
 function foo() {
   return this.y;
 }
+
 function bar() {
   return this.foo();
 }
-var o = { y: "", foo: foo, bar: bar };
-var o2 = { y: 0, foo: foo, bar: bar };
+
+var o = {
+  y: "",
+
+  foo: foo,
+
+  bar: bar
+};
+
+var o2 = {
+  y: 0,
+
+  foo: foo,
+
+  bar: bar
+};
 
 o.bar();
+
 var y: number = o2.bar();
 
 ================================================================================

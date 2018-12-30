@@ -13,8 +13,11 @@ printWidth: 80
 
 =====================================output=====================================
 (class {} + 1);
+
 (class a {} + 1);
+
 (class extends b {} + 1);
+
 (class a extends b {} + 1);
 
 ================================================================================
@@ -83,7 +86,9 @@ class DisplayObject extends utils.EventEmitter
 
 class DisplayObject extends utils.EventEmitter
   implements interaction_InteractiveTarget {}
+
 class Readable extends events.EventEmitter implements NodeJS_ReadableStream {}
+
 class InMemoryAppender extends log4javascript.Appender
   implements ICachedLogMessageProvider {}
 
@@ -95,6 +100,7 @@ class Foo extends Immutable.Record({
 
 export class VisTimelineComponent
   implements AfterViewInit, OnChanges, OnDestroy {}
+
 export class VisTimelineComponent2
   implements
     AfterViewInit,
@@ -140,11 +146,13 @@ class A {
 }
 
 =====================================output=====================================
-class A {
+class A
+{
   // comment
 }
 
-class A {
+class A
+{
   // comment
 }
 
@@ -168,6 +176,7 @@ printWidth: 80
 
 =====================================output=====================================
 (class {}[1]);
+
 (class {}.a);
 
 ================================================================================
@@ -232,8 +241,10 @@ class B {
 class A {
   foobar =
     // comment to break
+
     1 +
     // comment to break again
+
     2;
 }
 

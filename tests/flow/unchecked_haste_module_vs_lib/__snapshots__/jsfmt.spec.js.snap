@@ -68,7 +68,9 @@ var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
  * that follows will cause no errors, but if we resolve to the library
  * instead, we'll get the desired error.
  */
+
 var buffer = require("buffer");
+
 var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
 
 ================================================================================

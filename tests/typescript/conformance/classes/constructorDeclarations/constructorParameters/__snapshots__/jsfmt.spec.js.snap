@@ -62,6 +62,7 @@ class E<T extends Date> {
 =====================================output=====================================
 class C {
   constructor(x);
+
   constructor(x = 1) {
     var y = x;
   }
@@ -69,6 +70,7 @@ class C {
 
 class D<T> {
   constructor(x);
+
   constructor(x: T = null) {
     var y = x;
   }
@@ -76,6 +78,7 @@ class D<T> {
 
 class E<T extends Date> {
   constructor(x);
+
   constructor(x: T = null) {
     var y = x;
   }
@@ -113,6 +116,7 @@ class E<T extends Date> {
 =====================================output=====================================
 class C {
   constructor(x);
+
   constructor(public x: string = 1) {
     var y = x;
   }
@@ -120,6 +124,7 @@ class C {
 
 class D<T, U> {
   constructor(x: T, y: U);
+
   constructor(x: T = 1, public y: U = x) {
     var z = x;
   }
@@ -127,6 +132,7 @@ class D<T, U> {
 
 class E<T extends Date> {
   constructor(x);
+
   constructor(x: T = new Date()) {
     var y = x;
   }
@@ -157,13 +163,17 @@ class D<T> {
 =====================================output=====================================
 class C {
   foo: string;
+
   constructor(x = 1);
+
   constructor() {}
 }
 
 class D<T> {
   foo: string;
+
   constructor(x = 1);
+
   constructor() {}
 }
 
@@ -192,13 +202,17 @@ class D<T> {
 =====================================output=====================================
 class C {
   foo: string;
+
   constructor(x?, y?: any[]);
+
   constructor() {}
 }
 
 class D<T> {
   foo: string;
+
   constructor(x?, y?: any[]);
+
   constructor() {}
 }
 
@@ -235,23 +249,32 @@ var r4 = d.z; // error
 =====================================output=====================================
 class C {
   y: string;
+
   constructor(private x: string, protected z: string) {}
 }
 
 var c: C;
+
 var r = c.y;
+
 var r2 = c.x; // error
+
 var r3 = c.z; // error
 
 class D<T> {
   y: T;
+
   constructor(a: T, private x: T, protected z: T) {}
 }
 
 var d: D<string>;
+
 var r = d.y;
+
 var r2 = d.x; // error
+
 var r3 = d.a; // error
+
 var r4 = d.z; // error
 
 ================================================================================
@@ -298,34 +321,42 @@ var r4 = f.y; // error
 =====================================output=====================================
 class C {
   y: number;
+
   constructor(y: number) {} // ok
 }
 
 var c: C;
+
 var r = c.y;
 
 class D {
   y: number;
+
   constructor(public y: number) {}
 }
 
 var d: D;
+
 var r2 = d.y;
 
 class E {
   y: number;
+
   constructor(private y: number) {}
 }
 
 var e: E;
+
 var r3 = e.y; // error
 
 class F {
   y: number;
+
   constructor(protected y: number) {}
 }
 
 var f: F;
+
 var r4 = f.y; // error
 
 ================================================================================
@@ -409,16 +440,21 @@ class A {
 class B extends A {
   constructor(x: number) {
     super(x);
+
     // Fails, x is readonly
+
     this.x = 1;
   }
 }
 
 class C extends A {
   // This is the usual behavior of readonly properties:
+
   // if one is redeclared in a base class, then it can be assigned to.
+
   constructor(readonly x: number) {
     super(x);
+
     this.x = 1;
   }
 }
@@ -430,9 +466,11 @@ class D {
 }
 
 // Fails, can't redeclare readonly property
+
 class E extends D {
   constructor(readonly x: number) {
     super(x);
+
     this.x = 1;
   }
 }
@@ -463,6 +501,7 @@ new F(1).x;
 class C {
   constructor(readonly x: number) {}
 }
+
 new C(1).x = 2;
 
 class E {
@@ -472,6 +511,7 @@ class E {
 class F {
   constructor(private readonly x: number) {}
 }
+
 new F(1).x;
 
 ================================================================================
@@ -490,6 +530,7 @@ class C {
 =====================================output=====================================
 class C {
   readonly x: number;
+
   constructor(readonly y: number) {}
 }
 

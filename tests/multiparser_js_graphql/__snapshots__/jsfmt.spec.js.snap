@@ -17,7 +17,9 @@ const query = /* GraphQL */\`
 \`;
 
 =====================================output=====================================
-const query = /* GraphQL */ \`
+const query = /* GraphQL */
+
+\`
   {
     user(id: 5) {
       firstName
@@ -126,9 +128,11 @@ gql\`
     pattern: String
 
     # Also: Escaping the first parentheses...
+
     "Pattern: \\\`\\\${project}\\\`"
     pattern: String
     # Or escaping the first and second parentheses...
+
     "Pattern: \\\`\\\${project}\\\`"
     pattern: String
   }
@@ -450,12 +454,13 @@ gql\`
     user(id: 5) {
       name
     }
-  }
-  # comment
+  } # comment
 \`;
+
 // \` <-- editor syntax highlighting workaround
 
 // Preserve up to one blank line between things and enforce linebreak between
+
 // interpolations:
 
 gql\`
@@ -501,6 +506,7 @@ gql\`
 gql\`
   # comment
 \`;
+
 // \` <-- editor syntax highlighting workaround
 
 // Only whitespace:
@@ -512,7 +518,9 @@ gql\`\`;
 gql\`\`;
 
 // Comments after other things:
+
 // Currently, comments after interpolations are moved to the next line.
+
 // We might want to keep them on the next line in the future.
 
 gql\`
@@ -521,6 +529,7 @@ gql\`
 
   query Test {
     # comment
+
     test # comment
   } # comment
   \${test}
@@ -598,6 +607,7 @@ gql\`
 
 =====================================output=====================================
 // none of the embedded GraphQL should be formatted
+
 // for they have an invalid escape sequence
 
 gql\`

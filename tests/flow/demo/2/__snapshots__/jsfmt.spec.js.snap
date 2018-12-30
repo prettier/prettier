@@ -31,6 +31,7 @@ module.exports = A;
 
 class A {
   x: number; // instance field declaration
+
   constructor(x) {
     this.x = x;
   }
@@ -49,6 +50,7 @@ function callback(x: string) {
 }
 
 var a = new A(42);
+
 a.onLoad(callback);
 
 module.exports = A;

@@ -55,6 +55,7 @@ exports[`CLI overrides gets ignored when config exists with --config-precedence 
 
 module.exports = {
         endOfLine: \\"lf\\",
+
         tabWidth: 8
 };
 "
@@ -72,6 +73,7 @@ exports[`CLI overrides take lower precedence with --config-precedence file-overr
 
 module.exports = {
         endOfLine: \\"lf\\",
+
         tabWidth: 8
 };
 "
@@ -121,6 +123,7 @@ function js() {
 module.exports = {
         endOfLine:
                 \\"lf\\",
+
         tabWidth: 8
 };
 function noConfigJs() {
@@ -138,7 +141,9 @@ function rcJson() {
     null,
     [
       'rc-json/file.js',
+
       'should have trailing comma',
+
       'and single quotes',
     ],
   );
@@ -148,7 +153,9 @@ function rcToml() {
     null,
     [
       'rc-toml/file.js',
+
       'should have trailing comma',
+
       'and single quotes',
     ],
   );
@@ -158,7 +165,9 @@ function rcYaml() {
     null,
     [
       'rc-yaml/file.js',
+
       'should have trailing comma',
+
       'and single quotes',
     ],
   );
@@ -210,6 +219,7 @@ function js() {
 module.exports = {
         endOfLine:
                 \\"lf\\",
+
         tabWidth: 8
 };
 function noConfigJs() {
@@ -227,7 +237,9 @@ function rcJson() {
     null,
     [
       'rc-json/file.js',
+
       'should have trailing comma',
+
       'and single quotes',
     ],
   );
@@ -237,7 +249,9 @@ function rcToml() {
     null,
     [
       'rc-toml/file.js',
+
       'should have trailing comma',
+
       'and single quotes',
     ],
   );
@@ -247,7 +261,9 @@ function rcYaml() {
     null,
     [
       'rc-yaml/file.js',
+
       'should have trailing comma',
+
       'and single quotes',
     ],
   );

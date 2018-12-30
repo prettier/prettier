@@ -18,7 +18,13 @@ export const LIFE = 0;
 =====================================output=====================================
 // @flow
 
-export type Action = { type: "QUX" } | { type: "BAR" };
+export type Action =
+  | {
+      type: "QUX"
+    }
+  | {
+      type: "BAR"
+    };
 
 export const LIFE = 0;
 
@@ -49,7 +55,9 @@ import { LIFE } from './e1';
 import type { Action } from "./e1";
 
 const f = (): Action => {
-  return { type: "QUX" };
+  return {
+    type: "QUX"
+  };
 };
 
 import { LIFE } from "./e1";

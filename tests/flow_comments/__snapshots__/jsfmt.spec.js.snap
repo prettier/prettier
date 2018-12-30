@@ -18,12 +18,18 @@ const run = (cmd /*: string */) /*: Promise<void> */ => {}
 
 =====================================output=====================================
 // Error
+
 const beep = (data /*: Object */) => {};
 
 // OK
+
 const beep = (data /*: Object */, secondData /*: Object */) => {};
 
-const beep = (data /*: /* this is an object *-/ Object */) => {};
+const beep = (
+  data /*: /* this is an object *-/
+
+  Object */
+) => {};
 
 const run = (cmd /*: string */) /*: Promise<void> */ => {};
 
@@ -88,6 +94,7 @@ foo/*::<bar>*/();
 const Component = branch/*:: <Props, ExternalProps> */(
   ({ src }) => !src,
   // $FlowFixMe
+
   renderNothing
 )(BaseComponent);
 
@@ -111,6 +118,7 @@ let foo /*: string */ = 'a';
 
 =====================================output=====================================
 let foo /*: Groups<T> */;
+
 let foo /*: string */ = "a";
 
 ================================================================================
@@ -138,17 +146,20 @@ type Props = {
 
 =====================================output=====================================
 // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+
 type Props = {
   isPlaying: boolean
 };
 
 type Props = {
   // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+
   isPlaying: boolean
 };
 
 type Props = {
   // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+
   isPlaying: boolean
 };
 
@@ -182,7 +193,9 @@ new (window.Request /*: Class<Request> */)("");
 (this /*: any */).foo = 5;
 
 // This next example illustrates that Prettier will not remove a line break
+
 // and unintentionally create a type annotation that was not there before.
+
 this /*
 : any */.foo = 5;
 

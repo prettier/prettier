@@ -52,18 +52,30 @@ h(
 );
 
 deepCopyAndAsyncMapLeavesA(
-  { source: sourceValue, destination: destination[sourceKey] },
+  {
+    source: sourceValue,
+
+    destination: destination[sourceKey]
+  },
   { valueMapper, overwriteExistingKeys }
 );
 
 deepCopyAndAsyncMapLeavesB(
   1337,
-  { source: sourceValue, destination: destination[sourceKey] },
+  {
+    source: sourceValue,
+
+    destination: destination[sourceKey]
+  },
   { valueMapper, overwriteExistingKeys }
 );
 
 deepCopyAndAsyncMapLeavesC(
-  { source: sourceValue, destination: destination[sourceKey] },
+  {
+    source: sourceValue,
+
+    destination: destination[sourceKey]
+  },
   1337,
   { valueMapper, overwriteExistingKeys }
 );
@@ -77,7 +89,9 @@ function someFunction(url) {
 
 const mapChargeItems = fp.flow(
   l => (l < 10 ? l : 1),
-  l => Immutable.Range(l).toMap()
+  l =>
+    Immutable.Range(l)
+    .toMap()
 );
 
 expect(
@@ -147,19 +161,30 @@ function helloWorld() {
   useEffect(() => {
     // do something
   }, [props.value]);
+
   useEffect(() => {
     // do something
   }, [
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value
   ]);
 }
@@ -168,19 +193,30 @@ function helloWorldWithReact() {
   React.useEffect(() => {
     // do something
   }, [props.value]);
+
   React.useEffect(() => {
     // do something
   }, [
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value,
+
     props.value
   ]);
 }

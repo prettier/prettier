@@ -274,7 +274,7 @@ Multiple values are accepted.",
           ],
         },
         "pure": Object {
-          "default": false,
+          "default": true,
           "description": "Ignore the input formatting as much as possible.",
           "type": "boolean",
         },

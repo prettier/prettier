@@ -60,7 +60,9 @@ const all = FLAG_A | FLAG_B | FLAG_C;
 
 =====================================output=====================================
 const FLAG_A = 1 << 0;
+
 const FLAG_B = 1 << 1;
+
 const FLAG_C = 1 << 2;
 
 const all = FLAG_A | FLAG_B | FLAG_C;
@@ -83,6 +85,7 @@ a = (
 =====================================output=====================================
 a =
   // Commment 1
+
   Math.random() * (yRange * (1 - minVerticalFraction)) +
   minVerticalFraction * yRange -
   offset;
@@ -108,13 +111,19 @@ x !== y !== z;
 
 =====================================output=====================================
 (x == y) == z;
+
 (x != y) == z;
+
 (x == y) != z;
+
 (x != y) != z;
 
 (x === y) === z;
+
 (x !== y) === z;
+
 (x === y) !== z;
+
 (x !== y) !== z;
 
 ================================================================================
@@ -138,13 +147,21 @@ a ** (b * c);
 
 =====================================output=====================================
 a ** (b ** c);
+
 (a ** b) ** c;
+
 a.b ** c;
+
 (-a) ** b;
+
 a ** -b;
+
 -(a ** b);
+
 (a * b) ** c;
+
 a ** (b * c);
+
 (a % b) ** c;
 
 ================================================================================
@@ -326,18 +343,26 @@ const obj = {
 =====================================output=====================================
 prevState = prevState || {
   catalogs: [],
+
   loadState: LOADED,
+
   opened: false,
+
   searchQuery: "",
+
   selectedCatalog: null
 };
 
 prevState = prevState ||
   defaultState || {
     catalogs: [],
+
     loadState: LOADED,
+
     opened: false,
+
     searchQuery: "",
+
     selectedCatalog: null
   };
 
@@ -345,24 +370,33 @@ prevState =
   prevState ||
   (defaultState && {
     catalogs: [],
+
     loadState: LOADED,
+
     opened: false,
+
     searchQuery: "",
+
     selectedCatalog: null
   });
 
 prevState = prevState ||
   (useDefault && defaultState) || {
     catalogs: [],
+
     loadState: LOADED,
+
     opened: false,
+
     searchQuery: "",
+
     selectedCatalog: null
   };
 
 this.steps = steps || [
   {
     name: "mock-module",
+
     path: "/nux/mock-module"
   }
 ];
@@ -372,6 +406,7 @@ this.steps =
   (checkStep && [
     {
       name: "mock-module",
+
       path: "/nux/mock-module"
     }
   ]);
@@ -379,17 +414,21 @@ this.steps =
 this.steps = (steps && checkStep) || [
   {
     name: "mock-module",
+
     path: "/nux/mock-module"
   }
 ];
 
 const create = () => {
   const result = doSomething();
+
   return (
     shouldReturn &&
     result.ok && {
       status: "ok",
+
       createdAt: result.createdAt,
+
       updatedAt: result.updatedAt
     }
   );
@@ -397,10 +436,13 @@ const create = () => {
 
 const create = () => {
   const result = doSomething();
+
   return (
     (shouldReturn && result.ok && result) || {
       status: "ok",
+
       createdAt: result.createdAt,
+
       updatedAt: result.updatedAt
     }
   );
@@ -410,11 +452,14 @@ const obj = {
   state: shouldHaveState &&
     stateIsOK && {
       loadState: LOADED,
+
       opened: false
     },
+
   loadNext: (stateIsOK && hasNext) || {
     skipNext: true
   },
+
   loaded: true
 };
 
@@ -481,6 +526,7 @@ printWidth: 80
     !isJellyfishEnabled &&
     diffUpdateMessageInput && {
       fontSize: 14,
+
       color: "#fff"
     }
   }
@@ -536,26 +582,39 @@ x << y | z;
 
 =====================================output=====================================
 x + y / z;
+
 x / y + z;
 
 (x * y) % z;
+
 (x / y) % z;
+
 (x % y) * z;
+
 (x % y) / z;
 
 (x % y) % z;
 
 (x << y) >> z;
+
 (x >>> y) << z;
+
 (x >>> y) >>> z;
+
 (x + y) >> z;
 
 x | (y & z);
+
 (x & y) | z;
+
 x ^ y ^ z;
+
 x & y & z;
+
 x | y | z;
+
 x & (y >> z);
+
 (x << y) | z;
 
 ================================================================================
@@ -599,8 +658,10 @@ function foo() {
 }
 
 function foo() {
-  return this.calculate().compute().first.numberOfThings >
-    this.calculate().compute().last.numberOfThings
+  return this.calculate()
+  .compute().first.numberOfThings >
+    this.calculate()
+    .compute().last.numberOfThings
     ? true
     : false;
 }
@@ -683,9 +744,11 @@ foo(obj.property * new Class() && obj instanceof Class && longVariable ? number 
 
 =====================================output=====================================
 // It should always break the highest precedence operators first, and
+
 // break them all at the same time.
 
 const x = longVariable + longVariable + longVariable;
+
 const x =
   longVariable +
   longVariable +
@@ -693,12 +756,14 @@ const x =
   longVariable -
   longVariable +
   longVariable;
+
 const x =
   longVariable +
   longVariable * longVariable +
   longVariable -
   longVariable +
   longVariable;
+
 const x =
   longVariable +
   (longVariable * longVariable * longVariable) / longVariable +
@@ -711,18 +776,22 @@ const x =
   longVariable &&
   longVariable &&
   longVariable;
+
 const x =
   (longVariable && longVariable) ||
   (longVariable && longVariable) ||
   (longVariable && longVariable);
+
 const x =
   firstItemWithAVeryLongNameThatKeepsGoing ||
   firstItemWithAVeryLongNameThatKeepsGoing ||
   {};
+
 const x =
   firstItemWithAVeryLongNameThatKeepsGoing ||
   firstItemWithAVeryLongNameThatKeepsGoing ||
   [];
+
 const x =
   call(
     firstItemWithAVeryLongNameThatKeepsGoing,

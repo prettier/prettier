@@ -195,8 +195,12 @@ printWidth: 80
   [target]="a(1)(2)"
   [target]="a[b]"
   [target]="[1]"
-  [target]="{ a: 1 }"
-  [target]="{ a: 1 }"
+  [target]="{
+    a: 1
+  }"
+  [target]="{
+    a: 1
+  }"
   [target]="{
     trailingComma: 'notAllowed'
   }"
@@ -288,7 +292,9 @@ printWidth: 80
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
     'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
+
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
+
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
@@ -429,8 +435,12 @@ trailingComma: "es5"
   [target]="a(1)(2)"
   [target]="a[b]"
   [target]="[1]"
-  [target]="{ a: 1 }"
-  [target]="{ a: 1 }"
+  [target]="{
+    a: 1
+  }"
+  [target]="{
+    a: 1
+  }"
   [target]="{
     trailingComma: 'notAllowed'
   }"
@@ -522,7 +532,9 @@ trailingComma: "es5"
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
     'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
+
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
+
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
@@ -834,8 +846,11 @@ printWidth: 1
   *ngFor="
     let hero of [
       1,
+
       2,
+
       3,
+
       666666666666666666666666666666666666
     ];
     let i = index
@@ -968,6 +983,7 @@ printWidth: 1
       )
         .level ===
       dialogLevelEnum.SUCCESS,
+
     'btn-warning':
       (
         dialog$
@@ -975,6 +991,7 @@ printWidth: 1
       )
         .level ===
       dialogLevelEnum.WARNING,
+
     'btn-svg':
       (
         dialog$
@@ -1130,8 +1147,12 @@ printWidth: 80
   [target]="a(1)(2)"
   [target]="a[b]"
   [target]="[1]"
-  [target]="{ a: 1 }"
-  [target]="{ a: 1 }"
+  [target]="{
+    a: 1
+  }"
+  [target]="{
+    a: 1
+  }"
   [target]="{
     trailingComma: 'notAllowed'
   }"
@@ -1223,7 +1244,9 @@ printWidth: 80
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
     'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
+
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
+
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
@@ -1364,8 +1387,12 @@ printWidth: 80
   [target]="a(1)(2)"
   [target]="a[b]"
   [target]="[1]"
-  [target]="{a: 1}"
-  [target]="{a: 1}"
+  [target]="{
+    a: 1
+  }"
+  [target]="{
+    a: 1
+  }"
   [target]="{
     trailingComma: 'notAllowed'
   }"
@@ -1457,7 +1484,9 @@ printWidth: 80
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
     'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
+
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
+
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
@@ -2419,8 +2448,20 @@ printWidth: 80
 <div>{{ a(1)(2) }}</div>
 <div>{{ a[b] }}</div>
 <div>{{ [1] }}</div>
-<div>{{ { a: 1 } }}</div>
-<div>{{ { a: 1 } }}</div>
+<div>
+  {{
+    {
+      a: 1
+    }
+  }}
+</div>
+<div>
+  {{
+    {
+      a: 1
+    }
+  }}
+</div>
 <div>{{ true }}</div>
 <div>{{ undefined }}</div>
 <div>{{ null }}</div>
@@ -2491,13 +2532,45 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+      | translate
+        : {
+            what:
+              "entities"
+              | translate
+                : {
+                    count: array.length
+                  }
+          }
   }}
 </p>
-<p>{{ { a: 1 + {} } }}</p>
-<p>{{ { a: a === {} } }}</p>
-<p>{{ { a: !{} } }}</p>
-<p>{{ { a: a ? b : {} } }}</p>
+<p>
+  {{
+    {
+      a: 1 + {}
+    }
+  }}
+</p>
+<p>
+  {{
+    {
+      a: a === {}
+    }
+  }}
+</p>
+<p>
+  {{
+    {
+      a: !{}
+    }
+  }}
+</p>
+<p>
+  {{
+    {
+      a: a ? b : {}
+    }
+  }}
+</p>
 
 ================================================================================
 `;
@@ -2584,8 +2657,20 @@ trailingComma: "es5"
 <div>{{ a(1)(2) }}</div>
 <div>{{ a[b] }}</div>
 <div>{{ [1] }}</div>
-<div>{{ { a: 1 } }}</div>
-<div>{{ { a: 1 } }}</div>
+<div>
+  {{
+    {
+      a: 1
+    }
+  }}
+</div>
+<div>
+  {{
+    {
+      a: 1
+    }
+  }}
+</div>
 <div>{{ true }}</div>
 <div>{{ undefined }}</div>
 <div>{{ null }}</div>
@@ -2656,13 +2741,45 @@ trailingComma: "es5"
 <p>
   {{
     "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+      | translate
+        : {
+            what:
+              "entities"
+              | translate
+                : {
+                    count: array.length
+                  }
+          }
   }}
 </p>
-<p>{{ { a: 1 + {} } }}</p>
-<p>{{ { a: a === {} } }}</p>
-<p>{{ { a: !{} } }}</p>
-<p>{{ { a: a ? b : {} } }}</p>
+<p>
+  {{
+    {
+      a: 1 + {}
+    }
+  }}
+</p>
+<p>
+  {{
+    {
+      a: a === {}
+    }
+  }}
+</p>
+<p>
+  {{
+    {
+      a: !{}
+    }
+  }}
+</p>
+<p>
+  {{
+    {
+      a: a ? b : {}
+    }
+  }}
+</p>
 
 ================================================================================
 `;
@@ -3114,8 +3231,20 @@ printWidth: 80
 <div>{{ a(1)(2) }}</div>
 <div>{{ a[b] }}</div>
 <div>{{ [1] }}</div>
-<div>{{ { a: 1 } }}</div>
-<div>{{ { a: 1 } }}</div>
+<div>
+  {{
+    {
+      a: 1
+    }
+  }}
+</div>
+<div>
+  {{
+    {
+      a: 1
+    }
+  }}
+</div>
 <div>{{ true }}</div>
 <div>{{ undefined }}</div>
 <div>{{ null }}</div>
@@ -3191,13 +3320,45 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+      | translate
+        : {
+            what:
+              "entities"
+              | translate
+                : {
+                    count: array.length
+                  }
+          }
   }}
 </p>
-<p>{{ { a: 1 + {} } }}</p>
-<p>{{ { a: a === {} } }}</p>
-<p>{{ { a: !{} } }}</p>
-<p>{{ { a: a ? b : {} } }}</p>
+<p>
+  {{
+    {
+      a: 1 + {}
+    }
+  }}
+</p>
+<p>
+  {{
+    {
+      a: a === {}
+    }
+  }}
+</p>
+<p>
+  {{
+    {
+      a: !{}
+    }
+  }}
+</p>
+<p>
+  {{
+    {
+      a: a ? b : {}
+    }
+  }}
+</p>
 
 ================================================================================
 `;
@@ -3284,8 +3445,20 @@ printWidth: 80
 <div>{{ a(1)(2) }}</div>
 <div>{{ a[b] }}</div>
 <div>{{ [1] }}</div>
-<div>{{ {a: 1} }}</div>
-<div>{{ {a: 1} }}</div>
+<div>
+  {{
+    {
+      a: 1
+    }
+  }}
+</div>
+<div>
+  {{
+    {
+      a: 1
+    }
+  }}
+</div>
 <div>{{ true }}</div>
 <div>{{ undefined }}</div>
 <div>{{ null }}</div>
@@ -3356,13 +3529,45 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate: {what: "entities" | translate: ({count: array.length})}
+      | translate
+        : {
+            what:
+              "entities"
+              | translate
+                : ({
+                    count: array.length
+                  })
+          }
   }}
 </p>
-<p>{{ {a: 1 + ({})} }}</p>
-<p>{{ {a: a === ({})} }}</p>
-<p>{{ {a: !({})} }}</p>
-<p>{{ {a: a ? b : ({})} }}</p>
+<p>
+  {{
+    {
+      a: 1 + ({})
+    }
+  }}
+</p>
+<p>
+  {{
+    {
+      a: a === ({})
+    }
+  }}
+</p>
+<p>
+  {{
+    {
+      a: !({})
+    }
+  }}
+</p>
+<p>
+  {{
+    {
+      a: a ? b : ({})
+    }
+  }}
+</p>
 
 ================================================================================
 `;
@@ -4238,7 +4443,11 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <img [src]="heroImageUrl" />
   <app-hero-detail [hero]="currentHero"></app-hero-detail>
-  <div [ngClass]="{ special: isSpecial }"></div>
+  <div
+    [ngClass]="{
+      special: isSpecial
+    }"
+  ></div>
 </div>
 <br /><br />
 
@@ -4533,7 +4742,17 @@ bindon-ngModel
 <div [ngClass]="isSpecial ? 'special' : ''">This div is special</div>
 
 <div class="bad curly special">Bad curly special</div>
-<div [ngClass]="{ bad: false, curly: true, special: true }">Curly special</div>
+<div
+  [ngClass]="{
+    bad: false,
+
+    curly: true,
+
+    special: true
+  }"
+>
+  Curly special
+</div>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -5767,7 +5986,11 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <img [src]="heroImageUrl" />
   <app-hero-detail [hero]="currentHero"></app-hero-detail>
-  <div [ngClass]="{ special: isSpecial }"></div>
+  <div
+    [ngClass]="{
+      special: isSpecial
+    }"
+  ></div>
 </div>
 <br /><br />
 
@@ -6062,7 +6285,17 @@ bindon-ngModel
 <div [ngClass]="isSpecial ? 'special' : ''">This div is special</div>
 
 <div class="bad curly special">Bad curly special</div>
-<div [ngClass]="{ bad: false, curly: true, special: true }">Curly special</div>
+<div
+  [ngClass]="{
+    bad: false,
+
+    curly: true,
+
+    special: true
+  }"
+>
+  Curly special
+</div>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -8612,7 +8845,9 @@ bindon-ngModel
 <div
   [ngClass]="{
     bad: false,
+
     curly: true,
+
     special: true
   }"
 >
@@ -10733,7 +10968,11 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <img [src]="heroImageUrl" />
   <app-hero-detail [hero]="currentHero"></app-hero-detail>
-  <div [ngClass]="{ special: isSpecial }"></div>
+  <div
+    [ngClass]="{
+      special: isSpecial
+    }"
+  ></div>
 </div>
 <br />
 <br />
@@ -11077,7 +11316,17 @@ bindon-ngModel
 <div [ngClass]="isSpecial ? 'special' : ''">This div is special</div>
 
 <div class="bad curly special">Bad curly special</div>
-<div [ngClass]="{ bad: false, curly: true, special: true }">Curly special</div>
+<div
+  [ngClass]="{
+    bad: false,
+
+    curly: true,
+
+    special: true
+  }"
+>
+  Curly special
+</div>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -12366,7 +12615,11 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <img [src]="heroImageUrl" />
   <app-hero-detail [hero]="currentHero"></app-hero-detail>
-  <div [ngClass]="{special: isSpecial}"></div>
+  <div
+    [ngClass]="{
+      special: isSpecial
+    }"
+  ></div>
 </div>
 <br /><br />
 
@@ -12661,7 +12914,17 @@ bindon-ngModel
 <div [ngClass]="isSpecial ? 'special' : ''">This div is special</div>
 
 <div class="bad curly special">Bad curly special</div>
-<div [ngClass]="{bad: false, curly: true, special: true}">Curly special</div>
+<div
+  [ngClass]="{
+    bad: false,
+
+    curly: true,
+
+    special: true
+  }"
+>
+  Curly special
+</div>
 
 <a class="to-toc" href="#toc">top</a>
 

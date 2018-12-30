@@ -42,9 +42,15 @@ run()
  * @flow
  */
 
-async function foo(x: boolean): Promise<?{ bar: string }> {
+async function foo(
+  x: boolean
+): Promise<?{
+  bar: string
+}> {
   if (x) {
-    return { bar: "baz" }; // OK, because of covariant type param
+    return {
+      bar: "baz"
+    }; // OK, because of covariant type param
   } else {
     return null;
   }
@@ -52,6 +58,7 @@ async function foo(x: boolean): Promise<?{ bar: string }> {
 
 async function run() {
   console.log(await foo(true));
+
   console.log(await foo(false));
 }
 

@@ -42,7 +42,9 @@ export const b = 1;
 
 =====================================output=====================================
 import A from "a";
+
 import { A, B, C } from "hello-world";
+
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
@@ -65,6 +67,7 @@ import {
 
 export const meta = {
   authors: [fred, sue],
+
   layout: Layout
 };
 
@@ -72,7 +75,9 @@ export default () => (
   <Doc
     components={{
       h1: ui.Heading,
+
       p: ui.Text,
+
       code: ui.Code
     }}
   />
@@ -81,6 +86,7 @@ export default () => (
 ---
 
 export const a = 1;
+
 export const b = 1;
 
 ================================================================================
@@ -129,7 +135,9 @@ export const b = 1;
 
 =====================================output=====================================
 import A from "a"
+
 import { A, B, C } from "hello-world"
+
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
@@ -152,6 +160,7 @@ import {
 
 export const meta = {
   authors: [fred, sue],
+
   layout: Layout
 }
 
@@ -159,7 +168,9 @@ export default () => (
   <Doc
     components={{
       h1: ui.Heading,
+
       p: ui.Text,
+
       code: ui.Code
     }}
   />
@@ -168,6 +179,7 @@ export default () => (
 ---
 
 export const a = 1
+
 export const b = 1
 
 ================================================================================
@@ -250,6 +262,7 @@ const a = 1;
 
 \`\`\`jsx
 const a = 1;
+
 <div>foo</div>;
 \`\`\`
 
@@ -279,6 +292,7 @@ const a = 1;
 
 \`\`\`jsx
 const a = 1
+
 ;<div>foo</div>
 \`\`\`
 
@@ -335,10 +349,12 @@ export   default     ({children   }) => < div>{    children}</div>
 
 =====================================output=====================================
 import { Baz } from "./Fixture";
+
 import { Buz } from "./Fixture";
 
 export const foo = {
   hi: \`Fudge \${Baz.displayName || "Baz"}\`,
+
   authors: ["fred", "sally"]
 };
 
@@ -426,10 +442,12 @@ export   default     ({children   }) => < div>{    children}</div>
 
 =====================================output=====================================
 import { Baz } from "./Fixture"
+
 import { Buz } from "./Fixture"
 
 export const foo = {
   hi: \`Fudge \${Baz.displayName || "Baz"}\`,
+
   authors: ["fred", "sally"]
 }
 

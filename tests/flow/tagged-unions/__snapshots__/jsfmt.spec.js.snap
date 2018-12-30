@@ -43,11 +43,13 @@ function bar(x: Bar): string {
 
 class Foo {
   type: "foo";
+
   foo: string;
 }
 
 class Bar {
   type: "bar";
+
   bar: string;
 }
 
@@ -112,6 +114,7 @@ if (data.kind === "user") {
 
 declare interface IDataBase {
   id: string;
+
   name: string;
 }
 
@@ -127,7 +130,9 @@ declare type IData = IUserData | ISystemData;
 
 const data: IData = {
   id: "",
+
   name: "",
+
   kind: "system"
 };
 
@@ -176,6 +181,7 @@ if (data.kind === "system") {
 
 declare interface IDataBase {
   id: string;
+
   name: string;
 }
 
@@ -191,7 +197,9 @@ declare type IData = IUserData | ISystemData;
 
 const data: IData = {
   id: "",
+
   name: "",
+
   kind: "system"
 };
 
@@ -244,18 +252,23 @@ if (data.kind === "user") {
 
 type DataBase = {
   id: string,
+
   name: string
 };
 
 type UserData = {
   id: string,
+
   name: string,
+
   kind: "user"
 };
 
 type SystemData = {
   id: string,
+
   name: string,
+
   kind: "system"
 };
 
@@ -263,7 +276,9 @@ declare type Data = UserData | SystemData;
 
 const data: Data = {
   id: "",
+
   name: "",
+
   kind: "system"
 };
 
@@ -316,18 +331,23 @@ if (data.kind === "system") {
 
 type DataBase = {
   id: string,
+
   name: string
 };
 
 type UserData = {
   id: string,
+
   name: string,
+
   kind: "user"
 };
 
 type SystemData = {
   id: string,
+
   name: string,
+
   kind: "system"
 };
 
@@ -335,7 +355,9 @@ declare type Data = UserData | SystemData;
 
 const data: Data = {
   id: "",
+
   name: "",
+
   kind: "system"
 };
 

@@ -294,6 +294,7 @@ printWidth: 80
 <script type="application/x-typescript">
   class Student {
     fullName: string;
+
     constructor(
       public firstName: string,
       public middleInitial: string,
@@ -305,6 +306,7 @@ printWidth: 80
 
   interface Person {
     firstName: string;
+
     lastName: string;
   }
 
@@ -319,6 +321,7 @@ printWidth: 80
 <script lang="ts">
   class Student {
     fullName: string;
+
     constructor(
       public firstName: string,
       public middleInitial: string,
@@ -330,6 +333,7 @@ printWidth: 80
 
   interface Person {
     firstName: string;
+
     lastName: string;
   }
 
@@ -343,33 +347,61 @@ printWidth: 80
 </script>
 <script lang="tsx">
   class CommentBox extends React.Component<
-    { url: string; pollInterval: number },
+    {
+      url: string;
+
+      pollInterval: number;
+    },
     CommentData
   > {
     constructor() {
       super();
-      this.state = { data: [] };
+
+      this.state = {
+        data: []
+      };
     }
+
     fetchComments() {
       $.ajax({
         url: this.props.url,
+
         dataType: "json",
+
         cache: false,
-        success: data => this.setState({ data: data }),
+
+        success: data =>
+          this.setState({
+            data: data
+          }),
+
         error: (xhr, status, err) => console.error(status, err)
       });
     }
+
     componentDidMount() {
       this.fetchComments();
+
       setInterval(this.fetchComments.bind(this), this.props.pollInterval);
     }
+
     render() {
-      let handleCommentSubmit = (comment: { author: string; text: string }) => {
+      let handleCommentSubmit = (comment: {
+        author: string;
+
+        text: string;
+      }) => {
         console.warn("comment submitted!", comment);
+
         const updated = this.state.data.slice(0);
+
         updated.push(comment);
-        this.setState({ data: updated });
+
+        this.setState({
+          data: updated
+        });
       };
+
       return (
         <div className="commentBox">
           <h1>Comments</h1>

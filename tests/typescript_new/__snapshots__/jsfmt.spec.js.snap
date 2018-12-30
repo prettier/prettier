@@ -112,6 +112,7 @@ type BazConstructor = {
 
 interface ConstructorBigGenerics {
   // comment
+
   new <
     AAAAAAAAAAAAAAAAAAAAAAAA,
     AAAAAAAAAAAAAAAAAAAAAAAA,
@@ -130,11 +131,13 @@ interface ConstructorBigGenerics {
 
 interface ConstructorInline {
   // https://github.com/prettier/prettier/issues/2163
+
   (i): any;
 }
 
 interface TimerConstructor {
   // Line-splitting comment
+
   new (interval: number, callback: (handler: Timer) => void): Timer;
 }
 

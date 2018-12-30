@@ -52,20 +52,26 @@ type Artist implements Node & Entity {
 =====================================output=====================================
 type Artist implements Node & Entity {
   # The ID of an object
+
   id: ID!
 
   # The MBID of the entity.
+
   mbid: MBID!
 
   # A list of recordings linked to this entity.
+
   recordings(after: String, first: Int): RecordingConnection
 
   # A list of releases linked to this entity.
+
   releases(
     # Filter by one or more release group types.
+
     type: [ReleaseGroupType]
 
     # Filter by one or more release statuses.
+
     status: [ReleaseStatus]
     after: String
     first: Int
@@ -107,20 +113,26 @@ type MixedArtist implements Node, Entity & Releasable {
 =====================================output=====================================
 type MixedArtist implements Node & Entity & Releasable {
   # The ID of an object
+
   id: ID!
 
   # The MBID of the entity.
+
   mbid: MBID!
 
   # A list of recordings linked to this entity.
+
   recordings(after: String, first: Int): RecordingConnection
 
   # A list of releases linked to this entity.
+
   releases(
     # Filter by one or more release group types.
+
     type: [ReleaseGroupType]
 
     # Filter by one or more release statuses.
+
     status: [ReleaseStatus]
     after: String
     first: Int
@@ -162,20 +174,26 @@ type OldArtist implements Node, Entity {
 =====================================output=====================================
 type OldArtist implements Node, Entity {
   # The ID of an object
+
   id: ID!
 
   # The MBID of the entity.
+
   mbid: MBID!
 
   # A list of recordings linked to this entity.
+
   recordings(after: String, first: Int): RecordingConnection
 
   # A list of releases linked to this entity.
+
   releases(
     # Filter by one or more release group types.
+
     type: [ReleaseGroupType]
 
     # Filter by one or more release statuses.
+
     status: [ReleaseStatus]
     after: String
     first: Int

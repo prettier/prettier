@@ -40,6 +40,7 @@ function send_single_email(
     html,
     reply_to
   );
+
   return "nothing";
 }
 
@@ -87,6 +88,7 @@ function send_single_email(
     html,
     reply_to,
   );
+
   return "nothing";
 }
 
@@ -134,6 +136,7 @@ function send_single_email(
     html,
     reply_to
   );
+
   return "nothing";
 }
 
@@ -182,12 +185,8 @@ a(
   a("long-nested-value", "long-nested-value2", "long-nested-value3")
 );
 
-a.b().c(
-  {
-    d
-  },
-  () => {}
-);
+a.b()
+.c({ d }, () => {});
 
 ================================================================================
 `;
@@ -235,12 +234,8 @@ a(
   a("long-nested-value", "long-nested-value2", "long-nested-value3"),
 );
 
-a.b().c(
-  {
-    d,
-  },
-  () => {},
-);
+a.b()
+.c({ d }, () => {});
 
 ================================================================================
 `;
@@ -288,12 +283,8 @@ a(
   a("long-nested-value", "long-nested-value2", "long-nested-value3")
 );
 
-a.b().c(
-  {
-    d,
-  },
-  () => {}
-);
+a.b()
+.c({ d }, () => {});
 
 ================================================================================
 `;
@@ -409,23 +400,29 @@ const aLong = {
 =====================================output=====================================
 const a = {
   b: true,
+
   c: {
     c1: "hello"
   },
+
   d: false
 };
 
 const aLong = {
   bHasALongName: "a-long-value",
+
   cHasALongName: {
     c1: "a-really-long-value",
+
     c2: "a-really-really-long-value"
   },
+
   dHasALongName: "a-long-value-too"
 };
 
 const aLong = {
   dHasALongName: "a-long-value-too",
+
   eHasABooleanExpression: a === a
 };
 
@@ -464,23 +461,29 @@ const aLong = {
 =====================================output=====================================
 const a = {
   b: true,
+
   c: {
     c1: "hello",
   },
+
   d: false,
 };
 
 const aLong = {
   bHasALongName: "a-long-value",
+
   cHasALongName: {
     c1: "a-really-long-value",
+
     c2: "a-really-really-long-value",
   },
+
   dHasALongName: "a-long-value-too",
 };
 
 const aLong = {
   dHasALongName: "a-long-value-too",
+
   eHasABooleanExpression: a === a,
 };
 
@@ -519,23 +522,29 @@ const aLong = {
 =====================================output=====================================
 const a = {
   b: true,
+
   c: {
     c1: "hello",
   },
+
   d: false,
 };
 
 const aLong = {
   bHasALongName: "a-long-value",
+
   cHasALongName: {
     c1: "a-really-long-value",
+
     c2: "a-really-really-long-value",
   },
+
   dHasALongName: "a-long-value-too",
 };
 
 const aLong = {
   dHasALongName: "a-long-value-too",
+
   eHasABooleanExpression: a === a,
 };
 
@@ -595,45 +604,45 @@ this.getAttribute(function(s) /*string*/ {
 =====================================output=====================================
 let example = [
   "FOO",
-  "BAR"
-  // Comment
+
+  "BAR" // Comment
 ];
 
 foo(
-  {}
-  // Comment
+  {} // Comment
 );
 
 o = {
-  state
-  // Comment
+  state // Comment
 };
 
 o = {
-  state
-
-  // Comment
+  state // Comment
 };
 
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
-  supersupersupersuperLongB
-  // Comment
-) {
-  a;
-}
-function supersupersupersuperLongF(
-  supersupersupersuperLongA,
-  supersupersupersuperLongB
-  // Comment
+  supersupersupersuperLongB // Comment
 ) {
   a;
 }
 
-this.getAttribute(function(s) /*string*/ {
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB // Comment
+) {
+  a;
+}
+
+this.getAttribute(function(s) /*string*/
+
+{
   console.log();
 });
-this.getAttribute(function(s) /*string*/ {
+
+this.getAttribute(function(s) /*string*/
+
+{
   console.log();
 });
 
@@ -694,45 +703,45 @@ this.getAttribute(function(s) /*string*/ {
 =====================================output=====================================
 let example = [
   "FOO",
-  "BAR",
-  // Comment
+
+  "BAR", // Comment
 ];
 
 foo(
-  {},
-  // Comment
+  {}, // Comment
 );
 
 o = {
-  state,
-  // Comment
+  state, // Comment
 };
 
 o = {
-  state,
-
-  // Comment
+  state, // Comment
 };
 
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
-  supersupersupersuperLongB,
-  // Comment
-) {
-  a;
-}
-function supersupersupersuperLongF(
-  supersupersupersuperLongA,
-  supersupersupersuperLongB,
-  // Comment
+  supersupersupersuperLongB, // Comment
 ) {
   a;
 }
 
-this.getAttribute(function(s) /*string*/ {
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB, // Comment
+) {
+  a;
+}
+
+this.getAttribute(function(s) /*string*/
+
+{
   console.log();
 });
-this.getAttribute(function(s) /*string*/ {
+
+this.getAttribute(function(s) /*string*/
+
+{
   console.log();
 });
 
@@ -793,45 +802,45 @@ this.getAttribute(function(s) /*string*/ {
 =====================================output=====================================
 let example = [
   "FOO",
-  "BAR",
-  // Comment
+
+  "BAR", // Comment
 ];
 
 foo(
-  {}
-  // Comment
+  {} // Comment
 );
 
 o = {
-  state,
-  // Comment
+  state, // Comment
 };
 
 o = {
-  state,
-
-  // Comment
+  state, // Comment
 };
 
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
-  supersupersupersuperLongB
-  // Comment
-) {
-  a;
-}
-function supersupersupersuperLongF(
-  supersupersupersuperLongA,
-  supersupersupersuperLongB
-  // Comment
+  supersupersupersuperLongB // Comment
 ) {
   a;
 }
 
-this.getAttribute(function(s) /*string*/ {
+function supersupersupersuperLongF(
+  supersupersupersuperLongA,
+  supersupersupersuperLongB // Comment
+) {
+  a;
+}
+
+this.getAttribute(function(s) /*string*/
+
+{
   console.log();
 });
-this.getAttribute(function(s) /*string*/ {
+
+this.getAttribute(function(s) /*string*/
+
+{
   console.log();
 });
 

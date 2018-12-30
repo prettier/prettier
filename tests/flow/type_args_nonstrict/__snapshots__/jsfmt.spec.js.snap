@@ -96,6 +96,7 @@ var num_array:Array<number> = singleton(0); // ok, type arg inferred
 
 class MyClass<T> {
   x: T;
+
   constructor(x: T) {
     this.x = x;
   }
@@ -107,9 +108,12 @@ var c: MyClass = new MyClass(0); // no error
 
 class MyClass2<T, U = string> {
   x: T;
+
   y: U;
+
   constructor(x: T, y: U) {
     this.x = x;
+
     this.y = y;
   }
 }
@@ -122,11 +126,15 @@ type MyObject<T> = {
   x: T
 };
 
-var o: MyObject = { x: 0 }; // no error
+var o: MyObject = {
+  x: 0
+}; // no error
 
 // arity error in type alias rhs
 
-type MySubobject = { y: number } & MyObject; // no error
+type MySubobject = {
+  y: number
+} & MyObject; // no error
 
 // arity error in interface extends
 
@@ -136,6 +144,7 @@ interface MyInterface<T> {
 
 interface MySubinterface extends MyInterface {
   // no error
+
   y: number;
 }
 
@@ -143,7 +152,9 @@ interface MySubinterface extends MyInterface {
 
 class MySubclass extends MyClass {
   // ok, type arg inferred
+
   y: number;
+
   constructor(y: number) {
     super(y);
   }

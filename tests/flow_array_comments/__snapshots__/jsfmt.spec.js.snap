@@ -17,13 +17,30 @@ export type ModuleMetaData = [Path, /* type */ number];
 
 =====================================output=====================================
 export type FileMetaData = [
-  /* id */ string,
-  /* mtime */ number,
-  /* visited */ 0 | 1,
-  /* dependencies */ Array<string>
+  /* id */
+
+  string,
+
+  /* mtime */
+
+  number,
+
+  /* visited */
+
+  0 | 1,
+
+  /* dependencies */
+
+  Array<string>
 ];
 
-export type ModuleMetaData = [Path, /* type */ number];
+export type ModuleMetaData = [
+  Path,
+
+  /* type */
+
+  number
+];
 
 ================================================================================
 `;

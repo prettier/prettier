@@ -63,9 +63,14 @@ function x() {
 
 =====================================output=====================================
 // https://github.com/prettier/prettier/issues/4171
+
 function y() {
   const fits = <Immutable.Map<string, any>>fits();
-  const fitsObjLiteral = <Immutable.Map<string, any>>{ a: "test" };
+
+  const fitsObjLiteral = <Immutable.Map<string, any>>{
+    a: "test"
+  };
+
   const fitsArrayLiteral = <Immutable.Map<string, any>>["test", "test2"];
 
   const breakAfterCast = <Immutable.Map<string, any>>(
@@ -140,11 +145,15 @@ function y() {
       never,
       "extra long"
     >
-  >{ property1: "myPropertyVal" };
+  >{
+    property1: "myPropertyVal"
+  };
 
   const testArrayLiteral = <Immutable.Map<string, any>>[
     "first",
+
     "second",
+
     "third"
   ];
 
@@ -170,9 +179,14 @@ function y() {
 }
 
 // https://github.com/prettier/prettier/issues/4168
+
 function x() {
   const fits = <PermissionsChecker<any> | undefined>(<any>permissions)[type];
-  const fitsObjLiteral = <PermissionsChecker<any> | undefined>{ a: "test" };
+
+  const fitsObjLiteral = <PermissionsChecker<any> | undefined>{
+    a: "test"
+  };
+
   const fitsArrayLiteral = <PermissionsChecker<any> | undefined>["t1", "t2"];
 
   const breakAfterCast = <PermissionsChecker<any> | undefined>(
@@ -224,11 +238,15 @@ function x() {
     | null
     | never
     | object
-  >{ prop1: "myPropVal" };
+  >{
+    prop1: "myPropVal"
+  };
 
   const testArrayLiteral = <PermissionsChecker<any> | undefined>[
     "first",
+
     "second",
+
     "third"
   ];
 
@@ -285,17 +303,20 @@ postMessages(
 =====================================output=====================================
 postMessage(<IActionMessage>{
   context: item.context,
+
   topic: item.topic
 });
 
 window.postMessage({
   context: item.context,
+
   topic: item.topic
 } as IActionMessage);
 
 postMessages(<IActionMessage[]>[
   {
     context: item.context,
+
     topic: item.topic
   }
 ]);
@@ -320,12 +341,17 @@ true || <x>a;
 
 =====================================output=====================================
 <DocumentHighlightKind>(a ? b : c);
+
 <any>(() => {});
 
 <x>a || {};
+
 <x>a && [];
+
 true || <x>a;
+
 <x>a + <x>b;
+
 (<x>a) = 1;
 
 ================================================================================

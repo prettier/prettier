@@ -24,16 +24,23 @@ export interface ShopQueryResult {
 =====================================output=====================================
 export interface ShopQueryResult {
   chic: boolean;
+
   location: number[];
+
   menus: Menu[];
+
   openingDays: number[];
+
   closingDays: [
     {
       from: string;
+
       to: string;
     } // <== this one
   ];
+
   shop: string;
+
   distance: number;
 }
 
@@ -59,10 +66,15 @@ export type SCMRawResource = [
 =====================================output=====================================
 export type SCMRawResource = [
   number /*handle*/,
+
   string /*resourceUri*/,
+
   modes.Command /*command*/,
+
   string[] /*icons: light, dark*/,
+
   boolean /*strike through*/,
+
   boolean /*faded*/
 ];
 

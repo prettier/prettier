@@ -12,6 +12,7 @@ const a = someVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeLong.Expression || {
 =====================================output=====================================
 const a =
   someVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeLong.Expression || [];
+
 const a =
   someVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeLong.Expression || {};
 
@@ -31,8 +32,11 @@ printWidth: 80
 
 =====================================output=====================================
 [,];
+
 [, ,];
+
 [, , 1];
+
 [, , 1, 1];
 
 ================================================================================

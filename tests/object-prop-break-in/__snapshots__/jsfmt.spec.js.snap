@@ -17,6 +17,7 @@ function foo() {
 function foo() {
   return {
     // this comment causes the problem
+
     bar: baz() + 1
   };
 }
@@ -103,7 +104,17 @@ const e = classnames({
 });
 
 const f = classnames({
-  "some-prop": { foo: "bar", bar: "foo", foo: "bar", bar: "foo", foo: "bar" }
+  "some-prop": {
+    foo: "bar",
+
+    bar: "foo",
+
+    foo: "bar",
+
+    bar: "foo",
+
+    foo: "bar"
+  }
 });
 
 const g = classnames({
@@ -113,6 +124,7 @@ const g = classnames({
 
 const h = {
   foo: "bar",
+
   baz: \`Lorem
 ipsum\`
 };

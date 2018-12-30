@@ -51,9 +51,12 @@ function foo(z: number) {
 }
 
 var array = ["foo", "bar"];
+
 array;
 
-module.exports = { foo: foo };
+module.exports = {
+  foo: foo
+};
 
 ================================================================================
 `;

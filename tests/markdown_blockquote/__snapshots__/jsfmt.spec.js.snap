@@ -30,10 +30,14 @@ proseWrap: "always"
 > {
 >   "extends": [
 >     "unobtrusive",
+>
 >     "unobtrusive/import",
+>
 >     "unobtrusive/react",
+>
 >     "unobtrusive/flowtype"
 >   ],
+>
 >   "env": {
 >     "browser": true
 >   }
@@ -151,6 +155,7 @@ proseWrap: "always"
 
 > \`\`\`js
 > // prettier-ignore
+>
 > const x = 1,
 > b = 2
 > \`\`\`

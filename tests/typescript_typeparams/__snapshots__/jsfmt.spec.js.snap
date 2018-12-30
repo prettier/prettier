@@ -106,6 +106,7 @@ const appIDs = createSelector(
 );
 =====================================output=====================================
 // https://github.com/prettier/prettier/issues/4070
+
 export class Thing implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(
     (type: ObjectType): Provider<Opts> => {}
@@ -116,9 +117,11 @@ export class Thing2 implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(
     (type: ObjectType): Provider<Opts> => {
       const someVar = doSomething(type);
+
       if (someVar) {
         return someVar.method();
       }
+
       return false;
     }
   );
@@ -127,9 +130,11 @@ export class Thing2 implements OtherThing {
 export class Thing3 implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(type => {
     const someVar = doSomething(type);
+
     if (someVar) {
       return someVar.method();
     }
+
     return false;
   });
 }
@@ -160,10 +165,11 @@ export class Thing7 implements OtherThing {
 
 export class Thing8 implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(
-    (type: ObjectType) =>
-      <Provider<Opts>>(
-        type.doSomething(withArgs, soIt, does, not, fit).extraCall()
-      )
+    (type: ObjectType) => <Provider<Opts>>type
+
+        .doSomething(withArgs, soIt, does, not, fit)
+
+        .extraCall()
   );
 }
 
@@ -201,9 +207,11 @@ export class Thing13 implements OtherThing {
     type: ObjectType
   ): Provider<Opts> {
     const someVar = doSomething(type);
+
     if (someVar) {
       return someVar.method();
     }
+
     return false;
   });
 }
@@ -211,9 +219,11 @@ export class Thing13 implements OtherThing {
 export class Thing14 implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(function(type) {
     const someVar = doSomething(type);
+
     if (someVar) {
       return someVar.method();
     }
+
     return false;
   });
 }
@@ -250,9 +260,11 @@ export class Thing18 implements OtherThing {
 
 export class Thing19 implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(function(type: ObjectType) {
-    return <Provider<Opts>>(
-      type.doSomething(withArgs, soIt, does, not, fit).extraCall()
-    );
+    return <Provider<Opts>>type
+
+      .doSomething(withArgs, soIt, does, not, fit)
+
+      .extraCall();
   });
 }
 

@@ -79,6 +79,7 @@ const response = {
 =====================================output=====================================
 function a() {
   // prettier-ignore
+
   var fnString =
     '"' + this.USE + ' ' + this.STRICT + '";\\n' +
     this.filterPrefix() +
@@ -88,6 +89,7 @@ function a() {
     'return fn;';
 
   // prettier-ignore
+
   const identity = Matrix.create(
     1, 0, 0,
     0, 1, 0,
@@ -97,17 +99,18 @@ function a() {
   // Let's make sure that this comment doesn't interfere
 
   // prettier-ignore
+
   const commentsWithPrettierIgnore =   {
     "ewww":
             "gross-formatting",
   };
 
   function giveMeSome() {
-    a(  a  ); // prettier-ignore
-    // shouldn't I return something?  :shrug:
+    a(  a  ); // prettier-ignore // shouldn't I return something?  :shrug:
   }
 
   // prettier-ignore
+
   console.error(
     'In order to use ' + prompt + ', you need to configure a ' +
     'few environment variables to be able to commit to the ' +
@@ -130,19 +133,25 @@ function a() {
   );
 
   // Incorrectly indented on purpose
-  function f</* prettier-ignore */ T    :    B>(
+
+  function f<
+    /* prettier-ignore */
+
+    T    :    B
+  >(
     a : Array  <   number   > // prettier-ignore
   ) {
     call(
-      f(         1          )
-      // prettier-ignore
+      f(         1          ) // prettier-ignore
     );
   }
 }
 
 const response = {
   // prettier-ignore
+
   '_text': 'Turn on the lights',
+
   intent: "lights"
 };
 

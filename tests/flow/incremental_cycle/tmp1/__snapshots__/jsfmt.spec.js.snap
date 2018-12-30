@@ -14,7 +14,9 @@ export type B = string;
 
 =====================================output=====================================
 // @flow
+
 var A = require("./A");
+
 import type C from "./C";
 
 export type B = string;
@@ -40,7 +42,9 @@ module.exports = C;
 
 =====================================output=====================================
 // @flow
+
 var A = require("./A");
+
 import type { B } from "./B";
 
 class C extends A {

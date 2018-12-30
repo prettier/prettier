@@ -80,7 +80,7 @@ Format options:
                            How to wrap prose.
                            Defaults to preserve.
   --pure                   Ignore the input formatting as much as possible.
-                           Defaults to false.
+                           Defaults to true.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
@@ -231,7 +231,7 @@ Format options:
                            How to wrap prose.
                            Defaults to preserve.
   --pure                   Ignore the input formatting as much as possible.
-                           Defaults to false.
+                           Defaults to true.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.

@@ -48,13 +48,16 @@ declare class C {
 
 [
   superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+
   ,
 ];
 
 [
   veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
+
   ...a
 ] = [];
+
 var {
   veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
   ...a

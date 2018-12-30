@@ -37,6 +37,7 @@ export const bar = "bar";
 // @flow
 
 export const foo = "foo";
+
 export const bar = "bar";
 
 ================================================================================

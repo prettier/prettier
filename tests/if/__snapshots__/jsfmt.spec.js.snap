@@ -25,8 +25,7 @@ if (cond) {
   stuff;
 } /* comment */ else if (cond) {
   stuff;
-}
-// comment
+} // comment
 else {
   stuff;
 }
@@ -67,19 +66,27 @@ function f() {
 // Both functions below should be formatted exactly the same
 
 function f() {
-  if (position) return { name: pair };
+  if (position)
+    return {
+      name: pair
+    };
   else
     return {
       name: pair.substring(0, position),
+
       value: pair.substring(position + 1)
     };
 }
 
 function f() {
-  if (position) return { name: pair };
+  if (position)
+    return {
+      name: pair
+    };
   else
     return {
       name: pair.substring(0, position),
+
       value: pair.substring(position + 1)
     };
 }
@@ -152,58 +159,91 @@ async function f() {
 =====================================output=====================================
 async function f() {
   if (untrackedChoice === 0) {
-    /* Cancel */ return null;
+    /* Cancel */
+
+    return null;
   } else if (untrackedChoice === 1) {
-    /* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
+    /* Add */
+
+    await repository.addAll(Array.from(untrackedChanges.keys()));
+
     shouldAmend = true;
   } else if (untrackedChoice === 2) {
-    /* Allow Untracked */ allowUntracked = true;
+    /* Allow Untracked */
+
+    allowUntracked = true;
   }
 }
 
 async function f() {
   if (untrackedChoice === 0)
     /* Cancel */
+
     null;
   else if (untrackedChoice === 1)
     /* Add */
+
     shouldAmend = true;
   else if (untrackedChoice === 2)
     /* Allow Untracked */
+
     allowUntracked = true;
 }
 
 async function f() {
   if (untrackedChoice === 0)
-    /* Cancel */ // Cancel
+    /* Cancel */
+
+    // Cancel
+
     null;
   else if (untrackedChoice === 1)
-    /* Add */ // Add
+    /* Add */
+
+    // Add
+
     shouldAmend = true;
   else if (untrackedChoice === 2)
-    /* Allow Untracked */ // Allow Untracked
+    /* Allow Untracked */
+
+    // Allow Untracked
+
     allowUntracked = true;
 }
 
 async function f() {
   if (untrackedChoice === 0) {
-    /* Cancel */ return null;
+    /* Cancel */
+
+    return null;
   } else if (untrackedChoice === 1) {
-    /* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
+    /* Add */
+
+    await repository.addAll(Array.from(untrackedChanges.keys()));
+
     shouldAmend = true;
   } else if (untrackedChoice === 2) {
-    /* Allow Untracked */ allowUntracked = true;
+    /* Allow Untracked */
+
+    allowUntracked = true;
   }
 }
 
 async function f() {
   if (untrackedChoice === 0) {
-    /* Cancel */ return null;
+    /* Cancel */
+
+    return null;
   } else if (untrackedChoice === 1) {
-    /* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
+    /* Add */
+
+    await repository.addAll(Array.from(untrackedChanges.keys()));
+
     shouldAmend = true;
   } else if (untrackedChoice === 2) {
-    /* Allow Untracked */ allowUntracked = true;
+    /* Allow Untracked */
+
+    allowUntracked = true;
   }
 }
 
@@ -232,19 +272,20 @@ if (
 =====================================output=====================================
 if (code === 92 /* '\\' */) {
 }
+
 if (code === 92 /* '\\' */ /* '\\' */) {
 }
 
 if (code === 92) {
   /* '\\' */
 }
+
 if (code === 92) {
   /* '\\' */
 }
 
 if (
-  1
-  // Comment
+  1 // Comment
 ) {
   a;
 }

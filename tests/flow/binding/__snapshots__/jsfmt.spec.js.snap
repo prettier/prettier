@@ -38,27 +38,47 @@ for (const { baz } of bazzes) {
 const x = 0;
 
 // errors: const cannot be reassigned
+
 x++;
+
 x--;
+
 x += 0;
+
 x -= 0;
+
 x /= 0;
+
 x %= 0;
+
 x <<= 0;
+
 x >>= 0;
+
 x >>>= 0;
+
 x |= 0;
+
 x ^= 0;
+
 x &= 0;
 
 // regression tests -- OK to assign consts like this:
 
-const { foo } = { foo: "foo" };
+const { foo } = {
+  foo: "foo"
+};
+
 const [bar] = ["bar"];
+
 (foo: number); // error: string ~> number
+
 (bar: number); // error: string ~> number
 
-declare var bazzes: { baz: string }[];
+declare var bazzes: {
+  baz: string
+}[];
+
 for (const { baz } of bazzes) {
   (baz: number); // error: string ~> number
 }
@@ -286,31 +306,37 @@ function fn_params_clash_fn_binding(x,y) {
 
 function type_type() {
   type A = number;
+
   type A = number; // error: name already bound
 }
 
 function type_class() {
   type A = number;
+
   class A {} // error: name already bound
 }
 
 function type_let() {
   type A = number;
+
   let A = 0; // error: name already bound
 }
 
 function type_const() {
   type A = number;
+
   const A = 0; // error: name already bound
 }
 
 function type_var() {
   type A = number;
+
   var A = 0; // error: name already bound
 }
 
 function type_reassign() {
   type A = number;
+
   A = 42; // error: type alias ref'd from value pos
 }
 
@@ -318,26 +344,31 @@ function type_reassign() {
 
 function class_type() {
   class A {}
+
   type A = number; // error: name already bound
 }
 
 function class_class() {
   class A {}
+
   class A {} // error: name already bound
 }
 
 function class_let() {
   class A {}
+
   let A = 0; // error: name already bound
 }
 
 function class_const() {
   class A {}
+
   const A = 0; // error: name already bound
 }
 
 function class_var() {
   class A {}
+
   var A = 0; // error: name already bound
 }
 
@@ -345,26 +376,31 @@ function class_var() {
 
 function let_type() {
   let A = 0;
+
   type A = number; // error: name already bound
 }
 
 function let_class() {
   let A = 0;
+
   class A {} // error: name already bound
 }
 
 function let_let() {
   let A = 0;
+
   let A = 0; // error: name already bound
 }
 
 function let_const() {
   let A = 0;
+
   const A = 0; // error: name already bound
 }
 
 function let_var() {
   let A = 0;
+
   var A = 0; // error: name already bound
 }
 
@@ -372,31 +408,37 @@ function let_var() {
 
 function const_type() {
   const A = 0;
+
   type A = number; // error: name already bound
 }
 
 function const_class() {
   const A = 0;
+
   class A {} // error: name already bound
 }
 
 function const_let() {
   const A = 0;
+
   let A = 0; // error: name already bound
 }
 
 function const_const() {
   const A = 0;
+
   const A = 0; // error: name already bound
 }
 
 function const_var() {
   const A = 0;
+
   var A = 0; // error: name already bound
 }
 
 function const_reassign() {
   const A = 0;
+
   A = 42; // error: cannot be reassigned
 }
 
@@ -404,26 +446,31 @@ function const_reassign() {
 
 function var_type() {
   var A = 0;
+
   type A = number; // error: name already bound
 }
 
 function var_class() {
   var A = 0;
+
   class A {} // error: name already bound
 }
 
 function var_let() {
   var A = 0;
+
   let A = 0; // error: name already bound
 }
 
 function var_const() {
   var A = 0;
+
   const A = 0; // error: name already bound
 }
 
 function var_var() {
   var A = 0;
+
   var A = 0; // OK
 }
 
@@ -431,12 +478,14 @@ function var_var() {
 
 function function_toplevel() {
   function a() {}
+
   function a() {} // OK
 }
 
 function function_block() {
   {
     function a() {}
+
     function a() {} // error: name already bound
   }
 }
@@ -446,6 +495,7 @@ function function_block() {
 function var_shadow_nested_scope() {
   {
     let x = 0;
+
     {
       var x = 0; // error: name already bound
     }
@@ -455,6 +505,7 @@ function var_shadow_nested_scope() {
 function type_shadow_nested_scope() {
   {
     let x = 0;
+
     {
       type x = string; // error: name already bound
     }
@@ -464,8 +515,10 @@ function type_shadow_nested_scope() {
 // fn params name clash
 
 function fn_params_name_clash(x, x /* error: x already bound */) {}
+
 function fn_params_clash_fn_binding(x, y) {
   let x = 0; // error: x already bound
+
   var y = 0; // OK
 }
 
@@ -591,53 +644,76 @@ function default_param_2() {
 =====================================output=====================================
 function block_scope() {
   let a: number = 0;
+
   var b: number = 0;
+
   {
     let a = ""; // ok: local to block
+
     var b = ""; // error: string ~> number
   }
 }
 
 function switch_scope(x: string) {
   let a: number = 0;
+
   var b: number = 0;
+
   switch (x) {
     case "foo":
       let a = ""; // ok: local to switch
+
       var b = ""; // error: string ~> number
+
       break;
+
     case "bar":
       let a = ""; // error: a already bound in switch
+
       break;
   }
 }
 
 // a switch is a single lexical scope, so lets and non-disjoint
+
 // cases can mix in odd ways. our support for edge cases is not
+
 // yet perfect.
+
 function switch_scope2(x: number) {
   switch (x) {
     case 0:
       a = ""; // error: assign before declaration
+
       break;
+
     case 1:
       var b = a; // error: use before declaration
+
       break;
+
     case 2:
       let a = "";
+
       break;
+
     case 3:
       a = ""; // error: skipped initializer
+
       break;
+
     case 4:
       var c: string = a; // error: skipped initializer
+
       break;
   }
+
   a = ""; // error: a no longer in scope
 }
 
 function try_scope() {
   let a: number = 0;
+
   try {
     let a = ""; // ok
   } catch (e) {
@@ -649,40 +725,47 @@ function try_scope() {
 
 function for_scope_let() {
   let a: number = 0;
+
   for (let a = "" /* ok: local to init */; ; ) {}
 }
 
 function for_scope_var() {
   var a: number = 0;
+
   for (var a = "" /* error: string ~> number */; ; ) {}
 }
 
 function for_in_scope_let(o: Object) {
   let a: number = 0;
+
   for (let a /* ok: local to init */ in o) {
   }
 }
 
 function for_in_scope_var(o: Object) {
   var a: number = 0;
+
   for (var a /* error: string ~> number */ in o) {
   }
 }
 
 function for_of_scope_let(xs: string[]) {
   let a: number = 0;
+
   for (let a /* ok: local to init */ of xs) {
   }
 }
 
 function for_of_scope_var(xs: string[]) {
   var a: number = 0;
+
   for (var a /* error: string ~> number */ of xs) {
   }
 }
 
 function default_param_1() {
   // function binding in scope in default expr
+
   function f(
     x: () => string = f // error: number ~> string
   ): number {
@@ -692,13 +775,18 @@ function default_param_1() {
 
 function default_param_2() {
   // fn body bindings not visible from param scope
+
   let a = "";
+
   function f0(x = () => a): number {
     let a = 0;
+
     return x(); // error: string ~> number
   }
+
   function f1(x = b /* error: cannot resolve b */): number {
     let b = 0;
+
     return x;
   }
 }
@@ -821,33 +909,49 @@ f(a); // ok, a: number (not ?number)
 // type aliases are hoisted and always available
 
 type T1 = T2; // ok
+
 type T2 = number;
 
 // --- lets ---
 
 // to be correct, we would
+
 // - not allow forward refs to lets from value positions,
+
 // while let is in TDZ.
+
 // - allow forward refs to lets from type positions.
+
 //
+
 // currently we're too lenient about TDZ in closures -
+
 // from value positions, we currently enforce TDZ only in-scope.
+
 // this is unsound - a let or const may remain uninitialized when
+
 // a lambda runs. But a simple conservative approach would prohibit
+
 // forward references to let/consts from within lambdas entirely,
+
 // which would be annoying. TODO
 
 function f0() {
   var v = x * c; // errors, let + const referenced before decl
+
   let x = 0;
+
   const c = 0;
 }
 
 function f1(b) {
   x = 10; // error, attempt to write to let before decl
+
   let x = 0;
+
   if (b) {
     y = 10; // error, attempt to write to let before decl
+
     let y = 0;
   }
 }
@@ -856,47 +960,64 @@ function f2() {
   {
     var v = x * c; // errors, let + const referenced before decl
   }
+
   let x = 0;
+
   const c = 0;
 }
 
 // functions are let-scoped and hoisted
+
 function f3() {
   var s: string = foo(); // ok, finds hoisted outer
+
   {
     var n: number = foo(); // ok, finds hoisted inner
+
     function foo() {
       return 0;
     }
   }
+
   var s2: string = foo(); // ok, hoisted outer not clobbered
+
   function foo() {
     return "";
   }
 }
 
 // out-of-scope TDZ not enforced. sometimes right...
+
 function f4() {
   function g() {
     return x + c;
   } // ok, g doesn't run in TDZ
+
   let x = 0;
+
   const c = 0;
 }
 
 // ...sometimes wrong
+
 function f5() {
   function g() {
     return x;
   }
+
   g(); // should error, but doesn't currently
+
   let x = 0;
+
   const c = 0;
 }
 
 // - from type positions, we currently error on forward refs to any
+
 // value (i.e., class or function). this is a basic flaw in our
+
 // phasing of AST traversal, and will be fixed.
+
 //
 
 var x: C; // ok
@@ -910,7 +1031,9 @@ var z: C = new C(); // ok
 // --- vars ---
 
 // it's possible to annotate a var with a non-maybe type,
+
 // but leave it uninitialized until later (as long as it's
+
 // initialized before use)
 
 var a: number; // not an error per se - only if used before init

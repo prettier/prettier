@@ -42,7 +42,9 @@ try {
 
 =====================================output=====================================
 const [one, two = null, three = null] = arr;
+
 a = ([s = 1]) => 1;
+
 const { children, ...props } = this.props;
 
 const {
@@ -51,8 +53,13 @@ const {
 
 const {
   name: { first, last },
+
   organisation: {
-    address: { street: orgStreetAddress, postcode: orgPostcode }
+    address: {
+      street: orgStreetAddress,
+
+      postcode: orgPostcode
+    }
   }
 } = user;
 
@@ -60,8 +67,13 @@ function f({ data: { name } }) {}
 
 const UserComponent = function({
   name: { first, last },
+
   organisation: {
-    address: { street: orgStreetAddress, postcode: orgPostcode }
+    address: {
+      street: orgStreetAddress,
+
+      postcode: orgPostcode
+    }
   }
 }) {
   return;

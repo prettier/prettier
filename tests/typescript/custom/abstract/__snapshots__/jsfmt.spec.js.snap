@@ -24,15 +24,19 @@ export class Y {}
 
 =====================================output=====================================
 var abstract;
+
 class X {}
 
 const abstract;
+
 class Y {}
 
 export let abstract;
+
 class Y {}
 
 let abstract;
+
 export class Y {}
 
 ================================================================================
@@ -61,15 +65,21 @@ abstract class Foo {
 =====================================output=====================================
 abstract class Foo {
   private abstract a: 1;
+
   private abstract b: 2;
+
   static abstract c: 3;
 
   private abstract d = 4;
+
   private abstract e = 5;
+
   static abstract f = 6;
 
   private abstract ["g"] = 4;
+
   private abstract ["h"] = 5;
+
   static abstract ["i"] = 6;
 }
 
@@ -94,8 +104,10 @@ abstract class Foo {
 abstract class Foo {
   private abstract foobar =
     // comment to break
+
     1 +
     // another comment to break
+
     2;
 }
 

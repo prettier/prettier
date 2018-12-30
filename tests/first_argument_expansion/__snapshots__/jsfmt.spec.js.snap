@@ -237,7 +237,11 @@ func(
   () => {
     thing();
   },
-  { yes: true, cats: 5 }
+  {
+    yes: true,
+
+    cats: 5
+  }
 );
 
 compose(
@@ -263,6 +267,7 @@ renderThing(
 
 setTimeout(
   // Something
+
   function() {
     thing();
   },
@@ -270,7 +275,9 @@ setTimeout(
 );
 
 setTimeout(
-  /* blip */ function() {
+  /* blip */
+
+  function() {
     thing();
   },
   500

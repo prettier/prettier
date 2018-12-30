@@ -26,14 +26,22 @@ f(A.x); // A.x is now a string, by def assign
 
 module.exports = {};
 
-var A = { x: true, ...{} };
+var A = {
+  x: true,
+
+  ...{}
+};
+
 module.exports.cls = A;
 
 function f(x: boolean) {}
+
 module.exports.fn = f;
 
 A.y = "?";
+
 A.x = A.y;
+
 f(A.x); // A.x is now a string, by def assign
 
 ================================================================================
@@ -75,6 +83,7 @@ function f(): number {
 }
 
 B.prototype.s = 0;
+
 B.prototype.fn = f;
 
 module.exports = B;
@@ -107,12 +116,16 @@ module.exports = C;
 /* @providesModule C */
 
 var B = require("B");
+
 var f = require("A").fn;
 
 function C() {
   var o = new B();
+
   f(o.b);
+
   f(o.s);
+
   o.fn();
 }
 
@@ -151,10 +164,16 @@ function g(): string {
   return this.i;
 }
 
-var o = { fn: g, ...{} };
+var o = {
+  fn: g,
+
+  ...{}
+};
+
 o.i = true;
 
 var i = o.fn();
+
 f(i);
 
 module.exports = "D for dummy";
@@ -183,12 +202,18 @@ module.exports = {obj: o};
 /* @providesModule E */
 
 function h(x: number) {}
-var proto = { fn: h };
+
+var proto = {
+  fn: h
+};
 
 var o = Object.create(proto);
+
 o.fn(false);
 
-module.exports = { obj: o };
+module.exports = {
+  obj: o
+};
 
 ================================================================================
 `;
@@ -210,7 +235,10 @@ function foo(x: Array<number>): string {
 function fn2(x) {
   return x.length * 4;
 }
-fn2({ length: "hi" });
+
+fn2({
+  length: "hi"
+});
 
 function foo(x: Array<number>): string {
   return x.length;
@@ -234,12 +262,18 @@ b.length = "duck";
 b.length();
 
 =====================================output=====================================
-var a = { length: "duck" };
+var a = {
+  length: "duck"
+};
+
 a.length = 123;
+
 a.length();
 
 var b = [123];
+
 b.length = "duck";
+
 b.length();
 
 ================================================================================

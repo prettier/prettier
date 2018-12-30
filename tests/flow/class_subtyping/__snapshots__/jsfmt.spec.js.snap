@@ -14,7 +14,9 @@ module.exports = { A, B };
 
 =====================================output=====================================
 /* @flow */
+
 class A {}
+
 class B {}
 
 module.exports = { A, B };
@@ -38,11 +40,13 @@ var y: I.B = new C();
 
 =====================================output=====================================
 /* @flow */
+
 var I = require("./test.js");
 
 class C extends I.A {}
 
 var x: I.A = new C();
+
 var y: I.B = new C();
 
 ================================================================================
@@ -63,10 +67,13 @@ var a: A<string, number, Array<bool>> = c; // the third type arg is incorrect
 
 =====================================output=====================================
 class A<X, Y, Z> {}
+
 class B extends A<string, number, boolean> {}
+
 class C<X, Y, Z> extends B {}
 
 var c: C<number, string, Array<boolean>> = new C(); // none of the type args matter
+
 var a: A<string, number, Array<boolean>> = c; // the third type arg is incorrect
 
 ================================================================================
@@ -99,9 +106,13 @@ class C<X> {
 
 function foo<X>(c: C<X>, x: X) {}
 
-type O = { f: number };
+type O = {
+  f: number
+};
 
-foo((new C(): C<O>), { f_: 0 });
+foo((new C(): C<O>), {
+  f_: 0
+});
 
 class D extends C<O> {
   bar() {
@@ -109,7 +120,9 @@ class D extends C<O> {
   }
 }
 
-foo(new D(), { f_: 0 });
+foo(new D(), {
+  f_: 0
+});
 
 ================================================================================
 `;

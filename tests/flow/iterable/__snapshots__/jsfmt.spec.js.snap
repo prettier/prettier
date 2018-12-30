@@ -19,10 +19,13 @@ printWidth: 80
 /* @flow */
 
 (([1, 2]: Array<number>): Iterable<number>);
+
 ([1, 2, "hi"]: Iterable<number | string>);
+
 ([1, 2, 3]: Iterable<*>);
 
 (["hi"]: Iterable<number>); // Error string ~> number
+
 (["hi", 1]: Iterable<string>); // Error number ~> string
 
 ================================================================================
@@ -79,6 +82,7 @@ function fill_the_cache(x: Array<any | any>): Iterable<string> {
 }
 
 // Error: number ~> string
+
 function miss_the_cache(x: Array<string | number>): Iterable<string> {
   return x;
 }
@@ -164,10 +168,15 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
     "@@iterator"() {
       return makeIterator(coin_flip);
     },
+
     next(): IteratorResult<string, void> {
       var done = coin_flip();
+
       if (!done) {
-        return { done, value: "still going..." };
+        return {
+          done,
+          value: "still going..."
+        };
       } else {
         return { done };
       }
@@ -180,11 +189,17 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
     "@@iterator"() {
       return makeIterator(coin_flip);
     },
+
     next(): IteratorResult<string, void> {
       var done = coin_flip();
+
       if (done) {
         // Whoops, made a mistake and forgot to negate done
-        return { done, value: "still going..." }; // Error string ~> void
+
+        return {
+          done,
+          value: "still going..."
+        }; // Error string ~> void
       } else {
         return { done }; // Error void ~> string
       }
@@ -223,13 +238,17 @@ function mapTest4(map: Map<number, string>): Iterable<string> {
 function mapTest1(map: Map<string, number>): Iterable<[string, number]> {
   return map;
 }
+
 function mapTest2<K, V>(map: Map<K, V>): Iterable<[K, V]> {
   return map;
 }
+
 function mapTest3(map: Map<string, number>): Iterable<*> {
   return map;
 }
+
 // Error - Map is an Iterable<[K, V]>
+
 function mapTest4(map: Map<number, string>): Iterable<string> {
   return map;
 }
@@ -265,13 +284,17 @@ function setTest4(set: Set<string>): Iterable<number> {
 function setTest1(set: Set<string>): Iterable<string> {
   return set;
 }
+
 function setTest2<T>(set: Set<T>): Iterable<T> {
   return set;
 }
+
 function setTest3(set: Set<string>): Iterable<*> {
   return set;
 }
+
 // Error string ~> number
+
 function setTest4(set: Set<string>): Iterable<number> {
   return set;
 }
@@ -295,7 +318,9 @@ printWidth: 80
 /* @flow */
 
 ("hi": Iterable<string>);
+
 ("hi": Iterable<*>);
+
 ("hi": Iterable<number>); // Error - string is a Iterable<string>
 
 ================================================================================

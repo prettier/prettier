@@ -35,26 +35,35 @@ printWidth: 80
 =====================================output=====================================
 [
   "abc",
+
   "abc",
 
   "'",
 
   '"',
+
   '"',
+
   '\\\\"',
 
   "'",
+
   "'",
+
   "\\\\'",
 
   "'\\"",
+
   "'\\"",
 
   "\\\\",
+
   "\\\\",
 
   "\\0",
+
   "🐶",
+
   "\\uD801\\uDC28"
 ];
 
@@ -97,26 +106,35 @@ trailingComma: "all"
 =====================================output=====================================
 [
   "abc",
+
   "abc",
 
   "'",
 
   '"',
+
   '"',
+
   '\\\\"',
 
   "'",
+
   "'",
+
   "\\\\'",
 
   "'\\"",
+
   "'\\"",
 
   "\\\\",
+
   "\\\\",
 
   "\\0",
+
   "🐶",
+
   "\\uD801\\uDC28",
 ];
 
@@ -261,14 +279,20 @@ pipe.write(
 );
 
 // https://github.com/prettier/prettier/issues/1662#issue-230406820
+
 const content = \`
 const env = \${JSON.stringify(
   {
     assetsRootUrl: env.assetsRootUrl,
+
     env: env.env,
+
     role: "client",
+
     adsfafa: "sdfsdff",
+
     asdfasff: "wefwefw",
+
     fefef: "sf sdfs fdsfdsf s dfsfds"
   },
   null,
@@ -277,14 +301,17 @@ const env = \${JSON.stringify(
 \`;
 
 // https://github.com/prettier/prettier/issues/821#issue-210557749
+
 f(
   \`\${{
     a: 4,
+
     b: 9
   }}\`
 );
 
 // https://github.com/prettier/prettier/issues/1183#issue-220863505
+
 const makeBody = (store, assets, html) =>
   \`<!doctype html>\${ReactDOMServer.renderToStaticMarkup(
     <Html
@@ -300,12 +327,19 @@ const makeBody = (store, assets, html) =>
         )};\`
       ]}
       content={[
-        { id: "app-container", dangerouslySetInnerHTML: { __html: html } }
+        {
+          id: "app-container",
+
+          dangerouslySetInnerHTML: {
+            __html: html
+          }
+        }
       ]}
     />
   )}\`;
 
 // https://github.com/prettier/prettier/issues/1626#issue-229655106
+
 const Bar = styled.div\`
   color: \${props =>
     props.highlight.length > 0
@@ -455,14 +489,20 @@ pipe.write(
 );
 
 // https://github.com/prettier/prettier/issues/1662#issue-230406820
+
 const content = \`
 const env = \${JSON.stringify(
   {
     assetsRootUrl: env.assetsRootUrl,
+
     env: env.env,
+
     role: "client",
+
     adsfafa: "sdfsdff",
+
     asdfasff: "wefwefw",
+
     fefef: "sf sdfs fdsfdsf s dfsfds",
   },
   null,
@@ -471,14 +511,17 @@ const env = \${JSON.stringify(
 \`;
 
 // https://github.com/prettier/prettier/issues/821#issue-210557749
+
 f(
   \`\${{
     a: 4,
+
     b: 9,
   }}\`,
 );
 
 // https://github.com/prettier/prettier/issues/1183#issue-220863505
+
 const makeBody = (store, assets, html) =>
   \`<!doctype html>\${ReactDOMServer.renderToStaticMarkup(
     <Html
@@ -494,12 +537,19 @@ const makeBody = (store, assets, html) =>
         )};\`,
       ]}
       content={[
-        { id: "app-container", dangerouslySetInnerHTML: { __html: html } },
+        {
+          id: "app-container",
+
+          dangerouslySetInnerHTML: {
+            __html: html,
+          },
+        },
       ]}
     />,
   )}\`;
 
 // https://github.com/prettier/prettier/issues/1626#issue-229655106
+
 const Bar = styled.div\`
   color: \${props =>
     props.highlight.length > 0
