@@ -17,7 +17,6 @@ export const LIFE = 42;
 
 =====================================output=====================================
 // @flow
-
 export type Action =
   | {
       type: "QUX"

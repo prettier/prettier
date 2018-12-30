@@ -159,7 +159,6 @@ function default_expr_scope({a, b = a}) {}
 
 =====================================output=====================================
 /* @flow */
-
 function obj_prop_fun(
   {
     p: { q = 0 } = {
@@ -172,15 +171,10 @@ function obj_prop_fun(
   }
 ) {
   // errors:
-
   // * number  ~> void, from default on _.p.q
-
   // * boolean ~> void, from default on _.p
-
   // * string  ~> void, from default on _
-
   // * null    ~> void, from call below
-
   (q: void);
 }
 obj_prop_fun(); // ok
@@ -206,15 +200,10 @@ function obj_prop_var(
     }
   } = o;
   // errors:
-
   // * number  ~> void, from default on o.p.q
-
   // * boolean ~> void, from default on o.p
-
   // * string  ~> void, from default on o
-
   // * null    ~> void, from call below
-
   (q: void);
 }
 obj_prop_var(); // ok
@@ -241,13 +230,9 @@ function obj_rest(
   }
 ) {
   // errors:
-
   // * number  ~> void, from default on _.p
-
   // * string  ~> void, from default on _
-
   // * null    ~> void, from call below
-
   (o.r: void);
 }
 obj_rest(); // ok
@@ -295,7 +280,6 @@ function gen<T>(
   return p;
 }
 // Default values in destructuring unwrap optional types
-
 obj_prop_fun(
   ({}: {
     p?: {
@@ -311,7 +295,6 @@ obj_prop_var(
   })
 ); // ok
 // union-like upper bounds preserved through destructuring
-
 function obj_prop_opt(
   {
     p
@@ -340,7 +323,6 @@ function obj_prop_union(
   }
 ) {}
 // TODO: union-of-objects upper bounds preserved through destructuring
-
 function obj_prop_union2(
   {
     p
@@ -600,7 +582,6 @@ function arr_rest_pattern<X>([ _, ...a ] : ArrRest<X>) { // a: [X]
 
 =====================================output=====================================
 // @flow
-
 function obj_pattern<X>({ prop }: { prop: X }) {} // prop: X
 type Prop<X> = {
   prop: X
@@ -615,7 +596,6 @@ function tup_pattern2<X>([proj]: Proj<X>) {} // proj: X
 function rest_pattern<X>(...r: X[]) {} // r: X[]
 function obj_rest_pattern<X>({ _, ...o }: { _: any, x: X }) {
   // o: { x: X }
-
   o.x;
 }
 type ObjRest<X> = {
@@ -624,18 +604,15 @@ type ObjRest<X> = {
 };
 function obj_rest_pattern<X>({ _, ...o }: ObjRest<X>) {
   // o: { x: X }
-
   o.x;
 }
 function arr_rest_pattern<X>([_, ...a]: [any, X]) {
   // a: [X]
-
   a[0];
 }
 type ArrRest<X> = [any, X];
 function arr_rest_pattern<X>([_, ...a]: ArrRest<X>) {
   // a: [X]
-
   a[0];
 }
 
@@ -671,11 +648,8 @@ var { x: o } = o;
 
 =====================================output=====================================
 // @flow
-
 // Make sure that destructuring doesn't cause infinite loops when combined with
-
 // funny doses of repositioning
-
 let foo = (i: number) => [i];
 const bar = (i: number) => {
   [i] = foo(i);
@@ -685,7 +659,6 @@ foo = (i: number) => {
   return bar(i);
 };
 // Also make sure that the following doesn't loop
-
 declare var o;
 var { x: o } = o;
 
@@ -711,7 +684,6 @@ class UndefinedValue extends Value { }
 
 =====================================output=====================================
 // @flow
-
 function _([argArray]: Array<Value>) {
   if (argArray instanceof NullValue || argArray instanceof UndefinedValue) {
   }
@@ -766,7 +738,6 @@ function bar() {
 
 =====================================output=====================================
 // @flow
-
 var { x } = {
   x: {
     foo: "foo"

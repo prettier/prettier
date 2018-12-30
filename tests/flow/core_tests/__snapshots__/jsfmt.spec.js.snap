@@ -51,12 +51,9 @@ let tests = [
 
 =====================================output=====================================
 // @flow
-
 // Boolean (the class) tests. booleans (the literals) are not part of core.js
-
 let tests = [
   // constructor
-
   function() {
     new Boolean();
     new Boolean(0);
@@ -68,7 +65,6 @@ let tests = [
     new Boolean("");
   },
   // toString
-
   function() {
     true.toString();
     let x: boolean = false;
@@ -76,12 +72,10 @@ let tests = [
     new Boolean(true).toString();
   },
   // valueOf
-
   function() {
     (new Boolean(0).valueOf(): boolean);
   },
   // casting
-
   function() {
     Boolean();
     Boolean(0);
@@ -138,7 +132,6 @@ let tests = [
 
 =====================================output=====================================
 // @flow
-
 function* generator(): Iterable<[string, number]> {
   while (true) {
     yield ["foo", 123];
@@ -146,7 +139,6 @@ function* generator(): Iterable<[string, number]> {
 }
 let tests = [
   // good constructors
-
   function() {
     let w = new Map();
     let x = new Map(null);
@@ -157,13 +149,11 @@ let tests = [
     let c: Map<string, number> = new Map(generator());
   },
   // bad constructors
-
   function() {
     let x = new Map(["foo", 123]); // error
     let y: Map<number, string> = new Map([["foo", 123]]); // error
   },
   // get()
-
   function(x: Map<string, number>) {
     (x.get("foo"): boolean); // error, string | void
     x.get(123); // error, wrong key type
@@ -211,10 +201,8 @@ let tests = [
 
 =====================================output=====================================
 // @flow
-
 let tests = [
   // constructor
-
   function() {
     new RegExp("foo");
     new RegExp(/foo/);
@@ -224,7 +212,6 @@ let tests = [
     new RegExp(/foo/g, "i"); // invalid in ES5, valid in ES6
   },
   // called as a function (equivalent to the constructor per ES6 21.2.3)
-
   function() {
     RegExp("foo");
     RegExp(/foo/);
@@ -234,7 +221,6 @@ let tests = [
     RegExp(/foo/g, "i"); // invalid in ES5, valid in ES6
   },
   // invalid flags
-
   function() {
     RegExp("foo", "z"); // error
     new RegExp("foo", "z"); // error
@@ -289,7 +275,6 @@ let ws5 = new WeakSet(numbers()); // error, must be objects
 
 =====================================output=====================================
 // @flow
-
 let ws = new WeakSet();
 let obj: Object = {};
 let dict: {

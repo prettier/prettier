@@ -62,7 +62,6 @@ let y: ObjAssignT = { ...x }; // should be fine
  *
  * @noflow
  */
-
 declare var x: ObjAssignT;
 let y: ObjAssignT = {
   ...x
@@ -109,7 +108,6 @@ function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
  *
  * @flow
  */
-
 type DuplexStreamOptions = ReadableStreamOptions &
   WritableStreamOptions & {
     allowHalfOpen?: boolean,
@@ -188,9 +186,7 @@ var g: (_: number | string) => void = f;
  *
  * @noflow
  */
-
 // intersection of function types satisfies union of param types
-
 type F = (_: ObjA) => void;
 type G = (_: ObjB) => void;
 type FG = (_: ObjA | ObjB) => void;
@@ -198,7 +194,6 @@ declare var fun1: F & G;
 (fun1: FG);
 var fun2: FG = fun1;
 // simpler variation
-
 declare var f: ((_: number) => void) & ((_: string) => void);
 var g: (_: number | string) => void = f;
 
@@ -247,39 +242,24 @@ var e: E = c; // error
  *
  * @noflow
  */
-
 // TODO we should give explicit errors for incompatibilities
-
 // which make an intersection uninhabitable:
-
 // - shared mutable properties with different types
-
 // - different dictionary types
-
 //
-
 // Currently we give no such errors. Instead, we rely on
-
 // the impossibility of providing a value for such a type
-
 // to produce errors on value inflows. This is clearly
-
 // suboptimal, since eg declared vars require no explicit
-
 // provision of values. This leaves the impossible types
-
 // free to flow downstream and satisfy impossible constraints.
-
 // intersection of object types satisfies union of properties
-
 declare var a: A;
 var b: B = a;
 // intersection of dictionary types:
-
 declare var c: C;
 var d: D = c; // ok
 // dict type mismatch
-
 type E = { [key: string]: string };
 var e: E = c; // error
 

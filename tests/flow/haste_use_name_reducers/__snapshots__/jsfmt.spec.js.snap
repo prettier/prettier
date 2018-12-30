@@ -15,7 +15,6 @@ require('Module4');
 
 =====================================output=====================================
 /* @flow */
-
 (require("Module1"): boolean);
 require("Module2");
 require("Module3");

@@ -125,11 +125,8 @@ class H<T> {
 
 =====================================output=====================================
 // Ensure method type params properly shadow outer type params. Subclass ensures
-
 // the generated insttype has the correct tvars. Should behave the same for
-
 // classes, interfaces, and declared classes.
-
 class A<T> {
   x: T;
   constructor(x: T) {
@@ -157,7 +154,6 @@ declare class F<T> extends E<T> {
   m<T>(x: T): F<T>;
 }
 // Bounds can refer to parent type params (until they are shadowed).
-
 class G<T> {
   x: T;
   constructor(x: T) {
@@ -172,7 +168,6 @@ g.m(0); // ok
 g.m(true); // err, bool ~> number|string
 (g.m(""): G<number>); // err, string ~> number
 // Shadow bounds incompatible with parent
-
 class H<T> {
   x: T;
   m<T>(x: T) {

@@ -34,7 +34,6 @@ numStrTuple = unionTuple3;
 
 =====================================output=====================================
 ﻿// no error
-
 var numStrTuple: [number, string] = [5, "hello"];
 var numStrTuple2: [number, string] = [5, "foo", true];
 var numStrBoolTuple: [number, string, boolean] = [5, "foo", true];
@@ -63,7 +62,6 @@ var unionTuple3: [number, string | number] = [10, "foo"];
 numStrTuple = numStrTuple2;
 numStrTuple = numStrBoolTuple;
 // error
-
 objNumTuple = [{}, 5];
 numStrBoolTuple = numStrTuple;
 var strStrTuple: [string, string] = ["foo", "bar", 5];
@@ -120,7 +118,6 @@ var numTupleTuple: [number, [string, number]] = [10, ["bar", 20]];
 var unionTuple1: [number, string | number] = [10, "foo"];
 var unionTuple2: [boolean, string | number] = [true, "foo"];
 // no error
-
 var idx0 = 0;
 var idx1 = 1;
 var ele10 = strNumTuple[0]; // string
@@ -276,7 +273,6 @@ y = [""];
 
 =====================================output=====================================
 //@noImplicitAny: true
-
 declare function foo<T extends [any]>(x: T): T;
 var y = foo([undefined]);
 y = [""];
@@ -299,7 +295,6 @@ var foo: () => [any] = function bar() {
 
 =====================================output=====================================
 //@noImplicitAny: true
-
 var foo: () => [any] = function bar() {
   let intermediate = bar();
   intermediate = [""];
@@ -322,7 +317,6 @@ var b = a = [undefined, null];
 
 =====================================output=====================================
 //@noImplicitAny: true
-
 var a: [any];
 var b = (a = [undefined, null]);
 
@@ -359,7 +353,6 @@ var [a, b] = [undefined, null];
 
 =====================================output=====================================
 //@noImplicitAny: true
-
 var [a, b] = [undefined, null];
 
 ================================================================================
@@ -397,7 +390,6 @@ var foo = function bar() {
 
 =====================================output=====================================
 //@noImplicitAny: true
-
 var foo = function bar() {
   let intermediate: [string];
   return (intermediate = [undefined]);

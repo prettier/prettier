@@ -37,9 +37,7 @@ function f2<T extends Date, U extends Date>() {
 
 =====================================output=====================================
 // inner type parameters shadow outer ones of the same name
-
 // no errors expected
-
 function f<T extends Date>() {
   function g<T extends Number>() {
     var x: T;
@@ -106,9 +104,7 @@ class C2<T extends Date, U extends Date> {
 
 =====================================output=====================================
 // inner type parameters shadow outer ones of the same name
-
 // no errors expected
-
 class C<T extends Date> {
   g<T extends Number>() {
     var x: T;
@@ -157,7 +153,6 @@ class C3<T extends Date> {
 
 =====================================output=====================================
 // BUG 745747
-
 class C<T> {
   static x: T;
   static f(x: T) {}

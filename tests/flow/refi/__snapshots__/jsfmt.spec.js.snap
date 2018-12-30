@@ -73,9 +73,7 @@ var tests =
 
 =====================================output=====================================
 // refinements of bound vars (closed-over locals)
-
 // should have the same lifetimes as heap objects.
-
 var x: ?string = "xxx";
 var tests = [
   function() {
@@ -111,7 +109,6 @@ var tests = [
     }
   },
   */
-
   function() {
     if (x != null) {
     }
@@ -595,12 +592,10 @@ var tests = [
       x.y = "foo";
     }
     // now x.y can is string | boolean
-
     if (typeof x.y == "string") {
       x.y = false;
     }
     // now x.y is only boolean
-
     (x.y: string); // error
   },
   function() {
@@ -613,12 +608,10 @@ var tests = [
       x.y = "foo";
     }
     // now x.y can is string | boolean
-
     if (typeof x.y == "string") {
       x.y = 123;
     }
     // now x.y is number | boolean
-
     (x.y: string); // error
   },
   function() {
@@ -646,17 +639,11 @@ var tests = [
     (x: string & number);
   },
   // --- nested conditionals ---
-
   // after a branch, the current scope may have changed. this causes the
-
   // subsequent assignment to refine the new scope. these tests make sure that
-
   // the scope that gets merged after the if statement is the correct
-
   // post-condition scope, not the one that was saved at the beginning of the
-
   // if statement.
-
   function() {
     let x: {
       foo: ?string
@@ -1125,7 +1112,6 @@ class D extends C {
 =====================================output=====================================
 var null_tests = [
   // expr != null
-
   function() {
     var x: ?string = "xxx";
     if (x != null) {
@@ -1163,7 +1149,6 @@ var null_tests = [
     }
   },
   // expr == null
-
   function() {
     var x: ?string = "xxx";
     if (x == null) {
@@ -1198,7 +1183,6 @@ var null_tests = [
     }
   },
   // expr !== null
-
   function() {
     var x: ?string = "xxx";
     if (x !== null) {
@@ -1230,7 +1214,6 @@ var null_tests = [
     }
   },
   // expr === null
-
   function() {
     var x: ?string = "xxx";
     if (x === null) {
@@ -1266,7 +1249,6 @@ var null_tests = [
   }
 ];
 // this.p op null
-
 class C {
   p: ?string;
   ensure0(): string {
@@ -1287,7 +1269,6 @@ class C {
   }
 }
 // super.p op null
-
 class D extends C {
   ensure100(): string {
     if (super.p != null) return super.p;
@@ -1381,7 +1362,6 @@ function exhaustion3(x): number {
 
 =====================================output=====================================
 // @flow
-
 function foo(a, b, c) {
   switch (c) {
     case a.x.y: // OK
@@ -1394,7 +1374,6 @@ function foo(a, b, c) {
   }
 }
 // test refis out of switches that are exhaustive without default case
-
 function exhaustion1(x): number {
   var foo;
   switch (x) {
@@ -1426,7 +1405,6 @@ function exhaustion2(x, y): number {
      *
     foo = "";
      */
-
     case 1:
       foo = 3;
       break;
@@ -1594,7 +1572,6 @@ class A {
 =====================================output=====================================
 var null_tests = [
   // typeof expr == typename
-
   function() {
     var x: ?string = "xxx";
     if (typeof x == "string") {
@@ -1632,7 +1609,6 @@ var null_tests = [
     }
   },
   // typeof expr != typename
-
   function() {
     var x: ?string = "xxx";
     if (typeof x != "string") {
@@ -1667,7 +1643,6 @@ var null_tests = [
     }
   },
   // typeof expr === typename
-
   function() {
     var x: ?string = "xxx";
     if (typeof x === "string") {
@@ -1699,7 +1674,6 @@ var null_tests = [
     }
   },
   // typeof expr !== typename
-
   function() {
     var x: ?string = "xxx";
     if (typeof x !== "string") {
@@ -1735,7 +1709,6 @@ var null_tests = [
   }
 ];
 // typeof this.p op typename
-
 class A {
   p: ?string;
   ensure0(): string {
@@ -1843,9 +1816,7 @@ class A {
 =====================================output=====================================
 var undef_tests = [
   // NOTE: not (yet?) supporting non-strict eq test for undefined
-
   // expr !== undefined
-
   function() {
     var x: ?string = "xxx";
     if (x !== undefined && x !== null) {
@@ -1883,7 +1854,6 @@ var undef_tests = [
     }
   },
   // expr === undefined
-
   function() {
     var x: ?string = "xxx";
     if (x === undefined || x === null) {
@@ -1919,7 +1889,6 @@ var undef_tests = [
   }
 ];
 // this.p op undefined
-
 class A {
   p: ?string;
   ensure0(): string {
@@ -2019,9 +1988,7 @@ class A {
 =====================================output=====================================
 var void_tests = [
   // NOTE: not (yet?) supporting non-strict eq test for undefined
-
   // expr !== void(...)
-
   function() {
     var x: ?string = "xxx";
     if (x !== void 0 && x !== null) {
@@ -2059,7 +2026,6 @@ var void_tests = [
     }
   },
   // expr === void(...)
-
   function() {
     var x: ?string = "xxx";
     if (x === void 0 || x === null) {
@@ -2095,7 +2061,6 @@ var void_tests = [
   }
 ];
 // this.p op void(...)
-
 class A {
   p: ?string;
   ensure0(): string {

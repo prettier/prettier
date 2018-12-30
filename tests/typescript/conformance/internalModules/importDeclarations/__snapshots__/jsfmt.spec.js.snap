@@ -27,7 +27,6 @@ var c = new B.a.C();
 
 =====================================output=====================================
 // expected no error
-
 module B {
   export import a = A;
   export class D extends a.C {
@@ -122,7 +121,6 @@ var p: { x: number; y: number; }
 var p: M.D.Point;
 =====================================output=====================================
 // expect no errors here
-
 module A {
   export var x = "hello world";
   export class Point {
@@ -153,7 +151,6 @@ module X {
 }
 module Z {
   // 'y' should be a fundule here
-
   export import y = X.Y;
 }
 var m: number = Z.y();
@@ -329,7 +326,6 @@ import i = I;
 
 =====================================output=====================================
 // none of these should work, since non are actually modules
-
 var V = 12;
 import v = V;
 class C {
@@ -390,7 +386,6 @@ module Z {
 }
 =====================================output=====================================
 // all errors imported modules conflict with local variables
-
 module A {
   export var Point = {
     x: 0,

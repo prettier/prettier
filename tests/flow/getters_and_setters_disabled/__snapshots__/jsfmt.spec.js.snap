@@ -42,7 +42,6 @@ class Bar {
 /**
  * @flow
  */
-
 var f = {
   get a() {
     return 4;

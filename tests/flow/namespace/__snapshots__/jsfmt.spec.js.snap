@@ -43,9 +43,7 @@ module.exports = { foo: ("": number) };
 
 =====================================output=====================================
 /*@flow*/
-
 // import type { T } from '...'
-
 type T = (x: number) => void;
 var f: T = function(x: string): void {};
 type Map<X, Y> = (x: X) => Y;

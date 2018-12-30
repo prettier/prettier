@@ -24,12 +24,10 @@ new A(); // OK, implicitly inferred type args
 class B extends A {} // OK, same as above
 function foo(b): A<any> {
   // ok but unsafe, caller may assume any type arg
-
   return b ? (new A(): A<number>) : (new A(): A<string>);
 }
 function bar(): A<*> {
   // error, * can't be {} and {x: string} at the same time
-
   return (
     (new A(): A<{}>) ||
     (new A(): A<{
@@ -70,7 +68,6 @@ a.meth(new Base()); // Error: Base ~> Middle
 
 =====================================output=====================================
 // @flow
-
 class Base {}
 class Middle extends Base {}
 class Child extends Middle {}
@@ -80,9 +77,7 @@ class C<T: Middle> {
   }
 }
 // T is implicitly (bounded by) Middle in constructor call if not provided.
-
 // Explicit type arg is required in annotation - here a wildcard captures it.
-
 var a: C<*> = new C();
 a.meth(new Middle());
 a.meth(new Child());
@@ -119,11 +114,8 @@ unbox(bool);
 
 =====================================output=====================================
 // @flow
-
 // naive unification causes combinatorial explosion here,
-
 // effectively hangs
-
 declare type Box<T> = {
   map1<U>(f: (x: T) => U): Box<U>,
   map2<U>(f: (x: T) => U): Box<U>,

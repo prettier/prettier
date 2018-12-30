@@ -20,11 +20,8 @@ declare module bar {
 
 =====================================output=====================================
 // This file triggers a violation of the "disjoint-or-nested ranges invariant"
-
 // that we implicitly assume in type-at-pos and coverage implementations. In
-
 // particular, when unchecked it causes a crash with coverage --color.
-
 declare module foo {
 }
 declare module bar {
@@ -46,7 +43,6 @@ declare module foo {
 
 =====================================output=====================================
 // check coverage of declare module
-
 declare module foo {
 }
 
@@ -92,17 +88,13 @@ declare class qux {
 
 =====================================output=====================================
 // This file triggers a violation of the "disjoint-or-nested ranges invariant"
-
 // that we implicitly assume in type-at-pos and coverage implementations. In
-
 // particular, when unchecked it causes non-termination with coverage --color.
-
 declare module foo {
 }
 declare module bar {
 }
 // TODO
-
 declare class qux {}
 
 ================================================================================

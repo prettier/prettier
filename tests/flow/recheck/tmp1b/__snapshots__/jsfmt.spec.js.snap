@@ -18,7 +18,6 @@ module.exports = { C, D };
 
 =====================================output=====================================
 // @flow
-
 import { C, E } from "./b0";
 function foo() {
   return C;

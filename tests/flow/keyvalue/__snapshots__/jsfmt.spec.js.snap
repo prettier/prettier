@@ -16,7 +16,6 @@ let tests = [
 
 =====================================output=====================================
 // @flow
-
 let tests = [
   function(x: { [key: number]: string }) {
     (x[""]: number);

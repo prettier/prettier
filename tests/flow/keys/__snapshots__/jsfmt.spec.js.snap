@@ -54,7 +54,6 @@ function testKeysOfOtherObj(str: string, lit: 'hi') {
 
 =====================================output=====================================
 /* @flow */
-
 function testKeysOfObject(str: string, lit: "hi") {
   (str: $Keys<Object>); // Any string should be fine
   if (str) {

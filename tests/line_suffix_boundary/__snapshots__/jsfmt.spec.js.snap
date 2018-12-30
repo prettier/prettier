@@ -43,19 +43,16 @@ ExampleStory.getFragment('story')}
 
 \${
   /* comment */
-
   c /* comment */
 }
 
 \${
   // comment
-
   d //comment
 }
 
 \${
   // $FlowFixMe found when converting React.createClass to ES6
-
   ExampleStory.getFragment("story")
 }
 \`;

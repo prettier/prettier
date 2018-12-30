@@ -151,7 +151,6 @@ proseWrap: "always"
 
 > \`\`\`js
 > // prettier-ignore
->
 > const x = 1,
 > b = 2
 > \`\`\`

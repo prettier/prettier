@@ -81,7 +81,6 @@ a = (
 =====================================output=====================================
 a =
   // Commment 1
-
   Math.random() * (yRange * (1 - minVerticalFraction)) +
   minVerticalFraction * yRange -
   offset;
@@ -653,9 +652,7 @@ foo(obj.property * new Class() && obj instanceof Class && longVariable ? number 
 
 =====================================output=====================================
 // It should always break the highest precedence operators first, and
-
 // break them all at the same time.
-
 const x = longVariable + longVariable + longVariable;
 const x =
   longVariable +

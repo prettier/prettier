@@ -1531,7 +1531,6 @@ For example:
 \`\`\`js
 matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
 // prettier-ignore
-
 matrix(
   1, 0, 0,
   0, 1, 0,
@@ -1544,7 +1543,6 @@ will be transformed to:
 \`\`\`js
 matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
 // prettier-ignore
-
 matrix(
   1, 0, 0,
   0, 1, 0,
@@ -1768,7 +1766,6 @@ JSON:
 
 \`\`\`json
 // .prettierrc
-
 {
   "printWidth": 100,
   "parser": "flow"
@@ -3515,7 +3512,6 @@ For example:
 \`\`\`js
 matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
 // prettier-ignore
-
 matrix(
   1, 0, 0,
   0, 1, 0,
@@ -3528,7 +3524,6 @@ will be transformed to:
 \`\`\`js
 matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
 // prettier-ignore
-
 matrix(
   1, 0, 0,
   0, 1, 0,
@@ -3752,7 +3747,6 @@ JSON:
 
 \`\`\`json
 // .prettierrc
-
 {
   "printWidth": 100,
   "parser": "flow"

@@ -467,7 +467,6 @@ let myDiv = ReactTestUtils.renderIntoDocument(
 
 =====================================output=====================================
 // Wrapping text
-
 x = (
   <div>
     Some text that would need to wrap on to a new line in order to display
@@ -475,7 +474,6 @@ x = (
   </div>
 );
 // Wrapping tags
-
 x = (
   <div>
     <first>f</first> <first>f</first> <first>f</first> <first>f</first>{" "}
@@ -483,7 +481,6 @@ x = (
   </div>
 );
 // Wrapping tags
-
 x = (
   <div>
     <first>f</first>
@@ -495,7 +492,6 @@ x = (
   </div>
 );
 // Wrapping tags
-
 x = (
   <div>
     <a />
@@ -506,7 +502,6 @@ x = (
   </div>
 );
 // Wrapping tags
-
 x = (
   <div>
     <sadashdkjahsdkjhaskjdhaksjdhkashdkashdkasjhdkajshdkashdkashd />{" "}
@@ -790,7 +785,6 @@ expression_does_not_break = (
   </div>
 );
 // FIXME
-
 br_triggers_expression_break = (
   <div>
     <br />
@@ -847,12 +841,9 @@ x = (
   </div>
 );
 // NOTE: Multiple JSX whitespaces are collapsed into a single space.
-
 x = <div> </div>;
 // Don't break a self-closing element without attributes
-
 // ----------
-
 x = (
   <p>
     text text text text text text text text text text text text text text text

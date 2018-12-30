@@ -206,7 +206,6 @@ reallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongMethod(
   true
 );
 // Don't do the rest of these
-
 func(
   function() {
     thing();
@@ -243,7 +242,6 @@ renderThing(
 );
 setTimeout(
   // Something
-
   function() {
     thing();
   },
@@ -251,7 +249,6 @@ setTimeout(
 );
 setTimeout(
   /* blip */
-
   function() {
     thing();
   },

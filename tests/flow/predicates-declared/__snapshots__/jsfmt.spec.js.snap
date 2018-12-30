@@ -49,17 +49,11 @@ if (m.bind(this)(x)) { }
 
 =====================================output=====================================
 // @flow
-
 // Sanity checks:
-
 //  - use of bind in a position of a function predicate.
-
 //    (This case should fall through, as method calls
-
 //    are currently not supported.) The original behavior
-
 //    (including \`havoc\`) should be retained.
-
 class C {
   m() {
     return true;
@@ -120,12 +114,10 @@ function foo(x: number | string | Array<string>): number {
 
 =====================================output=====================================
 // @flow
-
 declare function f1(x: mixed): boolean %checks(typeof x === "string");
 declare function f2(x: mixed): boolean %checks(Array.isArray(x));
 declare var cond: boolean;
 // Feature check:
-
 function foo(x: number | string | Array<string>): number {
   var f = cond ? f1 : f2;
   if (f(x)) {
@@ -165,25 +157,18 @@ function foo(x: string | Array<string>): string {
 
 =====================================output=====================================
 // @flow
-
 declare function is_string(x: mixed): boolean %checks(typeof x === "string");
 declare function is_number(x: mixed): boolean %checks(typeof x === "number");
 // Feature check:
-
 function foo(x: string | Array<string>): string {
   if (is_string(x)) {
     // The use of \`is_string\` as a conditional check
-
     // should guarantee the narrowing of the type of \`x\`
-
     // to string.
-
     return x;
   } else {
     // Accordingly the negation of the above check
-
     // guarantees that \`x\` here is an Array<string>
-
     return x.join();
   }
 }
@@ -222,13 +207,9 @@ function foo(x: mixed) { return 1; }
 
 =====================================output=====================================
 // @flow
-
 // Sanity check:
-
 // - conditional functions do not affect behavior of conditional
-
 //   expressions (e.g. \`||\`)
-
 declare function r(x: string): number;
 var s = "a";
 var n = r(s) || 1;
@@ -280,11 +261,8 @@ function f(_this: { m: ?Meeting }): string {
 
 =====================================output=====================================
 // @flow
-
 // Sanity check:
-
 // - preserving \`havoc\` semantics
-
 type Meeting = {
   organizer: ?Invitee,
   es: Array<Invitee>
@@ -325,9 +303,7 @@ function foo(x: string | Array<string>): string {
 
 =====================================output=====================================
 // @flow
-
 // The original first-order case
-
 function foo(x: string | Array<string>): string {
   if (typeof x === "string") {
     return x; // [ERROR] x: Array<string> doesn't match return type
@@ -361,11 +337,8 @@ function foo(s: Array<string>): string {
 
 =====================================output=====================================
 // @flow
-
 // Sanity check:
-
 // - we should still be getting an error at the second return statement
-
 declare function pred<T>(x: T): boolean;
 function foo(s: Array<string>): string {
   if (pred(s)) {
@@ -405,11 +378,8 @@ function foo(s: Array<string>): string {
 
 =====================================output=====================================
 // @flow
-
 // Sanity check:
-
 // - invalid calls at predicate positions
-
 declare function pred<T>(x: T): boolean;
 function foo(s: Array<string>): string {
   if (1(s)) {
@@ -448,13 +418,10 @@ function bar(x: string | Array<string>): string {
 
 =====================================output=====================================
 // @flow
-
 declare function is_string(x: mixed): boolean %checks(typeof x === "string");
 declare function is_number(x: mixed): boolean %checks(typeof x === "number");
 // Sanity check:
-
 // - Erroneous logic
-
 function bar(x: string | Array<string>): string {
   if (is_number(x)) {
     return x;
@@ -485,9 +452,7 @@ foo(3, 3);
 
 =====================================output=====================================
 // @flow
-
 // Sanity check: make sure the parameters are checked as usual
-
 declare function foo(
   input: mixed,
   types: string | Array<string>
@@ -521,14 +486,10 @@ function foo(x: string | Array<string>): string {
 
 =====================================output=====================================
 // @flow
-
 // Sanity check:
-
 // - predicate functions cannot have bodies (can only be declarations)
-
 function pred(x: mixed): boolean %checks(typeof x === "string") {
   // error: cannot use pred type here
-
   return typeof x === "string";
 }
 function foo(x: string | Array<string>): string {
@@ -553,7 +514,6 @@ declare function f2(x: mixed): string %checks(Array.isArray(x));
 
 =====================================output=====================================
 // @flow
-
 declare function f2(x: mixed): string %checks(Array.isArray(x));
 
 ================================================================================

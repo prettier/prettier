@@ -197,33 +197,23 @@ doSomething(
 =====================================output=====================================
 longArgNamesWithComments(
   // Hello World
-
   longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong1,
   // Hello World
-
   longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,
   /* Hello World */
-
   longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3
 );
 shortArgNames(short, short2, short3);
 comments(
   // Comment
-
   /* Some comments */
-
   short,
   /* Another comment */
-
   short2, // Even more comments
   /* Another comment */
-
   // Long Long Long Long Long Comment
-
   /* Long Long Long Long Long Comment */
-
   // Long Long Long Long Long Comment
-
   short3 // More comments
 );
 differentArgTypes(
@@ -240,9 +230,7 @@ moreArgTypes(
   },
   doSomething(
     // Hello world
-
     // Hello world again
-
     {
       name: "Hello World",
       age: 34
@@ -265,7 +253,6 @@ evenMoreArgTypes(
 foo.apply(
   null,
   // Array here
-
   [1, 2]
 );
 bar.on("readable", () => {
@@ -274,7 +261,6 @@ bar.on("readable", () => {
 foo(
   ["A, B"],
   /* function here */
-
   function doSomething() {
     return true;
   }
@@ -282,7 +268,6 @@ foo(
 doSomething.apply(
   null,
   // Comment
-
   ["Hello world 1", "Hello world 2", "Hello world 3"]
 );
 doAnotherThing("node", { solution_type, time_frame });
@@ -292,7 +277,6 @@ stuff.doThing(someStuff, -1, {
 doThing(
   someOtherStuff,
   // This is important
-
   true,
   {
     decline: creditCard => takeMoney(creditCard)
@@ -314,9 +298,7 @@ doSomething(
   },
   1337,
   /* Comment */
-
   // This is important
-
   { helloWorld, someImportantStuff }
 );
 
@@ -456,24 +438,20 @@ fooBar
     foo: bar
   })
   // App configuration.
-
   .doOneMoreThing(config)
   .run(() => console.log("Bar"));
 bigDeal
   .doSomething("Hello World")
   // Hello world
-
   .doAnotherThing("Foo", {
     foo: bar
   })
   // App configuration.
-
   .doOneMoreThing(config)
   .run(() => console.log("Bar"));
 foo.bar.baz
   .doSomething("Hello World")
   // Hello world
-
   .foo.bar.doAnotherThing("Foo", {
     foo: bar
   })
@@ -482,7 +460,6 @@ foo.bar.baz
 (somethingGood ? thisIsIt : maybeNot)
 
   // Hello world
-
   .doSomething("Hello World")
   .doAnotherThing("Foo", {
     foo: bar

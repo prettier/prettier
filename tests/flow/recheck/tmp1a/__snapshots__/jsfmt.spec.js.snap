@@ -16,7 +16,6 @@ module.exports = foo;
 
 =====================================output=====================================
 // @flow
-
 function foo(x: number): number {
   return 5;
 }

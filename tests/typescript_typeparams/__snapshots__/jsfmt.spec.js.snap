@@ -106,7 +106,6 @@ const appIDs = createSelector(
 );
 =====================================output=====================================
 // https://github.com/prettier/prettier/issues/4070
-
 export class Thing implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(
     (type: ObjectType): Provider<Opts> => {}
@@ -177,7 +176,6 @@ export class Thing11 implements OtherThing {
   );
 }
 // regular non-arrow functions
-
 export class Thing12 implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(function(
     type: ObjectType
@@ -256,7 +254,6 @@ export class Thing22 implements OtherThing {
   ): Provider {});
 }
 // case from https://github.com/prettier/prettier/issues/2581
-
 const appIDs = createSelector(
   PubXURLParams.APP_IDS,
   (rawAppIDs): Array<AppID> => deserializeList(rawAppIDs)

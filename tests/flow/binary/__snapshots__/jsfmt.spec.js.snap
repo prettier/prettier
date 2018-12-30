@@ -63,10 +63,8 @@ let tests = [
 
 =====================================output=====================================
 // @flow
-
 let tests = [
   // objects on RHS
-
   function() {
     "foo" in {};
     "foo" in
@@ -80,20 +78,17 @@ let tests = [
       };
   },
   // arrays on RHS
-
   function() {
     "foo" in [];
     0 in [];
     "length" in [];
   },
   // primitive classes on RHS
-
   function() {
     "foo" in new String("bar");
     "foo" in new Number(123);
   },
   // primitives on RHS
-
   function() {
     "foo" in 123; // error
     "foo" in "bar"; // error
@@ -101,7 +96,6 @@ let tests = [
     "foo" in null; // error
   },
   // bogus stuff on LHS
-
   function() {
     null in {}; // error
     void 0 in {}; // error
@@ -110,7 +104,6 @@ let tests = [
     false in []; // error
   },
   // in predicates
-
   function() {
     if ("foo" in 123) {
     } // error
@@ -120,7 +113,6 @@ let tests = [
     }
   },
   // annotations on RHS
-
   function(x: Object, y: mixed) {
     "foo" in x; // ok
     "foo" in y; // error

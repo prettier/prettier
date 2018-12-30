@@ -37,20 +37,16 @@ module.exports = {
 /**
  * @flow
  */
-
 var EventEmitter = require("events").EventEmitter;
 // This pattern seems to cause the trouble.
-
 var Bad = Object.assign({}, EventEmitter.prototype, {
   foo: function(): string {
     return "hi";
   }
 });
 // Calling Bad.foo() in the same file doesn't error
-
 var bad: number = Bad.foo();
 // Doesn't repro if I extend the class myself
-
 class MyEventEmitter extends events$EventEmitter {}
 var Good = Object.assign({}, MyEventEmitter.prototype, {
   foo: function(): string {
@@ -58,7 +54,6 @@ var Good = Object.assign({}, MyEventEmitter.prototype, {
   }
 });
 // Calling Good.foo() in the same file doesn't error
-
 var good: number = Good.foo();
 module.exports = {
   Bad: Bad,
@@ -96,7 +91,6 @@ A.js|8 col 23 error|  object literal
 /**
  * @flow
  */
-
 var A = require("./A.js");
 var good: number = A.Good.foo();
 var f = A.Bad.foo; // Property access is fine
@@ -122,7 +116,6 @@ printWidth: 80
 
 =====================================output=====================================
 // @flow
-
 (Object.assign.apply(null, [
   {},
   {
@@ -153,7 +146,6 @@ Object.assign({a: "foo"}, 123);
 
 =====================================output=====================================
 /* @flow */
-
 Object.assign("123", {
   a: "foo"
 });
@@ -194,7 +186,6 @@ declare var tup: [{foo: string}, {bar: number}];
 
 =====================================output=====================================
 // @flow
-
 declare var arrOfObjs: Array<{
   foo: string
 }>;
@@ -272,7 +263,6 @@ class MyReactThing extends React.Component {
 
 =====================================output=====================================
 /* @flow */
-
 var React = require("react");
 type DefaultProps = {
   foo: number

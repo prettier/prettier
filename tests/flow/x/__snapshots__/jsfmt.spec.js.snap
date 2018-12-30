@@ -55,15 +55,11 @@ module.exports = XControllerURIBuilder;
  * @providesModule XControllerURIBuilder
  * @typechecks
  */
-
 // ...
-
 class XControllerURIBuilder {
   // ...
-
   getURI() {
     // ...
-
     var tokenRegex = new RegExp(/^\\{(\\?)?(.+?)\\}$/); // ...
   }
 }

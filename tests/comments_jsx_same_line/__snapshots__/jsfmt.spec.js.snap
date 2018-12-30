@@ -43,7 +43,6 @@ printWidth: 80
 </div>;
 <div
   // comment
-
   attr="foo">
   {foo}
 </div>;

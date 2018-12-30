@@ -36,9 +36,7 @@ function bak(z: string | number): number {
 
 =====================================output=====================================
 // @flow
-
 // Sanity check: shouldn't be allowed to declare a predicate AND use \`chekcs\`
-
 function check(y): %checks(typeof y === "string") {
   return typeof y === "number";
 }
@@ -47,7 +45,6 @@ if (check(y)) {
   (y: number);
 }
 // Sanity: disallowed body
-
 function indirect_is_number(y): %checks {
   var y = 1;
   return typeof y === "number";
@@ -86,9 +83,7 @@ function foo(x: string | Array<string>): string {
 
 =====================================output=====================================
 // @flow
-
 // Feature: multi params
-
 function multi_param(w, x, y, z): %checks {
   return typeof z === "string";
 }
@@ -130,7 +125,6 @@ function dotAccess(head, create) {
 
 =====================================output=====================================
 // @flow
-
 declare var key: string;
 declare var obj: {
   page: ?Object
@@ -177,12 +171,9 @@ function foo(x: string | Array<string>): string {
 
 =====================================output=====================================
 // @flow
-
 declare var y: mixed;
 // Sanity check: this should fail, because the preficate function
-
 // checks \`y\` instead of \`x\`.
-
 function err(x): %checks {
   return typeof y === "string";
 }
@@ -279,7 +270,6 @@ declare function from_two_strings(x: string, y: string): void;
 
 =====================================output=====================================
 // @flow
-
 function is_string(y): %checks {
   return typeof y === "string";
 }
@@ -290,26 +280,19 @@ function is_number(y): %checks {
   return typeof y === "number";
 }
 // Feature check:
-
 function foo(x: string | Array<string>): string {
   if (is_string(x)) {
     // The use of \`is_string\` as a conditional check
-
     // should guarantee the narrowing of the type of \`x\`
-
     // to string.
-
     return x;
   } else {
     // Accordingly the negation of the above check
-
     // guarantees that \`x\` here is an Array<string>
-
     return x.join();
   }
 }
 // Same as above but refining an offset
-
 function bar(z: { f: string | Array<string> }): string {
   if (is_string(z.f)) {
     return z.f;
@@ -328,7 +311,6 @@ function baz(z: string | number): number {
   }
 }
 // Feature: multi params
-
 function multi_param(w, x, y, z): %checks {
   return typeof z === "string";
 }
@@ -382,25 +364,17 @@ function is_string(x): %checks {
 
 =====================================output=====================================
 // @flow
-
 // Feature check:
-
 // The predicate function is defined after the conditional check
-
 function foo(x: string | Array<string>): string {
   if (is_string(x)) {
     // The use of \`is_string\` as a conditional check
-
     // should guarantee the narrowing of the type of \`x\`
-
     // to string.
-
     return x;
   } else {
     // Accordingly the negation of the above check
-
     // guarantees that \`x\` here is an Array<string>
-
     return x.join();
   }
 }

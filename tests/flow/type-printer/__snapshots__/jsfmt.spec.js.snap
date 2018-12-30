@@ -30,7 +30,6 @@ module.exports = printBinaryExpression;
 =====================================output=====================================
 "use babel";
 /* @flow */
-
 /*
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
@@ -38,7 +37,6 @@ module.exports = printBinaryExpression;
  * This source code is licensed under the license found in the LICENSE file in
  * the root directory of this source tree.
  */
-
 import type { BinaryExpression } from "./types";
 function printBinaryExpression(node: BinaryExpression) {
   console.log(node);
@@ -5104,14 +5102,11 @@ export type JSXSpreadAttribute = {
 /**
  * @flow
  */
-
 "use strict";
 /*
  * Flow types for the Babel AST.
  */
-
 // Abstract types. Something must extend these.
-
 export type Comment =
   | {
       type: "CommentLine",
@@ -9536,7 +9531,6 @@ export type Type =
       trailingComments: ?Array<Comment>
     };
 // Concrete Types. Nothing can extend these.
-
 export type CommentLine = {
   type: "CommentLine",
   _CommentLine: void,
@@ -9572,7 +9566,6 @@ export type CommentBlock = {
   start: number
 };
 // Babel concrete types.
-
 export type ArrayExpression = {
   type: "ArrayExpression",
   _ArrayExpression: void,
@@ -9766,7 +9759,6 @@ export type BinaryExpression = {
   trailingComments: ?Array<Comment>
 };
 // TODO: What is this?
-
 export type BindExpression = {
   type: "BindExpression",
   _BindExpression: void,
@@ -10027,7 +10019,6 @@ export type ContinueStatement = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type Decorator = {
   type: "Decorator",
   _Decorator: void,
@@ -10089,7 +10080,6 @@ export type DoWhileStatement = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type DoExpression = {
   type: "DoExpression",
   _DoExpression: void,
@@ -10192,7 +10182,6 @@ export type ForInStatement = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type ForOfStatement = {
   type: "ForOfStatement",
   _ForOfStatement: void,
@@ -10340,7 +10329,6 @@ export type IfStatement = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type ImportDefaultSpecifier = {
   type: "ImportDefaultSpecifier",
   _ImportDefaultSpecifier: void,
@@ -10362,7 +10350,6 @@ export type ImportDefaultSpecifier = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type ImportNamespaceSpecifier = {
   type: "ImportNamespaceSpecifier",
   _ImportNamespaceSpecifier: void,
@@ -10384,7 +10371,6 @@ export type ImportNamespaceSpecifier = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type ImportDeclaration = {
   type: "ImportDeclaration",
   _ImportDeclaration: void,
@@ -10407,7 +10393,6 @@ export type ImportDeclaration = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type ImportSpecifier = {
   type: "ImportSpecifier",
   _ImportSpecifier: void,
@@ -10521,7 +10506,6 @@ export type MemberExpression = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type MetaProperty = {
   type: "MetaProperty",
   _MetaProperty: void,
@@ -11139,7 +11123,6 @@ export type YieldExpression = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type ExportAllDeclaration = {
   type: "ExportAllDeclaration",
   _ExportAllDeclaration: void,
@@ -11162,7 +11145,6 @@ export type ExportAllDeclaration = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type ExportDefaultDeclaration = {
   type: "ExportDefaultDeclaration",
   _ExportDefaultDeclaration: void,
@@ -11184,7 +11166,6 @@ export type ExportDefaultDeclaration = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type ExportNamedDeclaration = {
   type: "ExportNamedDeclaration",
   _ExportNamedDeclaration: void,
@@ -11208,7 +11189,6 @@ export type ExportNamedDeclaration = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type ExportDefaultSpecifier = {
   type: "ExportDefaultSpecifier",
   _ExportDefaultSpecifier: void,
@@ -11230,7 +11210,6 @@ export type ExportDefaultSpecifier = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type ExportNamespaceSpecifier = {
   type: "ExportNamespaceSpecifier",
   _ExportNamespaceSpecifier: void,
@@ -11252,7 +11231,6 @@ export type ExportNamespaceSpecifier = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type ExportSpecifier = {
   type: "ExportSpecifier",
   _ExportSpecifier: void,
@@ -11424,7 +11402,6 @@ export type DeclareClass = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type DeclareFunction = {
   type: "DeclareFunction",
   _DeclareFunction: void,
@@ -11467,7 +11444,6 @@ export type DeclareModule = {
   trailingComments: ?Array<Comment>
 };
 // TODO: Make this correct.
-
 export type DeclareVariable = {
   type: "DeclareVariable",
   _DeclareVariable: void,

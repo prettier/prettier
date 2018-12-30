@@ -36,7 +36,6 @@ const TestComponent = ({ children, ...props }) => (
 =====================================output=====================================
 function SomeComponent(props) {
   // Create styles as if you're calling css and the class will be applied to the component
-
   return (
     <div
       css={\`
@@ -143,7 +142,6 @@ x = \`mdl-textfield mdl-js-textfield \${className} \${
 function testing() {
   const p = {};
   // faking some tabs since I can't paste my real code in
-
   if (true) {
     if (false) {
       return \`\${

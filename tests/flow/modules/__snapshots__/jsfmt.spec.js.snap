@@ -14,7 +14,6 @@ var y:number = f(0);
 
 =====================================output=====================================
 /* @flow */
-
 var f = require("./lib");
 var y: number = f(0);
 
@@ -35,7 +34,6 @@ f("...");
 
 =====================================output=====================================
 /* @flow */
-
 var f = require("./lib");
 f("...");
 
@@ -60,12 +58,9 @@ module.exports = f;
 
 =====================================output=====================================
 /* @flow */
-
 function g(x: string) {}
 //function f(x) { g(x); return x; }
-
 //function f(x:number) { g(x); return x; }
-
 function f(x: number): number {
   g(x);
   return x;

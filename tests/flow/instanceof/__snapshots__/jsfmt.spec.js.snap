@@ -96,9 +96,7 @@ function foo1(x: Array<number> | number) {
 
 =====================================output=====================================
 /* @flow */
-
 // x instancof t
-
 class X1 {
   foo: number;
 }
@@ -118,7 +116,6 @@ function consumer2(b) {
   if (g instanceof X1) g.foo = "1337"; // oops
 }
 // x.y instanceof t
-
 class Y1 {
   bar: X1;
 }
@@ -138,7 +135,6 @@ function consumer4(b) {
   if (g.bar instanceof X1) g.bar.foo = "1337"; // oops
 }
 // x.y.z instance of t
-
 class Z1 {
   baz: Y1;
 }
@@ -158,7 +154,6 @@ function consumer6(b) {
   if (g.baz.bar instanceof X1) g.baz.bar.foo = "1337"; // oops
 }
 // this instanceof t
-
 class C {
   m() {
     if (this instanceof D) alert(this.s);

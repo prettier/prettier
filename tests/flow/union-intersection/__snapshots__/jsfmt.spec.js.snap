@@ -4012,7 +4012,6 @@ function foo(x: TAction): TAction { return x; }
 
 =====================================output=====================================
 // perf test for big disjoint union with 1000 cases
-
 type TAction =
   | {
       type: "a1",

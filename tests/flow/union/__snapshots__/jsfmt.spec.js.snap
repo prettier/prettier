@@ -52,7 +52,6 @@ export class ModOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpr
 
 =====================================output=====================================
 // @flow
-
 export type Select = {
   expression: ArithmeticExpression,
   alias: ?string
@@ -182,7 +181,6 @@ var l: Array<T> = [
 
 =====================================output=====================================
 /* @flow */
-
 type T =
   | {
       type: "a",
@@ -256,7 +254,6 @@ var p = new Promise(function(resolve, reject) {
   })
   .then(function(str) {
     // This should fail because str is string, not number
-
     return str.toFixed();
   });
 
@@ -318,7 +315,6 @@ module.exports = Foo;
 
 =====================================output=====================================
 /* @flow */
-
 class Foo {}
 module.exports = Foo;
 
@@ -342,7 +338,6 @@ foostr = barstr;
 
 =====================================output=====================================
 /* @flow */
-
 class Foo {}
 class Bar {}
 var foostr: Foo | string = new Foo();
@@ -436,12 +431,9 @@ var nested2: FooBarBaz = 'baz';
  * nested unions
  * @flow
  */
-
 // inline
-
 var nested1: ("foo" | "bar") | "baz" = "baz";
 // through tvars
-
 type FooBar = "foo" | "bar";
 type Baz = "baz";
 type FooBarBaz = FooBar | Baz;
@@ -496,7 +488,6 @@ const u3 : union2 = {
  * unions with embedded intersections
  * @flow
  */
-
 type t1 = {
   p1: number
 };
@@ -552,9 +543,7 @@ bar(f);
 =====================================output=====================================
 var C = require("test-lib");
 // TODO: spurious error! (replacing C with number makes the error go away)
-
 // type Foo<X> = Array<C> | Array<?C>;
-
 type Foo<X: ?C> = Array<X>; // workaround
 var x: Array<C> = [];
 var y: Array<?C> = [];
@@ -562,9 +551,7 @@ function foo<X>(x: Foo<X>) {}
 foo(x);
 foo(y);
 // TODO: spurious error! (replacing C with number makes the error go away)
-
 // type Bar = (() => C) | (() => string);
-
 type Bar = () => C | string; // workaround
 function f() {
   return "";
@@ -588,7 +575,6 @@ module.exports = C;
 
 =====================================output=====================================
 /* @providesModule test-lib */
-
 class C {}
 module.exports = C;
 
@@ -620,19 +606,13 @@ var b: Iterator<number> | number = 123;
 /**
  * @flow
  */
-
 class LocalClass<T> {}
 var a: LocalClass<number> | number = 123;
 // Iterator is defined in a lib file, so the speculative algorithm for the
-
 // union type would incorrectly succeed for Iterator<number>. Only later during
-
 // the merge would we fine the error, but it would be too late. The diff that
-
 // introduces this test fixes this such that the speculative algorithm is
-
 // correctly delayed upon encountering a non-concrete TypeAppT
-
 var b: Iterator<number> | number = 123;
 
 ================================================================================
@@ -5735,7 +5715,6 @@ type Data = {
  * This is a band-aid, though: see second case.
  * @flow
  */
-
 "use strict";
 class SecurityCheckupTypedLogger {
   _data: Data;
@@ -5743,17 +5722,11 @@ class SecurityCheckupTypedLogger {
     this._data["error"] = value;
   }
   // Bug: right now, any incompatible type coming into a huge
-
   // union might blow the recursion limit.
-
   // TODO real solution is to specialize union reps for obvious cases,
-
   // e.g. (base type, list in decl order, set). Of course we could do
-
   // something quick to get the union size off the Ocaml call stack,
-
   // but not sure it's worth doing that before the real solution.
-
   ohThatsNotSoGood() {
     ("": ErrorCode); // also, error pos omits this line completely
   }

@@ -14,7 +14,6 @@ export default x;
 
 =====================================output=====================================
 // @flow
-
 const x = "foo";
 export default x;
 
@@ -34,7 +33,6 @@ export const bar = "bar";
 
 =====================================output=====================================
 // @flow
-
 export const foo = "foo";
 export const bar = "bar";
 

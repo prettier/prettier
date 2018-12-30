@@ -20,7 +20,6 @@ m
 
 =====================================output=====================================
 // @flow
-
 declare var idx: $Facebookism$Idx;
 declare var merge: $Facebookism$Merge;
 declare var mergeDeepInto: $Facebookism$MergeDeepInto;
@@ -44,7 +43,6 @@ module.exports = { x: { y: "" } };
 
 =====================================output=====================================
 // @noflow
-
 module.exports = {
   x: {
     y: ""

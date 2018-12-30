@@ -18,7 +18,6 @@ var z:string = qux(0);
 
 =====================================output=====================================
 // @flow
-
 function foo(x: any): any {
   return x;
 }
@@ -47,7 +46,6 @@ module.exports = ((x: any) => x: any);
 
 =====================================output=====================================
 // @flow
-
 module.exports = ((x: any) => x: any);
 
 ================================================================================
@@ -86,9 +84,7 @@ var w:string = baz(0);
 
   @flow
  */
-
 // no param
-
 function foo(x: $FlowFixMe): $FlowFixMe {
   return x;
 }
@@ -96,12 +92,10 @@ function bar(x: $FlowFixMe): mixed {
   return x;
 }
 // param (info only)
-
 function qux(x: $FlowFixMe<number>): $FlowFixMe<number> {
   return x;
 }
 // ...params are still checked. unknown type
-
 function baz(x: $FlowFixMe<nnumber>): $FlowFixMe<number> {
   return x;
 }
@@ -146,9 +140,7 @@ var w:string = baz(0);
 
   @flow
  */
-
 // no param
-
 function foo(x: $FlowIssue): $FlowIssue {
   return x;
 }
@@ -156,12 +148,10 @@ function bar(x: $FlowIssue): mixed {
   return x;
 }
 // param (info only)
-
 function qux(x: $FlowIssue<number>): $FlowIssue<number> {
   return x;
 }
 // ...params are still checked. unknown type
-
 function baz(x: $FlowIssue<nnumber>): $FlowIssue<number> {
   return x;
 }
@@ -185,7 +175,6 @@ module.exports = (x) => x;
 
 =====================================output=====================================
 // @noflow
-
 module.exports = x => x;
 
 ================================================================================
@@ -225,7 +214,6 @@ function bar2(x: mixed) {
 
 =====================================output=====================================
 // @flow
-
 declare class C {
   bar(n1: number, n2: number): number;
   bar(s1: string, s2: string): string;
@@ -276,7 +264,6 @@ function foo(o: ?AsyncRequest) {
  * type annotations. Here we test propagation of any through the
  * annotation - without it, the body of the if will be unreachable
  */
-
 type AsyncRequest = any;
 function foo(o: ?AsyncRequest) {
   if (o) {

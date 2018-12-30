@@ -17,9 +17,7 @@ const Thing = class Thing {
 
 =====================================output=====================================
 /* @flow */
-
 // issue #1191
-
 const Thing = class Thing {
   zark() {
     this.x = 123; // error: property not found (must be declared)
@@ -92,7 +90,6 @@ class Misc {
 
 =====================================output=====================================
 // Counterexample with contravariant this type
-
 class C {
   next: this; // error (see below for exploit): \`this\` should only appear in // covariant positions
 }
@@ -107,7 +104,6 @@ class B extends A {
   foo<Y: this>(that: Y) {} // error (see above, catches hidden override)
 }
 // covariance checks on this type in invariant positions
-
 class Invariant {
   out_object(): {
     _: this
@@ -127,24 +123,20 @@ class Invariant {
   inout_array: Array<this>;
 }
 // covariance checks on this type as type args
-
 class Misc {
   // Set<X> has invariant X
-
   out_set(): Set<this> {
     return new Set().add(this);
   }
   in_set(_: Set<this>) {}
   inout_set: Set<this>;
   // Promise<X> has covariant X
-
   async out_promise(): Promise<this> {
     return this;
   }
   in_promise(_: Promise<this>) {}
   inout_promise: Promise<this>;
   // Generator<X,Y,Z> has covariant X, covariant Y, contravariant Z
-
   *out_generator(): Generator<this, this, this> {
     yield this;
     return this;
@@ -264,7 +256,6 @@ class B3<X> extends A3<X> {
 
 =====================================output=====================================
 // Check that imports are handled properly with this types
-
 import { A1 } from "./export";
 import type { A2 } from "./export";
 import { A3 } from "./export";
@@ -376,7 +367,6 @@ class A {
     return this;
   } // return of foo is not annotated to get around
   // substituting this below
-
   bar(): this {
     return new A().foo();
   } // same as returning : A, so error
@@ -414,17 +404,12 @@ class B extends A { } // inherits statics method too, with \`this\` bound to the
 
 =====================================output=====================================
 // supporting \`this\` type in statics
-
 class A {
   static make(): this {
     // factory method, whose return type \`this\` (still)
-
     // describes instances of A or subclasses of A: the
-
     // meaning of the \`this\` type is not changed simply by
-
     // switching into a static context
-
     return new this(); // but in a static context, the value \`this\` is bound to // the class, instead of instances of the class
   }
 }
@@ -516,7 +501,6 @@ class InheritOverride2 extends Override2 { }
 
 =====================================output=====================================
 // Examples without \`this\` types (compare with examples below)
-
 class Base {
   foo() {
     return this;
@@ -552,9 +536,7 @@ class InheritOverride extends Override {}
 ((new Override(): Base).foo(): Base);
 (new InheritOverride().bar_caller(): InheritOverride); // error
 // blame flips below
-
 // Examples with \`this\` types (compare with examples above)
-
 class Base2 {
   foo(): this {
     return this;
@@ -583,10 +565,8 @@ class Override2 extends Base2 {
     return new Override2();
   } // error (cf. OK above)
   // see exploit below
-
   corge(that: this) {} // error
   // see exploit below
-
   grault(that: this) {} // error, too
 }
 class InheritOverride2 extends Override2 {}

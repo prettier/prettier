@@ -73,7 +73,6 @@ somelib.composeFlipped(
   map(x => [x, x * 2])
 );
 // no regression (#4602)
-
 const hasValue = hasOwnProperty(a, b);
 this.compose(
   sortBy(x => x),
@@ -258,10 +257,8 @@ R.compose(
   R.multiply(2)
 )(-4); //=> 7
 //  get :: String -> Object -> Maybe *
-
 var get = R.curry((propName, obj) => Maybe(obj[propName]));
 //  getStateCode :: Maybe String -> Maybe String
-
 var getStateCode = R.composeK(
   R.compose(
     Maybe.of,
@@ -288,12 +285,10 @@ var db = {
   }
 };
 // We'll pretend to do a db lookup which returns a promise
-
 var lookupUser = userId => Promise.resolve(db.users[userId]);
 var lookupFollowers = user => Promise.resolve(user.followers);
 lookupUser("JOE").then(lookupFollowers);
 //  followersForUser :: String -> Promise [UserId]
-
 var followersForUser = R.composeP(
   lookupFollowers,
   lookupUser
@@ -341,11 +336,8 @@ var f = R.pipe(
 );
 f(3, 4); // -(3^4) + 1
 //  parseJson :: String -> Maybe *
-
 //  get :: String -> Object -> Maybe *
-
 //  getStateCode :: Maybe String -> Maybe String
-
 var getStateCode = R.pipeK(
   parseJson,
   get("user"),
@@ -358,12 +350,9 @@ var getStateCode = R.pipeK(
 );
 getStateCode('{"user":{"address":{"state":"ny"}}}');
 //=> Just('NY')
-
 getStateCode("[Invalid JSON]");
 //=> Nothing()
-
 //  followersForUser :: String -> Promise [User]
-
 var followersForUser = R.pipeP(
   db.getUserById,
   db.getFollowers

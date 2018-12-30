@@ -43,22 +43,16 @@ type D = { [key: string]: number };
 
 =====================================output=====================================
 // @flow
-
 // defs used in tests, here to stress tvar machinery
-
 // used in ObjAssign.js
-
 //
-
 type ObjAssignT = {
   foo: string
 } & {
   bar: string
 };
 // used in pred.js
-
 //
-
 type ReadableStreamOptions = {
   highWaterMark?: number,
   encoding?: ?string,
@@ -70,9 +64,7 @@ type WritableStreamOptions = {
   objectMode?: boolean
 };
 // used in test_fun.js
-
 //
-
 type ObjA = {
   foo: number,
   bar: string
@@ -81,9 +73,7 @@ type ObjB = {
   baz: boolean
 };
 // used in test_obj.js
-
 //
-
 type A = {
   a: string
 } & {

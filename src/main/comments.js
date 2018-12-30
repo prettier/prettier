@@ -511,7 +511,7 @@ function printComments(path, print, options, needsSemi) {
 
       const text = options.originalText;
       if (
-        options.pure ||
+        !options.pure &&
         hasNewline(text, skipNewline(text, options.locEnd(comment)))
       ) {
         leadingParts.push(hardline);

@@ -43,7 +43,6 @@ B._sProperty = "B._sProperty string";
 
 =====================================output=====================================
 /* @flow */
-
 class A {
   _property1: number;
   static _sProperty: number;
@@ -93,7 +92,6 @@ module.exports = new C;
 
 =====================================output=====================================
 /* @flow */
-
 class C {
   _p: string;
 }
@@ -114,7 +112,6 @@ import {_p} from "./commonjs_export";
 
 =====================================output=====================================
 /* @flow */
-
 import { _p } from "./commonjs_export";
 
 ================================================================================

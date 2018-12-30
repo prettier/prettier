@@ -35,14 +35,12 @@ switch (true) {
   case true:
 
   // Good luck getting here
-
   case false:
 }
 switch (true) {
   case true:
 
   // Good luck getting here
-
   case false:
 }
 switch (x) {
@@ -50,7 +48,6 @@ switch (x) {
   }
 
   // other
-
   case y: {
   }
 }

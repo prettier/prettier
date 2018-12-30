@@ -14,7 +14,6 @@ export var arr = [f];
 
 =====================================output=====================================
 // @flow
-
 type Foo = {};
 var f: Foo = {};
 export var arr = [f];
@@ -36,7 +35,6 @@ export async function foo() {
 
 =====================================output=====================================
 // @flow
-
 export async function foo() {
   return 123;
 }
@@ -111,23 +109,19 @@ module.exports = Foo, Bar;
 
 =====================================output=====================================
 /* @flow */
-
 var Foo = {
   a: function(arg) {
     // missing arg annotation
-
     return arg;
   },
   b: function(arg) {
     // missing arg annotation
-
     return {
       bar: arg
     };
   },
   c: function(arg: string) {
     // no return annotation required
-
     return {
       bar: arg
     };
@@ -142,24 +136,18 @@ var Foo = {
     };
   },
   // return type annotation may be omitted, but if so, input positions on
-
   // observed return type (e.g. param types in a function type) must come
-
   // from annotations
-
   e: function(arg: string) {
     return function(x) {
       // missing param annotation
-
       return x;
     };
   },
   // ...if the return type is annotated explicitly, this is unnecessary
-
   f: function(arg: string): (x: number) => number {
     return function(x) {
       // no error
-
       return x;
     };
   }
@@ -167,9 +155,7 @@ var Foo = {
 var Bar = {
   a: Foo.a("Foo"), // no annotation required
   // object property types are inferred, so make sure that this doesn't cause
-
   // us to also infer the parameter's type.
-
   b: Foo.b("bar"), // no annotation required
   c: Foo.c("bar"), // no annotation required
   d: Foo.d("bar") // no annotation required

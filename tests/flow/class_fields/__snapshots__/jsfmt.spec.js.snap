@@ -81,7 +81,6 @@ var o = new Base();
 
 =====================================output=====================================
 // @flow
-
 class Base {
   unannotatedField;
   annotatedField: number;
@@ -100,7 +99,6 @@ var o = new Base();
 /**
  * Unannotated fields are open.
  */
-
 (o.unannotatedField: string);
 (o.unannotatedField: number);
 (Base.unannotatedField: string);
@@ -108,7 +106,6 @@ var o = new Base();
 /**
  * Annotated (but uninitialized) fields still have a type.
  */
-
 (o.annotatedField: number);
 (o.annotatedField: string); // Error: number ~> string
 (Base.annotatedField: number);
@@ -116,7 +113,6 @@ var o = new Base();
 /**
  * Initialized (but unannotated) fields assume the type of their initializer.
  */
-
 (o.initializedField: number);
 (o.initializedField: string); // Error: number ~> string
 (Base.initializedField: string);
@@ -124,7 +120,6 @@ var o = new Base();
 /**
  * Initialized fields can reference \`this\`.
  */
-
 (o.initializedFieldWithThis: number);
 (o.initializedFieldWithThis: string); // Error: number ~> string
 (Base.initializedFieldWithThis: string);
@@ -134,7 +129,6 @@ var o = new Base();
  * (Note that this matters when the annotation is more general than the type of
  *  the initializer)
  */
-
 (o.annotatedInitializedFieldValid: ?number);
 (o.annotatedInitializedFieldValid: number); // Error: ?number ~> number
 (Base.annotatedInitializedFieldValid: ?number);
@@ -145,7 +139,6 @@ var o = new Base();
  *
  * (This happens in addition to erroring at the site of initialization)
  */
-
 (o.annotatedInitializedFieldInvalid: number);
 (o.annotatedInitializedFieldInvalid: string); // Error: number ~> string
 (Base.annotatedInitializedFieldInvalid: number);
@@ -297,7 +290,6 @@ var o = new Child();
 
 =====================================output=====================================
 // @flow
-
 class Base {
   base_unannotatedField;
   base_annotatedField: number;
@@ -334,7 +326,6 @@ var o = new Child();
 /**
  * Unannotated fields are open.
  */
-
 (o.base_unannotatedField: string);
 (o.base_unannotatedField: number);
 (Child.base_unannotatedField: string);
@@ -346,7 +337,6 @@ var o = new Child();
 /**
  * Annotated (but uninitialized) fields still have a type.
  */
-
 (o.base_annotatedField: number);
 (o.base_annotatedField: string); // Error: number ~> string
 (Child.base_annotatedField: number);
@@ -358,7 +348,6 @@ var o = new Child();
 /**
  * Initialized (but unannotated) fields assume the type of their initializer.
  */
-
 (o.base_initializedField: number);
 (o.base_initializedField: string); // Error: number ~> string
 (Child.base_initializedField: string);
@@ -370,7 +359,6 @@ var o = new Child();
 /**
  * Initialized fields can reference \`this\`.
  */
-
 (o.base_initializedFieldWithThis: number);
 (o.base_initializedFieldWithThis: string); // Error: number ~> string
 (Child.base_initializedFieldWithThis: string);
@@ -384,7 +372,6 @@ var o = new Child();
  * (Note that this matters when the annotation is more general than the type of
  *  the initializer)
  */
-
 (o.base_annotatedInitializedFieldValid: ?number);
 (o.base_annotatedInitializedFieldValid: number); // Error: ?number ~> number
 (Child.base_annotatedInitializedFieldValid: ?number);
@@ -399,7 +386,6 @@ var o = new Child();
  *
  * (This happens in addition to erroring at the site of initialization)
  */
-
 (o.base_annotatedInitializedFieldInvalid: number);
 (o.base_annotatedInitializedFieldInvalid: string); // Error: number ~> string
 (Child.base_annotatedInitializedFieldInvalid: number);
@@ -412,7 +398,6 @@ var o = new Child();
  * Derived fields without an initializer that shadow base fields *with* an
  * initializer should have the type of the base field.
  */
-
 (o.inherited_initializer: number);
 (o.inherited_initializer: string); // Error: number ~> string
 (Child.inherited_initializer: number);
@@ -461,12 +446,10 @@ class ClassGenericInitialized<T, U> {
 
 =====================================output=====================================
 // @flow
-
 /**
  * Fields annotated with a generic should assume a type once the type param
  * is instantiated.
  */
-
 class ClassAnnotated<T> {
   p: T;
   static p: T;
@@ -482,7 +465,6 @@ ClassAnnotated.p = 42;
  * It's always an error to initialized a generically-typed field with an
  * expression of any type other than the generic itself.
  */
-
 class ClassGenericInitialized<T, U> {
   invalid: T = 42; // Error: number ~> Generic<T>
   valid: T = ((42: any): T);
@@ -542,7 +524,6 @@ class Foo {
 
 =====================================output=====================================
 // @flow
-
 var someVar = 42;
 class Foo {
   outer = someVar;
@@ -559,7 +540,6 @@ class Foo {
  * Field initializers execute in a scope immediately under the scope outside the
  * class definition.
  */
-
 (new Foo().outer: number);
 (new Foo().outer: string); // Error: number ~> string
 (Foo.outer: number);
@@ -568,7 +548,6 @@ class Foo {
  * Field initializers should be able to refer to the class type in their type
  * annotations.
  */
-
 (new Foo().selfTyped: Foo);
 (new Foo().selfTyped: number); // Error: Foo ~> number
 (Foo.selfTyped: Foo);

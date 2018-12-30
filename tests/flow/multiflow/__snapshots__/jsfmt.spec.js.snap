@@ -49,7 +49,6 @@ applyType(withRest, ['hi', 123, false]); // Error - too many args
 
 =====================================output=====================================
 // @flow
-
 function apply<Args: $ReadOnlyArray<mixed>, Ret>(
   fn: (...Args) => Ret,
   args: Args
@@ -64,7 +63,6 @@ apply(noRest, ["hi", 456]); // Error - 456 ~> 123
 apply(noRest, ["hi"]); // Error - too few args
 apply(noRest, ["hi", 123, false]); // No error - too many args is fine
 // withRest behaves the same as noRest except you can't pass too many args in
-
 function withRest(...rest: ["hi", 123]): true {
   return true;
 }
@@ -73,7 +71,6 @@ apply(withRest, ["hi", 456]); // Error - 456 ~> 123
 apply(withRest, ["hi"]); // Error - too few args
 apply(withRest, ["hi", 123, false]); // Error - too many args
 // Same thing, but with types instead of functions
-
 declare var applyType: <Args: $ReadOnlyArray<mixed>, Ret>(
   fn: (...Args) => Ret,
   args: Args
@@ -86,7 +83,6 @@ applyType(noRest, ["hi", 456]); // Error - 456 ~> 123
 applyType(noRest, ["hi"]); // Error - too few args
 applyType(noRest, ["hi", 123, false]); // No error - too many args is fine
 // withRest behaves the same as noRest except you can't pass too many args in
-
 function withRest(...rest: ["hi", 123]): true {
   return true;
 }
@@ -125,9 +121,7 @@ foo(123);
 
 =====================================output=====================================
 // @flow
-
 // Adapted from https://github.com/facebook/flow/issues/3443
-
 class A {
   f(...args: any[]) {}
 }
@@ -203,9 +197,7 @@ declare function ExpectsChildrenArray(props: any, children: Array<string>): stri
  * @jsx JSX
  * @flow
  */
-
 // This one for when there are no JSX attributes
-
 declare function JSX<
   Children: $ReadOnlyArray<mixed>,
   Elem,
@@ -216,7 +208,6 @@ declare function JSX<
   ...children: Children
 ): Elem;
 // This one for when there are JSX attributes.
-
 declare function JSX<
   Children: $ReadOnlyArray<mixed>,
   Elem,
@@ -292,7 +283,6 @@ funWithRestArray('hi', ...arrOf123, 'bye', ...arrOf123);
 
 =====================================output=====================================
 // @flow
-
 function fun(x: "hi", y: 123) {}
 fun(...["hi", 123]); // No error
 fun(...["hi"], ...[123]); // No error
@@ -311,11 +301,8 @@ funWithRestArray("hi", 123, ...arrOf123); // Ok
 funWithRestArray("hi", ...arrOf123); // No error - ignore the fact arrOf123 could be empty
 funWithRestArray("hi", ...arrOf123, ...arrOf123); // No error - ignore the fact arrOf123 could be empty
 // 2 errors
-
 // 1. 'bye' ~> 123 in case the first spread is empty
-
 // 2. 'bye' ~> number in case the first spread is not empty
-
 funWithRestArray("hi", ...arrOf123, "bye", ...arrOf123);
 
 ================================================================================

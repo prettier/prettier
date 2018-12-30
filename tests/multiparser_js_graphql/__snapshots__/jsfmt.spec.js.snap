@@ -18,7 +18,6 @@ const query = /* GraphQL */\`
 
 =====================================output=====================================
 const query = /* GraphQL */
-
 \`
   {
     user(id: 5) {
@@ -127,11 +126,9 @@ gql\`
     pattern: String
 
     # Also: Escaping the first parentheses...
-
     "Pattern: \\\`\\\${project}\\\`"
     pattern: String
     # Or escaping the first and second parentheses...
-
     "Pattern: \\\`\\\${project}\\\`"
     pattern: String
   }
@@ -412,7 +409,6 @@ const query = gql\`
   }
 \`;
 // With interpolations:
-
 gql\`
   query User {
     user(id: 5) {
@@ -425,14 +421,12 @@ gql\`
   \${FRIENDS_FRAGMENT}
 \`;
 // Skip if non-toplevel interpolation:
-
 gql\`
 query User {
   user(id:\${id}){ name }
 }
 \`;
 // Skip if top-level interpolation within comment:
-
 gql\`
 query User {
   user(id:5){ name }
@@ -440,7 +434,6 @@ query User {
 #\${test}
 \`;
 // Comment on last line:
-
 gql\`
   query User {
     user(id: 5) {
@@ -449,11 +442,8 @@ gql\`
   } # comment
 \`;
 // \` <-- editor syntax highlighting workaround
-
 // Preserve up to one blank line between things and enforce linebreak between
-
 // interpolations:
-
 gql\`
   # comment
   \${one}
@@ -476,7 +466,6 @@ gql\`
   # blank line above this comment
 \`;
 // Interpolation directly before and after query:
-
 gql\`
   \${one}
   query Test {
@@ -485,36 +474,26 @@ gql\`
   \${two}
 \`;
 // Only interpolation:
-
 gql\`
   \${test}
 \`;
 // Only comment:
-
 gql\`
   # comment
 \`;
 // \` <-- editor syntax highlighting workaround
-
 // Only whitespace:
-
 gql\`\`;
 // Empty:
-
 gql\`\`;
 // Comments after other things:
-
 // Currently, comments after interpolations are moved to the next line.
-
 // We might want to keep them on the next line in the future.
-
 gql\`
   \${test}
   # comment
-
   query Test {
     # comment
-
     test # comment
   } # comment
   \${test}
@@ -530,7 +509,6 @@ gql\`
   # comment
 \`;
 // Larger mixed test:
-
 gql\`
   query User {
     test
@@ -550,7 +528,6 @@ gql\`
 
   \${fragment}
   #comment
-
   fragment another on User {
     name
   }
@@ -591,9 +568,7 @@ gql\`
 
 =====================================output=====================================
 // none of the embedded GraphQL should be formatted
-
 // for they have an invalid escape sequence
-
 gql\`
   "\\x"
   type   Foo    {

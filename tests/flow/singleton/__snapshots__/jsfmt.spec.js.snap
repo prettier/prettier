@@ -46,7 +46,6 @@ function alwaysFalsy(x: boolean): false {
 
 =====================================output=====================================
 /* @flow */
-
 function veryOptimistic(isThisAwesome: true): boolean {
   return isThisAwesome;
 }
@@ -111,7 +110,6 @@ sort((x, y) => -1);
 
 =====================================output=====================================
 /* @flow */
-
 function highlander(howMany: 1): number {
   return howMany; // there can be only one!
 }
@@ -147,7 +145,6 @@ type HasSpaces = "foo bar"
 
 =====================================output=====================================
 /* @flow */
-
 type NoSpaces = "foobar";
 ("foobar": NoSpaces);
 type HasSpaces = "foo bar";

@@ -53,7 +53,6 @@ const footer = '<footer></footer>';
 
 =====================================output=====================================
 /// <reference types="node" />
-
 type ul = any;
 const somethingElse = 1;
 const thing = <ul>somethingElse;

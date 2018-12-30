@@ -48,7 +48,6 @@ function tes2(val: Map<string, Promise<number>>) {
 
 =====================================output=====================================
 // @flow
-
 declare var pstr: Promise<string>;
 declare var pnum: Promise<number>;
 Promise.all([
@@ -57,28 +56,22 @@ Promise.all([
   true // non-Promise values passed through
 ]).then(xs => {
   // tuple information is preserved
-
   let [a, b, c] = xs;
   (a: number); // Error: string ~> number
   (b: boolean); // Error: number ~> boolean
   (c: string); // Error: boolean ~> string
   // array element type is (string | number | boolean)
-
   xs.forEach(x => {
     (x: void); // Errors: string ~> void, number ~> void, boolean ~> void
   });
 });
 // First argument is required
-
 Promise.all(); // Error: expected array instead of undefined (too few arguments)
 // Mis-typed arg
-
 Promise.all(0); // Error: expected array instead of number
 // Promise.all is a function
-
 (Promise.all: Function);
 // Promise.all supports iterables
-
 function test(val: Iterable<Promise<number>>) {
   const r: Promise<Array<number>> = Promise.all(val);
 }
@@ -114,12 +107,10 @@ async function testRace() {
 
 =====================================output=====================================
 /* @flow */
-
 async function testAll() {
   /* This is a test case from https://github.com/facebook/flow/issues/1143
    * which was previously an error due to Array's invariance and an improper
    * definition of Promise.all */
-
   const x: Array<Promise<?string>> = [];
   const y: Promise<Array<?string>> = Promise.all(x);
   const z: Array<?string> = await y;
@@ -370,33 +361,24 @@ Promise.resolve(0)
 /**
  * @flow
  */
-
 //////////////////////////////////////////////////
-
 // == Promise constructor resolve() function == //
-
 //////////////////////////////////////////////////
-
 // Promise constructor resolve(T) -> then(T)
-
 new Promise(function(resolve, reject) {
   resolve(0);
 }).then(function(num) {
   var a: number = num;
   // TODO: The error message that results from this is almost useless
-
   var b: string = num; // Error: number ~> string
 });
 // Promise constructor with arrow function resolve(T) -> then(T)
-
 new Promise((resolve, reject) => resolve(0)).then(function(num) {
   var a: number = num;
   // TODO: The error message that results from this is almost useless
-
   var b: string = num; // Error: number ~> string
 });
 // Promise constructor resolve(Promise<T>) -> then(T)
-
 new Promise(function(resolve, reject) {
   resolve(
     new Promise(function(resolve, reject) {
@@ -408,7 +390,6 @@ new Promise(function(resolve, reject) {
   var b: string = num; // Error: number ~> string
 });
 // Promise constructor resolve(Promise<Promise<T>>) -> then(T)
-
 new Promise(function(resolve, reject) {
   resolve(
     new Promise(function(resolve, reject) {
@@ -424,7 +405,6 @@ new Promise(function(resolve, reject) {
   var b: string = num; // Error: number ~> string
 });
 // Promise constructor resolve(T); resolve(U); -> then(T|U)
-
 new Promise(function(resolve, reject) {
   if (Math.random()) {
     resolve(42);
@@ -440,23 +420,17 @@ new Promise(function(resolve, reject) {
   var c: string = numOrStr; // Error: number|string -> string
 });
 /////////////////////////////////////////////////
-
 // == Promise constructor reject() function == //
-
 /////////////////////////////////////////////////
-
 // TODO: Promise constructor reject(T) -> catch(T)
-
 new Promise(function(resolve, reject) {
   reject(0);
 }).catch(function(num) {
   var a: number = num;
   // TODO
-
   var b: string = num; // Error: number ~> string
 });
 // TODO: Promise constructor reject(Promise<T>) ~> catch(Promise<T>)
-
 new Promise(function(resolve, reject) {
   reject(
     new Promise(function(resolve, reject) {
@@ -466,11 +440,9 @@ new Promise(function(resolve, reject) {
 }).catch(function(num) {
   var a: Promise<number> = num;
   // TODO
-
   var b: number = num; // Error: Promise<Number> ~> number
 });
 // TODO: Promise constructor reject(T); reject(U); -> then(T|U)
-
 new Promise(function(resolve, reject) {
   if (Math.random()) {
     reject(42);
@@ -484,63 +456,45 @@ new Promise(function(resolve, reject) {
     var b: number = numOrStr;
   }
   // TODO
-
   var c: string = numOrStr; // Error: number|string -> string
 });
 /////////////////////////////
-
 // == Promise.resolve() == //
-
 /////////////////////////////
-
 // Promise.resolve(T) -> then(T)
-
 Promise.resolve(0).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
 });
 // Promise.resolve(Promise<T>) -> then(T)
-
 Promise.resolve(Promise.resolve(0)).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
 });
 // Promise.resolve(Promise<Promise<T>>) -> then(T)
-
 Promise.resolve(Promise.resolve(Promise.resolve(0))).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
 });
 ////////////////////////////
-
 // == Promise.reject() == //
-
 ////////////////////////////
-
 // TODO: Promise.reject(T) -> catch(T)
-
 Promise.reject(0).catch(function(num) {
   var a: number = num;
   // TODO
-
   var b: string = num; // Error: number ~> string
 });
 // TODO: Promise.reject(Promise<T>) -> catch(Promise<T>)
-
 Promise.reject(Promise.resolve(0)).then(function(num) {
   var a: Promise<number> = num;
   // TODO
-
   var b: number = num; // Error: Promise<number> ~> number
 });
 //////////////////////////////////
-
 // == Promise.prototype.then == //
-
 //////////////////////////////////
-
 // resolvedPromise.then():T -> then(T)
-
 Promise.resolve(0)
   .then(function(num) {
     return "asdf";
@@ -550,7 +504,6 @@ Promise.resolve(0)
     var b: number = str; // Error: string ~> number
   });
 // resolvedPromise.then():Promise<T> -> then(T)
-
 Promise.resolve(0)
   .then(function(num) {
     return Promise.resolve("asdf");
@@ -560,7 +513,6 @@ Promise.resolve(0)
     var b: number = str; // Error: string ~> number
   });
 // resolvedPromise.then():Promise<Promise<T>> -> then(T)
-
 Promise.resolve(0)
   .then(function(num) {
     return Promise.resolve(Promise.resolve("asdf"));
@@ -570,7 +522,6 @@ Promise.resolve(0)
     var b: number = str; // Error: string ~> number
   });
 // TODO: resolvedPromise.then(<throw(T)>) -> catch(T)
-
 Promise.resolve(0)
   .then(function(num) {
     throw "str";
@@ -578,17 +529,12 @@ Promise.resolve(0)
   .catch(function(str) {
     var a: string = str;
     // TODO
-
     var b: number = str; // Error: string ~> number
   });
 ///////////////////////////////////
-
 // == Promise.prototype.catch == //
-
 ///////////////////////////////////
-
 // rejectedPromise.catch():U -> then(U)
-
 Promise.reject(0)
   .catch(function(num) {
     return "asdf";
@@ -598,7 +544,6 @@ Promise.reject(0)
     var b: number = str; // Error: string ~> number
   });
 // rejectedPromise.catch():Promise<U> -> then(U)
-
 Promise.reject(0)
   .catch(function(num) {
     return Promise.resolve("asdf");
@@ -608,7 +553,6 @@ Promise.reject(0)
     var b: number = str; // Error: string ~> number
   });
 // rejectedPromise.catch():Promise<Promise<U>> -> then(U)
-
 Promise.reject(0)
   .catch(function(num) {
     return Promise.resolve(Promise.resolve("asdf"));
@@ -618,7 +562,6 @@ Promise.reject(0)
     var b: number = str; // Error: string ~> number
   });
 // resolvedPromise<T> -> catch() -> then():?T
-
 Promise.resolve(0)
   .catch(function(err) {})
   .then(function(num) {
@@ -682,16 +625,13 @@ async function baz(): Promise<number> {
  * test Promise name resolution
  * @flow
  */
-
 /**
  * 1. introduce shadowing bindings for important names
  */
-
 class Promise {}
 /**
  * 2. implicit refs to Promise during desugaring should be unaffected
  */
-
 async function foo(x: boolean) {
   if (x) {
     return {
@@ -710,14 +650,11 @@ run();
  * 3. but explicit name refs from code and annos resolve
  * using the usual rules
  */
-
 // error: \`Promise\` in return expr is the local binding
-
 async function bar() {
   return Promise.resolve(0);
 }
 // error: return type anno is a ref to the local binding
-
 async function baz(): Promise<number> {
   return 0;
 }
@@ -739,7 +676,6 @@ printWidth: 80
 
 =====================================output=====================================
 // @flow
-
 (Promise.resolve(): Promise<number>); // error
 (Promise.resolve(undefined): Promise<number>); // error
 

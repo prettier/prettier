@@ -89,10 +89,8 @@ abstract class Foo {
 abstract class Foo {
   private abstract foobar =
     // comment to break
-
     1 +
     // another comment to break
-
     2;
 }
 

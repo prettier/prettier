@@ -24,13 +24,11 @@ function foo() {
 
 =====================================output=====================================
 /* @flow */
-
 /* This test documents an issue we used to have with merging the environment of
  * the try block and the catch block. The error variable, when inspected and in
  * the presence of an abnormal, would sometimes kind of leak. It would hit an
  * abnormal. It was weird.
  */
-
 function foo() {
   try {
   } catch (error) {
@@ -209,14 +207,10 @@ function f(b) {
  * test initialization tracking of hoisted stuff
  * @flow
  */
-
 // for illustrative purposes only - Flow considers a throw possible
-
 // anywhere within a block
-
 function might_throw() {}
 // local use of annotated var within try is ok
-
 function f() {
   try {
     var x: number = 0;
@@ -224,7 +218,6 @@ function f() {
   } catch (e) {}
 }
 // and within catch
-
 function f() {
   try {
   } catch (e) {
@@ -233,7 +226,6 @@ function f() {
   }
 }
 // but not across try/catch
-
 function f() {
   try {
     might_throw();
@@ -243,7 +235,6 @@ function f() {
   }
 }
 // or try/finally
-
 function f() {
   try {
     might_throw();
@@ -253,7 +244,6 @@ function f() {
   }
 }
 // or catch/finally
-
 function f() {
   try {
   } catch (e) {
@@ -263,7 +253,6 @@ function f() {
   }
 }
 // or try/catch/finally if init doesn't dominate
-
 function f() {
   try {
     var x: number = 0;
@@ -275,7 +264,6 @@ function f() {
   }
 }
 // post-use ok because init dominates here
-
 function f() {
   try {
     var x: number = 0;
@@ -286,7 +274,6 @@ function f() {
   var y: number = x;
 }
 // and here
-
 function f() {
   try {
   } catch (e) {
@@ -297,7 +284,6 @@ function f() {
   var y: number = x;
 }
 // and here
-
 function f() {
   try {
     var x: number;
@@ -309,7 +295,6 @@ function f() {
   var y: number = x;
 }
 // and here, thank you JS for the wonder that is hoisting
-
 function f() {
   try {
   } catch (e) {
@@ -321,7 +306,6 @@ function f() {
   var y: number = x;
 }
 // error if used prior to init
-
 function f() {
   var y: number = x; // error
   try {
@@ -329,7 +313,6 @@ function f() {
   } catch (e) {}
 }
 // another non-dominated post
-
 function f() {
   try {
     var x: number = 0;
@@ -337,7 +320,6 @@ function f() {
   var y: number = x; // error
 }
 // ditto
-
 function f() {
   try {
   } catch (e) {
@@ -346,7 +328,6 @@ function f() {
   var y: number = x; // error
 }
 // ditto
-
 function f(b) {
   try {
     var x: number;
@@ -437,7 +418,6 @@ function corge(): string {
 /**
  * @flow
  */
-
 function foo(x: ?number): string {
   try {
   } catch (e) {
@@ -549,7 +529,6 @@ function qux() {
  * test env state tracking thru try/catch/finally
  * @flow
  */
-
 function foo() {
   var x = 0;
   var y;
@@ -562,7 +541,6 @@ function foo() {
     y = {};
   }
   // here via [try; finally] only.
-
   x(); // string ~/> function call (no num or bool error)
   y(); // object ~/> function call (no uninitialized error)
 }
@@ -574,7 +552,6 @@ function bar(response) {
     throw new Error("...");
   }
   // here via [try] only.
-
   if (payload.error) {
     // ok
     // ...

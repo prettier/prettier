@@ -63,7 +63,6 @@ function x() {
 
 =====================================output=====================================
 // https://github.com/prettier/prettier/issues/4171
-
 function y() {
   const fits = <Immutable.Map<string, any>>fits();
   const fitsObjLiteral = <Immutable.Map<string, any>>{
@@ -164,7 +163,6 @@ function y() {
   );
 }
 // https://github.com/prettier/prettier/issues/4168
-
 function x() {
   const fits = <PermissionsChecker<any> | undefined>(<any>permissions)[type];
   const fitsObjLiteral = <PermissionsChecker<any> | undefined>{

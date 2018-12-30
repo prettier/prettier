@@ -12,7 +12,6 @@ exports.numberValue = 42;
 
 =====================================output=====================================
 /* @flow */
-
 exports.numberValue = 42;
 
 ================================================================================
@@ -65,7 +64,6 @@ module.exports = Test;
  * @providesModule CommonJS_Clobbering_Class
  * @flow
  */
-
 class Base {
   static baseProp: number;
 }
@@ -116,7 +114,6 @@ module.exports = {
  * @providesModule CommonJS_Clobbering_Lit
  * @flow
  */
-
 module.exports = {
   numberValue1: 1,
   numberValue2: 2,
@@ -150,7 +147,6 @@ exports.numberValue5 = 5;
  * @providesModule CommonJS_Named
  * @flow
  */
-
 exports.numberValue1 = 1;
 exports.numberValue2 = 2;
 exports.numberValue3 = 3;
@@ -178,7 +174,6 @@ declare export default () => number;
  * @providesModule ES6_Default_AnonFunction1
  * @flow
  */
-
 declare export default () => number;
 
 ================================================================================
@@ -202,7 +197,6 @@ declare export default () =>number;
  * @providesModule ES6_Default_AnonFunction2
  * @flow
  */
-
 declare export default () => number;
 
 ================================================================================
@@ -232,16 +226,12 @@ declare export function getAFoo(): FooImpl;
  * @providesModule ES6_Default_NamedClass1
  * @flow
  */
-
 declare export default class FooImpl {
   givesANum(): number;
 }
 // Regression test for https://github.com/facebook/flow/issues/511
-
 //
-
 // Default-exported class should also be available in local scope
-
 declare export { FooImpl as Foo };
 declare export function getAFoo(): FooImpl;
 
@@ -266,7 +256,6 @@ declare export default class Foo { givesANum(): number; };
  * @providesModule ES6_Default_NamedClass2
  * @flow
  */
-
 declare export default class Foo {
   givesANum(): number;
 }
@@ -292,7 +281,6 @@ declare export default function foo():number;
  * @providesModule ES6_Default_NamedFunction1
  * @flow
  */
-
 declare export default function foo(): number;
 
 ================================================================================
@@ -316,7 +304,6 @@ declare export default function foo():number;
  * @providesModule ES6_Default_NamedFunction2
  * @flow
  */
-
 declare export default function foo(): number;
 
 ================================================================================
@@ -335,7 +322,6 @@ declare export var str: string;
 
 =====================================output=====================================
 /* @flow */
-
 declare export default number;
 declare export var str: string;
 
@@ -360,7 +346,6 @@ declare export * from "ES6_ExportAllFrom_Source1";
  * @providesModule ES6_ExportAllFrom_Intermediary1
  * @flow
  */
-
 declare export * from "ES6_ExportAllFrom_Source1"
 
 ================================================================================
@@ -384,7 +369,6 @@ declare export * from "ES6_ExportAllFrom_Source2";
  * @providesModule ES6_ExportAllFrom_Intermediary2
  * @flow
  */
-
 declare export * from "ES6_ExportAllFrom_Source2"
 
 ================================================================================
@@ -408,7 +392,6 @@ declare export var numberValue1: number;
  * @providesModule ES6_ExportAllFrom_Source1
  * @flow
  */
-
 declare export var numberValue1: number;
 
 ================================================================================
@@ -432,7 +415,6 @@ declare export var numberValue2: number;
  * @providesModule ES6_ExportAllFrom_Source2
  * @flow
  */
-
 declare export var numberValue2: number;
 
 ================================================================================
@@ -451,7 +433,6 @@ declare export * from "./ES6_ExportAllFrom_Source2";
 
 =====================================output=====================================
 // @flow
-
 declare export * from "./ES6_ExportAllFrom_Source1"
 declare export * from "./ES6_ExportAllFrom_Source2"
 
@@ -479,7 +460,6 @@ declare export {
  * @providesModule ES6_ExportFrom_Intermediary1
  * @flow
  */
-
 declare export {
   numberValue1,
   numberValue2 as numberValue2_renamed
@@ -509,7 +489,6 @@ declare export {
  * @providesModule ES6_ExportFrom_Intermediary2
  * @flow
  */
-
 declare export {
   numberValue1,
   numberValue2 as numberValue2_renamed2
@@ -537,7 +516,6 @@ declare export var numberValue2: number;
  * @providesModule ES6_ExportFrom_Source1
  * @flow
  */
-
 declare export var numberValue1: number;
 declare export var numberValue2: number;
 
@@ -563,7 +541,6 @@ declare export var numberValue2: number;
  * @providesModule ES6_ExportFrom_Source2
  * @flow
  */
-
 declare export var numberValue1: number;
 declare export var numberValue2: number;
 
@@ -603,7 +580,6 @@ declare export var varDeclNumber2: number;
  * @providesModule ES6_Named1
  * @flow
  */
-
 var specifierNumber1 = 1;
 var specifierNumber2 = 2;
 var specifierNumber3 = 3;
@@ -654,7 +630,6 @@ declare export var varDeclNumber4: number;
  * @providesModule ES6_Named2
  * @flow
  */
-
 var specifierNumber4 = 1;
 var specifierNumber5 = 2;
 var groupedSpecifierNumber3 = 1;
@@ -694,7 +669,6 @@ exports.stringValue = "str";
  * @providesModule A
  * @flow
  */
-
 exports.numberValue1 = 42;
 exports.numberValue2 = 42;
 exports.numberValue3 = 42;
@@ -724,7 +698,6 @@ module.exports = {
  * @providesModule CJSDefault
  * @flow
  */
-
 module.exports = {
   numberValue: 42
 };
@@ -774,7 +747,6 @@ export default {
  * @providesModule ES6Default
  * @flow
  */
-
 /*
 export default {
   numberValue: 42,
@@ -1098,35 +1070,24 @@ var at4: string = numberValue9; // Error: number ~> string
 
 =====================================output=====================================
 /* @flow */
-
 // ===================== //
-
 // == Path Resolution == //
-
 // ===================== //
-
 // @providesModule
-
 import * as DefaultA from "A";
 var a1: number = DefaultA.numberValue1;
 var a2: string = DefaultA.numberValue1; // Error: number ~> string
 // File path
-
 import * as DefaultB from "./B";
 var b1: number = DefaultB.numberValue;
 var b2: string = DefaultB.numberValue; // Error: number ~> string
 // C.js exists, but not as a providesModule
-
 import DefaultC from "C"; // Error: No such module
 // @providesModule D exists, but not as a filename
-
 import DefaultD from "./D"; // Error: No such module
 // ================================================ //
-
 // == CommonJS Clobbering Literal Exports -> ES6 == //
-
 // ================================================ //
-
 import { doesntExist1 } from "CommonJS_Clobbering_Lit"; // Error: Not an exported binding
 import { numberValue1 } from "CommonJS_Clobbering_Lit";
 var c1: number = numberValue1;
@@ -1145,20 +1106,13 @@ CJS_Clobb_Lit_NS.default.default; // Error: No 'default' property on the exporte
 var f3: string = CJS_Clobb_Lit_NS.numberValue4; // Error: number ~> string
 var f4: string = CJS_Clobb_Lit_NS.default.numberValue5; // Error: number ~> string
 // ============================================== //
-
 // == CommonJS Clobbering Class Exports -> ES6 == //
-
 // ============================================== //
-
 import { doesntExist2 } from "CommonJS_Clobbering_Class"; // Error: Not an exported binding
 // The following import should error because class statics are not turned into
-
 // named exports for now. This avoids complexities with polymorphic static
-
 // members (where the polymophism is defined on the class itself rather than the
-
 // method).
-
 import { staticNumber1, baseProp, childProp } from "CommonJS_Clobbering_Class"; // Error
 import CJS_Clobb_Class from "CommonJS_Clobbering_Class";
 new CJS_Clobb_Class();
@@ -1173,11 +1127,8 @@ var i1: number = CJS_Clobb_Class_NS.staticNumber3(); // Error: Class statics not
 var i2: number = new CJS_Clobb_Class_NS.default().instNumber2();
 var i3: string = new CJS_Clobb_Class_NS.default().instNumber2(); // Error: number ~> string
 // =================================== //
-
 // == CommonJS Named Exports -> ES6 == //
-
 // =================================== //
-
 import { doesntExist3 } from "CommonJS_Named"; // Error: Not an exported binding
 import { numberValue2 } from "CommonJS_Named";
 var j1: number = numberValue2;
@@ -1194,11 +1145,8 @@ var m1: number = CJS_Named_NS.numberValue4;
 var m2: string = CJS_Named_NS.default.numberValue4; // Error: CommonJS_Named has no default export
 var m3: string = CJS_Named_NS.numberValue4; // Error: number ~> string
 //////////////////////////////
-
 // == ES6 Default -> ES6 == //
-
 //////////////////////////////
-
 import { doesntExist4 } from "ES6_Default_AnonFunction1"; // Error: Not an exported binding
 import ES6_Def_AnonFunc1 from "ES6_Default_AnonFunction1";
 var n1: number = ES6_Def_AnonFunc1();
@@ -1210,11 +1158,8 @@ import ES6_Def_NamedClass1 from "ES6_Default_NamedClass1";
 var q1: number = new ES6_Def_NamedClass1().givesANum();
 var q2: string = new ES6_Def_NamedClass1().givesANum(); // Error: number ~> string
 ////////////////////////////
-
 // == ES6 Named -> ES6 == //
-
 ////////////////////////////
-
 import doesntExist5 from "ES6_Named1"; // Error: Not an exported binding
 import { specifierNumber1 as specifierNumber1_1 } from "ES6_Named1";
 var r1: number = specifierNumber1_1;
@@ -1251,11 +1196,8 @@ import { numberValue1 as numberValue5 } from "ES6_ExportAllFrom_Intermediary1";
 var ac1: number = numberValue5;
 var ac2: string = numberValue5; // Error: number ~> string
 ///////////////////////////////////
-
 // == ES6 Default -> CommonJS == //
-
 ///////////////////////////////////
-
 require("ES6_Default_AnonFunction2").doesntExist; // Error: 'doesntExist' isn't an export
 var ES6_Def_AnonFunc2 = require("ES6_Default_AnonFunction2").default;
 var ad1: number = ES6_Def_AnonFunc2();
@@ -1267,11 +1209,8 @@ var ES6_Def_NamedClass2 = require("ES6_Default_NamedClass2").default;
 var ag1: number = new ES6_Def_NamedClass2().givesANum();
 var ag2: string = new ES6_Def_NamedClass2().givesANum(); // Error: number ~> string
 /////////////////////////////////
-
 // == ES6 Named -> CommonJS == //
-
 /////////////////////////////////
-
 var specifierNumber4 = require("ES6_Named2").specifierNumber4;
 var ah1: number = specifierNumber4;
 var ah2: string = specifierNumber4; // Error: number ~> string
@@ -1307,37 +1246,25 @@ var numberValue7 = require("ES6_ExportAllFrom_Intermediary2").numberValue2;
 var ar1: number = numberValue7;
 var ar2: string = numberValue7; // Error: number ~> string
 ////////////////////////////////////////////////////////
-
 // == ES6 Default+Named -> ES6 import Default+Named== //
-
 ////////////////////////////////////////////////////////
-
 import defaultNum, { str as namedStr } from "./ES6_DefaultAndNamed";
 var as1: number = defaultNum;
 var as2: string = defaultNum; // Error: number ~> string
 var as3: string = namedStr;
 var as4: number = namedStr; // Error: string ~> number
 ////////////////////////////////////////
-
 // == Side-effect only ES6 imports == //
-
 ////////////////////////////////////////
-
 import "./SideEffects";
 //////////////////////////////////////////////
-
 // == Suggest export name on likely typo == //
-
 //////////////////////////////////////////////
-
 import specifierNumber1 from "ES6_Named1"; // Error: Did you mean \`import {specifierNumber1} from ...\`?
 import { specifierNumber } from "ES6_Named1"; // Error: Did you mean \`specifierNumber1\`?
 ///////////////////////////////////////////////////
-
 // == Multi \`export *\` should combine exports == //
-
 ///////////////////////////////////////////////////
-
 import {
   numberValue1 as numberValue8,
   numberValue2 as numberValue9

@@ -56,7 +56,6 @@ module.exports = FeedUFI;
  * @providesModule FeedUFI.react
  * @flow
  */
-
 "use strict";
 var UFILikeCount = require("UFILikeCount.react");
 var React = require("react");
@@ -95,7 +94,6 @@ module.exports = {
 
 =====================================output=====================================
 /* @providesModule Mixin */
-
 module.exports = {
   success: function() {}
 };
@@ -140,7 +138,6 @@ module.exports = UFILikeCount;
  * @providesModule UFILikeCount.react
  * @flow
  */
-
 "use strict";
 var React = require("react");
 var UFILikeCount = React.createClass({
@@ -213,18 +210,14 @@ class C2 extends React.Component<void, T2, any>
   // OK
 }
 // no need to add type arguments to React.Component
-
 class C3 extends React.Component {
   // OK
-
   static defaultProps: T1;
   props: T2;
 }
 class C4 extends React.Component {
   // OK, recommended
-
   // no need to declare defaultProps unless necessary
-
   props: T2;
 }
 class C5 extends React.Component<T2, T3, any>
@@ -233,7 +226,6 @@ class C5 extends React.Component<T2, T3, any>
 }
 class C6 extends React.Component {
   // OK, recommended
-
   static defaultProps: T2;
   props: T3;
 }
@@ -430,24 +422,15 @@ class HelloMessage extends React.Component {
 
 =====================================output=====================================
 /* @flow */
-
 // Testing local binding of React in all kinds of ways. The only reason this
-
 // might even be an issue is that internally, the use of JSX triggers an
-
 // implicit require('react'), so any bugs in (1) interop of CJS require and ES6
-
 // import (2) module re-export, as used to redirect the module name 'React' to
-
 // 'react' might show up here.
-
 import React from "react";
 //import React from "React";
-
 //var React = require("react");
-
 //var React = require("React");
-
 class HelloMessage extends React.Component {
   props: {
     name: string
@@ -782,7 +765,6 @@ var TestProps = React.createClass({
 var React = require("react");
 var TestProps = React.createClass({
   // Do something illegal inside of propTypes and make sure Flow notices
-
   propTypes: {
     arr: React.PropTypes.array,
     arr_rec: React.PropTypes.array.isRequired,
@@ -827,7 +809,6 @@ var TestProps = React.createClass({
       bar: React.PropTypes.number
     }).isRequired,
     // And do something bad here
-
     bad_one: React.PropTypes.imaginaryType,
     bad_two: React.PropTypes.string.inRequired
   }
@@ -871,17 +852,14 @@ React.render(
 
 =====================================output=====================================
 // @flow
-
 import React from "React";
 class JDiv extends React.Component {
   // static defaultProps: { };
-
   props: {
     id: string
   };
 }
 // Should be a type error ('id' takes a string, not a number..)
-
 <JDiv id={42} />;
 class Example extends React.Component {
   props: {
@@ -958,7 +936,6 @@ var ReactClass = React.createClass({
 
 =====================================output=====================================
 /* @flow */
-
 var React = require("react");
 type State = {
   bar: ?{
@@ -973,7 +950,6 @@ var ReactClass = React.createClass({
   },
   render: function(): any {
     // Any state access here seems to make state any
-
     this.state;
     return <div>{this.state.bar.qux}</div>;
   }
@@ -1008,7 +984,6 @@ module.exports = Comp;
 
 =====================================output=====================================
 // @flow
-
 var React = require("react");
 type FooState = {
   key: ?Object

@@ -32,7 +32,6 @@ let data4 = require('./json_array');
 
 =====================================output=====================================
 // @flow
-
 let data = require("./package/index.json");
 (data.foo: void); // error, should be object literal
 (data.foo.bar: void); // error, should be boolean

@@ -12,7 +12,6 @@ var OpenGraphObject = require('./models/OpenGraphObject.js');
 
 =====================================output=====================================
 // @flow
-
 var OpenGraphObject = require("./models/OpenGraphObject.js");
 
 ================================================================================

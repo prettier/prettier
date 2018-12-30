@@ -74,7 +74,6 @@ var i_star: I<*> = new I('hello');
 
 =====================================output=====================================
 /* @flow */
-
 class A<T> {
   p: T;
   constructor(p: T) {
@@ -82,7 +81,6 @@ class A<T> {
   }
 }
 // Test out simple defaults
-
 class B<T = string> extends A<T> {}
 var b_number: B<number> = new B(123);
 var b_void: B<void> = new B();

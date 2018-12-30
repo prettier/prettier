@@ -13,7 +13,6 @@ export var extra = null;
 
 =====================================output=====================================
 // @flow
-
 export class C {}
 export var extra = null;
 

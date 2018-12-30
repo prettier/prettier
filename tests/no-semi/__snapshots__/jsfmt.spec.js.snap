@@ -21,11 +21,9 @@ x;
 =====================================output=====================================
 let error = new Error(response.statusText);
 // comment
-
 (error: any).response = response;
 x;
 /* comment */
-
 (error: any).response = response;
 x;
 (error: any).response = response; /* comment */
@@ -55,11 +53,9 @@ x;
 =====================================output=====================================
 let error = new Error(response.statusText)
 // comment
-
 ;(error: any).response = response
 x
 /* comment */
-
 ;(error: any).response = response
 x
 ;(error: any).response = response /* comment */
@@ -89,11 +85,9 @@ x;
 =====================================output=====================================
 let error = new Error(response.statusText)
 // comment
-
 ;(error: any).response = response
 x
 /* comment */
-
 ;(error: any).response = response
 x
 ;(error: any).response = response /* comment */
@@ -156,17 +150,11 @@ declare class A {
     | number;
 }
 // NOTE: Flow and Babel both fail to apply ASI here
-
 // declare class B {
-
 //     one: boolean
-
 //     two: { three: string }
-
 //     | number
-
 // }
-
 declare interface C {
   one: boolean;
   two:
@@ -176,17 +164,11 @@ declare interface C {
     | number;
 }
 // NOTE: Flow and Babel both fail to apply ASI here
-
 // declare interface D {
-
 //     one: boolean
-
 //     two: { three: string }
-
 //     | number
-
 // }
-
 interface E {
   one: boolean;
   two:
@@ -255,17 +237,11 @@ declare class A {
     | number;
 }
 // NOTE: Flow and Babel both fail to apply ASI here
-
 // declare class B {
-
 //     one: boolean
-
 //     two: { three: string }
-
 //     | number
-
 // }
-
 declare interface C {
   one: boolean;
   two:
@@ -275,17 +251,11 @@ declare interface C {
     | number;
 }
 // NOTE: Flow and Babel both fail to apply ASI here
-
 // declare interface D {
-
 //     one: boolean
-
 //     two: { three: string }
-
 //     | number
-
 // }
-
 interface E {
   one: boolean;
   two:
@@ -354,17 +324,11 @@ declare class A {
     | number;
 }
 // NOTE: Flow and Babel both fail to apply ASI here
-
 // declare class B {
-
 //     one: boolean
-
 //     two: { three: string }
-
 //     | number
-
 // }
-
 declare interface C {
   one: boolean;
   two:
@@ -374,17 +338,11 @@ declare interface C {
     | number;
 }
 // NOTE: Flow and Babel both fail to apply ASI here
-
 // declare interface D {
-
 //     one: boolean
-
 //     two: { three: string }
-
 //     | number
-
 // }
-
 interface E {
   one: boolean;
   two:
@@ -652,7 +610,6 @@ aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
 
 =====================================output=====================================
 // with preexisting semi
-
 x;
 [1, 2, 3].forEach(fn);
 x;
@@ -684,27 +641,17 @@ x;
 x;
 (x, y) => x;
 // doesn't have to be preceded by a semicolon
-
 class X {}
 [1, 2, 3].forEach(fn);
 // TODO: upgrade parser
-
 // class A {
-
 //   async; // The semicolon is *not* necessary
-
 //   x(){}
-
 // }
-
 // class B {
-
 //   static; // The semicolon *is* necessary
-
 //   x(){}
-
 // }
-
 class C {
   get; // The semicolon *is* necessary
   x() {}
@@ -722,7 +669,6 @@ class C {
   x() {}
 }
 // don't semicolon if it doesn't start statement
-
 if (true) (() => {})();
 class A {
   a = 0;
@@ -732,9 +678,7 @@ class A {
   e = 0;
   [f] = 0;
   // none of the semicolons above this comment can be omitted.
-
   // none of the semicolons below this comment are necessary.
-
   q() {}
   [h]() {}
   p() {}
@@ -753,7 +697,6 @@ class A {
   b = 1;
 }
 // being first/last shouldn't break things
-
 class G {
   x = 1;
 }
@@ -767,17 +710,14 @@ class G {
   [x] = 1;
 }
 // check indentation
-
 if (true) {
   x;
   (() => {})();
 }
 // flow
-
 (x: void);
 (y: void);
 // check statement clauses
-
 do break;
 while (false);
 if (true)
@@ -789,7 +729,6 @@ for (;;);
 for (x of y);
 debugger;
 // check that it doesn't break non-ASI
-
 1 - 1;
 1 + 1;
 1 / 1;
@@ -984,7 +923,6 @@ aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
 
 =====================================output=====================================
 // with preexisting semi
-
 x
 ;[1, 2, 3].forEach(fn)
 x
@@ -1016,27 +954,17 @@ x
 x
 ;(x, y) => x
 // doesn't have to be preceded by a semicolon
-
 class X {}
 ;[1, 2, 3].forEach(fn)
 // TODO: upgrade parser
-
 // class A {
-
 //   async; // The semicolon is *not* necessary
-
 //   x(){}
-
 // }
-
 // class B {
-
 //   static; // The semicolon *is* necessary
-
 //   x(){}
-
 // }
-
 class C {
   get; // The semicolon *is* necessary
   x() {}
@@ -1054,7 +982,6 @@ class C {
   x() {}
 }
 // don't semicolon if it doesn't start statement
-
 if (true) (() => {})()
 class A {
   a = 0;
@@ -1064,9 +991,7 @@ class A {
   e = 0;
   [f] = 0
   // none of the semicolons above this comment can be omitted.
-
   // none of the semicolons below this comment are necessary.
-
   q() {}
   [h]() {}
   p() {}
@@ -1085,7 +1010,6 @@ class A {
   b = 1
 }
 // being first/last shouldn't break things
-
 class G {
   x = 1
 }
@@ -1099,17 +1023,14 @@ class G {
   [x] = 1
 }
 // check indentation
-
 if (true) {
   x
   ;(() => {})()
 }
 // flow
-
 ;(x: void)
 ;(y: void)
 // check statement clauses
-
 do break
 while (false)
 if (true)
@@ -1121,7 +1042,6 @@ for (;;);
 for (x of y);
 debugger
 // check that it doesn't break non-ASI
-
 1 - 1
 1 + 1
 1 / 1
@@ -1316,7 +1236,6 @@ aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
 
 =====================================output=====================================
 // with preexisting semi
-
 x
 ;[1, 2, 3].forEach(fn)
 x
@@ -1348,27 +1267,17 @@ x
 x
 ;(x, y) => x
 // doesn't have to be preceded by a semicolon
-
 class X {}
 ;[1, 2, 3].forEach(fn)
 // TODO: upgrade parser
-
 // class A {
-
 //   async; // The semicolon is *not* necessary
-
 //   x(){}
-
 // }
-
 // class B {
-
 //   static; // The semicolon *is* necessary
-
 //   x(){}
-
 // }
-
 class C {
   get; // The semicolon *is* necessary
   x() {}
@@ -1386,7 +1295,6 @@ class C {
   x() {}
 }
 // don't semicolon if it doesn't start statement
-
 if (true) (() => {})()
 class A {
   a = 0;
@@ -1396,9 +1304,7 @@ class A {
   e = 0;
   [f] = 0
   // none of the semicolons above this comment can be omitted.
-
   // none of the semicolons below this comment are necessary.
-
   q() {}
   [h]() {}
   p() {}
@@ -1417,7 +1323,6 @@ class A {
   b = 1
 }
 // being first/last shouldn't break things
-
 class G {
   x = 1
 }
@@ -1431,17 +1336,14 @@ class G {
   [x] = 1
 }
 // check indentation
-
 if (true) {
   x
   ;(() => {})()
 }
 // flow
-
 ;(x: void)
 ;(y: void)
 // check statement clauses
-
 do break
 while (false)
 if (true)
@@ -1453,7 +1355,6 @@ for (;;);
 for (x of y);
 debugger
 // check that it doesn't break non-ASI
-
 1 - 1
 1 + 1
 1 / 1

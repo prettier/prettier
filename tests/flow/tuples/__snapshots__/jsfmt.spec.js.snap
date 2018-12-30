@@ -18,7 +18,6 @@ function foo(x: Array<number>): [number, ?number] {
 
 =====================================output=====================================
 // @flow
-
 function foo(x: Array<number>): [number, ?number] {
   return x; // Error, can't enforce arity when flowing array to tuple
 }
@@ -44,7 +43,6 @@ printWidth: 80
 
 =====================================output=====================================
 // @flow
-
 ([0, undefined]: [number, ?string]); // Ok, correct arity
 ([0]: [number, ?string]); // Error, arity is enforced
 ([]: [?number, string]); // error, since second element is not marked optional
@@ -66,7 +64,6 @@ foo([ {} ]); // error, too few elements in array passed to a tuple
 
 =====================================output=====================================
 /* @flow */
-
 function foo(a: [Object, Object]) {}
 foo([{}]); // error, too few elements in array passed to a tuple
 

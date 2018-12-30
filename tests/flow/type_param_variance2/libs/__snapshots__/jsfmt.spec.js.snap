@@ -56,17 +56,11 @@ declare class Promise<R> {
 
 =====================================output=====================================
 // Copyright 2004-present Facebook. All Rights Reserved.
-
 // These annotations are copy/pasted from the built-in Flow definitions for
-
 // Native Promises (https://phabricator.fb.com/P19792689),
-
 // with www-specific additions added in.
-
 // Any definitions here will override similarly-named ones in
-
 // library files declared earlier, including default flow libs.
-
 declare class Promise<R> {
   constructor(
     callback: (
@@ -86,7 +80,6 @@ declare class Promise<R> {
   static resolve<T>(object?: Promise<T> | T): Promise<T>;
   static reject<T>(error?: any): Promise<T>;
   // Non-standard APIs
-
   finally<U>(onSettled?: ?(value: any) => Promise<U> | U): Promise<U>;
   static cast<T>(object?: T): Promise<T>;
   static all<T>(promises: Array<?Promise<T> | T>): Promise<Array<T>>;

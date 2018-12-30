@@ -24,7 +24,6 @@ type X = A<import("B").C<any>>;
 
 =====================================output=====================================
 // ref: https://github.com/Microsoft/TypeScript/pull/22592
-
 export const x: import("./foo") = {
   x: 0,
   y: 0
@@ -69,7 +68,6 @@ type X = A<import("B").C<any>>;
 
 =====================================output=====================================
 // ref: https://github.com/Microsoft/TypeScript/pull/22592
-
 export const x: import('./foo') = {
   x: 0,
   y: 0

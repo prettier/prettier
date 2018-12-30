@@ -90,7 +90,6 @@ export class Environment2 extends GenericEnvironment<
   m() {}
 }
 // Declare Interface Break
-
 declare interface ExtendsOne extends ASingleInterface {
   x: string;
 }
@@ -109,7 +108,6 @@ declare interface ExtendsMany
   x: string;
 }
 // Interface declaration break
-
 interface ExtendsOne extends ASingleInterface {
   x: string;
 }
@@ -128,7 +126,6 @@ interface ExtendsMany
   s: string;
 }
 // Generic Types
-
 interface ExtendsOne extends ASingleInterface<string> {
   x: string;
 }

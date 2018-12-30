@@ -19,7 +19,6 @@ for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
 
 =====================================output=====================================
 // @flow
-
 const Immutable = require("immutable");
 const tasksPerStatusMap = new Map(
   [].map(taskStatus => [taskStatus, new Map()])
@@ -58,7 +57,6 @@ foo(
 
 =====================================output=====================================
 /* @flow */
-
 declare class Bar<K> {
   update<K_>(updater: (value: this) => Bar<K_>): Bar<K_>;
 }
@@ -98,7 +96,6 @@ outer.set(ImmBox(inner));
 
 =====================================output=====================================
 // @flow
-
 declare class ImmBox<T> {
   static <U>(x: any): ImmBox<U>;
   static (x: any): any;

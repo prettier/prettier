@@ -66,15 +66,12 @@ let tests = [
 
 =====================================output=====================================
 // @flow
-
 let tests = [
   // global
-
   function() {
     copyProperties(); // error, unknown global
   },
   // annotation
-
   function(copyProperties: Object$Assign) {
     let result = {};
     result.baz = false;
@@ -93,7 +90,6 @@ let tests = [
     });
   },
   // module from lib
-
   function() {
     const copyProperties = require("copyProperties");
     let x = {
@@ -108,7 +104,6 @@ let tests = [
     });
   },
   // too few args
-
   function(copyProperties: Object$Assign) {
     copyProperties();
     (copyProperties({
@@ -118,7 +113,6 @@ let tests = [
     }); // err, num !~> string
   },
   // passed as a function
-
   function(copyProperties: Object$Assign) {
     function x(cb: Function) {}
     x(copyProperties);
@@ -151,7 +145,6 @@ let tests = [
 
 =====================================output=====================================
 /* @flow */
-
 let tests = [
   function() {
     let x: ?string = null;
@@ -242,15 +235,12 @@ let tests = [
 
 =====================================output=====================================
 // @flow
-
 let tests = [
   // global
-
   function() {
     mergeInto(); // error, unknown global
   },
   // annotation
-
   function(mergeInto: $Facebookism$MergeInto) {
     let result = {};
     result.baz = false;
@@ -270,7 +260,6 @@ let tests = [
     });
   },
   // module from lib
-
   function() {
     const mergeInto = require("mergeInto");
     let result: {
@@ -291,12 +280,10 @@ let tests = [
     ): void);
   },
   // too few args
-
   function(mergeInto: $Facebookism$MergeInto) {
     mergeInto();
   },
   // passed as a function
-
   function(mergeInto: $Facebookism$MergeInto) {
     function x(cb: Function) {}
     x(mergeInto);

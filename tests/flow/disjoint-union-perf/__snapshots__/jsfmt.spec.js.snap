@@ -91,7 +91,6 @@ export type TypedNode =
 /**
  * @flow
  */
-
 export type InferredType =
   | "unknown"
   | "gender"
@@ -238,7 +237,6 @@ export function emitExpression(node: TypedNode) : t.Expression {
 /**
  * @flow
  */
-
 import * as t from "./jsAst";
 const b = t.builders;
 import type { TypedNode } from "./ast";
@@ -953,7 +951,6 @@ export const builders : {
 /**
  * @flow
  */
-
 export type Comment = {
   loc: ?SourceLocation,
   value: string,
@@ -1362,9 +1359,7 @@ export type MemberExpression = {
   computed: boolean
 };
 // ast-types exports all expressions as patterns.
-
 // That seems not like it was intended.
-
 export type Pattern = Identifier;
 export type Declaration = VariableDeclaration | FunctionDeclaration;
 export type VariableDeclaration = {

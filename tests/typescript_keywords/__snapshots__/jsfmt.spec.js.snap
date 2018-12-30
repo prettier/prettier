@@ -47,7 +47,6 @@ module YYY4 {
 
 =====================================output=====================================
 // All of these should be an error
-
 module Y3 {
   public module Module {
     class A {
@@ -55,7 +54,6 @@ module Y3 {
     }
   }
   // Apparently this parses :P
-
   export private public protected static readonly abstract async enum X {}
   interface x {
     export private static readonly [x: any]: any;

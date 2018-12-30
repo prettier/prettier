@@ -320,15 +320,12 @@ function f() {
   return (
     observableFromSubscribeFunction()
       // Debounce manually rather than using editor.onDidStopChanging so that the debounce time is
-
       // configurable.
-
       .debounceTime(debounceInterval)
   );
 }
 _.a(a)
   /* very very very very very very very long such that it is longer than 80 columns */
-
   .a();
 _.a(
   a
@@ -340,11 +337,9 @@ _.a(
   .a();
 Something
   // $FlowFixMe(>=0.41.0)
-
   .getInstance(this.props.dao)
   .getters();
 // Warm-up first
-
 measure().then(() => {
   SomethingLong();
 });
@@ -367,13 +362,11 @@ this.doWriteConfiguration(target, value, options) // queue up writes to prevent 
   );
 ret = __DEV__
   ? // $FlowFixMe: this type differs according to the env
-
     vm.runInContext(source, ctx)
   : a;
 this.firebase
   .object(\`/shops/\${shopLocation.shop}\`)
   // keep distance info
-
   .first(
     (
       shop: ShopQueryResult,
@@ -381,7 +374,6 @@ this.firebase
       source: Observable<ShopQueryResult>
     ): any => {
       // add distance to result
-
       const s = shop;
       s.distance = shopLocation.distance;
       return s;
@@ -390,7 +382,6 @@ this.firebase
 angular
   .module("AngularAppModule")
   // Hello, I am comment.
-
   .constant("API_URL", "http://localhost:8080/api");
 
 ================================================================================
@@ -643,7 +634,6 @@ function f() {
     hasteImplModulePath: this._options.hasteImplModulePath
   }).then(metadata => {
     // \`1\` for truthy values instead of \`true\` to save cache space.
-
     fileMetadata[H.VISITED] = 1;
     const metadataId = metadata.id;
     const metadataModule = metadata.module;

@@ -83,7 +83,6 @@ foo = (
 </div>;
 foo = (
   // comment
-
   <></>
 );
 </* open fragment */>

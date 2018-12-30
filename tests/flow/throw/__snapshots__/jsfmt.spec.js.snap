@@ -33,7 +33,6 @@ function h(x: number): string {
 /**
  * @flow
  */
-
 function f(): number {
   throw new Error(); // OK to not return
 }

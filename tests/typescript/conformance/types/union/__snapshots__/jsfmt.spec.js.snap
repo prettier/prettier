@@ -86,9 +86,7 @@ strOrNum = unionWithRestParameter4("hello", "world");
 var strOrBoolean: string | boolean;
 var strOrNum: string | number;
 // If each type in U has call signatures and the sets of call signatures are identical ignoring return types,
-
 // U has the same set of call signatures, but with return types that are unions of the return types of the respective call signatures from each type in U.
-
 var unionOfDifferentReturnType: { (a: number): number } | { (a: number): Date };
 numOrDate = unionOfDifferentReturnType(10);
 strOrBoolean = unionOfDifferentReturnType("hello"); // error
@@ -351,9 +349,7 @@ strOrNum = new unionWithRestParameter3(); // error no call signature
 var strOrBoolean: string | boolean;
 var strOrNum: string | number;
 // If each type in U has construct signatures and the sets of construct signatures are identical ignoring return types,
-
 // U has the same set of construct signatures, but with return types that are unions of the return types of the respective construct signatures from each type in U.
-
 var unionOfDifferentReturnType:
   | { new (a: number): number }
   | { new (a: number): Date };
@@ -461,7 +457,6 @@ var z1: string | typeof BC;
 
 =====================================output=====================================
 ﻿// A | B is equivalent to A if B is a subtype of A
-
 class C {}
 class D extends C {
   foo() {}
@@ -469,11 +464,9 @@ class D extends C {
 var x: C;
 var x: C | D;
 // A | B is equivalent to B | A.
-
 var y: string | number;
 var y: number | string;
 // AB | C is equivalent to A | BC, where AB is A | B and BC is B | C.
-
 var z: string | number | boolean;
 var z: (string | number) | boolean;
 var z: string | (number | boolean);
@@ -517,13 +510,9 @@ var arr9 = [e, f]; // (E|F)[]
 
 =====================================output=====================================
 ﻿// The resulting type an array literal expression is determined as follows:
-
 // If the array literal is empty, the resulting type is an array type with the element type Undefined.
-
 // Otherwise, if the array literal is contextually typed by a type that has a property with the numeric name ‘0’, the resulting type is a tuple type constructed from the types of the element expressions.
-
 // Otherwise, the resulting type is an array type with an element type that is the union of the types of the element expressions.
-
 var arr1 = [1, 2]; // number[]
 var arr2 = ["hello", true]; // (string | number)[]
 var arr3Tuple: [number, string] = [3, "three"]; // [number, string]
@@ -588,9 +577,7 @@ anyVar = unionOfTypesWithAndWithoutStringSignature1[10]; // any
 ﻿var numOrDate: number | Date;
 var anyVar: number;
 // If each type in U has a string index signature,
-
 // U has a string index signature of a union type of the types of the string index signatures from each type in U.
-
 var unionOfDifferentReturnType: { [a: string]: number } | { [a: string]: Date };
 numOrDate = unionOfDifferentReturnType["hello"]; // number | Date
 numOrDate = unionOfDifferentReturnType[10]; // number | Date
@@ -600,9 +587,7 @@ var unionOfTypesWithAndWithoutStringSignature:
 anyVar = unionOfTypesWithAndWithoutStringSignature["hello"]; // any
 anyVar = unionOfTypesWithAndWithoutStringSignature[10]; // any
 // If each type in U has a numeric index signature,
-
 // U has a numeric index signature of a union type of the types of the numeric index signatures from each type in U.
-
 var unionOfDifferentReturnType1:
   | { [a: number]: number }
   | { [a: number]: Date };

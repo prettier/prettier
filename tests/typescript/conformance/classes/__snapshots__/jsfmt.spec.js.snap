@@ -144,7 +144,6 @@ class C6 extends Mix(Public, Public2) {
 
 =====================================output=====================================
 // @declaration: true
-
 type Constructable = new (...args: any[]) => object;
 class Private {
   constructor(...args: any[]) {}
@@ -194,7 +193,6 @@ function f6(x: Public & Public2) {
 }
 declare function Mix<T, U>(c1: T, c2: U): T & U;
 // Can't derive from type with inaccessible properties
-
 class C1 extends Mix(Private, Private2) {}
 class C2 extends Mix(Private, Protected) {}
 class C3 extends Mix(Private, Public) {}
@@ -307,7 +305,6 @@ class Thing3 extends Thing2 {
 
 =====================================output=====================================
 // @declaration: true
-
 type Constructor<T> = new (...args: any[]) => T;
 class Base {
   constructor(public x: number, public y: number) {}
@@ -487,7 +484,6 @@ class Thing3 extends Thing2 {
   }
 }
 // Repro from #13805
-
 const Timestamped = <CT extends Constructor<object>>(Base: CT) => {
   return class extends Base {
     timestamp = new Date();
@@ -605,7 +601,6 @@ class C3 extends Mixed3 {
 
 =====================================output=====================================
 // @declaration: true
-
 declare class C1 {
   public a: number;
   protected b: number;
@@ -717,7 +712,6 @@ function foo() {
 
 =====================================output=====================================
 // nested classes are not allowed
-
 class C {
   x: string;
 }

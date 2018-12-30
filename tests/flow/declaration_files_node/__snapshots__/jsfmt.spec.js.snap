@@ -12,7 +12,6 @@ module.exports.fun = (): string => 'hello there!';
 
 =====================================output=====================================
 /* @flow */
-
 module.exports.fun = (): string => "hello there!";
 
 ================================================================================
@@ -29,7 +28,6 @@ module.exports = 42;
 
 =====================================output=====================================
 // @flow
-
 module.exports = 42;
 
 ================================================================================
@@ -65,13 +63,10 @@ var F = require('package_with_dir_main');
 
 =====================================output=====================================
 /* @flow */
-
 // This will require ./node_modules/B.js.flow
-
 var B1 = require("B");
 (B1.fun(): string); // Error number ~> string
 // This will require ./node_modules/B.js.flow
-
 var B2 = require("B.js");
 (B2.fun(): string); // Error number ~> string
 var C = require("package_with_full_main");
@@ -108,13 +103,10 @@ var CJS = require('./CJS.js');
 
 =====================================output=====================================
 /* @flow */
-
 // This will require ./A.js.flow
-
 var A1 = require("./A");
 (A1.fun(): string); // Error number ~> string
 // This will require ./A.js.flow
-
 var A2 = require("./A.js");
 (A2.fun(): string); // Error number ~> string
 var CJS = require("./CJS.js");

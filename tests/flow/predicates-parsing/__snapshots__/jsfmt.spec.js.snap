@@ -14,9 +14,7 @@ declare function f2(x: mixed): boolean %checks;
 
 =====================================output=====================================
 // @flow
-
 // Error: 'declare', 'checks' but missing predicate
-
 declare function f2(x: mixed): boolean %checks;
 
 ================================================================================
@@ -36,9 +34,7 @@ function f6(x: mixed): %checks (x !== null) {  }
 
 =====================================output=====================================
 // @flow
-
 // Error: no return statement
-
 function f6(x: mixed): %checks(x !== null) {}
 
 ================================================================================
@@ -58,10 +54,8 @@ var a2 = (x: mixed): %checks (x !== null) => {        // Error: body form
 
 =====================================output=====================================
 // @flow
-
 var a2 = (x: mixed): %checks(x !== null) => {
   // Error: body form
-
   var x = 1;
   return x;
 };
@@ -85,9 +79,7 @@ var a2 = (x: mixed): %checks (x !== null) => x !== null;
 
 =====================================output=====================================
 // @flow
-
 // Cannot declare predicate with a function body is present.
-
 function f5(x: mixed): %checks(x !== null) {
   return x !== null;
 }
@@ -132,7 +124,6 @@ declare function f(x: mixed): checks
 
 =====================================output=====================================
 // @flow
-
 declare function f1(x: mixed): boolean;
 declare function f3(x: mixed): boolean %checks(x !== null);
 declare function f4(x: mixed): boolean %checks(x !== null);

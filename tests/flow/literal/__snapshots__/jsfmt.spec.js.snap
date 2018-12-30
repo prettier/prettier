@@ -54,7 +54,6 @@ var red:string = tuple[indices.red]; // error: tuple[0] is a number
 =====================================output=====================================
 var APIKeys = require("./enum");
 // object that maps "AGE" to "age", "NAME" to "name"
-
 function foo(x: $Keys<typeof APIKeys>) {}
 foo("AGE");
 foo("LOCATION"); // error
@@ -119,9 +118,7 @@ function test2(x: string): number {
   return -x;
 }
 // sanity checks to make sure merging envs doesn't keep creating new NumT's
-
 // because of the UnaryMinusT's, causing nontermination
-
 function test3(x: number, flip_times: number): number {
   for (var i = 0; i < flip_times; i++) {
     x = -x;

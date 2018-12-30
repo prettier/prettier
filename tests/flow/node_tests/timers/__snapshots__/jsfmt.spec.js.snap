@@ -16,7 +16,6 @@ setImmediate(setImmediateCallback);
 
 =====================================output=====================================
 // @flow
-
 function setImmediateCallback(): number {
   return 0;
 }

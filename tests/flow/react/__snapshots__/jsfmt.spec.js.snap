@@ -22,7 +22,6 @@ module.exports = AudienceInsightsContainer;
 /**
  * @providesModule ArityError.react
  */
-
 var React = require("react");
 var AudienceInsightsContainer = React.createClass({
   renderComponent(AudienceInsights: ReactClass<*>) {
@@ -507,7 +506,6 @@ React.createClass({
 =====================================output=====================================
 import React from "react";
 // initial state = None
-
 React.createClass({
   f() {
     this.setState({
@@ -519,7 +517,6 @@ React.createClass({
   }
 });
 // initial state = Some (exact & sealed) [lit]
-
 React.createClass({
   getInitialState() {
     return {
@@ -536,7 +533,6 @@ React.createClass({
   }
 });
 // initial state = Some (exact & sealed) [annot]
-
 React.createClass({
   getInitialState(): {|
     p: number
@@ -555,7 +551,6 @@ React.createClass({
   }
 });
 // initial state = Some (inexact & sealed) [annot]
-
 React.createClass({
   getInitialState(): {
     p: number
@@ -574,7 +569,6 @@ React.createClass({
   }
 });
 // mixins = (exact & sealed) + (exact & sealed)
-
 React.createClass({
   mixins: [
     {
@@ -600,7 +594,6 @@ React.createClass({
   }
 });
 // mixins = (exact & sealed) + (inexact & sealed)
-
 React.createClass({
   mixins: [
     {
@@ -695,14 +688,12 @@ F.baz = 0;
 =====================================output=====================================
 import React from "react";
 // statics = None
-
 const A = React.createClass({
   p: 0
 });
 (A.bar: empty); // number ~> empty (inflow below)
 A.bar = 0;
 // statics = Some (exact & sealed) [lit]
-
 const B = React.createClass({
   statics: {
     foo: 0
@@ -712,7 +703,6 @@ const B = React.createClass({
 (B.bar: empty); // number ~> empty (inflow below)
 B.bar = 0;
 // statics = Some (exact & sealed) [annot]
-
 const C = React.createClass({
   statics: ({
     foo: 0
@@ -724,7 +714,6 @@ const C = React.createClass({
 (C.bar: empty); // number ~> empty (inflow below)
 C.bar = 0;
 // statics = Some (inexact & sealed) [annot]
-
 const D = React.createClass({
   statics: ({
     foo: 0
@@ -736,7 +725,6 @@ const D = React.createClass({
 (D.bar: empty); // property \`bar\` not found
 D.bar = 0; // property \`bar\` not found
 // mixins: (exact & sealed) + (exact & sealed)
-
 const E = React.createClass({
   mixins: [
     {
@@ -754,7 +742,6 @@ const E = React.createClass({
 (E.baz: empty); // number ~> empty (inflow below)
 E.baz = 0;
 // mixins: (exact & sealed) + (inexact & sealed)
-
 const F = React.createClass({
   mixins: [
     {
@@ -797,7 +784,6 @@ class Foo extends React.Component {
 
 =====================================output=====================================
 // @flow
-
 import React from "react";
 class Bar extends React.Component {}
 class Foo extends React.Component {
@@ -841,7 +827,6 @@ class Foo extends React.Component {
 
 =====================================output=====================================
 // @flow
-
 import React from "react";
 class Bar extends React.Component {
   props: {
@@ -877,7 +862,6 @@ var b: number = new react.Component(); // Error: ReactComponent ~> number
 
 =====================================output=====================================
 /* @flow */
-
 import react from "react";
 import { Component } from "react";
 var a: Component<*, *, *> = new react.Component();
@@ -906,7 +890,6 @@ var blah = <Foo {...props} />; // error bar, number given string expected
 
 =====================================output=====================================
 /* @flow */
-
 var React = require("react");
 var Foo = React.createClass({
   propTypes: {
@@ -1021,7 +1004,6 @@ var InvalidExample = React.createClass({
 
 =====================================output=====================================
 /* @flow */
-
 var React = require("react");
 var Example = React.createClass({
   propTypes: {
@@ -1036,7 +1018,6 @@ var fail_mistyped_elems = <Example arr={[1, "foo"]} />;
 /* Since the \`number\` proptype argument is not required, React will actually
    allow \`null\` and \`undefined\` elements in the \`arr\` prop, but Flow has
    currently ignores the innter prop type's required flag. */
-
 var todo_required = <Example arr={[null]} />;
 var OptionalExample = React.createClass({
   propTypes: {
@@ -1090,7 +1071,6 @@ var Example = React.createClass({
 =====================================output=====================================
 const React = require("react");
 // Custom validator must match \`ReactPropsCheckType\`
-
 var Example = React.createClass({
   propTypes: {
     foo(props, propName, componentName, href) {
@@ -1103,7 +1083,6 @@ var Example = React.createClass({
   }
 });
 // Inferred prop type is optional \`any\`
-
 <Example />;
 <Example foo={(0: mixed)} />;
 
@@ -1133,7 +1112,6 @@ var fail_mistyped = <Example func={2} />
 
 =====================================output=====================================
 /* @flow */
-
 var React = require("react");
 var Example = React.createClass({
   propTypes: {
@@ -1228,7 +1206,6 @@ var PolyDefaultExample = React.createClass({
 
 =====================================output=====================================
 /* @flow */
-
 class A {}
 class B extends A {}
 class C extends B {}
@@ -1254,7 +1231,6 @@ var PolyExample = React.createClass({
   }
 });
 // Different instantiations don't interact
-
 <PolyExample x={(new Poly(): Poly<string>)} />; // OK
 <PolyExample x={(new Poly(): Poly<number>)} />; // OK
 class PolyDefault<T = string> {
@@ -1312,7 +1288,6 @@ var Foo = React.createClass({
 
 =====================================output=====================================
 /* @flow */
-
 /* If you create a react component with createClass() but don't specify the
  * propTypes, what should the type of props be?
  *
@@ -1326,14 +1301,11 @@ var Foo = React.createClass({
  * We may change this back to the empty object at some point and fix the
  * situations where it didn't used to error
  */
-
 var React = require("react");
 var Foo = React.createClass({
   getID(): string {
     // So this would have been an error in 0.21.0 if we didn't make this.props
-
     // Object
-
     switch (this.props.name) {
       case "a":
         return "Bob";
@@ -1344,7 +1316,6 @@ var Foo = React.createClass({
   },
   render() {
     // But this never errored
-
     return <div id={this.props.name} />;
   }
 });
@@ -1374,7 +1345,6 @@ var fail_mistyped = <Example object={2} />
 
 =====================================output=====================================
 /* @flow */
-
 var React = require("react");
 var Example = React.createClass({
   propTypes: {
@@ -1448,7 +1418,6 @@ var InvalidExample = React.createClass({
 
 =====================================output=====================================
 /* @flow */
-
 var React = require("react");
 var Example = React.createClass({
   propTypes: {
@@ -1476,7 +1445,6 @@ var fail_mistyped_props = (
 /* Since the \`number\` proptype argument is not required, React will actually
    allow \`null\` and \`undefined\` elements in the \`obj\` prop, but Flow has
    currently ignores the innter prop type's required flag. */
-
 var todo_required = (
   <Example
     obj={{
@@ -1616,7 +1584,6 @@ var NonLiteralElemExample = React.createClass({
 
 =====================================output=====================================
 /* @flow */
-
 var React = require("react");
 var Example = React.createClass({
   propTypes: {
@@ -1799,7 +1766,6 @@ var InvalidElemExample = React.createClass({
 
 =====================================output=====================================
 /* @flow */
-
 var React = require("react");
 var Example = React.createClass({
   propTypes: {
@@ -1823,7 +1789,6 @@ var fail_bool = <Example prop={true} />;
 /* Since the proptype arguments are not required, React will actually allow
    \`null\` and \`undefined\` elements in the \`prop\` prop, but Flow has currently
    ignores the innter prop types' required flags. */
-
 var todo_required = <Example prop={null} />;
 var OptionalExample = React.createClass({
   propTypes: {
@@ -1933,7 +1898,6 @@ React.createClass({
  * separate "property \`baz\` not found" errors, this is broken and we are
  * treating the shape like an unsealed object and performing shadow read/writes.
  */
-
 import React from "react";
 React.createClass({
   propTypes: {
@@ -1998,34 +1962,22 @@ type NoFun = mixed => empty;
 import React from "react";
 type NoFun = mixed => empty;
 // error: mixed ~> ReactPropsCheckType
-
 // error: ReactPropsChainableTypeChecker ~> empty
-
 (React.PropTypes.arrayOf: NoFun);
 // OK: mixed ~> any
-
 // error: ReactPropsChainableTypeChecker ~> empty
-
 (React.PropTypes.instanceOf: NoFun);
 // error: mixed ~> ReactPropsCheckType
-
 // error: ReactPropsChainableTypeChecker ~> empty
-
 (React.PropTypes.objectOf: NoFun);
 // error: mixed ~> Array<any>
-
 // error: ReactPropsChainableTypeChecker ~> empty
-
 (React.PropTypes.oneOf: NoFun);
 // error: mixed ~> Array<ReactPropsCheckType>
-
 // error: ReactPropsChainableTypeChecker ~> empty
-
 (React.PropTypes.oneOfType: NoFun);
 // error: mixed ~> object type
-
 // error: ReactPropsChainableTypeChecker ~> empty
-
 (React.PropTypes.shape: NoFun);
 
 ================================================================================
@@ -2071,7 +2023,6 @@ React.createClass({
  * separate "property \`baz\` not found" errors, this is broken and we are
  * treating propTypes like an unsealed object and performing shadow read/writes.
  */
-
 import React from "react";
 React.createClass({
   propTypes: {

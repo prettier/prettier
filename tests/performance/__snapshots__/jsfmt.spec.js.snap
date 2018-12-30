@@ -197,7 +197,6 @@ tap.test("RecordImport.advance", t => {
           getBatches((err, batches) => {
             checkStates(batches, ["process.completed"]);
             // Need to manually move to the next step
-
             batch.importRecords(err => {
               t.error(err, "Error should be empty.");
               getBatches((err, batches) => {

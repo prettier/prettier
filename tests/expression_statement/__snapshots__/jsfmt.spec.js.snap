@@ -11,7 +11,6 @@ printWidth: 80
 
 =====================================output=====================================
 // Ensure no regression.
-
 "use strict";
 
 
@@ -29,7 +28,6 @@ printWidth: 80
 
 =====================================output=====================================
 // Parentheses around expression statement should be preserved in this case.
-
 ("use strict");
 
 ================================================================================

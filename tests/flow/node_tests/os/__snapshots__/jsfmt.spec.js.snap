@@ -24,7 +24,6 @@ var u3 = os.userInfo({encoding: 'buffer'});
 
 =====================================output=====================================
 /* @flow */
-
 var os = require("os");
 var u1 = os.userInfo();
 (u1.username: string);

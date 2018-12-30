@@ -29,7 +29,6 @@ var xx : { x: number } = Object.freeze({ x: "error" })
 
 =====================================output=====================================
 /* @flow */
-
 var foo = Object.freeze({
   bar: "12345"
 });

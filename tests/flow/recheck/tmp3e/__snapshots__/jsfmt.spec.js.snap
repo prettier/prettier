@@ -17,7 +17,6 @@ export const LIFE = 0;
 
 =====================================output=====================================
 // @flow
-
 export type Action =
   | {
       type: "QUX"
@@ -50,7 +49,6 @@ import { LIFE } from './e1';
 
 =====================================output=====================================
 // @flow
-
 import type { Action } from "./e1";
 const f = (): Action => {
   return {

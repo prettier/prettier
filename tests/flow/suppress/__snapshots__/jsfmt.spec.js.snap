@@ -33,27 +33,21 @@ var test6: string = 123;
 
 =====================================output=====================================
 // $FlowFixMe
-
 var test1: string = 123; // This error should be suppressed
 // $FlowIssue
-
 var test2: string = 123; // This error should be suppressed
 function getNum() {
   return 123;
 }
 // $FlowFixMe This was the second loc in the error
-
 var test3: string = getNum(); // This error should be suppressed
 // $FlowFixMe Error unused suppression
-
 var test4: string = 123; // This error is NOT suppressed
 // $FlowFixMe Indentation shouldn't matter
-
 var test5: string = 123; // This error should be suppressed
 /*
  * $FlowNewLine
  */
-
 var test6: string = 123;
 
 ================================================================================
@@ -70,7 +64,6 @@ var test1: string = library_num;
 
 =====================================output=====================================
 // $FlowFixMe
-
 var test1: string = library_num;
 
 ================================================================================
@@ -96,7 +89,6 @@ function takesAString(x: string): void {}
 function runTest(y: number): void {
   takesAString(
     /* $FlowFixMe - suppressing the error op location should also work */
-
     y
   );
 }
@@ -127,7 +119,6 @@ declare var x: {
 };
 declare var y: {
   // $FlowFixMe - this location is only mentioned in the extra section
-
   x: {
     bar: number
   }

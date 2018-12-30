@@ -37,7 +37,6 @@ interface Bad {
 
 =====================================output=====================================
 // @flow
-
 interface Ok {
   [key: string]: string;
 }
@@ -181,7 +180,6 @@ function foo(l: L) {
   l.z;
 } // error: z not found in L
 // interface + multiple inheritance is similar to object type + intersection
-
 type M = {
   y: string
 } & J & {

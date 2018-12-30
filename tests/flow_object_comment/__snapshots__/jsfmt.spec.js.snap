@@ -24,10 +24,8 @@ export default ({
   bar
 }: {
   // comment
-
   foo?: Object,
   // comment 2
-
   bar?: Object
 }) => {};
 

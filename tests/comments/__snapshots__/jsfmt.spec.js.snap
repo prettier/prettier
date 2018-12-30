@@ -40,7 +40,6 @@ const foo = {
 const foo = {
   a: "a" /* comment for this line */,
   /* Section B */
-
   b: "b"
 };
 
@@ -129,73 +128,61 @@ function bitwiseXor() {
 function addition() {
   0 +
     // Comment
-
     x;
 }
 function multiplication() {
   0 *
     // Comment
-
     x;
 }
 function division() {
   0 /
     // Comment
-
     x;
 }
 function substraction() {
   0 -
     // Comment
-
     x;
 }
 function remainder() {
   0 %
     // Comment
-
     x;
 }
 function exponentiation() {
   0 **
     // Comment
-
     x;
 }
 function leftShift() {
   0 <<
     // Comment
-
     x;
 }
 function rightShift() {
   0 >>
     // Comment
-
     x;
 }
 function unsignedRightShift() {
   0 >>>
     // Comment
-
     x;
 }
 function bitwiseAnd() {
   0 &
     // Comment
-
     x;
 }
 function bitwiseOr() {
   0 |
     // Comment
-
     x;
 }
 function bitwiseXor() {
   0 ^
     // Comment
-
     x;
 }
 
@@ -232,31 +219,22 @@ printWidth: 80
 
 =====================================output=====================================
 // This file only
-
 // has comments. This comment
-
 // should still exist
-
 //
-
 // when printed.
-
 /**
  * @typedef {DataDrivenMapping|ConstantMapping} Mapping
  */
-
 /**
  * @typedef {Object.<String, Mapping>} ConfigurationMapping
  */
-
 /**
  * @typedef {Function} D3Scale - a D3 scale
  * @property {Function} ticks
  * @property {Function} tickFormat
  */
-
 // comment
-
 // comment
 
 ================================================================================
@@ -287,11 +265,9 @@ for (;;) {
 }
 loop: for (;;) {
   break /* comment */
-
   loop;
   break loop /* comment */;
   continue /* comment */
-
   loop;
   continue loop /* comment */;
 }
@@ -318,13 +294,11 @@ React.render( // Warm any cache
 =====================================output=====================================
 render(
   // Warm any cache
-
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
 );
 React.render(
   // Warm any cache
-
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
 );
@@ -361,42 +335,31 @@ var newArray = /** @type {array} */ ((numberOrString).map(x => x));
 
 =====================================output=====================================
 // test to make sure comments are attached correctly
-
 let inlineComment = /* some comment */
-
 someReallyLongFunctionCall(withLots, ofArguments);
 let object = {
   key: /* some comment */
-
   someReallyLongFunctionCall(withLots, ofArguments)
 };
 // preserve parens only for type casts
-
 let assignment = /** @type {string} */
-
 (getValue());
 functionCall(
   1 +
     /** @type {string} */
-
     (value),
   /** @type {!Foo} */
-
   ({})
 );
 function returnValue() {
   return /** @type {!Array.<string>} */
-
   (["hello", "you"]);
 }
 var newArray = /** @type {array} */
-
 (numberOrString).map(x => x);
 var newArray = /** @type {array} */
-
 (numberOrString).map(x => x);
 var newArray = /** @type {array} */
-
 (numberOrString.map(x => x));
 
 ================================================================================
@@ -502,11 +465,9 @@ import('something' /* Hello */ + 'else')
 
 =====================================output=====================================
 import(/* Hello */
-
 "something");
 import("something" /* Hello */);
 import(/* Hello */
-
 "something" /* Hello */);
 import("something" /* Hello */ + "else");
 
@@ -547,7 +508,6 @@ export {
 };
 export {
   // comment
-
   bar
 };
 export {
@@ -603,7 +563,6 @@ type UploadState<E, EM, D>
 =====================================output=====================================
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
-
   | {
       type: "Not_begun"
     } // The upload timed out
@@ -621,7 +580,6 @@ type UploadState<E, EM, D> =
     };
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
-
   | A // The upload timed out
   | B // Failed somewhere on the line
   | C // Uploading to aws3 and CreatePostMutation succeeded
@@ -703,14 +661,12 @@ function a(/* comment */) {} // comment
 function b() {} // comment
 function c(
   /* comment */
-
   argA,
   argB,
   argC
 ) {} // comment
 call((
   /*object*/
-
   row
 ) => {});
 KEYPAD_NUMBERS.map((
@@ -719,41 +675,32 @@ KEYPAD_NUMBERS.map((
 function f /* f */() {}
 function f(/* args */) {}
 function f() /* returns */
-
 {}
 function f /* f */(/* args */) /* returns */
-
 {}
 function f /* f */(
   /* a */
-
   a
 ) {}
 function f /* f */(a /* a */) {}
 function f /* f */(
   /* a */
-
   a
 ) /* returns */
-
 {}
 const obj = {
   f1 /* f */() {},
   f2(/* args */) {},
   f3() /* returns */
-
   {},
   f4 /* f */(/* args */) /* returns */
-
   {}
 };
 (function f /* f */() {})();
 (function f(/* args */) {})();
 (function f() /* returns */
-
 {})();
 (function f /* f */(/* args */) /* returns */
-
 {})();
 class C {
   f /* f */() {}
@@ -763,32 +710,26 @@ class C {
 }
 class C {
   f() /* returns */
-
   {}
 }
 class C {
   f /* f */(/* args */) /* returns */
-
   {}
 }
 function foo() {
   // this is a function
-
   return 42;
 }
 function foo() {
   // this is a function
-
   return 42;
 }
 function foo() {
   // this is a function
-
   return 42;
 }
 function foo() {
   // this is a function
-
   return 42;
 }
 
@@ -866,7 +807,6 @@ true
 =====================================output=====================================
 if (1) {
   // comment
-
   false;
 } // comment
 else if (2) true;
@@ -875,7 +815,6 @@ else if (2) true;
 // lines
 else if (3)
   // existing comment
-
   true;
 // okay?
 else if (4) {
@@ -885,15 +824,12 @@ else {
 }
 if (5)
   // comment
-
   true;
 if (6) {
   // comment
-
   true;
 } else if (7)
   // comment
-
   true;
 // comment
 else {
@@ -901,15 +837,11 @@ else {
 }
 if (8) {
   // comment
-
   // comment
-
   true;
 } else if (9)
   // comment
-
   // comment
-
   true;
 // comment
 // comment
@@ -918,46 +850,32 @@ else {
 }
 if (10) {
   /* comment */
-
   // comment
-
   true;
 } else if (11)
   /* comment */
-
   true;
 else if (12)
   // comment /* comment */ // comment
-
   true;
 else if (13)
   /* comment */
-
   /* comment */
-
   // comment
-
   true;
 /* comment */ else {
   true;
 }
 if (14) {
   // comment
-
   /* comment */
-
   // comment
-
   true;
 } else if (15)
   // comment
-
   /* comment */
-
   /* comment */
-
   // comment
-
   true;
 
 ================================================================================
@@ -1079,11 +997,9 @@ foo({}
 
 =====================================output=====================================
 // Does not need to break as it fits in 80 columns
-
 this.call(
   a,
   /* comment */
-
   b
 );
 function f(
@@ -1091,21 +1007,16 @@ function f(
   someReallyLongArgument2: WithSomeLongType // Trailing comment should stay after
 ) {}
 // Comments should either stay at the end of the line or always before, but
-
 // not one before and one after.
-
 throw new ProcessSystemError({
   code: acc.error.code, // Alias of errno
   originalError: acc.error // Just in case.
 });
 // Adding a comment stops the pretty printing process and everything is
-
 // squished in a single line afterward
-
 export type BuckWebSocketMessage =
   | {
       // Not actually from Buck - this is to let the receiver know that the socket is connected.
-
       type: "SocketConnected"
     }
   | {
@@ -1132,25 +1043,20 @@ export type BuckWebSocketMessage =
       type: "RunComplete"
     };
 // Missing one level of indentation because of the comment
-
 const rootEpic = (actions, store) =>
   combineEpics(...epics)(actions, store)
     // Log errors and continue.
-
     .catch((err, stream) => {
       getLogger().error(err);
       return stream;
     });
 // Two extra levels of indentation because of the comment
-
 export type AsyncExecuteOptions = child_process$execFileOpts & {
   // The contents to write to stdin.
-
   stdin?: ?string,
   dontLogInNuclide?: ?boolean
 };
 // optional trailing comma gets moved all the way to the beginning
-
 const regex = new RegExp(
   "^\\\\s*" + // beginning of the line
   "name\\\\s*=\\\\s*" + // name =
@@ -1160,46 +1066,35 @@ const regex = new RegExp(
     ",?$" // optional trailing comma
 );
 // The comment is moved and doesn't trigger the eslint rule anymore
-
 import path from "path"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
 // Comments disappear in-between MemberExpressions
-
 Observable.of(process)
   // Don't complete until we say so!
-
   .merge(Observable.never())
   // Get the errors.
-
   .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
   .takeUntil(exit);
 // Comments disappear inside of JSX
-
 <div>{/* Some comment */}</div>;
 // Comments in JSX tag are placed in a non optimal way
-
 <div // comment
 />;
 // Comments disappear in empty blocks
-
 if (1) {
   // Comment
 }
 // Comments trigger invalid JavaScript in-between else if
-
 if (1) {
 } // Comment
 else {
 }
 // The comment makes the line break in a weird way
-
 const result = asyncExecute(
   "non_existing_command",
   /* args */
-
   []
 );
 // The closing paren is printed on the same line as the comment
-
 foo(
   {} // Hi
 );
@@ -1352,7 +1247,6 @@ onClick={() => {}}>
   {
     /* comment
      */
-
     a
   }
 </div>;
@@ -1399,7 +1293,6 @@ onClick={() => {}}>
   /**
    * Handles clicks.
    */
-
   onClick={() => {}}
 />;
 <div // comment
@@ -1589,14 +1482,11 @@ class Foo {
     lol3 /*string*/,
     lol4 /*string*/
   ) /*string*/
-
   {}
   // prettier-ignore
-
   c(lol /*string*/
   ) {}
   // prettier-ignore
-
   d(
     lol /*string*/,
     lol2 /*string*/,
@@ -1604,7 +1494,6 @@ class Foo {
     lol4 /*string*/
   ) {}
   // prettier-ignore
-
   e(
     lol /*string*/,
     lol2 /*string*/,
@@ -1653,10 +1542,8 @@ function f() {
 }
 function name() {
   // comment1
-
   func1();
   // comment2
-
   func2(); // comment3 why func3 commented // func3()
 }
 
@@ -1795,14 +1682,12 @@ function inlineComment() {
 function jsx() {
   return (
     // Comment
-
     <div />
   );
 }
 function unary() {
   return (
     // Comment
-
     !!x
   );
 }
@@ -1812,21 +1697,18 @@ function numericLiteralNoParen() {
 function logical() {
   return (
     // Reason for 42
-
     42 && 84
   );
 }
 function binary() {
   return (
     // Reason for 42
-
     42 * 84
   );
 }
 function binaryInBinaryLeft() {
   return (
     // Reason for 42
-
     42 *
       84 +
     2
@@ -1835,7 +1717,6 @@ function binaryInBinaryLeft() {
 function binaryInBinaryRight() {
   return (
     // Reason for 42
-
     42 +
     84 * 2
   );
@@ -1843,7 +1724,6 @@ function binaryInBinaryRight() {
 function conditional() {
   return (
     // Reason for 42
-
     42
       ? 1
       : 2
@@ -1852,7 +1732,6 @@ function conditional() {
 function binaryInConditional() {
   return (
     // Reason for 42
-
     42 * 3
       ? 1
       : 2
@@ -1861,21 +1740,18 @@ function binaryInConditional() {
 function call() {
   return (
     // Reason for a
-
     a()
   );
 }
 function memberInside() {
   return (
     // Reason for a.b
-
     a.b.c
   );
 }
 function memberOutside() {
   return (
     // Reason for a
-
     a.b.c
   );
 }
@@ -1883,7 +1759,6 @@ function memberInAndOutWithCalls() {
   return (
     aFunction
       .b// Reason for a
-
       ()
       .c.d()
   );
@@ -1891,42 +1766,31 @@ function memberInAndOutWithCalls() {
 function excessiveEverything() {
   return (
     // Reason for stuff
-
     a.b() * 3 + 4 ? ((a\`hi\`, 1) ? 1 : 1) : 1
   );
 }
 // See https://github.com/prettier/prettier/issues/2392
-
 // function sequenceExpression() {
-
 //   return (
-
 //     // Reason for a
-
 //     a
-
 //   ), b
-
 // }
-
 function sequenceExpressionInside() {
   return (
     // Reason for a
-
     a, b
   );
 }
 function taggedTemplate() {
   return (
     // Reason for a
-
     a\`b\`
   );
 }
 function inlineComment() {
   return (
     /* hi */
-
     42 || 42
   );
 }
@@ -1975,7 +1839,6 @@ if(true) {
 /*
  * Looking good!
  */
-
 if (true) {
   /*
    * Oh no
@@ -2108,13 +1971,11 @@ d //comment
 
 \${
   /* comment */
-
   c /* comment */
 }
 
 \${
   // comment
-
   d //comment
 };
 \`;
@@ -2136,9 +1997,7 @@ printWidth: 80
 
 =====================================output=====================================
 #!/there/is-space-here->
-
 // Do not trim trailing whitespace from this source file!
-
 // There is some space here ->
 
 ================================================================================
@@ -2233,7 +2092,6 @@ finally { // Comment 8
 
 =====================================output=====================================
 // Comment 1
-
 try {
   // Comment 2
   // Comment 3
@@ -2326,76 +2184,61 @@ const foo = 123
 =====================================output=====================================
 let obj =
   // Comment
-
   {
     key: "val"
   };
 let obj =
   // Comment
-
   {
     key: "val"
   };
 let obj = {
   // Comment
-
   key: "val"
 };
 let obj = {
   // Comment
-
   key: "val"
 };
 let obj =
   // Comment
-
   ["val"];
 let obj =
   // Comment
-
   ["val"];
 let obj = [
   // Comment
-
   "val"
 ];
 let obj = [
   // Comment
-
   "val"
 ];
 let obj =
   // Comment
-
   \`val\`;
 let obj =
   // Comment
-
   \`
 val
 val
 \`;
 let obj =
   // Comment
-
   tag\`val\`;
 let obj =
   // Comment
-
   tag\`
 val
 val
 \`;
 let // Comment
-
   foo = "val";
 let // Comment
-
   foo = "val",
   bar = "val";
 const foo = 123;
 // Nothing to see here.
-
 ["2", "3"].forEach(x => console.log(x));
 
 ================================================================================
@@ -2446,7 +2289,6 @@ while (
 while (true) {} // comment
 while (true)
   /* comment */
-
   ++x;
 
 ================================================================================

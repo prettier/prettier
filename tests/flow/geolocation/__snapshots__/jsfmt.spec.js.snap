@@ -29,7 +29,6 @@ geolocation.clearWatch(id);
 
 =====================================output=====================================
 /* @flow */
-
 var geolocation = new Geolocation();
 var id = geolocation.watchPosition(
   position => {

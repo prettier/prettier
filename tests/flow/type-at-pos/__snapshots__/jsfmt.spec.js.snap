@@ -28,7 +28,6 @@ export const X = {
 
 =====================================output=====================================
 // @flow
-
 let [x, y] = [1, 2];
 /**
  * Test what happens when the destructuring is unevaluated. In this case,
@@ -36,7 +35,6 @@ let [x, y] = [1, 2];
  * \`this.returnsATuple()\` is; thus, we never evaluate \`b\` and so type-at-pos
  * returns EmptyT.
  */
-
 export const X = {
   returnsATuple: function(): [number, number] {
     return [1, 2];
@@ -80,15 +78,10 @@ const d = {
 
 =====================================output=====================================
 // @flow
-
 // TODO: type-at-pos between the ()'s should be () => void
-
 // class X {
-
 //   foo(): void {}
-
 // }
-
 const a = {
   bar(): void {}
 };
@@ -144,7 +137,6 @@ mn;
 
 =====================================output=====================================
 // @flow
-
 class C<X> {}
 var cn: C<number> = new C();
 cn;
@@ -188,7 +180,6 @@ module.exports = num;
 
 =====================================output=====================================
 // @flow
-
 var num = 42;
 function bar() {}
 bar();
@@ -214,7 +205,6 @@ let tests = [
 
 =====================================output=====================================
 /* @flow */
-
 let tests = [
   function() {
     let x = {};
@@ -251,7 +241,6 @@ function qux(x?) {
 
 =====================================output=====================================
 // @flow
-
 function foo(x?: string) {
   return x;
 }
@@ -281,7 +270,6 @@ if (Array.isArray(x)) {}
 
 =====================================output=====================================
 /* @flow */
-
 let x = 0;
 if (x == null) {
 }
@@ -320,7 +308,6 @@ printWidth: 80
 
 =====================================output=====================================
 /* @flow */
-
 \`foo bar\`;
 
 ================================================================================
@@ -349,7 +336,6 @@ const w:MyNum = 42;
 
 =====================================output=====================================
 // @flow
-
 var str = require("./import");
 function foo() {}
 foo();
@@ -380,7 +366,6 @@ try {
 
 =====================================output=====================================
 // @flow
-
 try {
   throw "foo";
 } catch (e) {}

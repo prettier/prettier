@@ -69,7 +69,6 @@ it("does something really long and complicated so I have to write a very long na
  * and parent.type is CallExpression. This test makes sure that
  * no errors are thrown when calling isTestCall(parent)
  */
-
 function x() {
   async(() => {});
 }
@@ -147,7 +146,6 @@ it("does something really long and complicated so I have to write a very long na
  * and parent.type is CallExpression. This test makes sure that
  * no errors are thrown when calling isTestCall(parent)
  */
-
 function x() {
   async(() => {});
 }
@@ -206,7 +204,6 @@ it("does something really long and complicated so I have to write a very long na
  * and parent.type is CallExpression. This test makes sure that
  * no errors are thrown when calling isTestCall(parent)
  */
-
 function x() {
   fakeAsync(() => {});
 }
@@ -266,7 +263,6 @@ it("does something really long and complicated so I have to write a very long na
  * and parent.type is CallExpression. This test makes sure that
  * no errors are thrown when calling isTestCall(parent)
  */
-
 function x() {
   fakeAsync(() => {});
 }
@@ -331,7 +327,6 @@ it("does something really long and complicated so I have to write a very long na
  * and parent.type is CallExpression. This test makes sure that
  * no errors are thrown when calling isTestCall(parent)
  */
-
 function x() {
   inject(() => {});
 }
@@ -397,7 +392,6 @@ it("does something really long and complicated so I have to write a very long na
  * and parent.type is CallExpression. This test makes sure that
  * no errors are thrown when calling isTestCall(parent)
  */
-
 function x() {
   inject(() => {});
 }
@@ -491,7 +485,6 @@ describe.each\`
   \${2} | \${1} | \${3}
 \`;
 // an example to demo multiline quasi
-
 describe.each\`
   a    | b    | expected
   \${11111111111} | \${a()
@@ -592,7 +585,6 @@ describe.each\`
   \${2} | \${1} | \${3}
 \`;
 // an example to demo multiline quasi
-
 describe.each\`
   a    | b    | expected
   \${11111111111} | \${a()
@@ -745,7 +737,6 @@ it(
 
 =====================================output=====================================
 // Shouldn't break
-
 it("does something really long and complicated so I have to write a very long name for the test", () => {
   console.log("hello!");
 });
@@ -809,7 +800,6 @@ xtest("does something really long and complicated so I have to write a very long
 skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 skip("does something really long and complicated so I have to write a very long name for the test", () => {});
 // Should break
-
 it.only(
   "does something really long and complicated so I have to write a very long name for the test",
   10,
@@ -834,7 +824,6 @@ xskip(
   () => {}
 );
 // timeout
-
 it(\`handles
   some
     newlines
@@ -995,7 +984,6 @@ it(
 
 =====================================output=====================================
 // Shouldn't break
-
 it("does something really long and complicated so I have to write a very long name for the test", () => {
   console.log("hello!");
 });
@@ -1059,7 +1047,6 @@ xtest("does something really long and complicated so I have to write a very long
 skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 skip("does something really long and complicated so I have to write a very long name for the test", () => {});
 // Should break
-
 it.only(
   "does something really long and complicated so I have to write a very long name for the test",
   10,
@@ -1084,7 +1071,6 @@ xskip(
   () => {}
 );
 // timeout
-
 it(\`handles
   some
     newlines

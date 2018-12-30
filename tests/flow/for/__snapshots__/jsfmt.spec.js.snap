@@ -56,7 +56,6 @@ function corge(x: boolean) {
 
 =====================================output=====================================
 /* @flow */
-
 function foo(x: boolean) {
   var max = 10;
   for (var ii = 0; ii < max; ii++) {

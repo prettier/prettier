@@ -86,7 +86,6 @@ var obj: {
 };
 var arr: Array<number> = [1, 2, "..."];
 // array sugar
-
 var array: number[] = [1, 2, "..."];
 var matrix: number[][] = [[1, 2], [3, 4]];
 var matrix_parens: number[][] = matrix;
@@ -103,14 +102,11 @@ var test_obj: ObjType = {
   "bar-foo": "23"
 };
 // param type annos are strict UBs like var type annos
-
 function param_anno(n: number): void {
   n = "hey"; // error
 }
 // another error on param UB, more typical of www (mis)use-cases
-
 // this one cribbed from API.atlas.js
-
 function param_anno2(
   batchRequests: Array<{
     method: string,
@@ -119,13 +115,9 @@ function param_anno2(
   }>
 ): void {
   // error below, since we're assigning elements to batchRequests
-
   // which lack a path property.
-
   // just assign result to new var instead of reassigning to param.
-
   // Transform the requests to the format the Graph API expects.
-
   batchRequests = batchRequests.map(request => {
     return {
       method: request.method,
@@ -232,7 +224,6 @@ function bar(y: MyObj): string {
 
 =====================================output=====================================
 /** @flow */
-
 /* This test documents an example we ran into of a type annotation leaking.
  *
  * When foo() calls bar(), we should make sure the type of x matches the type
@@ -243,7 +234,6 @@ function bar(y: MyObj): string {
  * and type checking the body of bar() using the stricter dictionary type,
  * leading to an error.
  */
-
 type MyObj = Object;
 function foo(x: { [key: string]: mixed }) {
   bar(x);
@@ -305,7 +295,6 @@ class Foo<A> {
 =====================================output=====================================
 type Merge<T> = (a: T, b: T) => T;
 // hypothetical immutable map
-
 declare class Map<K, V> {
   (): Map<K, V>;
   insertWith(fn: Merge<V>, k: K, v: V): Map<K, V>;

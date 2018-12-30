@@ -110,7 +110,6 @@ declare class U {}
 declare var y: U;
 declare var nil: {||};
 // inexact: \`p\` may be non-own
-
 type O1 = {
   ...{
     p: T
@@ -135,7 +134,6 @@ declare var o1: O1;
   q: y
 }: O1); // ok
 // inexact: optional \`p\`, if own, must be \`T\`
-
 type O2 = {
   ...{
     p?: T
@@ -160,7 +158,6 @@ declare var o2: O2;
   q: y
 }: O2); // ok
 // can't make exact from inexact (TODO: force EvalT eagerly)
-
 type O3 = {|
   ...{
     p: T
@@ -170,7 +167,6 @@ type O3 = {|
   p: x
 }: O3); // error: spread result is not exact
 // exact
-
 type O4 = {
   ...{|
     p: T
@@ -195,7 +191,6 @@ declare var o4: O4;
   q: y
 }: O4); // ok
 // can make exact from exact
-
 type O5 = {|
   ...{|
     p: T
@@ -220,7 +215,6 @@ declare var o5: O5;
   q: y
 }: O5); // error: additional property \`q\` found
 // inexact p + exact p
-
 type O6 = {
   ...{
     p: T
@@ -245,7 +239,6 @@ declare var o6: O6;
   q: x
 }: O6); // ok
 // inexact p + exact p ~> exact (TODO: force EvalT eagerly)
-
 type O7 = {|
   ...{
     p: T
@@ -258,7 +251,6 @@ type O7 = {|
   p: y
 }: O7); // error: spread result is not exact
 // exact p + inexact p
-
 type O8 = {
   ...{|
     p: T
@@ -274,7 +266,6 @@ declare var o8: O8;
 (o8.p: T); // error: U ~> T
 (o8.p: U); // error: T ~> U
 // inexact p + exact q
-
 type O9 = {
   ...{
     p: T
@@ -291,7 +282,6 @@ declare var o9: O9;
 (o9.p: T); // error: o9.p is optional
 (o9.q: U); // ok
 // exact p + inexact q
-
 type O10 = {
   ...{|
     p: T
@@ -306,7 +296,6 @@ declare var o10: O10;
   q?: U
 }); // ok
 // inexact p + inexact q
-
 type O11 = {
   ...{
     p: T
@@ -321,7 +310,6 @@ declare var o11: O11;
   q: mixed
 }); // ok
 // exact + exact
-
 type O12 = {
   ...{|
     p: T
@@ -336,7 +324,6 @@ declare var o12: O12;
   q: U
 }); // ok
 // inline properties are exact
-
 type O13 = {
   ...{
     p: T

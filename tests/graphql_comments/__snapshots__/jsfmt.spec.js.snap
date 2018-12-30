@@ -61,7 +61,6 @@ query claimsByBookingReferenceAndLastName($bookingReference: String!, $lastName:
 
 =====================================output=====================================
 # import "./claimsFragment.gql"
-
 query claimsByBookingReferenceAndLastName(
   $bookingReference: String!
   $lastName: String!

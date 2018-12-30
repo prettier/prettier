@@ -26,7 +26,6 @@ var d: React.Element<{id: number}> = <div id="asdf" />; // Error: Props<{id:stri
 
 =====================================output=====================================
 // @flow
-
 var React = require("react");
 class CustomComponent extends React.Component {
   props: {
@@ -78,7 +77,6 @@ React.createElement(Str, {}); // Error: string ~> keys of JSXIntrinsics
 
 =====================================output=====================================
 /* @flow */
-
 var React = require("react");
 var Div = "div";
 var Bad = "bad";
@@ -90,7 +88,6 @@ React.createElement("div", {}); // This is fine
 React.createElement("bad", {}); // Error: 'bad' not in JSXIntrinsics
 React.createElement(Str, {}); // Error: string ~> keys of JSXIntrinsics
 // TODO: Make this an error
-
 <Div id={42} />; // Not an error but should be eventually
 
 ================================================================================
