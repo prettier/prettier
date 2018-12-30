@@ -581,7 +581,6 @@ var C = React.createClass({
 <C
   statistics={[
     {},
-
     {
       label: "",
       value: undefined
@@ -593,7 +592,6 @@ var props: Array<{
   value?: number
 }> = [
   {},
-
   {
     label: "",
     value: undefined
@@ -814,12 +812,10 @@ var TestProps = React.createClass({
     oneOf_rec: React.PropTypes.oneOf(["yes", "no"]).isRequired,
     oneOfType: React.PropTypes.oneOfType([
       React.PropTypes.string,
-
       React.PropTypes.number
     ]),
     oneOfType_rec: React.PropTypes.oneOfType([
       React.PropTypes.string,
-
       React.PropTypes.number
     ]).isRequired,
     shape: React.PropTypes.shape({

@@ -54,19 +54,16 @@ let tests = [
     \`\${x} bar\`; // ok
     \`foo \${"bar"} \${x}\`; // ok
   },
-
   function(x: number) {
     \`foo \${x}\`; // ok
     \`\${x} bar\`; // ok
     \`foo \${"bar"} \${x}\`; // ok
   },
-
   function(x: boolean) {
     \`foo \${x}\`; // error
     \`\${x} bar\`; // error
     \`foo \${"bar"} \${x}\`; // error
   },
-
   function(x: mixed) {
     \`foo \${x}\`; // error
     \`\${x} bar\`; // error

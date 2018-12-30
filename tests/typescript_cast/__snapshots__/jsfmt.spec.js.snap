@@ -141,9 +141,7 @@ function y() {
   };
   const testArrayLiteral = <Immutable.Map<string, any>>[
     "first",
-
     "second",
-
     "third"
   ];
   const testArrayLiteral2 = <
@@ -221,9 +219,7 @@ function x() {
   };
   const testArrayLiteral = <PermissionsChecker<any> | undefined>[
     "first",
-
     "second",
-
     "third"
   ];
   const testArrayLiteral2 = <

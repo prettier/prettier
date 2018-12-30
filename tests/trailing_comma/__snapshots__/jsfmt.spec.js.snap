@@ -565,7 +565,6 @@ this.getAttribute(function(s) /*string*/ {
 =====================================output=====================================
 let example = [
   "FOO",
-
   "BAR" // Comment
 ];
 foo(
@@ -657,7 +656,6 @@ this.getAttribute(function(s) /*string*/ {
 =====================================output=====================================
 let example = [
   "FOO",
-
   "BAR", // Comment
 ];
 foo(
@@ -749,7 +747,6 @@ this.getAttribute(function(s) /*string*/ {
 =====================================output=====================================
 let example = [
   "FOO",
-
   "BAR", // Comment
 ];
 foo(

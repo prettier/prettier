@@ -48,7 +48,6 @@ var tests = [
     var x: number = ("hey": any);
     var y = (("hey": any): number);
   },
-
   () => {
     // typecasts in sequences
 
@@ -56,7 +55,6 @@ var tests = [
 
     var s: string = ((0: number), ("hey": string));
   },
-
   () => {
     // TODO pending array element inference issues
     // control case:

@@ -45,12 +45,10 @@ declare class C {
 }
 [
   superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
-
   ,
 ];
 [
   veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
-
   ...a
 ] = [];
 var {

@@ -156,25 +156,15 @@ function helloWorld() {
     // do something
   }, [
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value
   ]);
 }
@@ -186,25 +176,15 @@ function helloWorldWithReact() {
     // do something
   }, [
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value,
-
     props.value
   ]);
 }

@@ -6222,8 +6222,9 @@ function printArrayItems(path, options, printPath, print) {
     separatorParts = [",", line];
     if (
       childPath.getValue() &&
-      (options.pure ||
-        isNextLineEmpty(options.originalText, childPath.getValue(), options))
+      (options.pure
+        ? false
+        : isNextLineEmpty(options.originalText, childPath.getValue(), options))
     ) {
       separatorParts.push(softline);
     }

@@ -131,7 +131,6 @@ true
     require("autoprefixer", {
       browsers: ["> 1%", "last 2 versions", "ie >= 11", "Firefox ESR"]
     }),
-
     require("postcss-url")({
       url: url =>
         url.startsWith("/") || /^[a-z]+:/.test(url) ? url : \`/static/\${url}\`
@@ -276,7 +275,6 @@ exports.examples = [
 someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReally.a(
   [
     [],
-
     // comment
 
     []
@@ -304,7 +302,6 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
       function(module, exports, __webpack_require__) {
         /***/
       },
-
       /* 1 */
 
       /***/
@@ -312,7 +309,6 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
       function(module, exports, __webpack_require__) {
         /***/
       },
-
       /* 2 */
 
       /***/

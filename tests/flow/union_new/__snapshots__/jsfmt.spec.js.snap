@@ -156,7 +156,6 @@ var bar: Array<
     b: true,
     c: 123
   },
-
   {
     b: true
   }

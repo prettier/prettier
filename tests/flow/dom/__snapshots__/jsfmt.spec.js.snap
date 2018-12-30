@@ -29,7 +29,6 @@ let tests = [
   function(ctx: CanvasRenderingContext2D) {
     ctx.fillRect(0, 0, 200, 100);
   },
-
   // moveTo
 
   function(ctx: CanvasRenderingContext2D) {
@@ -393,7 +392,6 @@ let tests = [
     (target.attachEvent("foo", listener): void); // invalid, may be undefined
     (target.attachEvent && target.attachEvent("foo", listener): void); // valid
   },
-
   // detachEvent
 
   function() {
@@ -401,7 +399,6 @@ let tests = [
     (target.detachEvent("foo", listener): void); // invalid, may be undefined
     (target.detachEvent && target.detachEvent("foo", listener): void); // valid
   },
-
   function() {
     window.onmessage = (event: MessageEvent) => {
       (event.target: window);
@@ -541,7 +538,6 @@ let tests = [
       })
     });
   },
-
   // or with Object.assign()
 
   function() {
@@ -559,7 +555,6 @@ let tests = [
       })
     });
   },
-
   // should complain about invalid callback parameters
 
   function() {
@@ -795,7 +790,6 @@ let tests = [
       | typeof NodeFilter.FILTER_REJECT
       | typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document.body);
   },
-
   function() {
     const w: TreeWalker<*, *> = document.createTreeWalker(document.body);
     const filter: NodeFilter = w.filter;
@@ -804,19 +798,16 @@ let tests = [
       | typeof NodeFilter.FILTER_REJECT
       | typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document.body);
   },
-
   // rootNode must be a Node
 
   function() {
     document.createNodeIterator(document.body); // valid
     document.createNodeIterator({}); // invalid
   },
-
   function() {
     document.createTreeWalker(document.body);
     document.createTreeWalker({}); // invalid
   },
-
   // Type Parameters
 
   function() {
@@ -827,7 +818,6 @@ let tests = [
     const previousNode: Element | null = i.previousNode();
     const nextNode: Element | null = i.nextNode();
   },
-
   function() {
     const _root = document.body.attributes[0];
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ATTRIBUTE);
@@ -836,7 +826,6 @@ let tests = [
     const previousNode: Attr | null = i.previousNode();
     const nextNode: Attr | null = i.nextNode();
   },
-
   function() {
     const _root = document.body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_TEXT);
@@ -845,7 +834,6 @@ let tests = [
     const previousNode: Text | null = i.previousNode();
     const nextNode: Text | null = i.nextNode();
   },
-
   function() {
     const _root = document;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_DOCUMENT);
@@ -854,7 +842,6 @@ let tests = [
     const previousNode: Document | null = i.previousNode();
     const nextNode: Document | null = i.nextNode();
   },
-
   function() {
     const _root = document;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_DOCUMENT_TYPE);
@@ -863,7 +850,6 @@ let tests = [
     const previousNode: DocumentType | null = i.previousNode();
     const nextNode: DocumentType | null = i.nextNode();
   },
-
   function() {
     const _root = document.createDocumentFragment();
     const i = document.createNodeIterator(
@@ -875,7 +861,6 @@ let tests = [
     const previousNode: DocumentFragment | null = i.previousNode();
     const nextNode: DocumentFragment | null = i.nextNode();
   },
-
   function() {
     const _root = document.body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ALL);
@@ -884,7 +869,6 @@ let tests = [
     const previousNode: Node | null = i.previousNode();
     const nextNode: Node | null = i.nextNode();
   },
-
   function() {
     const _root = document.body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ELEMENT);
@@ -898,7 +882,6 @@ let tests = [
     const previousNode: Element | null = w.previousNode();
     const nextNode: Element | null = w.nextNode();
   },
-
   function() {
     const _root = document.body.attributes[0];
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ATTRIBUTE);
@@ -912,7 +895,6 @@ let tests = [
     const previousNode: Attr | null = w.previousNode();
     const nextNode: Attr | null = w.nextNode();
   },
-
   function() {
     const _root = document.body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_TEXT);
@@ -926,7 +908,6 @@ let tests = [
     const previousNode: Text | null = w.previousNode();
     const nextNode: Text | null = w.nextNode();
   },
-
   function() {
     const _root = document;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_DOCUMENT);
@@ -940,7 +921,6 @@ let tests = [
     const previousNode: Document | null = w.previousNode();
     const nextNode: Document | null = w.nextNode();
   },
-
   function() {
     const _root = document;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_DOCUMENT_TYPE);
@@ -954,7 +934,6 @@ let tests = [
     const previousNode: DocumentType | null = w.previousNode();
     const nextNode: DocumentType | null = w.nextNode();
   },
-
   function() {
     const _root = document.createDocumentFragment();
     const w = document.createTreeWalker(
@@ -971,7 +950,6 @@ let tests = [
     const previousNode: DocumentFragment | null = w.previousNode();
     const nextNode: DocumentFragment | null = w.nextNode();
   },
-
   function() {
     const _root = document.body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ALL);
@@ -985,7 +963,6 @@ let tests = [
     const previousNode: Node | null = w.previousNode();
     const nextNode: Node | null = w.nextNode();
   },
-
   // NodeFilterInterface
 
   function() {
@@ -1003,7 +980,6 @@ let tests = [
     }); // invalid
     document.createNodeIterator(document.body, -1, {}); // invalid
   },
-
   function() {
     document.createTreeWalker(
       document.body,

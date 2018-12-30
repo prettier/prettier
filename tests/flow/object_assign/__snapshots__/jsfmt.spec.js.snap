@@ -125,11 +125,9 @@ printWidth: 80
 
 (Object.assign.apply(null, [
   {},
-
   {
     a: 1
   },
-
   {
     b: "foo"
   }
@@ -207,7 +205,6 @@ declare var tup: [
   {
     foo: string
   },
-
   {
     bar: number
   }
@@ -228,7 +225,6 @@ declare var tup: [
     {
       a: 1
     },
-
     {
       b: "foo"
     }

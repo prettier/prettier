@@ -1805,7 +1805,6 @@ var Example = React.createClass({
   propTypes: {
     prop: React.PropTypes.oneOfType([
       React.PropTypes.string,
-
       React.PropTypes.number
     ]).isRequired
   },
@@ -1862,7 +1861,6 @@ var DynamicElemExample = React.createClass({
   propTypes: {
     dyn: React.PropTypes.oneOfType([
       React.PropTypes.string,
-
       (() => {}: Function)
     ])
   }

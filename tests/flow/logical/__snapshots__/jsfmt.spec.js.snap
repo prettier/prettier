@@ -930,31 +930,24 @@ function logical13(
     {
       x: x && "bar"
     },
-
     {
       x: true && "bar"
     },
-
     {
       x: true && false
     },
-
     {
       x: false && false
     },
-
     {
       x: 1 && "bar"
     },
-
     {
       x: "foo" && "bar"
     },
-
     {
       x: "foo" && "bar"
     },
-
     {
       x: "foo" && "bar"
     }
@@ -973,31 +966,24 @@ function logical14(
     {
       x: x || "bar"
     },
-
     {
       x: false || "bar"
     },
-
     {
       x: false || true
     },
-
     {
       x: true || false
     },
-
     {
       x: 0 || "bar"
     },
-
     {
       x: "foo" || "bar"
     },
-
     {
       x: "foo" || "bar"
     },
-
     {
       x: "foo" || "bar"
     }

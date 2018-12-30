@@ -77,9 +77,7 @@ const promises = [
       console.log(err);
       return null;
     }),
-
   redis.fetch(),
-
   other.fetch()
 ];
 const promises = [
@@ -97,9 +95,7 @@ const promises = [
       console.log(err);
       return null;
     }),
-
   redis.fetch(),
-
   other.fetch()
 ];
 window.FooClient.setVars({

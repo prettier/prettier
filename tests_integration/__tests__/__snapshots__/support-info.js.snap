@@ -608,43 +608,24 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"color\\": \\"#f1e05a\\",
       \\"extensions\\": [
         \\".js\\",
-
         \\"._js\\",
-
         \\".bones\\",
-
         \\".es\\",
-
         \\".es6\\",
-
         \\".frag\\",
-
         \\".gs\\",
-
         \\".jake\\",
-
         \\".jsb\\",
-
         \\".jscad\\",
-
         \\".jsfl\\",
-
         \\".jsm\\",
-
         \\".jss\\",
-
         \\".mjs\\",
-
         \\".njs\\",
-
         \\".pac\\",
-
         \\".sjs\\",
-
         \\".ssjs\\",
-
         \\".xsjs\\",
-
         \\".xsjslib\\"
       ],
       \\"filenames\\": [\\"Jakefile\\"],
@@ -657,7 +638,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"programming\\",
       \\"vscodeLanguageIds\\": [\\"javascript\\"]
     },
-
     {
       \\"aceMode\\": \\"javascript\\",
       \\"aliases\\": [],
@@ -675,7 +655,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"programming\\",
       \\"vscodeLanguageIds\\": [\\"javascript\\"]
     },
-
     {
       \\"aceMode\\": \\"javascript\\",
       \\"codemirrorMimeType\\": \\"text/jsx\\",
@@ -690,7 +669,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"programming\\",
       \\"vscodeLanguageIds\\": [\\"javascriptreact\\"]
     },
-
     {
       \\"aceMode\\": \\"typescript\\",
       \\"aliases\\": [\\"ts\\"],
@@ -706,7 +684,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"programming\\",
       \\"vscodeLanguageIds\\": [\\"typescript\\", \\"typescriptreact\\"]
     },
-
     {
       \\"aceMode\\": \\"json\\",
       \\"codemirrorMimeType\\": \\"application/json\\",
@@ -723,47 +700,30 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"data\\",
       \\"vscodeLanguageIds\\": [\\"json\\"]
     },
-
     {
       \\"aceMode\\": \\"json\\",
       \\"codemirrorMimeType\\": \\"application/json\\",
       \\"codemirrorMode\\": \\"javascript\\",
       \\"extensions\\": [
         \\".json\\",
-
         \\".avsc\\",
-
         \\".geojson\\",
-
         \\".gltf\\",
-
         \\".JSON-tmLanguage\\",
-
         \\".jsonl\\",
-
         \\".tfstate\\",
-
         \\".tfstate.backup\\",
-
         \\".topojson\\",
-
         \\".webapp\\",
-
         \\".webmanifest\\"
       ],
       \\"filenames\\": [
         \\".arcconfig\\",
-
         \\".htmlhintrc\\",
-
         \\".tern-config\\",
-
         \\".tern-project\\",
-
         \\"composer.lock\\",
-
         \\"mcmod.info\\",
-
         \\".prettierrc\\"
       ],
       \\"group\\": \\"JavaScript\\",
@@ -776,7 +736,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"data\\",
       \\"vscodeLanguageIds\\": [\\"json\\"]
     },
-
     {
       \\"aceMode\\": \\"javascript\\",
       \\"aliases\\": [\\"jsonc\\"],
@@ -784,44 +743,26 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMode\\": \\"javascript\\",
       \\"extensions\\": [
         \\".sublime-build\\",
-
         \\".sublime-commands\\",
-
         \\".sublime-completions\\",
-
         \\".sublime-keymap\\",
-
         \\".sublime-macro\\",
-
         \\".sublime-menu\\",
-
         \\".sublime-mousemap\\",
-
         \\".sublime-project\\",
-
         \\".sublime-settings\\",
-
         \\".sublime-theme\\",
-
         \\".sublime-workspace\\",
-
         \\".sublime_metrics\\",
-
         \\".sublime_session\\"
       ],
       \\"filenames\\": [
         \\".babelrc\\",
-
         \\".eslintrc.json\\",
-
         \\".jscsrc\\",
-
         \\".jshintrc\\",
-
         \\".jslintrc\\",
-
         \\"tsconfig.json\\",
-
         \\".eslintrc\\"
       ],
       \\"group\\": \\"JSON\\",
@@ -833,7 +774,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"data\\",
       \\"vscodeLanguageIds\\": [\\"jsonc\\"]
     },
-
     {
       \\"aceMode\\": \\"javascript\\",
       \\"codemirrorMimeType\\": \\"application/json\\",
@@ -847,7 +787,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"data\\",
       \\"vscodeLanguageIds\\": [\\"json5\\"]
     },
-
     {
       \\"aceMode\\": \\"css\\",
       \\"codemirrorMimeType\\": \\"text/css\\",
@@ -862,7 +801,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"css\\"]
     },
-
     {
       \\"aceMode\\": \\"text\\",
       \\"extensions\\": [\\".pcss\\", \\".postcss\\"],
@@ -875,7 +813,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"postcss\\"]
     },
-
     {
       \\"aceMode\\": \\"less\\",
       \\"codemirrorMimeType\\": \\"text/css\\",
@@ -890,7 +827,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"less\\"]
     },
-
     {
       \\"aceMode\\": \\"scss\\",
       \\"codemirrorMimeType\\": \\"text/x-scss\\",
@@ -905,7 +841,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"scss\\"]
     },
-
     {
       \\"aceMode\\": \\"text\\",
       \\"extensions\\": [\\".graphql\\", \\".gql\\"],
@@ -917,7 +852,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"data\\",
       \\"vscodeLanguageIds\\": [\\"graphql\\"]
     },
-
     {
       \\"aceMode\\": \\"markdown\\",
       \\"aliases\\": [\\"pandoc\\"],
@@ -925,21 +859,13 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMode\\": \\"gfm\\",
       \\"extensions\\": [
         \\".md\\",
-
         \\".markdown\\",
-
         \\".mdown\\",
-
         \\".mdwn\\",
-
         \\".mkd\\",
-
         \\".mkdn\\",
-
         \\".mkdown\\",
-
         \\".ronn\\",
-
         \\".workbook\\"
       ],
       \\"filenames\\": [\\"README\\"],
@@ -952,7 +878,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"vscodeLanguageIds\\": [\\"markdown\\"],
       \\"wrap\\": true
     },
-
     {
       \\"extensions\\": [\\".mdx\\"],
       \\"name\\": \\"MDX\\",
@@ -960,7 +885,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.15.0\\",
       \\"vscodeLanguageIds\\": [\\"mdx\\"]
     },
-
     {
       \\"aceMode\\": \\"html\\",
       \\"aliases\\": [\\"xhtml\\"],
@@ -977,7 +901,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"html\\"]
     },
-
     {
       \\"aceMode\\": \\"html\\",
       \\"aliases\\": [\\"xhtml\\"],
@@ -986,19 +909,12 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"color\\": \\"#e34c26\\",
       \\"extensions\\": [
         \\".html\\",
-
         \\".htm\\",
-
         \\".html.hl\\",
-
         \\".inc\\",
-
         \\".st\\",
-
         \\".xht\\",
-
         \\".xhtml\\",
-
         \\".mjml\\"
       ],
       \\"linguistLanguageId\\": 146,
@@ -1009,7 +925,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"html\\"]
     },
-
     {
       \\"aceMode\\": \\"html\\",
       \\"color\\": \\"#2c3e50\\",
@@ -1022,7 +937,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"vue\\"]
     },
-
     {
       \\"aceMode\\": \\"yaml\\",
       \\"aliases\\": [\\"yml\\"],
@@ -1030,21 +944,13 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMode\\": \\"yaml\\",
       \\"extensions\\": [
         \\".yml\\",
-
         \\".mir\\",
-
         \\".reek\\",
-
         \\".rviz\\",
-
         \\".sublime-syntax\\",
-
         \\".syntax\\",
-
         \\".yaml\\",
-
         \\".yaml-tmlanguage\\",
-
         \\".yml.mysql\\"
       ],
       \\"filenames\\": [\\".clang-format\\", \\".clang-tidy\\", \\".gemrc\\", \\"glide.lock\\"],
@@ -1065,7 +971,6 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"description\\": \\"Omit parens when possible. Example: \`x => x\`\\",
           \\"value\\": \\"avoid\\"
         },
-
         {
           \\"description\\": \\"Always include parens. Example: \`(x) => x\`\\",
           \\"value\\": \\"always\\"
@@ -1078,7 +983,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.9.0\\",
       \\"type\\": \\"choice\\"
     },
-
     {
       \\"category\\": \\"Common\\",
       \\"default\\": true,
@@ -1089,7 +993,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"boolean\\"
     },
-
     {
       \\"category\\": \\"Special\\",
       \\"default\\": -1,
@@ -1104,7 +1007,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"int\\"
     },
-
     {
       \\"category\\": \\"Global\\",
       \\"choices\\": [
@@ -1112,17 +1014,14 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
           \\"value\\": \\"auto\\"
         },
-
         {
           \\"description\\": \\"Line Feed only (\\\\\\\\n), common on Linux and macOS as well as inside git repos\\",
           \\"value\\": \\"lf\\"
         },
-
         {
           \\"description\\": \\"Carriage Return + Line Feed characters (\\\\\\\\r\\\\\\\\n), common on Windows\\",
           \\"value\\": \\"crlf\\"
         },
-
         {
           \\"description\\": \\"Carriage Return character only (\\\\\\\\r), used very rarely\\",
           \\"value\\": \\"cr\\"
@@ -1135,7 +1034,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.15.0\\",
       \\"type\\": \\"choice\\"
     },
-
     {
       \\"category\\": \\"Special\\",
       \\"description\\": \\"Specify the input filepath. This will be used to do parser inference.\\",
@@ -1144,7 +1042,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"path\\"
     },
-
     {
       \\"category\\": \\"HTML\\",
       \\"choices\\": [
@@ -1152,12 +1049,10 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"description\\": \\"Respect the default value of CSS display property.\\",
           \\"value\\": \\"css\\"
         },
-
         {
           \\"description\\": \\"Whitespaces are considered sensitive.\\",
           \\"value\\": \\"strict\\"
         },
-
         {
           \\"description\\": \\"Whitespaces are considered insensitive.\\",
           \\"value\\": \\"ignore\\"
@@ -1170,7 +1065,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.15.0\\",
       \\"type\\": \\"choice\\"
     },
-
     {
       \\"category\\": \\"Special\\",
       \\"default\\": false,
@@ -1180,7 +1074,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.8.0\\",
       \\"type\\": \\"boolean\\"
     },
-
     {
       \\"category\\": \\"JavaScript\\",
       \\"default\\": false,
@@ -1190,7 +1083,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"0.17.0\\",
       \\"type\\": \\"boolean\\"
     },
-
     {
       \\"category\\": \\"JavaScript\\",
       \\"default\\": false,
@@ -1200,7 +1092,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.15.0\\",
       \\"type\\": \\"boolean\\"
     },
-
     {
       \\"category\\": \\"Global\\",
       \\"choices\\": [
@@ -1208,97 +1099,81 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"description\\": \\"Flow\\",
           \\"value\\": \\"flow\\"
         },
-
         {
           \\"description\\": \\"JavaScript\\",
           \\"since\\": \\"1.16.0\\",
           \\"value\\": \\"babel\\"
         },
-
         {
           \\"description\\": \\"Flow\\",
           \\"since\\": \\"1.16.0\\",
           \\"value\\": \\"babel-flow\\"
         },
-
         {
           \\"description\\": \\"TypeScript\\",
           \\"since\\": \\"1.4.0\\",
           \\"value\\": \\"typescript\\"
         },
-
         {
           \\"description\\": \\"CSS\\",
           \\"since\\": \\"1.7.1\\",
           \\"value\\": \\"css\\"
         },
-
         {
           \\"description\\": \\"Less\\",
           \\"since\\": \\"1.7.1\\",
           \\"value\\": \\"less\\"
         },
-
         {
           \\"description\\": \\"SCSS\\",
           \\"since\\": \\"1.7.1\\",
           \\"value\\": \\"scss\\"
         },
-
         {
           \\"description\\": \\"JSON\\",
           \\"since\\": \\"1.5.0\\",
           \\"value\\": \\"json\\"
         },
-
         {
           \\"description\\": \\"JSON5\\",
           \\"since\\": \\"1.13.0\\",
           \\"value\\": \\"json5\\"
         },
-
         {
           \\"description\\": \\"JSON.stringify\\",
           \\"since\\": \\"1.13.0\\",
           \\"value\\": \\"json-stringify\\"
         },
-
         {
           \\"description\\": \\"GraphQL\\",
           \\"since\\": \\"1.5.0\\",
           \\"value\\": \\"graphql\\"
         },
-
         {
           \\"description\\": \\"Markdown\\",
           \\"since\\": \\"1.8.0\\",
           \\"value\\": \\"markdown\\"
         },
-
         {
           \\"description\\": \\"MDX\\",
           \\"since\\": \\"1.15.0\\",
           \\"value\\": \\"mdx\\"
         },
-
         {
           \\"description\\": \\"Vue\\",
           \\"since\\": \\"1.10.0\\",
           \\"value\\": \\"vue\\"
         },
-
         {
           \\"description\\": \\"YAML\\",
           \\"since\\": \\"1.14.0\\",
           \\"value\\": \\"yaml\\"
         },
-
         {
           \\"description\\": \\"HTML\\",
           \\"since\\": \\"1.15.0\\",
           \\"value\\": \\"html\\"
         },
-
         {
           \\"description\\": \\"Angular\\",
           \\"since\\": \\"1.15.0\\",
@@ -1311,7 +1186,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"0.0.10\\",
       \\"type\\": \\"choice\\"
     },
-
     {
       \\"array\\": true,
       \\"category\\": \\"Global\\",
@@ -1322,7 +1196,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.13.0\\",
       \\"type\\": \\"path\\"
     },
-
     {
       \\"array\\": true,
       \\"category\\": \\"Global\\",
@@ -1333,7 +1206,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.10.0\\",
       \\"type\\": \\"path\\"
     },
-
     {
       \\"category\\": \\"Global\\",
       \\"default\\": 80,
@@ -1348,7 +1220,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"int\\"
     },
-
     {
       \\"category\\": \\"Common\\",
       \\"choices\\": [
@@ -1357,13 +1228,11 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"since\\": \\"1.9.0\\",
           \\"value\\": \\"always\\"
         },
-
         {
           \\"description\\": \\"Do not wrap prose.\\",
           \\"since\\": \\"1.9.0\\",
           \\"value\\": \\"never\\"
         },
-
         {
           \\"description\\": \\"Wrap prose as-is.\\",
           \\"since\\": \\"1.9.0\\",
@@ -1377,7 +1246,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.8.2\\",
       \\"type\\": \\"choice\\"
     },
-
     {
       \\"category\\": \\"Common\\",
       \\"default\\": true,
@@ -1387,7 +1255,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.14.0\\",
       \\"type\\": \\"boolean\\"
     },
-
     {
       \\"category\\": \\"Special\\",
       \\"default\\": null,
@@ -1402,7 +1269,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"int\\"
     },
-
     {
       \\"category\\": \\"Special\\",
       \\"default\\": 0,
@@ -1417,7 +1283,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"int\\"
     },
-
     {
       \\"category\\": \\"Special\\",
       \\"default\\": false,
@@ -1427,7 +1292,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.7.0\\",
       \\"type\\": \\"boolean\\"
     },
-
     {
       \\"category\\": \\"JavaScript\\",
       \\"default\\": true,
@@ -1438,7 +1302,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.0.0\\",
       \\"type\\": \\"boolean\\"
     },
-
     {
       \\"category\\": \\"Common\\",
       \\"default\\": false,
@@ -1448,7 +1311,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"boolean\\"
     },
-
     {
       \\"category\\": \\"Global\\",
       \\"default\\": 2,
@@ -1462,7 +1324,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       },
       \\"type\\": \\"int\\"
     },
-
     {
       \\"category\\": \\"JavaScript\\",
       \\"choices\\": [
@@ -1470,12 +1331,10 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"description\\": \\"No trailing commas.\\",
           \\"value\\": \\"none\\"
         },
-
         {
           \\"description\\": \\"Trailing commas where valid in ES5 (objects, arrays, etc.)\\",
           \\"value\\": \\"es5\\"
         },
-
         {
           \\"description\\": \\"Trailing commas wherever possible (including function arguments).\\",
           \\"value\\": \\"all\\"
@@ -1488,7 +1347,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"choice\\"
     },
-
     {
       \\"category\\": \\"Global\\",
       \\"default\\": false,

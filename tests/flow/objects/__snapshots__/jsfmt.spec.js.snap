@@ -52,7 +52,6 @@ let tests = [
   ) {
     x = y; // 2 errors: \`foo\` not found in y.x; \`bar\` not found in x.x
   },
-
   function(
     x: {
       foo: string
@@ -63,7 +62,6 @@ let tests = [
   ) {
     x = y; // 2 errors: string !~> number; number !~> string
   },
-
   function(
     x: {
       x: {
@@ -78,7 +76,6 @@ let tests = [
   ) {
     x = y; // 2 errors: string !~> number; number !~> string
   },
-
   function(
     x: {
       +foo: string
@@ -89,7 +86,6 @@ let tests = [
   ) {
     x = y; // 1 error: number !~> string
   },
-
   function(
     x: {
       x: {
@@ -104,7 +100,6 @@ let tests = [
   ) {
     x = y; // 2 errors: string !~> number; number !~> string
   },
-
   function(
     x: {
       -foo: string
@@ -115,7 +110,6 @@ let tests = [
   ) {
     x = y; // 1 error: string !~> number
   },
-
   function(
     x: {
       x: {

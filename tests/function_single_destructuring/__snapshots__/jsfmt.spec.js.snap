@@ -39,30 +39,20 @@ promise.then(([firstResult, secondResult, thirdResult, fourthResult, fifthResult
 =====================================output=====================================
 function excludeFirstFiveResults([
   first,
-
   second,
-
   third,
-
   fourth,
-
   fifth,
-
   ...rest
 ]) {
   return rest;
 }
 function excludeFirstFiveResults([
   first,
-
   second,
-
   third,
-
   fourth,
-
   fifth,
-
   ...rest
 ] = DEFAULT_FIVE_RESULTS) {
   return rest;
@@ -70,15 +60,10 @@ function excludeFirstFiveResults([
 function excludeFirstFiveResults(
   [
     firstResult,
-
     secondResult,
-
     thirdResult,
-
     fourthResult,
-
     fifthResult,
-
     ...rest
   ] = [1, 2, 3, 4, 5]
 ) {
@@ -86,30 +71,20 @@ function excludeFirstFiveResults(
 }
 function excludeFirstFiveResults([
   first,
-
   second,
-
   third,
-
   fourth,
-
   fifth,
-
   ...rest
 ]: Result[]) {
   return rest;
 }
 const excludeFirstFiveResults = ([
   first,
-
   second,
-
   third,
-
   fourth,
-
   fifth,
-
   ...rest
 ]) => {
   return rest;
@@ -117,15 +92,10 @@ const excludeFirstFiveResults = ([
 class A {
   excludeFirstFiveResults([
     first,
-
     second,
-
     third,
-
     fourth,
-
     fifth,
-
     ...restOfResults
   ]) {
     return restOfResults;
@@ -134,15 +104,10 @@ class A {
 promise.then(
   ([
     firstResult,
-
     secondResult,
-
     thirdResult,
-
     fourthResult,
-
     fifthResult,
-
     ...rest
   ]) => {
     return rest;

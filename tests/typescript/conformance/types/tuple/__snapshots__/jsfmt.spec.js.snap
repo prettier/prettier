@@ -42,15 +42,12 @@ var objNumTuple: [{ a: string }, number] = [
   {
     a: "world"
   },
-
   5
 ];
 var strTupleTuple: [string, [number, {}]] = [
   "bar",
-
   [
     5,
-
     {
       x: 1,
       y: 1

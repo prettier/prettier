@@ -138,9 +138,7 @@ function rcJson() {
     null,
     [
       'rc-json/file.js',
-
       'should have trailing comma',
-
       'and single quotes',
     ],
   );
@@ -150,9 +148,7 @@ function rcToml() {
     null,
     [
       'rc-toml/file.js',
-
       'should have trailing comma',
-
       'and single quotes',
     ],
   );
@@ -162,9 +158,7 @@ function rcYaml() {
     null,
     [
       'rc-yaml/file.js',
-
       'should have trailing comma',
-
       'and single quotes',
     ],
   );
@@ -233,9 +227,7 @@ function rcJson() {
     null,
     [
       'rc-json/file.js',
-
       'should have trailing comma',
-
       'and single quotes',
     ],
   );
@@ -245,9 +237,7 @@ function rcToml() {
     null,
     [
       'rc-toml/file.js',
-
       'should have trailing comma',
-
       'and single quotes',
     ],
   );
@@ -257,9 +247,7 @@ function rcYaml() {
     null,
     [
       'rc-yaml/file.js',
-
       'should have trailing comma',
-
       'and single quotes',
     ],
   );

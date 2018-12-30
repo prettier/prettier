@@ -30,11 +30,8 @@ proseWrap: "always"
 > {
 >   "extends": [
 >     "unobtrusive",
->
 >     "unobtrusive/import",
->
 >     "unobtrusive/react",
->
 >     "unobtrusive/flowtype"
 >   ],
 >   "env": {

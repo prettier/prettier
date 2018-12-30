@@ -611,11 +611,8 @@ export const bem = block =>
     modifier =>
       [
         ".",
-
         css(block),
-
         element ? \`__\${css(element)}\` : "",
-
         modifier ? \`--\${css(modifier)}\` : ""
       ].join("");
 <FlatList
@@ -689,11 +686,8 @@ export const bem = (block) =>
     (modifier) =>
       [
         ".",
-
         css(block),
-
         element ? \`__\${css(element)}\` : "",
-
         modifier ? \`--\${css(modifier)}\` : ""
       ].join("");
 <FlatList

@@ -122,7 +122,6 @@ let tests = [
     obj.foo = x; // error, taint ~> any
     obj[y] = x; // error, taint ~> any
   },
-
   // getting a property
 
   function() {
@@ -131,7 +130,6 @@ let tests = [
     };
     (obj.foo: $Tainted<string>); // ok
   },
-
   // calling a method
 
   function(x: $Tainted<string>) {
@@ -319,7 +317,6 @@ let tests = [
   function(x: any, y: $Tainted<string>) {
     x(y); // error, taint ~> any
   },
-
   // calling \`any\` returns \`any\`
 
   function(x: any, y: $Tainted<string>) {

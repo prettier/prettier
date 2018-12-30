@@ -73,7 +73,6 @@ let tests = [
   function() {
     copyProperties(); // error, unknown global
   },
-
   // annotation
 
   function(copyProperties: Object$Assign) {
@@ -93,7 +92,6 @@ let tests = [
       baz: boolean
     });
   },
-
   // module from lib
 
   function() {
@@ -109,7 +107,6 @@ let tests = [
       bar: number
     });
   },
-
   // too few args
 
   function(copyProperties: Object$Assign) {
@@ -120,7 +117,6 @@ let tests = [
       foo: number
     }); // err, num !~> string
   },
-
   // passed as a function
 
   function(copyProperties: Object$Assign) {
@@ -161,7 +157,6 @@ let tests = [
     let x: ?string = null;
     invariant(x, "truthy only"); // error, forgot to require invariant
   },
-
   function(invariant: Function) {
     let x: ?string = null;
     invariant(x);
@@ -254,7 +249,6 @@ let tests = [
   function() {
     mergeInto(); // error, unknown global
   },
-
   // annotation
 
   function(mergeInto: $Facebookism$MergeInto) {
@@ -275,7 +269,6 @@ let tests = [
       baz: boolean
     });
   },
-
   // module from lib
 
   function() {
@@ -297,13 +290,11 @@ let tests = [
       }
     ): void);
   },
-
   // too few args
 
   function(mergeInto: $Facebookism$MergeInto) {
     mergeInto();
   },
-
   // passed as a function
 
   function(mergeInto: $Facebookism$MergeInto) {

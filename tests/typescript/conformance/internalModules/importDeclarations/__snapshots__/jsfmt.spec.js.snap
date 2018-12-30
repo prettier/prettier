@@ -338,7 +338,6 @@ class C {
 import c = C;
 enum E {
   Red,
-
   Blue
 }
 import e = E;

@@ -53,9 +53,7 @@ declare var pstr: Promise<string>;
 declare var pnum: Promise<number>;
 Promise.all([
   pstr,
-
   pnum,
-
   true // non-Promise values passed through
 ])
 .then(xs => {

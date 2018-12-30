@@ -446,7 +446,6 @@ declare var c: string;
     a1: 0,
     b: 1
   },
-
   2
 ];
 var { m } = {

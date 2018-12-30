@@ -101,7 +101,6 @@ it("should group messages with same created time", () => {
         status: "Unknown",
         created: "11/01/2017 13:36"
       },
-
       {
         message: "test",
         messageType: "Email",
@@ -116,7 +115,6 @@ it("should group messages with same created time", () => {
         status: "Unknown",
         created: "09/01/2017 17:25"
       },
-
       {
         message: "te",
         messageType: "Email",
@@ -131,7 +129,6 @@ it("should group messages with same created time", () => {
         status: "Unknown",
         created: "11/01/2017 13:33"
       },
-
       {
         message: "test",
         messageType: "Email",
@@ -146,7 +143,6 @@ it("should group messages with same created time", () => {
         status: "Unknown",
         created: "11/01/2017 13:37"
       },
-
       {
         message: "test",
         messageType: "Email",
