@@ -69,7 +69,6 @@ it("does something really long and complicated so I have to write a very long na
  * and parent.type is CallExpression. This test makes sure that
  * no errors are thrown when calling isTestCall(parent)
  */
-
 function x() {
   async(() => {});
 }
@@ -147,7 +146,6 @@ it("does something really long and complicated so I have to write a very long na
  * and parent.type is CallExpression. This test makes sure that
  * no errors are thrown when calling isTestCall(parent)
  */
-
 function x() {
   async(() => {});
 }
@@ -206,7 +204,6 @@ it("does something really long and complicated so I have to write a very long na
  * and parent.type is CallExpression. This test makes sure that
  * no errors are thrown when calling isTestCall(parent)
  */
-
 function x() {
   fakeAsync(() => {});
 }
@@ -266,7 +263,6 @@ it("does something really long and complicated so I have to write a very long na
  * and parent.type is CallExpression. This test makes sure that
  * no errors are thrown when calling isTestCall(parent)
  */
-
 function x() {
   fakeAsync(() => {});
 }
@@ -331,7 +327,6 @@ it("does something really long and complicated so I have to write a very long na
  * and parent.type is CallExpression. This test makes sure that
  * no errors are thrown when calling isTestCall(parent)
  */
-
 function x() {
   inject(() => {});
 }
@@ -397,7 +392,6 @@ it("does something really long and complicated so I have to write a very long na
  * and parent.type is CallExpression. This test makes sure that
  * no errors are thrown when calling isTestCall(parent)
  */
-
 function x() {
   inject(() => {});
 }

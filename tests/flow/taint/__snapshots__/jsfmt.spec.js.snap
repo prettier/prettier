@@ -420,7 +420,6 @@ class A {
  *
  * @flow
  */
-
 class A {
   f(tainted: $Tainted<string>) {
     // This shouldn't give a warning (both are tainted)
@@ -454,7 +453,6 @@ class A {
  *
  * @flow
  */
-
 class A {
   f(tainted: $Tainted<string>) {
     // This *should* give a warning.
@@ -490,7 +488,6 @@ class A {
  *
  * @flow
  */
-
 class A {
   f(tainted: $Tainted<string>) {
     // The Tainted annotation should still flow.
@@ -530,7 +527,6 @@ function f(x : $Tainted<any>) {
  *
  * @flow
  */
-
 var safe: string = "safe";
 // This should be allowed.
 
@@ -587,7 +583,6 @@ function foo6 (a : $Tainted<Array<string>>) {
 /*
  * @flow
  */
-
 // Should cause an error.
 
 function foo(x: $Tainted<number>) {

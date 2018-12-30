@@ -182,7 +182,6 @@ var l: Array<T> = [
 
 =====================================output=====================================
 /* @flow */
-
 type T =
   | {
       type: "a",
@@ -318,7 +317,6 @@ module.exports = Foo;
 
 =====================================output=====================================
 /* @flow */
-
 class Foo {}
 module.exports = Foo;
 
@@ -342,7 +340,6 @@ foostr = barstr;
 
 =====================================output=====================================
 /* @flow */
-
 class Foo {}
 class Bar {}
 var foostr: Foo | string = new Foo();
@@ -436,7 +433,6 @@ var nested2: FooBarBaz = 'baz';
  * nested unions
  * @flow
  */
-
 // inline
 
 var nested1: ("foo" | "bar") | "baz" = "baz";
@@ -496,7 +492,6 @@ const u3 : union2 = {
  * unions with embedded intersections
  * @flow
  */
-
 type t1 = {
   p1: number
 };
@@ -588,7 +583,6 @@ module.exports = C;
 
 =====================================output=====================================
 /* @providesModule test-lib */
-
 class C {}
 module.exports = C;
 
@@ -620,7 +614,6 @@ var b: Iterator<number> | number = 123;
 /**
  * @flow
  */
-
 class LocalClass<T> {}
 var a: LocalClass<number> | number = 123;
 // Iterator is defined in a lib file, so the speculative algorithm for the
@@ -5735,7 +5728,6 @@ type Data = {
  * This is a band-aid, though: see second case.
  * @flow
  */
-
 "use strict";
 class SecurityCheckupTypedLogger {
   _data: Data;

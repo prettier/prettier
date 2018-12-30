@@ -91,7 +91,6 @@ React.createElement('bad', {}); // This is fine
 
 =====================================output=====================================
 /* @flow */
-
 var React = require("react");
 // The builtin $JSXIntrinsics should allow any string
 

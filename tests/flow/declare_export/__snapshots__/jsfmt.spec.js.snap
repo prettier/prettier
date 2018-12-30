@@ -12,7 +12,6 @@ exports.numberValue = 42;
 
 =====================================output=====================================
 /* @flow */
-
 exports.numberValue = 42;
 
 ================================================================================
@@ -65,7 +64,6 @@ module.exports = Test;
  * @providesModule CommonJS_Clobbering_Class
  * @flow
  */
-
 class Base {
   static baseProp: number;
 }
@@ -116,7 +114,6 @@ module.exports = {
  * @providesModule CommonJS_Clobbering_Lit
  * @flow
  */
-
 module.exports = {
   numberValue1: 1,
   numberValue2: 2,
@@ -150,7 +147,6 @@ exports.numberValue5 = 5;
  * @providesModule CommonJS_Named
  * @flow
  */
-
 exports.numberValue1 = 1;
 exports.numberValue2 = 2;
 exports.numberValue3 = 3;
@@ -178,7 +174,6 @@ declare export default () => number;
  * @providesModule ES6_Default_AnonFunction1
  * @flow
  */
-
 declare export default () => number;
 
 ================================================================================
@@ -202,7 +197,6 @@ declare export default () =>number;
  * @providesModule ES6_Default_AnonFunction2
  * @flow
  */
-
 declare export default () => number;
 
 ================================================================================
@@ -232,7 +226,6 @@ declare export function getAFoo(): FooImpl;
  * @providesModule ES6_Default_NamedClass1
  * @flow
  */
-
 declare export default class FooImpl {
   givesANum(): number;
 }
@@ -266,7 +259,6 @@ declare export default class Foo { givesANum(): number; };
  * @providesModule ES6_Default_NamedClass2
  * @flow
  */
-
 declare export default class Foo {
   givesANum(): number;
 }
@@ -292,7 +284,6 @@ declare export default function foo():number;
  * @providesModule ES6_Default_NamedFunction1
  * @flow
  */
-
 declare export default function foo(): number;
 
 ================================================================================
@@ -316,7 +307,6 @@ declare export default function foo():number;
  * @providesModule ES6_Default_NamedFunction2
  * @flow
  */
-
 declare export default function foo(): number;
 
 ================================================================================
@@ -335,7 +325,6 @@ declare export var str: string;
 
 =====================================output=====================================
 /* @flow */
-
 declare export default number;
 declare export var str: string;
 
@@ -360,7 +349,6 @@ declare export * from "ES6_ExportAllFrom_Source1";
  * @providesModule ES6_ExportAllFrom_Intermediary1
  * @flow
  */
-
 declare export * from "ES6_ExportAllFrom_Source1"
 
 ================================================================================
@@ -384,7 +372,6 @@ declare export * from "ES6_ExportAllFrom_Source2";
  * @providesModule ES6_ExportAllFrom_Intermediary2
  * @flow
  */
-
 declare export * from "ES6_ExportAllFrom_Source2"
 
 ================================================================================
@@ -408,7 +395,6 @@ declare export var numberValue1: number;
  * @providesModule ES6_ExportAllFrom_Source1
  * @flow
  */
-
 declare export var numberValue1: number;
 
 ================================================================================
@@ -432,7 +418,6 @@ declare export var numberValue2: number;
  * @providesModule ES6_ExportAllFrom_Source2
  * @flow
  */
-
 declare export var numberValue2: number;
 
 ================================================================================
@@ -479,7 +464,6 @@ declare export {
  * @providesModule ES6_ExportFrom_Intermediary1
  * @flow
  */
-
 declare export {
   numberValue1,
   numberValue2 as numberValue2_renamed
@@ -509,7 +493,6 @@ declare export {
  * @providesModule ES6_ExportFrom_Intermediary2
  * @flow
  */
-
 declare export {
   numberValue1,
   numberValue2 as numberValue2_renamed2
@@ -537,7 +520,6 @@ declare export var numberValue2: number;
  * @providesModule ES6_ExportFrom_Source1
  * @flow
  */
-
 declare export var numberValue1: number;
 declare export var numberValue2: number;
 
@@ -563,7 +545,6 @@ declare export var numberValue2: number;
  * @providesModule ES6_ExportFrom_Source2
  * @flow
  */
-
 declare export var numberValue1: number;
 declare export var numberValue2: number;
 
@@ -603,7 +584,6 @@ declare export var varDeclNumber2: number;
  * @providesModule ES6_Named1
  * @flow
  */
-
 var specifierNumber1 = 1;
 var specifierNumber2 = 2;
 var specifierNumber3 = 3;
@@ -654,7 +634,6 @@ declare export var varDeclNumber4: number;
  * @providesModule ES6_Named2
  * @flow
  */
-
 var specifierNumber4 = 1;
 var specifierNumber5 = 2;
 var groupedSpecifierNumber3 = 1;
@@ -694,7 +673,6 @@ exports.stringValue = "str";
  * @providesModule A
  * @flow
  */
-
 exports.numberValue1 = 42;
 exports.numberValue2 = 42;
 exports.numberValue3 = 42;
@@ -724,7 +702,6 @@ module.exports = {
  * @providesModule CJSDefault
  * @flow
  */
-
 module.exports = {
   numberValue: 42
 };
@@ -774,7 +751,6 @@ export default {
  * @providesModule ES6Default
  * @flow
  */
-
 /*
 export default {
   numberValue: 42,
@@ -1098,7 +1074,6 @@ var at4: string = numberValue9; // Error: number ~> string
 
 =====================================output=====================================
 /* @flow */
-
 // ===================== //
 
 // == Path Resolution == //

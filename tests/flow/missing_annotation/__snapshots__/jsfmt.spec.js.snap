@@ -111,7 +111,6 @@ module.exports = Foo, Bar;
 
 =====================================output=====================================
 /* @flow */
-
 var Foo = {
   a: function(arg) {
     // missing arg annotation

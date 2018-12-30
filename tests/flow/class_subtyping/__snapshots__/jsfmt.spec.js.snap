@@ -14,7 +14,6 @@ module.exports = { A, B };
 
 =====================================output=====================================
 /* @flow */
-
 class A {}
 class B {}
 module.exports = { A, B };
@@ -38,7 +37,6 @@ var y: I.B = new C();
 
 =====================================output=====================================
 /* @flow */
-
 var I = require("./test.js");
 class C extends I.A {}
 var x: I.A = new C();

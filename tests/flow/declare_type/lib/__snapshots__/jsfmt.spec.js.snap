@@ -20,7 +20,6 @@ declare module ModuleAliasFoo {
 /**
  * @flow
  */
-
 declare module ModuleAliasFoo {
   declare type baz = number;
   declare type toz = string;
@@ -56,7 +55,6 @@ declare module 'foo' {
 
 =====================================output=====================================
 /* @flow */
-
 declare module "foo" {
   declare class A {
     toz: number;

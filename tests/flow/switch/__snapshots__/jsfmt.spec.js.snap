@@ -35,7 +35,6 @@ function baz(x): number {
 
 =====================================output=====================================
 /* @flow */
-
 function foo(x): number {
   switch (x) {
     case 0:
@@ -115,7 +114,6 @@ function qux(b) {
 /**
  * @flow
  */
-
 function foo(): number {
   switch ("foo") {
     case "foo":
@@ -204,7 +202,6 @@ function baz(x: mixed): number {
 /**
  * @flow
  */
-
 function foo(x: mixed): string {
   var a = "";
   var b = "";
@@ -344,7 +341,6 @@ function baz(x): number {
  * trailing cases are allowed - spot checks that we handle them as usual
  * @flow
  */
-
 function f1(i) {
   var x;
   switch (i) {

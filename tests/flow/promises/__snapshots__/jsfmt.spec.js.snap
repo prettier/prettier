@@ -114,12 +114,10 @@ async function testRace() {
 
 =====================================output=====================================
 /* @flow */
-
 async function testAll() {
   /* This is a test case from https://github.com/facebook/flow/issues/1143
    * which was previously an error due to Array's invariance and an improper
    * definition of Promise.all */
-
   const x: Array<Promise<?string>> = [];
   const y: Promise<Array<?string>> = Promise.all(x);
   const z: Array<?string> = await y;
@@ -370,7 +368,6 @@ Promise.resolve(0)
 /**
  * @flow
  */
-
 //////////////////////////////////////////////////
 
 // == Promise constructor resolve() function == //
@@ -682,16 +679,13 @@ async function baz(): Promise<number> {
  * test Promise name resolution
  * @flow
  */
-
 /**
  * 1. introduce shadowing bindings for important names
  */
-
 class Promise {}
 /**
  * 2. implicit refs to Promise during desugaring should be unaffected
  */
-
 async function foo(x: boolean) {
   if (x) {
     return {
@@ -710,7 +704,6 @@ run();
  * 3. but explicit name refs from code and annos resolve
  * using the usual rules
  */
-
 // error: \`Promise\` in return expr is the local binding
 
 async function bar() {

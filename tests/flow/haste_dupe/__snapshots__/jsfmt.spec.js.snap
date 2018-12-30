@@ -19,7 +19,6 @@ module.exports = "dupe1";
  * @providesModule Dupe
  * @flow
  */
-
 module.exports = "dupe1";
 
 ================================================================================
@@ -44,7 +43,6 @@ module.exports = "dupe2";
  * @providesModule Dupe
  * @flow
  */
-
 module.exports = "dupe2";
 
 ================================================================================
@@ -67,7 +65,6 @@ var dupe = require('Dupe');
  * depends on doubly-provided module
  * @flow
  */
-
 var dupe = require("Dupe");
 
 ================================================================================

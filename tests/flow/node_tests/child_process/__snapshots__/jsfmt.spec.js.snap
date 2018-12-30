@@ -25,7 +25,6 @@ exec('ls', {maxBuffer: 100}, function(error, stdout, stderr) {
 
 =====================================output=====================================
 /* @flow */
-
 var exec = require("child_process").exec;
 // callback only.
 
@@ -88,7 +87,6 @@ execFile('ls', ['-l'], {timeout: 250}, function(error, stdout, stderr) {
 
 =====================================output=====================================
 /* @flow */
-
 var execFile = require("child_process").execFile;
 // args only.
 
@@ -148,7 +146,6 @@ var execSync = require('child_process').execSync;
 
 =====================================output=====================================
 /* @flow */
-
 var execSync = require("child_process").execSync;
 (execSync("ls"): Buffer); // returns Buffer
 (execSync("ls", {
@@ -209,7 +206,6 @@ wc.stderr.pipe(process.stderr);
 
 =====================================output=====================================
 /* @flow */
-
 var child_process = require("child_process");
 var ls = child_process.spawn("ls");
 var wc = child_process.spawn("wc", ["-l"]);

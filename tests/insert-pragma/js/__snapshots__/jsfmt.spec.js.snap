@@ -18,14 +18,12 @@ const fruit = 'tomatoes';
 
 =====================================output=====================================
 /** @format */
-
 function foo(bar) {
   return bar + 3 + 4;
 }
 /**
  * Some notes that should not be appended to
  */
-
 const fruit = "tomatoes";
 
 ================================================================================
@@ -78,7 +76,6 @@ function foo(bar) {
  * @flow
  * @format
  */
-
 function foo(bar) {
   return bar + 3 + 4;
 }
@@ -99,7 +96,6 @@ function foo(bar) {
 
 =====================================output=====================================
 /** @format */
-
 function foo(bar) {
   return bar + 3 + 4;
 }
@@ -131,7 +127,6 @@ function foo(bar) {
  * @format
  * @flow
  */
-
 function foo(bar) {
   return bar + 3 + 4;
 }

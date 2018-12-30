@@ -62,7 +62,6 @@ let y: ObjAssignT = { ...x }; // should be fine
  *
  * @noflow
  */
-
 declare var x: ObjAssignT;
 let y: ObjAssignT = {
   ...x
@@ -109,7 +108,6 @@ function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
  *
  * @flow
  */
-
 type DuplexStreamOptions = ReadableStreamOptions &
   WritableStreamOptions & {
     allowHalfOpen?: boolean,
@@ -188,7 +186,6 @@ var g: (_: number | string) => void = f;
  *
  * @noflow
  */
-
 // intersection of function types satisfies union of param types
 
 type F = (_: ObjA) => void;
@@ -247,7 +244,6 @@ var e: E = c; // error
  *
  * @noflow
  */
-
 // TODO we should give explicit errors for incompatibilities
 
 // which make an intersection uninhabitable:

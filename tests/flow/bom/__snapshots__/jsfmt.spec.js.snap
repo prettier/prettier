@@ -76,7 +76,6 @@ for (let [x, y]: [number, number] of a.entries()) {} // incorrect
 
 =====================================output=====================================
 /* @flow */
-
 // constructor
 
 const a: FormData = new FormData(); // correct
@@ -194,7 +193,6 @@ o.disconnect(); // correct
 
 =====================================output=====================================
 /* @flow */
-
 // constructor
 
 function callback(

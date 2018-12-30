@@ -41,7 +41,6 @@ blah(0, 0);
 /**
  * @flow
  */
-
 ////////////////////////////////////////////////////////////
 
 // == Import Declared Type Alias From Declared Module == //

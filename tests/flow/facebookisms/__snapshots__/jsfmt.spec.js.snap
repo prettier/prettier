@@ -151,7 +151,6 @@ let tests = [
 
 =====================================output=====================================
 /* @flow */
-
 let tests = [
   function() {
     let x: ?string = null;

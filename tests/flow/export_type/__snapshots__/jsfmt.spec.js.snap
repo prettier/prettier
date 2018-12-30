@@ -15,7 +15,6 @@ module.exports = {}
 
 =====================================output=====================================
 /* @flow */
-
 export type talias4 = number;
 export interface IFoo {
   prop: number;
@@ -66,7 +65,6 @@ var n: IFoo2 = {prop: 42}; // Error: {prop:number} ~> {prop:string}
 
 =====================================output=====================================
 /* @flow */
-
 import type {
   inlinedType1,
   standaloneType1,
@@ -125,7 +123,6 @@ export interface IFoo { prop: number };
 
 =====================================output=====================================
 /* @flow */
-
 export type inlinedType1 = number;
 var a: inlinedType1 = 42;
 var b: inlinedType1 = "asdf"; // Error: string ~> number
@@ -155,7 +152,6 @@ export interface IFoo2 { prop: string };
 
 =====================================output=====================================
 /* @flow */
-
 export type talias1 = number;
 export type talias2 = number;
 export interface IFoo2 {

@@ -96,7 +96,6 @@ foo({foo: 42});
 /**
  * @flow
  */
-
 function foo(o) {
   bar({
     ...o
@@ -175,7 +174,6 @@ test(0, ...[1, 2, 3]);
 
 =====================================output=====================================
 /* @flow */
-
 function test(...nums: Array<number>) {}
 test(0, ...[1, 2, 3]);
 
@@ -216,7 +214,6 @@ function test(
 
 =====================================output=====================================
 /* @flow */
-
 declare function map<Tv, TNext>(
   obj: { [key: string]: Tv },
   iterator: (obj: Tv) => TNext
@@ -227,7 +224,6 @@ declare function map<Tv, TNext>(
  * case below) should //not// feed back into the tvar (\`value\`), since the
  * result is a new object.
  */
-
 function test(
   x: {
     kind: ?string

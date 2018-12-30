@@ -69,7 +69,6 @@ foo.propOverriddenWithSetter = 123; // Error number ~> string
 /**
  * @flow
  */
-
 var z: number = 123;
 class Foo {
   get goodGetterNoAnnotation() {
@@ -195,7 +194,6 @@ foo.propOverriddenWithSetter = 123; // Error number ~> string
 /**
  * @flow
  */
-
 var z: number = 123;
 declare class Foo {
   get goodGetterWithAnnotation(): number;
@@ -307,7 +305,6 @@ var testExampleOrOrderOfGetterAndSetterReordered: number =
 /**
  * @flow
  */
-
 var z: number = 123;
 class A {}
 class B extends A {}
@@ -444,7 +441,6 @@ function test(obj: T) {
 /**
  * @flow
  */
-
 var z: number = 123;
 class A {}
 class B extends A {}
@@ -521,7 +517,6 @@ const Example = React.createClass({
 /**
  * @flow
  */
-
 import React from "react";
 const Example = React.createClass({
   propTypes: {
@@ -621,7 +616,6 @@ class Base {
 
 =====================================output=====================================
 /* @flow */
-
 class A {}
 class B extends A {}
 class C extends B {}

@@ -24,12 +24,9 @@ import React from "react";
   foo?: ?string,
   bar: number,
 }; */
-
 /*:: type State = { baz: number }; */
-
 class Component extends React.Component
 /*:: <Props, State> */
-
 {
 }
 

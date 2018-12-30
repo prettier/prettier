@@ -47,7 +47,6 @@ let tests = [
 
 =====================================output=====================================
 /* @flow */
-
 const crypto = require("crypto");
 let tests = [
   // Hmac is a duplex stream

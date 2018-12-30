@@ -74,7 +74,6 @@ var i_star: I<*> = new I('hello');
 
 =====================================output=====================================
 /* @flow */
-
 class A<T> {
   p: T;
   constructor(p: T) {

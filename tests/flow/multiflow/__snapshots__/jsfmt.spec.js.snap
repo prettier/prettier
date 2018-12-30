@@ -203,7 +203,6 @@ declare function ExpectsChildrenArray(props: any, children: Array<string>): stri
  * @jsx JSX
  * @flow
  */
-
 // This one for when there are no JSX attributes
 
 declare function JSX<

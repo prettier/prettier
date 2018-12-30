@@ -93,7 +93,6 @@ var f: typeof numberAlias = 42; // Error: 'typeof <<type-alias>>' makes no sense
 /**
  * @flow
  */
-
 //////////////////////////////////
 
 // == typeof <<class value>> == //
@@ -203,7 +202,6 @@ var f: typeof numberAlias = 42; // Error: 'typeof <<type-alias>>' makes no sense
  * These provoke a specific error, not just the generic
  * "type is incompatible"
  */
-
 var Map = {
   A: "this is A",
   B: "this is B",

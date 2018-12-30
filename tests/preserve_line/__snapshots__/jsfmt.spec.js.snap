@@ -203,7 +203,6 @@ longArgNamesWithComments(
 
   longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong2,
   /* Hello World */
-
   longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong3
 );
 shortArgNames(short, short2, short3);
@@ -211,17 +210,13 @@ comments(
   // Comment
 
   /* Some comments */
-
   short,
   /* Another comment */
-
   short2, // Even more comments
   /* Another comment */
-
   // Long Long Long Long Long Comment
 
   /* Long Long Long Long Long Comment */
-
   // Long Long Long Long Long Comment
 
   short3 // More comments
@@ -274,7 +269,6 @@ bar.on("readable", () => {
 foo(
   ["A, B"],
   /* function here */
-
   function doSomething() {
     return true;
   }
@@ -314,7 +308,6 @@ doSomething(
   },
   1337,
   /* Comment */
-
   // This is important
 
   { helloWorld, someImportantStuff }

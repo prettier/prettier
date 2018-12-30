@@ -101,7 +101,6 @@ b.f(); // error, property \`p\` not found
 
 =====================================output=====================================
 /* @flow */
-
 function f() {
   return this.p;
 }
@@ -143,7 +142,6 @@ qux({ f: foo });  // error, since \`this\` is used non-trivially in \`foo\`
 
 =====================================output=====================================
 /* @flow */
-
 function foo() {
   this.m();
 }

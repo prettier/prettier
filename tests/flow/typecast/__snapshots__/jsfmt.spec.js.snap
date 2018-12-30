@@ -37,7 +37,6 @@ var tests = [
 /**
  * Copyright 2004-present Facebook. All Rights Reserved.
  */
-
 var tests = [
   () => {
     // erroneous typcasts raise errors...

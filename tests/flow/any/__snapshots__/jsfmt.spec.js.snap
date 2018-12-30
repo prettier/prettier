@@ -86,7 +86,6 @@ var w:string = baz(0);
 
   @flow
  */
-
 // no param
 
 function foo(x: $FlowFixMe): $FlowFixMe {
@@ -146,7 +145,6 @@ var w:string = baz(0);
 
   @flow
  */
-
 // no param
 
 function foo(x: $FlowIssue): $FlowIssue {
@@ -276,7 +274,6 @@ function foo(o: ?AsyncRequest) {
  * type annotations. Here we test propagation of any through the
  * annotation - without it, the body of the if will be unreachable
  */
-
 type AsyncRequest = any;
 function foo(o: ?AsyncRequest) {
   if (o) {

@@ -51,7 +51,6 @@ function durable_refi(x: ?number) {
  *
  * @flow
  */
-
 function cannot_reassign(x: string) {
   x = "hey"; // error, const param cannot be reassigned
 }

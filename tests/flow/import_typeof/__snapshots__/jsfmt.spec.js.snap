@@ -23,7 +23,6 @@ module.exports = ClassFoo3;
 /**
  * @flow
  */
-
 class ClassFoo3 {
   givesANum(): number {
     return 42;
@@ -49,7 +48,6 @@ module.exports = 42;
 
 =====================================output=====================================
 /* @flow */
-
 module.exports = 42;
 
 ================================================================================
@@ -73,7 +71,6 @@ exports.ClassFoo4 = ClassFoo4;
 /**
  * @flow
  */
-
 class ClassFoo4 {}
 exports.ClassFoo4 = ClassFoo4;
 
@@ -92,7 +89,6 @@ exports.num = 42;
 
 =====================================output=====================================
 /* @flow */
-
 exports.num = 42;
 
 ================================================================================
@@ -118,7 +114,6 @@ export default ClassFoo1;
 /**
  * @flow
  */
-
 class ClassFoo1 {
   returnsANumber(): number {
     return 42;
@@ -141,7 +136,6 @@ export default 42;
 
 =====================================output=====================================
 /* @flow */
-
 export default 42;
 
 ================================================================================
@@ -170,7 +164,6 @@ export function givesAFoo3Obj(): AliasFoo3 {
 /**
  * @flow
  */
-
 export type AliasFoo3 = {
   givesANum(): number
 };
@@ -205,7 +198,6 @@ export {ClassFoo2};
 /**
  * @flow
  */
-
 class ClassFoo2 {
   returnsANumber(): number {
     return 42;
@@ -248,7 +240,6 @@ export var num = 42;
 
 =====================================output=====================================
 /* @flow */
-
 export var num = 42;
 
 ================================================================================
@@ -368,7 +359,6 @@ var j2: ModuleNSObjT = {num: 42, str: 42}; // Error: number ~> string
 /**
  * @flow
  */
-
 ///////////////////////////////////////////////////
 
 // == Importing Class Typeof (Default Export) == //

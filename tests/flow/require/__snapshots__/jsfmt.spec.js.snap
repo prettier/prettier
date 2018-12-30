@@ -12,7 +12,6 @@ exports.numberValue = 42;
 
 =====================================output=====================================
 /* @flow */
-
 exports.numberValue = 42;
 
 ================================================================================
@@ -51,7 +50,6 @@ exports = {stringValue: ''};
 
 =====================================output=====================================
 /* @flow */
-
 // Local \`exports\` var is just a ref to module.exports, so mutating the original
 
 // value will affect the exports object but re-binding it makes it useless and
@@ -86,7 +84,6 @@ exports.numberValue = 42;
  * @providesModule A
  * @flow
  */
-
 exports.numberValue = 42;
 
 ================================================================================
@@ -196,7 +193,6 @@ require.call(null, "DoesNotExist");
 
 =====================================output=====================================
 /* @flow */
-
 function takesANumber(num: number): void {}
 function takesAString(str: string): void {}
 // @providesModule

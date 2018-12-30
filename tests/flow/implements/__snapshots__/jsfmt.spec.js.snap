@@ -39,7 +39,6 @@ class C8<T> implements IPoly<T> { x: T }
 
 =====================================output=====================================
 /* @noflow */
-
 interface IFoo {
   foo: string;
 }

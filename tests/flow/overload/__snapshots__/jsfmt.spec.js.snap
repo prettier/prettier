@@ -64,7 +64,6 @@ var z2:Array<string> = new Dummy().dumber(bar2);
  *
  * @flow
  */
-
 var x1: number = "".match(0)[0];
 var x2: number = "".match(/pattern/)[0];
 var x3: string = "".replace(/pattern/, "...");

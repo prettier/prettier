@@ -34,7 +34,6 @@ var c_4: string = numVal3; // Error: number ~> string
 
 =====================================output=====================================
 /* @flow */
-
 var m1 = require("./1DoesntExist");
 var a_1: number = m1.numVal;
 var a_2: string = m1.numVal; // Error: number ~> string
@@ -77,7 +76,6 @@ module.exports = {
 
 =====================================output=====================================
 /* @flow */
-
 module.exports = {
   numVal: 42
 };

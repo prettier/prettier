@@ -28,7 +28,6 @@ function identity<A>(val: A): Functor<A> {
 
 =====================================output=====================================
 /* @flow */
-
 type F<A> = {
   foo<B>(x: A): F<B>
 };
@@ -74,7 +73,6 @@ function id(x: Task<any,any>): Task<any,any> { return x; }
 
 =====================================output=====================================
 /* @flow */
-
 type Task<error, value> = {
   chain<tagged>(
     next: (input: value) => Task<error, tagged>
@@ -266,7 +264,6 @@ function flatten<T>(arrArg: NestedArray<T>) {
 
 =====================================output=====================================
 /* @flow */
-
 type NestedArray<T> = Array<T | NestedArray<T>>;
 function flatten<T>(arrArg: NestedArray<T>) {
   let arr = arrArg;

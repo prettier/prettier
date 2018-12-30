@@ -21,7 +21,6 @@ module.exports = {
  * @providesModule A
  * @flow
  */
-
 module.exports = {
   numberValueA: 1,
   stringValueA: "someString"
@@ -51,7 +50,6 @@ module.exports = {
  * @providesModule B
  * @flow
  */
-
 module.exports = {
   numberValueB: 1,
   stringValueB: "someString"
@@ -93,7 +91,6 @@ requireLazy(['A']); // Error: No callback expression
 /**
  * @flow
  */
-
 requireLazy(["A", "B"], function(A, B) {
   var num1: number = A.numberValueA;
   var str1: string = A.stringValueA;

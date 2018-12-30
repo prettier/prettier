@@ -29,7 +29,6 @@ function baz(i:number): string { return a[i]; }
 
 =====================================output=====================================
 /* @flow */
-
 var a = [];
 for (var i = 0; i < 10; ++i) {
   if (i % 2 == 0) {
@@ -83,7 +82,6 @@ function foo(i: number): string { return a[i]; }
 
 =====================================output=====================================
 /* @flow */
-
 var a = [];
 for (var i = 0; i < 10; ++i) {
   if (i % 2 == 0) {

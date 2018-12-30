@@ -23,7 +23,6 @@ module.exports = ClassFoo3;
 /**
  * @flow
  */
-
 class ClassFoo3 {
   givesANum(): number {
     return 42;
@@ -70,7 +69,6 @@ exports.foo5Inst = new ClassFoo5();
 /**
  * @flow
  */
-
 class ClassFoo4 {
   returnsANumber(): number {
     return 42;
@@ -112,7 +110,6 @@ export var foo1Inst = new ClassFoo1();
 /**
  * @flow
  */
-
 class ClassFoo1 {
   returnsANumber(): number {
     return 42;
@@ -147,7 +144,6 @@ export function givesAFoo3Obj(): AliasFoo3 {
 /**
  * @flow
  */
-
 export type AliasFoo3 = {
   givesANum(): number
 };
@@ -183,7 +179,6 @@ export var foo2Inst = new ClassFoo2();
 /**
  * @flow
  */
-
 class ClassFoo2 {
   returnsANumber(): number {
     return 42;
@@ -207,7 +202,6 @@ export var numValue = 42;
 
 =====================================output=====================================
 /* @ flow */
-
 export var numValue = 42;
 
 ================================================================================
@@ -306,7 +300,6 @@ function foo() {
 /**
  * @flow
  */
-
 /////////////////////////////////////////////////
 
 // == Importing Class Type (Default Export) == //
@@ -415,7 +408,6 @@ export default ClassFoo6;
 
 =====================================output=====================================
 /* @flow */
-
 class ClassFoo6 {}
 export default ClassFoo6;
 

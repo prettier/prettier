@@ -18,7 +18,6 @@ function filterOutSmall (arr: Array<?number>): Array<?number> {
 
 =====================================output=====================================
 /* @flow */
-
 function filterOutVoids<T>(arr: Array<?T>): Array<T> {
   return arr.filter(Boolean);
 }
@@ -53,7 +52,6 @@ console.log(filteredItems);
 
 =====================================output=====================================
 /* @flow */
-
 function filterItems(items: Array<string | number>): Array<string | number> {
   return items
     .map(item => {

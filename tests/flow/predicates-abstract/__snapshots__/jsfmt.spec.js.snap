@@ -165,7 +165,6 @@ function is_string_and_number(x, y): %checks {
   $Refine<T,P,k> is a refinement type, that refines type T with the k-th
   argument that gets refined by an abstract preficate type P.
 */
-
 declare function refine<T, P: $Pred<1>>(v: T, cb: P): $Refine<T, P, 1>;
 // function refine(v, cb)
 
@@ -174,7 +173,6 @@ declare function refine<T, P: $Pred<1>>(v: T, cb: P): $Refine<T, P, 1>;
 /*
   Use case
 */
-
 declare var a: mixed;
 var b = refine(a, is_string);
 (b: string);

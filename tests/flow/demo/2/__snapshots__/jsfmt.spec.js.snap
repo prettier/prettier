@@ -28,7 +28,6 @@ module.exports = A;
 
 =====================================output=====================================
 /* @providesModule Demo */
-
 class A {
   x: number; // instance field declaration
   constructor(x) {

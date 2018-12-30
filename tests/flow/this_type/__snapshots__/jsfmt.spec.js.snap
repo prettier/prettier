@@ -17,7 +17,6 @@ const Thing = class Thing {
 
 =====================================output=====================================
 /* @flow */
-
 // issue #1191
 
 const Thing = class Thing {

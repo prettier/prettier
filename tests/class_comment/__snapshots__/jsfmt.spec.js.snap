@@ -70,12 +70,10 @@ class A extends B // comment1
 class A /* a */ extends B {}
 class A extends B
 /* a */
-
 {
 }
 class A
   /* a */
-
   extends B {}
 (class A // comment 1
   // comment 2
@@ -91,12 +89,10 @@ class A
 (class A /* a */ extends B {});
 (class A extends B
 /* a */
-
 {
 });
 (class A
   /* a */
-
   extends B {});
 class x {
   focus() // do nothing

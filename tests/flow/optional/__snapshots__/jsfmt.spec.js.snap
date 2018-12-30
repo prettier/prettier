@@ -73,7 +73,6 @@ function f<T:*>(x:T,y?:T) { x = y }
  * reasons to grow "optional x" -> "optional optional x" -> "optional optional
  * optional x", which thwarts reason-based caches that prevent nontermination.
  */
-
 function f<T: *>(x: T, y?: T) {
   x = y;
 }
@@ -157,7 +156,6 @@ function optionalNullable8(x: {y?: ?number}) {
 
 =====================================output=====================================
 /* @flow */
-
 function optionalNullable1(x: { y?: ?number }) {
   if (x.y !== null && x.y !== undefined) {
     x.y++;
@@ -285,7 +283,6 @@ function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
 
 =====================================output=====================================
 /* @flow */
-
 function foo(x?: string): string {
   if (x == null) {
     return "foo";
@@ -401,7 +398,6 @@ foo(123, true); // ERROR boolean ~> string
 
 =====================================output=====================================
 /* @flow */
-
 function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
   return [x, y];
 }

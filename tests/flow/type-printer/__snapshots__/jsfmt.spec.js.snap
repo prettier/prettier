@@ -30,7 +30,6 @@ module.exports = printBinaryExpression;
 =====================================output=====================================
 "use babel";
 /* @flow */
-
 /*
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
@@ -38,7 +37,6 @@ module.exports = printBinaryExpression;
  * This source code is licensed under the license found in the LICENSE file in
  * the root directory of this source tree.
  */
-
 import type { BinaryExpression } from "./types";
 function printBinaryExpression(node: BinaryExpression) {
   console.log(node);
@@ -5104,12 +5102,10 @@ export type JSXSpreadAttribute = {
 /**
  * @flow
  */
-
 "use strict";
 /*
  * Flow types for the Babel AST.
  */
-
 // Abstract types. Something must extend these.
 
 export type Comment =

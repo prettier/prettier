@@ -36,7 +36,6 @@ module.exports = require('A');
  * @providesModule B
  * @flow
  */
-
 module.exports = require("A");
 
 ================================================================================
@@ -60,7 +59,6 @@ module.exports = require('B');
  * @providesModule C
  * @flow
  */
-
 module.exports = require("B");
 
 ================================================================================
@@ -86,7 +84,6 @@ var bar3: string = require('C');
  * @providesModule D
  * @flow
  */
-
 var bar1: string = require("A");
 var bar2: string = require("B");
 var bar3: string = require("C");

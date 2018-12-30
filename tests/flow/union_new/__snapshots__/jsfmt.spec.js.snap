@@ -30,7 +30,6 @@ class VirtualNode {
 
 =====================================output=====================================
 /* @flow */
-
 type T = A | B;
 class U {}
 declare var children: U;
@@ -142,7 +141,6 @@ var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
 
 =====================================output=====================================
 /* @flow */
-
 var bar: Array<
   | {
       b: ?boolean,
@@ -217,7 +215,6 @@ function node(content: ?Foobar | String | Array<String>) {
 
 =====================================output=====================================
 /* @flow */
-
 import type { Foobar } from "./issue-1455-helper";
 function create(content: ?Foobar | String | Array<String>) {}
 function node(content: ?Foobar | String | Array<String>) {
@@ -239,7 +236,6 @@ export class Foobar { }
 
 =====================================output=====================================
 /* @flow */
-
 export class Foobar {}
 
 ================================================================================
@@ -389,7 +385,6 @@ if (data.kind === "system") {
 
 =====================================output=====================================
 /* @flow */
-
 type DataBase = {
   id: string,
   name: string
@@ -485,7 +480,6 @@ function test(f: Foo| EmptyFoo) {
 
 =====================================output=====================================
 /* @flow */
-
 declare type Entity<T> = {
   id: T,
   name: string
@@ -581,7 +575,6 @@ type A6 = B6[];
 /**
  * Test that shows how the implementation of union types is broken
  */
-
 //////////////////////////////
 
 // example with object types
@@ -734,7 +727,6 @@ type B6 = string;
 /**
  * Test that shows how the implementation of union types is broken
  */
-
 //////////////////////////////
 
 // example with object types
@@ -864,7 +856,6 @@ type B2 = string;
 /**
  * Test that shows how the implementation of union types is broken
  */
-
 ///////////////////////////////
 
 // example with function types
@@ -938,7 +929,6 @@ type B2 = string;
 /**
  * Test that shows how the implementation of union types is broken
  */
-
 ///////////////////////////////
 
 // example with function types
@@ -1014,7 +1004,6 @@ function arr_set(x: string, i: number) { a2[i] = x; }
 /**
  * Test that shows how the implementation of union types is broken
  */
-
 ///////////////////////////////
 
 // example with function types
@@ -1083,7 +1072,6 @@ class C<X> { }
 /**
  * Test that shows how the implementation of union types is broken
  */
-
 //////////////////////////////////////////
 
 // example with generic class inheritance
@@ -1148,7 +1136,6 @@ type PG<X> = { x: X, y?: PG<X> };
 /**
  * Test that shows how the implementation of union types is broken
  */
-
 ////////////////////
 
 // recursive types
@@ -1226,7 +1213,6 @@ type H2_ = number;
 /**
  * Test that shows how the implementation of union types is broken
  */
-
 //////////////////////
 
 // nested union types
@@ -1288,7 +1274,6 @@ foo((x): number => square(x))
 /**
  * Test that shows how the implementation of union types is broken
  */
-
 ////////////////
 
 // interference
@@ -1601,7 +1586,6 @@ printWidth: 80
 // @noflow
 
 /* ensure there are no unintended side effects when trying branches */
-
 ({
   type: "B",
   id: "hi"

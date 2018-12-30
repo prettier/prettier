@@ -3090,7 +3090,6 @@ const aDiv = (
 =====================================output=====================================
 const aDiv = (
   /* $FlowFixMe */
-
   <div className="foo">Foo bar</div>
 );
 
@@ -3115,7 +3114,6 @@ const aDiv = (
 =====================================output=====================================
 const aDiv = (
   /* $FlowFixMe */
-
   <div className='foo'>Foo bar</div>
 );
 
@@ -3140,7 +3138,6 @@ const aDiv = (
 =====================================output=====================================
 const aDiv = (
   /* $FlowFixMe */
-
   <div className="foo">Foo bar</div>
 );
 
@@ -3165,7 +3162,6 @@ const aDiv = (
 =====================================output=====================================
 const aDiv = (
   /* $FlowFixMe */
-
   <div className='foo'>Foo bar</div>
 );
 

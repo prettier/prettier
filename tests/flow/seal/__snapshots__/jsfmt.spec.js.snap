@@ -13,7 +13,6 @@ imp({ name: "imp" });
 
 =====================================output=====================================
 /* @flow */
-
 var imp = require("./obj_annot");
 imp({
   name: "imp"
@@ -40,7 +39,6 @@ module.exports = foo;
 
 =====================================output=====================================
 /* @flow */
-
 function foo(param: { name: string }): number {
   return param.id;
 }

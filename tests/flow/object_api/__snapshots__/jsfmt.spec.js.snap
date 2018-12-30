@@ -11,7 +11,6 @@ printWidth: 80
 module.exports = { a() {} };
 =====================================output=====================================
 /* @flow */
-
 module.exports = {
   a() {}
 };
@@ -34,7 +33,6 @@ module.exports = b;
 
 =====================================output=====================================
 /* @flow */
-
 var a = require("./a");
 var b = Object.assign(
   {
@@ -62,7 +60,6 @@ c.a();
 c.foo();
 =====================================output=====================================
 /* @flow */
-
 var c = require("./b");
 c.a();
 c.foo();
@@ -91,7 +88,6 @@ module.exports = export_;
 
 =====================================output=====================================
 /* @flow */
-
 var export_ = Object.assign(
   {},
   {
@@ -137,7 +133,6 @@ declare var o: O;
 
 =====================================output=====================================
 /* @flow */
-
 class C {
   foo: string;
 }
@@ -237,7 +232,6 @@ class Bar extends Foo {
 
 =====================================output=====================================
 /* @flow */
-
 var sealed = {
   one: "one",
   two: "two"
@@ -471,7 +465,6 @@ var k : Object = a.constructor;
 
 =====================================output=====================================
 /* @flow */
-
 function takesABool(x: boolean) {}
 function takesAString(x: string) {}
 function takesANumber(x: number) {}

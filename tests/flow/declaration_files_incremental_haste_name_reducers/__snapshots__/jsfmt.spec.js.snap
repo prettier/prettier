@@ -13,7 +13,6 @@ export function foo(): AImplementation { return new AImplementation(); }
 
 =====================================output=====================================
 /* @flow */
-
 class AImplementation {}
 export function foo(): AImplementation {
   return new AImplementation();
@@ -38,7 +37,6 @@ var test = require('test');
 
 =====================================output=====================================
 /* @flow */
-
 var A = require("A");
 (A.foo(): boolean); // Error: Either AImplementation ~> boolean or ADefinition ~> boolean
 var test = require("test");

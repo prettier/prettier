@@ -24,7 +24,6 @@ lib.bar();
 
 =====================================output=====================================
 /* @flow */
-
 var lib = require("./library");
 function add(a: number, b: number): number {
   return a + b;
@@ -94,7 +93,6 @@ module.exports = {
 
 =====================================output=====================================
 /* @flow */
-
 module.exports = {
   iTakeAString: function(name: string): number {
     return 42;

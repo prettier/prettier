@@ -29,7 +29,6 @@ module.exports = Bar;
 
 =====================================output=====================================
 /* @providesModule Bar */
-
 var Qux = require("Qux");
 class Bar {
   y: number;
@@ -83,7 +82,6 @@ module.exports = Foo;
 
 =====================================output=====================================
 /* @providesModule Foo */
-
 var Bar = require("Bar");
 var Qux = require("Qux");
 class Foo extends Qux {
@@ -128,7 +126,6 @@ module.exports = Qux;
 
 =====================================output=====================================
 /* @providesModule Qux */
-
 class Qux {
   w: number;
   qux() {

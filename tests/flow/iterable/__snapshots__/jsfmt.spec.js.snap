@@ -17,7 +17,6 @@ printWidth: 80
 
 =====================================output=====================================
 /* @flow */
-
 (([1, 2]: Array<number>): Iterable<number>);
 ([1, 2, "hi"]: Iterable<number | string>);
 ([1, 2, 3]: Iterable<*>);
@@ -57,7 +56,6 @@ function miss_the_cache(x: Array<string | number>): Iterable<string> { return x;
 
 =====================================output=====================================
 /* @flow */
-
 /**
  * I've hit a bug with the caching in flow_js.ml. Avik is removing that caching
  * so it should be fixed soon. The basic idea is I flow something like
@@ -72,7 +70,6 @@ function miss_the_cache(x: Array<string | number>): Iterable<string> { return x;
  * anyway. I've fixed this temporarily by bumping the "meaningful" param to
  * Hashtbl.hash_param
  */
-
 function fill_the_cache(x: Array<any | any>): Iterable<string> {
   return x;
 }
@@ -105,7 +102,6 @@ foo(m.keys());
 
 =====================================output=====================================
 /* @flow */
-
 function foo(strs: Iterable<string>): void {
   for (var s: string of strs) {
     console.log(s);
@@ -155,7 +151,6 @@ function makeIterator(coin_flip: () => boolean ): Iterator<string> {
 
 =====================================output=====================================
 /* @flow */
-
 function makeIterator(coin_flip: () => boolean): Iterator<string> {
   return {
     "@@iterator"() {
@@ -222,7 +217,6 @@ function mapTest4(map: Map<number, string>): Iterable<string> {
 
 =====================================output=====================================
 /* @flow */
-
 function mapTest1(map: Map<string, number>): Iterable<[string, number]> {
   return map;
 }
@@ -265,7 +259,6 @@ function setTest4(set: Set<string>): Iterable<number> {
 
 =====================================output=====================================
 /* @flow */
-
 function setTest1(set: Set<string>): Iterable<string> {
   return set;
 }
@@ -298,7 +291,6 @@ printWidth: 80
 
 =====================================output=====================================
 /* @flow */
-
 ("hi": Iterable<string>);
 ("hi": Iterable<*>);
 ("hi": Iterable<number>); // Error - string is a Iterable<string>
@@ -320,7 +312,6 @@ printWidth: 80
 
 =====================================output=====================================
 /* @flow */
-
 (([]: Array<string>): Iterable<?string>); // ok, Iterable<+T>
 (([]: Array<string>).values(): Iterable<?string>); // ok, Iterator<+T>
 

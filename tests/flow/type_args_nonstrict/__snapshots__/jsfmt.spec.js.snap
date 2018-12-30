@@ -91,7 +91,6 @@ var num_array:Array<number> = singleton(0); // ok, type arg inferred
  *
  * @flow
  */
-
 // no arity error in type annotation using polymorphic class
 
 class MyClass<T> {

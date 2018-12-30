@@ -25,7 +25,6 @@ module.exports = {
 /**
  * @flow
  */
-
 class Foo {}
 class Bar {}
 module.exports = {
@@ -65,7 +64,6 @@ var duck: string = "quack";
 /**
  * @flow
  */
-
 import typeof A from "./A.js";
 import type { Foo, Bar as Baz } from "./A.js";
 type duck = {
@@ -114,7 +112,6 @@ var b: Foo = new A.Foo();
 /**
  * @flow
  */
-
 import typeof A from "./A.js";
 import type { Foo, Bar as Baz } from "./A.js";
 var A = require("./A.js");
@@ -162,7 +159,6 @@ var a: Foo = new actualA.Foo();
 /**
  * @flow
  */
-
 import typeof A from "./A.js";
 import type { Foo, Bar as Baz } from "./A.js";
 var actualA = require("./A.js");
@@ -203,7 +199,6 @@ type c = Foo;
 /**
  * @flow
  */
-
 type Foo = number;
 // You can't use it as an identifier
 

@@ -40,7 +40,6 @@ const foo = {
 const foo = {
   a: "a" /* comment for this line */,
   /* Section B */
-
   b: "b"
 };
 
@@ -244,17 +243,14 @@ printWidth: 80
 /**
  * @typedef {DataDrivenMapping|ConstantMapping} Mapping
  */
-
 /**
  * @typedef {Object.<String, Mapping>} ConfigurationMapping
  */
-
 /**
  * @typedef {Function} D3Scale - a D3 scale
  * @property {Function} ticks
  * @property {Function} tickFormat
  */
-
 // comment
 
 // comment
@@ -287,11 +283,9 @@ for (;;) {
 }
 loop: for (;;) {
   break /* comment */
-
   loop;
   break loop /* comment */;
   continue /* comment */
-
   loop;
   continue loop /* comment */;
 }
@@ -363,40 +357,31 @@ var newArray = /** @type {array} */ ((numberOrString).map(x => x));
 // test to make sure comments are attached correctly
 
 let inlineComment = /* some comment */
-
 someReallyLongFunctionCall(withLots, ofArguments);
 let object = {
   key: /* some comment */
-
   someReallyLongFunctionCall(withLots, ofArguments)
 };
 // preserve parens only for type casts
 
 let assignment = /** @type {string} */
-
 (getValue());
 functionCall(
   1 +
     /** @type {string} */
-
     (value),
   /** @type {!Foo} */
-
   ({})
 );
 function returnValue() {
   return /** @type {!Array.<string>} */
-
   (["hello", "you"]);
 }
 var newArray = /** @type {array} */
-
 (numberOrString).map(x => x);
 var newArray = /** @type {array} */
-
 (numberOrString).map(x => x);
 var newArray = /** @type {array} */
-
 (numberOrString.map(x => x));
 
 ================================================================================
@@ -502,11 +487,9 @@ import('something' /* Hello */ + 'else')
 
 =====================================output=====================================
 import(/* Hello */
-
 "something");
 import("something" /* Hello */);
 import(/* Hello */
-
 "something" /* Hello */);
 import("something" /* Hello */ + "else");
 
@@ -703,14 +686,12 @@ function a(/* comment */) {} // comment
 function b() {} // comment
 function c(
   /* comment */
-
   argA,
   argB,
   argC
 ) {} // comment
 call((
   /*object*/
-
   row
 ) => {});
 KEYPAD_NUMBERS.map((
@@ -719,41 +700,32 @@ KEYPAD_NUMBERS.map((
 function f /* f */() {}
 function f(/* args */) {}
 function f() /* returns */
-
 {}
 function f /* f */(/* args */) /* returns */
-
 {}
 function f /* f */(
   /* a */
-
   a
 ) {}
 function f /* f */(a /* a */) {}
 function f /* f */(
   /* a */
-
   a
 ) /* returns */
-
 {}
 const obj = {
   f1 /* f */() {},
   f2(/* args */) {},
   f3() /* returns */
-
   {},
   f4 /* f */(/* args */) /* returns */
-
   {}
 };
 (function f /* f */() {})();
 (function f(/* args */) {})();
 (function f() /* returns */
-
 {})();
 (function f /* f */(/* args */) /* returns */
-
 {})();
 class C {
   f /* f */() {}
@@ -763,12 +735,10 @@ class C {
 }
 class C {
   f() /* returns */
-
   {}
 }
 class C {
   f /* f */(/* args */) /* returns */
-
   {}
 }
 function foo() {
@@ -918,13 +888,11 @@ else {
 }
 if (10) {
   /* comment */
-
   // comment
 
   true;
 } else if (11)
   /* comment */
-
   true;
 else if (12)
   // comment /* comment */ // comment
@@ -932,9 +900,7 @@ else if (12)
   true;
 else if (13)
   /* comment */
-
   /* comment */
-
   // comment
 
   true;
@@ -945,7 +911,6 @@ if (14) {
   // comment
 
   /* comment */
-
   // comment
 
   true;
@@ -953,9 +918,7 @@ if (14) {
   // comment
 
   /* comment */
-
   /* comment */
-
   // comment
 
   true;
@@ -1083,7 +1046,6 @@ foo({}
 this.call(
   a,
   /* comment */
-
   b
 );
 function f(
@@ -1195,7 +1157,6 @@ else {
 const result = asyncExecute(
   "non_existing_command",
   /* args */
-
   []
 );
 // The closing paren is printed on the same line as the comment
@@ -1352,7 +1313,6 @@ onClick={() => {}}>
   {
     /* comment
      */
-
     a
   }
 </div>;
@@ -1399,7 +1359,6 @@ onClick={() => {}}>
   /**
    * Handles clicks.
    */
-
   onClick={() => {}}
 />;
 <div // comment
@@ -1589,7 +1548,6 @@ class Foo {
     lol3 /*string*/,
     lol4 /*string*/
   ) /*string*/
-
   {}
   // prettier-ignore
 
@@ -1926,7 +1884,6 @@ function taggedTemplate() {
 function inlineComment() {
   return (
     /* hi */
-
     42 || 42
   );
 }
@@ -1975,7 +1932,6 @@ if(true) {
 /*
  * Looking good!
  */
-
 if (true) {
   /*
    * Oh no
@@ -2108,7 +2064,6 @@ d //comment
 
 \${
   /* comment */
-
   c /* comment */
 }
 
@@ -2446,7 +2401,6 @@ while (
 while (true) {} // comment
 while (true)
   /* comment */
-
   ++x;
 
 ================================================================================
