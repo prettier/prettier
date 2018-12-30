@@ -341,19 +341,12 @@ const StatelessFunctionalComponent = ({
   items
 }: {
   isActive: number,
-
   onFiltersUpdated: number,
-
   onSelect: number,
-
   onSubmitAndDeselect: number,
-
   onCancel: number,
-
   searchFilters: number,
-
   title: number,
-
   items: number
 }) => {
   return <div />;
@@ -376,19 +369,12 @@ class C {
 
 type T = ({
   isActive: number,
-
   onFiltersUpdated: number,
-
   onSelect: number,
-
   onSubmitAndDeselect: number,
-
   onCancel: number,
-
   searchFilters: number,
-
   title: number,
-
   items: number
 }) => void;
 

@@ -42,7 +42,6 @@ function js() {
 module.exports = {
         endOfLine:
                 \\"lf\\",
-
         tabWidth: 8
 };
 function noConfigJs() {
@@ -147,7 +146,6 @@ function js() {
 
 module.exports = {
         endOfLine: \\"lf\\",
-
         tabWidth: 8
 };
 function noConfigJs() {

@@ -26,7 +26,6 @@ export default ({
   // comment
 
   foo?: Object,
-
   // comment 2
 
   bar?: Object

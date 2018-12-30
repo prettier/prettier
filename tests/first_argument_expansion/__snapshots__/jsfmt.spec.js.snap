@@ -239,7 +239,6 @@ func(
   },
   {
     yes: true,
-
     cats: 5
   }
 );

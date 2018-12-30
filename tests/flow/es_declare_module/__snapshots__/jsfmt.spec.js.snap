@@ -65,7 +65,6 @@ import CJS_Named from "CJS_Named";
 
 (CJS_Named: {
   num1: number,
-
   str1: string
 });
 

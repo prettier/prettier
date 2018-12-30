@@ -27,13 +27,11 @@ type X = A<import("B").C<any>>;
 
 export const x: import("./foo") = {
   x: 0,
-
   y: 0
 };
 
 export let y: import("./foo2").Bar.I = {
   a: "",
-
   b: 0
 };
 
@@ -78,13 +76,11 @@ type X = A<import("B").C<any>>;
 
 export const x: import('./foo') = {
   x: 0,
-
   y: 0
 };
 
 export let y: import('./foo2').Bar.I = {
   a: '',
-
   b: 0
 };
 

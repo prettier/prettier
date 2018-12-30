@@ -2168,11 +2168,8 @@ singleQuote: false
 <View
   style={{
     someVeryLongStyle1: "true",
-
     someVeryLongStyle2: "true",
-
     someVeryLongStyle3: "true",
-
     someVeryLongStyle4: "true"
   }}
 />;
@@ -2181,11 +2178,8 @@ singleQuote: false
   style={[
     {
       someVeryLongStyle1: "true",
-
       someVeryLongStyle2: "true",
-
       someVeryLongStyle3: "true",
-
       someVeryLongStyle4: "true"
     }
   ]}
@@ -2309,7 +2303,6 @@ singleQuote: false
   <div
     style={{
       height: 200,
-
       overflow: "scroll"
     }}
   >
@@ -2469,11 +2462,8 @@ singleQuote: false
 <View
   style={{
     someVeryLongStyle1: "true",
-
     someVeryLongStyle2: "true",
-
     someVeryLongStyle3: "true",
-
     someVeryLongStyle4: "true"
   }}
 />;
@@ -2482,11 +2472,8 @@ singleQuote: false
   style={[
     {
       someVeryLongStyle1: "true",
-
       someVeryLongStyle2: "true",
-
       someVeryLongStyle3: "true",
-
       someVeryLongStyle4: "true"
     }
   ]}
@@ -2610,7 +2597,6 @@ singleQuote: false
   <div
     style={{
       height: 200,
-
       overflow: "scroll"
     }}
   >
@@ -2770,11 +2756,8 @@ singleQuote: true
 <View
   style={{
     someVeryLongStyle1: 'true',
-
     someVeryLongStyle2: 'true',
-
     someVeryLongStyle3: 'true',
-
     someVeryLongStyle4: 'true'
   }}
 />;
@@ -2783,11 +2766,8 @@ singleQuote: true
   style={[
     {
       someVeryLongStyle1: 'true',
-
       someVeryLongStyle2: 'true',
-
       someVeryLongStyle3: 'true',
-
       someVeryLongStyle4: 'true'
     }
   ]}
@@ -2911,7 +2891,6 @@ singleQuote: true
   <div
     style={{
       height: 200,
-
       overflow: 'scroll'
     }}
   >
@@ -3071,11 +3050,8 @@ singleQuote: true
 <View
   style={{
     someVeryLongStyle1: 'true',
-
     someVeryLongStyle2: 'true',
-
     someVeryLongStyle3: 'true',
-
     someVeryLongStyle4: 'true'
   }}
 />;
@@ -3084,11 +3060,8 @@ singleQuote: true
   style={[
     {
       someVeryLongStyle1: 'true',
-
       someVeryLongStyle2: 'true',
-
       someVeryLongStyle3: 'true',
-
       someVeryLongStyle4: 'true'
     }
   ]}
@@ -3212,7 +3185,6 @@ singleQuote: true
   <div
     style={{
       height: 200,
-
       overflow: 'scroll'
     }}
   >
@@ -4074,7 +4046,6 @@ const tabs = [
 const tabs = [
   {
     title: "General Info",
-
     content: (
       <GeneralForm
         long-attribute="i-need-long-value-here"
@@ -4115,7 +4086,6 @@ const tabs = [
 const tabs = [
   {
     title: "General Info",
-
     content: (
       <GeneralForm
         long-attribute='i-need-long-value-here'
@@ -4156,7 +4126,6 @@ const tabs = [
 const tabs = [
   {
     title: 'General Info',
-
     content: (
       <GeneralForm
         long-attribute="i-need-long-value-here"
@@ -4197,7 +4166,6 @@ const tabs = [
 const tabs = [
   {
     title: 'General Info',
-
     content: (
       <GeneralForm
         long-attribute='i-need-long-value-here'
@@ -5415,9 +5383,7 @@ const Labels = {
 =====================================output=====================================
 const Labels = {
   label1: <fbt>Label 1</fbt>,
-
   label2: <fbt>Label 2</fbt>,
-
   label3: <fbt>Label 3</fbt>
 };
 
@@ -5455,9 +5421,7 @@ const Labels = {
 =====================================output=====================================
 const Labels = {
   label1: <fbt>Label 1</fbt>,
-
   label2: <fbt>Label 2</fbt>,
-
   label3: <fbt>Label 3</fbt>
 };
 
@@ -5495,9 +5459,7 @@ const Labels = {
 =====================================output=====================================
 const Labels = {
   label1: <fbt>Label 1</fbt>,
-
   label2: <fbt>Label 2</fbt>,
-
   label3: <fbt>Label 3</fbt>
 };
 
@@ -5535,9 +5497,7 @@ const Labels = {
 =====================================output=====================================
 const Labels = {
   label1: <fbt>Label 1</fbt>,
-
   label2: <fbt>Label 2</fbt>,
-
   label3: <fbt>Label 3</fbt>
 };
 

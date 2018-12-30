@@ -33,25 +33,19 @@ module.exports = { ColorId, ColorNumber };
 =====================================output=====================================
 var ColorId = {
   RED: "R",
-
   GREEN: "G",
-
   BLUE: "B"
 };
 
 var ColorNumber = {
   RED: "ff0000",
-
   GREEN: "00ff00",
-
   BLUE: "0000ff"
 };
 
 var ColorIdToNumber = {
   [ColorId.RED]: ColorNumber.RED,
-
   [ColorId.GREEN]: ColorNumber.GREEN,
-
   [ColorId.BLUE]: ColorNumber.BLUE
 };
 
@@ -86,9 +80,7 @@ var { ColorId, ColorNumber } = require("./test");
 
 var ColorIdToNumber = {
   [ColorId.RED]: ColorNumber.RED,
-
   [ColorId.GREEN]: ColorNumber.GREEN,
-
   [ColorId.BLUE]: ColorNumber.BLUE
 };
 
@@ -155,9 +147,7 @@ var dummy = require("./test");
 
 module.exports = {
   ...dummy,
-
   [hello]: "world",
-
   ...dummy
 };
 
@@ -196,7 +186,6 @@ var y: string = arr[0](); // error: number ~> string
 =====================================output=====================================
 var obj = {
   x: 0,
-
   m() {
     return this.x;
   }

@@ -28,7 +28,6 @@ module.exports = {};
 
 var A = {
   x: true,
-
   ...{}
 };
 
@@ -166,7 +165,6 @@ function g(): string {
 
 var o = {
   fn: g,
-
   ...{}
 };
 

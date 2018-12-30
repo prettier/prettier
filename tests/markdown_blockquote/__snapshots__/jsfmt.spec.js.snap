@@ -37,7 +37,6 @@ proseWrap: "always"
 >
 >     "unobtrusive/flowtype"
 >   ],
->
 >   "env": {
 >     "browser": true
 >   }

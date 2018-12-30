@@ -105,19 +105,16 @@ var App = React.createClass({
       y: ""
     }; // infer props.y: string
   },
-
   getInitialState: function() {
     return {
       z: 0
     }; // infer state.z: number
   },
-
   handler: function() {
     this.setState({
       z: 42
     }); // ok
   },
-
   render: function() {
     var x = this.props.x;
 
@@ -360,7 +357,6 @@ var C = React.createClass({
 var D = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
-
     ...C.propTypes
   }
 });

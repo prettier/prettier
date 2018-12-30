@@ -240,7 +240,6 @@ moreArgTypes(
   [1, 2, 3],
   {
     name: "Hello World",
-
     age: 29
   },
   doSomething(
@@ -250,7 +249,6 @@ moreArgTypes(
 
     {
       name: "Hello World",
-
       age: 34
     },
     oneThing + anotherThing // Comment
@@ -261,7 +259,6 @@ evenMoreArgTypes(
   doSomething(
     {
       name: "Hello World",
-
       age: 34
     },
     true
@@ -320,7 +317,6 @@ func(
   },
   {
     yes: true,
-
     no: 5
   }
 );
@@ -328,7 +324,6 @@ func(
 doSomething(
   {
     tomorrow: maybe,
-
     today: never[always]
   },
   1337,

@@ -292,9 +292,7 @@ printWidth: 80
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
     'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
-
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
-
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
@@ -532,9 +530,7 @@ trailingComma: "es5"
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
     'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
-
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
-
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
@@ -983,7 +979,6 @@ printWidth: 1
       )
         .level ===
       dialogLevelEnum.SUCCESS,
-
     'btn-warning':
       (
         dialog$
@@ -991,7 +986,6 @@ printWidth: 1
       )
         .level ===
       dialogLevelEnum.WARNING,
-
     'btn-svg':
       (
         dialog$
@@ -1244,9 +1238,7 @@ printWidth: 80
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
     'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
-
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
-
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
@@ -1484,9 +1476,7 @@ printWidth: 80
   *ngIf="form.controls.details?.controls.amount?.errors.min"
   [ngClass]="{
     'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
-
     'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
-
     'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
   }"
   [stickout]="+toolAssembly.stickoutMm"
@@ -4745,9 +4735,7 @@ bindon-ngModel
 <div
   [ngClass]="{
     bad: false,
-
     curly: true,
-
     special: true
   }"
 >
@@ -6288,9 +6276,7 @@ bindon-ngModel
 <div
   [ngClass]="{
     bad: false,
-
     curly: true,
-
     special: true
   }"
 >
@@ -8845,9 +8831,7 @@ bindon-ngModel
 <div
   [ngClass]="{
     bad: false,
-
     curly: true,
-
     special: true
   }"
 >
@@ -11319,9 +11303,7 @@ bindon-ngModel
 <div
   [ngClass]="{
     bad: false,
-
     curly: true,
-
     special: true
   }"
 >
@@ -12917,9 +12899,7 @@ bindon-ngModel
 <div
   [ngClass]="{
     bad: false,
-
     curly: true,
-
     special: true
   }"
 >

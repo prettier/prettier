@@ -172,17 +172,13 @@ function bar() {
 
 var o = {
   y: "",
-
   foo: foo,
-
   bar: bar
 };
 
 var o2 = {
   y: 0,
-
   foo: foo,
-
   bar: bar
 };
 

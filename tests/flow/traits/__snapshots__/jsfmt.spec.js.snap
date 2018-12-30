@@ -44,7 +44,6 @@ declare class Qux<T> extends Baz<T> {
   // Collection <: Iterable
 
   y: T;
-
   z: T;
 }
 

@@ -522,17 +522,12 @@ function opt1(n = 4) {
 function opt2(
   n = {
     x: null,
-
     y: undefined
   }
 ) {
   var m = n;
 
-  var m: {
-    x: any;
-
-    y: any;
-  };
+  var m: { x: any; y: any };
 }
 
 // Function signature with initializer referencing other parameter to the left

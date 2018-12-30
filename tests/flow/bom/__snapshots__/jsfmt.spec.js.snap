@@ -267,13 +267,11 @@ const div = document.createElement("div");
 
 o.observe(div, {
   attributes: true,
-
   attributeFilter: ["style"]
 }); // correct
 
 o.observe(div, {
   characterData: true,
-
   invalid: true
 }); // correct
 
@@ -291,7 +289,6 @@ o.observe(div, {
 
 o.observe(div, {
   attributes: true,
-
   attributeFilter: true
 }); // incorrect
 

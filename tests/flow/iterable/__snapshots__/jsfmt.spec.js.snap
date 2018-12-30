@@ -168,7 +168,6 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
     "@@iterator"() {
       return makeIterator(coin_flip);
     },
-
     next(): IteratorResult<string, void> {
       var done = coin_flip();
 
@@ -189,7 +188,6 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
     "@@iterator"() {
       return makeIterator(coin_flip);
     },
-
     next(): IteratorResult<string, void> {
       var done = coin_flip();
 

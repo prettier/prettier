@@ -92,9 +92,7 @@ let tests = [
       }
     ): {
       foo: string,
-
       bar: number,
-
       baz: boolean
     });
   },
@@ -114,7 +112,6 @@ let tests = [
 
     (copyProperties({}, x, y): {
       foo: string,
-
       bar: number
     });
   },
@@ -290,9 +287,7 @@ let tests = [
 
     (result: {
       foo: string,
-
       bar: number,
-
       baz: boolean
     });
   },
@@ -304,9 +299,7 @@ let tests = [
 
     let result: {
       foo?: string,
-
       bar?: number,
-
       baz: boolean
     } = {
       baz: false

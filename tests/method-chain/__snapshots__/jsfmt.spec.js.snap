@@ -87,7 +87,6 @@ export default store => {
       next(
         actionWith({
           type: failureType,
-
           error: error.message || "Something bad happened"
         })
       )
@@ -99,87 +98,60 @@ it("should group messages with same created time", () => {
     "11/01/2017 13:36": [
       {
         message: "test",
-
         messageType: "SMS",
-
         status: "Unknown",
-
         created: "11/01/2017 13:36"
       },
 
       {
         message: "test",
-
         messageType: "Email",
-
         status: "Unknown",
-
         created: "11/01/2017 13:36"
       }
     ],
-
     "09/01/2017 17:25": [
       {
         message: "te",
-
         messageType: "SMS",
-
         status: "Unknown",
-
         created: "09/01/2017 17:25"
       },
 
       {
         message: "te",
-
         messageType: "Email",
-
         status: "Unknown",
-
         created: "09/01/2017 17:25"
       }
     ],
-
     "11/01/2017 13:33": [
       {
         message: "test",
-
         messageType: "SMS",
-
         status: "Unknown",
-
         created: "11/01/2017 13:33"
       },
 
       {
         message: "test",
-
         messageType: "Email",
-
         status: "Unknown",
-
         created: "11/01/2017 13:33"
       }
     ],
-
     "11/01/2017 13:37": [
       {
         message: "test",
-
         messageType: "SMS",
-
         status: "Unknown",
-
         created: "11/01/2017 13:37"
       },
 
       {
         message: "test",
-
         messageType: "Email",
-
         status: "Unknown",
-
         created: "11/01/2017 13:37"
       }
     ]
@@ -254,7 +226,6 @@ const {
 const {
   updated,
   author: { identifier: ownerId },
-
   location,
   category: categories
 } = rawAd.entry;
@@ -649,7 +620,6 @@ d3.select("body")
 
   .at({
     width: 30,
-
     fill: "#f0f"
   })
 
@@ -671,7 +641,6 @@ not.d3
 
   .at({
     width: 30,
-
     fill: "#f0f"
   })
 
@@ -740,14 +709,10 @@ export default function theFunction(action$, store) {
     .switchMap(action =>
       Observable.webSocket({
         url: THE_URL,
-
         more: stuff(),
-
         evenMore: stuff({
           value1: true,
-
           value2: false,
-
           value3: false
         })
       })
@@ -945,15 +910,10 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
 
           .that.deep.equals({
             AddressLine1: "Alexanderstrasse",
-
             AddressLine2: "",
-
             PostalCode: "10999",
-
             Region: "Berlin",
-
             City: "Berlin",
-
             Country: "DE"
           });
       }

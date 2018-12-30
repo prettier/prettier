@@ -39,9 +39,7 @@ function union2keys(s: Union): Keys { return s; } // ok
 function isActive(ad: {
   state: $Keys<{
     PAUSED: string,
-
     ACTIVE: string,
-
     DELETED: string
   }>
 }): boolean {
@@ -54,9 +52,7 @@ isActive({
 
 var MyStates = {
   PAUSED: "PAUSED",
-
   ACTIVE: "ACTIVE",
-
   DELETED: "DELETED"
 };
 
@@ -70,7 +66,6 @@ isActive2({
 
 type Keys = $Keys<{
   x: any,
-
   y: any
 }>;
 

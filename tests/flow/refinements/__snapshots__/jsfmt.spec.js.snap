@@ -52,7 +52,6 @@ function foo(x: ?number) {
 
 type Bar = {
   parent: ?Bar,
-
   doStuff: () => void
 };
 
@@ -104,13 +103,11 @@ export type ASTNode = Node1 | Node2;
 =====================================output=====================================
 type Node1 = {
   kind: "Node1",
-
   prop1?: string
 };
 
 type Node2 = {
   kind: "Node2",
-
   prop2?: string
 };
 
@@ -210,7 +207,6 @@ let tests = [
     x:
       | {
           done: true,
-
           result: string
         }
       | {
@@ -228,7 +224,6 @@ let tests = [
     x:
       | {
           done: true,
-
           result: string
         }
       | {
@@ -362,21 +357,17 @@ type Type = Name | ListType | NonNullType;
 
 type Name = {
   kind: "Name",
-
   value: string,
-
   type: void
 };
 
 type ListType = {
   kind: "ListType",
-
   type: Type
 };
 
 type NonNullType = {
   kind: "NonNullType",
-
   type: Name | ListType | BadType
 };
 
@@ -393,7 +384,6 @@ let tests = [
     x:
       | {
           done: true,
-
           result: string
         }
       | {
@@ -411,7 +401,6 @@ let tests = [
     x:
       | {
           done: true,
-
           result: string
         }
       | {
@@ -429,12 +418,10 @@ let tests = [
     type T =
       | {
           foo: Object,
-
           bar: string
         }
       | {
           baz: string,
-
           quux: string
         };
 
@@ -1737,12 +1724,10 @@ let tests = [
     x:
       | {
           kind: 0,
-
           foo: number
         }
       | {
           kind: 1,
-
           bar: number
         }
   ): number {
@@ -2033,7 +2018,6 @@ function c3(
   x: { [key: string]: ?string },
   y: {
     z: string,
-
     a: string
   }
 ): string {
@@ -2468,12 +2452,10 @@ let tests = [
     x:
       | {
           kind: "foo",
-
           foo: string
         }
       | {
           kind: "bar",
-
           bar: string
         }
   ): string {
@@ -3046,13 +3028,11 @@ type Type = Name | ListType;
 
 type Name = {
   kind: "Name",
-
   value: string
 };
 
 type ListType = {
   kind: "ListType",
-
   name: string
 };
 
@@ -3082,29 +3062,23 @@ function foo(x: ASTNode) {
 
 type Apple = {
   kind: "Fruit",
-
   taste: "Bad"
 };
 
 type Orange = {
   kind: "Fruit",
-
   taste: "Good"
 };
 
 type Broccoli = {
   kind: "Veg",
-
   taste: "Bad",
-
   raw: "No"
 };
 
 type Carrot = {
   kind: "Veg",
-
   taste: "Good",
-
   raw: "Maybe"
 };
 
@@ -3129,7 +3103,6 @@ function list(n) {
   if (n > 0)
     return {
       kind: "cons",
-
       next: list(n - 1)
     };
 
@@ -3158,27 +3131,22 @@ function check(n) {
 
 var EnumKind = {
   A: 1,
-
   B: 2,
-
   C: 3
 };
 
 type A = {
   kind: 1,
-
   A: number
 };
 
 type B = {
   kind: 2,
-
   B: number
 };
 
 type C = {
   kind: 3,
-
   C: number
 };
 
@@ -3197,7 +3165,6 @@ function kind(x: A | B | C): number {
 
 kind({
   kind: EnumKind.A,
-
   A: 1
 });
 
@@ -3209,7 +3176,6 @@ type Citizen = {
 
 type NonCitizen = {
   citizen: false,
-
   nationality: string
 };
 
@@ -3339,13 +3305,7 @@ let tests = [
 
   // sentinel props become the RHS
 
-  function(x: {
-    str: string,
-
-    num: number,
-
-    bool: boolean
-  }) {
+  function(x: { str: string, num: number, bool: boolean }) {
     if (x.str === "str") {
       (x.str: "not str"); // error: 'str' !~> 'not str'
     }
@@ -3379,12 +3339,10 @@ let tests = [
     x:
       | {
           foo: 123,
-
           y: string
         }
       | {
           foo: "foo",
-
           z: string
         }
   ) {
@@ -3415,12 +3373,10 @@ let tests = [
     x:
       | {
           foo: number,
-
           y: string
         }
       | {
           foo: "foo",
-
           z: string
         }
   ) {
@@ -3451,12 +3407,10 @@ let tests = [
     x:
       | {
           foo: number,
-
           y: string
         }
       | {
           foo: string,
-
           z: string
         }
   ) {
@@ -3487,12 +3441,10 @@ let tests = [
     x:
       | {
           foo: number,
-
           y: string
         }
       | {
           foo: string,
-
           z: string
         },
     num: number
@@ -3510,12 +3462,10 @@ let tests = [
     x:
       | {
           foo: null,
-
           y: string
         }
       | {
           foo: "foo",
-
           z: string
         }
   ) {
@@ -3546,12 +3496,10 @@ let tests = [
     x:
       | {
           foo: void,
-
           y: string
         }
       | {
           foo: "foo",
-
           z: string
         }
   ) {
@@ -3617,13 +3565,11 @@ import { SUCCESS, ERROR } from "./constants";
 
 type Success = {
   type: typeof SUCCESS,
-
   message: string
 };
 
 type Error = {
   type: typeof ERROR,
-
   error: string
 };
 

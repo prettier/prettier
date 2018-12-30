@@ -312,7 +312,6 @@ var db = {
   users: {
     JOE: {
       name: "Joe",
-
       followers: ["STEVE", "SUZY"]
     }
   }

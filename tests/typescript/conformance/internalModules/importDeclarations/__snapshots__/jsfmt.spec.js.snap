@@ -148,11 +148,7 @@ module C {
 
 var a: string = C.a.x;
 
-var b: {
-  x: number;
-
-  y: number;
-} = new C.a.Point(0, 0);
+var b: { x: number; y: number } = new C.a.Point(0, 0);
 
 var c: { name: string };
 
@@ -178,11 +174,7 @@ module Z {
 
 var m: number = Z.y();
 
-var n: {
-  x: number;
-
-  y: number;
-} = new Z.y.Point(0, 0);
+var n: { x: number; y: number } = new Z.y.Point(0, 0);
 
 module K {
   export class L {
@@ -194,7 +186,6 @@ module K {
 
     export interface Point {
       x: number;
-
       y: number;
     }
   }
@@ -208,11 +199,7 @@ var o: { name: string };
 
 var o = new M.D("Hello");
 
-var p: {
-  x: number;
-
-  y: number;
-};
+var p: { x: number; y: number };
 
 var p: M.D.Point;
 
@@ -297,11 +284,7 @@ var p: alias.Point;
 
 var p: moduleA.Point;
 
-var p: {
-  x: number;
-
-  y: number;
-};
+var p: { x: number; y: number };
 
 class clodule {
   name: string;
@@ -310,13 +293,11 @@ class clodule {
 module clodule {
   export interface Point {
     x: number;
-
     y: number;
   }
 
   var Point: Point = {
     x: 0,
-
     y: 0
   };
 }
@@ -327,16 +308,11 @@ var p: clolias.Point;
 
 var p: clodule.Point;
 
-var p: {
-  x: number;
-
-  y: number;
-};
+var p: { x: number; y: number };
 
 function fundule() {
   return {
     x: 0,
-
     y: 0
   };
 }
@@ -344,13 +320,11 @@ function fundule() {
 module fundule {
   export interface Point {
     x: number;
-
     y: number;
   }
 
   var Point: Point = {
     x: 0,
-
     y: 0
   };
 }
@@ -361,11 +335,7 @@ var p: funlias.Point;
 
 var p: fundule.Point;
 
-var p: {
-  x: number;
-
-  y: number;
-};
+var p: { x: number; y: number };
 
 ================================================================================
 `;
@@ -475,13 +445,11 @@ module Z {
 module A {
   export var Point = {
     x: 0,
-
     y: 0
   };
 
   export interface Point {
     x: number;
-
     y: number;
   }
 }
@@ -489,7 +457,6 @@ module A {
 module B {
   var A = {
     x: 0,
-
     y: 0
   };
 
@@ -500,7 +467,6 @@ module X {
   export module Y {
     export interface Point {
       x: number;
-
       y: number;
     }
   }

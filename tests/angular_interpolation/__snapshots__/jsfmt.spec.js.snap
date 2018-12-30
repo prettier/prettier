@@ -86,12 +86,10 @@ printWidth: 80
     | pipeA
       : {
           keyA: reallySuperLongValue,
-
           keyB: shortValue | pipeB | pipeC: valueToPipeC
         }
       : {
           keyA: reallySuperLongValue,
-
           keyB: shortValue | pipeB | pipeC: valueToPipeC
         }
     | aaa,

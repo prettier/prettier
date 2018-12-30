@@ -54,7 +54,6 @@ module.exports = o;
 
 var o = {
   A: require("./A"),
-
   ...require("./B")
 };
 

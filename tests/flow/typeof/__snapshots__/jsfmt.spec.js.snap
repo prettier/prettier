@@ -216,9 +216,7 @@ var f: typeof numberAlias = 42; // Error: 'typeof <<type-alias>>' makes no sense
 
 var Map = {
   A: "this is A",
-
   B: "this is B",
-
   C: "this is C"
 };
 

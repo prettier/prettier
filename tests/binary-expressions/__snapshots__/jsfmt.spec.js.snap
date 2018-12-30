@@ -343,26 +343,18 @@ const obj = {
 =====================================output=====================================
 prevState = prevState || {
   catalogs: [],
-
   loadState: LOADED,
-
   opened: false,
-
   searchQuery: "",
-
   selectedCatalog: null
 };
 
 prevState = prevState ||
   defaultState || {
     catalogs: [],
-
     loadState: LOADED,
-
     opened: false,
-
     searchQuery: "",
-
     selectedCatalog: null
   };
 
@@ -370,33 +362,24 @@ prevState =
   prevState ||
   (defaultState && {
     catalogs: [],
-
     loadState: LOADED,
-
     opened: false,
-
     searchQuery: "",
-
     selectedCatalog: null
   });
 
 prevState = prevState ||
   (useDefault && defaultState) || {
     catalogs: [],
-
     loadState: LOADED,
-
     opened: false,
-
     searchQuery: "",
-
     selectedCatalog: null
   };
 
 this.steps = steps || [
   {
     name: "mock-module",
-
     path: "/nux/mock-module"
   }
 ];
@@ -406,7 +389,6 @@ this.steps =
   (checkStep && [
     {
       name: "mock-module",
-
       path: "/nux/mock-module"
     }
   ]);
@@ -414,7 +396,6 @@ this.steps =
 this.steps = (steps && checkStep) || [
   {
     name: "mock-module",
-
     path: "/nux/mock-module"
   }
 ];
@@ -426,9 +407,7 @@ const create = () => {
     shouldReturn &&
     result.ok && {
       status: "ok",
-
       createdAt: result.createdAt,
-
       updatedAt: result.updatedAt
     }
   );
@@ -440,9 +419,7 @@ const create = () => {
   return (
     (shouldReturn && result.ok && result) || {
       status: "ok",
-
       createdAt: result.createdAt,
-
       updatedAt: result.updatedAt
     }
   );
@@ -452,14 +429,11 @@ const obj = {
   state: shouldHaveState &&
     stateIsOK && {
       loadState: LOADED,
-
       opened: false
     },
-
   loadNext: (stateIsOK && hasNext) || {
     skipNext: true
   },
-
   loaded: true
 };
 
@@ -526,7 +500,6 @@ printWidth: 80
     !isJellyfishEnabled &&
     diffUpdateMessageInput && {
       fontSize: 14,
-
       color: "#fff"
     }
   }

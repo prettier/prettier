@@ -230,35 +230,22 @@ var z: number = 123;
 
 declare class Foo {
   get goodGetterWithAnnotation(): number;
-
   set goodSetterWithAnnotation(x: number): void;
-
   get propWithMatchingGetterAndSetter(): number;
-
   set propWithMatchingGetterAndSetter(x: number): void;
-
   // The getter and setter need not have the same type - no error
 
   get propWithSubtypingGetterAndSetter(): ?number;
-
   set propWithSubtypingGetterAndSetter(x: number): void;
-
   // The getter and setter need not have the same type - no error
 
   set propWithSubtypingGetterAndSetterReordered(x: number): void;
-
   get propWithSubtypingGetterAndSetterReordered(): ?number;
-
   get propWithMismatchingGetterAndSetter(): number;
-
   set propWithMismatchingGetterAndSetter(x: string): void; // doesn't match getter (OK)
-
   propOverriddenWithGetter: number;
-
   get propOverriddenWithGetter(): string;
-
   propOverriddenWithSetter: number;
-
   set propOverriddenWithSetter(x: string): void;
 }
 
@@ -372,53 +359,38 @@ var obj = {
   get goodGetterNoAnnotation() {
     return 4;
   },
-
   get goodGetterWithAnnotation(): number {
     return 4;
   },
-
   set goodSetterNoAnnotation(x) {
     z = x;
   },
-
   set goodSetterWithAnnotation(x: number) {
     z = x;
   },
-
   get propWithMatchingGetterAndSetter(): number {
     return 4;
   },
-
   set propWithMatchingGetterAndSetter(x: number) {},
-
   // The getter and setter need not have the same type
 
   get propWithSubtypingGetterAndSetter(): ?number {
     return 4;
   }, // OK
-
   set propWithSubtypingGetterAndSetter(x: number) {},
-
   set propWithSubtypingGetterAndSetterReordered(x: number) {}, // OK
-
   get propWithSubtypingGetterAndSetterReordered(): ?number {
     return 4;
   },
-
   get exampleOfOrderOfGetterAndSetter(): A {
     return new A();
   },
-
   set exampleOfOrderOfGetterAndSetter(x: B) {},
-
   set exampleOfOrderOfGetterAndSetterReordered(x: B) {},
-
   get exampleOfOrderOfGetterAndSetterReordered(): A {
     return new A();
   },
-
   set [z](x: string) {},
-
   get [z](): string {
     return string;
   }
@@ -537,29 +509,18 @@ class C extends A {}
 
 type T = {
   get goodGetterWithAnnotation(): number,
-
   set goodSetterWithAnnotation(x: number): void,
-
   get propWithMatchingGetterAndSetter(): number,
-
   set propWithMatchingGetterAndSetter(x: number): void,
-
   // The getter and setter need not have the same type
 
   get propWithSubtypingGetterAndSetter(): ?number, // OK
-
   set propWithSubtypingGetterAndSetter(x: number): void,
-
   set propWithSubtypingGetterAndSetterReordered(x: number): void, // OK
-
   get propWithSubtypingGetterAndSetterReordered(): ?number,
-
   get exampleOfOrderOfGetterAndSetter(): A,
-
   set exampleOfOrderOfGetterAndSetter(x: B): void,
-
   set exampleOfOrderOfGetterAndSetterReordered(x: B): void,
-
   get exampleOfOrderOfGetterAndSetterReordered(): A
 };
 
@@ -633,11 +594,9 @@ const Example = React.createClass({
     get a() {
       return React.PropTypes.number.isRequired;
     },
-
     set b(x: number) {
       this.c = x;
     },
-
     c: React.PropTypes.string
   }
 });

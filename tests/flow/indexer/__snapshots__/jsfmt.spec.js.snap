@@ -91,7 +91,6 @@ function foo4(): { [key: number]: number } {
 
 function foo5(): {
   [key: string]: number,
-
   foo: string
 } {
   return {
@@ -103,7 +102,6 @@ function foo5(): {
 
 function foo6(): {
   [key: number]: number,
-
   foo: string
 } {
   return {
@@ -115,7 +113,6 @@ function foo6(): {
 
 function foo7(): {
   [key: string]: number,
-
   foo: number
 } {
   return {
@@ -150,7 +147,6 @@ let tests = [
   function() {
     ({}: {
       [k1: string]: string,
-
       [k2: number]: number // error: not supported (yet)
     });
   }

@@ -312,7 +312,6 @@ function f(_this: { m: ?Meeting }): string {
 
 type Meeting = {
   organizer: ?Invitee,
-
   es: Array<Invitee>
 };
 

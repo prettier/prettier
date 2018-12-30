@@ -83,7 +83,6 @@ expect(() =>
 expect(() =>
   asyncRequest({
     type: "foo",
-
     url: "/test-endpoint"
   })
 ).not.toThrowError();
@@ -91,7 +90,6 @@ expect(() =>
 expect(() =>
   asyncRequest({
     type: "foo",
-
     url: "/test-endpoint-but-with-a-long-url"
   })
 ).not.toThrowError();
@@ -206,7 +204,6 @@ expect(() =>
 expect(() =>
   asyncRequest({
     type: "foo",
-
     url: "/test-endpoint",
   }),
 ).not.toThrowError();
@@ -214,7 +211,6 @@ expect(() =>
 expect(() =>
   asyncRequest({
     type: "foo",
-
     url: "/test-endpoint-but-with-a-long-url",
   }),
 ).not.toThrowError();
@@ -329,7 +325,6 @@ expect(() =>
 expect(() =>
   asyncRequest({
     type: "foo",
-
     url: "/test-endpoint"
   })
 ).not.toThrowError();
@@ -337,7 +332,6 @@ expect(() =>
 expect(() =>
   asyncRequest({
     type: "foo",
-
     url: "/test-endpoint-but-with-a-long-url"
   })
 ).not.toThrowError();

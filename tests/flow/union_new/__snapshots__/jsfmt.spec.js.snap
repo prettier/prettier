@@ -163,7 +163,6 @@ var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
 var bar: Array<
   | {
       b: ?boolean,
-
       c: number
     }
   | {
@@ -172,7 +171,6 @@ var bar: Array<
 > = [
   {
     b: true,
-
     c: 123
   },
 
@@ -204,17 +202,14 @@ function create(
 ):
   | {
       type: "B",
-
       data: number
     }
   | {
       type: "A",
-
       data: string
     } {
   return {
     type: "A",
-
     data: a
   };
 }
@@ -304,13 +299,11 @@ type Common = {};
 
 type A = Common & {
   type: "A",
-
   foo: number
 };
 
 type B = Common & {
   type: "B",
-
   foo: Array<number>
 };
 
@@ -366,13 +359,11 @@ type Common = {};
 
 type A = {
   type: "A",
-
   foo: number
 } & Common;
 
 type B = {
   type: "B",
-
   foo: Array<number>
 } & Common;
 
@@ -431,7 +422,6 @@ if (data.kind === "system") {
 
 type DataBase = {
   id: string,
-
   name: string
 };
 
@@ -447,9 +437,7 @@ type Data = UserData | SystemData;
 
 const data: Data = {
   id: "",
-
   name: "",
-
   kind: "system"
 };
 
@@ -536,7 +524,6 @@ function test(f: Foo| EmptyFoo) {
 
 declare type Entity<T> = {
   id: T,
-
   name: string
 };
 
@@ -544,13 +531,11 @@ declare type StringEntity = Entity<string>;
 
 declare type Foo = StringEntity & {
   bars: Object,
-
   kind: 1
 };
 
 declare type EmptyFoo = StringEntity & {
   bars: null,
-
   kind: 2
 };
 
@@ -1302,13 +1287,11 @@ type F2 = G2;
 
 type G1 = {
   x: H1,
-
   y?: G1
 };
 
 type G2 = {
   x: H2,
-
   y?: G2
 };
 
@@ -1332,7 +1315,6 @@ type PF<X> = PG<X>;
 
 type PG<X> = {
   x: X,
-
   y?: PG<X>
 };
 
@@ -1706,7 +1688,6 @@ length({
 
 length({
   kind: "cons",
-
   next: {
     kind: "nil"
   }
@@ -1724,7 +1705,6 @@ type Nil = {
 
 type Cons = {
   kind: "cons",
-
   next: List
 };
 
@@ -1754,7 +1734,6 @@ function rec(x: F<string>): G | H { return x; }
 
 type F<X> = {
   f: F<X>,
-
   x: X
 };
 
@@ -1798,17 +1777,14 @@ printWidth: 80
 
 ({
   type: "B",
-
   id: "hi"
 }:
   | {
       type: "A",
-
       id: ?string
     }
   | {
       type: "B",
-
       id: string
     });
 
@@ -1905,7 +1881,6 @@ function foo<X>(target: EventTarget) {
 
 declare class EventTarget {
   addEventListener(type: "foo", listener: KeyboardEventHandler): void;
-
   addEventListener(type: string, listener: EventHandler): void;
 }
 
@@ -2039,7 +2014,6 @@ new C().m(f());
 
 declare class C {
   m(x: number): void;
-
   m(x: string): void;
 }
 
@@ -2082,7 +2056,6 @@ function m<X>() {
 
 declare class D {
   constructor(_: void): void;
-
   constructor(_: null): void;
 }
 
@@ -2162,30 +2135,25 @@ function str() {
 type T =
   | {
       type: "FOO",
-
       x: number
     }
   | {
       type: "BAR",
-
       x: string
     };
 
 ({
   type: (bar(): "BAR"),
-
   x: str()
 }: T);
 
 ({
   type: bar(),
-
   x: str()
 }: T);
 
 ({
   type: bar(),
-
   x: (str(): string)
 }: T);
 
@@ -2237,7 +2205,6 @@ type Empty = {};
 
 type Success = {
   type: "SUCCESS",
-
   result: string
 };
 
@@ -2340,21 +2307,13 @@ declare class D extends C {
 
 declare class C {
   addListener(event: string, listener: Function): C;
-
   emit(event: string, ...args: Array<any>): boolean;
-
   listeners(event: string): Array<Function>;
-
   listenerCount(event: string): number;
-
   on(event: string, listener: Function): C;
-
   once(event: string, listener: Function): C;
-
   removeAllListeners(event?: string): C;
-
   removeListener(event: string, listener: Function): C;
-
   setMaxListeners(n: number): void;
 }
 
@@ -2365,23 +2324,14 @@ declare class D extends C {
     backlog?: number,
     callback?: Function
   ): D;
-
   listen(path: string, callback?: Function): D;
-
   listen(handle: Object, callback?: Function): D;
-
   close(callback?: Function): D;
-
   address(): number;
-
   connections: number;
-
   maxConnections: number;
-
   getConnections(callback: Function): void;
-
   ref(): D;
-
   unref(): D;
 }
 
@@ -2471,7 +2421,6 @@ declare var y: T;
 
 declare class Record {
   set(x: "foo", y: number): void;
-
   set(x: "bar", y: string): void;
 }
 
@@ -2611,7 +2560,6 @@ declare class D<T> {
     callbackfn: (previousValue: T, currentValue: T) => T,
     initialValue: void
   ): T;
-
   reduce<U>(
     callbackfn: (previousValue: U, currentValue: T) => U,
     initialValue: U
@@ -2651,18 +2599,15 @@ const Constants = require("./test30-helper");
 type ActionType =
   | {
       type: "foo",
-
       x: number
     }
   | {
       type: "bar",
-
       x: number
     };
 
 ({
   type: Constants.BAR,
-
   x: 0
 }: ActionType);
 
@@ -2687,7 +2632,6 @@ module.exports = {
 
 module.exports = {
   FOO: "foo",
-
   BAR: "bar"
 };
 
@@ -2741,7 +2685,6 @@ interface SomeIterable<T> {
 
 declare class SomeMap<K, V> {
   it(): SomeIterator<[K, V]>;
-
   set(k: K, v: V): void;
 }
 

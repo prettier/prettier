@@ -50,11 +50,8 @@ function parseGroup(
   lines: Array<string>
 ): {
   counter: number,
-
   begin: number,
-
   end: number,
-
   text: string
 } {
   var counter = parseCounter(lines[0]);
@@ -64,7 +61,6 @@ function parseGroup(
   return {
     counter,
     ...timeframe,
-
     text: lines[2]
   };
 }
@@ -73,14 +69,12 @@ function parseTimeframe(
   line: string
 ): {
   begin: number,
-
   end: number
 } {
   var timestamps = line.split("-->");
 
   return {
     begin: parseTimestamp(timestamps[0].trim()),
-
     end: parseTimestamp(timestamps[1].trim())
   };
 }
@@ -159,9 +153,7 @@ var q = {
 
 var o = {
   x: 5,
-
   ...p,
-
   ...q
 };
 
@@ -177,7 +169,6 @@ var r = {
 
 var s = {
   ...p,
-
   ...r
 };
 
@@ -267,7 +258,6 @@ function test(
 
     return {
       ...x,
-
       kind: value
     };
   });
@@ -322,19 +312,16 @@ var p = {
 
 (p: {
   foo: string,
-
   abc: string
 }); // error, p doesn't have \`abc\` yet
 
 p = {
   ...p,
-
   abc: "def"
 };
 
 (p: {
   foo: string,
-
   abc: string
 });
 

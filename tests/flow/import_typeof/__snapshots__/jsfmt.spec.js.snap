@@ -514,13 +514,11 @@ import typeof * as ModuleNSObjT from "./ExportNamed_Multi";
 
 var j1: ModuleNSObjT = {
   num: 42,
-
   str: "asdf"
 };
 
 var j2: ModuleNSObjT = {
   num: 42,
-
   str: 42
 }; // Error: number ~> string
 

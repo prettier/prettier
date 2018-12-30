@@ -90,11 +90,9 @@ function example<
 
 var obj1: {
   x: number,
-
   y: string
 } = example({
   x: 0,
-
   y: ""
 });
 

@@ -37,7 +37,6 @@ module.exports = o3;
 =====================================output=====================================
 var o1 = {
   x: 0,
-
   y: ""
 };
 
@@ -78,7 +77,6 @@ Foo.prototype.m = function() {};
 
 var o1: {
   x: number,
-
   m(): void
 } = new Foo();
 

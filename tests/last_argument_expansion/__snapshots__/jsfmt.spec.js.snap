@@ -239,7 +239,6 @@ var listener = DOM.listen(
   (event: JavelinEvent): void =>
     BanzaiLogger.log(config, {
       ...logData,
-
       ...DataStore.get(event.getNode(sigil))
     })
 );
@@ -266,11 +265,8 @@ exports.examples = [
               src={data[1234567890].image.uri}
               style={{
                 position: "absolute",
-
                 top: "0",
-
                 left: "0",
-
                 zIndex: "-1"
               }}
             />
@@ -451,7 +447,6 @@ const formatData = pipe(
   zip,
   map(([ref, data]) => ({
     nodeId: ref.nodeId.toString(),
-
     ...attributeFromDataValue(ref.attributeId, data)
   })),
   groupBy(prop("nodeId")),
@@ -461,7 +456,6 @@ const formatData = pipe(
 
 export const setProp = y => ({
   ...y,
-
   a: "very, very, very long very, very long text"
 });
 

@@ -284,15 +284,10 @@ const content = \`
 const env = \${JSON.stringify(
   {
     assetsRootUrl: env.assetsRootUrl,
-
     env: env.env,
-
     role: "client",
-
     adsfafa: "sdfsdff",
-
     asdfasff: "wefwefw",
-
     fefef: "sf sdfs fdsfdsf s dfsfds"
   },
   null,
@@ -305,7 +300,6 @@ const env = \${JSON.stringify(
 f(
   \`\${{
     a: 4,
-
     b: 9
   }}\`
 );
@@ -329,7 +323,6 @@ const makeBody = (store, assets, html) =>
       content={[
         {
           id: "app-container",
-
           dangerouslySetInnerHTML: {
             __html: html
           }
@@ -494,15 +487,10 @@ const content = \`
 const env = \${JSON.stringify(
   {
     assetsRootUrl: env.assetsRootUrl,
-
     env: env.env,
-
     role: "client",
-
     adsfafa: "sdfsdff",
-
     asdfasff: "wefwefw",
-
     fefef: "sf sdfs fdsfdsf s dfsfds",
   },
   null,
@@ -515,7 +503,6 @@ const env = \${JSON.stringify(
 f(
   \`\${{
     a: 4,
-
     b: 9,
   }}\`,
 );
@@ -539,7 +526,6 @@ const makeBody = (store, assets, html) =>
       content={[
         {
           id: "app-container",
-
           dangerouslySetInnerHTML: {
             __html: html,
           },

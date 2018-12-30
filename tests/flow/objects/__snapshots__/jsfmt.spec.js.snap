@@ -229,11 +229,9 @@ y['bar'] = 'abc'; // error, property not found
 
 var x: {
   "123": string,
-
   bar: string
 } = {
   "123": "val",
-
   bar: "bar"
 };
 

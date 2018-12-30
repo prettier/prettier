@@ -73,7 +73,6 @@ function f() {
   else
     return {
       name: pair.substring(0, position),
-
       value: pair.substring(position + 1)
     };
 }
@@ -86,7 +85,6 @@ function f() {
   else
     return {
       name: pair.substring(0, position),
-
       value: pair.substring(position + 1)
     };
 }

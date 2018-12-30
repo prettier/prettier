@@ -190,13 +190,10 @@ declare class Point {
 
 var p_cast = <Point>{
   x: 0,
-
   y: 0,
-
   add: function(dx, dy) {
     return new Point(this.x + dx, this.y + dy);
   },
-
   mult: function(p) {
     return p;
   }
@@ -557,15 +554,10 @@ interface C {
 
 interface C {
   f<T>(): string;
-
   f<T, U>(): string;
-
   <T>(): string;
-
   <T, U>(): string;
-
   new <T>(): string;
-
   new <T, U>(): string;
 }
 
@@ -673,16 +665,13 @@ const shouldFail: { important: boolean } = output.x.children;
 type Meta<T, A> = {
   [P in keyof T]: {
     value: T[P];
-
     also: A;
-
     readonly children: Meta<T[P], A>;
   }
 };
 
 interface Input {
   x: string;
-
   y: number;
 }
 

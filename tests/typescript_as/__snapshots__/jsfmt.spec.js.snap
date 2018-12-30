@@ -78,7 +78,6 @@ async function g() {
 
 const state = JSON.stringify({
   next: window.location.href,
-
   nonce
 } as State);
 

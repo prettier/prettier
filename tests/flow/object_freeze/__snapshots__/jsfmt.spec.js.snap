@@ -46,7 +46,6 @@ var baz = {
 
 var bliffl = Object.freeze({
   bar: "12345",
-
   ...baz
 });
 

@@ -70,11 +70,8 @@ function f(/* ... */) {}
 
 const obj = {
   f(/* ... */) {},
-
   f: (/* ... */) => {},
-
   f: function(/* ... */) {},
-
   f: function f(/* ... */) {}
 };
 

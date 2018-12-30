@@ -55,7 +55,6 @@ export class ModOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpr
 
 export type Select = {
   expression: ArithmeticExpression,
-
   alias: ?string
 };
 
@@ -65,7 +64,6 @@ export class Query {
   select(expr: ArithmeticExpression): this {
     this._select.push({
       expression: expr,
-
       alias: ""
     });
 
@@ -202,61 +200,51 @@ var l: Array<T> = [
 type T =
   | {
       type: "a",
-
       a: number
     }
   | {
       type: "b",
-
       b: string
     };
 
 var l: Array<T> = [
   {
     type: "a",
-
     a: 1
   },
 
   {
     type: "a",
-
     a: 2
   },
 
   {
     type: "a",
-
     a: 3
   },
 
   {
     type: "a",
-
     a: 4
   },
 
   {
     type: "b",
-
     b: "monkey"
   },
 
   {
     type: "b",
-
     b: "gorilla"
   },
 
   {
     type: "b",
-
     b: "giraffe"
   },
 
   {
     type: "b",
-
     b: "penguin"
   }
 ];
@@ -577,13 +565,11 @@ const u1: union = {
 
 const u2: union = {
   p1: 1,
-
   p2: 2
 };
 
 const u3: union2 = {
   p1: 1,
-
   p2: 2
 };
 
@@ -768,7 +754,6 @@ function CD(b) {
 
 declare class F {
   foo(x: number): void;
-
   foo(x: string): void;
 }
 

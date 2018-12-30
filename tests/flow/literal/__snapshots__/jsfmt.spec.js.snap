@@ -16,7 +16,6 @@ module.exports = APIKeys;
 =====================================output=====================================
 var APIKeys = {
   AGE: "age",
-
   NAME: "name"
 };
 
@@ -86,9 +85,7 @@ var name: number = object[APIKeys.NAME]; // error: object.name is a string
 
 var indices = {
   red: 0,
-
   green: 1,
-
   blue: 2
 };
 

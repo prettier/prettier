@@ -64,9 +64,7 @@ db.collection("indexOptionDefault")
   },
   {
     indexOptionDefaults: true,
-
     w: 2,
-
     wtimeout: 1000
   },
   function(err) {
@@ -75,7 +73,6 @@ db.collection("indexOptionDefault")
     test.deepEqual(
       {
         w: 2,
-
         wtimeout: 1000
       },
       commandResult.writeConcern

@@ -116,11 +116,9 @@ interface Interface {
   // prettier-ignore
 
   prop: type
-
   // prettier-ignore
 
   prop: type;
-
   prop: type;
 }
 
@@ -130,7 +128,6 @@ interface Interface {
   // prettier-ignore
 
   prop: type
-
   prop: type;
 }
 
@@ -138,11 +135,9 @@ interface foo extends bar {
   // prettier-ignore
 
   f(): void;
-
   // prettier-ignore
 
   g(): void;
-
   h(): void;
 }
 
@@ -150,7 +145,6 @@ interface T<T> {
   // prettier-ignore
 
   new<T>(): T<T>;
-
   new <T>(): T<T>;
 }
 
@@ -198,11 +192,9 @@ interface Interface {
   // prettier-ignore
 
   prop: type
-
   // prettier-ignore
 
   prop: type;
-
   prop: type
 }
 
@@ -212,7 +204,6 @@ interface Interface {
   // prettier-ignore
 
   prop: type
-
   prop: type
 }
 
@@ -220,11 +211,9 @@ interface foo extends bar {
   // prettier-ignore
 
   f(): void;
-
   // prettier-ignore
 
   g(): void;
-
   h(): void
 }
 
@@ -232,7 +221,6 @@ interface T<T> {
   // prettier-ignore
 
   new<T>(): T<T>;
-
   new <T>(): T<T>
 }
 
@@ -382,14 +370,12 @@ interface Test { one: string, two: any[] }
 declare module "selenium-webdriver" {
   export const until: {
     ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>;
-
     alertIsPresent(): Condition<Alert>;
   };
 }
 
 export interface Edge {
   cursor: {};
-
   node: {
     id: {};
   };
@@ -397,7 +383,6 @@ export interface Edge {
 
 interface Test {
   one: string;
-
   two: any[];
 }
 
@@ -431,14 +416,12 @@ interface Test { one: string, two: any[] }
 declare module "selenium-webdriver" {
   export const until: {
     ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>
-
     alertIsPresent(): Condition<Alert>
   }
 }
 
 export interface Edge {
   cursor: {}
-
   node: {
     id: {}
   }
@@ -446,7 +429,6 @@ export interface Edge {
 
 interface Test {
   one: string
-
   two: any[]
 }
 

@@ -1381,7 +1381,6 @@ and add this config to your \`package.json\`:
   "scripts": {
     "precommit": "lint-staged"
   },
-
   "lint-staged": {
     "*.{js,json,css}": ["prettier --write", "git add"]
   }
@@ -1781,7 +1780,6 @@ JSON:
 
 {
   "printWidth": 100,
-
   "parser": "flow"
 }
 \`\`\`
@@ -1805,11 +1803,9 @@ JSON:
 \`\`\`json
 {
   "semi": false,
-
   "overrides": [
     {
       "files": "*.test.js",
-
       "options": {
         "semi": true
       }
@@ -1839,7 +1835,6 @@ To get prettier to format its own \`.prettierrc\` file, you can do:
   "overrides": [
     {
       "files": ".prettierrc",
-
       "options": {
         "parser": "json"
       }
@@ -3379,7 +3374,6 @@ and add this config to your \`package.json\`:
   "scripts": {
     "precommit": "lint-staged"
   },
-
   "lint-staged": {
     "*.{js,json,css}": ["prettier --write", "git add"]
   }
@@ -3779,7 +3773,6 @@ JSON:
 
 {
   "printWidth": 100,
-
   "parser": "flow"
 }
 \`\`\`
@@ -3803,11 +3796,9 @@ JSON:
 \`\`\`json
 {
   "semi": false,
-
   "overrides": [
     {
       "files": "*.test.js",
-
       "options": {
         "semi": true
       }
@@ -3837,7 +3828,6 @@ To get prettier to format its own \`.prettierrc\` file, you can do:
   "overrides": [
     {
       "files": ".prettierrc",
-
       "options": {
         "parser": "json"
       }

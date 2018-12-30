@@ -169,7 +169,6 @@ function formatEntireFile(
   range: atom$Range
 ): Promise<?{
   newCursor?: number,
-
   formatted: string
 }> {}
 
@@ -201,7 +200,6 @@ function formatEntireFile(
   range: atom$Range,
 ): Promise<?{
   newCursor?: number,
-
   formatted: string,
 }> {}
 
@@ -259,7 +257,6 @@ type State = {
     Ahohohhohohohohohohohohohohooh,
     Fbt | Immutable.Map<ErrorIndex, Fbt>
   >,
-
   shouldValidate: boolean
 };
 
@@ -287,7 +284,6 @@ type State = {
     Ahohohhohohohohohohohohohohooh,
     Fbt | Immutable.Map<ErrorIndex, Fbt>,
   >,
-
   shouldValidate: boolean,
 };
 
@@ -311,7 +307,6 @@ type G = <A, B>(A) => B;
 
 type H = {
   A: string,
-
   B: number
 };
 
@@ -336,7 +331,6 @@ type G = <A, B>(A) => B;
 
 type H = {
   A: string,
-
   B: number,
 };
 
@@ -358,14 +352,11 @@ type Foo = Promise<
 type Foo = Promise<
   | {
       ok: true,
-
       bar: string,
-
       baz: SomeOtherLongType
     }
   | {
       ok: false,
-
       bar: SomeOtherLongType
     }
 >;
@@ -389,14 +380,11 @@ type Foo = Promise<
 type Foo = Promise<
   | {
       ok: true,
-
       bar: string,
-
       baz: SomeOtherLongType,
     }
   | {
       ok: false,
-
       bar: SomeOtherLongType,
     },
 >;

@@ -41,7 +41,6 @@ const foo = {
 =====================================output=====================================
 const foo = {
   a: "a" /* comment for this line */,
-
   /* Section B */
 
   b: "b"
@@ -656,14 +655,11 @@ type UploadState<E, EM, D> =
     } // Failed somewhere on the line
   | {
       type: "Failed",
-
       error: E,
-
       errorMsg: EM
     } // Uploading to aws3 and CreatePostMutation succeeded
   | {
       type: "Success",
-
       data: D
     };
 
@@ -799,13 +795,10 @@ function f /* f */(
 
 const obj = {
   f1 /* f */() {},
-
   f2(/* args */) {},
-
   f3() /* returns */
 
   {},
-
   f4 /* f */(/* args */) /* returns */
 
   {}
@@ -1178,7 +1171,6 @@ function f(
 
 throw new ProcessSystemError({
   code: acc.error.code, // Alias of errno
-
   originalError: acc.error // Just in case.
 });
 
@@ -1194,12 +1186,10 @@ export type BuckWebSocketMessage =
     }
   | {
       type: "BuildProgressUpdated",
-
       progressValue: number
     }
   | {
       type: "BuildFinished",
-
       exitCode: number
     }
   | {
@@ -1237,7 +1227,6 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
   // The contents to write to stdin.
 
   stdin?: ?string,
-
   dontLogInNuclide?: ?boolean
 };
 
@@ -2339,15 +2328,12 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
   CLOSED: Object.freeze({
     kind: "CLOSED"
   }),
-
   CONNECTED: Object.freeze({
     kind: "CONNECTED"
   }),
-
   CONNECTING: Object.freeze({
     kind: "CONNECTING"
   }),
-
   NOT_CONNECTED: Object.freeze({
     kind: "NOT_CONNECTED"
   })

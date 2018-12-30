@@ -212,7 +212,6 @@ class A {
 
 var x: {
   a: number,
-
   b?: number
 } = {
   a: 0
@@ -241,7 +240,6 @@ x.b = 1;
 class A {
   x: {
     a: number,
-
     b?: string
   };
 
@@ -297,7 +295,6 @@ const a: {|
 
 const b: {
   a: number,
-
   b?: number
 } = a; // error: property \`b\` not found
 
@@ -331,7 +328,6 @@ class A<
   O: {
     x: {
       a: number,
-
       b?: string
     }
   }

@@ -671,7 +671,6 @@ function for_post_init(b) {
 function for_in_scoped_init() {
   for (var p in {
     a: 1,
-
     b: 2
   }) {
     var x: number = 0;
@@ -687,7 +686,6 @@ function for_in_pre_init() {
 
   for (var p in {
     a: 1,
-
     b: 2
   }) {
     var x: number = 0;
@@ -699,7 +697,6 @@ function for_in_pre_init() {
 function for_in_post_init() {
   for (var p in {
     a: 1,
-
     b: 2
   }) {
     var x: number = 0;

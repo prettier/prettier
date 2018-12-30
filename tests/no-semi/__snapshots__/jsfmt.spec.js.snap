@@ -164,7 +164,6 @@ interface E {
 =====================================output=====================================
 declare class A {
   one: boolean;
-
   two:
     | {
         three: string
@@ -186,7 +185,6 @@ declare class A {
 
 declare interface C {
   one: boolean;
-
   two:
     | {
         three: string
@@ -208,7 +206,6 @@ declare interface C {
 
 interface E {
   one: boolean;
-
   two:
     | {
         three: string
@@ -268,7 +265,6 @@ interface E {
 =====================================output=====================================
 declare class A {
   one: boolean;
-
   two:
     | {
         three: string
@@ -290,7 +286,6 @@ declare class A {
 
 declare interface C {
   one: boolean;
-
   two:
     | {
         three: string
@@ -312,7 +307,6 @@ declare interface C {
 
 interface E {
   one: boolean;
-
   two:
     | {
         three: string
@@ -372,7 +366,6 @@ interface E {
 =====================================output=====================================
 declare class A {
   one: boolean;
-
   two:
     | {
         three: string
@@ -394,7 +387,6 @@ declare class A {
 
 declare interface C {
   one: boolean;
-
   two:
     | {
         three: string
@@ -416,7 +408,6 @@ declare interface C {
 
 interface E {
   one: boolean;
-
   two:
     | {
         three: string

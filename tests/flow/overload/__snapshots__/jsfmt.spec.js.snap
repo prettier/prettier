@@ -75,13 +75,10 @@ var x4: number = "".split(/pattern/)[0];
 
 declare class C {
   foo(x: number): number;
-
   foo(x: string): string;
-
   bar(x: {
     a: number
   }): number;
-
   bar(x: {
     a: string
   }): string;
@@ -175,7 +172,6 @@ var foo = new Foo;
 =====================================output=====================================
 declare class Foo {
   bar(x: "hmm"): number;
-
   bar(x: string): string;
 }
 

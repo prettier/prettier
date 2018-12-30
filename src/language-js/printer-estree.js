@@ -1373,7 +1373,7 @@ function printPathNoParens(path, options, print, args) {
           }
           if (
             options.pure
-              ? !prop.node.shorthand
+              ? false
               : isNextLineEmpty(options.originalText, prop.node, options)
           ) {
             separatorParts.push(hardline);

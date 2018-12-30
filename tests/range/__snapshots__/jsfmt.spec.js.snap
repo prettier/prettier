@@ -108,11 +108,8 @@ function ugly() {
 function ugly() {
   const dictWithSeveralEntries = {
     key: "value",
-
     anotherKey: "another value",
-
     firstNumber: 1,
-
     secondNumber: 2
   };
 }
@@ -397,7 +394,6 @@ const y = {a:1, b:2}
 =====================================output=====================================
 const y = {
   a: 1,
-
   b: 2
 };
 
@@ -430,7 +426,6 @@ const y = [
 
   {
     a: 1,
-
     b: 2
   }
 ];

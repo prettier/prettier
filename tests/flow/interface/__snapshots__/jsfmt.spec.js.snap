@@ -45,7 +45,6 @@ interface Ok {
 
 interface Bad {
   [k1: string]: string;
-
   [k2: number]: number; // error: not supported (yet)
 }
 
@@ -135,7 +134,6 @@ interface K extends J {}
 
 var k: K = {
   x: "",
-
   y: ""
 }; // error: x should be number
 
@@ -163,9 +161,7 @@ interface E<Z> extends B<Z> {}
 
 var e: E<number> = {
   x: "",
-
   y: "",
-
   z: ""
 }; // error: x and z should be numbers
 
@@ -248,7 +244,6 @@ function foo(k: K) {
 =====================================output=====================================
 interface I {
   x: number;
-
   y: string;
 }
 
@@ -294,7 +289,6 @@ interface I {
 
 declare class C {
   bar(i: I): void;
-
   bar(f: (x: number) => void): void;
 }
 

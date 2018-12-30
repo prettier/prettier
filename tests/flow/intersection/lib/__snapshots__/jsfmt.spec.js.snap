@@ -62,17 +62,13 @@ type ObjAssignT = {
 
 type ReadableStreamOptions = {
   highWaterMark?: number,
-
   encoding?: ?string,
-
   objectMode?: boolean
 };
 
 type WritableStreamOptions = {
   highWaterMark?: number,
-
   decodeString?: boolean,
-
   objectMode?: boolean
 };
 
@@ -82,7 +78,6 @@ type WritableStreamOptions = {
 
 type ObjA = {
   foo: number,
-
   bar: string
 };
 
@@ -102,7 +97,6 @@ type A = {
 
 type B = {
   a: string,
-
   b: string
 };
 

@@ -114,7 +114,6 @@ function f() {
 
 var a = {
   p: 0,
-
   f
 };
 

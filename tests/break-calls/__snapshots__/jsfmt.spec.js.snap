@@ -54,7 +54,6 @@ h(
 deepCopyAndAsyncMapLeavesA(
   {
     source: sourceValue,
-
     destination: destination[sourceKey]
   },
   { valueMapper, overwriteExistingKeys }
@@ -64,7 +63,6 @@ deepCopyAndAsyncMapLeavesB(
   1337,
   {
     source: sourceValue,
-
     destination: destination[sourceKey]
   },
   { valueMapper, overwriteExistingKeys }
@@ -73,7 +71,6 @@ deepCopyAndAsyncMapLeavesB(
 deepCopyAndAsyncMapLeavesC(
   {
     source: sourceValue,
-
     destination: destination[sourceKey]
   },
   1337,

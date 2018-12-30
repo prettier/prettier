@@ -158,7 +158,6 @@ let tests = [
 
     element.scrollIntoView({
       behavior: "smooth",
-
       block: "end"
     });
 
@@ -256,7 +255,6 @@ let tests = [
 
     element.scrollIntoView({
       behavior: "smooth",
-
       block: "end"
     });
 
@@ -576,15 +574,12 @@ let tests = [
         createdCallback: {
           value: function createdCallback() {}
         },
-
         attachedCallback: {
           value: function attachedCallback() {}
         },
-
         detachedCallback: {
           value: function detachedCallback() {}
         },
-
         attributeChangedCallback: {
           value: function attributeChangedCallback(
             attributeLocalName,
@@ -603,11 +598,8 @@ let tests = [
     document.registerElement("custom-element", {
       prototype: Object.assign(Object.create(HTMLElement.prototype), {
         createdCallback() {},
-
         attachedCallback() {},
-
         detachedCallback() {},
-
         attributeChangedCallback(
           attributeLocalName,
           oldAttributeValue,

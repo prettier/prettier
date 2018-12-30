@@ -27,14 +27,11 @@ function area(shape: Shape): number {
 type Shape =
   | {
       type: "rectangle",
-
       width: number,
-
       height: number
     }
   | {
       type: "circle",
-
       radius: number
     };
 

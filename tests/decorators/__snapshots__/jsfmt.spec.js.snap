@@ -92,7 +92,6 @@ var x = 100;
 
 @Hello({
   a: "a", // Comment is in the wrong place
-
   // test
 
   b: "2"
@@ -304,7 +303,6 @@ const dog = {
   @nonenumerable
   @doubledValue
   legs: 4,
-
   @readonly
   @nonenumerable
   @doubledValue

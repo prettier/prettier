@@ -74,11 +74,7 @@ var { [key]: val2 } = {
 
 (val2: void); // ok (gasp!) by existing StrT -> ElemT rule
 
-var {
-  ["key"]: val3,
-
-  ...spread
-} = {
+var { ["key"]: val3, ...spread } = {
   key: "val"
 };
 
@@ -261,13 +257,11 @@ function obj_rest(
   {
     p: { q, ...o } = {
       q: 0,
-
       r: 0
     }
   } = {
     p: {
       q: 0,
-
       r: ""
     }
   }
@@ -294,7 +288,6 @@ obj_rest({
 obj_rest({
   p: {
     q: 0,
-
     r: null
   }
 });
@@ -496,18 +489,9 @@ declare var b: string;
 
 declare var c: string;
 
-[
-  {
-    a1: a,
-
-    b
-  },
-
-  c
-] = [
+[{ a1: a, b }, c] = [
   {
     a1: 0,
-
     b: 1
   },
 
@@ -540,7 +524,6 @@ function foo({ p, z: [r] }) {
 
 foo({
   p: 0,
-
   z: [1, 2]
 });
 
@@ -549,14 +532,12 @@ foo({
 function bar({ x, ...z }) {
   var o: {
     x: string,
-
     y: number
   } = z;
 }
 
 bar({
   x: "",
-
   y: 0
 });
 
@@ -566,13 +547,10 @@ var spread = {
 
 var extend: {
   x: number,
-
   y: string,
-
   z: boolean
 } = {
   x: 0,
-
   ...spread
 };
 
@@ -609,7 +587,6 @@ function test() {
 function test() {
   var x = {
     foo: "abc",
-
     bar: 123
   };
 
@@ -735,14 +712,7 @@ function tup_pattern2<X>([proj]: Proj<X>) {} // proj: X
 
 function rest_pattern<X>(...r: X[]) {} // r: X[]
 
-function obj_rest_pattern<X>({
-  _,
-  ...o
-}: {
-  _: any,
-
-  x: X
-}) {
+function obj_rest_pattern<X>({ _, ...o }: { _: any, x: X }) {
   // o: { x: X }
 
   o.x;
@@ -750,7 +720,6 @@ function obj_rest_pattern<X>({
 
 type ObjRest<X> = {
   _: any,
-
   x: X
 };
 

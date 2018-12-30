@@ -355,7 +355,6 @@ Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(member.doc, {
       typePath: typePath.concat(memberName.slice(1)),
-
       signatures: member.signatures
     })
   )
@@ -540,7 +539,6 @@ Seq(typeDef.interface.groups).forEach((group) =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(member.doc, {
       typePath: typePath.concat(memberName.slice(1)),
-
       signatures: member.signatures
     })
   )
@@ -935,11 +933,8 @@ const foo = () => {
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({
     message: "test",
-
     messageType: "SMS",
-
     status: "Unknown",
-
     created: "11/01/2017 13:36"
   });
 };
@@ -962,11 +957,8 @@ const foo = () => {
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({
     message: "test",
-
     messageType: "SMS",
-
     status: "Unknown",
-
     created: "11/01/2017 13:36"
   });
 };

@@ -42,7 +42,6 @@ export const X = {
   returnsATuple: function(): [number, number] {
     return [1, 2];
   },
-
   test: function() {
     let [a, b] = this.returnsATuple();
   }

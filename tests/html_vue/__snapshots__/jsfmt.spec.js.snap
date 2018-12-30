@@ -449,33 +449,23 @@ const Store = gl.issueBoards.BoardsStore;
 
 export default {
   name: "BoardsIssueCard",
-
   components: {
     "issue-card-inner": gl.issueBoards.IssueCardInner
   },
-
   props: {
     list: Object,
-
     issue: Object,
-
     issueLinkBase: String,
-
     disabled: Boolean,
-
     index: Number,
-
     rootPath: String
   },
-
   data() {
     return {
       showDetail: false,
-
       detailIssue: Store.detail
     };
   },
-
   computed: {
     issueDetailVisible() {
       return (
@@ -483,16 +473,13 @@ export default {
       );
     }
   },
-
   methods: {
     mouseDown() {
       this.showDetail = true;
     },
-
     mouseMove() {
       this.showDetail = false;
     },
-
     showIssue(e) {
       if (e.target.classList.contains("js-no-trigger")) return;
 
@@ -517,9 +504,7 @@ export default {
     class="card"
     :class="{
       'user-can-drag': !disabled && issue.id,
-
       'is-disabled': disabled || !issue.id,
-
       'is-active': issueDetailVisible
     }"
     :index="index"
@@ -632,33 +617,23 @@ const Store = gl.issueBoards.BoardsStore;
 
 export default {
   name: "BoardsIssueCard",
-
   components: {
     "issue-card-inner": gl.issueBoards.IssueCardInner,
   },
-
   props: {
     list: Object,
-
     issue: Object,
-
     issueLinkBase: String,
-
     disabled: Boolean,
-
     index: Number,
-
     rootPath: String,
   },
-
   data() {
     return {
       showDetail: false,
-
       detailIssue: Store.detail,
     };
   },
-
   computed: {
     issueDetailVisible() {
       return (
@@ -666,16 +641,13 @@ export default {
       );
     },
   },
-
   methods: {
     mouseDown() {
       this.showDetail = true;
     },
-
     mouseMove() {
       this.showDetail = false;
     },
-
     showIssue(e) {
       if (e.target.classList.contains("js-no-trigger")) return;
 
@@ -700,9 +672,7 @@ export default {
     class="card"
     :class="{
       'user-can-drag': !disabled && issue.id,
-
       'is-disabled': disabled || !issue.id,
-
       'is-active': issueDetailVisible,
     }"
     :index="index"
@@ -815,33 +785,23 @@ const Store = gl.issueBoards.BoardsStore
 
 export default {
   name: "BoardsIssueCard",
-
   components: {
     "issue-card-inner": gl.issueBoards.IssueCardInner
   },
-
   props: {
     list: Object,
-
     issue: Object,
-
     issueLinkBase: String,
-
     disabled: Boolean,
-
     index: Number,
-
     rootPath: String
   },
-
   data() {
     return {
       showDetail: false,
-
       detailIssue: Store.detail
     }
   },
-
   computed: {
     issueDetailVisible() {
       return (
@@ -849,16 +809,13 @@ export default {
       )
     }
   },
-
   methods: {
     mouseDown() {
       this.showDetail = true
     },
-
     mouseMove() {
       this.showDetail = false
     },
-
     showIssue(e) {
       if (e.target.classList.contains("js-no-trigger")) return
 
@@ -883,9 +840,7 @@ export default {
     class="card"
     :class="{
       'user-can-drag': !disabled && issue.id,
-
       'is-disabled': disabled || !issue.id,
-
       'is-active': issueDetailVisible
     }"
     :index="index"
@@ -2288,7 +2243,6 @@ printWidth: 80
         ref="contentImg"
         :class="{
           'is-zoomable': isZoomable,
-
           'is-zoomed': isZoomed
         }"
         :src="path"
@@ -2358,7 +2312,6 @@ trailingComma: "es5"
         ref="contentImg"
         :class="{
           'is-zoomable': isZoomable,
-
           'is-zoomed': isZoomed,
         }"
         :src="path"
@@ -2428,7 +2381,6 @@ semi: false
         ref="contentImg"
         :class="{
           'is-zoomable': isZoomable,
-
           'is-zoomed': isZoomed
         }"
         :src="path"
