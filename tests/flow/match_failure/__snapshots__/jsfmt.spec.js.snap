@@ -29,10 +29,7 @@ type Shape =
       width: number,
       height: number
     }
-  | {
-      type: "circle",
-      radius: number
-    };
+  | { type: "circle", radius: number };
 
 function area(shape: Shape): number {
   if (shape.type === "square") {

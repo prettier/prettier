@@ -1327,7 +1327,7 @@ function printPathNoParens(path, options, print, args) {
           )) ||
         (n.type !== "ObjectPattern" &&
           (options.pure && n.properties
-            ? n.properties.some(property => !property.shorthand)
+            ? n.properties.length >= 3
             : firstProperty &&
               hasNewlineInRange(
                 options.originalText,

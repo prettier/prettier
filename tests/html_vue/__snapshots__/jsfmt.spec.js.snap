@@ -56,9 +56,7 @@ printWidth: 80
     v-for="n in evenNumbers"
     v-for="n in even(numbers)"
     v-for="n in 10"
-    v-for="{ a } in [0].map(() => ({
-      a: 1
-    }))"
+    v-for="{ a } in [0].map(() => ({ a: 1 }))"
     v-for="({ a }, [c]) in [0].map(() => 1)"
     v-for="n in items.map(x => {
       return x;
@@ -173,9 +171,7 @@ trailingComma: "es5"
     v-for="n in evenNumbers"
     v-for="n in even(numbers)"
     v-for="n in 10"
-    v-for="{ a } in [0].map(() => ({
-      a: 1,
-    }))"
+    v-for="{ a } in [0].map(() => ({ a: 1 }))"
     v-for="({ a }, [c]) in [0].map(() => 1)"
     v-for="n in items.map(x => {
       return x;
@@ -290,9 +286,7 @@ semi: false
     v-for="n in evenNumbers"
     v-for="n in even(numbers)"
     v-for="n in 10"
-    v-for="{ a } in [0].map(() => ({
-      a: 1
-    }))"
+    v-for="{ a } in [0].map(() => ({ a: 1 }))"
     v-for="({ a }, [c]) in [0].map(() => 1)"
     v-for="n in items.map(x => {
       return x
@@ -437,9 +431,7 @@ import eventHub from "../eventhub";
 const Store = gl.issueBoards.BoardsStore;
 export default {
   name: "BoardsIssueCard",
-  components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner
-  },
+  components: { "issue-card-inner": gl.issueBoards.IssueCardInner },
   props: {
     list: Object,
     issue: Object,
@@ -449,10 +441,7 @@ export default {
     rootPath: String
   },
   data() {
-    return {
-      showDetail: false,
-      detailIssue: Store.detail
-    };
+    return { showDetail: false, detailIssue: Store.detail };
   },
   computed: {
     issueDetailVisible() {
@@ -599,9 +588,7 @@ import eventHub from "../eventhub";
 const Store = gl.issueBoards.BoardsStore;
 export default {
   name: "BoardsIssueCard",
-  components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner,
-  },
+  components: { "issue-card-inner": gl.issueBoards.IssueCardInner },
   props: {
     list: Object,
     issue: Object,
@@ -611,10 +598,7 @@ export default {
     rootPath: String,
   },
   data() {
-    return {
-      showDetail: false,
-      detailIssue: Store.detail,
-    };
+    return { showDetail: false, detailIssue: Store.detail };
   },
   computed: {
     issueDetailVisible() {
@@ -761,9 +745,7 @@ import eventHub from "../eventhub"
 const Store = gl.issueBoards.BoardsStore
 export default {
   name: "BoardsIssueCard",
-  components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner
-  },
+  components: { "issue-card-inner": gl.issueBoards.IssueCardInner },
   props: {
     list: Object,
     issue: Object,
@@ -773,10 +755,7 @@ export default {
     rootPath: String
   },
   data() {
-    return {
-      showDetail: false,
-      detailIssue: Store.detail
-    }
+    return { showDetail: false, detailIssue: Store.detail }
   },
   computed: {
     issueDetailVisible() {
@@ -2211,10 +2190,7 @@ printWidth: 80
     <div class="file-content image_file">
       <img
         ref="contentImg"
-        :class="{
-          'is-zoomable': isZoomable,
-          'is-zoomed': isZoomed
-        }"
+        :class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
         :src="path"
         :alt="path"
         @load="onImgLoad"
@@ -2280,10 +2256,7 @@ trailingComma: "es5"
     <div class="file-content image_file">
       <img
         ref="contentImg"
-        :class="{
-          'is-zoomable': isZoomable,
-          'is-zoomed': isZoomed,
-        }"
+        :class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
         :src="path"
         :alt="path"
         @load="onImgLoad"
@@ -2349,10 +2322,7 @@ semi: false
     <div class="file-content image_file">
       <img
         ref="contentImg"
-        :class="{
-          'is-zoomable': isZoomable,
-          'is-zoomed': isZoomed
-        }"
+        :class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
         :src="path"
         :alt="path"
         @load="onImgLoad"

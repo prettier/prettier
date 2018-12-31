@@ -301,9 +301,7 @@ class L extends L_ {
 // object, then the child does too.
 class M_ {
   constructor() {
-    return {
-      foo: "foo"
-    };
+    return { foo: "foo" };
   }
 }
 
@@ -313,14 +311,8 @@ class M extends M_ {
   }
 }
 
-(new M_(): {
-  foo: string
-});
-
-(new M(): {
-  foo: string
-});
-
+(new M_(): { foo: string });
+(new M(): { foo: string });
 // however! super() calls the parent constructor with the subclass as its \`this\`
 // value (essentially \`super.constructor.call(this)\`).
 class N_ {

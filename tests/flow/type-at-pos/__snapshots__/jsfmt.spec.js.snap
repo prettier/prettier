@@ -83,14 +83,9 @@ const d = {
 // class X {
 //   foo(): void {}
 // }
-const a = {
-  bar(): void {}
-};
+const a = { bar(): void {} };
 
-const b = {
-  bar: function(): void {}
-};
-
+const b = { bar: function(): void {} };
 const c = {
   m<T>(x: T): T {
     return x;
@@ -158,14 +153,8 @@ en;
 type F<X> = C<void>;
 var fn: F<number> = new C();
 fn;
-type O<X> = {
-  x: X
-};
-
-var on: O<number> = {
-  x: 0
-};
-
+type O<X> = { x: X };
+var on: O<number> = { x: 0 };
 on;
 type Mono = C<void>;
 var mn: Mono<number> = new C(); // error: application of non-poly type
@@ -218,9 +207,7 @@ let tests = [
 let tests = [
   function() {
     let x = {};
-    Object.defineProperty(x, "foo", {
-      value: ""
-    });
+    Object.defineProperty(x, "foo", { value: "" });
   }
 ];
 

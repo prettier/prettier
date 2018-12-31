@@ -82,16 +82,7 @@ function f3(x: ?string) {
 }
 
 declare var idx: $Facebookism$Idx;
-declare var obj: {
-  a?: {
-    b: ?{
-      c: null | {
-        d: number
-      }
-    }
-  }
-};
-
+declare var obj: { a?: { b: ?{ c: null | { d: number } } } };
 const idxResult = idx(obj, obj => obj.a.b.c.d);
 
 ================================================================================

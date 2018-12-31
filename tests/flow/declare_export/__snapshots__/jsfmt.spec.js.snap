@@ -716,9 +716,7 @@ module.exports = {
  * @providesModule CJSDefault
  * @flow
  */
-module.exports = {
-  numberValue: 42
-};
+module.exports = { numberValue: 42 };
 
 ================================================================================
 `;

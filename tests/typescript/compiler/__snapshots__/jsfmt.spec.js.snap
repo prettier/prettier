@@ -534,9 +534,7 @@ function b() {
 
 namespace global {}
 function foo(global: number) {}
-let obj = {
-  global: "123"
-};
+let obj = { global: "123" };
 
 ================================================================================
 `;

@@ -61,11 +61,7 @@ import {
 
 ---
 
-export const meta = {
-  authors: [fred, sue],
-  layout: Layout
-};
-
+export const meta = { authors: [fred, sue], layout: Layout };
 export default () => (
   <Doc
     components={{
@@ -146,11 +142,7 @@ import {
 
 ---
 
-export const meta = {
-  authors: [fred, sue],
-  layout: Layout
-}
-
+export const meta = { authors: [fred, sue], layout: Layout }
 export default () => (
   <Doc
     components={{

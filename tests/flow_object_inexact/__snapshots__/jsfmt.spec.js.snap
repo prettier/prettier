@@ -27,10 +27,7 @@ type X = {
 
 =====================================output=====================================
 //@flow
-type T = {
-  a: number,
-  ...
-};
+type T = { a: number, ... };
 
 type U = {
   a: number,
@@ -57,10 +54,7 @@ type V = {
   },
   z: { ... },
   foo: number,
-  bar: {
-    foo: number,
-    ...
-  },
+  bar: { foo: number, ... },
   ...
 };
 
@@ -71,10 +65,7 @@ function test(x: {
   qux: nunber,
   a: number,
   b: number,
-  c: {
-    a: number,
-    ...
-  },
+  c: { a: number, ... },
   ...
 }) {
   return x;

@@ -94,10 +94,7 @@ function testKeysOfStrLitDict(str: string, lit: "hi") {
   (123: $Keys<StrLitDict>); // Error: number -> keys of StrLitDict
 }
 
-type ObjLit = {
-  hi: mixed
-};
-
+type ObjLit = { hi: mixed };
 function testKeysOfOtherObj(str: string, lit: "hi") {
   (str: $Keys<ObjLit>); // Error: string -> keys of ObjLit
 

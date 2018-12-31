@@ -97,9 +97,7 @@ module.exports = {
 
 =====================================output=====================================
 /* @providesModule Mixin */
-module.exports = {
-  success: function() {}
-};
+module.exports = { success: function() {} };
 
 ================================================================================
 `;
@@ -199,15 +197,8 @@ class C6 extends React.Component { // OK, recommended
 =====================================output=====================================
 var React = require("React");
 type T1 = {};
-type T2 = {
-  x: number
-};
-
-type T3 = {
-  x: number,
-  y: number
-};
-
+type T2 = { x: number };
+type T3 = { x: number, y: number };
 class C1 extends React.Component<T1, T2, any>
 {
   // error
@@ -340,14 +331,8 @@ FooLegacy.bar();
 =====================================output=====================================
 var React = require("React");
 type DefaultProps = {};
-type Props = {
-  x: number
-};
-
-type State = {
-  y: number
-};
-
+type Props = { x: number };
+type State = { y: number };
 class Foo extends React.Component {
   props: Props;
   state: State;
@@ -360,9 +345,7 @@ class Foo extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      y: ""
-    };
+    this.state = { y: "" };
   }
 
   setState(o: { y_: string }): void {}
@@ -380,24 +363,16 @@ var foo: $jsx<number> = <Foo />;
 Foo.bar();
 var FooLegacy = React.createClass({
   is_mounted: (undefined: ?boolean),
-  propTypes: {
-    x: React.PropTypes.number.isRequired
-  },
+  propTypes: { x: React.PropTypes.number.isRequired },
   getDefaultProps(): DefaultProps {
     return {};
   },
-  statics: {
-    bar(): void {}
-  },
+  statics: { bar(): void {} },
   qux(): void {
     var _: string = this.props.x;
   },
-  getInitialState(): {
-    y: string
-  } {
-    return {
-      y: ""
-    };
+  getInitialState(): { y: string } {
+    return { y: "" };
   },
   setState(o: { y_: string }): void {},
   componentDidMount(): void {
@@ -454,9 +429,7 @@ import React from "react";
 //var React = require("react");
 //var React = require("React");
 class HelloMessage extends React.Component {
-  props: {
-    name: string
-  };
+  props: { name: string };
 }
 
 <HelloMessage name={007} />; // number ~/~> string error
@@ -516,12 +489,8 @@ var C = React.createClass({
     z: React.PropTypes.number
   },
   replaceProps(props: {}) {},
-  getDefaultProps(): {
-    z: number
-  } {
-    return {
-      z: 0
-    };
+  getDefaultProps(): { z: number } {
+    return { z: 0 };
   },
   getInitialState() {
     return null;
@@ -586,26 +555,11 @@ var C = React.createClass({
     ).isRequired
   }
 });
+<C statistics={[{}, { label: "", value: undefined }]} />; // error (label is required, value not required)
 
-<C
-  statistics={[
-    {},
-    {
-      label: "",
-      value: undefined
-    }
-  ]}
-/>; // error (label is required, value not required)
-
-var props: Array<{
-  label: string,
-  value?: number
-}> = [
+var props: Array<{ label: string, value?: number }> = [
   {},
-  {
-    label: "",
-    value: undefined
-  }
+  { label: "", value: undefined }
 ]; // error (same as ^)
 
 ================================================================================
@@ -648,15 +602,9 @@ var FooProps = React.createClass({
 =====================================output=====================================
 var React = require("react");
 var TestProps = React.createClass({
-  propTypes: {
-    x: React.PropTypes.string,
-    z: React.PropTypes.number
-  },
+  propTypes: { x: React.PropTypes.string, z: React.PropTypes.number },
   getDefaultProps: function() {
-    return {
-      x: "",
-      y: 0
-    };
+    return { x: "", y: 0 };
   },
   test: function() {
     var a: number = this.props.x; // error
@@ -672,11 +620,8 @@ var element = <TestProps x={false} y={false} z={false} />; // 3 errors
 (element: $jsx<*>);
 (element: $jsx<TestProps>);
 var FooProps = React.createClass({
-  propTypes: {
-    w: React.PropTypes.string.isRequired
-  }
+  propTypes: { w: React.PropTypes.string.isRequired }
 });
-
 (element: $jsx<FooProps>);
 
 ================================================================================
@@ -714,20 +659,12 @@ var C = React.createClass({
     bar: React.PropTypes.string.isRequired
   }
 });
-
 var D = React.createClass({
-  getInitialState: function(): {
-    bar: number
-  } {
-    return {
-      bar: 0
-    };
+  getInitialState: function(): { bar: number } {
+    return { bar: 0 };
   },
   render: function() {
-    var obj = {
-      bar: 0
-    };
-
+    var obj = { bar: 0 };
     var s: string = this.state.bar;
     return <C {...this.state} foo={0} />;
   }
@@ -890,19 +827,14 @@ import React from "React";
 
 class JDiv extends React.Component {
   // static defaultProps: { };
-  props: {
-    id: string
-  };
+  props: { id: string };
 }
 
 // Should be a type error ('id' takes a string, not a number..)
 <JDiv id={42} />;
 
 class Example extends React.Component {
-  props: {
-    bar: string
-  };
-
+  props: { bar: string };
   render() {
     return <div>{this.props.bar}</div>;
   }
@@ -933,9 +865,7 @@ module.exports = C;
 var React = require("React");
 var C = React.createClass({
   getDefaultProps: function() {
-    return {
-      x: 0
-    };
+    return { x: 0 };
   }
 });
 
@@ -978,17 +908,10 @@ var ReactClass = React.createClass({
 /* @flow */
 var React = require("react");
 
-type State = {
-  bar: ?{
-    qux: string
-  }
-};
-
+type State = { bar: ?{ qux: string } };
 var ReactClass = React.createClass({
   getInitialState: function(): State {
-    return {
-      bar: null
-    };
+    return { bar: null };
   },
   render: function(): any {
     // Any state access here seems to make state any
@@ -1029,10 +952,7 @@ module.exports = Comp;
 // @flow
 var React = require("react");
 
-type FooState = {
-  key: ?Object
-};
-
+type FooState = { key: ?Object };
 var Comp = React.createClass({
   getInitialState: function(): FooState {
     return {
@@ -1074,12 +994,8 @@ var TestState = React.createClass({
 =====================================output=====================================
 var React = require("react");
 var TestState = React.createClass({
-  getInitialState: function(): {
-    x: string
-  } {
-    return {
-      x: ""
-    };
+  getInitialState: function(): { x: string } {
+    return { x: "" };
   },
   test: function() {
     var a: number = this.state.x; // error
@@ -1116,18 +1032,11 @@ var C = React.createClass({
 =====================================output=====================================
 var React = require("React");
 var C = React.createClass({
-  getInitialState: function(): {
-    x: number
-  } {
-    return {
-      x: 0
-    };
+  getInitialState: function(): { x: number } {
+    return { x: 0 };
   },
   render() {
-    this.setState({
-      y: 0
-    });
-
+    this.setState({ y: 0 });
     return <div>{this.state.z}</div>;
   }
 });

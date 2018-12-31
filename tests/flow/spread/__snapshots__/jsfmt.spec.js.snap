@@ -63,12 +63,7 @@ function parseGroup(
   };
 }
 
-function parseTimeframe(
-  line: string
-): {
-  begin: number,
-  end: number
-} {
+function parseTimeframe(line: string): { begin: number, end: number } {
   var timestamps = line.split("-->");
   return {
     begin: parseTimestamp(timestamps[0].trim()),
@@ -100,15 +95,11 @@ foo({foo: 42});
  * @flow
  */
 function foo(o) {
-  bar({
-    ...o
-  });
+  bar({ ...o });
 }
 
 function bar(_: { foo: number }) {}
-foo({
-  foo: 42
-});
+foo({ foo: 42 });
 
 ================================================================================
 `;
@@ -138,14 +129,8 @@ var s = {
 var t: boolean = s.y; // error, string or number
 
 =====================================output=====================================
-var p = {
-  y: ""
-};
-
-var q = {
-  z: ""
-};
-
+var p = { y: "" };
+var q = { z: "" };
 var o = {
   x: 5,
   ...p,
@@ -155,15 +140,9 @@ var o = {
 var y: number = o.y;
 var z: number = o.z;
 // test conflicting keys (they get unioned)
-var r = {
-  y: 123
-};
+var r = { y: 123 };
 
-var s = {
-  ...p,
-  ...r
-};
-
+var s = { ...p, ...r };
 var t: boolean = s.y; // error, string or number
 
 ================================================================================
@@ -235,20 +214,13 @@ declare function map<Tv, TNext>(
  * result is a new object.
  */
 function test(
-  x: {
-    kind: ?string
-  },
+  x: { kind: ?string },
   kinds: { [key: string]: string }
-): Array<{
-  kind: ?string
-}> {
+): Array<{ kind: ?string }> {
   return map(kinds, value => {
     (value: string); // OK
 
-    return {
-      ...x,
-      kind: value
-    };
+    return { ...x, kind: value };
   });
 }
 
@@ -283,50 +255,20 @@ for (var i = 0; i < 10; i++) {
 (q: {foo: string});
 
 =====================================output=====================================
-var o = {
-  foo: "bar"
-};
+var o = { foo: "bar" };
+o = { ...o };
+(o: { foo: string });
+var p = { foo: "bar" };
+(p: { foo: string, abc: string }); // error, p doesn't have \`abc\` yet
 
-o = {
-  ...o
-};
-
-(o: {
-  foo: string
-});
-
-var p = {
-  foo: "bar"
-};
-
-(p: {
-  foo: string,
-  abc: string
-}); // error, p doesn't have \`abc\` yet
-
-p = {
-  ...p,
-  abc: "def"
-};
-
-(p: {
-  foo: string,
-  abc: string
-});
-
-var q = {
-  foo: "bar"
-};
-
+p = { ...p, abc: "def" };
+(p: { foo: string, abc: string });
+var q = { foo: "bar" };
 for (var i = 0; i < 10; i++) {
-  q = {
-    ...q
-  };
+  q = { ...q };
 }
 
-(q: {
-  foo: string
-});
+(q: { foo: string });
 
 ================================================================================
 `;
@@ -350,13 +292,8 @@ let tests = [
 // @flow
 let tests = [
   function(x: Object) {
-    ({
-      ...x
-    }: Object);
-
-    ({
-      ...x
-    }: void); // error, Object
+    ({ ...x }: Object);
+    ({ ...x }: void); // error, Object
   }
 ];
 

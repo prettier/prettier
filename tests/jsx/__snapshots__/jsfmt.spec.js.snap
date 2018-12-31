@@ -374,9 +374,7 @@ singleQuote: false
   }
   propObj={
     // comment
-    {
-      key: val
-    }
+    { key: val }
   }
   propTemplate={
     // comment
@@ -449,9 +447,7 @@ singleQuote: false
   }
   propObj={
     // comment
-    {
-      key: val
-    }
+    { key: val }
   }
   propTemplate={
     // comment
@@ -524,9 +520,7 @@ singleQuote: true
   }
   propObj={
     // comment
-    {
-      key: val
-    }
+    { key: val }
   }
   propTemplate={
     // comment
@@ -599,9 +593,7 @@ singleQuote: true
   }
   propObj={
     // comment
-    {
-      key: val
-    }
+    { key: val }
   }
   propTemplate={
     // comment
@@ -1990,9 +1982,7 @@ singleQuote: false
     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
     value: string | Immutable.List<string>
   ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
+    this.setState({ updatedTask: this.state.updatedTask.set(key, value) });
   }}
 />;
 
@@ -2023,19 +2013,12 @@ singleQuote: false
     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
     value: string | Immutable.List<string>
   ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
+    this.setState({ updatedTask: this.state.updatedTask.set(key, value) });
   }}
 </Component>;
 
 <SuspendyTree>
-  <div
-    style={{
-      height: 200,
-      overflow: "scroll"
-    }}
-  >
+  <div style={{ height: 200, overflow: "scroll" }}>
     {Array(20)
       .fill()
       .map((_, i) => (
@@ -2277,9 +2260,7 @@ singleQuote: false
     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
     value: string | Immutable.List<string>
   ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
+    this.setState({ updatedTask: this.state.updatedTask.set(key, value) });
   }}
 />;
 
@@ -2310,19 +2291,12 @@ singleQuote: false
     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
     value: string | Immutable.List<string>
   ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
+    this.setState({ updatedTask: this.state.updatedTask.set(key, value) });
   }}
 </Component>;
 
 <SuspendyTree>
-  <div
-    style={{
-      height: 200,
-      overflow: "scroll"
-    }}
-  >
+  <div style={{ height: 200, overflow: "scroll" }}>
     {Array(20)
       .fill()
       .map((_, i) => (
@@ -2564,9 +2538,7 @@ singleQuote: true
     key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
     value: string | Immutable.List<string>
   ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
+    this.setState({ updatedTask: this.state.updatedTask.set(key, value) });
   }}
 />;
 
@@ -2597,19 +2569,12 @@ singleQuote: true
     key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
     value: string | Immutable.List<string>
   ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
+    this.setState({ updatedTask: this.state.updatedTask.set(key, value) });
   }}
 </Component>;
 
 <SuspendyTree>
-  <div
-    style={{
-      height: 200,
-      overflow: 'scroll'
-    }}
-  >
+  <div style={{ height: 200, overflow: 'scroll' }}>
     {Array(20)
       .fill()
       .map((_, i) => (
@@ -2851,9 +2816,7 @@ singleQuote: true
     key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
     value: string | Immutable.List<string>
   ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
+    this.setState({ updatedTask: this.state.updatedTask.set(key, value) });
   }}
 />;
 
@@ -2884,19 +2847,12 @@ singleQuote: true
     key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
     value: string | Immutable.List<string>
   ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
+    this.setState({ updatedTask: this.state.updatedTask.set(key, value) });
   }}
 </Component>;
 
 <SuspendyTree>
-  <div
-    style={{
-      height: 200,
-      overflow: 'scroll'
-    }}
-  >
+  <div style={{ height: 200, overflow: 'scroll' }}>
     {Array(20)
       .fill()
       .map((_, i) => (

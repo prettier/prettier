@@ -11,9 +11,7 @@ printWidth: 80
 module.exports = { a() {} };
 =====================================output=====================================
 /* @flow */
-module.exports = {
-  a() {}
-};
+module.exports = { a() {} };
 
 ================================================================================
 `;
@@ -35,14 +33,7 @@ module.exports = b;
 /* @flow */
 var a = require("./a");
 
-var b = Object.assign(
-  {
-    bar() {},
-    ...{}
-  },
-  a
-);
-
+var b = Object.assign({ bar() {}, ...{} }, a);
 b.a(); // works here
 
 module.exports = b;
@@ -101,11 +92,7 @@ var export_ = Object.assign(
   }
 );
 
-var decl_export_: {
-  foo: any,
-  bar: any
-} = Object.assign({}, export_);
-
+var decl_export_: { foo: any, bar: any } = Object.assign({}, export_);
 let anyObj: Object = {};
 Object.assign(anyObj, anyObj); // makes sure this terminates
 
@@ -151,14 +138,10 @@ class C {
 (Object.create(new C()): C);
 
 // error, object literals don't structurally match instances
-({
-  foo: "foo"
-}: C);
+({ foo: "foo" }: C);
 
 // error, object types don't structurally match instances
-type O = {
-  foo: string
-};
+type O = { foo: string };
 
 declare var o: O;
 (o: C);
@@ -240,10 +223,7 @@ class Bar extends Foo {
 
 =====================================output=====================================
 /* @flow */
-var sealed = {
-  one: "one",
-  two: "two"
-};
+var sealed = { one: "one", two: "two" };
 
 (Object.keys(sealed): Array<"one" | "two">);
 (Object.keys(sealed): void); // error, Array<string>
@@ -484,15 +464,8 @@ function takesAString(x: string) {}
 function takesANumber(x: number) {}
 function takesAnObject(x: Object) {}
 class Foo {}
-var a = {
-  foo: "bar"
-};
-
-var b = {
-  foo: "bar",
-  ...{}
-};
-
+var a = { foo: "bar" };
+var b = { foo: "bar", ...{} };
 var c = {
   foo: "bar",
   toString: function(): number {
@@ -500,10 +473,7 @@ var c = {
   }
 };
 
-var d: { [key: string]: string } = {
-  foo: "bar"
-};
-
+var d: { [key: string]: string } = { foo: "bar" };
 var x = new Date();
 var y = new Foo();
 //

@@ -76,13 +76,7 @@ it('should group messages with same created time', () => {
 =====================================output=====================================
 export default store => {
   return callApi(endpoint, schema).then(
-    response =>
-      next(
-        actionWith({
-          response,
-          type: successType
-        })
-      ),
+    response => next(actionWith({ response, type: successType })),
     error =>
       next(
         actionWith({
@@ -419,9 +413,7 @@ nock(/test/)
 nock(/test/)
   .matchHeader("Accept", "application/json")
   [httpMethodNock(method)]("/foo")
-  .reply(200, {
-    foo: "bar"
-  });
+  .reply(200, { foo: "bar" });
 
 ================================================================================
 `;
@@ -560,13 +552,8 @@ not.d3.scaleLinear()
 =====================================output=====================================
 d3.select("body")
   .append("circle")
-  .at({
-    width: 30,
-    fill: "#f0f"
-  })
-  .st({
-    fontWeight: 600
-  });
+  .at({ width: 30, fill: "#f0f" })
+  .st({ fontWeight: 600 });
 
 d3.scaleLinear()
   .domain([1950, 1980])
@@ -575,13 +562,8 @@ d3.scaleLinear()
 not.d3
   .select("body")
   .append("circle")
-  .at({
-    width: 30,
-    fill: "#f0f"
-  })
-  .st({
-    fontWeight: 600
-  });
+  .at({ width: 30, fill: "#f0f" })
+  .st({ fontWeight: 600 });
 
 not.d3
   .scaleLinear()
@@ -698,11 +680,7 @@ var jqxhr = $.ajax("example.php")
   .fail(failFn);
 
 =====================================output=====================================
-Object.keys(
-  availableLocales({
-    test: true
-  })
-).forEach(locale => {
+Object.keys(availableLocales({ test: true })).forEach(locale => {
   // ...
 });
 

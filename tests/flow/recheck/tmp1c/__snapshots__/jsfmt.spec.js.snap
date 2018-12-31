@@ -19,9 +19,7 @@ export function bar(props: { y: number }) {
 import { foo } from "./c1";
 
 export function bar(props: { y: number }) {
-  foo({
-    y: 0
-  });
+  foo({ y: 0 });
 }
 
 ================================================================================

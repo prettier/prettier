@@ -341,9 +341,7 @@ printWidth: 80
   > {
     constructor() {
       super();
-      this.state = {
-        data: []
-      };
+      this.state = { data: [] };
     }
 
     fetchComments() {
@@ -351,10 +349,7 @@ printWidth: 80
         url: this.props.url,
         dataType: "json",
         cache: false,
-        success: data =>
-          this.setState({
-            data: data
-          }),
+        success: data => this.setState({ data: data }),
         error: (xhr, status, err) => console.error(status, err)
       });
     }
@@ -369,9 +364,7 @@ printWidth: 80
         console.warn("comment submitted!", comment);
         const updated = this.state.data.slice(0);
         updated.push(comment);
-        this.setState({
-          data: updated
-        });
+        this.setState({ data: updated });
       };
 
       return (

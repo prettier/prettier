@@ -169,9 +169,7 @@ p { font-size : 2em ; text-align : center ; }
 <script>
 module.exports = {
   data: function() {
-    return {
-      greeting: "Hello"
-    };
+    return { greeting: "Hello" };
   }
 };
 </script>

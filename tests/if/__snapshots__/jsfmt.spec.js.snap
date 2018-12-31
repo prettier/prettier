@@ -65,10 +65,7 @@ function f() {
 =====================================output=====================================
 // Both functions below should be formatted exactly the same
 function f() {
-  if (position)
-    return {
-      name: pair
-    };
+  if (position) return { name: pair };
   else
     return {
       name: pair.substring(0, position),
@@ -77,10 +74,7 @@ function f() {
 }
 
 function f() {
-  if (position)
-    return {
-      name: pair
-    };
+  if (position) return { name: pair };
   else
     return {
       name: pair.substring(0, position),

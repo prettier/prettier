@@ -31,12 +31,7 @@ function foo(b): A<any> {
 
 function bar(): A<*> {
   // error, * can't be {} and {x: string} at the same time
-  return (
-    (new A(): A<{}>) ||
-    (new A(): A<{
-      x: string
-    }>)
-  );
+  return (new A(): A<{}>) || (new A(): A<{ x: string }>);
 }
 
 ================================================================================
@@ -175,14 +170,8 @@ function bar<S>(foo: Foo<S>, y: S): Foo<S> {
   return new Foo(y);
 }
 
-var P = {
-  bar: bar
-};
-
-declare var Q: {
-  bar<S>(foo: Foo<S>, y: S): Foo<S>
-};
-
+var P = { bar: bar };
+declare var Q: { bar<S>(foo: Foo<S>, y: S): Foo<S> };
 var foo = new Foo(0);
 var x: string = foo.x;
 var z: Foo<number> = Q.bar(foo, "");

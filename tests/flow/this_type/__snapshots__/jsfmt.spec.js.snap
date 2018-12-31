@@ -109,19 +109,12 @@ class B extends A {
 
 // covariance checks on this type in invariant positions
 class Invariant {
-  out_object(): {
-    _: this
-  } {
-    return {
-      _: this
-    };
+  out_object(): { _: this } {
+    return { _: this };
   }
 
   in_object(_: { _: this }) {}
-  inout_object: {
-    _: this
-  };
-
+  inout_object: { _: this };
   out_array(): Array<this> {
     return [this];
   }

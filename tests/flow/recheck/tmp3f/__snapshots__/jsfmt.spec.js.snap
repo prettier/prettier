@@ -19,14 +19,9 @@ module.exports = { a, b, c: a };
 
 =====================================output=====================================
 // @flow
-type T = {
-  x: number
-};
+type T = { x: number };
 
-type S = {
-  x: string
-};
-
+type S = { x: string };
 declare var a: T;
 declare var b: S;
 declare var c: T;

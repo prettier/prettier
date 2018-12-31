@@ -275,9 +275,7 @@ function StatelessFunctionalComponent(
     searchFilters = null,
     title = "",
     items = []
-  } = {
-    isActive: true
-  }
+  } = { isActive: true }
 ) {
   return <div />;
 }

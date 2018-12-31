@@ -26,10 +26,7 @@ class Product {
 
 =====================================output=====================================
 function save(filename = throw new TypeError("Argument required")) {}
-lint(ast, {
-  with: () => throw new Error("avoid using 'with' statements.")
-});
-
+lint(ast, { with: () => throw new Error("avoid using 'with' statements.") });
 function getEncoder(encoding) {
   const encoder =
     encoding === "utf8"

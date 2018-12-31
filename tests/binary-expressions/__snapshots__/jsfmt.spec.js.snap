@@ -37,9 +37,7 @@ function f() {
       entity &&
       entity.isInstallAvailable() &&
       !entity.isQueue() &&
-      entity.isDisabled() && {
-        id: entity.id
-      }
+      entity.isDisabled() && { id: entity.id }
   );
 }
 
@@ -357,29 +355,12 @@ prevState = prevState ||
     selectedCatalog: null
   };
 
-this.steps = steps || [
-  {
-    name: "mock-module",
-    path: "/nux/mock-module"
-  }
-];
-
+this.steps = steps || [{ name: "mock-module", path: "/nux/mock-module" }];
 this.steps =
-  steps ||
-  (checkStep && [
-    {
-      name: "mock-module",
-      path: "/nux/mock-module"
-    }
-  ]);
-
+  steps || (checkStep && [{ name: "mock-module", path: "/nux/mock-module" }]);
 this.steps = (steps && checkStep) || [
-  {
-    name: "mock-module",
-    path: "/nux/mock-module"
-  }
+  { name: "mock-module", path: "/nux/mock-module" }
 ];
-
 const create = () => {
   const result = doSomething();
   return (
@@ -404,14 +385,8 @@ const create = () => {
 };
 
 const obj = {
-  state: shouldHaveState &&
-    stateIsOK && {
-      loadState: LOADED,
-      opened: false
-    },
-  loadNext: (stateIsOK && hasNext) || {
-    skipNext: true
-  },
+  state: shouldHaveState && stateIsOK && { loadState: LOADED, opened: false },
+  loadNext: (stateIsOK && hasNext) || { skipNext: true },
   loaded: true
 };
 
@@ -474,13 +449,9 @@ printWidth: 80
 <div
   style={
     !isJellyfishEnabled &&
-    diffUpdateMessageInput && {
-      fontSize: 14,
-      color: "#fff"
-    }
+    diffUpdateMessageInput && { fontSize: 14, color: "#fff" }
   }
 />;
-
 <div>
   {!isJellyfishEnabled && diffUpdateMessageInput != null && (
     <div>

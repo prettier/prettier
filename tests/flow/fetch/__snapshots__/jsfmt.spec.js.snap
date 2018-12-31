@@ -43,9 +43,7 @@ const b: Promise<string> = fetch(myRequest); // incorrect
 
 var myInit = {
   method: "GET",
-  headers: {
-    "Content-Type": "image/jpeg"
-  },
+  headers: { "Content-Type": "image/jpeg" },
   mode: "cors",
   cache: "default"
 };
@@ -102,9 +100,7 @@ const a = new Headers("'Content-Type': 'image/jpeg'"); // not correct
 
 const b = new Headers(["Content-Type", "image/jpeg"]); // not correct
 
-const c = new Headers({
-  "Content-Type": "image/jpeg"
-}); // correct
+const c = new Headers({ "Content-Type": "image/jpeg" }); // correct
 
 const d = new Headers(c); // correct
 
@@ -114,17 +110,13 @@ e.append("Content-Type", "image/jpeg"); // correct
 
 e.append("Content-Type"); // not correct
 
-e.append({
-  "Content-Type": "image/jpeg"
-}); // not correct
+e.append({ "Content-Type": "image/jpeg" }); // not correct
 
 e.set("Content-Type", "image/jpeg"); // correct
 
 e.set("Content-Type"); // not correct
 
-e.set({
-  "Content-Type": "image/jpeg"
-}); // not correct
+e.set({ "Content-Type": "image/jpeg" }); // not correct
 
 const f: Headers = e.append("Content-Type", "image/jpeg"); // not correct
 
@@ -243,9 +235,7 @@ new Request(new URL("http://example.org")); // correct
 
 const h: Request = new Request("http://example.org", {
   method: "GET",
-  headers: {
-    "Content-Type": "image/jpeg"
-  },
+  headers: { "Content-Type": "image/jpeg" },
   mode: "cors",
   cache: "default"
 }); // correct
@@ -261,25 +251,19 @@ h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 
 const i: Request = new Request("http://example.org", {
   method: "POST",
-  headers: {
-    "Content-Type": "application/octet-stream"
-  },
+  headers: { "Content-Type": "application/octet-stream" },
   body: new ArrayBuffer(10)
 }); // correct
 
 const j: Request = new Request("http://example.org", {
   method: "POST",
-  headers: {
-    "Content-Type": "application/octet-stream"
-  },
+  headers: { "Content-Type": "application/octet-stream" },
   body: new Uint8Array(10)
 }); // correct
 
 const k: Request = new Request("http://example.org", {
   method: "POST",
-  headers: {
-    "Content-Type": "image/jpeg"
-  },
+  headers: { "Content-Type": "image/jpeg" },
   body: new URLSearchParams("key=value"),
   mode: "cors",
   cache: "default"
@@ -292,17 +276,11 @@ const l: Request = new Request("http://example.org", {
   cache: "default"
 }); // incorrect - headers is string
 
-new Request("/", {
-  method: "post"
-}); // correct
+new Request("/", { method: "post" }); // correct
 
-new Request("/", {
-  method: "hello"
-}); // correct
+new Request("/", { method: "hello" }); // correct
 
-new Request("/", {
-  method: null
-}); // incorrect
+new Request("/", { method: null }); // incorrect
 
 ================================================================================
 `;
@@ -366,21 +344,13 @@ const b: Response = new Response(new Blob()); // correct
 
 const c: Response = new Response(new FormData()); // correct
 
-new Response("", {
-  status: 404
-}); // correct
+new Response("", { status: 404 }); // correct
 
-new Response(null, {
-  status: 204
-}); // correct
+new Response(null, { status: 204 }); // correct
 
-new Response("", {
-  status: "404"
-}); // incorrect
+new Response("", { status: "404" }); // incorrect
 
-new Response("", {
-  status: null
-}); // incorrect
+new Response("", { status: null }); // incorrect
 
 const f: Response = new Response("responsebody", {
   status: 404,
@@ -389,23 +359,17 @@ const f: Response = new Response("responsebody", {
 
 const g: Response = new Response("responsebody", {
   status: 404,
-  headers: {
-    "Content-Type": "image/jpeg"
-  }
+  headers: { "Content-Type": "image/jpeg" }
 }); // correct
 
 const h: Response = new Response("responsebody", {
   status: 404,
-  headers: new Headers({
-    "Content-Type": "image/jpeg"
-  })
+  headers: new Headers({ "Content-Type": "image/jpeg" })
 }); // correct, if verbose
 
 const i: Response = new Response({
   status: 404,
-  headers: new Headers({
-    "Content-Type": "image/jpeg"
-  })
+  headers: new Headers({ "Content-Type": "image/jpeg" })
 }); // incorrect
 
 const ok: boolean = h.ok;
@@ -468,9 +432,7 @@ const a = new URLSearchParams("key1=value1"); // correct
 
 const b = new URLSearchParams(["key1", "value1"]); // not correct
 
-const c = new URLSearchParams({
-  key1: "value1"
-}); // not correct
+const c = new URLSearchParams({ key1: "value1" }); // not correct
 
 const d = new URLSearchParams(c); // correct
 
@@ -480,17 +442,13 @@ e.append("key1", "value1"); // correct
 
 e.append("key1"); // not correct
 
-e.append({
-  key1: "value1"
-}); // not correct
+e.append({ key1: "value1" }); // not correct
 
 e.set("key1", "value1"); // correct
 
 e.set("key1"); // not correct
 
-e.set({
-  key1: "value1"
-}); // not correct
+e.set({ key1: "value1" }); // not correct
 
 const f: URLSearchParams = e.append("key1", "value1"); // not correct
 

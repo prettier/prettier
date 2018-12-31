@@ -15,22 +15,11 @@ function bar(x: Error & {type:number}): number {
 }
 
 =====================================output=====================================
-function foo(
-  x: $All<
-    Error,
-    {
-      type: number
-    }
-  >
-): number {
+function foo(x: $All<Error, { type: number }>): number {
   return x.type;
 }
 
-function bar(
-  x: Error & {
-    type: number
-  }
-): number {
+function bar(x: Error & { type: number }): number {
   return x.type;
 }
 
@@ -65,9 +54,7 @@ let y: ObjAssignT = { ...x }; // should be fine
  */
 declare var x: ObjAssignT;
 
-let y: ObjAssignT = {
-  ...x
-}; // should be fine
+let y: ObjAssignT = { ...x }; // should be fine
 
 ================================================================================
 `;

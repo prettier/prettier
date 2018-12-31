@@ -142,22 +142,10 @@ type T = ?(?(() => A));
 type T = ?(?() => A) | B;
 
 =====================================output=====================================
-type Banana = {
-  eat: string => boolean
-};
-
-type Hex = {
-  n: 0x01
-};
-
-type T = {
-  method: a => void
-};
-
-type T = {
-  method(a): void
-};
-
+type Banana = { eat: string => boolean };
+type Hex = { n: 0x01 };
+type T = { method: a => void };
+type T = { method(a): void };
 declare class X {
   method(a): void;
 }
@@ -273,22 +261,10 @@ type T = ?(?(() => A));
 type T = ?(?() => A) | B;
 
 =====================================output=====================================
-type Banana = {
-  eat: string => boolean,
-};
-
-type Hex = {
-  n: 0x01,
-};
-
-type T = {
-  method: a => void,
-};
-
-type T = {
-  method(a): void,
-};
-
+type Banana = { eat: string => boolean };
+type Hex = { n: 0x01 };
+type T = { method: a => void };
+type T = { method(a): void };
 declare class X {
   method(a): void;
 }
@@ -404,22 +380,10 @@ type T = ?(?(() => A));
 type T = ?(?() => A) | B;
 
 =====================================output=====================================
-type Banana = {
-  eat: (string) => boolean
-};
-
-type Hex = {
-  n: 0x01
-};
-
-type T = {
-  method: (a) => void
-};
-
-type T = {
-  method(a): void
-};
-
+type Banana = { eat: (string) => boolean };
+type Hex = { n: 0x01 };
+type T = { method: (a) => void };
+type T = { method(a): void };
 declare class X {
   method(a): void;
 }

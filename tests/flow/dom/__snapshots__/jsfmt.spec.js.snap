@@ -58,9 +58,7 @@ let tests = [
   // CustomEvent
   function(document: Document) {
     const event = document.createEvent("CustomEvent");
-    event.initCustomEvent("butts", true, false, {
-      nice: 42
-    });
+    event.initCustomEvent("butts", true, false, { nice: 42 });
   }
 ];
 
@@ -137,28 +135,13 @@ let tests = [
     element.scrollIntoView();
     element.scrollIntoView(false);
     element.scrollIntoView({});
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "end"
-    });
-
-    element.scrollIntoView({
-      block: "end"
-    });
-
-    element.scrollIntoView({
-      behavior: "smooth"
-    });
-
+    element.scrollIntoView({ behavior: "smooth", block: "end" });
+    element.scrollIntoView({ block: "end" });
+    element.scrollIntoView({ behavior: "smooth" });
     // fails
-    element.scrollIntoView({
-      behavior: "invalid"
-    });
+    element.scrollIntoView({ behavior: "invalid" });
 
-    element.scrollIntoView({
-      block: "invalid"
-    });
-
+    element.scrollIntoView({ block: "invalid" });
     element.scrollIntoView(1);
   }
 ];
@@ -226,28 +209,13 @@ let tests = [
     element.scrollIntoView();
     element.scrollIntoView(false);
     element.scrollIntoView({});
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "end"
-    });
-
-    element.scrollIntoView({
-      block: "end"
-    });
-
-    element.scrollIntoView({
-      behavior: "smooth"
-    });
-
+    element.scrollIntoView({ behavior: "smooth", block: "end" });
+    element.scrollIntoView({ block: "end" });
+    element.scrollIntoView({ behavior: "smooth" });
     // fails
-    element.scrollIntoView({
-      behavior: "invalid"
-    });
+    element.scrollIntoView({ behavior: "invalid" });
 
-    element.scrollIntoView({
-      block: "invalid"
-    });
-
+    element.scrollIntoView({ block: "invalid" });
     element.scrollIntoView(1);
   }
 ];
@@ -525,15 +493,9 @@ let tests = [
   function() {
     document.registerElement("custom-element", {
       prototype: Object.create(HTMLElement.prototype, {
-        createdCallback: {
-          value: function createdCallback() {}
-        },
-        attachedCallback: {
-          value: function attachedCallback() {}
-        },
-        detachedCallback: {
-          value: function detachedCallback() {}
-        },
+        createdCallback: { value: function createdCallback() {} },
+        attachedCallback: { value: function attachedCallback() {} },
+        detachedCallback: { value: function detachedCallback() {} },
         attributeChangedCallback: {
           value: function attributeChangedCallback(
             attributeLocalName,

@@ -249,13 +249,7 @@ declare function AcceptsWhatever(props: {} | null, children: any): string;
 
 (<AcceptsWhatever name="hi">Text</AcceptsWhatever>: number); // Error string ~> number
 
-declare function ExpectsProps(
-  props: {
-    name: string
-  },
-  children: any
-): string;
-
+declare function ExpectsProps(props: { name: string }, children: any): string;
 <ExpectsProps />; // Error - missing prop
 
 (<ExpectsProps name="hi">Text</ExpectsProps>: number); // Error string ~> number

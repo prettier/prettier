@@ -94,9 +94,7 @@ g
   // Intentionally not passing \`basicFlags\` to \`XRegExp.union\` since any syntax
   // transformation resulting from those flags was already applied to \`left\` and
   // \`right\` when they were passed through the XRegExp constructor above.
-  XRegExp.union([left, right], "", {
-    conjunction: "or"
-  }).source
+  XRegExp.union([left, right], "", { conjunction: "or" }).source
 })[^\${escapeChar}])+)+
 \`;
 
@@ -236,10 +234,7 @@ line 1
 line 2
 ...
 line n
-\${foo({
-  many: keys,
-  many: keys
-})}
+\${foo({ many: keys, many: keys })}
 line n + 1
 line n + 2
 line n + n
@@ -346,18 +341,12 @@ this._pipe.write(
     a
   \`;
 
-(): {
-  someLong: boolean,
-  t: boolean
-} =>
+(): { someLong: boolean, t: boolean } =>
   \`
   a
 \`;
 
-(): {
-  someLong: boolean,
-  t: boolean
-} =>
+(): { someLong: boolean, t: boolean } =>
   \`
     a
   \`;
@@ -373,9 +362,7 @@ this._pipe.write(
   \`;
 
 // https://github.com/prettier/prettier/issues/5529
-editTitle += \`\${iconHTML({
-  class: "reply-to-glyph"
-})}\`;
+editTitle += \`\${iconHTML({ class: "reply-to-glyph" })}\`;
 
 ================================================================================
 `;

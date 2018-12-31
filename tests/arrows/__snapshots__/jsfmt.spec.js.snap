@@ -297,7 +297,6 @@ Seq(typeDef.interface.groups).forEach(group =>
     })
   )
 );
-
 const promiseFromCallback = fn =>
   new Promise((resolve, reject) =>
     fn((err, result) => {
@@ -369,9 +368,7 @@ jest.mock(
   () =>
     class {
       findMatchingTests(pattern) {
-        return {
-          paths: []
-        };
+        return { paths: [] };
       }
     }
 );
@@ -480,7 +477,6 @@ Seq(typeDef.interface.groups).forEach((group) =>
     })
   )
 );
-
 const promiseFromCallback = (fn) =>
   new Promise((resolve, reject) =>
     fn((err, result) => {
@@ -552,9 +548,7 @@ jest.mock(
   () =>
     class {
       findMatchingTests(pattern) {
-        return {
-          paths: []
-        };
+        return { paths: [] };
       }
     }
 );

@@ -58,10 +58,7 @@ function foo0(
 
 function foo2(x: {
   [key: string]: number
-}): {
-  [key: string]: number,
-  +toString: () => string
-} {
+}): { [key: string]: number, +toString: () => string } {
   // x's prototype has a toString method
   return x;
 }
@@ -467,14 +464,7 @@ function add_prop_to_nonstring_key_bracket(o: { [k: number]: any }) {
 }
 
 // Objects can be part dict, part not by mixing an indexer with declared props.
-function mix_with_declared_props(
-  o: {
-    [k: number]: X,
-    p: Y
-  },
-  x: X,
-  y: Y
-) {
+function mix_with_declared_props(o: { [k: number]: X, p: Y }, x: X, y: Y) {
   (o[0]: X); // ok
 
   (o.p: Y); // ok
@@ -487,10 +477,7 @@ function mix_with_declared_props(
 // Indeed, dict types are still Objects and have Object.prototype stuff
 function object_prototype(o: {
   [k: string]: number
-}): {
-  [k: string]: number,
-  +toString: () => string
-} {
+}): { [k: string]: number, +toString: () => string } {
   (o.toString(): boolean); // error: string ~> boolean
 
   return o; // ok
@@ -574,39 +561,21 @@ function subtype_dict_keys_invariant(x: { [k: B]: any }) {
 function unification_mix_with_declared_props_invariant_l(
   x: Array<{ [k: string]: B }>
 ) {
-  let a: Array<{
-    [k: string]: B,
-    p: A
-  }> = x; // error: A ~> B
+  let a: Array<{ [k: string]: B, p: A }> = x; // error: A ~> B
 
   a[0].p = new A(); // x[0].p no longer B
 
-  let b: Array<{
-    [k: string]: B,
-    p: B
-  }> = x; // ok
+  let b: Array<{ [k: string]: B, p: B }> = x; // ok
 
-  let c: Array<{
-    [k: string]: B,
-    p: C
-  }> = x; // error
+  let c: Array<{ [k: string]: B, p: C }> = x; // error
 
   (x[0].p: C); // not true
 }
 
 function unification_mix_with_declared_props_invariant_r(
-  xa: Array<{
-    [k: string]: A,
-    p: B
-  }>,
-  xb: Array<{
-    [k: string]: B,
-    p: B
-  }>,
-  xc: Array<{
-    [k: string]: C,
-    p: B
-  }>
+  xa: Array<{ [k: string]: A, p: B }>,
+  xb: Array<{ [k: string]: B, p: B }>,
+  xc: Array<{ [k: string]: C, p: B }>
 ) {
   let a: Array<{ [k: string]: A }> = xa; // error
 
@@ -620,39 +589,21 @@ function unification_mix_with_declared_props_invariant_r(
 }
 
 function subtype_mix_with_declared_props_invariant_l(x: { [k: string]: B }) {
-  let a: {
-    [k: string]: B,
-    p: A
-  } = x; // error: A ~> B
+  let a: { [k: string]: B, p: A } = x; // error: A ~> B
 
   a.p = new A(); // x.p no longer B
 
-  let b: {
-    [k: string]: B,
-    p: B
-  } = x; // ok
+  let b: { [k: string]: B, p: B } = x; // ok
 
-  let c: {
-    [k: string]: B,
-    p: C
-  } = x; // error
+  let c: { [k: string]: B, p: C } = x; // error
 
   (x.p: C); // not true
 }
 
 function subtype_mix_with_declared_props_invariant_r(
-  xa: {
-    [k: string]: A,
-    p: B
-  },
-  xb: {
-    [k: string]: B,
-    p: B
-  },
-  xc: {
-    [k: string]: C,
-    p: B
-  }
+  xa: { [k: string]: A, p: B },
+  xb: { [k: string]: B, p: B },
+  xc: { [k: string]: C, p: B }
 ) {
   let a: { [k: string]: A } = xa; // error
 
@@ -667,34 +618,24 @@ function subtype_mix_with_declared_props_invariant_r(
 
 function unification_dict_to_obj(
   x: Array<{ [k: string]: X }>
-): Array<{
-  p: X
-}> {
+): Array<{ p: X }> {
   return x; // error: if allowed, could write {p:X,q:Y} into \`x\`
 }
 
 function unification_obj_to_dict(
-  x: Array<{
-    p: X
-  }>
+  x: Array<{ p: X }>
 ): Array<{ [k: string]: X }> {
   return x; // error: if allowed, could write {p:X,q:Y} into returned array
 }
 
 function subtype_dict_to_obj(x: { [k: string]: B }) {
-  let a: {
-    p: A
-  } = x; // error
+  let a: { p: A } = x; // error
 
   a.p = new A(); // x.p no longer B
 
-  let b: {
-    p: B
-  } = x; // ok
+  let b: { p: B } = x; // ok
 
-  let c: {
-    p: C
-  } = x; // error
+  let c: { p: C } = x; // error
 
   (x.p: C); // not true
 }
@@ -713,72 +654,39 @@ function subtype_obj_to_dict(x: { p: B }) {
 // Only props in l which are not in u must match indexer, but must do so
 // exactly.
 function subtype_obj_to_mixed(x: { p: B, x: X }) {
-  let a: {
-    [k: string]: A,
-    x: X
-  } = x; // error (as above), but exclusive of x
+  let a: { [k: string]: A, x: X } = x; // error (as above), but exclusive of x
 
-  let b: {
-    [k: string]: B,
-    x: X
-  } = x; // ok,
+  let b: { [k: string]: B, x: X } = x; // ok,
 
-  let c: {
-    [k: string]: C,
-    x: X
-  } = x; // error (as above), but exclusive of x
+  let c: { [k: string]: C, x: X } = x; // error (as above), but exclusive of x
 }
 
 function unification_dict_to_mixed(x: Array<{ [k: string]: B }>) {
-  let a: Array<{
-    [k: string]: B,
-    p: A
-  }> = x; // error
+  let a: Array<{ [k: string]: B, p: A }> = x; // error
 
-  let b: Array<{
-    [k: string]: B,
-    p: B
-  }> = x; // ok
+  let b: Array<{ [k: string]: B, p: B }> = x; // ok
 
-  let c: Array<{
-    [k: string]: B,
-    p: C
-  }> = x; // error
+  let c: Array<{ [k: string]: B, p: C }> = x; // error
 }
 
 function subtype_dict_to_mixed(x: { [k: string]: B }) {
-  let a: {
-    [k: string]: B,
-    p: A
-  } = x; // error
+  let a: { [k: string]: B, p: A } = x; // error
 
-  let b: {
-    [k: string]: B,
-    p: B
-  } = x; // ok
+  let b: { [k: string]: B, p: B } = x; // ok
 
-  let c: {
-    [k: string]: B,
-    p: C
-  } = x; // error
+  let c: { [k: string]: B, p: C } = x; // error
 }
 
 function subtype_dict_to_optional_a(x: { [k: string]: B }) {
-  let a: {
-    p?: A
-  } = x; // error
+  let a: { p?: A } = x; // error
 }
 
 function subtype_dict_to_optional_b(x: { [k: string]: B }) {
-  let b: {
-    p?: B
-  } = x; // ok
+  let b: { p?: B } = x; // ok
 }
 
 function subtype_dict_to_optional_c(x: { [k: string]: B }) {
-  let c: {
-    p?: C
-  } = x; // error
+  let c: { p?: C } = x; // error
 }
 
 function subtype_optional_a_to_dict(x: { p?: A }): { [k: string]: B } {
@@ -886,58 +794,37 @@ function foo0(
 // error, fooBar:string !~> number (x's dictionary)
 function foo1(
   x: Array<{ [key: string]: number }>
-): Array<{
-  [key: string]: number,
-  fooBar: string
-}> {
+): Array<{ [key: string]: number, fooBar: string }> {
   return x;
 }
 
 function foo2(
   x: Array<{ [key: string]: mixed }>
-): Array<{
-  [key: string]: mixed,
-  fooBar: string
-}> {
+): Array<{ [key: string]: mixed, fooBar: string }> {
   x[0].fooBar = 123; // OK, since number ~> mixed (x elem's dictionary)
 
   return x; // error: mixed ~> string
 }
 
 // OK, since we assume dictionaries have every key
-function foo3(x: {
-  [key: string]: number
-}): {
-  foo: number
-} {
+function foo3(x: { [key: string]: number }): { foo: number } {
   return x;
 }
 
 // error: foo can't exist in x
 function foo4(x: {
   [key: string]: number
-}): {
-  [key: string]: number,
-  foo: string
-} {
+}): { [key: string]: number, foo: string } {
   return x;
 }
 
 // error, some prop in x could be incompatible (covariance)
-function foo5(
-  x: Array<{ [key: string]: number }>
-): Array<{
-  foo: number
-}> {
+function foo5(x: Array<{ [key: string]: number }>): Array<{ foo: number }> {
   return x;
 }
 
 // error, some prop in return could be incompatible
-function foo6(
-  x: Array<{
-    foo: number
-  }>
-): Array<{ [key: string]: number }> {
+function foo6(x: Array<{ foo: number }>): Array<{ [key: string]: number }> {
   return x;
 }
 
@@ -991,9 +878,7 @@ class B {
 class A {
   x: { [k: string]: number };
   m1() {
-    this.x = {
-      bar: 0
-    }; // no error
+    this.x = { bar: 0 }; // no error
   }
 
   m2() {
@@ -1008,9 +893,7 @@ class B {
   }
 
   m1() {
-    this.x = {
-      bar: 0
-    }; // no error
+    this.x = { bar: 0 }; // no error
   }
 }
 
@@ -1035,15 +918,9 @@ var o: { foo: QueryFunction } = {
 module.exports = o;
 
 =====================================output=====================================
-type Params = {
-  count: number,
-  [name: string]: string
-};
-
+type Params = { count: number, [name: string]: string };
 type QueryFunction = (params: Params) => string;
-var o: {
-  foo: QueryFunction
-} = {
+var o: { foo: QueryFunction } = {
   foo(params) {
     return params.count; // error, number ~/~ string
   }

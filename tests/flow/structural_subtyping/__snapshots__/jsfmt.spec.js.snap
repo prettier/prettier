@@ -129,13 +129,8 @@ interface IHasXString {
   x: string;
 }
 
-var propTest1: IHasXString = {
-  x: "hello"
-};
-
-var propTest2: IHasXString = {
-  x: 123
-}; // Error string != number
+var propTest1: IHasXString = { x: "hello" };
+var propTest2: IHasXString = { x: 123 }; // Error string != number
 
 var propTest3: IHasXString = {}; // Property not found
 
@@ -177,16 +172,10 @@ interface HasOptional {
   b?: number;
 }
 
-var test1: HasOptional = {
-  a: "hello"
-};
-
+var test1: HasOptional = { a: "hello" };
 var test2: HasOptional = {}; // Error: missing property a
 
-var test3: HasOptional = {
-  a: "hello",
-  b: true
-}; // Error: boolean ~> number
+var test3: HasOptional = { a: "hello", b: true }; // Error: boolean ~> number
 
 ================================================================================
 `;

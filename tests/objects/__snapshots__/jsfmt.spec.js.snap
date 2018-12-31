@@ -62,9 +62,7 @@ printWidth: 80
 a = { f() {} }
 
 =====================================output=====================================
-a = {
-  f() {}
-};
+a = { f() {} };
 
 ================================================================================
 `;
@@ -101,9 +99,7 @@ group(
     line,
     ")"
   ]),
-  {
-    shouldBreak: true
-  }
+  { shouldBreak: true }
 );
 
 ================================================================================
@@ -145,7 +141,6 @@ const k = {
     "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
     "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf"
 };
-
 somethingThatsAReallyLongPropName =
   this.props.cardType === AwesomizerCardEnum.SEEFIRST;
 const o = {

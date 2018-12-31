@@ -87,35 +87,13 @@ type T6 =
   | "yet-another-long-string"
   | "one-more-for-good-measure";
 type T7 =
-  | {
-      eventName: "these",
-      a: number
-    }
-  | {
-      eventName: "will",
-      b: number
-    }
-  | {
-      eventName: "not",
-      c: number
-    }
-  | {
-      eventName: "fit",
-      d: number
-    }
-  | {
-      eventName: "on",
-      e: number
-    }
-  | {
-      eventName: "one",
-      f: number
-    }
-  | {
-      eventName: "line",
-      g: number
-    };
-
+  | { eventName: "these", a: number }
+  | { eventName: "will", b: number }
+  | { eventName: "not", c: number }
+  | { eventName: "fit", d: number }
+  | { eventName: "on", e: number }
+  | { eventName: "one", f: number }
+  | { eventName: "line", g: number };
 type Comment =
   | {
       type: "CommentLine",
@@ -123,14 +101,8 @@ type Comment =
       value: string,
       end: number,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number
     }
@@ -140,41 +112,17 @@ type Comment =
       value: string,
       end: number,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number
     };
 
 type Props = {
-  onChange: (
-    | {
-        name: string
-      }
-    | {
-        title: string
-      }
-    | {
-        year: year
-      }
-  ) => void
+  onChange: ({ name: string } | { title: string } | { year: year }) => void
 };
-
 declare class FormData {
-  append(
-    options?:
-      | string
-      | {
-          filepath?: string,
-          filename?: string
-        }
-  ): void;
+  append(options?: string | { filepath?: string, filename?: string }): void;
 }
 
 ================================================================================

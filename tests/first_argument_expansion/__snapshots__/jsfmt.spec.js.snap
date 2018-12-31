@@ -236,10 +236,7 @@ func(
   () => {
     thing();
   },
-  {
-    yes: true,
-    cats: 5
-  }
+  { yes: true, cats: 5 }
 );
 
 compose(

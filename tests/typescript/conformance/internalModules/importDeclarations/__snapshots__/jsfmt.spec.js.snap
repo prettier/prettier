@@ -276,10 +276,7 @@ module clodule {
     y: number;
   }
 
-  var Point: Point = {
-    x: 0,
-    y: 0
-  };
+  var Point: Point = { x: 0, y: 0 };
 }
 
 import clolias = clodule;
@@ -287,10 +284,7 @@ var p: clolias.Point;
 var p: clodule.Point;
 var p: { x: number; y: number };
 function fundule() {
-  return {
-    x: 0,
-    y: 0
-  };
+  return { x: 0, y: 0 };
 }
 
 module fundule {
@@ -299,10 +293,7 @@ module fundule {
     y: number;
   }
 
-  var Point: Point = {
-    x: 0,
-    y: 0
-  };
+  var Point: Point = { x: 0, y: 0 };
 }
 
 import funlias = fundule;
@@ -410,11 +401,7 @@ module Z {
 =====================================output=====================================
 // all errors imported modules conflict with local variables
 module A {
-  export var Point = {
-    x: 0,
-    y: 0
-  };
-
+  export var Point = { x: 0, y: 0 };
   export interface Point {
     x: number;
     y: number;
@@ -422,11 +409,7 @@ module A {
 }
 
 module B {
-  var A = {
-    x: 0,
-    y: 0
-  };
-
+  var A = { x: 0, y: 0 };
   import Point = A;
 }
 

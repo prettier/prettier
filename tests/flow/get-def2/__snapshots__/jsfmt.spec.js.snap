@@ -13,9 +13,7 @@ module.exports = {ParentFoo};
 
 =====================================output=====================================
 // @flow
-var ParentFoo = {
-  foo: "bar"
-};
+var ParentFoo = { foo: "bar" };
 
 module.exports = { ParentFoo };
 
@@ -144,9 +142,7 @@ let msg = "hello";
 =====================================output=====================================
 var React = require("react");
 class C extends React.Component {
-  props: {
-    x: string
-  };
+  props: { x: string };
 }
 
 let msg = "hello";

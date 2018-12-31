@@ -58,9 +58,7 @@ const {
   accessibilityModule: FooAccessibilityModule,
   accessibilityModule: FooAccessibilityModule
 } = foo || {};
-({ prop: toAssign = "default" } = {
-  prop: "propval"
-});
+({ prop: toAssign = "default" } = { prop: "propval" });
 
 ================================================================================
 `;

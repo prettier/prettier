@@ -53,9 +53,7 @@ var inspect =
       }
     : // node > 0.8.x
       function(v, colors) {
-        return util.inspect(v, {
-          colors: colors
-        });
+        return util.inspect(v, { colors: colors });
       };
 
 var inspect =
@@ -66,29 +64,21 @@ var inspect =
       }
     : // node > 0.8.x
       function(v, colors) {
-        return util.inspect(v, {
-          colors: colors
-        });
+        return util.inspect(v, { colors: colors });
       };
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
-    {
-      publicPath: Array(cssFilename.split("/").length).join("../")
-    }
+    { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
-    {
-      publicPath: Array(cssFilename.split("/").length).join("../")
-    }
+    { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
-  ? {
-      publicPath: Array(cssFilename.split("/").length).join("../")
-    }
+  ? { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
 const { configureStore } =

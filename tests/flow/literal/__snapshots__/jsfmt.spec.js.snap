@@ -14,11 +14,7 @@ var APIKeys = {
 module.exports = APIKeys;
 
 =====================================output=====================================
-var APIKeys = {
-  AGE: "age",
-  NAME: "name"
-};
-
+var APIKeys = { AGE: "age", NAME: "name" };
 module.exports = APIKeys;
 
 ================================================================================
@@ -60,12 +56,7 @@ function foo(x: $Keys<typeof APIKeys>) {}
 foo("AGE");
 foo("LOCATION"); // error
 
-function bar(
-  x: $Keys<{
-    age: number
-  }>
-) {}
-
+function bar(x: $Keys<{ age: number }>) {}
 bar(APIKeys.AGE); // not an error: APIKeys.AGE = "age"
 
 bar(APIKeys.NAME); // error: since "NAME" is not in the smaller enum

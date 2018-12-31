@@ -20,13 +20,8 @@ bar({});
 bar({foo: ""});
 
 =====================================output=====================================
-var x: {} = {
-  foo: 0
-};
-
-var y: {
-  foo?: string
-} = x; // OK in TypeScript, not OK in Flow
+var x: {} = { foo: 0 };
+var y: { foo?: string } = x; // OK in TypeScript, not OK in Flow
 
 var z: string = y.foo || "";
 var o = {};
@@ -36,9 +31,7 @@ o.foo = 0; // future widening is constrained
 
 function bar(config: { foo?: number }) {}
 bar({});
-bar({
-  foo: ""
-});
+bar({ foo: "" });
 
 ================================================================================
 `;
@@ -64,45 +57,23 @@ var e: { foo?: ?string } = { foo: undefined }; // This is fine
 var f: { foo?: ?string } = { foo: null }; // Also fine
 
 =====================================output=====================================
-var a: {
-  foo?: string
-} = {};
-
+var a: { foo?: string } = {};
 a.foo = undefined; // This is not an error
 
 a.foo = null; // But this is an error
 
-var b: {
-  foo?: ?string
-} = {};
-
+var b: { foo?: ?string } = {};
 b.foo = undefined; // This is fine
 
 b.foo = null; // Also fine
 
-var c: {
-  foo?: string
-} = {
-  foo: undefined
-}; // This is not an error
+var c: { foo?: string } = { foo: undefined }; // This is not an error
 
-var d: {
-  foo?: string
-} = {
-  foo: null
-}; // But this is an error
+var d: { foo?: string } = { foo: null }; // But this is an error
 
-var e: {
-  foo?: ?string
-} = {
-  foo: undefined
-}; // This is fine
+var e: { foo?: ?string } = { foo: undefined }; // This is fine
 
-var f: {
-  foo?: ?string
-} = {
-  foo: null
-}; // Also fine
+var f: { foo?: ?string } = { foo: null }; // Also fine
 
 ================================================================================
 `;
@@ -198,32 +169,21 @@ class A {
 // do not narrow the types of annotated variables as do
 // subsequent assignments.)
 //
-var x: {
-  a: number,
-  b?: number
-} = {
-  a: 0
-};
+var x: { a: number, b?: number } = { a: 0 };
 
 // now assign an object literal lacking property b.
 // the literal's type is sealed and has only a at creation.
 // but it then flows, specific ~> general, to x's annotation
 // type. at that point, it acquires b as an optional property.
 //
-x = {
-  a: 0
-};
+x = { a: 0 };
 
 // ...which allows this assignment to take place.
 x.b = 1;
 
 // T7810506
 class A {
-  x: {
-    a: number,
-    b?: string
-  };
-
+  x: { a: number, b?: string };
   foo() {
     // Something similar should happen here, but doesn't: the problem is
     // made explicit by adding generics (see test3_failure.js introduced by
@@ -232,9 +192,7 @@ class A {
     // cannot guarantee that the flow from the object literal to the
     // annotation will be processed before the flow involving the
     // access. Here we lose the race and get an error on the write.
-    this.x = {
-      a: 123
-    };
+    this.x = { a: 123 };
 
     this.x.b = "hello";
   }
@@ -260,16 +218,9 @@ b.b = 0; // because subsequent writes would widen the exact object
 =====================================output=====================================
 /* The logic that allows ({}: {p?:T}), described in test3.js, should _not_ also
    fire for exact annotations. */
-const a: {|
-  a: number
-|} = {
-  a: 1
-};
+const a: {| a: number |} = { a: 1 };
 
-const b: {
-  a: number,
-  b?: number
-} = a; // error: property \`b\` not found
+const b: { a: number, b?: number } = a; // error: property \`b\` not found
 
 b.b = 0; // because subsequent writes would widen the exact object
 
@@ -296,20 +247,10 @@ class A<O: {x: { a: number, b?: string}}> {
 
 =====================================output=====================================
 // generalization of failure in test3.js
-class A<
-  O: {
-    x: {
-      a: number,
-      b?: string
-    }
-  }
-> {
+class A<O: { x: { a: number, b?: string } }> {
   o: O;
   foo() {
-    this.o.x = {
-      a: 123
-    };
-
+    this.o.x = { a: 123 };
     this.o.x.b = "hello"; // this is a spurious error (see test3.js for details)
   }
 }

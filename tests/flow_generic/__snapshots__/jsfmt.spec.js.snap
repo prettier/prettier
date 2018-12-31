@@ -165,11 +165,7 @@ function foo(): Promise<?boolean> {}
 function formatEntireFile(
   fileVersion: FileVersion,
   range: atom$Range
-): Promise<?{
-  newCursor?: number,
-  formatted: string
-}> {}
-
+): Promise<?{ newCursor?: number, formatted: string }> {}
 function foo(): Promise<?boolean> {}
 
 ================================================================================
@@ -196,11 +192,7 @@ function foo(): Promise<?boolean> {}
 function formatEntireFile(
   fileVersion: FileVersion,
   range: atom$Range,
-): Promise<?{
-  newCursor?: number,
-  formatted: string,
-}> {}
-
+): Promise<?{ newCursor?: number, formatted: string }> {}
 function foo(): Promise<?boolean> {}
 
 ================================================================================
@@ -301,10 +293,7 @@ type H = { 'A': string, "B": number };
 =====================================output=====================================
 type F = <T>(T) => T;
 type G = <A, B>(A) => B;
-type H = {
-  A: string,
-  B: number
-};
+type H = { A: string, B: number };
 
 ================================================================================
 `;
@@ -323,10 +312,7 @@ type H = { 'A': string, "B": number };
 =====================================output=====================================
 type F = <T>(T) => T;
 type G = <A, B>(A) => B;
-type H = {
-  A: string,
-  B: number,
-};
+type H = { A: string, B: number };
 
 ================================================================================
 `;
@@ -349,10 +335,7 @@ type Foo = Promise<
       bar: string,
       baz: SomeOtherLongType
     }
-  | {
-      ok: false,
-      bar: SomeOtherLongType
-    }
+  | { ok: false, bar: SomeOtherLongType }
 >;
 
 ================================================================================
@@ -377,10 +360,7 @@ type Foo = Promise<
       bar: string,
       baz: SomeOtherLongType,
     }
-  | {
-      ok: false,
-      bar: SomeOtherLongType,
-    },
+  | { ok: false, bar: SomeOtherLongType },
 >;
 
 ================================================================================

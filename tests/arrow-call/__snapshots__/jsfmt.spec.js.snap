@@ -61,38 +61,21 @@ it("mocks regexp instances", () => {
   ).not.toThrow();
 });
 
+expect(() => asyncRequest({ url: "/test-endpoint" })).toThrowError(
+  /Required parameter/
+);
 expect(() =>
-  asyncRequest({
-    url: "/test-endpoint"
-  })
+  asyncRequest({ url: "/test-endpoint-but-with-a-long-url" })
 ).toThrowError(/Required parameter/);
-
 expect(() =>
-  asyncRequest({
-    url: "/test-endpoint-but-with-a-long-url"
-  })
+  asyncRequest({ url: "/test-endpoint-but-with-a-suuuuuuuuper-long-url" })
 ).toThrowError(/Required parameter/);
-
 expect(() =>
-  asyncRequest({
-    url: "/test-endpoint-but-with-a-suuuuuuuuper-long-url"
-  })
-).toThrowError(/Required parameter/);
-
-expect(() =>
-  asyncRequest({
-    type: "foo",
-    url: "/test-endpoint"
-  })
+  asyncRequest({ type: "foo", url: "/test-endpoint" })
 ).not.toThrowError();
-
 expect(() =>
-  asyncRequest({
-    type: "foo",
-    url: "/test-endpoint-but-with-a-long-url"
-  })
+  asyncRequest({ type: "foo", url: "/test-endpoint-but-with-a-long-url" })
 ).not.toThrowError();
-
 const a = Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
   response => response.data
 );
@@ -180,38 +163,21 @@ it("mocks regexp instances", () => {
   ).not.toThrow();
 });
 
+expect(() => asyncRequest({ url: "/test-endpoint" })).toThrowError(
+  /Required parameter/,
+);
 expect(() =>
-  asyncRequest({
-    url: "/test-endpoint",
-  }),
+  asyncRequest({ url: "/test-endpoint-but-with-a-long-url" }),
 ).toThrowError(/Required parameter/);
-
 expect(() =>
-  asyncRequest({
-    url: "/test-endpoint-but-with-a-long-url",
-  }),
+  asyncRequest({ url: "/test-endpoint-but-with-a-suuuuuuuuper-long-url" }),
 ).toThrowError(/Required parameter/);
-
 expect(() =>
-  asyncRequest({
-    url: "/test-endpoint-but-with-a-suuuuuuuuper-long-url",
-  }),
-).toThrowError(/Required parameter/);
-
-expect(() =>
-  asyncRequest({
-    type: "foo",
-    url: "/test-endpoint",
-  }),
+  asyncRequest({ type: "foo", url: "/test-endpoint" }),
 ).not.toThrowError();
-
 expect(() =>
-  asyncRequest({
-    type: "foo",
-    url: "/test-endpoint-but-with-a-long-url",
-  }),
+  asyncRequest({ type: "foo", url: "/test-endpoint-but-with-a-long-url" }),
 ).not.toThrowError();
-
 const a = Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
   response => response.data,
 );
@@ -299,38 +265,21 @@ it("mocks regexp instances", () => {
   ).not.toThrow();
 });
 
+expect(() => asyncRequest({ url: "/test-endpoint" })).toThrowError(
+  /Required parameter/
+);
 expect(() =>
-  asyncRequest({
-    url: "/test-endpoint"
-  })
+  asyncRequest({ url: "/test-endpoint-but-with-a-long-url" })
 ).toThrowError(/Required parameter/);
-
 expect(() =>
-  asyncRequest({
-    url: "/test-endpoint-but-with-a-long-url"
-  })
+  asyncRequest({ url: "/test-endpoint-but-with-a-suuuuuuuuper-long-url" })
 ).toThrowError(/Required parameter/);
-
 expect(() =>
-  asyncRequest({
-    url: "/test-endpoint-but-with-a-suuuuuuuuper-long-url"
-  })
-).toThrowError(/Required parameter/);
-
-expect(() =>
-  asyncRequest({
-    type: "foo",
-    url: "/test-endpoint"
-  })
+  asyncRequest({ type: "foo", url: "/test-endpoint" })
 ).not.toThrowError();
-
 expect(() =>
-  asyncRequest({
-    type: "foo",
-    url: "/test-endpoint-but-with-a-long-url"
-  })
+  asyncRequest({ type: "foo", url: "/test-endpoint-but-with-a-long-url" })
 ).not.toThrowError();
-
 const a = Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
   (response) => response.data
 );

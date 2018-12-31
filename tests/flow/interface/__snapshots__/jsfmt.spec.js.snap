@@ -128,10 +128,7 @@ interface I_ {
 
 interface J extends I, I_ {}
 interface K extends J {}
-var k: K = {
-  x: "",
-  y: ""
-}; // error: x should be number
+var k: K = { x: "", y: "" }; // error: x should be number
 
 (k.x: string); // error: x is number
 
@@ -198,11 +195,7 @@ function foo(l: L) {
 } // error: z not found in L
 
 // interface + multiple inheritance is similar to object type + intersection
-type M = {
-  y: string
-} & J & {
-    z: boolean
-  };
+type M = { y: string } & J & { z: boolean };
 
 function bar(m: M) {
   m.x;

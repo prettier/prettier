@@ -195,15 +195,9 @@ printWidth: 80
   [target]="a(1)(2)"
   [target]="a[b]"
   [target]="[1]"
-  [target]="{
-    a: 1
-  }"
-  [target]="{
-    a: 1
-  }"
-  [target]="{
-    trailingComma: 'notAllowed'
-  }"
+  [target]="{ a: 1 }"
+  [target]="{ a: 1 }"
+  [target]="{ trailingComma: 'notAllowed' }"
   [target]="[
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
   ]"
@@ -433,15 +427,9 @@ trailingComma: "es5"
   [target]="a(1)(2)"
   [target]="a[b]"
   [target]="[1]"
-  [target]="{
-    a: 1
-  }"
-  [target]="{
-    a: 1
-  }"
-  [target]="{
-    trailingComma: 'notAllowed'
-  }"
+  [target]="{ a: 1 }"
+  [target]="{ a: 1 }"
+  [target]="{ trailingComma: 'notAllowed' }"
   [target]="[
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
   ]"
@@ -1138,15 +1126,9 @@ printWidth: 80
   [target]="a(1)(2)"
   [target]="a[b]"
   [target]="[1]"
-  [target]="{
-    a: 1
-  }"
-  [target]="{
-    a: 1
-  }"
-  [target]="{
-    trailingComma: 'notAllowed'
-  }"
+  [target]="{ a: 1 }"
+  [target]="{ a: 1 }"
+  [target]="{ trailingComma: 'notAllowed' }"
   [target]="[
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
   ]"
@@ -1376,15 +1358,9 @@ printWidth: 80
   [target]="a(1)(2)"
   [target]="a[b]"
   [target]="[1]"
-  [target]="{
-    a: 1
-  }"
-  [target]="{
-    a: 1
-  }"
-  [target]="{
-    trailingComma: 'notAllowed'
-  }"
+  [target]="{a: 1}"
+  [target]="{a: 1}"
+  [target]="{trailingComma: 'notAllowed'}"
   [target]="[
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
   ]"
@@ -2435,20 +2411,8 @@ printWidth: 80
 <div>{{ a(1)(2) }}</div>
 <div>{{ a[b] }}</div>
 <div>{{ [1] }}</div>
-<div>
-  {{
-    {
-      a: 1
-    }
-  }}
-</div>
-<div>
-  {{
-    {
-      a: 1
-    }
-  }}
-</div>
+<div>{{ { a: 1 } }}</div>
+<div>{{ { a: 1 } }}</div>
 <div>{{ true }}</div>
 <div>{{ undefined }}</div>
 <div>{{ null }}</div>
@@ -2519,45 +2483,13 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate
-        : {
-            what:
-              "entities"
-              | translate
-                : {
-                    count: array.length
-                  }
-          }
+      | translate: { what: "entities" | translate: { count: array.length } }
   }}
 </p>
-<p>
-  {{
-    {
-      a: 1 + {}
-    }
-  }}
-</p>
-<p>
-  {{
-    {
-      a: a === {}
-    }
-  }}
-</p>
-<p>
-  {{
-    {
-      a: !{}
-    }
-  }}
-</p>
-<p>
-  {{
-    {
-      a: a ? b : {}
-    }
-  }}
-</p>
+<p>{{ { a: 1 + {} } }}</p>
+<p>{{ { a: a === {} } }}</p>
+<p>{{ { a: !{} } }}</p>
+<p>{{ { a: a ? b : {} } }}</p>
 
 ================================================================================
 `;
@@ -2644,20 +2576,8 @@ trailingComma: "es5"
 <div>{{ a(1)(2) }}</div>
 <div>{{ a[b] }}</div>
 <div>{{ [1] }}</div>
-<div>
-  {{
-    {
-      a: 1
-    }
-  }}
-</div>
-<div>
-  {{
-    {
-      a: 1
-    }
-  }}
-</div>
+<div>{{ { a: 1 } }}</div>
+<div>{{ { a: 1 } }}</div>
 <div>{{ true }}</div>
 <div>{{ undefined }}</div>
 <div>{{ null }}</div>
@@ -2728,45 +2648,13 @@ trailingComma: "es5"
 <p>
   {{
     "delete"
-      | translate
-        : {
-            what:
-              "entities"
-              | translate
-                : {
-                    count: array.length
-                  }
-          }
+      | translate: { what: "entities" | translate: { count: array.length } }
   }}
 </p>
-<p>
-  {{
-    {
-      a: 1 + {}
-    }
-  }}
-</p>
-<p>
-  {{
-    {
-      a: a === {}
-    }
-  }}
-</p>
-<p>
-  {{
-    {
-      a: !{}
-    }
-  }}
-</p>
-<p>
-  {{
-    {
-      a: a ? b : {}
-    }
-  }}
-</p>
+<p>{{ { a: 1 + {} } }}</p>
+<p>{{ { a: a === {} } }}</p>
+<p>{{ { a: !{} } }}</p>
+<p>{{ { a: a ? b : {} } }}</p>
 
 ================================================================================
 `;
@@ -3218,20 +3106,8 @@ printWidth: 80
 <div>{{ a(1)(2) }}</div>
 <div>{{ a[b] }}</div>
 <div>{{ [1] }}</div>
-<div>
-  {{
-    {
-      a: 1
-    }
-  }}
-</div>
-<div>
-  {{
-    {
-      a: 1
-    }
-  }}
-</div>
+<div>{{ { a: 1 } }}</div>
+<div>{{ { a: 1 } }}</div>
 <div>{{ true }}</div>
 <div>{{ undefined }}</div>
 <div>{{ null }}</div>
@@ -3307,45 +3183,13 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate
-        : {
-            what:
-              "entities"
-              | translate
-                : {
-                    count: array.length
-                  }
-          }
+      | translate: { what: "entities" | translate: { count: array.length } }
   }}
 </p>
-<p>
-  {{
-    {
-      a: 1 + {}
-    }
-  }}
-</p>
-<p>
-  {{
-    {
-      a: a === {}
-    }
-  }}
-</p>
-<p>
-  {{
-    {
-      a: !{}
-    }
-  }}
-</p>
-<p>
-  {{
-    {
-      a: a ? b : {}
-    }
-  }}
-</p>
+<p>{{ { a: 1 + {} } }}</p>
+<p>{{ { a: a === {} } }}</p>
+<p>{{ { a: !{} } }}</p>
+<p>{{ { a: a ? b : {} } }}</p>
 
 ================================================================================
 `;
@@ -3432,20 +3276,8 @@ printWidth: 80
 <div>{{ a(1)(2) }}</div>
 <div>{{ a[b] }}</div>
 <div>{{ [1] }}</div>
-<div>
-  {{
-    {
-      a: 1
-    }
-  }}
-</div>
-<div>
-  {{
-    {
-      a: 1
-    }
-  }}
-</div>
+<div>{{ {a: 1} }}</div>
+<div>{{ {a: 1} }}</div>
 <div>{{ true }}</div>
 <div>{{ undefined }}</div>
 <div>{{ null }}</div>
@@ -3516,45 +3348,13 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate
-        : {
-            what:
-              "entities"
-              | translate
-                : ({
-                    count: array.length
-                  })
-          }
+      | translate: {what: "entities" | translate: ({count: array.length})}
   }}
 </p>
-<p>
-  {{
-    {
-      a: 1 + ({})
-    }
-  }}
-</p>
-<p>
-  {{
-    {
-      a: a === ({})
-    }
-  }}
-</p>
-<p>
-  {{
-    {
-      a: !({})
-    }
-  }}
-</p>
-<p>
-  {{
-    {
-      a: a ? b : ({})
-    }
-  }}
-</p>
+<p>{{ {a: 1 + ({})} }}</p>
+<p>{{ {a: a === ({})} }}</p>
+<p>{{ {a: !({})} }}</p>
+<p>{{ {a: a ? b : ({})} }}</p>
 
 ================================================================================
 `;
@@ -4430,11 +4230,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <img [src]="heroImageUrl" />
   <app-hero-detail [hero]="currentHero"></app-hero-detail>
-  <div
-    [ngClass]="{
-      special: isSpecial
-    }"
-  ></div>
+  <div [ngClass]="{ special: isSpecial }"></div>
 </div>
 <br /><br />
 
@@ -5971,11 +5767,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <img [src]="heroImageUrl" />
   <app-hero-detail [hero]="currentHero"></app-hero-detail>
-  <div
-    [ngClass]="{
-      special: isSpecial
-    }"
-  ></div>
+  <div [ngClass]="{ special: isSpecial }"></div>
 </div>
 <br /><br />
 
@@ -10949,11 +10741,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <img [src]="heroImageUrl" />
   <app-hero-detail [hero]="currentHero"></app-hero-detail>
-  <div
-    [ngClass]="{
-      special: isSpecial
-    }"
-  ></div>
+  <div [ngClass]="{ special: isSpecial }"></div>
 </div>
 <br />
 <br />
@@ -12594,11 +12382,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <img [src]="heroImageUrl" />
   <app-hero-detail [hero]="currentHero"></app-hero-detail>
-  <div
-    [ngClass]="{
-      special: isSpecial
-    }"
-  ></div>
+  <div [ngClass]="{special: isSpecial}"></div>
 </div>
 <br /><br />
 

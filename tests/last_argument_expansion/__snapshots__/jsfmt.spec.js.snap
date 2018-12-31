@@ -128,11 +128,8 @@ true
     })
   ]
 });
-
 true ? (
-  test({
-    a: 1
-  })
+  test({ a: 1 })
 ) : (
   <div
     a={123412342314}
@@ -232,7 +229,6 @@ var listener = DOM.listen(
       ...DataStore.get(event.getNode(sigil))
     })
 );
-
 a(
   SomethingVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
   [
@@ -241,7 +237,6 @@ a(
     }
   ]
 );
-
 exports.examples = [
   {
     render: withGraphQLQuery("node(1234567890){image{uri}}", function(
@@ -434,7 +429,6 @@ export const setProp = y => ({
   ...y,
   a: "very, very, very long very, very long text"
 });
-
 export const log = y => {
   console.log("very, very, very long very, very long text");
 };

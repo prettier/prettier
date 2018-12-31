@@ -5117,14 +5117,8 @@ export type Comment =
       value: string,
       end: number,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number
     }
@@ -5134,14 +5128,8 @@ export type Comment =
       value: string,
       end: number,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number
     };
@@ -5155,14 +5143,8 @@ export type Declaration =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5180,14 +5162,8 @@ export type Declaration =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5201,14 +5177,8 @@ export type Declaration =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>,
@@ -5234,14 +5204,8 @@ export type Declaration =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5255,14 +5219,8 @@ export type Declaration =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5280,14 +5238,8 @@ export type Declaration =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5302,14 +5254,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5324,14 +5270,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5345,14 +5285,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5367,14 +5301,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5388,14 +5316,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5409,14 +5331,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5434,14 +5350,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5456,14 +5366,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5478,14 +5382,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5498,14 +5396,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5519,14 +5411,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>,
@@ -5548,14 +5434,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5564,23 +5444,14 @@ export type Expression =
       type: "Literal",
       _Literal: void,
       raw: string,
-      regex: ?{
-        pattern: string,
-        flags: string
-      },
+      regex: ?{ pattern: string, flags: string },
       value: ?(string | boolean | number | RegExp),
       end: number,
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5595,14 +5466,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5617,14 +5482,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5638,14 +5497,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5658,14 +5511,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5678,14 +5525,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5699,14 +5540,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5720,14 +5555,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5739,14 +5568,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5761,14 +5584,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5783,14 +5600,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5804,14 +5615,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5825,14 +5630,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5847,14 +5646,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5866,14 +5659,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5886,14 +5673,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5908,14 +5689,8 @@ export type Expression =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -5931,14 +5706,8 @@ export type Function =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>,
@@ -5960,14 +5729,8 @@ export type Function =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>,
@@ -5989,14 +5752,8 @@ export type Function =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>,
@@ -6019,14 +5776,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6040,14 +5791,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6061,14 +5806,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>,
@@ -6091,14 +5830,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6112,14 +5845,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6133,14 +5860,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6155,14 +5876,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6176,14 +5891,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6196,14 +5905,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6216,14 +5919,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6237,14 +5934,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6258,14 +5949,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6278,14 +5963,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6303,14 +5982,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6328,14 +6001,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6350,14 +6017,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6372,14 +6033,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6394,14 +6049,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6414,14 +6063,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6434,14 +6077,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6453,14 +6090,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6474,14 +6105,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6494,14 +6119,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6513,14 +6132,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6533,14 +6146,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6553,14 +6160,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6575,14 +6176,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6597,14 +6192,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6620,14 +6209,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6641,14 +6224,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>,
@@ -6670,14 +6247,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>,
@@ -6699,14 +6270,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6721,14 +6286,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6741,14 +6300,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6761,14 +6314,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6782,14 +6329,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6803,14 +6344,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6824,14 +6359,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6840,23 +6369,14 @@ export type Node =
       type: "Literal",
       _Literal: void,
       raw: string,
-      regex: ?{
-        pattern: string,
-        flags: string
-      },
+      regex: ?{ pattern: string, flags: string },
       value: ?(string | boolean | number | RegExp),
       end: number,
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6871,14 +6391,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6893,14 +6407,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6914,14 +6422,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6939,14 +6441,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6960,14 +6456,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6979,14 +6469,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -6999,14 +6483,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7020,14 +6498,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7040,14 +6512,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7066,14 +6532,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7087,14 +6547,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7107,14 +6561,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7127,14 +6575,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7147,14 +6589,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7167,14 +6603,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7186,14 +6616,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7207,14 +6631,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7229,14 +6647,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7250,14 +6662,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7266,22 +6672,13 @@ export type Node =
       type: "TemplateElement",
       _TemplateElement: void,
       tail: boolean,
-      value: {
-        cooked: string,
-        raw: string
-      },
+      value: { cooked: string, raw: string },
       end: number,
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7295,14 +6692,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7314,14 +6705,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7334,14 +6719,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7358,14 +6737,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7380,14 +6753,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7402,14 +6769,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7423,14 +6784,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7444,14 +6799,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7465,14 +6814,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7486,14 +6829,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7507,14 +6844,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7528,14 +6859,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7548,14 +6873,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7570,14 +6889,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7590,14 +6903,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7610,14 +6917,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7631,14 +6932,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7650,14 +6945,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7670,14 +6959,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7691,14 +6974,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7710,14 +6987,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7732,14 +7003,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7757,14 +7022,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7780,14 +7039,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7800,14 +7053,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7821,14 +7068,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7841,14 +7082,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7864,14 +7099,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7886,14 +7115,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7907,14 +7130,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7928,14 +7145,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7951,14 +7162,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7971,14 +7176,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -7990,14 +7189,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8010,14 +7203,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8031,14 +7218,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8050,14 +7231,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8071,14 +7246,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8090,14 +7259,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8110,14 +7273,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8130,14 +7287,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8152,14 +7303,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8172,14 +7317,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8193,14 +7332,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8213,14 +7346,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8233,14 +7360,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8255,14 +7376,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8276,14 +7391,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8298,14 +7407,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8320,14 +7423,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8341,14 +7438,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8361,14 +7452,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8380,14 +7465,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8401,14 +7480,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8421,14 +7494,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8443,14 +7510,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8462,14 +7523,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8482,14 +7537,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8502,14 +7551,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8524,14 +7567,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8545,14 +7582,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8567,14 +7598,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8587,14 +7612,8 @@ export type Node =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8610,14 +7629,8 @@ export type Pattern =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8631,14 +7644,8 @@ export type Pattern =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8652,14 +7659,8 @@ export type Pattern =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8673,14 +7674,8 @@ export type Pattern =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8694,14 +7689,8 @@ export type Pattern =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8716,14 +7705,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8736,14 +7719,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8756,14 +7733,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8777,14 +7748,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8796,14 +7761,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8816,14 +7775,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8838,14 +7791,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8860,14 +7807,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8883,14 +7824,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8905,14 +7840,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8926,14 +7855,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8946,14 +7869,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8968,14 +7885,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -8988,14 +7899,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9012,14 +7917,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9033,14 +7932,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9054,14 +7947,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9077,14 +7964,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9097,14 +7978,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9118,14 +7993,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9138,14 +8007,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9161,14 +8024,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9183,14 +8040,8 @@ export type Statement =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9204,14 +8055,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9224,14 +8069,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9245,14 +8084,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9264,14 +8097,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9287,14 +8114,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9308,14 +8129,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9328,14 +8143,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9347,14 +8156,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9367,14 +8170,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9388,14 +8185,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9407,14 +8198,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9428,14 +8213,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9447,14 +8226,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9467,14 +8240,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9489,14 +8256,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9509,14 +8270,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9528,14 +8283,8 @@ export type Type =
       innerComments: ?Array<Comment>,
       leadingComments: ?Array<Comment>,
       loc: {
-        end: {
-          column: number,
-          line: number
-        },
-        start: {
-          column: number,
-          line: number
-        }
+        end: { column: number, line: number },
+        start: { column: number, line: number }
       },
       start: number,
       trailingComments: ?Array<Comment>
@@ -9548,14 +8297,8 @@ export type CommentLine = {
   value: string,
   end: number,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number
 };
@@ -9566,14 +8309,8 @@ export type CommentBlock = {
   value: string,
   end: number,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number
 };
@@ -9587,14 +8324,8 @@ export type ArrayExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9609,14 +8340,8 @@ export type ArrayPattern = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9631,14 +8356,8 @@ export type ArrowFunctionExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>,
@@ -9675,14 +8394,8 @@ export type AssignmentExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9697,14 +8410,8 @@ export type AssignmentPattern = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9719,14 +8426,8 @@ export type AwaitExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9765,14 +8466,8 @@ export type BinaryExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9788,14 +8483,8 @@ export type BindExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9809,14 +8498,8 @@ export type BlockStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9830,14 +8513,8 @@ export type BreakStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9852,14 +8529,8 @@ export type CallExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9874,14 +8545,8 @@ export type CatchClause = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9895,14 +8560,8 @@ export type ClassBody = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9921,14 +8580,8 @@ export type ClassDeclaration = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9947,14 +8600,8 @@ export type ClassExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9970,14 +8617,8 @@ export type ComprehensionBlock = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -9993,14 +8634,8 @@ export type ComprehensionExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10016,14 +8651,8 @@ export type ConditionalExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10037,14 +8666,8 @@ export type ContinueStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10059,14 +8682,8 @@ export type Decorator = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10079,14 +8696,8 @@ export type DebuggerStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10101,14 +8712,8 @@ export type DoWhileStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10123,14 +8728,8 @@ export type DoExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10143,14 +8742,8 @@ export type EmptyStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10164,14 +8757,8 @@ export type ExpressionStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10185,14 +8772,8 @@ export type File = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10208,14 +8789,8 @@ export type ForInStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10232,14 +8807,8 @@ export type ForOfStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10256,14 +8825,8 @@ export type ForStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10278,14 +8841,8 @@ export type FunctionDeclaration = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>,
@@ -10308,14 +8865,8 @@ export type FunctionExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>,
@@ -10338,14 +8889,8 @@ export type Identifier = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10361,14 +8906,8 @@ export type IfStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10383,14 +8922,8 @@ export type ImportDefaultSpecifier = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10405,14 +8938,8 @@ export type ImportNamespaceSpecifier = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10428,14 +8955,8 @@ export type ImportDeclaration = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10451,14 +8972,8 @@ export type ImportSpecifier = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10473,14 +8988,8 @@ export type LabeledStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10490,23 +8999,14 @@ export type Literal = {
   type: "Literal",
   _Literal: void,
   raw: string,
-  regex: ?{
-    pattern: string,
-    flags: string
-  },
+  regex: ?{ pattern: string, flags: string },
   value: ?(string | boolean | number | RegExp),
   end: number,
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10523,14 +9023,8 @@ export type LogicalExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10546,14 +9040,8 @@ export type MemberExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10569,14 +9057,8 @@ export type MetaProperty = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10595,14 +9077,8 @@ export type MethodDefinition = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10617,14 +9093,8 @@ export type NewExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10637,14 +9107,8 @@ export type Noop = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10658,14 +9122,8 @@ export type ObjectExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10680,14 +9138,8 @@ export type ObjectPattern = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10701,14 +9153,8 @@ export type Program = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10728,14 +9174,8 @@ export type Property = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10750,14 +9190,8 @@ export type RestElement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10771,14 +9205,8 @@ export type ReturnStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10792,14 +9220,8 @@ export type SequenceExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10813,14 +9235,8 @@ export type SpreadElement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10834,14 +9250,8 @@ export type SpreadProperty = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10854,14 +9264,8 @@ export type Super = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10876,14 +9280,8 @@ export type SwitchCase = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10899,14 +9297,8 @@ export type SwitchStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10921,14 +9313,8 @@ export type TaggedTemplateExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10938,22 +9324,13 @@ export type TemplateElement = {
   type: "TemplateElement",
   _TemplateElement: void,
   tail: boolean,
-  value: {
-    cooked: string,
-    raw: string
-  },
+  value: { cooked: string, raw: string },
   end: number,
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10968,14 +9345,8 @@ export type TemplateLiteral = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -10988,14 +9359,8 @@ export type ThisExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11009,14 +9374,8 @@ export type ThrowStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11034,14 +9393,8 @@ export type TryStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11058,14 +9411,8 @@ export type UnaryExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11082,14 +9429,8 @@ export type UpdateExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11104,14 +9445,8 @@ export type VariableDeclaration = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11126,14 +9461,8 @@ export type VariableDeclarator = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11148,14 +9477,8 @@ export type WhileStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11170,14 +9493,8 @@ export type WithStatement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11192,14 +9509,8 @@ export type YieldExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11215,14 +9526,8 @@ export type ExportAllDeclaration = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11237,14 +9542,8 @@ export type ExportDefaultDeclaration = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11261,14 +9560,8 @@ export type ExportNamedDeclaration = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11283,14 +9576,8 @@ export type ExportDefaultSpecifier = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11305,14 +9592,8 @@ export type ExportNamespaceSpecifier = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11328,14 +9609,8 @@ export type ExportSpecifier = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11348,14 +9623,8 @@ export type AnyTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11369,14 +9638,8 @@ export type ArrayTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11391,14 +9654,8 @@ export type BooleanLiteralTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11411,14 +9668,8 @@ export type BooleanTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11434,14 +9685,8 @@ export type ClassImplements = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11460,14 +9705,8 @@ export type ClassProperty = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11484,14 +9723,8 @@ export type DeclareClass = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11506,14 +9739,8 @@ export type DeclareFunction = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11528,14 +9755,8 @@ export type DeclareModule = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11550,14 +9771,8 @@ export type DeclareVariable = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11574,14 +9789,8 @@ export type FunctionTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11597,14 +9806,8 @@ export type FunctionTypeParam = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11619,14 +9822,8 @@ export type GenericTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11641,14 +9838,8 @@ export type InterfaceExtends = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11665,14 +9856,8 @@ export type InterfaceDeclaration = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11686,14 +9871,8 @@ export type IntersectionTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11706,14 +9885,8 @@ export type MixedTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11727,14 +9900,8 @@ export type NullableTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11749,14 +9916,8 @@ export type NumberLiteralTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11769,14 +9930,8 @@ export type NumberTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11791,14 +9946,8 @@ export type StringLiteralTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11811,14 +9960,8 @@ export type StringTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11832,14 +9975,8 @@ export type TupleTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11853,14 +9990,8 @@ export type TypeofTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11876,14 +10007,8 @@ export type TypeAlias = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11897,14 +10022,8 @@ export type TypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11919,14 +10038,8 @@ export type TypeCastExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11940,14 +10053,8 @@ export type TypeParameterDeclaration = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11961,14 +10068,8 @@ export type TypeParameterInstantiation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -11984,14 +10085,8 @@ export type ObjectTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12006,14 +10101,8 @@ export type ObjectTypeCallProperty = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12029,14 +10118,8 @@ export type ObjectTypeIndexer = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12052,14 +10135,8 @@ export type ObjectTypeProperty = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12074,14 +10151,8 @@ export type QualifiedTypeIdentifier = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12095,14 +10166,8 @@ export type UnionTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12115,14 +10180,8 @@ export type VoidTypeAnnotation = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12137,14 +10196,8 @@ export type JSXAttribute = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12158,14 +10211,8 @@ export type JSXClosingElement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12181,14 +10228,8 @@ export type JSXElement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12201,14 +10242,8 @@ export type JSXEmptyExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12222,14 +10257,8 @@ export type JSXExpressionContainer = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12243,14 +10272,8 @@ export type JSXIdentifier = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12266,14 +10289,8 @@ export type JSXMemberExpression = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12288,14 +10305,8 @@ export type JSXNamespacedName = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12311,14 +10322,8 @@ export type JSXOpeningElement = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>
@@ -12332,14 +10337,8 @@ export type JSXSpreadAttribute = {
   innerComments: ?Array<Comment>,
   leadingComments: ?Array<Comment>,
   loc: {
-    end: {
-      column: number,
-      line: number
-    },
-    start: {
-      column: number,
-      line: number
-    }
+    end: { column: number, line: number },
+    start: { column: number, line: number }
   },
   start: number,
   trailingComments: ?Array<Comment>

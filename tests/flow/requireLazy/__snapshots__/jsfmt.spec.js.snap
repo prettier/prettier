@@ -21,10 +21,7 @@ module.exports = {
  * @providesModule A
  * @flow
  */
-module.exports = {
-  numberValueA: 1,
-  stringValueA: "someString"
-};
+module.exports = { numberValueA: 1, stringValueA: "someString" };
 
 ================================================================================
 `;
@@ -50,10 +47,7 @@ module.exports = {
  * @providesModule B
  * @flow
  */
-module.exports = {
-  numberValueB: 1,
-  stringValueB: "someString"
-};
+module.exports = { numberValueB: 1, stringValueB: "someString" };
 
 ================================================================================
 `;

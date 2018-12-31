@@ -470,29 +470,8 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
 a
-  ? {
-      a: 0
-    }
-  : {
-      a: {
-        a: 0
-      }
-        ? {
-            a: 0
-          }
-        : {
-            y: {
-              a: 0
-            }
-              ? {
-                  a: 0
-                }
-              : {
-                  a: 0
-                }
-          }
-    };
-
+  ? { a: 0 }
+  : { a: { a: 0 } ? { a: 0 } : { y: { a: 0 } ? { a: 0 } : { a: 0 } } };
 a
   ? {
       a: function() {
@@ -500,29 +479,11 @@ a
           ? {
               a: [
                 a
-                  ? {
-                      a: 0,
-                      b: [a ? [0, 1] : []]
-                    }
+                  ? { a: 0, b: [a ? [0, 1] : []] }
                   : [
-                      [
-                        0,
-                        {
-                          a: 0
-                        },
-                        a ? 0 : 1
-                      ],
+                      [0, { a: 0 }, a ? 0 : 1],
                       function() {
-                        return a
-                          ? {
-                              a: 0
-                            }
-                          : [
-                              {
-                                a: 0
-                              },
-                              {}
-                            ];
+                        return a ? { a: 0 } : [{ a: 0 }, {}];
                       }
                     ]
               ]
@@ -533,56 +494,21 @@ a
                     a
                       ? a(
                           a
-                            ? {
-                                a: a({
-                                  a: 0
-                                })
-                              }
+                            ? { a: a({ a: 0 }) }
                             : [
                                 0,
                                 a(),
-                                a(
-                                  a(),
-                                  {
-                                    a: 0
-                                  },
-                                  a
-                                    ? a()
-                                    : a({
-                                        a: 0
-                                      })
-                                ),
-                                a()
-                                  ? {
-                                      a: a(),
-                                      b: []
-                                    }
-                                  : {}
+                                a(a(), { a: 0 }, a ? a() : a({ a: 0 })),
+                                a() ? { a: a(), b: [] } : {}
                               ]
                         )
                       : a(
                           a()
-                            ? {
-                                a: 0
-                              }
+                            ? { a: 0 }
                             : (function(a) {
                                 return a()
-                                  ? [
-                                      {
-                                        a: 0,
-                                        b: a()
-                                      }
-                                    ]
-                                  : a([
-                                      a
-                                        ? {
-                                            a: 0
-                                          }
-                                        : {},
-                                      {
-                                        a: 0
-                                      }
-                                    ]);
+                                  ? [{ a: 0, b: a() }]
+                                  : a([a ? { a: 0 } : {}, { a: 0 }]);
                               })(
                                 a
                                   ? function(a) {
@@ -798,29 +724,8 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
 a
-    ? {
-          a: 0
-      }
-    : {
-          a: {
-              a: 0
-          }
-              ? {
-                    a: 0
-                }
-              : {
-                    y: {
-                        a: 0
-                    }
-                        ? {
-                              a: 0
-                          }
-                        : {
-                              a: 0
-                          }
-                }
-      };
-
+    ? { a: 0 }
+    : { a: { a: 0 } ? { a: 0 } : { y: { a: 0 } ? { a: 0 } : { a: 0 } } };
 a
     ? {
           a: function() {
@@ -828,29 +733,11 @@ a
                   ? {
                         a: [
                             a
-                                ? {
-                                      a: 0,
-                                      b: [a ? [0, 1] : []]
-                                  }
+                                ? { a: 0, b: [a ? [0, 1] : []] }
                                 : [
-                                      [
-                                          0,
-                                          {
-                                              a: 0
-                                          },
-                                          a ? 0 : 1
-                                      ],
+                                      [0, { a: 0 }, a ? 0 : 1],
                                       function() {
-                                          return a
-                                              ? {
-                                                    a: 0
-                                                }
-                                              : [
-                                                    {
-                                                        a: 0
-                                                    },
-                                                    {}
-                                                ];
+                                          return a ? { a: 0 } : [{ a: 0 }, {}];
                                       }
                                   ]
                         ]
@@ -861,55 +748,31 @@ a
                                   a
                                       ? a(
                                             a
-                                                ? {
-                                                      a: a({
-                                                          a: 0
-                                                      })
-                                                  }
+                                                ? { a: a({ a: 0 }) }
                                                 : [
                                                       0,
                                                       a(),
                                                       a(
                                                           a(),
-                                                          {
-                                                              a: 0
-                                                          },
-                                                          a
-                                                              ? a()
-                                                              : a({
-                                                                    a: 0
-                                                                })
+                                                          { a: 0 },
+                                                          a ? a() : a({ a: 0 })
                                                       ),
                                                       a()
-                                                          ? {
-                                                                a: a(),
-                                                                b: []
-                                                            }
+                                                          ? { a: a(), b: [] }
                                                           : {}
                                                   ]
                                         )
                                       : a(
                                             a()
-                                                ? {
-                                                      a: 0
-                                                  }
+                                                ? { a: 0 }
                                                 : (function(a) {
                                                       return a()
-                                                          ? [
-                                                                {
-                                                                    a: 0,
-                                                                    b: a()
-                                                                }
-                                                            ]
+                                                          ? [{ a: 0, b: a() }]
                                                           : a([
                                                                 a
-                                                                    ? {
-                                                                          a: 0
-                                                                      }
+                                                                    ? { a: 0 }
                                                                     : {},
-                                                                {
-                                                                    a: 0
-                                                                }
+                                                                { a: 0 }
                                                             ]);
                                                   })(
                                                       a
@@ -1126,29 +989,8 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 		: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 	: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
 a
-	? {
-			a: 0
-	  }
-	: {
-			a: {
-				a: 0
-			}
-				? {
-						a: 0
-				  }
-				: {
-						y: {
-							a: 0
-						}
-							? {
-									a: 0
-							  }
-							: {
-									a: 0
-							  }
-				  }
-	  };
-
+	? { a: 0 }
+	: { a: { a: 0 } ? { a: 0 } : { y: { a: 0 } ? { a: 0 } : { a: 0 } } };
 a
 	? {
 			a: function() {
@@ -1156,29 +998,11 @@ a
 					? {
 							a: [
 								a
-									? {
-											a: 0,
-											b: [a ? [0, 1] : []]
-									  }
+									? { a: 0, b: [a ? [0, 1] : []] }
 									: [
-											[
-												0,
-												{
-													a: 0
-												},
-												a ? 0 : 1
-											],
+											[0, { a: 0 }, a ? 0 : 1],
 											function() {
-												return a
-													? {
-															a: 0
-													  }
-													: [
-															{
-																a: 0
-															},
-															{}
-													  ];
+												return a ? { a: 0 } : [{ a: 0 }, {}];
 											}
 									  ]
 							]
@@ -1189,56 +1013,21 @@ a
 										a
 											? a(
 													a
-														? {
-																a: a({
-																	a: 0
-																})
-														  }
+														? { a: a({ a: 0 }) }
 														: [
 																0,
 																a(),
-																a(
-																	a(),
-																	{
-																		a: 0
-																	},
-																	a
-																		? a()
-																		: a({
-																				a: 0
-																		  })
-																),
-																a()
-																	? {
-																			a: a(),
-																			b: []
-																	  }
-																	: {}
+																a(a(), { a: 0 }, a ? a() : a({ a: 0 })),
+																a() ? { a: a(), b: [] } : {}
 														  ]
 											  )
 											: a(
 													a()
-														? {
-																a: 0
-														  }
+														? { a: 0 }
 														: (function(a) {
 																return a()
-																	? [
-																			{
-																				a: 0,
-																				b: a()
-																			}
-																	  ]
-																	: a([
-																			a
-																				? {
-																						a: 0
-																				  }
-																				: {},
-																			{
-																				a: 0
-																			}
-																	  ]);
+																	? [{ a: 0, b: a() }]
+																	: a([a ? { a: 0 } : {}, { a: 0 }]);
 														  })(
 																a
 																	? function(a) {
@@ -1455,29 +1244,8 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 		: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 	: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
 a
-	? {
-			a: 0
-	  }
-	: {
-			a: {
-				a: 0
-			}
-				? {
-						a: 0
-				  }
-				: {
-						y: {
-							a: 0
-						}
-							? {
-									a: 0
-							  }
-							: {
-									a: 0
-							  }
-				  }
-	  };
-
+	? { a: 0 }
+	: { a: { a: 0 } ? { a: 0 } : { y: { a: 0 } ? { a: 0 } : { a: 0 } } };
 a
 	? {
 			a: function() {
@@ -1485,29 +1253,13 @@ a
 					? {
 							a: [
 								a
-									? {
-											a: 0,
-											b: [a ? [0, 1] : []]
-									  }
+									? { a: 0, b: [a ? [0, 1] : []] }
 									: [
-											[
-												0,
-												{
-													a: 0
-												},
-												a ? 0 : 1
-											],
+											[0, { a: 0 }, a ? 0 : 1],
 											function() {
 												return a
-													? {
-															a: 0
-													  }
-													: [
-															{
-																a: 0
-															},
-															{}
-													  ];
+													? { a: 0 }
+													: [{ a: 0 }, {}];
 											}
 									  ]
 							]
@@ -1518,19 +1270,13 @@ a
 										a
 											? a(
 													a
-														? {
-																a: a({
-																	a: 0
-																})
-														  }
+														? { a: a({ a: 0 }) }
 														: [
 																0,
 																a(),
 																a(
 																	a(),
-																	{
-																		a: 0
-																	},
+																	{ a: 0 },
 																	a
 																		? a()
 																		: a({
@@ -1547,9 +1293,7 @@ a
 											  )
 											: a(
 													a()
-														? {
-																a: 0
-														  }
+														? { a: 0 }
 														: (function(a) {
 																return a()
 																	? [
@@ -1783,13 +1527,7 @@ const foo = (
       : i18n("Theme")}
   </div>
 );
-a
-  ? literalline
-  : {
-      123: 12
-    }
-  ? line
-  : softline;
+a ? literalline : { 123: 12 } ? line : softline;
 
 ================================================================================
 `;
@@ -1982,13 +1720,7 @@ const foo = (
             : i18n("Theme")}
     </div>
 );
-a
-    ? literalline
-    : {
-          123: 12
-      }
-    ? line
-    : softline;
+a ? literalline : { 123: 12 } ? line : softline;
 
 ================================================================================
 `;
@@ -2181,13 +1913,7 @@ const foo = (
 			: i18n("Theme")}
 	</div>
 );
-a
-	? literalline
-	: {
-			123: 12
-	  }
-	? line
-	: softline;
+a ? literalline : { 123: 12 } ? line : softline;
 
 ================================================================================
 `;
@@ -2381,13 +2107,7 @@ const foo = (
 			: i18n("Theme")}
 	</div>
 );
-a
-	? literalline
-	: {
-			123: 12
-	  }
-	? line
-	: softline;
+a ? literalline : { 123: 12 } ? line : softline;
 
 ================================================================================
 `;

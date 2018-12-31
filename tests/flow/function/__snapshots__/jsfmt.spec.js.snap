@@ -381,10 +381,7 @@ function good(x: Function, MyThing: Function): number {
   x();
   <MyThing />;
   var { ...something } = x;
-  Object.assign(x, {
-    hi: "there"
-  });
-
+  Object.assign(x, { hi: "there" });
   Object.keys(x);
   return x.bar + x["bar"] + x.lala();
 }
@@ -570,11 +567,7 @@ function rest_union(...xs: [1, 2] | Array<number>): number {
   return xs[0];
 }
 
-function rest_intersection(
-  ...xs: {
-    x: number
-  } & [1, 2]
-): number {
+function rest_intersection(...xs: { x: number } & [1, 2]): number {
   // OK
   return xs[0] + xs.x;
 }
@@ -666,11 +659,7 @@ type rest_alias = (...xs: Rest) => void; // Ok
 
 type rest_union = (...xs: [1, 2] | Array<number>) => number; // OK
 
-type rest_intersection = (
-  ...xs: {
-    x: number
-  } & [1, 2]
-) => number; // OK
+type rest_intersection = (...xs: { x: number } & [1, 2]) => number; // OK
 
 type empty_rest = <T: Array<mixed>>(...xs: T) => T; // OK
 

@@ -25,11 +25,7 @@ f(A.x); // A.x is now a string, by def assign
 /* @providesModule A */
 module.exports = {};
 
-var A = {
-  x: true,
-  ...{}
-};
-
+var A = { x: true, ...{} };
 module.exports.cls = A;
 function f(x: boolean) {}
 module.exports.fn = f;
@@ -148,11 +144,7 @@ function g(): string {
   return this.i;
 }
 
-var o = {
-  fn: g,
-  ...{}
-};
-
+var o = { fn: g, ...{} };
 o.i = true;
 var i = o.fn();
 f(i);
@@ -182,15 +174,10 @@ module.exports = {obj: o};
 /* @providesModule E */
 function h(x: number) {}
 
-var proto = {
-  fn: h
-};
-
+var proto = { fn: h };
 var o = Object.create(proto);
 o.fn(false);
-module.exports = {
-  obj: o
-};
+module.exports = { obj: o };
 
 ================================================================================
 `;
@@ -213,10 +200,7 @@ function fn2(x) {
   return x.length * 4;
 }
 
-fn2({
-  length: "hi"
-});
-
+fn2({ length: "hi" });
 function foo(x: Array<number>): string {
   return x.length;
 }
@@ -239,10 +223,7 @@ b.length = "duck";
 b.length();
 
 =====================================output=====================================
-var a = {
-  length: "duck"
-};
-
+var a = { length: "duck" };
 a.length = 123;
 a.length();
 var b = [123];

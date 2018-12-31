@@ -45,10 +45,7 @@ function isActive(ad: {
   return ad.state === "ACTIVE";
 }
 
-isActive({
-  state: "PAUSE"
-});
-
+isActive({ state: "PAUSE" });
 var MyStates = {
   PAUSED: "PAUSED",
   ACTIVE: "ACTIVE",
@@ -59,15 +56,8 @@ function isActive2(ad: { state: $Keys<typeof MyStates> }): boolean {
   return ad.state === MyStates.ACTIVE;
 }
 
-isActive2({
-  state: "PAUSE"
-});
-
-type Keys = $Keys<{
-  x: any,
-  y: any
-}>;
-
+isActive2({ state: "PAUSE" });
+type Keys = $Keys<{ x: any, y: any }>;
 type Union = "x" | "y";
 function keys2union(s: Keys): Union {
   return s;

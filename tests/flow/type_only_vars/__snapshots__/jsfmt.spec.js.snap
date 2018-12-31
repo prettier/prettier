@@ -28,10 +28,7 @@ module.exports = {
 class Foo {}
 
 class Bar {}
-module.exports = {
-  Foo: Foo,
-  Bar: Bar
-};
+module.exports = { Foo: Foo, Bar: Bar };
 
 ================================================================================
 `;
@@ -68,10 +65,7 @@ var duck: string = "quack";
 import typeof A from "./A.js";
 
 import type { Foo, Bar as Baz } from "./A.js";
-type duck = {
-  quack: () => string
-};
-
+type duck = { quack: () => string };
 // These string types should confict with the imported types
 var A: string = "Hello";
 

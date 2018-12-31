@@ -286,25 +286,11 @@ var getStateCode = R.composeK(
   get("user")
 );
 
-getStateCode({
-  user: {
-    address: {
-      state: "ny"
-    }
-  }
-}); //=> Maybe.Just("NY")
+getStateCode({ user: { address: { state: "ny" } } }); //=> Maybe.Just("NY")
 
 getStateCode({}); //=> Maybe.Nothing()
 
-var db = {
-  users: {
-    JOE: {
-      name: "Joe",
-      followers: ["STEVE", "SUZY"]
-    }
-  }
-};
-
+var db = { users: { JOE: { name: "Joe", followers: ["STEVE", "SUZY"] } } };
 // We'll pretend to do a db lookup which returns a promise
 var lookupUser = userId => Promise.resolve(db.users[userId]);
 

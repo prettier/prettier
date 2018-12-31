@@ -62,9 +62,7 @@ import blah from "foo";
 
 import type { Foo, Bar, Id } from "foo";
 blah(0, 0);
-({
-  toz: 3
-}: Foo); // error : {toz : number} ~> string
+({ toz: 3 }: Foo); // error : {toz : number} ~> string
 
 (3: Bar); // error : number ~> A
 

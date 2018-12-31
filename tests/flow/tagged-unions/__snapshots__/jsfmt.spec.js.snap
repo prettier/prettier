@@ -235,10 +235,7 @@ if (data.kind === "user") {
 
 =====================================output=====================================
 /* @flow */
-type DataBase = {
-  id: string,
-  name: string
-};
+type DataBase = { id: string, name: string };
 
 type UserData = {
   id: string,
@@ -305,10 +302,7 @@ if (data.kind === "system") {
 
 =====================================output=====================================
 /* @flow */
-type DataBase = {
-  id: string,
-  name: string
-};
+type DataBase = { id: string, name: string };
 
 type UserData = {
   id: string,

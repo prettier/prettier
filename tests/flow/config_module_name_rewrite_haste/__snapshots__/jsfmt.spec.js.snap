@@ -58,9 +58,7 @@ module.exports = {
  * @providesModule Exists
  * @flow
  */
-module.exports = {
-  numVal: 42
-};
+module.exports = { numVal: 42 };
 
 ================================================================================
 `;

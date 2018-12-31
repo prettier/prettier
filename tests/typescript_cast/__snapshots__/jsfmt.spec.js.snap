@@ -65,10 +65,7 @@ function x() {
 // https://github.com/prettier/prettier/issues/4171
 function y() {
   const fits = <Immutable.Map<string, any>>fits();
-  const fitsObjLiteral = <Immutable.Map<string, any>>{
-    a: "test"
-  };
-
+  const fitsObjLiteral = <Immutable.Map<string, any>>{ a: "test" };
   const fitsArrayLiteral = <Immutable.Map<string, any>>["test", "test2"];
   const breakAfterCast = <Immutable.Map<string, any>>(
     someExistingConfigMap.mergeDeep(fallbackOpts)
@@ -124,7 +121,6 @@ function y() {
   const testObjLiteral = <Immutable.Map<string, any>>{
     property1: "myPropertyVal"
   };
-
   const testObjLiteral2 = <
     Immutable.Map<
       string,
@@ -137,10 +133,7 @@ function y() {
       never,
       "extra long"
     >
-  >{
-    property1: "myPropertyVal"
-  };
-
+  >{ property1: "myPropertyVal" };
   const testArrayLiteral = <Immutable.Map<string, any>>[
     "first",
     "second",
@@ -169,10 +162,7 @@ function y() {
 // https://github.com/prettier/prettier/issues/4168
 function x() {
   const fits = <PermissionsChecker<any> | undefined>(<any>permissions)[type];
-  const fitsObjLiteral = <PermissionsChecker<any> | undefined>{
-    a: "test"
-  };
-
+  const fitsObjLiteral = <PermissionsChecker<any> | undefined>{ a: "test" };
   const fitsArrayLiteral = <PermissionsChecker<any> | undefined>["t1", "t2"];
   const breakAfterCast = <PermissionsChecker<any> | undefined>(
     (<any>permissions)[receiverType]
@@ -208,7 +198,6 @@ function x() {
   const testObjLiteral = <PermissionsChecker<any> | undefined>{
     prop1: "myPropVal"
   };
-
   const testObjLiteral2 = <
     | PermissionsChecker<object>
     | undefined
@@ -218,10 +207,7 @@ function x() {
     | null
     | never
     | object
-  >{
-    prop1: "myPropVal"
-  };
-
+  >{ prop1: "myPropVal" };
   const testArrayLiteral = <PermissionsChecker<any> | undefined>[
     "first",
     "second",
@@ -277,22 +263,12 @@ postMessages(
 );
 
 =====================================output=====================================
-postMessage(<IActionMessage>{
-  context: item.context,
-  topic: item.topic
-});
-
+postMessage(<IActionMessage>{ context: item.context, topic: item.topic });
 window.postMessage({
   context: item.context,
   topic: item.topic
 } as IActionMessage);
-
-postMessages(<IActionMessage[]>[
-  {
-    context: item.context,
-    topic: item.topic
-  }
-]);
+postMessages(<IActionMessage[]>[{ context: item.context, topic: item.topic }]);
 
 ================================================================================
 `;

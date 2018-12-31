@@ -28,9 +28,7 @@ function identity<A>(val: A): Functor<A> {
 
 =====================================output=====================================
 /* @flow */
-type F<A> = {
-  foo<B>(x: A): F<B>
-};
+type F<A> = { foo<B>(x: A): F<B> };
 
 declare function foo(x: any): F<any>;
 ({ foo }: F<any>);
@@ -46,10 +44,7 @@ function bar2<X>(y: F<any>): F<X> {
   return y;
 }
 
-type Functor<A> = {
-  map<B>(f: (val: A) => B): Functor<B>
-};
-
+type Functor<A> = { map<B>(f: (val: A) => B): Functor<B> };
 function identity<A>(val: A): Functor<A> {
   return {
     map<B>(f: (_: typeof val) => B): Functor<B> {
@@ -193,10 +188,7 @@ function foo0() {
   a_ = a_.x; // terminate despite expanding types
 }
 
-type T<X> = {
-  y: S<X>
-};
-
+type T<X> = { y: S<X> };
 type S<X> = T<S<X>>;
 function foo1(b: S<*>) {
   b = b.y; // terminate despite expanding types, OK // S<*> = { y: S<S<*>> } // Both S<S<*>> and S<*> expand to { y: { y: ... }}.
@@ -240,10 +232,7 @@ function foo(x: I<number>): J<number> {
   return x; // terminate despite expanding types, OK // I<number> and J<number> both expand to () => () => ...
 }
 
-type Q<X> = {
-  x: X
-};
-
+type Q<X> = { x: X };
 type P<X> = () => Q<P<X>>;
 function bar(x: P<number>): () => P<number> {
   return x; // terminate despite expanding types, error // P<number> = () => { x: P<number> } // () => P<number> = () => () => { x: P<number> }

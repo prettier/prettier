@@ -597,21 +597,14 @@ type UploadState<E, EM, D>
 =====================================output=====================================
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
-  | {
-      type: "Not_begun"
-    } // The upload timed out
-  | {
-      type: "Timed_out"
-    } // Failed somewhere on the line
+  | { type: "Not_begun" } // The upload timed out
+  | { type: "Timed_out" } // Failed somewhere on the line
   | {
       type: "Failed",
       error: E,
       errorMsg: EM
     } // Uploading to aws3 and CreatePostMutation succeeded
-  | {
-      type: "Success",
-      data: D
-    };
+  | { type: "Success", data: D };
 
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
@@ -1081,29 +1074,13 @@ export type BuckWebSocketMessage =
       // Not actually from Buck - this is to let the receiver know that the socket is connected.
       type: "SocketConnected"
     }
-  | {
-      type: "BuildProgressUpdated",
-      progressValue: number
-    }
-  | {
-      type: "BuildFinished",
-      exitCode: number
-    }
-  | {
-      type: "BuildStarted"
-    }
-  | {
-      type: "ParseStarted"
-    }
-  | {
-      type: "ParseFinished"
-    }
-  | {
-      type: "RunStarted"
-    }
-  | {
-      type: "RunComplete"
-    };
+  | { type: "BuildProgressUpdated", progressValue: number }
+  | { type: "BuildFinished", exitCode: number }
+  | { type: "BuildStarted" }
+  | { type: "ParseStarted" }
+  | { type: "ParseFinished" }
+  | { type: "RunStarted" }
+  | { type: "RunComplete" };
 
 // Missing one level of indentation because of the comment
 const rootEpic = (actions, store) =>
@@ -1512,34 +1489,24 @@ class Foo {
 
 =====================================output=====================================
 type f = (
-  currentRequest: {
-    a: number
-  } // TODO this is a very very very very long comment that makes it go > 80 columns
+  currentRequest: { a: number } // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => number;
 
 f = (
-  currentRequest: {
-    a: number
-  } // TODO this is a very very very very long comment that makes it go > 80 columns
+  currentRequest: { a: number } // TODO this is a very very very very long comment that makes it go > 80 columns
 ): number => {};
 
 f = (
-  currentRequest: {
-    a: number
-  } // TODO this is a very very very very long comment that makes it go > 80 columns
+  currentRequest: { a: number } // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => {};
 
 f = function(
-  currentRequest: {
-    a: number
-  } // TODO this is a very very very very long comment that makes it go > 80 columns
+  currentRequest: { a: number } // TODO this is a very very very very long comment that makes it go > 80 columns
 ) {};
 
 class X {
   f(
-    currentRequest: {
-      a: number
-    } // TODO this is a very very very very long comment that makes it go > 80 columns
+    currentRequest: { a: number } // TODO this is a very very very very long comment that makes it go > 80 columns
   ) {}
 }
 
@@ -2154,18 +2121,10 @@ const CONNECTION_STATUS = exports.CONNECTION_STATUS = {
 
 =====================================output=====================================
 const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
-  CLOSED: Object.freeze({
-    kind: "CLOSED"
-  }),
-  CONNECTED: Object.freeze({
-    kind: "CONNECTED"
-  }),
-  CONNECTING: Object.freeze({
-    kind: "CONNECTING"
-  }),
-  NOT_CONNECTED: Object.freeze({
-    kind: "NOT_CONNECTED"
-  })
+  CLOSED: Object.freeze({ kind: "CLOSED" }),
+  CONNECTED: Object.freeze({ kind: "CONNECTED" }),
+  CONNECTING: Object.freeze({ kind: "CONNECTING" }),
+  NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" })
 }); /* A comment */
 /**
  * A type that can be written to a buffer.
@@ -2304,15 +2263,11 @@ const foo = 123
 =====================================output=====================================
 let obj =
   // Comment
-  {
-    key: "val"
-  };
+  { key: "val" };
 
 let obj =
   // Comment
-  {
-    key: "val"
-  };
+  { key: "val" };
 
 let obj = {
   // Comment

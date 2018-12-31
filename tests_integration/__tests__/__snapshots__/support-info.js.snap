@@ -1095,10 +1095,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"category\\": \\"Global\\",
       \\"choices\\": [
-        {
-          \\"description\\": \\"Flow\\",
-          \\"value\\": \\"flow\\"
-        },
+        { \\"description\\": \\"Flow\\", \\"value\\": \\"flow\\" },
         {
           \\"description\\": \\"JavaScript\\",
           \\"since\\": \\"1.16.0\\",
@@ -1327,10 +1324,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"category\\": \\"JavaScript\\",
       \\"choices\\": [
-        {
-          \\"description\\": \\"No trailing commas.\\",
-          \\"value\\": \\"none\\"
-        },
+        { \\"description\\": \\"No trailing commas.\\", \\"value\\": \\"none\\" },
         {
           \\"description\\": \\"Trailing commas where valid in ES5 (objects, arrays, etc.)\\",
           \\"value\\": \\"es5\\"

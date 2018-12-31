@@ -65,10 +65,7 @@ module.exports = id(
 
 =====================================output=====================================
 const id = require("./id");
-export type ObjectType = {
-  +m: () => void
-};
-
+export type ObjectType = { +m: () => void };
 function methodCaller(x: ObjectType) {
   x.m();
 }
@@ -108,11 +105,7 @@ function f() {
   return this.p;
 }
 
-var a = {
-  p: 0,
-  f
-};
-
+var a = { p: 0, f };
 var b = { f };
 a.f(); // okey-dokie
 
@@ -164,9 +157,7 @@ function qux(o: { f: () => void }) {
   o.f(); // passing o as \`this\`
 }
 
-qux({
-  f: foo
-}); // error, since \`this\` is used non-trivially in \`foo\`
+qux({ f: foo }); // error, since \`this\` is used non-trivially in \`foo\`
 
 ================================================================================
 `;
