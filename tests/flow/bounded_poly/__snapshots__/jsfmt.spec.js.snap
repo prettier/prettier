@@ -18,7 +18,6 @@ function bar<X: number, Y: X>(x: X, y: Y): number {
   return y * 0;
 }
 
-
 ================================================================================
 `;
 
@@ -61,13 +60,11 @@ function foo<T: number>(x: T): T {
   var y: string = x; // error
 
   return x; // OK
-
 }
 
 class C<T: number> {
   bar<U: number>(x: U): T {
     return x; // error, since T: number and U: number does not imply U: T
-
   }
 
   qux<U: T>(x: U): T {
@@ -76,9 +73,7 @@ class C<T: number> {
     var y: string = x; // error
 
     return x; // OK, since U: T
-
   }
-
 }
 
 function example<
@@ -110,7 +105,6 @@ var q: number = c.qux(
   0
 ); /* 2 more errors, since argument U = number is incompatible with T = string, and
  * result T = string is incompatible with number */
-
 
 ================================================================================
 `;

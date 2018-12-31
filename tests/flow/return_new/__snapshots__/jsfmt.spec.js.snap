@@ -73,13 +73,11 @@ function makeUnion():
   return {
     x: "x"
   };
-
 }
 
 (new makeUnion(): {
   x: string
 }); // error: \`number\` returns {}, missing prop x
-
 
 ================================================================================
 `;

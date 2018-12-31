@@ -68,7 +68,6 @@ type window = Window & {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
 };
 
-
 ================================================================================
 `;
 
@@ -148,7 +147,6 @@ type State = {
   | { discriminant: "FOO"; foo: any }
   | { discriminant: "BAR"; bar: any }
   | { discriminant: "BAZ"; baz: any });
-
 
 ================================================================================
 `;

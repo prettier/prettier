@@ -18,7 +18,6 @@ export function foo(): Implementation {
   return new Implementation();
 }
 
-
 ================================================================================
 `;
 
@@ -142,7 +141,6 @@ var ExplicitSameName = require("ExplicitProvidesModuleSameName");
 
 var ExplicitDifferentName = require("ExplicitProvidesModuleDifferentName");
 (ExplicitDifferentName.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
-
 
 ================================================================================
 `;

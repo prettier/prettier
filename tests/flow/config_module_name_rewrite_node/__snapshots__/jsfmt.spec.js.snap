@@ -64,7 +64,6 @@ import { numVal as numVal3 } from "5DoesntExist";
 var c_3: number = numVal3;
 var c_4: string = numVal3; // Error: number ~> string
 
-
 ================================================================================
 `;
 
@@ -85,7 +84,6 @@ module.exports = {
 module.exports = {
   numVal: 42
 };
-
 
 ================================================================================
 `;

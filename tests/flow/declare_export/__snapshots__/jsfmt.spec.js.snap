@@ -14,7 +14,6 @@ exports.numberValue = 42;
 /* @flow */
 exports.numberValue = 42;
 
-
 ================================================================================
 `;
 
@@ -90,7 +89,6 @@ class Test extends Base {
   instNumber2(): number {
     return 2;
   }
-
 }
 
 module.exports = Test;
@@ -129,7 +127,6 @@ module.exports = {
   numberValue4: 4,
   numberValue5: 5
 };
-
 
 ================================================================================
 `;
@@ -186,7 +183,6 @@ declare export default () => number;
  */
 declare export default () => number;
 
-
 ================================================================================
 `;
 
@@ -209,7 +205,6 @@ declare export default () =>number;
  * @flow
  */
 declare export default () => number;
-
 
 ================================================================================
 `;
@@ -274,7 +269,6 @@ declare export default class Foo {
   givesANum(): number;
 }
 
-
 ================================================================================
 `;
 
@@ -298,7 +292,6 @@ declare export default function foo():number;
  */
 declare export default function foo(): number;
 
-
 ================================================================================
 `;
 
@@ -321,7 +314,6 @@ declare export default function foo():number;
  * @flow
  */
 declare export default function foo(): number;
-
 
 ================================================================================
 `;
@@ -366,7 +358,6 @@ declare export * from "ES6_ExportAllFrom_Source1";
  */
 declare export * from "ES6_ExportAllFrom_Source1"
 
-
 ================================================================================
 `;
 
@@ -389,7 +380,6 @@ declare export * from "ES6_ExportAllFrom_Source2";
  * @flow
  */
 declare export * from "ES6_ExportAllFrom_Source2"
-
 
 ================================================================================
 `;
@@ -414,7 +404,6 @@ declare export var numberValue1: number;
  */
 declare export var numberValue1: number;
 
-
 ================================================================================
 `;
 
@@ -437,7 +426,6 @@ declare export var numberValue2: number;
  * @flow
  */
 declare export var numberValue2: number;
-
 
 ================================================================================
 `;
@@ -488,7 +476,6 @@ declare export {
   numberValue2 as numberValue2_renamed
 } from "ES6_ExportFrom_Source1";
 
-
 ================================================================================
 `;
 
@@ -517,7 +504,6 @@ declare export {
   numberValue1,
   numberValue2 as numberValue2_renamed2
 } from "ES6_ExportFrom_Source2";
-
 
 ================================================================================
 `;
@@ -733,7 +719,6 @@ module.exports = {
 module.exports = {
   numberValue: 42
 };
-
 
 ================================================================================
 `;
@@ -1376,7 +1361,6 @@ var at2: string = numberValue8; // Error: number ~> string
 
 var at3: number = numberValue9;
 var at4: string = numberValue9; // Error: number ~> string
-
 
 ================================================================================
 `;

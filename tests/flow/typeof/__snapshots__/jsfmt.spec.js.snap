@@ -102,7 +102,6 @@ class MyClass1 {
   getNumber(): number {
     return 42;
   }
-
 }
 
 // a is an instance of MyClass1 - in runtime terms,
@@ -137,7 +136,6 @@ class MyClass2 {
   getNumber1(): number {
     return 42;
   }
-
 }
 
 // The opposite error: assign an *instance* of MyClass2
@@ -177,7 +175,6 @@ var Map = {
 };
 
 var keys: $Keys<Map> = "A"; // Error: ineligible value used in type anno
-
 
 ================================================================================
 `;

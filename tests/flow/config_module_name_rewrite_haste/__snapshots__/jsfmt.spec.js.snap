@@ -35,7 +35,6 @@ var m2 = require("2DoesntExist"); // Error
 
 import { numVal as numVal2 } from "3DoesntExist"; // Error
 
-
 ================================================================================
 `;
 
@@ -62,7 +61,6 @@ module.exports = {
 module.exports = {
   numVal: 42
 };
-
 
 ================================================================================
 `;

@@ -22,6 +22,5 @@ require("module_completely_absent");
 // Flow should give a descriptive error about this
 require("module_outside_of_root");
 
-
 ================================================================================
 `;

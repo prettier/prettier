@@ -38,7 +38,6 @@ declare namespace A {
   function y(): void;
 }
 
-
 ================================================================================
 `;
 
@@ -56,7 +55,6 @@ declare interface Dictionary<T> {
 declare interface Dictionary<T> {
   [index: string]: T;
 }
-
 
 ================================================================================
 `;
@@ -79,7 +77,6 @@ const hello = 5;
 
 // tslint:disable-next-line:no-use-before-declare
 declare const hello = 5;
-
 
 ================================================================================
 `;

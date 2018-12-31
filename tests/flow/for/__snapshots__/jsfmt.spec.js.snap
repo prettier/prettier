@@ -109,7 +109,6 @@ function corge(x: boolean) {
   console.log("this is still reachable");
 }
 
-
 ================================================================================
 `;
 
@@ -221,7 +220,6 @@ function corge(x: boolean) {
   console.log("this is still reachable");
 }
 
-
 ================================================================================
 `;
 
@@ -324,7 +322,6 @@ function corge(x: boolean) {
 
   console.log("this is still reachable");
 }
-
 
 ================================================================================
 `;

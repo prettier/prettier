@@ -28,6 +28,5 @@ var corge = require("qux/corge");
 
 (corge.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
 
-
 ================================================================================
 `;

@@ -48,7 +48,6 @@ var id = geolocation.watchPosition(
       default:
         break;
     }
-
   }
 );
 

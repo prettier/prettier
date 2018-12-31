@@ -37,7 +37,6 @@ async function *delegate_return() {
 async function* delegate_next() {
   async function* inner() {
     var x: void = yield; // error: number ~> void
-
   }
 
   yield* inner();
@@ -55,9 +54,7 @@ async function* delegate_yield() {
 async () => {
   for await (const x of delegate_yield()) {
     (x: void); // error: number ~> void
-
   }
-
 };
 
 async function* delegate_return() {
@@ -66,9 +63,7 @@ async function* delegate_return() {
   }
 
   var x: void = yield* inner(); // error: number ~> void
-
 }
-
 
 ================================================================================
 `;
@@ -119,21 +114,16 @@ async function* readLines(path) {
     while (!file.EOF) {
       yield await file.readLine();
     }
-
   } finally {
     file.close();
   }
-
 }
 
 async function f() {
   for await (const line of readLines("/path/to/file")) {
     (line: void); // error: string ~> void
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -173,7 +163,6 @@ declare var gen: AsyncGenerator<void, string, void>;
 // the AsyncGenerator's return type
 gen.return(0).then(result => {
   (result.value: void); // error: string | number ~> void
-
 });
 
 // However, a generator can "refuse" the return by catching an exception and
@@ -184,7 +173,6 @@ async function* refuse_return() {
   } finally {
     return 0;
   }
-
 }
 
 refuse_return()
@@ -192,11 +180,8 @@ refuse_return()
   .then(result => {
     if (result.done) {
       (result.value: string); // error: number | void ~> string
-
     }
-
   });
-
 
 ================================================================================
 `;
@@ -247,7 +232,6 @@ async function* catch_return() {
   } catch (e) {
     return e;
   }
-
 }
 
 async () => {
@@ -256,11 +240,8 @@ async () => {
     .then(({ value }) => {
       if (value !== undefined) {
         (value: void); // error: number ~> void
-
       }
-
     });
-
 };
 
 async function* yield_return() {
@@ -270,7 +251,6 @@ async function* yield_return() {
   } catch (e) {
     yield e;
   }
-
 }
 
 async () => {
@@ -279,13 +259,9 @@ async () => {
     .then(({ value }) => {
       if (value !== undefined) {
         (value: void); // error: number ~> void
-
       }
-
     });
-
 };
-
 
 ================================================================================
 `;

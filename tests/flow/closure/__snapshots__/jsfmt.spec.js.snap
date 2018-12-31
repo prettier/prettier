@@ -127,7 +127,6 @@ function local_func() {
   takes_string(local_x); // error
 
   local_x = 42; // shouldn't pollute linear refinement
-
 }
 
 // global write from method
@@ -167,9 +166,7 @@ function local_meth() {
   takes_string(local_y); // error
 
   local_y = 42; // shouldn't pollute linear refinement
-
 }
-
 
 ================================================================================
 `;
@@ -210,9 +207,7 @@ function example(b: boolean): number {
   }
 
   return x; // error, string ~/~> number (return type anno) TODO
-
 }
-
 
 ================================================================================
 `;
@@ -286,7 +281,6 @@ function g(x: ?number) {
     call_me = () => {
       var y: number = const_x;
     };
-
   }
 
   var var_x = x;
@@ -295,7 +289,6 @@ function g(x: ?number) {
     call_me = () => {
       var y: number = var_x;
     }; // error
-
   }
 
   var_x = null;
@@ -307,17 +300,14 @@ function h(x: number | string | boolean) {
     call_me = () => {
       var y: number = const_x;
     }; // ok
-
   } else if (typeof const_x == "string") {
     call_me = () => {
       var y: string = const_x;
     }; // ok
-
   } else if (typeof const_x == "boolean") {
     call_me = () => {
       var y: boolean = const_x;
     }; // ok
-
   }
 
   var var_x = x;
@@ -325,24 +315,19 @@ function h(x: number | string | boolean) {
     call_me = () => {
       var y: number = var_x;
     }; // error
-
   } else if (typeof var_x == "string") {
     call_me = () => {
       var y: string = var_x;
     }; // error
-
   } else if (typeof var_x == "boolean") {
     call_me = () => {
       var y: boolean = var_x;
     }; // error
-
   }
-
 }
 
 // in a galaxy far far away
 call_me();
-
 
 ================================================================================
 `;

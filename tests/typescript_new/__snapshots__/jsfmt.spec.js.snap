@@ -138,6 +138,5 @@ interface TimerConstructor {
   new (interval: number, callback: (handler: Timer) => void): Timer;
 }
 
-
 ================================================================================
 `;

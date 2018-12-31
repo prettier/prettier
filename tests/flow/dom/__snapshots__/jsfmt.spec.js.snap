@@ -30,10 +30,8 @@ let tests = [
   // moveTo
   function(ctx: CanvasRenderingContext2D) {
     ctx.moveTo("0", "1"); // error: should be numbers
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -63,10 +61,8 @@ let tests = [
     event.initCustomEvent("butts", true, false, {
       nice: 42
     });
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -102,10 +98,8 @@ let tests = [
     (document.createElement("select"): HTMLSelectElement);
     (document.querySelector("select"): HTMLSelectElement | null);
     (document.createElement("hr"): HTMLElement); // GH #3752
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -169,7 +163,6 @@ let tests = [
   }
 ];
 
-
 ================================================================================
 `;
 
@@ -196,7 +189,6 @@ let tests = [
     (el.getContext("2d"): ?CanvasRenderingContext2D);
   }
 ];
-
 
 ================================================================================
 `;
@@ -260,7 +252,6 @@ let tests = [
   }
 ];
 
-
 ================================================================================
 `;
 
@@ -294,10 +285,8 @@ let tests = [
     el.setRangeText("foo", 123, 234);
     el.setRangeText("foo", 123, 234, "select");
     el.setRangeText("foo", 123, 234, "bogus"); // invalid value
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -365,7 +354,6 @@ const q: string = c.search; // correct
 
 const r: string = c.username; // correct
 
-
 ================================================================================
 `;
 
@@ -412,7 +400,6 @@ let tests = [
     (target.attachEvent("foo", listener): void); // invalid, may be undefined
 
     (target.attachEvent && target.attachEvent("foo", listener): void); // valid
-
   },
   // detachEvent
   function() {
@@ -420,16 +407,13 @@ let tests = [
     (target.detachEvent("foo", listener): void); // invalid, may be undefined
 
     (target.detachEvent && target.detachEvent("foo", listener): void); // valid
-
   },
   function() {
     window.onmessage = (event: MessageEvent) => {
       (event.target: window);
     };
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -463,10 +447,8 @@ let tests = [
     (path.arcTo(0, 0, 0, 0, 10, 20, 5): void); // valid
 
     (path.arcTo(0, 0, 0, 0, 10, "20", 5): void); // invalid
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -562,7 +544,6 @@ let tests = [
         }
       })
     });
-
   },
   // or with Object.assign()
   function() {
@@ -579,7 +560,6 @@ let tests = [
         ) {}
       })
     });
-
   },
   // should complain about invalid callback parameters
   function() {
@@ -593,10 +573,8 @@ let tests = [
         ) {}
       }
     });
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -828,12 +806,10 @@ let tests = [
     document.createNodeIterator(document.body); // valid
 
     document.createNodeIterator({}); // invalid
-
   },
   function() {
     document.createTreeWalker(document.body);
     document.createTreeWalker({}); // invalid
-
   },
   // Type Parameters
   function() {
@@ -1008,7 +984,6 @@ let tests = [
     }); // invalid
 
     document.createNodeIterator(document.body, -1, {}); // invalid
-
   },
   function() {
     document.createTreeWalker(
@@ -1028,10 +1003,8 @@ let tests = [
     }); // invalid
 
     document.createTreeWalker(document.body, -1, {}); // invalid
-
   }
 ];
-
 
 ================================================================================
 `;

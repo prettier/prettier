@@ -241,7 +241,6 @@ var fUnion:
   | typeof f7;
 fUnion(""); // All constituents can be called by passing a single string.
 
-
 ================================================================================
 `;
 
@@ -302,7 +301,6 @@ f12345("a"); // error
 
 f12345("a", "b");
 f12345("a", "b", "c"); // error
-
 
 ================================================================================
 `;
@@ -502,7 +500,6 @@ strOrNum = new unionWithRestParameter3("hello", "hello"); // error no call signa
 
 strOrNum = new unionWithRestParameter3(); // error no call signature
 
-
 ================================================================================
 `;
 
@@ -632,7 +629,6 @@ var arr8 = [c, e]; // C[]
 
 var arr9 = [e, f]; // (E|F)[]
 
-
 ================================================================================
 `;
 
@@ -700,7 +696,6 @@ var unionOfTypesWithAndWithoutStringSignature1:
 anyVar = unionOfTypesWithAndWithoutStringSignature1["hello"]; // any
 
 anyVar = unionOfTypesWithAndWithoutStringSignature1[10]; // any
-
 
 ================================================================================
 `;

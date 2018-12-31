@@ -14,7 +14,6 @@ exports.numberValue = 42;
 /* @flow */
 exports.numberValue = 42;
 
-
 ================================================================================
 `;
 
@@ -62,7 +61,6 @@ exports = {
   stringValue: ""
 };
 
-
 ================================================================================
 `;
 
@@ -85,7 +83,6 @@ exports.numberValue = 42;
  * @flow
  */
 exports.numberValue = 42;
-
 
 ================================================================================
 `;
@@ -231,7 +228,6 @@ require(\`\${"./E"}\`); // error: but only if they have no expressions
 
 // require.call is allowed but circumverts Flow's static analysis
 require.call(null, "DoesNotExist");
-
 
 ================================================================================
 `;

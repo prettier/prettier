@@ -15,7 +15,6 @@ function f() {<LF>
 function f() {<CR>
   console.log("testing line endings");<CR>
 }<CR>
-<CR>
 
 ================================================================================
 `;
@@ -35,7 +34,6 @@ function f() {<LF>
 function f() {<CRLF>
   console.log("testing line endings");<CRLF>
 }<CRLF>
-<CRLF>
 
 ================================================================================
 `;
@@ -55,7 +53,6 @@ function f() {<LF>
 function f() {<LF>
   console.log("testing line endings");<LF>
 }<LF>
-<LF>
 
 ================================================================================
 `;

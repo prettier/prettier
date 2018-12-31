@@ -45,7 +45,6 @@ function foo(x): number {
     default:
       throw new Error("hi");
   }
-
 }
 
 function bar(x) {
@@ -74,7 +73,6 @@ function baz(x): number {
 
   return 2;
 }
-
 
 ================================================================================
 `;
@@ -137,7 +135,6 @@ function bar() {
     default:
       break;
   }
-
 }
 
 function qux(b) {
@@ -149,9 +146,7 @@ function qux(b) {
     case "qux":
       x = x * x;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -234,7 +229,6 @@ function foo(x: mixed): string {
   (b: number); // ok
 
   return b; // error, number ~/> string
-
 }
 
 function baz(x: mixed): number {
@@ -263,9 +257,7 @@ function baz(x: mixed): number {
   (b: number); // error, string | number ~/> number
 
   return a + b; // error, string ~/> number
-
 }
-
 
 ================================================================================
 `;
@@ -383,7 +375,6 @@ function f1(i) {
   }
 
   var y: number = x; // error, number | string ~/> number
-
 }
 
 function f2(i) {
@@ -401,7 +392,6 @@ function f2(i) {
   }
 
   var y: number = x; // error, number | uninitialized ~/> number
-
 }
 
 function f3(i) {
@@ -419,7 +409,6 @@ function f3(i) {
   }
 
   var y: number = x; // no error
-
 }
 
 function foo(x): number {
@@ -432,7 +421,6 @@ function foo(x): number {
     case 1:
       return 1;
   }
-
 }
 
 function bar(x) {
@@ -461,7 +449,6 @@ function baz(x): number {
 
   return 2;
 }
-
 
 ================================================================================
 `;

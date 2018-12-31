@@ -82,7 +82,6 @@ function switch_scope(x: mixed) {
   (a: string); // OK
 
   (b: string); // error: number ~> string
-
 }
 
 function try_scope_finally() {
@@ -101,7 +100,6 @@ function try_scope_finally() {
   (a: string); // ok
 
   (b: string); // error: number ~> string
-
 }
 
 function for_scope() {
@@ -115,7 +113,6 @@ function for_scope() {
 
   (a: string);
   (b: string); // error: number ~> string
-
 }
 
 function for_in_scope(o: Object) {
@@ -129,7 +126,6 @@ function for_in_scope(o: Object) {
 
   (a: number);
   (b: number); // error: string ~> number
-
 }
 
 function for_of_scope(xs: number[]) {
@@ -143,9 +139,7 @@ function for_of_scope(xs: number[]) {
 
   (a: string);
   (b: string); // error: number ~> string
-
 }
-
 
 ================================================================================
 `;
@@ -200,12 +194,10 @@ function foo0(b: boolean): number {
   var x = 0;
   if (b) {
     var x = ""; // error: string ~> number
-
   }
 
   return x;
 }
-
 
 ================================================================================
 `;

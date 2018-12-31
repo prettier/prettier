@@ -56,7 +56,6 @@ var test5: string = 123; // This error should be suppressed
  */
 var test6: string = 123;
 
-
 ================================================================================
 `;
 
@@ -72,7 +71,6 @@ var test1: string = library_num;
 =====================================output=====================================
 // $FlowFixMe
 var test1: string = library_num;
-
 
 ================================================================================
 `;
@@ -99,9 +97,7 @@ function runTest(y: number): void {
     /* $FlowFixMe - suppressing the error op location should also work */
     y
   );
-
 }
-
 
 ================================================================================
 `;

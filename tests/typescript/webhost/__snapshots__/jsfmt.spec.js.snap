@@ -159,18 +159,15 @@ namespace TypeScript.WebTsc {
                 (bom.charCodeAt(0) === 0xfe && bom.charCodeAt(1) === 0xff))
                 ? "unicode"
                 : "utf-8";
-
           }
 
           // ReadText method always strips byte order mark from resulting string
           return fileStream.ReadText();
-
         } catch (e) {
           throw e;
         } finally {
           fileStream.Close();
         }
-
       },
       writeFile(fileName: string, data: string): boolean {
         const f = fso.CreateTextFile(fileName, true);
@@ -191,7 +188,6 @@ namespace TypeScript.WebTsc {
         if (!this.directoryExists(directoryName)) {
           fso.CreateFolder(directoryName);
         }
-
       },
       getExecutingFilePath() {
         return WScript.ScriptFullName;
@@ -207,7 +203,6 @@ namespace TypeScript.WebTsc {
       },
       useCaseSensitiveFileNames: false
     };
-
   }
 
   export function prepareCompiler(
@@ -224,11 +219,8 @@ namespace TypeScript.WebTsc {
     return (commandLine: string) => {
       ts.executeCommandLine(commandLine.split(" "));
     };
-
   }
-
 }
-
 
 ================================================================================
 `;

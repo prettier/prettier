@@ -34,7 +34,6 @@ function bar(
   return x.type;
 }
 
-
 ================================================================================
 `;
 
@@ -69,7 +68,6 @@ declare var x: ObjAssignT;
 let y: ObjAssignT = {
   ...x
 }; // should be fine
-
 
 ================================================================================
 `;
@@ -125,7 +123,6 @@ function hasObjectMode_bad(options: DuplexStreamOptions): boolean {
     options.readableObjectMode ||
     options.writableObjectMode
   ); // error, undefined ~> boolean
-
 }
 
 function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
@@ -135,7 +132,6 @@ function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
     options.writableObjectMode
   );
 }
-
 
 ================================================================================
 `;
@@ -276,7 +272,6 @@ var d: D = c; // ok
 type E = { [key: string]: string };
 
 var e: E = c; // error
-
 
 ================================================================================
 `;

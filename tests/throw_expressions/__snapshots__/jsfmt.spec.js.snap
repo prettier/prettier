@@ -49,9 +49,7 @@ class Product {
   set id(value) {
     this._id = value || throw new Error("Invalid value");
   }
-
 }
-
 
 ================================================================================
 `;

@@ -58,7 +58,6 @@ function f2<T extends Date, U extends Date>() {
   x.getDate();
 } //function f2<T extends Date, U extends T>() { //    function g<T extends Number, U extends T>() { //        var x: U; //        x.toFixed(); //    } //    var x: U; //    x.getDate(); //}
 
-
 ================================================================================
 `;
 
@@ -119,7 +118,6 @@ class C<T extends Date> {
     var x: T;
     x.getDate();
   }
-
 }
 
 class C2<T extends Date, U extends Date> {
@@ -132,9 +130,7 @@ class C2<T extends Date, U extends Date> {
     var x: U;
     x.getDate();
   }
-
 } //class C2<T extends Date, U extends T> { //    g<T extends Number, U extends T>() { //        var x: U; //        x.toFixed(); //    } //    h() { //        var x: U; //        x.getDate(); //    } //}
-
 
 ================================================================================
 `;
@@ -178,7 +174,6 @@ class C3<T extends Date> {
   static f(x: T) {}
 }
 
-
 ================================================================================
 `;
 
@@ -206,11 +201,8 @@ function foo<T, U>(x: T, y: U) {
       var d: U;
       var e: V;
     }
-
   }
-
 }
-
 
 ================================================================================
 `;

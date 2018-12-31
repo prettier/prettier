@@ -58,7 +58,6 @@ function test3(x: { (a: string, b: string): void }) {
 =====================================output=====================================
 function test(a: string, b: number): number {
   return this.length; // expect []/"" this
-
 }
 
 // tuples flow correctly into params
@@ -113,9 +112,7 @@ function test3(x: { (a: string, b: string): void }) {
   x.apply(x, ["foo", "bar"]); // ok
 
   x.apply(x, ["foo", 123]); // error, number !~> string
-
 }
-
 
 ================================================================================
 `;
@@ -163,7 +160,6 @@ let tests = [
     y("bar"); // ok
 
     y(123); // error, number !~> string
-
   },
   // callable objects
   function(x: { (a: string, b: string): void }) {
@@ -171,22 +167,18 @@ let tests = [
     y("bar"); // ok
 
     y(123); // error, number !~> string
-
   },
   // non-callable objects
   function(x: { a: string }) {
     x.bind(x, "foo"); // error
-
   },
   // callable objects with overridden \`bind\` method
   function(x: { (a: string, b: string): void, bind(a: string): void }) {
     (x.bind("foo"): void); // ok
 
     (x.bind(123): void); // error, number !~> string
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -243,7 +235,6 @@ function test3(x: { (a: string, b: string): void }) {
 // @flow
 function test(a: string, b: number): number {
   return this.length; // expect []/"" this
-
 }
 
 // args flow correctly into params
@@ -289,9 +280,7 @@ function test3(x: { (a: string, b: string): void }) {
   x.call(x, "foo", "bar"); // ok
 
   x.call(x, "foo", 123); // error, number !~> string
-
 }
-
 
 ================================================================================
 `;
@@ -406,7 +395,6 @@ function bad(x: Function, y: Object): void {
   var b: string = x; // Error
 
   var c: Function = y; // Object is not a Function
-
 }
 
 let tests = [
@@ -423,7 +411,6 @@ let tests = [
     (y.name: void); // error, it's a string
 
     (z.name: void); // error, it's a string
-
   },
   function(y: () => void, z: Function) {
     function x() {}
@@ -532,31 +519,26 @@ requires_first_param(); // Error: missing first arg
 function rest_array<T>(...xs: Array<T>): T {
   // Ok, arrays can be rest params
   return xs[0];
-
 }
 
 function rest_tuple<T>(...xs: [T]): T {
   // Ok, tuples can be rest params
   return xs[0];
-
 }
 
 function rest_ro_array<T>(...xs: $ReadOnlyArray<T>): T {
   // Ok
   return xs[0];
-
 }
 
 function rest_any(...xs: any): any {
   // Ok, any can be a rest param
   return xs[0];
-
 }
 
 function rest_t<U, T: Array<U>>(...xs: T): U {
   // Ok, bounded targ can be rest
   return xs[0];
-
 }
 
 // These are ok bounds for the rest param
@@ -574,7 +556,6 @@ function bounds_on_bounds<T>() {
 // These are bad bounds for the rest param
 function bad_unbound_rest_t<T>(...xs: T): T {
   return xs.pop(); // Error - no bound on T
-
 }
 
 function string_rest_t<T: string>(...xs: T): void {} // Error - rest param can't be a string
@@ -587,7 +568,6 @@ function rest_alias(...xs: Rest): void {} // Ok
 function rest_union(...xs: [1, 2] | Array<number>): number {
   // OK
   return xs[0];
-
 }
 
 function rest_intersection(
@@ -597,7 +577,6 @@ function rest_intersection(
 ): number {
   // OK
   return xs[0] + xs.x;
-
 }
 
 function empty_rest<T: Array<mixed>>(...xs: T): T {
@@ -611,14 +590,11 @@ function return_rest_param<Args: Array<mixed>>(
 ): (...args: Args) => number {
   return function(...args) {
     return args; // Error: Array ~> number
-
   };
-
 }
 
 function requires_first_param(x: number, ...rest: Array<number>): void {}
 requires_first_param(); // Error: missing first arg
-
 
 ================================================================================
 `;
@@ -677,14 +653,12 @@ type unbound_rest_t = <T>(...xs: T) => void; // Should be error but no way to ch
 
 function test_unbound_rest(f: <T>(x: T, ...xs: T) => void) {
   f(123); // Error - number ~> array - luckily this errors
-
 }
 
 type string_rest_t = (...xs: string) => void; // Should be error but no way to check yet :(
 
 function test_string_rest(f: string_rest_t) {
   f("hello"); // Error - string ~> array - luckily this errors
-
 }
 
 type Rest = Array<string>;
@@ -701,7 +675,6 @@ type rest_intersection = (
 type empty_rest = <T: Array<mixed>>(...xs: T) => T; // OK
 
 (f: empty_rest) => (f(): empty); // Error Array ~> empty
-
 
 ================================================================================
 `;

@@ -28,7 +28,6 @@ app.setState({
 function bar(x: number) {}
 bar(app.props.children); // No error, App doesn't specify propTypes so anything goes
 
-
 ================================================================================
 `;
 
@@ -101,19 +100,16 @@ var App = React.createClass({
     return {
       y: ""
     }; // infer props.y: string
-
   },
   getInitialState: function() {
     return {
       z: 0
     }; // infer state.z: number
-
   },
   handler: function() {
     this.setState({
       z: 42
     }); // ok
-
   },
   render: function() {
     var x = this.props.x;
@@ -126,7 +122,6 @@ var App = React.createClass({
         {foo(z, x)} // error, since z: number
       </div>
     );
-
   }
 });
 
@@ -311,7 +306,6 @@ checkPropTypes(
   () => undefined
 ); // OK
 
-
 ================================================================================
 `;
 
@@ -353,7 +347,6 @@ var D = React.createClass({
 });
 
 <D />; // errors: properties \`name\` and \`title\` not found
-
 
 ================================================================================
 `;

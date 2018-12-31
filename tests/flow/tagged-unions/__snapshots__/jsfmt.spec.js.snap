@@ -59,7 +59,6 @@ function foobar(x: Foobar): string {
   } else {
     return "unknown";
   }
-
 }
 
 function foo(x: Foo): string {
@@ -69,7 +68,6 @@ function foo(x: Foo): string {
 function bar(x: Bar): string {
   return x.bar;
 }
-
 
 ================================================================================
 `;
@@ -133,7 +131,6 @@ if (data.kind === "user") {
   (data: ISystemData);
 }
 
-
 ================================================================================
 `;
 
@@ -195,7 +192,6 @@ const data: IData = {
 if (data.kind === "system") {
   (data: ISystemData);
 }
-
 
 ================================================================================
 `;
@@ -267,7 +263,6 @@ if (data.kind === "user") {
   (data: SystemData);
 }
 
-
 ================================================================================
 `;
 
@@ -337,7 +332,6 @@ const data: Data = {
 if (data.kind === "system") {
   (data: SystemData);
 }
-
 
 ================================================================================
 `;

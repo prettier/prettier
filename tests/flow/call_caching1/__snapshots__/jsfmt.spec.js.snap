@@ -28,7 +28,6 @@ for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
   tasksPerStatusMap.set(taskStatus, Immutable.Map(tasksMap));
 }
 
-
 ================================================================================
 `;
 

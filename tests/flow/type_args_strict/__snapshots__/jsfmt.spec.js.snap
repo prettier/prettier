@@ -95,7 +95,6 @@ class MyClass<T> {
   constructor(x: T) {
     this.x = x;
   }
-
 }
 
 var c: MyClass = new MyClass(0); // error, missing argument list (1)
@@ -108,7 +107,6 @@ class MyClass2<T, U = string> {
     this.x = x;
     this.y = y;
   }
-
 }
 
 var c2: MyClass2 = new MyClass2(0, ""); // error, missing argument list (1-2)
@@ -145,7 +143,6 @@ class MySubclass extends MyClass {
   constructor(y: number) {
     super(y);
   }
-
 }
 
 // *no* arity error in call of polymorphic function
@@ -154,7 +151,6 @@ function singleton<T>(x: T): Array<T> {
 }
 
 var num_array: Array<number> = singleton(0); // ok, type arg inferred
-
 
 ================================================================================
 `;

@@ -50,11 +50,9 @@ async function foo(
     return {
       bar: "baz"
     }; // OK, because of covariant type param
-
   } else {
     return null;
   }
-
 }
 
 async function run() {

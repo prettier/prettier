@@ -65,7 +65,6 @@ printWidth: 80
   function myFunction() {
     return "foo";
   }
-
 </script>
 
 ================================================================================
@@ -193,9 +192,7 @@ printWidth: 80
                         <p>Text</p>
                     </div>
                 \`;
-
       }
-
     </script>
   </body>
 </html>
@@ -299,7 +296,6 @@ printWidth: 80
     ) {
       this.fullName = firstName + " " + middleInitial + " " + lastName;
     }
-
   }
 
   interface Person {
@@ -324,7 +320,6 @@ printWidth: 80
     ) {
       this.fullName = firstName + " " + middleInitial + " " + lastName;
     }
-
   }
 
   interface Person {
@@ -349,7 +344,6 @@ printWidth: 80
       this.state = {
         data: []
       };
-
     }
 
     fetchComments() {
@@ -363,7 +357,6 @@ printWidth: 80
           }),
         error: (xhr, status, err) => console.error(status, err)
       });
-
     }
 
     componentDidMount() {
@@ -379,7 +372,6 @@ printWidth: 80
         this.setState({
           data: updated
         });
-
       };
 
       return (
@@ -389,11 +381,8 @@ printWidth: 80
           <CommentForm onCommentSubmit={handleCommentSubmit} />
         </div>
       );
-
     }
-
   }
-
 </script>
 
 ================================================================================

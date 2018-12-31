@@ -14,7 +14,6 @@ module.exports.fun = (): string => 'hello there!';
 /* @flow */
 module.exports.fun = (): string => "hello there!";
 
-
 ================================================================================
 `;
 
@@ -30,7 +29,6 @@ module.exports = 42;
 =====================================output=====================================
 // @flow
 module.exports = 42;
-
 
 ================================================================================
 `;
@@ -87,7 +85,6 @@ var E = require("package_with_no_package_json");
 var F = require("package_with_dir_main");
 (F.fun(): string); // Error number ~> string
 
-
 ================================================================================
 `;
 
@@ -126,7 +123,6 @@ var A2 = require("./A.js");
 var CJS = require("./CJS.js");
 (CJS: string);
 (CJS: number); // Error: string ~> number
-
 
 ================================================================================
 `;

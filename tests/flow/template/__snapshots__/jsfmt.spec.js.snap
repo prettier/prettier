@@ -59,7 +59,6 @@ let tests = [
     \`\${x} bar\`; // ok
 
     \`foo \${"bar"} \${x}\`; // ok
-
   },
   function(x: number) {
     \`foo \${x}\`; // ok
@@ -67,7 +66,6 @@ let tests = [
     \`\${x} bar\`; // ok
 
     \`foo \${"bar"} \${x}\`; // ok
-
   },
   function(x: boolean) {
     \`foo \${x}\`; // error
@@ -75,7 +73,6 @@ let tests = [
     \`\${x} bar\`; // error
 
     \`foo \${"bar"} \${x}\`; // error
-
   },
   function(x: mixed) {
     \`foo \${x}\`; // error
@@ -83,10 +80,8 @@ let tests = [
     \`\${x} bar\`; // error
 
     \`foo \${"bar"} \${x}\`; // error
-
   }
 ];
-
 
 ================================================================================
 `;

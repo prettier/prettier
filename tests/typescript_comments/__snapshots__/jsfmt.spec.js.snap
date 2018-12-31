@@ -23,9 +23,7 @@ abstract class AbstractRule {
    * This method now does nothing.
    */
   filterFailures() {}
-
 }
-
 
 ================================================================================
 `;
@@ -134,7 +132,6 @@ export type WrappedFormUtils = {
     }
   ): (node: React.ReactNode) => React.ReactNode;
 };
-
 
 ================================================================================
 `;
@@ -300,9 +297,7 @@ export class Point {
    * Four
    */
   mismatchedIndentation() {}
-
 }
-
 
 ================================================================================
 `;
@@ -335,7 +330,6 @@ printWidth: 80
 (() => {
   // swallow error and fallback to using directory as path
 }) as string[];
-
 
 ================================================================================
 `;

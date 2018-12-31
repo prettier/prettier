@@ -75,7 +75,6 @@ const TodoList = ({ todos }) => (
     ))}
 </div>;
 
-
 ================================================================================
 `;
 
@@ -153,7 +152,6 @@ const TodoList = ({ todos }) => (
       />
     ))}
 </div>;
-
 
 ================================================================================
 `;
@@ -233,7 +231,6 @@ const TodoList = ({ todos }) => (
     ))}
 </div>;
 
-
 ================================================================================
 `;
 
@@ -312,7 +309,6 @@ const TodoList = ({ todos }) => (
     ))}
 </div>;
 
-
 ================================================================================
 `;
 
@@ -387,7 +383,6 @@ singleQuote: false
     \`text\`
   }
 />;
-
 
 ================================================================================
 `;
@@ -464,7 +459,6 @@ singleQuote: false
   }
 />;
 
-
 ================================================================================
 `;
 
@@ -540,7 +534,6 @@ singleQuote: true
   }
 />;
 
-
 ================================================================================
 `;
 
@@ -615,7 +608,6 @@ singleQuote: true
     \`text\`
   }
 />;
-
 
 ================================================================================
 `;
@@ -904,7 +896,6 @@ cable ? (
   ) : null}
 </div>;
 
-
 ================================================================================
 `;
 
@@ -1191,7 +1182,6 @@ cable ? (
     )
   ) : null}
 </div>;
-
 
 ================================================================================
 `;
@@ -1480,7 +1470,6 @@ cable ? (
   ) : null}
 </div>;
 
-
 ================================================================================
 `;
 
@@ -1768,7 +1757,6 @@ cable ? (
   ) : null}
 </div>;
 
-
 ================================================================================
 `;
 
@@ -1956,7 +1944,6 @@ singleQuote: false
         <span />
       </SomethingElse>
     );
-
   }}
 </Something>;
 
@@ -2006,7 +1993,6 @@ singleQuote: false
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
-
   }}
 />;
 
@@ -2040,7 +2026,6 @@ singleQuote: false
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
-
   }}
 </Component>;
 
@@ -2058,7 +2043,6 @@ singleQuote: false
       ))}
   </div>
 </SuspendyTree>;
-
 
 ================================================================================
 `;
@@ -2247,7 +2231,6 @@ singleQuote: false
         <span />
       </SomethingElse>
     );
-
   }}
 </Something>;
 
@@ -2297,7 +2280,6 @@ singleQuote: false
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
-
   }}
 />;
 
@@ -2331,7 +2313,6 @@ singleQuote: false
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
-
   }}
 </Component>;
 
@@ -2349,7 +2330,6 @@ singleQuote: false
       ))}
   </div>
 </SuspendyTree>;
-
 
 ================================================================================
 `;
@@ -2538,7 +2518,6 @@ singleQuote: true
         <span />
       </SomethingElse>
     );
-
   }}
 </Something>;
 
@@ -2588,7 +2567,6 @@ singleQuote: true
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
-
   }}
 />;
 
@@ -2622,7 +2600,6 @@ singleQuote: true
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
-
   }}
 </Component>;
 
@@ -2640,7 +2617,6 @@ singleQuote: true
       ))}
   </div>
 </SuspendyTree>;
-
 
 ================================================================================
 `;
@@ -2829,7 +2805,6 @@ singleQuote: true
         <span />
       </SomethingElse>
     );
-
   }}
 </Something>;
 
@@ -2879,7 +2854,6 @@ singleQuote: true
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
-
   }}
 />;
 
@@ -2913,7 +2887,6 @@ singleQuote: true
     this.setState({
       updatedTask: this.state.updatedTask.set(key, value)
     });
-
   }}
 </Component>;
 
@@ -2931,7 +2904,6 @@ singleQuote: true
       ))}
   </div>
 </SuspendyTree>;
-
 
 ================================================================================
 `;
@@ -2957,7 +2929,6 @@ const aDiv = (
   <div className="foo">Foo bar</div>
 );
 
-
 ================================================================================
 `;
 
@@ -2981,7 +2952,6 @@ const aDiv = (
   /* $FlowFixMe */
   <div className='foo'>Foo bar</div>
 );
-
 
 ================================================================================
 `;
@@ -3007,7 +2977,6 @@ const aDiv = (
   <div className="foo">Foo bar</div>
 );
 
-
 ================================================================================
 `;
 
@@ -3031,7 +3000,6 @@ const aDiv = (
   /* $FlowFixMe */
   <div className='foo'>Foo bar</div>
 );
-
 
 ================================================================================
 `;
@@ -3509,7 +3477,6 @@ singleQuote: false
   )}
 </div>;
 
-
 ================================================================================
 `;
 
@@ -3581,7 +3548,6 @@ singleQuote: false
     </span>
   )}
 </div>;
-
 
 ================================================================================
 `;
@@ -3655,7 +3621,6 @@ singleQuote: true
   )}
 </div>;
 
-
 ================================================================================
 `;
 
@@ -3728,7 +3693,6 @@ singleQuote: true
   )}
 </div>;
 
-
 ================================================================================
 `;
 
@@ -3768,7 +3732,6 @@ const tabs = [
     )
   }
 ];
-
 
 ================================================================================
 `;
@@ -3810,7 +3773,6 @@ const tabs = [
   }
 ];
 
-
 ================================================================================
 `;
 
@@ -3851,7 +3813,6 @@ const tabs = [
   }
 ];
 
-
 ================================================================================
 `;
 
@@ -3891,7 +3852,6 @@ const tabs = [
     )
   }
 ];
-
 
 ================================================================================
 `;
@@ -4656,7 +4616,6 @@ const BreakingArrowExpressionWBody = () => {
       <div>bla bla bla</div>
     </div>
   );
-
 };
 
 const NonBreakingFunction = function() {
@@ -4669,14 +4628,12 @@ const BreakingFunction = function() {
       <div>bla bla bla</div>
     </div>
   );
-
 };
 
 class NonBreakingClass extends React.component {
   render() {
     return <div />;
   }
-
 }
 
 class BreakingClass extends React.component {
@@ -4686,11 +4643,8 @@ class BreakingClass extends React.component {
         <div>bla bla bla</div>
       </div>
     );
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -4775,7 +4729,6 @@ const BreakingArrowExpressionWBody = () => {
       <div>bla bla bla</div>
     </div>
   );
-
 };
 
 const NonBreakingFunction = function() {
@@ -4788,14 +4741,12 @@ const BreakingFunction = function() {
       <div>bla bla bla</div>
     </div>
   );
-
 };
 
 class NonBreakingClass extends React.component {
   render() {
     return <div />;
   }
-
 }
 
 class BreakingClass extends React.component {
@@ -4805,11 +4756,8 @@ class BreakingClass extends React.component {
         <div>bla bla bla</div>
       </div>
     );
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -4894,7 +4842,6 @@ const BreakingArrowExpressionWBody = () => {
       <div>bla bla bla</div>
     </div>
   );
-
 };
 
 const NonBreakingFunction = function() {
@@ -4907,14 +4854,12 @@ const BreakingFunction = function() {
       <div>bla bla bla</div>
     </div>
   );
-
 };
 
 class NonBreakingClass extends React.component {
   render() {
     return <div />;
   }
-
 }
 
 class BreakingClass extends React.component {
@@ -4924,11 +4869,8 @@ class BreakingClass extends React.component {
         <div>bla bla bla</div>
       </div>
     );
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -5013,7 +4955,6 @@ const BreakingArrowExpressionWBody = () => {
       <div>bla bla bla</div>
     </div>
   );
-
 };
 
 const NonBreakingFunction = function() {
@@ -5026,14 +4967,12 @@ const BreakingFunction = function() {
       <div>bla bla bla</div>
     </div>
   );
-
 };
 
 class NonBreakingClass extends React.component {
   render() {
     return <div />;
   }
-
 }
 
 class BreakingClass extends React.component {
@@ -5043,11 +4982,8 @@ class BreakingClass extends React.component {
         <div>bla bla bla</div>
       </div>
     );
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -5087,7 +5023,6 @@ const Labels = {
   label3: <fbt>Label 3</fbt>
 };
 
-
 ================================================================================
 `;
 
@@ -5125,7 +5060,6 @@ const Labels = {
   label2: <fbt>Label 2</fbt>,
   label3: <fbt>Label 3</fbt>
 };
-
 
 ================================================================================
 `;
@@ -5165,7 +5099,6 @@ const Labels = {
   label3: <fbt>Label 3</fbt>
 };
 
-
 ================================================================================
 `;
 
@@ -5203,7 +5136,6 @@ const Labels = {
   label2: <fbt>Label 2</fbt>,
   label3: <fbt>Label 3</fbt>
 };
-
 
 ================================================================================
 `;

@@ -43,7 +43,6 @@ class Bar {
     new Qux().w = "?";
     return z;
   }
-
 }
 
 module.exports = Bar;
@@ -106,7 +105,6 @@ class Foo extends Qux {
   fooqux(x: string) {
     this.x;
   }
-
 }
 
 module.exports = Foo;

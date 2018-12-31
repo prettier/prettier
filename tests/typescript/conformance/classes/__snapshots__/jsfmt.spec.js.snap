@@ -183,32 +183,26 @@ class Public2 {
 
 function f1(x: Private & Private2) {
   x.p; // Error, private constituent makes property inaccessible
-
 }
 
 function f2(x: Private & Protected) {
   x.p; // Error, private constituent makes property inaccessible
-
 }
 
 function f3(x: Private & Public) {
   x.p; // Error, private constituent makes property inaccessible
-
 }
 
 function f4(x: Protected & Protected2) {
   x.p; // Error, protected when all constituents are protected
-
 }
 
 function f5(x: Protected & Public) {
   x.p; // Ok, public if any constituent is public
-
 }
 
 function f6(x: Public & Public2) {
   x.p; // Ok, public if any constituent is public
-
 }
 
 declare function Mix<T, U>(c1: T, c2: U): T & U;
@@ -229,7 +223,6 @@ class C4 extends Mix(Protected, Protected2) {
     C5.s;
     C6.s;
   }
-
 }
 
 class C5 extends Mix(Protected, Public) {
@@ -246,7 +239,6 @@ class C5 extends Mix(Protected, Public) {
     C5.s;
     C6.s;
   }
-
 }
 
 class C6 extends Mix(Public, Public2) {
@@ -263,9 +255,7 @@ class C6 extends Mix(Public, Public2) {
     C5.s;
     C6.s;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -349,7 +339,6 @@ class Derived extends Base {
   constructor(x: number, y: number, public z: number) {
     super(x, y);
   }
-
 }
 
 const Printable = <T extends Constructor<Base>>(
@@ -360,7 +349,6 @@ const Printable = <T extends Constructor<Base>>(
     print() {
       const output = this.x + "," + this.y;
     }
-
   };
 
 function Tagged<T extends Constructor<{}>>(
@@ -372,7 +360,6 @@ function Tagged<T extends Constructor<{}>>(
       super(...args);
       this._tag = "hello";
     }
-
   }
 
   return C;
@@ -403,9 +390,7 @@ class Thing3 extends Thing2 {
   test() {
     this.print();
   }
-
 }
-
 
 ================================================================================
 `;
@@ -491,7 +476,6 @@ class Derived extends Base {
   constructor(x: number, y: number, public z: number) {
     super(x, y);
   }
-
 }
 
 const Printable = <T extends Constructor<Base>>(superClass: T) =>
@@ -500,7 +484,6 @@ const Printable = <T extends Constructor<Base>>(superClass: T) =>
     print() {
       const output = this.x + "," + this.y;
     }
-
   };
 
 function Tagged<T extends Constructor<{}>>(superClass: T) {
@@ -510,7 +493,6 @@ function Tagged<T extends Constructor<{}>>(superClass: T) {
       super(...args);
       this._tag = "hello";
     }
-
   }
 
   return C;
@@ -541,7 +523,6 @@ class Thing3 extends Thing2 {
   test() {
     this.print();
   }
-
 }
 
 // Repro from #13805
@@ -549,9 +530,7 @@ const Timestamped = <CT extends Constructor<object>>(Base: CT) => {
   return class extends Base {
     timestamp = new Date();
   };
-
 };
-
 
 ================================================================================
 `;
@@ -748,7 +727,6 @@ class C2 extends Mixed1 {
     this.b;
     this.p;
   }
-
 }
 
 class C3 extends Mixed3 {
@@ -763,9 +741,7 @@ class C3 extends Mixed3 {
   f() {
     return super.f();
   }
-
 }
-
 
 ================================================================================
 `;
@@ -796,7 +772,6 @@ class C {
 function foo() {
   class C3 {}
 }
-
 
 ================================================================================
 `;

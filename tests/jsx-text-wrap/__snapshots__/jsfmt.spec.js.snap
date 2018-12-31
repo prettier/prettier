@@ -564,7 +564,6 @@ function DiffOverview(props) {
       <Diff source={source} target={target} />
     </div>
   );
-
 }
 
 x = (
@@ -720,7 +719,6 @@ const Abc = () => {
       directors.
     </div>
   );
-
 };
 
 x = <div id="moo">Some stuff here</div>;
@@ -1028,7 +1026,6 @@ let myDiv = ReactTestUtils.renderIntoDocument(
     <div key="theBird" className="bird" />
   </div>
 );
-
 
 ================================================================================
 `;

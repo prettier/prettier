@@ -55,7 +55,6 @@ var Callsite = React.createClass({
         <HelloLocal />
       </div>
     );
-
   }
 });
 
@@ -156,7 +155,6 @@ class HelloLocal extends React.Component<
   render(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
-
 }
 
 class Callsite extends React.Component<void, {}, void> {
@@ -167,9 +165,7 @@ class Callsite extends React.Component<void, {}, void> {
         <HelloLocal />
       </div>
     );
-
   }
-
 }
 
 module.exports = Callsite;
@@ -218,7 +214,6 @@ class Hello extends React.Component<
   render(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
-
 }
 
 module.exports = Hello;
@@ -273,7 +268,6 @@ class HelloLocal extends React.Component<void, Props, void> {
   render(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
-
 }
 
 class Callsite extends React.Component<void, Props, void> {
@@ -284,9 +278,7 @@ class Callsite extends React.Component<void, Props, void> {
         <HelloLocal />
       </div>
     );
-
   }
-
 }
 
 module.exports = Callsite;
@@ -330,7 +322,6 @@ class Hello extends React.Component<{}, Props, void> {
   render(): React.Element<*> {
     return <div>{this.props.name}</div>;
   }
-
 }
 
 module.exports = Hello;

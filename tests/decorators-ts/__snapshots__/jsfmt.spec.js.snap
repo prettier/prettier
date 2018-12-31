@@ -43,9 +43,7 @@ class Point {
   get y() {
     return this._y;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -76,7 +74,6 @@ export class HeroButtonComponent {
   @Output() change = new EventEmitter<any>();
   @Input() label: string;
 }
-
 
 ================================================================================
 `;
@@ -109,9 +106,7 @@ class Greeter {
   greet() {
     return "Hello, " + this.greeting;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -145,9 +140,7 @@ class Greeter {
   greet() {
     return "Hello, " + this.greeting;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -176,9 +169,7 @@ class X {
   @deco get x() {
     return this.count * 2;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -200,9 +191,7 @@ class C {
   @f()
   @g()
   method() {}
-
 }
-
 
 ================================================================================
 `;
@@ -247,9 +236,7 @@ class Greeter {
   destructured(@required { toString }: Object) {
     return Function.prototype.toString.apply(toString);
   }
-
 }
-
 
 ================================================================================
 `;
@@ -283,9 +270,7 @@ class Greeter {
     let formatString = getFormat(this, "greeting");
     return formatString.replace("%s", this.greeting);
   }
-
 }
-
 
 ================================================================================
 `;
@@ -339,9 +324,7 @@ export class Board {
 
   @OneToMany(type => Topic, topic => topic.board)
   topics: Topic[];
-
 }
-
 
 ================================================================================
 `;

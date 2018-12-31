@@ -197,13 +197,11 @@ class C {
     return () => {
       return this.bar();
     }; // OK, since this: C
-
   }
 
   bar() {
     return this;
   } // return type is C
-
 }
 
 var c = new C();
@@ -228,13 +226,9 @@ class F extends E {
     // OK to override with generalization
     (() => {
       super.foo(""); // find super method, error due to incorrect arg
-
     })();
-
   }
-
 }
-
 
 ================================================================================
 `;

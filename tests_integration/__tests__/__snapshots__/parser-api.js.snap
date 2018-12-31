@@ -5,7 +5,6 @@ exports[`allows passing a string to resolve a parser (stderr) 1`] = `""`;
 exports[`allows passing a string to resolve a parser (stdout) 1`] = `
 "/* eslint-disable */
 bar();
-
 "
 `;
 

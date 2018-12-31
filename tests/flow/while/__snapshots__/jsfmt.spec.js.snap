@@ -38,7 +38,6 @@ function foo(x: boolean) {
 
     return;
   } //console.log('this is still reachable');
-
 }
 
 function bar(x: boolean) {
@@ -46,9 +45,7 @@ function bar(x: boolean) {
   while (ii > 0) {
     return;
   } //console.log('this is still reachable');
-
 }
-
 
 ================================================================================
 `;
@@ -76,7 +73,6 @@ class C {
   m() {
     return new C();
   }
-
 }
 
 function blah() {}
@@ -87,7 +83,6 @@ while (node) {
   blah();
   node = parent.m();
 }
-
 
 ================================================================================
 `;

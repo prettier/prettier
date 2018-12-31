@@ -35,7 +35,6 @@ function is_string(x): %checks {
   return typeof x === "string";
 }
 
-
 ================================================================================
 `;
 
@@ -100,7 +99,6 @@ declare var ab: Array<A | B | C>;
 (my_filter(ab, (x): %checks => x.kind === "A"): Array<A>); // OK
 
 (my_filter(ab, (x): %checks => x.kind !== "A"): Array<B | C>); // OK
-
 
 ================================================================================
 `;
@@ -204,7 +202,6 @@ function is_string_and_number(x, y): %checks {
   return typeof x === "string" && typeof y === "number";
 }
 
-
 ================================================================================
 `;
 
@@ -261,7 +258,6 @@ function is_string(x): boolean %checks {
 function is_string_regular(x): boolean {
   return typeof x === "string";
 }
-
 
 ================================================================================
 `;
@@ -327,7 +323,6 @@ declare var ab: Array<A | B | C>;
 (my_filter(ab, (x): %checks => x.kind === "A"): Array<B>); // ERROR
 
 (my_filter(ab, (x): %checks => x.kind !== "A"): Array<A | C>); // ERROR
-
 
 ================================================================================
 `;
@@ -428,7 +423,6 @@ function is_string_regular(x) {
 function is_string_and_number(x, y): %checks {
   return typeof x === "string" && typeof y === "number";
 }
-
 
 ================================================================================
 `;

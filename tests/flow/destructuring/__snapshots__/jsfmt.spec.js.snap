@@ -76,7 +76,6 @@ var { ["key"]: val3, ...spread } = {
 
 (spread.key: void); // error (gasp!) in general we don't know if a computed prop should be excluded from spread
 
-
 ================================================================================
 `;
 
@@ -188,7 +187,6 @@ function obj_prop_fun(
   // * string  ~> void, from default on _
   // * null    ~> void, from call below
   (q: void);
-
 }
 
 obj_prop_fun(); // ok
@@ -224,7 +222,6 @@ function obj_prop_var(
   // * string  ~> void, from default on o
   // * null    ~> void, from call below
   (q: void);
-
 }
 
 obj_prop_var(); // ok
@@ -259,7 +256,6 @@ function obj_rest(
   // * string  ~> void, from default on _
   // * null    ~> void, from call below
   (o.r: void);
-
 }
 
 obj_rest(); // ok
@@ -287,7 +283,6 @@ function obj_prop_annot(
   }
 ) {
   (p: void); // error: string ~> void
-
 }
 
 var {
@@ -508,7 +503,6 @@ function bar({ x, ...z }) {
     x: string,
     y: number
   } = z;
-
 }
 
 bar({
@@ -555,7 +549,6 @@ function test() {
   var { bar, baz } = {
     bar: 123
   }; // error on baz
-
 }
 
 function test() {
@@ -568,7 +561,6 @@ function test() {
   (x.baz: string); // error, baz doesn't exist
 
   (rest.baz: string); // no error, rest is unsealed
-
 }
 
 module.exports = corge;
@@ -595,7 +587,6 @@ var cp1_err: string = childprop1; // Error: number ~> string
 var cp2: number = others.childprop1;
 var cp2_err: string = others.childprop2; // Error: number ~> string
 
-
 ================================================================================
 `;
 
@@ -611,7 +602,6 @@ var x;
 =====================================output=====================================
 var x;
 ({ x } = null); // error, property \`x\` can not be accessed on \`null\`
-
 
 ================================================================================
 `;
@@ -679,7 +669,6 @@ function rest_pattern<X>(...r: X[]) {} // r: X[]
 function obj_rest_pattern<X>({ _, ...o }: { _: any, x: X }) {
   // o: { x: X }
   o.x;
-
 }
 
 type ObjRest<X> = {
@@ -690,22 +679,18 @@ type ObjRest<X> = {
 function obj_rest_pattern<X>({ _, ...o }: ObjRest<X>) {
   // o: { x: X }
   o.x;
-
 }
 
 function arr_rest_pattern<X>([_, ...a]: [any, X]) {
   // a: [X]
   a[0];
-
 }
 
 type ArrRest<X> = [any, X];
 function arr_rest_pattern<X>([_, ...a]: ArrRest<X>) {
   // a: [X]
   a[0];
-
 }
-
 
 ================================================================================
 `;
@@ -782,7 +767,6 @@ class UndefinedValue extends Value { }
 function _([argArray]: Array<Value>) {
   if (argArray instanceof NullValue || argArray instanceof UndefinedValue) {
   }
-
 }
 
 class Value {}
@@ -817,7 +801,6 @@ var { "with-dash": with_dash } = {
 
 (with_dash: "motivating example"); // ok
 
-
 ================================================================================
 `;
 
@@ -848,7 +831,6 @@ var { x } = {
 function bar() {
   x.bar;
 }
-
 
 ================================================================================
 `;

@@ -31,7 +31,6 @@ class ClassFoo3 {
   static givesAFoo3(): ClassFoo3 {
     return new ClassFoo3();
   }
-
 }
 
 module.exports = ClassFoo3;
@@ -76,7 +75,6 @@ class ClassFoo4 {
   returnsANumber(): number {
     return 42;
   }
-
 }
 
 class ClassFoo5 {}
@@ -121,7 +119,6 @@ class ClassFoo1 {
   returnsANumber(): number {
     return 42;
   }
-
 }
 
 export default ClassFoo1;
@@ -163,9 +160,7 @@ export function givesAFoo3Obj(): AliasFoo3 {
       return 42;
     }
   };
-
 }
-
 
 ================================================================================
 `;
@@ -195,7 +190,6 @@ class ClassFoo2 {
   returnsANumber(): number {
     return 42;
   }
-
 }
 
 export { ClassFoo2 };
@@ -217,7 +211,6 @@ export var numValue = 42;
 =====================================output=====================================
 /* @ flow */
 export var numValue = 42;
-
 
 ================================================================================
 `;
@@ -391,9 +384,7 @@ import type ClassFoo6 from "./issue-359";
 
 function foo() {
   ClassFoo6; // Error: Not a value binding
-
 }
-
 
 ================================================================================
 `;

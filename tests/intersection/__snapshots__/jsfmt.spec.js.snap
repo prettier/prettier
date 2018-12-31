@@ -103,6 +103,5 @@ type DuplexStreamOptions = ReadableStreamOptions &
     readableObjectMode?: boolean
   };
 
-
 ================================================================================
 `;

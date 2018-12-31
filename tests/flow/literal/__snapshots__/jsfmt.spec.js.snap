@@ -87,7 +87,6 @@ var indices = {
 var tuple = [42, "hello", false];
 var red: string = tuple[indices.red]; // error: tuple[0] is a number
 
-
 ================================================================================
 `;
 
@@ -148,7 +147,6 @@ function test4(flip_times: number): number {
 
   return x;
 }
-
 
 ================================================================================
 `;

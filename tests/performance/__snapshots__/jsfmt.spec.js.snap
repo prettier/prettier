@@ -53,33 +53,19 @@ someObject.someFunction().then(function() {
                           return someObject.someFunction().then(function() {
                             anotherFunction();
                           });
-
                         });
-
                       });
-
                     });
-
                   });
-
                 });
-
               });
-
             });
-
           });
-
         });
-
       });
-
     });
-
   });
-
 });
-
 
 ================================================================================
 `;
@@ -182,7 +168,6 @@ tap.test("RecordImport.advance", t => {
       t.equal(batch.state, states.shift());
       t.ok(batch.getCurState().name(i18n));
     }
-
   };
 
   const batch = init.getRecordBatch();
@@ -196,7 +181,6 @@ tap.test("RecordImport.advance", t => {
         )
       );
     });
-
   };
 
   mockFS(callback => {
@@ -232,33 +216,25 @@ tap.test("RecordImport.advance", t => {
                         t.end();
                         callback();
                       });
-
                     });
 
                     t.ok(batch.getCurState().name(i18n));
                   });
-
                 });
 
                 t.ok(batch.getCurState().name(i18n));
               });
-
             });
 
             t.ok(batch.getCurState().name(i18n));
           });
-
         });
 
         t.ok(batch.getCurState().name(i18n));
       });
-
     });
-
   });
-
 });
-
 
 ================================================================================
 `;

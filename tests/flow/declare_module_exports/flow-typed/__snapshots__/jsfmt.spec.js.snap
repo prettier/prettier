@@ -68,6 +68,5 @@ declare module "declare_m_e_with_declare_var_e" {
   declare var exports: string;
 }
 
-
 ================================================================================
 `;

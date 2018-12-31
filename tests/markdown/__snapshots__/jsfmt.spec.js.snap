@@ -1441,7 +1441,6 @@ provided to override the defaults.
 prettier.format("foo ( );", {
   semi: false
 }); // -> "foo()"
-
 \`\`\`
 
 #### \`prettier.check(source [, options])\`
@@ -1463,7 +1462,6 @@ This option cannot be used with \`rangeStart\` and \`rangeEnd\`.
 prettier.formatWithCursor(" 1", {
   cursorOffset: 2
 }); // -> { formatted: '1;\\n', cursorOffset: 1 }
-
 \`\`\`
 
 #### \`prettier.resolveConfig([filePath [, options]])\`
@@ -1486,7 +1484,6 @@ const text = fs.readFileSync(filePath, "utf8");
 prettier.resolveConfig(filePath).then(options => {
   const formatted = prettier.format(text, options);
 });
-
 \`\`\`
 
 Use \`prettier.resolveConfig.sync([filePath [, options]])\` if you'd like to use
@@ -1519,7 +1516,6 @@ prettier.format("lodash ( )", {
     return ast;
   }
 }); // -> "_();\\n"
-
 \`\`\`
 
 The \`--parser\` CLI option may be a path to a node.js module exporting a parse
@@ -1540,7 +1536,6 @@ matrix(
   0, 1, 0,
   0, 0, 1
 )
-
 \`\`\`
 
 will be transformed to:
@@ -1553,7 +1548,6 @@ matrix(
   0, 1, 0,
   0, 0, 1
 )
-
 \`\`\`
 
 ## Options
@@ -3428,7 +3422,6 @@ provided to override the defaults.
 prettier.format('foo ( );', {
   semi: false
 }); // -> "foo()"
-
 \`\`\`
 
 #### \`prettier.check(source [, options])\`
@@ -3450,7 +3443,6 @@ This option cannot be used with \`rangeStart\` and \`rangeEnd\`.
 prettier.formatWithCursor(' 1', {
   cursorOffset: 2
 }); // -> { formatted: '1;\\n', cursorOffset: 1 }
-
 \`\`\`
 
 #### \`prettier.resolveConfig([filePath [, options]])\`
@@ -3473,7 +3465,6 @@ const text = fs.readFileSync(filePath, 'utf8');
 prettier.resolveConfig(filePath).then(options => {
   const formatted = prettier.format(text, options);
 });
-
 \`\`\`
 
 Use \`prettier.resolveConfig.sync([filePath [, options]])\` if you'd like to use
@@ -3506,7 +3497,6 @@ prettier.format('lodash ( )', {
     return ast;
   }
 }); // -> "_();\\n"
-
 \`\`\`
 
 The \`--parser\` CLI option may be a path to a node.js module exporting a parse
@@ -3527,7 +3517,6 @@ matrix(
   0, 1, 0,
   0, 0, 1
 )
-
 \`\`\`
 
 will be transformed to:
@@ -3540,7 +3529,6 @@ matrix(
   0, 1, 0,
   0, 0, 1
 )
-
 \`\`\`
 
 ## Options

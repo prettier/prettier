@@ -30,7 +30,6 @@ class E<T> {
   constructor(public x = this) {}
 }
 
-
 ================================================================================
 `;
 
@@ -66,7 +65,6 @@ class C {
   constructor(x = 1) {
     var y = x;
   }
-
 }
 
 class D<T> {
@@ -74,7 +72,6 @@ class D<T> {
   constructor(x: T = null) {
     var y = x;
   }
-
 }
 
 class E<T extends Date> {
@@ -82,9 +79,7 @@ class E<T extends Date> {
   constructor(x: T = null) {
     var y = x;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -121,7 +116,6 @@ class C {
   constructor(public x: string = 1) {
     var y = x;
   }
-
 }
 
 class D<T, U> {
@@ -129,7 +123,6 @@ class D<T, U> {
   constructor(x: T = 1, public y: U = x) {
     var z = x;
   }
-
 }
 
 class E<T extends Date> {
@@ -137,9 +130,7 @@ class E<T extends Date> {
   constructor(x: T = new Date()) {
     var y = x;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -176,7 +167,6 @@ class D<T> {
   constructor() {}
 }
 
-
 ================================================================================
 `;
 
@@ -211,7 +201,6 @@ class D<T> {
   constructor(x?, y?: any[]);
   constructor() {}
 }
-
 
 ================================================================================
 `;
@@ -268,7 +257,6 @@ var r3 = d.a; // error
 
 var r4 = d.z; // error
 
-
 ================================================================================
 `;
 
@@ -314,7 +302,6 @@ var r4 = f.y; // error
 class C {
   y: number;
   constructor(y: number) {} // ok
-
 }
 
 var c: C;
@@ -342,7 +329,6 @@ class F {
 var f: F;
 var r4 = f.y; // error
 
-
 ================================================================================
 `;
 
@@ -362,7 +348,6 @@ class C {
 class C {
   constructor(readonly x: number) {}
 }
-
 
 ================================================================================
 `;
@@ -418,7 +403,6 @@ class A {
   constructor(readonly x: number) {
     this.x = 0;
   }
-
 }
 
 class B extends A {
@@ -426,9 +410,7 @@ class B extends A {
     super(x);
     // Fails, x is readonly
     this.x = 1;
-
   }
-
 }
 
 class C extends A {
@@ -438,14 +420,12 @@ class C extends A {
     super(x);
     this.x = 1;
   }
-
 }
 
 class D {
   constructor(private readonly x: number) {
     this.x = 0;
   }
-
 }
 
 // Fails, can't redeclare readonly property
@@ -454,9 +434,7 @@ class E extends D {
     super(x);
     this.x = 1;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -514,7 +492,6 @@ class C {
   readonly x: number;
   constructor(readonly y: number) {}
 }
-
 
 ================================================================================
 `;

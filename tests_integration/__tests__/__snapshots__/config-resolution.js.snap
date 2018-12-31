@@ -8,25 +8,21 @@ exports[`CLI overrides take precedence (stdout) 1`] = `
 		\\"should have tab width 8\\"
 	)
 }
-
 function f() {
   console.log(
     \\"should have space width 2\\"
   )
 }
-
 function f() {
         console.log(
                 \\"should have space width 8\\"
         )
 }
-
 function f() {
   console.log(
     \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
   )
 }
-
 console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
@@ -41,7 +37,6 @@ function js() {
                 \\"js/file.js should have tab width 8 (1 if CLI)\\"
         );
 }
-
 \\"use strict\\";
 
 module.exports = {
@@ -49,19 +44,16 @@ module.exports = {
                 \\"lf\\",
         tabWidth: 8
 };
-
 function noConfigJs() {
   console.log(
     \\"no-config/file.js should have no semicolons\\"
   )
 }
-
 function packageJs() {
    console.log(
       \\"package/file.js should have tab width 3\\"
    );
 }
-
 function rcJson() {
   console.log.apply(
     null,
@@ -72,7 +64,6 @@ function rcJson() {
     ],
   );
 }
-
 function rcToml() {
   console.log.apply(
     null,
@@ -83,7 +74,6 @@ function rcToml() {
     ],
   );
 }
-
 function rcYaml() {
   console.log.apply(
     null,
@@ -94,7 +84,6 @@ function rcYaml() {
     ],
   );
 }
-
 "
 `;
 
@@ -106,7 +95,6 @@ exports[`accepts configuration from --config (stdout) 1`] = `
 "function js() {
  console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\")
 }
-
 "
 `;
 
@@ -131,43 +119,35 @@ exports[`resolves configuration from external files (stdout) 1`] = `
 "function f() {
 	console.log(\\"should have tab width 8\\")
 }
-
 function f() {
   console.log(\\"should have space width 2\\")
 }
-
 function f() {
         console.log(\\"should have space width 8\\")
 }
-
 function f() {
   console.log(
     \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
   )
 }
-
 console.log(\\"jest/__best-tests__/file.js should have semi\\");
 console.log(\\"jest/Component.js should not have semi\\")
 console.log(\\"jest/Component.test.js should have semi\\");
 function js() {
         console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
 }
-
 \\"use strict\\";
 
 module.exports = {
         endOfLine: \\"lf\\",
         tabWidth: 8
 };
-
 function noConfigJs() {
   console.log(\\"no-config/file.js should have no semicolons\\")
 }
-
 function packageJs() {
    console.log(\\"package/file.js should have tab width 3\\");
 }
-
 function rcJson() {
   console.log.apply(null, [
     'rc-json/file.js',
@@ -175,7 +155,6 @@ function rcJson() {
     'and single quotes',
   ]);
 }
-
 function rcToml() {
   console.log.apply(null, [
     'rc-toml/file.js',
@@ -183,7 +162,6 @@ function rcToml() {
     'and single quotes',
   ]);
 }
-
 function rcYaml() {
   console.log.apply(null, [
     'rc-yaml/file.js',
@@ -191,7 +169,6 @@ function rcYaml() {
     'and single quotes',
   ]);
 }
-
 "
 `;
 
@@ -205,13 +182,11 @@ exports[`resolves configuration from external files and overrides by extname (st
     \\"no-config/file.ts should have semicolons because it has a .ts extension\\"
   );
 }
-
 function packageTs() {
      console.log(
           \\"package/file.ts should have tab width 5 because it has .ts extension\\"
      );
 }
-
 "
 `;
 

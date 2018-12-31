@@ -32,7 +32,6 @@ function f<T>(foo, bar = foo): [T, T] {
   return [foo, bar];
 }
 
-
 ================================================================================
 `;
 
@@ -53,7 +52,6 @@ function x<T>(x: T = 0) {}
 class C {
   x<T>(x: T = 0) {}
 }
-
 
 ================================================================================
 `;
@@ -79,7 +77,6 @@ function f<T: *>(x: T, y?: T) {
   x = y;
 }
 
-
 ================================================================================
 `;
 
@@ -97,7 +94,6 @@ function foo(x?: string): ?string {
 function foo(x?: string): ?string {
   return x;
 }
-
 
 ================================================================================
 `;
@@ -164,62 +160,49 @@ function optionalNullable1(x: { y?: ?number }) {
   if (x.y !== null && x.y !== undefined) {
     x.y++;
   }
-
 }
 
 function optionalNullable2(x: { y?: ?number }) {
   if (x.y !== undefined && x.y !== null) {
     x.y++;
   }
-
 }
 
 function optionalNullable3(x: { y?: ?number }) {
   if (!(x.y !== null && x.y !== undefined)) {
     x.y++; // should error
-
   }
-
 }
 
 function optionalNullable4(x: { y?: ?number }) {
   if (!(x.y !== undefined && x.y !== null)) {
     x.y++; // should error
-
   }
-
 }
 
 function optionalNullable5(x: { y?: ?number }) {
   if (x.y === null || x.y === undefined) {
     x.y++; // should error
-
   }
-
 }
 
 function optionalNullable6(x: { y?: ?number }) {
   if (x.y === undefined || x.y === null) {
     x.y++; // should error
-
   }
-
 }
 
 function optionalNullable7(x: { y?: ?number }) {
   if (!(x.y === null || x.y === undefined)) {
     x.y++;
   }
-
 }
 
 function optionalNullable8(x: { y?: ?number }) {
   if (!(x.y === undefined || x.y === null)) {
     x.y++;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -365,7 +348,6 @@ function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
   f(x);
 }
 
-
 ================================================================================
 `;
 
@@ -418,7 +400,6 @@ function bar(x = "bar"): string {
 
 bar(undefined); // ok
 
-
 ================================================================================
 `;
 
@@ -457,7 +438,6 @@ foo(true); // ERROR boolean ~> number
 
 foo(123, true); // ERROR boolean ~> string
 
-
 ================================================================================
 `;
 
@@ -487,7 +467,6 @@ function bar() {
   return x.duck;
 }
 
-
 ================================================================================
 `;
 
@@ -516,7 +495,6 @@ function foo(bar?) {
 function bar() {
   return x.duck;
 }
-
 
 ================================================================================
 `;

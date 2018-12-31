@@ -42,7 +42,6 @@ class A {
   onLoad(callback) {
     return callback(this.getX());
   }
-
 }
 
 function callback(x: string) {

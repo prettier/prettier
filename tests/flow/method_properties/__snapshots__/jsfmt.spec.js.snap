@@ -58,7 +58,6 @@ class C {
   qux() {
     this.constructor.x;
   }
-
 }
 
 C.x;
@@ -70,7 +69,6 @@ const foo = new Foo();
 
 function f(x) {
   (x.bar(): string); // error. caused by \`f(foo)\`; annotate x to track it down.
-
 }
 
 f(foo);

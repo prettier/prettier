@@ -16,7 +16,6 @@ interface I {
 
 export type J = I; // workaround for export interface
 
-
 ================================================================================
 `;
 
@@ -47,7 +46,6 @@ interface Bad {
   [k1: string]: string;
   [k2: number]: number; // error: not supported (yet)
 }
-
 
 ================================================================================
 `;
@@ -87,9 +85,7 @@ function testInterfaceName(o: I) {
   (o.name: string); // error, name is static
 
   (o.constructor.name: string); // ok
-
 }
-
 
 ================================================================================
 `;
@@ -168,7 +164,6 @@ var e: E<number> = {
 (e.y: string);
 (e.z: string); // error: z is number
 
-
 ================================================================================
 `;
 
@@ -215,7 +210,6 @@ function bar(m: M) {
   m.z;
 } // OK
 
-
 ================================================================================
 `;
 
@@ -251,9 +245,7 @@ function foo(k: K) {
   (k.x: number); // error: x is string in K
 
   (k.y: number); // error: y is string in I
-
 }
-
 
 ================================================================================
 `;
@@ -287,7 +279,6 @@ declare class C {
 }
 
 new C().bar((x: string) => {}); // error, number ~/~> string
-
 
 ================================================================================
 `;

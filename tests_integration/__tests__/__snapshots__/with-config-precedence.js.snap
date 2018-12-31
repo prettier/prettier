@@ -27,7 +27,6 @@ exports[`CLI overrides are still applied when no config is found with --config-p
 "function noConfigJs() {
       console.log(\\"no-config/file.js should have no semicolons\\")
 }
-
 "
 `;
 
@@ -41,7 +40,6 @@ exports[`CLI overrides gets applied when no config exists with --config-preceden
               \\"no-config/file.js should have no semicolons\\"
        );
 }
-
 "
 `;
 
@@ -53,14 +51,12 @@ exports[`CLI overrides gets ignored when config exists with --config-precedence 
 "function js() {
         console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
 }
-
 \\"use strict\\";
 
 module.exports = {
         endOfLine: \\"lf\\",
         tabWidth: 8
 };
-
 "
 `;
 
@@ -72,14 +68,12 @@ exports[`CLI overrides take lower precedence with --config-precedence file-overr
 "function js() {
         console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
 }
-
 \\"use strict\\";
 
 module.exports = {
         endOfLine: \\"lf\\",
         tabWidth: 8
 };
-
 "
 `;
 
@@ -93,25 +87,21 @@ exports[`CLI overrides take precedence with --config-precedence cli-override (st
 		\\"should have tab width 8\\"
 	)
 }
-
 function f() {
   console.log(
     \\"should have space width 2\\"
   )
 }
-
 function f() {
         console.log(
                 \\"should have space width 8\\"
         )
 }
-
 function f() {
   console.log(
     \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
   )
 }
-
 console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
@@ -126,7 +116,6 @@ function js() {
                 \\"js/file.js should have tab width 8 (1 if CLI)\\"
         );
 }
-
 \\"use strict\\";
 
 module.exports = {
@@ -134,19 +123,16 @@ module.exports = {
                 \\"lf\\",
         tabWidth: 8
 };
-
 function noConfigJs() {
   console.log(
     \\"no-config/file.js should have no semicolons\\"
   )
 }
-
 function packageJs() {
    console.log(
       \\"package/file.js should have tab width 3\\"
    );
 }
-
 function rcJson() {
   console.log.apply(
     null,
@@ -157,7 +143,6 @@ function rcJson() {
     ],
   );
 }
-
 function rcToml() {
   console.log.apply(
     null,
@@ -168,7 +153,6 @@ function rcToml() {
     ],
   );
 }
-
 function rcYaml() {
   console.log.apply(
     null,
@@ -179,7 +163,6 @@ function rcYaml() {
     ],
   );
 }
-
 "
 `;
 
@@ -193,25 +176,21 @@ exports[`CLI overrides take precedence without --config-precedence (stdout) 1`] 
 		\\"should have tab width 8\\"
 	)
 }
-
 function f() {
   console.log(
     \\"should have space width 2\\"
   )
 }
-
 function f() {
         console.log(
                 \\"should have space width 8\\"
         )
 }
-
 function f() {
   console.log(
     \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
   )
 }
-
 console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
@@ -226,7 +205,6 @@ function js() {
                 \\"js/file.js should have tab width 8 (1 if CLI)\\"
         );
 }
-
 \\"use strict\\";
 
 module.exports = {
@@ -234,19 +212,16 @@ module.exports = {
                 \\"lf\\",
         tabWidth: 8
 };
-
 function noConfigJs() {
   console.log(
     \\"no-config/file.js should have no semicolons\\"
   )
 }
-
 function packageJs() {
    console.log(
       \\"package/file.js should have tab width 3\\"
    );
 }
-
 function rcJson() {
   console.log.apply(
     null,
@@ -257,7 +232,6 @@ function rcJson() {
     ],
   );
 }
-
 function rcToml() {
   console.log.apply(
     null,
@@ -268,7 +242,6 @@ function rcToml() {
     ],
   );
 }
-
 function rcYaml() {
   console.log.apply(
     null,
@@ -279,7 +252,6 @@ function rcYaml() {
     ],
   );
 }
-
 "
 `;
 

@@ -77,7 +77,6 @@ function f7(x: $Tainted<string>, y: $Tainted<number>) {
   var z: string = x + y;
 }
 
-
 ================================================================================
 `;
 
@@ -122,7 +121,6 @@ let tests = [
     obj.foo = x; // error, taint ~> any
 
     obj[y] = x; // error, taint ~> any
-
   },
   // getting a property
   function() {
@@ -131,7 +129,6 @@ let tests = [
     };
 
     (obj.foo: $Tainted<string>); // ok
-
   },
   // calling a method
   function(x: $Tainted<string>) {
@@ -140,10 +137,8 @@ let tests = [
 
     let foo = obj.foo;
     foo(x); // error, taint ~> any
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -185,7 +180,6 @@ function f_foo3(f1 : Function, o1 : Object, o2 : {t : $Tainted<string>}) {
 function foo(x: $Tainted<string>, o: Object) {
   // Error
   o.f(x);
-
 }
 
 function foo1(
@@ -218,7 +212,6 @@ function foo3<T>(
 function f_foo1(x: $Tainted<string>, f: Function) {
   // Error
   f(x);
-
 }
 
 function f_foo2(
@@ -239,7 +232,6 @@ function f_foo3(
 ) {
   f1(o1)(o2.t);
 }
-
 
 ================================================================================
 `;
@@ -292,7 +284,6 @@ function f3(x: $Tainted<string>, y: string) {
   var z: boolean = x < y;
 }
 
-
 ================================================================================
 `;
 
@@ -323,7 +314,6 @@ let tests = [
   // flows any to each param
   function(x: any, y: $Tainted<string>) {
     x(y); // error, taint ~> any
-
   },
   // calling \`any\` returns \`any\`
   function(x: any, y: $Tainted<string>) {
@@ -331,7 +321,6 @@ let tests = [
     z(y);
   }
 ];
-
 
 ================================================================================
 `;
@@ -362,17 +351,13 @@ class A {
     fakeDocument.location = x; // error
 
     doStuff(x); // ok
-
   }
 
   f1(x: $Tainted<FakeLocation>) {
     // TODO(rcastano): should cause an error.
     window.fakeLocation = x;
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -438,11 +423,8 @@ class A {
   f(tainted: $Tainted<string>) {
     // This shouldn't give a warning (both are tainted)
     var also_tainted: $Tainted<string> = tainted;
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -473,11 +455,8 @@ class A {
   f(tainted: $Tainted<string>) {
     // This *should* give a warning.
     fakeDocument.location.assign(tainted);
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -513,11 +492,8 @@ class A {
 
     // This should give a warning.
     var loc: string = safe;
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -555,9 +531,7 @@ var tainted: $Tainted<string> = safe;
 function f(x: $Tainted<any>) {
   // Should cause error.
   var y: any = x;
-
 }
-
 
 ================================================================================
 `;
@@ -650,7 +624,6 @@ function foo5(a: $Tainted<Array<string>>) {
 function foo6(a: $Tainted<Array<string>>) {
   var trusted: $Tainted<string> = a[0];
 }
-
 
 ================================================================================
 `;

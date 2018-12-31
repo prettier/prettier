@@ -19,7 +19,6 @@ const myValue = (callcallcallcallcallcall(
   | thre
   | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj);
 
-
 ================================================================================
 `;
 
@@ -96,7 +95,6 @@ export function aPrettyLongFunctionE(
     __id: string
   } | null> | null | void
 ): string[] {}
-
 
 ================================================================================
 `;

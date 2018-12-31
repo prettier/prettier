@@ -54,7 +54,6 @@ const c: Promise<Blob> = fetch("image.png").then(response => response.blob()); /
 
 const d: Promise<Blob> = fetch("image.png"); // incorrect
 
-
 ================================================================================
 `;
 
@@ -135,12 +134,10 @@ const h: number = e.get("Content-Type"); // not correct
 
 for (let v of e) {
   const [i, j]: [string, string] = v; // correct
-
 }
 
 for (let v of e.entries()) {
   const [i, j]: [string, string] = v; // correct
-
 }
 
 e.getAll("content-type"); // incorrect
@@ -152,7 +149,6 @@ e.forEach((val: string, key: string) => \`\${key}: \${val}\`); // correct
 e.forEach((val: string, key: string, o: Headers) => {}); // correct
 
 e.forEach(() => {}, {}); // correct
-
 
 ================================================================================
 `;
@@ -308,7 +304,6 @@ new Request("/", {
   method: null
 }); // incorrect
 
-
 ================================================================================
 `;
 
@@ -424,7 +419,6 @@ h.arrayBuffer().then((ab: ArrayBuffer) => ab); // correct
 
 h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 
-
 ================================================================================
 `;
 
@@ -506,12 +500,10 @@ const h: number = e.get("key1"); // not correct
 
 for (let v of e) {
   const [i, j]: [string, string] = v; // correct
-
 }
 
 for (let v of e.entries()) {
   const [i, j]: [string, string] = v; // correct
-
 }
 
 e.getAll("key1").forEach((v: string) => {}); // correct
@@ -523,7 +515,6 @@ e.forEach((val: string, key: string) => \`\${key}: \${val}\`); // correct
 e.forEach((val: string, key: string, o: URLSearchParams) => {}); // correct
 
 e.forEach(() => {}, {}); // correct
-
 
 ================================================================================
 `;

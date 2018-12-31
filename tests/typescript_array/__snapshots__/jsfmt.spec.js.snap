@@ -23,9 +23,7 @@ export class ViewTokensChangedEvent {
      */
     readonly fromLineNumber: number;
   }[];
-
 }
-
 
 ================================================================================
 `;

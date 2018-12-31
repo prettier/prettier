@@ -170,9 +170,7 @@ class B {
   x: number;
   constructor() {
     this.x; // OK
-
   }
-
 }
 
 class C extends A {}
@@ -182,9 +180,7 @@ class D extends A {
     this.y; // error (no super call)
 
     this.x; // error (no super call)
-
   }
-
 }
 
 class E extends A {
@@ -194,16 +190,13 @@ class E extends A {
     this.y; // OK
 
     this.x; // OK
-
   }
-
 }
 
 function leak(f) {
   f.y; // error
 
   f.x; // error
-
 }
 
 class F extends A {
@@ -215,15 +208,12 @@ class F extends A {
     this.y;
     this.x;
   }
-
 }
 
 class G extends A {
   constructor(b) {
     super.x; // error (no super call)
-
   }
-
 }
 
 class H extends A {
@@ -235,9 +225,7 @@ class H extends A {
     this.y; // OK
 
     this.x; // OK
-
   }
-
 }
 
 class I_ {
@@ -251,9 +239,7 @@ class I_ {
 class I extends I_ {
   constructor() {
     super(this); // error (no super call yet)
-
   }
-
 }
 
 class J__ {}
@@ -269,9 +255,7 @@ class J_ extends J__ {
 class J extends J_ {
   constructor() {
     super(() => this.foo()); // error (no super call yet) // The reason for this error is that super constructor could call the // closure and therefore access this before calling its own super // constructor (as shown above). The only safe thing to do in the super // constructor is to save the closure so that it can be called later, after // initialization is done (as shown below).
-
   }
-
 }
 
 class K_ {
@@ -292,7 +276,6 @@ class K extends K_ {
     var _this = this;
     this.closure_leaking_this();
   }
-
 }
 
 // even though super() calls the parent's constructor(), it does not do the same
@@ -303,7 +286,6 @@ class L_ {
   constructor() {
     return false;
   }
-
 }
 
 class L extends L_ {
@@ -311,7 +293,6 @@ class L extends L_ {
     let x: boolean = super();
     return x;
   }
-
 }
 
 (new L_(): L_);
@@ -323,16 +304,13 @@ class M_ {
     return {
       foo: "foo"
     };
-
   }
-
 }
 
 class M extends M_ {
   constructor() {
     return super();
   }
-
 }
 
 (new M_(): {
@@ -350,14 +328,12 @@ class N_ {
     let x = this;
     return x;
   }
-
 }
 
 class N extends N_ {
   constructor() {
     return super();
   }
-
 }
 
 (new N_(): N_);
@@ -382,7 +358,6 @@ class D {
   foo(): number {
     return 0;
   }
-
 }
 
 module.exports = D;
@@ -438,16 +413,13 @@ class B extends A {
     (super.staticMethod("foo"): number); // error, string !~> number
 
     super.doesntExist(); // error, A doesn't have a doesntExist method
-
   }
 
   g() {
     super.f(0);
     return super.g;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -475,7 +447,6 @@ class C extends D {
   foo() {
     return super.foo();
   }
-
 }
 
 module.exports = C;

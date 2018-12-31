@@ -110,7 +110,6 @@ var test_obj: ObjType = {
 // param type annos are strict UBs like var type annos
 function param_anno(n: number): void {
   n = "hey"; // error
-
 }
 
 // another error on param UB, more typical of www (mis)use-cases
@@ -132,9 +131,7 @@ function param_anno2(
       params: request.params,
       relative_url: request.path
     };
-
   }); // ...
-
 }
 
 var toz: null = 3;
@@ -146,7 +143,6 @@ function foobar(n: ?number): number | null | void {
 function barfoo(n: number | null | void): ?number {
   return n;
 }
-
 
 ================================================================================
 `;
@@ -177,7 +173,6 @@ let myClassInstance: MyClass = null; // forward ref ok, null ~> class error
 
 function bar(): MyClass {
   return null; // forward ref ok, null ~> class error
-
 }
 
 class MyClass {} // looked up above
@@ -190,9 +185,7 @@ function foo() {
   }
 
   class MyClass {} // looked up above
-
 }
-
 
 ================================================================================
 `;
@@ -264,7 +257,6 @@ function foo(x: { [key: string]: mixed }) {
 function bar(y: MyObj): string {
   return y.foo;
 }
-
 
 ================================================================================
 `;
@@ -342,11 +334,8 @@ class Foo<A> {
     return function<C>(a: A, b: B, c: C): void {
       ([a, b, c]: [A, B, C]);
     };
-
   }
-
 }
-
 
 ================================================================================
 `;

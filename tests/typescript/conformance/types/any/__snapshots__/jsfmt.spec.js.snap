@@ -28,7 +28,6 @@ var c = new x(x);
 // grammar allows this for constructors
 var d = new x<any>(x); // no error
 
-
 ================================================================================
 `;
 

@@ -32,7 +32,6 @@ export var INSPECT_MAX_BYTES = 0;
  */
 export var INSPECT_MAX_BYTES = 0;
 
-
 ================================================================================
 `;
 
@@ -70,7 +69,6 @@ var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
 var buffer = require("buffer");
 
 var x: string = buffer.INSPECT_MAX_BYTES; // error, number ~/> string
-
 
 ================================================================================
 `;

@@ -60,7 +60,6 @@ class C<X> {
   get(): X {
     return this.x;
   }
-
 }
 
 class D<T> {
@@ -70,7 +69,6 @@ class D<T> {
     v.u = u;
     return z;
   }
-
 }
 
 var d = new D();
@@ -86,9 +84,7 @@ class E<X> extends C<X> {
 
     return /*this.x; */
     this.get();
-
   }
-
 }
 
 var e = new E(); // error: too few arguments to inherited constructor
@@ -101,7 +97,6 @@ class H<Z> extends G<Array<Z>> {
   foo(x: Z) {
     this.x = x;
   }
-
 }
 
 var h1 = new H();
@@ -116,7 +111,6 @@ var fn: Function<string> = function() {
 var fn: function<string> = function() {
   return "foo";
 }; // error, arity 0
-
 
 ================================================================================
 `;

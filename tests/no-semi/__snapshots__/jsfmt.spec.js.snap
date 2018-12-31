@@ -186,7 +186,6 @@ interface E {
     | number;
 } // NOTE: Flow and Babel both fail to apply ASI here // interface F { //     one: boolean //     two: { three: string } //     | number // }
 
-
 ================================================================================
 `;
 
@@ -276,7 +275,6 @@ interface E {
     | number;
 } // NOTE: Flow and Babel both fail to apply ASI here // interface F { //     one: boolean //     two: { three: string } //     | number // }
 
-
 ================================================================================
 `;
 
@@ -365,7 +363,6 @@ interface E {
       }
     | number;
 } // NOTE: Flow and Babel both fail to apply ASI here // interface F { //     one: boolean //     two: { three: string } //     | number // }
-
 
 ================================================================================
 `;

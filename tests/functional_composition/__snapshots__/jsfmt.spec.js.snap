@@ -102,9 +102,7 @@ class A extends B {
       sortBy(x => x),
       flatten
     );
-
   }
-
 }
 
 this.subscriptions.add(
@@ -115,7 +113,6 @@ this.subscriptions.add(
     )
     .subscribe(props => {})
 );
-
 
 ================================================================================
 `;
@@ -321,7 +318,6 @@ var followersForUser = R.composeP(
 
 followersForUser("JOE").then(followers => console.log("Followers:", followers)); // Followers: ["STEVE","SUZY"]
 
-
 ================================================================================
 `;
 
@@ -389,7 +385,6 @@ var followersForUser = R.pipeP(
   db.getFollowers
 );
 
-
 ================================================================================
 `;
 
@@ -426,7 +421,6 @@ const store = createStore(
   )
 );
 
-
 ================================================================================
 `;
 
@@ -444,7 +438,6 @@ const ArtistInput = connect(
   mapDispatchToProps,
   mergeProps
 )(Component);
-
 
 ================================================================================
 `;
@@ -481,7 +474,6 @@ const resolve = createSelector(
   (ids, objects) => ids.map(id => objects[id])
 );
 
-
 ================================================================================
 `;
 
@@ -514,7 +506,6 @@ source$
     scan((acc, x) => acc + x, 0)
   )
   .subscribe(x => console.log(x));
-
 
 ================================================================================
 `;

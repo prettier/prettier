@@ -32,7 +32,6 @@ module B {
   export class D extends a.C {
     id: number;
   }
-
 }
 
 module A {
@@ -135,9 +134,7 @@ module A {
     export interface Id {
       name: string;
     }
-
   }
-
 }
 
 module C {
@@ -157,15 +154,12 @@ module X {
     export class Point {
       constructor(public x: number, public y: number) {}
     }
-
   }
-
 }
 
 module Z {
   // 'y' should be a fundule here
   export import y = X.Y;
-
 }
 
 var m: number = Z.y();
@@ -181,9 +175,7 @@ module K {
       x: number;
       y: number;
     }
-
   }
-
 }
 
 module M {
@@ -268,7 +260,6 @@ module moduleA {
   export class Point {
     constructor(public x: number, public y: number) {}
   }
-
 }
 
 import alias = moduleA;
@@ -289,7 +280,6 @@ module clodule {
     x: 0,
     y: 0
   };
-
 }
 
 import clolias = clodule;
@@ -301,7 +291,6 @@ function fundule() {
     x: 0,
     y: 0
   };
-
 }
 
 module fundule {
@@ -314,7 +303,6 @@ module fundule {
     x: 0,
     y: 0
   };
-
 }
 
 import funlias = fundule;
@@ -431,7 +419,6 @@ module A {
     x: number;
     y: number;
   }
-
 }
 
 module B {
@@ -449,20 +436,17 @@ module X {
       x: number;
       y: number;
     }
-
   }
 
   export class Y {
     name: string;
   }
-
 }
 
 module Z {
   import Y = X.Y;
   var Y = 12;
 }
-
 
 ================================================================================
 `;

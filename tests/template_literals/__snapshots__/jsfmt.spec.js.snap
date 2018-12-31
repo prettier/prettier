@@ -55,7 +55,6 @@ function SomeComponent(props) {
       <div className="some-class">This font size will be 20px</div>
     </div>
   );
-
 }
 
 const TestComponent = ({ children, ...props }) => (
@@ -68,7 +67,6 @@ const TestComponent = ({ children, ...props }) => (
     {children}
   </div>
 );
-
 
 ================================================================================
 `;
@@ -153,11 +151,8 @@ function testing() {
       }/something/something/something?\${Object.keys(p)
         .map(k => \`\${encodeURIComponent(k)}=\${encodeURIComponent(p[k])}\`)
         .join("&")}\`;
-
     }
-
   }
-
 }
 
 console.log(
@@ -282,7 +277,6 @@ const header = css\`
   }
 \`;
 
-
 ================================================================================
 `;
 
@@ -349,7 +343,6 @@ color: red; display: none
       Shouldn't fail.
             Shouldn't be formatted.\`}</style>
 </div>;
-
 
 ================================================================================
 `;
@@ -445,7 +438,6 @@ printWidth: 80
       slidein;
   }
 \`}</style>;
-
 
 ================================================================================
 `;

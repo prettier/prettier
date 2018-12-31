@@ -37,7 +37,6 @@ function test1(): string {
   function bar() {
     return 0;
   }
-
 }
 
 // regression test for analysis after abnormal control flow:
@@ -49,11 +48,8 @@ function test2() {
     var x: typeof n = 0; // no error, n is still number
 
     var y: string = n; // error, n is number (EmptyT would work)
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -115,7 +111,6 @@ function foo(x, y) {
     u = 5,
     v,
     w = 7;
-
 }
 
 foo(1, 2);

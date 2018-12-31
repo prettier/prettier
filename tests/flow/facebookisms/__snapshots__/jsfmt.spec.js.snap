@@ -71,7 +71,6 @@ let tests = [
   // global
   function() {
     copyProperties(); // error, unknown global
-
   },
   // annotation
   function(copyProperties: Object$Assign) {
@@ -90,7 +89,6 @@ let tests = [
       bar: number,
       baz: boolean
     });
-
   },
   // module from lib
   function() {
@@ -107,7 +105,6 @@ let tests = [
       foo: string,
       bar: number
     });
-
   },
   // too few args
   function(copyProperties: Object$Assign) {
@@ -117,7 +114,6 @@ let tests = [
     }): {
       foo: number
     }); // err, num !~> string
-
   },
   // passed as a function
   function(copyProperties: Object$Assign) {
@@ -125,7 +121,6 @@ let tests = [
     x(copyProperties);
   }
 ];
-
 
 ================================================================================
 `;
@@ -157,7 +152,6 @@ let tests = [
   function() {
     let x: ?string = null;
     invariant(x, "truthy only"); // error, forgot to require invariant
-
   },
   function(invariant: Function) {
     let x: ?string = null;
@@ -165,7 +159,6 @@ let tests = [
     (x: string);
   }
 ];
-
 
 ================================================================================
 `;
@@ -200,7 +193,6 @@ declare module "mergeInto" {
 declare module "mixin" {
   declare var exports: $Facebookism$Mixin;
 }
-
 
 ================================================================================
 `;
@@ -252,7 +244,6 @@ let tests = [
   // global
   function() {
     mergeInto(); // error, unknown global
-
   },
   // annotation
   function(mergeInto: $Facebookism$MergeInto) {
@@ -273,7 +264,6 @@ let tests = [
       bar: number,
       baz: boolean
     });
-
   },
   // module from lib
   function() {
@@ -295,7 +285,6 @@ let tests = [
         bar: 123
       }
     ): void);
-
   },
   // too few args
   function(mergeInto: $Facebookism$MergeInto) {
@@ -307,7 +296,6 @@ let tests = [
     x(mergeInto);
   }
 ];
-
 
 ================================================================================
 `;
@@ -336,9 +324,7 @@ class Foo extends mixin(Bar) {
     var x: string = this.x;
     this.y = "";
   }
-
 }
-
 
 ================================================================================
 `;

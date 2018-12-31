@@ -70,7 +70,6 @@ async function f0(): Promise<number> {
 
 async function f1(): Promise<boolean> {
   return 1; // error, number != bool
-
 }
 
 // await: (p: Promise<T> | T) => T
@@ -89,7 +88,6 @@ async function f3(p: Promise<number>): Promise<number> {
 // "inconsistent use of library definitions" with two core.js locs
 async function f4(p: Promise<number>): Promise<boolean> {
   return await p; // error, number != bool
-
 }
 
 // async arrow functions
@@ -114,7 +112,6 @@ class C {
   static async mt<T>(a: T): Promise<T> {
     return a;
   }
-
 }
 
 // async function props
@@ -163,7 +160,6 @@ async function foo() {
   class Bar extends (await P) {}
   return Bar;
 }
-
 
 ================================================================================
 `;
@@ -250,7 +246,6 @@ async function f(): Promise<number> {
   return Promise.resolve(1);
 }
 
-
 ================================================================================
 `;
 
@@ -289,7 +284,6 @@ async function foo3(): Promise<string> {
   function bar() {}
   return bar();
 }
-
 
 ================================================================================
 `;
@@ -374,9 +368,7 @@ function test1() {
     var b: number = a; // valid
 
     var c: string = a; // Error: number ~> string
-
   }
-
 }
 
 //
@@ -393,7 +385,6 @@ function test2() {
   var voidoid2: () => Promise<void> = voidoid1; // ok
 
   var voidoid3: () => void = voidoid1; // error, void != Promise<void>
-
 }
 
 // annotated return type of Promise<void> should work
@@ -402,9 +393,7 @@ function test3() {
   async function voidoid4(): Promise<void> {
     // ok
     console.log("HEY");
-
   }
-
 }
 
 // other annotated return types should fail
@@ -415,20 +404,15 @@ function test4() {
   async function voidoid5(): void {
     // error, void != Promise<void>
     console.log("HEY");
-
   }
-
 }
 
 function test5() {
   async function voidoid6(): Promise<number> {
     // error, number != void
     console.log("HEY");
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -501,9 +485,7 @@ async function baz() {
   // should be number ~> string error, but currently gives
   // Promise ~> string error for the same reason
   var c: string = a;
-
 }
-
 
 ================================================================================
 `;
@@ -564,7 +546,6 @@ class C {
   static async mt<T>(a: T) {
     await 1;
   }
-
 }
 
 var e = async function() {

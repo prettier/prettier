@@ -21,12 +21,10 @@ class C<T> {
     this.b(x); // ok
 
     this.b(a); // error: A ~> incompatible instance of T
-
   }
 
   b(x: T) {}
 }
-
 
 ================================================================================
 `;
@@ -59,7 +57,6 @@ function f<T>(a: T) {
     h(b); // ok
 
     h(c); // err, T ~> U
-
   }
 
   g(0); // ok
@@ -67,11 +64,9 @@ function f<T>(a: T) {
   g(0, a); // ok
 
   g(0, 0); // error: number ~> T
-
 }
 
 f(0); // ok
-
 
 ================================================================================
 `;
@@ -149,14 +144,12 @@ class A<T> {
   m<T>(x: T): A<T> {
     return new A(x);
   }
-
 }
 
 class B<T> extends A<T> {
   m<T>(x: T): B<T> {
     return new B(x);
   }
-
 }
 
 interface C<T> {
@@ -185,7 +178,6 @@ class G<T> {
   m<T: T>(x: T): G<T> {
     return new G(x);
   } // T-as-bound is G's T
-
 }
 
 declare var g: G<number | string>;
@@ -200,11 +192,8 @@ class H<T> {
   x: T;
   m<T>(x: T) {
     this.x = x; // err, m's T != H's T
-
   }
-
 }
-
 
 ================================================================================
 `;

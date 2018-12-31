@@ -95,7 +95,6 @@ class B extends A {
     B.bar(0); // error
 
     B.qux(0); // error
-
   }
 
   static create(): A {
@@ -104,9 +103,7 @@ class B extends A {
 
   static badCreate(): number {
     return new this(); // error B ~> number
-
   }
-
 }
 
 class C<X> {
@@ -115,7 +112,6 @@ class C<X> {
   static create(): C<*> {
     return new this();
   }
-
 }
 
 class D extends C<string> {
@@ -124,7 +120,6 @@ class D extends C<string> {
 
     D.bar(0);
   }
-
 }
 
 var d: C<*> = D.create();
@@ -136,9 +131,7 @@ class E {
     this.bar(); // error
 
     return this.x; // error
-
   }
-
 }
 
 // note: above classdefs are sufficiently annotated to export
@@ -149,7 +142,6 @@ module.exports = {
   D: D,
   E: E
 };
-
 
 ================================================================================
 `;

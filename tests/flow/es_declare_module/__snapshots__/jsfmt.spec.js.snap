@@ -102,6 +102,5 @@ import type { T as T2 } from "ES";
 
 import { exports as nope } from "ES"; // Error: Not an export
 
-
 ================================================================================
 `;

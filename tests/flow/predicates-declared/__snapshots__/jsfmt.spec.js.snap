@@ -64,9 +64,7 @@ class C {
     if (this.m.bind(this)) {
       this.a;
     }
-
   }
-
 }
 
 declare var m: Function;
@@ -83,16 +81,13 @@ class D {
   n() {
     if (this.m({})) {
     }
-
   }
-
 }
 
 declare var m: Function;
 const x = "";
 if (m.bind(this)(x)) {
 }
-
 
 ================================================================================
 `;
@@ -136,9 +131,7 @@ function foo(x: number | string | Array<string>): number {
   } else {
     return 1;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -180,16 +173,12 @@ function foo(x: string | Array<string>): string {
     // should guarantee the narrowing of the type of \`x\`
     // to string.
     return x;
-
   } else {
     // Accordingly the negation of the above check
     // guarantees that \`x\` here is an Array<string>
     return x.join();
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -304,7 +293,6 @@ function f(_this: { m: ?Meeting }): string {
   return "3";
 }
 
-
 ================================================================================
 `;
 
@@ -333,14 +321,10 @@ function foo(x: string | Array<string>): string {
 function foo(x: string | Array<string>): string {
   if (typeof x === "string") {
     return x; // [ERROR] x: Array<string> doesn't match return type
-
   } else {
     return x.join(); // [ERROR] x: string doesn't have .join method
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -378,7 +362,6 @@ function foo(s: Array<string>): string {
 
   return 1;
 }
-
 
 ================================================================================
 `;
@@ -427,7 +410,6 @@ function foo(s: Array<string>): string {
   return "1";
 }
 
-
 ================================================================================
 `;
 
@@ -465,11 +447,8 @@ function bar(x: string | Array<string>): string {
     return x;
   } else {
     return x.join(); // error: both string and Array<string> can flow to x
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -533,7 +512,6 @@ function foo(x: string | Array<string>): string {
 function pred(x: mixed): boolean %checks(typeof x === "string") {
   // error: cannot use pred type here
   return typeof x === "string";
-
 }
 
 function foo(x: string | Array<string>): string {
@@ -543,7 +521,6 @@ function foo(x: string | Array<string>): string {
 
   return "1";
 }
-
 
 ================================================================================
 `;
@@ -561,7 +538,6 @@ declare function f2(x: mixed): string %checks(Array.isArray(x));
 =====================================output=====================================
 // @flow
 declare function f2(x: mixed): string %checks(Array.isArray(x));
-
 
 ================================================================================
 `;

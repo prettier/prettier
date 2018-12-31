@@ -23,7 +23,6 @@ class Decorated {}
 @(<ClassDecorator>bind)
 class Decorated {}
 
-
 ================================================================================
 `;
 
@@ -65,7 +64,6 @@ export class TabCompletionController {}
 class AngularComponent {
   @Input() myInput: string;
 }
-
 
 ================================================================================
 `;
@@ -123,45 +121,37 @@ class Something {
 class Foo1 {
   @foo // comment
   async method() {}
-
 }
 
 class Foo2 {
   @foo // comment
   private method() {}
-
 }
 
 class Foo3 {
   @foo // comment
   *method() {}
-
 }
 
 class Foo4 {
   @foo // comment
   async *method() {}
-
 }
 
 class Something {
   @foo() // comment
   readonly property: Array<string>;
-
 }
 
 class Something {
   @foo() // comment
   abstract property: Array<string>;
-
 }
 
 class Something {
   @foo() // comment
   abstract method(): Array<string>;
-
 }
-
 
 ================================================================================
 `;
@@ -244,7 +234,6 @@ class Class2 {
 
   @d3.bar
   method4() {}
-
 }
 
 class Class3 {
@@ -261,7 +250,6 @@ class Class3 {
     })
     private a: string
   ) {}
-
 }
 
 @decorated
@@ -276,7 +264,6 @@ class MyContainerComponent {
     MyComponentThat
   >;
 }
-
 
 ================================================================================
 `;
@@ -300,7 +287,6 @@ interface MyInterface {
 interface MyInterface {
   id: string;
 }
-
 
 ================================================================================
 `;

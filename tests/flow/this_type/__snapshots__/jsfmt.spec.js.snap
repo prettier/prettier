@@ -21,11 +21,8 @@ const Thing = class Thing {
 const Thing = class Thing {
   zark() {
     this.x = 123; // error: property not found (must be declared)
-
   }
-
 };
-
 
 ================================================================================
 `;
@@ -95,7 +92,6 @@ class Misc {
 // Counterexample with contravariant this type
 class C {
   next: this; // error (see below for exploit): \`this\` should only appear in // covariant positions
-
 }
 
 class D extends C {}
@@ -105,12 +101,10 @@ var d = new D();
 
 class A {
   foo<X: this>(that: X) {} // error: can't hide contravariance using a bound
-
 }
 
 class B extends A {
   foo<Y: this>(that: Y) {} // error (see above, catches hidden override)
-
 }
 
 // covariance checks on this type in invariant positions
@@ -121,7 +115,6 @@ class Invariant {
     return {
       _: this
     };
-
   }
 
   in_object(_: { _: this }) {}
@@ -163,7 +156,6 @@ class Misc {
   inout_generator: Generator<this, this, this>;
 }
 
-
 ================================================================================
 `;
 
@@ -195,7 +187,6 @@ export class A1 {
   bar(): this {
     return this;
   }
-
 }
 
 export class A2<X> {
@@ -210,7 +201,6 @@ export class A2<X> {
   qux(x: X): X {
     return x;
   }
-
 }
 
 export class A3<X> extends A2<X> {}
@@ -238,7 +228,6 @@ class Generic<X> {
   clone(): Generic<X> {
     return this;
   }
-
 }
 
 class Implicit<X> {
@@ -251,7 +240,6 @@ class ImplicitNumber extends Implicit {
 }
 
 (new ImplicitNumber().val: string); // error: number ~> string
-
 
 ================================================================================
 `;
@@ -295,7 +283,6 @@ class B1 extends A1 {
   foo(): B1 {
     return new B1();
   } // error
-
 }
 
 (new B1().bar(): B1); // OK
@@ -304,7 +291,6 @@ class B3<X> extends A3<X> {
   foo(): B3<X> {
     return new B3();
   } // error
-
 }
 
 (new B3().bar(): B3<*>); // OK
@@ -316,7 +302,6 @@ class B3<X> extends A3<X> {
 ((new B3().bar(): B3<string>): A2<number>); // error
 
 ((new B3(): A2<number>).qux(0): string); // error
-
 
 ================================================================================
 `;
@@ -350,7 +335,6 @@ class C {
   f(): C {
     return this;
   }
-
 }
 
 function foo(c: C): I {
@@ -360,7 +344,6 @@ function foo(c: C): I {
 function bar(c: C): J {
   return c;
 }
-
 
 ================================================================================
 `;
@@ -391,9 +374,7 @@ class C {
   update() {
     this.map = this.map.set(0, "");
   }
-
 }
-
 
 ================================================================================
 `;
@@ -425,9 +406,7 @@ class A {
   qux(): this {
     return this.bar();
   } // OK (don't cascade errors)
-
 }
-
 
 ================================================================================
 `;
@@ -465,9 +444,7 @@ class A {
     // meaning of the \`this\` type is not changed simply by
     // switching into a static context
     return new this(); // but in a static context, the value \`this\` is bound to // the class, instead of instances of the class
-
   }
-
 }
 
 class B extends A {} // inherits statics method too, with \`this\` bound to the class
@@ -479,7 +456,6 @@ class B extends A {} // inherits statics method too, with \`this\` bound to the 
 (B.make(): A); // OK
 
 (A.make(): B); // error
-
 
 ================================================================================
 `;
@@ -579,7 +555,6 @@ class Base {
   bar_caller() {
     return this.bar();
   }
-
 }
 
 class Inherit extends Base {}
@@ -595,7 +570,6 @@ class Override extends Base {
   bar() {
     return new Override();
   } // OK (cf. error below)
-
 }
 
 class InheritOverride extends Override {}
@@ -651,7 +625,6 @@ class Override2 extends Base2 {
 
   // see exploit below
   grault(that: this) {} // error, too
-
 }
 
 class InheritOverride2 extends Override2 {}
@@ -666,7 +639,6 @@ class InheritOverride2 extends Override2 {}
 (new InheritOverride2().bar_caller(): InheritOverride2); // exploits error above
 
 (new Override2(): Base2).corge(new Base2()); // exploits error above
-
 
 ================================================================================
 `;

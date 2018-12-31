@@ -26,7 +26,6 @@ module.exports = {
   stringValueA: "someString"
 };
 
-
 ================================================================================
 `;
 
@@ -55,7 +54,6 @@ module.exports = {
   numberValueB: 1,
   stringValueB: "someString"
 };
-
 
 ================================================================================
 `;
@@ -105,7 +103,6 @@ requireLazy(["A", "B"], function(A, B) {
   var num4: number = B.stringValueB; // Error: string ~> number
 
   var str4: string = B.numberValueB; // Error: number ~> string
-
 });
 
 var notA: Object = A;
@@ -115,7 +112,6 @@ requireLazy(); // Error: No args
 requireLazy([nope], function() {}); // Error: Non-stringliteral args
 
 requireLazy(["A"]); // Error: No callback expression
-
 
 ================================================================================
 `;

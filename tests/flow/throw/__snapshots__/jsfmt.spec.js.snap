@@ -35,7 +35,6 @@ function h(x: number): string {
  */
 function f(): number {
   throw new Error(); // OK to not return
-
 }
 
 function g(a: ?string) {
@@ -44,7 +43,6 @@ function g(a: ?string) {
   }
 
   return a * 1; // a is not null
-
 }
 
 function h(x: number): string {
@@ -53,9 +51,7 @@ function h(x: number): string {
   } else {
     throw new Error();
   }
-
 }
-
 
 ================================================================================
 `;

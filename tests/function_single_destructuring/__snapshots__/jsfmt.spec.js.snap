@@ -105,7 +105,6 @@ class A {
   ]) {
     return restOfResults;
   }
-
 }
 
 promise.then(
@@ -120,7 +119,6 @@ promise.then(
     return rest;
   }
 );
-
 
 ================================================================================
 `;
@@ -332,7 +330,6 @@ class C {
   }) {
     return <div />;
   }
-
 }
 
 type T = ({

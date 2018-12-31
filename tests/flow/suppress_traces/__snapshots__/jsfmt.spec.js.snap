@@ -40,6 +40,5 @@ function foo(x: string) {
 
 var a: string = foo("hi"); // error number ~> string
 
-
 ================================================================================
 `;

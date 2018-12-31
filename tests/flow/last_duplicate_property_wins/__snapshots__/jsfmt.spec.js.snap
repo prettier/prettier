@@ -73,7 +73,6 @@ class C {
   qux(): string {
     return "hello";
   } // method loses to field!
-
 }
 
 // check
@@ -113,7 +112,6 @@ const o = {
 (o.bar: boolean); // last wins
 
 (o.qux(): boolean); // last wins
-
 
 ================================================================================
 `;

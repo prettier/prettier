@@ -17,6 +17,5 @@ printWidth: 80
 
 (<fbt />: string); // Error (the libdef in this test marks fbt as number)
 
-
 ================================================================================
 `;

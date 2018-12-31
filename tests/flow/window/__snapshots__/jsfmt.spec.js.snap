@@ -17,7 +17,6 @@ module.exports = window.history;
 */
 module.exports = window.history;
 
-
 ================================================================================
 `;
 
@@ -34,7 +33,6 @@ module.exports = window.parent;
 =====================================output=====================================
 /* @providesModule Window2 */
 module.exports = window.parent;
-
 
 ================================================================================
 `;

@@ -51,7 +51,6 @@ var tests = [
     // typecasts in sequences
     // (parens always required around typecasts)
     var s: string = ((0: number), ("hey": string));
-
   },
   () => {
     // TODO pending array element inference issues
@@ -61,7 +60,6 @@ var tests = [
     // var b = [(0 : ?number), 1, 2, 3, 4, 5, 6, 7, null];
   }
 ];
-
 
 ================================================================================
 `;

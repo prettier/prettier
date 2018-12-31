@@ -50,7 +50,6 @@ interface ScreenObject {
   at(point: Point): Screen | undefined;
 }
 
-
 ================================================================================
 `;
 
@@ -71,7 +70,6 @@ interface ScreenObject {
   // I make things weird.
   at(point: Point): Screen | undefined
 }
-
 
 ================================================================================
 `;
@@ -140,7 +138,6 @@ interface T<T> {
   new<T>(): T<T>;
   new <T>(): T<T>;
 }
-
 
 ================================================================================
 `;
@@ -211,7 +208,6 @@ interface T<T> {
   new <T>(): T<T>
 }
 
-
 ================================================================================
 `;
 
@@ -269,7 +265,6 @@ export interface ThirdVeryLongAndBoringInterfaceName
     C_AVeryLongAndBoringInterfaceName {
   c: string;
 }
-
 
 ================================================================================
 `;
@@ -330,7 +325,6 @@ export interface ThirdVeryLongAndBoringInterfaceName
   c: string
 }
 
-
 ================================================================================
 `;
 
@@ -362,7 +356,6 @@ declare module "selenium-webdriver" {
     ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>;
     alertIsPresent(): Condition<Alert>;
   };
-
 }
 
 export interface Edge {
@@ -376,7 +369,6 @@ interface Test {
   one: string;
   two: any[];
 }
-
 
 ================================================================================
 `;
@@ -410,7 +402,6 @@ declare module "selenium-webdriver" {
     ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>
     alertIsPresent(): Condition<Alert>
   }
-
 }
 
 export interface Edge {
@@ -424,7 +415,6 @@ interface Test {
   one: string
   two: any[]
 }
-
 
 ================================================================================
 `;

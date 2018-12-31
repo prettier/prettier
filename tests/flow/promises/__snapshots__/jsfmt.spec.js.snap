@@ -68,9 +68,7 @@ Promise.all([
   // array element type is (string | number | boolean)
   xs.forEach(x => {
     (x: void); // Errors: string ~> void, number ~> void, boolean ~> void
-
   });
-
 });
 
 // First argument is required
@@ -90,7 +88,6 @@ function test(val: Iterable<Promise<number>>) {
 function tes2(val: Map<string, Promise<number>>) {
   const r: Promise<Array<number>> = Promise.all(val.values());
 }
-
 
 ================================================================================
 `;
@@ -135,7 +132,6 @@ async function testRace() {
   const y: Promise<?string> = Promise.race(x);
   const z: ?string = await y;
 }
-
 
 ================================================================================
 `;
@@ -387,7 +383,6 @@ new Promise(function(resolve, reject) {
   var a: number = num;
   // TODO: The error message that results from this is almost useless
   var b: string = num; // Error: number ~> string
-
 });
 
 // Promise constructor with arrow function resolve(T) -> then(T)
@@ -395,7 +390,6 @@ new Promise((resolve, reject) => resolve(0)).then(function(num) {
   var a: number = num;
   // TODO: The error message that results from this is almost useless
   var b: string = num; // Error: number ~> string
-
 });
 
 // Promise constructor resolve(Promise<T>) -> then(T)
@@ -405,11 +399,9 @@ new Promise(function(resolve, reject) {
       resolve(0);
     })
   );
-
 }).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
-
 });
 
 // Promise constructor resolve(Promise<Promise<T>>) -> then(T)
@@ -421,14 +413,11 @@ new Promise(function(resolve, reject) {
           resolve(0);
         })
       );
-
     })
   );
-
 }).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
-
 });
 
 // Promise constructor resolve(T); resolve(U); -> then(T|U)
@@ -438,7 +427,6 @@ new Promise(function(resolve, reject) {
   } else {
     resolve("str");
   }
-
 }).then(function(numOrStr) {
   if (typeof numOrStr === "string") {
     var a: string = numOrStr;
@@ -447,7 +435,6 @@ new Promise(function(resolve, reject) {
   }
 
   var c: string = numOrStr; // Error: number|string -> string
-
 });
 
 /////////////////////////////////////////////////
@@ -460,7 +447,6 @@ new Promise(function(resolve, reject) {
   var a: number = num;
   // TODO
   var b: string = num; // Error: number ~> string
-
 });
 
 // TODO: Promise constructor reject(Promise<T>) ~> catch(Promise<T>)
@@ -470,12 +456,10 @@ new Promise(function(resolve, reject) {
       reject(0);
     })
   );
-
 }).catch(function(num) {
   var a: Promise<number> = num;
   // TODO
   var b: number = num; // Error: Promise<Number> ~> number
-
 });
 
 // TODO: Promise constructor reject(T); reject(U); -> then(T|U)
@@ -485,7 +469,6 @@ new Promise(function(resolve, reject) {
   } else {
     reject("str");
   }
-
 }).catch(function(numOrStr) {
   if (typeof numOrStr === "string") {
     var a: string = numOrStr;
@@ -495,7 +478,6 @@ new Promise(function(resolve, reject) {
 
   // TODO
   var c: string = numOrStr; // Error: number|string -> string
-
 });
 
 /////////////////////////////
@@ -505,21 +487,18 @@ new Promise(function(resolve, reject) {
 Promise.resolve(0).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
-
 });
 
 // Promise.resolve(Promise<T>) -> then(T)
 Promise.resolve(Promise.resolve(0)).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
-
 });
 
 // Promise.resolve(Promise<Promise<T>>) -> then(T)
 Promise.resolve(Promise.resolve(Promise.resolve(0))).then(function(num) {
   var a: number = num;
   var b: string = num; // Error: number ~> string
-
 });
 
 ////////////////////////////
@@ -530,7 +509,6 @@ Promise.reject(0).catch(function(num) {
   var a: number = num;
   // TODO
   var b: string = num; // Error: number ~> string
-
 });
 
 // TODO: Promise.reject(Promise<T>) -> catch(Promise<T>)
@@ -538,7 +516,6 @@ Promise.reject(Promise.resolve(0)).then(function(num) {
   var a: Promise<number> = num;
   // TODO
   var b: number = num; // Error: Promise<number> ~> number
-
 });
 
 //////////////////////////////////
@@ -552,7 +529,6 @@ Promise.resolve(0)
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
-
   });
 
 // resolvedPromise.then():Promise<T> -> then(T)
@@ -563,7 +539,6 @@ Promise.resolve(0)
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
-
   });
 
 // resolvedPromise.then():Promise<Promise<T>> -> then(T)
@@ -574,7 +549,6 @@ Promise.resolve(0)
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
-
   });
 
 // TODO: resolvedPromise.then(<throw(T)>) -> catch(T)
@@ -586,7 +560,6 @@ Promise.resolve(0)
     var a: string = str;
     // TODO
     var b: number = str; // Error: string ~> number
-
   });
 
 ///////////////////////////////////
@@ -600,7 +573,6 @@ Promise.reject(0)
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
-
   });
 
 // rejectedPromise.catch():Promise<U> -> then(U)
@@ -611,7 +583,6 @@ Promise.reject(0)
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
-
   });
 
 // rejectedPromise.catch():Promise<Promise<U>> -> then(U)
@@ -622,7 +593,6 @@ Promise.reject(0)
   .then(function(str) {
     var a: string = str;
     var b: number = str; // Error: string ~> number
-
   });
 
 // resolvedPromise<T> -> catch() -> then():?T
@@ -631,9 +601,7 @@ Promise.resolve(0)
   .then(function(num) {
     var a: ?number = num;
     var b: string = num; // Error: string ~> number
-
   });
-
 
 ================================================================================
 `;
@@ -704,11 +672,9 @@ async function foo(x: boolean) {
     return {
       bar: "baz"
     };
-
   } else {
     return null;
   }
-
 }
 
 async function run() {
@@ -731,7 +697,6 @@ async function baz(): Promise<number> {
   return 0;
 }
 
-
 ================================================================================
 `;
 
@@ -752,7 +717,6 @@ printWidth: 80
 (Promise.resolve(): Promise<number>); // error
 
 (Promise.resolve(undefined): Promise<number>); // error
-
 
 ================================================================================
 `;

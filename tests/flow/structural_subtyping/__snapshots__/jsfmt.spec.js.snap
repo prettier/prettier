@@ -33,7 +33,6 @@ var lengthTest3: IHasLength = 123; // number doesn't have length
 
 var lengthTest4: IHasLength = true; // bool doesn't have length
 
-
 ================================================================================
 `;
 
@@ -92,7 +91,6 @@ var testInstance2: IHasXNumber = new ClassWithXString(); // Error wrong type
 
 var testInstance3: IHasYString = new ClassWithXString(); // Error missing prop
 
-
 ================================================================================
 `;
 
@@ -144,14 +142,11 @@ var propTest3: IHasXString = {}; // Property not found
 var propTest4: IHasXString = ({}: Object);
 function propTest5(y: { [key: string]: string }) {
   (y: IHasXString); // OK
-
 }
 
 function propTest6(y: { [key: string]: number }) {
   (y: IHasXString); // error: string != number
-
 }
-
 
 ================================================================================
 `;
@@ -192,7 +187,6 @@ var test3: HasOptional = {
   a: "hello",
   b: true
 }; // Error: boolean ~> number
-
 
 ================================================================================
 `;

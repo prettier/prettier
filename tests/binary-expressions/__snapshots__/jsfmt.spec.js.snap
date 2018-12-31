@@ -41,9 +41,7 @@ function f() {
         id: entity.id
       }
   );
-
 }
-
 
 ================================================================================
 `;
@@ -87,7 +85,6 @@ a =
   Math.random() * (yRange * (1 - minVerticalFraction)) +
   minVerticalFraction * yRange -
   offset;
-
 
 ================================================================================
 `;
@@ -186,7 +183,6 @@ if (
   VeryVeryVeryVeryVeryVeryVeryVeryLong === VeryVeryVeryVeryVeryVeryVeryVeryLong
 ) {
 }
-
 
 ================================================================================
 `;
@@ -394,7 +390,6 @@ const create = () => {
       updatedAt: result.updatedAt
     }
   );
-
 };
 
 const create = () => {
@@ -406,7 +401,6 @@ const create = () => {
       updatedAt: result.updatedAt
     }
   );
-
 };
 
 const obj = {
@@ -420,7 +414,6 @@ const obj = {
   },
   loaded: true
 };
-
 
 ================================================================================
 `;
@@ -503,7 +496,6 @@ printWidth: 80
     </div>
   )}
 </div>;
-
 
 ================================================================================
 `;
@@ -604,7 +596,6 @@ function foo() {
     : false;
 }
 
-
 ================================================================================
 `;
 
@@ -648,7 +639,6 @@ const isPartOfPackageJSON =
 defaultContent.filter(defaultLocale => {
   // ...
 })[0] || null;
-
 
 ================================================================================
 `;

@@ -57,7 +57,6 @@ function fix(fold) {
       var eta = delta(delta);
       return eta(x);
     });
-
   };
 
   return delta(delta);
@@ -72,9 +71,7 @@ function mk_factorial() {
 
       return mul(factorial(sub(n, 1)), n);
     };
-
   });
-
 }
 
 var factorial = mk_factorial();
@@ -82,7 +79,6 @@ factorial("...");
 module.exports = {
   fn: fix
 };
-
 
 ================================================================================
 `;

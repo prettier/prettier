@@ -84,6 +84,5 @@ fs.readFile("file.exp", {}, (_, data) => {
 (fs.readFileSync("file.exp", {}): Buffer);
 (fs.readFileSync("file.exp", {}): string); // error
 
-
 ================================================================================
 `;

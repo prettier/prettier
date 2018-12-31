@@ -79,7 +79,6 @@ function x() {
   async(() => {});
 }
 
-
 ================================================================================
 `;
 
@@ -163,7 +162,6 @@ function x() {
   async(() => {});
 }
 
-
 ================================================================================
 `;
 
@@ -225,7 +223,6 @@ it("does something really long and complicated so I have to write a very long na
 function x() {
   fakeAsync(() => {});
 }
-
 
 ================================================================================
 `;
@@ -289,7 +286,6 @@ it("does something really long and complicated so I have to write a very long na
 function x() {
   fakeAsync(() => {});
 }
-
 
 ================================================================================
 `;
@@ -360,7 +356,6 @@ function x() {
   inject(() => {});
 }
 
-
 ================================================================================
 `;
 
@@ -430,7 +425,6 @@ it("does something really long and complicated so I have to write a very long na
 function x() {
   inject(() => {});
 }
-
 
 ================================================================================
 `;
@@ -503,7 +497,6 @@ describe.each\`
   test(\`returned value not be less than \${expected}\`, () => {
     expect(a + b).not.toBeLessThan(expected);
   });
-
 });
 
 describe.only.each\`
@@ -537,7 +530,6 @@ describe.each\`
   \${1} | \${2} | \${3}
   \${2} | \${1} | \${3}
 \`;
-
 
 ================================================================================
 `;
@@ -611,7 +603,6 @@ describe.each\`
   test(\`returned value not be less than \${expected}\`, () => {
     expect(a + b).not.toBeLessThan(expected);
   });
-
 });
 
 describe.only.each\`
@@ -645,7 +636,6 @@ describe.each\`
   \${1} | \${2} | \${3}
   \${2} | \${1} | \${3}
 \`;
-
 
 ================================================================================
 `;
@@ -836,14 +826,12 @@ describe("does something really long and complicated so I have to write a very l
   it("an example test", done => {
     console.log("hello!");
   });
-
 });
 
 describe(\`does something really long and complicated so I have to write a very long name for the describe block\`, () => {
   it(\`an example test\`, done => {
     console.log("hello!");
   });
-
 });
 
 xdescribe("does something really long and complicated so I have to write a very long name for the describe block", () => {});
@@ -1104,14 +1092,12 @@ describe("does something really long and complicated so I have to write a very l
   it("an example test", (done) => {
     console.log("hello!");
   });
-
 });
 
 describe(\`does something really long and complicated so I have to write a very long name for the describe block\`, () => {
   it(\`an example test\`, (done) => {
     console.log("hello!");
   });
-
 });
 
 xdescribe("does something really long and complicated so I have to write a very long name for the describe block", () => {});

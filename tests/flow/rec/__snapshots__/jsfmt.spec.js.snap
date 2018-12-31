@@ -56,9 +56,7 @@ function identity<A>(val: A): Functor<A> {
       return identity(f(val));
     }
   };
-
 }
-
 
 ================================================================================
 `;
@@ -89,7 +87,6 @@ type Task<error, value> = {
 function id(x: Task<any, any>): Task<any, any> {
   return x;
 }
-
 
 ================================================================================
 `;
@@ -140,7 +137,6 @@ pstar = (new P(): P<P<number>>); // OK
 
 (pstar.x: string); // error
 
-
 ================================================================================
 `;
 
@@ -186,7 +182,6 @@ var a = []; // Array<X> ~> a
 
 function bar() {
   a = a.concat([]); // terminate despite expanding types: // a ~> .concat(Array<Y>) // Array<X> ~> .concat(Array<Y>) // Array<X|Y> ~> a // Array<X|Y> ~> .concat(Array<Y>) // Array<X|Y|Y> ~> a
-
 }
 
 class A<X> {
@@ -196,7 +191,6 @@ class A<X> {
 var a_ = new A();
 function foo0() {
   a_ = a_.x; // terminate despite expanding types
-
 }
 
 type T<X> = {
@@ -206,14 +200,12 @@ type T<X> = {
 type S<X> = T<S<X>>;
 function foo1(b: S<*>) {
   b = b.y; // terminate despite expanding types, OK // S<*> = { y: S<S<*>> } // Both S<S<*>> and S<*> expand to { y: { y: ... }}.
-
 }
 
 class D<X> {}
 class B<X> extends D<X> {}
 class C<X> extends B<X> {}
 ((new C(): C<number>): D<string>); // error: number ~/~ string
-
 
 ================================================================================
 `;
@@ -246,7 +238,6 @@ type I<X> = () => I<I<X>>;
 type J<X> = () => J<J<X>>;
 function foo(x: I<number>): J<number> {
   return x; // terminate despite expanding types, OK // I<number> and J<number> both expand to () => () => ...
-
 }
 
 type Q<X> = {
@@ -256,9 +247,7 @@ type Q<X> = {
 type P<X> = () => Q<P<X>>;
 function bar(x: P<number>): () => P<number> {
   return x; // terminate despite expanding types, error // P<number> = () => { x: P<number> } // () => P<number> = () => () => { x: P<number> }
-
 }
-
 
 ================================================================================
 `;
@@ -273,7 +262,6 @@ type T = T // cycle in type alias should not cause non-termination
 
 =====================================output=====================================
 type T = T; // cycle in type alias should not cause non-termination
-
 
 ================================================================================
 `;
@@ -304,9 +292,7 @@ function flatten<T>(arrArg: NestedArray<T>) {
   while (true) {
     arr = Array.prototype.concat.apply([], arr);
   }
-
 }
-
 
 ================================================================================
 `;

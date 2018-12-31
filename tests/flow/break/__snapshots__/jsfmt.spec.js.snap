@@ -86,11 +86,9 @@ function foo(b) {
     }
 
     var y: number = x; // error: boolean !~> number
-
   }
 
   var w: number = z; // 2 errors: ?string !~> number
-
 }
 
 function bar(b) {
@@ -111,7 +109,6 @@ function bar(b) {
   }
 
   var w: number = x; // 2 errors: (boolean | string) !~> number
-
 }
 
 function bar2(b) {
@@ -124,19 +121,16 @@ function bar2(b) {
       x = "";
     }
 
-
     case 1: {
       let z: number = x; // 2 errors: (boolean | string) !~> number
 
       break;
     }
 
-
     case 2:
   }
 
   var w: number = x; // 2 errors: (boolean | string) !~> number
-
 }
 
 function qux(b) {
@@ -152,7 +146,6 @@ function qux(b) {
   }
 
   var w: number = z; // error: string !~> number
-
 }
 
 // same basic test as foo(), but with const. probes the
@@ -166,12 +159,10 @@ function test_const() {
     }
 
     st = fooRes; // no error
-
   }
 
   return st;
 }
-
 
 ================================================================================
 `;

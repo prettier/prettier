@@ -103,7 +103,6 @@ function a() {
 
   function giveMeSome() {
     a(  a  ); // prettier-ignore // shouldn't I return something?  :shrug:
-
   }
 
   // prettier-ignore
@@ -138,9 +137,7 @@ function a() {
     call(
       f(         1          ) // prettier-ignore
     );
-
   }
-
 }
 
 const response = {
@@ -148,7 +145,6 @@ const response = {
   '_text': 'Turn on the lights',
   intent: "lights"
 };
-
 
 ================================================================================
 `;

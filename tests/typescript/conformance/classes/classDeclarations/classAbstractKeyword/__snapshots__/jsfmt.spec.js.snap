@@ -25,7 +25,6 @@ abstract class A {
   abstract set bb(x: string) {}
 }
 
-
 ================================================================================
 `;
 
@@ -45,7 +44,6 @@ class abstract {
   foo() {
     return 1;
   }
-
 }
 
 new abstract();
@@ -208,7 +206,6 @@ class E extends B {
   bar() {}
 }
 
-
 ================================================================================
 `;
 
@@ -299,7 +296,6 @@ class E<T> extends A {
   foo() {
     return this.t;
   }
-
 }
 
 class F<T> extends A {
@@ -313,7 +309,6 @@ class G<T> extends A {
 
   bar(t: T) {}
 }
-
 
 ================================================================================
 `;
@@ -535,7 +530,6 @@ class E extends B {
   bar() {
     return 1;
   }
-
 }
 
 abstract class F extends B {
@@ -543,7 +537,6 @@ abstract class F extends B {
   bar() {
     return 2;
   }
-
 }
 
 abstract class G {
@@ -558,7 +551,6 @@ abstract class G {
 class H {
   abstract baz(): number;
 }
-
 
 ================================================================================
 `;
@@ -585,7 +577,6 @@ class B {
   abstract foo() {}
 }
 
-
 ================================================================================
 `;
 
@@ -602,7 +593,6 @@ abstract class A {
 abstract class A {
   abstract foo() {}
 }
-
 
 ================================================================================
 `;
@@ -640,7 +630,6 @@ abstract class A {
   static abstract foo_d();
   static abstract foo_e();
 }
-
 
 ================================================================================
 `;
@@ -698,7 +687,6 @@ abstract class B {
   abstract foo();
 }
 
-
 ================================================================================
 `;
 
@@ -755,7 +743,6 @@ class DD extends BB {
   foo() {}
 }
 
-
 ================================================================================
 `;
 
@@ -790,7 +777,6 @@ abstract class A {
   protected abstract foo_z(): number;
   private abstract foo_w(): number;
 }
-
 
 ================================================================================
 `;
@@ -863,7 +849,6 @@ class A {
   foo() {
     return 1;
   }
-
 }
 
 abstract class B extends A {
@@ -875,7 +860,6 @@ abstract class B extends A {
   baz() {
     return this.foo;
   }
-
 }
 
 class C extends B {
@@ -890,7 +874,6 @@ class C extends B {
   norf() {
     return super.bar();
   }
-
 }
 
 class AA {
@@ -901,13 +884,11 @@ class AA {
   bar() {
     return this.foo();
   }
-
 }
 
 abstract class BB extends AA {
   abstract foo();
 }
-
 
 ================================================================================
 `;
@@ -944,7 +925,6 @@ class B extends A {
   foo() {
     return 1;
   }
-
 }
 
 abstract class C extends A {
@@ -1016,7 +996,6 @@ abstract class CC extends AA {}
 class DD extends AA {
   foo() {}
 }
-
 
 ================================================================================
 `;

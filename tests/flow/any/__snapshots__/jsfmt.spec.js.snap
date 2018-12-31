@@ -51,7 +51,6 @@ module.exports = ((x: any) => x: any);
 // @flow
 module.exports = ((x: any) => x: any);
 
-
 ================================================================================
 `;
 
@@ -189,7 +188,6 @@ module.exports = (x) => x;
 // @noflow
 module.exports = x => x;
 
-
 ================================================================================
 `;
 
@@ -235,7 +233,6 @@ declare class C {
 function foo(c: C, x: any): string {
   let y = x.y;
   return c.bar(0, y); // should be able to select first case and error
-
 }
 
 var any_fun1 = require("./nonflowfile");
@@ -243,7 +240,6 @@ function bar1(x: mixed) {
   if (any_fun1(x)) {
     (x: boolean);
   }
-
 }
 
 var any_fun2 = require("./anyexportflowfile");
@@ -251,9 +247,7 @@ function bar2(x: mixed) {
   if (any_fun2(x)) {
     (x: boolean);
   }
-
 }
-
 
 ================================================================================
 `;
@@ -290,9 +284,7 @@ function foo(o: ?AsyncRequest) {
   if (o) {
     var n: number = o;
   }
-
 }
-
 
 ================================================================================
 `;

@@ -36,9 +36,7 @@ class A {
 
   badClone(): number {
     return new this.constructor(this.n); // Error A ~> number
-
   }
-
 }
 
 var a1 = new A(1);

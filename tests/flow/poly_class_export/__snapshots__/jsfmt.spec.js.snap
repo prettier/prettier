@@ -51,7 +51,6 @@ class B extends A<string> {
   constructor() {
     super();
   }
-
 }
 
 module.exports = new B();
@@ -88,13 +87,11 @@ class Foo {
   foo(): this {
     return this;
   }
-
 }
 
 export function f(x: Foo) {
   return x.foo();
 }
-
 
 ================================================================================
 `;

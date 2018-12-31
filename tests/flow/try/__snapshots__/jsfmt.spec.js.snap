@@ -35,11 +35,8 @@ function foo() {
     if (error.foo === 4) {
       throw error;
     }
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -220,7 +217,6 @@ function f() {
     var x: number = 0;
     var y: number = x;
   } catch (e) {}
-
 }
 
 // and within catch
@@ -230,7 +226,6 @@ function f() {
     var x: number = 0;
     var y: number = x;
   }
-
 }
 
 // but not across try/catch
@@ -240,9 +235,7 @@ function f() {
     var x: number = 0;
   } catch (e) {
     var y: number = x; // error
-
   }
-
 }
 
 // or try/finally
@@ -252,9 +245,7 @@ function f() {
     var x: number = 0;
   } finally {
     var y: number = x; // error
-
   }
-
 }
 
 // or catch/finally
@@ -264,9 +255,7 @@ function f() {
     var x: number = 0;
   } finally {
     var y: number = x; // error
-
   }
-
 }
 
 // or try/catch/finally if init doesn't dominate
@@ -278,9 +267,7 @@ function f() {
     var x: number = 0;
   } finally {
     var y: number = x; // error
-
   }
-
 }
 
 // post-use ok because init dominates here
@@ -344,7 +331,6 @@ function f() {
   try {
     var x: number = 0;
   } catch (e) {}
-
 }
 
 // another non-dominated post
@@ -354,7 +340,6 @@ function f() {
   } catch (e) {}
 
   var y: number = x; // error
-
 }
 
 // ditto
@@ -365,7 +350,6 @@ function f() {
   }
 
   var y: number = x; // error
-
 }
 
 // ditto
@@ -380,9 +364,7 @@ function f(b) {
   } catch (e) {}
 
   var y: number = x; // error
-
 }
-
 
 ================================================================================
 `;
@@ -479,7 +461,6 @@ function bar(): string {
   } catch (e) {
     return "bar";
   }
-
 }
 
 function baz(): string {
@@ -490,7 +471,6 @@ function baz(): string {
   }
 
   return "bar"; // unreachable
-
 }
 
 function qux(): string {
@@ -518,7 +498,6 @@ function bliffl(): string {
   } finally {
     return "bar";
   }
-
 }
 
 function corge(): string {
@@ -529,9 +508,7 @@ function corge(): string {
   }
 
   bar(); // unreachable
-
 }
-
 
 ================================================================================
 `;
@@ -606,7 +583,6 @@ function foo() {
   x(); // string ~/> function call (no num or bool error)
 
   y(); // object ~/> function call (no uninitialized error)
-
 }
 
 function bar(response) {
@@ -622,7 +598,6 @@ function bar(response) {
     // ok
     // ...
   }
-
 }
 
 function qux() {
@@ -633,9 +608,7 @@ function qux() {
   }
 
   x(); // unreachable
-
 }
-
 
 ================================================================================
 `;

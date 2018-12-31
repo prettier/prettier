@@ -79,35 +79,27 @@ var x: ?string = "xxx";
 var tests = [
   function() {
     var y: string = x; // not ok
-
   },
   function() {
     if (x != null) {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     if (x == null) {
     } else {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     if (x == null) return;
     var y: string = x; // ok
-
   },
   function() {
     if (!(x != null)) {
     } else {
       var y: string = x; // ok
-
     }
-
   },
   /* TODO we actually allow this currently; fix
   // requires further remedial work in Env
@@ -123,26 +115,20 @@ var tests = [
     }
 
     var y: string = x; // not ok
-
   },
   function() {
     if (x != null) {
     } else {
       var y: string = x; // not ok
-
     }
-
   },
   function() {
     var y: string = x != null ? x : ""; // ok
-
   },
   function() {
     var y: string = x || ""; // ok
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -401,7 +387,6 @@ var tests = [
     };
 
     var y: string = x.p; // not ok
-
   },
   function() {
     var x: {
@@ -412,9 +397,7 @@ var tests = [
 
     if (x.p != null) {
       var y: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -426,9 +409,7 @@ var tests = [
     if (x.p == null) {
     } else {
       var y: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -439,7 +420,6 @@ var tests = [
 
     if (x.p == null) return;
     var y: string = x.p; // ok
-
   },
   function() {
     var x: {
@@ -451,9 +431,7 @@ var tests = [
     if (!(x.p != null)) {
     } else {
       var y: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -465,9 +443,7 @@ var tests = [
     if (x.p != null) {
       alert("");
       var y: string = x.p; // not ok
-
     }
-
   },
   function() {
     var x: {
@@ -479,9 +455,7 @@ var tests = [
     if (x.p != null) {
       x.p = null;
       var y: string = x.p; // not ok
-
     }
-
   },
   function() {
     var x: {
@@ -494,7 +468,6 @@ var tests = [
     }
 
     var y: string = x.p; // not ok
-
   },
   function() {
     var x: {
@@ -506,9 +479,7 @@ var tests = [
     if (x.p != null) {
     } else {
       var y: string = x.p; // not ok
-
     }
-
   },
   function() {
     var x: {
@@ -518,7 +489,6 @@ var tests = [
     };
 
     var y: string = x.p != null ? x.p : ""; // ok
-
   },
   function() {
     var x: {
@@ -528,7 +498,6 @@ var tests = [
     };
 
     var y: string = x.p || ""; // ok
-
   },
   function() {
     var x: {
@@ -539,12 +508,9 @@ var tests = [
 
     if (Array.isArray(x.p)) {
       var y: string[] = x.p; // ok
-
     } else {
       var z: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -582,11 +548,9 @@ var tests = [
 
     if (!x.y) {
       x.y = 123; // error
-
     }
 
     (x.y: string); // error, this got widened to a number
-
   },
   function() {
     var x: {
@@ -615,7 +579,6 @@ var tests = [
     }
 
     (x.y: string); // error, could also be boolean
-
   },
   function() {
     var x: {
@@ -631,7 +594,6 @@ var tests = [
     }
 
     (x.y: boolean); // error, string
-
   },
   function() {
     var x: {
@@ -649,7 +611,6 @@ var tests = [
     }
 
     (x.y: string); // error
-
   },
   function() {
     var x: {
@@ -669,7 +630,6 @@ var tests = [
 
     // now x.y is only boolean
     (x.y: string); // error
-
   },
   function() {
     var x: {
@@ -689,7 +649,6 @@ var tests = [
 
     // now x.y is number | boolean
     (x.y: string); // error
-
   },
   function() {
     var x: {
@@ -712,7 +671,6 @@ var tests = [
     }
 
     (x: "b"); // error (but only once, string !~> 'b'; 'a' is irrelevant)
-
   },
   function(x: mixed) {
     if (typeof x.bar === "string") {
@@ -781,12 +739,9 @@ var tests = [
       var { p } = x; // TODO: annot checked against type of x
 
       (p: string); // ok
-
     }
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -839,11 +794,9 @@ function block_scope(x: string | number) {
   {
     let x;
     x = ""; // doesn't refine outer x
-
   }
 
   (x: string); // error: number ~> string
-
 }
 
 function switch_scope(x: string | number) {
@@ -854,37 +807,29 @@ function switch_scope(x: string | number) {
   }
 
   (x: string); // error: number ~> string
-
 }
 
 function try_scope(x: string | number) {
   try {
     let x;
     x = ""; // doesn't refine outer x
-
   } catch (e) {
     x = ""; // refinement would only escape if both sides refined
-
   }
 
   (x: string); // error: number ~> string
-
 }
 
 function try_scope_catch(x: string | number) {
   try {
     x = ""; // refinement would only escape if both sides refined
-
   } catch (e) {
     let x;
     x = ""; // doesn't refine outer x
-
   }
 
   (x: string); // error: number ~> string
-
 }
-
 
 ================================================================================
 `;
@@ -985,48 +930,38 @@ var paths = [
   function() {
     var x: ?string = "xxx";
     var y: string = x; // not ok
-
   },
   function() {
     var x: ?string = "xxx";
     if (x != null) {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: ?string = "xxx";
     if (x == null) {
     } else {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: ?string = "xxx";
     if (x == null) return;
     var y: string = x; // ok
-
   },
   function() {
     var x: ?string = "xxx";
     if (!(x != null)) {
     } else {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: ?string = "xxx";
     if (x != null) {
       alert("");
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: ?string = "xxx";
@@ -1034,37 +969,29 @@ var paths = [
     }
 
     var y: string = x; // not ok
-
   },
   function() {
     var x: ?string = "xxx";
     if (x != null) {
     } else {
       var y: string = x; // not ok
-
     }
-
   },
   function() {
     var x: ?string = "xxx";
     var y: string = x != null ? x : ""; // ok
-
   },
   function() {
     var x: ?string = "xxx";
     var y: string = x || ""; // ok
-
   },
   function() {
     var x: string | string[] = ["xxx"];
     if (Array.isArray(x)) {
       var y: string[] = x; // ok
-
     } else {
       var z: string = x; // ok
-
     }
-
   },
   function() {
     var x: ?string = null;
@@ -1075,7 +1002,6 @@ var paths = [
     var y: string = x;
   }
 ];
-
 
 ================================================================================
 `;
@@ -1248,17 +1174,13 @@ var null_tests = [
     var x: ?string = "xxx";
     if (x != null) {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: ?string = "xxx";
     if (null != x) {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1269,9 +1191,7 @@ var null_tests = [
 
     if (x.p != null) {
       var y: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1286,9 +1206,7 @@ var null_tests = [
 
     if (x.p.q != null) {
       var y: string = x.p.q; // ok
-
     }
-
   },
   // expr == null
   function() {
@@ -1296,9 +1214,7 @@ var null_tests = [
     if (x == null) {
     } else {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1310,9 +1226,7 @@ var null_tests = [
     if (x.p == null) {
     } else {
       var y: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1328,18 +1242,14 @@ var null_tests = [
     if (x.p.q == null) {
     } else {
       var y: string = x.p.q; // ok
-
     }
-
   },
   // expr !== null
   function() {
     var x: ?string = "xxx";
     if (x !== null) {
       var y: string | void = x; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1350,9 +1260,7 @@ var null_tests = [
 
     if (x.p !== null) {
       var y: string | void = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1367,9 +1275,7 @@ var null_tests = [
 
     if (x.p.q !== null) {
       var y: string | void = x.p.q; // ok
-
     }
-
   },
   // expr === null
   function() {
@@ -1377,9 +1283,7 @@ var null_tests = [
     if (x === null) {
     } else {
       var y: string | void = x; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1391,9 +1295,7 @@ var null_tests = [
     if (x.p === null) {
     } else {
       var y: string | void = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1409,9 +1311,7 @@ var null_tests = [
     if (x.p.q === null) {
     } else {
       var y: string | void = x.p.q; // ok
-
     }
-
   }
 ];
 
@@ -1421,7 +1321,6 @@ class C {
   ensure0(): string {
     if (this.p != null) return this.p;
     else return "";
-
   }
 
   ensure1(): string {
@@ -1432,14 +1331,12 @@ class C {
   ensure2(): string | void {
     if (this.p !== null) return this.p;
     else return "";
-
   }
 
   ensure3(): string | void {
     if (this.p === null) return "";
     return this.p;
   }
-
 }
 
 // super.p op null
@@ -1447,27 +1344,22 @@ class D extends C {
   ensure100(): string {
     if (super.p != null) return super.p;
     else return "";
-
   }
 
   ensure101(): string {
     if (super.p == null) return "";
     else return super.p;
-
   }
 
   ensure103(): string {
     if (super.p != null) {
       alert("");
       return super.p; // not ok
-
     }
 
     return "";
   }
-
 }
-
 
 ================================================================================
 `;
@@ -1554,7 +1446,6 @@ function foo(a, b, c) {
     default:
       return;
   }
-
 }
 
 // test refis out of switches that are exhaustive without default case
@@ -1572,7 +1463,6 @@ function exhaustion1(x): number {
   }
 
   return foo; // no error
-
 }
 
 function exhaustion2(x, y): number {
@@ -1581,9 +1471,7 @@ function exhaustion2(x, y): number {
     case 0:
       if (y) {
         break; // leaks uninitialized foo out of switch
-
       }
-
 
     /**
      * TODO this shouldn't cause an error, because the path that
@@ -1603,7 +1491,6 @@ function exhaustion2(x, y): number {
   }
 
   return foo; // error, possibly uninitialized
-
 }
 
 function exhaustion3(x): number {
@@ -1620,9 +1507,7 @@ function exhaustion3(x): number {
   }
 
   return foo; // no error
-
 }
-
 
 ================================================================================
 `;
@@ -1771,17 +1656,13 @@ var null_tests = [
     var x: ?string = "xxx";
     if (typeof x == "string") {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: ?string = "xxx";
     if ("string" == typeof x) {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1792,9 +1673,7 @@ var null_tests = [
 
     if (typeof x.p == "string") {
       var y: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1809,9 +1688,7 @@ var null_tests = [
 
     if (typeof x.p.q == "string") {
       var y: string = x.p.q; // ok
-
     }
-
   },
   // typeof expr != typename
   function() {
@@ -1819,9 +1696,7 @@ var null_tests = [
     if (typeof x != "string") {
     } else {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1833,9 +1708,7 @@ var null_tests = [
     if (typeof x.p != "string") {
     } else {
       var y: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1851,18 +1724,14 @@ var null_tests = [
     if (typeof x.p.q != "string") {
     } else {
       var y: string = x.p.q; // ok
-
     }
-
   },
   // typeof expr === typename
   function() {
     var x: ?string = "xxx";
     if (typeof x === "string") {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1873,9 +1742,7 @@ var null_tests = [
 
     if (typeof x.p === "string") {
       var y: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1890,9 +1757,7 @@ var null_tests = [
 
     if (typeof x.p.q === "string") {
       var y: string = x.p.q; // ok
-
     }
-
   },
   // typeof expr !== typename
   function() {
@@ -1900,9 +1765,7 @@ var null_tests = [
     if (typeof x !== "string") {
     } else {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1914,9 +1777,7 @@ var null_tests = [
     if (typeof x.p !== "string") {
     } else {
       var y: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -1932,9 +1793,7 @@ var null_tests = [
     if (typeof x.p.q !== "string") {
     } else {
       var y: string = x.p.q; // ok
-
     }
-
   }
 ];
 
@@ -1944,29 +1803,23 @@ class A {
   ensure0(): string {
     if (typeof this.p == "string") return this.p;
     else return "";
-
   }
 
   ensure1(): string {
     if (typeof this.p != "string") return "";
     else return this.p;
-
   }
 
   ensure2(): string | void {
     if (typeof this.p === "string") return this.p;
     else return "";
-
   }
 
   ensure3(): string | void {
     if (typeof this.p !== "string") return "";
     else return this.p;
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -2060,17 +1913,13 @@ var undef_tests = [
     var x: ?string = "xxx";
     if (x !== undefined && x !== null) {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: ?string = "xxx";
     if (undefined !== x && x !== null) {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -2081,9 +1930,7 @@ var undef_tests = [
 
     if (x.p !== undefined && x.p !== null) {
       var y: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -2098,9 +1945,7 @@ var undef_tests = [
 
     if (x.p.q !== undefined && x.p.q !== null) {
       var y: string = x.p.q; // ok
-
     }
-
   },
   // expr === undefined
   function() {
@@ -2108,9 +1953,7 @@ var undef_tests = [
     if (x === undefined || x === null) {
     } else {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -2122,9 +1965,7 @@ var undef_tests = [
     if (x.p === undefined || x.p === null) {
     } else {
       var y: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -2140,9 +1981,7 @@ var undef_tests = [
     if (x.p.q === undefined || x.p.q === null) {
     } else {
       var y: string = x.p.q; // ok
-
     }
-
   }
 ];
 
@@ -2152,17 +1991,13 @@ class A {
   ensure0(): string {
     if (this.p !== undefined && this.p !== null) return this.p;
     else return "";
-
   }
 
   ensure1(): string {
     if (this.p === undefined || this.p === null) return "";
     else return this.p;
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -2256,17 +2091,13 @@ var void_tests = [
     var x: ?string = "xxx";
     if (x !== void 0 && x !== null) {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: ?string = "xxx";
     if (void 0 !== x && x !== null) {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -2277,9 +2108,7 @@ var void_tests = [
 
     if (x.p !== void 0 && x.p !== null) {
       var y: string | void = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -2294,9 +2123,7 @@ var void_tests = [
 
     if (x.p.q !== void 0 && x.p.q !== null) {
       var y: string = x.p.q; // ok
-
     }
-
   },
   // expr === void(...)
   function() {
@@ -2304,9 +2131,7 @@ var void_tests = [
     if (x === void 0 || x === null) {
     } else {
       var y: string = x; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -2318,9 +2143,7 @@ var void_tests = [
     if (x.p === void 0 || x.p === null) {
     } else {
       var y: string = x.p; // ok
-
     }
-
   },
   function() {
     var x: {
@@ -2336,9 +2159,7 @@ var void_tests = [
     if (x.p.q === void 0 || x.p.q === null) {
     } else {
       var y: string = x.p.q; // ok
-
     }
-
   }
 ];
 
@@ -2348,17 +2169,13 @@ class A {
   ensure0(): string {
     if (this.p !== void 0 && this.p !== null) return this.p;
     else return "";
-
   }
 
   ensure1(): string {
     if (this.p === void 0 || this.p === null) return "";
     else return this.p;
-
   }
-
 }
-
 
 ================================================================================
 `;

@@ -187,7 +187,6 @@ for (let [x, y]: [string, number] of a.entries()) {
 for (let [x, y]: [number, number] of a.entries()) {
 } // incorrect
 
-
 ================================================================================
 `;
 
@@ -284,7 +283,6 @@ o.takeRecords(); // correct
 
 // disconnect
 o.disconnect(); // correct
-
 
 ================================================================================
 `;

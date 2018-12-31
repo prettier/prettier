@@ -33,7 +33,6 @@ module.exports = {
   Bar: Bar
 };
 
-
 ================================================================================
 `;
 
@@ -80,7 +79,6 @@ var Foo: string = "Goodbye";
 var Baz: string = "Go away please";
 // This string type should conflict with the typedef
 var duck: string = "quack";
-
 
 ================================================================================
 `;

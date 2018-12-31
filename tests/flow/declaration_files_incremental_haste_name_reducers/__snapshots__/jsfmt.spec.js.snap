@@ -19,7 +19,6 @@ export function foo(): AImplementation {
   return new AImplementation();
 }
 
-
 ================================================================================
 `;
 
@@ -45,7 +44,6 @@ var A = require("A");
 
 var test = require("test");
 (test.foo(): boolean); // Error: Either TestImplementation ~> boolean or TestDefinition ~> boolean
-
 
 ================================================================================
 `;

@@ -12345,6 +12345,5 @@ export type JSXSpreadAttribute = {
   trailingComments: ?Array<Comment>
 };
 
-
 ================================================================================
 `;

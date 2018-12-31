@@ -52,7 +52,6 @@ module Y3 {
     class A {
       s: string;
     }
-
   }
 
   // Apparently this parses :P
@@ -61,7 +60,6 @@ module Y3 {
   interface x {
     export private static readonly [x: any]: any;
   }
-
 }
 
 module Y4 {
@@ -69,7 +67,6 @@ module Y4 {
     Blue,
     Red
   }
-
 }
 
 module YY3 {
@@ -77,9 +74,7 @@ module YY3 {
     class A {
       s: string;
     }
-
   }
-
 }
 
 module YY4 {
@@ -87,7 +82,6 @@ module YY4 {
     Blue,
     Red
   }
-
 }
 
 module YYY3 {
@@ -95,9 +89,7 @@ module YYY3 {
     class A {
       s: string;
     }
-
   }
-
 }
 
 module YYY4 {
@@ -105,9 +97,7 @@ module YYY4 {
     Blue,
     Red
   }
-
 }
-
 
 ================================================================================
 `;

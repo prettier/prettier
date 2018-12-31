@@ -32,7 +32,6 @@ class CustomComponent extends React.Component {
   props: {
     prop: string
   };
-
 }
 
 var a: React.Element<{
@@ -53,7 +52,6 @@ var c: React.Element<{
 var d: React.Element<{
   id: number
 }> = <div id="asdf" />; // Error: Props<{id:string}> ~> Props<{id:number}>
-
 
 ================================================================================
 `;
@@ -104,7 +102,6 @@ React.createElement(Str, {}); // Error: string ~> keys of JSXIntrinsics
 
 // TODO: Make this an error
 <Div id={42} />; // Not an error but should be eventually
-
 
 ================================================================================
 `;

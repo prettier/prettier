@@ -41,7 +41,6 @@ class C {
   constructor(x: number) {
     this.x = x;
   }
-
 }
 
 module.exports = C;
@@ -68,7 +67,6 @@ function foo<X>(x: X): X {
   r = x;
   return x;
 }
-
 
 ================================================================================
 `;
@@ -119,7 +117,6 @@ function bar(x: ?string): number {
   if (x == null) x = "";
   return x.length;
 }
-
 
 ================================================================================
 `;

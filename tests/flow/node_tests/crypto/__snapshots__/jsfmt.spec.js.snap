@@ -56,7 +56,6 @@ let tests = [
     hmac.on("readable", () => {
       (hmac.read(): ?(string | Buffer));
       (hmac.read(): number); // 4 errors: null, void, string, Buffer
-
     });
 
     hmac.write("some data to hash");
@@ -85,10 +84,8 @@ let tests = [
     (hmac.digest("hex"): void); // 1 error
 
     (hmac.digest(): void); // 1 error
-
   }
 ];
-
 
 ================================================================================
 `;

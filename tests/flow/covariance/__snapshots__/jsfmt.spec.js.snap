@@ -67,7 +67,6 @@ class NVerbose<E, I: E> {
   foo(): CovArrayVerbose<mixed, I> {
     return this.x;
   }
-
 }
 
 var nv: NVerbose<number, *> = new NVerbose();
@@ -108,7 +107,6 @@ n.x = [0];
 (n.foo()[0]: string); // not an error!
 
 */ // error
-
 
 ================================================================================
 `;

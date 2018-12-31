@@ -58,6 +58,5 @@ process.nextTick(
   (a: string, b: number, c: boolean) => {} // Error: too few arguments
 );
 
-
 ================================================================================
 `;

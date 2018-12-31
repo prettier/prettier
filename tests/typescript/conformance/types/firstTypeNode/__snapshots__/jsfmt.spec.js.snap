@@ -43,6 +43,5 @@ export function fooWithTypeTypePredicateAndRestParam(
   return true;
 }
 
-
 ================================================================================
 `;

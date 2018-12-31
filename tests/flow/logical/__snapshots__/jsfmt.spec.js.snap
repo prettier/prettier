@@ -547,7 +547,6 @@ function logical1b(): string {
 function logical2a(): number {
   // expected \`: boolean\`
   return false && "123";
-
 }
 
 /**
@@ -656,7 +655,6 @@ function logical3c(): ?number {
 function logical4(x: boolean): string {
   // expected \`: boolean | string\`
   return x && "123";
-
 }
 
 /**
@@ -712,7 +710,6 @@ function logical6c(): number {
 function logical6d(): number {
   // expected \`: boolean\`
   return true || "123";
-
 }
 
 /**
@@ -828,7 +825,6 @@ function logical8f(): string {
 function logical9a(x: number, y: string): number | string {
   // expected \`: number | string | boolean\`
   return x || y || false;
-
 }
 
 /**
@@ -851,7 +847,6 @@ function logical9c(x: number, y: boolean): string {
 function logical10a(x: number, y: string): number | string {
   // expected \`: number | string | boolean\`
   return x && y && false;
-
 }
 
 /**
@@ -860,7 +855,6 @@ function logical10a(x: number, y: string): number | string {
 function logical10b(x: number, y: string): Array<any> {
   // expected \`: boolean\`
   return false && x && y;
-
 }
 
 /**
@@ -869,7 +863,6 @@ function logical10b(x: number, y: string): Array<any> {
 function logical10c(x: number, y: string): Array<any> {
   // expected \`number | boolean\`
   return x && false && y;
-
 }
 
 /**
@@ -890,7 +883,6 @@ function logical11a(): number {
 function logical11b(y: number): number {
   for (var x = 0; x < 5; x++) {
     y = y || true; // expected a number
-
   }
 
   return y;
@@ -916,7 +908,6 @@ function logical12a(): number {
 function logical12b(y: number): number {
   for (var x = 0; x < 5; x++) {
     y = y && true; // expected a number
-
   }
 
   return y;
@@ -956,7 +947,6 @@ function logical13(
       x: "foo" && "bar"
     }
   ];
-
 }
 
 /**
@@ -993,7 +983,6 @@ function logical14(
       x: "foo" || "bar"
     }
   ];
-
 }
 
 /**
@@ -1106,14 +1095,11 @@ function logical18b(
  */
 function logical19a(x: { y: string, z: boolean }): boolean {
   return x.y && x.z; // error: x.y is a string
-
 }
 
 function logical19b(x: { y: string, z: boolean }): boolean {
   return x.y || x.z; // error: x.y is a string
-
 }
-
 
 ================================================================================
 `;

@@ -40,7 +40,6 @@ declare module "CJS_Clobbered" {
   declare var exports: {
     numExport: number
   };
-
 }
 
 declare module "ES" {
@@ -51,7 +50,6 @@ declare module "ES" {
   declare export type T = number;
   declare var exports: number;
 }
-
 
 ================================================================================
 `;

@@ -123,7 +123,6 @@ runtimeAgent.getProperties(
   }
 );
 
-
 ================================================================================
 `;
 
@@ -173,7 +172,6 @@ function helloWorld() {
     props.value,
     props.value
   ]);
-
 }
 
 function helloWorldWithReact() {
@@ -196,9 +194,7 @@ function helloWorldWithReact() {
     props.value,
     props.value
   ]);
-
 }
-
 
 ================================================================================
 `;

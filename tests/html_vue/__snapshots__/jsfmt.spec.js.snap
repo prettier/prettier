@@ -70,7 +70,6 @@ printWidth: 80
         /* 2 */
         'click' /* 3 */
       ) /* 4 */ /* 5 */
-
     "
     @click="$emit('click')"
     @click="$emit('click')"
@@ -80,7 +79,6 @@ printWidth: 80
         for (let i = j; i < 100; i++) {}
       } else {
       }
-
     "
     slot-scope="{ row }"
     slot-scope="{
@@ -189,7 +187,6 @@ trailingComma: "es5"
         /* 2 */
         'click' /* 3 */
       ) /* 4 */ /* 5 */
-
     "
     @click="$emit('click')"
     @click="$emit('click')"
@@ -199,7 +196,6 @@ trailingComma: "es5"
         for (let i = j; i < 100; i++) {}
       } else {
       }
-
     "
     slot-scope="{ row }"
     slot-scope="{
@@ -308,7 +304,6 @@ semi: false
         /* 2 */
         'click' /* 3 */
       ) /* 4 */ /* 5 */
-
     "
     @click="$emit('click')"
     @click="$emit('click')"
@@ -318,7 +313,6 @@ semi: false
         for (let i = j; i < 100; i++) {}
       } else {
       }
-
     "
     slot-scope="{ row }"
     slot-scope="{
@@ -459,7 +453,6 @@ export default {
       showDetail: false,
       detailIssue: Store.detail
     };
-
   },
   computed: {
     issueDetailVisible() {
@@ -485,13 +478,10 @@ export default {
           eventHub.$emit("newDetailIssue", this.issue);
           Store.detail.list = this.list;
         }
-
       }
-
     }
   }
 };
-
 </script>
 
 <template>
@@ -625,7 +615,6 @@ export default {
       showDetail: false,
       detailIssue: Store.detail,
     };
-
   },
   computed: {
     issueDetailVisible() {
@@ -651,13 +640,10 @@ export default {
           eventHub.$emit("newDetailIssue", this.issue);
           Store.detail.list = this.list;
         }
-
       }
-
     },
   },
 };
-
 </script>
 
 <template>
@@ -791,7 +777,6 @@ export default {
       showDetail: false,
       detailIssue: Store.detail
     }
-
   },
   computed: {
     issueDetailVisible() {
@@ -817,13 +802,10 @@ export default {
           eventHub.$emit("newDetailIssue", this.issue)
           Store.detail.list = this.list
         }
-
       }
-
     }
   }
 }
-
 </script>
 
 <template>

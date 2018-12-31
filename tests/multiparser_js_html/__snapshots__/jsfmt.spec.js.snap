@@ -68,7 +68,6 @@ class MyElement extends LitElement {
         type: String
       }
     };
-
   }
 
   constructor() {
@@ -86,9 +85,7 @@ class MyElement extends LitElement {
 
       Web Components are <span class="mood">\${this.mood}</span>!
     \`;
-
   }
-
 }
 
 customElements.define("my-element", MyElement);
@@ -113,7 +110,6 @@ html\`
 html\`
   <div />
 \`;
-
 
 ================================================================================
 `;

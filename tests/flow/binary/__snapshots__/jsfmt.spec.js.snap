@@ -77,7 +77,6 @@ let tests = [
       {
         "0": null
       };
-
   },
   // arrays on RHS
   function() {
@@ -99,7 +98,6 @@ let tests = [
     "foo" in void 0; // error
 
     "foo" in null; // error
-
   },
   // bogus stuff on LHS
   function() {
@@ -112,7 +110,6 @@ let tests = [
     [] in {}; // error
 
     false in []; // error
-
   },
   // in predicates
   function() {
@@ -124,17 +121,14 @@ let tests = [
 
     if (!("foo" in {})) {
     }
-
   },
   // annotations on RHS
   function(x: Object, y: mixed) {
     "foo" in x; // ok
 
     "foo" in y; // error
-
   }
 ];
-
 
 ================================================================================
 `;

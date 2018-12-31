@@ -233,7 +233,6 @@ const A = React.createClass({
     (this.props.foo: empty); // error: string ~> empty
 
     (this.props.bar: empty); // error: number ~> empty
-
   }
 });
 
@@ -241,11 +240,9 @@ const B = React.createClass({
   p: "",
   m() {
     this.p = 0; // error: number ~> string
-
   },
   mm() {
     this.m.apply(null); // OK: this.m is autobound, so \`this.p\` will always be found
-
   }
 });
 
@@ -254,11 +251,9 @@ const C = React.createClass({
     return {
       foo: 0
     };
-
   },
   m() {
     this.state.foo; // OK: state is unknown
-
   }
 });
 
@@ -269,7 +264,6 @@ const D = React.createClass({
         return {
           foo: 0
         };
-
       }
     }
   ],
@@ -277,11 +271,9 @@ const D = React.createClass({
     return {
       bar: 0
     };
-
   },
   m() {
     this.state.foo; // OK: state is unknown (due to unknown mixin)
-
   }
 });
 
@@ -289,7 +281,6 @@ const E = React.createClass({
   foo: 0,
   m() {
     (this.foo: string); // error: number ~> string
-
   },
   mm() {
     var props: {
@@ -299,7 +290,6 @@ const E = React.createClass({
     };
 
     props.m(); // OK: this.m is autobound, so \`this.foo\` will always be found
-
   }
 });
 
@@ -308,7 +298,6 @@ const F = React.createClass({
     return {
       foo: 0
     };
-
   },
   m() {
     this.state.foo;
@@ -326,7 +315,6 @@ const G = React.createClass({
     (this.autobind: mixed); // error: property \`autobind\` not found
 
     (this.statics: mixed); // error: property \`statics\` not found
-
   }
 });
 
@@ -345,7 +333,6 @@ const I = React.createClass({
   propTypes: ({}: { [string]: any }),
   m() {
     (this.props.foo: empty); // OK
-
   }
 });
 
@@ -362,12 +349,10 @@ const J = React.createClass({
       return {
         foo: 0
       };
-
     }
   },
   m() {
     (this.state.foo: empty); // number ~> empty
-
   }
 });
 
@@ -384,11 +369,9 @@ const K = React.createClass({
     (this.props.foo: empty); // string ~> empty
 
     (this.state.foo: empty); // string ~> empty
-
   },
   mm() {
     this.state.foo; // error: property fo not found (called by getInitialState)
-
   }
 });
 
@@ -400,19 +383,16 @@ const L = React.createClass({
     return {
       bar: 0
     };
-
   },
   componentWillMount() {
     (this.props.foo: empty); // string ~> empty
 
     return 0; // number ~> void
-
   },
   componentDidMount() {
     (this.props.foo: empty); // string ~> empty
 
     return 0; // number ~> void
-
   },
   componentWillReceiveProps(nextProps) {
     (this.props.foo: empty); // string ~> empty
@@ -420,7 +400,6 @@ const L = React.createClass({
     (nextProps.foo: empty); // string ~> empty
 
     return 0; // number ~> void
-
   },
   shouldComponentUpdate(nextProps, nextState) {
     (this.props.foo: empty); // string ~> empty
@@ -432,7 +411,6 @@ const L = React.createClass({
     (nextState.bar: empty); // number ~> empty
 
     return 0; // number ~> bool
-
   },
   componentWillUpdate(nextProps, nextState) {
     (this.props.foo: empty); // string ~> empty
@@ -444,7 +422,6 @@ const L = React.createClass({
     (nextState.bar: empty); // number ~> empty
 
     return 0; // number ~> void
-
   },
   componentDidUpdate(nextProps, nextState) {
     (this.props.foo: empty); // string ~> empty
@@ -456,7 +433,6 @@ const L = React.createClass({
     (nextState.bar: empty); // number ~> empty
 
     return 0; // number ~> void
-
   },
   componentWillUnmount() {
     (this.props.foo: empty); // string ~> empty
@@ -464,14 +440,12 @@ const L = React.createClass({
     (this.state.bar: empty); // number ~> empty
 
     return 0; // number ~> void
-
   }
 });
 
 React.createClass({}); // error: spec must be [x] exact and [ ] sealed
 
 React.createClass(({}: {})); // error: spec must be [ ] exact and [x] sealed
-
 
 ================================================================================
 `;
@@ -577,11 +551,9 @@ React.createClass({
     this.setState({
       q: 0
     });
-
   },
   g() {
     (this.state.q: empty); // number ~> empty
-
   }
 });
 
@@ -591,17 +563,14 @@ React.createClass({
     return {
       p: 0
     };
-
   },
   f() {
     this.setState({
       q: 0
     });
-
   },
   g() {
     (this.state.q: empty); // number ~> empty
-
   }
 });
 
@@ -613,17 +582,14 @@ React.createClass({
     return {
       p: 0
     };
-
   },
   f() {
     this.setState({
       q: 0
     });
-
   },
   g() {
     (this.state.q: empty); // number ~> empty
-
   }
 });
 
@@ -635,17 +601,14 @@ React.createClass({
     return {
       p: 0
     };
-
   },
   f() {
     this.setState({
       q: 0
     }); // property \`q\` not found
-
   },
   g() {
     (this.state.q: empty); // property \`q\` not found
-
   }
 });
 
@@ -657,7 +620,6 @@ React.createClass({
         return {
           foo: 0
         };
-
       }
     }
   ],
@@ -665,17 +627,14 @@ React.createClass({
     return {
       bar: 0
     };
-
   },
   f() {
     this.setState({
       baz: 0
     });
-
   },
   g() {
     (this.state.baz: empty); // number ~> empty
-
   }
 });
 
@@ -689,7 +648,6 @@ React.createClass({
         return {
           foo: 0
         };
-
       }
     }
   ],
@@ -697,20 +655,16 @@ React.createClass({
     return {
       bar: 0
     };
-
   },
   f() {
     this.setState({
       baz: 0
     }); // property \`baz\`  not found
-
   },
   g() {
     (this.state.baz: empty); // property \`baz\` not found
-
   }
 });
-
 
 ================================================================================
 `;
@@ -903,9 +857,7 @@ class Foo extends React.Component {
     const Cmp = Math.random() < 0.5 ? "div" : Bar;
     return <Cmp />;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -951,7 +903,6 @@ class Bar extends React.Component {
   render() {
     return <div>{this.props.test}</div>;
   }
-
 }
 
 class Foo extends React.Component {
@@ -959,9 +910,7 @@ class Foo extends React.Component {
     const Cmp = Math.random() < 0.5 ? "div" : Bar;
     return <Cmp />;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -987,7 +936,6 @@ import react from "react";
 import { Component } from "react";
 var a: Component<*, *, *> = new react.Component();
 var b: number = new react.Component(); // Error: ReactComponent ~> number
-
 
 ================================================================================
 `;
@@ -1025,7 +973,6 @@ var props = {
 };
 
 var blah = <Foo {...props} />; // error bar, number given string expected
-
 
 ================================================================================
 `;
@@ -1077,7 +1024,6 @@ var AnyFunExample = React.createClass({
 <AnyFunExample />; // OK
 
 <AnyFunExample foo={(0: mixed)} />; // OK
-
 
 ================================================================================
 `;
@@ -1182,7 +1128,6 @@ var InvalidExample = React.createClass({
   }
 });
 
-
 ================================================================================
 `;
 
@@ -1226,7 +1171,6 @@ var Example = React.createClass({
       (href: empty); // error: href is an optional string
 
       return (0: mixed); // error: should return ?Error
-
     }
   }
 });
@@ -1306,7 +1250,6 @@ var Example = React.createClass({
 <Example />; // OK: don't cascade errors
 
 <Example foo={(0: mixed)} />; // OK: don't cascade errors
-
 
 ================================================================================
 `;
@@ -1390,7 +1333,6 @@ var PolyExample = React.createClass({
   },
   m() {
     (this.props.x.x: empty); // OK, T instantiated to \`any\`
-
   }
 });
 
@@ -1409,10 +1351,8 @@ var PolyDefaultExample = React.createClass({
   },
   m() {
     (this.props.x.x: empty); // OK, T instantiated to \`any\`
-
   }
 });
-
 
 ================================================================================
 `;
@@ -1483,15 +1423,12 @@ var Foo = React.createClass({
       default:
         return "Alice";
     }
-
   },
   render() {
     // But this never errored
     return <div id={this.props.name} />;
-
   }
 });
-
 
 ================================================================================
 `;
@@ -1672,7 +1609,6 @@ var InvalidExample = React.createClass({
     obj: React.PropTypes.objectOf(0) // error: number not a prop type
   }
 });
-
 
 ================================================================================
 `;
@@ -1866,7 +1802,6 @@ var NonLiteralElemExample = React.createClass({
 
 <NonLiteralElemExample p={0} />; // OK, result is unknown/any
 
-
 ================================================================================
 `;
 
@@ -1997,7 +1932,6 @@ var Example = React.createClass({
     } else {
       return <div>{this.props.prop.toFixed(2)}</div>;
     }
-
   }
 });
 
@@ -2081,7 +2015,6 @@ var InvalidElemExample = React.createClass({
 
 <InvalidElemExample p={0} />; // OK, don't cascade errors
 
-
 ================================================================================
 `;
 
@@ -2158,10 +2091,8 @@ React.createClass({
   },
   f() {
     (this.props.foo.bar: empty); // OK
-
   }
 });
-
 
 ================================================================================
 `;
@@ -2227,7 +2158,6 @@ type NoFun = mixed => empty;
 // error: ReactPropsChainableTypeChecker ~> empty
 (React.PropTypes.shape: NoFun);
 
-
 ================================================================================
 `;
 
@@ -2284,7 +2214,6 @@ React.createClass({
     this.props.baz = 0;
   }
 });
-
 
 ================================================================================
 `;

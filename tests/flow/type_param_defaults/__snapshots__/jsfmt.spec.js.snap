@@ -79,7 +79,6 @@ class A<T> {
   constructor(p: T) {
     this.p = p;
   }
-
 }
 
 // Test out simple defaults

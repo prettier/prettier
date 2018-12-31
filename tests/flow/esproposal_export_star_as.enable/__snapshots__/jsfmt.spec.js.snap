@@ -26,7 +26,6 @@ var b: string = source.num; // Error: num ~> string
 var c: string = source.str;
 var d: number = source.str; // Error: num ~> string
 
-
 ================================================================================
 `;
 
@@ -63,7 +62,6 @@ export * as source from "./source";
 =====================================output=====================================
 // @flow
 export * as source from "./source";
-
 
 ================================================================================
 `;

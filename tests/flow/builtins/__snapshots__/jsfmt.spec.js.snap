@@ -39,7 +39,6 @@ function f() {
   });
 
   var x: number = array[0]; // error: string !~> number
-
 }
 
 var Foo = require("./genericfoo");
@@ -53,7 +52,6 @@ function g() {
 
   foo = foo1;
 }
-
 
 ================================================================================
 `;
@@ -89,7 +87,6 @@ class Foo<T> {
   get(): T {
     return this.x;
   }
-
 }
 
 module.exports = Foo;

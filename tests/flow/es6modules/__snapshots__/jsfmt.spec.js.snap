@@ -14,7 +14,6 @@ exports.numberValue = 42;
 /* @flow */
 exports.numberValue = 42;
 
-
 ================================================================================
 `;
 
@@ -90,7 +89,6 @@ class Test extends Base {
   instNumber2(): number {
     return 2;
   }
-
 }
 
 module.exports = Test;
@@ -121,7 +119,6 @@ module.exports = Object.freeze({
 module.exports = Object.freeze({
   numberValue1: 1
 });
-
 
 ================================================================================
 `;
@@ -157,7 +154,6 @@ module.exports = {
   numberValue4: 4,
   numberValue5: 5
 };
-
 
 ================================================================================
 `;
@@ -216,9 +212,7 @@ export default class {
   givesANum(): number {
     return 42;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -245,9 +239,7 @@ export default class {
   givesANum(): number {
     return 42;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -274,7 +266,6 @@ export default function(): number {
   return 42;
 }
 
-
 ================================================================================
 `;
 
@@ -299,7 +290,6 @@ export default function():number { return 42; }
 export default function(): number {
   return 42;
 }
-
 
 ================================================================================
 `;
@@ -331,14 +321,12 @@ export default class Foo {
   givesANum(): number {
     return 42;
   }
-
 }
 
 // Regression test for https://github.com/facebook/flow/issues/511
 //
 // Default-exported class should also be available in local scope
 new Foo();
-
 
 ================================================================================
 `;
@@ -365,9 +353,7 @@ export default class Foo {
   givesANum(): number {
     return 42;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -394,7 +380,6 @@ export default function foo(): number {
   return 42;
 }
 
-
 ================================================================================
 `;
 
@@ -419,7 +404,6 @@ export default function foo():number { return 42; }
 export default function foo(): number {
   return 42;
 }
-
 
 ================================================================================
 `;
@@ -464,7 +448,6 @@ export * from "ES6_ExportAllFrom_Source1";
  */
 export * from "ES6_ExportAllFrom_Source1";
 
-
 ================================================================================
 `;
 
@@ -487,7 +470,6 @@ export * from "ES6_ExportAllFrom_Source2";
  * @flow
  */
 export * from "ES6_ExportAllFrom_Source2";
-
 
 ================================================================================
 `;
@@ -512,7 +494,6 @@ export var numberValue1 = 1;
  */
 export var numberValue1 = 1;
 
-
 ================================================================================
 `;
 
@@ -535,7 +516,6 @@ export var numberValue2 = 1;
  * @flow
  */
 export var numberValue2 = 1;
-
 
 ================================================================================
 `;
@@ -586,7 +566,6 @@ export {
   numberValue2 as numberValue2_renamed
 } from "ES6_ExportFrom_Source1";
 
-
 ================================================================================
 `;
 
@@ -616,7 +595,6 @@ export {
   numberValue2 as numberValue2_renamed2
 } from "ES6_ExportFrom_Source2";
 
-
 ================================================================================
 `;
 
@@ -641,7 +619,6 @@ export var numberValue1 = 1, numberValue2 = 2;
 export var numberValue1 = 1,
   numberValue2 = 2;
 
-
 ================================================================================
 `;
 
@@ -665,7 +642,6 @@ export var numberValue1 = 1, numberValue2 = 2;
  */
 export var numberValue1 = 1,
   numberValue2 = 2;
-
 
 ================================================================================
 `;
@@ -722,7 +698,6 @@ export class NumberGenerator {
   givesANumber(): number {
     return 42;
   }
-
 }
 
 export var varDeclNumber1 = 1,
@@ -785,7 +760,6 @@ export class NumberGenerator2 {
   givesANumber(): number {
     return 42;
   }
-
 }
 
 export var varDeclNumber3 = 1,
@@ -813,7 +787,6 @@ export type typeAlias = number;
 =====================================output=====================================
 // @flow
 export type typeAlias = number;
-
 
 ================================================================================
 `;
@@ -873,7 +846,6 @@ module.exports = {
 module.exports = {
   numberValue: 42
 };
-
 
 ================================================================================
 `;
@@ -1551,7 +1523,6 @@ var at4: string = numberValue9; // Error: number ~> string
 /////////////////////////////////////////////////////////////
 import { typeAlias } from "./ExportType"; // Error: Cannot vanilla-import a type alias!
 
-
 ================================================================================
 `;
 
@@ -1672,9 +1643,7 @@ function testRequires() {
   var CommonJS_Frozen_Star = require("CommonJS_Clobbering_Frozen");
 
   CommonJS_Frozen_Star.numberValue1 = 123; // Error: frozen
-
 }
-
 
 ================================================================================
 `;

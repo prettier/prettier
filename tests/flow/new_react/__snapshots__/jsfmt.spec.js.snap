@@ -101,7 +101,6 @@ module.exports = {
   success: function() {}
 };
 
-
 ================================================================================
 `;
 
@@ -231,7 +230,6 @@ class C4 extends React.Component {
   // OK, recommended
   // no need to declare defaultProps unless necessary
   props: T2;
-
 }
 
 class C5 extends React.Component<T2, T3, any>
@@ -245,7 +243,6 @@ class C6 extends React.Component {
 
   props: T3;
 }
-
 
 ================================================================================
 `;
@@ -366,7 +363,6 @@ class Foo extends React.Component {
     this.state = {
       y: ""
     };
-
   }
 
   setState(o: { y_: string }): void {}
@@ -377,7 +373,6 @@ class Foo extends React.Component {
   componentWillReceiveProps(nextProps: Object, nextContext: any): void {
     this.qux();
   }
-
 }
 
 Foo.defaultProps = 0;
@@ -403,7 +398,6 @@ var FooLegacy = React.createClass({
     return {
       y: ""
     };
-
   },
   setState(o: { y_: string }): void {},
   componentDidMount(): void {
@@ -463,13 +457,11 @@ class HelloMessage extends React.Component {
   props: {
     name: string
   };
-
 }
 
 <HelloMessage name={007} />; // number ~/~> string error
 
 <HelloMessage name="Bond" />; // ok
-
 
 ================================================================================
 `;
@@ -530,7 +522,6 @@ var C = React.createClass({
     return {
       z: 0
     };
-
   },
   getInitialState() {
     return null;
@@ -617,7 +608,6 @@ var props: Array<{
   }
 ]; // error (same as ^)
 
-
 ================================================================================
 `;
 
@@ -667,7 +657,6 @@ var TestProps = React.createClass({
       x: "",
       y: 0
     };
-
   },
   test: function() {
     var a: number = this.props.x; // error
@@ -675,7 +664,6 @@ var TestProps = React.createClass({
     var b: string = this.props.y; // error
 
     var c: string = this.props.z; // error
-
   }
 });
 
@@ -734,7 +722,6 @@ var D = React.createClass({
     return {
       bar: 0
     };
-
   },
   render: function() {
     var obj = {
@@ -745,7 +732,6 @@ var D = React.createClass({
     return <C {...this.state} foo={0} />;
   }
 });
-
 
 ================================================================================
 `;
@@ -862,7 +848,6 @@ var TestProps = React.createClass({
   }
 });
 
-
 ================================================================================
 `;
 
@@ -908,7 +893,6 @@ class JDiv extends React.Component {
   props: {
     id: string
   };
-
 }
 
 // Should be a type error ('id' takes a string, not a number..)
@@ -922,7 +906,6 @@ class Example extends React.Component {
   render() {
     return <div>{this.props.bar}</div>;
   }
-
 }
 
 React.render(<Example foo="foo" />, document.body);
@@ -953,7 +936,6 @@ var C = React.createClass({
     return {
       x: 0
     };
-
   }
 });
 
@@ -1007,7 +989,6 @@ var ReactClass = React.createClass({
     return {
       bar: null
     };
-
   },
   render: function(): any {
     // Any state access here seems to make state any
@@ -1016,7 +997,6 @@ var ReactClass = React.createClass({
     return <div>{this.state.bar.qux}</div>;
   }
 });
-
 
 ================================================================================
 `;
@@ -1058,7 +1038,6 @@ var Comp = React.createClass({
     return {
       key: null // this used to cause a missing annotation error
     };
-
   }
 });
 
@@ -1101,7 +1080,6 @@ var TestState = React.createClass({
     return {
       x: ""
     };
-
   },
   test: function() {
     var a: number = this.state.x; // error
@@ -1109,10 +1087,8 @@ var TestState = React.createClass({
     this.setState({
       x: false // error
     });
-
   }
 });
-
 
 ================================================================================
 `;
@@ -1146,7 +1122,6 @@ var C = React.createClass({
     return {
       x: 0
     };
-
   },
   render() {
     this.setState({
@@ -1156,7 +1131,6 @@ var C = React.createClass({
     return <div>{this.state.z}</div>;
   }
 });
-
 
 ================================================================================
 `;
@@ -1180,11 +1154,8 @@ var React = require("React");
 class C extends React.Component {
   foo(): number {
     return this.state.x; // error: need to declare type of state
-
   }
-
 }
-
 
 ================================================================================
 `;

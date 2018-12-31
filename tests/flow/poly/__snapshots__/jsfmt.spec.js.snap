@@ -27,7 +27,6 @@ class B extends A {} // OK, same as above
 function foo(b): A<any> {
   // ok but unsafe, caller may assume any type arg
   return b ? (new A(): A<number>) : (new A(): A<string>);
-
 }
 
 function bar(): A<*> {
@@ -38,9 +37,7 @@ function bar(): A<*> {
       x: string
     }>)
   );
-
 }
-
 
 ================================================================================
 `;
@@ -82,7 +79,6 @@ class C<T: Middle> {
   meth(a: T): T {
     return a;
   }
-
 }
 
 // T is implicitly (bounded by) Middle in constructor call if not provided.
@@ -94,7 +90,6 @@ a.meth(new Child());
 a.meth(42); // Error: number ~> Middle
 
 a.meth(new Base()); // Error: Base ~> Middle
-
 
 ================================================================================
 `;
@@ -174,7 +169,6 @@ class Foo<T> {
   constructor(x: T) {
     this.x = x;
   }
-
 }
 
 function bar<S>(foo: Foo<S>, y: S): Foo<S> {
@@ -232,7 +226,6 @@ class C {
   qux(x: number): number {
     return x;
   }
-
 }
 
 class D extends C {
@@ -251,9 +244,7 @@ class D extends C {
   qux<X>(x: X): X {
     return x;
   } // OK (generalization)
-
 }
-
 
 ================================================================================
 `;

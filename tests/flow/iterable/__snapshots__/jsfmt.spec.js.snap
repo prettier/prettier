@@ -25,7 +25,6 @@ printWidth: 80
 
 (["hi", 1]: Iterable<string>); // Error number ~> string
 
-
 ================================================================================
 `;
 
@@ -82,7 +81,6 @@ function miss_the_cache(x: Array<string | number>): Iterable<string> {
   return x;
 }
 
-
 ================================================================================
 `;
 
@@ -110,7 +108,6 @@ function foo(strs: Iterable<string>): void {
   for (var s: string of strs) {
     console.log(s);
   }
-
 }
 
 var m: Map<string, number> = new Map();
@@ -169,14 +166,11 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
           done,
           value: "still going..."
         };
-
       } else {
         return { done };
       }
-
     }
   };
-
 }
 
 function makeIterator(coin_flip: () => boolean): Iterator<string> {
@@ -192,17 +186,12 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
           done,
           value: "still going..."
         }; // Error string ~> void
-
       } else {
         return { done }; // Error void ~> string
-
       }
-
     }
   };
-
 }
-
 
 ================================================================================
 `;
@@ -248,7 +237,6 @@ function mapTest4(map: Map<number, string>): Iterable<string> {
   return map;
 }
 
-
 ================================================================================
 `;
 
@@ -293,7 +281,6 @@ function setTest4(set: Set<string>): Iterable<number> {
   return set;
 }
 
-
 ================================================================================
 `;
 
@@ -316,7 +303,6 @@ printWidth: 80
 ("hi": Iterable<*>);
 ("hi": Iterable<number>); // Error - string is a Iterable<string>
 
-
 ================================================================================
 `;
 
@@ -337,7 +323,6 @@ printWidth: 80
 (([]: Array<string>): Iterable<?string>); // ok, Iterable<+T>
 
 (([]: Array<string>).values(): Iterable<?string>); // ok, Iterator<+T>
-
 
 ================================================================================
 `;

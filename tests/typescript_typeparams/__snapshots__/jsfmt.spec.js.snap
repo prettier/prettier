@@ -123,7 +123,6 @@ export class Thing2 implements OtherThing {
       return false;
     }
   );
-
 }
 
 export class Thing3 implements OtherThing {
@@ -135,7 +134,6 @@ export class Thing3 implements OtherThing {
 
     return false;
   });
-
 }
 
 export class Thing4 implements OtherThing {
@@ -197,7 +195,6 @@ export class Thing12 implements OtherThing {
   ): Provider<Opts> {
     return type;
   });
-
 }
 
 export class Thing13 implements OtherThing {
@@ -211,7 +208,6 @@ export class Thing13 implements OtherThing {
 
     return false;
   });
-
 }
 
 export class Thing14 implements OtherThing {
@@ -223,7 +219,6 @@ export class Thing14 implements OtherThing {
 
     return false;
   });
-
 }
 
 export class Thing15 implements OtherThing {
@@ -232,7 +227,6 @@ export class Thing15 implements OtherThing {
   ): Provider<Opts> {
     return type.doSomething();
   });
-
 }
 
 export class Thing16 implements OtherThing {
@@ -241,7 +235,6 @@ export class Thing16 implements OtherThing {
   ): Provider<Opts> {
     return <any>type.doSomething();
   });
-
 }
 
 export class Thing17 implements OtherThing {
@@ -250,14 +243,12 @@ export class Thing17 implements OtherThing {
   ): Provider<Opts> {
     return <Provider<Opts>>type.doSomething();
   });
-
 }
 
 export class Thing18 implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(function(type: ObjectType) {
     return <Provider<Opts>>type.doSomething();
   });
-
 }
 
 export class Thing19 implements OtherThing {
@@ -266,14 +257,12 @@ export class Thing19 implements OtherThing {
       type.doSomething(withArgs, soIt, does, not, fit).extraCall()
     );
   });
-
 }
 
 export class Thing20 implements OtherThing {
   do: (type: Type) => Provider<Prop> = memoize(function(type: ObjectType) {
     return type.doSomething();
   });
-
 }
 
 export class Thing21 implements OtherThing {
@@ -282,7 +271,6 @@ export class Thing21 implements OtherThing {
   ): Provider<Options, MoreOptions> {
     return veryLongArgName;
   });
-
 }
 
 export class Thing22 implements OtherThing {
@@ -296,7 +284,6 @@ const appIDs = createSelector(
   PubXURLParams.APP_IDS,
   (rawAppIDs): Array<AppID> => deserializeList(rawAppIDs)
 );
-
 
 ================================================================================
 `;
@@ -358,7 +345,6 @@ export const RedBox = styled.div<{ foo: string }>\`
   background: red;
   \${props => props.foo}
 \`;
-
 
 ================================================================================
 `;

@@ -20,7 +20,6 @@ let {
   a = b //comment
 } = c;
 
-
 ================================================================================
 `;
 
@@ -43,7 +42,6 @@ const foo = {
   /* Section B */
   b: "b"
 };
-
 
 ================================================================================
 `;
@@ -131,86 +129,73 @@ function addition() {
   0 +
     // Comment
     x;
-
 }
 
 function multiplication() {
   0 *
     // Comment
     x;
-
 }
 
 function division() {
   0 /
     // Comment
     x;
-
 }
 
 function substraction() {
   0 -
     // Comment
     x;
-
 }
 
 function remainder() {
   0 %
     // Comment
     x;
-
 }
 
 function exponentiation() {
   0 **
     // Comment
     x;
-
 }
 
 function leftShift() {
   0 <<
     // Comment
     x;
-
 }
 
 function rightShift() {
   0 >>
     // Comment
     x;
-
 }
 
 function unsignedRightShift() {
   0 >>>
     // Comment
     x;
-
 }
 
 function bitwiseAnd() {
   0 &
     // Comment
     x;
-
 }
 
 function bitwiseOr() {
   0 |
     // Comment
     x;
-
 }
 
 function bitwiseXor() {
   0 ^
     // Comment
     x;
-
 }
-
 
 ================================================================================
 `;
@@ -301,7 +286,6 @@ loop: for (;;) {
   continue loop /* comment */;
 }
 
-
 ================================================================================
 `;
 
@@ -333,7 +317,6 @@ React.render(
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
 );
-
 
 ================================================================================
 `;
@@ -390,7 +373,6 @@ functionCall(
 function returnValue() {
   return /** @type {!Array.<string>} */
   (["hello", "you"]);
-
 }
 
 var newArray = /** @type {array} */
@@ -401,7 +383,6 @@ var newArray = /** @type {array} */
 
 var newArray = /** @type {array} */
 (numberOrString.map(x => x));
-
 
 ================================================================================
 `;
@@ -567,7 +548,6 @@ export {
   barr // comment
 };
 
-
 ================================================================================
 `;
 
@@ -639,7 +619,6 @@ type UploadState<E, EM, D> =
   | B // Failed somewhere on the line
   | C // Uploading to aws3 and CreatePostMutation succeeded
   | D;
-
 
 ================================================================================
 `;
@@ -781,39 +760,32 @@ class C {
 class C {
   f() /* returns */
   {}
-
 }
 
 class C {
   f /* f */(/* args */) /* returns */
   {}
-
 }
 
 function foo() {
   // this is a function
   return 42;
-
 }
 
 function foo() {
   // this is a function
   return 42;
-
 }
 
 function foo() {
   // this is a function
   return 42;
-
 }
 
 function foo() {
   // this is a function
   return 42;
-
 }
-
 
 ================================================================================
 `;
@@ -890,7 +862,6 @@ true
 if (1) {
   // comment
   false;
-
 } // comment
 else if (2) true;
 // multi
@@ -913,7 +884,6 @@ if (5)
 if (6) {
   // comment
   true;
-
 } else if (7)
   // comment
   true;
@@ -926,7 +896,6 @@ if (8) {
   // comment
   // comment
   true;
-
 } else if (9)
   // comment
   // comment
@@ -941,7 +910,6 @@ if (10) {
   /* comment */
   // comment
   true;
-
 } else if (11)
   /* comment */
   true;
@@ -962,14 +930,12 @@ if (14) {
   /* comment */
   // comment
   true;
-
 } else if (15)
   // comment
   /* comment */
   /* comment */
   // comment
   true;
-
 
 ================================================================================
 `;
@@ -1206,7 +1172,6 @@ foo(
   {} // Hi
 );
 
-
 ================================================================================
 `;
 
@@ -1441,7 +1406,6 @@ onClick={() => {}}>
   <Component />
 </Wrapper>;
 
-
 ================================================================================
 `;
 
@@ -1577,7 +1541,6 @@ class X {
       a: number
     } // TODO this is a very very very very long comment that makes it go > 80 columns
   ) {}
-
 }
 
 function f(
@@ -1602,7 +1565,6 @@ class X {
     ] /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {}
-
 }
 
 class Foo {
@@ -1636,9 +1598,7 @@ class Foo {
     lol3 /*string*/,
     lol4 /*string*/
   ) {} /* string*/
-
 }
-
 
 ================================================================================
 `;
@@ -1686,9 +1646,7 @@ function name() {
 
   // comment2
   func2(); // comment3 why func3 commented // func3()
-
 }
-
 
 ================================================================================
 `;
@@ -1827,7 +1785,6 @@ function jsx() {
     // Comment
     <div />
   );
-
 }
 
 function unary() {
@@ -1835,12 +1792,10 @@ function unary() {
     // Comment
     !!x
   );
-
 }
 
 function numericLiteralNoParen() {
   return 1337; // Comment
-
 }
 
 function logical() {
@@ -1848,7 +1803,6 @@ function logical() {
     // Reason for 42
     42 && 84
   );
-
 }
 
 function binary() {
@@ -1856,7 +1810,6 @@ function binary() {
     // Reason for 42
     42 * 84
   );
-
 }
 
 function binaryInBinaryLeft() {
@@ -1866,7 +1819,6 @@ function binaryInBinaryLeft() {
       84 +
     2
   );
-
 }
 
 function binaryInBinaryRight() {
@@ -1875,7 +1827,6 @@ function binaryInBinaryRight() {
     42 +
     84 * 2
   );
-
 }
 
 function conditional() {
@@ -1885,7 +1836,6 @@ function conditional() {
       ? 1
       : 2
   );
-
 }
 
 function binaryInConditional() {
@@ -1895,7 +1845,6 @@ function binaryInConditional() {
       ? 1
       : 2
   );
-
 }
 
 function call() {
@@ -1903,7 +1852,6 @@ function call() {
     // Reason for a
     a()
   );
-
 }
 
 function memberInside() {
@@ -1911,7 +1859,6 @@ function memberInside() {
     // Reason for a.b
     a.b.c
   );
-
 }
 
 function memberOutside() {
@@ -1919,7 +1866,6 @@ function memberOutside() {
     // Reason for a
     a.b.c
   );
-
 }
 
 function memberInAndOutWithCalls() {
@@ -1929,7 +1875,6 @@ function memberInAndOutWithCalls() {
       ()
       .c.d()
   );
-
 }
 
 function excessiveEverything() {
@@ -1937,7 +1882,6 @@ function excessiveEverything() {
     // Reason for stuff
     a.b() * 3 + 4 ? ((a\`hi\`, 1) ? 1 : 1) : 1
   );
-
 }
 
 // See https://github.com/prettier/prettier/issues/2392
@@ -1952,7 +1896,6 @@ function sequenceExpressionInside() {
     // Reason for a
     a, b
   );
-
 }
 
 function taggedTemplate() {
@@ -1960,7 +1903,6 @@ function taggedTemplate() {
     // Reason for a
     a\`b\`
   );
-
 }
 
 function inlineComment() {
@@ -1968,9 +1910,7 @@ function inlineComment() {
     /* hi */
     42 || 42
   );
-
 }
-
 
 ================================================================================
 `;
@@ -2034,7 +1974,6 @@ if (true) {
  * Original code by Erik Arvidsson, Mozilla Public License
  * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
  */
-
 
 ================================================================================
 `;
@@ -2113,15 +2052,12 @@ switch (foo) {
 switch (foo) {
   case "bar": {
     doThing();
-  }
-   //comment
+  } //comment
 
   case "baz": {
     doThing();
-  }
-   //comment
+  } //comment
 }
-
 
 ================================================================================
 `;
@@ -2163,7 +2099,6 @@ d //comment
   d //comment
 };
 \`;
-
 
 ================================================================================
 `;
@@ -2252,7 +2187,6 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
  * A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
  */
 
-
 ================================================================================
 `;
 
@@ -2290,7 +2224,6 @@ try {
   // Comment 8
   // Comment 9
 } // Comment 10
-
 
 ================================================================================
 `;
@@ -2442,7 +2375,6 @@ const foo = 123;
 // Nothing to see here.
 ["2", "3"].forEach(x => console.log(x));
 
-
 ================================================================================
 `;
 
@@ -2498,7 +2430,6 @@ while (true) {} // comment
 while (true)
   /* comment */
   ++x;
-
 
 ================================================================================
 `;

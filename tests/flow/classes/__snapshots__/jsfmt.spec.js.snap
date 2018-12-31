@@ -171,12 +171,10 @@ class Test2Superclass {
   a: number; // conflicts with cast to Foo
 
   c: ?number; // conflicts with cast to Foo
-
 }
 
 class Test2Class extends Test2Superclass {
   b: number; // conflicts with cast to Foo
-
 }
 
 var z = new Test2Class();
@@ -227,9 +225,7 @@ var Bar = class Foo {
   static factory(): Foo {
     // OK: Foo is a type in this scope
     return new Foo(); // OK: Foo is a runtime binding in this scope
-
   }
-
 };
 
 var bar1: Bar = new Bar(); // OK
@@ -254,13 +250,11 @@ var _Alias = class Alias {
   static factory(): Alias {
     return new Alias();
   }
-
 };
 
 var alias1: Alias = new _Alias(); // error: bad pun
 
 var alias2: Alias = _Alias.factory(); // error: bad pun
-
 
 ================================================================================
 `;
@@ -284,7 +278,6 @@ class Derived2 extends Derived1 {
   m() {}
 }
 
-
 ================================================================================
 `;
 
@@ -305,7 +298,6 @@ class Foo {} // error, shadows type Foo
 type Foo = number;
 
 class Foo {} // error, shadows type Foo
-
 
 ================================================================================
 `;
@@ -351,7 +343,6 @@ declare var o: {
 };
 
 (o: Class<C>); // error, object type incompatible with class type
-
 
 ================================================================================
 `;

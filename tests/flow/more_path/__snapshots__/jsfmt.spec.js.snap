@@ -103,7 +103,6 @@ function foo() {
   if (bar()) {
     c.qux();
   }
-
 }
 
 function goofy() {
@@ -114,7 +113,6 @@ function goofy() {
     // if (typeof x == 'number') {
     //f(x);
   }
-
 }
 
 function goofy2() {
@@ -132,7 +130,6 @@ function goofy2() {
   } else {
     //f(y);
   }
-
 }
 
 module.exports = true;
@@ -239,12 +236,9 @@ function bar(x: B) {
   if (x instanceof A) {
     x.a();
     x.c(); // error
-
   } else {
     x++; // TODO no error? since unreachable (x: B implies x: A)
-
   }
-
 }
 
 function foo(x: A) {
@@ -253,13 +247,10 @@ function foo(x: A) {
     x.b();
     x.c();
     x.d(); // error
-
   } else {
     x.a();
     x.c(); // error
-
   }
-
 }
 
 class D {
@@ -270,7 +261,6 @@ function baz(x: D) {
   if (x instanceof A) {
     // unreachable, TODO: this shouldn't throw
   }
-
 }
 
 module.exports = "sigma";
@@ -311,12 +301,10 @@ class ChildClass extends BaseClass {
 function test(obj: BaseClass): string {
   if (obj instanceof ChildClass) {
     return obj.childProp_TYPO; // error (obj: ChildClass)
-
   }
 
   return obj.baseProp;
 }
-
 
 ================================================================================
 `;

@@ -25,11 +25,8 @@ function a() {
         "someLongStringThatPushesThisTextReallyFar"
       )[0];
     });
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -94,7 +91,6 @@ export default store => {
         })
       )
   );
-
 };
 
 it("should group messages with same created time", () => {
@@ -156,9 +152,7 @@ it("should group messages with same created time", () => {
       }
     ]
   });
-
 });
-
 
 ================================================================================
 `;
@@ -224,7 +218,6 @@ const {
   location,
   category: categories
 } = rawAd.entry;
-
 
 ================================================================================
 `;
@@ -333,7 +326,6 @@ function f() {
       // configurable.
       .debounceTime(debounceInterval)
   );
-
 }
 
 _.a(a)
@@ -407,7 +399,6 @@ angular
   // Hello, I am comment.
   .constant("API_URL", "http://localhost:8080/api");
 
-
 ================================================================================
 `;
 
@@ -431,7 +422,6 @@ nock(/test/)
   .reply(200, {
     foo: "bar"
   });
-
 
 ================================================================================
 `;
@@ -464,7 +454,6 @@ window.Data[key]("foo")
   data[key]("foo")
     .then(() => console.log("bar"))
     .catch(() => console.log("baz"));
-
 });
 
 [].forEach(key => {
@@ -472,13 +461,11 @@ window.Data[key]("foo")
     [key]("bar")
     .then(() => console.log("bar"))
     .catch(() => console.log("baz"));
-
 });
 
 window.Data[key]("foo")
   .then(() => a)
   .catch(() => b);
-
 
 ================================================================================
 `;
@@ -601,7 +588,6 @@ not.d3
   .domain([1950, 1980])
   .range([0, width]);
 
-
 ================================================================================
 `;
 
@@ -662,7 +648,6 @@ export default function theFunction(action$, store) {
       .map(({ theType, ...data }) => theMap(theType, data))
       .retryWhen(errors => errors)
   );
-
 }
 
 function f() {
@@ -682,9 +667,7 @@ function f() {
 
     fileMetadata[H.DEPENDENCIES] = metadata.dependencies || [];
   });
-
 }
-
 
 ================================================================================
 `;
@@ -732,7 +715,6 @@ this.layoutPartsToHide = this.utils.hashset(
 var jqxhr = $.ajax("example.php")
   .done(doneFn)
   .fail(failFn);
-
 
 ================================================================================
 `;
@@ -841,13 +823,9 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
             City: "Berlin",
             Country: "DE"
           });
-
       }
-
     });
-
   });
-
 }
 
 wrapper
@@ -884,7 +862,6 @@ wrapper
     doSomething();
   });
 
-
 ================================================================================
 `;
 
@@ -904,7 +881,6 @@ const svgJsFiles = fs
   .readdirSync(svgDir)
   .filter(f => svgJsFileExtRegex.test(f))
   .map(f => path.join(svgDir, f));
-
 
 ================================================================================
 `;
@@ -935,7 +911,6 @@ const version = someLongString
 const component = find(".org-lclp-edit-copy-url-banner__link")[0]
   .getAttribute("href")
   .indexOf(this.landingPageLink);
-
 
 ================================================================================
 `;

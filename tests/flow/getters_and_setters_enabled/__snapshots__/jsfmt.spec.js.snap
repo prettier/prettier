@@ -123,7 +123,6 @@ class Foo {
   get [z](): string {
     return string;
   }
-
 }
 
 var foo = new Foo();
@@ -149,7 +148,6 @@ var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter;
 var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter; // Error string ~> number
 
 foo.propOverriddenWithSetter = 123; // Error number ~> string
-
 
 ================================================================================
 `;
@@ -249,7 +247,6 @@ var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter;
 var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter; // Error string ~> number
 
 foo.propOverriddenWithSetter = 123; // Error number ~> string
-
 
 ================================================================================
 `;
@@ -400,7 +397,6 @@ obj.exampleOfOrderOfGetterAndSetter = new C(); // Error C ~> B
 var testExampleOrOrderOfGetterAndSetterReordered: number =
   obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
 
-
 ================================================================================
 `;
 
@@ -511,9 +507,7 @@ function test(obj: T) {
   // And this example shows the danger of using the setter's type.
   var testExampleOrOrderOfGetterAndSetterReordered: number =
     obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
-
 }
-
 
 ================================================================================
 `;
@@ -568,7 +562,6 @@ const Example = React.createClass({
 <Example a="bad" />; // error: number ~> string
 
 <Example a={0} c={0} />; // error: number ~> string
-
 
 ================================================================================
 `;
@@ -678,7 +671,6 @@ class Base {
   set getset(value: B): void {
     this.x = value;
   }
-
 }
 
 (class extends Base {
@@ -686,13 +678,11 @@ class Base {
   get x(): B {
     return b;
   }
-
 });
 
 (class extends Base {
   // error: setter incompatible with read/write property
   set x(value: B): void {}
-
 });
 
 (class extends Base {
@@ -707,7 +697,6 @@ class Base {
 (class extends Base {
   // error: setter incompatible with read-only property
   set pos(value: B): void {}
-
 });
 
 (class extends Base {
@@ -715,7 +704,6 @@ class Base {
   get pos(): C {
     return c;
   }
-
 });
 
 (class extends Base {
@@ -723,33 +711,27 @@ class Base {
   get neg(): B {
     return b;
   }
-
 });
 
 (class extends Base {
   // ok: setter contravariant with write-only property
   set neg(value: A): void {}
-
 });
 
 (class extends Base {
   // ok: read/write covariant with getter
   get: C;
-
 });
 
 (class extends Base {
   // ok: read/write contravariant with setter
   set: A;
-
 });
 
 (class extends Base {
   // ok: read/write invariant with get/set
   getset: B;
-
 });
-
 
 ================================================================================
 `;

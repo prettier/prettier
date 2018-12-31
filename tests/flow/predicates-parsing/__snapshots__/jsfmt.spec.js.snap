@@ -17,7 +17,6 @@ declare function f2(x: mixed): boolean %checks;
 // Error: 'declare', 'checks' but missing predicate
 declare function f2(x: mixed): boolean %checks;
 
-
 ================================================================================
 `;
 
@@ -37,7 +36,6 @@ function f6(x: mixed): %checks (x !== null) {  }
 // @flow
 // Error: no return statement
 function f6(x: mixed): %checks(x !== null) {}
-
 
 ================================================================================
 `;
@@ -62,7 +60,6 @@ var a2 = (x: mixed): %checks(x !== null) => {
 
   return x;
 };
-
 
 ================================================================================
 `;

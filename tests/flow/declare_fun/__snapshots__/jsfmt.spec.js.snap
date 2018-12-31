@@ -24,6 +24,5 @@ declare function foo<X>(x: X): X;
 
 (foo(false): void); // error, boolean ~/~ undefined
 
-
 ================================================================================
 `;

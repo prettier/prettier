@@ -15,7 +15,6 @@ export function foo(): Implementation {
   return new Implementation();
 }
 
-
 ================================================================================
 `;
 
@@ -113,7 +112,6 @@ var E = require("package_with_no_package_json");
 var F = require("package_with_dir_main");
 (F.fun(): boolean); // Error either Implementation ~> boolean or Declaration ~> boolean
 
-
 ================================================================================
 `;
 
@@ -130,7 +128,6 @@ import { foo } from './A';
 =====================================output=====================================
 import { foo } from "./A";
 (foo(): boolean); // Error: either Implementation ~> boolean or Definition ~> boolean
-
 
 ================================================================================
 `;

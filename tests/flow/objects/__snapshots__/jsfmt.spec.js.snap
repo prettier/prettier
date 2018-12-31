@@ -51,7 +51,6 @@ let tests = [
     }
   ) {
     x = y; // 2 errors: \`foo\` not found in y.x; \`bar\` not found in x.x
-
   },
   function(
     x: {
@@ -62,7 +61,6 @@ let tests = [
     }
   ) {
     x = y; // 2 errors: string !~> number; number !~> string
-
   },
   function(
     x: {
@@ -77,7 +75,6 @@ let tests = [
     }
   ) {
     x = y; // 2 errors: string !~> number; number !~> string
-
   },
   function(
     x: {
@@ -88,7 +85,6 @@ let tests = [
     }
   ) {
     x = y; // 1 error: number !~> string
-
   },
   function(
     x: {
@@ -103,7 +99,6 @@ let tests = [
     }
   ) {
     x = y; // 2 errors: string !~> number; number !~> string
-
   },
   function(
     x: {
@@ -114,7 +109,6 @@ let tests = [
     }
   ) {
     x = y; // 1 error: string !~> number
-
   },
   function(
     x: {
@@ -129,10 +123,8 @@ let tests = [
     }
   ) {
     x = y; // 2 errors: string !~> number; number !~> string
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -255,7 +247,6 @@ y["bar"] = "abc"; // error, property not found
 
 (y["hasOwnProperty"]: string); // error, prototype method is not a string
 
-
 ================================================================================
 `;
 
@@ -323,7 +314,6 @@ function assign_then_alias() {
   };
 
   glob = obj; // error: subsequent assignment might make glob.x a number
-
 }
 
 function assign_then_widen() {
@@ -336,9 +326,7 @@ function assign_then_widen() {
   };
 
   obj.x = 10; // ok, by lvalue's given type
-
 }
-
 
 ================================================================================
 `;

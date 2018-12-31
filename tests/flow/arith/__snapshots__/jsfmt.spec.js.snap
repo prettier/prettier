@@ -114,7 +114,6 @@ function foo() {
   str(x + x); // error
 
   str(z + y); // error
-
 }
 
 // test MaybeT(NumT)
@@ -191,7 +190,6 @@ let tests = [
     x + {}; // error
 
     ({} + x); // error
-
   },
   // when one side is a string or number and the other is invalid, we
   // assume you are expecting a string or number (respectively), rather than
@@ -204,7 +202,6 @@ let tests = [
     ("1" + {}: string); // error: object !~> string
 
     ({} + "1": string); // error: object !~> string
-
   },
   function(x: any, y: number, z: string) {
     (x + y: string); // ok
@@ -214,10 +211,8 @@ let tests = [
     (x + z: empty); // error, string ~> empty
 
     (z + x: empty); // error, string ~> empty
-
   }
 ];
-
 
 ================================================================================
 `;
@@ -291,7 +286,6 @@ function f<A, B>(a: A, b: B): B {
   return b + a;
 } // error
 
-
 ================================================================================
 `;
 
@@ -324,7 +318,6 @@ let x: number = 2 * 3;
 x *= 4;
 let y: string = "123";
 y *= 2; // error
-
 
 ================================================================================
 `;
@@ -422,7 +415,6 @@ let tests = [
     x > z;
   }
 ];
-
 
 ================================================================================
 `;

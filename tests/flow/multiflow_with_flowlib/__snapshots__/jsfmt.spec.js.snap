@@ -38,6 +38,5 @@ funWithRestArray("hi", ...iterableOf123, ...iterableOf123); // No error - ignore
 // 2. 'bye' ~> number in case the first spread is not empty
 funWithRestArray("hi", ...iterableOf123, "bye", ...iterableOf123);
 
-
 ================================================================================
 `;

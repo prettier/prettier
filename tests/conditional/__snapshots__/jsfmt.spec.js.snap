@@ -56,7 +56,6 @@ var inspect =
         return util.inspect(v, {
           colors: colors
         });
-
       };
 
 var inspect =
@@ -70,7 +69,6 @@ var inspect =
         return util.inspect(v, {
           colors: colors
         });
-
       };
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
@@ -97,7 +95,6 @@ const { configureStore } =
   process.env.NODE_ENV === "production"
     ? require("./configureProdStore") // a
     : require("./configureDevStore"); // b
-
 
 ================================================================================
 `;

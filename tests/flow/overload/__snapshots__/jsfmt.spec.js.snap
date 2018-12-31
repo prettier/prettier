@@ -126,7 +126,6 @@ function bar2(x:number):string { return "..."; }
 var z2:Array<string> = new Dummy().dumber(bar2);
 */ // error with nested intersection info (outer for bar, inner for x)
 
-
 ================================================================================
 `;
 
@@ -145,9 +144,7 @@ function foo() {
 function foo() {
   var output = new FakeUint8Array();
   output.set(new FakeUint8Array(), 0); // matches one of the overloads of set
-
 }
-
 
 ================================================================================
 `;
@@ -176,7 +173,6 @@ var foo = new Foo();
 (foo.bar("hmm"): number); // OK
 
 (foo.bar("hmmm"): number); // error
-
 
 ================================================================================
 `;
@@ -236,7 +232,6 @@ declare var x_h: {
 };
 
 h(x_h.p); // ok
-
 
 ================================================================================
 `;

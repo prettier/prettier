@@ -303,7 +303,6 @@ const Bar = styled.div\`
       : palette(["text", "dark", "primary"])(props)} !important;
 \`;
 
-
 ================================================================================
 `;
 
@@ -499,7 +498,6 @@ const Bar = styled.div\`
       ? palette(["text", "dark", "tertiary"])(props)
       : palette(["text", "dark", "primary"])(props)} !important;
 \`;
-
 
 ================================================================================
 `;

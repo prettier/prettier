@@ -106,7 +106,6 @@ var f4 = function() {
   } else {
     return [1];
   }
-
 };
 
 // Function implementation with non -void return type annotation with no return
@@ -174,7 +173,6 @@ var f13 = () => {
   return new Base();
   return new AnotherClass();
 };
-
 
 ================================================================================
 `;
@@ -446,7 +444,6 @@ var a = (function f() {
   return new Base();
   return new Derived();
   return f(); // ?
-
 })();
 
 // FunctionExpression with non -void return type annotation with a single throw statement
@@ -549,7 +546,6 @@ var f12: (x: number) => any = x => {
   return new AnotherClass();
 };
 
-
 ================================================================================
 `;
 
@@ -569,7 +565,6 @@ function f(x: string): number;
 function f(x: string): void {
   return;
 }
-
 
 ================================================================================
 `;
@@ -591,7 +586,6 @@ function f(x: string): number {
   return 0;
 }
 
-
 ================================================================================
 `;
 
@@ -611,7 +605,6 @@ function f(x: string): void;
 function f(x: string): void {
   return;
 }
-
 
 ================================================================================
 `;
@@ -736,9 +729,7 @@ function outside() {
   function inside(a = b) {
     // Still an error because b is declared inside the function
     var b;
-
   }
-
 }
 
 function defaultArgFunction(
@@ -767,7 +758,6 @@ function f(
   },
   c = b()
 ) {}
-
 
 ================================================================================
 `;

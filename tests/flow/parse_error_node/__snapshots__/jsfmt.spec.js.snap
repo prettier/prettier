@@ -28,6 +28,5 @@ var A = require("./Imported"); // non-Flow file @providesModule Foo
 
 var B = require("./ParseError"); // Flow file
 
-
 ================================================================================
 `;

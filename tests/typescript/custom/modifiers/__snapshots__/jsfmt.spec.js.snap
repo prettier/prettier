@@ -19,7 +19,6 @@ type MutableRequired<T> = { -readonly [P in keyof T]-?: T[P] }; // Remove readon
 
 type ReadonlyPartial<T> = { +readonly [P in keyof T]+?: T[P] }; // Add readonly and ?
 
-
 ================================================================================
 `;
 

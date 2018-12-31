@@ -34,7 +34,6 @@ if (cond) stuff;
 // comment
 else stuff;
 
-
 ================================================================================
 `;
 
@@ -75,7 +74,6 @@ function f() {
       name: pair.substring(0, position),
       value: pair.substring(position + 1)
     };
-
 }
 
 function f() {
@@ -88,9 +86,7 @@ function f() {
       name: pair.substring(0, position),
       value: pair.substring(position + 1)
     };
-
 }
-
 
 ================================================================================
 `;
@@ -162,7 +158,6 @@ async function f() {
   if (untrackedChoice === 0) {
     /* Cancel */
     return null;
-
   } else if (untrackedChoice === 1) {
     /* Add */
     await repository.addAll(Array.from(untrackedChanges.keys()));
@@ -171,9 +166,7 @@ async function f() {
   } else if (untrackedChoice === 2) {
     /* Allow Untracked */
     allowUntracked = true;
-
   }
-
 }
 
 async function f() {
@@ -186,7 +179,6 @@ async function f() {
   else if (untrackedChoice === 2)
     /* Allow Untracked */
     allowUntracked = true;
-
 }
 
 async function f() {
@@ -202,14 +194,12 @@ async function f() {
     /* Allow Untracked */
     // Allow Untracked
     allowUntracked = true;
-
 }
 
 async function f() {
   if (untrackedChoice === 0) {
     /* Cancel */
     return null;
-
   } else if (untrackedChoice === 1) {
     /* Add */
     await repository.addAll(Array.from(untrackedChanges.keys()));
@@ -218,16 +208,13 @@ async function f() {
   } else if (untrackedChoice === 2) {
     /* Allow Untracked */
     allowUntracked = true;
-
   }
-
 }
 
 async function f() {
   if (untrackedChoice === 0) {
     /* Cancel */
     return null;
-
   } else if (untrackedChoice === 1) {
     /* Add */
     await repository.addAll(Array.from(untrackedChanges.keys()));
@@ -236,11 +223,8 @@ async function f() {
   } else if (untrackedChoice === 2) {
     /* Allow Untracked */
     allowUntracked = true;
-
   }
-
 }
-
 
 ================================================================================
 `;
@@ -284,7 +268,6 @@ if (
 ) {
   a;
 }
-
 
 ================================================================================
 `;

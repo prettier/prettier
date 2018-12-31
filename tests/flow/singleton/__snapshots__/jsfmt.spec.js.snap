@@ -55,7 +55,6 @@ var y: boolean = veryOptimistic(false); // error
 
 function veryPessimistic(isThisAwesome: true): boolean {
   return !isThisAwesome; // test bool conversion
-
 }
 
 var x: boolean = veryPessimistic(true);
@@ -68,7 +67,6 @@ function bar(x: MyOwnBooleanLOL): false {
   } else {
     return !x;
   }
-
 }
 
 bar(true);
@@ -81,9 +79,7 @@ function alwaysFalsy(x: boolean): false {
   } else {
     return x;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -122,7 +118,6 @@ sort((x, y) => -1);
 /* @flow */
 function highlander(howMany: 1): number {
   return howMany; // there can be only one!
-
 }
 
 highlander(1);

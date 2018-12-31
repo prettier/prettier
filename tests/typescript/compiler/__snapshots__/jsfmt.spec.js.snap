@@ -17,7 +17,6 @@ class C {
   bar() {}
 }
 
-
 ================================================================================
 `;
 
@@ -44,7 +43,6 @@ interface Q extends P {
   // Check assignability here. Any is assignable to {}
   p: any;
 }
-
 
 ================================================================================
 `;
@@ -73,7 +71,6 @@ async function f() {
   await void (<string>typeof (<number>void (await 0)));
   await await 0;
 }
-
 
 ================================================================================
 `;
@@ -177,7 +174,6 @@ var p_cast = <Point>{
   }
 };
 
-
 ================================================================================
 `;
 
@@ -245,7 +241,6 @@ printWidth: 80
   function foo() {}
 }
 
-
 ================================================================================
 `;
 
@@ -266,7 +261,6 @@ interface i2 {
     b: number
   ) => string;
 }
-
 
 ================================================================================
 `;
@@ -315,18 +309,15 @@ module T.U { // This needs to be emitted
 // @declaration: true
 module M {
   module P.Q {} // This shouldnt be emitted
-
 }
 
 module M {
   export module R.S {} //This should be emitted
-
 }
 
 module T.U {
   // This needs to be emitted
 }
-
 
 ================================================================================
 `;
@@ -435,7 +426,6 @@ interface Foo {
   bar: number = 5;
 }
 
-
 ================================================================================
 `;
 
@@ -476,7 +466,6 @@ declare module "foo" {
   export var t: typeof C;
 }
 
-
 ================================================================================
 `;
 
@@ -508,7 +497,6 @@ interface C {
   new <T>(): string;
   new <T, U>(): string;
 }
-
 
 ================================================================================
 `;
@@ -550,7 +538,6 @@ let obj = {
   global: "123"
 };
 
-
 ================================================================================
 `;
 
@@ -577,7 +564,6 @@ interface I {
 class C {
   [x = 0]: string;
 }
-
 
 ================================================================================
 `;
@@ -641,7 +627,6 @@ interface I {
 interface I {
   public [a: string]: number;
 }
-
 
 ================================================================================
 `;
@@ -882,7 +867,6 @@ module m1 {
   export import m1_im1_public = m1_M1_public;
 
   export import m1_im2_public = m1_M2_private; //export import m1_im3_public = require("m1_M3_public"); //export import m1_im4_public = require("m1_M4_private");
-
 }
 
 module glo_M1_public {
@@ -924,11 +908,8 @@ declare module "use_glo_M1_public" {
     module m5 {
       //import m5_errorImport = require("glo_M2_public");
       import m5_nonerrorImport = glo_M1_public;
-
     }
-
   }
-
 }
 
 declare module "anotherParseError" {
@@ -941,18 +922,14 @@ declare module "anotherParseError" {
     //module "abc2" {
     //}
   } //module "abc3" { //}
-
 }
 
 module m2 {
   //import m3 = require("use_glo_M1_public");
   module m4 {
     var a = 10; //import m2 = require("use_glo_M1_public");
-
   }
-
 }
-
 
 ================================================================================
 `;

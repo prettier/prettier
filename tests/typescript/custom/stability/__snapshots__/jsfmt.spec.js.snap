@@ -42,7 +42,6 @@ module m2 {
   export function require() {
     return "require";
   }
-
 }
 
 module m2 {
@@ -53,9 +52,7 @@ module m2 {
   export function require() {
     return "require";
   }
-
 }
-
 
 ================================================================================
 `;

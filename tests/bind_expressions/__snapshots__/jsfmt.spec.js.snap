@@ -17,7 +17,6 @@ const doBothThings = async () => {
   return (await request)::doSyncThing();
 };
 
-
 ================================================================================
 `;
 
@@ -38,7 +37,6 @@ const doBothThings = async () => {
   const request = doAsyncThing()
   return (await request)::doSyncThing()
 }
-
 
 ================================================================================
 `;
@@ -213,9 +211,7 @@ class X {
   testLongNameMethodAndSomethingElseLallala() {
     return true;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -246,9 +242,7 @@ class X {
   testLongNameMethodAndSomethingElseLallala() {
     return true
   }
-
 }
-
 
 ================================================================================
 `;
@@ -293,9 +287,7 @@ function test(observable) {
         ::takeUntil(observable::filter(data => someOtherTest))
     )
     ::map(someFunction);
-
 }
-
 
 ================================================================================
 `;
@@ -341,9 +333,7 @@ function test(observable) {
         ::takeUntil(observable::filter(data => someOtherTest))
     )
     ::map(someFunction)
-
 }
-
 
 ================================================================================
 `;
@@ -372,9 +362,7 @@ class X {
   shortMethod() {
     return true;
   }
-
 }
-
 
 ================================================================================
 `;
@@ -404,9 +392,7 @@ class X {
   shortMethod() {
     return true
   }
-
 }
-
 
 ================================================================================
 `;

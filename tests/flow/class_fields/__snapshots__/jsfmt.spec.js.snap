@@ -95,7 +95,6 @@ class Base {
   static initializedFieldWithThis = this.initializedField;
   static annotatedInitializedFieldValid: ?number = 42;
   static annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
-
 }
 
 var o = new Base();
@@ -161,7 +160,6 @@ var o = new Base();
 
 (Base.annotatedInitializedFieldInvalid: number);
 (Base.annotatedInitializedFieldInvalid: string); // Error: number ~> string
-
 
 ================================================================================
 `;
@@ -456,7 +454,6 @@ var o = new Child();
 (Child.inherited_initializer: number);
 (Child.inherited_initializer: string); // Error: number ~> string
 
-
 ================================================================================
 `;
 
@@ -531,7 +528,6 @@ class ClassGenericInitialized<T, U> {
   static valid: T = ((42: any): T);
 }
 
-
 ================================================================================
 `;
 
@@ -596,7 +592,6 @@ class Foo {
   constructor() {
     var someVar = "asdf";
   }
-
 }
 
 /**
@@ -626,7 +621,6 @@ class Foo {
 
 (Foo.selfTypedInit: Foo);
 (Foo.selfTypedInit: number); // Error: Foo ~> number
-
 
 ================================================================================
 `;

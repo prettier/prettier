@@ -27,7 +27,6 @@ function doSomethingAsync(): Promise<void> {
     var anotherVoidPromise: Promise<void> = Promise.resolve();
     resolve(anotherVoidPromise);
   });
-
 }
 
 // simpler repro to show that too few args are fine when expecting void
@@ -123,7 +122,6 @@ let tests = [
 
     const bar = [undefined, "bar"];
     (bar[x]: boolean); // error, string or void
-
   },
   function(x: number) {
     var undefined = "foo";
@@ -132,15 +130,12 @@ let tests = [
     var x;
     if (x !== undefined) {
       x[0]; // should error, could be void
-
     }
 
     const bar = [undefined, "bar"];
     (bar[x]: boolean); // error, string only
-
   }
 ];
-
 
 ================================================================================
 `;

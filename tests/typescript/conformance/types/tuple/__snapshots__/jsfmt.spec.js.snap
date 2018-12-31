@@ -171,7 +171,6 @@ var eleUnion25 = unionTuple2["0"]; // boolean
 
 var eleUnion26 = unionTuple2["1"]; // string | number
 
-
 ================================================================================
 `;
 
@@ -291,7 +290,6 @@ var zipResultEle = zipResult[0]; // [string, number]
 
 var zipResultEleEle = zipResult[0][0]; // string
 
-
 ================================================================================
 `;
 
@@ -337,7 +335,6 @@ var foo: () => [any] = function bar() {
   intermediate = [""];
   return [undefined];
 };
-
 
 ================================================================================
 `;
@@ -394,7 +391,6 @@ var [a, b] = [undefined, null];
 //@noImplicitAny: true
 var [a, b] = [undefined, null];
 
-
 ================================================================================
 `;
 
@@ -434,7 +430,6 @@ var foo = function bar() {
   let intermediate: [string];
   return (intermediate = [undefined]);
 };
-
 
 ================================================================================
 `;

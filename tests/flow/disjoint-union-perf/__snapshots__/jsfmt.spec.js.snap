@@ -268,7 +268,6 @@ function getBinaryOp(
     default:
       throw new Error("Invalid binary operator: " + op);
   }
-
 }
 
 export function emitExpression(node: TypedNode): t.Expression {
@@ -292,12 +291,10 @@ export function emitExpression(node: TypedNode): t.Expression {
       return b.binaryExpression(op, lhs, rhs);
     }
 
-
     case "unary_minus": {
       const operand = emitExpression(node.op);
       return b.unaryExpression("-", operand, true);
     }
-
 
     case "function_invocation": {
       const callee = b.memberExpression(
@@ -309,13 +306,10 @@ export function emitExpression(node: TypedNode): t.Expression {
       return b.callExpression(callee, args);
     }
 
-
     default:
       throw new Error("Unknown expression type: " + node.type);
   }
-
 }
-
 
 ================================================================================
 `;
@@ -1551,7 +1545,6 @@ export const builders: {
   ): FunctionDeclaration,
   variableDeclarator(id: Pattern, init?: Expression): VariableDeclarator
 } = a;
-
 
 ================================================================================
 `;
