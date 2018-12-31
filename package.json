@@ -218,7 +218,7 @@
   },
   "name": "r",
   "description": "![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)",
-  "version": "        yarn workspaces",
+  "version": "1.12.3",
   "main": "main.js",
   "bin": {
     "prettier-vscode": "prettier.js"
