@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\edwin perez\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js check
+  C:\Program Files\nodejs\node.exe C:\Users\edwin perez\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
 
 PATH: 
-  C:\Users\edwin perez\bin;E:\Program Files\mingw64\bin;E:\Program Files\usr\local\bin;E:\Program Files\usr\bin;E:\Program Files\usr\bin;E:\Program Files\mingw64\bin;E:\Program Files\usr\bin;C:\Users\edwin perez\bin;C:\Program Files\Microsoft MPI\Bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\PuTTY;C:\Program Files\dotnet;C:\Users\edwin perez\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files (x86)\Xoreax\IncrediBuild;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Microsoft Emulator Manager\1.0;E:\Program Files\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs;C:\Users\edwin perez\AppData\Local\Microsoft\WindowsApps;C:\Users\edwin perez\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\edwin perez\AppData\Local\.meteor;C:\AppServ\Apache24\bin;C:\AppServ\php5;C:\AppServ\MySQL\bin;E:\VS\bin;C:\Program Files (x86)\Microsoft VS Code\bin;C:\AppServ\Apache24\bin;C:\AppServ\php5;C:\AppServ\MySQL\bin;C:\Program Files\Microsoft VS Code\bin;C:\Users\edwin perez\AppData\Roaming\npm;E:\Program Files\usr\bin\vendor_perl;E:\Program Files\usr\bin\core_perl
+  C:\Users\EDWINP~1\AppData\Local\Temp\yarn--1546155624197-0.5376567879284824;E:\dev\prettier\node_modules\.bin;C:\Users\edwin perez\AppData\Local\Yarn\Data\link\node_modules\.bin;E:\dev\prettier\node_modules\.bin;C:\Users\edwin perez\AppData\Local\Yarn\Data\link\node_modules\.bin;C:\Users\edwin perez\AppData\Local\Yarn\bin;C:\Program Files\libexec\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Users\edwin perez\bin;E:\Program Files\mingw64\bin;E:\Program Files\usr\local\bin;E:\Program Files\usr\bin;E:\Program Files\usr\bin;E:\Program Files\mingw64\bin;E:\Program Files\usr\bin;C:\Users\edwin perez\bin;C:\Program Files\Microsoft MPI\Bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\PuTTY;C:\Program Files\dotnet;C:\Users\edwin perez\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files (x86)\Xoreax\IncrediBuild;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Microsoft Emulator Manager\1.0;E:\Program Files\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs;C:\Users\edwin perez\AppData\Local\Microsoft\WindowsApps;C:\Users\edwin perez\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\edwin perez\AppData\Local\.meteor;C:\AppServ\Apache24\bin;C:\AppServ\php5;C:\AppServ\MySQL\bin;E:\VS\bin;C:\Program Files (x86)\Microsoft VS Code\bin;C:\AppServ\Apache24\bin;C:\AppServ\php5;C:\AppServ\MySQL\bin;C:\Program Files\Microsoft VS Code\bin;C:\Users\edwin perez\AppData\Roaming\npm;E:\Program Files\usr\bin\vendor_perl;E:\Program Files\usr\bin\core_perl
 
 Yarn version: 
   1.12.3
@@ -183,7 +183,7 @@ npm manifest:
       "builtin-modules": "3.0.0",
       "codecov": "3.1.0",
       "cross-env": "5.2.0",
-      "cypress": "^3.1.3",
+      "cypress": "^3.1.4",
       "eslint": "5.6.1",
       "eslint-config-prettier": "3.1.0",
       "eslint-friendly-formatter": "4.0.1",
@@ -236,9 +236,9 @@ npm manifest:
       "build-docs": "node ./scripts/build-docs.js",
       "check-deps": "node ./scripts/check-deps.js"
     },
-    "name": "vscode",
+    "name": "r",
     "description": "![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)",
-    "version": "1.0.0",
+    "version": "        yarn workspaces",
     "main": "main.js",
     "bin": {
       "prettier-vscode": "prettier.js"
@@ -247,10 +247,7 @@ npm manifest:
       "doc": "docs",
       "test": "tests"
     },
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/edwinfrc/prettier.git"
-    },
+    "repository": "git+https://github.com/edwinfrc/prettier.git",
     "keywords": [
       "app",
       "web",
