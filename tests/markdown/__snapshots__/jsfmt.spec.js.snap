@@ -1635,8 +1635,8 @@ Valid options:
   This requires node 8 or a
   [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
-| Default  | CLI Override                                           | API Override                                           |
-| -------- | ------------------------------------------------------ | ------------------------------------------------------ |
+| Default | CLI Override | API Override |
+| --- | --- | --- |
 | \`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
 
 ### Bracket Spacing
@@ -1700,8 +1700,8 @@ Built-in parsers:
 
 [Custom parsers](#custom-parser-api) are also supported. _Since v1.5.0_
 
-| Default   | CLI Override                                    | API Override                                               |
-| --------- | ----------------------------------------------- | ---------------------------------------------------------- |
+| Default | CLI Override | API Override |
+| --- | --- | --- |
 | \`babylon\` | \`--parser <string>\`<br />\`--parser ./my-parser\` | \`parser: "<string>"\`<br />\`parser: require("./my-parser")\` |
 
 ### Filepath
@@ -3615,8 +3615,8 @@ Valid options:
   This requires node 8 or a
   [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
-| Default  | CLI Override                                           | API Override                                           |
-| -------- | ------------------------------------------------------ | ------------------------------------------------------ |
+| Default | CLI Override | API Override |
+| --- | --- | --- |
 | \`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
 
 ### Bracket Spacing
@@ -3680,8 +3680,8 @@ Built-in parsers:
 
 [Custom parsers](#custom-parser-api) are also supported. _Since v1.5.0_
 
-| Default   | CLI Override                                    | API Override                                               |
-| --------- | ----------------------------------------------- | ---------------------------------------------------------- |
+| Default | CLI Override | API Override |
+| --- | --- | --- |
 | \`babylon\` | \`--parser <string>\`<br />\`--parser ./my-parser\` | \`parser: "<string>"\`<br />\`parser: require("./my-parser")\` |
 
 ### Filepath
