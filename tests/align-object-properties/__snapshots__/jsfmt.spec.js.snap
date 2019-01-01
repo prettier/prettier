@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`o.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+o = {
+  [name]: 'value',
+  2:3,
+  "k-2":2,
+  keyasdf:3
+}
+
+o = {
+  [namelonglonglong]: 'value',
+  2:3,
+  "k-2":2,
+  keyasdf:3
+}
+
+// Ensure this object does not get extra padding:
+o = { [name]: 'value', 2:3, "k-2":2, keyasdf:3 }
+
+=====================================output=====================================
+o = {
+  [name]  : "value",
+  2       : 3,
+  "k-2"   : 2,
+  keyasdf : 3
+};
+
+o = {
+  [namelonglonglong] : "value",
+  2                  : 3,
+  "k-2"              : 2,
+  keyasdf            : 3
+};
+
+// Ensure this object does not get extra padding:
+o = { [name]: "value", 2: 3, "k-2": 2, keyasdf: 3 };
+
+================================================================================
+`;
