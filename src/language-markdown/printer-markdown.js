@@ -557,6 +557,11 @@ function printTable(path, options, print) {
     contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
 
+  const maxWidth = columnMaxWidths.reduce(
+    (preWidth, width) => preWidth + width,
+    0
+  );
+  const greaterThanPrintWidth = maxWidth > options.printWidth;
   return join(hardline, [
     printRow(contents[0]),
     printSeparator(),
@@ -569,15 +574,16 @@ function printTable(path, options, print) {
       join(
         " | ",
         columnMaxWidths.map((width, index) => {
+          const spaces = greaterThanPrintWidth ? 3 : width;
           switch (node.align[index]) {
             case "left":
-              return ":" + "-".repeat(width - 1);
+              return ":" + "-".repeat(spaces - 1);
             case "right":
-              return "-".repeat(width - 1) + ":";
+              return "-".repeat(spaces - 1) + ":";
             case "center":
-              return ":" + "-".repeat(width - 2) + ":";
+              return ":" + "-".repeat(spaces - 2) + ":";
             default:
-              return "-".repeat(width);
+              return "-".repeat(spaces);
           }
         })
       ),
@@ -606,15 +612,23 @@ function printTable(path, options, print) {
   }
 
   function alignLeft(text, width) {
-    return concat([text, " ".repeat(width - privateUtil.getStringWidth(text))]);
+    const spaces = greaterThanPrintWidth
+      ? 0
+      : width - privateUtil.getStringWidth(text);
+    return concat([text, " ".repeat(spaces)]);
   }
 
   function alignRight(text, width) {
-    return concat([" ".repeat(width - privateUtil.getStringWidth(text)), text]);
+    const spaces = greaterThanPrintWidth
+      ? 0
+      : width - privateUtil.getStringWidth(text);
+    return concat([" ".repeat(spaces), text]);
   }
 
   function alignCenter(text, width) {
-    const spaces = width - privateUtil.getStringWidth(text);
+    const spaces = greaterThanPrintWidth
+      ? 2
+      : width - privateUtil.getStringWidth(text);
     const left = Math.floor(spaces / 2);
     const right = spaces - left;
     return concat([" ".repeat(left), text, " ".repeat(right)]);
