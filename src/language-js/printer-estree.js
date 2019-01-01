@@ -222,12 +222,10 @@ function getPropertyPadding(options, path) {
   // grandparent node:
   const parentObject = path.getParentNode(1);
 
-  // XXX TODO THIS HAS A KNOWN BUG:
-  const shouldBreak = hasNewlineInRange(
-    options.originalText,
+  const shouldBreak = options.originalText.substring(
     options.locStart(parentObject),
     options.locEnd(parentObject)
-  );
+  ).match(/\{\s*(\/.*)?\n/);
 
   if (!shouldBreak) {
     return "";
