@@ -3,7 +3,7 @@
   "version": "0.0.1-dev",
   "description": "prettierx - less opinionated code formatter fork of prettier",
   "bin": {
-    "prettier": "./bin/prettier.js"
+    "prettierx": "./bin/prettierx.js"
   },
   "repository": "prettier/prettier",
   "homepage": "https://prettier.io",

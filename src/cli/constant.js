@@ -213,7 +213,7 @@ const options = {
 };
 
 const usageSummary = dedent`
-  Usage: prettier [options] [file/glob ...]
+  Usage: prettierx [options] [file/glob ...]
 
   By default, output is written to stdout.
   Stdin is read if it is piped to Prettier and no files are given.
