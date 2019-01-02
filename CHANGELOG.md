@@ -1,3 +1,37 @@
+# 1ca4731 (1.16.0-dev)
+
+- docs: Happy New Year! 🎁 ([#5699](https://github.com/prettier/prettier/pull/5699))
+- fix(ng,vue): add parens to avoid unexpected `}}` in interpolations ([#5657](https://github.com/prettier/prettier/pull/5657))
+- feat: add babel-flow ([#5685](https://github.com/prettier/prettier/pull/5685))
+- fix(playground): backward compatibility for --parser babylon ([#5690](https://github.com/prettier/prettier/pull/5690))
+- fix(playground): code sample for --parser babylon
+- fix(playground): backward compatibility for --parser babylon ([#5688](https://github.com/prettier/prettier/pull/5688))
+- Rename "babylon" with "babel" ([#5647](https://github.com/prettier/prettier/pull/5647))
+- Restore --check option docs ([#5674](https://github.com/prettier/prettier/pull/5674))
+- feat(website): enable docs versioning ([#5676](https://github.com/prettier/prettier/pull/5676))
+- Temporary remove --check docs until 1.16 is released to avoid confusion ([#5671](https://github.com/prettier/prettier/pull/5671))
+- fix(flow,ts): format `/* HTML */` templates ([#5658](https://github.com/prettier/prettier/pull/5658))
+- Add --check option ([#5629](https://github.com/prettier/prettier/pull/5629))
+- chore: update azure pipelines ([#5611](https://github.com/prettier/prettier/pull/5611))
+- Update string-width to support emoji natively ([#5646](https://github.com/prettier/prettier/pull/5646))
+- Fix formatting with --range-start / --range-end ([#5632](https://github.com/prettier/prettier/pull/5632))
+- fix(printer-postcss): ignore escape \ and escaped / in Less ([#5597](https://github.com/prettier/prettier/pull/5597))
+- feat(html): format script with "application/ld+json" ([#5642](https://github.com/prettier/prettier/pull/5642))
+- Add support for class private methods ([#5637](https://github.com/prettier/prettier/pull/5637))
+- fix(vue): tag names are case-sensitive ([#5606](https://github.com/prettier/prettier/pull/5606))
+- fix(javascript): correct indentation for expression in root template ([#5607](https://github.com/prettier/prettier/pull/5607))
+- Fix incorrect grammar ([#5626](https://github.com/prettier/prettier/pull/5626))
+- Remove the dynamic `require()` call in the standalone bundle ([#5612](https://github.com/prettier/prettier/pull/5612))
+- test: update snapshots
+- feat(html): preserve surrounding linebreaks ([#5596](https://github.com/prettier/prettier/pull/5596))
+- Add support for the React `useEffect` hook ([#5608](https://github.com/prettier/prettier/pull/5608))
+- Don’t run tests on Node 6 ([#5613](https://github.com/prettier/prettier/pull/5613))
+- fix: get rid of CRLF ([#5494](https://github.com/prettier/prettier/pull/5494))
+- Reformat the first version info in the option docs ([#5604](https://github.com/prettier/prettier/pull/5604))
+- Update example for `*.vue` ([#5605](https://github.com/prettier/prettier/pull/5605))
+- feat: add mjml extension to html language ([#5505](https://github.com/prettier/prettier/pull/5505))
+- feat(html): smart quote for attributes ([#5590](https://github.com/prettier/prettier/pull/5590))
+
 # 1.15.3
 
 [diff](https://github.com/prettier/prettier/compare/1.15.2...1.15.3)
