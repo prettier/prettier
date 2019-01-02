@@ -1,3 +1,6 @@
+# prettierx - less opinionated code formatter fork of prettier
+
+<!-- - TBD ???:
 ![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)
 
 <h2 align="center">Opinionated Code Formatter</h2>
@@ -55,10 +58,13 @@
   <a href="https://twitter.com/PrettierCode">
     <img alt="Follow Prettier on Twitter" src="https://img.shields.io/twitter/follow/prettiercode.svg?label=follow+prettier&style=flat-square"></a>
 </p>
+- -->
 
+<!-- - TBD ???:
 ## Intro
 
 Prettier is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary.
+- -->
 
 ### Input
 
@@ -78,22 +84,29 @@ foo(
 );
 ```
 
+<!-- - TBD ???:
 Prettier can be run [in your editor](http://prettier.io/docs/en/editors.html) on-save, in a [pre-commit hook](https://prettier.io/docs/en/precommit.html), or in [CI environments](https://prettier.io/docs/en/cli.html#list-different) to ensure your codebase has a consistent style without devs ever having to post a nit-picky comment on a code review ever again!
+- -->
 
 ---
 
+<!-- - TBD ???:
 **[Documentation](https://prettier.io/docs/en/)**
+- -->
 
 <!-- prettier-ignore -->
+<!-- - TBD ???:
 [Install](https://prettier.io/docs/en/install.html) ·
 [Options](https://prettier.io/docs/en/options.html) ·
 [CLI](https://prettier.io/docs/en/cli.html) ·
 [API](https://prettier.io/docs/en/api.html)
 
 **[Playground](https://prettier.io/playground/)**
+- -->
 
 ---
 
+<!-- - TBD ???:
 ## Badge
 
 Show the world you're using _Prettier_ → [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
@@ -101,6 +114,7 @@ Show the world you're using _Prettier_ → [![code style: prettier](https://img.
 ```md
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 ```
+- -->
 
 ## Contributing
 
