@@ -5,8 +5,8 @@
   "bin": {
     "prettierx": "./bin/prettierx.js"
   },
-  "repository": "prettier/prettier",
-  "homepage": "https://prettier.io",
+  "repository": "brodybits/prettierx",
+  "homepage": "https://github.com/brodybits/prettierx",
   "author": "James Long",
   "license": "MIT",
   "main": "./index.js",
