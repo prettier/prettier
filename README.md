@@ -1,6 +1,22 @@
 # prettierx - less opinionated code formatter fork of prettier
 
-<!-- - TBD ???:
+Unofficial fork, intended to provide some additional options to help improve consistency with [`feross/standard`](https://github.com/standard/standard) and [`Flet/semistandard`](https://github.com/Flet/semistandard). This fork is an attempt to pick up where [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) left off.
+
+## CLI Usage
+
+**Quick CLI usage:**
+
+```sh
+prettierx <options> <file(s)>
+```
+
+## Additional prettierx options
+
+| Option | Default value | CLI Override | API Override | Description                    |
+| ------ | ------------- | ------------ | ------------ | ------------------------------ |
+| TBD    | TBD           | TBD          | TBD          | TBD                            |
+
+<!-- - FUTURE TBD prettierx vs prettier (???):
 ![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)
 
 <h2 align="center">Opinionated Code Formatter</h2>
@@ -60,7 +76,7 @@
 </p>
 - -->
 
-<!-- - TBD ???:
+<!-- - FUTURE TBD prettierx vs prettier (???):
 ## Intro
 
 Prettier is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary.
@@ -84,18 +100,18 @@ foo(
 );
 ```
 
-<!-- - TBD ???:
+<!-- - FUTURE TBD prettierx vs prettier (???):
 Prettier can be run [in your editor](http://prettier.io/docs/en/editors.html) on-save, in a [pre-commit hook](https://prettier.io/docs/en/precommit.html), or in [CI environments](https://prettier.io/docs/en/cli.html#list-different) to ensure your codebase has a consistent style without devs ever having to post a nit-picky comment on a code review ever again!
 - -->
 
----
+<!-- -- --- -- -->
 
-<!-- - TBD ???:
+<!-- - FUTURE TBD prettierx vs prettier (???):
 **[Documentation](https://prettier.io/docs/en/)**
 - -->
 
 <!-- prettier-ignore -->
-<!-- - TBD ???:
+<!-- - FUTURE TBD prettierx vs prettier (???):
 [Install](https://prettier.io/docs/en/install.html) ·
 [Options](https://prettier.io/docs/en/options.html) ·
 [CLI](https://prettier.io/docs/en/cli.html) ·
@@ -106,7 +122,7 @@ Prettier can be run [in your editor](http://prettier.io/docs/en/editors.html) on
 
 ---
 
-<!-- - TBD ???:
+<!-- - FUTURE TBD prettierx vs prettier (???):
 ## Badge
 
 Show the world you're using _Prettier_ → [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
