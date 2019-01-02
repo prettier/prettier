@@ -82,6 +82,9 @@ Format options:
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
+  --space-before-function-paren
+                           Put a space before function parenthesis.
+                           Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
   --trailing-comma <none|es5|all>
@@ -230,6 +233,9 @@ Format options:
                            Defaults to preserve.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
+                           Defaults to false.
+  --space-before-function-paren
+                           Put a space before function parenthesis.
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.

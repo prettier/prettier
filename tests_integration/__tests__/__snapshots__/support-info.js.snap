@@ -40,8 +40,8 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
         \\"default\\": false,
         \\"type\\": \\"boolean\\",
       },
-      \\"tabWidth\\": Object {
-@@ -43,17 +59,15 @@
+      \\"spaceBeforeFunctionParen\\": Object {
+@@ -47,17 +63,15 @@
       \\"trailingComma\\": Object {
         \\"choices\\": Array [
           \\"none\\",
@@ -94,6 +94,10 @@ Object {
       "type": "int",
     },
     "singleQuote": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "spaceBeforeFunctionParen": Object {
       "default": false,
       "type": "boolean",
     },
@@ -1219,6 +1223,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"singleQuote\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put a space before function parenthesis.\\",
+      \\"name\\": \\"spaceBeforeFunctionParen\\",
+      \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },
     {

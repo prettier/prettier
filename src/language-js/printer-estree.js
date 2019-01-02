@@ -3736,14 +3736,16 @@ function printMethod(path, options, print) {
     key = concat(["[", key, "]"]);
   }
 
+  parts.push(key);
+
   parts.push(
-    key,
     concat(
       path.call(
         valuePath => [
           printFunctionTypeParameters(valuePath, options, print),
           group(
             concat([
+              options.spaceBeforeFunctionParen ? " " : "",
               printFunctionParams(valuePath, print, options),
               printReturnType(valuePath, print, options)
             ])
@@ -4234,6 +4236,7 @@ function printFunctionDeclaration(path, print, options) {
     printFunctionTypeParameters(path, options, print),
     group(
       concat([
+              options.spaceBeforeFunctionParen ? " " : "",
         printFunctionParams(path, print, options),
         printReturnType(path, print, options)
       ])

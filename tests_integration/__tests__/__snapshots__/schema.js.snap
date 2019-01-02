@@ -303,6 +303,11 @@ in order for it to be formatted.",
           "description": "Use single quotes instead of double quotes.",
           "type": "boolean",
         },
+        "spaceBeforeFunctionParen": Object {
+          "default": false,
+          "description": "Put a space before function parenthesis.",
+          "type": "boolean",
+        },
         "tabWidth": Object {
           "default": 2,
           "description": "Number of spaces per indentation level.",
