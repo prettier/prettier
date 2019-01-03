@@ -2,73 +2,42 @@
 
 exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
 "Snapshot Diff:
-- First value
-+ Second value
-
-@@ -16,19 +16,35 @@
-    \\"options\\": Object {
-      \\"bracketSpacing\\": Object {
-        \\"default\\": true,
-        \\"type\\": \\"boolean\\",
-      },
-+     \\"jsxBracketSameLine\\": Object {
-+       \\"default\\": false,
-+       \\"type\\": \\"boolean\\",
-+     },
-+     \\"parser\\": Object {
-+       \\"choices\\": Array [
-+         \\"flow\\",
-+         \\"babylon\\",
-+       ],
-+       \\"default\\": \\"babylon\\",
-+       \\"type\\": \\"choice\\",
-+     },
-      \\"printWidth\\": Object {
-        \\"default\\": 80,
-        \\"range\\": Object {
-          \\"end\\": Infinity,
-          \\"start\\": 0,
-          \\"step\\": 1,
-        },
-        \\"type\\": \\"int\\",
-      },
-+     \\"semi\\": Object {
-+       \\"default\\": true,
-+       \\"type\\": \\"boolean\\",
-+     },
-      \\"singleQuote\\": Object {
-        \\"default\\": false,
-        \\"type\\": \\"boolean\\",
-      },
-      \\"spaceBeforeFunctionParen\\": Object {
-@@ -47,17 +63,15 @@
-      \\"trailingComma\\": Object {
-        \\"choices\\": Array [
-          \\"none\\",
-          \\"es5\\",
-          \\"all\\",
--         true,
--         false,
-        ],
--       \\"default\\": false,
-+       \\"default\\": \\"none\\",
-        \\"type\\": \\"choice\\",
-      },
--     \\"useFlowParser\\": Object {
-+     \\"useTabs\\": Object {
-        \\"default\\": false,
-        \\"type\\": \\"boolean\\",
-      },
-    },
-  }"
+Compared values have no visual difference."
 `;
 
 exports[`API getSupportInfo() with version 0.0.0 1`] = `
 Object {
   "languages": Object {
+    "Angular": Array [
+      "angular",
+    ],
+    "CSS": Array [
+      "css",
+    ],
     "Flow": Array [
       "babel",
       "flow",
+    ],
+    "GraphQL": Array [
+      "graphql",
+    ],
+    "HTML": Array [
+      "html",
+    ],
+    "Handlebars": Array [
+      "glimmer",
+    ],
+    "JSON": Array [
+      "json",
+    ],
+    "JSON with Comments": Array [
+      "json",
+    ],
+    "JSON.stringify": Array [
+      "json-stringify",
+    ],
+    "JSON5": Array [
+      "json5",
     ],
     "JSX": Array [
       "babel",
@@ -78,11 +47,119 @@ Object {
       "babel",
       "flow",
     ],
+    "Less": Array [
+      "less",
+    ],
+    "MDX": Array [
+      "mdx",
+    ],
+    "Markdown": Array [
+      "markdown",
+    ],
+    "PostCSS": Array [
+      "css",
+    ],
+    "SCSS": Array [
+      "scss",
+    ],
+    "TypeScript": Array [
+      "typescript",
+    ],
+    "Vue": Array [
+      "vue",
+    ],
+    "YAML": Array [
+      "yaml",
+    ],
   },
   "options": Object {
+    "arrowParens": Object {
+      "choices": Array [
+        "avoid",
+        "always",
+      ],
+      "default": "avoid",
+      "type": "choice",
+    },
     "bracketSpacing": Object {
       "default": true,
       "type": "boolean",
+    },
+    "cursorOffset": Object {
+      "default": -1,
+      "range": Object {
+        "end": Infinity,
+        "start": -1,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "endOfLine": Object {
+      "choices": Array [
+        "auto",
+        "lf",
+        "crlf",
+        "cr",
+      ],
+      "default": "auto",
+      "type": "choice",
+    },
+    "filepath": Object {
+      "default": undefined,
+      "type": "path",
+    },
+    "htmlWhitespaceSensitivity": Object {
+      "choices": Array [
+        "css",
+        "strict",
+        "ignore",
+      ],
+      "default": "css",
+      "type": "choice",
+    },
+    "insertPragma": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "jsxBracketSameLine": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "jsxSingleQuote": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "parser": Object {
+      "choices": Array [
+        "flow",
+        "babel",
+        "babel-flow",
+        "typescript",
+        "css",
+        "less",
+        "scss",
+        "json",
+        "json5",
+        "json-stringify",
+        "graphql",
+        "markdown",
+        "mdx",
+        "vue",
+        "yaml",
+        "glimmer",
+        "html",
+        "angular",
+      ],
+      "default": undefined,
+      "type": "choice",
+    },
+    "pluginSearchDirs": Object {
+      "default": Array [],
+      "type": "path",
+    },
+    "plugins": Object {
+      "default": Array [],
+      "type": "path",
     },
     "printWidth": Object {
       "default": 80,
@@ -92,6 +169,41 @@ Object {
         "step": 1,
       },
       "type": "int",
+    },
+    "proseWrap": Object {
+      "choices": Array [
+        "always",
+        "never",
+        "preserve",
+      ],
+      "default": "preserve",
+      "type": "choice",
+    },
+    "rangeEnd": Object {
+      "default": Infinity,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "rangeStart": Object {
+      "default": 0,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "requirePragma": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "semi": Object {
+      "default": true,
+      "type": "boolean",
     },
     "singleQuote": Object {
       "default": false,
@@ -115,13 +227,11 @@ Object {
         "none",
         "es5",
         "all",
-        true,
-        false,
       ],
-      "default": false,
+      "default": "none",
       "type": "choice",
     },
-    "useFlowParser": Object {
+    "useTabs": Object {
       "default": false,
       "type": "boolean",
     },
@@ -131,466 +241,32 @@ Object {
 
 exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 "Snapshot Diff:
-- First value
-+ Second value
-
-@@ -1,7 +1,10 @@
-  Object {
-    \\"languages\\": Object {
-+     \\"CSS\\": Array [
-+       \\"postcss\\",
-+     ],
-      \\"Flow\\": Array [
-        \\"babel\\",
-        \\"flow\\",
-      ],
-      \\"JSX\\": Array [
-@@ -10,24 +13,51 @@
-      ],
-      \\"JavaScript\\": Array [
-        \\"babel\\",
-        \\"flow\\",
-      ],
-+     \\"Less\\": Array [
-+       \\"postcss\\",
-+     ],
-+     \\"PostCSS\\": Array [
-+       \\"postcss\\",
-+     ],
-+     \\"SCSS\\": Array [
-+       \\"postcss\\",
-+     ],
-+     \\"TypeScript\\": Array [
-+       \\"typescript\\",
-+     ],
-    },
-    \\"options\\": Object {
-      \\"bracketSpacing\\": Object {
-        \\"default\\": true,
-        \\"type\\": \\"boolean\\",
-      },
-+     \\"cursorOffset\\": Object {
-+       \\"default\\": -1,
-+       \\"range\\": Object {
-+         \\"end\\": Infinity,
-+         \\"start\\": -1,
-+         \\"step\\": 1,
-+       },
-+       \\"type\\": \\"int\\",
-+     },
-+     \\"filepath\\": Object {
-+       \\"default\\": undefined,
-+       \\"type\\": \\"path\\",
-+     },
-      \\"jsxBracketSameLine\\": Object {
-        \\"default\\": false,
-        \\"type\\": \\"boolean\\",
-      },
-      \\"parser\\": Object {
-        \\"choices\\": Array [
-          \\"flow\\",
-          \\"babylon\\",
-+         \\"typescript\\",
-+         \\"postcss\\",
-        ],
-        \\"default\\": \\"babylon\\",
-        \\"type\\": \\"choice\\",
-      },
-      \\"printWidth\\": Object {
-@@ -37,10 +67,28 @@
-          \\"start\\": 0,
-          \\"step\\": 1,
-        },
-        \\"type\\": \\"int\\",
-      },
-+     \\"rangeEnd\\": Object {
-+       \\"default\\": Infinity,
-+       \\"range\\": Object {
-+         \\"end\\": Infinity,
-+         \\"start\\": 0,
-+         \\"step\\": 1,
-+       },
-+       \\"type\\": \\"int\\",
-+     },
-+     \\"rangeStart\\": Object {
-+       \\"default\\": 0,
-+       \\"range\\": Object {
-+         \\"end\\": Infinity,
-+         \\"start\\": 0,
-+         \\"step\\": 1,
-+       },
-+       \\"type\\": \\"int\\",
-+     },
-      \\"semi\\": Object {
-        \\"default\\": true,
-        \\"type\\": \\"boolean\\",
-      },
-      \\"singleQuote\\": Object {"
+Compared values have no visual difference."
 `;
 
 exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 "Snapshot Diff:
-- First value
-+ Second value
-
-@@ -5,10 +5,19 @@
-      ],
-      \\"Flow\\": Array [
-        \\"babel\\",
-        \\"flow\\",
-      ],
-+     \\"GraphQL\\": Array [
-+       \\"graphql\\",
-+     ],
-+     \\"JSON\\": Array [
-+       \\"json\\",
-+     ],
-+     \\"JSON with Comments\\": Array [
-+       \\"json\\",
-+     ],
-      \\"JSX\\": Array [
-        \\"babel\\",
-        \\"flow\\",
-      ],
-      \\"JavaScript\\": Array [
-@@ -54,10 +63,12 @@
-        \\"choices\\": Array [
-          \\"flow\\",
-          \\"babylon\\",
-          \\"typescript\\",
-          \\"postcss\\",
-+         \\"json\\",
-+         \\"graphql\\",
-        ],
-        \\"default\\": \\"babylon\\",
-        \\"type\\": \\"choice\\",
-      },
-      \\"printWidth\\": Object {"
+Compared values have no visual difference."
 `;
 
 exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
 "Snapshot Diff:
-- First value
-+ Second value
-
-@@ -1,9 +1,9 @@
-  Object {
-    \\"languages\\": Object {
-      \\"CSS\\": Array [
--       \\"postcss\\",
-+       \\"css\\",
-      ],
-      \\"Flow\\": Array [
-        \\"babel\\",
-        \\"flow\\",
-      ],
-@@ -23,17 +23,17 @@
-      \\"JavaScript\\": Array [
-        \\"babel\\",
-        \\"flow\\",
-      ],
-      \\"Less\\": Array [
--       \\"postcss\\",
-+       \\"less\\",
-      ],
-      \\"PostCSS\\": Array [
--       \\"postcss\\",
-+       \\"css\\",
-      ],
-      \\"SCSS\\": Array [
--       \\"postcss\\",
-+       \\"scss\\",
-      ],
-      \\"TypeScript\\": Array [
-        \\"typescript\\",
-      ],
-    },
-@@ -62,11 +62,13 @@
-      \\"parser\\": Object {
-        \\"choices\\": Array [
-          \\"flow\\",
-          \\"babylon\\",
-          \\"typescript\\",
--         \\"postcss\\",
-+         \\"css\\",
-+         \\"less\\",
-+         \\"scss\\",
-          \\"json\\",
-          \\"graphql\\",
-        ],
-        \\"default\\": \\"babylon\\",
-        \\"type\\": \\"choice\\",
-@@ -96,10 +98,14 @@
-          \\"start\\": 0,
-          \\"step\\": 1,
-        },
-        \\"type\\": \\"int\\",
-      },
-+     \\"requirePragma\\": Object {
-+       \\"default\\": false,
-+       \\"type\\": \\"boolean\\",
-+     },
-      \\"semi\\": Object {
-        \\"default\\": true,
-        \\"type\\": \\"boolean\\",
-      },
-      \\"singleQuote\\": Object {"
+Compared values have no visual difference."
 `;
 
 exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
 "Snapshot Diff:
-- First value
-+ Second value
-
-@@ -25,10 +25,13 @@
-        \\"flow\\",
-      ],
-      \\"Less\\": Array [
-        \\"less\\",
-      ],
-+     \\"Markdown\\": Array [
-+       \\"markdown\\",
-+     ],
-      \\"PostCSS\\": Array [
-        \\"css\\",
-      ],
-      \\"SCSS\\": Array [
-        \\"scss\\",
-@@ -53,10 +56,14 @@
-      },
-      \\"filepath\\": Object {
-        \\"default\\": undefined,
-        \\"type\\": \\"path\\",
-      },
-+     \\"insertPragma\\": Object {
-+       \\"default\\": false,
-+       \\"type\\": \\"boolean\\",
-+     },
-      \\"jsxBracketSameLine\\": Object {
-        \\"default\\": false,
-        \\"type\\": \\"boolean\\",
-      },
-      \\"parser\\": Object {
-@@ -67,10 +74,11 @@
-          \\"css\\",
-          \\"less\\",
-          \\"scss\\",
-          \\"json\\",
-          \\"graphql\\",
-+         \\"markdown\\",
-        ],
-        \\"default\\": \\"babylon\\",
-        \\"type\\": \\"choice\\",
-      },
-      \\"printWidth\\": Object {"
+Compared values have no visual difference."
 `;
 
 exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
 "Snapshot Diff:
-- First value
-+ Second value
-
-@@ -88,10 +88,18 @@
-          \\"start\\": 0,
-          \\"step\\": 1,
-        },
-        \\"type\\": \\"int\\",
-      },
-+     \\"proseWrap\\": Object {
-+       \\"choices\\": Array [
-+         false,
-+         true,
-+       ],
-+       \\"default\\": true,
-+       \\"type\\": \\"choice\\",
-+     },
-      \\"rangeEnd\\": Object {
-        \\"default\\": Infinity,
-        \\"range\\": Object {
-          \\"end\\": Infinity,
-          \\"start\\": 0,"
+Compared values have no visual difference."
 `;
 
 exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 "Snapshot Diff:
-- First value
-+ Second value
-
-@@ -1,23 +1,35 @@
-  Object {
-    \\"languages\\": Object {
-+     \\"Angular\\": Array [
-+       \\"angular\\",
-+     ],
-      \\"CSS\\": Array [
-        \\"css\\",
-      ],
-      \\"Flow\\": Array [
-        \\"babel\\",
-        \\"flow\\",
-      ],
-      \\"GraphQL\\": Array [
-        \\"graphql\\",
-      ],
-+     \\"HTML\\": Array [
-+       \\"html\\",
-+     ],
-      \\"JSON\\": Array [
-        \\"json\\",
-      ],
-      \\"JSON with Comments\\": Array [
-        \\"json\\",
-      ],
-+     \\"JSON.stringify\\": Array [
-+       \\"json-stringify\\",
-+     ],
-+     \\"JSON5\\": Array [
-+       \\"json5\\",
-+     ],
-      \\"JSX\\": Array [
-        \\"babel\\",
-        \\"flow\\",
-      ],
-      \\"JavaScript\\": Array [
-@@ -25,10 +37,13 @@
-        \\"flow\\",
-      ],
-      \\"Less\\": Array [
-        \\"less\\",
-      ],
-+     \\"MDX\\": Array [
-+       \\"mdx\\",
-+     ],
-      \\"Markdown\\": Array [
-        \\"markdown\\",
-      ],
-      \\"PostCSS\\": Array [
-        \\"css\\",
-@@ -37,12 +52,26 @@
-        \\"scss\\",
-      ],
-      \\"TypeScript\\": Array [
-        \\"typescript\\",
-      ],
-+     \\"Vue\\": Array [
-+       \\"vue\\",
-+     ],
-+     \\"YAML\\": Array [
-+       \\"yaml\\",
-+     ],
-    },
-    \\"options\\": Object {
-+     \\"arrowParens\\": Object {
-+       \\"choices\\": Array [
-+         \\"avoid\\",
-+         \\"always\\",
-+       ],
-+       \\"default\\": \\"avoid\\",
-+       \\"type\\": \\"choice\\",
-+     },
-      \\"bracketSpacing\\": Object {
-        \\"default\\": true,
-        \\"type\\": \\"boolean\\",
-      },
-      \\"cursorOffset\\": Object {
-@@ -52,37 +81,76 @@
-          \\"start\\": -1,
-          \\"step\\": 1,
-        },
-        \\"type\\": \\"int\\",
-      },
-+     \\"endOfLine\\": Object {
-+       \\"choices\\": Array [
-+         \\"auto\\",
-+         \\"lf\\",
-+         \\"crlf\\",
-+         \\"cr\\",
-+       ],
-+       \\"default\\": \\"auto\\",
-+       \\"type\\": \\"choice\\",
-+     },
-      \\"filepath\\": Object {
-        \\"default\\": undefined,
-        \\"type\\": \\"path\\",
-      },
-+     \\"htmlWhitespaceSensitivity\\": Object {
-+       \\"choices\\": Array [
-+         \\"css\\",
-+         \\"strict\\",
-+         \\"ignore\\",
-+       ],
-+       \\"default\\": \\"css\\",
-+       \\"type\\": \\"choice\\",
-+     },
-      \\"insertPragma\\": Object {
-        \\"default\\": false,
-        \\"type\\": \\"boolean\\",
-      },
-      \\"jsxBracketSameLine\\": Object {
-        \\"default\\": false,
-        \\"type\\": \\"boolean\\",
-      },
-+     \\"jsxSingleQuote\\": Object {
-+       \\"default\\": false,
-+       \\"type\\": \\"boolean\\",
-+     },
-      \\"parser\\": Object {
-        \\"choices\\": Array [
-          \\"flow\\",
--         \\"babylon\\",
-+         \\"babel\\",
-+         \\"babel-flow\\",
-          \\"typescript\\",
-          \\"css\\",
-          \\"less\\",
-          \\"scss\\",
-          \\"json\\",
-+         \\"json5\\",
-+         \\"json-stringify\\",
-          \\"graphql\\",
-          \\"markdown\\",
-+         \\"mdx\\",
-+         \\"vue\\",
-+         \\"yaml\\",
-+         \\"html\\",
-+         \\"angular\\",
-        ],
--       \\"default\\": \\"babylon\\",
-+       \\"default\\": undefined,
-        \\"type\\": \\"choice\\",
-      },
-+     \\"pluginSearchDirs\\": Object {
-+       \\"default\\": Array [],
-+       \\"type\\": \\"path\\",
-+     },
-+     \\"plugins\\": Object {
-+       \\"default\\": Array [],
-+       \\"type\\": \\"path\\",
-+     },
-      \\"printWidth\\": Object {
-        \\"default\\": 80,
-        \\"range\\": Object {
-          \\"end\\": Infinity,
-          \\"start\\": 0,
-@@ -90,14 +158,15 @@
-        },
-        \\"type\\": \\"int\\",
-      },
-      \\"proseWrap\\": Object {
-        \\"choices\\": Array [
--         false,
--         true,
-+         \\"always\\",
-+         \\"never\\",
-+         \\"preserve\\",
-        ],
--       \\"default\\": true,
-+       \\"default\\": \\"preserve\\",
-        \\"type\\": \\"choice\\",
-      },
-      \\"rangeEnd\\": Object {
-        \\"default\\": Infinity,
-        \\"range\\": Object {"
+Compared values have no visual difference."
 `;
 
 exports[`CLI --support-info (stderr) 1`] = `""`;
@@ -838,6 +514,19 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"tmScope\\": \\"source.scss\\",
       \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"scss\\"]
+    },
+    {
+      \\"aceMode\\": \\"handlebars\\",
+      \\"aliases\\": [\\"hbs\\", \\"htmlbars\\"],
+      \\"extensions\\": [\\".handlebars\\", \\".hbs\\"],
+      \\"group\\": \\"HTML\\",
+      \\"linguistLanguageId\\": 155,
+      \\"name\\": \\"Handlebars\\",
+      \\"parsers\\": [\\"glimmer\\"],
+      \\"since\\": null,
+      \\"tmScope\\": \\"text.html.handlebars\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"handlebars\\"]
     },
     {
       \\"aceMode\\": \\"text\\",
@@ -1112,6 +801,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"MDX\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"mdx\\" },
         { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" },
         { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" },
+        { \\"description\\": \\"Handlebars\\", \\"since\\": null, \\"value\\": \\"glimmer\\" },
         { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" },
         { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" }
       ],
