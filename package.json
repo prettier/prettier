@@ -128,7 +128,7 @@
     "perf-benchmark": "yarn && yarn build && cross-env NODE_ENV=production node ./dist/bin-prettier.js --debug-benchmark --loglevel debug ${PERF_FILE:-./index.js} > /dev/null",
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "lint-docs": "prettylint {.,docs,website,website/blog}/*.md",
-    "lint-dist": "eslint --no-eslintrc --no-ignore --env=browser \"dist/!(bin-prettier|index|third-party).js\"",
+    "lint-dist": "eslint --no-eslintrc --no-ignore --env=browser \"dist/!(bin-prettierx|index|third-party).js\"",
     "build": "node --max-old-space-size=2048 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js"
