@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`checks stdin with --list-different (write) 1`] = `Array []`;
+
+exports[`checks stdin with -l (alias for --list-different) (write) 1`] = `Array []`;

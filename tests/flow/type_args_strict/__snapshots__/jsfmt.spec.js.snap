@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * Test strict type param arity checking.
  *
@@ -72,7 +77,8 @@ class MySubclass extends MyClass { // ok, type arg inferred
 function singleton<T>(x: T):Array<T> { return [x]; }
 
 var num_array:Array<number> = singleton(0); // ok, type arg inferred
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * Test strict type param arity checking.
  *
@@ -149,4 +155,5 @@ function singleton<T>(x: T): Array<T> {
 
 var num_array: Array<number> = singleton(0); // ok, type arg inferred
 
+================================================================================
 `;

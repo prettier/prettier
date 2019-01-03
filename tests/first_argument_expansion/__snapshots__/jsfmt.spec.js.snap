@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - babylon-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 setTimeout(function() {
   thing();
 }, 500);
@@ -114,7 +119,8 @@ setTimeout(/* blip */ function() {
 func((args) => {
   execute(args);
 }, result => result && console.log("success"))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 setTimeout(function() {
   thing();
 }, 500);
@@ -277,4 +283,5 @@ func(
   result => result && console.log("success")
 );
 
+================================================================================
 `;

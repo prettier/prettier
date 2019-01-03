@@ -1,19 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js - flow-verify 1`] = `
+exports[`A.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @providesModule A */
 class Implementation {}
 export function foo(): Implementation { return new Implementation; }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @providesModule A */
 class Implementation {}
 export function foo(): Implementation {
   return new Implementation();
 }
 
+================================================================================
 `;
 
-exports[`ExplicitProvidesModuleDifferentName.js - flow-verify 1`] = `
+exports[`ExplicitProvidesModuleDifferentName.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
  * @providesModule ExplicitProvidesModuleDifferentName
  * @flow
@@ -21,7 +33,8 @@ exports[`ExplicitProvidesModuleDifferentName.js - flow-verify 1`] = `
 
 class Implementation {}
 module.exports.fun = (): Implementation => new Implementation;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
  * @providesModule ExplicitProvidesModuleDifferentName
  * @flow
@@ -30,9 +43,15 @@ module.exports.fun = (): Implementation => new Implementation;
 class Implementation {}
 module.exports.fun = (): Implementation => new Implementation();
 
+================================================================================
 `;
 
-exports[`ExplicitProvidesModuleSameName.js - flow-verify 1`] = `
+exports[`ExplicitProvidesModuleSameName.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
  * @providesModule ExplicitProvidesModuleSameName
  * @flow
@@ -40,7 +59,8 @@ exports[`ExplicitProvidesModuleSameName.js - flow-verify 1`] = `
 
 class Implementation {}
 module.exports.fun = (): Implementation => new Implementation;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
  * @providesModule ExplicitProvidesModuleSameName
  * @flow
@@ -49,9 +69,15 @@ module.exports.fun = (): Implementation => new Implementation;
 class Implementation {}
 module.exports.fun = (): Implementation => new Implementation();
 
+================================================================================
 `;
 
-exports[`ImplicitProvidesModule.js - flow-verify 1`] = `
+exports[`ImplicitProvidesModule.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
  * @providesModule ImplicitProvidesModule
  * @flow
@@ -59,7 +85,8 @@ exports[`ImplicitProvidesModule.js - flow-verify 1`] = `
 
 class Implementation {}
 module.exports.fun = (): Implementation => new Implementation;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
  * @providesModule ImplicitProvidesModule
  * @flow
@@ -68,16 +95,29 @@ module.exports.fun = (): Implementation => new Implementation;
 class Implementation {}
 module.exports.fun = (): Implementation => new Implementation();
 
+================================================================================
 `;
 
-exports[`md5.js - flow-verify 1`] = `
-/* @providesModule md5 */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`md5.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @providesModule md5 */
 
+=====================================output=====================================
+/* @providesModule md5 */
+
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var Implicit = require('ImplicitProvidesModule');
@@ -88,7 +128,8 @@ var ExplicitSameName = require('ExplicitProvidesModuleSameName');
 
 var ExplicitDifferentName = require('ExplicitProvidesModuleDifferentName');
 (ExplicitDifferentName.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var Implicit = require("ImplicitProvidesModule");
@@ -100,4 +141,5 @@ var ExplicitSameName = require("ExplicitProvidesModuleSameName");
 var ExplicitDifferentName = require("ExplicitProvidesModuleDifferentName");
 (ExplicitDifferentName.fun(): boolean); // Error: Either Implementation ~> boolean or Declaration ~> boolean
 
+================================================================================
 `;

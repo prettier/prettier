@@ -449,3 +449,10 @@ this_really_should_split_across_lines =
   <div>
     before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after
   </div>
+
+let myDiv = ReactTestUtils.renderIntoDocument(
+  <div>
+    <div key="theDog" className="dog" />,
+    <div key="theBird" className="bird" />
+  </div>
+);

@@ -62,6 +62,36 @@ const options = {
     `,
     cliCategory: CATEGORY_EDITOR
   },
+  endOfLine: {
+    since: "1.15.0",
+    category: CATEGORY_GLOBAL,
+    type: "choice",
+    default: "auto",
+    description: "Which end of line characters to apply.",
+    choices: [
+      {
+        value: "auto",
+        description: dedent`
+          Maintain existing
+          (mixed values within one file are normalised by looking at what's used after the first line)
+        `
+      },
+      {
+        value: "lf",
+        description:
+          "Line Feed only (\\n), common on Linux and macOS as well as inside git repos"
+      },
+      {
+        value: "crlf",
+        description:
+          "Carriage Return + Line Feed characters (\\r\\n), common on Windows"
+      },
+      {
+        value: "cr",
+        description: "Carriage Return character only (\\r), used very rarely"
+      }
+    ]
+  },
   filepath: {
     since: "1.4.0",
     category: CATEGORY_SPECIAL,
@@ -93,7 +123,14 @@ const options = {
       typeof value === "string" || typeof value === "function",
     choices: [
       { value: "flow", description: "Flow" },
-      { value: "babylon", description: "JavaScript" },
+      {
+        value: "babylon",
+        description: "JavaScript",
+        deprecated: "1.16.0",
+        redirect: "babel"
+      },
+      { value: "babel", since: "1.16.0", description: "JavaScript" },
+      { value: "babel-flow", since: "1.16.0", description: "Flow" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
       { value: "css", since: "1.7.1", description: "CSS" },
       {
@@ -122,7 +159,8 @@ const options = {
         since: null,
         description: "Handlebars"
       },
-      { value: "html", since: "1.15.0", description: "HTML" }
+      { value: "html", since: "1.15.0", description: "HTML" },
+      { value: "angular", since: "1.15.0", description: "Angular" }
     ]
   },
   plugins: {

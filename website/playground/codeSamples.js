@@ -1,6 +1,7 @@
 export default function(parser) {
   switch (parser) {
-    case "babylon":
+    case "babel":
+    case "babylon": // backward compatibility
       return [
         'function HelloWorld({greeting = "hello", greeted = \'"World"\', silent = false, onMouseOver,}) {',
         "",
@@ -218,7 +219,7 @@ export default function(parser) {
     case "vue":
       return [
         "<template>",
-        "  <p>Templates are not formatted yet ...",
+        "  <p>Templates are formatted as well...",
         "    </p>",
         "</template>",
         "",
@@ -283,6 +284,7 @@ export default function(parser) {
         "</div> </div>"
       ].join("\n");
     case "html":
+    case "angular":
       return [
         "<!DOCTYPE html>",
         '<HTML CLASS="no-js mY-ClAsS">',

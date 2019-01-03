@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`XControllerURIBuilder.js - flow-verify 1`] = `
+exports[`XControllerURIBuilder.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @generated SignedSource<<13ca42bbc7fe91f15057861e18a77d88>>
  *
@@ -31,7 +36,8 @@ class XControllerURIBuilder {
 }
 
 module.exports = XControllerURIBuilder;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @generated SignedSource<<13ca42bbc7fe91f15057861e18a77d88>>
  *
@@ -62,4 +68,5 @@ class XControllerURIBuilder {
 
 module.exports = XControllerURIBuilder;
 
+================================================================================
 `;

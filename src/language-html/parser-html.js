@@ -1,225 +1,302 @@
 "use strict";
 
 const parseFrontMatter = require("../utils/front-matter");
-const { HTML_ELEMENT_ATTRIBUTES, HTML_TAGS, mapNode } = require("./utils");
+const { HTML_ELEMENT_ATTRIBUTES, HTML_TAGS } = require("./utils");
+const { hasPragma } = require("./pragma");
+const createError = require("../common/parser-create-error");
+const { Node } = require("./ast");
+const { parseIeConditionalComment } = require("./conditional-comment");
 
-function parse(text, parsers, options, { shouldParseFrontMatter = true } = {}) {
+function ngHtmlParser(
+  input,
+  {
+    recognizeSelfClosing,
+    normalizeTagName,
+    normalizeAttributeName,
+    allowHtmComponentClosingTags,
+    isTagNameCaseSensitive
+  }
+) {
+  const parser = require("angular-html-parser");
+  const {
+    RecursiveVisitor,
+    visitAll,
+    Attribute,
+    CDATA,
+    Comment,
+    DocType,
+    Element,
+    Text
+  } = require("angular-html-parser/lib/compiler/src/ml_parser/ast");
+  const {
+    ParseSourceSpan
+  } = require("angular-html-parser/lib/compiler/src/parse_util");
+  const {
+    getHtmlTagDefinition
+  } = require("angular-html-parser/lib/compiler/src/ml_parser/html_tags");
+
+  const { rootNodes, errors } = parser.parse(input, {
+    canSelfClose: recognizeSelfClosing,
+    allowHtmComponentClosingTags,
+    isTagNameCaseSensitive
+  });
+
+  if (errors.length !== 0) {
+    const { msg, span } = errors[0];
+    const { line, col } = span.start;
+    throw createError(msg, { start: { line: line + 1, column: col + 1 } });
+  }
+
+  const addType = node => {
+    if (node instanceof Attribute) {
+      node.type = "attribute";
+    } else if (node instanceof CDATA) {
+      node.type = "cdata";
+    } else if (node instanceof Comment) {
+      node.type = "comment";
+    } else if (node instanceof DocType) {
+      node.type = "docType";
+    } else if (node instanceof Element) {
+      node.type = "element";
+    } else if (node instanceof Text) {
+      node.type = "text";
+    } else {
+      throw new Error(`Unexpected node ${JSON.stringify(node)}`);
+    }
+  };
+
+  const restoreName = node => {
+    const namespace = node.name.startsWith(":")
+      ? node.name.slice(1).split(":")[0]
+      : null;
+    const rawName = node.nameSpan ? node.nameSpan.toString() : node.name;
+    const hasExplicitNamespace = rawName.startsWith(`${namespace}:`);
+    const name = hasExplicitNamespace
+      ? rawName.slice(namespace.length + 1)
+      : rawName;
+
+    node.name = name;
+    node.namespace = namespace;
+    node.hasExplicitNamespace = hasExplicitNamespace;
+  };
+
+  const restoreNameAndValue = node => {
+    if (node instanceof Element) {
+      restoreName(node);
+      node.attrs.forEach(attr => {
+        restoreName(attr);
+        if (!attr.valueSpan) {
+          attr.value = null;
+        } else {
+          attr.value = attr.valueSpan.toString();
+          if (/['"]/.test(attr.value[0])) {
+            attr.value = attr.value.slice(1, -1);
+          }
+        }
+      });
+    } else if (node instanceof Comment) {
+      node.value = node.sourceSpan
+        .toString()
+        .slice("<!--".length, -"-->".length);
+    } else if (node instanceof Text) {
+      node.value = node.sourceSpan.toString();
+    }
+  };
+
+  const lowerCaseIfFn = (text, fn) => {
+    const lowerCasedText = text.toLowerCase();
+    return fn(lowerCasedText) ? lowerCasedText : text;
+  };
+  const normalizeName = node => {
+    if (node instanceof Element) {
+      if (
+        normalizeTagName &&
+        (!node.namespace ||
+          node.namespace === node.tagDefinition.implicitNamespacePrefix)
+      ) {
+        node.name = lowerCaseIfFn(
+          node.name,
+          lowerCasedName => lowerCasedName in HTML_TAGS
+        );
+      }
+
+      if (normalizeAttributeName) {
+        const CURRENT_HTML_ELEMENT_ATTRIBUTES =
+          HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
+        node.attrs.forEach(attr => {
+          if (!attr.namespace) {
+            attr.name = lowerCaseIfFn(
+              attr.name,
+              lowerCasedAttrName =>
+                node.name in HTML_ELEMENT_ATTRIBUTES &&
+                (lowerCasedAttrName in HTML_ELEMENT_ATTRIBUTES["*"] ||
+                  lowerCasedAttrName in CURRENT_HTML_ELEMENT_ATTRIBUTES)
+            );
+          }
+        });
+      }
+    }
+  };
+
+  const fixSourceSpan = node => {
+    if (node.sourceSpan && node.endSourceSpan) {
+      node.sourceSpan = new ParseSourceSpan(
+        node.sourceSpan.start,
+        node.endSourceSpan.end
+      );
+    }
+  };
+
+  const addTagDefinition = node => {
+    if (node instanceof Element) {
+      const tagDefinition = getHtmlTagDefinition(
+        isTagNameCaseSensitive ? node.name : node.name.toLowerCase()
+      );
+      if (
+        !node.namespace ||
+        node.namespace === tagDefinition.implicitNamespacePrefix
+      ) {
+        node.tagDefinition = tagDefinition;
+      } else {
+        node.tagDefinition = getHtmlTagDefinition(""); // the default one
+      }
+    }
+  };
+
+  visitAll(
+    new class extends RecursiveVisitor {
+      visit(node) {
+        addType(node);
+        restoreNameAndValue(node);
+        addTagDefinition(node);
+        normalizeName(node);
+        fixSourceSpan(node);
+      }
+    }(),
+    rootNodes
+  );
+
+  return rootNodes;
+}
+
+function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
   const { frontMatter, content } = shouldParseFrontMatter
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
 
-  // Inline the require to avoid loading all the JS if we don't use it
-  const Parser = require("htmlparser2/lib/Parser");
-  const DomHandler = require("domhandler");
-
-  /**
-   * modifications:
-   * - empty attributes (e.g., `<tag attr>`) are parsed as `{ [attr]: null }` instead of `{ [attr]: "" }`
-   * - trigger `Handler#onselfclosingtag()`
-   */
-  class CustomParser extends Parser {
-    constructor(cbs, options) {
-      super(cbs, options);
-      this._attribvalue = null;
-    }
-    onattribdata(value) {
-      if (this._attribvalue === null) {
-        this._attribvalue = "";
-      }
-      super.onattribdata(value);
-    }
-    onattribend() {
-      if (this._cbs.onattribute) {
-        this._cbs.onattribute(this._attribname, this._attribvalue);
-      }
-      if (this._attribs) {
-        this._attribs.push([this._attribname, this._attribvalue]);
-      }
-      this._attribname = "";
-      this._attribvalue = null;
-    }
-    onselfclosingtag() {
-      if (this._options.xmlMode || this._options.recognizeSelfClosing) {
-        const name = this._tagname;
-        this.onopentagend();
-        if (this._stack[this._stack.length - 1] === name) {
-          this._cbs.onselfclosingtag();
-          this._cbs.onclosetag(name);
-          this._stack.pop();
-        }
-      } else {
-        this.onopentagend();
-      }
-    }
-    onopentagname(name) {
-      super.onopentagname(name);
-      if (this._cbs.onopentag) {
-        this._attribs = [];
-      }
-    }
-  }
-
-  /**
-   * modifications:
-   * - add `isSelfClosing` field
-   * - correct `endIndex` for whitespaces before closing tag end marker (e.g., `<x></x\n>`)
-   */
-  class CustomDomHandler extends DomHandler {
-    onselfclosingtag() {
-      this._tagStack[this._tagStack.length - 1].isSelfClosing = true;
-    }
-    onclosetag() {
-      const elem = this._tagStack.pop();
-      if (this._options.withEndIndices && elem) {
-        const buffer = this._parser._tokenizer._buffer;
-        let endIndex = this._parser.endIndex;
-        while (buffer[endIndex] && buffer[endIndex] !== ">") {
-          endIndex++;
-        }
-        elem.endIndex = buffer[endIndex] ? endIndex : this._parser.endIndex;
-      }
-      if (this._elementCB) {
-        this._elementCB(elem);
-      }
-    }
-  }
-
-  const handler = new CustomDomHandler({
-    withStartIndices: true,
-    withEndIndices: true
-  });
-
-  new CustomParser(handler, {
-    lowerCaseTags: true, // preserve lowercase tag names to avoid false check in htmlparser2 and apply the lowercasing later
-    lowerCaseAttributeNames: false,
-    recognizeSelfClosing: true
-  }).end(content);
-
-  const ast = normalize(
-    {
-      type: "root",
-      children: handler.dom,
-      startIndex: 0,
-      endIndex: text.length
-    },
-    text
-  );
+  const rawAst = {
+    type: "root",
+    sourceSpan: { start: { offset: 0 }, end: { offset: text.length } },
+    children: ngHtmlParser(content, parserOptions)
+  };
 
   if (frontMatter) {
-    ast.children.unshift(frontMatter);
+    rawAst.children.unshift(frontMatter);
   }
 
-  const parseHtml = data =>
-    parse(data, parsers, options, {
-      shouldParseFrontMatter: false
-    });
+  const ast = new Node(rawAst);
 
-  return mapNode(ast, node => {
-    const ieConditionalComment = parseIeConditionalComment(node, parseHtml);
-    return ieConditionalComment ? ieConditionalComment : node;
-  });
-}
-
-function parseIeConditionalComment(node, parseHtml) {
-  if (node.type !== "comment") {
-    return null;
-  }
-
-  const match = node.data.match(/^(\[if([^\]]*?)\]>)([\s\S]*?)<!\s*\[endif\]$/);
-
-  if (!match) {
-    return null;
-  }
-
-  const [, openingTagSuffix, condition, data] = match;
-  const subTree = parseHtml(data);
-  const baseIndex = node.startIndex + "<!--".length + openingTagSuffix.length;
-
-  return Object.assign(
-    {},
-    mapNode(subTree, currentNode =>
-      Object.assign({}, currentNode, {
-        startIndex: baseIndex + currentNode.startIndex,
-        endIndex: baseIndex + currentNode.endIndex
-      })
-    ),
-    {
-      type: "ieConditionalComment",
-      condition: condition.trim().replace(/\s+/g, " ")
-    }
-  );
-}
-
-function normalize(node, text) {
-  delete node.parent;
-  delete node.next;
-  delete node.prev;
-
-  if (node.type === "tag" && !(node.name in HTML_TAGS)) {
-    node.name = text.slice(
-      node.startIndex + 1, // <
-      node.startIndex + 1 + node.name.length
+  const parseSubHtml = (subContent, startSpan) => {
+    const { offset } = startSpan;
+    const fakeContent = text.slice(0, offset).replace(/[^\r\n]/g, " ");
+    const realContent = subContent;
+    const subAst = _parse(
+      fakeContent + realContent,
+      options,
+      parserOptions,
+      false
     );
-  }
+    const ParseSourceSpan = subAst.children[0].sourceSpan.constructor;
+    subAst.sourceSpan = new ParseSourceSpan(
+      startSpan,
+      subAst.children[subAst.children.length - 1].sourceSpan.end
+    );
+    const firstText = subAst.children[0];
+    if (firstText.length === offset) {
+      subAst.children.shift();
+    } else {
+      firstText.sourceSpan = new ParseSourceSpan(
+        firstText.sourceSpan.start.moveBy(offset),
+        firstText.sourceSpan.end
+      );
+      firstText.value = firstText.value.slice(offset);
+    }
+    return subAst;
+  };
 
-  if (node.attribs) {
-    const CURRENT_HTML_ELEMENT_ATTRIBUTES =
-      HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
-    const attributes = node.attribs.map(([attributeKey, attributeValue]) => {
-      const lowerCaseAttributeKey = attributeKey.toLowerCase();
-      return {
-        type: "attribute",
-        key:
-          lowerCaseAttributeKey in HTML_ELEMENT_ATTRIBUTES["*"] ||
-          lowerCaseAttributeKey in CURRENT_HTML_ELEMENT_ATTRIBUTES
-            ? lowerCaseAttributeKey
-            : attributeKey,
-        value: attributeValue
-      };
-    });
+  const isFakeElement = node => node.type === "element" && !node.nameSpan;
+  return ast.map(node => {
+    if (node.children && node.children.some(isFakeElement)) {
+      const newChildren = [];
 
-    const attribs = Object.create(null);
-    for (const attribute of attributes) {
-      attribs[attribute.key] = attribute.value;
+      for (const child of node.children) {
+        if (isFakeElement(child)) {
+          Array.prototype.push.apply(newChildren, child.children);
+        } else {
+          newChildren.push(child);
+        }
+      }
+
+      return node.clone({ children: newChildren });
     }
 
-    node.attribs = attribs;
-    node.attributes = attributes;
-  }
+    if (node.type === "comment") {
+      const ieConditionalComment = parseIeConditionalComment(
+        node,
+        parseSubHtml
+      );
+      if (ieConditionalComment) {
+        return ieConditionalComment;
+      }
+    }
 
-  if (node.children) {
-    node.children = node.children.map(child => normalize(child, text));
-  }
-
-  if (
-    node.type === "tag" &&
-    node.name === "textarea" &&
-    node.children.length === 1 &&
-    node.children[0].type === "text" &&
-    node.children[0].data === "\n" &&
-    !/<\/textarea>$/.test(text.slice(locStart(node), locEnd(node)))
-  ) {
-    node.children = [];
-  }
-
-  return node;
+    return node;
+  });
 }
 
 function locStart(node) {
-  return node.startIndex;
+  return node.sourceSpan.start.offset;
 }
 
 function locEnd(node) {
-  return node.endIndex + 1;
+  return node.sourceSpan.end.offset;
+}
+
+function createParser({
+  recognizeSelfClosing = false,
+  normalizeTagName = false,
+  normalizeAttributeName = false,
+  allowHtmComponentClosingTags = false,
+  isTagNameCaseSensitive = false
+} = {}) {
+  return {
+    parse: (text, parsers, options) =>
+      _parse(text, options, {
+        recognizeSelfClosing,
+        normalizeTagName,
+        normalizeAttributeName,
+        allowHtmComponentClosingTags,
+        isTagNameCaseSensitive
+      }),
+    hasPragma,
+    astFormat: "html",
+    locStart,
+    locEnd
+  };
 }
 
 module.exports = {
   parsers: {
-    html: {
-      parse,
-      astFormat: "htmlparser2",
-      locStart,
-      locEnd
-    }
+    html: createParser({
+      recognizeSelfClosing: true,
+      normalizeTagName: true,
+      normalizeAttributeName: true,
+      allowHtmComponentClosingTags: true
+    }),
+    angular: createParser(),
+    vue: createParser({
+      recognizeSelfClosing: true,
+      isTagNameCaseSensitive: true
+    })
   }
 };

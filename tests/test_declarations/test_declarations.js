@@ -117,3 +117,14 @@ it(`handles
 it("does something quick", () => {
   console.log("hello!")
 }, 1000000000)
+
+it(
+  'succeeds if the test finishes in time',
+  () => new Promise(resolve => setTimeout(resolve, 10))
+);
+
+it(
+  'succeeds if the test finishes in time',
+  () => new Promise(resolve => setTimeout(resolve, 10)),
+  250
+);

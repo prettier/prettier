@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`annot.js - flow-verify 1`] = `
+exports[`annot.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A<X> { }
 new A; // OK, implicitly inferred type args
 class B extends A { } // OK, same as above
@@ -12,7 +17,8 @@ function foo(b): A<any> { // ok but unsafe, caller may assume any type arg
 function bar(): A<*> { // error, * can't be {} and {x: string} at the same time
   return (new A: A<{}>) || (new A: A<{x: string}>);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class A<X> {}
 new A(); // OK, implicitly inferred type args
 class B extends A {} // OK, same as above
@@ -27,9 +33,15 @@ function bar(): A<*> {
   return (new A(): A<{}>) || (new A(): A<{ x: string }>);
 }
 
+================================================================================
 `;
 
-exports[`implicit_bounded_instantiation.js - flow-verify 1`] = `
+exports[`implicit_bounded_instantiation.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 class Base {}
@@ -50,7 +62,8 @@ a.meth(new Middle());
 a.meth(new Child());
 a.meth(42); // Error: number ~> Middle
 a.meth(new Base()); // Error: Base ~> Middle
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 class Base {}
@@ -72,9 +85,15 @@ a.meth(new Child());
 a.meth(42); // Error: number ~> Middle
 a.meth(new Base()); // Error: Base ~> Middle
 
+================================================================================
 `;
 
-exports[`issue-1029.js - flow-verify 1`] = `
+exports[`issue-1029.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // naive unification causes combinatorial explosion here,
@@ -93,7 +112,8 @@ declare var bool: Box<boolean>;
 declare function unbox<A>(box: Box<A>): A
 
 unbox(bool);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // naive unification causes combinatorial explosion here,
@@ -113,9 +133,15 @@ declare function unbox<A>(box: Box<A>): A;
 
 unbox(bool);
 
+================================================================================
 `;
 
-exports[`poly.js - flow-verify 1`] = `
+exports[`poly.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class Foo<T> {
     x:T;
     constructor(x:T) { this.x = x; }
@@ -134,7 +160,8 @@ declare var Q: {
 var foo = new Foo(0);
 var x:string = foo.x;
 var z:Foo<number> = Q.bar(foo,"");
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Foo<T> {
   x: T;
   constructor(x: T) {
@@ -158,9 +185,15 @@ var foo = new Foo(0);
 var x: string = foo.x;
 var z: Foo<number> = Q.bar(foo, "");
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class C {
   foo<X>(x: X): X { return x; }
   foo_<X: number>(x: X): number { return x; }
@@ -173,7 +206,8 @@ class D extends C {
   bar<X>(x: X): X { return x; } // OK
   qux<X>(x: X): X { return x; } // OK (generalization)
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class C {
   foo<X>(x: X): X {
     return x;
@@ -203,4 +237,5 @@ class D extends C {
   } // OK (generalization)
 }
 
+================================================================================
 `;

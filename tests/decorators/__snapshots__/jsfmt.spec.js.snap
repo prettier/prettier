@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classes.js - babylon-verify 1`] = `
+exports[`classes.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @deco class Foo {}
 
 @deco export class Bar {}
@@ -16,7 +21,8 @@ const foo =
   class {
     //
   };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @deco
 class Foo {}
 
@@ -38,9 +44,15 @@ const foo =
     //
   };
 
+================================================================================
 `;
 
-exports[`comments.js - babylon-verify 1`] = `
+exports[`comments.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x = 100
 
 @Hello({
@@ -72,7 +84,8 @@ export class AppModule {}
 @Bar()
 // C
 export class Bar{}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x = 100;
 
 @Hello({
@@ -102,9 +115,15 @@ export class AppModule {}
 // C
 export class Bar {}
 
+================================================================================
 `;
 
-exports[`methods.js - babylon-verify 1`] = `
+exports[`methods.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 class Yo {
   @foo("hello")
@@ -115,7 +134,8 @@ class Yo {
 
   @anotherDecoratorWithALongName("another very long string, but now inline") async plip() {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Yo {
   @foo("hello")
   async plop() {}
@@ -127,9 +147,15 @@ class Yo {
   async plip() {}
 }
 
+================================================================================
 `;
 
-exports[`mobx.js - babylon-verify 1`] = `
+exports[`mobx.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import {observable} from "mobx";
 
 @observer class OrderLine {
@@ -147,8 +173,27 @@ import {observable} from "mobx";
   @action.bound setPrice(price) {
     this.price = price;
   }
+
+  @computed
+  get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound
+  setPrice(price) {
+    this.price = price;
+  }
+  
+  @computed @computed @computed @computed @computed @computed @computed get total() {
+    return this.price * this.amount;
+  }
+
+  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) => this.count--;
+  
+  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) => doSomething();
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import { observable } from "mobx";
 
 @observer
@@ -157,6 +202,14 @@ class OrderLine {
   @observable amount: number = 1;
 
   constructor(price) {
+    this.price = price;
+  }
+
+  @computed get total() {
+    return this.price * this.amount;
+  }
+
+  @action.bound setPrice(price) {
     this.price = price;
   }
 
@@ -169,26 +222,56 @@ class OrderLine {
   setPrice(price) {
     this.price = price;
   }
+
+  @computed
+  @computed
+  @computed
+  @computed
+  @computed
+  @computed
+  @computed
+  get total() {
+    return this.price * this.amount;
+  }
+
+  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) =>
+    this.count--;
+
+  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) =>
+    doSomething();
 }
 
+================================================================================
 `;
 
-exports[`multiline.js - babylon-verify 1`] = `
+exports[`multiline.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class Foo {
   @deco([
     foo,
     bar
   ]) prop = value;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Foo {
   @deco([foo, bar])
   prop = value;
 }
 
+================================================================================
 `;
 
-exports[`multiple.js - babylon-verify 1`] = `
+exports[`multiple.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const dog = {
   @readonly
   @nonenumerable
@@ -204,7 +287,8 @@ const dog = {
 const foo = {
   @multipleDecorators @inline @theyWontAllFitInOneline aVeryLongPropName: "A very long string as value"
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const dog = {
   @readonly
   @nonenumerable
@@ -224,15 +308,22 @@ const foo = {
   aVeryLongPropName: "A very long string as value"
 };
 
+================================================================================
 `;
 
-exports[`redux.js - babylon-verify 1`] = `
+exports[`redux.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @connect(mapStateToProps, mapDispatchToProps)
 export class MyApp extends React.Component {}
 
 @connect(state => ({ todos: state.todos }))
 export class Home extends React.Component {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @connect(
   mapStateToProps,
   mapDispatchToProps
@@ -242,4 +333,5 @@ export class MyApp extends React.Component {}
 @connect(state => ({ todos: state.todos }))
 export class Home extends React.Component {}
 
+================================================================================
 `;

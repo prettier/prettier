@@ -9,7 +9,7 @@ const languages = [
   createLanguage(require("linguist-languages/data/javascript"), {
     override: {
       since: "0.0.0",
-      parsers: ["babylon", "flow"],
+      parsers: ["babel", "flow"],
       vscodeLanguageIds: ["javascript"]
     },
     extend: {
@@ -20,7 +20,7 @@ const languages = [
     override: {
       name: "Flow",
       since: "0.0.0",
-      parsers: ["babylon", "flow"],
+      parsers: ["babel", "flow"],
       vscodeLanguageIds: ["javascript"],
 
       aliases: [],
@@ -31,7 +31,7 @@ const languages = [
   createLanguage(require("linguist-languages/data/jsx"), {
     override: {
       since: "0.0.0",
-      parsers: ["babylon", "flow"],
+      parsers: ["babel", "flow"],
       vscodeLanguageIds: ["javascriptreact"]
     }
   }),

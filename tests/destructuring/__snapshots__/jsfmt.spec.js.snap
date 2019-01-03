@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`destructuring.js - flow-verify 1`] = `
+exports[`destructuring.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const [one, two = null, three = null] = arr;
 a = ([s=1,]) => 1
 const { children, ...props } = this.props
@@ -34,7 +39,8 @@ try {
 } catch ({ data: { message: { errors }}}) {
   // code
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const [one, two = null, three = null] = arr;
 a = ([s = 1]) => 1;
 const { children, ...props } = this.props;
@@ -84,4 +90,5 @@ try {
   // code
 }
 
+================================================================================
 `;

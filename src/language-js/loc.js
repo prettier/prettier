@@ -45,8 +45,8 @@ function locEnd(node) {
   const loc = node.range
     ? node.range[1]
     : typeof node.end === "number"
-      ? node.end
-      : null;
+    ? node.end
+    : null;
 
   if (node.typeAnnotation) {
     return Math.max(loc, locEnd(node.typeAnnotation));

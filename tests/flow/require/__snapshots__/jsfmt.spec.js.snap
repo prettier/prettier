@@ -1,24 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`B.js - flow-verify 1`] = `
+exports[`B.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 exports.numberValue = 42;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 exports.numberValue = 42;
 
+================================================================================
 `;
 
-exports[`C.js - flow-verify 1`] = `
-/* @flow */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`C.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
+=====================================output=====================================
+/* @flow */
+
+================================================================================
 `;
 
-exports[`E.js - flow-verify 1`] = `
+exports[`E.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 // Local \`exports\` var is just a ref to module.exports, so mutating the original
@@ -29,7 +48,8 @@ module.exports = {
 };
 
 exports = {stringValue: ''};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 // Local \`exports\` var is just a ref to module.exports, so mutating the original
@@ -41,16 +61,23 @@ module.exports = {
 
 exports = { stringValue: "" };
 
+================================================================================
 `;
 
-exports[`ProvidesModuleA.js - flow-verify 1`] = `
+exports[`ProvidesModuleA.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule A
  * @flow
  */
 
 exports.numberValue = 42;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule A
  * @flow
@@ -58,48 +85,75 @@ exports.numberValue = 42;
 
 exports.numberValue = 42;
 
+================================================================================
 `;
 
-exports[`ProvidesModuleD.js - flow-verify 1`] = `
+exports[`ProvidesModuleD.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule D
  * @flow
  */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule D
  * @flow
  */
 
+================================================================================
 `;
 
-exports[`not_builtin_require.js - flow-verify 1`] = `
+exports[`not_builtin_require.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 function require(x: string) {}
 require("not a module name");
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 function require(x: string) {}
 require("not a module name");
 
+================================================================================
 `;
 
-exports[`not_builtin_require2.js - flow-verify 1`] = `
+exports[`not_builtin_require2.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 type require = number;
 var a: require = 42;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 type require = number;
 var a: require = 42;
 
+================================================================================
 `;
 
-exports[`require.js - flow-verify 1`] = `
+exports[`require.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function takesANumber(num: number): void {}
@@ -135,7 +189,8 @@ require(\`\${'./E'}\`); // error: but only if they have no expressions
 
 // require.call is allowed but circumverts Flow's static analysis
 require.call(null, "DoesNotExist");
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function takesANumber(num: number): void {}
@@ -172,4 +227,5 @@ require(\`\${"./E"}\`); // error: but only if they have no expressions
 // require.call is allowed but circumverts Flow's static analysis
 require.call(null, "DoesNotExist");
 
+================================================================================
 `;

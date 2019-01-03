@@ -38,6 +38,7 @@ const {
   markAsRoot,
   softline
 } = docBuilders;
+const { replaceEndOfLineWith } = require("../common/util");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -104,9 +105,14 @@ function genericPrint(path, options, print) {
         ])
       : "",
     hasPrettierIgnore(path)
-      ? options.originalText.slice(
-          node.position.start.offset,
-          node.position.end.offset
+      ? concat(
+          replaceEndOfLineWith(
+            options.originalText.slice(
+              node.position.start.offset,
+              node.position.end.offset
+            ),
+            literalline
+          )
         )
       : group(_print(node, parentNode, path, options, print)),
     hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])
@@ -152,8 +158,8 @@ function _print(node, parentNode, path, options, print) {
                       : ""
                   ])
                 : !nextDocument || hasTrailingComment(nextDocument.head)
-                  ? ""
-                  : concat([hardline, "---"])
+                ? ""
+                : concat([hardline, "---"])
             ]);
           }, "children")
         ),
@@ -169,7 +175,12 @@ function _print(node, parentNode, path, options, print) {
       return join(
         hardline,
         [
-          shouldPrintDocumentHeadEndMarker(node, nextDocument) === "head"
+          shouldPrintDocumentHeadEndMarker(
+            node,
+            nextDocument,
+            parentNode,
+            options
+          ) === "head"
             ? join(
                 hardline,
                 [
@@ -331,10 +342,10 @@ function _print(node, parentNode, path, options, print) {
                         ? hardline
                         : markAsRoot(literalline)
                       : node.chomping === "keep" && isLastDescendant
-                        ? lineWords.length === 0
-                          ? dedentToRoot(hardline)
-                          : dedentToRoot(literalline)
-                        : ""
+                      ? lineWords.length === 0
+                        ? dedentToRoot(hardline)
+                        : dedentToRoot(literalline)
+                      : ""
                   ),
                 []
               )
@@ -377,12 +388,8 @@ function _print(node, parentNode, path, options, print) {
             !hasTrailingComment(node.key.content) &&
             (!parentNode.tag ||
               parentNode.tag.value !== "tag:yaml.org,2002:set")
-            ? concat([
-                key,
-                needsSpaceInFrontOfMappingValue(node) ? " " : "",
-                ":"
-              ])
-            : concat(["? ", align(2, key)]);
+          ? concat([key, needsSpaceInFrontOfMappingValue(node) ? " " : "", ":"])
+          : concat(["? ", align(2, key)]);
       }
 
       if (isEmptyMappingKey) {
@@ -409,7 +416,7 @@ function _print(node, parentNode, path, options, print) {
             align(2, value)
           ])
         : // force singleline
-          isSingleLineNode(node.key.content) &&
+        isSingleLineNode(node.key.content) &&
           !hasLeadingComments(node.key.content) &&
           !hasMiddleComments(node.key.content) &&
           !hasTrailingComment(node.key.content) &&
@@ -418,44 +425,44 @@ function _print(node, parentNode, path, options, print) {
           !hasMiddleComments(node.value.content) &&
           !hasEndComments(node.value) &&
           isAbsolutelyPrintedAsSingleLineNode(node.value.content, options)
-          ? concat([
-              key,
-              needsSpaceInFrontOfMappingValue(node) ? " " : "",
-              ": ",
-              value
-            ])
-          : conditionalGroup([
-              concat([
-                group(
-                  concat([ifBreak("? "), group(align(2, key), { id: groupId })])
+        ? concat([
+            key,
+            needsSpaceInFrontOfMappingValue(node) ? " " : "",
+            ": ",
+            value
+          ])
+        : conditionalGroup([
+            concat([
+              group(
+                concat([ifBreak("? "), group(align(2, key), { id: groupId })])
+              ),
+              ifBreak(
+                concat([hardline, ": ", align(2, value)]),
+                indent(
+                  concat([
+                    needsSpaceInFrontOfMappingValue(node) ? " " : "",
+                    ":",
+                    hasLeadingComments(node.value.content) ||
+                    (hasEndComments(node.value) &&
+                      node.value.content &&
+                      !isNode(node.value.content, ["mapping", "sequence"])) ||
+                    (parentNode.type === "mapping" &&
+                      hasTrailingComment(node.key.content) &&
+                      isInlineNode(node.value.content)) ||
+                    (isNode(node.value.content, ["mapping", "sequence"]) &&
+                      node.value.content.tag === null &&
+                      node.value.content.anchor === null)
+                      ? hardline
+                      : !node.value.content
+                      ? ""
+                      : line,
+                    value
+                  ])
                 ),
-                ifBreak(
-                  concat([hardline, ": ", align(2, value)]),
-                  indent(
-                    concat([
-                      needsSpaceInFrontOfMappingValue(node) ? " " : "",
-                      ":",
-                      hasLeadingComments(node.value.content) ||
-                      (hasEndComments(node.value) &&
-                        node.value.content &&
-                        !isNode(node.value.content, ["mapping", "sequence"])) ||
-                      (parentNode.type === "mapping" &&
-                        hasTrailingComment(node.key.content) &&
-                        isInlineNode(node.value.content)) ||
-                      (isNode(node.value.content, ["mapping", "sequence"]) &&
-                        node.value.content.tag === null &&
-                        node.value.content.anchor === null)
-                        ? hardline
-                        : !node.value.content
-                          ? ""
-                          : line,
-                      value
-                    ])
-                  ),
-                  { groupId }
-                )
-              ])
-            ]);
+                { groupId }
+              )
+            ])
+          ]);
     }
     case "flowMapping":
     case "flowSequence": {
@@ -586,8 +593,24 @@ function shouldPrintDocumentEndMarker(document, nextDocument) {
   );
 }
 
-function shouldPrintDocumentHeadEndMarker(document, nextDocument) {
+function shouldPrintDocumentHeadEndMarker(
+  document,
+  nextDocument,
+  root,
+  options
+) {
   if (
+    /**
+     * ---
+     * preserve the first document head end marker
+     */
+    (root.children[0] === document &&
+      /---(\s|$)/.test(
+        options.originalText.slice(
+          options.locStart(document),
+          options.locStart(document) + 4
+        )
+      )) ||
     /**
      * %DIRECTIVE
      * ---

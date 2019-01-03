@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js - flow-verify 1`] = `
+exports[`class.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class x {
   /**
   * Set of default settings to be applied to model fetch calls in DAO layer.
@@ -8,7 +13,8 @@ class x {
   static get defaultSettings() {
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class x {
   /**
    * Set of default settings to be applied to model fetch calls in DAO layer.
@@ -16,9 +22,15 @@ class x {
   static get defaultSettings() {}
 }
 
+================================================================================
 `;
 
-exports[`empty_paren_comment.js - flow-verify 1`] = `
+exports[`empty_paren_comment.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 let f = (/* ... */) => {}
 (function (/* ... */) {})(/* ... */)
 function f(/* ... */) {}
@@ -47,7 +59,8 @@ f(/* ... */ a, b);
 
 let f = () => import(a /* ... */);
 let f = () => doThing(a, /* ... */ b);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 let f = (/* ... */) => {};
 (function(/* ... */) {})(/* ... */);
 function f(/* ... */) {}
@@ -77,4 +90,5 @@ f(/* ... */ a, b);
 let f = () => import(a /* ... */);
 let f = () => doThing(a, /* ... */ b);
 
+================================================================================
 `;

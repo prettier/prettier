@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`libtest.js - flow-verify 1`] = `
+exports[`libtest.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x:string = NaN
 var y:string = Number.MAX_VALUE;
 var z:number = new TypeError().name;
@@ -12,7 +17,8 @@ a.delete('foobar');
 var b = undefined;
 if (undefined) {
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x: string = NaN;
 var y: string = Number.MAX_VALUE;
 var z: number = new TypeError().name;
@@ -25,4 +31,5 @@ var b = undefined;
 if (undefined) {
 }
 
+================================================================================
 `;

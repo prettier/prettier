@@ -1,12 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic.html - html-verify 1`] = `
-<template>
-  <i class.bind="icon"></i>
-</template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`basic.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <template>
   <i class.bind="icon"></i>
 </template>
 
+=====================================output=====================================
+<template>
+  <i class.bind="icon"></i>
+</template>
+
+================================================================================
 `;

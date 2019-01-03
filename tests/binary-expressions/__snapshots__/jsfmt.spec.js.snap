@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js - flow-verify 1`] = `
+exports[`arrow.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f() {
   const appEntitys = getAppEntitys(loadObject).filter(
     entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled()
@@ -14,7 +19,8 @@ function f() {
     }
   )
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f() {
   const appEntitys = getAppEntitys(loadObject).filter(
     entity =>
@@ -37,39 +43,59 @@ function f() {
   );
 }
 
+================================================================================
 `;
 
-exports[`bitwise-flags.js - flow-verify 1`] = `
+exports[`bitwise-flags.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const FLAG_A = 1 << 0;
 const FLAG_B = 1 << 1;
 const FLAG_C = 1 << 2;
 
 const all = FLAG_A | FLAG_B | FLAG_C;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const FLAG_A = 1 << 0;
 const FLAG_B = 1 << 1;
 const FLAG_C = 1 << 2;
 
 const all = FLAG_A | FLAG_B | FLAG_C;
 
+================================================================================
 `;
 
-exports[`comment.js - flow-verify 1`] = `
+exports[`comment.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a = (
   // Commment 1
   (Math.random() * (yRange * (1 - minVerticalFraction)))
   + (minVerticalFraction * yRange)
 ) - offset;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a =
   // Commment 1
   Math.random() * (yRange * (1 - minVerticalFraction)) +
   minVerticalFraction * yRange -
   offset;
 
+================================================================================
 `;
 
-exports[`equality.js - flow-verify 1`] = `
+exports[`equality.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 x == y == z;
 x != y == z;
 x == y != z;
@@ -79,7 +105,8 @@ x === y === z;
 x !== y === z;
 x === y !== z;
 x !== y !== z;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 (x == y) == z;
 (x != y) == z;
 (x == y) != z;
@@ -90,9 +117,15 @@ x !== y !== z;
 (x === y) !== z;
 (x !== y) !== z;
 
+================================================================================
 `;
 
-exports[`exp.js - flow-verify 1`] = `
+exports[`exp.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a ** b ** c;
 (a ** b) ** c;
 a.b ** c;
@@ -102,7 +135,8 @@ a ** -b;
 (a * b) ** c;
 a ** (b * c);
 (a % b) ** c;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a ** (b ** c);
 (a ** b) ** c;
 a.b ** c;
@@ -113,9 +147,15 @@ a ** -b;
 a ** (b * c);
 (a % b) ** c;
 
+================================================================================
 `;
 
-exports[`if.js - flow-verify 1`] = `
+exports[`if.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 if (this.hasPlugin("dynamicImports") && this.lookahead().type) {}
 
 if (this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft) {}
@@ -124,7 +164,8 @@ if (this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.r
 
 if (VeryVeryVeryVeryVeryVeryVeryVeryLong === VeryVeryVeryVeryVeryVeryVeryVeryLong) {
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 if (this.hasPlugin("dynamicImports") && this.lookahead().type) {
 }
 
@@ -145,9 +186,15 @@ if (
 ) {
 }
 
+================================================================================
 `;
 
-exports[`inline-jsx.js - flow-verify 1`] = `
+exports[`inline-jsx.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const user = renderedUser || <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
 
 const user = renderedUser || shouldRenderUser && <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
@@ -155,7 +202,8 @@ const user = renderedUser || shouldRenderUser && <div><User name={this.state.use
 const avatar = hasAvatar && <Gravatar user={author} size={size} />;
 
 const avatar = (hasAvatar || showPlaceholder) && <Gravatar user={author} size={size} />;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const user = renderedUser || (
   <div>
     <User name={this.state.user.name} age={this.state.user.age} />
@@ -176,9 +224,15 @@ const avatar = (hasAvatar || showPlaceholder) && (
   <Gravatar user={author} size={size} />
 );
 
+================================================================================
 `;
 
-exports[`inline-object-array.js - flow-verify 1`] = `
+exports[`inline-object-array.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 prevState = prevState || {
   catalogs: [],
   loadState: LOADED,
@@ -268,7 +322,8 @@ const obj = {
     },
   loaded: true
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 prevState = prevState || {
   catalogs: [],
   loadState: LOADED,
@@ -363,9 +418,15 @@ const obj = {
   loaded: true
 };
 
+================================================================================
 `;
 
-exports[`jsx_parent.js - flow-verify 1`] = `
+exports[`jsx_parent.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div
   src={
     !isJellyfishEnabled &&
@@ -399,7 +460,8 @@ exports[`jsx_parent.js - flow-verify 1`] = `
   {!isJellyfishEnabled &&
     diffUpdateMessageInput != null && child || <div><span>Text</span></div>}
 </div>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   src={
     !isJellyfishEnabled &&
@@ -440,9 +502,15 @@ exports[`jsx_parent.js - flow-verify 1`] = `
   )}
 </div>;
 
+================================================================================
 `;
 
-exports[`math.js - flow-verify 1`] = `
+exports[`math.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 x + y / z;
 x / y + z;
 
@@ -465,7 +533,8 @@ x & y & z;
 x | y | z;
 x & y >> z;
 x << y | z;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 x + y / z;
 x / y + z;
 
@@ -489,9 +558,15 @@ x | y | z;
 x & (y >> z);
 (x << y) | z;
 
+================================================================================
 `;
 
-exports[`return.js - flow-verify 1`] = `
+exports[`return.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo() {
   return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
 }
@@ -507,7 +582,8 @@ function foo() {
     ? true
     : false;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo() {
   return (
     this.hasPlugin("dynamicImports") &&
@@ -529,9 +605,15 @@ function foo() {
     : false;
 }
 
+================================================================================
 `;
 
-exports[`short-right.js - flow-verify 1`] = `
+exports[`short-right.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 this._cumulativeHeights &&
  Math.abs(
    this._cachedItemHeight(this._firstVisibleIndex + i) -
@@ -551,7 +633,8 @@ const isPartOfPackageJSON = dependenciesArray.indexOf(
 defaultContent.filter(defaultLocale => {
   // ...
 })[0] || null;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 this._cumulativeHeights &&
   Math.abs(
     this._cachedItemHeight(this._firstVisibleIndex + i) -
@@ -569,9 +652,15 @@ defaultContent.filter(defaultLocale => {
   // ...
 })[0] || null;
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // It should always break the highest precedence operators first, and
 // break them all at the same time.
 
@@ -591,7 +680,8 @@ const x = longVariable * longint && longVariable >> 0 && longVariable + longVari
 const x = longVariable > longint && longVariable === 0 + longVariable * longVariable;
 
 foo(obj.property * new Class() && obj instanceof Class && longVariable ? number + 5 : false);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // It should always break the highest precedence operators first, and
 // break them all at the same time.
 
@@ -651,17 +741,25 @@ foo(
     : false
 );
 
+================================================================================
 `;
 
-exports[`unary.js - flow-verify 1`] = `
-const anyTestFailures = !(
-  aggregatedResults.numFailedTests === 0 &&
-  aggregatedResults.numRuntimeErrorTestSuites === 0
-);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`unary.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const anyTestFailures = !(
   aggregatedResults.numFailedTests === 0 &&
   aggregatedResults.numRuntimeErrorTestSuites === 0
 );
 
+=====================================output=====================================
+const anyTestFailures = !(
+  aggregatedResults.numFailedTests === 0 &&
+  aggregatedResults.numRuntimeErrorTestSuites === 0
+);
+
+================================================================================
 `;

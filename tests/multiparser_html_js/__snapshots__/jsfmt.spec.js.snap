@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`html-with-js-script.html - html-verify 1`] = `
+exports[`html-with-js-script.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +17,8 @@ exports[`html-with-js-script.html - html-verify 1`] = `
 <body></body>
 </html>
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,4 +29,5 @@ exports[`html-with-js-script.html - html-verify 1`] = `
   <body></body>
 </html>
 
+================================================================================
 `;

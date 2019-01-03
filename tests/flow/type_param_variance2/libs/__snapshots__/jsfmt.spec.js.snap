@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Promise.js - flow-verify 1`] = `
+exports[`Promise.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 // These annotations are copy/pasted from the built-in Flow definitions for
@@ -48,7 +53,8 @@ declare class Promise<R> {
     promisesByKey: T
   ): Promise<{[key: $Keys<T>]: any}>;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 // These annotations are copy/pasted from the built-in Flow definitions for
@@ -93,4 +99,5 @@ declare class Promise<R> {
   ): Promise<{ [key: $Keys<T>]: any }>;
 }
 
+================================================================================
 `;

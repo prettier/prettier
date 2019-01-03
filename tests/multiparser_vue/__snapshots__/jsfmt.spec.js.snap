@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lang-ts.vue - vue-verify 1`] = `
+exports[`lang-ts.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <template>
   <div>{{foo}}</div>
 </template>
@@ -11,9 +16,10 @@ export default {
 }
 </script>
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <template>
-  <div>{{foo}}</div>
+  <div>{{ foo }}</div>
 </template>
 
 <script lang="ts">
@@ -26,9 +32,15 @@ export default {
 };
 </script>
 
+================================================================================
 `;
 
-exports[`lang-tsx.vue - vue-verify 1`] = `
+exports[`lang-tsx.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <script lang="tsx">
 import {VNode} from "vue"
 export default {
@@ -36,7 +48,8 @@ export default {
   render(h):VNode {  return <div>{ this.foo }</div> },
 }
 </script>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <script lang="tsx">
 import { VNode } from "vue";
 export default {
@@ -51,27 +64,46 @@ export default {
 };
 </script>
 
+================================================================================
 `;
 
-exports[`template-bind.vue - vue-verify 1`] = `
+exports[`template-bind.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <template>
     <div v-bind:id=" 'list-'   +  id "></div>
+    <div v-bind:id=" &quot;list-&quot;   +  id "></div>
+    <div v-bind:id=" &apos;list-&apos;   +  id "></div>
+    <div v-bind:id=" &apos;&quot;&apos;   +  id "></div>
     <div v-bind:id="  rawId | formatId "></div>
     <div v-bind:id=" ok ? 'YES' : 'NO' "></div>
     <button @click=" foo ( arg, 'string' ) "></button>
 </template>
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <template>
-    <div v-bind:id=" 'list-'   +  id "></div>
-    <div v-bind:id="  rawId | formatId "></div>
-    <div v-bind:id=" ok ? 'YES' : 'NO' "></div>
-    <button @click=" foo ( arg, 'string' ) "></button>
+  <div v-bind:id="'list-' + id"></div>
+  <div v-bind:id="'list-' + id"></div>
+  <div v-bind:id="'list-' + id"></div>
+  <div v-bind:id="'&quot;' + id"></div>
+  <div v-bind:id="rawId | formatId"></div>
+  <div v-bind:id="ok ? 'YES' : 'NO'"></div>
+  <button @click="foo(arg, 'string')"></button>
 </template>
 
+================================================================================
 `;
 
-exports[`template-class.vue - vue-verify 1`] = `
+exports[`template-class.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <template>
   <h2
     class="title"
@@ -81,20 +113,28 @@ exports[`template-class.vue - vue-verify 1`] = `
   >
   </h2>
 </template>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <template>
   <h2
     class="title"
-    :class="{ 'issue-realtime-pre-pulse': preAnimation,
- 'issue-realtime-trigger-pulse': pulseAnimation}"
+    :class="{
+      'issue-realtime-pre-pulse': preAnimation,
+      'issue-realtime-trigger-pulse': pulseAnimation
+    }"
     v-html="titleHtml"
-  >
-  </h2>
+  ></h2>
 </template>
 
+================================================================================
 `;
 
-exports[`vue-component.vue - vue-verify 1`] = `
+exports[`vue-component.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <template >
   <h1 >{{greeting}}     world</h1 >
   <script>kikoo ( ) </script>
@@ -117,11 +157,14 @@ p { font-size : 2em ; text-align : center ; }
 p { font-size : 2em ; text-align : center ; }
 
   </style >
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<template >
-  <h1 >{{greeting}}     world</h1 >
-  <script>kikoo ( ) </script>
-</template >
+
+=====================================output=====================================
+<template>
+  <h1>{{ greeting }} world</h1>
+  <script>
+    kikoo();
+  </script>
+</template>
 
 <script>
 module.exports = {
@@ -133,18 +176,19 @@ module.exports = {
 };
 </script>
 
-<style   scoped >
+<style scoped>
 p {
   font-size: 2em;
   text-align: center;
 }
-</style >
+</style>
 
-<style   lang="postcss" >
+<style lang="postcss">
 p {
   font-size: 2em;
   text-align: center;
 }
-</style >
+</style>
 
+================================================================================
 `;

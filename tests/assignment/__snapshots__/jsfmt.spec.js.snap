@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binaryish.js - flow-verify 1`] = `
+exports[`binaryish.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const computedDescriptionLines = (showConfirm &&
   descriptionLinesConfirming) ||
   (focused && !loading && descriptionLinesFocused) ||
@@ -10,7 +15,8 @@ computedDescriptionLines = (focused &&
   !loading &&
   descriptionLinesFocused) ||
   descriptionLines;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const computedDescriptionLines =
   (showConfirm && descriptionLinesConfirming) ||
   (focused && !loading && descriptionLinesFocused) ||
@@ -19,9 +25,15 @@ const computedDescriptionLines =
 computedDescriptionLines =
   (focused && !loading && descriptionLinesFocused) || descriptionLines;
 
+================================================================================
 `;
 
-exports[`destructuring.js - flow-verify 1`] = `
+exports[`destructuring.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 let {
   bottom: offsetBottom,
   left: offsetLeft,
@@ -33,7 +45,8 @@ const { accessibilityModule: FooAccessibilityModule, accessibilityModule: FooAcc
       } = foo || {};
 
 ({ prop: toAssign = "default" } = { prop: "propval" });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 let {
   bottom: offsetBottom,
   left: offsetLeft,
@@ -50,9 +63,15 @@ const {
 
 ({ prop: toAssign = "default" } = { prop: "propval" });
 
+================================================================================
 `;
 
-exports[`sequence.js - flow-verify 1`] = `
+exports[`sequence.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 for ((i = 0), (len = arr.length); i < len; i++) {
   console.log(arr[i])
 }
@@ -60,7 +79,8 @@ for ((i = 0), (len = arr.length); i < len; i++) {
 for (i = 0, len = arr.length; i < len; i++) {
   console.log(arr[i])
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 for (i = 0, len = arr.length; i < len; i++) {
   console.log(arr[i]);
 }
@@ -69,4 +89,5 @@ for (i = 0, len = arr.length; i < len; i++) {
   console.log(arr[i]);
 }
 
+================================================================================
 `;

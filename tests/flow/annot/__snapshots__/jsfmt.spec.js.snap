@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`annot.js - flow-verify 1`] = `
+exports[`annot.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo(str:string, i:number):string {
   return str;
 }
@@ -61,7 +66,8 @@ var zer : null = null;
 
 function foobar(n : ?number) : number | null | void { return n; }
 function barfoo(n : number | null | void) : ?number { return n; }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo(str: string, i: number): string {
   return str;
 }
@@ -132,9 +138,15 @@ function barfoo(n: number | null | void): ?number {
   return n;
 }
 
+================================================================================
 `;
 
-exports[`forward_ref.js - flow-verify 1`] = `
+exports[`forward_ref.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 let myClassInstance: MyClass = null; // forward ref ok, null ~> class error
 
 function bar(): MyClass {
@@ -149,7 +161,8 @@ function foo() {
 
   class MyClass { } // looked up above
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 let myClassInstance: MyClass = null; // forward ref ok, null ~> class error
 
 function bar(): MyClass {
@@ -167,20 +180,33 @@ function foo() {
   class MyClass {} // looked up above
 }
 
+================================================================================
 `;
 
-exports[`issue-530.js - flow-verify 1`] = `
+exports[`issue-530.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo(...args: any) { }
 
 module.exports = foo;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo(...args: any) {}
 
 module.exports = foo;
 
+================================================================================
 `;
 
-exports[`leak.js - flow-verify 1`] = `
+exports[`leak.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /** @flow */
 
 /* This test documents an example we ran into of a type annotation leaking.
@@ -203,7 +229,8 @@ function foo(x: {[key: string]: mixed}) {
 function bar(y: MyObj): string {
   return y.foo;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /** @flow */
 
 /* This test documents an example we ran into of a type annotation leaking.
@@ -227,18 +254,31 @@ function bar(y: MyObj): string {
   return y.foo;
 }
 
+================================================================================
 `;
 
-exports[`other.js - flow-verify 1`] = `
+exports[`other.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class C { }
 module.exports = (C: any);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class C {}
 module.exports = (C: any);
 
+================================================================================
 `;
 
-exports[`scope.js - flow-verify 1`] = `
+exports[`scope.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type Merge<T> = (a: T, b: T) => T;
 
 // hypothetical immutable map
@@ -263,7 +303,8 @@ class Foo<A> {
     }
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type Merge<T> = (a: T, b: T) => T;
 
 // hypothetical immutable map
@@ -293,13 +334,21 @@ class Foo<A> {
   }
 }
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var C = require('./other');
 ((0: C): string);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var C = require("./other");
 ((0: C): string);
 
+================================================================================
 `;

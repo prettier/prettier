@@ -1,5 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`allow overriding flags (stderr) 1`] = `""`;
+
+exports[`allow overriding flags (write) 1`] = `Array []`;
+
 exports[`boolean flags do not swallow the next argument (stderr) 1`] = `""`;
 
 exports[`boolean flags do not swallow the next argument (stdout) 1`] = `

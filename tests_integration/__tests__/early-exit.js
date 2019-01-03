@@ -56,6 +56,12 @@ describe("show warning with --help not-found (typo)", () => {
   });
 });
 
+describe("throw error with --check + --list-different", () => {
+  runPrettier("cli", ["--check", "--list-different"]).test({
+    status: 1
+  });
+});
+
 describe("throw error with --write + --debug-check", () => {
   runPrettier("cli", ["--write", "--debug-check"]).test({
     status: 1

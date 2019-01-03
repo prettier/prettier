@@ -1,1 +1,1 @@
-run_spec(__dirname, ["babylon"], { proseWrap: "always" });
+run_spec(__dirname, ["babel"], { proseWrap: "always" });

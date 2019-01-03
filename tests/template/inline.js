@@ -56,3 +56,6 @@ this._pipe.write(`
   `
     a
   `;
+
+// https://github.com/prettier/prettier/issues/5529
+editTitle += `${iconHTML({ class: "reply-to-glyph" })}`;

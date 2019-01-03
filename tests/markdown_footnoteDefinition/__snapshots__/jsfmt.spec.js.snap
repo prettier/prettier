@@ -1,10 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long.md - markdown-verify 1`] = `
+exports[`long.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 [^world]: this is a long long long long long long long long long long long long long paragraph.
           this is a long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [^hello]:
 
   this is a long long long long long long long long long long long long long
@@ -16,32 +23,55 @@ exports[`long.md - markdown-verify 1`] = `
   paragraph. this is a long long long long long long long long long long long
   long long paragraph.
 
+================================================================================
 `;
 
-exports[`long.md - markdown-verify 2`] = `
+exports[`long.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 [^world]: this is a long long long long long long long long long long long long long paragraph.
           this is a long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 [^world]: this is a long long long long long long long long long long long long long paragraph. this is a long long long long long long long long long long long long long paragraph.
 
+================================================================================
 `;
 
-exports[`long.md - markdown-verify 3`] = `
+exports[`long.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 [^world]: this is a long long long long long long long long long long long long long paragraph.
           this is a long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 [^world]:
 
   this is a long long long long long long long long long long long long long paragraph.
   this is a long long long long long long long long long long long long long paragraph.
 
+================================================================================
 `;
 
-exports[`multiline.md - markdown-verify 1`] = `
+exports[`multiline.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [^fn1]:
 
     > \`\`\`rs
@@ -65,7 +95,8 @@ exports[`multiline.md - markdown-verify 1`] = `
         println!("this is some Rust!");
     }
     \`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [^fn1]:
 
   > \`\`\`rs
@@ -93,9 +124,16 @@ exports[`multiline.md - markdown-verify 1`] = `
   }
   \`\`\`
 
+================================================================================
 `;
 
-exports[`multiline.md - markdown-verify 2`] = `
+exports[`multiline.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 [^fn1]:
 
     > \`\`\`rs
@@ -119,7 +157,8 @@ exports[`multiline.md - markdown-verify 2`] = `
         println!("this is some Rust!");
     }
     \`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [^fn1]:
 
   > \`\`\`rs
@@ -146,9 +185,16 @@ exports[`multiline.md - markdown-verify 2`] = `
   }
   \`\`\`
 
+================================================================================
 `;
 
-exports[`multiline.md - markdown-verify 3`] = `
+exports[`multiline.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
 [^fn1]:
 
     > \`\`\`rs
@@ -172,7 +218,8 @@ exports[`multiline.md - markdown-verify 3`] = `
         println!("this is some Rust!");
     }
     \`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [^fn1]:
 
   > \`\`\`rs
@@ -199,9 +246,16 @@ exports[`multiline.md - markdown-verify 3`] = `
   }
   \`\`\`
 
+================================================================================
 `;
 
-exports[`sibling.md - markdown-verify 1`] = `
+exports[`sibling.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [^a]: a
 [^a]: a
 [^a]: a
@@ -225,64 +279,8 @@ exports[`sibling.md - markdown-verify 1`] = `
 [^a]: a
 [^a]: a
 [^a]: a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[^a]: a
-[^a]: a
-[^a]: a
-[^a]: > 123
-[^a]: a
-[^a]: > 123
-[^a]: a
-[^a]: a
-[^a]: a
 
----
-
-[^a]: a
-[^a]: a
-[^a]: a
-[^a]:
-
-  > 123\\
-  > 456
-
-[^a]: a
-[^a]:
-
-  > 123\\
-  > 456
-
-[^a]: a
-[^a]: a
-[^a]: a
-
-`;
-
-exports[`sibling.md - markdown-verify 2`] = `
-[^a]: a
-[^a]: a
-[^a]: a
-[^a]: > 123
-[^a]: a
-[^a]: > 123
-[^a]: a
-[^a]: a
-[^a]: a
-
----
-
-[^a]: a
-[^a]: a
-[^a]: a
-[^a]: > 123\\
-      > 456
-[^a]: a
-[^a]: > 123\\
-      > 456
-[^a]: a
-[^a]: a
-[^a]: a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================output=====================================
 [^a]: a
 [^a]: a
 [^a]: a
@@ -313,9 +311,16 @@ exports[`sibling.md - markdown-verify 2`] = `
 [^a]: a
 [^a]: a
 
+================================================================================
 `;
 
-exports[`sibling.md - markdown-verify 3`] = `
+exports[`sibling.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 [^a]: a
 [^a]: a
 [^a]: a
@@ -339,7 +344,8 @@ exports[`sibling.md - markdown-verify 3`] = `
 [^a]: a
 [^a]: a
 [^a]: a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [^a]: a
 [^a]: a
 [^a]: a
@@ -370,25 +376,115 @@ exports[`sibling.md - markdown-verify 3`] = `
 [^a]: a
 [^a]: a
 
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 1`] = `
-[^hello]: world
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[^hello]: world
+exports[`sibling.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+[^a]: a
+[^a]: a
+[^a]: a
+[^a]: > 123
+[^a]: a
+[^a]: > 123
+[^a]: a
+[^a]: a
+[^a]: a
 
+---
+
+[^a]: a
+[^a]: a
+[^a]: a
+[^a]: > 123\\
+      > 456
+[^a]: a
+[^a]: > 123\\
+      > 456
+[^a]: a
+[^a]: a
+[^a]: a
+
+=====================================output=====================================
+[^a]: a
+[^a]: a
+[^a]: a
+[^a]: > 123
+[^a]: a
+[^a]: > 123
+[^a]: a
+[^a]: a
+[^a]: a
+
+---
+
+[^a]: a
+[^a]: a
+[^a]: a
+[^a]:
+
+  > 123\\
+  > 456
+
+[^a]: a
+[^a]:
+
+  > 123\\
+  > 456
+
+[^a]: a
+[^a]: a
+[^a]: a
+
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 2`] = `
-[^hello]: world
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`simple.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [^hello]: world
 
+=====================================output=====================================
+[^hello]: world
+
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 3`] = `
-[^hello]: world
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`simple.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 [^hello]: world
 
+=====================================output=====================================
+[^hello]: world
+
+================================================================================
+`;
+
+exports[`simple.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+[^hello]: world
+
+=====================================output=====================================
+[^hello]: world
+
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nextTick.js - flow-verify 1`] = `
+exports[`nextTick.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 process.nextTick(() => {});
@@ -29,7 +34,8 @@ process.nextTick(
 process.nextTick(
   (a: string, b: number, c: boolean) => {} // Error: too few arguments
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 process.nextTick(() => {});
@@ -54,4 +60,5 @@ process.nextTick(
   (a: string, b: number, c: boolean) => {} // Error: too few arguments
 );
 
+================================================================================
 `;

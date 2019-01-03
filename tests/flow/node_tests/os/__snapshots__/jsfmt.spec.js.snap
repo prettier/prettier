@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`userInfo.js - flow-verify 1`] = `
+exports[`userInfo.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var os = require('os');
@@ -16,7 +21,8 @@ var u2 = os.userInfo({encoding: 'utf8'});
 var u3 = os.userInfo({encoding: 'buffer'});
 (u3.username: string); // error
 (u3.username: Buffer);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var os = require("os");
@@ -33,4 +39,5 @@ var u3 = os.userInfo({ encoding: "buffer" });
 (u3.username: string); // error
 (u3.username: Buffer);
 
+================================================================================
 `;

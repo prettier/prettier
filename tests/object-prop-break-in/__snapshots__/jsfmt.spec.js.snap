@@ -1,13 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js - flow-verify 1`] = `
-function foo() {
-  return {
-    // this comment causes the problem
-    bar: baz() + 1
-  };
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`comment.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo() {
   return {
     // this comment causes the problem
@@ -15,21 +13,42 @@ function foo() {
   };
 }
 
+=====================================output=====================================
+function foo() {
+  return {
+    // this comment causes the problem
+    bar: baz() + 1
+  };
+}
+
+================================================================================
 `;
 
-exports[`long-value.js - flow-verify 1`] = `
+exports[`long-value.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const x = {
   "ABC": "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const x = {
   ABC:
     "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
 };
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const a = classnames({
   "some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp
 });
@@ -60,7 +79,8 @@ const g = classnames({
 
 const h = { foo: "bar", baz: \`Lorem
 ipsum\` }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const a = classnames({
   "some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp
 });
@@ -97,4 +117,5 @@ const h = {
 ipsum\`
 };
 
+================================================================================
 `;

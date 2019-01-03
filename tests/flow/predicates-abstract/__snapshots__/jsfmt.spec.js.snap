@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`filter.js - flow-verify 1`] = `
+exports[`filter.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Filter the contents of an array
@@ -14,7 +19,8 @@ const barr = my_filter(arr, is_string);
 function is_string(x): %checks {
   return typeof x === "string";
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Filter the contents of an array
@@ -32,9 +38,15 @@ function is_string(x): %checks {
   return typeof x === "string";
 }
 
+================================================================================
 `;
 
-exports[`filter-union.js - flow-verify 1`] = `
+exports[`filter-union.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Filter the contents of an array
@@ -52,7 +64,8 @@ declare var ab: Array<A|B|C>;
 
 (my_filter(ab, (x): %checks => x.kind === 'A'): Array<A>);    // OK
 (my_filter(ab, (x): %checks => x.kind !== 'A'): Array<B|C>);  // OK
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Filter the contents of an array
@@ -73,9 +86,15 @@ declare var ab: Array<A | B | C>;
 (my_filter(ab, (x): %checks => x.kind === "A"): Array<A>); // OK
 (my_filter(ab, (x): %checks => x.kind !== "A"): Array<B | C>); // OK
 
+================================================================================
 `;
 
-exports[`refine.js - flow-verify 1`] = `
+exports[`refine.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 /*
@@ -122,7 +141,8 @@ function is_string(x): boolean %checks {
 function is_string_and_number(x, y): %checks {
   return typeof x === "string" && typeof y === "number";
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 /*
@@ -173,9 +193,15 @@ function is_string_and_number(x, y): %checks {
   return typeof x === "string" && typeof y === "number";
 }
 
+================================================================================
 `;
 
-exports[`sanity-filter.js - flow-verify 1`] = `
+exports[`sanity-filter.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 declare function my_filter<T, P: $Pred<1>>(v: Array<T>, cb: P): Array<$Refine<T,P,1>>;
@@ -198,7 +224,8 @@ function is_string(x): boolean %checks {
 function is_string_regular(x): boolean {
   return typeof x === "string";
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 declare function my_filter<T, P: $Pred<1>>(
@@ -224,9 +251,15 @@ function is_string_regular(x): boolean {
   return typeof x === "string";
 }
 
+================================================================================
 `;
 
-exports[`sanity-filter-union.js - flow-verify 1`] = `
+exports[`sanity-filter-union.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Filter the contents of an array
@@ -244,7 +277,8 @@ declare var ab: Array<A|B|C>;
 
 (my_filter(ab, (x): %checks => x.kind === 'A'): Array<B>);    // ERROR
 (my_filter(ab, (x): %checks => x.kind !== 'A'): Array<A|C>);  // ERROR
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Filter the contents of an array
@@ -265,9 +299,15 @@ declare var ab: Array<A | B | C>;
 (my_filter(ab, (x): %checks => x.kind === "A"): Array<B>); // ERROR
 (my_filter(ab, (x): %checks => x.kind !== "A"): Array<A | C>); // ERROR
 
+================================================================================
 `;
 
-exports[`sanity-refine.js - flow-verify 1`] = `
+exports[`sanity-refine.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Sanity check A: the refinment position index is outside of the allowed range
@@ -312,7 +352,8 @@ function is_string_regular(x)  {
 function is_string_and_number(x, y): %checks {
   return typeof x === "string" && typeof y === "number";
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Sanity check A: the refinment position index is outside of the allowed range
@@ -361,4 +402,5 @@ function is_string_and_number(x, y): %checks {
   return typeof x === "string" && typeof y === "number";
 }
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic-handlebars.hbs - glimmer-verify 1`] = `
+exports[`basic-handlebars.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <script id="entry-template" type="text/x-handlebars-template">
   <div class="entry">
     <h1>{{title}}</h1>
@@ -11,7 +16,8 @@ exports[`basic-handlebars.hbs - glimmer-verify 1`] = `
 </script>
 
 <div class="{{hello}} {{world}}"></div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <script id="entry-template" type="text/x-handlebars-template">
   <div class="entry">
     <h1>
@@ -23,30 +29,44 @@ exports[`basic-handlebars.hbs - glimmer-verify 1`] = `
   </div>
 </script>
 <div class="{{hello}} {{world}}"></div>
+================================================================================
 `;
 
-exports[`comments.hbs - glimmer-verify 1`] = `
+exports[`comments.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div class="entry">
   {{! This comment will not be in the output }}
   {{!-- This comment as }} and will not be in the output --}}
   <!-- This comment will be in the output -->
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div class="entry">
   {{! This comment will not be in the output }}
   {{!-- This comment as }} and will not be in the output --}}
   <!-- This comment will be in the output -->
 </div>
+================================================================================
 `;
 
-exports[`each.hbs - glimmer-verify 1`] = `
+exports[`each.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div id="comments">
   {{#each comments}}
   <h2><a href="/posts/{{permalink}}#{{id}}">{{title}}</a></h2>
   <div>{{body}}</div>
   {{/each}}
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div id="comments">
   {{#each comments}}
     <h2>
@@ -59,19 +79,32 @@ exports[`each.hbs - glimmer-verify 1`] = `
     </div>
   {{/each}}
 </div>
+================================================================================
 `;
 
-exports[`if.hbs - glimmer-verify 1`] = `
+exports[`if.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 {{#if title}}
   {{permalink}}
 {{/if}}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 {{#if title}}
   {{permalink}}
 {{/if}}
+================================================================================
 `;
 
-exports[`if-else.hbs - glimmer-verify 1`] = `
+exports[`if-else.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <h1>
 {{#if isAtWork}}
   Ship that code!
@@ -90,7 +123,8 @@ exports[`if-else.hbs - glimmer-verify 1`] = `
 {{/if}}
 </h2>
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <h1>
   {{#if isAtWork}}
     Ship that code!
@@ -107,9 +141,15 @@ exports[`if-else.hbs - glimmer-verify 1`] = `
     B
   {{/if}}
 </h2>
+================================================================================
 `;
 
-exports[`nested-path.hbs - glimmer-verify 1`] = `
+exports[`nested-path.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div class="entry">
   <h1>{{title}}</h1>
   <h2>By {{author.name}}</h2>
@@ -118,7 +158,8 @@ exports[`nested-path.hbs - glimmer-verify 1`] = `
     {{body}}
   </div>
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div class="entry">
   <h1>
     {{title}}
@@ -131,12 +172,20 @@ exports[`nested-path.hbs - glimmer-verify 1`] = `
     {{body}}
   </div>
 </div>
+================================================================================
 `;
 
-exports[`raw.hbs - glimmer-verify 1`] = `
+exports[`raw.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <p>{{{raw}}}</p>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <p>
   {{{raw}}}
 </p>
+================================================================================
 `;

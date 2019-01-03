@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`less.less - less-verify 1`] = `
+exports[`less.less 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
 
@@ -1662,7 +1667,17 @@ li + li {
 // Usage
 @import // Comment
   "@{themes}/tidal-wave.less";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// Mixin with escaped /
+.margin-bottom-1\\/3() {
+  margin-bottom: 0.8rem;
+}
+
+label {
+  .margin-bottom-1\\/3;
+}
+
+=====================================output=====================================
 @nice-blue: #5b83ad;
 @light-blue: @nice-blue + #111;
 
@@ -3257,4 +3272,14 @@ li + li {
 @import // Comment
   "@{themes}/tidal-wave.less";
 
+// Mixin with escaped /
+.margin-bottom-1\\/3() {
+  margin-bottom: 0.8rem;
+}
+
+label {
+  .margin-bottom-1\\/3;
+}
+
+================================================================================
 `;

@@ -1,6 +1,8 @@
 "use strict";
 
 const path = require("path");
+const tempy = require("tempy");
+const fs = require("fs");
 
 const runPrettier = require("../runPrettier");
 const prettier = require("prettier/local");
@@ -140,7 +142,7 @@ test("API getFileInfo with ignorePath", () => {
 
   expect(prettier.getFileInfo(file)).resolves.toMatchObject({
     ignored: false,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 
   expect(
@@ -149,7 +151,7 @@ test("API getFileInfo with ignorePath", () => {
     })
   ).resolves.toMatchObject({
     ignored: true,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 });
 
@@ -163,7 +165,7 @@ test("API getFileInfo.sync with ignorePath", () => {
 
   expect(prettier.getFileInfo.sync(file)).toMatchObject({
     ignored: false,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 
   expect(
@@ -172,7 +174,41 @@ test("API getFileInfo.sync with ignorePath", () => {
     })
   ).toMatchObject({
     ignored: true,
-    inferredParser: "babylon"
+    inferredParser: "babel"
+  });
+});
+
+describe("API getFileInfo.sync with ignorePath", () => {
+  let cwd;
+  let filePath;
+  let options;
+  beforeAll(() => {
+    cwd = process.cwd();
+    const tempDir = tempy.directory();
+    process.chdir(tempDir);
+    const fileDir = "src";
+    filePath = `${fileDir}/should-be-ignored.js`;
+    const ignorePath = path.join(tempDir, ".prettierignore");
+    fs.writeFileSync(ignorePath, filePath, "utf8");
+    options = { ignorePath };
+  });
+  afterAll(() => {
+    process.chdir(cwd);
+  });
+  test("with relative filePath", () => {
+    expect(
+      prettier.getFileInfo.sync(filePath, options).ignored
+    ).toMatchInlineSnapshot(`true`);
+  });
+  test("with relative filePath starts with dot", () => {
+    expect(
+      prettier.getFileInfo.sync(`./${filePath}`, options).ignored
+    ).toMatchInlineSnapshot(`true`);
+  });
+  test("with absolute filePath", () => {
+    expect(
+      prettier.getFileInfo.sync(path.resolve(filePath), options).ignored
+    ).toMatchInlineSnapshot(`true`);
   });
 });
 
@@ -182,7 +218,7 @@ test("API getFileInfo with withNodeModules", () => {
   );
   expect(prettier.getFileInfo(file)).resolves.toMatchObject({
     ignored: true,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
   expect(
     prettier.getFileInfo(file, {
@@ -190,7 +226,7 @@ test("API getFileInfo with withNodeModules", () => {
     })
   ).resolves.toMatchObject({
     ignored: false,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 });
 
@@ -199,7 +235,7 @@ describe("extracts file-info for a JS file with no extension but a standard sheb
     prettier.getFileInfo.sync("tests_integration/cli/shebang/node-shebang")
   ).toMatchObject({
     ignored: false,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 });
 
@@ -208,7 +244,7 @@ describe("extracts file-info for a JS file with no extension but an env-based sh
     prettier.getFileInfo.sync("tests_integration/cli/shebang/env-node-shebang")
   ).toMatchObject({
     ignored: false,
-    inferredParser: "babylon"
+    inferredParser: "babel"
   });
 });
 

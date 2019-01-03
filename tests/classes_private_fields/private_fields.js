@@ -30,3 +30,14 @@ class Point {
 
   toString() { return `Point<${ this.#x },${ this.#y }>` }
 }
+
+class E {
+  async #a() {}
+  #b() {}
+  get #c() {}
+  set #c(bar) {}
+  *#d() {}
+  async *#e() {}
+  get #f() {}
+  set #f(taz) {}
+}

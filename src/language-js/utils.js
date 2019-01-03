@@ -31,7 +31,21 @@ function hasFlowAnnotationComment(comments) {
   return comments && comments[0].value.match(FLOW_ANNOTATION);
 }
 
+function hasNode(node, fn) {
+  if (!node || typeof node !== "object") {
+    return false;
+  }
+  if (Array.isArray(node)) {
+    return node.some(value => hasNode(value, fn));
+  }
+  const result = fn(node);
+  return typeof result === "boolean"
+    ? result
+    : Object.keys(node).some(key => hasNode(node[key], fn));
+}
+
 module.exports = {
+  hasNode,
   hasFlowShorthandAnnotationComment,
   hasFlowAnnotationComment
 };

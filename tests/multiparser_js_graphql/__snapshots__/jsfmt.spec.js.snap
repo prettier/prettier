@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment-tag.js - babylon-verify 1`] = `
+exports[`comment-tag.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const query = /* GraphQL */\`
       {
     user(   id :   5  )  {
@@ -10,7 +15,8 @@ const query = /* GraphQL */\`
     }
   }
 \`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const query = /* GraphQL */ \`
   {
     user(id: 5) {
@@ -21,9 +27,15 @@ const query = /* GraphQL */ \`
   }
 \`;
 
+================================================================================
 `;
 
-exports[`definitions.js - babylon-verify 1`] = `
+exports[`definitions.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 graphql\`
   fragment x on y {
     z
@@ -33,7 +45,8 @@ graphql\`
     c
   }
 \`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 graphql\`
   fragment x on y {
     z
@@ -44,9 +57,15 @@ graphql\`
   }
 \`;
 
+================================================================================
 `;
 
-exports[`escape.js - babylon-verify 1`] = `
+exports[`escape.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 gql\`
   "\\\`foo\\\` mutation payload."
   type      FooPayload       {
@@ -88,7 +107,8 @@ gql\`
     a
   }
 \`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 gql\`
   "\\\`foo\\\` mutation payload."
   type FooPayload {
@@ -131,9 +151,15 @@ gql\`
   }
 \`;
 
+================================================================================
 `;
 
-exports[`expressions.js - babylon-verify 1`] = `
+exports[`expressions.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 graphql(schema, \`
 query allPartsByManufacturerName($name: String!) {
   allParts(filter:{manufacturer: {name: $name}}) {
@@ -149,7 +175,8 @@ query allPartsByManufacturerName($name: String!) {
 }}
 \${fragments.all}
 \`)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 graphql(
   schema,
   \`
@@ -174,16 +201,23 @@ const veryLongVariableNameToMakeTheLineBreak = graphql(
   \`
 );
 
+================================================================================
 `;
 
-exports[`graphql.js - babylon-verify 1`] = `
+exports[`graphql.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 graphql(schema, \`
 mutation     MarkReadNotificationMutation(
     $input
     : MarkReadNotificationData!
   )
 { markReadNotification(data: $input ) { notification {seenState} } }\`)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 graphql(
   schema,
   \`
@@ -197,9 +231,15 @@ graphql(
   \`
 );
 
+================================================================================
 `;
 
-exports[`graphql-tag.js - babylon-verify 1`] = `
+exports[`graphql-tag.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import gql from "graphql-tag";
 
 const query = gql\`
@@ -358,7 +398,8 @@ query User {
 
 fragment another on User { name
 }\${ fragment }\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import gql from "graphql-tag";
 
 const query = gql\`
@@ -523,9 +564,15 @@ gql\`
   \${fragment}
 \`;
 
+================================================================================
 `;
 
-exports[`invalid.js - babylon-verify 1`] = `
+exports[`invalid.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // none of the embedded GraphQL should be formatted
 // for they have an invalid escape sequence
 
@@ -548,7 +595,8 @@ gql\`
        b :   string
   }
 \`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // none of the embedded GraphQL should be formatted
 // for they have an invalid escape sequence
 
@@ -572,9 +620,15 @@ gql\`
   }
 \`;
 
+================================================================================
 `;
 
-exports[`react-relay.js - babylon-verify 1`] = `
+exports[`react-relay.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const { graphql } = require("react-relay");
 
 graphql\`
@@ -592,7 +646,8 @@ graphql.experimental\`
   )
 { markReadNotification(data: $input ) { notification {seenState} } }
 \`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const { graphql } = require("react-relay");
 
 graphql\`
@@ -615,4 +670,5 @@ graphql.experimental\`
   }
 \`;
 
+================================================================================
 `;

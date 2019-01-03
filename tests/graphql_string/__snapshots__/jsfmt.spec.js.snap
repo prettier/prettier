@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`string.graphql - graphql-verify 1`] = `
+exports[`string.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") { a }
 
 """abc"""
@@ -53,7 +58,8 @@ one: string
 {
   foo(input: {multiline: "ab\\ncd"}) { id }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") {
   a
 }
@@ -123,4 +129,5 @@ input Input {
   }
 }
 
+================================================================================
 `;

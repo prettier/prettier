@@ -1,7 +1,6 @@
 "use strict";
 
 const stringWidth = require("string-width");
-const emojiRegex = require("emoji-regex")();
 const escapeStringRegexp = require("escape-string-regexp");
 
 // eslint-disable-next-line no-control-regex
@@ -196,9 +195,8 @@ function isNextLineEmpty(text, node, locEnd) {
   return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
-function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
   let oldIdx = null;
-  let idx = locEnd(node);
   while (idx !== oldIdx) {
     oldIdx = idx;
     idx = skipSpaces(text, idx);
@@ -207,6 +205,13 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
     idx = skipNewline(text, idx);
   }
   return idx;
+}
+
+function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+  return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    locEnd(node)
+  );
 }
 
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
@@ -430,7 +435,7 @@ function getIndentSize(value, tabWidth) {
   );
 }
 
-function printString(raw, options, isDirectiveLiteral) {
+function getPreferredQuote(raw, preferredQuote) {
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
   const rawContent = raw.slice(1, -1);
@@ -438,17 +443,14 @@ function printString(raw, options, isDirectiveLiteral) {
   const double = { quote: '"', regex: /"/g };
   const single = { quote: "'", regex: /'/g };
 
-  const preferred = options.singleQuote ? single : double;
+  const preferred = preferredQuote === "'" ? single : double;
   const alternate = preferred === single ? double : single;
 
-  let shouldUseAlternateQuote = false;
-  let canChangeDirectiveQuotes = false;
+  let result = preferred.quote;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
   // minimize the number of escaped quotes.
-  // Also check for the alternate quote, to determine if we're allowed to swap
-  // the quotes on a DirectiveLiteral.
   if (
     rawContent.includes(preferred.quote) ||
     rawContent.includes(alternate.quote)
@@ -456,17 +458,31 @@ function printString(raw, options, isDirectiveLiteral) {
     const numPreferredQuotes = (rawContent.match(preferred.regex) || []).length;
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
-    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
-  } else {
-    canChangeDirectiveQuotes = true;
+    result =
+      numPreferredQuotes > numAlternateQuotes
+        ? alternate.quote
+        : preferred.quote;
   }
+
+  return result;
+}
+
+function printString(raw, options, isDirectiveLiteral) {
+  // `rawContent` is the string exactly like it appeared in the input source
+  // code, without its enclosing quotes.
+  const rawContent = raw.slice(1, -1);
+
+  // Check for the alternate quote, to determine if we're allowed to swap
+  // the quotes on a DirectiveLiteral.
+  const canChangeDirectiveQuotes =
+    !rawContent.includes('"') && !rawContent.includes("'");
 
   const enclosingQuote =
     options.parser === "json"
-      ? double.quote
-      : shouldUseAlternateQuote
-        ? alternate.quote
-        : preferred.quote;
+      ? '"'
+      : options.__isInHtmlAttribute
+      ? "'"
+      : getPreferredQuote(raw, options.singleQuote ? "'" : '"');
 
   // Directives are exact code unit sequences, which means that you can't
   // change the escape sequences they use.
@@ -489,7 +505,10 @@ function printString(raw, options, isDirectiveLiteral) {
     !(
       options.parser === "css" ||
       options.parser === "less" ||
-      options.parser === "scss"
+      options.parser === "scss" ||
+      options.parentParser === "html" ||
+      options.parentParser === "vue" ||
+      options.parentParser === "angular"
     )
   );
 }
@@ -574,10 +593,7 @@ function getStringWidth(text) {
     return text.length;
   }
 
-  // emojis are considered 2-char width for consistency
-  // see https://github.com/sindresorhus/string-width/issues/11
-  // for the reason why not implemented in `string-width`
-  return stringWidth(text.replace(emojiRegex, "  "));
+  return stringWidth(text);
 }
 
 function hasIgnoreComment(path) {
@@ -655,7 +671,19 @@ function isWithinParentArrayProperty(path, propertyName) {
   return parent[propertyName][key] === node;
 }
 
+function replaceEndOfLineWith(text, replacement) {
+  const parts = [];
+  for (const part of text.split("\n")) {
+    if (parts.length !== 0) {
+      parts.push(replacement);
+    }
+    parts.push(part);
+  }
+  return parts;
+}
+
 module.exports = {
+  replaceEndOfLineWith,
   getStringWidth,
   getMaxContinuousCount,
   getPrecedence,
@@ -665,6 +693,7 @@ module.exports = {
   getParentExportDeclaration,
   getPenultimate,
   getLast,
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
   skip,
@@ -686,6 +715,7 @@ module.exports = {
   startsWithNoLookaheadToken,
   getAlignmentSize,
   getIndentSize,
+  getPreferredQuote,
   printString,
   printNumber,
   hasIgnoreComment,

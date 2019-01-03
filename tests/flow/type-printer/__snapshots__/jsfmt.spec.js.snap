@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`printBinaryExpression.js - flow-verify 1`] = `
+exports[`printBinaryExpression.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 'use babel';
 /* @flow */
 
@@ -21,7 +26,8 @@ function printBinaryExpression(
 }
 
 module.exports = printBinaryExpression;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 "use babel";
 /* @flow */
 
@@ -41,9 +47,15 @@ function printBinaryExpression(node: BinaryExpression) {
 
 module.exports = printBinaryExpression;
 
+================================================================================
 `;
 
-exports[`types.js - flow-verify 1`] = `
+exports[`types.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -51,7 +63,7 @@ exports[`types.js - flow-verify 1`] = `
 'use strict';
 
 /*
- * Flow types for the Babylon AST.
+ * Flow types for the Babel AST.
  */
 
 // Abstract types. Something must extend these.
@@ -5089,7 +5101,8 @@ export type JSXSpreadAttribute = {
   start: number;
   trailingComments: ?Array<Comment>;
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -5097,7 +5110,7 @@ export type JSXSpreadAttribute = {
 "use strict";
 
 /*
- * Flow types for the Babylon AST.
+ * Flow types for the Babel AST.
  */
 
 // Abstract types. Something must extend these.
@@ -10343,4 +10356,5 @@ export type JSXSpreadAttribute = {
   trailingComments: ?Array<Comment>
 };
 
+================================================================================
 `;

@@ -1,66 +1,101 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`functions.js - flow-verify 1`] = `
+exports[`functions.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const a = () => "Foo bar";
 
 function b(object, key) {
   return object['key'];
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const a = () => "Foo bar";
 
 function b(object, key) {
   return object["key"];
 }
 
+================================================================================
 `;
 
-exports[`functions.js - flow-verify 2`] = `
+exports[`functions.js 2`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 const a = () => "Foo bar";
 
 function b(object, key) {
   return object['key'];
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const a = () => 'Foo bar';
 
 function b(object, key) {
   return object['key'];
 }
 
+================================================================================
 `;
 
-exports[`objects.js - flow-verify 1`] = `
+exports[`objects.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const obj = {
  'a': true,
  b: true,
  "𐊧": true,
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const obj = {
   a: true,
   b: true,
   "𐊧": true
 };
 
+================================================================================
 `;
 
-exports[`objects.js - flow-verify 2`] = `
+exports[`objects.js 2`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 const obj = {
  'a': true,
  b: true,
  "𐊧": true,
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const obj = {
   a: true,
   b: true,
   '𐊧': true
 };
 
+================================================================================
 `;
 
-exports[`strings.js - flow-verify 1`] = `
+exports[`strings.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Prevent strings from being parsed as directives
 // See https://github.com/prettier/prettier/pull/1560#issue-227225960
 0;
@@ -161,7 +196,8 @@ exports[`strings.js - flow-verify 1`] = `
 // Somewhat more real-word example 2.
 "var backslash = \\"\\\\\\", doubleQuote = '\\"';"
 'var backslash = "\\\\", doubleQuote = \\'"\\';'
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Prevent strings from being parsed as directives
 // See https://github.com/prettier/prettier/pull/1560#issue-227225960
 0;
@@ -249,9 +285,16 @@ exports[`strings.js - flow-verify 1`] = `
 ('var backslash = "\\\\", doubleQuote = \\'"\\';');
 ('var backslash = "\\\\", doubleQuote = \\'"\\';');
 
+================================================================================
 `;
 
-exports[`strings.js - flow-verify 2`] = `
+exports[`strings.js 2`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 // Prevent strings from being parsed as directives
 // See https://github.com/prettier/prettier/pull/1560#issue-227225960
 0;
@@ -352,7 +395,8 @@ exports[`strings.js - flow-verify 2`] = `
 // Somewhat more real-word example 2.
 "var backslash = \\"\\\\\\", doubleQuote = '\\"';"
 'var backslash = "\\\\", doubleQuote = \\'"\\';'
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Prevent strings from being parsed as directives
 // See https://github.com/prettier/prettier/pull/1560#issue-227225960
 0;
@@ -440,4 +484,5 @@ exports[`strings.js - flow-verify 2`] = `
 ('var backslash = "\\\\", doubleQuote = \\'"\\';');
 ('var backslash = "\\\\", doubleQuote = \\'"\\';');
 
+================================================================================
 `;

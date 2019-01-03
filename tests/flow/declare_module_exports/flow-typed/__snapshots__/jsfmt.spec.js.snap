@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`libs.js - flow-verify 1`] = `
+exports[`libs.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare module "declare_module_exports" {
   declare module.exports: number;
 }
@@ -31,7 +36,8 @@ declare module "declare_m_e_with_declare_var_e" {
   declare module.exports: number;
   declare var exports: string;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare module "declare_module_exports" {
   declare module.exports: number;
 }
@@ -63,4 +69,5 @@ declare module "declare_m_e_with_declare_var_e" {
   declare var exports: string;
 }
 
+================================================================================
 `;

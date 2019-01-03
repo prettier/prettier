@@ -15,7 +15,6 @@ const internalPlugins = [
   require("./language-html"),
   require("./language-js"),
   require("./language-markdown"),
-  require("./language-vue"),
   require("./language-yaml")
 ];
 

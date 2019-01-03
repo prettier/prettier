@@ -20,8 +20,9 @@ test("allows custom parser provided as object", () => {
 test("allows usage of prettier's supported parsers", () => {
   const output = prettier.format("foo ( )", {
     parser(text, parsers) {
+      expect(typeof parsers.babel).toEqual("function");
       expect(typeof parsers.babylon).toEqual("function");
-      const ast = parsers.babylon(text);
+      const ast = parsers.babel(text);
       ast.program.body[0].expression.callee.name = "bar";
       return ast;
     }
@@ -31,6 +32,8 @@ test("allows usage of prettier's supported parsers", () => {
 
 describe("allows passing a string to resolve a parser", () => {
   runPrettier("./custom-parsers/", [
+    "--end-of-line",
+    "lf",
     "./custom-rename-input.js",
     "--parser",
     "./custom-rename-parser"

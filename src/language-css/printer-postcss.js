@@ -110,11 +110,7 @@ function genericPrint(path, options, print) {
     }
     case "css-comment": {
       if (node.raws.content) {
-        return (
-          node.raws.content
-            // there's a bug in the less parser that trailing `\r`s are included in inline comments
-            .replace(/^(\/\/[^]+)\r+$/, "$1")
-        );
+        return node.raws.content;
       }
       const text = options.originalText.slice(
         options.locStart(node),
@@ -164,18 +160,18 @@ function genericPrint(path, options, print) {
         node.raws.important
           ? node.raws.important.replace(/\s*!\s*important/i, " !important")
           : node.important
-            ? " !important"
-            : "",
+          ? " !important"
+          : "",
         node.raws.scssDefault
           ? node.raws.scssDefault.replace(/\s*!default/i, " !default")
           : node.scssDefault
-            ? " !default"
-            : "",
+          ? " !default"
+          : "",
         node.raws.scssGlobal
           ? node.raws.scssGlobal.replace(/\s*!global/i, " !global")
           : node.scssGlobal
-            ? " !global"
-            : "",
+          ? " !global"
+          : "",
         node.nodes
           ? concat([
               " {",
@@ -185,9 +181,11 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
-          : isTemplatePropNode(node) && !parentNode.raws.semicolon
-            ? ""
-            : ";"
+          : isTemplatePropNode(node) &&
+            !parentNode.raws.semicolon &&
+            options.originalText[options.locEnd(node) - 1] !== ";"
+          ? ""
+          : ";"
       ]);
     }
     case "css-atrule": {
@@ -205,9 +203,12 @@ function genericPrint(path, options, print) {
           ? concat([
               isDetachedRulesetCallNode(node)
                 ? ""
-                : isTemplatePlaceholderNode(node)
-                  ? node.raws.afterName
-                  : " ",
+                : isTemplatePlaceholderNode(node) &&
+                  /^\s*\n/.test(node.raws.afterName)
+                ? /^\s*\n\s*\n/.test(node.raws.afterName)
+                  ? concat([hardline, hardline])
+                  : hardline
+                : " ",
               path.call(print, "params")
             ])
           : "",
@@ -227,8 +228,8 @@ function genericPrint(path, options, print) {
               ])
             )
           : node.name === "else"
-            ? " "
-            : "",
+          ? " "
+          : "",
         node.nodes
           ? concat([
               isSCSSControlDirectiveNode(node) ? "" : " ",
@@ -242,9 +243,11 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
-          : isTemplatePlaceholderNode(node) && !parentNode.raws.semicolon
-            ? ""
-            : ";"
+          : isTemplatePlaceholderNode(node) &&
+            !parentNode.raws.semicolon &&
+            options.originalText[options.locEnd(node) - 1] !== ";"
+          ? ""
+          : ";"
       ]);
     }
     // postcss-media-query-parser
@@ -339,7 +342,7 @@ function genericPrint(path, options, print) {
           ? node.value
           : adjustNumbers(
               isHTMLTag(node.value) ||
-              isKeyframeAtRuleKeywords(path, node.value)
+                isKeyframeAtRuleKeywords(path, node.value)
                 ? node.value.toLowerCase()
                 : node.value
             )
@@ -508,6 +511,27 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        // Ignore escape `\`
+        if (
+          iNode.value &&
+          iNode.value.indexOf("\\") !== -1 &&
+          iNextNode &&
+          iNextNode.type !== "value-comment"
+        ) {
+          continue;
+        }
+
+        // Ignore escaped `/`
+        if (
+          iPrevNode &&
+          iPrevNode.value &&
+          iPrevNode.value.indexOf("\\") === iPrevNode.value.length - 1 &&
+          iNode.type === "value-operator" &&
+          iNode.value === "/"
+        ) {
+          continue;
+        }
+
         // Ignore `\` (i.e. `$variable: \@small;`)
         if (iNode.value === "\\") {
           continue;
@@ -643,7 +667,11 @@ function genericPrint(path, options, print) {
 
         // Formatting `grid` property
         if (isGridValue) {
-          if (iNode.source.start.line !== iNextNode.source.start.line) {
+          if (
+            iNode.source &&
+            iNextNode.source &&
+            iNode.source.start.line !== iNextNode.source.start.line
+          ) {
             parts.push(hardline);
 
             didBreak = true;
@@ -755,8 +783,8 @@ function genericPrint(path, options, print) {
           ),
           ifBreak(
             isSCSS(options.parser, options.originalText) &&
-            isSCSSMapItem &&
-            shouldPrintComma(options)
+              isSCSSMapItem &&
+              shouldPrintComma(options)
               ? ","
               : ""
           ),

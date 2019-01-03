@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bracket_0.js - flow-verify 1`] = `
+exports[`bracket_0.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function a() {
   function b() {
 	queryThenMutateDOM(
@@ -10,7 +15,8 @@ function a() {
     );
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function a() {
   function b() {
     queryThenMutateDOM(() => {
@@ -22,9 +28,15 @@ function a() {
   }
 }
 
+================================================================================
 `;
 
-exports[`break-last-call.js - flow-verify 1`] = `
+exports[`break-last-call.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default store => {
   return callApi(endpoint, schema).then(
     response => next(actionWith({
@@ -60,7 +72,8 @@ it('should group messages with same created time', () => {
     ],
   });
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export default store => {
   return callApi(endpoint, schema).then(
     response =>
@@ -141,9 +154,15 @@ it("should group messages with same created time", () => {
   });
 });
 
+================================================================================
 `;
 
-exports[`break-last-member.js - flow-verify 1`] = `
+exports[`break-last-member.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 SomeVeryLongUpperCaseConstant.someVeryLongCallExpression().some_very_long_member_expression
 weNeedToReachTheEightyCharacterLimitXXXXXXXXXXXXXXXXX.someNode
   .childrenInAnArray[0];
@@ -164,7 +183,8 @@ const {
   location,
   category: categories,
 } = rawAd.entry;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 SomeVeryLongUpperCaseConstant.someVeryLongCallExpression()
   .some_very_long_member_expression;
 weNeedToReachTheEightyCharacterLimitXXXXXXXXXXXXXXXXX.someNode
@@ -203,15 +223,22 @@ const {
   category: categories
 } = rawAd.entry;
 
+================================================================================
 `;
 
-exports[`break-multiple.js - flow-verify 1`] = `
+exports[`break-multiple.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 object.foo().bar().baz();
 
 foo().bar().baz();
 
 foo().bar.baz();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 object
   .foo()
   .bar()
@@ -223,9 +250,15 @@ foo()
 
 foo().bar.baz();
 
+================================================================================
 `;
 
-exports[`comment.js - flow-verify 1`] = `
+exports[`comment.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f() {
   return observableFromSubscribeFunction()
     // Debounce manually rather than using editor.onDidStopChanging so that the debounce time is
@@ -288,7 +321,8 @@ this.firebase.object(\`/shops/\${shopLocation.shop}\`)
 angular.module('AngularAppModule')
   // Hello, I am comment.
   .constant('API_URL', 'http://localhost:8080/api');
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f() {
   return (
     observableFromSubscribeFunction()
@@ -368,16 +402,23 @@ angular
   // Hello, I am comment.
   .constant("API_URL", "http://localhost:8080/api");
 
+================================================================================
 `;
 
-exports[`computed.js - flow-verify 1`] = `
+exports[`computed.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 nock(/test/)
   .matchHeader('Accept', 'application/json')
   [httpMethodNock(method)]('/foo')
   .reply(200, {
     foo: 'bar',
   });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 nock(/test/)
   .matchHeader("Accept", "application/json")
   [httpMethodNock(method)]("/foo")
@@ -385,9 +426,15 @@ nock(/test/)
     foo: "bar"
   });
 
+================================================================================
 `;
 
-exports[`computed-merge.js - flow-verify 1`] = `
+exports[`computed-merge.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 [].forEach(key => {
   data[key]('foo')
     .then(() => console.log('bar'))
@@ -404,7 +451,8 @@ exports[`computed-merge.js - flow-verify 1`] = `
 window.Data[key]("foo")
   .then(() => a)
   .catch(() => b);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [].forEach(key => {
   data[key]("foo")
     .then(() => console.log("bar"))
@@ -422,9 +470,15 @@ window.Data[key]("foo")
   .then(() => a)
   .catch(() => b);
 
+================================================================================
 `;
 
-exports[`conditional.js - flow-verify 1`] = `
+exports[`conditional.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 (a ? b : c).d();
 
 (a ? b : c).d().e();
@@ -450,7 +504,8 @@ object[valid
   ? helper.responseBody(this.currentUser)
   : helper.responseBody(defaultUser)]
 .map();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 (a ? b : c).d();
 
 (a ? b : c).d().e();
@@ -483,9 +538,15 @@ object[
     : helper.responseBody(defaultUser)
 ].map();
 
+================================================================================
 `;
 
-exports[`d3.js - flow-verify 1`] = `
+exports[`d3.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 d3.select('body')
   .append('circle')
   .at({ width: 30, fill: '#f0f' })
@@ -503,7 +564,8 @@ not.d3.select('body')
 not.d3.scaleLinear()
   .domain([1950, 1980])
   .range([0, width])
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 d3.select("body")
   .append("circle")
   .at({ width: 30, fill: "#f0f" })
@@ -524,9 +586,15 @@ not.d3
   .domain([1950, 1980])
   .range([0, width]);
 
+================================================================================
 `;
 
-exports[`first_long.js - flow-verify 1`] = `
+exports[`first_long.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action => Observable
     .webSocket({
@@ -561,7 +629,8 @@ function f() {
     }
   );
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap(action =>
     Observable.webSocket({
@@ -596,9 +665,15 @@ function f() {
   });
 }
 
+================================================================================
 `;
 
-exports[`inline_merge.js - flow-verify 1`] = `
+exports[`inline_merge.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 Object.keys(
   availableLocales({
     test: true
@@ -617,7 +692,8 @@ this.layoutPartsToHide = this.utils.hashset(
 var jqxhr = $.ajax("example.php")
   .done(doneFn)
   .fail(failFn);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 Object.keys(
   availableLocales({
     test: true
@@ -636,9 +712,15 @@ var jqxhr = $.ajax("example.php")
   .done(doneFn)
   .fail(failFn);
 
+================================================================================
 `;
 
-exports[`logical.js - flow-verify 1`] = `
+exports[`logical.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const someLongVariableName = (idx(
   this.props,
   props => props.someLongPropertyName
@@ -656,7 +738,8 @@ const someLongVariableName = (idx(
 
 (veryLongVeryLongVeryLong || anotherVeryLongVeryLongVeryLong || veryVeryVeryLongError).map(tickets =>
   TicketRecord.createFromSomeLongString()).filter(obj => !!obj);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const someLongVariableName = (
   idx(this.props, props => props.someLongPropertyName) || []
 ).map(edge => edge.node);
@@ -683,9 +766,15 @@ const someLongVariableName = (
   .map(tickets => TicketRecord.createFromSomeLongString())
   .filter(obj => !!obj);
 
+================================================================================
 `;
 
-exports[`multiple-members.js - flow-verify 1`] = `
+exports[`multiple-members.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 if (testConfig.ENABLE_ONLINE_TESTS === "true") {
   describe("POST /users/me/pet", function() {
     it("saves pet", function() {
@@ -718,7 +807,8 @@ wrapper.find('SomewhatLongNodeName').prop('longPropFunctionName', 'second argume
 wrapper.find('SomewhatLongNodeName').prop('longPropFunctionName')('argument', 'second argument that pushes this group past 80 characters').then(function() {
   doSomething();
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 if (testConfig.ENABLE_ONLINE_TESTS === "true") {
   describe("POST /users/me/pet", function() {
     it("saves pet", function() {
@@ -772,22 +862,35 @@ wrapper
     doSomething();
   });
 
+================================================================================
 `;
 
-exports[`short-names.js - flow-verify 1`] = `
+exports[`short-names.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const svgJsFiles = fs
   .readdirSync(svgDir)
   .filter(f => svgJsFileExtRegex.test(f))
   .map(f => path.join(svgDir, f));
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const svgJsFiles = fs
   .readdirSync(svgDir)
   .filter(f => svgJsFileExtRegex.test(f))
   .map(f => path.join(svgDir, f));
 
+================================================================================
 `;
 
-exports[`square_0.js - flow-verify 1`] = `
+exports[`square_0.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const version = someLongString
   .split('jest version =')
   .pop()
@@ -797,7 +900,8 @@ const version = someLongString
 const component = find('.org-lclp-edit-copy-url-banner__link')[0]
   .getAttribute('href')
   .indexOf(this.landingPageLink);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const version = someLongString
   .split("jest version =")
   .pop()
@@ -808,16 +912,23 @@ const component = find(".org-lclp-edit-copy-url-banner__link")[0]
   .getAttribute("href")
   .indexOf(this.landingPageLink);
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 method().then(x => x)
   ["abc"](x => x)
   [abc](x => x);
 
 ({}.a().b());
 ({}).a().b();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 method()
   .then(x => x)
   ["abc"](x => x)
@@ -826,15 +937,23 @@ method()
 ({}.a().b());
 ({}.a().b());
 
+================================================================================
 `;
 
-exports[`this.js - flow-verify 1`] = `
-const sel = this.connections
-  .concat(this.activities.concat(this.operators))
-  .filter(x => x.selected);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`this.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const sel = this.connections
   .concat(this.activities.concat(this.operators))
   .filter(x => x.selected);
 
+=====================================output=====================================
+const sel = this.connections
+  .concat(this.activities.concat(this.operators))
+  .filter(x => x.selected);
+
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`boundary.js - flow-verify 1`] = `
+exports[`boundary.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 \`\${
 a +  // a
   a
@@ -25,7 +30,8 @@ ExampleStory.getFragment('story')}
 {ExampleStory.getFragment('story') // $FlowFixMe found when converting React.createClass to ES6
 }
 </div>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 \`\${a + a // a
 }
 
@@ -53,4 +59,5 @@ ExampleStory.getFragment('story')}
   }
 </div>;
 
+================================================================================
 `;

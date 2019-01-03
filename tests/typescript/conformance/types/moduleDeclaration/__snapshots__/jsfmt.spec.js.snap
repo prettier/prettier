@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`moduleDeclaration.ts - typescript-verify 1`] = `
+exports[`moduleDeclaration.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 module A {
     export class A {
     }
@@ -10,8 +15,9 @@ declare module "B" {
     export class B {
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-namespace A {
+
+=====================================output=====================================
+module A {
   export class A {}
 }
 
@@ -19,4 +25,5 @@ declare module "B" {
   export class B {}
 }
 
+================================================================================
 `;

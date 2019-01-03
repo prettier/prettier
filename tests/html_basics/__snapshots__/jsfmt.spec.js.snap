@@ -1,33 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.html - html-verify 1`] = `
+exports[`comment.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!--hello world-->
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<!-- hello world -->
 
+=====================================output=====================================
+<!--hello world-->
+
+================================================================================
 `;
 
-exports[`empty.html - html-verify 1`] = `
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`empty.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
+=====================================output=====================================
+
+================================================================================
 `;
 
-exports[`empty-doc.html - html-verify 1`] = `
+exports[`empty-doc.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!doctype html>
 <html>
 <head></head>
 <body></body>
 </html>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!DOCTYPE html>
 <html>
   <head></head>
   <body></body>
 </html>
 
+================================================================================
 `;
 
-exports[`form.html - html-verify 1`] = `
+exports[`form.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <form>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
@@ -96,7 +122,8 @@ exports[`form.html - html-verify 1`] = `
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <form>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
@@ -201,15 +228,22 @@ exports[`form.html - html-verify 1`] = `
   </fieldset>
   <div class="form-check">
     <label class="form-check-label">
-      <input type="checkbox" class="form-check-input" /> Check me out
+      <input type="checkbox" class="form-check-input" />
+      Check me out
     </label>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
+================================================================================
 `;
 
-exports[`hello-world.html - html-verify 1`] = `
+exports[`hello-world.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -224,7 +258,8 @@ exports[`hello-world.html - html-verify 1`] = `
 </body>
 </html>
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -239,9 +274,15 @@ exports[`hello-world.html - html-verify 1`] = `
   </body>
 </html>
 
+================================================================================
 `;
 
-exports[`html-comments.html - html-verify 1`] = `
+exports[`html-comments.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!-- htmlhint attr-lowercase: false -->
 <html>
   <body>
@@ -249,7 +290,8 @@ exports[`html-comments.html - html-verify 1`] = `
     <div hidden class="foo" id=bar></div>
   </body>
 </html>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- htmlhint attr-lowercase: false -->
 <html>
   <body>
@@ -258,20 +300,15 @@ exports[`html-comments.html - html-verify 1`] = `
   </body>
 </html>
 
+================================================================================
 `;
 
-exports[`html-fragment.html - html-verify 1`] = `
-<a href="#">Link</a>
-
-<textarea>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<a href="#">Link</a>
-
-<textarea></textarea>
-
-`;
-
-exports[`html5-boilerplate.html - html-verify 1`] = `
+exports[`html5-boilerplate.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <!doctype html>
 <html class="no-js" lang="">
 
@@ -312,7 +349,8 @@ exports[`html5-boilerplate.html - html-verify 1`] = `
   </body>
 
 </html>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!DOCTYPE html>
 <html class="no-js" lang="">
   <head>
@@ -352,7 +390,9 @@ exports[`html5-boilerplate.html - html-verify 1`] = `
     ></script>
     <script>
       window.jQuery ||
-        document.write('<script src="js/vendor/jquery-3.3.1.min.js"></script>');
+        document.write(
+          '<script src="js/vendor/jquery-3.3.1.min.js"><\\/script>'
+        );
     </script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
@@ -375,9 +415,15 @@ exports[`html5-boilerplate.html - html-verify 1`] = `
   </body>
 </html>
 
+================================================================================
 `;
 
-exports[`more-html.html - html-verify 1`] = `
+exports[`more-html.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <html>
 <head></head>
 <body>
@@ -385,7 +431,8 @@ exports[`more-html.html - html-verify 1`] = `
     <div hidden class="foo" id=bar></div>
 </body>
 </html>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <html>
   <head></head>
   <body>
@@ -394,9 +441,15 @@ exports[`more-html.html - html-verify 1`] = `
   </body>
 </html>
 
+================================================================================
 `;
 
-exports[`void-elements.html - html-verify 1`] = `
+exports[`void-elements.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <html>
 <head>
   <meta charset="UTF-8">
@@ -404,7 +457,8 @@ exports[`void-elements.html - html-verify 1`] = `
 </head>
 <body></body>
 </html>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -413,4 +467,5 @@ exports[`void-elements.html - html-verify 1`] = `
   <body></body>
 </html>
 
+================================================================================
 `;

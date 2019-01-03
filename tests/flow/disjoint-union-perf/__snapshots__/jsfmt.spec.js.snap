@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ast.js - flow-verify 1`] = `
+exports[`ast.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -81,7 +86,8 @@ export type TypedNode =
   | TypedVariableNode
   | TypedFunctionInvocationNode
 ;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -161,9 +167,15 @@ export type TypedNode =
   | TypedVariableNode
   | TypedFunctionInvocationNode;
 
+================================================================================
 `;
 
-exports[`emit.js - flow-verify 1`] = `
+exports[`emit.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -229,7 +241,8 @@ export function emitExpression(node: TypedNode) : t.Expression {
     throw new Error('Unknown expression type: ' + node.type);
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -294,9 +307,15 @@ export function emitExpression(node: TypedNode): t.Expression {
   }
 }
 
+================================================================================
 `;
 
-exports[`jsAst.js - flow-verify 1`] = `
+exports[`jsAst.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -933,7 +952,8 @@ export const builders : {
     init?: Expression
   ) : VariableDeclarator,
 } = a;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -1524,4 +1544,5 @@ export const builders: {
   variableDeclarator(id: Pattern, init?: Expression): VariableDeclarator
 } = a;
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ambient.ts - typescript-verify 1`] = `
+exports[`ambient.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare module "classnames" {
   export default function classnames(...inputs: (string | number | false | object | undefined)[]): string;
   export class x {}
@@ -16,7 +21,8 @@ declare module "y" {
   const y = 5;
   export default y;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare module "classnames" {
   export default function classnames(
     ...inputs: (string | number | false | object | undefined)[]
@@ -35,4 +41,5 @@ declare module "y" {
   export default y;
 }
 
+================================================================================
 `;

@@ -35,7 +35,8 @@ function formatMarkdown(
 
 function getMarkdownSyntax(options) {
   switch (options.parser) {
-    case "babylon":
+    case "babel":
+    case "babylon": // backward compatibility
     case "flow":
       return "jsx";
     case "typescript":
@@ -45,6 +46,8 @@ function getMarkdownSyntax(options) {
       return "jsonc";
     case "glimmer":
       return "hbs";
+    case "angular":
+      return "html";
     default:
       return options.parser;
   }

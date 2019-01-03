@@ -1,21 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import.js - flow-verify 1`] = `
+exports[`import.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 var num = 42;
 function bar() { }
 bar();
 module.exports = num;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 var num = 42;
 function bar() {}
 bar();
 module.exports = num;
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 var num = require('./import');
 function foo(x) { }
@@ -37,7 +49,8 @@ function f3(x: ?string) { return nullToUndefined(x); }
 declare var idx: $Facebookism$Idx;
 declare var obj: {a?: {b: ?{c: null | {d: number}}}};
 const idxResult = idx(obj, obj => obj.a.b.c.d);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 var num = require("./import");
 function foo(x) {}
@@ -68,4 +81,5 @@ declare var idx: $Facebookism$Idx;
 declare var obj: { a?: { b: ?{ c: null | { d: number } } } };
 const idxResult = idx(obj, obj => obj.a.b.c.d);
 
+================================================================================
 `;

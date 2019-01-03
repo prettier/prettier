@@ -31,6 +31,7 @@ const ENABLED_OPTIONS = [
   "semi",
   "singleQuote",
   "bracketSpacing",
+  "jsxSingleQuote",
   "jsxBracketSameLine",
   "arrowParens",
   "trailingComma",
@@ -272,8 +273,8 @@ function getSecondFormat(formatted, reformatted) {
   return formatted === ""
     ? ""
     : formatted === reformatted
-      ? "✓ Second format is unchanged."
-      : reformatted;
+    ? "✓ Second format is unchanged."
+    : reformatted;
 }
 
 export default Playground;

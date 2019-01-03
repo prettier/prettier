@@ -630,8 +630,26 @@ function handleLastFunctionArgComments(
     followingNode &&
     followingNode.type === "BlockStatement"
   ) {
-    addBlockStatementFirstComment(followingNode, comment);
-    return true;
+    const functionParamRightParenIndex = (() => {
+      if (enclosingNode.params.length !== 0) {
+        return privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+          text,
+          options.locEnd(privateUtil.getLast(enclosingNode.params))
+        );
+      }
+      const functionParamLeftParenIndex = privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+        text,
+        options.locEnd(enclosingNode.id)
+      );
+      return privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+        text,
+        functionParamLeftParenIndex + 1
+      );
+    })();
+    if (options.locStart(comment) > functionParamRightParenIndex) {
+      addBlockStatementFirstComment(followingNode, comment);
+      return true;
+    }
   }
 
   return false;
@@ -840,9 +858,20 @@ function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
 
+function hasLeadingComment(node, fn = () => true) {
+  if (node.leadingComments) {
+    return node.leadingComments.some(fn);
+  }
+  if (node.comments) {
+    return node.comments.some(comment => comment.leading && fn(comment));
+  }
+  return false;
+}
+
 module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment,
+  hasLeadingComment,
   isBlockComment
 };

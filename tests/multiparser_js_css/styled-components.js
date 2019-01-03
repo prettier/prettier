@@ -128,3 +128,31 @@ styled.span`
 ${foo}:
 ${bar};
 `
+
+styled.a`
+  ${feedbackCountBlockCss}
+  text-decoration: none;
+
+  ${FeedbackCount} {
+    margin: 0;
+  }
+`
+
+const StyledComponent = styled.div`
+  ${anInterpolation}
+  /* a comment */
+
+  .aRule {
+    color: red
+  }
+`;
+
+const StyledComponent = styled.div`
+  ${anInterpolation}
+
+  /* a comment */
+
+  .aRule {
+    color: red
+  }
+`;

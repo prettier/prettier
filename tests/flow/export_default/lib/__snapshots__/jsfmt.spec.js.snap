@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lib.js - flow-verify 1`] = `
+exports[`lib.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare module M {
     declare function exports(x:string): string;
 }
@@ -12,7 +17,8 @@ declare module N {
 declare module Q {
     declare var exports: $Exports<'M'>;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare module M {
   declare function exports(x: string): string;
 }
@@ -25,4 +31,5 @@ declare module Q {
   declare var exports: $Exports<"M">;
 }
 
+================================================================================
 `;

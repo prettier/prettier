@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -12,7 +17,8 @@ import type {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomet
 import type {a, somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 
 import transformRouterContext, { type TransformedContextRouter } from '../../helpers/transformRouterContext';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -30,4 +36,5 @@ import transformRouterContext, {
   type TransformedContextRouter
 } from "../../helpers/transformRouterContext";
 
+================================================================================
 `;

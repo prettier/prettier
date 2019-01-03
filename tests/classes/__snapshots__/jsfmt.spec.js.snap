@@ -1,19 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary.js - flow-verify 1`] = `
+exports[`binary.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 (class {}) + 1;
 (class a {}) + 1;
 (class extends b {}) + 1;
 (class a extends b {}) + 1;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 (class {} + 1);
 (class a {} + 1);
 (class extends b {} + 1);
 (class a extends b {} + 1);
 
+================================================================================
 `;
 
-exports[`break.js - flow-verify 1`] = `
+exports[`break.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class MyContractSelectionWidget extends React.Component<void,  MyContractSelectionWidgetPropsType, void> implements SomethingLarge {
   method() {}
 }
@@ -49,7 +61,8 @@ export class VisTimelineComponent
 export class VisTimelineComponent2
 	implements AfterViewInit, OnChanges, OnDestroy, AndSomethingReallyReallyLong {
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class MyContractSelectionWidget
   extends React.Component<void, MyContractSelectionWidgetPropsType, void>
   implements SomethingLarge {
@@ -89,16 +102,29 @@ export class VisTimelineComponent2
     OnDestroy,
     AndSomethingReallyReallyLong {}
 
+================================================================================
 `;
 
-exports[`call.js - flow-verify 1`] = `
+exports[`call.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 (class {})(class {});
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 (class {}(class {}));
 
+================================================================================
 `;
 
-exports[`empty.js - flow-verify 1`] = `
+exports[`empty.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A {
   // comment
 }
@@ -112,7 +138,8 @@ class A {
 class A {
   m() {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class A {
   // comment
 }
@@ -127,18 +154,31 @@ class A {
   m() {}
 }
 
+================================================================================
 `;
 
-exports[`member.js - flow-verify 1`] = `
+exports[`member.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 (class {})[1];
 (class {}).a;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 (class {}[1]);
 (class {}.a);
 
+================================================================================
 `;
 
-exports[`method.js - flow-verify 1`] = `
+exports[`method.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 class C {
   name/*comment*/() {
@@ -150,7 +190,8 @@ class C {
   name/*comment*/() {
   }
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class C {
   name /*comment*/() {}
 }
@@ -159,9 +200,15 @@ class C {
   name /*comment*/() {}
 });
 
+================================================================================
 `;
 
-exports[`property.js - flow-verify 1`] = `
+exports[`property.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A {
   foobar =
     // comment to break
@@ -180,7 +227,8 @@ class B {
     someInstanceProperty3 =
   "foo";
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class A {
   foobar =
     // comment to break
@@ -200,11 +248,19 @@ class B {
   someInstanceProperty3 = "foo";
 }
 
+================================================================================
 `;
 
-exports[`ternary.js - flow-verify 1`] = `
+exports[`ternary.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 if (1) (class {}) ? 1 : 2;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 if (1) (class {} ? 1 : 2);
 
+================================================================================
 `;

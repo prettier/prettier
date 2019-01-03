@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary.js - flow-verify 1`] = `
+exports[`binary.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
   !ReportGK.xar_metrics_active_capitol_v2) ||
   (report === COMPANY_OVERVIEW &&
@@ -13,7 +18,8 @@ room = room.map((row, rowIndex) => (
     (rowIndex === 0 || colIndex === 0 || rowIndex === height || colIndex === width) ? 1 : 0
   ))
 ))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const funnelSnapshotCard =
   (report === MY_OVERVIEW && !ReportGK.xar_metrics_active_capitol_v2) ||
   (report === COMPANY_OVERVIEW &&
@@ -32,9 +38,16 @@ room = room.map((row, rowIndex) =>
   )
 );
 
+================================================================================
 `;
 
-exports[`binary.js - flow-verify 2`] = `
+exports[`binary.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
   !ReportGK.xar_metrics_active_capitol_v2) ||
   (report === COMPANY_OVERVIEW &&
@@ -47,7 +60,8 @@ room = room.map((row, rowIndex) => (
     (rowIndex === 0 || colIndex === 0 || rowIndex === height || colIndex === width) ? 1 : 0
   ))
 ))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const funnelSnapshotCard =
     (report === MY_OVERVIEW && !ReportGK.xar_metrics_active_capitol_v2) ||
     (report === COMPANY_OVERVIEW &&
@@ -66,9 +80,16 @@ room = room.map((row, rowIndex) =>
     )
 );
 
+================================================================================
 `;
 
-exports[`binary.js - flow-verify 3`] = `
+exports[`binary.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
   !ReportGK.xar_metrics_active_capitol_v2) ||
   (report === COMPANY_OVERVIEW &&
@@ -81,7 +102,8 @@ room = room.map((row, rowIndex) => (
     (rowIndex === 0 || colIndex === 0 || rowIndex === height || colIndex === width) ? 1 : 0
   ))
 ))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const funnelSnapshotCard =
 	(report === MY_OVERVIEW && !ReportGK.xar_metrics_active_capitol_v2) ||
 	(report === COMPANY_OVERVIEW &&
@@ -100,9 +122,17 @@ room = room.map((row, rowIndex) =>
 	)
 );
 
+================================================================================
 `;
 
-exports[`binary.js - flow-verify 4`] = `
+exports[`binary.js 4`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
   !ReportGK.xar_metrics_active_capitol_v2) ||
   (report === COMPANY_OVERVIEW &&
@@ -115,7 +145,8 @@ room = room.map((row, rowIndex) => (
     (rowIndex === 0 || colIndex === 0 || rowIndex === height || colIndex === width) ? 1 : 0
   ))
 ))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const funnelSnapshotCard =
 	(report === MY_OVERVIEW && !ReportGK.xar_metrics_active_capitol_v2) ||
 	(report === COMPANY_OVERVIEW &&
@@ -134,9 +165,15 @@ room = room.map((row, rowIndex) =>
 	)
 );
 
+================================================================================
 `;
 
-exports[`func-call.js - flow-verify 1`] = `
+exports[`func-call.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 fn(
   bifornCringerMoshedPerplexSawder,
   askTrovenaBeenaDependsRowans,
@@ -145,7 +182,8 @@ fn(
       ? annularCooeedSplicesWalksWayWay 
       : kochabCooieGameOnOboleUnweave 
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 fn(
   bifornCringerMoshedPerplexSawder,
   askTrovenaBeenaDependsRowans,
@@ -155,9 +193,16 @@ fn(
     : kochabCooieGameOnOboleUnweave
 );
 
+================================================================================
 `;
 
-exports[`func-call.js - flow-verify 2`] = `
+exports[`func-call.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 fn(
   bifornCringerMoshedPerplexSawder,
   askTrovenaBeenaDependsRowans,
@@ -166,7 +211,8 @@ fn(
       ? annularCooeedSplicesWalksWayWay 
       : kochabCooieGameOnOboleUnweave 
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 fn(
     bifornCringerMoshedPerplexSawder,
     askTrovenaBeenaDependsRowans,
@@ -176,9 +222,16 @@ fn(
         : kochabCooieGameOnOboleUnweave
 );
 
+================================================================================
 `;
 
-exports[`func-call.js - flow-verify 3`] = `
+exports[`func-call.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
 fn(
   bifornCringerMoshedPerplexSawder,
   askTrovenaBeenaDependsRowans,
@@ -187,7 +240,8 @@ fn(
       ? annularCooeedSplicesWalksWayWay 
       : kochabCooieGameOnOboleUnweave 
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 fn(
 	bifornCringerMoshedPerplexSawder,
 	askTrovenaBeenaDependsRowans,
@@ -197,9 +251,17 @@ fn(
 		: kochabCooieGameOnOboleUnweave
 );
 
+================================================================================
 `;
 
-exports[`func-call.js - flow-verify 4`] = `
+exports[`func-call.js 4`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
 fn(
   bifornCringerMoshedPerplexSawder,
   askTrovenaBeenaDependsRowans,
@@ -208,7 +270,8 @@ fn(
       ? annularCooeedSplicesWalksWayWay 
       : kochabCooieGameOnOboleUnweave 
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 fn(
 	bifornCringerMoshedPerplexSawder,
 	askTrovenaBeenaDependsRowans,
@@ -218,9 +281,15 @@ fn(
 		: kochabCooieGameOnOboleUnweave
 );
 
+================================================================================
 `;
 
-exports[`indent.js - flow-verify 1`] = `
+exports[`indent.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -388,7 +457,8 @@ a
 			}
 	  }
     : a;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 aaaaaaaaaaaaaaa
   ? bbbbbbbbbbbbbbbbbb
   : ccccccccccccccc
@@ -540,9 +610,16 @@ a
     }
   : a;
 
+================================================================================
 `;
 
-exports[`indent.js - flow-verify 2`] = `
+exports[`indent.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -710,7 +787,8 @@ a
 			}
 	  }
     : a;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 aaaaaaaaaaaaaaa
     ? bbbbbbbbbbbbbbbbbb
     : ccccccccccccccc
@@ -862,9 +940,16 @@ a
       }
     : a;
 
+================================================================================
 `;
 
-exports[`indent.js - flow-verify 3`] = `
+exports[`indent.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -1032,7 +1117,8 @@ a
 			}
 	  }
     : a;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 aaaaaaaaaaaaaaa
 	? bbbbbbbbbbbbbbbbbb
 	: ccccccccccccccc
@@ -1184,9 +1270,17 @@ a
 	  }
 	: a;
 
+================================================================================
 `;
 
-exports[`indent.js - flow-verify 4`] = `
+exports[`indent.js 4`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -1354,7 +1448,8 @@ a
 			}
 	  }
     : a;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 aaaaaaaaaaaaaaa
 	? bbbbbbbbbbbbbbbbbb
 	: ccccccccccccccc
@@ -1510,9 +1605,15 @@ a
 	  }
 	: a;
 
+================================================================================
 `;
 
-exports[`nested.js - flow-verify 1`] = `
+exports[`nested.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 let icecream = what == "cone"
   ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
   : p => \`here's your \${p} \${what}\`;
@@ -1599,7 +1700,17 @@ const foo = <div className={'match-achievement-medal-type type' + (medals[0].rec
 	) : (
 		i18n('Theme')
 	)}
-</div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</div>
+
+a
+    ? literalline
+    : {
+      123: 12
+    }
+    ? line
+    : softline
+
+=====================================output=====================================
 let icecream =
   what == "cone"
     ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
@@ -1689,9 +1800,24 @@ const foo = (
   </div>
 );
 
+a
+  ? literalline
+  : {
+      123: 12
+    }
+  ? line
+  : softline;
+
+================================================================================
 `;
 
-exports[`nested.js - flow-verify 2`] = `
+exports[`nested.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 let icecream = what == "cone"
   ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
   : p => \`here's your \${p} \${what}\`;
@@ -1778,7 +1904,17 @@ const foo = <div className={'match-achievement-medal-type type' + (medals[0].rec
 	) : (
 		i18n('Theme')
 	)}
-</div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</div>
+
+a
+    ? literalline
+    : {
+      123: 12
+    }
+    ? line
+    : softline
+
+=====================================output=====================================
 let icecream =
     what == "cone"
         ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
@@ -1868,9 +2004,24 @@ const foo = (
     </div>
 );
 
+a
+    ? literalline
+    : {
+          123: 12
+      }
+    ? line
+    : softline;
+
+================================================================================
 `;
 
-exports[`nested.js - flow-verify 3`] = `
+exports[`nested.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
 let icecream = what == "cone"
   ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
   : p => \`here's your \${p} \${what}\`;
@@ -1957,7 +2108,17 @@ const foo = <div className={'match-achievement-medal-type type' + (medals[0].rec
 	) : (
 		i18n('Theme')
 	)}
-</div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</div>
+
+a
+    ? literalline
+    : {
+      123: 12
+    }
+    ? line
+    : softline
+
+=====================================output=====================================
 let icecream =
 	what == "cone"
 		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
@@ -2047,9 +2208,25 @@ const foo = (
 	</div>
 );
 
+a
+	? literalline
+	: {
+			123: 12
+	  }
+	? line
+	: softline;
+
+================================================================================
 `;
 
-exports[`nested.js - flow-verify 4`] = `
+exports[`nested.js 4`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
 let icecream = what == "cone"
   ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
   : p => \`here's your \${p} \${what}\`;
@@ -2136,7 +2313,17 @@ const foo = <div className={'match-achievement-medal-type type' + (medals[0].rec
 	) : (
 		i18n('Theme')
 	)}
-</div>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</div>
+
+a
+    ? literalline
+    : {
+      123: 12
+    }
+    ? line
+    : softline
+
+=====================================output=====================================
 let icecream =
 	what == "cone"
 		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
@@ -2226,16 +2413,31 @@ const foo = (
 	</div>
 );
 
+a
+	? literalline
+	: {
+			123: 12
+	  }
+	? line
+	: softline;
+
+================================================================================
 `;
 
-exports[`parenthesis.js - flow-verify 1`] = `
+exports[`parenthesis.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
 
 a => a ? () => {a} : () => {a}
 a => a ? a : a
 a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
 debug
   ? this.state.isVisible && somethingComplex
@@ -2255,16 +2457,24 @@ a => (a ? a : a);
 a =>
   a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
+================================================================================
 `;
 
-exports[`parenthesis.js - flow-verify 2`] = `
+exports[`parenthesis.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
 
 a => a ? () => {a} : () => {a}
 a => a ? a : a
 a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
 debug
     ? this.state.isVisible && somethingComplex
@@ -2284,16 +2494,24 @@ a => (a ? a : a);
 a =>
     a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
+================================================================================
 `;
 
-exports[`parenthesis.js - flow-verify 3`] = `
+exports[`parenthesis.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
 
 a => a ? () => {a} : () => {a}
 a => a ? a : a
 a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
 debug
 	? this.state.isVisible && somethingComplex
@@ -2313,16 +2531,25 @@ a => (a ? a : a);
 a =>
 	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
+================================================================================
 `;
 
-exports[`parenthesis.js - flow-verify 4`] = `
+exports[`parenthesis.js 4`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
 debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
 
 a => a ? () => {a} : () => {a}
 a => a ? a : a
 a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
 debug
 	? this.state.isVisible && somethingComplex
@@ -2342,9 +2569,15 @@ a => (a ? a : a);
 a =>
 	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
 const obj1 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : shortThing
@@ -2356,7 +2589,8 @@ const obj3 = conditionIsTruthy ? { some: 'eeeeeeeeeeeeven looooooooooooooooooooo
 const obj4 = conditionIsTruthy ? shortThing : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
 
 const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
 const obj1 = conditionIsTruthy
@@ -2394,9 +2628,16 @@ const obj5 = conditionIsTruthy
       stuff
     };
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 2`] = `
+exports[`test.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
 const obj1 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : shortThing
@@ -2408,7 +2649,8 @@ const obj3 = conditionIsTruthy ? { some: 'eeeeeeeeeeeeven looooooooooooooooooooo
 const obj4 = conditionIsTruthy ? shortThing : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
 
 const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
 const obj1 = conditionIsTruthy
@@ -2446,9 +2688,16 @@ const obj5 = conditionIsTruthy
           stuff
       };
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 3`] = `
+exports[`test.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
 const obj1 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : shortThing
@@ -2460,7 +2709,8 @@ const obj3 = conditionIsTruthy ? { some: 'eeeeeeeeeeeeven looooooooooooooooooooo
 const obj4 = conditionIsTruthy ? shortThing : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
 
 const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
 const obj1 = conditionIsTruthy
@@ -2498,9 +2748,17 @@ const obj5 = conditionIsTruthy
 			stuff
 	  };
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 4`] = `
+exports[`test.js 4`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
 
 const obj1 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : shortThing
@@ -2512,7 +2770,8 @@ const obj3 = conditionIsTruthy ? { some: 'eeeeeeeeeeeeven looooooooooooooooooooo
 const obj4 = conditionIsTruthy ? shortThing : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
 
 const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
 const obj1 = conditionIsTruthy
@@ -2550,4 +2809,5 @@ const obj5 = conditionIsTruthy
 			stuff
 	  };
 
+================================================================================
 `;

@@ -78,11 +78,10 @@ function _resolveConfig(filePath, opts, sync) {
 
     ["plugins", "pluginSearchDirs"].forEach(optionName => {
       if (Array.isArray(merged[optionName])) {
-        merged[optionName] = merged[optionName].map(
-          value =>
-            typeof value === "string" && value.startsWith(".") // relative path
-              ? path.resolve(path.dirname(result.filepath), value)
-              : value
+        merged[optionName] = merged[optionName].map(value =>
+          typeof value === "string" && value.startsWith(".") // relative path
+            ? path.resolve(path.dirname(result.filepath), value)
+            : value
         );
       }
     });

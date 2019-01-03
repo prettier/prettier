@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js - flow-verify 1`] = `
+exports[`arrow.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Error
 const beep = (data/*: Object */) => {}
 
@@ -10,7 +15,8 @@ const beep = (data/*: Object */, secondData/*: Object */) => {}
 const beep = (data/*: /* this is an object *-/ Object */) => {};
 
 const run = (cmd /*: string */) /*: Promise<void> */ => {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Error
 const beep = (data /*: Object */) => {};
 
@@ -21,31 +27,51 @@ const beep = (data /*: /* this is an object *-/ Object */) => {};
 
 const run = (cmd /*: string */) /*: Promise<void> */ => {};
 
+================================================================================
 `;
 
-exports[`class.js - flow-verify 1`] = `
+exports[`class.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A {
   x /*: string */;
 
   method(a /*: T */, b /*: T */) /*: T */ {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class A {
   x /*: string */;
 
   method(a /*: T */, b /*: T */) /*: T */ {}
 }
 
+================================================================================
 `;
 
-exports[`functions.js - flow-verify 1`] = `
+exports[`functions.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo<T>(bar  /*: T[] */, baz  /*: T */) /*: S */ {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo<T>(bar /*: T[] */, baz /*: T */) /*: S */ {}
 
+================================================================================
 `;
 
-exports[`generics.js - flow-verify 1`] = `
+exports[`generics.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const Component = branch/*::     <Props, ExternalProps> */(
   ({ src }) => !src,
   // $FlowFixMe
@@ -57,7 +83,8 @@ const C = b/*:: <A> */(foo) + c/*:: <B> */(bar);
 foo/*::<bar>*/(baz);
 
 foo/*::<bar>*/();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const Component = branch/*:: <Props, ExternalProps> */(
   ({ src }) => !src,
   // $FlowFixMe
@@ -70,18 +97,31 @@ foo/*:: <bar> */(baz);
 
 foo/*:: <bar> */();
 
+================================================================================
 `;
 
-exports[`let.js - flow-verify 1`] = `
+exports[`let.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 let foo /*: Groups<T> */;
 let foo /*: string */ = 'a';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 let foo /*: Groups<T> */;
 let foo /*: string */ = "a";
 
+================================================================================
 `;
 
-exports[`object_type_annotation.js - flow-verify 1`] = `
+exports[`object_type_annotation.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type Props = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
 {
   isPlaying: boolean,
@@ -95,7 +135,8 @@ type Props = {
   // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
   isPlaying: boolean
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
 type Props = {
   isPlaying: boolean
@@ -111,9 +152,15 @@ type Props = {
   isPlaying: boolean
 };
 
+================================================================================
 `;
 
-exports[`type_annotations.js - flow-verify 1`] = `
+exports[`type_annotations.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 new (window.Request/*: Class<Request> */)("");
 
 (this/*: any */).foo = 5;
@@ -126,7 +173,8 @@ new (window.Request/*: Class<Request> */)("");
 : any */).foo = 5;
 
 const x = (input /*: string */) /*: string */ => {};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 new (window.Request /*: Class<Request> */)("");
 
 (this /*: any */).foo = 5;
@@ -140,4 +188,5 @@ this /*
 
 const x = (input /*: string */) /*: string */ => {};
 
+================================================================================
 `;

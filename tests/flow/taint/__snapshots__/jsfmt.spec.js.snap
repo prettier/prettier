@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`adder.js - flow-verify 1`] = `
+exports[`adder.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 function f(x : $Tainted<number>, y : $Tainted<number>) {
@@ -32,7 +37,8 @@ function f6(x : string, y : $Tainted<number>) {
 function f7(x : $Tainted<string>, y : $Tainted<number>) {
   var z : string = x + y;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 function f(x: $Tainted<number>, y: $Tainted<number>) {
@@ -65,9 +71,15 @@ function f7(x: $Tainted<string>, y: $Tainted<number>) {
   var z: string = x + y;
 }
 
+================================================================================
 `;
 
-exports[`any_object.js - flow-verify 1`] = `
+exports[`any_object.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -93,7 +105,8 @@ let tests = [
     foo(x); // error, taint ~> any
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -120,9 +133,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`call-object-property.js - flow-verify 1`] = `
+exports[`call-object-property.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 function foo(x : $Tainted<string>, o : Object) {
@@ -148,7 +167,8 @@ function f_foo2(f1 : Function, o : {t : $Tainted<string>}) {
 function f_foo3(f1 : Function, o1 : Object, o2 : {t : $Tainted<string>}) {
   (f1(o1))(o2.t);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 function foo(x: $Tainted<string>, o: Object) {
@@ -175,9 +195,15 @@ function f_foo3(f1: Function, o1: Object, o2: { t: $Tainted<string> }) {
   f1(o1)(o2.t);
 }
 
+================================================================================
 `;
 
-exports[`comparator.js - flow-verify 1`] = `
+exports[`comparator.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 // Should cause an error.
 function f(x : $Tainted<string>, y : $Tainted<number>) {
@@ -196,7 +222,8 @@ function f2(x : $Tainted<string>, y : number) {
 function f3(x : $Tainted<string>, y : string) {
   var z : bool = x < y;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 // Should cause an error.
 function f(x: $Tainted<string>, y: $Tainted<number>) {
@@ -216,9 +243,15 @@ function f3(x: $Tainted<string>, y: string) {
   var z: boolean = x < y;
 }
 
+================================================================================
 `;
 
-exports[`function.js - flow-verify 1`] = `
+exports[`function.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -233,7 +266,8 @@ let tests = [
     z(y);
   }
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -249,9 +283,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`globals.js - flow-verify 1`] = `
+exports[`globals.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 class A {
@@ -264,7 +304,8 @@ class A {
     window.fakeLocation = x;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 class A {
@@ -278,9 +319,15 @@ class A {
   }
 }
 
+================================================================================
 `;
 
-exports[`lib.js - flow-verify 1`] = `
+exports[`lib.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare class FakeLocation {
   assign(url: string): void;
 }
@@ -293,7 +340,8 @@ declare function doStuff(x: $Tainted<any>): void;
 
 declare var fakeDocument: FakeDocument;
 declare var fakeLocation: FakeLocation;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare class FakeLocation {
   assign(url: string): void;
 }
@@ -307,9 +355,15 @@ declare function doStuff(x: $Tainted<any>): void;
 declare var fakeDocument: FakeDocument;
 declare var fakeLocation: FakeLocation;
 
+================================================================================
 `;
 
-exports[`taint1.js - flow-verify 1`] = `
+exports[`taint1.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
  *
  * @flow
@@ -320,7 +374,8 @@ class A {
     var also_tainted : $Tainted<string> = tainted;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
  *
  * @flow
@@ -332,9 +387,15 @@ class A {
   }
 }
 
+================================================================================
 `;
 
-exports[`taint2.js - flow-verify 1`] = `
+exports[`taint2.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
  *
  * @flow
@@ -345,7 +406,8 @@ class A {
     fakeDocument.location.assign(tainted);
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
  *
  * @flow
@@ -357,9 +419,15 @@ class A {
   }
 }
 
+================================================================================
 `;
 
-exports[`taint3.js - flow-verify 1`] = `
+exports[`taint3.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
  *
  * @flow
@@ -372,7 +440,8 @@ class A {
     var loc : string = safe;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
  *
  * @flow
@@ -386,9 +455,15 @@ class A {
   }
 }
 
+================================================================================
 `;
 
-exports[`taint4.js - flow-verify 1`] = `
+exports[`taint4.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
  *
  * @flow
@@ -402,7 +477,8 @@ function f(x : $Tainted<any>) {
   // Should cause error.
   var y : any = x;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
  *
  * @flow
@@ -417,9 +493,15 @@ function f(x: $Tainted<any>) {
   var y: any = x;
 }
 
+================================================================================
 `;
 
-exports[`use-types.js - flow-verify 1`] = `
+exports[`use-types.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
  * @flow
  */
@@ -452,7 +534,8 @@ function foo5 (a : $Tainted<Array<string>>) {
 function foo6 (a : $Tainted<Array<string>>) {
   var trusted : $Tainted<string> = a[0];
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
  * @flow
  */
@@ -486,4 +569,5 @@ function foo6(a: $Tainted<Array<string>>) {
   var trusted: $Tainted<string> = a[0];
 }
 
+================================================================================
 `;

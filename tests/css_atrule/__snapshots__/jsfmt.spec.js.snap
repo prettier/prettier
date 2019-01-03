@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`at-root.css - css-verify 1`] = `
+exports[`at-root.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 .parent {
     @at-root {
         .child1 {
@@ -293,7 +298,8 @@ red
         }
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 .parent {
   @at-root {
     .child1 {
@@ -470,16 +476,23 @@ red
   }
 }
 
+================================================================================
 `;
 
-exports[`charset.css - css-verify 1`] = `
+exports[`charset.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @charset "UTF-8";
 @charset "iso-8859-15";
 @charset 'iso-8859-15'; /* Invalid, wrong quoting style used */
 @charset  "UTF-8"; /* Invalid, more than one space */
 @charset "UTF-8"; /* Invalid, there is a character (a space) before the at-rule */
 @charset UTF-8; /* Invalid, without ' or ", the charset is not a CSS <string> */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @charset "UTF-8";
 @charset "iso-8859-15";
 @charset 'iso-8859-15'; /* Invalid, wrong quoting style used */
@@ -487,9 +500,15 @@ exports[`charset.css - css-verify 1`] = `
 @charset "UTF-8"; /* Invalid, there is a character (a space) before the at-rule */
 @charset UTF-8; /* Invalid, without ' or ", the charset is not a CSS <string> */
 
+================================================================================
 `;
 
-exports[`counter-style.css - css-verify 1`] = `
+exports[`counter-style.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @counter-style identifier {
     system: cyclic;
     symbols: "\\1F44D";
@@ -559,7 +578,8 @@ suffix
 ;
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @counter-style identifier {
   system: cyclic;
   symbols: "\\1F44D";
@@ -594,9 +614,15 @@ suffix
   suffix: " ";
 }
 
+================================================================================
 `;
 
-exports[`custom-media.css - css-verify 1`] = `
+exports[`custom-media.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @custom-media --small-viewport (max-width: 30em);
 @custom-media --small-viewport (max-width:30em);
 @custom-media  --small-viewport  (  max-width  :  30em  )  ;
@@ -701,7 +727,8 @@ max-width
 )
 
 ;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @custom-media --small-viewport (max-width: 30em);
 @custom-media --small-viewport (max-width: 30em);
 @custom-media --small-viewport (max-width: 30em);
@@ -723,9 +750,15 @@ max-width
 @custom-media --tablet (min-width: 768px) and (max-width: 1279px);
 @custom-media --tablet (min-width: 768px) and (max-width: 1279px);
 
+================================================================================
 `;
 
-exports[`custom-selector.css - css-verify 1`] = `
+exports[`custom-selector.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
 @custom-selector :--heading h1,h2,h3,h4,h5,h6;
 @custom-selector  :--heading  h1  ,  h2  ,  h3  ,  h4  ,  h5  ,  h6  ;
@@ -790,7 +823,8 @@ h6
 @custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
 @custom-selector :--placeholder :placehoder-shown, ::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder;
 @custom-selector :--enter :matches(:hover, :focus, :active);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
@@ -840,9 +874,15 @@ h6
   :-ms-input-placeholder;
 @custom-selector :--enter :matches(:hover, :focus, :active);
 
+================================================================================
 `;
 
-exports[`debug.css - css-verify 1`] = `
+exports[`debug.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @debug 10em + 12em;
 @debug 10em+12em;
 @debug  10em  +  12em  ;
@@ -865,7 +905,8 @@ exports[`debug.css - css-verify 1`] = `
 
 ;
 @debug $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var + $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @debug 10em + 12em;
 @debug 10em+12em;
 @debug 10em + 12em;
@@ -875,9 +916,15 @@ exports[`debug.css - css-verify 1`] = `
 @debug $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var +
   $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var;
 
+================================================================================
 `;
 
-exports[`each.css - css-verify 1`] = `
+exports[`each.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @each $animal in puma, sea-slug, egret, salamander {}
 @each $animal in puma,sea-slug,egret,salamander{}
 @each  $animal  in  puma  ,  sea-slug  ,  egret  ,  salamander  {}
@@ -1095,7 +1142,8 @@ h3
 {
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @each $animal in puma, sea-slug, egret, salamander {
 }
 @each $animal in puma, sea-slug, egret, salamander {
@@ -1163,9 +1211,15 @@ h3
 @each $element, $size in (h1: 20px, h2: 16px, h3: 14px) {
 }
 
+================================================================================
 `;
 
-exports[`extend.css - css-verify 1`] = `
+exports[`extend.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 .master {
     color:  black;
     font-size: 12px;
@@ -1317,7 +1371,8 @@ a.important
 .message-error {
     @extend .very-very-very-very-very-very-very-very-very-very-very-very-very-long-selector, .very-very-very-very-very-very-very-very-very-very-very-very-very-long-selector;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 .master {
   color: black;
   font-size: 12px;
@@ -1414,9 +1469,15 @@ a.important {
     .very-very-very-very-very-very-very-very-very-very-very-very-very-long-selector;
 }
 
+================================================================================
 `;
 
-exports[`font-face.css - css-verify 1`] = `
+exports[`font-face.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @font-face {
     font-family: "Open Sans";
     src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
@@ -1506,7 +1567,8 @@ format(
 ;
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @font-face {
   font-family: "Open Sans";
   src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
@@ -1539,9 +1601,15 @@ format(
     url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
 }
 
+================================================================================
 `;
 
-exports[`font-feature-values.css - css-verify 1`] = `
+exports[`font-feature-values.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @font-feature-values Font One {
     @styleset {
         nice-style: 12;
@@ -1594,7 +1662,8 @@ nice-style
 }
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @font-feature-values Font One {
   @styleset {
     nice-style: 12;
@@ -1627,9 +1696,15 @@ nice-style
   }
 }
 
+================================================================================
 `;
 
-exports[`for.css - css-verify 1`] = `
+exports[`for.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @for $i from 1 through 8 {}
 @for $i from 1 through 8{}
 @for  $i  from  1  through  8  {}
@@ -1673,7 +1748,8 @@ through
 @for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var from $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 end $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 {}
 @for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var from ($var1 + $var1) through ($var-2 + $var-2) {}
 @for $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var from ($very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1 + $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var1) through ($very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2 + $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var-2) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @for $i from 1 through 8 {
 }
 @for $i from 1 through 8 {
@@ -1730,9 +1806,15 @@ through
 {
 }
 
+================================================================================
 `;
 
-exports[`function.css - css-verify 1`] = `
+exports[`function.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @function func($arg, $arg1, $arg2: 10, $args...) {
     @return "Func";
 }
@@ -1821,7 +1903,8 @@ $args
 @function func($very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg1, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg2: 10, $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-args...) {
     @return "Func";
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @function func($arg, $arg1, $arg2: 10, $args...) {
   @return "Func";
 }
@@ -1856,9 +1939,15 @@ $args
   @return "Func";
 }
 
+================================================================================
 `;
 
-exports[`if-else.css - css-verify 1`] = `
+exports[`if-else.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @if $media == phonePortrait {
     $k: .15625;
 } @else if $media == phoneLandscape {
@@ -2004,7 +2093,8 @@ p {
     @if (str-slice($item, 0, 3) == " : ") {}
     @if ($type == ocean) {} @else if ($type == matador) {} @else {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @if $media == phonePortrait {
   $k: 0.15625;
 } @else if $media == phoneLandscape {
@@ -2136,9 +2226,15 @@ p {
   }
 }
 
+================================================================================
 `;
 
-exports[`import.css - css-verify 1`] = `
+exports[`import.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @import url("fineprint.css") print;
 @import url("bluish.css") projection, tv;
 @import 'custom.css';
@@ -2231,7 +2327,8 @@ $family: unquote("Droid+Sans");
 @import url(
 "foo.css,800"
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @import url("fineprint.css") print;
 @import url("bluish.css") projection, tv;
 @import "custom.css";
@@ -2313,9 +2410,15 @@ $family: unquote("Droid+Sans");
 @import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600";
 @import url("foo.css,800");
 
+================================================================================
 `;
 
-exports[`include.css - css-verify 1`] = `
+exports[`include.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(1px,2px,$arg2:10,2px 4px 6px);
 @include mix ( 1px , 2px , $arg2 : 10 , 2px 4px 6px );
@@ -2435,7 +2538,8 @@ border-color: $very-very-very-very-very-very-very-very-very-very-very-very-very-
 )
 );
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
 @include mix(1px, 2px, $arg2: 10, 2px 4px 6px);
@@ -2528,9 +2632,15 @@ a {
   );
 }
 
+================================================================================
 `;
 
-exports[`keyframes.css - css-verify 1`] = `
+exports[`keyframes.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @keyframes identifier {
   0% {
     top: 0;
@@ -2757,7 +2867,8 @@ margin-top: 100px;
   0%   { opacity: 0; top: 4rem; }
   100% { opacity: 1; top: 0; }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @keyframes identifier {
   0% {
     top: 0;
@@ -2901,9 +3012,15 @@ margin-top: 100px;
   }
 }
 
+================================================================================
 `;
 
-exports[`media.css - css-verify 1`] = `
+exports[`media.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @media screen and (min-width: 480px) {}
 @media  screen and (min-width: 480px) {}
 @MEDIA screen and (min-width: 480px) {}
@@ -3093,7 +3210,8 @@ black
 }
 
 @media all and (-webkit-min-device-pixel-ratio: 1.5), all and (-o-min-device-pixel-ratio: 3/2), all and (min--moz-device-pixel-ratio: 1.5), all and (min-device-pixel-ratio: 1.5) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @media screen and (min-width: 480px) {
 }
 @media screen and (min-width: 480px) {
@@ -3226,9 +3344,15 @@ black
   all and (min-device-pixel-ratio: 1.5) {
 }
 
+================================================================================
 `;
 
-exports[`mixin.css - css-verify 1`] = `
+exports[`mixin.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @mixin clearfix {}
 @mixin clearfix{}
 @mixin  clearfix  {}
@@ -3336,7 +3460,8 @@ $background
 @mixin button-variant($foo: " ... ") {}
 @mixin button-variant($foo: "  ...  ") {}
 @mixin sexy-border($color, $width, $foo: (color: red)) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @mixin clearfix {
 }
 @mixin clearfix {
@@ -3399,9 +3524,15 @@ $background
 @mixin sexy-border($color, $width, $foo: (color: red)) {
 }
 
+================================================================================
 `;
 
-exports[`namespaces.css - css-verify 1`] = `
+exports[`namespaces.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @namespace toto "http://toto.example.org";
 @namespace toto url("http://toto.example.org");
 @namespace toto "http://toto.example.org" ;
@@ -3444,7 +3575,8 @@ url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/ve
 @namespace
 
 url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @namespace toto "http://toto.example.org";
 @namespace toto url("http://toto.example.org");
 @namespace toto "http://toto.example.org";
@@ -3464,9 +3596,15 @@ url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/ve
 @namespace url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
 @namespace url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
 
+================================================================================
 `;
 
-exports[`page.css - css-verify 1`] = `
+exports[`page.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @page {
     margin: 1cm;
 }
@@ -3536,7 +3674,8 @@ margin
 @page vertical {
     size: A4 portrait;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @page {
   margin: 1cm;
 }
@@ -3577,9 +3716,15 @@ margin
   size: A4 portrait;
 }
 
+================================================================================
 `;
 
-exports[`return.css - css-verify 1`] = `
+exports[`return.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @function grid-width($n) {
     @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
@@ -3709,7 +3854,8 @@ $gutter-width
     )
     ;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @function grid-width($n) {
   @return $n * $grid-width + ($n - 1) * $gutter-width / 10;
 }
@@ -3756,9 +3902,15 @@ $gutter-width
   @return map-merge($obj, $ext-obj);
 }
 
+================================================================================
 `;
 
-exports[`supports.css - css-verify 1`] = `
+exports[`supports.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @supports (transform-origin: 5% 5%) {}
 @supports (transform-origin:5% 5%) {}
 @supports ( transform-origin : 5% 5% ) {}
@@ -4042,7 +4194,8 @@ run-in
 @supports not((text-align-last:justify)or(-moz-text-align-last:justify)){ }
 @supports not((text-align-last:justify)and(-moz-text-align-last:justify)){ }
 @supports (--foo:green) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @supports (transform-origin: 5% 5%) {
 }
 @supports (transform-origin: 5% 5%) {
@@ -4191,9 +4344,15 @@ run-in
 @supports (--foo: green) {
 }
 
+================================================================================
 `;
 
-exports[`viewport.css - css-verify 1`] = `
+exports[`viewport.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @viewport {
   min-width: 640px;
   max-width: 800px;
@@ -4247,7 +4406,8 @@ max-width
 ;
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @viewport {
   min-width: 640px;
   max-width: 800px;
@@ -4279,9 +4439,15 @@ max-width
   max-width: 800px;
 }
 
+================================================================================
 `;
 
-exports[`while.css - css-verify 1`] = `
+exports[`while.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @while $i > 0 {}
 @while $i>0{}
 @while  $i  >  0  {}
@@ -4392,7 +4558,8 @@ $i
 @while (1 > $very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var) {}
 @while ($very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var > 1) {}
 @while ($very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var > $other-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-var) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @while $i > 0 {
 }
 @while $i>0 {
@@ -4467,4 +4634,5 @@ $i
 ) {
 }
 
+================================================================================
 `;

@@ -67,15 +67,15 @@ exports[`API getSupportInfo() with version 0.0.0 1`] = `
 Object {
   "languages": Object {
     "Flow": Array [
-      "babylon",
+      "babel",
       "flow",
     ],
     "JSX": Array [
-      "babylon",
+      "babel",
       "flow",
     ],
     "JavaScript": Array [
-      "babylon",
+      "babel",
       "flow",
     ],
   },
@@ -137,14 +137,14 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 +       \\"postcss\\",
 +     ],
       \\"Flow\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
       \\"JSX\\": Array [
 @@ -10,24 +13,51 @@
       ],
       \\"JavaScript\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
 +     \\"Less\\": Array [
@@ -232,7 +232,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 @@ -5,10 +5,19 @@
       ],
       \\"Flow\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
 +     \\"GraphQL\\": Array [
@@ -245,7 +245,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 +       \\"json\\",
 +     ],
       \\"JSX\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
@@ -277,12 +277,12 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
 +       \\"css\\",
       ],
       \\"Flow\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
 @@ -23,17 +23,17 @@
       \\"JavaScript\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
       \\"Less\\": Array [
@@ -412,7 +412,17 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 - First value
 + Second value
 
-@@ -8,16 +8,25 @@
+@@ -1,23 +1,35 @@
+  Object {
+    \\"languages\\": Object {
++     \\"Angular\\": Array [
++       \\"angular\\",
++     ],
+      \\"CSS\\": Array [
+        \\"css\\",
+      ],
+      \\"Flow\\": Array [
+        \\"babel\\",
         \\"flow\\",
       ],
       \\"GraphQL\\": Array [
@@ -434,11 +444,11 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +       \\"json5\\",
 +     ],
       \\"JSX\\": Array [
-        \\"babylon\\",
+        \\"babel\\",
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -25,10 +34,13 @@
+@@ -25,10 +37,13 @@
         \\"flow\\",
       ],
       \\"Less\\": Array [
@@ -452,7 +462,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       ],
       \\"PostCSS\\": Array [
         \\"css\\",
-@@ -37,12 +49,26 @@
+@@ -37,12 +52,26 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -479,8 +489,22 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -56,10 +82,19 @@
+@@ -52,37 +81,76 @@
+          \\"start\\": -1,
+          \\"step\\": 1,
+        },
+        \\"type\\": \\"int\\",
       },
++     \\"endOfLine\\": Object {
++       \\"choices\\": Array [
++         \\"auto\\",
++         \\"lf\\",
++         \\"crlf\\",
++         \\"cr\\",
++       ],
++       \\"default\\": \\"auto\\",
++       \\"type\\": \\"choice\\",
++     },
       \\"filepath\\": Object {
         \\"default\\": undefined,
         \\"type\\": \\"path\\",
@@ -499,7 +523,19 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"jsxBracketSameLine\\": Object {
-@@ -73,16 +108,30 @@
+        \\"default\\": false,
+        \\"type\\": \\"boolean\\",
+      },
++     \\"jsxSingleQuote\\": Object {
++       \\"default\\": false,
++       \\"type\\": \\"boolean\\",
++     },
+      \\"parser\\": Object {
+        \\"choices\\": Array [
+          \\"flow\\",
+-         \\"babylon\\",
++         \\"babel\\",
++         \\"babel-flow\\",
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -513,6 +549,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +         \\"vue\\",
 +         \\"yaml\\",
 +         \\"html\\",
++         \\"angular\\",
         ],
 -       \\"default\\": \\"babylon\\",
 +       \\"default\\": undefined,
@@ -531,7 +568,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +139,15 @@
+@@ -90,14 +158,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -589,7 +626,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"interpreters\\": [\\"node\\", \\"nodejs\\"],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JavaScript\\",
-      \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -606,7 +643,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"interpreters\\": [\\"node\\"],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"Flow\\",
-      \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -620,7 +657,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"group\\": \\"JavaScript\\",
       \\"linguistLanguageId\\": 178,
       \\"name\\": \\"JSX\\",
-      \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js.jsx\\",
       \\"type\\": \\"programming\\",
@@ -848,6 +885,22 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMimeType\\": \\"text/html\\",
       \\"codemirrorMode\\": \\"htmlmixed\\",
       \\"color\\": \\"#e34c26\\",
+      \\"extensions\\": [\\".component.html\\"],
+      \\"filenames\\": [],
+      \\"linguistLanguageId\\": 146,
+      \\"name\\": \\"Angular\\",
+      \\"parsers\\": [\\"angular\\"],
+      \\"since\\": \\"1.15.0\\",
+      \\"tmScope\\": \\"text.html.basic\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"html\\"]
+    },
+    {
+      \\"aceMode\\": \\"html\\",
+      \\"aliases\\": [\\"xhtml\\"],
+      \\"codemirrorMimeType\\": \\"text/html\\",
+      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"color\\": \\"#e34c26\\",
       \\"extensions\\": [
         \\".html\\",
         \\".htm\\",
@@ -855,7 +908,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".inc\\",
         \\".st\\",
         \\".xht\\",
-        \\".xhtml\\"
+        \\".xhtml\\",
+        \\".mjml\\"
       ],
       \\"linguistLanguageId\\": 146,
       \\"name\\": \\"HTML\\",
@@ -944,6 +998,33 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"int\\"
     },
     {
+      \\"category\\": \\"Global\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
+          \\"value\\": \\"auto\\"
+        },
+        {
+          \\"description\\": \\"Line Feed only (\\\\\\\\n), common on Linux and macOS as well as inside git repos\\",
+          \\"value\\": \\"lf\\"
+        },
+        {
+          \\"description\\": \\"Carriage Return + Line Feed characters (\\\\\\\\r\\\\\\\\n), common on Windows\\",
+          \\"value\\": \\"crlf\\"
+        },
+        {
+          \\"description\\": \\"Carriage Return character only (\\\\\\\\r), used very rarely\\",
+          \\"value\\": \\"cr\\"
+        }
+      ],
+      \\"default\\": \\"auto\\",
+      \\"description\\": \\"Which end of line characters to apply.\\",
+      \\"name\\": \\"endOfLine\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
       \\"category\\": \\"Special\\",
       \\"description\\": \\"Specify the input filepath. This will be used to do parser inference.\\",
       \\"name\\": \\"filepath\\",
@@ -993,10 +1074,20 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"boolean\\"
     },
     {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Use single quotes in JSX.\\",
+      \\"name\\": \\"jsxSingleQuote\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
       \\"category\\": \\"Global\\",
       \\"choices\\": [
         { \\"description\\": \\"Flow\\", \\"value\\": \\"flow\\" },
-        { \\"description\\": \\"JavaScript\\", \\"value\\": \\"babylon\\" },
+        { \\"description\\": \\"JavaScript\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel\\" },
+        { \\"description\\": \\"Flow\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel-flow\\" },
         {
           \\"description\\": \\"TypeScript\\",
           \\"since\\": \\"1.4.0\\",
@@ -1017,7 +1108,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"MDX\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"mdx\\" },
         { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" },
         { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" },
-        { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" }
+        { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" },
+        { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",

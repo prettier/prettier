@@ -1,11 +1,6 @@
 "use strict";
 
 const {
-  builders: { concat },
-  utils: { mapDoc }
-} = require("../doc");
-
-const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
@@ -17,40 +12,6 @@ const htmlElementAttributes = require("html-element-attributes");
 
 const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
-
-// NOTE: must be same as the one in htmlparser2 so that the parsing won't be inconsistent
-//       https://github.com/fb55/htmlparser2/blob/v3.9.2/lib/Parser.js#L59-L91
-const VOID_TAGS = arrayToMap([
-  "area",
-  "base",
-  "basefont",
-  "br",
-  "col",
-  "command",
-  "embed",
-  "frame",
-  "hr",
-  "img",
-  "input",
-  "isindex",
-  "keygen",
-  "link",
-  "meta",
-  "param",
-  "source",
-  "track",
-  "wbr",
-
-  "path",
-  "circle",
-  "ellipse",
-  "line",
-  "rect",
-  "use",
-  "stop",
-  "polyline",
-  "polygon"
-]);
 
 function arrayToMap(array) {
   const map = Object.create(null);
@@ -68,86 +29,222 @@ function mapObject(object, fn) {
   return newObject;
 }
 
-function hasPrettierIgnore(path) {
-  const node = path.getValue();
-  if (node.type === "attribute") {
+function shouldPreserveContent(node, options) {
+  if (
+    node.type === "element" &&
+    node.fullName === "template" &&
+    node.attrMap.lang &&
+    node.attrMap.lang !== "html"
+  ) {
+    return true;
+  }
+
+  // unterminated node in ie conditional comment
+  // e.g. <!--[if lt IE 9]><html><![endif]-->
+  if (
+    node.type === "ieConditionalComment" &&
+    node.lastChild &&
+    !node.lastChild.isSelfClosing &&
+    !node.lastChild.endSourceSpan
+  ) {
+    return true;
+  }
+
+  // incomplete html in ie conditional comment
+  // e.g. <!--[if lt IE 9]></div><![endif]-->
+  if (node.type === "ieConditionalComment" && !node.complete) {
+    return true;
+  }
+
+  // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
+  // custom blocks can be written in other languages so we should preserve them to not break the code
+  if (
+    options.parser === "vue" &&
+    node.type === "element" &&
+    node.parent.type === "root" &&
+    [
+      "template",
+      "style",
+      "script",
+      // vue parser can be used for vue dom template as well, so we should still format top-level <html>
+      "html"
+    ].indexOf(node.fullName) === -1
+  ) {
+    return true;
+  }
+
+  // TODO: handle non-text children in <pre>
+  if (
+    isPreLikeNode(node) &&
+    node.children.some(
+      child => child.type !== "text" && child.type !== "interpolation"
+    )
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+function hasPrettierIgnore(node) {
+  if (node.type === "attribute" || isTextLikeNode(node)) {
     return false;
   }
 
-  const parentNode = path.getParentNode();
-  if (!parentNode) {
+  if (!node.parent) {
     return false;
   }
 
-  const index = path.getName();
-  if (typeof index !== "number" || index === 0) {
+  if (typeof node.index !== "number" || node.index === 0) {
     return false;
   }
 
-  const prevNode = parentNode.children[index - 1];
+  const prevNode = node.parent.children[node.index - 1];
   return isPrettierIgnore(prevNode);
 }
 
 function isPrettierIgnore(node) {
-  return node.type === "comment" && node.data.trim() === "prettier-ignore";
+  return node.type === "comment" && node.value.trim() === "prettier-ignore";
 }
 
-function isTag(node) {
-  return node.type === "tag";
+function getPrettierIgnoreAttributeCommentData(value) {
+  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+([^]+))?$/);
+
+  if (!match) {
+    return false;
+  }
+
+  if (!match[1]) {
+    return true;
+  }
+
+  return match[1].split(/\s+/);
+}
+
+/** there's no opening/closing tag or it's considered not breakable */
+function isTextLikeNode(node) {
+  return node.type === "text" || node.type === "comment";
 }
 
 function isScriptLikeTag(node) {
-  return isTag(node) && (node.name === "script" || node.name === "style");
+  return (
+    node.type === "element" &&
+    (node.fullName === "script" ||
+      node.fullName === "style" ||
+      node.fullName === "svg:style")
+  );
 }
 
 function isFrontMatterNode(node) {
   return node.type === "yaml" || node.type === "toml";
 }
 
-function isLeadingSpaceSensitiveNode(node, { prev, parent }) {
-  if (isFrontMatterNode(node)) {
-    return false;
-  }
-
-  if (!parent || parent.cssDisplay === "none") {
-    return false;
-  }
-
-  if (
-    !prev &&
-    (parent.type === "root" ||
-      isScriptLikeTag(parent) ||
-      isBlockLikeCssDisplay(parent.cssDisplay))
-  ) {
-    return false;
-  }
-
-  if (prev && isBlockLikeCssDisplay(prev.cssDisplay)) {
-    return false;
-  }
-
-  return true;
+function canHaveInterpolation(node) {
+  return node.children && !isScriptLikeTag(node);
 }
 
-function isTrailingSpaceSensitiveNode(node, { next, parent }) {
+function isWhitespaceSensitiveNode(node) {
+  return (
+    isScriptLikeTag(node) ||
+    node.type === "interpolation" ||
+    isIndentationSensitiveNode(node)
+  );
+}
+
+function isIndentationSensitiveNode(node) {
+  return getNodeCssStyleWhiteSpace(node).startsWith("pre");
+}
+
+function isLeadingSpaceSensitiveNode(node) {
+  const isLeadingSpaceSensitive = _isLeadingSpaceSensitiveNode();
+
+  if (
+    isLeadingSpaceSensitive &&
+    !node.prev &&
+    node.parent &&
+    node.parent.tagDefinition &&
+    node.parent.tagDefinition.ignoreFirstLf
+  ) {
+    return node.type === "interpolation";
+  }
+
+  return isLeadingSpaceSensitive;
+
+  function _isLeadingSpaceSensitiveNode() {
+    if (isFrontMatterNode(node)) {
+      return false;
+    }
+
+    if (
+      (node.type === "text" || node.type === "interpolation") &&
+      node.prev &&
+      (node.prev.type === "text" || node.prev.type === "interpolation")
+    ) {
+      return true;
+    }
+
+    if (!node.parent || node.parent.cssDisplay === "none") {
+      return false;
+    }
+
+    if (isPreLikeNode(node.parent)) {
+      return true;
+    }
+
+    if (
+      !node.prev &&
+      (node.parent.type === "root" ||
+        isScriptLikeTag(node.parent) ||
+        !isFirstChildLeadingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
+    ) {
+      return false;
+    }
+
+    if (
+      node.prev &&
+      !isNextLeadingSpaceSensitiveCssDisplay(node.prev.cssDisplay)
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+}
+
+function isTrailingSpaceSensitiveNode(node) {
   if (isFrontMatterNode(node)) {
     return false;
   }
 
-  if (!parent || parent.cssDisplay === "none") {
+  if (
+    (node.type === "text" || node.type === "interpolation") &&
+    node.next &&
+    (node.next.type === "text" || node.next.type === "interpolation")
+  ) {
+    return true;
+  }
+
+  if (!node.parent || node.parent.cssDisplay === "none") {
     return false;
   }
 
+  if (isPreLikeNode(node.parent)) {
+    return true;
+  }
+
   if (
-    !next &&
-    (parent.type === "root" ||
-      isScriptLikeTag(parent) ||
-      isBlockLikeCssDisplay(parent.cssDisplay))
+    !node.next &&
+    (node.parent.type === "root" ||
+      isScriptLikeTag(node.parent) ||
+      !isLastChildTrailingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
   ) {
     return false;
   }
 
-  if (next && isBlockLikeCssDisplay(next.cssDisplay)) {
+  if (
+    node.next &&
+    !isPrevTrailingSpaceSensitiveCssDisplay(node.next.cssDisplay)
+  ) {
     return false;
   }
 
@@ -155,71 +252,40 @@ function isTrailingSpaceSensitiveNode(node, { next, parent }) {
 }
 
 function isDanglingSpaceSensitiveNode(node) {
-  return !isBlockLikeCssDisplay(node.cssDisplay);
-}
-
-/**
- * @param {unknown} node
- * @param {(node: unknown, stack: Array<string | object>)} fn
- * @param {unknown=} parent
- */
-function mapNode(node, fn, stack = []) {
-  const newNode = Object.assign({}, node);
-
-  if (newNode.children) {
-    newNode.children = newNode.children.map((child, childIndex) =>
-      mapNode(child, fn, [childIndex, node].concat(stack))
-    );
-  }
-
-  return fn(newNode, stack);
-}
-
-function getPrevNode(stack) {
-  const [index, parent] = stack;
-
-  if (typeof index !== "number" || index === 0) {
-    return null;
-  }
-
-  return parent.children[index - 1];
-}
-
-function replaceNewlines(text, replacement) {
-  return text
-    .split(/(\n)/g)
-    .map((data, index) => (index % 2 === 1 ? replacement : data));
-}
-
-function replaceDocNewlines(doc, replacement) {
-  return mapDoc(
-    doc,
-    currentDoc =>
-      typeof currentDoc === "string" && currentDoc.includes("\n")
-        ? concat(replaceNewlines(currentDoc, replacement))
-        : currentDoc
+  return (
+    isDanglingSpaceSensitiveCssDisplay(node.cssDisplay) &&
+    !isScriptLikeTag(node)
   );
 }
 
 function forceNextEmptyLine(node) {
-  return isFrontMatterNode(node);
+  return (
+    isFrontMatterNode(node) ||
+    (node.next &&
+      node.sourceSpan.end.line + 1 < node.next.sourceSpan.start.line)
+  );
 }
 
 /** firstChild leadingSpaces and lastChild trailingSpaces */
 function forceBreakContent(node) {
   return (
     forceBreakChildren(node) ||
-    (isTag(node) &&
+    (node.type === "element" &&
       node.children.length !== 0 &&
-      (["body", "template"].indexOf(node.name) !== -1 ||
-        node.children.some(child => hasNonTextChild(child))))
+      (["body", "template", "script", "style"].indexOf(node.name) !== -1 ||
+        node.children.some(child => hasNonTextChild(child)))) ||
+    (node.firstChild &&
+      node.firstChild === node.lastChild &&
+      (hasLeadingLineBreak(node.firstChild) &&
+        (!node.lastChild.isTrailingSpaceSensitive ||
+          hasTrailingLineBreak(node.lastChild))))
   );
 }
 
 /** spaces between children */
 function forceBreakChildren(node) {
   return (
-    isTag(node) &&
+    node.type === "element" &&
     node.children.length !== 0 &&
     (["html", "head", "ul", "ol", "select"].indexOf(node.name) !== -1 ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
@@ -229,14 +295,40 @@ function forceBreakChildren(node) {
 function preferHardlineAsLeadingSpaces(node) {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
-    (node.prev && preferHardlineAsTrailingSpaces(node.prev))
+    (node.prev && preferHardlineAsTrailingSpaces(node.prev)) ||
+    hasSurroundingLineBreak(node)
   );
 }
 
 function preferHardlineAsTrailingSpaces(node) {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
-    (isTag(node) && node.name === "br")
+    (node.type === "element" && node.fullName === "br") ||
+    hasSurroundingLineBreak(node)
+  );
+}
+
+function hasSurroundingLineBreak(node) {
+  return hasLeadingLineBreak(node) && hasTrailingLineBreak(node);
+}
+
+function hasLeadingLineBreak(node) {
+  return (
+    node.hasLeadingSpaces &&
+    (node.prev
+      ? node.prev.sourceSpan.end.line < node.sourceSpan.start.line
+      : node.parent.type === "root" ||
+        node.parent.startSourceSpan.end.line < node.sourceSpan.start.line)
+  );
+}
+
+function hasTrailingLineBreak(node) {
+  return (
+    node.hasTrailingSpaces &&
+    (node.next
+      ? node.next.sourceSpan.start.line > node.sourceSpan.end.line
+      : node.parent.type === "root" ||
+        node.parent.endSourceSpan.start.line > node.sourceSpan.end.line)
   );
 }
 
@@ -246,7 +338,7 @@ function preferHardlineAsSurroundingSpaces(node) {
     case "comment":
     case "directive":
       return true;
-    case "tag":
+    case "element":
       return ["script", "select"].indexOf(node.name) !== -1;
   }
   return false;
@@ -261,51 +353,128 @@ function hasNonTextChild(node) {
 }
 
 function inferScriptParser(node) {
-  if (
-    node.name === "script" &&
-    ((!node.attribs.lang && !node.attribs.type) ||
-      node.attribs.type === "text/javascript" ||
-      node.attribs.type === "text/babel" ||
-      node.attribs.type === "application/javascript")
-  ) {
-    return "babylon";
-  }
+  if (node.name === "script" && !node.attrMap.src) {
+    if (
+      (!node.attrMap.lang && !node.attrMap.type) ||
+      node.attrMap.type === "module" ||
+      node.attrMap.type === "text/javascript" ||
+      node.attrMap.type === "text/babel" ||
+      node.attrMap.type === "application/javascript"
+    ) {
+      return "babel";
+    }
 
-  if (
-    node.name === "script" &&
-    (node.attribs.type === "application/x-typescript" ||
-      node.attribs.lang === "ts")
-  ) {
-    return "typescript";
+    if (
+      node.attrMap.type === "application/x-typescript" ||
+      node.attrMap.lang === "ts" ||
+      node.attrMap.lang === "tsx"
+    ) {
+      return "typescript";
+    }
+
+    if (node.attrMap.type === "text/markdown") {
+      return "markdown";
+    }
+
+    if (node.attrMap.type === "application/ld+json") {
+      return "json";
+    }
   }
 
   if (node.name === "style") {
-    return "css";
+    if (!node.attrMap.lang || node.attrMap.lang === "postcss") {
+      return "css";
+    }
+
+    if (node.attrMap.lang === "scss") {
+      return "scss";
+    }
+
+    if (node.attrMap.lang === "less") {
+      return "less";
+    }
   }
 
   return null;
 }
 
-/**
- * firstChild leadingSpaces, lastChild trailingSpaces, and danglingSpaces are insensitive
- */
 function isBlockLikeCssDisplay(cssDisplay) {
-  return cssDisplay === "block" || cssDisplay.startsWith("table");
+  return (
+    cssDisplay === "block" ||
+    cssDisplay === "list-item" ||
+    cssDisplay.startsWith("table")
+  );
 }
 
-function getNodeCssStyleDisplay(node, prevNode, options) {
-  switch (getNodeCssStyleWhiteSpace(node)) {
-    case "pre":
-    case "pre-wrap":
-      // textarea-like
-      return "block";
+function isFirstChildLeadingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay) && cssDisplay !== "inline-block";
+}
+
+function isLastChildTrailingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay) && cssDisplay !== "inline-block";
+}
+
+function isPrevTrailingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay);
+}
+
+function isNextLeadingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay);
+}
+
+function isDanglingSpaceSensitiveCssDisplay(cssDisplay) {
+  return !isBlockLikeCssDisplay(cssDisplay) && cssDisplay !== "inline-block";
+}
+
+function isPreLikeNode(node) {
+  return getNodeCssStyleWhiteSpace(node).startsWith("pre");
+}
+
+function countParents(path, predicate = () => true) {
+  let counter = 0;
+  for (let i = path.stack.length - 1; i >= 0; i--) {
+    const value = path.stack[i];
+    if (
+      value &&
+      typeof value === "object" &&
+      !Array.isArray(value) &&
+      predicate(value)
+    ) {
+      counter++;
+    }
+  }
+  return counter;
+}
+
+function hasParent(node, fn) {
+  let current = node;
+
+  while (current) {
+    if (fn(current)) {
+      return true;
+    }
+
+    current = current.parent;
   }
 
-  if (prevNode && prevNode.type === "comment") {
+  return false;
+}
+
+function getNodeCssStyleDisplay(node, options) {
+  if (node.prev && node.prev.type === "comment") {
     // <!-- display: block -->
-    const match = prevNode.data.match(/^\s*display:\s*([a-z]+)\s*$/);
+    const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
     if (match) {
       return match[1];
+    }
+  }
+
+  let isInSvgForeignObject = false;
+  if (node.type === "element" && node.namespace === "svg") {
+    if (hasParent(node, parent => parent.fullName === "svg:foreignObject")) {
+      isInSvgForeignObject = true;
+    } else {
+      return node.name === "svg" ? "inline-block" : "block";
     }
   }
 
@@ -316,75 +485,20 @@ function getNodeCssStyleDisplay(node, prevNode, options) {
       return "block";
     default:
       return (
-        (isTag(node) && CSS_DISPLAY_TAGS[node.name]) || CSS_DISPLAY_DEFAULT
+        (node.type === "element" &&
+          (!node.namespace || isInSvgForeignObject) &&
+          CSS_DISPLAY_TAGS[node.name]) ||
+        CSS_DISPLAY_DEFAULT
       );
   }
 }
 
 function getNodeCssStyleWhiteSpace(node) {
   return (
-    (isTag(node) && CSS_WHITE_SPACE_TAGS[node.name]) || CSS_WHITE_SPACE_DEFAULT
-  );
-}
-
-function getCommentData(node) {
-  const rightTrimmedData = node.data.trimRight();
-
-  const hasLeadingEmptyLine = /^[^\S\n]*?\n/.test(node.data);
-  if (hasLeadingEmptyLine) {
-    /**
-     *     <!--
-     *     123
-     *        456
-     *     -->
-     */
-    return dedentString(rightTrimmedData.replace(/^\s*\n/, ""));
-  }
-
-  /**
-   *     <!-- 123 -->
-   *
-   *     <!-- 123
-   *     -->
-   *
-   *     <!-- 123
-   *
-   *     -->
-   */
-  if (!rightTrimmedData.includes("\n")) {
-    return rightTrimmedData.trimLeft();
-  }
-
-  const firstNewlineIndex = rightTrimmedData.indexOf("\n");
-  const dataWithoutLeadingLine = rightTrimmedData.slice(firstNewlineIndex + 1);
-  const minIndentationForDataWithoutLeadingLine = getMinIndentation(
-    dataWithoutLeadingLine
-  );
-
-  const commentDataStartColumn = node.startLocation.column + "<!--".length;
-
-  /**
-   *     <!-- 123
-   *          456 -->
-   */
-  if (minIndentationForDataWithoutLeadingLine >= commentDataStartColumn) {
-    return dedentString(
-      " ".repeat(commentDataStartColumn) + "\n" + rightTrimmedData
-    );
-  }
-
-  const leadingLineData = rightTrimmedData.slice(0, firstNewlineIndex);
-  /**
-   *     <!-- 123
-   *     456 -->
-   */
-  return (
-    leadingLineData.trim() +
-    "\n" +
-    dedentString(
-      dataWithoutLeadingLine,
-      minIndentationForDataWithoutLeadingLine
-    )
+    (node.type === "element" &&
+      !node.namespace &&
+      CSS_WHITE_SPACE_TAGS[node.name]) ||
+    CSS_WHITE_SPACE_DEFAULT
   );
 }
 
@@ -392,6 +506,10 @@ function getMinIndentation(text) {
   let minIndentation = Infinity;
 
   for (const lineText of text.split("\n")) {
+    if (lineText.length === 0) {
+      continue;
+    }
+
     if (/\S/.test(lineText[0])) {
       return 0;
     }
@@ -422,8 +540,16 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
 function normalizeParts(parts) {
   const newParts = [];
 
-  for (const part of parts) {
+  const restParts = parts.slice();
+  while (restParts.length !== 0) {
+    const part = restParts.shift();
+
     if (!part) {
+      continue;
+    }
+
+    if (part.type === "concat") {
+      Array.prototype.unshift.apply(restParts, part.parts);
       continue;
     }
 
@@ -442,30 +568,62 @@ function normalizeParts(parts) {
   return newParts;
 }
 
+function identity(x) {
+  return x;
+}
+
+function shouldNotPrintClosingTag(node, options) {
+  return (
+    !node.isSelfClosing &&
+    !node.endSourceSpan &&
+    (hasPrettierIgnore(node) || shouldPreserveContent(node.parent, options))
+  );
+}
+
+function countChars(text, char) {
+  let counter = 0;
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === char) {
+      counter++;
+    }
+  }
+  return counter;
+}
+
+function unescapeQuoteEntities(text) {
+  return text.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
-  VOID_TAGS,
+  canHaveInterpolation,
+  countChars,
+  countParents,
   dedentString,
   forceBreakChildren,
   forceBreakContent,
   forceNextEmptyLine,
-  getCommentData,
   getLastDescendant,
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
-  getPrevNode,
+  getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
+  identity,
   inferScriptParser,
   isDanglingSpaceSensitiveNode,
   isFrontMatterNode,
+  isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
+  isPreLikeNode,
   isScriptLikeTag,
+  isTextLikeNode,
   isTrailingSpaceSensitiveNode,
-  mapNode,
+  isWhitespaceSensitiveNode,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,
-  replaceDocNewlines,
-  replaceNewlines
+  shouldNotPrintClosingTag,
+  shouldPreserveContent,
+  unescapeQuoteEntities
 };

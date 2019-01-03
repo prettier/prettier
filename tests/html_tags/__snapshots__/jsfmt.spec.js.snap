@@ -1,45 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`case-sensitive.html - html-verify 1`] = `
-<CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`case-sensitive.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 
+=====================================output=====================================
+<CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
+
+================================================================================
 `;
 
-exports[`case-sensitive.html - html-verify 2`] = `
+exports[`case-sensitive.html 2`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
-~
+
+=====================================output=====================================
 <CaseSensitive
   CaseSensitive="true"
   >hello
   world</CaseSensitive
 >
 
+================================================================================
 `;
 
-exports[`case-sensitive.html - html-verify 3`] = `
-<CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`case-sensitive.html 3`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 
+=====================================output=====================================
+<CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
+
+================================================================================
 `;
 
-exports[`case-sensitive.html - html-verify 4`] = `
-<CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`case-sensitive.html 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 
+=====================================output=====================================
+<CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
+
+================================================================================
 `;
 
-exports[`case-sensitive.html - html-verify 5`] = `
-<CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`case-sensitive.html 5`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
 
+=====================================output=====================================
+<CaseSensitive CaseSensitive="true">hello world</CaseSensitive>
+
+================================================================================
 `;
 
-exports[`closing-at-start.html - html-verify 1`] = `
+exports[`closing-at-start.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>
     aaaaaaaaaa
     <a
@@ -55,7 +96,8 @@ exports[`closing-at-start.html - html-verify 1`] = `
       >bbbbbbbbbb</a
     >cccccccccc
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>
   aaaaaaaaaa
   <a
@@ -72,9 +114,15 @@ exports[`closing-at-start.html - html-verify 1`] = `
   >cccccccccc
 </div>
 
+================================================================================
 `;
 
-exports[`closing-at-start.html - html-verify 2`] = `
+exports[`closing-at-start.html 2`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
 <div>
     aaaaaaaaaa
     <a
@@ -90,7 +138,8 @@ exports[`closing-at-start.html - html-verify 2`] = `
       >bbbbbbbbbb</a
     >cccccccccc
 </div>
-~
+
+=====================================output=====================================
 <div>
   aaaaaaaaaa
   <a
@@ -107,9 +156,14 @@ exports[`closing-at-start.html - html-verify 2`] = `
   >cccccccccc
 </div>
 
+================================================================================
 `;
 
-exports[`closing-at-start.html - html-verify 3`] = `
+exports[`closing-at-start.html 3`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
 <div>
     aaaaaaaaaa
     <a
@@ -125,13 +179,28 @@ exports[`closing-at-start.html - html-verify 3`] = `
       >bbbbbbbbbb</a
     >cccccccccc
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>aaaaaaaaaa <a href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong">bbbbbbbbbb</a> cccccccccc</div>
-<div>aaaaaaaaaa <a href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong">bbbbbbbbbb</a>cccccccccc</div>
 
+=====================================output=====================================
+<div>
+  aaaaaaaaaa
+  <a href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong">bbbbbbbbbb</a>
+  cccccccccc
+</div>
+<div>
+  aaaaaaaaaa
+  <a href="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong">bbbbbbbbbb</a>cccccccccc
+</div>
+
+================================================================================
 `;
 
-exports[`closing-at-start.html - html-verify 4`] = `
+exports[`closing-at-start.html 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>
     aaaaaaaaaa
     <a
@@ -147,7 +216,8 @@ exports[`closing-at-start.html - html-verify 4`] = `
       >bbbbbbbbbb</a
     >cccccccccc
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>
   aaaaaaaaaa
   <a
@@ -164,9 +234,16 @@ exports[`closing-at-start.html - html-verify 4`] = `
   >cccccccccc
 </div>
 
+================================================================================
 `;
 
-exports[`closing-at-start.html - html-verify 5`] = `
+exports[`closing-at-start.html 5`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>
     aaaaaaaaaa
     <a
@@ -182,7 +259,8 @@ exports[`closing-at-start.html - html-verify 5`] = `
       >bbbbbbbbbb</a
     >cccccccccc
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>
   aaaaaaaaaa
   <a
@@ -202,65 +280,96 @@ exports[`closing-at-start.html - html-verify 5`] = `
   cccccccccc
 </div>
 
+================================================================================
 `;
 
-exports[`custom-self-closing.html - html-verify 1`] = `
-<div>
-  <ABC />
-  <span></span>
-</div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div><ABC /> <span></span></div>
+exports[`custom-element.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<app-foo></app-foo>
+<app-bar></app-bar>
 
+=====================================output=====================================
+<app-foo></app-foo>
+<app-bar></app-bar>
+
+================================================================================
 `;
 
-exports[`custom-self-closing.html - html-verify 2`] = `
-<div>
-  <ABC />
-  <span></span>
-</div>
-~
-<div>
-  <ABC />
-  <span></span>
-</div>
+exports[`custom-element.html 2`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<app-foo></app-foo>
+<app-bar></app-bar>
 
+=====================================output=====================================
+<app-foo></app-foo>
+<app-bar></app-bar>
+
+================================================================================
 `;
 
-exports[`custom-self-closing.html - html-verify 3`] = `
-<div>
-  <ABC />
-  <span></span>
-</div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div><ABC /> <span></span></div>
+exports[`custom-element.html 3`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
+<app-foo></app-foo>
+<app-bar></app-bar>
 
+=====================================output=====================================
+<app-foo></app-foo>
+<app-bar></app-bar>
+
+================================================================================
 `;
 
-exports[`custom-self-closing.html - html-verify 4`] = `
-<div>
-  <ABC />
-  <span></span>
-</div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div> <ABC /> <span></span> </div>
+exports[`custom-element.html 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<app-foo></app-foo>
+<app-bar></app-bar>
 
+=====================================output=====================================
+<app-foo></app-foo>
+<app-bar></app-bar>
+
+================================================================================
 `;
 
-exports[`custom-self-closing.html - html-verify 5`] = `
-<div>
-  <ABC />
-  <span></span>
-</div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>
-  <ABC />
-  <span></span>
-</div>
+exports[`custom-element.html 5`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<app-foo></app-foo>
+<app-bar></app-bar>
 
+=====================================output=====================================
+<app-foo></app-foo>
+<app-bar></app-bar>
+
+================================================================================
 `;
 
-exports[`openging-at-end.html - html-verify 1`] = `
+exports[`openging-at-end.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <p
   >Want to write us a letter? Use our<a
     ><b
@@ -290,7 +399,8 @@ exports[`openging-at-end.html - html-verify 1`] = `
     ></a
   >.</p
 >
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <p>
   Want to write us a letter? Use our<a
     ><b><a>mailing address</a></b></a
@@ -298,8 +408,7 @@ exports[`openging-at-end.html - html-verify 1`] = `
 </p>
 
 <p>
-  Want to write us a letter? Use our<a
-    href="contacts.html#Mailing_address"
+  Want to write us a letter? Use our<a href="contacts.html#Mailing_address"
     ><b><a>mailing address</a></b></a
   >.
 </p>
@@ -315,9 +424,15 @@ exports[`openging-at-end.html - html-verify 1`] = `
   >.
 </p>
 
+================================================================================
 `;
 
-exports[`openging-at-end.html - html-verify 2`] = `
+exports[`openging-at-end.html 2`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
 <p
   >Want to write us a letter? Use our<a
     ><b
@@ -347,7 +462,8 @@ exports[`openging-at-end.html - html-verify 2`] = `
     ></a
   >.</p
 >
-~
+
+=====================================output=====================================
 <p>
   Want
   to
@@ -408,9 +524,14 @@ exports[`openging-at-end.html - html-verify 2`] = `
   >.
 </p>
 
+================================================================================
 `;
 
-exports[`openging-at-end.html - html-verify 3`] = `
+exports[`openging-at-end.html 3`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
 <p
   >Want to write us a letter? Use our<a
     ><b
@@ -440,7 +561,8 @@ exports[`openging-at-end.html - html-verify 3`] = `
     ></a
   >.</p
 >
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <p>
   Want to write us a letter? Use our<a
     ><b><a>mailing address</a></b></a
@@ -448,26 +570,91 @@ exports[`openging-at-end.html - html-verify 3`] = `
 </p>
 
 <p>
-  Want to write us a letter? Use our<a
-    href="contacts.html#Mailing_address"
+  Want to write us a letter? Use our<a href="contacts.html#Mailing_address"
     ><b><a>mailing address</a></b></a
   >.
 </p>
 
 <p>
-  Want to write us a letter? Use our<a
+  Want to write us a letter? Use our<a href="contacts.html#Mailing_address" href1="contacts.html#Mailing_address" href2="contacts.html#Mailing_address" href3="contacts.html#Mailing_address" href4="contacts.html#Mailing_address"
+    ><b><a>mailing address</a></b></a
+  >.
+</p>
+
+================================================================================
+`;
+
+exports[`openging-at-end.html 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<p
+  >Want to write us a letter? Use our<a
+    ><b
+      ><a>mailing address</a></b
+    ></a
+  >.</p
+>
+
+<p
+  >Want to write us a letter? Use our<a
+  href="contacts.html#Mailing_address"
+    ><b
+      ><a>mailing address</a></b
+    ></a
+  >.</p
+>
+
+<p
+  >Want to write us a letter? Use our<a
+  href="contacts.html#Mailing_address"
+  href1="contacts.html#Mailing_address"
+  href2="contacts.html#Mailing_address"
+  href3="contacts.html#Mailing_address"
+  href4="contacts.html#Mailing_address"
+    ><b
+      ><a>mailing address</a></b
+    ></a
+  >.</p
+>
+
+=====================================output=====================================
+<p
+  >Want to write us a letter? Use our<a
+    ><b><a>mailing address</a></b></a
+  >.</p
+>
+
+<p
+  >Want to write us a letter? Use our<a href="contacts.html#Mailing_address"
+    ><b><a>mailing address</a></b></a
+  >.</p
+>
+
+<p
+  >Want to write us a letter? Use our<a
     href="contacts.html#Mailing_address"
     href1="contacts.html#Mailing_address"
     href2="contacts.html#Mailing_address"
     href3="contacts.html#Mailing_address"
     href4="contacts.html#Mailing_address"
     ><b><a>mailing address</a></b></a
-  >.
-</p>
+  >.</p
+>
 
+================================================================================
 `;
 
-exports[`openging-at-end.html - html-verify 4`] = `
+exports[`openging-at-end.html 5`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <p
   >Want to write us a letter? Use our<a
     ><b
@@ -497,64 +684,8 @@ exports[`openging-at-end.html - html-verify 4`] = `
     ></a
   >.</p
 >
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<p
-  >Want to write us a letter? Use our<a
-    ><b><a>mailing address</a></b></a
-  >.</p
->
 
-<p
-  >Want to write us a letter? Use our<a
-    href="contacts.html#Mailing_address"
-    ><b><a>mailing address</a></b></a
-  >.</p
->
-
-<p
-  >Want to write us a letter? Use our<a
-    href="contacts.html#Mailing_address"
-    href1="contacts.html#Mailing_address"
-    href2="contacts.html#Mailing_address"
-    href3="contacts.html#Mailing_address"
-    href4="contacts.html#Mailing_address"
-    ><b><a>mailing address</a></b></a
-  >.</p
->
-
-`;
-
-exports[`openging-at-end.html - html-verify 5`] = `
-<p
-  >Want to write us a letter? Use our<a
-    ><b
-      ><a>mailing address</a></b
-    ></a
-  >.</p
->
-
-<p
-  >Want to write us a letter? Use our<a
-  href="contacts.html#Mailing_address"
-    ><b
-      ><a>mailing address</a></b
-    ></a
-  >.</p
->
-
-<p
-  >Want to write us a letter? Use our<a
-  href="contacts.html#Mailing_address"
-  href1="contacts.html#Mailing_address"
-  href2="contacts.html#Mailing_address"
-  href3="contacts.html#Mailing_address"
-  href4="contacts.html#Mailing_address"
-    ><b
-      ><a>mailing address</a></b
-    ></a
-  >.</p
->
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================output=====================================
 <p>
   Want to write us a letter? Use our
   <a>
@@ -585,9 +716,15 @@ exports[`openging-at-end.html - html-verify 5`] = `
   .
 </p>
 
+================================================================================
 `;
 
-exports[`pre.html - html-verify 1`] = `
+exports[`pre.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <pre>
 --------------------------------------------------------------------------------
 
@@ -666,7 +803,10 @@ ___________________________
   </div>
 </div>
 <pre></pre>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<pre><code #foo></code></pre>
+
+=====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
 
@@ -702,19 +842,16 @@ ___________________________
    both             spaces and
 
    line breaks
+
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar     </pre>
 <pre>
      Foo     Bar
 </pre>
 <pre>
 Foo     Bar
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar</pre>
 <figure role="img" aria-labelledby="cow-caption">
   <pre>
 ___________________________
@@ -757,9 +894,17 @@ ___________________________
 </div>
 <pre></pre>
 
+<pre><code #foo></code></pre>
+
+================================================================================
 `;
 
-exports[`pre.html - html-verify 2`] = `
+exports[`pre.html 2`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
 <pre>
 --------------------------------------------------------------------------------
 
@@ -838,7 +983,10 @@ ___________________________
   </div>
 </div>
 <pre></pre>
-~
+
+<pre><code #foo></code></pre>
+
+=====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
 
@@ -874,10 +1022,11 @@ ___________________________
    both             spaces and
 
    line breaks
+
 </pre>
 <pre>
-     Foo     Bar
-</pre>
+     Foo     Bar     </pre
+>
 <pre>
      Foo     Bar
 </pre>
@@ -885,8 +1034,8 @@ ___________________________
 Foo     Bar
 </pre>
 <pre>
-     Foo     Bar
-</pre>
+     Foo     Bar</pre
+>
 <figure
   role="img"
   aria-labelledby="cow-caption"
@@ -949,9 +1098,16 @@ ___________________________
 </div>
 <pre></pre>
 
+<pre><code #foo></code></pre>
+
+================================================================================
 `;
 
-exports[`pre.html - html-verify 3`] = `
+exports[`pre.html 3`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
 <pre>
 --------------------------------------------------------------------------------
 
@@ -1030,7 +1186,10 @@ ___________________________
   </div>
 </div>
 <pre></pre>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<pre><code #foo></code></pre>
+
+=====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
 
@@ -1066,19 +1225,16 @@ ___________________________
    both             spaces and
 
    line breaks
+
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar     </pre>
 <pre>
      Foo     Bar
 </pre>
 <pre>
 Foo     Bar
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar</pre>
 <figure role="img" aria-labelledby="cow-caption">
   <pre>
 ___________________________
@@ -1091,7 +1247,9 @@ ___________________________
              ||     ||
 ___________________________
   </pre>
-  <figcaption id="cow-caption">A cow saying, "I'm an expert in my field." The cow is illustrated using preformatted text characters.</figcaption>
+  <figcaption id="cow-caption">
+    A cow saying, "I'm an expert in my field." The cow is illustrated using preformatted text characters.
+  </figcaption>
 </figure>
 <pre data-attr-1="foo" data-attr-2="foo" data-attr-3="foo" data-attr-4="foo" data-attr-5="foo" data-attr-6="foo">
      Foo     Bar
@@ -1111,9 +1269,18 @@ ___________________________
 </div>
 <pre></pre>
 
+<pre><code #foo></code></pre>
+
+================================================================================
 `;
 
-exports[`pre.html - html-verify 4`] = `
+exports[`pre.html 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <pre>
 --------------------------------------------------------------------------------
 
@@ -1192,7 +1359,10 @@ ___________________________
   </div>
 </div>
 <pre></pre>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<pre><code #foo></code></pre>
+
+=====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
 
@@ -1228,19 +1398,16 @@ ___________________________
    both             spaces and
 
    line breaks
+
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar     </pre>
 <pre>
      Foo     Bar
 </pre>
 <pre>
 Foo     Bar
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar</pre>
 <figure role="img" aria-labelledby="cow-caption">
   <pre>
 ___________________________
@@ -1283,9 +1450,18 @@ ___________________________
 </div>
 <pre></pre>
 
+<pre><code #foo></code></pre>
+
+================================================================================
 `;
 
-exports[`pre.html - html-verify 5`] = `
+exports[`pre.html 5`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <pre>
 --------------------------------------------------------------------------------
 
@@ -1364,7 +1540,10 @@ ___________________________
   </div>
 </div>
 <pre></pre>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<pre><code #foo></code></pre>
+
+=====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
 
@@ -1400,19 +1579,16 @@ ___________________________
    both             spaces and
 
    line breaks
+
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar     </pre>
 <pre>
      Foo     Bar
 </pre>
 <pre>
 Foo     Bar
 </pre>
-<pre>
-     Foo     Bar
-</pre>
+<pre>     Foo     Bar</pre>
 <figure role="img" aria-labelledby="cow-caption">
   <pre>
 ___________________________
@@ -1455,9 +1631,17 @@ ___________________________
 </div>
 <pre></pre>
 
+<pre><code #foo></code></pre>
+
+================================================================================
 `;
 
-exports[`tags.html - html-verify 1`] = `
+exports[`tags.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <br/>
 <br />
 <br  />
@@ -1519,7 +1703,62 @@ exports[`tags.html - html-verify 1`] = `
 >
 <span>*<b>200</b></span>
 <img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>123<meta attr/>456</div>
+<p>x<span a="b"></span></p>
+<p>x<meta a></p>
+<p>x<meta></p>
+<span></span>
+
+<label aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa></label> |
+<span></span>
+<br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  >12345678901234567890</button
+> <br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)"
+  >Disabled Cancel</button
+>
+<br /><br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  >12345678901234567890</button
+> <br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)"
+  >Disabled Cancel</button
+>
+<br /><br />
+<p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
+<li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
+<div>
+<app-nav></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-nav [input]="something"></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-primary-navigation></app-primary-navigation>
+<router-outlet></router-outlet>
+<app-footer [input]="something"></app-footer>
+</div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
+</div>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  <strong>seddoeiusmod</strong>.
+</div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
+
+=====================================output=====================================
 <br />
 <br />
 <br />
@@ -1591,8 +1830,8 @@ exports[`tags.html - html-verify 1`] = `
 </div>
 <video width="320" height="240" controls>
   <source src="movie.mp4" type="video/mp4" />
-  <source src="movie.ogg" type="video/ogg" /> Your browser does not support the
-  video tag.
+  <source src="movie.ogg" type="video/ogg" />
+  Your browser does not support the video tag.
 </video>
 <div><div>string</div></div>
 <div>
@@ -1623,31 +1862,95 @@ exports[`tags.html - html-verify 1`] = `
     </div>
   </div>
 </div>
-<div><div>string</div></div>
-<div><div>string</div></div>
+<div>
+  <div>string</div>
+</div>
+<div>
+  <div>string</div>
+</div>
 <div>
   <div>string</div>
 
   <div>string</div>
 </div>
 <ul>
-  123<li
-    class="foo"
-    id="bar"
-    >First</li
-  >456<li
-    class="baz"
-    >Second</li
-  >789
+  123
+  <li class="foo" id="bar">First</li>
+  456
+  <li class="baz">Second</li>
+  789
 </ul>
 <span>*<b>200</b></span>
 <img
   src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
 />123
+<div>123<meta attr />456</div>
+<p>x<span a="b"></span></p>
+<p>x<meta a /></p>
+<p>x<meta /></p>
+<span></span>
 
+<label
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+></label>
+|
+<span></span>
+<br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
+<br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)">
+  Disabled Cancel
+</button>
+<br /><br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
+<br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)">
+  Disabled Cancel
+</button>
+<br /><br />
+<p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
+<li>
+  12345678901234567890123456789012345678901234567890123456789012345678901234567890
+</li>
+<div>
+  <app-nav></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-nav [input]="something"></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-primary-navigation></app-primary-navigation>
+  <router-outlet></router-outlet>
+  <app-footer [input]="something"></app-footer>
+</div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
+</div>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  <strong>seddoeiusmod</strong>.
+</div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
+
+================================================================================
 `;
 
-exports[`tags.html - html-verify 2`] = `
+exports[`tags.html 2`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
 <br/>
 <br />
 <br  />
@@ -1709,7 +2012,62 @@ exports[`tags.html - html-verify 2`] = `
 >
 <span>*<b>200</b></span>
 <img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
-~
+<div>123<meta attr/>456</div>
+<p>x<span a="b"></span></p>
+<p>x<meta a></p>
+<p>x<meta></p>
+<span></span>
+
+<label aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa></label> |
+<span></span>
+<br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  >12345678901234567890</button
+> <br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)"
+  >Disabled Cancel</button
+>
+<br /><br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  >12345678901234567890</button
+> <br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)"
+  >Disabled Cancel</button
+>
+<br /><br />
+<p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
+<li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
+<div>
+<app-nav></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-nav [input]="something"></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-primary-navigation></app-primary-navigation>
+<router-outlet></router-outlet>
+<app-footer [input]="something"></app-footer>
+</div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
+</div>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  <strong>seddoeiusmod</strong>.
+</div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
+
+=====================================output=====================================
 <br />
 <br />
 <br />
@@ -1934,14 +2292,20 @@ exports[`tags.html - html-verify 2`] = `
   </div>
 </div>
 <ul>
-  123<li
+  123
+  <li
     class="foo"
     id="bar"
-    >First</li
-  >456<li
+  >
+    First
+  </li>
+  456
+  <li
     class="baz"
-    >Second</li
-  >789
+  >
+    Second
+  </li>
+  789
 </ul>
 <span
   >*<b
@@ -1951,10 +2315,151 @@ exports[`tags.html - html-verify 2`] = `
 <img
   src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
 />123
+<div>
+  123<meta
+    attr
+  />456
+</div>
+<p>
+  x<span
+    a="b"
+  ></span>
+</p>
+<p>
+  x<meta
+    a
+  />
+</p>
+<p>
+  x<meta />
+</p>
+<span></span>
 
+<label
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+></label>
+|
+<span></span>
+<br />
+<button
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+>
+  12345678901234567890
+</button>
+<br /><br />
+
+<button
+  bind-disabled="isUnchanged"
+  on-click="onSave($event)"
+>
+  Disabled
+  Cancel
+</button>
+<br /><br />
+<button
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+>
+  12345678901234567890
+</button>
+<br /><br />
+
+<button
+  bind-disabled="isUnchanged"
+  on-click="onSave($event)"
+>
+  Disabled
+  Cancel
+</button>
+<br /><br />
+<p>
+  "<span
+    [innerHTML]="title"
+  ></span
+  >"
+  is
+  the
+  <i
+    >property
+    bound</i
+  >
+  title.
+</p>
+<li>
+  12345678901234567890123456789012345678901234567890123456789012345678901234567890
+</li>
+<div>
+  <app-nav></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-nav
+    [input]="something"
+  ></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-primary-navigation></app-primary-navigation>
+  <router-outlet></router-outlet>
+  <app-footer
+    [input]="something"
+  ></app-footer>
+</div>
+<x:root
+  ><SPAN
+    >foreign
+    tag
+    name
+    should
+    not
+    be
+    lower
+    cased</SPAN
+  ></x:root
+>
+<div>
+  Lorem
+  ipsum
+  dolor
+  sit
+  amet,
+  consectetur
+  adipiscing
+  elit,
+  "<strong>seddoeiusmod</strong>".
+</div>
+<div>
+  Lorem
+  ipsum
+  dolor
+  sit
+  amet,
+  consectetur
+  adipiscing
+  elit,
+  <strong
+    >seddoeiusmod</strong
+  >.
+</div>
+<span>
+  <i
+    class="fa fa-refresh fa-spin"
+  />
+  <i
+    class="fa fa-refresh fa-spin"
+  />
+  <i
+    class="fa fa-refresh fa-spin"
+  />
+</span>
+
+================================================================================
 `;
 
-exports[`tags.html - html-verify 3`] = `
+exports[`tags.html 3`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
 <br/>
 <br />
 <br  />
@@ -2016,7 +2521,62 @@ exports[`tags.html - html-verify 3`] = `
 >
 <span>*<b>200</b></span>
 <img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>123<meta attr/>456</div>
+<p>x<span a="b"></span></p>
+<p>x<meta a></p>
+<p>x<meta></p>
+<span></span>
+
+<label aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa></label> |
+<span></span>
+<br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  >12345678901234567890</button
+> <br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)"
+  >Disabled Cancel</button
+>
+<br /><br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  >12345678901234567890</button
+> <br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)"
+  >Disabled Cancel</button
+>
+<br /><br />
+<p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
+<li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
+<div>
+<app-nav></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-nav [input]="something"></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-primary-navigation></app-primary-navigation>
+<router-outlet></router-outlet>
+<app-footer [input]="something"></app-footer>
+</div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
+</div>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  <strong>seddoeiusmod</strong>.
+</div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
+
+=====================================output=====================================
 <br />
 <br />
 <br />
@@ -2036,7 +2596,11 @@ exports[`tags.html - html-verify 3`] = `
 <div attribute="value">very very very very very very very very very very very very very very very very long string</div>
 <div attribute="value" attributea="value" attributeb="value" attributec="value" attributed="value" attributef="value">string</div>
 <div attribute="value" attributea="value" attributeb="value" attributec="value" attributed="value" attributef="value">very very very very very very very very very very very very very very very very long string</div>
-<video width="320" height="240" controls> <source src="movie.mp4" type="video/mp4" /> <source src="movie.ogg" type="video/ogg" /> Your browser does not support the video tag. </video>
+<video width="320" height="240" controls>
+  <source src="movie.mp4" type="video/mp4" />
+  <source src="movie.ogg" type="video/ogg" />
+  Your browser does not support the video tag.
+</video>
 <div><div>string</div></div>
 <div>
   <div>string</div>
@@ -2066,28 +2630,82 @@ exports[`tags.html - html-verify 3`] = `
     </div>
   </div>
 </div>
-<div><div>string</div></div>
-<div><div>string</div></div>
+<div>
+  <div>string</div>
+</div>
+<div>
+  <div>string</div>
+</div>
 <div>
   <div>string</div>
 
   <div>string</div>
 </div>
 <ul>
-  123<li
-    class="foo"
-    id="bar"
-    >First</li
-  >456<li
-    class="baz"
-    >Second</li
-  >789
+  123
+  <li class="foo" id="bar">First</li>
+  456
+  <li class="baz">Second</li>
+  789
 </ul>
-<span>*<b>200</b></span> <img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
+<span>*<b>200</b></span>
+<img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
+<div>123<meta attr />456</div>
+<p>x<span a="b"></span></p>
+<p>x<meta a /></p>
+<p>x<meta /></p>
+<span></span>
 
+<label aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa></label> |
+<span></span>
+<br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button> <br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)">Disabled Cancel</button>
+<br /><br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button> <br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)">Disabled Cancel</button>
+<br /><br />
+<p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
+<li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
+<div>
+  <app-nav></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-nav [input]="something"></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-primary-navigation></app-primary-navigation>
+  <router-outlet></router-outlet>
+  <app-footer [input]="something"></app-footer>
+</div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, "<strong>seddoeiusmod</strong>".
+</div>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  <strong>seddoeiusmod</strong>.
+</div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
+
+================================================================================
 `;
 
-exports[`tags.html - html-verify 4`] = `
+exports[`tags.html 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <br/>
 <br />
 <br  />
@@ -2149,7 +2767,62 @@ exports[`tags.html - html-verify 4`] = `
 >
 <span>*<b>200</b></span>
 <img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>123<meta attr/>456</div>
+<p>x<span a="b"></span></p>
+<p>x<meta a></p>
+<p>x<meta></p>
+<span></span>
+
+<label aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa></label> |
+<span></span>
+<br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  >12345678901234567890</button
+> <br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)"
+  >Disabled Cancel</button
+>
+<br /><br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  >12345678901234567890</button
+> <br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)"
+  >Disabled Cancel</button
+>
+<br /><br />
+<p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
+<li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
+<div>
+<app-nav></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-nav [input]="something"></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-primary-navigation></app-primary-navigation>
+<router-outlet></router-outlet>
+<app-footer [input]="something"></app-footer>
+</div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
+</div>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  <strong>seddoeiusmod</strong>.
+</div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
+
+=====================================output=====================================
 <br />
 <br />
 <br />
@@ -2216,10 +2889,11 @@ exports[`tags.html - html-verify 4`] = `
 >
 <video width="320" height="240" controls>
   <source src="movie.mp4" type="video/mp4" />
-  <source src="movie.ogg" type="video/ogg" /> Your browser does not support the
-  video tag.
+  <source src="movie.ogg" type="video/ogg" />
+  Your browser does not support the video tag.
 </video>
-<div><div>string</div></div> <div><div>string</div><div>string</div></div>
+<div><div>string</div></div>
+<div><div>string</div><div>string</div></div>
 <div
   ><div><div>string</div></div
   ><div>string</div></div
@@ -2227,7 +2901,8 @@ exports[`tags.html - html-verify 4`] = `
 <div
   ><div>string</div><div><div>string</div></div></div
 >
-<div><div></div></div> <div><div></div><div></div></div>
+<div><div></div></div>
+<div><div></div><div></div></div>
 <div
   ><div
     ><div
@@ -2239,30 +2914,94 @@ exports[`tags.html - html-verify 4`] = `
     ></div
   ></div
 >
-<div> <div>string</div> </div> <div> <div>string</div> </div>
+<div>
+  <div>string</div>
+</div>
+<div>
+  <div>string</div>
+</div>
 <div>
   <div>string</div>
 
   <div>string</div>
 </div>
 <ul
-  >123<li
-    class="foo"
-    id="bar"
-    >First</li
-  >456<li
-    class="baz"
-    >Second</li
+  >123<li class="foo" id="bar">First</li
+  >456<li class="baz">Second</li
   >789</ul
 >
 <span>*<b>200</b></span>
 <img
   src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
 />123
+<div>123<meta attr />456</div>
+<p>x<span a="b"></span></p>
+<p>x<meta a/></p>
+<p>x<meta /></p>
+<span></span>
 
+<label
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+></label>
+|
+<span></span>
+<br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
+<br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)"
+  >Disabled Cancel</button
+>
+<br /><br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
+<br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)"
+  >Disabled Cancel</button
+>
+<br /><br />
+<p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
+<li
+  >12345678901234567890123456789012345678901234567890123456789012345678901234567890</li
+>
+<div>
+  <app-nav></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-nav [input]="something"></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-primary-navigation></app-primary-navigation>
+  <router-outlet></router-outlet>
+  <app-footer [input]="something"></app-footer>
+</div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
+</div>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  <strong>seddoeiusmod</strong>.
+</div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
+
+================================================================================
 `;
 
-exports[`tags.html - html-verify 5`] = `
+exports[`tags.html 5`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <br/>
 <br />
 <br  />
@@ -2324,7 +3063,62 @@ exports[`tags.html - html-verify 5`] = `
 >
 <span>*<b>200</b></span>
 <img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<div>123<meta attr/>456</div>
+<p>x<span a="b"></span></p>
+<p>x<meta a></p>
+<p>x<meta></p>
+<span></span>
+
+<label aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa></label> |
+<span></span>
+<br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  >12345678901234567890</button
+> <br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)"
+  >Disabled Cancel</button
+>
+<br /><br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  >12345678901234567890</button
+> <br /><br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)"
+  >Disabled Cancel</button
+>
+<br /><br />
+<p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
+<li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
+<div>
+<app-nav></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-nav [input]="something"></app-nav>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+<app-primary-navigation></app-primary-navigation>
+<router-outlet></router-outlet>
+<app-footer [input]="something"></app-footer>
+</div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  "<strong>seddoeiusmod</strong>".
+</div>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  <strong>seddoeiusmod</strong>.
+</div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
+
+=====================================output=====================================
 <br />
 <br />
 <br />
@@ -2428,8 +3222,12 @@ exports[`tags.html - html-verify 5`] = `
     </div>
   </div>
 </div>
-<div><div>string</div></div>
-<div><div>string</div></div>
+<div>
+  <div>string</div>
+</div>
+<div>
+  <div>string</div>
+</div>
 <div>
   <div>string</div>
 
@@ -2450,39 +3248,98 @@ exports[`tags.html - html-verify 5`] = `
   src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
 />
 123
+<div>
+  123
+  <meta attr />
+  456
+</div>
+<p>
+  x
+  <span a="b"></span>
+</p>
+<p>
+  x
+  <meta a />
+</p>
+<p>
+  x
+  <meta />
+</p>
+<span></span>
 
+<label
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+></label>
+|
+<span></span>
+<br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
+<br />
+<br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)">
+  Disabled Cancel
+</button>
+<br />
+<br />
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
+<br />
+<br />
+
+<button bind-disabled="isUnchanged" on-click="onSave($event)">
+  Disabled Cancel
+</button>
+<br />
+<br />
+<p>
+  "
+  <span [innerHTML]="title"></span>
+  " is the
+  <i>property bound</i>
+  title.
+</p>
+<li>
+  12345678901234567890123456789012345678901234567890123456789012345678901234567890
+</li>
+<div>
+  <app-nav></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-nav [input]="something"></app-nav>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  <app-primary-navigation></app-primary-navigation>
+  <router-outlet></router-outlet>
+  <app-footer [input]="something"></app-footer>
+</div>
+<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
+  <strong>seddoeiusmod</strong>
+  ".
+</div>
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+  <strong>seddoeiusmod</strong>
+  .
+</div>
+<span>
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+  <i class="fa fa-refresh fa-spin" />
+</span>
+
+================================================================================
 `;
 
-exports[`textarea.html - html-verify 1`] = `
-<div>
-  <div>
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <div>
-                <div>
-                  <div>
-                    <div>
-                      <div>
-                        <textarea rows="10" cols="45" name="text">
-                        String
-                        </textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<textarea></textarea>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`textarea.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>
   <div>
     <div>
@@ -2512,9 +3369,49 @@ exports[`textarea.html - html-verify 1`] = `
 </div>
 <textarea></textarea>
 
+<div><textarea>lorem ipsum</textarea></div>
+
+=====================================output=====================================
+<div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <div>
+                      <div>
+                        <textarea rows="10" cols="45" name="text">
+                        String
+                        </textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<textarea></textarea>
+
+<div><textarea>lorem ipsum</textarea></div>
+
+================================================================================
 `;
 
-exports[`textarea.html - html-verify 2`] = `
+exports[`textarea.html 2`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
 <div>
   <div>
     <div>
@@ -2543,7 +3440,10 @@ exports[`textarea.html - html-verify 2`] = `
   </div>
 </div>
 <textarea></textarea>
-~
+
+<div><textarea>lorem ipsum</textarea></div>
+
+=====================================output=====================================
 <div>
   <div>
     <div>
@@ -2577,99 +3477,20 @@ exports[`textarea.html - html-verify 2`] = `
 </div>
 <textarea></textarea>
 
+<div>
+  <textarea>
+lorem ipsum</textarea
+  >
+</div>
+
+================================================================================
 `;
 
-exports[`textarea.html - html-verify 3`] = `
-<div>
-  <div>
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <div>
-                <div>
-                  <div>
-                    <div>
-                      <div>
-                        <textarea rows="10" cols="45" name="text">
-                        String
-                        </textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<textarea></textarea>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<div>
-  <div>
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <div>
-                <div>
-                  <div>
-                    <div>
-                      <div>
-                        <textarea rows="10" cols="45" name="text">
-                        String
-                        </textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<textarea></textarea>
-
-`;
-
-exports[`textarea.html - html-verify 4`] = `
-<div>
-  <div>
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <div>
-                <div>
-                  <div>
-                    <div>
-                      <div>
-                        <textarea rows="10" cols="45" name="text">
-                        String
-                        </textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<textarea></textarea>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`textarea.html 3`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
 <div>
   <div>
     <div>
@@ -2699,38 +3520,9 @@ exports[`textarea.html - html-verify 4`] = `
 </div>
 <textarea></textarea>
 
-`;
+<div><textarea>lorem ipsum</textarea></div>
 
-exports[`textarea.html - html-verify 5`] = `
-<div>
-  <div>
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <div>
-                <div>
-                  <div>
-                    <div>
-                      <div>
-                        <textarea rows="10" cols="45" name="text">
-                        String
-                        </textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<textarea></textarea>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================output=====================================
 <div>
   <div>
     <div>
@@ -2760,39 +3552,224 @@ exports[`textarea.html - html-verify 5`] = `
 </div>
 <textarea></textarea>
 
+<div><textarea>lorem ipsum</textarea></div>
+
+================================================================================
 `;
 
-exports[`unsupported.html - html-verify 1`] = `
-<center></center>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<center></center>
+exports[`textarea.html 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <div>
+                      <div>
+                        <textarea rows="10" cols="45" name="text">
+                        String
+                        </textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<textarea></textarea>
 
+<div><textarea>lorem ipsum</textarea></div>
+
+=====================================output=====================================
+<div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <div>
+                      <div>
+                        <textarea rows="10" cols="45" name="text">
+                        String
+                        </textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<textarea></textarea>
+
+<div><textarea>lorem ipsum</textarea></div>
+
+================================================================================
 `;
 
-exports[`unsupported.html - html-verify 2`] = `
-<center></center>
-~
-<center></center>
+exports[`textarea.html 5`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <div>
+                      <div>
+                        <textarea rows="10" cols="45" name="text">
+                        String
+                        </textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<textarea></textarea>
 
+<div><textarea>lorem ipsum</textarea></div>
+
+=====================================output=====================================
+<div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <div>
+                      <div>
+                        <textarea rows="10" cols="45" name="text">
+                        String
+                        </textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<textarea></textarea>
+
+<div><textarea>lorem ipsum</textarea></div>
+
+================================================================================
 `;
 
-exports[`unsupported.html - html-verify 3`] = `
-<center></center>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`unsupported.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <center></center>
 
+=====================================output=====================================
+<center></center>
+
+================================================================================
 `;
 
-exports[`unsupported.html - html-verify 4`] = `
-<center></center>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`unsupported.html 2`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
 <center></center>
 
+=====================================output=====================================
+<center></center>
+
+================================================================================
 `;
 
-exports[`unsupported.html - html-verify 5`] = `
-<center></center>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`unsupported.html 3`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
 <center></center>
 
+=====================================output=====================================
+<center></center>
+
+================================================================================
+`;
+
+exports[`unsupported.html 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<center></center>
+
+=====================================output=====================================
+<center></center>
+
+================================================================================
+`;
+
+exports[`unsupported.html 5`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<center></center>
+
+=====================================output=====================================
+<center></center>
+
+================================================================================
 `;

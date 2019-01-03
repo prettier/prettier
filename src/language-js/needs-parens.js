@@ -57,6 +57,16 @@ function needsParens(path, options) {
     return false;
   }
 
+  // to avoid unexpected `}}` in HTML interpolations
+  if (
+    options.__isInHtmlInterpolation &&
+    !options.bracketSpacing &&
+    endsWithRightBracket(node) &&
+    isFollowedByRightBracket(path)
+  ) {
+    return true;
+  }
+
   // Only statements don't need parentheses.
   if (isStatement(node)) {
     return false;
@@ -258,6 +268,7 @@ function needsParens(path, options) {
           return true;
 
         case "MemberExpression":
+        case "OptionalMemberExpression":
           return name === "object" && parent.object === node;
 
         case "AssignmentExpression":
@@ -500,6 +511,8 @@ function needsParens(path, options) {
         return false;
       } else if (parent.type === "Property" && parent.value === node) {
         return false;
+      } else if (parent.type === "NGChainedExpression") {
+        return false;
       }
       return true;
     }
@@ -511,6 +524,7 @@ function needsParens(path, options) {
         case "SpreadProperty":
         case "BinaryExpression":
         case "LogicalExpression":
+        case "NGPipeExpression":
         case "ExportDefaultDeclaration":
         case "AwaitExpression":
         case "JSXSpreadAttribute":
@@ -613,6 +627,21 @@ function needsParens(path, options) {
         return true;
       }
       return false;
+    case "NGPipeExpression":
+      if (
+        parent.type === "NGRoot" ||
+        parent.type === "ObjectProperty" ||
+        parent.type === "ArrayExpression" ||
+        ((parent.type === "CallExpression" ||
+          parent.type === "OptionalCallExpression") &&
+          parent.arguments[name] === node) ||
+        (parent.type === "NGPipeExpression" && name === "right") ||
+        (parent.type === "MemberExpression" && name === "property") ||
+        parent.type === "AssignmentExpression"
+      ) {
+        return false;
+      }
+      return true;
   }
 
   return false;
@@ -667,6 +696,57 @@ function isStatement(node) {
     node.type === "WhileStatement" ||
     node.type === "WithStatement"
   );
+}
+
+function endsWithRightBracket(node) {
+  switch (node.type) {
+    case "ObjectExpression":
+      return true;
+    default:
+      return false;
+  }
+}
+
+function isFollowedByRightBracket(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+  const name = path.getName();
+  switch (parent.type) {
+    case "NGPipeExpression":
+      if (
+        typeof name === "number" &&
+        parent.arguments[name] === node &&
+        parent.arguments.length - 1 === name
+      ) {
+        return path.callParent(isFollowedByRightBracket);
+      }
+      break;
+    case "ObjectProperty":
+      if (name === "value") {
+        const parentParent = path.getParentNode(1);
+        return (
+          parentParent.properties[parentParent.properties.length - 1] === parent
+        );
+      }
+      break;
+    case "BinaryExpression":
+    case "LogicalExpression":
+      if (name === "right") {
+        return path.callParent(isFollowedByRightBracket);
+      }
+      break;
+    case "ConditionalExpression":
+      if (name === "alternate") {
+        return path.callParent(isFollowedByRightBracket);
+      }
+      break;
+    case "UnaryExpression":
+      if (parent.prefix) {
+        return path.callParent(isFollowedByRightBracket);
+      }
+      break;
+  }
+  return false;
 }
 
 module.exports = needsParens;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo() {}
 const args = [3, 4];
 
@@ -25,7 +30,8 @@ foo.bind(null, 1, 2, ...args); // 4 errors
 new foo(1, 2); // 2 errors
 new foo(...args); // 2 errors
 new foo(1, 2, ...args); // 4 errors
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo() {}
 const args = [3, 4];
 
@@ -51,4 +57,5 @@ new foo(1, 2); // 2 errors
 new foo(...args); // 2 errors
 new foo(1, 2, ...args); // 4 errors
 
+================================================================================
 `;

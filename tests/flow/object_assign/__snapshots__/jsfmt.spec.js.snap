@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js - flow-verify 1`] = `
+exports[`A.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -27,7 +32,8 @@ module.exports = {
   Bad: Bad,
   Good: Good,
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -59,9 +65,15 @@ module.exports = {
   Good: Good
 };
 
+================================================================================
 `;
 
-exports[`B.js - flow-verify 1`] = `
+exports[`B.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -79,7 +91,8 @@ B.js|12 col 1 error|  call of method foo
 || Property not found in
 A.js|8 col 23 error|  object literal
 */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -98,13 +111,20 @@ B.js|12 col 1 error|  call of method foo
 A.js|8 col 23 error|  object literal
 */
 
+================================================================================
 `;
 
-exports[`apply.js - flow-verify 1`] = `
+exports[`apply.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 (Object.assign.apply(null, [{}, {a: 1}, {b: 'foo'}]): {a: number, b: string});
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 (Object.assign.apply(null, [{}, { a: 1 }, { b: "foo" }]): {
@@ -112,24 +132,37 @@ exports[`apply.js - flow-verify 1`] = `
   b: string
 });
 
+================================================================================
 `;
 
-exports[`non_objects.js - flow-verify 1`] = `
+exports[`non_objects.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 Object.assign("123", {a: "foo"});
 Object.assign(123, {a: "foo"});
 Object.assign({a: "foo"}, 123);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 Object.assign("123", { a: "foo" });
 Object.assign(123, { a: "foo" });
 Object.assign({ a: "foo" }, 123);
 
+================================================================================
 `;
 
-exports[`spread.js - flow-verify 1`] = `
+exports[`spread.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 declare var arrOfObjs: Array<{ foo: string }>;
@@ -145,7 +178,8 @@ declare var tup: [{foo: string}, {bar: number}];
   ...[{a: 1}, {b: 'foo'}],
   ...[{c: true}],
 ): {a: number, b: true, c: boolean}); // Error: 'foo' => true
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 declare var arrOfObjs: Array<{ foo: string }>;
@@ -162,9 +196,15 @@ declare var tup: [{ foo: string }, { bar: number }];
   c: boolean
 }); // Error: 'foo' => true
 
+================================================================================
 `;
 
-exports[`undefined.js - flow-verify 1`] = `
+exports[`undefined.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var React = require('react');
@@ -185,7 +225,8 @@ class MyReactThing extends React.Component {
 
 <MyReactThing />; // works
 <MyReactThing foo={undefined} />; // also works
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var React = require("react");
@@ -209,4 +250,5 @@ class MyReactThing extends React.Component {
 <MyReactThing />; // works
 <MyReactThing foo={undefined} />; // also works
 
+================================================================================
 `;

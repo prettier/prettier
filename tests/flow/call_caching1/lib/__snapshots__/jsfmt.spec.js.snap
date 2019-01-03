@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`core.js - flow-verify 1`] = `
+exports[`core.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare class Array<T> {
     @@iterator(): Iterator<T>;
     map<U>(callbackfn: (value: T, index: number, array: Array<T>) => U, thisArg?: any): Array<U>;
@@ -26,7 +31,8 @@ declare class Map<K, V> {
     constructor(iterable: ?Iterable<[K, V]>): void;
     set(key: K, value: V): Map<K, V>;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare class Array<T> {
   @@iterator(): Iterator<T>;
   map<U>(
@@ -56,9 +62,15 @@ declare class Map<K, V> {
   set(key: K, value: V): Map<K, V>;
 }
 
+================================================================================
 `;
 
-exports[`immutable.js - flow-verify 1`] = `
+exports[`immutable.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare module "immutable" {
   declare class Map<K,V> {
     static <K,V>(iter: Iterator<[K,V]>): Map<K,V>;
@@ -67,7 +79,8 @@ declare module "immutable" {
     set(key: K, value: V): this;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare module "immutable" {
   declare class Map<K, V> {
     static <K, V>(iter: Iterator<[K, V]>): Map<K, V>;
@@ -77,4 +90,5 @@ declare module "immutable" {
   }
 }
 
+================================================================================
 `;

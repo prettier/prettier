@@ -70,6 +70,15 @@ const categoryOrder = [
  * Note: The options below are sorted alphabetically.
  */
 const options = {
+  check: {
+    type: "boolean",
+    category: coreOptions.CATEGORY_OUTPUT,
+    alias: "c",
+    description: dedent`
+      Check if the given files are formatted, print a human-friendly summary
+      message and paths to unformatted files (see also --list-different).
+    `
+  },
   color: {
     // The supports-color package (a sub sub dependency) looks directly at
     // `process.argv` for `--no-color` and such-like options. The reason it is
@@ -170,7 +179,7 @@ const options = {
     category: coreOptions.CATEGORY_OUTPUT,
     alias: "l",
     description:
-      "Print the names of files that are different from Prettier's formatting."
+      "Print the names of files that are different from Prettier's formatting (see also --check)."
   },
   loglevel: {
     type: "choice",

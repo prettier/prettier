@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`0-indent-js.md - markdown-verify 1`] = `
+exports[`0-indent-js.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 - 1
   - 2
     - 3
@@ -21,7 +27,8 @@ exports[`0-indent-js.md - markdown-verify 1`] = `
       asd
       \`
       \`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - 1
 
   - 2
@@ -46,9 +53,16 @@ exports[`0-indent-js.md - markdown-verify 1`] = `
       \`;
       \`\`\`
 
+================================================================================
 `;
 
-exports[`additional-space.md - markdown-verify 1`] = `
+exports[`additional-space.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 1. Fork the repo and create your branch from \`master\`.
 
    Open terminal (e.g. Terminal, iTerm, Git Bash or Git Shell) and type:
@@ -70,7 +84,8 @@ exports[`additional-space.md - markdown-verify 1`] = `
     To check your version of Yarn and ensure it's installed you can type:
     \`\`\`sh
     yarn --version
-    \`\`\`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    \`\`\`
+=====================================output=====================================
 1. Fork the repo and create your branch from \`master\`.
 
    Open terminal (e.g. Terminal, iTerm, Git Bash or Git Shell) and type:
@@ -97,9 +112,16 @@ exports[`additional-space.md - markdown-verify 1`] = `
    yarn --version
    \`\`\`
 
+================================================================================
 `;
 
-exports[`backtick.md - markdown-verify 1`] = `
+exports[`backtick.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 \`\`\`\`\`\`\`\`\`\`
 
 \`\`\`js
@@ -107,7 +129,8 @@ console.log("hello world!");
 \`\`\`
 
 \`\`\`\`\`\`\`\`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 \`\`\`\`
 
 \`\`\`js
@@ -116,9 +139,16 @@ console.log("hello world!");
 
 \`\`\`\`
 
+================================================================================
 `;
 
-exports[`format.md - markdown-verify 1`] = `
+exports[`format.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 \`\`\`js
 const foo      = 'bar'
 
@@ -126,16 +156,24 @@ const foo      = 'bar'
 
    console     .log(    213    )
 \`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 \`\`\`js
 const foo = "bar";
 
 console.log(213);
 \`\`\`
 
+================================================================================
 `;
 
-exports[`indent.md - markdown-verify 1`] = `
+exports[`indent.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
     Indented Code Block
     Indented Code Block
     Indented Code Block
@@ -159,7 +197,8 @@ exports[`indent.md - markdown-verify 1`] = `
 2. List the contents:
 
         ls -l
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
     Indented Code Block
     Indented Code Block
     Indented Code Block
@@ -184,20 +223,35 @@ exports[`indent.md - markdown-verify 1`] = `
 
         ls -l
 
+================================================================================
 `;
 
-exports[`lang.md - markdown-verify 1`] = `
+exports[`lang.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 \`\`\`js
 console.log("hello world");
 \`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 \`\`\`js
 console.log("hello world");
 \`\`\`
 
+================================================================================
 `;
 
-exports[`leading-trailing-newlines.md - markdown-verify 1`] = `
+exports[`leading-trailing-newlines.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 \`\`\`
 
 
@@ -205,7 +259,8 @@ exports[`leading-trailing-newlines.md - markdown-verify 1`] = `
 
 
 \`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 \`\`\`
 
 
@@ -214,15 +269,24 @@ exports[`leading-trailing-newlines.md - markdown-verify 1`] = `
 
 \`\`\`
 
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 1`] = `
-\`\`\`
-hello world
-\`\`\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`simple.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 \`\`\`
 hello world
 \`\`\`
 
+=====================================output=====================================
+\`\`\`
+hello world
+\`\`\`
+
+================================================================================
 `;

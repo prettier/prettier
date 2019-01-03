@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`traces.js - flow-verify 1`] = `
+exports[`traces.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*
  * The location marked with the FlowFixMe does not show up in the original
  * error but shows up in the flow check --traces 10 result. This test makes
@@ -16,7 +21,8 @@ function foo(x: string) {
 }
 
 var a: string = foo('hi'); // error number ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*
  * The location marked with the FlowFixMe does not show up in the original
  * error but shows up in the flow check --traces 10 result. This test makes
@@ -35,4 +41,5 @@ function foo(x: string) {
 
 var a: string = foo("hi"); // error number ~> string
 
+================================================================================
 `;

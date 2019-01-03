@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`extends.js - flow-verify 1`] = `
+exports[`extends.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // "ArrowFunctionExpression"
 class a extends (() => {}) {}
 
@@ -58,7 +63,8 @@ function* f() {
 }
 
 x = class extends (++b) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // "ArrowFunctionExpression"
 class a extends (() => {}) {}
 
@@ -117,4 +123,5 @@ function* f() {
 
 x = class extends (++b) {};
 
+================================================================================
 `;

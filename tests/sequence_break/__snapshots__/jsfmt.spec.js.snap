@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js - flow-verify 1`] = `
+exports[`break.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const f = (argument1, argument2, argument3) =>
   (doSomethingWithArgument(argument1), doSomethingWithArgument(argument2),argument1);
 (function(){
@@ -14,7 +19,8 @@ for (aLongIdentifierName = 0, aLongIdentifierName = 0, aLongIdentifierName = 0, 
   (a = b ? c : function() { return 0; }),
   (a = b ? c : function() { return 0; }),
   (a = b ? c : function() { return 0; });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const f = (argument1, argument2, argument3) => (
   doSomethingWithArgument(argument1),
   doSomethingWithArgument(argument2),
@@ -74,4 +80,5 @@ for (
         return 0;
       });
 
+================================================================================
 `;

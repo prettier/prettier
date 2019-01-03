@@ -1,8 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`scalar.graphql - graphql-verify 1`] = `
-scalar Color @deprecated
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`scalar.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 scalar Color @deprecated
 
+=====================================output=====================================
+scalar Color @deprecated
+
+================================================================================
 `;

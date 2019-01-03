@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js - flow-verify 1`] = `
+exports[`break.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export interface Environment1 extends GenericEnvironment<
   SomeType,
   AnotherType,
@@ -65,7 +70,10 @@ interface ExtendsManyWithGenerics
 
     x: string;
   }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+export interface ExtendsLongOneWithGenerics extends Bar< SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,  ToBreakLineToBreakLineToBreakLine> {}
+
+=====================================output=====================================
 export interface Environment1
   extends GenericEnvironment<SomeType, AnotherType, YetAnotherType> {
   m(): void;
@@ -136,14 +144,14 @@ interface ExtendsLarge
 
 interface ExtendsMany
   extends ASingleGenericInterface<
-      Interface1,
-      Interface2,
-      Interface3,
-      Interface4,
-      Interface5,
-      Interface6,
-      Interface7
-    > {
+    Interface1,
+    Interface2,
+    Interface3,
+    Interface4,
+    Interface5,
+    Interface6,
+    Interface7
+  > {
   x: string;
 }
 
@@ -163,15 +171,31 @@ interface ExtendsManyWithGenerics
   x: string;
 }
 
+export interface ExtendsLongOneWithGenerics
+  extends Bar<
+    SomeLongTypeSomeLongTypeSomeLongTypeSomeLongType,
+    ToBreakLineToBreakLineToBreakLine
+  > {}
+
+================================================================================
 `;
 
-exports[`module.js - flow-verify 1`] = `
+exports[`module.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare module X {
   declare interface Y { x: number; }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare module X {
-  declare interface Y { x: number }
+  declare interface Y {
+    x: number;
+  }
 }
 
+================================================================================
 `;

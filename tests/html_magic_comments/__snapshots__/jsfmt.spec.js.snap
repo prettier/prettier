@@ -1,11 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`display.html - html-verify 1`] = `
+exports[`display.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>
     <!-- display: inline -->
     <p>Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long</p>
 </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>
   <!-- display: inline -->
   <p
@@ -14,4 +20,5 @@ exports[`display.html - html-verify 1`] = `
   >
 </div>
 
+================================================================================
 `;
