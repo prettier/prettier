@@ -36,7 +36,7 @@ module.exports = {
     // If this is removed, see also scripts/build/build.js.
     "graceful-fs": "<rootDir>/tests_config/fs.js",
 
-    "prettier/local": "<rootDir>/tests_config/require_prettier.js",
+    "prettier/local": "<rootDir>/tests_config/require_prettierx.js",
     "prettier/standalone": "<rootDir>/tests_config/require_standalone.js"
   },
   testEnvironment: "node",

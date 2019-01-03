@@ -29,7 +29,7 @@ const code = shell.exec(cmd, {
   env: Object.assign({}, process.env, {
     NODE_ENV: "production",
     AST_COMPARE: "1",
-    PRETTIER_DIR: path.join(tmpDir, "node_modules/prettier")
+    PRETTIERX_DIR: path.join(tmpDir, "node_modules/prettierx")
   }),
   shell: true
 }).code;

@@ -17,7 +17,7 @@ const sources = [
   "parser-typescript.js",
   "parser-yaml.js"
 ].map(filename =>
-  fs.readFileSync(path.join(process.env.PRETTIER_DIR, filename), "utf-8")
+  fs.readFileSync(path.join(process.env.PRETTIERX_DIR, filename), "utf-8")
 );
 
 const sandbox = vm.createContext();

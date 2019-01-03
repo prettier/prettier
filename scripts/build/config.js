@@ -109,14 +109,14 @@ const coreBundles = [
   },
   {
     input: "standalone.js",
-    name: "prettier",
+    name: "prettierx",
     type: "core",
     target: "universal"
   },
   {
-    input: "bin/prettier.js",
+    input: "bin/prettierx.js",
     type: "core",
-    output: "bin-prettier.js",
+    output: "bin-prettierx.js",
     target: "node",
     external: [path.resolve("src/common/third-party.js")]
   },
