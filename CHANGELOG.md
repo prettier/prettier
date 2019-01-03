@@ -2,7 +2,7 @@
 
 <!-- --
 To get recent changes on prettierx (TBD brodybits\/prettier) in pretty format:
-$ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[brodybits\/prettier#\1\]\(https:\/\/github.com\/brodybits\/prettier\/pull\/\1\)/'
+$ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[brodybits\/prettierx#\1\]\(https:\/\/github.com\/brodybits\/prettierx\/pull\/\1\)/'
 
 To get recent changes on prettier in pretty format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
