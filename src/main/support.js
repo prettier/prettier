@@ -114,7 +114,7 @@ function getSupportInfo(version, opts) {
   //* }
   function filterDeprecated(object) {
     // filter deprecated as if this was prettier version 1.16.0:
-    const version = '1.16.0';
+    const version = "1.16.0";
     return (
       opts.showDeprecated ||
       !("deprecated" in object) ||
