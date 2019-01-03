@@ -1,6 +1,8 @@
 trigger:
   - master
   - release-*
+  - dev
+  - prettierx-*
 
 variables:
   AST_COMPARE: true
