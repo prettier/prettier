@@ -2,6 +2,8 @@
 
 Unofficial fork, intended to provide some additional options to help improve consistency with [`feross/standard`](https://github.com/standard/standard) and [`Flet/semistandard`](https://github.com/Flet/semistandard). This fork is an attempt to pick up where [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) left off.
 
+Language parsers are supported as if this were `prettier` version `1.15.3` / `1.16.0`; old language parsers are deprecated as if this were `prettier` version `1.15.3` / `1.16.0`.
+
 ## CLI Usage
 
 **Quick CLI usage:**

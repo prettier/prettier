@@ -36,7 +36,7 @@ function getSupportInfo(version, opts) {
     "name"
   )
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
-    .filter(filterSince)
+    //* .filter(filterSince)
     .filter(filterDeprecated)
     .map(mapDeprecated)
     .map(mapInternal)
@@ -48,7 +48,7 @@ function getSupportInfo(version, opts) {
           newOption.default.length === 1
             ? newOption.default[0].value
             : newOption.default
-                .filter(filterSince)
+                //* .filter(filterSince)
                 .sort((info1, info2) =>
                   semver.compare(info2.since, info1.since)
                 )[0].value;
@@ -56,7 +56,7 @@ function getSupportInfo(version, opts) {
 
       if (Array.isArray(newOption.choices)) {
         newOption.choices = newOption.choices
-          .filter(filterSince)
+          //* .filter(filterSince)
           .filter(filterDeprecated)
           .map(mapDeprecated);
       }
@@ -74,11 +74,11 @@ function getSupportInfo(version, opts) {
       return Object.assign(option, { pluginDefaults });
     });
 
-  const usePostCssParser = semver.lt(version, "1.7.1");
+  //* const usePostCssParser = semver.lt(version, "1.7.1");
 
   const languages = plugins
     .reduce((all, plugin) => all.concat(plugin.languages || []), [])
-    .filter(filterSince)
+    //* .filter(filterSince)
     .map(language => {
       // Prevent breaking changes
       if (language.name === "Markdown") {
@@ -92,27 +92,29 @@ function getSupportInfo(version, opts) {
         });
       }
 
-      if (
-        usePostCssParser &&
-        (language.name === "CSS" || language.group === "CSS")
-      ) {
-        return Object.assign({}, language, {
-          parsers: ["postcss"]
-        });
-      }
+      //* if (
+      //*   usePostCssParser &&
+      //*   (language.name === "CSS" || language.group === "CSS")
+      //* ) {
+      //*   return Object.assign({}, language, {
+      //*     parsers: ["postcss"]
+      //*   });
+      //* }
       return language;
     });
 
   return { languages, options };
 
-  function filterSince(object) {
-    return (
-      opts.showUnreleased ||
-      !("since" in object) ||
-      (object.since && semver.gte(version, object.since))
-    );
-  }
+  //* function filterSince(object) {
+  //*   return (
+  //*     opts.showUnreleased ||
+  //*     !("since" in object) ||
+  //*     (object.since && semver.gte(version, object.since))
+  //*   );
+  //* }
   function filterDeprecated(object) {
+    // filter deprecated as if this was prettier version 1.16.0:
+    const version = '1.16.0';
     return (
       opts.showDeprecated ||
       !("deprecated" in object) ||
