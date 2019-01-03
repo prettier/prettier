@@ -1,8 +1,8 @@
 "use strict";
 
 const isProduction = process.env.NODE_ENV === "production";
-const prettierRootDir = isProduction ? process.env.PRETTIER_DIR : "../";
+const prettierRootDir = isProduction ? process.env.PRETTIERX_DIR : "../";
 
-const prettier = require(prettierRootDir);
+const prettierx = require(prettierRootDir);
 
-module.exports = prettier;
+module.exports = prettierx;
