@@ -1,5 +1,8 @@
 # prettierx - less opinionated code formatter fork of prettier
 
+[![NPM](https://nodei.co/npm/prettierx.png?compact=true)](https://nodei.co/npm/prettierx/)
+[![Build Status](https://dev.azure.com/brodybits/brodybits/_apis/build/status/brodybits.prettierx?branchName=dev)](https://dev.azure.com/brodybits/brodybits/_build/latest?definitionId=1?branchName=dev)
+
 Unofficial fork, intended to provide some additional options to help improve consistency with [`feross/standard`](https://github.com/standard/standard) and [`Flet/semistandard`](https://github.com/Flet/semistandard). This fork is an attempt to pick up where [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) left off.
 
 Language parsers are supported as if this were `prettier` version `1.15.3` / `1.16.0`; old language parsers are deprecated as if this were `prettier` version `1.15.3` / `1.16.0`.
