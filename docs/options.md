@@ -77,6 +77,14 @@ Use single quotes instead of double quotes in JSX.
 | ------- | -------------------- | ------------------------ |
 | `false` | `--jsx-single-quote` | `jsxSingleQuote: <bool>` |
 
+## Standard.js compatibility
+
+Configure prettier to be compatible with Standard.js
+
+| Default | CLI Override | API Override       |
+| ------- | ------------ | ------------------ |
+| `false` | `--standard` | `standard: <bool>` |
+
 ## Trailing Commas
 
 Print trailing commas wherever possible when multi-line. (A single-line array, for example, never gets trailing commas.)

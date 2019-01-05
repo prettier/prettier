@@ -586,7 +586,22 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       },
       \\"rangeEnd\\": Object {
         \\"default\\": Infinity,
-        \\"range\\": Object {"
+        \\"range\\": Object {
+@@ -126,10 +195,14 @@
+      },
+      \\"singleQuote\\": Object {
+        \\"default\\": false,
+        \\"type\\": \\"boolean\\",
+      },
++     \\"standard\\": Object {
++       \\"default\\": false,
++       \\"type\\": \\"boolean\\",
++     },
+      \\"tabWidth\\": Object {
+        \\"default\\": 2,
+        \\"range\\": Object {
+          \\"end\\": Infinity,
+          \\"start\\": 0,"
 `;
 
 exports[`CLI --support-info (stderr) 1`] = `""`;
@@ -1219,6 +1234,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"singleQuote\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Use standard rules for formatting.\\",
+      \\"name\\": \\"standard\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.16.0\\",
       \\"type\\": \\"boolean\\"
     },
     {

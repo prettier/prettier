@@ -72,5 +72,12 @@ module.exports = {
       { value: true, deprecated: "0.19.0", redirect: "es5" },
       { value: false, deprecated: "0.19.0", redirect: "none" }
     ]
+  },
+  standard: {
+    since: "1.16.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description: "Use standard rules for formatting."
   }
 };

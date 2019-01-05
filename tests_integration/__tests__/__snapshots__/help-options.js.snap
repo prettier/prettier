@@ -490,6 +490,19 @@ Default: false
 
 exports[`show detailed usage with --help single-quote (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help standard (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help standard (stdout) 1`] = `
+"--standard
+
+  Use standard rules for formatting.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help standard (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help stdin (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help stdin (stdout) 1`] = `

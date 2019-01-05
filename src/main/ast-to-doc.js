@@ -34,6 +34,12 @@ const docUtils = doc.utils;
  * the path to the current node through the Abstract Syntax Tree.
  */
 function printAstToDoc(ast, options, alignmentSize = 0) {
+  if (options.standard) {
+    options.semi = false;
+    options.singleQuote = true;
+    options.jsxSingleQuote = true;
+  }
+
   const printer = options.printer;
 
   if (printer.preprocess) {

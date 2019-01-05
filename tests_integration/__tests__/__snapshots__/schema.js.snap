@@ -303,6 +303,11 @@ in order for it to be formatted.",
           "description": "Use single quotes instead of double quotes.",
           "type": "boolean",
         },
+        "standard": Object {
+          "default": false,
+          "description": "Use standard rules for formatting.",
+          "type": "boolean",
+        },
         "tabWidth": Object {
           "default": 2,
           "description": "Number of spaces per indentation level.",
