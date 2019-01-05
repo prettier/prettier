@@ -15,7 +15,7 @@
     "lz-string": "1.4.4",
     "prop-types": "15.6.1",
     "react": "16.3.1",
-    "react-dom": "16.3.1"
+    "react-dom": "16.3.3"
   },
   "devDependencies": {
     "@sandhose/prettier-animated-logo": "1.0.3",
