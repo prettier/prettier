@@ -5763,16 +5763,18 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript-estree@6.0.0-rc.1:
-  version "6.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/typescript-estree/-/typescript-estree-6.0.0-rc.1.tgz#2bc3d89d206ebdfa04cdebd9acf03aed9fff8860"
+typescript-estree@13.5.2:
+  version "13.5.2"
+  resolved "https://registry.yarnpkg.com/typescript-estree/-/typescript-estree-13.5.2.tgz#2004af6ca121821f657d06473b5196db195b0e02"
+  integrity sha512-X6Qrv7LZgB6+jeUuWfv/tru+NKlD1GMViDm9uNHPin3y/+TL9thy5QdYlND0XwbRrPtpCpyxO6X0Nqt/GQmhNA==
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-typescript@3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.1.tgz#0b7a04b8cf3868188de914d9568bd030f0c56192"
+typescript@3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.2.tgz#fe8101c46aa123f8353523ebdcf5730c2ae493e5"
+  integrity sha512-VCj5UiSyHBjwfYacmDuc/NOk4QQixbE+Wn7MFJuS0nRuPQbof132Pw4u53dm264O8LPc2MVsc7RJNml5szurkg==
 
 ua-parser-js@^0.7.9:
   version "0.7.17"
