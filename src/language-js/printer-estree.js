@@ -4272,6 +4272,9 @@ function printObjectMethod(path, options, print) {
     parts.push("[", key, "]");
   } else {
     parts.push(key);
+    if (options.spaceBeforeFunctionParen) {
+      parts.push(" ");
+    }
   }
 
   parts.push(
