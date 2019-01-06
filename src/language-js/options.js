@@ -47,6 +47,13 @@ module.exports = {
     description:
       "Add spaces around the star ('*') in generator functions (before and after - from eslint)."
   },
+  yieldStarSpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Add spaces around the star ('*') in `yield*` expressions (before and after - from eslint)."
+  },
   spaceBeforeFunctionParen: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",

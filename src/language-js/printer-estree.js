@@ -916,6 +916,9 @@ function printPathNoParens(path, options, print, args) {
       parts.push("yield");
 
       if (n.delegate) {
+        if (options.yieldStarSpacing) {
+          parts.push(" ");
+        }
         parts.push("*");
       }
       if (n.argument) {

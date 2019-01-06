@@ -626,3 +626,16 @@ exports[`show detailed usage with --help write (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help write (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help yield-star-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help yield-star-spacing (stdout) 1`] = `
+"--yield-star-spacing
+
+  Add spaces around the star ('*') in \`yield*\` expressions (before and after - from eslint).
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help yield-star-spacing (write) 1`] = `Array []`;

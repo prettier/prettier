@@ -94,6 +94,8 @@ Format options:
                            Defaults to none.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
+  --yield-star-spacing     Add spaces around the star ('*') in \`yield*\` expressions (before and after - from eslint).
+                           Defaults to false.
 
 Config options:
 
@@ -247,6 +249,8 @@ Format options:
                            Print trailing commas wherever possible when multi-line.
                            Defaults to none.
   --use-tabs               Indent with tabs instead of spaces.
+                           Defaults to false.
+  --yield-star-spacing     Add spaces around the star ('*') in \`yield*\` expressions (before and after - from eslint).
                            Defaults to false.
 
 Config options:
