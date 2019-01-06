@@ -55,7 +55,9 @@ function htmlToJsx() {
         node.type !== "html" ||
         /^<!--[\s\S]*-->$/.test(node.value) ||
         // inline html
-        parent.type === "paragraph"
+        (parent.type === "paragraph" ||
+          parent.type === "tableCell" ||
+          parent.type === "heading")
       ) {
         return node;
       }
