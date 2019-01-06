@@ -159,6 +159,19 @@ exports[`show detailed usage with --help find-config-path (stdout) 1`] = `
 
 exports[`show detailed usage with --help find-config-path (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help generator-star-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help generator-star-spacing (stdout) 1`] = `
+"--generator-star-spacing
+
+  Add spaces around the star ('*') in generator functions (before and after - from eslint).
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help generator-star-spacing (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help help (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help help (stdout) 1`] = `

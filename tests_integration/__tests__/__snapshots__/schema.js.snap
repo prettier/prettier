@@ -79,6 +79,11 @@ This option cannot be used with --range-start and --range-end.",
           "description": "Specify the input filepath. This will be used to do parser inference.",
           "type": "string",
         },
+        "generatorStarSpacing": Object {
+          "default": false,
+          "description": "Add spaces around the star ('*') in generator functions (before and after - from eslint).",
+          "type": "boolean",
+        },
         "htmlWhitespaceSensitivity": Object {
           "default": "css",
           "description": "How to handle whitespaces in HTML.",

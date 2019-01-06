@@ -178,6 +178,14 @@ Put a space before function parenthesis.
 | ------- | ------------------------------- | ---------------------------------- |
 | `false` | `--space-before-function-paren` | `spaceBeforeFunctionParen: <bool>` |
 
+## Generator star spacing
+
+Add spaces around the star (\*\) in generator functions (before and after - from eslint).
+
+| Default | CLI Override                    | API Override                       |
+| ------- | ------------------------------- | ---------------------------------- |
+| `false` | `--generator-star-spacing`      | `generatorStarSpacing: <bool>`     |
+
 ## Parser
 
 Specify which parser to use.

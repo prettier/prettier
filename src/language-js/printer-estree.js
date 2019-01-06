@@ -3723,6 +3723,9 @@ function printMethod(path, options, print) {
   if (!kind || kind === "init" || kind === "method" || kind === "constructor") {
     if (node.value.generator) {
       parts.push("*");
+      if (options.generatorStarSpacing) {
+        parts.push(" ");
+      }
     }
   } else {
     assert.ok(kind === "get" || kind === "set");
@@ -4226,6 +4229,9 @@ function printFunctionDeclaration(path, print, options) {
   parts.push("function");
 
   if (n.generator) {
+    if (options.generatorStarSpacing) {
+      parts.push(" ");
+    }
     parts.push("*");
   }
   if (n.id) {
@@ -4236,7 +4242,10 @@ function printFunctionDeclaration(path, print, options) {
     printFunctionTypeParameters(path, options, print),
     group(
       concat([
-        options.spaceBeforeFunctionParen ? " " : "",
+        options.spaceBeforeFunctionParen ||
+        (options.generatorStarSpacing && !n.id)
+          ? " "
+          : "",
         printFunctionParams(path, print, options),
         printReturnType(path, print, options)
       ])
@@ -4257,6 +4266,9 @@ function printObjectMethod(path, options, print) {
   }
   if (objMethod.generator) {
     parts.push("*");
+    if (options.generatorStarSpacing) {
+      parts.push(" ");
+    }
   }
   if (
     objMethod.method ||
