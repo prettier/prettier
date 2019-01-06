@@ -1,0 +1,14 @@
+# TBD TEMPORARY WORKAROUND to test on Node.js 6
+# before dropping Node.js 4 support
+# Based on: .azure-pipelines/jobs/prod-test-integration.yml
+
+steps:
+  - template: ../steps/download-dist.yml
+  - template: ../steps/install-nodejs.yml
+  - template: ../steps/install-dependencies.yml
+    parameters:
+      flags: --ignore-engines # prettier@dev requires node v6+
+  - script: yarn test-integration
+    displayName: "Run tests on dist"
+  - template: ../steps/publish-test-results.yml
+  - template: ../steps/publish-code-coverage.yml

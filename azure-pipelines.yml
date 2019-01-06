@@ -77,6 +77,23 @@ jobs:
     steps:
       - template: .azure-pipelines/jobs/prod-lint.yml
 
+  # TBD TEMPORARY WORKAROUND here and in
+  # .azure-pipelines/jobs/prod-test-integration.yml
+  # to test on Node.js 6 before dropping Node.js 4 support
+  # FUTURE TODO: remove above workaround job file
+  # when this job can be removed.
+  - job: Prod_test_integration
+    dependsOn: Prod_Build
+    displayName: Prod test-integration on macOS
+    pool:
+      vmImage: macos-10.13
+    strategy:
+      matrix:
+        Node_v6:
+          node_version: 6
+    steps:
+      - template: .azure-pipelines/jobs/prod-test-integration.yml
+
   - job: Prod_Test
     dependsOn: Prod_Build
     displayName: Prod Test on macOS
