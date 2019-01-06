@@ -87,6 +87,13 @@ jobs:
         Node_v4:
           node_version: 4
           ENABLE_TEST_RESULTS: "" # jest-junit requires node v6+
+        # TBD NOT WORKING on Node.js 6 for some reason
+        # (ALSO NOT WORKING on Linux or Windows):
+        # Node_v6:
+        #   node_version: 6
+        #   ...
+        Node_v8:
+          node_version: 8
         Node_v10:
           node_version: 10
         Node_v10_standalone:
