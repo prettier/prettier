@@ -101,9 +101,6 @@ jobs:
       vmImage: macos-10.13
     strategy:
       matrix:
-        Node_v4:
-          node_version: 4
-          ENABLE_TEST_RESULTS: "" # jest-junit requires node v6+
         # TBD NOT WORKING on Node.js 6 for some reason
         # (ALSO NOT WORKING on Linux or Windows):
         # Node_v6:
