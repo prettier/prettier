@@ -180,19 +180,19 @@ Put a space before function parenthesis.
 
 ## Generator star spacing
 
-Add spaces around the star (\*\) in generator functions (before and after - from eslint).
+Add spaces around the star (\*) in generator functions (before and after - from eslint).
 
-| Default | CLI Override                    | API Override                       |
-| ------- | ------------------------------- | ---------------------------------- |
-| `false` | `--generator-star-spacing`      | `generatorStarSpacing: <bool>`     |
+| Default | CLI Override               | API Override                   |
+| ------- | -------------------------- | ------------------------------ |
+| `false` | `--generator-star-spacing` | `generatorStarSpacing: <bool>` |
 
 ## Yield star spacing
 
-Add spaces around the star ('*') in `yield*` expressions (before and after - from eslint).
+Add spaces around the star (\*) in `yield_` expressions (before and after - from eslint).
 
-| Default | CLI Override                    | API Override                       |
-| ------- | ------------------------------- | ---------------------------------- |
-| `false` | `--yield-star-spacing`          | `yieldStarSpacing: <bool>`         |
+| Default | CLI Override           | API Override               |
+| ------- | ---------------------- | -------------------------- |
+| `false` | `--yield-star-spacing` | `yieldStarSpacing: <bool>` |
 
 ## Parser
 
