@@ -8,6 +8,11 @@ To get recent changes on prettier in pretty format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
+## prettierx 0.0.2
+
+- Update copyright line ([#5455](https://github.com/prettier/prettier/pull/5455))
+- fix(mdx): handle inline html correctly ([#5704](https://github.com/prettier/prettier/pull/5704))
+
 ## prettierx 0.0.1
 
 - prettierx space-before-function-paren option ([brodybits/prettierx#6](https://github.com/brodybits/prettierx/pull/6))
