@@ -7,6 +7,8 @@ Unofficial fork, intended to provide some additional options to help improve con
 
 Language parsers are supported as if this were `prettier` version `1.15.3` / `1.16.0`; old language parsers are deprecated as if this were `prettier` version `1.15.3` / `1.16.0`.
 
+Minimum Node.js version: 6
+
 ## CLI Usage
 
 **Quick CLI usage:**
