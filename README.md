@@ -17,9 +17,9 @@ prettierx <options> <file(s)>
 
 ## Additional prettierx options
 
-| Option | Default value | CLI Override | API Override | Description                    |
-| ------ | ------------- | ------------ | ------------ | ------------------------------ |
-| Space before function parentheses | `false` | `--space-before-function-paren` | `spaceBeforeFunctionParen: <bool>` | Put a space before function parenthesis. |
+| Option                            | Default value | CLI Override                    | API Override                       | Description                              |
+| --------------------------------- | ------------- | ------------------------------- | ---------------------------------- | ---------------------------------------- |
+| Space before function parentheses | `false`       | `--space-before-function-paren` | `spaceBeforeFunctionParen: <bool>` | Put a space before function parenthesis. |
 
 <!-- - FUTURE TBD prettierx vs prettier (???):
 ![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)
