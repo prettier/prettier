@@ -19,9 +19,23 @@ prettierx <options> <file(s)>
 
 ## Additional prettierx options
 
-| Option                            | Default value | CLI Override                    | API Override                       | Description                              |
-| --------------------------------- | ------------- | ------------------------------- | ---------------------------------- | ---------------------------------------- |
-| Space before function parentheses | `false`       | `--space-before-function-paren` | `spaceBeforeFunctionParen: <bool>` | Put a space before function parenthesis. |
+| Option                                               | Default value | CLI Override                    | API Override                       | Description                                                                              |
+| ---------------------------------------------------- | ------------- | ------------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------- |
+| Space before function parentheses                    | `false`       | `--space-before-function-paren` | `spaceBeforeFunctionParen: <bool>` | Put a space before function parenthesis.                                                 |
+| Spaces around the star (\*\) in generator functions  | `false`       | `--generator-star-spacing`      | `generatorStarSpacing: <bool>`     | Add spaces around the star (\*) in generator functions (before and after - from eslint). |
+| Spaces around the star (\*\) in `yield*` expressions | `false`       | `--yield-star-spacing`          | `yieldStarSpacing: <bool>`         | Add spaces around the star (\*) in yield\* expressions (before and after - from eslint). |
+
+## standard-like formatting
+
+The following options should be used to _format_ the code according to [standard js](https://standardjs.com/):
+
+- `--generator-star-spacing` (`generatorStarSpacing: true`)
+- `--space-before-function-paren` (`spaceBeforeFunctionParen: true`)
+- `--single-quote` (`singleQuote: true`)
+- `--jsx-single-quote` (`jsxSingleQuote: true`)
+- `--no-semi` (`semi: false`)
+
+Note that this tool does _not_ follow any of the other [standard js](https://standardjs.com/) rules. It is recommended to use this tool together with eslint, in some form, to achive correct formatting according to [standard js](https://standardjs.com/).
 
 <!-- - FUTURE TBD prettierx vs prettier (???):
 ![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)

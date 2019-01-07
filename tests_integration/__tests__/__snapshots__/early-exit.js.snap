@@ -65,6 +65,8 @@ Format options:
   --end-of-line <auto|lf|crlf|cr>
                            Which end of line characters to apply.
                            Defaults to auto.
+  --generator-star-spacing Add spaces around the star ('*') in generator functions (before and after - from eslint).
+                           Defaults to false.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
@@ -91,6 +93,8 @@ Format options:
                            Print trailing commas wherever possible when multi-line.
                            Defaults to none.
   --use-tabs               Indent with tabs instead of spaces.
+                           Defaults to false.
+  --yield-star-spacing     Add spaces around the star ('*') in \`yield*\` expressions (before and after - from eslint).
                            Defaults to false.
 
 Config options:
@@ -217,6 +221,8 @@ Format options:
   --end-of-line <auto|lf|crlf|cr>
                            Which end of line characters to apply.
                            Defaults to auto.
+  --generator-star-spacing Add spaces around the star ('*') in generator functions (before and after - from eslint).
+                           Defaults to false.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
@@ -243,6 +249,8 @@ Format options:
                            Print trailing commas wherever possible when multi-line.
                            Defaults to none.
   --use-tabs               Indent with tabs instead of spaces.
+                           Defaults to false.
+  --yield-star-spacing     Add spaces around the star ('*') in \`yield*\` expressions (before and after - from eslint).
                            Defaults to false.
 
 Config options:

@@ -108,6 +108,10 @@ Object {
       "default": undefined,
       "type": "path",
     },
+    "generatorStarSpacing": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "htmlWhitespaceSensitivity": Object {
       "choices": Array [
         "css",
@@ -232,6 +236,10 @@ Object {
       "type": "choice",
     },
     "useTabs": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "yieldStarSpacing": Object {
       "default": false,
       "type": "boolean",
     },
@@ -726,6 +734,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"path\\"
     },
     {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Add spaces around the star ('*') in generator functions (before and after - from eslint).\\",
+      \\"name\\": \\"generatorStarSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
       \\"category\\": \\"HTML\\",
       \\"choices\\": [
         {
@@ -959,6 +975,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"useTabs\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Add spaces around the star ('*') in \`yield*\` expressions (before and after - from eslint).\\",
+      \\"name\\": \\"yieldStarSpacing\\",
+      \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     }
   ]
