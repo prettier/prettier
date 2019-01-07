@@ -8,6 +8,11 @@ To get recent changes on prettier in pretty format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
+## prettierx 0.1.0
+
+- standard-like formatting ([brodybits/prettierx#32](https://github.com/brodybits/prettierx/pull/32))
+- Drop support for Node.js version 4 ([brodybits/prettierx#31](https://github.com/brodybits/prettierx/pull/31))
+
 ## prettierx 0.0.3
 
 - prettierx fix space-before-function-paren - babel parser ([brodybits/prettierx#29](https://github.com/brodybits/prettierx/pull/29))
