@@ -625,19 +625,9 @@ function genericPrint(path, options, print) {
           continue;
         }
 
-        // Ignore inline comment, they already contain newline at end (i.e. `// Comment`)
         // Add `hardline` after inline comment (i.e. `// comment\n foo: bar;`)
-        const isInlineComment = isInlineValueCommentNode(iNode);
-
-        if (
-          (iPrevNode && isInlineValueCommentNode(iPrevNode)) ||
-          isInlineComment ||
-          isInlineValueCommentNode(iNextNode)
-        ) {
-          if (isInlineComment) {
-            parts.push(hardline);
-          }
-
+        if (isInlineValueCommentNode(iNode)) {
+          parts.push(hardline);
           continue;
         }
 
