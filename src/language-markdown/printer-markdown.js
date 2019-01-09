@@ -13,6 +13,7 @@ const {
     markAsRoot,
     hardline,
     softline,
+    ifBreak,
     fill,
     align,
     indent,
@@ -534,6 +535,7 @@ function printLine(path, value, options) {
 }
 
 function printTable(path, options, print) {
+  const hardlineWithoutBreakParent = hardline.parts[0];
   const node = path.getValue();
   const contents = []; // { [rowIndex: number]: { [columnIndex: number]: string } }
 
@@ -549,6 +551,7 @@ function printTable(path, options, print) {
     contents.push(rowContents);
   }, "children");
 
+  // Get the width of each column
   const columnMaxWidths = contents.reduce(
     (currentWidths, rowContents) =>
       currentWidths.map((width, columnIndex) =>
@@ -556,25 +559,26 @@ function printTable(path, options, print) {
       ),
     contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
-
-  const maxWidth = columnMaxWidths.reduce(
-    (preWidth, width) => preWidth + width,
-    0
-  );
-  const greaterThanPrintWidth = maxWidth > options.printWidth;
-  return join(hardline, [
+  const compactTable = join(hardlineWithoutBreakParent, [
+    // compactTable is true
+    printRow(contents[0], true),
+    printSeparator(true),
+    join(hardline, contents.slice(1).map((...rest) => printRow(...rest, true)))
+  ]);
+  const alignedTable = join(hardlineWithoutBreakParent, [
     printRow(contents[0]),
     printSeparator(),
     join(hardline, contents.slice(1).map(printRow))
   ]);
+  return group(ifBreak(compactTable, alignedTable));
 
-  function printSeparator() {
+  function printSeparator(compactTable) {
     return concat([
       "| ",
       join(
         " | ",
         columnMaxWidths.map((width, index) => {
-          const spaces = greaterThanPrintWidth ? 3 : width;
+          const spaces = compactTable ? 3 : width;
           switch (node.align[index]) {
             case "left":
               return ":" + "-".repeat(spaces - 1);
@@ -591,7 +595,7 @@ function printTable(path, options, print) {
     ]);
   }
 
-  function printRow(rowContents) {
+  function printRow(rowContents, compactTable) {
     return concat([
       "| ",
       join(
@@ -599,11 +603,23 @@ function printTable(path, options, print) {
         rowContents.map((rowContent, columnIndex) => {
           switch (node.align[columnIndex]) {
             case "right":
-              return alignRight(rowContent, columnMaxWidths[columnIndex]);
+              return alignRight(
+                rowContent,
+                columnMaxWidths[columnIndex],
+                compactTable
+              );
             case "center":
-              return alignCenter(rowContent, columnMaxWidths[columnIndex]);
+              return alignCenter(
+                rowContent,
+                columnMaxWidths[columnIndex],
+                compactTable
+              );
             default:
-              return alignLeft(rowContent, columnMaxWidths[columnIndex]);
+              return alignLeft(
+                rowContent,
+                columnMaxWidths[columnIndex],
+                compactTable
+              );
           }
         })
       ),
@@ -611,24 +627,18 @@ function printTable(path, options, print) {
     ]);
   }
 
-  function alignLeft(text, width) {
-    const spaces = greaterThanPrintWidth
-      ? 0
-      : width - privateUtil.getStringWidth(text);
+  function alignLeft(text, width, compactTable) {
+    const spaces = compactTable ? 0 : width - privateUtil.getStringWidth(text);
     return concat([text, " ".repeat(spaces)]);
   }
 
-  function alignRight(text, width) {
-    const spaces = greaterThanPrintWidth
-      ? 0
-      : width - privateUtil.getStringWidth(text);
+  function alignRight(text, width, compactTable) {
+    const spaces = compactTable ? 0 : width - privateUtil.getStringWidth(text);
     return concat([" ".repeat(spaces), text]);
   }
 
-  function alignCenter(text, width) {
-    const spaces = greaterThanPrintWidth
-      ? 2
-      : width - privateUtil.getStringWidth(text);
+  function alignCenter(text, width, compactTable) {
+    const spaces = compactTable ? 2 : width - privateUtil.getStringWidth(text);
     const left = Math.floor(spaces / 2);
     const right = spaces - left;
     return concat([" ".repeat(left), text, " ".repeat(right)]);
