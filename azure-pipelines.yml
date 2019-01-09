@@ -28,12 +28,16 @@ jobs:
       - template: .azure-pipelines/jobs/dev-test.yml
 
   - job: Dev_Test_macOS
-    displayName: Dev Test on macOS Node v10
+    displayName: Dev Test on macOS
     pool:
       vmImage: macos-10.13
-    variables:
-      node_version: 10
-      ENABLE_CODE_COVERAGE: true
+    strategy:
+      matrix:
+        Node_v6: # node v6 is the min supported version in development
+          node_version: 6
+        Node_v10:
+          node_version: 10
+          ENABLE_CODE_COVERAGE: true
     steps:
       - template: .azure-pipelines/jobs/dev-test.yml
 
@@ -82,7 +86,7 @@ jobs:
       vmImage: macos-10.13
     strategy:
       matrix:
-        Node_v4:
+        Node_v4: # node v4 is the min supported version in production
           node_version: 4
           ENABLE_TEST_RESULTS: "" # jest-junit requires node v6+
         Node_v10:
