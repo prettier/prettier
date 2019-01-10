@@ -8,6 +8,17 @@ To get recent changes on prettier in pretty format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
+## prettierx 0.2.0
+
+- fix(javascript): skip .connect() method when composing fun ([prettier#5739](https://github.com/prettier/prettier/pull/5739))
+- docs: remove redundant "./" from relative links ([prettier#5741](https://github.com/prettier/prettier/pull/5741))
+- Fix formatting of lists in SCSS property/variable values ([prettier#5710](https://github.com/prettier/prettier/pull/5710))
+- Escape spaces within file names in pre-commit hook script ([prettier#5721](https://github.com/prettier/prettier/pull/5721))
+- typescript: remove unneeded parentheses around type annotation ([prettier#5724](https://github.com/prettier/prettier/pull/5724))
+- Add solidity plugin to list of plugins ([prettier#5726](https://github.com/prettier/prettier/pull/5726))
+- chore(website): upgrade react-dom to 16.3.3 ([prettier#5720](https://github.com/prettier/prettier/pull/5720))
+- Update Webstorm integration docs ([prettier#5694](https://github.com/prettier/prettier/pull/5694))
+
 ## prettierx 0.1.0
 
 - standard-like formatting ([brodybits/prettierx#32](https://github.com/brodybits/prettierx/pull/32))
