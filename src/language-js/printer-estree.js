@@ -3852,12 +3852,18 @@ const functionCompositionFunctionNames = new Set([
   "connect", // Redux
   "createSelector" // Reselect
 ]);
+const ordinaryMethodNames = new Set([
+  "connect" // GObject, MongoDB
+]);
 
 function isFunctionCompositionFunction(node) {
   switch (node.type) {
     case "OptionalMemberExpression":
     case "MemberExpression": {
-      return isFunctionCompositionFunction(node.property);
+      return (
+        isFunctionCompositionFunction(node.property) &&
+        !ordinaryMethodNames.has(node.property.name)
+      );
     }
     case "Identifier": {
       return functionCompositionFunctionNames.has(node.name);
