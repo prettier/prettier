@@ -97,7 +97,7 @@ This option adds support to editor integrations where users define their default
 
 ## `--no-editorconfig`
 
-Don't take .editorconfig into account when parsing configuration. See the [`prettier.resolveConfig` docs](./api.md) for details.
+Don't take .editorconfig into account when parsing configuration. See the [`prettier.resolveConfig` docs](api.md) for details.
 
 ## `--with-node-modules`
 
