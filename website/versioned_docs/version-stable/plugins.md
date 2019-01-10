@@ -16,7 +16,7 @@ Plugins are automatically loaded if you have them installed in the same `node_mo
 
 When plugins cannot be found automatically, you can load them with:
 
-- The [CLI](./cli.md), via the `--plugin` and `--plugin-search-dir`:
+- The [CLI](cli.md), via the `--plugin` and `--plugin-search-dir`:
 
   ```bash
   prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=./foo-plugin
@@ -24,7 +24,7 @@ When plugins cannot be found automatically, you can load them with:
 
   > Tip: You can set `--plugin` or `--plugin-search-dir` options multiple times.
 
-- Or the [API](./api.md), via the `plugins` and `pluginSearchDirs` options:
+- Or the [API](api.md), via the `plugins` and `pluginSearchDirs` options:
 
   ```js
   prettier.format("code", {
@@ -64,7 +64,7 @@ Prettier plugins are regular JavaScript modules with five exports:
 
 ### `languages`
 
-Languages is an array of language definitions that your plugin will contribute to Prettier. It can include all of the fields specified in [`prettier.getSupportInfo()`](./api.md#prettiergetsupportinfo-version).
+Languages is an array of language definitions that your plugin will contribute to Prettier. It can include all of the fields specified in [`prettier.getSupportInfo()`](api.md#prettiergetsupportinfo-version).
 
 It **must** include `name` and `parsers`.
 

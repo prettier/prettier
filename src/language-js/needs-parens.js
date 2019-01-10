@@ -339,7 +339,6 @@ function needsParens(path, options) {
           parent.type === "GenericTypeAnnotation" ||
           parent.type === "TSTypeReference") &&
         (node.typeAnnotation.type === "TSTypeAnnotation" &&
-          node.typeAnnotation.typeAnnotation.type !== "TSFunctionType" &&
           grandParent.type !== "TSTypeOperator" &&
           grandParent.type !== "TSOptionalType")
       ) {
