@@ -51,7 +51,7 @@ Human-friendly status messages help project contributors react on possible probl
 To minimise the number of times `prettier --check` finds unformatted files, you may be interested in configuring a [pre-commit hook](precommit.md) in your repo.
 Applying this practice will minimise the number of times the CI fails because of code formatting problems.
 
-If you need to pipe the list of unformatted files to another command, you can use [`--list-different`](./cli.md#list-different) flag instead of `--check`.
+If you need to pipe the list of unformatted files to another command, you can use [`--list-different`](cli.md#list-different) flag instead of `--check`.
 
 ## `--debug-check`
 
@@ -104,7 +104,7 @@ Another useful flag is `--list-different` (or `-l`) which prints the filenames o
 prettier --single-quote --list-different "src/**/*.js"
 ```
 
-You can also use [`--check`](./cli.md#check) flag, which works the same way as `--list-different`, but also prints a human-friendly summary message to stdout.
+You can also use [`--check`](cli.md#check) flag, which works the same way as `--list-different`, but also prints a human-friendly summary message to stdout.
 
 ## `--no-config`
 
@@ -130,7 +130,7 @@ This option adds support to editor integrations where users define their default
 
 ## `--no-editorconfig`
 
-Don't take .editorconfig into account when parsing configuration. See the [`prettier.resolveConfig` docs](./api.md) for details.
+Don't take .editorconfig into account when parsing configuration. See the [`prettier.resolveConfig` docs](api.md) for details.
 
 ## `--with-node-modules`
 

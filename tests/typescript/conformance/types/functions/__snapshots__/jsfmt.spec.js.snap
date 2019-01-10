@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`TSFunctionTypeNoUnnecessaryParentheses.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  bar: (() => boolean);
+}
+=====================================output=====================================
+class Foo {
+  bar: () => boolean;
+}
+
+================================================================================
+`;
+
 exports[`functionImplementationErrors.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

@@ -310,7 +310,7 @@ Doing so produces a large `git diff`, and if it get unnoticed during code review
 If you want to make sure that your git repository only contains Linux-style line endings in files covered by Prettier:
 
 1. Set `endOfLine` option to `lf`
-1. Configure [a pre-commit hook](./precommit.md) that will run Prettier
+1. Configure [a pre-commit hook](precommit.md) that will run Prettier
 1. Configure Prettier to run in your CI pipeline (e.g. using [`prettier-check` npm package](https://www.npmjs.com/package/prettier-check))
 1. Ask Windows users to run `git config core.autocrlf false` before working on your repo so that git did not convert `LF` to `CRLF` on checkout.
    Alternatively, you can add `* text=auto eol=lf` to the repo's `.gitattributes` file to achieve this.

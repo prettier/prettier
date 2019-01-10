@@ -103,14 +103,14 @@ Alternately you can save this script as `.git/hooks/pre-commit` and give it exec
 
 ```bash
 #!/bin/sh
-jsfiles=$(git diff --cached --name-only --diff-filter=ACM "*.js" "*.jsx" | tr '\n' ' ')
-[ -z "$jsfiles" ] && exit 0
+FILES=$(git diff --cached --name-only --diff-filter=ACM "*.js" "*.jsx" | sed 's| |\\ |g')
+[ -z "$FILES" ] && exit 0
 
-# Prettify all staged .js files
-echo "$jsfiles" | xargs ./node_modules/.bin/prettier --write
+# Prettify all selected files
+echo "$FILES" | xargs ./node_modules/.bin/prettier --write
 
 # Add back the modified/prettified files to staging
-echo "$jsfiles" | xargs git add
+echo "$FILES" | xargs git add
 
 exit 0
 ```
