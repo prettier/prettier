@@ -5763,10 +5763,10 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript-estree@13.5.2:
-  version "13.5.2"
-  resolved "https://registry.yarnpkg.com/typescript-estree/-/typescript-estree-13.5.2.tgz#2004af6ca121821f657d06473b5196db195b0e02"
-  integrity sha512-X6Qrv7LZgB6+jeUuWfv/tru+NKlD1GMViDm9uNHPin3y/+TL9thy5QdYlND0XwbRrPtpCpyxO6X0Nqt/GQmhNA==
+typescript-estree@13.5.3:
+  version "13.5.3"
+  resolved "https://registry.yarnpkg.com/typescript-estree/-/typescript-estree-13.5.3.tgz#3c393538010820fc222aa0fcf9275aa22ea525cf"
+  integrity sha512-rrbSKojk7lwWB7xXFNRJcnACL88RQQwSUppmhHuzaRmpOoGdZVWlrTp0umdO+VibsVqOBhUSiG8fy5//dJ/moQ==
   dependencies:
     lodash.unescape "4.0.1"
     semver "5.5.0"

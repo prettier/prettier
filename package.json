@@ -66,7 +66,7 @@
     "semver": "5.4.1",
     "string-width": "3.0.0",
     "typescript": "3.2.2",
-    "typescript-estree": "13.5.2",
+    "typescript-estree": "13.5.3",
     "unicode-regex": "2.0.0",
     "unified": "6.1.6",
     "vnopts": "1.0.2",
