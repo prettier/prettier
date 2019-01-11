@@ -772,13 +772,7 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "FunctionDeclaration":
     case "FunctionExpression":
-      if (isNodeStartingWithDeclare(n, options)) {
-        parts.push("declare ");
-      }
       parts.push(printFunctionDeclaration(path, print, options));
-      if (!n.body) {
-        parts.push(semi);
-      }
       return concat(parts);
     case "ArrowFunctionExpression": {
       if (n.async) {
@@ -947,20 +941,10 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
     case "ImportNamespaceSpecifier":
       parts.push("* as ");
-
-      if (n.local) {
-        parts.push(path.call(print, "local"));
-      } else if (n.id) {
-        parts.push(path.call(print, "id"));
-      }
-
+      parts.push(path.call(print, "local"));
       return concat(parts);
     case "ImportDefaultSpecifier":
-      if (n.local) {
-        return path.call(print, "local");
-      }
-
-      return path.call(print, "id");
+      return path.call(print, "local");
     case "TSExportAssignment":
       return concat(["export = ", path.call(print, "expression"), semi]);
     case "ExportDefaultDeclaration":
@@ -3344,8 +3328,8 @@ function printPathNoParens(path, options, print, args) {
         )
       );
 
-      if (n.typeAnnotation) {
-        parts.push(": ", path.call(print, "typeAnnotation"));
+      if (n.returnType) {
+        parts.push(": ", path.call(print, "returnType"));
       }
       return group(concat(parts));
     case "TSNamespaceExportDeclaration":
