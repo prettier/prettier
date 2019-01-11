@@ -37,7 +37,12 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-typescript.js",
-    target: "universal"
+    target: "universal",
+    replace: {
+      // node v4 compatibility for typescript-estree
+      "(!unique.includes(child.expression.raw))":
+        "(unique.indexOf(child.expression.raw) === -1)"
+    }
   },
   {
     input: "src/language-js/parser-angular.js",
