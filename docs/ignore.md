@@ -44,6 +44,20 @@ matrix(
 )
 ```
 
+To ensure compatibility with JSDoc, `@prettier-ignore` in a multi-line comment block will also exclude the next node.
+
+For example:
+
+<!-- prettier-ignore -->
+```js
+/**
+ * @param {string} str 
+ * @return string
+ * @prettier-ignore
+ */
+function  uglyUpperCase  (  str ) { return str.toUpperCase()   }
+```
+
 ## JSX
 
 ```jsx

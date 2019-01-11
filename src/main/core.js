@@ -34,7 +34,10 @@ function ensureAllCommentsPrinted(astComments) {
   }
 
   for (let i = 0; i < astComments.length; ++i) {
-    if (astComments[i].value.trim() === "prettier-ignore") {
+    if (
+      astComments[i].value.trim() === "prettier-ignore" ||
+      astComments[i].value.includes("@prettier-ignore")
+    ) {
       // If there's a prettier-ignore, we're not printing that sub-tree so we
       // don't know if the comments was printed or not.
       return;

@@ -606,7 +606,11 @@ function hasNodeIgnoreComment(node) {
     node &&
     node.comments &&
     node.comments.length > 0 &&
-    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
+    node.comments.some(
+      comment =>
+        comment.value.trim() === "prettier-ignore" ||
+        comment.value.includes("@prettier-ignore")
+    )
   );
 }
 

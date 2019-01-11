@@ -67,3 +67,47 @@ const response = {
   '_text': 'Turn on the lights',
   intent: 'lights',
 };
+/**
+ * @param {string} str
+ * @return string
+ * @prettier-ignore
+ */
+function  uglyUpperCase  (  str ) { return str.toUpperCase()   }
+
+/**
+ * Constants of ranking
+ * @prettier-ignore
+ * @deprecated
+ */
+export const RankingConstant = {
+  KEY_DAILY_RANKING  : 'DAILY_RANKING',   // Key of daily ranking
+  KEY_WEEKLY_RANKING : 'WEEKLY_RANKING',  // Key of weekly ranking
+  KEY_MONTHLY_RANKING: 'MONTHLY_RANKING', // Key of monthly ranking
+  LIMIT_OF_PAGE      : 50,                // Limit of page
+  MAX_PAGE           : 100,               // Max page
+};
+
+/* some text @prettier-ignore around the ignore */
+const moreCommentsWithPrettierIgnore =   {
+  "ewww":
+    "gross-formatting",
+};
+
+// you can use @prettier-ignore to have a more lenient parsing
+const evenMorecommentsWithPrettierIgnore =   {
+  "ewww":
+    "gross-formatting",
+};
+
+// this doesn't work without prefixing with an @ prettier-ignore
+const fixedGrossFormatting =   {
+  "ewww":
+    "gross-formatting",
+};
+
+// prettier-ignore even if the comments starts out with it
+const moreFixedGrossFormatting =   {
+  "ewww":
+    "gross-formatting",
+};
+
