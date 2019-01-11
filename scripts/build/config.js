@@ -40,8 +40,7 @@ const parsers = [
     target: "universal",
     replace: {
       // node v4 compatibility for typescript-estree
-      "(!unique.includes(child.expression.raw))":
-        "(unique.indexOf(child.expression.raw) === -1)"
+      "(!unique.includes(raw))": "(unique.indexOf(raw) === -1)"
     }
   },
   {
