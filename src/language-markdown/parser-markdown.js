@@ -39,6 +39,7 @@ function createParse({ isMDX }) {
       .use(remarkMath)
       .use(isMDX ? mdx.esSyntax : identity)
       .use(liquid)
+      .use(abbr)
       .use(isMDX ? htmlToJsx : identity);
     return processor.runSync(processor.parse(text));
   };
@@ -99,6 +100,28 @@ function liquid() {
   }
   tokenizer.locator = function(value, fromIndex) {
     return value.indexOf("{", fromIndex);
+  };
+}
+
+function abbr() {
+  const proto = this.Parser.prototype;
+  const methods = proto.inlineMethods;
+  methods.splice(0, 0, "abbr");
+  proto.inlineTokenizers.abbr = tokenizer;
+
+  function tokenizer(eat, value) {
+    const match = value.match(/^\*\[\s*([^\]]+)\s*]\s*:\s*([^\n]+)/);
+
+    if (match) {
+      return eat(match[0])({
+        type: "abbr",
+        abbr: match[1],
+        title: match[2]
+      });
+    }
+  }
+  tokenizer.locator = function(value, fromIndex) {
+    return value.indexOf("*[", fromIndex);
   };
 }
 

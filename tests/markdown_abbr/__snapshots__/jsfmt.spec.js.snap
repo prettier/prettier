@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`conflicts.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+*[*em*]: *that's en emphasis*
+*[star]: and that's not an empasis, that's just a star*
+*[that's an empasis*
+**[and that's just bold]: right?**
+*[link](:that's still a link though)
+
+* and
+* that's
+* [a]: list
+
+*Not here though*
+*[raw]:*Actually, any kind  of formatting is ignored here*
+*nor here*
+
+=====================================output=====================================
+*[*em*]: *that's en emphasis*
+
+
+*[star]: and that's not an empasis, that's just a star*
+
+
+*[that's an empasis*
+**[and that's just bold]: right?**
+ \\*[link](:that's still a link though)
+
+- and
+- that's
+- [a]: list
+
+_Not here though_
+
+*[raw]: *Actually, any kind  of formatting is ignored here*
+ _nor here_
+
+================================================================================
+`;
+
+exports[`even.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+An even test to make sure *we don't get caught by the emphasis*, or even _these ones_
+
+*[MD]:Markdown
+*[CSS]: Cascading Style Sheets
+=====================================output=====================================
+An even test to make sure _we don't get caught by the emphasis_, or even _these
+ones_
+
+*[MD]: Markdown
+
+
+*[CSS]: Cascading Style Sheets
+
+
+================================================================================
+`;
+
+exports[`long.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+*[LONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGABBR] :  Long abbr
+
+*[AMLAEIKOUR]:A much longer abbreviation explanation, it's kind of unneeded really
+*[LONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGABBR]         :                A much longer abbreviation explanation, it's kind of unneeded really
+
+=====================================output=====================================
+*[LONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGABBR]: Long abbr
+*[AMLAEIKOUR]: A much longer abbreviation explanation, it's kind of unneeded really
+*[LONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGABBR]: A much longer abbreviation explanation, it's kind of unneeded really
+
+
+================================================================================
+`;
+
+exports[`odd.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Another test with an odd number of abbr
+
+
+
+
+*[MD]:Markdown
+
+
+
+
+There's some content there
+
+
+
+
+
+*[LONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGABBR]: Long abbr
+*[AMLAEIKOUR]: A much longer abbreviation explanation, it's kind of unneeded really
+
+=====================================output=====================================
+Another test with an odd number of abbr
+
+*[MD]: Markdown
+
+
+There's some content there
+
+*[LONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGABBR]: Long abbr
+*[AMLAEIKOUR]: A much longer abbreviation explanation, it's kind of unneeded really
+
+
+================================================================================
+`;
+
+exports[`simple.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+This is a basic MD abbr test
+
+*[MD]:Markdown
+
+=====================================output=====================================
+This is a basic MD abbr test
+
+*[MD]: Markdown
+
+
+================================================================================
+`;

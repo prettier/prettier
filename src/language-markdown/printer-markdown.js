@@ -427,6 +427,9 @@ function genericPrint(path, options, print) {
         options.locEnd(node)
       );
     }
+    case "abbr": {
+      return concat(["*[", node.abbr, "]: ", node.title.trim(), hardline]);
+    }
 
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
