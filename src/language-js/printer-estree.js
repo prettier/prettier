@@ -1227,15 +1227,15 @@ function printPathNoParens(path, options, print, args) {
         " "
       );
 
-      if (n.heritage.length) {
+      if (n.extends && n.extends.length) {
         parts.push(
           group(
             indent(
               concat([
                 softline,
                 "extends ",
-                (n.heritage.length === 1 ? identity : indent)(
-                  join(concat([",", line]), path.map(print, "heritage"))
+                (n.extends.length === 1 ? identity : indent)(
+                  join(concat([",", line]), path.map(print, "extends"))
                 ),
                 " "
               ])
@@ -2353,7 +2353,7 @@ function printPathNoParens(path, options, print, args) {
       parts.push(concat(printClass(path, options, print)));
       return concat(parts);
     case "TSInterfaceHeritage":
-      parts.push(path.call(print, "id"));
+      parts.push(path.call(print, "expression"));
 
       if (n.typeParameters) {
         parts.push(path.call(print, "typeParameters"));
@@ -2798,6 +2798,11 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "id"),
         path.call(print, "typeParameters")
       ]);
+    case "TSClassImplements":
+      return concat([
+        path.call(print, "expression"),
+        path.call(print, "typeParameters")
+      ]);
     case "TSIntersectionType":
     case "IntersectionTypeAnnotation": {
       const types = path.map(print, "types");
@@ -3224,7 +3229,7 @@ function printPathNoParens(path, options, print, args) {
         n.static ? "static " : "",
         n.readonly ? "readonly " : "",
         "[",
-        path.call(print, "index"),
+        n.parameters ? concat(path.map(print, "parameters")) : "",
         "]: ",
         path.call(print, "typeAnnotation"),
         parent.type === "ClassBody" ? semi : ""
