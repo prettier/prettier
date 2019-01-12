@@ -61,11 +61,8 @@ function clean(ast, newObj, parent) {
   }
 
   // (TypeScript) bypass TSParenthesizedType
-  if (
-    ast.type === "TSParenthesizedType" &&
-    ast.typeAnnotation.type === "TSTypeAnnotation"
-  ) {
-    return newObj.typeAnnotation.typeAnnotation;
+  if (ast.type === "TSParenthesizedType") {
+    return newObj.typeAnnotation;
   }
 
   // We convert <div></div> to <div />
