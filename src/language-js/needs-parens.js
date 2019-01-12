@@ -335,7 +335,6 @@ function needsParens(path, options) {
           parent.type === "TSTypeAliasDeclaration" ||
           parent.type === "TSTypeAnnotation" ||
           parent.type === "TSParenthesizedType" ||
-          parent.type === "GenericTypeAnnotation" ||
           parent.type === "TSTypeParameterInstantiation") &&
         (grandParent.type !== "TSTypeOperator" &&
           grandParent.type !== "TSOptionalType")

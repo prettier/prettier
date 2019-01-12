@@ -773,6 +773,9 @@ function printPathNoParens(path, options, print, args) {
     case "FunctionDeclaration":
     case "FunctionExpression":
       parts.push(printFunctionDeclaration(path, print, options));
+      if (!n.body) {
+        parts.push(semi);
+      }
       return concat(parts);
     case "ArrowFunctionExpression": {
       if (n.async) {
@@ -1716,7 +1719,7 @@ function printPathNoParens(path, options, print, args) {
     case "VariableDeclarator":
       return printAssignment(
         n.id,
-        concat([path.call(print, "id"), path.call(print, "typeParameters")]),
+        path.call(print, "id"),
         " =",
         n.init,
         n.init && path.call(print, "init"),
