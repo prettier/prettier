@@ -8,10 +8,13 @@ proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
 *[*em*]: *that's en emphasis*
-*[star]: and that's not an empasis, that's just a star*
-*[that's an empasis*
+*[star]: and that's not an emphasis, that's just a star*
+*[that's an emphasis*
 **[and that's just bold]: right?**
 *[link](:that's still a link though)
+*[abbr]: and that's an abbr
+
+*[ despite all the spaces ] : That's still an abbr
 
 * and
 * that's
@@ -20,17 +23,17 @@ proseWrap: "always"
 *Not here though*
 *[raw]:*Actually, any kind  of formatting is ignored here*
 *nor here*
-
+*[EMPTY]:
 =====================================output=====================================
 *[*em*]: *that's en emphasis*
-
-
-*[star]: and that's not an empasis, that's just a star*
-
-
-*[that's an empasis*
+*[star]: and that's not an emphasis, that's just a star*
+*[that's an emphasis*
 **[and that's just bold]: right?**
- \\*[link](:that's still a link though)
+*[link](:that's still a link though)
+
+*[abbr]: and that's an abbr
+
+*[despite all the spaces]: That's still an abbr
 
 - and
 - that's
@@ -39,8 +42,10 @@ proseWrap: "always"
 _Not here though_
 
 *[raw]: *Actually, any kind  of formatting is ignored here*
- _nor here_
 
+_nor here_
+
+*[EMPTY]:
 ================================================================================
 `;
 
@@ -60,11 +65,7 @@ An even test to make sure _we don't get caught by the emphasis_, or even _these
 ones_
 
 *[MD]: Markdown
-
-
 *[CSS]: Cascading Style Sheets
-
-
 ================================================================================
 `;
 
@@ -78,14 +79,15 @@ proseWrap: "always"
 *[LONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGABBR] :  Long abbr
 
 *[AMLAEIKOUR]:A much longer abbreviation explanation, it's kind of unneeded really
+*[SPACES]: this one has a bunch of spaces at the end
 *[LONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGABBR]         :                A much longer abbreviation explanation, it's kind of unneeded really
 
 =====================================output=====================================
 *[LONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGABBR]: Long abbr
+
 *[AMLAEIKOUR]: A much longer abbreviation explanation, it's kind of unneeded really
+*[SPACES]: this one has a bunch of spaces at the end
 *[LONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGABBR]: A much longer abbreviation explanation, it's kind of unneeded really
-
-
 ================================================================================
 `;
 
@@ -120,13 +122,10 @@ Another test with an odd number of abbr
 
 *[MD]: Markdown
 
-
 There's some content there
 
 *[LONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGLONGABBR]: Long abbr
 *[AMLAEIKOUR]: A much longer abbreviation explanation, it's kind of unneeded really
-
-
 ================================================================================
 `;
 
@@ -145,7 +144,5 @@ This is a basic MD abbr test
 This is a basic MD abbr test
 
 *[MD]: Markdown
-
-
 ================================================================================
 `;
