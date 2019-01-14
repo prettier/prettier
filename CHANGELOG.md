@@ -8,6 +8,11 @@ To get recent changes on prettier (TBD prettier/prettier) in pretty format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
+## prettierx 0.3.0
+
+- [prettierx] --no-indent-chains option ([brodybits/prettierx#5](https://github.com/brodybits/prettierx/pull/5))
+- [prettierx] -- align-object-properties option ([brodybits/prettierx#35](https://github.com/brodybits/prettierx/pull/35))
+
 ## prettierx 0.2.1
 
 - chore: update typescript-estree to 18.0.0 ([prettier/prettier#5750](https://github.com/prettier/prettier/pull/5750))
