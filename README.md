@@ -21,6 +21,7 @@ prettierx <options> <file(s)>
 
 | Option                                               | Default value | CLI Override                    | API Override                       | Description                                                                              |
 | ---------------------------------------------------- | ------------- | ------------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------- |
+| Align object properties                              | `false`       | `--align-object-properties`     | `alignObjectProperties: <bool>`    | Align colons in multiline object literals (not applied with any of the JSON parsers).    |
 | Space before function parentheses                    | `false`       | `--space-before-function-paren` | `spaceBeforeFunctionParen: <bool>` | Put a space before function parenthesis.                                                 |
 | Spaces around the star (\*\) in generator functions  | `false`       | `--generator-star-spacing`      | `generatorStarSpacing: <bool>`     | Add spaces around the star (\*) in generator functions (before and after - from eslint). |
 | Spaces around the star (\*\) in `yield*` expressions | `false`       | `--yield-star-spacing`          | `yieldStarSpacing: <bool>`         | Add spaces around the star (\*) in yield\* expressions (before and after - from eslint). |

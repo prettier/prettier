@@ -170,6 +170,14 @@ These options cannot be used with `cursorOffset`.
 | `0`        | `--range-start <int>` | `rangeStart: <int>` |
 | `Infinity` | `--range-end <int>`   | `rangeEnd: <int>`   |
 
+## Align object properties
+
+Align colons in multiline object literals (not applied with any of the JSON parsers).
+
+| Default | CLI Override                | API Override                    |
+| ------- | --------------------------- | ------------------------------- |
+| `false` | `--align-object-properties` | `alignObjectProperties: <bool>` |
+
 ## Space before function parentheses
 
 Put a space before function parenthesis.

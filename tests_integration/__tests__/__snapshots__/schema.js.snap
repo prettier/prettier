@@ -14,6 +14,11 @@ Object {
   "definitions": Object {
     "optionsDefinition": Object {
       "properties": Object {
+        "alignObjectProperties": Object {
+          "default": false,
+          "description": "Align colons in multiline object literals.",
+          "type": "boolean",
+        },
         "arrowParens": Object {
           "default": "avoid",
           "description": "Include parentheses around a sole arrow function parameter.",

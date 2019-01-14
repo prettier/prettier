@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`show detailed usage with --help align-object-properties (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help align-object-properties (stdout) 1`] = `
+"--align-object-properties
+
+  Align colons in multiline object literals.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help align-object-properties (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help arrow-parens (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help arrow-parens (stdout) 1`] = `

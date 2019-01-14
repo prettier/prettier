@@ -40,6 +40,12 @@ module.exports = {
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them."
   },
+  alignObjectProperties: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description: "Align colons in multiline object literals."
+  },
   generatorStarSpacing: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",

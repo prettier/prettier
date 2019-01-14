@@ -196,6 +196,61 @@ function genericPrint(path, options, printPath, args) {
   return concat(parts);
 }
 
+function getPropertyPadding(options, path) {
+  if (!options.alignObjectProperties) {
+    return "";
+  }
+
+  if (options.parser.match(/json/)) {
+    return "";
+  }
+
+  const n = path.getValue();
+  const type = n.type;
+
+  // grandparent node:
+  const parentObject = path.getParentNode(1);
+
+  // THIS IS A HACK:
+  const shouldBreak = options.originalText
+    .substring(options.locStart(parentObject), options.locEnd(parentObject))
+    .match(/\{\s*(\/.*)?\n/);
+
+  if (!shouldBreak) {
+    return "";
+  }
+
+  const nameLength =
+    type === "Identifier"
+      ? n.name.length
+      : n.raw
+      ? n.raw.length
+      : n.extra.raw
+      ? n.extra.raw.length
+      : undefined;
+
+  // FUTURE TBD from arijs/prettier-miscellaneous#10
+  // (does not seem to be needed to pass the tests):
+  // if (nameLength === undefined) {
+  //   return "";
+  // }
+
+  const properties = parentObject.properties;
+  const lengths = properties.map(p => {
+    if (!p.key) {
+      return 0;
+    }
+    return p.key.loc.end.column - p.key.loc.start.column + (p.computed ? 2 : 0);
+  });
+
+  const maxLength = Math.max.apply(null, lengths);
+  const padLength = maxLength - nameLength + 1;
+
+  const padding = " ".repeat(padLength);
+
+  return padding;
+}
+
 function hasNewlineBetweenOrAfterDecorators(node, options) {
   return (
     hasNewlineInRange(
@@ -1440,10 +1495,22 @@ function printPathNoParens(path, options, print, args) {
         parts.push(path.call(print, "value"));
       } else {
         let printedLeft;
+        const propertyPadding = path.call(
+          getPropertyPadding.bind(null, options),
+          "key"
+        );
         if (n.computed) {
-          printedLeft = concat(["[", path.call(print, "key"), "]"]);
+          printedLeft = concat([
+            "[",
+            path.call(print, "key"),
+            "]",
+            propertyPadding.slice(2)
+          ]);
         } else {
-          printedLeft = printPropertyKey(path, options, print);
+          printedLeft = concat([
+            printPropertyKey(path, options, print),
+            propertyPadding
+          ]);
         }
         parts.push(
           printAssignment(

@@ -58,6 +58,9 @@ Output options:
 
 Format options:
 
+  --align-object-properties
+                           Align colons in multiline object literals.
+                           Defaults to false.
   --arrow-parens <avoid|always>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
@@ -214,6 +217,9 @@ Output options:
 
 Format options:
 
+  --align-object-properties
+                           Align colons in multiline object literals.
+                           Defaults to false.
   --arrow-parens <avoid|always>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
