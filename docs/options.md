@@ -63,9 +63,9 @@ Valid options:
 - `true` - Print indents at the start of chained calls.
 - `false` - Do not print indents at the start of chained calls.
 
-| Default | CLI Override         | API Override   |
-| ------- | -------------------- | -------------- |
-| `true`  | `--no-indent-chains` | `semi: <bool>` |
+| Default | CLI Override         | API Override           |
+| ------- | -------------------- | ---------------------- |
+| `true`  | `--no-indent-chains` | `indentChains: <bool>` |
 
 ## Quotes
 
