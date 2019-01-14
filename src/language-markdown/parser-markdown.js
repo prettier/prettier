@@ -7,6 +7,7 @@ const parseFrontMatter = require("../utils/front-matter");
 const { mapAst } = require("./utils");
 const mdx = require("./mdx");
 const remarkMath = require("remark-math");
+const abbr = require("./abbr");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -100,28 +101,6 @@ function liquid() {
   }
   tokenizer.locator = function(value, fromIndex) {
     return value.indexOf("{", fromIndex);
-  };
-}
-
-function abbr() {
-  const proto = this.Parser.prototype;
-  const methods = proto.inlineMethods;
-  methods.splice(0, 0, "abbr");
-  proto.inlineTokenizers.abbr = tokenizer;
-
-  function tokenizer(eat, value) {
-    const match = value.match(/^\*\[\s*([^\]]+)\s*]\s*:\s*([^\n]+)/);
-
-    if (match) {
-      return eat(match[0])({
-        type: "abbr",
-        abbr: match[1],
-        title: match[2]
-      });
-    }
-  }
-  tokenizer.locator = function(value, fromIndex) {
-    return value.indexOf("*[", fromIndex);
   };
 }
 
