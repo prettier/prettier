@@ -34,6 +34,7 @@ The following options should be used to _format_ the code according to [standard
 - `--single-quote` (`singleQuote: true`)
 - `--jsx-single-quote` (`jsxSingleQuote: true`)
 - `--no-semi` (`semi: false`)
+- `--yield-star-spacing` (`yieldStarSpacing: true`)
 
 Note that this tool does _not_ follow any of the other [standard js](https://standardjs.com/) rules. It is recommended to use this tool together with eslint, in some form, to achive correct formatting according to [standard js](https://standardjs.com/).
 
