@@ -29,7 +29,7 @@
 
 const ABBR_TAG = "abbr";
 const ABBR_LOCATOR = "*[";
-const ABBR_REGEX = /^\*\[\s*([^\]]+)\s*]\s*:\s*([^\n]+)/;
+const ABBR_REGEX = /^\*\[\s*([^\]]+)\s*]\s*:\s*([^\n]*)/;
 
 function abbr() {
   const proto = this.Parser.prototype;
