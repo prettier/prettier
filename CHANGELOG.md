@@ -8,6 +8,12 @@ To get recent changes on prettier (TBD prettier/prettier) in pretty format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
+## prettierx 0.2.1
+
+- chore: update typescript-estree to 18.0.0 ([prettier/prettier#5750](https://github.com/prettier/prettier/pull/5750))
+- fix: update typescript and typescript-estree to latest ([prettier/prettier#5728](https://github.com/prettier/prettier/pull/5728))
+- docs: fix Windows build (#5742) ([prettier/prettier#5743](https://github.com/prettier/prettier/pull/5743))
+
 ## prettierx 0.2.0
 
 - fix(javascript): skip .connect() method when composing fun ([prettier#5739](https://github.com/prettier/prettier/pull/5739))
