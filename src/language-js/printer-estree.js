@@ -5038,9 +5038,10 @@ function printMemberChain(path, options, print) {
     if (groups.length === 0) {
       return "";
     }
-    return indent(
-      group(concat([hardline, join(hardline, groups.map(printGroup))]))
+    const answer = group(
+      concat([hardline, join(hardline, groups.map(printGroup))])
     );
+    return options.indentChains ? indent(answer) : answer;
   }
 
   const printedGroups = groups.map(printGroup);

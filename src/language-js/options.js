@@ -24,6 +24,13 @@ module.exports = {
     ]
   },
   bracketSpacing: commonOptions.bracketSpacing,
+  indentChains: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description: "Print indents at the start of chained calls.",
+    oppositeDescription: "Do not print indents at the start of chained calls."
+  },
   jsxBracketSameLine: {
     since: "0.17.0",
     category: CATEGORY_JAVASCRIPT,

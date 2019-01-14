@@ -125,6 +125,10 @@ Object {
       "default": "css",
       "type": "choice",
     },
+    "indentChains": Object {
+      "default": true,
+      "type": "boolean",
+    },
     "insertPragma": Object {
       "default": false,
       "type": "boolean",
@@ -775,6 +779,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
       \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": true,
+      \\"description\\": \\"Print indents at the start of chained calls.\\",
+      \\"name\\": \\"indentChains\\",
+      \\"oppositeDescription\\": \\"Do not print indents at the start of chained calls.\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"Special\\",

@@ -113,6 +113,11 @@ This option cannot be used with --range-start and --range-end.",
             },
           ],
         },
+        "indentChains": Object {
+          "default": true,
+          "description": "Print indents at the start of chained calls.",
+          "type": "boolean",
+        },
         "insertPragma": Object {
           "default": false,
           "description": "Insert @format pragma into file's first docblock comment.",

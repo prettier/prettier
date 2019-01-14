@@ -229,6 +229,19 @@ Default: .prettierignore
 
 exports[`show detailed usage with --help ignore-path (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help indent-chains (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help indent-chains (stdout) 1`] = `
+"--indent-chains
+
+  Print indents at the start of chained calls.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help indent-chains (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help insert-pragma (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help insert-pragma (stdout) 1`] = `
@@ -343,6 +356,17 @@ exports[`show detailed usage with --help no-editorconfig (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help no-editorconfig (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help no-indent-chains (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-indent-chains (stdout) 1`] = `
+"--no-indent-chains
+
+  Do not print indents at the start of chained calls.
+"
+`;
+
+exports[`show detailed usage with --help no-indent-chains (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help no-semi (stderr) 1`] = `""`;
 

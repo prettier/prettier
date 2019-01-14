@@ -54,6 +54,19 @@ Valid options:
 | ------- | ------------ | -------------- |
 | `true`  | `--no-semi`  | `semi: <bool>` |
 
+## Indent chains
+
+Print indents at the start of chained calls.
+
+Valid options:
+
+- `true` - Print indents at the start of chained calls.
+- `false` - Do not print indents at the start of chained calls.
+
+| Default | CLI Override         | API Override   |
+| ------- | -------------------- | -------------- |
+| `true`  | `--no-indent-chains` | `semi: <bool>` |
+
 ## Quotes
 
 Use single quotes instead of double quotes.
