@@ -4,6 +4,8 @@ exports[`html parser should handle CRLF correctly 1`] = `"\\"<!--\\\\r\\\\n  tes
 
 exports[`markdown parser should handle CRLF correctly 1`] = `"\\"\`\`\`\\\\r\\\\n\\\\r\\\\n\\\\r\\\\n\`\`\`\\\\r\\\\n\\""`;
 
+exports[`should work with foo plugin instance 1`] = `"\\"tabWidth:8\\""`;
+
 exports[`typescript parser should throw the first error when both JSX and non-JSX mode failed 1`] = `
 "Expression expected. (9:7)
    7 | );
