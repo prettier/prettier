@@ -1,6 +1,7 @@
 "use strict";
 
 const prettier = require("prettier/local");
+const fooPlugin = require("../plugins/defaultOptions/plugin");
 
 test("yaml parser should handle CRLF correctly", () => {
   const input = "a:\r\n  123\r\n";
@@ -40,4 +41,13 @@ test("markdown parser should handle CRLF correctly", () => {
     // use JSON.stringify to observe CRLF
     JSON.stringify(prettier.format(input, { parser: "markdown" }))
   ).toMatchSnapshot();
+});
+
+test("should work with foo plugin instance", () => {
+  const input = "a:\r\n  123\r\n";
+  expect(
+    JSON.stringify(
+      prettier.format(input, { parser: "foo-parser", plugins: [fooPlugin] })
+    )
+  ).toMatchInlineSnapshot(`"\\"tabWidth:8\\""`);
 });
