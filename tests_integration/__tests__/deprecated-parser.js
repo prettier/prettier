@@ -32,7 +32,6 @@ test("API format with deprecated parser (babylon) should work and do not report 
   }).not.toThrowError();
   expect(warnings).toMatchInlineSnapshot(`
 "{ parser: \\"babylon\\" } is deprecated; we now treat it as { parser: \\"babel\\" }.
-{ parser: \\"babylon\\" } is deprecated; we now treat it as { parser: \\"babel\\" }.
 "
 `);
 });
