@@ -52,7 +52,7 @@ proseWrap: "always"
 =====================================output=====================================
 | abc    | def    | ghi    |
 | ------ | ------ | ------ |
-| 👍👍👍  | 👍👍👍  | 👍👍👍  |
+| 👍👍👍 | 👍👍👍 | 👍👍👍 |
 
 ================================================================================
 `;
@@ -72,7 +72,7 @@ Y   |
 =====================================output=====================================
 | Foo | Bar |
 | --- | --- |
-| X   |
+| X |
 | Y |
 
 ================================================================================
@@ -139,7 +139,7 @@ proseWrap: "always"
 =====================================output=====================================
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| bordered   | Toggles rendering of the border around the list                                                                       | boolean                                                                                                                      | false                     |
+| bordered | Toggles rendering of the border around the list | boolean | false |
 | footer | List footer renderer | string\\|ReactNode | - |
 | grid | The grid type of list. You can set grid to something like {gutter: 16, column: 4} | object | - |
 | header | List header renderer | string\\|ReactNode | - |
@@ -181,12 +181,14 @@ proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
 - min-table
+
   | Age | Time | Food | Gold | Requirement |
   | ------------ | ----- | ---- | ---- | ----------------------- |
   | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
-  | Castle Age | 02:40 | 800 | 200 | |
+  | Castle Age | 02:40 | 800 | 200 |- |
   | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
 - big-table
+
   |学号|姓名|分数|
   |-|-|-|
   |小明|男|75|
@@ -194,11 +196,21 @@ proseWrap: "always"
   |小陆|男|92|
 
 =====================================output=====================================
-- min-table | Age | Time | Food | Gold | Requirement | | ------------ | ----- |
-  ---- | ---- | ----------------------- | | Feudal Age | 02:10 | 500 | 0 | Dark
-  Age building x 2 | | Castle Age | 02:40 | 800 | 200 | | | Imperial Age | 03:30
-  | 1000 | 800 | Castle Age building x 2 |
-- big-table |学号|姓名|分数| |-|-|-| |小明|男|75| |小红|女|79| |小陆|男|92|
+- min-table
+
+  | Age | Time | Food | Gold | Requirement |
+  | --- | --- | --- | --- | --- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 | - |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+
+- big-table
+
+  | 学号 | 姓名 | 分数 |
+  | --- | --- | --- |
+  | 小明 | 男 | 75 |
+  | 小红 | 女 | 79 |
+  | 小陆 | 男 | 92 |
 
 ================================================================================
 `;
