@@ -177,11 +177,12 @@ Specify which parser to use.
 
 Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting.
 
-Both the `babylon` and `flow` parsers support the same set of JavaScript features (including Flow type annotations). They might differ in some edge cases, so if you run into one of those you can try `flow` instead of `babylon`.
+Both the `babel` and `flow` parsers support the same set of JavaScript features (including Flow type annotations). They might differ in some edge cases, so if you run into one of those you can try `flow` instead of `babel`.
 
 Valid options:
 
-- `"babylon"` (via [@babel/parser](https://github.com/babel/babel/tree/master/packages/babel-parser))
+- `"babel"` (via [@babel/parser](https://github.com/babel/babel/tree/master/packages/babel-parser)) _Named `"babylon"` until v1.16.0_
+- `"babel-flow"` (Same as `"babel"` but enables Flow parsing explicitly to avoid ambiguity) _First available in v1.16.0_
 - `"flow"` (via [flow-parser](https://github.com/facebook/flow/tree/master/src/parser))
 - `"typescript"` (via [typescript-estree](https://github.com/JamesHenry/typescript-estree)) _First available in v1.4.0_
 - `"css"` (via [postcss-scss](https://github.com/postcss/postcss-scss) and [postcss-less](https://github.com/shellscape/postcss-less), autodetects which to use) _First available in v1.7.1_
@@ -311,7 +312,7 @@ If you want to make sure that your git repository only contains Linux-style line
 
 1. Set `endOfLine` option to `lf`
 1. Configure [a pre-commit hook](precommit.md) that will run Prettier
-1. Configure Prettier to run in your CI pipeline (e.g. using [`prettier-check` npm package](https://www.npmjs.com/package/prettier-check))
+1. Configure Prettier to run in your CI pipeline using [`--check` flag](cli.md#check)
 1. Ask Windows users to run `git config core.autocrlf false` before working on your repo so that git did not convert `LF` to `CRLF` on checkout.
    Alternatively, you can add `* text=auto eol=lf` to the repo's `.gitattributes` file to achieve this.
 

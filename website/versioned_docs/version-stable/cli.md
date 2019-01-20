@@ -22,6 +22,38 @@ Don't forget the quotes around the globs! The quotes make sure that Prettier exp
 
 Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
 
+## `--check`
+
+When you want to check if your files are formatted, you can run Prettier with the `--check` flag (or `-c`).
+This will output a human-friendly message and a list of unformatted files, if any.
+
+```bash
+prettier --check "src/**/*.js"
+```
+
+Console output if all files are formatted:
+
+```
+Checking formatting...
+All matched files use Prettier code style!
+```
+
+Console output if some of the files require re-formatting:
+
+```
+Checking formatting...
+src/fileA.js
+src/fileB.js
+Code style issues found in the above file(s). Forgot to run Prettier?
+```
+
+The command will return exit code 1 in the second case, which is helpful inside the CI pipelines.
+Human-friendly status messages help project contributors react on possible problems.
+To minimise the number of times `prettier --check` finds unformatted files, you may be interested in configuring a [pre-commit hook](precommit.md) in your repo.
+Applying this practice will minimise the number of times the CI fails because of code formatting problems.
+
+If you need to pipe the list of unformatted files to another command, you can use [`--list-different`](cli.md#list-different) flag instead of `--check`.
+
 ## `--debug-check`
 
 If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command. This will cause Prettier to print an error message if it detects that code correctness might have changed. Note that `--write` cannot be used with `--debug-check`.
@@ -72,6 +104,8 @@ Another useful flag is `--list-different` (or `-l`) which prints the filenames o
 ```bash
 prettier --single-quote --list-different "src/**/*.js"
 ```
+
+You can also use [`--check`](cli.md#check) flag, which works the same way as `--list-different`, but also prints a human-friendly summary message to stdout.
 
 ## `--no-config`
 
