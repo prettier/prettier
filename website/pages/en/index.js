@@ -141,24 +141,24 @@ Language.propTypes = {
 };
 
 const LanguagesSection = () => {
-  const languageChunks = siteConfig.supportedLanguages.reduce(
-    (acc, language) => {
-      const last = acc[acc.length - 1];
-      if (
-        last &&
-        last.length < 2 &&
-        last.reduce((sum, lang) => sum + lang.variants.length, 0) +
-          language.variants.length <
-          5
-      ) {
-        last.push(language);
-      } else {
-        acc.push([language]);
-      }
-      return acc;
-    },
-    []
-  );
+  const languageChunks = siteConfig.supportedLanguages.reduce((
+    acc,
+    language
+  ) => {
+    const last = acc[acc.length - 1];
+    if (
+      last &&
+      last.length < 2 &&
+      last.reduce((sum, lang) => sum + lang.variants.length, 0) +
+        language.variants.length <
+        5
+    ) {
+      last.push(language);
+    } else {
+      acc.push([language]);
+    }
+    return acc;
+  }, []);
 
   return (
     <div
