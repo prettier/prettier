@@ -25,9 +25,13 @@ test("API format with deprecated parser (postcss) should work", () => {
   expect(warnings).toMatchSnapshot();
 });
 
-test("API format with deprecated parser (babylon) should work", () => {
-  expect(() =>
-    prettier.format("hello_world( )", { parser: "babylon" })
-  ).not.toThrowError();
-  expect(warnings).toMatchSnapshot();
+test("API format with deprecated parser (babylon) should work and do not report the same deprecation warning more than once", () => {
+  expect(() => {
+    prettier.format("hello_world( )", { parser: "babylon" });
+    prettier.format("hello_world( )", { parser: "babylon" });
+  }).not.toThrowError();
+  expect(warnings).toMatchInlineSnapshot(`
+"{ parser: \\"babylon\\" } is deprecated; we now treat it as { parser: \\"babel\\" }.
+"
+`);
 });
