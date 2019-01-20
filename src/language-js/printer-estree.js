@@ -3904,6 +3904,7 @@ function printArgumentsList(path, options, print) {
   if (
     args.length === 2 &&
     args[0].type === "ArrowFunctionExpression" &&
+    args[0].params.length === 0 &&
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
     !args.find(arg => arg.leadingComments || arg.trailingComments)
