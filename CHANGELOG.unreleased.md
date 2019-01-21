@@ -42,7 +42,7 @@ Examples:
 
 -->
 
-- MDX: correctly recognize inline JSX ([#5783] by [@ikatyang])
+- MDX: Correctly recognize inline JSX ([#5783] by [@ikatyang])
 
   Previously, some inline JSXs are wrongly recognized as block HTML/JSX,
   which causes unexpected behaviors. This issue is now fixed.
