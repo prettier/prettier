@@ -183,9 +183,7 @@ This is an example of a component _being used in some italic markdown with some 
 and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
 
 =====================================output=====================================
-This is an example of a component _being used in some italic markdown with some
-
-<Bolded />,
+This is an example of a component _being used in some italic markdown with some <Bolded />,
 and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
 
 ================================================================================
@@ -202,9 +200,7 @@ This is an example of a component _being used in some italic markdown with some 
 and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
 
 =====================================output=====================================
-This is an example of a component _being used in some italic markdown with some
-
-<Bolded />,
+This is an example of a component _being used in some italic markdown with some <Bolded />,
 and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
 
 ================================================================================
