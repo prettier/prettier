@@ -41,3 +41,37 @@ Examples:
   ```
 
 -->
+
+- JavaScript: Do not format functions with arguments as react hooks ([#5778] by [@SimenB])
+
+  The formatting added in Prettier 16 would format any function receiving an
+  arrow function and an array literal to match React Hook's documentation.
+  Prettier will now format this the same as before that change if the arrow
+  function receives any arguments.
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  ["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce(
+    (allColors, color) => {
+      return allColors.concat(color);
+    },
+    []
+  );
+
+  // Output (Prettier stable)
+  ["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce((
+    allColors,
+    color
+  ) => {
+    return allColors.concat(color);
+  }, []);
+
+  // Output (Prettier master)
+  ["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce(
+    (allColors, color) => {
+      return allColors.concat(color);
+    },
+    []
+  );
+```
