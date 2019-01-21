@@ -567,12 +567,14 @@ function printTable(path, options, print) {
       contents.slice(1).map(rowContents => printRow(rowContents))
     )
   ]);
+
   if (options.proseWrap !== "never") {
     return alignedTable;
   }
 
+  // Only if the --prose-wrap never is set and it exceeds the print width.
   const compactTable = join(hardlineWithoutBreakParent, [
-    // compactTable is true
+    // isCompact
     printRow(contents[0], /* isCompact */ true),
     printSeparator(/* isCompact */ true),
     join(
@@ -621,7 +623,7 @@ function printTable(path, options, print) {
                 : alignRight(rowContent, columnMaxWidths[columnIndex]);
             case "center":
               return isCompact
-                ? concat([" ", rowContent, " "])
+                ? rowContent
                 : alignCenter(rowContent, columnMaxWidths[columnIndex]);
             default:
               return isCompact
