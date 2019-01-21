@@ -562,11 +562,13 @@ function printTable(path, options, print) {
 
   const compactTable = join(hardlineWithoutBreakParent, [
     // compactTable is true
-    printRow(contents[0], true),
-    printSeparator(true),
+    printRow(contents[0], /* isCompact */ true),
+    printSeparator(/* isCompact */ true),
     join(
-      hardline,
-      contents.slice(1).map(rowContents => printRow(rowContents, true))
+      hardlineWithoutBreakParent,
+      contents
+        .slice(1)
+        .map(rowContents => printRow(rowContents, /* isCompact */ true))
     )
   ]);
 
@@ -574,20 +576,20 @@ function printTable(path, options, print) {
     printRow(contents[0]),
     printSeparator(),
     join(
-      hardline,
-      contents.slice(1).map(rowContents => printRow(rowContents, false))
+      hardlineWithoutBreakParent,
+      contents.slice(1).map(rowContents => printRow(rowContents))
     )
   ]);
 
   return group(ifBreak(compactTable, alignedTable));
 
-  function printSeparator(compactTable) {
+  function printSeparator(isCompact) {
     return concat([
       "| ",
       join(
         " | ",
         columnMaxWidths.map((width, index) => {
-          const spaces = compactTable ? 3 : width;
+          const spaces = isCompact ? 3 : width;
           switch (node.align[index]) {
             case "left":
               return ":" + "-".repeat(spaces - 1);
@@ -604,7 +606,7 @@ function printTable(path, options, print) {
     ]);
   }
 
-  function printRow(rowContents, compactTable) {
+  function printRow(rowContents, isCompact) {
     return concat([
       "| ",
       join(
@@ -612,23 +614,17 @@ function printTable(path, options, print) {
         rowContents.map((rowContent, columnIndex) => {
           switch (node.align[columnIndex]) {
             case "right":
-              return alignRight(
-                rowContent,
-                columnMaxWidths[columnIndex],
-                compactTable
-              );
+              return isCompact
+                ? rowContent
+                : alignRight(rowContent, columnMaxWidths[columnIndex]);
             case "center":
-              return alignCenter(
-                rowContent,
-                columnMaxWidths[columnIndex],
-                compactTable
-              );
+              return isCompact
+                ? concat([" ", rowContent, " "])
+                : alignCenter(rowContent, columnMaxWidths[columnIndex]);
             default:
-              return alignLeft(
-                rowContent,
-                columnMaxWidths[columnIndex],
-                compactTable
-              );
+              return isCompact
+                ? rowContent
+                : alignLeft(rowContent, columnMaxWidths[columnIndex]);
           }
         })
       ),
@@ -636,17 +632,17 @@ function printTable(path, options, print) {
     ]);
   }
 
-  function alignLeft(text, width, compactTable) {
-    const spaces = compactTable ? 0 : width - privateUtil.getStringWidth(text);
+  function alignLeft(text, width) {
+    const spaces = width - privateUtil.getStringWidth(text);
     return concat([text, " ".repeat(spaces)]);
   }
 
-  function alignRight(text, width, compactTable) {
-    const spaces = compactTable ? 0 : width - privateUtil.getStringWidth(text);
+  function alignRight(text, width) {
+    const spaces = width - privateUtil.getStringWidth(text);
     return concat([" ".repeat(spaces), text]);
   }
 
-  function alignCenter(text, width, compactTable) {
+  function alignCenter(text, width) {
     const spaces = width - privateUtil.getStringWidth(text);
     const left = compactTable ? 1 : Math.floor(spaces / 2);
     const right = compactTable ? 1 : spaces - left;
