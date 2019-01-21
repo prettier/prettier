@@ -7,6 +7,7 @@ const parseFrontMatter = require("../utils/front-matter");
 const { mapAst } = require("./utils");
 const mdx = require("./mdx");
 const remarkMath = require("remark-math");
+const abbr = require("./abbr");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -39,6 +40,7 @@ function createParse({ isMDX }) {
       .use(remarkMath)
       .use(isMDX ? mdx.esSyntax : identity)
       .use(liquid)
+      .use(abbr)
       .use(isMDX ? htmlToJsx : identity);
     return processor.runSync(processor.parse(text));
   };

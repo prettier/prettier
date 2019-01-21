@@ -31,7 +31,7 @@ const { replaceEndOfLineWith } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
 
-const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
+const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "abbr"];
 
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
 
@@ -426,6 +426,14 @@ function genericPrint(path, options, print) {
         options.locStart(node),
         options.locEnd(node)
       );
+    }
+    case "abbr": {
+      return concat([
+        "*[",
+        node.abbr.trimRight(),
+        "]: ",
+        node.title.trimRight()
+      ]);
     }
 
     case "tableRow": // handled in "table"
