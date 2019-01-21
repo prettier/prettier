@@ -173,6 +173,43 @@ export const b = 1
 ================================================================================
 `;
 
+exports[`inline-html.mdx 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+This is an example of a component _being used in some italic markdown with some <Bolded />, 
+and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
+
+=====================================output=====================================
+This is an example of a component _being used in some italic markdown with some
+
+<Bolded />,
+and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
+
+================================================================================
+`;
+
+exports[`inline-html.mdx 2`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+This is an example of a component _being used in some italic markdown with some <Bolded />, 
+and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
+
+=====================================output=====================================
+This is an example of a component _being used in some italic markdown with some
+
+<Bolded />,
+and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
+
+================================================================================
+`;
+
 exports[`jsx.mdx 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
