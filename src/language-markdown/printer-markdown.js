@@ -616,19 +616,16 @@ function printTable(path, options, print) {
       join(
         " | ",
         rowContents.map((rowContent, columnIndex) => {
+          if (isCompact) {
+            return rowContent;
+          }
           switch (node.align[columnIndex]) {
             case "right":
-              return isCompact
-                ? rowContent
-                : alignRight(rowContent, columnMaxWidths[columnIndex]);
+              return alignRight(rowContent, columnMaxWidths[columnIndex]);
             case "center":
-              return isCompact
-                ? rowContent
-                : alignCenter(rowContent, columnMaxWidths[columnIndex]);
+              return alignCenter(rowContent, columnMaxWidths[columnIndex]);
             default:
-              return isCompact
-                ? rowContent
-                : alignLeft(rowContent, columnMaxWidths[columnIndex]);
+              return alignLeft(rowContent, columnMaxWidths[columnIndex]);
           }
         })
       ),
