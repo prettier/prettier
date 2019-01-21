@@ -76,6 +76,32 @@ Examples:
   );
   ```
 
+- JavaScript: Add necessary parentheses for decorators ([#5785] by [@ikatyang])
+
+  Parentheses for decorators with nested call expressions are optional for legacy decorators
+  but they're required for decorators in the current [proposal](https://tc39.github.io/proposal-decorators/#sec-syntax).
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  class X {
+    @(computed().volatile())
+    prop
+  }
+
+  // Output (Prettier stable)
+  class X {
+    @computed().volatile()
+    prop
+  }
+
+  // Output (Prettier master)
+  class X {
+    @(computed().volatile())
+    prop
+  }
+  ```
+
 - MDX: Correctly recognize inline JSX ([#5783] by [@ikatyang])
 
   Previously, some inline JSXs are wrongly recognized as block HTML/JSX,
@@ -99,3 +125,4 @@ Examples:
 [@simenb]: https://github.com/SimenB
 [#5778]: https://github.com/prettier/prettier/pull/5778
 [#5783]: https://github.com/prettier/prettier/pull/5783
+[#5785]: https://github.com/prettier/prettier/pull/5785

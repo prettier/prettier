@@ -127,6 +127,35 @@ function needsParens(path, options) {
     return true;
   }
 
+  if (parent.type === "Decorator" && parent.expression === node) {
+    let hasCallExpression = false;
+    let hasMemberExpression = false;
+    let current = node;
+    while (current) {
+      switch (current.type) {
+        case "MemberExpression":
+          hasMemberExpression = true;
+          current = current.object;
+          break;
+        case "CallExpression":
+          if (
+            /** @(x().y) */ hasMemberExpression ||
+            /** @(x().y()) */ hasCallExpression
+          ) {
+            return true;
+          }
+          hasCallExpression = true;
+          current = current.callee;
+          break;
+        case "Identifier":
+          return false;
+        default:
+          return true;
+      }
+    }
+    return true;
+  }
+
   if (
     (parent.type === "ArrowFunctionExpression" &&
     parent.body === node &&
@@ -274,11 +303,6 @@ function needsParens(path, options) {
         case "AssignmentExpression":
           return (
             parent.left === node &&
-            (node.type === "TSTypeAssertion" || node.type === "TSAsExpression")
-          );
-        case "Decorator":
-          return (
-            parent.expression === node &&
             (node.type === "TSTypeAssertion" || node.type === "TSAsExpression")
           );
 
