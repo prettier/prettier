@@ -42,7 +42,7 @@ Examples:
 
 -->
 
-- JavaScript: add necessary parentheses for decorators ([#5785] by [@ikatyang])
+- JavaScript: Add necessary parentheses for decorators ([#5785] by [@ikatyang])
 
   Parentheses for decorators with nested call expressions are optional for legacy decorators
   but they're required for decorators in the current [proposal](https://tc39.github.io/proposal-decorators/#sec-syntax).
