@@ -42,6 +42,40 @@ Examples:
 
 -->
 
+- JavaScript: Do not format functions with arguments as react hooks ([#5778] by [@SimenB])
+
+  The formatting added in Prettier 1.16 would format any function receiving an
+  arrow function and an array literal to match React Hook's documentation.
+  Prettier will now format this the same as before that change if the arrow
+  function receives any arguments.
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  ["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce(
+    (allColors, color) => {
+      return allColors.concat(color);
+    },
+    []
+  );
+
+  // Output (Prettier stable)
+  ["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce((
+    allColors,
+    color
+  ) => {
+    return allColors.concat(color);
+  }, []);
+
+  // Output (Prettier master)
+  ["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce(
+    (allColors, color) => {
+      return allColors.concat(color);
+    },
+    []
+  );
+  ```
+
 - JavaScript: Add necessary parentheses for decorators ([#5785] by [@ikatyang])
 
   Parentheses for decorators with nested call expressions are optional for legacy decorators
@@ -55,13 +89,13 @@ Examples:
     prop
   }
 
-   // Output (Prettier stable)
+  // Output (Prettier stable)
   class X {
     @computed().volatile()
     prop
   }
 
-   // Output (Prettier master)
+  // Output (Prettier master)
   class X {
     @(computed().volatile())
     prop
@@ -69,4 +103,6 @@ Examples:
   ```
 
 [@ikatyang]: https://github.com/ikatyang
+[@simenb]: https://github.com/SimenB
+[#5778]: https://github.com/prettier/prettier/pull/5778
 [#5785]: https://github.com/prettier/prettier/pull/5785
