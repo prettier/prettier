@@ -324,7 +324,7 @@ class X {
 
 =====================================output=====================================
 class X {
-  @computed().volatile()
+  @(computed().volatile())
   x;
 }
 
