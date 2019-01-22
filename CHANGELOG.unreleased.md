@@ -121,8 +121,36 @@ Examples:
   _foo <InlineJSX /> bar_
   ```
 
+- Markdown:Enable compact table when `--prose-wrap never` and the table width exceeds `printWidth` ([#5701] by [@chenshuai2144])
+
+  When the table width is particularly large, the table processed by the prettier is not well read. Now he talks about tightening and reducing the width.
+
+  ```md
+  <!-- Input -->
+  | Property | Description | Type | Default |
+  | -------- | ----------- | ---- | ------- |
+  | bordered | Toggles rendering of the border around the list | boolean | false |
+  | itemLayout | The layout of list, default is `horizontal`, If a vertical list is desired, set the itemLayout property to `vertical` | string | - |
+
+  <!-- Output (Prettier stable) -->
+
+  | Property   | Description                                                                                                           | Type    | Default |
+  | ---------- | --------------------------------------------------------------------------------------------------------------------- | ------- | ------- |
+  | bordered   | Toggles rendering of the border around the list                                                                       | boolean | false   |
+  | itemLayout | The layout of list, default is `horizontal`, If a vertical list is desired, set the itemLayout property to `vertical` | string  | -       |
+
+  <!-- Output (Prettier master) -->
+  
+  | Property | Description | Type | Default |
+  | --- | --- | --- | --- |
+  | bordered | Toggles rendering of the border around the list | boolean | false |
+  | itemLayout | The layout of list, default is \`horizontal\`, If a vertical list is desired, set the itemLayout property to \`vertical\` | string | - |
+  ```
+
 [@ikatyang]: https://github.com/ikatyang
 [@simenb]: https://github.com/SimenB
+[@chenshuai2144]: https://github.com/chenshuai2144
 [#5778]: https://github.com/prettier/prettier/pull/5778
 [#5783]: https://github.com/prettier/prettier/pull/5783
 [#5785]: https://github.com/prettier/prettier/pull/5785
+[#5701]: https://github.com/prettier/prettier/pull/5701
