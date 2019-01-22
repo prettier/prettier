@@ -9,6 +9,8 @@ Language parsers are supported as if this were `prettier` version `1.15.3` / `1.
 
 Minimum Node.js version: 6
 
+FUTURE TODO: It is desired to provide the additional formatting options in a prettier plugin as discussed in ([`brodybits/prettierx#37`](https://github.com/brodybits/prettierx/issues/37)).
+
 ## CLI Usage
 
 **Quick CLI usage:**
@@ -38,7 +40,7 @@ The following options should be used to _format_ the code according to [standard
 - `--no-semi` (`semi: false`)
 - `--yield-star-spacing` (`yieldStarSpacing: true`)
 
-Known conflict with `standard` in ternary returning objects ([brodybits/prettierx#40](https://github.com/brodybits/prettierx/issues/40))
+Known conflict with `standard` in ternary returning objects ([brodybits/prettierx#40](https://github.com/brodybits/prettierx/issues/40)), which is resolved by [brodybits/prettierx#41](https://github.com/brodybits/prettierx/pull/41) which is to be included by an upcoming merge.
 
 Note that this tool does _not_ follow any of the other [standard js](https://standardjs.com/) rules. It is recommended to use this tool together with eslint, in some form, to achive correct formatting according to [standard js](https://standardjs.com/).
 
