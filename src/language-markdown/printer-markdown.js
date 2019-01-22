@@ -570,7 +570,7 @@ function printTable(path, options, print) {
   ]);
 
   if (options.proseWrap !== "never") {
-    return alignedTable;
+    return concat([breakParent, alignedTable]);
   }
 
   // Only if the --prose-wrap never is set and it exceeds the print width.
@@ -615,19 +615,18 @@ function printTable(path, options, print) {
       "| ",
       join(
         " | ",
-        rowContents.map((rowContent, columnIndex) => {
-          if (isCompact) {
-            return rowContent;
-          }
-          switch (node.align[columnIndex]) {
-            case "right":
-              return alignRight(rowContent, columnMaxWidths[columnIndex]);
-            case "center":
-              return alignCenter(rowContent, columnMaxWidths[columnIndex]);
-            default:
-              return alignLeft(rowContent, columnMaxWidths[columnIndex]);
-          }
-        })
+        isCompact
+          ? rowContents
+          : rowContents.map((rowContent, columnIndex) => {
+              switch (node.align[columnIndex]) {
+                case "right":
+                  return alignRight(rowContent, columnMaxWidths[columnIndex]);
+                case "center":
+                  return alignCenter(rowContent, columnMaxWidths[columnIndex]);
+                default:
+                  return alignLeft(rowContent, columnMaxWidths[columnIndex]);
+              }
+            })
       ),
       " |"
     ]);
