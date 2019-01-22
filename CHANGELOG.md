@@ -1,14 +1,16 @@
 # Changelog
 
 <!-- --
-To get recent changes on prettierx (TBD brodybits\/prettier) in pretty format:
+To get recent changes on prettierx (TBD brodybits\/prettier) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[brodybits\/prettierx#\1\]\(https:\/\/github.com\/brodybits\/prettierx\/pull\/\1\)/'
 
-To get recent changes on prettier (TBD prettier/prettier) in pretty format:
+To get recent changes on prettier (TBD prettier/prettier) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
 ## prettierx 0.3.1-dev
+
+TBD changes so far: [compare prettierx-0.3.0...master](https://github.com/brodybits/prettierx/compare/prettierx-0.3.0...master)
 
 ### prettier 1.16.1
 
@@ -133,10 +135,14 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.3.0
 
+[compare prettierx-0.2.1...prettierx-0.3.0](https://github.com/brodybits/prettierx/compare/prettierx-0.2.1...prettierx-0.3.0)
+
 - [prettierx] --no-indent-chains option ([brodybits/prettierx#5](https://github.com/brodybits/prettierx/pull/5))
 - [prettierx] -- align-object-properties option ([brodybits/prettierx#35](https://github.com/brodybits/prettierx/pull/35))
 
 ## prettierx 0.2.1
+
+[compare prettierx-0.2.0...prettierx-0.2.1](https://github.com/brodybits/prettierx/compare/prettierx-0.2.0...prettierx-0.2.1)
 
 - chore: update typescript-estree to 18.0.0 ([prettier/prettier#5750](https://github.com/prettier/prettier/pull/5750))
 - fix: update typescript and typescript-estree to latest ([prettier/prettier#5728](https://github.com/prettier/prettier/pull/5728))
@@ -144,35 +150,47 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.2.0
 
-- fix(javascript): skip .connect() method when composing fun ([prettier#5739](https://github.com/prettier/prettier/pull/5739))
-- docs: remove redundant "./" from relative links ([prettier#5741](https://github.com/prettier/prettier/pull/5741))
-- Fix formatting of lists in SCSS property/variable values ([prettier#5710](https://github.com/prettier/prettier/pull/5710))
-- Escape spaces within file names in pre-commit hook script ([prettier#5721](https://github.com/prettier/prettier/pull/5721))
-- typescript: remove unneeded parentheses around type annotation ([prettier#5724](https://github.com/prettier/prettier/pull/5724))
-- Add solidity plugin to list of plugins ([prettier#5726](https://github.com/prettier/prettier/pull/5726))
-- chore(website): upgrade react-dom to 16.3.3 ([prettier#5720](https://github.com/prettier/prettier/pull/5720))
-- Update Webstorm integration docs ([prettier#5694](https://github.com/prettier/prettier/pull/5694))
+[compare prettierx-0.1.0...prettierx-0.2.0](https://github.com/brodybits/prettierx/compare/prettierx-0.1.0...prettierx-0.2.0)
+
+- fix(javascript): skip .connect() method when composing fun ([prettier/prettier#5739](https://github.com/prettier/prettier/pull/5739))
+- docs: remove redundant "./" from relative links ([prettier/prettier#5741](https://github.com/prettier/prettier/pull/5741))
+- Fix formatting of lists in SCSS property/variable values ([prettier/prettier#5710](https://github.com/prettier/prettier/pull/5710))
+- Escape spaces within file names in pre-commit hook script ([prettier/prettier#5721](https://github.com/prettier/prettier/pull/5721))
+- typescript: remove unneeded parentheses around type annotation ([prettier/prettier#5724](https://github.com/prettier/prettier/pull/5724))
+- Add solidity plugin to list of plugins ([prettier/prettier#5726](https://github.com/prettier/prettier/pull/5726))
+- chore(website): upgrade react-dom to 16.3.3 ([prettier/prettier#5720](https://github.com/prettier/prettier/pull/5720))
+- Update Webstorm integration docs ([prettier/prettier#5694](https://github.com/prettier/prettier/pull/5694))
 
 ## prettierx 0.1.0
+
+[compare prettierx-0.0.3...prettierx-0.1.0](https://github.com/brodybits/prettierx/compare/prettierx-0.0.3...prettierx-0.1.0)
 
 - standard-like formatting ([brodybits/prettierx#32](https://github.com/brodybits/prettierx/pull/32))
 - Drop support for Node.js version 4 ([brodybits/prettierx#31](https://github.com/brodybits/prettierx/pull/31))
 
 ## prettierx 0.0.3
 
+[compare prettierx-0.0.2...prettierx-0.0.3](https://github.com/brodybits/prettierx/compare/prettierx-0.0.2...prettierx-0.0.3)
+
 - prettierx fix space-before-function-paren - babel parser ([brodybits/prettierx#29](https://github.com/brodybits/prettierx/pull/29))
 
 ## prettierx 0.0.2
 
-- Update copyright line ([#5455](https://github.com/prettier/prettier/pull/5455))
-- fix(mdx): handle inline html correctly ([#5704](https://github.com/prettier/prettier/pull/5704))
+[compare prettierx-0.0.1...prettierx-0.0.2](https://github.com/brodybits/prettierx/compare/prettierx-0.0.1...prettierx-0.0.2)
+
+- Update copyright line ([prettier/prettier#5455](https://github.com/prettier/prettier/pull/5455))
+- fix(mdx): handle inline html correctly ([prettier/prettier#5704](https://github.com/prettier/prettier/pull/5704))
 
 ## prettierx 0.0.1
 
 - prettierx space-before-function-paren option ([brodybits/prettierx#6](https://github.com/brodybits/prettierx/pull/6))
 - Update package.json, docs, scripts, tests, etc. for prettierx
 
+[compare 1ca4731...prettierx-0.0.1](https://github.com/brodybits/prettierx/compare/1ca4731...prettierx-0.0.1)
+
 ### prettier 1ca4731 (1.16.0-dev)
+
+[compare prettier 1.15.3...1ca4731](https://github.com/prettier/prettier/compare/1.15.3...1ca4731)
 
 - docs: Happy New Year! 🎁 ([#5699](https://github.com/prettier/prettier/pull/5699))
 - fix(ng,vue): add parens to avoid unexpected `}}` in interpolations ([#5657](https://github.com/prettier/prettier/pull/5657))
