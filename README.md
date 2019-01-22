@@ -21,13 +21,14 @@ prettierx <options> <file(s)>
 
 ## Additional prettierx options
 
-| Option                                               | Default value | CLI Override                    | API Override                       | Description                                                                              |
-| ---------------------------------------------------- | ------------- | ------------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------- |
-| Align object properties                              | `false`       | `--align-object-properties`     | `alignObjectProperties: <bool>`    | Align colons in multiline object literals (not applied with any of the JSON parsers).    |
-| Space before function parentheses                    | `false`       | `--space-before-function-paren` | `spaceBeforeFunctionParen: <bool>` | Put a space before function parenthesis.                                                 |
-| Spaces around the star (\*\) in generator functions  | `false`       | `--generator-star-spacing`      | `generatorStarSpacing: <bool>`     | Add spaces around the star (\*) in generator functions (before and after - from eslint). |
-| Spaces around the star (\*\) in `yield*` expressions | `false`       | `--yield-star-spacing`          | `yieldStarSpacing: <bool>`         | Add spaces around the star (\*) in yield\* expressions (before and after - from eslint). |
-| Indent chains                                        | `true`        | `--no-indent-chains`            | `indentChains: <bool>`             | Print indents at the start of chained calls.                                             |
+| Option                                               | Default value | CLI Override                    | API Override                       | Description                                                                                      |
+| ---------------------------------------------------- | ------------- | ------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Align object properties                              | `false`       | `--align-object-properties`     | `alignObjectProperties: <bool>`    | Align colons in multiline object literals (not applied with any of the JSON parsers).            |
+| Space before function parentheses                    | `false`       | `--space-before-function-paren` | `spaceBeforeFunctionParen: <bool>` | Put a space before function parenthesis.                                                         |
+| Spaces around the star (\*\) in generator functions  | `false`       | `--generator-star-spacing`      | `generatorStarSpacing: <bool>`     | Add spaces around the star (\*) in generator functions (before and after - from eslint).         |
+| Spaces around the star (\*\) in `yield*` expressions | `false`       | `--yield-star-spacing`          | `yieldStarSpacing: <bool>`         | Add spaces around the star (\*) in yield\* expressions (before and after - from eslint).         |
+| Indent chains                                        | `true`        | `--no-indent-chains`            | `indentChains: <bool>`             | Print indents at the start of chained calls.                                                     |
+| Align ternary lines                                  | `true`        | `--no-align-ternary-lines`      | `alignTernaryLines: <bool>`        | Align ternary lines in case of multiline ternery term (default behavior, conflict with standard) |
 
 ## standard-like formatting
 
@@ -39,8 +40,7 @@ The following options should be used to _format_ the code according to [standard
 - `--jsx-single-quote` (`jsxSingleQuote: true`)
 - `--no-semi` (`semi: false`)
 - `--yield-star-spacing` (`yieldStarSpacing: true`)
-
-Known conflict with `standard` in ternary returning objects ([brodybits/prettierx#40](https://github.com/brodybits/prettierx/issues/40)), which is resolved by [brodybits/prettierx#41](https://github.com/brodybits/prettierx/pull/41) which is to be included by an upcoming merge.
+- `--no-align-ternary-lines` (`alignTernaryLines: false`)
 
 Note that this tool does _not_ follow any of the other [standard js](https://standardjs.com/) rules. It is recommended to use this tool together with eslint, in some form, to achive correct formatting according to [standard js](https://standardjs.com/).
 

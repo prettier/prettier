@@ -77,6 +77,10 @@ Object {
       "default": false,
       "type": "boolean",
     },
+    "alignTernaryLines": Object {
+      "default": true,
+      "type": "boolean",
+    },
     "arrowParens": Object {
       "choices": Array [
         "avoid",
@@ -672,6 +676,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": false,
       \\"description\\": \\"Align colons in multiline object literals.\\",
       \\"name\\": \\"alignObjectProperties\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": true,
+      \\"description\\": \\"Align ternary lines.\\",
+      \\"name\\": \\"alignTernaryLines\\",
+      \\"oppositeDescription\\": \\"Do not align ternary lines.\\",
       \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },

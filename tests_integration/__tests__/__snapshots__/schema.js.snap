@@ -19,6 +19,11 @@ Object {
           "description": "Align colons in multiline object literals.",
           "type": "boolean",
         },
+        "alignTernaryLines": Object {
+          "default": true,
+          "description": "Align ternary lines.",
+          "type": "boolean",
+        },
         "arrowParens": Object {
           "default": "avoid",
           "description": "Include parentheses around a sole arrow function parameter.",

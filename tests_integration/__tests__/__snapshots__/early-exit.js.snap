@@ -61,6 +61,7 @@ Format options:
   --align-object-properties
                            Align colons in multiline object literals.
                            Defaults to false.
+  --no-align-ternary-lines Do not align ternary lines.
   --arrow-parens <avoid|always>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
@@ -221,6 +222,7 @@ Format options:
   --align-object-properties
                            Align colons in multiline object literals.
                            Defaults to false.
+  --no-align-ternary-lines Do not align ternary lines.
   --arrow-parens <avoid|always>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.

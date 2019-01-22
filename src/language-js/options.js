@@ -53,6 +53,13 @@ module.exports = {
     default: false,
     description: "Align colons in multiline object literals."
   },
+  alignTernaryLines: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description: "Align ternary lines.",
+    oppositeDescription: "Do not align ternary lines."
+  },
   generatorStarSpacing: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",

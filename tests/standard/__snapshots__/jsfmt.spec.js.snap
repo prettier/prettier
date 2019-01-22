@@ -2,6 +2,7 @@
 
 exports[`correct.js 1`] = `
 ====================================options=====================================
+alignTernaryLines: false
 generatorStarSpacing: true
 jsxSingleQuote: true
 parsers: ["babel", "flow", "typescript"]
@@ -704,6 +705,7 @@ function * generator () {
 
 exports[`incorrect.js 1`] = `
 ====================================options=====================================
+alignTernaryLines: false
 generatorStarSpacing: true
 jsxSingleQuote: true
 parsers: ["babel", "flow", "typescript"]
@@ -1469,13 +1471,13 @@ function * generator () {
 let isSpace = false
 const dress = isSpace
   ? {
-      spaceSuit: 3,
-      oxygenCylinders: 6
-    }
+    spaceSuit: 3,
+    oxygenCylinders: 6
+  }
   : {
-      shirts: 3,
-      paints: 3
-    }
+    shirts: 3,
+    paints: 3
+  }
 
 ================================================================================
 `;

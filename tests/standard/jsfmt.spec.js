@@ -4,5 +4,6 @@ run_spec(__dirname, ["babel", "flow", "typescript"], {
   spaceBeforeFunctionParen: true,
   singleQuote: true,
   jsxSingleQuote: true,
-  semi: false
+  semi: false,
+  alignTernaryLines: false
 });

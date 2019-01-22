@@ -215,6 +215,19 @@ Add spaces around the star (\*) in `yield_` expressions (before and after - from
 | ------- | ---------------------- | -------------------------- |
 | `false` | `--yield-star-spacing` | `yieldStarSpacing: <bool>` |
 
+## Align ternary lines
+
+Align ternary lines in case of multiline ternery term (default behavior, conflict with standard).
+
+Valid options:
+
+- `true` - Align ternary lines in case of multiline ternery term.
+- `false` - Do not align ternary lines in case of multiline ternery term.
+
+| Default | CLI Override               | API Override                |
+| ------- | -------------------------- | --------------------------- |
+| `true`  | `--no-align-ternary-lines` | `alignTernaryLines: <bool>` |
+
 ## Parser
 
 Specify which parser to use.
