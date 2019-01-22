@@ -1,3 +1,118 @@
+# 1.16.1
+
+[diff](https://github.com/prettier/prettier/compare/1.16.0...1.16.1)
+
+- JavaScript: Do not format functions with arguments as react hooks ([#5778] by [@SimenB])
+
+  The formatting added in Prettier 1.16 would format any function receiving an
+  arrow function and an array literal to match React Hook's documentation.
+  Prettier will now format this the same as before that change if the arrow
+  function receives any arguments.
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  ["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce(
+    (allColors, color) => {
+      return allColors.concat(color);
+    },
+    []
+  );
+
+  // Output (Prettier 1.16.0)
+  ["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce((
+    allColors,
+    color
+  ) => {
+    return allColors.concat(color);
+  }, []);
+
+  // Output (Prettier 1.16.1)
+  ["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce(
+    (allColors, color) => {
+      return allColors.concat(color);
+    },
+    []
+  );
+  ```
+
+- JavaScript: Add necessary parentheses for decorators ([#5785] by [@ikatyang])
+
+  Parentheses for decorators with nested call expressions are optional for legacy decorators
+  but they're required for decorators in the current [proposal](https://tc39.github.io/proposal-decorators/#sec-syntax).
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  class X {
+    @(computed().volatile())
+    prop
+  }
+
+  // Output (Prettier 1.16.0)
+  class X {
+    @computed().volatile()
+    prop
+  }
+
+  // Output (Prettier 1.16.1)
+  class X {
+    @(computed().volatile())
+    prop
+  }
+  ```
+
+- TypeScript: Stable parentheses for function type in the return type of arrow function ([#5790] by [@ikatyang])
+
+  There's a regression introduced in 1.16 that
+  parentheses for function type in the return type of arrow function were kept adding/removing.
+  Their parentheses are always printed now.
+
+  <!-- prettier-ignore -->
+  ```ts
+  // Input
+  const foo = (): (() => void) => (): void => null;
+  const bar = (): () => void => (): void => null;
+
+  // First Output (Prettier 1.16.0)
+  const foo = (): () => void => (): void => null;
+  const bar = (): (() => void) => (): void => null;
+
+  // Second Output (Prettier 1.16.0)
+  const foo = (): (() => void) => (): void => null;
+  const bar = (): () => void => (): void => null;
+
+  // Output (Prettier 1.16.1)
+  const foo = (): (() => void) => (): void => null;
+  const bar = (): (() => void) => (): void => null;
+  ```
+
+- MDX: Correctly recognize inline JSX ([#5783] by [@ikatyang])
+
+  Previously, some inline JSXs are wrongly recognized as block HTML/JSX,
+  which causes unexpected behaviors. This issue is now fixed.
+
+  <!-- prettier-ignore -->
+  ```md
+  <!-- Input -->
+  _foo <InlineJSX /> bar_
+
+  <!-- Output (Prettier 1.16.0) -->
+  _foo
+
+  <InlineJSX /> bar_
+
+  <!-- Output (Prettier 1.16.1) -->
+  _foo <InlineJSX /> bar_
+  ```
+
+[@ikatyang]: https://github.com/ikatyang
+[@simenb]: https://github.com/SimenB
+[#5778]: https://github.com/prettier/prettier/pull/5778
+[#5783]: https://github.com/prettier/prettier/pull/5783
+[#5785]: https://github.com/prettier/prettier/pull/5785
+[#5790]: https://github.com/prettier/prettier/pull/5790
+
 # 1.16.0
 
 [diff](https://github.com/prettier/prettier/compare/1.15.3...1.16.0)
