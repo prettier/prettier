@@ -6,6 +6,7 @@ const pragma = require("./pragma");
 const preprocess = require("./preprocess");
 const {
   builders: {
+    breakParent,
     concat,
     join,
     line,
@@ -574,7 +575,6 @@ function printTable(path, options, print) {
 
   // Only if the --prose-wrap never is set and it exceeds the print width.
   const compactTable = join(hardlineWithoutBreakParent, [
-    // isCompact
     printRow(contents[0], /* isCompact */ true),
     printSeparator(/* isCompact */ true),
     join(
@@ -585,7 +585,7 @@ function printTable(path, options, print) {
     )
   ]);
 
-  return group(ifBreak(compactTable, alignedTable));
+  return concat([breakParent, group(ifBreak(compactTable, alignedTable))]);
 
   function printSeparator(isCompact) {
     return concat([
