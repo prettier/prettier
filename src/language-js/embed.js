@@ -610,18 +610,8 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
         }
 
         const placeholderIndex = +component;
-
         parts.push(
-          concat([
-            "${",
-            group(
-              concat([
-                indent(concat([softline, expressionDocs[placeholderIndex]])),
-                softline
-              ])
-            ),
-            "}"
-          ])
+          concat(["${", group(expressionDocs[placeholderIndex]), "}"])
         );
       }
 

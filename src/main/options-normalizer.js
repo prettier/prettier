@@ -46,6 +46,8 @@ class FlagSchema extends vnopts.ChoiceSchema {
   }
 }
 
+let hasDeprecationWarned;
+
 function normalizeOptions(
   options,
   optionInfos,
@@ -60,7 +62,25 @@ function normalizeOptions(
 
   const descriptor = isCLI ? cliDescriptor : vnopts.apiDescriptor;
   const schemas = optionInfosToSchemas(optionInfos, { isCLI });
-  return vnopts.normalize(options, schemas, { logger, unknown, descriptor });
+  const normalizer = new vnopts.Normalizer(schemas, {
+    logger,
+    unknown,
+    descriptor
+  });
+
+  const shouldSuppressDuplicateDeprecationWarnings = logger !== false;
+
+  if (shouldSuppressDuplicateDeprecationWarnings && hasDeprecationWarned) {
+    normalizer._hasDeprecationWarned = hasDeprecationWarned;
+  }
+
+  const normalized = normalizer.normalize(options);
+
+  if (shouldSuppressDuplicateDeprecationWarnings) {
+    hasDeprecationWarned = normalizer._hasDeprecationWarned;
+  }
+
+  return normalized;
 }
 
 function optionInfosToSchemas(optionInfos, { isCLI }) {

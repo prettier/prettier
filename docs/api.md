@@ -86,7 +86,7 @@ As you repeatedly call `resolveConfig`, the file system structure will be cached
 
 Setting `options.ignorePath` (`string`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
 
-Providing [plugin](./plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
+Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
 
 Use `prettier.getFileInfo.sync(filePath [, options])` if you'd like to use sync version.
 

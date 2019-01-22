@@ -115,6 +115,34 @@ this.subscriptions.add(
 ================================================================================
 `;
 
+exports[`gobject_connect.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+button.connect(
+  "clicked",
+  () => doSomething()
+);
+app.connect(
+  "activate",
+  async () => {
+    await data.load();
+    win.show_all();
+  }
+);
+
+=====================================output=====================================
+button.connect("clicked", () => doSomething());
+app.connect("activate", async () => {
+  await data.load();
+  win.show_all();
+});
+
+================================================================================
+`;
+
 exports[`lodash_flow.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
@@ -211,6 +239,29 @@ const foo = _.flowRight(
 );
 
 foo(6);
+
+================================================================================
+`;
+
+exports[`mongo_connect.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+MongoClient.connect(
+  "mongodb://localhost:27017/posts",
+  (err, db) => {
+    assert.equal(null, err);
+    db.close();
+  }
+);
+
+=====================================output=====================================
+MongoClient.connect("mongodb://localhost:27017/posts", (err, db) => {
+  assert.equal(null, err);
+  db.close();
+});
 
 ================================================================================
 `;

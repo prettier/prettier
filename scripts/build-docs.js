@@ -29,8 +29,8 @@ if (isPullRequest) {
   shell.exec("yarn build");
   pipe(JSON.stringify(pkg, null, 2)).to("package.json"); // restore
 }
-shell.exec(`cp ${prettierPath}/standalone.js ${docs}/`);
-shell.exec(`cp ${prettierPath}/parser-*.js ${docs}/`);
+shell.cp(`${prettierPath}/standalone.js`, `${docs}/`);
+shell.cp(`${prettierPath}/parser-*.js`, `${docs}/`);
 
 // --- Site ---
 shell.cd("website");

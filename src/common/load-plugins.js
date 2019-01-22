@@ -7,6 +7,7 @@ const path = require("path");
 const resolve = require("resolve");
 const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
+const partition = require("../utils/partition");
 
 function loadPlugins(plugins, pluginSearchDirs) {
   if (!plugins) {
@@ -24,7 +25,12 @@ function loadPlugins(plugins, pluginSearchDirs) {
     }
   }
 
-  const externalManualLoadPluginInfos = plugins.map(pluginName => {
+  const [externalPluginNames, externalPluginInstances] = partition(
+    plugins,
+    plugin => typeof plugin === "string"
+  );
+
+  const externalManualLoadPluginInfos = externalPluginNames.map(pluginName => {
     let requirePath;
     try {
       // try local files
@@ -69,12 +75,14 @@ function loadPlugins(plugins, pluginSearchDirs) {
   const externalPlugins = uniqBy(
     externalManualLoadPluginInfos.concat(externalAutoLoadPluginInfos),
     "requirePath"
-  ).map(externalPluginInfo =>
-    Object.assign(
-      { name: externalPluginInfo.name },
-      eval("require")(externalPluginInfo.requirePath)
+  )
+    .map(externalPluginInfo =>
+      Object.assign(
+        { name: externalPluginInfo.name },
+        eval("require")(externalPluginInfo.requirePath)
+      )
     )
-  );
+    .concat(externalPluginInstances);
 
   return internalPlugins.concat(externalPlugins);
 }
