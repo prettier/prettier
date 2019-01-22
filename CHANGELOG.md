@@ -1,7 +1,7 @@
 # Changelog
 
 <!-- --
-To get recent changes on prettierx (TBD brodybits\/prettier) in a nice format:
+To get recent changes on prettierx (TBD brodybits/prettierx) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[brodybits\/prettierx#\1\]\(https:\/\/github.com\/brodybits\/prettierx\/pull\/\1\)/'
 
 To get recent changes on prettier (TBD prettier/prettier) in a nice format:
