@@ -121,8 +121,34 @@ Examples:
   _foo <InlineJSX /> bar_
   ```
 
+- TypeScript: Stable parentheses for function type in the return type of arrow function ([#5790] by [@ikatyang])
+
+  There's a regression introduced in 1.16 that
+  parentheses for function type in the return type of arrow function were kept adding/removing.
+  Their parentheses are always printed now.
+
+  <!-- prettier-ignore -->
+  ```ts
+  // Input
+  const foo = (): (() => void) => (): void => null;
+  const bar = (): () => void => (): void => null;
+
+  // First Output (Prettier stable)
+  const foo = (): () => void => (): void => null;
+  const bar = (): (() => void) => (): void => null;
+
+  // Second Output (Prettier stable)
+  const foo = (): (() => void) => (): void => null;
+  const bar = (): () => void => (): void => null;
+
+  // Output (Prettier master)
+  const foo = (): (() => void) => (): void => null;
+  const bar = (): (() => void) => (): void => null;
+  ```
+
 [@ikatyang]: https://github.com/ikatyang
 [@simenb]: https://github.com/SimenB
 [#5778]: https://github.com/prettier/prettier/pull/5778
 [#5783]: https://github.com/prettier/prettier/pull/5783
 [#5785]: https://github.com/prettier/prettier/pull/5785
+[#5790]: https://github.com/prettier/prettier/pull/5790
