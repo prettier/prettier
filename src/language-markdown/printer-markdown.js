@@ -25,40 +25,15 @@ const {
   getFencedCodeBlockValue,
   getOrderedListItemInfo,
   splitText,
-  punctuationPattern
+  punctuationPattern,
+  INLINE_NODE_TYPES,
+  INLINE_NODE_WRAPPER_TYPES
 } = require("./utils");
 const { replaceEndOfLineWith } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
-
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
-
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
-
-const INLINE_NODE_TYPES = [
-  "liquidNode",
-  "inlineCode",
-  "emphasis",
-  "strong",
-  "delete",
-  "link",
-  "linkReference",
-  "image",
-  "imageReference",
-  "footnote",
-  "footnoteReference",
-  "sentence",
-  "whitespace",
-  "word",
-  "break",
-  "inlineMath"
-];
-
-const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
-  "tableCell",
-  "paragraph",
-  "heading"
-]);
 
 function genericPrint(path, options, print) {
   const node = path.getValue();

@@ -7,6 +7,31 @@ const {
 } = require("./constants.evaluate");
 const { getLast } = require("../common/util");
 
+const INLINE_NODE_TYPES = [
+  "liquidNode",
+  "inlineCode",
+  "emphasis",
+  "strong",
+  "delete",
+  "link",
+  "linkReference",
+  "image",
+  "imageReference",
+  "footnote",
+  "footnoteReference",
+  "sentence",
+  "whitespace",
+  "word",
+  "break",
+  "inlineMath"
+];
+
+const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
+  "tableCell",
+  "paragraph",
+  "heading"
+]);
+
 const kRegex = new RegExp(kPattern);
 const punctuationRegex = new RegExp(punctuationPattern);
 
@@ -193,5 +218,7 @@ module.exports = {
   splitText,
   punctuationPattern,
   getFencedCodeBlockValue,
-  getOrderedListItemInfo
+  getOrderedListItemInfo,
+  INLINE_NODE_TYPES,
+  INLINE_NODE_WRAPPER_TYPES
 };

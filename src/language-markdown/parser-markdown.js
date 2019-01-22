@@ -4,7 +4,7 @@ const remarkParse = require("remark-parse");
 const unified = require("unified");
 const pragma = require("./pragma");
 const parseFrontMatter = require("../utils/front-matter");
-const { mapAst } = require("./utils");
+const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
 const remarkMath = require("remark-math");
 
@@ -54,10 +54,7 @@ function htmlToJsx() {
       if (
         node.type !== "html" ||
         /^<!--[\s\S]*-->$/.test(node.value) ||
-        // inline html
-        (parent.type === "paragraph" ||
-          parent.type === "tableCell" ||
-          parent.type === "heading")
+        INLINE_NODE_WRAPPER_TYPES.indexOf(parent.type) !== -1
       ) {
         return node;
       }

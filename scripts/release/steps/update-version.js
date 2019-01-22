@@ -1,5 +1,6 @@
 "use strict";
 
+const execa = require("execa");
 const { logPromise, readJson, writeJson, processFile } = require("../utils");
 
 async function bump({ version }) {
@@ -14,6 +15,10 @@ async function bump({ version }) {
   processFile(".github/ISSUE_TEMPLATE/integration.md", content =>
     content.replace(/^(- Prettier Version: ).*?$/m, `$1${version}`)
   );
+
+  await execa("yarn", ["update-stable-docs"], {
+    cwd: "./website"
+  });
 }
 
 module.exports = async function(params) {
