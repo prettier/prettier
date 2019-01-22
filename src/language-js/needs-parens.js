@@ -353,6 +353,20 @@ function needsParens(path, options) {
 
     case "TSParenthesizedType": {
       const grandParent = path.getParentNode(1);
+
+      /**
+       * const foo = (): (() => void) => (): void => null;
+       *                 ^          ^
+       */
+      if (
+        getUnparenthesizedNode(node).type === "TSFunctionType" &&
+        parent.type === "TSTypeAnnotation" &&
+        grandParent.type === "ArrowFunctionExpression" &&
+        grandParent.returnType === parent
+      ) {
+        return true;
+      }
+
       if (
         (parent.type === "TSTypeParameter" ||
           parent.type === "TypeParameter" ||
@@ -717,6 +731,12 @@ function isStatement(node) {
     node.type === "WhileStatement" ||
     node.type === "WithStatement"
   );
+}
+
+function getUnparenthesizedNode(node) {
+  return node.type === "TSParenthesizedType"
+    ? getUnparenthesizedNode(node.typeAnnotation)
+    : node;
 }
 
 function endsWithRightBracket(node) {
