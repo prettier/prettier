@@ -102,7 +102,27 @@ Examples:
   }
   ```
 
+- MDX: Correctly recognize inline JSX ([#5783] by [@ikatyang])
+
+  Previously, some inline JSXs are wrongly recognized as block HTML/JSX,
+  which causes unexpected behaviors. This issue is now fixed.
+
+  <!-- prettier-ignore -->
+  ```md
+  <!-- Input -->
+  _foo <InlineJSX /> bar_
+
+  <!-- Output (Prettier stable) -->
+  _foo
+
+  <InlineJSX /> bar_
+
+  <!-- Output (Prettier master) -->
+  _foo <InlineJSX /> bar_
+  ```
+
 [@ikatyang]: https://github.com/ikatyang
 [@simenb]: https://github.com/SimenB
 [#5778]: https://github.com/prettier/prettier/pull/5778
+[#5783]: https://github.com/prettier/prettier/pull/5783
 [#5785]: https://github.com/prettier/prettier/pull/5785
