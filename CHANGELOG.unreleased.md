@@ -67,3 +67,4 @@ Examples:
   <!-- Output (Prettier master) -->
   Prix·:·32·€
   ```
+JavaScript: fix edge cases for type cast comment detection ([#5793] by [@yangsu])
