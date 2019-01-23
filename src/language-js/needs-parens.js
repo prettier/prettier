@@ -34,7 +34,7 @@ function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
         comment =>
           comment.leading &&
           comments.isBlockComment(comment) &&
-          comment.value.match(/^\*\s*@type\s*{[^}]+}\s*$/) &&
+          comment.value.match(/^\*\s*@type\s*{(.|\n)+}\s*$/) &&
           util.getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "("
       )
     );

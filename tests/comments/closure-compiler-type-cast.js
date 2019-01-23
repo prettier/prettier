@@ -18,3 +18,22 @@ function returnValue() {
 var newArray = /** @type {array} */ (numberOrString).map(x => x);
 var newArray = /** @type {array} */ ((numberOrString)).map(x => x);
 var newArray = /** @type {array} */ ((numberOrString).map(x => x));
+
+
+const data = functionCall(
+  arg1,
+  arg2,
+  /** @type {{height: number, width: number}} */ (arg3));
+
+const style = /** @type {{
+  width: number,
+  height: number,
+  marginTop: number,
+  marginLeft: number,
+  marginRight: number,
+  marginBottom: number,
+}} */ ({
+  width,
+  height,
+  ...margins,
+});
