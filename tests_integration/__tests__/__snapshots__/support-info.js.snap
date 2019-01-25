@@ -448,12 +448,15 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -25,10 +37,13 @@
+@@ -25,10 +37,16 @@
         \\"flow\\",
       ],
       \\"Less\\": Array [
         \\"less\\",
       ],
++     \\"Lighting Web Components\\": Array [
++       \\"lwc\\",
++     ],
 +     \\"MDX\\": Array [
 +       \\"mdx\\",
 +     ],
@@ -462,7 +465,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       ],
       \\"PostCSS\\": Array [
         \\"css\\",
-@@ -37,12 +52,26 @@
+@@ -37,12 +55,26 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -489,7 +492,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -52,37 +81,76 @@
+@@ -52,37 +84,77 @@
           \\"start\\": -1,
           \\"step\\": 1,
         },
@@ -550,6 +553,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +         \\"yaml\\",
 +         \\"html\\",
 +         \\"angular\\",
++         \\"lwc\\",
         ],
 -       \\"default\\": \\"babylon\\",
 +       \\"default\\": undefined,
@@ -568,7 +572,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +158,15 @@
+@@ -90,14 +162,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -921,6 +925,22 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       \\"aceMode\\": \\"html\\",
+      \\"aliases\\": [\\"xhtml\\"],
+      \\"codemirrorMimeType\\": \\"text/html\\",
+      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"color\\": \\"#e34c26\\",
+      \\"extensions\\": [\\".html\\"],
+      \\"filenames\\": [],
+      \\"linguistLanguageId\\": 146,
+      \\"name\\": \\"Lighting Web Components\\",
+      \\"parsers\\": [\\"lwc\\"],
+      \\"since\\": \\"1.16.0\\",
+      \\"tmScope\\": \\"text.html.basic\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"html\\"]
+    },
+    {
+      \\"aceMode\\": \\"html\\",
       \\"color\\": \\"#2c3e50\\",
       \\"extensions\\": [\\".vue\\"],
       \\"linguistLanguageId\\": 391,
@@ -1109,7 +1129,12 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" },
         { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" },
         { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" },
-        { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" }
+        { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" },
+        {
+          \\"description\\": \\"Lighting Web Components\\",
+          \\"since\\": \\"1.16.0\\",
+          \\"value\\": \\"lwc\\"
+        }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",
