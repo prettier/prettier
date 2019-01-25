@@ -934,7 +934,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"linguistLanguageId\\": 146,
       \\"name\\": \\"Lighting Web Components\\",
       \\"parsers\\": [\\"lwc\\"],
-      \\"since\\": \\"1.16.0\\",
+      \\"since\\": \\"1.16.2\\",
       \\"tmScope\\": \\"text.html.basic\\",
       \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"html\\"]
@@ -1132,7 +1132,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" },
         {
           \\"description\\": \\"Lighting Web Components\\",
-          \\"since\\": \\"1.16.0\\",
+          \\"since\\": \\"1.16.2\\",
           \\"value\\": \\"lwc\\"
         }
       ],
