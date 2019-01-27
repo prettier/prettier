@@ -3,7 +3,6 @@
 const path = require("path");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
-const isCI = require("is-ci");
 const fs = require("fs");
 const globby = require("globby");
 const chalk = require("chalk");
@@ -55,7 +54,7 @@ function diff(a, b) {
 
 function handleError(context, filename, error) {
   if (error instanceof errors.UndefinedParserError) {
-    if (context.argv["write"] && process.stdout.isTTY && !isCI) {
+    if (context.argv["write"] && process.stdout.isTTY && !thirdParty.isCI()) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
     }
@@ -460,7 +459,7 @@ function formatFiles(context) {
       return;
     }
 
-    if (process.stdout.isTTY && !isCI) {
+    if (process.stdout.isTTY && !thirdParty.isCI()) {
       // Don't use `console.log` here since we need to replace this line.
       context.logger.log(filename, { newline: false });
     }
@@ -504,7 +503,7 @@ function formatFiles(context) {
 
     const isDifferent = output !== input;
 
-    if (process.stdout.isTTY && !isCI) {
+    if (process.stdout.isTTY && !thirdParty.isCI()) {
       // Remove previously printed filename to log it with duration.
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
