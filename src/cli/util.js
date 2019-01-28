@@ -504,7 +504,7 @@ function formatFiles(context) {
 
     const isDifferent = output !== input;
 
-    if (isTTY) {
+    if (isTTY()) {
       // Remove previously printed filename to log it with duration.
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
