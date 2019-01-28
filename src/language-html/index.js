@@ -35,7 +35,7 @@ const languages = [
       parsers: ["lwc"],
       vscodeLanguageIds: ["html"],
 
-      extensions: [".html"],
+      extensions: [],
       filenames: []
     }
   }),
