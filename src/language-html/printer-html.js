@@ -125,7 +125,7 @@ function embed(path, print, textToDoc, options) {
 
       // lwc: html`<my-element data-for={value}></my-elememt>`
       if (options.parser === "lwc") {
-        const interpolationRegex = /\{([\s\S]+?)\}/g;
+        const interpolationRegex = /^\{[\s\S]*\}$/;
         if (
           interpolationRegex.test(
             options.originalText.slice(
