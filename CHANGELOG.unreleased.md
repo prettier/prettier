@@ -41,3 +41,11 @@ Examples:
   ```
 
 -->
+
+- CLI: Fix CI detection to avoid unwanted TTY behavior ([#5804] by [@kachkaev])
+
+  In Prettier 1.16.0 and 1.16.1, `--list-different` and `--check` logged every file in some CI environments, instead of just unformatted files.
+  This unwanted behavior is now fixed.
+
+[#5804]: https://github.com/prettier/prettier/pull/5804
+[@kachkaev]: https://github.com/kachkaev
