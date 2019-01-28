@@ -225,7 +225,7 @@ This option cannot be used with --range-start and --range-end.",
               ],
             },
             Object {
-              "description": "Lighting Web Components",
+              "description": "Lightning Web Components",
               "enum": Array [
                 "lwc",
               ],

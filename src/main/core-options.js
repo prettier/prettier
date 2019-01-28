@@ -161,7 +161,7 @@ const options = {
       },
       { value: "html", since: "1.15.0", description: "HTML" },
       { value: "angular", since: "1.15.0", description: "Angular" },
-      { value: "lwc", since: "1.16.2", description: "Lighting Web Components" }
+      { value: "lwc", since: "1.17.0", description: "Lightning Web Components" }
     ]
   },
   plugins: {

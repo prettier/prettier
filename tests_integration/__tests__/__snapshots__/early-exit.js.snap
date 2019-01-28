@@ -185,7 +185,7 @@ Valid options:
   yaml             YAML
   html             HTML
   angular          Angular
-  lwc              Lighting Web Components
+  lwc              Lightning Web Components
 "
 `;
 

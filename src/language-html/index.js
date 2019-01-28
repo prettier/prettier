@@ -30,7 +30,7 @@ const languages = [
   }),
   createLanguage(require("linguist-languages/data/html"), {
     override: {
-      name: "Lightning Web Component",
+      name: "Lightning Web Components",
       since: "1.17.0",
       parsers: ["lwc"],
       vscodeLanguageIds: ["html"],
