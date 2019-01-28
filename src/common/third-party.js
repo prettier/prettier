@@ -9,5 +9,6 @@ module.exports = {
   cosmiconfig,
   findParentDir,
   getStream,
+  /* istanbul ignore next */
   isCI: () => isCIValue
 };
