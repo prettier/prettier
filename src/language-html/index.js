@@ -31,7 +31,7 @@ const languages = [
   createLanguage(require("linguist-languages/data/html"), {
     override: {
       name: "Lighting Web Components",
-      since: "1.16.2",
+      since: "1.17.0",
       parsers: ["lwc"],
       vscodeLanguageIds: ["html"],
 
