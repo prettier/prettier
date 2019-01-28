@@ -1,4 +1,4 @@
-- LWC: Adds support for Lighting Web Components in HTML Parser ([#5800] by [@ntotten])
+- LWC: Add support for Lightning Web Component ([#5800] by [@ntotten])
 
   Supports LWC template format for HTML attributes by adding a new option for the HTML parser called `lwc`.
 
