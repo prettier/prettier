@@ -42,18 +42,12 @@ Examples:
 
 -->
 
-- HTML: Do not format non-normal whitespaces as normal whitespaces ([#5797] by [@ikatyang])
+- HTML: Do not format non-normal whitespace as normal whitespace ([#5797] by [@ikatyang])
 
   Previously, only non-breaking whitespaces (U+00A0) are marked as non-normal whitespace,
   which means other non-normal whitespaces such as non-breaking narrow whitespaces (U+202F)
-  could be formatted as normal whitespaces, which breaks the output. Instead of using blacklist,
-  we now use whitelist to mark every whitespace that is not
-
-  - standard whitespace
-  - line break
-  - tab
-
-  as non-normal whitespace.
+  could be formatted as normal whitespaces, which breaks the output. We now follow the spec to
+  exclude all non-[ASCII whitespace](https://infra.spec.whatwg.org/#ascii-whitespace) from whitespace normalization.
 
   (`·` represents a non-breaking narrow whitespace)
 
