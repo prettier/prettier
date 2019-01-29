@@ -216,10 +216,10 @@
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js"
   },
-  "name": "r",
-  "description": "![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)",
-  "version": "1.12.3",
-  "main": "main.js",
+  "name": "edwinfrc",
+  "description": "vscode",
+  "version": "1.13.1",
+  "main": "gulp.js",
   "bin": {
     "prettier-vscode": "prettier.js"
   },
@@ -227,7 +227,7 @@
     "doc": "docs",
     "test": "tests"
   },
-  "repository": "git+https://github.com/edwinfrc/prettier.git",
+  "repository": "https://github.com/edwinfrc/prettier",
   "keywords": [
     "app",
     "web",
@@ -238,9 +238,10 @@
     "javascript"
   ],
   "author": "vscode",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/edwinfrc/prettier/issues"
   },
-  "homepage": "https://github.com/edwinfrc/prettier#readme"
+  "homepage": "https://github.com/edwinfrc/prettier#readme",
+  "private": null
 }
