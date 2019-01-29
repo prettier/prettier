@@ -25,6 +25,13 @@ const data = functionCall(
   arg2,
   /** @type {{height: number, width: number}} */ (arg3));
 
+// Invalid type casts
+const v = /** @type {} */ (value);
+const v = /** @type {}} */ (value);
+const v = /** @type } */ (value);
+const v = /** @type { */ (value);
+const v = /** @type {{} */ (value);
+
 const style = /** @type {{
   width: number,
   height: number,
