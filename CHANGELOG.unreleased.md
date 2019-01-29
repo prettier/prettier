@@ -73,7 +73,7 @@ Examples:
   Previously, type cast comments with record types were ignored and prettier
   stripped the subsequent parens. Prettier master handles these cases correctly.
 
-  <!-- prettier-ignore --\>
+  <!-- prettier-ignore -->
   ```js
   // Input
   const v = /** @type {{key: number}} */ (value);
