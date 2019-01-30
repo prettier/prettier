@@ -42,7 +42,7 @@ function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
 
   function isTypeCastComment(comment) {
     const trimmed = comment.trim();
-    if (!/^\*\s*@type\s*\{[^]+\}/.test(trimmed)) {
+    if (!/^\*\s*@type\s*\{[^]+\}$/.test(trimmed)) {
       return false;
     }
     let isCompletelyClosed = false;
