@@ -285,6 +285,7 @@ export default function(parser) {
       ].join("\n");
     case "html":
     case "angular":
+    case "lwc":
       return [
         "<!DOCTYPE html>",
         '<HTML CLASS="no-js mY-ClAsS">',

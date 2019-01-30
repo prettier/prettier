@@ -137,6 +137,11 @@ var parsers = {
   get angular() {
     importScriptOnce("lib/parser-html.js");
     return prettierPlugins.html.parsers.angular;
+  },
+  // Lightning Web Components
+  get lwc() {
+    importScriptOnce("lib/parser-html.js");
+    return prettierPlugins.html.parsers.lwc;
   }
 };
 

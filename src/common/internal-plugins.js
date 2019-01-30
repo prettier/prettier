@@ -158,7 +158,7 @@ module.exports = [
       get angular() {
         return eval("require")("../language-html/parser-html").parsers.angular;
       },
-      // LWC
+      // Lightning Web Components
       get lwc() {
         return eval("require")("../language-html/parser-html").parsers.lwc;
       }
