@@ -67,3 +67,20 @@ Examples:
   <!-- Output (Prettier master) -->
   Prix·:·32·€
   ```
+
+- JavaScript: fix record type cast comment detection ([#5793] by [@yangsu])
+
+  Previously, type cast comments with record types were ignored and prettier
+  stripped the subsequent parens. Prettier master handles these cases correctly.
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  const v = /** @type {{key: number}} */ (value);
+
+  // Output (Prettier stable)
+  const v = /** @type {{key: number}} */ value;
+
+  // Output (Prettier master)
+  const v = /** @type {{key: number}} */ (value);
+  ```

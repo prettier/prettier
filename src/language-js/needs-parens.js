@@ -34,10 +34,36 @@ function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
         comment =>
           comment.leading &&
           comments.isBlockComment(comment) &&
-          comment.value.match(/^\*\s*@type\s*{[^}]+}\s*$/) &&
+          isTypeCastComment(comment.value) &&
           util.getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "("
       )
     );
+  }
+
+  function isTypeCastComment(comment) {
+    const trimmed = comment.trim();
+    if (!/^\*\s*@type\s*\{[^]+\}$/.test(trimmed)) {
+      return false;
+    }
+    let isCompletelyClosed = false;
+    let unpairedBracketCount = 0;
+    for (const char of trimmed) {
+      if (char === "{") {
+        if (isCompletelyClosed) {
+          return false;
+        }
+        unpairedBracketCount++;
+      } else if (char === "}") {
+        if (unpairedBracketCount === 0) {
+          return false;
+        }
+        unpairedBracketCount--;
+        if (unpairedBracketCount === 0) {
+          isCompletelyClosed = true;
+        }
+      }
+    }
+    return unpairedBracketCount === 0;
   }
 }
 
