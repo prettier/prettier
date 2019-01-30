@@ -41,3 +41,33 @@ Examples:
   ```
 
 -->
+
+- Markdown: Do not align table contents if it exceeds the print width and `--prose-wrap never` is set ([#5701] by [@chenshuai2144])
+
+  The aligned table is less readable than the compact one
+  if it's particularly long and the word wrapping is not enabled in the editor
+  so we now print them as compact tables in these situations.
+
+  <!-- prettier-ignore -->
+  ```md
+  <!-- Input -->
+  | Property | Description | Type | Default |
+  | -------- | ----------- | ---- | ------- |
+  | bordered | Toggles rendering of the border around the list | boolean | false |
+  | itemLayout | The layout of list, default is `horizontal`, If a vertical list is desired, set the itemLayout property to `vertical` | string | - |
+
+  <!-- Output (Prettier stable, --prose-wrap never) -->
+  | Property   | Description                                                                                                           | Type    | Default |
+  | ---------- | --------------------------------------------------------------------------------------------------------------------- | ------- | ------- |
+  | bordered   | Toggles rendering of the border around the list                                                                       | boolean | false   |
+  | itemLayout | The layout of list, default is `horizontal`, If a vertical list is desired, set the itemLayout property to `vertical` | string  | -       |
+
+  <!-- Output (Prettier master, --prose-wrap never) -->
+  | Property | Description | Type | Default |
+  | --- | --- | --- | --- |
+  | bordered | Toggles rendering of the border around the list | boolean | false |
+  | itemLayout | The layout of list, default is `horizontal`, If a vertical list is desired, set the itemLayout property to `vertical` | string | - |
+  ```
+
+[@chenshuai2144]: https://github.com/chenshuai2144
+[#5701]: https://github.com/prettier/prettier/pull/5701
