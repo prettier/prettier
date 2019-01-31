@@ -1,3 +1,41 @@
+# 1.16.3
+
+[diff](https://github.com/prettier/prettier/compare/1.16.2...1.16.3)
+
+- TypeScript: Revert "Update typescript-estree to new package name" ([#5818] by [@ikatyang])
+
+  There's an internal change introduced in Prettier 1.16.2,
+  which updated `typescript-estree` to its new package name,
+  but unfortunately it broke the output
+  so we reverted it as a temporary workaround for now.
+
+  <!-- prettier-ignore -->
+  ```ts
+  // Input
+  export default {
+    load<K, T>(k: K, t: T) {
+      return {k, t};
+    }
+  }
+
+  // Output (Prettier 1.16.2)
+  export default {
+    load(k: K, t: T) {
+      return { k, t };
+    }
+  };
+
+  // Output (Prettier 1.16.3)
+  export default {
+    load<K, T>(k: K, t: T) {
+      return { k, t };
+    }
+  };
+  ```
+
+[@ikatyang]: https://github.com/ikatyang
+[#5818]: https://github.com/prettier/prettier/pull/5818
+
 # 1.16.2
 
 [diff](https://github.com/prettier/prettier/compare/1.16.1...1.16.2)

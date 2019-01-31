@@ -68,6 +68,3 @@ Examples:
   | bordered | Toggles rendering of the border around the list | boolean | false |
   | itemLayout | The layout of list, default is `horizontal`, If a vertical list is desired, set the itemLayout property to `vertical` | string | - |
   ```
-
-[@chenshuai2144]: https://github.com/chenshuai2144
-[#5701]: https://github.com/prettier/prettier/pull/5701
