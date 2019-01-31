@@ -915,8 +915,8 @@ function getTextValueParts(node, value = node.value) {
           dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
           hardline
         )
-    : // non-breaking whitespace: 0xA0
-      join(line, value.split(/[^\S\xA0]+/)).parts;
+    : // https://infra.spec.whatwg.org/#ascii-whitespace
+      join(line, value.split(/[\t\n\f\r ]+/)).parts;
 }
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {

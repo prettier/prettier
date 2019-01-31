@@ -245,6 +245,10 @@ isPreviousLineEmpty(text: string, node: object, options: object): boolean;
 mapDoc(doc: object, callback: function): void;
 ```
 
+### Tutorials
+
+- [How to write a plugin for Prettier](https://medium.com/@fvictorio/how-to-write-a-plugin-for-prettier-a0d98c845e70): Teaches you how to write a very basic Prettier plugin for TOML.
+
 ## Testing Plugins
 
 Since plugins can be resolved using relative paths, when working on one you can do:

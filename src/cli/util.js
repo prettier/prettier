@@ -19,6 +19,7 @@ const optionsModule = require("../main/options");
 const optionsNormalizer = require("../main/options-normalizer");
 const thirdParty = require("../common/third-party");
 const arrayify = require("../utils/arrayify");
+const isTTY = require("../utils/is-tty");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -54,7 +55,7 @@ function diff(a, b) {
 
 function handleError(context, filename, error) {
   if (error instanceof errors.UndefinedParserError) {
-    if (context.argv["write"] && process.stdout.isTTY) {
+    if (context.argv["write"] && isTTY()) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
     }
@@ -459,7 +460,7 @@ function formatFiles(context) {
       return;
     }
 
-    if (process.stdout.isTTY) {
+    if (isTTY()) {
       // Don't use `console.log` here since we need to replace this line.
       context.logger.log(filename, { newline: false });
     }
@@ -503,7 +504,7 @@ function formatFiles(context) {
 
     const isDifferent = output !== input;
 
-    if (process.stdout.isTTY) {
+    if (isTTY()) {
       // Remove previously printed filename to log it with duration.
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);

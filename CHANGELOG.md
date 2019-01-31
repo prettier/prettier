@@ -1,3 +1,95 @@
+# 1.16.3
+
+[diff](https://github.com/prettier/prettier/compare/1.16.2...1.16.3)
+
+- TypeScript: Revert "Update typescript-estree to new package name" ([#5818] by [@ikatyang])
+
+  There's an internal change introduced in Prettier 1.16.2,
+  which updated `typescript-estree` to its new package name,
+  but unfortunately it broke the output
+  so we reverted it as a temporary workaround for now.
+
+  <!-- prettier-ignore -->
+  ```ts
+  // Input
+  export default {
+    load<K, T>(k: K, t: T) {
+      return {k, t};
+    }
+  }
+
+  // Output (Prettier 1.16.2)
+  export default {
+    load(k: K, t: T) {
+      return { k, t };
+    }
+  };
+
+  // Output (Prettier 1.16.3)
+  export default {
+    load<K, T>(k: K, t: T) {
+      return { k, t };
+    }
+  };
+  ```
+
+[@ikatyang]: https://github.com/ikatyang
+[#5818]: https://github.com/prettier/prettier/pull/5818
+
+# 1.16.2
+
+[diff](https://github.com/prettier/prettier/compare/1.16.1...1.16.2)
+
+- CLI: Fix CI detection to avoid unwanted TTY behavior ([#5804] by [@kachkaev])
+
+  In Prettier 1.16.0 and 1.16.1, `--list-different` and `--check` logged every file in some CI environments, instead of just unformatted files.
+  This unwanted behavior is now fixed.
+
+- HTML: Do not format non-normal whitespace as normal whitespace ([#5797] by [@ikatyang])
+
+  Previously, only non-breaking whitespaces (U+00A0) are marked as non-normal whitespace,
+  which means other non-normal whitespaces such as non-breaking narrow whitespaces (U+202F)
+  could be formatted as normal whitespaces, which breaks the output. We now follow the spec to
+  exclude all non-[ASCII whitespace](https://infra.spec.whatwg.org/#ascii-whitespace) from whitespace normalization.
+
+  (`·` represents a non-breaking narrow whitespace)
+
+  <!-- prettier-ignore -->
+  ```html
+  <!-- Input -->
+  Prix·:·32·€
+
+  <!-- Output (Prettier 1.16.1) -->
+  Prix : 32 €
+
+  <!-- Output (Prettier 1.16.2) -->
+  Prix·:·32·€
+  ```
+
+- JavaScript: Fix record type cast comment detection ([#5793] by [@yangsu])
+
+  Previously, type cast comments with record types were ignored and prettier
+  stripped the subsequent parens. Prettier 1.16.2 handles these cases correctly.
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  const v = /** @type {{key: number}} */ (value);
+
+  // Output (Prettier 1.16.1)
+  const v = /** @type {{key: number}} */ value;
+
+  // Output (Prettier 1.16.2)
+  const v = /** @type {{key: number}} */ (value);
+  ```
+
+[@ikatyang]: https://github.com/ikatyang
+[@kachkaev]: https://github.com/kachkaev
+[@yangsu]: https://github.com/yangsu
+[#5793]: https://github.com/prettier/prettier/pull/5793
+[#5797]: https://github.com/prettier/prettier/pull/5797
+[#5804]: https://github.com/prettier/prettier/pull/5804
+
 # 1.16.1
 
 [diff](https://github.com/prettier/prettier/compare/1.16.0...1.16.1)
