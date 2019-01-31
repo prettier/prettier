@@ -60,7 +60,10 @@ function loadPlugins(plugins, pluginSearchDirs) {
       // In some fringe cases (ex: files "mounted" as virtual directories), the
       // isDirectory(resolvedPluginSearchDir) check might be false even though
       // the node_modules actually exists.
-      if (!isDirectory(nodeModulesDir) && !isDirectory(resolvedPluginSearchDir)) {
+      if (
+        !isDirectory(nodeModulesDir) &&
+        !isDirectory(resolvedPluginSearchDir)
+      ) {
         throw new Error(
           `${pluginSearchDir} does not exist or is not a directory`
         );
