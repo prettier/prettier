@@ -2346,6 +2346,7 @@ function printPathNoParens(path, options, print, args) {
     }
     case "ClassDeclaration":
     case "ClassExpression":
+    case "TSAbstractClassDeclaration":
       if (isNodeStartingWithDeclare(n, options)) {
         parts.push("declare ");
       }
@@ -4358,6 +4359,7 @@ function printExportDeclaration(path, options, print) {
       isDefault &&
       (decl.declaration.type !== "ClassDeclaration" &&
         decl.declaration.type !== "FunctionDeclaration" &&
+        decl.declaration.type !== "TSAbstractClassDeclaration" &&
         decl.declaration.type !== "TSInterfaceDeclaration" &&
         decl.declaration.type !== "DeclareClass" &&
         decl.declaration.type !== "DeclareFunction" &&
@@ -4524,7 +4526,7 @@ function printClass(path, options, print) {
   const n = path.getValue();
   const parts = [];
 
-  if (n.abstract) {
+  if (n.type === "TSAbstractClassDeclaration") {
     parts.push("abstract ");
   }
 
