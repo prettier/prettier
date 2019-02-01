@@ -60,9 +60,8 @@ function runPrettier(dir, args, options) {
   jest.spyOn(fs, "statSync").mockImplementation(filename => {
     if (path.basename(filename) === `virtualDirectory`) {
       return origStatSync(path.join(__dirname, __filename));
-    } else {
-      return origStatSync(filename);
     }
+    return origStatSync(filename);
   });
 
   const originalCwd = process.cwd();
