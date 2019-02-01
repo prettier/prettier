@@ -47,6 +47,7 @@ function getMarkdownSyntax(options) {
     case "glimmer":
       return "hbs";
     case "angular":
+    case "lwc":
       return "html";
     default:
       return options.parser;

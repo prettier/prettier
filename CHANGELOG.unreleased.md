@@ -68,3 +68,19 @@ Examples:
   | bordered | Toggles rendering of the border around the list | boolean | false |
   | itemLayout | The layout of list, default is `horizontal`, If a vertical list is desired, set the itemLayout property to `vertical` | string | - |
   ```
+
+- LWC: Add support for Lightning Web Components ([#5800] by [@ntotten])
+
+  Supports [Lightning Web Components (LWC)](https://developer.salesforce.com/docs/component-library/documentation/lwc) template format for HTML attributes by adding a new parser called `lwc`.
+
+  <!-- prettier-ignore -->
+  ```html
+  // Input
+  <my-element data-for={value}></my-element>
+
+  // Output (Prettier stable)
+  <my-element data-for="{value}"></my-element>
+
+  // Output (Prettier master)
+  <my-element data-for={value}></my-element>
+  ```

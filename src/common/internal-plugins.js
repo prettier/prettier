@@ -157,6 +157,10 @@ module.exports = [
       // Angular
       get angular() {
         return eval("require")("../language-html/parser-html").parsers.angular;
+      },
+      // Lightning Web Components
+      get lwc() {
+        return eval("require")("../language-html/parser-html").parsers.lwc;
       }
     }
   },

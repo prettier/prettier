@@ -123,6 +123,21 @@ function embed(path, print, textToDoc, options) {
         return concat([node.rawName, "=", node.value]);
       }
 
+      // lwc: html`<my-element data-for={value}></my-elememt>`
+      if (options.parser === "lwc") {
+        const interpolationRegex = /^\{[\s\S]*\}$/;
+        if (
+          interpolationRegex.test(
+            options.originalText.slice(
+              node.valueSpan.start.offset,
+              node.valueSpan.end.offset
+            )
+          )
+        ) {
+          return concat([node.rawName, "=", node.value]);
+        }
+      }
+
       const embeddedAttributeValueDoc = printEmbeddedAttributeValue(
         node,
         (code, opts) =>

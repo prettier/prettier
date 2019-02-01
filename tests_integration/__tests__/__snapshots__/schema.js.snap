@@ -224,6 +224,12 @@ This option cannot be used with --range-start and --range-end.",
                 "angular",
               ],
             },
+            Object {
+              "description": "Lightning Web Components",
+              "enum": Array [
+                "lwc",
+              ],
+            },
           ],
         },
         "pluginSearchDirs": Object {

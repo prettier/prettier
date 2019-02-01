@@ -28,6 +28,17 @@ const languages = [
       ]
     }
   }),
+  createLanguage(require("linguist-languages/data/html"), {
+    override: {
+      name: "Lightning Web Components",
+      since: "1.17.0",
+      parsers: ["lwc"],
+      vscodeLanguageIds: ["html"],
+
+      extensions: [],
+      filenames: []
+    }
+  }),
   createLanguage(require("linguist-languages/data/vue"), {
     override: {
       since: "1.10.0",

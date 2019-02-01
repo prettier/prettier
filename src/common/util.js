@@ -508,7 +508,8 @@ function printString(raw, options, isDirectiveLiteral) {
       options.parser === "scss" ||
       options.parentParser === "html" ||
       options.parentParser === "vue" ||
-      options.parentParser === "angular"
+      options.parentParser === "angular" ||
+      options.parentParser === "lwc"
     )
   );
 }
