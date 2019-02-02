@@ -84,3 +84,29 @@ Examples:
   // Output (Prettier master)
   <my-element data-for={value}></my-element>
   ```
+
+- TypeScript: Don’t remove generics in object methods in TS ([#5824] by [@j-f1])
+
+  <!-- prettier-ignore -->
+  ```ts
+  // Input
+  export default {
+    load<K, T>(k: K, t: T) {
+      return {k, t};
+    }
+  }
+
+  // Output (Prettier stable)
+  export default {
+    load(k: K, t: T) {
+      return {k, t};
+    }
+  }
+
+  // Output (Prettier master)
+  export default {
+    load<K, T>(k: K, t: T) {
+      return {k, t};
+    }
+  }
+  ```
