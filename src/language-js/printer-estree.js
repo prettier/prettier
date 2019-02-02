@@ -3750,10 +3750,15 @@ function printMethod(path, options, print) {
 
   parts.push(
     key,
-    concat(
-      path.call(
+    concat([
+      node.typeParameters
+        ? path.call(print, "typeParameters")
+        : path.call(
+            valuePath => printFunctionTypeParameters(valuePath, options, print),
+            "value"
+          ),
+      ...path.call(
         valuePath => [
-          printFunctionTypeParameters(valuePath, options, print),
           group(
             concat([
               printFunctionParams(valuePath, print, options),
@@ -3763,7 +3768,7 @@ function printMethod(path, options, print) {
         ],
         "value"
       )
-    )
+    ])
   );
 
   if (!node.value.body || node.value.body.length === 0) {
