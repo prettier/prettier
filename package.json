@@ -96,7 +96,7 @@
     "jest-snapshot-serializer-raw": "1.1.0",
     "jest-watch-typeahead": "0.1.0",
     "mkdirp": "0.5.1",
-    "prettier": "1.16.3",
+    "prettier": "1.16.4",
     "prettylint": "1.0.0",
     "rimraf": "2.6.2",
     "rollup": "0.47.6",

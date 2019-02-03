@@ -1,3 +1,14 @@
+# 1.16.4
+
+[diff](https://github.com/prettier/prettier/compare/1.16.3...1.16.4)
+
+- API: Fix `prettier.getSupportInfo()` reporting babel parser for older versions of Prettier. ([#5826] by [@azz])
+
+  In version `1.16.0` of Prettier, the `babylon` parser was renamed to `babel`. Unfortunately this lead to a minor breaking change: `prettier.getSupportInfo('1.15.0')` would report that it supported `babel`, not `babylon`, which breaks text-editor integrations. This has now been fixed.
+
+[@azz]: https://github.com/azz
+[#5826]: https://github.com/prettier/prettier/pull/5826
+
 # 1.16.3
 
 [diff](https://github.com/prettier/prettier/compare/1.16.2...1.16.3)
