@@ -67,15 +67,15 @@ exports[`API getSupportInfo() with version 0.0.0 1`] = `
 Object {
   "languages": Object {
     "Flow": Array [
-      "babel",
+      "babylon",
       "flow",
     ],
     "JSX": Array [
-      "babel",
+      "babylon",
       "flow",
     ],
     "JavaScript": Array [
-      "babel",
+      "babylon",
       "flow",
     ],
   },
@@ -137,14 +137,14 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 +       \\"postcss\\",
 +     ],
       \\"Flow\\": Array [
-        \\"babel\\",
+        \\"babylon\\",
         \\"flow\\",
       ],
       \\"JSX\\": Array [
 @@ -10,24 +13,51 @@
       ],
       \\"JavaScript\\": Array [
-        \\"babel\\",
+        \\"babylon\\",
         \\"flow\\",
       ],
 +     \\"Less\\": Array [
@@ -232,7 +232,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 @@ -5,10 +5,19 @@
       ],
       \\"Flow\\": Array [
-        \\"babel\\",
+        \\"babylon\\",
         \\"flow\\",
       ],
 +     \\"GraphQL\\": Array [
@@ -245,7 +245,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
 +       \\"json\\",
 +     ],
       \\"JSX\\": Array [
-        \\"babel\\",
+        \\"babylon\\",
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
@@ -277,12 +277,12 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
 +       \\"css\\",
       ],
       \\"Flow\\": Array [
-        \\"babel\\",
+        \\"babylon\\",
         \\"flow\\",
       ],
 @@ -23,17 +23,17 @@
       \\"JavaScript\\": Array [
-        \\"babel\\",
+        \\"babylon\\",
         \\"flow\\",
       ],
       \\"Less\\": Array [
@@ -407,12 +407,12 @@ exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
           \\"start\\": 0,"
 `;
 
-exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
+exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
 "Snapshot Diff:
 - First value
 + Second value
 
-@@ -1,23 +1,35 @@
+@@ -1,34 +1,49 @@
   Object {
     \\"languages\\": Object {
 +     \\"Angular\\": Array [
@@ -422,7 +422,8 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"css\\",
       ],
       \\"Flow\\": Array [
-        \\"babel\\",
+-       \\"babylon\\",
++       \\"babel\\",
         \\"flow\\",
       ],
       \\"GraphQL\\": Array [
@@ -444,11 +445,13 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +       \\"json5\\",
 +     ],
       \\"JSX\\": Array [
-        \\"babel\\",
+-       \\"babylon\\",
++       \\"babel\\",
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -25,10 +37,13 @@
+-       \\"babylon\\",
++       \\"babel\\",
         \\"flow\\",
       ],
       \\"Less\\": Array [
@@ -587,6 +590,11 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       \\"rangeEnd\\": Object {
         \\"default\\": Infinity,
         \\"range\\": Object {"
+`;
+
+exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
+"Snapshot Diff:
+Compared values have no visual difference."
 `;
 
 exports[`CLI --support-info (stderr) 1`] = `""`;
