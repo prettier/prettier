@@ -84,3 +84,7 @@ Examples:
   // Output (Prettier master)
   <my-element data-for={value}></my-element>
   ```
+
+- Fix `prettier.getSupportInfo()` reporting babel parser for older versions of Prettier. ([#5826] by [@azz])
+
+  In version `1.16.0` of Prettier, the `babylon` parser was renamed to `babel`. Unfortunately this lead to a minor breaking change: `prettier.getSupportInfo('1.15.0')` would report that it supported `babel`, not `babylon`, which breaks text-editor integrations. This has now been fixed.
