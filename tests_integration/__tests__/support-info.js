@@ -13,6 +13,7 @@ describe("API getSupportInfo()", () => {
     "1.7.1",
     "1.8.0",
     "1.8.2",
+    "1.16.0",
     undefined
   ];
 
