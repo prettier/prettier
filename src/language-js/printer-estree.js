@@ -3758,12 +3758,13 @@ function printMethod(path, options, print) {
             "value"
           ),
       path.call(
-        valuePath => group(
-          concat([
-            printFunctionParams(valuePath, print, options),
-            printReturnType(valuePath, print, options)
-          ])
-        ),
+        valuePath =>
+          group(
+            concat([
+              printFunctionParams(valuePath, print, options),
+              printReturnType(valuePath, print, options)
+            ])
+          ),
         "value"
       )
     ])
