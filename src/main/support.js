@@ -96,8 +96,8 @@ function getSupportInfo(version, opts) {
       // "babylon" was renamed to "babel" in 1.16.0
       if (useBabylonParser && language.parsers.includes("babel")) {
         return Object.assign({}, language, {
-          parsers: language.parsers.map(
-            parser => (parser === "babel" ? "babylon" : parser)
+          parsers: language.parsers.map(parser =>
+            parser === "babel" ? "babylon" : parser
           )
         });
       }
