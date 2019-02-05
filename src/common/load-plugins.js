@@ -52,16 +52,22 @@ function loadPlugins(plugins, pluginSearchDirs) {
         pluginSearchDir
       );
 
-      if (!isDirectory(resolvedPluginSearchDir)) {
-        throw new Error(
-          `${pluginSearchDir} does not exist or is not a directory`
-        );
-      }
-
       const nodeModulesDir = path.resolve(
         resolvedPluginSearchDir,
         "node_modules"
       );
+
+      // In some fringe cases (ex: files "mounted" as virtual directories), the
+      // isDirectory(resolvedPluginSearchDir) check might be false even though
+      // the node_modules actually exists.
+      if (
+        !isDirectory(nodeModulesDir) &&
+        !isDirectory(resolvedPluginSearchDir)
+      ) {
+        throw new Error(
+          `${pluginSearchDir} does not exist or is not a directory`
+        );
+      }
 
       return findPluginsInNodeModules(nodeModulesDir).map(pluginName => ({
         name: pluginName,

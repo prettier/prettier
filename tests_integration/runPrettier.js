@@ -55,6 +55,15 @@ function runPrettier(dir, args, options) {
     write.push({ filename, content });
   });
 
+  const origStatSync = fs.statSync;
+
+  jest.spyOn(fs, "statSync").mockImplementation(filename => {
+    if (path.basename(filename) === `virtualDirectory`) {
+      return origStatSync(path.join(__dirname, __filename));
+    }
+    return origStatSync(filename);
+  });
+
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
   const originalExitCode = process.exitCode;
