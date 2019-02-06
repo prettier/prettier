@@ -1,5 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`argument-list-preserve-line.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+    constructor(
+        @inject(Bar)
+        private readonly bar: IBar,
+
+        @inject(MyProcessor)
+        private readonly myProcessor: IMyProcessor,
+
+        @inject(InjectionTypes.AnotherThing)
+
+        private readonly anotherThing: IAnotherThing | undefined,
+    ) { }
+}
+
+=====================================output=====================================
+class Foo {
+  constructor(
+    @inject(Bar)
+    private readonly bar: IBar,
+
+    @inject(MyProcessor)
+    private readonly myProcessor: IMyProcessor,
+
+    @inject(InjectionTypes.AnotherThing)
+    private readonly anotherThing: IAnotherThing | undefined
+  ) {}
+}
+
+================================================================================
+`;
+
 exports[`decorator-type-assertion.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
