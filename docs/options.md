@@ -306,7 +306,7 @@ It also converts mixed line endings within one file to what it finds at the end 
 
 When people collaborate on a project from different operating systems, it becomes easy to end up with mixed line endings in the central git repository.
 It is also possible for Windows users to accidentally change line endings in an already committed file from `LF` to `CRLF`.
-Doing so produces a large `git diff`, and if it get unnoticed during code review, all line-by-line history for the file (`git blame`) gets lost.
+Doing so produces a large `git diff`, and if it goes unnoticed during code review, all line-by-line history for the file (`git blame`) gets lost.
 
 If you want to make sure that your git repository only contains Linux-style line endings in files covered by Prettier:
 
