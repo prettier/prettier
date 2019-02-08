@@ -41,6 +41,7 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 
 - [`@prettier/plugin-python`](https://github.com/prettier/plugin-python)
 - [`@prettier/plugin-php`](https://github.com/prettier/plugin-php)
+- [`@prettier/plugin-ruby`](https://github.com/prettier/plugin-ruby)
 - [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
 
 ## Community Plugins
@@ -49,7 +50,6 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
 - [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
 - [`prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg) by [**@benjie**](https://github.com/benjie)
-- [`prettier-plugin-ruby`](https://github.com/kddeisz/prettier-ruby) by [**@kddeisz**](https://github.com/kddeisz)
 - [`prettier-plugin-ruby`](https://github.com/iamsolankiamit/prettier-ruby) by [**@iamsolankiamit**](https://github.com/iamsolankiamit)
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
 - [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
