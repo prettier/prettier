@@ -8,6 +8,7 @@ let object = {
 
 // preserve parens only for type casts
 let assignment = /** @type {string} */ (getValue());
+let value = /** @type {string} */ (this.members[0]).functionCall();
 
 functionCall(1 + /** @type {string} */ (value), /** @type {!Foo} */ ({}));
 
