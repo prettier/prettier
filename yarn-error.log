@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 =======
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\edwin perez\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add lodash --dev
+  C:\Program Files\nodejs\node.exe C:\Users\edwin perez\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js --ignore-script
 
 PATH: 
   C:\Users\edwin perez\bin;E:\Program Files\mingw64\bin;E:\Program Files\usr\local\bin;E:\Program Files\usr\bin;E:\Program Files\usr\bin;E:\Program Files\mingw64\bin;E:\Program Files\usr\bin;C:\Users\edwin perez\bin;C:\Program Files\Microsoft MPI\Bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\PuTTY;C:\Program Files\dotnet;C:\Users\edwin perez\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn;C:\Program Files\Microsoft SQL Server\140\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn;C:\Program Files\Microsoft SQL Server\140\DTS\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn;C:\Program Files (x86)\Xoreax\IncrediBuild;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Microsoft Emulator Manager\1.0;E:\Program Files\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs;C:\Users\edwin perez\AppData\Local\Microsoft\WindowsApps;C:\Users\edwin perez\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\edwin perez\AppData\Local\.meteor;C:\AppServ\Apache24\bin;C:\AppServ\php5;C:\AppServ\MySQL\bin;E:\VS\bin;C:\Program Files (x86)\Microsoft VS Code\bin;C:\AppServ\Apache24\bin;C:\AppServ\php5;C:\AppServ\MySQL\bin;C:\Program Files\Microsoft VS Code\bin;C:\Users\edwin perez\AppData\Roaming\npm;E:\Program Files\usr\bin\vendor_perl;E:\Program Files\usr\bin\core_perl
@@ -16,10 +16,16 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.30.3.tgz: ENOSPC: no space left on device, write
+  SyntaxError: E:\dev\prettier\package.json: Unexpected token # in JSON at position 2
+      at JSON.parse (<anonymous>)
+      at C:\Users\edwin perez\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1631:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\edwin perez\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:304:30)
+      at C:\Users\edwin perez\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:315:13
 
 npm manifest: 
   {
+<<<<<<< HEAD
     "name": "prettier",
     "version": "1.16.0-dev",
     "description": "Prettier is an opinionated code formatter",
@@ -34,6 +40,22 @@ npm manifest:
     "engines": {
       "node": ">=6"
     },
+=======
+  #  "name": "prettier",
+  #  "version": "1.16.0-dev",
+   # "description": "Prettier is an opinionated code formatter",
+    #"bin": {
+   #   "prettier": "./bin/prettier.js"
+   # },
+  #  "repository": "prettier/prettier",
+   # "homepage": "https://prettier.io",
+  #  "author": "James Long",
+   # "license": "MIT",
+    #"main": "./index.js",
+   # "engines": {
+   #   "node": ">=6"
+   # },
+>>>>>>> commit
     "dependencies": {
       "@angular/compiler": "6.1.10",
       "@babel/code-frame": "7.0.0-beta.46",
@@ -726,7 +748,10 @@ Lockfile:
     dependencies:
       "@glimmer/wire-format" "^0.30.3"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   "@glimmer/syntax@0.30.3":
     version "0.30.3"
     resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.30.3.tgz#31ca56d00b4f7c63af13aeb70b5d58a9b250f02e"
@@ -747,6 +772,7 @@ Lockfile:
       "@glimmer/util" "^0.30.3"
   
   "@iarna/toml@2.0.0":
+<<<<<<< HEAD
   =======
   "@cypress/listr-verbose-renderer@0.4.1":
     version "0.4.1"
@@ -846,6 +872,8 @@ Lockfile:
   
   abab@^2.0.0:
   >>>>>>> First commit
+=======
+>>>>>>> commit
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.0.0.tgz#7802115684397785b3b6dc8a3ba50e30d7a7422b"
   
@@ -903,6 +931,7 @@ Lockfile:
     version "3.2.0"
     resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.2.0.tgz#e86b819c602cf8821ad637413698f1dec021847a"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
   ajv@^5.1.0, ajv@^5.2.3, ajv@^5.3.0:
     version "5.5.2"
@@ -913,12 +942,18 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.5.2.tgz#73b5eeca3fab653e3d3f9422b341ad42205dc965"
     integrity sha1-c7Xuyj+rZT49P5Qis0GtQiBdyWU=
   >>>>>>> First commit
+=======
+  ajv@^5.1.0, ajv@^5.2.3, ajv@^5.3.0:
+    version "5.5.2"
+    resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.5.2.tgz#73b5eeca3fab653e3d3f9422b341ad42205dc965"
+>>>>>>> commit
     dependencies:
       co "^4.6.0"
       fast-deep-equal "^1.0.0"
       fast-json-stable-stringify "^2.0.0"
       json-schema-traverse "^0.3.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
   ajv@^6.1.0:
     version "6.5.1"
@@ -929,6 +964,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.5.5.tgz#cf97cdade71c6399a92c6d6c4177381291b781a1"
     integrity sha512-7q7gtRQDJSyuEHjuVgHoUa2VuemFiCMrfQc9Tc08XTAc4Zj/5U1buQJ0HU6i7fKjXU09SVgSmxa4sLvuvS8Iyg==
   >>>>>>> First commit
+=======
+  ajv@^6.1.0:
+    version "6.5.1"
+    resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.5.1.tgz#88ebc1263c7133937d108b80c5572e64e1d9322d"
+>>>>>>> commit
     dependencies:
       fast-deep-equal "^2.0.1"
       fast-json-stable-stringify "^2.0.0"
@@ -954,9 +994,15 @@ Lockfile:
       lines-and-columns "^1.1.6"
       tslib "^1.9.3"
   
+<<<<<<< HEAD
   angular-html-parser@1.0.0:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/angular-html-parser/-/angular-html-parser-1.0.0.tgz#57feed04674c170fa56bfcd556cf7b2cd677e170"
+=======
+  angular-html-parser@1.1.0:
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/angular-html-parser/-/angular-html-parser-1.1.0.tgz#0199c3c675c6bc9e1c7df9b41569c9df99b53f8c"
+>>>>>>> commit
     dependencies:
       tslib "^1.9.3"
   
@@ -964,11 +1010,14 @@ Lockfile:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-2.0.0.tgz#5bae52be424878dd9783e8910e3fc2922e83c81b"
   
+<<<<<<< HEAD
   ansi-escapes@^1.0.0:
     version "1.4.0"
     resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-1.4.0.tgz#d3a8a83b319aa67793662b13e761c7911422306e"
     integrity sha1-06ioOzGapneTZisT52HHkRQiMG4=
   
+=======
+>>>>>>> commit
   ansi-escapes@^3.0.0:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-3.0.0.tgz#ec3e8b4e9f8064fc02c3ac9b65f1c275bda8ef92"
@@ -1023,8 +1072,13 @@ Lockfile:
       readable-stream "^2.0.6"
   
   argparse@^1.0.7:
+<<<<<<< HEAD
     version "1.0.9"
     resolved "https://registry.yarnpkg.com/argparse/-/argparse-1.0.9.tgz#73d83bc263f86e97f8cc4f6bae1b0e90a7d22c86"
+=======
+    version "1.0.10"
+    resolved "https://registry.yarnpkg.com/argparse/-/argparse-1.0.10.tgz#bcd6791ea5ae09725e17e5ad988134cd40b3d911"
+>>>>>>> commit
     dependencies:
       sprintf-js "~1.0.2"
   
@@ -1133,7 +1187,10 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   async@^1.4.0:
     version "1.5.2"
     resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
@@ -1141,6 +1198,7 @@ Lockfile:
   async@^2.1.2, async@^2.1.4:
     version "2.4.1"
     resolved "https://registry.yarnpkg.com/async/-/async-2.4.1.tgz#62a56b279c98a11d0987096a01cc3eeb8eb7bbd7"
+<<<<<<< HEAD
   =======
   async@2.4.0:
     version "2.4.0"
@@ -1154,6 +1212,8 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
     integrity sha512-fNEiL2+AZt6AlAw/29Cr0UDe4sRAHCpEHh54WMz+Bb7QfNcFw4h3loofyJpLeQs4Yx7yuqu/2dLgM5hKOs6HlQ==
   >>>>>>> First commit
+=======
+>>>>>>> commit
     dependencies:
       lodash "^4.14.0"
   
@@ -1173,6 +1233,7 @@ Lockfile:
     version "0.7.0"
     resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
   aws4@^1.2.1, aws4@^1.6.0:
     version "1.7.0"
@@ -1183,6 +1244,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
     integrity sha512-ReZxvNHIOv88FlT7rxcXIIC0fPt4KZqZbOlivyWtXLt8ESx84zd3kMC6iK5jVeS2qt+g7ftS7ye4fi06X5rtRQ==
   >>>>>>> First commit
+=======
+  aws4@^1.2.1, aws4@^1.6.0:
+    version "1.7.0"
+    resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.7.0.tgz#d4d0e9b9dbfca77bf08eeb0a8a471550fe39e289"
+>>>>>>> commit
   
   babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
     version "6.26.0"
@@ -1294,7 +1360,11 @@ Lockfile:
       mkdirp "^0.5.1"
       source-map-support "^0.4.15"
   
+<<<<<<< HEAD
   babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runtime@^6.26.0:
+=======
+  babel-runtime@^6.22.0, babel-runtime@^6.26.0:
+>>>>>>> commit
     version "6.26.0"
     resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
     dependencies:
@@ -1368,7 +1438,10 @@ Lockfile:
     dependencies:
       tweetnacl "^0.14.3"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   benchmark@2.1.4:
     version "2.1.4"
     resolved "https://registry.yarnpkg.com/benchmark/-/benchmark-2.1.4.tgz#09f3de31c916425d498cc2ee565a0ebf3c2a5629"
@@ -1393,12 +1466,15 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/boom/-/boom-2.10.1.tgz#39c8918ceff5799f83f9492a848f625add0c766f"
     dependencies:
       hoek "2.x.x"
+<<<<<<< HEAD
   =======
   bluebird@3.5.0:
     version "3.5.0"
     resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
     integrity sha1-eRQg1/VR7qKJdFOop3ZT+WYG1nw=
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   brace-expansion@^1.1.7:
     version "1.1.8"
@@ -1509,6 +1585,7 @@ Lockfile:
     dependencies:
       node-int64 "^0.4.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
   buffer-es6@^4.9.1, buffer-es6@^4.9.2:
     version "4.9.3"
@@ -1519,6 +1596,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/buffer-crc32/-/buffer-crc32-0.2.13.tgz#0d333e3f00eac50aa1454abd30ef8c2a5d9a7242"
     integrity sha1-DTM+PwDqxQqhRUq9MO+MKl2ackI=
   >>>>>>> First commit
+=======
+  buffer-es6@^4.9.1, buffer-es6@^4.9.2:
+    version "4.9.3"
+    resolved "https://registry.yarnpkg.com/buffer-es6/-/buffer-es6-4.9.3.tgz#f26347b82df76fd37e18bcb5288c4970cfd5c404"
+>>>>>>> commit
   
   buffer-from@^1.0.0:
     version "1.1.0"
@@ -1562,13 +1644,23 @@ Lockfile:
       union-value "^1.0.0"
       unset-value "^1.0.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+  caller-callsite@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/caller-callsite/-/caller-callsite-2.0.0.tgz#847e0fce0a223750a9a027c54b33731ad3154134"
+    dependencies:
+      callsites "^2.0.0"
+  
+>>>>>>> commit
   caller-path@^0.1.0:
     version "0.1.0"
     resolved "https://registry.yarnpkg.com/caller-path/-/caller-path-0.1.0.tgz#94085ef63581ecd3daa92444a8fe94e82577751f"
     dependencies:
       callsites "^0.2.0"
   
+<<<<<<< HEAD
   callsites@^0.2.0:
     version "0.2.0"
     resolved "https://registry.yarnpkg.com/callsites/-/callsites-0.2.0.tgz#afab96262910a7f33c19a5775825c69f34e350ca"
@@ -1580,6 +1672,17 @@ Lockfile:
     dependencies:
       os-homedir "^1.0.1"
   >>>>>>> First commit
+=======
+  caller-path@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/caller-path/-/caller-path-2.0.0.tgz#468f83044e369ab2010fac5f06ceee15bb2cb1f4"
+    dependencies:
+      caller-callsite "^2.0.0"
+  
+  callsites@^0.2.0:
+    version "0.2.0"
+    resolved "https://registry.yarnpkg.com/callsites/-/callsites-0.2.0.tgz#afab96262910a7f33c19a5775825c69f34e350ca"
+>>>>>>> commit
   
   callsites@^2.0.0:
     version "2.0.0"
@@ -1616,7 +1719,10 @@ Lockfile:
     version "0.12.0"
     resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   center-align@^0.1.1:
     version "0.1.3"
     resolved "https://registry.yarnpkg.com/center-align/-/center-align-0.1.3.tgz#aa0d32629b6ee972200411cbd4461c907bc2b7ad"
@@ -1631,6 +1737,7 @@ Lockfile:
       ansi-styles "^3.1.0"
       escape-string-regexp "^1.0.5"
       supports-color "^4.0.0"
+<<<<<<< HEAD
   =======
   chalk@2.4.1, chalk@^2.0.0, chalk@^2.0.1:
     version "2.4.1"
@@ -1641,6 +1748,8 @@ Lockfile:
       escape-string-regexp "^1.0.5"
       supports-color "^5.3.0"
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   chalk@^1.0.0, chalk@^1.1.1, chalk@^1.1.3:
     version "1.1.3"
@@ -1652,7 +1761,10 @@ Lockfile:
       strip-ansi "^3.0.0"
       supports-color "^2.0.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.3.1, chalk@^2.4.1:
     version "2.4.1"
     resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
@@ -1660,18 +1772,24 @@ Lockfile:
       ansi-styles "^3.2.1"
       escape-string-regexp "^1.0.5"
       supports-color "^5.3.0"
+<<<<<<< HEAD
   =======
   check-more-types@2.24.0:
     version "2.24.0"
     resolved "https://registry.yarnpkg.com/check-more-types/-/check-more-types-2.24.0.tgz#1420ffb10fd444dcfc79b43891bbfffd32a84600"
     integrity sha1-FCD/sQ/URNz8ebQ4kbv//TKoRgA=
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   character-entities-legacy@^1.0.0:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/character-entities-legacy/-/character-entities-legacy-1.1.1.tgz#f40779df1a101872bb510a3d295e1fccf147202f"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   character-entities@^1.0.0:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/character-entities/-/character-entities-1.2.1.tgz#f76871be5ef66ddb7f8f8e3478ecc374c27d6dca"
@@ -1722,12 +1840,15 @@ Lockfile:
     dependencies:
       regexp-util "^1.2.1"
       unicode-regex "^2.0.0"
+<<<<<<< HEAD
   =======
   ci-info@^1.0.0, ci-info@^1.5.0:
     version "1.6.0"
     resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-1.6.0.tgz#2ca20dbb9ceb32d4524a683303313f0304b1e497"
     integrity sha512-vsGdkwSCDpWmP80ncATX7iea5DWQemg1UgCW5J8tqjU3lYw4FBYuj89J0CTVomA7BEfvSZd84GmHko+MxFQU2A==
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   class-utils@^0.3.5:
     version "0.3.6"
@@ -1738,7 +1859,10 @@ Lockfile:
       isobject "^3.0.0"
       static-extend "^0.1.1"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   cli-cursor@^2.1.0:
     version "2.1.0"
     resolved "https://registry.yarnpkg.com/cli-cursor/-/cli-cursor-2.1.0.tgz#b35dac376479facc3e94747d41d0d0f5238ffcb5"
@@ -1764,6 +1888,7 @@ Lockfile:
       string-width "^1.0.1"
       strip-ansi "^3.0.1"
       wrap-ansi "^2.0.0"
+<<<<<<< HEAD
   =======
   cli-cursor@^1.0.2:
     version "1.0.2"
@@ -1785,6 +1910,8 @@ Lockfile:
       slice-ansi "0.0.4"
       string-width "^1.0.1"
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   cliui@^4.0.0:
     version "4.1.0"
@@ -1839,7 +1966,10 @@ Lockfile:
     version "1.1.2"
     resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.2.tgz#5c8ab72b64bd2215d617ae9559ebb148475cf98d"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   combined-stream@1.0.6, combined-stream@^1.0.5, combined-stream@~1.0.5:
     version "1.0.6"
     resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.6.tgz#723e7df6e801ac5613113a7e445a9b69cb632818"
@@ -1861,6 +1991,7 @@ Lockfile:
   compare-versions@^3.1.0:
     version "3.3.0"
     resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-3.3.0.tgz#af93ea705a96943f622ab309578b9b90586f39c3"
+<<<<<<< HEAD
   =======
   combined-stream@^1.0.6, combined-stream@~1.0.5, combined-stream@~1.0.6:
     version "1.0.7"
@@ -1891,6 +2022,8 @@ Lockfile:
     version "3.4.0"
     resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-3.4.0.tgz#e0747df5c9cb7f054d6d3dc3e1dbc444f9e92b26"
     integrity sha512-tK69D7oNXXqUW3ZNo/z7NXTEz22TCF0pTE+YF9cxvaAM9XnkLo1fV621xCLrRR6aevJlKxExkss0vWqUCUpqdg==
+=======
+>>>>>>> commit
   
   component-emitter@^1.2.1:
     version "1.2.1"
@@ -1914,6 +2047,7 @@ Lockfile:
     dependencies:
       date-now "^0.1.4"
   
+<<<<<<< HEAD
   concat-stream@1.6.0:
     version "1.6.0"
     resolved "https://registry.yarnpkg.com/concat-stream/-/concat-stream-1.6.0.tgz#0aac662fd52be78964d5532f694784e70110acf7"
@@ -1923,6 +2057,8 @@ Lockfile:
       readable-stream "^2.2.2"
       typedarray "^0.0.6"
   
+=======
+>>>>>>> commit
   console-control-strings@^1.0.0, console-control-strings@~1.1.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
@@ -1955,10 +2091,18 @@ Lockfile:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   
+<<<<<<< HEAD
   cosmiconfig@5.0.6:
     version "5.0.6"
     resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-5.0.6.tgz#dca6cf680a0bd03589aff684700858c81abeeb39"
     dependencies:
+=======
+  cosmiconfig@5.0.7:
+    version "5.0.7"
+    resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-5.0.7.tgz#39826b292ee0d78eda137dfa3173bd1c21a43b04"
+    dependencies:
+      import-fresh "^2.0.0"
+>>>>>>> commit
       is-directory "^0.3.1"
       js-yaml "^3.9.0"
       parse-json "^4.0.0"
@@ -2008,10 +2152,13 @@ Lockfile:
   cross-spawn@^6.0.0:
     version "6.0.5"
     resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-6.0.5.tgz#4a5ec7c64dfae22c3a14124dbacdee846d80cbc4"
+<<<<<<< HEAD
   <<<<<<< HEAD
   =======
     integrity sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==
   >>>>>>> First commit
+=======
+>>>>>>> commit
     dependencies:
       nice-try "^1.0.4"
       path-key "^2.0.1"
@@ -2019,7 +2166,10 @@ Lockfile:
       shebang-command "^1.2.0"
       which "^1.2.9"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   cryptiles@2.x.x:
     version "2.0.5"
     resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
@@ -2045,8 +2195,11 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-1.0.0.tgz#a230f64f568310e1498009940790ec99545bca7e"
   
+<<<<<<< HEAD
   =======
   >>>>>>> First commit
+=======
+>>>>>>> commit
   cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
     version "0.3.2"
     resolved "https://registry.yarnpkg.com/cssom/-/cssom-0.3.2.tgz#b8036170c79f07a90ff2f16e22284027a243848b"
@@ -2057,7 +2210,10 @@ Lockfile:
     dependencies:
       cssom "0.3.x"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   currently-unhandled@^0.4.1:
     version "0.4.1"
     resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -2069,6 +2225,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/d/-/d-1.0.0.tgz#754bb5bfe55451da69a58b94d45f4c5b0462d58f"
     dependencies:
       es5-ext "^0.10.9"
+<<<<<<< HEAD
   =======
   cypress@^3.1.2:
     version "3.1.2"
@@ -2117,6 +2274,8 @@ Lockfile:
       url "0.11.0"
       yauzl "2.8.0"
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   dashdash@^1.12.0:
     version "1.14.1"
@@ -2136,12 +2295,16 @@ Lockfile:
       whatwg-mimetype "^2.0.0"
       whatwg-url "^6.4.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   date-now@^0.1.4:
     version "0.1.4"
     resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   
   debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8:
+<<<<<<< HEAD
   =======
   date-fns@^1.27.2:
     version "1.29.0"
@@ -2150,11 +2313,14 @@ Lockfile:
   
   debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   >>>>>>> First commit
+=======
+>>>>>>> commit
     version "2.6.9"
     resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
     dependencies:
       ms "2.0.0"
   
+<<<<<<< HEAD
   debug@3.1.0:
     version "3.1.0"
     resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
@@ -2162,6 +2328,8 @@ Lockfile:
     dependencies:
       ms "2.0.0"
   
+=======
+>>>>>>> commit
   debug@^3.1.0:
     version "3.1.0"
     resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
@@ -2302,7 +2470,10 @@ Lockfile:
     dependencies:
       jsbn "~0.1.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   editorconfig-to-prettier@0.1.1:
     version "0.1.1"
     resolved "https://registry.yarnpkg.com/editorconfig-to-prettier/-/editorconfig-to-prettier-0.1.1.tgz#7391c7067dfd68ffee65afc2c4fbe4fba8d4219a"
@@ -2363,6 +2534,7 @@ Lockfile:
     dependencies:
       prr "~0.0.0"
   
+<<<<<<< HEAD
   error-ex@^1.2.0, error-ex@^1.3.1:
     version "1.3.1"
     resolved "https://registry.yarnpkg.com/error-ex/-/error-ex-1.3.1.tgz#f855a86ce61adc4e8621c3cda21e7a7612c3a8dc"
@@ -2377,6 +2549,17 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/error-ex/-/error-ex-1.3.2.tgz#b4ac40648107fdcdcfae242f428bea8a14d4f1bf"
     integrity sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==
   >>>>>>> First commit
+=======
+  error-ex@^1.2.0:
+    version "1.3.1"
+    resolved "https://registry.yarnpkg.com/error-ex/-/error-ex-1.3.1.tgz#f855a86ce61adc4e8621c3cda21e7a7612c3a8dc"
+    dependencies:
+      is-arrayish "^0.2.1"
+  
+  error-ex@^1.3.1:
+    version "1.3.2"
+    resolved "https://registry.yarnpkg.com/error-ex/-/error-ex-1.3.2.tgz#b4ac40648107fdcdcfae242f428bea8a14d4f1bf"
+>>>>>>> commit
     dependencies:
       is-arrayish "^0.2.1"
   
@@ -2611,8 +2794,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/esprima/-/esprima-3.1.3.tgz#fdca51cee6133895e3c88d535ce49dbff62a4633"
   
   esprima@^4.0.0:
+<<<<<<< HEAD
     version "4.0.0"
     resolved "https://registry.yarnpkg.com/esprima/-/esprima-4.0.0.tgz#4499eddcd1110e0b218bacf2fa7f7f59f55ca804"
+=======
+    version "4.0.1"
+    resolved "https://registry.yarnpkg.com/esprima/-/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
+>>>>>>> commit
   
   esquery@^1.0.0:
     version "1.0.0"
@@ -2686,6 +2874,7 @@ Lockfile:
       signal-exit "^3.0.0"
       strip-eof "^1.0.0"
   
+<<<<<<< HEAD
   execa@0.10.0:
     version "0.10.0"
     resolved "https://registry.yarnpkg.com/execa/-/execa-0.10.0.tgz#ff456a8f53f90f8eccc71a96d11bdfc7f082cb50"
@@ -2699,6 +2888,8 @@ Lockfile:
       signal-exit "^3.0.0"
       strip-eof "^1.0.0"
   
+=======
+>>>>>>> commit
   execa@^0.7.0:
     version "0.7.0"
     resolved "https://registry.yarnpkg.com/execa/-/execa-0.7.0.tgz#944becd34cc41ee32a63a9faf27ad5a65fc59777"
@@ -2711,6 +2902,7 @@ Lockfile:
       signal-exit "^3.0.0"
       strip-eof "^1.0.0"
   
+<<<<<<< HEAD
   executable@4.1.1:
     version "4.1.1"
     resolved "https://registry.yarnpkg.com/executable/-/executable-4.1.1.tgz#41532bff361d3e57af4d763b70582db18f5d133c"
@@ -2723,6 +2915,8 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/exit-hook/-/exit-hook-1.1.1.tgz#f05ca233b48c05d54fff07765df8507e95c02ff8"
     integrity sha1-8FyiM7SMBdVP/wd2XfhQfpXAL/g=
   
+=======
+>>>>>>> commit
   exit@^0.1.2:
     version "0.1.2"
     resolved "https://registry.yarnpkg.com/exit/-/exit-0.1.2.tgz#0632638f8d877cc82107d30a0fff1a17cba1cd0c"
@@ -2775,7 +2969,10 @@ Lockfile:
       assign-symbols "^1.0.0"
       is-extendable "^1.0.1"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   extend@^3.0.0, extend@~3.0.0, extend@~3.0.1:
     version "3.0.1"
     resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.1.tgz#a755ea7bc1adfcc5a31ce7e762dbaadc5e636444"
@@ -2787,12 +2984,15 @@ Lockfile:
       iconv-lite "^0.4.17"
       jschardet "^1.4.2"
       tmp "^0.0.31"
+<<<<<<< HEAD
   =======
   extend@~3.0.1, extend@~3.0.2:
     version "3.0.2"
     resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
     integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   extglob@^0.3.1:
     version "0.3.2"
@@ -2813,6 +3013,7 @@ Lockfile:
       snapdragon "^0.8.1"
       to-regex "^3.0.1"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
   extsprintf@1.0.2:
     version "1.0.2"
@@ -2833,16 +3034,24 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.3.0.tgz#96918440e3041a7a414f8c52e3c574eb3c3e1e05"
     integrity sha1-lpGEQOMEGnpBT4xS48V06zw+HgU=
   >>>>>>> First commit
+=======
+  extsprintf@1.0.2:
+    version "1.0.2"
+    resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.0.2.tgz#e1080e0658e300b06294990cc70e1502235fd550"
+>>>>>>> commit
   
   fast-deep-equal@^1.0.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.1.0.tgz#c053477817c86b51daa853c81e059b733d023614"
   
+<<<<<<< HEAD
   fast-deep-equal@^1.0.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.1.0.tgz#c053477817c86b51daa853c81e059b733d023614"
     integrity sha1-wFNHeBfIa1HaqFPIHgWbcz0CNhQ=
   
+=======
+>>>>>>> commit
   fast-deep-equal@^2.0.1:
     version "2.0.1"
     resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
@@ -2865,7 +3074,10 @@ Lockfile:
     dependencies:
       bser "^2.0.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   fbjs@^0.8.16:
     version "0.8.16"
     resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
@@ -2890,6 +3102,7 @@ Lockfile:
     dependencies:
       flat-cache "^1.2.1"
       object-assign "^4.0.1"
+<<<<<<< HEAD
   =======
   fd-slicer@~1.0.1:
     version "1.0.1"
@@ -2906,6 +3119,8 @@ Lockfile:
       escape-string-regexp "^1.0.5"
       object-assign "^4.1.0"
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   filename-regex@^2.0.0:
     version "2.0.1"
@@ -3001,7 +3216,10 @@ Lockfile:
     version "0.6.1"
     resolved "https://registry.yarnpkg.com/forever-agent/-/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   form-data@~2.1.1:
     version "2.1.4"
     resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.1.4.tgz#33c183acf193276ecaa98143a69e94bfee1750d1"
@@ -3013,12 +3231,15 @@ Lockfile:
   form-data@~2.3.1:
     version "2.3.2"
     resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.3.2.tgz#4970498be604c20c005d4f5c23aecd21d6b49099"
+<<<<<<< HEAD
   =======
   form-data@~2.3.1, form-data@~2.3.2:
     version "2.3.3"
     resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.3.3.tgz#dcce52c05f644f298c6a7ab936bd724ceffbf3a6"
     integrity sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ==
   >>>>>>> First commit
+=======
+>>>>>>> commit
     dependencies:
       asynckit "^0.4.0"
       combined-stream "1.0.6"
@@ -3030,6 +3251,7 @@ Lockfile:
     dependencies:
       map-cache "^0.2.2"
   
+<<<<<<< HEAD
   fs-extra@4.0.1:
     version "4.0.1"
     resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-4.0.1.tgz#7fc0c6c8957f983f57f306a24e5b9ddd8d0dd880"
@@ -3039,6 +3261,8 @@ Lockfile:
       jsonfile "^3.0.0"
       universalify "^0.1.0"
   
+=======
+>>>>>>> commit
   fs-minipass@^1.2.5:
     version "1.2.5"
     resolved "https://registry.yarnpkg.com/fs-minipass/-/fs-minipass-1.2.5.tgz#06c277218454ec288df77ada54a03b8702aacb9d"
@@ -3111,6 +3335,7 @@ Lockfile:
     version "2.0.6"
     resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
   
+<<<<<<< HEAD
   getos@3.1.0:
     version "3.1.0"
     resolved "https://registry.yarnpkg.com/getos/-/getos-3.1.0.tgz#db3aa4df15a3295557ce5e81aa9e3e5cdfaa6567"
@@ -3118,6 +3343,8 @@ Lockfile:
     dependencies:
       async "2.4.0"
   
+=======
+>>>>>>> commit
   getpass@^0.1.1:
     version "0.1.7"
     resolved "https://registry.yarnpkg.com/getpass/-/getpass-0.1.7.tgz#5eff8e3e684d569ae4cb2b1282604e8ba62149fa"
@@ -3137,7 +3364,10 @@ Lockfile:
     dependencies:
       is-glob "^2.0.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   glob-parent@^3.1.0:
     version "3.1.0"
     resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-3.1.0.tgz#9e6af6299d8d3bd2bd40430832bd113df906c5ae"
@@ -3148,11 +3378,14 @@ Lockfile:
   glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2:
     version "7.1.2"
     resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
+<<<<<<< HEAD
   =======
   glob@7.1.2:
     version "7.1.2"
     resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
     integrity sha512-MJTUg1kjuLeQCJ+ccE4Vpa6kKVXkPYJ2mOCQyUuKLcLQsdrMCpBPUi8qVE6+YuaJkozeA9NusTAw3hLr8Xe5EQ==
+=======
+>>>>>>> commit
     dependencies:
       fs.realpath "^1.0.0"
       inflight "^1.0.4"
@@ -3161,6 +3394,7 @@ Lockfile:
       once "^1.3.0"
       path-is-absolute "^1.0.0"
   
+<<<<<<< HEAD
   glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2:
     version "7.1.3"
     resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.3.tgz#3960832d3f1574108342dafd3a67b332c0969df1"
@@ -3186,6 +3420,11 @@ Lockfile:
     dependencies:
       ini "^1.3.4"
   >>>>>>> First commit
+=======
+  globals@^11.0.1, globals@^11.1.0:
+    version "11.5.0"
+    resolved "https://registry.yarnpkg.com/globals/-/globals-11.5.0.tgz#6bc840de6771173b191f13d3a9c94d441ee92642"
+>>>>>>> commit
   
   globals@^9.18.0:
     version "9.18.0"
@@ -3212,7 +3451,10 @@ Lockfile:
       pify "^2.0.0"
       pinkie-promise "^2.0.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   graceful-fs@^4.1.11, graceful-fs@^4.1.2:
     version "4.1.11"
     resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
@@ -3222,12 +3464,15 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.2.tgz#4c740ae3c222823e7004096f832e7b93b2108270"
     dependencies:
       iterall "^1.2.1"
+<<<<<<< HEAD
   =======
   graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
     version "4.1.15"
     resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
     integrity sha512-6uHUhOPEBgQ24HM+r6b/QwWfZq+yiFcipKFrOFiBEnWdy5sdzYoi+pJeQaPI5qOLRFqWmAXUPQNsielzdLoecA==
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   growly@^1.3.0:
     version "1.3.0"
@@ -3247,7 +3492,10 @@ Lockfile:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/har-schema/-/har-schema-2.0.0.tgz#a94c2224ebcac04782a0d9035521f24735b7ec92"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   har-validator@~2.0.6:
     version "2.0.6"
     resolved "https://registry.yarnpkg.com/har-validator/-/har-validator-2.0.6.tgz#cdcbc08188265ad119b6a5a7c8ab70eecfb5d27d"
@@ -3260,6 +3508,7 @@ Lockfile:
   har-validator@~5.0.3:
     version "5.0.3"
     resolved "https://registry.yarnpkg.com/har-validator/-/har-validator-5.0.3.tgz#ba402c266194f15956ef15e0fcf242993f6a7dfd"
+<<<<<<< HEAD
   =======
   har-validator@~5.0.3:
     version "5.0.3"
@@ -3274,6 +3523,8 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/har-validator/-/har-validator-5.1.3.tgz#1ef89ebd3e4996557675eed9893110dc350fa080"
     integrity sha512-sNvOCzEQNr/qrvJgc3UG/kD4QtlHycrzwS+6mfTrrSq97BvaYcPZZI1ZSqGSPR73Cxn4LKTD4PttRwfU7jWq5g==
   >>>>>>> First commit
+=======
+>>>>>>> commit
     dependencies:
       ajv "^5.1.0"
       har-schema "^2.0.0"
@@ -3298,11 +3549,14 @@ Lockfile:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-2.0.0.tgz#e8207af1cc7b30d446cc70b734b5e8be18f88d51"
   
+<<<<<<< HEAD
   has-flag@^2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-2.0.0.tgz#e8207af1cc7b30d446cc70b734b5e8be18f88d51"
     integrity sha1-6CB68cx7MNRGzHC3NLXovhj4jVE=
   
+=======
+>>>>>>> commit
   has-flag@^3.0.0:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
@@ -3444,6 +3698,16 @@ Lockfile:
     version "3.3.7"
     resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.7.tgz#612289bfb3c220e186a58118618d5be8c1bab021"
   
+<<<<<<< HEAD
+=======
+  import-fresh@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/import-fresh/-/import-fresh-2.0.0.tgz#d81355c15612d386c61f9ddd3922d4304822a546"
+    dependencies:
+      caller-path "^2.0.0"
+      resolve-from "^3.0.0"
+  
+>>>>>>> commit
   import-local@^1.0.0:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/import-local/-/import-local-1.0.0.tgz#5e4ffdc03f4fe6c009c6729beb29631c2f8227bc"
@@ -3469,6 +3733,7 @@ Lockfile:
     version "0.0.1"
     resolved "https://registry.yarnpkg.com/indexof/-/indexof-0.0.1.tgz#82dc336d232b9062179d05ab3293a66059fd435d"
   
+<<<<<<< HEAD
   indent-string@^2.1.0:
     version "2.1.0"
     resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-2.1.0.tgz#8e2d48348742121b4a8218b7a137e9a52049dc80"
@@ -3481,6 +3746,8 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-3.2.0.tgz#4a5fd6d27cc332f37e5419a504dbb837105c9289"
     integrity sha1-Sl/W0nzDMvN+VBmlBNu4NxBckok=
   
+=======
+>>>>>>> commit
   inflight@^1.0.4:
     version "1.0.6"
     resolved "https://registry.yarnpkg.com/inflight/-/inflight-1.0.6.tgz#49bd6331d7d02d0c09bc910a1075ba8165b56df9"
@@ -3488,11 +3755,15 @@ Lockfile:
       once "^1.3.0"
       wrappy "1"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
   inherits@2, inherits@^2.0.1, inherits@^2.0.3, inherits@~2.0.1:
   =======
   inherits@2, inherits@^2.0.3, inherits@~2.0.3:
   >>>>>>> First commit
+=======
+  inherits@2, inherits@^2.0.1, inherits@^2.0.3, inherits@~2.0.1:
+>>>>>>> commit
     version "2.0.3"
     resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   
@@ -3500,6 +3771,7 @@ Lockfile:
     version "2.0.1"
     resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.1.tgz#b17d08d326b4423e568eff719f91b0b1cbdf69f1"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
   ini@~1.3.0:
     version "1.3.4"
@@ -3510,6 +3782,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
     integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
   >>>>>>> First commit
+=======
+  ini@~1.3.0:
+    version "1.3.4"
+    resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.4.tgz#0537cb79daf59b59a1a517dff706c86ec039162e"
+>>>>>>> commit
   
   inquirer@^3.0.6:
     version "3.1.1"
@@ -3595,6 +3872,7 @@ Lockfile:
     version "1.1.3"
     resolved "https://registry.yarnpkg.com/is-callable/-/is-callable-1.1.3.tgz#86eb75392805ddc33af71c92a0eedf74ee7604b2"
   
+<<<<<<< HEAD
   is-ci@1.0.10:
     version "1.0.10"
     resolved "https://registry.yarnpkg.com/is-ci/-/is-ci-1.0.10.tgz#f739336b2632365061a9d48270cd56ae3369318e"
@@ -3602,6 +3880,8 @@ Lockfile:
     dependencies:
       ci-info "^1.0.0"
   
+=======
+>>>>>>> commit
   is-ci@^1.0.10:
     version "1.0.10"
     resolved "https://registry.yarnpkg.com/is-ci/-/is-ci-1.0.10.tgz#f739336b2632365061a9d48270cd56ae3369318e"
@@ -3702,7 +3982,10 @@ Lockfile:
     dependencies:
       is-extglob "^1.0.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   is-glob@^3.1.0:
     version "3.1.0"
     resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-3.1.0.tgz#7ba5ae24217804ac70707b96922567486cc3e84a"
@@ -3727,6 +4010,7 @@ Lockfile:
       generate-object-property "^1.1.0"
       jsonpointer "^4.0.0"
       xtend "^4.0.0"
+<<<<<<< HEAD
   =======
   is-installed-globally@0.1.0:
     version "0.1.0"
@@ -3736,6 +4020,8 @@ Lockfile:
       global-dirs "^0.1.0"
       is-path-inside "^1.0.0"
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   is-number@^2.1.0:
     version "2.1.0"
@@ -3779,6 +4065,7 @@ Lockfile:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-1.1.0.tgz#71a50c8429dfca773c92a390a4a03b39fcd51d3e"
   
+<<<<<<< HEAD
   is-path-inside@^1.0.0:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/is-path-inside/-/is-path-inside-1.0.1.tgz#8ef5b7de50437a3fdca6b4e865ef7aa55cb48036"
@@ -3786,6 +4073,8 @@ Lockfile:
     dependencies:
       path-is-inside "^1.0.1"
   
+=======
+>>>>>>> commit
   is-plain-object@^2.0.1, is-plain-object@^2.0.3, is-plain-object@^2.0.4:
     version "2.0.4"
     resolved "https://registry.yarnpkg.com/is-plain-object/-/is-plain-object-2.0.4.tgz#2c163b3fafb1b606d9d17928f05c2a1c38e07677"
@@ -3808,11 +4097,14 @@ Lockfile:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/is-property/-/is-property-1.0.2.tgz#57fe1c4e48474edd65b09911f26b1cd4095dda84"
   
+<<<<<<< HEAD
   is-promise@^2.1.0:
     version "2.1.0"
     resolved "https://registry.yarnpkg.com/is-promise/-/is-promise-2.1.0.tgz#79a2a9ece7f096e80f36d2b2f3bc16c1ff4bf3fa"
     integrity sha1-eaKp7OfwlugPNtKy87wWwf9L8/o=
   
+=======
+>>>>>>> commit
   is-regex@^1.0.4:
     version "1.0.4"
     resolved "https://registry.yarnpkg.com/is-regex/-/is-regex-1.0.4.tgz#5517489b547091b0930e095654ced25ee97e9491"
@@ -4285,13 +4577,27 @@ Lockfile:
     version "3.0.2"
     resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
   
+<<<<<<< HEAD
   js-yaml@^3.7.0, js-yaml@^3.9.0, js-yaml@^3.9.1:
+=======
+  js-yaml@^3.7.0, js-yaml@^3.9.1:
+>>>>>>> commit
     version "3.10.0"
     resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.10.0.tgz#2e78441646bd4682e963f22b6e92823c309c62dc"
     dependencies:
       argparse "^1.0.7"
       esprima "^4.0.0"
   
+<<<<<<< HEAD
+=======
+  js-yaml@^3.9.0:
+    version "3.12.0"
+    resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.12.0.tgz#eaed656ec8344f10f527c6bfa1b6e2244de167d1"
+    dependencies:
+      argparse "^1.0.7"
+      esprima "^4.0.0"
+  
+>>>>>>> commit
   jsbn@~0.1.0:
     version "0.1.1"
     resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
@@ -4355,11 +4661,14 @@ Lockfile:
     version "0.3.1"
     resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.3.1.tgz#349a6d44c53a51de89b40805c5d5e59b417d3340"
   
+<<<<<<< HEAD
   json-schema-traverse@^0.3.0:
     version "0.3.1"
     resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.3.1.tgz#349a6d44c53a51de89b40805c5d5e59b417d3340"
     integrity sha1-NJptRMU6Ud6JtAgFxdXlm0F9M0A=
   
+=======
+>>>>>>> commit
   json-schema-traverse@^0.4.1:
     version "0.4.1"
     resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
@@ -4394,6 +4703,7 @@ Lockfile:
     version "4.0.1"
     resolved "https://registry.yarnpkg.com/jsonpointer/-/jsonpointer-4.0.1.tgz#4fd92cb34e0e9db3c89c8622ecf51f9b978c6cb9"
   
+<<<<<<< HEAD
   jsonfile@^3.0.0:
     version "3.0.1"
     resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-3.0.1.tgz#a5ecc6f65f53f662c4415c7675a0331d0992ec66"
@@ -4401,6 +4711,8 @@ Lockfile:
     optionalDependencies:
       graceful-fs "^4.1.6"
   
+=======
+>>>>>>> commit
   jsprim@^1.2.2:
     version "1.4.0"
     resolved "https://registry.yarnpkg.com/jsprim/-/jsprim-1.4.0.tgz#a3b87e40298d8c380552d8cc7628a0bb95a22918"
@@ -4440,11 +4752,14 @@ Lockfile:
     version "1.0.4"
     resolved "https://registry.yarnpkg.com/lazy-cache/-/lazy-cache-1.0.4.tgz#a1d78fc3a50474cb80845d3b3b6e1da49a446e8e"
   
+<<<<<<< HEAD
   lazy-ass@1.6.0:
     version "1.6.0"
     resolved "https://registry.yarnpkg.com/lazy-ass/-/lazy-ass-1.6.0.tgz#7999655e8646c17f089fdd187d150d3324d54513"
     integrity sha1-eZllXoZGwX8In90YfRUNMyTVRRM=
   
+=======
+>>>>>>> commit
   lcid@^1.0.0:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/lcid/-/lcid-1.0.0.tgz#308accafa0bc483a3867b4b6f2b9506251d1b835"
@@ -4466,7 +4781,10 @@ Lockfile:
       prelude-ls "~1.1.2"
       type-check "~0.3.2"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   lines-and-columns@1.1.6, lines-and-columns@^1.1.6:
     version "1.1.6"
     resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
@@ -4474,6 +4792,7 @@ Lockfile:
   linguist-languages@6.2.1-dev.20180706:
     version "6.2.1-dev.20180706"
     resolved "https://registry.yarnpkg.com/linguist-languages/-/linguist-languages-6.2.1-dev.20180706.tgz#119766ff7e753654a06a6ae64364483458fa6664"
+<<<<<<< HEAD
   =======
   listr-silent-renderer@^1.1.1:
     version "1.1.1"
@@ -4526,6 +4845,8 @@ Lockfile:
       stream-to-observable "^0.1.0"
       strip-ansi "^3.0.1"
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   load-json-file@^1.0.0:
     version "1.1.0"
@@ -4565,16 +4886,22 @@ Lockfile:
       p-locate "^2.0.0"
       path-exists "^3.0.0"
   
+<<<<<<< HEAD
   lodash.once@^4.1.1:
     version "4.1.1"
     resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
     integrity sha1-DdOXEhPHxW34gJd9UEyI+0cal6w=
   
+=======
+>>>>>>> commit
   lodash.sortby@^4.7.0:
     version "4.7.0"
     resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   lodash.unescape@4.0.1:
     version "4.0.1"
     resolved "https://registry.yarnpkg.com/lodash.unescape/-/lodash.unescape-4.0.1.tgz#bf2249886ce514cda112fae9218cdc065211fc9c"
@@ -4610,6 +4937,7 @@ Lockfile:
   loud-rejection@^1.0.0:
     version "1.6.0"
     resolved "https://registry.yarnpkg.com/loud-rejection/-/loud-rejection-1.6.0.tgz#5b46f80147edee578870f086d04821cf998e551f"
+<<<<<<< HEAD
   =======
   lodash@4.17.10:
     version "4.17.10"
@@ -4648,6 +4976,8 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
     integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
   >>>>>>> First commit
+=======
+>>>>>>> commit
     dependencies:
       currently-unhandled "^0.4.1"
       signal-exit "^3.0.0"
@@ -4782,7 +5112,10 @@ Lockfile:
       bn.js "^4.0.0"
       brorand "^1.0.1"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   mime-db@~1.33.0:
     version "1.33.0"
     resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.33.0.tgz#a3492050a5cb9b63450541e39d9788d2272783db"
@@ -4790,12 +5123,15 @@ Lockfile:
   mime-types@^2.1.12, mime-types@~2.1.17, mime-types@~2.1.7:
     version "2.1.18"
     resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.18.tgz#6f323f60a83d11146f831ff11fd66e2fe5503bb8"
+<<<<<<< HEAD
   =======
   mime-types@^2.1.12, mime-types@~2.1.17, mime-types@~2.1.19:
     version "2.1.21"
     resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.21.tgz#28995aa1ecb770742fe6ae7e58f9181c744b3f96"
     integrity sha512-3iL6DbwpyLzjR3xHSFNFeb9Nz/M8WDkX33t1GFQnFOllWk8pOrh/LSrB5OXlnlW5P9LH73X6loW/eogc+F5lJg==
   >>>>>>> First commit
+=======
+>>>>>>> commit
     dependencies:
       mime-db "~1.33.0"
   
@@ -4821,11 +5157,15 @@ Lockfile:
     version "0.0.8"
     resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
   minimist@1.2.0, minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0:
   =======
   minimist@1.2.0, minimist@^1.1.1, minimist@^1.2.0:
   >>>>>>> First commit
+=======
+  minimist@1.2.0, minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0:
+>>>>>>> commit
     version "1.2.0"
     resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
   
@@ -4849,6 +5189,7 @@ Lockfile:
       for-in "^1.0.2"
       is-extendable "^1.0.1"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
   mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   =======
@@ -4861,16 +5202,22 @@ Lockfile:
   
   mkdirp@^0.5.0, mkdirp@^0.5.1:
   >>>>>>> First commit
+=======
+  mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
+>>>>>>> commit
     version "0.5.1"
     resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
     dependencies:
       minimist "0.0.8"
   
+<<<<<<< HEAD
   moment@2.22.2:
     version "2.22.2"
     resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
     integrity sha1-PCV/mDn8DpP/UxSWMiOeuQeD/2Y=
   
+=======
+>>>>>>> commit
   ms@2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -4916,7 +5263,10 @@ Lockfile:
       iconv-lite "^0.4.4"
       sax "^1.2.4"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   neo-async@^2.5.0:
     version "2.5.1"
     resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.1.tgz#acb909e327b1e87ec9ef15f41b8a269512ad41ee"
@@ -4935,12 +5285,15 @@ Lockfile:
     dependencies:
       encoding "^0.1.11"
       is-stream "^1.0.1"
+<<<<<<< HEAD
   =======
   nice-try@^1.0.4:
     version "1.0.5"
     resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
     integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   node-int64@^0.4.0:
     version "0.4.0"
@@ -5064,12 +5417,16 @@ Lockfile:
     version "2.0.4"
     resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.0.4.tgz#dc79040a5f77b97716dc79565fc7fc3ef7d50570"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   oauth-sign@~0.8.1, oauth-sign@~0.8.2:
     version "0.8.2"
     resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.8.2.tgz#46a6ab7f0aead8deae9ec0565780b7d4efeb9d43"
   
   object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
+<<<<<<< HEAD
   =======
   oauth-sign@~0.8.2:
     version "0.8.2"
@@ -5083,6 +5440,8 @@ Lockfile:
   
   object-assign@^4.0.1, object-assign@^4.1.0:
   >>>>>>> First commit
+=======
+>>>>>>> commit
     version "4.1.1"
     resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   
@@ -5130,18 +5489,24 @@ Lockfile:
     dependencies:
       wrappy "1"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   onetime@^2.0.0:
     version "2.0.1"
     resolved "https://registry.yarnpkg.com/onetime/-/onetime-2.0.1.tgz#067428230fd67443b2794b22bba528b6867962d4"
     dependencies:
       mimic-fn "^1.0.0"
+<<<<<<< HEAD
   =======
   onetime@^1.0.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/onetime/-/onetime-1.1.0.tgz#a1f7838f8314c516f05ecefcbc4ccfe04b4ed789"
     integrity sha1-ofeDj4MUxRbwXs78vEzP4EtO14k=
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   optimist@^0.6.1:
     version "0.6.1"
@@ -5161,12 +5526,16 @@ Lockfile:
       type-check "~0.3.2"
       wordwrap "~1.0.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   os-browserify@^0.2.0:
     version "0.2.1"
     resolved "https://registry.yarnpkg.com/os-browserify/-/os-browserify-0.2.1.tgz#63fc4ccee5d2d7763d26bbf8601078e6c2e0044f"
   
   os-homedir@^1.0.0:
+<<<<<<< HEAD
   =======
   ora@^0.2.3:
     version "0.2.3"
@@ -5180,6 +5549,8 @@ Lockfile:
   
   os-homedir@^1.0.0, os-homedir@^1.0.1:
   >>>>>>> First commit
+=======
+>>>>>>> commit
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
   
@@ -5224,7 +5595,10 @@ Lockfile:
     dependencies:
       p-limit "^1.1.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   pako@~0.2.0:
     version "0.2.9"
     resolved "https://registry.yarnpkg.com/pako/-/pako-0.2.9.tgz#f3f7522f4ef782348da8161bad9ecfd51bf83a75"
@@ -5249,6 +5623,7 @@ Lockfile:
       is-alphanumerical "^1.0.0"
       is-decimal "^1.0.0"
       is-hexadecimal "^1.0.0"
+<<<<<<< HEAD
   =======
   p-map@^1.1.1:
     version "1.2.0"
@@ -5260,6 +5635,8 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/p-try/-/p-try-1.0.0.tgz#cbc79cdbaf8fd4228e13f621f2b1a237c1b207b3"
     integrity sha1-y8ec26+P1CKOE/Yh8rGiN8GyB7M=
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   parse-glob@^3.0.4:
     version "3.0.4"
@@ -5317,6 +5694,7 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
   path-is-inside@^1.0.1, path-is-inside@^1.0.2:
     version "1.0.2"
@@ -5327,6 +5705,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/path-is-inside/-/path-is-inside-1.0.2.tgz#365417dede44430d1c11af61027facf074bdfc53"
     integrity sha1-NlQX3t5EQw0cEa9hAn+s8HS9/FM=
   >>>>>>> First commit
+=======
+  path-is-inside@^1.0.1, path-is-inside@^1.0.2:
+    version "1.0.2"
+    resolved "https://registry.yarnpkg.com/path-is-inside/-/path-is-inside-1.0.2.tgz#365417dede44430d1c11af61027facf074bdfc53"
+>>>>>>> commit
   
   path-key@^2.0.0, path-key@^2.0.1:
     version "2.0.1"
@@ -5344,7 +5727,10 @@ Lockfile:
       pify "^2.0.0"
       pinkie-promise "^2.0.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   path-type@^2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/path-type/-/path-type-2.0.0.tgz#f012ccb8415b7096fc2daa1054c3d72389594c73"
@@ -5360,18 +5746,25 @@ Lockfile:
       ripemd160 "^2.0.1"
       safe-buffer "^5.0.1"
       sha.js "^2.4.8"
+<<<<<<< HEAD
   =======
   pend@~1.2.0:
     version "1.2.0"
     resolved "https://registry.yarnpkg.com/pend/-/pend-1.2.0.tgz#7a57eb550a6783f9115331fcf4663d5c8e007a50"
     integrity sha1-elfrVQpng/kRUzH89GY9XI4AelA=
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   performance-now@^2.1.0:
     version "2.1.0"
     resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   
+<<<<<<< HEAD
   pify@^2.0.0, pify@^2.2.0:
+=======
+  pify@^2.0.0:
+>>>>>>> commit
     version "2.3.0"
     resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
   
@@ -5480,9 +5873,15 @@ Lockfile:
     version "0.2.0"
     resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
   
+<<<<<<< HEAD
   prettier@1.15.2:
     version "1.15.2"
     resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.15.2.tgz#d31abe22afa4351efa14c7f8b94b58bb7452205e"
+=======
+  prettier@1.15.3:
+    version "1.15.3"
+    resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.15.3.tgz#1feaac5bdd181237b54dbe65d874e02a1472786a"
+>>>>>>> commit
   
   pretty-format@^23.0.1, pretty-format@^23.2.0:
     version "23.2.0"
@@ -5566,6 +5965,7 @@ Lockfile:
     version "1.3.2"
     resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.3.2.tgz#9653a036fb7c1ee42342f2325cceefea3926c48d"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
   punycode@^1.2.4, punycode@^1.4.1:
   =======
@@ -5576,6 +5976,9 @@ Lockfile:
   
   punycode@^1.4.1:
   >>>>>>> First commit
+=======
+  punycode@^1.2.4, punycode@^1.4.1:
+>>>>>>> commit
     version "1.4.1"
     resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
   
@@ -5583,12 +5986,16 @@ Lockfile:
     version "2.1.1"
     resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   qs@~6.3.0:
     version "6.3.2"
     resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.2.tgz#e75bd5f6e268122a2a0e0bda630b2550c166502c"
   
   qs@~6.5.1:
+<<<<<<< HEAD
   =======
   qs@~6.5.1, qs@~6.5.2:
   >>>>>>> First commit
@@ -5596,6 +6003,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   
   <<<<<<< HEAD
+=======
+    version "6.5.2"
+    resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
+  
+>>>>>>> commit
   querystring-es3@^0.2.0:
     version "0.2.1"
     resolved "https://registry.yarnpkg.com/querystring-es3/-/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
@@ -5607,6 +6019,7 @@ Lockfile:
   randomatic@^1.1.3:
     version "1.1.7"
     resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-1.1.7.tgz#c7abe9cc8b87c0baa876b19fde83fd464797e38c"
+<<<<<<< HEAD
   =======
   querystring@0.2.0:
     version "0.2.0"
@@ -5623,6 +6036,8 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-3.1.1.tgz#b776efc59375984e36c537b2f51a1f0aff0da1ed"
     integrity sha512-TuDE5KxZ0J461RVjrJZCJc+J+zCkTb1MbH9AQUq68sMhOMcy9jLcb3BrZKgp9q9Ncltdg4QVqWrH02W2EFFVYw==
   >>>>>>> First commit
+=======
+>>>>>>> commit
     dependencies:
       is-number "^3.0.0"
       kind-of "^4.0.0"
@@ -5664,7 +6079,10 @@ Lockfile:
       normalize-package-data "^2.3.2"
       path-type "^1.0.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   read-pkg@^2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/read-pkg/-/read-pkg-2.0.0.tgz#8ef1c0623c6a6db0dc6713c4bfac46332b2368f8"
@@ -5676,12 +6094,15 @@ Lockfile:
   readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.5, readable-stream@^2.0.6, readable-stream@^2.2.2, readable-stream@^2.2.6:
     version "2.2.11"
     resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.11.tgz#0796b31f8d7688007ff0b93a8088d34aa17c0f72"
+<<<<<<< HEAD
   =======
   readable-stream@^2.0.1, readable-stream@^2.0.6, readable-stream@^2.2.2:
     version "2.3.6"
     resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
     integrity sha512-tQtKA9WIAhBF3+VLAseyMqZeBjW0AHJoxOtYqSUZNJxauErmLbVm2FW1y+J/YA9dUrAC39ITejlZWhVIwawkKw==
   >>>>>>> First commit
+=======
+>>>>>>> commit
     dependencies:
       core-util-is "~1.0.0"
       inherits "~2.0.1"
@@ -5824,6 +6245,7 @@ Lockfile:
     dependencies:
       is-finite "^1.0.0"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
   replace-ext@1.0.0:
     version "1.0.0"
@@ -5836,6 +6258,11 @@ Lockfile:
     dependencies:
       throttleit "~0.0.2"
   >>>>>>> First commit
+=======
+  replace-ext@1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
+>>>>>>> commit
   
   request-promise-core@1.1.1:
     version "1.1.1"
@@ -5851,7 +6278,10 @@ Lockfile:
       stealthy-require "^1.1.0"
       tough-cookie ">=2.3.3"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   request@2.79.0:
     version "2.79.0"
     resolved "https://registry.yarnpkg.com/request/-/request-2.79.0.tgz#4dfe5bf6be8b8cdc37fcf93e04b65577722710de"
@@ -5880,6 +6310,7 @@ Lockfile:
   request@^2.83.0:
     version "2.87.0"
     resolved "https://registry.yarnpkg.com/request/-/request-2.87.0.tgz#32f00235cd08d482b4d0d68db93a829c0ed5756e"
+<<<<<<< HEAD
   =======
   request@2.87.0:
     version "2.87.0"
@@ -5912,6 +6343,8 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
     integrity sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==
   >>>>>>> First commit
+=======
+>>>>>>> commit
     dependencies:
       aws-sign2 "~0.7.0"
       aws4 "^1.6.0"
@@ -5990,6 +6423,7 @@ Lockfile:
       onetime "^2.0.0"
       signal-exit "^3.0.2"
   
+<<<<<<< HEAD
   restore-cursor@^1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/restore-cursor/-/restore-cursor-1.0.1.tgz#34661f46886327fed2991479152252df92daa541"
@@ -5998,6 +6432,8 @@ Lockfile:
       exit-hook "^1.0.0"
       onetime "^1.0.0"
   
+=======
+>>>>>>> commit
   ret@~0.1.10:
     version "0.1.15"
     resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
@@ -6077,7 +6513,10 @@ Lockfile:
       builtin-modules "^1.1.0"
       resolve "^1.1.6"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   rollup-plugin-replace@1.2.1:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/rollup-plugin-replace/-/rollup-plugin-replace-1.2.1.tgz#6307ee15f223aa1fd3207cd3c08052468f180daf"
@@ -6127,6 +6566,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
   
   safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@~5.1.0:
+<<<<<<< HEAD
   =======
   rxjs@^5.0.0-beta.11:
     version "5.5.12"
@@ -6137,6 +6577,8 @@ Lockfile:
   
   safe-buffer@^5.0.1, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   >>>>>>> First commit
+=======
+>>>>>>> commit
     version "5.1.2"
     resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   
@@ -6268,11 +6710,14 @@ Lockfile:
     dependencies:
       is-fullwidth-code-point "^2.0.0"
   
+<<<<<<< HEAD
   slice-ansi@0.0.4:
     version "0.0.4"
     resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-0.0.4.tgz#edbf8903f66f7ce2f8eafd6ceed65e264c831b35"
     integrity sha1-7b+JA/ZvfOL46v1s7tZeJkyDGzU=
   
+=======
+>>>>>>> commit
   snapdragon-node@^2.0.1:
     version "2.1.1"
     resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
@@ -6434,11 +6879,14 @@ Lockfile:
       to-arraybuffer "^1.0.0"
       xtend "^4.0.0"
   
+<<<<<<< HEAD
   stream-to-observable@^0.1.0:
     version "0.1.0"
     resolved "https://registry.yarnpkg.com/stream-to-observable/-/stream-to-observable-0.1.0.tgz#45bf1d9f2d7dc09bed81f1c307c430e68b84cffe"
     integrity sha1-Rb8dny19wJvtgfHDB8Qw5ouEz/4=
   
+=======
+>>>>>>> commit
   string-length@^2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/string-length/-/string-length-2.0.0.tgz#d40dbb686a3ace960c1cffca562bf2c45f8363ed"
@@ -6511,6 +6959,7 @@ Lockfile:
     version "2.0.1"
     resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   
+<<<<<<< HEAD
   supports-color@5.1.0:
     version "5.1.0"
     resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.1.0.tgz#058a021d1b619f7ddf3980d712ea3590ce7de3d5"
@@ -6518,6 +6967,8 @@ Lockfile:
     dependencies:
       has-flag "^2.0.0"
   
+=======
+>>>>>>> commit
   supports-color@^2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
@@ -6540,11 +6991,14 @@ Lockfile:
     dependencies:
       has-flag "^3.0.0"
   
+<<<<<<< HEAD
   symbol-observable@1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.1.tgz#8340fc4702c3122df5d22288f88283f513d3fdd4"
     integrity sha1-g0D8RwLDEi310iKI+IKD9RPT/dQ=
   
+=======
+>>>>>>> commit
   symbol-tree@^3.2.2:
     version "3.2.2"
     resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
@@ -6621,6 +7075,7 @@ Lockfile:
     dependencies:
       os-tmpdir "~1.0.1"
   
+<<<<<<< HEAD
   throttleit@~0.0.2:
     version "0.0.2"
     resolved "https://registry.yarnpkg.com/throttleit/-/throttleit-0.0.2.tgz#cfedf88e60c00dd9697b61fdd2a8343a9b680eaf"
@@ -6633,6 +7088,8 @@ Lockfile:
     dependencies:
       os-tmpdir "~1.0.1"
   
+=======
+>>>>>>> commit
   tmpl@1.0.x:
     version "1.0.4"
     resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.4.tgz#23640dd7b42d00433911140820e5cf440e521dd1"
@@ -6677,6 +7134,7 @@ Lockfile:
     dependencies:
       punycode "^1.4.1"
   
+<<<<<<< HEAD
   tough-cookie@~2.3.3:
     version "2.3.4"
     resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-2.3.4.tgz#ec60cee38ac675063ffc97a5c18970578ee83655"
@@ -6684,6 +7142,8 @@ Lockfile:
     dependencies:
       punycode "^1.4.1"
   
+=======
+>>>>>>> commit
   tr46@^1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/tr46/-/tr46-1.0.1.tgz#a8b13fd6bfd2489519674ccde55ba3693b706d09"
@@ -6745,7 +7205,10 @@ Lockfile:
   typedarray@^0.0.6:
     version "0.0.6"
     resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   
   typescript-estree@6.0.0-rc.1:
     version "6.0.0-rc.1"
@@ -6754,9 +7217,15 @@ Lockfile:
       lodash.unescape "4.0.1"
       semver "5.5.0"
   
+<<<<<<< HEAD
   typescript@3.2.0-rc:
     version "3.2.0-rc"
     resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.0-rc.tgz#7c3816f1c761b096f4f1712382e872f4da8f263e"
+=======
+  typescript@3.2.1:
+    version "3.2.1"
+    resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.1.tgz#0b7a04b8cf3868188de914d9568bd030f0c56192"
+>>>>>>> commit
   
   ua-parser-js@^0.7.9:
     version "0.7.17"
@@ -6765,6 +7234,7 @@ Lockfile:
   uglify-es@^3.3.7:
     version "3.3.9"
     resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.3.9.tgz#0c1c4f0700bed8dbc124cdb304d2592ca203e677"
+<<<<<<< HEAD
   =======
     integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
   
@@ -6773,6 +7243,8 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.4.9.tgz#af02f180c1207d76432e473ed24a28f4a782bae3"
     integrity sha512-8CJsbKOtEbnJsTyv6LE6m6ZKniqMiFWmm9sRbopbkGs3gMPPfd3Fh8iIA4Ykv5MgaTbqHr4BaoGLJLZNhsrW1Q==
   >>>>>>> First commit
+=======
+>>>>>>> commit
     dependencies:
       commander "~2.13.0"
       source-map "~0.6.1"
@@ -6851,7 +7323,10 @@ Lockfile:
       is-extendable "^0.1.1"
       set-value "^0.4.3"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   uniq@^1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/uniq/-/uniq-1.0.1.tgz#b31c5ae8254844a3a8281541ce2b04b865a734ff"
@@ -6875,12 +7350,15 @@ Lockfile:
   unist-util-visit@^1.1.0:
     version "1.1.3"
     resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-1.1.3.tgz#ec268e731b9d277a79a5b5aa0643990e405d600b"
+<<<<<<< HEAD
   =======
   universalify@^0.1.0:
     version "0.1.2"
     resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.1.2.tgz#b646f69be3942dabcecc9d6639c80dc105efaa66"
     integrity sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==
   >>>>>>> First commit
+=======
+>>>>>>> commit
   
   unset-value@^1.0.0:
     version "1.0.0"
@@ -6914,6 +7392,7 @@ Lockfile:
     version "0.4.4"
     resolved "https://registry.yarnpkg.com/urlgrey/-/urlgrey-0.4.4.tgz#892fe95960805e85519f1cd4389f2cb4cbb7652f"
   
+<<<<<<< HEAD
   url@0.11.0:
     version "0.11.0"
     resolved "https://registry.yarnpkg.com/url/-/url-0.11.0.tgz#3838e97cfc60521eb73c525a8e55bfdd9e2e28f1"
@@ -6922,6 +7401,8 @@ Lockfile:
       punycode "1.3.2"
       querystring "0.2.0"
   
+=======
+>>>>>>> commit
   use@^3.1.0:
     version "3.1.0"
     resolved "https://registry.yarnpkg.com/use/-/use-3.1.0.tgz#14716bf03fdfefd03040aef58d8b4b85f3a7c544"
@@ -6939,7 +7420,10 @@ Lockfile:
       define-properties "^1.1.2"
       object.getownpropertydescriptors "^2.0.3"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   util@0.10.3, util@^0.10.3:
     version "0.10.3"
     resolved "https://registry.yarnpkg.com/util/-/util-0.10.3.tgz#7afb1afe50805246489e3db7fe0ed379336ac0f9"
@@ -6947,9 +7431,12 @@ Lockfile:
       inherits "2.0.1"
   
   uuid@^3.0.0, uuid@^3.1.0:
+<<<<<<< HEAD
   =======
   uuid@^3.1.0, uuid@^3.3.2:
   >>>>>>> First commit
+=======
+>>>>>>> commit
     version "3.3.2"
     resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   
@@ -7175,16 +7662,28 @@ Lockfile:
     version "3.0.2"
     resolved "https://registry.yarnpkg.com/yallist/-/yallist-3.0.2.tgz#8452b4bb7e83c7c188d8041c1a837c773d6d8bb9"
   
+<<<<<<< HEAD
   yaml-unist-parser@1.0.0-rc.4:
     version "1.0.0-rc.4"
     resolved "https://registry.yarnpkg.com/yaml-unist-parser/-/yaml-unist-parser-1.0.0-rc.4.tgz#d8fb9c673d59a4f7d532840b120abd6400237014"
+=======
+  yaml-unist-parser@1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/yaml-unist-parser/-/yaml-unist-parser-1.0.0.tgz#060def481d2319a8def3b6a06cb8ae3848b0aed3"
+>>>>>>> commit
     dependencies:
       lines-and-columns "^1.1.6"
       tslib "^1.9.1"
   
+<<<<<<< HEAD
   yaml@1.0.0-rc.8:
     version "1.0.0-rc.8"
     resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.0.0-rc.8.tgz#e5604c52b7b07b16e469bcf875ab0dfe08c50d42"
+=======
+  yaml@1.0.2:
+    version "1.0.2"
+    resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.0.2.tgz#77941a457090e17b8ca65b53322e68a050e090d4"
+>>>>>>> commit
   
   yargs-parser@^7.0.0:
     version "7.0.0"
@@ -7215,7 +7714,10 @@ Lockfile:
       y18n "^3.2.1"
       yargs-parser "^9.0.2"
   
+<<<<<<< HEAD
   <<<<<<< HEAD
+=======
+>>>>>>> commit
   yargs@^8.0.2:
     version "8.0.2"
     resolved "https://registry.yarnpkg.com/yargs/-/yargs-8.0.2.tgz#6299a9055b1cefc969ff7e79c1d918dceb22c360"
@@ -7242,6 +7744,7 @@ Lockfile:
       cliui "^2.1.0"
       decamelize "^1.0.0"
       window-size "0.1.0"
+<<<<<<< HEAD
   =======
   yarn@1.12.3:
     version "1.12.3"
@@ -7264,3 +7767,5 @@ Lockfile:
       fd-slicer "~1.0.1"
   >>>>>>> First commit
 >>>>>>> c
+=======
+>>>>>>> commit

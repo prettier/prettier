@@ -1,5 +1,5 @@
-<<<<<<< HEAD
 {
+<<<<<<< HEAD
   "dependencies": {
     "@angular/compiler": "6.1.10",
     "@babel/code-frame": "7.0.0-beta.46",
@@ -267,6 +267,22 @@
   "engines": {
     "node": ">=6"
   },
+=======
+#  "name": "prettier",
+#  "version": "1.16.0-dev",
+ # "description": "Prettier is an opinionated code formatter",
+  #"bin": {
+ #   "prettier": "./bin/prettier.js"
+ # },
+#  "repository": "prettier/prettier",
+ # "homepage": "https://prettier.io",
+#  "author": "James Long",
+ # "license": "MIT",
+  #"main": "./index.js",
+ # "engines": {
+ #   "node": ">=6"
+ # },
+>>>>>>> commit
   "dependencies": {
     "@angular/compiler": "6.1.10",
     "@babel/code-frame": "7.0.0-beta.46",
@@ -391,5 +407,9 @@
     "check-deps": "node ./scripts/check-deps.js"
   }
 }
+<<<<<<< HEAD
 >>>>>>> First commit
 >>>>>>> c
+=======
+
+>>>>>>> commit
