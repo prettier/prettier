@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   "dependencies": {
     "@angular/compiler": "6.1.10",
     "@babel/code-frame": "7.0.0-beta.46",
@@ -283,6 +284,8 @@
  #   "node": ">=6"
  # },
 >>>>>>> commit
+=======
+>>>>>>> First commit
   "dependencies": {
     "@angular/compiler": "6.1.10",
     "@babel/code-frame": "7.0.0-beta.46",
@@ -324,7 +327,7 @@
     "minimist": "1.2.0",
     "n-readlines": "1.0.0",
     "normalize-path": "3.0.0",
-    "parse-srcset": "ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee",
+    "parse-srcset": "github:ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee",
     "postcss-less": "1.1.5",
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "2.0.0",
@@ -405,11 +408,44 @@
     "build": "node --max-old-space-size=2048 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js"
-  }
+  },
+  "name": "prettier-vscode",
+  "description": "![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)",
+  "version": "2.0.0",
+  "main": "main.js",
+  "bin": {
+    "prettier-vscode": "prettier.js"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edwinfrc/prettier.git"
+  },
+  "keywords": [
+    "app",
+    "web",
+    "www",
+    "vscode",
+    "extensions",
+    "complements",
+    "javascript"
+  ],
+  "author": "vscode",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/edwinfrc/prettier/issues"
+  },
+  "homepage": "https://github.com/edwinfrc/prettier#readme"
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> First commit
 >>>>>>> c
 =======
 
 >>>>>>> commit
+=======
+>>>>>>> First commit
