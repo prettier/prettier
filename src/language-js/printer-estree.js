@@ -4926,23 +4926,16 @@ function printMemberChain(path, options, print) {
     groups.length >= 2 && !groups[1][0].node.comments && shouldNotWrap(groups);
 
   function printGroup(printedGroup) {
-    const result = [];
-    for (let i = 0; i < printedGroup.length; i++) {
-      // Checks if the next node (i.e. the parent node) needs parens
-      // and print accordingly
-      if (printedGroup[i + 1] && printedGroup[i + 1].needsParens) {
-        result.push(
-          "(",
-          printedGroup[i].printed,
-          printedGroup[i + 1].printed,
-          ")"
-        );
-        i++;
-      } else {
-        result.push(printedGroup[i].printed);
-      }
+    const printed = printedGroup.map(tuple => tuple.printed);
+    // Checks if the last node (i.e. the parent node) needs parens and print
+    // accordingly
+    if (
+      printedGroup.length > 0 &&
+      printedGroup[printedGroup.length - 1].needsParens
+    ) {
+      return concat(["(", ...printed, ")"]);
     }
-    return concat(result);
+    return concat(printed);
   }
 
   function printIndentedGroup(groups) {
