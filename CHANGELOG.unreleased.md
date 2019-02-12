@@ -103,3 +103,5 @@ Examples:
   (a?.b[c]).c();
   let value = /** @type {string} */ (this.members[0]).functionCall();
   ```
+
+- API: export `createLanguage` util for plugins. (by [@evilebottnawi])

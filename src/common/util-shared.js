@@ -1,5 +1,6 @@
 "use strict";
 
+const createLanguage = require("../utils/create-language");
 const util = require("./util");
 const { mapDoc } = require("../doc").utils;
 
@@ -20,6 +21,7 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, options) {
 }
 
 module.exports = {
+  createLanguage,
   getMaxContinuousCount: util.getMaxContinuousCount,
   getStringWidth: util.getStringWidth,
   getAlignmentSize: util.getAlignmentSize,

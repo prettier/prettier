@@ -3,6 +3,7 @@
 const sharedUtil = require("../../src/common/util-shared");
 
 test("shared util has correct structure", () => {
+  expect(typeof sharedUtil.createLanguage).toEqual("function");
   expect(typeof sharedUtil.getMaxContinuousCount).toEqual("function");
   expect(typeof sharedUtil.getStringWidth).toEqual("function");
   expect(typeof sharedUtil.getAlignmentSize).toEqual("function");

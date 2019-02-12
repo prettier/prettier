@@ -225,6 +225,7 @@ defaultOptions: {
 A `util` module from Prettier core is considered a private API and is not meant to be consumed by plugins. Instead, the `util-shared` module provides the following limited set of utility functions for plugins:
 
 ```ts
+createLanguage(linguistData: object, { extend: object, override: object }): object;
 getMaxContinuousCount(str: string, target: string): number;
 getStringWidth(text: string): number;
 getAlignmentSize(value: string, tabWidth: number, startIndex: number): number;
