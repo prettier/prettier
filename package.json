@@ -110,6 +110,7 @@
     "node-firefox-launch-app": "1.1.0",
     "node-firefox-reload-css": "1.2.0",
     "normalize-path": "3.0.0",
+    "npm": "^6.7.0",
     "on-net-listen": "1.1.2",
     "parse-srcset": "github:ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee",
     "postcss-aspect-ratio-mini": "1.0.1",
@@ -137,6 +138,7 @@
     "remark-math": "1.0.4",
     "remark-parse": "5.0.0",
     "resolve": "1.5.0",
+    "run": "^1.4.0",
     "semver": "5.4.1",
     "serverless": "1.34.1",
     "smart-buffer": "4.0.1",
@@ -218,7 +220,7 @@
   },
   "name": "r",
   "description": "![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)",
-  "version": "1.13.1",
+  "version": "1.14.1",
   "main": "main.js",
   "bin": {
     "prettier-vscode": "prettier.js"
