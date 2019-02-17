@@ -42,6 +42,8 @@ Examples:
 
 -->
 
+- CLI: Honor stdin-filepath when outputting error messages.
+
 - Markdown: Do not align table contents if it exceeds the print width and `--prose-wrap never` is set ([#5701] by [@chenshuai2144])
 
   The aligned table is less readable than the compact one
