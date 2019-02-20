@@ -2,6 +2,7 @@
 
 const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
+const getLast = require("../utils/get-last");
 
 // eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
@@ -33,13 +34,6 @@ function getParentExportDeclaration(path) {
 function getPenultimate(arr) {
   if (arr.length > 1) {
     return arr[arr.length - 2];
-  }
-  return null;
-}
-
-function getLast(arr) {
-  if (arr.length > 0) {
-    return arr[arr.length - 1];
   }
   return null;
 }
