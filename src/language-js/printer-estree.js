@@ -419,10 +419,15 @@ function printTernaryOperator(path, options, print, operatorOptions) {
       parent.type !== operatorOptions.conditionalNodeType ||
         parent[operatorOptions.alternateNodePropertyName] === node
         ? part
-        : options.useTabs
+        : options.useTabs || !options.alignTernaryLines
         ? dedent(indent(part))
         : align(Math.max(0, options.tabWidth - 2), part)
     );
+
+    // Indent the whole ternary if alignTernaryLines:false (like ESLint).
+    if (!options.alignTernaryLines) {
+      forceNoIndent = false;
+    }
   }
 
   // We want a whole chain of ConditionalExpressions to all
@@ -460,6 +465,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
            *       ? d
            *       : e
            */
+          options.alignTernaryLines &&
           parent.type === operatorOptions.conditionalNodeType &&
           parent[operatorOptions.alternateNodePropertyName] === node
             ? align(2, testDoc)

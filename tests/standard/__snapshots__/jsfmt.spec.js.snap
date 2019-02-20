@@ -704,6 +704,355 @@ function * generator () {<LF>
 ================================================================================
 `;
 
+exports[`correct-ternaries.js 1`] = `
+====================================options=====================================
+alignTernaryLines: false
+endOfLine: "lf"
+generatorStarSpacing: true
+jsxSingleQuote: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+singleQuote: true
+spaceBeforeFunctionParen: true
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+/* eslint-disable no-undef, no-unused-vars, no-redefine, no-unused-expressions,<LF>
+  no-constant-condition, eqeqeq, react/jsx-no-undef */<LF>
+/*<LF>
+  Add other cases for pure SntandardJS style.<LF>
+*/<LF>
+<LF>
+const testingValue = [1, 2, 3, 4, 5]<LF>
+const resultValue = Date.now()<LF>
+<LF>
+const tern1 =<LF>
+  testingValue[0] === resultValue<LF>
+    ? resultValue<LF>
+    : testingValue[1] === resultValue<LF>
+      ? testingValue<LF>
+        ? 1<LF>
+        : 0<LF>
+      : testingValue[2] === resultValue<LF>
+        ? resultValue<LF>
+        : 0<LF>
+<LF>
+const tern2 =<LF>
+  testingValue[0] === 1<LF>
+    ? {<LF>
+      foo: 1<LF>
+    }<LF>
+    : resultValue<LF>
+      ? {<LF>
+        bar: 1<LF>
+      }<LF>
+      : 0<LF>
+<LF>
+const tern3 =<LF>
+  testingValue[0] === 1<LF>
+    ? { foo: 1 } === {}<LF>
+      ? {<LF>
+        foo: 1,<LF>
+        bar: 2<LF>
+      }<LF>
+      : 3<LF>
+    : resultValue<LF>
+      ? { bar: 1 }<LF>
+      : tern2<LF>
+        ? resultValue<LF>
+        : {<LF>
+          baz: resultValue<LF>
+        }<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: func-call.js 5<LF>
+<LF>
+const fn = () => {}<LF>
+fn(<LF>
+  bifornCringerMoshedPerplexSawder,<LF>
+  askTrovenaBeenaDependsRowans,<LF>
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&<LF>
+    anodyneCondosMalateOverateRetinol<LF>
+    ? annularCooeedSplicesWalksWayWay<LF>
+    : kochabCooieGameOnOboleUnweave<LF>
+)<LF>
+<LF>
+// ternaries: nested.js 5<LF>
+let icecream =<LF>
+  what == 'cone'<LF>
+    ? (p) => (p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)<LF>
+    : (p) => \`here's your \${p} \${what}\`<LF>
+<LF>
+a<LF>
+  ? literalline<LF>
+  : {<LF>
+    123: 12<LF>
+  }<LF>
+    ? line<LF>
+    : softline<LF>
+<LF>
+const message =<LF>
+  i % 3 === 0 && i % 5 === 0<LF>
+    ? 'fizzbuzz'<LF>
+    : i % 3 === 0<LF>
+      ? 'fizz'<LF>
+      : i % 5 === 0<LF>
+        ? 'buzz'<LF>
+        : String(i)<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: parenthesis.js 5<LF>
+<LF>
+debug ? (this.state.isVisible ? 'partially visible' : 'hidden') : null<LF>
+debug<LF>
+  ? this.state.isVisible && somethingComplex<LF>
+    ? 'partially visible'<LF>
+    : 'hidden'<LF>
+  : null<LF>
+<LF>
+;(a) =><LF>
+  a<LF>
+    ? () => {<LF>
+      a<LF>
+    }<LF>
+    : () => {<LF>
+      a<LF>
+    }<LF>
+;(a) => a || a<LF>
+;(a) =><LF>
+  a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: nested.js 5<LF>
+<LF>
+const value = condition1<LF>
+  ? value1<LF>
+  : condition2<LF>
+    ? value2<LF>
+    : condition3<LF>
+      ? value3<LF>
+      : value4<LF>
+<LF>
+//<LF>
+/* eslint-disable quotes, semi, no-undef, no-unused-vars */<LF>
+// @ts-nocheck<LF>
+// import React from 'react'<LF>
+<LF>
+const foo = (<LF>
+  <div<LF>
+    className={<LF>
+      'match-achievement-medal-type type' +<LF>
+      (medals[0].record<LF>
+        ? '-record'<LF>
+        : medals[0].unique<LF>
+          ? '-unique'<LF>
+          : medals[0].type)<LF>
+    }<LF>
+  ><LF>
+    {medals[0].record<LF>
+      ? i18n('Record')<LF>
+      : medals[0].unique<LF>
+        ? i18n('Unique')<LF>
+        : medals[0].type === 0<LF>
+          ? i18n('Silver')<LF>
+          : medals[0].type === 1<LF>
+            ? i18n('Gold')<LF>
+            : medals[0].type === 2<LF>
+              ? i18n('Platinum')<LF>
+              : i18n('Theme')}<LF>
+  </div><LF>
+)<LF>
+<LF>
+const StorybookLoader = ({ match }) =><LF>
+  match.params.storyId === 'button' ? (<LF>
+    <ButtonStorybook /><LF>
+  ) : match.params.storyId === 'color' ? (<LF>
+    <ColorBook /><LF>
+  ) : match.params.storyId === 'typography' ? (<LF>
+    <TypographyBook /><LF>
+  ) : match.params.storyId === 'loading' ? (<LF>
+    <LoaderStorybook /><LF>
+  ) : match.params.storyId === 'deal-list' ? (<LF>
+    <DealListStory /><LF>
+  ) : (<LF>
+    <Message><LF>
+      <Title>{'Missing story book'}</Title><LF>
+      <Content><LF>
+        <BackButton /><LF>
+      </Content><LF>
+    </Message><LF>
+  )<LF>
+
+=====================================output=====================================
+/* eslint-disable no-undef, no-unused-vars, no-redefine, no-unused-expressions,<LF>
+  no-constant-condition, eqeqeq, react/jsx-no-undef */<LF>
+/*<LF>
+  Add other cases for pure SntandardJS style.<LF>
+*/<LF>
+<LF>
+const testingValue = [1, 2, 3, 4, 5]<LF>
+const resultValue = Date.now()<LF>
+<LF>
+const tern1 =<LF>
+  testingValue[0] === resultValue<LF>
+    ? resultValue<LF>
+    : testingValue[1] === resultValue<LF>
+      ? testingValue<LF>
+        ? 1<LF>
+        : 0<LF>
+      : testingValue[2] === resultValue<LF>
+        ? resultValue<LF>
+        : 0<LF>
+<LF>
+const tern2 =<LF>
+  testingValue[0] === 1<LF>
+    ? {<LF>
+      foo: 1<LF>
+    }<LF>
+    : resultValue<LF>
+      ? {<LF>
+        bar: 1<LF>
+      }<LF>
+      : 0<LF>
+<LF>
+const tern3 =<LF>
+  testingValue[0] === 1<LF>
+    ? { foo: 1 } === {}<LF>
+      ? {<LF>
+        foo: 1,<LF>
+        bar: 2<LF>
+      }<LF>
+      : 3<LF>
+    : resultValue<LF>
+      ? { bar: 1 }<LF>
+      : tern2<LF>
+        ? resultValue<LF>
+        : {<LF>
+          baz: resultValue<LF>
+        }<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: func-call.js 5<LF>
+<LF>
+const fn = () => {}<LF>
+fn(<LF>
+  bifornCringerMoshedPerplexSawder,<LF>
+  askTrovenaBeenaDependsRowans,<LF>
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&<LF>
+    anodyneCondosMalateOverateRetinol<LF>
+    ? annularCooeedSplicesWalksWayWay<LF>
+    : kochabCooieGameOnOboleUnweave<LF>
+)<LF>
+<LF>
+// ternaries: nested.js 5<LF>
+let icecream =<LF>
+  what == 'cone'<LF>
+    ? p => (p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)<LF>
+    : p => \`here's your \${p} \${what}\`<LF>
+<LF>
+a<LF>
+  ? literalline<LF>
+  : {<LF>
+    123: 12<LF>
+  }<LF>
+    ? line<LF>
+    : softline<LF>
+<LF>
+const message =<LF>
+  i % 3 === 0 && i % 5 === 0<LF>
+    ? 'fizzbuzz'<LF>
+    : i % 3 === 0<LF>
+      ? 'fizz'<LF>
+      : i % 5 === 0<LF>
+        ? 'buzz'<LF>
+        : String(i)<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: parenthesis.js 5<LF>
+<LF>
+debug ? (this.state.isVisible ? 'partially visible' : 'hidden') : null<LF>
+debug<LF>
+  ? this.state.isVisible && somethingComplex<LF>
+    ? 'partially visible'<LF>
+    : 'hidden'<LF>
+  : null<LF>
+a =><LF>
+  a<LF>
+    ? () => {<LF>
+      a<LF>
+    }<LF>
+    : () => {<LF>
+      a<LF>
+    }<LF>
+a => a || a<LF>
+a =><LF>
+  a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: nested.js 5<LF>
+<LF>
+const value = condition1<LF>
+  ? value1<LF>
+  : condition2<LF>
+    ? value2<LF>
+    : condition3<LF>
+      ? value3<LF>
+      : value4<LF>
+<LF>
+//<LF>
+/* eslint-disable quotes, semi, no-undef, no-unused-vars */<LF>
+// @ts-nocheck<LF>
+// import React from 'react'<LF>
+<LF>
+const foo = (<LF>
+  <div<LF>
+    className={<LF>
+      'match-achievement-medal-type type' +<LF>
+      (medals[0].record<LF>
+        ? '-record'<LF>
+        : medals[0].unique<LF>
+          ? '-unique'<LF>
+          : medals[0].type)<LF>
+    }<LF>
+  ><LF>
+    {medals[0].record<LF>
+      ? i18n('Record')<LF>
+      : medals[0].unique<LF>
+        ? i18n('Unique')<LF>
+        : medals[0].type === 0<LF>
+          ? i18n('Silver')<LF>
+          : medals[0].type === 1<LF>
+            ? i18n('Gold')<LF>
+            : medals[0].type === 2<LF>
+              ? i18n('Platinum')<LF>
+              : i18n('Theme')}<LF>
+  </div><LF>
+)<LF>
+<LF>
+const StorybookLoader = ({ match }) =><LF>
+  match.params.storyId === 'button' ? (<LF>
+    <ButtonStorybook /><LF>
+  ) : match.params.storyId === 'color' ? (<LF>
+    <ColorBook /><LF>
+  ) : match.params.storyId === 'typography' ? (<LF>
+    <TypographyBook /><LF>
+  ) : match.params.storyId === 'loading' ? (<LF>
+    <LoaderStorybook /><LF>
+  ) : match.params.storyId === 'deal-list' ? (<LF>
+    <DealListStory /><LF>
+  ) : (<LF>
+    <Message><LF>
+      <Title>{'Missing story book'}</Title><LF>
+      <Content><LF>
+        <BackButton /><LF>
+      </Content><LF>
+    </Message><LF>
+  )<LF>
+
+================================================================================
+`;
+
 exports[`incorrect.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: false
@@ -1480,6 +1829,328 @@ const dress = isSpace<LF>
     shirts: 3,<LF>
     paints: 3<LF>
   }<LF>
+
+================================================================================
+`;
+
+exports[`incorrect-ternaries.js 1`] = `
+====================================options=====================================
+alignTernaryLines: false
+endOfLine: "lf"
+generatorStarSpacing: true
+jsxSingleQuote: true
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+singleQuote: true
+spaceBeforeFunctionParen: true
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+/* eslint-disable no-undef, no-unused-vars, no-redefine, no-unused-expressions,<LF>
+  no-constant-condition, eqeqeq, react/jsx-no-undef */<LF>
+/*<LF>
+  Add other cases for pure SntandardJS style.<LF>
+*/<LF>
+<LF>
+<LF>
+const testingValue = [1, 2, 3, 4, 5]<LF>
+const resultValue = Date.now()<LF>
+<LF>
+const tern1 = testingValue[0] === resultValue? resultValue<LF>
+  : testingValue[1] === resultValue ? testingValue<LF>
+  ? 1 : 0<LF>
+      :testingValue[2] === resultValue<LF>
+      ? resultValue : 0;<LF>
+<LF>
+const tern2 =<LF>
+  testingValue[0] === 1 ? {<LF>
+      foo: 1<LF>
+  }: resultValue ? {<LF>
+        bar: 1}<LF>
+ :0;<LF>
+<LF>
+ const tern3 =<LF>
+testingValue[0] === 1 ? {foo:1} === {}? {<LF>
+  foo: 1, bar: 2} : 3 : resultValue ? {bar:1} : (tern2 ? resultValue : {<LF>
+  baz:resultValue})<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: func-call.js 5<LF>
+<LF>
+const fn = () => {}<LF>
+fn(<LF>
+  bifornCringerMoshedPerplexSawder,<LF>
+  askTrovenaBeenaDependsRowans,<LF>
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&<LF>
+  anodyneCondosMalateOverateRetinol<LF>
+  ? annularCooeedSplicesWalksWayWay<LF>
+  : kochabCooieGameOnOboleUnweave<LF>
+);<LF>
+<LF>
+// ternaries: nested.js 5<LF>
+let icecream = what == "cone"<LF>
+? p => (p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)<LF>
+: p => \`here's your \${p} \${what}\`;<LF>
+<LF>
+a<LF>
+    ? literalline<LF>
+    : {<LF>
+        123: 12<LF>
+      }<LF>
+    ? line<LF>
+    : softline<LF>
+<LF>
+const message =<LF>
+  i % 3 === 0 && i % 5 === 0<LF>
+  ? "fizzbuzz"<LF>
+  : i % 3 === 0<LF>
+  ? "fizz"<LF>
+  : i % 5 === 0<LF>
+  ? "buzz"<LF>
+  : String(i);<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: parenthesis.js 5<LF>
+<LF>
+debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;<LF>
+debug<LF>
+  ? this.state.isVisible && somethingComplex<LF>
+  ? "partially visible"<LF>
+  : "hidden"<LF>
+  : null;<LF>
+<LF>
+a =><LF>
+    a<LF>
+    ? () => {<LF>
+        a;<LF>
+        }<LF>
+      : () => {<LF>
+          a;<LF>
+      }<LF>
+a => (a||a);<LF>
+a =><LF>
+  a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: nested.js 5<LF>
+<LF>
+const value = condition1 ? value1 : condition2 ? value2 : condition3 ? value3 : value4;<LF>
+<LF>
+//<LF>
+/* eslint-disable quotes, semi, no-undef, no-unused-vars */<LF>
+// @ts-nocheck<LF>
+// import React from 'react'<LF>
+<LF>
+const foo = (<LF>
+  <div className={<LF>
+  "match-achievement-medal-type type" +<LF>
+  (medals[0].record<LF>
+    ? "-record"<LF>
+    : medals[0].unique<LF>
+    ? "-unique"<LF>
+    : medals[0].type)<LF>
+  }><LF>
+    {medals[0].record<LF>
+      ? i18n("Record")<LF>
+      : medals[0].unique<LF>
+      ? i18n("Unique")<LF>
+      : medals[0].type === 0<LF>
+      ? i18n("Silver")<LF>
+      : medals[0].type === 1<LF>
+      ? i18n("Gold")<LF>
+      : medals[0].type === 2<LF>
+      ? i18n("Platinum")<LF>
+      : i18n("Theme")}<LF>
+  </div><LF>
+);<LF>
+<LF>
+const StorybookLoader = ({ match }) =><LF>
+  match.params.storyId === "button" ? (<LF>
+      <ButtonStorybook /><LF>
+  ) : match.params.storyId === "color" ? (<LF>
+      <ColorBook /><LF>
+  ) : match.params.storyId === "typography" ? (<LF>
+      <TypographyBook /><LF>
+  ) : match.params.storyId === "loading" ? (<LF>
+      <LoaderStorybook /><LF>
+  ) : match.params.storyId === "deal-list" ? (<LF>
+      <DealListStory /><LF>
+  ) : (<LF>
+    <Message><LF>
+    <Title>{"Missing story book"}</Title><LF>
+    <Content><LF>
+    <BackButton /><LF>
+    </Content><LF>
+    </Message><LF>
+);<LF>
+
+=====================================output=====================================
+/* eslint-disable no-undef, no-unused-vars, no-redefine, no-unused-expressions,<LF>
+  no-constant-condition, eqeqeq, react/jsx-no-undef */<LF>
+/*<LF>
+  Add other cases for pure SntandardJS style.<LF>
+*/<LF>
+<LF>
+const testingValue = [1, 2, 3, 4, 5]<LF>
+const resultValue = Date.now()<LF>
+<LF>
+const tern1 =<LF>
+  testingValue[0] === resultValue<LF>
+    ? resultValue<LF>
+    : testingValue[1] === resultValue<LF>
+      ? testingValue<LF>
+        ? 1<LF>
+        : 0<LF>
+      : testingValue[2] === resultValue<LF>
+        ? resultValue<LF>
+        : 0<LF>
+<LF>
+const tern2 =<LF>
+  testingValue[0] === 1<LF>
+    ? {<LF>
+      foo: 1<LF>
+    }<LF>
+    : resultValue<LF>
+      ? {<LF>
+        bar: 1<LF>
+      }<LF>
+      : 0<LF>
+<LF>
+const tern3 =<LF>
+  testingValue[0] === 1<LF>
+    ? { foo: 1 } === {}<LF>
+      ? {<LF>
+        foo: 1,<LF>
+        bar: 2<LF>
+      }<LF>
+      : 3<LF>
+    : resultValue<LF>
+      ? { bar: 1 }<LF>
+      : tern2<LF>
+        ? resultValue<LF>
+        : {<LF>
+          baz: resultValue<LF>
+        }<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: func-call.js 5<LF>
+<LF>
+const fn = () => {}<LF>
+fn(<LF>
+  bifornCringerMoshedPerplexSawder,<LF>
+  askTrovenaBeenaDependsRowans,<LF>
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&<LF>
+    anodyneCondosMalateOverateRetinol<LF>
+    ? annularCooeedSplicesWalksWayWay<LF>
+    : kochabCooieGameOnOboleUnweave<LF>
+)<LF>
+<LF>
+// ternaries: nested.js 5<LF>
+let icecream =<LF>
+  what == 'cone'<LF>
+    ? p => (p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)<LF>
+    : p => \`here's your \${p} \${what}\`<LF>
+<LF>
+a<LF>
+  ? literalline<LF>
+  : {<LF>
+    123: 12<LF>
+  }<LF>
+    ? line<LF>
+    : softline<LF>
+<LF>
+const message =<LF>
+  i % 3 === 0 && i % 5 === 0<LF>
+    ? 'fizzbuzz'<LF>
+    : i % 3 === 0<LF>
+      ? 'fizz'<LF>
+      : i % 5 === 0<LF>
+        ? 'buzz'<LF>
+        : String(i)<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: parenthesis.js 5<LF>
+<LF>
+debug ? (this.state.isVisible ? 'partially visible' : 'hidden') : null<LF>
+debug<LF>
+  ? this.state.isVisible && somethingComplex<LF>
+    ? 'partially visible'<LF>
+    : 'hidden'<LF>
+  : null<LF>
+<LF>
+a =><LF>
+  a<LF>
+    ? () => {<LF>
+      a<LF>
+    }<LF>
+    : () => {<LF>
+      a<LF>
+    }<LF>
+a => a || a<LF>
+a =><LF>
+  a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: nested.js 5<LF>
+<LF>
+const value = condition1<LF>
+  ? value1<LF>
+  : condition2<LF>
+    ? value2<LF>
+    : condition3<LF>
+      ? value3<LF>
+      : value4<LF>
+<LF>
+//<LF>
+/* eslint-disable quotes, semi, no-undef, no-unused-vars */<LF>
+// @ts-nocheck<LF>
+// import React from 'react'<LF>
+<LF>
+const foo = (<LF>
+  <div<LF>
+    className={<LF>
+      'match-achievement-medal-type type' +<LF>
+      (medals[0].record<LF>
+        ? '-record'<LF>
+        : medals[0].unique<LF>
+          ? '-unique'<LF>
+          : medals[0].type)<LF>
+    }<LF>
+  ><LF>
+    {medals[0].record<LF>
+      ? i18n('Record')<LF>
+      : medals[0].unique<LF>
+        ? i18n('Unique')<LF>
+        : medals[0].type === 0<LF>
+          ? i18n('Silver')<LF>
+          : medals[0].type === 1<LF>
+            ? i18n('Gold')<LF>
+            : medals[0].type === 2<LF>
+              ? i18n('Platinum')<LF>
+              : i18n('Theme')}<LF>
+  </div><LF>
+)<LF>
+<LF>
+const StorybookLoader = ({ match }) =><LF>
+  match.params.storyId === 'button' ? (<LF>
+    <ButtonStorybook /><LF>
+  ) : match.params.storyId === 'color' ? (<LF>
+    <ColorBook /><LF>
+  ) : match.params.storyId === 'typography' ? (<LF>
+    <TypographyBook /><LF>
+  ) : match.params.storyId === 'loading' ? (<LF>
+    <LoaderStorybook /><LF>
+  ) : match.params.storyId === 'deal-list' ? (<LF>
+    <DealListStory /><LF>
+  ) : (<LF>
+    <Message><LF>
+      <Title>{'Missing story book'}</Title><LF>
+      <Content><LF>
+        <BackButton /><LF>
+      </Content><LF>
+    </Message><LF>
+  )<LF>
 
 ================================================================================
 `;
