@@ -1,14 +1,14 @@
 "use strict";
 
+const reduce = Array.prototype.reduce;
+
 module.exports = function partition(array, fn) {
-  const a = [];
-  const b = [];
-  array.forEach(item => {
-    if (fn(item)) {
-      a.push(item);
-    } else {
-      b.push(item);
-    }
-  });
-  return [a, b];
+  return reduce.call(
+    array,
+    (result, item) => {
+      result[fn(item) ? 0 : 1].push(item);
+      return result;
+    },
+    [[], []]
+  );
 };
