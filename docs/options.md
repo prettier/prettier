@@ -217,7 +217,8 @@ Add spaces around the star (\*) in `yield_` expressions (before and after - from
 
 ## Align ternary lines
 
-Align ternary lines in case of multiline ternery term (default behavior, conflict with standard).
+Align ternary lines in case of multiline ternery term (default behavior, which is in conflict with ESLint/StandardJS behavior).
+Should be disabled for consistency with ESLint/StandardJS behavior.
 
 Valid options:
 
