@@ -10,19 +10,19 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.4.2-dev
 
-[compare prettierx-0.4.1...master](https://github.com/brodybits/prettierx/compare/prettierx-0.4.1...master)
+[compare prettierx-0.4.1...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.4.1...dev)
 
 ## prettierx 0.4.1
 
 [compare prettierx-0.4.0...prettierx-0.4.1](https://github.com/brodybits/prettierx/compare/prettierx-0.4.0...prettierx-0.4.1)
 
-- [prettierx] fix alignTernaryLines behavior ([brodybits/prettierx#46](https://github.com/brodybits/prettierx/pull/46))
+- [prettierx] fix alignTernaryLines behavior ([brodybits/prettierx-0.4.x#46](https://github.com/brodybits/prettierx-0.4.x/pull/46))
 
 ## prettierx 0.4.0
 
 [compare prettierx-0.3.1...prettierx-0.4.0](https://github.com/brodybits/prettierx/compare/prettierx-0.3.1...prettierx-0.4.0)
 
-- [prettierx] --no-align-ternary-lines option ([brodybits/prettierx#41](https://github.com/brodybits/prettierx/pull/41))
+- [prettierx] --no-align-ternary-lines option ([brodybits/prettierx-0.4.x#41](https://github.com/brodybits/prettierx-0.4.x/pull/41))
 
 ## prettierx 0.3.1
 
@@ -153,8 +153,8 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 [compare prettierx-0.2.1...prettierx-0.3.0](https://github.com/brodybits/prettierx/compare/prettierx-0.2.1...prettierx-0.3.0)
 
-- [prettierx] --no-indent-chains option ([brodybits/prettierx#5](https://github.com/brodybits/prettierx/pull/5))
-- [prettierx] -- align-object-properties option ([brodybits/prettierx#35](https://github.com/brodybits/prettierx/pull/35))
+- [prettierx] --no-indent-chains option ([brodybits/prettierx-0.4.x#5](https://github.com/brodybits/prettierx-0.4.x/pull/5))
+- [prettierx] -- align-object-properties option ([brodybits/prettierx-0.4.x#35](https://github.com/brodybits/prettierx-0.4.x/pull/35))
 
 ## prettierx 0.2.1
 
@@ -181,14 +181,14 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 [compare prettierx-0.0.3...prettierx-0.1.0](https://github.com/brodybits/prettierx/compare/prettierx-0.0.3...prettierx-0.1.0)
 
-- standard-like formatting ([brodybits/prettierx#32](https://github.com/brodybits/prettierx/pull/32))
-- Drop support for Node.js version 4 ([brodybits/prettierx#31](https://github.com/brodybits/prettierx/pull/31))
+- standard-like formatting ([brodybits/prettierx-0.4.x#32](https://github.com/brodybits/prettierx-0.4.x/pull/32))
+- Drop support for Node.js version 4 ([brodybits/prettierx-0.4.x#31](https://github.com/brodybits/prettierx-0.4.x/pull/31))
 
 ## prettierx 0.0.3
 
 [compare prettierx-0.0.2...prettierx-0.0.3](https://github.com/brodybits/prettierx/compare/prettierx-0.0.2...prettierx-0.0.3)
 
-- prettierx fix space-before-function-paren - babel parser ([brodybits/prettierx#29](https://github.com/brodybits/prettierx/pull/29))
+- prettierx fix space-before-function-paren - babel parser ([brodybits/prettierx-0.4.x#29](https://github.com/brodybits/prettierx-0.4.x/pull/29))
 
 ## prettierx 0.0.2
 
@@ -199,7 +199,7 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.0.1
 
-- prettierx space-before-function-paren option ([brodybits/prettierx#6](https://github.com/brodybits/prettierx/pull/6))
+- prettierx space-before-function-paren option ([brodybits/prettierx-0.4.x#6](https://github.com/brodybits/prettierx-0.4.x/pull/6))
 - Update package.json, docs, scripts, tests, etc. for prettierx
 
 [compare 1ca4731...prettierx-0.0.1](https://github.com/brodybits/prettierx/compare/1ca4731...prettierx-0.0.1)
