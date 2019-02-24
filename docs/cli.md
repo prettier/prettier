@@ -25,6 +25,7 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt-out f
 
 When you want to check if your files are formatted, you can run Prettier with the `--check` flag (or `-c`).
 This will output a human-friendly message and a list of unformatted files, if any.
+As this is meant to be human readable the output will be warnings in stderr. If you want to process the files please use `--list-different`
 
 ```bash
 prettier --check "src/**/*.js"

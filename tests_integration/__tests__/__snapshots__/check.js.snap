@@ -1,20 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`--checks works in CI just as in a non-TTY mode (stderr) 1`] = `""`;
+exports[`--checks works in CI just as in a non-TTY mode (stderr) 1`] = `
+"[warn] unformatted.js
+[warn] Code style issues found in the above file(s). Forgot to run Prettier?
+"
+`;
 
-exports[`--checks works in CI just as in a non-TTY mode (stderr) 2`] = `""`;
+exports[`--checks works in CI just as in a non-TTY mode (stderr) 2`] = `
+"[warn] unformatted.js
+[warn] Code style issues found in the above file(s). Forgot to run Prettier?
+"
+`;
 
 exports[`--checks works in CI just as in a non-TTY mode (stdout) 1`] = `
 "Checking formatting...
-unformatted.js
-Code style issues found in the above file(s). Forgot to run Prettier?
 "
 `;
 
 exports[`--checks works in CI just as in a non-TTY mode (stdout) 2`] = `
 "Checking formatting...
-unformatted.js
-Code style issues found in the above file(s). Forgot to run Prettier?
 "
 `;
 
