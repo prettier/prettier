@@ -20,6 +20,7 @@ const optionsNormalizer = require("../main/options-normalizer");
 const thirdParty = require("../common/third-party");
 const arrayify = require("../utils/arrayify");
 const isTTY = require("../utils/is-tty");
+const changedCache = require("./changed-cache");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -448,6 +449,10 @@ function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
+  if (context.argv["only-changed"]) {
+    changedCache.open(context);
+  }
+
   eachFilename(context, context.filePatterns, (filename, options) => {
     const fileIgnored = ignorer.filter([filename]).length === 0;
     if (
@@ -458,6 +463,15 @@ function formatFiles(context) {
         context.argv["list-different"])
     ) {
       return;
+    }
+
+    if (context.argv["only-changed"]) {
+      if (!changedCache.hasChanged(filename)) {
+        if (!context.argv["check"] && !context.argv["list-different"]) {
+          context.logger.log(chalk.grey(`${filename} unchanged`));
+        }
+        return;
+      }
     }
 
     if (isTTY()) {
@@ -520,6 +534,11 @@ function formatFiles(context) {
 
         try {
           fs.writeFileSync(filename, output, "utf8");
+
+          // Only assume the file is pretty after write succeeds.
+          if (context.argv["only-changed"]) {
+            changedCache.update(filename);
+          }
         } catch (error) {
           context.logger.error(
             `Unable to write file: ${filename}\n${error.message}`
@@ -527,8 +546,15 @@ function formatFiles(context) {
           // Don't exit the process if one file failed
           process.exitCode = 2;
         }
-      } else if (!context.argv["check"] && !context.argv["list-different"]) {
-        context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
+      } else {
+        if (!context.argv["check"] && !context.argv["list-different"]) {
+          context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
+        }
+
+        // Cache is updated to indicate file is pretty.
+        if (context.argv["only-changed"]) {
+          changedCache.update(filename);
+        }
       }
     } else if (context.argv["debug-check"]) {
       if (result.filepath) {
@@ -548,6 +574,10 @@ function formatFiles(context) {
       numberOfUnformattedFilesFound += 1;
     }
   });
+
+  if (context.argv["only-changed"]) {
+    changedCache.close(context);
+  }
 
   // Print check summary based on expected exit code
   if (context.argv["check"]) {
