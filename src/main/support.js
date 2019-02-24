@@ -74,7 +74,9 @@ function getSupportInfo(version, opts) {
       return Object.assign(option, { pluginDefaults });
     });
 
+  /** ** Old parsers not supported by prettierx:
   //* const usePostCssParser = semver.lt(version, "1.7.1");
+  //* ** */
 
   const languages = plugins
     .reduce((all, plugin) => all.concat(plugin.languages || []), [])
@@ -92,6 +94,7 @@ function getSupportInfo(version, opts) {
         });
       }
 
+      /** ** Old parsers not supported by prettierx:
       //* if (
       //*   usePostCssParser &&
       //*   (language.name === "CSS" || language.group === "CSS")
@@ -100,6 +103,8 @@ function getSupportInfo(version, opts) {
       //*     parsers: ["postcss"]
       //*   });
       //* }
+      //* ** */
+
       return language;
     });
 
