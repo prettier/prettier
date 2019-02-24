@@ -1,5 +1,6 @@
 trigger:
   - master
+  - prettier-*
   - release-*
 
 variables:
