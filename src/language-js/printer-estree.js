@@ -389,7 +389,10 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   const breakClosingParen =
     !jsxMode &&
     (parent.type === "MemberExpression" ||
-      parent.type === "OptionalMemberExpression") &&
+      parent.type === "OptionalMemberExpression" ||
+      ((parent.type === "NGPipeExpression" ||
+        (parent.type === "BinaryExpression" && parent.operator === "|")) &&
+        operatorOptions.breakNested)) &&
     !parent.computed;
 
   return maybeGroup(
