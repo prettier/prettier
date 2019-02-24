@@ -1,4 +1,4 @@
-![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)
+# Prettier with updated dependencies
 
 <h2 align="center">Opinionated Code Formatter</h2>
 
