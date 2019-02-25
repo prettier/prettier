@@ -5,7 +5,7 @@
   - "[JSX](https://facebook.github.io/jsx/)"
   - "[Flow](https://flow.org)"
   - "[TypeScript](https://www.typescriptlang.org)"
-  - "[JSON](http://json.org)"
+  - "[JSON](https://json.org)"
 - name: HTML
   showName: true
   image: /images/languages/tools_html.svg
@@ -17,24 +17,24 @@
   image: /images/languages/tools_css.svg
   variants:
   - "[Less](http://lesscss.org)"
-  - "[SCSS](http://sass-lang.com)"
-  - "[`styled-components`](http://styled-components.com) 💅"
-  - "[`styled-jsx`](http://npmjs.com/styled-jsx)"
+  - "[SCSS](https://sass-lang.com)"
+  - "[`styled-components`](https://styled-components.com) 💅"
+  - "[`styled-jsx`](https://npmjs.com/styled-jsx)"
 - name: GraphQL
-  nameLink: http://graphql.org
+  nameLink: https://graphql.org
   showName: true
   image: /images/languages/tools_gql.svg
   variants:
-  - "[GraphQL Schemas](http://graphql.org/learn/schema/)"
+  - "[GraphQL Schemas](https://graphql.org/learn/schema/)"
 - name: Markdown
   showName: true
   image: /images/languages/tools_md.svg
   variants:
-  - "[CommonMark](http://commonmark.org)"
+  - "[CommonMark](https://commonmark.org)"
   - "[GitHub-Flavored Markdown](https://github.github.com/gfm/)"
   - "[MDX](https://mdxjs.com)"
 - name: YAML
-  nameLink: http://yaml.org
+  nameLink: https://yaml.org
   showName: true
   image: /images/languages/tools_yaml.svg
   variants: []
