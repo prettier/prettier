@@ -50,6 +50,9 @@ Object {
     "Less": Array [
       "less",
     ],
+    "Lightning Web Components": Array [
+      "lwc",
+    ],
     "MDX": Array [
       "mdx",
     ],
@@ -165,6 +168,7 @@ Object {
         "glimmer",
         "html",
         "angular",
+        "lwc",
       ],
       "default": undefined,
       "type": "choice",
@@ -284,7 +288,12 @@ exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
 Compared values have no visual difference."
 `;
 
-exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
+exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
+"Snapshot Diff:
+Compared values have no visual difference."
+`;
+
+exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
 "Snapshot Diff:
 Compared values have no visual difference."
 `;
@@ -634,6 +643,22 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       \\"aceMode\\": \\"html\\",
+      \\"aliases\\": [\\"xhtml\\"],
+      \\"codemirrorMimeType\\": \\"text/html\\",
+      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"color\\": \\"#e34c26\\",
+      \\"extensions\\": [],
+      \\"filenames\\": [],
+      \\"linguistLanguageId\\": 146,
+      \\"name\\": \\"Lightning Web Components\\",
+      \\"parsers\\": [\\"lwc\\"],
+      \\"since\\": \\"1.17.0\\",
+      \\"tmScope\\": \\"text.html.basic\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"html\\"]
+    },
+    {
+      \\"aceMode\\": \\"html\\",
       \\"color\\": \\"#2c3e50\\",
       \\"extensions\\": [\\".vue\\"],
       \\"linguistLanguageId\\": 391,
@@ -857,7 +882,12 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" },
         { \\"description\\": \\"Handlebars\\", \\"since\\": null, \\"value\\": \\"glimmer\\" },
         { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" },
-        { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" }
+        { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" },
+        {
+          \\"description\\": \\"Lightning Web Components\\",
+          \\"since\\": \\"1.17.0\\",
+          \\"value\\": \\"lwc\\"
+        }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",

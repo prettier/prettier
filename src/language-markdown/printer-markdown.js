@@ -6,6 +6,7 @@ const pragma = require("./pragma");
 const preprocess = require("./preprocess");
 const {
   builders: {
+    breakParent,
     concat,
     join,
     line,
@@ -13,6 +14,7 @@ const {
     markAsRoot,
     hardline,
     softline,
+    ifBreak,
     fill,
     align,
     indent,
@@ -509,6 +511,7 @@ function printLine(path, value, options) {
 }
 
 function printTable(path, options, print) {
+  const hardlineWithoutBreakParent = hardline.parts[0];
   const node = path.getValue();
   const contents = []; // { [rowIndex: number]: { [columnIndex: number]: string } }
 
@@ -524,6 +527,7 @@ function printTable(path, options, print) {
     contents.push(rowContents);
   }, "children");
 
+  // Get the width of each column
   const columnMaxWidths = contents.reduce(
     (currentWidths, rowContents) =>
       currentWidths.map((width, columnIndex) =>
@@ -531,28 +535,49 @@ function printTable(path, options, print) {
       ),
     contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
-
-  return join(hardline, [
+  const alignedTable = join(hardlineWithoutBreakParent, [
     printRow(contents[0]),
     printSeparator(),
-    join(hardline, contents.slice(1).map(printRow))
+    join(
+      hardlineWithoutBreakParent,
+      contents.slice(1).map(rowContents => printRow(rowContents))
+    )
   ]);
 
-  function printSeparator() {
+  if (options.proseWrap !== "never") {
+    return concat([breakParent, alignedTable]);
+  }
+
+  // Only if the --prose-wrap never is set and it exceeds the print width.
+  const compactTable = join(hardlineWithoutBreakParent, [
+    printRow(contents[0], /* isCompact */ true),
+    printSeparator(/* isCompact */ true),
+    join(
+      hardlineWithoutBreakParent,
+      contents
+        .slice(1)
+        .map(rowContents => printRow(rowContents, /* isCompact */ true))
+    )
+  ]);
+
+  return concat([breakParent, group(ifBreak(compactTable, alignedTable))]);
+
+  function printSeparator(isCompact) {
     return concat([
       "| ",
       join(
         " | ",
         columnMaxWidths.map((width, index) => {
+          const spaces = isCompact ? 3 : width;
           switch (node.align[index]) {
             case "left":
-              return ":" + "-".repeat(width - 1);
+              return ":" + "-".repeat(spaces - 1);
             case "right":
-              return "-".repeat(width - 1) + ":";
+              return "-".repeat(spaces - 1) + ":";
             case "center":
-              return ":" + "-".repeat(width - 2) + ":";
+              return ":" + "-".repeat(spaces - 2) + ":";
             default:
-              return "-".repeat(width);
+              return "-".repeat(spaces);
           }
         })
       ),
@@ -560,32 +585,36 @@ function printTable(path, options, print) {
     ]);
   }
 
-  function printRow(rowContents) {
+  function printRow(rowContents, isCompact) {
     return concat([
       "| ",
       join(
         " | ",
-        rowContents.map((rowContent, columnIndex) => {
-          switch (node.align[columnIndex]) {
-            case "right":
-              return alignRight(rowContent, columnMaxWidths[columnIndex]);
-            case "center":
-              return alignCenter(rowContent, columnMaxWidths[columnIndex]);
-            default:
-              return alignLeft(rowContent, columnMaxWidths[columnIndex]);
-          }
-        })
+        isCompact
+          ? rowContents
+          : rowContents.map((rowContent, columnIndex) => {
+              switch (node.align[columnIndex]) {
+                case "right":
+                  return alignRight(rowContent, columnMaxWidths[columnIndex]);
+                case "center":
+                  return alignCenter(rowContent, columnMaxWidths[columnIndex]);
+                default:
+                  return alignLeft(rowContent, columnMaxWidths[columnIndex]);
+              }
+            })
       ),
       " |"
     ]);
   }
 
   function alignLeft(text, width) {
-    return concat([text, " ".repeat(width - privateUtil.getStringWidth(text))]);
+    const spaces = width - privateUtil.getStringWidth(text);
+    return concat([text, " ".repeat(spaces)]);
   }
 
   function alignRight(text, width) {
-    return concat([" ".repeat(width - privateUtil.getStringWidth(text)), text]);
+    const spaces = width - privateUtil.getStringWidth(text);
+    return concat([" ".repeat(spaces), text]);
   }
 
   function alignCenter(text, width) {

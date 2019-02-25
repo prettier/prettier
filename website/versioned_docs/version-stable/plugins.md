@@ -42,6 +42,7 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 
 - [`@prettier/plugin-python`](https://github.com/prettier/plugin-python)
 - [`@prettier/plugin-php`](https://github.com/prettier/plugin-php)
+- [`@prettier/plugin-ruby`](https://github.com/prettier/plugin-ruby)
 - [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
 
 ## Community Plugins
@@ -245,6 +246,10 @@ isNextLineEmpty(text: string, node: object, options: object): boolean;
 isPreviousLineEmpty(text: string, node: object, options: object): boolean;
 mapDoc(doc: object, callback: function): void;
 ```
+
+### Tutorials
+
+- [How to write a plugin for Prettier](https://medium.com/@fvictorio/how-to-write-a-plugin-for-prettier-a0d98c845e70): Teaches you how to write a very basic Prettier plugin for TOML.
 
 ## Testing Plugins
 

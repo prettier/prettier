@@ -75,7 +75,8 @@ function getSupportInfo(version, opts) {
     });
 
   /** ** Old parsers not supported by prettierx:
-  //* const usePostCssParser = semver.lt(version, "1.7.1");
+  const usePostCssParser = semver.lt(version, "1.7.1");
+  const useBabylonParser = semver.lt(version, "1.16.0");
   //* ** */
 
   const languages = plugins
@@ -95,14 +96,23 @@ function getSupportInfo(version, opts) {
       }
 
       /** ** Old parsers not supported by prettierx:
-      //* if (
-      //*   usePostCssParser &&
-      //*   (language.name === "CSS" || language.group === "CSS")
-      //* ) {
-      //*   return Object.assign({}, language, {
-      //*     parsers: ["postcss"]
-      //*   });
-      //* }
+      // "babylon" was renamed to "babel" in 1.16.0
+      if (useBabylonParser && language.parsers.indexOf("babel") !== -1) {
+        return Object.assign({}, language, {
+          parsers: language.parsers.map(parser =>
+            parser === "babel" ? "babylon" : parser
+          )
+        });
+      }
+
+      if (
+        usePostCssParser &&
+        (language.name === "CSS" || language.group === "CSS")
+      ) {
+        return Object.assign({}, language, {
+          parsers: ["postcss"]
+        });
+      }
       //* ** */
 
       return language;

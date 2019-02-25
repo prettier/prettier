@@ -55,16 +55,27 @@ function runPrettier(dir, args, options) {
     write.push({ filename, content });
   });
 
+  const origStatSync = fs.statSync;
+
+  jest.spyOn(fs, "statSync").mockImplementation(filename => {
+    if (path.basename(filename) === `virtualDirectory`) {
+      return origStatSync(path.join(__dirname, __filename));
+    }
+    return origStatSync(filename);
+  });
+
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
   const originalExitCode = process.exitCode;
   const originalStdinIsTTY = process.stdin.isTTY;
   const originalStdoutIsTTY = process.stdout.isTTY;
+  const originalEnv = process.env;
 
   process.chdir(normalizeDir(dir));
   process.stdin.isTTY = !!options.isTTY;
   process.stdout.isTTY = !!options.stdoutIsTTY;
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
+  process.env = Object.assign({}, process.env, options.env);
 
   jest.resetModules();
 
@@ -74,6 +85,9 @@ function runPrettier(dir, args, options) {
   jest.spyOn(require(thirdParty), "getStream").mockImplementation(() => ({
     then: handler => handler(options.input || "")
   }));
+  jest
+    .spyOn(require(thirdParty), "isCI")
+    .mockImplementation(() => process.env.CI);
   jest
     .spyOn(require(thirdParty), "cosmiconfig")
     .mockImplementation((moduleName, options) =>
@@ -98,6 +112,7 @@ function runPrettier(dir, args, options) {
     process.exitCode = originalExitCode;
     process.stdin.isTTY = originalStdinIsTTY;
     process.stdout.isTTY = originalStdoutIsTTY;
+    process.env = originalEnv;
     jest.restoreAllMocks();
   }
 

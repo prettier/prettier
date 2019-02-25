@@ -41,16 +41,19 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 
 - [`@prettier/plugin-python`](https://github.com/prettier/plugin-python)
 - [`@prettier/plugin-php`](https://github.com/prettier/plugin-php)
+- [`@prettier/plugin-ruby`](https://github.com/prettier/plugin-ruby)
 - [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
 
 ## Community Plugins
 
 - [`prettier-plugin-apex`](https://github.com/dangmai/prettier-plugin-apex) by [**@dangmai**](https://github.com/dangmai)
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
-- [`prettier-plugin-java`](https://github.com/thorbenvh8/prettier-java) by [**@thorbenvh8**](https://github.com/thorbenvh8)
+- [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
 - [`prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg) by [**@benjie**](https://github.com/benjie)
 - [`prettier-plugin-ruby`](https://github.com/iamsolankiamit/prettier-ruby) by [**@iamsolankiamit**](https://github.com/iamsolankiamit)
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
+- [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
+- [`prettier-plugin-toml`](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml) by [**@bd82**](https://github.com/bd82)
 
 ## Developing Plugins
 
@@ -244,6 +247,10 @@ isNextLineEmpty(text: string, node: object, options: object): boolean;
 isPreviousLineEmpty(text: string, node: object, options: object): boolean;
 mapDoc(doc: object, callback: function): void;
 ```
+
+### Tutorials
+
+- [How to write a plugin for Prettier](https://medium.com/@fvictorio/how-to-write-a-plugin-for-prettier-a0d98c845e70): Teaches you how to write a very basic Prettier plugin for TOML.
 
 ## Testing Plugins
 

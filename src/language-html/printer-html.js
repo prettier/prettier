@@ -123,6 +123,21 @@ function embed(path, print, textToDoc, options) {
         return concat([node.rawName, "=", node.value]);
       }
 
+      // lwc: html`<my-element data-for={value}></my-elememt>`
+      if (options.parser === "lwc") {
+        const interpolationRegex = /^\{[\s\S]*\}$/;
+        if (
+          interpolationRegex.test(
+            options.originalText.slice(
+              node.valueSpan.start.offset,
+              node.valueSpan.end.offset
+            )
+          )
+        ) {
+          return concat([node.rawName, "=", node.value]);
+        }
+      }
+
       const embeddedAttributeValueDoc = printEmbeddedAttributeValue(
         node,
         (code, opts) =>
@@ -900,8 +915,8 @@ function getTextValueParts(node, value = node.value) {
           dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
           hardline
         )
-    : // non-breaking whitespace: 0xA0
-      join(line, value.split(/[^\S\xA0]+/)).parts;
+    : // https://infra.spec.whatwg.org/#ascii-whitespace
+      join(line, value.split(/[\t\n\f\r ]+/)).parts;
 }
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {

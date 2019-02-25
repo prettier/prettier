@@ -297,6 +297,7 @@ module.exports = {
     vue: createParser({
       recognizeSelfClosing: true,
       isTagNameCaseSensitive: true
-    })
+    }),
+    lwc: createParser()
   }
 };
