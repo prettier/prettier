@@ -8,9 +8,21 @@ To get recent changes on prettier (TBD prettier/prettier) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
-## prettierx 0.5.0-dev
+## prettierx 0.5.0
 
-[compare prettierx-0.4.1...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.4.1...dev)
+[compare prettierx-0.4.1...prettierx-0.5.0](https://github.com/brodybits/prettierx/compare/prettierx-0.4.1...prettierx-0.5.0)
+
+**prettierx-specific updates:**
+
+- Update `@typescript-eslint/typescript-estree` dependency, to version `1.4.1` (`@typescript-eslint/typescript-estree` update is needed to resolve issue with generics, as discussed in [prettier/prettier#5824](https://github.com/prettier/prettier/pull/5824))
+- explicitly comment old parsers out of `src/main/support.js`
+
+**updates from prettier 1.17.0-dev:**
+
+- Tweak the plugin directory search ([prettier/prettier#5819](https://github.com/prettier/prettier/pull/5819))
+- Adds LWC Parser to support unquoted interop attributes ([prettier/prettier#5800](https://github.com/prettier/prettier/pull/5800))
+- feat(markdown): do not align table contents if it exceeds the print width and `--prose-wrap never` is set ([prettier/prettier#5701](https://github.com/prettier/prettier/pull/5701))
+- chore: update typescript-estree to new package name ([prettier/prettier#5799](https://github.com/prettier/prettier/pull/5799))
 
 ### prettier 1.16.4
 
@@ -22,45 +34,6 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 [@azz]: https://github.com/azz
 [#5826]: https://github.com/prettier/prettier/pull/5826
-
-<!-- -- NOT PART OF master branch of prettier:
-### prettier 1.16.3
-
-[diff](https://github.com/prettier/prettier/compare/1.16.2...1.16.3)
-
-- TypeScript: Revert "Update typescript-estree to new package name" ([#5818] by [@ikatyang])
-
-  There's an internal change introduced in Prettier 1.16.2,
-  which updated `typescript-estree` to its new package name,
-  but unfortunately it broke the output
-  so we reverted it as a temporary workaround for now.
-
-  ```ts
-  // Input
-  export default {
-    load<K, T>(k: K, t: T) {
-      return {k, t};
-    }
-  }
-
-  // Output (Prettier 1.16.2)
-  export default {
-    load(k: K, t: T) {
-      return { k, t };
-    }
-  };
-
-  // Output (Prettier 1.16.3)
-  export default {
-    load<K, T>(k: K, t: T) {
-      return { k, t };
-    }
-  };
-  ```
-
-[@ikatyang]: https://github.com/ikatyang
-[#5818]: https://github.com/prettier/prettier/pull/5818
--- -->
 
 ### prettier 1.16.2
 
