@@ -450,7 +450,7 @@ function formatFiles(context) {
   }
 
   if (context.argv["only-changed"]) {
-    changedCache.open(context);
+    changedCache.open(context, prettier.getSupportInfo());
   }
 
   eachFilename(context, context.filePatterns, (filename, options) => {
@@ -466,7 +466,7 @@ function formatFiles(context) {
     }
 
     if (context.argv["only-changed"]) {
-      if (!changedCache.hasChanged(filename)) {
+      if (!changedCache.hasChanged(filename, options)) {
         if (!context.argv["check"] && !context.argv["list-different"]) {
           context.logger.log(chalk.grey(`${filename} unchanged`));
         }
@@ -537,7 +537,7 @@ function formatFiles(context) {
 
           // Only assume the file is pretty after write succeeds.
           if (context.argv["only-changed"]) {
-            changedCache.update(filename);
+            changedCache.update(filename, options);
           }
         } catch (error) {
           context.logger.error(
@@ -553,7 +553,7 @@ function formatFiles(context) {
 
         // Cache is updated to indicate file is pretty.
         if (context.argv["only-changed"]) {
-          changedCache.update(filename);
+          changedCache.update(filename, options);
         }
       }
     } else if (context.argv["debug-check"]) {
