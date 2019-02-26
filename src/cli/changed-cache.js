@@ -52,7 +52,7 @@ function close(context) {
   try {
     contents = JSON.stringify(cache);
   } catch (err) {
-    context.logger.error(`Could serialize cache: ${err}`);
+    context.logger.error(`Could not serialize cache: ${err}`);
     return;
   }
 
