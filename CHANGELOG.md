@@ -8,9 +8,11 @@ To get recent changes on prettier (TBD prettier/prettier) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
-## prettierx 0.5.1-dev
+## prettierx 0.6.0
 
-[compare prettierx-0.5.0...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.5.0...dev)
+[compare prettierx-0.5.0...prettierx-0.6.0](https://github.com/brodybits/prettierx/compare/prettierx-0.5.0...prettierx-0.6.0)
+
+--paren-spacing option from WordPress ([brodybits/prettierx#16](https://github.com/brodybits/prettierx/pull/16))
 
 ## prettierx 0.5.0
 
