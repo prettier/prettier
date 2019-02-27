@@ -138,6 +138,11 @@ This option cannot be used with --range-start and --range-end.",
           "description": "Use single quotes in JSX.",
           "type": "boolean",
         },
+        "parenSpacing": Object {
+          "default": false,
+          "description": "Print spaces between parens, WordPress style.",
+          "type": "boolean",
+        },
         "parser": Object {
           "default": undefined,
           "description": "Which parser to use.",

@@ -31,6 +31,7 @@ module.exports = {
     description: "Print indents at the start of chained calls.",
     oppositeDescription: "Do not print indents at the start of chained calls."
   },
+  parenSpacing: commonOptions.parenSpacing,
   jsxBracketSameLine: {
     since: "0.17.0",
     category: CATEGORY_JAVASCRIPT,
