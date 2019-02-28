@@ -20,7 +20,7 @@ const optionsNormalizer = require("../main/options-normalizer");
 const thirdParty = require("../common/third-party");
 const arrayify = require("../utils/arrayify");
 const isTTY = require("../utils/is-tty");
-const changedCache = require("./changed-cache");
+const ChangedCache = require("./changed-cache");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -449,8 +449,13 @@ function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
+  let changedCache = null;
   if (context.argv["only-changed"]) {
-    changedCache.open(context, prettier.getSupportInfo());
+    changedCache = new ChangedCache(
+      process.env.PRETTIER_CACHE_LOCATION || ".prettiercache",
+      context,
+      prettier.getSupportInfo()
+    );
   }
 
   eachFilename(context, context.filePatterns, (filename, options) => {
@@ -465,7 +470,7 @@ function formatFiles(context) {
       return;
     }
 
-    if (context.argv["only-changed"]) {
+    if (changedCache) {
       if (!changedCache.hasChanged(filename, options)) {
         if (!context.argv["check"] && !context.argv["list-different"]) {
           context.logger.log(chalk.grey(`${filename} unchanged`));
@@ -536,7 +541,7 @@ function formatFiles(context) {
           fs.writeFileSync(filename, output, "utf8");
 
           // Only assume the file is pretty after write succeeds.
-          if (context.argv["only-changed"]) {
+          if (changedCache) {
             changedCache.update(filename, options);
           }
         } catch (error) {
@@ -552,7 +557,7 @@ function formatFiles(context) {
         }
 
         // Cache is updated to indicate file is pretty.
-        if (context.argv["only-changed"]) {
+        if (changedCache) {
           changedCache.update(filename, options);
         }
       }
@@ -575,8 +580,8 @@ function formatFiles(context) {
     }
   });
 
-  if (context.argv["only-changed"]) {
-    changedCache.close(context);
+  if (changedCache) {
+    changedCache.close();
   }
 
   // Print check summary based on expected exit code
