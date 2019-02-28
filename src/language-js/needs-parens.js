@@ -689,6 +689,7 @@ function needsParens(path, options) {
     case "NGPipeExpression":
       if (
         parent.type === "NGRoot" ||
+        parent.type === "NGMicrosyntaxExpression" ||
         parent.type === "ObjectProperty" ||
         parent.type === "ArrayExpression" ||
         ((parent.type === "CallExpression" ||

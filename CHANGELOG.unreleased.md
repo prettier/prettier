@@ -145,3 +145,19 @@ Examples:
   ```
 
 - CLI: Plugins published as a scoped NPM package (e.g.: `@name/prettier-plugin-foo`) are now automatically registered ([#5945] by [@Kocal])
+
+- Angular: Don't add unnecessary parentheses to pipes ([#5929] by [@voithos])
+
+  In some cases, wrapping parentheses were being added to certain pipes inside attributes, but they are no longer added when they don't affect the result of the expression.
+
+  <!-- prettier-ignore -->
+  ```html
+  // Input
+  <div *ngIf="isRendered | async"></div>
+
+  // Output (Prettier stable)
+  <div *ngIf="(isRendered | async)"></div>
+
+  // Output (Prettier master)
+  <div *ngIf="isRendered | async"></div>
+  ```
