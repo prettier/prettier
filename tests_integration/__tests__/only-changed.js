@@ -2,18 +2,7 @@
 
 const runPrettier = require("../runPrettier");
 
-describe("write cache with --write --only-changed + formatted file", () => {
-  runPrettier("cli/only-changed", [
-    "--write",
-    "--only-changed",
-    "formatted.js"
-  ]).test({
-    write: [{ filename: ".prettiercache" }],
-    status: 0
-  });
-});
-
-describe("write cache with --write --only-changed + unformatted file", () => {
+describe("create cache with --write --only-changed + unformatted file", () => {
   runPrettier("cli/only-changed", [
     "--write",
     "--only-changed",
@@ -24,7 +13,18 @@ describe("write cache with --write --only-changed + unformatted file", () => {
   });
 });
 
-describe("write cache with --write --only-changed + formatted file + custom location", () => {
+describe("create cache with --write --only-changed + formatted file", () => {
+  runPrettier("cli/only-changed", [
+    "--write",
+    "--only-changed",
+    "formatted.js"
+  ]).test({
+    write: [{ filename: ".prettiercache" }],
+    status: 0
+  });
+});
+
+describe("create cache with --write --only-changed + formatted file + custom location", () => {
   process.env.PRETTIER_CACHE_LOCATION = ".custom";
 
   runPrettier("cli/only-changed", [
@@ -35,6 +35,60 @@ describe("write cache with --write --only-changed + formatted file + custom loca
     write: [{ filename: ".custom" }],
     status: 0
   });
+});
 
-  process.env.PRETTIER_CACHE_LOCATION = undefined;
+describe("detect unchanged with --write --only-changed + unformatted file", () => {
+  process.env.PRETTIER_CACHE_LOCATION = "virtualFile";
+
+  const res = runPrettier("cli/only-changed", [
+    "--write",
+    "--only-changed",
+    "unformatted.js"
+  ]).test({
+    write: [{ filename: "unformatted.js" }, { filename: "virtualFile" }],
+    status: 0
+  });
+
+  const cacheContents = res.write[1].content;
+
+  runPrettier(
+    "cli/only-changed",
+    ["--write", "--only-changed", "unformatted.js"],
+    {
+      virtualFile: cacheContents
+    }
+  ).test({
+    write: [{ filename: "virtualFile", content: cacheContents }],
+    status: 0
+  });
+});
+
+describe("detect config change with --write --only-changed + unformatted file", () => {
+  process.env.PRETTIER_CACHE_LOCATION = "virtualFile";
+
+  const resBefore = runPrettier("cli/only-changed", [
+    "--write",
+    "--only-changed",
+    "unformatted.js"
+  ]).test({
+    write: [{ filename: "unformatted.js" }, { filename: "virtualFile" }],
+    status: 0
+  });
+
+  const cacheContentsBefore = resBefore.write[1].content;
+
+  const resAfter = runPrettier(
+    "cli/only-changed",
+    ["--write", "--only-changed", "--use-tabs", "unformatted.js"],
+    {
+      virtualFile: cacheContentsBefore
+    }
+  ).test({
+    write: [{ filename: "unformatted.js" }, { filename: "virtualFile" }],
+    status: 0
+  });
+
+  const cacheContentsAfter = resAfter.write[1].content;
+
+  expect(cacheContentsAfter).not.toBe(cacheContentsBefore);
 });
