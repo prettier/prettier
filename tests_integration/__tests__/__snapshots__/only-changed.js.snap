@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`write cache with --write --only-changed + formatted file (stderr) 1`] = `""`;
+
+exports[`write cache with --write --only-changed + formatted file (stdout) 1`] = `
+"formatted.js 0ms
+"
+`;
+
+exports[`write cache with --write --only-changed + formatted file + custom location (stderr) 1`] = `""`;
+
+exports[`write cache with --write --only-changed + formatted file + custom location (stdout) 1`] = `
+"formatted.js 0ms
+"
+`;
+
+exports[`write cache with --write --only-changed + unformatted file (stderr) 1`] = `""`;
+
+exports[`write cache with --write --only-changed + unformatted file (stdout) 1`] = `
+"unformatted.js 0ms
+"
+`;

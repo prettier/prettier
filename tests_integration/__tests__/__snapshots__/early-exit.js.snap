@@ -346,6 +346,15 @@ exports[`throw error with --help not-found (stdout) 1`] = `""`;
 
 exports[`throw error with --help not-found (write) 1`] = `Array []`;
 
+exports[`throw error with --only-changed without --write (stderr) 1`] = `
+"[error] Cannot use --only-changed without --write.
+"
+`;
+
+exports[`throw error with --only-changed without --write (stdout) 1`] = `""`;
+
+exports[`throw error with --only-changed without --write (write) 1`] = `Array []`;
+
 exports[`throw error with --write + --debug-check (stderr) 1`] = `
 "[error] Cannot use --write and --debug-check together.
 "
