@@ -50,18 +50,36 @@ function runPrettier(dir, args, options) {
   jest.spyOn(Date, "now").mockImplementation(() => 0);
 
   const write = [];
-
   jest.spyOn(fs, "writeFileSync").mockImplementation((filename, content) => {
     write.push({ filename, content });
   });
 
   const origStatSync = fs.statSync;
-
-  jest.spyOn(fs, "statSync").mockImplementation(filename => {
-    if (path.basename(filename) === `virtualDirectory`) {
+  jest.spyOn(fs, "statSync").mockImplementation((filename, opts) => {
+    if (path.basename(filename) === "virtualDirectory") {
       return origStatSync(path.join(__dirname, __filename));
     }
-    return origStatSync(filename);
+    return origStatSync(filename, opts);
+  });
+
+  const origExistsSync = fs.existsSync;
+  jest.spyOn(fs, "existsSync").mockImplementation(filename => {
+    if (path.basename(filename) === "virtualFile") {
+      if (typeof options.virtualFile === "string") {
+        return true;
+      }
+    }
+    return origExistsSync(filename);
+  });
+
+  const origReadFileSync = fs.readFileSync;
+  jest.spyOn(fs, "readFileSync").mockImplementation((filename, opts) => {
+    if (path.basename(filename) === "virtualFile") {
+      if (typeof options.virtualFile === "string") {
+        return options.virtualFile;
+      }
+    }
+    return origReadFileSync(filename, opts);
   });
 
   const originalCwd = process.cwd();
@@ -136,6 +154,7 @@ function runPrettier(dir, args, options) {
           if (name === "status" && testOptions[name] === "non-zero") {
             expect(value).not.toEqual(0);
           } else if (name === "write") {
+            // Allows assertions on a subset of the "write" result. (ex. only file name)
             expect(value).toMatchObject(testOptions[name]);
           } else {
             expect(value).toEqual(testOptions[name]);
