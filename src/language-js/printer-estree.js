@@ -2324,6 +2324,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.computed) {
         parts.push("[", path.call(print, "key"), "]");
       } else {
+        // TODO(azz)
         parts.push(printPropertyKey(path, options, print));
       }
       parts.push(printOptionalToken(path));
@@ -2952,6 +2953,7 @@ function printPathNoParens(path, options, print, args) {
         modifier,
         isGetterOrSetter(n) ? n.kind + " " : "",
         variance || "",
+        // TODO(azz)
         printPropertyKey(path, options, print),
         printOptionalToken(path),
         isFunctionNotation(n, options) ? "" : ": ",
@@ -3172,6 +3174,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push("[");
       }
 
+      // TODO(azz)
       parts.push(printPropertyKey(path, options, print));
 
       if (n.computed) {
@@ -3679,32 +3682,33 @@ function printStatementSequence(path, options, print) {
 
 function printPropertyKey(path, options, print) {
   const node = path.getNode();
+  const parent = path.getParentNode();
   const key = node.key;
+
+  const objectHasStringProp = parent.properties.some(
+    prop =>
+      key.type !== "Identifier" &&
+      !isStringPropSafeToCoerceToIdentifier(prop, options)
+  );
 
   if (
     key.type === "Identifier" &&
     !node.computed &&
-    options.parser === "json"
+    (options.parser === "json" ||
+      (options.quoteProps === "consistent" && objectHasStringProp))
   ) {
     // a -> "a"
+    const prop = printString(JSON.stringify(key.name), options);
     return path.call(
-      keyPath =>
-        comments.printComments(
-          keyPath,
-          () => JSON.stringify(key.name),
-          options
-        ),
+      keyPath => comments.printComments(keyPath, () => prop, options),
       "key"
     );
   }
 
   if (
-    isStringLiteral(key) &&
-    isIdentifierName(key.value) &&
-    !node.computed &&
-    options.quoteProps !== "preserve" &&
-    options.parser !== "json" &&
-    !(options.parser === "typescript" && node.type === "ClassProperty")
+    isStringPropSafeToCoerceToIdentifier(node, options) &&
+    (options.quoteProps === "as-needed" ||
+      (options.quoteProps === "consistent" && !objectHasStringProp))
   ) {
     // 'a' -> a
     return path.call(
@@ -3743,6 +3747,7 @@ function printMethod(path, options, print) {
     parts.push(kind, " ");
   }
 
+  // TODO(azz)
   let key = printPropertyKey(path, options, print);
 
   if (node.computed) {
@@ -4283,6 +4288,7 @@ function printObjectMethod(path, options, print) {
     return printMethod(path, options, print);
   }
 
+  // TODO(azz)
   const key = printPropertyKey(path, options, print);
 
   if (objMethod.computed) {
@@ -6253,6 +6259,16 @@ function isLiteral(node) {
     node.type === "TemplateLiteral" ||
     node.type === "TSTypeLiteral" ||
     node.type === "JSXText"
+  );
+}
+
+function isStringPropSafeToCoerceToIdentifier(node, options) {
+  return (
+    isStringLiteral(node.key) &&
+    isIdentifierName(node.key.value) &&
+    !node.computed &&
+    options.parser !== "json" &&
+    !(options.parser === "typescript" && node.type === "ClassProperty")
   );
 }
 
