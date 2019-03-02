@@ -622,7 +622,27 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
         \\"default\\": undefined,
         \\"type\\": \\"choice\\",
       },
-      \\"pluginSearchDirs\\": Object {"
+      \\"pluginSearchDirs\\": Object {
+@@ -165,10 +169,19 @@
+          \\"preserve\\",
+        ],
+        \\"default\\": \\"preserve\\",
+        \\"type\\": \\"choice\\",
+      },
++     \\"quoteProps\\": Object {
++       \\"choices\\": Array [
++         \\"as-needed\\",
++         \\"consistent\\",
++         \\"preserve\\",
++       ],
++       \\"default\\": \\"as-needed\\",
++       \\"type\\": \\"choice\\",
++     },
+      \\"rangeEnd\\": Object {
+        \\"default\\": Infinity,
+        \\"range\\": Object {
+          \\"end\\": Infinity,
+          \\"start\\": 0,"
 `;
 
 exports[`CLI --support-info (stderr) 1`] = `""`;
@@ -1228,6 +1248,29 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"proseWrap\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.8.2\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Only add quotes around object properties where required.\\",
+          \\"value\\": \\"as-needed\\"
+        },
+        {
+          \\"description\\": \\"If at least one property in an object requires quotes, quote all properties.\\",
+          \\"value\\": \\"consistent\\"
+        },
+        {
+          \\"description\\": \\"Respect the input use of quotes in object properties.\\",
+          \\"value\\": \\"preserve\\"
+        }
+      ],
+      \\"default\\": \\"as-needed\\",
+      \\"description\\": \\"Change when properties in objects are quoted.\\",
+      \\"name\\": \\"quoteProps\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.17.0\\",
       \\"type\\": \\"choice\\"
     },
     {

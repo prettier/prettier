@@ -2324,7 +2324,6 @@ function printPathNoParens(path, options, print, args) {
       if (n.computed) {
         parts.push("[", path.call(print, "key"), "]");
       } else {
-        // TODO(azz)
         parts.push(printPropertyKey(path, options, print));
       }
       parts.push(printOptionalToken(path));
@@ -2953,7 +2952,6 @@ function printPathNoParens(path, options, print, args) {
         modifier,
         isGetterOrSetter(n) ? n.kind + " " : "",
         variance || "",
-        // TODO(azz)
         printPropertyKey(path, options, print),
         printOptionalToken(path),
         isFunctionNotation(n, options) ? "" : ": ",
@@ -3174,7 +3172,6 @@ function printPathNoParens(path, options, print, args) {
         parts.push("[");
       }
 
-      // TODO(azz)
       parts.push(printPropertyKey(path, options, print));
 
       if (n.computed) {
@@ -3685,9 +3682,14 @@ function printPropertyKey(path, options, print) {
   const parent = path.getParentNode();
   const key = node.key;
 
-  const objectHasStringProp = parent.properties.some(
+  const objectHasStringProp = (
+    parent.properties ||
+    parent.body ||
+    parent.members
+  ).some(
     prop =>
-      key.type !== "Identifier" &&
+      prop.key &&
+      prop.key.type !== "Identifier" &&
       !isStringPropSafeToCoerceToIdentifier(prop, options)
   );
 
@@ -3747,7 +3749,6 @@ function printMethod(path, options, print) {
     parts.push(kind, " ");
   }
 
-  // TODO(azz)
   let key = printPropertyKey(path, options, print);
 
   if (node.computed) {
@@ -4288,7 +4289,6 @@ function printObjectMethod(path, options, print) {
     return printMethod(path, options, print);
   }
 
-  // TODO(azz)
   const key = printPropertyKey(path, options, print);
 
   if (objMethod.computed) {
