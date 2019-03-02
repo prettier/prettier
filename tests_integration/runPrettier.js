@@ -62,6 +62,7 @@ function runPrettier(dir, args, options) {
     return origStatSync(filename, opts);
   });
 
+  // Mock the existence of "virtualFile" when option is defined.
   const origExistsSync = fs.existsSync;
   jest.spyOn(fs, "existsSync").mockImplementation(filename => {
     if (path.basename(filename) === "virtualFile") {
@@ -72,6 +73,7 @@ function runPrettier(dir, args, options) {
     return origExistsSync(filename);
   });
 
+  // Mock contents of "virtualFile" when option is defined.
   const origReadFileSync = fs.readFileSync;
   jest.spyOn(fs, "readFileSync").mockImplementation((filename, opts) => {
     if (path.basename(filename) === "virtualFile") {

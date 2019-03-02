@@ -71,7 +71,7 @@ class ChangedCache {
 
     let changed;
     try {
-      changed = fs.statSync(path).mtimeMs;
+      changed = fs.statSync(path).mtime.getTime();
     } catch (err) {
       this.context.logger.error(`Could not read file info: ${err}`);
       return true;
@@ -85,7 +85,7 @@ class ChangedCache {
   update(path, options) {
     let changed;
     try {
-      changed = fs.statSync(path).mtimeMs;
+      changed = fs.statSync(path).mtime.getTime();
     } catch (err) {
       this.context.logger.error(`Could not read file info: ${err}`);
       return;
