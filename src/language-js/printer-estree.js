@@ -3702,6 +3702,7 @@ function printPropertyKey(path, options, print) {
     isStringLiteral(key) &&
     isIdentifierName(key.value) &&
     !node.computed &&
+    options.quoteProps !== "preserve" &&
     options.parser !== "json" &&
     !(options.parser === "typescript" && node.type === "ClassProperty")
   ) {

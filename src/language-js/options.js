@@ -48,6 +48,28 @@ module.exports = {
     default: false,
     description: "Use single quotes in JSX."
   },
+  quoteProps: {
+    since: "1.17.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "choice",
+    default: "as-needed",
+    description: "Change when properties in objects are quoted.",
+    choices: [
+      {
+        value: "as-needed",
+        description: "Only add quotes around object properties where required."
+      },
+      {
+        value: "consistent",
+        description:
+          "If at least one property in an object requires quotes, quote all properties."
+      },
+      {
+        value: "preserve",
+        description: "Respect the input use of quotes in object properties."
+      }
+    ]
+  },
   trailingComma: {
     since: "0.0.0",
     category: CATEGORY_JAVASCRIPT,
