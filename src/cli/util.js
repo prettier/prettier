@@ -470,15 +470,6 @@ function formatFiles(context) {
       return;
     }
 
-    if (changedCache) {
-      if (!changedCache.hasChanged(filename, options)) {
-        if (!context.argv["check"] && !context.argv["list-different"]) {
-          context.logger.log(chalk.grey(`${filename} unchanged`));
-        }
-        return;
-      }
-    }
-
     if (isTTY()) {
       // Don't use `console.log` here since we need to replace this line.
       context.logger.log(filename, { newline: false });
@@ -497,6 +488,22 @@ function formatFiles(context) {
       // Don't exit the process if one file failed
       process.exitCode = 2;
       return;
+    }
+
+    if (changedCache) {
+      if (changedCache.notChanged(filename, options, input)) {
+        if (isTTY()) {
+          // Remove previously printed filename to log it with "unchanged".
+          readline.clearLine(process.stdout, 0);
+          readline.cursorTo(process.stdout, 0, null);
+        }
+
+        if (!context.argv["check"] && !context.argv["list-different"]) {
+          context.logger.log(chalk.grey(`${filename} unchanged`));
+        }
+
+        return;
+      }
     }
 
     if (fileIgnored) {
@@ -539,11 +546,6 @@ function formatFiles(context) {
 
         try {
           fs.writeFileSync(filename, output, "utf8");
-
-          // Only assume the file is pretty after write succeeds.
-          if (changedCache) {
-            changedCache.update(filename, options);
-          }
         } catch (error) {
           context.logger.error(
             `Unable to write file: ${filename}\n${error.message}`
@@ -555,11 +557,11 @@ function formatFiles(context) {
         if (!context.argv["check"] && !context.argv["list-different"]) {
           context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
         }
+      }
 
-        // Cache is updated to indicate file is pretty.
-        if (changedCache) {
-          changedCache.update(filename, options);
-        }
+      // Cache is updated to record pretty content.
+      if (changedCache) {
+        changedCache.update(filename, options, output);
       }
     } else if (context.argv["debug-check"]) {
       if (result.filepath) {

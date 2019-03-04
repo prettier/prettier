@@ -11,14 +11,14 @@ function hash(data) {
     .digest("base64");
 }
 
-// Generates the cache key using the file path, options and the support info.
-function calcKey(supportInfoHash, path, options) {
-  return hash(path + supportInfoHash + JSON.stringify(options));
+// Generates the cache key using the file path, options and the support info hash.
+function calcKey(path, options, supportInfoHash) {
+  return hash(path + JSON.stringify(options) + supportInfoHash);
 }
 
 class ChangedCache {
   // Initializes the in-memory cache data from the configured location.
-  // Also calculates the support info hash used to compute file keys.
+  // Also calculates the static support info hash used to compute file keys.
   // A missing cache file is not treated as an error because it is expected on first run.
   constructor(location, context, supportInfo) {
     this.location = location;
@@ -29,7 +29,7 @@ class ChangedCache {
     if (fs.existsSync(location)) {
       let contents;
       try {
-        contents = fs.readFileSync(location);
+        contents = fs.readFileSync(location, "utf8");
       } catch (err) {
         context.logger.error(`Could not read cache file: ${err}`);
         return;
@@ -55,43 +55,22 @@ class ChangedCache {
     }
 
     try {
-      fs.writeFileSync(this.location, contents);
+      fs.writeFileSync(this.location, contents, "utf8");
     } catch (err) {
       this.context.logger.error(`Could not write cache to file: ${err}`);
     }
   }
 
-  // Checks if the last-modified time of the file path matches the in-memory data.
-  // Defaults to true if an error occurs.
-  hasChanged(path, options) {
-    const stored = this.cache[calcKey(this.supportInfoHash, path, options)];
-    if (stored === undefined) {
-      return true;
-    }
-
-    let changed;
-    try {
-      changed = fs.statSync(path).mtime.getTime();
-    } catch (err) {
-      this.context.logger.error(`Could not read file info: ${err}`);
-      return true;
-    }
-
-    return stored !== changed;
+  // Checks if the expected contents of the file path match the in-memory data.
+  notChanged(path, options, content) {
+    return (
+      this.cache[calcKey(path, options, this.supportInfoHash)] === hash(content)
+    );
   }
 
-  // Updates the last-modified time of the file path in the in-memory data.
-  // Value is not changed if an error occurs.
-  update(path, options) {
-    let changed;
-    try {
-      changed = fs.statSync(path).mtime.getTime();
-    } catch (err) {
-      this.context.logger.error(`Could not read file info: ${err}`);
-      return;
-    }
-
-    this.cache[calcKey(this.supportInfoHash, path, options)] = changed;
+  // Updates the expected contents of the file path in the in-memory data.
+  update(path, options, content) {
+    this.cache[calcKey(path, options, this.supportInfoHash)] = hash(content);
   }
 }
 

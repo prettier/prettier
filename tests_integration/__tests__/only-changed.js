@@ -37,23 +37,23 @@ describe("create cache with --write --only-changed + formatted file + custom loc
   });
 });
 
-describe("detect unchanged with --write --only-changed + unformatted file", () => {
+describe("detect unchanged with --write --only-changed + formatted file", () => {
   process.env.PRETTIER_CACHE_LOCATION = "virtualFile";
 
   const res = runPrettier("cli/only-changed", [
     "--write",
     "--only-changed",
-    "unformatted.js"
+    "formatted.js"
   ]).test({
-    write: [{ filename: "unformatted.js" }, { filename: "virtualFile" }],
+    write: [{ filename: "virtualFile" }],
     status: 0
   });
 
-  const cacheContents = res.write[1].content;
+  const cacheContents = res.write[0].content;
 
   runPrettier(
     "cli/only-changed",
-    ["--write", "--only-changed", "unformatted.js"],
+    ["--write", "--only-changed", "formatted.js"],
     {
       virtualFile: cacheContents
     }
