@@ -1,6 +1,7 @@
 "use strict";
 
 const assert = require("assert");
+
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
 const {
@@ -44,6 +45,8 @@ const {
   hasFlowAnnotationComment,
   hasFlowShorthandAnnotationComment
 } = require("./utils");
+
+const needsQuoteProps = new WeakMap();
 
 const {
   builders: {
@@ -90,9 +93,10 @@ function shouldPrintComma(options, level) {
   }
 }
 
-function genericPrint(path, options, printPath, args) {
+function genericPrint(path, options, printPath, args = {}) {
   const node = path.getValue();
   let needsParens = false;
+
   const linesWithoutParens = printPathNoParens(path, options, printPath, args);
 
   if (!node || isEmpty(linesWithoutParens)) {
@@ -3682,22 +3686,25 @@ function printPropertyKey(path, options, print) {
   const parent = path.getParentNode();
   const key = node.key;
 
-  const objectHasStringProp = (
-    parent.properties ||
-    parent.body ||
-    parent.members
-  ).some(
-    prop =>
-      prop.key &&
-      prop.key.type !== "Identifier" &&
-      !isStringPropSafeToCoerceToIdentifier(prop, options)
-  );
+  if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
+    const objectHasStringProp = (
+      parent.properties ||
+      parent.body ||
+      parent.members
+    ).some(
+      prop =>
+        prop.key &&
+        prop.key.type !== "Identifier" &&
+        !isStringPropSafeToCoerceToIdentifier(prop, options)
+    );
+    needsQuoteProps.set(parent, objectHasStringProp);
+  }
 
   if (
     key.type === "Identifier" &&
     !node.computed &&
     (options.parser === "json" ||
-      (options.quoteProps === "consistent" && objectHasStringProp))
+      (options.quoteProps === "consistent" && needsQuoteProps.get(parent)))
   ) {
     // a -> "a"
     const prop = printString(JSON.stringify(key.name), options);
@@ -3710,7 +3717,7 @@ function printPropertyKey(path, options, print) {
   if (
     isStringPropSafeToCoerceToIdentifier(node, options) &&
     (options.quoteProps === "as-needed" ||
-      (options.quoteProps === "consistent" && !objectHasStringProp))
+      (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
   ) {
     // 'a' -> a
     return path.call(
