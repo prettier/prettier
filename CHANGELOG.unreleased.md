@@ -107,8 +107,7 @@ Examples:
   | --- | --- | --- | --- |
   | bordered | Toggles rendering of the border around the list | boolean | false |
   | itemLayout | The layout of list, default is `horizontal`, If a vertical list is desired, set the itemLayout property to `vertical` | string | - |
-
-````
+  ```
 
 - LWC: Add support for Lightning Web Components ([#5800] by [@ntotten])
 
@@ -144,4 +143,3 @@ Examples:
   (a?.b[c]).c();
   let value = /** @type {string} */ (this.members[0]).functionCall();
   ```
-````

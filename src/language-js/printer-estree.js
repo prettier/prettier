@@ -93,10 +93,9 @@ function shouldPrintComma(options, level) {
   }
 }
 
-function genericPrint(path, options, printPath, args = {}) {
+function genericPrint(path, options, printPath, args) {
   const node = path.getValue();
   let needsParens = false;
-
   const linesWithoutParens = printPathNoParens(path, options, printPath, args);
 
   if (!node || isEmpty(linesWithoutParens)) {
