@@ -15,7 +15,7 @@ _Make sure Prettier is installed and is in your `devDependencies` before you pro
 npx mrm lint-staged
 ```
 
-This will install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged) and add a configuration for automatic formatting of supported files as a pre-commit hook to project's `package.json`.
+This will install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged), then add a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
