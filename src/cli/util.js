@@ -471,9 +471,15 @@ function formatFiles(context) {
       return;
     }
 
+    let removeFilename = () => {};
     if (isTTY()) {
       // Don't use `console.log` here since we need to replace this line.
       context.logger.log(filename, { newline: false });
+      removeFilename = () => {
+        readline.clearLine(process.stdout, 0);
+        readline.cursorTo(process.stdout, 0, null);
+        removeFilename = () => {};
+      };
     }
 
     let input;
@@ -493,11 +499,8 @@ function formatFiles(context) {
 
     if (changedCache) {
       if (changedCache.notChanged(filename, options, input)) {
-        if (isTTY()) {
-          // Remove previously printed filename to log it with "unchanged".
-          readline.clearLine(process.stdout, 0);
-          readline.cursorTo(process.stdout, 0, null);
-        }
+        // Remove previously printed filename to log it with "unchanged".
+        removeFilename();
 
         if (!context.argv["check"] && !context.argv["list-different"]) {
           context.logger.log(chalk.grey(`${filename} unchanged`));
@@ -531,11 +534,8 @@ function formatFiles(context) {
 
     const isDifferent = output !== input;
 
-    if (isTTY()) {
-      // Remove previously printed filename to log it with duration.
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
-    }
+    // Remove previously printed filename to log it with duration.
+    removeFilename();
 
     if (context.argv["write"]) {
       // Don't write the file if it won't change in order not to invalidate
