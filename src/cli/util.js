@@ -452,6 +452,7 @@ function formatFiles(context) {
   let changedCache = null;
   if (context.argv["only-changed"]) {
     changedCache = new ChangedCache(
+      fs,
       process.env.PRETTIER_CACHE_LOCATION || ".prettiercache",
       context,
       prettier.getSupportInfo()
