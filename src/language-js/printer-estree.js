@@ -1,6 +1,7 @@
 "use strict";
 
 const assert = require("assert");
+
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
 const {
@@ -44,6 +45,8 @@ const {
   hasFlowAnnotationComment,
   hasFlowShorthandAnnotationComment
 } = require("./utils");
+
+const needsQuoteProps = new WeakMap();
 
 const {
   builders: {
@@ -3679,31 +3682,41 @@ function printStatementSequence(path, options, print) {
 
 function printPropertyKey(path, options, print) {
   const node = path.getNode();
+  const parent = path.getParentNode();
   const key = node.key;
+
+  if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
+    const objectHasStringProp = (
+      parent.properties ||
+      parent.body ||
+      parent.members
+    ).some(
+      prop =>
+        prop.key &&
+        prop.key.type !== "Identifier" &&
+        !isStringPropSafeToCoerceToIdentifier(prop, options)
+    );
+    needsQuoteProps.set(parent, objectHasStringProp);
+  }
 
   if (
     key.type === "Identifier" &&
     !node.computed &&
-    options.parser === "json"
+    (options.parser === "json" ||
+      (options.quoteProps === "consistent" && needsQuoteProps.get(parent)))
   ) {
     // a -> "a"
+    const prop = printString(JSON.stringify(key.name), options);
     return path.call(
-      keyPath =>
-        comments.printComments(
-          keyPath,
-          () => JSON.stringify(key.name),
-          options
-        ),
+      keyPath => comments.printComments(keyPath, () => prop, options),
       "key"
     );
   }
 
   if (
-    isStringLiteral(key) &&
-    isIdentifierName(key.value) &&
-    !node.computed &&
-    options.parser !== "json" &&
-    !(options.parser === "typescript" && node.type === "ClassProperty")
+    isStringPropSafeToCoerceToIdentifier(node, options) &&
+    (options.quoteProps === "as-needed" ||
+      (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
   ) {
     // 'a' -> a
     return path.call(
@@ -6252,6 +6265,16 @@ function isLiteral(node) {
     node.type === "TemplateLiteral" ||
     node.type === "TSTypeLiteral" ||
     node.type === "JSXText"
+  );
+}
+
+function isStringPropSafeToCoerceToIdentifier(node, options) {
+  return (
+    isStringLiteral(node.key) &&
+    isIdentifierName(node.key.value) &&
+    !node.computed &&
+    options.parser !== "json" &&
+    !(options.parser === "typescript" && node.type === "ClassProperty")
   );
 }
 
