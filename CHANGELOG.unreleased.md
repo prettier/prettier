@@ -41,3 +41,22 @@ Examples:
   ```
 
 -->
+
+- JavaScript: Fix closure compiler typecasts ([#] by [@jridgewell])
+
+  If a closing parenthesis followed a property access where the object (or some nested object for deep properties) is cast, the typecast would wrap everything to the that following parenthesis.
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  test(/** @type {!Array} */(arrOrString).length);
+  test(/** @type {!Array} */((arrOrString)).length + 1);
+
+  // Output (Prettier stable)
+  test(/** @type {!Array} */ (arrOrString.length));
+  test(/** @type {!Array} */ (arrOrString.length + 1));
+
+  // Output (Prettier master)
+  test(/** @type {!Array} */ (arrOrString).length);
+  test(/** @type {!Array} */ (arrOrString).length + 1);
+  ```

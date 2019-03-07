@@ -28,6 +28,10 @@ var newArray = /** @type {array} */ ((numberOrString).map(x => x));
 var newArray = test(/** @type {array} */ (numberOrString.map(x => x)));
 var newArray = test(/** @type {array} */ ((numberOrString).map(x => x)));
 
+test(/** @type {number} */(num) + 1);
+test(/** @type {!Array} */(arrOrString).length + 1);
+test(/** @type {!Array} */((arrOrString)).length + 1);
+
 const data = functionCall(
   arg1,
   arg2,
