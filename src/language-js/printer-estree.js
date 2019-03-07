@@ -3074,7 +3074,11 @@ function printPathNoParens(path, options, print, args) {
       // It's up to the parent node whether this node defined internal comment type.
       const commentStart =
         value.range && !isParentTypeLevelNode
+<<<<<<< HEAD
           ? options.originalText.slice(0, value.range[0]).lastIndexOf("/*")
+=======
+          ? options.originalText.substring(0, value.range[0]).lastIndexOf("/*")
+>>>>>>> 5e9f41a6e... Do not comment out when type application occurred at type level context
           : -1;
       // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
       // because we know for sure that this is a type definition.
