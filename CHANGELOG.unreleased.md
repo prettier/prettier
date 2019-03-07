@@ -44,7 +44,7 @@ Examples:
 
 - JavaScript: Fix closure compiler typecasts ([#] by [@jridgewell])
 
-  If a closing parenthesis followed a property access where the object (or some nested object for deep properties) is cast, the typecast would wrap everything to the that following parenthesis.
+  If a closing parenthesis followed an inner expression is cast, the typecast would wrap everything to the that following parenthesis.
 
   <!-- prettier-ignore -->
   ```js
