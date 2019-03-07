@@ -3064,9 +3064,24 @@ function printPathNoParens(path, options, print, args) {
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {
       const value = path.getValue();
+<<<<<<< HEAD
       const commentStart = value.range
         ? options.originalText.slice(0, value.range[0]).lastIndexOf("/*")
         : -1;
+=======
+      const parentNodeType = path.getParentNode().type;
+      const isParentTypeLevelNode =
+        parentNodeType === "TypeAlias" ||
+        parentNodeType === "ClassDeclaration" ||
+        parentNodeType === "GenericTypeAnnotation";
+
+      // When parent node of this node defined in the context of the type,
+      // It's up to the parent node whether this node defined internal comment type.
+      const commentStart =
+        value.range && !isParentTypeLevelNode
+          ? options.originalText.substring(0, value.range[0]).lastIndexOf("/*")
+          : -1;
+>>>>>>> 5e9f41a6e... Do not comment out when type application occurred at type level context
       // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
       // because we know for sure that this is a type definition.
       const commentSyntax =
