@@ -95,11 +95,7 @@ function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
   function trimParentheses(text) {
     let start = 0;
     let end = text.length - 1;
-    while (
-      start < end &&
-      text.charAt(start) === "(" &&
-      text.charAt(end) === ")"
-    ) {
+    while (start < end) {
       const startChar = text.charAt(start);
       const endChar = text.charAt(end);
       if (/\s/.test(startChar)) {
