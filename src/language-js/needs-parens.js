@@ -12,17 +12,12 @@ function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
 
   const n = path.getValue();
 
-  return (
-    util.getNextNonSpaceNonCommentCharacter(text, n, locEnd) === ")" &&
-    (hasTypeCastComment(n) || hasAncestorTypeCastComment(0))
-  );
+  return hasTypeCastComment(n) || hasAncestorTypeCastComment(0);
 
   // for sub-item: /** @type {array} */ (numberOrString).map(x => x);
   function hasAncestorTypeCastComment(index) {
     const ancestor = path.getParentNode(index);
-    return ancestor &&
-      util.getNextNonSpaceNonCommentCharacter(text, ancestor, locEnd) !== ")" &&
-      /^[\s(]*$/.test(text.slice(locStart(ancestor), locStart(n)))
+    return ancestor
       ? hasTypeCastComment(ancestor) || hasAncestorTypeCastComment(index + 1)
       : false;
   }
@@ -30,13 +25,27 @@ function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
   function hasTypeCastComment(node) {
     return (
       node.comments &&
-      node.comments.some(
-        comment =>
-          comment.leading &&
-          comments.isBlockComment(comment) &&
-          isTypeCastComment(comment.value) &&
-          util.getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "("
-      )
+      node.comments.some(comment => {
+        if (
+          !comment.leading ||
+          !comments.isBlockComment(comment) ||
+          !isTypeCastComment(comment.value)
+        ) {
+          return false;
+        }
+        const parenthesesStart = util.getNextNonSpaceNonCommentCharacterIndex(
+          text,
+          comment,
+          locEnd
+        );
+        if (text.charAt(parenthesesStart) !== "(") {
+          return false;
+        }
+        return (
+          trimParentheses(getParenthesizedExpression(parenthesesStart)) ===
+          trimParentheses(text.slice(locStart(n), locEnd(n)))
+        );
+      })
     );
   }
 
@@ -64,6 +73,47 @@ function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
       }
     }
     return unpairedBracketCount === 0;
+  }
+
+  function getParenthesizedExpression(start) {
+    let parentheses = 0;
+    let i = start;
+    for (; i < text.length; i++) {
+      const char = text.charAt(i);
+      if (char === "(") {
+        parentheses++;
+      } else if (char === ")") {
+        parentheses--;
+        if (parentheses === 0) {
+          break;
+        }
+      }
+    }
+    return text.slice(start, i + 1);
+  }
+
+  function trimParentheses(text) {
+    let start = 0;
+    let end = text.length - 1;
+    while (
+      start < end &&
+      text.charAt(start) === "(" &&
+      text.charAt(end) === ")"
+    ) {
+      const startChar = text.charAt(start);
+      const endChar = text.charAt(end);
+      if (/\s/.test(startChar)) {
+        start++;
+      } else if (/\s/.test(endChar)) {
+        end--;
+      } else if (startChar === "(" && endChar === ")") {
+        start++;
+        end--;
+      } else {
+        break;
+      }
+    }
+    return text.slice(start, end + 1);
   }
 }
 
